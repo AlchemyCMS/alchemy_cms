@@ -169,6 +169,7 @@ de:
       site:
         aliases: Weitere Domains bitte mit Leerzeichen oder Leerzeile getrennt angeben.
 
+    anchor: 'Sprungmarke'
     back: 'zurück'
     create_tree_as_new_language: "%{language} als neuen Sprachbaum anlegen"
     "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>": ""
@@ -423,7 +424,9 @@ de:
     image_name: "Name"
     image_title: "Titel-Tag"
     images: "Bilder"
-    internal_link_headline: "Wählen Sie eine Seite zum Verlinken."
+    internal_link_headline: "Wählen Sie eine Seite zum Verlinken aus."
+    internal_link_page_elements_explanation: "Zusätzlich können Sie rechts neben der jeweiligen Seite auf 'Elemente anzeigen' klicken, um eine Sprungmarke zu einem Element dieser Seite zu erstellen."
+    internal_link_page_anchors_explanation: "Alternativ können Sie auch eine Sprungmarke innerhalb der aktuellen Seite erstellen."
     "item copied to clipboard": "%{name} wurde in die Zwischenablage kopiert."
     "item moved to clipboard": "%{name} wurde in die Zwischenablage bewegt."
     "item removed from clipboard": "%{name} wurde aus der Zwischenablage entfernt."
