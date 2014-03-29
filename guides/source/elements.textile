@@ -6,13 +6,15 @@ Imagine you bundle a headline, a text block and a picture - that is a typical ar
 
 The element's contents are also called "essences":essences.html and belong to certain essence types. Each essence type represents a data type that can be stored in a database.
 
+Each element has two related view partials. One which renders the essences on your website, the other which renders form fields in the admin frontend for the editor. "These partials can be generated automatically":#generating-the-partials.
+
 endprologue.
 
 h3. Defining elements
 
 Elements get defined in the <code>config/alchemy/elements.yml</code> file.
 
-If you dont have created this file yet, use the following scaffold generator to do that now:
+If this file does not exist yet, use the following scaffold generator to do that now:
 
 <shell>
 rails g alchemy:scaffold
@@ -38,7 +40,7 @@ h4. Example of an element definition
       type: EssenceRichtext
 </pre>
 
-This element is named <em>article</em> and can be placed only once per page. It has three contents of the following types: <code>EssencePicture</code>, <code>EssenceText</code> and <code>EssenceRichtext</code>. The "headline" content is used for the preview text in the element's title bar in the admin frontend.
+The element in this example is named <em>article</em> and can be placed only once per page. It has three contents of the following types: <code>EssencePicture</code>, <code>EssenceText</code> and <code>EssenceRichtext</code>. The "headline" content is used for the preview text in the element's title bar in the admin frontend.
 
 h4. Element settings
 
@@ -59,32 +61,38 @@ The following settings can be used to define elements in the <code>elements.yml<
 * <strong>contents</strong> <code>Array</code><br>
   A collection of contents the element contains. A content has to have a <code>name</code> (unique per element) and a <code>type</code>. Take a look at the "essences guide":essences.html to get more informations about the available essence types.
 
-In the following code examples you will see how to use these settings and how to define elements.
-
-INFO: The view generator <code>rails g alchemy:elements</code> takes care of the "partial creation":#generating-the-partials.
+In the following examples you will see how to use these settings. In the code examples of the partials we use the "slim template engine":http://slim-lang.com instead of "ERB":http://en.wikipedia.org/wiki/ERuby to keep the markup short and easy to understand.
 
 h4. Element with picture gallery
 
 Alchemy provides a nice picture gallery editor. It allows to manage large picture galleries very easy by dragging the pictures around.
 
-In order to use it, you just need to enable the setting in the elements.yml file.
+In order to use it, you just need to enable the setting in the <code>elements.yml</code> file.
 
 <pre>
 - name: picture_gallery
   picture_gallery: true
 </pre>
 
-INFO: If you add the picture gallery editor to an existing element you have to insert <code>render_picture_gallery_editor(element)</code> into your elements editor partial.
+After "generating the elements view partials":#generating-the-partials you will receive the view and the editor partial.
 
-h5. Example of element editor partial (picture_gallery_editor.html.haml)
+h5. The editor partial for the element
+
+This partial holds the code for rendering the gallery editor in the admin frontend.
 
 <pre>
-= render_picture_gallery_editor(element, :max_images => nil, image_size: "346x246", crop => true, fixed_ratio: true)
+# app/views/alchemy/elements/_picture_gallery_editor.html.slim
+= element_editor_for(element) do |el|
+  = render_picture_gallery_editor(element, max_images: nil, crop: true)
 </pre>
 
-NOTE: You can pass optional settings to the helper: The <code>max_images</code> option limits the amount of pictures a user can add to the gallery. To enable the image cropping feature for the user you need to pass true to the <code>crop</code> option.
+NOTE: You can pass optional settings to the <code>render_picture_gallery_editor</code> helper: <code>:max_images => 10</code>, <code>image_size: "346x246"</code>, <code>crop => true</code>, <code>fixed_ratio: true</code>, <code>format: 'png'</code>
 
-h5. Example of how to render the element with the picture gallery (picture_gallery_view.html.haml):
+INFO: <code>max_images</code> option limits the amount of pictures a user can add to the gallery. <code>crop</code> enables the image cropping feature for the user.
+
+h5. The view partial for the element
+
+The view partial gets rendered on your website.
 
 <pre>
 = element_view_for(element, :id => 'gallery') do |el|
@@ -92,7 +100,7 @@ h5. Example of how to render the element with the picture gallery (picture_galle
     = render_essence_view(image, :image_size => "346x246", :crop => true)
 </pre>
 
-Alternatively, if you want to customize the way the gallery pictures are rendered, you can create the plain image tag by yourself and use the Alchemy Picture url helper:
+NOTE: Alternatively, if you want to customize the way the gallery pictures are rendered, you can create the plain image tag by yourself and use the Alchemy::Picture url helper:
 <code>image_tag show_alchemy_picture_url(image.essence.picture, :size => "102x73", :format => "png")</code>
 
 h4. Element with addable contents
@@ -102,15 +110,15 @@ You are able to allow your users to add contents dynamically to the element.
 You just need to define available contents in the <code>elements.yml</code>.
 If you also want to allow the users to delete these contents you can also define that.
 
-h5. Example of element description with available contents
+h5. Example of element definition with available contents
 
 <pre>
-- name: headline
+- name: article
   contents:
   - name: headline
     type: EssenceText
   available_contents:
-  - name: big_text
+  - name: text
     type: EssenceRichtext
     settings:
       deletable: true
@@ -118,41 +126,47 @@ h5. Example of element description with available contents
 
 Additionally you need to alter the editor partial of that element for rendering the dynamically created contents. You just need to iterate through them and use the following helper methods.
 
-h5. Example of how to use the available contents feature in the elements editor partial
+h5. Example of editor partial using the available contents feature
 
 <pre>
-  <% element.all_contents_by_name('big_text').each do |content| %>
-    <%= label_and_remove_link(content) %>
-    <%= render_essence_editor(content) %>
-  <% end %>
-  <p><%= render_create_content_link(element, 'big_text', :label => _t('add_big_text')) %></p>
+- element.all_contents_by_name('text').each do |content|
+  = label_and_remove_link(content)
+  = render_essence_editor(content)
+p = render_create_content_link(element, 'text', :label => _t('add_text'))
 </pre>
 
-As you can see in the example, we've used the <code>label_and_remove_link</code> helper. It renders a label with the name of that content and a small button to delete it.
+As shown in the example, we used the <code>label_and_remove_link</code> helper. It renders a label with the content's name and a small button to delete it.
 
-We've also used the <code>render_create_content_link</code> helper. It renders a button to create certain contents instantly.
+We also used the <code>render_create_content_link</code> helper. It renders a button to create certain contents instantly.
 
-If you have more than one available content, you can use the <code>render_new_content_link</code> helper instead. It will render a button that opens an overlay with a selectbox holding all available contents.
+Now an Alchemy user can add the content <code>text</code> from the element as much as desired and is able to delete them again.
 
-Now an Alchemy user can add the content <code>big_text</code> from the element as much as desired and is able to delete them again.
+INFO: If you have more than one available content, you can use the <code>render_new_content_link</code> helper instead. It will provide a button that opens an overlay with a selectbox holding all available contents.
 
 h4. Element with tags
 
-Elements are taggable. To enable it, add <code>taggable: true</code> to the elements settings.
-
-INFO: Tags are a collection on the <code>element</code> object. <code>element.tag_list</code> returns an array of tags.
-
-h5. Example for rendering the elements tags
-
-This renders a simple list of tags.
+Elements are taggable. To enable it, add <code>taggable: true</code> to the element's definition.
 
 <pre>
-<ul>
-<% element.tag_list.each do |tag| %>
-  <li><%= tag.name %></li>
-<% end %>
-</ul>
+- name: article
+  taggable: true
+  contents:
+    - name: image
+      type: EssencePicture
+    - name: headline
+      type: EssenceText
+      take_me_for_preview: true
+    - name: copy
+      type: EssenceRichtext
 </pre>
+
+Tags are a collection on the <code>element</code> object. <code>element.tag_list</code> returns an array of tag names.
+
+<pre>
+= element.tag_list.join(', ')
+</pre>
+
+Alchemy uses the "acts-as-taggable-on":https://github.com/mbleigh/acts-as-taggable-on gem, so please refer to the github "readme":https://github.com/mbleigh/acts-as-taggable-on/blob/master/README.md or the "wiki":https://github.com/mbleigh/acts-as-taggable-on/wiki for further informations.
 
 h4. Element with content validations
 
@@ -257,7 +271,7 @@ Now that the above 'article' element example is associated with the 'standard' p
 
 h3. Customizing the view partial
 
-The Alchemy element generator creates html for you.
+The Alchemy element generator creates the basic html markup for you.
 
 Pretty useful, but maybe not what you need, sometimes. No problem, feel free to customize it. It's yours :).
 
@@ -281,7 +295,7 @@ This is the newer notation for rendering the element's partial:
 <% end %>
 </pre>
 
-In some cases you want to use the older style, or mix it. Take a look at this example, its the same html output as above:
+In some cases you want to use the older style. You can also or mix both. Take a look at this example, its the same html output as the above example:
 
 <pre>
 <div class="article" id="<%= element_dom_id(element) %>"<%= element_preview_code(element) -%>>
@@ -314,7 +328,7 @@ You can pass additional arguments to add or change any html attributes of the wr
 <% end %>
 </pre>
 
-NOTE: If you want to know more about the helper methods used in these partials, please have a look at the "Documentation":http://rubydoc.info/search/github/magiclabs/alchemy_cms?q=helper.
+NOTE: If you want to learn more about the helper methods used in these partials, please have a look at the "Documentation":http://rubydoc.info/search/github/magiclabs/alchemy_cms?q=helper.
 
 INFO: The view partial of an element is used for all elements of that kind.
 If you want to have different HTML for one element, define a new one and place it on a specific page layout.
