@@ -21,14 +21,14 @@ module Alchemy
       if @user.save
         flash[:notice] = _t('Successfully signup admin user')
         sign_in :user, @user
-        redirect_to admin_dashboard_path
+        redirect_to admin_pages_path
       else
         @signup = true
         render :new
       end
     rescue Errno::ECONNREFUSED => e
       flash[:error] = _t(:signup_mail_delivery_error)
-      redirect_to admin_dashboard_path
+      redirect_to admin_pages_path
     end
 
     private
