@@ -112,8 +112,7 @@ module Alchemy
       end
 
       def preview_url
-        pic_opts = @options.dup
-        show_alchemy_picture_path(@essence_picture.picture, @essence_picture.resize_url_options(pic_opts))
+        @essence_picture.picture_url(@options.dup)
       end
 
     end
