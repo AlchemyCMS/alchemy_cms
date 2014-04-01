@@ -65,6 +65,7 @@ module Alchemy
       # And update all contents in the elements by calling update_contents.
       #
       def update
+        @preview_mode = true
         if @element.update_contents(contents_params)
           @page = @element.page
           @element_validated = @element.update_attributes!(element_params)
