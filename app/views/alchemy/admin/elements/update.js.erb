@@ -8,9 +8,13 @@
   Alchemy.ElementEditors.reinit($el);
   $("#element_<%= @element.id %>_errors").hide();
   Alchemy.setElementSaved($el);
-  Alchemy.LivePreview.updateElement('<%= j render_element(@element) %>');
   Alchemy.growl('<%= _t(:element_saved) %>');
   <%= update_essence_select_elements(@page, @element) -%>
+  <% if !!@element.previous_changes['public'] %>
+  Alchemy.reloadPreview();
+  <% else %>
+  Alchemy.LivePreview.updateElement('<%= j render_element(@element) %>');
+  <% end %>
 
 <%- else -%>
 
