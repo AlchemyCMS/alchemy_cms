@@ -34,16 +34,19 @@ Alchemy.ElementEditors =
   #
   # Also triggers custom 'Alchemy.SelectElement' event on target element in preview frame.
   #
-  onClickElement: (e) ->
+  onClickElement: (e, scroll = this) ->
     self = Alchemy.ElementEditors
     $element = $(this).parents(".element_editor")
     id = $element.attr("id").replace(/\D/g, "")
-    e.preventDefault()
+    if e
+      e.preventDefault()
     $("#element_area .element_editor").removeClass "selected"
     $element.addClass "selected"
-    self.scrollToElement this
+    if scroll
+      self.scrollToElement scroll
     self.selectElementInPreview id
     Alchemy.LivePreview.bind($element)
+    return
 
   # Selects and scrolls to element with given id in the preview window.
   #
@@ -58,8 +61,15 @@ Alchemy.ElementEditors =
     self.all.each ->
       $element = $(this)
       $element.bind "Alchemy.SelectElementEditor", self.selectElement
-    self.all.find('.essence_text.content_editor input[type="text"]').focus self.onClickElement
-    self.all.find('.element_head, .edit_images_bottom a').click self.onClickElement
+    self.all.find('.essence_text.content_editor input[type="text"]').focus (e) ->
+      self.onClickElement.call(this, e, $(this).prev('label'))
+    self.all.find('.element_head').click self.onClickElement
+    self.all.find('.edit_images_bottom a').click (e) ->
+      parent = $(this).parents('.picture_thumbnail')
+      self.onClickElement.call(this, e, parent.prev('label'))
+    self.all.find('.element_foot button').click ->
+      self.onClickElement.call(this, null, false)
+      true
     self.all.find('.element_head').dblclick ->
       id = $(this).parent().attr("id").replace(/\D/g, "")
       self.toggleFold id
