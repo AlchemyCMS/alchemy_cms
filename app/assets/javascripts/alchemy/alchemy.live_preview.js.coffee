@@ -25,8 +25,9 @@ window.Alchemy.LivePreview =
       if rtf_id and rtf_id not in self.currentBindedRTFEditors
         self.currentBindedRTFEditors.push rtf_id
         ed = tinymce.get(rtf_id)
-        ed.on 'keyup', (e) -> self.rtfUpdateEvent(e, ed)
         ed.on 'change', (e) -> self.rtfUpdateEvent(e, ed)
+        ed.on 'keyup',  (e) -> self.rtfUpdateEvent(e, ed)
+        ed.on 'undo',   (e) -> self.rtfUpdateEvent(e, ed)
 
   # Updates the content of the currently edited text element in the preview window
   textUpdateEvent: (e) ->
