@@ -25,7 +25,7 @@
       <%= link_to(
         '',
         '#',
-        onclick: "Alchemy.removePicture('##{content.form_field_id(:picture_id)}'); return false"
+        onclick: "Alchemy.removePicture('##{content.form_field_id(:picture_id)}', #{content.id} ); return false"
       ) %>
       <% end %>
     </span>

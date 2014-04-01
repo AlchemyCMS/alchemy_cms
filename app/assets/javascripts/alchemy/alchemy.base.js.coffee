@@ -64,9 +64,10 @@ $.extend Alchemy,
         spinner.stop()
         $parent.html('<span class="icon warn"/>')
 
-  removePicture: (selector) ->
+  removePicture: (selector, content_id) ->
     $form_field = $(selector)
     $element = $form_field.parents(".element_editor")
+    $element.trigger('Alchemy.RemovePicture', content_id);
     if $form_field
       $form_field.val ""
       $form_field.prev().remove()
