@@ -14,6 +14,7 @@ window.Alchemy.LivePreview =
     # rebind for current element
     $('.essence_text.content_editor input[type="text"]', $element).on 'keyup', self.textUpdateEvent
     $element.bind 'Alchemy.PictureChange', self.imageUpdateEvent
+    $element.bind 'Alchemy.RemovePicture', self.imageRemoveEvent
     self.bindUpdateOnRTFs($element)
 
   # Binds live editing events for all tinymce editors in given element
@@ -47,4 +48,11 @@ window.Alchemy.LivePreview =
     img = new Image
     img.src = url
     content.html(img)
+    true
+
+  # Removes the currently edited picture element from the preview window
+  imageRemoveEvent: (e, content_id)->
+    $this = $(this)
+    content = Alchemy.getCurrentPreviewElement content_id
+    content.empty()
     true
