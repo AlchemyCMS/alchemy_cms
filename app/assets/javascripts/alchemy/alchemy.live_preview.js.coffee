@@ -56,3 +56,15 @@ window.Alchemy.LivePreview =
     content = Alchemy.getCurrentPreviewElement content_id
     content.empty()
     true
+
+  # Updates the current preview element with given data
+  updateElement: (data) ->
+    if Alchemy.currentPreviewElement
+      id = Alchemy.currentPreviewElement.data('alchemy-element')
+      Alchemy.currentPreviewElement.replaceWith(data)
+      frame = document.getElementById("alchemy_preview_window").contentWindow
+      frame.Alchemy.ElementSelector.init("[data-alchemy-element='#{id}']")
+      Alchemy.ElementEditors.selectElementInPreview(id)
+      true
+    else
+      throw "No Alchemy.currentPreviewElement found!"

@@ -43,8 +43,8 @@ Alchemy.initAlchemyPreviewMode = ($) ->
         moz_selected:
           "-moz-outline-radius": "3px"
 
-      init: ->
-        $elements = $("[data-alchemy-element]")
+      init: (selector = '[data-alchemy-element]') ->
+        $elements = $(selector)
         @$previewElements = $elements
         $elements.mouseover (e) =>
           $el = $(e.delegateTarget)
@@ -78,7 +78,7 @@ Alchemy.initAlchemyPreviewMode = ($) ->
         parent$ = window.parent.jQuery
         window.parent.Alchemy.currentPreviewElement = $el
         target_id = $el.data("alchemy-element")
-        $element_editor = parent$("#element_area .element_editor").closest("[id=\"element_" + target_id + "\"]")
+        $element_editor = parent$("#element_area .element_editor").closest("[id='element_#{target_id}']")
         elementsWindow = window.parent.Alchemy.ElementsWindow
         e.preventDefault()
         $element_editor.trigger("Alchemy.SelectElementEditor", target_id)
