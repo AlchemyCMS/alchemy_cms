@@ -6,6 +6,7 @@ $('#<%= @content.dom_id -%>').replaceWith('<%= j(
     options: @options
   )
 ) %>');
+$('#element_<%= @element.id %>').trigger('Alchemy.PictureChange', [<%= @content.id %>, '<%= @preview_url.html_safe %>']);
 
 <% if @content.siblings.essence_pictures.count > 1 %>
 
