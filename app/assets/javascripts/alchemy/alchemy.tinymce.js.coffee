@@ -63,6 +63,9 @@ $.extend Alchemy.Tinymce,
   #
   remove: (ids) ->
     for id in ids
-      editor = tinymce.get("tinymce_#{id}")
+      editor_id = "tinymce_#{id}"
+      arr = Alchemy.LivePreview.currentBindedRTFEditors
+      arr.splice($.inArray(editor_id, arr), 1)
+      editor = tinymce.get(editor_id)
       if editor
         editor.remove()
