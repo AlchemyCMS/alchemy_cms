@@ -33,7 +33,10 @@ window.Alchemy.LivePreview =
   textUpdateEvent: (e) ->
     $this = $(this)
     content = Alchemy.getCurrentPreviewElement $this.data('alchemy-content-id')
-    content.text $this.val()
+    if content.has('> a').length > 0
+      content.find('> a').text $this.val()
+    else
+      content.text $this.val()
     true
 
   # Updates the content of the currently edited richtext element in the preview window
