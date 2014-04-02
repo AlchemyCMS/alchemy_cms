@@ -153,6 +153,56 @@ strong {
 	color: #FFF;
 }
 
+#header .site-search {
+	position: absolute;
+	width: 470px;
+	height: 40px;
+	left: -10px;
+	top: 70px;
+}
+
+.site-search .gsc-control-cse {
+	padding: 0;
+	height: 40px;
+	border: 0 none;
+	background: transparent;
+}
+
+.site-search table {
+	margin: 0;
+	border: 0 none;
+	background: transparent;
+}
+
+.site-search table td {
+	padding-bottom: 0px;
+	padding-left: 8px;
+	padding-right: 8px;
+	padding-top: 4px;
+	border: 0 none;
+}
+
+.site-search table td.gsib_a {
+	padding: 4px 6px 0;
+}
+
+.site-search .gscb_a {
+	position: relative;
+	top: 5px;
+}
+
+.site-search table td.gsib_b {
+	padding: 0;
+}
+
+#header .site-search div.gsc-results-wrapper-overlay {
+	text-align: left;
+}
+
+#header .site-search div.gsc-results-wrapper-overlay a {
+	color: #00C;
+}
+
 #logo {
 	position: absolute;
 	right: -15px;
