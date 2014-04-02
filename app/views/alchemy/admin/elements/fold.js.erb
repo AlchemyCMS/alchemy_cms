@@ -18,9 +18,9 @@
 
   <% else -%>
 
-  $el.trigger('FocusElementEditor.Alchemy');
   Alchemy.Tinymce.init(<%= @element.richtext_contents_ids.to_json %>);
   Alchemy.GUI.initElement($el);
+  $el.trigger('FocusElementEditor.Alchemy');
   Alchemy.SortableElements(
     <%= @page.id %>,
     '<%= form_authenticity_token %>',
