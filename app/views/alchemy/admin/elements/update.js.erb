@@ -11,7 +11,9 @@
   Alchemy.growl('<%= _t(:element_saved) %>');
   <%= update_essence_select_elements(@page, @element) -%>
   <% if !!@element.previous_changes['public'] %>
-  Alchemy.reloadPreview();
+  Alchemy.PreviewWindow.refresh(function() {
+    Alchemy.ElementEditors.selectElementInPreview(<%= @element.id %>);
+  });
   <% else %>
   Alchemy.LivePreview.updateElement('<%= j render_element(@element) %>');
   <% end %>
