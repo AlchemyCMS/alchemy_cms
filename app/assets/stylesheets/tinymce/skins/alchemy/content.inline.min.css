@@ -1,20 +1,5 @@
-//= require_self
-@import "alchemy/variables";
-
-body {
-  background-color: #fff;
-  color: $text-color;
-  font: $default-font-style;
-  margin: 0 2*$default-margin;
-  padding-bottom: $default-padding !important;
-}
-
-td,th {
-  font: $default-font-style;
-}
-
 .mce-object {
-  border: 1px dotted #3a3a3a;
+  border: 1px dotted #3A3A3A;
   background: #d5d5d5 url(img/object.gif) no-repeat center;
 }
 
@@ -26,6 +11,13 @@ td,th {
   height: 5px;
   border: 1px dashed #666;
   margin-top: 15px;
+  page-break-before: always;
+}
+
+@media print {
+  .mce-pagebreak {
+    border: 0px;
+  }
 }
 
 .mce-item-anchor {
@@ -37,9 +29,9 @@ td,th {
   -moz-user-modify: read-only;
   user-select: all;
   user-modify: read-only;
-  width: 9px!important;
-  height: 9px!important;
-  border: 1px dotted #3a3a3a;
+  width: 9px !important;
+  height: 9px !important;
+  border: 1px dotted #3A3A3A;
   background: #d5d5d5 url(img/anchor.gif) no-repeat center;
 }
 
@@ -57,12 +49,17 @@ hr {
 }
 
 .mce-match-marker-selected {
-  background: #39f;
+  background: #3399ff;
   color: #fff;
 }
 
 .mce-spellchecker-word {
-  background: url(img/wline.gif) repeat-x bottom left;
+  border-bottom: 2px solid #F00;
+  cursor: default;
+}
+
+.mce-spellchecker-grammar {
+  border-bottom: 2px solid #008000;
   cursor: default;
 }
 
@@ -71,7 +68,7 @@ hr {
 }
 
 td.mce-item-selected,th.mce-item-selected {
-  background-color: #39f!important;
+  background-color: #3399ff !important;
 }
 
 .mce-edit-focus {
