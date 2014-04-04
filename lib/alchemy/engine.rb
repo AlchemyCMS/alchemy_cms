@@ -56,11 +56,11 @@ module Alchemy
     # Enabling assets precompiling
     initializer 'alchemy.assets' do |app|
       app.config.assets.precompile += [
-        'alchemy/alchemy.js',
-        'alchemy/preview.js',
         'alchemy/admin.css',
-        'alchemy/menubar.css',
-        'alchemy/menubar.js',
+        'alchemy/admin.js',
+        'alchemy/onsite.css',
+        'alchemy/onsite.js',
+        'alchemy/preview.js',
         'alchemy/print.css',
         'tinymce/*'
       ]

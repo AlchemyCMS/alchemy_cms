@@ -1,13 +1,3 @@
-/*
- *= require_self
- */
-
-@import "compass/css3";
-@import "sassy-buttons";
-@import "alchemy/variables";
-@import "alchemy/mixins";
-@import "alchemy/extends";
-
 #alchemy_menubar {
   position: fixed;
   top: 0;
@@ -75,4 +65,11 @@
       }
     }
   }
+}
+
+[data-alchemy-content-id]:hover {
+  -webkit-outline: 4px auto #F0B437;
+  outline: 3px solid #F0B437;
+  outline-offset: 4px;
+  -moz-outline-radius: 3px;
 }
