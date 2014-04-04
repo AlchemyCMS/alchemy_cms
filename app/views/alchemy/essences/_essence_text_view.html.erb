@@ -16,8 +16,8 @@
   ) %>
   <%- end -%>
 <% end %>
-<% if @preview_mode %>
-<alchemy:content data-alchemy-content-id="<%= content.id %>">
+<% if @preview_mode || can?(:edit, content) %>
+<alchemy:content data-alchemy-content-id="<%= content.id %>" class="<%= content.essence_type.parameterize %>">
   <%= output %>
 </alchemy:content>
 <% else %>
