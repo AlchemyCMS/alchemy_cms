@@ -1,3 +1,5 @@
+#= require keymaster
+
 window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 # Handles Alchemy hotkeys

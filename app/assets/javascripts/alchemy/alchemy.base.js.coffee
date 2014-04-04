@@ -1,3 +1,6 @@
+#= require select2
+#= require select2_locale_de
+
 window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 # Setting jQueryUIs global animation duration to something more snappy

@@ -1,3 +1,7 @@
+#= require alchemy/alchemy.dialog
+#= require alchemy/alchemy.routes
+#= require alchemy/alchemy.spinner
+#
 # Represents the link Dialog that appears, if a user clicks the link buttons
 # in TinyMCE or on an Essence that has links enabled (e.g. EssencePicture)
 #
@@ -221,6 +225,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   # Populates the internal anchors select
   initInternalAnchors: ->
     frame = document.getElementById('alchemy_preview_window')
+    return unless frame?
     elements = frame.contentDocument.getElementsByTagName('*')
     if elements.length > 0
       for element in elements

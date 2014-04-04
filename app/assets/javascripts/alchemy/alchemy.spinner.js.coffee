@@ -1,3 +1,5 @@
+#= require spin.min
+#
 window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 Alchemy.Spinner =

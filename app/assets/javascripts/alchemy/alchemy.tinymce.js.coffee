@@ -1,3 +1,5 @@
+#= require tinymce/tinymce.min
+#
 # Alchemy Tinymce wrapper
 #
 $.extend Alchemy.Tinymce,

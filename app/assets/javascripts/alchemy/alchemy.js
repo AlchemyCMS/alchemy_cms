@@ -9,13 +9,8 @@
 //= require jquery.ui.effect-fade
 //= require jquery.ui.sortable
 //= require jquery.ui.tabs
-//= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
-//= require spin.min
-//= require keymaster
 //= require requestAnimationFrame
-//= require select2
-//= require select2_locale_de
 //= require alchemy/alchemy.base
 //= require alchemy/alchemy.autocomplete
 //= require alchemy/alchemy.browser

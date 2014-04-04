@@ -1,3 +1,5 @@
+#= require jquery.ui.datepicker
+
 window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 $.extend Alchemy,

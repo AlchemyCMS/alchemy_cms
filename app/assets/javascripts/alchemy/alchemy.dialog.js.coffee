@@ -1,3 +1,7 @@
+#= require alchemy/alchemy.gui
+#= require jquery.ui.effect-fade
+#= require jquery.ui.tabs
+#
 # Dialog windows
 #
 class window.Alchemy.Dialog

@@ -1,3 +1,11 @@
+#= require alchemy/alchemy.base
+#= require alchemy/alchemy.datepicker
+#= require alchemy/alchemy.buttons
+#= require alchemy/alchemy.hotkeys
+#= require alchemy/alchemy.list_filter
+#= require alchemy/alchemy.spinner
+#= require alchemy/alchemy.autocomplete
+#
 window.Alchemy = {} if window.Alchemy == undefined
 
 # Alchemy GUI initializers
