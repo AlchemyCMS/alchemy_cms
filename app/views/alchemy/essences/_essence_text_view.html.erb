@@ -17,9 +17,9 @@
   <%- end -%>
 <% end %>
 <% if @preview_mode || can?(:edit, content) %>
-<alchemy:content data-alchemy-content-id="<%= content.id %>" class="<%= content.essence_type.parameterize %>">
+<span data-alchemy-content-id="<%= content.id %>" class="<%= content.essence_type.parameterize %>">
   <%= output %>
-</alchemy:content>
+</span>
 <% else %>
 <%= output %>
 <% end %>
