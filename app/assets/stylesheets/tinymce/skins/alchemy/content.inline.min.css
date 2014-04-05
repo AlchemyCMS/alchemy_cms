@@ -72,5 +72,15 @@ td.mce-item-selected,th.mce-item-selected {
 }
 
 .mce-edit-focus {
-  outline: 1px dotted #333;
+  -webkit-outline: 3px auto #90B9D0;
+  outline: 3px auto #90B9D0;
+  outline-offset: 4px;
+  -moz-outline-radius: 3px;
+}
+
+.mce-content-body:hover {
+  -webkit-outline: 3px auto #F0B437;
+  outline: 3px auto #F0B437;
+  outline-offset: 4px;
+  -moz-outline-radius: 3px;
 }
