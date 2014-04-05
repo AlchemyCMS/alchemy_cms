@@ -12,7 +12,7 @@ module Alchemy
       autoresize_max_height: '480',
       menubar: false,
       statusbar: true,
-      toolbar1: 'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen',
+      toolbar1: 'save | bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen',
       toolbar2: 'pastetext charmap hr | undo redo | alchemy_link unlink anchor | code',
       fix_list_elements: true,
       convert_urls: false,
