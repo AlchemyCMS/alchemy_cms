@@ -96,10 +96,10 @@
 <div class="toolbar_buttons right">
   <div class="button_with_label" id="element_window_button">
     <%= link_to render_icon(:element_window), '', {
-      title: _t('Hide Elements'),
+      title: _t('Show Elements'),
       class: 'icon_button'
     } %>
-    <label><%= _t('Hide Elements') %></label>
+    <label><%= _t('Show Elements') %></label>
   </div>
 </div>
 <% end %>
@@ -117,7 +117,6 @@
       return not_dirty;
     });
     Alchemy.PageLeaveObserver();
-    Alchemy.PreviewWindow.init('<%= admin_page_url(@page) %>');
     Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_id: @page.id) %>', {
       texts: {
         title: '<%= _t("Elements") %>',
@@ -175,6 +174,7 @@
         $(window.location.hash).trigger('Alchemy.SelectElementEditor');
       }
     });
+    Alchemy.PreviewWindow.init('<%= admin_page_url(@page) %>');
 
     $('#preview_size').bind('open.selectBoxIt', function (e) {
       $('#top_menu').css('z-index', 5000);

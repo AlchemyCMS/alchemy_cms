@@ -290,3 +290,27 @@ div#user_info {
     float: left;
   }
 }
+
+body.pages.edit {
+
+  #left_menu {
+    display: none;
+  }
+
+  #top_menu {
+    padding-right: 0;
+    margin-left: 0;
+  }
+
+  #sub_navigation {
+    padding-left: 1px;
+  }
+
+  #toolbar {
+    border-left: 0 none;
+  }
+
+  #user_info {
+    right: 0;
+  }
+}

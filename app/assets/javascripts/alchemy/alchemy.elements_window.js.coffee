@@ -20,7 +20,7 @@ Alchemy.ToolbarButton = (options) ->
 Alchemy.ElementsWindow =
 
   init: (url, options, callback) ->
-    @hidden = false
+    @hidden = true
     @element_window = $('<div id="alchemy_elements_window"/>')
     @element_area = $('<div id="element_area"/>')
     @url = url
@@ -30,7 +30,7 @@ Alchemy.ElementsWindow =
     @element_window.append @element_area
     @button = $('#element_window_button')
     @button.click =>
-      @hide()
+      @show()
       false
     height = @resize()
     window.requestAnimationFrame =>

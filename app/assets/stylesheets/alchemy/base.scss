@@ -559,7 +559,7 @@ div.browse {
 #alchemy_preview_window {
   @include box-sizing(border-box);
   position: absolute;
-  left: 66px;
+  left: 0;
   top: 80px;
   width: auto;
   height: auto;
