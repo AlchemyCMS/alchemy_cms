@@ -1,10 +1,12 @@
 #= require alchemy/alchemy.jquery_loader
+#= require alchemy/alchemy.inplace_edit
 #= require alchemy/alchemy.browser
 #= require alchemy/alchemy.i18n
 
 window.Alchemy = {} if typeof(Alchemy) is 'undefined'
 
-Alchemy.initAlchemyPreviewMode = ($) ->
+# Loaded when jQuery is loaded
+onload = ($) ->
 
   # Setting jQueryUIs global animation duration
   $.fx.speeds._default = 400
@@ -82,8 +84,6 @@ Alchemy.initAlchemyPreviewMode = ($) ->
         elementsWindow = window.parent.Alchemy.ElementsWindow
         e.preventDefault()
         $element_editor.trigger("Alchemy.SelectElementEditor", target_id)
-        if elementsWindow.hidden
-          elementsWindow.show()
         $el.trigger("Alchemy.SelectElement")
         return
 
@@ -102,6 +102,6 @@ Alchemy.initAlchemyPreviewMode = ($) ->
   Alchemy.ElementSelector.init()
 
 if typeof(jQuery) is 'undefined'
-  Alchemy.loadjQuery(Alchemy.initAlchemyPreviewMode)
+  Alchemy.loadjQuery(onload)
 else
-  Alchemy.initAlchemyPreviewMode(jQuery)
+  onload(jQuery)
