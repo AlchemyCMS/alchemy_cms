@@ -16,7 +16,7 @@ onload = ($) ->
     ElementSelector:
 
       # defaults
-      scrollOffset: 20
+      scrollOffset: 80
 
       styles:
         reset:
@@ -25,22 +25,22 @@ onload = ($) ->
           "-moz-outline-radius": ""
 
         default_hover:
-          outline: "3px solid #F0B437"
+          outline: "0 none"
           "outline-offset": "4px"
           cursor: "pointer"
 
         webkit_hover:
-          outline: "4px auto #F0B437"
+          outline: "0 none"
 
         moz_hover:
           "-moz-outline-radius": "3px"
 
         default_selected:
-          outline: "3px solid #90B9D0"
+          outline: "0 none"
           "outline-offset": "4px"
 
         webkit_selected:
-          outline: "4px auto #90B9D0"
+          outline: "0 none"
 
         moz_selected:
           "-moz-outline-radius": "3px"
@@ -69,10 +69,10 @@ onload = ($) ->
         e.preventDefault()
         $elements.removeClass("selected").css(@getStyle("reset"))
         $el.addClass("selected").css(@getStyle("selected"))
-        $("html, body").animate
-          scrollTop: $el.offset().top - offset
-          scrollLeft: $el.offset().left - offset
-        , 400
+        # $("html, body").animate
+        #   scrollTop: $el.offset().top - offset
+        #   scrollLeft: $el.offset().left - offset
+        # , 400
         return
 
       clickElement: (e) ->
