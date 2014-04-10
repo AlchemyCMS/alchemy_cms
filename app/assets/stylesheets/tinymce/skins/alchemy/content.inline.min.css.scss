@@ -78,9 +78,21 @@ td.mce-item-selected,th.mce-item-selected {
   -moz-outline-radius: 3px;
 }
 
-.mce-content-body:hover {
-  -webkit-outline: 3px auto #F0B437;
-  outline: 3px auto #F0B437;
-  outline-offset: 4px;
-  -moz-outline-radius: 3px;
+.mce-content-body {
+
+  &:hover {
+    -webkit-outline: 3px auto #F0B437;
+    outline: 3px auto #F0B437;
+    outline-offset: 4px;
+    -moz-outline-radius: 3px;
+  }
+
+  &.alchemy-element-dirty {
+    background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVQYV2NkIAJ8WMLzn5GQOpAigZgvjHgVwhSBDMOpEFkRToXoirAqxKYIQyEuRSgK8SmCKySkCKyQGEUghQDiaiaqFkFEOAAAAABJRU5ErkJggg==);
+    background-repeat: repeat;
+    -webkit-outline: 1px auto #f0a40c;
+    outline: 1px auto #f0a40c;
+    outline-offset: 0px;
+    -moz-outline-radius: 2px;
+  }
 }

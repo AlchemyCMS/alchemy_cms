@@ -52,8 +52,11 @@ onload = ($) ->
       $element = $el.data('alchemy-element-editor').parents('element_editor')
       $element.trigger("Alchemy.SelectElementEditor")
     # If the editor has unsaved changes
-    # ed.on 'blur', (e) ->
-    #   console.log('Yo, unsaved changes in here!') if ed.isDirty()
+    ed.on 'blur', (e) ->
+      if ed.isDirty()
+        $el.addClass('alchemy-element-dirty')
+      else
+        $el.removeClass('alchemy-element-dirty')
     # If the editor's content changed
     ed.on 'change', (e) -> editorUpdateEvent($el, ed)
     ed.on 'keyup',  (e) -> editorUpdateEvent($el, ed)
