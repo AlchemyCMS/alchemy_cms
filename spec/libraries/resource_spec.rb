@@ -60,7 +60,7 @@ module Alchemy
     describe "#initialize" do
       it "sets the standard database attributes (rails defaults) to be skipped" do
         resource = Resource.new("admin/parties")
-        resource.skip_attributes.should == %W[id updated_at created_at creator_id updater_id]
+        resource.skipped_attributes.should == %w(id updated_at created_at creator_id updater_id)
       end
 
       it "sets an instance variable that holds the controller path" do
@@ -128,11 +128,11 @@ module Alchemy
     describe "#resource_array" do
       it "splits the controller_path and returns it as array." do
         resource = Resource.new("namespace1/namespace2/parties")
-        resource.resource_array.should eql(%W[namespace1 namespace2 parties])
+        resource.resource_array.should eql(%w(namespace1 namespace2 parties))
       end
 
       it "deletes 'admin' if found hence our model isn't in the admin-namespace by convention" do
-        resource.resource_array.should eql(%W[parties])
+        resource.resource_array.should eql(%w(parties))
       end
     end
 
@@ -180,7 +180,7 @@ module Alchemy
 
     describe "#namespace_for_scope" do
       it "returns a scope for use in url_for based path helpers" do
-        resource.namespace_for_scope.should == %W[admin]
+        resource.namespace_for_scope.should == %w(admin)
       end
     end
 
@@ -196,9 +196,9 @@ module Alchemy
         ]
       end
 
-      it "skips attributes returned by skip_attributes" do
-        # attr_accessor, hence skip_attributes= works
-        resource.skip_attributes = %W[hidden_value]
+      it "skips attributes returned by skipped_alchemy_resource_attributes" do
+        # attr_accessor, hence skipped_alchemy_resource_attributes= works
+        resource.skipped_attributes = %w(hidden_value)
         resource.attributes.should include({:name => "id", :type => :integer})
         resource.attributes.should_not include({:name => "hidden_value", :type => :string})
       end
@@ -210,65 +210,61 @@ module Alchemy
       end
     end
 
-    describe "#skip_attributes" do
-      it "does not return the to-be-skipped attributes" do
-        resource.class.const_get(:DEFAULT_SKIPPED_ATTRIBUTES).each do |skipped_attr|
-          resource.attributes.detect { |a| a[:name] == skipped_attr }.should == nil
+    context "when `skipped_alchemy_resource_attributes` is defined as class method in the model" do
+      before do
+        Party.class_eval do
+          def self.skipped_alchemy_resource_attributes
+            %w(hidden_name)
+          end
         end
       end
 
-      context "when `skip_attributes` is defined as class method in the model" do
-        before do
-          Party.class_eval do
-            def self.skip_attributes
-              %W[hidden_name]
-            end
-          end
-        end
-
+      describe '#attributes' do
         it "does not return the attributes returned by that method" do
           resource.attributes.detect { |a| a[:name] == 'hidden_name' }.should be_nil
           resource.attributes.detect { |a| a[:name] == 'name' }.should_not be_nil
         end
+      end
 
-        it "returns the result of Model.skip_attributes" do
-          custom_skipped_attributes = %W[hidden_name]
-          resource.skip_attributes = custom_skipped_attributes
-        end
-
-        after do
-          Party.class_eval do
-            class << self
-              undef skip_attributes
-            end
-          end
+      describe '#skipped_attributes' do
+        it "returns the result of Model.skipped_alchemy_resource_attributes" do
+          custom_skipped_attributes = %w(hidden_name)
+          resource.skipped_attributes = custom_skipped_attributes
         end
       end
 
-      describe "#searchable_attributes" do
-        subject { resource.searchable_attributes }
+      after do
+        Party.class_eval do
+          class << self
+            undef skipped_alchemy_resource_attributes
+          end
+        end
+      end
+    end
 
-        before { resource.skip_attributes = [] }
+    describe "#searchable_attributes" do
+      subject { resource.searchable_attributes }
 
-        it "returns all attributes of type string" do
-          should == [
-            {:name => "name", :type => :string},
-            {:name => "hidden_value", :type => :string},
-            {:name => "description", :type => :string}
+      before { resource.skipped_attributes = [] }
+
+      it "returns all attributes of type string" do
+        should == [
+          {:name => "name", :type => :string},
+          {:name => "hidden_value", :type => :string},
+          {:name => "description", :type => :string}
+        ]
+      end
+
+      context "with an array attribute" do
+        let(:columns) do
+          [
+            double(:column, {name: 'name', type: :string, array: false}),
+            double(:column, {name: 'languages', type: :string, array: true})
           ]
         end
 
-        context "with an array attribute" do
-          let(:columns) do
-            [
-              double(:column, {name: 'name', type: :string, array: false}),
-              double(:column, {name: 'languages', type: :string, array: true})
-            ]
-          end
-
-          it "does not include this column" do
-            should == [{name: "name", type: :string}]
-          end
+        it "does not include this column" do
+          should == [{name: "name", type: :string}]
         end
       end
     end
