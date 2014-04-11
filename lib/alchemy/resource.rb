@@ -115,7 +115,11 @@ module Alchemy
     def attributes
       @_attributes ||= self.model.columns.collect do |col|
         unless self.skip_attributes.include?(col.name)
-          { :name => col.name, :type => resource_relation_type(col.name) || col.type, :relation => resource_relation(col.name) }.delete_if { |k, v | v.nil? }
+          {
+            name: col.name,
+            type: resource_column_type(col),
+            relation: resource_relation(col.name)
+          }.delete_if { |k, v| v.nil? }
         end
       end.compact
     end
@@ -152,8 +156,7 @@ module Alchemy
       false
     end
 
-
-  private
+    private
 
     def guess_model_from_controller_path
       resource_array.join('/').classify.constantize
@@ -169,6 +172,10 @@ module Alchemy
 
     def resource_relation_type(column_name)
       resource_relation(column_name).try(:[], :attr_type)
+    end
+
+    def resource_column_type(col)
+      resource_relation_type(col.name) || col.array ? :array : col.type
     end
 
     def resource_relation(column_name)
