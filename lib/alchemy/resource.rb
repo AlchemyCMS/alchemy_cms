@@ -175,7 +175,7 @@ module Alchemy
     end
 
     def resource_column_type(col)
-      resource_relation_type(col.name) || col.array ? :array : col.type
+      resource_relation_type(col.name) || (col.try(:array) ? :array : col.type)
     end
 
     def resource_relation(column_name)
