@@ -39,18 +39,20 @@ end
 
 module Alchemy
   describe Resource do
+    let(:columns) do
+      [
+        double(:column, {name: 'name', type: :string, array: false}),
+        double(:column, {name: 'hidden_value', type: :string, array: false}),
+        double(:column, {name: 'description', type: :string, array: false}),
+        double(:column, {name: 'id', type: :integer, array: false}),
+        double(:column, {name: 'starts_at', type: :datetime, array: false}),
+        double(:column, {name: 'location_id', type: :integer, array: false}),
+        double(:column, {name: 'organizer_id', type: :integer, array: false}),
+      ]
+    end
 
     before :each do
       # stubbing an ActiveRecord::ModelSchema...
-      columns = [
-        double(:column, {:name => 'name', :type => :string}),
-        double(:column, {:name => 'hidden_value', :type => :string}),
-        double(:column, {:name => 'description', :type => :string}),
-        double(:column, {:name => 'id', :type => :integer}),
-        double(:column, {:name => 'starts_at', :type => :datetime}),
-        double(:column, {:name => 'location_id', :type => :integer}),
-        double(:column, {:name => 'organizer_id', :type => :integer}),
-      ]
       Party.stub(:columns).and_return columns
     end
 
@@ -188,7 +190,7 @@ module Alchemy
     describe "#attributes" do
       let(:resource) { Resource.new("admin/parties") }
 
-      it "parses and returns the resource-model's attributes from ActiveRecord::ModelSchema" do
+      it "parses and returns the resource model's attributes from ActiveRecord::ModelSchema" do
         resource.attributes.should == [
           {:name => "name", :type => :string},
           {:name => "hidden_value", :type => :string},
@@ -206,7 +208,6 @@ module Alchemy
         resource.attributes.should_not include({:name => "hidden_value", :type => :string})
       end
     end
-
 
     describe "#skip_attributes" do
       let(:resource) { Resource.new("admin/parties") }
@@ -237,21 +238,35 @@ module Alchemy
           custom_skipped_attributes = %W[hidden_name]
           resource.skip_attributes = custom_skipped_attributes
         end
-
       end
 
       describe "#searchable_attributes" do
+        subject { resource.searchable_attributes }
+
+        let(:resource) { Resource.new("admin/parties") }
+        before { resource.skip_attributes = [] }
+
         it "returns all attributes of type string" do
-          resource = Resource.new("admin/parties")
-          resource.skip_attributes = []
-          resource.searchable_attributes.should == [
+          should == [
             {:name => "name", :type => :string},
             {:name => "hidden_value", :type => :string},
             {:name => "description", :type => :string}
           ]
         end
-      end
 
+        context "with an array attribute" do
+          let(:columns) do
+            [
+              double(:column, {name: 'name', type: :string, array: false}),
+              double(:column, {name: 'languages', type: :string, array: true})
+            ]
+          end
+
+          it "does not include this column" do
+            should == [{name: "name", type: :string}]
+          end
+        end
+      end
     end
   end
 end
