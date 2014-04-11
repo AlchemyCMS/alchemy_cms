@@ -21,7 +21,6 @@ In order to update the dependencies, the <code>Gemfile</code> needs to be change
 * The grouping for the asset related gems is not necessary anymore. That means all the gems in the <code>assets</code> group can be moved to the global area now.
 * Versions of <code>rails</code>, <code>sass-rails</code>, <code>coffee-rails</code> and <code>uglifier</code> needs to be raised.
 * The complete authentication part is extracted from the Alchemy core, so the <code>alchemy-devise</code> gem is necessary now.
-* Currently a fork of the <code>non-stupid-digest-assets</code> gem is needed because the assetpipeline does not compile non-digest assets by default anymore.
 
 That part of your updated Gemfile should look like this:
 
@@ -34,7 +33,6 @@ gem 'uglifier', '>= 1.3.0'
 
 gem 'alchemy_cms', :github => 'magiclabs/alchemy_cms', :branch => 'master'
 gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
-gem 'non-stupid-digest-assets', github: 'tvdeyen/non-stupid-digest-assets', branch: 'whitelist'
 ...
 </pre>
 
@@ -44,163 +42,29 @@ You should now update the dependencies via bundler.
 bundle update
 </shell>
 
-h3. File changes for Rails 4 compatibility
+h3. Rails 4 Update
 
-h4. config/application.rb
+<code>bundle exec rake rails:update</code>
 
-This code needs to be replaced
+The taks guides you through all changes and asks what you want to do.
 
-<pre>
-# Pick the frameworks you want:
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "active_resource/railtie"
-require "sprockets/railtie"
-require "rails/test_unit/railtie"
-</pre>
+NOTE: You should not change <code>config/routes.rb</code> by the task. Also your locale yml files in <code>config/locales/</code> should not be overwritten if you have individual content in there.
 
-With this code
+The other files can mostly be used as suggested by the update task.
 
-<pre>
-require "active_model/railtie"
-require "active_record/railtie"
-require "action_controller/railtie"
-require "action_mailer/railtie"
-require "action_view/railtie"
-require "sprockets/railtie"
-require "rails/test_unit/railtie"
-</pre>
-
-NOTE: This example requires `test_unit`, but you can also comment that line if you use another testing framework (rspec for example).
+But always double check that you dont overwrite your individual adjustments in any of the files.
 
 
-You also need to change this code
+h4. Secret token handling
 
-<pre>
-if defined?(Bundler)
-  # If you precompile assets before deploying to production, use this line
-  Bundler.require(*Rails.groups(:assets => %w(development test)))
-  # If you want your assets lazily compiled in production, use this line
-  # Bundler.require(:default, :assets, Rails.env)
-end
-</pre>
-
-into this nice on-liner
-
-<pre>
-Bundler.require(:default, Rails.env)
-</pre>
-
-With Rails 4 the parameter whitelisting is done by <code>strong_parameters</code> now. So you need to remove the following old line.
-(If you have own models in your App, you also need to update them as described by Ryan Bates in the screencast mentiond on the top)
-
-<pre>
-config.active_record.whitelist_attributes = true
-</pre>
-
-
-h4. config/boot.rb
-
-Remove all the following configurations
-
-<pre>
-# Log error messages when you accidentally call methods on nil.
-config.whiny_nils = true
-</pre>
-
-<pre>
-# Only use best-standards-support built into browsers
-config.action_dispatch.best_standards_support = :builtin
-</pre>
-
-<pre>
-# Raise exception on mass assignment protection for Active Record models
-config.active_record.mass_assignment_sanitizer = :strict
-
-# Log the query plan for queries taking more than this (works
-# with SQLite, MySQL, and PostgreSQL)
-config.active_record.auto_explain_threshold_in_seconds = 0.5
-
-# Do not compress assets
-config.assets.compress = false
-
-# Expands the lines which load the assets
-config.assets.debug = true
-</pre>
-
-And add these configurations instead
-
-<pre>
-# Do not eager load code on boot.
-config.eager_load = false
-
-# Raise an error on page load if there are pending migrations
-config.active_record.migration_error = :page_load
-
-# Debug mode disables concatenation and preprocessing of assets.
-# This option may cause significant delays in view rendering with a large
-# number of complex assets.
-config.assets.debug = true
-</pre>
-
-h4. config/environments/production.rb
-
-Add the following configuration
-
-<pre>
-config.eager_load = true
-</pre>
-
-And replace these lines
-
-<pre>
-# Disable Rails's static asset server (Apache or nginx will already do this)
-config.serve_static_assets = false
-
-# Compress JavaScripts and CSS
-config.assets.compress = true
-</pre>
-
-With these
-
-<pre>
-# Disable Rails's static asset server (Apache or nginx will already do this)
-config.serve_static_assets = true
-
-# Compress JavaScripts and CSS
-config.assets.js_compressor = :uglifier
-</pre>
-
-h4. config/environments/test.rb
-
-Add the <code>eager_load</code> configuration.
-
-<pre>
-config.eager_load = false
-</pre>
-
-And remove these lines
-
-<pre>
-# Log error messages when you accidentally call methods on nil
-config.whiny_nils = true
-</pre>
-
-<pre>
-# Raise exception on mass assignment protection for Active Record models
-config.active_record.mass_assignment_sanitizer = :strict
-</pre>
-
-
-h4. config/initializers/secret_token.rb
+In <code>config/initializers/secret_token.rb</code> the secret token of your application is stored.
 
 With Rails 4 the <code>secret_token</code> is now <code>secret_key_base</code>. It now encrypts all the contents of cookie based sessions.
 
 Both configurations can exists together, so the <code>secret_key_base</code> can detach the secret_token gradually.
 Depending on your App, you can also remove the <code>secret_token</code> immediately if the existing cookies of your users are unimportant.
 
-More information here: http://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#action-pack
+More information here: <a href="http://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#action-pack" target="_blank">http://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#action-pack</a>
 
 <pre>
 Myapp::Application.config.secret_token = 'existing secret token'
@@ -260,6 +124,30 @@ h4. Add the regular expression for verifying email addresses
 <pre>
 email_regexp: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
 </pre>
+
+h3. Changes in Alchemy you should know about
+
+Some parts in Alchemy have changed. You might need to update your code, so please have a look at the following points.
+
+h4. Ferret has been extracted
+
+If you are using the ferret search feature with your Alchemy driven application, you now need to require it as a gem in your <code>Gemfile</code>.
+
+<code>gem 'alchemy-ferret', github: 'magiclabs/alchemy-ferret', branch: 'master'</code>
+
+h4. TinyMCE 4 Upgrade
+
+The TinyMCE configuration syntax has changed.
+
+If you have custom TinyMCE confugurations, like a customized toolbar then you have to upgrade the syntax to a TinyMCE 4 compatible one.
+Please have a look in the default TinyMCE configuration from Alchemy and also read the official TinyMCE documentation in how to upgrade.
+
+Alchemy default TinyMCE config: <a href="https://github.com/magiclabs/alchemy_cms/blob/master/lib/alchemy/tinymce.rb#L5-L19" target="_blank">https://github.com/magiclabs/.../tinymce.rb#L5-L19</a>
+Offical TinyMCE documentation: <a href="http://www.tinymce.com/wiki.php/Configuration" target="_blank">http://www.tinymce.com/wiki.php/Configuration</a>
+
+h4. Rendering Alchemy's menubar
+
+The way of rendering Alchemy's menubar has changed (on your application layout). Please replace the old helper call <code>alchemy_menu_bar</code> with: <code>render 'alchemy/menubar'</code>.
 
 h3. Fix your capistrano deployment setup
 
