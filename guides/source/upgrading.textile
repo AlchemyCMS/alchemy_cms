@@ -261,5 +261,8 @@ h4. Add the regular expression for verifying email addresses
 email_regexp: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
 </pre>
 
+h3. Fix your capistrano deployment setup
 
-Phew, ready!
+If you use the capistrano tasks from Alchemy, you need to run <code>bundle exec cap deploy:setup</code> to create <code>cache/assets</code> in your shared folder, because Alchemy 3.0 now symlinks <code>cache/assets</code> from the current release to the shared folder.
+
+Finished, yay!
