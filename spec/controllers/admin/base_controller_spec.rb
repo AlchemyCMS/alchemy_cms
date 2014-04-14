@@ -32,4 +32,43 @@ describe Alchemy::Admin::BaseController do
     end
   end
 
+  describe '#raise_exception?' do
+    subject { controller.send(:raise_exception?) }
+
+    context 'in test mode' do
+      before { Rails.env.stub(test?: true) }
+      it { should be_true }
+    end
+
+    context 'in page preview' do
+      before { controller.stub(is_page_preview?: true) }
+      it { should be_true }
+    end
+
+    context 'not in test mode' do
+      before { Rails.env.stub(test?: false) }
+      it { should be_false }
+
+      context 'and not in page preview' do
+        before { controller.stub(is_page_preview?: false) }
+        it { should be_false }
+      end
+    end
+  end
+
+  describe '#is_page_preview?' do
+    subject { controller.send(:is_page_preview?) }
+
+    it { should be_false }
+
+    context 'is pages controller and show action' do
+      before do
+        controller.stub(controller_path: 'alchemy/admin/pages')
+        controller.stub(action_name: 'show')
+      end
+
+      it { should be_true }
+    end
+  end
+
 end

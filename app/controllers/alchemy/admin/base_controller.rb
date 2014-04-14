@@ -13,7 +13,7 @@ module Alchemy
       rescue_from Exception do |exception|
         if exception.is_a? CanCan::AccessDenied
           permission_denied(exception)
-        elsif Rails.env.test?
+        elsif raise_exception?
           raise
         else
           exception_handler(exception)
@@ -149,6 +149,19 @@ module Alchemy
         else
           {}
         end.symbolize_keys
+      end
+
+      # This method decides if we want to raise an exception or not.
+      #
+      # I.e. in test environment.
+      #
+      def raise_exception?
+        Rails.env.test? || is_page_preview?
+      end
+
+      # Are we currently in the page edit mode page preview.
+      def is_page_preview?
+        controller_path == 'alchemy/admin/pages' && action_name == 'show'
       end
 
     end
