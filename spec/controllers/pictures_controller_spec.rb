@@ -68,11 +68,9 @@ module Alchemy
     end
 
     describe 'Picture processing' do
+      let(:big_picture) { Picture.create(:image_file => fixture_file_upload(File.expand_path('../../fixtures/80x60.png', __FILE__), 'image/png')) }
 
       context "with crop and size parameters" do
-
-        let(:big_picture) { Picture.create(:image_file => fixture_file_upload(File.expand_path('../../fixtures/80x60.png', __FILE__), 'image/png')) }
-
         it "should return a cropped image." do
           options = {
             :crop => 'crop',
@@ -81,6 +79,19 @@ module Alchemy
           }
           get :show, options.merge(:id => big_picture.id, :sh => big_picture.security_token(options))
           response.body[0x10..0x18].unpack('NN').should == [10,10]
+        end
+
+        context "without a full size specification" do
+          it "should raise an error" do
+            options = {
+              :crop => 'crop',
+              :size => '10',
+              :format => 'png'
+            }
+            expect do
+              get :show, options.merge(:id => big_picture.id, :sh => big_picture.security_token(options))
+            end.to raise_error ArgumentError
+          end
         end
 
         context "without upsample parameter" do
@@ -107,7 +118,35 @@ module Alchemy
             response.body[0x10..0x18].unpack('NN').should == [10,10]
           end
         end
+      end
 
+      context "without crop but with size parameter" do
+        it "should resize the image preserving aspect ratio" do
+          options = {
+            :size => '40x40',
+            :format => 'png'
+          }
+          get :show, options.merge(:id => big_picture.id, :sh => big_picture.security_token(options))
+          response.body[0x10..0x18].unpack('NN').should == [40,30]
+        end
+
+        it "should resize the image inferring the height if not given" do
+          options = {
+            :size => '40',
+            :format => 'png'
+          }
+          get :show, options.merge(:id => big_picture.id, :sh => big_picture.security_token(options))
+          response.body[0x10..0x18].unpack('NN').should == [40,30]
+        end
+
+        it "should resize the image inferring the width if not given" do
+          options = {
+            :size => 'x30',
+            :format => 'png'
+          }
+          get :show, options.merge(:id => big_picture.id, :sh => big_picture.security_token(options))
+          response.body[0x10..0x18].unpack('NN').should == [40,30]
+        end
       end
 
     end
