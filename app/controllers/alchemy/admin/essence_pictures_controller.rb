@@ -75,7 +75,14 @@ module Alchemy
 
       def sizes_from_essence
         return if @essence_picture.render_size.blank?
-        @essence_picture.render_size.split('x')
+        size_x, size_y = @essence_picture.render_size.split('x').map(&:to_i)
+        if size_x.zero? || size_y.nil? || size_y.zero?
+          size_x_of_original = @essence_picture.picture.image_file_width 
+          size_y_of_original = @essence_picture.picture.image_file_height
+          size_x = size_x_of_original * size_y / size_y_of_original if size_x.zero?
+          size_y = size_y_of_original * size_x / size_x_of_original if size_y.nil? || size_y.zero?
+        end
+        [size_x, size_y]
       end
 
       def sizes_string
