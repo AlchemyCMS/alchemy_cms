@@ -41,7 +41,7 @@ module Alchemy
         before do
           picture.image_file_width = 300
           picture.image_file_height = 250
-          essence.should_receive(:picture).and_return(picture)
+          essence.should_receive(:picture).any_number_of_times.and_return(picture)
         end
 
         context 'with no render_size present in essence' do
@@ -67,14 +67,30 @@ module Alchemy
         end
 
         context 'with render_size present in essence' do
-          before do
+          it "sets sizes from these values" do
             essence.stub(:render_size).and_return('30x25')
+
+            get :crop, id: 1
+            expect(assigns(:size_x)).to eq(30)
+            expect(assigns(:size_y)).to eq(25)
           end
 
-          it "sets sizes from these values" do
-            get :crop, id: 1
-            expect(assigns(:size_x)).to eq('30')
-            expect(assigns(:size_y)).to eq('25')
+          context 'when width or height is not fixed' do
+            it 'infers the height from the image file preserving the aspect ratio' do
+              essence.stub(:render_size).and_return('30')
+
+              get :crop, id: 1
+              expect(assigns(:size_x)).to eq(30)
+              expect(assigns(:size_y)).to eq(25)
+            end
+
+            it 'infers the height from the image file preserving the aspect ratio' do
+              essence.stub(:render_size).and_return('x25')
+
+              get :crop, id: 1
+              expect(assigns(:size_x)).to eq(30)
+              expect(assigns(:size_y)).to eq(25)
+            end
           end
         end
 
