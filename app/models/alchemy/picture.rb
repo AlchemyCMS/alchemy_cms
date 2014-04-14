@@ -200,6 +200,7 @@ module Alchemy
       return "111x93" if size == "111x93" || size.blank?
       x = size.split('x')[0].to_i
       y = size.split('x')[1].to_i
+      return "111x93" if x.zero? || y.zero?
       if (x > y)
         zoom_factor = 111.0 / x
         new_x = 111
