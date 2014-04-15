@@ -90,6 +90,7 @@ module Alchemy
         image_file.process(:resize, resize_string)
       elsif params[:crop] == 'crop' && @size.present?
         width, height = @size.split('x').collect(&:to_i)
+        raise ArgumentError, "You have to state both width and height in the form 'widthxheight' when cropping" if width.nil? || height.nil?
         # prevent upscaling unless :upsample param is true
         # unfurtunally dragonfly does not handle this correctly while cropping
         unless params[:upsample] == 'true'
