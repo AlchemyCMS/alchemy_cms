@@ -193,12 +193,13 @@ module Alchemy
     #
     def content_for_rss_title
       rss_title = content_descriptions.detect { |c| c['rss_title'] }
+      return if rss_title.blank?
       contents.find_by_name(rss_title['name'])
     end
 
-    # Returns the content that is marked as rss definition.
+    # Returns the content that is marked as rss description.
     #
-    # Mark a content as rss definition in your +elements.yml+ file:
+    # Mark a content as rss description in your +elements.yml+ file:
     #
     #   - name: news
     #     contents:
@@ -207,8 +208,9 @@ module Alchemy
     #       rss_description: true
     #
     def content_for_rss_description
-      rss_title = content_descriptions.detect { |c| c['rss_description'] }
-      contents.find_by_name(rss_title['name'])
+      rss_description = content_descriptions.detect { |c| c['rss_description'] }
+      return if rss_description.blank?
+      contents.find_by_name(rss_description['name'])
     end
 
     # Returns the array with the hashes for all element contents in the elements.yml file
