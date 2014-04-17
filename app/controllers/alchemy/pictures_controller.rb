@@ -70,7 +70,6 @@ module Alchemy
         image_file.thumb(resize_geometry_string)
       elsif params[:crop] == 'crop' && @size.present?
         width, height = normalize_sizes(image_file)
-        raise ArgumentError, "You have to state both width and height in the form 'widthxheight' when cropping" if width.nil? || height.nil?
         image_file.thumb("#{width}x#{height}#")
       elsif @size.present?
         image_file.thumb(resize_geometry_string)
