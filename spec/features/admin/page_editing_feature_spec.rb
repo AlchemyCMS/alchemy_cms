@@ -6,25 +6,47 @@ describe 'Page editing feature' do
   before { authorize_as_admin }
 
   context "in configure overlay" do
-    context "with sitemaps show_flag config option set to true" do
-      before do
-        Alchemy::Config.stub(:get) { |arg| arg == :sitemap ? {'show_flag' => true} : Alchemy::Config.show[arg.to_s] }
+
+    context "when editing a normal page" do
+      it "should show all relevant input fields" do
+        visit alchemy.configure_admin_page_path(a_page)
+        expect(page).to have_selector('input#page_urlname')
+        expect(page).to have_selector('input#page_title')
+        expect(page).to have_selector('input#page_robot_index')
+        expect(page).to have_selector('input#page_robot_follow')
       end
 
-      it "should show sitemap checkbox" do
-        visit alchemy.configure_admin_page_path(a_page)
-        expect(page).to have_selector('input[type="checkbox"]#page_sitemap')
+      context "with sitemaps show_flag config option set to true" do
+        before do
+          Alchemy::Config.stub(:get) { |arg| arg == :sitemap ? {'show_flag' => true} : Alchemy::Config.show[arg.to_s] }
+        end
+
+        it "should show sitemap checkbox" do
+          visit alchemy.configure_admin_page_path(a_page)
+          expect(page).to have_selector('input[type="checkbox"]#page_sitemap')
+        end
+      end
+
+      context "with sitemaps show_flag config option set to false" do
+        before do
+          Alchemy::Config.stub(:get) { |arg| arg == :sitemap ? {'show_flag' => false} : Alchemy::Config.show[arg.to_s] }
+        end
+
+        it "should show sitemap checkbox" do
+          visit alchemy.configure_admin_page_path(a_page)
+          expect(page).to_not have_selector('input[type="checkbox"]#page_sitemap')
+        end
       end
     end
 
-    context "with sitemaps show_flag config option set to false" do
-      before do
-        Alchemy::Config.stub(:get) { |arg| arg == :sitemap ? {'show_flag' => false} : Alchemy::Config.show[arg.to_s] }
-      end
-
-      it "should show sitemap checkbox" do
-        visit alchemy.configure_admin_page_path(a_page)
-        expect(page).to_not have_selector('input[type="checkbox"]#page_sitemap')
+    context "when editing a global page" do
+      let(:layout_page) { FactoryGirl.create(:page, layoutpage: true) }
+      it "should not show the input fields for normal pages" do
+        visit alchemy.configure_admin_page_path(layout_page)
+        expect(page).to_not have_selector('input#page_urlname')
+        expect(page).to_not have_selector('input#page_title')
+        expect(page).to_not have_selector('input#page_robot_index')
+        expect(page).to_not have_selector('input#page_robot_follow')
       end
     end
   end
