@@ -5,6 +5,30 @@ describe 'Page editing feature' do
 
   before { authorize_as_admin }
 
+  context "in configure overlay" do
+    context "with sitemaps show_flag config option set to true" do
+      before do
+        Alchemy::Config.stub(:get) { |arg| arg == :sitemap ? {'show_flag' => true} : Alchemy::Config.show[arg.to_s] }
+      end
+
+      it "should show sitemap checkbox" do
+        visit alchemy.configure_admin_page_path(a_page)
+        expect(page).to have_selector('input[type="checkbox"]#page_sitemap')
+      end
+    end
+
+    context "with sitemaps show_flag config option set to false" do
+      before do
+        Alchemy::Config.stub(:get) { |arg| arg == :sitemap ? {'show_flag' => false} : Alchemy::Config.show[arg.to_s] }
+      end
+
+      it "should show sitemap checkbox" do
+        visit alchemy.configure_admin_page_path(a_page)
+        expect(page).to_not have_selector('input[type="checkbox"]#page_sitemap')
+      end
+    end
+  end
+
   context "in preview frame" do
     it "the menubar does not render on the page" do
       visit alchemy.admin_page_path(a_page)
