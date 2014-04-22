@@ -63,10 +63,10 @@ module Alchemy
       end
 
       context "with email delivery errors" do
-        it "redirects to users list" do
+        it "redirects to sitemap" do
           User.any_instance.stub(:save).and_raise(Errno::ECONNREFUSED)
           post :create, {user: attributes_for(:admin_user)}
-          should redirect_to(admin_dashboard_path)
+          should redirect_to(admin_pages_path)
         end
       end
     end
