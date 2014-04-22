@@ -1,0 +1,31 @@
+<script>
+  // Setting TinyMCE path.
+  var tinyMCEPreInit = {
+    base: '<%= Rails.application.config.assets.prefix %>/tinymce',
+    suffix: '.min'
+  };
+
+  // Holds the default Alchemy TinyMCE configuration
+  Alchemy.Tinymce = {
+    defaults: {
+      plugins: '<%= Alchemy::Tinymce.plugins.join(',') %>',
+      <% Alchemy::Tinymce.init.each do |k, v| %>
+      <%= k %>: <%== v.to_json %>,
+      <% end %>
+    }
+  };
+
+<% if Alchemy::Tinymce.custom_config_contents.any? %>
+  // Holds custom tinymce configurations
+  Alchemy.Tinymce.customConfigs = {};
+
+  // Populate custom tinymce configurations
+  <% Alchemy::Tinymce.custom_config_contents.each do |content| %>
+  Alchemy.Tinymce.customConfigs["<%= content['element'] %>_<%= content['name'] %>"] = {
+    <% content.fetch('settings', {}).fetch('tinymce', {}).each do |k, v| %>
+    <%= k %>: <%== v.to_json %>,
+    <% end %>
+  }
+  <% end %>
+<% end %>
+</script>
