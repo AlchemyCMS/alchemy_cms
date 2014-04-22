@@ -133,6 +133,7 @@ module Alchemy
       end
     end
     alias_method :name, :fullname
+    alias_method :alchemy_display_name, :fullname
 
     # Returns true if the last request not longer ago then the logged_in_time_out
     def logged_in?
