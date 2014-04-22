@@ -1,22 +1,6 @@
 # Alchemy Tinymce wrapper
 #
-window.Alchemy.Tinymce =
-
-  # Holds the default Alchemy TinyMCE configuration
-  #
-  defaults:
-    plugins: "<%= Alchemy::Tinymce.plugins.join(',') %>"
-    <% Alchemy::Tinymce.init.each do |k, v| %>
-    <%= k %>: <%= v.to_json %>
-    <% end %>
-
-  # Holds custom tinymce configurations
-  #
-  # The key has to be a unique selector in the format of: "element_name_content_name"
-  #
-  # The value has to be a valid tinymce configuration object.
-  #
-  customConfigs: {}
+$.extend Alchemy.Tinymce,
 
   # Returns default config for a tinymce editor.
   #
@@ -80,11 +64,3 @@ window.Alchemy.Tinymce =
       editor = tinymce.get("tinymce_#{id}")
       if editor
         editor.remove()
-
-# Populate custom tinymce configurations
-<% Alchemy::Tinymce.custom_config_contents.each do |content| %>
-Alchemy.Tinymce.customConfigs["<%= content['element'] %>_<%= content['name'] %>"] =
-  <% content.fetch('settings', {}).fetch('tinymce', {}).each do |k, v| %>
-  <%= k %>: <%= v.to_json %>
-  <% end %>
-<% end %>
