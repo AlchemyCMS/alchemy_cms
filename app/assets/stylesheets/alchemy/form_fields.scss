@@ -54,3 +54,13 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
 
   label { position: absolute }
 }
+
+.alchemy-char-counter {
+  display: block;
+  clear: both;
+  text-align: right;
+
+  &.too-long {
+    color: $error_text_color;
+  }
+}
