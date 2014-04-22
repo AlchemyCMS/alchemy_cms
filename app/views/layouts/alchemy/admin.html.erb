@@ -74,7 +74,7 @@
           options_for_select(translations_for_select, ::I18n.locale),
           class: 'alchemy_selectbox tiny' %>
         <%= _t('Logged in as') %>
-        <%= current_alchemy_user.try(:name) %>
+        <%= current_alchemy_user.try(:name) || current_alchemy_user.try(:first_name) %>
       </div>
     </div>
     <% end %>
