@@ -127,6 +127,14 @@ Example:
       end
     end
 
+**Optionally** you can add a `alchemy_display_name` method that returns a name representing the currently logged in user. This is used in the admin views.
+
+Example:
+
+    def alchemy_display_name
+      "#{first_name} #{last_name}".strip
+    end
+
 Testing
 -------
 
