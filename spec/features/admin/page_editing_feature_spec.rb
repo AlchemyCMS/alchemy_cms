@@ -49,6 +49,14 @@ describe 'Page editing feature' do
         expect(page).to_not have_selector('input#page_robot_follow')
       end
     end
+
+    context "when page is taggable" do
+      before { Alchemy::Page.any_instance.stub(:taggable?).and_return(true) }
+      it "should show the tag_list input field" do
+        visit alchemy.configure_admin_page_path(a_page)
+        expect(page).to have_selector('input#page_tag_list')
+      end
+    end
   end
 
   context "in preview frame" do
