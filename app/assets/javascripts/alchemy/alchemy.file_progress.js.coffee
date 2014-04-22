@@ -60,4 +60,4 @@ Alchemy.FileProgress::setCancelled = ->
     $(this).remove()
 
 Alchemy.FileProgress::setStatus = (status) ->
-  @$fileProgressStatus.text status
+  @$fileProgressStatus.text Alchemy._t(status)

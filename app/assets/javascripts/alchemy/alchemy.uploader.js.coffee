@@ -46,7 +46,7 @@ Alchemy.Uploader = (settings) ->
         data.context.$fileProgressCancel.click (e) ->
           e.preventDefault()
           data.context.setCancelled()
-          data.context.setStatus('Upload cancelled')
+          data.context.setStatus('cancelled')
           false
         false
       else
@@ -55,7 +55,7 @@ Alchemy.Uploader = (settings) ->
           e.preventDefault()
           xhr.abort()
           data.context.setCancelled()
-          data.context.setStatus('Upload cancelled')
+          data.context.setStatus('cancelled')
           false
         xhr
     progress: (e, data) ->
@@ -70,7 +70,7 @@ Alchemy.Uploader = (settings) ->
       completedUploads += 1
       $('.uploaded-files-count').text(completedUploads)
       data.context.setComplete()
-      data.context.setStatus('Completed')
+      data.context.setStatus('complete')
       response_data = data.xhr().response
       if completedUploads == totalFilesCount
         completedUploads = 0
