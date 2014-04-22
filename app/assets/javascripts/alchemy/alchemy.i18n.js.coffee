@@ -6,16 +6,21 @@ Alchemy.I18n =
 
   # Translates given string
   #
-  translate: (id) ->
+  translate: (key, replacement) ->
     if !Alchemy.locale?
       throw 'Alchemy.locale is not set! Please set Alchemy.locale to a locale string in order to translate something.'
-    translation = Alchemy.translations[id]
-    if (translation)
-      translation[Alchemy.locale]
+    translations = Alchemy.translations[Alchemy.locale]
+    if translations
+      translation = translations[key] || key
+      if replacement
+        translation.replace(/%\{.+\}/, replacement)
+      else
+        translation
     else
-      id
+      Alchemy.debug "Translations for locale #{Alchemy.locale} not found!"
+      key
 
 # Global utility method for translating a given string
 #
-Alchemy._t = (id) ->
-  Alchemy.I18n.translate(id)
+Alchemy._t = (key, replacement) ->
+  Alchemy.I18n.translate(key, replacement)

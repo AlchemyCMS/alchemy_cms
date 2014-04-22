@@ -27,10 +27,10 @@ Alchemy.Sitemap =
     self.filter_field_clear.show()
     length = results.length
     if length == 1
-      self.display.show().text("1 #{self._t('page_found')}")
+      self.display.show().text("1 #{Alchemy._t('page_found')}")
       $.scrollTo(results[0], {duration: 400, offset: -80})
     else if length > 1
-      self.display.show().text("#{length} #{self._t('pages_found')}")
+      self.display.show().text("#{length} #{Alchemy._t('pages_found')}")
     else
       self.items.removeClass('no-match highlight')
       self.display.hide()
@@ -48,14 +48,3 @@ Alchemy.Sitemap =
     @filter_field_clear.click =>
       @search_field.val('')
       filter('')
-
-  # Translations
-  _t: (id) ->
-    i18n =
-      page_found:
-        de: 'Seite gefunden'
-        en: 'Page found'
-      pages_found:
-        de: 'Seiten gefunden'
-        en: 'Pages found'
-    i18n[id][Alchemy.locale]
