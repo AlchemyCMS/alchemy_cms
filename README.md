@@ -130,6 +130,25 @@ Example:
       end
     end
 
+Testing
+-------
+
+Before running tests (which refer to Alchemy), please make sure to run the rake task
+
+    bundle exec rake alchemy:spec:prepare
+
+to set up the database for testing.
+
+Now you can run your tests, e. g. with RSpec:
+
+    bundle exec rspec spec/...
+
+**Alternatively** you can just run:
+
+    bundle exec rake
+
+This default task executes the database preparations and runs all defined test cases.
+
 Deployment
 ----------
 
