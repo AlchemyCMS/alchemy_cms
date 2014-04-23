@@ -29,7 +29,8 @@
   <%= f.input :name, autofocus: true %>
   <% unless @page.layoutpage %>
     <%= f.input :urlname, as: 'string', input_html: {value: @page.slug} %>
-    <%= f.input :title %>
+    <%= f.input :title,
+      input_html: {'data-alchemy-char-counter' => 60} %>
     <h2><%= _t(:meta_data) %></h2>
     <div class="input check_boxes">
       <label class="control-label"><%= _t(:search_engines) %></label>
@@ -44,8 +45,12 @@
         </label>
       </div>
     </div>
-    <%= f.input :meta_description, as: 'text' %>
-    <%= f.input :meta_keywords, as: 'text', hint: _t('pages.update.comma_seperated') %>
+    <%= f.input :meta_description,
+      as: 'text',
+      input_html: {'data-alchemy-char-counter' => 160} %>
+    <%= f.input :meta_keywords,
+      as: 'text',
+      hint: _t('pages.update.comma_seperated') %>
   <% end %>
   <% if @page.taggable? %>
     <div class="input string">
