@@ -10,8 +10,8 @@ Alchemy is the most powerful, userfriendly and flexible Rails CMS.
 
 Read more on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
 
-**This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](http://rubygems.org/gems/alchemy_cms/versions/2.7.2),
-or the [latest stable branch (2.7-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.7-stable).**
+**This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](http://rubygems.org/gems/alchemy_cms/versions/2.8.1),
+or the [latest stable branch (2.8-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.8-stable).**
 
 Features
 --------
@@ -37,7 +37,7 @@ Rails Version
 
 **This version of Alchemy CMS runs with Rails 4 (including 4.1)**
 
-If you are looking for a Rails 3.2 compatible version check the [2.7-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.7-stable).
+If you are looking for a Rails 3.2 compatible version check the [2.8-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.8-stable).
 
 If you are looking for a Rails 3.1 compatible version check the [2.1-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.1-stable).
 
@@ -206,7 +206,7 @@ Resources
 ---------
 
 * Homepage: <http://alchemy-cms.com>
-* Live-Demo: <http://edge-demo.alchemy-cms.com> (user: demo, password: demo123)
+* Live-Demo: <http://demo.alchemy-cms.com> (user: demo, password: demo123)
 * API Documentation: <http://rubydoc.info/github/magiclabs/alchemy_cms>
 * Issue-Tracker: <https://github.com/magiclabs/alchemy_cms/issues>
 * Sourcecode: <https://github.com/magiclabs/alchemy_cms>
@@ -226,4 +226,4 @@ Authors
 License
 -------
 
-* BSD: <https://raw.github.com/magiclabs/alchemy_cms/2.7-stable/LICENSE>
+* BSD: <https://raw.github.com/magiclabs/alchemy_cms/master/LICENSE>
