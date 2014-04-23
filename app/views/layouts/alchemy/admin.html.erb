@@ -10,18 +10,12 @@
     <%= stylesheet_link_tag('alchemy/print', :media => 'print', "data-turbolinks-track" => true) %>
     <%= yield :stylesheets %>
     <script type="text/javascript" charset="utf-8">
-
-      // Setting TinyMCE path.
-      var tinyMCEPreInit = {
-        base: '<%= Rails.application.config.assets.prefix %>/tinymce',
-        suffix: '.min'
-      };
-
-      // Initialize Alchemys JavaScript framework.
+      // Global Alchemy JavaScript object.
       var Alchemy = {};
+      // Store current locale for javascript translations.
       Alchemy.locale = '<%= ::I18n.locale %>';
-
     </script>
+    <%= yield :javascript_pre_init %>
     <%= javascript_include_tag('alchemy/alchemy', "data-turbolinks-track" => true) %>
     <%= yield :javascript_includes %>
   </head>

@@ -1,3 +1,7 @@
+<% content_for(:javascript_pre_init) do %>
+  <%= render 'tinymce_config' %>
+<% end %>
+
 <% content_for(:title) { @page.name } %>
 
 <% content_for(:subnav_additions) do %>
