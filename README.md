@@ -1,11 +1,12 @@
-![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.png)
+![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.svg)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.png)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy_cms.png?branch=2.9-stable)](http://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=2.9-stable)](https://coveralls.io/r/magiclabs/alchemy_cms)
+[![Build Status](https://travis-ci.org/magiclabs/alchemy_cms.svg?branch=2.9-stable)](https://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=2.9-stable)](https://coveralls.io/r/magiclabs/alchemy_cms?branch=2.9-stable)
 
 About
 -----
-Alchemy is a powerful, userfriendly and flexible Rails 3 CMS.
+
+Alchemy is the most powerful, userfriendly and flexible Rails CMS.
 
 Read more on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
 
@@ -32,7 +33,7 @@ Features
 Rails Version
 -------------
 
-This version of Alchemy runs with Rails 3.2.11+.
+**This version of Alchemy CMS runs with Rails 3.2**
 
 If you are looking for a Rails 3.1 compatible version check the [2.1-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.1-stable).
 
@@ -43,36 +44,50 @@ If you are looking for a Rails 2.3 compatible version check the [1.6-stable bran
 Ruby Version
 ------------
 
-Alchemy runs with Ruby >= 1.9.3 (including Ruby 2.0.0).
+Alchemy runs with Ruby >= 1.9.3 (including Ruby 2.0 and 2.1).
 
 For a Ruby 1.8.7 compatible version use the [2.3-stable branch](https://github.com/magiclabs/alchemy_cms/tree/2.3-stable).
+
 
 Installation
 ------------
 
-Use the installer (recommended):
+### As a standalone project
+
+#### 1. Use the installer:
 
     gem install alchemy_cms
     alchemy new my_magicpage
     cd my_magicpage
 
-Start the local server:
+Run
 
-    rails server
+    bundle install
 
-Then just switch to your browser and open `http://localhost:3000`
+to finish installation process.
 
-Add to existing Rails project
------------------------------
+#### 2. Start the local server:
 
-In your Gemfile:
+    bundle exec rails server
 
-    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: '2.9-stable'
+#### 3. Switch to your browser:
+
+Open `http://localhost:3000` and follow the on screen instructions.
+
+### Into an existing Rails project
+
+#### 1. Add the Alchemy gem:
+
+In your App's Gemfile:
+
+    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
+
+#### 2. Install Alchemy into your app:
 
 Run in terminal:
 
     bundle install
-    bundle exec rake alchemy:install
+    bundle exec alchemy:install
 
 ### Authentication User Model
 
@@ -85,7 +100,7 @@ In order to get the former Alchemy user model back, add the following gem into y
 Run in terminal:
 
     bundle install
-    bin/rake alchemy_devise:install:migrations db:migrate
+    bundle exec alchemy_devise:install:migrations db:migrate
 
 **In order to use your own user model, you can add e.g.**
 
@@ -94,26 +109,72 @@ Run in terminal:
     Alchemy.login_path = '/your/login/path'
     Alchemy.logout_path = '/your/logout/path'
 
-### Note:
-If you did not mounted Alchemy on the root route `'/'`, then you have to add Alchemy's view helpers manually to your app.
+The only thing Alchemy needs to know from your user model is the `alchemy_roles` method.
 
-Just paste this in your `app/controllers/application_controller.rb`
+This method has to return an `Array` or `ActiveRecord::Relation` with at least one of the following roles:
 
-```
-helper Alchemy::PagesHelper
-```
+* `member`
+* `author`
+* `editor`
+* `admin`
+
+Example:
+
+    def alchemy_roles
+      self.admin?
+        %w(admin)
+      end
+    end
+
+Testing
+-------
+
+Before running tests (which refer to Alchemy), please make sure to run the rake task
+
+    bundle exec rake alchemy:spec:prepare
+
+to set up the database for testing.
+
+Now you can run your tests, e. g. with RSpec:
+
+    bundle exec rspec spec/...
+
+**Alternatively** you can just run:
+
+    bundle exec rake
+
+This default task executes the database preparations and runs all defined test cases.
+
+Deployment
+----------
+
+Alchemy ships with a generator that creates a Capistrano `config/deploy.rb` file, which
+takes care of everything you need to deploy an Alchemy site.
+
+So, if you don't have your own deploy file, we encourage you to use this generator:
+
+    $ bundle exec rails g alchemy:deploy_script
+
+If you have your own Capistrano receipts, you should require the Alchemy tasks in your app's `config/deploy.rb` file:
+
+    # deploy.rb
+    require 'alchemy/capistrano'
+
+If you don't use Capistrano you have to **make shure that the `uploads`, `tmp/cache/assets`, `public/assets` and `public/pictures` cache folders get shared** between deployments, otherwise you **will loose data**.
+
+Please take a look into the `lib/alchemy/capistrano.rb` file, to see how to achieve this.
 
 Upgrading
 ---------
 
-After updating Alchemy you should run the upgrader.
+After updating the Alchemy gem in your App, you should run the upgrader.
 
 Run in terminal:
 
-    bundle exec rake alchemy:upgrade
+    bundle exec alchemy:upgrade
 
 
-Tipps
+Tips
 -----
 
 - Read the guidelines: http://guides.alchemy-cms.com.
@@ -133,7 +194,7 @@ Resources
 ---------
 
 * Homepage: <http://alchemy-cms.com>
-* Live-Demo: <http://demo.alchemy-cms.com> (user: demo, password: demo)
+* Live-Demo: <http://demo.alchemy-cms.com> (user: demo, password: demo123)
 * API Documentation: <http://rubydoc.info/github/magiclabs/alchemy_cms>
 * Issue-Tracker: <https://github.com/magiclabs/alchemy_cms/issues>
 * Sourcecode: <https://github.com/magiclabs/alchemy_cms>
