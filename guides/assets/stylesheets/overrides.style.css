@@ -555,7 +555,7 @@ dl dt em {
 	#subCol.active ol { display: block }
 	#subCol ol.chapters li a p { font-size: 18px }
 	#main_navigation.open, #main_navigation.open ul, #main_navigation.open li.index { position: static }
-	#main_navigation { top: 96px }
+	#main_navigation { top: 73px }
 	#main_navigation.open { padding-top: 96px }
 	#main_navigation ul li a { font-size: 21px }
 	#logo {
@@ -580,6 +580,11 @@ dl dt em {
 	}
 	#guides dt {
 		font-size: 21px;
+	}
+
+	#header .site-search {
+		top: 90px;
+		left: -8px;
 	}
 }
 
