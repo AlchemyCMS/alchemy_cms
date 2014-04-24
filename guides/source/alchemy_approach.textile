@@ -1,4 +1,4 @@
-h2. How to work with Alchemy CMS (best practices)
+h2. The Alchemy approach
 
 endprologue.
 
