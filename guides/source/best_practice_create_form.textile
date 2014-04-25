@@ -125,7 +125,7 @@ The <code>app/views/alchemy/elements/_contactform_editor.html.erb</code> file sh
   <%= el.edit :mail_from %>
   <%= el.edit :mail_to %>
   <%= el.edit :subject %>
-  <%= el.edit :success_page, :select_values => pages_for_select(nil, element.ingredient(:success_page)) %>
+  <%= el.edit :success_page, :select_values => pages_for_select(nil, element.ingredient(:success_page), "Choose page", :urlname) %>
 <%- end -%>
 </pre>
 
