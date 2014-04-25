@@ -121,10 +121,12 @@ h5. The contact form editor
 The <code>app/views/alchemy/elements/_contactform_editor.html.erb</code> file should have this layout:
 
 <pre>
-<%= render_essence_editor_by_name(element, 'mail_from') %>
-<%= render_essence_editor_by_name(element, 'mail_to') %>
-<%= render_essence_editor_by_name(element, 'subject') %>
-<%= page_selector(element, 'success_page', :page_attribute => :urlname) %>
+<%= element_editor_for(element) do |el| -%>
+  <%= el.edit :mail_from %>
+  <%= el.edit :mail_to %>
+  <%= el.edit :subject %>
+  <%= el.edit :success_page, :select_values => pages_for_select(nil, element.ingredient(:success_page), "Choose page", :urlname) %>
+<%- end -%>
 </pre>
 
 INFO: The <code>page_selector</code> helper is pretty handy for setting the success page.
