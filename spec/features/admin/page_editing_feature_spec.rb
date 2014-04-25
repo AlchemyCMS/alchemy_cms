@@ -41,8 +41,9 @@ describe 'Page editing feature' do
 
     context "when editing a global page" do
       let(:layout_page) { FactoryGirl.create(:page, layoutpage: true) }
+
       it "should not show the input fields for normal pages" do
-        visit alchemy.configure_admin_page_path(layout_page)
+        visit alchemy.edit_admin_layoutpage_path(layout_page)
         expect(page).to_not have_selector('input#page_urlname')
         expect(page).to_not have_selector('input#page_title')
         expect(page).to_not have_selector('input#page_robot_index')

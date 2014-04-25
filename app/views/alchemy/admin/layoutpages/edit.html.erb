@@ -1,0 +1,11 @@
+<%= alchemy_form_for [:admin, @page], class: 'edit_page' do |f| %>
+  <%= f.input :page_layout, collection: @page_layouts, label: _t(:page_type), include_blank: false, input_html: {class: 'alchemy_selectbox'} %>
+  <%= f.input :name, autofocus: true %>
+  <% if @page.taggable? %>
+    <div class="input string">
+      <%= f.label :tag_list %>
+      <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
+    </div>
+  <% end %>
+  <%= f.submit _t(:save) %>
+<% end %>

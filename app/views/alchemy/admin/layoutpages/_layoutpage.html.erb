@@ -7,7 +7,7 @@
       <%- if can?(:configure, layoutpage) -%>
       <%= link_to_dialog(
         render_icon('configure_page'),
-        alchemy.configure_admin_page_path(layoutpage),
+        alchemy.edit_admin_layoutpage_path(layoutpage),
         {
           title: _t(:edit_page_properties),
           size: '410x170'

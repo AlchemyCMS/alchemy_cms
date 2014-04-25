@@ -28,6 +28,7 @@ form {
     padding: $default-padding 0;
     @include pie-clearfix;
 
+    input[type="url"],
     input[type="text"],
     input[type="email"],
     input[type="password"],
@@ -110,6 +111,37 @@ form {
       clear: both;
       text-align: right;
       margin-bottom: 0.25em;
+    }
+  }
+
+  .inline-input {
+    @include clearfix;
+    margin: 0 -1*$default-margin;
+    @include box-sizing(border-box);
+
+    .left-column, .right-column {
+      padding: 0 $default-padding;
+      @include box-sizing(border-box);
+    }
+
+    .left-column {
+      width: $form-right-width;
+      float: left;
+    }
+
+    .right-column {
+      width: $form-left-width;
+      float: right;
+    }
+
+    button,
+    .button,
+    input[type="url"],
+    input[type="text"],
+    input[type="email"],
+    input[type="submit"],
+    input[type="password"] {
+      width: 100%;
     }
   }
 

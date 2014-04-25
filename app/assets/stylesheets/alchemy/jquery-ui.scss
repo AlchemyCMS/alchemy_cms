@@ -131,6 +131,8 @@
 
 .ui-widget-content a {
   color: $text-color;
+
+  &:hover { color: #000 }
 }
 
 .ui-widget-header {

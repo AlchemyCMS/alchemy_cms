@@ -1,0 +1,6 @@
+$('#legacy_urls_label').text('<%=j render("label", count: @page.legacy_urls.size) %>');
+$('#<%= dom_id(@legacy_page_url) %>').remove();
+Alchemy.pleaseWaitOverlay(false);
+<% if @page.legacy_urls.size == 0 %>
+$('#no_page_links_notice').show();
+<% end %>

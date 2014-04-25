@@ -100,10 +100,9 @@ module Alchemy
       render_views
 
       context "with page having nested urlname" do
-        let(:page) { mock_model(Page, {name: 'Foobar', slug: 'foobar', urlname: 'root/parent/foobar', redirects_to_external?: false, layoutpage?: false, taggable?: false}) }
+        let(:page) { create(:page, name: 'Foobar') }
 
         it "should always show the slug" do
-          Page.stub(:find).and_return(page)
           xhr :get, :configure, {id: page.id}
           response.body.should match /value="foobar"/
         end

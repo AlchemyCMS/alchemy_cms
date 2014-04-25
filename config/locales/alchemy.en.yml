@@ -274,6 +274,7 @@ en:
     language_code_placeholder: 'i.e. en'
     language_does_not_exist: "This language tree does not exist"
     language_pages_copied: "Language tree succesfully copied."
+    legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
     "Library shortcuts": "Library shortcuts"
     link_image: "Link this image."
     link_overlay_tab_label:
@@ -616,6 +617,10 @@ en:
         one: File
         other: Files
 
+      alchemy/legacy_page_url:
+        one: "Link"
+        other: "Links"
+
       alchemy/picture:
         one: Picture
         other: Pictures
@@ -647,6 +652,9 @@ en:
         name: "Name"
         page_layout: "Pagetype of frontpage"
         public: "Public"
+
+      alchemy/legacy_page_url:
+        urlname: "URL path"
 
       alchemy/page:
         created_at: "Created at"

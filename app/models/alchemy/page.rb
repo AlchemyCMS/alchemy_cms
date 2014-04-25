@@ -69,7 +69,6 @@ module Alchemy
     stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :folded_pages
-
     has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
     belongs_to :language
     belongs_to :locker, class_name: Alchemy.user_class_name, foreign_key: 'locked_by'

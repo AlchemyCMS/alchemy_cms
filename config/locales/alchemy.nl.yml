@@ -423,6 +423,7 @@ nl:
     language_pages_copied: "Boomstructuur gekopieerd."
     last_upload_only: "Alleen de laatste upload"
     left: "links"
+    legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
     link_image: "Snelkoppeling naar deze afbeelding maken."
     link_overlay_tab_label:
       contactform: "Contactformulier"
@@ -830,6 +831,10 @@ nl:
         one: "Element"
         other: "Elementen"
 
+      alchemy/legacy_page_url:
+        one: "Link"
+        other: "Links"
+
       alchemy/language:
         one: "Taal"
         other: "Talen"
@@ -891,6 +896,9 @@ nl:
         name: "Naam"
         page_layout: "Paginatype van voorpagina"
         public: "Publiek"
+
+      alchemy/legacy_page_url:
+        urlname: "URL path"
 
       alchemy/page:
         created_at: "Aangemaakt op"

@@ -175,6 +175,7 @@ de:
     "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>": ""
     "Active Pages": "Aktive Seiten"
     "Add global page": "Neue globale Seite"
+    "Add page link": "Verweis hinzufügen"
     "Adobe Website": "Adobe Webseite"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy ist offene Software und benutzt selbst offene Software und freie Ressourcen:"
     "Alchemy is up to date": 'Alchemy ist aktuell'
@@ -229,6 +230,7 @@ de:
     "New": "Neu"
     "New Element": "Element hinzufügen"
     "New page": "Neue Seite"
+    "No page links for this page found": "Keine Verweise vorhanden."
     "New password": "Neues Passwort"
     "New Tag": "Neues Tag"
     "New Tag Created": "Neues Tag wurde erstellt"
@@ -262,6 +264,7 @@ de:
     "Please log in": "Bitte melden Sie sich an."
     "Please seperate the tags with commata": "* Die Tags bitte mit Komma getrennt eingeben."
     use_alternative_uploader_instead: "Benutzen Sie bitte diesen alternativen Uploader."
+    "Properties": "Eigenschaften"
     "Publish page": "veröffentlichen"
     "Read the License": "Lizenz lesen"
     "Redirects to": "Leitet weiter auf"
@@ -437,6 +440,7 @@ de:
     language_pages_copied: "Der Sprachbaum wurde kopiert"
     last_upload_only: "Zuletzt hochgeladene"
     left: "links"
+    legacy_url_info_text: "Ein Verweis ist eine Weiterleitung einer alten URL auf die aktuelle URL dieser Seite. Diese Weiterleitung findet mit einem <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301-Status-Code</a> statt."
     link_image: "Bild verlinken"
     link_overlay_tab_label:
       contactform: "Kontaktformular"
@@ -825,6 +829,10 @@ de:
         one: "Element"
         other: "Elemente"
 
+      alchemy/legacy_page_url:
+        one: "Verweis"
+        other: "Verweise"
+
       alchemy/language:
         one: "Sprache"
         other: "Sprachen"
@@ -886,6 +894,9 @@ de:
         name: "Name"
         page_layout: "Seitentyp der Startseite"
         public: "Sprache veröffentlichen"
+
+      alchemy/legacy_page_url:
+        urlname: "URL-Pfad"
 
       alchemy/page:
         created_at: "Erstellt am"
