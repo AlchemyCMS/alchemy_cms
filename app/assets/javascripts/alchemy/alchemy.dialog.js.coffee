@@ -101,7 +101,7 @@ class window.Alchemy.Dialog
       content_type = xhr.getResponseHeader('Content-Type')
       if status == 'success'
         if content_type.match(/javascript/)
-          @close()
+          return
         else
           @dialog_body.html(xhr.responseText)
           @init()
