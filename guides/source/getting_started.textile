@@ -10,41 +10,55 @@ endprologue.
 
 
 
-h3. Guide Assumptions
+h3. Prerequisites
 
 This guide is designed for beginners who want to get started with Alchemy CMS from scratch. It does not assume that you have any prior experience with Alchemy CMS. However, to get the most out of it, you need to have some prerequisites installed:
 
 * The "Ruby":http://www.ruby-lang.org/en/downloads programming language
-* The dependency manager "Bundler":http://gembundler.com/
 * At least one of these databases: "MySQL":http://www.mysql.com/downloads/mysql, "PostgreSQL":http://www.postgresql.org/download/ or "SQLite":http://www.sqlite.org/download.html
 * The image processor "ImageMagick":http://www.imagemagick.org/script/install-source.php
 
-NOTE: Alchemy CMS needs at least version 6.4 of ImageMagick
+INFO: Alchemy CMS needs at least version 6.4 of ImageMagick
+
+h4. Installing dependencies
+
+**It is highly recommended** to use a package manager to install dependencies like ImageMagick and your database.
+
+Common package managers are:
+
+* "Homebrew":http://brew.sh on the Mac
+* Your Linux box already has a package manager installed and you likely are already familiar with it.
+
+h4. Installing Ruby
+
+The most common ways to install Ruby on your computer nowadays are:
+
+* If you are on a Mac or Linux Box use "RVM":http://rvm.io
+* If you are on Windows use "RailsInstaller":http://railsinstaller.org
+
+h4. Learning Rails
 
 It is highly recommended to familiarize yourself with Ruby on Rails before using Alchemy CMS.
 You will understand much more and see things clearer if you know about the basics of Ruby on Rails.
 
-Installing Rails on your computer is easy. There are many excellent resources on the internet for learning Ruby on Rails, including:
+There are many excellent resources on the internet for learning Ruby on Rails, including:
 
 * "Try Ruby":http://tryruby.org
-* "Getting Started with Rails":http://guides.rubyonrails.org/v3.1.3/getting_started.html
+* "Getting Started with Rails":http://guides.rubyonrails.org/getting_started.html
 * "Rails for Zombies":http://railsforzombies.org
 * "Railscasts":http://railscasts.com
 
 
-h3. Installation
+h3. Installating Alchemy
 
-The installing of Alchemy CMS is very easy.
+h4. As a stand alone project
+
+The installation of Alchemy CMS is very easy.
 You just need to run the gem command.
 
 <shell>
 gem install alchemy_cms
 </shell>
-
-INFO: You now have the newest Alchemy CMS gem installed on your system!
-
-
-h4. Create a new application
 
 The gem provides an executable file that can automagically create new rails applications with a pre-configured Alchemy CMS engine.
 While the installation process you will get asked about your local development environment. Just follow the instructions.
@@ -78,35 +92,43 @@ MyApp::Application.routes.draw do
 end
 </pre>
 
-INFO: You can mount Alchemy on every route you want. <code>pages</code>, <code>cms</code>, <code>typo3</code>, what ever you want. Most of the time you go with the root route.
+INFO: You can mount Alchemy on every route you want. <code>pages</code>, <code>cms</code>, what ever you want. Most of the time you go with the root route.
+
+NOTE: Please be aware that Alchemy has a very strong catch all route. It is *highly recommended* that you mount Alchemy at last position in your app, so your existing routes are still available.
 
 Now you need to run bundler for installing the dependencies.
 <shell>
 bundle install
 </shell>
 
-It´s recommended to create the folders Alchemy CMS needs.
+Then run the install task.
 
 <shell>
-bundle exec rails generate alchemy:scaffold
+bundle exec rake alchemy:install
 </shell>
 
-Copy the database migration files to your application.
+h5. Authentication
+
+If you already have your own user class in your application, you have to tell Alchemy about it. Please follow "this guide":/custom_authentication.html to learn how to achieve that.
+
+If you don't have a authentication solution, you can use the alchemy-devise gem.
+
+Just add it to your apps Gemfile
+
+<pre>
+# Gemfile
+gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: '2.0-stable'
+</pre>
+
 <shell>
-bundle exec rake alchemy:install:migrations
+bundle install
 </shell>
 
-Migrate the database to get the table structure.
+and run the installer
+
 <shell>
-bundle exec rake db:migrate
+bin/rake alchemy_devise:install:migrations db:migrate
 </shell>
-
-Seed the database with initial data.
-<shell>
-bundle exec rake alchemy:db:seed
-</shell>
-
-INFO: You´re done! Alchemy is now available in your Rails project!
 
 h3. Running Alchemy CMS!
 
@@ -115,7 +137,11 @@ Now that you have Alchemy CMS successfully installed, let's move on by creating 
 You just need to start a local ruby server on your development machine.
 
 <shell>
-cd YOUR_APP_NAME && rails s
+cd YOUR_APP_NAME
+</shell>
+
+<shell>
+bin/rails s
 </shell>
 
 Open a browser window and navigate to "http://localhost:3000":http://localhost:3000.

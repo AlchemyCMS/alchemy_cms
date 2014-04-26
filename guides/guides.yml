@@ -2,34 +2,19 @@ title: Alchemy CMS Guides
 description: "Alchemy is the most powerful, user friendly and flexible Rails CMS."
 version: "3.0.0"
 
-authors:
-  Core Team:
-    - name: Thomas von Deyen
-      nick: tvdeyen
-      image: http://www.gravatar.com/avatar/6d89be962aea6ca120236b264edcf2ca.png
-      description: Thomas is the creator of Alchemy and a member of the Alchemy core team.
-    - name: Robin Böning
-      nick: robinboening
-      image: http://www.gravatar.com/avatar/484db0b16e6eca3339f582a21e3dfc6f.png
-      description: Robin is a member of the Alchemy core team. He is also responsible for the website and the guidelines.
-    - name: Marc Schettke
-      nick: masche842
-      description: Marc is the newest member of the Alchemy core team.
-
 index:
   1.) First steps:
-    - title: What is Alchemy CMS
-      url: what_is_alchemy
-      text: General information about Alchemy purposes (including field of application and target audience)
     - title: Getting Started
       url: getting_started
       text: Everything you need to know to install and create your first Alchemy CMS project.
-
-  2.) Basics:
-
     - title: Alchemy´s Architecture
       text: How Alchemy CMS is working.
       url: architecture
+    - title: The Alchemy approach
+      url: alchemy_approach
+      text: How to organize content in Alchemy
+
+  2.) Basics:
 
     - title: Pages
       url: pages
@@ -51,10 +36,15 @@ index:
       url: essences
       text: What are essences and how do they work.
 
-  3.) How to work with Alchemy:
-    - title: The Alchemy approach
-      url: alchemy_approach
-      text: Best practises for working on individual projects with Alchemy CMS
+    - title: Configure Alchemy
+      url: configuration
+      text: How to change Alchemy´s configuration options and what do they mean.
+
+    - title: Upgrading Alchemy
+      url: upgrading
+      text: Learn how to upgrade Alchemy to newest version
+
+  3.) Best practices:
 
     - title: How to create a blog template
       url: best_practice_create_blog_template
@@ -71,14 +61,6 @@ index:
     - title: Render images
       url: render_images
       text: How to work with images and use the powerful Fleximage templates.
-
-    - title: Configure Alchemy
-      url: configuration
-      text: How to change Alchemy´s configuration options and what do they mean.
-
-    - title: Upgrading Alchemy
-      url: upgrading
-      text: Learn how to upgrade Alchemy to newest version
 
   4.) Customization guides:
 
@@ -107,3 +89,16 @@ index:
       url: deploy_on_railshoster
       text: How to deploy your Alchems site on RailsHoster.
 
+authors:
+  Core Team:
+    - name: Thomas von Deyen
+      nick: tvdeyen
+      image: http://www.gravatar.com/avatar/6d89be962aea6ca120236b264edcf2ca.png
+      description: Thomas is the creator of Alchemy and a member of the Alchemy core team.
+    - name: Robin Böning
+      nick: robinboening
+      image: http://www.gravatar.com/avatar/484db0b16e6eca3339f582a21e3dfc6f.png
+      description: Robin is a member of the Alchemy core team. He is also responsible for the website and the guidelines.
+    - name: Marc Schettke
+      nick: masche842
+      description: Marc is the newest member of the Alchemy core team.
