@@ -120,10 +120,13 @@ WARN
     def redirect_or_render_notice
       if request.xhr?
         respond_to do |format|
-          format.js { render status: 403 }
-          format.html {
-            render(partial: 'alchemy/admin/partials/flash', locals: {message: _t('You are not authorized'), flash_type: 'warning'})
-          }
+          format.js do
+            render text: flash.discard(:warning), status: 403
+          end
+          format.html do
+            render partial: 'alchemy/admin/partials/flash',
+              locals: {message: flash[:warning], flash_type: 'warning'}
+          end
         end
       else
         redirect_to(alchemy.admin_dashboard_path)
