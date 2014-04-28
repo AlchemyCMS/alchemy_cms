@@ -234,7 +234,7 @@ module Alchemy
       before { helper.stub(current_alchemy_user: user) }
 
       context 'with a user having a `alchemy_display_name` method' do
-        let(:user) { mock('User', alchemy_display_name: 'Peter Schroeder') }
+        let(:user) { double('User', alchemy_display_name: 'Peter Schroeder') }
 
         it "Returns a span showing the name of the currently logged in user." do
           should have_content("#{Alchemy::I18n.t('Logged in as')} Peter Schroeder")
@@ -243,7 +243,7 @@ module Alchemy
       end
 
       context 'with a user not having a `alchemy_display_name` method' do
-        let(:user) { mock('User', name: 'Peter Schroeder') }
+        let(:user) { double('User', name: 'Peter Schroeder') }
 
         it { should be_nil }
       end
