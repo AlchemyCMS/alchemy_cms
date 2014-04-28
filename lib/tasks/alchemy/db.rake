@@ -1,4 +1,6 @@
 require 'alchemy/seeder'
+require 'alchemy/tasks/helpers'
+include Alchemy::Tasks::Helpers
 
 namespace :alchemy do
   namespace :db do
