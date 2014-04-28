@@ -30,7 +30,7 @@ module Alchemy
     end
 
     def destroy
-      current_alchemy_user.unlock_pages!
+      current_alchemy_user.try(:unlock_pages!)
       cookies.clear
       session.clear
       super
