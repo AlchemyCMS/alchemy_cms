@@ -97,19 +97,27 @@
       @include inline-block;
       list-style-type: none;
       text-align: center;
+    }
+  }
 
-      a, button {
-        @extend %button-defaults;
-        padding-left: $default-padding;
-        padding-right: $default-padding;
-        width: 100%;
-        display: block;
-        line-height: 14px;
-        font-weight: normal;
-        text-decoration: none !important;
-        color: $text-color !important;
-        font-family: $default-font-face;
-      }
+  a, button {
+    @extend %button-defaults;
+    padding-left: $default-padding;
+    padding-right: $default-padding;
+    width: 100%;
+    display: block;
+    line-height: 14px;
+    font-weight: normal;
+    text-decoration: none;
+    text-transform: none;
+    text-align: center;
+    color: $text-color;
+    font-family: $default-font-face;
+
+    // reset potentially icons that the website appends to all buttons
+    &:before, &:after {
+      display: none;
+      content: '';
     }
   }
 }
