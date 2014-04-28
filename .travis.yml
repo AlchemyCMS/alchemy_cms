@@ -10,7 +10,7 @@ script: rake
 env:
   - DB=mysql
   - DB=postgresql
-  - RAILS_VERSION=4.1.0.rc2
+  - RAILS_VERSION=4.1.0
 notifications:
   irc:
     on_success: change
@@ -20,4 +20,4 @@ notifications:
       - "irc.freenode.org#alchemy_cms"
 matrix:
   allow_failures:
-    - env: RAILS_VERSION=4.1.0.rc2
+    - env: RAILS_VERSION=4.1.0
