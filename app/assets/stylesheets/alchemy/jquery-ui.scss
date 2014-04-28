@@ -565,7 +565,7 @@
 
 .ui-icon-refresh {
   background: none !important;
-  @extend .icon-ccw;
+  @extend .alchemy-icon-ccw;
 
   &:before {
     text-indent: 0;
@@ -578,7 +578,7 @@
 .ui-icon-fullscreen {
   background: none !important;
   position: relative;
-  @extend .icon-fullscreen;
+  @extend .alchemy-icon-fullscreen;
 
   &:before {
     text-indent: 0;
@@ -592,7 +592,7 @@
 .ui-icon-exit-fullscreen {
   background: none !important;
   position: relative;
-  @extend .icon-fullscreen-exit;
+  @extend .alchemy-icon-fullscreen-exit;
 
   &:before {
     text-indent: 0;
@@ -769,7 +769,7 @@
 .ui-icon-closethick {
   background: none !important;
   position: relative;
-  @extend .icon-cross;
+  @extend .alchemy-icon-cross;
 
   &:before {
     text-indent: 0;

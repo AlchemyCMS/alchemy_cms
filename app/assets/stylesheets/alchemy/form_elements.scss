@@ -449,7 +449,7 @@ td.select .selectboxit {
       margin-left: 2px;
       font-style: normal;
       display: block;
-      @extend .icon-menu;
+      @extend .alchemy-icon-menu;
     }
 
     &.with_error { border-color: $error_border_color }

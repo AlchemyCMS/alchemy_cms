@@ -199,7 +199,7 @@ a.mceMove {
 }
 
 .alchemy-tinymce-dialog .mceClose {
-  @extend .icon-cross;
+  @extend .alchemy-icon-cross;
   width: 16px;
   height: 16px;
   top: 7px;
@@ -223,7 +223,7 @@ a.mceMove {
   right: 28px;
   width: 16px;
   height: 16px;
-  @extend .icon-fullscreen-exit;
+  @extend .alchemy-icon-fullscreen-exit;
   top: 6px;
   padding-top: 3px;
 }
@@ -233,7 +233,7 @@ a.mceMove {
   right: 28px;
   width: 16px;
   height: 16px;
-  @extend .icon-fullscreen;
+  @extend .alchemy-icon-fullscreen;
   top: 6px;
   padding-top: 3px;
 }

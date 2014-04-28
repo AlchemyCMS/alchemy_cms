@@ -6,7 +6,7 @@
 
   &.add {
     background: none;
-    @extend .icon-plus-2;
+    @extend .alchemy-icon-plus-2;
     line-height: 1em;
     font-size: 19px;
   }
@@ -52,7 +52,7 @@
 
     &.small {
       background: none;
-      @extend .icon-cross;
+      @extend .alchemy-icon-cross;
       line-height: 0;
     }
   }
@@ -212,7 +212,7 @@
   &.search {
     background: none;
     padding-top: 2px;
-    @extend .icon-magnifying-glass;
+    @extend .alchemy-icon-magnifying-glass;
   }
 
   &.select_all {
@@ -245,7 +245,7 @@
 
   &.tag_label {
     background: none;
-    @extend .icon-tag;
+    @extend .alchemy-icon-tag;
   }
 
   &.tag_edit {

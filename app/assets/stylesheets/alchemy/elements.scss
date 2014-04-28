@@ -433,7 +433,7 @@ div.essence_picture_editor {
 
   .thumbnail_background.missing:before {
     font-family: 'Alchemy Icons';
-    @extend .icon-pictures:before;
+    @extend .alchemy-icon-pictures:before;
     font-size: 48px;
     color: $medium-gray;
     vertical-align: top;
