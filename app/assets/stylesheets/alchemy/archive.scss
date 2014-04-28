@@ -291,7 +291,7 @@ div#filter_bar {
         left: 8px;
         top: 8px;
         font-family: 'Alchemy Icons';
-        @extend .icon-tag:before;
+        @extend .alchemy-icon-tag:before;
         line-height: 8px;
       }
 
@@ -431,7 +431,7 @@ div#pictures_page_list {
     left: $default-padding;
     top: 2*$default-padding;
     font-family: 'Alchemy Icons';
-    @extend .icon-tag:before;
+    @extend .alchemy-icon-tag:before;
     line-height: 6px;
   }
 }

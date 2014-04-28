@@ -13,7 +13,7 @@ div#flash_notices {
       position: absolute;
       right: 2*$default-padding;
       top: 2*$default-padding;
-      @extend .icon-cross:before;
+      @extend .alchemy-icon-cross:before;
       font-size: 14px;
       font-family: 'Alchemy Icons';
     }
