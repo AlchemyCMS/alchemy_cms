@@ -18,6 +18,3 @@ notifications:
     use_notice: true
     channels:
       - "irc.freenode.org#alchemy_cms"
-matrix:
-  allow_failures:
-    - env: RAILS_VERSION=4.1.0
