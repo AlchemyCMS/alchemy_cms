@@ -87,7 +87,7 @@
       <span class="sitemap_pagename_link inactive"><%= page.name %></span>
       <span class="redirect_url" title="<%= h page.urlname %>">
         &raquo; <%= _t('Redirects to') %>:
-        <%= h page.urlname %>
+        <%= h page.external_urlname %>
       </span>
     <%- else -%>
       <%= link_to_unless(

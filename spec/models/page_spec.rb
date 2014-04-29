@@ -33,13 +33,13 @@ module Alchemy
 
         it "should validate the page_layout" do
           contentpage.page_layout = nil
-          contentpage.save
+          contentpage.should_not be_valid
           contentpage.should have(1).error_on(:page_layout)
         end
 
         it "should validate the parent_id" do
           contentpage.parent_id = nil
-          contentpage.save
+          contentpage.should_not be_valid
           contentpage.should have(1).error_on(:parent_id)
         end
 
@@ -74,25 +74,41 @@ module Alchemy
       end
 
       context "creating the rootpage without parent_id and page_layout" do
+        let(:rootpage) { build(:page, parent_id: nil, page_layout: nil, name: 'Rootpage') }
+
         before do
           Page.delete_all
-          @rootpage = FactoryGirl.build(:page, :parent_id => nil, :page_layout => nil, :name => 'Rootpage')
         end
 
         it "should be valid" do
-          @rootpage.save
-          @rootpage.should be_valid
+          rootpage.should be_valid
         end
       end
 
       context "saving a systempage" do
-        before do
-          @systempage = FactoryGirl.build(:systempage)
-        end
+        let(:systempage) { build(:systempage) }
 
         it "should not validate the page_layout" do
-          @systempage.save
-          @systempage.should be_valid
+          systempage.should be_valid
+        end
+      end
+
+      context 'saving an external page' do
+        let(:external_page) { build(:page, page_layout: 'external') }
+
+        it "does not pass with invalid url given" do
+          external_page.urlname = 'not, a valid page url'
+          expect(external_page).to_not be_valid
+        end
+
+        it "only be valid with correct url given" do
+          external_page.urlname = 'www.google.com&utf_src=alchemy;page_id=%20'
+          expect(external_page).to be_valid
+        end
+
+        it "only be valid with urlname given" do
+          external_page.urlname = ''
+          expect(external_page).to_not be_valid
         end
       end
     end
@@ -1238,6 +1254,34 @@ module Alchemy
 
         it "should return nil" do
           page.slug.should be_nil
+        end
+      end
+    end
+
+    describe '#external_urlname' do
+      let(:external_page) { build(:page, page_layout: 'external') }
+
+      context 'with missing protocol' do
+        before { external_page.urlname = 'google.com'}
+
+        it "returns an urlname prefixed with http://" do
+          expect(external_page.external_urlname).to eq 'http://google.com'
+        end
+      end
+
+      context 'with protocol present' do
+        before { external_page.urlname = 'ftp://google.com'}
+
+        it "returns the urlname" do
+          expect(external_page.external_urlname).to eq 'ftp://google.com'
+        end
+      end
+
+      context 'beginngin with a slash' do
+        before { external_page.urlname = '/internal-url'}
+
+        it "returns the urlname" do
+          expect(external_page.external_urlname).to eq '/internal-url'
         end
       end
     end
