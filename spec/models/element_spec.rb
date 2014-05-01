@@ -147,6 +147,43 @@ module Alchemy
       end
     end
 
+    describe '.create_from_scratch' do
+      let!(:element1) { Element.create_from_scratch(name: 'news', page_id: 1) }
+      let!(:element2) { Element.create_from_scratch(name: 'news', page_id: 1) }
+
+      it "should create an valid element" do
+        expect(element1).to be_valid
+        expect(element2).to be_valid
+      end
+
+      context "after trashing existing element" do
+        before { element1.trash! }
+
+        it "trashed element should have position nil" do
+          element1.reload
+          expect(element1.position).to be_nil
+        end
+
+        it "existing element2 should retrieve first position" do
+          element2.reload
+          expect(element2.position).to eq(1)
+        end
+
+        context "and afterwards create new element" do
+          let!(:element3) { Element.create_from_scratch(name: 'news', page_id: 1) }
+
+          it "new element should create an valid element" do
+            expect(element3).to be_valid
+          end
+
+          it "retrieve higher position" do
+            element2.reload
+            expect(element3.position).to be > (element2.position)
+          end
+        end
+      end
+    end
+
     # InstanceMethods
 
     describe '#all_contents_by_type' do
