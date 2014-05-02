@@ -193,7 +193,7 @@ div#user_info {
     }
   }
 
-  span.page_status_and_name {
+  .page_status_and_name {
     padding: 0 8px;
     background-color: $medium-gray;
     text-shadow: 0px 1px 1px #FFFFFF;
@@ -207,30 +207,31 @@ div#user_info {
     height: 22px;
     margin-right: 1px;
 
-    .page_language {
-      float: none;
-      position: relative;
-      @include inline-block;
-      bottom: 2px;
-      border: 1px solid #f0c8d1;
-      background-color: #f0c8d1;
-      color: #ac3d57;
-      @extend %rounded-border;
-      margin-right: 2px;
-      padding: 2px 3px;
-      line-height: 11px;
-    }
-
-    span.page_name {
-      position: relative;
-      margin-right: 16px;
-      margin-left: 4px;
-      line-height: 27px;
-      bottom: 2px;
-    }
+    .page_name { bottom: 2px}
+    .page_language { bottom: 3px }
   }
 
-  div.subnavi_tab {
+  .page_name {
+    position: relative;
+    margin-right: $default-margin;
+    line-height: 27px;
+    bottom: 3px;
+  }
+
+  .page_language {
+    float: none;
+    position: relative;
+    @include inline-block;
+    bottom: 4px;
+    color: #3265b1;
+    @extend %rounded-border;
+    margin-right: 2px;
+    font-size: 10px;
+    line-height: 12px;
+    text-transform: uppercase;
+  }
+
+  .subnavi_tab {
     float: left;
     padding: 0px 8px;
     line-height: 19px;

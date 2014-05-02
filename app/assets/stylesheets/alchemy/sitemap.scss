@@ -216,7 +216,7 @@ div.page_infos {
   width: 68px;
 }
 
-#sub_navigation span.page_status_and_name span.page_status {
+#sub_navigation .page_status_and_name .page_status {
   float: none;
   @include inline-block;
   position: relative;
