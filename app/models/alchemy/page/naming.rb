@@ -20,11 +20,11 @@ module Alchemy
         presence:   {if: :redirects_to_external?}
 
       before_save :set_title, :if => 'title.blank?', :unless => proc { systempage? || redirects_to_external? }
-      after_update(:if => proc { Config.get(:url_nesting) && (urlname_changed? || visible_changed?) }) do
-        self.reload
-        self.descendants.map(&:update_urlname!)
-      end
-      after_move :update_urlname!, :if => proc { Config.get(:url_nesting) }
+      after_update :update_descendants_urlnames,
+        if: -> { Config.get(:url_nesting) && (urlname_changed? || visible_changed?) }
+      after_move :update_urlname!,
+        if: -> { Config.get(:url_nesting) },
+        unless: :redirects_to_external?
     end
 
     # Returns true if name or urlname has changed.
@@ -39,8 +39,8 @@ module Alchemy
       new_urlname = (names << slug).join('/')
       if urlname != new_urlname
         legacy_urls.create(urlname: urlname)
+        update_column(:urlname, new_urlname)
       end
-      update_column(:urlname, new_urlname)
     end
 
     # Returns always the last part of a urlname path
@@ -55,6 +55,14 @@ module Alchemy
     end
 
     private
+
+    def update_descendants_urlnames
+      self.reload
+      descendants.each do |descendant|
+        next if descendant.redirects_to_external?
+        descendant.update_urlname!
+      end
+    end
 
     # Sets the urlname to a url friendly slug.
     # Either from name, or if present, from urlname.

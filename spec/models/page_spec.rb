@@ -171,6 +171,27 @@ module Alchemy
         end
       end
 
+      context 'after_move' do
+        let(:parent_1) { FactoryGirl.create(:page, name: 'Parent 1', visible: true) }
+        let(:parent_2) { FactoryGirl.create(:page, name: 'Parent 2', visible: true) }
+        let(:page)     { FactoryGirl.create(:page, parent_id: parent_1.id, name: 'Page', visible: true) }
+
+        it "updates the urlname" do
+          page.urlname.should == 'parent-1/page'
+          page.move_to_child_of parent_2
+          page.urlname.should == 'parent-2/page'
+        end
+
+        context 'of an external page' do
+          let(:external) { FactoryGirl.create(:page, parent_id: parent_1.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
+
+          it "the urlname does not get updated" do
+            external.move_to_child_of parent_2
+            external.urlname.should == 'http://google.com'
+          end
+        end
+      end
+
       context "a normal page" do
         before do
           @page = FactoryGirl.build(:page, :language_code => nil, :language => klingonian, :do_not_autogenerate => false)
@@ -1175,6 +1196,7 @@ module Alchemy
       let(:page)         { FactoryGirl.create(:page, parent_id: parent.id, name: 'page', visible: true) }
       let(:invisible)    { FactoryGirl.create(:page, parent_id: page.id, name: 'invisible', visible: false) }
       let(:contact)      { FactoryGirl.create(:page, parent_id: invisible.id, name: 'contact', visible: true) }
+      let(:external)     { FactoryGirl.create(:page, parent_id: parent.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
 
       context "with activated url_nesting" do
         before { Config.stub(:get).and_return(true) }
@@ -1195,13 +1217,23 @@ module Alchemy
           contact.urlname.should_not =~ /invisible/
         end
 
-        context "after changing my urlname" do
-          it "should update urlnames of descendants" do
+        context "after changing page's urlname" do
+          it "updates urlnames of descendants" do
             page
             parentparent.urlname = 'new-urlname'
             parentparent.save!
             page.reload
             page.urlname.should == 'new-urlname/parent/page'
+          end
+
+          context 'with descendants that are redirecting to external' do
+            it "it skips this page" do
+              external
+              parent.urlname = 'new-urlname'
+              parent.save!
+              external.reload
+              external.urlname.should == 'http://google.com'
+            end
           end
 
           it "should create a legacy url" do

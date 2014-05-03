@@ -30,6 +30,7 @@
 #  updater_id       :integer
 #  language_id      :integer
 #  cached_tag_list  :text
+#  published_at     :datetime
 #
 
 module Alchemy
