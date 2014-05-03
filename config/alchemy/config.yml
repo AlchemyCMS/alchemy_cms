@@ -186,3 +186,4 @@ open_external_links_in_new_tab: true
 format_matchers:
   email: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
   url: !ruby/regexp '/\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix'
+  link_url: !ruby/regexp '/^(mailto:|\/|[a-z]+:\/\/)/'

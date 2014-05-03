@@ -208,7 +208,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Validates url for beginning with an protocol.
   validateURLFormat: (url) ->
-    if url.match(/^(mailto:|\/|[a-z]+:\/\/)/)
+    if url.match(Alchemy.link_url_regexp)
       true
     else
       false
