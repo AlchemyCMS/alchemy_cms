@@ -25,7 +25,7 @@
     <% content.fetch('settings', {}).fetch('tinymce', {}).each do |k, v| %>
     <%= k %>: <%== v.to_json %>,
     <% end %>
-  }
+  };
   <% end %>
 <% end %>
 </script>
