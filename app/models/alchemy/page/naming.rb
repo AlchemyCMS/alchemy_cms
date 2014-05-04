@@ -6,16 +6,18 @@ module Alchemy
     RESERVED_URLNAMES = %w(admin messages new)
 
     included do
-      before_validation :set_urlname, :if => :renamed?, :unless => proc { systempage? || redirects_to_external? || name.blank? }
+      before_validation :set_urlname,
+        if: :renamed?,
+        unless: -> { systempage? || redirects_to_external? || name.blank? }
 
-      validates_presence_of :name
-      validates_length_of :urlname, :minimum => 3, :if => 'urlname.present?'
-      validates_uniqueness_of(
-        :urlname,
-        :scope => [:language_id, :layoutpage],
-        :if => 'urlname.present?'
-      )
-      validates :urlname, :exclusion => {:in => RESERVED_URLNAMES}
+      validates :name,
+        presence: true
+      validates :urlname,
+        uniqueness: {scope: [:language_id, :layoutpage], if: 'urlname.present?'},
+        exclusion:  {in: RESERVED_URLNAMES},
+        length:     {minimum: 3, if: 'urlname.present?'},
+        format:     {with: /\A[:\.\w\-+_\/\?&%;=]*\z/, if: :redirects_to_external?},
+        presence:   {if: :redirects_to_external?}
 
       before_save :set_title, :if => 'title.blank?', :unless => proc { systempage? || redirects_to_external? }
       after_update(:if => proc { Config.get(:url_nesting) && (urlname_changed? || visible_changed?) }) do
@@ -46,7 +48,13 @@ module Alchemy
       urlname.to_s.split('/').last
     end
 
-  private
+    # Returns an urlname prefixed with http://, if no protocol is given
+    def external_urlname
+      return urlname if urlname =~ /\A(\/|[a-z]+:\/\/)/
+      "http://#{urlname}"
+    end
+
+    private
 
     # Sets the urlname to a url friendly slug.
     # Either from name, or if present, from urlname.
@@ -80,6 +88,5 @@ module Alchemy
         url_name
       end
     end
-
   end
 end
