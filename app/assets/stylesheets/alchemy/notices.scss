@@ -27,6 +27,12 @@ div.message, p.message {
     margin: 16px;
   }
 
+  a {
+    text-decoration: underline;
+
+    &:hover { color: #000 }
+  }
+
   ol {
     margin: 0 0 8px;
     padding-left: 20px;

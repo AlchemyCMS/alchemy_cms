@@ -1,4 +1,10 @@
-textarea, input[type="text"], input[type="email"], input[type="password"], .thin_border, .input_field {
+textarea,
+input[type="url"],
+input[type="text"],
+input[type="email"],
+input[type="password"],
+.thin_border,
+.input_field {
   @extend %default-input-style;
 
   &.dirty {
@@ -63,4 +69,21 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
   &.too-long {
     color: $error_text_color;
   }
+}
+
+fieldset {
+  border: none;
+  padding: 0;
+  margin: 1em 0;
+
+  legend {
+    font-weight: bold;
+    text-decoration: none;
+    margin-bottom: 0.5em;
+  }
+}
+
+::-webkit-input-placeholder {
+  line-height: 1.5;
+  color: $default-border-color;
 }

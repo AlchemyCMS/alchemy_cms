@@ -78,7 +78,7 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :layoutpages, :only => :index
+    resources :layoutpages, :only => [:index, :edit]
 
     resources :pictures do
       collection do
@@ -113,6 +113,7 @@ Alchemy::Engine.routes.draw do
       end
     end
 
+    resources :legacy_page_urls
     resources :languages
 
     resource :clipboard, :only => :index, :controller => 'clipboard' do

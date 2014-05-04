@@ -1,0 +1,5 @@
+<%= alchemy_form_for [:admin, @legacy_page_url ||= Alchemy::LegacyPageUrl.new] do |f| %>
+  <%= hidden_field_tag :page_id, @page.id %>
+  <%= f.input :urlname %>
+  <%= f.submit _t(:save) %>
+<% end %>

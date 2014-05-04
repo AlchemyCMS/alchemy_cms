@@ -15,12 +15,12 @@ Alchemy.Buttons =
   disable: (button) ->
     $button = $(button)
     spinner = Alchemy.Spinner.small()
-    $button.data('label', $button.text())
+    $button.data('content', $button.html())
     $button.attr('disabled', true)
     $button.addClass('disabled')
     $button.css
       width: $button.outerWidth()
-    $button.text('')
+    $button.empty()
     spinner.spin($button[0])
     return true
 
@@ -28,5 +28,5 @@ Alchemy.Buttons =
     $button = $('form :submit:disabled', scope)
     $button.removeClass('disabled')
     $button.removeAttr('disabled')
-    $button.text($button.data('label'))
+    $button.html($button.data('content'))
     return true
