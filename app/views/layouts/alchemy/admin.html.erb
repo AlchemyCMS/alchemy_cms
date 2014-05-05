@@ -14,6 +14,8 @@
       var Alchemy = {};
       // Store current locale for javascript translations.
       Alchemy.locale = '<%= ::I18n.locale %>';
+      // Store regular expression for external link url matching.
+      Alchemy.link_url_regexp = <%= Alchemy::Config.get(:format_matchers)['link_url'].inspect %>;
     </script>
     <%= yield :javascript_pre_init %>
     <%= javascript_include_tag('alchemy/alchemy', "data-turbolinks-track" => true) %>
