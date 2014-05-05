@@ -1,9 +1,9 @@
-h2. Alchemy´s Architecture
+h2. Alchemy's Architecture
 
 Alchemy is the most user friendly and flexible Rails based CMS today. In this guide you will learn about Alchemy's powerful features:
 
 * The flexible content storing architecture
-* The image processing magick®
+* The image processing magick
 * Caching
 * The resources controller
 
