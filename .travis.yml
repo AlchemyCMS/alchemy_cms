@@ -10,7 +10,7 @@ script: rake
 env:
   - DB=mysql
   - DB=postgresql
-  - RAILS_VERSION=4.1.0
+  - RAILS_VERSION=4.1.1
 notifications:
   irc:
     on_success: change
