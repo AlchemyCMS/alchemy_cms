@@ -1,0 +1,11 @@
+<div class="page_status_and_name" id="page_<%= @page.id %>_status">
+  <span class="page_name"><%= @page.name %></span>
+  <%- if multi_language? -%>
+    <span class="page_language" title="<%= @page.language.name %>">
+      <%= @page.language_code %>
+    </span>
+  <%- end -%>
+  <span class="page_status <%= @page.public ? 'public' : 'not_public' %>" title="<%= @page.status_title(:public) %>"></span>
+  <span class="page_status <%= @page.visible ? 'visible' : 'not_visible' %>" title="<%= @page.status_title(:visible) %>"></span>
+  <span class="page_status <%= @page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= @page.status_title(:restricted) %>"></span>
+</div>
