@@ -436,6 +436,11 @@ module Alchemy
         end
       end
 
+      # Returns the regular expression used for external url validation in link dialog.
+      def link_url_regexp
+        Alchemy::Config.get(:format_matchers)['link_url'] || /^(mailto:|\/|[a-z]+:\/\/)/
+      end
+
       private
 
       def permission_from_options(options)
