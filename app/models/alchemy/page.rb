@@ -356,7 +356,7 @@ module Alchemy
         .where(["#{self.class.table_name}.lft #{dir} ?", lft])
         .where(public: options[:public])
         .where(restricted: options[:restricted])
-        .order(dir == '>' ? 'lft' : 'lft DESC')
+        .reorder(dir == '>' ? 'lft' : 'lft DESC')
         .limit(1).first
     end
 
