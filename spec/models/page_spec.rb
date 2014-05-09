@@ -1035,6 +1035,7 @@ module Alchemy
       describe '#previous' do
         it "should return the previous page on the same level" do
           center_page.previous.should == public_page
+          next_page.previous.should == center_page
         end
 
         context "no previous page on same level present" do
