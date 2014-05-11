@@ -1,13 +1,8 @@
-@mixin default-focus-style($bg-color: $very-light-blue, $border: 1px solid $blue) {
-  background-color: $bg-color;
-  border: $border;
-  @include box-shadow(0 0 6px $blue, inset 0 0 4px $light-blue);
+@mixin default-focus-style {
+  border-color: $blue;
+  @include box-shadow(0 0 2px 2px $blue);
   outline: none;
-  @include transition(
-    box-shadow 0.25s ease-in-out,
-    background-color 0.25s ease-in-out,
-    border 0.25s ease-in-out
-  );
+  @include transition(all 0.25s ease-in-out);
 
   &::-moz-focus-inner {
     border: none !important;

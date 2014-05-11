@@ -60,16 +60,8 @@
   @include box-shadow(inset 1px 1px 4px rgba($error_border_color, 0.5));
 }
 
-%border-radius-reset {
-  @include border-radius(0);
-}
-
 %blue-focus-style {
   @include default-focus-style;
-}
-
-%white-focus-style {
-  @include default-focus-style(rgba(white, 0.5), none);
 }
 
 %default-input-style {
@@ -102,4 +94,6 @@
 
 %gradiated-toolbar {
   background: $medium-gray;
+  padding: 8px 4px;
+  height: 29px;
 }

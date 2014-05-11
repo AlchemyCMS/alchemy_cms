@@ -2,7 +2,7 @@
   @include box-sizing(border-box);
   position: absolute;
   right: 0;
-  top: 80px;
+  top: 73px;
   width: 400px;
   height: auto;
   border-left: $default-border;
@@ -299,17 +299,19 @@ div#cells {
   min-height: 100px;
 }
 
-span.linkable_essence_tools {
+.linkable_essence_tools {
   position: absolute;
   bottom: 0;
   right: 0;
 
-  a.icon_button {
+  .icon_button {
     margin: 0 0 0 4px;
+    padding: 3px;
     position: absolute;
     bottom: 4px;
     right: 28px;
-    @extend %border-radius-reset;
+    @extend %button-defaults;
+    @include border-radius(0);
 
     &.unlink {
       right: 0;

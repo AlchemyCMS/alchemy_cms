@@ -4,19 +4,17 @@
         rescue NameError
           self
         end -%>
-<%- url ||= url_scope.url_for(:action => 'index') -%>
-<%= form_tag(url, :method => :get, class: 'search_form') do %>
+<%- url ||= url_scope.url_for(action: 'index') -%>
+<%= form_tag(url, method: 'get', class: 'search_form') do %>
   <div class="search_field">
     <%= render_icon('search') %>
-    <%= text_field_tag("query", params['query'], :class => 'thin_border', :id => "search_input_field") %>
-    <%= link_to(
-        "",
-        url,
-        :class => "search_field_clear",
-        :id => "search_field_clear",
-        :title => _t(:click_to_show_all),
-        :style => (params[:query].nil? ? "display: none" : "display: block")
-      ) %>
+    <%= text_field_tag 'query', params['query'],
+      class: 'thin_border', id: 'search_input_field',
+      placeholder: _t(:search) %>
+    <%= link_to '', url,
+        class: 'search_field_clear',
+        id: 'search_field_clear',
+        title: _t(:click_to_show_all),
+        style: params[:query].nil? ? 'display: none' : 'display: block' %>
   </div>
-  <label><%= _t(:search) %></label>
 <% end %>

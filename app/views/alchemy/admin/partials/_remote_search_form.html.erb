@@ -11,18 +11,15 @@
   <%= hidden_field_tag("content_id", @content.blank? ? "" : @content.id) %>
   <div class="search_field">
   <%= render_icon('search') %>
-    <%= text_field_tag(
-      :query,
+    <%= text_field_tag :query,
       params['query'],
       class: 'thin_border',
-      id: "search_input_field"
-    ) %>
-    <%= link_to(
-      "",
-      url_for({
+      id: 'search_input_field',
+      placeholder: _t(:search) %>
+    <%= link_to '', url_for({
         action: 'index',
-        element_id: @element.blank? ? "" : @element.id,
-        content_id: @content.blank? ? "" : @content.id,
+        element_id: @element.blank? ? '' : @element.id,
+        content_id: @content.blank? ? '' : @content.id,
         options: @options.to_json,
         size: @size,
         overlay: true
@@ -31,8 +28,6 @@
       class: 'search_field_clear',
       id: 'search_field_clear',
       title: _t(:click_to_show_all),
-      style: (params[:query].nil? ? 'display: none' : 'display: block')
-    ) %>
+      style: params[:query].nil? ? 'display: none' : 'display: block' %>
   </div>
-  <%= submit_tag _t(:search), name: nil, class: 'button' %>
 <% end %>

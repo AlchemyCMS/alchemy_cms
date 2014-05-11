@@ -197,3 +197,13 @@ select {
     width: 100%;
   }
 }
+
+.select_with_label {
+  margin: 0 3*$default-margin;
+  @include inline-block(top);
+
+  label {
+    @include inline-block;
+    margin-right: 2*$default-margin;
+  }
+}

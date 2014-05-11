@@ -19,10 +19,10 @@ textarea {
 }
 
 input#search_input_field {
-  width: 224px;
+  width: 204px;
   text-align: left;
   @include border-radius(21px);
-  padding: 3px 26px;
+  padding: 3px 16px 3px 28px;
   margin: 0;
   height: 29px;
 }
@@ -36,13 +36,13 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
 .js_filter_field_box {
   position: absolute;
   right: 4px;
-  top: 4px;
+  top: 8px;
 
   .js_filter_field {
     width: 220px;
     text-align: left;
-    @include border-radius(3px);
-    padding: 3px 24px;
+    @include border-radius($default-border-radius);
+    padding: 3px 24px 3px 28px;
     height: 29px;
     margin: 0;
   }

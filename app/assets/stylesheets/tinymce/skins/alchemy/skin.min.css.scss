@@ -483,29 +483,18 @@ body .mce-abs-layout-item,.mce-abs-end {
 .mce-tooltip {
   position: absolute;
   padding: 5px;
-  opacity: .8;
-  filter: alpha(opacity=80);
-  zoom: 1;
 }
 
 .mce-tooltip-inner {
   font-size: 11px;
-  background-color: #000;
+  background-color: $dark-gray;
   color: #fff;
   max-width: 200px;
-  padding: 5px 8px 4px 8px;
+  padding: $default-padding 2*$default-padding;
   text-align: center;
   white-space: normal;
-}
-
-.mce-tooltip-inner {
-  @include border-radius($default-border-radius);
-}
-
-.mce-tooltip-inner {
-  -webkit-box-shadow: 0 0 5px #000;
-  -moz-box-shadow: 0 0 5px #000;
-  box-shadow: 0 0 5px #000;
+  @include box-shadow(0 0 4px $default-border-color);
+  @extend %rounded-border;
 }
 
 .mce-tooltip-arrow {
@@ -513,23 +502,23 @@ body .mce-abs-layout-item,.mce-abs-end {
   width: 0;
   height: 0;
   line-height: 0;
-  border: 5px dashed #000;
+  border: 5px solid $dark-gray;
 }
 
 .mce-tooltip-arrow-n {
-  border-bottom-color: #000;
+  border-bottom-color: $dark-gray;
 }
 
 .mce-tooltip-arrow-s {
-  border-top-color: #000;
+  border-top-color: $dark-gray;
 }
 
 .mce-tooltip-arrow-e {
-  border-left-color: #000;
+  border-left-color: $dark-gray;
 }
 
 .mce-tooltip-arrow-w {
-  border-right-color: #000;
+  border-right-color: $dark-gray;
 }
 
 .mce-tooltip-nw,.mce-tooltip-sw {

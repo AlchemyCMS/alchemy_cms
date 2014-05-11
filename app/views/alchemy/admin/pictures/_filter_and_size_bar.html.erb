@@ -1,52 +1,5 @@
 <div id="image_assign_filter_and_image_sizing">
   <div class="button_with_label">
-    <%= link_to(
-      render_icon('zoom-out'),
-      alchemy.admin_pictures_path({
-        size: "small",
-        content_id: @content,
-        element_id: @element,
-        swap: @swap,
-        query: params[:query],
-        options: @options.to_json
-      }),
-      remote: true,
-      title: _t(:small_thumbnails),
-      class: "icon_button"
-    ) %>
-    <%= link_to(
-      render_icon('zoom-equal'),
-      alchemy.admin_pictures_path({
-        size: "medium",
-        content_id: @content,
-        element_id: @element,
-        swap: @swap,
-        query: params[:query],
-        options: @options.to_json
-      }),
-      remote: true,
-      title: _t(:medium_thumbnails),
-      class: "icon_button"
-    ) %>
-    <%= link_to(
-      render_icon('zoom-in'),
-      alchemy.admin_pictures_path({
-        size: "large",
-        content_id: @content,
-        element_id: @element,
-        swap: @swap,
-        query: params[:query],
-        options: @options.to_json
-      }),
-      remote: true,
-      title: _t(:big_thumbnails),
-      class: "icon_button"
-    ) %>
-    <label><%= _t('Image size') %></label>
-    <%= hidden_field_tag('size', @size, id: 'overlay_thumbnails_size') %>
-  </div>
-  <div class="toolbar_spacer"></div>
-  <div class="button_with_label">
     <%= link_to_dialog(
       render_icon('upload'),
       alchemy.new_admin_picture_path(
@@ -67,6 +20,59 @@
       }
     ) %>
     <label><%= _t(:upload_image) %></label>
+  </div>
+  <div class="toolbar_spacer"></div>
+  <div class="button_group">
+    <div class="button_with_label">
+      <%= link_to(
+        render_icon('zoom-out'),
+        alchemy.admin_pictures_path({
+          size: "small",
+          content_id: @content,
+          element_id: @element,
+          swap: @swap,
+          query: params[:query],
+          options: @options.to_json
+        }),
+        remote: true,
+        title: _t(:small_thumbnails),
+        class: "icon_button"
+      ) %>
+    </div>
+    <div class="button_with_label">
+      <%= link_to(
+        render_icon('zoom-equal'),
+        alchemy.admin_pictures_path({
+          size: "medium",
+          content_id: @content,
+          element_id: @element,
+          swap: @swap,
+          query: params[:query],
+          options: @options.to_json
+        }),
+        remote: true,
+        title: _t(:medium_thumbnails),
+        class: "icon_button"
+      ) %>
+    </div>
+    <div class="button_with_label">
+      <%= link_to(
+        render_icon('zoom-in'),
+        alchemy.admin_pictures_path({
+          size: "large",
+          content_id: @content,
+          element_id: @element,
+          swap: @swap,
+          query: params[:query],
+          options: @options.to_json
+        }),
+        remote: true,
+        title: _t(:big_thumbnails),
+        class: "icon_button"
+      ) %>
+    </div>
+    <label><%= _t('Image size') %></label>
+    <%= hidden_field_tag('size', @size, id: 'overlay_thumbnails_size') %>
   </div>
   <%= render partial: 'alchemy/admin/partials/remote_search_form' %>
 </div>

@@ -8,6 +8,7 @@
 <% content_for :toolbar do %>
 <div class="toolbar_buttons">
   <%= render :partial => 'alchemy/admin/partials/language_tree_select' %>
+  <div class="toolbar_spacer"></div>
   <% if can?(:flush, Alchemy::Page) %>
   <div class="button_with_label">
     <%= link_to(
@@ -50,13 +51,15 @@
   </div>
 </div>
 <div class="js_filter_field_box">
-  <input name="filter" id="search_field" class="thin_border js_filter_field">
+  <%= text_field_tag 'filter', '',
+    class: 'thin_border js_filter_field',
+    id: 'search_field',
+    placeholder: _t(:search) %>
   <%= render_icon :search %>
   <%= link_to('', '#', {
     class: "js_filter_field_clear",
     title: _t(:click_to_show_all)
   }) %>
-  <label><%= _t :search %></label>
 </div>
 <% end %>
 

@@ -33,11 +33,11 @@
 }
 
 #main_navi {
-  padding-top: 25px;
+  padding-top: 20px;
   padding-left: 4px;
   padding-bottom: 80px;
 
-  a.main_navi_entry {
+  .main_navi_entry {
     color: #444;
     position: relative;
     text-align: center;
@@ -47,7 +47,7 @@
     @extend .left-rounded-border;
     border: 1px none #afafaf;
     border-right-style: none;
-    padding-bottom: 5px;
+    padding-bottom: 6px;
     padding-left: 1px;
     width: 60px;
 
@@ -66,7 +66,7 @@
       padding-left: 0;
       border-right-style: none;
       padding-top: 6px;
-      padding-bottom: 4px;
+      padding-bottom: 5px;
     }
 
     img {
@@ -142,7 +142,7 @@ div#overlay_text_box {
 #main_content {
   @include box-sizing(border-box);
   background-color: $light-gray;
-  padding: 88px 8px 8px 74px;
+  padding: 73px 8px 8px 74px;
   z-index: 0;
   width: 100%;
   height: 100%;
@@ -160,8 +160,7 @@ div#user_info {
   position: absolute;
   top: 0;
   right: 65px;
-  z-index: 10;
-  line-height: 26px;
+  line-height: 28px;
   font-size: 11px;
   padding: 0 8px;
   background-color: $light-blue;
@@ -177,12 +176,11 @@ div#user_info {
 }
 
 #sub_navigation {
-  height: 22px;
-  line-height: 21px;
+  height: 24px;
+  line-height: 23px;
   background: $light-blue;
   border-bottom: $default-border;
   padding-top: 4px;
-  z-index: 5;
   position: relative;
 
   a {
@@ -199,12 +197,12 @@ div#user_info {
     text-shadow: 0px 1px 1px #FFFFFF;
     @extend .disable-user-select;
     cursor: default;
-    line-height: 20px;
+    line-height: 22px;
     float: left;
     @extend .top-rounded-border;
     border: $default-border;
     border-bottom-style: none;
-    height: 22px;
+    height: 24px;
     margin-right: 1px;
   }
 
@@ -212,14 +210,14 @@ div#user_info {
     position: relative;
     margin-right: $default-margin;
     line-height: 27px;
-    bottom: 3px;
+    bottom: 2px;
   }
 
   .page_language {
     float: none;
     position: relative;
     @include inline-block;
-    bottom: 4px;
+    bottom: 3px;
     color: #3265b1;
     @extend %rounded-border;
     margin-right: 2px;
@@ -231,8 +229,8 @@ div#user_info {
   .subnavi_tab {
     float: left;
     padding: 0px 8px;
-    line-height: 19px;
-    height: 21px;
+    line-height: 21px;
+    height: 23px;
     text-shadow: #fff 0 0px 4px;
     background: #d6e0e6;
     color: #444;
@@ -262,7 +260,7 @@ div#user_info {
       float: left;
       position: relative;
       padding: 0px 8px;
-      height: 22px;
+      height: 24px;
       color: $text-color;
       background-color: $medium-gray;
       text-shadow: #fff 0 1px 2px;
@@ -274,14 +272,14 @@ div#user_info {
 }
 
 #subnav_additions {
-  height: 23px;
+  height: 25px;
   overflow: hidden;
 
   label {
     float: left;
     font-size: 10px;
-    line-height: 25px;
-    height: 25px;
+    line-height: 27px;
+    height: 27px;
     margin-left: 8px;
     margin-right: 4px;
   }

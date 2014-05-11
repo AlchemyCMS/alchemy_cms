@@ -19,7 +19,7 @@ Alchemy.PreviewWindow =
       width = $window.width() - 64
     else
       width = $window.width() - 466
-    height = $window.height() - 80
+    height = $window.height() - 73
     width = 240 if width < 240
     @currentWidth = width
     @currentWindow.css

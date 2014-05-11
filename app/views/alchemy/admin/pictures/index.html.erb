@@ -16,38 +16,43 @@
     <% if can? :create, Alchemy::Picture %>
     <div class="toolbar_spacer"></div>
     <% end %>
-    <div class="button_with_label">
-      <%= link_to(
-        render_icon('zoom-out'),
-        alchemy.admin_pictures_path({
-          size: "small",
-          query: params[:query]
-        }),
-        title: _t(:small_thumbnails),
-        class: "icon_button please_wait"
-      ) %>
-      <%= link_to(
-        render_icon('zoom-equal'),
-        alchemy.admin_pictures_path({
-          size: "medium",
-          query: params[:query]
-        }),
-        title: _t(:medium_thumbnails),
-        class: "icon_button please_wait"
-      ) %>
-      <%= link_to(
-        render_icon('zoom-in'),
-        alchemy.admin_pictures_path({
-          size: "large",
-          query: params[:query]
-        }),
-        title: _t(:big_thumbnails),
-        class: "icon_button please_wait"
-      ) %>
+    <div class="button_group">
+      <div class="button_with_label">
+        <%= link_to(
+          render_icon('zoom-out'),
+          alchemy.admin_pictures_path({
+            size: "small",
+            query: params[:query]
+          }),
+          title: _t(:small_thumbnails),
+          class: "icon_button please_wait"
+        ) %>
+      </div>
+      <div class="button_with_label">
+        <%= link_to(
+          render_icon('zoom-equal'),
+          alchemy.admin_pictures_path({
+            size: "medium",
+            query: params[:query]
+          }),
+          title: _t(:medium_thumbnails),
+          class: "icon_button please_wait"
+        ) %>
+      </div>
+      <div class="button_with_label">
+        <%= link_to(
+          render_icon('zoom-in'),
+          alchemy.admin_pictures_path({
+            size: "large",
+            query: params[:query]
+          }),
+          title: _t(:big_thumbnails),
+          class: "icon_button please_wait"
+        ) %>
+      </div>
       <label><%= _t('Image size') %></label>
       <%= hidden_field_tag('size', @size, id: 'overlay_thumbnails_size') %>
     </div>
-
     <% if can?(:flush, Alchemy::Picture) %>
       <div class="toolbar_spacer"></div>
       <%= toolbar_button(

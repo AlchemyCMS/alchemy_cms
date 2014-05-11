@@ -68,7 +68,7 @@ a {
   }
 
   &:focus {
-    @extend %white-focus-style;
+    @extend %blue-focus-style;
     color: black;
   }
 
@@ -233,10 +233,6 @@ div#page_editing_menu {
 
 #page_sorting_panel p {
   margin-top: 1em;
-}
-
-div.table_right span.tools a.icon_button img {
-  left: -1px;
 }
 
 li.even {
@@ -560,7 +556,7 @@ div.browse {
   @include box-sizing(border-box);
   position: absolute;
   left: 66px;
-  top: 80px;
+  top: 73px;
   width: auto;
   height: auto;
   border: 0 none;

@@ -1,6 +1,6 @@
-div#sort_panel {
+#sort_panel {
   background: $medium-gray;
-  padding: 60px 0 8px 0;
+  padding: 45px 0 8px 0;
   position: fixed;
   top: 27px;
   left: 0;
@@ -9,12 +9,12 @@ div#sort_panel {
   border-bottom: $default-border;
 
   div.info {
-    margin: 8px 8px 8px 104px;
+    margin: 8px 8px 8px 78px;
     width: 720px;
   }
 
-  div.buttons {
-    margin-left: 104px;
+  .buttons {
+    margin-left: 78px;
   }
 }
 
@@ -218,7 +218,7 @@ div.page_infos {
 
 #sub_navigation .page_status_and_name .page_status {
   float: none;
-  @include inline-block(baseline);
+  @include inline-block(-1px);
   margin-left: 2px;
 }
 

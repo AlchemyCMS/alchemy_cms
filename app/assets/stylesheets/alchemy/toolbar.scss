@@ -1,7 +1,5 @@
 #toolbar {
   z-index: 10;
-  padding: 4px;
-  height: 44px;
   @extend %gradiated-toolbar;
   margin-right: 0px;
   border: $default-border;
@@ -9,7 +7,7 @@
   border-right-style: none;
   position: relative;
 
-  div.button_with_label {
+  .button_with_label {
 
     form {
       margin: 0;
@@ -17,10 +15,6 @@
       line-height: 5px;
 
       select { margin: 0 }
-
-      label {
-        margin-top: $default-margin;
-      }
     }
   }
 
@@ -30,7 +24,7 @@
     padding: 0;
   }
 
-  a.button {
+  .button {
     width: 25px;
     height: 21px;
     text-decoration: none;
@@ -62,7 +56,7 @@
 
   .search_form {
     position: absolute;
-    top: 4px;
+    top: 8px;
     right: 8px;
     text-align: center;
   }
@@ -74,30 +68,38 @@
 
   &.right {
     position: absolute;
-    right: 8px;
-    top: 4px;
+    right: 0;
+    top: 8px;
     margin-left: 8px;
+
+    label {
+      left: auto;
+      right: 50%;
+      margin-left: 0;
+      margin-right: -12px;
+
+      &:before {
+        left: auto;
+        right: 8px;
+      }
+    }
   }
 }
 
 .toolbar_spacer {
   @include inline-block;
-  width: 1px;
-  height: 37px;
-  border-right-style: dotted;
+  width: 0px;
+  height: 29px;
+  border-right-style: solid;
   border-right-width: 1px;
-  margin-right: 2*$default-margin;
+  border-right-color: $default-border-color;
+  margin-right: $default-margin;
   margin-left: $default-margin;
 }
 
 #overlay_toolbar {
   @extend %gradiated-toolbar;
-  border: $default-border;
-  height: 44px;
-  border-top-style: none;
-  border-left-style: none;
-  border-right-style: none;
-  padding: $default-padding;
+  border-bottom: $default-border;
 
   a.button {
     width: 25px;
@@ -117,21 +119,28 @@
     }
   }
 
-  .search_field {
-    width: 225px;
-  }
-
   form {
     float: right;
-    width: 310px;
-    margin-top: 2px;
-    padding: 0 !important;
-    margin-right: 0;
+    margin-right: 8px;
 
     .button {
       position: absolute;
-      top: 2px;
-      right: 4px;
+      top: 4px;
+      right: 8px;
     }
+  }
+}
+
+.button_group {
+  position: relative;
+  @include inline-block(top);
+  margin: 0 2*$default-margin;
+
+  &:hover label {
+    display: block;
+  }
+
+  .button_with_label {
+    margin: 0;
   }
 }

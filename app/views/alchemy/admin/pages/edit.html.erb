@@ -15,6 +15,7 @@
       <label><%= _t(:unlock_page) %></label>
     <% end %>
   </div>
+  <div class="toolbar_spacer"></div>
   <% unless @page.layoutpage? %>
   <div class="button_with_label">
     <%= form_tag alchemy.visit_admin_page_path(@page), id: 'visit_page_form' do %>
@@ -80,10 +81,13 @@
   </div>
   <% end %>
   <div class="toolbar_spacer"></div>
-  <div class="button_with_label">
-    <%= select_tag('preview_size', preview_sizes_for_select, class: 'alchemy_selectbox medium') %>
+  <div class="select_with_label">
     <label><%= _t(:preview_size) %></label>
+    <%= select_tag 'preview_size',
+      preview_sizes_for_select,
+      class: 'alchemy_selectbox medium' %>
   </div>
+  <div class="toolbar_spacer"></div>
   <div class="button_with_label">
     <%= link_to render_icon(:reload), '#', {
       title: _t('Reload Preview'),

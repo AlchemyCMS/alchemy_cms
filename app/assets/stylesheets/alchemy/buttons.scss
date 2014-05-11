@@ -49,10 +49,9 @@ button, input[type="submit"], a.button, input.button {
 }
 
 .icon_button {
-  @extend %button-defaults;
   width: 21px;
   height: 21px;
-  line-height: 19px;
+  line-height: 21px;
   margin: 0;
   padding: 3px;
   overflow: hidden;
@@ -65,7 +64,7 @@ button, input[type="submit"], a.button, input.button {
 
   .icon {
     @include inline-block;
-    vertical-align: middle;
+    margin-top: -2px;
   }
 
   .old_icon {
@@ -103,6 +102,7 @@ button, input[type="submit"], a.button, input.button {
       top: 3px;
       width: 8px;
       height: 8px;
+      margin-top: 0;
 
       &:before {
         line-height: 10px;
@@ -164,43 +164,38 @@ button, input[type="submit"], a.button, input.button {
 }
 
 button.icon_button {
-  width: 29px;
-  height: 29px;
+  background: transparent;
+  border: 0 none;
+  @include border-radius(0);
+  @include box-shadow(none);
+  @include box-sizing(content-box);
 }
 
 #new_element button.button {
   float: right;
 }
 
-div#toolbar label {
-  @include default-label-style;
-}
-
 .button_with_label {
+  position: relative;
   @include inline-block(top);
   text-align: center;
-  margin-right: 8px;
-  margin-left: 8px;
-  min-width: 70px;
+  margin: 0 2*$default-margin;
   line-height: 0;
 
-  label {
-    @include default-label-style;
-  }
-
-  &.active {
+  &.active, &:active {
 
     .icon_button {
-      $second-color: darken($sb-base-color, 10%);
-      @include sassy-button-active-shadow($second-color);
-      background-color: $second-color;
-      @include background(linear-gradient(color-stops(darken($sb-base-color, 2%), $second-color 50%, darken($second-color, 8%))))
+      background-color: darken($sb-base-color, 10%);
+      border: $default-border;
+      padding: 2px;
+      @extend %rounded-border;
     }
+  }
 
-    label {
-      color: black;
-      text-shadow: white 0 0 2px;
-    }
+  &:hover .icon_button {
+    border: $default-border;
+    padding: 2px;
+    @extend %rounded-border;
   }
 
   .select2-container {
@@ -222,6 +217,38 @@ div#toolbar label {
   }
 }
 
-div.sitemap_right_tools .sitemap_sitetools a.icon_button {
-  margin-right: 4px;
+.button_with_label, .button_group {
+
+  .icon_button {
+    width: 23px;
+    height: 23px;
+    line-height: 23px;
+  }
+
+  label {
+    display: none;
+    position: absolute;
+    top: -25px;
+    left: 50%;
+    margin-left: -13px;
+    z-index: 30;
+    background: $dark-gray;
+    color: #fff;
+    padding: $default-padding 2*$default-padding;
+    @extend %rounded-border;
+    line-height: 1;
+    @include box-shadow(0 0 4px $default-border-color);
+    white-space: nowrap;
+
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 8px;
+      border: 5px transparent solid;
+      border-top-color: $dark-gray;
+    }
+  }
+
+  &:hover label { display: block }
 }
