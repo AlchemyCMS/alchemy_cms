@@ -33,6 +33,20 @@ module Alchemy
         instance = Alchemy::Auth::Engine.get_instance
         instance.load(File.join(File.dirname(__FILE__), '../../../spec/dummy', 'config/authorization_rules.rb'))
       end
+
+      # Capybara actions to create a new element.
+      #
+      # You can pass the name of the desired element, or just use the default "Article".
+      #
+      def create_element!(name = 'Article')
+        within '.alchemy-elements-window' do
+          click_link Alchemy::I18n.t('New Element')
+        end
+        within '.new_alchemy_element' do
+          select(name, from: 'element[name]')
+          click_button 'Add'
+        end
+      end
     end
 
   end
