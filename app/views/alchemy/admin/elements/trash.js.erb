@@ -6,7 +6,7 @@ $('#element_<%= @element.id %>').hide(200, function() {
   $('#element_trash_button .icon').addClass('full');
   Alchemy.PreviewWindow.refresh();
   <% @element.contents.essence_richtexts.each do |content| %>
-  tinymce.get('contents_content_<%= content.id %>_body').remove();
+    tinymce.get('tinymce_<%= content.id %>').remove();
   <% end %>
   <%= update_essence_select_elements(@page, @element) -%>
 });
