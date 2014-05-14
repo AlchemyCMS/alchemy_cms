@@ -45,4 +45,13 @@ namespace :alchemy do
     end
 
   end
+
+  namespace :i18n do
+
+    desc "Updates translation files with latest keys from German translation"
+    task :sync do
+      Alchemy::I18n.synchronize
+    end
+
+  end
 end

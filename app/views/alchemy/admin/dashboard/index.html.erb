@@ -26,7 +26,7 @@
   </h1>
   <% if @last_sign_at %>
   <p>
-    <small><%= _t('Your last login was on %{time}', time: l(@last_sign_at)) %></small>
+    <small><%= _t('Your last login was on', time: l(@last_sign_at)) %></small>
   </p>
   <% end %>
   <div class="column left">

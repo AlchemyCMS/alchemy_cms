@@ -58,7 +58,7 @@ module Alchemy
           page: params[:page],
           query: params[:query]
         )
-        flash[:notice] = _t("File: '%{name}' deleted successfully", name: name)
+        flash[:notice] = _t('File deleted successfully', name: name)
       end
 
       def download

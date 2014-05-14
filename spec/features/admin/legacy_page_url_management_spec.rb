@@ -19,7 +19,7 @@ describe 'Legacy page url management', js: true do
     open_page_properties
     click_link 'Links'
     fill_in 'legacy_page_url_urlname', with: 'new-urlname'
-    click_button 'Add'
+    click_button Alchemy::I18n.t(:add)
     within '#legacy_page_urls' do
       expect(page).to have_content('new-urlname')
     end
@@ -33,7 +33,7 @@ describe 'Legacy page url management', js: true do
       open_page_properties
       click_link 'Links'
       fill_in 'legacy_page_url_urlname', with: 'invalid url name'
-      click_button 'Add'
+      click_button Alchemy::I18n.t(:add)
       within '#new_legacy_page_url' do
         expect(page).to have_content('URL path is invalid')
       end
@@ -48,7 +48,7 @@ describe 'Legacy page url management', js: true do
     end
 
     it "lets a user remove a page link" do
-      click_link 'Remove'
+      click_link Alchemy::I18n.t(:remove)
       click_button 'Yes'
       within '#legacy_page_urls' do
         expect(page).to_not have_content('a-page-link')

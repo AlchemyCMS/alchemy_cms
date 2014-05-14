@@ -52,7 +52,32 @@ module Alchemy
       Dir.glob(File.join(File.dirname(__FILE__), '../../config/locales/alchemy.*.yml'))
     end
 
-  private
+    def self.synchronize
+      puts "Starting syncronization..."
+      source_data = YAML.load_file(locale_file('de'))['de']['alchemy']
+      available_locales.each do |locale|
+        next if locale == 'de'
+        puts "Updating #{locale} locale file"
+        locale_data = YAML.load_file(locale_file(locale))
+        source_data.each do |key, value|
+          next if locale_data[locale]['alchemy'][key].present?
+          if key.to_s.match /_/
+            value = key.to_s.humanize
+          else
+            value = key
+          end
+          locale_data[locale]['alchemy'][key] = value
+        end
+        File.new("./config/locales/alchemy.#{locale}.yml", 'w') << locale_data.to_yaml
+      end
+      puts "Done."
+    end
+
+    private
+
+    def self.locale_file(locale)
+      File.expand_path("../../../config/locales/alchemy.#{locale}.yml", __FILE__)
+    end
 
     def self.humanize_default_string!(msg, options)
       if options[:default].blank?

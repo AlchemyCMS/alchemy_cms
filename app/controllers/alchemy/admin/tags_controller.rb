@@ -26,7 +26,7 @@ module Alchemy
         if tag_params[:merge_to]
           @new_tag = ActsAsTaggableOn::Tag.find(tag_params[:merge_to])
           Tag.replace(@tag, @new_tag)
-          operation_text = _t('Replaced Tag %{old_tag} with %{new_tag}') % {:old_tag => @tag.name, :new_tag => @new_tag.name}
+          operation_text = _t('Replaced Tag') % {old_tag: @tag.name, new_tag: @new_tag.name}
           @tag.destroy
         else
           @tag.update_attributes(tag_params)
