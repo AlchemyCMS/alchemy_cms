@@ -5,6 +5,9 @@
   </div>
 <%- else -%>
   <%= alchemy_form_for [:admin, @element] do |form| %>
+    <% if params[:insert_after].present? %>
+      <%= hidden_field_tag :insert_after, params[:insert_after] %>
+    <% end %>
     <%= form.hidden_field :page_id %>
   <%- if @page.can_have_cells? -%>
     <%= form.input :name,

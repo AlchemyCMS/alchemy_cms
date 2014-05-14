@@ -1,12 +1,16 @@
-$('#element_<%= @element.id %>').hide(200, function() {
-  $(this).remove();
-  Alchemy.growl('<%= j _t("Element trashed") %>');
-  $('#element_area .sortable_cell').sortable('refresh');
-  Alchemy.TrashWindow.refresh();
-  $('#element_trash_button .icon').addClass('full');
-  Alchemy.PreviewWindow.refresh();
-  <% @element.contents.essence_richtexts.each do |content| %>
-  tinymce.get('contents_content_<%= content.id %>_body').remove();
-  <% end %>
-  <%= update_essence_select_elements(@page, @element) -%>
-});
+(function() {
+  var $el = $('#element_<%= @element.id %>');
+  var $parent = $el.parent();
+  $el.hide(200, function() {
+    $(this).remove();
+    Alchemy.growl('<%= j _t("Element trashed") %>');
+    $('#element_area .sortable_cell').sortable('refresh');
+    Alchemy.TrashWindow.refresh();
+    $('#element_trash_button .icon').addClass('full');
+    Alchemy.PreviewWindow.refresh();
+    <%= update_essence_select_elements(@page, @element) -%>
+    if ($parent.find('.element_editor').length === 0) {
+      $('#insert_element_top').addClass('expanded');
+    }
+  });
+})();

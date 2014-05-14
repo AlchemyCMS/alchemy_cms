@@ -16,10 +16,10 @@
 
   $element_area = $('#cell_<%= @cell_name %>');
 
-<%- if @insert_at_top -%>
-  $element_area.prepend(element_html);
+<%- if @element_before -%>
+  $('#element_<%= @element_before.id %>').after(element_html);
 <%- else -%>
-  $element_area.append(element_html);
+  $('#insert_element_top').after(element_html).removeClass('expanded');
 <%- end -%>
 
   if ($element_area.find('.element_editor').length > 0) {

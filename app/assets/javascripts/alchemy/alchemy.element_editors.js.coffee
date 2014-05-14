@@ -39,7 +39,7 @@ Alchemy.ElementEditors =
   #
   onClickElement: (e) ->
     self = Alchemy.ElementEditors
-    $element = $(this).parent(".element_editor")
+    $element = $(this).parents(".element_editor")
     id = $element.attr("id").replace(/\D/g, "")
     e.preventDefault()
     $("#element_area .element_editor").removeClass "selected"

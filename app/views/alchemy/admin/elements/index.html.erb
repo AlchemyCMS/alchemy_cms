@@ -5,22 +5,37 @@
       <% @elements.each do |cell, elements| %>
         <li>
           <a href="#cell_<%= cell.name %>">
-            <%= _t(cell.name, :scope => :cell_names) %>
+            <%= _t(cell.name, scope: 'cell_names') %>
           </a>
         </li>
       <% end %>
     </ul>
     <div id="cell_for_other_elements" class="sortable_cell for_other_elements_cell">
-      <%= render :partial => 'alchemy/admin/elements/element', :collection => @page.elements.not_trashed.not_in_cell, :locals => {:draggable => true} %>
+      <%= render 'add_element_button',
+        expanded: @page.elements.not_trashed.not_in_cell.empty?,
+        id: 'insert_element_top' %>
+      <%= render partial: 'alchemy/admin/elements/element',
+        collection: @page.elements.not_trashed.not_in_cell,
+        locals: {draggable: true} %>
     </div>
     <% @elements.each do |cell, elements| -%>
       <div id="cell_<%= cell.name %>" class="sortable_cell <%= cell.name %>_cell" data-cell-id="<%= cell.id %>">
-        <%= render :partial => 'alchemy/admin/elements/element', :collection => elements, :locals => {:draggable => true} %>
+        <%= render 'add_element_button',
+          expanded: elements.empty?,
+          id: 'insert_element_top' %>
+        <%= render partial: 'alchemy/admin/elements/element',
+          collection: elements,
+          locals: {draggable: true} %>
       </div>
     <% end %>
   </div>
 <% else %>
   <div class="sortable_cell for_other_elements_cell" id="cell_for_other_elements">
-    <%= render :partial => 'alchemy/admin/elements/element', :collection => @elements, :locals => {:draggable => true} %>
+    <%= render 'add_element_button',
+      expanded: @elements.empty?,
+      id: 'insert_element_top' %>
+    <%= render partial: 'alchemy/admin/elements/element',
+      collection: @elements,
+      locals: {draggable: true} %>
   </div>
 <% end %>

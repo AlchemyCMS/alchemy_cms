@@ -1,0 +1,18 @@
+<%= link_to_dialog new_admin_element_path(
+    page_id: @page.id,
+    insert_after: local_assigns[:element_before].try(:id)
+  ),
+  {
+    title: _t("New Element"),
+    size: '320x125'
+  },
+  {
+    class: "#{local_assigns[:expanded] ? 'expanded ' : ''}insert-element-button",
+    id: local_assigns[:id],
+    title: _t("New Element")
+  } do %>
+  <%= render_icon 'create' %>
+  <label>
+    <%= _t('New Element') %>
+  </label>
+<% end %>

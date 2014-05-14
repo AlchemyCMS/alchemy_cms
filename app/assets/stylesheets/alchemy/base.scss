@@ -542,6 +542,10 @@ select#url_protocol.medium {
   overflow-x: hidden;
   overflow-y: auto;
   margin-bottom: 1em;
+
+  .insert-element-button {
+    display: none;
+  }
 }
 
 .mceEditor table {
@@ -556,7 +560,7 @@ div.browse {
   @include box-sizing(border-box);
   position: absolute;
   left: 66px;
-  top: 73px;
+  top: 75px;
   width: auto;
   height: auto;
   border: 0 none;

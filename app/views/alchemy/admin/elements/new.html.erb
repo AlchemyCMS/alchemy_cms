@@ -11,6 +11,9 @@
   </div>
   <div id="paste_element_tab">
     <%= alchemy_form_for([:admin, @element]) do |f| %>
+      <% if params[:insert_after].present? %>
+        <%= hidden_field_tag :insert_after, params[:insert_after] %>
+      <% end %>
       <%= f.hidden_field(:page_id) %>
       <div class="input select">
         <label for="paste_from_clipboard" class="control-label"><%= _t("Element") %></label>

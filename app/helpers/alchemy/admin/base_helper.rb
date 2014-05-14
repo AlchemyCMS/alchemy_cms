@@ -34,6 +34,12 @@ module Alchemy
       #
       #   <%= link_to_dialog('Edit', edit_product_path, {size: '200x300'}, {class: 'icon_button'}) %>
       #
+      # Or you call it with a block
+      #
+      #   <%= link_to_dialog edit_product_path, {size: 200x300} do %>
+      #     <%= render_icon(:edit) %>
+      #   <% end %>
+      #
       # @param [String] content
       #   The string inside the link tag
       # @param [String or Hash] url
@@ -50,11 +56,18 @@ module Alchemy
       # @option options [Boolean] :modal (true)
       #    Show as modal window.
       #
-      def link_to_dialog(content, url, options={}, html_options={})
+      def link_to_dialog(content = nil, url = nil, options = {}, html_options = {}, &block)
+        html_options, options, url, content = options, url, content, block if block_given?
         default_options = {modal: true}
         options = default_options.merge(options)
-        link_to content, url,
-          html_options.merge('data-alchemy-dialog' => options.to_json)
+        if block_given?
+          link_to url,
+            html_options.merge('data-alchemy-dialog' => options.to_json),
+            &block
+        else
+          link_to content, url,
+            html_options.merge('data-alchemy-dialog' => options.to_json)
+        end
       end
 
       # Used for translations selector in Alchemy cockpit user settings.

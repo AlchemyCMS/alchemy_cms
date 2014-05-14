@@ -98,6 +98,35 @@
   </div>
 </div>
 <div class="toolbar_buttons right">
+  <% if can?(:create, Alchemy::Element) %>
+  <div class="button_with_label" id="clipboard_button">
+    <%= link_to_dialog(
+      render_icon("clipboard#{clipboard_empty?('elements') ? '' : ' full'}"),
+      alchemy.admin_clipboard_path(remarkable_type: "elements"),
+      {
+        title: _t('Clipboard'),
+        size: '380x305'
+      },
+      {
+        title: _t('Show clipboard'),
+        class: 'icon_button'
+      }
+    ) %>
+    <label><%= _t('Show clipboard') %></label>
+  </div>
+  <% end %>
+  <div class="button_with_label" id="element_trash_button">
+    <%= link_to(
+      render_icon("trash#{trash_empty?('elements') ? '' : ' full'}"),
+      '',
+      {
+        title: _t('Show trash'),
+        onclick: "Alchemy.TrashWindow.open(#{@page.id}, '#{_t('Trash')}'); return false",
+        class: 'icon_button'
+      }
+    ) %>
+    <label><%= _t('Show trash') %></label>
+  </div>
   <div class="button_with_label" id="element_window_button">
     <%= link_to render_icon(:element_window), '', {
       title: _t('Hide Elements'),
@@ -131,42 +160,7 @@
         cancel_label: '<%= _t("No") %>',
         hideElements: '<%= _t("Hide Elements") %>',
         showElements: '<%= _t("Show Elements") %>'
-      },
-      toolbarButtons: [
-        {
-          title: '<%= _t("New Element") %>',
-          label: '<%= _t("New Element") %>',
-          hotkey: 'alt+n',
-          iconClass: 'new_element',
-          onClick: function() {
-            Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_id: @page.id) %>', {
-              title: '<%= _t("New Element") %>',
-              size: '320x125'
-            });
-          }
-        },
-        {
-          title: '<%= _t("Clipboard") %>',
-          label: '<%= _t("Show clipboard") %>',
-          iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" %>',
-          buttonId: 'clipboard_button',
-          onClick: function() {
-            Alchemy.openDialog('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {
-              title :'<%= _t("Clipboard") %>',
-              size: '380x305'
-            });
-          }
-        },
-        {
-          title: '<%= _t("Show trash") %>',
-          label: '<%= _t("Show trash") %>',
-          iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" %>',
-          buttonId: 'element_trash_button',
-          onClick: function() {
-            Alchemy.TrashWindow.open(<%= @page.id %>, '<%= _t("Trash") %>');
-          }
-        }
-      ]
+      }
     }, function() {
       Alchemy.ImageLoader('#element_area');
       Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');

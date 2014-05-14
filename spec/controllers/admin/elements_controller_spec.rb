@@ -96,25 +96,28 @@ module Alchemy
       describe 'insertion position' do
         before { element }
 
-        it "should insert the element at bottom of list" do
-          xhr :post, :create, {element: {name: 'news', page_id: alchemy_page.id}}
-          alchemy_page.elements.count.should == 2
-          alchemy_page.elements.last.name.should == 'news'
-        end
-
-        context "on a page with a setting for insert_elements_at of top" do
-          before do
-            PageLayout.stub(:get).and_return({
-              'name' => 'news',
-              'elements' => ['news'],
-              'insert_elements_at' => 'top'
-            })
-          end
-
+        context 'with no insert_after passed' do
           it "should insert the element at top of list" do
             xhr :post, :create, {element: {name: 'news', page_id: alchemy_page.id}}
             alchemy_page.elements.count.should == 2
             alchemy_page.elements.first.name.should == 'news'
+          end
+        end
+
+        context "with insert_after passed in the params" do
+          let(:element_before) { create(:element, name: 'headline', page: alchemy_page) }
+
+          before do
+            alchemy_page.elements.delete_all
+            element_before
+          end
+
+          it "should insert the new element after that element" do
+            xhr :post, :create, {element: {name: 'news', page_id: alchemy_page.id}, insert_after: element_before.id}
+            alchemy_page.elements.count.should == 2
+            alchemy_page.elements.reload
+            alchemy_page.elements.first.name.should == 'headline'
+            alchemy_page.elements.last.name.should == 'news'
           end
         end
       end

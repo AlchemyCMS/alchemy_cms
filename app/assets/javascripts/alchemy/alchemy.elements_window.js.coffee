@@ -1,22 +1,5 @@
 window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
-# Adds buttons into a toolbar inside of overlay windows
-Alchemy.ToolbarButton = (options) ->
-  $btn = $('<div class="button_with_label" />')
-  if options.buttonId
-    $btn.attr(id: options.buttonId)
-  $lnk = $("<a title='#{options.title}' class='icon_button' href='#' />")
-  if options.hotkey
-    $lnk.attr('data-alchemy-hotkey', options.hotkey)
-  $lnk.click (e) ->
-    e.preventDefault()
-    options.onClick(e)
-    false
-  $lnk.append "<span class='icon #{options.iconClass}' />"
-  $btn.append $lnk
-  $btn.append "<br><label>#{options.label}</label>"
-  $btn
-
 Alchemy.ElementsWindow =
 
   init: (url, options, callback) ->
@@ -26,7 +9,6 @@ Alchemy.ElementsWindow =
     @url = url
     @options = options
     @callback = callback
-    @element_window.append @createToolbar(options.toolbarButtons)
     @element_window.append @element_area
     @button = $('#element_window_button')
     @button.click =>
@@ -39,18 +21,12 @@ Alchemy.ElementsWindow =
     $('#main_content').append(@element_window)
     @reload()
 
-  createToolbar: (buttons) ->
-    @toolbar = $('<div id="overlay_toolbar"/>')
-    for btn in buttons
-      @toolbar.append Alchemy.ToolbarButton(btn)
-    @toolbar
-
   resize: ->
-    height = $(window).height() - 73
+    height = $(window).height() - 75
     @element_window.css
       height: height
     @element_area.css
-      height: height - 46
+      height: height
     height
 
   reload: ->
