@@ -54,7 +54,7 @@ describe "Resources" do
         visit '/admin/events/new'
         fill_in 'event_name', :with => 'My second event'
         fill_in 'event_starts_at', :with => DateTime.new(2012, 03, 03, 20, 00)
-        click_on 'Save'
+        click_on Alchemy::I18n.t(:save)
       end
 
       it "lists the new item" do
@@ -71,7 +71,7 @@ describe "Resources" do
       before do
         visit '/admin/events/new'
         fill_in 'event_name', :with => '' #invalid!
-        click_on 'Save'
+        click_on Alchemy::I18n.t(:save)
       end
 
       it "shows the form again" do
@@ -93,7 +93,7 @@ describe "Resources" do
     before do
       visit("/admin/events/#{event.id}/edit")
       fill_in 'event_name', :with => 'New event name'
-      click_on 'Save'
+      click_on Alchemy::I18n.t(:save)
     end
 
     it "shows the updated value" do
