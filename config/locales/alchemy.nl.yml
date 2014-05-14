@@ -132,8 +132,6 @@ nl:
         aliases: Specificeer andere domeinen gescheiden met witte ruimte of lege regel
     back: zurück
     create_tree_as_new_language: "%{language} aanmaken als nieuwe boomstructuur"
-    <a href="http://get.adobe.com/flashplayer" target="_blank">%{value}</a>: <a href="http://get.adobe.com/flashplayer"
-      target=" blank">%{value}</a>
     Active Pages: Actieve pagina's
     Add global page: Nieuwe globale pagina
     Adobe Website: Adobe Website
@@ -167,7 +165,7 @@ nl:
     File uploaded succesfully: Bestand %{name} geüpload
     File successfully updated: Bestand is succesvol geüpdatet
     File upload error: 'Fout bij uploaden:: %{error}'
-    'File: ''%{name}'' deleted successfully': "%{name} verwijderd"
+    File deleted successfully: "%{name} verwijderd"
     Filter by tag: Op tag filteren
     Flush page cache: Paginacache leegmaken
     Flush picture cache: Afbeeldingscache leegmaken
@@ -252,7 +250,7 @@ nl:
     Tags: Tags
     These pictures could not be deleted, because they were in use: 'Deze afbeeldingen
       konden niet worden verwijderd, omdat ze in gebruik zijn: %{names}'
-    This page is locked by %{name}: Deze pagina is vergrendeld door %{name}
+    This page is locked: Deze pagina is vergrendeld door %{name}
     Title: Titel
     Trash: Prullenbak
     User created: Gebruiker is aangemaakt
@@ -270,14 +268,14 @@ nl:
     Who else is online: Wie is ook online
     'Yes': Ja
     You are not authorized: U bent niet geauthoriseerd.
-    You are about to edit %{length} pictures at once: "%{length} afbeeldingen worden
-      in een keer aangepast"
+    You are about to edit many pictures at once: "%{length} afbeeldingen worden in
+      een keer aangepast"
     element_dirty_close_window_notice: Elementen zijn nog niet opgeslagen. Dit venster
       toch sluiten?
     You may upload files with following extensions: "%{file_types_description} mogen
       worden geüpload met de volgende extensies: %{file_types}"
     You may upload any file: Alle bestanden kunnen worden geüploadet
-    Your last login was on %{time}: Uw laatste aanmelding was op %{time}.
+    Your last login was on: Uw laatste aanmelding was op %{time}.
     User updated: Gebruiker is aangepast
     Your trash is empty: De prullenbak is leeg
     above: er boven
@@ -505,8 +503,7 @@ nl:
     rename_file: Dit bestand hernoemen.
     rename: hernoemen
     replace: vervangen
-    Replaced Tag %{old_tag} with %{new_tag}: De tag '%{old_tag}' wordt door de tag
-      '%{new_tag}' vervangen
+    Replaced Tag: De tag '%{old_tag}' wordt door de tag '%{new_tag}' vervangen
     resources:
       relation_select:
         blank: "- none -"

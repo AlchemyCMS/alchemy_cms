@@ -172,7 +172,6 @@ de:
     anchor: 'Sprungmarke'
     back: 'zurück'
     create_tree_as_new_language: "%{language} als neuen Sprachbaum anlegen"
-    "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>": ""
     "Active Pages": "Aktive Seiten"
     "Add global page": "Neue globale Seite"
     "Add page link": "Verweis hinzufügen"
@@ -206,7 +205,7 @@ de:
     "File uploaded succesfully": "Datei %{name} wurde hochgeladen"
     "File successfully updated": "Datei wurde erfolgreich gespeichert."
     "File upload error": "Datei konnte nicht hochgeladen werden: %{error}"
-    "File: '%{name}' deleted successfully": "%{name} wurde gelöscht"
+    "File deleted successfully": "%{name} wurde gelöscht"
     "Filter by tag": "Nach Tag filtern"
     "Flush page cache": "Seitencache löschen"
     "Flush picture cache": "Bildercache löschen"
@@ -293,7 +292,7 @@ de:
     searchresults_editor_info: "Dieses Element stellt die Suchergebnisse dar. Es Bedarf keinerlei Anpassung."
     "Tags": "Tags"
     "These pictures could not be deleted, because they were in use": "Diese Bilder konnten nicht gelöscht werden, da sie in Benutzung sind: %{names}"
-    "This page is locked by %{name}": "Diese Seite wird gerade von %{name} blockiert"
+    "This page is locked": "Diese Seite wird gerade von %{name} blockiert"
     "Title": "Titel"
     "Trash": "Papierkorb"
     "User created": "%{name} wurde erstellt"
@@ -310,11 +309,11 @@ de:
     "Who else is online": "Wer ist noch online"
     "Yes": "Ja"
     "You are not authorized": "Sie sind dazu nicht authorisiert."
-    "You are about to edit %{length} pictures at once": "Sie sind dabei %{length} Bilder auf einmal zu bearbeiten."
+    "You are about to edit many pictures at once": "Sie sind dabei %{length} Bilder auf einmal zu bearbeiten."
     element_dirty_close_window_notice: "Sie haben ungesicherte Elemente. Möchten Sie das Elemente Fenster wirklich schließen?"
     "You may upload files with following extensions": "Sie können %{file_types_description} mit folgenden Endungen hochladen: %{file_types}"
     "You may upload any file": "Sie können jede Art von Datei hochladen."
-    "Your last login was on %{time}": "Sie waren zuletzt angemeldet am %{time}."
+    "Your last login was on": "Sie waren zuletzt angemeldet am %{time}."
     "Your last updated pages": "Ihre zuletzt bearbeiteten Seiten"
     "Your trash is empty": "Der Papierkorb ist leer"
     above: "darüber"
@@ -543,7 +542,7 @@ de:
     rename_file: "Datei umbenennen"
     rename: umbenennen
     replace: ersetzen
-    'Replaced Tag %{old_tag} with %{new_tag}': "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
+    'Replaced Tag': "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
     resources:
       relation_select:
         blank: '- ohne -'

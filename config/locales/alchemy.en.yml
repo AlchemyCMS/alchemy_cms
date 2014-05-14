@@ -397,8 +397,6 @@ en:
     resource_help_texts: Resource help texts
     anchor: anchor
     back: back
-    <a href="http://get.adobe.com/flashplayer" target="_blank">%{value}</a>: <a href="http://get.adobe.com/flashplayer"
-      target=" blank">%{value}</a>
     Active Pages: Active Pages
     Add global page: Add global page
     Add page link: Add page link
@@ -430,7 +428,7 @@ en:
     Error with the Flash® Uploader!: Error with the Flash® Uploader!
     Excerpt: Excerpt
     File successfully updated: File successfully updated
-    'File: ''%{name}'' deleted successfully': 'File: ''%{name}'' deleted successfully'
+    File deleted successfully: "%{name} deleted successfully"
     Filter by tag: Filter by tag
     Flush page cache: Flush page cache
     Flush picture cache: Flush picture cache
@@ -498,7 +496,7 @@ en:
     Switch to Flash® Uploader: Switch to Flash® Uploader
     sitemap_editor_info: Sitemap editor info
     Tags: Tags
-    This page is locked by %{name}: This page is locked by %{name}
+    This page is locked: This page is locked by %{name}
     Title: Title
     Trash: Trash
     Version: Version
@@ -508,10 +506,10 @@ en:
     Who else is online: Who else is online
     'Yes': 'Yes'
     You are not authorized: You are not authorized
-    You are about to edit %{length} pictures at once: You are about to edit %{length}
-      pictures at once
+    You are about to edit many pictures at once: You are about to edit %{length} pictures
+      at once
     You may upload any file: You may upload any file
-    Your last login was on %{time}: Your last login was on %{time}
+    Your last login was on: Your last login was on %{time}
     Your last updated pages: Your last updated pages
     Your trash is empty: Your trash is empty
     above: above
@@ -553,7 +551,7 @@ en:
     remove: remove
     rename: rename
     replace: replace
-    Replaced Tag %{old_tag} with %{new_tag}: Replaced tag %{old tag} with %{new tag}
+    Replaced Tag: Replaced tag %{old_tag} with %{new_tag}
     right: right
     save: save
     save order: save order
