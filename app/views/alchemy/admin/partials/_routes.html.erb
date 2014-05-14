@@ -1,0 +1,25 @@
+<script>
+  Alchemy.routes = {
+
+    admin_picture_path: function(id) {
+      return '<%= alchemy.admin_picture_path(id: 1) %>'.replace(/1/, id);
+    },
+
+    admin_trash_path: function(page_id) {
+      var url = '<%= alchemy.admin_trash_path %>';
+      if (page_id) url += '?page_id=' + page_id;
+      return url;
+    },
+
+    fold_admin_element_path: function(id) {
+      return '<%= alchemy.fold_admin_element_path(id: 1) %>'.replace(/1/, id);
+    },
+
+    list_admin_elements_path: '<%= alchemy.list_admin_elements_path %>',
+    order_admin_contents_path: '<%= alchemy.order_admin_contents_path %>',
+    order_admin_elements_path: '<%= alchemy.order_admin_elements_path %>',
+    order_admin_pages_path: '<%= alchemy.order_admin_pages_path %>',
+    link_admin_pages_path: '<%= alchemy.link_admin_pages_path %>'
+
+  };
+</script>
