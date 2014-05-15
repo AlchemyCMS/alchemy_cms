@@ -1,21 +1,8 @@
-<% content_for(:subnav_additions) do %>
-<% unless @locked_pages.blank? %>
-<label><%= _t('Active Pages') %> &raquo;</label>
-<% @locked_pages.each do |page| %>
-<div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
-  <%= link_to alchemy.edit_admin_page_path(page) do %>
-  <span class="page_name" title="<%= page.name %>">
-    <%= truncate page.name, :length => 15 %>
-  </span>
+<% if @locked_pages.present? %>
+  <% content_for(:subnav_additions) do %>
+    <label><%= _t('Active Pages') %> &raquo;</label>
+    <%= render partial: 'locked_page', collection: @locked_pages %>
   <% end %>
-  <%= form_tag(alchemy.unlock_admin_page_path(page), :remote => true) do %>
-    <button class="icon_button small" title="<%= _t(:explain_unlocking) %>">
-      <%= render_icon('close small') %>
-    </button>
-  <% end %>
-</div>
-<% end %>
-<% end %>
 <% end %>
 
 <% content_for :toolbar do %>

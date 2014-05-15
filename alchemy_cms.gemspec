@@ -27,7 +27,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'dragonfly',                        '~> 1.0.1'
   gem.add_runtime_dependency 'kaminari',                         '~> 0.15.0'
   gem.add_runtime_dependency 'acts_as_list',                     '~> 0.3.0'
-  gem.add_runtime_dependency 'magiclabs-userstamp',              '~> 2.0.2'
+  gem.add_runtime_dependency 'magiclabs-userstamp',              '~> 2.1.0'
   gem.add_runtime_dependency 'simple_form',                      '~> 3.0.1'
   gem.add_runtime_dependency 'jquery-rails',                     '~> 3.1.0'
   gem.add_runtime_dependency 'jquery-ui-rails',                  '~> 4.1.1'
@@ -46,7 +46,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rspec-rails'
   gem.add_development_dependency 'capybara'
   gem.add_development_dependency 'factory_girl_rails'
-  
+
   gem.post_install_message =<<-MSG
 To complete the installation of Alchemy please run:
 

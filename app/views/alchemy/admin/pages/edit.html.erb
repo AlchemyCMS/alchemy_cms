@@ -2,24 +2,7 @@
 
 <% content_for(:subnav_additions) do %>
   <label><%= _t('Active Pages') %> &raquo;</label>
-  <% @locked_pages.each do |page| %>
-  <% if @page == page %>
-  <%= render partial: 'page_status' %>
-  <% else %>
-  <div class="subnavi_tab wide" id="locked_page_<%= page.id %>">
-    <%= link_to alchemy.edit_admin_page_path(page) do %>
-    <span class="page_name" title="<%= page.name %>">
-      <%= truncate page.name, length: 15 %>
-    </span>
-    <% end %>
-    <%= form_tag(alchemy.unlock_admin_page_path(page), remote: true) do %>
-      <button class="icon_button small" title="<%= _t(:explain_unlocking) %>">
-        <%= render_icon('close small') %>
-      </button>
-    <% end %>
-  </div>
-  <% end %>
-  <% end %>
+  <%= render partial: 'locked_page', collection: @locked_pages %>
 <% end %>
 
 <% content_for(:toolbar) do %>
@@ -59,17 +42,31 @@
     <label><%= _t(:page_infos) %></label>
   </div>
   <div class="button_with_label">
-    <%= link_to_dialog(
-      render_icon('settings'),
-      alchemy.configure_admin_page_path(@page),
-      {
+    <% if @page.layoutpage? %>
+      <%= link_to_dialog(
+        render_icon('settings'),
+        alchemy.edit_admin_layoutpage_path(@page),
+        {
+          title: _t(:edit_page_properties),
+          size: '450x170'
+        },
+        class: :icon_button,
         title: _t(:edit_page_properties),
-        size: @page.layoutpage? ? '410x150' : '410x660'
-      },
-      class: :icon_button,
-      title: _t(:edit_page_properties),
-      'data-alchemy-hotkey' => 'alt+e'
-    ) %>
+        'data-alchemy-hotkey' => 'alt+e'
+      ) %>
+    <% else %>
+      <%= link_to_dialog(
+        render_icon('settings'),
+        alchemy.configure_admin_page_path(@page),
+        {
+          title: _t(:edit_page_properties),
+          size: '450x720'
+        },
+        class: :icon_button,
+        title: _t(:edit_page_properties),
+        'data-alchemy-hotkey' => 'alt+e'
+      ) %>
+    <% end %>
     <label><%= _t(:page_properties) %></label>
   </div>
   <% if configuration(:cache_pages) && !@page.layoutpage? %>
@@ -108,6 +105,9 @@
 <% end %>
 
 <% content_for :javascripts do %>
+<% if Alchemy::Tinymce.custom_config_contents(@page).any? %>
+  <%= render 'tinymce_custom_config' %>
+<% end %>
 <script type="text/javascript" charset="utf-8">
 
   $(function() {

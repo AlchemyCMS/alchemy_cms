@@ -2,20 +2,22 @@ module Alchemy
   module Tinymce
     mattr_accessor :languages, :plugins
 
-    @@plugins = %w(alchemy_link autoresize charmap code directionality fullscreen link paste tabfocus table)
+    @@plugins = %w(alchemy_link anchor autoresize charmap code directionality fullscreen hr link paste tabfocus table)
     @@languages = ['en', 'de']
     @@init = {
       skin: 'alchemy',
       width: '100%',
-      resize: false,
+      resize: true,
       autoresize_min_height: '105',
+      autoresize_max_height: '480',
       menubar: false,
-      statusbar: false,
+      statusbar: true,
       toolbar1: 'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen',
-      toolbar2: 'pastetext charmap code | undo redo | alchemy_link unlink',
+      toolbar2: 'pastetext charmap hr | undo redo | alchemy_link unlink anchor | code',
       fix_list_elements: true,
       convert_urls: false,
-      entity_encoding: 'raw'
+      entity_encoding: 'raw',
+      element_format: 'html'
     }
 
     def self.init=(settings)
@@ -26,8 +28,12 @@ module Alchemy
       @@init
     end
 
-    def self.custom_config_contents
-      @@custom_config_contents ||= content_definitions_from_elements(Element.definitions)
+    def self.custom_config_contents(page = nil)
+      if page
+        content_definitions_from_elements(page.element_definitions)
+      else
+        content_definitions_from_elements(Element.definitions)
+      end
     end
 
     private

@@ -23,8 +23,14 @@ module Alchemy
   # Usually you don't want your users to edit all attributes provided by a model. Hence some default attributes,
   # namely id, updated_at, created_at, creator_id and updater_id are not returned by Resource#attributes.
   #
-  # If you want to skip a different set of attributes just define a skip_attributes class method in your model class
-  # that returns an array of strings: %W[id, updated_at]
+  # If you want to skip a different set of attributes just define a +skipped_alchemy_resource_attributes+ class method in your model class
+  # that returns an array of strings.
+  #
+  # === Example
+  #
+  #     def self.skipped_alchemy_resource_attributes
+  #       %w(id updated_at secret_token remote_ip)
+  #     end
   #
   # == Resource relations
   #
@@ -67,17 +73,17 @@ module Alchemy
   #     resource = Resource.new('/admin/tags', {"engine_name"=>"alchemy"}, ActsAsTaggableOn::Tag)
   #
   class Resource
-    attr_accessor :skip_attributes, :resource_relations, :model_associations
+    attr_accessor :skipped_attributes, :resource_relations, :model_associations
     attr_reader :model
 
-    DEFAULT_SKIPPED_ATTRIBUTES = %W[id updated_at created_at creator_id updater_id]
+    DEFAULT_SKIPPED_ATTRIBUTES = %w(id updated_at created_at creator_id updater_id)
     DEFAULT_SKIPPED_ASSOCIATIONS = %w(creator updater)
 
     def initialize(controller_path, module_definition=nil, custom_model=nil)
       @controller_path = controller_path
       @module_definition = module_definition
       @model = (custom_model or guess_model_from_controller_path)
-      self.skip_attributes = model.respond_to?(:skip_attributes) ? model.skip_attributes : DEFAULT_SKIPPED_ATTRIBUTES
+      self.skipped_attributes = model.respond_to?(:skipped_alchemy_resource_attributes) ? model.skipped_alchemy_resource_attributes : DEFAULT_SKIPPED_ATTRIBUTES
       if model.respond_to?(:alchemy_resource_relations)
         if not model.respond_to?(:reflect_on_all_associations)
           raise MissingActiveRecordAssociation
@@ -114,8 +120,12 @@ module Alchemy
 
     def attributes
       @_attributes ||= self.model.columns.collect do |col|
-        unless self.skip_attributes.include?(col.name)
-          { :name => col.name, :type => resource_relation_type(col.name) || col.type, :relation => resource_relation(col.name) }.delete_if { |k, v | v.nil? }
+        unless self.skipped_attributes.include?(col.name)
+          {
+            name: col.name,
+            type: resource_column_type(col),
+            relation: resource_relation(col.name)
+          }.delete_if { |k, v| v.nil? }
         end
       end.compact
     end
@@ -152,8 +162,7 @@ module Alchemy
       false
     end
 
-
-  private
+    private
 
     def guess_model_from_controller_path
       resource_array.join('/').classify.constantize
@@ -169,6 +178,10 @@ module Alchemy
 
     def resource_relation_type(column_name)
       resource_relation(column_name).try(:[], :attr_type)
+    end
+
+    def resource_column_type(col)
+      resource_relation_type(col.name) || (col.try(:array) ? :array : col.type)
     end
 
     def resource_relation(column_name)

@@ -1,0 +1,10 @@
+<% if @legacy_page_url.valid? %>
+  $('.error.message', '#new_legacy_page_url').remove();
+  $('#legacy_urls_label').text('<%=j render("label", count: @page.legacy_urls.size) %>');
+  $('#legacy_page_url_urlname').val('');
+  $('#no_page_links_notice').hide();
+  $('#legacy_page_urls').append('<%=j render "legacy_page_url", legacy_page_url: @legacy_page_url %>');
+  Alchemy.watchForDialogs('#<%= dom_id(@legacy_page_url) %>');
+<% else %>
+  $('#new_legacy_page_url').replaceWith('<%=j render("new") %>');
+<% end %>

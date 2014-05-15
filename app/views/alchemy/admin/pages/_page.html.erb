@@ -26,7 +26,7 @@
           alchemy.configure_admin_page_path(page),
           {
             title: _t(:edit_page_properties),
-            size: page.redirects_to_external? ? '410x330' : '410x660'
+            size: page.redirects_to_external? ? '450x330' : '450x720'
           },
           title: _t(:edit_page_properties),
           class: 'sitemap_tool'
@@ -87,7 +87,7 @@
       <span class="sitemap_pagename_link inactive"><%= page.name %></span>
       <span class="redirect_url" title="<%= h page.urlname %>">
         &raquo; <%= _t('Redirects to') %>:
-        <%= h page.urlname %>
+        <%= h page.external_urlname %>
       </span>
     <%- else -%>
       <%= link_to_unless(

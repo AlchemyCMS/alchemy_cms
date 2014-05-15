@@ -367,6 +367,22 @@ module Alchemy
       it "should return the content for rss descdefinitionription" do
         element.content_for_rss_description.should == element.contents.find_by_name('body')
       end
+
+      context 'if no content is defined as rss title' do
+        before { element.stub(content_descriptions: []) }
+
+        it "should return nil" do
+          element.content_for_rss_title.should be_nil
+        end
+      end
+
+      context 'if no content is defined as rss description' do
+        before { element.stub(content_descriptions: []) }
+
+        it "should return nil" do
+          element.content_for_rss_description.should be_nil
+        end
+      end
     end
 
     describe '#update_contents' do

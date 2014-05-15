@@ -264,6 +264,8 @@ en:
     image_name: "Name"
     image_title: "Title-tag"
     internal_link_headline: "Choose a page to link to."
+    internal_link_page_elements_explanation: "Additionally you can click right beside a page on 'Show Elements' to link to an anchor of an element from that page."
+    internal_link_page_anchors_explanation: "Alternatively you can link to an anchor of the actual page."
     "item copied to clipboard": "Copied %{name} to clipboard"
     "item moved to clipboard": "Moved %{name} to clipboard"
     "item removed from clipboard": "Removed %{name} from clipboard"
@@ -272,6 +274,7 @@ en:
     language_code_placeholder: 'i.e. en'
     language_does_not_exist: "This language tree does not exist"
     language_pages_copied: "Language tree succesfully copied."
+    legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
     "Library shortcuts": "Library shortcuts"
     link_image: "Link this image."
     link_overlay_tab_label:
@@ -614,6 +617,10 @@ en:
         one: File
         other: Files
 
+      alchemy/legacy_page_url:
+        one: "Link"
+        other: "Links"
+
       alchemy/picture:
         one: Picture
         other: Pictures
@@ -645,6 +652,9 @@ en:
         name: "Name"
         page_layout: "Pagetype of frontpage"
         public: "Public"
+
+      alchemy/legacy_page_url:
+        urlname: "URL path"
 
       alchemy/page:
         created_at: "Created at"

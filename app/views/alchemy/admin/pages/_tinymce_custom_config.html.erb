@@ -1,0 +1,13 @@
+<script>
+  // Holds custom tinymce configurations
+  Alchemy.Tinymce.customConfigs = {};
+
+  // Populate custom tinymce configurations
+  <% Alchemy::Tinymce.custom_config_contents(@page).each do |content| %>
+  Alchemy.Tinymce.customConfigs["<%= content['element'] %>_<%= content['name'] %>"] = {
+    <% content.fetch('settings', {}).fetch('tinymce', {}).each do |k, v| %>
+    <%= k %>: <%== v.to_json %>,
+    <% end %>
+  };
+  <% end %>
+</script>

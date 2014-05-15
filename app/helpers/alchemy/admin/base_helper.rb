@@ -14,6 +14,18 @@ module Alchemy
       include Alchemy::BaseHelper
       include Alchemy::Admin::NavigationHelper
 
+      # Returns a string showing the name of the currently logged in user.
+      #
+      # In order to represent your own +User+'s class instance,
+      # you should add a +alchemy_display_name+ method to your +User+ class
+      #
+      def current_alchemy_user_name
+        name = current_alchemy_user.try(:alchemy_display_name)
+        if name.present?
+          content_tag :span, "#{_t('Logged in as')} #{name}", class: 'current-user-name'
+        end
+      end
+
       # This helper renders the link to an dialog.
       #
       # We use this for our fancy modal dialogs in the Alchemy cockpit.
@@ -422,6 +434,11 @@ module Alchemy
           end
           options_for_select(options)
         end
+      end
+
+      # Returns the regular expression used for external url validation in link dialog.
+      def link_url_regexp
+        Alchemy::Config.get(:format_matchers)['link_url'] || /^(mailto:|\/|[a-z]+:\/\/)/
       end
 
       private

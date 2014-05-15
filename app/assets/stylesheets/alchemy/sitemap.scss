@@ -216,15 +216,13 @@ div.page_infos {
   width: 68px;
 }
 
-#sub_navigation span.page_status_and_name span.page_status {
+#sub_navigation .page_status_and_name .page_status {
   float: none;
-  @include inline-block;
-  position: relative;
-  top: -4px;
+  @include inline-block(baseline);
   margin-left: 2px;
 }
 
-span.page_status {
+.page_status {
   width: 16px;
   height: 16px;
   background-image: image-url('alchemy/icons.png');

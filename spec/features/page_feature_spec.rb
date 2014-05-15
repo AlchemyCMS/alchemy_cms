@@ -221,5 +221,18 @@ module Alchemy
       end
     end
 
+    describe 'navigation rendering' do
+      context 'with page having an external url without protocol' do
+        let!(:external_page) { create(:page, urlname: 'google.com', page_layout: 'external', visible: true) }
+
+        it "adds an prefix to url" do
+          visit "/#{public_page_1.urlname}"
+          within '#navigation' do
+            expect(page.body).to match('http://google.com')
+          end
+        end
+      end
+    end
+
   end
 end

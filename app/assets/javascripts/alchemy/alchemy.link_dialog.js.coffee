@@ -7,23 +7,25 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     @url = Alchemy.routes.link_admin_pages_path
     @$link_object = $(@link_object)
     @options =
-      size: '600x540'
+      size: '600x320'
       title: 'Link'
     super(@url, @options)
 
   # Called from Dialog class after the url was loaded
   replace: (data) ->
-    # let Dailog class handle the content replacement
+    # let Dialog class handle the content replacement
     super(data)
     # attach events we handle
     @attachEvents()
     # Store some jQuery objects for further reference
     @$page_anchor = $('#page_anchor', @dialog_body)
     @$internal_urlname = $('#internal_urlname', @dialog_body)
+    @$internal_anchor = $('#internal_anchor', @dialog_body)
     @$external_url = $('#external_url', @dialog_body)
     @$public_filename = $('#public_filename', @dialog_body)
     @$overlay_tabs = $('#overlay_tabs', @dialog_body)
     @$page_container = $('#page_selector_container')
+    @initInternalAnchors()
     # if we edit an existing link
     if @link_object
       # we select the correct tab
@@ -66,9 +68,15 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Sets the page selected and scrolls it in the viewport.
   selectPage: (page_id) ->
-    $('#sitemap .selected_page', @dialog_body).removeClass('selected_page')
+    # deselect any selected page from page tree
+    @deselectPage()
+    # reset the internal anchor select
+    @$internal_anchor.select2('val', '')
     $('#sitemap_sitename_' + page_id).addClass('selected_page')
     @$page_container.scrollTo("#sitemap_sitename_#{page_id}", {duration: 400, offset: -10})
+
+  deselectPage: ->
+    $('#sitemap .selected_page', @dialog_body).removeClass('selected_page')
 
   # Creates a link if no validation errors are present.
   # Otherwise shows an error notice.
@@ -152,6 +160,11 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
       @$page_anchor.val("##{anchor}")
       # and update the url field
       @$internal_urlname.val("#{urlname}##{anchor}")
+      # if we linked an internal anchor
+      if @$internal_urlname.val().match(/^#/)
+        # we select the correct value from anchors select
+        value = @$internal_urlname.val()
+        @$internal_anchor.select2 'val', value.replace(/^#/, '')
     else
       @$internal_urlname.val(urlname)
     $sitemap_line = $('.sitemap_sitename').closest('[name="'+urlname+'"]')
@@ -195,7 +208,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Validates url for beginning with an protocol.
   validateURLFormat: (url) ->
-    if url.match(/^(mailto:|\/|[a-z]+:\/\/)/)
+    if url.match(Alchemy.link_url_regexp)
       true
     else
       false
@@ -204,6 +217,22 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   showValidationError: ->
     $('#errors ul', @dialog_body).html("<li>#{Alchemy._t('url_validation_failed')}</li>")
     $('#errors', @dialog_body).show()
+
+  # Populates the internal anchors select
+  initInternalAnchors: ->
+    frame = document.getElementById('alchemy_preview_window')
+    elements = frame.contentDocument.getElementsByTagName('*')
+    if elements.length > 0
+      for element in elements
+        if element.id
+          @$internal_anchor.append("<option value='#{element.id}'>##{element.id}</option>")
+    else
+      @$internal_anchor.html("<option>#{Alchemy._t('No anchors found')}</option>")
+    @$internal_anchor.change (e) =>
+      # deselect any selected page from page tree
+      @deselectPage()
+      # store the internal anchor as urlname
+      $("#internal_urlname").val("##{e.target.value}")
 
   # Public class methods
 

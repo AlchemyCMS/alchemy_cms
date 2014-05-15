@@ -99,9 +99,10 @@ class window.Alchemy.Dialog
     form = $('[data-remote="true"]', @dialog_body)
     form.bind "ajax:complete", (e, xhr, status) =>
       content_type = xhr.getResponseHeader('Content-Type')
+      Alchemy.Buttons.enable(@dialog_body)
       if status == 'success'
         if content_type.match(/javascript/)
-          @close()
+          return
         else
           @dialog_body.html(xhr.responseText)
           @init()
@@ -127,7 +128,7 @@ class window.Alchemy.Dialog
           error_header = "#{xhr.statusText} (#{xhr.status})"
         error_body = "Please check log and try again."
     $errorDiv = $("<div class=\"message #{error_type}\" />")
-    $errorDiv.append '<span class="icon warning"></span>'
+    $errorDiv.append "<span class=\"icon #{error_type}\" />"
     $errorDiv.append "<h1>#{error_header}</h1>"
     $errorDiv.append "<p>#{error_body}</p>"
     @dialog_body.html $errorDiv

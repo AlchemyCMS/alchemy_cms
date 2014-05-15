@@ -30,6 +30,7 @@
 #  updater_id       :integer
 #  language_id      :integer
 #  cached_tag_list  :text
+#  published_at     :datetime
 #
 
 module Alchemy
@@ -69,7 +70,6 @@ module Alchemy
     stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :folded_pages
-
     has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
     belongs_to :language
     belongs_to :locker, class_name: Alchemy.user_class_name, foreign_key: 'locked_by'
@@ -356,7 +356,7 @@ module Alchemy
         .where(["#{self.class.table_name}.lft #{dir} ?", lft])
         .where(public: options[:public])
         .where(restricted: options[:restricted])
-        .order(dir == '>' ? 'lft' : 'lft DESC')
+        .reorder(dir == '>' ? 'lft' : 'lft DESC')
         .limit(1).first
     end
 

@@ -13,6 +13,8 @@ Alchemy.GUI =
     Alchemy.ListFilter(scope)
     Alchemy.Spinner.watch(scope)
     Alchemy.Autocomplete.tags(scope)
+    $('[data-alchemy-char-counter]', scope).each ->
+      new Alchemy.CharCounter(this)
 
   initElement: ($el) ->
     Alchemy.ElementDirtyObserver($el)

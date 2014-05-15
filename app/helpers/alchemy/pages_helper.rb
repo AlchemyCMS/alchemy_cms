@@ -367,7 +367,7 @@ module Alchemy
       )
       if @page.contains_feed?
         meta_string += %(
-          <link rel="alternate" type="application/rss+xml" title="RSS" href="#{show_alchemy_page_url(@page, protocol: 'feed', format: :rss)}">
+          <link rel="alternate" type="application/rss+xml" title="RSS" href="#{show_alchemy_page_url(@page, format: :rss)}">
         )
       end
       return meta_string.html_safe

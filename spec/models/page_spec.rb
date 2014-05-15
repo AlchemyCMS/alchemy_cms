@@ -33,13 +33,13 @@ module Alchemy
 
         it "should validate the page_layout" do
           contentpage.page_layout = nil
-          contentpage.save
+          contentpage.should_not be_valid
           contentpage.should have(1).error_on(:page_layout)
         end
 
         it "should validate the parent_id" do
           contentpage.parent_id = nil
-          contentpage.save
+          contentpage.should_not be_valid
           contentpage.should have(1).error_on(:parent_id)
         end
 
@@ -74,25 +74,41 @@ module Alchemy
       end
 
       context "creating the rootpage without parent_id and page_layout" do
+        let(:rootpage) { build(:page, parent_id: nil, page_layout: nil, name: 'Rootpage') }
+
         before do
           Page.delete_all
-          @rootpage = FactoryGirl.build(:page, :parent_id => nil, :page_layout => nil, :name => 'Rootpage')
         end
 
         it "should be valid" do
-          @rootpage.save
-          @rootpage.should be_valid
+          rootpage.should be_valid
         end
       end
 
       context "saving a systempage" do
-        before do
-          @systempage = FactoryGirl.build(:systempage)
-        end
+        let(:systempage) { build(:systempage) }
 
         it "should not validate the page_layout" do
-          @systempage.save
-          @systempage.should be_valid
+          systempage.should be_valid
+        end
+      end
+
+      context 'saving an external page' do
+        let(:external_page) { build(:page, page_layout: 'external') }
+
+        it "does not pass with invalid url given" do
+          external_page.urlname = 'not, a valid page url'
+          expect(external_page).to_not be_valid
+        end
+
+        it "only be valid with correct url given" do
+          external_page.urlname = 'www.google.com&utf_src=alchemy;page_id=%20'
+          expect(external_page).to be_valid
+        end
+
+        it "only be valid with urlname given" do
+          external_page.urlname = ''
+          expect(external_page).to_not be_valid
         end
       end
     end
@@ -151,6 +167,27 @@ module Alchemy
             page.urlname = 'my-testpage'
             page.save!
             page.legacy_urls.should be_empty
+          end
+        end
+      end
+
+      context 'after_move' do
+        let(:parent_1) { FactoryGirl.create(:page, name: 'Parent 1', visible: true) }
+        let(:parent_2) { FactoryGirl.create(:page, name: 'Parent 2', visible: true) }
+        let(:page)     { FactoryGirl.create(:page, parent_id: parent_1.id, name: 'Page', visible: true) }
+
+        it "updates the urlname" do
+          page.urlname.should == 'parent-1/page'
+          page.move_to_child_of parent_2
+          page.urlname.should == 'parent-2/page'
+        end
+
+        context 'of an external page' do
+          let(:external) { FactoryGirl.create(:page, parent_id: parent_1.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
+
+          it "the urlname does not get updated" do
+            external.move_to_child_of parent_2
+            external.urlname.should == 'http://google.com'
           end
         end
       end
@@ -998,6 +1035,7 @@ module Alchemy
       describe '#previous' do
         it "should return the previous page on the same level" do
           center_page.previous.should == public_page
+          next_page.previous.should == center_page
         end
 
         context "no previous page on same level present" do
@@ -1159,6 +1197,7 @@ module Alchemy
       let(:page)         { FactoryGirl.create(:page, parent_id: parent.id, name: 'page', visible: true) }
       let(:invisible)    { FactoryGirl.create(:page, parent_id: page.id, name: 'invisible', visible: false) }
       let(:contact)      { FactoryGirl.create(:page, parent_id: invisible.id, name: 'contact', visible: true) }
+      let(:external)     { FactoryGirl.create(:page, parent_id: parent.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
 
       context "with activated url_nesting" do
         before { Config.stub(:get).and_return(true) }
@@ -1179,13 +1218,23 @@ module Alchemy
           contact.urlname.should_not =~ /invisible/
         end
 
-        context "after changing my urlname" do
-          it "should update urlnames of descendants" do
+        context "after changing page's urlname" do
+          it "updates urlnames of descendants" do
             page
             parentparent.urlname = 'new-urlname'
             parentparent.save!
             page.reload
             page.urlname.should == 'new-urlname/parent/page'
+          end
+
+          context 'with descendants that are redirecting to external' do
+            it "it skips this page" do
+              external
+              parent.urlname = 'new-urlname'
+              parent.save!
+              external.reload
+              external.urlname.should == 'http://google.com'
+            end
           end
 
           it "should create a legacy url" do
@@ -1238,6 +1287,34 @@ module Alchemy
 
         it "should return nil" do
           page.slug.should be_nil
+        end
+      end
+    end
+
+    describe '#external_urlname' do
+      let(:external_page) { build(:page, page_layout: 'external') }
+
+      context 'with missing protocol' do
+        before { external_page.urlname = 'google.com'}
+
+        it "returns an urlname prefixed with http://" do
+          expect(external_page.external_urlname).to eq 'http://google.com'
+        end
+      end
+
+      context 'with protocol present' do
+        before { external_page.urlname = 'ftp://google.com'}
+
+        it "returns the urlname" do
+          expect(external_page.external_urlname).to eq 'ftp://google.com'
+        end
+      end
+
+      context 'beginngin with a slash' do
+        before { external_page.urlname = '/internal-url'}
+
+        it "returns the urlname" do
+          expect(external_page.external_urlname).to eq '/internal-url'
         end
       end
     end

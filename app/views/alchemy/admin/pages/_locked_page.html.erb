@@ -1,0 +1,21 @@
+<% if @page == locked_page %>
+  <%= render 'page_status' %>
+<% else %>
+  <div class="subnavi_tab wide" id="locked_page_<%= locked_page.id %>">
+    <%= link_to alchemy.edit_admin_page_path(locked_page) do %>
+      <span class="page_name" title="<%= locked_page.name %>">
+        <%= truncate locked_page.name, length: 15 %>
+      </span>
+      <%- if multi_language? -%>
+        <span class="page_language" title="<%= locked_page.language.name %>">
+          <%= locked_page.language_code %>
+        </span>
+      <%- end -%>
+    <% end %>
+    <%= form_tag(alchemy.unlock_admin_page_path(locked_page), remote: true) do %>
+      <button class="icon_button small" title="<%= _t(:explain_unlocking) %>">
+        <%= render_icon('close small') %>
+      </button>
+    <% end %>
+  </div>
+<% end %>

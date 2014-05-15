@@ -50,9 +50,9 @@ module Alchemy
   end
 
   class MissingActiveRecordAssociation < StandardError
-    # Raised if a resource_relation is defined without proper ActiveRecord association
+    # Raised if a alchemy_resource_relation is defined without proper ActiveRecord association
     def message
-      "You need to define proper ActiveRecord associations, if you want to use resource_relations."
+      "You need to define proper ActiveRecord associations, if you want to use alchemy_resource_relations."
     end
   end
 

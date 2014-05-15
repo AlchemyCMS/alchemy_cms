@@ -9,19 +9,27 @@
     <%= stylesheet_link_tag('alchemy/admin', :media => 'screen', "data-turbolinks-track" => true) %>
     <%= stylesheet_link_tag('alchemy/print', :media => 'print', "data-turbolinks-track" => true) %>
     <%= yield :stylesheets %>
-    <script type="text/javascript" charset="utf-8">
-
+    <script>
+      // Global Alchemy JavaScript object.
+      var Alchemy = {};
       // Setting TinyMCE path.
       var tinyMCEPreInit = {
         base: '<%= Rails.application.config.assets.prefix %>/tinymce',
         suffix: '.min'
       };
-
-      // Initialize Alchemys JavaScript framework.
-      var Alchemy = {};
-      Alchemy.locale = '<%= ::I18n.locale %>';
-
+      // Store regular expression for external link url matching.
+      Alchemy.link_url_regexp = <%= link_url_regexp.inspect %>;
+      // Holds the default Alchemy TinyMCE configuration
+      Alchemy.Tinymce = {
+        defaults: {
+          plugins: '<%= Alchemy::Tinymce.plugins.join(',') %>',
+          <% Alchemy::Tinymce.init.each do |k, v| %>
+          <%= k %>: <%== v.to_json %>,
+          <% end %>
+        }
+      };
     </script>
+    <%= render 'alchemy/admin/partials/routes' %>
     <%= javascript_include_tag('alchemy/alchemy', "data-turbolinks-track" => true) %>
     <%= yield :javascript_includes %>
   </head>
@@ -70,11 +78,10 @@
         <%= yield(:toolbar) %>
       </div>
       <div id="user_info">
+        <%= current_alchemy_user_name %>
         <%= select_tag 'change_locale',
           options_for_select(translations_for_select, ::I18n.locale),
           class: 'alchemy_selectbox tiny' %>
-        <%= _t('Logged in as') %>
-        <%= current_alchemy_user.try(:name) %>
       </div>
     </div>
     <% end %>
@@ -82,6 +89,10 @@
     <div id="main_content">
       <%= yield %>
     </div>
+    <script>
+      // Store current locale for javascript translations.
+      Alchemy.locale = '<%= ::I18n.locale %>';
+    </script>
     <%= yield(:javascripts) %>
   </body>
 </html>

@@ -100,7 +100,7 @@ button, input[type="submit"], a.button, input.button {
       left: auto;
       position: absolute;
       left: 1px;
-      top: 2px;
+      top: 3px;
       width: 8px;
       height: 8px;
 
@@ -117,7 +117,7 @@ button, input[type="submit"], a.button, input.button {
       border: $default-border-width $default-border-style $button-hover-border-color;
       @include border-radius($default-border-radius);
       background: $button-hover-bg-color;
-      top: -1px;
+      top: 0px;
       right: 0px;
 
       .icon {
