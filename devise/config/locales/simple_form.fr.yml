@@ -2,5 +2,5 @@ fr:
   simple_form:
     labels:
       user:
-        login: Nom d´utilisateur
+        login: Nom d'utilisateur
         password: Mot de passe
