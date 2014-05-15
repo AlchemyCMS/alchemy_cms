@@ -66,3 +66,25 @@ Alchemy.translations =
     'File type not allowed': 'File type not allowed'
     'Maximum number of files exceeded': 'Uploadlimiet bereikt.'
     'Uploaded bytes exceed file size': 'Uploaded bytes exceed file size'
+
+
+  # French
+  fr:
+    allowed_chars: 'von %{count} signes'
+    cancel: 'abandonner'
+    cancelled: 'annulé'
+    click_to_edit: 'Cliquez pour modifier'
+    complete: 'terminé'
+    element_dirty_notice: 'Cet élément a des modifications non enregistrées. Souhaitez-vous vraiment plier?'
+    help: 'Aide'
+    ok: 'Ok'
+    page_dirty_notice: 'Vous avez des modifications non enregistrées sur la page. Ce sera perdue si vous continuez.'
+    page_found: 'page trouvée'
+    pages_found: 'pages trouvées'
+    url_validation_failed: "L'URL n'est pas correctement formatée."
+    warning: 'Attention!'
+    'File is too large': 'Le fichier est trop grand.'
+    'File is too small': 'Le fichier est trop petit.'
+    'File type not allowed': 'Type de document non autorisé.'
+    'Maximum number of files exceeded': 'Le nombre maximum de fichiers est atteint.'
+    'Uploaded bytes exceed file size': 'Taille de fichier maximale autorisée atteint.'
