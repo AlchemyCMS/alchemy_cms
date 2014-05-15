@@ -17,8 +17,8 @@ fr:
       locked: 'Votre compte est gelé.'
       invalid: 'Données d´identification non valides.'
       invalid_token: 'Le signe de connexion est invalide.'
-      timeout: 'Votre session est expiré, s'il vous plaît vous connecter à nouveau.'
-      inactive: 'Votre compte n'est pas actif.'
+      timeout: "Votre session est expiré, s'il vous plaît vous connecter à nouveau."
+      inactive: "Votre compte n'est pas actif."
       user:
         not_found_in_database: 'Identification non valides.'
     sessions:
@@ -36,8 +36,8 @@ fr:
       confirmed: 'Merci de vous inscrire. Vous êtes maintenant connecté.'
     registrations:
       signed_up: 'Vous avez enregistré avec succès.'
-      signed_up_but_unconfirmed: 'Vous avez enregistré avec succès. Nous ne pouvions pas vous connecter car votre compte n'est pas encore confirmée. Vous allez bientôt recevoir un e-mail avec les instructions sur la façon dont vous pouvez débloquer votre compte.'
-      signed_up_but_inactive: 'Vous avez enregistré avec succès. Nous n'avons pas pu ouvrir de session car votre compte est inactif.'
+      signed_up_but_unconfirmed: "Vous avez enregistré avec succès. Nous ne pouvions pas vous connecter car votre compte n'est pas encore confirmée. Vous allez bientôt recevoir un e-mail avec les instructions sur la façon dont vous pouvez débloquer votre compte."
+      signed_up_but_inactive: "Vous avez enregistré avec succès. Nous n'avons pas pu ouvrir de session car votre compte est inactif."
       signed_up_but_locked: 'Vous avez enregistré avec succès. Nous ne pouvions pas vous connecter car votre compte est gelé.'
       updated: 'Vos données ont été mis à jour.'
       update_needs_confirmation: "Vos données ont été mis à jour, mais vous devez confirmer votre nouvelle adresse e-mail. Vous obtenez en quelques minutes un e-mail pour compléter le changement de votre adresse e-mail."
