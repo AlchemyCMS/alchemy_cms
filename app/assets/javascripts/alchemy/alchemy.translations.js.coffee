@@ -81,7 +81,7 @@ Alchemy.translations =
     page_dirty_notice: 'Vous avez des modifications non enregistrées sur la page. Ce sera perdue si vous continuez.'
     page_found: 'page trouvée'
     pages_found: 'pages trouvées'
-    url_validation_failed: 'L'URL n'est pas correctement formatée.'
+    url_validation_failed: "L'URL n'est pas correctement formatée."
     warning: 'Attention!'
     'File is too large': 'Le fichier est trop grand.'
     'File is too small': 'Le fichier est trop petit.'

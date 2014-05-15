@@ -16,12 +16,13 @@ fr:
     #         contact: Kontakt
     #         search: Suche
     #
+
     page_layout_names:
-      contact: Contact
-      search: Recherche
+      contact: 'Contact'
+      search: 'Recherche'
       layout_header: 'Haut de page'
       layout_footer: 'Bas de page'
-      external: Link extérieur
+      external: 'Link extérieur'
 
     # == Translations for element names
     # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
@@ -30,26 +31,26 @@ fr:
     #   fr:
     #     alchemy:
     #       element_names:
-    #         article: Article 
+    #         article: Article
     #         intro_image_text: Intro article
     #
     element_names:
-      article: Article
-      intro_image_text: Intro article
-      text: Texte
-      bild: Image(s)
-      bild_text: Texte (image)
-      headline: Surtitre
-      image_mosaic: Galerie images
-      footnote: Bas de page
-      sitename: Nom de page
-      claim: Claim
-      header: image de front
-      intro: Intro
-      subheadline: Titre medial
-      news: Nouveautées
-      searchresult: detail de recherche
-      contactform: Formulaire de contact
+      article: 'Article'
+      intro_image_text: 'Intro article'
+      text: 'Texte'
+      bild: 'Image(s)'
+      bild_text: 'Texte (image)'
+      headline: 'Surtitre'
+      image_mosaic: 'Galerie images'
+      footnote: 'Bas de page'
+      sitename: 'Nom de page'
+      claim: 'Claim'
+      header: 'image de front'
+      intro: 'Intro'
+      subheadline: 'Titre medial'
+      news: 'Nouveautées'
+      searchresult: 'detail de recherche'
+      contactform: 'Formulaire de contact'
 
     # == Translated names for contents in elements.
     # Used for the content editor label inside the element editor view (The elements window)
@@ -65,7 +66,7 @@ fr:
       mail_to: 'Receveur (E-Mail)'
       caption: "Sous-titre image"
       subject: 'Concerne'
-      intro: Introduction"
+      intro: 'Introduction'
       headline: "Surtitre"
       subheadline: "Sous-tritre"
       news_headline: "Surtitre nouvetées"
@@ -97,7 +98,7 @@ fr:
         right: 'A droite du texte'
         no_float: 'Sur le texte'
 
-    # == Contactform translations
+   # == Contactform translations
     contactform:
       labels:
         salutation: 'Titre'
@@ -112,7 +113,7 @@ fr:
         email: 'E-Mail'
         message: 'Message'
         send: 'envoyer'
-        mandatory_fields: '*Obligatoire. S'il vous plaît remplir ces champs.'
+        mandatory_fields: "*Obligatoire. S'il vous plaît remplir ces champs."
       # The flash message shown after succesfully sending the message.
       messages:
         success: 'Votre message a été envoyé avec succès.'
@@ -162,13 +163,13 @@ fr:
       application/vcard: 'vCard'
 
     link_target_options:
-      default: Fenêtre identique
-      blank: nouvelle fenêtre/Tab
-      overlay: un revêtement
+      default: 'Fenêtre identique'
+      blank: 'nouvelle fenêtre/Tab'
+      overlay: 'un revêtement'
 
     resource_help_texts:
       site:
-        aliases: S'il vous plaît indiquer Autres domaines séparés par des espaces ou ligne blanche.
+        aliases: "S'il vous plaît indiquer Autres domaines séparés par des espaces ou ligne blanche."
 
     anchor: 'ancre'
     back: 'arrière'
@@ -372,7 +373,7 @@ fr:
     delete_page: "Supprimer la page"
     delete_tag: 'Supprimer le tag'
     document: "Document"
-    documents: "Fichiers" 
+    documents: "Fichiers"
     download_csv: "CSV télécharger"
     download_file: "%{filename} télécharger"
     do_you_really_want_to_delete_this_tag?: "Voulez-vous vraiment supprimer ce tag?"
@@ -395,9 +396,9 @@ fr:
     explain_upload:
       footnote: "CONSEIL! Maintenez la touche Ctrl (cmd-Taste pour Mac) en cliquant sur le% {name} avec la souris pour sélectionner plusieur  %{name} à télécharger simultanément."
       intro: "Ainsi fonctionne %{name} le chargement"
-      step1: "Cliquez sur "Parcourir" et ouvrez le dossier avec votre %{name}"
+      step1: 'Cliquez sur "Parcourir" et ouvrez le dossier avec votre %{name}'
       step2: "Sélectionner tous % {name} à partir duquel vous souhaitez télécharger en même temps"
-      step3: "Cliquez sur "Ouvrir". Le téléchargement commence!"
+      step3: 'Cliquez sur "Ouvrir". Le téléchargement commence!'
       dragndrop: "Alternativement, vous pouvez faire glisser et déposer des fichiers depuis votre ordinateur avec la souris sur la surface inférieure."
     external_link_notice_1: "S'il vous plaît entrez l'URL complète par http:// (ou protocole similaire)."
     external_link_notice_2: "Pour faire référence à un chemin dans les pages Web URL, vous commencez avec un /."
@@ -574,7 +575,7 @@ fr:
     swap_image: "Changer l´image"
     insert_image: "Inserer image"
     tag_list: Tags
-    tags_get_created_if_used_the_first_time: 'Une étiquette est automatiquement créé lorsque vous l'utilisez pour la première fois.'
+    tags_get_created_if_used_the_first_time: "Une étiquette est automatiquement créé lorsque vous l'utilisez pour la première fois."
     this_picture_is_not_used_on_any_page: "Cette image est utilisée sur aucunne page."
     this_picture_is_used_on_these_pages: "Cette image est utilisé sur la page suivente"
     title: "Titre"
@@ -619,11 +620,10 @@ fr:
     "Queued x files": "x Fichiers dans la file d'attente."
     complete: 'terminé'
     "Update available": 'Il ya une mise à jour disponible'
-    "Update status unavailable": 'L'état de mise à jour n'a pas pu être déterminée'
+    "Update status unavailable": "L'état de mise à jour n'a pas pu être déterminée"
     "Uploading": "Télécharger"
     "Uploaded x files": "x fichiers téléchargés."
-
-  # END of Alchemy translation
+    # END of Alchemy translation
 
   # == Rails translations
   # Below are Rails specific translations for date, time, number, currency, error messages and so on.
@@ -665,7 +665,7 @@ fr:
         other: '%{count} Seconde'
       less_than_x_minutes:
         zero: 'moin de 1 Minute'
-        one: 'moins d'une minute'
+        one: "moins d'une minute"
         other: 'moins de %{count} Minutes'
       x_minutes:
         one: '1 Minute'
@@ -775,7 +775,7 @@ fr:
       alchemy/language:
         attributes:
           language_code:
-            invalid: 'n'est pas correct. S'il vous plaît utiliser deux minuscules exactement.'
+            invalid: "n'est pas correct. S'il vous plaît utiliser deux minuscules exactement."
             taken: 'existe déjà pour les codes de ce pays.'
       alchemy/page:
         attributes:
@@ -882,7 +882,7 @@ fr:
         css_class: Stil
         link_target: Lien cible
         render_size: taille de l'écran
-        crop_from: Origine de masque de l'image
+        crop_from: "Origine de masque de l'image"
         crop_size: Image masque mesure
         picture_id: image
 
@@ -940,4 +940,3 @@ fr:
       previous_page: "page précédente"
       next_page: "page suivante"
       last: "dernère page"
-                              +
