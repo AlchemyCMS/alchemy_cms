@@ -99,9 +99,9 @@ en:
         message: 'Message'
         send: 'Send'
         mandatory_fields: '*Mandatory fields.'
-      # The flash message shown after succesfully sending the message.
+      # The flash message shown after successfully sending the message.
       messages:
-        success: 'Your message was delivered succesfully.'
+        success: 'Your message was delivered successfully.'
 
     # == Translated language names for translation select
     translations:
@@ -159,8 +159,8 @@ en:
     "Page saved": "Page: '%{name}' saved."
     "Password": "Password"
     "Paste from clipboard": "Paste from clipboard"
-    "Successfully added content": "Succesfully added %{content}"
-    "Successfully deleted content": "Succesfully deleted %{content}"
+    "Successfully added content": "Successfully added %{content}"
+    "Successfully deleted content": "Successfully deleted %{content}"
     "User created": "User created"
     "User deleted": "User deleted"
     "User updated": "User updated"
@@ -210,11 +210,11 @@ en:
     download_file: "Download file '%{filename}'"
     "Drag an element over to the element window to restore it": "Drag an element over to the element window to restore it."
     drag_to_sort: "Drag'n'Drop to sort images"
-    edit_file_properties: "Edit Fileproperties"
+    edit_file_properties: "Edit file properties."
     edit_image_properties: "Edit image properties."
     edit_language: "Edit language"
     edit_page: "Edit this page"
-    edit_page_properties: "Edit the page´s properties."
+    edit_page_properties: "Edit the page's properties."
     edit_selected_pictures: "Edit selected pictures"
     element_description_missing: "WARNING! Missing description. Please check your elements.yml file."
     element_dirty_close_window_notice: "You have unsaved elements. Do you really want to close the elements window?"
@@ -232,12 +232,12 @@ en:
       step1: "Click the 'browse' button and navigate to your %{name} folder"
       step2: "Select all the %{name} you want to upload"
       step3: "Click the 'open' button. The upload starts!"
-    external_link_notice_1: "Please enter the complete url with http:// or a similiar protocol."
+    external_link_notice_1: "Please enter the complete url with http:// or a similar protocol."
     external_link_notice_2: "To refer a path from your website url, start with a /."
     female: "Female"
     file: "File"
     file_rename_error: "Error renaming file."
-    "File uploaded succesfully": "File %{name} succesfully uploaded"
+    "File uploaded succesfully": "File %{name} successfully uploaded"
     "File upload error": "File upload error: %{error}"
     from_at: "from %{by} at %{at}"
     'Global shortcuts': 'Global shortcuts'
@@ -249,7 +249,7 @@ en:
         "Open logout dialog": "Open logout dialog"
         "Focus search field": "Focus search field"
         "Create a new record": "Create a new record"
-        "Show page infos": "Show page infos"
+        "Show page infos": "Show page info"
         "Create new element": "Create new element"
         "Edit page properties": "Edit page properties"
         "Reload the preview": "Reload the preview"
@@ -273,16 +273,16 @@ en:
     javascript_disabled_text: "Alchemy needs Javascript to run smoothly. Please enable it in your browser settings."
     language_code_placeholder: 'i.e. en'
     language_does_not_exist: "This language tree does not exist"
-    language_pages_copied: "Language tree succesfully copied."
+    language_pages_copied: "Language tree successfully copied."
     legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
     "Library shortcuts": "Library shortcuts"
     link_image: "Link this image."
     link_overlay_tab_label:
-      contactform: "Contactform"
+      contactform: "Contact form"
       external: "External"
       file: "File"
       internal: "Internal"
-    link_title: "Linktitle"
+    link_title: "Link title"
     mail_to: "Recipient"
     male: "Male"
     medium_thumbnails: "Medium thumbnails"
@@ -301,7 +301,7 @@ en:
       sites: "Sites"
     name: "Name"
     names: "Names"
-    navigation_name: "Navigationname"
+    navigation_name: "Navigation name"
     no_default_language_found: "No default language found."
     no_element_given: "No element given."
     no_files_in_archive: "You do not have any files in your archive."
@@ -343,7 +343,7 @@ en:
         comma_seperated: "Separate by comma"
     password: "Password"
     picture_gallery_editor: 'Pictures'
-    "Picture uploaded succesfully": "Picture %{name} uploaded succesfully"
+    "Picture uploaded succesfully": "Picture %{name} uploaded successfully"
     "Picture validation error": "Error while uploading %{name}"
     "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
     "Picture deleted successfully": "Picture %{name} successfully deleted"
@@ -357,7 +357,7 @@ en:
         recent: "that where recently uploaded"
         without_tag: "without tag"
     place_link: "Link text"
-    player_version: "Flashplayer Version"
+    player_version: "Flash Player version"
     "please enter subject and mail address": "Please enter recipient and subject."
     please_confirm: "Please confirm"
     please_wait: "Please wait"
@@ -375,7 +375,7 @@ en:
     robot_follow: "robot may follow links."
     robot_index: "allow robot to index."
     saved_link: "Link saved."
-    search_engines: "Searchengines"
+    search_engines: "Search engines"
     select_element: "Select element"
     show_element_content: "Show content of this element."
     show_elements_from_page: "Show all elements from this page"
@@ -386,9 +386,9 @@ en:
     sitemap_editor_notice: "The sitemap is autogenerated."
     searchresults_editor_info: "This element displays the search and the searchresults."
     small_thumbnails: "Small thumbnails"
-    successfully_added_element: "Succesfully added new element."
-    successfully_restored_element: "Element restored succesfully."
-    successfully_saved_element_position: "Element position updated succesfully."
+    successfully_added_element: "Successfully added new element."
+    successfully_restored_element: "Element restored successfully."
+    successfully_saved_element_position: "Element position updated successfully."
     swap_image: "Change image"
     "These pictures could not be deleted, because they were in use": "These pictures could not be deleted, because they were in use: %{names}"
     insert_image: "Insert image"
