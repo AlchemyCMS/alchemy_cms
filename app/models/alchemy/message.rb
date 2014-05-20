@@ -28,10 +28,10 @@ module Alchemy
       validates_presence_of field
 
       case field.to_sym
-      when :email
+      when /email/
         validates_format_of field,
           with: Alchemy::Config.get('format_matchers')['email'],
-          if: -> { email.present? }
+          if: -> { send(field).present? }
       when :email_confirmation
         validates_confirmation_of :email
       end
