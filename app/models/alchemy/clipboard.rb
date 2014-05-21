@@ -11,8 +11,8 @@ module Alchemy
 
     attr_accessor :items
 
-    def initialize
-      @items = self.class.empty_clipboard
+    def initialize(items)
+      @items = items.is_a?(Hash) ? items.with_indifferent_access : self.class.empty_clipboard
     end
 
     # Returns all items of the collection from category (+:elements+ or +:pages+)
