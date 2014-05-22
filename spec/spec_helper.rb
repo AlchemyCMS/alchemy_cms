@@ -33,6 +33,11 @@ Capybara.default_selector = :css
 Capybara.register_driver(:rack_test_translated_header) do |app|
   Capybara::RackTest::Driver.new(app, :headers => { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
 end
+if ENV['CI']
+  Capybara.register_driver :poltergeist do |app|
+    Capybara::Poltergeist::Driver.new(app, timeout: 60)
+  end
+end
 Capybara.javascript_driver = :poltergeist
 
 # Load support files
