@@ -64,4 +64,13 @@ RSpec.configure do |config|
     Alchemy::Site.current = nil
     ::I18n.locale = :en
   end
+  require 'timeout'
+  config.after(:each, js: true) do
+    Timeout.timeout(Capybara.default_wait_time) do
+      until (i = page.evaluate_script("$.active")).zero?
+        Rails.logger.info "example [#{example.description}] has #{i} outstanding XHR(s)"
+        sleep 0.1
+      end
+    end
+  end
 end
