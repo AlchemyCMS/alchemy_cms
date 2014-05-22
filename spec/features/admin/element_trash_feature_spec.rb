@@ -13,7 +13,7 @@ describe "element trash feature", js: true do
     expect(page).to have_no_selector(".spinner") # wait until spinner disappears
     expect(page).to have_selector(".element_editor", count: 1)
     within ".alchemy-elements-window .element_editor:first" do
-      click_link Alchemy::I18n.t("trash element")
+      click_link "Put element into trash"
     end
     # expect(page).to have_content Alchemy::I18n.t('Element trashed')
     # expect(page).to have_no_selector(".element_editor")
