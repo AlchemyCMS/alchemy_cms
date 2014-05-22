@@ -223,7 +223,7 @@ module Alchemy
         it "should create an element from clipboard" do
           xhr :post, :create, {paste_from_clipboard: element_in_clipboard.id, element: {page_id: alchemy_page.id}}
           response.status.should == 200
-          response.body.should match(/Succesfully added new element/)
+          response.body.should match(/Successfully added new element/)
         end
 
         context "and with cut as action parameter" do
