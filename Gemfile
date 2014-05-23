@@ -14,6 +14,8 @@ gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
 gem 'mysql2'                if ENV['DB'] == 'mysql'
 gem 'pg'                    if ENV['DB'] == 'postgresql'
 
+gem 'database_cleaner'
+
 unless ENV['CI']
   gem 'pry'
   gem 'quiet_assets' # Mute assets loggin
@@ -23,7 +25,6 @@ end
 group :test do
   unless ENV['FAST_SPECS']
     gem 'poltergeist'
-    gem 'connection_pool' # https://gist.github.com/mperham/3049152
     unless ENV['CI']
       gem 'launchy'
     end
