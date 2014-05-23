@@ -54,26 +54,22 @@ RSpec.configure do |config|
   config.include Alchemy::Specs::ControllerHelpers, :type => :controller
   config.include Alchemy::Specs::IntegrationHelpers, :type => :feature
   config.use_transactional_fixtures = false
-  # Make sure the database is clean and ready for test
+
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     Alchemy::Seeder.seed!
-    puts 'before suite'
   end
-  # Ensuring that the locale is always resetted to :en before running any tests
+
   config.before(:each) do
-    DatabaseCleaner.strategy = :transaction
     Alchemy::Site.current = nil
     ::I18n.locale = :en
-  end
-
-  config.before(:each, :type => :feature) do
-    DatabaseCleaner.strategy = :truncation
-  end
-
-  config.before(:each) do
-    Alchemy::Seeder.stub(:puts)
-    Alchemy::Seeder.seed!
+    if example.metadata[:type] == :feature
+      Alchemy::Seeder.stub(:puts)
+      Alchemy::Seeder.seed!
+      DatabaseCleaner.strategy = :truncation
+    else
+      DatabaseCleaner.strategy = :transaction
+    end
     DatabaseCleaner.start
   end
 
