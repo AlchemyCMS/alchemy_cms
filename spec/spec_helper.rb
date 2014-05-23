@@ -60,12 +60,11 @@ RSpec.configure do |config|
     Alchemy::Seeder.seed!
   end
 
+  # All specs are running in transactions, but feature specs not.
   config.before(:each) do
     Alchemy::Site.current = nil
     ::I18n.locale = :en
     if example.metadata[:type] == :feature
-      Alchemy::Seeder.stub(:puts)
-      Alchemy::Seeder.seed!
       DatabaseCleaner.strategy = :truncation
     else
       DatabaseCleaner.strategy = :transaction
@@ -73,7 +72,13 @@ RSpec.configure do |config|
     DatabaseCleaner.start
   end
 
+  # After each spec the database gets cleaned. (via rollback or truncate for feature specs)
+  # After every feature spec the database gets seeded so the next spec can rely on that data.
   config.append_after(:each) do
     DatabaseCleaner.clean
+    if example.metadata[:type] == :feature
+      Alchemy::Seeder.stub(:puts)
+      Alchemy::Seeder.seed!
+    end
   end
 end

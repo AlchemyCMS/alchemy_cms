@@ -30,7 +30,9 @@ load 'rails/tasks/engine.rake'
 require 'rspec/core'
 require 'rspec/core/rake_task'
 
-task :default => ['alchemy:spec:run']
+Rspec::Core::RakeTask.new(:spec)
+
+task :default => ['alchemy:spec:prepare', :spec]
 
 Bundler::GemHelper.install_tasks
 
@@ -40,21 +42,6 @@ namespace :alchemy do
     desc "Prepares database for testing Alchemy"
     task :prepare do
       system 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:drop db:create db:migrate:reset && cd -'
-    end
-
-    desc "Run all Alchemy specs"
-    task :run do
-      Rake::Task['alchemy:spec:prepare'].invoke
-      Rake::Task['alchemy:spec:transactionals'].invoke
-      Rake::Task['alchemy:spec:truncationals'].invoke
-    end
-
-    Rspec::Core::RakeTask.new(:transactionals) do |t|
-      t.pattern = Dir['spec/*/**/*_spec.rb'].reject{ |f| f['/features'] }
-    end
-
-    Rspec::Core::RakeTask.new(:truncationals) do |t|
-      t.pattern = "spec/features/**/*_spec.rb"
     end
 
   end
