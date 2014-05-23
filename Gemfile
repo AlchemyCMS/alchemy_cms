@@ -23,7 +23,7 @@ end
 group :test do
   unless ENV['FAST_SPECS']
     gem 'poltergeist'
-    gem 'connection_pool' # https://gist.github.com/mperham/3049152
+    gem 'database_cleaner'
     unless ENV['CI']
       gem 'launchy'
     end

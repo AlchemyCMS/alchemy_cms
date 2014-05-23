@@ -53,24 +53,31 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.include Alchemy::Specs::ControllerHelpers, :type => :controller
   config.include Alchemy::Specs::IntegrationHelpers, :type => :feature
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
   # Make sure the database is clean and ready for test
   config.before(:suite) do
-    truncate_all_tables
+    DatabaseCleaner.clean_with(:truncation)
     Alchemy::Seeder.seed!
+    puts 'before suite'
   end
   # Ensuring that the locale is always resetted to :en before running any tests
   config.before(:each) do
+    DatabaseCleaner.strategy = :transaction
     Alchemy::Site.current = nil
     ::I18n.locale = :en
   end
-  require 'timeout'
-  config.after(:each, js: true) do
-    Timeout.timeout(Capybara.default_wait_time) do
-      until (i = page.evaluate_script("$.active")).zero?
-        Rails.logger.info "example [#{example.description}] has #{i} outstanding XHR(s)"
-        sleep 0.1
-      end
-    end
+
+  config.before(:each, :type => :feature) do
+    DatabaseCleaner.strategy = :truncation
+  end
+
+  config.before(:each) do
+    Alchemy::Seeder.stub(:puts)
+    Alchemy::Seeder.seed!
+    DatabaseCleaner.start
+  end
+
+  config.append_after(:each) do
+    DatabaseCleaner.clean
   end
 end

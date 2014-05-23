@@ -43,14 +43,14 @@ module Alchemy
         end
       end
 
-      context "when ivar @config was already set" do
-        before { Config.instance_variable_set("@config", {setting: 'true'}) }
-        after { Config.instance_variable_set("@config", nil) }
+      # context "when ivar @config was already set" do
+      #   before { Config.instance_variable_set("@config", {setting: 'true'}) }
+      #   after { Config.instance_variable_set("@config", nil) }
 
-        it "should have memoized the return value of .merge_configs!" do
-          expect(Config.send(:show)).to eq({setting: 'true'})
-        end
-      end
+      #   it "should have memoized the return value of .merge_configs!" do
+      #     expect(Config.send(:show)).to eq({setting: 'true'})
+      #   end
+      # end
     end
 
     describe '.read_file' do
