@@ -15,7 +15,7 @@ describe "element trash feature", js: true do
     within ".alchemy-elements-window .element_editor:first" do
       click_link "Put element into trash"
     end
-    # expect(page).to have_content Alchemy::I18n.t('Element trashed')
-    # expect(page).to have_no_selector(".element_editor")
+    expect(page).to have_content Alchemy::I18n.t('Element trashed')
+    expect(page).to have_no_selector(".element_editor")
   end
 end
