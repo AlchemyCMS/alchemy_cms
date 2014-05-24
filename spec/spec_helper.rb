@@ -53,15 +53,32 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.include Alchemy::Specs::ControllerHelpers, :type => :controller
   config.include Alchemy::Specs::IntegrationHelpers, :type => :feature
-  config.use_transactional_fixtures = true
-  # Make sure the database is clean and ready for test
+  config.use_transactional_fixtures = false
+
   config.before(:suite) do
-    truncate_all_tables
+    DatabaseCleaner.clean_with(:truncation)
     Alchemy::Seeder.seed!
   end
-  # Ensuring that the locale is always resetted to :en before running any tests
+
+  # All specs are running in transactions, but feature specs not.
   config.before(:each) do
     Alchemy::Site.current = nil
     ::I18n.locale = :en
+    if example.metadata[:type] == :feature
+      DatabaseCleaner.strategy = :truncation
+    else
+      DatabaseCleaner.strategy = :transaction
+    end
+    DatabaseCleaner.start
+  end
+
+  # After each spec the database gets cleaned. (via rollback or truncate for feature specs)
+  # After every feature spec the database gets seeded so the next spec can rely on that data.
+  config.append_after(:each) do
+    DatabaseCleaner.clean
+    if example.metadata[:type] == :feature
+      Alchemy::Seeder.stub(:puts)
+      Alchemy::Seeder.seed!
+    end
   end
 end
