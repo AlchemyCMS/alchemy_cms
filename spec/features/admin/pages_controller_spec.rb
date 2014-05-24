@@ -24,7 +24,7 @@ module Alchemy
         it "one should be able to switch the language tree" do
           visit('/admin/pages')
           page.select 'Klingonian', :from => 'language'
-          page.should have_selector('#sitemap .sitemap_pagename_link', :text => 'Klingonian')
+          page.should have_selector('#sitemap', :text => 'Klingonian')
         end
 
         after { Capybara.default_wait_time = 2 } # Reset to default
