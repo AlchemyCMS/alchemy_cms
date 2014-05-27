@@ -1,5 +1,4 @@
 #= require alchemy/alchemy.dialog
-#= require alchemy/alchemy.routes
 #= require alchemy/alchemy.spinner
 #
 # Represents the link Dialog that appears, if a user clicks the link buttons

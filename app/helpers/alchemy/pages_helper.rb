@@ -403,7 +403,12 @@ module Alchemy
     def alchemy_preview_mode_code
       if @preview_mode
         output = javascript_tag("Alchemy = { locale: '#{session[:alchemy_locale]}' };")
+        output += render('alchemy/admin/partials/tinymce_config')
         output += javascript_include_tag("alchemy/preview")
+        if Alchemy::Tinymce.custom_config_contents(@page).any?
+          output += render('alchemy/admin/partials/tinymce_custom_config')
+        end
+        output
       end
     end
 
