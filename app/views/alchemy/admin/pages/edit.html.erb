@@ -106,7 +106,7 @@
 
 <% content_for :javascripts do %>
 <% if Alchemy::Tinymce.custom_config_contents(@page).any? %>
-  <%= render 'tinymce_custom_config' %>
+  <%= render 'alchemy/admin/partials/tinymce_custom_config' %>
 <% end %>
 <script type="text/javascript" charset="utf-8">
 
