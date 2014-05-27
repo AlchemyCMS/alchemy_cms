@@ -32,7 +32,6 @@ onload = ($) ->
     toolbar: 'save | undo redo'
     menubar: false
     entity_encoding: 'raw'
-    save_enablewhendirty: true
     save_onsavecallback: saveContent
 
   # Init EssenceRichtexts
