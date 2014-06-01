@@ -12,12 +12,13 @@ gem 'coveralls', require: false
 # Fixes issues with wrong exit codes. See: https://github.com/colszowka/simplecov/issues/269
 gem 'simplecov', '0.7.1'
 
+gem 'database_cleaner'
+
 group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
   gem 'poltergeist'
-  gem 'connection_pool' # https://gist.github.com/mperham/3049152
   unless ENV['CI']
     gem 'launchy'
   end

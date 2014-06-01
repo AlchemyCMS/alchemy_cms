@@ -46,6 +46,7 @@ describe "Link overlay" do
       Alchemy::Page.any_instance.stub(:definition).and_return({'redirects_to_external' => true})
       visit link_admin_pages_path
       page.should_not have_selector('ul#sitemap li div[name="/http-www-google-com"] a')
+      Alchemy::Page.any_instance.unstub(:definition)
     end
 
   end
