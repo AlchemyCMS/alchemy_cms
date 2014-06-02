@@ -1,5 +1,5 @@
 module Alchemy
-  module Page::Naming
+  module Page::PageNaming
 
     extend ActiveSupport::Concern
     include NameConversions

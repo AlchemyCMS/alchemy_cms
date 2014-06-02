@@ -2,7 +2,7 @@ module Alchemy
 
   # ActiveRecord scopes for Alchemy::Page
   #
-  module Page::Scopes
+  module Page::PageScopes
     extend ActiveSupport::Concern
 
     included do
