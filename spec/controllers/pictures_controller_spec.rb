@@ -228,7 +228,7 @@ module Alchemy
 
         it "should resize the image inferring the height if not given" do
           options = {
-            :size => '40',
+            :size => '40x',
             :format => 'png'
           }
           get :show, options.merge(:id => big_picture.id, :sh => big_picture.security_token(options))
