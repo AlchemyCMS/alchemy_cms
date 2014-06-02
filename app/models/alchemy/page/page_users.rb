@@ -1,5 +1,5 @@
 module Alchemy
-  module Page::Users
+  module Page::PageUsers
     extend ActiveSupport::Concern
 
     # Returns the name of the creator of this page.

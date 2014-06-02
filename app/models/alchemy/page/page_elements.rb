@@ -1,5 +1,5 @@
 module Alchemy
-  module Page::Elements
+  module Page::PageElements
 
     extend ActiveSupport::Concern
 

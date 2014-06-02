@@ -64,12 +64,12 @@ module Alchemy
     after_update :create_legacy_url, :if => :urlname_changed?, :unless => :redirects_to_external?
 
     # Concerns
-    include Alchemy::Page::Scopes
-    include Alchemy::Page::Natures
-    include Alchemy::Page::Naming
-    include Alchemy::Page::Users
-    include Alchemy::Page::Cells
-    include Alchemy::Page::Elements
+    include Alchemy::Page::PageScopes
+    include Alchemy::Page::PageNatures
+    include Alchemy::Page::PageNaming
+    include Alchemy::Page::PageUsers
+    include Alchemy::Page::PageCells
+    include Alchemy::Page::PageElements
 
     # Class methods
     #

@@ -1,5 +1,5 @@
 module Alchemy
-  module Page::Natures
+  module Page::PageNatures
 
     extend ActiveSupport::Concern
 
