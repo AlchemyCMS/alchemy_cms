@@ -114,7 +114,7 @@ module Alchemy
       if height.blank? && width.present?
         width.to_s
       else
-        "#{width}x#{height}"
+        "#{width}x#{height}c" # This is really only used for cropping; the c at the end indicates crop from "Center"
       end
     end
 
