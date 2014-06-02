@@ -72,7 +72,6 @@ module Alchemy
     has_many :folded_pages
     has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
     belongs_to :language
-    belongs_to :locker, class_name: Alchemy.user_class_name, foreign_key: 'locked_by'
 
     validates_presence_of :language, :on => :create, :unless => :root
     validates_presence_of :page_layout, :unless => :systempage?

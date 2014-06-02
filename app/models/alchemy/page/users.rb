@@ -2,6 +2,18 @@ module Alchemy
   module Page::Users
     extend ActiveSupport::Concern
 
+    def creator
+      Alchemy.user_class.try(:find, creator_id)
+    end
+
+    def updater
+      Alchemy.user_class.try(:find, updater_id)
+    end
+
+    def locker
+      Alchemy.user_class.try(:find, locked_by)
+    end
+
     # Returns the name of the creator of this page.
     #
     # If no creator could be found or associated user model
