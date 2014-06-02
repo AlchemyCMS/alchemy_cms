@@ -1,5 +1,5 @@
 module Alchemy
-  module Page::Cells
+  module Page::PageCells
 
     extend ActiveSupport::Concern
 
