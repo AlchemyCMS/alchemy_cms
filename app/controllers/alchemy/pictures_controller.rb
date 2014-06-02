@@ -65,40 +65,41 @@ module Alchemy
       if @image.nil?
         raise MissingImageFileError, "Missing image file for #{@picture.inspect}"
       end
-      if params[:crop_size].present? && params[:crop_from].present?
-        @image = @image.thumb crop_geometry_string(params)
-        @image.thumb(resize_geometry_string)
-      elsif params[:crop] == 'crop' && @size.present?
-        @image.thumb(geometry_string)
-      elsif @size.present?
-        @image.thumb(resize_geometry_string)
+      if @size.present?
+        if params[:crop_size].present? && params[:crop_from].present?
+          @image = @image.thumb xy_crop_geometry_string(params)
+          @image.thumb(resize_geometry_string)
+        elsif params[:crop]
+          @image.thumb(center_crop_geometry_string)
+        else
+          @image.thumb(resize_geometry_string)
+        end
       else
         @image
       end
     end
 
     # Returns the Imagemagick geometry string for cropping the image.
-    def crop_geometry_string(params)
+    def xy_crop_geometry_string(params)
       crop_from_x, crop_from_y = params[:crop_from].split('x')
       "#{params[:crop_size]}+#{crop_from_x}+#{crop_from_y}"
     end
 
     # Returns the Imagemagick geometry string used to resize the image.
+    #
+    # Prevents upscaling unless :upsample param is true.
     def resize_geometry_string
-      params[:upsample] == 'true' ? @size.to_s : "#{@size}>"
+      params[:upsample] == 'true' ? @size : "#{@size}>"
     end
 
-    # Returns the Imagemagick geometry string with normalized width and height values
+    # Returns the Imagemagick geometry string used to crop the image.
     #
-    # Prevents upscaling unless :upsample param is true,
-    # because unfurtunally Dragonfly does not handle this correctly while cropping
-    #
-    def geometry_string
-      return @size if params[:upsample] == 'true'
-      sizes_to_geometry_string *normalized_sizes(*@size.split('x'))
+    # Prevents upscaling unless :upsample param is true
+    def center_crop_geometry_string
+      params[:upsample] == 'true' ? "#{@size}#" : "#{normalized_sizes(*@size.split('x'))}#"
     end
 
-    # Ensures that the size is never greater than original image size
+    # Ensure we're not trying to scale the image up. Used only for cropping.
     def normalized_sizes(width, height)
       if width.to_i > @image.width
         width = @image.width
@@ -106,17 +107,7 @@ module Alchemy
       if height.to_i > @image.height
         height = @image.height
       end
-      return width, height
+      "#{width}x#{height}"
     end
-
-    # Returns the geometry string for given sizes.
-    def sizes_to_geometry_string(width, height)
-      if height.blank? && width.present?
-        width.to_s
-      else
-        "#{width}x#{height}"
-      end
-    end
-
   end
 end
