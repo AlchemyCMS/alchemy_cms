@@ -824,13 +824,13 @@ de:
         one: "Seite"
         other: "Seiten"
 
-      alchemy/picture:
-        one: Bild
-        other: Bilder
-
       alchemy/site:
         one: Website
         other: Websites
+
+      alchemy/picture:
+        one: Bild
+        other: Bilder
 
     attributes:
 
