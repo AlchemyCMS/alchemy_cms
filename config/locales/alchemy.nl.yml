@@ -153,8 +153,8 @@ nl:
       video/quicktime: 'Quicktime-Video'
       image/x-psd: 'Photoshop-File'
       image/gif: 'GIF-Afbeelding'
-      image/png: 'PNG-Afbeelding'
       image/jpeg: 'JPG-Afbeelding'
+      image/png: 'PNG-Afbeelding'
       video/x-msvideo: 'AVI-Video'
       video/x-ms-wmv: 'Windows Media Video'
       image/tiff: 'TIFF-Afbeelding'
@@ -170,10 +170,12 @@ nl:
       site:
         aliases: Specificeer andere domeinen gescheiden met witte ruimte of lege regel
 
-    back: 'zurück'
+    anchor: 'Anchor'
+    back: 'back'
     create_tree_as_new_language: "%{language} aanmaken als nieuwe boomstructuur"
     "Active Pages": "Actieve pagina's"
     "Add global page": "Nieuwe globale pagina"
+    "Add page link": "Verweis hinzufügen"
     "Adobe Website": "Adobe Website"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software en maakt zelf ook gebruik van open software en gratis bronnen"
     "Alchemy is up to date": "Alchemy is up to date"
@@ -198,31 +200,35 @@ nl:
     "Edit image": "Afbeelding bewerken"
     "Edit multiple pictures": "Meerdere afbeeldingen bewerken"
     "Elements": "Elementen"
-    "Delete image": "Afbeelding verwijderen"
+    "Element trashed": "Element trashed" # ToDo: translate this
     "Error with the Flash® Uploader!": "Fout in de Flash® Uploader!"
     "Excerpt": "fragment"
-    "File uploaded succesfully": "Bestand %{name} Geüploadet"
+    "File uploaded succesfully": "Bestand %{name} geüploadet"
     "File successfully updated": "Bestand is succesvol geüpdatet"
     "File upload error": "Bestand kon niet worden geüpload: %{error}"
     "File deleted successfully": "%{name} verwijderd"
     "Filter by tag": "Op tag filteren"
     "Flush page cache": "Paginacache leegmaken"
     "Flush picture cache": "Afbeeldingscache leegmaken"
+    "Global shortcuts": "Global shortcuts" # ToDo: translate this
     "Hide childpages": "Onderliggende pagina's verbergen"
     "Hide Elements": "Elementen verbergen"
     "If you have any problems using the Flash uploader you can switch to": "Bij problemen met de Flash® Uploader kunt u gebruik maken van %{link}"
+    "Image missing": "Afbeelding mist"
     "Image size": "Afbeeldingsgrootte"
     "Language successfully created.": "Taal is aangemaakt"
     "Language successfully destroyed.": "Taal is verwijderd"
     "Language successfully updated.": "Taal is aangepast"
     "Language tree": "Taalboom"
     "Layout default": "Standaard layout"
+    "Library shortcuts": "Library shortcuts" # ToDo: translate this
     "Logged in as": "Aangemeld als"
     "Mandatory": "Verplichte velden"
     "Name": "Naam"
     "New": "Nieuw"
     "New Element": "Nieuw element"
     "New page": "Nieuwe pagina"
+    "No page links for this page found": "No page links for this page found" # ToDo: translate this
     "New password": "Nieuw wachtwoord"
     "New Tag": "Nieuwe tag"
     "New Tag Created": "Nieuwe tag is gemaakt"
@@ -232,18 +238,19 @@ nl:
     "None": "geen"
     "Open Link in": "Link openen in"
     "Page": "Pagina"
-    "Page deleted": "Pagina: %{name} verwijderd."
-    "Page saved": "Pagina: '%{name}' opgeslagen."
+    "Page edit shortcuts": "Page edit shortcuts" # ToDo: translate this
+    "Page deleted": "%{name} verwijderd"
+    "Page saved": "%{name} opgeslagen"
     "Page cache flushed": "Paginacache is geleegd"
     "Pages order saved": "Paginasortering is opgeslagen"
     "Password": "Wachtwoord"
     "Password reset": "Wachtwoord resetten"
     "Paste from clipboard": "Uit klembord kopieren"
     "Picture infos": "Afbeeldingsinformatie"
-    "Picture uploaded succesfully": "Upload van afbeelding %{name} is geslaagd"
-    "Picture validation error": "Upload van afbeelding %{name} is mislukt"
-    "Picture renamed successfully": "Afbeelding is hernoemd van %{from} naar  %{to}"
-    "Picture deleted successfully": "%{name} is verwijderd"
+    "Picture uploaded succesfully": "Afbeelding %{name} is geüpload"
+    "Picture validation error": "Fout bij het uploaden van afbeelding %{name}"
+    "Picture renamed successfully": "Afbeelding hernoemd van %{from} naar %{to}"
+    "Picture deleted successfully": "Afbeelding %{name} verwijderd"
     "Pictures updated successfully": "De afbeelding is geüpdatet"
     "Picture cache flushed": "Afbeeldingscache is geleegd"
     "Please Signup": "Om de homepagina te kunnen bewerken moet er eerst een Admin account gemaakt worden."
@@ -252,6 +259,7 @@ nl:
     "Please enter your email address": "Geef een email adres op"
     "Please log in": "Meld u zich aan alstublieft."
     "Please seperate the tags with commata": "* Tags met komma scheiden."
+    "Properties": "Properties"
     "Publish page": "Publiceren"
     "Read the License": "Licentie lezen"
     "Redirects to": "Stuurt door naar"
@@ -276,29 +284,30 @@ nl:
     "Successfully deleted content": "%{content} is verwijderd"
     "Successfully saved content position": "Positie is opgeslagen"
     "Tags": "Tags"
-    "These pictures could not be deleted, because they were in use": "Deze afbeeldingen konden niet verwijderd worden omdat ze in gebruik zijn: %{names}"
+    "These pictures could not be deleted, because they were in use": "Deze afbeeldingen konden niet verwijderd worden, omdat ze in gebruik zijn: %{names}"
     "This page is locked": Deze pagina is vergrendeld door %{name}
     "Title": "Titel"
     "Trash": "Prullenbak"
     "User created": "Gebruiker is aangemaakt"
     "User deleted": "Gebruiker is verwijderd"
+    "User updated": "%{name} is aangepast"
     "Validation failed": "Een aantal verplichte velden zijn niet goed ingevuld."
     "Version": "Versie"
     "View File": "Bestand weergeven"
     "Visit page": "Pagina bezoeken"
     "Warning!": "Waarschuwing!"
-    content_description_missing: "Waarschuwing: Er is geen beschijving gevonden voor deze content. Controleer elements.yml"
+    content_description_missing: "Waarschuwing: content mist een beschrijving. Controleer elements.yml"
     element_description_missing: "Waarschuwing: Er is geen beschijving gevonden voor dit element. Controleer elements.yml"
     "Welcome to Alchemy": "Welkom bij Alchemy"
     "Who else is online": "Wie is ook online"
     "Yes": "Ja"
     "You are not authorized": "U bent niet geauthoriseerd."
     "You are about to edit many pictures at once": "%{length} afbeeldingen worden in een keer aangepast"
-    element_dirty_close_window_notice: "Er zijn niet-opgeslagen elementen. Dit venster zeker sluiten?"
-    "You may upload files with following extensions": "Er kunnen %{file_types_description} met de volgende extensies worden geüpload: %{file_types}"
+    element_dirty_close_window_notice: "Elementen zijn nog niet opgeslagen. Dit venster toch sluiten?"
+    "You may upload files with following extensions": "%{file_types_description} mogen worden geüpload met de volgende extensies: %{file_types}"
     "You may upload any file": "Alle bestanden kunnen worden geüploadet"
     "Your last login was on": "Uw laatste aanmelding was op %{time}."
-    "User updated": "Gebruiker is aangepast"
+    "Your last updated pages": "Your last updated pages"
     "Your trash is empty": "De prullenbak is leeg"
     above: "er boven"
     add: "toevoegen"
@@ -328,15 +337,14 @@ nl:
     confirm_to_delete_image_from_server: "Afbeelding van de server verwijderen?"
     confirm_to_delete_images_from_server: "Afbeeldingen van de server verwijderen?"
     confirm_to_delete_page: "Deze pagina verwijderen? Alle inhoud gaat verloren."
-    content_description_missing: "Waarschuwing: content mist een beschrijving. Controleer elements.yml"
     content_essence_not_found: "Content essence is niet gevonden"
     content_not_found: "Veld voor content is niet aanwezig"
     content_validations_headline: "Controleer de gemarkeerde velden"
     copy: "kopieren"
     copy_element: "Dit element kopieren"
-    copy_language_tree_heading: "Paginastructuur kopieren"
     copy_page: "Pagina kopieren"
     "Could not delete Pictures": "Kan de afbeeldingen niet verwijderen"
+    copy_language_tree_heading: "Paginastructuur kopieren"
     country_code_placeholder: 'bijv. us (optioneel)'
     country_code_foot_note: "Een landcode is alleen nodig voor het toewijzen van een aparte taal aan elk land."
     create: "maken"
@@ -355,7 +363,7 @@ nl:
     documents: "Bestanden"
     download_csv: "CSV downloaden"
     download_file: "Bestand '%{filename}' downloaden"
-    "Drag an element over to the element window to restore it": "Sleep een element over het venster om deze te restoren."
+    do_you_really_want_to_delete_this_tag?: "Do you really want to delete this tag?"
     drag_to_sort: "slepen om afbeeldingen te sorteren"
     edit_file_properties: "Eigenschappen van het bestand aanpassen"
     edit_image_properties: "Eigenschappen van de afbeelding aanpassen"
@@ -364,8 +372,6 @@ nl:
     edit_page_properties: "Eigenschappen van de pagina aanpassen"
     edit_tag: 'Tag bearbeiten'
     edit_selected_pictures: "Geselecteerde afbeeldingen aanpassen"
-    element_description_missing: "Waarschuwing: element mist een beschrijving. Controleer elements.yml"
-    element_dirty_close_window_notice: "Elementen zijn nog niet opgeslagen. Dit venster toch sluiten?"
     element_editor_not_found: "Foutmelding in het element"
     element_of_type: "Element"
     element_saved: "Opgeslagen element."
@@ -386,13 +392,25 @@ nl:
     female: "Vrouw"
     file: "Bestand"
     file_rename_error: "Fout bij hernoemen van het bestand."
-    "File uploaded succesfully": "Bestand %{name} geüpload"
-    "File upload error": "Fout bij uploaden:: %{error}"
+    files: Files # ToDo: translate this
     from_at: "door %{by} op %{at}"
     height: "Hoogte"
+    help:
+      shortcuts:
+        "Open help window": "Open help window"  # ToDo: translate this
+        "Close current dialog": "Close current dialog" # ToDo: translate this
+        "Open logout dialog": "Open logout dialog" # ToDo: translate this
+        "Focus search field": "Focus search field" # ToDo: translate this
+        "Create a new record": "Create a new record" # ToDo: translate this
+        "Show page infos": "Show page info" # ToDo: translate this
+        "Create new element": "Create new element" # ToDo: translate this
+        "Edit page properties": "Edit page properties" # ToDo: translate this
+        "Reload the preview": "Reload the preview" # ToDo: translate this
+        "Leave the page": "Leave the page" # ToDo: translate this
+        "Open upload form": "Open upload form" # ToDo: translate this
+        "Select all pictures": "Select all pictures" # ToDo: translate this
     hide_element_content: "Content van dit element verbergen."
     dashboard: "Dashboard"
-    "If you have any problems using the Flash uploader you can switch to": "Bij problemen met de Flash® uploader ykan je omschakelen naar %{link}"
     image_alt_tag: "Alt-tag"
     image_caption: "Caption"
     image_name: "Naam"
@@ -419,7 +437,7 @@ nl:
       file: "Bestand"
       internal: "Intern"
     link_title: "Linktitel"
-    mail_to: "Ontvanger"
+    login: login # ToDo: translate this
     logout: "afmelden"
     mail_to: "ontvanger"
     main_content: "inhoud"
@@ -487,11 +505,8 @@ nl:
       update:
         comma_seperated: "Komma gescheiden"
     password: "Wachtwoord"
+    paste: paste # ToDo: translate this
     picture_gallery_editor: 'Afbeeldingen'
-    "Picture uploaded succesfully": "Afbeelding %{name} is geüpload"
-    "Picture validation error": "Fout bij het uploaden van afbeelding %{name}"
-    "Picture renamed successfully": "Afbeelding hernoemd van %{from} naar %{to}"
-    "Picture deleted successfully": "Afbeelding %{name} verwijderd"
     picture_library:
       filter:
         last_upload: "uit laatste upload"
@@ -530,7 +545,7 @@ nl:
     search: "zoeken"
     search_engines: "Zoekmachines"
     select_element: "Selecteer element"
-    'Show clipboard': 'Klembord weergeven'
+    seperate_tags_with_comma: "Seperate tags with comma" # ToDo: translate this
     show_element_content: "Content van dit element weergeven."
     show_elements_from_page: "Alle elementen van deze pagina weergeven"
     show_eq: "EQ weergeven"
@@ -545,7 +560,6 @@ nl:
     successfully_saved_element_position: "Positie van het Element is aangepast."
     successfully_updated_tag: "De tag is geüpdatet"
     swap_image: "Afbeelding wijzigen"
-    "These pictures could not be deleted, because they were in use": "Deze afbeeldingen konden niet worden verwijderd, omdat ze in gebruik zijn: %{names}"
     insert_image: "Afbeelding toevoegen"
     tag_list: Tags
     tags_get_created_if_used_the_first_time: 'Tags worden aangemaakt als ze de eerste keer worden gebruikt'
@@ -553,6 +567,7 @@ nl:
     title: "Titel"
     to_alchemy: "Naar Alchemy"
     "trash element": "Element naar de prullenbak verplaatsen"
+    unknown: "unknown"
     unlink: "Snelkoppeling van deze afbeelding verwijderen."
     unlock_page: "Pagina verlaten"
     unlocked_page: "pagina %{name} is ontgrendeld."
@@ -562,7 +577,7 @@ nl:
     visible: "zichtbaar"
     want_to_create_new_language: "Nieuwe boomstructuur aanmaken?"
     want_to_make_copy_of_existing_language: "Een boomstructuur kopieren?"
-    "Welcome to Alchemy": "Welkom bij Alchemy"
+    "We need at least one default.": "A default language must exist." # ToDo: translate this
     welcome_note: "Welkom %{name}"
     welcome_back_note: "Welkom terug %{name}"
     welcome_please_identify_notice: "Welkom! voer uw gegevens in."
@@ -572,9 +587,9 @@ nl:
     zoom_image: "Afbeelding vergroten"
     "Leave Alchemy": "Alchemy verlaten"
     leave: "verlaten"
-    "You are already logged in": "U bent al aangemeld."
-    "You may upload files with following extensions": "%{file_types_description} mogen worden geüpload met de volgende extensies: %{file_types}"
-    zoom_image: "Zoom deze afbeelding"
+    "You are about to leave Alchemy": "You are about to leave Alchemy"
+    "Do you want to": "Do you want to"
+    "stay logged in": "stay logged in"
     "or to completly": "of compleet"
     "Are you sure?": "Weet u het zeker?"
     "Create": "Aanmaken"
@@ -589,7 +604,6 @@ nl:
     "Update available": "Er is een update verkrijgbaar"
     "Update status unavailable": "Updatestatus is niet beschikbaar"
     "Uploading": "Uploaden"
-    "Validation failed": "Validatie mislukt"
 
   # END of Alchemy translation
 
@@ -597,9 +611,6 @@ nl:
   # Below are Rails specific translations for date, time, number, currency, error messages and so on.
   date:
     formats:
-      # Use the strftime parameters for formats.
-      # When no format has been given, it uses default.
-      # You can provide other formats here if you like!
       default: "%Y-%m-%d"
       datepicker: "%Y-%m-%d"
       short: "%b %d"
@@ -607,14 +618,12 @@ nl:
       only_day: "%e"
     day_names: [Zondag, Maandag, Dinsdag, Woensdag, Donderdag, Vrijdag, Zaterdag]
     abbr_day_names: [Zon, Maa, Din, Woe, Don, Vri, Zat]
-    # Don't forget the nil at the beginning; there's no such thing as a 0th month
     month_names: [~, Januari, Februari, Maart, April, Mei, Juni, Juli, Augustus, September, Oktober, November, December]
     abbr_month_names: [~, Jan, Feb, Mar, Apr, Mei, Jun, Jul, Aug, Sep, Okt, Nov, Dec]
-    # Used in date_select and datime_select.
     order:
-      - :jaar
-      - :maand
-      - :dag
+      - :year
+      - :month
+      - :day
   time:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"
@@ -819,13 +828,13 @@ nl:
         one: "Pagina"
         other: "Pagina's"
 
-      alchemy/picture:
-        one: Afbeelding
-        other: Afbeeldingen
-
       alchemy/site:
         one: Website
         other: Websites
+
+      alchemy/picture:
+        one: Afbeelding
+        other: Afbeeldingen
 
     attributes:
 
@@ -836,7 +845,7 @@ nl:
       alchemy/attachment:
         file_mime_type: "Bestandstype"
         created_at: "Aangemaakt op"
-        filename: Bestandsnaam
+        file_name: Bestandsnaam
         name: Naam
         file_size: "Bestandsgrootte"
         tag_list: Tags
@@ -865,7 +874,7 @@ nl:
         picture_id: Afbeelding
 
       alchemy/language:
-        code: "Taalcode"
+        country_code: "Landcode"
         language_code: "Taalcode"
         default: "Standaard"
         frontpage_name: "Naam van voorpagina"

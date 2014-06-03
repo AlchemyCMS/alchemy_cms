@@ -17,8 +17,11 @@ en:
     #         search: Suche
     #
     page_layout_names:
+      contact: Contact
+      search: Search
       layout_header: 'Header Part'
       layout_footer: 'Footer Part'
+      external: External link
 
     # == Translations for element names
     # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
@@ -69,6 +72,7 @@ en:
       image_mosaic:
         caption: "Mosaic Caption"
         show_caption: "Show Caption"
+      file: File
       contactform:
         success_page: 'Followup page'
 
@@ -82,6 +86,16 @@ en:
         blank: "%{field} can't be blank"
         invalid: '%{field} has wrong format'
         taken: '%{field} has already been taken'
+
+    default_content_texts:
+      lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
+
+    essence_pictures:
+      css_classes:
+        left: 'Left from text'
+        right: 'Right from text'
+        no_float: 'Above the text'
 
     # == Contactform translations
     contactform:
@@ -142,6 +156,7 @@ en:
       image/png: 'PNG-Image'
       image/jpeg: 'JPG-Image'
       video/x-msvideo: 'AVI-Video'
+      video/x-ms-wmv: 'Windows Media Video'
       image/tiff: 'TIFF-Image'
       'text/x-vcard': 'vCard'
       application/vcard: 'vCard'
@@ -151,46 +166,185 @@ en:
       blank: New Window/Tab
       overlay: Overlay
 
+    resource_help_texts:
+      site:
+        aliases: Please separate additional domains with spaces or new lines.
+
+    anchor: 'Anchor'
+    back: 'back'
     create_tree_as_new_language: "Create %{language} as a new language tree"
-    "Delete image": "Remove this image"
+    "Active Pages": "Active pages"
+    "Add global page": "Add global page"
+    "Add page link": "Add page link"
+    "Adobe Website": "Adobe Website"
+    "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software and itself uses open software and free resources:"
+    "Alchemy is up to date": 'Alchemy is up to date'
+    'An error happened': 'An error happened'
+    "Change password": "Change password"
+    "Choose page": "Choose page"
+    "Cleared trash": "Cleared trash"
+    "Clear selection": "Clear selection"
+    "Forgot your password?": "Forgot your password?"
+    "Clipboard": "Clipboard"
+    "Confirm new password": "Confirm new password"
+    "Copy": "Copy"
+    "Could not load Adobe Flash® Plugin!": "Could not load Adobe Flash® Plugin!"
+    "Currently locked pages": "Currently locked pages"
+    "Default language has to be public": "Default language has to be public"
+    "Delete image": "Delete image"
+    "Do you really want to clear the clipboard?": "Do you really want to clear the clipboard?"
+    "Do you really want to clear the trash?": "Do you really want to clear the trash?"
+    "Do you really want to delete this content?": "Do you really want to delete this content?"
+    "Drag an element over to the element window to restore it": "Drag an element over to the element window to restore it"
+    "Edit Picturemask": "Edit picturemask"
+    "Edit image": "Edit image"
+    "Edit multiple pictures": "Edit multiple pictures"
+    "Elements": "Elements"
+    "Element trashed": "Element trashed"
+    "Error with the Flash® Uploader!": "Error with the Flash® Uploader!"
+    "Excerpt": "Excerpt"
+    "File uploaded succesfully": "File %{name} succesfully uploaded"
+    "File successfully updated": "File successfully updated"
+    "File upload error": "File upload error: %{error}"
+    "File deleted successfully": "%{name} has been deleted"
+    "Filter by tag": "Filter by tag"
+    "Flush page cache": "Flush page cache"
+    "Flush picture cache": "Flush picture cache"
+    "Global shortcuts": "Global shortcuts"
+    "Hide childpages": "Hide childpages"
+    "Hide Elements": "Hide Elements"
+    "If you have any problems using the Flash uploader you can switch to": "If you have any problems using the Flash uploader you can switch to %{link}"
+    "Image missing": "Image missing"
     "Image size": "Imagesize"
+    "Language tree": "Language tree"
+    "Layout default": "Layout default"
+    "Library shortcuts": "Library shortcuts"
+    "Logged in as": "Logged in as"
     "Mandatory": "Mandatory fields"
-    "Page deleted": "Page: %{name} deleted."
-    "Page saved": "Page: '%{name}' saved."
+    "Name": "Name"
+    "New": "New"
+    "New Element": "New element"
+    "New page": "New page"
+    "No page links for this page found": "No page links for this page found"
+    "New password": "New password"
+    "New Tag": "New tag"
+    "New Tag Created": "New Tag Created"
+    "No": "No"
+    "No items in your clipboard": "No items in your clipboard"
+    "No Tags found": "No Tags found"
+    "None": "None"
+    "Open Link in": "Open Link in"
+    "Page": "Page"
+    "Page edit shortcuts": "Page edit shortcuts"
+    "Page deleted": "%{name} deleted"
+    "Page saved": "%{name} saved"
+    "Page cache flushed": "Page cache flushed"
+    "Pages order saved": "Pages order saved"
     "Password": "Password"
+    "Password reset": "Password reset"
     "Paste from clipboard": "Paste from clipboard"
+    "Picture infos": "Picture infos"
+    "Picture uploaded succesfully": "Picture %{name} uploaded successfully"
+    "Picture validation error": "Error while uploading %{name}"
+    "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
+    "Picture deleted successfully": "Picture %{name} successfully deleted"
+    "Pictures updated successfully": "Pictures updated successfully"
+    "Picture cache flushed": "Picture cache flushed"
+    "Please Signup": "Please signup to edit your Website."
+    "Please choose": "Please choose"
+    "Please enter a new password": "Please enter a new password."
+    "Please enter your email address": "Please enter your email address."
+    "Please log in": "Please log in."
+    "Please seperate the tags with commata": "* Please seperate the tags with commata."
+    "Properties": "Properties"
+    "Publish page": "Publish page"
+    "Read the License": "Read the License"
+    "Redirects to": "Redirects to"
+    "Reload Preview": "Reload Preview"
+    "Remove item from clipboard": "Remove item from clipboard"
+    "Remove tag filter": "Remove tag filter"
+    "Remove this content": "Remove this content"
+    "Reset Imagemask": "Reset Imagemask"
+    "Reset password instructions": "Reset password instructions"
+    "Select all": "Select all"
+    "Select an content": "Select a content"
+    "Select style": "Select style"
+    "Send reset instructions": "Send reset instructions"
+    "Show Elements": "Show Elements"
+    "Show childpages": "Show childpages"
+    "Show clipboard": "Show clipboard"
+    "Show picture infos": "Show picture infos"
+    "Show trash": "Show trash"
+    "Size": "Size"
+    "Sort pages": "Sort pages"
     "Successfully added content": "Successfully added %{content}"
     "Successfully deleted content": "Successfully deleted %{content}"
-    "User created": "User created"
-    "User deleted": "User deleted"
-    "User updated": "User updated"
+    "Successfully saved content position": "Successfully saved content position"
+    "Tags": "Tags"
+    "These pictures could not be deleted, because they were in use": "These pictures could not be deleted, because they were in use: %{names}"
+    "This page is locked": "This page is currently locked by %{name}"
+    "Title": "Title"
+    "Trash": "Trash"
+    "User created": "%{name} User created"
+    "User deleted": "%{name} User deleted"
+    "User updated": "%{name} User updated"
+    "Validation failed": "Validation failed"
+    "Version": "Version"
+    "View File": "View File"
+    "Visit page": "Visit page"
+    "Warning!": "Warning!"
+    content_description_missing: "Warning: Content is missing its description. Please check the elements.yml"
+    element_description_missing: "WARNING! Missing description. Please check your elements.yml file."
+    "Welcome to Alchemy": "Welcome to Alchemy"
+    "Who else is online": "Who else is online"
+    "Yes": "Yes"
+    "You are not authorized": "You are not authorized"
+    "You are about to edit many pictures at once": "You are about to edit %{length} pictures at once"
+    element_dirty_close_window_notice: "You have unsaved elements. Do you really want to close the elements window?"
+    "You may upload files with following extensions": "You may upload %{file_types_description} with following extensions: %{file_types}"
+    "You may upload any file": "You may upload any file"
+    "Your last login was on": "Your last login was on %{time}."
+    "Your last updated pages": "Your last updated pages"
+    "Your trash is empty": "Your trash is empty"
+    above: "above"
+    add: "Add"
+    "add new content": "Add new content"
     add_image_to_element: "Add an image"
     align_in_text: "Alignment in text"
+    all: "all"
+    all_pictures: "All pictures"
+    apply: "apply"
     assign_file: "Assign a file"
     assign_file_from_archive: "assign a file from your archive"
     assign_image: "Assign an image"
     attachment_filename_notice: "* Please do not use any special characters for the filename."
     auto_play: "Play movie after load"
     big_thumbnails: "Big thumbnails"
+    browse: "browse"
+    cancel: "cancel"
     cannot_delete_picture_notice: "Cannot delete Picture %{name}, because it's still in use."
     choose_element_as_target: "Please choose an element as target"
     choose_element_to_link: "Please choose an element"
     choose_file_to_link: "Please choose a file to link"
+    "clear clipboard": "clear clipboard"
+    "clear trash": "clear trash"
     click_to_show_all: "Click to show all again."
     confirm_to_delete_file: "Do you really want to delete this file from the server?"
     confirm_to_delete_image: "Do you really want to delete this image from server?"
     confirm_to_delete_image_from_server: "Do you really want to delete this image from the server?"
     confirm_to_delete_images_from_server: "Do you really want to delete these images from the server?"
-    content_description_missing: "Warning: Content is missing its description. Please check the elements.yml"
+    confirm_to_delete_page: "Do you really want to delete this page? All its elements will get lost!"
     content_essence_not_found: "Content essence not found"
     content_not_found: "Field for content not present."
     content_validations_headline: "Please check marked fields below"
+    copy: "copy"
     copy_element: "Copy this element"
-    copy_language_tree_heading: "Copy page tree"
     copy_page: "Copy page"
     "Could not delete Pictures": "Could not delete Pictures"
+    copy_language_tree_heading: "Copy page tree"
     country_code_placeholder: 'i.e. us (optional)'
     country_code_foot_note: "You only need to set a country code if you want to provide each country with an individual language."
+    create: "create"
     "Create language": "Create a new language"
     "Create site": "Create a new site"
     create_language_tree_heading: "Create empty language tree"
@@ -201,20 +355,20 @@ en:
     delete_image: "Remove this image"
     delete_language: "Delete this language"
     delete_page: "Delete this page"
+    delete_tag: 'Delete tag'
     document: "File"
     documents: "Files"
     download_csv: "Download CSV"
     download_file: "Download file '%{filename}'"
-    "Drag an element over to the element window to restore it": "Drag an element over to the element window to restore it."
+    do_you_really_want_to_delete_this_tag?: "Do you really want to delete this tag?"
     drag_to_sort: "Drag'n'Drop to sort images"
     edit_file_properties: "Edit file properties."
     edit_image_properties: "Edit image properties."
     edit_language: "Edit language"
     edit_page: "Edit this page"
-    edit_page_properties: "Edit the page's properties."
+    edit_page_properties: "Edit page properties"
+    edit_tag: 'Edit tag'
     edit_selected_pictures: "Edit selected pictures"
-    element_description_missing: "WARNING! Missing description. Please check your elements.yml file."
-    element_dirty_close_window_notice: "You have unsaved elements. Do you really want to close the elements window?"
     element_editor_not_found: "Error within this Element"
     element_of_type: "Element"
     element_saved: "Saved element."
@@ -229,15 +383,14 @@ en:
       step1: "Click the 'browse' button and navigate to your %{name} folder"
       step2: "Select all the %{name} you want to upload"
       step3: "Click the 'open' button. The upload starts!"
+      dragndrop: "You can also drag files from your computer over to the area underneath."
     external_link_notice_1: "Please enter the complete url with http:// or a similar protocol."
     external_link_notice_2: "To refer a path from your website url, start with a /."
     female: "Female"
     file: "File"
     file_rename_error: "Error renaming file."
-    "File uploaded succesfully": "File %{name} successfully uploaded"
-    "File upload error": "File upload error: %{error}"
+    files: "Files"
     from_at: "from %{by} at %{at}"
-    'Global shortcuts': 'Global shortcuts'
     height: "Height"
     help:
       shortcuts:
@@ -255,11 +408,11 @@ en:
         "Select all pictures": "Select all pictures"
     hide_element_content: "Hide this elements content."
     dashboard: "Dashboard"
-    "If you have any problems using the Flash uploader you can switch to": "If you have any problems using the Flash® uploader you can switch to %{link}"
     image_alt_tag: "Alt-tag"
     image_caption: "Caption"
     image_name: "Name"
     image_title: "Title-tag"
+    images: "Images"
     internal_link_headline: "Choose a page to link to."
     internal_link_page_elements_explanation: "Additionally you can click right beside a page on 'Show Elements' to link to an anchor of an element from that page."
     internal_link_page_anchors_explanation: "Alternatively you can link to an anchor of the actual page."
@@ -271,8 +424,9 @@ en:
     language_code_placeholder: 'i.e. en'
     language_does_not_exist: "This language tree does not exist"
     language_pages_copied: "Language tree successfully copied."
+    last_upload_only: "Last upload only"
+    left: "left"
     legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
-    "Library shortcuts": "Library shortcuts"
     link_image: "Link this image."
     link_overlay_tab_label:
       contactform: "Contact form"
@@ -280,8 +434,12 @@ en:
       file: "File"
       internal: "Internal"
     link_title: "Link title"
+    login: "login"
+    logout: "logout"
     mail_to: "Recipient"
+    main_content: "Main content"
     male: "Male"
+    me: "Me"
     medium_thumbnails: "Medium thumbnails"
     meta_data: "Meta-Data"
     meta_description: "Meta-Description"
@@ -299,18 +457,23 @@ en:
     name: "Name"
     names: "Names"
     navigation_name: "Navigation name"
+    no_image_for_cropper_found: "No image found. Please save the element first."
+    no: "No"
+    "no pages": "no pages"
+    "no users": "no users"
     no_default_language_found: "No default language found."
     no_element_given: "No element given."
     no_files_in_archive: "You do not have any files in your archive."
-    no_image_for_cropper_found: "No image found. Please save the element first."
     no_images_in_archive: "You don't have any images in your archive."
     no_more_elements_to_add: "No more elements available."
     no_search_results: "Your search did not return any results."
     "not a valid image": "This is not an valid image."
+    "or": 'or'
+    or_replace_it_with_an_existing_tag: 'Or replace it with an existing tag'
     "Page created": "Page: '%{name}' created."
-    "Page edit shortcuts": "Page edit shortcuts"
     page_for_links:
       choose_page: "Choose %{name}"
+    page_infos: 'Page info'
     page_layout_changed_notice: "Page type was changed. Elements not usable anymore have been moved into the trash."
     page_properties: "Page properties"
     page_public: "published"
@@ -339,11 +502,8 @@ en:
       update:
         comma_seperated: "Separate by comma"
     password: "Password"
+    paste: "paste"
     picture_gallery_editor: 'Pictures'
-    "Picture uploaded succesfully": "Picture %{name} uploaded successfully"
-    "Picture validation error": "Error while uploading %{name}"
-    "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
-    "Picture deleted successfully": "Picture %{name} successfully deleted"
     picture_library:
       filter:
         last_upload: "from last upload"
@@ -354,6 +514,8 @@ en:
     "please enter subject and mail address": "Please enter recipient and subject."
     please_confirm: "Please confirm"
     please_wait: "Please wait"
+    position_in_text: "Position in text"
+    preview_size: "Preview size"
     preview_sizes:
       '240': '240px (small phone)'
       '320': '320px (iPhone)'
@@ -361,15 +523,26 @@ en:
       '768': '768px (iPad - Portrait)'
       '1024': '1024px (iPad - Landscape)'
       '1280': '1280px (Desktop)'
+    recently_uploaded_only: 'Recently uploaded only'
+    "regular method": "Regular method"
+    remove: "Remove"
     rename_file: "Rename this file."
+    rename: "Rename"
+    replace: replace
+    'Replaced Tag': "Tag '%{old_tag}' was replaced with '%{new_tag}'"
     resources:
       relation_select:
         blank: '- none -'
+    right: "right"
     robot_follow: "robot may follow links."
     robot_index: "allow robot to index."
+    save: "Save"
+    "save order": "Save order"
     saved_link: "Link saved."
+    search: "search"
     search_engines: "Search engines"
     select_element: "Select element"
+    seperate_tags_with_comma: "Seperate tags with comma"
     show_element_content: "Show content of this element."
     show_elements_from_page: "Show all elements from this page"
     show_eq: "Show EQ"
@@ -377,33 +550,57 @@ en:
     show_page_in_sitemap: "Show page in sitemap."
     signup_mail_delivery_error: 'Signup mail could not be delivered. Please check your mail settings.'
     small_thumbnails: "Small thumbnails"
+    subject: "Subject"
     successfully_added_element: "Successfully added new element."
+    successfully_deleted_tag: "Successfully deleted tag"
     successfully_restored_element: "Element restored successfully."
     successfully_saved_element_position: "Element position updated successfully."
+    successfully_updated_tag: "Successfully updated tag"
     swap_image: "Change image"
-    "These pictures could not be deleted, because they were in use": "These pictures could not be deleted, because they were in use: %{names}"
     insert_image: "Insert image"
+    tag_list: Tags
+    tags_get_created_if_used_the_first_time: 'Tags get created if used the first time.'
+    this_picture_is_used_on_these_pages: "This picture is used on following pages"
     title: "Title"
     to_alchemy: "To Alchemy"
     "trash element": "Put element into trash"
+    unknown: "unknown"
     unlink: "Remove link from this image."
     unlock_page: "Leave page"
     unlocked_page: "Unlocked page %{name}."
     upload_file: "Upload file(s)"
     upload_image: "Upload image(s)"
     url_name: "URL-Name"
+    visible: "visible"
     want_to_create_new_language: "Do you want to create a new empty language tree?"
     want_to_make_copy_of_existing_language: "Do you want to copy an existing language tree?"
-    "Welcome to Alchemy": "Welcome to Alchemy"
+    "We need at least one default.": "A default language must exist."
     welcome_note: "Welcome %{name}"
     welcome_back_note: "Welcome back %{name}"
     welcome_please_identify_notice: "Welcome! Please identify."
     width: "Width"
-    "You are already logged in": "You are already logged in."
-    "You may upload files with following extensions": "You may upload %{file_types_description} with following extensions: %{file_types}"
+    without_tag: "Without tag"
+    you_can_rename_this_tag: "You can rename this tag"
     zoom_image: "Zoom this image"
-    "Nothing found": "Nothing found"
-    "Validation failed": "Validation failed"
+    "Leave Alchemy": "Leave Alchemy"
+    leave: "leave"
+    "You are about to leave Alchemy": "You are about to leave Alchemy"
+    "Do you want to": "Do you want to"
+    "stay logged in": "stay logged in"
+    "or to completly": "or to completly"
+    "Are you sure?": "Are you sure?"
+    "Create": "Create"
+    "Edit": "Edit"
+    "Delete": "Delete"
+    "Succesfully created": "Succesfully created"
+    "Succesfully updated": "Succesfully updated"
+    "Succesfully removed": "Succesfully removed"
+    "Nothing found": "Nothing found."
+    "Or drag files over here": "Or drag files over here"
+    complete: 'Abgeschlossen'
+    "Update available": 'Update available'
+    "Update status unavailable": 'Update status unavailable'
+    "Uploading": "Uploading"
 
   # END of Alchemy translation
 
@@ -411,19 +608,15 @@ en:
   # Below are Rails specific translations for date, time, number, currency, error messages and so on.
   date:
     formats:
-      # Use the strftime parameters for formats.
-      # When no format has been given, it uses default.
-      # You can provide other formats here if you like!
       default: "%Y-%m-%d"
       datepicker: "%Y-%m-%d"
       short: "%b %d"
       long: "%B %d, %Y"
+      only_day: "%e"
     day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
     abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
-    # Don't forget the nil at the beginning; there's no such thing as a 0th month
     month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
     abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
-    # Used in date_select and datime_select.
     order:
       - :year
       - :month
@@ -432,8 +625,8 @@ en:
     formats:
       default: "%a, %d %b %Y %H:%M:%S %z"
       short: "%d %b %H:%M"
-      page_status: "%m.%d.%Y %H:%M"
       long: "%B %d, %Y %H:%M"
+      page_status: "%m.%d.%Y %H:%M"
       date: "%Y-%m-%d"
       datepicker: "%Y-%m-%d"
     am: "am"
@@ -532,6 +725,7 @@ en:
       inclusion: "is not included in the list"
       exclusion: "is reserved"
       invalid: "is invalid"
+      record_invalid: 'Validation of %{errors} failed'
       confirmation: "doesn't match confirmation"
       accepted: "must be accepted"
       empty: "can't be empty"
@@ -561,8 +755,9 @@ en:
             blank: "^Please choose an element."
       alchemy/language:
         attributes:
-          code:
+          language_code:
             invalid: '^Format of languagecode is not valid. Please use exactly two lowercase characters.'
+            taken: 'is already taken for this country code.'
       alchemy/page:
         attributes:
           name:
@@ -573,6 +768,10 @@ en:
             too_short: "^The pages urlname is too short (minimum of 3 characters)."
             taken: "^URL-Name already taken."
             exclusion: "^URL-Name reserved."
+      alchemy/picture:
+        attributes:
+          image_file:
+            blank: "Please attach a picture."
 
   activemodel:
     models:
@@ -586,7 +785,8 @@ en:
         firstname: 'Firstname'
         lastname: 'Lastname'
         address: 'Street / No.'
-        zip: 'Zipcode / City'
+        zip: 'Zipcode'
+        city: City
         phone: 'Telephone'
         email: 'Email'
         message: 'Message'
@@ -606,9 +806,25 @@ en:
         one: File
         other: Files
 
+      alchemy/element:
+        one: "Element"
+        other: "Elements"
+
       alchemy/legacy_page_url:
         one: "Link"
         other: "Links"
+
+      alchemy/language:
+        one: "Language"
+        other: "Languages"
+
+      alchemy/page:
+        one: "Page"
+        other: "Pages"
+
+      alchemy/site:
+        one: Website
+        other: Websites
 
       alchemy/picture:
         one: Picture
@@ -616,26 +832,44 @@ en:
 
     attributes:
 
+      acts_as_taggable_on/tag:
+        taggings_types: Used for
+        taggings_count: Usage count
+
       alchemy/attachment:
-        content_type: Filetype
+        file_mime_type: Filetype
         created_at: "Created at"
-        filename: Filename
+        file_name: Filename
         name: Name
-        size: Filesize
+        file_size: Filesize
+        tag_list: Tags
 
       alchemy/element:
         display_name: "Name"
         name: "Name"
         public: "visible"
+        tag_list: Tags
 
       alchemy/essence_file:
         css_class: Style
 
       alchemy/essence_picture:
+        caption: "Caption"
+        title: "Title"
+        alt_tag: "Alternative text"
+        link: Link
+        link_class_name: "Link CSS class"
+        link_title: Link title
         css_class: Style
+        link_target: Link target
+        render_size: Render size
+        crop_from: Crop from
+        crop_size: Crop size
+        picture_id: Bild
 
       alchemy/language:
-        code: "Languagecode"
+        country_code: "Country code"
+        language_code: "Language code"
         default: "Default"
         frontpage_name: "Name of frontpage"
         name: "Name"
@@ -653,12 +887,13 @@ en:
         meta_description: "Description"
         meta_keywords: "Keywords"
         name: "Name"
-        page_layout: "Pagetype"
+        page_layout: "Page type"
         public: "public"
         restricted: "restricted"
         robot_follow: "robot may follow links"
         robot_index: "allow robot to index"
         sitemap: "visible in sitemap"
+        tag_list: Tags
         title: "Title"
         updated_at: "Updated at"
         urlname: "Urlname"
@@ -671,9 +906,14 @@ en:
         image_file_dimensions: "Dimensions"
         image_file_size: "Filesize"
         name: "Name"
+        tag_list: Tags
 
       alchemy/site:
-        host: primary Host
+        name: "Name"
+        host: "Primary Host"
+        public: "Public"
+        aliases: "Domain-Aliases"
+        redirect_to_primary_host: "Redirect to primary Host"
 
     errors:
       <<: *errors
