@@ -23,13 +23,13 @@ Let's reduce the options for formatting the text to a minimum.
 
 Because Alchemy merges the default options and your custom options you just need to pass the options you want to override to <code>Alchemy::Tinymce.init</code>.
 
-<pre>
+<ruby>
 # config/initializers/tinymce.rb
 Alchemy::Tinymce.init = {
   toolbar1: 'bold italic underline',
   toolbar2: 'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
 }
-</pre>
+</ruby>
 
 Now only this three basic formatting options are available in the first toolbar to your editors.
 In the second toolbar are now the align formatting options available.
@@ -46,23 +46,23 @@ Let's add a format select to our editors so they can insert headlines into their
 
 In the TinyMCE documentation we found our configuration option:
 
-<pre>
+<javascript>
 tinyMCE.init({
   ...
   block_formats: "Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3"
 });
-</pre>
+</javascript>
 
 We just have to _convert_ this javacript object into a ruby hash.
 And we need to insert the format select into the set of buttons.
 
-<pre>
+<ruby>
 # config/initializers/tinymce.rb
 Alchemy::Tinymce.init = {
   toolbar2: 'pastetext | formatselect | charmap code | undo redo | alchemy_link unlink',
   block_formats: "Header 2=h2;Paragraph=p"
 }
-</pre>
+</ruby>
 
 That's it. Now the editor can format a block of text as headline 2. Nice!
 
@@ -82,11 +82,11 @@ INFO: Please read more on custom stylesheets in the "TinyMCE documentation":http
 
 h4. Setting the stylesheet
 
-<pre>
+<javascript>
 Alchemy::Tinymce.init = {
   content_css: "/assets/tinymce_content.css"
 }
-</pre>
+</javascript>
 
 h4. Compile the asset for production
 
@@ -95,15 +95,15 @@ As default rails only compiles the <code>application.css</code> stylesheet. But 
 
 Open the <code>config/environments/production.rb</code> file in your editor and insert this line:
 
-<pre>
+<ruby>
 config.assets.precompile += %w( tinymce_content.css )
-</pre>
+</ruby>
 
 h3. Per element customization
 
 You can also set TinyMCE configuration options per element.
 
-<pre>
+<yaml>
 # elements.yml
 - name: minimal_text
   contents:
@@ -113,7 +113,7 @@ You can also set TinyMCE configuration options per element.
       tinymce:
         toolbar1: 'bold italic underline',
         toolbar2: 'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
-</pre>
+</yaml>
 
 h3. Configuration Syntax
 
@@ -125,20 +125,22 @@ Javascript and Ruby has very similiar syntax. Especially if you use the new Ruby
 
 h5. Object to Hash
 
-<pre>{ "key" : "value" } => { key: "value" }</pre>
+<javascript>{ "key" : "value" } => { key: "value" }</javascript>
 
 h5. Array to Array
 
 Arrays have the same syntax. So you can just take them as they are.
 
-<pre>["1", "2", "3", "4"] => ["1", "2", "3", "4"]</pre>
+<javascript>["1", "2", "3", "4"] => ["1", "2", "3", "4"]</javascript>
 
 h5. Object with Array as value
 
-<pre>{ "key" : ["value1", "value2"] } => { key: ["value1", "value2"] }</pre>
+<javascript>{ "key" : ["value1", "value2"] } => { key: ["value1", "value2"] }</javascript>
 
 h5. Object with Object as value
 
-<pre>{ "key" : { "value" : ["value1", "value2"] } } => { key: { value: ["value1", "value2"] } }</pre>
+<javascript>
+{ "key" : { "value" : ["value1", "value2"] } } => { key: { value: ["value1", "value2"] } }
+</javascript>
 
 &nbsp;

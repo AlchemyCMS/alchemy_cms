@@ -24,7 +24,7 @@ In order to update the dependencies, the <code>Gemfile</code> needs to be change
 
 That part of your updated Gemfile should look like this:
 
-<pre>
+<ruby>
 ...
 gem 'rails', '~> 4.0.2'
 gem 'sass-rails', '~> 4.0.0'
@@ -34,7 +34,7 @@ gem 'uglifier', '>= 1.3.0'
 gem 'alchemy_cms', :github => 'magiclabs/alchemy_cms', :branch => 'master'
 gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
 ...
-</pre>
+</ruby>
 
 You should now update the dependencies via bundler.
 
@@ -66,10 +66,10 @@ Depending on your App, you can also remove the <code>secret_token</code> immedia
 
 More information here: <a href="http://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#action-pack" target="_blank">http://edgeguides.rubyonrails.org/upgrading_ruby_on_rails.html#action-pack</a>
 
-<pre>
+<ruby>
 Myapp::Application.config.secret_token = 'existing secret token'
 Myapp::Application.config.secret_key_base = 'new secret key base'
-</pre>
+</ruby>
 
 h3. Installing alchemy-devise migrations
 
@@ -97,7 +97,7 @@ Alchemy v3.0 comes with some config changes that need to be slipped in to the <c
 
 h4. Remove the Devise module configuration
 
-<pre>
+<yaml>
 # === Devise modules
 #
 # List of Devise modules that should be activated on the user model.
@@ -109,21 +109,21 @@ devise_modules:
   - :timeoutable
   - :recoverable
   # - :encryptable # Uncomment this if you are upgrading from an Alchemy version < 2.5.0
-</pre>
+</yaml>
 
 h4. Adjust the user roles
 
 The old role <code>registered</code> is now <code>member</code>
 
-<pre>
+<yaml>
 user_roles: [member, author, editor, admin]
-</pre>
+</yaml>
 
 h4. Add the regular expression for verifying email addresses
 
-<pre>
+<yaml>
 email_regexp: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
-</pre>
+</yaml>
 
 h3. Changes in Alchemy you should know about
 
@@ -142,8 +142,9 @@ The TinyMCE configuration syntax has changed.
 If you have custom TinyMCE confugurations, like a customized toolbar then you have to upgrade the syntax to a TinyMCE 4 compatible one.
 Please have a look in the default TinyMCE configuration from Alchemy and also read the official TinyMCE documentation in how to upgrade.
 
-Alchemy default TinyMCE config: <a href="https://github.com/magiclabs/alchemy_cms/blob/master/lib/alchemy/tinymce.rb#L5-L19" target="_blank">https://github.com/magiclabs/.../tinymce.rb#L5-L19</a>
-Offical TinyMCE documentation: <a href="http://www.tinymce.com/wiki.php/Configuration" target="_blank">http://www.tinymce.com/wiki.php/Configuration</a>
+* Alchemy default TinyMCE config: <a href="https://github.com/magiclabs/alchemy_cms/blob/master/lib/alchemy/tinymce.rb#L5-L19" target="_blank">https://github.com/magiclabs/.../tinymce.rb#L5-L19</a>
+
+* Offical TinyMCE documentation: <a href="http://www.tinymce.com/wiki.php/Configuration" target="_blank">http://www.tinymce.com/wiki.php/Configuration</a>
 
 h4. Rendering Alchemy's menubar
 

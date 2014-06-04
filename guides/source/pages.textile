@@ -21,9 +21,9 @@ To render an element from a global page use the from_page option of the <code>re
 
 Example:
 
-<pre>
+<erb>
 <%= render_elements only: 'news_teaser', from_page: 'sidebar' %>
-</pre>
+</erb>
 
 NOTE: You can pass a page_layout name as a String, an array of page_layout names, or an instance of a certain Page.
 

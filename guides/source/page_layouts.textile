@@ -16,7 +16,9 @@ When creating a new page the user gets prompted to select a page layout. Dependi
 
 h4. Rendering
 
-Beside the page layout definitions in the <code>page_layouts.yml</code> file, they all have a Rails view partial which is yielded on the Rails layout (for example on <code>app/views/layouts/application.html.erb</code>). They are being parsed through a template engine (ERB, haml or slim) so you can write HTML/CSS and execute Ruby code there.
+Beside the page layout definitions in the <code>page_layouts.yml</code> file, they all have a Rails view partial which is yielded on the Rails layout (for example on <code>app/views/layouts/application.html.erb</code>).
+
+They are being parsed through a template engine (ERB, haml or slim) so you can write HTML/CSS and execute Ruby code there.
 
 You can find all page layout partials in the <code>app/views/alchemy/page_layouts</code> folder.
 
@@ -43,11 +45,11 @@ In order to create page layouts you have to edit the file <code>config/alchemy/p
 
 INFO: Generate Alchemy's files and folders with <code>rails g alchemy:scaffold</code>
 
-h5. Configuration options
+h4. Configuration options
 
 Every page layout needs at least a name. You don't need to set every option. It depends on what you need for pages with that layout type.
 
-*Recommended options*
+h5. Recommended options
 
 * <code>name:</code> <code>[String]</code><br>
   The name of the layout used for views and inside the database. You can render a layout with the <code>render_page_layout(name)</code> helper.
@@ -61,7 +63,7 @@ Every page layout needs at least a name. You don't need to set every option. It 
 * <code>cache:</code> <code>[Boolean]</code><br>
   (Default true) Pass <code>false</code> to disable the caching for this kind of pages. <strong>Recommended for contact forms</strong> and such likes.
 
-*Additional/advanced options*
+h5. Additional/advanced options
 
 * <code>layoutpage:</code> <code>[Boolean]</code><br>
   Layout pages (or global pages) are outside the normal page tree and can be used to place "global" Elements like footers and sidebars.
@@ -78,7 +80,7 @@ Every page layout needs at least a name. You don't need to set every option. It 
 * <code>action:</code> <code>[String]</code><br>
   Controllers action to use instead of the default Alchemy::PagesController#show
 
-h5. Example
+h4. Example
 
 Lets say you want to create a contact page with a headline element, an e-mail formular and a text element on it.
 
@@ -88,14 +90,14 @@ This page must not be cached, because of validation messages and user specific f
 
 We also want to autogenerate the headline and the contactform element after the page gets created.
 
-<pre>
+<yaml>
 # config/alchemy/page_layouts.yml
 - name: contact
   cache: false
   unique: true
   elements: [headline, contactform, text]
   autogenerate: [headline, contactform]
-</pre>
+</yaml>
 
 NOTE: <b>Please ensure to restart the server after editing page_layouts.yml.</b>
 
@@ -120,9 +122,9 @@ Alchemy does not place any HTML markup in your generated page layouts partial.
 
 So:
 
-<pre>
+<erb>
 <%= render_elements %>
-</pre>
+</erb>
 
 is all you will see. Feel free to customize the HTML so it fits your needs.
 
@@ -136,14 +138,14 @@ You can translate them in your Alchemy locale files.
 
 h5. Example
 
-<pre>
+<yaml>
 # config/locales/alchemy.de.yml
 de:
   alchemy:
     page_layout_names:
       contact: Kontakt
       search: Suche
-</pre>
+</yaml>
 
 INFO: All translation keys used by Alchemy are scoped under the <code>alchemy</code> namespace.
 

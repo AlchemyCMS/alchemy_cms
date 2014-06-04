@@ -20,12 +20,12 @@ Anyway, you can tell Alchemy about your authentication model configuration.
 
 h5. Example
 
-<pre>
+<ruby>
 # config/initializers/alchemy.rb
 Alchemy.user_class_name = 'Admin'
 Alchemy.login_path = '/auth/login'
 Alchemy.logout_path = '/auth/logout'
-</pre>
+</ruby>
 
 h3. Mandatory methods
 
@@ -42,13 +42,13 @@ This method has to return an array of strings, containing at least one of these 
 
 h5. Example
 
-<pre>
+<ruby>
 def alchemy_roles
   if admin?
     %w(admin)
   end
 end
-</pre>
+</ruby>
 
 h3. Optional methods
 
@@ -60,12 +60,12 @@ This would be used to say <code>"Welcome back #{@user.name}"</code> and is used 
 
 h5. Example
 
-<pre>
+<ruby>
 def name
   # If you don't have a name, you could use the user's email
   read_attribute(:email)
 end
-</pre>
+</ruby>
 
 h4. language
 
@@ -73,12 +73,12 @@ A locale String to set the users preferred translation of the Alchemy GUI.
 
 h5. Example
 
-<pre>
+<ruby>
 # Always use dutch as translation
 def language
   'nl'
 end
-</pre>
+</ruby>
 
 h4. Userstamp columns
 
@@ -93,14 +93,14 @@ If you want to tag your users you can add the <code>acts_as_taggable</code> and 
 
 h5. Example
 
-<pre>
+<ruby>
 class User < ActiveRecord::Base
   acts_as_taggable
   acts_as_tagger
   ...
 end
-</pre>
+</ruby>
 
-NOTE: You also need to add a `cached_tag_list` text column to your users table.
+NOTE: You also need to add a <code>cached_tag_list</code> text column to your users table.
 
 &nbsp;

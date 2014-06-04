@@ -21,12 +21,12 @@ By using Alchemy's backend interface you get a whole bunch of things:
 
 And it's easy as this:
 
-<pre>
+<ruby>
 module Admin
   class YourResourcesController < Alchemy::Admin::ResourcesController
   end
 end
-</pre>
+</ruby>
 
 You can overwrite the default controller actions and views as you like.
 An instance-variable named after the resource (i.e. <code>@your_resource</code> for <code>YourResource</code>) is defined for use in your views.
@@ -38,7 +38,7 @@ h3. Authorization
 Rights and roles are set in <code>app/models/ability.rb</code>.
 Just create the file if it doesn't exist already.
 
-<pre>
+<ruby>
 # app/models/ability.rb
 class Ability
   include CanCan::Ability
@@ -51,7 +51,7 @@ class Ability
   end
 
 end
-</pre>
+</ruby>
 
 More information about authorization can be found in the docs of the <code>cancan</code> gem ("https://github.com/ryanb/cancan/wiki/Defining-Abilities":https://github.com/ryanb/cancan/wiki/Defining-Abilities)
 
@@ -59,18 +59,18 @@ h3. Mounting
 
 h4. For an engine:
 
-<pre>
+<ruby>
 # config/routes.rb
 YourApp::Application.routes.draw do
   ...
   mount YourAlchemyModule::Engine => '/'
   mount Alchemy::Engine => '/'
 end
-</pre>
+</ruby>
 
 h4. For your apps resources:
 
-<pre>
+<ruby>
 # config/routes.rb
 YourApp::Application.routes.draw do
 
@@ -82,7 +82,7 @@ YourApp::Application.routes.draw do
 
   mount Alchemy::Engine => '/'
 end
-</pre>
+</ruby>
 
 INFO: Due to Alchemy's strong routes it is <strong>strongly recommended</strong> to mount your engine before Alchemy.
 
@@ -92,7 +92,7 @@ Last but not least the module needs to be registered to Alchemy CMS.
 
 h4. When using your host app:
 
-<pre>
+<ruby>
 # my_host_app/config/initializers/alchemy_modules.rb
 Alchemy::Modules.register_module({
   name: 'name_of_your_module',
@@ -116,7 +116,7 @@ Alchemy::Modules.register_module({
     ]
   }
 })
-</pre>
+</ruby>
 
 NOTE: As an alternative to the module icon you can pass: <br><code>image: '/alchemy/icon_of_your_module.png'</code>
 
@@ -130,17 +130,17 @@ You should namespace your module name (with i.e. <code>modules</code>), to preve
 
 Given a module name <code>modules.products</code> your translation has to be:
 
-<pre>
+<yaml>
 # config/locales/de.yml
 de:
   alchemy:
     modules:
       products: Produkte
-</pre>
+</yaml>
 
 h4. Using a Rails engine:
 
-<pre>
+<ruby>
 # my_engine/config/initializers/alchemy.rb
 Alchemy::Modules.register_module({
   name: 'name_of_your_module',
@@ -168,7 +168,7 @@ Alchemy::Modules.register_module({
 
 # Loading authorization rules and register them to auth engine instance
 Alchemy::Auth::Engine.get_instance.load(File.join(File.dirname(__FILE__), 'authorization_rules.rb'))
-</pre>
+</ruby>
 
 h3. Get Ready!
 

@@ -5,12 +5,14 @@ This guide covers the configuration setup and create process of a regular contac
 * Setup Alchemy mailer
 * .....
 
+endprologue.
+
 
 h3. Mailer Settings
 
 This is the default mailer configuration.
 
-<pre>
+<yaml>
 mailer:
   page_layout_name: contact
   forward_to_page: false
@@ -19,7 +21,7 @@ mailer:
   mail_to: your.mail@your-domain.com
   fields: [salutation, firstname, lastname, address, zip, city, phone, email, message]
   validate_fields: [lastname, email]
-</pre>
+</yaml>
 
 
 * <code>page_layout_name</code><code>String</code><br>
@@ -43,7 +45,7 @@ h3. Creating a contact form element
 
 Describe a new Element with this options inside your <code>elements.yml</code> file:
 
-<pre>
+<yaml>
 - name: contactform
    contents:
    - name: mail_from
@@ -66,7 +68,7 @@ Describe a new Element with this options inside your <code>elements.yml</code> f
      type: EssenceSelect
      validate:
      - presence
-</pre>
+</yaml>
 
 INFO: The fields <code>mail_to</code>, <code>mail_from</code>, <code>subject</code> and <code>success_page</code> are recommended. The <code>Alchemy::MessagesController</code> uses them to send your mails. That way your customer has full control over these values inside his contact form element.
 
@@ -74,13 +76,13 @@ NOTE: The validations are optional, but <strong>highly recommended</strong>.
 
 Create a page layout for your contact page in the <code>page_layouts.yml</code> file:
 
-<pre>
+<yaml>
 - name: contact
   unique: true
   cache: false
   elements: [pageheading, heading, contactform]
   autogenerate: [contactform]
-</pre>
+</yaml>
 
 INFO: Disabling the page caching is <strong>highly recommended</strong>!
 
@@ -94,12 +96,12 @@ Open <code>app/views/alchemy/elements/_contactform_view.html.erb</code> in your 
 
 We are using the great <code>simple_form</code> gem in this example.
 If this gem is not already installed, you have to add
-<pre>
+<ruby>
   gem 'simple_form'
-</pre>
+</ruby>
 to your Gemfile and afterwards use <shell>bundle </shell> command to install <code>simple_form</code>.
 
-<pre>
+<erb>
 <%= simple_form_for(@message ||= Alchemy::Message.new) do |form| %>
   <%= form.input :firstname %>
   <%= form.input :lastname %>
@@ -108,7 +110,7 @@ to your Gemfile and afterwards use <shell>bundle </shell> command to install <co
   <%= form.hidden_field :contact_form_id, :value => element.id %>
   <%= form.button :submit %>
 <% end %>
-</pre>
+</erb>
 
 NOTE: See the hidden field? This is important, or the messages mailer can't do all the magic for you.
 
@@ -120,14 +122,14 @@ h5. The contact form editor
 
 The <code>app/views/alchemy/elements/_contactform_editor.html.erb</code> file should have this layout:
 
-<pre>
+<erb>
 <%= element_editor_for(element) do |el| -%>
   <%= el.edit :mail_from %>
   <%= el.edit :mail_to %>
   <%= el.edit :subject %>
   <%= el.edit :success_page, :select_values => pages_for_select(nil, element.ingredient(:success_page), "Choose page", :urlname) %>
 <%- end -%>
-</pre>
+</erb>
 
 INFO: The <code>page_selector</code> helper is pretty handy for setting the success page.
 Note that the <code>:page_attribute</code> option is important. Leaving it the default <code>:id</code> value breaks the message controller.
@@ -138,33 +140,31 @@ All validation messages are passed through <code>::I18n.t</code> so you can tran
 
 h4. Example Translation
 
-<pre>
+<yaml>
 de:
   activemodel:
     attributes:
       alchemy/message:
         firstname: Vorname
         lastname: Nachname
-</pre>
+</yaml>
 
 INFO: If you like to use same vocabulary in different context:
 
 e.g in the <code>app/views/alchemy/elements/_contactform_view.html.erb </code>
 
-<pre>
+<erb>
   <%= form.input ... %>
   <%= form.input :firstname , label: t(:sender, scope: 'my_forms.contactform') %>
   <%= form.input ...  %>
-</pre>
+</erb>
 
 Your language yml should look like this: (<code>config/locales/de.yml</code>)
 
-<pre>
+<yaml>
 my_forms:
   contactform:
     sender: Sender
-</pre>
+</yaml>
 
 Now you can reuse the label by using the <code> t</code> function while defining label.
-
-endprologue.

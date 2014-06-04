@@ -9,12 +9,6 @@ Essences are normal Rails models, so it is pretty easy to "add your own":create_
 
 endprologue.
 
-h3. Configure essences
-
-To configure the settings of a essence you have to pass it into its settings in the <code>elements.yml</code>
-
-* <code>settings</code> <code>Hash</code>
-
 h3. EssenceText
 
 Stores a <code>String</code> (max. 255 Chars.).
@@ -28,12 +22,12 @@ h4. Settings
 
 h4. Example
 
-<pre>
+<yaml>
 - name: button
   type: EssenceText
   settings:
     linkable: true
-</pre>
+</yaml>
 
 h3. EssenceRichtext
 
@@ -49,7 +43,7 @@ You can customize the TinyMCE editor of a single element instance.
 
 h4. Example
 
-<pre>
+<yaml>
 - name: text
   type: EssenceRichtext
   settings:
@@ -57,7 +51,7 @@ h4. Example
       style_formats:
       - title: 'Subheadline'
         block: 'h3'
-</pre>
+</yaml>
 
 NOTE: See the "TinyMCE customization guide":customize_tinymce.html for all available options
 
@@ -103,5 +97,20 @@ Stores a url in the database. Useful for linking things, where the user should n
 
 INFO: It is easy to add your own essence types to Alchemy.
 Read more about it in "this guide":create_essences.html
+
+h3. Configure essences
+
+To configure the settings of an essence you have to pass it into its settings in the <code>elements.yml</code>
+
+h4. Example
+
+<yaml>
+- name: my_element
+  contents:
+  - name: headline
+    type: EssenceText
+    settings:
+    - linkable: true
+</yaml>
 
 &nbsp;

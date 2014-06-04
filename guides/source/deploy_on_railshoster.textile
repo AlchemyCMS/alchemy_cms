@@ -44,10 +44,10 @@ git init .
 
 Open the <code>.gitignore</code> file in your editor and add:
 
-<pre>
+<shell>
 index/**/*
 uploads/**/*
-</pre>
+</shell>
 
 TIP: You can pass <code>--scm=git</code> option to the Alchemy installer while creating a new project. That option inits your project as git repository and sets all ignores for you.
 
@@ -81,21 +81,24 @@ h3. Add Alchemy and Rails 3.1 deploy tasks
 
 Open the <code>config/deploy.rb</code> file with an editor and add:
 
-<pre>
+<ruby>
 require 'alchemy/capistrano'
 load 'deploy/assets'
-</pre>
+</ruby>
 
 h4. If your repository server has a non standard ssh port
 
 Change
 
-<code>set :repository, "git@your-reposerver.de/repository-name.git"</code>
+<ruby>
+set :repository, "git@your-reposerver.de/repository-name.git"
+</ruby>
 
 to
 
-<code>set :repository, "ssh://git@your-reposerver.de:SSHPORT/repository-name.git"</code>
-
+<ruby>
+set :repository, "ssh://git@your-reposerver.de:SSHPORT/repository-name.git"
+</ruby>
 
 
 h3. Commit and push deploy settings

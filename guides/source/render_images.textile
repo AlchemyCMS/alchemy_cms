@@ -19,11 +19,11 @@ INFO: You can always override the output format while rendering your essence wit
 
 h5. The default configuration
 
-<pre>
+<yaml>
 output_image_jpg_quality: 85
 preprocess_image_resize:
 image_output_format: jpg
-</pre>
+</yaml>
 
 h3. Rendering
 
@@ -54,15 +54,15 @@ In production environments all rendered image get cached on disk.
 
 h5. If the picture request looks like this:
 
-<pre>
+<code>
 http://example.com/pictures/1/show/name_of_image.png?sh=a_secure_token
-</pre>
+</code>
 
 h5. The image gets stored in this path:
 
-<pre>
+<code>
 /path/to/your/alchemy/app/public/pictures/1/show/name_of_image.png
-</pre>
+</code>
 
 NOTE: All supported rendering options are reflected in the url schema. Even the quality of a rendered jpg image and all cropping options.
 
@@ -74,9 +74,9 @@ Alchemy has build in DDOS security for rendering images. So you have to pass a <
 
 You can get the security token from a picture with the <code>security_token</code> method on a <code>Alchemy::Picture</code> instance.
 
-<pre>
+<ruby>
 @picture.security_token(:image_size => "300x400", :crop => true)
-</pre>
+</ruby>
 
 INFO: The <code>render_essence</code> and <code>show_alchemy_picture_params</code> helpers set the security token for you.
 

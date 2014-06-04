@@ -26,7 +26,7 @@ NOTE: <strong>The element definitions are being cached. Please restart the serve
 
 h4. Example of an element definition
 
-<pre>
+<yaml>
 # config/alchemy/elements.yml
 - name: article
     unique: true
@@ -38,7 +38,7 @@ h4. Example of an element definition
       take_me_for_preview: true
     - name: copy
       type: EssenceRichtext
-</pre>
+</yaml>
 
 The element in this example is named <em>article</em> and can be placed only once per page. It has three contents of the following types: <code>EssencePicture</code>, <code>EssenceText</code> and <code>EssenceRichtext</code>. The "headline" content is used for the preview text in the element's title bar in the admin frontend.
 
@@ -69,10 +69,10 @@ Alchemy provides a nice picture gallery editor. It allows to manage large pictur
 
 In order to use it, you just need to enable the setting in the <code>elements.yml</code> file.
 
-<pre>
+<yaml>
 - name: picture_gallery
   picture_gallery: true
-</pre>
+</yaml>
 
 After "generating the elements view partials":#generating-the-partials you will receive the view and the editor partial.
 
@@ -80,28 +80,39 @@ h5. The editor partial for the element
 
 This partial holds the code for rendering the gallery editor in the admin frontend.
 
-<pre>
+<erb>
 # app/views/alchemy/elements/_picture_gallery_editor.html.slim
 = element_editor_for(element) do |el|
   = render_picture_gallery_editor(element, max_images: nil, crop: true)
-</pre>
+</erb>
 
-NOTE: You can pass optional settings to the <code>render_picture_gallery_editor</code> helper: <code>:max_images => 10</code>, <code>image_size: "346x246"</code>, <code>crop => true</code>, <code>fixed_ratio: true</code>, <code>format: 'png'</code>
+You can pass optional settings to the <code>render_picture_gallery_editor</code> helper:
 
-INFO: <code>max_images</code> option limits the amount of pictures a user can add to the gallery. <code>crop</code> enables the image cropping feature for the user.
+<ruby>
+max_images: 10
+image_size: "346x246"
+crop: true
+fixed_ratio: true
+format: 'png'
+</ruby>
+
+INFO: <code>max_images</code> option limits the amount of pictures a user can add to the gallery.<br><code>crop</code> enables the image cropping feature for the user.
 
 h5. The view partial for the element
 
 The view partial gets rendered on your website.
 
-<pre>
+<erb>
 = element_view_for(element, :id => 'gallery') do |el|
   - element.contents.gallery_pictures.each do |image|
     = render_essence_view(image, :image_size => "346x246", :crop => true)
-</pre>
+</erb>
 
-NOTE: Alternatively, if you want to customize the way the gallery pictures are rendered, you can create the plain image tag by yourself and use the Alchemy::Picture url helper:
-<code>image_tag show_alchemy_picture_url(image.essence.picture, :size => "102x73", :format => "png")</code>
+Alternatively, if you want to customize the way the gallery pictures are rendered, you can create the plain image tag by yourself and use the <code>Alchemy::Picture</code> url helper:
+
+<erb>
+<%= image_tag show_alchemy_picture_url(image.essence.picture, :size => "102x73", :format => "png") %>
+</erb>
 
 h4. Element with addable contents
 
@@ -112,7 +123,7 @@ If you also want to allow the users to delete these contents you can also define
 
 h5. Example of element definition with available contents
 
-<pre>
+<yaml>
 - name: article
   contents:
   - name: headline
@@ -122,18 +133,18 @@ h5. Example of element definition with available contents
     type: EssenceRichtext
     settings:
       deletable: true
-</pre>
+</yaml>
 
 Additionally you need to alter the editor partial of that element for rendering the dynamically created contents. You just need to iterate through them and use the following helper methods.
 
 h5. Example of editor partial using the available contents feature
 
-<pre>
+<erb>
 - element.all_contents_by_name('text').each do |content|
   = label_and_remove_link(content)
   = render_essence_editor(content)
 p = render_create_content_link(element, 'text', :label => _t('add_text'))
-</pre>
+</erb>
 
 As shown in the example, we used the <code>label_and_remove_link</code> helper. It renders a label with the content's name and a small button to delete it.
 
@@ -147,7 +158,7 @@ h4. Element with tags
 
 Elements are taggable. To enable it, add <code>taggable: true</code> to the element's definition.
 
-<pre>
+<yaml>
 - name: article
   taggable: true
   contents:
@@ -158,13 +169,13 @@ Elements are taggable. To enable it, add <code>taggable: true</code> to the elem
       take_me_for_preview: true
     - name: copy
       type: EssenceRichtext
-</pre>
+</yaml>
 
 Tags are a collection on the <code>element</code> object. <code>element.tag_list</code> returns an array of tag names.
 
-<pre>
+<erb>
 = element.tag_list.join(', ')
-</pre>
+</erb>
 
 Alchemy uses the "acts-as-taggable-on":https://github.com/mbleigh/acts-as-taggable-on gem, so please refer to the github "readme":https://github.com/mbleigh/acts-as-taggable-on/blob/master/README.md or the "wiki":https://github.com/mbleigh/acts-as-taggable-on/wiki for further informations.
 
@@ -180,16 +191,16 @@ It is also possible to add own format matchers there.
 
 h5. Example of format matchers
 
-<pre>
+<yaml>
 # config/alchemy/config.yml
 format_matchers:
   email: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
   url:   !ruby/regexp '/\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix'
-</pre>
+</yaml>
 
 h5. Example of an element definition with essence validations:
 
-<pre>
+<yaml>
 - name: person
   contents:
   - name: name
@@ -201,19 +212,19 @@ h5. Example of an element definition with essence validations:
   - name: homepage
     type: EssenceText
     validate: [format: !ruby/regexp '^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$']
-</pre>
+</yaml>
 
 The email content is being validated against the predefined 'email' matcher in the config.yml. The homepage content is matched against the given regexp.
 
 h5. Example of an element definition with chained validations.
 
-<pre>
+<yaml>
 - name: person
   contents:
   - name: name
     type: EssenceText
     validate: [presence, uniqueness, format: 'name']
-</pre>
+</yaml>
 
 The validations are evaluated in the order as they are defined in the list. At first the name content will be validated for presence, then for uniqueness and at least against its format.
 
@@ -222,11 +233,11 @@ h3. Assign elements to page layouts
 Before you can use elements on pages, you need to define on which page layouts your element can be placed.
 So open <code>config/alchemy/page_layouts.yml</code> in your text editor and put the name of your new element into the list of available elements for a specific page layout.
 
-<pre>
+<yaml>
 - name: standard
   elements: [article]
   autogenerate: [article]
-</pre>
+</yaml>
 
 You can now place the article element on each page with page layout `standard`.
 All future created pages with page layout `standard` will automatically create the article element for you.
@@ -255,7 +266,7 @@ h3. Render elements on a page layout
 
 Now that the above 'article' element example is associated with the 'standard' page layout, the element can be rendered on that layout <code>app/views/alchemy/page_layouts/_standard.html.erb</code>.
 
-<pre>
+<erb>
 ...
 
 <!-- Main Page Content -->
@@ -267,7 +278,7 @@ Now that the above 'article' element example is associated with the 'standard' p
   </div>
 
 ...
-</pre>
+</erb>
 
 h3. Customizing the view partial
 
@@ -277,7 +288,7 @@ Pretty useful, but maybe not what you need, sometimes. No problem, feel free to 
 
 This is the newer notation for rendering the element's partial:
 
-<pre>
+<erb>
 <%= element_view_for(element) do |el| %>
   <h3><%= el.render :headline %></h3>
   <div class="row">
@@ -293,11 +304,11 @@ This is the newer notation for rendering the element's partial:
     </div>
   </div>
 <% end %>
-</pre>
+</erb>
 
 In some cases you want to use the older style. You can also or mix both. Take a look at this example, its the same html output as the above example:
 
-<pre>
+<erb>
 <div class="article" id="<%= element_dom_id(element) %>"<%= element_preview_code(element) -%>>
   <h3><%= render_essence_view_by_name(element, 'headline') %></h3>
   <div class="row">
@@ -313,7 +324,7 @@ In some cases you want to use the older style. You can also or mix both. Take a 
     </div>
   </div>
 </div>
-</pre>
+</erb>
 
 
 The <code>element_view_for</code> helper wraps the inner html code into a <code>div</code> element by default. You can pass arguments to the helper to change its rendering behavior:
@@ -322,11 +333,11 @@ The second argument <code>tag</code> is used for the wrapping html tag. Passing 
 
 You can pass additional arguments to add or change any html attributes of the wrapper.
 
-<pre>
+<erb>
 <%= element_view_for(element, tag: 'li', class: 'red', id: 'my_unique_id') do |el| %>
   ...
 <% end %>
-</pre>
+</erb>
 
 NOTE: If you want to learn more about the helper methods used in these partials, please have a look at the "Documentation":http://rubydoc.info/search/github/magiclabs/alchemy_cms?q=helper.
 
@@ -339,7 +350,7 @@ h3. Translations
 Element and content names are passed through the I18n library.
 You can translate them in your <code>config/locales</code> language yml file.
 
-<pre>
+<yaml>
 de:
   alchemy:
     element_names:
@@ -347,12 +358,12 @@ de:
       search: Suche
     content_names:
       headline: Überschrift
-</pre>
+</yaml>
 
 Content names can also be translated related to their element.
 This is useful for contents with the same name that should have different translations.
 
-<pre>
+<yaml>
 de:
   alchemy:
     element_names:
@@ -361,6 +372,6 @@ de:
       color: Farbe
       contact_form:
         color: Button Farbe
-</pre>
+</yaml>
 
 &nbsp;
