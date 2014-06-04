@@ -1349,6 +1349,41 @@ module Alchemy
 
     context 'indicate page editors' do
       let(:page) { Page.new }
+      let(:user) { create(:editor_user) }
+
+      describe '#creator' do
+        before { page.update(creator_id: user.id) }
+
+        it "returns the user that created the page" do
+          expect(page.creator).to eq(user)
+        end
+      end
+
+      describe '#updater' do
+        before { page.update(updater_id: user.id) }
+
+        it "returns the user that created the page" do
+          expect(page.updater).to eq(user)
+        end
+      end
+
+      describe '#locker' do
+        before { page.update(locked_by: user.id) }
+
+        it "returns the user that created the page" do
+          expect(page.locker).to eq(user)
+        end
+      end
+
+      context 'with user that can not be found' do
+        it 'does not raise not found error' do
+          %w(creator updater locker).each do |user_type|
+            expect {
+              page.send(user_type)
+            }.to_not raise_error(ActiveRecord::RecordNotFound)
+          end
+        end
+      end
 
       context 'with user class having a name accessor' do
         let(:user) { double(name: 'Paul Page') }

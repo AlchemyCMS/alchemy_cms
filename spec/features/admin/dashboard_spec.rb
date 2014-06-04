@@ -33,7 +33,7 @@ describe 'Dashboard feature' do
         user = DummyUser.new
         user.update_attributes(alchemy_roles: %w(admin), name: "Sue Smith", id: 2)
         a_page.lock_to!(user)
-        DummyUser.stub(:find).and_return(user)
+        DummyUser.stub(:find_by).and_return(user)
         visit admin_dashboard_path
         locked_pages_widget = all('div[@class="widget"]').first
         expect(locked_pages_widget).to have_content "Currently locked pages:"

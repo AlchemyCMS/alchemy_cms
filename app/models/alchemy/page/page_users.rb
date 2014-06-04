@@ -2,16 +2,22 @@ module Alchemy
   module Page::PageUsers
     extend ActiveSupport::Concern
 
+    # Returns the creator of this page.
+    #
     def creator
-      Alchemy.user_class.try(:find, creator_id)
+      Alchemy.user_class.try(:find_by, {id: creator_id})
     end
 
+    # Returns the last updater of this page.
+    #
     def updater
-      Alchemy.user_class.try(:find, updater_id)
+      Alchemy.user_class.try(:find_by, {id: updater_id})
     end
 
+    # Returns the user currently editing this page.
+    #
     def locker
-      Alchemy.user_class.try(:find, locked_by)
+      Alchemy.user_class.try(:find_by, {id: locked_by})
     end
 
     # Returns the name of the creator of this page.
