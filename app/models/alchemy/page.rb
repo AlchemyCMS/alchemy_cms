@@ -197,6 +197,11 @@ module Alchemy
         options
       end
 
+      def update_item!(node)
+        hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth}
+        self.class.update_all(hash, {id: self.id})
+      end
+
     private
 
       # Aggregates the attributes from given source for copy of page.
