@@ -40,7 +40,8 @@ module Alchemy
       def new
         @page = Page.new(layoutpage: params[:layoutpage] == 'true', parent_id: params[:parent_id])
         @page_layouts = PageLayout.layouts_for_select(Language.current.id, @page.layoutpage?)
-        @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], Language.current.id, @page.layoutpage?)
+        @clipboard = get_clipboard('pages')
+        @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, Language.current.id, @page.layoutpage?)
       end
 
       def create
@@ -50,7 +51,8 @@ module Alchemy
           do_redirect_to(redirect_path_after_create_page)
         else
           @page_layouts = PageLayout.layouts_for_select(Language.current.id, @page.layoutpage?)
-          @clipboard_items = Page.all_from_clipboard_for_select(get_clipboard[:pages], Language.current.id, @page.layoutpage?)
+          @clipboard = get_clipboard('pages')
+          @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, Language.current.id, @page.layoutpage?)
           render :new
         end
       end
@@ -102,7 +104,8 @@ module Alchemy
             format.js
           end
           # remove from clipboard
-          get_clipboard.remove(:pages, @page_id)
+          @clipboard = get_clipboard('pages')
+          @clipboard.delete_if { |item| item['id'] == @page_id.to_s }
         end
       end
 

@@ -86,12 +86,12 @@ module Alchemy
 
         # Controller actions
         can [:info, :help],             :alchemy_admin_dashboard
+        can :manage,                    :alchemy_admin_clipboard
         can :index,                     :trash
         can :edit,                      :alchemy_admin_layoutpages
 
         # Resources
         can [:read, :download],         Alchemy::Attachment
-        can :manage,                    Alchemy::Clipboard
         can :manage,                    Alchemy::Content
         can :manage,                    Alchemy::Element
         can :manage,                    Alchemy::EssenceFile

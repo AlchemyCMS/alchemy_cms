@@ -122,11 +122,12 @@ module Alchemy
     describe '.all_from_clipboard_for_page' do
       let(:element_1) { FactoryGirl.build_stubbed(:element) }
       let(:element_2) { FactoryGirl.build_stubbed(:element, name: 'news') }
-      let(:page) { FactoryGirl.build_stubbed(:public_page) }
-      let(:clipboard) { [{id: element_1.id}, {id: element_2.id}] }
-      before {
+      let(:page)      { FactoryGirl.build_stubbed(:public_page) }
+      let(:clipboard) { [{'id' => element_1.id.to_s}, {'id' => element_2.id.to_s}] }
+
+      before do
         Element.stub(:all_from_clipboard).and_return([element_1, element_2])
-      }
+      end
 
       it "return all elements from clipboard that could be placed on page" do
         elements = Element.all_from_clipboard_for_page(clipboard, page)
