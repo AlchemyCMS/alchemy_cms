@@ -177,7 +177,7 @@ module Alchemy
 
       def all_from_clipboard(clipboard)
         return [] if clipboard.blank?
-        where(id: clipboard.collect { |p| p[:id] })
+        where(id: clipboard.collect { |p| p['id'] })
       end
 
       def all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)

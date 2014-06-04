@@ -153,7 +153,7 @@ describe Alchemy::Permissions do
     end
 
     it "can manage the clipboard" do
-      should be_able_to(:manage, Alchemy::Clipboard)
+      should be_able_to(:manage, :alchemy_admin_clipboard)
     end
 
     it "can see tags" do
