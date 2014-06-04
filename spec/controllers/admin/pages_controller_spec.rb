@@ -233,6 +233,61 @@ module Alchemy
       end
     end
 
+    describe '#edit' do
+      let!(:page)       { create(:page) }
+      let!(:other_user) { create(:author_user) }
+
+      context 'if page is locked by another user' do
+        before { page.lock_to!(other_user) }
+
+        context 'that is signed in' do
+          before { DummyUser.any_instance.stub(logged_in?: true) }
+
+          it 'redirects to sitemap' do
+            get :edit, id: page.id
+            expect(response).to redirect_to(admin_pages_path)
+          end
+        end
+
+        context 'that is not signed in' do
+          before { DummyUser.any_instance.stub(logged_in?: false) }
+
+          it 'renders the edit view' do
+            get :edit, id: page.id
+            expect(response).to render_template(:edit)
+          end
+        end
+      end
+
+      context 'if page is locked by myself' do
+        before do
+          Page.any_instance.stub(locker: user)
+          user.stub(logged_in?: true)
+        end
+
+        it 'renders the edit view' do
+          get :edit, id: page.id
+          expect(response).to render_template(:edit)
+        end
+      end
+
+      context 'if page is not locked' do
+        before do
+          Page.any_instance.stub(locker: nil)
+        end
+
+        it 'renders the edit view' do
+          get :edit, id: page.id
+          expect(response).to render_template(:edit)
+        end
+
+        it "lockes the page to myself" do
+          Page.any_instance.should_receive(:lock_to!)
+          get :edit, id: page.id
+        end
+      end
+    end
+
     describe '#destroy' do
       let(:clipboard) { session[:clipboard] = Clipboard.new }
       let(:page) { FactoryGirl.create(:public_page) }
