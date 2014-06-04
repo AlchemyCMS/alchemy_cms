@@ -54,10 +54,10 @@ module Alchemy
 
     describe '#new' do
       context "pages in clipboard" do
-        let(:clipboard) { session[:clipboard] = Clipboard.new }
+        let(:clipboard) { session[:alchemy_clipboard] = {} }
         let(:page) { mock_model(Alchemy::Page, name: 'Foobar') }
 
-        before { clipboard[:pages] = [{id: page.id, action: 'copy'}] }
+        before { clipboard['pages'] = [{'id' => page.id.to_s, 'action' => 'copy'}] }
 
         it "should load all pages from clipboard" do
           xhr :get, :new, {page_id: page.id}
@@ -289,14 +289,14 @@ module Alchemy
     end
 
     describe '#destroy' do
-      let(:clipboard) { session[:clipboard] = Clipboard.new }
+      let(:clipboard) { session[:alchemy_clipboard] = {} }
       let(:page) { FactoryGirl.create(:public_page) }
 
-      before { clipboard[:pages] = [{id: page.id}] }
+      before { clipboard['pages'] = [{'id' => page.id.to_s}] }
 
       it "should also remove the page from clipboard" do
         xhr :post, :destroy, {id: page.id, _method: :delete}
-        clipboard[:pages].should be_empty
+        clipboard['pages'].should be_empty
       end
     end
 

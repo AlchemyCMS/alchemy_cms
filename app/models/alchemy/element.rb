@@ -115,7 +115,7 @@ module Alchemy
 
       def all_from_clipboard(clipboard)
         return [] if clipboard.nil?
-        where(id: clipboard.collect { |e| e[:id] })
+        where(id: clipboard.collect { |e| e['id'] })
       end
 
       # All elements in clipboard that could be placed on page

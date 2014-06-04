@@ -313,8 +313,8 @@ module Alchemy
           page_1 = FactoryGirl.create(:page, :language => language)
           page_2 = FactoryGirl.create(:page, :language => language, :name => 'Another page')
           clipboard = [
-            {:id => page_1.id, :action => "copy"},
-            {:id => page_2.id, :action => "copy"}
+            {'id' => page_1.id.to_s, 'action' => 'copy'},
+            {'id' => page_2.id.to_s, 'action' => 'copy'}
           ]
           Page.all_from_clipboard_for_select(clipboard, language.id).should include(page_1, page_2)
         end
@@ -324,7 +324,7 @@ module Alchemy
         it "should not return any pages" do
           page_1 = FactoryGirl.create(:page, :language => language, :page_layout => 'contact')
           clipboard = [
-            {:id => page_1.id, :action => "copy"}
+            {'id' => page_1.id.to_s, 'action' => 'copy'}
           ]
           Page.all_from_clipboard_for_select(clipboard, language.id).should == []
         end
@@ -335,8 +335,8 @@ module Alchemy
           page_1 = FactoryGirl.create(:page, :language => language, :page_layout => 'standard')
           page_2 = FactoryGirl.create(:page, :name => 'Another page', :language => language, :page_layout => 'contact')
           clipboard = [
-            {:id => page_1.id, :action => "copy"},
-            {:id => page_2.id, :action => "copy"}
+            {'id' => page_1.id.to_s, 'action' => 'copy'},
+            {'id' => page_2.id.to_s, 'action' => 'copy'}
           ]
           Page.all_from_clipboard_for_select(clipboard, language.id).should == [page_1]
         end

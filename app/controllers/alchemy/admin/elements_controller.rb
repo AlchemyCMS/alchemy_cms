@@ -26,7 +26,8 @@ module Alchemy
         @page = Page.find_by_id(params[:page_id])
         @element = @page.elements.build
         @elements = @page.available_element_definitions
-        @clipboard_items = Element.all_from_clipboard_for_page(get_clipboard[:elements], @page)
+        @clipboard = get_clipboard('elements')
+        @clipboard_items = Element.all_from_clipboard_for_page(@clipboard, @page)
       end
 
       # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
@@ -57,7 +58,8 @@ module Alchemy
         else
           @element.page = @page
           @elements = @page.available_element_definitions
-          @clipboard_items = Element.all_from_clipboard_for_page(get_clipboard[:elements], @page)
+          @clipboard = get_clipboard('elements')
+          @clipboard_items = Element.all_from_clipboard_for_page(@clipboard, @page)
           render :new
         end
       end
@@ -128,24 +130,28 @@ module Alchemy
       end
 
       def element_from_clipboard
-        @clipboard = get_clipboard
-        @clipboard.get(:elements, params[:paste_from_clipboard])
+        @element_from_clipboard ||= begin
+          @clipboard = get_clipboard('elements')
+          @clipboard.detect { |item| item['id'].to_i == params[:paste_from_clipboard].to_i }
+        end
       end
 
       def paste_element_from_clipboard
-        @source_element = Element.find(element_from_clipboard[:id])
+        @source_element = Element.find(element_from_clipboard['id'])
         new_attributes = {:page_id => @page.id}
         if @page.can_have_cells?
           new_attributes = new_attributes.merge({:cell_id => find_or_create_cell.try(:id)})
         end
         element = Element.copy(@source_element, new_attributes)
-        cut_element if element_from_clipboard[:action] == 'cut'
+        if element_from_clipboard['action'] == 'cut'
+          cut_element
+        end
         element
       end
 
       def cut_element
         @cutted_element_id = @source_element.id
-        @clipboard.remove :elements, @source_element.id
+        @clipboard.delete_if { |item| item['id'] == @source_element.id.to_s }
         @source_element.destroy
       end
 

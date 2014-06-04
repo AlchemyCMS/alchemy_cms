@@ -5,7 +5,7 @@ module Alchemy
     let(:alchemy_page)         { create(:page) }
     let(:element)              { create(:element, :page_id => alchemy_page.id) }
     let(:element_in_clipboard) { create(:element, :page_id => alchemy_page.id) }
-    let(:clipboard)            { session[:clipboard] = Clipboard.new }
+    let(:clipboard)            { session[:alchemy_clipboard] = {} }
 
     before { sign_in(author_user) }
 
@@ -80,9 +80,9 @@ module Alchemy
       end
 
       context "with elements in clipboard" do
-        let(:clipboard_items) { [{:id => element.id, :action => 'copy'}] }
+        let(:clipboard_items) { [{'id' => element.id.to_s, 'action' => 'copy'}] }
 
-        before { clipboard[:elements] = clipboard_items }
+        before { clipboard['elements'] = clipboard_items }
 
         it "should load all elements from clipboard" do
           Element.should_receive(:all_from_clipboard_for_page).and_return(clipboard_items)
@@ -161,7 +161,7 @@ module Alchemy
                 'cells' => ['header']
               })
               Cell.stub(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})
-              clipboard[:elements] = [{:id => element_in_clipboard.id}]
+              clipboard['elements'] = [{'id' => element_in_clipboard.id.to_s}]
             end
 
             context "and cell name in element name" do
@@ -202,7 +202,7 @@ module Alchemy
                 'cells' => ['news']
               })
               Cell.stub(:definition_for).and_return({'name' => 'news', 'elements' => ['news']})
-              clipboard[:elements] = [{:id => element_in_clipboard.id}]
+              clipboard['elements'] = [{'id' => element_in_clipboard.id.to_s}]
               cell.elements << element
             end
 
@@ -220,7 +220,7 @@ module Alchemy
         render_views
 
         before do
-          clipboard[:elements] = [{id: element_in_clipboard.id, action: 'cut'}]
+          clipboard['elements'] = [{'id' => element_in_clipboard.id.to_s, 'action' => 'cut'}]
         end
 
         it "should create an element from clipboard" do
@@ -232,7 +232,7 @@ module Alchemy
         context "and with cut as action parameter" do
           it "should also remove the element id from clipboard" do
             xhr :post, :create, {paste_from_clipboard: element_in_clipboard.id, element: {page_id: alchemy_page.id}}
-            session[:clipboard].contains?(:elements, element_in_clipboard.id).should_not be_true
+            session[:alchemy_clipboard]['elements'].detect { |item| item['id'] == element_in_clipboard.id.to_s }.should be_nil
           end
         end
       end
