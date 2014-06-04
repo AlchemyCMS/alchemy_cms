@@ -89,24 +89,10 @@ h4 {
 }
 
 code {
-	font: 12px Menlo, Monaco, mono;
+	font-size: 12px;
 	background-color: #F8F8F8;
 	padding: 2px;
 	border: 1px solid #DEDEDE;
-}
-
-pre {
-	background: #33393f;
-	color: #eed785;
-	padding: 1em 1em 1em 28px;
-	font: 12px/1.5em Menlo, Monaco, mono;
-	text-align: left;
-	overflow-x: auto;
-	overflow-y: none;
-}
-
-strong {
-	color: black;
 }
 
 #content p, #content li {
@@ -120,12 +106,7 @@ strong {
 	left: 0;
 	width: 100%;
 	overflow: hidden;
-	background-color: #FBFBFB;
-	background-image: -moz-radial-gradient(50% 50%, circle cover, #FFF, #F8F8F8 60%);
-	background-image: -webkit-radial-gradient(50% 50%, circle cover, #FFF, #F8F8F8 60%);
-	background-image: -o-radial-gradient(50% 50%, circle cover, #FFF, #F8F8F8 60%);
-	background-image: -ms-radial-gradient(50% 50%, circle cover, #FFF, #F8F8F8 60%);
-	background-image: radial-gradient(50% 50%, circle cover, #FFF, #F8F8F8 60%);
+	background-color: #fff;
 }
 
 #bordure {
@@ -469,32 +450,6 @@ a, a:link, a:visited {
 	opacity: 0.8;
 	z-index: 10;
 	top: 21px;
-}
-
-div.note {
-	background: #fef9c1 url(../images/tab-note.png) no-repeat 6px 9px;
-	padding-left: 35px;
-	border: 1px solid #f0eff0;
-}
-
-#content div.note p,
-#content div.info p {
-	margin-bottom: 0.5em;
-	font-size: 12px;
-}
-
-div.info {
-	padding-left: 35px;
-	background: #C7E4F5 url(../images/tab-info.png) no-repeat 6px 10px;
-	border: 1px solid #dbdbdb;
-}
-
-div.code_container {
-	background: #eeeeee url(../images/tab-code.png) no-repeat 6px 9px;
-	padding-left: 35px;
-	padding-bottom: 2px;
-	border: 1px solid #e0e0e0;
-	font-size: 12px;
 }
 
 #subCol h3.chapter img {
