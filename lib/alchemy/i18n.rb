@@ -45,7 +45,13 @@ module Alchemy
     end
 
     def self.available_locales
-      translation_files.collect { |f| f.match(/.{2}\.yml$/).to_s.gsub(/\.yml/, '') }
+      @@available_locales ||= nil
+      @@available_locales || translation_files.collect { |f| f.match(/.{2}\.yml$/).to_s.gsub(/\.yml/, '').to_sym }
+    end
+
+    def self.available_locales=(locales)
+      @@available_locales = Array(locales).map { |locale| locale.to_sym }
+      @@available_locales = nil if @@available_locales.empty?
     end
 
     def self.translation_files
