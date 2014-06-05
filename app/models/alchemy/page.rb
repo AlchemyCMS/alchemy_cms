@@ -198,12 +198,13 @@ module Alchemy
       end
 
       def update_item!(node)
-        #create legacy url
-        if Config.get(:url_nesting) && self.urlname != node.url
-          LegacyPageUrl.create(page_id: self.id, urlname: page.urlname)
+        if Config.get(:url_nesting) && !self.redirects_to_external? && self.urlname != node.url
+          LegacyPageUrl.create(page_id: self.id, urlname: self.urlname)
         end
 
         hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth}
+        hash.merge!(urlname: node.url) unless self.redirects_to_external?
+
         self.class.update_all(hash, {id: self.id})
       end
 

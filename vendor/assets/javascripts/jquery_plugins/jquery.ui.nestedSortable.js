@@ -284,12 +284,12 @@
 
 			function _recursiveItems(item) {
 				var id = ($(item).attr(o.attribute || 'id') || '').match(o.expression || (/(.+)[-=_](.+)/));
-
                 var restricted = $(li).data("restricted");
                 var name = $(li).data("name");
+                var external = $(li).data("external")
 
                 if (id) {
-                    var item = {"id":id[2], "name": name, "restricted": restricted};
+                    var item = {"id":id[2], "name": name, "restricted": restricted, "external": external};
 					if ($(item).children(o.listType).children(o.items).length > 0) {
 						currentItem.children = [];
 						$(item).children(o.listType).children(o.items).each(function() {
