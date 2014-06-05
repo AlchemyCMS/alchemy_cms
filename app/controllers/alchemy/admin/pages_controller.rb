@@ -203,7 +203,7 @@ module Alchemy
         nodes.each do |item|
           my_right = my_left + 1
           my_restricted = item['restricted'] || restricted
-          my_url = process_url(url, item['name'], item['external'])
+          my_url = process_url(url, item)
 
           if item['children']
             my_right, tree = visit_nodes(item['children'], my_left+1, item['id'], depth+1, tree, my_url, my_restricted)
@@ -221,15 +221,13 @@ module Alchemy
         tree
       end
 
-      def process_url(node_path, node_name, is_external)
-        if is_external != true
-          if Config.get(:url_nesting)
-            (node_path.blank? ? "" : "#{node_path}/") + TreeNode.convert_url_name(node_name)
-          else
-            TreeNode.convert_url_name(node_name)
-          end
+      def process_url(node_path, item)
+        my_name = (item['external'] == true ? "" : TreeNode.convert_url_name(item['name']))
+        
+        if Config.get(:url_nesting)
+          (node_path.blank? ? "" : "#{node_path}/") + my_name
         else
-          node_name
+          my_name
         end
       end
 
