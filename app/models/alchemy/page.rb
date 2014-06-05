@@ -198,6 +198,11 @@ module Alchemy
       end
 
       def update_item!(node)
+        #create legacy url
+        if Config.get(:url_nesting) && self.urlname != node.url
+          LegacyPageUrl.create(page_id: self.id, urlname: page.urlname)
+        end
+
         hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth}
         self.class.update_all(hash, {id: self.id})
       end

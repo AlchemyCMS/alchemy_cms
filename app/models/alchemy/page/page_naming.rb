@@ -82,19 +82,5 @@ module Alchemy
     def set_title
       write_attribute :title, name
     end
-
-    # Converts the given name into an url friendly string.
-    #
-    # Names shorter than 3 will be filled up with dashes,
-    # so it does not collidate with the language code.
-    #
-    def convert_url_name(name)
-      url_name = convert_to_urlname(name)
-      if url_name.length < 3
-        ('-' * (3 - url_name.length)) + url_name
-      else
-        url_name
-      end
-    end
   end
 end

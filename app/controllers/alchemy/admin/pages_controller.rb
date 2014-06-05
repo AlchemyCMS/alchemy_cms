@@ -14,8 +14,6 @@ module Alchemy
 
       authorize_resource class: Alchemy::Page
 
-      Node = Struct.new(:left, :right, :parent, :depth, :url, :restricted)
-
       def index
         @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         @languages = Language.all
@@ -201,17 +199,17 @@ module Alchemy
 
       private
 
-      def visit(nodes, my_left, parent, depth, tree, url, restricted)
+      def visit_nodes(nodes, my_left, parent, depth, tree, url, restricted)
         nodes.each do |item|
           my_right = my_left + 1
           my_restricted = item['restricted'] || restricted
-          my_url = url + "/#{item['name'].parameterize}"
+          my_url = process_url(url, item['name'])
 
           if item['children']
-            my_right, tree = visit(item['children'], my_left+1, item['id'], depth+1, tree, my_url, my_restricted)
+            my_right, tree = visit_nodes(item['children'], my_left+1, item['id'], depth+1, tree, my_url, my_restricted)
           end
 
-          tree[item['id']] = Node.new(my_left, my_right, parent, depth, my_url, my_restricted)
+          tree[item['id']] = TreeNode.new(my_left, my_right, parent, depth, my_url, my_restricted)
           my_left = my_right + 1
         end
 
@@ -219,8 +217,16 @@ module Alchemy
       end
 
       def create_tree(items, rootpage)
-        _, tree = visit(items, rootpage.lft + 1, rootpage.id, rootpage.depth + 1, {}, "/#{rootpage.language_code}", rootpage.restricted)
+        _, tree = visit_nodes(items, rootpage.lft + 1, rootpage.id, rootpage.depth + 1, {}, "", rootpage.restricted)
         tree
+      end
+
+      def process_url(node_path, node_name)
+        if Config.get(:url_nesting)
+          (node_path.blank? ? "" : "#{node_path}/") + TreeNode.convert_url_name(node_name)
+        else
+          TreeNode.convert_url_name(node_name)
+        end
       end
 
       def copy_of_language_root
