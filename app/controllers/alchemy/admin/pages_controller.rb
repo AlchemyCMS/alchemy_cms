@@ -172,6 +172,7 @@ module Alchemy
 
       def order
         rootpage = Page.language_root_for(session[:language_id])
+        neworder = JSON.parse(params[:set])
         tree = create_tree(neworder, rootpage)
 
         tree.each do |key, node|
