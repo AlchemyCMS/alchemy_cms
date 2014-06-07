@@ -10,80 +10,66 @@ nl:
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
     #
     # Example:
-    #   de:
-    #     alchemy:
-    #       page_layout_names:
-    #         contact: Kontakt
-    #         search: Suche
+    #
+    # nl:
+    #   alchemy:
+    #     page_layout_names:
+    #       contact: Contact
+    #       search: Zoeken
     #
     page_layout_names:
-      contact: Contact
-      search: Zoeken
-      layout_header: 'Header Onderdeel'
-      layout_footer: 'Footer Onderdeel'
-      external: Externe Link
 
     # == Translations for element names
     # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
     #
     # Example:
-    #   de:
-    #     alchemy:
-    #       element_names:
-    #         article: Artikel
-    #         intro_image_text: Intro Artikel
+    #
+    # nl:
+    #   alchemy:
+    #     element_names:
+    #       article: Artikel
+    #       intro_image_text: Intro Artikel
     #
     element_names:
-      article: Artikel
-      intro_image_text: Intro Artikel
-      text: Tekst
-      bild: Afbeelding(en)
-      bild_text: Tekst (Afbeelding)
-      headline: Koptekst
-      image_mosaic: Afbeelding Mosaic
-      footnote: Voetnoot
-      sitename: Websitenaam
-      claim: Claim
-      header: Headerafbeelding
-      intro: Intro
-      subheadline: Subkop
-      news: Nieuws
-      searchresult: Zoekresultaten
-      contactform: Contactformulier
 
     # == Translated names for contents in elements.
     # Used for the content editor label inside the element editor view (The elements window)
     #
     # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
     # To do so, just place the content_name under the element name
+    #
+    # Example:
+    #
+    # nl:
+    #  alchemy:
+    #    content_names:
+    #      headline: Koptekst
+    #      news_article:
+    #        headline: Nieuws Koptekst
+    #      image_caption: Onderschrift
+    #      show_caption: Onderschrift weergeven
+    #
     content_names:
-      text: 'Tekst'
-      date: 'Datum'
-      body: 'Inhoud'
-      image: 'Afbeelding'
-      mail_from: 'Verzender (E-Mail)'
-      mail_to: 'Ontvanger (E-Mail)'
-      caption: "Onderschrift"
-      subject: 'Onderwerp'
-      intro: "Intro"
-      headline: "Kop"
-      subheadline: "Subkop"
-      news_headline: "Nieuwkop"
-      image_mosaic:
-        caption: "Mosaic Caption"
-        show_caption: "Show Caption"
-      file: Bestand
-      contactform:
-        success_page: 'Opvolgpagina'
 
-    # Translations for content validations
+     # === Translations for content validations
+    # Used when a user did not enter (correct) values to the content field.
+    #
+    # Tip: You can define the validation messages translations different for each element and content
+    #
+    # Example:
+    #
+    # nl:
+    #   alchemy:
+    #     content_validations:
+    #       contactform:
+    #         success_page:
+    #           blank: 'Kies een Opvolgpagina.'
+    #         mail_to:
+    #           blank: 'Kies een Emailadres.'
     #
     content_validations:
-      contactform:
-        success_page:
-          blank: 'Kies een opvolgpagina'
       errors:
-        blank: "%{field} mag niet leeg zijn"
+        blank: '%{field} mag niet leeg zijn'
         invalid: '%{field} heeft een verkeerd formaat'
         taken: '%{field} is al in gebruik'
 

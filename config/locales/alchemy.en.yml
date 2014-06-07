@@ -10,78 +10,64 @@ en:
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
     #
     # Example:
-    #   de:
-    #     alchemy:
-    #       page_layout_names:
-    #         contact: Kontakt
-    #         search: Suche
+    #
+    # en:
+    #   alchemy:
+    #     page_layout_names:
+    #       contact: Contact
+    #       search: Search
     #
     page_layout_names:
-      contact: Contact
-      search: Search
-      layout_header: 'Header Part'
-      layout_footer: 'Footer Part'
-      external: External link
 
     # == Translations for element names
     # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
     #
     # Example:
-    #   de:
-    #     alchemy:
-    #       element_names:
-    #         article: Artikel
-    #         intro_image_text: Intro Artikel
+    #
+    # en:
+    #   alchemy:
+    #     element_names:
+    #       article: Article
+    #       contactform: Contact form
     #
     element_names:
-      article: Article
-      intro_image_text: Intro Article
-      text: Text
-      bild: Image(s)
-      bild_text: Text (Image)
-      headline: Headline
-      image_mosaic: Image Mosaic
-      footnote: Footnote
-      sitename: Website Name
-      claim: Claim
-      header: Header-Image
-      intro: Intro
-      subheadline: Subheadline
-      news: News
-      searchresult: Searchresults
-      contactform: Contactform
 
     # == Translated names for contents in elements.
     # Used for the content editor label inside the element editor view (The elements window)
     #
     # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
     # To do so, just place the content_name under the element name
+    #
+    # Example:
+    #
+    # en:
+    #  alchemy:
+    #    content_names:
+    #      headline: Headline
+    #      news_article:
+    #        headline: News Headline
+    #      image_caption: Caption
+    #      show_caption: Show Caption
+    #
     content_names:
-      text: 'Text'
-      date: 'Date'
-      body: 'Content'
-      image: 'Image'
-      mail_from: 'Sender (E-Mail)'
-      mail_to: 'Receiver (E-Mail)'
-      caption: "Caption"
-      subject: 'Subject'
-      intro: "Intro"
-      headline: "Headline"
-      subheadline: "Subheadline"
-      news_headline: "News Headline"
-      image_mosaic:
-        caption: "Mosaic Caption"
-        show_caption: "Show Caption"
-      file: File
-      contactform:
-        success_page: 'Followup page'
 
-    # Translations for content validations
+    # === Translations for content validations
+    # Used when a user did not enter (correct) values to the content field.
+    #
+    # Tip: You can define the validation messages translations different for each element and content
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     content_validations:
+    #       contactform:
+    #         success_page:
+    #           blank: 'Please choose a follow up page.'
+    #         mail_to:
+    #           blank: 'Please provide an email address where the contact inquiries will be delivered to.'
     #
     content_validations:
-      contactform:
-        success_page:
-          blank: 'Please choose a follow up page'
       errors:
         blank: "%{field} can't be blank"
         invalid: '%{field} has wrong format'
