@@ -14,6 +14,8 @@ module Alchemy
 
       authorize_resource class: Alchemy::Page
 
+      TreeNode = Struct.new(:left, :right, :parent, :depth, :url, :restricted)
+
       def index
         @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         @languages = Language.all
@@ -223,12 +225,10 @@ module Alchemy
       end
 
       def process_url(node_path, item)
-        my_name = (item['external'] == true ? "" : TreeNode.convert_url_name(item['name']))
-        
-        if Config.get(:url_nesting)
-          (node_path.blank? ? "" : "#{node_path}/") + my_name
+        if item['external'] == true
+          node_path
         else
-          my_name
+          (node_path.blank? ? "" : "#{node_path}/") + item['slug']
         end
       end
 
