@@ -216,8 +216,6 @@ de:
     "If you have any problems using the Flash uploader you can switch to": "Sollten Sie Probleme mit dem Flash® Uploader haben, wechseln Sie einfach zur %{link}"
     "Image missing": "Bild fehlt"
     "Image size": "Bildgröße"
-    "Image updated successfully": "Bild wurde gespeichert"
-    "Index Error after saving Element. Please try again!": "Indizierungsfehler beim Speichern des Elements. Bitte erneut versuchen!"
     "Language successfully created.": "Sprache wurde erfolgreich erstellt."
     "Language successfully destroyed.": "Sprache wurde erfolgreich gelöscht."
     "Language successfully updated.": "Sprache wurde erfolgreich aktualisiert."
@@ -235,7 +233,6 @@ de:
     "New Tag": "Neues Tag"
     "New Tag Created": "Neues Tag wurde erstellt"
     "No": "Nein"
-    "No EssenceType given": ""
     "No items in your clipboard": "Ihre Zwischenablage ist leer"
     "No Tags found": "Keine Tags gefunden"
     "None": "ohne"
@@ -254,7 +251,6 @@ de:
     "Picture validation error": "Bild %{name} konnte nicht hochgeladen werden"
     "Picture renamed successfully": "Bild wurde erfolgreich von %{from} nach %{to} umbenannt"
     "Picture deleted successfully": "%{name} wurde gelöscht"
-    "Pictures deleted successfully": "Die Bilder %{names} wurden gelöscht"
     "Pictures updated successfully": "Die Bilder wurden gespeichert"
     "Picture cache flushed": "Bildercache wurde geleert"
     "Please Signup": "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin Benutzer einrichten."
@@ -263,7 +259,6 @@ de:
     "Please enter your email address": "Bitte geben Sie Ihre E-Mail-Adresse ein."
     "Please log in": "Bitte melden Sie sich an."
     "Please seperate the tags with commata": "* Die Tags bitte mit Komma getrennt eingeben."
-    use_alternative_uploader_instead: "Benutzen Sie bitte diesen alternativen Uploader."
     "Properties": "Eigenschaften"
     "Publish page": "veröffentlichen"
     "Read the License": "Lizenz lesen"
@@ -288,9 +283,6 @@ de:
     "Successfully added content": "%{content} wurde hinzugefügt"
     "Successfully deleted content": "%{content} wurde gelöscht"
     "Successfully saved content position": "Die Position wurde gespeichert."
-    "Switch to Flash® Uploader": "Auf den Flash® Uploader wechseln"
-    sitemap_editor_info: "Die Sitemap wird automatisch generiert"
-    searchresults_editor_info: "Dieses Element stellt die Suchergebnisse dar. Es Bedarf keinerlei Anpassung."
     "Tags": "Tags"
     "These pictures could not be deleted, because they were in use": "Diese Bilder konnten nicht gelöscht werden, da sie in Benutzung sind: %{names}"
     "This page is locked": "Diese Seite wird gerade von %{name} blockiert"
@@ -323,7 +315,6 @@ de:
     add_image_to_element: "Bild hinzufügen"
     align_in_text: "Im Text anordnen"
     all: "alle"
-    allow_fullscreen: "Vollbild ansicht"
     all_pictures: "Alle Bilder anzeigen"
     apply: "übernehmen"
     assign_file: "Datei zuweisen"
@@ -345,9 +336,7 @@ de:
     confirm_to_delete_image: "Wollen Sie dieses Bild wirklich löschen?"
     confirm_to_delete_image_from_server: "Wollen Sie dieses Bild wirklich vom Server löschen?"
     confirm_to_delete_images_from_server: "Wollen Sie diese Bilder wirklich vom Server löschen?"
-    confirm_to_delete_language: "Wollen Sie diese Sprache wirklich löschen?<br/>ACHTUNG! Alle zugehörigen Seiten werden ebenfalls gelöscht!"
     confirm_to_delete_page: "Wollen Sie diese Seite wirklich löschen? Alle Inhalte gehen dabei unwiderruflich verloren!"
-    contactform_body: "Nachrichten Vorlage"
     content_essence_not_found: "Essenz wurde nicht gefunden"
     content_not_found: "Das Feld für diesen Inhalt ist nicht vorhanden."
     content_validations_headline: "Bitte überprüfen Sie die markierten Felder."
@@ -574,7 +563,6 @@ de:
     insert_image: "Bild einfügen"
     tag_list: Tags
     tags_get_created_if_used_the_first_time: 'Ein Tag wird automatisch erstellt, sobald Sie es das erste mal verwenden.'
-    this_picture_is_not_used_on_any_page: "Dieses Bild wird auf keiner Seite benutzt."
     this_picture_is_used_on_these_pages: "Dieses Bild wird auf folgenden Seiten benutzt"
     title: "Titel"
     to_alchemy: "Zu Alchemy"
@@ -583,7 +571,6 @@ de:
     unlink: "Link entfernen"
     unlock_page: "Seite verlassen"
     unlocked_page: "Seite %{name} wurde freigegeben."
-    upload: "Datei hochladen"
     upload_file: "Datei(en) hochladen"
     upload_image: "Bild(er) hochladen"
     url_name: "URL-Name"
@@ -604,7 +591,6 @@ de:
     "Do you want to": "Wollen Sie dabei"
     "stay logged in": "angemeldet bleiben"
     "or to completly": "oder Sich komplett"
-    "Please wait. Flash® is loading...": "Bitte warten. Flash® Uploader wird geladen..."
     "Are you sure?": "Sind Sie sicher?"
     "Create": "Hinzufügen"
     "Edit": "Bearbeiten"
@@ -614,13 +600,10 @@ de:
     "Succesfully removed": "Erfolgreich gelöscht"
     "Nothing found": "Keine Einträge gefunden."
     "Or drag files over here": "Oder ziehen Sie die Dateien hier rauf"
-    "Now drop the files": "Lassen Sie die Dateien nun los"
-    "Queued x files": "x Dateien in der Warteschlange."
     complete: 'Abgeschlossen'
     "Update available": 'Es ist ein Update verfügbar'
     "Update status unavailable": 'Update Status konnte nicht ermittelt werden'
     "Uploading": "Hochladen"
-    "Uploaded x files": "x Dateien hochgeladen."
 
   # END of Alchemy translation
 
