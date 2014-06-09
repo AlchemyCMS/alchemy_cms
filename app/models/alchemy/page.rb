@@ -197,6 +197,17 @@ module Alchemy
         options
       end
 
+      def update_item!(node)
+        hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth}
+
+        if Config.get(:url_nesting) && !self.redirects_to_external? && self.urlname != node.url
+          LegacyPageUrl.create(page_id: self.id, urlname: self.urlname)
+          hash.merge!(urlname: node.url)
+        end
+
+        self.class.update_all(hash, {id: self.id})
+      end
+
     private
 
       # Aggregates the attributes from given source for copy of page.

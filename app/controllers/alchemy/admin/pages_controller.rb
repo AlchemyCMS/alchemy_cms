@@ -14,6 +14,8 @@ module Alchemy
 
       authorize_resource class: Alchemy::Page
 
+      TreeNode = Struct.new(:left, :right, :parent, :depth, :url, :restricted)
+
       def index
         @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         @languages = Language.all
@@ -174,14 +176,13 @@ module Alchemy
       end
 
       def order
-        # Taken from https://github.com/matenia/jQuery-Awesome-Nested-Set-Drag-and-Drop
+        rootpage = Page.language_root_for(session[:language_id])
         neworder = JSON.parse(params[:set])
-        prev_item = nil
-        neworder.each do |item|
-          dbitem = Page.find(item['id'])
-          prev_item.nil? ? dbitem.move_to_child_of(@page_root) : dbitem.move_to_right_of(prev_item)
-          sort_children(item, dbitem) unless item['children'].nil?
-          prev_item = dbitem.reload
+        tree = create_tree(neworder, rootpage)
+
+        tree.each do |key, node|
+          dbitem = Page.find(key)
+          dbitem.update_item!(node)
         end
 
         flash[:notice] = _t("Pages order saved")
@@ -204,6 +205,36 @@ module Alchemy
 
       private
 
+      def visit_nodes(nodes, my_left, parent, depth, tree, url, restricted)
+        nodes.each do |item|
+          my_right = my_left + 1
+          my_restricted = item['restricted'] || restricted
+          my_url = process_url(url, item)
+
+          if item['children']
+            my_right, tree = visit_nodes(item['children'], my_left+1, item['id'], depth+1, tree, my_url, my_restricted)
+          end
+
+          tree[item['id']] = TreeNode.new(my_left, my_right, parent, depth, my_url, my_restricted)
+          my_left = my_right + 1
+        end
+
+        [my_left, tree]
+      end
+
+      def create_tree(items, rootpage)
+        _, tree = visit_nodes(items, rootpage.lft + 1, rootpage.id, rootpage.depth + 1, {}, "", rootpage.restricted)
+        tree
+      end
+
+      def process_url(node_path, item)
+        if item['external'] == true
+          node_path
+        else
+          (node_path.blank? ? "" : "#{node_path}/") + item['slug']
+        end
+      end
+
       def copy_of_language_root
         page_copy = Page.copy(
           language_root_to_copy_from,
@@ -224,17 +255,6 @@ module Alchemy
 
       def pages_from_raw_request
         request.raw_post.split('&').map { |i| i = {i.split('=')[0].gsub(/[^0-9]/, '') => i.split('=')[1]} }
-      end
-
-      # Taken from https://github.com/matenia/jQuery-Awesome-Nested-Set-Drag-and-Drop
-      def sort_children(element, dbitem)
-        prevchild = nil
-        element['children'].each do |child|
-          childitem = Page.find(child['id'])
-          prevchild.nil? ? childitem.move_to_child_of(dbitem) : childitem.move_to_right_of(prevchild)
-          sort_children(child, childitem) unless child['children'].nil?
-          prevchild = childitem
-        end
       end
 
       def redirect_path_for_switch_language
