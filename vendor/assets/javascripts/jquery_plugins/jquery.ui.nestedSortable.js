@@ -255,8 +255,14 @@
 
       function _recursiveItems(li) {
         var id = ($(li).attr(o.attribute || 'id') || '').match(o.expression || (/(.+)[-=_](.+)/));
+
+        var restricted = $(li).data("restricted");
+        var slug = $(li).data("slug");
+        var external = $(li).data("external");
+        var visible = $(li).data("visible");
+
         if (id) {
-          var item = {"id":id[2]};
+          var item = {"id": id[2], "slug": slug, "restricted": restricted, "external": external, "visible": visible};
           if ($(li).children(o.listType).children('li').length > 0) {
             item.children = [];
             $(li).children(o.listType).children('li').each(function () {

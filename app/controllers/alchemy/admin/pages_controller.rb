@@ -208,17 +208,19 @@ module Alchemy
         @sorting = true
       end
 
+      # Receives a JSON object representing a language tree to be ordered
+      # and updates all pages in that language structure to their correct indexes
       def order
-        @page_root = Page.language_root_for(session[:language_id])
-
-        # Taken from https://github.com/matenia/jQuery-Awesome-Nested-Set-Drag-and-Drop
         neworder = JSON.parse(params[:set])
-        prev_item = nil
-        neworder.each do |item|
-          dbitem = Page.find(item['id'])
-          prev_item.nil? ? dbitem.move_to_child_of(@page_root) : dbitem.move_to_right_of(prev_item)
-          sort_children(item, dbitem) unless item['children'].nil?
-          prev_item = dbitem.reload
+        rootpage = Page.language_root_for(session[:language_id])
+
+        tree = create_tree(neworder, rootpage)
+
+        Alchemy::Page.transaction do
+          tree.each do |key, node|
+            dbitem = Page.find(key)
+            dbitem.update_node!(node)
+          end
         end
 
         flash[:notice] = _t("Pages order saved")
@@ -248,6 +250,80 @@ module Alchemy
 
     private
 
+      # Returns the current left index and the aggregated hash of tree nodes indexed by page id visited so far
+      #
+      # Visits a batch of children nodes, assigns them the correct ordering indexes and spuns recursively the same
+      # procedure on their children, if any
+      #
+      # @param [Array]
+      #   An array of children nodes to be visited
+      # @param [Integer]
+      #   The lft attribute that should be given to the first node in the array
+      # @param [Integer]
+      #   The page id of the parent of this batch of children nodes
+      # @param [Integer]
+      #   The depth at which these children reside
+      # @param [Hash]
+      #   A Hash of TreeNode's indexed by their page ids
+      # @param [String]
+      #   The url for the parent node of these children
+      # @param [Boolean]
+      #   Whether these children reside in a restricted branch according to their ancestors
+      #
+      def visit_nodes(nodes, my_left, parent, depth, tree, url, restricted)
+        nodes.each do |item|
+          my_right = my_left + 1
+          my_restricted = item['restricted'] || restricted
+          my_url = process_url(url, item)
+
+          if item['children']
+            my_right, tree = visit_nodes(item['children'], my_left + 1, item['id'], depth + 1, tree, my_url, my_restricted)
+          end
+
+          tree[item['id']] = TreeNode.new(my_left, my_right, parent, depth, my_url, my_restricted)
+          my_left = my_right + 1
+        end
+
+        [my_left, tree]
+      end
+
+      # Returns a Hash of TreeNode's indexed by their page ids
+      #
+      # Grabs the array representing a tree structure of pages passed as a parameter,
+      # visits it and creates a map of TreeNodes indexed by page id featuring Nested Set
+      # ordering information consisting of the left, right, depth and parent_id indexes as
+      # well as a node's url and restricted status
+      #
+      # @param [Array]
+      #   An Array representing a tree of Alchemy::Page's
+      # @param [Alchemy::Page]
+      #   The root page for the language being ordered
+      #
+      def create_tree(items, rootpage)
+        _, tree = visit_nodes(items, rootpage.lft + 1, rootpage.id, rootpage.depth + 1, {}, "", rootpage.restricted)
+        tree
+      end
+
+      # Returns the URL that a given tree node should take
+      #
+      # This function will add a node's own slug into their ancestor's path
+      # in order to create the full URL of a node
+      #
+      # NOTE: external and invisible pages are not part of the full path of their children
+      #
+      # @param [String]
+      #   The node's ancestors path
+      # @param [Hash]
+      #   A children node
+      #
+      def process_url(node_path, item)
+        if item['external'] == true || item['visible'] == false
+          node_path
+        else
+          (node_path.blank? ? "" : "#{node_path}/") + item['slug']
+        end
+      end
+
       def load_page
         @page = Page.find(params[:id])
       end
@@ -255,18 +331,6 @@ module Alchemy
       def pages_from_raw_request
         request.raw_post.split('&').map { |i| i = {i.split('=')[0].gsub(/[^0-9]/, '') => i.split('=')[1]} }
       end
-
-      # Taken from https://github.com/matenia/jQuery-Awesome-Nested-Set-Drag-and-Drop
-      def sort_children(element, dbitem)
-        prevchild = nil
-        element['children'].each do |child|
-          childitem = Page.find(child['id'])
-          prevchild.nil? ? childitem.move_to_child_of(dbitem) : childitem.move_to_right_of(prevchild)
-          sort_children(child, childitem) unless child['children'].nil?
-          prevchild = childitem
-        end
-      end
-
     end
   end
 end
