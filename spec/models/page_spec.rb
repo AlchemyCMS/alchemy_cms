@@ -1123,6 +1123,124 @@ module Alchemy
       end
     end
 
+    describe "#update_node!" do
+
+      let(:original_url) { "sample-url" }
+      let(:page) { FactoryGirl.create(:page, :language => language, :parent_id => language_root.id, :urlname => original_url, restricted: false) }
+      let(:node) { TreeNode.new(10, 11, 12, 13, "another-url", true) }
+
+      context "when nesting is enabled" do
+        before { Alchemy::Config.stub(:get).with(:url_nesting) { true } }
+
+        context "when page is not external" do
+
+          before { page.stub(redirects_to_external?: false)}
+
+          it "should update all attributes" do
+            page.update_node!(node)
+            page.reload
+            expect(page.lft).to eq(node.left)
+            expect(page.rgt).to eq(node.right)
+            expect(page.parent_id).to eq(node.parent)
+            expect(page.depth).to eq(node.depth)
+            expect(page.urlname).to eq(node.url)
+            expect(page.restricted).to eq(node.restricted)
+          end
+
+          context "when url is the same" do
+            let(:node) { TreeNode.new(10, 11, 12, 13, original_url, true) }
+
+            it "should not create a legacy url" do
+              page.update_node!(node)
+              page.reload
+              expect(page.legacy_urls.size).to eq(0)
+            end
+          end
+
+          context "when url is not the same" do
+            it "should create a legacy url" do
+              page.update_node!(node)
+              page.reload
+              expect(page.legacy_urls.size).to eq(1)
+            end
+          end
+        end
+
+        context "when page is external" do
+
+          before { page.stub(redirects_to_external?: true) }
+
+          it "should update all attributes except url" do
+            page.update_node!(node)
+            page.reload
+            expect(page.lft).to eq(node.left)
+            expect(page.rgt).to eq(node.right)
+            expect(page.parent_id).to eq(node.parent)
+            expect(page.depth).to eq(node.depth)
+            expect(page.urlname).to eq(original_url)
+            expect(page.restricted).to eq(node.restricted)
+          end
+
+          it "should not create a legacy url" do
+            page.update_node!(node)
+            page.reload
+            expect(page.legacy_urls.size).to eq(0)
+          end
+        end
+      end
+
+      context "when nesting is disabled" do
+        before { Alchemy::Config.stub(:get).with(:url_nesting) { false } }
+
+        context "when page is not external" do
+
+          before { page.stub(redirects_to_external?: false)}
+
+          it "should update all attributes except url" do
+            page.update_node!(node)
+            page.reload
+            expect(page.lft).to eq(node.left)
+            expect(page.rgt).to eq(node.right)
+            expect(page.parent_id).to eq(node.parent)
+            expect(page.depth).to eq(node.depth)
+            expect(page.urlname).to eq(original_url)
+            expect(page.restricted).to eq(node.restricted)
+          end
+
+          it "should not create a legacy url" do
+            page.update_node!(node)
+            page.reload
+            expect(page.legacy_urls.size).to eq(0)
+          end
+
+        end
+
+        context "when page is external" do
+
+          before { page.stub(redirects_to_external?: true) }
+
+          before { Alchemy::Config.stub(get: true) }
+
+          it "should update all attributes except url" do
+            page.update_node!(node)
+            page.reload
+            expect(page.lft).to eq(node.left)
+            expect(page.rgt).to eq(node.right)
+            expect(page.parent_id).to eq(node.parent)
+            expect(page.depth).to eq(node.depth)
+            expect(page.urlname).to eq(original_url)
+            expect(page.restricted).to eq(node.restricted)
+          end
+
+          it "should not create a legacy url" do
+            page.update_node!(node)
+            page.reload
+            expect(page.legacy_urls.size).to eq(0)
+          end
+        end
+      end
+    end
+
     describe '#slug' do
       context "with parents path saved in urlname" do
         let(:page) { FactoryGirl.build(:page, urlname: 'root/parent/my-name')}

@@ -300,6 +300,25 @@ module Alchemy
       set_language_code
     end
 
+    # Updates an Alchemy::Page based on a new ordering to be applied to it
+    #
+    # Note: Page's urls should not be updated (and a legacy URL created) if nesting is OFF
+    # or if a page is external or if the URL is the same
+    #
+    # @param [TreeNode]
+    #   A tree node with new lft, rgt, depth, url, parent_id and restricted indexes to be updated
+    #
+    def update_node!(node)
+      hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted}
+
+      if Config.get(:url_nesting) && !self.redirects_to_external? && self.urlname != node.url
+        LegacyPageUrl.create(page_id: self.id, urlname: self.urlname)
+        hash.merge!(urlname: node.url)
+      end
+
+      self.class.update_all(hash, {id: self.id})
+    end
+
   private
 
     # Returns the next or previous page on the same level or nil.
