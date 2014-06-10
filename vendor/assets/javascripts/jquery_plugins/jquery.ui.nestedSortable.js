@@ -284,8 +284,14 @@
 
 			function _recursiveItems(item) {
 				var id = ($(item).attr(o.attribute || 'id') || '').match(o.expression || (/(.+)[-=_](.+)/));
+				
+				var restricted = $(li).data("restricted");
+				var slug = $(li).data("slug");
+				var external = $(li).data("external");
+				var visible = $(li).data("visible");
+
 				if (id) {
-					var currentItem = {"id" : id[2]};
+					var currentItem = {"id" : id[2], "slug" : slug, "restricted" : restricted, "external" : external, "visible" : visible};
 					if ($(item).children(o.listType).children(o.items).length > 0) {
 						currentItem.children = [];
 						$(item).children(o.listType).children(o.items).each(function() {

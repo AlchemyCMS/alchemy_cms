@@ -27,7 +27,7 @@ module Alchemy
 
     # Returns true or false if the pages layout_description for config/alchemy/page_layouts.yml contains redirects_to_external: true
     def redirects_to_external?
-      definition["redirects_to_external"]
+      !!definition["redirects_to_external"]
     end
 
     def has_controller?
