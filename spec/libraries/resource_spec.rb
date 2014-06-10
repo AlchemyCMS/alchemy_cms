@@ -1,6 +1,4 @@
-require 'rspec'
-require File.dirname(__FILE__) + '/../../lib/alchemy/resource'
-require File.dirname(__FILE__) + '/../../lib/alchemy/errors'
+require 'spec_helper'
 
 class Event
 end
