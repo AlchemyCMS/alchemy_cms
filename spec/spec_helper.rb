@@ -36,24 +36,12 @@ require 'alchemy/test_support/essence_shared_examples'
 require_relative "support/test_tweaks.rb"
 require_relative "support/hint_examples.rb"
 
-# Temporay fix for mavericks phantomjs bug
-if RUBY_PLATFORM =~ /darwin/
-  require_relative "support/phantomjs_mavericks_fix.rb"
-  Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, {
-      phantomjs_logger: Alchemy::WarningSuppressor,
-      js_errors: false
-    })
-  end
-else
-  Capybara.register_driver :poltergeist do |app|
-    Capybara::Poltergeist::Driver.new(app, js_errors: false)
-  end
-end
-
 # Configure capybara for integration testing
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
+Capybara.register_driver :poltergeist do |app|
+  Capybara::Poltergeist::Driver.new(app, js_errors: false)
+end
 Capybara.register_driver(:rack_test_translated_header) do |app|
   Capybara::RackTest::Driver.new(app, headers: { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
 end
