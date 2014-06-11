@@ -47,6 +47,9 @@ require_relative './touching'
 require_relative './kaminari/scoped_pagination_url_helper'
 require_relative '../extensions/action_view'
 
+# Middleware
+require_relative './middleware/rescue_old_cookies'
+
 module Alchemy
   class Engine < Rails::Engine
     isolate_namespace Alchemy
@@ -64,6 +67,10 @@ module Alchemy
         'alchemy/print.css',
         'tinymce/*'
       ]
+    end
+
+    initializer 'alchemy.middleware.rescue_old_cookies' do |app|
+      app.middleware.insert_before(ActionDispatch::Cookies, Alchemy::Middleware::RescueOldCookies)
     end
 
     initializer 'alchemy.dependency_tracker' do |app|
