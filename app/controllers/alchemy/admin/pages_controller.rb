@@ -266,13 +266,13 @@ module Alchemy
         nodes.each do |item|
           my_right = my_left + 1
           my_restricted = item['restricted'] || restricted
-          my_url = process_url(url, item)
+          urls = process_url(url, item)
 
           if item['children']
-            my_right, tree = visit_nodes(item['children'], my_left + 1, item['id'], depth + 1, tree, my_url, my_restricted)
+            my_right, tree = visit_nodes(item['children'], my_left + 1, item['id'], depth + 1, tree, urls[:children_path], my_restricted)
           end
 
-          tree[item['id']] = TreeNode.new(my_left, my_right, parent, depth, my_url, my_restricted)
+          tree[item['id']] = TreeNode.new(my_left, my_right, parent, depth, urls[:my_urlname], my_restricted)
           my_left = my_right + 1
         end
 
@@ -296,7 +296,7 @@ module Alchemy
         tree
       end
 
-      # Returns the URL that a given tree node should take
+      # Returns a pair, the path that a given tree node should take, and the path its children should take
       #
       # This function will add a node's own slug into their ancestor's path
       # in order to create the full URL of a node
@@ -308,12 +308,17 @@ module Alchemy
       # @param [Hash]
       #   A children node
       #
-      def process_url(node_path, item)
+      def process_url(ancestors_path, item)
+        default_urlname = (ancestors_path.blank? ? "" : "#{ancestors_path}/") + item['slug']
+
+        pair = {my_urlname: default_urlname, children_path: default_urlname}
+
         if item['external'] == true || item['visible'] == false
-          node_path
-        else
-          (node_path.blank? ? "" : "#{node_path}/") + item['slug']
+          # children ignore an ancestor in their path if external or invisible
+          pair[:children_path] = ancestors_path
         end
+
+        pair
       end
 
       def load_page
