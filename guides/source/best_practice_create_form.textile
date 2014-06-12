@@ -52,14 +52,12 @@ Describe a new Element with this options inside your <code>elements.yml</code> f
      type: EssenceText
      validate:
      - presence
-     - format
-     validate_format_as: email
+     - format: email
    - name: mail_to
      type: EssenceText
      validate:
      - presence
-     - format
-     validate_format_as: email
+     - format: email
    - name: subject
      type: EssenceText
      validate:
