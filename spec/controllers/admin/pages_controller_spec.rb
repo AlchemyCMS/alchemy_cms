@@ -94,6 +94,8 @@ module Alchemy
           it "does not use this pages slug in urlnames of descendants" do
             xhr :post, :order, set: set_of_pages.to_json
             [page_1, page_2, page_3].map(&:reload)
+            expect(page_1.urlname).to eq("#{page_1.slug}")
+            expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
             expect(page_3.urlname).to eq("#{page_1.slug}/#{page_3.slug}")
           end
         end
