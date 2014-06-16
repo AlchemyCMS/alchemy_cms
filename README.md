@@ -82,7 +82,7 @@ Open `http://localhost:3000` and follow the on screen instructions.
 
 In your App's Gemfile:
 
-    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
+    gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: '2.9-stable'
 
 #### 2. Install Alchemy into your app:
 
