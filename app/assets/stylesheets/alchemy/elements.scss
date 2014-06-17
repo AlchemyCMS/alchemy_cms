@@ -2,7 +2,7 @@
   @include box-sizing(border-box);
   position: absolute;
   right: 0;
-  top: 75px;
+  top: 73px;
   width: 400px;
   height: auto;
   border-left: $default-border;
@@ -22,50 +22,6 @@
   textarea {
     width: 100%;
     height: 140px;
-  }
-}
-
-.insert-element-button {
-  display: block;
-  text-align: center;
-  margin-bottom: 2 * $default-margin;
-  background-color: transparent;
-  border: 1px solid $medium-gray;
-  height: 20px;
-  line-height: 20px;
-  @extend %rounded-border;
-  @include transition(all 100ms ease-in-out);
-
-  &:hover, &.expanded {
-    height: 30px;
-    line-height: 30px;
-    background-color: darken($medium-gray, 2%);
-    text-decoration: none;
-    cursor: pointer;
-    border-color: darken($medium-gray, 2%);
-
-    label { display: inline-block; }
-    .icon { @include opacity(1) }
-  }
-
-  &.expanded:hover {
-    background-color: darken($medium-gray, 5%);
-
-    label { color: #000 }
-  }
-
-  label {
-    display: inline-block;
-    vertical-align: middle;
-    cursor: pointer;
-    display: none;
-  }
-
-  .icon {
-    display: inline-block;
-    vertical-align: text-top;
-    @include opacity(0.7);
-    @include transition(opacity 100ms ease-in-out);
   }
 }
 
@@ -165,7 +121,10 @@ span.preview_text_element_name {
 }
 
 .element_editor {
+  border: 1px solid $default-border-color;
+  @extend %rounded-border;
   background-color: $light-gray;
+  margin-bottom: 2*$default-margin;
 
   &.not-draggable {
     @include opacity(0.5);
@@ -179,17 +138,14 @@ span.preview_text_element_name {
     }
   }
 
-  &.selected > .edit_element {
+  &.selected {
     border-color: $blue;
     @include box-shadow(0 0 4px $blue);
   }
 
   form {
     margin: 0;
-    padding: 0 8px;
-    margin-bottom: 2*$default-margin;
-    border: $default-border;
-    @include border-radius($default-border-radius);
+    padding: 8px 8px 0 8px;
   }
 
   .validation_notice {
@@ -246,22 +202,14 @@ span.preview_text_element_name {
 
 .element_head, .element_foot {
   position: relative;
-  background-color: $medium-gray;
-  margin-left: -8px;
-  margin-right: -8px;
 }
 
 .element_head {
   padding: 8px 0 6px;
-  margin-bottom: 2*$default-margin;
+  margin-bottom: 0;
   height: 20px;
+  background-color: $medium-gray;
   @extend .disable-user-select;
-  @include border-top-radius($default-border-radius);
-
-  .folded & {
-    margin-bottom: 0;
-    @include border-bottom-radius($default-border-radius);
-  }
 
   .spinner {
     top: 9px;
@@ -273,7 +221,9 @@ span.preview_text_element_name {
   padding: 2*$default-padding;
   width: 100%;
   height: 29px;
-  @include border-bottom-radius($default-border-radius);
+  margin-left: -8px;
+  margin-right: -8px;
+  background-color: $medium-gray;
 
   .element_tools {
     float: left;

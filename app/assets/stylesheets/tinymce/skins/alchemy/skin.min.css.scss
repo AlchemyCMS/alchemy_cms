@@ -21,7 +21,7 @@
   line-height: normal;
   font-weight: normal;
   text-align: left;
-  @include box-sizing(border-box);
+  @include box-sizing(content-box);
   direction: ltr;
 }
 

@@ -45,10 +45,8 @@ module Alchemy
             end
             @element.save
           end
-          if params[:insert_after].present?
-            @element_before = Element.find(params[:insert_after])
-            @element.insert_at(@element_before.position + 1)
-          else
+          if @page.definition['insert_elements_at'] == 'top'
+            @insert_at_top = true
             @element.move_to_top
           end
         end

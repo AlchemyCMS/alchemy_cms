@@ -47,11 +47,9 @@ $.extend Alchemy,
             Alchemy.TrashWindow.refresh page_id
 
       start: (event, ui) ->
-        ui.helper.find('.insert-element-button').hide()
         Alchemy.Tinymce.remove getTinymceIDs(ui)
 
       stop: (event, ui) ->
-        ui.item.find('.insert-element-button').show()
         Alchemy.Tinymce.init getTinymceIDs(ui)
 
   SortableContents: (selector, token) ->
