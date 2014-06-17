@@ -106,9 +106,20 @@ module Alchemy
           expect(external_page).to be_valid
         end
 
-        it "only be valid with urlname given" do
-          external_page.urlname = ''
-          expect(external_page).to_not be_valid
+        context 'on create' do
+          it "is valid without urlname given" do
+            external_page.urlname = ''
+            expect(external_page).to be_valid
+          end
+        end
+
+        context 'on update' do
+          before { external_page.save! }
+
+          it "is not valid without urlname given" do
+            external_page.urlname = ''
+            expect(external_page).to_not be_valid
+          end
         end
       end
     end

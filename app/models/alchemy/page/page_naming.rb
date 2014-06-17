@@ -16,8 +16,10 @@ module Alchemy
         uniqueness: {scope: [:language_id, :layoutpage], if: 'urlname.present?'},
         exclusion:  {in: RESERVED_URLNAMES},
         length:     {minimum: 3, if: 'urlname.present?'},
-        format:     {with: /\A[:\.\w\-+_\/\?&%;=]*\z/, if: :redirects_to_external?},
-        presence:   {if: :redirects_to_external?}
+        format:     {with: /\A[:\.\w\-+_\/\?&%;=]*\z/, if: :redirects_to_external?}
+      validates :urlname,
+        on: :update,
+        presence: {if: :redirects_to_external?}
 
       before_save :set_title, :if => 'title.blank?', :unless => proc { systempage? || redirects_to_external? }
       after_update :update_descendants_urlnames,
