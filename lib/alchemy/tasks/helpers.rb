@@ -12,12 +12,10 @@ module Alchemy
 
       def database_config
         raise "Could not find #{database_config_file}!" if !File.exists?(database_config_file)
-        @database_config ||= begin
-          config_file = YAML.load_file(database_config_file)
-          config_file.fetch(environment)
-          rescue KeyError
-            raise "Database configuration for #{environment} not found!"
-        end
+        config_file = YAML.load_file(database_config_file)
+        config_file.fetch(environment)
+      rescue KeyError
+        raise "Database configuration for #{environment} not found!"
       end
 
       private
