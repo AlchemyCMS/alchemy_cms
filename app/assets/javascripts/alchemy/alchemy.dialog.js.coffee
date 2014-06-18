@@ -34,11 +34,10 @@ class window.Alchemy.Dialog
     window.requestAnimationFrame =>
       @dialog_container.addClass('open')
       @overlay.addClass('open') if @overlay?
-    unless @options.modal
-      @dialog.draggable
-        iframeFix: true
-        handle: '.alchemy-dialog-title'
-        containment: 'parent'
+    @dialog.draggable
+      iframeFix: true
+      handle: '.alchemy-dialog-title'
+      containment: 'parent'
     Alchemy.currentDialogs.push(this)
     @load()
     true
