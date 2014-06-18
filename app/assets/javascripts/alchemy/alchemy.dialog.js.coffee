@@ -38,6 +38,7 @@ class window.Alchemy.Dialog
       iframeFix: true
       handle: '.alchemy-dialog-title'
       containment: 'parent'
+    @$body.addClass('prevent-scrolling')
     Alchemy.currentDialogs.push(this)
     @load()
     true
@@ -51,6 +52,7 @@ class window.Alchemy.Dialog
       @$document.off 'webkitTransitionEnd transitionend oTransitionEnd'
       @dialog_container.remove()
       @overlay.remove() if @overlay?
+      @$body.removeClass('prevent-scrolling')
       Alchemy.currentDialogs.pop(this)
       if @options.closed?
         @options.closed()
