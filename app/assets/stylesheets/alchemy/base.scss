@@ -30,6 +30,10 @@ body {
 
   // Fix for strange element window offset
   &.pages.edit { overflow: hidden }
+
+  &.prevent-scrolling {
+    overflow: hidden;
+  }
 }
 
 h1 {
