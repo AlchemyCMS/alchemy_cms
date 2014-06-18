@@ -168,7 +168,7 @@
 			var newList = document.createElement(o.listType);
 
 			this.beyondMaxLevels = 0;
-			
+
 			// If the item is moved to the left, send it to its parent's level unless there are siblings below it.
 			if (parentItem != null && nextItem == null &&
 					(o.rtl && (this.positionAbs.left + this.helper.outerWidth() > parentItem.offset().left + parentItem.outerWidth()) ||
@@ -284,11 +284,11 @@
 
 			function _recursiveItems(item) {
 				var id = ($(item).attr(o.attribute || 'id') || '').match(o.expression || (/(.+)[-=_](.+)/));
-				
-				var restricted = $(li).data("restricted");
-				var slug = $(li).data("slug");
-				var external = $(li).data("external");
-				var visible = $(li).data("visible");
+
+				var restricted = $(item).data("restricted");
+				var slug = $(item).data("slug");
+				var external = $(item).data("external");
+				var visible = $(item).data("visible");
 
 				if (id) {
 					var currentItem = {"id" : id[2], "slug" : slug, "restricted" : restricted, "external" : external, "visible" : visible};
@@ -378,7 +378,7 @@
 
 			if (this.options.listType) {
 				var list = item.closest(this.options.listType);
-				while (list && list.length > 0 && 
+				while (list && list.length > 0 &&
                     	!list.is('.ui-sortable')) {
 					level++;
 					list = list.parent().closest(this.options.listType);
