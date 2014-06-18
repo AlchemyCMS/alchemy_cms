@@ -33,6 +33,7 @@ class window.Alchemy.Dialog
     @bind_close_events()
     window.requestAnimationFrame =>
       @dialog_container.addClass('open')
+      @overlay.addClass('open') if @overlay?
     unless @options.modal
       @dialog.draggable
         iframeFix: true
@@ -46,9 +47,11 @@ class window.Alchemy.Dialog
   close: ->
     @$document.off 'keydown'
     @dialog_container.removeClass('open')
+    @overlay.removeClass('open') if @overlay?
     @$document.on 'webkitTransitionEnd transitionend oTransitionEnd', =>
       @$document.off 'webkitTransitionEnd transitionend oTransitionEnd'
       @dialog_container.remove()
+      @overlay.remove() if @overlay?
       Alchemy.currentDialogs.pop(this)
       if @options.closed?
         @options.closed()
@@ -141,10 +144,10 @@ class window.Alchemy.Dialog
     @close_button.click =>
       @close()
       false
-    if @overlay
-      @overlay.addClass('closable').click =>
-        @close()
-        false
+    @dialog_container.addClass('closable').click (e) =>
+      return true if e.target != @dialog_container.get(0)
+      @close()
+      false
     @$document.keydown (e) =>
       if e.which == 27
         @close()
@@ -165,12 +168,12 @@ class window.Alchemy.Dialog
     @dialog_header.append(@close_button)
     @dialog.append(@dialog_header)
     @dialog.append(@dialog_body)
-    if @options.modal
-      @overlay = $('<div class="alchemy-dialog-overlay" />')
-      @dialog_container.append(@overlay)
     @dialog_container.append(@dialog)
     @dialog.addClass('modal') if @options.modal
     @dialog_body.addClass('padded') if @options.padding
+    if @options.modal
+      @overlay = $('<div class="alchemy-dialog-overlay" />')
+      @$body.append(@overlay)
     @$body.append(@dialog_container)
     @resize()
     @dialog
