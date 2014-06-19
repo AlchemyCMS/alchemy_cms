@@ -134,11 +134,21 @@ module Alchemy
         let!(:legacy_url) { LegacyPageUrl.create(urlname: 'legacy-url', page: page) }
         let(:legacy_url2) { LegacyPageUrl.create(urlname: 'legacy-url', page: second_page) }
         let(:legacy_url3) { LegacyPageUrl.create(urlname: 'index.php?id=2', page: second_page) }
+        let(:legacy_url4) { LegacyPageUrl.create(urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69', page: second_page) }
 
-        it "should redirect permanently to page that belongs to legacy page url." do
-          get :show, urlname: legacy_url.urlname
+        it "should redirect permanently to page that belongs to legacy page url even if url has an unknown format & get parameters" do
+          request.stub(fullpath: legacy_url4.urlname)
+          get :show, urlname: "index.php"
+
           response.status.should == 301
-          response.should redirect_to("/#{page.urlname}")
+          response.should redirect_to("/#{second_page.urlname}")
+        end
+
+        it "should not pass query string for legacy routes" do
+          request.stub(fullpath: legacy_url3.urlname)
+          get :show, urlname: "index.php"
+
+          URI.parse(response["Location"]).query.should == nil
         end
 
         it "should only redirect to legacy url if no page was found for urlname" do
@@ -148,12 +158,16 @@ module Alchemy
         end
 
         it "should redirect to last page that has that legacy url" do
+          request.stub(fullpath: legacy_url2.urlname)
           get :show, urlname: legacy_url2.urlname
+
           response.should redirect_to("/#{second_page.urlname}")
         end
 
         it "should redirect even if the url has get parameters" do
+          request.stub(fullpath: legacy_url3.urlname)
           get :show, urlname: legacy_url3.urlname
+
           response.should redirect_to("/#{second_page.urlname}")
         end
       end
