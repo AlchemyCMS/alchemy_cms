@@ -158,6 +158,7 @@
   @include box-sizing(border-box);
   position: relative;
   color: $text-color;
+  background-color: $light-gray;
 
   .message {
     margin: 8px;
