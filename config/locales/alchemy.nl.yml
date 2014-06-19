@@ -161,7 +161,7 @@ nl:
     create_tree_as_new_language: "%{language} aanmaken als nieuwe boomstructuur"
     "Active Pages": "Actieve pagina's"
     "Add global page": "Nieuwe globale pagina"
-    "Add page link": "Verweis hinzufügen"
+    "Add page link": "Voeg pagina link toe"
     "Adobe Website": "Adobe Website"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software en maakt zelf ook gebruik van open software en gratis bronnen"
     "Alchemy is up to date": "Alchemy is up to date"
@@ -186,7 +186,7 @@ nl:
     "Edit image": "Afbeelding bewerken"
     "Edit multiple pictures": "Meerdere afbeeldingen bewerken"
     "Elements": "Elementen"
-    "Element trashed": "Element trashed" # ToDo: translate this
+    "Element trashed": "Element verwijderd"
     "Error with the Flash® Uploader!": "Fout in de Flash® Uploader!"
     "Excerpt": "fragment"
     "File uploaded succesfully": "Bestand %{name} geüploadet"
@@ -196,7 +196,7 @@ nl:
     "Filter by tag": "Op tag filteren"
     "Flush page cache": "Paginacache leegmaken"
     "Flush picture cache": "Afbeeldingscache leegmaken"
-    "Global shortcuts": "Global shortcuts" # ToDo: translate this
+    "Global shortcuts": "Globale snelkoppelingen"
     "Hide childpages": "Onderliggende pagina's verbergen"
     "Hide Elements": "Elementen verbergen"
     "If you have any problems using the Flash uploader you can switch to": "Bij problemen met de Flash® Uploader kunt u gebruik maken van %{link}"
@@ -207,14 +207,14 @@ nl:
     "Language successfully updated": "Taal is aangepast."
     "Language tree": "Taalboom"
     "Layout default": "Standaard layout"
-    "Library shortcuts": "Library shortcuts" # ToDo: translate this
+    "Library shortcuts": "Bibliotheek snelkoppelingen"
     "Logged in as": "Aangemeld als"
     "Mandatory": "Verplichte velden"
     "Name": "Naam"
     "New": "Nieuw"
     "New Element": "Nieuw element"
     "New page": "Nieuwe pagina"
-    "No page links for this page found": "No page links for this page found" # ToDo: translate this
+    "No page links for this page found": "Geen pagina links voor deze pagina gevonden"
     "New password": "Nieuw wachtwoord"
     "New Tag": "Nieuwe tag"
     "New Tag Created": "Nieuwe tag is gemaakt"
@@ -299,7 +299,7 @@ nl:
     "Your last updated pages": "Your last updated pages"
     "Your trash is empty": "De prullenbak is leeg"
     above: "er boven"
-    add: "toevoegen"
+    add: "Toevoegen"
     "add new content": "Element toevoegen"
     add_image_to_element: "Afbeelding toevoegen"
     align_in_text: "Tekstuitlijning"
@@ -342,8 +342,8 @@ nl:
     create_language_tree_heading: "Nieuwe lege boomstructuur voor taal maken"
     create_page: "Nieuwe subpagina maken"
     currently_edited_by: "Deze pagina is vergrendeld door"
-    cut_element: "Element knippen."
-    delete_file: "Bestand van de server verwijderen."
+    cut_element: "Element knippen"
+    delete_file: "Bestand van de server verwijderen"
     delete_image: "Deze afbeelding verwijderen"
     delete_language: "Deze taal verwijderen"
     delete_page: "Deze pagina verwijderen"
@@ -381,23 +381,23 @@ nl:
     female: "Vrouw"
     file: "Bestand"
     file_rename_error: "Fout bij hernoemen van het bestand."
-    files: Files # ToDo: translate this
+    files: "Bestanden"
     from_at: "door %{by} op %{at}"
     height: "Hoogte"
     help:
       shortcuts:
-        "Open help window": "Open help window"  # ToDo: translate this
-        "Close current dialog": "Close current dialog" # ToDo: translate this
-        "Open logout dialog": "Open logout dialog" # ToDo: translate this
-        "Focus search field": "Focus search field" # ToDo: translate this
-        "Create a new record": "Create a new record" # ToDo: translate this
-        "Show page infos": "Show page info" # ToDo: translate this
-        "Create new element": "Create new element" # ToDo: translate this
-        "Edit page properties": "Edit page properties" # ToDo: translate this
-        "Reload the preview": "Reload the preview" # ToDo: translate this
-        "Leave the page": "Leave the page" # ToDo: translate this
-        "Open upload form": "Open upload form" # ToDo: translate this
-        "Select all pictures": "Select all pictures" # ToDo: translate this
+        "Open help window": "Open help venster"
+        "Close current dialog": "Sluit huidig venster"
+        "Open logout dialog": "Open afmeld venster"
+        "Focus search field": "Selecteer zoekveld"
+        "Create a new record": "Maak een nieuwe regel"
+        "Show page infos": "Laat pagina info zien"
+        "Create new element": "Creëer nieuw element"
+        "Edit page properties": "Pas pagina eigenschappen aan"
+        "Reload the preview": "Herlaad de voorvertoning"
+        "Leave the page": "Verlaat de pagina"
+        "Open upload form": "Open upload venster"
+        "Select all pictures": "Selecteer alle foto's"
     hide_element_content: "Content van dit element verbergen."
     dashboard: "Dashboard"
     image_alt_tag: "Alt-tag"
@@ -426,7 +426,7 @@ nl:
       file: "Bestand"
       internal: "Intern"
     link_title: "Linktitel"
-    login: login # ToDo: translate this
+    login: "log in"
     logout: "afmelden"
     mail_to: "ontvanger"
     main_content: "inhoud"
@@ -494,7 +494,7 @@ nl:
       update:
         comma_seperated: "Komma gescheiden"
     password: "Wachtwoord"
-    paste: paste # ToDo: translate this
+    paste: "plakken"
     picture_gallery_editor: 'Afbeeldingen'
     picture_library:
       filter:
@@ -507,7 +507,7 @@ nl:
     please_confirm: "Graag bevestigen"
     please_wait: "Even geduld"
     position_in_text: "tekstpositie"
-    preview_size: "previewgrootte"
+    preview_size: "Voorvertoning grootte"
     preview_sizes:
       '240': '240px (kleine telefoon)'
       '320': '320px (iPhone)'
@@ -517,24 +517,24 @@ nl:
       '1280': '1280px (Desktop)'
     recently_uploaded_only: 'recent geüpload'
     "regular method": "normale Methode"
-    remove: "verwijderen"
+    remove: "Verwijderen"
     rename_file: "Dit bestand hernoemen."
     rename: hernoemen
     replace: vervangen
     'Replaced Tag': "De tag '%{old_tag}' wordt door de tag '%{new_tag}' vervangen"
     resources:
       relation_select:
-        blank: '- none -'
+        blank: '- geen -'
     right: "rechts"
     robot_follow: "robot mag links volgen."
     robot_index: "robot mag index volgen."
     save: "Opslaan"
-    "save order": "Sortering opslan"
+    "save order": "Sortering opslaan"
     saved_link: "Link opgeslagen."
     search: "zoeken"
     search_engines: "Zoekmachines"
     select_element: "Selecteer element"
-    seperate_tags_with_comma: "Seperate tags with comma" # ToDo: translate this
+    seperate_tags_with_comma: "Markeer verschillende tags met komma's ertussen"
     show_element_content: "Content van dit element weergeven."
     show_elements_from_page: "Alle elementen van deze pagina weergeven"
     show_eq: "EQ weergeven"
@@ -566,7 +566,7 @@ nl:
     visible: "zichtbaar"
     want_to_create_new_language: "Nieuwe boomstructuur aanmaken?"
     want_to_make_copy_of_existing_language: "Een boomstructuur kopieren?"
-    "We need at least one default.": "A default language must exist." # ToDo: translate this
+    "We need at least one default.": "Er moet een standarad taal zijn."
     welcome_note: "Welkom %{name}"
     welcome_back_note: "Welkom terug %{name}"
     welcome_please_identify_notice: "Welkom! voer uw gegevens in."
@@ -575,10 +575,10 @@ nl:
     you_can_rename_this_tag: "U kunt deze tag hernoemen"
     zoom_image: "Afbeelding vergroten"
     "Leave Alchemy": "Alchemy verlaten"
-    leave: "verlaten"
-    "You are about to leave Alchemy": "You are about to leave Alchemy"
-    "Do you want to": "Do you want to"
-    "stay logged in": "stay logged in"
+    leave: "Afmelden"
+    "You are about to leave Alchemy": "U staat op het punt de NVM Regiosite te verlaten"
+    "Do you want to": "Wilt u"
+    "stay logged in": "ingelogd blijven"
     "or to completly": "of compleet"
     "Are you sure?": "Weet u het zeker?"
     "Create": "Aanmaken"
@@ -759,7 +759,7 @@ nl:
           page_layout:
             blank: "^Kies een paginalayout."
           urlname:
-            too_short: "^De urlnaam van de pagina is te kort (minimaal 3 karaters)."
+            too_short: "^De URL-naam van de pagina is te kort (minimaal 3 karaters)."
             taken: "^URL-Naam is al gebruikt"
             exclusion: "^URL-Naam is gereserveerd"
       alchemy/picture:
@@ -872,7 +872,7 @@ nl:
         public: "Publiek"
 
       alchemy/legacy_page_url:
-        urlname: "URL path"
+        urlname: "URL pad"
 
       alchemy/page:
         created_at: "Aangemaakt op"
@@ -891,7 +891,7 @@ nl:
         tag_list: Tags
         title: "Titel"
         updated_at: "Bijgewerkt op"
-        urlname: "Urlnaam"
+        urlname: "URL-naam"
         visible: "zichtbaar in navigatie"
 
       alchemy/picture:
