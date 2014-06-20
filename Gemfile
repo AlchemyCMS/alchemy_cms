@@ -19,6 +19,7 @@ group :test do
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
   gem 'poltergeist'
+  gem 'rspec-activemodel-mocks'
   unless ENV['CI']
     gem 'launchy'
   end
