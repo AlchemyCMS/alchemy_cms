@@ -12,7 +12,7 @@ shared_examples_for "an essence" do
     d = content.updated_at
     content.essence.update(essence.ingredient_column.to_sym => ingredient_value)
     content.reload
-    content.updated_at.should_not eq(d)
+    expect(content.updated_at).not_to eq(d)
   end
 
   it "should have correct partial path" do
@@ -24,14 +24,14 @@ shared_examples_for "an essence" do
     subject { essence.description }
 
     context 'without element' do
-      it { should eq({}) }
+      it { is_expected.to eq({}) }
     end
 
     context 'with element' do
       before { essence.stub(element: element) }
 
       context 'but without content descriptions' do
-        it { should eq({}) }
+        it { is_expected.to eq({}) }
       end
 
       context 'and content descriptions' do
@@ -43,14 +43,14 @@ shared_examples_for "an essence" do
           before { element.stub(content_descriptions: [content_description]) }
 
           it "returns the content description" do
-            should eq(content_description)
+            is_expected.to eq(content_description)
           end
         end
 
         context 'not containing the content name' do
           before { element.stub(content_descriptions: []) }
 
-          it { should eq({}) }
+          it { is_expected.to eq({}) }
         end
       end
     end
@@ -66,21 +66,21 @@ shared_examples_for "an essence" do
   describe 'validations' do
     context 'without essence description in elements.yml' do
       it 'should return an empty array' do
-        essence.stub(:description).and_return nil
+        allow(essence).to receive(:description).and_return nil
         expect(essence.validations).to eq([])
       end
     end
 
     context 'without validations defined in essence description in elements.yml' do
       it 'should return an empty array' do
-        essence.stub(:description).and_return({name: 'test', type: 'EssenceText'})
+        allow(essence).to receive(:description).and_return({name: 'test', type: 'EssenceText'})
         expect(essence.validations).to eq([])
       end
     end
 
     describe 'presence' do
       before do
-        essence.stub(:description).and_return({'validate' => ['presence']})
+        allow(essence).to receive(:description).and_return({'validate' => ['presence']})
       end
 
       context 'when the ingredient column is empty' do
@@ -103,12 +103,12 @@ shared_examples_for "an essence" do
     describe 'uniqueness' do
       before do
         essence.stub(element: build_stubbed(:element))
-        essence.stub(:description).and_return({'validate' => ['uniqueness']})
+        allow(essence).to receive(:description).and_return({'validate' => ['uniqueness']})
         essence.update(essence.ingredient_column.to_sym => ingredient_value)
       end
 
       context 'when a duplicate exists' do
-        before { essence.stub(:duplicates).and_return([essence.dup]) }
+        before { allow(essence).to receive(:duplicates).and_return([essence.dup]) }
 
         it 'should not be valid' do
           expect(essence).to_not be_valid
@@ -124,7 +124,7 @@ shared_examples_for "an essence" do
       end
 
       context 'when no duplicate exists' do
-        before { essence.stub(:duplicates).and_return([]) }
+        before { allow(essence).to receive(:duplicates).and_return([]) }
 
         it 'should be valid' do
           expect(essence).to be_valid
@@ -134,7 +134,7 @@ shared_examples_for "an essence" do
 
     describe '#acts_as_essence?' do
       it 'should return true' do
-        expect(essence.acts_as_essence?).to be_true
+        expect(essence.acts_as_essence?).to be_truthy
       end
     end
   end
