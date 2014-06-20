@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'alchemy/essences/_essence_file_view' do
+describe 'alchemy/essences/_essence_file_view', :type => :view do
   let(:file)       { File.new(File.expand_path('../../../fixtures/image with spaces.png', __FILE__)) }
   let(:attachment) { mock_model('Attachment', file: file, name: 'image', file_name: 'Image') }
   let(:essence)    { Alchemy::EssenceFile.new(attachment: attachment) }

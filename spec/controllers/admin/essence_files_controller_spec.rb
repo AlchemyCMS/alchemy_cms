@@ -1,7 +1,7 @@
 require "spec_helper"
 
 module Alchemy
-  describe Admin::EssenceFilesController do
+  describe Admin::EssenceFilesController, :type => :controller do
 
     before do
       sign_in(admin_user)
@@ -33,7 +33,7 @@ module Alchemy
       end
 
       it "should update the attributes of essence_file" do
-        essence_file.should_receive(:update_attributes).and_return(true)
+        expect(essence_file).to receive(:update_attributes).and_return(true)
         xhr :put, :update, id: essence_file.id
       end
     end
@@ -50,7 +50,7 @@ module Alchemy
       end
 
       it "should assign @content.essence.attachment with the attachment found by id" do
-        content.essence.should_receive(:attachment=).with(attachment)
+        expect(content.essence).to receive(:attachment=).with(attachment)
         xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
       end
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 class Alchemy::Config;
 end
 
-describe Alchemy::Admin::LanguagesController do
+describe Alchemy::Admin::LanguagesController, :type => :controller do
 
   before do
     sign_in(admin_user)
@@ -14,7 +14,7 @@ describe Alchemy::Admin::LanguagesController do
     context "when default_language.page_layout is set" do
       it "should use it as page_layout-default for the new language" do
         # FML :/
-        Alchemy::Config.stub(:get) do |arg|
+        allow(Alchemy::Config).to receive(:get) do |arg|
           if arg == :default_language
             {'page_layout' => "new_standard"}
           else
@@ -22,14 +22,14 @@ describe Alchemy::Admin::LanguagesController do
           end
         end
         get :new
-        assigns(:language).page_layout.should eql("new_standard")
+        expect(assigns(:language).page_layout).to eql("new_standard")
       end
     end
 
     context "when default_language or page_layout aren't configured" do
       it "should fallback to one configured in config.yml" do
         get :new
-        assigns(:language).page_layout.should eql("index")
+        expect(assigns(:language).page_layout).to eql("index")
       end
     end
 

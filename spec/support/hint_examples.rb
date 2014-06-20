@@ -10,7 +10,7 @@ module Alchemy
         end
 
         it "returns the hint" do
-          subject.hint.should == 'The hint'
+          expect(subject.hint).to eq('The hint')
         end
       end
 
@@ -21,7 +21,7 @@ module Alchemy
         end
 
         it "returns the hint from translation" do
-          subject.hint.should == 'The hint'
+          expect(subject.hint).to eq('The hint')
         end
       end
     end

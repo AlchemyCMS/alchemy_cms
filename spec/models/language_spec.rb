@@ -2,36 +2,36 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Language do
+  describe Language, :type => :model do
     let(:default_language) { Alchemy::Language.default }
     let(:language)         { FactoryGirl.create(:klingonian) }
     let(:page)             { FactoryGirl.create(:page, language: language) }
 
     it "should return a label for code" do
-      language.label(:code).should == 'kl'
+      expect(language.label(:code)).to eq('kl')
     end
 
     it "should return a label for name" do
-      language.label(:name).should == 'Klingonian'
+      expect(language.label(:name)).to eq('Klingonian')
     end
 
     context "with language_code and empty country_code" do
       it "#code should return language locale only" do
         language.country_code = ''
-        language.code.should == 'kl'
+        expect(language.code).to eq('kl')
       end
 
       context "adding a value for country code" do
         it "#code should return a joined locale" do
           language.country_code = 'cr'
-          language.code.should == 'kl-cr'
+          expect(language.code).to eq('kl-cr')
         end
 
         it "should update all associated Pages with self.code as value for Page#language_code" do
           page = FactoryGirl.create(:page, language: language)
           language.country_code = 'cr'
           language.save
-          page.reload; page.language_code.should == 'kl-cr'
+          page.reload; expect(page.language_code).to eq('kl-cr')
         end
       end
     end
@@ -42,7 +42,7 @@ module Alchemy
           language = FactoryGirl.create(:language, country_code: 'kl')
           language.country_code = ''
           language.save
-          page.reload; page.language_code.should == "kl"
+          page.reload; expect(page.language_code).to eq("kl")
         end
       end
     end
@@ -57,7 +57,7 @@ module Alchemy
           default_language
           language.update_attributes(default: true)
           default_language.reload
-          default_language.default.should be_false
+          expect(default_language.default).to be_falsey
         end
       end
     end
@@ -68,7 +68,7 @@ module Alchemy
           @other_page = FactoryGirl.create(:page, language: language)
           language.update_attributes(code: "fo")
           language.reload; page.reload; @other_page.reload
-          [page.language_code, @other_page.language_code].should == [language.code, language.code]
+          expect([page.language_code, @other_page.language_code]).to eq([language.code, language.code])
         end
       end
 
@@ -78,7 +78,7 @@ module Alchemy
           @other_page = FactoryGirl.create(:page, language: language)
           language.update_attributes(public: false)
           language.reload; page.reload; @other_page.reload
-          [page.public?, @other_page.public?].should == [false, false]
+          expect([page.public?, @other_page.public?]).to eq([false, false])
         end
       end
     end
@@ -86,7 +86,7 @@ module Alchemy
     describe '.find_by_code' do
       context "with only the language code given" do
         it "should find the language" do
-          Language.find_by_code(language.code).should == language
+          expect(Language.find_by_code(language.code)).to eq(language)
         end
       end
     end
@@ -106,8 +106,8 @@ module Alchemy
       describe 'presence_of_default_language' do
         context 'if no default language would exist anymore' do
           before do
-            Language.stub(:default).and_return(language)
-            language.stub(:default_changed?).and_return(true)
+            allow(Language).to receive(:default).and_return(language)
+            allow(language).to receive(:default_changed?).and_return(true)
           end
 
           it "should add an error to the object" do

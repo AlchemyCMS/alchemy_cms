@@ -18,7 +18,7 @@ module Alchemy
         let(:name) { 'dashboard' }
 
         it "returns the module definition" do
-          should == dashboard_module
+          is_expected.to eq(dashboard_module)
         end
       end
 
@@ -27,14 +27,14 @@ module Alchemy
         let(:name)            { {controller: controller_name, action: 'index'} }
 
         it "returns the module definition" do
-          should == dashboard_module
+          is_expected.to eq(dashboard_module)
         end
 
         context 'with leading slash in controller name' do
           let(:controller_name) { '/alchemy/admin/dashboard' }
 
           it "returns the module definition" do
-            should == dashboard_module
+            is_expected.to eq(dashboard_module)
           end
         end
       end
@@ -60,7 +60,7 @@ module Alchemy
 
       it "registers a module definition into global list of modules" do
         Modules.register_module(alchemy_module)
-        Modules.alchemy_modules.should include(alchemy_module)
+        expect(Modules.alchemy_modules).to include(alchemy_module)
       end
     end
   end

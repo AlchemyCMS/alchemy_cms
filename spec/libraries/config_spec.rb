@@ -5,12 +5,12 @@ module Alchemy
 
     describe ".get" do
       it "should call #show" do
-        Config.should_receive(:show).and_return({})
+        expect(Config).to receive(:show).and_return({})
         Config.get(:mailer)
       end
 
       it "should return the requested part of the config" do
-        Config.should_receive(:show).and_return({'mailer' => {'setting' => 'true'}})
+        expect(Config).to receive(:show).and_return({'mailer' => {'setting' => 'true'}})
         expect(Config.get(:mailer)).to eq({'setting' => 'true'})
       end
     end
@@ -19,7 +19,7 @@ module Alchemy
       let(:main_app_config_path) { "#{Rails.root}/config/alchemy/config.yml" }
 
       it "should call and return .read_file with the correct config path" do
-        Config.should_receive(:read_file).with(main_app_config_path).once.and_return({setting: 'true'})
+        expect(Config).to receive(:read_file).with(main_app_config_path).once.and_return({setting: 'true'})
         expect(Config.send(:main_app_config)).to eq({setting: 'true'})
       end
     end
@@ -28,7 +28,7 @@ module Alchemy
       let(:env_specific_config_path) { "#{Rails.root}/config/alchemy/#{Rails.env}.config.yml" }
 
       it "should call and return .read_file with the correct config path" do
-        Config.should_receive(:read_file).with(env_specific_config_path).once.and_return({setting: 'true'})
+        expect(Config).to receive(:read_file).with(env_specific_config_path).once.and_return({setting: 'true'})
         expect(Config.send(:env_specific_config)).to eq({setting: 'true'})
       end
     end
@@ -38,7 +38,7 @@ module Alchemy
         before { Config.instance_variable_set("@config", nil) }
 
         it "should call and return .merge_configs!" do
-          Config.should_receive(:merge_configs!).once.and_return({setting: 'true'})
+          expect(Config).to receive(:merge_configs!).once.and_return({setting: 'true'})
           expect(Config.show).to eq({setting: 'true'})
         end
       end
@@ -55,17 +55,17 @@ module Alchemy
 
     describe '.read_file' do
       context 'when given path to yml file exists' do
-        before { File.stub(:exists?).and_return(true) }
+        before { allow(File).to receive(:exists?).and_return(true) }
 
         it 'should call YAML.load_file with the given config path' do
-          YAML.should_receive(:load_file).once.with('path/to/config.yml').and_return({})
+          expect(YAML).to receive(:load_file).once.with('path/to/config.yml').and_return({})
           Config.send(:read_file, 'path/to/config.yml')
         end
 
         context 'but its empty' do
           before do
-            File.stub(:exists?).with('empty_file.yml').and_return(true)
-            YAML.stub(:load_file).and_return(false) # YAML.load_file returns false if file is empty.
+            allow(File).to receive(:exists?).with('empty_file.yml').and_return(true)
+            allow(YAML).to receive(:load_file).and_return(false) # YAML.load_file returns false if file is empty.
           end
 
           it "should return an empty Hash" do

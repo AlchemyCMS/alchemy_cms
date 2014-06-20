@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'alchemy/essences/_essence_html_view' do
+describe 'alchemy/essences/_essence_html_view', :type => :view do
   let(:essence) { Alchemy::EssenceHtml.new(source: '<script>alert("hacked");</script>') }
   let(:content) { Alchemy::Content.new(essence: essence) }
 

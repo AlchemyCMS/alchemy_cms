@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe "Page creation" do
+  describe "Page creation", :type => :feature do
     before { authorize_as_admin }
 
     describe "overlay GUI" do

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Alchemy::Admin::ContentsHelper do
+describe Alchemy::Admin::ContentsHelper, :type => :helper do
   let(:element) { build_stubbed(:element, name: 'article') }
   let(:content) { mock_model('Content', essence_partial_name: 'essence_text') }
 
@@ -15,14 +15,14 @@ describe Alchemy::Admin::ContentsHelper do
     subject { helper.render_content_name(content) }
 
     it "returns the content name" do
-      should == "Intro"
+      is_expected.to eq("Intro")
     end
 
     context 'if content is nil' do
       let(:content) { nil }
 
       it "returns nil" do
-        should be_nil
+        is_expected.to be_nil
       end
     end
 
@@ -30,8 +30,8 @@ describe Alchemy::Admin::ContentsHelper do
       before { content.stub(description: {}) }
 
       it "renders a warning" do
-        should have_selector('span.warning')
-        should have_content('Intro')
+        is_expected.to have_selector('span.warning')
+        is_expected.to have_content('Intro')
       end
     end
 
@@ -39,7 +39,7 @@ describe Alchemy::Admin::ContentsHelper do
       before { content.stub(has_validations?: true) }
 
       it "show a validation indicator" do
-        should have_selector('.validation_indicator')
+        is_expected.to have_selector('.validation_indicator')
       end
     end
   end
@@ -48,8 +48,8 @@ describe Alchemy::Admin::ContentsHelper do
     subject { helper.render_new_content_link(element) }
 
     it "renders a link to add new content to element" do
-      helper.stub(:render_icon).and_return('')
-      should match(/a.+href.*admin\/elements\/#{element.id}\/contents\/new/m)
+      allow(helper).to receive(:render_icon).and_return('')
+      is_expected.to match(/a.+href.*admin\/elements\/#{element.id}\/contents\/new/m)
     end
   end
 
@@ -57,8 +57,8 @@ describe Alchemy::Admin::ContentsHelper do
     subject { helper.render_create_content_link(element, 'headline') }
 
     it "should render a link to create a content in element" do
-      helper.stub(:render_icon).and_return('')
-      should have_selector('a.new_content_link[data-method="post"]')
+      allow(helper).to receive(:render_icon).and_return('')
+      is_expected.to have_selector('a.new_content_link[data-method="post"]')
     end
   end
 
