@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Modules" do
+describe "Modules", :type => :feature do
   context "A custom module with a main-apps controller" do
     before { authorize_as_admin }
 
@@ -17,7 +17,7 @@ describe "Modules" do
         })
       visit '/admin'
       click_on 'Events'
-      page.should_not have_content('Upps!')
+      expect(page).not_to have_content('Upps!')
     end
 
   end

@@ -1,11 +1,11 @@
 require 'spec_helper'
 
 module Alchemy
-  describe MessagesController do
+  describe MessagesController, :type => :controller do
 
     before do
       controller.instance_variable_set(:@page, page)
-      controller.stub(:get_page).and_return(page)
+      allow(controller).to receive(:get_page).and_return(page)
     end
 
     describe "#index" do
@@ -25,7 +25,7 @@ module Alchemy
 
     describe "#create" do
       before do
-        controller.stub(:params).and_return({message: {email: ''}})
+        allow(controller).to receive(:params).and_return({message: {email: ''}})
       end
 
       let(:page)    { mock_model('Page', get_language_root: mock_model('Page')) }
@@ -39,14 +39,14 @@ module Alchemy
       context "if validation of message" do
 
         before do
-          Element.stub(:find_by).and_return(element)
-          element.stub(:ingredient).with(:success_page).and_return('thank-you')
-          Message.any_instance.stub(:contact_form_id).and_return(1)
+          allow(Element).to receive(:find_by).and_return(element)
+          allow(element).to receive(:ingredient).with(:success_page).and_return('thank-you')
+          allow_any_instance_of(Message).to receive(:contact_form_id).and_return(1)
         end
 
         context "failed" do
           before do
-            Message.any_instance.stub(:valid?).and_return(false)
+            allow_any_instance_of(Message).to receive(:valid?).and_return(false)
           end
 
           it "should render 'alchemy/pages/show' template" do
@@ -56,38 +56,38 @@ module Alchemy
 
         context "succeeded" do
           before do
-            Message.any_instance.stub(:valid?).and_return(true)
+            allow_any_instance_of(Message).to receive(:valid?).and_return(true)
             Messages.stub_chain(:contact_form_mail, :deliver).and_return(true)
           end
 
           it "Messages should call Messages#contact_form_mail to send the email" do
-            Messages.should_receive(:contact_form_mail)
+            expect(Messages).to receive(:contact_form_mail)
             post :create
           end
 
           describe '#mail_to' do
             context "with element having mail_to ingredient" do
               before do
-                element.stub(:ingredient).with(:mail_to).and_return('peter@schroeder.de')
+                allow(element).to receive(:ingredient).with(:mail_to).and_return('peter@schroeder.de')
                 message
-                Message.stub(:new).and_return(message)
+                allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the ingredient" do
-                Messages.should_receive(:contact_form_mail).with(message, 'peter@schroeder.de', '', '')
+                expect(Messages).to receive(:contact_form_mail).with(message, 'peter@schroeder.de', '', '')
                 post :create
               end
             end
 
             context "with element having no mail_to ingredient" do
               before do
-                element.stub(:ingredient).with(:mail_to).and_return(nil)
+                allow(element).to receive(:ingredient).with(:mail_to).and_return(nil)
                 message
-                Message.stub(:new).and_return(message)
+                allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the config value" do
-                Messages.should_receive(:contact_form_mail).with(message, 'your.mail@your-domain.com', '', '')
+                expect(Messages).to receive(:contact_form_mail).with(message, 'your.mail@your-domain.com', '', '')
                 post :create
               end
             end
@@ -96,26 +96,26 @@ module Alchemy
           describe '#mail_from' do
             context "with element having mail_from ingredient" do
               before do
-                element.stub(:ingredient).with(:mail_from).and_return('peter@schroeder.de')
+                allow(element).to receive(:ingredient).with(:mail_from).and_return('peter@schroeder.de')
                 message
-                Message.stub(:new).and_return(message)
+                allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the ingredient" do
-                Messages.should_receive(:contact_form_mail).with(message, '', 'peter@schroeder.de', '')
+                expect(Messages).to receive(:contact_form_mail).with(message, '', 'peter@schroeder.de', '')
                 post :create
               end
             end
 
             context "with element having no mail_from ingredient" do
               before do
-                element.stub(:ingredient).with(:mail_from).and_return(nil)
+                allow(element).to receive(:ingredient).with(:mail_from).and_return(nil)
                 message
-                Message.stub(:new).and_return(message)
+                allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the config value" do
-                Messages.should_receive(:contact_form_mail).with(message, '', 'your.mail@your-domain.com', '')
+                expect(Messages).to receive(:contact_form_mail).with(message, '', 'your.mail@your-domain.com', '')
                 post :create
               end
             end
@@ -124,26 +124,26 @@ module Alchemy
           describe '#subject' do
             context "with element having subject ingredient" do
               before do
-                element.stub(:ingredient).with(:subject).and_return('A new message')
+                allow(element).to receive(:ingredient).with(:subject).and_return('A new message')
                 message
-                Message.stub(:new).and_return(message)
+                allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the ingredient" do
-                Messages.should_receive(:contact_form_mail).with(message, '', '', 'A new message')
+                expect(Messages).to receive(:contact_form_mail).with(message, '', '', 'A new message')
                 post :create
               end
             end
 
             context "with element having no subject ingredient" do
               before do
-                element.stub(:ingredient).with(:subject).and_return(nil)
+                allow(element).to receive(:ingredient).with(:subject).and_return(nil)
                 message
-                Message.stub(:new).and_return(message)
+                allow(Message).to receive(:new).and_return(message)
               end
 
               it "returns the config value" do
-                Messages.should_receive(:contact_form_mail).with(message, '', '', 'A new contact form message')
+                expect(Messages).to receive(:contact_form_mail).with(message, '', '', 'A new contact form message')
                 post :create
               end
             end
@@ -152,7 +152,7 @@ module Alchemy
           describe "#redirect_to_success_page" do
             context "if 'success_page' ingredient of element is set with urlname" do
               before do
-                element.stub(:ingredient).with(:success_page).and_return('success-page')
+                allow(element).to receive(:ingredient).with(:success_page).and_return('success-page')
               end
 
               it "should redirect to the given urlname" do
@@ -162,12 +162,12 @@ module Alchemy
 
             context "if 'success_page' ingredient of element is not set" do
               before do
-                element.stub(:ingredient).with(:success_page).and_return(nil)
+                allow(element).to receive(:ingredient).with(:success_page).and_return(nil)
               end
 
               context "but mailer_config['forward_to_page'] is true and mailer_config['mail_success_page'] is set" do
                 before do
-                  controller.stub(:mailer_config).and_return({'forward_to_page' => true, 'mail_success_page' => 'mailer-config-success-page'})
+                  allow(controller).to receive(:mailer_config).and_return({'forward_to_page' => true, 'mail_success_page' => 'mailer-config-success-page'})
                   Page.stub_chain(:find_by, :urlname).and_return('mailer-config-success-page')
                 end
 
@@ -180,7 +180,7 @@ module Alchemy
                 let(:language) { mock_model('Language', code: 'en', pages: double(find_by: build_stubbed(:page))) }
 
                 before do
-                  controller.stub(:mailer_config).and_return({})
+                  allow(controller).to receive(:mailer_config).and_return({})
                   Language.stub_chain(:current_root_page, :urlname).and_return('lang-root')
                 end
 

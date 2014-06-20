@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe ElementsController do
+  describe ElementsController, :type => :controller do
     let(:public_page)         { FactoryGirl.create(:public_page) }
     let(:element)             { FactoryGirl.create(:element, :page => public_page, :name => 'download') }
     let(:restricted_page)     { FactoryGirl.create(:public_page, :restricted => true) }
@@ -11,7 +11,7 @@ module Alchemy
 
       it "should render available elements" do
         get :show, :id => element.id
-        response.status.should == 200
+        expect(response.status).to eq(200)
       end
 
       it "should raise ActiveRecord::RecordNotFound error for trashed elements" do
@@ -35,7 +35,7 @@ module Alchemy
 
         it "should render elements of restricted pages" do
           get :show, :id => restricted_element.id
-          response.status.should == 200
+          expect(response.status).to eq(200)
         end
       end
 

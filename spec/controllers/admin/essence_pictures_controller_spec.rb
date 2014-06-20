@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::EssencePicturesController do
+  describe Admin::EssencePicturesController, :type => :controller do
     before { sign_in(admin_user) }
 
     let(:essence) { EssencePicture.new }
@@ -10,8 +10,8 @@ module Alchemy
 
     describe '#edit' do
       before do
-        EssencePicture.should_receive(:find).and_return(essence)
-        Content.should_receive(:find).and_return(content)
+        expect(EssencePicture).to receive(:find).and_return(essence)
+        expect(Content).to receive(:find).and_return(content)
       end
 
       it 'should assign @essence_picture and @content instance variables' do
@@ -23,11 +23,11 @@ module Alchemy
 
     describe '#crop' do
       before do
-        EssencePicture.should_receive(:find).and_return(essence)
+        expect(EssencePicture).to receive(:find).and_return(essence)
       end
 
       context 'with no picture assigned' do
-        before { essence.should_receive(:picture).and_return(nil) }
+        before { expect(essence).to receive(:picture).and_return(nil) }
 
         it "renders error message" do
           get :crop, id: 1
@@ -41,12 +41,12 @@ module Alchemy
         before do
           picture.image_file_width = 300
           picture.image_file_height = 250
-          essence.should_receive(:picture).any_number_of_times.and_return(picture)
+          allow(essence).to receive(:picture).and_return(picture)
         end
 
         context 'with no render_size present in essence' do
           before do
-            essence.should_receive(:render_size).any_number_of_times.and_return(nil)
+            expect(essence).to receive(:render_size).and_return(nil)
           end
 
           context 'with sizes in params' do
@@ -66,15 +66,15 @@ module Alchemy
 
         context 'with render_size present in essence' do
           it "sets sizes from these values" do
-            essence.stub(:render_size).and_return('30x25')
+            allow(essence).to receive(:render_size).and_return('30x25')
 
             get :crop, id: 1
             expect(assigns(:min_size)).to eq({ width: 30, height: 25 })
           end
 
-          context 'when width or height is not fixed and no aspect ratio is given' do
-            it 'does not infer the height from the image file preserving the aspect ratio' do
-              essence.stub(:render_size).and_return('30x')
+          context 'when width or height is not fixed' do
+            it 'infers the height from the image file preserving the aspect ratio' do
+              allow(essence).to receive(:render_size).and_return('30x')
 
               get :crop, id: 1
               expect(assigns(:min_size)).to eq({ width: 30, height: 0})
@@ -96,8 +96,8 @@ module Alchemy
               expect(assigns(:min_size)).to eq({ width: 30, height: 60 })
             end
 
-            it 'height is given, it infers the width from height and ratio' do
-              essence.stub(:render_size).and_return('x25')
+            it 'infers the height from the image file preserving the aspect ratio' do
+              allow(essence).to receive(:render_size).and_return('x25')
 
               get :crop, id: 1
               expect(assigns(:min_size)).to eq({ width: 0, height: 25})
@@ -107,9 +107,8 @@ module Alchemy
 
         context 'no crop sizes present in essence' do
           before do
-            essence.stub(:crop_from).and_return(nil)
-            essence.stub(:crop_size).and_return(nil)
-            essence.should_receive(:default_mask).and_return(default_mask)
+            allow(essence).to receive(:crop_from).and_return(nil)
+            allow(essence).to receive(:crop_size).and_return(nil)
           end
 
           it "assigns default mask boxes" do
@@ -123,13 +122,12 @@ module Alchemy
           let(:mask) { {'x1' => '0', 'y1' => '0', 'x2' => '120', 'y2' => '160'} }
 
           before do
-            essence.stub(:crop_from).and_return('0x0')
-            essence.stub(:crop_size).and_return('120x160')
-            essence.should_receive(:default_mask).and_return(default_mask)
+            allow(essence).to receive(:crop_from).and_return('0x0')
+            allow(essence).to receive(:crop_size).and_return('120x160')
           end
 
           it "assigns cropping boxes" do
-            essence.should_receive(:cropping_mask).and_return(mask)
+            expect(essence).to receive(:cropping_mask).and_return(mask)
             get :crop, id: 1
             expect(assigns(:initial_box)).to eq(mask)
             expect(assigns(:default_box)).to eq(default_mask)
@@ -154,28 +152,28 @@ module Alchemy
 
     describe '#update' do
       before do
-        EssencePicture.should_receive(:find).and_return(essence)
-        Content.should_receive(:find).and_return(content)
+        expect(EssencePicture).to receive(:find).and_return(essence)
+        expect(Content).to receive(:find).and_return(content)
       end
 
       let(:attributes) { {render_size: '1x1', alt_tag: 'Alt Tag', caption: 'Caption', css_class: 'CSS Class', title: 'Title'} }
 
       it "updates the essence attributes" do
-        essence.should_receive(:update).and_return(true)
+        expect(essence).to receive(:update).and_return(true)
         xhr :put, :update, id: 1, essence_picture: attributes
       end
 
       it "saves the cropping mask" do
-        essence.should_receive(:update).and_return(true)
+        expect(essence).to receive(:update).and_return(true)
         xhr :put, :update, id: 1, essence_picture: {render_size: '1x1', crop_from: '0x0', crop_size: '100x100'}
       end
     end
 
     describe '#assign' do
       before do
-        Content.should_receive(:find).and_return(content)
-        Content.any_instance.stub(:essence).and_return(essence)
-        Picture.should_receive(:find_by_id).and_return(picture)
+        expect(Content).to receive(:find).and_return(content)
+        allow_any_instance_of(Content).to receive(:essence).and_return(essence)
+        expect(Picture).to receive(:find_by_id).and_return(picture)
       end
 
       it "should assign a Picture" do

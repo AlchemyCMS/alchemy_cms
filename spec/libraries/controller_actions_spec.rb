@@ -18,7 +18,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
   describe "#current_alchemy_user" do
     context "with default current_user_method" do
       it "calls current_user by default" do
-        controller.should_receive :current_user
+        expect(controller).to receive :current_user
         controller.send :current_alchemy_user
       end
     end
@@ -29,7 +29,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
       end
 
       it "calls the custom method" do
-        controller.should_receive :current_admin
+        expect(controller).to receive :current_admin
         controller.send :current_alchemy_user
       end
     end
@@ -63,7 +63,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
     context "with a Language argument" do
       it "should set the language to the passed Language instance" do
         controller.send :set_alchemy_language, klingonian
-        assigns(:language).should == klingonian
+        expect(assigns(:language)).to eq(klingonian)
         expect(Alchemy::Language.current).to eq(klingonian)
       end
     end
@@ -71,7 +71,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
     context "with a language id argument" do
       it "should set the language to the language specified by the passed id" do
         controller.send :set_alchemy_language, klingonian.id
-        assigns(:language).should == klingonian
+        expect(assigns(:language)).to eq(klingonian)
         expect(Alchemy::Language.current).to eq(klingonian)
       end
     end
@@ -79,16 +79,16 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
     context "with a language code argument" do
       it "should set the language to the language specified by the passed code" do
         controller.send :set_alchemy_language, klingonian.code
-        assigns(:language).should == klingonian
+        expect(assigns(:language)).to eq(klingonian)
         expect(Alchemy::Language.current).to eq(klingonian)
       end
     end
 
     context "with no lang param" do
       it "should set the default language" do
-        controller.stub(:params).and_return({})
+        allow(controller).to receive(:params).and_return({})
         controller.send :set_alchemy_language
-        assigns(:language).should == default_language
+        expect(assigns(:language)).to eq(default_language)
         expect(Alchemy::Language.current).to eq(default_language)
         expect(controller.session).to include_language_information_for(default_language)
       end
@@ -96,34 +96,34 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
 
     context "with language in the session" do
       before do
-        controller.stub(:session).and_return(alchemy_language_id: klingonian.id)
+        allow(controller).to receive(:session).and_return(alchemy_language_id: klingonian.id)
         Alchemy::Language.stub(current: klingonian)
       end
 
       it "should use the language from the session" do
         controller.send :set_alchemy_language
-        assigns(:language).should == klingonian
+        expect(assigns(:language)).to eq(klingonian)
         expect(Alchemy::Language.current).to eq(klingonian)
       end
     end
 
     context "with lang param" do
       it "should set the language" do
-        controller.stub(:params).and_return(lang: klingonian.code)
+        allow(controller).to receive(:params).and_return(lang: klingonian.code)
         controller.send :set_alchemy_language
-        assigns(:language).should == klingonian
+        expect(assigns(:language)).to eq(klingonian)
         expect(Alchemy::Language.current).to eq(klingonian)
         expect(controller.session).to include_language_information_for(klingonian)
       end
 
       context "for language that does not exist" do
         before do
-          controller.stub(:params).and_return(lang: 'fo')
+          allow(controller).to receive(:params).and_return(lang: 'fo')
           controller.send :set_alchemy_language
         end
 
         it "should set the language to default" do
-          assigns(:language).should == default_language
+          expect(assigns(:language)).to eq(default_language)
           expect(Alchemy::Language.current).to eq(default_language)
           expect(controller.session).to include_language_information_for(default_language)
         end

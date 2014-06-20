@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::ElementsHelper do
+  describe Admin::ElementsHelper, :type => :helper do
 
     let(:page)    { build_stubbed(:public_page) }
     let(:element) { build_stubbed(:element, page: page) }
@@ -13,7 +13,7 @@ module Alchemy
       end
 
       it "should render a picture gallery editor partial" do
-        render_picture_gallery_editor(element).should match(/class=".+picture_gallery_editor"/)
+        expect(render_picture_gallery_editor(element)).to match(/class=".+picture_gallery_editor"/)
       end
     end
 
@@ -26,29 +26,30 @@ module Alchemy
       }
 
       before do
-        page.stub(layout_description: {'name' => "foo", 'cells' => ["foo_cell", "empty_cell"]})
-        cell_descriptions = [
-          {'name' => "foo_cell", 'elements' => ["1", "2"]},
-          {'name' => 'empty_cell', 'elements' => []}
-        ]
-        Cell.stub(:definitions).and_return(cell_descriptions)
+        page.stub(layout_description: {'name' => "foo", 'cells' => ["foo_cell"]})
+        cell_descriptions = [{
+          'name' => "foo_cell",
+          'elements' => ["1", "2"]
+          }]
+        allow(Cell).to receive(:definitions).and_return(cell_descriptions)
+
         helper.instance_variable_set('@page', page)
       end
 
       it "should return array of elements grouped by cell for select_tag helper" do
-        helper.grouped_elements_for_select(elements).should include("Foo cell" => [["1", "1#foo_cell"], ["2", "2#foo_cell"]])
+        expect(helper.grouped_elements_for_select(elements)).to include("Foo cell" => [["1", "1#foo_cell"], ["2", "2#foo_cell"]])
       end
 
       context "with empty elements array" do
         it "should return an empty string" do
-          helper.grouped_elements_for_select([]).should == ""
+          expect(helper.grouped_elements_for_select([])).to eq("")
         end
       end
 
       context "with empty cell definitions" do
         it "should return an empty string" do
           page.stub(layout_description: {'name' => "foo"})
-          helper.grouped_elements_for_select(elements).should == ""
+          expect(helper.grouped_elements_for_select(elements)).to eq("")
         end
       end
 
@@ -69,8 +70,8 @@ module Alchemy
         end
 
         it "should return a array for option tags" do
-          helper.elements_for_select(element_objects).should include(['Element 1', 'element_1'])
-          helper.elements_for_select(element_objects).should include(['Element 2', 'element_2'])
+          expect(helper.elements_for_select(element_objects)).to include(['Element 1', 'element_1'])
+          expect(helper.elements_for_select(element_objects)).to include(['Element 2', 'element_2'])
         end
       end
 
@@ -85,11 +86,11 @@ module Alchemy
         subject { helper.elements_for_select(element_descriptions) }
 
         it "should return a array for option tags" do
-          subject.should include(['Headline', 'headline'])
+          expect(subject).to include(['Headline', 'headline'])
         end
 
         it "should render the elements display name" do
-          Element.should_receive(:display_name_for).with('headline')
+          expect(Element).to receive(:display_name_for).with('headline')
           subject
         end
       end

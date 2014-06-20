@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe EssenceHtml do
+  describe EssenceHtml, :type => :model do
     let (:essence) { EssenceHtml.new(source: '<p>hello!</p>') }
 
     it_behaves_like "an essence" do

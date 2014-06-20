@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe BaseController do
+  describe BaseController, :type => :controller do
 
     describe '#set_locale' do
       context 'with Language.current set' do

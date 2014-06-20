@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::PicturesController do
+  describe Admin::PicturesController, :type => :controller do
 
     before do
       sign_in(admin_user)
@@ -9,20 +9,20 @@ module Alchemy
 
     describe "#index" do
       it "should always paginate the records" do
-        Picture.should_receive(:find_paginated)
+        expect(Picture).to receive(:find_paginated)
         get :index
       end
 
       context "when params[:filter] is set" do
         it "should filter the pictures collection by the given filter string." do
-          Picture.should_receive(:filtered_by).with('recent').and_return(Picture.all)
+          expect(Picture).to receive(:filtered_by).with('recent').and_return(Picture.all)
           get :index, filter: 'recent'
         end
       end
 
       context "when params[:tagged_with] is set" do
         it "should filter the records by tags" do
-          Picture.should_receive(:tagged_with).and_return(Picture.all)
+          expect(Picture).to receive(:tagged_with).and_return(Picture.all)
           get :index, tagged_with: "red"
         end
       end
@@ -30,7 +30,7 @@ module Alchemy
       context "when params[:content_id]" do
         context "is set" do
           before do
-            Element.stub(:find).with('1', {:select => 'id'}).and_return(mock_model(Element))
+            allow(Element).to receive(:find).with('1', {:select => 'id'}).and_return(mock_model(Element))
           end
 
           it "for html requests it renders the archive_overlay partial" do
@@ -70,25 +70,25 @@ module Alchemy
 
         it "assigns lots of instance variables" do
           subject
-          assigns(:options).should eq({})
-          assigns(:while_assigning).should be_true
-          assigns(:content).should eq(content)
-          assigns(:element).should eq(element)
-          assigns(:page).should eq(1)
-          assigns(:per_page).should eq(9)
+          expect(assigns(:options)).to eq({})
+          expect(assigns(:while_assigning)).to be_truthy
+          expect(assigns(:content)).to eq(content)
+          expect(assigns(:element)).to eq(element)
+          expect(assigns(:page)).to eq(1)
+          expect(assigns(:per_page)).to eq(9)
         end
       end
 
       context 'with size param given' do
         let(:params) { {size: '200x200'} }
         before { subject }
-        it { assigns(:size).should eq('200x200') }
+        it { expect(assigns(:size)).to eq('200x200') }
       end
 
       context 'without size param given' do
         let(:params) { {size: nil} }
         before { subject }
-        it { assigns(:size).should eq('medium') }
+        it { expect(assigns(:size)).to eq('medium') }
       end
     end
 
@@ -100,10 +100,10 @@ module Alchemy
 
       context 'with passing validations' do
         before do
-          Picture.should_receive(:new).and_return(picture)
-          picture.should_receive(:name=).and_return('Cute kittens')
-          picture.should_receive(:name).and_return('Cute kittens')
-          picture.should_receive(:save).and_return(true)
+          expect(Picture).to receive(:new).and_return(picture)
+          expect(picture).to receive(:name=).and_return('Cute kittens')
+          expect(picture).to receive(:name).and_return('Cute kittens')
+          expect(picture).to receive(:save).and_return(true)
         end
 
         context 'if inside of archive overlay' do
@@ -118,61 +118,61 @@ module Alchemy
 
           it "assigns lots of instance variables" do
             subject
-            assigns(:options).should eq({})
-            assigns(:while_assigning).should be_true
-            assigns(:content).should eq(content)
-            assigns(:element).should eq(element)
-            assigns(:page).should eq(1)
-            assigns(:per_page).should eq(9)
+            expect(assigns(:options)).to eq({})
+            expect(assigns(:while_assigning)).to be_truthy
+            expect(assigns(:content)).to eq(content)
+            expect(assigns(:element)).to eq(element)
+            expect(assigns(:page)).to eq(1)
+            expect(assigns(:per_page)).to eq(9)
           end
         end
 
         context 'with size param given' do
           let(:params) { {picture: {name: ''}, size: '200x200'} }
           before { subject }
-          it { assigns(:size).should eq('200x200') }
+          it { expect(assigns(:size)).to eq('200x200') }
         end
 
         context 'without size param given' do
           let(:params) { {picture: {name: ''}, size: nil} }
           before { subject }
-          it { assigns(:size).should eq('medium') }
+          it { expect(assigns(:size)).to eq('medium') }
         end
 
         it "renders json response with success message" do
           subject
-          response.content_type.should eq('application/json')
-          response.status.should eq(201)
+          expect(response.content_type).to eq('application/json')
+          expect(response.status).to eq(201)
           json = JSON.parse(response.body)
-          json.should have_key('growl_message')
-          json.should have_key('files')
+          expect(json).to have_key('growl_message')
+          expect(json).to have_key('files')
         end
       end
 
       context 'without passing validations' do
         it "renders json response with error message" do
           subject
-          response.content_type.should eq('application/json')
-          response.status.should eq(422)
+          expect(response.content_type).to eq('application/json')
+          expect(response.status).to eq(422)
           json = JSON.parse(response.body)
-          json.should have_key('growl_message')
-          json.should have_key('files')
+          expect(json).to have_key('growl_message')
+          expect(json).to have_key('files')
         end
       end
     end
 
     describe '#edit_multiple' do
       let(:pictures) { [mock_model('Picture', tag_list: 'kitten')] }
-      before { Picture.should_receive(:where).and_return(pictures) }
+      before { expect(Picture).to receive(:where).and_return(pictures) }
 
       it 'assigns pictures instance variable' do
         get :edit_multiple
-        assigns(:pictures).should eq(pictures)
+        expect(assigns(:pictures)).to eq(pictures)
       end
 
       it 'assigns tags instance variable' do
         get :edit_multiple
-        assigns(:tags).should include('kitten')
+        expect(assigns(:tags)).to include('kitten')
       end
     end
 
@@ -182,36 +182,36 @@ module Alchemy
       let(:picture) { mock_model('Picture', name: 'Cute kitten') }
 
       before do
-        Picture.should_receive(:find).and_return(picture)
+        expect(Picture).to receive(:find).and_return(picture)
       end
 
       context 'with passing validations' do
         before do
-          picture.should_receive(:update_attributes).and_return(true)
+          expect(picture).to receive(:update_attributes).and_return(true)
         end
 
         it "sets success notice" do
           subject
-          flash[:notice].should_not be_blank
+          expect(flash[:notice]).not_to be_blank
         end
 
         it "redirects to index path" do
-          should redirect_to admin_pictures_path
+          is_expected.to redirect_to admin_pictures_path
         end
       end
 
       context 'with failing validations' do
         before do
-          picture.should_receive(:update_attributes).and_return(false)
+          expect(picture).to receive(:update_attributes).and_return(false)
         end
 
         it "sets error notice and redirects to index path" do
           subject
-          flash[:error].should_not be_blank
+          expect(flash[:error]).not_to be_blank
         end
 
         it "redirects to index path" do
-          should redirect_to admin_pictures_path
+          is_expected.to redirect_to admin_pictures_path
         end
       end
     end
@@ -221,17 +221,17 @@ module Alchemy
       let(:pictures) { [picture] }
 
       before do
-        Picture.should_receive(:find).and_return(pictures)
+        expect(Picture).to receive(:find).and_return(pictures)
         picture.stub(save: true)
       end
 
       it "loads and assigns pictures" do
         post :update_multiple
-        assigns(:pictures).should eq(pictures)
+        expect(assigns(:pictures)).to eq(pictures)
       end
 
       it "updates each picture" do
-        picture.should_receive(:update_name_and_tag_list!)
+        expect(picture).to receive(:update_name_and_tag_list!)
         post :update_multiple
       end
     end
@@ -256,7 +256,7 @@ module Alchemy
           let(:picture_ids) { "#{deletable_picture.id}" }
 
           before do
-            Picture.stub(:find).and_return([deletable_picture])
+            allow(Picture).to receive(:find).and_return([deletable_picture])
           end
 
           it "should delete the pictures give a notice about deleting them" do
@@ -269,11 +269,11 @@ module Alchemy
           let(:picture_ids) { "#{deletable_picture.id},#{not_deletable_picture.id}" }
 
           before do
-            Picture.stub(:find).and_return([deletable_picture, not_deletable_picture])
+            allow(Picture).to receive(:find).and_return([deletable_picture, not_deletable_picture])
           end
 
           it "should give a warning for the non deletable pictures and delete the others" do
-            deletable_picture.should_receive(:destroy)
+            expect(deletable_picture).to receive(:destroy)
             subject
             expect(flash[:warn]).to match('could not be deleted')
           end
@@ -283,17 +283,17 @@ module Alchemy
           let(:picture_ids) { "#{deletable_picture.id}" }
 
           before do
-            Picture.should_receive(:find).and_raise('yada')
+            expect(Picture).to receive(:find).and_raise('yada')
           end
 
           it "sets error message" do
             subject
-            flash[:error].should_not be_blank
+            expect(flash[:error]).not_to be_blank
           end
 
           it "redirects to index" do
             subject
-            response.should redirect_to admin_pictures_path
+            expect(response).to redirect_to admin_pictures_path
           end
         end
       end
@@ -303,36 +303,36 @@ module Alchemy
       let(:picture) { mock_model('Picture', name: 'Cute kitten') }
 
       before do
-        Picture.should_receive(:find).and_return(picture)
+        expect(Picture).to receive(:find).and_return(picture)
       end
 
       it "destroys the picture and sets and success message" do
-        picture.should_receive(:destroy)
+        expect(picture).to receive(:destroy)
         delete :destroy
-        assigns(:picture).should eq(picture)
-        flash[:notice].should_not be_blank
+        expect(assigns(:picture)).to eq(picture)
+        expect(flash[:notice]).not_to be_blank
       end
 
       context 'if an error happens' do
         before do
-          picture.should_receive(:destroy).and_raise('yada')
+          expect(picture).to receive(:destroy).and_raise('yada')
         end
 
         it "shows error notice" do
           delete :destroy
-          flash[:error].should_not be_blank
+          expect(flash[:error]).not_to be_blank
         end
 
         it "redirects to index" do
           delete :destroy
-          response.should redirect_to admin_pictures_path
+          expect(response).to redirect_to admin_pictures_path
         end
       end
     end
 
     describe '#flush' do
       it "removes the complete pictures cache" do
-        FileUtils.should_receive(:rm_rf).with(Rails.root.join('public', '', 'pictures'))
+        expect(FileUtils).to receive(:rm_rf).with(Rails.root.join('public', '', 'pictures'))
         xhr :post, :flush
       end
     end
@@ -344,17 +344,17 @@ module Alchemy
 
       context 'with params[:size] set to medium' do
         let(:size) { 'medium' }
-        it { should eq(9) }
+        it { is_expected.to eq(9) }
       end
 
       context 'with params[:size] set to small' do
         let(:size) { 'small' }
-        it { should eq(25) }
+        it { is_expected.to eq(25) }
       end
 
       context 'with params[:size] set to large' do
         let(:size) { 'large' }
-        it { should eq(4) }
+        it { is_expected.to eq(4) }
       end
     end
   end

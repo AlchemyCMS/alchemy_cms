@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Alchemy::Admin::EssencesHelper do
+describe Alchemy::Admin::EssencesHelper, :type => :helper do
   include Alchemy::Admin::ElementsHelper
 
   let(:element) { FactoryGirl.create(:element, :name => 'article', :create_contents_after_create => true) }
@@ -15,7 +15,7 @@ describe Alchemy::Admin::EssencesHelper do
     describe '#render_essence_editor' do
       it "should render an essence editor" do
         content = element.content_by_name('intro')
-        helper.render_essence_editor(content).should match(/input.+type="text".+value="hello!/)
+        expect(helper.render_essence_editor(content)).to match(/input.+type="text".+value="hello!/)
       end
     end
 
@@ -25,15 +25,15 @@ describe Alchemy::Admin::EssencesHelper do
       let(:content) { 'intro' }
 
       it "renders an essence editor by given name" do
-        should match(/input.+type="text".+value="hello!/)
+        is_expected.to match(/input.+type="text".+value="hello!/)
       end
 
       context 'when element is nil' do
         let(:element) { nil }
 
         it "displays a warning" do
-          should have_selector(".content_editor_error")
-          should have_content("No element given.")
+          is_expected.to have_selector(".content_editor_error")
+          is_expected.to have_content("No element given.")
         end
       end
 
@@ -41,7 +41,7 @@ describe Alchemy::Admin::EssencesHelper do
         let(:content) { 'sputz' }
 
         it "displays a warning" do
-          should have_selector(".content_editor.missing")
+          is_expected.to have_selector(".content_editor.missing")
         end
       end
     end
@@ -62,13 +62,13 @@ describe Alchemy::Admin::EssencesHelper do
 
     context "with no arguments given" do
       it "should return options for select with all pages ordered by lft" do
-        helper.pages_for_select.should match(/option.*Page B.*Page A/m)
+        expect(helper.pages_for_select).to match(/option.*Page B.*Page A/m)
       end
 
       it "should return options for select with nested page names" do
         page_c
         output = helper.pages_for_select
-        output.should match(/option.*Startseite.*>&nbsp;&nbsp;Page B.*>&nbsp;&nbsp;&nbsp;&nbsp;Page C.*>&nbsp;&nbsp;Page A/m)
+        expect(output).to match(/option.*Startseite.*>&nbsp;&nbsp;Page B.*>&nbsp;&nbsp;&nbsp;&nbsp;Page C.*>&nbsp;&nbsp;Page A/m)
       end
     end
 
@@ -80,13 +80,13 @@ describe Alchemy::Admin::EssencesHelper do
 
       it "should return options for select with only these pages" do
         output = helper.pages_for_select(@pages)
-        output.should match(/#{@pages.collect(&:name).join('.*')}/m)
-        output.should_not match(/Page A/m)
+        expect(output).to match(/#{@pages.collect(&:name).join('.*')}/m)
+        expect(output).not_to match(/Page A/m)
       end
 
       it "should not nest the page names" do
         output = helper.pages_for_select(@pages)
-        output.should_not match(/option.*&nbsp;/m)
+        expect(output).not_to match(/option.*&nbsp;/m)
       end
     end
   end
@@ -99,7 +99,7 @@ describe Alchemy::Admin::EssencesHelper do
     end
 
     context 'when given content has no ingredient' do
-      before { content.stub(:ingredient).and_return(nil) }
+      before { allow(content).to receive(:ingredient).and_return(nil) }
       it "should return nil" do
         expect(helper.essence_picture_thumbnail(content, {})).to eq(nil)
       end

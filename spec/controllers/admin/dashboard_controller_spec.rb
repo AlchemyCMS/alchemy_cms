@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::DashboardController do
+  describe Admin::DashboardController, :type => :controller do
     let(:user) { admin_user }
 
     before { sign_in(user) }
@@ -27,7 +27,7 @@ module Alchemy
           let(:another_user) { mock_model('DummyUser') }
 
           before do
-            Alchemy.user_class.should_receive(:logged_in).and_return([another_user])
+            expect(Alchemy.user_class).to receive(:logged_in).and_return([another_user])
           end
 
           it "assigns @online_users" do
@@ -46,8 +46,8 @@ module Alchemy
 
       context 'user having signed in before' do
         before do
-          user.should_receive(:sign_in_count).and_return(5)
-          user.should_receive(:last_sign_in_at).and_return(Time.now)
+          expect(user).to receive(:sign_in_count).and_return(5)
+          expect(user).to receive(:last_sign_in_at).and_return(Time.now)
         end
 
         it "assigns @first_time" do
@@ -72,8 +72,8 @@ module Alchemy
     describe '#update_check' do
       context "if current Alchemy version equals the latest released version or it is newer" do
         before {
-          controller.stub(:latest_alchemy_version).and_return('2.6')
-          Alchemy.stub(:version).and_return("2.6")
+          allow(controller).to receive(:latest_alchemy_version).and_return('2.6')
+          allow(Alchemy).to receive(:version).and_return("2.6")
         }
 
         it "should render 'false'" do
@@ -84,8 +84,8 @@ module Alchemy
 
       context "if current Alchemy version is older than latest released version" do
         before {
-          controller.stub(:latest_alchemy_version).and_return('2.6')
-          Alchemy.stub(:version).and_return("2.5")
+          allow(controller).to receive(:latest_alchemy_version).and_return('2.6')
+          allow(Alchemy).to receive(:version).and_return("2.5")
         }
 
         it "should render 'true'" do
@@ -96,10 +96,10 @@ module Alchemy
 
       context "requesting rubygems.org" do
         before {
-          Net::HTTP.any_instance.stub(:request).and_return(
+          allow_any_instance_of(Net::HTTP).to receive(:request).and_return(
             OpenStruct.new({code: '200', body: '[{"number": "2.6"}, {"number": "2.5"}]'})
           )
-          Alchemy.stub(:version).and_return("2.6")
+          allow(Alchemy).to receive(:version).and_return("2.6")
         }
 
         it "should have response code of 200" do
@@ -110,8 +110,8 @@ module Alchemy
 
       context "requesting github.com" do
         before {
-          controller.stub(:query_rubygems).and_return(OpenStruct.new({code: '503'}))
-          Net::HTTP.any_instance.stub(:request).and_return(
+          allow(controller).to receive(:query_rubygems).and_return(OpenStruct.new({code: '503'}))
+          allow_any_instance_of(Net::HTTP).to receive(:request).and_return(
             OpenStruct.new({code: '200', body: '[{"name": "2.6"}, {"name": "2.5"}]'})
           )
         }
@@ -124,7 +124,7 @@ module Alchemy
 
       context "rubygems.org and github.com are unavailable" do
         before {
-          Net::HTTP.any_instance.stub(:request).and_return(
+          allow_any_instance_of(Net::HTTP).to receive(:request).and_return(
             OpenStruct.new({code: '503'})
           )
         }

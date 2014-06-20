@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Alchemy::Admin::PicturesHelper do
+describe Alchemy::Admin::PicturesHelper, :type => :helper do
   describe "#create_or_assign_url" do
 
     let(:picture) { mock_model('Picture') }

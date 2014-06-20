@@ -54,23 +54,23 @@ module Alchemy
 
     before :each do
       # stubbing an ActiveRecord::ModelSchema...
-      Party.stub(:columns).and_return columns
+      allow(Party).to receive(:columns).and_return columns
     end
 
     describe "#initialize" do
       it "sets the standard database attributes (rails defaults) to be skipped" do
         resource = Resource.new("admin/parties")
-        resource.skipped_attributes.should == %w(id updated_at created_at creator_id updater_id)
+        expect(resource.skipped_attributes).to eq(%w(id updated_at created_at creator_id updater_id))
       end
 
       it "sets an instance variable that holds the controller path" do
         resource = Resource.new("admin/parties")
-        resource.instance_variable_get(:@controller_path).should == "admin/parties"
+        expect(resource.instance_variable_get(:@controller_path)).to eq("admin/parties")
       end
 
       context "when initialized with a module definition" do
         it "sets an instance variable that holds the module definition" do
-          resource.instance_variable_get(:@module_definition).should == module_definition
+          expect(resource.instance_variable_get(:@module_definition)).to eq(module_definition)
         end
       end
 
@@ -78,14 +78,14 @@ module Alchemy
         it "sets @model to custom model" do
           CustomParty = Class.new
           resource = Resource.new("admin/parties", nil, CustomParty)
-          resource.instance_variable_get(:@model).should == CustomParty
+          expect(resource.instance_variable_get(:@model)).to eq(CustomParty)
         end
       end
 
       context "when initialized without custom model" do
         it "guesses the model by the controller_path" do
           resource = Resource.new("admin/parties", nil, nil)
-          resource.instance_variable_get(:@model).should == Party
+          expect(resource.instance_variable_get(:@model)).to eq(Party)
         end
       end
 
@@ -100,7 +100,7 @@ module Alchemy
 
         context ", but not an ActiveRecord association" do
           before do
-            Party.stub(:respond_to?).and_return do |arg|
+            allow(Party).to receive(:respond_to?) do |arg|
               case arg
               when :reflect_on_all_associations
                 then false
@@ -128,84 +128,84 @@ module Alchemy
     describe "#resource_array" do
       it "splits the controller_path and returns it as array." do
         resource = Resource.new("namespace1/namespace2/parties")
-        resource.resource_array.should eql(%w(namespace1 namespace2 parties))
+        expect(resource.resource_array).to eql(%w(namespace1 namespace2 parties))
       end
 
       it "deletes 'admin' if found hence our model isn't in the admin-namespace by convention" do
-        resource.resource_array.should eql(%w(parties))
+        expect(resource.resource_array).to eql(%w(parties))
       end
     end
 
     describe "#model" do
       it "returns the @model instance variable" do
-        resource.model.should == resource.instance_variable_get(:@model)
+        expect(resource.model).to eq(resource.instance_variable_get(:@model))
       end
     end
 
     describe "#resources_name" do
       it "returns plural name (like parties for model Party)" do
-        resource.resources_name.should == "parties"
+        expect(resource.resources_name).to eq("parties")
       end
     end
 
     describe "#resource_name" do
       it "returns the resources name as singular" do
-        resource.resource_name.should == "party"
+        expect(resource.resource_name).to eq("party")
       end
     end
 
     describe "#namespaced_resource_name" do
       it "returns resource_name with namespace (namespace_party for Namespace::Party), i.e. for use in forms" do
         namespaced_resource = Resource.new("admin/namespace/parties")
-        namespaced_resource.namespaced_resource_name.should == 'namespace_party'
+        expect(namespaced_resource.namespaced_resource_name).to eq('namespace_party')
       end
 
       it "equals resource_name if resource not namespaced" do
         namespaced_resource = Resource.new("admin/parties")
-        namespaced_resource.namespaced_resource_name.should == 'party'
+        expect(namespaced_resource.namespaced_resource_name).to eq('party')
       end
 
       it "doesn't include the engine's name" do
         namespaced_resource = Resource.new("admin/party_engine/namespace/parties", module_definition)
-        namespaced_resource.namespaced_resource_name.should == 'namespace_party'
+        expect(namespaced_resource.namespaced_resource_name).to eq('namespace_party')
       end
     end
 
     describe "#engine_name" do
       it "should return the engine name of the module" do
         resource = Resource.new("admin/party_engine/namespace/parties", module_definition)
-        resource.engine_name.should == "party_engine"
+        expect(resource.engine_name).to eq("party_engine")
       end
     end
 
     describe "#namespace_for_scope" do
       it "returns a scope for use in url_for based path helpers" do
-        resource.namespace_for_scope.should == %w(admin)
+        expect(resource.namespace_for_scope).to eq(%w(admin))
       end
     end
 
     describe "#attributes" do
       it "parses and returns the resource model's attributes from ActiveRecord::ModelSchema" do
-        resource.attributes.should == [
+        expect(resource.attributes).to eq([
           {:name => "name", :type => :string},
           {:name => "hidden_value", :type => :string},
           {:name => "description", :type => :string},
           {:name => "starts_at", :type => :datetime},
           {:name => "location_id", :type => :integer},
           {:name => "organizer_id", :type => :integer},
-        ]
+        ])
       end
 
       it "skips attributes returned by skipped_alchemy_resource_attributes" do
         # attr_accessor, hence skipped_alchemy_resource_attributes= works
         resource.skipped_attributes = %w(hidden_value)
-        resource.attributes.should include({:name => "id", :type => :integer})
-        resource.attributes.should_not include({:name => "hidden_value", :type => :string})
+        expect(resource.attributes).to include({:name => "id", :type => :integer})
+        expect(resource.attributes).not_to include({:name => "hidden_value", :type => :string})
       end
 
       context "when resource_relations are not defined" do
         it "includes the attribute" do
-          resource.attributes.detect { |a| a[:name] == "location_id" }.should == {:name => "location_id", :type => :integer}
+          expect(resource.attributes.detect { |a| a[:name] == "location_id" }).to eq({:name => "location_id", :type => :integer})
         end
       end
     end
@@ -221,8 +221,8 @@ module Alchemy
 
       describe '#attributes' do
         it "does not return the attributes returned by that method" do
-          resource.attributes.detect { |a| a[:name] == 'hidden_name' }.should be_nil
-          resource.attributes.detect { |a| a[:name] == 'name' }.should_not be_nil
+          expect(resource.attributes.detect { |a| a[:name] == 'hidden_name' }).to be_nil
+          expect(resource.attributes.detect { |a| a[:name] == 'name' }).not_to be_nil
         end
       end
 
@@ -248,11 +248,11 @@ module Alchemy
       before { resource.skipped_attributes = [] }
 
       it "returns all attributes of type string" do
-        should == [
+        is_expected.to eq([
           {:name => "name", :type => :string},
           {:name => "hidden_value", :type => :string},
           {:name => "description", :type => :string}
-        ]
+        ])
       end
 
       context "with an array attribute" do
@@ -264,7 +264,7 @@ module Alchemy
         end
 
         it "does not include this column" do
-          should == [{name: "name", type: :string}]
+          is_expected.to eq([{name: "name", type: :string}])
         end
       end
     end
@@ -285,34 +285,34 @@ module Alchemy
       describe '#resource_relations' do
         it "should contain model_association from ActiveRecord::Reflections" do
           relation = resource.resource_relations[:location_id]
-          relation.keys.should include(:model_association)
-          relation[:model_association].class.should be(ActiveRecord::Reflection::AssociationReflection)
+          expect(relation.keys).to include(:model_association)
+          expect(relation[:model_association].class).to be(ActiveRecord::Reflection::AssociationReflection)
         end
 
         it "adds '_id' to relation key" do
-          resource.resource_relations[:location_id].should_not be_nil
+          expect(resource.resource_relations[:location_id]).not_to be_nil
         end
 
         it "stores the relation name" do
           relation = resource.resource_relations[:location_id]
-          relation.keys.should include(:name)
-          relation[:name].should == 'location'
+          expect(relation.keys).to include(:name)
+          expect(relation[:name]).to eq('location')
         end
       end
 
       describe '#model_associations' do
         it "skip default alchemy model associations" do
-          resource.model_associations.collect(&:name).should_not include(*resource.class.const_get(:DEFAULT_SKIPPED_ASSOCIATIONS).map(&:to_sym))
+          expect(resource.model_associations.collect(&:name)).not_to include(*resource.class.const_get(:DEFAULT_SKIPPED_ASSOCIATIONS).map(&:to_sym))
         end
       end
 
       describe '#attributes' do
         it "contains the attribute of the related model" do
-          resource.attributes.detect { |a| a[:name] == 'location_id' }.keys.should include(:relation)
+          expect(resource.attributes.detect { |a| a[:name] == 'location_id' }.keys).to include(:relation)
         end
 
         it "contains the related model's column type as type" do
-          resource.attributes.detect { |a| a[:name] == "location_id" }[:type].should == :string
+          expect(resource.attributes.detect { |a| a[:name] == "location_id" }[:type]).to eq(:string)
         end
       end
 
@@ -327,13 +327,13 @@ module Alchemy
 
     describe "#engine_name" do
       it "should return the engine name of the module" do
-        resource.engine_name.should == "party_engine"
+        expect(resource.engine_name).to eq("party_engine")
       end
     end
 
     describe "#in_engine?" do
       it "should return true if the module is shipped within an engine" do
-        resource.in_engine?.should == true
+        expect(resource.in_engine?).to eq(true)
       end
     end
 

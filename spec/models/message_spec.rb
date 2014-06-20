@@ -4,12 +4,12 @@ module Alchemy
   Config.get(:mailer)['fields'].push('email_of_my_boss')
   Config.get(:mailer)['validate_fields'].push('email_of_my_boss')
 
-  describe Message do
+  describe Message, :type => :model do
     let(:message) { Message.new }
 
     describe '.config' do
       it "should return the mailer config" do
-        Config.should_receive(:get).with(:mailer)
+        expect(Config).to receive(:get).with(:mailer)
         Message.config
       end
     end
