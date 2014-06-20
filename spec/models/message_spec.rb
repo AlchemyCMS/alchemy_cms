@@ -25,7 +25,8 @@ module Alchemy
       context "all fields defined in mailer config" do
         it "adds errors on that fields" do
           Config.get(:mailer)['validate_fields'].each do |field|
-            expect(message).to have(1).error_on(field)
+            message.valid?
+            expect(message.errors[field].size).to eq(1)
           end
         end
       end
