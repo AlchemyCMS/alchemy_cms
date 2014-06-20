@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Link overlay" do
+describe "Link overlay", :type => :feature do
 
   before do
     authorize_as_admin
@@ -10,17 +10,17 @@ describe "Link overlay" do
 
     it "has a tab for linking internal pages" do
       visit link_admin_pages_path
-      within('#overlay_tabs') { page.should have_content('Internal')}
+      within('#overlay_tabs') { expect(page).to have_content('Internal')}
     end
 
     it "has a tab for linking external pages" do
       visit link_admin_pages_path
-      within('#overlay_tabs') { page.should have_content('External')}
+      within('#overlay_tabs') { expect(page).to have_content('External')}
     end
 
     it "has a tab for linking files" do
       visit link_admin_pages_path
-      within('#overlay_tabs') { page.should have_content('File')}
+      within('#overlay_tabs') { expect(page).to have_content('File')}
     end
 
   end
@@ -38,15 +38,15 @@ describe "Link overlay" do
 
     it "should have a tree of internal pages" do
       visit link_admin_pages_path
-      page.should have_selector('ul#sitemap li a')
+      expect(page).to have_selector('ul#sitemap li a')
     end
 
     it "should not have a link for pages that redirect to external" do
       redirect = FactoryGirl.create(:page, :parent_id => lang_root.id, :name => 'Google', :urlname => 'http://www.google.com')
-      Alchemy::Page.any_instance.stub(:definition).and_return({'redirects_to_external' => true})
+      allow_any_instance_of(Alchemy::Page).to receive(:definition).and_return({'redirects_to_external' => true})
       visit link_admin_pages_path
-      page.should_not have_selector('ul#sitemap li div[name="/http-www-google-com"] a')
-      Alchemy::Page.any_instance.unstub(:definition)
+      expect(page).not_to have_selector('ul#sitemap li div[name="/http-www-google-com"] a')
+      allow_any_instance_of(Alchemy::Page).to receive(:definition).and_call_original
     end
 
   end

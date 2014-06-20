@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'alchemy/essences/_essence_text_view' do
+describe 'alchemy/essences/_essence_text_view', :type => :view do
   let(:essence) { Alchemy::EssenceText.new(body: 'Hello World') }
   let(:content) { Alchemy::Content.new(essence: essence) }
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Alchemy::Admin::AttachmentsHelper do
+describe Alchemy::Admin::AttachmentsHelper, :type => :helper do
   describe '#mime_to_human' do
     context 'when given mime type has no translation' do
       it "should return the default" do

@@ -11,8 +11,8 @@ describe Kaminari::Helpers::Tag do
       let(:options) { {scope: scope} }
 
       it "calls url_for on that url proxy scope." do
-        template.should_not_receive(:url_for)
-        scope.should_receive(:url_for)
+        expect(template).not_to receive(:url_for)
+        expect(scope).to receive(:url_for)
         subject.page_url_for(1)
       end
     end
@@ -21,8 +21,8 @@ describe Kaminari::Helpers::Tag do
       let(:options) { {} }
 
       it "calls url_for on the template." do
-        template.should_receive(:url_for)
-        scope.should_not_receive(:url_for)
+        expect(template).to receive(:url_for)
+        expect(scope).not_to receive(:url_for)
         subject.page_url_for(1)
       end
     end

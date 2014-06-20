@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe 'alchemy/essences/_essence_date_view' do
+describe 'alchemy/essences/_essence_date_view', :type => :view do
   let(:essence) { Alchemy::EssenceDate.new(date: '2013-10-27 21:14:16 +0100'.to_datetime) }
   let(:content) { Alchemy::Content.new(essence: essence) }
   let(:options) { {} }
 
   before do
-    view.stub(:options).and_return(options)
+    allow(view).to receive(:options).and_return(options)
   end
 
   context "with date value" do

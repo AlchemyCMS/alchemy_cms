@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Cell do
+  describe Cell, :type => :model do
     let(:cell) { FactoryGirl.build(:cell) }
 
     # class methods
@@ -30,7 +30,7 @@ module Alchemy
 
     describe ".definitions_for_element" do
       before do
-        Cell.stub(:definitions).and_return([
+        allow(Cell).to receive(:definitions).and_return([
           {'name' => 'cell_1', 'elements' => ['target', 'other']},
           {'name' => 'cell_2', 'elements' => ['other', 'other']},
           {'name' => 'cell_3', 'elements' => ['other', 'target']}
@@ -58,15 +58,15 @@ module Alchemy
     describe "#available_elements" do
       context "without assigned elements" do
         it "should return an empty Array" do
-          cell.stub(:definition).and_return({})
-          cell.available_elements.should == []
+          allow(cell).to receive(:definition).and_return({})
+          expect(cell.available_elements).to eq([])
         end
       end
 
       context "with assigned elements" do
         it "should return an Array of element names" do
-          cell.stub(:definition).and_return({'elements' => ['test_element', 'test_element_2']})
-          cell.available_elements.should == ['test_element', 'test_element_2']
+          allow(cell).to receive(:definition).and_return({'elements' => ['test_element', 'test_element_2']})
+          expect(cell.available_elements).to eq(['test_element', 'test_element_2'])
         end
       end
     end
@@ -74,22 +74,22 @@ module Alchemy
     describe "#definition" do
       context "without a definition for the expected cellname" do
         it "should return an empty Hash" do
-          Cell.stub(:definition_for).and_return({})
-          cell.definition.should == {}
+          allow(Cell).to receive(:definition_for).and_return({})
+          expect(cell.definition).to eq({})
         end
       end
 
       context "with a definition for the expected cellname found" do
         it "should return its definition Hash" do
-          Cell.stub(:definition_for).and_return({'name' => 'test_cell', 'elements' => ['test_element', 'test_element_2']})
-          cell.definition.should == {'name' => 'test_cell', 'elements' => ['test_element', 'test_element_2']}
+          allow(Cell).to receive(:definition_for).and_return({'name' => 'test_cell', 'elements' => ['test_element', 'test_element_2']})
+          expect(cell.definition).to eq({'name' => 'test_cell', 'elements' => ['test_element', 'test_element_2']})
         end
       end
     end
 
     describe "#name_for_label" do
       it "should call translated_label_for" do
-        Cell.should_receive(:translated_label_for).with(cell.name)
+        expect(Cell).to receive(:translated_label_for).with(cell.name)
         cell.name_for_label
       end
     end

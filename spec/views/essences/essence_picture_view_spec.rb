@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "essences/_essence_picture_view" do
+describe "essences/_essence_picture_view", :type => :view do
 
   let(:essence_picture) { stub_model(Alchemy::EssencePicture, picture: stub_model(Alchemy::Picture), caption: 'This is a cute cat') }
   let(:content) { stub_model(Alchemy::Content, name: 'image', essence_type: 'EssencePicture', essence: essence_picture) }
@@ -8,7 +8,7 @@ describe "essences/_essence_picture_view" do
   before do
     ActionView::Base.send(:include, Alchemy::UrlHelper)
     ActionView::Base.send(:include, Alchemy::EssencesHelper)
-    view.stub(:configuration).and_return(:jpg)
+    allow(view).to receive(:configuration).and_return(:jpg)
   end
 
   context "with caption" do
@@ -24,18 +24,18 @@ describe "essences/_essence_picture_view" do
     end
 
     it "should enclose the image in a <figure> element" do
-      should have_selector('figure img')
+      is_expected.to have_selector('figure img')
     end
 
     context "and essence with css class" do
       before { essence_picture.css_class = 'left' }
 
       it "should have the class on the <figure> element" do
-        should have_selector('figure.left img')
+        is_expected.to have_selector('figure.left img')
       end
 
       it "should not have the class on the <img> element" do
-        should_not have_selector('figure img.left')
+        is_expected.not_to have_selector('figure img.left')
       end
     end
 
@@ -43,15 +43,15 @@ describe "essences/_essence_picture_view" do
       before { html_options[:class] = 'right' }
 
       it "should have the class from the html_options on the <figure> element" do
-        should have_selector('figure.right img')
+        is_expected.to have_selector('figure.right img')
       end
 
       it "should not have the class from the essence on the <figure> element" do
-        should_not have_selector('figure.left img')
+        is_expected.not_to have_selector('figure.left img')
       end
 
       it "should not have the class from the html_options on the <img> element" do
-        should_not have_selector('figure img.right')
+        is_expected.not_to have_selector('figure img.right')
       end
     end
   end
@@ -69,14 +69,14 @@ describe "essences/_essence_picture_view" do
     end
 
     it "should enclose the image in a link tag" do
-      should have_selector('a[href="/home"] img')
+      is_expected.to have_selector('a[href="/home"] img')
     end
 
     context "but disabled link option" do
       before { options[:disable_link] = true }
 
       it "should not enclose the image in a link tag" do
-        should_not have_selector('a img')
+        is_expected.not_to have_selector('a img')
       end
     end
   end
