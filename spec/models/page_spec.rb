@@ -994,6 +994,7 @@ module Alchemy
     end
 
     describe '#get_language_root' do
+      before { language_root }
       subject { public_page.get_language_root }
 
       it "returns the language root page" do
