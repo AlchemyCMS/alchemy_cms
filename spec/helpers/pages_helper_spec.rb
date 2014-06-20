@@ -289,8 +289,8 @@ module Alchemy
 
     describe "#render_meta_data" do
       context "@page is not set" do
-        it "should reutrn nil" do
-          expect(expect(helper.render_meta_data).to).to eq(nil)
+        it "should return nil" do
+          expect(helper.render_meta_data).to eq(nil)
         end
       end
 
