@@ -34,13 +34,15 @@ module Alchemy
         it "should validate the page_layout" do
           contentpage.page_layout = nil
           expect(contentpage).not_to be_valid
-          expect(contentpage).to have(1).error_on(:page_layout)
+          contentpage.valid?
+          expect(contentpage.errors[:page_layout].size).to eq(1)
         end
 
         it "should validate the parent_id" do
           contentpage.parent_id = nil
           expect(contentpage).not_to be_valid
-          expect(contentpage).to have(1).error_on(:parent_id)
+          contentpage.valid?
+          expect(contentpage.errors[:parent_id].size).to eq(1)
         end
 
         context 'with page having same urlname' do
