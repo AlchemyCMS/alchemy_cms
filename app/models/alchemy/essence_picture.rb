@@ -78,6 +78,7 @@ module Alchemy
       point_and_mask_to_points(crop_from, crop_size)
     end
 
+
     private
 
     def fix_crop_values

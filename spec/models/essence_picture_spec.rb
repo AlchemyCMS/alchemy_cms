@@ -153,5 +153,13 @@ module Alchemy
       end
     end
 
+    describe '#default_mask' do
+
+      let(:essence_without_pic) { EssencePicture.new }
+
+      it "should raise an error if there is no image" do
+        expect { essence_without_pic.default_mask() }.to raise_error Module::DelegationError
+      end
+    end
   end
 end
