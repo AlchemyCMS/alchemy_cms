@@ -4,6 +4,10 @@ require 'spec_helper'
 module Alchemy
   describe Picture do
 
+    it_behaves_like "has image transformations" do
+      let(:picture) { FactoryGirl.build_stubbed(:picture) }
+    end
+
     let :image_file do
       File.new(File.expand_path('../../fixtures/image.png', __FILE__))
     end
@@ -201,56 +205,6 @@ module Alchemy
       end
     end
 
-    describe '#default_mask' do
-      before do
-        picture.stub(:image_file_width).and_return(200)
-        picture.stub(:image_file_height).and_return(100)
-      end
-
-      it "should return a Hash" do
-        expect(picture.default_mask('10x10')).to be_a(Hash)
-      end
-
-      context "cropping the picture to 200x50 pixel" do
-        it "should contain the correct coordination values in the hash" do
-          expect(picture.default_mask('200x50')).to eq({x1: 0, y1: 25, x2: 200, y2: 75})
-        end
-      end
-
-      context "if picture´s cropping size is 0x0 pixel" do
-        it "should not crop the picture" do
-          expect(picture.default_mask('0x0')).to eq({x1: 0, y1: 0, x2: 200, y2: 100})
-        end
-      end
-
-      context "cropping the picture to 50x100 pixel" do
-        it "should contain the correct coordination values in the hash" do
-          expect(picture.default_mask('50x100')).to eq({x1: 75, y1: 0, x2: 125, y2: 100})
-        end
-      end
-    end
-
-    describe "#cropped_thumbnail_size" do
-      context "if given size is blank or 111x93" do
-        it "should return the default size of '111x93'" do
-          expect(picture.cropped_thumbnail_size('')).to eq('111x93')
-          expect(picture.cropped_thumbnail_size('111x93')).to eq('111x93')
-        end
-      end
-
-      context "if the given width is 400 and the height is 300 because of picture cropping" do
-        it "should return the correct recalculated size value" do
-          expect(picture.cropped_thumbnail_size('400x300')).to eq('111x83')
-        end
-      end
-
-      context "if the given width is 300 and the height is 400 because of picture cropping" do
-        it "should return the correct recalculated size value" do
-          expect(picture.cropped_thumbnail_size('300x400')).to eq('70x93')
-        end
-      end
-    end
-
     describe "#image_file_dimensions" do
       it "should return the width and height in the format of '1024x768'" do
         picture.image_file = image_file
@@ -323,66 +277,6 @@ module Alchemy
           should be_an_instance_of(Hash)
           should include(error: 'stupid_cats')
         end
-      end
-    end
-
-    describe '#landscape_format?' do
-      subject { picture.landscape_format? }
-
-      let(:picture) { build_stubbed(:picture) }
-
-      context 'image has landscape format' do
-        before { picture.stub_chain(:image_file, :landscape?).and_return(true) }
-        it { should be_true }
-      end
-
-      context 'image has portrait format' do
-        before { picture.stub_chain(:image_file, :landscape?).and_return(false) }
-        it { should be_false }
-      end
-
-      it "is aliased as landscape?" do
-        picture.respond_to?(:landscape?).should be_true
-      end
-    end
-
-    describe '#portrait_format?' do
-      subject { picture.portrait_format? }
-
-      let(:picture) { build_stubbed(:picture) }
-
-      context 'image has portrait format' do
-        before { picture.stub_chain(:image_file, :portrait?).and_return(true) }
-        it { should be_true }
-      end
-
-      context 'image has landscape format' do
-        before { picture.stub_chain(:image_file, :portrait?).and_return(false) }
-        it { should be_false }
-      end
-
-      it "is aliased as portrait?" do
-        picture.respond_to?(:portrait?).should be_true
-      end
-    end
-
-    describe '#square_format?' do
-      subject { picture.square_format? }
-
-      let(:picture) { build_stubbed(:picture) }
-
-      context 'image has square format' do
-        before { picture.stub_chain(:image_file, :aspect_ratio).and_return(1.0) }
-        it { should be_true }
-      end
-
-      context 'image has rectangle format' do
-        before { picture.stub_chain(:image_file, :aspect_ratio).and_return(1.8) }
-        it { should be_false }
-      end
-
-      it "is aliased as square?" do
-        picture.respond_to?(:square?).should be_true
       end
     end
 

@@ -7,6 +7,11 @@ module Alchemy
       let(:ingredient_value) { Picture.new }
     end
 
+    it_behaves_like "has image transformations" do
+      let(:picture) { build_stubbed(:essence_picture) }
+    end
+
+
     it "should not store negative values for crop values" do
       essence = EssencePicture.new(:crop_from => '-1x100', :crop_size => '-20x30')
       essence.save!
@@ -148,5 +153,13 @@ module Alchemy
       end
     end
 
+    describe '#default_mask' do
+
+      let(:essence_without_pic) { EssencePicture.new }
+
+      it "should raise an error if there is no image" do
+        expect { essence_without_pic.default_mask() }.to raise_error Module::DelegationError
+      end
+    end
   end
 end

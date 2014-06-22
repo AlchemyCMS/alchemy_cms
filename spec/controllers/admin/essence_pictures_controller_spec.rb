@@ -36,7 +36,7 @@ module Alchemy
       end
 
       context 'with picture assigned' do
-        let(:default_mask) { {'x1' => '0', 'y1' => '0', 'x2' => '100', 'y2' => '100'} }
+        let(:default_mask) { { x1: 0, y1: 0, x2: 300, y2: 250 } }
 
         before do
           picture.image_file_width = 300
@@ -98,7 +98,7 @@ module Alchemy
           before do
             essence.stub(:crop_from).and_return(nil)
             essence.stub(:crop_size).and_return(nil)
-            picture.should_receive(:default_mask).and_return(default_mask)
+            essence.should_receive(:default_mask).and_return(default_mask)
           end
 
           it "assigns default mask boxes" do
@@ -114,7 +114,7 @@ module Alchemy
           before do
             essence.stub(:crop_from).and_return('0x0')
             essence.stub(:crop_size).and_return('120x160')
-            picture.should_receive(:default_mask).and_return(default_mask)
+            essence.should_receive(:default_mask).and_return(default_mask)
           end
 
           it "assigns cropping boxes" do
