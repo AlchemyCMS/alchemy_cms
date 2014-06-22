@@ -77,7 +77,7 @@ module Alchemy
         return if @essence_picture.render_size.blank?
         size_x, size_y = @essence_picture.render_size.split('x').map(&:to_i)
         if size_x.zero? || size_y.nil? || size_y.zero?
-          size_x_of_original = @essence_picture.picture.image_file_width 
+          size_x_of_original = @essence_picture.picture.image_file_width
           size_y_of_original = @essence_picture.picture.image_file_height
           size_x = size_x_of_original * size_y / size_y_of_original if size_x.zero?
           size_y = size_y_of_original * size_x / size_x_of_original if size_y.nil? || size_y.zero?
@@ -91,11 +91,11 @@ module Alchemy
 
       def cropping_boxes
         if @essence_picture.crop_from.blank? || @essence_picture.crop_size.blank?
-          initial_box = @picture.default_mask(sizes_string)
+          initial_box = @essence_picture.default_mask(sizes_string)
           default_box = initial_box
         else
           initial_box = @essence_picture.cropping_mask
-          default_box = @picture.default_mask(sizes_string)
+          default_box = @essence_picture.default_mask(sizes_string)
         end
         [initial_box, default_box]
       end

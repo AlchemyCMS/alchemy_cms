@@ -160,40 +160,6 @@ module Alchemy
     end
     alias_method :square?, :square_format?
 
-    # Returns the default centered image mask for a given size.
-    # If the mask is bigger than the image, the mask is scaled down
-    # so the largest possible part of the image is visible.
-    def default_mask(size = "0x0")
-      raise "No size given" if size.blank?
-
-      image = { width: image_file_width, height: image_file_height }
-
-      mask = {}
-      mask[:width], mask[:height] = size.split('x').map(&:to_i)
-
-      return {
-          x1: 0, x2: image[:width],
-          y1: 0, y2: image[:height]
-      } if mask[:width] == 0 || mask[:height] == 0
-
-      if mask[:width] > image[:width] || mask[:height] > image[:height]
-        zoom_x = mask[:width].to_f / image[:width].to_f
-        zoom_y = mask[:height].to_f / image[:height].to_f
-
-        zoom = zoom_x > zoom_y ? zoom_x : zoom_y
-
-        mask[:width] = (mask[:width] / zoom).to_i
-        mask[:height] = (mask[:height] / zoom).to_i
-      end
-
-      {
-        x1: (image[:width] - mask[:width]) / 2,
-        x2: (image[:width] - mask[:width]) / 2 + mask[:width],
-        y1: (image[:height] - mask[:height]) / 2,
-        y2: (image[:height] - mask[:height]) / 2 + mask[:height]
-      }
-    end
-
     # Returns a size value String for the thumbnail used in essence picture editors.
     #
     def cropped_thumbnail_size(size)
