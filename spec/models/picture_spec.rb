@@ -188,8 +188,22 @@ module Alchemy
         picture.stub(:image_file_height).and_return(100)
       end
 
+      it "should raise an error if the argument is empty" do
+        expect { picture.default_mask("") }.to raise_error("No size given")
+      end
+
       it "should return a Hash" do
         expect(picture.default_mask('10x10')).to be_a(Hash)
+      end
+
+      it "should return a Hash with four keys x1, x2, y1, y2" do
+        expect(picture.default_mask('10x10').keys.sort).to eq([:x1, :x2, :y1, :y2])
+      end
+
+      it "should return a Hash where all values are Integer" do
+        expect(picture.default_mask("131313x13131313").all? do |k, v|
+          v.is_a? Integer
+        end).to be_truthy
       end
 
       context "cropping the picture to 200x50 pixel" do
@@ -209,6 +223,32 @@ module Alchemy
           expect(picture.default_mask('50x100')).to eq({x1: 75, y1: 0, x2: 125, y2: 100})
         end
       end
+
+      context "cropping the picture to 50x50 pixels" do
+        it "should contain the correct coordination values in the hash" do
+          expect(picture.default_mask('50x50')).to eq({x1: 75, y1: 25, x2: 125, y2: 75})
+        end
+      end
+
+      context "cropping the picture to a bigger image (400x200) with same ratio" do
+        it "should contain the correct coordination values in the hash" do
+          expect(picture.default_mask('400x200')).to eq({x1: 0, y1: 0, x2: 200, y2: 100})
+        end
+      end
+
+      context "cropping the picture to a bigger image (400x100) with low height" do
+        it "should contain the correct coordination values in the hash" do
+          expect(picture.default_mask('400x100')).to eq({x1: 0, y1: 25, x2: 200, y2: 75})
+        end
+      end
+
+      context "cropping the picture to a bigger image (200x200) with low width" do
+        it "should contain the correct coordination values in the hash" do
+          expect(picture.default_mask('200x200')).to eq({x1: 50, y1: 0, x2: 150, y2: 100})
+        end
+      end
+
+
     end
 
     describe "#cropped_thumbnail_size" do
