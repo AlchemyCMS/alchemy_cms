@@ -34,6 +34,7 @@ require 'alchemy/test_support/integration_helpers'
 require 'alchemy/test_support/factories'
 require 'alchemy/test_support/essence_shared_examples'
 require_relative "support/hint_examples.rb"
+require_relative "support/transformation_examples.rb"
 
 # Configure capybara for integration testing
 Capybara.default_driver = :rack_test

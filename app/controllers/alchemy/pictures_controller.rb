@@ -62,52 +62,20 @@ module Alchemy
     # Return the processed image dependent of size and cropping parameters
     def processed_image
       @image = @picture.image_file
+      @upsample = params[:upsample] ? true : false
       if @image.nil?
         raise MissingImageFileError, "Missing image file for #{@picture.inspect}"
       end
       if @size.present?
-        if params[:crop_size].present? && params[:crop_from].present?
-          @image = @image.thumb xy_crop_geometry_string(params)
-          @image.thumb(resize_geometry_string)
-        elsif params[:crop]
-          @image.thumb(center_crop_geometry_string)
+        if params[:crop_size].present? && params[:crop_from].present? || params[:crop].present?
+          @picture.crop(@size, params[:crop_from], params[:crop_size], @upsample)
         else
-          @image.thumb(resize_geometry_string)
+          @picture.resize(@size, @upsample)
         end
       else
-        @image
+        @picture.image_file
       end
     end
 
-    # Returns the Imagemagick geometry string for cropping the image.
-    def xy_crop_geometry_string(params)
-      crop_from_x, crop_from_y = params[:crop_from].split('x')
-      "#{params[:crop_size]}+#{crop_from_x}+#{crop_from_y}"
-    end
-
-    # Returns the Imagemagick geometry string used to resize the image.
-    #
-    # Prevents upscaling unless :upsample param is true.
-    def resize_geometry_string
-      params[:upsample] == 'true' ? @size : "#{@size}>"
-    end
-
-    # Returns the Imagemagick geometry string used to crop the image.
-    #
-    # Prevents upscaling unless :upsample param is true
-    def center_crop_geometry_string
-      params[:upsample] == 'true' ? "#{@size}#" : "#{normalized_sizes(*@size.split('x'))}#"
-    end
-
-    # Ensure we're not trying to scale the image up. Used only for cropping.
-    def normalized_sizes(width, height)
-      if width.to_i > @image.width
-        width = @image.width
-      end
-      if height.to_i > @image.height
-        height = @image.height
-      end
-      "#{width}x#{height}"
-    end
   end
 end
