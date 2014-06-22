@@ -13,7 +13,7 @@ Alchemy.ImageCropper =
         crop_size_field.val coords.w + "x" + coords.h
       setSelect: box
       aspectRatio: (if ratio then ratio else `undefined`)
-      minSize: [size_x, size_y]
+      minSize: (if size_x < true_size[0] && size_y < true_size[1] then [size_x, size_y] else `undefined`)
       boxWidth: 800
       boxHeight: 600
       trueSize: true_size
