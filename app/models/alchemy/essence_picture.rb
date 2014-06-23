@@ -85,6 +85,7 @@ module Alchemy
     # so the largest possible part of the image is visible.
     def default_mask(size = "0x0")
       raise "No size given" if size.blank?
+      raise "No picture associated" if picture.nil?
 
       image = { width: picture.image_file_width, height: picture.image_file_height }
 
@@ -92,19 +93,17 @@ module Alchemy
       mask[:width], mask[:height] = size.split('x').map(&:to_i)
 
       return {
-          x1: 0, x2: image[:width],
-          y1: 0, y2: image[:height]
+        x1: 0, x2: image[:width],
+        y1: 0, y2: image[:height]
       } if mask[:width] == 0 || mask[:height] == 0
 
-      if mask[:width] > image[:width] || mask[:height] > image[:height]
-        zoom_x = mask[:width].to_f / image[:width].to_f
-        zoom_y = mask[:height].to_f / image[:height].to_f
+      zoom_x = mask[:width].to_f / image[:width].to_f
+      zoom_y = mask[:height].to_f / image[:height].to_f
 
-        zoom = zoom_x > zoom_y ? zoom_x : zoom_y
+      zoom = zoom_x > zoom_y ? zoom_x : zoom_y
 
-        mask[:width] = (mask[:width] / zoom).to_i
-        mask[:height] = (mask[:height] / zoom).to_i
-      end
+      mask[:width] = (mask[:width] / zoom).to_i
+      mask[:height] = (mask[:height] / zoom).to_i
 
       {
         x1: (image[:width] - mask[:width]) / 2,

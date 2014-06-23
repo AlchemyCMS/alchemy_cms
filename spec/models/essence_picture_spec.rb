@@ -152,10 +152,15 @@ module Alchemy
 
       let(:picture) { mock_model(Picture, image_file_width: 200, image_file_height: 100)}
       let(:essence) { EssencePicture.new }
+      let(:essence_without_pic) { EssencePicture.new }
 
 
       before do
         essence.stub(:picture).and_return(picture)
+      end
+
+      it "should raise an error if there is no image" do
+        expect { essence_without_pic.default_mask() }.to raise_error("No picture associated")
       end
 
       it "should raise an error if the argument is empty" do
@@ -196,7 +201,7 @@ module Alchemy
 
       context "cropping the picture to 50x50 pixels" do
         it "should contain the correct coordination values in the hash" do
-          expect(essence.default_mask('50x50')).to eq({x1: 75, y1: 25, x2: 125, y2: 75})
+          expect(essence.default_mask('50x50')).to eq({x1: 50, y1: 0, x2: 150, y2: 100})
         end
       end
 
