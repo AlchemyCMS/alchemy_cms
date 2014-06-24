@@ -317,7 +317,7 @@ module Alchemy
       #   A children node
       #
       def process_url(ancestors_path, item)
-        default_urlname = (ancestors_path.blank? ? "" : "#{ancestors_path}/") + item['slug']
+        default_urlname = (ancestors_path.blank? ? "" : "#{ancestors_path}/") + item['slug'].to_s
 
         pair = {my_urlname: default_urlname, children_path: default_urlname}
 
