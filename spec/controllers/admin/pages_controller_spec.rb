@@ -135,6 +135,24 @@ module Alchemy
           end
         end
 
+        context 'with page having number as slug' do
+          let(:page_item_2) do
+            {
+              id: page_2.id,
+              slug: 42,
+              children: [page_item_3]
+            }
+          end
+
+          it "does not raise error" do
+            expect {
+              xhr :post, :order, set: set_of_pages.to_json
+            }.to_not raise_error(TypeError)
+            [page_1, page_2, page_3].map(&:reload)
+            expect(page_3.urlname).to eq("#{page_1.slug}/#{page_2.slug}/#{page_3.slug}")
+          end
+        end
+
         it "creates legacy urls" do
           xhr :post, :order, set: set_of_pages.to_json
           [page_2, page_3].map(&:reload)
