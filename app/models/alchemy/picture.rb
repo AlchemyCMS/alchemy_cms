@@ -160,40 +160,6 @@ module Alchemy
     end
     alias_method :square?, :square_format?
 
-    # Returns the default centered image mask for a given size.
-    #
-    def default_mask(size)
-      raise "No size given" if size.blank?
-      width = size.split('x')[0].to_i
-      height = size.split('x')[1].to_i
-      if (width > height)
-        zoom_factor = image_file_width.to_f / width
-        mask_height = (height * zoom_factor).round
-        x1 = 0
-        x2 = image_file_width
-        y1 = (image_file_height - mask_height) / 2
-        y2 = y1 + mask_height
-      elsif (width == 0 && height == 0)
-        x1 = 0
-        x2 = image_file_width
-        y1 = 0
-        y2 = image_file_height
-      else
-        zoom_factor = image_file_height.to_f / height
-        mask_width = (width * zoom_factor).round
-        x1 = (image_file_width - mask_width) / 2
-        x2 = x1 + mask_width
-        y1 = 0
-        y2 = image_file_height
-      end
-      {
-        x1: x1,
-        y1: y1,
-        x2: x2,
-        y2: y2
-      }
-    end
-
     # Returns a size value String for the thumbnail used in essence picture editors.
     #
     def cropped_thumbnail_size(size)

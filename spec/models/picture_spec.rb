@@ -182,35 +182,6 @@ module Alchemy
       end
     end
 
-    describe '#default_mask' do
-      before do
-        picture.stub(:image_file_width).and_return(200)
-        picture.stub(:image_file_height).and_return(100)
-      end
-
-      it "should return a Hash" do
-        expect(picture.default_mask('10x10')).to be_a(Hash)
-      end
-
-      context "cropping the picture to 200x50 pixel" do
-        it "should contain the correct coordination values in the hash" do
-          expect(picture.default_mask('200x50')).to eq({x1: 0, y1: 25, x2: 200, y2: 75})
-        end
-      end
-
-      context "if picture´s cropping size is 0x0 pixel" do
-        it "should not crop the picture" do
-          expect(picture.default_mask('0x0')).to eq({x1: 0, y1: 0, x2: 200, y2: 100})
-        end
-      end
-
-      context "cropping the picture to 50x100 pixel" do
-        it "should contain the correct coordination values in the hash" do
-          expect(picture.default_mask('50x100')).to eq({x1: 75, y1: 0, x2: 125, y2: 100})
-        end
-      end
-    end
-
     describe "#cropped_thumbnail_size" do
       context "if given size is blank or 111x93" do
         it "should return the default size of '111x93'" do
