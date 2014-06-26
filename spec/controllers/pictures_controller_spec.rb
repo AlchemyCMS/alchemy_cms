@@ -105,8 +105,39 @@ module Alchemy
       let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
 
       it "renders the cropped picture" do
-        get :show, id: picture.id, crop: 'crop', size: '123x44', crop_size: '123x44', crop_from: '0x0', format: :png, sh: picture.security_token(crop_size: '123x44', crop_from: '0x0', crop: true, size: '123x44')
+        get :show, id: picture.id, crop: 'crop', size: '123x44', crop_size: '123x44', crop_from: '0x0', format: :png,
+          sh: picture.security_token(crop_size: '123x44', crop_from: '0x0', crop: true, size: '123x44')
         response.body[0x10..0x18].unpack('NN').should == [123, 44]
+      end
+    end
+
+    context "Requesting a picture with crop_from and crop_size parameters with different size param" do
+      let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
+
+      it "renders the cropped picture" do
+        get :show, id: picture.id, crop: 'crop', size: '100x100', crop_size: '200x200', crop_from: '0x0', format: :png,
+          sh: picture.security_token(crop_size: '200x200', crop_from: '0x0', crop: true, size: '100x100')
+        response.body[0x10..0x18].unpack('NN').should == [100, 100]
+      end
+    end
+
+    context "Requesting a picture with crop_from and crop_size parameters with larger size param" do
+      let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
+
+      it "renders the cropped picture without upsampling" do
+        get :show, id: picture.id, crop: 'crop', size: '400x400', crop_size: '200x200', crop_from: '0x0', format: :png,
+          sh: picture.security_token(crop_size: '200x200', crop_from: '0x0', crop: true, size: '400x400')
+        response.body[0x10..0x18].unpack('NN').should == [200, 200]
+      end
+    end
+
+    context "Requesting a picture with crop_from and crop_size parameters with larger size param and upsample set" do
+      let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
+
+      it "renders the cropped picture with upsampling" do
+        get :show, id: picture.id, crop: 'crop', size: '400x400', crop_size: '200x200', crop_from: '0x0', format: :png, upsample: 'true',
+          sh: picture.security_token(crop_size: '200x200', crop_from: '0x0', crop: true, size: '400x400', upsample: 'true')
+        response.body[0x10..0x18].unpack('NN').should == [400, 400]
       end
     end
 

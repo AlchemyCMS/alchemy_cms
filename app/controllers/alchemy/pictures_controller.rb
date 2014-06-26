@@ -62,7 +62,7 @@ module Alchemy
     # Return the processed image dependent of size and cropping parameters
     def processed_image
       @image = @picture.image_file
-      @upsample = params[:upsample] ? true : false
+      @upsample = params[:upsample] == 'true' ? true : false
       if @image.nil?
         raise MissingImageFileError, "Missing image file for #{@picture.inspect}"
       end
@@ -73,7 +73,7 @@ module Alchemy
           @picture.resize(@size, @upsample)
         end
       else
-        @picture.image_file
+        @image
       end
     end
 

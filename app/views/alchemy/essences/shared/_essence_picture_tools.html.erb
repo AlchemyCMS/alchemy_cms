@@ -1,4 +1,4 @@
-<% if options[:crop] && content.ingredient %>
+<% if options[:crop] && content.ingredient && content.ingredient.can_be_cropped_to(options[:image_size], options[:upsample]) %>
 <%= link_to_dialog(
   render_icon('crop'),
   alchemy.crop_admin_essence_picture_path(content.essence, options: options.to_json),

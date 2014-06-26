@@ -18,9 +18,13 @@ module Alchemy
         if @picture = @essence_picture.picture
           @content = @essence_picture.content
           @options[:format] ||= (configuration(:image_store_format) or 'png')
-          @size_x, @size_y = sizes_from_essence_or_params
-          @initial_box, @default_box = cropping_boxes
+
+          @min_size = sizes_from_essence_or_params
           @ratio = ratio_from_size_or_params
+          infer_width_or_height_from_ratio
+
+          @default_box = @essence_picture.default_mask(@min_size)
+          @initial_box = @essence_picture.cropping_mask || @default_box
         else
           @no_image_notice = _t(:no_image_for_cropper_found)
         end
@@ -64,49 +68,40 @@ module Alchemy
         @content = Content.find(params[:content_id])
       end
 
+      # Gets the minimum size of the image to be rendered. the database render_size
+      # has preference over the image_size parameter.
+      #
       def sizes_from_essence_or_params
-        sizes_from_essence || sizes_from_params
-      end
-
-      def sizes_from_params
-        return [0, 0] if @options[:image_size].blank?
-        @options[:image_size].split('x')
-      end
-
-      def sizes_from_essence
-        return if @essence_picture.render_size.blank?
-        size_x, size_y = @essence_picture.render_size.split('x').map(&:to_i)
-        if size_x.zero? || size_y.nil? || size_y.zero?
-          size_x_of_original = @essence_picture.picture.image_file_width
-          size_y_of_original = @essence_picture.picture.image_file_height
-          size_x = size_x_of_original * size_y / size_y_of_original if size_x.zero?
-          size_y = size_y_of_original * size_x / size_x_of_original if size_y.nil? || size_y.zero?
-        end
-        [size_x, size_y]
-      end
-
-      def sizes_string
-        @sizes_string ||= "#{@size_x}x#{@size_y}"
-      end
-
-      def cropping_boxes
-        if @essence_picture.crop_from.blank? || @essence_picture.crop_size.blank?
-          initial_box = @essence_picture.default_mask(sizes_string)
-          default_box = initial_box
+        if @essence_picture.render_size? && !@essence_picture.render_size.blank?
+          @essence_picture.sizes_from_string(@essence_picture.render_size)
+        elsif @options[:image_size]
+          @essence_picture.sizes_from_string(@options[:image_size])
         else
-          initial_box = @essence_picture.cropping_mask
-          default_box = @essence_picture.default_mask(sizes_string)
+          { width: 0, height: 0 }
         end
-        [initial_box, default_box]
       end
 
+      # Infers the aspect ratio from size or parameters. If you don't want a fixed
+      # aspect ratio, don't specify a size or only width or height.
+      #
       def ratio_from_size_or_params
-        if @options[:fixed_ratio] == false
-          false
-        elsif @size_y == 0
-          1
+        if @min_size.has_value?(0) && @options[:fixed_ratio]
+          @options[:fixed_ratio].to_f
+        elsif !@min_size[:width].zero? && !@min_size[:height].zero?
+          @min_size[:width].to_f / @min_size[:height].to_f
         else
-          @size_x.to_f / @size_y.to_f
+          false
+        end
+      end
+
+      # Infers the minimum width or height if the aspect ratio and one dimension
+      # is specified.
+      #
+      def infer_width_or_height_from_ratio
+        if @min_size[:height].zero?
+          @min_size[:height] = (@min_size[:width] / @ratio).to_i if @ratio
+        else
+          @min_size[:width] = (@min_size[:height] * @ratio).to_i if @ratio
         end
       end
 
