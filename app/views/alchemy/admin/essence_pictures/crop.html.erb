@@ -35,12 +35,15 @@
   Alchemy.ImageLoader('#jscropper .thumbnail_background');
   $('#imageToCrop').load(function() {
     Alchemy.ImageCropper.init(
-      [<%= @initial_box[:x1] %>, <%= @initial_box[:y1] %>, <%= @initial_box[:x2] %>, <%= @initial_box[:y2] %>],
-      <%= @size_x %>,
-      <%= @size_y %>,
-      [<%= @default_box[:x1] %>, <%= @default_box[:y1] %>, <%= @default_box[:x2] %>, <%= @default_box[:y2] %>],
+       <%= @initial_box.values.to_json %>,
+      <% if @essence_picture.can_be_cropped_to("#{@min_size[:width]}x#{@min_size[:height]}") %>
+        <%= @min_size.values.to_json %>,
+      <% else %>
+        <%= false %>,
+      <% end %>
+      <%= @default_box.values.to_json %>,
       <%= @ratio %>,
-      [<%= @picture.image_file_width %>, <%= @picture.image_file_height %>]
+      <%= @picture.image_size.values.to_json %>
     );
   });
 </script>

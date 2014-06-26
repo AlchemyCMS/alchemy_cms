@@ -46,22 +46,20 @@ module Alchemy
 
         context 'with no render_size present in essence' do
           before do
-            essence.should_receive(:render_size).and_return(nil)
+            essence.should_receive(:render_size).any_number_of_times.and_return(nil)
           end
 
           context 'with sizes in params' do
             it "sets sizes to given values" do
               get :crop, id: 1, options: {image_size: '300x250'}
-              expect(assigns(:size_x)).to eq('300')
-              expect(assigns(:size_y)).to eq('250')
+              expect(assigns(:min_size)).to eq({ width: 300, height: 250 })
             end
           end
 
           context 'with no sizes in params' do
             it "sets sizes to zero" do
               get :crop, id: 1
-              expect(assigns(:size_x)).to eq(0)
-              expect(assigns(:size_y)).to eq(0)
+              expect(assigns(:min_size)).to eq({ width: 0, height: 0 })
             end
           end
         end
@@ -71,25 +69,38 @@ module Alchemy
             essence.stub(:render_size).and_return('30x25')
 
             get :crop, id: 1
-            expect(assigns(:size_x)).to eq(30)
-            expect(assigns(:size_y)).to eq(25)
+            expect(assigns(:min_size)).to eq({ width: 30, height: 25 })
           end
 
-          context 'when width or height is not fixed' do
-            it 'infers the height from the image file preserving the aspect ratio' do
-              essence.stub(:render_size).and_return('30')
+          context 'when width or height is not fixed and no aspect ratio is given' do
+            it 'does not infer the height from the image file preserving the aspect ratio' do
+              essence.stub(:render_size).and_return('30x')
 
               get :crop, id: 1
-              expect(assigns(:size_x)).to eq(30)
-              expect(assigns(:size_y)).to eq(25)
+              expect(assigns(:min_size)).to eq({ width: 30, height: 0})
             end
 
-            it 'infers the height from the image file preserving the aspect ratio' do
+            it 'does not infer the height from the image file preserving the aspect ratio' do
+              essence.stub(:render_size).and_return('x25')
+
+              get :crop, id: 1, options: { fixed_ratio: "2"}
+              expect(assigns(:min_size)).to eq({ width: 50, height: 25 })
+            end
+          end
+
+          context 'when width or height is not fixed and an aspect ratio is given' do
+            it 'width is given, it infers the height from width and ratio' do
+              essence.stub(:render_size).and_return('30x')
+
+              get :crop, id: 1, options: { fixed_ratio: "0.5" }
+              expect(assigns(:min_size)).to eq({ width: 30, height: 60 })
+            end
+
+            it 'height is given, it infers the width from height and ratio' do
               essence.stub(:render_size).and_return('x25')
 
               get :crop, id: 1
-              expect(assigns(:size_x)).to eq(30)
-              expect(assigns(:size_y)).to eq(25)
+              expect(assigns(:min_size)).to eq({ width: 0, height: 25})
             end
           end
         end
@@ -136,13 +147,6 @@ module Alchemy
           it "sets a fixed ratio from sizes" do
             get :crop, id: 1, options: {image_size: '80x60'}
             expect(assigns(:ratio)).to eq(80.0/60.0)
-          end
-        end
-
-        context 'with size_y set to zero' do
-          it "sets ratio to 1" do
-            get :crop, id: 1
-            expect(assigns(:ratio)).to eq(1)
           end
         end
       end
