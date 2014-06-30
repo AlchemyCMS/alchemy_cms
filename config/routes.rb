@@ -1,6 +1,9 @@
 require 'alchemy/routing_constraints'
 
 Alchemy::Engine.routes.draw do
+
+  resources :nodes
+
   root :to => 'pages#show'
 
   get '/sitemap.xml' => 'pages#sitemap', format: 'xml'

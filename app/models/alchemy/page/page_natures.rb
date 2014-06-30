@@ -12,8 +12,10 @@ module Alchemy
     end
 
     def systempage?
-      return true if Page.root.nil?
-      rootpage? || (parent_id == Page.root.id && !language_root?)
+      return false
+      # TODO refactor systempages
+      # return true if Page.root.nil?
+      # rootpage? || (parent_id == Page.root.id && !language_root?)
     end
 
     def folded?(user_id)

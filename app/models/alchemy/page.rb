@@ -66,10 +66,10 @@ module Alchemy
     ]
 
     acts_as_taggable
-    acts_as_nested_set(:dependent => :destroy)
 
     stampable stamper_class_name: Alchemy.user_class_name
 
+    has_many :tree_nodes, as: 'navigatable', class_name: 'Alchemy::Node'
     has_many :folded_pages
     has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
     belongs_to :language
@@ -77,7 +77,6 @@ module Alchemy
     validates_presence_of :language, :on => :create, :unless => :root
     validates_presence_of :page_layout, :unless => :systempage?
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { systempage? || page_layout.blank? }
-    validates_presence_of :parent_id, :if => proc { Page.count > 1 }
 
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
@@ -101,7 +100,7 @@ module Alchemy
     #
     class << self
 
-      alias_method :rootpage, :root
+      # alias_method :rootpage, :root
 
       # Used to store the current page previewed in the edit page template.
       #

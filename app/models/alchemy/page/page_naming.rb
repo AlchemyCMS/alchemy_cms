@@ -22,11 +22,12 @@ module Alchemy
         presence: {if: :redirects_to_external?}
 
       before_save :set_title, :if => 'title.blank?', :unless => proc { systempage? || redirects_to_external? }
-      after_update :update_descendants_urlnames,
-        if: -> { Config.get(:url_nesting) && (urlname_changed? || visible_changed?) }
-      after_move :update_urlname!,
-        if: -> { Config.get(:url_nesting) },
-        unless: :redirects_to_external?
+      # TODO: Find solution to update urlname after tree node was moved
+      # after_update :update_descendants_urlnames,
+      #   if: -> { Config.get(:url_nesting) && (urlname_changed? || visible_changed?) }
+      # after_move :update_urlname!,
+      #   if: -> { Config.get(:url_nesting) },
+      #   unless: :redirects_to_external?
     end
 
     # Returns true if name or urlname has changed.
