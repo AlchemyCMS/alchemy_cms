@@ -169,7 +169,7 @@ If you have your own Capistrano receipts, you should require the Alchemy tasks i
     # deploy.rb
     require 'alchemy/capistrano'
 
-If you don't use Capistrano you have to **make shure that the `uploads`, `tmp/cache/assets`, `public/assets` and `public/pictures` cache folders get shared** between deployments, otherwise you **will loose data**.
+If you don't use Capistrano you have to **make sure that the `uploads`, `tmp/cache/assets`, `public/assets` and `public/pictures` cache folders get shared** between deployments, otherwise you **will loose data**.
 
 Please take a look into the `lib/alchemy/capistrano.rb` file, to see how to achieve this.
 
