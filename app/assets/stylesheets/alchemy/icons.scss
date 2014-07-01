@@ -11,7 +11,7 @@
     font-size: 19px;
   }
 
-  &.add_page {
+  &.add_page, &.add_node {
     background-position: -96px -40px;
   }
 
@@ -77,7 +77,7 @@
     background-position: -256px -72px;
   }
 
-  &.delete_page {
+  &.delete_page, &.delete_node {
     background-position: -64px -40px;
   }
 
@@ -205,7 +205,7 @@
     background-position: -224px -105px;
   }
 
-  &.page, &.clipboard_pages {
+  &.page, &.node, &.clipboard_pages {
     background-position: 0 -40px;
   }
 
@@ -247,7 +247,7 @@
     background-position: -320px -40px;
   }
 
-  &.sort {
+  &.sort, &.nodes {
     background-position: -128px -168px;
   }
 

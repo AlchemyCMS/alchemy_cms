@@ -2,8 +2,6 @@ require 'alchemy/routing_constraints'
 
 Alchemy::Engine.routes.draw do
 
-  resources :nodes
-
   root :to => 'pages#show'
 
   get '/sitemap.xml' => 'pages#sitemap', format: 'xml'
@@ -24,16 +22,21 @@ Alchemy::Engine.routes.draw do
       end
     end
 
+    resources :nodes do
+      collection do
+        get :sort
+        post :order
+      end
+    end
+
     resources :pages do
       resources :elements
       collection do
-        post :order
         post :flush
         post :copy_language_tree
         get :switch_language
         get :create_language
         get :link
-        get :sort
       end
       member do
         post :unlock

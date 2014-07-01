@@ -22,6 +22,9 @@
     action: index
     icon: pages
     sub_navigation:
+      - name: 'modules.nodes'
+        controller: 'alchemy/admin/nodes'
+        action: index
       - name: 'modules.pages'
         controller: 'alchemy/admin/pages'
         action: index

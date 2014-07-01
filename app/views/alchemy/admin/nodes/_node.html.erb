@@ -1,0 +1,67 @@
+<%= content_tag :li,
+  id: dom_id(node),
+  class: node.navigatable_type,
+  data: {
+    url: node.url,
+    navigatable_id: node.navigatable_id,
+    navigatable_type: node.navigatable_type
+  } do %>
+  <div class="sitemap_node" name="<%= node.name %>">
+    <span class="sitemap_left_images">
+      <span class="node icon <%= @sorting && node.level > 1 ? 'handle' : nil %>"></span>
+    </span>
+    <span class="sitemap_right_tools">
+      <%- if can?(:edit, node) -%>
+        <%= link_to_dialog(
+          render_icon('edit'),
+          alchemy.edit_admin_node_path(node),
+          {
+            title: _t(:edit_node_properties),
+            size: '340x240'
+          },
+          title: _t(:edit_node_properties)
+        ) -%>
+      <%- end -%>
+      <%- if can?(:destroy, node) -%>
+        <%= link_to_confirm_dialog(
+          render_icon('delete_node'),
+          _t(:confirm_to_delete_node),
+          url_for(
+            controller: 'nodes',
+            action: 'destroy',
+            id: node.id
+          ),
+          {
+            title: _t(:delete_node)
+          }
+        ) -%>
+      <%- end -%>
+      <%- if can?(:create, Alchemy::Node) -%>
+        <%= link_to_dialog(
+          render_icon('add_node'),
+          alchemy.new_admin_node_path(parent_id: node.id),
+          {
+            title: _t(:create_node),
+            size: '340x240',
+            overflow: true
+          },
+          title: _t(:create_node)
+        ) -%>
+      <%- end -%>
+    </span>
+    <span class="sitemap_sitename">
+      <%= link_to_if(
+        node.navigatable,
+        node.name,
+        alchemy.edit_admin_node_path(node),
+        title: _t(:edit_node),
+        class: "sitemap_nodename_link"
+      ) { content_tag('span', node.name, class: "sitemap_nodename_link") } -%>
+    </span>
+  </div>
+  <%- if node.children.any? -%>
+  <ul id="node_<%= node.id %>_children" class="level_<%= node.level %>_children">
+    <%= render partial: 'node', collection: node.children %>
+  </ul>
+  <%- end -%>
+<% end %>

@@ -1,0 +1,10 @@
+<div id="sort_panel" style="display: none">
+  <div class="info">
+    <%= render_icon('info') %>
+    <%= _t(:explain_sitemap_dragndrop_sorting) %>
+  </div>
+  <div class="buttons">
+    <%= link_to( _t(:cancel), alchemy.admin_nodes_path, class: 'button' ) %>&nbsp;
+    <%= submit_tag( _t('save order'), id: 'save_node_order', class: 'button' ) %>
+  </div>
+</div>

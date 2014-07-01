@@ -1,3 +1,91 @@
+#sitemap {
+
+  &.list {
+    padding: 16px 12px;
+  }
+
+  &.sorting {
+
+    .page.icon { cursor: move }
+  }
+
+  .page.icon {
+    float: left;
+    position: relative;
+  }
+
+  .locked .page.icon {
+    background-position: -32px -40px;
+  }
+
+  .legend {
+
+    .right {
+      margin-right: 52px;
+
+      .page_move {
+        @include inline-block;
+        width: 74px;
+        text-align: center;
+      }
+    }
+  }
+
+  .root_node { font-weight: bold }
+
+  .page_folder {
+    @extend .icon;
+    float: left;
+    margin-left: -21px;
+    margin-top: 1px;
+
+    &.collapsed { @extend .icon.expand.small }
+    &.folded { @extend .icon.collapse.small }
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    padding-left: 0;
+
+    .selected_page a {
+      background-color: $linked-color;
+      color: $dark-gray;
+    }
+
+    li {
+      padding-left: 22px;
+      padding-right: 0;
+    }
+  }
+}
+
+ul#sitemap li,
+ul#layoutpages li {
+  list-style-type: none;
+  display: block;
+  margin-left: 0;
+  margin-bottom: 0;
+  line-height: 22px;
+}
+
+ul#sitemap li .sitemap_toolrow,
+ul.list li .sitemap_toolrow {
+  margin: 0;
+  overflow: auto;
+  padding: 4px 0;
+}
+
+ul#sitemap .sitemap_sitename,
+ul.list .sitemap_sitename {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-left: 8px;
+}
+
 #sort_panel {
   background: $medium-gray;
   padding: 45px 0 8px 0;
@@ -78,11 +166,10 @@
   padding: 0;
 }
 
-.sitemap_page {
-  height: 22px;
-  padding-bottom: 4px;
-  padding-top: 4px;
+.sitemap_node {
   position: relative;
+  margin: 8px 0;
+  background-color: white;
 
   &.highlight .sitemap_pagename_link {
     background-color: #FFFBA5;
@@ -95,115 +182,32 @@
   &:hover .sitemap_pagename_link {
     background-color: $light_yellow;
   }
+
+  .icon {
+    vertical-align: text-bottom;
+  }
 }
 
-div.sitemap_left_images {
+.sitemap_left_images {
   width: 16px;
-  margin-top: 3px;
   float: left;
-  margin-right: 8px;
+  padding-right: 8px;
   background-color: $light-gray;
 }
 
 .sitemap_right_tools {
-  height: 22px;
   background-color: $light-gray;
   padding-left: 8px;
   float: right;
-  width: 120px;
 
-  .sitemap_tool {
+  .icon {
     float: left;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
-    text-align: center;
-  }
-
-  .icon.blank {
-    margin-left: 2px;
-    float: left;
-    margin-top: 3px;
-    margin-right: 3px;
+    margin: 4px;
   }
 }
 
-.sitemap_sitetools {
-  padding: 0;
-  float: left;
-  width: 72px;
-}
-
-div#page_selector_container div.sitemap_right_tools {
+#page_selector_container .sitemap_right_tools {
   width: 24px;
-}
-
-ul#sitemap {
-
-  li.legend {
-
-    span.right {
-      margin-right: 52px;
-
-      span.page_move {
-        @include inline-block;
-        width: 74px;
-        text-align: center;
-      }
-    }
-  }
-
-  .page_folder {
-    @extend .icon;
-    float: left;
-    margin-left: -21px;
-    margin-top: 1px;
-
-    &.collapsed { @extend .icon.expand.small }
-    &.folded { @extend .icon.collapse.small }
-  }
-
-  ul {
-    margin: 0;
-    padding: 0;
-  }
-
-  li {
-    padding-left: 0;
-
-    .selected_page a {
-      background-color: $linked-color;
-      color: $dark-gray;
-    }
-
-    li {
-      padding-left: 22px;
-      padding-right: 0;
-    }
-  }
-}
-
-ul#sitemap li,
-ul#layoutpages li {
-  list-style-type: none;
-  display: block;
-  margin-left: 0;
-  margin-bottom: 0;
-  line-height: 22px;
-}
-
-ul#sitemap li .sitemap_toolrow,
-ul.list li .sitemap_toolrow {
-  margin: 0;
-  overflow: auto;
-  padding: 4px 0;
-}
-
-ul#sitemap .sitemap_sitename,
-ul.list .sitemap_sitename {
-  height: 22px;
-  line-height: 22px;
-  overflow: hidden;
 }
 
 div.page_infos {
@@ -257,29 +261,12 @@ div.page_infos {
   }
 }
 
-#sitemap .page_status {
+#sitemap .node_status {
   margin: 2px 2px 0 4px;
 }
 
 .alchemy-dialog .page_status {
   margin: 2px 4px 0 0;
-}
-
-#sitemap {
-
-  &.sorting {
-
-    .page.icon { cursor: move }
-  }
-
-  .page.icon {
-    float: left;
-    position: relative;
-  }
-
-  .locked .page.icon {
-    background-position: -32px -40px;
-  }
 }
 
 .sitemap_sitestatus {
@@ -300,23 +287,6 @@ a.folder_link {
   border: $default-border;
   background: $medium-gray;
   @extend %rounded-border;
-}
-
-h2#sitemap_heading {
-  padding: 0;
-
-  span.page_infos {
-    margin-right: 144px;
-    width: 40px;
-    text-align: center;
-    float: right;
-    line-height: 28px;
-  }
-
-  span.page_name {
-    line-height: 28px;
-    margin-left: 24px;
-  }
 }
 
 #page_filter_result {

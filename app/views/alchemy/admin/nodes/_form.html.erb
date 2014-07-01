@@ -1,0 +1,11 @@
+<%= alchemy_form_for([:admin, @node]) do |f| %>
+  <%= f.input :name, input_html: {autofocus: true} %>
+  <% unless @node.root? %>
+    <%= f.input :title %>
+    <%= f.input :url %>
+    <%= f.input :nofollow %>
+    <%= f.hidden_field :language_id %>
+    <%= f.hidden_field :parent_id %>
+  <% end %>
+  <%= f.submit button_label %>
+<% end %>
