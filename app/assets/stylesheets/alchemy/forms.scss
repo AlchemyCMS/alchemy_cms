@@ -49,11 +49,8 @@ form {
       line-height: 16px;
     }
 
-    &.select, &.grouped_select {
-
-      .select2-container {
-        margin: 4px 0;
-      }
+    .select2-container {
+      margin: 4px 0;
     }
 
     &.boolean {

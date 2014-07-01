@@ -320,6 +320,8 @@ en:
     confirm_to_delete_image: "Do you really want to delete this image from server?"
     confirm_to_delete_image_from_server: "Do you really want to delete this image from the server?"
     confirm_to_delete_images_from_server: "Do you really want to delete these images from the server?"
+    confirm_to_delete_menu: "Do you really want to delete this menu?"
+    confirm_to_delete_node: "Do you really want to delete this menu node?"
     confirm_to_delete_page: "Do you really want to delete this page? All its elements (even trashed ones) will get lost!"
     content_essence_not_found: "Content essence not found"
     content_not_found: "Field for content not present."
@@ -335,12 +337,16 @@ en:
     "Create language": "Create a new language"
     "Create site": "Create a new site"
     create_language_tree_heading: "Create empty language tree"
+    create_menu: "Add a menu"
+    create_node: "Add a menu node"
     create_page: "Create a new subpage"
     currently_edited_by: "This page is locked by"
     cut_element: "Cut this element."
     delete_file: "Delete this file from server."
     delete_image: "Remove this image"
     delete_language: "Delete this language"
+    delete_menu: "Delete this menu"
+    delete_node: "Delete this menu node"
     delete_page: "Delete this page"
     delete_tag: 'Delete tag'
     document: "File"
@@ -351,6 +357,8 @@ en:
     edit_file_properties: "Edit file properties."
     edit_image_properties: "Edit image properties."
     edit_language: "Edit language"
+    edit_menu: "Edit menu"
+    edit_node: "Edit menu node"
     edit_page: "Edit this page"
     edit_page_properties: "Edit page properties"
     edit_tag: 'Edit tag'
@@ -418,6 +426,7 @@ en:
     male: "Male"
     me: "Me"
     medium_thumbnails: "Medium thumbnails"
+    menu: Menu
     meta_data: "Meta-Data"
     meta_description: "Meta-Description"
     meta_keywords: "Meta-Keywords"
@@ -428,6 +437,7 @@ en:
       languages: "Languages"
       layoutpages: "Global Pages"
       library: "Library"
+      menus: "Menus"
       pages: "Pages"
       tags: "Tags"
       sites: "Sites"
@@ -435,7 +445,7 @@ en:
       users: "Users"
     name: "Name"
     names: "Names"
-    navigation_name: "Navigation name"
+    node_url_hint: "Please use either a leading slash (/) or an url with protocol (ie. https:)"
     no_image_for_cropper_found: "No image found. Please save the element first."
     no: "No"
     "no pages": "no pages"
@@ -445,6 +455,7 @@ en:
     no_files_in_archive: "You do not have any files in your archive."
     no_images_in_archive: "You don't have any images in your archive."
     no_more_elements_to_add: "No more elements available."
+    no_resource_found: "No %{resource} found. Please add your first one below."
     no_search_results: "Your search did not return any results."
     "not a valid image": "This is not an valid image."
     "or": 'or'
@@ -704,6 +715,9 @@ en:
       alchemy/language:
         one: "Language"
         other: "Languages"
+      alchemy/node:
+        one: "Menu node"
+        other: "Menu nodes"
       alchemy/page:
         one: "Page"
         other: "Pages"

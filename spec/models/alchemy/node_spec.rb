@@ -9,6 +9,26 @@ module Alchemy
       expect(build(:alchemy_node)).to be_valid
     end
 
+    describe '.language_root_nodes' do
+      context 'with no current language present' do
+        before { expect(Language).to receive(:current) { nil } }
+
+        it "raises error if no current language is set" do
+          expect { Node.language_root_nodes }.to raise_error('No language found')
+        end
+      end
+
+      context 'with current language present' do
+        let(:root_node)  { create(:alchemy_node) }
+        let(:child_node) { create(:alchemy_node, parent_id: root_node.id) }
+
+        it "returns root nodes from current language" do
+          expect(Node.language_root_nodes).to include(root_node)
+          expect(Node.language_root_nodes).to_not include(child_node)
+        end
+      end
+    end
+
     describe '#url' do
       it 'is valid with leading slash' do
         expect(build(:alchemy_node, url: '/something')).to be_valid

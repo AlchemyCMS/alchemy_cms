@@ -1,0 +1,154 @@
+.nodes_tree.list {
+  margin: 2em 0;
+
+  &.sorting {
+    padding-top: 100px;
+
+    .page_icon {
+      cursor: move
+    }
+  }
+
+  .sitemap_node-level_0 {
+
+    > .node_name {
+      font-weight: bold;
+    }
+  }
+
+  .node_page,
+  .node_url {
+    width: 200px;
+    max-width: 45%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+
+    > a {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+
+      .external & {
+        max-width: 90%;
+      }
+    }
+  }
+
+  .node_page {
+    padding: 0 8px;
+    margin-left: auto;
+  }
+
+  .node_url {
+    display: flex;
+    align-items: center;
+    padding: 0 2*$default-padding;
+    white-space: nowrap;
+    background-color: $sitemap-info-background-color;
+    line-height: $sitemap-line-height;
+    font-size: $small-font-size;
+    @include border-right-radius($default-border-radius);
+
+    > i {
+      margin-left: auto;
+      padding-left: $default-padding;
+    }
+  }
+
+  .node_folder {
+    cursor: pointer;
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  li {
+    line-height: $sitemap-line-height;
+    padding-left: $default-padding;
+
+    li {
+      padding-left: $sitemap-line-height;
+    }
+  }
+}
+
+#node_filter_result {
+  display: none;
+  margin-left: 2*$default-margin;
+}
+
+.sitemap_node {
+  margin: 3*$default-margin 0;
+  transition: background-color $transition-duration;
+
+  &.highlight {
+    background-color: $sitemap-highlight-color;
+  }
+
+  &.no-match .sitemap_pagename_link {
+    color: $medium-gray;
+  }
+
+  &:hover {
+    background-color: $sitemap-page-hover-color;
+    border-radius: $default-border-radius;
+  }
+
+  .node_name {
+    display: flex;
+    justify-content: space-between;
+    @include border-left-radius($default-border-radius);
+    padding: 0 0 0 10px;
+    margin: 2px;
+    text-decoration: none;
+    overflow: hidden;
+    background-color: $sitemap-page-background-color;
+
+    &.without-status {
+      @include border-right-radius($default-border-radius);
+    }
+
+    &.inactive {
+      color: #656565;
+    }
+  }
+}
+
+.nodes_tree-left_images {
+  position: relative;
+  width: 32px;
+  line-height: $sitemap-line-height;
+  float: left;
+  padding: 0 2*$default-padding;
+  text-align: center;
+}
+
+.nodes_tree-right_tools {
+  height: $sitemap-line-height;
+  padding: 0 2*$default-padding;
+  float: right;
+
+  > a {
+    float: left;
+    width: $sitemap-line-height;
+    height: $sitemap-line-height;
+    line-height: $sitemap-line-height;
+    text-align: center;
+    margin: 0;
+
+    &.disabled .icon {
+      opacity: 0.25;
+      filter: grayscale(100%);
+    }
+  }
+
+  .icon.blank {
+    margin-left: 2px;
+    float: left;
+    margin-top: 3px;
+    margin-right: 3px;
+  }
+}

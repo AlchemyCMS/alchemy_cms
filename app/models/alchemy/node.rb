@@ -20,6 +20,14 @@ module Alchemy
       read_attribute(:name).presence || page&.name
     end
 
+    class << self
+      # Returns all root nodes for current language
+      def language_root_nodes
+        raise 'No language found' if Language.current.nil?
+        roots.where(language_id: Language.current.id)
+      end
+    end
+
     # Returns the url
     #
     # Either the value is stored in the database, aka. an external url.
