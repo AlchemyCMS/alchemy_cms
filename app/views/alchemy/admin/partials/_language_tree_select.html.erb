@@ -1,8 +1,11 @@
 <div class="button_with_label">
-  <%= form_tag switch_language_admin_pages_path, method: 'get' do %>
+  <%= form_tag switch_admin_languages_path, method: 'get' do %>
     <%= select_tag(
       'language_id',
-      options_for_select(@languages.map { |l| [l.name, l.id] }, Alchemy::Language.current.id),
+      options_for_select(
+        Alchemy::Language.all.map { |l| [l.name, l.id] },
+        Alchemy::Language.current.id
+      ),
       class: 'alchemy_selectbox short',
       data: {'auto-submit' => true}
     ) %>
