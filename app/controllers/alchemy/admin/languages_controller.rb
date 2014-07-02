@@ -13,6 +13,11 @@ module Alchemy
           page_layout: Config.get(:default_language)['page_layout']
         )
       end
+
+      def switch
+        set_alchemy_language(params[:language_id])
+        do_redirect_to request.referer || alchemy.admin_dashboard_path
+      end
     end
   end
 end
