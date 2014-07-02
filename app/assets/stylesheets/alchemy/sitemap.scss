@@ -19,19 +19,23 @@
   }
 
   .legend {
+    color: #666;
+    line-height: 2em;
 
-    .right {
-      margin-right: 52px;
-
-      .page_move {
-        @include inline-block;
-        width: 74px;
-        text-align: center;
-      }
-    }
+    .node_url { padding-right: 84px }
+    .node_name { margin-left: 32px }
   }
 
-  .root_node { font-weight: bold }
+  .root_node {
+    font-weight: bold;
+    margin-bottom: 1em;
+
+    &:hover {
+      .sitemap_right_tools { display: block }
+    }
+
+    .sitemap_right_tools { display: none }
+  }
 
   .page_folder {
     @extend .icon;
@@ -61,6 +65,18 @@
       padding-right: 0;
     }
   }
+
+  .node_type, .node_url {
+    color: #666;
+    float: right;
+    padding-right: 8px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+
+  .node_type { width: 140px }
+  .node_url { width: 160px }
 }
 
 ul#sitemap li,
@@ -79,7 +95,7 @@ ul.list li .sitemap_toolrow {
   padding: 4px 0;
 }
 
-ul#sitemap .sitemap_sitename,
+ul#sitemap .node_name,
 ul.list .sitemap_sitename {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -118,7 +134,7 @@ ul.list .sitemap_sitename {
     color: #656565;
   }
 
-  :hover {
+  &:hover {
     text-decoration: underline;
 
     &:after {
@@ -179,7 +195,7 @@ ul.list .sitemap_sitename {
     color: $medium-gray;
   }
 
-  &:hover .sitemap_pagename_link {
+  &:hover {
     background-color: $light_yellow;
   }
 
@@ -197,7 +213,7 @@ ul.list .sitemap_sitename {
 
 .sitemap_right_tools {
   background-color: $light-gray;
-  padding-left: 8px;
+  padding-left: 4px;
   float: right;
 
   .icon {

@@ -453,6 +453,8 @@ en:
     name: "Name"
     names: "Names"
     navigation_name: "Navigation name"
+    node_types:
+      alchemy/pages: "Pages"
     no_image_for_cropper_found: "No image found. Please save the element first."
     no: "No"
     "no pages": "no pages"
@@ -875,6 +877,13 @@ en:
 
       alchemy/legacy_page_url:
         urlname: "URL path"
+
+      alchemy/node:
+        name: "Name"
+        title: "Title"
+        nofollow: "Search engine must not follow"
+        url: "URL"
+        navigatable_type: "Type"
 
       alchemy/page:
         created_at: "Created at"

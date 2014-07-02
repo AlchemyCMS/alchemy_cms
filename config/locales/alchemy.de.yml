@@ -453,6 +453,8 @@ de:
     name: "Name"
     names: "Namen"
     navigation_name: "Navigationsname"
+    node_types:
+      alchemy/pages: "Seiten"
     no_image_for_cropper_found: "Es wurde kein Bild gefunden. Bitte speichern Sie zuerst das Element."
     no: "Nein"
     "no pages": "Keine Seiten"
@@ -874,6 +876,13 @@ de:
         name: "Name"
         page_layout: "Seitentyp der Startseite"
         public: "Sprache veröffentlichen"
+
+      alchemy/node:
+        name: "Name"
+        title: "Titel"
+        nofollow: "Suchmaschine soll nicht folgen"
+        url: "URL"
+        navigatable_type: "Typ"
 
       alchemy/legacy_page_url:
         urlname: "URL-Pfad"

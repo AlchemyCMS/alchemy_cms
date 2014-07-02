@@ -17,7 +17,7 @@
           alchemy.edit_admin_node_path(node),
           {
             title: _t(:edit_node_properties),
-            size: '340x240'
+            size: '400x270'
           },
           title: _t(:edit_node_properties)
         ) -%>
@@ -42,21 +42,28 @@
           alchemy.new_admin_node_path(parent_id: node.id),
           {
             title: _t(:create_node),
-            size: '340x240',
+            size: '400x270',
             overflow: true
           },
           title: _t(:create_node)
         ) -%>
       <%- end -%>
     </span>
-    <span class="sitemap_sitename">
-      <%= link_to_if(
-        node.navigatable,
-        node.name,
-        alchemy.edit_admin_node_path(node),
-        title: _t(:edit_node),
-        class: "sitemap_nodename_link"
-      ) { content_tag('span', node.name, class: "sitemap_nodename_link") } -%>
+    <span class="node_name"><%= node.name %></span>
+    <span class="node_url">
+    <% if node.url.present? %>
+      <%= h node.url %>
+    <% else %>
+      &nbsp;
+    <% end %>
+    </span>
+    <span class="node_type">
+    <% if node.navigatable %>
+      <%= node.navigatable.class.model_name.human %>:
+      <%= link_to [:edit, :admin, node.navigatable], title: _t(:edit_page) do %>
+        <%= node.navigatable.try(:name_for_alchemy_node) %>
+      <% end %>
+    <% end %>
     </span>
   </div>
   <%- if node.children.any? -%>

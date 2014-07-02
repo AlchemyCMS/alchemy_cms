@@ -467,12 +467,15 @@ fr:
       languages: "Langues"
       layoutpages: "Pages globales"
       library: "Bibliothèque"
+      nodes: "Navigations"
       pages: "Pages"
       tags: "Tags"
       sites: "Websites"
     name: "Nom"
     names: "Prénom"
     navigation_name: "Nom de navigation"
+    node_types:
+      alchemy/pages: "Pages"
     no_image_for_cropper_found: "Il y avait trouvé aucune image. S'il vous plaît enregistrer dabord l'élément."
     no: "Non"
     "no pages": "Pas de pages"
@@ -894,6 +897,13 @@ fr:
         name: "Naom"
         page_layout: "Page Type de Page d'accueil"
         public: "publier langage"
+
+      alchemy/node:
+        name: "Name"
+        title: "Title"
+        nofollow: "Search engine must not follow"
+        url: "URL"
+        navigatable_type: "Type"
 
       alchemy/page:
         created_at: "créée le"
