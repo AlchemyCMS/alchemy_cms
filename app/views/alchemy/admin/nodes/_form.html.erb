@@ -1,11 +1,39 @@
-<%= alchemy_form_for([:admin, @node]) do |f| %>
-  <%= f.input :name, input_html: {autofocus: true} %>
-  <% unless @node.root? %>
-    <%= f.input :title %>
-    <%= f.input :url %>
-    <%= f.input :nofollow %>
+<% if @node.root? %>
+  <%= alchemy_form_for([:admin, @node]) do |f| %>
+    <%= f.input :name %>
     <%= f.hidden_field :language_id %>
-    <%= f.hidden_field :parent_id %>
+    <%= f.submit button_label %>
   <% end %>
-  <%= f.submit button_label %>
+<% else %>
+  <div id="overlay_tabs">
+    <ul>
+      <% Alchemy::NODE_TYPES.each do |node_type, node_class| %>
+        <li>
+          <a href="#<%= node_type.tableize %>">
+            <%= _t(node_type.tableize, scope: 'node_types') %>
+          </a>
+        </li>
+      <% end %>
+      <li><a href="#create_external_tab"><%= _t('External URL') %></a></li>
+    </ul>
+    <% Alchemy::NODE_TYPES.each do |node_type, node_class| %>
+      <div id="<%= node_type.tableize %>">
+        <%= render "alchemy/admin/node_types/#{node_type.tableize.sub(/\//, '_')}",
+          node_type: node_type, node_class: node_class, button_label: button_label %>
+      </div>
+    <% end %>
+    <div id="create_external_tab">
+      <%= alchemy_form_for([:admin, @node]) do |f| %>
+        <%= f.input :name %>
+        <%= f.input :title %>
+        <%= f.input :url %>
+        <%= f.input :nofollow %>
+        <%= f.hidden_field :navigatable_type, value: '' %>
+        <%= f.hidden_field :navigatable_id, value: '' %>
+        <%= f.hidden_field :language_id %>
+        <%= f.hidden_field :parent_id %>
+        <%= f.submit button_label %>
+      <% end %>
+    </div>
+  </div>
 <% end %>

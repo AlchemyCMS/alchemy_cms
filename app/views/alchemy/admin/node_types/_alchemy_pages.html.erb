@@ -1,0 +1,21 @@
+<%
+  pages_collection = [[_t('Create a new page'), 'create']]
+  pages_collection += node_class.send(:alchemy_navigatables).map { |n| [n.name, n.id] }
+%>
+
+<%= alchemy_form_for([:admin, @node]) do |f| %>
+  <%= f.hidden_field :navigatable_type, value: node_type %>
+  <% if node_class.respond_to?(:alchemy_navigatables) %>
+    <%= f.input :navigatable_id,
+      collection: pages_collection,
+      include_blank: false,
+      label: _t('Page'),
+      input_html: {class: 'alchemy_selectbox'} %>
+  <% end %>
+  <%= f.input :name %>
+  <%= f.input :title %>
+  <%= f.input :nofollow %>
+  <%= f.hidden_field :language_id %>
+  <%= f.hidden_field :parent_id %>
+  <%= f.submit button_label %>
+<% end %>
