@@ -15,7 +15,7 @@ describe Alchemy::UserSessionsController do
   end
 
   context 'with users present' do
-    let(:user) { create(:admin_user) }
+    let(:user) { create(:alchemy_admin_user) }
 
     describe '#create' do
       context 'with valid user' do

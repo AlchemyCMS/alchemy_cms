@@ -15,8 +15,8 @@ describe Alchemy::Permissions do
   end
 
   context "A member" do
-    let(:user)         { build_stubbed(:member_user) }
-    let(:another_user) { build_stubbed(:member_user) }
+    let(:user)         { build_stubbed(:alchemy_member_user) }
+    let(:another_user) { build_stubbed(:alchemy_member_user) }
 
     it "can only update its own user record" do
       should be_able_to(:update, user)
@@ -29,8 +29,8 @@ describe Alchemy::Permissions do
   end
 
   context "An author" do
-    let(:user)         { build_stubbed(:author_user) }
-    let(:another_user) { build_stubbed(:member_user) }
+    let(:user)         { build_stubbed(:alchemy_author_user) }
+    let(:another_user) { build_stubbed(:alchemy_member_user) }
 
     it "can only update its own user record" do
       should be_able_to(:update, user)
@@ -43,8 +43,8 @@ describe Alchemy::Permissions do
   end
 
   context "An editor" do
-    let(:user)         { build_stubbed(:editor_user) }
-    let(:another_user) { build_stubbed(:member_user) }
+    let(:user)         { build_stubbed(:alchemy_editor_user) }
+    let(:another_user) { build_stubbed(:alchemy_member_user) }
 
     it "can see all users" do
       should be_able_to(:read, Alchemy.user_class)
@@ -57,7 +57,7 @@ describe Alchemy::Permissions do
   end
 
   context "An admin" do
-    let(:user) { build_stubbed(:admin_user) }
+    let(:user) { build_stubbed(:alchemy_admin_user) }
 
     it "can manage users" do
       should be_able_to(:manage, Alchemy.user_class)

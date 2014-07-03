@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::UsersController do
-      let(:admin) { build_stubbed(:admin_user) }
-      let(:user)  { build_stubbed(:user) }
+      let(:admin) { build_stubbed(:alchemy_admin_user) }
+      let(:user)  { build_stubbed(:alchemy_user) }
 
       before do
         controller.stub(store_user_request_time: true)
@@ -59,27 +59,27 @@ module Alchemy
         before { ActionMailer::Base.deliveries = [] }
 
         it "creates an user record" do
-          post :create, user: FactoryGirl.attributes_for(:user).merge(send_credentials: '1')
+          post :create, user: FactoryGirl.attributes_for(:alchemy_user).merge(send_credentials: '1')
           Alchemy::User.count.should == 1
         end
 
         context "with send_credentials set to '1'" do
           it "should send an email notification" do
-            post :create, user: FactoryGirl.attributes_for(:user).merge(send_credentials: '1')
+            post :create, user: FactoryGirl.attributes_for(:alchemy_user).merge(send_credentials: '1')
             ActionMailer::Base.deliveries.should_not be_empty
           end
         end
 
         context "with send_credentials set to true" do
           it "should not send an email notification" do
-            post :create, user: FactoryGirl.attributes_for(:user).merge(send_credentials: true)
+            post :create, user: FactoryGirl.attributes_for(:alchemy_user).merge(send_credentials: true)
             ActionMailer::Base.deliveries.should be_empty
           end
         end
 
         context "with send_credentials left blank" do
           it "should not send an email notification" do
-            post :create, user: FactoryGirl.attributes_for(:user)
+            post :create, user: FactoryGirl.attributes_for(:alchemy_user)
             ActionMailer::Base.deliveries.should be_empty
           end
         end

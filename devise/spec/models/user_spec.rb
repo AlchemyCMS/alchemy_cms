@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe User do
-    let(:user) { build_stubbed(:user) }
+    let(:user) { build_stubbed(:alchemy_user) }
     let(:page) { build_stubbed(:page) }
 
     it "should have at least member role" do
@@ -11,7 +11,7 @@ module Alchemy
     end
 
     context ".after_save" do
-      let(:user) { build_stubbed(:admin_user) }
+      let(:user) { build_stubbed(:alchemy_admin_user) }
 
       context "with send_credentials set to '1'" do
         before { user.send_credentials = '1' }
@@ -51,7 +51,7 @@ module Alchemy
     end
 
     describe 'scopes' do
-      let(:user) { create(:admin_user) }
+      let(:user) { create(:alchemy_admin_user) }
 
       describe '.admins' do
         it "should only return users with admin role" do
@@ -177,7 +177,7 @@ module Alchemy
     end
 
     describe "#pages_locked_by_me" do
-      let(:user) { create(:admin_user) }
+      let(:user) { create(:alchemy_admin_user) }
       let(:page) { create(:page) }
 
       before { Alchemy::PageLayout.stub(:get).and_return({}) }
@@ -236,7 +236,7 @@ module Alchemy
     end
 
     describe '#store_request_time!' do
-      let(:user) { create(:admin_user) }
+      let(:user) { create(:alchemy_admin_user) }
 
       it "should store the timestamp of the request" do
         last_request_at = 2.hours.ago
