@@ -10,8 +10,8 @@ Alchemy is the most powerful, userfriendly and flexible Rails CMS.
 
 Read more on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
 
-**This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](http://rubygems.org/gems/alchemy_cms/versions/2.8.1),
-or the [latest stable branch (2.8-stable)](https://github.com/magiclabs/alchemy_cms/tree/2.8-stable).**
+**This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](http://rubygems.org/gems/alchemy_cms/versions/3.0.0),
+or the [latest stable branch (3.0-stable)](https://github.com/magiclabs/alchemy_cms/tree/3.0-stable).**
 
 Features
 --------
@@ -99,7 +99,7 @@ With Version 3.0 we extracted the Alchemy user model [into its own gem](https://
 
 In order to get the former Alchemy user model back, add the following gem into your Gemfile:
 
-    gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
+    gem 'alchemy-devise', '~> 2.0'
 
 Run in terminal:
 
