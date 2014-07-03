@@ -12,7 +12,7 @@ Just put the gem into your projects `Gemfile`.
 
 ~~~
 # Gemfile
-gem 'alchemy-devise'
+gem 'alchemy-devise', '~> 2.0'
 ~~~
 
 and run `bundle install`.
