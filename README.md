@@ -96,7 +96,7 @@ With Version 3.0 we extracted the Alchemy user model [into its own gem](https://
 
 In order to get the former Alchemy user model back, add the following gem into your Gemfile:
 
-    gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: '2.0-stable'
+    gem 'alchemy-devise', '~> 2.0'
 
 Run in terminal:
 
