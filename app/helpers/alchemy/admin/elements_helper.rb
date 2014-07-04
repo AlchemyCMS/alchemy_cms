@@ -72,12 +72,12 @@ module Alchemy
         end
         other_elements = elements - celled_elements
         unless other_elements.blank?
-          optgroup_label = _t(:main_content)
-          options[optgroup_label] = other_elements.map do |e|
+          options[_t(:main_content)] = other_elements.map do |e|
             element_array_for_options(e, object_method)
           end
         end
-        options
+        # We don't want to show empty cells
+        options.delete_if { |cell, elements| elements.blank? }
       end
 
       def element_array_for_options(e, object_method, cell = nil)
