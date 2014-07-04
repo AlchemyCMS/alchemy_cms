@@ -117,12 +117,12 @@ button, input[type="submit"], a.button, input.button {
       border: $default-border-width $default-border-style $button-hover-border-color;
       @include border-radius($default-border-radius);
       background: $button-hover-bg-color;
-      top: 0px;
-      right: 0px;
+      top: -1px;
+      right: -1px;
 
       .icon {
-        left: 0px;
-        top: 2px;
+        left: 1px;
+        top: 3px;
       }
     }
   }
