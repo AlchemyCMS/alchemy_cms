@@ -26,8 +26,11 @@ module Alchemy
       }
 
       before do
-        page.stub(layout_description: {'name' => "foo", 'cells' => ["foo_cell"]})
-        cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
+        page.stub(layout_description: {'name' => "foo", 'cells' => ["foo_cell", "empty_cell"]})
+        cell_descriptions = [
+          {'name' => "foo_cell", 'elements' => ["1", "2"]},
+          {'name' => 'empty_cell', 'elements' => []}
+        ]
         Cell.stub(:definitions).and_return(cell_descriptions)
         helper.instance_variable_set('@page', page)
       end
@@ -46,6 +49,12 @@ module Alchemy
         it "should return an empty string" do
           page.stub(layout_description: {'name' => "foo"})
           helper.grouped_elements_for_select(elements).should == ""
+        end
+      end
+
+      context "with cell having no elements" do
+        it "should remove that cell from hash" do
+          expect(helper.grouped_elements_for_select(elements)['Empty cell']).to be_nil
         end
       end
     end
