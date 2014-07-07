@@ -239,7 +239,7 @@ module Alchemy
         crop_argument = "-crop #{dimensions_to_string(crop_dimensions)}"
         crop_argument += "+#{top_left[:x]}+#{top_left[:y]}"
 
-        resize_argument = "-thumbnail #{dimensions_to_string(dimensions)}"
+        resize_argument = "-resize #{dimensions_to_string(dimensions)}"
         resize_argument += ">" unless upsample
         self.image_file.convert "#{crop_argument} #{resize_argument}"
       end
