@@ -163,7 +163,8 @@ module Alchemy
         {
           controller: entry['controller'],
           action: entry['action'],
-          only_path: true
+          only_path: true,
+          params: entry['params']
         }
       end
 
