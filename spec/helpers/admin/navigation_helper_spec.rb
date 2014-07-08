@@ -27,6 +27,24 @@ describe Alchemy::Admin::NavigationHelper do
     }
   } }
 
+  let(:event_module_with_params) { {
+    'navigation' => {
+      'controller' => '/admin/events',
+      'action' => 'index',
+      'params' => {
+          'key' => 'value'
+      },
+      'sub_navigation' => [{
+        'controller' => '/admin/events',
+        'action' => 'index',
+        'params' => {
+           'key' => 'value',
+           'key2' => 'value2'
+        }
+     }]
+      }
+  } }
+
   let(:navigation) { alchemy_module['navigation'] }
 
   describe '#alchemy_main_navigation_entry' do
@@ -180,6 +198,10 @@ describe Alchemy::Admin::NavigationHelper do
       it "returns correct url string" do
         helper.url_for_module(event_module).should == '/admin/events'
       end
+
+      it "returns correct url string with params" do
+        helper.url_for_module(event_module_with_params).should == '/admin/events?key=value'
+      end
     end
   end
 
@@ -206,6 +228,14 @@ describe Alchemy::Admin::NavigationHelper do
 
       it "returns correct url string" do
         should == '/admin/events'
+      end
+    end
+
+    context "with module within host app with params" do
+      let(:current_module) { event_module_with_params }
+
+      it "returns correct url string with params" do
+        should == '/admin/events?key2=value2&key=value'
       end
     end
 
