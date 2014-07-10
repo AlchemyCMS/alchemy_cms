@@ -32,6 +32,25 @@ module Alchemy
       picture.should be_valid
     end
 
+    context 'with enabled preprocess_image_resize config option' do
+      let(:image_file) do
+        File.new(File.expand_path('../../fixtures/80x60.png', __FILE__))
+      end
+
+      before do
+        Config.stub(:get) do |arg|
+          if arg == :preprocess_image_resize
+            '10x10'
+          end
+        end
+      end
+
+      it "it resizes the image after upload" do
+        picture = Picture.new(image_file: image_file)
+        expect(picture.image_file.data[0x10..0x18].unpack('NN')).to eq([10, 8])
+      end
+    end
+
     describe '#suffix' do
       it "should return the suffix of original filename" do
         pic = stub_model(Picture, image_file_name: 'kitten.JPG')
