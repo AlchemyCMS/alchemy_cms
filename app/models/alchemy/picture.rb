@@ -39,9 +39,13 @@ module Alchemy
       raise PictureInUseError, I18n.t(:cannot_delete_picture_notice) % { name: name }
     end
 
+    # Enables Dragonfly image processing
     dragonfly_accessor :image_file, app: :alchemy_pictures do
-      if Config.get(:preprocess_image_resize).present?
-        after_assign { |a| a.process!(:resize, "#{Config.get(:preprocess_image_resize)}>") }
+      # Preprocess after uploading the picture
+      after_assign do |p|
+        if Config.get(:preprocess_image_resize).present?
+          p.thumb!("#{Config.get(:preprocess_image_resize)}>")
+        end
       end
     end
 
