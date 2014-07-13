@@ -23,14 +23,22 @@ module Alchemy
 
     # Returns a size value String for the thumbnail used in essence picture editors.
     #
-    def thumbnail_size(size_string = "0x0", size_of_thumb = { width: 111, height: 93 })
+    def thumbnail_size(size_string = "0x0", crop = false)
       size = sizes_from_string(size_string)
-      size[:width] = get_base_dimensions[:width] if size[:width].zero?
-      size[:height] = get_base_dimensions[:height] if size[:height].zero?
 
-      thumbnail_size = size_when_fitting(size, size_of_thumb)
+      size[:width] = crop ? 111: get_base_dimensions[:width] if size[:width].zero?
+      size[:height] = crop ? 93 : get_base_dimensions[:height] if size[:height].zero?
 
-      "#{thumbnail_size[:width]}x#{thumbnail_size[:height]}"
+      if (size[:width] > size[:height])
+        zoom_factor = 111.0 / size[:width]
+        new_x = 111
+        new_y = size[:height] * zoom_factor
+      else
+        zoom_factor = 93.0 / size[:height]
+        new_x = size[:width] * zoom_factor
+        new_y = 93
+      end
+      "#{new_x.round}x#{new_y.round}"
     end
 
     # Returns the rendered cropped image. Tries to use the crop_from and crop_size
@@ -175,21 +183,6 @@ module Alchemy
         {
           width: (dimensions[:width] / zoom).round.to_i,
           height: (dimensions[:height] / zoom).round.to_i
-        }
-      end
-
-      # Given dimensions with :width, :height
-      # this function returns the dimensions of target after being fitted
-      # into an area the size of the dimension hash that's passed in.
-      #
-      def size_when_fitting(dimensions, target)
-        zoom_x = target[:width].to_f / dimensions[:width]
-        zoom_y = target[:height].to_f / dimensions[:height]
-
-        zoom = [zoom_x, zoom_y].min
-        {
-          width: (dimensions[:width] * zoom).round.to_i,
-          height: (dimensions[:height] * zoom).round.to_i
         }
       end
 

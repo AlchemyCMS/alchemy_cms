@@ -140,5 +140,35 @@ module Alchemy
       end
 
     end
+
+    describe "#can_be_cropped_to" do
+
+      context "picture is 300x400 and shall be cropped to 200x100" do
+        it "should return true" do
+          picture.stub(:image_file_width) { 400 }
+          picture.stub(:image_file_height) { 300 }
+
+          expect(picture.can_be_cropped_to("200x100")).to be_truthy
+        end
+      end
+
+      context "picture is 300x400 and shall be cropped to 600x500" do
+        it "should return false" do
+          picture.stub(:image_file_width) { 400 }
+          picture.stub(:image_file_height) { 300 }
+
+          expect(picture.can_be_cropped_to("600x500")).to be_falsey
+        end
+      end
+
+      context "picture is 300x400 and shall be cropped to 600x500 with upsample set to true" do
+        it "should return true" do
+          picture.stub(:image_file_width) { 400 }
+          picture.stub(:image_file_height) { 300 }
+
+          expect(picture.can_be_cropped_to("600x500", true)).to be_truthy
+        end
+      end
+    end
   end
 end
