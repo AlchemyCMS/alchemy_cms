@@ -60,10 +60,11 @@ module Alchemy
       def essence_picture_thumbnail(content, options)
         return if content.ingredient.blank?
         image_options = {
-          size: content.essence.thumbnail_size(options[:image_size]),
+          size: content.essence.thumbnail_size(options[:image_size], (content.essence.crop_size.blank? && content.essence.crop_from.blank?)),
           crop_from: content.essence.crop_from.blank? ? nil : content.essence.crop_from,
           crop_size: content.essence.crop_size.blank? ? nil : content.essence.crop_size,
-          crop: content.essence.crop_size.blank? && content.essence.crop_from.blank? ? 'crop' : nil
+          crop: (content.essence.crop_size.blank? && content.essence.crop_from.blank?) || options[:crop] == "true" ? 'crop' : nil,
+          upsample: options[:upsample]
         }
         image_tag(
           alchemy.thumbnail_path({
