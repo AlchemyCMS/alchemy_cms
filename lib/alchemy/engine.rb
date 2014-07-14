@@ -18,12 +18,15 @@ require 'simple_form'
 require 'select2-rails'
 require 'turbolinks'
 require 'userstamp'
+require 'apotomo'
 
 # Require globally used Alchemy mixins
 require_relative './auth_accessors'
 require_relative './cache_digests/template_tracker'
 require_relative './config'
 require_relative './controller_actions'
+require_relative './dashboard'
+require_relative './widget_config'
 require_relative './errors'
 require_relative './essence'
 require_relative './filetypes'
@@ -41,6 +44,9 @@ require_relative './picture_attributes'
 require_relative './resource'
 require_relative './tinymce'
 require_relative './touching'
+
+# require core dashboard cells
+# require_relative '../../app/cells/locked_pages_cell'
 
 # Require hacks
 require_relative './kaminari/scoped_pagination_url_helper'

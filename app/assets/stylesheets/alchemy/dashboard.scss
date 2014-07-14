@@ -16,19 +16,16 @@
     margin-bottom: 16px;
   }
 
-  div.column {
-    width: 50%;
-    float: left;
-    padding-right: 16px;
-  }
-
-  div.widget {
-    width: 100%;
+  .widget {
     margin-bottom: 16px;
     background-color: $medium-gray;
     border: $default-border;
     @extend .top-rounded-border;
+    width: 49%;
+    margin-right: 2%;
     float: left;
+
+    &:nth-child(2n) { margin-right: 0 }
 
     h2 {
       padding: 2 * $default-padding;
@@ -56,6 +53,8 @@
       }
     }
   }
+
+  .floating:nth-child(2n+1) { margin-right: 0 }
 }
 
 div#sideboard {
