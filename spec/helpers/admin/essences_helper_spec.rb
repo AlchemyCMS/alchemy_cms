@@ -100,6 +100,7 @@ describe Alchemy::Admin::EssencesHelper do
 
     context 'when given content has no ingredient' do
       before { content.stub(:ingredient).and_return(nil) }
+
       it "should return nil" do
         expect(helper.essence_picture_thumbnail(content, {})).to eq(nil)
       end

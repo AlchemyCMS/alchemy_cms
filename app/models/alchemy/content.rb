@@ -99,9 +99,7 @@ module Alchemy
     # Settings from the elements.yml definition
     def settings
       return {} if description.blank?
-      @settings ||= description['settings']
-      return {} if @settings.blank?
-      @settings.symbolize_keys
+      @settings ||= description.fetch('settings', {}).symbolize_keys
     end
 
     def siblings

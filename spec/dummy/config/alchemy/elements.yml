@@ -81,3 +81,24 @@
     type: EssenceSelect
     validate:
       - presence
+
+- name: all_you_can_eat
+  contents:
+  - name: essence_boolean
+    type: EssenceBoolean
+  - name: essence_date
+    type: EssenceDate
+  - name: essence_file
+    type: EssenceFile
+  - name: essence_html
+    type: EssenceHtml
+  - name: essence_link
+    type: EssenceLink
+  - name: essence_picture
+    type: EssencePicture
+  - name: essence_richtext
+    type: EssenceRichtext
+  - name: essence_select
+    type: EssenceSelect
+  - name: essence_text
+    type: EssenceText

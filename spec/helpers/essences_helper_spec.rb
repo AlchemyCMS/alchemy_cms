@@ -80,4 +80,75 @@ describe Alchemy::EssencesHelper do
       render_essence_view_by_name(element, 'intro').should have_content 'hello!'
     end
   end
+
+  describe 'content_settings_value' do
+    subject { content_settings_value(content, key, options) }
+
+    let(:key) { :key }
+
+    context 'with content having settings' do
+      let(:content) { double(settings: {key: 'content_settings_value'}) }
+
+      context 'and empty options' do
+        let(:options) { {} }
+
+        it "returns the value for key from content settings" do
+          expect(subject).to eq('content_settings_value')
+        end
+      end
+
+      context 'and nil options' do
+        let(:options) { nil }
+
+        it "returns the value for key from content settings" do
+          expect(subject).to eq('content_settings_value')
+        end
+      end
+
+      context 'but same key present in options' do
+        let(:options) { {key: 'options_value'} }
+
+        it "returns the value for key from options" do
+          expect(subject).to eq('options_value')
+        end
+      end
+    end
+
+    context 'with content having no settings' do
+      let(:content) { double(settings: {}) }
+
+      context 'and empty options' do
+        let(:options) { {} }
+
+        it { expect(subject).to eq(nil) }
+      end
+
+      context 'but key present in options' do
+        let(:options) { {key: 'options_value'} }
+
+        it "returns the value for key from options" do
+          expect(subject).to eq('options_value')
+        end
+      end
+    end
+
+    context 'with content having settings with string as key' do
+      let(:content) { double(settings: {'key' => 'value_from_string_key'}) }
+      let(:options) { {} }
+
+      it "returns value" do
+        expect(subject).to eq('value_from_string_key')
+      end
+    end
+
+    context 'with key passed as string' do
+      let(:content) { double(settings: {key: 'value_from_symbol_key'}) }
+      let(:key)     { 'key' }
+      let(:options) { {} }
+
+      it "returns value" do
+        expect(subject).to eq('value_from_symbol_key')
+      end
+    end
+  end
 end

@@ -73,4 +73,22 @@ describe 'Page editing feature' do
       end
     end
   end
+
+  context 'in element panel' do
+    let!(:everything_page) { create(:page, page_layout: 'everything', do_not_autogenerate: false) }
+
+    it "renders essence editors for all elements" do
+      visit alchemy.admin_elements_path(page_id: everything_page.id)
+
+      page.should have_selector('div.content_editor.essence_boolean')
+      page.should have_selector('div.content_editor.essence_date')
+      page.should have_selector('div.content_editor.essence_file')
+      page.should have_selector('div.content_editor.essence_html_editor')
+      page.should have_selector('div.content_editor.essence_link')
+      page.should have_selector('div.content_editor.essence_picture_editor')
+      page.should have_selector('div.content_editor.essence_richtext')
+      page.should have_selector('div.content_editor.essence_select')
+      page.should have_selector('div.content_editor.essence_text')
+    end
+  end
 end

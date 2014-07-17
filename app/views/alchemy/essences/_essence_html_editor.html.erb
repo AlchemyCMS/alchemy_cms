@@ -1,8 +1,9 @@
-<div class="content_editor essence_html_editor"<%= " style=\"float: left;\"" if options[:css_class] == "text_short" %>>
+<% cache(content) do %>
+<div class="content_editor essence_html_editor" data-content-id="<%= content.id %>">
   <%= label_and_remove_link(content) %>
   <%= text_area_tag(
     content.form_field_name,
-    content.ingredient,
-    :class => 'thin_border'
+    content.ingredient
   ) %>
 </div>
+<% end %>

@@ -35,6 +35,18 @@ describe 'alchemy/essences/_essence_text_view' do
         expect(rendered).to_not have_selector('a')
       end
     end
+
+    context 'but with content settings disable_link set to true' do
+      before do
+        content.stub(settings: {disable_link: true})
+      end
+
+      it "only renders the ingredient" do
+        render content.essence, content: content
+        expect(rendered).to have_content('Hello World')
+        expect(rendered).to_not have_selector('a')
+      end
+    end
   end
 
 end

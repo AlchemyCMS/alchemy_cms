@@ -1,7 +1,8 @@
-<% cache(content) do %>
-<% options = local_assigns.fetch(:options, {}) %>
-<% html_options = local_assigns.fetch(:html_options, {}) %>
-<%- if content.essence.link.blank? || options[:disable_link] -%>
+<%- cache(content) do -%>
+<%- options = local_assigns.fetch(:options, {}) -%>
+<%- html_options = local_assigns.fetch(:html_options, {}) -%>
+<%- if content.essence.link.blank? ||
+    content_settings_value(content, :disable_link, options) -%>
 <%= content.ingredient -%>
 <%- else -%>
 <%= link_to(
@@ -12,6 +13,6 @@
     target: (content.essence.link_target == "blank" ? "_blank" : nil),
     'data-link-target' => content.essence.link_target
   }.merge(html_options)
-) %>
+) -%>
 <%- end -%>
-<% end %>
+<%- end -%>

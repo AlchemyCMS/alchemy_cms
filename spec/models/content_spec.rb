@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe Content do
-    let(:element) { FactoryGirl.create(:element, name: 'headline', :create_contents_after_create => true) }
+    let(:element) { create(:element, name: 'headline', :create_contents_after_create => true) }
     let(:content) { element.contents.find_by_essence_type('Alchemy::EssenceText') }
 
     it "should return the ingredient from its essence" do
@@ -310,6 +310,23 @@ module Alchemy
 
     it_behaves_like "having a hint" do
       let(:subject) { Content.new }
+    end
+
+    describe '#settings' do
+      let(:element) { build_stubbed(:element, name: 'article') }
+      let(:content) { build_stubbed(:content, name: 'headline', element: element) }
+
+      it "returns the settings hash from description" do
+        expect(content.settings).to eq({deletable: true})
+      end
+
+      context 'if settings are not defined' do
+        let(:content) { build_stubbed(:content, name: 'intro', element: element) }
+
+        it "returns empty hash" do
+          expect(content.settings).to eq({})
+        end
+      end
     end
 
   end
