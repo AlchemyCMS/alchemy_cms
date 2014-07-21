@@ -15,7 +15,7 @@ module Alchemy
       mask[:width] = image_file_width if mask[:width].zero?
       mask[:height] = image_file_height if mask[:height].zero?
 
-      crop_size = size_when_filling(mask)
+      crop_size = size_when_fitting({width: image_file_width, height: image_file_height}, mask)
       top_left = get_top_left_crop_corner(crop_size)
 
       point_and_mask_to_points(top_left, crop_size)
@@ -26,19 +26,18 @@ module Alchemy
     def thumbnail_size(size_string = "0x0", crop = false)
       size = sizes_from_string(size_string)
 
-      size[:width] = crop ? 111: get_base_dimensions[:width] if size[:width].zero?
-      size[:height] = crop ? 93 : get_base_dimensions[:height] if size[:height].zero?
-
-      if (size[:width] > size[:height])
-        zoom_factor = 111.0 / size[:width]
-        new_x = 111
-        new_y = size[:height] * zoom_factor
+      # only if crop is set do we need to actually parse the size string, otherwise
+      # we take the base image size.
+      if crop
+        size[:width] = get_base_dimensions[:width] if size[:width].zero?
+        size[:height] = get_base_dimensions[:height] if size[:height].zero?
+        size = reduce_to_image(size)
       else
-        zoom_factor = 93.0 / size[:height]
-        new_x = size[:width] * zoom_factor
-        new_y = 93
+        size = get_base_dimensions
       end
-      "#{new_x.round}x#{new_y.round}"
+
+      size = size_when_fitting({width: 111, height: 93}, size)
+      "#{size[:width]}x#{size[:height]}"
     end
 
     # Returns the rendered cropped image. Tries to use the crop_from and crop_size
@@ -171,13 +170,14 @@ module Alchemy
         end
       end
 
-      # Given dimensions with :width, :height
-      # this function the dimensions of the base image if cropped to
-      # the aspect ratio of the dimensions hash that's passed in.
+      # This function takes a target and a base dimensions hash and returns
+      # the dimensions of the image when the base dimensions hash fills
+      # the target.
+      # Aspect ratio will be preserved.
       #
-      def size_when_filling(dimensions)
-        zoom_x = dimensions[:width].to_f / image_file_width
-        zoom_y = dimensions[:height].to_f / image_file_height
+      def size_when_fitting(target, dimensions = get_base_dimensions)
+        zoom_x = dimensions[:width].to_f / target[:width]
+        zoom_y = dimensions[:height].to_f / target[:height]
 
         zoom = [zoom_x, zoom_y].max
         {
@@ -237,8 +237,7 @@ module Alchemy
         self.image_file.convert "#{crop_argument} #{resize_argument}"
       end
 
-      # Used only when centercropping because there's no argument
-      # to imagemagick that stops it from upsampling when cropping.
+      # Used when centercropping.
       #
       def reduce_to_image(dimensions)
         {
