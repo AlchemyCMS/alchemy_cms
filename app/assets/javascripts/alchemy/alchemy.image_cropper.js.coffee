@@ -4,7 +4,7 @@ Alchemy.ImageCropper =
 
   initialized: false
 
-  init: (box, size_x, size_y, default_box, ratio, true_size) ->
+  init: (box, min_size, default_box, ratio, true_size) ->
     crop_from_field = $("#essence_picture_crop_from")
     crop_size_field = $("#essence_picture_crop_size")
     options =
@@ -13,7 +13,7 @@ Alchemy.ImageCropper =
         crop_size_field.val coords.w + "x" + coords.h
       setSelect: box
       aspectRatio: (if ratio then ratio else `undefined`)
-      minSize: [size_x, size_y]
+      minSize: (if min_size then min_size else `undefined`)
       boxWidth: 800
       boxHeight: 600
       trueSize: true_size
