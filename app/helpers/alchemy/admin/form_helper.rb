@@ -16,7 +16,7 @@ module Alchemy
         options = args.extract_options!
         options.merge!({
           builder: Alchemy::Forms::Builder,
-          remote: request.xhr?,
+          remote: request.xhr? || options.delete(:remote),
           html: {
             id: options.delete(:id),
             class: ["alchemy", options.delete(:class)].compact.join(' ')
