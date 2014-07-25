@@ -234,5 +234,25 @@ module Alchemy
       end
     end
 
+    describe 'accessing restricted pages' do
+      let!(:restricted_page) { create(:restricted_page, public: true) }
+
+      context 'as a guest user' do
+        it "I am not able to visit the page" do
+          visit restricted_page.urlname
+          current_path.should == Alchemy.login_path
+        end
+      end
+
+      context 'as a member user' do
+        before { authorize_as_admin(create(:member_user)) }
+
+        it "I am able to visit the page" do
+          visit restricted_page.urlname
+          current_path.should == "/#{restricted_page.urlname}"
+        end
+      end
+    end
+
   end
 end
