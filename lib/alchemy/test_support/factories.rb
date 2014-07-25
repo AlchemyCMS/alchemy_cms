@@ -5,19 +5,19 @@ FactoryGirl.define do
     password 's3cr3t'
 
     factory :admin_user do
-      alchemy_roles 'admin'
+      alchemy_roles ['admin']
     end
 
     factory :member_user do
-      alchemy_roles 'member'
+      alchemy_roles ['member']
     end
 
     factory :author_user do
-      alchemy_roles 'author'
+      alchemy_roles ['author']
     end
 
     factory :editor_user do
-      alchemy_roles 'editor'
+      alchemy_roles ['editor']
     end
   end
 
