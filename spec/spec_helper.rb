@@ -40,7 +40,7 @@ require_relative "support/transformation_examples.rb"
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
 Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, js_errors: false)
+  Capybara::Poltergeist::Driver.new(app)
 end
 Capybara.register_driver(:rack_test_translated_header) do |app|
   Capybara::RackTest::Driver.new(app, headers: { 'HTTP_ACCEPT_LANGUAGE' => 'de' })
