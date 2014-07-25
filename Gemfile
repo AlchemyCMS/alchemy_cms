@@ -27,11 +27,10 @@ end
 group :development, :test do
   unless ENV['CI']
     gem 'annotate'
-    gem 'pry'
     gem 'bumpy'
     gem 'yard'
     gem 'redcarpet'
-    gem 'pry-rails'
+    gem 'pry-byebug'
     gem 'spring', '~> 1.1.0.beta2'
     gem 'spring-commands-rspec'
   end
