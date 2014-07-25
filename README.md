@@ -236,6 +236,18 @@ $ bundle exec cap -T alchemy
 
 #### Import data from server
 
+**Capistrano 2**
+
+    # deploy.rb
+    require 'alchemy/capistrano'
+
+**Capistrano 3**
+
+    # Capfile
+    require 'alchemy/capistrano3'
+
+If you don't use Capistrano you have to **make sure that the `uploads`, `tmp/cache/assets`, `public/assets` and `public/pictures` cache folders get shared** between deployments, otherwise you **will loose data**.
+
 ```shell
 $ bundle exec cap alchemy:import:all
 ```

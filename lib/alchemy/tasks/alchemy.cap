@@ -1,0 +1,139 @@
+set(:release_public_path, "#{current_path}/public")
+set(:current_env, (stage_set? ? fetch(:stage) : 'production'.to_sym))
+
+namespace :alchemy do
+
+  namespace :shared_folders do
+
+    # This task creates the shared folders for uploads, assets and picture cache while setting up your server.
+    desc "Creates the uploads and picture cache directory in the shared folder. Called after deploy:setup"
+    task :create do
+      on roles :app do
+        execute :mkdir, '-p', "#{shared_path}/uploads/pictures"
+        execute :mkdir, '-p', "#{shared_path}/uploads/attachments"
+        execute :mkdir, '-p', "#{shared_picture_cache_path}"
+        execute :mkdir, '-p', "#{shared_path}/cache/assets"
+      end
+    end
+
+    # This task sets the symlinks for uploads, assets and picture cache folder.
+    desc "Sets the symlinks for uploads and picture cache folder. Called after deploy:finalize_update"
+    task :symlink do
+      on roles :app do
+        execute :rm, '-rf', "#{release_path}/uploads"
+        execute :ln, '-nfs', "#{shared_path}/uploads #{release_path}/"
+        execute :mkdir, '-p', "#{public_path_with_mountpoint}"
+        execute :ln, '-nfs', "#{shared_picture_cache_path} #{public_path_with_mountpoint}pictures/"
+        execute :mkdir, '-p', "#{release_path}/tmp/cache"
+        execute :ln, '-nfs', "#{shared_path}/cache/assets #{release_path}/tmp/cache/assets"
+      end
+    end
+
+    def shared_picture_cache_path
+      @shared_picture_cache_path ||= begin
+        File.join(shared_path, 'cache', Alchemy::MountPoint.get, 'pictures')
+      end
+    end
+
+    def public_path_with_mountpoint(suffix = '')
+      @release_picture_cache_path ||= begin
+        File.join(fetch(:release_public_path), Alchemy::MountPoint.get, suffix)
+      end
+    end
+
+  end
+
+  desc "Upgrades production database to current Alchemy CMS version"
+  task :upgrade do
+    within current_path do
+      with rails_env: fetch(:current_env) do
+        execute :rake, 'alchemy:upgrade'
+      end
+    end
+  end
+
+  namespace :db do
+
+    desc "Seeds the database with essential data."
+    task :seed do
+      on roles (fetch(:db)) do
+        within fetch(:current_path) do
+          with rails_env: fetch(:current_env) do
+            execute :rake, 'alchemy:db:seed'
+          end
+        end
+      end
+    end
+
+    desc "Dumps the database into 'db/dumps' on the server."
+    set(:timestamp, "#{Time.now.strftime('%Y-%m-%d-%H-%M')}")
+    task :dump do
+      on roles :db do
+        within current_path do
+          with rails_env: fetch(:current_env) do
+            execute :mkdir, '-p', 'db/dumps'
+            execute :rake, "DUMP_FILENAME=db/dumps/#{fetch(:timestamp)}.sql alchemy:db:dump"
+          end
+        end
+      end
+    end
+
+  end
+
+  namespace :import do
+    desc "Imports all data (Pictures, attachments and the database) into your local development machine."
+    task :all do
+      on roles [:app, :db] do
+        pictures
+        attachments
+        database
+      end
+    end
+
+    desc "Imports the server database into your local development machine."
+    task :database do
+      on roles :db, in: :parallel do |server|
+        require 'spinner'
+        spinner = Spinner.new
+        print "\n"
+        spinner.task("Importing the database. Please wait...") do
+          system db_import_cmd(server)
+        end
+        spinner.spin!
+      end
+    end
+
+    desc "Imports attachments into your local machine using rsync."
+    task :attachments do
+      on roles :app, in: :parallel do |server|
+        get_files(:attachments, server)
+      end
+    end
+
+    desc "Imports pictures into your local machine using rsync."
+    task :pictures do
+      on roles :app, in: :parallel do |server|
+        get_files(:pictures, server)
+      end
+    end
+
+    def get_files(type, server)
+      FileUtils.mkdir_p "./uploads"
+      if server
+        system "rsync --progress -rue 'ssh -p #{fetch(:port, 22)}' #{server.user}@#{server.hostname}:#{shared_path}/uploads/#{type} ./uploads/"
+      else
+        raise "No server found"
+      end
+    end
+
+    def db_import_cmd(server)
+      dump_cmd = "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:current_env)} alchemy:db:dump"
+      sql_stream = "ssh -p #{fetch(:port, 22)} #{server.user}@#{server.hostname} '#{dump_cmd}'"
+      "#{sql_stream} | #{database_import_command(database_config['adapter'])} 1>/dev/null 2>&1"
+    end
+  end
+
+end
+
+after :install, "alchemy:shared_folders:create"
+after "deploy:symlink:linked_dirs", "alchemy:shared_folders:symlink"
