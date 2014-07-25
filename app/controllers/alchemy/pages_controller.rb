@@ -8,20 +8,20 @@ module Alchemy
 
     rescue_from ActionController::RoutingError, :with => :render_404
 
-    before_filter :enforce_primary_host_for_site
-    before_filter :render_page_or_redirect, :only => [:show]
-    before_filter :load_page
-    authorize_resource only: 'show'
+    before_action :enforce_primary_host_for_site
+    before_action :render_page_or_redirect, only: [:show]
 
     # Showing page from params[:urlname]
     #
     def show
+      authorize! :show, @page
+
       if render_fresh_page?
         respond_to do |format|
           format.html { render layout: !request.xhr? }
           format.rss do
             if @page.contains_feed?
-              render action: 'show', layout: false, handlers: [:builder]
+              render layout: false, handlers: [:builder]
             else
               render xml: {error: 'Not found'}, status: 404
             end
