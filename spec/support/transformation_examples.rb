@@ -7,8 +7,8 @@ module Alchemy
 
       context "picture is 300x400 and has no crop size" do
         it "should return the correct recalculated size value" do
-          picture.stub(:image_file_width) { 400 }
-          picture.stub(:image_file_height) { 300 }
+          allow(picture).to receive(:image_file_width) { 400 }
+          allow(picture).to receive(:image_file_height) { 300 }
 
           expect(picture.thumbnail_size()).to eq('111x83')
         end
@@ -16,8 +16,8 @@ module Alchemy
 
       context "picture is 300x400 and has no crop size" do
         it "should return the correct recalculated size value" do
-          picture.stub(:image_file_width) { 300 }
-          picture.stub(:image_file_height) { 400 }
+          allow(picture).to receive(:image_file_width) { 300 }
+          allow(picture).to receive(:image_file_height) { 400 }
 
           expect(picture.thumbnail_size()).to eq('70x93')
         end
@@ -25,7 +25,7 @@ module Alchemy
 
       context "picture has crop_size of 400x300" do
         it "scales to 400x300 if that is the size of the cropped image" do
-          picture.stub(:crop_size) { "400x300" }
+          allow(picture).to receive(:crop_size) { "400x300" }
           expect(picture.thumbnail_size()).to eq('111x83')
         end
       end
@@ -38,16 +38,16 @@ module Alchemy
 
       context 'image has landscape format' do
         before { picture.stub_chain(:image_file, :landscape?).and_return(true) }
-        it { should be_true }
+        it { is_expected.to be_truthy }
       end
 
       context 'image has portrait format' do
         before { picture.stub_chain(:image_file, :landscape?).and_return(false) }
-        it { should be_false }
+        it { is_expected.to be_falsey }
       end
 
       it "is aliased as landscape?" do
-        picture.respond_to?(:landscape?).should be_true
+        expect(picture.respond_to?(:landscape?)).to be_truthy
       end
     end
 
@@ -56,16 +56,16 @@ module Alchemy
 
       context 'image has portrait format' do
         before { picture.stub_chain(:image_file, :portrait?).and_return(true) }
-        it { should be_true }
+        it { is_expected.to be_truthy }
       end
 
       context 'image has landscape format' do
         before { picture.stub_chain(:image_file, :portrait?).and_return(false) }
-        it { should be_false }
+        it { is_expected.to be_falsey }
       end
 
       it "is aliased as portrait?" do
-        picture.respond_to?(:portrait?).should be_true
+        expect(picture.respond_to?(:portrait?)).to be_truthy
       end
     end
 
@@ -74,16 +74,16 @@ module Alchemy
 
       context 'image has square format' do
         before { picture.stub_chain(:image_file, :aspect_ratio).and_return(1.0) }
-        it { should be_true }
+        it { is_expected.to be_truthy }
       end
 
       context 'image has rectangle format' do
         before { picture.stub_chain(:image_file, :aspect_ratio).and_return(1.8) }
-        it { should be_false }
+        it { is_expected.to be_falsey }
       end
 
       it "is aliased as square?" do
-        picture.respond_to?(:square?).should be_true
+        expect(picture.respond_to?(:square?)).to be_truthy
       end
     end
 
@@ -91,8 +91,8 @@ module Alchemy
     describe '#default_mask' do
 
       before do
-        picture.stub(:image_file_width) { 200 }
-        picture.stub(:image_file_height) { 100 }
+        allow(picture).to receive(:image_file_width) { 200 }
+        allow(picture).to receive(:image_file_height) { 100 }
       end
 
       it "should return a Hash" do
@@ -145,8 +145,8 @@ module Alchemy
 
       context "picture is 300x400 and shall be cropped to 200x100" do
         it "should return true" do
-          picture.stub(:image_file_width) { 400 }
-          picture.stub(:image_file_height) { 300 }
+          allow(picture).to receive(:image_file_width) { 400 }
+          allow(picture).to receive(:image_file_height) { 300 }
 
           expect(picture.can_be_cropped_to("200x100")).to be_truthy
         end
@@ -154,8 +154,8 @@ module Alchemy
 
       context "picture is 300x400 and shall be cropped to 600x500" do
         it "should return false" do
-          picture.stub(:image_file_width) { 400 }
-          picture.stub(:image_file_height) { 300 }
+          allow(picture).to receive(:image_file_width) { 400 }
+          allow(picture).to receive(:image_file_height) { 300 }
 
           expect(picture.can_be_cropped_to("600x500")).to be_falsey
         end
@@ -163,8 +163,8 @@ module Alchemy
 
       context "picture is 300x400 and shall be cropped to 600x500 with upsample set to true" do
         it "should return true" do
-          picture.stub(:image_file_width) { 400 }
-          picture.stub(:image_file_height) { 300 }
+          allow(picture).to receive(:image_file_width) { 400 }
+          allow(picture).to receive(:image_file_height) { 300 }
 
           expect(picture.can_be_cropped_to("600x500", true)).to be_truthy
         end
