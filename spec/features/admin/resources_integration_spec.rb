@@ -33,10 +33,17 @@ describe "Resources" do
   describe "form for creating and updating items" do
     it "renders an input field according to the attribute's type" do
       visit '/admin/events/new'
-      expect(page).to have_selector('input#event_name[type="text"]')
-      expect(page).to have_selector('input#event_starts_at[type="date"]')
-      expect(page).to have_selector('textarea#event_description')
-      expect(page).to have_selector('input#event_published[type="checkbox"]')
+      page.should have_selector('input#event_name[type="text"]')
+      page.should have_selector('input#event_starts_at[type="date"]')
+      page.should have_selector('textarea#event_description')
+      page.should have_selector('input#event_published[type="checkbox"]')
+	    page.should have_selector('input#event_lunch_starts_at_1i[type="hidden"]')
+	    page.should have_selector('input#event_lunch_starts_at_2i[type="hidden"]')
+	    page.should have_selector('input#event_lunch_starts_at_3i[type="hidden"]')
+	    page.should have_selector('select#event_lunch_starts_at_4i')
+      # page.find_field('event_lunch_starts_at_4i').value.should eq '12'
+	    page.should have_selector('select#event_lunch_starts_at_5i')
+      # page.find_field('event_lunch_starts_at_5i').value.should eq '15'
     end
 
     it "should have a select box for associated models" do
