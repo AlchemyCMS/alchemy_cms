@@ -6,6 +6,8 @@ class CreateEvents < ActiveRecord::Migration
       t.string   "hidden_name"
       t.datetime "starts_at"
       t.datetime "ends_at"
+      t.time     "lunch_starts_at"
+      t.time     "lunch_ends_at"
       t.text     "description"
       t.decimal  "entrance_fee", :precision => 6, :scale => 2
       t.boolean  "published"
