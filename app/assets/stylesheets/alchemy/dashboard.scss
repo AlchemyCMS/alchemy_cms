@@ -42,6 +42,7 @@
       border-spacing: 0;
 
       td {
+        vertical-align: top;
         padding: 2 * $default-padding;
         margin-bottom: 0;
         position: relative;

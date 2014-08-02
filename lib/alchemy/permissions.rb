@@ -85,21 +85,21 @@ module Alchemy
         ]
 
         # Controller actions
-        can [:info, :help],             :alchemy_admin_dashboard
-        can :manage,                    :alchemy_admin_clipboard
-        can :index,                     :trash
-        can :edit,                      :alchemy_admin_layoutpages
+        can [:info, :help, :render_event_response], :alchemy_admin_dashboard
+        can :manage,                                :alchemy_admin_clipboard
+        can :index,                                 :trash
+        can :edit,                                  :alchemy_admin_layoutpages
 
         # Resources
-        can [:read, :download],         Alchemy::Attachment
-        can :manage,                    Alchemy::Content
-        can :manage,                    Alchemy::Element
-        can :manage,                    Alchemy::EssenceFile
-        can :manage,                    Alchemy::EssencePicture
-        can :manage,                    Alchemy::LegacyPageUrl
-        can :edit_content,              Alchemy::Page
-        can [:read, :thumbnail, :info], Alchemy::Picture
-        can [:read, :autocomplete],     Alchemy::Tag
+        can [:read, :download],                     Alchemy::Attachment
+        can :manage,                                Alchemy::Content
+        can :manage,                                Alchemy::Element
+        can :manage,                                Alchemy::EssenceFile
+        can :manage,                                Alchemy::EssencePicture
+        can :manage,                                Alchemy::LegacyPageUrl
+        can :edit_content,                          Alchemy::Page
+        can [:read, :thumbnail, :info],             Alchemy::Picture
+        can [:read, :autocomplete],                 Alchemy::Tag
       end
     end
 

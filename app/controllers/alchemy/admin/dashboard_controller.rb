@@ -8,21 +8,21 @@ module Alchemy
 
       authorize_resource class: :alchemy_admin_dashboard
 
-      @@dashboard = Dashboard.new.setup_widgets self
+      before_action ->{ dashboard.setup_widgets self.class }, only: %w(index)
 
       def index
         if current_alchemy_user.respond_to?(:sign_in_count) && current_alchemy_user.respond_to?(:last_sign_in_at)
           @last_sign_at = current_alchemy_user.last_sign_in_at
           @first_time = current_alchemy_user.sign_in_count == 1 && @last_sign_at.nil?
         end
-        @widgets = @@dashboard.widgets
+        @widgets = @@dashboard.widget_configs
       end
 
-    # private
+    private
 
-    #   def self.dashboard
-    #     @@dashboard ||= Dashbord.new
-    #   end
+      def dashboard
+        @@dashboard ||= Dashboard.new
+      end
 
     end
   end
