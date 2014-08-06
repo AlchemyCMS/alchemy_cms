@@ -21,11 +21,14 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     @$page_anchor = $('#page_anchor', @dialog_body)
     @$internal_urlname = $('#internal_urlname', @dialog_body)
     @$internal_anchor = $('#internal_anchor', @dialog_body)
+    @$internal_class = $('#internal_class', @dialog_body)
+    @$external_class = $('#external_class', @dialog_body)
     @$external_url = $('#external_url', @dialog_body)
     @$public_filename = $('#public_filename', @dialog_body)
     @$overlay_tabs = $('#overlay_tabs', @dialog_body)
     @$page_container = $('#page_selector_container')
     @initInternalAnchors()
+    @initLinkClasses()
     # if we edit an existing link
     if @link_object
       # we select the correct tab
@@ -64,7 +67,11 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
         url: url
         title: $("##{@link_type}_link_title").val()
         target: $("##{@link_type}_link_target").val()
+        link_class: $("##{@link_type}_link_class").val()
       false
+
+
+
 
   # Sets the page selected and scrolls it in the viewport.
   selectPage: (page_id) ->
@@ -83,27 +90,27 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   createLink: (options) ->
     if @link_type == 'external'
       if @validateURLFormat(options.url)
-        @setLink(options.url, options.title, options.target)
+        @setLink(options.url, options.title, options.target, options.link_class)
       else
         return @showValidationError()
     else
-      @setLink(options.url, options.title, options.target)
+      @setLink(options.url, options.title, options.target, options.link_class)
     @close()
 
   # Sets the link either in TinyMCE or on an Essence.
-  setLink: (url, title, target) ->
+  setLink: (url, title, target, link_class) ->
     Alchemy.setElementDirty(@$link_object.parents('.element_editor'))
     if @link_object.editor
-      @setTinyMCELink(url, title, target)
+      @setTinyMCELink(url, title, target, link_class)
     else
-      @setEssenceLink(url, title, target)
+      @setEssenceLink(url, title, target, link_class)
 
   # Sets a link in TinyMCE editor.
-  setTinyMCELink: (url, title, target) ->
+  setTinyMCELink: (url, title, target, link_class) ->
     editor = @link_object.editor
     editor.execCommand 'mceInsertLink', false,
       'href': url
-      'class': @link_type
+      'class': @link_type + ' ' + link_class
       'title': title
       'data-link-target': target
       'target': if target == 'blank' then '_blank' else null
@@ -111,11 +118,11 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     true
 
   # Sets a link on an Essence (e.g. EssencePicture).
-  setEssenceLink: (url, title, target) ->
+  setEssenceLink: (url, title, target, link_class) ->
     content_id = @$link_object.data('content-id')
     $("#contents_#{content_id}_link").val(url).change()
     $("#contents_#{content_id}_link_title").val(title)
-    $("#contents_#{content_id}_link_class_name").val(@link_type)
+    $("#contents_#{content_id}_link_class_name").val(@link_type + ' ' + link_class)
     $("#contents_#{content_id}_link_target").val(target)
     @$link_object.addClass('linked')
     @$link_object.next().addClass('linked').removeClass('disabled')
@@ -134,21 +141,26 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     # Populate title and target fields.
     $('.link_title', @dialog_body).val $link.attr('title')
     $('.link_target', @dialog_body).select2('val', $link.attr('data-link-target'))
+    $classname = $link.attr('class')
     # Checking of what kind the link is (internal, external or file).
     if $link.hasClass('external')
       # Handles an external link.
       tab = $('#overlay_tab_external_link')
       @$external_url.val($link.attr('href'))
+      $classname = $classname.replace('external ','')
     else if $link.hasClass('file')
       # Handles a file link.
       tab = $('#overlay_tab_file_link')
       @$public_filename.select2('val', $link[0].pathname + $link[0].search)
+      $classname = $classname.replace('file ','')
     else
       # Handles an internal link.
       tab = $('#overlay_tab_internal_link')
       @selectInternalLinkTab($link)
+      $classname = $classname.replace('internal ','')
     # activate the tab jquery ui 1.10 style o.O
     @$overlay_tabs.tabs('option', 'active', $('#overlay_tabs > div').index(tab))
+    $('.link_class', @dialog_body).select2('val', $classname)
 
   # Handles actions for internal link tab.
   selectInternalLinkTab: ($link) ->
@@ -233,6 +245,23 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
       @deselectPage()
       # store the internal anchor as urlname
       $("#internal_urlname").val("##{e.target.value}")
+
+  # Populates the internal and external class select
+  initLinkClasses: ->
+    classes = tinymce.settings.link_class_list
+    if classes && classes.length > 0
+      for style in classes
+        @$internal_class.append("<option value='#{style.value}'>#{style.title}</option>")
+        @$external_class.append("<option value='#{style.value}'>#{style.title}</option>")
+    else
+      @$internal_class.parent().hide()
+      @$external_class.parent().hide()
+    @$internal_class.change (e) =>
+      # store the internal class
+      $("#internal_link_class").val("#{e.target.value}")
+    @$external_class.change (e) =>
+      # store the external class
+      $("#external_link_class").val("#{e.target.value}")
 
   # Public class methods
 

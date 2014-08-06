@@ -18,6 +18,14 @@
     <%= text_field_tag "external_link_title", '', class: 'link_title' %>
   </div>
   <div class="input select">
+    <label for="external_class" class="control-label">
+      <%= _t(:class) %>
+    </label>
+    <%= select_tag(:external_class,
+       options_for_select([[_t('Please choose'), '']]),
+       class: 'alchemy_selectbox link_class') %>
+  </div>
+  <div class="input select">
     <label for="external_link_target" class="control-label">
       <%= _t("Open Link in") %>
     </label>
@@ -26,6 +34,7 @@
       class: 'alchemy_selectbox link_target' %>
   </div>
   <div class="submit">
+    <%= hidden_field_tag(:external_link_class) %>
     <%= link_to _t(:apply), '#', class: 'create-link button', 'data-link-type' => 'external' %>
   </div>
 <% end %>
