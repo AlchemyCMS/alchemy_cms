@@ -1,13 +1,11 @@
-set(:release_public_path, "#{fetch(:release_path)}/public")
-
 namespace :alchemy do
 
   namespace :db do
     desc "Seeds the database with essential data."
     task :seed do
       on roles :db do
-        within fetch(:release_path) do
-          with rails_env: fetch(:rails_env) do
+        within release_path do
+          with rails_env: fetch(:rails_env, 'production') do
             execute :rake, 'alchemy:db:seed'
           end
         end
@@ -17,10 +15,10 @@ namespace :alchemy do
     desc "Dumps the database into 'db/dumps' on the server."
     task :dump do
       on roles :db do
-        within fetch(:release_path) do
+        within release_path do
           timestamp = Time.now.strftime('%Y-%m-%d-%H-%M')
           execute :mkdir, '-p', 'db/dumps'
-          with dump_filename: "db/dumps/#{timestamp}.sql", rails_env: fetch(:rails_env) do
+          with dump_filename: "db/dumps/#{timestamp}.sql", rails_env: fetch(:rails_env, 'production') do
             execute :rake, 'alchemy:db:dump'
           end
         end
@@ -32,9 +30,9 @@ namespace :alchemy do
     desc "Imports all data (Pictures, attachments and the database) into your local development machine."
     task :all do
       on roles [:app, :db] do
-        pictures
-        attachments
-        database
+        invoke('alchemy:import:pictures')
+        invoke('alchemy:import:attachments')
+        invoke('alchemy:import:database')
       end
     end
 
@@ -75,7 +73,7 @@ namespace :alchemy do
     end
 
     def db_import_cmd(server)
-      dump_cmd = "cd #{fetch(:release_path)} && #{rake} RAILS_ENV=#{fetch(:rails_env)} alchemy:db:dump"
+      dump_cmd = "cd #{release_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:dump"
       sql_stream = "ssh -p #{fetch(:port, 22)} #{server.user}@#{server.hostname} '#{dump_cmd}'"
       "#{sql_stream} | #{database_import_command(database_config['adapter'])} 1>/dev/null 2>&1"
     end
@@ -112,17 +110,17 @@ namespace :alchemy do
       end
     end
 
-    def public_path_with_mountpoint(suffix = '')
+    def public_path_with_mountpoint
       @public_path_with_mountpoint ||= begin
-        File.join(fetch(:release_public_path), Alchemy::MountPoint.get, suffix)
+        File.join(release_path, 'public', Alchemy::MountPoint.get)
       end
     end
   end
 
   desc "Upgrades production database to current Alchemy CMS version"
   task :upgrade do
-    within fetch(:release_path) do
-      with rails_env: fetch(:rails_env) do
+    within release_path do
+      with rails_env: fetch(:rails_env, 'production') do
         execute :rake, 'alchemy:upgrade'
       end
     end
