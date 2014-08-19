@@ -38,7 +38,7 @@ namespace :alchemy do
 
     desc "Imports the server database into your local development machine."
     task :database do
-      on roles :db, in: :parallel do |server|
+      on roles :db do |server|
         require 'spinner'
         spinner = Spinner.new
         print "\n"
@@ -51,14 +51,14 @@ namespace :alchemy do
 
     desc "Imports attachments into your local machine using rsync."
     task :attachments do
-      on roles :app, in: :parallel do |server|
+      on roles :app do |server|
         get_files(:attachments, server)
       end
     end
 
     desc "Imports pictures into your local machine using rsync."
     task :pictures do
-      on roles :app, in: :parallel do |server|
+      on roles :app do |server|
         get_files(:pictures, server)
       end
     end
