@@ -119,9 +119,11 @@ namespace :alchemy do
 
   desc "Upgrades production database to current Alchemy CMS version"
   task :upgrade do
-    within release_path do
-      with rails_env: fetch(:rails_env, 'production') do
-        execute :rake, 'alchemy:upgrade'
+    on roles [:app, :db] do
+      within release_path do
+        with rails_env: fetch(:rails_env, 'production') do
+          execute :rake, 'alchemy:upgrade'
+        end
       end
     end
   end
