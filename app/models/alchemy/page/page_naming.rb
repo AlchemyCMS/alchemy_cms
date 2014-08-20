@@ -72,11 +72,11 @@ module Alchemy
     def set_urlname
       if Config.get(:url_nesting)
         url_name = [
-          parent.nil? || parent.language_root? ? nil : parent.urlname,
-          convert_url_name((urlname.blank? ? name : slug))
+          parent_urlname,
+          convert_url_name(urlname.blank? ? name : slug)
         ].compact.join('/')
       else
-        url_name = convert_url_name((urlname.blank? ? name : urlname))
+        url_name = convert_url_name(urlname.blank? ? name : urlname)
       end
       write_attribute :urlname, url_name
     end
@@ -97,6 +97,13 @@ module Alchemy
       else
         url_name
       end
+    end
+
+    # Urlname of parent page.
+    # Returns nil, if the parent is either a language root page or the root page itself
+    def parent_urlname
+      return if parent.nil? || parent.language_root? || parent.root?
+      parent.urlname
     end
   end
 end
