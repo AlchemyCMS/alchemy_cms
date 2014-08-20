@@ -9,9 +9,11 @@ require 'alchemy/mount_point'
 
 include Alchemy::Tasks::Helpers
 
-if Capistrano::VERSION >= '3'
+if defined?(Capistrano::VERSION)
+  # load Capistrano 3 tasks
   load File.expand_path('../../tasks/capistrano/alchemy.cap', __FILE__)
 else
+  # load Capistrano 2 tasks
   Capistrano::Configuration.instance(:must_exist).load do
 
     set :shared_picture_cache_path do
