@@ -1203,12 +1203,13 @@ module Alchemy
     end
 
     context 'urlname updating' do
-      let(:parentparent) { FactoryGirl.create(:page, name: 'parentparent', visible: true) }
-      let(:parent)       { FactoryGirl.create(:page, parent_id: parentparent.id, name: 'parent', visible: true) }
-      let(:page)         { FactoryGirl.create(:page, parent_id: parent.id, name: 'page', visible: true) }
-      let(:invisible)    { FactoryGirl.create(:page, parent_id: page.id, name: 'invisible', visible: false) }
-      let(:contact)      { FactoryGirl.create(:page, parent_id: invisible.id, name: 'contact', visible: true) }
-      let(:external)     { FactoryGirl.create(:page, parent_id: parent.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
+      let(:parentparent)  { FactoryGirl.create(:page, name: 'parentparent', visible: true) }
+      let(:parent)        { FactoryGirl.create(:page, parent_id: parentparent.id, name: 'parent', visible: true) }
+      let(:page)          { FactoryGirl.create(:page, parent_id: parent.id, name: 'page', visible: true) }
+      let(:invisible)     { FactoryGirl.create(:page, parent_id: page.id, name: 'invisible', visible: false) }
+      let(:contact)       { FactoryGirl.create(:page, parent_id: invisible.id, name: 'contact', visible: true) }
+      let(:external)      { FactoryGirl.create(:page, parent_id: parent.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
+      let(:language_root) { parentparent.parent }
 
       context "with activated url_nesting" do
         before { Config.stub(:get).and_return(true) }
@@ -1218,7 +1219,9 @@ module Alchemy
         end
 
         it "should not include the root page" do
-          page.urlname.should_not =~ /root/
+          Page.root.update_column(:urlname, 'root')
+          language_root.update(urlname: 'new-urlname')
+          language_root.urlname.should_not =~ /root/
         end
 
         it "should not include the language root page" do
