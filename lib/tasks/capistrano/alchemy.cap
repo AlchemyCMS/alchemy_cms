@@ -1,3 +1,9 @@
+set :shared_picture_cache_path,
+  -> { File.join(shared_path, 'cache', Alchemy::MountPoint.get, 'pictures') }
+
+set :public_path_with_mountpoint,
+  -> { File.join(release_path, 'public', Alchemy::MountPoint.get) }
+
 namespace :alchemy do
 
   namespace :db do
@@ -31,7 +37,9 @@ namespace :alchemy do
     task :all do
       on roles [:app, :db] do
         invoke('alchemy:import:pictures')
+        puts "\n"
         invoke('alchemy:import:attachments')
+        puts "\n"
         invoke('alchemy:import:database')
       end
     end
@@ -39,13 +47,9 @@ namespace :alchemy do
     desc "Imports the server database into your local development machine."
     task :database do
       on roles :db do |server|
-        require 'spinner'
-        spinner = Spinner.new
-        print "\n"
-        spinner.task("Importing the database. Please wait...") do
-          system db_import_cmd(server)
-        end
-        spinner.spin!
+        puts "Importing database. Please wait..."
+        system db_import_cmd(server)
+        puts "Done."
       end
     end
 
@@ -64,55 +68,40 @@ namespace :alchemy do
     end
 
     def get_files(type, server)
+      raise "No server given" if !server
       FileUtils.mkdir_p "./uploads"
-      if server
-        system "rsync --progress -rue 'ssh -p #{fetch(:port, 22)}' #{server.user}@#{server.hostname}:#{shared_path}/uploads/#{type} ./uploads/"
-      else
-        raise "No server found"
-      end
+      puts "Importing #{type}. Please wait..."
+      system "rsync --progress -rue 'ssh -p #{fetch(:port, 22)}' #{server.user}@#{server.hostname}:#{shared_path}/uploads/#{type} ./uploads/"
     end
 
     def db_import_cmd(server)
-      dump_cmd = "cd #{release_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:dump"
+      raise "No server given" if !server
+      dump_cmd = "cd #{release_path} && bundle exec rake RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:dump"
       sql_stream = "ssh -p #{fetch(:port, 22)} #{server.user}@#{server.hostname} '#{dump_cmd}'"
       "#{sql_stream} | #{database_import_command(database_config['adapter'])} 1>/dev/null 2>&1"
     end
   end
 
   namespace :shared_folders do
-    # This task creates the shared folders for uploads, assets and picture cache while setting up your server.
     desc "Creates the uploads and picture cache directory in the shared folder. Called after deploy:setup"
     task :create do
       on roles :app do
         execute :mkdir, '-p', "#{shared_path}/uploads/pictures"
         execute :mkdir, '-p', "#{shared_path}/uploads/attachments"
-        execute :mkdir, '-p', "#{shared_picture_cache_path}"
+        execute :mkdir, '-p', fetch(:shared_picture_cache_path)
         execute :mkdir, '-p', "#{shared_path}/cache/assets"
       end
     end
 
-    # This task sets the symlinks for uploads, assets and picture cache folder.
-    desc "Sets the symlinks for uploads and picture cache folder. Called after deploy:finalize_update"
+    desc "Sets the symlinks for uploads and picture cache folder. Called after deploy:symlink:linked_dirs"
     task :symlink do
       on roles :app do
-        execute :rm, '-rf', "#{release_path}/uploads"
-        execute :ln, '-nfs', "#{shared_path}/uploads #{release_path}/"
-        execute :mkdir, '-p', "#{public_path_with_mountpoint}"
-        execute :ln, '-nfs', "#{shared_picture_cache_path} #{public_path_with_mountpoint}pictures/"
-        execute :mkdir, '-p', "#{release_path}/tmp/cache"
-        execute :ln, '-nfs', "#{shared_path}/cache/assets #{release_path}/tmp/cache/assets"
-      end
-    end
-
-    def shared_picture_cache_path
-      @shared_picture_cache_path ||= begin
-        File.join(shared_path, 'cache', Alchemy::MountPoint.get, 'pictures')
-      end
-    end
-
-    def public_path_with_mountpoint
-      @public_path_with_mountpoint ||= begin
-        File.join(release_path, 'public', Alchemy::MountPoint.get)
+        execute :rm,    '-rf',  "#{release_path}/uploads"
+        execute :ln,    '-nfs', "#{shared_path}/uploads #{release_path}/"
+        execute :mkdir, '-p',   fetch(:public_path_with_mountpoint)
+        execute :ln,    '-nfs', "#{fetch(:shared_picture_cache_path)} #{File.join(fetch(:public_path_with_mountpoint), 'pictures')}"
+        execute :mkdir, '-p',   "#{release_path}/tmp/cache"
+        execute :ln,    '-nfs', "#{shared_path}/cache/assets #{release_path}/tmp/cache/assets"
       end
     end
   end

@@ -13,6 +13,15 @@ if Capistrano::VERSION >= '3'
   load File.expand_path('../../tasks/capistrano/alchemy.cap', __FILE__)
 else
   Capistrano::Configuration.instance(:must_exist).load do
+
+    set :shared_picture_cache_path do
+      File.join(shared_path, 'cache', Alchemy::MountPoint.get, 'pictures')
+    end
+
+    set :public_path_with_mountpoint do
+      File.join(release_path, 'public', Alchemy::MountPoint.get)
+    end
+
     after "deploy:setup", "alchemy:shared_folders:create"
     after "deploy:finalize_update", "alchemy:shared_folders:symlink"
     before "deploy:start", "alchemy:db:seed"
@@ -36,21 +45,9 @@ else
           run "rm -rf #{release_path}/uploads"
           run "ln -nfs #{shared_path}/uploads #{release_path}/"
           run "mkdir -p #{public_path_with_mountpoint}"
-          run "ln -nfs #{shared_picture_cache_path} #{public_path_with_mountpoint('pictures')}"
+          run "ln -nfs #{shared_picture_cache_path} #{public_path_with_mountpoint}pictures"
           run "mkdir -p #{release_path}/tmp/cache"
           run "ln -nfs #{shared_path}/cache/assets #{release_path}/tmp/cache/assets"
-        end
-
-        def shared_picture_cache_path
-          @shared_picture_cache_path ||= begin
-            File.join(shared_path, 'cache', Alchemy::MountPoint.get, 'pictures')
-          end
-        end
-
-        def public_path_with_mountpoint(suffix = '')
-          @release_picture_cache_path ||= begin
-            File.join(release_path, 'public', Alchemy::MountPoint.get, suffix)
-          end
         end
 
       end
@@ -116,43 +113,41 @@ else
         desc "Imports all data (Pictures, attachments and the database) into your local development machine."
         task :all, :roles => [:app, :db] do
           pictures
+          puts "\n"
           attachments
+          puts "\n"
           database
         end
 
         desc "Imports the server database into your local development machine."
         task :database, :roles => [:db], :only => {:primary => true} do
-          require 'spinner'
           server = find_servers_for_task(current_task).first
-          spinner = Spinner.new
-          print "\n"
-          spinner.task("Importing the database. Please wait...") do
-            system db_import_cmd(server)
-          end
-          spinner.spin!
+          puts "Importing database. Please wait..."
+          system db_import_cmd(server)
+          puts "Done."
         end
 
         desc "Imports attachments into your local machine using rsync."
         task :attachments, :roles => [:app] do
-          get_files :attachments
+          server = find_servers_for_task(current_task).first
+          get_files :attachments, server
         end
 
         desc "Imports pictures into your local machine using rsync."
         task :pictures, :roles => [:app] do
-          get_files :pictures
+          server = find_servers_for_task(current_task).first
+          get_files :pictures, server
         end
 
-        def get_files(type)
+        def get_files(type, server)
+          raise "No server given" if !server
           FileUtils.mkdir_p "./uploads"
-          server = find_servers_for_task(current_task).first
-          if server
-            system "rsync --progress -rue 'ssh -p #{fetch(:port, 22)}' #{user}@#{server}:#{shared_path}/uploads/#{type} ./uploads/"
-          else
-            raise "No server found"
-          end
+          puts "Importing #{type}. Please wait..."
+          system "rsync --progress -rue 'ssh -p #{fetch(:port, 22)}' #{user}@#{server}:#{shared_path}/uploads/#{type} ./uploads/"
         end
 
         def db_import_cmd(server)
+          raise "No server given" if !server
           dump_cmd = "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:dump"
           sql_stream = "ssh -p #{fetch(:port, 22)} #{user}@#{server} '#{dump_cmd}'"
           "#{sql_stream} | #{database_import_command(database_config['adapter'])} 1>/dev/null 2>&1"
