@@ -15,7 +15,7 @@ module Alchemy
           @last_sign_at = current_alchemy_user.last_sign_in_at
           @first_time = current_alchemy_user.sign_in_count == 1 && @last_sign_at.nil?
         end
-        @widgets = @@dashboard.widget_configs
+        @widgets = dashboard.widget_configs
       end
 
     private
