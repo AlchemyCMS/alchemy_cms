@@ -6,6 +6,42 @@ set :public_path_with_mountpoint,
 
 namespace :alchemy do
 
+  namespace :database_yml do
+    desc "Creates the database.yml file"
+    task :create do
+      set :db_environment, ask("the environment", fetch(:rails_env, 'production'))
+      set :db_adapter, ask("database adapter (mysql or postgresql)", 'mysql')
+      set :db_adapter, fetch(:db_adapter).gsub(/\Amysql\z/, 'mysql2')
+      set :db_name, ask("database name", nil)
+      set :db_username, ask("database username", nil)
+      set :db_password, ask("database password", nil)
+      default_db_host = fetch(:db_adapter) == 'mysql2' ? 'localhost' : '127.0.0.1'
+      set :db_host, ask("database host", default_db_host)
+      db_config = ERB.new <<-EOF
+#{fetch(:db_environment)}:
+  adapter: #{fetch(:db_adapter)}
+  encoding: utf8
+  reconnect: false
+  pool: 5
+  database: #{fetch(:db_name)}
+  username: #{fetch(:db_username)}
+  password: #{fetch(:db_password)}
+  host: #{fetch(:db_host)}
+EOF
+      on roles :app do
+        execute :mkdir, '-p', "#{shared_path}/config"
+        upload! StringIO.new(db_config.result), "#{shared_path}/config/database.yml"
+      end
+    end
+
+    desc "Symlinks the database.yml file from shared folder into config folder"
+    task :symlink do
+      on roles :app do
+        execute :ln, '-nfs', "#{shared_path}/config/database.yml #{release_path}/config/database.yml"
+      end
+    end
+  end
+
   namespace :db do
     desc "Seeds the database with essential data."
     task :seed do
