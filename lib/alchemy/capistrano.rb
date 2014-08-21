@@ -3,7 +3,7 @@
 require 'fileutils'
 require 'alchemy/tasks/helpers'
 # Loading the rails app
-require './config/environment.rb'
+# require './config/environment.rb'
 # so we can read the current mount point of Alchemy
 require 'alchemy/mount_point'
 
