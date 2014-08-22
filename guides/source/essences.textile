@@ -93,10 +93,12 @@ NOTE: Pretty handy together with the <code>page_selector</code> "helper":http://
 
 h4. Example
 
-# app/viewsalchemy/elements/_my_element_editor.html.erb
+<ruby>
+# app/views/alchemy/elements/_my_element_editor.html.erb
 ...
   el.render :width, :select_values => ["200", "300", "400"]
 ...
+</ruby>
 
 h3. EssenceLink
 
