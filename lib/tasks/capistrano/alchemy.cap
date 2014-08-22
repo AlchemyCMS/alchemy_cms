@@ -1,11 +1,29 @@
-set :shared_picture_cache_path,
-  -> { File.join(shared_path, 'cache', Alchemy::MountPoint.get, 'pictures') }
-
-set :public_path_with_mountpoint,
-  -> { File.join(release_path, 'public', Alchemy::MountPoint.get) }
+# https://github.com/magiclabs/alchemy_cms/pull/616
 
 namespace :alchemy do
 
+  # TODO: split up this namespace into something that runs once on `cap install` and
+  # once on every deploy
+  desc "Prepare Alchemy for deployment."
+  task :install do
+    set :alchemy_picture_cache_path,
+      -> { File.join('public', fetch(:alchemy_mount_point), 'pictures') }
+
+    set :linked_dirs, -> { fetch(:linked_dirs, []) + [
+      "uploads/pictures",
+      "uploads/attachments",
+      fetch(:alchemy_picture_cache_path),
+      "cache/assets"
+    ] }
+
+    # TODO: Check, if this is the right approach to ensure that we don't overwrite existing settings?
+    # Or does Capistrano already handle this for us?
+    set :linked_files, -> {
+      fetch(:linked_files, []) + %w(config/database.yml)
+    }
+  end
+
+  # TODO: Do we really need this in Alchemy or should we release an official Capistrano plugin for that?
   namespace :database_yml do
     desc "Creates the database.yml file"
     task :create do
@@ -31,13 +49,6 @@ EOF
       on roles :app do
         execute :mkdir, '-p', "#{shared_path}/config"
         upload! StringIO.new(db_config.result), "#{shared_path}/config/database.yml"
-      end
-    end
-
-    desc "Symlinks the database.yml file from shared folder into config folder"
-    task :symlink do
-      on roles :app do
-        execute :ln, '-nfs', "#{shared_path}/config/database.yml #{release_path}/config/database.yml"
       end
     end
   end
@@ -118,29 +129,32 @@ EOF
     end
   end
 
-  namespace :shared_folders do
-    desc "Creates the uploads and picture cache directory in the shared folder. Called after deploy:setup"
-    task :create do
-      on roles :app do
-        execute :mkdir, '-p', "#{shared_path}/uploads/pictures"
-        execute :mkdir, '-p', "#{shared_path}/uploads/attachments"
-        execute :mkdir, '-p', fetch(:shared_picture_cache_path)
-        execute :mkdir, '-p', "#{shared_path}/cache/assets"
-      end
-    end
+  # TODO: Refactor me to use `linked_dirs`.
+  # Kepts for reference on what needs to be done
+  #
+  # namespace :shared_folders do
+  #   desc "Creates the uploads and picture cache directory in the shared folder. Called after deploy:setup"
+  #   task :create do
+  #     on roles :app do
+  #       execute :mkdir, '-p', "#{shared_path}/uploads/pictures"
+  #       execute :mkdir, '-p', "#{shared_path}/uploads/attachments"
+  #       execute :mkdir, '-p', fetch(:shared_picture_cache_path)
+  #       execute :mkdir, '-p', "#{shared_path}/cache/assets"
+  #     end
+  #   end
 
-    desc "Sets the symlinks for uploads and picture cache folder. Called after deploy:symlink:linked_dirs"
-    task :symlink do
-      on roles :app do
-        execute :rm,    '-rf',  "#{release_path}/uploads"
-        execute :ln,    '-nfs', "#{shared_path}/uploads #{release_path}/"
-        execute :mkdir, '-p',   fetch(:public_path_with_mountpoint)
-        execute :ln,    '-nfs', "#{fetch(:shared_picture_cache_path)} #{File.join(fetch(:public_path_with_mountpoint), 'pictures')}"
-        execute :mkdir, '-p',   "#{release_path}/tmp/cache"
-        execute :ln,    '-nfs', "#{shared_path}/cache/assets #{release_path}/tmp/cache/assets"
-      end
-    end
-  end
+  #   desc "Sets the symlinks for uploads and picture cache folder. Called after deploy:symlink:linked_dirs"
+  #   task :symlink do
+  #     on roles :app do
+  #       execute :rm,    '-rf',  "#{release_path}/uploads"
+  #       execute :ln,    '-nfs', "#{shared_path}/uploads #{release_path}/"
+  #       execute :mkdir, '-p',   fetch(:public_path_with_mountpoint)
+  #       execute :ln,    '-nfs', "#{fetch(:shared_picture_cache_path)} #{File.join(fetch(:public_path_with_mountpoint), 'pictures')}"
+  #       execute :mkdir, '-p',   "#{release_path}/tmp/cache"
+  #       execute :ln,    '-nfs', "#{shared_path}/cache/assets #{release_path}/tmp/cache/assets"
+  #     end
+  #   end
+  # end
 
   desc "Upgrades production database to current Alchemy CMS version"
   task :upgrade do
@@ -154,5 +168,7 @@ EOF
   end
 end
 
-after :install, "alchemy:shared_folders:create"
-after "deploy:symlink:linked_dirs", "alchemy:shared_folders:symlink"
+# TODO: FIX ME!
+# after :install, "alchemy:shared_folders:create"
+# TODO: Refactor me to use linked_dirs
+# after "deploy:symlink:linked_dirs", "alchemy:shared_folders:symlink"
