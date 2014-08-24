@@ -104,13 +104,13 @@ module Alchemy
       # Used to store the current page previewed in the edit page template.
       #
       def current_preview=(page)
-        Thread.current[:alchemy_current_preview] = page
+        RequestStore.store[:alchemy_current_preview] = page
       end
 
       # Returns the current page previewed in the edit page template.
       #
       def current_preview
-        Thread.current[:alchemy_current_preview]
+        RequestStore.store[:alchemy_current_preview]
       end
 
       # @return the language root page for given language id.

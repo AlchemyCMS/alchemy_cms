@@ -41,8 +41,9 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'spinner.rb'
   gem.add_runtime_dependency 'turbolinks',                       '~> 2.0'
   gem.add_runtime_dependency 'non-stupid-digest-assets',         '~> 1.0.3'
-  gem.add_runtime_dependency 'active_model_serializers',         '>= 0.8.1', '< 0.10.0'
-
+  gem.add_runtime_dependency 'active_model_serializers',         '~> 0.8.1', '< 0.10.0'
+  gem.add_runtime_dependency 'request_store',                    '~> 1.1.0'
+  
   gem.add_development_dependency 'rspec-rails', '~> 2.0'
   gem.add_development_dependency 'capybara'
   gem.add_development_dependency 'factory_girl_rails'
