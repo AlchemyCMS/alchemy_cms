@@ -25,7 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'acts-as-taggable-on',              '~> 3.1'
   gem.add_runtime_dependency 'cancan',                           '~> 1.6.10'
   gem.add_runtime_dependency 'dragonfly',                        '~> 1.0.1'
-  gem.add_runtime_dependency 'kaminari',                         '~> 0.15.0'
+  gem.add_runtime_dependency 'kaminari',                         '~> 0.15'
   gem.add_runtime_dependency 'acts_as_list',                     '~> 0.3.0'
   gem.add_runtime_dependency 'magiclabs-userstamp',              '~> 2.1.0'
   gem.add_runtime_dependency 'simple_form',                      '~> 3.0.1'
