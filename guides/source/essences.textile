@@ -91,6 +91,15 @@ Useful for letting your user select from a limited set of choices.
 
 NOTE: Pretty handy together with the <code>page_selector</code> "helper":http://rubydoc.info/github/magiclabs/alchemy_cms/Alchemy/Admin/EssencesHelper#page_selector-instance_method.
 
+h4. Example
+
+<ruby>
+# app/views/alchemy/elements/_my_element_editor.html.erb
+...
+  el.render :width, :select_values => ["200", "300", "400"]
+...
+</ruby>
+
 h3. EssenceLink
 
 Stores a url in the database. Useful for linking things, where the user should not set the linked value itself. (Like in the EssenceText with <code>linkable: true</code> option)
