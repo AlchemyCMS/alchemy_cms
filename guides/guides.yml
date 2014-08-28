@@ -83,6 +83,10 @@ index:
       url: custom_authentication
       text: How to add you own custom authentication.
 
+    - title: Extending Alchemy
+      url: extending_alchemy
+      text: How to extend Alchemy core functionality.
+
 
   6.) Deployment:
     - title: Deploying on RailsHoster

@@ -1,7 +1,8 @@
 h2. Extending Alchemy
 
-At some point you may come across the need of adding some behavior to already existing controllers or models, that alchemy provides. Obviously you could just copy the files, insert them into your projects and edit them there, but this isn't a really clean solution.
-This section will give you a hint on how to extend existing alchemy files without overriding everything.
+At some point you may come across the need of adding some behavior to already existing controllers or models, that Alchemy provides. Obviously you could just copy the files, insert them into your projects and edit them there, but this isn't a really clean solution.
+
+* This section will give you a hint on how to extend existing Alchemy files without overriding everything.
 
 endprologue.
 
