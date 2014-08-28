@@ -40,6 +40,167 @@ Hence the necessary prepations are completed.
 
 h3. Define elements
 
+First of all we define the elements we need in <code>config/alchemy/elements.yml</code>
+The individual page elements(see *1. Concept and structure*) could be considered as an element.
+
+h4. Blog title
+
+The blog should have a unique title. The title element contains a <code>title</code> and a <code>text</code> which represents a description or motto. In both cases we choose an <code>EssenceText</code>, due to the fact that the <code>title</code> and the <code>text</code>will contain simple text.
+
+The <code>default</code> attribut provides the preset value, if the user didn't specify a motto or description( in Alchemy's backend).
+
+<pre>
+- name: blog_title
+  unique: true
+  contents:
+  - name: title
+    type: EssenceText
+    default: Blog
+  - name: text
+    type: EssenceText
+    default: This is my blog. It's awesome.
+</pre>
+
+h4. Blog post
+
+A 'blog post' element has a title, date, author, image and text.
+
+The title is represented by <code>blog_post_title</code>. Its just a text, so we took <code>EssenceText</code> as type. Below <code>settings</code> we use <code>linkable: true</code>, because the user should be able to choose a link for the title of the blog post.
+
+The meta data like author and creation date corresponds to 'blog_post_meta'.
+
+The <code>blog_post_intro_text</code> text as well as the main content <code>blog_post_content</code>
+get the type <code>EssenceRichtext</code>, since the user likes to add multiline paragraphs.
+
+The <code>blog_post_image</code> is of type <code>EssencePicture</code>. This will empower the user to add an image.
+
+<pre>
+- name: blog_post
+  contents:
+  - name: blog_post_title
+    type: EssenceText
+    default: Blog Post Title
+    settings:
+      linkable: true
+  - name: blog_post_meta
+    type: EssenceText
+    default: "Written by John Smith on August 12, 2012"
+  - name: blog_post_intro_text
+    type: EssenceRichtext
+  - name: blog_post_image
+    type: EssencePicture
+  - name: blog_post_content
+    type: EssenceRichtext
+</pre>
+
+h4. Categories Block
+
+The 'categories block' has a headline and a list of available categories.
+
+The <code>categories_headline</code> is represented by an <code>EssenceText</code>.
+In the backend the user should be able to add categories easily and dynamically. Thats the reason why we choose the <code>available_contents</code> option.
+*Its important to copy the definition of <code>category</code> below <code>contents</code> to <code>available_contents</code>*. Besides this, we also make the <code>EssenceText</code> deleteable and linkable via <code>settings</code>.
+
+<pre>
+- name: categories_block
+  contents:
+  - name: categories_headline
+    type: EssenceText
+    default: Categories
+  - name: category
+    type: EssenceText
+    settings:
+      deleteable: true
+      linkable: true
+  available_contents:
+  - name: category
+    type: EssenceText
+    settings:
+      deletable: true
+      linkable: true
+</pre>
+
+h4. Featured block
+
+The 'featured block' with a headline, text and a link.
+
+<pre>
+- name: featured
+  unique: true
+  contents:
+  - name: featured_headline
+    type: EssenceText
+    default: "Featured"
+  - name: featured_text
+    type: EssenceRichtext
+  - name: featured_link
+    type: EssenceText
+    settings:
+      linkable: true
+</pre>
+
+NOTE: Instead of <code>EssenceText</code> you could alternativly use <code>EssenceLink</code> for 'featured_link'.
+
+h3. Define blog page layout
+
+After the definition of the elements, you we will continue with the defintion of an appropriate
+page layout. Page layout are specified in <code>config/alchemy/page_layouts.yml</code>.
+
+Add a new page layout for your blog template:
+
+<pre>
+- name: blog
+  elements: [blog_title, blog_post, categories_block, featured]
+  autogenerate: [blog_title]
+</pre>
+
+The <code>autogenerate</code> attribute allows to define elements which
+will be generated automatically, when the user creates a new page in backend.
+
+h3. Generate and customize the partials
+
+The command
+<shell>rails g alchemy:elements --skip</shell>
+creates the view and editor partial according to the element definition in
+the <code>elements.yml</code>.
+
+The partials are stored in <code>app/views/alchemy/elements/</code>.
+
+e.g. the view partial for 'blog_post'- element: <code>_blog_post_view.html.erb</code>
+and editor partial: <code>_blog_post_editor.html.erb</code>
+
+h4. Customize the partials
+
+In order to adapt the output of the elements you have to change the view partial.
+The command above generates default partials. The <code>_blog_post_view.html.erb</code>
+might look like this:
+
+<pre>
+<%- cache(element) do -%>
+  <%= element_view_for(element) do |el| -%>
+    <div class="blog_post_title">
+      <%= el.render :blog_post_title %>
+    </div>
+    <div class="blog_post_meta">
+      <%= el.render :blog_post_meta %>
+    </div>
+    <div class="blog_post_intro_text">
+      <%= el.render :blog_post_intro_text %>
+    </div>
+    <div class="blog_post_image">
+      <%= el.render :blog_post_image %>
+    </div>
+    <div class="blog_post_content">
+      <%= el.render :blog_post_content %>
+    </div>
+  <%- end -%>
+<%- end -%>
+</pre>
+
+<!-- TODO -->
+
+h3. Define elements
+
 INFO: under construction
 
 h3. Rendering your own contents
@@ -61,3 +222,148 @@ h4. Using the navigation helper
 INFO: under construction
 
 &nbsp;
+
+<!-- 2.9
+
+The blog post should match with the layout of the blog page in general, therefore we edit the view partial:
+
+<pre>
+<%= element_view_for(element) do |el| -%>
+<article>
+<h3>
+  <%= el.render :blog_post_title %>
+</h3>
+<h6>
+  <%= el.render :blog_post_meta %>
+</h6>
+<div class="row">
+  <div class="large-6 columns">
+    <p>
+      <%= el.render :blog_post_intro_text %>
+    </p>
+  </div>
+  <div class="large-6 columns">
+    <%= el.render :blog_post_image %>
+  </div>
+</div>
+<p>
+  <%= el.render :blog_post_content %>
+</p>x
+</article>
+<hr>
+<%- end -%>
+</pre>
+
+The editor partial is used for the backend, so we keep this file untouched.
+Feel feel to edit this partial if you like.
+
+For the remaining elements replace the content of the correspondig view partials
+with the following code snippets:
+
+<code>_blog_title_view.html.erb</code>
+
+<pre>
+<%= element_view_for(element, tag: 'h1') do |el| -%>
+<%= el.render :title %> <small><%= el.render :text %></small>
+<%- end -%>
+</pre>
+
+<code>_categories_block_view.html.erb</code>
+
+<pre>
+<%= element_view_for(element) do |el| -%>
+<h5>
+  <%= el.render :categories_headline %>
+</h5>
+  <% element.all_contents_by_name('category').each do |content| %>
+<p>
+  <%= render_essence_view(content) %>
+</p>
+<%- end -%>
+</pre>
+
+<code>_featured_view.html.erb</code>
+
+<pre>
+<%= element_view_for(element) do |el| -%>
+<h5>
+  <%= el.render :featured_headline %>
+</h5>
+<p>
+  <%= el.render :featured_text %>
+</p>
+<p>
+  <%= el.render :featured_link %>
+</p>
+<%- end -%>
+</pre>
+
+h3. Embed the elements into your page layout
+
+Finally you have to integrate your elements into the page layout.
+
+h4. Create new page layout view
+
+Create a new file called <code>_blog.html.erb</code> in <code>app/views/alchemy/page_layouts</code>
+and copy the plain html code from "Foundation Zurb Blog Template Raw":http://gist.github.com/ghaida/5054379/raw/f080e139a4e25c4548b265e7229cd6dbe09bff92/gistfile1.html .
+
+h4. Edit blog page layout view
+
+In <code>app/views/alchemy/page_layouts/_blog.html</code> search for (inside 'Nav Bar' comment)
+
+<pre>
+<h1>Blog <small>This is my blog. It's awesome.</small></h1>
+</pre>
+
+and replace with:
+
+<pre>
+<%= render_elements only: 'blog_title' %>
+</pre>
+
+The <strong>blog_title</strong> set in the backend is now visible in the blog page layout context.
+
+Inside the commented 'Main Blog Content' replace the whole content of
+<code><div class="large-9 columns" role="content"></code>
+
+with
+<pre>
+<%= render_elements only: 'blog_post' %>
+</pre>
+
+to embed the <strong>blog_post</strong> elements into the page layout view.
+
+Inside 'Sidebar' comment replace
+
+<pre>
+<h5>Categories</h5>
+      <ul class="side-nav">
+        <li><a href="#">News</a></li>
+        <li><a href="#">Code</a></li>
+        <li><a href="#">Design</a></li>
+        <li><a href="#">Fun</a></li>
+        <li><a href="#">Weasels</a></li>
+      </ul>
+</pre>
+
+with
+
+<pre>
+<%= render_elements only: 'categories_block'  %>
+</pre>
+
+
+and replace the content of <code><div class="panel"></code>
+with
+<pre>
+<%=  render_elements only: 'featured' %>
+</pre>
+
+Now you can run
+<shell>rails server</shell>
+
+to start the server.
+
+*Build your blog page using the defined layout and the elements.*
+
+-->
