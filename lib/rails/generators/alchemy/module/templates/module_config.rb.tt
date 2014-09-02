@@ -1,0 +1,15 @@
+Alchemy::Modules.register_module({
+  name: '<%= @module_name %>',
+  order: 1,
+  navigation: {
+    name: 'modules.<%= @module_name %>',
+    controller: '/admin/<%= @module_name %>',
+    action: 'index',
+    image: '/assets/<%= @module_name %>.png',
+    sub_navigation: [{
+      name: 'modules.<%= @module_name %>',
+      controller: '/admin/<%= @module_name %>',
+      action: 'index'
+    }]
+  }
+})
