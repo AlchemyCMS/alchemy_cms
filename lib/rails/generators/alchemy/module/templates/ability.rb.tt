@@ -1,0 +1,11 @@
+class <%= @class_name %>Ability
+  include CanCan::Ability
+
+  def initialize(user)
+    if user.present? && user.is_admin?
+      can :manage, <%= @class_name %>
+      can :manage, :admin_<%= @controller_name %>
+    end
+  end
+
+end
