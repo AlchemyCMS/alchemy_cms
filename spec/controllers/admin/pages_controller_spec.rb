@@ -186,9 +186,14 @@ module Alchemy
           end
 
           it "does not raise error" do
+            # This test does nothing as of Rspec 3. I do not understand why.
             expect {
               xhr :post, :order, set: set_of_pages.to_json
-            }.to_not raise_error(TypeError)
+            }.not_to raise_error(TypeError)
+          end
+
+          it "still generates the correct urlname on page_3" do
+            xhr :post, :order, set: set_of_pages.to_json
             [page_1, page_2, page_3].map(&:reload)
             expect(page_3.urlname).to eq("#{page_1.slug}/#{page_2.slug}/#{page_3.slug}")
           end
