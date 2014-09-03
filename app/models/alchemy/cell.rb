@@ -19,7 +19,7 @@
 #
 # Render cells with the +render_cell+ helper
 #
-# Views for cells are inside the +app/views/cells+ folder in you project.
+# Views for cells are inside the +app/views/cells+ folder in your project.
 #
 module Alchemy
   class Cell < ActiveRecord::Base
