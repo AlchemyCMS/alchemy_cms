@@ -422,16 +422,20 @@ module Alchemy
     end
 
     describe '.after_update' do
+      let(:page)    { create(:page) }
+      let(:element) { create(:element, page: page) }
+      let(:now)     { Time.now }
+
+      before do
+        Time.stub(now: now)
+      end
+
       context 'with touchable pages' do
         let(:locker)  { mock_model('DummyUser') }
-        let(:page)    { create(:page) }
-        let(:element) { create(:element, page: page) }
-        let(:now)     { Time.now }
         let(:pages)   { [page] }
 
         before do
           Alchemy.user_class.stub(:stamper).and_return(locker.id)
-          Time.stub(now: now)
         end
 
         it "updates page timestamps" do
@@ -444,6 +448,25 @@ module Alchemy
           element.save
           page.reload
           page.updater_id.should eq(locker.id)
+        end
+      end
+
+      context 'with cell associated' do
+        let(:cell) { mock_model('Cell') }
+
+        before do
+          element.stub(cell: cell)
+        end
+
+        it "updates timestamp of cell" do
+          element.cell.should_receive(:touch)
+          element.save
+        end
+      end
+
+      context 'without cell associated' do
+        it "does not update timestamp of cell" do
+          expect { element.save }.to_not raise_error
         end
       end
     end
