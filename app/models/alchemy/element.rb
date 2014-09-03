@@ -47,6 +47,7 @@ module Alchemy
 
     after_create :create_contents, :unless => proc { |e| e.create_contents_after_create == false }
     after_update :touch_pages
+    after_update :touch_cell, unless: -> { self.cell.nil? }
 
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
     scope :not_trashed,       -> { where(Element.arel_table[:position].not_eq(nil)) }
@@ -459,6 +460,15 @@ module Alchemy
     #
     def unique_available_page_cell_names(page)
       available_page_cells(page).collect(&:name).uniq
+    end
+
+    # If element has a +cell+ associated,
+    # it updates it's timestamp.
+    #
+    # Called after_update
+    #
+    def touch_cell
+      self.cell.touch
     end
 
   end
