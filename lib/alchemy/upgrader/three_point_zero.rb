@@ -16,6 +16,19 @@ module Alchemy
       end
     end
 
+    def publish_unpublished_public_pages
+      desc 'Sets `published_at` of public pages without a `published_at` date set to their `updated_at` value'
+      public_pages = Alchemy::Page.published.where('published_at IS NULL')
+      if public_pages.any?
+        public_pages.each do |page|
+          page.update_column(:published_at, page.updated_at)
+          log "Sets `published_at` of #{page.name} to #{page.updated_at}"
+        end
+      else
+        log 'No unpublished public pages found.', :skip
+      end
+    end
+
     def alchemy_3_todos
       notice = <<-NOTE
 
