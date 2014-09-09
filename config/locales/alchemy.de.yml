@@ -478,9 +478,6 @@ de:
     page_published: "Seite wurde veröffentlicht."
     page_restricted: "geschützt"
     page_states:
-      visible:
-        "true": "Die Seite ist in der Navigation sichtbar."
-        "false": "Die Seite ist nicht in der Navigation sichtbar."
       public:
         "true": "Die Seite ist veröffentlicht."
         "false": "Die Seite ist nicht veröffentlicht."
@@ -889,12 +886,14 @@ de:
 
       alchemy/page:
         created_at: "Erstellt am"
+        create_node: "Erstelle Navigationseintrag"
         language: "Sprache"
         locked: "Die Seite ist gesperrt"
         locked_by: "Gesperrt durch"
         meta_description: "Seitenbeschreibung"
         meta_keywords: "Suchbegriffe"
         name: "Name"
+        parent_id: "Eltern"
         page_layout: "Seitentyp"
         public: "veröffentlicht"
         restricted: "Passwort geschützt"

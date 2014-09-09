@@ -11,10 +11,7 @@ describe Alchemy::Permissions do
   let(:restricted_picture)      { mock_model(Alchemy::Picture, restricted?: true) }
   let(:public_page)             { build_stubbed(:alchemy_page, :public, restricted: false) }
   let(:unpublic_page)           { build_stubbed(:alchemy_page, public: false) }
-  let(:visible_page)            { build_stubbed(:alchemy_page, restricted: false, visible: true) }
-  let(:not_visible_page)        { build_stubbed(:alchemy_page, :public, restricted: false, visible: false) }
-  let(:restricted_page)         { build_stubbed(:alchemy_page, :public, public: true, restricted: true) }
-  let(:visible_restricted_page) { build_stubbed(:alchemy_page, visible: true, restricted: true) }
+  let(:restricted_page)         { build_stubbed(:alchemy_page, :public, restricted: true) }
   let(:published_element)       { mock_model(Alchemy::Element, restricted?: false, public?: true, trashed?: false) }
   let(:restricted_element)      { mock_model(Alchemy::Element, restricted?: true, public?: true, trashed?: false) }
   let(:published_content)       { mock_model(Alchemy::Content, restricted?: false, public?: true, trashed?: false) }
@@ -47,11 +44,6 @@ describe Alchemy::Permissions do
       is_expected.not_to be_able_to(:show, restricted_page)
       is_expected.to be_able_to(:index, public_page)
       is_expected.not_to be_able_to(:index, restricted_page)
-    end
-
-    it "can only see visible not restricted pages" do
-      is_expected.to be_able_to(:see, visible_page)
-      is_expected.not_to be_able_to(:see, not_visible_page)
     end
 
     it "can only see public not restricted elements" do
@@ -96,15 +88,6 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:show, restricted_page)
       is_expected.to be_able_to(:index, public_page)
       is_expected.to be_able_to(:index, restricted_page)
-    end
-
-    it "can see visible restricted pages" do
-      is_expected.to be_able_to(:see, visible_page)
-      is_expected.to be_able_to(:see, visible_restricted_page)
-    end
-
-    it "can not see invisible pages" do
-      is_expected.not_to be_able_to(:see, not_visible_page)
     end
 
     it "can see public restricted elements" do
@@ -210,10 +193,6 @@ describe Alchemy::Permissions do
 
     it "can publish pages" do
       is_expected.to be_able_to(:publish, Alchemy::Page)
-    end
-
-    it "can not see invisible pages" do
-      is_expected.not_to be_able_to(:see, not_visible_page)
     end
 
     it "can clear the trash" do

@@ -499,9 +499,6 @@ fr:
     page_published: "Cette page a été publiée."
     page_restricted: "protégé"
     page_states:
-      visible:
-        "true": "Le site est visible dans la navigation."
-        "false": "Le site n'est pas visible dans la navigation."
       public:
         "true": "La page est publiée."
         "false": "La page n'est pas publiée."

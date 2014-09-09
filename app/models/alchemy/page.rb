@@ -40,15 +40,15 @@ module Alchemy
     include Alchemy::Touching
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
-      :do_not_autogenerate => true,
-      :do_not_sweep => true,
-      :visible => false,
-      :public => false,
-      :locked => false,
-      :locked_by => nil
+      do_not_autogenerate: true,
+      public:              false,
+      locked:              false,
+      locked_by:           nil
     }
     SKIPPED_ATTRIBUTES_ON_COPY = %w(id updated_at created_at creator_id updater_id lft rgt depth urlname cached_tag_list)
     PERMITTED_ATTRIBUTES = [
+      :create_node,
+      :language_id,
       :meta_description,
       :meta_keywords,
       :name,
@@ -57,13 +57,13 @@ module Alchemy
       :restricted,
       :robot_index,
       :robot_follow,
-      :sitemap,
       :tag_list,
       :title,
       :urlname,
-      :visible,
-      :layoutpage
+      :parent_id
     ]
+
+    attr_accessor :create_node
 
     acts_as_taggable
 
@@ -71,23 +71,38 @@ module Alchemy
 
     is_alchemy_node
 
-    has_many :folded_pages
-    has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
     belongs_to :language
+    belongs_to :parent, class_name: 'Alchemy::Page'
+    has_many :nodes, as: :navigatable
+    has_many :legacy_urls, class_name: 'Alchemy::LegacyPageUrl'
+    has_many :children, class_name: 'Alchemy::Page', foreign_key: 'parent_id'
 
-    validates_presence_of :language, :on => :create, :unless => :root
-    validates_presence_of :page_layout, :unless => :systempage?
-    validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { systempage? || page_layout.blank? }
+    validates :language,
+      presence: true,
+      on: 'create'
+    validates :page_layout,
+      presence: true,
+      format: {
+        with: /\A[a-z0-9_-]+\z/,
+        if: -> { page_layout.present? }
+      }
 
-    attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_save :set_language_code, if: -> { language.present? }, unless: :systempage?
-    before_save :set_restrictions_to_child_pages, if: :restricted_changed?, unless: :systempage?
-    before_save :inherit_restricted_status, if: -> { parent && parent.restricted? }, unless: :systempage?
-    before_save :update_published_at, if: -> { public && read_attribute(:published_at).nil? }, unless: :systempage?
-    before_create :set_language_from_parent_or_default, if: -> { language_id.blank? }, unless: :systempage?
-    after_update :create_legacy_url, if: :urlname_changed?, unless: :redirects_to_external?
+    before_save :set_language_code,
+      if: -> { language.present? }
+    before_save :update_childrens_restricted_status,
+      if: :restricted_changed?
+    before_save :inherit_restricted_status,
+      if: -> { parent && parent.restricted? }
+    before_save :update_published_at,
+      if: -> { public && read_attribute(:published_at).nil? }
+    before_create :set_language_from_parent_or_default,
+      if: -> { language_id.blank? }
+    after_update :create_legacy_url,
+      if: :urlname_changed?
+
+    after_create :create_node!, if: -> { self.create_node }
 
     # Concerns
     include Alchemy::Page::PageScopes
@@ -115,13 +130,6 @@ module Alchemy
         RequestStore.store[:alchemy_current_preview]
       end
 
-      # @return the language root page for given language id.
-      # @param language_id [Fixnum]
-      #
-      def language_root_for(language_id)
-        self.language_roots.find_by_language_id(language_id)
-      end
-
       # Creates a copy of given source.
       #
       # Also copies all elements included in source.
@@ -145,23 +153,6 @@ module Alchemy
           copy_elements(source, page)
           page
         end
-      end
-
-      def layout_root_for(language_id)
-        where({:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id}).limit(1).first
-      end
-
-      def find_or_create_layout_root_for(language_id)
-        layoutroot = layout_root_for(language_id)
-        return layoutroot if layoutroot
-        language = Language.find(language_id)
-        Page.create!(
-          name: "Layoutroot for #{language.name}",
-          layoutpage: true,
-          language: language,
-          do_not_autogenerate: true,
-          parent_id: Page.root.id
-        )
       end
 
       def copy_and_paste(source, new_parent, new_name)
@@ -276,23 +267,25 @@ module Alchemy
       "alchemy/page_layouts/#{layout_partial_name}"
     end
 
-    # Returns the previous page on the same level or nil.
-    #
-    # For options @see #next_or_previous
-    #
-    def previous(options = {})
-      next_or_previous('<', options)
-    end
-    alias_method :previous_page, :previous
+    # TODO: Delegate Page#previous to node
+    # # Returns the previous page on the same level or nil.
+    # #
+    # # For options @see #next_or_previous
+    # #
+    # def previous(options = {})
+    #   next_or_previous('<', options)
+    # end
+    # alias_method :previous_page, :previous
 
-    # Returns the next page on the same level or nil.
-    #
-    # For options @see #next_or_previous
-    #
-    def next(options = {})
-      next_or_previous('>', options)
-    end
-    alias_method :next_page, :next
+    # TODO: Delegate Page#next to node
+    # # Returns the next page on the same level or nil.
+    # #
+    # # For options @see #next_or_previous
+    # #
+    # def next(options = {})
+    #   next_or_previous('>', options)
+    # end
+    # alias_method :next_page, :next
 
     # Locks the page to given user without updating the timestamps
     #
@@ -308,43 +301,18 @@ module Alchemy
       end
     end
 
-    def fold!(user_id, status)
-      folded_page = folded_pages.find_or_create_by(user_id: user_id)
-      folded_page.folded = status
-      folded_page.save
-    end
-
-    def set_restrictions_to_child_pages
-      descendants.each do |child|
-        child.update_attributes(:restricted => self.restricted?)
-      end
-    end
-
-    def inherit_restricted_status
-      self.restricted = parent.restricted?
-    end
-
-    # Returns the first published child
-    def first_public_child
-      children.published.first
-    end
-
-    # Gets the language_root page for page
-    def get_language_root
-      self_and_ancestors.find_by(language_root: true)
-    end
-
-    def copy_children_to(new_parent)
-      self.children.each do |child|
-        next if child == new_parent
-        new_child = Page.copy(child, {
-          :language_id => new_parent.language_id,
-          :language_code => new_parent.language_code
-        })
-        new_child.move_to_child_of(new_parent)
-        child.copy_children_to(new_child) unless child.children.blank?
-      end
-    end
+    # TODO: How to handle page copy?
+    # def copy_children_to(new_parent)
+    #   self.children.each do |child|
+    #     next if child == new_parent
+    #     new_child = Page.copy(child, {
+    #       :language_id => new_parent.language_id,
+    #       :language_code => new_parent.language_code
+    #     })
+    #     new_child.move_to_child_of(new_parent)
+    #     child.copy_children_to(new_child) unless child.children.blank?
+    #   end
+    # end
 
     # Publishes the page.
     #
@@ -356,6 +324,8 @@ module Alchemy
       update_columns(published_at: Time.now, public: true)
     end
 
+    # TODO: move to Node
+    #
     # Updates an Alchemy::Page based on a new ordering to be applied to it
     #
     # Note: Page's urls should not be updated (and a legacy URL created) if nesting is OFF
@@ -364,24 +334,54 @@ module Alchemy
     # @param [TreeNode]
     #   A tree node with new lft, rgt, depth, url, parent_id and restricted indexes to be updated
     #
-    def update_node!(node)
-      hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted}
+    # def update_node!(node)
+    #   hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted}
+    #
+    #   if !self.redirects_to_external? && self.urlname != node.url
+    #     LegacyPageUrl.create(page_id: self.id, urlname: self.urlname)
+    #     hash.merge!(urlname: node.url)
+    #   end
+    #
+    #   update_columns(hash)
+    # end
 
-      if Config.get(:url_nesting) && !self.redirects_to_external? && self.urlname != node.url
-        LegacyPageUrl.create(page_id: self.id, urlname: self.urlname)
-        hash.merge!(urlname: node.url)
-      end
-
-      update_columns(hash)
+    # Returns the url for menu node
+    def alchemy_node_url
+      read_attribute(:urlname)
     end
 
-    # Updates the node after been connected to it
-    def before_save_of_alchemy_node(node)
-      node.url = self.slug
+    # The url of the pages's parent
+    def parent_urlname
+      parent.try(:urlname)
+    end
+
+    # Return the first node this page is attached at or nil
+    def node
+      nodes.first
+    end
+
+    # If the page has a parent it returns the node of it
+    def parent_node
+      parent.try(:node)
+    end
+
+    # Recursily get all parents
+    # TODO: Implement this as a single SQL query
+    def parents
+      @parents ||= begin
+        arr = []
+        par = self.parent
+        while par do
+          arr << par
+          par = par.parent
+        end
+        arr
+      end
     end
 
     private
 
+    # TODO: Delegate to node
     # Returns the next or previous page on the same level or nil.
     #
     # @param [String]
@@ -392,18 +392,38 @@ module Alchemy
     # @option options [Boolean] :public (true)
     #   only public pages (true), skip public pages (false)
     #
-    def next_or_previous(dir = '>', options = {})
-      options = {
-        restricted: false,
-        public: true
-      }.update(options)
+    # def next_or_previous(dir = '>', options = {})
+    #   if self.node.nil?
+    #     raise "#{self.name} has no node! Please attach page to a node in order to get next or previous page."
+    #   end
 
-      self_and_siblings
-        .where(["#{self.class.table_name}.lft #{dir} ?", lft])
-        .where(public: options[:public])
-        .where(restricted: options[:restricted])
-        .reorder(dir == '>' ? 'lft' : 'lft DESC')
-        .limit(1).first
+    #   options = {
+    #     restricted: false,
+    #     public: true
+    #   }.update(options)
+
+    #   node = self.node.self_and_siblings
+    #     .where(["alchemy_nodes.lft #{dir} ?", self.node.lft])
+    #     .where(alchemy_pages: {public: options[:public]})
+    #     .where(alchemy_pages: {restricted: options[:restricted]})
+    #     .reorder(dir == '>' ? 'lft' : 'lft DESC')
+    #     .limit(1).first
+
+    #   node.navigatable
+    # end
+
+    # Called from before_save if restricted changes
+    def update_childrens_restricted_status
+      children.each do |child|
+        # we need to use update here, because we want the callbacks of children be triggered,
+        # so that all children's children get updated as well
+        child.update!(restricted: !!self.restricted?)
+      end
+    end
+
+    # Called from before_save if parent is restricted
+    def inherit_restricted_status
+      write_attribute(:restricted, !!parent.try(:restricted?))
     end
 
     def set_language_from_parent_or_default
@@ -424,5 +444,18 @@ module Alchemy
       self.published_at = Time.now
     end
 
+    # Creates a node for this page
+    #
+    # If the page has a parent and the parent a node then the node will placed as child of parents node
+    # Otherwise the node gets attached as child of root level
+    #
+    def create_node!
+      node = Node.create!(name: self.name, navigatable: self, language: self.language)
+      if parent_node
+        node.move_to_child_of(parent_node)
+      else
+        node.move_to_child_of(Node.root)
+      end
+    end
   end
 end

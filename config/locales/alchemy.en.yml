@@ -478,9 +478,6 @@ en:
     page_published: "Published page"
     page_restricted: "restricted"
     page_states:
-      visible:
-        "true": "Page is visible in navigation."
-        "false": "Page is not visible in navigation."
       public:
         "true": "Page is published."
         "false": "Page is unpublished."
@@ -887,6 +884,7 @@ en:
 
       alchemy/page:
         created_at: "Created at"
+        create_node: "Create menu entry"
         language: "Language"
         locked: "This page is locked by another user."
         locked_by: "locked by"
@@ -894,6 +892,7 @@ en:
         meta_keywords: "Keywords"
         name: "Name"
         page_layout: "Page type"
+        parent_id: "Parent"
         public: "public"
         restricted: "restricted"
         robot_follow: "robot may follow links"

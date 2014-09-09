@@ -475,9 +475,6 @@ nl:
     page_published: "Gepubliceerde pagina"
     page_restricted: "afgeschermd"
     page_states:
-      visible:
-        "true": "Pagina is zichtbaar in navigatie."
-        "false": "Pagina is niet zichtbaar in navigatie."
       public:
         "true": "Pagina is gepubliceerd."
         "false": "Pagina is niet gepubliceerd."

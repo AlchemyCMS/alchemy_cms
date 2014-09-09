@@ -22,7 +22,7 @@ module Alchemy
         class_name: 'Alchemy::Element',
         join_table: ElementToPage.table_name
 
-      after_create :autogenerate_elements, unless: -> { systempage? || do_not_autogenerate }
+      after_create :autogenerate_elements, unless: -> { do_not_autogenerate }
       after_update :trash_not_allowed_elements!, if: :page_layout_changed?
       after_update :autogenerate_elements, if: :page_layout_changed?
 

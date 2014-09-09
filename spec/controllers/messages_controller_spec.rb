@@ -29,7 +29,7 @@ module Alchemy
         allow(controller).to receive(:params).and_return({message: {email: ''}})
       end
 
-      let(:page)    { mock_model('Page', get_language_root: mock_model('Page')) }
+      let(:page)    { mock_model('Page') }
       let(:element) { mock_model('Element', page: page, ingredient: '') }
       let(:message) { Message.new }
 

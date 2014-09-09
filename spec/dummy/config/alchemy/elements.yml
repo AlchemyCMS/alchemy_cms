@@ -29,7 +29,10 @@
     type: EssenceRichtext
 
 - name: search
-  contents: []
+  unique: true
+  contents:
+  - name: headline
+    type: EssenceText
 
 - name: news
   contents:

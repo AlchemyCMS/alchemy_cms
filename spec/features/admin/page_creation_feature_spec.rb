@@ -4,6 +4,27 @@ module Alchemy
   describe "Page creation" do
     before { authorize_user(:as_admin) }
 
+    it "is possible to choose the parent page" do
+      parent = create(:page, name: 'Parent')
+      visit new_admin_page_path
+      select 'Parent', from: 'page_parent_id'
+      select 'Standard', from: 'page_page_layout'
+      fill_in 'page_name', with: 'Child'
+      click_button 'Save'
+      child = Page.find_by(name: 'Child')
+      expect(child.parent).to eq(parent)
+    end
+
+    it "is possible to let create a node for the page" do
+      visit new_admin_page_path
+      select 'Standard', from: 'page_page_layout'
+      fill_in 'page_name', with: 'A page with node'
+      check 'page_create_node', checked: true
+      click_button 'Save'
+      node_page = Page.find_by(name: 'A page with node')
+      expect(node_page.nodes).to_not be_empty
+    end
+
     describe "overlay GUI" do
       context "without having a Page in the clipboard" do
         it "does not contain tabs" do

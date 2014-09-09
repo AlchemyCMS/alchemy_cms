@@ -37,6 +37,15 @@ describe 'Page editing feature' do
     before { authorize_user(:as_admin) }
 
     context "in configure overlay" do
+      it "is possible to choose the parent page" do
+        parent = create(:page, name: 'Parent')
+        visit alchemy.configure_admin_page_path(a_page)
+        select 'Parent', from: 'page_parent_id'
+        click_button 'Save'
+        a_page.reload
+        expect(a_page.parent).to eq(parent)
+      end
+
       context "when editing a normal page" do
         it "should show all relevant input fields" do
           visit alchemy.configure_admin_page_path(a_page)

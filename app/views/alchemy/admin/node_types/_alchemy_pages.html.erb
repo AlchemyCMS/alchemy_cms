@@ -1,14 +1,9 @@
-<%
-  pages_collection = [[_t('Create a new page'), 'create']]
-  pages_collection += node_class.send(:alchemy_navigatables).map { |n| [n.name, n.id] }
-%>
-
 <%= alchemy_form_for([:admin, @node]) do |f| %>
   <%= f.hidden_field :navigatable_type, value: node_type %>
   <% if node_class.respond_to?(:alchemy_navigatables) %>
     <%= f.input :navigatable_id,
-      collection: pages_collection,
-      include_blank: false,
+      collection: Alchemy::Language.current.pages.map { |n| [n.name, n.id] },
+      include_blank: _t('Please choose'),
       label: _t('Page'),
       input_html: {class: 'alchemy_selectbox'} %>
   <% end %>

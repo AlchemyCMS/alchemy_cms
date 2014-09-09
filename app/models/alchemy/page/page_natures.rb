@@ -7,42 +7,8 @@ module Alchemy
       definition['taggable'] == true
     end
 
-    def rootpage?
-      !new_record? && parent_id.blank?
-    end
-
-    def systempage?
-      return false
-      # TODO refactor systempages
-      # return true if Page.root.nil?
-      # rootpage? || (parent_id == Page.root.id && !language_root?)
-    end
-
-    def folded?(user_id)
-      return unless Alchemy.user_class < ActiveRecord::Base
-      folded_pages.where(user_id: user_id, folded: true).any?
-    end
-
     def contains_feed?
       definition["feed"]
-    end
-
-    # Returns true or false if the pages definition for config/alchemy/page_layouts.yml contains redirects_to_external: true
-    def redirects_to_external?
-      !!definition["redirects_to_external"]
-    end
-
-    def has_controller?
-      !PageLayout.get(page_layout).nil? && !PageLayout.get(page_layout)["controller"].blank?
-    end
-
-    def controller_and_action
-      if has_controller?
-        {
-          controller: definition["controller"].gsub(/(^\b)/, "/#{$1}"),
-          action: definition["action"]
-        }
-      end
     end
 
     # Returns a Hash describing the status of the Page.
@@ -50,7 +16,6 @@ module Alchemy
     def status
       {
         public: public?,
-        visible: visible?,
         locked: locked?,
         restricted: restricted?
       }
@@ -66,7 +31,6 @@ module Alchemy
 
     # Returns the self#page_layout definition from config/alchemy/page_layouts.yml file.
     def definition
-      return {} if systempage?
       definition = PageLayout.get(page_layout)
       if definition.nil?
         log_warning "Page definition for `#{page_layout}` not found. Please check `page_layouts.yml` file."

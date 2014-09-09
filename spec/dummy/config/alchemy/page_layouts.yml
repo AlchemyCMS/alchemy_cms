@@ -1,5 +1,7 @@
 - name: index
   unique: true
+  cells: [right_column]
+  elements: [search, article]
 
 - name: standard
   elements: [article, header, slider]

@@ -1,3 +1,92 @@
-<% @pages.each do |page| %>
-<%= debug page %>
+<% content_for :toolbar do %>
+<div class="toolbar_buttons">
+  <%= render partial: 'alchemy/admin/partials/language_tree_select' %>
+  <%= toolbar_button(
+    icon: 'create',
+    label: _t(:create_page),
+    url: alchemy.new_admin_page_path,
+    hotkey: 'alt+n',
+    dialog_options: {
+      title: _t(:create_page),
+      size: '340x240'
+    },
+    if_permitted_to: [:create, Alchemy::Page]
+  ) %>
+  <div class="toolbar_spacer"></div>
+  <% if can?(:flush, Alchemy::Page) %>
+  <div class="button_with_label">
+    <%= link_to(
+      render_icon('flush'),
+      alchemy.flush_admin_pages_path,
+      remote: true,
+      method: 'post',
+      class: 'icon_button please_wait',
+      title: _t('Flush page cache')
+    ) %>
+    <label><%= _t('Flush page cache') %></label>
+  </div>
+  <% end %>
+  <div class="button_with_label" id="clipboard_button">
+    <%= link_to_dialog(
+      render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
+      alchemy.admin_clipboard_path(remarkable_type: 'pages'),
+      {
+        title: _t('Clipboard'),
+        size: '380x305'
+      },
+      class: 'icon_button',
+      title: _t('Show clipboard')
+    ) %>
+    <label><%= _t('Show clipboard') %></label>
+  </div>
+</div>
+<div class="js_filter_field_box">
+  <%= text_field_tag 'filter', '',
+    class: 'thin_border js_filter_field',
+    id: 'search_field',
+    placeholder: _t(:search) %>
+  <%= render_icon :search %>
+  <%= link_to('', '#', {
+    class: "js_filter_field_clear",
+    title: _t(:click_to_show_all)
+  }) %>
+</div>
 <% end %>
+
+<div id="archive_all">
+  <% if @pages.any? %>
+  <h1>
+    <%= @pages.total_count %>
+    <%= Alchemy::Page.model_name.human(count: @pages.total_count) %>
+  </h1>
+  <table class="list">
+    <tr>
+      <th class="icon"></th>
+      <% %w(name urlname updated_at).each do |attribute| %>
+      <th class="<%= attribute.downcase %>">
+        <%= sortable_column(
+          Alchemy::Page.human_attribute_name(attribute),
+          column: attribute
+        ) %>
+      </th>
+      <% end %>
+      <th><%= Alchemy::Page.human_attribute_name(:creator) %></th>
+      <th class="status"><%= _t('Page status') %></th>
+      <th class="tools"></th>
+    </tr>
+    <%= render partial: 'page', collection: @pages %>
+  </table>
+  <% else %>
+  <div class="with_padding">
+    <p>You have no pages yet.</p>
+    <%= link_to_dialog render_icon(:create) + _t(:create_page),
+      alchemy.new_admin_page_path, {
+        title: _t(:create_page),
+        size: '340x165',
+        overflow: true
+      },
+      title: _t(:create_page),
+      class: 'button with_icon' %>
+  </div>
+  <% end %>
+</div>

@@ -4,12 +4,10 @@ require 'spec_helper'
 
 module Alchemy
   describe Page do
-
-    let(:rootpage)      { Page.root }
     let(:language)      { Language.default }
     let(:klingonian)    { create(:alchemy_language, :klingonian) }
-    let(:language_root) { create(:alchemy_page, :language_root) }
-    let(:page)          { mock_model(Page, page_layout: 'foo') }
+    let(:parent)        { create(:alchemy_page, page_layout: 'standard', parent: nil) }
+    let(:page)          { build_stubbed(:alchemy_page, page_layout: 'foo') }
     let(:public_page)   { create(:alchemy_page, :public) }
     let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', do_not_autogenerate: false) }
 
@@ -38,89 +36,12 @@ module Alchemy
           expect(contentpage.errors[:page_layout].size).to eq(1)
         end
 
-        it "should validate the parent_id" do
-          contentpage.parent_id = nil
-          expect(contentpage).not_to be_valid
-          contentpage.valid?
-          expect(contentpage.errors[:parent_id].size).to eq(1)
-        end
-
         context 'with page having same urlname' do
           before { with_same_urlname }
 
           it "should not be valid" do
             contentpage.urlname = 'existing_twice'
             expect(contentpage).not_to be_valid
-          end
-        end
-
-        context "with url_nesting set to true" do
-          let(:other_parent) { create(:alchemy_page, parent_id: Page.root.id, visible: true) }
-
-          before do
-            allow(Config).to receive(:get).and_return(true)
-            with_same_urlname
-          end
-
-          it "should only validate urlname dependent of parent" do
-            contentpage.urlname = 'existing_twice'
-            contentpage.parent_id = other_parent.id
-            expect(contentpage).to be_valid
-          end
-
-          it "should validate urlname dependent of parent" do
-            contentpage.urlname = 'existing_twice'
-            expect(contentpage).not_to be_valid
-          end
-        end
-      end
-
-      context "creating the rootpage without parent_id and page_layout" do
-        let(:rootpage) { build(:alchemy_page, parent_id: nil, page_layout: nil, name: 'Rootpage') }
-
-        before do
-          Page.delete_all
-        end
-
-        it "should be valid" do
-          expect(rootpage).to be_valid
-        end
-      end
-
-      context "saving a systempage" do
-        let(:systempage) { build(:alchemy_page, :system) }
-
-        it "should not validate the page_layout" do
-          expect(systempage).to be_valid
-        end
-      end
-
-      context 'saving an external page' do
-        let(:external_page) { build(:alchemy_page, page_layout: 'external') }
-
-        it "does not pass with invalid url given" do
-          external_page.urlname = 'not, a valid page url'
-          expect(external_page).to_not be_valid
-        end
-
-        it "only be valid with correct url given" do
-          external_page.urlname = 'www.google.com&utf_src=alchemy;page_id=%20'
-          expect(external_page).to be_valid
-        end
-
-        context 'on create' do
-          it "is valid without urlname given" do
-            external_page.urlname = ''
-            expect(external_page).to be_valid
-          end
-        end
-
-        context 'on update' do
-          before { external_page.save! }
-
-          it "is not valid without urlname given" do
-            external_page.urlname = ''
-            expect(external_page).to_not be_valid
           end
         end
       end
@@ -131,7 +52,7 @@ module Alchemy
 
     context 'callbacks' do
       let(:page) do
-        create(:alchemy_page, name: 'My Testpage', language: language, parent_id: language_root.id)
+        create(:alchemy_page, name: 'My Testpage')
       end
 
       context 'before_save' do
@@ -150,18 +71,11 @@ module Alchemy
 
       context 'after_update' do
         context "urlname has changed" do
-          it "should store legacy url if page is not redirect to external page" do
+          it "should store legacy url" do
             page.urlname = 'new-urlname'
             page.save!
             expect(page.legacy_urls).not_to be_empty
             expect(page.legacy_urls.first.urlname).to eq('my-testpage')
-          end
-
-          it "should not store legacy url if page is redirect to external page" do
-            page.urlname = 'new-urlname'
-            page.page_layout = "external"
-            page.save!
-            expect(page.legacy_urls).to be_empty
           end
 
           it "should not store legacy url twice for same urlname" do
@@ -172,6 +86,22 @@ module Alchemy
             page.urlname = 'another-urlname'
             page.save!
             expect(page.legacy_urls.select { |u| u.urlname == 'my-testpage' }.size).to eq(1)
+          end
+
+          context 'with children present' do
+            let(:child) { create(:page) }
+
+            before do
+              page.children << child
+              page.save!
+              page.reload
+            end
+
+            it "updates urlname of children" do
+              expect(page.children.first.urlname).to eq("#{page.slug}/#{child.slug}")
+              page.update(urlname: 'new-urlname')
+              expect(page.children.first.urlname).to eq("new-urlname/#{child.slug}")
+            end
           end
         end
 
@@ -206,24 +136,16 @@ module Alchemy
         end
       end
 
-      context 'after_move' do
-        let(:parent_1) { create(:alchemy_page, name: 'Parent 1', visible: true) }
-        let(:parent_2) { create(:alchemy_page, name: 'Parent 2', visible: true) }
-        let(:page)     { create(:alchemy_page, parent_id: parent_1.id, name: 'Page', visible: true) }
+      context 'after parent changes' do
+        let(:parent_1) { create(:alchemy_page, name: 'Parent 1') }
+        let(:parent_2) { create(:alchemy_page, name: 'Parent 2') }
+        let(:page)     { create(:alchemy_page, parent_id: parent_1.id, name: 'Page') }
 
         it "updates the urlname" do
           expect(page.urlname).to eq('parent-1/page')
-          page.move_to_child_of parent_2
+          page.parent_id = parent_2.id
+          page.save!
           expect(page.urlname).to eq('parent-2/page')
-        end
-
-        context 'of an external page' do
-          let(:external) { create(:alchemy_page, parent_id: parent_1.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
-
-          it "the urlname does not get updated" do
-            external.move_to_child_of parent_2
-            expect(external.urlname).to eq('http://google.com')
-          end
         end
       end
 
@@ -290,30 +212,31 @@ module Alchemy
           end
         end
 
-        context "with children getting restricted set to true" do
+        context "with a restricted parent" do
+          let(:child) { build(:page, parent: page) }
+
           before do
-            page.save
-            @child1 = create(:alchemy_page, name: 'Child 1', parent_id: page.id)
-            page.reload
-            page.restricted = true
-            page.save
+            page.update!(restricted: true)
           end
 
-          it "restricts all its children" do
-            @child1.reload
-            expect(@child1.restricted?).to be_truthy
+          it "should also be restricted" do
+            child.save!
+            expect(child.restricted?).to be(true)
           end
         end
 
-        context "with restricted parent gets created" do
-          before do
-            page.save
-            page.parent.update!(restricted: true)
-            @new_page = create(:alchemy_page, name: 'New Page', parent_id: page.id)
-          end
+        context 'after updating the restricted status' do
+          let!(:child_1) { create(:page, restricted: false) }
+          let!(:child_2) { create(:page, restricted: false) }
 
-          it "is also be restricted" do
-            expect(@new_page.restricted?).to be_truthy
+          it "all children should inherit that status" do
+            child_1.children << child_2
+            page.children << child_1
+            page.update!(restricted: true)
+            child_1.reload
+            expect(child_1.restricted?).to be(true)
+            child_2.reload
+            expect(child_2.restricted?).to be_truthy
           end
         end
 
@@ -326,18 +249,6 @@ module Alchemy
             page.save
             expect(page.elements).to be_empty
           end
-        end
-      end
-
-      context "Creating a systempage" do
-        let!(:page) { create(:alchemy_page, :system) }
-
-        it "does not get the language code from language" do
-          expect(page.language_code).to be_nil
-        end
-
-        it "does not autogenerate the elements" do
-          expect(page.elements).to be_empty
         end
       end
 
@@ -355,6 +266,46 @@ module Alchemy
         it "should autogenerate elements" do
           news_page.update_attributes(page_layout: 'contact')
           expect(news_page.elements.pluck(:name)).to include('contactform')
+        end
+      end
+
+      describe 'after_create' do
+        let(:root_node) { Node.root }
+        let(:page)       { build(:page) }
+
+        context 'with #create_node set to true' do
+          before { page.create_node = true }
+
+          it "creates a node for page" do
+            page.save!
+            expect(page.nodes).to_not be_empty
+          end
+
+          context 'with parent page that has a node' do
+            let!(:parent)      { create(:page) }
+            let!(:parent_node) { Node.create!(name: 'Parent node', navigatable: parent, language: Language.default) }
+
+            before do
+              parent_node.move_to_child_of(root_node)
+              page.update!(parent: parent)
+            end
+
+            it 'adds the node as child of parent node' do
+              expect(page.nodes.first.parent).to eq(parent_node)
+            end
+          end
+
+          context 'with no parent page' do
+            it 'puts the node into the first navigation tree' do
+              page.save!
+              expect(page.nodes.first.parent).to eq(root_node)
+            end
+          end
+
+          it 'names the node after page name' do
+            page.save!
+            expect(page.nodes.first.name).to eq(page.name)
+          end
         end
       end
     end
@@ -457,51 +408,15 @@ module Alchemy
     end
 
     describe '.contentpages' do
-      let!(:layoutroot) do
-        Page.find_or_create_layout_root_for(klingonian.id)
-      end
-
-      let!(:layoutpage) do
-        create :alchemy_page, :public, {
-          name: 'layoutpage',
-          layoutpage: true,
-          parent_id: layoutroot.id,
-          language: klingonian
-        }
-      end
-
-      let!(:klingonian_lang_root) do
-        create :alchemy_page, :language_root, {
-          name: 'klingonian_lang_root',
-          layoutpage: nil,
-          language: klingonian
-        }
-      end
-
-      let!(:contentpage) do
-        create :alchemy_page, :public, {
-          name: 'contentpage',
-          parent_id: language_root.id,
-          language: language
-        }
-      end
+      let!(:layoutpage)  { create(:alchemy_page, name: 'layoutpage', layoutpage: true) }
+      let!(:contentpage) { create(:alchemy_page, name: 'contentpage') }
 
       it "returns a collection of contentpages" do
-        expect(Page.contentpages.to_a).to include(
-          language_root,
-          klingonian_lang_root,
-          contentpage
-        )
+        expect(Page.contentpages.to_a).to include(contentpage)
       end
 
-      it "does not contain pages with attribute :layoutpage set to true" do
-        expect(Page.contentpages.to_a.select { |p| p.layoutpage == true }).to be_empty
-      end
-
-      it "contains pages with attribute :layoutpage set to nil" do
-        expect(Page.contentpages.to_a.select do |page|
-          page.layoutpage == nil
-        end).to include(klingonian_lang_root)
+      it "contains no layoutpages" do
+        expect(Page.contentpages.to_a).to_not include(layoutpage)
       end
     end
 
@@ -577,155 +492,109 @@ module Alchemy
     describe '.create' do
       context "before/after filter" do
         it "should automatically set the title from its name" do
-          page = create(:alchemy_page, name: 'My Testpage', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'My Testpage')
           expect(page.title).to eq('My Testpage')
         end
 
         it "should get a webfriendly urlname" do
-          page = create(:alchemy_page, name: 'klingon$&stößel ', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'klingon$&stößel ')
           expect(page.urlname).to eq('klingon-stoessel')
         end
 
         context "with no name set" do
           it "should not set a urlname" do
-            page = Page.create(name: '', language: language, parent_id: language_root.id)
+            page = Page.create(name: '')
             expect(page.urlname).to be_blank
           end
         end
 
         it "should generate a three letter urlname from two letter name" do
-          page = create(:alchemy_page, name: 'Au', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'Au')
           expect(page.urlname).to eq('-au')
         end
 
         it "should generate a three letter urlname from two letter name with umlaut" do
-          page = create(:alchemy_page, name: 'Aü', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'Aü')
           expect(page.urlname).to eq('aue')
         end
 
         it "should generate a three letter urlname from one letter name" do
-          page = create(:alchemy_page, name: 'A', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'A')
           expect(page.urlname).to eq('--a')
         end
 
         it "should add a user stamper" do
-          page = create(:alchemy_page, name: 'A', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'A')
           expect(page.class.stamper_class.to_s).to eq('DummyUser')
         end
 
         context "with language given" do
           it "does not set the language from parent" do
             expect_any_instance_of(Page).not_to receive(:set_language_from_parent_or_default)
-            Page.create!(name: 'A', parent_id: language_root.id, page_layout: 'standard', language: language)
+            Page.create!(name: 'A', parent_id: parent.id, page_layout: 'standard', language: language)
           end
         end
 
         context "with no language given" do
           it "sets the language from parent" do
             expect_any_instance_of(Page).to receive(:set_language_from_parent_or_default)
-            Page.create!(name: 'A', parent_id: language_root.id, page_layout: 'standard')
+            Page.create!(name: 'A', parent_id: parent.id, page_layout: 'standard')
           end
         end
       end
     end
 
-    describe '.find_or_create_layout_root_for' do
-      subject { Page.find_or_create_layout_root_for(language_id) }
-
-      let(:language)    { mock_model('Language', name: 'English') }
-      let(:language_id) { language.id }
-
-      before { allow(Language).to receive(:find).and_return(language) }
-
-      context 'if no layout root page for given language id could be found' do
-        before do
-          expect(Page).to receive(:create!).and_return(page)
-        end
-
-        it "creates one" do
-          is_expected.to eq(page)
-        end
-      end
-
-      context 'if layout root page for given language id could be found' do
-        let(:page) { mock_model('Page') }
-
-        before do
-          expect(Page).to receive(:layout_root_for).and_return(page)
-        end
-
-        it "returns layout root page" do
-          is_expected.to eq(page)
-        end
-      end
-    end
-
-    describe '.language_roots' do
-      it "should return 1 language_root" do
-        create(:alchemy_page, :public, name: 'First Public Child', parent_id: language_root.id, language: language)
-        expect(Page.language_roots.size).to eq(1)
-      end
-    end
-
     describe '.layoutpages' do
       it "should return 1 layoutpage" do
-        create(:alchemy_page, :public, layoutpage: true, name: 'Layoutpage', parent_id: rootpage.id, language: language)
+        create(:alchemy_page, :public, layoutpage: true, name: 'Layoutpage')
         expect(Page.layoutpages.size).to eq(1)
       end
     end
 
     describe '.not_locked' do
       it "should return pages that are not blocked by a user at the moment" do
-        create(:alchemy_page, :public, locked: true, name: 'First Public Child', parent_id: language_root.id, language: language)
-        create(:alchemy_page, :public, name: 'Second Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, locked: true, name: 'First Public Child')
+        create(:alchemy_page, :public, name: 'Second Public Child')
         expect(Page.not_locked.size).to eq(3)
       end
     end
 
     describe '.not_restricted' do
       it "should return 2 accessible pages" do
-        create(:alchemy_page, :public, name: 'First Public Child', restricted: true, parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'First Public Child', restricted: true)
         expect(Page.not_restricted.size).to eq(2)
       end
     end
 
     describe '.public' do
       it "should return pages that are public" do
-        create(:alchemy_page, :public, name: 'First Public Child', parent_id: language_root.id, language: language)
-        create(:alchemy_page, :public, name: 'Second Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'First Public Child')
+        create(:alchemy_page, :public, name: 'Second Public Child')
         expect(Page.published.size).to eq(3)
       end
     end
 
     describe '.public_language_roots' do
       it "should return pages that public language roots" do
-        create(:alchemy_page, :public, name: 'First Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'First Public Child')
         expect(Page.public_language_roots.size).to eq(1)
       end
     end
 
     describe '.restricted' do
       it "should return 1 restricted page" do
-        create(:alchemy_page, :public, name: 'First Public Child', restricted: true, parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'First Public Child', restricted: true)
         expect(Page.restricted.size).to eq(1)
       end
     end
 
-    describe '.rootpage' do
-      it "should contain one rootpage" do
-        expect(Page.rootpage).to be_instance_of(Page)
-      end
-    end
-
-    describe '.visible' do
-      it "should return 1 visible page" do
-        create(:alchemy_page, :public, name: 'First Public Child', visible: true, parent_id: language_root.id, language: language)
-        expect(Page.visible.size).to eq(1)
-      end
-    end
-
-
     # InstanceMethods (a-z)
+
+    describe '#alchemy_node_url' do
+      it "returns the urlname" do
+        expect(page.alchemy_node_url).to eq(page.urlname)
+      end
+    end
 
     describe '#available_element_definitions' do
       let(:page) { build_stubbed(:alchemy_page, :public) }
@@ -1200,71 +1069,6 @@ module Alchemy
       end
     end
 
-    describe '#first_public_child' do
-      before do
-        create(:alchemy_page, name: "First child", language: language, public: false, parent_id: language_root.id)
-      end
-
-      it "should return first_public_child" do
-        first_public_child = create(:alchemy_page, :public, name: "First public child", language: language, parent_id: language_root.id)
-        expect(language_root.first_public_child).to eq(first_public_child)
-      end
-
-      it "should return nil if no public child exists" do
-        expect(language_root.first_public_child).to eq(nil)
-      end
-    end
-
-    context 'folding' do
-      let(:user) { mock_model('DummyUser') }
-
-      describe '#fold!' do
-        context "with folded status set to true" do
-          it "should create a folded page for user" do
-            public_page.fold!(user.id, true)
-            expect(public_page.folded_pages.first.user_id).to eq(user.id)
-          end
-        end
-      end
-
-      describe '#folded?' do
-        let(:page) { Page.new }
-
-        context 'with user is a active record model' do
-          before do
-            expect(Alchemy.user_class).to receive(:'<').and_return(true)
-          end
-
-          context 'if page is folded' do
-            before do
-              expect(page)
-                .to receive(:folded_pages)
-                .and_return double(where: double(any?: true))
-            end
-
-            it "should return true" do
-              expect(page.folded?(user.id)).to eq(true)
-            end
-          end
-
-          context 'if page is not folded' do
-            it "should return false" do
-              expect(page.folded?(101093)).to eq(false)
-            end
-          end
-        end
-      end
-    end
-
-    describe '#get_language_root' do
-      before { language_root }
-      subject { public_page.get_language_root }
-
-      it "returns the language root page" do
-        is_expected.to eq language_root
-      end
-    end
-
     describe '#definition' do
       context 'if the page layout could not be found in the definition file' do
         let(:page) { build_stubbed(:alchemy_page, page_layout: 'notexisting') }
@@ -1276,16 +1080,6 @@ module Alchemy
 
         it "it returns empty hash." do
           expect(page.definition).to eq({})
-        end
-      end
-
-      context "for a language root page" do
-        it "it returns the page layout definition as hash." do
-          expect(language_root.definition['name']).to eq('index')
-        end
-
-        it "it returns an empty hash for root page." do
-          expect(rootpage.definition).to eq({})
         end
       end
     end
@@ -1344,71 +1138,93 @@ module Alchemy
       end
     end
 
-    context 'previous and next.' do
-      let(:center_page)     { create(:alchemy_page, :public, name: 'Center Page') }
-      let(:next_page)       { create(:alchemy_page, :public, name: 'Next Page') }
-      let(:non_public_page) { create(:alchemy_page, name: 'Not public Page') }
-      let(:restricted_page) { create(:alchemy_page, :restricted, public: true) }
+    # TODO: Delegate Page#next_or_previous to node
+    # context 'previous and next methods' do
+    #   context 'not attached to node' do
+    #     let(:page_without_node) { create(:alchemy_page) }
+    #
+    #     it "raises an error" do
+    #       expect { page_without_node.previous }.to raise_error
+    #       expect { page_without_node.next }.to raise_error
+    #     end
+    #   end
+    #
+    #   context 'attached to node' do
+    #     let(:center_page)     { create(:alchemy_page, :public, name: 'Center Page') }
+    #     let(:next_page)       { create(:alchemy_page, :public, name: 'Next Page') }
+    #     let(:non_public_page) { create(:alchemy_page, name: 'Not public Page') }
+    #     let(:restricted_page) { create(:alchemy_page, :restricted, public: true) }
+    #
+    #     before do
+    #       public_page
+    #       restricted_page
+    #       non_public_page
+    #       center_page
+    #       next_page
+    #     end
+    #
+    #     describe '#previous' do
+    #       it "should return the previous page on the same level" do
+    #         expect(center_page.previous).to eq(public_page)
+    #         expect(next_page.previous).to eq(center_page)
+    #       end
+    #
+    #       context "no previous page on same level present" do
+    #         it "should return nil" do
+    #           expect(public_page.previous).to be_nil
+    #         end
+    #       end
+    #
+    #       context "with options restricted" do
+    #         context "set to true" do
+    #           it "returns previous restricted page" do
+    #             expect(center_page.previous(restricted: true)).to eq(restricted_page)
+    #           end
+    #         end
+    #
+    #         context "set to false" do
+    #           it "skips restricted page" do
+    #             expect(center_page.previous(restricted: false)).to eq(public_page)
+    #           end
+    #         end
+    #       end
+    #
+    #       context "with options public" do
+    #         context "set to true" do
+    #           it "returns previous public page" do
+    #             expect(center_page.previous(public: true)).to eq(public_page)
+    #           end
+    #         end
+    #
+    #         context "set to false" do
+    #           it "skips public page" do
+    #             expect(center_page.previous(public: false)).to eq(non_public_page)
+    #           end
+    #         end
+    #       end
+    #     end
+    #
+    #     describe '#next' do
+    #       it "should return the next page on the same level" do
+    #         expect(center_page.next).to eq(next_page)
+    #       end
+    #
+    #       context "no next page on same level present" do
+    #         it "should return nil" do
+    #           expect(next_page.next).to be_nil
+    #         end
+    #       end
+    #     end
+    #   end
+    # end
 
-      before do
-        public_page
-        restricted_page
-        non_public_page
-        center_page
-        next_page
-      end
+    describe '#parents' do
+      let(:parentparent) { create(:alchemy_page) }
+      let(:parent)       { create(:alchemy_page, parent: parentparent) }
+      let(:page)         { create(:alchemy_page, parent: parent) }
 
-      describe '#previous' do
-        it "should return the previous page on the same level" do
-          expect(center_page.previous).to eq(public_page)
-          expect(next_page.previous).to eq(center_page)
-        end
-
-        context "no previous page on same level present" do
-          it "should return nil" do
-            expect(public_page.previous).to be_nil
-          end
-        end
-
-        context "with options restricted" do
-          context "set to true" do
-            it "returns previous restricted page" do
-              expect(center_page.previous(restricted: true)).to eq(restricted_page)
-            end
-          end
-
-          context "set to false" do
-            it "skips restricted page" do
-              expect(center_page.previous(restricted: false)).to eq(public_page)
-            end
-          end
-        end
-
-        context "with options public" do
-          context "set to true" do
-            it "returns previous public page" do
-              expect(center_page.previous(public: true)).to eq(public_page)
-            end
-          end
-
-          context "set to false" do
-            it "skips public page" do
-              expect(center_page.previous(public: false)).to eq(non_public_page)
-            end
-          end
-        end
-      end
-
-      describe '#next' do
-        it "should return the next page on the same level" do
-          expect(center_page.next).to eq(next_page)
-        end
-
-        context "no next page on same level present" do
-          it "should return nil" do
-            expect(next_page.next).to be_nil
-          end
-        end
+      it "returns an array of all page parents" do
+        expect(page.parents).to eq([parent, parentparent])
       end
     end
 
@@ -1523,219 +1339,218 @@ module Alchemy
       end
     end
 
-    context 'urlname updating' do
-      let(:parentparent)  { create(:alchemy_page, name: 'parentparent', visible: true) }
-      let(:parent)        { create(:alchemy_page, parent_id: parentparent.id, name: 'parent', visible: true) }
-      let(:page)          { create(:alchemy_page, parent_id: parent.id, name: 'page', visible: true) }
-      let(:invisible)     { create(:alchemy_page, parent_id: page.id, name: 'invisible', visible: false) }
-      let(:contact)       { create(:alchemy_page, parent_id: invisible.id, name: 'contact', visible: true) }
-      let(:external)      { create(:alchemy_page, parent_id: parent.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
-      let(:language_root) { parentparent.parent }
+    # TODO: find a solution for how we handle url updating and resolving in nodes
+    # context 'urlname updating' do
+    #   let(:parentparent)  { create(:alchemy_page, name: 'parentparent') }
+    #   let(:parent)        { create(:alchemy_page, parent_id: parentparent.id, name: 'parent') }
+    #   let(:page)          { create(:alchemy_page, parent_id: parent.id, name: 'page') }
+    #   let(:contact)       { create(:alchemy_page, parent_id: invisible.id, name: 'contact') }
+    #
+    #   context "with activated url_nesting" do
+    #     before { allow(Config).to receive(:get).and_return(true) }
+    #
+    #     it "should store all parents urlnames delimited by slash" do
+    #       expect(page.urlname).to eq('parentparent/parent/page')
+    #     end
+    #
+    #     it "should not include the root page" do
+    #       Page.root.update_column(:urlname, 'root')
+    #       language_root.update(urlname: 'new-urlname')
+    #       expect(language_root.urlname).not_to match(/root/)
+    #     end
+    #
+    #     it "should not include the language root page" do
+    #       expect(page.urlname).not_to match(/startseite/)
+    #     end
+    #
+    #     it "should not include invisible pages" do
+    #       expect(contact.urlname).not_to match(/invisible/)
+    #     end
+    #
+    #     context "with an invisible parent" do
+    #       before { parent.update_attribute(:visible, false) }
+    #
+    #       it "does not change if set_urlname is called" do
+    #         expect { page.send(:set_urlname) }.not_to change { page.urlname }
+    #       end
+    #
+    #       it "does not change if update_urlname! is called" do
+    #         expect { page.update_urlname! }.not_to change { page.urlname }
+    #       end
+    #     end
+    #
+    #     context "after changing page's urlname" do
+    #       it "updates urlnames of descendants" do
+    #         page
+    #         parentparent.urlname = 'new-urlname'
+    #         parentparent.save!
+    #         page.reload
+    #         expect(page.urlname).to eq('new-urlname/parent/page')
+    #       end
+    #
+    #       context 'with descendants that are redirecting to external' do
+    #         it "it skips this page" do
+    #           external
+    #           parent.urlname = 'new-urlname'
+    #           parent.save!
+    #           external.reload
+    #           expect(external.urlname).to eq('http://google.com')
+    #         end
+    #       end
+    #
+    #       it "should create a legacy url" do
+    #         allow(page).to receive(:slug).and_return('foo')
+    #         page.update_urlname!
+    #         expect(page.legacy_urls).not_to be_empty
+    #         expect(page.legacy_urls.pluck(:urlname)).to include('parentparent/parent/page')
+    #       end
+    #     end
+    #
+    #     context "after updating my visibility" do
+    #       it "should update urlnames of descendants" do
+    #         page
+    #         parentparent.visible = false
+    #         parentparent.save!
+    #         page.reload
+    #         expect(page.urlname).to eq('parent/page')
+    #       end
+    #     end
+    #   end
+    #
+    #   context "with disabled url_nesting" do
+    #     before { allow(Config).to receive(:get).and_return(false) }
+    #
+    #     it "should only store my urlname" do
+    #       expect(page.urlname).to eq('page')
+    #     end
+    #   end
+    # end
 
-      context "with activated url_nesting" do
-        before { allow(Config).to receive(:get).and_return(true) }
-
-        it "should store all parents urlnames delimited by slash" do
-          expect(page.urlname).to eq('parentparent/parent/page')
-        end
-
-        it "should not include the root page" do
-          Page.root.update_column(:urlname, 'root')
-          language_root.update(urlname: 'new-urlname')
-          expect(language_root.urlname).not_to match(/root/)
-        end
-
-        it "should not include the language root page" do
-          expect(page.urlname).not_to match(/startseite/)
-        end
-
-        it "should not include invisible pages" do
-          expect(contact.urlname).not_to match(/invisible/)
-        end
-
-        context "with an invisible parent" do
-          before { parent.update_attribute(:visible, false) }
-
-          it "does not change if set_urlname is called" do
-            expect { page.send(:set_urlname) }.not_to change { page.urlname }
-          end
-
-          it "does not change if update_urlname! is called" do
-            expect { page.update_urlname! }.not_to change { page.urlname }
-          end
-        end
-
-        context "after changing page's urlname" do
-          it "updates urlnames of descendants" do
-            page
-            parentparent.urlname = 'new-urlname'
-            parentparent.save!
-            page.reload
-            expect(page.urlname).to eq('new-urlname/parent/page')
-          end
-
-          context 'with descendants that are redirecting to external' do
-            it "it skips this page" do
-              external
-              parent.urlname = 'new-urlname'
-              parent.save!
-              external.reload
-              expect(external.urlname).to eq('http://google.com')
-            end
-          end
-
-          it "should create a legacy url" do
-            allow(page).to receive(:slug).and_return('foo')
-            page.update_urlname!
-            expect(page.legacy_urls).not_to be_empty
-            expect(page.legacy_urls.pluck(:urlname)).to include('parentparent/parent/page')
-          end
-        end
-
-        context "after updating my visibility" do
-          it "should update urlnames of descendants" do
-            page
-            parentparent.visible = false
-            parentparent.save!
-            page.reload
-            expect(page.urlname).to eq('parent/page')
-          end
-        end
-      end
-
-      context "with disabled url_nesting" do
-        before { allow(Config).to receive(:get).and_return(false) }
-
-        it "should only store my urlname" do
-          expect(page.urlname).to eq('page')
-        end
-      end
-    end
-
-    describe "#update_node!" do
-
-      let(:original_url) { "sample-url" }
-      let(:page) { create(:alchemy_page, language: language, parent_id: language_root.id, urlname: original_url, restricted: false) }
-      let(:node) { TreeNode.new(10, 11, 12, 13, "another-url", true) }
-
-      context "when nesting is enabled" do
-        before { allow(Alchemy::Config).to receive(:get).with(:url_nesting) { true } }
-
-        context "when page is not external" do
-
-          before do
-            expect(page).to receive(:redirects_to_external?).and_return(false)
-          end
-
-          it "should update all attributes" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(node.url)
-            expect(page.restricted).to eq(node.restricted)
-          end
-
-          context "when url is the same" do
-            let(:node) { TreeNode.new(10, 11, 12, 13, original_url, true) }
-
-            it "should not create a legacy url" do
-              page.update_node!(node)
-              page.reload
-              expect(page.legacy_urls.size).to eq(0)
-            end
-          end
-
-          context "when url is not the same" do
-            it "should create a legacy url" do
-              page.update_node!(node)
-              page.reload
-              expect(page.legacy_urls.size).to eq(1)
-            end
-          end
-        end
-
-        context "when page is external" do
-          before do
-            expect(page)
-              .to receive(:redirects_to_external?)
-              .and_return(true)
-          end
-
-          it "should update all attributes except url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(original_url)
-            expect(page.restricted).to eq(node.restricted)
-          end
-
-          it "should not create a legacy url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.legacy_urls.size).to eq(0)
-          end
-        end
-      end
-
-      context "when nesting is disabled" do
-        before do
-          allow(Alchemy::Config).to receive(:get).with(:url_nesting) { false }
-        end
-
-        context "when page is not external" do
-          before do
-            allow(page).to receive(:redirects_to_external?).and_return(false)
-          end
-
-          it "should update all attributes except url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(original_url)
-            expect(page.restricted).to eq(node.restricted)
-          end
-
-          it "should not create a legacy url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.legacy_urls.size).to eq(0)
-          end
-        end
-
-        context "when page is external" do
-          before do
-            expect(Alchemy::Config).to receive(:get).and_return(true)
-            allow(page).to receive(:redirects_to_external?).and_return(true)
-          end
-
-          it "should update all attributes except url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(original_url)
-            expect(page.restricted).to eq(node.restricted)
-          end
-
-          it "should not create a legacy url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.legacy_urls.size).to eq(0)
-          end
-        end
-      end
-    end
+    # TODO: move to node sorting test
+    # describe "#update_node!" do
+    #
+    #   let(:original_url) { "sample-url" }
+    #   let(:page) { create(:alchemy_page, language: language, parent_id: language_root.id, urlname: original_url, restricted: false) }
+    #   let(:node) { TreeNode.new(10, 11, 12, 13, "another-url", true) }
+    #
+    #   context "when nesting is enabled" do
+    #     before { allow(Alchemy::Config).to receive(:get).with(:url_nesting) { true } }
+    #
+    #     context "when page is not external" do
+    #
+    #       before do
+    #         expect(page).to receive(:redirects_to_external?).and_return(false)
+    #       end
+    #
+    #       it "should update all attributes" do
+    #         page.update_node!(node)
+    #         page.reload
+    #         expect(page.lft).to eq(node.left)
+    #         expect(page.rgt).to eq(node.right)
+    #         expect(page.parent_id).to eq(node.parent)
+    #         expect(page.depth).to eq(node.depth)
+    #         expect(page.urlname).to eq(node.url)
+    #         expect(page.restricted).to eq(node.restricted)
+    #       end
+    #
+    #       context "when url is the same" do
+    #         let(:node) { TreeNode.new(10, 11, 12, 13, original_url, true) }
+    #
+    #         it "should not create a legacy url" do
+    #           page.update_node!(node)
+    #           page.reload
+    #           expect(page.legacy_urls.size).to eq(0)
+    #         end
+    #       end
+    #
+    #       context "when url is not the same" do
+    #         it "should create a legacy url" do
+    #           page.update_node!(node)
+    #           page.reload
+    #           expect(page.legacy_urls.size).to eq(1)
+    #         end
+    #       end
+    #     end
+    #
+    #     context "when page is external" do
+    #       before do
+    #         expect(page)
+    #           .to receive(:redirects_to_external?)
+    #           .and_return(true)
+    #       end
+    #
+    #       it "should update all attributes except url" do
+    #         page.update_node!(node)
+    #         page.reload
+    #         expect(page.lft).to eq(node.left)
+    #         expect(page.rgt).to eq(node.right)
+    #         expect(page.parent_id).to eq(node.parent)
+    #         expect(page.depth).to eq(node.depth)
+    #         expect(page.urlname).to eq(original_url)
+    #         expect(page.restricted).to eq(node.restricted)
+    #       end
+    #
+    #       it "should not create a legacy url" do
+    #         page.update_node!(node)
+    #         page.reload
+    #         expect(page.legacy_urls.size).to eq(0)
+    #       end
+    #     end
+    #   end
+    #
+    #   context "when nesting is disabled" do
+    #     before do
+    #       allow(Alchemy::Config).to receive(:get).with(:url_nesting) { false }
+    #     end
+    #
+    #     context "when page is not external" do
+    #       before do
+    #         allow(page).to receive(:redirects_to_external?).and_return(false)
+    #       end
+    #
+    #       it "should update all attributes except url" do
+    #         page.update_node!(node)
+    #         page.reload
+    #         expect(page.lft).to eq(node.left)
+    #         expect(page.rgt).to eq(node.right)
+    #         expect(page.parent_id).to eq(node.parent)
+    #         expect(page.depth).to eq(node.depth)
+    #         expect(page.urlname).to eq(original_url)
+    #         expect(page.restricted).to eq(node.restricted)
+    #       end
+    #
+    #       it "should not create a legacy url" do
+    #         page.update_node!(node)
+    #         page.reload
+    #         expect(page.legacy_urls.size).to eq(0)
+    #       end
+    #     end
+    #
+    #     context "when page is external" do
+    #       before do
+    #         expect(Alchemy::Config).to receive(:get).and_return(true)
+    #         allow(page).to receive(:redirects_to_external?).and_return(true)
+    #       end
+    #
+    #       it "should update all attributes except url" do
+    #         page.update_node!(node)
+    #         page.reload
+    #         expect(page.lft).to eq(node.left)
+    #         expect(page.rgt).to eq(node.right)
+    #         expect(page.parent_id).to eq(node.parent)
+    #         expect(page.depth).to eq(node.depth)
+    #         expect(page.urlname).to eq(original_url)
+    #         expect(page.restricted).to eq(node.restricted)
+    #       end
+    #
+    #       it "should not create a legacy url" do
+    #         page.update_node!(node)
+    #         page.reload
+    #         expect(page.legacy_urls.size).to eq(0)
+    #       end
+    #     end
+    #   end
+    # end
 
     describe '#slug' do
       context "with parents path saved in urlname" do
@@ -1763,50 +1578,18 @@ module Alchemy
       end
     end
 
-    describe '#external_urlname' do
-      let(:external_page) { build(:alchemy_page, page_layout: 'external') }
-
-      context 'with missing protocol' do
-        before { external_page.urlname = 'google.com'}
-
-        it "returns an urlname prefixed with http://" do
-          expect(external_page.external_urlname).to eq 'http://google.com'
-        end
-      end
-
-      context 'with protocol present' do
-        before { external_page.urlname = 'ftp://google.com'}
-
-        it "returns the urlname" do
-          expect(external_page.external_urlname).to eq 'ftp://google.com'
-        end
-      end
-
-      context 'beginngin with a slash' do
-        before { external_page.urlname = '/internal-url'}
-
-        it "returns the urlname" do
-          expect(external_page.external_urlname).to eq '/internal-url'
-        end
-      end
-    end
-
     context 'page status methods' do
-      let(:page) { build(:alchemy_page, public: true, visible: true, restricted: false, locked: false)}
+      let(:page) { build(:alchemy_page, public: true, restricted: false, locked: false)}
 
       describe '#status' do
         it "returns a combined status hash" do
-          expect(page.status).to eq({public: true, visible: true, restricted: false, locked: false})
+          expect(page.status).to eq({public: true, restricted: false, locked: false})
         end
       end
 
       describe '#status_title' do
         it "returns a translated status string for public status" do
           expect(page.status_title(:public)).to eq('Page is published.')
-        end
-
-        it "returns a translated status string for visible status" do
-          expect(page.status_title(:visible)).to eq('Page is visible in navigation.')
         end
 
         it "returns a translated status string for locked status" do
@@ -1970,20 +1753,6 @@ module Alchemy
           it "returns unknown" do
             expect(page.locker_name).to eq('unknown')
           end
-        end
-      end
-    end
-
-    describe '#controller_and_action' do
-      let(:page) { Page.new }
-
-      context 'if the page has a custom controller defined in its definition' do
-        before do
-          allow(page).to receive(:has_controller?).and_return(true)
-          allow(page).to receive(:definition).and_return({'controller' => 'comments', 'action' => 'index'})
-        end
-        it "should return a Hash with controller and action key-value pairs" do
-          expect(page.controller_and_action).to eq({controller: '/comments', action: 'index'})
         end
       end
     end
