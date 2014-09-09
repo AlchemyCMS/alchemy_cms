@@ -45,32 +45,6 @@ describe 'Page editing feature' do
           expect(page).to have_selector('input#page_robot_index')
           expect(page).to have_selector('input#page_robot_follow')
         end
-
-        context "with sitemaps show_flag config option set to true" do
-          before do
-            allow(Alchemy::Config).to receive(:get) do |arg|
-              arg == :sitemap ? {'show_flag' => true} : Alchemy::Config.show[arg.to_s]
-            end
-          end
-
-          it "should show sitemap checkbox" do
-            visit alchemy.configure_admin_page_path(a_page)
-            expect(page).to have_selector('input[type="checkbox"]#page_sitemap')
-          end
-        end
-
-        context "with sitemaps show_flag config option set to false" do
-          before do
-            allow(Alchemy::Config).to receive(:get) do |arg|
-              arg == :sitemap ? {'show_flag' => false} : Alchemy::Config.show[arg.to_s]
-            end
-          end
-
-          it "should not show sitemap checkbox" do
-            visit alchemy.configure_admin_page_path(a_page)
-            expect(page).to_not have_selector('input[type="checkbox"]#page_sitemap')
-          end
-        end
       end
 
       context "when editing a global page" do

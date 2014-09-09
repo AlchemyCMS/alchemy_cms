@@ -33,21 +33,6 @@ redirect_to_public_child: true
 #
 cache_pages: true
 
-# === Sitemap
-#
-# Alchemy creates a XML, Google compatible, sitemap for you.
-#
-# The url is: http://your-domain.tld/sitemap.xml
-#
-# ==== Config Options:
-#
-#   show_root [Boolean] # Show language root page in sitemap?
-#   show_flag [Boolean] # Enables the Checkbox in Page#update overlay. So your customer can set the visibilit of pages in the sitemap.
-#
-sitemap:
-  show_root: true
-  show_flag: false
-
 # === Picture rendering settings
 #
 # Alchemy uses Dragonfly to render images. Use {:image_size => "XXXxYYY", :crop => BOOLEAN [true]} to resize images.
