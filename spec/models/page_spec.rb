@@ -271,7 +271,7 @@ module Alchemy
 
       describe 'after_create' do
         let(:root_node) { Node.root }
-        let(:page)       { build(:page) }
+        let(:page)      { build(:page) }
 
         context 'with #create_node set to true' do
           before { page.create_node = true }

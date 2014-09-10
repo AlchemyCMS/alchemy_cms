@@ -2,10 +2,7 @@ module Alchemy
   class Admin::NodesController < Admin::ResourcesController
 
     def index
-      @root_nodes = Node.language_root_nodes
-      if @root_nodes.blank?
-        @root_nodes = [Node.create_language_root_node!]
-      end
+      @nodes = Node.language_root_nodes
     end
 
     def new
@@ -14,24 +11,51 @@ module Alchemy
 
     def create
       @node = Node.create(resource_params)
-      if resource_params[:navigatable_id] == 'create'
-        @node.create_navigatable!
-      end
-      render_errors_or_redirect(
-        @node,
+
+      render_errors_or_redirect @node,
         admin_nodes_path,
         flash_notice_for_resource_action
-      )
     end
 
     def update
       @node.update(resource_params)
-      render_errors_or_redirect(
-        @node,
+
+      render_errors_or_redirect @node,
         admin_nodes_path,
         flash_notice_for_resource_action
-      )
     end
+
+    # TODO: Implement Node#fold
+    # def fold
+    #   # @page is fetched via before filter
+    #   @page.fold!(current_alchemy_user.id, !@page.folded?(current_alchemy_user.id))
+    #   respond_to do |format|
+    #     format.js
+    #   end
+    # end
+
+    # TODO: Implement Node#sort
+    # def sort
+    #   @sorting = true
+    # end
+
+    # TODO: Implement Node#order
+    # # Receives a JSON object representing a language tree to be ordered
+    # # and updates all pages in that language structure to their correct indexes
+    # def order
+    #   neworder = JSON.parse(params[:set])
+    #   tree = create_tree(neworder, @page_root)
+    #
+    #   Page.transaction do
+    #     tree.each do |key, node|
+    #       dbitem = Page.find(key)
+    #       dbitem.update_node!(node)
+    #     end
+    #   end
+    #
+    #   flash[:notice] = _t("Pages order saved")
+    #   do_redirect_to admin_pages_path
+    # end
 
     private
 

@@ -1,12 +1,10 @@
 <%= alchemy_form_for([:admin, @node]) do |f| %>
   <%= f.hidden_field :navigatable_type, value: node_type %>
-  <% if node_class.respond_to?(:alchemy_navigatables) %>
-    <%= f.input :navigatable_id,
-      collection: Alchemy::Language.current.pages.map { |n| [n.name, n.id] },
-      include_blank: _t('Please choose'),
-      label: _t('Page'),
-      input_html: {class: 'alchemy_selectbox'} %>
-  <% end %>
+  <%= f.input :navigatable_id,
+    collection: Alchemy::Language.current.pages.map { |n| [n.name, n.id] },
+    include_blank: _t('Please choose'),
+    label: _t('Page'),
+    input_html: {class: 'alchemy_selectbox'} %>
   <%= f.input :name %>
   <%= f.input :title %>
   <%= f.input :nofollow %>

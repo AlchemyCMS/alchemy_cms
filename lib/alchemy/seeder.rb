@@ -38,10 +38,11 @@ module Alchemy
         desc "Creating default Alchemy node"
         if Alchemy::Node.count == 0
           node = Alchemy::Node.new(
-            name: Alchemy::I18n.t('Main navigation')
+            name: Alchemy::I18n.t('Main Menu'),
+            language: Alchemy::Language.default
           )
           node.save!
-          log "Created default Alchemy node."
+          log "Created default Alchemy node with default language."
         else
           log "Default Alchemy node was already present.", :skip
         end

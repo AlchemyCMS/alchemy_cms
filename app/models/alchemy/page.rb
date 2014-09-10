@@ -450,12 +450,12 @@ module Alchemy
     # Otherwise the node gets attached as child of root level
     #
     def create_node!
-      node = Node.create!(name: self.name, navigatable: self, language: self.language)
-      if parent_node
-        node.move_to_child_of(parent_node)
-      else
-        node.move_to_child_of(Node.root)
-      end
+      Node.create!(
+        name: self.name,
+        parent: parent_node || Node.root,
+        navigatable: self,
+        language: self.language
+      )
     end
   end
 end

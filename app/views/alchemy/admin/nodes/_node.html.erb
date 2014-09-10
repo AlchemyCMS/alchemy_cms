@@ -52,7 +52,7 @@
     <span class="node_name"><%= node.name %></span>
     <span class="node_url">
     <% if node.url.present? %>
-      <%= h node.url %>
+      <%= link_to node.url, node.url, target: '_blank' %>
     <% else %>
       &nbsp;
     <% end %>
@@ -63,6 +63,8 @@
       <%= link_to [:edit, :admin, node.navigatable], title: _t(:edit_page) do %>
         <%= node.navigatable.try(:name_for_alchemy_node) %>
       <% end %>
+    <% elsif node.url.present? %>
+      <%= 'External Link' %>
     <% end %>
     </span>
   </div>
