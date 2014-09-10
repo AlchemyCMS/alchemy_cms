@@ -41,9 +41,7 @@ describe "Resources" do
 	    page.should have_selector('input#event_lunch_starts_at_2i[type="hidden"]')
 	    page.should have_selector('input#event_lunch_starts_at_3i[type="hidden"]')
 	    page.should have_selector('select#event_lunch_starts_at_4i')
-      # page.find_field('event_lunch_starts_at_4i').value.should eq '12'
-	    page.should have_selector('select#event_lunch_starts_at_5i')
-      # page.find_field('event_lunch_starts_at_5i').value.should eq '15'
+			page.should have_selector('select#event_lunch_starts_at_5i')
     end
 
     it "should have a select box for associated models" do
