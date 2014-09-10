@@ -96,7 +96,7 @@ module Alchemy
             value: l(resource_instance_variable.send(attribute[:name]) || Time.now, format: :datepicker)
           }
       when 'time'
-          options.merge(as: 'time')
+				options.merge(as: 'time')
       when 'text'
         options.merge(as: 'text', input_html: {rows: 4})
       else
