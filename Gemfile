@@ -9,9 +9,6 @@ end
 # Code coverage plattform
 gem 'coveralls', require: false
 
-# Fixes issues with wrong exit codes. See: https://github.com/colszowka/simplecov/issues/269
-gem 'simplecov', '0.7.1'
-
 gem 'database_cleaner'
 
 group :test do
