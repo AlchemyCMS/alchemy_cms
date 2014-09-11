@@ -3,7 +3,7 @@ source 'http://rubygems.org'
 gemspec
 
 if ENV['RAILS_VERSION']
-  gem 'rails', ENV['RAILS_VERSION']
+  gem 'rails', "~> #{ENV['RAILS_VERSION']}"
 end
 
 # Code coverage plattform
