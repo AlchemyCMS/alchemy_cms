@@ -28,7 +28,7 @@ group :development, :test do
     gem 'yard'
     gem 'redcarpet'
     gem 'pry-byebug'
-    gem 'spring', '~> 1.1.0.beta2'
+    gem 'spring'
     gem 'spring-commands-rspec'
   end
   gem 'jasmine-rails', github: 'searls/jasmine-rails'
