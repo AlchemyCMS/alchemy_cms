@@ -566,7 +566,7 @@ nl:
     visible: "zichtbaar"
     want_to_create_new_language: "Nieuwe boomstructuur aanmaken?"
     want_to_make_copy_of_existing_language: "Een boomstructuur kopiëren?"
-    "We need at least one default.": "Er moet minimaal één standaard taal zijn."
+    "We need at least one default language.": "Er moet minimaal één standaard taal zijn."
     welcome_note: "Welkom %{name}"
     welcome_back_note: "Welkom terug %{name}"
     welcome_please_identify_notice: "Welkom! voer uw gegevens in."

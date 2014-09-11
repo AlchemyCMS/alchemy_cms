@@ -592,7 +592,7 @@ fr:
     visible: "visible"
     want_to_create_new_language: "Voulez-vous créer un nouvel arbre de langage vide?,"
     want_to_make_copy_of_existing_language: "Voulez-vous faire une copie d'une arbre de la langue existante"
-    "We need at least one default.": "Il doit y avoir une langue par défaut."
+    "We need at least one default language.": "Il doit y avoir une langue par défaut."
     welcome_note: "Bievenu %{name}"
     welcome_back_note: "Bienvenue à nouveau %{name}"
     welcome_please_identify_notice: "Bienvenue! S'il vous plaît identifier vous."
