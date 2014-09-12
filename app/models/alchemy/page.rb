@@ -64,6 +64,7 @@ module Alchemy
     ]
 
     attr_accessor :create_node
+    attr_accessor :do_not_validate_language
 
     acts_as_taggable
 
@@ -86,8 +87,6 @@ module Alchemy
         with: /\A[a-z0-9_-]+\z/,
         if: -> { page_layout.present? }
       }
-
-    attr_accessor :do_not_validate_language
 
     before_save :set_language_code,
       if: -> { language.present? }
@@ -367,6 +366,7 @@ module Alchemy
 
     # Recursily get all parents
     # TODO: Implement this as a single SQL query
+    # Maybe use a parents_ids array column as cache to select from
     def parents
       @parents ||= begin
         arr = []
@@ -380,37 +380,6 @@ module Alchemy
     end
 
     private
-
-    # TODO: Delegate to node
-    # Returns the next or previous page on the same level or nil.
-    #
-    # @param [String]
-    #   Pass '>' for next and '<' for previous page.
-    #
-    # @option options [Boolean] :restricted (nil)
-    #   only restricted pages (true), skip restricted pages (false)
-    # @option options [Boolean] :public (true)
-    #   only public pages (true), skip public pages (false)
-    #
-    # def next_or_previous(dir = '>', options = {})
-    #   if self.node.nil?
-    #     raise "#{self.name} has no node! Please attach page to a node in order to get next or previous page."
-    #   end
-
-    #   options = {
-    #     restricted: false,
-    #     public: true
-    #   }.update(options)
-
-    #   node = self.node.self_and_siblings
-    #     .where(["alchemy_nodes.lft #{dir} ?", self.node.lft])
-    #     .where(alchemy_pages: {public: options[:public]})
-    #     .where(alchemy_pages: {restricted: options[:restricted]})
-    #     .reorder(dir == '>' ? 'lft' : 'lft DESC')
-    #     .limit(1).first
-
-    #   node.navigatable
-    # end
 
     # Called from before_save if restricted changes
     def update_childrens_restricted_status
