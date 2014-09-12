@@ -59,16 +59,19 @@ describe Alchemy::Admin::LanguagesController do
     end
   end
 
-  describe "#index" do
-    context "editor users" do
-      before do
-        authorize_user(:as_editor)
-      end
+  describe '#switch' do
+    let!(:language) { Alchemy::Language.default }
 
-      it "should be able to index language" do
-        alchemy_get :index
-        expect(response).to render_template(:index)
-      end
+    before { request.stub(referer: '/admin/pages') }
+
+    it "sets the new language id in sessions" do
+      get :switch, language_id: language.id
+      expect(session[:alchemy_language_id]).to eq(language.id)
+    end
+
+    it "redirects to referer" do
+      get :switch, language_id: language.id
+      expect(response).to redirect_to('/admin/pages')
     end
   end
 end

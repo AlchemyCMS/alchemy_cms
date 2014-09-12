@@ -173,11 +173,6 @@ module Alchemy
         respond_to { |format| format.js }
       end
 
-      def switch_language
-        set_alchemy_language(params[:language_id])
-        do_redirect_to redirect_path_for_switch_language
-      end
-
       private
 
       def reject_editing

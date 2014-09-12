@@ -463,33 +463,6 @@ module Alchemy
           end
         end
       end
-
-      describe "#switch_language" do
-        let(:language) { build_stubbed(:alchemy_language, :klingonian)}
-
-        before do
-          allow(Language).to receive(:find_by).and_return(language)
-        end
-
-        it "should store the current language in session" do
-          alchemy_get :switch_language, {language_id: language.id}
-          expect(session[:alchemy_language_id]).to eq(language.id)
-        end
-
-        it "should redirect to sitemap" do
-          expect(alchemy_get :switch_language, {language_id: language.id}).to redirect_to(admin_pages_path)
-        end
-
-        context "coming from layoutpages" do
-          before do
-            allow(request).to receive(:referer).and_return('admin/layoutpages')
-          end
-
-          it "should redirect to layoutpages" do
-            expect(alchemy_get :switch_language, {language_id: language.id}).to redirect_to(admin_layoutpages_path)
-          end
-        end
-      end
     end
   end
 end
