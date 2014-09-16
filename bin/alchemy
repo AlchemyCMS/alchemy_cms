@@ -79,7 +79,7 @@ EOF
       <<-GITIGNORE
 
 # Ignore Alchemy uploads folder
-upload/*
+uploads/*
 
 # Ignore sensitive data
 config/database.yml
