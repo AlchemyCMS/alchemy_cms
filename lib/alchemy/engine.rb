@@ -79,7 +79,7 @@ module Alchemy
     end
 
     initializer 'alchemy.non_digest_assets' do |app|
-      NonStupidDigestAssets.whitelist = [/^tinymce\//]
+      NonStupidDigestAssets.whitelist += [/^tinymce\//]
     end
 
     config.after_initialize do
