@@ -180,6 +180,26 @@ module Alchemy
             page.legacy_urls.should be_empty
           end
         end
+
+        context "public has changed" do
+          it "should update published_at" do
+            page.update_attributes!(public: true)
+            page.read_attribute(:published_at).should be_within(1.second).of(Time.now)
+          end
+
+          it "should not update already set published_at" do
+            page.update_attributes!(published_at: 2.weeks.ago)
+            page.update_attributes!(public: true)
+            page.read_attribute(:published_at).should be_within(1.second).of(2.weeks.ago)
+          end
+        end
+
+        context "public has not changed" do
+          it "should not update published_at" do
+            page.update_attributes!(name: 'New Name')
+            page.read_attribute(:published_at).should be_nil
+          end
+        end
       end
 
       context 'after_move' do
