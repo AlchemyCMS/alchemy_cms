@@ -84,6 +84,7 @@ module Alchemy
     before_save :set_language_code, if: -> { language.present? }, unless: :systempage?
     before_save :set_restrictions_to_child_pages, if: :restricted_changed?, unless: :systempage?
     before_save :inherit_restricted_status, if: -> { parent && parent.restricted? }, unless: :systempage?
+    before_save :update_published_at, if: -> { public && read_attribute(:published_at).nil? }, unless: :systempage?
     before_create :set_language_from_parent_or_default, if: -> { language_id.blank? }, unless: :systempage?
     after_update :create_legacy_url, if: :urlname_changed?, unless: :redirects_to_external?
 
@@ -390,6 +391,10 @@ module Alchemy
     # Stores the old urlname in a LegacyPageUrl
     def create_legacy_url
       legacy_urls.find_or_create_by(urlname: urlname_was)
+    end
+
+    def update_published_at
+      self.published_at = Time.now
     end
 
   end
