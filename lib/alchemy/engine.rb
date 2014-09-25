@@ -88,6 +88,10 @@ module Alchemy
       NonStupidDigestAssets.whitelist = [/^tinymce\//]
     end
 
+    initializer 'alchemy.dashboard_widgets' do
+      Alchemy::Admin::Dashboard.register_widgets
+    end
+
     config.after_initialize do
       require_relative './userstamp'
     end

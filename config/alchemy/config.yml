@@ -33,6 +33,16 @@ redirect_to_public_child: true
 #
 cache_pages: true
 
+# === Dashboard widgets
+#
+# The order of this list reflects the rendering order of the widgets
+#
+dashboard_widgets:
+  - locked_pages
+  - sites
+  - online_users
+  - last_edited_pages
+
 # === Sitemap
 #
 # Alchemy creates a XML, Google compatible, sitemap for you.
