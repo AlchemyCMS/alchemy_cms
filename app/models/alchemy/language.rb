@@ -45,12 +45,12 @@ module Alchemy
 
       # Store the current language in the current thread.
       def current=(v)
-        Thread.current[:alchemy_current_language] = v
+        RequestStore.store[:alchemy_current_language] = v
       end
 
       # Current language from current thread or default.
       def current
-        Thread.current[:alchemy_current_language] || default
+        RequestStore.store[:alchemy_current_language] || default
       end
 
       # The root page of the current language.
