@@ -3,11 +3,14 @@ source 'http://rubygems.org'
 gemspec
 
 if ENV['RAILS_VERSION']
-  gem 'rails', "~> #{ENV['RAILS_VERSION']}"
+  gem 'rails', ENV['RAILS_VERSION']
 end
 
 # Code coverage plattform
 gem 'coveralls', require: false
+
+# Fixes issues with wrong exit codes. See: https://github.com/colszowka/simplecov/issues/269
+gem 'simplecov', '0.7.1'
 
 gem 'database_cleaner'
 
@@ -28,7 +31,7 @@ group :development, :test do
     gem 'yard'
     gem 'redcarpet'
     gem 'pry-byebug'
-    gem 'spring'
+    gem 'spring', '~> 1.1.0.beta2'
     gem 'spring-commands-rspec'
   end
   gem 'jasmine-rails', github: 'searls/jasmine-rails'

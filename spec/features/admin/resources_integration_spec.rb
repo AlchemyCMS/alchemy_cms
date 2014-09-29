@@ -37,6 +37,11 @@ describe "Resources" do
       page.should have_selector('input#event_starts_at[type="date"]')
       page.should have_selector('textarea#event_description')
       page.should have_selector('input#event_published[type="checkbox"]')
+      page.should have_selector('input#event_lunch_starts_at_1i[type="hidden"]')
+      page.should have_selector('input#event_lunch_starts_at_2i[type="hidden"]')
+      page.should have_selector('input#event_lunch_starts_at_3i[type="hidden"]')
+      page.should have_selector('select#event_lunch_starts_at_4i')
+      page.should have_selector('select#event_lunch_starts_at_5i')
     end
 
     it "should have a select box for associated models" do
