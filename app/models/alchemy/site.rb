@@ -43,11 +43,11 @@ module Alchemy
 
     class << self
       def current=(v)
-        Thread.current[:alchemy_current_site] = v
+        RequestStore.store[:alchemy_current_site] = v
       end
 
       def current
-        Thread.current[:alchemy_current_site] || default
+        RequestStore.store[:alchemy_current_site] || default
       end
 
       def default
