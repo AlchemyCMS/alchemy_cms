@@ -10,6 +10,8 @@ module Alchemy
         @options = options_from_params
         @contents = @element.available_contents
         @content = @element.contents.build
+
+        render_with_protection @content.to_json
       end
 
       def create
