@@ -1,12 +1,15 @@
 module Alchemy
   module Admin
     class TagsController < ResourcesController
+      respond_to :json
       before_filter :load_tag, only: [:edit, :update, :destroy]
 
       def index
         @tags = ActsAsTaggableOn::Tag.where(
           "name LIKE '%#{params[:query]}%'"
         ).page(params[:page] || 1).per(per_page_value_for_screen_size).order("name ASC")
+
+        render_with_protection @tags.to_json
       end
 
       def new
