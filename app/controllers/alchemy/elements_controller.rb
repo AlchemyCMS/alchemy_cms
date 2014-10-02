@@ -7,6 +7,11 @@ module Alchemy
       raise ActiveRecord::RecordNotFound
     end
 
+    def index
+      @page = @element.page
+      respond_with @page
+    end
+
     # == Renders the element view partial
     #
     # === Accepted Formats
