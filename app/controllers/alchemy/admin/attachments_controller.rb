@@ -1,6 +1,7 @@
 module Alchemy
   module Admin
     class AttachmentsController < ResourcesController
+      respond_to :json
       helper 'alchemy/admin/tags'
 
       def index
@@ -11,6 +12,8 @@ module Alchemy
         if in_overlay?
           archive_overlay
         end
+
+        render_with_protection @attachments.to_json
       end
 
       # The resources controller renders the edit form as default for show actions.
