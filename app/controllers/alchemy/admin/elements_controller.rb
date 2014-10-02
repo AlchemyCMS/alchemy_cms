@@ -1,8 +1,6 @@
 module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
-      respond_to :json
-
       before_action :load_element, only: [:update, :trash, :fold]
       authorize_resource class: Alchemy::Element
 
@@ -14,8 +12,6 @@ module Alchemy
         else
           @elements = @page.elements_grouped_by_cells
         end
-
-        render_with_protection @page.to_json
       end
 
       def list
@@ -24,7 +20,6 @@ module Alchemy
           @page_id = Language.current.pages.find_by(urlname: params[:page_urlname]).id
         end
         @elements = Element.published.where(page_id: @page_id)
-        render_with_protection @elements
       end
 
       def new

@@ -1,5 +1,6 @@
 module Alchemy
   class PicturesController < Alchemy::BaseController
+    respond_to :json
     ALLOWED_IMAGE_TYPES = %w(png jpeg gif)
 
     caches_page :show, :thumbnail, :zoom
@@ -12,6 +13,8 @@ module Alchemy
       @size = params[:size]
       expires_in 1.month, public: !@picture.restricted?
       respond_to { |format| send_image(processed_image, format) }
+
+      render_with_protection @size.to_json
     end
 
     def thumbnail

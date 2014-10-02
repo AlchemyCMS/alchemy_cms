@@ -1,5 +1,6 @@
+
 module Alchemy
-  class ElementsController < Alchemy::BaseController
+  class API::ElementsController < Alchemy::BaseController
     respond_to :json
     load_and_authorize_resource
     layout false
@@ -10,6 +11,7 @@ module Alchemy
 
     def index
       @page = @element.page
+
       render_with_protection @page.to_json
     end
 
