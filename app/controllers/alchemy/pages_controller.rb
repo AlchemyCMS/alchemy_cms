@@ -5,11 +5,17 @@ module Alchemy
     # Not the best solution, but's working.
     # Anyone with a better idea please provide a patch.
     include Alchemy::BaseHelper
+    respond_to :json
 
     rescue_from ActionController::RoutingError, :with => :render_404
 
     before_action :enforce_primary_host_for_site
     before_action :render_page_or_redirect, only: [:show]
+
+     def index
+       @pages = Page.all
+       respond_with @pages
+     end
 
     # Showing page from params[:urlname]
     #
