@@ -1,9 +1,17 @@
 module Alchemy
   module Admin
     class ContentsController < Alchemy::Admin::BaseController
+      respond_to :json
+
       helper 'alchemy/admin/essences'
 
       authorize_resource class: Alchemy::Content
+
+      def index
+        @contents = @element.contents.all
+
+        render_with_protection @contents.to_json
+      end
 
       def new
         @element = Element.find(params[:element_id])
@@ -11,8 +19,8 @@ module Alchemy
         @contents = @element.available_contents
         @content = @element.contents.build
 
-        render_with_protection @content.to_json
       end
+
 
       def create
         @element = Element.find(params[:content][:element_id])
