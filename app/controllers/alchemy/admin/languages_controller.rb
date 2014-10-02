@@ -1,10 +1,11 @@
 module Alchemy
   module Admin
     class LanguagesController < Alchemy::Admin::ResourcesController
+      respond_to :json
 
       def index
         @language.page_layout = (configured_page_layout or @language.page_layout)
-        render_with_protection @language
+        render_with_protection @language.to_json
       end
 
       def new
