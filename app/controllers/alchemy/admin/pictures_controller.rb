@@ -3,7 +3,7 @@ module Alchemy
     class PicturesController < Alchemy::Admin::BaseController
       helper 'alchemy/admin/tags'
 
-      respond_to :html, :js
+      respond_to :html, :js, :json
 
       before_action :load_picture,
         only: [:show, :edit, :update, :info, :destroy]
@@ -19,6 +19,8 @@ module Alchemy
         if in_overlay?
           archive_overlay
         end
+
+        render_with_protection @pictures.to_json
       end
 
       def new
