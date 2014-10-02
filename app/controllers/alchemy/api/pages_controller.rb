@@ -1,5 +1,5 @@
 module Alchemy
-  class PagesController < Alchemy::BaseController
+  class API::PagesController < Alchemy::BaseController
     # We need to include this helper because we need the breadcrumb method.
     # And we cannot define the breadcrump method as helper_method, because rspec does not see helper_methods.
     # Not the best solution, but's working.
@@ -14,7 +14,7 @@ module Alchemy
 
      def index
        @pages = Page.all
-       respond_with @pages
+       render_with_protection @pages.to_json
      end
 
     # Showing page from params[:urlname]
@@ -32,7 +32,7 @@ module Alchemy
               render xml: {error: 'Not found'}, status: 404
             end
           end
-          format.json { render json: @page }
+          render_with_protection @page.to_json
         end
       end
     end
