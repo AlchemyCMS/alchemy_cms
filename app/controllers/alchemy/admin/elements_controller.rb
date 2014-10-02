@@ -1,6 +1,8 @@
 module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
+      respond_to :json
+
       before_action :load_element, only: [:update, :trash, :fold]
       authorize_resource class: Alchemy::Element
 
@@ -13,7 +15,7 @@ module Alchemy
           @elements = @page.elements_grouped_by_cells
         end
 
-        render_with_protection @page
+        render_with_protection @page.to_json
       end
 
       def list
