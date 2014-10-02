@@ -91,7 +91,7 @@ Alchemy.translations =
 
   # Russian
   ru:
-    allowed_chars: 'of %{count} chars'
+    allowed_chars: '%{count} знаков'
     cancel: 'Отмена'
     cancelled: 'Отменено'
     click_to_edit: 'нажмите, чтобы редактировать'
