@@ -1,5 +1,11 @@
 Alchemy::Engine.routes.draw do
 
+  scope "api" do
+    resources :pages do
+      resources :elements
+    end
+  end
+
   root :to => 'pages#show'
 
   get '/sitemap.xml' => 'pages#sitemap', format: 'xml'
