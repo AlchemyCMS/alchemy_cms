@@ -80,6 +80,14 @@ gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
 
 **NOTE:** You normally want to use a stable branch, like `3.0-stable`.
 
+If you want to use Russian translation and have better i18n support, you should put:
+
+```ruby
+gem 'russian', '~> 0.6.0'
+```
+
+or gem with similar functionality into your Gemfile.
+
 #### 2. Update your bundle:
 
 ```shell

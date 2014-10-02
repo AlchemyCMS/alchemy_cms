@@ -161,7 +161,7 @@ ru:
     back: 'назад'
     create_tree_as_new_language: "Создать дерево языка %{language}"
     "Active Pages": "Активные страницы"
-    "Add global page": "Добавить глобальную страницу"
+    "Add global page": "Добавить часть макета"
     "Add page link": "Добавить ссылку на страницу"
     "Adobe Website": "Adobe Website"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software and itself uses open software and free resources:"
@@ -194,15 +194,16 @@ ru:
     "File successfully updated": "Файл успешно обновлен"
     "File upload error": "Ошибка загрузки файла: %{error}"
     "File deleted successfully": "%{name} файл удален"
+    "Filter": "Фильтровать"
     "Filter by tag": "Фильтровать по меткам"
-    "Flush page cache": "Очистить кэш страницы"
-    "Flush picture cache": "Очистить кэш изображения"
+    "Flush page cache": "Очистить кэш страниц"
+    "Flush picture cache": "Очистить кэш изображений"
     "Global shortcuts": "Глобальные ярлыки"
     "Hide childpages": "Спрятать дочерние страницы"
     "Hide Elements": "Спрятать элементы"
     "If you have any problems using the Flash uploader you can switch to": "Если у вас возникают проблемы с Flash загрузчиком, вы можете воспользоваться %{link}"
     "Image missing": "Отсутствует изображение"
-    "Image size": "Размер изображения"
+    "Image size": "Размер изображений"
     "Language successfully created": "Язык успешно создан."
     "Language successfully removed": "Язык удален."
     "Language successfully updated": "Язык успешно обновлен."
@@ -211,7 +212,7 @@ ru:
     "Library shortcuts": "Ярлыки библиотеки"
     "Logged in as": "Вы вошли как"
     "Mandatory": "Обязательные поля"
-    "Name": "Имя"
+    "Name": "Название страницы"
     "New": "Новый"
     "New Element": "Новый элемент"
     "New page": "Новая страница"
@@ -263,13 +264,14 @@ ru:
     "Show Elements": "Показать элементы"
     "Show childpages": "Показать дочерние страницы"
     "Show clipboard": "Показать буфер обмена"
-    "Show picture infos": "Показать информация об изображении"
+    "Show picture infos": "Информация об изображении"
     "Show trash": "Показать корзину"
     "Site successfully created": "Сайт успешно создан."
     "Site successfully removed": "Сайт успешно удален."
     "Site successfully updated": "Сайт успешно обновлен."
     "Size": "Размер"
     "Sort pages": "Сортировать страницы"
+    "Status": "Статус"
     "Successfully added content": "Успешно добавлен %{content}"
     "Successfully deleted content": "Успешно удален %{content}"
     "Successfully saved content position": "Успешно изменено положение контента"
@@ -313,7 +315,7 @@ ru:
     attachment_filename_notice: "* Пожалуйста, не используйте спецсимволы для имен файлов."
     auto_play: "Проиграть видеоролик после загрузки"
     big_thumbnails: "Большие миниатюры"
-    browse: "обзор"
+    browse: "Обзор"
     cancel: "отмена"
     cannot_delete_picture_notice: "Невозможно удалить изображение %{name}, поскольку оно все еще используется."
     choose_element_as_target: "Пожалуйста, выберите целевой элемент"
@@ -344,11 +346,11 @@ ru:
     create_language_tree_heading: "Создать пустое дерево языка"
     create_page: "Создать новую дочернюю страницу"
     currently_edited_by: "Эта страница заблокирована"
-    cut_element: "Вырезать этот эелемент."
-    delete_file: "Удалить этот файл навсегда."
+    cut_element: "Вырезать этот эелемент"
+    delete_file: "Удалить файл навсегда"
     delete_image: "Убрать изображение"
-    delete_language: "Удалить этот язык"
-    delete_page: "Удалить эту страницу"
+    delete_language: "Удалить язык"
+    delete_page: "Удалить страницу"
     delete_tag: 'Удалить метку'
     document: "Файл"
     documents: "Файлы"
@@ -356,8 +358,8 @@ ru:
     download_file: "Скачать файл '%{filename}'"
     do_you_really_want_to_delete_this_tag?: "Вы действительно хотите удалть эту метку?"
     drag_to_sort: "Используйте Drag'n'Drop для сортировки изображений"
-    edit_file_properties: "Редактировать свойства файла."
-    edit_image_properties: "Редактировать свойства изображения."
+    edit_file_properties: "Редактировать свойства файла"
+    edit_image_properties: "Редактировать свойства изображения"
     edit_language: "Редактировать язык"
     edit_page: "Редактировать эту страницу"
     edit_page_properties: "Редактировать свойства страницы"
@@ -365,7 +367,7 @@ ru:
     edit_selected_pictures: "Редактировать выбранные изображения"
     element_editor_not_found: "Ошабка внутри этого элемента"
     element_of_type: "Элемент"
-    element_saved: "Элемент сохранен."
+    element_saved: "Элемент сохранен"
     enter_external_link: "Пожалуйста, введите адрес (URL) внешней ссылки"
     explain_cropping: "<p>Выберите область изображения, перемещая рамку и изменяя её размер.</p><p>Нажмите применить, когда закончите.</p>"
     explain_publishing: "Опубликовать страницу и удалить кэшированную версию с сервера."
@@ -384,7 +386,7 @@ ru:
     file: "Файл"
     file_rename_error: "Ошибка при переименовывании файла."
     files: "Файлы"
-    from_at: "от %{by} до %{at}"
+    from_at: "%{by} %{at}"
     height: "Высота"
     help:
       shortcuts:
@@ -401,11 +403,11 @@ ru:
         "Open upload form": "Открыть форму загрузки"
         "Select all pictures": "Выделить все изображения"
     hide_element_content: "Скрыть контент этого эелемента."
-    dashboard: "Панель управления"
-    image_alt_tag: "Тэг ALT"
+    dashboard: "Обзор"
+    image_alt_tag: "Альтернативный текст"
     image_caption: "Подпись"
     image_name: "Название"
-    image_title: "Тэг TITLE"
+    image_title: "Атрибут title"
     images: "Изображения"
     internal_link_headline: "Выберите страницу, на которую будет вести ссылка."
     internal_link_page_elements_explanation: "Кроме того, вы можете нажать на 'Показать элементы страницы' и выбрать элемент, который будет покзан при переходе по ссылке."
@@ -418,7 +420,7 @@ ru:
     language_code_placeholder: 'например, ru'
     language_does_not_exist: "Дерево языка не существует"
     language_pages_copied: "Дерево языка успешно скопировано."
-    last_upload_only: "Только последние загрузки"
+    last_upload_only: "Из последней загрузки"
     left: "слева"
     legacy_url_info_text: "Ссылка является перенаправлением со старого URL на новый URL этой страницы. Это перенаправление происходит с <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 кодом</a>."
     link_image: "Добавить ссылку на изображение"
@@ -440,10 +442,10 @@ ru:
     meta_keywords: "Meta-Keywords"
     modules:
       attachments: "Файлы"
-      dashboard: "Панель управления"
+      dashboard: "Обзор"
       pictures: "Изображения"
       languages: "Языки"
-      layoutpages: "Части макетов"
+      layoutpages: "Части макета"
       library: "Медиа"
       pages: "Страницы"
       tags: "Метки"
@@ -463,7 +465,7 @@ ru:
     no_search_results: "Ваш поиск не дал результатов."
     "not a valid image": "Изображение не является валидным."
     "or": 'или'
-    or_replace_it_with_an_existing_tag: 'или замените существующим тэгом'
+    or_replace_it_with_an_existing_tag: 'или заменить существующей меткой'
     "Page created": "Страница: '%{name}' создана."
     page_for_links:
       choose_page: "Выбрать %{name}"
@@ -475,17 +477,17 @@ ru:
     page_restricted: "ограничена"
     page_states:
       visible:
-        "true": "Страница отображается в навигации."
-        "false": "Страница не отображается в навигации."
+        "true": "Страница отображается в навигации"
+        "false": "Страница не отображается в навигации"
       public:
-        "true": "Страница опубликована."
-        "false": "Страница не опубликована."
+        "true": "Страница опубликована"
+        "false": "Страница не опубликована"
       locked:
-        "true": "В данный момент страницу редактирует другой пользователь."
+        "true": "В данный момент страницу редактирует другой пользователь"
         "false": ""
       restricted:
-        "true": "Страница ограничена."
-        "false": "Страница не ограничена."
+        "true": "Страница ограничена"
+        "false": "Страница не ограничена"
     page_status: "Статус"
     page_title: "Название"
     page_type: "Тип"
@@ -517,12 +519,12 @@ ru:
       '768': '768px (iPad - портретный)'
       '1024': '1024px (iPad - ландшафтный)'
       '1280': '1280px (Стационарный ПК)'
-    recently_uploaded_only: 'Только недавно загруженные'
+    recently_uploaded_only: 'Недавно загруженные'
     "regular method": "Регулярный метод"
     remove: "Удалить"
-    rename_file: "Переименовать файл."
+    rename_file: "Свойства файла"
     rename: "Переименовать"
-    replace: заменить
+    replace: "Заменить"
     'Replaced Tag': "Метка '%{old_tag}' заменена на '%{new_tag}'"
     resources:
       relation_select:
@@ -545,11 +547,11 @@ ru:
     signup_mail_delivery_error: 'Почта не может быть доставлена новому пользователю. Проверьте настройки почты.'
     small_thumbnails: "Маленькие миниатюры"
     subject: "Тема"
-    successfully_added_element: "Успешно добавлен новый элемент."
-    successfully_deleted_tag: "Успешно удален тэг."
-    successfully_restored_element: "Элемент успешно восстановлен."
-    successfully_saved_element_position: "Позиция элемента успшно обновлена."
-    successfully_updated_tag: "Успешно обновлен тэг"
+    successfully_added_element: "Добавлен новый элемент."
+    successfully_deleted_tag: "Метка удалена."
+    successfully_restored_element: "Элемент восстановлен."
+    successfully_saved_element_position: "Позиция элемента обновлена."
+    successfully_updated_tag: "Метка обновлена"
     swap_image: "Сменить изображение"
     insert_image: "Вставить изображение"
     tag_list: Метки
@@ -559,11 +561,11 @@ ru:
     to_alchemy: "В панель управления"
     "trash element": "Переместить элемент в корзину"
     unknown: "неизвестно"
-    unlink: "Убрать ссылку с этого изображения."
+    unlink: "Убрать ссылку с изображения"
     unlock_page: "Покинуть страницу"
     unlocked_page: "Страница %{name} разблокирована."
-    upload_file: "Загрузить файл(ы)"
-    upload_image: "Загрузить изображение(я)"
+    upload_file: "Загрузить файлы"
+    upload_image: "Загрузить изображения"
     url_name: "Название URL"
     visible: "видимый"
     want_to_create_new_language: "Вы хотите создать новое пустое языковое дерево?"
@@ -602,6 +604,11 @@ ru:
   # You should put this to your Gemfile
   # gem 'russian', '~> 0.6.0'
 
+  # Special Alchemy rails translations:
+  time:
+    formats:
+      page_status: "%d.%m.%Y %H:%M"
+
   errors: &errors
     template:
       header: "Валидация не прошла"
@@ -638,26 +645,26 @@ ru:
       alchemy/element:
         attributes:
           name:
-            blank: "^Пожалуйста, выберите элемент."
+            blank: "Пожалуйста, выберите элемент."
       alchemy/language:
         attributes:
           language_code:
-            invalid: '^Неверный формат кода языка. Используйте две латинские строчные буквы.'
+            invalid: 'Неверный формат кода языка. Используйте две латинские строчные буквы.'
             taken: 'уже занят для кода этой страны.'
       alchemy/page:
         attributes:
           name:
-            blank: "^Пожалуйста, введите название."
+            blank: "Введите название."
           page_layout:
-            blank: "^Пожалуйста, выберите шаблон страницы."
+            blank: "Выберите шаблон страницы."
           urlname:
-            too_short: "^URL страницы слишком короткий (минимум 3 символа)."
-            taken: "^URL занят."
-            exclusion: "^URL зарезервирован."
+            too_short: "URL слишком короткий (минимум 3 символа)."
+            taken: "URL занят."
+            exclusion: "URL зарезервирован."
       alchemy/picture:
         attributes:
           image_file:
-            blank: "Пожалуйста, приложите изображение."
+            blank: "Приложите изображение."
 
   activemodel:
     models:
@@ -686,62 +693,73 @@ ru:
 
     models:
       acts_as_taggable_on/tag:
-        one: Метка
-        other: Метки
-        zero: "Нет меток"
+        one: "Метка"
+        few: "Метки"
+        many: "Меток"
+        zero: "Меток"
 
       alchemy/attachment:
-        one: Файл
-        other: Файлы
-        zero: "Нет файлов"
+        one: "Файл"
+        few: "Файла"
+        many: "Файлов"
+        zero: "Файлов"
 
       alchemy/element:
         one: "Элемент"
-        other: "Элементы"
-        zero: "Нет элементов"
+        few: "Элемента"
+        many: "Элементов"
+        zero: "Элементов"
 
       alchemy/legacy_page_url:
         one: "Ссылка"
-        other: "Ссылки"
-        zero: "Нет ссылок"
+        few: "Ссылки"
+        many: "Ссылок"
+        zero: "Ссылок"
 
       alchemy/language:
         one: "Язык"
-        other: "Языки"
-        zero: "Языков нет"
+        few: "Языка"
+        many: "Языков"
+        zero: "Языков"
 
       alchemy/page:
         one: "Страница"
-        other: "Страницы"
-        zero: "Страниц нет"
+        few: "Страницы"
+        many: "Страниц"
+        zero: "Страниц"
 
       alchemy/site:
-        one: Сайт
-        other: Сайты
+        one: "Сайт"
+        few: "Сайта"
+        many: "Сайтов"
+        zero: "Сайтов"
 
       alchemy/picture:
-        one: Изображение
-        other: Изображения
+        one: "Изображение"
+        few: "Изображения"
+        many: "Изображений"
+        zero: "Изображений"
 
     attributes:
 
       acts_as_taggable_on/tag:
+        name: "Название"
         taggings_types: Используется для
         taggings_count: Количество использований
 
       alchemy/attachment:
         file_mime_type: "Тип файла"
-        created_at: "создано"
+        created_at: "Cоздано"
         file_name: "Имя файла"
-        name: Имя
+        name: "Название"
         file_size: "Размер файла"
-        tag_list: Tags
+        tag_list: "Метки"
 
       alchemy/element:
         display_name: "Название"
         name: "Название"
         public: "видимый"
-        tag_list: Tags
+        tag_list: "Метки"
 
       alchemy/essence_file:
         css_class: Style
@@ -786,7 +804,7 @@ ru:
         robot_follow: "робот может посещать ссылки на странице"
         robot_index: "робот может индексировать стрницу"
         sitemap: "отображается в sitemap"
-        tag_list: Tags
+        tag_list: "Метки"
         title: "Заголовок"
         updated_at: "Обновлена"
         urlname: "URL-имя"
@@ -799,13 +817,13 @@ ru:
         image_file_dimensions: "Размеры изображения"
         image_file_size: "Размер файла"
         name: "Назание"
-        tag_list: Tags
+        tag_list: "Метки"
 
       alchemy/site:
         name: "Название"
         host: "Основной хост"
         public: "Публичный"
-        aliases: "Domain-Aliases"
+        aliases: "Дополнительные домены"
         redirect_to_primary_host: "Перенаправлять на основной хост"
 
     errors:
