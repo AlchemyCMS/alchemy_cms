@@ -53,6 +53,18 @@ For a Ruby 1.8.7 compatible version use the [2.3-stable branch](https://github.c
 Installation
 ------------
 
+### Translation requirements
+
+#### Russian:
+
+If you want to use Russian translation and have better i18n support, you should put:
+
+    gem 'russian', '~> 0.6.0'
+
+or similar in functionality gem into your Gemfile before running:
+
+    bundle install
+
 ### As a standalone project
 
 #### 1. Use the installer:
