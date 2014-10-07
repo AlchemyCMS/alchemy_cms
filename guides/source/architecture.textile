@@ -29,7 +29,7 @@ Alchemy CMS comes with six core modules:
 
 The core modules can be extended by own modules.
 A module should be a Rails engine that registers itself at Alchemy.
-Read more about "creating own modules":creating_modules.html.
+Read more about "creating own modules":create_modules.html.
 
 h3. Storing architecture
 
