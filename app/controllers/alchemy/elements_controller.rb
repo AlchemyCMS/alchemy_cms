@@ -21,8 +21,11 @@ module Alchemy
 
       respond_to do |format|
         format.html
-        format.js   { @container_id = params[:container_id] }
-        format.json { render json: @element }
+        format.js { @container_id = params[:container_id] }
+        format.json do
+          ActiveSupport::Deprecation.warn('The Alchemy elements json API moved to `api` namespace. Please use `/api/elements` for json requests instead.')
+          render json: @element
+        end
       end
     end
 
