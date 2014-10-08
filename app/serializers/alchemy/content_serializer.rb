@@ -13,15 +13,7 @@ module Alchemy
     has_one :essence, polymorphic: true
 
     def ingredient
-      case object.essence_type
-      when 'Alchemy::EssencePicture'
-        object.essence.picture_url
-      when 'Alchemy::EssenceFile'
-        object.essence.attachment_url
-      else
-        object.ingredient
-      end
+      object.serialized_ingredient
     end
-
   end
 end

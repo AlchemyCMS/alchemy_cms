@@ -113,6 +113,15 @@ module Alchemy
       essence.ingredient
     end
 
+    # Ingredient value from essence for json api
+    #
+    # If the essence responds to +serialized_ingredient+ method it takes this
+    # otherwise it uses the ingredient column.
+    #
+    def serialized_ingredient
+      essence.try(:serialized_ingredient) || ingredient
+    end
+
     # Sets the ingredient from essence
     def ingredient=(value)
       raise EssenceMissingError if essence.nil?
