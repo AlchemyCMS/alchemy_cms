@@ -36,6 +36,12 @@ Alchemy::Engine.routes.draw do
   resources :elements, :only => :show
   resources :contents, :only => :show
 
+  namespace :api, defaults: {format: :json} do
+    resources :contents, only: [:show]
+    resources :elements, only: [:show]
+    resources :pages,    only: [:show]
+  end
+
   namespace :admin do
 
     resources :contents do
