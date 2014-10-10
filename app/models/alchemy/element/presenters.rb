@@ -39,7 +39,7 @@ module Alchemy
     #
     # It's taken from the first Content found in the +elements.yml+ description file.
     #
-    # You can flag a Content as +take_me_for_preview+ to take this as preview.
+    # You can flag a Content as +as_element_title+ to take this as preview.
     #
     # @param maxlength [Fixnum] (30)
     #   Length of characters after the text will be cut off.
@@ -63,7 +63,7 @@ module Alchemy
     #         type: EssenceText
     #       - name: text
     #         type EssenceRichtext
-    #         take_me_for_preview: true
+    #         as_element_title: true
     #
     # With "I want to tell you a funky story" as stripped_body for the EssenceRichtext Content produces:
     #

@@ -257,6 +257,37 @@ module Alchemy
       end
     end
 
+    describe '#preview_content?' do
+      let(:content) { build_stubbed(:content) }
+
+      context 'not defined as preview content' do
+        it "returns false" do
+          expect(content.preview_content?).to be_false
+        end
+      end
+
+      context 'defined as preview content via take_me_for_preview' do
+        before { content.stub(description: {'take_me_for_preview' => true}) }
+
+        it "returns true" do
+          expect(content.preview_content?).to be_true
+        end
+
+        it "display deprecation warning" do
+          expect(ActiveSupport::Deprecation).to receive(:warn)
+          content.preview_content?
+        end
+      end
+
+      context 'defined as preview content via as_element_title' do
+        before { content.stub(description: {'as_element_title' => true}) }
+
+        it "returns true" do
+          expect(content.preview_content?).to be_true
+        end
+      end
+    end
+
     describe '#preview_text' do
       let(:essence) { mock_model(EssenceText, preview_text: 'Lorem') }
       let(:content) { c = Content.new; c.essence = essence; c }
