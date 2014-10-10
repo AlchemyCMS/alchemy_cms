@@ -74,7 +74,7 @@
       - presence
   - name: subject
     type: EssenceText
-    take_me_for_preview: true
+    as_element_title: true
     validate:
       - presence
   - name: success_page

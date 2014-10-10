@@ -184,7 +184,10 @@ module Alchemy
 
     # Returns true if this content should be taken for element preview.
     def preview_content?
-      !!description['take_me_for_preview']
+      if description['take_me_for_preview']
+        ActiveSupport::Deprecation.warn("Content definition's `take_me_for_preview` key is deprecated. Please use `as_element_title` instead.")
+      end
+      !!description['take_me_for_preview'] || !!description['as_element_title']
     end
 
     # Proxy method that returns the preview text from essence.
