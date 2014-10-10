@@ -12,7 +12,7 @@ describe "essences/_essence_picture_view" do
   end
 
   context "with caption" do
-    let(:options) { {show_caption: true} }
+    let(:options) { {} }
     let(:html_options) { {} }
 
     subject do
@@ -25,6 +25,52 @@ describe "essences/_essence_picture_view" do
 
     it "should enclose the image in a <figure> element" do
       should have_selector('figure img')
+    end
+
+    it "should shows the caption" do
+      should have_selector('figure figcaption')
+      should have_content('This is a cute cat')
+    end
+
+    context "but disabled in the options" do
+      let(:options) { {show_caption: false} }
+
+      it "should not enclose the image in a <figure> element" do
+        should_not have_selector('figure img')
+      end
+
+      it "should not show the caption" do
+        should_not have_selector('figure figcaption')
+        should_not have_content('This is a cute cat')
+      end
+    end
+
+    context "but disabled in the content settings" do
+      before do
+        content.stub(settings: {show_caption: false})
+      end
+
+      it "should not enclose the image in a <figure> element" do
+        should_not have_selector('figure img')
+      end
+
+      it "should not show the caption" do
+        should_not have_selector('figure figcaption')
+        should_not have_content('This is a cute cat')
+      end
+
+      context 'but enabled in the options hash' do
+        let(:options) { {show_caption: true} }
+
+        it "should enclose the image in a <figure> element" do
+          should have_selector('figure img')
+        end
+
+        it "should shows the caption" do
+          should have_selector('figure figcaption')
+          should have_content('This is a cute cat')
+        end
+      end
     end
 
     context "and essence with css class" do
@@ -80,5 +126,4 @@ describe "essences/_essence_picture_view" do
       end
     end
   end
-
 end

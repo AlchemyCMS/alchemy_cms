@@ -92,7 +92,10 @@ module Alchemy
     # Renders a essence picture
     #
     def render_essence_picture_view(content, options, html_options)
-      options = {show_caption: true, disable_link: false}.update(options)
+      options = {
+        show_caption: true,
+        disable_link: false
+      }.update(content.settings).update(options)
       return if content.ingredient.blank?
       if content.essence.caption.present? && options[:show_caption]
         caption = content_tag(:figcaption, content.essence.caption, id: "#{dom_id(content.ingredient)}_caption", class: "image_caption")
@@ -119,6 +122,16 @@ module Alchemy
       else
         output
       end
+    end
+
+    # Fetches value from settings of given content
+    #
+    # @param content [Alchemy::Content] - The content that settings should be taken
+    # @param key [Symbol]               - The hash key you want to fetch the value from
+    # @param options [Hash]             - An optional Hash that can override the settings.
+    #                                     Normally passed as options hash into the content editor view
+    def content_settings_value(content, key, options = {})
+      content.settings.update(options || {}).symbolize_keys[key.to_sym]
     end
 
   end

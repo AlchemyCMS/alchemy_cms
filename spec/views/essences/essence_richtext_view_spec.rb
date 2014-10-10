@@ -17,4 +17,16 @@ describe 'alchemy/essences/_essence_richtext_view' do
       expect(rendered).to_not have_selector('h1')
     end
   end
+
+  context 'with content.settings[:plain_text] true' do
+    before do
+      content.stub(settings: {plain_text: true})
+    end
+
+    it "renders the text body" do
+      render content.essence, content: content
+      expect(rendered).to have_content('Lorem ipsum dolor sit amet consectetur adipiscing elit.')
+      expect(rendered).to_not have_selector('h1')
+    end
+  end
 end

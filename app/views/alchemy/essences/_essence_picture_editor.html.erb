@@ -1,11 +1,7 @@
-<div id="<%= content.dom_id %>" class="essence_picture_editor<%= ' dragable_picture' if options[:dragable] %><%= ' content_editor' unless options[:grouped] %>">
+<% cache(content) do %>
+<div id="<%= content.dom_id %>" class="essence_picture_editor<%= ' dragable_picture' if options[:dragable] %><%= ' content_editor' unless options[:grouped] %>" data-content-id="<%= content.id %>">
   <% unless options[:grouped] %>
-  <label>
-    <% if content.has_hint? %>
-      <%= render_hint_for(content) %>
-    <% end %>
-    <%= render_content_name(content) %>
-  </label>
+  <%= label_and_remove_link(content) %>
   <% end %>
   <div class="picture_thumbnail">
     <span class="picture_tool delete">
@@ -40,7 +36,7 @@
         <% end %>
       </div>
     </div>
-    <%- unless options[:css_class].blank? || content.essence.css_class.blank? -%>
+    <%- if content.essence.css_class.present? -%>
     <div class="essence_picture_css_class">
       <%= _t("alchemy.essence_pictures.css_classes.#{content.essence.css_class}", default: content.essence.css_class.camelcase) %>
     </div>
@@ -60,3 +56,4 @@
   <%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
   <%= hidden_field_tag content.form_field_name(:link_target), content.essence.link_target %>
 </div>
+<% end %>

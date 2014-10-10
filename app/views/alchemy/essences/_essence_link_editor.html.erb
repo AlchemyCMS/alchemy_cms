@@ -1,19 +1,21 @@
 <% cache(content) do %>
-<div class="content_editor essence_link" id="<%= content.dom_id %>">
-  <label><%= render_content_name(content) %></label>
-  <%= text_field_tag(
-    '',
-    content.ingredient,
-    :class => "thin_border text_with_icon disabled",
-    :name => nil,
-    :id => nil,
-    :disabled => true
-  ) %>
-  <%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
-  <%= hidden_field_tag content.form_field_name(:link_title), content.essence.link_title %>
-  <%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
-  <%= hidden_field_tag content.form_field_name(:link_target), content.essence.link_target %>
-  <%= render 'alchemy/essences/shared/linkable_essence_tools', :content => content %>
+<div class="content_editor essence_link" id="<%= content.dom_id %>" data-content-id="<%= content.id %>">
+  <%= label_and_remove_link(content) %>
+  <%= text_field_tag '', content.ingredient,
+    class: "thin_border text_with_icon disabled",
+    name: nil,
+    id: nil,
+    disabled: true
+  %>
+  <%= hidden_field_tag content.form_field_name(:link),
+    content.essence.link %>
+  <%= hidden_field_tag content.form_field_name(:link_title),
+    content.essence.link_title %>
+  <%= hidden_field_tag content.form_field_name(:link_class_name),
+    content.essence.link_class_name %>
+  <%= hidden_field_tag content.form_field_name(:link_target),
+    content.essence.link_target %>
+  <%= render 'alchemy/essences/shared/linkable_essence_tools', content: content %>
 </div>
 <script type="text/javascript" charset="utf-8">
   $('#<%= content.form_field_id(:link) %>').on('change', function() {

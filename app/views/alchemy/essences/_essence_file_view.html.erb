@@ -1,10 +1,10 @@
-<% cache(content) do %>
-<% if attachment = content.ingredient %>
+<%- cache(content) do -%>
+<%- if attachment = content.ingredient -%>
 <%= link_to(
   h(attachment.name),
   alchemy.download_attachment_path(attachment),
   class: "file_link #{content.essence.css_class.blank? ? "" : content.essence.css_class}",
   title: "#{content.essence.title.blank? ? attachment.file_name : content.essence.title}"
-) %>
-<% end %>
-<% end %>
+) -%>
+<%- end -%>
+<%- end -%>

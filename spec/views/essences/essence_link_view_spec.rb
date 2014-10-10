@@ -27,4 +27,15 @@ describe 'alchemy/essences/_essence_link_view' do
       expect(rendered).to eq('<a href="http://google.com">Google</a>')
     end
   end
+
+  context 'with text setting on content description' do
+    before do
+      content.stub(settings: {text: 'Yahoo'})
+    end
+
+    it "renders a link" do
+      render content.essence, content: content, options: options, html_options: {}
+      expect(rendered).to eq('<a href="http://google.com">Yahoo</a>')
+    end
+  end
 end
