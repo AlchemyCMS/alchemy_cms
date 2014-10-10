@@ -81,7 +81,7 @@ module Alchemy
 
     # Returns a serialized ingredient value for json api
     def serialized_ingredient
-      picture_url
+      picture_url(content.settings)
     end
 
     private

@@ -11,7 +11,6 @@ module Alchemy
       let(:picture) { build_stubbed(:essence_picture) }
     end
 
-
     it "should not store negative values for crop values" do
       essence = EssencePicture.new(:crop_from => '-1x100', :crop_size => '-20x30')
       essence.save!
@@ -152,6 +151,28 @@ module Alchemy
       context "with no picture assigned" do
         it "returns empty string" do
           expect(essence.preview_text).to eq('')
+        end
+      end
+    end
+
+    describe '#serialized_ingredient' do
+      let(:content) { Content.new }
+      let(:picture) { mock_model(Picture, name: 'Cute Cat Kittens', urlname: 'cute-cat-kittens', security_token: 'kljhgfd')}
+      let(:essence) { EssencePicture.new(content: content, picture: picture) }
+
+      it "returns the url to render the picture" do
+        expect(essence.serialized_ingredient).to eq("/pictures/#{picture.id}/show/#{picture.urlname}.jpg?sh=#{picture.security_token}")
+      end
+
+      context 'with image settings given at content' do
+        before { content.stub(settings: {size: '150x150', format: 'png', select_values: [1,2,3]}) }
+
+        it "returns the url with cropping and resizing options" do
+          expect(essence.serialized_ingredient).to eq("/pictures/#{picture.id}/show/150x150/#{picture.urlname}.png?sh=#{picture.security_token}")
+        end
+
+        it "rejects options that are not cropping and resizing options" do
+          expect(essence.serialized_ingredient).to_not match("select_values")
         end
       end
     end

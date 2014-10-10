@@ -8,7 +8,8 @@ module Alchemy
       :element_id,
       :position,
       :created_at,
-      :updated_at
+      :updated_at,
+      :settings
 
     has_one :essence, polymorphic: true
 
