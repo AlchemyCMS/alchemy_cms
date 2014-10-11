@@ -1,4 +1,4 @@
-#= require jquery.ui.widget
+#= require jquery-ui/widget
 #= require alchemy/alchemy.file_progress
 #= require fileupload/jquery.iframe-transport
 #= require fileupload/jquery.fileupload
