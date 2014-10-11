@@ -1,5 +1,5 @@
-#= require jquery.ui.draggable
-#= require jquery.ui.sortable
+#= require jquery-ui/draggable
+#= require jquery-ui/sortable
 #
 window.Alchemy = {} if typeof (window.Alchemy) is "undefined"
 
