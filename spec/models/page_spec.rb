@@ -188,9 +188,10 @@ module Alchemy
           end
 
           it "should not update already set published_at" do
-            page.update_attributes!(published_at: 2.weeks.ago)
+            past_date = 2.weeks.ago
+            page.update_attributes!(published_at: past_date)
             page.update_attributes!(public: true)
-            page.read_attribute(:published_at).should be_within(1.second).of(2.weeks.ago)
+            page.read_attribute(:published_at).should eq(past_date)
           end
         end
 
