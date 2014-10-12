@@ -89,7 +89,7 @@ module Alchemy
     end
 
     initializer 'alchemy.dashboard_widgets' do
-      Alchemy::Admin::Dashboard.register_widgets
+      Alchemy::Admin::Dashboard.register_widgets_from_config
     end
 
     config.after_initialize do

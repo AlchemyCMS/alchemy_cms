@@ -38,10 +38,11 @@ cache_pages: true
 # The order of this list reflects the rendering order of the widgets
 #
 dashboard_widgets:
-  - locked_pages
-  - sites
-  - online_users
-  - last_edited_pages
+  - name: locked_pages
+  - name: sites
+  - name: online_users
+  - name: last_edited_pages
+    options: [count: 3]
 
 # === Sitemap
 #

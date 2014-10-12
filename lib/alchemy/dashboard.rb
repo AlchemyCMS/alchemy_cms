@@ -3,14 +3,14 @@ module Alchemy
     class Dashboard
       @@widget_configs = []
 
-      def self.register_widgets
+      def self.register_widgets_from_config
         Alchemy::Config.get(:dashboard_widgets).each do |widget|
-          register_widget(widget)
+          register_widget(widget['name'], widget['options'] || {})
         end
       end
 
       def self.register_widget(name, opts={})
-        options = opts.reverse_merge(state: :dashboard)
+        options = opts.symbolize_keys!.reverse_merge(state: :dashboard)
         @@widget_configs << WidgetConfig.new(name, options)
       end
 
