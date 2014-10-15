@@ -161,7 +161,7 @@ EOF
       task :all, :roles => [:app, :db] do
         pictures
         attachments
-        # database
+        database
       end
 
       desc "Imports the server database into your local development machine."
@@ -211,8 +211,8 @@ EOF
       # The actual export command that sends the data
       def db_export_cmd(server)
         import_cmd = "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:import"
-        sql_stream = "ssh -p #{fetch(:port, 22)} #{user}@#{server} '#{import_cmd}'"
-        "#{database_dump_command(database_config['adapter'])} | #{sql_stream}"
+        ssh_cmd = "ssh -p #{fetch(:port, 22)} #{user}@#{server} '#{import_cmd}'"
+        "#{database_dump_command(database_config['adapter'])} | #{ssh_cmd}"
       end
 
       # Sends files of given type via rsync to server
