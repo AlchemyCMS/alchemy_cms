@@ -156,6 +156,77 @@ EOF
       end
     end
 
+    namespace :export do
+      desc "Sends all data (Pictures, attachments and the database) to your remote machine."
+      task :all, :roles => [:app, :db] do
+        pictures
+        attachments
+        # database
+      end
+
+      desc "Imports the server database into your local development machine."
+      task :database, :roles => [:db], :only => {:primary => true} do
+        if Capistrano::CLI.ui.agree('WARNING: This task will override your remote database. Do you want me to make a backup? (y/n)')
+          backup_database
+          export_database
+        else
+          if Capistrano::CLI.ui.agree('Are you sure? (y/n)')
+            export_database
+          else
+            backup_database
+            export_database
+          end
+        end
+      end
+
+      desc "Sends attachments to your remote machine using rsync."
+      task :attachments, :roles => [:app] do
+        send_files :attachments
+      end
+
+      desc "Sends pictures to your remote machine using rsync."
+      task :pictures, :roles => [:app] do
+        send_files :pictures
+      end
+
+      # Makes a backup of the remote database and stores it in db/ folder
+      def backup_database
+        Capistrano::CLI.ui.say('Backing up database')
+        timestamp = Time.now.strftime('%Y-%m-%d-%H-%M')
+        run "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:dump DUMP_FILENAME=db/dump-#{timestamp}.sql"
+      end
+
+      # Sends the database via ssh to the server
+      def export_database
+        require 'spinner'
+        server = find_servers_for_task(current_task).first
+        spinner = Spinner.new
+        print "\n"
+        spinner.task("Exporting the database. Please wait...") do
+          system db_export_cmd(server)
+        end
+        spinner.spin!
+      end
+
+      # The actual export command that sends the data
+      def db_export_cmd(server)
+        import_cmd = "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:import"
+        sql_stream = "ssh -p #{fetch(:port, 22)} #{user}@#{server} '#{import_cmd}'"
+        "#{database_dump_command(database_config['adapter'])} | #{sql_stream}"
+      end
+
+      # Sends files of given type via rsync to server
+      def send_files(type)
+        FileUtils.mkdir_p "./uploads/#{type}"
+        server = find_servers_for_task(current_task).first
+        if server
+          system "rsync --progress -rue 'ssh -p #{fetch(:port, 22)}' uploads/#{type} #{user}@#{server}:#{shared_path}/uploads/"
+        else
+          raise "No server found"
+        end
+      end
+    end
+
   end
 
 end
