@@ -40,6 +40,7 @@ Alchemy::Engine.routes.draw do
     resources :contents, only: [:show]
     resources :elements, only: [:show]
     get '/pages/*urlname(.:format)' => 'pages#show', as: 'page'
+    get '/admin/pages/:id(.:format)' => 'pages#show', as: 'preview_page'
   end
 
   namespace :admin do

@@ -34,5 +34,16 @@ describe 'The API routes' do
         )
       end
     end
+
+    context 'with admin namespace' do
+      it "routes to api pages controller." do
+        expect({get: "/api/admin/pages/8"}).to route_to(
+          controller: "alchemy/api/pages",
+          action: "show",
+          id: "8",
+          format: "json"
+        )
+      end
+    end
   end
 end

@@ -6,7 +6,7 @@ module Alchemy
 
     describe '#show' do
       context 'for existing page' do
-        before { Page.stub(find_by!: page) }
+        before { Page.stub(find_by: page) }
 
         it "responds to json" do
           get :show, urlname: page.urlname, format: :json
@@ -43,6 +43,16 @@ module Alchemy
           expect(response.content_type).to eq('application/json')
           expect(response.status).to eq(404)
           expect(response.body).to eq('{"error":"Record not found"}')
+        end
+      end
+
+      context 'requesting a page with id' do
+        let(:page) { create(:public_page) }
+
+        it "responds with json" do
+          get :show, id: page.id, format: :json
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
         end
       end
     end
