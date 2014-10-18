@@ -41,6 +41,7 @@ module Alchemy
       def assign
         @picture = Picture.find_by_id(params[:picture_id])
         @content.essence.picture = @picture
+        @content.touch # We need to touch manually because its not saved yet.
         @element = @content.element
         @dragable = @options[:grouped]
         @options = @options.merge(dragable: @dragable)
