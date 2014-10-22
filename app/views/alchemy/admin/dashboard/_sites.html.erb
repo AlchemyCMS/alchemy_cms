@@ -1,10 +1,20 @@
-<div class="widget">
-  <h2><%= Alchemy::Site.model_name.human(:count => 2) %>:</h2>
+<div class="widget sites">
+  <h2><%= Alchemy::Site.model_name.human(count: 2) %>:</h2>
   <table>
     <% @sites.each do |site| %>
-    <tr class="<%= cycle('even', 'odd', :name => 'sites') %>">
+    <tr class="<%= cycle('even', 'odd', name: 'sites') %>">
       <td>
-        <%= link_to_unless(site == Alchemy::Site.current, site.name, login_url(:protocol => 'http://', :host => site.host, :user => {:login => current_alchemy_user.login}), :target => '_blank') %>
+        <% if alchemy.respond_to?(:login_url) %>
+          <%= link_to_unless site == Alchemy::Site.current,
+            site.name,
+            alchemy.login_url(
+              protocol: 'http://',
+              host: site.host,
+              user: {login: current_alchemy_user.try(:login)}
+            ), target: '_blank' %>
+        <% else %>
+          <%= site.name %>
+        <% end %>
       </td>
       <td><small><%= site.host %></small></td>
     </tr>
