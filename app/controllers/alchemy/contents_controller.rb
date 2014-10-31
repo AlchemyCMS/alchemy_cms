@@ -7,10 +7,10 @@ module Alchemy
       raise ActiveRecord::RecordNotFound
     end
 
-    respond_to :json
-
     def show
-      respond_with @content
+      respond_to do |format|
+        format.json { render json: @content }
+      end
     end
 
   end
