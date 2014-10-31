@@ -286,7 +286,11 @@ module Alchemy
         it "should contain model_association from ActiveRecord::Reflections" do
           relation = resource.resource_relations[:location_id]
           relation.keys.should include(:model_association)
-          relation[:model_association].class.should be(ActiveRecord::Reflection::AssociationReflection)
+          if Rails.version =~ /^4\.2/
+            expect(relation[:model_association].class).to be(ActiveRecord::Reflection::BelongsToReflection)
+          else
+            expect(relation[:model_association].class).to be(ActiveRecord::Reflection::AssociationReflection)
+          end
         end
 
         it "adds '_id' to relation key" do
