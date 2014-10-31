@@ -165,7 +165,7 @@ module Alchemy
           action: entry['action'],
           only_path: true,
           params: entry['params']
-        }
+        }.delete_if { |_k, v| v.nil? }
       end
 
       # Retrieves the current Alchemy module from controller and index action.
