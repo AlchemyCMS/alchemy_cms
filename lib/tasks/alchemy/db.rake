@@ -13,7 +13,7 @@ namespace :alchemy do
       db_conf = Rails.configuration.database_configuration.fetch(Rails.env)
       raise "Sorry, but Alchemy only supports MySQL database dumping at the moment." unless db_conf['adapter'] =~ /mysql/
       dump_store = ENV['DUMP_FILENAME'] ? " > #{ENV['DUMP_FILENAME']}" : ""
-      cmd = "mysqldump --user='#{db_conf['username']}'#{db_conf['password'].present? ? " --password='#{db_conf['password']}'" : nil} #{db_conf['database']}#{dump_store}"
+      cmd = "mysqldump --user='#{db_conf['username']}'#{db_conf['password'].present? ? " --password='#{db_conf['password']}'" : nil} --host=#{db_conf['host'] || 'localhost'} #{db_conf['database']}#{dump_store}"
       system cmd
     end
 
