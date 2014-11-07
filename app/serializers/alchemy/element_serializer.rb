@@ -14,12 +14,7 @@ module Alchemy
       :content_ids
 
     def ingredients
-      object.contents.collect do |content|
-        {
-          name: content.name,
-          value: content.serialized_ingredient
-        }
-      end
+      object.contents.collect(&:serialize)
     end
   end
 end

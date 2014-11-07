@@ -113,6 +113,16 @@ module Alchemy
       essence.ingredient
     end
 
+    # Serialized object representation for json api
+    #
+    def serialize
+      {
+        name: name,
+        value: serialized_ingredient,
+        link: essence.try(:link)
+      }.delete_if { |_k, v| v.blank? }
+    end
+
     # Ingredient value from essence for json api
     #
     # If the essence responds to +serialized_ingredient+ method it takes this
