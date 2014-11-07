@@ -14,7 +14,11 @@
       var Alchemy = {};
       // Setting TinyMCE path.
       var tinyMCEPreInit = {
-        base: '<%= Rails.application.config.assets.prefix %>/tinymce',
+        <% if ActionController::Base.config.asset_host_set? %>
+        base: '<%= asset_url(assets_prefix + '/tinymce') %>',
+        <% else %>
+        base: '<%= asset_path(assets_prefix + '/tinymce') %>',
+        <% end %>
         suffix: '.min'
       };
       // Store regular expression for external link url matching.
