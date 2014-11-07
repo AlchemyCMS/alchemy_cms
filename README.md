@@ -169,9 +169,16 @@ So, if you don't have your own deploy file, we encourage you to use this generat
 
 If you have your own Capistrano receipts, you should require the Alchemy tasks in your app's `config/deploy.rb` file:
 
+**Capistrano 2**
+
     # deploy.rb
     require 'alchemy/capistrano'
 
+**Capistrano 3**
+
+    # Capfile
+    require 'alchemy/capistrano3'
+    
 If you don't use Capistrano you have to **make sure that the `uploads`, `tmp/cache/assets`, `public/assets` and `public/pictures` cache folders get shared** between deployments, otherwise you **will loose data**.
 
 Please take a look into the `lib/alchemy/capistrano.rb` file, to see how to achieve this.
