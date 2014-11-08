@@ -49,18 +49,30 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'factory_girl_rails'
 
   gem.post_install_message =<<-MSG
-To complete the installation of Alchemy please run:
+-------------------------------------------------------------
+            Thank you for installing Alchemy CMS
+-------------------------------------------------------------
 
-$ bin/rake alchemy:install
+- Create a new standalone Alchemy project:
 
-To upgrade former Alchemy intallations please run:
+  $ alchemy new my_project_name
 
-$ bin/rake alchemy:upgrade
+- Complete the installation in an existing Rails application:
 
-Thanks for installing Alchemy!
+  $ bin/rake alchemy:install
 
-Need help?
-Try https://groups.google.com/forum/#!forum/alchemy-cms
-or #alchemy_cms on irc.freenode.net
+- Complete the upgrade of an existing Alchemy installation:
+
+  $ bin/rake alchemy:upgrade
+
+and follow the onscreen instructions.
+
+Need help? Try:
+
+* http://stackoverflow.com/questions/tagged/alchemy-cms
+* http://groups.google.com/group/alchemy-cms
+* irc://irc.freenode.net#alchemy_cms
+-------------------------------------------------------------
+
 MSG
 end
