@@ -83,16 +83,17 @@ module Alchemy
       end
 
       def order
-        @trashed_elements = []
-        params[:element_ids].each do |element_id|
-          element = Element.find(element_id)
-          if element.trashed?
-            element.page_id = params[:page_id]
-            element.cell_id = params[:cell_id]
-            element.insert_at
-            @trashed_elements << element
+        @trashed_elements = Element.trashed.where(id: params[:element_ids]).pluck(:id)
+        Element.transaction do
+          params[:element_ids].each_with_index do |element_id, idx|
+            # Ensure to set page_id and cell_id to the current page and
+            # cell because of trashed elements could still have old values
+            Element.where(id: element_id).update_all(
+              page_id: params[:page_id],
+              cell_id: params[:cell_id],
+              position: idx + 1
+            )
           end
-          element.move_to_bottom
         end
       end
 
