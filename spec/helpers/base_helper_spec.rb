@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe BaseHelper, :type => :helper do
+  describe BaseHelper do
 
     describe "#render_message" do
       context "if no argument is passed" do

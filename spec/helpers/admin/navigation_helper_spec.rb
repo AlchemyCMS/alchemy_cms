@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Alchemy::Admin::NavigationHelper, :type => :helper do
+describe Alchemy::Admin::NavigationHelper do
   let(:alchemy_module) { {
     'name' => 'dashboard',
     'engine_name' => 'alchemy',

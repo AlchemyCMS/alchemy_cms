@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Page editing feature', :type => :feature do
+describe 'Page editing feature' do
   let(:a_page) { FactoryGirl.create(:public_page, visible: true) }
 
   before { authorize_as_admin }

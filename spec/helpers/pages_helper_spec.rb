@@ -4,7 +4,7 @@ require 'spec_helper'
 include Alchemy::BaseHelper
 
 module Alchemy
-  describe PagesHelper, :type => :helper do
+  describe PagesHelper do
 
     # Fixtures
     let(:language)                  { mock_model('Language', :code => 'en') }

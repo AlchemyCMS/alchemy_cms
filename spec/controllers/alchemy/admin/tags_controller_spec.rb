@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   module Admin
-    describe TagsController, :type => :controller do
+    describe TagsController do
       before { sign_in(admin_user) }
 
       describe '#create' do

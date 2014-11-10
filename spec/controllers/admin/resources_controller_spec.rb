@@ -3,7 +3,7 @@ require "spec_helper"
 class EventsController < Alchemy::Admin::ResourcesController
 end
 
-describe EventsController, :type => :controller do
+describe EventsController do
   it "should include ResourcesHelper" do
     expect(controller.respond_to?(:resource_window_size)).to be_truthy
   end

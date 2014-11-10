@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Alchemy::LegacyPageUrl, :type => :model do
+describe Alchemy::LegacyPageUrl do
   let(:page) { build_stubbed(:page) }
 
   let(:page_url_with_parameters) do

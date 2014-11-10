@@ -2,7 +2,7 @@ require 'ostruct'
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::PagesController, :type => :controller do
+  describe Admin::PagesController do
     let(:user) { editor_user }
     before { sign_in(user) }
 
@@ -186,10 +186,9 @@ module Alchemy
           end
 
           it "does not raise error" do
-            # This test does nothing as of Rspec 3. I do not understand why.
             expect {
               xhr :post, :order, set: set_of_pages.to_json
-            }.not_to raise_error(TypeError)
+            }.not_to raise_error
           end
 
           it "still generates the correct urlname on page_3" do

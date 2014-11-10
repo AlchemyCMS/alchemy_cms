@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe ElementsController, :type => :controller do
+  describe ElementsController do
     let(:public_page)         { FactoryGirl.create(:public_page) }
     let(:element)             { FactoryGirl.create(:element, :page => public_page, :name => 'download') }
     let(:restricted_page)     { FactoryGirl.create(:public_page, :restricted => true) }

@@ -2,7 +2,7 @@ require 'ostruct'
 require 'spec_helper'
 
 module Alchemy
-  describe PagesController, :type => :controller do
+  describe PagesController do
     let(:default_language)      { Language.default }
     let(:default_language_root) { FactoryGirl.create(:language_root_page, language: default_language, name: 'Home', public: true) }
     let(:page) { FactoryGirl.create(:public_page, parent_id: default_language_root.id, page_layout: 'news', name: 'News', urlname: 'news', language: default_language, do_not_autogenerate: false) }

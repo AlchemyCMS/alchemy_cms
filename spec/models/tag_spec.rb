@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Tag, :type => :model do
+  describe Tag do
 
     describe '.replace' do
       let(:picture) { Picture.new }

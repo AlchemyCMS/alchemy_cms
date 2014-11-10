@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::AttachmentsController, :type => :controller do
+  describe Admin::AttachmentsController do
     let(:attachment) { build_stubbed(:attachment) }
 
     before do

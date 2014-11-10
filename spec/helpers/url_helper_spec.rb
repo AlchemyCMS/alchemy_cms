@@ -4,7 +4,7 @@ include Alchemy::BaseHelper
 include Alchemy::ElementsHelper
 
 module Alchemy
-  describe UrlHelper, :type => :helper do
+  describe UrlHelper do
     let(:page) { mock_model(Page, urlname: 'testpage', language_code: 'en') }
 
     context 'page path helpers' do

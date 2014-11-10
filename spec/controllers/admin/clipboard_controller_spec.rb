@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::ClipboardController, :type => :controller do
+  describe Admin::ClipboardController do
     let(:public_page)     { build_stubbed(:public_page) }
     let(:element)         { build_stubbed(:element, page: public_page) }
     let(:another_element) { build_stubbed(:element, page: public_page) }

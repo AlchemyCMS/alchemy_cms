@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Language, :type => :model do
+  describe Language do
     let(:default_language) { Alchemy::Language.default }
     let(:language)         { FactoryGirl.create(:klingonian) }
     let(:page)             { FactoryGirl.create(:page, language: language) }

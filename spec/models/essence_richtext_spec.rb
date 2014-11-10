@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe EssenceRichtext, :type => :model do
+  describe EssenceRichtext do
     let(:essence) { EssenceRichtext.new(:body => '<h1>Hello!</h1><p>Welcome to Peters Petshop.</p>') }
 
     it_behaves_like "an essence" do

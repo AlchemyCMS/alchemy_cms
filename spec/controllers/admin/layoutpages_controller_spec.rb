@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::LayoutpagesController, :type => :controller do
+  describe Admin::LayoutpagesController do
 
     before(:each) do
       sign_in(admin_user)

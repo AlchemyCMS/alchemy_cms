@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe EssenceSelect, :type => :model do
+  describe EssenceSelect do
     it_behaves_like "an essence" do
       let(:essence)          { EssenceSelect.new }
       let(:ingredient_value) { 'select value' }

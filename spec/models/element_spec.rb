@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Element, :type => :model do
+  describe Element do
     # to prevent memoization
     before { Element.instance_variable_set("@definitions", nil) }
 

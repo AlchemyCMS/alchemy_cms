@@ -3,7 +3,7 @@ require 'spec_helper'
 include Alchemy::ElementsHelper
 
 module Alchemy
-  describe 'ElementsBlockHelper', :type => :helper do
+  describe 'ElementsBlockHelper' do
     let(:page)    { FactoryGirl.create(:public_page) }
     let(:element) { FactoryGirl.create(:element, page: page, tag_list: 'foo, bar') }
     let(:expected_wrapper_tag) { "div.#{element.name}##{element_dom_id(element)}" }

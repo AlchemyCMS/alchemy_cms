@@ -3,7 +3,7 @@ require 'spec_helper'
 class Alchemy::Config;
 end
 
-describe Alchemy::Admin::LanguagesController, :type => :controller do
+describe Alchemy::Admin::LanguagesController do
 
   before do
     sign_in(admin_user)

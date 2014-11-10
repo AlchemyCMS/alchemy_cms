@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::EssencePicturesController, :type => :controller do
+  describe Admin::EssencePicturesController do
     before { sign_in(admin_user) }
 
     let(:essence) { EssencePicture.new }

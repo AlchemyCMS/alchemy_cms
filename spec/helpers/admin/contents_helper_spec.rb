@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Alchemy::Admin::ContentsHelper, :type => :helper do
+describe Alchemy::Admin::ContentsHelper do
   let(:element) { build_stubbed(:element, name: 'article') }
   let(:content) { mock_model('Content', essence_partial_name: 'essence_text') }
 

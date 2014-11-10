@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   module Admin
-    describe TrashController, :type => :controller do
+    describe TrashController do
       render_views
 
       let(:alchemy_page) { FactoryGirl.create(:public_page) }

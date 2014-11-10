@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Dummy App", :type => :feature do
+describe "Dummy App" do
   include Capybara::DSL
 
   it "should be a valid app" do

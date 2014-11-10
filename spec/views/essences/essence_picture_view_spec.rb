@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "essences/_essence_picture_view", :type => :view do
+describe "essences/_essence_picture_view" do
 
   let(:essence_picture) { stub_model(Alchemy::EssencePicture, picture: stub_model(Alchemy::Picture), caption: 'This is a cute cat') }
   let(:content) { stub_model(Alchemy::Content, name: 'image', essence_type: 'EssencePicture', essence: essence_picture) }

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'alchemy/essences/_essence_link_view', :type => :view do
+describe 'alchemy/essences/_essence_link_view' do
   let(:essence) { Alchemy::EssenceLink.new(link: 'http://google.com') }
   let(:content) { Alchemy::Content.new(essence: essence) }
   let(:options) { {} }

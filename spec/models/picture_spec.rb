@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Picture, :type => :model do
+  describe Picture do
 
     it_behaves_like "has image transformations" do
       let(:picture) { FactoryGirl.build_stubbed(:picture) }

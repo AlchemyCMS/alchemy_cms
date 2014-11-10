@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe EssenceDate, :type => :model do
+  describe EssenceDate do
     let(:essence) { EssenceDate.new }
 
     it_behaves_like "an essence" do

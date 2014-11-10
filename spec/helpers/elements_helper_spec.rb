@@ -2,7 +2,7 @@ require 'spec_helper'
 include Alchemy::BaseHelper
 
 module Alchemy
-  describe ElementsHelper, :type => :helper do
+  describe ElementsHelper do
     let(:page)    { build_stubbed(:public_page) }
     let(:element) { build_stubbed(:element, name: 'headline', page: page) }
 

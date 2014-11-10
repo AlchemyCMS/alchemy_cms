@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Security.", :type => :feature do
+describe "Security." do
   before { Alchemy::Page.root.children.destroy_all }
 
   context "If user is not logged in" do

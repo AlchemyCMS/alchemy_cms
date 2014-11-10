@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Picture url helpers", :type => :helper do
+describe "Picture url helpers" do
 
   it "should generate a url string for cropped picture" do
     p = show_picture_path(:id => 3, :crop => "crop", :size => "100x33", :name => "kitten", :format => "jpg")

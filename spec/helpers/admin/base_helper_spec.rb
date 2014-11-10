@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::BaseHelper, :type => :helper do
+  describe Admin::BaseHelper do
     context "maximum amount of images option" do
       subject { helper.max_image_count }
 

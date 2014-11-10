@@ -6,7 +6,7 @@ class Rack::Test::UploadedFile
 end
 
 module Alchemy
-  describe PicturesController, :type => :controller do
+  describe PicturesController do
 
     let(:public_page)        { FactoryGirl.create(:public_page, restricted: false) }
     let(:restricted_page)    { FactoryGirl.create(:public_page, restricted: true) }

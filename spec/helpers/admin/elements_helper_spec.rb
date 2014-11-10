@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::ElementsHelper, :type => :helper do
+  describe Admin::ElementsHelper do
 
     let(:page)    { build_stubbed(:public_page) }
     let(:element) { build_stubbed(:element, page: page) }

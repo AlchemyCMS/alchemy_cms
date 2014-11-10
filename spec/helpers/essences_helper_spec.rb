@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Alchemy::EssencesHelper, :type => :helper do
+describe Alchemy::EssencesHelper do
   let(:element) { build_stubbed(:element) }
   let(:content) { build_stubbed(:content, element: element, ingredient: 'hello!') }
   let(:essence) { mock_model('EssenceText', link: nil, partial_name: 'essence_text', ingredient: 'hello!')}

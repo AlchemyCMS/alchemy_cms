@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::DashboardController, :type => :controller do
+  describe Admin::DashboardController do
     let(:user) { admin_user }
 
     before { sign_in(user) }

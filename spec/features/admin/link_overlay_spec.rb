@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Link overlay", :type => :feature do
+describe "Link overlay" do
 
   before do
     authorize_as_admin

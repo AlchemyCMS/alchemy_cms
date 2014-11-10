@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Page, :type => :model do
+  describe Page do
 
     let(:rootpage)      { Page.root }
     let(:language)      { Language.default }

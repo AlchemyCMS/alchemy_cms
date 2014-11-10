@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::ElementsController, :type => :controller do
+  describe Admin::ElementsController do
     let(:alchemy_page)         { create(:page) }
     let(:element)              { create(:element, :page_id => alchemy_page.id) }
     let(:element_in_clipboard) { create(:element, :page_id => alchemy_page.id) }

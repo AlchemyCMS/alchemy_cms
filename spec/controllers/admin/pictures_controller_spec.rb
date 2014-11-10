@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::PicturesController, :type => :controller do
+  describe Admin::PicturesController do
 
     before do
       sign_in(admin_user)

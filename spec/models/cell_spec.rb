@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Cell, :type => :model do
+  describe Cell do
     let(:cell) { FactoryGirl.build(:cell) }
 
     # class methods

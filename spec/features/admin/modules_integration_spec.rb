@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Modules", :type => :feature do
+describe "Modules" do
   context "A custom module with a main-apps controller" do
     before { authorize_as_admin }
 

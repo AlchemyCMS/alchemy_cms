@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Content, :type => :model do
+  describe Content do
     let(:element) { create(:element, name: 'headline', :create_contents_after_create => true) }
     let(:content) { element.contents.find_by_essence_type('Alchemy::EssenceText') }
 

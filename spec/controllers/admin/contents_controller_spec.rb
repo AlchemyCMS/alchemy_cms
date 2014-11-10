@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::ContentsController, :type => :controller do
+  describe Admin::ContentsController do
     let(:element) { build_stubbed(:element) }
     let(:content) { build_stubbed(:content, element: element) }
 

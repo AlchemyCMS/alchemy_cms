@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Admin::TagsHelper, :type => :helper do
+  describe Admin::TagsHelper do
 
     let(:tag)    { mock_model(ActsAsTaggableOn::Tag, name: 'foo', count: 1) }
     let(:tag2)   { mock_model(ActsAsTaggableOn::Tag, name: 'abc', count: 1) }

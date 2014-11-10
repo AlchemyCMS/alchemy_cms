@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Alchemy::Admin::PagesHelper, :type => :helper do
+describe Alchemy::Admin::PagesHelper do
 
   describe '#sitemap_folder_link' do
     let(:user) { admin_user }

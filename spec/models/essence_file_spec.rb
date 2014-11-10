@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe EssenceFile, :type => :model do
+  describe EssenceFile do
 
     let(:attachment) { build_stubbed(:attachment) }
     let(:essence)    { EssenceFile.new(attachment: attachment) }

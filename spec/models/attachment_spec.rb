@@ -2,7 +2,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Attachment, :type => :model do
+  describe Attachment do
     let(:file)       { File.new(File.expand_path('../../fixtures/image with spaces.png', __FILE__)) }
     let(:attachment) { Attachment.new(file: file) }
 

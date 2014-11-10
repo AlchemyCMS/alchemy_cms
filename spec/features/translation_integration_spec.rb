@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Translation integration", :type => :feature do
+describe "Translation integration" do
   context "in admin backend" do
     before { authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(admin), language: 'de')) }
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Dashboard feature', :type => :feature do
+describe 'Dashboard feature' do
   let(:user) { DummyUser.new }
 
   before do

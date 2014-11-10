@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Picture renderung security', :type => :feature, :js => true do
+describe 'Picture renderung security', :js => true do
 
   let(:picture) { Alchemy::Picture.create(:image_file => File.new(File.expand_path('../../fixtures/image.png', __FILE__))) }
 

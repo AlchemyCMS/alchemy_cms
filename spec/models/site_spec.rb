@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe Site, :type => :model do
+  describe Site do
     let(:site) { FactoryGirl.create(:site) }
     let(:another_site) { FactoryGirl.create(:site, name: 'Another Site', host: 'another.com') }
 

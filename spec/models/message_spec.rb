@@ -4,7 +4,7 @@ module Alchemy
   Config.get(:mailer)['fields'].push('email_of_my_boss')
   Config.get(:mailer)['validate_fields'].push('email_of_my_boss')
 
-  describe Message, :type => :model do
+  describe Message do
     let(:message) { Message.new }
 
     describe '.config' do

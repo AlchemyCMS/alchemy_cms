@@ -1,7 +1,7 @@
 require "spec_helper"
 
 module Alchemy
-  describe Admin::EssenceFilesController, :type => :controller do
+  describe Admin::EssenceFilesController do
 
     before do
       sign_in(admin_user)

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe EssencePicture, :type => :model do
+  describe EssencePicture do
     it_behaves_like "an essence" do
       let(:essence)          { EssencePicture.new }
       let(:ingredient_value) { Picture.new }

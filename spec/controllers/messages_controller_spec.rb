@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe MessagesController, :type => :controller do
+  describe MessagesController do
 
     before do
       controller.instance_variable_set(:@page, page)

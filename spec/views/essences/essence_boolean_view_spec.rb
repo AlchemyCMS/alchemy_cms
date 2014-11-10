@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'alchemy/essences/_essence_boolean_view', :type => :view do
+describe 'alchemy/essences/_essence_boolean_view' do
 
   context 'with true as ingredient' do
     let(:content) { Alchemy::EssenceBoolean.new(ingredient: true) }

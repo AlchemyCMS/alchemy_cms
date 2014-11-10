@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Locale select', :type => :feature do
+describe 'Locale select' do
   let(:a_page) { FactoryGirl.create(:public_page) }
   before do
     Alchemy::I18n.stub(translation_files: ['alchemy.kl.yml', 'alchemy.jp.yml', 'alchemy.cz.yml'])

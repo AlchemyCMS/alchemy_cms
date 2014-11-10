@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Alchemy::Admin::EssencesHelper, :type => :helper do
+describe Alchemy::Admin::EssencesHelper do
   include Alchemy::Admin::ElementsHelper
 
   let(:element) { FactoryGirl.create(:element, :name => 'article', :create_contents_after_create => true) }

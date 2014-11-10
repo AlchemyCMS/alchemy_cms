@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe EssenceText, :type => :model do
+  describe EssenceText do
     let(:essence) { EssenceText.new }
     let(:ingredient_value) { 'Lorem ipsum' }
 

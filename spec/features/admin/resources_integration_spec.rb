@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "Resources", :type => :feature do
+describe "Resources" do
   let(:event)        { FactoryGirl.create(:event) }
   let(:second_event) { FactoryGirl.create(:event, :name => 'My second Event', :entrance_fee => 12.32) }
 
