@@ -69,6 +69,50 @@ module Alchemy
       end
     end
 
+    describe '#order' do
+      let(:element_1)   { FactoryGirl.create(:element) }
+      let(:element_2)   { FactoryGirl.create(:element) }
+      let(:element_3)   { FactoryGirl.create(:element) }
+      let(:element_ids) { [element_1.id, element_3.id, element_2.id] }
+
+      it "sets new position for given element ids" do
+        xhr :post, :order, element_ids: element_ids
+        expect(Element.all.pluck(:id)).to eq(element_ids)
+      end
+
+      context "untrashing" do
+        let(:trashed_element) { FactoryGirl.create(:element, public: false, position: nil, page_id: 58, cell_id: 32) }
+
+        before do
+          # Because of a before_create filter it can not be created with a nil position and needs to be trashed here
+          trashed_element.trash!
+        end
+
+        it "sets a list of trashed element ids" do
+          xhr :post, :order, element_ids: [trashed_element.id]
+          expect(assigns(:trashed_elements).to_a).to eq [trashed_element.id]
+        end
+
+        it "should set a new position to the element" do
+          xhr :post, :order, element_ids: [trashed_element.id]
+          trashed_element.reload
+          trashed_element.position.should_not == nil
+        end
+
+        it "should assign the (new) page_id to the element" do
+          xhr :post, :order, element_ids: [trashed_element.id], page_id: 1, cell_id: nil
+          trashed_element.reload
+          trashed_element.page_id.should == 1
+        end
+
+        it "should assign the (new) cell_id to the element" do
+          xhr :post, :order, element_ids: [trashed_element.id], page_id: 1, cell_id: 5
+          trashed_element.reload
+          trashed_element.cell_id.should == 5
+        end
+      end
+    end
+
     describe '#new' do
       let(:alchemy_page) { build_stubbed(:page) }
 
@@ -404,32 +448,6 @@ module Alchemy
           element.should_receive(:folded=).with(true).and_return(true)
           subject
         end
-      end
-    end
-
-    describe "untrashing" do
-      before do
-        @element = create(:element, :public => false, :position => nil, :page_id => 58, :cell_id => 32)
-        # Because of a before_create filter it can not be created with a nil position and needs to be trashed here
-        @element.trash!
-      end
-
-      it "should set a new position to the element" do
-        xhr :post, :order, {:element_ids => ["#{@element.id}"]}
-        @element.reload
-        @element.position.should_not == nil
-      end
-
-      it "should assign the (new) page_id to the element" do
-        xhr :post, :order, {:element_ids => ["#{@element.id}"], :page_id => 1, :cell_id => nil}
-        @element.reload
-        @element.page_id.should == 1
-      end
-
-      it "should assign the (new) cell_id to the element" do
-        xhr :post, :order, {:element_ids => ["#{@element.id}"], :page_id => 1, :cell_id => 5}
-        @element.reload
-        @element.cell_id.should == 5
       end
     end
   end
