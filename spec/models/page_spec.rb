@@ -183,14 +183,16 @@ module Alchemy
 
         context "public has changed" do
           it "should update published_at" do
-            page.update_attributes!(public: true)
-            page.read_attribute(:published_at).should be_within(1.second).of(Time.now)
+            expect {
+              page.update_attributes!(public: true)
+            }.to change {page.read_attribute(:published_at) }
           end
 
           it "should not update already set published_at" do
             page.update_attributes!(published_at: 2.weeks.ago)
-            page.update_attributes!(public: true)
-            page.read_attribute(:published_at).should be_within(1.second).of(2.weeks.ago)
+            expect {
+              page.update_attributes!(public: true)
+            }.to_not change { page.read_attribute(:published_at) }
           end
         end
 
