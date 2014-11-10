@@ -262,7 +262,7 @@ module Alchemy
 
       context 'not defined as preview content' do
         it "returns false" do
-          expect(content.preview_content?).to be_false
+          expect(content.preview_content?).to be false
         end
       end
 
@@ -270,7 +270,7 @@ module Alchemy
         before { content.stub(description: {'take_me_for_preview' => true}) }
 
         it "returns true" do
-          expect(content.preview_content?).to be_true
+          expect(content.preview_content?).to be true
         end
 
         it "display deprecation warning" do
@@ -283,7 +283,7 @@ module Alchemy
         before { content.stub(description: {'as_element_title' => true}) }
 
         it "returns true" do
-          expect(content.preview_content?).to be_true
+          expect(content.preview_content?).to be true
         end
       end
     end
