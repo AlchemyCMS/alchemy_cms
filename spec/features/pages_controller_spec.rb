@@ -247,5 +247,16 @@ module Alchemy
 
     end
 
+    context "with invalid byte code char in urlname parameter" do
+      it "should render page not found" do
+        begin
+          visit '/%ed'
+          page.status_code.should == 404
+        rescue ArgumentError
+          # capturing the invalid byte sequence in UTF-8 error
+        end
+      end
+    end
+
   end
 end
