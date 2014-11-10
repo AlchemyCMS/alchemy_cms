@@ -34,10 +34,14 @@ class AlchemyInstaller < Thor
     say "\nStep 3: Installing Alchemy User into Rails app", :yellow
     say "Please wait...", :yellow
     system("#{rake_cmd} alchemy_devise:install:migrations") || exit!(1)
+    say "Done.", :green
+    say "\nStep 4: Setting up the database", :yellow
+    say "Please wait...", :yellow
     system("#{rake_cmd} db:migrate") || exit!(1)
+    say "Done.", :green
     cleanup
-    say "\n## SUCCESSFULLY INSTALLED ALCHEMY CMS\n", :green
-    say further_instructions
+    say "\nSuccessfully installed Alchemy CMS\n", :green
+    say further_instructions, :yellow
   rescue
     say "\nError while installing Alchemy CMS!\n#{$!}\n", :red
   end
@@ -122,6 +126,7 @@ GITIGNORE
   def create_database_yml(type)
     case type
     when 'mysql'
+      say "- MySQL Database settings", :yellow
       @db_user_name = ask("\nPlease enter your local mysql username (DEFAULT: root):")
       @db_user_name = 'root' if @db_user_name.empty?
       @db_password = ask_password("Please enter the password for #{@db_user_name} (Leave blank for none):")
@@ -130,6 +135,7 @@ GITIGNORE
       @db_socket = local_standard_socket if @db_socket.empty?
       file = mysql_yml_file
     when 'postgresql'
+      say "- PostgreSQL Database settings", :yellow
       @db_user_name = ask("\nPlease enter the local postgresql user name:")
       @db_password = ask_password("Please enter the password for #{@db_user_name} (Leave blank for none):")
       file = postgres_yml_file
