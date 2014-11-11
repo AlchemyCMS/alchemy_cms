@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 shared_examples_for "an essence" do
-
   let(:element) { Alchemy::Element.new }
   let(:content) { Alchemy::Content.new(name: 'foo') }
   let(:content_description) { {'name' => 'foo'} }
@@ -9,10 +8,10 @@ shared_examples_for "an essence" do
   it "touches the content after update" do
     essence.save
     content.update(essence: essence, essence_type: essence.class.name)
-    d = content.updated_at
+    date = content.updated_at
     content.essence.update(essence.ingredient_column.to_sym => ingredient_value)
     content.reload
-    expect(content.updated_at).not_to eq(d)
+    expect(content.updated_at).not_to eq(date)
   end
 
   it "should have correct partial path" do
@@ -28,7 +27,9 @@ shared_examples_for "an essence" do
     end
 
     context 'with element' do
-      before { essence.stub(element: element) }
+      before do
+        expect(essence).to receive(:element).at_least(:once).and_return(element)
+      end
 
       context 'but without content descriptions' do
         it { is_expected.to eq({}) }
@@ -36,11 +37,13 @@ shared_examples_for "an essence" do
 
       context 'and content descriptions' do
         before do
-          essence.stub(content: content)
+          allow(essence).to receive(:content).and_return(content)
         end
 
         context 'containing the content name' do
-          before { element.stub(content_descriptions: [content_description]) }
+          before do
+            expect(element).to receive(:content_descriptions).at_least(:once).and_return([content_description])
+          end
 
           it "returns the content description" do
             is_expected.to eq(content_description)
@@ -48,7 +51,9 @@ shared_examples_for "an essence" do
         end
 
         context 'not containing the content name' do
-          before { element.stub(content_descriptions: []) }
+          before do
+            expect(element).to receive(:content_descriptions).at_least(:once).and_return([])
+          end
 
           it { is_expected.to eq({}) }
         end
@@ -84,7 +89,9 @@ shared_examples_for "an essence" do
       end
 
       context 'when the ingredient column is empty' do
-        before { essence.update(essence.ingredient_column.to_sym => nil) }
+        before do
+          essence.update(essence.ingredient_column.to_sym => nil)
+        end
 
         it 'should not be valid' do
           expect(essence).to_not be_valid
@@ -92,7 +99,9 @@ shared_examples_for "an essence" do
       end
 
       context 'when the ingredient column is not nil' do
-        before { essence.update(essence.ingredient_column.to_sym => ingredient_value) }
+        before do
+          essence.update(essence.ingredient_column.to_sym => ingredient_value)
+        end
 
         it 'should be valid' do
           expect(essence).to be_valid
@@ -102,20 +111,24 @@ shared_examples_for "an essence" do
 
     describe 'uniqueness' do
       before do
-        essence.stub(element: build_stubbed(:element))
-        allow(essence).to receive(:description).and_return({'validate' => ['uniqueness']})
+        allow(essence).to receive(:element).and_return(build_stubbed(:element))
+        expect(essence).to receive(:description).at_least(:once).and_return({'validate' => ['uniqueness']})
         essence.update(essence.ingredient_column.to_sym => ingredient_value)
       end
 
       context 'when a duplicate exists' do
-        before { allow(essence).to receive(:duplicates).and_return([essence.dup]) }
+        before do
+          allow(essence).to receive(:duplicates).and_return([essence.dup])
+        end
 
         it 'should not be valid' do
           expect(essence).to_not be_valid
         end
 
         context 'when validated essence is not public' do
-          before { essence.stub(public?: false) }
+          before do
+            expect(essence).to receive(:public?).and_return(false)
+          end
 
           it 'should be valid' do
             expect(essence).to be_valid
@@ -124,7 +137,9 @@ shared_examples_for "an essence" do
       end
 
       context 'when no duplicate exists' do
-        before { allow(essence).to receive(:duplicates).and_return([]) }
+        before do
+          expect(essence).to receive(:duplicates).and_return([])
+        end
 
         it 'should be valid' do
           expect(essence).to be_valid

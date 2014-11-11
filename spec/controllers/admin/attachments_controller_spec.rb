@@ -26,7 +26,7 @@ module Alchemy
 
         context "is set" do
           it "it renders the archive_overlay partial" do
-            Content.stub_chain(:select, :find_by).and_return(content)
+            expect(Content).to receive(:find_by).and_return(content)
             get :index, {content_id: content.id}
             expect(response).to render_template(partial: '_archive_overlay')
             expect(assigns(:content)).to eq(content)
@@ -44,7 +44,7 @@ module Alchemy
 
     describe '#show' do
       before do
-        Attachment.stub(find: attachment)
+        expect(Attachment).to receive(:find).and_return(attachment)
       end
 
       it "renders the show template" do
@@ -56,8 +56,8 @@ module Alchemy
     describe "#new" do
       context "in overlay" do
         before do
-          allow(controller).to receive(:in_overlay?).and_return(true)
-          allow(Content).to receive(:find).and_return(mock_model('Content'))
+          expect(controller).to receive(:in_overlay?).and_return(true)
+          expect(Content).to receive(:find_by).and_return(mock_model('Content'))
         end
 
         it "should set @while_assigning to true" do
@@ -89,7 +89,7 @@ module Alchemy
           let(:content) { mock_model('Content') }
 
           before do
-            Content.stub_chain(:select, :find_by).and_return(content)
+            expect(Content).to receive(:find_by).and_return(content)
           end
 
           it "assigns lots of instance variables" do
@@ -129,7 +129,7 @@ module Alchemy
       let(:attachment) { build_stubbed(:attachment) }
 
       before do
-        Attachment.stub(find: attachment)
+        expect(Attachment).to receive(:find).and_return(attachment)
       end
 
       context 'with passing validations' do
@@ -144,8 +144,8 @@ module Alchemy
 
       context 'with failing validations' do
         before do
-          attachment.stub(update_attributes: false)
-          attachment.stub_chain(:errors, :empty?).and_return(false)
+          expect(attachment).to receive(:update_attributes).and_return(false)
+          expect(attachment).to receive(:errors).and_return double(empty?: false)
         end
 
         it "renders edit form" do
@@ -158,7 +158,7 @@ module Alchemy
       let(:attachment) { build_stubbed(:attachment) }
 
       before do
-        Attachment.stub(find: attachment)
+        expect(Attachment).to receive(:find).and_return(attachment)
       end
 
       it "destroys the attachment and sets and success message" do
@@ -172,7 +172,7 @@ module Alchemy
 
     describe "#download" do
       before do
-        allow(Attachment).to receive(:find).with("#{attachment.id}").and_return(attachment)
+        expect(Attachment).to receive(:find).with("#{attachment.id}").and_return(attachment)
         allow(controller).to receive(:render).and_return(nil)
       end
 

@@ -27,7 +27,9 @@ module Alchemy
       end
 
       context 'with no picture assigned' do
-        before { expect(essence).to receive(:picture).and_return(nil) }
+        before do
+          expect(essence).to receive(:picture).at_least(:once).and_return(nil)
+        end
 
         it "renders error message" do
           get :crop, id: 1
@@ -36,17 +38,24 @@ module Alchemy
       end
 
       context 'with picture assigned' do
-        let(:default_mask) { { x1: 0, y1: 0, x2: 300, y2: 250 } }
+        let(:default_mask) do
+          {
+            x1: 0,
+            y1: 0,
+            x2: 300,
+            y2: 250
+          }
+        end
 
         before do
           picture.image_file_width = 300
           picture.image_file_height = 250
-          allow(essence).to receive(:picture).and_return(picture)
+          expect(essence).to receive(:picture).at_least(:once).and_return(picture)
         end
 
         context 'with no render_size present in essence' do
           before do
-            expect(essence).to receive(:render_size).and_return(nil)
+            expect(essence).to receive(:render_size).at_least(:once).and_return(nil)
           end
 
           context 'with sizes in params' do
@@ -66,7 +75,7 @@ module Alchemy
 
         context 'with render_size present in essence' do
           it "sets sizes from these values" do
-            allow(essence).to receive(:render_size).and_return('30x25')
+            expect(essence).to receive(:render_size).at_least(:once).and_return('30x25')
 
             get :crop, id: 1
             expect(assigns(:min_size)).to eq({ width: 30, height: 25 })
@@ -74,14 +83,14 @@ module Alchemy
 
           context 'when width or height is not fixed' do
             it 'infers the height from the image file preserving the aspect ratio' do
-              allow(essence).to receive(:render_size).and_return('30x')
+              expect(essence).to receive(:render_size).at_least(:once).and_return('30x')
 
               get :crop, id: 1
               expect(assigns(:min_size)).to eq({ width: 30, height: 0})
             end
 
             it 'does not infer the height from the image file preserving the aspect ratio' do
-              essence.stub(:render_size).and_return('x25')
+              expect(essence).to receive(:render_size).at_least(:once).and_return('x25')
 
               get :crop, id: 1, options: { fixed_ratio: "2"}
               expect(assigns(:min_size)).to eq({ width: 50, height: 25 })
@@ -90,14 +99,14 @@ module Alchemy
 
           context 'when width or height is not fixed and an aspect ratio is given' do
             it 'width is given, it infers the height from width and ratio' do
-              essence.stub(:render_size).and_return('30x')
+              expect(essence).to receive(:render_size).at_least(:once).and_return('30x')
 
               get :crop, id: 1, options: { fixed_ratio: "0.5" }
               expect(assigns(:min_size)).to eq({ width: 30, height: 60 })
             end
 
             it 'infers the height from the image file preserving the aspect ratio' do
-              allow(essence).to receive(:render_size).and_return('x25')
+              expect(essence).to receive(:render_size).at_least(:once).and_return('x25')
 
               get :crop, id: 1
               expect(assigns(:min_size)).to eq({ width: 0, height: 25})
@@ -107,7 +116,7 @@ module Alchemy
 
         context 'no crop sizes present in essence' do
           before do
-            allow(essence).to receive(:crop_from).and_return(nil)
+            expect(essence).to receive(:crop_from).and_return(nil)
             allow(essence).to receive(:crop_size).and_return(nil)
           end
 
@@ -172,8 +181,8 @@ module Alchemy
     describe '#assign' do
       before do
         expect(Content).to receive(:find).and_return(content)
-        allow_any_instance_of(Content).to receive(:essence).and_return(essence)
-        expect(Picture).to receive(:find_by_id).and_return(picture)
+        expect(content).to receive(:essence).at_least(:once).and_return(essence)
+        expect(Picture).to receive(:find_by).and_return(picture)
       end
 
       it "should assign a Picture" do
@@ -181,6 +190,5 @@ module Alchemy
         expect(assigns(:content).essence.picture).to eq(picture)
       end
     end
-
   end
 end

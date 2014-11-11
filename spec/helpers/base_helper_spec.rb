@@ -27,14 +27,14 @@ module Alchemy
     describe "#multi_language?" do
       context "if more than one published language exists" do
         it "should return true" do
-          Alchemy::Language.stub_chain(:published, :count).and_return(2)
+          allow(Alchemy::Language).to receive(:published).and_return double(count: 2)
           expect(helper.multi_language?).to eq(true)
         end
       end
 
       context "if less than two published languages exists" do
         it "should return false" do
-          Alchemy::Language.stub_chain(:published, :count).and_return(1)
+          allow(Alchemy::Language).to receive(:published).and_return double(count: 1)
           expect(helper.multi_language?).to eq(false)
         end
       end

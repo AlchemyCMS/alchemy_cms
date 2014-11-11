@@ -8,7 +8,7 @@ module Alchemy
 
     before do
       assign(:page, page)
-      Element.any_instance.stub(store_page: true)
+      allow_any_instance_of(Element).to receive(:store_page).and_return(true)
     end
 
     describe '#render_element' do
@@ -104,7 +104,7 @@ module Alchemy
           let(:options)         { {from_page: 'news'} }
 
           before do
-            Language.stub_chain(:current, :pages, :where).and_return(pages)
+            allow(Language).to receive(:current).and_return double(pages: double(where: pages))
             expect(another_page).to receive(:find_elements).and_return(other_elements)
           end
 
@@ -159,8 +159,8 @@ module Alchemy
           let(:options) { {fallback: {for: 'higgs', with: 'news', from: 'news'}} }
 
           before do
-            Language.stub_chain(:current, :pages, :find_by).and_return(another_page)
-            another_page.stub_chain(:elements, :named).and_return(elements)
+            allow(Language).to receive(:current).and_return double(pages: double(find_by: another_page))
+            allow(another_page).to receive(:elements).and_return double(named: elements)
           end
 
           it "renders the fallback element" do
@@ -172,7 +172,7 @@ module Alchemy
           let(:options) { {fallback: {for: 'higgs', with: 'news', from: another_page}} }
 
           before do
-            another_page.stub_chain(:elements, :named).and_return(elements)
+            allow(another_page).to receive(:elements).and_return double(named: elements)
           end
 
           it "renders the fallback element" do

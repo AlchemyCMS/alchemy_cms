@@ -52,7 +52,8 @@ describe 'Page editing feature' do
     end
 
     context "when page is taggable" do
-      before { allow_any_instance_of(Alchemy::Page).to receive(:taggable?).and_return(true) }
+      before { expect_any_instance_of(Alchemy::Page).to receive(:taggable?).and_return(true) }
+
       it "should show the tag_list input field" do
         visit alchemy.configure_admin_page_path(a_page)
         expect(page).to have_selector('input#page_tag_list')
@@ -80,15 +81,15 @@ describe 'Page editing feature' do
     it "renders essence editors for all elements" do
       visit alchemy.admin_elements_path(page_id: everything_page.id)
 
-      page.should have_selector('div.content_editor.essence_boolean')
-      page.should have_selector('div.content_editor.essence_date')
-      page.should have_selector('div.content_editor.essence_file')
-      page.should have_selector('div.content_editor.essence_html_editor')
-      page.should have_selector('div.content_editor.essence_link')
-      page.should have_selector('div.content_editor.essence_picture_editor')
-      page.should have_selector('div.content_editor.essence_richtext')
-      page.should have_selector('div.content_editor.essence_select')
-      page.should have_selector('div.content_editor.essence_text')
+      expect(page).to have_selector('div.content_editor.essence_boolean')
+      expect(page).to have_selector('div.content_editor.essence_date')
+      expect(page).to have_selector('div.content_editor.essence_file')
+      expect(page).to have_selector('div.content_editor.essence_html_editor')
+      expect(page).to have_selector('div.content_editor.essence_link')
+      expect(page).to have_selector('div.content_editor.essence_picture_editor')
+      expect(page).to have_selector('div.content_editor.essence_richtext')
+      expect(page).to have_selector('div.content_editor.essence_select')
+      expect(page).to have_selector('div.content_editor.essence_text')
     end
   end
 end

@@ -29,7 +29,9 @@ module Alchemy
         before { allow(Element).to receive(:trashed).and_return([trashed]) }
 
         context "and no unique elements on the page" do
-          before { alchemy_page.stub_chain(:elements, :not_trashed, :pluck).and_return([]) }
+          before do
+            allow(alchemy_page).to receive(:elements).and_return double(not_trashed: double(pluck: []))
+          end
 
           it "unique elements should be draggable" do
             get :index, page_id: alchemy_page.id
@@ -40,10 +42,11 @@ module Alchemy
         context "and with an unique element on the page" do
           let(:unique) { FactoryGirl.build_stubbed(:unique_element) }
           let(:page) { FactoryGirl.build_stubbed(:public_page) }
-          before {
+
+          before do
             allow(Page).to receive(:find).and_return(page)
-            page.stub_chain(:elements, :not_trashed, :pluck).and_return([unique.name])
-          }
+            allow(page).to receive(:elements).and_return double(not_trashed: double(pluck: [unique.name]))
+          end
 
           it "unique elements should not be draggable" do
             get :index, page_id: page.id

@@ -12,7 +12,7 @@ module Alchemy
     context 'an author' do
       let(:unpublic) { create(:page, parent: default_language_root) }
 
-      before { controller.stub(current_alchemy_user: author_user) }
+      before { allow(controller).to receive(:current_alchemy_user).and_return(author_user) }
 
       it "should not be able to visit a unpublic page" do
         get :show, urlname: unpublic.urlname
@@ -183,7 +183,7 @@ module Alchemy
       subject { controller.send(:page_etag) }
 
       before do
-        page.stub(cache_key: 'aaa')
+        expect(page).to receive(:cache_key).and_return('aaa')
         controller.instance_variable_set('@page', page)
       end
 

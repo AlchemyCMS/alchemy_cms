@@ -24,9 +24,9 @@ module Alchemy
       context 'without language root page' do
         before do
           expect(Language).to receive(:current_root_page).and_return(nil)
-          Language.stub(find_by: language)
-          Language.stub(all: [language])
-          Language.stub(with_root_page: [language])
+          expect(Language).to receive(:find_by).and_return(language)
+          expect(Language).to receive(:all).and_return([language])
+          expect(Language).to receive(:with_root_page).and_return([language])
         end
 
         it "it assigns current language" do
@@ -42,7 +42,7 @@ module Alchemy
       let(:page_2)   { build_stubbed(:page) }
 
       before do
-        Language.stub(current: language)
+        expect(Language).to receive(:current).at_least(:once).and_return(language)
       end
 
       it "should remove the cache of all pages" do
@@ -112,7 +112,9 @@ module Alchemy
       end
 
       context 'with url nesting enabled' do
-        before { Alchemy::Config.stub(get: true) }
+        before do
+          expect(Alchemy::Config).to receive(:get).with(:url_nesting).at_least(:once).and_return(true)
+        end
 
         it "updates the pages urlnames" do
           xhr :post, :order, set: set_of_pages.to_json
@@ -228,7 +230,7 @@ module Alchemy
       context "a new page" do
         before do
           allow_any_instance_of(Page).to receive(:set_language_from_parent_or_default)
-          Page.any_instance.stub(save: true)
+          allow_any_instance_of(Page).to receive(:save).and_return(true)
         end
 
         it "is nested under given parent" do
@@ -310,9 +312,9 @@ module Alchemy
       let(:root_page)                  { mock_model('Page') }
 
       before do
-        Page.stub(copy: copy_of_language_root)
-        Page.stub(root: root_page)
-        Page.stub(language_root_for: language_root_to_copy_from)
+        allow(Page).to receive(:copy).and_return(copy_of_language_root)
+        allow(Page).to receive(:root).and_return(root_page)
+        allow(Page).to receive(:language_root_for).and_return(language_root_to_copy_from)
         allow_any_instance_of(Page).to receive(:move_to_child_of)
         allow_any_instance_of(Page).to receive(:copy_children_to)
         allow(controller).to receive(:store_current_language)
@@ -330,15 +332,15 @@ module Alchemy
       end
 
       it "should copy all childs of the original page over to the new created one" do
-        controller.stub(language_root_to_copy_from: language_root_to_copy_from)
-        controller.stub(copy_of_language_root: copy_of_language_root)
+        expect(controller).to receive(:language_root_to_copy_from).and_return(language_root_to_copy_from)
+        expect(controller).to receive(:copy_of_language_root).and_return(copy_of_language_root)
         expect(language_root_to_copy_from).to receive(:copy_children_to).with(copy_of_language_root)
         post :copy_language_tree, params
       end
 
       it "should redirect to admin_pages_path" do
         allow(controller).to receive(:copy_of_language_root)
-        controller.stub_chain(:language_root_to_copy_from, :copy_children_to)
+        allow(controller).to receive(:language_root_to_copy_from).and_return(double(copy_children_to: nil))
         post :copy_language_tree, params
         expect(response).to redirect_to(admin_pages_path)
       end
@@ -352,7 +354,9 @@ module Alchemy
         before { page.lock_to!(other_user) }
 
         context 'that is signed in' do
-          before { DummyUser.any_instance.stub(logged_in?: true) }
+          before do
+            expect_any_instance_of(DummyUser).to receive(:logged_in?).and_return(true)
+          end
 
           it 'redirects to sitemap' do
             get :edit, id: page.id
@@ -361,7 +365,9 @@ module Alchemy
         end
 
         context 'that is not signed in' do
-          before { DummyUser.any_instance.stub(logged_in?: false) }
+          before do
+            expect_any_instance_of(DummyUser).to receive(:logged_in?).and_return(false)
+          end
 
           it 'renders the edit view' do
             get :edit, id: page.id
@@ -372,8 +378,8 @@ module Alchemy
 
       context 'if page is locked by myself' do
         before do
-          Page.any_instance.stub(locker: user)
-          user.stub(logged_in?: true)
+          expect_any_instance_of(Page).to receive(:locker).and_return(user)
+          expect(user).to receive(:logged_in?).and_return(true)
         end
 
         it 'renders the edit view' do
@@ -384,7 +390,7 @@ module Alchemy
 
       context 'if page is not locked' do
         before do
-          Page.any_instance.stub(locker: nil)
+          expect_any_instance_of(Page).to receive(:locker).and_return(nil)
         end
 
         it 'renders the edit view' do
@@ -476,7 +482,7 @@ module Alchemy
 
       before do
         allow(Page).to receive(:find).with("#{page.id}").and_return(page)
-        Page.stub_chain(:from_current_site, :all_locked_by).and_return(nil)
+        allow(Page).to receive(:from_current_site).and_return(double(all_locked_by: nil))
         expect(page).to receive(:unlock!).and_return(true)
       end
 

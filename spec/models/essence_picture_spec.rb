@@ -70,7 +70,10 @@ module Alchemy
       end
 
       context 'with crop sizes set' do
-        before { essence.stub(crop_size: '200x200', crop_from: '10x10') }
+        before do
+          expect(essence).to receive(:crop_size).at_least(:once).and_return('200x200')
+          expect(essence).to receive(:crop_from).at_least(:once).and_return('10x10')
+        end
 
         it "includes the crop sizes in the url." do
           is_expected.to match(/200x200/)

@@ -231,7 +231,7 @@ module Alchemy
     describe '#current_alchemy_user_name' do
       subject { helper.current_alchemy_user_name }
 
-      before { helper.stub(current_alchemy_user: user) }
+      before { expect(helper).to receive(:current_alchemy_user).and_return(user) }
 
       context 'with a user having a `alchemy_display_name` method' do
         let(:user) { double('User', alchemy_display_name: 'Peter Schroeder') }
@@ -257,7 +257,9 @@ module Alchemy
       end
 
       context 'if the expression from config is nil' do
-        before { Alchemy::Config.stub(get: {link_url: nil}) }
+        before do
+          expect(Alchemy::Config).to receive(:get).and_return({link_url: nil})
+        end
 
         it "returns the default expression" do
           expect(subject).to_not be_nil

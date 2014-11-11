@@ -9,28 +9,33 @@ module Alchemy
     before do
       sign_in(admin_user)
       session[:alchemy_clipboard] = {}
-      Element.stub(find: element)
     end
 
-    describe "#insert" do
-      it "should hold element ids" do
-        xhr :post, :insert, {remarkable_type: 'elements', remarkable_id: element.id}
-        expect(session[:alchemy_clipboard]['elements']).to eq([{'id' => element.id.to_s, 'action' => 'copy'}])
+    context 'for elements' do
+      before do
+        expect(Element).to receive(:find).and_return(element)
       end
 
-      it "should not have the same element twice" do
-        session[:alchemy_clipboard]['elements'] = [{'id' => element.id.to_s, 'action' => 'copy'}]
-        xhr :post, :insert, {remarkable_type: 'elements', remarkable_id: element.id}
-        expect(session[:alchemy_clipboard]['elements'].collect { |e| e['id'] }).not_to eq([element.id, element.id])
-      end
-    end
+      describe "#insert" do
+        it "should hold element ids" do
+          xhr :post, :insert, {remarkable_type: 'elements', remarkable_id: element.id}
+          expect(session[:alchemy_clipboard]['elements']).to eq([{'id' => element.id.to_s, 'action' => 'copy'}])
+        end
 
-    describe "#delete" do
-      it "should remove element ids from clipboard" do
-        session[:alchemy_clipboard]['elements'] = [{'id' => element.id.to_s, 'action' => 'copy'}]
-        session[:alchemy_clipboard]['elements'] << {'id' => another_element.id.to_s, 'action' => 'copy'}
-        xhr :delete, :remove, {remarkable_type: 'elements', remarkable_id: another_element.id}
-        expect(session[:alchemy_clipboard]['elements']).to eq([{'id' => element.id.to_s, 'action' => 'copy'}])
+        it "should not have the same element twice" do
+          session[:alchemy_clipboard]['elements'] = [{'id' => element.id.to_s, 'action' => 'copy'}]
+          xhr :post, :insert, {remarkable_type: 'elements', remarkable_id: element.id}
+          expect(session[:alchemy_clipboard]['elements'].collect { |e| e['id'] }).not_to eq([element.id, element.id])
+        end
+      end
+
+      describe "#delete" do
+        it "should remove element ids from clipboard" do
+          session[:alchemy_clipboard]['elements'] = [{'id' => element.id.to_s, 'action' => 'copy'}]
+          session[:alchemy_clipboard]['elements'] << {'id' => another_element.id.to_s, 'action' => 'copy'}
+          xhr :delete, :remove, {remarkable_type: 'elements', remarkable_id: another_element.id}
+          expect(session[:alchemy_clipboard]['elements']).to eq([{'id' => element.id.to_s, 'action' => 'copy'}])
+        end
       end
     end
 

@@ -47,7 +47,7 @@ describe "essences/_essence_picture_view" do
 
     context "but disabled in the content settings" do
       before do
-        content.stub(settings: {show_caption: false})
+        allow(content).to receive(:settings).and_return({show_caption: false})
       end
 
       it "should not enclose the image in a <figure> element" do

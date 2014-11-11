@@ -69,10 +69,10 @@ module Alchemy
       end
 
       context "with already taken layouts" do
-        before {
+        before do
           allow(PageLayout).to receive(:all).and_return([{'unique' => true}])
-          Page.stub_chain(:where, :pluck).and_return([1])
-        }
+          allow(Page).to receive(:where).and_return double(pluck: [1])
+        end
 
         it "should not include unique layouts" do
           subject.each { |l| expect(l['unique']).not_to eq(true) }

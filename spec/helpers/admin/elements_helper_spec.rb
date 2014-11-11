@@ -8,8 +8,8 @@ module Alchemy
 
     context "partial rendering" do
       it "should render an element editor partial" do
-        should_receive(:render_element).with(element, :editor)
-        render_editor(element)
+        expect(helper).to receive(:render_element).with(element, :editor)
+        helper.render_editor(element)
       end
 
       it "should render a picture gallery editor partial" do
@@ -26,13 +26,15 @@ module Alchemy
       }
 
       before do
-        page.stub(layout_description: {'name' => "foo", 'cells' => ["foo_cell"]})
+        allow(page).to receive(:layout_description).and_return({
+          'name' => "foo",
+          'cells' => ["foo_cell"]
+        })
         cell_descriptions = [{
           'name' => "foo_cell",
           'elements' => ["1", "2"]
-          }]
+        }]
         allow(Cell).to receive(:definitions).and_return(cell_descriptions)
-
         helper.instance_variable_set('@page', page)
       end
 
@@ -48,7 +50,7 @@ module Alchemy
 
       context "with empty cell definitions" do
         it "should return an empty string" do
-          page.stub(layout_description: {'name' => "foo"})
+          allow(page).to receive(:layout_description).and_return({'name' => "foo"})
           expect(helper.grouped_elements_for_select(elements)).to eq("")
         end
       end

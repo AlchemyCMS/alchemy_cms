@@ -21,8 +21,8 @@ module Alchemy
     end
 
     before do
-      File.stub(exists?: true)
-      YAML.stub(load_file: config)
+      allow(File).to receive(:exists?).and_return( true)
+      allow(YAML).to receive(:load_file).and_return(config)
     end
 
     describe "#database_dump_command" do
@@ -31,7 +31,7 @@ module Alchemy
       context "when config for RAILS_ENV not found" do
         let(:adapter) { 'mysql2' }
 
-        before { Foo.stub(environment: 'huh?') }
+        before { allow(Foo).to receive(:environment).and_return('huh?') }
 
         it "should raise an error" do
           expect { subject }.to raise_error(RuntimeError)
@@ -68,7 +68,7 @@ module Alchemy
 
           context "and the host is anything but not localhost" do
             before do
-              YAML.stub(load_file: {'test' => {'host' => 'mydomain.com'}})
+              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
             end
             it { is_expected.to include("--host='mydomain.com'") }
           end
@@ -97,7 +97,7 @@ module Alchemy
 
           context "and the host is anything but not localhost" do
             before do
-              YAML.stub(load_file: {'test' => {'host' => 'mydomain.com'}})
+              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
             end
             it { is_expected.to include("--host='mydomain.com'") }
           end
@@ -115,7 +115,7 @@ module Alchemy
       context "when config for RAILS_ENV not found" do
         let(:adapter) { 'mysql' }
 
-        before { Foo.stub(environment: 'huh?') }
+        before { allow(Foo).to receive(:environment).and_return('huh?') }
 
         it "should raise an error" do
           expect { subject }.to raise_error(RuntimeError)
@@ -152,7 +152,7 @@ module Alchemy
 
           context "and the host is anything but not localhost" do
             before do
-              YAML.stub(load_file: {'test' => {'host' => 'mydomain.com'}})
+              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
             end
             it { is_expected.to include("--host='mydomain.com'") }
           end
@@ -181,7 +181,7 @@ module Alchemy
 
           context "and the host is anything but not localhost" do
             before do
-              YAML.stub(load_file: {'test' => {'host' => 'mydomain.com'}})
+              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
             end
             it { is_expected.to include("--host='mydomain.com'") }
           end
@@ -201,7 +201,7 @@ module Alchemy
       end
 
       context 'for missing database config file' do
-        before { File.stub(exists?: false) }
+        before { allow(File).to receive(:exists?).and_return( false) }
 
         it "raises error" do
           expect { Foo.database_config }.to raise_error(RuntimeError)

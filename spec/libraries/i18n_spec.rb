@@ -10,7 +10,7 @@ module Alchemy
 
     describe '.available_locales' do
       subject { I18n.available_locales }
-      before  { I18n.stub(translation_files: ['alchemy.kl.yml']) }
+      before  { allow(I18n).to receive(:translation_files).and_return(['alchemy.kl.yml']) }
       it      { is_expected.to be_a Array }
       it      { is_expected.to include :kl }
 

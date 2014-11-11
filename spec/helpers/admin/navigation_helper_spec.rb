@@ -55,7 +55,7 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "with permission" do
       before do
-        allow(helper).to receive(:can?).and_return(true)
+        expect(helper).to receive(:can?).and_return(true)
       end
 
       it "renders the main navigation entry partial" do
@@ -83,7 +83,7 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "with permission" do
       before do
-        allow(helper).to receive(:can?).and_return(true)
+        expect(helper).to receive(:can?).and_return(true)
       end
 
       it "renders the sub navigation for current module" do
@@ -93,7 +93,7 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "without permission" do
       before do
-        allow(helper).to receive(:can?).and_return(false)
+        expect(helper).to receive(:can?).and_return(false)
       end
 
       it "renders the sub navigation for current module" do
@@ -103,7 +103,7 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "without a module present" do
       before do
-        allow(helper).to receive(:current_alchemy_module).and_return(nil)
+        expect(helper).to receive(:current_alchemy_module).and_return(nil)
       end
 
       it "returns nil" do
@@ -133,7 +133,10 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "with active entry" do
       before do
-        allow(helper).to receive(:params).and_return({controller: 'alchemy/admin/dashboard', action: 'index'})
+        allow(helper).to receive(:params).and_return({
+          controller: 'alchemy/admin/dashboard',
+          action: 'index'
+        })
       end
 
       it "includes active class" do
@@ -149,7 +152,10 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "with active entry" do
       before do
-        allow(helper).to receive(:params).and_return({controller: 'alchemy/admin/dashboard', action: 'index'})
+        allow(helper).to receive(:params).and_return({
+          controller: 'alchemy/admin/dashboard',
+          action: 'index'
+        })
       end
 
       it "returns true" do
@@ -178,7 +184,10 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "with inactive entry" do
       before do
-        allow(helper).to receive(:params).and_return({controller: 'alchemy/admin/users', action: 'index'})
+        expect(helper).to receive(:params).and_return({
+          controller: 'alchemy/admin/users',
+          action: 'index'
+        })
       end
 
       it "returns false" do
@@ -200,7 +209,7 @@ describe Alchemy::Admin::NavigationHelper do
       end
 
       it "returns correct url string with params" do
-        helper.url_for_module(event_module_with_params).should == '/admin/events?key=value'
+        expect(helper.url_for_module(event_module_with_params)).to eq('/admin/events?key=value')
       end
     end
   end
@@ -211,37 +220,39 @@ describe Alchemy::Admin::NavigationHelper do
     let(:current_module) { alchemy_module }
     let(:navigation)     { current_module['navigation']['sub_navigation'].first }
 
-    before do
-      helper.stub(module_definition_for: current_module)
-    end
-
-    context "with module within an engine" do
-      let(:current_module) { alchemy_module }
-
-      it "returns correct url string" do
-        is_expected.to eq('/admin/layoutpages')
+    context 'with module found' do
+      before do
+        expect(helper).to receive(:module_definition_for).and_return current_module
       end
-    end
 
-    context "with module within host app" do
-      let(:current_module) { event_module }
+      context "with module within an engine" do
+        let(:current_module) { alchemy_module }
 
-      it "returns correct url string" do
-        is_expected.to eq('/admin/events')
+        it "returns correct url string" do
+          is_expected.to eq('/admin/layoutpages')
+        end
       end
-    end
 
-    context "with module within host app with params" do
-      let(:current_module) { event_module_with_params }
+      context "with module within host app" do
+        let(:current_module) { event_module }
 
-      it "returns correct url string with params" do
-        should == '/admin/events?key2=value2&key=value'
+        it "returns correct url string" do
+          is_expected.to eq('/admin/events')
+        end
+      end
+
+      context "with module within host app with params" do
+        let(:current_module) { event_module_with_params }
+
+        it "returns correct url string with params" do
+          is_expected.to eq('/admin/events?key2=value2&key=value')
+        end
       end
     end
 
     context 'without module found' do
       before do
-        helper.stub(module_definition_for: nil)
+        expect(helper).to receive(:module_definition_for).and_return nil
       end
 
       it { is_expected.to be_nil }
@@ -255,7 +266,7 @@ describe Alchemy::Admin::NavigationHelper do
       before do
         alchemy_module['position'] = 1
         event_module['position'] = 2
-        helper.stub(alchemy_modules: [event_module, alchemy_module])
+        expect(helper).to receive(:alchemy_modules).and_return [event_module, alchemy_module]
       end
 
       it "returns sorted alchemy modules" do
@@ -266,7 +277,7 @@ describe Alchemy::Admin::NavigationHelper do
     context 'with no position attribute on one module' do
       before do
         event_module['position'] = 2
-        helper.stub(alchemy_modules: [alchemy_module, event_module])
+        expect(helper).to receive(:alchemy_modules).and_return [alchemy_module, event_module]
       end
 
       it "appends this module at the end" do
@@ -274,5 +285,4 @@ describe Alchemy::Admin::NavigationHelper do
       end
     end
   end
-
 end

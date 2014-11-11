@@ -7,44 +7,50 @@ module Alchemy
 
     before do
       sign_in(admin_user)
-      Element.stub(find: element)
     end
 
-    describe '#create' do
-      let(:element) { build_stubbed(:element, name: 'headline') }
-
-      it "creates a content from name" do
-        expect(Content).to receive(:create_from_scratch).and_return(content)
-        xhr :post, :create, {content: {element_id: element.id, name: 'headline'}}
+    context 'with element_id parameter' do
+      before do
+        expect(Element).to receive(:find).and_return(element)
       end
 
-      it "creates a content from essence_type" do
-        expect(Content).to receive(:create_from_scratch).and_return(content)
-        xhr :post, :create, {content: {element_id: element.id, essence_type: 'EssencePicture'}}
-      end
-    end
 
-    context 'inside a picture gallery' do
-      let(:attributes) do
-        {content: {element_id: element.id, essence_type: 'Alchemy::EssencePicture'}, options: {grouped: 'true'}}
+      describe '#create' do
+        let(:element) { build_stubbed(:element, name: 'headline') }
+
+        it "creates a content from name" do
+          expect(Content).to receive(:create_from_scratch).and_return(content)
+          xhr :post, :create, {content: {element_id: element.id, name: 'headline'}}
+        end
+
+        it "creates a content from essence_type" do
+          expect(Content).to receive(:create_from_scratch).and_return(content)
+          xhr :post, :create, {content: {element_id: element.id, essence_type: 'EssencePicture'}}
+        end
       end
 
-      it "adds it into the gallery editor" do
-        xhr :post, :create, attributes
-        expect(assigns(:content_dom_id)).to eq("#add_picture_#{element.id}")
-      end
+      context 'inside a picture gallery' do
+        let(:attributes) do
+          {content: {element_id: element.id, essence_type: 'Alchemy::EssencePicture'}, options: {grouped: 'true'}}
+        end
 
-      context 'with picture_id given' do
-        it "assigns the picture" do
-          expect_any_instance_of(Content).to receive(:update_essence).with(picture_id: '1')
-          xhr :post, :create, attributes.merge(picture_id: '1')
+        it "adds it into the gallery editor" do
+          xhr :post, :create, attributes
+          expect(assigns(:content_dom_id)).to eq("#add_picture_#{element.id}")
+        end
+
+        context 'with picture_id given' do
+          it "assigns the picture" do
+            expect_any_instance_of(Content).to receive(:update_essence).with(picture_id: '1')
+            xhr :post, :create, attributes.merge(picture_id: '1')
+          end
         end
       end
     end
 
     describe '#update' do
       before do
-        Content.stub(find: content)
+        expect(Content).to receive(:find).and_return(content)
       end
 
       it "should update a content via ajax" do

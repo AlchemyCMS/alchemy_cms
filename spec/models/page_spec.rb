@@ -646,7 +646,12 @@ module Alchemy
 
       context "with unique elements already on page" do
         let(:element) { FactoryGirl.build_stubbed(:unique_element) }
-        before { page.stub_chain(:elements, :not_trashed, :pluck).and_return([element.name]) }
+
+        before do
+          allow(page)
+            .to receive(:elements)
+            .and_return double(not_trashed: double(pluck: [element.name]))
+        end
 
         it "does not return unique element definitions" do
           expect(page.available_element_definitions.collect { |e| e['name'] }).to include('article')
@@ -690,7 +695,14 @@ module Alchemy
             'elements' => ['column_headline', 'unique_headline'],
             'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
           })
-          page.stub_chain(:elements, :not_trashed, :pluck).and_return([unique_element.name, element_1.name, element_2.name, element_3.name])
+          allow(page).to receive(:elements).and_return double(
+            not_trashed: double(pluck: [
+              unique_element.name,
+              element_1.name,
+              element_2.name,
+              element_3.name
+            ])
+          )
         }
 
         it "should be readable" do
@@ -880,10 +892,12 @@ module Alchemy
         let(:element) { FactoryGirl.build_stubbed(:element) }
 
         context "given as String" do
-          context '' do
-            before {
-              public_page.cells.stub_chain(:find_by_name, :elements, :offset, :limit, :published).and_return([element])
-            }
+          context 'with elements present' do
+            before do
+              expect(public_page.cells)
+                .to receive(:find_by_name)
+                .and_return double(elements: double(offset: double(limit: double(published: [element]))))
+            end
 
             it "returns only the elements from given cell" do
               expect(public_page.find_elements(from_cell: 'A Cell').to_a).to eq([element])
@@ -892,9 +906,12 @@ module Alchemy
 
           context "that can not be found" do
             let(:elements) {[]}
-            before {
-              elements.stub_chain(:offset, :limit, :published).and_return([])
-            }
+
+            before do
+              allow(elements)
+                .to receive(:offset)
+                .and_return double(limit: double(published: elements))
+            end
 
             it "returns empty set" do
               expect(Element).to receive(:none).and_return(elements)
@@ -912,7 +929,10 @@ module Alchemy
           let(:cell) { FactoryGirl.build_stubbed(:cell, page: public_page) }
 
           it "returns only the elements from given cell" do
-            cell.stub_chain(:elements, :offset, :limit, :published).and_return([element])
+            expect(cell)
+              .to receive(:elements)
+              .and_return double(offset: double(limit: double(published: [element])))
+
             expect(public_page.find_elements(from_cell: cell).to_a).to eq([element])
           end
         end
@@ -978,7 +998,9 @@ module Alchemy
 
           context 'if page is folded' do
             before do
-              page.stub_chain(:folded_pages, :where, :any?).and_return(true)
+              expect(page)
+                .to receive(:folded_pages)
+                .and_return double(where: double(any?: true))
             end
 
             it "should return true" do
@@ -1325,7 +1347,9 @@ module Alchemy
 
         context "when page is not external" do
 
-          before { page.stub(redirects_to_external?: false)}
+          before do
+            expect(page).to receive(:redirects_to_external?).and_return(false)
+          end
 
           it "should update all attributes" do
             page.update_node!(node)
@@ -1358,8 +1382,11 @@ module Alchemy
         end
 
         context "when page is external" do
-
-          before { page.stub(redirects_to_external?: true) }
+          before do
+            expect(page)
+              .to receive(:redirects_to_external?)
+              .and_return(true)
+          end
 
           it "should update all attributes except url" do
             page.update_node!(node)
@@ -1381,11 +1408,14 @@ module Alchemy
       end
 
       context "when nesting is disabled" do
-        before { allow(Alchemy::Config).to receive(:get).with(:url_nesting) { false } }
+        before do
+          allow(Alchemy::Config).to receive(:get).with(:url_nesting) { false }
+        end
 
         context "when page is not external" do
-
-          before { page.stub(redirects_to_external?: false)}
+          before do
+            allow(page).to receive(:redirects_to_external?).and_return(false)
+          end
 
           it "should update all attributes except url" do
             page.update_node!(node)
@@ -1403,14 +1433,13 @@ module Alchemy
             page.reload
             expect(page.legacy_urls.size).to eq(0)
           end
-
         end
 
         context "when page is external" do
-
-          before { page.stub(redirects_to_external?: true) }
-
-          before { Alchemy::Config.stub(get: true) }
+          before do
+            expect(Alchemy::Config).to receive(:get).and_return(true)
+            allow(page).to receive(:redirects_to_external?).and_return(true)
+          end
 
           it "should update all attributes except url" do
             page.update_node!(node)

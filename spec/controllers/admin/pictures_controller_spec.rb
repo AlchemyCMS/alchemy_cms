@@ -64,8 +64,8 @@ module Alchemy
         let(:content) { mock_model('Content') }
 
         before do
-          Content.stub_chain(:select, :find_by).and_return(content)
-          Element.stub_chain(:select, :find_by).and_return(element)
+          expect(Content).to receive(:select).and_return(double(find_by: content))
+          expect(Element).to receive(:select).and_return(double(find_by: element))
         end
 
         it "assigns lots of instance variables" do
@@ -112,8 +112,8 @@ module Alchemy
           let(:content) { mock_model('Content') }
 
           before do
-            Content.stub_chain(:select, :find_by).and_return(content)
-            Element.stub_chain(:select, :find_by).and_return(element)
+            expect(Content).to receive(:select).and_return(double(find_by: content))
+            expect(Element).to receive(:select).and_return(double(find_by: element))
           end
 
           it "assigns lots of instance variables" do
@@ -222,17 +222,12 @@ module Alchemy
 
       before do
         expect(Picture).to receive(:find).and_return(pictures)
-        picture.stub(save: true)
+        expect(picture).to receive(:save!).and_return(true)
       end
 
       it "loads and assigns pictures" do
         post :update_multiple
         expect(assigns(:pictures)).to eq(pictures)
-      end
-
-      it "updates each picture" do
-        expect(picture).to receive(:update_name_and_tag_list!)
-        post :update_multiple
       end
     end
 
@@ -340,7 +335,9 @@ module Alchemy
     describe '#pictures_per_page_for_size' do
       subject { controller.send(:pictures_per_page_for_size, size) }
 
-      before { controller.stub(in_overlay?: true) }
+      before do
+        expect(controller).to receive(:in_overlay?).and_return(true)
+      end
 
       context 'with params[:size] set to medium' do
         let(:size) { 'medium' }

@@ -49,7 +49,9 @@ module Alchemy
         let(:params)  { {body: 'Mikes Petshop'} }
         let(:essence) { content.essence }
 
-        before { essence.stub(content: content) }
+        before do
+          expect(essence).to receive(:content).at_least(:once).and_return content
+        end
 
         it "updates the attributes of related essence and return true" do
           is_expected.to be_truthy
@@ -73,7 +75,7 @@ module Alchemy
 
       context 'if essence is missing' do
         before do
-          content.stub(essence: nil)
+          expect(content).to receive(:essence).and_return nil
         end
 
         it "should raise error" do
@@ -196,7 +198,7 @@ module Alchemy
     end
 
     describe '#ingredient=' do
-      let (:element) { FactoryGirl.create(:element, name: 'headline') }
+      let(:element) { FactoryGirl.create(:element, name: 'headline') }
 
       it "should set the given value to the ingredient column of essence" do
         c = Content.create_from_scratch(element, name: 'headline')
@@ -205,7 +207,7 @@ module Alchemy
       end
 
       context "no essence associated" do
-        let (:element) { FactoryGirl.create(:element, name: 'headline') }
+        let(:element) { FactoryGirl.create(:element, name: 'headline') }
 
         it "should raise error" do
           c = Content.create(:element_id => element.id, name: 'headline')
@@ -232,7 +234,7 @@ module Alchemy
       end
 
       context "without an essence" do
-        before { content.stub(essence: nil) }
+        before { expect(content).to receive(:essence).and_return nil }
 
         it "returns empty string" do
           expect(content.dom_id).to eq('')
@@ -249,7 +251,7 @@ module Alchemy
       end
 
       context "without an essence" do
-        before { content.stub(essence: nil) }
+        before { expect(content).to receive(:essence).and_return nil }
 
         it "returns empty string" do
           expect(content.essence_partial_name).to eq('')
@@ -267,7 +269,11 @@ module Alchemy
       end
 
       context 'defined as preview content via take_me_for_preview' do
-        before { content.stub(description: {'take_me_for_preview' => true}) }
+        before do
+          expect(content).to receive(:description).at_least(:once).and_return({
+            'take_me_for_preview' => true
+          })
+        end
 
         it "returns true" do
           ActiveSupport::Deprecation.silence do
@@ -282,7 +288,11 @@ module Alchemy
       end
 
       context 'defined as preview content via as_element_title' do
-        before { content.stub(description: {'as_element_title' => true}) }
+        before do
+          expect(content).to receive(:description).at_least(:once).and_return({
+            'as_element_title' => true
+          })
+        end
 
         it "returns true" do
           expect(content.preview_content?).to be true

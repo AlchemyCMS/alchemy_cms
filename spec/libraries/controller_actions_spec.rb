@@ -97,7 +97,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
     context "with language in the session" do
       before do
         allow(controller).to receive(:session).and_return(alchemy_language_id: klingonian.id)
-        Alchemy::Language.stub(current: klingonian)
+        allow(Alchemy::Language).to receive(:current).and_return(klingonian)
       end
 
       it "should use the language from the session" do

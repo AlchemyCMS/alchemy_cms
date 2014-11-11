@@ -6,7 +6,7 @@ module Alchemy
     module AuthHelpers
 
       def sign_in(user = admin_user)
-        controller.stub current_alchemy_user: user
+        allow(controller).to receive(:current_alchemy_user).and_return user
       end
 
       def member_user

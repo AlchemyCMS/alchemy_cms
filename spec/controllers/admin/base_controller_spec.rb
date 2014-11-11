@@ -6,7 +6,7 @@ describe Alchemy::Admin::BaseController do
     subject { controller.send(:options_from_params) }
 
     context "params[:options] is a JSON string" do
-      before { allow(controller).to receive(:params).and_return(options: '{"hallo":"World"}') }
+      before { expect(controller).to receive(:params).at_least(:once).and_return(options: '{"hallo":"World"}') }
 
       it "parses the string into an object" do
         expect(subject).to be_an_instance_of(Hash)
@@ -15,7 +15,7 @@ describe Alchemy::Admin::BaseController do
     end
 
     context "params[:options] is already an object" do
-      before { allow(controller).to receive(:params).and_return(options: {hallo: "World"}) }
+      before { expect(controller).to receive(:params).at_least(:once).and_return(options: {hallo: "World"}) }
 
       it "parses the string into an object" do
         expect(subject).to be_an_instance_of(Hash)
@@ -23,7 +23,7 @@ describe Alchemy::Admin::BaseController do
     end
 
     context "params[:options] is not present" do
-      before { allow(controller).to receive(:params).and_return({}) }
+      before { expect(controller).to receive(:params).at_least(:once).and_return({}) }
 
       it "returns ampty object" do
         expect(subject).to be_an_instance_of(Hash)
@@ -36,21 +36,21 @@ describe Alchemy::Admin::BaseController do
     subject { controller.send(:raise_exception?) }
 
     context 'in test mode' do
-      before { Rails.env.stub(test?: true) }
-      it { is_expected.to be_truthy }
-    end
-
-    context 'in page preview' do
-      before { controller.stub(is_page_preview?: true) }
+      before { expect(Rails.env).to receive(:test?).and_return true }
       it { is_expected.to be_truthy }
     end
 
     context 'not in test mode' do
-      before { Rails.env.stub(test?: false) }
+      before { expect(Rails.env).to receive(:test?).and_return false }
       it { is_expected.to be_falsey }
 
+      context 'and in page preview' do
+        before { expect(controller).to receive(:is_page_preview?).and_return true }
+        it { is_expected.to be_truthy }
+      end
+
       context 'and not in page preview' do
-        before { controller.stub(is_page_preview?: false) }
+        before { expect(controller).to receive(:is_page_preview?).and_return false }
         it { is_expected.to be_falsey }
       end
     end
@@ -63,8 +63,8 @@ describe Alchemy::Admin::BaseController do
 
     context 'is pages controller and show action' do
       before do
-        controller.stub(controller_path: 'alchemy/admin/pages')
-        controller.stub(action_name: 'show')
+        expect(controller).to receive(:controller_path).and_return('alchemy/admin/pages')
+        expect(controller).to receive(:action_name).and_return('show')
       end
 
       it { is_expected.to be_truthy }

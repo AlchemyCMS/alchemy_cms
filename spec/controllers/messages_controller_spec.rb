@@ -58,7 +58,7 @@ module Alchemy
         context "succeeded" do
           before do
             allow_any_instance_of(Message).to receive(:valid?).and_return(true)
-            Messages.stub_chain(:contact_form_mail, :deliver).and_return(true)
+            allow(Messages).to receive(:contact_form_mail).and_return double(deliver: true)
           end
 
           it "Messages should call Messages#contact_form_mail to send the email" do
@@ -169,7 +169,7 @@ module Alchemy
               context "but mailer_config['forward_to_page'] is true and mailer_config['mail_success_page'] is set" do
                 before do
                   allow(controller).to receive(:mailer_config).and_return({'forward_to_page' => true, 'mail_success_page' => 'mailer-config-success-page'})
-                  Page.stub_chain(:find_by, :urlname).and_return('mailer-config-success-page')
+                  allow(Page).to receive(:find_by).and_return double(urlname: 'mailer-config-success-page')
                 end
 
                 it "redirect to the given success page" do
@@ -182,11 +182,11 @@ module Alchemy
 
                 before do
                   allow(controller).to receive(:mailer_config).and_return({})
-                  Language.stub_chain(:current_root_page, :urlname).and_return('lang-root')
+                  allow(Language).to receive(:current_root_page).and_return double(urlname: 'lang-root')
                 end
 
                 it "should redirect to the language root page" do
-                  Language.stub(current: language)
+                  expect(Language).to receive(:current).and_return(language)
                   expect(post :create).to redirect_to(show_page_path(urlname: 'lang-root'))
                 end
               end

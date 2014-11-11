@@ -240,7 +240,7 @@ module Alchemy
       context 'as a guest user' do
         it "I am not able to visit the page" do
           visit restricted_page.urlname
-          current_path.should == Alchemy.login_path
+          expect(current_path).to eq(Alchemy.login_path)
         end
       end
 
@@ -249,7 +249,7 @@ module Alchemy
 
         it "I am able to visit the page" do
           visit restricted_page.urlname
-          current_path.should == "/#{restricted_page.urlname}"
+          expect(current_path).to eq("/#{restricted_page.urlname}")
         end
       end
     end

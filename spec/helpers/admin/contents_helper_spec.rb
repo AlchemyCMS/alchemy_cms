@@ -27,7 +27,7 @@ describe Alchemy::Admin::ContentsHelper do
     end
 
     context 'with missing description' do
-      before { content.stub(description: {}) }
+      before { expect(content).to receive(:description).and_return({}) }
 
       it "renders a warning" do
         is_expected.to have_selector('span.warning')
@@ -36,7 +36,7 @@ describe Alchemy::Admin::ContentsHelper do
     end
 
     context 'with validations' do
-      before { content.stub(has_validations?: true) }
+      before { expect(content).to receive(:has_validations?).and_return(true) }
 
       it "show a validation indicator" do
         is_expected.to have_selector('.validation_indicator')

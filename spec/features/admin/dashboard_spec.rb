@@ -58,7 +58,7 @@ describe 'Dashboard feature' do
 
       context 'with alchemy url proxy object having `login_url`' do
         before do
-          ActionDispatch::Routing::RoutesProxy.any_instance.stub(login_url: 'http://site.com/admin/login')
+          allow_any_instance_of(ActionDispatch::Routing::RoutesProxy).to receive(:login_url).and_return('http://site.com/admin/login')
         end
 
         it "links to login page of every site" do

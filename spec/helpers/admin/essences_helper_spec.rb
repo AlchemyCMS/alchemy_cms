@@ -108,8 +108,8 @@ describe Alchemy::Admin::EssencesHelper do
 
     context 'when the picture given has a size of 140x169 and it should be cropped to 250x250' do
       before do
-        content.essence.stub(:image_file_width).and_return(140)
-        content.essence.stub(:image_file_height).and_return(169)
+        allow(content.essence).to receive(:image_file_width).and_return(140)
+        allow(content.essence).to receive(:image_file_height).and_return(169)
       end
 
       it 'the thumbnail url should contain 77 and 93 as thumbnail width and height' do
@@ -123,8 +123,8 @@ describe Alchemy::Admin::EssencesHelper do
 
     context 'when the picture given has a size of 300x50 and it should be cropped/resized to 225x175' do
       before do
-        content.essence.stub(:image_file_width).and_return(300)
-        content.essence.stub(:image_file_height).and_return(50)
+        allow(content.essence).to receive(:image_file_width).and_return(300)
+        allow(content.essence).to receive(:image_file_height).and_return(50)
       end
 
       it 'the thumbnail url should contain 111x25 as thumbnail width and height' do

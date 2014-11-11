@@ -90,8 +90,8 @@ module Alchemy
 
     context "Requesting a picture that has no image file attached" do
       before do
-        picture.stub(image_file: nil)
-        Picture.stub(find: picture)
+        expect(picture).to receive(:image_file).and_return(nil)
+        expect(Picture).to receive(:find).and_return(picture)
       end
 
       it "raises missing file error" do
@@ -116,9 +116,20 @@ module Alchemy
       let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
 
       it "renders the cropped picture" do
-        get :show, id: picture.id, crop: 'crop', size: '100x100', crop_size: '200x200', crop_from: '0x0', format: :png,
-          sh: picture.security_token(crop_size: '200x200', crop_from: '0x0', crop: true, size: '100x100')
-        response.body[0x10..0x18].unpack('NN').should == [100, 100]
+        get :show,
+          id: picture.id,
+          crop: 'crop',
+          size: '100x100',
+          crop_size: '200x200',
+          crop_from: '0x0',
+          format: :png,
+          sh: picture.security_token(
+            crop_size: '200x200',
+            crop_from: '0x0',
+            crop: true,
+            size: '100x100'
+          )
+       expect(response.body[0x10..0x18].unpack('NN')).to eq [100, 100]
       end
     end
 
@@ -126,9 +137,20 @@ module Alchemy
       let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
 
       it "renders the cropped picture without upsampling" do
-        get :show, id: picture.id, crop: 'crop', size: '400x400', crop_size: '200x200', crop_from: '0x0', format: :png,
-          sh: picture.security_token(crop_size: '200x200', crop_from: '0x0', crop: true, size: '400x400')
-        response.body[0x10..0x18].unpack('NN').should == [200, 200]
+        get :show,
+          id: picture.id,
+          crop: 'crop',
+          size: '400x400',
+          crop_size: '200x200',
+          crop_from: '0x0',
+          format: :png,
+          sh: picture.security_token(
+            crop_size: '200x200',
+            crop_from: '0x0',
+            crop: true,
+            size: '400x400'
+          )
+        expect(response.body[0x10..0x18].unpack('NN')).to eq [200, 200]
       end
     end
 
@@ -136,9 +158,22 @@ module Alchemy
       let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
 
       it "renders the cropped picture with upsampling" do
-        get :show, id: picture.id, crop: 'crop', size: '400x400', crop_size: '200x200', crop_from: '0x0', format: :png, upsample: 'true',
-          sh: picture.security_token(crop_size: '200x200', crop_from: '0x0', crop: true, size: '400x400', upsample: 'true')
-        response.body[0x10..0x18].unpack('NN').should == [400, 400]
+        get :show,
+          id: picture.id,
+          crop: 'crop',
+          size: '400x400',
+          crop_size: '200x200',
+          crop_from: '0x0',
+          format: :png,
+          upsample: 'true',
+          sh: picture.security_token(
+            crop_size: '200x200',
+            crop_from: '0x0',
+            crop: true,
+            size: '400x400',
+            upsample: 'true'
+          )
+        expect(response.body[0x10..0x18].unpack('NN')).to eq [400, 400]
       end
     end
 

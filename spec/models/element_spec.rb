@@ -370,7 +370,7 @@ module Alchemy
       end
 
       context 'if no content is defined as rss title' do
-        before { element.stub(content_descriptions: []) }
+        before { expect(element).to receive(:content_descriptions).and_return([]) }
 
         it "should return nil" do
           expect(element.content_for_rss_title).to be_nil
@@ -378,7 +378,7 @@ module Alchemy
       end
 
       context 'if no content is defined as rss description' do
-        before { element.stub(content_descriptions: []) }
+        before { expect(element).to receive(:content_descriptions).and_return([]) }
 
         it "should return nil" do
           expect(element.content_for_rss_description).to be_nil
@@ -427,7 +427,7 @@ module Alchemy
       let(:now)     { Time.now }
 
       before do
-        Time.stub(now: now)
+        allow(Time).to receive(:now).and_return(now)
       end
 
       context 'with touchable pages' do
@@ -435,7 +435,7 @@ module Alchemy
         let(:pages)   { [page] }
 
         before do
-          allow(Alchemy.user_class).to receive(:stamper).and_return(locker.id)
+          expect(Alchemy.user_class).to receive(:stamper).at_least(:once).and_return(locker.id)
         end
 
         it "updates page timestamps" do
@@ -455,11 +455,11 @@ module Alchemy
         let(:cell) { mock_model('Cell') }
 
         before do
-          element.stub(cell: cell)
+          expect(element).to receive(:cell).at_least(:once).and_return(cell)
         end
 
         it "updates timestamp of cell" do
-          element.cell.should_receive(:touch)
+          expect(element.cell).to receive(:touch)
           element.save
         end
       end
@@ -476,21 +476,29 @@ module Alchemy
 
       context "definition has 'taggable' key with true value" do
         it "should return true" do
-          allow(element).to receive(:definition).and_return({'name' => 'article', 'taggable' => true})
+          expect(element).to receive(:definition).and_return({
+            'name' => 'article',
+            'taggable' => true
+          })
           expect(element.taggable?).to be_truthy
         end
       end
 
       context "definition has 'taggable' key with foo value" do
         it "should return false" do
-          allow(element).to receive(:definition).and_return({'name' => 'article', 'taggable' => 'foo'})
+          expect(element).to receive(:definition).and_return({
+            'name' => 'article',
+            'taggable' => 'foo'
+          })
           expect(element.taggable?).to be_falsey
         end
       end
 
       context "definition has no 'taggable' key" do
         it "should return false" do
-          allow(element).to receive(:definition).and_return({'name' => 'article'})
+          expect(element).to receive(:definition).and_return({
+            'name' => 'article'
+          })
           expect(element.taggable?).to be_falsey
         end
       end
@@ -513,10 +521,11 @@ module Alchemy
 
       context "with already one trashed element on the same page" do
         let(:element_2) { FactoryGirl.create(:element, page_id: 1) }
-        before {
+
+        before do
           trashed_element
           element_2
-        }
+        end
 
         it "it should be possible to trash another" do
           element_2.trash!

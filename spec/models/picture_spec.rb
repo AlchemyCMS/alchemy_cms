@@ -42,7 +42,7 @@ module Alchemy
       end
 
       before do
-        Config.stub(:get) do |arg|
+        allow(Config).to receive(:get) do |arg|
           if arg == :preprocess_image_resize
             '10x10'
           end
@@ -215,7 +215,7 @@ module Alchemy
     describe '#update_name_and_tag_list!' do
       let(:picture) { Picture.new(image_file: image_file) }
 
-      before { picture.stub(save!: true) }
+      before { allow(picture).to receive(:save!).and_return(true) }
 
       it "updates tag_list" do
         expect(picture).to receive(:tag_list=).with('Foo')
@@ -270,7 +270,7 @@ module Alchemy
         let(:picture) { build_stubbed(:picture) }
 
         before do
-          picture.stub(errors: {image_file: %w(stupid_cats)})
+          expect(picture).to receive(:errors).and_return({image_file: %w(stupid_cats)})
         end
 
         it "returns hash with error message" do
@@ -286,21 +286,34 @@ module Alchemy
       let(:picture) { build_stubbed(:picture) }
 
       context 'is assigned on pages' do
-        before { picture.stub_chain(:pages, :any?).and_return(true) }
-
         context 'that are all restricted' do
-          before { picture.stub_chain(:pages, :not_restricted, :blank?).and_return(true) }
+          before do
+            expect(picture).to receive(:pages).at_least(:once).and_return double(
+              not_restricted: double(blank?: true),
+              any?: true
+            )
+          end
+
           it { is_expected.to be_truthy }
         end
 
         context 'that are not all restricted' do
-          before { picture.stub_chain(:pages, :not_restricted, :blank?).and_return(false) }
+          before do
+            expect(picture).to receive(:pages).at_least(:once).and_return double(
+              not_restricted: double(blank?: false),
+              any?: true
+            )
+          end
+
           it { is_expected.to be_falsey }
         end
       end
 
       context 'is not assigned on any page' do
-        before { picture.stub_chain(:pages, :any?).and_return(false) }
+        before do
+          expect(picture).to receive(:pages).and_return double(any?: false)
+        end
+
         it { is_expected.to be_falsey }
       end
     end
@@ -313,6 +326,5 @@ module Alchemy
         subject
       end
     end
-
   end
 end
