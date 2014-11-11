@@ -2,6 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe MessagesController do
+    let(:page) { mock_model('Page') }
 
     before do
       controller.instance_variable_set(:@page, page)

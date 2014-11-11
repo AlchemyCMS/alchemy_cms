@@ -67,7 +67,7 @@ module Alchemy
     end
 
     describe '#show' do
-      let(:page) { mock_model(Alchemy::Page, language_code: 'nl') }
+      let(:page) { build_stubbed(:page, language_code: 'nl') }
 
       before do
         expect(Page).to receive(:find).with("#{page.id}").and_return(page)

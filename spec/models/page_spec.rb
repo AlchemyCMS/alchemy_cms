@@ -201,7 +201,7 @@ module Alchemy
         context "public has not changed" do
           it "should not update published_at" do
             page.update_attributes!(name: 'New Name')
-            page.read_attribute(:published_at).should be_nil
+            expect(page.read_attribute(:published_at)).to be_nil
           end
         end
       end
