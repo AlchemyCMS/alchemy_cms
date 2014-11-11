@@ -270,7 +270,9 @@ module Alchemy
         before { content.stub(description: {'take_me_for_preview' => true}) }
 
         it "returns true" do
-          expect(content.preview_content?).to be true
+          ActiveSupport::Deprecation.silence do
+            expect(content.preview_content?).to be true
+          end
         end
 
         it "display deprecation warning" do
