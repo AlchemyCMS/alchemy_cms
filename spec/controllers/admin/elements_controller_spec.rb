@@ -13,13 +13,15 @@ module Alchemy
       let(:alchemy_page) { build_stubbed(:page) }
 
       before do
-        Page.stub(find: alchemy_page)
+        expect(Page).to receive(:find).and_return alchemy_page
       end
 
       context 'with cells' do
         let(:cell) { build_stubbed(:cell, page: alchemy_page) }
 
-        before { alchemy_page.stub(cells: [cell]) }
+        before do
+          expect(alchemy_page).to receive(:cells).and_return [cell]
+        end
 
         it "groups elements by cell" do
           expect(alchemy_page).to receive(:elements_grouped_by_cells)
@@ -29,7 +31,9 @@ module Alchemy
       end
 
       context 'without cells' do
-        before { alchemy_page.stub(cells: []) }
+        before do
+          expect(alchemy_page).to receive(:cells).and_return []
+        end
 
         it "assigns page elements" do
           expect(alchemy_page).to receive(:elements).and_return(double(not_trashed: []))
@@ -41,13 +45,9 @@ module Alchemy
     describe '#list' do
       let(:alchemy_page) { build_stubbed(:page) }
 
-      before do
-        Page.stub(find: alchemy_page)
-      end
-
       context 'without page_id, but with page_urlname' do
         it "loads page from urlname" do
-          allow(Language).to receive(:current).and_return(double(code: 'en', pages: double(find_by: double(id: 1001))))
+          expect(Language).to receive(:current).at_least(:once).and_return(double(code: 'en', pages: double(find_by: double(id: 1001))))
           xhr :get, :list, {page_urlname: 'contact'}
         end
 
@@ -93,22 +93,22 @@ module Alchemy
           expect(assigns(:trashed_elements).to_a).to eq [trashed_element.id]
         end
 
-        it "should set a new position to the element" do
+        it "sets a new position to the element" do
           xhr :post, :order, element_ids: [trashed_element.id]
           trashed_element.reload
-          trashed_element.position.should_not == nil
+          expect(trashed_element.position).to_not be_nil
         end
 
         it "should assign the (new) page_id to the element" do
           xhr :post, :order, element_ids: [trashed_element.id], page_id: 1, cell_id: nil
           trashed_element.reload
-          trashed_element.page_id.should == 1
+          expect(trashed_element.page_id).to be 1
         end
 
         it "should assign the (new) cell_id to the element" do
           xhr :post, :order, element_ids: [trashed_element.id], page_id: 1, cell_id: 5
           trashed_element.reload
-          trashed_element.cell_id.should == 5
+          expect(trashed_element.cell_id).to be 5
         end
       end
     end
@@ -116,7 +116,9 @@ module Alchemy
     describe '#new' do
       let(:alchemy_page) { build_stubbed(:page) }
 
-      before { allow(Page).to receive(:find_by_id).and_return(alchemy_page) }
+      before do
+        expect(Page).to receive(:find_by_id).and_return(alchemy_page)
+      end
 
       it "assign variable for all available element definitions" do
         expect(alchemy_page).to receive(:available_element_definitions)
@@ -148,7 +150,7 @@ module Alchemy
 
         context "on a page with a setting for insert_elements_at of top" do
           before do
-            allow(PageLayout).to receive(:get).and_return({
+            expect(PageLayout).to receive(:get).at_least(:once).and_return({
               'name' => 'news',
               'elements' => ['news'],
               'insert_elements_at' => 'top'
@@ -164,91 +166,104 @@ module Alchemy
       end
 
       context "if page has cells" do
-        context "" do
-          before do
-            @page = create(:public_page, :do_not_autogenerate => false)
-            @cell = create(:cell, :name => 'header', :page => @page)
-            allow(PageLayout).to receive(:get).and_return({
-              'name' => 'standard',
-              'elements' => ['article'],
-              'cells' => ['header']
-            })
-            allow(Cell).to receive(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})
-          end
+        let(:page) { create(:public_page, do_not_autogenerate: false) }
+        let(:cell) { page.cells.first }
 
+        context "not pasting from clipboard" do
           context "and cell name in element name" do
+            before do
+              expect(PageLayout).to receive(:get).at_least(:once).and_return({
+                'name' => 'standard',
+                'elements' => ['article'],
+                'cells' => ['header']
+              })
+              expect(Cell).to receive(:definition_for).and_return({
+                'name' => 'header',
+                'elements' => ['article']
+              })
+            end
+
             it "should put the element in the correct cell" do
-              xhr :post, :create, {:element => {:name => "article#header", :page_id => @page.id}}
-              expect(@cell.elements.first).to be_an_instance_of(Element)
+              xhr :post, :create, {element: {name: "article#header", page_id: page.id}}
+              expect(cell.elements.first).to be_an_instance_of(Element)
             end
           end
 
           context "and no cell name in element name" do
             it "should put the element in the main cell" do
-              xhr :post, :create, {:element => {:name => "article", :page_id => @page.id}}
-              expect(@page.elements.not_in_cell.first).to be_an_instance_of(Element)
+              xhr :post, :create, {element: {name: "article", page_id: page.id}}
+              expect(page.elements.not_in_cell.first).to be_an_instance_of(Element)
             end
           end
         end
 
-        context "with paste_from_clipboard in parameters" do
-          context "" do
+        context "pasting from clipboard" do
+          context "with default element insert position" do
             before do
-              @page = create(:public_page, :do_not_autogenerate => false)
-              @cell = create(:cell, :name => 'header', :page => @page)
-              allow(PageLayout).to receive(:get).and_return({
+              expect(PageLayout).to receive(:get).at_least(:once).and_return({
                 'name' => 'standard',
                 'elements' => ['article'],
                 'cells' => ['header']
               })
-              allow(Cell).to receive(:definition_for).and_return({'name' => 'header', 'elements' => ['article']})
               clipboard['elements'] = [{'id' => element_in_clipboard.id.to_s}]
             end
 
             context "and cell name in element name" do
+              before do
+                expect(Cell).to receive(:definition_for).at_least(:once).and_return({
+                  'name' => 'header',
+                  'elements' => ['article']
+                })
+              end
+
               it "should create the element in the correct cell" do
-                xhr :post, :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}"}
-                expect(@cell.elements.first).to be_an_instance_of(Element)
+                xhr :post, :create, {element: {page_id: page.id}, paste_from_clipboard: "#{element_in_clipboard.id}##{cell.name}"}
+                expect(cell.elements.first).to be_an_instance_of(Element)
+              end
+
+              context "with elements already in cell" do
+                before do
+                  cell.elements.create(page_id: page.id, name: "article", create_contents_after_create: false)
+                end
+
+                it "should set the correct position for the element" do
+                  xhr :post, :create, {element: {page_id: page.id}, paste_from_clipboard: "#{element_in_clipboard.id}##{cell.name}"}
+                  expect(cell.elements.last.position).to eq(cell.elements.count)
+                end
               end
             end
 
             context "and no cell name in element name" do
               it "should create the element in the nil cell" do
-                xhr :post, :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}"}
-                expect(@page.elements.first.cell).to eq(nil)
-              end
-            end
-
-            context "" do
-              before { @cell.elements.create(:page_id => @page.id, :name => "article", :create_contents_after_create => false) }
-
-              it "should set the correct position for the element" do
-                xhr :post, :create, {:element => {:page_id => @page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{@cell.name}"}
-                expect(@cell.elements.last.position).to eq(@cell.elements.count)
+                xhr :post, :create, {element: {page_id: page.id}, paste_from_clipboard: "#{element_in_clipboard.id}"}
+                expect(page.elements.first.cell).to eq(nil)
               end
             end
           end
 
           context "on a page with a setting for insert_elements_at of top" do
-            let(:alchemy_page)         { create(:public_page, :name => 'News') }
-            let(:element_in_clipboard) { create(:element, :page => alchemy_page, :name => 'news') }
-            let(:cell)                 { alchemy_page.cells.first }
-            let(:element)              { create(:element, :name => 'news', :page => alchemy_page, :cell => cell) }
+            let!(:alchemy_page)         { create(:public_page, name: 'News') }
+            let!(:element_in_clipboard) { create(:element, page: alchemy_page, name: 'news') }
+            let!(:cell)                 { create(:cell, name: 'news', page: alchemy_page) }
+            let!(:element)              { create(:element, name: 'news', page: alchemy_page, cell: cell) }
 
             before do
-              allow(PageLayout).to receive(:get).and_return({
+              expect(PageLayout).to receive(:get).at_least(:once).and_return({
                 'name' => 'news',
                 'elements' => ['news'],
                 'insert_elements_at' => 'top',
                 'cells' => ['news']
               })
-              allow(Cell).to receive(:definition_for).and_return({'name' => 'news', 'elements' => ['news']})
+              expect(Cell).to receive(:definition_for).and_return({
+                'name' => 'news',
+                'elements' => ['news']
+              })
               clipboard['elements'] = [{'id' => element_in_clipboard.id.to_s}]
               cell.elements << element
             end
 
             it "should insert the element at top of list" do
-              xhr :post, :create, {:element => {:name => 'news', :page_id => alchemy_page.id}, :paste_from_clipboard => "#{element_in_clipboard.id}##{cell.name}"}
+              xhr :post, :create, {element: {name: 'news', page_id: alchemy_page.id}, paste_from_clipboard: "#{element_in_clipboard.id}##{cell.name}"}
               expect(cell.elements.count).to eq(2)
               expect(cell.elements.first.name).to eq('news')
               expect(cell.elements.first).not_to eq(element)
@@ -257,7 +272,7 @@ module Alchemy
         end
       end
 
-      context "with paste_from_clipboard in parameters" do
+      context "pasting from clipboard" do
         render_views
 
         before do
@@ -281,7 +296,9 @@ module Alchemy
       context 'if element could not be saved' do
         subject { post :create, {element: {page_id: alchemy_page.id}} }
 
-        before { Element.any_instance.stub(save: false) }
+        before do
+          expect_any_instance_of(Element).to receive(:save).and_return false
+        end
 
         it "renders the new template" do
           expect(subject).to render_template(:new)
@@ -291,13 +308,16 @@ module Alchemy
 
     describe '#find_or_create_cell' do
       before do
-        allow(Cell).to receive(:definition_for).and_return({'name' => 'header', 'elements' => ['header']})
         controller.instance_variable_set(:@page, alchemy_page)
       end
 
       context "with element name and cell name in the params" do
         before do
-          controller.stub(params: {element: {name: 'header#header'}})
+          expect(Cell).to receive(:definition_for).and_return({
+            'name' => 'header',
+            'elements' => ['header']
+          })
+          expect(controller).to receive(:params).and_return({element: {name: 'header#header'}})
         end
 
         context "with cell not existing" do
@@ -323,7 +343,7 @@ module Alchemy
 
       context "with only the element name in the params" do
         before do
-          controller.stub(params: {element: {name: 'header'}})
+          expect(controller).to receive(:params).and_return({element: {name: 'header'}})
         end
 
         it "should return nil" do
@@ -333,8 +353,8 @@ module Alchemy
 
       context 'with cell definition not found' do
         before do
-          controller.stub(params: {element: {name: 'header#header'}})
-          Cell.stub(definition_for: nil)
+          expect(controller).to receive(:params).and_return({element: {name: 'header#header'}})
+          expect(Cell).to receive(:definition_for).and_return nil
         end
 
         it "raises error" do
@@ -350,7 +370,7 @@ module Alchemy
       let(:element_parameters) { ActionController::Parameters.new(tag_list: 'Tag 1', public: false) }
 
       before do
-        allow(Element).to receive(:find).and_return element
+        expect(Element).to receive(:find).and_return element
         expect(controller).to receive(:contents_params).and_return(contents_parameters)
       end
 
@@ -414,7 +434,7 @@ module Alchemy
 
       let(:element) { build_stubbed(:element) }
 
-      before { Element.stub(find: element) }
+      before { expect(Element).to receive(:find).and_return element }
 
       it "trashes the element instead of deleting it" do
         expect(element).to receive(:trash!).and_return(true)
@@ -428,12 +448,12 @@ module Alchemy
       let(:element) { build_stubbed(:element) }
 
       before do
-        element.stub(save: true)
-        Element.stub(find: element)
+        expect(element).to receive(:save).and_return true
+        expect(Element).to receive(:find).and_return element
       end
 
       context 'if element is folded' do
-        before { element.stub(folded: true) }
+        before { expect(element).to receive(:folded).and_return true }
 
         it "sets folded to false." do
           expect(element).to receive(:folded=).with(false).and_return(true)
@@ -442,7 +462,7 @@ module Alchemy
       end
 
       context 'if element is not folded' do
-        before { element.stub(folded: false) }
+        before { expect(element).to receive(:folded).and_return false }
 
         it "sets folded to true." do
           expect(element).to receive(:folded=).with(true).and_return(true)
