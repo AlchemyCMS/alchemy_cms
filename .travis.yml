@@ -6,7 +6,7 @@ rvm:
 branches:
   only:
     - master
-script: rake
+script: 'bundle exec rake alchemy:spec:prepare && bundle exec rspec'
 env:
   - DB=mysql
   - DB=postgresql
