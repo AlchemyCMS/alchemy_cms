@@ -98,6 +98,7 @@ div.mce-fullscreen {
 div.mce-edit-area {
   background: #FFF;
   filter: none;
+  border-top: 0;
 }
 
 .mce-statusbar {
@@ -246,6 +247,10 @@ div.mce-tinymce-inline {
 .mce-panel {
   border: 0 solid $default-border-color;
   background-color: $medium-gray;
+}
+
+.mce-toolbar-grp {
+  border-bottom: 1px solid $default-border-color;
 }
 
 .mce-floatpanel {
