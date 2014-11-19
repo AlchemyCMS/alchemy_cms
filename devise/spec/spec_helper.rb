@@ -16,6 +16,7 @@ require "rails/test_help"
 require "rspec/rails"
 require "capybara/rails"
 require 'factory_girl'
+require 'alchemy/seeder'
 require 'alchemy/test_support/auth_helpers'
 require 'alchemy/test_support/controller_requests'
 require 'alchemy/test_support/integration_helpers'
@@ -37,4 +38,7 @@ RSpec.configure do |config|
   config.include Alchemy::TestSupport::IntegrationHelpers, :type => :feature
   config.include Alchemy::Engine.routes.url_helpers
   config.include FactoryGirl::Syntax::Methods
+  config.before(:suite) do
+    Alchemy::Seeder.seed!
+  end
 end
