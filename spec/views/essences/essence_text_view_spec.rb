@@ -38,7 +38,7 @@ describe 'alchemy/essences/_essence_text_view' do
 
     context 'but with content settings disable_link set to true' do
       before do
-        content.stub(settings: {disable_link: true})
+        allow(content).to receive(:settings).and_return({disable_link: true})
       end
 
       it "only renders the ingredient" do

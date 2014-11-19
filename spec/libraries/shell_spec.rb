@@ -10,11 +10,11 @@ module Alchemy
 
   describe Shell do
 
-    before { MyToDoList.stub(:puts) }
+    before { allow(MyToDoList).to receive(:puts) }
 
     describe '.todo' do
       it "should add given string as a todo by delegating to .add_todo" do
-        MyToDoList.should_receive(:add_todo).with(["", "new todo"])
+        expect(MyToDoList).to receive(:add_todo).with(["", "new todo"])
         MyToDoList.todo("new todo")
       end
     end
@@ -36,27 +36,27 @@ module Alchemy
     describe '.display_todos' do
       context 'if there are todos in the list' do
         before do
-          MyToDoList.stub(:todos).and_return(['My first todo', 'My second todo'])
+          allow(MyToDoList).to receive(:todos).and_return(['My first todo', 'My second todo'])
         end
 
         it "should log them" do
-          MyToDoList.should_receive(:log).at_least(1).times
+          expect(MyToDoList).to receive(:log).at_least(1).times
           MyToDoList.display_todos
         end
 
         it "should iterate through the todos with an index" do
-          MyToDoList.todos.should_receive(:each_with_index)
+          expect(MyToDoList.todos).to receive(:each_with_index)
           MyToDoList.display_todos
         end
       end
 
       context 'if there are todos in the list' do
         before do
-          MyToDoList.stub(:todos).and_return([])
+          allow(MyToDoList).to receive(:todos).and_return([])
         end
 
         it "should not log anything" do
-          MyToDoList.should_not_receive(:log)
+          expect(MyToDoList).not_to receive(:log)
           MyToDoList.display_todos
         end
       end
@@ -65,31 +65,31 @@ module Alchemy
     describe '.log' do
       context 'if the message type is "skip"' do
         it "the output color should be yellow and cleared again" do
-          MyToDoList.should_receive(:color).with(:yellow)
-          MyToDoList.should_receive(:color).with(:clear)
+          expect(MyToDoList).to receive(:color).with(:yellow)
+          expect(MyToDoList).to receive(:color).with(:clear)
           MyToDoList.log('in yellow, please', :skip)
         end
       end
 
       context 'if the message type is "error"' do
         it "the output color should be yellow and cleared again" do
-          MyToDoList.should_receive(:color).with(:red)
-          MyToDoList.should_receive(:color).with(:clear)
+          expect(MyToDoList).to receive(:color).with(:red)
+          expect(MyToDoList).to receive(:color).with(:clear)
           MyToDoList.log('in red, please', :error)
         end
       end
 
       context 'if the message type is "message"' do
         it "the output color should just be cleared" do
-          MyToDoList.should_receive(:color).with(:clear)
+          expect(MyToDoList).to receive(:color).with(:clear)
           MyToDoList.log('cleared, please', :message)
         end
       end
 
       context 'if no message type is given' do
         it "the output color should be green" do
-          MyToDoList.should_receive(:color).with(:green)
-          MyToDoList.should_receive(:color).with(:clear)
+          expect(MyToDoList).to receive(:color).with(:green)
+          expect(MyToDoList).to receive(:color).with(:clear)
           MyToDoList.log('in green, please')
         end
       end
@@ -99,18 +99,18 @@ module Alchemy
 
       context 'if given name is a constant of Thor::Shell::Color' do
         before do
-          Thor::Shell::Color.stub(:const_defined?).and_return(true)
+          allow(Thor::Shell::Color).to receive(:const_defined?).and_return(true)
         end
 
         it "should call the constant" do
-          String.any_instance.should_receive(:constantize).and_return('')
+          expect_any_instance_of(String).to receive(:constantize).and_return('')
           MyToDoList.send(:color, :red)
         end
       end
 
       context 'if given name is not a defined constant of Thor::Shell::Color' do
         before do
-          Thor::Shell::Color.stub(:const_defined?).and_return(false)
+          allow(Thor::Shell::Color).to receive(:const_defined?).and_return(false)
         end
 
         it "should return en empty string" do

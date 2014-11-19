@@ -7,19 +7,19 @@ module Alchemy
 
     it "should return the ingredient from its essence" do
       content.essence.update_attributes(:body => "Hello")
-      content.ingredient.should == "Hello"
+      expect(content.ingredient).to eq("Hello")
     end
 
     describe '.normalize_essence_type' do
       context "passing namespaced essence type" do
         it "should not add alchemy namespace" do
-          Content.normalize_essence_type('Alchemy::EssenceText').should == "Alchemy::EssenceText"
+          expect(Content.normalize_essence_type('Alchemy::EssenceText')).to eq("Alchemy::EssenceText")
         end
       end
 
       context "passing not namespaced essence type" do
         it "should add alchemy namespace" do
-          Content.normalize_essence_type('EssenceText').should == "Alchemy::EssenceText"
+          expect(Content.normalize_essence_type('EssenceText')).to eq("Alchemy::EssenceText")
         end
       end
     end
@@ -27,13 +27,13 @@ module Alchemy
     describe '#normalized_essence_type' do
       context "without namespace in essence_type column" do
         it "should return the namespaced essence type" do
-          Content.new(:essence_type => 'EssenceText').normalized_essence_type.should == 'Alchemy::EssenceText'
+          expect(Content.new(:essence_type => 'EssenceText').normalized_essence_type).to eq('Alchemy::EssenceText')
         end
       end
 
       context "with namespace in essence_type column" do
         it "should return the namespaced essence type" do
-          Content.new(:essence_type => 'Alchemy::EssenceText').normalized_essence_type.should == 'Alchemy::EssenceText'
+          expect(Content.new(:essence_type => 'Alchemy::EssenceText').normalized_essence_type).to eq('Alchemy::EssenceText')
         end
       end
     end
@@ -49,15 +49,17 @@ module Alchemy
         let(:params)  { {body: 'Mikes Petshop'} }
         let(:essence) { content.essence }
 
-        before { essence.stub(content: content) }
+        before do
+          expect(essence).to receive(:content).at_least(:once).and_return content
+        end
 
         it "updates the attributes of related essence and return true" do
-          should be_true
-          content.ingredient.should == "Mikes Petshop"
+          is_expected.to be_truthy
+          expect(content.ingredient).to eq("Mikes Petshop")
         end
 
         it "updates timestamp after updating related essence" do
-          content.should_receive(:touch)
+          expect(content).to receive(:touch)
           subject
         end
       end
@@ -66,14 +68,14 @@ module Alchemy
         let(:element) { create(:element, name: 'contactform', create_contents_after_create: true) }
 
         it "should add error messages if save fails and return false" do
-          should be_false
-          content.errors[:essence].should have(1).item
+          is_expected.to be_falsey
+          expect(content.errors[:essence].size).to eq(1)
         end
       end
 
       context 'if essence is missing' do
         before do
-          content.stub(essence: nil)
+          expect(content).to receive(:essence).and_return nil
         end
 
         it "should raise error" do
@@ -90,12 +92,12 @@ module Alchemy
 
       it "should create a new record with all attributes of source except given differences" do
         copy = Content.copy(@content, {:name => 'foobar', :element_id => @element.id + 1})
-        copy.name.should == 'foobar'
+        expect(copy.name).to eq('foobar')
       end
 
       it "should make a new record for essence of source" do
         copy = Content.copy(@content, {:element_id => @element.id + 1})
-        copy.essence_id.should_not == @content.essence_id
+        expect(copy.essence_id).not_to eq(@content.essence_id)
       end
 
       it "should copy source essence attributes" do
@@ -108,7 +110,7 @@ module Alchemy
       let(:element) { FactoryGirl.build_stubbed(:element) }
 
       it "builds a new instance from elements.yml description" do
-        Content.build(element, {name: 'headline'}).should be_instance_of(Content)
+        expect(Content.build(element, {name: 'headline'})).to be_instance_of(Content)
       end
     end
 
@@ -117,14 +119,14 @@ module Alchemy
 
       context "with blank name key" do
         it "returns a essence hash build from essence type" do
-          Content.should_receive(:content_description_from_essence_type).with(element, 'EssenceText')
+          expect(Content).to receive(:content_description_from_essence_type).with(element, 'EssenceText')
           Content.content_description(element, essence_type: 'EssenceText')
         end
       end
 
       context "with name key present" do
         it "returns a essence hash from element" do
-          Content.should_receive(:content_description_from_element).with(element, 'headline')
+          expect(Content).to receive(:content_description_from_element).with(element, 'headline')
           Content.content_description(element, name: 'headline')
         end
       end
@@ -135,18 +137,18 @@ module Alchemy
       let(:essence) { {name: 'headline', type: 'EssenceText'} }
 
       it "returns the description hash from element" do
-        element.should_receive(:content_description_for).and_return(essence)
-        Content.content_description(element, name: 'headline').should == essence
+        expect(element).to receive(:content_description_for).and_return(essence)
+        expect(Content.content_description(element, name: 'headline')).to eq(essence)
       end
 
       context "with content description not found" do
         before {
-          element.should_receive(:content_description_for).and_return(nil)
-          element.should_receive(:available_content_description_for).and_return(essence)
+          expect(element).to receive(:content_description_for).and_return(nil)
+          expect(element).to receive(:available_content_description_for).and_return(essence)
         }
 
         it "returns the description hash from available contents" do
-          Content.content_description(element, name: 'headline').should == essence
+          expect(Content.content_description(element, name: 'headline')).to eq(essence)
         end
       end
     end
@@ -155,11 +157,11 @@ module Alchemy
       let(:element) { FactoryGirl.build_stubbed(:element) }
 
       it "returns the description hash from element" do
-        Content.should_receive(:content_name_from_element_and_essence_type).with(element, 'EssenceText').and_return('Foo')
-        Content.content_description_from_essence_type(element, 'EssenceText').should == {
+        expect(Content).to receive(:content_name_from_element_and_essence_type).with(element, 'EssenceText').and_return('Foo')
+        expect(Content.content_description_from_essence_type(element, 'EssenceText')).to eq({
           'type' => 'EssenceText',
           'name' => 'Foo'
-        }
+        })
       end
     end
 
@@ -167,7 +169,7 @@ module Alchemy
       let(:element) { FactoryGirl.build_stubbed(:element) }
 
       it "returns a name from essence type and count of essences in element" do
-        Content.content_name_from_element_and_essence_type(element, 'EssenceText').should == "essence_text_1"
+        expect(Content.content_name_from_element_and_essence_type(element, 'EssenceText')).to eq("essence_text_1")
       end
     end
 
@@ -188,24 +190,24 @@ module Alchemy
 
       context "with default value present" do
         it "should have the ingredient column filled with default value." do
-          Content.stub(:content_description_from_element).and_return({'name' => 'headline', 'type' => 'EssenceText', 'default' => 'Welcome'})
+          allow(Content).to receive(:content_description_from_element).and_return({'name' => 'headline', 'type' => 'EssenceText', 'default' => 'Welcome'})
           content = Content.create_from_scratch(element, name: 'headline')
-          content.ingredient.should == "Welcome"
+          expect(content.ingredient).to eq("Welcome")
         end
       end
     end
 
     describe '#ingredient=' do
-      let (:element) { FactoryGirl.create(:element, name: 'headline') }
+      let(:element) { FactoryGirl.create(:element, name: 'headline') }
 
       it "should set the given value to the ingredient column of essence" do
         c = Content.create_from_scratch(element, name: 'headline')
         c.ingredient = "Welcome"
-        c.ingredient.should == "Welcome"
+        expect(c.ingredient).to eq("Welcome")
       end
 
       context "no essence associated" do
-        let (:element) { FactoryGirl.create(:element, name: 'headline') }
+        let(:element) { FactoryGirl.create(:element, name: 'headline') }
 
         it "should raise error" do
           c = Content.create(:element_id => element.id, name: 'headline')
@@ -216,10 +218,10 @@ module Alchemy
 
     describe "#descriptions" do
       context "without any descriptions in elements.yml file" do
-        before { Element.stub(:descriptions).and_return([]) }
+        before { allow(Element).to receive(:descriptions).and_return([]) }
 
         it "should return an empty array" do
-          Content.descriptions.should == []
+          expect(Content.descriptions).to eq([])
         end
       end
     end
@@ -228,14 +230,14 @@ module Alchemy
       let(:content) { build_stubbed(:content) }
 
       it "returns a dom id string" do
-        content.dom_id.should eq("essence_text_#{content.id}")
+        expect(content.dom_id).to eq("essence_text_#{content.id}")
       end
 
       context "without an essence" do
-        before { content.stub(essence: nil) }
+        before { expect(content).to receive(:essence).and_return nil }
 
         it "returns empty string" do
-          content.dom_id.should eq('')
+          expect(content.dom_id).to eq('')
         end
       end
     end
@@ -244,15 +246,15 @@ module Alchemy
       let(:content) { build_stubbed(:content) }
 
       it "returns the essence#partial_name" do
-        content.essence.should_receive(:partial_name)
+        expect(content.essence).to receive(:partial_name)
         content.essence_partial_name
       end
 
       context "without an essence" do
-        before { content.stub(essence: nil) }
+        before { expect(content).to receive(:essence).and_return nil }
 
         it "returns empty string" do
-          content.essence_partial_name.should eq('')
+          expect(content.essence_partial_name).to eq('')
         end
       end
     end
@@ -262,15 +264,21 @@ module Alchemy
 
       context 'not defined as preview content' do
         it "returns false" do
-          expect(content.preview_content?).to be_false
+          expect(content.preview_content?).to be false
         end
       end
 
       context 'defined as preview content via take_me_for_preview' do
-        before { content.stub(description: {'take_me_for_preview' => true}) }
+        before do
+          expect(content).to receive(:description).at_least(:once).and_return({
+            'take_me_for_preview' => true
+          })
+        end
 
         it "returns true" do
-          expect(content.preview_content?).to be_true
+          ActiveSupport::Deprecation.silence do
+            expect(content.preview_content?).to be true
+          end
         end
 
         it "display deprecation warning" do
@@ -280,10 +288,14 @@ module Alchemy
       end
 
       context 'defined as preview content via as_element_title' do
-        before { content.stub(description: {'as_element_title' => true}) }
+        before do
+          expect(content).to receive(:description).at_least(:once).and_return({
+            'as_element_title' => true
+          })
+        end
 
         it "returns true" do
-          expect(content.preview_content?).to be_true
+          expect(content.preview_content?).to be true
         end
       end
     end
@@ -293,7 +305,7 @@ module Alchemy
       let(:content) { c = Content.new; c.essence = essence; c }
 
       it "should return the essences preview_text" do
-        essence.should_receive(:preview_text).with(30)
+        expect(essence).to receive(:preview_text).with(30)
         content.preview_text
       end
     end
@@ -306,7 +318,7 @@ module Alchemy
       it { eq('default_tinymce') }
 
       context 'having custom tinymce config' do
-        before { content.stub(:has_custom_tinymce_config?).and_return(true) }
+        before { allow(content).to receive(:has_custom_tinymce_config?).and_return(true) }
         it('returns name including element name') { eq('custom_tinymce article_text') }
       end
     end
@@ -315,12 +327,12 @@ module Alchemy
       let(:content) { Content.new(id: 1) }
 
       it "returns a name value for form fields with ingredient as default" do
-        content.form_field_name.should == 'contents[1][ingredient]'
+        expect(content.form_field_name).to eq('contents[1][ingredient]')
       end
 
       context 'with a essence column given' do
         it "returns a name value for form fields for that column" do
-          content.form_field_name(:link_title).should == 'contents[1][link_title]'
+          expect(content.form_field_name(:link_title)).to eq('contents[1][link_title]')
         end
       end
     end
@@ -329,12 +341,12 @@ module Alchemy
       let(:content) { Content.new(id: 1) }
 
       it "returns a id value for form fields with ingredient as default" do
-        content.form_field_id.should == 'contents_1_ingredient'
+        expect(content.form_field_id).to eq('contents_1_ingredient')
       end
 
       context 'with a essence column given' do
         it "returns a id value for form fields for that column" do
-          content.form_field_id(:link_title).should == 'contents_1_link_title'
+          expect(content.form_field_id(:link_title)).to eq('contents_1_link_title')
         end
       end
     end

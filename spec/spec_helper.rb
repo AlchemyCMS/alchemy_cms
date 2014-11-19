@@ -49,7 +49,7 @@ Capybara.javascript_driver = :poltergeist
 Capybara.ignore_hidden_elements = false
 
 RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
+  config.infer_spec_type_from_file_location!
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
   config.include Alchemy::Engine.routes.url_helpers
@@ -66,7 +66,7 @@ RSpec.configure do |config|
   end
 
   # All specs are running in transactions, but feature specs not.
-  config.before(:each) do
+  config.before(:each) do |example|
     Alchemy::Site.current = nil
     ::I18n.locale = :en
     if example.metadata[:type] == :feature
@@ -81,8 +81,8 @@ RSpec.configure do |config|
   # After every feature spec the database gets seeded so the next spec can rely on that data.
   config.append_after(:each) do
     DatabaseCleaner.clean
-    if example.metadata[:type] == :feature
-      Alchemy::Seeder.stub(:puts)
+    if RSpec.current_example.metadata[:type] == :feature
+      allow(Alchemy::Seeder).to receive(:puts)
       Alchemy::Seeder.seed!
     end
   end

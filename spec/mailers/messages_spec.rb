@@ -7,16 +7,16 @@ module Alchemy
     let(:mail) { Messages.contact_form_mail(message, 'admin@page.com', 'contact@page.com', 'Subject') }
 
     it "delivers a mail to owner" do
-      mail.to.should == ['admin@page.com']
-      mail.subject.should == 'Subject'
+      expect(mail.to).to eq(['admin@page.com'])
+      expect(mail.subject).to eq('Subject')
     end
 
     it "reply_to should be set to senders email" do
-      mail.reply_to.should == [message.email]
+      expect(mail.reply_to).to eq([message.email])
     end
 
     it "mail body includes message" do
-      mail.body.should match /#{message.message}/
+      expect(mail.body).to match /#{message.message}/
     end
 
   end

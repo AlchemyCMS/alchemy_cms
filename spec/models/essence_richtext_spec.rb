@@ -11,7 +11,7 @@ module Alchemy
 
     it "should save a HTML tag free version of body column" do
       essence.save
-      essence.stripped_body.should == "Hello!Welcome to Peters Petshop."
+      expect(essence.stripped_body).to eq("Hello!Welcome to Peters Petshop.")
     end
 
   end

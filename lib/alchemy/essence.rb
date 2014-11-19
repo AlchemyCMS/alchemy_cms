@@ -113,7 +113,7 @@ module Alchemy #:nodoc:
       def validate_ingredient
         validations.each do |validation|
           if validation.respond_to?(:keys)
-            validation.map {|key,value| self.send("validate_#{key}", validation) }
+            validation.map { |key, _value| self.send("validate_#{key}", validation) }
           else
             self.send("validate_#{validation}")
           end

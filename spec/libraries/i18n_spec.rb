@@ -4,19 +4,19 @@ module Alchemy
   describe I18n do
     describe '.translation_files' do
       subject { I18n.translation_files }
-      it      { should be_a Array }
-      it      { should be_any { |f| f =~ /alchemy.*.yml/ } }
+      it      { is_expected.to be_a Array }
+      it      { is_expected.to be_any { |f| f =~ /alchemy.*.yml/ } }
     end
 
     describe '.available_locales' do
       subject { I18n.available_locales }
-      before  { I18n.stub(translation_files: ['alchemy.kl.yml']) }
-      it      { should be_a Array }
-      it      { should include :kl }
+      before  { allow(I18n).to receive(:translation_files).and_return(['alchemy.kl.yml']) }
+      it      { is_expected.to be_a Array }
+      it      { is_expected.to include :kl }
 
       context 'when locales are already set in @@available_locales' do
         before { I18n.class_variable_set(:@@available_locales, [:kl, :jp]) }
-        it     { should eq([:kl, :jp]) }
+        it     { is_expected.to eq([:kl, :jp]) }
       end
     end
 

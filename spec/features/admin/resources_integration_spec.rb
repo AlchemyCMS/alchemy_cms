@@ -10,22 +10,22 @@ describe "Resources" do
 
     it "should have a button for creating a new resource items" do
       visit '/admin/events'
-      page.should have_selector('#toolbar div.button_with_label a.icon_button span.icon.create')
+      expect(page).to have_selector('#toolbar div.button_with_label a.icon_button span.icon.create')
     end
 
     it "should list existing items" do
       event
       second_event
       visit '/admin/events'
-      page.should have_content("My Event")
-      page.should have_content("something fancy")
-      page.should have_content("12.32")
+      expect(page).to have_content("My Event")
+      expect(page).to have_content("something fancy")
+      expect(page).to have_content("12.32")
     end
 
     it "should list existing resource-items nicely formatted" do
       event
       visit '/admin/events'
-      page.should have_selector('div#archive_all table.list')
+      expect(page).to have_selector('div#archive_all table.list')
     end
 
   end
@@ -33,16 +33,16 @@ describe "Resources" do
   describe "form for creating and updating items" do
     it "renders an input field according to the attribute's type" do
       visit '/admin/events/new'
-      page.should have_selector('input#event_name[type="text"]')
-      page.should have_selector('input#event_starts_at[type="date"]')
-      page.should have_selector('textarea#event_description')
-      page.should have_selector('input#event_published[type="checkbox"]')
+      expect(page).to have_selector('input#event_name[type="text"]')
+      expect(page).to have_selector('input#event_starts_at[type="date"]')
+      expect(page).to have_selector('textarea#event_description')
+      expect(page).to have_selector('input#event_published[type="checkbox"]')
     end
 
     it "should have a select box for associated models" do
       visit '/admin/events/new'
       within('form') do
-        page.should have_selector('select')
+        expect(page).to have_selector('select')
       end
     end
   end
@@ -58,12 +58,12 @@ describe "Resources" do
       end
 
       it "lists the new item" do
-        page.should have_content "My second event"
-        page.should have_content "03 Mar 2012"
+        expect(page).to have_content "My second event"
+        expect(page).to have_content "03 Mar 2012"
       end
 
       it "shows a success message" do
-        page.should have_content("Succesfully created")
+        expect(page).to have_content("Succesfully created")
       end
     end
 
@@ -75,15 +75,15 @@ describe "Resources" do
       end
 
       it "shows the form again" do
-        page.should have_selector "form input#event_name"
+        expect(page).to have_selector "form input#event_name"
       end
 
       it "lists invalid fields" do
-        page.should have_content("can't be blank")
+        expect(page).to have_content("can't be blank")
       end
 
       it "should not display success notice" do
-        page.should_not have_content("successfully created")
+        expect(page).not_to have_content("successfully created")
       end
     end
 
@@ -97,11 +97,11 @@ describe "Resources" do
     end
 
     it "shows the updated value" do
-      page.should have_content("New event name")
+      expect(page).to have_content("New event name")
     end
 
     it "shows a success message" do
-      page.should have_content("Succesfully updated")
+      expect(page).to have_content("Succesfully updated")
     end
   end
 
@@ -116,12 +116,12 @@ describe "Resources" do
     end
 
     it "shouldn't be on the list anymore" do
-      page.should have_content "My Event"
-      page.should_not have_content "My second Event"
+      expect(page).to have_content "My Event"
+      expect(page).not_to have_content "My second Event"
     end
 
     it "should display success message" do
-      page.should have_content("Succesfully removed")
+      expect(page).to have_content("Succesfully removed")
     end
   end
 

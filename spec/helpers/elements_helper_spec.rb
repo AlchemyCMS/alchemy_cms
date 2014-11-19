@@ -8,7 +8,7 @@ module Alchemy
 
     before do
       assign(:page, page)
-      Element.any_instance.stub(store_page: true)
+      allow_any_instance_of(Element).to receive(:store_page).and_return(true)
     end
 
     describe '#render_element' do
@@ -17,21 +17,21 @@ module Alchemy
       context 'with nil element' do
         let(:element) { nil }
         let(:part)    { :view }
-        it { should be_nil }
+        it { is_expected.to be_nil }
       end
 
       context 'with view as part given' do
         let(:part) {:view}
 
         it "renders the element's view partial" do
-          should have_selector("##{element.name}_#{element.id}")
+          is_expected.to have_selector("##{element.name}_#{element.id}")
         end
 
         context 'with element view partial not found' do
           let(:element) { build_stubbed(:element, name: 'not_present')}
 
           it "renders the view not found partial" do
-            should match(/Missing view for not_present element/)
+            is_expected.to match(/Missing view for not_present element/)
           end
         end
       end
@@ -40,7 +40,7 @@ module Alchemy
         let(:part) {:editor}
 
         it "renders the element's editor partial" do
-          helper.should_receive(:render_essence_editor_by_name)
+          expect(helper).to receive(:render_essence_editor_by_name)
           subject
         end
 
@@ -48,8 +48,8 @@ module Alchemy
           let(:element) { build_stubbed(:element, name: 'not_present')}
 
           it "renders the editor not found partial" do
-            should have_selector('div.error')
-            should have_content('Element editor partial not found')
+            is_expected.to have_selector('div.error')
+            is_expected.to have_content('Element editor partial not found')
           end
         end
       end
@@ -59,7 +59,7 @@ module Alchemy
       subject { helper.element_dom_id(element) }
 
       it "should render a unique dom id for element" do
-        should == "#{element.name}_#{element.id}"
+        is_expected.to eq("#{element.name}_#{element.id}")
       end
     end
 
@@ -73,12 +73,12 @@ module Alchemy
         let(:options) { {} }
 
         before do
-          page.should_receive(:find_elements).and_return(elements)
+          expect(page).to receive(:find_elements).and_return(elements)
         end
 
         it "should render all elements from page." do
-          should have_selector("##{element.name}_#{element.id}")
-          should have_selector("##{another_element.name}_#{another_element.id}")
+          is_expected.to have_selector("##{element.name}_#{element.id}")
+          is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
         end
       end
 
@@ -88,12 +88,12 @@ module Alchemy
           let(:options)      { {from_page: another_page} }
 
           before do
-            another_page.should_receive(:find_elements).and_return(elements)
+            expect(another_page).to receive(:find_elements).and_return(elements)
           end
 
           it "should render all elements from that page." do
-            should have_selector("##{element.name}_#{element.id}")
-            should have_selector("##{another_element.name}_#{another_element.id}")
+            is_expected.to have_selector("##{element.name}_#{element.id}")
+            is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
           end
         end
 
@@ -104,15 +104,15 @@ module Alchemy
           let(:options)         { {from_page: 'news'} }
 
           before do
-            Language.stub_chain(:current, :pages, :where).and_return(pages)
-            another_page.should_receive(:find_elements).and_return(other_elements)
+            allow(Language).to receive(:current).and_return double(pages: double(where: pages))
+            expect(another_page).to receive(:find_elements).and_return(other_elements)
           end
 
           context 'and one page can be found by page layout' do
             let(:pages) { [another_page] }
 
             it "it renders all elements from that page." do
-              should have_selector("##{another_element.name}_#{another_element.id}")
+              is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
             end
           end
 
@@ -120,12 +120,12 @@ module Alchemy
             let(:pages) { [page, another_page] }
 
             before do
-              page.should_receive(:find_elements).and_return(elements)
+              expect(page).to receive(:find_elements).and_return(elements)
             end
 
             it 'renders elements from these pages' do
-              should have_selector("##{element.name}_#{element.id}")
-              should have_selector("##{another_element.name}_#{another_element.id}")
+              is_expected.to have_selector("##{element.name}_#{element.id}")
+              is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
             end
           end
         end
@@ -133,7 +133,7 @@ module Alchemy
 
       context 'if page is nil' do
         let(:options) { {from_page: nil} }
-        it { should be_blank }
+        it { is_expected.to be_blank }
       end
 
       context 'with sort_by option given' do
@@ -141,12 +141,12 @@ module Alchemy
         let(:sorted_elements) { [another_element, element] }
 
         before do
-          elements.should_receive(:sort_by).and_return(sorted_elements)
-          page.should_receive(:find_elements).and_return(elements)
+          expect(elements).to receive(:sort_by).and_return(sorted_elements)
+          expect(page).to receive(:find_elements).and_return(elements)
         end
 
         it "renders the elements in the order of given content name" do
-          should_not be_blank
+          is_expected.not_to be_blank
         end
       end
 
@@ -159,12 +159,12 @@ module Alchemy
           let(:options) { {fallback: {for: 'higgs', with: 'news', from: 'news'}} }
 
           before do
-            Language.stub_chain(:current, :pages, :find_by).and_return(another_page)
-            another_page.stub_chain(:elements, :named).and_return(elements)
+            allow(Language).to receive(:current).and_return double(pages: double(find_by: another_page))
+            allow(another_page).to receive(:elements).and_return double(named: elements)
           end
 
           it "renders the fallback element" do
-            should have_selector("#news_#{another_element.id}")
+            is_expected.to have_selector("#news_#{another_element.id}")
           end
         end
 
@@ -172,11 +172,11 @@ module Alchemy
           let(:options) { {fallback: {for: 'higgs', with: 'news', from: another_page}} }
 
           before do
-            another_page.stub_chain(:elements, :named).and_return(elements)
+            allow(another_page).to receive(:elements).and_return double(named: elements)
           end
 
           it "renders the fallback element" do
-            should have_selector("#news_#{another_element.id}")
+            is_expected.to have_selector("#news_#{another_element.id}")
           end
         end
       end
@@ -185,11 +185,11 @@ module Alchemy
         let(:options) { {separator: '<hr>'} }
 
         before do
-          page.should_receive(:find_elements).and_return(elements)
+          expect(page).to receive(:find_elements).and_return(elements)
         end
 
         it "joins element partials with given string" do
-          should have_selector('hr')
+          is_expected.to have_selector('hr')
         end
       end
     end
@@ -201,13 +201,13 @@ module Alchemy
         before { assign(:preview_mode, true) }
 
         it "should return the data-alchemy-element HTML attribute for element" do
-          should == {:'data-alchemy-element' => element.id}
+          is_expected.to eq({:'data-alchemy-element' => element.id})
         end
       end
 
       context 'not in preview_mode' do
         it "should return an empty hash" do
-          should == {}
+          is_expected.to eq({})
         end
       end
     end
@@ -219,13 +219,13 @@ module Alchemy
         before { assign(:preview_mode, true) }
 
         it "should return the data-alchemy-element HTML attribute for element" do
-          should == " data-alchemy-element=\"#{element.id}\""
+          is_expected.to eq(" data-alchemy-element=\"#{element.id}\"")
         end
       end
 
       context 'not in preview_mode' do
         it "should not return the data-alchemy-element HTML attribute" do
-          should_not == " data-alchemy-element=\"#{element.id}\""
+          is_expected.not_to eq(" data-alchemy-element=\"#{element.id}\"")
         end
       end
     end
@@ -241,7 +241,7 @@ module Alchemy
 
         context "with no formatter lambda given" do
           it "should return tag list as HTML data attribute" do
-            should == " data-element-tags=\"peter lustig\""
+            is_expected.to eq(" data-element-tags=\"peter lustig\"")
           end
         end
 
@@ -249,13 +249,13 @@ module Alchemy
           let(:options) { {formatter: ->(tags) { tags.join ", " }} }
 
           it "should return a properly formatted HTML data attribute" do
-            should == " data-element-tags=\"peter, lustig\""
+            is_expected.to eq(" data-element-tags=\"peter, lustig\"")
           end
         end
       end
 
       context "element not having tags" do
-        it { should be_blank }
+        it { is_expected.to be_blank }
       end
     end
 
@@ -271,13 +271,13 @@ module Alchemy
       let(:elements)     { [element_1, element_2, element_3] }
 
       before do
-        element_1.should_receive(:content_by_name).and_return(ingredient_b)
-        element_2.should_receive(:content_by_name).and_return(ingredient_c)
-        element_3.should_receive(:content_by_name).and_return(ingredient_a)
+        expect(element_1).to receive(:content_by_name).and_return(ingredient_b)
+        expect(element_2).to receive(:content_by_name).and_return(ingredient_c)
+        expect(element_3).to receive(:content_by_name).and_return(ingredient_a)
       end
 
       it "sorts the elements by content" do
-        should eq [element_3, element_1, element_2]
+        is_expected.to eq [element_3, element_1, element_2]
       end
 
       context 'with element not having this content' do
@@ -285,11 +285,11 @@ module Alchemy
         let(:elements)  { [element_1, element_2, element_3, element_4] }
 
         before do
-          element_4.should_receive(:content_by_name).and_return(nil)
+          expect(element_4).to receive(:content_by_name).and_return(nil)
         end
 
         it "puts it at first place" do
-          should eq [element_4, element_3, element_1, element_2]
+          is_expected.to eq [element_4, element_3, element_1, element_2]
         end
       end
 
@@ -298,11 +298,11 @@ module Alchemy
         let(:elements)  { [element_1, element_2, element_3, element_4] }
 
         before do
-          element_4.should_receive(:content_by_name).and_return(double(ingredient: nil))
+          expect(element_4).to receive(:content_by_name).and_return(double(ingredient: nil))
         end
 
         it "puts it at first place" do
-          should eq [element_4, element_3, element_1, element_2]
+          is_expected.to eq [element_4, element_3, element_1, element_2]
         end
       end
     end

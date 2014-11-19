@@ -20,7 +20,7 @@ TINYMCE
 
   context 'with asset host' do
     before do
-      ActionController::Base.config.stub(asset_host_set?: true)
+      expect(ActionController::Base.config).to receive(:asset_host_set?).and_return(true)
     end
 
     it 'base path should be set to tinymce asset folder' do

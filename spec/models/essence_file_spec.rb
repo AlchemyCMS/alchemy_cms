@@ -15,26 +15,26 @@ module Alchemy
       subject { essence.attachment_url }
 
       it "returns the download attachment url." do
-        should match(/\/attachment\/#{attachment.id}\/download\/#{attachment.file_name}/)
+        is_expected.to match(/\/attachment\/#{attachment.id}\/download\/#{attachment.file_name}/)
       end
 
       context 'without attachment assigned' do
         let(:attachment) { nil }
 
-        it { should be_nil }
+        it { is_expected.to be_nil }
       end
     end
 
     describe '#preview_text' do
 
       it "returns the attachment's name as preview text" do
-        essence.preview_text.should == attachment.name
+        expect(essence.preview_text).to eq(attachment.name)
       end
 
       context "with no attachment assigned" do
         it "returns empty string" do
           essence.attachment = nil
-          essence.preview_text.should == ''
+          expect(essence.preview_text).to eq('')
         end
       end
     end

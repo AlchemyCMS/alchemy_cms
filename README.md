@@ -275,7 +275,7 @@ $ bundle exec rake
 
 **A note about RSpec version:**
 
-Alchemy specs are currently written **in RSpec 2** ([Use this branch](https://github.com/magiclabs/alchemy_cms/tree/rspec-3) if you want to help us upgrade to RSpec 3).
+Alchemy specs are written **in RSpec 3**. Please **do not use depricated RSpec 2.x syntax**. Thanks
 
 
 Getting Help

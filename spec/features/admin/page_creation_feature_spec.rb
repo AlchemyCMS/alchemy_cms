@@ -13,7 +13,9 @@ module Alchemy
       end
 
       context "when having a Page in the clipboard" do
-        before { Page.stub all_from_clipboard_for_select: [build_stubbed(:page)] }
+        before do
+          expect(Page).to receive(:all_from_clipboard_for_select).and_return [build_stubbed(:page)]
+        end
 
         it "contains tabs for creating a new page and pasting from clipboard" do
           visit new_admin_page_path
@@ -45,6 +47,5 @@ module Alchemy
         end
       end
     end
-
   end
 end

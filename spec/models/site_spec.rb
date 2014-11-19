@@ -9,15 +9,15 @@ module Alchemy
       subject { FactoryGirl.build(:site) }
 
       it 'should start out with no languages' do
-        subject.languages.should be_empty
+        expect(subject.languages).to be_empty
       end
 
       context 'when being saved' do
         context 'when it has no languages yet' do
           it 'should automatically create a default language' do
             subject.save!
-            subject.languages.length.should == 1 # using count returns 0, although the resulting array has a length of 1 / O.o
-            subject.languages.first.should be_default
+            expect(subject.languages.length).to eq(1) # using count returns 0, although the resulting array has a length of 1 / O.o
+            expect(subject.languages.first).to be_default
           end
         end
 
@@ -26,7 +26,7 @@ module Alchemy
           before { subject.languages << language }
 
           it 'should not create any additional languages' do
-            subject.languages.should == [language]
+            expect(subject.languages).to eq([language])
 
             expect { subject.save! }.
               to_not change(subject, "languages")
@@ -46,32 +46,32 @@ module Alchemy
 
       context "when the request doesn't match anything" do
         let(:host) { 'oogabooga.com' }
-        it { should == default_site }
+        it { is_expected.to eq(default_site) }
       end
 
       context "when the request matches a site's host field" do
         let(:host) { 'www.magiclabs.de' }
-        it { should == magiclabs_site }
+        it { is_expected.to eq(magiclabs_site) }
       end
 
       context "when the request matches one of the site's aliases" do
         let(:host) { 'magiclabs.com' }
-        it { should == magiclabs_site }
+        it { is_expected.to eq(magiclabs_site) }
       end
 
       context "when the request matches the site's first alias" do
         let(:host) { 'magiclabs.de' }
-        it { should == magiclabs_site }
+        it { is_expected.to eq(magiclabs_site) }
       end
 
       context "when the request matches the site's last alias" do
         let(:host) { 'www.magiclabs.com' }
-        it { should == magiclabs_site }
+        it { is_expected.to eq(magiclabs_site) }
       end
 
       context "when the request host matches only part of a site's aliases" do
         let(:host) { 'labs.com' }
-        it { should == default_site }
+        it { is_expected.to eq(default_site) }
       end
     end
 
@@ -79,19 +79,19 @@ module Alchemy
       context 'when set to a site' do
         before { Site.current = site }
         specify "Language should be scoped to that site" do
-          Language.all.to_sql.should match(/alchemy_languages.+site_id.+#{site.id}/)
+          expect(Language.all.to_sql).to match(/alchemy_languages.+site_id.+#{site.id}/)
         end
       end
 
       context 'when set to nil' do
         before { Site.current = nil }
         specify "Language should not be scoped to a site" do
-          Language.all.to_sql.should_not match(/alchemy_languages.+site_id.+#{site.id}/)
+          expect(Language.all.to_sql).not_to match(/alchemy_languages.+site_id.+#{site.id}/)
         end
 
         it "should return default site" do
-          Site.current.should_not be_nil
-          Site.current.should == Site.default
+          expect(Site.current).not_to be_nil
+          expect(Site.current).to eq(Site.default)
         end
       end
     end
@@ -104,17 +104,17 @@ module Alchemy
 
       context "with file present" do
         let(:definitions) { [{'name' => 'lala'}] }
-        before { YAML.should_receive(:load_file).and_return(definitions) }
-        it { should == definitions }
+        before { expect(YAML).to receive(:load_file).and_return(definitions) }
+        it { is_expected.to eq(definitions) }
       end
 
       context "with empty file" do
-        before { YAML.should_receive(:load_file).and_return(false) }
-        it { should == [] }
+        before { expect(YAML).to receive(:load_file).and_return(false) }
+        it { is_expected.to eq([]) }
       end
 
       context "with no file present" do
-        it { should == [] }
+        it { is_expected.to eq([]) }
       end
     end
 
@@ -126,17 +126,17 @@ module Alchemy
 
       context "with file present" do
         let(:definitions) { [{'name' => 'lala'}] }
-        before { YAML.should_receive(:load_file).and_return(definitions) }
-        it { should == definitions }
+        before { expect(YAML).to receive(:load_file).and_return(definitions) }
+        it { is_expected.to eq(definitions) }
       end
 
       context "with empty file" do
-        before { YAML.should_receive(:load_file).and_return(false) }
-        it { should == [] }
+        before { expect(YAML).to receive(:load_file).and_return(false) }
+        it { is_expected.to eq([]) }
       end
 
       context "with no file present" do
-        it { should == [] }
+        it { is_expected.to eq([]) }
       end
     end
 
@@ -148,17 +148,17 @@ module Alchemy
 
       context "with file present" do
         let(:definitions) { [{'name' => 'lala'}] }
-        before { YAML.should_receive(:load_file).and_return(definitions) }
-        it { should == definitions }
+        before { expect(YAML).to receive(:load_file).and_return(definitions) }
+        it { is_expected.to eq(definitions) }
       end
 
       context "with empty file" do
-        before { YAML.should_receive(:load_file).and_return(false) }
-        it { should == [] }
+        before { expect(YAML).to receive(:load_file).and_return(false) }
+        it { is_expected.to eq([]) }
       end
 
       context "with no file present" do
-        it { should == [] }
+        it { is_expected.to eq([]) }
       end
     end
 
@@ -170,17 +170,17 @@ module Alchemy
 
       context "with file present" do
         let(:definitions) { [{'name' => 'lala'}] }
-        before { YAML.should_receive(:load_file).and_return(definitions) }
-        it { should == definitions }
+        before { expect(YAML).to receive(:load_file).and_return(definitions) }
+        it { is_expected.to eq(definitions) }
       end
 
       context "with empty file" do
-        before { YAML.should_receive(:load_file).and_return(false) }
-        it { should == [] }
+        before { expect(YAML).to receive(:load_file).and_return(false) }
+        it { is_expected.to eq([]) }
       end
 
       context "with no file present" do
-        it { should == [] }
+        it { is_expected.to eq([]) }
       end
     end
 
@@ -189,17 +189,17 @@ module Alchemy
 
       context 'when Site.current is set to the same site' do
         before { Site.current = site }
-        it { should be_true }
+        it { is_expected.to be_truthy }
       end
 
       context 'when Site.current is set to nil' do
         before { Site.current = nil }
-        it { should be_false }
+        it { is_expected.to be_falsey }
       end
 
       context 'when Site.current is set to a different site' do
         before { Site.current = another_site }
-        it { should be_false }
+        it { is_expected.to be_falsey }
       end
     end
 
@@ -207,7 +207,7 @@ module Alchemy
       let(:site) {Site.new(name: 'My custom site')}
 
       it "returns the path to partial" do
-        site.to_partial_path.should == "alchemy/site_layouts/my_custom_site"
+        expect(site.to_partial_path).to eq("alchemy/site_layouts/my_custom_site")
       end
     end
 
@@ -215,7 +215,7 @@ module Alchemy
       let(:site) {Site.new(name: 'My custom site')}
 
       it "returns the name for layout partial" do
-        site.layout_partial_name.should == "my_custom_site"
+        expect(site.layout_partial_name).to eq("my_custom_site")
       end
     end
 
@@ -224,8 +224,8 @@ module Alchemy
       let(:definitions) { [{'name' => 'my_custom_site', 'page_layouts' => %w(standard)}] }
 
       it "returns layout definition from site_layouts.yml file" do
-        Site.stub(:layout_definitions).and_return(definitions)
-        site.layout_definition.should == definitions.first
+        allow(Site).to receive(:layout_definitions).and_return(definitions)
+        expect(site.layout_definition).to eq(definitions.first)
       end
     end
 

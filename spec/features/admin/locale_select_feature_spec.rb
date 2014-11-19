@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Locale select' do
   let(:a_page) { FactoryGirl.create(:public_page) }
   before do
-    Alchemy::I18n.stub(translation_files: ['alchemy.kl.yml', 'alchemy.jp.yml', 'alchemy.cz.yml'])
+    allow(Alchemy::I18n).to receive(:translation_files).and_return ['alchemy.kl.yml', 'alchemy.jp.yml', 'alchemy.cz.yml']
     authorize_as_admin
   end
 
@@ -13,7 +13,10 @@ describe 'Locale select' do
   end
 
   context 'when having available_locales set for Alchemy::I18n' do
-    before { Alchemy::I18n.stub(available_locales: [:jp, :cz]) }
+    before do
+      allow(Alchemy::I18n).to receive(:available_locales).and_return [:jp, :cz]
+    end
+
     it "provides only that locales" do
       visit admin_dashboard_path
       expect(page).to have_select('change_locale', options: ['Jp', 'Cz'])

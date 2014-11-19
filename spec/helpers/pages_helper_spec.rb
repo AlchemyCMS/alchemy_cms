@@ -21,14 +21,14 @@ module Alchemy
     let(:klingonian_public_page)    { FactoryGirl.create(:public_page, :language => klingonian, :parent_id => klingonian_language_root.id) }
 
     before do
-      Config.stub(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
+      allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
       @root_page = language_root # We need this instance variable in the helpers
     end
 
     describe "#render_page_layout" do
       it "should render the current page layout" do
         @page = public_page
-        helper.render_page_layout.should have_selector('div#content')
+        expect(helper.render_page_layout).to have_selector('div#content')
       end
     end
 
@@ -36,14 +36,14 @@ module Alchemy
       let(:default_site) { Alchemy::Site.default }
 
       it "renders the partial for current site" do
-        helper.should_receive(:current_alchemy_site).and_return(default_site)
-        helper.should_receive(:render).with(default_site)
+        expect(helper).to receive(:current_alchemy_site).and_return(default_site)
+        expect(helper).to receive(:render).with(default_site)
         helper.render_site_layout
       end
 
       context "with missing partial" do
         it "returns empty string and logges warning" do
-          helper.should_receive(:current_alchemy_site).twice.and_return(default_site)
+          expect(helper).to receive(:current_alchemy_site).twice.and_return(default_site)
           expect(helper.render_site_layout).to eq("")
         end
       end
@@ -54,31 +54,31 @@ module Alchemy
 
       before do
         visible_page
-        helper.stub(:current_ability).and_return(Alchemy::Permissions.new(user))
+        allow(helper).to receive(:current_ability).and_return(Alchemy::Permissions.new(user))
       end
 
       it "should render only visible pages" do
         not_visible_page = FactoryGirl.create(:page, visible: false)
-        helper.render_navigation.should_not match(/#{not_visible_page.name}/)
+        expect(helper.render_navigation).not_to match(/#{not_visible_page.name}/)
       end
 
       it "should render visible unpublished pages" do
         unpublished_visible_page = FactoryGirl.create(:page, visible: true, public: false)
-        helper.render_navigation.should match(/#{unpublished_visible_page.name}/)
+        expect(helper.render_navigation).to match(/#{unpublished_visible_page.name}/)
       end
 
       context "not in multi_language mode" do
-        before { helper.stub(:multi_language?).and_return(false) }
+        before { allow(helper).to receive(:multi_language?).and_return(false) }
 
         it "should render the page navigation" do
-          helper.render_navigation.should have_selector("ul.navigation.level_1 li.#{visible_page.urlname} a[href=\"/#{visible_page.urlname}\"]")
+          expect(helper.render_navigation).to have_selector("ul.navigation.level_1 li.#{visible_page.urlname} a[href=\"/#{visible_page.urlname}\"]")
         end
 
         context "as guest user" do
           before { restricted_page }
 
           it "should not render restricted pages" do
-            helper.render_navigation.should_not have_selector("ul.navigation.level_1 li a[href=\"/#{restricted_page.urlname}\"]")
+            expect(helper.render_navigation).not_to have_selector("ul.navigation.level_1 li a[href=\"/#{restricted_page.urlname}\"]")
           end
         end
 
@@ -89,30 +89,30 @@ module Alchemy
 
           it "should render also restricted pages" do
             not_restricted_page = FactoryGirl.create(:public_page, restricted: false, visible: true)
-            helper.render_navigation.should match(/#{restricted_page.name}/)
-            helper.render_navigation.should match(/#{not_restricted_page.name}/)
+            expect(helper.render_navigation).to match(/#{restricted_page.name}/)
+            expect(helper.render_navigation).to match(/#{not_restricted_page.name}/)
           end
         end
 
         context "with enabled url nesting" do
           before do
-            helper.stub(:configuration).and_return(true)
+            allow(helper).to receive(:configuration).and_return(true)
             level_3_page
           end
 
           it "should render nested page links" do
-            helper.render_navigation(:all_sub_menues => true).should have_selector("ul li a[href=\"/#{level_3_page.urlname}\"]")
+            expect(helper.render_navigation(:all_sub_menues => true)).to have_selector("ul li a[href=\"/#{level_3_page.urlname}\"]")
           end
         end
       end
 
       context "with id and class in the html options" do
         it "should append id to the generated ul tag" do
-          helper.render_navigation({}, {:id => 'foobar_id'}).should have_selector("ul[id='foobar_id']")
+          expect(helper.render_navigation({}, {:id => 'foobar_id'})).to have_selector("ul[id='foobar_id']")
         end
 
         it "should replace the default css class from the generated ul tag" do
-          helper.render_navigation({}, {:class => 'foobar_class'}).should have_selector("ul[class='foobar_class']")
+          expect(helper.render_navigation({}, {:class => 'foobar_class'})).to have_selector("ul[class='foobar_class']")
         end
       end
 
@@ -121,8 +121,8 @@ module Alchemy
 
         it "shows only pages up to this depth" do
           output = helper.render_navigation(deepness: 3, all_sub_menues: true)
-          output.should have_selector("ul li a[href=\"/#{level_2_page.urlname}\"]")
-          output.should_not have_selector("ul li a[href=\"/#{level_3_page.urlname}\"]")
+          expect(output).to have_selector("ul li a[href=\"/#{level_2_page.urlname}\"]")
+          expect(output).not_to have_selector("ul li a[href=\"/#{level_3_page.urlname}\"]")
         end
       end
 
@@ -133,13 +133,13 @@ module Alchemy
           before { FactoryGirl.create(:public_page, visible: true) }
 
           it "should render the given spacer" do
-            helper.render_navigation(spacer: '•').should match(/•/)
+            expect(helper.render_navigation(spacer: '•')).to match(/•/)
           end
         end
 
         context "only one page in current level" do
           it "should not render the spacer" do
-            helper.render_navigation(spacer: '•').should_not match(/•/)
+            expect(helper.render_navigation(spacer: '•')).not_to match(/•/)
           end
         end
       end
@@ -150,17 +150,17 @@ module Alchemy
         context "passing a page object" do
           it "should render the pages underneath the given one" do
             output = helper.render_navigation(from_page: visible_page)
-            output.should_not have_selector("ul li a[href=\"/#{visible_page.urlname}\"]")
-            output.should have_selector("ul li a[href=\"/#{level_2_page.urlname}\"]")
+            expect(output).not_to have_selector("ul li a[href=\"/#{visible_page.urlname}\"]")
+            expect(output).to have_selector("ul li a[href=\"/#{level_2_page.urlname}\"]")
           end
         end
 
         context "passing a page_layout" do
           it "should render the pages underneath the page with the given page_layout" do
-            helper.stub(:page_or_find).with('contact').and_return(visible_page)
+            allow(helper).to receive(:page_or_find).with('contact').and_return(visible_page)
             output = helper.render_navigation(from_page: 'contact')
-            output.should_not have_selector("ul li a[href=\"/#{visible_page.urlname}\"]")
-            output.should have_selector("ul li a[href=\"/#{level_2_page.urlname}\"]")
+            expect(output).not_to have_selector("ul li a[href=\"/#{visible_page.urlname}\"]")
+            expect(output).to have_selector("ul li a[href=\"/#{level_2_page.urlname}\"]")
           end
         end
 
@@ -176,23 +176,23 @@ module Alchemy
       let(:user) { nil }
 
       before {
-        helper.stub(:multi_language?).and_return(false)
-        helper.stub(:current_ability).and_return(Alchemy::Permissions.new(user))
+        allow(helper).to receive(:multi_language?).and_return(false)
+        allow(helper).to receive(:current_ability).and_return(Alchemy::Permissions.new(user))
       }
 
       it "should return nil if no @page is set" do
-        helper.render_subnavigation.should be(nil)
+        expect(helper.render_subnavigation).to be(nil)
       end
 
       context "showing a page with level 2" do
         before { @page = level_2_page }
 
         it "should render the navigation from current page" do
-          helper.render_subnavigation.should have_selector("ul > li > a[href='/#{level_2_page.urlname}']")
+          expect(helper.render_subnavigation).to have_selector("ul > li > a[href='/#{level_2_page.urlname}']")
         end
 
         it "should set current page active" do
-          helper.render_subnavigation.should have_selector("a[href='/#{level_2_page.urlname}'].active")
+          expect(helper.render_subnavigation).to have_selector("a[href='/#{level_2_page.urlname}'].active")
         end
       end
 
@@ -200,11 +200,11 @@ module Alchemy
         before { @page = level_3_page }
 
         it "should render the navigation from current pages parent" do
-          helper.render_subnavigation.should have_selector("ul > li > ul > li > a[href='/#{level_3_page.urlname}']")
+          expect(helper.render_subnavigation).to have_selector("ul > li > ul > li > a[href='/#{level_3_page.urlname}']")
         end
 
         it "should set current page active" do
-          helper.render_subnavigation.should have_selector("a[href='/#{level_3_page.urlname}'].active")
+          expect(helper.render_subnavigation).to have_selector("a[href='/#{level_3_page.urlname}'].active")
         end
       end
 
@@ -212,16 +212,16 @@ module Alchemy
         before { @page = level_4_page }
 
         it "should render the navigation from current pages parents parent" do
-          helper.render_subnavigation.should have_selector("ul > li > ul > li > ul > li > a[href='/#{level_4_page.urlname}']")
+          expect(helper.render_subnavigation).to have_selector("ul > li > ul > li > ul > li > a[href='/#{level_4_page.urlname}']")
         end
 
         it "should set current page active" do
-          helper.render_subnavigation.should have_selector("a[href='/#{level_4_page.urlname}'].active")
+          expect(helper.render_subnavigation).to have_selector("a[href='/#{level_4_page.urlname}'].active")
         end
 
         context "beginning with level 3" do
           it "should render the navigation beginning from its parent" do
-            helper.render_subnavigation(:level => 3).should have_selector("ul > li > ul > li > a[href='/#{level_4_page.urlname}']")
+            expect(helper.render_subnavigation(:level => 3)).to have_selector("ul > li > ul > li > a[href='/#{level_4_page.urlname}']")
           end
         end
       end
@@ -233,23 +233,23 @@ module Alchemy
       let(:user)   { nil }
 
       before do
-        helper.stub(:multi_language?).and_return(false)
-        helper.stub(:current_ability).and_return(Alchemy::Permissions.new(user))
+        allow(helper).to receive(:multi_language?).and_return(false)
+        allow(helper).to receive(:current_ability).and_return(Alchemy::Permissions.new(user))
       end
 
       it "should render a breadcrumb to current page" do
-        helper.render_breadcrumb(page: page).should have_selector(".active.last[contains('#{page.name}')]")
+        expect(helper.render_breadcrumb(page: page)).to have_selector(".active.last[contains('#{page.name}')]")
       end
 
       context "with options[:separator] given" do
         it "should render a breadcrumb with an alternative separator" do
-          helper.render_breadcrumb(page: page, separator: '<span>###</span>').should have_selector('span[contains("###")]')
+          expect(helper.render_breadcrumb(page: page, separator: '<span>###</span>')).to have_selector('span[contains("###")]')
         end
       end
 
       context "with options[:reverse] set to true" do
         it "should render a breadcrumb in reversed order" do
-          helper.render_breadcrumb(page: page, reverse: true).should have_selector('.active.first[contains("A Public Page")]')
+          expect(helper.render_breadcrumb(page: page, reverse: true)).to have_selector('.active.first[contains("A Public Page")]')
         end
       end
 
@@ -258,39 +258,39 @@ module Alchemy
 
         it "should render a breadcrumb of restricted pages only" do
           page.update_attributes!(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')
-          helper.render_breadcrumb(page: page, restricted_only: true).strip.should match(/^(<span(.[^>]+)>)A restricted Public Page/)
+          expect(helper.render_breadcrumb(page: page, restricted_only: true).strip).to match(/^(<span(.[^>]+)>)A restricted Public Page/)
         end
       end
 
       it "should render a breadcrumb of visible pages only" do
         page.update_attributes!(visible: false, urlname: 'a-invisible-page', name: 'A Invisible Page', title: 'A Invisible Page')
-        helper.render_breadcrumb(page: page).should_not match(/A Invisible Page/)
+        expect(helper.render_breadcrumb(page: page)).not_to match(/A Invisible Page/)
       end
 
       it "should render a breadcrumb of visible and unpublished pages" do
         page.update_attributes!(public: false, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
-        helper.render_breadcrumb(page: page).should match(/A Unpublic Page/)
+        expect(helper.render_breadcrumb(page: page)).to match(/A Unpublic Page/)
       end
 
       context "with options[:without]" do
         it "should render a breadcrumb without this page" do
           page.update_attributes!(urlname: 'not-me', name: 'Not Me', title: 'Not Me')
-          helper.render_breadcrumb(page: page, without: page).should_not match(/Not Me/)
+          expect(helper.render_breadcrumb(page: page, without: page)).not_to match(/Not Me/)
         end
       end
 
       context "with options[:without] as array" do
         it "should render a breadcrumb without these pages." do
           page.update_attributes!(urlname: 'not-me', name: 'Not Me', title: 'Not Me')
-          helper.render_breadcrumb(page: page, without: [page]).should_not match(/Not Me/)
+          expect(helper.render_breadcrumb(page: page, without: [page])).not_to match(/Not Me/)
         end
       end
     end
 
     describe "#render_meta_data" do
       context "@page is not set" do
-        it "should reutrn nil" do
-          expect(helper.render_meta_data.should).to eq(nil)
+        it "should return nil" do
+          expect(helper.render_meta_data).to eq(nil)
         end
       end
 
@@ -300,11 +300,11 @@ module Alchemy
         subject { helper.render_meta_data }
 
         it "should render meta keywords of current page" do
-          should match /meta name="keywords" content="keyword1, keyword2"/
+          is_expected.to match /meta name="keywords" content="keyword1, keyword2"/
         end
 
         it "should render meta description 'blah blah' of current page" do
-          should match /meta name="description" content="blah blah"/
+          is_expected.to match /meta name="description" content="blah blah"/
         end
       end
     end
@@ -314,11 +314,11 @@ module Alchemy
       before { helper.instance_variable_set('@page', page) }
 
       it "should render a title tag for current page" do
-        helper.render_title_tag.should match /<title>A Public Page<\/title>/
+        expect(helper.render_title_tag).to match /<title>A Public Page<\/title>/
       end
 
       it "should render a title tag for current page with a prefix and a separator" do
-        helper.render_title_tag(prefix: 'Peters Petshop', separator: ' ### ').should match /<title>Peters Petshop ### A Public Page<\/title>/
+        expect(helper.render_title_tag(prefix: 'Peters Petshop', separator: ' ### ')).to match /<title>Peters Petshop ### A Public Page<\/title>/
       end
     end
 
@@ -384,7 +384,7 @@ module Alchemy
           context "with options[:show_title]" do
             context "set to true" do
               it "should render the language links with titles" do
-                helper.stub(:_t).and_return("my title")
+                allow(helper).to receive(:_t).and_return("my title")
                 expect(helper.language_links(show_title: true)).to have_selector('a[title="my title"]')
               end
             end

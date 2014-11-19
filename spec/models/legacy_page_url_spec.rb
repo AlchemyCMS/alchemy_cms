@@ -12,10 +12,10 @@ describe Alchemy::LegacyPageUrl do
   end
 
   it 'is only valid with correct urlname format' do
-    valid_page_url.should be_valid
+    expect(valid_page_url).to be_valid
   end
 
   it 'is also valid with get parameters in urlname' do
-    page_url_with_parameters.should be_valid
+    expect(page_url_with_parameters).to be_valid
   end
 end

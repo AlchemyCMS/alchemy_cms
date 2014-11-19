@@ -10,11 +10,11 @@ module Alchemy
       let(:new_tag) { Tag.new(name: 'green') }
 
       before do
-        picture.stub(:tag_list).and_return(['red'])
-        element.stub(:tag_list).and_return(['red'])
-        picture.stub(:save).and_return(true)
-        element.stub(:save).and_return(true)
-        tag.stub(:taggings).and_return([
+        allow(picture).to receive(:tag_list).and_return(['red'])
+        allow(element).to receive(:tag_list).and_return(['red'])
+        allow(picture).to receive(:save).and_return(true)
+        allow(element).to receive(:save).and_return(true)
+        allow(tag).to receive(:taggings).and_return([
           mock_model(ActsAsTaggableOn::Tagging, taggable: picture),
           mock_model(ActsAsTaggableOn::Tagging, taggable: element)
         ])
@@ -22,8 +22,8 @@ module Alchemy
 
       it "should replace given tag with new one on all models tagged with tag" do
         Tag.replace(tag, new_tag)
-        picture.tag_list.should eq(['green'])
-        element.tag_list.should eq(['green'])
+        expect(picture.tag_list).to eq(['green'])
+        expect(element.tag_list).to eq(['green'])
       end
     end
 

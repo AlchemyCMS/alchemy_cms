@@ -6,31 +6,31 @@ describe Alchemy::MountPoint do
   describe '.get' do
 
     it "returns the path of alchemy's mount point" do
-      Alchemy::MountPoint.stub(:mount_point).and_return('/cms')
-      Alchemy::MountPoint.get.should == '/cms'
+      allow(Alchemy::MountPoint).to receive(:mount_point).and_return('/cms')
+      expect(Alchemy::MountPoint.get).to eq('/cms')
     end
 
     it "removes the leading slash if root mount point" do
-      Alchemy::MountPoint.stub(:mount_point).and_return('/')
-      Alchemy::MountPoint.get.should == ''
+      allow(Alchemy::MountPoint).to receive(:mount_point).and_return('/')
+      expect(Alchemy::MountPoint.get).to eq('')
     end
 
     context "with remove_leading_slash_if_blank set to false" do
       before {
-        Alchemy::MountPoint.stub(:mount_point).and_return('/')
+        allow(Alchemy::MountPoint).to receive(:mount_point).and_return('/')
       }
 
       it "does not remove the leading white slash of path" do
-        Alchemy::MountPoint.get(false).should == '/'
+        expect(Alchemy::MountPoint.get(false)).to eq('/')
       end
 
       context "and with mount point not root" do
         before {
-          Alchemy::MountPoint.stub(:mount_point).and_return('/cms')
+          allow(Alchemy::MountPoint).to receive(:mount_point).and_return('/cms')
         }
 
         it "does not remove the leading white slash of path" do
-          Alchemy::MountPoint.get(false).should == '/cms'
+          expect(Alchemy::MountPoint.get(false)).to eq('/cms')
         end
       end
     end
@@ -38,23 +38,23 @@ describe Alchemy::MountPoint do
 
   describe '.routes' do
     it "returns the routes object from alchemy engine" do
-      Alchemy::MountPoint.routes.should be_instance_of(ActionDispatch::Journey::Route)
+      expect(Alchemy::MountPoint.routes).to be_instance_of(ActionDispatch::Journey::Route)
     end
   end
 
   describe '.mount_point' do
     it 'returns the raw mount point path from routes' do
-      Alchemy::MountPoint.stub(:routes).and_return(OpenStruct.new(path: OpenStruct.new(spec: '/cms')))
-      Alchemy::MountPoint.mount_point.should == '/cms'
+      allow(Alchemy::MountPoint).to receive(:routes).and_return(OpenStruct.new(path: OpenStruct.new(spec: '/cms')))
+      expect(Alchemy::MountPoint.mount_point).to eq('/cms')
     end
 
     context "Alchemy routes could not be found" do
       before {
-        Alchemy::MountPoint.stub(:routes).and_return(nil)
+        allow(Alchemy::MountPoint).to receive(:routes).and_return(nil)
       }
 
       it "falls back to root path" do
-        Alchemy::MountPoint.mount_point.should == '/'
+        expect(Alchemy::MountPoint.mount_point).to eq('/')
       end
     end
   end

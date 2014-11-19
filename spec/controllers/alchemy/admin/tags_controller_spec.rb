@@ -11,7 +11,7 @@ module Alchemy
 
           it "does not create tag" do
             post :create, tag: {name: ''}
-            response.body.should have_content("can't be blank")
+            expect(response.body).to have_content("can't be blank")
           end
         end
 
@@ -20,7 +20,7 @@ module Alchemy
             expect {
               post :create, tag: {name: 'Foo'}
             }.to change { ActsAsTaggableOn::Tag.count }.by(1)
-            response.should redirect_to admin_tags_path
+            expect(response).to redirect_to admin_tags_path
           end
         end
       end
@@ -33,8 +33,8 @@ module Alchemy
 
         it "loads alls tags but not the one editing" do
           get :edit, id: tag.id
-          assigns(:tags).should include(another_tag)
-          assigns(:tags).should_not include(tag)
+          expect(assigns(:tags)).to include(another_tag)
+          expect(assigns(:tags)).not_to include(tag)
         end
       end
 
@@ -43,7 +43,7 @@ module Alchemy
 
         it "changes tags name" do
           put :update, id: tag.id, tag: {name: 'Foo'}
-          response.should redirect_to(admin_tags_path)
+          expect(response).to redirect_to(admin_tags_path)
           expect(tag.reload.name).to eq('Foo')
         end
 
@@ -51,10 +51,10 @@ module Alchemy
           let(:another_tag) { ActsAsTaggableOn::Tag.create(name: 'Hutzl') }
 
           it "replaces tag with other tag" do
-            Alchemy::Tag.should_receive(:replace)
-            ActsAsTaggableOn::Tag.any_instance.should_receive(:destroy)
+            expect(Alchemy::Tag).to receive(:replace)
+            expect_any_instance_of(ActsAsTaggableOn::Tag).to receive(:destroy)
             put :update, id: tag.id, tag: {merge_to: another_tag.id}
-            response.should redirect_to(admin_tags_path)
+            expect(response).to redirect_to(admin_tags_path)
           end
         end
       end

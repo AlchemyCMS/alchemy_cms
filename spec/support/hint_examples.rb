@@ -6,22 +6,22 @@ module Alchemy
     describe '#hint' do
       context 'with hint as text' do
         before do
-          subject.stub(definition: {'hint' => 'The hint'})
+          expect(subject).to receive(:definition).and_return({'hint' => 'The hint'})
         end
 
         it "returns the hint" do
-          subject.hint.should == 'The hint'
+          expect(subject.hint).to eq('The hint')
         end
       end
 
       context 'with hint set to true' do
         before do
-          subject.stub(definition: {'hint' => true})
-          I18n.stub(t: 'The hint')
+          expect(subject).to receive(:definition).and_return({'hint' => true})
+          expect(I18n).to receive(:t).and_return('The hint')
         end
 
         it "returns the hint from translation" do
-          subject.hint.should == 'The hint'
+          expect(subject.hint).to eq('The hint')
         end
       end
     end
