@@ -3,8 +3,11 @@ source "https://rubygems.org"
 gemspec
 
 gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
-gem 'pry'
-gem 'spring-commands-rspec'
+
+unless ENV['CI']
+  gem 'pry'
+  gem 'spring-commands-rspec'
+end
 
 group :test do
   gem 'sqlite3' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
