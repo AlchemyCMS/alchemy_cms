@@ -6,7 +6,9 @@ module Alchemy
     let(:element) { build_stubbed(:element, page: page) }
 
     describe '#show' do
-      before { Element.stub(find: element) }
+      before do
+        expect(Element).to receive(:find).and_return(element)
+      end
 
       it "responds to json" do
         get :show, id: element.id, format: :json

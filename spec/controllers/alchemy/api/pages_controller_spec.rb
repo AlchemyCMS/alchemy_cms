@@ -6,7 +6,9 @@ module Alchemy
 
     describe '#show' do
       context 'for existing page' do
-        before { Page.stub(find_by: page) }
+        before do
+          expect(Page).to receive(:find_by).and_return(page)
+        end
 
         it "responds to json" do
           get :show, urlname: page.urlname, format: :json
