@@ -3,7 +3,7 @@ require 'spec_helper'
 module Alchemy
   describe API::ContentsController do
     let(:page)    { build_stubbed(:page) }
-    let(:element) { build_stubbed(:element, page: page) }
+    let(:element) { build_stubbed(:element, page: page, position: 1) }
     let(:content) { build_stubbed(:content, element: element) }
 
     describe '#show' do

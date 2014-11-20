@@ -36,8 +36,12 @@ module Alchemy
     module GuestUser
       def alchemy_guest_user_rules
         can([:show, :download], Alchemy::Attachment) { |a| !a.restricted? }
-        can :show,              Alchemy::Content,    element: { public: true, page: { restricted: false } }
-        can :show,              Alchemy::Element,    public: true, page: { restricted: false }
+        can :show,              Alchemy::Content,    Alchemy::Content.available.not_restricted do |c|
+          c.public? && !c.restricted? && !c.trashed?
+        end
+        can :show,              Alchemy::Element,    Alchemy::Element.available.not_restricted do |e|
+          e.public? && !e.restricted? && !e.trashed?
+        end
         can :show,              Alchemy::Page,       restricted: false, public: true
         can :see,               Alchemy::Page,       restricted: false, visible: true
         can([:show, :download], Alchemy::Picture)    { |p| !p.restricted? }
@@ -56,8 +60,12 @@ module Alchemy
 
         # Resources
         can [:show, :download], Alchemy::Attachment
-        can :show,              Alchemy::Content,   element: { public: true, page: { restricted: true } }
-        can :show,              Alchemy::Element,   public: true, page: { restricted: true }
+        can :show,              Alchemy::Content,   Alchemy::Content.available do |c|
+          c.public? && !c.trashed?
+        end
+        can :show,              Alchemy::Element,   Alchemy::Element.available do |e|
+          e.public? && !e.trashed?
+        end
         can :show,              Alchemy::Page,      public: true
         can :see,               Alchemy::Page,      restricted: true, visible: true
         can [:show, :download], Alchemy::Picture

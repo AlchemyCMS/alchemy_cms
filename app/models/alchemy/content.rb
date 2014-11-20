@@ -51,6 +51,14 @@ module Alchemy
     scope :essence_selects,   -> { where(essence_type: "Alchemy::EssenceSelect") }
     scope :essence_texts,     -> { where(essence_type: "Alchemy::EssenceText") }
     scope :named,             ->(name) { where(name: name) }
+    scope :available,         -> { published.not_trashed }
+    scope :published,         -> { joins(:element).merge(Element.published) }
+    scope :not_trashed,       -> { joins(:element).merge(Element.not_trashed) }
+    scope :not_restricted,    -> { joins(:element).merge(Element.not_restricted) }
+
+    delegate :restricted?, to: :element, allow_nil: true
+    delegate :trashed?,    to: :element, allow_nil: true
+    delegate :public?,     to: :element, allow_nil: true
 
     class << self
       # Returns the translated label for a content name.
