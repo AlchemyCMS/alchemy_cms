@@ -165,7 +165,9 @@ module Alchemy
       end
 
       context 'with image settings given at content' do
-        before { content.stub(settings: {size: '150x150', format: 'png', select_values: [1,2,3]}) }
+        before do
+          expect(content).to receive(:settings).and_return({size: '150x150', format: 'png', select_values: [1,2,3]})
+        end
 
         it "returns the url with cropping and resizing options" do
           expect(essence.serialized_ingredient).to eq("/pictures/#{picture.id}/show/150x150/#{picture.urlname}.png?sh=#{picture.security_token}")
