@@ -11,9 +11,6 @@ gem 'coveralls', require: false
 
 gem 'database_cleaner'
 
-# We need 5.0.beta because latest compass-rails needs Sass 3.3
-gem 'sass-rails', github: 'rails/sass-rails'
-
 group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
