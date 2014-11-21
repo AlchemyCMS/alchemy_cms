@@ -17,8 +17,8 @@ describe Alchemy::Permissions do
   let(:visible_restricted_page) { build_stubbed(:page, visible: true, restricted: true) }
   let(:published_element)       { mock_model(Alchemy::Element, restricted?: false, public?: true, trashed?: false) }
   let(:restricted_element)      { mock_model(Alchemy::Element, restricted?: true, public?: true, trashed?: false) }
-  let(:published_content)       { mock_model(Alchemy::Content, trashed?: false, public?: true, restricted?: false) }
-  let(:restricted_content)      { mock_model(Alchemy::Content, trashed?: false, public?: true, restricted?: true) }
+  let(:published_content)       { mock_model(Alchemy::Content, restricted?: false, public?: true, trashed?: false) }
+  let(:restricted_content)      { mock_model(Alchemy::Content, restricted?: true, public?: true, trashed?: false) }
 
   context "A guest user" do
     let(:user) { nil }
@@ -61,6 +61,8 @@ describe Alchemy::Permissions do
     it "can only see public not restricted contents" do
       is_expected.to be_able_to(:show, published_content)
       is_expected.not_to be_able_to(:show, restricted_content)
+      is_expected.to be_able_to(:index, published_content)
+      is_expected.not_to be_able_to(:index, restricted_content)
     end
   end
 
@@ -109,6 +111,8 @@ describe Alchemy::Permissions do
     it "can see public restricted contents" do
       is_expected.to be_able_to(:show, published_content)
       is_expected.to be_able_to(:show, restricted_content)
+      is_expected.to be_able_to(:index, published_content)
+      is_expected.to be_able_to(:index, restricted_content)
     end
   end
 

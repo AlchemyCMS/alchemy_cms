@@ -37,8 +37,11 @@ Alchemy::Engine.routes.draw do
   resources :contents, :only => :show
 
   namespace :api, defaults: {format: 'json'} do
-    resources :contents, only: [:show]
-    resources :elements, only: [:show]
+    resources :contents, only: [:index, :show]
+    resources :elements, only: [:show] do
+      get '/contents' => 'contents#index', as: 'contents'
+      get '/contents/:name' => 'contents#show', as: 'content'
+    end
     get '/pages/*urlname(.:format)' => 'pages#show', as: 'page'
     get '/admin/pages/:id(.:format)' => 'pages#show', as: 'preview_page'
   end
