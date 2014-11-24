@@ -65,7 +65,7 @@ module Alchemy
 
       context 'requesting an unknown page' do
         it "responds with 404" do
-          get :show, urlname: 1234, format: :json
+          get :show, urlname: 'not-existing', format: :json
           expect(response.content_type).to eq('application/json')
           expect(response.status).to eq(404)
           expect(response.body).to eq('{"error":"Record not found"}')
