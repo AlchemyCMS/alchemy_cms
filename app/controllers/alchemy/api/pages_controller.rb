@@ -1,8 +1,21 @@
 module Alchemy
   class API::PagesController < API::BaseController
+    before_action :load_page, only: [:show]
 
-    before_action :load_page
+    # Returns all pages as json object
+    #
+    def index
+      @pages = Page.accessible_by(current_ability, :index)
+      if params[:page_layout]
+        @pages = @pages.where(page_layout: params[:page_layout])
+      end
+      respond_with @pages
+    end
 
+    # Returns a json object for page
+    #
+    # You can either load the page via id or its urlname
+    #
     def show
       authorize! :show, @page
       respond_with @page

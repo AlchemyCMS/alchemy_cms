@@ -2,10 +2,34 @@ require 'spec_helper'
 
 module Alchemy
   describe API::PagesController do
-    let(:page) { build_stubbed(:public_page) }
+
+    describe '#index' do
+      let!(:page)    { create(:public_page) }
+
+      it "returns all public pages as json objects" do
+        get :index, format: :json
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq('application/json')
+        expect(response.body).to_not eq('{"pages":[]}')
+      end
+
+      context 'with page_layout' do
+        let!(:other_page) { create(:public_page, page_layout: 'news') }
+
+        it "returns only pages from this element" do
+          get :index, page_layout: 'news', format: :json
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+          expect(response.body).to_not eq('{"pages":[]}')
+          expect(response.body).to_not match(/page_layout\"\:#{page.page_layout}/)
+        end
+      end
+    end
 
     describe '#show' do
       context 'for existing page' do
+        let(:page) { build_stubbed(:public_page) }
+
         before do
           expect(Page).to receive(:find_by).and_return(page)
         end
