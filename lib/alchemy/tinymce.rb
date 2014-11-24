@@ -17,6 +17,7 @@ module Alchemy
       fix_list_elements: true,
       convert_urls: false,
       entity_encoding: 'raw',
+      paste_as_text: true,
       element_format: 'html'
     }
 
