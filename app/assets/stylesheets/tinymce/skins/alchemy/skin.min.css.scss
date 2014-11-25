@@ -99,6 +99,7 @@ div.mce-edit-area {
   background: #FFF;
   filter: none;
   border-top: 0;
+  @include border-radius($default-border-radius);
 }
 
 .mce-statusbar {
@@ -247,6 +248,7 @@ div.mce-tinymce-inline {
 .mce-panel {
   border: 0 solid $default-border-color;
   background-color: $medium-gray;
+  @include box-sizing(border-box);
 }
 
 .mce-toolbar-grp {

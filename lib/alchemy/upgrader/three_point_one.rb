@@ -17,6 +17,15 @@ If you have a custom TinyMCE configuration you have to enable this by adding
 
 into you custom TinyMCE configuration.
 
+
+TinyMCE toolbar config has changed
+----------------------------------
+
+The 'toolbar' configuration now takes an array of toolbar rows, instead of
+using 'toolbarN' syntax. Please update your TinyMCE configuration.
+
+Visit http://www.tinymce.com/wiki.php/Configuration:toolbar for more information.
+
 NOTE
       todo notice, 'Alchemy v3.1 changes'
     end
