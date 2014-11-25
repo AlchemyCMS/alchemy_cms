@@ -42,6 +42,15 @@ module Alchemy
       end
     end
 
+    context "requested for json format" do
+      it "should render json response but warns about deprecation" do
+        expect(ActiveSupport::Deprecation).to receive(:warn)
+        get :show, urlname: default_language_root.urlname, format: :json
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq('application/json')
+      end
+    end
+
     describe "Layout rendering" do
       context "with ajax request" do
         it "should not render a layout" do

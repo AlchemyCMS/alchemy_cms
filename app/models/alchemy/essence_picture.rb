@@ -79,6 +79,11 @@ module Alchemy
       point_and_mask_to_points(crop_from, crop_size)
     end
 
+    # Returns a serialized ingredient value for json api
+    def serialized_ingredient
+      picture_url(content.settings)
+    end
+
     private
 
     def fix_crop_values

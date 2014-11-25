@@ -85,9 +85,6 @@ module Alchemy
 
     config.after_initialize do
       require_relative './userstamp'
-    end
-
-    config.to_prepare do
       # In order to have Alchemy's helpers and basic controller methods
       # available in the host app, we patch the ApplicationController.
       ApplicationController.send(:include, Alchemy::ControllerActions)

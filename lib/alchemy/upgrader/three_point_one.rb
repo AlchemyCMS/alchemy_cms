@@ -5,6 +5,15 @@ module Alchemy
     def alchemy_3_1_todos
       notice = <<-NOTE
 
+JSON API moved into '/api' namespace
+------------------------------------
+
+The JSON API now lives under /api and not as additional format to default controllers.
+Also the serialization changed into more useful payload.
+
+Please upgrade your API calls to use the new /api namespace.
+
+
 TinyMCE default paste behavior changed
 --------------------------------------
 

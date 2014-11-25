@@ -8,20 +8,13 @@ module Alchemy
       :element_id,
       :position,
       :created_at,
-      :updated_at
+      :updated_at,
+      :settings
 
     has_one :essence, polymorphic: true
 
     def ingredient
-      case object.essence_type
-      when 'Alchemy::EssencePicture'
-        object.essence.picture_url
-      when 'Alchemy::EssenceFile'
-        object.essence.attachment_url
-      else
-        object.ingredient
-      end
+      object.serialized_ingredient
     end
-
   end
 end

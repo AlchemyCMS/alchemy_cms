@@ -15,8 +15,10 @@ describe Alchemy::Permissions do
   let(:not_visible_page)        { build_stubbed(:public_page, restricted: false, visible: false) }
   let(:restricted_page)         { build_stubbed(:public_page, public: true, restricted: true) }
   let(:visible_restricted_page) { build_stubbed(:page, visible: true, restricted: true) }
-  let(:published_element)       { mock_model(Alchemy::Element, public: true, page: public_page) }
-  let(:restricted_element)      { mock_model(Alchemy::Element, public: true, page: restricted_page) }
+  let(:published_element)       { mock_model(Alchemy::Element, restricted?: false, public?: true, trashed?: false) }
+  let(:restricted_element)      { mock_model(Alchemy::Element, restricted?: true, public?: true, trashed?: false) }
+  let(:published_content)       { mock_model(Alchemy::Content, restricted?: false, public?: true, trashed?: false) }
+  let(:restricted_content)      { mock_model(Alchemy::Content, restricted?: true, public?: true, trashed?: false) }
 
   context "A guest user" do
     let(:user) { nil }
@@ -44,6 +46,8 @@ describe Alchemy::Permissions do
     it "can only visit not restricted pages" do
       is_expected.to be_able_to(:show, public_page)
       is_expected.not_to be_able_to(:show, restricted_page)
+      is_expected.to be_able_to(:index, public_page)
+      is_expected.not_to be_able_to(:index, restricted_page)
     end
 
     it "can only see visible not restricted pages" do
@@ -54,6 +58,15 @@ describe Alchemy::Permissions do
     it "can only see public not restricted elements" do
       is_expected.to be_able_to(:show, published_element)
       is_expected.not_to be_able_to(:show, restricted_element)
+      is_expected.to be_able_to(:index, published_element)
+      is_expected.not_to be_able_to(:index, restricted_element)
+    end
+
+    it "can only see public not restricted contents" do
+      is_expected.to be_able_to(:show, published_content)
+      is_expected.not_to be_able_to(:show, restricted_content)
+      is_expected.to be_able_to(:index, published_content)
+      is_expected.not_to be_able_to(:index, restricted_content)
     end
   end
 
@@ -83,6 +96,8 @@ describe Alchemy::Permissions do
     it "can visit restricted pages" do
       is_expected.to be_able_to(:show, public_page)
       is_expected.to be_able_to(:show, restricted_page)
+      is_expected.to be_able_to(:index, public_page)
+      is_expected.to be_able_to(:index, restricted_page)
     end
 
     it "can see visible restricted pages" do
@@ -97,6 +112,15 @@ describe Alchemy::Permissions do
     it "can see public restricted elements" do
       is_expected.to be_able_to(:show, published_element)
       is_expected.to be_able_to(:show, restricted_element)
+      is_expected.to be_able_to(:index, published_element)
+      is_expected.to be_able_to(:index, restricted_element)
+    end
+
+    it "can see public restricted contents" do
+      is_expected.to be_able_to(:show, published_content)
+      is_expected.to be_able_to(:show, restricted_content)
+      is_expected.to be_able_to(:index, published_content)
+      is_expected.to be_able_to(:index, restricted_content)
     end
   end
 
