@@ -211,7 +211,7 @@ h5. Example of an element definition with essence validations:
     validate: [format: 'email']
   - name: homepage
     type: EssenceText
-    validate: [format: !ruby/regexp '^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$']
+    validate: [format: !ruby/regexp '/^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/']
 </yaml>
 
 The email content is being validated against the predefined 'email' matcher in the config.yml. The homepage content is matched against the given regexp.
