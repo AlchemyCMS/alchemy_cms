@@ -52,7 +52,7 @@ module Alchemy
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
     scope :not_trashed,       -> { where(Element.arel_table[:position].not_eq(nil)) }
     scope :published,         -> { where(public: true) }
-    scope :not_restricted,    -> { joins(:page).where('alchemy_pages' => {restricted: false}) }
+    scope :not_restricted,    -> { joins(:page).merge(Page.not_restricted) }
     scope :available,         -> { published.not_trashed }
     scope :named,             ->(names) { where(name: names) }
     scope :excluded,          ->(names) { where(arel_table[:name].not_in(names)) }

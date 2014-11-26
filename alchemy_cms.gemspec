@@ -28,10 +28,10 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'kaminari',                         '~> 0.15'
   gem.add_runtime_dependency 'acts_as_list',                     '~> 0.3.0'
   gem.add_runtime_dependency 'magiclabs-userstamp',              '~> 2.1.0'
-  gem.add_runtime_dependency 'simple_form',                      '~> 3.0.1'
+  gem.add_runtime_dependency 'simple_form',                      '~> 3.0'
   gem.add_runtime_dependency 'jquery-rails',                     '~> 3.1.0'
   gem.add_runtime_dependency 'jquery-ui-rails',                  '~> 5.0.0'
-  gem.add_runtime_dependency 'sass-rails',                       '>= 4.0.2'
+  gem.add_runtime_dependency 'sass-rails',                       '~> 4.0.5'
   gem.add_runtime_dependency 'uglifier',                         '>= 1.3.0'
   gem.add_runtime_dependency 'coffee-rails',                     '~> 4.0.0'
   gem.add_runtime_dependency 'compass-rails',                    '>= 1.1.2'
@@ -44,7 +44,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'active_model_serializers',         '>= 0.8.1', '< 0.10.0'
   gem.add_runtime_dependency 'request_store',                    '~> 1.1.0'
 
-  gem.add_development_dependency 'rspec-rails', '~> 2.0'
+  gem.add_development_dependency 'rspec-rails', '~> 3.0'
   gem.add_development_dependency 'capybara'
   gem.add_development_dependency 'factory_girl_rails'
 

@@ -8,6 +8,7 @@ module Alchemy
     end
 
     def show
+      ActiveSupport::Deprecation.warn('The Alchemy contents json API moved to `api` namespace. Please use `/api/contents` for json requests instead.')
       respond_to do |format|
         format.json { render json: @content }
       end

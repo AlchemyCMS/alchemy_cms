@@ -31,6 +31,7 @@ module Alchemy
     before_save :replace_newlines
 
     include Alchemy::Picture::Transformations
+
     # The url to show the picture.
     #
     # Takes all values like +name+ and crop sizes (+crop_from+, +crop_size+ from the build in graphical image cropper)
@@ -76,6 +77,11 @@ module Alchemy
       crop_size = sizes_from_string(read_attribute(:crop_size))
 
       point_and_mask_to_points(crop_from, crop_size)
+    end
+
+    # Returns a serialized ingredient value for json api
+    def serialized_ingredient
+      picture_url(content.settings)
     end
 
     private

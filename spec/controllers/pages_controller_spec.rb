@@ -7,16 +7,16 @@ module Alchemy
     let(:default_language_root) { FactoryGirl.create(:language_root_page, language: default_language, name: 'Home', public: true) }
     let(:page) { FactoryGirl.create(:public_page, parent_id: default_language_root.id, page_layout: 'news', name: 'News', urlname: 'news', language: default_language, do_not_autogenerate: false) }
 
-    before { controller.stub(:signup_required?).and_return(false) }
+    before { allow(controller).to receive(:signup_required?).and_return(false) }
 
     context 'an author' do
       let(:unpublic) { create(:page, parent: default_language_root) }
 
-      before { controller.stub(current_alchemy_user: author_user) }
+      before { allow(controller).to receive(:current_alchemy_user).and_return(author_user) }
 
       it "should not be able to visit a unpublic page" do
         get :show, urlname: unpublic.urlname
-        response.status.should == 404
+        expect(response.status).to eq(404)
       end
     end
 
@@ -25,20 +25,29 @@ module Alchemy
 
       it "should render a rss feed" do
         get :show, urlname: page.urlname, format: :rss
-        response.content_type.should == 'application/rss+xml'
+        expect(response.content_type).to eq('application/rss+xml')
       end
 
       it "should include content" do
         page.elements.first.content_by_name('news_headline').essence.update_attributes({body: 'Peters Petshop'})
         get :show, urlname: 'news', format: :rss
-        response.body.should match /Peters Petshop/
+        expect(response.body).to match /Peters Petshop/
       end
     end
 
     context "requested for a page that does not contain a feed" do
       it "should render xml 404 error" do
         get :show, urlname: default_language_root.urlname, format: :rss
-        response.status.should == 404
+        expect(response.status).to eq(404)
+      end
+    end
+
+    context "requested for json format" do
+      it "should render json response but warns about deprecation" do
+        expect(ActiveSupport::Deprecation).to receive(:warn)
+        get :show, urlname: default_language_root.urlname, format: :json
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq('application/json')
       end
     end
 
@@ -46,8 +55,8 @@ module Alchemy
       context "with ajax request" do
         it "should not render a layout" do
           xhr :get, :show, urlname: page.urlname
-          response.should render_template(:show)
-          response.should_not render_template(layout: 'application')
+          expect(response).to render_template(:show)
+          expect(response).not_to render_template(layout: 'application')
         end
       end
     end
@@ -60,24 +69,24 @@ module Alchemy
       let(:product)  { FactoryGirl.create(:public_page, name: "Screwdriver", urlname: 'screwdriver', parent: products, language: default_language, do_not_autogenerate: false, visible: true) }
 
       before do
-        Alchemy.user_class.stub(:admins).and_return(OpenStruct.new(count: 1))
-        Config.stub(:get) { |arg| arg == :url_nesting ? true : false }
+        allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
+        allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : false }
         product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       end
 
       context "with correct levelnames in params" do
         it "should show the requested page" do
           get :show, {urlname: 'catalog/products/screwdriver'}
-          response.status.should == 200
-          response.body.should have_content("screwdriver")
+          expect(response.status).to eq(200)
+          expect(response.body).to have_content("screwdriver")
         end
       end
 
       context "with incorrect levelnames in params" do
         it "should render a 404 page" do
           get :show, {urlname: 'catalog/faqs/screwdriver'}
-          response.status.should == 404
-          response.body.should have_content('The page you were looking for doesn\'t exist')
+          expect(response.status).to eq(404)
+          expect(response.body).to have_content('The page you were looking for doesn\'t exist')
         end
       end
     end
@@ -85,8 +94,8 @@ module Alchemy
     context "when a non-existent page is requested" do
       it "should rescue a RoutingError with rendering a 404 page." do
         get :show, {urlname: 'doesntexist'}
-        response.status.should == 404
-        response.body.should have_content('The page you were looking for doesn\'t exist')
+        expect(response.status).to eq(404)
+        expect(response.body).to have_content('The page you were looking for doesn\'t exist')
       end
     end
 
@@ -105,9 +114,9 @@ module Alchemy
           end
 
           it "should redirect to first public child" do
-            controller.should_receive(:redirect_page)
+            expect(controller).to receive(:redirect_page)
             controller.send(:redirect_to_public_child)
-            controller.instance_variable_get('@page').should == public_page
+            expect(controller.instance_variable_get('@page')).to eq(public_page)
           end
         end
 
@@ -137,24 +146,24 @@ module Alchemy
 
         it "should redirect permanently to page that belongs to legacy page url." do
           get :show, urlname: legacy_url.urlname
-          response.status.should == 301
-          response.should redirect_to("/#{page.urlname}")
+          expect(response.status).to eq(301)
+          expect(response).to redirect_to("/#{page.urlname}")
         end
 
         it "should only redirect to legacy url if no page was found for urlname" do
           get :show, urlname: legacy_page.urlname
-          response.status.should == 200
-          response.should_not redirect_to("/#{page.urlname}")
+          expect(response.status).to eq(200)
+          expect(response).not_to redirect_to("/#{page.urlname}")
         end
 
         it "should redirect to last page that has that legacy url" do
           get :show, urlname: legacy_url2.urlname
-          response.should redirect_to("/#{second_page.urlname}")
+          expect(response).to redirect_to("/#{second_page.urlname}")
         end
 
         it "should redirect even if the url has get parameters" do
           get :show, urlname: legacy_url3.urlname
-          response.should redirect_to("/#{second_page.urlname}")
+          expect(response).to redirect_to("/#{second_page.urlname}")
         end
       end
     end
@@ -162,18 +171,18 @@ module Alchemy
     describe "while redirecting" do
       context "not in multi language mode" do
         before do
-          PagesController.any_instance.stub(:multi_language?).and_return(false)
+          allow_any_instance_of(PagesController).to receive(:multi_language?).and_return(false)
         end
 
         context "with no lang parameter present" do
           it "should store defaults language id in the session." do
             get :show, urlname: 'a-public-page'
-            controller.session[:alchemy_language_id].should == Language.default.id
+            expect(controller.session[:alchemy_language_id]).to eq(Language.default.id)
           end
 
           it "should store default language as class var." do
             get :show, urlname: 'a-public-page'
-            Language.current.should == Language.default
+            expect(Language.current).to eq(Language.default)
           end
         end
       end
@@ -183,7 +192,7 @@ module Alchemy
       subject { controller.send(:page_etag) }
 
       before do
-        page.stub(cache_key: 'aaa')
+        expect(page).to receive(:cache_key).and_return('aaa')
         controller.instance_variable_set('@page', page)
       end
 

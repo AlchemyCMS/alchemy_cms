@@ -5,8 +5,8 @@ describe 'alchemy/essences/_essence_boolean_editor' do
   let(:content) { Alchemy::Content.new(essence: essence, name: 'Boolean') }
 
   before do
-    view.stub(:render_content_name).and_return(content.name)
-    view.stub(:delete_content_link).and_return('')
+    allow(view).to receive(:render_content_name).and_return(content.name)
+    allow(view).to receive(:delete_content_link).and_return('')
   end
 
   it "renders a checkbox" do
@@ -22,7 +22,7 @@ describe 'alchemy/essences/_essence_boolean_editor' do
   end
 
   context 'with default value given in content settings' do
-    before { content.stub(settings: {default_value: true}) }
+    before { allow(content).to receive(:settings).and_return({default_value: true}) }
 
     it "checks the checkbox" do
       render partial: "alchemy/essences/essence_boolean_editor", locals: {content: content}

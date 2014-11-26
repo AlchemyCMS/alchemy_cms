@@ -27,6 +27,11 @@ module Alchemy
       attachment.name.to_s[0..max-1]
     end
 
+    # Returns a serialized ingredient value for json api
+    def serialized_ingredient
+      attachment_url
+    end
+
     private
 
     def routes

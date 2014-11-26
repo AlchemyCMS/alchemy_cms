@@ -26,7 +26,10 @@ module Alchemy
               render xml: {error: 'Not found'}, status: 404
             end
           end
-          format.json { render json: @page }
+          format.json do
+            ActiveSupport::Deprecation.warn('The Alchemy pages json API moved to `api` namespace. Please use `/api/pages` for json requests instead.')
+            render json: @page
+          end
         end
       end
     end

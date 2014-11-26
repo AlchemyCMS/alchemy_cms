@@ -5,7 +5,7 @@ end
 
 describe EventsController do
   it "should include ResourcesHelper" do
-    controller.respond_to?(:resource_window_size).should be_true
+    expect(controller.respond_to?(:resource_window_size)).to be_truthy
   end
 
   describe '#index' do
@@ -20,8 +20,8 @@ describe EventsController do
 
     it "returns all records" do
       get :index, params
-      assigns(:events).should include(peter)
-      assigns(:events).should include(lustig)
+      expect(assigns(:events)).to include(peter)
+      expect(assigns(:events)).to include(lustig)
     end
 
     context 'with search query given' do
@@ -29,8 +29,8 @@ describe EventsController do
 
       it "returns only matching records" do
         get :index, params
-        assigns(:events).should include(peter)
-        assigns(:events).should_not include(lustig)
+        expect(assigns(:events)).to include(peter)
+        expect(assigns(:events)).not_to include(lustig)
       end
     end
   end

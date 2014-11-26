@@ -3,7 +3,7 @@ require 'spec_helper'
 include Alchemy::ElementsHelper
 
 module Alchemy
-  describe ElementsBlockHelper do
+  describe 'ElementsBlockHelper' do
     let(:page)    { FactoryGirl.create(:public_page) }
     let(:element) { FactoryGirl.create(:element, page: page, tag_list: 'foo, bar') }
     let(:expected_wrapper_tag) { "div.#{element.name}##{element_dom_id(element)}" }
@@ -15,35 +15,35 @@ module Alchemy
       end
 
       it "should wrap its output in a DOM element" do
-        element_view_for(element).
-          should have_css expected_wrapper_tag
+        expect(element_view_for(element)).
+          to have_css expected_wrapper_tag
       end
 
       it "should change the wrapping DOM element according to parameters" do
-        element_view_for(element, tag: 'span', class: 'some_class', id: 'some_id').
-          should have_css 'span.some_class#some_id'
+        expect(element_view_for(element, tag: 'span', class: 'some_class', id: 'some_id')).
+          to have_css 'span.some_class#some_id'
       end
 
       it "should include the element's tags in the wrapper DOM element" do
-        element_view_for(element).
-          should have_css "#{expected_wrapper_tag}[data-element-tags='foo bar']"
+        expect(element_view_for(element)).
+          to have_css "#{expected_wrapper_tag}[data-element-tags='foo bar']"
       end
 
       it "should use the provided tags formatter to format tags" do
-        element_view_for(element, tags_formatter: lambda { |tags| tags.join ", " }).
-          should have_css "#{expected_wrapper_tag}[data-element-tags='foo, bar']"
+        expect(element_view_for(element, tags_formatter: lambda { |tags| tags.join ", " })).
+          to have_css "#{expected_wrapper_tag}[data-element-tags='foo, bar']"
       end
 
       it "should include the contents rendered by the block passed to it" do
-        element_view_for(element) do
+        expect(element_view_for(element) do
           'view'
-        end.should have_content 'view'
+        end).to have_content 'view'
       end
 
       context "when/if preview mode is not active" do
         subject { element_view_for(element) }
-        it { should have_css expected_wrapper_tag }
-        it { should_not have_css "#{expected_wrapper_tag}[data-alchemy-element]" }
+        it { is_expected.to have_css expected_wrapper_tag }
+        it { is_expected.not_to have_css "#{expected_wrapper_tag}[data-alchemy-element]" }
       end
 
       context "when/if preview mode is active" do
@@ -53,7 +53,7 @@ module Alchemy
         end
 
         subject { helper.element_view_for(element) }
-        it { should have_css "#{expected_wrapper_tag}[data-alchemy-element='#{element.id}']" }
+        it { is_expected.to have_css "#{expected_wrapper_tag}[data-alchemy-element='#{element.id}']" }
       end
     end
 
@@ -64,13 +64,13 @@ module Alchemy
       end
 
       it "should not add any extra elements" do
-        element_editor_for(element) do
+        expect(element_editor_for(element) do
           'view'
-        end.should == 'view'
+        end).to eq('view')
       end
     end
 
-    describe ElementsBlockHelper::ElementViewHelper do
+    describe 'ElementsBlockHelper::ElementViewHelper' do
       let(:scope) { double }
       subject { ElementsBlockHelper::ElementViewHelper.new(scope, element: element) }
 
@@ -80,35 +80,35 @@ module Alchemy
 
       describe '#render' do
         it 'should delegate to the render_essence_view_by_name helper' do
-          scope.should_receive(:render_essence_view_by_name).with(element, "title", foo: 'bar')
+          expect(scope).to receive(:render_essence_view_by_name).with(element, "title", foo: 'bar')
           subject.render :title, foo: 'bar'
         end
       end
 
       describe '#content' do
         it "should delegate to the element's #content_by_name method" do
-          element.should_receive(:content_by_name).with(:title)
+          expect(element).to receive(:content_by_name).with(:title)
           subject.content :title
         end
       end
 
       describe '#ingredient' do
         it "should delegate to the element's #ingredient method" do
-          element.should_receive(:ingredient).with(:title)
+          expect(element).to receive(:ingredient).with(:title)
           subject.ingredient :title
         end
       end
 
       describe '#has?' do
         it "should delegate to the element's #has_ingredient? method" do
-          element.should_receive(:has_ingredient?).with(:title)
+          expect(element).to receive(:has_ingredient?).with(:title)
           subject.has? :title
         end
       end
 
       describe '#essence' do
         it "should provide the specified content essence" do
-          subject.should_receive(:content).with(:title).
+          expect(subject).to receive(:content).with(:title).
             and_return(mock_model('Content', :essence => mock_model('EssenceText')))
 
           subject.essence :title
@@ -116,7 +116,7 @@ module Alchemy
       end
     end
 
-    describe ElementsBlockHelper::ElementEditorHelper do
+    describe 'ElementsBlockHelper::ElementEditorHelper' do
       let(:scope) { double }
       subject { ElementsBlockHelper::ElementEditorHelper.new(scope, element: element) }
 
@@ -126,7 +126,7 @@ module Alchemy
 
       describe '#edit' do
         it "should delegate to the render_essence_editor_by_name helper" do
-          scope.should_receive(:render_essence_editor_by_name).with(element, "title", foo: 'bar')
+          expect(scope).to receive(:render_essence_editor_by_name).with(element, "title", foo: 'bar')
           subject.edit :title, foo: 'bar'
         end
       end

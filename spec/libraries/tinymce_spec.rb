@@ -7,7 +7,7 @@ module Alchemy
       subject { Tinymce.init }
 
       it "returns the default config" do
-        should eq(Tinymce.class_variable_get('@@init'))
+        is_expected.to eq(Tinymce.class_variable_get('@@init'))
       end
     end
 
@@ -16,7 +16,7 @@ module Alchemy
 
       it "merges the default config with given config" do
         Tinymce.init = another_config
-        Tinymce.init.should include(another_config)
+        expect(Tinymce.init).to include(another_config)
       end
     end
 
@@ -28,26 +28,26 @@ module Alchemy
         subject { Tinymce.custom_config_contents }
 
         before do
-          Element.stub(:definitions).and_return([element_definition])
+          allow(Element).to receive(:definitions).and_return([element_definition])
           # Preventing memoization
           Tinymce.class_variable_set('@@custom_config_contents', nil)
         end
 
         it "returns an array of content definitions that contain custom tinymce config and element name" do
-          should be_an(Array)
-          should include({'element' => element_definition['name']}.merge(content_definition))
+          is_expected.to be_an(Array)
+          is_expected.to include({'element' => element_definition['name']}.merge(content_definition))
         end
 
         context 'with no contents having custom tinymce config' do
           let(:content_definition) { {'name' => 'text'} }
-          it { should eq([]) }
+          it { is_expected.to eq([]) }
         end
 
         context 'with element definition having nil as contents value' do
           let(:element_definition) { {'name' => 'element', 'contents' => nil} }
 
           it "returns empty array" do
-            should eq([])
+            is_expected.to eq([])
           end
         end
 
@@ -57,7 +57,7 @@ module Alchemy
 
           it "only returns custom tinymce config for elements of that page" do
             expect(page).to receive(:element_definitions).and_return([element_definition])
-            should include({'element' => element_definition['name']}.merge(content_definition))
+            is_expected.to include({'element' => element_definition['name']}.merge(content_definition))
           end
         end
       end

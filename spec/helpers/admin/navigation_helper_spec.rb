@@ -49,95 +49,98 @@ describe Alchemy::Admin::NavigationHelper do
 
   describe '#alchemy_main_navigation_entry' do
     before do
-      helper.stub(:url_for_module).and_return('')
-      helper.stub(:_t).and_return(alchemy_module['name'])
+      allow(helper).to receive(:url_for_module).and_return('')
+      allow(helper).to receive(:_t).and_return(alchemy_module['name'])
     end
 
     context "with permission" do
       before do
-        helper.stub(:can?).and_return(true)
+        expect(helper).to receive(:can?).and_return(true)
       end
 
       it "renders the main navigation entry partial" do
-        helper.alchemy_main_navigation_entry(alchemy_module).should match /<a.+class="main_navi_entry/
+        expect(helper.alchemy_main_navigation_entry(alchemy_module)).to match /<a.+class="main_navi_entry/
       end
     end
 
     context "without permission" do
       before do
-        helper.stub(:can?).and_return(false)
+        allow(helper).to receive(:can?).and_return(false)
       end
 
       it "returns empty string" do
-        helper.alchemy_main_navigation_entry(alchemy_module).should be_empty
+        expect(helper.alchemy_main_navigation_entry(alchemy_module)).to be_empty
       end
     end
   end
 
   describe '#admin_subnavigation' do
     before do
-      helper.stub(:current_alchemy_module).and_return(alchemy_module)
-      helper.stub(:url_for_module_sub_navigation).and_return('')
-      helper.stub(:_t).and_return(alchemy_module['name'])
+      allow(helper).to receive(:current_alchemy_module).and_return(alchemy_module)
+      allow(helper).to receive(:url_for_module_sub_navigation).and_return('')
+      allow(helper).to receive(:_t).and_return(alchemy_module['name'])
     end
 
     context "with permission" do
       before do
-        helper.stub(:can?).and_return(true)
+        expect(helper).to receive(:can?).and_return(true)
       end
 
       it "renders the sub navigation for current module" do
-        helper.admin_subnavigation.should match /<div.+class="subnavi_tab/
+        expect(helper.admin_subnavigation).to match /<div.+class="subnavi_tab/
       end
     end
 
     context "without permission" do
       before do
-        helper.stub(:can?).and_return(false)
+        expect(helper).to receive(:can?).and_return(false)
       end
 
       it "renders the sub navigation for current module" do
-        helper.admin_subnavigation.should be_empty
+        expect(helper.admin_subnavigation).to be_empty
       end
     end
 
     context "without a module present" do
       before do
-        helper.stub(:current_alchemy_module).and_return(nil)
+        expect(helper).to receive(:current_alchemy_module).and_return(nil)
       end
 
       it "returns nil" do
-        helper.admin_subnavigation.should be_nil
+        expect(helper.admin_subnavigation).to be_nil
       end
     end
   end
 
   describe '#navigate_module' do
     it "returns array with symbolized action and controller name" do
-      helper.navigate_module(navigation).should == [:index, :alchemy_admin_dashboard]
+      expect(helper.navigate_module(navigation)).to eq([:index, :alchemy_admin_dashboard])
     end
 
     it "stringifies keys" do
-      helper.navigate_module({action: 'index', controller: 'alchemy/admin/pictures'}).should == [:index, :alchemy_admin_pictures]
+      expect(helper.navigate_module({action: 'index', controller: 'alchemy/admin/pictures'})).to eq([:index, :alchemy_admin_pictures])
     end
 
     it "removes leading slash" do
-      helper.navigate_module({action: 'index', controller: '/admin/pictures'}).should == [:index, :admin_pictures]
+      expect(helper.navigate_module({action: 'index', controller: '/admin/pictures'})).to eq([:index, :admin_pictures])
     end
   end
 
   describe '#main_navigation_css_classes' do
     it "returns string with css classes for main navigation entry" do
-      helper.main_navigation_css_classes(navigation).should == "main_navi_entry"
+      expect(helper.main_navigation_css_classes(navigation)).to eq("main_navi_entry")
     end
 
     context "with active entry" do
       before do
-        helper.stub(:params).and_return({controller: 'alchemy/admin/dashboard', action: 'index'})
+        allow(helper).to receive(:params).and_return({
+          controller: 'alchemy/admin/dashboard',
+          action: 'index'
+        })
       end
 
       it "includes active class" do
-        helper.main_navigation_css_classes(navigation).should == "main_navi_entry active"
+        expect(helper.main_navigation_css_classes(navigation)).to eq("main_navi_entry active")
       end
     end
   end
@@ -149,18 +152,21 @@ describe Alchemy::Admin::NavigationHelper do
 
     context "with active entry" do
       before do
-        helper.stub(:params).and_return({controller: 'alchemy/admin/dashboard', action: 'index'})
+        allow(helper).to receive(:params).and_return({
+          controller: 'alchemy/admin/dashboard',
+          action: 'index'
+        })
       end
 
       it "returns true" do
-        helper.entry_active?(entry).should be_true
+        expect(helper.entry_active?(entry)).to be_truthy
       end
 
       context "and with leading slash in controller name" do
         before { entry['controller'] = '/alchemy/admin/dashboard' }
 
         it "returns true" do
-          helper.entry_active?(entry).should be_true
+          expect(helper.entry_active?(entry)).to be_truthy
         end
       end
 
@@ -171,18 +177,21 @@ describe Alchemy::Admin::NavigationHelper do
         end
 
         it "returns true" do
-          helper.entry_active?(entry).should be_true
+          expect(helper.entry_active?(entry)).to be_truthy
         end
       end
     end
 
     context "with inactive entry" do
       before do
-        helper.stub(:params).and_return({controller: 'alchemy/admin/users', action: 'index'})
+        expect(helper).to receive(:params).and_return({
+          controller: 'alchemy/admin/users',
+          action: 'index'
+        })
       end
 
       it "returns false" do
-        helper.entry_active?(entry).should be_false
+        expect(helper.entry_active?(entry)).to be_falsey
       end
     end
   end
@@ -190,17 +199,17 @@ describe Alchemy::Admin::NavigationHelper do
   describe '#url_for_module' do
     context "with module within an engine" do
       it "returns correct url string" do
-        helper.url_for_module(alchemy_module).should == '/admin/dashboard'
+        expect(helper.url_for_module(alchemy_module)).to eq('/admin/dashboard')
       end
     end
 
     context "with module within host app" do
       it "returns correct url string" do
-        helper.url_for_module(event_module).should == '/admin/events'
+        expect(helper.url_for_module(event_module)).to eq('/admin/events')
       end
 
       it "returns correct url string with params" do
-        helper.url_for_module(event_module_with_params).should == '/admin/events?key=value'
+        expect(helper.url_for_module(event_module_with_params)).to eq('/admin/events?key=value')
       end
     end
   end
@@ -211,40 +220,42 @@ describe Alchemy::Admin::NavigationHelper do
     let(:current_module) { alchemy_module }
     let(:navigation)     { current_module['navigation']['sub_navigation'].first }
 
-    before do
-      helper.stub(module_definition_for: current_module)
-    end
-
-    context "with module within an engine" do
-      let(:current_module) { alchemy_module }
-
-      it "returns correct url string" do
-        should == '/admin/layoutpages'
+    context 'with module found' do
+      before do
+        expect(helper).to receive(:module_definition_for).and_return current_module
       end
-    end
 
-    context "with module within host app" do
-      let(:current_module) { event_module }
+      context "with module within an engine" do
+        let(:current_module) { alchemy_module }
 
-      it "returns correct url string" do
-        should == '/admin/events'
+        it "returns correct url string" do
+          is_expected.to eq('/admin/layoutpages')
+        end
       end
-    end
 
-    context "with module within host app with params" do
-      let(:current_module) { event_module_with_params }
+      context "with module within host app" do
+        let(:current_module) { event_module }
 
-      it "returns correct url string with params" do
-        should == '/admin/events?key2=value2&key=value'
+        it "returns correct url string" do
+          is_expected.to eq('/admin/events')
+        end
+      end
+
+      context "with module within host app with params" do
+        let(:current_module) { event_module_with_params }
+
+        it "returns correct url string with params" do
+          is_expected.to eq('/admin/events?key2=value2&key=value')
+        end
       end
     end
 
     context 'without module found' do
       before do
-        helper.stub(module_definition_for: nil)
+        expect(helper).to receive(:module_definition_for).and_return nil
       end
 
-      it { should be_nil }
+      it { is_expected.to be_nil }
     end
   end
 
@@ -255,24 +266,23 @@ describe Alchemy::Admin::NavigationHelper do
       before do
         alchemy_module['position'] = 1
         event_module['position'] = 2
-        helper.stub(alchemy_modules: [event_module, alchemy_module])
+        expect(helper).to receive(:alchemy_modules).and_return [event_module, alchemy_module]
       end
 
       it "returns sorted alchemy modules" do
-        should eq([alchemy_module, event_module])
+        is_expected.to eq([alchemy_module, event_module])
       end
     end
 
     context 'with no position attribute on one module' do
       before do
         event_module['position'] = 2
-        helper.stub(alchemy_modules: [alchemy_module, event_module])
+        expect(helper).to receive(:alchemy_modules).and_return [alchemy_module, event_module]
       end
 
       it "appends this module at the end" do
-        should eq([event_module, alchemy_module])
+        is_expected.to eq([event_module, alchemy_module])
       end
     end
   end
-
 end

@@ -6,7 +6,7 @@ describe 'alchemy/essences/_essence_date_view' do
   let(:options) { {} }
 
   before do
-    view.stub(:options).and_return(options)
+    allow(view).to receive(:options).and_return(options)
   end
 
   context "with date value" do

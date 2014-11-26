@@ -19,7 +19,7 @@ module Alchemy
         if !user
           user = mock_model('DummyUser', alchemy_roles: %w(admin), language: 'en')
         end
-        ApplicationController.any_instance.stub(:current_user).and_return(user)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
       end
     end
 

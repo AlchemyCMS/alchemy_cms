@@ -21,8 +21,8 @@ module Alchemy
     end
 
     before do
-      File.stub(exists?: true)
-      YAML.stub(load_file: config)
+      allow(File).to receive(:exists?).and_return( true)
+      allow(YAML).to receive(:load_file).and_return(config)
     end
 
     describe "#database_dump_command" do
@@ -31,7 +31,7 @@ module Alchemy
       context "when config for RAILS_ENV not found" do
         let(:adapter) { 'mysql2' }
 
-        before { Foo.stub(environment: 'huh?') }
+        before { allow(Foo).to receive(:environment).and_return('huh?') }
 
         it "should raise an error" do
           expect { subject }.to raise_error(RuntimeError)
@@ -50,27 +50,27 @@ module Alchemy
         let(:adapter) { 'mysql2' }
 
         it "uses the mysqldump command" do
-          should include('mysqldump ')
+          is_expected.to include('mysqldump ')
         end
 
         context "when a username is set in the config file" do
-          it { should include("--user='testuser'") }
+          it { is_expected.to include("--user='testuser'") }
         end
 
         context "when a password is set in the config file" do
-          it { should include("--password='123456'") }
+          it { is_expected.to include("--password='123456'") }
         end
 
         context "when a host is set in the config file" do
           context "and the host is localhost" do
-            it { should_not include("--host=") }
+            it { is_expected.not_to include("--host=") }
           end
 
           context "and the host is anything but not localhost" do
             before do
-              YAML.stub(load_file: {'test' => {'host' => 'mydomain.com'}})
+              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
             end
-            it { should include("--host='mydomain.com'") }
+            it { is_expected.to include("--host='mydomain.com'") }
           end
         end
       end
@@ -79,27 +79,27 @@ module Alchemy
         let(:adapter) { 'postgresql' }
 
         it "uses the pg_dump command with clean option" do
-          should include('pg_dump --clean')
+          is_expected.to include('pg_dump --clean')
         end
 
         context "when a username is set in the config file" do
-          it { should include("--username='testuser'") }
+          it { is_expected.to include("--username='testuser'") }
         end
 
         context "when a password is set in the config file" do
-          it { should include("PGPASSWORD='123456'") }
+          it { is_expected.to include("PGPASSWORD='123456'") }
         end
 
         context "when a host is set in the config file" do
           context "and the host is localhost" do
-            it { should_not include("--host=") }
+            it { is_expected.not_to include("--host=") }
           end
 
           context "and the host is anything but not localhost" do
             before do
-              YAML.stub(load_file: {'test' => {'host' => 'mydomain.com'}})
+              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
             end
-            it { should include("--host='mydomain.com'") }
+            it { is_expected.to include("--host='mydomain.com'") }
           end
         end
       end
@@ -115,7 +115,7 @@ module Alchemy
       context "when config for RAILS_ENV not found" do
         let(:adapter) { 'mysql' }
 
-        before { Foo.stub(environment: 'huh?') }
+        before { allow(Foo).to receive(:environment).and_return('huh?') }
 
         it "should raise an error" do
           expect { subject }.to raise_error(RuntimeError)
@@ -134,27 +134,27 @@ module Alchemy
         let(:adapter) { 'mysql' }
 
         it "uses the mysql command" do
-          should include('mysql ')
+          is_expected.to include('mysql ')
         end
 
         context "when a username is set in the config file" do
-          it { should include("--user='testuser'") }
+          it { is_expected.to include("--user='testuser'") }
         end
 
         context "when a password is set in the config file" do
-          it { should include("--password='123456'") }
+          it { is_expected.to include("--password='123456'") }
         end
 
         context "when a host is set in the config file" do
           context "and the host is localhost" do
-            it { should_not include("--host=") }
+            it { is_expected.not_to include("--host=") }
           end
 
           context "and the host is anything but not localhost" do
             before do
-              YAML.stub(load_file: {'test' => {'host' => 'mydomain.com'}})
+              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
             end
-            it { should include("--host='mydomain.com'") }
+            it { is_expected.to include("--host='mydomain.com'") }
           end
         end
       end
@@ -163,27 +163,27 @@ module Alchemy
         let(:adapter) { 'postgresql' }
 
         it "uses the psql command" do
-          should include('psql ')
+          is_expected.to include('psql ')
         end
 
         context "when a username is set in the config file" do
-          it { should include("--username='testuser'") }
+          it { is_expected.to include("--username='testuser'") }
         end
 
         context "when a password is set in the config file" do
-          it { should include("PGPASSWORD='123456'") }
+          it { is_expected.to include("PGPASSWORD='123456'") }
         end
 
         context "when a host is set in the config file" do
           context "and the host is localhost" do
-            it { should_not include("--host=") }
+            it { is_expected.not_to include("--host=") }
           end
 
           context "and the host is anything but not localhost" do
             before do
-              YAML.stub(load_file: {'test' => {'host' => 'mydomain.com'}})
+              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
             end
-            it { should include("--host='mydomain.com'") }
+            it { is_expected.to include("--host='mydomain.com'") }
           end
         end
       end
@@ -201,7 +201,7 @@ module Alchemy
       end
 
       context 'for missing database config file' do
-        before { File.stub(exists?: false) }
+        before { allow(File).to receive(:exists?).and_return( false) }
 
         it "raises error" do
           expect { Foo.database_config }.to raise_error(RuntimeError)

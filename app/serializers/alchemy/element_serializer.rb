@@ -9,9 +9,12 @@ module Alchemy
       :cell_id,
       :tag_list,
       :created_at,
-      :updated_at
+      :updated_at,
+      :ingredients,
+      :content_ids
 
-    has_many :contents
-
+    def ingredients
+      object.contents.collect(&:serialize)
+    end
   end
 end

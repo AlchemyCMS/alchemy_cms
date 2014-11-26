@@ -39,7 +39,7 @@ module Alchemy
       # When the user press save on the element, it gets saved.
       #
       def assign
-        @picture = Picture.find_by_id(params[:picture_id])
+        @picture = Picture.find_by(id: params[:picture_id])
         @content.essence.picture = @picture
         @content.touch # We need to touch manually because its not saved yet.
         @element = @content.element
@@ -48,7 +48,7 @@ module Alchemy
       end
 
       def destroy
-        @content = Content.find_by_id(params[:id])
+        @content = Content.find_by(id: params[:id])
         @element = @content.element
         @content_id = @content.id
         @content.destroy

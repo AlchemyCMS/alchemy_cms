@@ -17,23 +17,23 @@ module Alchemy
       end
 
       it "should return a preview text" do
-        essence.preview_text.should == "#{ingredient_value}"
+        expect(essence.preview_text).to eq("#{ingredient_value}")
       end
 
       context "with given maxlength" do
         it "should return as much beginning characters as defined with maxlength" do
-          essence.preview_text(2).should == "#{ingredient_value}"[0..1]
+          expect(essence.preview_text(2)).to eq("#{ingredient_value}"[0..1])
         end
       end
 
       context "with another preview_text_column defined" do
         before do
-          essence.stub(:title).and_return('Title column')
-          essence.stub(:preview_text_column).and_return(:title)
+          allow(essence).to receive(:title).and_return('Title column')
+          allow(essence).to receive(:preview_text_column).and_return(:title)
         end
 
         it "should use this column as preview text method" do
-          essence.preview_text.should == 'Title column'
+          expect(essence.preview_text).to eq('Title column')
         end
       end
     end
@@ -65,7 +65,7 @@ module Alchemy
 
         context 'given a regex string' do
           before do
-            essence.stub(:description).and_return({'validate' => [{'format' => /\Ahttps:\/\/[\S]+/}]})
+            allow(essence).to receive(:description).and_return({'validate' => [{'format' => /\Ahttps:\/\/[\S]+/}]})
           end
 
           context 'when ingredient string does not match the given regex' do
@@ -87,7 +87,7 @@ module Alchemy
 
         context 'given a key from the config`s format_matcher list' do
           before do
-            essence.stub(:description).and_return({'validate' => [{'format' => 'email'}]})
+            allow(essence).to receive(:description).and_return({'validate' => [{'format' => 'email'}]})
           end
 
           context 'when ingredient string does not match the given format matcher' do

@@ -1,7 +1,7 @@
 # encoding: utf-8
 require 'spec_helper'
 
-describe 'Legacy page url management', js: true do
+describe 'Legacy page url management', type: :feature, js: true do
   before do
     authorize_as_admin
   end

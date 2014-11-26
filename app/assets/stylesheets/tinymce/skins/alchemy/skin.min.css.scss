@@ -98,6 +98,8 @@ div.mce-fullscreen {
 div.mce-edit-area {
   background: #FFF;
   filter: none;
+  border-top: 0;
+  @include border-radius($default-border-radius);
 }
 
 .mce-statusbar {
@@ -246,6 +248,11 @@ div.mce-tinymce-inline {
 .mce-panel {
   border: 0 solid $default-border-color;
   background-color: $medium-gray;
+  @include box-sizing(border-box);
+}
+
+.mce-toolbar-grp {
+  border-bottom: 1px solid $default-border-color;
 }
 
 .mce-floatpanel {
@@ -1397,6 +1404,7 @@ div.mce-menu .mce-menu-item-sep,.mce-menu-item-sep:hover {
 
 i.mce-i-resize {
   color: #333;
+  font-size: 16px;
 }
 
 .mce-spacer {
@@ -1555,7 +1563,7 @@ i.mce-i-resize {
   font-size: 12px;
   line-height: 16px;
   vertical-align: text-top;
-  -webkit-font-smoothing: antialiased;
+  -webkit-font-smoothing: subpixel-antialiased;
   display: inline-block;
   background: transparent center center;
   width: 16px;

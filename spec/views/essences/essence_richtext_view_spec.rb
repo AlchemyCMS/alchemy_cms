@@ -20,7 +20,7 @@ describe 'alchemy/essences/_essence_richtext_view' do
 
   context 'with content.settings[:plain_text] true' do
     before do
-      content.stub(settings: {plain_text: true})
+      allow(content).to receive(:settings).and_return({plain_text: true})
     end
 
     it "renders the text body" do

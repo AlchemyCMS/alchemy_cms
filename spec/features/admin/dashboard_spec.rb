@@ -34,7 +34,7 @@ describe 'Dashboard feature' do
         user = DummyUser.new
         user.update_attributes(alchemy_roles: %w(admin), name: "Sue Smith", id: 2)
         a_page.lock_to!(user)
-        DummyUser.stub(:find_by).and_return(user)
+        allow(DummyUser).to receive(:find_by).and_return(user)
         visit admin_dashboard_path
         locked_pages_widget = all('div[@class="widget"]').first
         expect(locked_pages_widget).to have_content "Currently locked pages:"
@@ -58,7 +58,7 @@ describe 'Dashboard feature' do
 
       context 'with alchemy url proxy object having `login_url`' do
         before do
-          ActionDispatch::Routing::RoutesProxy.any_instance.stub(login_url: 'http://site.com/admin/login')
+          allow_any_instance_of(ActionDispatch::Routing::RoutesProxy).to receive(:login_url).and_return('http://site.com/admin/login')
         end
 
         it "links to login page of every site" do

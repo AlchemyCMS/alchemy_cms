@@ -9,7 +9,7 @@ module Alchemy
     describe 'after assign' do
       it "stores the file mime type into database" do
         attachment.update(file: file)
-        attachment.file_mime_type.should_not be_blank
+        expect(attachment.file_mime_type).not_to be_blank
       end
     end
 
@@ -17,11 +17,11 @@ module Alchemy
       before { attachment.save! }
 
       it "should have a humanized name" do
-        attachment.name.should == "image with spaces"
+        expect(attachment.name).to eq("image with spaces")
       end
 
       it "should have a valid file_name" do
-        attachment.file_name.should == "image-with-spaces.png"
+        expect(attachment.file_name).to eq("image-with-spaces.png")
       end
 
       after { attachment.destroy }
@@ -31,19 +31,19 @@ module Alchemy
       it "should sanitize url characters in the filename" do
         attachment.file_name = 'f#%&cking cute kitten pic.png'
         attachment.save!
-        attachment.urlname.should == 'f-cking-cute-kitten-pic.png'
+        expect(attachment.urlname).to eq('f-cking-cute-kitten-pic.png')
       end
 
       it "should sanitize lot of dots in the name" do
         attachment.file_name = 'cute.kitten.pic.png'
         attachment.save!
-        attachment.urlname.should == 'cute-kitten-pic.png'
+        expect(attachment.urlname).to eq('cute-kitten-pic.png')
       end
 
       it "should sanitize umlauts in the name" do
         attachment.file_name = 'süßes katzenbild.png'
         attachment.save!
-        attachment.urlname.should == 'suesses-katzenbild.png'
+        expect(attachment.urlname).to eq('suesses-katzenbild.png')
       end
 
       after { attachment.destroy }
@@ -52,18 +52,18 @@ module Alchemy
     describe 'validations' do
 
       context "having a png, but only pdf allowed" do
-        before { Config.stub(:get).and_return({'allowed_filetypes' => {'attachments' => ['pdf']}}) }
+        before { allow(Config).to receive(:get).and_return({'allowed_filetypes' => {'attachments' => ['pdf']}}) }
 
         it "should not be valid" do
-          attachment.should_not be_valid
+          expect(attachment).not_to be_valid
         end
       end
 
       context "having a png and everything allowed" do
-        before { Config.stub(:get).and_return({'allowed_filetypes' => {'attachments' => ['*']}}) }
+        before { allow(Config).to receive(:get).and_return({'allowed_filetypes' => {'attachments' => ['*']}}) }
 
         it "should be valid" do
-          attachment.should be_valid
+          expect(attachment).to be_valid
         end
       end
 
@@ -71,73 +71,129 @@ module Alchemy
 
     context 'PNG image' do
       subject { stub_model(Attachment, file_name: 'kitten.png') }
-      its(:extension) { should == "png" }
+
+      describe '#extension' do
+        subject { super().extension }
+        it { is_expected.to eq("png") }
+      end
     end
 
     describe 'css classes' do
       context 'mp3 file' do
         subject { stub_model(Attachment, file_mime_type: 'audio/mpeg') }
-        its(:icon_css_class) { should == "audio" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("audio") }
+        end
       end
 
       context 'video file' do
         subject { stub_model(Attachment, file_mime_type: 'video/mpeg') }
-        its(:icon_css_class) { should == "video" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("video") }
+        end
       end
 
       context 'png file' do
         subject { stub_model(Attachment, file_mime_type: 'image/png') }
-        its(:icon_css_class) { should == "image" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("image") }
+        end
       end
 
       context 'vcf file' do
         subject { stub_model(Attachment, file_mime_type: 'application/vcard') }
-        its(:icon_css_class) { should == "vcard" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("vcard") }
+        end
       end
 
       context 'zip file' do
         subject { stub_model(Attachment, file_mime_type: 'application/zip') }
-        its(:icon_css_class) { should == "archive" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("archive") }
+        end
       end
 
       context 'flash file' do
         subject { stub_model(Attachment, file_mime_type: 'application/x-shockwave-flash') }
-        its(:icon_css_class) { should == "flash" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("flash") }
+        end
       end
 
       context 'photoshop file' do
         subject { stub_model(Attachment, file_mime_type: 'image/x-psd') }
-        its(:icon_css_class) { should == "psd" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("psd") }
+        end
       end
 
       context 'text file' do
         subject { stub_model(Attachment, file_mime_type: 'text/plain') }
-        its(:icon_css_class) { should == "text" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("text") }
+        end
       end
 
       context 'rtf file' do
         subject { stub_model(Attachment, file_mime_type: 'application/rtf') }
-        its(:icon_css_class) { should == "rtf" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("rtf") }
+        end
       end
 
       context 'pdf file' do
         subject { stub_model(Attachment, file_mime_type: 'application/pdf') }
-        its(:icon_css_class) { should == "pdf" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("pdf") }
+        end
       end
 
       context 'word file' do
         subject { stub_model(Attachment, file_mime_type: 'application/msword') }
-        its(:icon_css_class) { should == "word" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("word") }
+        end
       end
 
       context 'excel file' do
         subject { stub_model(Attachment, file_mime_type: 'application/vnd.ms-excel') }
-        its(:icon_css_class) { should == "excel" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("excel") }
+        end
       end
 
       context 'unknown file' do
         subject { stub_model(Attachment, file_mime_type: '') }
-        its(:icon_css_class) { should == "file" }
+
+        describe '#icon_css_class' do
+          subject { super().icon_css_class }
+          it { is_expected.to eq("file") }
+        end
       end
     end
 
@@ -147,11 +203,11 @@ module Alchemy
       context 'if only on restricted pages' do
         before do
           pages = double(any?: true)
-          pages.should_receive(:not_restricted).and_return([])
-          attachment.should_receive(:pages).twice.and_return(pages)
+          expect(pages).to receive(:not_restricted).and_return([])
+          expect(attachment).to receive(:pages).twice.and_return(pages)
         end
 
-        it { should be_true }
+        it { is_expected.to be_truthy }
       end
 
       context 'if not only on restricted pages' do
@@ -159,11 +215,11 @@ module Alchemy
 
         before do
           pages = double(any?: true)
-          pages.should_receive(:not_restricted).and_return([page])
-          attachment.should_receive(:pages).twice.and_return(pages)
+          expect(pages).to receive(:not_restricted).and_return([page])
+          expect(attachment).to receive(:pages).twice.and_return(pages)
         end
 
-        it { should be_false }
+        it { is_expected.to be_falsey }
       end
     end
 

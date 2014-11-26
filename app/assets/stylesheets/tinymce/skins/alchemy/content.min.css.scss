@@ -2,13 +2,22 @@
  *= require_self
  */
 @import "alchemy/variables";
+@import "compass/css3";
+
+html {
+  @include box-shadow(inset 0px 1px 1px $medium-gray);
+  @include border-radius($default-border-radius);
+}
 
 body {
   background-color: #fff;
   color: $text-color;
   font: $default-font-style;
-  margin: 0 2*$default-margin;
-  padding-bottom: $default-padding !important;
+  margin: 6px 0 !important;
+  padding-left: 2*$default-margin !important;
+  padding-right: 2*$default-margin !important;
+  padding-top: 0px !important;
+  padding-bottom: 0px !important;
 }
 
 td,th {

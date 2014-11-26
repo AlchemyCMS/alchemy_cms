@@ -8,10 +8,9 @@ module Alchemy
     let(:restricted_element)  { FactoryGirl.create(:element, :page => restricted_page, :name => 'download') }
 
     describe '#show' do
-
       it "should render available elements" do
         get :show, :id => element.id
-        response.status.should == 200
+        expect(response.status).to eq(200)
       end
 
       it "should raise ActiveRecord::RecordNotFound error for trashed elements" do
@@ -35,11 +34,18 @@ module Alchemy
 
         it "should render elements of restricted pages" do
           get :show, :id => restricted_element.id
-          response.status.should == 200
+          expect(response.status).to eq(200)
         end
       end
 
+      context "requested for json format" do
+        it "should render json response but warns about deprecation" do
+          expect(ActiveSupport::Deprecation).to receive(:warn)
+          get :show, id: element.id, format: :json
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+        end
+      end
     end
-
   end
 end
