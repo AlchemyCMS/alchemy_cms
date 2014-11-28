@@ -8,6 +8,24 @@ module Alchemy
       expect { get :download, id: 0 }.to raise_error(ActiveRecord::RecordNotFound)
     end
 
+    context 'with public attachment' do
+      before do
+        Attachment.stub(:find).and_return(attachment)
+      end
+
+      it "sends download as attachment." do
+        get :download, :id => attachment.id
+        expect(response.status).to eq(200)
+        expect(response.headers['Content-Disposition']).to match(/attachment/)
+      end
+
+      it "sends download inline." do
+        get :show, :id => attachment.id
+        expect(response.status).to eq(200)
+        expect(response.headers['Content-Disposition']).to match(/inline/)
+      end
+    end
+
     context 'with restricted attachment' do
       before do
         allow(attachment).to receive(:restricted?).and_return(true)
