@@ -10,7 +10,7 @@ module Alchemy
 
     context 'with public attachment' do
       before do
-        Attachment.stub(:find).and_return(attachment)
+        allow(Attachment).to receive(:find).and_return(attachment)
       end
 
       it "sends download as attachment." do
