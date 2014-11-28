@@ -144,6 +144,7 @@ module Alchemy
         let(:legacy_url2) { LegacyPageUrl.create(urlname: 'legacy-url', page: second_page) }
         let(:legacy_url3) { LegacyPageUrl.create(urlname: 'index.php?id=2', page: second_page) }
         let(:legacy_url4) { LegacyPageUrl.create(urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69', page: second_page) }
+        let(:legacy_url5) { LegacyPageUrl.create(urlname: 'nested/legacy/url', page: second_page) }
 
         it "should redirect permanently to page that belongs to legacy page url even if url has an unknown format & get parameters" do
           expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url4.urlname)
@@ -173,6 +174,12 @@ module Alchemy
         it "should redirect even if the url has get parameters" do
           expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url3.urlname)
           get :show, urlname: legacy_url3.urlname
+          expect(response).to redirect_to("/#{second_page.urlname}")
+        end
+
+        it "should redirect even if the url has nested urlname" do
+          expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url5.urlname)
+          get :show, urlname: legacy_url5.urlname
           expect(response).to redirect_to("/#{second_page.urlname}")
         end
       end
