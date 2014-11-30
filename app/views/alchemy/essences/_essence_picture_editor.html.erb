@@ -1,11 +1,6 @@
 <div id="<%= content.dom_id %>" class="essence_picture_editor<%= ' dragable_picture' if options[:dragable] %><%= ' content_editor' unless options[:grouped] %>">
   <% unless options[:grouped] %>
-  <label>
-    <% if content.has_hint? %>
-      <%= render_hint_for(content) %>
-    <% end %>
-    <%= render_content_name(content) %>
-  </label>
+  <%= label_and_remove_link(content) %>
   <% end %>
   <div class="picture_thumbnail">
     <span class="picture_tool delete">
