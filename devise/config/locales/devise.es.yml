@@ -1,0 +1,61 @@
+# Additional translations at https://github.com/plataformatec/devise/wiki/I18n
+
+es:
+  errors:
+    messages:
+      expired: "has caducado, por favor vuelve a solicitarla"
+      not_found: "no se encontró"
+      already_confirmed: "ya ha sido confirmado, por favor intenta iniciar sesión"
+      not_locked: "no estaba bloqueado"
+      not_saved:
+        one: "1 error impidió que este %{resource} se guardara:"
+        other: "%{count} errores impidieron que este %{resource} se guardara:"
+      confirmation_period_expired: "necesita ser confirmado en %{period}, por favor vuelve a solicitarla"
+
+  devise:
+    failure:
+      already_authenticated: "Ya estás conectado."
+      unauthenticated: "Necesitas iniciar sesión o registrarte para continuar."
+      unconfirmed: "Debes de confirmar tu cuenta para continuar."
+      locked: "Tu cuenta está bloqueada."
+      not_found_in_database: "Correo o contraseña incorrectos."
+      invalid: "Correo o contraseña incorrectos."
+      invalid_token: "Cadena de autenticación incorrecta."
+      timeout: "Tu sesión ha caducado, por favor inicia sesión de nuevo para continuar."
+      inactive: "Tu cuenta aún no ha sido activada."
+    sessions:
+      signed_in: 'Te has conectado correctamente.'
+      signed_out: 'Has cerrado la sesión.'
+    passwords:
+      send_instructions: "En unos minutos recibirás un correo electrónico con instrucciones sobre cómo reestablecer tu contraseña."
+      updated: "Tu contraseña se cambió correctamente. Ya estás conectado."
+      updated_not_active: "Tu contraseña se cambió correctamente."
+      send_paranoid_instructions: "Si tu correo electrónico existe en nuestra base de datos, en unos minutos recibirás un correo electrónico con un enlace para reestablecer la contraseña."
+      no_token: "No puedes acceder a esta página sino es por medio de un correo para reestablecer la contraseña. Si accediste desde un correo para reestablecer la contraseña, asegúrate de que la dirección esté completa."
+    confirmations:
+      send_instructions: "En unos minutos recibirás un correo electrónico con instrucciones sobre cómo confirmar tu cuenta."
+      send_paranoid_instructions: "Si tu correo electrónico existe en nuestra base de datos, en unos minutos recibirás un correo electrónico con instrucciones sobre cómo confirmar tu cuenta."
+      confirmed: 'Se ha confirmado tu cuenta. Ya estás conectado.'
+    registrations:
+      signed_up: "¡Bienvenido! Te has registrado correctamente."
+      signed_up_but_unconfirmed: "Se te ha enviado un mensaje con un enlace de confirmación a tu dirección de correo. Por favor visita el enlace para activar tu cuenta."
+      signed_up_but_inactive: "Te has registrado correctamente. Sin embargo, no puedes iniciar sesión porque no has activado tu cuenta."
+      signed_up_but_locked: "Te has registrado correctamente. Sin embargo, no puedes iniciar sesión porque tu cuenta está bloqueada."
+      updated: 'You updated your account successfully.'
+      updated: "Has actualizado tu cuenta correctamente."
+      update_needs_confirmation: "Actualizaste tu cuenta correctamente, pero necesitamos verificar tu nueva dirección de correo. Por favor revisa tu correo electrónico y visita el enlace para confirmar tu nueva dirección de correo electrónico."
+      destroyed: "¡Adiós! Tu cuenta ha sido cancelada. Esperamos volver a verte pronto."
+    unlocks:
+      send_instructions: "En unos minutos recibirás un correo electrónico con instrucciones sobre cómo desbloquear tu cuenta."
+      unlocked: "Tu cuenta se ha desbloqueado. Por favor inicia sesión para continuar."
+      send_paranoid_instructions: "Si tu cuenta existe, en unos minutos recibirás un correo electrónico con instrucciones sobre cómo desbloquear tu cuenta."
+    omniauth_callbacks:
+      success: 'Identificado correctamente desde la cuenta de %{kind}.'
+      failure: 'No se te pudo autorizar desde %{kind} debido a "%{reason}".'
+    mailer:
+      confirmation_instructions:
+        subject: 'Instrucciones de confirmación'
+      reset_password_instructions:
+        subject: 'Instrucciones para reestablecer tu contraseña'
+      unlock_instructions:
+        subject: 'Instrucciones de desbloqueo'

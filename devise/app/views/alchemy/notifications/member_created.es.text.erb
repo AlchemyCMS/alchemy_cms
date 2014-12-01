@@ -1,0 +1,13 @@
+¡Saludos <%= @user.name %>!
+
+Te han creado un usuario.
+
+Tu usuario es: <%= @user.login %>
+
+La contraseña se ha generado aleatoriamente. Por razones de seguridad no se mostrará aquí.
+
+Por favor, accede este enlace (*) para reiniciar tu contraseña:
+
+<%= alchemy.new_password_url(email: @user.email) %>
+
+*) Si esto no funciona, por favor, copia el enlace y pegalo en el campo de direcciones de tu navegador web.
