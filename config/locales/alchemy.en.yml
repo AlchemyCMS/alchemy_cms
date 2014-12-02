@@ -501,6 +501,7 @@ en:
         last_upload: "from last upload"
         recent: "that where recently uploaded"
         without_tag: "without tag"
+    pictures_in_page: "%{page} in %{pictures}"
     place_link: "Link text"
     player_version: "Flash Player version"
     "please enter subject and mail address": "Please enter recipient and subject."
