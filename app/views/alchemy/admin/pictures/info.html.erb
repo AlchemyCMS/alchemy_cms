@@ -25,8 +25,9 @@
         <ul>
           <% essence_pictures.group_by(&:element).each do |element, essence_pictures| %>
           <li class="<%= cycle('even', 'odd') %>">
-            <%= link_to element.display_name_with_preview_text, edit_admin_page_path(page, :anchor => "element_#{element.id}") %> in
-            <%= essence_pictures.collect { |e| e.content.name_for_label }.to_sentence %>
+            <% page_link = link_to element.display_name_with_preview_text, edit_admin_page_path(page, :anchor => "element_#{element.id}") %>
+            <% pictures = essence_pictures.collect { |e| e.content.name_for_label }.to_sentence %>
+            <%= _t(:pictures_in_page, :page => page_link, :pictures => pictures) %>
           </li>
           <% end %>
         </ul>
