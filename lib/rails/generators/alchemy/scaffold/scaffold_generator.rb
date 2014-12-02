@@ -32,7 +32,7 @@ module Alchemy
         template "page_layouts.yml.tt", "#{Rails.root}/config/alchemy/page_layouts.yml"
         copy_file "#{current_path}/files/alchemy.en.yml", "#{Rails.root}/config/locales/alchemy.en.yml"
         copy_file "#{current_path}/files/alchemy.de.yml", "#{Rails.root}/config/locales/alchemy.de.yml"
-        copy_file "#{current_path}/files/alchemy.de.yml", "#{Rails.root}/config/locales/alchemy.es.yml"
+        copy_file "#{current_path}/files/alchemy.es.yml", "#{Rails.root}/config/locales/alchemy.es.yml"
         copy_file "#{current_path}/files/application.html.erb", "#{Rails.root}/app/views/layouts/application.html.erb"
         copy_file "#{current_path}/files/_standard.html.erb", "#{Rails.root}/app/views/alchemy/page_layouts/_standard.html.erb"
         copy_file "#{current_path}/files/_article_view.html.erb", "#{Rails.root}/app/views/alchemy/elements/_article_view.html.erb"
