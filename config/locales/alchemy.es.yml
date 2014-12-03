@@ -86,7 +86,7 @@ es:
     # == Contactform translations
     contactform:
       labels:
-        salutation: 'Saludo'
+        salutation: 'Tratamiento'
         choose: 'Por favor elige'
         mr: 'Sr.'
         mrs: 'Sra.'
