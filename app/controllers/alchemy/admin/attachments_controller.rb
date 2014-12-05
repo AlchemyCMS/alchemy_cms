@@ -5,7 +5,15 @@ module Alchemy
 
       def index
         @attachments = Attachment.all
-        @attachments = @attachments.tagged_with(params[:tagged_with]) if params[:tagged_with].present?
+        if params[:only].present?
+          @attachments = @attachments.where("file_mime_type LIKE '%#{params[:only]}%'")
+        end
+        if params[:except].present?
+          @attachments = @attachments.where("file_mime_type NOT LIKE '%#{params[:except]}%'")
+        end
+        if params[:tagged_with].present?
+          @attachments = @attachments.tagged_with(params[:tagged_with])
+        end
         @attachments = @attachments.find_paginated(params, 15, sort_order)
         @options = options_from_params
         if in_overlay?
