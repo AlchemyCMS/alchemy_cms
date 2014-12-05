@@ -43,6 +43,9 @@ Alchemy.Initializer = ->
     tagName = (event.target || event.srcElement).tagName
     key.isPressed('esc') || !(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA')
 
+# Enabling the Turbolinks Progress Bar
+Turbolinks.enableProgressBar()
+
 # Turbolinks DOM Ready
 $(document).on 'page:change', ->
   Alchemy.Initializer()
