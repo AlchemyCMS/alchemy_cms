@@ -5,7 +5,7 @@ Alchemy::Modules.register_module({
     name: 'modules.<%= @module_name %>',
     controller: '/admin/<%= @module_name %>',
     action: 'index',
-    image: '/assets/<%= @module_name %>.png',
+    image: 'alchemy/<%= @module_name %>_module.png',
     sub_navigation: [{
       name: 'modules.<%= @module_name %>',
       controller: '/admin/<%= @module_name %>',
