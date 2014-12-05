@@ -16,6 +16,9 @@
 //= require requestAnimationFrame
 //= require select2
 //= require select2_locale_de
+//= require select2_locale_es
+//= require select2_locale_fr
+//= require select2_locale_nl
 //= require select2_locale_ru
 //= require alchemy/alchemy.base
 //= require alchemy/alchemy.autocomplete
