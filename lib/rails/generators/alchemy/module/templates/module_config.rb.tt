@@ -13,3 +13,5 @@ Alchemy::Modules.register_module({
     }]
   }
 })
+
+Alchemy.register_ability(<%= @class_name %>Ability)
