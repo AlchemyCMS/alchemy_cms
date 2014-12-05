@@ -504,6 +504,7 @@ es:
         last_upload: "desde la última subida"
         recent: "que se subieron recientemente"
         without_tag: "sin etiquetas"
+    pictures_in_page: "%{page} en %{pictures}"
     place_link: "Enlazar texto"
     player_version: "Versión de Flash Player"
     "please enter subject and mail address": "Por favor rellene el destinatario y el asunto."
