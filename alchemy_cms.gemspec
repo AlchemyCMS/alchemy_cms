@@ -36,7 +36,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'coffee-rails',                     '~> 4.0.0'
   gem.add_runtime_dependency 'compass-rails',                    '~> 1.1.2'
   gem.add_runtime_dependency 'sassy-buttons',                    '~> 0.2.6'
-  gem.add_runtime_dependency 'select2-rails',                    '~> 3.4'
+  gem.add_runtime_dependency 'select2-rails',                    '>= 3.5.9.1', '< 4.0'
   gem.add_runtime_dependency 'tvdeyen-handles_sortable_columns', '~> 0.1.5'
   gem.add_runtime_dependency 'spinner.rb'
   gem.add_runtime_dependency 'turbolinks',                       '~> 2.0'
