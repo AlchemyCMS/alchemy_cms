@@ -17,11 +17,11 @@ module Alchemy
       def index
         if params[:query].present?
           @users = User.where([
-           "login LIKE ? OR email LIKE ? OR firstname LIKE ? OR lastname LIKE ?",
-           "%#{params[:query]}%",
-           "%#{params[:query]}%",
-           "%#{params[:query]}%",
-           "%#{params[:query]}%"
+           "LOWER(login) LIKE ? OR LOWER(email) LIKE ? OR LOWER(firstname) LIKE ? OR LOWER(lastname) LIKE ?",
+           "%#{params[:query].downcase}%",
+           "%#{params[:query].downcase}%",
+           "%#{params[:query].downcase}%",
+           "%#{params[:query].downcase}%"
          ])
         else
           @users = User.all
