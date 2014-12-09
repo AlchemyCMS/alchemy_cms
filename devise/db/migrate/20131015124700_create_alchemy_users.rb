@@ -26,8 +26,8 @@ class CreateAlchemyUsers < ActiveRecord::Migration
       t.datetime "reset_password_sent_at"
     end
 
-    add_index "alchemy_users", ["email"], name: "index_alchemy_users_on_email", unique: true
-    add_index "alchemy_users", ["login"], name: "index_alchemy_users_on_login", unique: true
-    add_index "alchemy_users", ["reset_password_token"], name: "index_alchemy_users_on_reset_password_token", unique: true
+    add_index "alchemy_users", ["email"], unique: true
+    add_index "alchemy_users", ["login"], unique: true
+    add_index "alchemy_users", ["reset_password_token"], unique: true
   end
 end
