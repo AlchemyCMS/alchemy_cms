@@ -196,6 +196,11 @@ button.icon_button {
     border: $default-border;
     padding: 2px;
     @extend %rounded-border;
+
+    &:focus {
+      border: 0;
+      padding: 3px;
+    }
   }
 
   .select2-container {
