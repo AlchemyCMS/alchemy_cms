@@ -242,6 +242,17 @@ module Alchemy
       end
     end
 
+    describe '#essence_error_messages' do
+      let(:element) { Element.new(name: 'article') }
+      it "should return the translation with the translated content label" do
+        I18n.should_receive(:t).with('content_names.content', default: 'Content').and_return('Content')
+        I18n.should_receive(:t).with('content', scope: "content_names.article", default: 'Content').and_return('Contenido')
+        I18n.should_receive(:t).with('article.content.invalid', {:scope=>"content_validations", :default=>[:"fields.content.invalid", :"errors.invalid"], :field=>"Contenido"})
+        element.should_receive(:essence_errors).and_return({'content' => [:invalid]})
+        element.essence_error_messages
+      end
+    end
+
     describe '#display_name_with_preview_text' do
       let(:element) { FactoryGirl.build_stubbed(:element, name: 'Foo') }
 
