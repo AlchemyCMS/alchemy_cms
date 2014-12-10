@@ -47,7 +47,7 @@ Alchemy.ElementEditors =
     self.scrollToElement this
     self.selectElementInPreview id
 
-  # Selcts and scrolls to element with given id in the preview window.
+  # Selects and scrolls to element with given id in the preview window.
   #
   selectElementInPreview: (id) ->
     $frame_elements = document.getElementById("alchemy_preview_window").contentWindow.jQuery("[data-alchemy-element]")
