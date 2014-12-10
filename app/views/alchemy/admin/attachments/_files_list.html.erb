@@ -11,25 +11,29 @@
 <% end %>
 <table id="all_files" class="list">
   <% unless @attachments.blank? %>
-  <tr>
-    <th class="icon"></th>
-    <th class="name">
-      <%= sortable_column(Alchemy::Attachment.human_attribute_name('name'), :column => :name) %>
-    </th>
-    <th class="file_name">
-      <%= sortable_column(Alchemy::Attachment.human_attribute_name('file_name'), :column => :file_name) %>
-    </th>
-    <th class="file_type"><%= Alchemy::Attachment.human_attribute_name('file_mime_type') %></th>
-    <th class="file_size">
-      <%= sortable_column(Alchemy::Attachment.human_attribute_name('file_size'), :column => :file_size) %>
-    </th>
-    <th class="date">
-      <%= sortable_column(Alchemy::Attachment.human_attribute_name('created_at'), :column => :created_at) %>
-    </th>
-    <th class="tools"></th>
-  </tr>
+  <thead>
+    <tr>
+      <th class="icon"></th>
+      <th class="name">
+        <%= sortable_column(Alchemy::Attachment.human_attribute_name('name'), column: :name) %>
+      </th>
+      <th class="file_name">
+        <%= sortable_column(Alchemy::Attachment.human_attribute_name('file_name'), column: :file_name) %>
+      </th>
+      <th class="file_type"><%= Alchemy::Attachment.human_attribute_name('file_mime_type') %></th>
+      <th class="file_size">
+        <%= sortable_column(Alchemy::Attachment.human_attribute_name('file_size'), column: :file_size) %>
+      </th>
+      <th class="date">
+        <%= sortable_column(Alchemy::Attachment.human_attribute_name('created_at'), column: :created_at) %>
+      </th>
+      <th class="tools"></th>
+    </tr>
+  </thead>
   <% end %>
-  <%= render :partial => 'alchemy/admin/attachments/attachment', :collection => @attachments %>
+  <tbody>
+    <%= render partial: 'alchemy/admin/attachments/attachment', collection: @attachments %>
+  </tbody>
 </table>
 
 <%= paginate @attachments, theme: 'alchemy' %>

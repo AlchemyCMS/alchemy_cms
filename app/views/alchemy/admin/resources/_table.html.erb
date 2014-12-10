@@ -1,18 +1,22 @@
 <% if resources_instance_variable.any? %>
 <table class="list" id="<%= resource_handler.resources_name %>_list">
-  <tr>
-  <% resource_handler.attributes.each do |attribute| %>
-    <th class="<%= attribute[:type] %> <%= attribute[:name] %>">
-      <%= sortable_column(
-        resource_handler.model.human_attribute_name(attribute[:name]),
-        :column => sortable_resource_header_column(attribute),
-        :route_proxy => resource_url_proxy
-      ) %>
-    </th>
-  <% end %>
-    <th class="tools"></th>
-  </tr>
-  <%= render_resources %>
+  <thead>
+    <tr>
+    <% resource_handler.attributes.each do |attribute| %>
+      <th class="<%= attribute[:type] %> <%= attribute[:name] %>">
+        <%= sortable_column(
+          resource_handler.model.human_attribute_name(attribute[:name]),
+          :column => sortable_resource_header_column(attribute),
+          :route_proxy => resource_url_proxy
+        ) %>
+      </th>
+    <% end %>
+      <th class="tools"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render_resources %>
+  </tbody>
 </table>
 <% elsif params[:query] %>
 <p><%= _t('Nothing found') %></p>

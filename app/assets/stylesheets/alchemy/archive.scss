@@ -216,7 +216,7 @@ div#library_sidebar {
   padding-top: 96px;
   padding: 84px 4*$default-padding 0 4*$default-padding;
   height: 100%;
-  z-index: 0;
+  z-index: 3;
   background-color: $light-gray;
 
   h2 {
