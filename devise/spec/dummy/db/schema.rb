@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141119205158) do
+ActiveRecord::Schema.define(version: 20141209144532) do
 
   create_table "alchemy_attachments", force: true do |t|
     t.string   "name"
@@ -295,6 +295,8 @@ ActiveRecord::Schema.define(version: 20141119205158) do
 
   add_index "alchemy_users", ["alchemy_roles"], name: "index_alchemy_users_on_alchemy_roles"
   add_index "alchemy_users", ["email"], name: "index_alchemy_users_on_email", unique: true
+  add_index "alchemy_users", ["firstname"], name: "index_alchemy_users_on_firstname"
+  add_index "alchemy_users", ["lastname"], name: "index_alchemy_users_on_lastname"
   add_index "alchemy_users", ["login"], name: "index_alchemy_users_on_login", unique: true
   add_index "alchemy_users", ["reset_password_token"], name: "index_alchemy_users_on_reset_password_token", unique: true
 
