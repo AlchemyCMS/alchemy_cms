@@ -16,7 +16,7 @@
     }
   ]
 ) %>
-<div id="archive_all" class="<%= any_tags ? 'with_tag_filter' : nil %>">
+<div id="archive_all" class="<%= any_tags ? 'with_tag_filter ' : nil %>resources-table-wrapper">
   <%= resources_header %>
   <%= render partial: 'files_list' %>
   <% if any_tags %>

@@ -43,6 +43,12 @@ Alchemy.Initializer = ->
     tagName = (event.target || event.srcElement).tagName
     key.isPressed('esc') || !(tagName == 'INPUT' || tagName == 'SELECT' || tagName == 'TEXTAREA')
 
+  # Sticky table headers
+  $('table.list').floatThead
+    useAbsolutePositioning: false,
+    scrollingTop: 122,
+    zIndex: 1
+
 # Enabling the Turbolinks Progress Bar
 Turbolinks.enableProgressBar()
 
