@@ -25,6 +25,7 @@ module Alchemy
 
     belongs_to :essence, :polymorphic => true, :dependent => :destroy
     belongs_to :element, touch: true
+    has_one :page, through: :element
 
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -56,7 +57,7 @@ module Alchemy
     scope :not_trashed,       -> { joins(:element).merge(Element.not_trashed) }
     scope :not_restricted,    -> { joins(:element).merge(Element.not_restricted) }
 
-    delegate :restricted?, to: :element, allow_nil: true
+    delegate :restricted?, to: :page,    allow_nil: true
     delegate :trashed?,    to: :element, allow_nil: true
     delegate :public?,     to: :element, allow_nil: true
 

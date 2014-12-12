@@ -41,7 +41,9 @@ module Alchemy #:nodoc:
           scope :available,    -> { joins(:element).merge(Element.available) }
           scope :from_element, ->(name) { joins(:element).where(alchemy_elements: { name: name }) }
 
-          delegate :public?, to: :element
+          delegate :restricted?, to: :page,    allow_nil: true
+          delegate :trashed?,    to: :element, allow_nil: true
+          delegate :public?,     to: :element, allow_nil: true
 
           after_update :touch_content
 
