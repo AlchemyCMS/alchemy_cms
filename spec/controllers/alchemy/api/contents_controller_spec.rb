@@ -30,9 +30,9 @@ module Alchemy
 
     describe '#show' do
       context 'with no other params given' do
-        let(:page)    { build_stubbed(:page) }
-        let(:element) { build_stubbed(:element, page: page, position: 1) }
-        let(:content) { build_stubbed(:content, element: element) }
+        let(:page)    { create(:page) }
+        let(:element) { create(:element, page: page) }
+        let(:content) { create(:content, element: element) }
 
         before do
           expect(Content).to receive(:find).and_return(content)
@@ -45,7 +45,7 @@ module Alchemy
         end
 
         context 'requesting an restricted content' do
-          let(:page) { build_stubbed(:page, restricted: true) }
+          let(:page) { create(:page, restricted: true) }
 
           it "responds with 403" do
             get :show, id: content.id, format: :json
