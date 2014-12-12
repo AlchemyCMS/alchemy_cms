@@ -24,6 +24,8 @@ module Alchemy #:nodoc:
       #   Specify the column for the preview_text method.
       #
       def acts_as_essence(options={})
+        register_as_essence_association!
+
         configuration = {
           ingredient_column: 'body'
         }.update(options)
@@ -65,6 +67,13 @@ module Alchemy #:nodoc:
         EOV
       end
 
+      # Register the current class as has_many association on +Alchemy::Page+ and +Alchemy::Element+ models
+      def register_as_essence_association!
+        klass_name = self.model_name.to_s
+        arguments = [:has_many, klass_name.demodulize.tableize.to_sym, through: :contents,
+          source: :essence, source_type: klass_name]
+        %w(Page Element).each { |k| "Alchemy::#{k}".constantize.send(*arguments) }
+      end
     end
 
     module InstanceMethods

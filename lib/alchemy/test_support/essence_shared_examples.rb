@@ -177,4 +177,17 @@ shared_examples_for "an essence" do
       expect(essence.public?).to be false
     end
   end
+
+  describe 'essence relations' do
+    let(:page)    { create(:restricted_page) }
+    let(:element) { create(:element) }
+
+    it "registers itself on page as essence relation" do
+      expect(page.respond_to?(essence.class.model_name.route_key)).to be(true)
+    end
+
+    it "registers itself on element as essence relation" do
+      expect(element.respond_to?(essence.class.model_name.route_key)).to be(true)
+    end
+  end
 end

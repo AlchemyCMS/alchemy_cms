@@ -83,6 +83,17 @@ module Alchemy
       NonStupidDigestAssets.whitelist += [/^tinymce\//]
     end
 
+    # We need to require each essence class in development mode,
+    # so it can register itself as essence relation on Page and Element models
+    # @see lib/alchemy/essence.rb:71
+    initializer 'alchemy.load_essence_classes' do |app|
+      unless Rails.application.config.cache_classes
+        Dir.glob(File.join(File.dirname(__FILE__), '../../app/models/alchemy/essence_*.rb')).each do |essence|
+          require essence
+        end
+      end
+    end
+
     config.after_initialize do
       require_relative './userstamp'
       # In order to have Alchemy's helpers and basic controller methods
