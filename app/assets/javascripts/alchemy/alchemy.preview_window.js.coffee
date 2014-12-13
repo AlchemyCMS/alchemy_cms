@@ -29,6 +29,8 @@ Alchemy.PreviewWindow =
   refresh: (callback) ->
     $iframe = $('#alchemy_preview_window')
     @_showSpinner()
+    # We need to be sure that no load event is binded on the preview frame.
+    $iframe.off('load')
     $iframe.load (e) =>
       @_hideSpinner()
       if callback

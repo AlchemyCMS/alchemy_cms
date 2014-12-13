@@ -63,12 +63,13 @@ Alchemy.initAlchemyPreviewMode = ($) ->
         $el = $(e.delegateTarget)
         $elements = @$previewElements
         offset = @scrollOffset
+        el_offset = $el.offset()
         e.preventDefault()
         $elements.removeClass("selected").css(@getStyle("reset"))
         $el.addClass("selected").css(@getStyle("selected"))
         $("html, body").animate
-          scrollTop: $el.offset().top - offset
-          scrollLeft: $el.offset().left - offset
+          scrollTop: el_offset.top - offset
+          scrollLeft: el_offset.left - offset
         , 400
         return
 
