@@ -26,7 +26,7 @@ FactoryGirl.define do
     code 'de'
     default true
     frontpage_name 'Intro'
-    page_layout 'intro'
+    page_layout { Alchemy::Config.get(:default_language)['page_layout'] }
     public true
     site { Alchemy::Site.first }
 
@@ -57,7 +57,7 @@ FactoryGirl.define do
 
     factory :language_root_page do
       name 'Startseite'
-      page_layout 'intro'
+      page_layout { language.page_layout }
       language_root true
       public true
       parent_id { Alchemy::Page.root.id }

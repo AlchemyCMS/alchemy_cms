@@ -1,4 +1,4 @@
-- name: intro
+- name: index
   unique: true
 
 - name: standard
