@@ -1,0 +1,5 @@
+default_language:
+	code: en
+	name: English
+	page_layout: intro
+	frontpage_name: Index

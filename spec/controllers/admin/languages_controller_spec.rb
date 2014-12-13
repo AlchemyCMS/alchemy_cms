@@ -27,9 +27,19 @@ describe Alchemy::Admin::LanguagesController do
     end
 
     context "when default_language or page_layout aren't configured" do
+      before do
+        FileUtils.mv "#{Rails.root}/config/alchemy/config.yml", "#{Rails.root}/config/alchemy/config.disabled.yml"
+        Alchemy::Config.instance_variable_set(:@config, nil)
+      end
+
       it "should fallback to one configured in config.yml" do
         get :new
         expect(assigns(:language).page_layout).to eql("index")
+      end
+
+      after do
+        FileUtils.mv "#{Rails.root}/config/alchemy/config.disabled.yml", "#{Rails.root}/config/alchemy/config.yml"
+        Alchemy::Config.instance_variable_set(:@config, nil)
       end
     end
 
