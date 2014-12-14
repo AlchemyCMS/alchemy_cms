@@ -26,5 +26,5 @@ Alchemy.Autocomplete =
   _initializeSelection: (element, callback) ->
     data = []
     $(element.val().split(",")).each ->
-      data.push id: this, text: this
+      data.push id: $.trim(this), text: this
     callback(data)
