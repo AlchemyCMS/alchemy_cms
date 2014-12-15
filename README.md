@@ -283,7 +283,7 @@ $ bundle exec rake
 
 **A note about RSpec version:**
 
-Alchemy specs are written **in RSpec 3**. Please **do not use depricated RSpec 2.x syntax**. Thanks
+Alchemy specs are written **in RSpec 3**. Please **do not use deprecated RSpec 2.x syntax**. Thanks
 
 
 Getting Help
