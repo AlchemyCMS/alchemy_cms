@@ -2,7 +2,5 @@
 require File.expand_path('../../../alchemy/version', __FILE__)
 
 gem 'alchemy_cms', "#{Alchemy::VERSION}"
-gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
+gem 'alchemy-devise', '>= 2.1.0.beta1'
 gem 'capistrano', '~> 2.15.5', group: 'development'
-
-run 'bundle install'
