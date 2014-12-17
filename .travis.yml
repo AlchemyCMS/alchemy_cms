@@ -9,7 +9,7 @@ branches:
   only:
     - master
 before_script: 'bundle exec rake alchemy:spec:prepare'
-script: rspec
+script: 'bundle exec rspec'
 env:
   - DB=mysql
   - DB=postgresql
