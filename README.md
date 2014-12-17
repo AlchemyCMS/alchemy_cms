@@ -1,7 +1,7 @@
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.png)](http://badge.fury.io/rb/alchemy_cms)
 [![Build Status](https://travis-ci.org/magiclabs/alchemy_cms.svg?branch=master)](https://travis-ci.org/magiclabs/alchemy_cms) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy_cms.png)](https://codeclimate.com/github/magiclabs/alchemy_cms) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy_cms/badge.png?branch=master)](https://coveralls.io/r/magiclabs/alchemy_cms?branch=master)
 
-**CAUTION: This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](http://rubygems.org/gems/alchemy_cms/versions/3.0.0), or the [latest stable branch (3.0-stable)](https://github.com/magiclabs/alchemy_cms/tree/3.0-stable).**
+**CAUTION: This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms/versions/3.0.0), or the [latest stable branch (3.0-stable)](https://github.com/magiclabs/alchemy_cms/tree/3.0-stable).**
 
 About
 -----
@@ -104,8 +104,10 @@ the Devise based user model that Alchemy provides and was extracted [into its ow
 If you don't have your own user class, you can use the Alchemy user model. Just add the following gem into your `Gemfile`:
 
 ```ruby
-gem 'alchemy-devise', '~> 2.0'
+gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
 ```
+
+**NOTE:** You normally want to use a stable branch, like `2.0-stable`.
 
 Then run:
 
