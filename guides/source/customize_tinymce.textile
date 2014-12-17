@@ -26,8 +26,10 @@ Because Alchemy merges the default options and your custom options you just need
 <ruby>
 # config/initializers/tinymce.rb
 Alchemy::Tinymce.init = {
-  toolbar1: 'bold italic underline',
-  toolbar2: 'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
+  toolbar: [
+    'bold italic underline',
+    'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
+  ]
 }
 </ruby>
 
@@ -47,7 +49,7 @@ Let's add a format select to our editors so they can insert headlines into their
 In the TinyMCE documentation we found our configuration option:
 
 <javascript>
-tinyMCE.init({
+tinymce.init({
   ...
   block_formats: "Paragraph=p;Header 1=h1;Header 2=h2;Header 3=h3"
 });
@@ -59,7 +61,10 @@ And we need to insert the format select into the set of buttons.
 <ruby>
 # config/initializers/tinymce.rb
 Alchemy::Tinymce.init = {
-  toolbar2: 'pastetext | formatselect | charmap code | undo redo | alchemy_link unlink',
+  toolbar: [
+    'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen',
+    'pastetext | formatselect | charmap code | undo redo | alchemy_link unlink'
+  ],
   block_formats: "Header 2=h2;Paragraph=p"
 }
 </ruby>
@@ -90,8 +95,8 @@ Alchemy::Tinymce.init = {
 
 h4. Compile the asset for production
 
-In production mode (on your server) rails uses compiled assets to speed up the rendering of your page.
-As default rails only compiles the <code>application.css</code> stylesheet. But you can tell rails to compile our custom TinyMCE stylesheet as well.
+In production mode (on your server) Rails uses compiled assets to speed up the rendering of your page.
+As default Rails only compiles the <code>application.css</code> stylesheet. But you can tell Rails to compile our custom TinyMCE stylesheet as well.
 
 Open the <code>config/environments/production.rb</code> file in your editor and insert this line:
 
@@ -111,8 +116,9 @@ You can also set TinyMCE configuration options per element.
     type: EssenceRichtext
     settings:
       tinymce:
-        toolbar1: 'bold italic underline',
-        toolbar2: 'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
+        toolbar:
+        - 'bold italic underline',
+        - 'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
 </yaml>
 
 h3. Configuration Syntax
