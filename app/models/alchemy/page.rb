@@ -36,6 +36,7 @@
 module Alchemy
   class Page < ActiveRecord::Base
     include Alchemy::Hints
+    include Alchemy::Logger
     include Alchemy::Touching
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
