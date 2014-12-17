@@ -47,9 +47,9 @@ h4. Blog title
 
 The blog should have a unique title. The title element contains a <code>title</code> and a <code>text</code> which represents a description or motto. In both cases we choose an <code>EssenceText</code>, due to the fact that the <code>title</code> and the <code>text</code>will contain simple text.
 
-The <code>default</code> attribut provides the preset value, if the user didn't specify a motto or description( in Alchemy's backend).
+The <code>default</code> attribut provides the preset value, if the user didn't specify a motto or description (in Alchemys backend).
 
-<pre>
+<yaml>
 - name: blog_title
   unique: true
   contents:
@@ -59,7 +59,7 @@ The <code>default</code> attribut provides the preset value, if the user didn't 
   - name: text
     type: EssenceText
     default: This is my blog. It's awesome.
-</pre>
+</yaml>
 
 h4. Blog post
 
@@ -74,7 +74,7 @@ get the type <code>EssenceRichtext</code>, since the user likes to add multiline
 
 The <code>blog_post_image</code> is of type <code>EssencePicture</code>. This will empower the user to add an image.
 
-<pre>
+<yaml>
 - name: blog_post
   contents:
   - name: blog_post_title
@@ -91,7 +91,7 @@ The <code>blog_post_image</code> is of type <code>EssencePicture</code>. This wi
     type: EssencePicture
   - name: blog_post_content
     type: EssenceRichtext
-</pre>
+</yaml>
 
 h4. Categories Block
 
@@ -99,9 +99,10 @@ The 'categories block' has a headline and a list of available categories.
 
 The <code>categories_headline</code> is represented by an <code>EssenceText</code>.
 In the backend the user should be able to add categories easily and dynamically. Thats the reason why we choose the <code>available_contents</code> option.
-*Its important to copy the definition of <code>category</code> below <code>contents</code> to <code>available_contents</code>*. Besides this, we also make the <code>EssenceText</code> deleteable and linkable via <code>settings</code>.
 
-<pre>
+Its important to copy the definition of <code>category</code> below <code>contents</code> to <code>available_contents</code>. Besides this, we also make the <code>EssenceText</code> <code>deletable</code> and <code>linkable</code> via <code>settings</code>.
+
+<yaml>
 - name: categories_block
   contents:
   - name: categories_headline
@@ -118,13 +119,13 @@ In the backend the user should be able to add categories easily and dynamically.
     settings:
       deletable: true
       linkable: true
-</pre>
+</yaml>
 
 h4. Featured block
 
 The 'featured block' with a headline, text and a link.
 
-<pre>
+<yaml>
 - name: featured
   unique: true
   contents:
@@ -137,7 +138,7 @@ The 'featured block' with a headline, text and a link.
     type: EssenceText
     settings:
       linkable: true
-</pre>
+</yaml>
 
 NOTE: Instead of <code>EssenceText</code> you could alternativly use <code>EssenceLink</code> for 'featured_link'.
 
@@ -148,11 +149,11 @@ page layout. Page layout are specified in <code>config/alchemy/page_layouts.yml<
 
 Add a new page layout for your blog template:
 
-<pre>
+<yaml>
 - name: blog
   elements: [blog_title, blog_post, categories_block, featured]
   autogenerate: [blog_title]
-</pre>
+</yaml>
 
 The <code>autogenerate</code> attribute allows to define elements which
 will be generated automatically, when the user creates a new page in backend.
@@ -160,7 +161,11 @@ will be generated automatically, when the user creates a new page in backend.
 h3. Generate and customize the partials
 
 The command
-<shell>rails g alchemy:elements --skip</shell>
+
+<shell>
+$ rails g alchemy:elements --skip
+</shell>
+
 creates the view and editor partial according to the element definition in
 the <code>elements.yml</code>.
 
@@ -175,7 +180,7 @@ In order to adapt the output of the elements you have to change the view partial
 The command above generates default partials. The <code>_blog_post_view.html.erb</code>
 might look like this:
 
-<pre>
+<erb>
 <%- cache(element) do -%>
   <%= element_view_for(element) do |el| -%>
     <div class="blog_post_title">
@@ -195,11 +200,11 @@ might look like this:
     </div>
   <%- end -%>
 <%- end -%>
-</pre>
+</erb>
 
 The blog post should match with the layout of the blog page in general, therefore we edit the view partial:
 
-<pre>
+<erb>
 <%- cache(element) do -%>
   <%= element_view_for(element) do |el| -%>
     <article>
@@ -226,7 +231,7 @@ The blog post should match with the layout of the blog page in general, therefor
     <hr/>
   <%- end -%>
 <%- end -%>
-</pre>
+</erb>
 
 The editor partial is used for the backend, so we keep this file untouched.
 Feel feel to edit this partial if you like.
@@ -234,19 +239,19 @@ Feel feel to edit this partial if you like.
 For the remaining elements replace the content of the correspondig view partials
 with the following code snippets:
 
-<code>_blog_title_view.html.erb</code>
+h4. _blog_title_view.html.erb
 
-<pre>
+<erb>
 <%- cache(element) do -%>
   <%= element_view_for(element, tag: 'h1') do |el| -%>
   <%= el.render :title %> <small><%= el.render :text %></small>
   <%- end -%>
 <%- end -%>
-</pre>
+</erb>
 
-<code>_categories_block_view.html.erb</code>
+h4. _categories_block_view.html.erb
 
-<pre>
+<erb>
 <%- cache(element) do -%>
   <%= element_view_for(element) do |el| -%>
   <h5>
@@ -259,11 +264,11 @@ with the following code snippets:
     <%- end -%>
   <%- end -%>
 <%- end -%>
-</pre>
+</erb>
 
-<code>_featured_view.html.erb</code>
+h4. _featured_view.html.erb
 
-<pre>
+<erb>
 <%- cache(element) do -%>
   <%= element_view_for(element) do |el| -%>
     <h5>
@@ -277,7 +282,7 @@ with the following code snippets:
     </p>
   <%- end -%>
 <%- end -%>
-</pre>
+</erb>
 
 h3. Embed the elements into your page layout
 
@@ -292,15 +297,15 @@ h4. Edit blog page layout view
 
 In <code>app/views/alchemy/page_layouts/_blog.html</code> search for (inside 'Nav Bar' comment)
 
-<pre>
+<erb>
 <h1>Blog <small>This is my blog. It's awesome.</small></h1>
-</pre>
+</erb>
 
 and replace with:
 
-<pre>
+<erb>
 <%= render_elements only: 'blog_title' %>
-</pre>
+</erb>
 
 The <strong>blog_title</strong> set in the backend is now visible in the blog page layout context.
 
@@ -308,43 +313,43 @@ Inside the commented 'Main Blog Content' replace the whole content of
 <code><div class="large-9 columns" role="content"></code>
 
 with
-<pre>
+<erb>
 <%= render_elements only: 'blog_post' %>
-</pre>
+</erb>
 
 to embed the <strong>blog_post</strong> elements into the page layout view.
 
 Inside 'Sidebar' comment replace
 
-<pre>
+<erb>
 <h5>Categories</h5>
-      <ul class="side-nav">
-        <li><a href="#">News</a></li>
-        <li><a href="#">Code</a></li>
-        <li><a href="#">Design</a></li>
-        <li><a href="#">Fun</a></li>
-        <li><a href="#">Weasels</a></li>
-      </ul>
-</pre>
+<ul class="side-nav">
+  <li><a href="#">News</a></li>
+  <li><a href="#">Code</a></li>
+  <li><a href="#">Design</a></li>
+  <li><a href="#">Fun</a></li>
+  <li><a href="#">Weasels</a></li>
+</ul>
+</erb>
 
 with
 
-<pre>
+<erb>
 <%= render_elements only: 'categories_block'  %>
-</pre>
+</erb>
 
 
 and replace the content of <code><div class="panel"></code>
 with
-<pre>
-<%=  render_elements only: 'featured' %>
-</pre>
+<erb>
+<%= render_elements only: 'featured' %>
+</erb>
 
 Now you can run
-<shell>rails server</shell>
+<shell>
+$ rails server
+</shell>
 
 to start the server.
-
-*Build your blog page using the defined layout and the elements.*
 
 &nbsp;
