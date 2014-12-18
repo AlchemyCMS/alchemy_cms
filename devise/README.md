@@ -49,7 +49,7 @@ If you want to contribute (and you should ^_^), you need to run the tests locall
 
 Just follow these pretty rails standard way of testing projects:
 
-1. Once to prepare the test suite:
+### 1. Once to prepare the test suite:
 
 Clone the repo to your local harddrive. Then
 
@@ -58,7 +58,7 @@ $ bundle install
 $ rake alchemy:spec:prepare
 ```
 
-2. Run the tests with:
+### 2. Run the tests with:
 
 ```shell
 $ rspec
