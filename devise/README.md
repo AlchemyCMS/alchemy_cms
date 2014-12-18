@@ -1,6 +1,6 @@
 ## Devise based authentication for Alchemy 3.0
 
-[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy-devise.png?branch=master)](http://travis-ci.org/magiclabs/alchemy-devise) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy-devise/badge.png?branch=master)](https://coveralls.io/r/magiclabs/alchemy-devise?branch=master) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy-devise.png)](https://codeclimate.com/github/magiclabs/alchemy-devise)
+[![Build Status](https://secure.travis-ci.org/magiclabs/alchemy-devise.svg?branch=master)](http://travis-ci.org/magiclabs/alchemy-devise) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy-devise/badge.png?branch=master)](https://coveralls.io/r/magiclabs/alchemy-devise?branch=master) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy-devise.svg)](https://codeclimate.com/github/magiclabs/alchemy-devise)
 
 **CAUTION: This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy-devise/versions/2.0.0), or the [latest stable branch (2.0-stable)](https://github.com/magiclabs/alchemy-devise/tree/2.0-stable).**
 
