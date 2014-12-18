@@ -33,7 +33,7 @@
     <%= form.hidden_field :parent_id, value: root.id %>
     <%= form.hidden_field :public, value: Alchemy::Language.all.size == 1 %>
     <div class="submit">
-      <%= form.button _t("create_tree_as_new_language", language: @language.name) %>
+      <%= form.button _t("create_tree_as_new_language", language: @language.name), autofocus: true %>
     </div>
   <% end %>
 
