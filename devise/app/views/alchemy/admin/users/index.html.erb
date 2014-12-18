@@ -15,34 +15,38 @@
   ]
 ) %>
 
-<div id="archive_all">
+<div id="archive_all" class="resources-table-wrapper">
   <%= resources_header %>
 <% if @users.any? %>
 
   <table class="list" id="user_list">
-    <tr>
-      <th class="icon"></th>
-      <th class="login_status"></th>
-      <th class="login">
-        <%= sortable_column(Alchemy::User.human_attribute_name('login'), column: :login) %>
-      </th>
-      <th class="name">
-        <%= sortable_column(Alchemy::User.human_attribute_name('firstname'), column: :firstname) %>
-      </th>
-      <th>
-        <%= sortable_column(Alchemy::User.human_attribute_name('lastname'), column: :lastname) %>
-      </th>
-      <th class="email">
-        <%= sortable_column(Alchemy::User.human_attribute_name('email'), column: :email) %>
-      </th>
-      <th><%= Alchemy::User.human_attribute_name('language') %></th>
-      <th>
-        <%= sortable_column(Alchemy::User.human_attribute_name('last_sign_in_at'), column: :last_sign_in_at) %>
-      </th>
-      <th class="role"><%= Alchemy::User.human_attribute_name('roles') %></th>
-      <th class="tools"></th>
-    </tr>
-    <%= render partial: 'alchemy/admin/users/user', collection: @users %>
+    <thead>
+      <tr>
+        <th class="icon"></th>
+        <th class="login_status"></th>
+        <th class="login">
+          <%= sortable_column(Alchemy::User.human_attribute_name('login'), column: :login) %>
+        </th>
+        <th class="name">
+          <%= sortable_column(Alchemy::User.human_attribute_name('firstname'), column: :firstname) %>
+        </th>
+        <th>
+          <%= sortable_column(Alchemy::User.human_attribute_name('lastname'), column: :lastname) %>
+        </th>
+        <th class="email">
+          <%= sortable_column(Alchemy::User.human_attribute_name('email'), column: :email) %>
+        </th>
+        <th><%= Alchemy::User.human_attribute_name('language') %></th>
+        <th>
+          <%= sortable_column(Alchemy::User.human_attribute_name('last_sign_in_at'), column: :last_sign_in_at) %>
+        </th>
+        <th class="role"><%= Alchemy::User.human_attribute_name('roles') %></th>
+        <th class="tools"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'alchemy/admin/users/user', collection: @users %>
+    </tbody>
   </table>
 
   <%= paginate @users, theme: 'alchemy' %>
