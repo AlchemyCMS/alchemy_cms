@@ -1,4 +1,6 @@
 language: ruby
+sudo: false
+cache: bundler
 rvm:
   - 1.9.3
   - 2.0.0
@@ -6,8 +8,8 @@ rvm:
 branches:
   only:
     - master
-before_script: 'rake alchemy:spec:prepare'
-script: rspec
+before_script: 'bundle exec rake alchemy:spec:prepare'
+script: 'bundle exec rspec'
 env:
   - DB=mysql
   - DB=postgresql
