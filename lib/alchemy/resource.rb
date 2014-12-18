@@ -135,7 +135,7 @@ module Alchemy
     # For now it only uses string type columns
     #
     def searchable_attributes
-      self.attributes.select { |a| a[:type] == :string }
+      self.attributes.select { |a| a[:type].to_sym == :string }
     end
 
     def in_engine?
