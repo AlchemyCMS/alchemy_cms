@@ -118,6 +118,15 @@ module Alchemy
       namespace_array
     end
 
+    # Returns an array of underscored association names
+    #
+    def model_association_names
+      return unless model_associations
+      model_associations.map do |assoc|
+        assoc.name.to_sym
+      end
+    end
+
     def attributes
       @_attributes ||= self.model.columns.collect do |col|
         unless self.skipped_attributes.include?(col.name)
@@ -135,7 +144,7 @@ module Alchemy
     # For now it only uses string type columns
     #
     def searchable_attributes
-      self.attributes.select { |a| a[:type] == :string }
+      self.attributes.select { |a| a[:type].to_sym == :string }
     end
 
     def in_engine?

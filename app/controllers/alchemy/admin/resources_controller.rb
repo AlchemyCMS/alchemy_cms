@@ -149,7 +149,7 @@ module Alchemy
       def query_items(items)
         query = params[:query].downcase.split(' ').join('%')
         query = ActiveRecord::Base.sanitize("%#{query}%")
-        items.where(search_query(query))
+        items.eager_load(resource_handler.model_association_names).where(search_query(query))
       end
 
       # Returns a search query string

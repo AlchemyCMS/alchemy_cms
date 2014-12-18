@@ -306,6 +306,12 @@ module Alchemy
         end
       end
 
+      describe '#model_association_names' do
+        it 'returns an array of association names' do
+          expect(resource.model_association_names).to eq [:location]
+        end
+      end
+
       describe '#attributes' do
         it "contains the attribute of the related model" do
           expect(resource.attributes.detect { |a| a[:name] == 'location_id' }.keys).to include(:relation)
