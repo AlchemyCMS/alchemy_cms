@@ -118,6 +118,15 @@ module Alchemy
       namespace_array
     end
 
+    # Returns an array of underscored association names
+    #
+    def model_association_names
+      return unless model_associations
+      model_associations.map do |assoc|
+        assoc.name.to_sym
+      end
+    end
+
     def attributes
       @_attributes ||= self.model.columns.collect do |col|
         unless self.skipped_attributes.include?(col.name)

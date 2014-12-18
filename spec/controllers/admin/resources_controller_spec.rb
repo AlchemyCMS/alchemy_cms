@@ -32,6 +32,22 @@ describe EventsController do
         expect(assigns(:events)).to include(peter)
         expect(assigns(:events)).not_to include(lustig)
       end
+
+      context "but searching for record with certain association" do
+        let(:bauwagen) { Location.create(name: 'Bauwagen') }
+        let(:params)   { {query: 'Bauwagen'} }
+
+        before do
+          peter.location = bauwagen
+          peter.save
+        end
+
+        it "returns only matching records" do
+          get :index, params
+          expect(assigns(:events)).to include(peter)
+          expect(assigns(:events)).not_to include(lustig)
+        end
+      end
     end
   end
 end
