@@ -34,7 +34,6 @@ Alchemy::Engine.routes.draw do
 
   resources :messages, :only => [:index, :new, :create]
   resources :elements, :only => :show
-  resources :contents, :only => :show
 
   namespace :api, defaults: {format: 'json'} do
     resources :contents, only: [:index, :show]
