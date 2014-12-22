@@ -83,8 +83,31 @@ module Alchemy
       NonStupidDigestAssets.whitelist += [/^tinymce\//]
     end
 
+    # We need to require each essence class in development mode,
+    # so it can register itself as essence relation on Page and Element models
+    # @see lib/alchemy/essence.rb:71
+    initializer 'alchemy.load_essence_classes' do |app|
+      unless Rails.application.config.cache_classes
+        Dir.glob(File.join(File.dirname(__FILE__), '../../app/models/alchemy/essence_*.rb')).each do |essence|
+          require essence
+        end
+      end
+    end
+
     config.after_initialize do
-      require_relative './userstamp'
+      begin
+        require_relative './userstamp'
+      rescue NameError
+        abort <<-MSG
+
+We can't find an user class!
+
+Please add an user class and tell Alchemy about it or, if you don't want
+to create your own class, add the `alchemy-devise` gem to your Gemfile.
+
+gem 'alchemy-devise', '~> 2.1.0'
+MSG
+      end
       # In order to have Alchemy's helpers and basic controller methods
       # available in the host app, we patch the ApplicationController.
       ApplicationController.send(:include, Alchemy::ControllerActions)

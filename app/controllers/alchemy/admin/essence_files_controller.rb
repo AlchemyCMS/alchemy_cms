@@ -6,14 +6,14 @@ module Alchemy
       helper "Alchemy::Admin::Contents"
 
       def edit
-        @content = Content.find(params[:id])
+        @essence_file = EssenceFile.find(params[:id])
+        @content = @essence_file.content
         @options = options_from_params
-        @essence_file = @content.essence
       end
 
       def update
         @essence_file = EssenceFile.find(params[:id])
-        @essence_file.update_attributes(params[:essence_file])
+        @essence_file.update(params[:essence_file])
       end
 
       def assign
@@ -22,7 +22,6 @@ module Alchemy
         @content.essence.attachment = @attachment
         @options = options_from_params
       end
-
     end
   end
 end

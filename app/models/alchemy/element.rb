@@ -361,7 +361,7 @@ module Alchemy
               "fields.#{content_name}.#{error}".to_sym,
               "errors.#{error}".to_sym
             ],
-            field: Content.translated_label_for(content_name)
+            field: Content.translated_label_for(content_name, name)
           )
         end
       end

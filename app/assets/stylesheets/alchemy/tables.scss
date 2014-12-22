@@ -21,36 +21,58 @@ table {
   border-left: 1px solid $medium-gray
 }
 
+.list th {
+  position: relative;
+
+  &.icon {
+    border-bottom: 1px solid $medium-gray;
+  }
+}
+
+.floatThead-container {
+  background: $light-gray;
+  overflow: visible !important; // the javascript author thought that, but ....
+
+  &:after {
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    @include background(linear-gradient(top, $light-gray 0%, rgba($light-gray, .0) 100%));
+    content: '';
+  }
+}
+
 th {
   white-space: nowrap;
   text-align: left;
   vertical-align: top;
-  @include background(linear-gradient(top, lighten($light-gray, 10) 0%, $light-gray 30%, $light-gray 90%, darken($light-gray, 10) 100%));
-  border-top: 1px solid $medium-gray;
-  color: #666;
+  background: $light-gray;
+  border-bottom: 1px solid $medium-gray;
   font-weight: normal;
+  text-transform: uppercase;
 
   i {
     font-style: normal;
     position: absolute;
     right: 2px;
     top: 4px;
-    color: #999;
-    @include text-shadow(1px 1px 0px #fff);
+    @include text-shadow(1px 1px 1px #fff);
   }
 
   a {
-    @include text-shadow(1px 1px 0px #fff);
 
     &.sortable {
       display: block;
       margin: -4px -8px;
       padding: 4px 18px 4px 8px;
+      @include text-shadow(1px 1px 1px #fff);
     }
 
     &.sorted {
       position: relative;
-      @include background(linear-gradient(top, lighten($light-gray, 10) 0%, $very-light-blue 50%, $light-gray 90%, darken($light-gray, 10) 100%));
+      background: $medium-gray;
     }
   }
 }
@@ -91,7 +113,7 @@ td.heading {
 .list td.icon, .list th.icon {
   background-color: $light-gray;
   background-image: none;
-  border: 0 none;
+  border-left: 0 none;
   padding: 0;
   border-right: 1px solid $medium-gray;
   text-align: center;

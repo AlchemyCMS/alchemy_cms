@@ -40,6 +40,27 @@ module Alchemy
           end
         end
       end
+
+      describe 'only and expect options' do
+        let!(:png) { create(:attachment) }
+        let!(:jpg) { create(:attachment, file: File.new(File.expand_path('../../../../spec/fixtures/image3.jpeg', __FILE__))) }
+
+        context 'with params[:only]' do
+          it 'only loads attachments with matching content type' do
+            get :index, only: 'jpeg'
+            expect(assigns(:attachments).to_a).to eq([jpg])
+            expect(assigns(:attachments).to_a).to_not eq([png])
+          end
+        end
+
+        context 'with params[:except]' do
+          it 'does not load attachments with matching content type' do
+            get :index, except: 'jpeg'
+            expect(assigns(:attachments).to_a).to eq([png])
+            expect(assigns(:attachments).to_a).to_not eq([jpg])
+          end
+        end
+      end
     end
 
     describe '#show' do

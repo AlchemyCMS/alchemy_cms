@@ -33,6 +33,16 @@ module Alchemy
           allow_any_instance_of(PagesController).to receive(:multi_language?).and_return(true)
         end
 
+        let(:second_page) { FactoryGirl.create(:public_page, name: 'Second Page') }
+        let(:legacy_url)  { LegacyPageUrl.create(urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69', page: second_page) }
+
+        it "should redirect legacy url with unknown format & query string" do
+          visit "/#{legacy_url.urlname}"
+          uri = URI.parse(page.current_url)
+          expect(uri.query).to be_nil
+          expect(uri.request_uri).to eq("/en/#{second_page.urlname}")
+        end
+
         context "if no language params are given" do
           it "should redirect to url with nested language code" do
             visit "/#{public_page_1.urlname}"
@@ -108,6 +118,16 @@ module Alchemy
         before do
           allow_any_instance_of(PagesController).to receive(:multi_language?).and_return(false)
           allow(Config).to receive(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
+        end
+
+        let(:second_page) { FactoryGirl.create(:public_page, name: 'Second Page') }
+        let(:legacy_url) { LegacyPageUrl.create(urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69', page: second_page) }
+
+        it "should redirect legacy url with unknown format & query string" do
+          visit "/#{legacy_url.urlname}"
+          uri = URI.parse(page.current_url)
+          expect(uri.query).to be_nil
+          expect(uri.request_uri).to eq("/#{second_page.urlname}")
         end
 
         it "should redirect from nested language code url to normal url" do

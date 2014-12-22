@@ -36,12 +36,13 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'coffee-rails',                     '~> 4.0.0'
   gem.add_runtime_dependency 'compass-rails',                    '>= 1.1.2'
   gem.add_runtime_dependency 'sassy-buttons',                    '~> 0.2.6'
-  gem.add_runtime_dependency 'select2-rails',                    '~> 3.4'
+  gem.add_runtime_dependency 'sprockets',                        '~> 2.11.3'
+  gem.add_runtime_dependency 'select2-rails',                    '>= 3.5.9.1', '< 4.0'
   gem.add_runtime_dependency 'tvdeyen-handles_sortable_columns', '~> 0.1.5'
   gem.add_runtime_dependency 'spinner.rb'
-  gem.add_runtime_dependency 'turbolinks',                       '~> 2.0'
+  gem.add_runtime_dependency 'turbolinks',                       '~> 2.5'
   gem.add_runtime_dependency 'non-stupid-digest-assets',         '~> 1.0.3'
-  gem.add_runtime_dependency 'active_model_serializers',         '>= 0.8.1', '< 0.10.0'
+  gem.add_runtime_dependency 'active_model_serializers',         '>= 0.8.1', '< 0.9.1'
   gem.add_runtime_dependency 'request_store',                    '~> 1.1.0'
 
   gem.add_development_dependency 'rspec-rails', '~> 3.0'
@@ -49,18 +50,30 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'factory_girl_rails'
 
   gem.post_install_message =<<-MSG
-To complete the installation of Alchemy please run:
+-------------------------------------------------------------
+            Thank you for installing Alchemy CMS
+-------------------------------------------------------------
 
-$ bin/rake alchemy:install
+- Create a new standalone Alchemy project:
 
-To upgrade former Alchemy intallations please run:
+  $ alchemy new my_project_name
 
-$ bin/rake alchemy:upgrade
+- Complete the installation in an existing Rails application:
 
-Thanks for installing Alchemy!
+  $ bin/rake alchemy:install
 
-Need help?
-Try https://groups.google.com/forum/#!forum/alchemy-cms
-or #alchemy_cms on irc.freenode.net
+- Complete the upgrade of an existing Alchemy installation:
+
+  $ bin/rake alchemy:upgrade
+
+and follow the onscreen instructions.
+
+Need help? Try:
+
+* http://stackoverflow.com/questions/tagged/alchemy-cms
+* http://groups.google.com/group/alchemy-cms
+* irc://irc.freenode.net#alchemy_cms
+-------------------------------------------------------------
+
 MSG
 end

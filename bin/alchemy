@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 # encoding: UTF-8
-gem 'rails', '~> 4.0'
+gem 'rails', '~> 4.1.0'
 
 require 'rails/version'
 require "thor"
@@ -21,16 +21,27 @@ class AlchemyInstaller < Thor
   method_option :database, type: :string, aliases: "-d", desc: "Type of database to use for this project. Default sqlite."
   def new(project)
     @application = project.downcase.strip.gsub(/ /, '_')
-    system("rails _#{rails_version}_ new #{@application} -m #{alchemy_template} -d #{options[:database]} -JT") || exit!(1)
+    say welcome_message, :yellow
+    say "Step 1: Creating a Rails #{rails_version} application.", :yellow
+    say "Please wait...", :yellow
+    system("rails _#{rails_version}_ new #{@application} -m #{alchemy_template} -d #{options[:database]} -JT --quiet") || exit!(1)
+    say "Successfully created the Rails application!", :green
+    say instructions, :yellow
     if options[:database] == 'mysql' || options[:database] == 'postgresql'
       create_database_yml(options[:database])
     end
-    system("#{rake_cmd} alchemy:install") || exit!(1)
+    system("#{rake_cmd} alchemy:install from_binary=true") || exit!(1)
+    say "\nStep 3: Installing Alchemy User into Rails app", :yellow
+    say "Please wait...", :yellow
     system("#{rake_cmd} alchemy_devise:install:migrations") || exit!(1)
+    say "Done.", :green
+    say "\nStep 4: Setting up the database", :yellow
+    say "Please wait...", :yellow
     system("#{rake_cmd} db:migrate") || exit!(1)
+    say "Done.", :green
     cleanup
-    say "\n## SUCCESSFULLY INSTALLED ALCHEMY CMS\n", :green
-    say further_instructions
+    say "\nSuccessfully installed Alchemy CMS\n", :green
+    say further_instructions, :yellow
   rescue
     say "\nError while installing Alchemy CMS!\n#{$!}\n", :red
   end
@@ -42,35 +53,54 @@ class AlchemyInstaller < Thor
   end
 
   def rake_cmd
-    "cd #{@application} && bin/rake"
+    "cd #{@application} && bundle exec rake"
   end
 
   def alchemy_template
     File.join(File.dirname(__FILE__), '..', 'lib', 'rails', 'templates', 'alchemy.rb')
   end
 
+  def welcome_message
+    <<-MSG
+
+------------------------------------------------------------
+-=      Welcome to the Alchemy Standalone Installer       =-
+------------------------------------------------------------
+
+Bootstraping a new Alchemy CMS #{Alchemy.version} project for you.
+
+MSG
+  end
+
+  def instructions
+    <<-INSTRUCTIONS
+
+Step 2: Configuration
+
+In order to guide you through the installation process we need you to answer some questions.
+INSTRUCTIONS
+  end
+
   def further_instructions
     <<-EOF
-:: FURTHER INSTRUCTIONS :::::::::::::::::::::::::::::::::::::::::::::::::
-::                                                                     ::
-:: Change into your app folder:                                        ::
-::                                                                     ::
-:: $ cd #{@application}#{' ' * (63 - @application.length)}::
-::                                                                     ::
-:: Start your local Rails server with:                                 ::
-::                                                                     ::
-:: $ bin/rails server                                                  ::
-::                                                                     ::
-:: Open your browser and enter the following URL:                      ::
-::                                                                     ::
-:: http://localhost:3000/admin                                         ::
-::                                                                     ::
-:: and follow the on screen instructions to complete the installation. ::
-::                                                                     ::
-:: Read more about Alchemy in the guidelines:                          ::
-::                                                                     ::
-:: http://guides.alchemy-cms.com/                                      ::
-:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+Step 5: Further Instructions
+
+Change into your app folder:
+
+  $ cd #{@application}
+
+Start your local Rails server with:
+
+  $ bin/rails server
+
+Open your browser and enter the following URL:
+
+http://localhost:3000/admin
+
+and follow the on screen instructions to complete the installation.
+
+We hope you have fun using Alchemy!
 EOF
   end
 
@@ -96,6 +126,7 @@ GITIGNORE
   def create_database_yml(type)
     case type
     when 'mysql'
+      say "- MySQL Database settings", :yellow
       @db_user_name = ask("\nPlease enter your local mysql username (DEFAULT: root):")
       @db_user_name = 'root' if @db_user_name.empty?
       @db_password = ask_password("Please enter the password for #{@db_user_name} (Leave blank for none):")
@@ -104,6 +135,7 @@ GITIGNORE
       @db_socket = local_standard_socket if @db_socket.empty?
       file = mysql_yml_file
     when 'postgresql'
+      say "- PostgreSQL Database settings", :yellow
       @db_user_name = ask("\nPlease enter the local postgresql user name:")
       @db_password = ask_password("Please enter the password for #{@db_user_name} (Leave blank for none):")
       file = postgres_yml_file

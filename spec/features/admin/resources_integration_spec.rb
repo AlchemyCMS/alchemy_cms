@@ -37,6 +37,11 @@ describe "Resources" do
       expect(page).to have_selector('input#event_starts_at[type="date"]')
       expect(page).to have_selector('textarea#event_description')
       expect(page).to have_selector('input#event_published[type="checkbox"]')
+      expect(page).to have_selector('input#event_lunch_starts_at_1i[type="hidden"]')
+      expect(page).to have_selector('input#event_lunch_starts_at_2i[type="hidden"]')
+      expect(page).to have_selector('input#event_lunch_starts_at_3i[type="hidden"]')
+      expect(page).to have_selector('select#event_lunch_starts_at_4i')
+      expect(page).to have_selector('select#event_lunch_starts_at_5i')
     end
 
     it "should have a select box for associated models" do

@@ -96,6 +96,8 @@
     <script>
       // Store current locale for javascript translations.
       Alchemy.locale = '<%= ::I18n.locale %>';
+      // Setting the correct locale for select2 dropdown replacement.
+      $.extend($.fn.select2.defaults, $.fn.select2.locales['<%= ::I18n.locale %>']);
     </script>
     <%= yield(:javascripts) %>
   </body>

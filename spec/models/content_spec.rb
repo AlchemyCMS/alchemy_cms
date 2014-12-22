@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Content do
-    let(:element) { create(:element, name: 'headline', :create_contents_after_create => true) }
-    let(:content) { element.contents.find_by_essence_type('Alchemy::EssenceText') }
+    let(:element) { create(:element, name: 'headline', create_contents_after_create: true) }
+    let(:content) { element.contents.find_by(essence_type: 'Alchemy::EssenceText') }
 
     it "should return the ingredient from its essence" do
       content.essence.update_attributes(:body => "Hello")
@@ -372,5 +372,27 @@ module Alchemy
       end
     end
 
+    context 'delegations' do
+      let(:page) { create(:restricted_page) }
+
+      it "delegates restricted? to page" do
+        element.update!(page: page)
+        expect(page.restricted?).to be true
+        expect(content.page).to eq page
+        expect(content.restricted?).to be true
+      end
+
+      it "delegates trashed? to element" do
+        element.update!(position: nil)
+        expect(element.trashed?).to be true
+        expect(content.trashed?).to be true
+      end
+
+      it "delegates public? to element" do
+        element.update!(public: false)
+        expect(element.public?).to be false
+        expect(content.public?).to be false
+      end
+    end
   end
 end

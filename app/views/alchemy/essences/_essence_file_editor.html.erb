@@ -3,11 +3,9 @@
 <% dialog_link = link_to_dialog('',
   alchemy.admin_attachments_path(
     content_id: content.id,
-    only: content_settings_value(content,
-      :file_assign_show_only,
+    only: content_settings_value(content, :only,
       local_assigns.fetch(:options, {})),
-    except: content_settings_value(content,
-      :file_assign_do_not_show,
+    except: content_settings_value(content, :except,
       local_assigns.fetch(:options, {})),
     options: local_assigns.fetch(:options, {}).to_json
   ),
@@ -26,35 +24,33 @@
   <%= label_and_remove_link(content) %>
   <div class="file" id="file_<%= content.id %>">
     <div class="file_icon">
-    <% if content.ingredient.nil? %>
-      <%= dialog_link %>
-    <% else %>
+    <% if content.ingredient %>
       <%= render_icon(content.ingredient.icon_css_class) %>
+    <% else %>
+      <%= dialog_link %>
     <% end %>
     </div>
     <div class="file_name">
       <%= content.ingredient.try(:name) ||
         ("&#x2190;" + _t(:assign_file_from_archive)).html_safe %>
     </div>
-    <% unless content.ingredient.nil? %>
+    <div class="essence_file_tools">
+      <%= dialog_link %>
+      <%= link_to_dialog '',
+        alchemy.edit_admin_essence_file_path(
+          id: content.essence.id,
+          options: local_assigns.fetch(:options, {}).to_json
+        ),
+        {
+          title: _t(:edit_file_properties),
+          size: '400x165'
+        },
+        class: 'edit_file',
+        title: _t(:edit_file_properties) %>
+    </div>
+    <% if content.ingredient %>
       <%= hidden_field_tag content.form_field_name(:attachment_id),
         content.ingredient.id %>
-      <div class="essence_file_tools">
-        <%= dialog_link %>
-        <%= link_to_dialog '',
-          url_for(
-            controller: 'essence_files',
-            action: 'edit',
-            options: local_assigns.fetch(:options, {}).to_json,
-            id: content
-          ),
-          {
-            title: _t(:edit_file_properties),
-            size: '400x165'
-          },
-          class: 'edit_file',
-          title: _t(:edit_file_properties) %>
-      </div>
     <% end %>
   </div>
 </div>

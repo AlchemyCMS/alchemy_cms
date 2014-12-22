@@ -1,5 +1,11 @@
 html {
   height: 100%;
+
+  &.turbolinks-progress-bar::before {
+    background-color: $blue !important;
+    height: 3px !important;
+    z-index: 400001;
+  }
 }
 
 noscript {
@@ -37,10 +43,21 @@ body {
 }
 
 h1 {
-  margin: 8px;
   padding: 0;
+  margin: 8px;
   font-weight: bold;
   font-size: $default-font-size;
+
+  &.resources-header {
+    position: fixed;
+    width: 100%;
+    top: 75px;
+    left: 74px;
+    z-index: 2;
+    margin: 0 -8px;
+    padding: 16px;
+    background-color: $light-gray;
+  }
 }
 
 h2 {

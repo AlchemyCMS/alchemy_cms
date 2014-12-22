@@ -153,4 +153,41 @@ shared_examples_for "an essence" do
       end
     end
   end
+
+  context 'delegations' do
+    let(:page)    { create(:restricted_page) }
+    let(:element) { create(:element, name: 'headline', create_contents_after_create: true, page: page) }
+    let(:content) { element.contents.find_by(essence_type: 'Alchemy::EssenceText') }
+    let(:essence) { content.essence }
+
+    it "delegates restricted? to page" do
+      expect(page.restricted?).to be(true)
+      expect(essence.restricted?).to be(true)
+    end
+
+    it "delegates trashed? to element" do
+      element.update!(position: nil)
+      expect(element.trashed?).to be true
+      expect(essence.trashed?).to be true
+    end
+
+    it "delegates public? to element" do
+      element.update!(public: false)
+      expect(element.public?).to be false
+      expect(essence.public?).to be false
+    end
+  end
+
+  describe 'essence relations' do
+    let(:page)    { create(:restricted_page) }
+    let(:element) { create(:element) }
+
+    it "registers itself on page as essence relation" do
+      expect(page.respond_to?(essence.class.model_name.route_key)).to be(true)
+    end
+
+    it "registers itself on element as essence relation" do
+      expect(element.respond_to?(essence.class.model_name.route_key)).to be(true)
+    end
+  end
 end

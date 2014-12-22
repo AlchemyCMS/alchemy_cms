@@ -70,8 +70,11 @@
         line-height: 14px;
         font-weight: normal;
         text-decoration: none !important;
+        text-transform: none;
         color: $text-color !important;
         font-family: $default-font-face;
+
+        &:after { display: none }
       }
     }
   }

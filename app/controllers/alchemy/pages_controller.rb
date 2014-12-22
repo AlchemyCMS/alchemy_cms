@@ -81,7 +81,10 @@ module Alchemy
         redirect_to signup_path
       elsif @page.nil? && last_legacy_url
         @page = last_legacy_url.page
-        redirect_page
+
+        # This drops the given query string.
+        redirect_legacy_page
+
       elsif @page.blank?
         raise_not_found_error
       elsif multi_language? && params[:lang].blank?
@@ -132,6 +135,17 @@ module Alchemy
       redirect_to show_page_path(additional_params.merge(options)), status: 301
     end
 
+    # Use the bare minimum to redirect to @page
+    # Don't use query string of legacy urlname
+    def redirect_legacy_page(options={})
+      defaults = {
+        :lang => (multi_language? ? @page.language_code : nil),
+        :urlname => @page.urlname
+      }
+      options = defaults.merge(options)
+      redirect_to show_page_path(options), :status => 301
+    end
+
     # Returns url parameters that are not internal show page params.
     #
     # * action
@@ -146,7 +160,11 @@ module Alchemy
     end
 
     def legacy_urls
-      LegacyPageUrl.joins(:page).where(urlname: params[:urlname], alchemy_pages: {language_id: Language.current.id})
+
+      # /slug/tree => slug/tree
+      urlname = (request.fullpath[1..-1] if request.fullpath[0] == '/') || request.fullpath
+
+      LegacyPageUrl.joins(:page).where(urlname: urlname, alchemy_pages: {language_id: Language.current.id})
     end
 
     def last_legacy_url

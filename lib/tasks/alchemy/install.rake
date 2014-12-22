@@ -28,19 +28,23 @@ namespace :alchemy do
 
   desc "Installs Alchemy CMS into your app."
   task :install do
-    puts "\nAlchemy Installer"
-    puts "-----------------"
+    unless ENV['from_binary']
+      puts "\nAlchemy Installer"
+      puts "-----------------"
+    end
     Rake::Task["alchemy:mount"].invoke
-    system('rails g alchemy:scaffold') || exit!(1)
+    system("rails g alchemy:scaffold#{ ENV['from_binary'] ? ' --force' : '' }") || exit!(1)
     Alchemy::InstallTask.new.set_primary_language
     Rake::Task["db:create"].invoke
     Rake::Task["alchemy:install:migrations"].invoke
     Rake::Task["db:migrate"].invoke
     Rake::Task["alchemy:db:seed"].invoke
-    puts "\nAlchemy successfully installed."
-    puts "\nNow start the server with:"
-    puts "\n$ bin/rails server"
-    puts "\nand point your browser to http://localhost:3000/admin and follow the onscreen instructions to finalize the installation."
+    unless ENV['from_binary']
+      puts "\nAlchemy successfully installed."
+      puts "\nNow start the server with:"
+      puts "\n$ bin/rails server"
+      puts "\nand point your browser to http://localhost:3000/admin and follow the onscreen instructions to finalize the installation."
+    end
   end
 
   desc "Mounts Alchemy into your routes."
