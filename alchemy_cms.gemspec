@@ -44,6 +44,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'non-stupid-digest-assets',         '~> 1.0.3'
   gem.add_runtime_dependency 'active_model_serializers',         '>= 0.8.1', '< 0.9.1'
   gem.add_runtime_dependency 'request_store',                    '~> 1.1.0'
+  gem.add_runtime_dependency 'responders',                       '~> 2.0'
 
   gem.add_development_dependency 'rspec-rails', '~> 3.0'
   gem.add_development_dependency 'capybara'
