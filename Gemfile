@@ -2,9 +2,6 @@ source 'http://rubygems.org'
 
 gemspec
 
-# This fixes https://github.com/rails/rails/pull/17453
-gem 'rails', github: 'huoxito/rails', branch: 'url_for-fallback-to-use_route'
-
 # Code coverage plattform
 gem 'coveralls', require: false
 
