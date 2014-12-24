@@ -33,19 +33,19 @@ Rails Version
 
 **This version of Alchemy CMS runs with Rails 4 (including 4.1)**
 
-**Rails 4.2 support is coming soon. Watch [this pull request](https://github.com/magiclabs/alchemy_cms/pull/655).**
+**Rails 4.2 support is coming soon. Watch [this pull request](https://github.com/AlchemyCMS/alchemy_cms/pull/655).**
 
-* For a Rails 3.2 compatible version use the [`2.8-stable` branch](https://github.com/magiclabs/alchemy_cms/tree/2.8-stable).
-* For a Rails 3.1 compatible version use the [`2.1-stable` branch](https://github.com/magiclabs/alchemy_cms/tree/2.1-stable).
-* For a Rails 3.0 compatible version use the [`2.0-stable` branch](https://github.com/magiclabs/alchemy_cms/tree/2.0-stable).
-* For a Rails 2.3 compatible version use the [`1.6-stable` branch](https://github.com/magiclabs/alchemy_cms/tree/1.6-stable).
+* For a Rails 3.2 compatible version use the [`2.8-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.8-stable).
+* For a Rails 3.1 compatible version use the [`2.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.1-stable).
+* For a Rails 3.0 compatible version use the [`2.0-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.0-stable).
+* For a Rails 2.3 compatible version use the [`1.6-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/1.6-stable).
 
 Ruby Version
 ------------
 
 Alchemy runs with Ruby >= 1.9.3 (including Ruby 2.0 and 2.1).
 
-For a Ruby 1.8.7 compatible version use the [`2.3-stable` branch](https://github.com/magiclabs/alchemy_cms/tree/2.3-stable).
+For a Ruby 1.8.7 compatible version use the [`2.3-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.3-stable).
 
 
 Installation
@@ -75,7 +75,7 @@ $ alchemy --help
 Put this into your `Gemfile`:
 
 ```ruby
-gem 'alchemy_cms', github: 'magiclabs/alchemy_cms', branch: 'master'
+gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
 ```
 
 **NOTE:** You normally want to use a stable branch, like `3.0-stable`.
@@ -97,14 +97,14 @@ $ bundle install
 #### 3. Set the authentication user
 
 Now you have to decide, if you want to use your own user model or if you want to use
-the Devise based user model that Alchemy provides and was extracted [into its own gem](https://github.com/magiclabs/alchemy-devise).
+the Devise based user model that Alchemy provides and was extracted [into its own gem](https://github.com/AlchemyCMS/alchemy-devise).
 
 ##### Use Alchemy user
 
 If you don't have your own user class, you can use the Alchemy user model. Just add the following gem into your `Gemfile`:
 
 ```ruby
-gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
+gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
 ```
 
 **NOTE:** You normally want to use a stable branch, like `2.0-stable`.
@@ -203,7 +203,7 @@ gem 'capistrano', '2.15.5', group: 'development'
 
 **A note about Capistrano version:**
 
-Alchemy's deploy script is currently **only compatible with Capistrano 2.x** ([See this pull request](https://github.com/magiclabs/alchemy_cms/pull/616) if you want to help us upgrade to 3.x).
+Alchemy's deploy script is currently **only compatible with Capistrano 2.x** ([See this pull request](https://github.com/AlchemyCMS/alchemy_cms/pull/616) if you want to help us upgrade to 3.x).
 
 #### Generate the deploy file
 
@@ -252,13 +252,13 @@ $ bundle exec cap alchemy:export:all
 
 If you don't use Capistrano you have to **make sure** that the `uploads`, `tmp/cache/assets`, `public/assets` and `public/pictures` folders get **shared between deployments**, otherwise you **will loose data**. No, not really, but you know, just keep them in sync.
 
-Please take a look into Alchemys [Capistrano receipt](https://github.com/magiclabs/alchemy_cms/blob/master/lib/alchemy/capistrano.rb) in order to see how you could achieve this.
+Please take a look into Alchemys [Capistrano receipt](https://github.com/AlchemyCMS/alchemy_cms/blob/master/lib/alchemy/capistrano.rb) in order to see how you could achieve this.
 
 
 Testing
 -------
 
-If you want to contribute to Alchemy ([and we encourage you to do so](https://github.com/magiclabs/alchemy_cms/blob/master/CONTRIBUTING.md)) we have a strong test suite that helps you to not break anything.
+If you want to contribute to Alchemy ([and we encourage you to do so](https://github.com/AlchemyCMS/alchemy_cms/blob/master/CONTRIBUTING.md)) we have a strong test suite that helps you to not break anything.
 
 To prepare the tests of your Alchemy fork please make sure to run the preparation task:
 
@@ -292,12 +292,12 @@ Getting Help
 ------------
 
 * Read the guidelines: http://guides.alchemy-cms.com.
-* Read the documentation: http://rubydoc.info/github/magiclabs/alchemy_cms
-* If you found a bug please use the [issue tracker on Github](https://github.com/magiclabs/alchemy_cms/issues).
+* Read the documentation: http://rubydoc.info/github/AlchemyCMS/alchemy_cms
+* If you found a bug please use the [issue tracker on Github](https://github.com/AlchemyCMS/alchemy_cms/issues).
 * For questions about general usage please use [Stack Overflow](http://stackoverflow.com/questions/tagged/alchemy-cms), [the User Group](http://groups.google.com/group/alchemy-cms) or the [IRC channel](irc://irc.freenode.net#alchemy_cms).
 * New features should be discussed on our [Trello Board](https://trello.com/alchemycms).
 
-**PLEASE** don't use the Github issues for feature requests. If you want to contribute to Alchemy please [read the contribution guidelines](https://github.com/magiclabs/alchemy_cms/blob/master/CONTRIBUTING.md) before doing so.
+**PLEASE** don't use the Github issues for feature requests. If you want to contribute to Alchemy please [read the contribution guidelines](https://github.com/AlchemyCMS/alchemy_cms/blob/master/CONTRIBUTING.md) before doing so.
 
 
 Resources
@@ -305,9 +305,9 @@ Resources
 
 * Homepage: <http://alchemy-cms.com>
 * Live-Demo: <http://demo.alchemy-cms.com> (user: demo, password: demo123)
-* API Documentation: <http://rubydoc.info/github/magiclabs/alchemy_cms>
-* Issue-Tracker: <https://github.com/magiclabs/alchemy_cms/issues>
-* Sourcecode: <https://github.com/magiclabs/alchemy_cms>
+* API Documentation: <http://rubydoc.info/github/AlchemyCMS/alchemy_cms>
+* Issue-Tracker: <https://github.com/AlchemyCMS/alchemy_cms/issues>
+* Sourcecode: <https://github.com/AlchemyCMS/alchemy_cms>
 * User Group: <http://groups.google.com/group/alchemy-cms>
 * IRC Channel: <irc://irc.freenode.net#alchemy_cms>
 * Discussion Board: <https://trello.com/alchemycms>
@@ -333,7 +333,7 @@ License
 Spread the love
 ---------------
 
-If you like Alchemy, please help us to spread the word about Alchemy and star this repo [on GitHub](https://github.com/magiclabs/alchemy_cms), upvote it [on The Ruby Toolbox](https://www.ruby-toolbox.com/projects/alchemy_cms), mention us [on Twitter](https://twitter.com/alchemy_cms) and vote for it [on Bitnami](https://bitnami.com/stack/alchemy).
+If you like Alchemy, please help us to spread the word about Alchemy and star this repo [on GitHub](https://github.com/AlchemyCMS/alchemy_cms), upvote it [on The Ruby Toolbox](https://www.ruby-toolbox.com/projects/alchemy_cms), mention us [on Twitter](https://twitter.com/alchemy_cms) and vote for it [on Bitnami](https://bitnami.com/stack/alchemy).
 
 That will help us to keep Alchemy awesome.
 
