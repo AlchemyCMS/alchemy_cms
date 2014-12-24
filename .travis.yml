@@ -1,4 +1,6 @@
 language: ruby
+sudo: false
+cache: bundler
 rvm:
   - 1.9.3
   - 2.0.0
@@ -6,11 +8,12 @@ rvm:
 branches:
   only:
     - 3.0-stable
-script: rake
+before_script: 'bundle exec rake alchemy:spec:prepare'
+script: 'bundle exec rspec'
 env:
   - DB=mysql
   - DB=postgresql
-  - RAILS_VERSION=4.1.1
+  - RAILS_VERSION=4.0.12
 notifications:
   irc:
     on_success: change
