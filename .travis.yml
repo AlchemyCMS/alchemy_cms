@@ -13,7 +13,7 @@ script: 'bundle exec rspec'
 env:
   - DB=mysql
   - DB=postgresql
-  - RAILS_VERSION=4.1.5
+  - RAILS_VERSION=4.0.12
 notifications:
   irc:
     on_success: change
