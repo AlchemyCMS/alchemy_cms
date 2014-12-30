@@ -244,11 +244,22 @@ module Alchemy
 
     describe '#essence_error_messages' do
       let(:element) { Element.new(name: 'article') }
+
       it "should return the translation with the translated content label" do
-        I18n.should_receive(:t).with('content_names.content', default: 'Content').and_return('Content')
-        I18n.should_receive(:t).with('content', scope: "content_names.article", default: 'Content').and_return('Contenido')
-        I18n.should_receive(:t).with('article.content.invalid', {:scope=>"content_validations", :default=>[:"fields.content.invalid", :"errors.invalid"], :field=>"Contenido"})
-        element.should_receive(:essence_errors).and_return({'content' => [:invalid]})
+        expect(I18n).to receive(:t)
+          .with('content_names.content', default: 'Content')
+          .and_return('Content')
+        expect(I18n).to receive(:t)
+          .with('content', scope: "content_names.article", default: 'Content')
+          .and_return('Contenido')
+        expect(I18n).to receive(:t)
+          .with('article.content.invalid', {
+            scope: "content_validations",
+            default: [:"fields.content.invalid", :"errors.invalid"],
+            field: "Contenido"})
+        expect(element).to receive(:essence_errors)
+          .and_return({'content' => [:invalid]})
+
         element.essence_error_messages
       end
     end
@@ -554,6 +565,5 @@ module Alchemy
     it_behaves_like "having a hint" do
       let(:subject) { Element.new }
     end
-
   end
 end
