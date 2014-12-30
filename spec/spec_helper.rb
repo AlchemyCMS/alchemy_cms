@@ -50,6 +50,7 @@ Capybara.ignore_hidden_elements = false
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
+  config.raise_errors_for_deprecations!
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
   config.include Alchemy::Engine.routes.url_helpers
