@@ -3,8 +3,8 @@
 
 **CAUTION: This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms/versions/3.0.0), or the [latest stable branch (3.0-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/3.0-stable).**
 
-About
------
+
+## About
 
 ![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.svg)
 
@@ -12,8 +12,8 @@ Alchemy is a powerful, flexible and user centric Rails CMS.
 
 Read more about Alchemy on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
 
-Features
---------
+
+## Features
 
 - Highly flexible templating that completely separates content from markup
 - End-User centric graphical user interface
@@ -28,8 +28,8 @@ Features
 - Flexible caching
 - Hostable on any Server that supports Ruby on Rails, a SQL Database and ImageMagick
 
-Rails Version
--------------
+
+## Rails Version
 
 **This version of Alchemy CMS runs with Rails 4 (including 4.1)**
 
@@ -40,16 +40,15 @@ Rails Version
 * For a Rails 3.0 compatible version use the [`2.0-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.0-stable).
 * For a Rails 2.3 compatible version use the [`1.6-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/1.6-stable).
 
-Ruby Version
-------------
+
+## Ruby Version
 
 Alchemy runs with Ruby >= 1.9.3 (including Ruby 2.0 and 2.1).
 
 For a Ruby 1.8.7 compatible version use the [`2.3-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.3-stable).
 
 
-Installation
-------------
+## Installation
 
 ### Install as a standalone project
 
@@ -133,7 +132,7 @@ The only thing Alchemy needs to know from your user class is the `alchemy_roles`
 
 This method has to return an `Array` (or `ActiveRecord::Relation`) with at least one of the following roles: `member`, `author`, `editor`, `admin`.
 
-Example:
+##### Example
 
 ```ruby
 # app/models/user.rb
@@ -162,14 +161,17 @@ Now everything should be set up and you should be able to visit the Alchemy Dash
 *) Use your custom path if you mounted Alchemy at something else then `'/'`
 
 
-Customizing
------------
+## Customizing
 
 Alchemy has very flexible ways to organize and manage content. Please be sure to read [the introduction guide](http://guides.alchemy-cms.com/edge/index.html) in order to understand the basic idea of how Alchemy works.
 
 
-Upgrading
----------
+### Custom Controllers
+
+Beginning with Alchemy 3.1 we do not patch the `ApplicationController` anymore. If you have controllers that loads Alchemy content or uses Alchemy helpers in the views (i.e. `render_navigation` or `render_elements`) you can either inherit from `Alchemy::BaseController` or you `include Alchemy::ControllerActions` in your controller (**that's the recommended way**).
+
+
+## Upgrading
 
 The Alchemy team takes upgrades very seriously and tries to make them as smooth as we can. Therefore we have build in upgrade tasks, that try to automate as much as possible.
 
@@ -187,12 +189,11 @@ Always be sure to keep an eye on the `config/alchemy/config.yml.defaults` file a
 Also, `git diff` is your friend. You are using git to track changes of your projects, right?
 
 
-Deployment
-----------
+## Deployment
 
 Alchemy ships with Capistrano based deployment receipts which takes care of everything you need to deploy an Alchemy site.
 
-#### Add Capistrano gem
+### 1. Add Capistrano gem
 
 First you need to add Capistrano to your `Gemfile`:
 
@@ -205,7 +206,7 @@ gem 'capistrano', '2.15.5', group: 'development'
 
 Alchemy's deploy script is currently **only compatible with Capistrano 2.x** ([See this pull request](https://github.com/AlchemyCMS/alchemy_cms/pull/616) if you want to help us upgrade to 3.x).
 
-#### Generate the deploy file
+### 2. Generate the deploy file
 
 To generate the deploy file you need to use this generator:
 
@@ -222,7 +223,7 @@ If you *have your own Capistrano receipts* you can require the Alchemy tasks in 
 require 'alchemy/capistrano'
 ```
 
-#### Synchronize your data
+### Synchronize your data
 
 Alchemy Capistrano receipts offer much more then only deployment related tasks. We also have tasks to make your local development easier. To get a list of all receipts type:
 
@@ -230,7 +231,7 @@ Alchemy Capistrano receipts offer much more then only deployment related tasks. 
 $ bundle exec cap -T alchemy
 ```
 
-##### Import data from server
+#### Import data from server
 
 ```shell
 $ bundle exec cap alchemy:import:all
@@ -238,7 +239,7 @@ $ bundle exec cap alchemy:import:all
 
 This imports your servers data onto your local development machine. This is very handy if you want to clone the current server state.
 
-##### Export data to server
+#### Export data to server
 
 That even works the other way around:
 
@@ -248,15 +249,14 @@ $ bundle exec cap alchemy:export:all
 
 **NOTE:** This will **overwrite the database** on your server. But calm down my dear friend, Alchemy will ask you to perform a backup before overwriting it.
 
-#### Without Capistrano
+### Without Capistrano
 
 If you don't use Capistrano you have to **make sure** that the `uploads`, `tmp/cache/assets`, `public/assets` and `public/pictures` folders get **shared between deployments**, otherwise you **will loose data**. No, not really, but you know, just keep them in sync.
 
 Please take a look into Alchemys [Capistrano receipt](https://github.com/AlchemyCMS/alchemy_cms/blob/master/lib/alchemy/capistrano.rb) in order to see how you could achieve this.
 
 
-Testing
--------
+## Testing
 
 If you want to contribute to Alchemy ([and we encourage you to do so](https://github.com/AlchemyCMS/alchemy_cms/blob/master/CONTRIBUTING.md)) we have a strong test suite that helps you to not break anything.
 
@@ -269,7 +269,7 @@ $ bin/rake alchemy:spec:prepare
 
 to set up the database for testing.
 
-##### Run your tests with:
+### Run your tests with:
 
 ```shell
 $ bundle exec rspec
@@ -288,8 +288,7 @@ $ bundle exec rake
 Alchemy specs are written **in RSpec 3**. Please **do not use deprecated RSpec 2.x syntax**. Thanks
 
 
-Getting Help
-------------
+## Getting Help
 
 * Read the guidelines: http://guides.alchemy-cms.com.
 * Read the documentation: http://rubydoc.info/github/AlchemyCMS/alchemy_cms
@@ -300,8 +299,7 @@ Getting Help
 **PLEASE** don't use the Github issues for feature requests. If you want to contribute to Alchemy please [read the contribution guidelines](https://github.com/AlchemyCMS/alchemy_cms/blob/master/CONTRIBUTING.md) before doing so.
 
 
-Resources
----------
+## Resources
 
 * Homepage: <http://alchemy-cms.com>
 * Live-Demo: <http://demo.alchemy-cms.com> (user: demo, password: demo123)
@@ -314,8 +312,7 @@ Resources
 * Twitter: <https://twitter.com/alchemy_cms>
 
 
-Authors
----------
+## Authors
 
 * Thomas von Deyen: <https://github.com/tvdeyen>
 * Robin Böning: <https://github.com/robinboening>
@@ -324,14 +321,12 @@ Authors
 * Carsten Fregin: <https://github.com/cfregin>
 
 
-License
--------
+## License
 
 * BSD: <https://raw.github.com/magiclabs/alchemy_cms/master/LICENSE>
 
 
-Spread the love
----------------
+## Spread the love
 
 If you like Alchemy, please help us to spread the word about Alchemy and star this repo [on GitHub](https://github.com/AlchemyCMS/alchemy_cms), upvote it [on The Ruby Toolbox](https://www.ruby-toolbox.com/projects/alchemy_cms), mention us [on Twitter](https://twitter.com/alchemy_cms) and vote for it [on Bitnami](https://bitnami.com/stack/alchemy).
 

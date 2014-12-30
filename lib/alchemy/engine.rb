@@ -108,9 +108,6 @@ to create your own class, add the `alchemy-devise` gem to your Gemfile.
 gem 'alchemy-devise', '~> 2.1.0'
 MSG
       end
-      # In order to have Alchemy's helpers and basic controller methods
-      # available in the host app, we patch the ApplicationController.
-      ApplicationController.send(:include, Alchemy::ControllerActions)
     end
   end
 end

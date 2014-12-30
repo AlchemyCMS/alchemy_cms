@@ -1,5 +1,6 @@
 module Alchemy
   module Upgrader::ThreePointOne
+
     private
 
     def alchemy_3_1_todos
@@ -35,9 +36,20 @@ using 'toolbarN' syntax. Please update your TinyMCE configuration.
 
 Visit http://www.tinymce.com/wiki.php/Configuration:toolbar for more information.
 
+
+ApplicationController patch removed
+-----------------------------------
+
+If you have controllers that loads Alchemy content or uses Alchemy helpers in
+the views (i.e. `render_navigation` or `render_elements`) you should
+
+  include Alchemy::ControllerActions
+
+in these controllers.
+
+
 NOTE
       todo notice, 'Alchemy v3.1 changes'
     end
-
   end
 end
