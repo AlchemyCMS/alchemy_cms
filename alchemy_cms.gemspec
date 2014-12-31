@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'rails',                            '>= 4.0', '< 4.2'
   gem.add_runtime_dependency 'actionpack-page_caching',          '~> 1.0.0'
-  gem.add_runtime_dependency 'awesome_nested_set',               '~> 3.0.0.rc.2'
+  gem.add_runtime_dependency 'awesome_nested_set',               '~> 3.0.0'
   gem.add_runtime_dependency 'acts-as-taggable-on',              '~> 3.1'
   gem.add_runtime_dependency 'cancancan',                        '~> 1.9'
   gem.add_runtime_dependency 'dragonfly',                        '~> 1.0.1'
