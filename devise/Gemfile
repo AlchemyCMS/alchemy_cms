@@ -2,6 +2,8 @@ source "https://rubygems.org"
 
 gemspec
 
+gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
+
 unless ENV['CI']
   gem 'pry'
   gem 'spring-commands-rspec'
