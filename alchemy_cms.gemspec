@@ -33,7 +33,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'jquery-ui-rails',                  '~> 5.0.0'
   gem.add_runtime_dependency 'sass-rails',                       '~> 4.0.5'
   gem.add_runtime_dependency 'uglifier',                         '>= 1.3.0'
-  gem.add_runtime_dependency 'coffee-rails',                     '~> 4.0.0'
+  gem.add_runtime_dependency 'coffee-rails',                     '~> 4.0'
   gem.add_runtime_dependency 'compass-rails',                    '>= 1.1.2'
   gem.add_runtime_dependency 'sassy-buttons',                    '~> 0.2.6'
   gem.add_runtime_dependency 'sprockets',                        '~> 2.11.3'
