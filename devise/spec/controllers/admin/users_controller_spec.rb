@@ -6,10 +6,10 @@ module Alchemy
       let(:user)  { build_stubbed(:alchemy_user) }
 
       before do
-        controller.stub(store_user_request_time: true)
-        User.stub(:find).and_return(user)
-        user.stub(:update_without_password).and_return(true)
-        user.stub(:update_attributes).and_return(true)
+        allow(controller).to receive_messages(store_user_request_time: true)
+        allow(User).to receive(:find).and_return(user)
+        allow(user).to receive(:update_without_password).and_return(true)
+        allow(user).to receive(:update_attributes).and_return(true)
         sign_in(admin)
       end
 
@@ -17,22 +17,22 @@ module Alchemy
         let(:users) { [] }
 
         before do
-          users.stub_chain(:page, :per, :order).and_return([user])
+          allow(users).to receive_message_chain(:page, :per, :order).and_return([user])
         end
 
         context 'with search query' do
           it "lists all matching users" do
-            User.should_receive(:where).and_return(users)
+            expect(User).to receive(:where).and_return(users)
             get :index, query: user.email
-            assigns(:users).should include(user)
+            expect(assigns(:users)).to include(user)
           end
         end
 
         context 'without search query' do
           it "lists all users" do
-            User.should_receive(:all).and_return(users)
+            expect(User).to receive(:all).and_return(users)
             get :index
-            assigns(:users).should include(user)
+            expect(assigns(:users)).to include(user)
           end
         end
       end
@@ -42,7 +42,7 @@ module Alchemy
 
         it "has send_credentials checkbox activated" do
           get :new
-          response.body.should match /<input checked=\"checked\".+name=\"user\[send_credentials\]\".+type=\"checkbox\"/
+          expect(response.body).to match /<input checked=\"checked\".+name=\"user\[send_credentials\]\".+type=\"checkbox\"/
         end
       end
 
@@ -51,7 +51,7 @@ module Alchemy
 
         it "has send_credentials checkbox deactivated" do
           xhr :get, :edit, id: admin.id
-          response.body.should match /<input name=\"user\[send_credentials\]\".+type=\"checkbox\"/
+          expect(response.body).to match /<input name=\"user\[send_credentials\]\".+type=\"checkbox\"/
         end
       end
 
@@ -60,27 +60,27 @@ module Alchemy
 
         it "creates an user record" do
           post :create, user: FactoryGirl.attributes_for(:alchemy_user).merge(send_credentials: '1')
-          Alchemy::User.count.should == 1
+          expect(Alchemy::User.count).to eq(1)
         end
 
         context "with send_credentials set to '1'" do
           it "should send an email notification" do
             post :create, user: FactoryGirl.attributes_for(:alchemy_user).merge(send_credentials: '1')
-            ActionMailer::Base.deliveries.should_not be_empty
+            expect(ActionMailer::Base.deliveries).not_to be_empty
           end
         end
 
         context "with send_credentials set to true" do
           it "should not send an email notification" do
             post :create, user: FactoryGirl.attributes_for(:alchemy_user).merge(send_credentials: true)
-            ActionMailer::Base.deliveries.should be_empty
+            expect(ActionMailer::Base.deliveries).to be_empty
           end
         end
 
         context "with send_credentials left blank" do
           it "should not send an email notification" do
             post :create, user: FactoryGirl.attributes_for(:alchemy_user)
-            ActionMailer::Base.deliveries.should be_empty
+            expect(ActionMailer::Base.deliveries).to be_empty
           end
         end
       end
@@ -92,13 +92,13 @@ module Alchemy
 
         it "assigns user to @user" do
           post :update, id: user.id, user: {email: user.email}, format: :js
-          assigns(:user).should eq(user)
+          expect(assigns(:user)).to eq(user)
         end
 
         context "with empty password passed" do
           it "should update the user" do
             params_hash = {'firstname' => 'Johnny', 'password' => '', 'password_confirmation' => ''}
-            user.should_receive(:update_without_password).with(params_hash).and_return(true)
+            expect(user).to receive(:update_without_password).with(params_hash).and_return(true)
             post :update, id: user.id, user: params_hash, format: :js
           end
         end
@@ -106,43 +106,43 @@ module Alchemy
         context "with new password passed" do
           it "should update the user" do
             params_hash = {'firstname' => 'Johnny', 'password' => 'newpassword', 'password_confirmation' => 'newpassword'}
-            user.should_receive(:update_attributes).with(params_hash)
+            expect(user).to receive(:update_attributes).with(params_hash)
             post :update, id: user.id, user: params_hash, format: :js
           end
         end
 
         context "with send_credentials set to '1'" do
           it "should send an email notification" do
-            user.should_receive(:update_without_password).with('send_credentials' => '1')
+            expect(user).to receive(:update_without_password).with('send_credentials' => '1')
             post :update, id: user.id, user: {send_credentials: '1'}
           end
         end
 
         context "with send_credentials left blank" do
           it "should not send an email notification" do
-            user.should_receive(:update_without_password).with('email' => user.email)
+            expect(user).to receive(:update_without_password).with('email' => user.email)
             post :update, id: user.id, user: {email: user.email}
           end
         end
 
         context "if user is permitted to update roles" do
           before do
-            controller.stub(:can?).with(:update_role, Alchemy::User).and_return(true)
+            allow(controller).to receive(:can?).with(:update_role, Alchemy::User).and_return(true)
           end
 
           it "updates the user including role" do
-            user.should_receive(:update_without_password).with({'alchemy_roles' => ['Administrator']})
+            expect(user).to receive(:update_without_password).with({'alchemy_roles' => ['Administrator']})
             post :update, id: user.id, user: {alchemy_roles: ['Administrator']}, format: :js
           end
         end
 
         context "if the user is not permitted to update roles" do
           before do
-            controller.stub(:can?).with(:update_role, Alchemy::User).and_return(false)
+            allow(controller).to receive(:can?).with(:update_role, Alchemy::User).and_return(false)
           end
 
           it "updates user without role" do
-            user.should_receive(:update_without_password).with({})
+            expect(user).to receive(:update_without_password).with({})
             post :update, id: user.id, user: {alchemy_roles: ['Administrator']}, format: :js
           end
         end
@@ -150,9 +150,9 @@ module Alchemy
 
       describe '#destroy' do
         it "redirects to users list" do
-          user.should_receive(:destroy).and_return(true)
+          expect(user).to receive(:destroy).and_return(true)
           delete :destroy, id: user.id
-          response.should redirect_to(admin_users_path)
+          expect(response).to redirect_to(admin_users_path)
         end
       end
 

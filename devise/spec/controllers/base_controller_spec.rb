@@ -4,21 +4,21 @@ describe Alchemy::BaseController do
 
   describe '#store_user_request_time' do
     context "user not logged in" do
-      before { controller.stub(:alchemy_user_signed_in?).and_return(false) }
+      before { allow(controller).to receive(:alchemy_user_signed_in?).and_return(false) }
 
       it "should not store the current request time" do
-        controller.send(:store_user_request_time).should == nil
+        expect(controller.send(:store_user_request_time)).to eq(nil)
       end
     end
 
     context "user logged in" do
       before do
-        controller.stub(:alchemy_user_signed_in?).and_return(true)
-        controller.stub(:current_alchemy_user).and_return(mock_model('User', store_request_time!: true))
+        allow(controller).to receive(:alchemy_user_signed_in?).and_return(true)
+        allow(controller).to receive(:current_alchemy_user).and_return(mock_model('User', store_request_time!: true))
       end
 
       it "should not store the current request time" do
-        controller.send(:store_user_request_time).should == true
+        expect(controller.send(:store_user_request_time)).to eq(true)
       end
     end
   end

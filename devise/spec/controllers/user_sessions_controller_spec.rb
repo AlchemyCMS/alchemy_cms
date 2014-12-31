@@ -9,7 +9,7 @@ describe Alchemy::UserSessionsController do
     describe '#new' do
       it "redirects to signup form" do
         get :new
-        should redirect_to(signup_path)
+        is_expected.to redirect_to(signup_path)
       end
     end
   end
@@ -27,7 +27,7 @@ describe Alchemy::UserSessionsController do
         context 'without redirect path in session' do
           it "redirects to dashboard" do
             post :create, user: user_params
-            response.should redirect_to(admin_dashboard_path)
+            expect(response).to redirect_to(admin_dashboard_path)
           end
         end
 
@@ -35,19 +35,19 @@ describe Alchemy::UserSessionsController do
           it "redirects to these params" do
             session[:redirect_path] = admin_users_path
             post :create, user: user_params
-            response.should redirect_to(admin_users_path)
+            expect(response).to redirect_to(admin_users_path)
           end
         end
 
         it "stores users screen size" do
           post :create, user: user_params, user_screensize: screen_size
-          session[:screen_size].should eq(screen_size)
+          expect(session[:screen_size]).to eq(screen_size)
         end
 
         context 'without valid params' do
           it "renders login form" do
             post :create, user: {login: ''}
-            should render_template(:new)
+            is_expected.to render_template(:new)
           end
         end
       end
@@ -55,39 +55,39 @@ describe Alchemy::UserSessionsController do
 
     describe "#destroy" do
       before do
-        controller.stub(:store_user_request_time)
+        allow(controller).to receive(:store_user_request_time)
         sign_in(user)
       end
 
       it "should unlock all pages" do
-        user.should_receive(:unlock_pages!)
+        expect(user).to receive(:unlock_pages!)
         delete :destroy
       end
 
       context 'comming from admin area' do
-        before { controller.request.stub(:referer).and_return('/admin_users') }
+        before { allow(controller.request).to receive(:referer).and_return('/admin_users') }
 
         it "redirects to root" do
           delete :destroy
-          should redirect_to(root_path)
+          is_expected.to redirect_to(root_path)
         end
       end
 
       context 'no referer present' do
-        before { controller.request.stub(:referer) }
+        before { allow(controller.request).to receive(:referer) }
 
         it "redirects to root" do
           delete :destroy
-          should redirect_to(root_path)
+          is_expected.to redirect_to(root_path)
         end
       end
 
       context 'referer not from admin area' do
-        before { controller.request.stub(:referer).and_return('/imprint') }
+        before { allow(controller.request).to receive(:referer).and_return('/imprint') }
 
         it "redirects to root" do
           delete :destroy
-          should redirect_to('/imprint')
+          is_expected.to redirect_to('/imprint')
         end
       end
     end

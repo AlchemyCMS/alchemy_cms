@@ -14,6 +14,7 @@ ENV["RAILS_ENV"] = "test"
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
 require "rails/test_help"
 require "rspec/rails"
+require 'rspec/active_model/mocks'
 require "capybara/rails"
 require 'factory_girl'
 require 'alchemy/seeder'
@@ -31,6 +32,8 @@ Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
 
 RSpec.configure do |config|
+  config.infer_spec_type_from_file_location!
+  config.raise_errors_for_deprecations!
   config.use_transactional_fixtures = true
   config.include Devise::TestHelpers, :type => :controller
   config.include Alchemy::TestSupport::AuthHelpers

@@ -8,20 +8,20 @@ module Alchemy
       let(:mail) { Notifications.member_created(user) }
 
       it "delivers a mail to user" do
-        mail.to.should == [user.email]
-        mail.subject.should == 'Your user credentials'
+        expect(mail.to).to eq([user.email])
+        expect(mail.subject).to eq('Your user credentials')
       end
 
       it "mail body includes users name" do
-        mail.body.should have_content user.name
+        expect(mail.body).to have_content user.name
       end
 
       it "mail body includes users login" do
-        mail.body.should have_content user.login
+        expect(mail.body).to have_content user.login
       end
 
       it "mail body includes password instructions" do
-        mail.body.should match /#{Regexp.escape(new_password_url(email: user.email, use_route: 'alchemy', only_path: true))}/
+        expect(mail.body).to match /#{Regexp.escape(new_password_url(email: user.email, use_route: 'alchemy', only_path: true))}/
       end
     end
 
@@ -30,16 +30,16 @@ module Alchemy
       let(:mail) { Notifications.alchemy_user_created(user) }
 
       it "delivers a mail to user" do
-        mail.to.should == [user.email]
-        mail.subject.should == 'Your Alchemy Login'
+        expect(mail.to).to eq([user.email])
+        expect(mail.subject).to eq('Your Alchemy Login')
       end
 
       it "mail body includes users login" do
-        mail.body.should match /#{user.login}/
+        expect(mail.body).to match /#{user.login}/
       end
 
       it "mail body includes password instructions" do
-        mail.body.should match /#{Regexp.escape(new_password_url(use_route: 'alchemy', only_path: true))}/
+        expect(mail.body).to match /#{Regexp.escape(new_password_url(use_route: 'alchemy', only_path: true))}/
       end
     end
 
@@ -47,19 +47,19 @@ module Alchemy
       let(:user) { mock_model('User', alchemy_roles: %w(member), email: 'jon@doe.com', name: 'John Doe', login: 'jon.doe', fullname: 'John Doe') }
       let(:mail) { Notifications.reset_password_instructions(user) }
 
-      before { user.stub(:reset_password_token).and_return('123') }
+      before { allow(user).to receive(:reset_password_token).and_return('123') }
 
       it "delivers a mail to user" do
-        mail.to.should == [user.email]
-        mail.subject.should == 'Reset password instructions'
+        expect(mail.to).to eq([user.email])
+        expect(mail.subject).to eq('Reset password instructions')
       end
 
       it "mail body includes users name" do
-        mail.body.should match /#{user.name}/
+        expect(mail.body).to match /#{user.name}/
       end
 
       it "mail body includes reset instructions" do
-        mail.body.should match /#{Regexp.escape(edit_password_url(user, reset_password_token: user.reset_password_token, use_route: 'alchemy', only_path: true))}/
+        expect(mail.body).to match /#{Regexp.escape(edit_password_url(user, reset_password_token: user.reset_password_token, use_route: 'alchemy', only_path: true))}/
       end
     end
 

@@ -4,11 +4,11 @@ module Alchemy
   describe UsersController do
 
     context "with users present" do
-      before { User.stub(count: 1) }
+      before { allow(User).to receive_messages(count: 1) }
 
       it "should redirect to admin dashboard" do
         get :new
-        response.should redirect_to(admin_dashboard_path)
+        expect(response).to redirect_to(admin_dashboard_path)
       end
     end
 
@@ -18,7 +18,7 @@ module Alchemy
       before { get :new }
 
       it "should not render tag list input" do
-        response.body.should_not have_selector('.autocomplete_tag_list')
+        expect(response.body).not_to have_selector('.autocomplete_tag_list')
       end
     end
 
@@ -27,7 +27,7 @@ module Alchemy
 
       it "should set the role to admin" do
         post :create, {user: attributes_for(:alchemy_admin_user)}
-        assigns(:user).alchemy_roles.should include("admin")
+        expect(assigns(:user).alchemy_roles).to include("admin")
       end
 
       context "with send_credentials set to '1'" do
@@ -35,7 +35,7 @@ module Alchemy
           post :create, {
             user: attributes_for(:alchemy_admin_user).merge(send_credentials: '1')
           }
-          ActionMailer::Base.deliveries.should_not be_empty
+          expect(ActionMailer::Base.deliveries).not_to be_empty
         end
       end
 
@@ -44,29 +44,29 @@ module Alchemy
           post :create, {
             user: attributes_for(:alchemy_admin_user)
           }
-          ActionMailer::Base.deliveries.should be_empty
+          expect(ActionMailer::Base.deliveries).to be_empty
         end
       end
 
       context "with valid params" do
         it "should sign in the user" do
           post :create, {user: attributes_for(:alchemy_admin_user)}
-          controller.send(:user_signed_in?).should be_true
+          expect(controller.send(:user_signed_in?)).to be_truthy
         end
       end
 
       context "with invalid params" do
         it "renders the new view" do
           post :create, user: {email: '', login: '', password: ''}
-          should render_template(:new)
+          is_expected.to render_template(:new)
         end
       end
 
       context "with email delivery errors" do
         it "redirects to sitemap" do
-          User.any_instance.stub(:save).and_raise(Errno::ECONNREFUSED)
+          allow_any_instance_of(User).to receive(:save).and_raise(Errno::ECONNREFUSED)
           post :create, {user: attributes_for(:alchemy_admin_user)}
-          should redirect_to(admin_pages_path)
+          is_expected.to redirect_to(admin_pages_path)
         end
       end
     end

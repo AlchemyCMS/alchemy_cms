@@ -10,7 +10,7 @@ describe Alchemy::Permissions do
     let(:user) { nil }
 
     it "can not see any user records" do
-      should_not be_able_to(:read, Alchemy.user_class)
+      is_expected.not_to be_able_to(:read, Alchemy.user_class)
     end
   end
 
@@ -19,12 +19,12 @@ describe Alchemy::Permissions do
     let(:another_user) { build_stubbed(:alchemy_member_user) }
 
     it "can only update its own user record" do
-      should be_able_to(:update, user)
-      should_not be_able_to(:update, another_user)
+      is_expected.to be_able_to(:update, user)
+      is_expected.not_to be_able_to(:update, another_user)
     end
 
     it "can see its own record" do
-      should be_able_to(:read, user)
+      is_expected.to be_able_to(:read, user)
     end
   end
 
@@ -33,12 +33,12 @@ describe Alchemy::Permissions do
     let(:another_user) { build_stubbed(:alchemy_member_user) }
 
     it "can only update its own user record" do
-      should be_able_to(:update, user)
-      should_not be_able_to(:update, another_user)
+      is_expected.to be_able_to(:update, user)
+      is_expected.not_to be_able_to(:update, another_user)
     end
 
     it "can see its own record" do
-      should be_able_to(:read, user)
+      is_expected.to be_able_to(:read, user)
     end
   end
 
@@ -47,12 +47,12 @@ describe Alchemy::Permissions do
     let(:another_user) { build_stubbed(:alchemy_member_user) }
 
     it "can see all users" do
-      should be_able_to(:read, Alchemy.user_class)
+      is_expected.to be_able_to(:read, Alchemy.user_class)
     end
 
     it "can only update its own user record" do
-      should be_able_to(:update, user)
-      should_not be_able_to(:update, another_user)
+      is_expected.to be_able_to(:update, user)
+      is_expected.not_to be_able_to(:update, another_user)
     end
   end
 
@@ -60,7 +60,7 @@ describe Alchemy::Permissions do
     let(:user) { build_stubbed(:alchemy_admin_user) }
 
     it "can manage users" do
-      should be_able_to(:manage, Alchemy.user_class)
+      is_expected.to be_able_to(:manage, Alchemy.user_class)
     end
   end
 end
