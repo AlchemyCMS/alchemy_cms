@@ -66,6 +66,19 @@ module Alchemy
       def logged_in_timeout
         Config.get(:auto_logout_time).minutes.to_i
       end
+
+      # Search users that match query
+      #
+      # Attributes searched are: login, email, firstname, lastname
+      #
+      def search(query)
+        query = "%#{query.downcase}%"
+
+        where arel_table[:login].lower.matches(query)
+          .or arel_table[:email].lower.matches(query)
+          .or arel_table[:firstname].lower.matches(query)
+          .or arel_table[:lastname].lower.matches(query)
+      end
     end
 
     def role_symbols

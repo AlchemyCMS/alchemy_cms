@@ -17,12 +17,14 @@ module Alchemy
         let(:users) { [] }
 
         before do
-          allow(users).to receive_message_chain(:page, :per, :order).and_return([user])
+          allow(users)
+            .to receive_message_chain(:page, :per, :order)
+            .and_return([user])
         end
 
         context 'with search query' do
           it "lists all matching users" do
-            expect(User).to receive(:where).and_return(users)
+            expect(User).to receive(:search).and_return(users)
             get :index, query: user.email
             expect(assigns(:users)).to include(user)
           end

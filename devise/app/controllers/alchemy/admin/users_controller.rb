@@ -16,17 +16,15 @@ module Alchemy
 
       def index
         if params[:query].present?
-          @users = User.where([
-           "LOWER(login) LIKE ? OR LOWER(email) LIKE ? OR LOWER(firstname) LIKE ? OR LOWER(lastname) LIKE ?",
-           "%#{params[:query].downcase}%",
-           "%#{params[:query].downcase}%",
-           "%#{params[:query].downcase}%",
-           "%#{params[:query].downcase}%"
-         ])
+          @users = User.search(params[:query])
         else
           @users = User.all
         end
-        @users = @users.page(params[:page] || 1).per(per_page_value_for_screen_size).order(sort_order)
+
+        @users = @users
+          .page(params[:page] || 1)
+          .per(per_page_value_for_screen_size)
+          .order(sort_order)
       end
 
       def new

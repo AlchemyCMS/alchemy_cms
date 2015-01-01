@@ -10,6 +10,66 @@ module Alchemy
       expect(user.alchemy_roles).to include('member')
     end
 
+    describe '.search' do
+      subject { User.search(query) }
+
+      let!(:user1) do
+        create :alchemy_user,
+          email: 'find@me.com',
+          login: 'user1',
+          firstname: 'Michael',
+          lastname: 'Jackson'
+      end
+
+      let!(:user2) do
+        create :alchemy_user,
+          email: 'find@me-not.com',
+          login: 'user2',
+          firstname: 'Prince Rogers',
+          lastname: 'Nelson'
+      end
+
+      let!(:users) do
+        [user1, user1]
+      end
+
+      context 'by email' do
+        let(:query) { 'find@me.com' }
+
+        it "returns all matching users" do
+          is_expected.to include(user1)
+          is_expected.to_not include(user2)
+        end
+      end
+
+      context 'by login' do
+        let(:query) { 'User1' }
+
+        it 'returns all matching users' do
+          is_expected.to include(user1)
+          is_expected.to_not include(user2)
+        end
+      end
+
+      context 'by firstname' do
+        let(:query) { 'prince' }
+
+        it 'returns all matching users' do
+          is_expected.to_not include(user1)
+          is_expected.to include(user2)
+        end
+      end
+
+      context 'by lastname' do
+        let(:query) { 'jackson' }
+
+        it 'returns all matching users' do
+          is_expected.to include(user1)
+          is_expected.to_not include(user2)
+        end
+      end
+    end
+
     context ".after_save" do
       let(:user) { build_stubbed(:alchemy_admin_user) }
 
@@ -246,6 +306,5 @@ module Alchemy
         expect(user.last_request_at).not_to eq(last_request_at)
       end
     end
-
   end
 end
