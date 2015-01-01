@@ -78,20 +78,23 @@ module Alchemy
     #
     # === Usage
     #
-    #   #config.yml
+    #   # config/alchemy/config.yml
+    #   ...
     #   require_ssl: true
+    #   ...
     #
     # === Note
     #
-    # You have to create a ssl certificate if you want to use the ssl protection
+    # You have to create a ssl certificate
+    # if you want to use the ssl protection.
     #
     def ssl_required?
-      (Rails.env == 'production' || Rails.env == 'staging') && configuration(:require_ssl)
+      !Rails.env.test? && configuration(:require_ssl)
     end
 
-    # Redirects request to ssl.
+    # Redirects current request to https.
     def enforce_ssl
-      redirect_to url_for(protocol: 'https')
+      redirect_to url_for(request.params.merge(protocol: 'https'))
     end
 
     protected
