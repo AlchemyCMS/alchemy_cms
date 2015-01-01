@@ -1,5 +1,6 @@
-require 'userstamp'
+require 'devise/orm/active_record'
 require 'acts-as-taggable-on'
+require 'userstamp'
 
 module Alchemy
   class User < ActiveRecord::Base

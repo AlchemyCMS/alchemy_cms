@@ -1,8 +1,11 @@
 module Alchemy
   class UserSessionsController < ::Devise::SessionsController
-    include Locale
+    include Alchemy::Locale
 
-    before_action(except: 'destroy') { enforce_ssl if ssl_required? && !request.ssl? }
+    before_action except: 'destroy' do
+      enforce_ssl if ssl_required? && !request.ssl?
+    end
+
     before_action :check_user_count, :only => :new
 
     helper 'Alchemy::Admin::Base', 'Alchemy::Pages'
@@ -15,6 +18,7 @@ module Alchemy
 
     def create
       authenticate_user!
+
       if user_signed_in?
         store_screen_size
         if session[:redirect_path].blank?
@@ -23,7 +27,8 @@ module Alchemy
           # We have to strip double slashes from beginning of path, because of strange rails/rack bug.
           redirect_path = session[:redirect_path].gsub(/\A\/{2,}/, '/')
         end
-        redirect_to redirect_path, :notice => t(:signed_in, :scope => 'devise.sessions')
+        redirect_to redirect_path,
+          notice: t(:signed_in, scope: 'devise.sessions')
       else
         super
       end
@@ -56,6 +61,5 @@ module Alchemy
         request.referer
       end
     end
-
   end
 end

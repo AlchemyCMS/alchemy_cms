@@ -9,15 +9,26 @@ Alchemy::Engine.routes.draw do
   resources :users, only: [:create]
 
   devise_scope :user do
-    get '/admin/signup' => 'users#new', :as => :signup
-    get '/admin/login' => 'user_sessions#new', :as => :login
+    get '/admin/dashboard' => 'admin/dashboard#index',
+      :as => :user_root
+
+    get '/admin/signup' => 'users#new',
+      :as => :signup
+
+    get '/admin/login' => 'user_sessions#new',
+      :as => :login
     post '/admin/login' => 'user_sessions#create'
-    delete '/admin/logout' => 'user_sessions#destroy', :as => :logout
-    get '/admin/dashboard' => 'admin/dashboard#index', :as => :user_root
-    get '/admin/passwords' => 'passwords#new', :as => :new_password
-    get '/admin/passwords/:id/edit/:reset_password_token' => 'passwords#edit', :as => :edit_password
-    post '/admin/passwords' => 'passwords#create', :as => :reset_password
-    patch '/admin/passwords' => 'passwords#update', :as => :update_password
+    delete '/admin/logout' => 'user_sessions#destroy',
+      :as => :logout
+
+    get '/admin/passwords' => 'passwords#new',
+      :as => :new_password
+    get '/admin/passwords/:id/edit/:reset_password_token' => 'passwords#edit',
+      :as => :edit_password
+    post '/admin/passwords' => 'passwords#create',
+      :as => :reset_password
+    patch '/admin/passwords' => 'passwords#update',
+      :as => :update_password
   end
 
   namespace :admin do

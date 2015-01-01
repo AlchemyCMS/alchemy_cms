@@ -1,4 +1,4 @@
-## Devise based authentication for Alchemy 3.0
+## Devise based authentication for Alchemy 3.1
 
 [![Build Status](https://secure.travis-ci.org/magiclabs/alchemy-devise.svg?branch=master)](http://travis-ci.org/magiclabs/alchemy-devise) [![Coverage Status](https://coveralls.io/repos/magiclabs/alchemy-devise/badge.png?branch=master)](https://coveralls.io/r/magiclabs/alchemy-devise?branch=master) [![Code Climate](https://codeclimate.com/github/magiclabs/alchemy-devise.svg)](https://codeclimate.com/github/magiclabs/alchemy-devise)
 
@@ -21,26 +21,19 @@ gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: 'master'
 
 and run `bundle install`.
 
-Migrate the database:
+Then run the installer:
 
 ```shell
-$ bin/rake alchemy_devise:install:migrations
-$ bin/rake db:migrate
+$ bin/rails g alchemy_devise:install
 ```
 
 ## Upgrading
 
-After updating the gem, please also check if new migrations have been added.
+After updating the gem, please run the installer again.
 
 ```shell
 $ bundle update alchemy-devise
-$ bin/rake alchemy_devise:install:migrations
-```
-
-and if new migrations have been added then migrate your database:
-
-```shell
-$ bin/rake db:migrate
+$ bin/rails g alchemy_devise:install
 ```
 
 ## Testing
@@ -55,19 +48,19 @@ Clone the repo to your local harddrive. Then
 
 ```shell
 $ bundle install
-$ rake alchemy:spec:prepare
+$ bin/rake alchemy:spec:prepare
 ```
 
 ### 2. Run the tests with:
 
 ```shell
-$ rspec
+$ bundle exec rspec
 ```
 
 _Optional:_ Even shorter
 
 ```shell
-$ rake
+$ bin/rake
 ```
 
 That prepares the database and runs the Rspec task in one step.

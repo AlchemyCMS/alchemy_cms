@@ -4,7 +4,13 @@ module Alchemy
   describe Notifications do
 
     context "when a member user was created" do
-      let(:user) { mock_model('User', alchemy_roles: %w(member), email: 'jon@doe.com', name: 'John Doe', login: 'jon.doe') }
+      let(:user) do
+        mock_model 'User',
+          alchemy_roles: %w(member),
+          email: 'jon@doe.com',
+          name: 'John Doe',
+          login: 'jon.doe'
+      end
       let(:mail) { Notifications.member_created(user) }
 
       it "delivers a mail to user" do
@@ -44,10 +50,20 @@ module Alchemy
     end
 
     describe '#reset_password_instructions' do
-      let(:user) { mock_model('User', alchemy_roles: %w(member), email: 'jon@doe.com', name: 'John Doe', login: 'jon.doe', fullname: 'John Doe') }
-      let(:mail) { Notifications.reset_password_instructions(user) }
+      let(:user) do
+        mock_model 'User',
+          alchemy_roles: %w(member),
+          email: 'jon@doe.com',
+          name: 'John Doe',
+          login: 'jon.doe',
+          fullname: 'John Doe'
+      end
 
-      before { allow(user).to receive(:reset_password_token).and_return('123') }
+      let(:token) { '123456789' }
+
+      let(:mail) do
+        Notifications.reset_password_instructions(user, token)
+      end
 
       it "delivers a mail to user" do
         expect(mail.to).to eq([user.email])
@@ -59,9 +75,8 @@ module Alchemy
       end
 
       it "mail body includes reset instructions" do
-        expect(mail.body).to match /#{Regexp.escape(edit_password_url(user, reset_password_token: user.reset_password_token, use_route: 'alchemy', only_path: true))}/
+        expect(mail.body).to match /#{Regexp.escape(edit_password_url(user, reset_password_token: token, use_route: 'alchemy', only_path: true))}/
       end
     end
-
   end
 end

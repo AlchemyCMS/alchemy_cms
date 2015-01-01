@@ -11,6 +11,19 @@ describe Alchemy::UserSessionsController do
         get :new
         is_expected.to redirect_to(signup_path)
       end
+
+      context 'with ssl enforced' do
+        before do
+          allow(controller).to receive(:ssl_required?).and_return(true)
+        end
+
+        it 'redirects to https' do
+          get :new
+          is_expected.to redirect_to(
+            login_url(protocol: 'https', host: "test.host")
+          )
+        end
+      end
     end
   end
 
@@ -56,6 +69,9 @@ describe Alchemy::UserSessionsController do
     describe "#destroy" do
       before do
         allow(controller).to receive(:store_user_request_time)
+        allow(controller)
+          .to receive(:all_signed_out?)
+          .and_return(false)
         sign_in(user)
       end
 
@@ -65,7 +81,11 @@ describe Alchemy::UserSessionsController do
       end
 
       context 'comming from admin area' do
-        before { allow(controller.request).to receive(:referer).and_return('/admin_users') }
+        before do
+          allow(controller.request)
+            .to receive(:referer)
+            .and_return('/admin_users')
+        end
 
         it "redirects to root" do
           delete :destroy
@@ -74,7 +94,11 @@ describe Alchemy::UserSessionsController do
       end
 
       context 'no referer present' do
-        before { allow(controller.request).to receive(:referer) }
+        before do
+          allow(controller.request)
+            .to receive(:referer)
+            .and_return(nil)
+        end
 
         it "redirects to root" do
           delete :destroy
@@ -83,7 +107,11 @@ describe Alchemy::UserSessionsController do
       end
 
       context 'referer not from admin area' do
-        before { allow(controller.request).to receive(:referer).and_return('/imprint') }
+        before do
+          allow(controller.request)
+            .to receive(:referer)
+            .and_return('/imprint')
+        end
 
         it "redirects to root" do
           delete :destroy

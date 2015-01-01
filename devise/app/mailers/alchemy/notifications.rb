@@ -21,13 +21,13 @@ module Alchemy
       )
     end
 
-    def reset_password_instructions(user, opts={})
+    def reset_password_instructions(user, token, opts={})
       @user = user
+      @token = token
       mail(
         to: user.email,
         subject: I18n.t("Reset password instructions")
       )
     end
-
   end
 end
