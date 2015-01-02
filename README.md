@@ -124,6 +124,7 @@ The best practice is to use an initializer:
 ```ruby
 # config/initializers/alchemy.rb
 Alchemy.user_class_name = 'YourUserClass'       # Defaults to 'User'
+Alchemy.signup_path     = '/your/signup/path'   # Defaults to '/signup'
 Alchemy.login_path      = '/your/login/path'    # Defaults to '/login'
 Alchemy.logout_path     = '/your/logout/path'   # Defaults to '/logout'
 ```
