@@ -287,6 +287,7 @@ de:
     "Warning!": "Achtung!"
     content_description_missing: "Warnung: Für diesen Content konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
     element_description_missing: "Warnung! Für dieses Element konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
+    page_layout_description_missing: "Warnung! Für diese Seite konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die page_layouts.yml Datei."
     "Welcome to Alchemy": "Willkommen in Alchemy"
     "Who else is online": "Wer ist noch online"
     "Yes": "Ja"

@@ -567,22 +567,6 @@ module Alchemy
       end
     end
 
-    describe '.layout_description' do
-      it "should raise Exception if the page_layout could not be found in the definition file" do
-        expect { page.layout_description }.to raise_error
-      end
-
-      context "for a language root page" do
-        it "should return the page layout description as hash" do
-          expect(language_root.layout_description['name']).to eq('intro')
-        end
-
-        it "should return an empty hash for root page" do
-          expect(rootpage.layout_description).to eq({})
-        end
-      end
-    end
-
     describe '.layoutpages' do
       it "should return 1 layoutpage" do
         FactoryGirl.create(:public_page, :layoutpage => true, :name => 'Layoutpage', :parent_id => rootpage.id, :language => language)
@@ -656,16 +640,6 @@ module Alchemy
         it "does not return unique element definitions" do
           expect(page.available_element_definitions.collect { |e| e['name'] }).to include('article')
           expect(page.available_element_definitions.collect { |e| e['name'] }).not_to include('header')
-        end
-      end
-
-      context "for page_layout not existing" do
-        let(:page) { FactoryGirl.build_stubbed(:page, page_layout: 'not_existing_one') }
-
-        it "should raise error" do
-          expect {
-            page.available_element_definitions
-          }.to raise_error(Alchemy::PageLayoutDefinitionError)
         end
       end
 
@@ -1023,6 +997,31 @@ module Alchemy
 
       it "returns the language root page" do
         is_expected.to eq language_root
+      end
+    end
+
+    describe '#layout_description' do
+      context 'if the page layout could not be found in the definition file' do
+        let(:page) { build_stubbed(:page, page_layout: 'notexisting') }
+
+        it "it loggs a warning." do
+          expect(Alchemy::Logger).to receive(:warn)
+          page.layout_description
+        end
+
+        it "it returns empty hash." do
+          expect(page.layout_description).to eq({})
+        end
+      end
+
+      context "for a language root page" do
+        it "it returns the page layout description as hash." do
+          expect(language_root.layout_description['name']).to eq('intro')
+        end
+
+        it "it returns an empty hash for root page." do
+          expect(rootpage.layout_description).to eq({})
+        end
       end
     end
 

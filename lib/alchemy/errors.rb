@@ -32,10 +32,6 @@ module Alchemy
     # Raised if calling +image_file+ on a Picture object returns nil.
   end
 
-  class PageLayoutDefinitionError < StandardError
-    # Raised if page_layout definition can not be found.
-  end
-
   class PictureInUseError < StandardError
     # Raised if the picture is still in use and can not be deleted.
   end
