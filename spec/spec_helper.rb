@@ -13,9 +13,21 @@ ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
 
-require "rails/test_help"
-require "rspec/rails"
-require 'factory_girl'
+require 'alchemy/seeder'
+require 'alchemy/test_support/auth_helpers'
+require 'alchemy/test_support/controller_requests'
+require 'alchemy/test_support/integration_helpers'
+require 'alchemy/test_support/essence_shared_examples'
+require 'alchemy/test_support/factories'
+require 'capybara/poltergeist'
+require 'capybara/rails'
+require 'database_cleaner'
+require 'rails/test_help'
+require 'rspec-activemodel-mocks'
+require 'rspec/rails'
+
+require_relative "support/hint_examples.rb"
+require_relative "support/transformation_examples.rb"
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
@@ -24,17 +36,6 @@ ActionMailer::Base.default_url_options[:host] = "test.com"
 Rails.backtrace_cleaner.remove_silencers!
 # Disable rails loggin for faster IO. Remove this if you want to have a test.log
 Rails.logger.level = 4
-
-require "capybara/rails"
-require 'capybara/poltergeist'
-require 'alchemy/seeder'
-require 'alchemy/test_support/auth_helpers'
-require 'alchemy/test_support/controller_requests'
-require 'alchemy/test_support/integration_helpers'
-require 'alchemy/test_support/factories'
-require 'alchemy/test_support/essence_shared_examples'
-require_relative "support/hint_examples.rb"
-require_relative "support/transformation_examples.rb"
 
 # Configure capybara for integration testing
 Capybara.default_driver = :rack_test

@@ -9,14 +9,10 @@ end
 # Code coverage plattform
 gem 'coveralls', require: false
 
-gem 'database_cleaner'
-
 group :test do
   gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'                if ENV['DB'] == 'mysql'
   gem 'pg'                    if ENV['DB'] == 'postgresql'
-  gem 'poltergeist'
-  gem 'rspec-activemodel-mocks'
   unless ENV['CI']
     gem 'launchy'
   end

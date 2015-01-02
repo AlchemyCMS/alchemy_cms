@@ -42,10 +42,12 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'spinner.rb'
   gem.add_runtime_dependency 'turbolinks',                       ['~> 2.5']
   gem.add_runtime_dependency 'tvdeyen-handles_sortable_columns', ['~> 0.1.5']
-  gem.add_runtime_dependency 'uglifier',                         ['>= 1.3.0']
 
-  gem.add_development_dependency 'capybara'
-  gem.add_development_dependency 'factory_girl_rails'
+  gem.add_development_dependency 'capybara',                     ['~> 2.4']
+  gem.add_development_dependency 'database_cleaner',             ['~> 1.3']
+  gem.add_development_dependency 'factory_girl_rails',           ['~> 4.5']
+  gem.add_development_dependency 'poltergeist',                  ['~> 1.5']
+  gem.add_development_dependency 'rspec-activemodel-mocks',      ['~> 1.0']
   gem.add_development_dependency 'rspec-rails',                  ['~> 3.0']
 
   gem.post_install_message =<<-MSG
