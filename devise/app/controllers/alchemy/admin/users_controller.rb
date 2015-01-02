@@ -8,11 +8,13 @@ module Alchemy
         only: [:edit, :update, :destroy]
 
       authorize_resource class: Alchemy::User,
-        only: [:index, :new, :create]
+        only: [:index, :new, :signup, :create]
 
       handles_sortable_columns do |c|
         c.default_sort_value = :login
       end
+
+      helper_method :while_signup?, :can_update_role?
 
       def index
         if params[:query].present?
@@ -31,27 +33,36 @@ module Alchemy
         @user = User.new(send_credentials: true)
       end
 
+      def signup
+        if while_signup?
+          new
+        else
+          flash[:warning] = _t(:cannot_signup_more_then_once)
+          redirect_to admin_dashboard_path
+        end
+      end
+
       def create
-        @user = User.create(user_params)
-        render_errors_or_redirect(
-          @user,
-          admin_users_path,
-          _t("User created", :name => @user.name)
-        )
+        @user = User.new(user_params)
+
+        if while_signup?
+          signup_admin_or_redirect(@user)
+        else
+          create_user_or_redirect(@user)
+        end
       end
 
       def update
         # User is fetched via before filter
         if params[:user][:password].present?
-          @user.update_attributes(user_params)
+          @user.update(user_params)
         else
           @user.update_without_password(user_params)
         end
-        render_errors_or_redirect(
-          @user,
+
+        render_errors_or_redirect @user,
           admin_users_path,
           _t("User updated", :name => @user.name)
-        )
       end
 
       def destroy
@@ -66,7 +77,11 @@ module Alchemy
       private
 
       def set_roles_and_genders
-        @user_roles = User::ROLES.map { |role| [User.human_rolename(role), role] }
+        if can_update_role?
+          @user_roles = User::ROLES.map do |role|
+            [User.human_rolename(role), role]
+          end
+        end
         @user_genders = User.genders_for_select
       end
 
@@ -75,13 +90,44 @@ module Alchemy
       end
 
       def secure_attributes
-        if can?(:update_role, Alchemy::User)
+        if can_update_role?
           User::PERMITTED_ATTRIBUTES + [{alchemy_roles: []}]
         else
           User::PERMITTED_ATTRIBUTES
         end
       end
 
+      def while_signup?
+        User.count == 0
+      end
+
+      def signup_admin_or_redirect(user)
+        user.alchemy_roles = %w(admin)
+        if user.save
+          flash[:notice] = _t('Successfully signup admin user')
+          sign_in :user, user
+          redirect_to admin_pages_path
+        else
+          render :signup
+        end
+      end
+
+      def create_user_or_redirect(user)
+        user.save
+        render_errors_or_redirect user,
+          admin_users_path,
+          _t("User created", name: user.name)
+      end
+
+      def can_update_role?
+        can? :update_role, Alchemy::User
+      end
+
+      def deliver_welcome_mail
+        if @user.valid? && @user.send_credentials == '1'
+          @user.deliver_welcome_mail
+        end
+      end
     end
   end
 end

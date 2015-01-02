@@ -7,17 +7,8 @@ describe "User Routing" do
     expect({
       get: "/admin/signup"
     }).to route_to(
-      controller: "alchemy/users",
-      action: "new"
-    )
-  end
-
-  it "routes to create user" do
-    expect({
-      post: "/users"
-    }).to route_to(
-      controller: "alchemy/users",
-      action: "create"
+      controller: "alchemy/admin/users",
+      action: "signup"
     )
   end
 end

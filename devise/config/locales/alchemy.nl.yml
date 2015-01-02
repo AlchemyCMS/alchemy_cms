@@ -1,5 +1,6 @@
 nl:
   alchemy:
+    cannot_signup_more_then_once: "You can't signup more then once."
     confirm_to_delete_user: "Wilt u deze gebruiker zeker verwijderen?"
     create_user: "Nieuwe gebruiker aanmaken"
     delete_user: "Deze gebruiker verwijderen"

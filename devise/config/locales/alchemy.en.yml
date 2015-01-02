@@ -1,5 +1,6 @@
 en:
   alchemy:
+    cannot_signup_more_then_once: "You can't signup more then once."
     confirm_to_delete_user: "Do you really want to delete this user?"
     create_user: "Create a new user"
     delete_user: "Delete this user"

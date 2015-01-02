@@ -6,19 +6,24 @@
 <%= f.input :lastname %>
 <%= f.input :login, autofocus: true %>
 <%= f.input :email %>
-<%= f.input :language, collection: translations_for_select, include_blank: false, input_html: {class: 'alchemy_selectbox'} %>
+<%= f.input :language,
+  collection: translations_for_select,
+  include_blank: false,
+  input_html: {class: 'alchemy_selectbox'} %>
 <%= f.input :password %>
 <%= f.input :password_confirmation %>
-<% if can? :update_role, @user %>
+<% if can_update_role? %>
   <%= f.input :alchemy_roles,
-    collection: Alchemy::User::ROLES.map { |role| [Alchemy::User.human_rolename(role), role] },
+    collection: @user_roles,
     input_html: {multiple: true, class: 'alchemy_selectbox'},
     as: 'select' %>
 <% end %>
-<% unless @signup %>
+<% unless while_signup? %>
   <div class="input tag_list">
     <%= f.label :tag_list %>
-    <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f, object: @user %>
+    <%= render 'alchemy/admin/partials/autocomplete_tag_list',
+      f: f,
+      object: @user %>
   </div>
 <% end %>
 <%= f.input :send_credentials, as: 'boolean' %>

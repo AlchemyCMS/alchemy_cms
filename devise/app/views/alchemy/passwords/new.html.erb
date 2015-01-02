@@ -14,7 +14,9 @@
     </div>
   <% end %>
     <%= alchemy_form_for :user, url: reset_password_path, html: {method: 'post'} do |f| %>
-      <%= f.input :email, autofocus: true %>
+      <%= f.input :email,
+        autofocus: true,
+        input_html: {value: params[:email]} %>
       <%= f.submit _t("Send reset instructions") %>
     <% end %>
   </div>

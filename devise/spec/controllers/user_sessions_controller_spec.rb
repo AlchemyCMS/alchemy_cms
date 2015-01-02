@@ -9,7 +9,7 @@ describe Alchemy::UserSessionsController do
     describe '#new' do
       it "redirects to signup form" do
         get :new
-        is_expected.to redirect_to(signup_path)
+        is_expected.to redirect_to(admin_signup_path)
       end
 
       context 'with ssl enforced' do

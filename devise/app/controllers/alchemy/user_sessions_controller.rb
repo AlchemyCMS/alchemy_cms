@@ -45,7 +45,7 @@ module Alchemy
 
     def check_user_count
       if User.count == 0
-        redirect_to signup_path
+        redirect_to admin_signup_path
       end
     end
 

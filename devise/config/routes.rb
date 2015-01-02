@@ -6,15 +6,11 @@ Alchemy::Engine.routes.draw do
     },
     skip: [:sessions, :passwords]
 
-  resources :users, only: [:create]
-
   devise_scope :user do
     get '/admin/dashboard' => 'admin/dashboard#index',
       :as => :user_root
-
-    get '/admin/signup' => 'users#new',
-      :as => :signup
-
+    get '/admin/signup' => 'admin/users#signup',
+      :as => :admin_signup
     get '/admin/login' => 'user_sessions#new',
       :as => :login
     post '/admin/login' => 'user_sessions#create'

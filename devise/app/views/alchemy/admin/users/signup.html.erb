@@ -7,7 +7,7 @@
     <h1><%= _t('Welcome to Alchemy') %></h1>
     <p><%= _t("Please Signup") %></p>
   <% end %>
-  <%= alchemy_form_for @user do |f| %>
-    <%= render 'alchemy/admin/users/fields', f: f %>
+  <%= alchemy_form_for [:admin, @user] do |f| %>
+    <%= render 'fields', f: f %>
   <% end %>
 </div>

@@ -1,5 +1,6 @@
 de:
   alchemy:
+    cannot_signup_more_then_once: "Sie können nur einmal einen Admin Benutzer registrieren."
     confirm_to_delete_user: "Wollen Sie diesen Benutzer wirklich löschen?"
     create_user: "Einen Benutzer anlegen"
     delete_user: "Benutzer löschen"

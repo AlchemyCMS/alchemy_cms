@@ -12,6 +12,26 @@ describe Alchemy::Permissions do
     it "can not see any user records" do
       is_expected.not_to be_able_to(:read, Alchemy.user_class)
     end
+
+    it "can signup user" do
+      is_expected.to be_able_to(:signup, Alchemy.user_class)
+    end
+
+    context 'if no user is present' do
+      before { expect(Alchemy::User).to receive(:count).and_return(0) }
+
+      it "can create user" do
+        is_expected.to be_able_to(:create, Alchemy.user_class)
+      end
+    end
+
+    context 'if user is present' do
+      before { expect(Alchemy::User).to receive(:count).and_return(1) }
+
+      it "cannot create user" do
+        is_expected.to_not be_able_to(:create, Alchemy.user_class)
+      end
+    end
   end
 
   context "A member" do
