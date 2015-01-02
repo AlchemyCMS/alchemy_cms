@@ -1,6 +1,8 @@
 ## Devise based authentication for Alchemy 3.1
 
-[![Build Status](https://secure.travis-ci.org/AlchemyCMS/alchemy-devise.svg?branch=master)](http://travis-ci.org/AlchemyCMS/alchemy-devise) [![Coverage Status](https://img.shields.io/coveralls/AlchemyCMS/alchemy-devise.svg)](https://coveralls.io/r/AlchemyCMS/alchemy-devise?branch=master) [![Code Climate](https://codeclimate.com/github/AlchemyCMS/alchemy-devise.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy-devise) [![security](https://hakiri.io/github/AlchemyCMS/alchemy-devise/master.svg)](https://hakiri.io/github/AlchemyCMS/alchemy-devise/master) [![Dependency Status](https://gemnasium.com/AlchemyCMS/alchemy-devise.svg)](https://gemnasium.com/AlchemyCMS/alchemy-devise)
+[![Build Status](https://secure.travis-ci.org/AlchemyCMS/alchemy-devise.svg?branch=master)](http://travis-ci.org/AlchemyCMS/alchemy-devise)
+
+[![Gem Version](https://badge.fury.io/rb/alchemy-devise.svg)](http://badge.fury.io/rb/alchemy-devise) [![Coverage Status](https://img.shields.io/coveralls/AlchemyCMS/alchemy-devise.svg)](https://coveralls.io/r/AlchemyCMS/alchemy-devise?branch=master) [![Code Climate](https://codeclimate.com/github/AlchemyCMS/alchemy-devise.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy-devise) [![security](https://hakiri.io/github/AlchemyCMS/alchemy-devise/master.svg)](https://hakiri.io/github/AlchemyCMS/alchemy-devise/master) [![Dependency Status](https://gemnasium.com/AlchemyCMS/alchemy-devise.svg)](https://gemnasium.com/AlchemyCMS/alchemy-devise)
 
 **CAUTION: This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy-devise/versions/2.0.0), or the [latest stable branch (2.0-stable)](https://github.com/AlchemyCMS/alchemy-devise/tree/2.0-stable).**
 
