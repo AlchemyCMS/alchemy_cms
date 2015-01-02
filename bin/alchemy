@@ -33,11 +33,7 @@ class AlchemyInstaller < Thor
     system("#{rake_cmd} alchemy:install from_binary=true") || exit!(1)
     say "\nStep 3: Installing Alchemy User into Rails app", :yellow
     say "Please wait...", :yellow
-    system("#{rake_cmd} alchemy_devise:install:migrations") || exit!(1)
-    say "Done.", :green
-    say "\nStep 4: Setting up the database", :yellow
-    say "Please wait...", :yellow
-    system("#{rake_cmd} db:migrate") || exit!(1)
+    system("#{rails_cmd} g alchemy:devise:install") || exit!(1)
     say "Done.", :green
     cleanup
     say "\nSuccessfully installed Alchemy CMS\n", :green
@@ -53,7 +49,15 @@ class AlchemyInstaller < Thor
   end
 
   def rake_cmd
-    "cd #{@application} && bundle exec rake"
+    "#{bundle_cmd} rake"
+  end
+
+  def rails_cmd
+    "#{bundle_cmd} rails"
+  end
+
+  def bundle_cmd
+    "cd #{@application} && bundle exec"
   end
 
   def alchemy_template
