@@ -18,10 +18,6 @@ module Alchemy
       permission_denied(exception)
     end
 
-    def leave
-      render layout: !request.xhr?
-    end
-
     private
 
     # Sets +I18n.locale+ to current Alchemy language.
