@@ -43,8 +43,6 @@ module Alchemy
     # Unlock all locked pages before destroy.
     before_destroy :unlock_pages!
 
-    after_save :deliver_welcome_mail, if: -> { send_credentials == '1' }
-
     scope :admins,     -> { where(arel_table[:alchemy_roles].matches('%admin%')) }
     scope :logged_in,  -> { where('last_request_at > ?', logged_in_timeout.seconds.ago) }
     scope :logged_out, -> { where('last_request_at is NULL or last_request_at <= ?', logged_in_timeout.seconds.ago) }
@@ -170,12 +168,6 @@ module Alchemy
       update_column(:last_request_at, Time.now)
     end
 
-    private
-
-    def logged_in_timeout
-      self.class.logged_in_timeout
-    end
-
     # Delivers a welcome mail depending from user's role.
     #
     def deliver_welcome_mail
@@ -186,5 +178,10 @@ module Alchemy
       end
     end
 
+    private
+
+    def logged_in_timeout
+      self.class.logged_in_timeout
+    end
   end
 end

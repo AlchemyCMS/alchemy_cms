@@ -70,46 +70,6 @@ module Alchemy
       end
     end
 
-    context ".after_save" do
-      let(:user) { build_stubbed(:alchemy_admin_user) }
-
-      context "with send_credentials set to '1'" do
-        before { user.send_credentials = '1' }
-
-        it "delivers the admin welcome mail." do
-          expect(Notifications).to receive(:alchemy_user_created).and_return(OpenStruct.new(deliver: true))
-          user.save!
-        end
-
-        context "of author user" do
-          before { user.alchemy_roles = %w(author) }
-
-          it "delivers the admin welcome mail." do
-            expect(Notifications).to receive(:alchemy_user_created).and_return(OpenStruct.new(deliver: true))
-            user.save!
-          end
-        end
-
-        context "of member user" do
-          before { user.alchemy_roles = %w(member) }
-
-          it "delivers the welcome mail." do
-            expect(Notifications).to receive(:member_created).and_return(OpenStruct.new(deliver: true))
-            user.save!
-          end
-        end
-      end
-
-      context "with send_credentials set to false" do
-        before { user.send_credentials = false }
-
-        it "does not deliver any mail" do
-          expect(Notifications).not_to receive(:alchemy_user_created)
-          user.save!
-        end
-      end
-    end
-
     describe 'scopes' do
       let(:user) { create(:alchemy_admin_user) }
 
@@ -124,6 +84,42 @@ module Alchemy
       it "return a translated role name" do
         ::I18n.locale = :de
         expect(User.human_rolename('member')).to eq("Mitglied")
+      end
+    end
+
+    describe '#deliver_welcome_mail' do
+      let(:user) { build_stubbed(:alchemy_admin_user) }
+
+      it "delivers the admin welcome mail." do
+        expect(Notifications)
+          .to receive(:alchemy_user_created)
+          .and_return(OpenStruct.new(deliver: true))
+
+        user.deliver_welcome_mail
+      end
+
+      context "of author user" do
+        before { user.alchemy_roles = %w(author) }
+
+        it "delivers the admin welcome mail." do
+          expect(Notifications)
+            .to receive(:alchemy_user_created)
+            .and_return(OpenStruct.new(deliver: true))
+
+          user.deliver_welcome_mail
+        end
+      end
+
+      context "of member user" do
+        before { user.alchemy_roles = %w(member) }
+
+        it "delivers the welcome mail." do
+          expect(Notifications)
+            .to receive(:member_created)
+            .and_return(OpenStruct.new(deliver: true))
+
+          user.deliver_welcome_mail
+        end
       end
     end
 

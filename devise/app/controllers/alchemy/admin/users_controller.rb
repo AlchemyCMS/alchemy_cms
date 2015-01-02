@@ -3,6 +3,7 @@ module Alchemy
     class UsersController < ResourcesController
 
       before_action :set_roles_and_genders, except: [:index, :destroy]
+      after_action :deliver_welcome_mail, only: [:create, :update]
 
       load_and_authorize_resource class: Alchemy::User,
         only: [:edit, :update, :destroy]
