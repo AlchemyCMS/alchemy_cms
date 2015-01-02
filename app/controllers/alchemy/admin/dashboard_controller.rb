@@ -66,14 +66,14 @@ module Alchemy
         end
       end
 
-      # Query the RubyGems API for alchemy versions.
+      # Query the RubyGems API for Alchemy versions.
       def query_rubygems
         make_api_request('https://rubygems.org/api/v1/versions/alchemy_cms.json')
       end
 
-      # Query the GitHub API for alchemy tags.
+      # Query the GitHub API for Alchemy tags.
       def query_github
-        make_api_request('https://api.github.com/repos/magiclabs/alchemy_cms/tags')
+        make_api_request('https://api.github.com/repos/AlchemyCMS/alchemy_cms/tags')
       end
 
       # Make a HTTP API request for given request url.
@@ -82,10 +82,8 @@ module Alchemy
         request = Net::HTTP::Get.new(url.path)
         connection = Net::HTTP.new(url.host, url.port)
         connection.use_ssl = true
-        connection.verify_mode = OpenSSL::SSL::VERIFY_NONE
         connection.request(request)
       end
-
     end
   end
 end
