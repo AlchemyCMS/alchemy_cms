@@ -1,19 +1,14 @@
 require 'spec_helper'
 
-class Alchemy::Config;
-end
-
 describe Alchemy::Admin::LanguagesController do
 
   before do
     sign_in(admin_user)
   end
 
-  describe "new" do
-
+  describe "#new" do
     context "when default_language.page_layout is set" do
-      it "should use it as page_layout-default for the new language" do
-        # FML :/
+      before do
         allow(Alchemy::Config).to receive(:get) do |arg|
           if arg == :default_language
             {'page_layout' => "new_standard"}
@@ -21,17 +16,46 @@ describe Alchemy::Admin::LanguagesController do
             Alchemy::Config.show[arg.to_s]
           end
         end
+      end
+
+      it "uses it as page_layout-default for the new language" do
         get :new
-        expect(assigns(:language).page_layout).to eql("new_standard")
+        expect(assigns(:language).page_layout).to eq("new_standard")
       end
     end
 
-    context "when default_language or page_layout aren't configured" do
-      it "should fallback to one configured in config.yml" do
+    context "when default_language is not configured" do
+      before do
+        allow(Alchemy::Config).to receive(:get) do |arg|
+          if arg == :default_language
+            nil
+          else
+            Alchemy::Config.show[arg.to_s]
+          end
+        end
+      end
+
+      it "falls back to default database value." do
         get :new
-        expect(assigns(:language).page_layout).to eql("index")
+        expect(assigns(:language).page_layout).to eq("intro")
       end
     end
 
+    context "when default language page_layout is not configured" do
+      before do
+        allow(Alchemy::Config).to receive(:get) do |arg|
+          if arg == :default_language
+            {}
+          else
+            Alchemy::Config.show[arg.to_s]
+          end
+        end
+      end
+
+      it "falls back to default database value." do
+        get :new
+        expect(assigns(:language).page_layout).to eq("intro")
+      end
+    end
   end
 end

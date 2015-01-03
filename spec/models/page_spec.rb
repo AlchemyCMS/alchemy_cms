@@ -1016,7 +1016,7 @@ module Alchemy
 
       context "for a language root page" do
         it "it returns the page layout description as hash." do
-          expect(language_root.layout_description['name']).to eq('intro')
+          expect(language_root.layout_description['name']).to eq('index')
         end
 
         it "it returns an empty hash for root page." do
