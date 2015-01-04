@@ -7,6 +7,12 @@ module Alchemy
       isolate_namespace Alchemy
       engine_name 'alchemy_devise'
 
+      initializer 'alchemy_devise.assets' do |app|
+        app.config.assets.precompile += [
+          'alchemy-devise.css'
+        ]
+      end
+
       config.to_prepare do
         require_relative '../../../app/controllers/alchemy/base_controller_extension.rb'
       end
