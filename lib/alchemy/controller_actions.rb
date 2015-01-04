@@ -3,8 +3,8 @@ module Alchemy
     extend ActiveSupport::Concern
 
     included do
-      before_action :set_current_alchemy_site
-      before_action :set_alchemy_language
+      prepend_before_action :set_alchemy_language
+      prepend_before_action :set_current_alchemy_site
 
       helper 'alchemy/pages'
 
