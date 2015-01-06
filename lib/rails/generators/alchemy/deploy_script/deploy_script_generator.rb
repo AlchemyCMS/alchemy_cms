@@ -5,13 +5,31 @@ module Alchemy
     class DeployScriptGenerator < ::Rails::Generators::Base
 
       desc "This generator generates a Capistrano receipt for deploying Alchemy CMS."
-      class_option :scm, :type => :string, :desc => "Set the type of scm you use for deployment.", :default => 'git'
-      class_option :db, :type => :string, :desc => "Set the type of database you use on your server.", :default => 'mysql'
+
+      class_option :scm,
+        type: 'string',
+        desc: "Set the type of scm you use for deployment.",
+        default: 'git'
+
+      class_option :db,
+        type: 'string',
+        desc: "Set the type of database you use on your server.",
+        default: 'mysql'
+
       source_root File.expand_path('templates', File.dirname(__FILE__))
 
       def copy_script
         @scm = options[:scm]
         @database_type = options[:db]
+        ask_questions
+        template "deploy.rb.tt", Rails.root.join('config', 'deploy.rb')
+        setup_capistrano
+        show_read_me
+      end
+
+      private
+
+      def ask_questions
         @app_name = ask('Please enter a name for your application:')
         @server = ask('Please enter server ip or domain:')
         if @store_credentials = yes?('Do want to store the ssh credentials? (PLEASE DO NOT STORE THEM IF THE REPOSITORY IS PUBLIC) (y/N)')
@@ -27,12 +45,7 @@ module Alchemy
         if @scm == "svn" && yes?('Is your repository private? (y/N)')
           ask_for_repo_credentials
         end
-        template "deploy.rb.tt", Rails.root.join('config', 'deploy.rb')
-        setup_capistrano
-        show_read_me
       end
-
-    private
 
       def ask_for_credentials
         @ssh_user = ask('Please enter ssh username:')
@@ -59,7 +72,11 @@ module Alchemy
 
       def setup_capistrano
         puts "\nSetting up Capistrano"
-        `capify .`
+        if system 'capify .'
+          gsub_file 'Capfile',
+            /\s{4}#\sload\s'deploy\/assets'/,
+            "load 'deploy/assets'"
+        end
       end
 
       def show_read_me
@@ -68,7 +85,6 @@ module Alchemy
         puts "\nIf you want to deploy Alchemy the first time type:\ncap deploy:cold"
         puts "\nAfter the first deploy you just need to type:\ncap deploy"
       end
-
     end
   end
 end
