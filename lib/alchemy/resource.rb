@@ -20,7 +20,7 @@ module Alchemy
   #
   # == Skip attributes
   #
-  # Usually you don't want your users to edit all attributes provided by a model. Hence some default attributes,
+  # Usually you don't want your users to see and edit all attributes provided by a model. Hence some default attributes,
   # namely id, updated_at, created_at, creator_id and updater_id are not returned by Resource#attributes.
   #
   # If you want to skip a different set of attributes just define a +skipped_alchemy_resource_attributes+ class method in your model class
@@ -30,6 +30,17 @@ module Alchemy
   #
   #     def self.skipped_alchemy_resource_attributes
   #       %w(id updated_at secret_token remote_ip)
+  #     end
+  #
+  # == Restrict attributes
+  #
+  # Beside skipping certain attributes you can also restrict them. Restricted attributes can not be edited by the user but still be seen in the index view.
+  # No attributes are restricted by default.
+  #
+  # === Example
+  #
+  #     def self.restricted_alchemy_resource_attributes
+  #       %w(synced_at remote_record_id)
   #     end
   #
   # == Resource relations
@@ -73,7 +84,7 @@ module Alchemy
   #     resource = Resource.new('/admin/tags', {"engine_name"=>"alchemy"}, ActsAsTaggableOn::Tag)
   #
   class Resource
-    attr_accessor :skipped_attributes, :resource_relations, :model_associations
+    attr_accessor :skipped_attributes, :restricted_attributes, :resource_relations, :model_associations
     attr_reader :model
 
     DEFAULT_SKIPPED_ATTRIBUTES = %w(id updated_at created_at creator_id updater_id)
@@ -84,6 +95,7 @@ module Alchemy
       @module_definition = module_definition
       @model = (custom_model or guess_model_from_controller_path)
       self.skipped_attributes = model.respond_to?(:skipped_alchemy_resource_attributes) ? model.skipped_alchemy_resource_attributes : DEFAULT_SKIPPED_ATTRIBUTES
+      self.restricted_attributes = model.respond_to?(:restricted_alchemy_resource_attributes) ? model.restricted_alchemy_resource_attributes : []
       if model.respond_to?(:alchemy_resource_relations)
         if not model.respond_to?(:reflect_on_all_associations)
           raise MissingActiveRecordAssociation
@@ -137,6 +149,10 @@ module Alchemy
           }.delete_if { |k, v| v.nil? }
         end
       end.compact
+    end
+
+    def editable_attributes
+      attributes.reject { |h| self.restricted_attributes.map(&:to_s).include?(h[:name].to_s) }
     end
 
     # Returns all columns that are searchable
