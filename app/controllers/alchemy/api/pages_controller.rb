@@ -1,5 +1,5 @@
 module Alchemy
-  class API::PagesController < API::BaseController
+  class Api::PagesController < Api::BaseController
     before_action :load_page, only: [:show]
 
     # Returns all pages as json object

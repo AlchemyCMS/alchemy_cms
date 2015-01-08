@@ -1,5 +1,5 @@
 module Alchemy
-  class API::ElementsController < API::BaseController
+  class Api::ElementsController < Api::BaseController
 
     # Returns all elements as json object
     #
