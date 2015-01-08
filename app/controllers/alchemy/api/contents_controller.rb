@@ -1,5 +1,5 @@
 module Alchemy
-  class API::ContentsController < API::BaseController
+  class Api::ContentsController < Api::BaseController
 
     # Returns all contents as json object
     #
