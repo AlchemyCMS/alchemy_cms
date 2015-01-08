@@ -4,10 +4,7 @@ Alchemy::Engine.routes.draw do
 
   get '/sitemap.xml' => 'pages#sitemap', format: 'xml'
 
-  get '/admin' => redirect(
-    "#{Alchemy::MountPoint.get}/admin/dashboard"
-  )
-
+  get '/admin' => redirect('admin/dashboard')
   get '/admin/dashboard' => 'admin/dashboard#index',
         :as => :admin_dashboard
   get '/admin/dashboard/info' => 'admin/dashboard#info',
