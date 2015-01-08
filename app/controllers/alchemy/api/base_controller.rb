@@ -1,5 +1,5 @@
 module Alchemy
-  class API::BaseController < Alchemy::BaseController
+  class Api::BaseController < Alchemy::BaseController
     layout false
     respond_to :json
 

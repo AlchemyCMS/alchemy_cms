@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe API::PagesController do
+  describe Api::PagesController do
 
     describe '#index' do
       let!(:page)    { create(:public_page) }

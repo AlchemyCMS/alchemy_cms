@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe API::ElementsController do
+  describe Api::ElementsController do
     describe '#index' do
       let!(:page)    { create(:public_page) }
       let!(:element) { create(:element, page: page) }
