@@ -1,3 +1,5 @@
+require 'rails'
+
 module Alchemy
 
   # Utilities for Alchemy's mount point in the host rails app.
@@ -34,7 +36,11 @@ module Alchemy
       private
 
       def routes_file_path
-        Rails.root.join('config/routes.rb')
+        if Rails.root
+          Rails.root.join('config/routes.rb')
+        else
+          'config/routes.rb'
+        end
       end
     end
   end
