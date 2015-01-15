@@ -269,7 +269,8 @@ module Alchemy
     def update_contents(contents_attributes)
       return true if contents_attributes.nil?
       contents.each do |content|
-        content.update_essence(contents_attributes["#{content.id}"]) || errors.add(:base, :essence_validation_failed)
+        content_hash = contents_attributes["#{content.id}"] || next
+        content.update_essence(content_hash) || errors.add(:base, :essence_validation_failed)
       end
       errors.blank?
     end
