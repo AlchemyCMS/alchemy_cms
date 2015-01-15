@@ -411,11 +411,12 @@ module Alchemy
     describe '#update_contents' do
       subject { element.update_contents(params) }
 
-      let(:page)    { build_stubbed(:page) }
-      let(:element) { build_stubbed(:element, page: page) }
-      let(:content) { double(:content, id: 1) }
+      let(:page)     { build_stubbed(:page) }
+      let(:element)  { build_stubbed(:element, page: page) }
+      let(:content1) { double(:content, id: 1) }
+      let(:content2) { double(:content, id: 2) }
 
-      before { allow(element).to receive(:contents).and_return([content]) }
+      before { allow(element).to receive(:contents).and_return([content1]) }
 
       context "with attributes hash is nil" do
         let(:params) { nil }
@@ -423,19 +424,36 @@ module Alchemy
       end
 
       context "with valid attributes hash" do
-        let(:params) { {"#{content.id}" => {body: 'Title'}} }
+        let(:params) { {"#{content1.id}" => {body: 'Title'}} }
+
+        context 'when certain content is not part of the attributes hash (cause it was not filled by the user)' do
+          before do
+            allow(element).to receive(:contents).and_return([content1, content2])
+          end
+
+          it 'does not try to update that content' do
+            expect(content1).to receive(:update_essence).with({body: 'Title'}).and_return(true)
+            expect(content2).to_not receive(:update_essence)
+            subject
+          end
+        end
 
         context 'with passing validations' do
           before do
-            expect(content).to receive(:update_essence).with({body: 'Title'}).and_return(true)
+            expect(content1).to receive(:update_essence).with({body: 'Title'}).and_return(true)
           end
 
           it { is_expected.to be_truthy }
+
+          it "does not add errors" do
+            subject
+            expect(element.errors).to be_empty
+          end
         end
 
         context 'with failing validations' do
           it "adds error and returns false" do
-            expect(content).to receive(:update_essence).with({body: 'Title'}).and_return(false)
+            expect(content1).to receive(:update_essence).with({body: 'Title'}).and_return(false)
             is_expected.to be_falsey
             expect(element.errors).not_to be_empty
           end
