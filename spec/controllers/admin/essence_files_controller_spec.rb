@@ -29,13 +29,16 @@ module Alchemy
     end
 
     describe '#update' do
+      let(:essence_file) { FactoryGirl.create(:essence_file) }
+
       before do
         expect(EssenceFile).to receive(:find).and_return(essence_file)
       end
 
       it "should update the attributes of essence_file" do
-        expect(essence_file).to receive(:update).and_return(true)
-        xhr :put, :update, id: essence_file.id
+        xhr :put, :update, id: essence_file.id, essence_file: {title: 'new title', css_class: 'left'}
+        expect(essence_file.title).to eq 'new title'
+        expect(essence_file.css_class).to eq 'left'
       end
     end
 
