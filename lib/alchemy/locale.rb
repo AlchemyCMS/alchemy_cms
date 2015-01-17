@@ -10,20 +10,17 @@ module Alchemy
 
     # Sets Alchemy's GUI translation.
     #
-    #   * If one passed a locale via +params[:locale]+ it uses this.
-    #   * Or it tries to get users preffered language.
-    #   * If not found it guesses the language from the browser locale.
-    #   * If that also fails it takes the default.
+    # Uses the most preferred locale or falls back to the default locale if none of the preferred is available.
     #
     # It respects the default translation from your +config/application.rb+ +default_locale+ config option.
     #
     def set_translation
       if locale_change_needed?
-        ::I18n.locale = session[:alchemy_locale] = locale_from_params ||
-          locale_from_user || locale_from_browser || ::I18n.default_locale
+        locale = available_locale || ::I18n.default_locale
       else
-        ::I18n.locale = session[:alchemy_locale]
+        locale = session[:alchemy_locale]
       end
+      ::I18n.locale = session[:alchemy_locale] = locale
     end
 
     # Checks if we need to change to locale or not.
@@ -31,12 +28,17 @@ module Alchemy
       params[:locale].present? || session[:alchemy_locale].blank?
     end
 
-    # Try to get the locale from +params[:locale]+.
-    def locale_from_params
-      return if params[:locale].blank?
-      if ::I18n.available_locales.include?(params[:locale].to_sym)
-        params[:locale]
-      end
+    # Returns either the most preferred locale that is within the list of available locales or nil
+    #
+    # The availability of the locales is checked in the exact order of either
+    #
+    #  * the passed parameter: +params[:locale]+
+    #  * the user's locale
+    #  * the locale of the browser
+    #
+    def available_locale
+      locales = [params[:locale], locale_from_user, locale_from_browser].compact
+      locales.detect { |locale| ::I18n.available_locales.include?(locale.to_sym) }
     end
 
     # Try to get the locale from user settings.
