@@ -1552,21 +1552,81 @@ module Alchemy
         it "returns the user that created the page" do
           expect(page.creator).to eq(user)
         end
+
+        context 'with user class having a different primary key' do
+          before do
+            allow(Alchemy.user_class)
+              .to receive(:primary_key)
+              .and_return('user_id')
+
+            allow(page)
+              .to receive(:creator_id)
+              .and_return(1)
+          end
+
+          it "returns the user that created the page" do
+            expect(Alchemy.user_class)
+              .to receive(:find_by)
+              .with({'user_id' => 1})
+
+            page.creator
+          end
+        end
       end
 
       describe '#updater' do
         before { page.update(updater_id: user.id) }
 
-        it "returns the user that created the page" do
+        it "returns the user that updated the page" do
           expect(page.updater).to eq(user)
+        end
+
+        context 'with user class having a different primary key' do
+          before do
+            allow(Alchemy.user_class)
+              .to receive(:primary_key)
+              .and_return('user_id')
+
+            allow(page)
+              .to receive(:updater_id)
+              .and_return(1)
+          end
+
+          it "returns the user that updated the page" do
+            expect(Alchemy.user_class)
+              .to receive(:find_by)
+              .with({'user_id' => 1})
+
+            page.updater
+          end
         end
       end
 
       describe '#locker' do
         before { page.update(locked_by: user.id) }
 
-        it "returns the user that created the page" do
+        it "returns the user that locked the page" do
           expect(page.locker).to eq(user)
+        end
+
+        context 'with user class having a different primary key' do
+          before do
+            allow(Alchemy.user_class)
+              .to receive(:primary_key)
+              .and_return('user_id')
+
+            allow(page)
+              .to receive(:locked_by)
+              .and_return(1)
+          end
+
+          it "returns the user that locked the page" do
+            expect(Alchemy.user_class)
+              .to receive(:find_by)
+              .with({'user_id' => 1})
+
+            page.locker
+          end
         end
       end
 
