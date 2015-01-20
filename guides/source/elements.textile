@@ -35,12 +35,14 @@ h4. Example of an element definition
       type: EssencePicture
     - name: headline
       type: EssenceText
-      take_me_for_preview: true
+      as_element_title: true
     - name: copy
       type: EssenceRichtext
 </yaml>
 
-The element in this example is named <em>article</em> and can be placed only once per page. It has three contents of the following types: <code>EssencePicture</code>, <code>EssenceText</code> and <code>EssenceRichtext</code>. The "headline" content is used for the preview text in the element's title bar in the admin frontend.
+The element in this example is named <em>article</em> and can be placed only once per page. It has three contents of the following types: <code>EssencePicture</code>, <code>EssenceText</code> and <code>EssenceRichtext</code>.
+
+You can select which content will be used for the preview text in the element's title bar in the admin frontend by adding <code>as_element_title: true</code> to the desired content. In the example above, the "headline" content would be used.
 
 h4. Element settings
 
@@ -166,7 +168,7 @@ Elements are taggable. To enable it, add <code>taggable: true</code> to the elem
       type: EssencePicture
     - name: headline
       type: EssenceText
-      take_me_for_preview: true
+      as_element_title: true
     - name: copy
       type: EssenceRichtext
 </yaml>
