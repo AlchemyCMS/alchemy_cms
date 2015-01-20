@@ -380,8 +380,39 @@ module Alchemy
 
     describe '.all_locked' do
       it "should return 1 page that is blocked by a user at the moment" do
-        FactoryGirl.create(:public_page, :locked => true, :name => 'First Public Child', :parent_id => language_root.id, :language => language)
+        FactoryGirl.create(:public_page, locked: true, name: 'First Public Child', parent_id: language_root.id, language: language)
         expect(Page.all_locked.size).to eq(1)
+      end
+    end
+
+    describe '.all_locked_by' do
+      let(:user) { double(:user, id: 1, class: DummyUser) }
+
+      before do
+        FactoryGirl.create(:public_page, locked: true, locked_by: 53) # This page must not be part of the collection
+        allow(user.class)
+          .to receive(:primary_key)
+          .and_return('id')
+      end
+
+      it "should return the correct page collection blocked by a certain user" do
+        page = FactoryGirl.create(:public_page, locked: true, locked_by: 1)
+        expect(Page.all_locked_by(user).pluck(:id)).to eq([page.id])
+      end
+
+      context 'with user class having a different primary key' do
+        let(:user) { double(:user, user_id: 123, class: DummyUser) }
+
+        before do
+          allow(user.class)
+            .to receive(:primary_key)
+            .and_return('user_id')
+        end
+
+        it "should return the correct page collection blocked by a certain user" do
+          page = FactoryGirl.create(:public_page, locked: true, locked_by: 123)
+          expect(Page.all_locked_by(user).pluck(:id)).to eq([page.id])
+        end
       end
     end
 
