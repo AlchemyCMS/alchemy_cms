@@ -179,6 +179,8 @@ module Alchemy
     end
 
     describe '#assign' do
+      let(:content) { create(:content) }
+
       before do
         expect(Content).to receive(:find).and_return(content)
         expect(content).to receive(:essence).at_least(:once).and_return(essence)
@@ -188,6 +190,12 @@ module Alchemy
       it "should assign a Picture" do
         xhr :put, :assign, content_id: '1', picture_id: '1'
         expect(assigns(:content).essence.picture).to eq(picture)
+      end
+
+      it "updates the content timestamp" do
+        expect {
+          xhr :put, :assign, content_id: '1', picture_id: '1'
+        }.to change(content, :updated_at)
       end
     end
   end
