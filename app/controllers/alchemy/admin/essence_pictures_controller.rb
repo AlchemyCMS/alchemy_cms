@@ -36,15 +36,20 @@ module Alchemy
 
       # Assigns picture, but does not saves it.
       #
-      # When the user press save on the element, it gets saved.
+      # When the user saves the element the content gets updated as well.
       #
       def assign
         @picture = Picture.find_by(id: params[:picture_id])
         @content.essence.picture = @picture
-        @content.touch # We need to touch manually because its not saved yet.
         @element = @content.element
         @dragable = @options[:grouped]
         @options = @options.merge(dragable: @dragable)
+
+        # We need to update timestamp here because we don't save yet,
+        # but the cache needs to be get invalid.
+        # And we don't user @content.touch here, because that updates
+        # also the element and page timestamps what we don't want yet.
+        @content.update_column(:updated_at, Time.now)
       end
 
       def destroy

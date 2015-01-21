@@ -43,6 +43,8 @@ module Alchemy
     end
 
     describe '#assign' do
+      let(:content) { create(:content) }
+
       before do
         expect(Content).to receive(:find_by).and_return(content)
         expect(Attachment).to receive(:find_by).and_return(attachment)
@@ -57,6 +59,12 @@ module Alchemy
       it "should assign @content.essence.attachment with the attachment found by id" do
         expect(content.essence).to receive(:attachment=).with(attachment)
         xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
+      end
+
+      it "updates the @content.updated_at column" do
+        expect {
+          xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
+        }.to change(content, :updated_at)
       end
     end
   end
