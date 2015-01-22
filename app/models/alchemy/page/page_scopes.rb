@@ -21,7 +21,9 @@ module Alchemy
       # All pages locked by given user
       #
       scope :all_locked_by, ->(user) {
-        all_locked.where(locked_by: user.id)
+        if user.class.respond_to? :primary_key
+          all_locked.where(locked_by: user.send(user.class.primary_key))
+        end
       }
 
       # All not locked pages
