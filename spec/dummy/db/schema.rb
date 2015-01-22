@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140701160225) do
+ActiveRecord::Schema.define(version: 20150122213514) do
 
   create_table "alchemy_attachments", force: true do |t|
     t.string   "name"
@@ -301,7 +301,7 @@ ActiveRecord::Schema.define(version: 20140701160225) do
     t.string   "taggable_type"
     t.integer  "tagger_id"
     t.string   "tagger_type"
-    t.string   "context"
+    t.string   "context",       limit: 128
     t.datetime "created_at"
   end
 

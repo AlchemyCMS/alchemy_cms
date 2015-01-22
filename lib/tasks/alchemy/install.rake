@@ -37,6 +37,7 @@ namespace :alchemy do
     Alchemy::InstallTask.new.set_primary_language
     Rake::Task["db:create"].invoke
     Rake::Task["alchemy:install:migrations"].invoke
+    Rake::Task["acts_as_taggable_on_engine:install:migrations"].invoke
     Rake::Task["db:migrate"].invoke
     Rake::Task["alchemy:db:seed"].invoke
     unless ENV['from_binary']
