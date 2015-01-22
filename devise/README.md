@@ -50,19 +50,19 @@ Clone the repo to your local harddrive. Then
 
 ```shell
 $ bundle install
-$ bin/rake alchemy:spec:prepare
+$ rake alchemy:spec:prepare
 ```
 
 ### 2. Run the tests with:
 
 ```shell
-$ bundle exec rspec
+$ rspec
 ```
 
 _Optional:_ Even shorter
 
 ```shell
-$ bin/rake
+$ rake
 ```
 
 That prepares the database and runs the Rspec task in one step.
