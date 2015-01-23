@@ -1,6 +1,5 @@
 module Alchemy
   module Upgrader::ThreePointOne
-
     private
 
     def alchemy_3_1_todos
