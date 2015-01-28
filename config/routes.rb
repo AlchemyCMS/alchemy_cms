@@ -159,7 +159,8 @@ Alchemy::Engine.routes.draw do
 
   # The page show action has to be last route
   get '(/:lang)/*urlname(.:format)' => 'pages#show',
-      :constraints => {:lang => /[a-z]{2}(-[a-z]{2})?/},
+      :format => true,
+      :constraints => {:lang => /[a-z]{2}(-[a-z]{2})?/, :format => 'html'},
       :as => :show_page
 
 end
