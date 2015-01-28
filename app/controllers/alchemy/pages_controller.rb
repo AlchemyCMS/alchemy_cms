@@ -184,7 +184,9 @@ module Alchemy
     # @returns Boolean
     #
     def cache_page?
-      return false unless @page && Alchemy::Config.get(:cache_pages)
+      return false if @page.nil? ||
+        !Rails.application.config.action_controller.perform_caching ||
+        !Alchemy::Config.get(:cache_pages)
       page_layout = PageLayout.get(@page.page_layout)
       page_layout['cache'] != false && page_layout['searchresults'] != true
     end
