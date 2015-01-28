@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.summary               = 'A powerful, userfriendly and flexible CMS for Rails 4'
   gem.description           = 'Alchemy is a powerful, userfriendly and flexible Rails 4 CMS.'
   gem.requirements         << 'ImageMagick (libmagick), v6.6 or greater.'
-  gem.required_ruby_version = '>= 1.9.3'
+  gem.required_ruby_version = '>= 2.0.0'
   gem.license               = 'BSD New'
   gem.files                 = `git ls-files`.split("\n")
   gem.test_files            = `git ls-files -- {test,spec,features}/*`.split("\n")

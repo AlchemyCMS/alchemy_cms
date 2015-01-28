@@ -31,10 +31,9 @@ Read more about Alchemy on the [website](http://alchemy-cms.com) and in the [gui
 
 ## Rails Version
 
-**This version of Alchemy CMS runs with Rails 4 (including 4.1)**
+**This version of Alchemy CMS runs with Rails 4.2**
 
-**Rails 4.2 support is coming soon. Watch [this pull request](https://github.com/AlchemyCMS/alchemy_cms/pull/655).**
-
+* For a Rails 4.0/4.1 compatible version use the [`3.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.1-stable).
 * For a Rails 3.2 compatible version use the [`2.8-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.8-stable).
 * For a Rails 3.1 compatible version use the [`2.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.1-stable).
 * For a Rails 3.0 compatible version use the [`2.0-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.0-stable).
@@ -43,7 +42,9 @@ Read more about Alchemy on the [website](http://alchemy-cms.com) and in the [gui
 
 ## Ruby Version
 
-Alchemy runs with Ruby >= 1.9.3 (including Ruby 2.0 and 2.1).
+Alchemy runs with Ruby >= 2.0.0.
+
+For a Ruby 1.9.3 compatible version use the [`3.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.1-stable).
 
 For a Ruby 1.8.7 compatible version use the [`2.3-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.3-stable).
 
