@@ -67,10 +67,10 @@ module Alchemy
       return {} if self.systempage?
       description = PageLayout.get(self.page_layout)
       if description.nil?
-        raise PageLayoutDefinitionError, "Description could not be found for page layout named #{self.page_layout}. Please check page_layouts.yml file."
-      else
-        description
+        log_warning "Page layout description for `#{self.page_layout}` not found. Please check `page_layouts.yml` file."
+        return {}
       end
+      description
     end
     alias_method :definition, :layout_description
 

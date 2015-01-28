@@ -127,6 +127,10 @@ describe Alchemy::Permissions do
   context "An author" do
     let(:user) { author_user }
 
+    it "can leave the admin area" do
+      is_expected.to be_able_to(:leave, :alchemy_admin)
+    end
+
     it "can visit the dashboard" do
       is_expected.to be_able_to(:index, :alchemy_admin_dashboard)
       is_expected.to be_able_to(:info, :alchemy_admin_dashboard)

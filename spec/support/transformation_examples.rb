@@ -28,6 +28,13 @@ module Alchemy
           expect(picture.thumbnail_size()).to eq('111x83')
         end
       end
+
+      context "picture has crop_size of 0x0" do
+        it "returns default thumbnail size" do
+          allow(picture).to receive(:crop_size) { "0x0" }
+          expect(picture.thumbnail_size()).to eq('111x93')
+        end
+      end
     end
 
     describe '#landscape_format?' do

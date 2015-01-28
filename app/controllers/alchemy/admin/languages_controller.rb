@@ -1,18 +1,17 @@
 module Alchemy
   module Admin
-    class LanguagesController < Alchemy::Admin::ResourcesController
+    class LanguagesController < ResourcesController
 
       def new
-        @language = Alchemy::Language.new
-        @language.page_layout = (configured_page_layout or @language.page_layout)
+        @language = Language.new
+        @language.page_layout = configured_page_layout || @language.page_layout
       end
 
-    protected
+      private
 
       def configured_page_layout
-        Alchemy::Config.get(:default_language).try('[]', 'page_layout')
+        Config.get(:default_language).try('[]', 'page_layout')
       end
-
     end
   end
 end

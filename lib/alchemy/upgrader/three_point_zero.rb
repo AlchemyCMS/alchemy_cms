@@ -29,7 +29,7 @@ module Alchemy
       end
     end
 
-    def alchemy_3_todos
+    def alchemy_3_0_todos
       notice = <<-NOTE
 
 Alchemy User Class Removed

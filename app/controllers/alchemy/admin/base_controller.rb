@@ -22,6 +22,11 @@ module Alchemy
 
       layout :set_layout
 
+      def leave
+        authorize! :leave, :alchemy_admin
+        render template: '/alchemy/admin/leave', layout: !request.xhr?
+      end
+
       private
 
       # Disable layout rendering for xhr requests.

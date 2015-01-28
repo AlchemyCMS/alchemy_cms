@@ -302,6 +302,8 @@
 
   &.warning, &.warn, &.alert {
     background-position: 0 -168px;
+
+    &.inline { vertical-align: baseline; }
   }
 
   &.word {

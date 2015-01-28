@@ -96,22 +96,7 @@ module Alchemy
     end
 
     config.after_initialize do
-      begin
-        require_relative './userstamp'
-      rescue NameError
-        abort <<-MSG
-
-We can't find an user class!
-
-Please add an user class and tell Alchemy about it or, if you don't want
-to create your own class, add the `alchemy-devise` gem to your Gemfile.
-
-gem 'alchemy-devise', '~> 2.1.0'
-MSG
-      end
-      # In order to have Alchemy's helpers and basic controller methods
-      # available in the host app, we patch the ApplicationController.
-      ApplicationController.send(:include, Alchemy::ControllerActions)
+      require_relative './userstamp'
     end
   end
 end

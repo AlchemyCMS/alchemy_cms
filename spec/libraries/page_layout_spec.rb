@@ -81,12 +81,18 @@ module Alchemy
 
       context "with sites layouts present" do
         let(:site) { Site.new }
-        let(:definitions) { [{'name' => 'default_site', 'page_layouts' => %w(intro)}] }
-        before { allow(Site).to receive(:layout_definitions).and_return(definitions) }
+
+        let(:definitions) do
+          [{'name' => 'default_site', 'page_layouts' => %w(index)}]
+        end
+
+        before do
+          allow(Site).to receive(:layout_definitions).and_return(definitions)
+        end
 
         it "should only return layouts for site" do
           expect(subject.length).to eq(1)
-          expect(subject.first['name']).to eq('intro')
+          expect(subject.first['name']).to eq('index')
         end
       end
     end

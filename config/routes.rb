@@ -4,10 +4,7 @@ Alchemy::Engine.routes.draw do
 
   get '/sitemap.xml' => 'pages#sitemap', format: 'xml'
 
-  get '/admin' => redirect(
-    "#{Alchemy::MountPoint.get}/admin/dashboard"
-  )
-
+  get '/admin' => redirect('admin/dashboard')
   get '/admin/dashboard' => 'admin/dashboard#index',
         :as => :admin_dashboard
   get '/admin/dashboard/info' => 'admin/dashboard#info',
@@ -30,7 +27,7 @@ Alchemy::Engine.routes.draw do
   get "/pictures/:id/thumbnails/:size(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
         :as => :thumbnail, :defaults => {:format => 'png', :name => "thumbnail"}
 
-  get '/admin/leave' => 'base#leave', :as => :leave_admin
+  get '/admin/leave' => 'admin/base#leave', :as => :leave_admin
 
   resources :messages, :only => [:index, :new, :create]
   resources :elements, :only => :show

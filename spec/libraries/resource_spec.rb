@@ -63,6 +63,11 @@ module Alchemy
         expect(resource.skipped_attributes).to eq(%w(id updated_at created_at creator_id updater_id))
       end
 
+      it "sets the restricted attributes accessor to an empty array by default" do
+        resource = Resource.new("admin/parties")
+        expect(resource.restricted_attributes).to eq([])
+      end
+
       it "sets an instance variable that holds the controller path" do
         resource = Resource.new("admin/parties")
         expect(resource.instance_variable_get(:@controller_path)).to eq("admin/parties")
@@ -266,6 +271,25 @@ module Alchemy
         it "does not include this column" do
           is_expected.to eq([{name: "name", type: :string}])
         end
+      end
+    end
+
+    describe "#editable_attributes" do
+      subject { resource.editable_attributes }
+
+      let(:columns) do
+        [
+          double(:column, {name: 'name', type: :string}),
+          double(:column, {name: 'title', type: :string}),
+          double(:column, {name: 'synced_at', type: :datetime}),
+          double(:column, {name: 'remote_record_id', type: :string})
+        ]
+      end
+
+      before  { resource.restricted_attributes = [:synced_at, :remote_record_id] }
+
+      it "does not contain restricted attributes" do
+        is_expected.to eq([{name: "name", type: :string}, {name: "title", type: :string}])
       end
     end
 

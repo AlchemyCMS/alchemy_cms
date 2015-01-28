@@ -173,17 +173,24 @@ module Alchemy
     # This function takes a target and a base dimensions hash and returns
     # the dimensions of the image when the base dimensions hash fills
     # the target.
+    #
     # Aspect ratio will be preserved.
     #
     def size_when_fitting(target, dimensions = get_base_dimensions)
-      zoom_x = dimensions[:width].to_f / target[:width]
-      zoom_y = dimensions[:height].to_f / target[:height]
+      zoom = [
+        dimensions[:width].to_f / target[:width],
+        dimensions[:height].to_f / target[:height]
+      ].max
 
-      zoom = [zoom_x, zoom_y].max
-      {
-        width: (dimensions[:width] / zoom).round.to_i,
-        height: (dimensions[:height] / zoom).round.to_i
-      }
+      if zoom == 0.0
+        width = target[:width]
+        height = target[:height]
+      else
+        width = (dimensions[:width] / zoom).round
+        height = (dimensions[:height] / zoom).round
+      end
+
+      {width: width.to_i, height: height.to_i}
     end
 
     # Given a point as a Hash with :x and :y, and a mask with

@@ -9,9 +9,9 @@ module Alchemy
     let(:language)      { Language.default }
     let(:klingonian)    { FactoryGirl.create(:klingonian) }
     let(:language_root) { FactoryGirl.create(:language_root_page) }
-    let(:page)          { mock_model(Page, :page_layout => 'foo') }
+    let(:page)          { mock_model(Page, page_layout: 'foo') }
     let(:public_page)   { FactoryGirl.create(:public_page) }
-    let(:news_page)     { FactoryGirl.create(:public_page, :page_layout => 'news', :do_not_autogenerate => false) }
+    let(:news_page)     { FactoryGirl.create(:public_page, page_layout: 'news', do_not_autogenerate: false) }
 
 
     # Validations
@@ -131,7 +131,7 @@ module Alchemy
 
     context 'callbacks' do
       let(:page) do
-        FactoryGirl.create(:page, :name => 'My Testpage', :language => language, :parent_id => language_root.id)
+        FactoryGirl.create(:page, name: 'My Testpage', language: language, parent_id: language_root.id)
       end
 
       context 'before_save' do
@@ -229,7 +229,7 @@ module Alchemy
 
       context "a normal page" do
         before do
-          @page = FactoryGirl.build(:page, :language_code => nil, :language => klingonian, :do_not_autogenerate => false)
+          @page = FactoryGirl.build(:page, language_code: nil, language: klingonian, do_not_autogenerate: false)
         end
 
         it "should set the language code" do
@@ -243,7 +243,7 @@ module Alchemy
         end
 
         it "should not autogenerate elements that are already on the page" do
-          @page.elements << FactoryGirl.create(:element, :name => 'header')
+          @page.elements << FactoryGirl.create(:element, name: 'header')
           @page.save
           expect(@page.elements.select { |e| e.name == 'header' }.length).to eq(1)
         end
@@ -256,7 +256,7 @@ module Alchemy
           it "should have the generated elements in their cells" do
             allow(@page).to receive(:cell_definitions).and_return([{'name' => 'header', 'elements' => ['article']}])
             @page.save
-            expect(@page.cells.where(:name => 'header').first.elements).not_to be_empty
+            expect(@page.cells.where(name: 'header').first.elements).not_to be_empty
           end
 
           context "and no elements in cell definitions" do
@@ -271,7 +271,7 @@ module Alchemy
         context "with children getting restricted set to true" do
           before do
             @page.save
-            @child1 = FactoryGirl.create(:page, :name => 'Child 1', :parent_id => @page.id)
+            @child1 = FactoryGirl.create(:page, name: 'Child 1', parent_id: @page.id)
             @page.reload
             @page.restricted = true
             @page.save
@@ -286,8 +286,8 @@ module Alchemy
         context "with restricted parent gets created" do
           before do
             @page.save
-            @page.parent.update_attributes(:restricted => true)
-            @new_page = FactoryGirl.create(:page, :name => 'New Page', :parent_id => @page.id)
+            @page.parent.update_attributes(restricted: true)
+            @new_page = FactoryGirl.create(:page, name: 'New Page', parent_id: @page.id)
           end
 
           it "should also be restricted" do
@@ -345,8 +345,8 @@ module Alchemy
     describe '.all_from_clipboard_for_select' do
       context "with clipboard holding pages having non unique page layout" do
         it "should return the pages" do
-          page_1 = FactoryGirl.create(:page, :language => language)
-          page_2 = FactoryGirl.create(:page, :language => language, :name => 'Another page')
+          page_1 = FactoryGirl.create(:page, language: language)
+          page_2 = FactoryGirl.create(:page, language: language, name: 'Another page')
           clipboard = [
             {'id' => page_1.id.to_s, 'action' => 'copy'},
             {'id' => page_2.id.to_s, 'action' => 'copy'}
@@ -357,7 +357,7 @@ module Alchemy
 
       context "with clipboard holding a page having unique page layout" do
         it "should not return any pages" do
-          page_1 = FactoryGirl.create(:page, :language => language, :page_layout => 'contact')
+          page_1 = FactoryGirl.create(:page, language: language, page_layout: 'contact')
           clipboard = [
             {'id' => page_1.id.to_s, 'action' => 'copy'}
           ]
@@ -367,8 +367,8 @@ module Alchemy
 
       context "with clipboard holding two pages. One having a unique page layout." do
         it "should return one page" do
-          page_1 = FactoryGirl.create(:page, :language => language, :page_layout => 'standard')
-          page_2 = FactoryGirl.create(:page, :name => 'Another page', :language => language, :page_layout => 'contact')
+          page_1 = FactoryGirl.create(:page, language: language, page_layout: 'standard')
+          page_2 = FactoryGirl.create(:page, name: 'Another page', language: language, page_layout: 'contact')
           clipboard = [
             {'id' => page_1.id.to_s, 'action' => 'copy'},
             {'id' => page_2.id.to_s, 'action' => 'copy'}
@@ -380,17 +380,48 @@ module Alchemy
 
     describe '.all_locked' do
       it "should return 1 page that is blocked by a user at the moment" do
-        FactoryGirl.create(:public_page, :locked => true, :name => 'First Public Child', :parent_id => language_root.id, :language => language)
+        FactoryGirl.create(:public_page, locked: true, name: 'First Public Child', parent_id: language_root.id, language: language)
         expect(Page.all_locked.size).to eq(1)
+      end
+    end
+
+    describe '.all_locked_by' do
+      let(:user) { double(:user, id: 1, class: DummyUser) }
+
+      before do
+        FactoryGirl.create(:public_page, locked: true, locked_by: 53) # This page must not be part of the collection
+        allow(user.class)
+          .to receive(:primary_key)
+          .and_return('id')
+      end
+
+      it "should return the correct page collection blocked by a certain user" do
+        page = FactoryGirl.create(:public_page, locked: true, locked_by: 1)
+        expect(Page.all_locked_by(user).pluck(:id)).to eq([page.id])
+      end
+
+      context 'with user class having a different primary key' do
+        let(:user) { double(:user, user_id: 123, class: DummyUser) }
+
+        before do
+          allow(user.class)
+            .to receive(:primary_key)
+            .and_return('user_id')
+        end
+
+        it "should return the correct page collection blocked by a certain user" do
+          page = FactoryGirl.create(:public_page, locked: true, locked_by: 123)
+          expect(Page.all_locked_by(user).pluck(:id)).to eq([page.id])
+        end
       end
     end
 
     describe '.contentpages' do
       before do
         layoutroot = Page.find_or_create_layout_root_for(klingonian.id)
-        @layoutpage = FactoryGirl.create(:public_page, :name => 'layoutpage', :layoutpage => true, :parent_id => layoutroot.id, :language => klingonian)
-        @klingonian_lang_root = FactoryGirl.create(:language_root_page, :name => 'klingonian_lang_root', :layoutpage => nil, :language => klingonian)
-        @contentpage = FactoryGirl.create(:public_page, :name => 'contentpage', :parent_id => language_root.id, :language => language)
+        @layoutpage = FactoryGirl.create(:public_page, name: 'layoutpage', layoutpage: true, parent_id: layoutroot.id, language: klingonian)
+        @klingonian_lang_root = FactoryGirl.create(:language_root_page, name: 'klingonian_lang_root', layoutpage: nil, language: klingonian)
+        @contentpage = FactoryGirl.create(:public_page, name: 'contentpage', parent_id: language_root.id, language: language)
       end
 
       it "should return a collection of contentpages" do
@@ -407,7 +438,7 @@ module Alchemy
     end
 
     describe '.copy' do
-      let(:page) { FactoryGirl.create(:page, :name => 'Source') }
+      let(:page) { FactoryGirl.create(:page, name: 'Source') }
       subject { Page.copy(page) }
 
       it "the copy should have added (copy) to name" do
@@ -467,7 +498,7 @@ module Alchemy
       end
 
       context "with different page name given" do
-        subject { Page.copy(page, {:name => 'Different name'}) }
+        subject { Page.copy(page, {name: 'Different name'}) }
         it "should take this name" do
           expect(subject.name).to eq('Different name')
         end
@@ -477,12 +508,12 @@ module Alchemy
     describe '.create' do
       context "before/after filter" do
         it "should automatically set the title from its name" do
-          page = FactoryGirl.create(:page, :name => 'My Testpage', :language => language, :parent_id => language_root.id)
+          page = FactoryGirl.create(:page, name: 'My Testpage', language: language, parent_id: language_root.id)
           expect(page.title).to eq('My Testpage')
         end
 
         it "should get a webfriendly urlname" do
-          page = FactoryGirl.create(:page, :name => 'klingon$&stößel ', :language => language, :parent_id => language_root.id)
+          page = FactoryGirl.create(:page, name: 'klingon$&stößel ', language: language, parent_id: language_root.id)
           expect(page.urlname).to eq('klingon-stoessel')
         end
 
@@ -494,22 +525,22 @@ module Alchemy
         end
 
         it "should generate a three letter urlname from two letter name" do
-          page = FactoryGirl.create(:page, :name => 'Au', :language => language, :parent_id => language_root.id)
+          page = FactoryGirl.create(:page, name: 'Au', language: language, parent_id: language_root.id)
           expect(page.urlname).to eq('-au')
         end
 
         it "should generate a three letter urlname from two letter name with umlaut" do
-          page = FactoryGirl.create(:page, :name => 'Aü', :language => language, :parent_id => language_root.id)
+          page = FactoryGirl.create(:page, name: 'Aü', language: language, parent_id: language_root.id)
           expect(page.urlname).to eq('aue')
         end
 
         it "should generate a three letter urlname from one letter name" do
-          page = FactoryGirl.create(:page, :name => 'A', :language => language, :parent_id => language_root.id)
+          page = FactoryGirl.create(:page, name: 'A', language: language, parent_id: language_root.id)
           expect(page.urlname).to eq('--a')
         end
 
         it "should add a user stamper" do
-          page = FactoryGirl.create(:page, :name => 'A', :language => language, :parent_id => language_root.id)
+          page = FactoryGirl.create(:page, name: 'A', language: language, parent_id: language_root.id)
           expect(page.class.stamper_class.to_s).to eq('DummyUser')
         end
 
@@ -562,60 +593,44 @@ module Alchemy
 
     describe '.language_roots' do
       it "should return 1 language_root" do
-        FactoryGirl.create(:public_page, :name => 'First Public Child', :parent_id => language_root.id, :language => language)
+        FactoryGirl.create(:public_page, name: 'First Public Child', parent_id: language_root.id, language: language)
         expect(Page.language_roots.size).to eq(1)
-      end
-    end
-
-    describe '.layout_description' do
-      it "should raise Exception if the page_layout could not be found in the definition file" do
-        expect { page.layout_description }.to raise_error
-      end
-
-      context "for a language root page" do
-        it "should return the page layout description as hash" do
-          expect(language_root.layout_description['name']).to eq('intro')
-        end
-
-        it "should return an empty hash for root page" do
-          expect(rootpage.layout_description).to eq({})
-        end
       end
     end
 
     describe '.layoutpages' do
       it "should return 1 layoutpage" do
-        FactoryGirl.create(:public_page, :layoutpage => true, :name => 'Layoutpage', :parent_id => rootpage.id, :language => language)
+        FactoryGirl.create(:public_page, layoutpage: true, name: 'Layoutpage', parent_id: rootpage.id, language: language)
         expect(Page.layoutpages.size).to eq(1)
       end
     end
 
     describe '.not_locked' do
       it "should return pages that are not blocked by a user at the moment" do
-        FactoryGirl.create(:public_page, :locked => true, :name => 'First Public Child', :parent_id => language_root.id, :language => language)
-        FactoryGirl.create(:public_page, :name => 'Second Public Child', :parent_id => language_root.id, :language => language)
+        FactoryGirl.create(:public_page, locked: true, name: 'First Public Child', parent_id: language_root.id, language: language)
+        FactoryGirl.create(:public_page, name: 'Second Public Child', parent_id: language_root.id, language: language)
         expect(Page.not_locked.size).to eq(3)
       end
     end
 
     describe '.not_restricted' do
       it "should return 2 accessible pages" do
-        FactoryGirl.create(:public_page, :name => 'First Public Child', :restricted => true, :parent_id => language_root.id, :language => language)
+        FactoryGirl.create(:public_page, name: 'First Public Child', restricted: true, parent_id: language_root.id, language: language)
         expect(Page.not_restricted.size).to eq(2)
       end
     end
 
     describe '.public' do
       it "should return pages that are public" do
-        FactoryGirl.create(:public_page, :name => 'First Public Child', :parent_id => language_root.id, :language => language)
-        FactoryGirl.create(:public_page, :name => 'Second Public Child', :parent_id => language_root.id, :language => language)
+        FactoryGirl.create(:public_page, name: 'First Public Child', parent_id: language_root.id, language: language)
+        FactoryGirl.create(:public_page, name: 'Second Public Child', parent_id: language_root.id, language: language)
         expect(Page.published.size).to eq(3)
       end
     end
 
     describe '.restricted' do
       it "should return 1 restricted page" do
-        FactoryGirl.create(:public_page, :name => 'First Public Child', :restricted => true, :parent_id => language_root.id, :language => language)
+        FactoryGirl.create(:public_page, name: 'First Public Child', restricted: true, parent_id: language_root.id, language: language)
         expect(Page.restricted.size).to eq(1)
       end
     end
@@ -628,7 +643,7 @@ module Alchemy
 
     describe '.visible' do
       it "should return 1 visible page" do
-        FactoryGirl.create(:public_page, :name => 'First Public Child', :visible => true, :parent_id => language_root.id, :language => language)
+        FactoryGirl.create(:public_page, name: 'First Public Child', visible: true, parent_id: language_root.id, language: language)
         expect(Page.visible.size).to eq(1)
       end
     end
@@ -656,16 +671,6 @@ module Alchemy
         it "does not return unique element definitions" do
           expect(page.available_element_definitions.collect { |e| e['name'] }).to include('article')
           expect(page.available_element_definitions.collect { |e| e['name'] }).not_to include('header')
-        end
-      end
-
-      context "for page_layout not existing" do
-        let(:page) { FactoryGirl.build_stubbed(:page, page_layout: 'not_existing_one') }
-
-        it "should raise error" do
-          expect {
-            page.available_element_definitions
-          }.to raise_error(Alchemy::PageLayoutDefinitionError)
         end
       end
 
@@ -740,7 +745,7 @@ module Alchemy
 
     describe '#cell_definitions' do
       before do
-        @page = FactoryGirl.build(:page, :page_layout => 'foo')
+        @page = FactoryGirl.build(:page, page_layout: 'foo')
         allow(@page).to receive(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
         @cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
         allow(Cell).to receive(:definitions).and_return(@cell_descriptions)
@@ -827,7 +832,7 @@ module Alchemy
     end
 
     describe '#elements_grouped_by_cells' do
-      let(:page) { FactoryGirl.create(:public_page, :do_not_autogenerate => false) }
+      let(:page) { FactoryGirl.create(:public_page, do_not_autogenerate: false) }
 
       before do
         allow(PageLayout).to receive(:get).and_return({
@@ -862,8 +867,8 @@ module Alchemy
 
     describe '#find_elements' do
       before do
-        FactoryGirl.create(:element, :public => false, :page => public_page)
-        FactoryGirl.create(:element, :public => false, :page => public_page)
+        FactoryGirl.create(:element, public: false, page: public_page)
+        FactoryGirl.create(:element, public: false, page: public_page)
       end
 
       context "with show_non_public argument TRUE" do
@@ -872,19 +877,19 @@ module Alchemy
         end
 
         it "should only return the elements passed as options[:only]" do
-          expect(public_page.find_elements({:only => ['article']}, true).to_a).to eq(public_page.elements.named('article').to_a)
+          expect(public_page.find_elements({only: ['article']}, true).to_a).to eq(public_page.elements.named('article').to_a)
         end
 
         it "should not return the elements passed as options[:except]" do
-          expect(public_page.find_elements({:except => ['article']}, true).to_a).to eq(public_page.elements - public_page.elements.named('article').to_a)
+          expect(public_page.find_elements({except: ['article']}, true).to_a).to eq(public_page.elements - public_page.elements.named('article').to_a)
         end
 
         it "should return elements offsetted" do
-          expect(public_page.find_elements({:offset => 2}, true).to_a).to eq(public_page.elements.offset(2))
+          expect(public_page.find_elements({offset: 2}, true).to_a).to eq(public_page.elements.offset(2))
         end
 
         it "should return elements limitted in count" do
-          expect(public_page.find_elements({:count => 1}, true).to_a).to eq(public_page.elements.limit(1))
+          expect(public_page.find_elements({count: 1}, true).to_a).to eq(public_page.elements.limit(1))
         end
       end
 
@@ -944,30 +949,30 @@ module Alchemy
         end
 
         it "should only return the public elements passed as options[:only]" do
-          expect(public_page.find_elements(:only => ['article']).to_a).to eq(public_page.elements.published.named('article').to_a)
+          expect(public_page.find_elements(only: ['article']).to_a).to eq(public_page.elements.published.named('article').to_a)
         end
 
         it "should return all public elements except the ones passed as options[:except]" do
-          expect(public_page.find_elements(:except => ['article']).to_a).to eq(public_page.elements.published.to_a - public_page.elements.published.named('article').to_a)
+          expect(public_page.find_elements(except: ['article']).to_a).to eq(public_page.elements.published.to_a - public_page.elements.published.named('article').to_a)
         end
 
         it "should return elements offsetted" do
-          expect(public_page.find_elements({:offset => 2}).to_a).to eq(public_page.elements.published.offset(2))
+          expect(public_page.find_elements({offset: 2}).to_a).to eq(public_page.elements.published.offset(2))
         end
 
         it "should return elements limitted in count" do
-          expect(public_page.find_elements({:count => 1}).to_a).to eq(public_page.elements.published.limit(1))
+          expect(public_page.find_elements({count: 1}).to_a).to eq(public_page.elements.published.limit(1))
         end
       end
     end
 
     describe '#first_public_child' do
       before do
-        FactoryGirl.create(:page, :name => "First child", :language => language, :public => false, :parent_id => language_root.id)
+        FactoryGirl.create(:page, name: "First child", language: language, public: false, parent_id: language_root.id)
       end
 
       it "should return first_public_child" do
-        first_public_child = FactoryGirl.create(:public_page, :name => "First public child", :language => language, :parent_id => language_root.id)
+        first_public_child = FactoryGirl.create(:public_page, name: "First public child", language: language, parent_id: language_root.id)
         expect(language_root.first_public_child).to eq(first_public_child)
       end
 
@@ -1023,6 +1028,31 @@ module Alchemy
 
       it "returns the language root page" do
         is_expected.to eq language_root
+      end
+    end
+
+    describe '#layout_description' do
+      context 'if the page layout could not be found in the definition file' do
+        let(:page) { build_stubbed(:page, page_layout: 'notexisting') }
+
+        it "it loggs a warning." do
+          expect(Alchemy::Logger).to receive(:warn)
+          page.layout_description
+        end
+
+        it "it returns empty hash." do
+          expect(page.layout_description).to eq({})
+        end
+      end
+
+      context "for a language root page" do
+        it "it returns the page layout description as hash." do
+          expect(language_root.layout_description['name']).to eq('index')
+        end
+
+        it "it returns an empty hash for root page." do
+          expect(rootpage.layout_description).to eq({})
+        end
       end
     end
 
@@ -1339,7 +1369,7 @@ module Alchemy
     describe "#update_node!" do
 
       let(:original_url) { "sample-url" }
-      let(:page) { FactoryGirl.create(:page, :language => language, :parent_id => language_root.id, :urlname => original_url, restricted: false) }
+      let(:page) { FactoryGirl.create(:page, language: language, parent_id: language_root.id, urlname: original_url, restricted: false) }
       let(:node) { TreeNode.new(10, 11, 12, 13, "another-url", true) }
 
       context "when nesting is enabled" do
@@ -1553,21 +1583,81 @@ module Alchemy
         it "returns the user that created the page" do
           expect(page.creator).to eq(user)
         end
+
+        context 'with user class having a different primary key' do
+          before do
+            allow(Alchemy.user_class)
+              .to receive(:primary_key)
+              .and_return('user_id')
+
+            allow(page)
+              .to receive(:creator_id)
+              .and_return(1)
+          end
+
+          it "returns the user that created the page" do
+            expect(Alchemy.user_class)
+              .to receive(:find_by)
+              .with({'user_id' => 1})
+
+            page.creator
+          end
+        end
       end
 
       describe '#updater' do
         before { page.update(updater_id: user.id) }
 
-        it "returns the user that created the page" do
+        it "returns the user that updated the page" do
           expect(page.updater).to eq(user)
+        end
+
+        context 'with user class having a different primary key' do
+          before do
+            allow(Alchemy.user_class)
+              .to receive(:primary_key)
+              .and_return('user_id')
+
+            allow(page)
+              .to receive(:updater_id)
+              .and_return(1)
+          end
+
+          it "returns the user that updated the page" do
+            expect(Alchemy.user_class)
+              .to receive(:find_by)
+              .with({'user_id' => 1})
+
+            page.updater
+          end
         end
       end
 
       describe '#locker' do
         before { page.update(locked_by: user.id) }
 
-        it "returns the user that created the page" do
+        it "returns the user that locked the page" do
           expect(page.locker).to eq(user)
+        end
+
+        context 'with user class having a different primary key' do
+          before do
+            allow(Alchemy.user_class)
+              .to receive(:primary_key)
+              .and_return('user_id')
+
+            allow(page)
+              .to receive(:locked_by)
+              .and_return(1)
+          end
+
+          it "returns the user that locked the page" do
+            expect(Alchemy.user_class)
+              .to receive(:find_by)
+              .with({'user_id' => 1})
+
+            page.locker
+          end
         end
       end
 

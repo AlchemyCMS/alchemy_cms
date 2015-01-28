@@ -1,5 +1,5 @@
 <%= alchemy_form_for resource_instance_variable, url: resource_path(resource_instance_variable) do |f| %>
-  <% resource_handler.attributes.each do |attribute| %>
+  <% resource_handler.editable_attributes.each do |attribute| %>
     <% if relation = attribute[:relation] %>
       <%= f.association relation[:name].to_sym,
         label_method: relation[:attr_method],
