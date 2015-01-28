@@ -261,11 +261,18 @@ Please take a look into Alchemys [Capistrano receipt](https://github.com/Alchemy
 
 If you want to contribute to Alchemy ([and we encourage you to do so](https://github.com/AlchemyCMS/alchemy_cms/blob/master/CONTRIBUTING.md)) we have a strong test suite that helps you to not break anything.
 
+### Preparation
+
+First of all you need to clone your fork to your local development machine. Then you need to install the dependencies with bundler.
+
+```shell
+$ bundle install
+```
+
 To prepare the tests of your Alchemy fork please make sure to run the preparation task:
 
 ```shell
-# ~/your/local/alchemy_cms
-$ bin/rake alchemy:spec:prepare
+$ bundle exec rake alchemy:spec:prepare
 ```
 
 to set up the database for testing.
@@ -276,7 +283,7 @@ to set up the database for testing.
 $ bundle exec rspec
 ```
 
-**Alternatively** you can just run:
+**Alternatively** you can just run*:
 
 ```shell
 $ bundle exec rake
