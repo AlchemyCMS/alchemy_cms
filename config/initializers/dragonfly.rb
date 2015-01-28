@@ -6,8 +6,6 @@ Dragonfly.app(:alchemy_pictures).configure do
   datastore :file,
     root_path:  Rails.root.join('uploads/pictures').to_s,
     store_meta: false
-  url_format '/pictures/:job/:basename.:format'
-  url_path_prefix Alchemy::MountPoint.get
 end
 
 # Attachments
