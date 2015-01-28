@@ -229,5 +229,47 @@ module Alchemy
         end
       end
     end
+
+    describe '#cache_page?' do
+      subject { controller.send(:cache_page?) }
+
+      before do
+        Rails.application.config.action_controller.perform_caching = true
+        controller.instance_variable_set('@page', page)
+      end
+
+      it 'returns true when everthing is alright' do
+        expect(subject).to be true
+      end
+
+      it 'returns false when the Rails app does not perform caching' do
+        Rails.application.config.action_controller.perform_caching = false
+        expect(subject).to be false
+      end
+
+      it 'returns false when there is no page' do
+        controller.instance_variable_set('@page', nil)
+        expect(subject).to be false
+      end
+
+      it 'returns false when caching is deactivated in the Alchemy config' do
+        allow(Alchemy::Config).to receive(:get).with(:cache_pages).and_return(false)
+        expect(subject).to be false
+      end
+
+      it 'returns false when the page layout is set to cache = false' do
+        page_layout = PageLayout.get('news')
+        page_layout['cache'] = false
+        allow(PageLayout).to receive(:get).with('news').and_return(page_layout)
+        expect(subject).to be false
+      end
+
+      it 'returns false when the page layout is set to searchresults = true' do
+        page_layout = PageLayout.get('news')
+        page_layout['searchresults'] = true
+        allow(PageLayout).to receive(:get).with('news').and_return(page_layout)
+        expect(subject).to be false
+      end
+    end
   end
 end
