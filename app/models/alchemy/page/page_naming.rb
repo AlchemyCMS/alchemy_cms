@@ -8,7 +8,7 @@ module Alchemy
     included do
       before_validation :set_urlname,
         if: :renamed?,
-        unless: -> { systempage? || redirects_to_external? || name.blank? }
+        unless: -> { systempage? || redirects_to_external? || name.blank? || home_page? }
 
       validates :name,
         presence: true

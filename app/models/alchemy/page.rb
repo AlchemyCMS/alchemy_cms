@@ -354,6 +354,10 @@ module Alchemy
       update_columns(hash)
     end
 
+    def home_page?
+      urlname.blank? && (depth < 2)
+    end
+
     private
 
     # Returns the next or previous page on the same level or nil.

@@ -57,9 +57,17 @@ module Alchemy
           language_code: params[:lang] || Language.current.code
         ).first
       else
-        # No urlname was given, so just load the language root for the
-        # currently active language.
-        Language.current_root_page
+        if request.path == '/'
+          Page.contentpages.where(
+            urlname:       nil,
+            language_id:   Language.current.id,
+            language_code: params[:lang] || Language.current.code
+          ).first || Language.current_root_page
+        else
+          # No urlname was given, so just load the language root for the
+          # currently active language.
+          Language.current_root_page
+        end
       end
     end
 
@@ -93,7 +101,7 @@ module Alchemy
         redirect_page(lang: params[:lang])
       elsif configuration(:redirect_to_public_child) && !@page.public?
         redirect_to_public_child
-      elsif params[:urlname].blank? && configuration(:redirect_index)
+      elsif params[:urlname].blank? && configuration(:redirect_index) && !@page.home_page?
         redirect_page
       elsif !multi_language? && !params[:lang].blank?
         redirect_page
