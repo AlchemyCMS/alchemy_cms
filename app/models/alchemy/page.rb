@@ -354,6 +354,10 @@ module Alchemy
       update_columns(hash)
     end
 
+    def home_page?
+     ((depth.present? ? depth : (parent.present? ? (parent.depth + 1) : 0)) == 1)
+    end
+
     private
 
     # Returns the next or previous page on the same level or nil.
