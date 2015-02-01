@@ -57,17 +57,11 @@ module Alchemy
           language_code: params[:lang] || Language.current.code
         ).first
       else
-        if request.path == '/'
-          Page.contentpages.where(
-            urlname:       nil,
-            language_id:   Language.current.id,
-            language_code: params[:lang] || Language.current.code
-          ).first || Language.current_root_page
-        else
-          # No urlname was given, so just load the language root for the
-          # currently active language.
-          Language.current_root_page
-        end
+        Page.contentpages.where(
+          depth:         1,
+          language_id:   Language.current.id,
+          language_code: params[:lang] || Language.current.code
+        ).first || Language.current_root_page
       end
     end
 
@@ -110,7 +104,7 @@ module Alchemy
       else
         # setting the language to page.language to be sure it's correct
         set_alchemy_language(@page.language)
-        if params[:urlname].blank?
+        if params[:urlname].blank? && !@page.home_page?
           @root_page = @page
         else
           @root_page = Language.current_root_page

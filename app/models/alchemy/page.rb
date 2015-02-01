@@ -355,7 +355,7 @@ module Alchemy
     end
 
     def home_page?
-      urlname.blank? && ((depth.present? ? depth : (parent.present? ? (parent.depth + 1) : 0)) == 1)
+     ((depth.present? ? depth : (parent.present? ? (parent.depth + 1) : 0)) == 1)
     end
 
     private
