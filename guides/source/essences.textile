@@ -9,6 +9,30 @@ Essences are normal Rails models, so it is pretty easy to "add your own":create_
 
 endprologue.
 
+h3. Hints, Defaults, As Element Title
+
+When defining elements, you can assign hints and defaults to every essence like this:
+
+<yaml>
+# config/alchemy/elements.yml
+- name: article
+    contents:
+    - name: headline
+      type: EssenceText
+      hint: "This is the headline."
+    - name: copy
+      type: EssenceRichtext
+      default: "Lorem ipsum"
+      as_element_title: true
+</yaml>
+
+* <strong>hint</strong> <code>String</code><br>
+  A hint for the user in the admin frontend that describes what the essence is used for. The hint is "translatable":#translations if you provide an I18n translation key instead of a complete sentence. You may also set it to true to default to the I18n key <code>alchemy.content_hints. + content name</code>.
+* <strong>default</strong> <code>String</code><br>
+  The default text to prefill newly created elements. You may also use a symbol to set it to the I18n key <code>alchemy.default_content_texts. + symbol name</code>
+* <strong>as_element_title</strong> <code>Boolean</code><br>
+  For the displayed element title, the first content essence is used. Use this setting to override this behaviour and show other content as element title.
+
 h3. EssenceText
 
 Stores a <code>String</code> (max. 255 Chars.).
