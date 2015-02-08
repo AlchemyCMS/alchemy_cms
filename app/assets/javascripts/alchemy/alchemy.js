@@ -1,6 +1,6 @@
 // Alchemy CMS Sprockets Manifest
 // ------------------------------
-//= require jquery
+//= require jquery2
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery-ui/datepicker
