@@ -37,9 +37,6 @@ module Alchemy
       "element_id = #{element_id || 'null'} AND essence_type = '#{essence_type}'"
     end
 
-    # Validations
-    validates :position, uniqueness: {scope: [:element_id, :essence_type]}
-
     # Essence scopes
     scope :essence_booleans,  -> { where(essence_type: "Alchemy::EssenceBoolean") }
     scope :essence_dates,     -> { where(essence_type: "Alchemy::EssenceDate") }
