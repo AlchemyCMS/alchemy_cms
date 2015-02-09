@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe "The Routing" do
+describe "The Routing", type: :routing do
 
   routes { Alchemy::Engine.routes }
 
@@ -21,6 +21,15 @@ describe "The Routing" do
   end
 
   describe "nested url" do
+
+    describe "non html requests" do
+      it "should not be handled by alchemy/pages controller" do
+        expect({
+          :get => "/products/my-product.jpg"
+        }).not_to be_routable
+      end
+    end
+
 
     context "one level deep nested" do
 
