@@ -22,8 +22,8 @@ Alchemy.translations =
     'File is too large': 'Datei ist zu groß.'
     'File is too small': 'Datei ist zu klein.'
     'File type not allowed': 'Dateityp nicht erlaubt.'
-    'Maximum number of files exceeded': 'Maximale Anzahl an Dateien erreicht.'
-    'Uploaded bytes exceed file size': 'Maximal erlaubte Dateigröße erreicht.'
+    'Maximum number of files exceeded': 'Maximale Anzahl gleichzeitig erlaubter Datei-Uploads erreicht.'
+    'Uploaded bytes exceed file size': 'Maximale Größe der erlaubten Dateigröße erreicht.'
 
   # English
   en:
@@ -109,7 +109,7 @@ Alchemy.translations =
     'File type not allowed': 'Этот тип файла не разрешен'
     'Maximum number of files exceeded': 'Исчерпано максимальное количество файлов.'
     'Uploaded bytes exceed file size': 'Превышен максимальный размер файла'
-      
+
   # Spanish
   es:
     allowed_chars: 'de %{count} caracteres'

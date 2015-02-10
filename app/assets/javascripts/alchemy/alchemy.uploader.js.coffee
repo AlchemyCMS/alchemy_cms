@@ -25,6 +25,7 @@ Alchemy.Uploader = (settings) ->
   $("#fileupload").fileupload
     dropZone: '#dropbox'
     dataType: 'json'
+    filesContainer: $('#uploadProgressContainer')
     acceptFileTypes: new RegExp("(.|/)(#{file_types})", "i")
     maxNumberOfFiles: settings.file_upload_limit
     maxFileSize: settings.file_size_limit * 1000000
@@ -32,6 +33,10 @@ Alchemy.Uploader = (settings) ->
       form_data = form.serializeArray()
       $.merge(form_data, settings.post_params)
       form_data
+    getNumberOfFiles: ->
+      @filesContainer
+        .children()
+        .not('.progressBarInProgress').length - 1
     add: (e, data) ->
       $this = $(this)
       data.context = new Alchemy.FileProgress(data.files[0])

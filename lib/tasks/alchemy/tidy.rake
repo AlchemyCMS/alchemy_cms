@@ -5,16 +5,21 @@ namespace :alchemy do
     task :up do
       Rake::Task['alchemy:tidy:cells'].invoke
       Rake::Task['alchemy:tidy:element_positions'].invoke
+      Rake::Task['alchemy:tidy:content_positions'].invoke
     end
 
     desc "Creates missing cells for pages."
     task :cells => :environment do
-      cells = Alchemy::Cell.definitions
-      page_layouts = Alchemy::PageLayout.all
-      if cells && page_layouts
-        Alchemy::Tidy.create_missing_cells(page_layouts, cells)
+      if !File.exist? Rails.root.join('config/alchemy/cells.yml')
+        puts "No page cell definitions found."
       else
-        puts "No page layouts or cell definitions found."
+        cells = Alchemy::Cell.definitions
+        page_layouts = Alchemy::PageLayout.all
+        if cells && page_layouts
+          Alchemy::Tidy.create_missing_cells(page_layouts, cells)
+        else
+          puts "No page layouts or cell definitions found."
+        end
       end
     end
 
@@ -23,6 +28,10 @@ namespace :alchemy do
       Alchemy::Tidy.update_element_positions
     end
 
+    desc "Fixes content positions."
+    task :content_positions => [:environment] do
+      Alchemy::Tidy.update_content_positions
+    end
   end
 end
 
@@ -31,7 +40,6 @@ module Alchemy
     extend Shell
 
     def self.create_missing_cells(page_layouts, cells)
-      desc "Create missing cells"
       page_layouts.each do |layout|
         next if layout['cells'].blank?
         cells_for_layout = cells.select { |cell| layout['cells'].include? cell['name'] }
@@ -51,8 +59,10 @@ module Alchemy
     end
 
     def self.update_element_positions
-      desc "Update element positions"
       Alchemy::Page.all.each do |page|
+        if page.elements.any?
+          puts "\n## Updating element positions of page `#{page.name}`"
+        end
         page.elements.group_by(&:cell_id).each do |cell_id, elements|
           elements.each_with_index do |element, idx|
             position = idx + 1
@@ -60,23 +70,31 @@ module Alchemy
               log "Updating position for element ##{element.id} to #{position}"
               element.update_column(:position, position)
             else
-              log "Position for element ##{element.id} is already correct", :skip
+              log "Position for element ##{element.id} is already correct (#{position})", :skip
             end
           end
         end
       end
     end
 
-    # TODO: implement remove_orphan_cells
-    def self.remove_orphan_cells(page_layouts, cells)
-      puts "== Remove cell orphans"
-      Alchemy::Cell.all.each do |cell|
-        if cells.detect { |cell| cell['name'] == cell.name }.nil?
-          # move elements to page or into another cell of page
-          # remove cell from database
+    def self.update_content_positions
+      Alchemy::Element.all.each do |element|
+        if element.contents.any?
+          puts "\n## Updating content positions of element `#{element.name}`"
+        end
+        element.contents.group_by(&:essence_type).each do |essence_type, contents|
+          puts "-> Contents of type `#{essence_type}`"
+          contents.each_with_index do |content, idx|
+            position = idx + 1
+            if content.position != position
+              log "Updating position for content ##{content.id} to #{position}"
+              content.update_column(:position, position)
+            else
+              log "Position for content ##{content.id} is already correct (#{position})", :skip
+            end
+          end
         end
       end
     end
-
   end
 end

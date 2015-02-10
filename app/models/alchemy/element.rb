@@ -29,7 +29,7 @@ module Alchemy
     acts_as_taggable
 
     # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.
-    acts_as_list :scope => [:page_id, :cell_id]
+    acts_as_list scope: [:page_id, :cell_id]
     stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :contents, -> { order(:position) }, dependent: :destroy
@@ -39,7 +39,6 @@ module Alchemy
       class_name: 'Alchemy::Page',
       join_table: 'alchemy_elements_alchemy_pages'
 
-    validates_uniqueness_of :position, :scope => [:page_id, :cell_id], :if => lambda { |e| e.position != nil }
     validates_presence_of :name, :on => :create
     validates_format_of :name, :on => :create, :with => /\A[a-z0-9_-]+\z/
 
