@@ -3,16 +3,20 @@ module Alchemy
     private
 
     def rename_registered_role_ro_member
-      desc 'Rename the `registered` user role to `member`'
-      registered_users = Alchemy.user_class.where("alchemy_roles LIKE '%registered%'")
-      if registered_users.any?
-        registered_users.each do |user|
-          roles = user.read_attribute(:alchemy_roles).sub(/registered/, 'member')
-          user.update_column(:alchemy_roles, roles)
-          log "Renamed #{user.inspect} role to `member`"
+      if Alchemy.user_class.column_names.include?('alchemy_roles')
+        desc 'Rename the `registered` user role to `member`'
+        registered_users = Alchemy.user_class.where("alchemy_roles LIKE '%registered%'")
+        if registered_users.any?
+          registered_users.each do |user|
+            roles = user.read_attribute(:alchemy_roles).sub(/registered/, 'member')
+            user.update_column(:alchemy_roles, roles)
+            log "Renamed #{user.inspect} role to `member`"
+          end
+        else
+          log 'No users with `registered` role found.', :skip
         end
       else
-        log 'No users with `registered` role found.', :skip
+        log 'No users with `alchemy_roles` database column found.', :skip
       end
     end
 
