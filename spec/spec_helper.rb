@@ -17,7 +17,6 @@ require 'alchemy/seeder'
 require 'alchemy/test_support/auth_helpers'
 require 'alchemy/test_support/controller_requests'
 require 'alchemy/test_support/integration_helpers'
-require 'alchemy/test_support/essence_shared_examples'
 require 'alchemy/test_support/factories'
 require 'capybara/poltergeist'
 require 'capybara/rails'
@@ -28,6 +27,8 @@ require 'rspec/rails'
 
 require_relative "support/hint_examples.rb"
 require_relative "support/transformation_examples.rb"
+
+require 'alchemy/test_support/essence_shared_examples'
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
