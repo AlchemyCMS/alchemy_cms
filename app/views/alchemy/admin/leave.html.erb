@@ -7,5 +7,5 @@
 </p>
 <%= form_tag Alchemy.logout_path, method: 'delete', class: 'buttons' do %>
   <label><%= _t('or to completely') %></label>
-  <%= button _t(:logout), autofocus: true %>
+  <%= button_tag _t(:logout), autofocus: true %>
 <% end %>

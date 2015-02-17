@@ -5,7 +5,7 @@
       <li><%= link_to _t(:edit_page), alchemy.edit_admin_page_path(@page) %></li>
       <li>
         <%= form_tag Alchemy.logout_path, method: 'delete' do %>
-          <%= button _t(:logout) %>
+          <%= button_tag _t(:logout) %>
         <% end %>
       </li>
     </ul>
