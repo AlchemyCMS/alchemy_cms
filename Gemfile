@@ -6,20 +6,16 @@ if ENV['RAILS_VERSION']
   gem 'rails', "~> #{ENV['RAILS_VERSION']}"
 end
 
-# Code coverage plattform
-gem 'coveralls', require: false
-
-group :test do
-  gem 'sqlite3'               if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
-  gem 'mysql2'                if ENV['DB'] == 'mysql'
-  gem 'pg'                    if ENV['DB'] == 'postgresql'
-  unless ENV['CI']
-    gem 'launchy'
-  end
-end
+gem 'sqlite3' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
+gem 'mysql2'  if ENV['DB'] == 'mysql'
+gem 'pg'      if ENV['DB'] == 'postgresql'
 
 group :development, :test do
+  gem 'jasmine-rails',        github: 'searls/jasmine-rails'
+  gem 'jasmine-jquery-rails', github: 'travisjeffery/jasmine-jquery-rails'
+  gem 'coveralls',            require: false
   unless ENV['CI']
+    gem 'launchy'
     gem 'annotate'
     gem 'bumpy'
     gem 'yard'
@@ -28,6 +24,10 @@ group :development, :test do
     gem 'spring'
     gem 'spring-commands-rspec'
   end
-  gem 'jasmine-rails', github: 'searls/jasmine-rails'
-  gem 'jasmine-jquery-rails', github: 'travisjeffery/jasmine-jquery-rails'
+end
+
+# We need this if we want to start the dummy app in production, ie on Teatro.io
+group :production do
+  gem 'uglifier', '>= 1.0.3'
+  gem 'therubyracer'
 end
