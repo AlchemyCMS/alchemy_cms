@@ -291,6 +291,16 @@ $ bundle exec rake
 
 *) This default task executes the database preparations and runs all defined test cases.
 
+### Start the dummy app
+
+You can even start the dummy app and use it to manually test your changes with:
+
+```shell
+$ cd spec/dummy
+$ bin/rake db:setup
+$ bin/rails s
+```
+
 **A note about RSpec version:**
 
 Alchemy specs are written **in RSpec 3**. Please **do not use deprecated RSpec 2.x syntax**. Thanks
