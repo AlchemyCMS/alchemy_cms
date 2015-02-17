@@ -2,8 +2,7 @@ project:
   after:
     - apt-get -y install imagemagick
 stage:
-  database:
-    - cd spec/dummy && bin/rake db:setup RAILS_ENV=production
-  after_database:
-    - cd spec/dummy && bin/rake assets:precompile RAILS_ENV=production
-  run: cd spec/dummy && bin/rails server -e production
+  before: cd spec/dummy
+  database: bin/rake db:setup RAILS_ENV=production
+  assets: bin/rake assets:precompile RAILS_ENV=production
+  run: bin/rails server -e production
