@@ -46,7 +46,6 @@ require_relative './touching'
 
 # Require hacks
 require_relative './kaminari/scoped_pagination_url_helper'
-require_relative '../extensions/action_view'
 
 # Middleware
 require_relative './middleware/rescue_old_cookies'

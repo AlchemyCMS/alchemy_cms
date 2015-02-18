@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    nil
+    if Rails.env.test?
+      nil
+    else
+      DummyUser.new(email: "dummy@alchemy.com")
+    end
   end
 end
