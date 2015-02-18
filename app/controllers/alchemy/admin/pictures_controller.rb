@@ -12,10 +12,7 @@ module Alchemy
 
       def index
         @size = params[:size].present? ? params[:size] : 'medium'
-        @pictures = Picture.all
-        @pictures = @pictures.tagged_with(params[:tagged_with]) if params[:tagged_with].present?
-        @pictures = @pictures.filtered_by(params[:filter]) if params[:filter]
-        @pictures = @pictures.find_paginated(params, pictures_per_page_for_size(@size))
+        @pictures = Picture.find_paginated(params, pictures_per_page_for_size(@size))
         if in_overlay?
           archive_overlay
         end
