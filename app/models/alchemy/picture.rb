@@ -62,10 +62,21 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    scope :named,       ->(name) { where("name LIKE ?", "%#{name}%") }
-    scope :recent,      -> { where("#{self.table_name}.created_at > ?", Time.now - 24.hours).order(:created_at) }
-    scope :deletable,   -> { where('alchemy_pictures.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)') }
-    scope :without_tag, -> { where("cached_tag_list IS NULL OR cached_tag_list = ''") }
+    scope :named, ->(name) {
+      where("#{self.table_name}.name LIKE ?", "%#{name}%")
+    }
+
+    scope :recent, -> {
+      where("#{self.table_name}.created_at > ?", Time.now - 24.hours).order(:created_at)
+    }
+
+    scope :deletable, -> {
+      where("#{self.table_name}.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)")
+    }
+
+    scope :without_tag, -> {
+      where("#{self.table_name}.cached_tag_list IS NULL OR #{self.table_name}.cached_tag_list = ''")
+    }
 
     after_update :touch_contents
 
@@ -73,8 +84,21 @@ module Alchemy
 
     class << self
 
+      # Returns filtered, paginated and ordered picture collection.
       def find_paginated(params, per_page)
-        Picture.named(params[:query]).page(params[:page] || 1).per(per_page).order(:name)
+        @pictures = Picture.all
+
+        if params[:tagged_with].present?
+          @pictures = @pictures.tagged_with(params[:tagged_with])
+        end
+        if params[:filter].present?
+          @pictures = @pictures.filtered_by(params[:filter])
+        end
+        if params[:query].present?
+          @pictures = @pictures.named(params[:query])
+        end
+
+        @pictures.page(params[:page] || 1).per(per_page).order(:name)
       end
 
       def last_upload
@@ -92,7 +116,6 @@ module Alchemy
           all
         end
       end
-
     end
 
     # Instance methods
