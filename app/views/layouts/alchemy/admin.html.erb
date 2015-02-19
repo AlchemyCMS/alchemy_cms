@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <title><%= render_alchemy_title %></title>
-    <link rel="shortcut icon" href="/assets/alchemy/favicon.ico">
+    <link rel="shortcut icon" href="<%= asset_path('alchemy/favicon.ico') %>">
     <%= csrf_meta_tag %>
     <meta name="robots" content="noindex">
     <%= stylesheet_link_tag('alchemy/admin', :media => 'screen', "data-turbolinks-track" => true) %>
