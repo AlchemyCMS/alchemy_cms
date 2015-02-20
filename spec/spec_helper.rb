@@ -12,19 +12,19 @@ SimpleCov.start 'rails'
 ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
+require 'rspec/rails'
+require 'rails/test_help'
+require 'capybara/poltergeist'
+require 'capybara/rails'
+require 'database_cleaner'
+require 'rspec-activemodel-mocks'
 
 require 'alchemy/seeder'
 require 'alchemy/test_support/auth_helpers'
 require 'alchemy/test_support/controller_requests'
-require 'alchemy/test_support/integration_helpers'
 require 'alchemy/test_support/essence_shared_examples'
+require 'alchemy/test_support/integration_helpers'
 require 'alchemy/test_support/factories'
-require 'capybara/poltergeist'
-require 'capybara/rails'
-require 'database_cleaner'
-require 'rails/test_help'
-require 'rspec-activemodel-mocks'
-require 'rspec/rails'
 
 require_relative "support/hint_examples.rb"
 require_relative "support/transformation_examples.rb"
