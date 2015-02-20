@@ -13,7 +13,6 @@ module Alchemy
     #
     # * html
     # * js (Tries to replace a given +container_id+ with the elements view partial content via jQuery.)
-    # * json (A JSON object that includes all contents and their ingredients)
     #
     def show
       @page = @element.page
@@ -22,12 +21,7 @@ module Alchemy
       respond_to do |format|
         format.html
         format.js { @container_id = params[:container_id] }
-        format.json do
-          ActiveSupport::Deprecation.warn("The Alchemy elements json API moved to `api` namespace. Please use `/api/elements` for json requests instead.")
-          render json: @element, serializer: LegacyElementSerializer
-        end
       end
     end
-
   end
 end

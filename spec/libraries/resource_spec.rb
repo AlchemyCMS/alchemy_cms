@@ -310,7 +310,7 @@ module Alchemy
         it "should contain model_association from ActiveRecord::Reflections" do
           relation = resource.resource_relations[:location_id]
           expect(relation.keys).to include(:model_association)
-          expect(relation[:model_association].class).to be(ActiveRecord::Reflection::AssociationReflection)
+          expect(relation[:model_association].class).to be(ActiveRecord::Reflection::BelongsToReflection)
         end
 
         it "adds '_id' to relation key" do

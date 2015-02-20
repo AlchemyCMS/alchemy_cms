@@ -3,8 +3,6 @@ module Alchemy
     class PicturesController < Alchemy::Admin::BaseController
       helper 'alchemy/admin/tags'
 
-      respond_to :html, :js
-
       before_action :load_picture,
         only: [:show, :edit, :update, :info, :destroy]
 

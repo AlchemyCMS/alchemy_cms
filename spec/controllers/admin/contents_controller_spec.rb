@@ -14,7 +14,6 @@ module Alchemy
         expect(Element).to receive(:find).and_return(element)
       end
 
-
       describe '#create' do
         let(:element) { build_stubbed(:element, name: 'headline') }
 

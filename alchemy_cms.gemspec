@@ -12,7 +12,7 @@ Gem::Specification.new do |gem|
   gem.summary               = 'A powerful, userfriendly and flexible CMS for Rails 4'
   gem.description           = 'Alchemy is a powerful, userfriendly and flexible Rails 4 CMS.'
   gem.requirements         << 'ImageMagick (libmagick), v6.6 or greater.'
-  gem.required_ruby_version = '>= 1.9.3'
+  gem.required_ruby_version = '>= 2.0.0'
   gem.license               = 'BSD New'
   gem.files                 = `git ls-files`.split("\n")
   gem.test_files            = `git ls-files -- {test,spec,features}/*`.split("\n")
@@ -26,16 +26,17 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'awesome_nested_set',               ['~> 3.0.0']
   gem.add_runtime_dependency 'cancancan',                        ['~> 1.9']
   gem.add_runtime_dependency 'coffee-rails',                     ['~> 4.0']
-  gem.add_runtime_dependency 'compass-rails',                    ['~> 1.1']
+  gem.add_runtime_dependency 'compass-rails',                    ['>= 1.1.2']
   gem.add_runtime_dependency 'dragonfly',                        ['~> 1.0.1']
-  gem.add_runtime_dependency 'jquery-rails',                     ['~> 3.1.0']
+  gem.add_runtime_dependency 'jquery-rails',                     ['~> 4.0.3']
   gem.add_runtime_dependency 'jquery-ui-rails',                  ['~> 5.0.0']
   gem.add_runtime_dependency 'kaminari',                         ['~> 0.15']
   gem.add_runtime_dependency 'magiclabs-userstamp',              ['~> 2.1.0']
   gem.add_runtime_dependency 'non-stupid-digest-assets',         ['~> 1.0.3']
-  gem.add_runtime_dependency 'rails',                            ['>= 4.0', '< 4.2']
+  gem.add_runtime_dependency 'rails',                            ['>= 4.2.0', '< 5.0']
   gem.add_runtime_dependency 'request_store',                    ['~> 1.1.0']
-  gem.add_runtime_dependency 'sass-rails',                       ['~> 4.0']
+  gem.add_runtime_dependency 'responders',                       ['~> 2.0']
+  gem.add_runtime_dependency 'sass-rails',                       ['~> 5.0']
   gem.add_runtime_dependency 'sassy-buttons',                    ['~> 0.2.6']
   gem.add_runtime_dependency 'select2-rails',                    ['>= 3.5.9.1', '< 4.0']
   gem.add_runtime_dependency 'simple_form',                      ['~> 3.0']

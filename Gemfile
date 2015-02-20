@@ -2,10 +2,6 @@ source 'http://rubygems.org'
 
 gemspec
 
-if ENV['RAILS_VERSION']
-  gem 'rails', "~> #{ENV['RAILS_VERSION']}"
-end
-
 gem 'sqlite3' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
 gem 'mysql2'  if ENV['DB'] == 'mysql'
 gem 'pg'      if ENV['DB'] == 'postgresql'
