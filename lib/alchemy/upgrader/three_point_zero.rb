@@ -71,6 +71,20 @@ also read the official TinyMCE documentation in how to upgrade.
 Alchemy default TinyMCE config: https://github.com/magiclabs/alchemy_cms/blob/master/lib/alchemy/tinymce.rb#L5-L19
 Offical TinyMCE documentation: http://www.tinymce.com/wiki.php/Configuration
 
+
+Essence Validation Syntax changed
+---------------------------------
+
+The API of the format validations for essences has changed.
+You can now define individual format matchers in the config.yml.
+
+* `format_as` and `format_with` options has been removed and renamed to simply `format`
+
+Pleae have a look at this commit:
+https://github.com/AlchemyCMS/alchemy_cms/commit/44866dbebaed00ffa3b77201f93a04616001b955
+
+for a detailed explanation.
+
 NOTE
       todo notice, 'Alchemy v3.0 changes'
     end
