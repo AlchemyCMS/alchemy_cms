@@ -13,7 +13,11 @@ gem 'pg'      if ENV['DB'] == 'postgresql'
 group :development, :test do
   gem 'jasmine-rails',        github: 'searls/jasmine-rails'
   gem 'jasmine-jquery-rails', github: 'travisjeffery/jasmine-jquery-rails'
-  gem 'coveralls',            require: false
+  if ENV['TRAVIS']
+    gem 'coveralls',          require: false
+  else
+    gem 'simplecov',          require: false
+  end
   unless ENV['CI']
     gem 'launchy'
     gem 'annotate'

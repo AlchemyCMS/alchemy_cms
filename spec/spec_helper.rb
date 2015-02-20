@@ -1,7 +1,6 @@
 require 'simplecov'
-require 'coveralls'
-
-if ENV['CI']
+if ENV['TRAVIS']
+  require 'coveralls'
   SimpleCov.formatter = Coveralls::SimpleCov::Formatter
 else
   SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
