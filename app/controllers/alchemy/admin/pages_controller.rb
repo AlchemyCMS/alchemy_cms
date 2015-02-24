@@ -12,9 +12,11 @@ module Alchemy
       before_action :set_root_page,
         only: [:index, :show, :sort, :order]
 
-      authorize_resource class: Alchemy::Page
+      authorize_resource class: Alchemy::Page, except: :index
 
       def index
+        authorize! :index, :alchemy_admin_pages
+
         @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         @languages = Language.all
         if !@page_root
