@@ -7,7 +7,7 @@ rvm:
   - 2.1
 branches:
   only:
-    - master
+    - 3.1-stable
 before_script: 'bundle exec rake alchemy:spec:prepare'
 script: 'bundle exec rspec'
 env:
