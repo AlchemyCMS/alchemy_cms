@@ -7,10 +7,19 @@ module Alchemy
   # in a list on the shell / log
   #
   module Shell
+    def self.silence!
+      @silenced = true
+    end
+
+    def self.silenced?
+      @silenced ||= false
+    end
 
     def desc(message)
-      puts "\n#{message}"
-      puts "#{'-' * message.length}\n"
+      unless Alchemy::Shell.silenced?
+        puts "\n#{message}"
+        puts "#{'-' * message.length}\n"
+      end
     end
 
     def todo(todo, title='')
@@ -54,15 +63,17 @@ module Alchemy
     # @param [Symbol] type
     #
     def log(message, type=nil)
-      case type
-      when :skip
-        puts "#{color(:yellow)}== Skipping! #{message}#{color(:clear)}"
-      when :error
-        puts "#{color(:red)}!! ERROR: #{message}#{color(:clear)}"
-      when :message
-        puts "#{color(:clear)}#{message}"
-      else
-        puts "#{color(:green)}== #{message}#{color(:clear)}"
+      unless Alchemy::Shell.silenced?
+        case type
+        when :skip
+          puts "#{color(:yellow)}== Skipping! #{message}#{color(:clear)}"
+        when :error
+          puts "#{color(:red)}!! ERROR: #{message}#{color(:clear)}"
+        when :message
+          puts "#{color(:clear)}#{message}"
+        else
+          puts "#{color(:green)}== #{message}#{color(:clear)}"
+        end
       end
     end
 

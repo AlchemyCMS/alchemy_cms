@@ -60,6 +60,7 @@ RSpec.configure do |config|
   # Make sure the database is clean and ready for test
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
+    Alchemy::Shell.silence!
     Alchemy::Seeder.seed!
   end
 
