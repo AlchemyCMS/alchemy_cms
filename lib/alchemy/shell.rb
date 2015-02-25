@@ -11,6 +11,10 @@ module Alchemy
       @silenced = true
     end
 
+    def self.verbose!
+      @silenced = false
+    end
+
     def self.silenced?
       @silenced ||= false
     end

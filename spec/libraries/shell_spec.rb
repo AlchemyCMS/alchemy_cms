@@ -63,6 +63,8 @@ module Alchemy
     end
 
     describe '.log' do
+      before { Alchemy::Shell.verbose! }
+
       context 'if the message type is "skip"' do
         it "the output color should be yellow and cleared again" do
           expect(MyToDoList).to receive(:color).with(:yellow)
