@@ -11,13 +11,13 @@ module Alchemy
     describe "#index" do
       it "should always paginate the records" do
         expect(Attachment).to receive(:find_paginated)
-        get :index
+        alchemy_get :index
       end
 
       context "when params[:tagged_with] is set" do
         it "should filter the records by tags" do
           expect(Attachment).to receive(:tagged_with).and_return(Attachment.all)
-          get :index, tagged_with: "pdf"
+          alchemy_get :index, tagged_with: "pdf"
         end
       end
 
@@ -27,7 +27,7 @@ module Alchemy
         context "is set" do
           it "it renders the archive_overlay partial" do
             expect(Content).to receive(:find_by).and_return(content)
-            get :index, {content_id: content.id}
+            alchemy_get :index, {content_id: content.id}
             expect(response).to render_template(partial: '_archive_overlay')
             expect(assigns(:content)).to eq(content)
           end
@@ -35,7 +35,7 @@ module Alchemy
 
         context "is not set" do
           it "should render the default index view" do
-            get :index
+            alchemy_get :index
             expect(response).to render_template(:index)
           end
         end
@@ -47,7 +47,7 @@ module Alchemy
 
         context 'with params[:only]' do
           it 'only loads attachments with matching content type' do
-            get :index, only: 'jpeg'
+            alchemy_get :index, only: 'jpeg'
             expect(assigns(:attachments).to_a).to eq([jpg])
             expect(assigns(:attachments).to_a).to_not eq([png])
           end
@@ -55,7 +55,7 @@ module Alchemy
 
         context 'with params[:except]' do
           it 'does not load attachments with matching content type' do
-            get :index, except: 'jpeg'
+            alchemy_get :index, except: 'jpeg'
             expect(assigns(:attachments).to_a).to eq([png])
             expect(assigns(:attachments).to_a).to_not eq([jpg])
           end
@@ -69,7 +69,7 @@ module Alchemy
       end
 
       it "renders the show template" do
-        get :show, id: attachment.id
+        alchemy_get :show, id: attachment.id
         expect(response).to render_template(:show)
       end
     end
@@ -82,19 +82,19 @@ module Alchemy
         end
 
         it "should set @while_assigning to true" do
-          get :new
+          alchemy_get :new
           expect(assigns(:while_assigning)).to eq(true)
         end
 
         it "should set @swap to params[:swap]" do
-          get :new, swap: 'true'
+          alchemy_get :new, swap: 'true'
           expect(assigns(:swap)).to eq('true')
         end
       end
     end
 
     describe '#create' do
-      subject { post :create, params }
+      subject { alchemy_post :create, params }
 
       let(:attachment) { mock_model('Attachment', name: 'contract.pdf', to_jq_upload: {}) }
       let(:params)     { {attachment: {name: ''}} }
@@ -145,7 +145,7 @@ module Alchemy
     end
 
     describe '#update' do
-      subject { put :update, attachment: {name: ''} }
+      subject { alchemy_put :update, {id: 1, attachment: {name: ''}} }
 
       let(:attachment) { build_stubbed(:attachment) }
 
@@ -184,7 +184,7 @@ module Alchemy
 
       it "destroys the attachment and sets and success message" do
         expect(attachment).to receive(:destroy)
-        xhr :delete, :destroy
+        alchemy_xhr :delete, :destroy, id: 1
         expect(assigns(:attachment)).to eq(attachment)
         expect(assigns(:url)).not_to be_blank
         expect(flash[:notice]).not_to be_blank
@@ -198,13 +198,13 @@ module Alchemy
       end
 
       it "should assign @attachment with Attachment found by id" do
-        get :download, id: attachment.id
+        alchemy_get :download, id: attachment.id
         expect(assigns(:attachment)).to eq(attachment)
       end
 
       it "should send the data to the browser" do
         expect(controller).to receive(:send_data)
-        get :download, id: attachment.id
+        alchemy_get :download, id: attachment.id
       end
     end
   end

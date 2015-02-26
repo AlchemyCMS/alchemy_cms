@@ -14,13 +14,13 @@ module Alchemy
       }
 
       it "should hold trashed elements" do
-        get :index, :page_id => alchemy_page.id
+        alchemy_get :index, :page_id => alchemy_page.id
         expect(response.body).to have_selector("#element_#{element.id}.element_editor")
       end
 
       it "should not hold elements that are not trashed" do
         element = FactoryGirl.create(:element, :page => alchemy_page, :public => false)
-        get :index, :page_id => alchemy_page.id
+        alchemy_get :index, :page_id => alchemy_page.id
         expect(response.body).not_to have_selector("#element_#{element.id}.element_editor")
       end
 
@@ -34,7 +34,7 @@ module Alchemy
           end
 
           it "unique elements should be draggable" do
-            get :index, page_id: alchemy_page.id
+            alchemy_get :index, page_id: alchemy_page.id
             expect(response.body).to have_selector("#element_#{trashed.id}.element_editor.draggable")
           end
         end
@@ -49,7 +49,7 @@ module Alchemy
           end
 
           it "unique elements should not be draggable" do
-            get :index, page_id: page.id
+            alchemy_get :index, page_id: page.id
             expect(response.body).to have_selector("#element_#{trashed.id}.element_editor.not-draggable")
           end
         end
@@ -58,7 +58,7 @@ module Alchemy
       describe "#clear" do
         it "should destroy all containing elements" do
           expect(Element.trashed).not_to be_empty
-          xhr :post, :clear, page_id: alchemy_page.id
+          alchemy_xhr :post, :clear, page_id: alchemy_page.id
           expect(Element.trashed).to be_empty
         end
       end

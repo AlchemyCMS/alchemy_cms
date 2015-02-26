@@ -7,7 +7,7 @@ module Alchemy
       let!(:element) { create(:element, page: page) }
 
       it "returns all public elements as json objects" do
-        get :index, format: :json
+        alchemy_get :index, format: :json
         expect(response.status).to eq(200)
         expect(response.content_type).to eq('application/json')
         expect(response.body).to_not eq('{"elements":[]}')
@@ -18,7 +18,7 @@ module Alchemy
         let!(:other_element) { create(:element, page: other_page) }
 
         it "returns only elements from this element" do
-          get :index, page_id: other_page.id, format: :json
+          alchemy_get :index, page_id: other_page.id, format: :json
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
           expect(response.body).to_not eq('{"elements":[]}')
@@ -31,7 +31,7 @@ module Alchemy
         let!(:other_element) { create(:element, page: page, name: 'news') }
 
         it "returns only elements named like this." do
-          get :index, named: 'news', format: :json
+          alchemy_get :index, named: 'news', format: :json
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
           expect(response.body).to_not eq('{"elements":[]}')
@@ -50,7 +50,7 @@ module Alchemy
       end
 
       it "responds to json" do
-        get :show, id: element.id, format: :json
+        alchemy_get :show, id: element.id, format: :json
         expect(response.status).to eq(200)
         expect(response.content_type).to eq('application/json')
       end
@@ -59,7 +59,7 @@ module Alchemy
         let(:page) { build_stubbed(:page, restricted: true) }
 
         it "responds with 403" do
-          get :show, id: element.id, format: :json
+          alchemy_get :show, id: element.id, format: :json
           expect(response.content_type).to eq('application/json')
           expect(response.status).to eq(403)
         end

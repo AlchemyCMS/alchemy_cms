@@ -24,7 +24,7 @@ Alchemy::Engine.routes.draw do
         :as => :show_picture
   get '/pictures/:id/zoom/:name.:format' => 'pictures#zoom',
         :as => :zoom_picture
-  get "/pictures/:id/thumbnails/:size(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
+  get "/pictures/:id/thumbnails(/:size)(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
         :as => :thumbnail, :defaults => {:format => 'png', :name => "thumbnail"}
 
   get '/admin/leave' => 'admin/base#leave', :as => :leave_admin

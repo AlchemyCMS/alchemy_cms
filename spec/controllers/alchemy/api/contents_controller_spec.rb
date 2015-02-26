@@ -8,7 +8,7 @@ module Alchemy
       let!(:content) { create(:content, element: element) }
 
       it "returns all public contents as json objects" do
-        get :index, format: :json
+        alchemy_get :index, format: :json
         expect(response.status).to eq(200)
         expect(response.content_type).to eq('application/json')
         expect(response.body).to_not eq('{"contents":[]}')
@@ -19,7 +19,7 @@ module Alchemy
         let!(:other_content) { create(:content, element: other_element) }
 
         it "returns only contents from this element" do
-          get :index, element_id: element.id, format: :json
+          alchemy_get :index, element_id: element.id, format: :json
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
           expect(response.body).to_not eq('{"contents":[]}')
@@ -39,7 +39,7 @@ module Alchemy
         end
 
         it "responds to json" do
-          get :show, id: content.id, format: :json
+          alchemy_get :show, id: content.id, format: :json
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
         end
@@ -48,7 +48,7 @@ module Alchemy
           let(:page) { create(:page, restricted: true) }
 
           it "responds with 403" do
-            get :show, id: content.id, format: :json
+            alchemy_get :show, id: content.id, format: :json
             expect(response.content_type).to eq('application/json')
             expect(response.status).to eq(403)
           end
@@ -61,7 +61,7 @@ module Alchemy
         let!(:content) { create(:content, element: element) }
 
         it 'returns the named content from element with given id.' do
-          get :show, element_id: element.id, name: content.name, format: :json
+          alchemy_get :show, element_id: element.id, name: content.name, format: :json
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
           expect(response.body).to match(/element_id\"\:#{element.id}/)
