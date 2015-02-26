@@ -15,7 +15,7 @@ module Alchemy
       before { allow(controller).to receive(:current_alchemy_user).and_return(author_user) }
 
       it "should not be able to visit a unpublic page" do
-        get :show, urlname: unpublic.urlname
+        alchemy_get :show, urlname: unpublic.urlname
         expect(response.status).to eq(404)
       end
     end
@@ -24,20 +24,20 @@ module Alchemy
       render_views
 
       it "should render a rss feed" do
-        get :show, urlname: page.urlname, format: :rss
+        alchemy_get :show, urlname: page.urlname, format: :rss
         expect(response.content_type).to eq('application/rss+xml')
       end
 
       it "should include content" do
         page.elements.first.content_by_name('news_headline').essence.update_attributes({body: 'Peters Petshop'})
-        get :show, urlname: 'news', format: :rss
+        alchemy_get :show, urlname: 'news', format: :rss
         expect(response.body).to match /Peters Petshop/
       end
     end
 
     context "requested for a page that does not contain a feed" do
       it "should render xml 404 error" do
-        get :show, urlname: default_language_root.urlname, format: :rss
+        alchemy_get :show, urlname: default_language_root.urlname, format: :rss
         expect(response.status).to eq(404)
       end
     end
@@ -45,7 +45,7 @@ module Alchemy
     describe "Layout rendering" do
       context "with ajax request" do
         it "should not render a layout" do
-          xhr :get, :show, urlname: page.urlname
+          alchemy_xhr :get, :show, urlname: page.urlname
           expect(response).to render_template(:show)
           expect(response).not_to render_template(layout: 'application')
         end
@@ -67,7 +67,7 @@ module Alchemy
 
       context "with correct levelnames in params" do
         it "should show the requested page" do
-          get :show, {urlname: 'catalog/products/screwdriver'}
+          alchemy_get :show, {urlname: 'catalog/products/screwdriver'}
           expect(response.status).to eq(200)
           expect(response.body).to have_content("screwdriver")
         end
@@ -75,7 +75,7 @@ module Alchemy
 
       context "with incorrect levelnames in params" do
         it "should render a 404 page" do
-          get :show, {urlname: 'catalog/faqs/screwdriver'}
+          alchemy_get :show, {urlname: 'catalog/faqs/screwdriver'}
           expect(response.status).to eq(404)
           expect(response.body).to have_content('The page you were looking for doesn\'t exist')
         end
@@ -84,7 +84,7 @@ module Alchemy
 
     context "when a non-existent page is requested" do
       it "should rescue a RoutingError with rendering a 404 page." do
-        get :show, {urlname: 'doesntexist'}
+        alchemy_get :show, {urlname: 'doesntexist'}
         expect(response.status).to eq(404)
         expect(response.body).to have_content('The page you were looking for doesn\'t exist')
       end
@@ -139,38 +139,38 @@ module Alchemy
 
         it "should redirect permanently to page that belongs to legacy page url even if url has an unknown format & get parameters" do
           expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url4.urlname)
-          get :show, urlname: "index.php"
+          alchemy_get :show, urlname: "index.php"
           expect(response.status).to eq(301)
           expect(response).to redirect_to("/#{second_page.urlname}")
         end
 
         it "should not pass query string for legacy routes" do
           expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url3.urlname)
-          get :show, urlname: "index.php"
+          alchemy_get :show, urlname: "index.php"
           expect(URI.parse(response["Location"]).query).to be_nil
         end
 
         it "should only redirect to legacy url if no page was found for urlname" do
-          get :show, urlname: legacy_page.urlname
+          alchemy_get :show, urlname: legacy_page.urlname
           expect(response.status).to eq(200)
           expect(response).not_to redirect_to("/#{page.urlname}")
         end
 
         it "should redirect to last page that has that legacy url" do
           expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url2.urlname)
-          get :show, urlname: legacy_url2.urlname
+          alchemy_get :show, urlname: legacy_url2.urlname
           expect(response).to redirect_to("/#{second_page.urlname}")
         end
 
         it "should redirect even if the url has get parameters" do
           expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url3.urlname)
-          get :show, urlname: legacy_url3.urlname
+          alchemy_get :show, urlname: legacy_url3.urlname
           expect(response).to redirect_to("/#{second_page.urlname}")
         end
 
         it "should redirect even if the url has nested urlname" do
           expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url5.urlname)
-          get :show, urlname: legacy_url5.urlname
+          alchemy_get :show, urlname: legacy_url5.urlname
           expect(response).to redirect_to("/#{second_page.urlname}")
         end
       end
@@ -184,12 +184,12 @@ module Alchemy
 
         context "with no lang parameter present" do
           it "should store defaults language id in the session." do
-            get :show, urlname: 'a-public-page'
+            alchemy_get :show, urlname: 'a-public-page'
             expect(controller.session[:alchemy_language_id]).to eq(Language.default.id)
           end
 
           it "should store default language as class var." do
-            get :show, urlname: 'a-public-page'
+            alchemy_get :show, urlname: 'a-public-page'
             expect(Language.current).to eq(Language.default)
           end
         end

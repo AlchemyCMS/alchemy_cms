@@ -10,20 +10,20 @@ module Alchemy
     describe "#index" do
       it "should always paginate the records" do
         expect(Picture).to receive(:find_paginated)
-        get :index
+        alchemy_get :index
       end
 
       context "when params[:filter] is set" do
         it "should filter the pictures collection by the given filter string." do
           expect(Picture).to receive(:filtered_by).with('recent').and_return(Picture.all)
-          get :index, filter: 'recent'
+          alchemy_get :index, filter: 'recent'
         end
       end
 
       context "when params[:tagged_with] is set" do
         it "should filter the records by tags" do
           expect(Picture).to receive(:tagged_with).and_return(Picture.all)
-          get :index, tagged_with: "red"
+          alchemy_get :index, tagged_with: "red"
         end
       end
 
@@ -34,19 +34,19 @@ module Alchemy
           end
 
           it "for html requests it renders the archive_overlay partial" do
-            get :index, {element_id: 1}
+            alchemy_get :index, {element_id: 1}
             expect(response).to render_template(partial: '_archive_overlay')
           end
 
           it "for ajax requests it renders the archive_overlay template" do
-            xhr :get, :index, {element_id: 1}
+            alchemy_xhr :get, :index, {element_id: 1}
             expect(response).to render_template(:archive_overlay)
           end
         end
 
         context "is not set" do
           it "should render the default index view" do
-            get :index
+            alchemy_get :index
             expect(response).to render_template(:index)
           end
         end
@@ -54,7 +54,7 @@ module Alchemy
     end
 
     describe '#new' do
-      subject { get :new, params }
+      subject { alchemy_get :new, params }
 
       let(:params) { Hash.new }
 
@@ -93,7 +93,7 @@ module Alchemy
     end
 
     describe '#create' do
-      subject { post :create, params }
+      subject { alchemy_post :create, params }
 
       let(:params)  { {picture: {name: ''}} }
       let(:picture) { mock_model('Picture', humanized_name: 'Cute kittens', to_jq_upload: {}) }
@@ -166,20 +166,20 @@ module Alchemy
       before { expect(Picture).to receive(:where).and_return(pictures) }
 
       it 'assigns pictures instance variable' do
-        get :edit_multiple
+        alchemy_get :edit_multiple
         expect(assigns(:pictures)).to eq(pictures)
       end
 
       it 'assigns tags instance variable' do
-        get :edit_multiple
+        alchemy_get :edit_multiple
         expect(assigns(:tags)).to include('kitten')
       end
     end
 
     describe '#update' do
-      subject { put :update, picture: {name: ''} }
+      subject { alchemy_put :update, {id: 1, picture: {name: ''}} }
 
-      let(:picture) { mock_model('Picture', name: 'Cute kitten') }
+      let(:picture) { build_stubbed(:picture, name: 'Cute kitten') }
 
       before do
         expect(Picture).to receive(:find).and_return(picture)
@@ -226,13 +226,13 @@ module Alchemy
       end
 
       it "loads and assigns pictures" do
-        post :update_multiple
+        alchemy_post :update_multiple
         expect(assigns(:pictures)).to eq(pictures)
       end
     end
 
     describe "#delete_multiple" do
-      subject { delete :delete_multiple, picture_ids: picture_ids }
+      subject { alchemy_delete :delete_multiple, picture_ids: picture_ids }
 
       let(:deletable_picture)     { mock_model('Picture', name: 'pic of the pig', deletable?: true) }
       let(:not_deletable_picture) { mock_model('Picture', name: 'pic of the chick', deletable?: false) }
@@ -295,7 +295,7 @@ module Alchemy
     end
 
     describe '#destroy' do
-      let(:picture) { mock_model('Picture', name: 'Cute kitten') }
+      let(:picture) { build_stubbed(:picture, name: 'Cute kitten') }
 
       before do
         expect(Picture).to receive(:find).and_return(picture)
@@ -303,7 +303,7 @@ module Alchemy
 
       it "destroys the picture and sets and success message" do
         expect(picture).to receive(:destroy)
-        delete :destroy
+        alchemy_delete :destroy, id: picture.id
         expect(assigns(:picture)).to eq(picture)
         expect(flash[:notice]).not_to be_blank
       end
@@ -314,12 +314,12 @@ module Alchemy
         end
 
         it "shows error notice" do
-          delete :destroy
+          alchemy_delete :destroy, id: picture.id
           expect(flash[:error]).not_to be_blank
         end
 
         it "redirects to index" do
-          delete :destroy
+          alchemy_delete :destroy, id: picture.id
           expect(response).to redirect_to admin_pictures_path
         end
       end
@@ -328,7 +328,7 @@ module Alchemy
     describe '#flush' do
       it "removes the complete pictures cache" do
         expect(FileUtils).to receive(:rm_rf).with(Rails.root.join('public', '', 'pictures'))
-        xhr :post, :flush
+        alchemy_xhr :post, :flush
       end
     end
 

@@ -13,14 +13,14 @@ module Alchemy
       let(:page) { mock_model('Page', {urlname: 'contact', page_layout: 'contact'}) }
 
       it "should redirect to @page" do
-        expect(get :index).to redirect_to(show_page_path(urlname: page.urlname))
+        expect(alchemy_get :index).to redirect_to(show_page_path(urlname: page.urlname))
       end
     end
 
     describe "#new" do
       it "should render the alchemy/pages/show template" do
-        get :new
-        expect(get :new).to render_template('alchemy/pages/show')
+        alchemy_get :new
+        expect(alchemy_get :new).to render_template('alchemy/pages/show')
       end
     end
 
@@ -34,7 +34,7 @@ module Alchemy
       let(:message) { Message.new }
 
       it "should raise ActiveRecord::RecordNotFound if element of contactform could not be found" do
-        expect { post :create }.to raise_error(ActiveRecord::RecordNotFound)
+        expect { alchemy_post :create }.to raise_error(ActiveRecord::RecordNotFound)
       end
 
       context "if validation of message" do
@@ -51,7 +51,7 @@ module Alchemy
           end
 
           it "should render 'alchemy/pages/show' template" do
-            expect(post :create).to render_template('alchemy/pages/show')
+            expect(alchemy_post :create).to render_template('alchemy/pages/show')
           end
         end
 
@@ -63,7 +63,7 @@ module Alchemy
 
           it "Messages should call Messages#contact_form_mail to send the email" do
             expect(Messages).to receive(:contact_form_mail)
-            post :create
+            alchemy_post :create
           end
 
           describe '#mail_to' do
@@ -76,7 +76,7 @@ module Alchemy
 
               it "returns the ingredient" do
                 expect(Messages).to receive(:contact_form_mail).with(message, 'peter@schroeder.de', '', '')
-                post :create
+                alchemy_post :create
               end
             end
 
@@ -89,7 +89,7 @@ module Alchemy
 
               it "returns the config value" do
                 expect(Messages).to receive(:contact_form_mail).with(message, 'your.mail@your-domain.com', '', '')
-                post :create
+                alchemy_post :create
               end
             end
           end
@@ -104,7 +104,7 @@ module Alchemy
 
               it "returns the ingredient" do
                 expect(Messages).to receive(:contact_form_mail).with(message, '', 'peter@schroeder.de', '')
-                post :create
+                alchemy_post :create
               end
             end
 
@@ -117,7 +117,7 @@ module Alchemy
 
               it "returns the config value" do
                 expect(Messages).to receive(:contact_form_mail).with(message, '', 'your.mail@your-domain.com', '')
-                post :create
+                alchemy_post :create
               end
             end
           end
@@ -132,7 +132,7 @@ module Alchemy
 
               it "returns the ingredient" do
                 expect(Messages).to receive(:contact_form_mail).with(message, '', '', 'A new message')
-                post :create
+                alchemy_post :create
               end
             end
 
@@ -145,7 +145,7 @@ module Alchemy
 
               it "returns the config value" do
                 expect(Messages).to receive(:contact_form_mail).with(message, '', '', 'A new contact form message')
-                post :create
+                alchemy_post :create
               end
             end
           end
@@ -157,7 +157,7 @@ module Alchemy
               end
 
               it "should redirect to the given urlname" do
-                expect(post :create).to redirect_to(show_page_path(urlname: 'success-page'))
+                expect(alchemy_post :create).to redirect_to(show_page_path(urlname: 'success-page'))
               end
             end
 
@@ -173,7 +173,7 @@ module Alchemy
                 end
 
                 it "redirect to the given success page" do
-                  expect(post :create).to redirect_to(show_page_path(urlname: 'mailer-config-success-page'))
+                  expect(alchemy_post :create).to redirect_to(show_page_path(urlname: 'mailer-config-success-page'))
                 end
               end
 
@@ -187,7 +187,7 @@ module Alchemy
 
                 it "should redirect to the language root page" do
                   expect(Language).to receive(:current).and_return(language)
-                  expect(post :create).to redirect_to(show_page_path(urlname: 'lang-root'))
+                  expect(alchemy_post :create).to redirect_to(show_page_path(urlname: 'lang-root'))
                 end
               end
             end

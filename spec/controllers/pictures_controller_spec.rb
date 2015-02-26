@@ -8,33 +8,35 @@ end
 module Alchemy
   describe PicturesController do
 
-    let(:public_page)        { FactoryGirl.create(:public_page, restricted: false) }
-    let(:restricted_page)    { FactoryGirl.create(:public_page, restricted: true) }
-    let(:element)            { FactoryGirl.create(:element, page: public_page, name: 'bild', create_contents_after_create: true) }
-    let(:restricted_element) { FactoryGirl.create(:element, page: restricted_page, name: 'bild', create_contents_after_create: true) }
-    let(:picture)            { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/image.png', __FILE__), 'image/png')) }
+    let(:public_page)        { create(:public_page, restricted: false) }
+    let(:restricted_page)    { create(:public_page, restricted: true) }
+    let(:element)            { create(:element, page: public_page, name: 'bild', create_contents_after_create: true) }
+    let(:restricted_element) { create(:element, page: restricted_page, name: 'bild', create_contents_after_create: true) }
+    let(:picture)            { create(:picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/image.png', __FILE__), 'image/png')) }
 
     describe '#zoom' do
-      let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/80x60.png', __FILE__), 'image/png')) }
+      let(:picture) do
+        create(:picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/80x60.png', __FILE__), 'image/png'))
+      end
 
       before { sign_in(editor_user) }
 
       it "renders the original image without any resizing" do
-        get :zoom, id: picture.id, format: :png, sh: picture.security_token
+        alchemy_get :zoom, id: picture.id, name: picture.urlname, format: :png, sh: picture.security_token
         expect(response.body[0x10..0x18].unpack('NN')).to eq([80, 60])
       end
     end
 
     context "Requesting a picture with tempared security token" do
       it "should render status 400" do
-        get :show, id: picture.id, format: :png, sh: '14m4b4dh4ck3r'
+        alchemy_get :show, id: picture.id, name: picture.urlname, format: :png, sh: '14m4b4dh4ck3r'
         expect(response.status).to eq(400)
       end
     end
 
     context "Requesting a picture with another format then the original image" do
       it "should convert the picture format" do
-        get :show, id: picture.id, format: :jpeg, sh: picture.security_token
+        alchemy_get :show, id: picture.id, name: picture.urlname, format: :jpeg, sh: picture.security_token
         expect(response.content_type).to eq('image/jpeg')
       end
     end
@@ -42,47 +44,49 @@ module Alchemy
     context "Requesting a picture with not allowed format" do
       it "should raise error" do
         expect {
-          get :show, id: picture.id, format: :wim, sh: picture.security_token
+          alchemy_get :show, id: picture.id, name: picture.urlname, format: :wim, sh: picture.security_token
         }.to raise_error(ActionController::UnknownFormat)
       end
     end
 
     describe '#thumbnail' do
-      let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
+      let(:picture) do
+        create(:picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png'))
+      end
 
       before { sign_in(author_user) }
 
       context 'with size param set to small' do
         it "resizes the image to 80x60 while maintaining aspect ratio" do
-          get :thumbnail, id: picture.id, size: 'small', format: :png, sh: picture.security_token(size: 'small')
+          alchemy_get :thumbnail, id: picture.id, name: picture.urlname, size: 'small', format: :png, sh: picture.security_token(size: 'small')
           expect(response.body[0x10..0x18].unpack('NN')).to eq([60, 60])
         end
       end
 
       context 'with size param set to medium' do
         it "resizes the image to 160x120 while maintaining aspect ratio" do
-          get :thumbnail, id: picture.id, size: 'medium', format: :png, sh: picture.security_token(size: 'medium')
+          alchemy_get :thumbnail, id: picture.id, name: picture.urlname, size: 'medium', format: :png, sh: picture.security_token(size: 'medium')
           expect(response.body[0x10..0x18].unpack('NN')).to eq([120, 120])
         end
       end
 
       context 'with size param set to large' do
         it "resizes the image to 240x180 while maintaining aspect ratio" do
-          get :thumbnail, id: picture.id, size: 'large', format: :png, sh: picture.security_token(size: 'large')
+          alchemy_get :thumbnail, id: picture.id, name: picture.urlname, size: 'large', format: :png, sh: picture.security_token(size: 'large')
           expect(response.body[0x10..0x18].unpack('NN')).to eq([180, 180])
         end
       end
 
       context 'with size param set to nil' do
         it "resizes the image to 111x93 while maintaining aspect ratio" do
-          get :thumbnail, id: picture.id, format: :png, sh: picture.security_token
+          alchemy_get :thumbnail, id: picture.id, name: picture.urlname, format: :png, sh: picture.security_token
           expect(response.body[0x10..0x18].unpack('NN')).to eq([93, 93])
         end
       end
 
       context 'with size param set to another value' do
         it "resizes the image to the given size while maintaining aspect ratio" do
-          get :thumbnail, id: picture.id, size: '33x33', format: :png, sh: picture.security_token(size: '33x33')
+          alchemy_get :thumbnail, id: picture.id, name: picture.urlname, size: '33x33', format: :png, sh: picture.security_token(size: '33x33')
           expect(response.body[0x10..0x18].unpack('NN')).to eq([33, 33])
         end
       end
@@ -96,16 +100,18 @@ module Alchemy
 
       it "raises missing file error" do
         expect {
-          get :show, id: picture.id, format: :png, sh: picture.security_token
+          alchemy_get :show, id: picture.id, name: picture.urlname, format: :png, sh: picture.security_token
         }.to raise_error(Alchemy::MissingImageFileError)
       end
     end
 
     context "Requesting a picture with crop_from and crop_size parameters" do
-      let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
+      let(:picture) do
+        create(:picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png'))
+      end
 
       it "renders the cropped picture" do
-        get :show, id: picture.id, crop: 'crop', size: '123x44', crop_size: '123x44',
+        alchemy_get :show, id: picture.id, name: picture.urlname, crop: 'crop', size: '123x44', crop_size: '123x44',
           crop_from: '0x0', format: :png,
           sh: picture.security_token(crop_size: '123x44', crop_from: '0x0', crop: true, size: '123x44')
         expect(response.body[0x10..0x18].unpack('NN')).to eq([123, 44])
@@ -113,11 +119,14 @@ module Alchemy
     end
 
     context "Requesting a picture with crop_from and crop_size parameters with different size param" do
-      let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
+      let(:picture) do
+        create(:picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png'))
+      end
 
       it "renders the cropped picture" do
-        get :show,
+        alchemy_get :show,
           id: picture.id,
+          name: picture.urlname,
           crop: 'crop',
           size: '100x100',
           crop_size: '200x200',
@@ -134,11 +143,14 @@ module Alchemy
     end
 
     context "Requesting a picture with crop_from and crop_size parameters with larger size param" do
-      let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
+      let(:picture) do
+        create(:picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png'))
+      end
 
       it "renders the cropped picture without upsampling" do
-        get :show,
+        alchemy_get :show,
           id: picture.id,
+          name: picture.urlname,
           crop: 'crop',
           size: '400x400',
           crop_size: '200x200',
@@ -155,11 +167,14 @@ module Alchemy
     end
 
     context "Requesting a picture with crop_from and crop_size parameters with larger size param and upsample set" do
-      let(:picture) { Picture.create(image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png')) }
+      let(:picture) do
+        create(:picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png'))
+      end
 
       it "renders the cropped picture with upsampling" do
-        get :show,
+        alchemy_get :show,
           id: picture.id,
+          name: picture.urlname,
           crop: 'crop',
           size: '400x400',
           crop_size: '200x200',
@@ -179,7 +194,7 @@ module Alchemy
 
     context "Requesting a picture that is not assigned with any page" do
       it "should render the picture" do
-        get :show, id: picture.id, format: :png, sh: picture.security_token
+        alchemy_get :show, id: picture.id, name: picture.urlname, format: :png, sh: picture.security_token
         expect(response.status).to eq(200)
       end
     end
@@ -197,7 +212,7 @@ module Alchemy
 
       context "as guest user" do
         it "should render the picture" do
-          get :show, id: picture.id, format: :png, sh: picture.security_token
+          alchemy_get :show, id: picture.id, name: picture.urlname, format: :png, sh: picture.security_token
           expect(response.status).to eq(200)
         end
       end
@@ -212,7 +227,7 @@ module Alchemy
 
       context "as guest user" do
         it "should not render the picture, but redirect to login path" do
-          get :show, id: picture.id, sh: picture.security_token
+          alchemy_get :show, id: picture.id, name: picture.urlname, format: :png, sh: picture.security_token
           expect(response.status).to eq(302)
           expect(response).to redirect_to(Alchemy.login_path)
         end
@@ -224,14 +239,16 @@ module Alchemy
         end
 
         it "should render the picture" do
-          get :show, id: picture.id, format: :png, sh: picture.security_token
+          alchemy_get :show, id: picture.id, name: picture.urlname, format: :png, sh: picture.security_token
           expect(response.status).to eq(200)
         end
       end
     end
 
     describe 'Picture processing' do
-      let(:big_picture) { Picture.create(:image_file => fixture_file_upload(File.expand_path('../../fixtures/80x60.png', __FILE__), 'image/png')) }
+      let(:big_picture) do
+        create(:picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/80x60.png', __FILE__), 'image/png'))
+      end
 
       context "with crop and size parameters" do
         it "should return a cropped image." do
@@ -240,20 +257,20 @@ module Alchemy
             size: '10x10',
             format: 'png'
           }
-          get :show, options.merge(id: big_picture.id, sh: big_picture.security_token(options))
+          alchemy_get :show, options.merge(id: big_picture.id, name: big_picture.urlname, sh: big_picture.security_token(options))
           expect(response.body[0x10..0x18].unpack('NN')).to eq([10,10])
         end
 
         context "without a full size specification" do
           it "should raise an error" do
             options = {
-              :crop => 'crop',
-              :size => '10',
-              :format => 'png'
+              crop: 'crop',
+              size: '10',
+              format: 'png'
             }
-            expect do
-              get :show, options.merge(:id => big_picture.id, :sh => big_picture.security_token(options))
-            end.to raise_error ArgumentError
+            expect {
+              alchemy_get :show, options.merge(id: big_picture.id, name: big_picture.urlname, sh: big_picture.security_token(options))
+            }.to raise_error ArgumentError
           end
         end
 
@@ -264,7 +281,7 @@ module Alchemy
               size: '10x10',
               format: 'png'
             }
-            get :show, options.merge(id: picture.id, sh: picture.security_token(options))
+            alchemy_get :show, options.merge(id: picture.id, name: big_picture.urlname, sh: picture.security_token(options))
             expect(response.body[0x10..0x18].unpack('NN')).to eq([1,1])
           end
         end
@@ -277,7 +294,7 @@ module Alchemy
               upsample: 'true',
               format: 'png'
             }
-            get :show, options.merge(id: picture.id, sh: picture.security_token(options))
+            alchemy_get :show, options.merge(id: picture.id, name: big_picture.urlname, sh: picture.security_token(options))
             expect(response.body[0x10..0x18].unpack('NN')).to eq([10,10])
           end
         end
@@ -286,32 +303,31 @@ module Alchemy
       context "without crop but with size parameter" do
         it "should resize the image preserving aspect ratio" do
           options = {
-            :size => '40x40',
-            :format => 'png'
+            size: '40x40',
+            format: 'png'
           }
-          get :show, options.merge(:id => big_picture.id, :sh => big_picture.security_token(options))
+          alchemy_get :show, options.merge(id: big_picture.id, name: big_picture.urlname, sh: big_picture.security_token(options))
           expect(response.body[0x10..0x18].unpack('NN')).to eq([40,30])
         end
 
         it "should resize the image inferring the height if not given" do
           options = {
-            :size => '40x',
-            :format => 'png'
+            size: '40x',
+            format: 'png'
           }
-          get :show, options.merge(:id => big_picture.id, :sh => big_picture.security_token(options))
+          alchemy_get :show, options.merge(id: big_picture.id, name: big_picture.urlname, sh: big_picture.security_token(options))
           expect(response.body[0x10..0x18].unpack('NN')).to eq([40,30])
         end
 
         it "should resize the image inferring the width if not given" do
           options = {
-            :size => 'x30',
-            :format => 'png'
+            size: 'x30',
+            format: 'png'
           }
-          get :show, options.merge(:id => big_picture.id, :sh => big_picture.security_token(options))
+          alchemy_get :show, options.merge(id: big_picture.id, name: big_picture.urlname, sh: big_picture.security_token(options))
           expect(response.body[0x10..0x18].unpack('NN')).to eq([40,30])
         end
       end
     end
-
   end
 end

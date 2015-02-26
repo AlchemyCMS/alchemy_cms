@@ -18,12 +18,12 @@ module Alchemy
       end
 
       it "assigns @essence_file with the EssenceFile found by id" do
-        get :edit, id: essence_file.id
+        alchemy_get :edit, id: essence_file.id
         expect(assigns(:essence_file)).to eq(essence_file)
       end
 
       it "should assign @content with essence_file's content" do
-        get :edit, id: essence_file.id
+        alchemy_get :edit, id: essence_file.id
         expect(assigns(:content)).to eq(content)
       end
     end
@@ -36,7 +36,7 @@ module Alchemy
       end
 
       it "should update the attributes of essence_file" do
-        xhr :put, :update, id: essence_file.id, essence_file: {title: 'new title', css_class: 'left'}
+        alchemy_xhr :put, :update, id: essence_file.id, essence_file: {title: 'new title', css_class: 'left'}
         expect(essence_file.title).to eq 'new title'
         expect(essence_file.css_class).to eq 'left'
       end
@@ -52,18 +52,18 @@ module Alchemy
       end
 
       it "should assign @attachment with the Attachment found by attachment_id" do
-        xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
+        alchemy_xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
         expect(assigns(:attachment)).to eq(attachment)
       end
 
       it "should assign @content.essence.attachment with the attachment found by id" do
         expect(content.essence).to receive(:attachment=).with(attachment)
-        xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
+        alchemy_xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
       end
 
       it "updates the @content.updated_at column" do
         expect {
-          xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
+          alchemy_xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
         }.to change(content, :updated_at)
       end
     end

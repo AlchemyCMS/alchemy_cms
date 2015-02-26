@@ -13,12 +13,12 @@ module Alchemy
       end
 
       it "assigns @last_edited_pages" do
-        get :index
+        alchemy_get :index
         expect(assigns(:last_edited_pages)).to eq([])
       end
 
       it "assigns @locked_pages" do
-        get :index
+        alchemy_get :index
         expect(assigns(:locked_pages)).to eq([])
       end
 
@@ -31,14 +31,14 @@ module Alchemy
           end
 
           it "assigns @online_users" do
-            get :index
+            alchemy_get :index
             expect(assigns(:online_users)).to eq([another_user])
           end
         end
 
         context 'without other users online' do
           it "does not assign @online_users" do
-            get :index
+            alchemy_get :index
             expect(assigns(:online_users)).to eq([])
           end
         end
@@ -51,20 +51,20 @@ module Alchemy
         end
 
         it "assigns @first_time" do
-          get :index
+          alchemy_get :index
           expect(assigns(:first_time)).to eq(false)
         end
       end
 
       it "assigns @sites" do
-        get :index
+        alchemy_get :index
         expect(assigns(:sites)).to eq(Site.all)
       end
     end
 
     describe '#info' do
       it "assigns @alchemy_version with the current Alchemy version" do
-        get :info
+        alchemy_get :info
         expect(assigns(:alchemy_version)).to eq(Alchemy.version)
       end
     end
@@ -77,7 +77,7 @@ module Alchemy
         }
 
         it "should render 'false'" do
-          get :update_check
+          alchemy_get :update_check
           expect(response.body).to eq('false')
         end
       end
@@ -89,7 +89,7 @@ module Alchemy
         }
 
         it "should render 'true'" do
-          get :update_check
+          alchemy_get :update_check
           expect(response.body).to eq('true')
         end
       end
@@ -103,7 +103,7 @@ module Alchemy
         }
 
         it "should have response code of 200" do
-          get :update_check
+          alchemy_get :update_check
           expect(response.code).to eq('200')
         end
       end
@@ -117,7 +117,7 @@ module Alchemy
         }
 
         it "should have response code of 200" do
-          get :update_check
+          alchemy_get :update_check
           expect(response.code).to eq('200')
         end
       end
@@ -130,7 +130,7 @@ module Alchemy
         }
 
         it "should have status code 503" do
-          get :update_check
+          alchemy_get :update_check
           expect(response.code).to eq('503')
         end
       end

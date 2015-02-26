@@ -19,7 +19,7 @@ describe Alchemy::Admin::LanguagesController do
       end
 
       it "uses it as page_layout-default for the new language" do
-        get :new
+        alchemy_get :new
         expect(assigns(:language).page_layout).to eq("new_standard")
       end
     end
@@ -36,7 +36,7 @@ describe Alchemy::Admin::LanguagesController do
       end
 
       it "falls back to default database value." do
-        get :new
+        alchemy_get :new
         expect(assigns(:language).page_layout).to eq("intro")
       end
     end
@@ -53,7 +53,7 @@ describe Alchemy::Admin::LanguagesController do
       end
 
       it "falls back to default database value." do
-        get :new
+        alchemy_get :new
         expect(assigns(:language).page_layout).to eq("intro")
       end
     end
