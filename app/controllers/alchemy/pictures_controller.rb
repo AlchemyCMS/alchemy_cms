@@ -46,6 +46,7 @@ module Alchemy
     end
 
     def send_image(image, format)
+      request.session_options[:skip] = true
       ALLOWED_IMAGE_TYPES.each do |type|
         format.send(type) do
           if type == 'jpeg'

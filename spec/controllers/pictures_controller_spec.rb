@@ -27,6 +27,16 @@ module Alchemy
       end
     end
 
+    describe '#show' do
+      it "skips the session cookie" do
+        expect {
+          alchemy_get :show, id: picture.id, name: picture.urlname, format: :png, sh: picture.security_token
+        }.to change {
+          request.session_options.fetch(:skip) { false }
+        }.to(true)
+      end
+    end
+
     context "Requesting a picture with tempared security token" do
       it "should render status 400" do
         alchemy_get :show, id: picture.id, name: picture.urlname, format: :png, sh: '14m4b4dh4ck3r'
