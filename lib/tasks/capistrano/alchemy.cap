@@ -13,7 +13,7 @@ namespace :alchemy do
       "uploads/pictures",
       "uploads/attachments",
       fetch(:alchemy_picture_cache_path),
-      "cache/assets"
+      "tmp/cache/assets"
     ] }
 
     # TODO: Check, if this is the right approach to ensure that we don't overwrite existing settings?
@@ -130,7 +130,7 @@ EOF
   end
 
   # TODO: Refactor me to use `linked_dirs`.
-  # Kepts for reference on what needs to be done
+  # Kept for reference on what needs to be done
   #
   # namespace :shared_folders do
   #   desc "Creates the uploads and picture cache directory in the shared folder. Called after deploy:setup"
