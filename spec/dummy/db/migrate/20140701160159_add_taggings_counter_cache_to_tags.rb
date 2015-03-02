@@ -1,1 +1,0 @@
-../../../../db/migrate/20140701160159_add_taggings_counter_cache_to_tags.rb
