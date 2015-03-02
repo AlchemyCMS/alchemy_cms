@@ -8,7 +8,7 @@ describe Alchemy::UserSessionsController do
   context 'without users present' do
     describe '#new' do
       it "redirects to signup form" do
-        get :new
+        alchemy_get :new
         is_expected.to redirect_to(admin_signup_path)
       end
 
@@ -18,7 +18,7 @@ describe Alchemy::UserSessionsController do
         end
 
         it 'redirects to https' do
-          get :new
+          alchemy_get :new
           is_expected.to redirect_to(
             login_url(protocol: 'https', host: "test.host")
           )
@@ -39,7 +39,7 @@ describe Alchemy::UserSessionsController do
 
         context 'without redirect path in session' do
           it "redirects to dashboard" do
-            post :create, user: user_params
+            alchemy_post :create, user: user_params
             expect(response).to redirect_to(admin_dashboard_path)
           end
         end
@@ -47,19 +47,19 @@ describe Alchemy::UserSessionsController do
         context 'with redirect path in session' do
           it "redirects to these params" do
             session[:redirect_path] = admin_users_path
-            post :create, user: user_params
+            alchemy_post :create, user: user_params
             expect(response).to redirect_to(admin_users_path)
           end
         end
 
         it "stores users screen size" do
-          post :create, user: user_params, user_screensize: screen_size
+          alchemy_post :create, user: user_params, user_screensize: screen_size
           expect(session[:screen_size]).to eq(screen_size)
         end
 
         context 'without valid params' do
           it "renders login form" do
-            post :create, user: {login: ''}
+            alchemy_post :create, user: {login: ''}
             is_expected.to render_template(:new)
           end
         end
@@ -77,7 +77,7 @@ describe Alchemy::UserSessionsController do
 
       it "should unlock all pages" do
         expect(user).to receive(:unlock_pages!)
-        delete :destroy
+        alchemy_delete :destroy
       end
 
       context 'comming from admin area' do
@@ -88,7 +88,7 @@ describe Alchemy::UserSessionsController do
         end
 
         it "redirects to root" do
-          delete :destroy
+          alchemy_delete :destroy
           is_expected.to redirect_to(root_path)
         end
       end
@@ -101,7 +101,7 @@ describe Alchemy::UserSessionsController do
         end
 
         it "redirects to root" do
-          delete :destroy
+          alchemy_delete :destroy
           is_expected.to redirect_to(root_path)
         end
       end
@@ -114,7 +114,7 @@ describe Alchemy::UserSessionsController do
         end
 
         it "redirects to root" do
-          delete :destroy
+          alchemy_delete :destroy
           is_expected.to redirect_to('/imprint')
         end
       end

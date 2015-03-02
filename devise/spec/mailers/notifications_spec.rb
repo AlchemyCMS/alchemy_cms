@@ -19,15 +19,15 @@ module Alchemy
       end
 
       it "mail body includes users name" do
-        expect(mail.body).to have_content user.name
+        expect(mail.body.raw_source).to have_content user.name
       end
 
       it "mail body includes users login" do
-        expect(mail.body).to have_content user.login
+        expect(mail.body.raw_source).to have_content user.login
       end
 
       it "mail body includes password instructions" do
-        expect(mail.body).to match /#{Regexp.escape(new_password_url(email: user.email, use_route: 'alchemy', only_path: true))}/
+        expect(mail.body.raw_source).to match /#{Regexp.escape(new_password_url(email: user.email, only_path: true))}/
       end
     end
 
@@ -41,11 +41,11 @@ module Alchemy
       end
 
       it "mail body includes users login" do
-        expect(mail.body).to match /#{user.login}/
+        expect(mail.body.raw_source).to match /#{user.login}/
       end
 
       it "mail body includes password instructions" do
-        expect(mail.body).to match /#{Regexp.escape(new_password_url(use_route: 'alchemy', only_path: true))}/
+        expect(mail.body.raw_source).to match /#{Regexp.escape(new_password_url(only_path: true))}/
       end
     end
 
@@ -71,11 +71,11 @@ module Alchemy
       end
 
       it "mail body includes users name" do
-        expect(mail.body).to match /#{user.name}/
+        expect(mail.body.raw_source).to match /#{user.name}/
       end
 
       it "mail body includes reset instructions" do
-        expect(mail.body).to match /#{Regexp.escape(edit_password_url(user, reset_password_token: token, use_route: 'alchemy', only_path: true))}/
+        expect(mail.body.raw_source).to match /#{Regexp.escape(edit_password_url(user, reset_password_token: token, only_path: true))}/
       end
     end
   end
