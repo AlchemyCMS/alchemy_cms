@@ -36,8 +36,8 @@ namespace :alchemy do
     system("rails g alchemy:scaffold#{ ENV['from_binary'] ? ' --force' : '' }") || exit!(1)
     Alchemy::InstallTask.new.set_primary_language
     Rake::Task["db:create"].invoke
-    Rake::Task["alchemy:install:migrations"].invoke
-    Rake::Task["acts_as_taggable_on_engine:install:migrations"].invoke
+    # We can't invoke this rake task, because Rails will use wrong engine names otherwise
+    `bundle exec rake railties:install:migrations`
     Rake::Task["db:migrate"].invoke
     Rake::Task["alchemy:db:seed"].invoke
     unless ENV['from_binary']
