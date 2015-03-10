@@ -1,11 +1,11 @@
-require 'simplecov'
 if ENV['TRAVIS']
-  require 'coveralls'
-  SimpleCov.formatter = Coveralls::SimpleCov::Formatter
+  require "codeclimate-test-reporter"
+  CodeClimate::TestReporter.start
 else
+  require 'simplecov'
   SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
+  SimpleCov.start 'rails'
 end
-SimpleCov.start 'rails'
 
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"

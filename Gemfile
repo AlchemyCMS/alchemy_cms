@@ -10,9 +10,9 @@ group :development, :test do
   gem 'jasmine-rails',        github: 'searls/jasmine-rails'
   gem 'jasmine-jquery-rails', github: 'travisjeffery/jasmine-jquery-rails'
   if ENV['TRAVIS']
-    gem 'coveralls',          require: false
+    gem "codeclimate-test-reporter", require: false
   else
-    gem 'simplecov',          require: false
+    gem 'simplecov',                 require: false
   end
   unless ENV['CI']
     gem 'launchy'

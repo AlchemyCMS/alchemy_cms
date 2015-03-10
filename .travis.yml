@@ -20,3 +20,6 @@ notifications:
     use_notice: true
     channels:
       - "irc.freenode.org#alchemy_cms"
+addons:
+  code_climate:
+    repo_token: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
