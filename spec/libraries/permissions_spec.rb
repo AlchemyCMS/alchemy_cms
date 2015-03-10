@@ -122,7 +122,10 @@ describe Alchemy::Permissions do
       should be_able_to(:link, Alchemy::Page)
       should be_able_to(:visit, Alchemy::Page)
       should be_able_to(:unlock, Alchemy::Page)
-      should be_able_to(:publish, Alchemy::Page)
+    end
+
+    it "can not publish pages" do
+      should_not be_able_to(:publish, Alchemy::Page)
     end
 
     it "can manage elements" do
@@ -178,6 +181,10 @@ describe Alchemy::Permissions do
       should be_able_to(:order, Alchemy::Page)
       should be_able_to(:sort, Alchemy::Page)
       should be_able_to(:switch_language, Alchemy::Page)
+    end
+
+    it "can publish pages" do
+      should be_able_to(:publish, Alchemy::Page)
     end
 
     it "can not see invisible pages" do
