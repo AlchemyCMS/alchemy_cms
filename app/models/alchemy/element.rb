@@ -69,24 +69,32 @@ module Alchemy
     class << self
 
       # Builds a new element as described in +/config/alchemy/elements.yml+
-      def new_from_scratch(attributes)
+      #
+      # - Returns a new Alchemy::Element object if no name is given in attributes,
+      #   because the definition can not be found w/o name
+      # - Raises Alchemy::ElementDefinitionError if no definition for given attributes[:name]
+      #   could be found
+      #
+      def new_from_scratch(attributes = {})
         attributes = attributes.dup.symbolize_keys
+
         return new if attributes[:name].blank?
-        return nil if definitions.blank?
-        # clean the name from cell name
-        attributes[:name] = attributes[:name].split('#').first
-        if element_scratch = definitions.detect { |el| el['name'] == attributes[:name] }
-          new(element_scratch.merge(attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
-        else
-          raise ElementDefinitionError, "Element definition for #{attributes[:name]} not found. Please check your elements.yml"
-        end
+
+        new_element_from_definition_by(attributes) ||
+          raise(ElementDefinitionError.new(attributes))
       end
 
-      # Builds a new element as described in +/config/alchemy/elements.yml+ and saves it
+      # Creates a new element as described in +/config/alchemy/elements.yml+
+      #
+      # - Returns a new Alchemy::Element object if no name is given in attributes,
+      #   because the definition can not be found w/o name
+      # - Raises Alchemy::ElementDefinitionError if no definition for given attributes[:name]
+      #   could be found
+      #
       def create_from_scratch(attributes)
         element = new_from_scratch(attributes)
         element.save if element
-        return element
+        element
       end
 
       # This methods does a copy of source and all depending contents and all of their depending essences.
@@ -127,6 +135,20 @@ module Alchemy
         }
       end
 
+      private
+
+      def new_element_from_definition_by(attributes)
+        remove_cell_name_from_element_name!(attributes)
+
+        element_scratch = definitions.detect { |el| el['name'] == attributes[:name] }
+        return if element_scratch.nil?
+
+        new(element_scratch.merge(attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
+      end
+
+      def remove_cell_name_from_element_name!(attributes)
+        attributes[:name] = attributes[:name].split('#').first
+      end
     end
 
     # Returns next public element from same page.
@@ -192,9 +214,7 @@ module Alchemy
     #       rss_title: true
     #
     def content_for_rss_title
-      rss_title = content_descriptions.detect { |c| c['rss_title'] }
-      return if rss_title.blank?
-      contents.find_by_name(rss_title['name'])
+      content_for_rss_meta('title')
     end
 
     # Returns the content that is marked as rss description.
@@ -208,9 +228,7 @@ module Alchemy
     #       rss_description: true
     #
     def content_for_rss_description
-      rss_description = content_descriptions.detect { |c| c['rss_description'] }
-      return if rss_description.blank?
-      contents.find_by_name(rss_description['name'])
+      content_for_rss_meta('description')
     end
 
     # Returns the array with the hashes for all element contents in the elements.yml file
@@ -422,6 +440,12 @@ module Alchemy
     end
 
     private
+
+    def content_for_rss_meta(type)
+      description = content_descriptions.detect { |c| c["rss_#{type}"] }
+      return if description.blank?
+      contents.find_by(name: description['name'])
+    end
 
     # creates the contents for this element as described in the elements.yml
     def create_contents

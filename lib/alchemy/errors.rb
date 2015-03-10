@@ -19,6 +19,13 @@ module Alchemy
 
   class ElementDefinitionError < StandardError
     # Raised if element definition can not be found.
+    def initialize(attributes)
+      @name = attributes[:name]
+    end
+
+    def message
+      "Element definition for #{@name} not found. Please check your elements.yml"
+    end
   end
 
   class EssenceMissingError < StandardError
