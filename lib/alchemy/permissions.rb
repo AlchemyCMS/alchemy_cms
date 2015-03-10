@@ -145,6 +145,7 @@ module Alchemy
           :destroy,
           :flush,
           :order,
+          :publish,
           :sort,
           :switch_language
         ], Alchemy::Page
@@ -197,7 +198,6 @@ module Alchemy
         :fold,
         :info,
         :link,
-        :publish,
         :read,
         :update,
         :unlock,

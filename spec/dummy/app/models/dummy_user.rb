@@ -6,6 +6,6 @@ class DummyUser < ActiveRecord::Base
   end
 
   def alchemy_roles
-    %w(admin)
+    @alchemy_roles || %w(admin)
   end
 end
