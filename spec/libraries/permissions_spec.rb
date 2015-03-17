@@ -150,7 +150,10 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:link, Alchemy::Page)
       is_expected.to be_able_to(:visit, Alchemy::Page)
       is_expected.to be_able_to(:unlock, Alchemy::Page)
-      is_expected.to be_able_to(:publish, Alchemy::Page)
+    end
+
+    it "can not publish pages" do
+      is_expected.to_not be_able_to(:publish, Alchemy::Page)
     end
 
     it "can manage elements" do
@@ -206,6 +209,10 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:order, Alchemy::Page)
       is_expected.to be_able_to(:sort, Alchemy::Page)
       is_expected.to be_able_to(:switch_language, Alchemy::Page)
+    end
+
+    it "can publish pages" do
+      is_expected.to be_able_to(:publish, Alchemy::Page)
     end
 
     it "can not see invisible pages" do
