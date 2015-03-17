@@ -439,6 +439,20 @@ module Alchemy
       "alchemy/elements/#{name}_view"
     end
 
+    # Returns the key that's taken for cache path.
+    #
+    # Uses the page's +published_at+ value that's updated when the user publishes the page.
+    #
+    # If the page is the current preview it uses the element's updated_at value as cache key.
+    #
+    def cache_key
+      if Page.current_preview == self.page
+        "alchemy/elements/#{id}-#{updated_at}"
+      else
+        "alchemy/elements/#{id}-#{page.published_at}"
+      end
+    end
+
     private
 
     def content_for_rss_meta(type)
