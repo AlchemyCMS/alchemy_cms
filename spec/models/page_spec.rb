@@ -715,9 +715,27 @@ module Alchemy
     end
 
     describe '#cache_key' do
-      let(:page) { stub_model(Page) }
-      subject { page }
-      its(:cache_key) { should match(page.id.to_s) }
+      let(:page) do
+        stub_model(Page, updated_at: Time.now, published_at: Time.now - 1.week)
+      end
+
+      subject { page.cache_key }
+
+      before do
+        expect(Page).to receive(:current_preview).and_return(preview)
+      end
+
+      context "when current page rendered in preview mode" do
+        let(:preview) { page }
+
+        it { is_expected.to eq("alchemy/pages/#{page.id}-#{page.updated_at}") }
+      end
+
+      context "when current page not in preview mode" do
+        let(:preview) { nil }
+
+        it { is_expected.to eq("alchemy/pages/#{page.id}-#{page.published_at}") }
+      end
     end
 
     describe '#cell_definitions' do
