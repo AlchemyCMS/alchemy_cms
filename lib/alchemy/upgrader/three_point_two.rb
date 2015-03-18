@@ -32,7 +32,7 @@ module Alchemy
     def upgrade_acts_as_taggable_on_migrations
       # We can't invoke this rake task, because Rails will use wrong engine names otherwise
       `bundle exec rake railties:install:migrations`
-      Alchemy::Upgrader::ThreePointOneTask.new.patch_acts_as_taggable_on_migrations
+      Alchemy::Upgrader::ThreePointTwoTask.new.patch_acts_as_taggable_on_migrations
       Rake::Task["db:migrate"].invoke
     end
   end
