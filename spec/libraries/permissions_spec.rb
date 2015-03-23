@@ -251,4 +251,13 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:manage, Alchemy::Site)
     end
   end
+
+  context "A logged in user without a role" do
+    let(:user) { mock_user([]) }
+
+    it "can only see visible not restricted pages (like the guest role)" do
+      is_expected.to be_able_to(:see, visible_page)
+      is_expected.not_to be_able_to(:see, not_visible_page)
+    end
+  end
 end
