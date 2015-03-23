@@ -6,7 +6,7 @@ module Alchemy
     #
     def index
       @pages = Page.accessible_by(current_ability, :index)
-      if params[:page_layout]
+      if params[:page_layout].present?
         @pages = @pages.where(page_layout: params[:page_layout])
       end
       respond_with @pages

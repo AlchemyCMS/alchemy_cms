@@ -4,24 +4,32 @@ module Alchemy
   describe Api::PagesController do
 
     describe '#index' do
-      let!(:page)    { create(:public_page) }
+      let!(:page) { create(:public_page) }
 
       it "returns all public pages as json objects" do
         alchemy_get :index, format: :json
         expect(response.status).to eq(200)
         expect(response.content_type).to eq('application/json')
-        expect(response.body).to_not eq('{"pages":[]}')
+        expect(response.body).to eq("{\"pages\":[#{PageSerializer.new(page.parent).to_json},#{PageSerializer.new(page).to_json}]}")
       end
 
       context 'with page_layout' do
         let!(:other_page) { create(:public_page, page_layout: 'news') }
 
-        it "returns only pages from this element" do
+        it "returns only pages with this page layout" do
           alchemy_get :index, {page_layout: 'news', format: :json}
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
-          expect(response.body).to_not eq('{"pages":[]}')
-          expect(response.body).to_not match(/page_layout\"\:#{page.page_layout}/)
+          expect(response.body).to eq("{\"pages\":[#{PageSerializer.new(other_page).to_json}]}")
+        end
+      end
+
+      context 'with empty string as page_layout' do
+        it "returns all pages" do
+          alchemy_get :index, {page_layout: '', format: :json}
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+          expect(response.body).to eq("{\"pages\":[#{PageSerializer.new(page.parent).to_json},#{PageSerializer.new(page).to_json}]}")
         end
       end
     end
@@ -34,10 +42,11 @@ module Alchemy
           expect(Page).to receive(:find_by).and_return(page)
         end
 
-        it "responds to json" do
+        it "returns page as json" do
           alchemy_get :show, {urlname: page.urlname, format: :json}
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
+          expect(response.body).to eq(PageSerializer.new(page).to_json)
         end
 
         context 'requesting an restricted page' do
@@ -79,6 +88,7 @@ module Alchemy
           alchemy_get :show, {id: page.id, format: :json}
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
+          expect(response.body).to eq(PageSerializer.new(page).to_json)
         end
       end
     end

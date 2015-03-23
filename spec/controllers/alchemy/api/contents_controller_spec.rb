@@ -11,7 +11,7 @@ module Alchemy
         alchemy_get :index, format: :json
         expect(response.status).to eq(200)
         expect(response.content_type).to eq('application/json')
-        expect(response.body).to_not eq('{"contents":[]}')
+        expect(response.body).to eq("{\"contents\":[#{ContentSerializer.new(content).to_json}]}")
       end
 
       context 'with element_id' do
@@ -19,11 +19,19 @@ module Alchemy
         let!(:other_content) { create(:content, element: other_element) }
 
         it "returns only contents from this element" do
+          alchemy_get :index, element_id: other_element.id, format: :json
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+          expect(response.body).to eq("{\"contents\":[#{ContentSerializer.new(other_content).to_json}]}")
+        end
+      end
+
+      context 'with empty element_id' do
+        it "returns all contents" do
           alchemy_get :index, element_id: element.id, format: :json
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
-          expect(response.body).to_not eq('{"contents":[]}')
-          expect(response.body).to_not match(/element_id\"\:#{other_element.id}/)
+          expect(response.body).to eq("{\"contents\":[#{ContentSerializer.new(content).to_json}]}")
         end
       end
     end
@@ -38,10 +46,11 @@ module Alchemy
           expect(Content).to receive(:find).and_return(content)
         end
 
-        it "responds to json" do
+        it "returns content as json" do
           alchemy_get :show, id: content.id, format: :json
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
+          expect(response.body).to eq(ContentSerializer.new(content).to_json)
         end
 
         context 'requesting an restricted content' do
@@ -51,6 +60,7 @@ module Alchemy
             alchemy_get :show, id: content.id, format: :json
             expect(response.content_type).to eq('application/json')
             expect(response.status).to eq(403)
+            expect(response.body).to eq('{"error":"Not authorized"}')
           end
         end
       end
@@ -64,8 +74,16 @@ module Alchemy
           alchemy_get :show, element_id: element.id, name: content.name, format: :json
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
-          expect(response.body).to match(/element_id\"\:#{element.id}/)
-          expect(response.body).to match(/name\"\:\"#{content.name}\"/)
+          expect(response.body).to eq(ContentSerializer.new(content).to_json)
+        end
+      end
+
+      context 'with empty element_id or name param' do
+        it 'returns 404 error.' do
+          alchemy_get :show, element_id: '', name: '', format: :json
+          expect(response.status).to eq(404)
+          expect(response.content_type).to eq('application/json')
+          expect(response.body).to eq("{\"error\":\"Record not found\"}")
         end
       end
     end

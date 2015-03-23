@@ -7,7 +7,7 @@ module Alchemy
     #
     def index
       @contents = Content.accessible_by(current_ability, :index)
-      if params[:element_id]
+      if params[:element_id].present?
         @contents = @contents.where(element_id: params[:element_id])
       end
       respond_with @contents

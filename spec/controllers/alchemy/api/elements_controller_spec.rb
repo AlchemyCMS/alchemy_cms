@@ -10,20 +10,29 @@ module Alchemy
         alchemy_get :index, format: :json
         expect(response.status).to eq(200)
         expect(response.content_type).to eq('application/json')
-        expect(response.body).to_not eq('{"elements":[]}')
+        expect(response.body).to_not eq('{"elements:[]"}')
+        expect(response.body).to eq("{\"elements\":[#{ElementSerializer.new(element).to_json}]}")
       end
 
       context 'with page_id param' do
         let!(:other_page)    { create(:public_page) }
         let!(:other_element) { create(:element, page: other_page) }
 
-        it "returns only elements from this element" do
+        it "returns only elements from this page" do
           alchemy_get :index, page_id: other_page.id, format: :json
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
-          expect(response.body).to_not eq('{"elements":[]}')
-          expect(response.body).to match(/page_id\"\:#{other_page.id}/)
-          expect(response.body).to_not match(/page_id\"\:#{page.id}/)
+          expect(response.body).to eq("{\"elements\":[#{ElementSerializer.new(other_element).to_json}]}")
+        end
+      end
+
+      context 'with empty page_id param' do
+        it "returns all elements" do
+          alchemy_get :index, page_id: '', format: :json
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+          expect(response.body).to_not eq('{"elements:[]"}')
+          expect(response.body).to eq("{\"elements\":[#{ElementSerializer.new(element).to_json}]}")
         end
       end
 
@@ -34,9 +43,17 @@ module Alchemy
           alchemy_get :index, named: 'news', format: :json
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
-          expect(response.body).to_not eq('{"elements":[]}')
-          expect(response.body).to match(/name\"\:\"#{other_element.name}\"/)
-          expect(response.body).to_not match(/name\"\:\"#{element.name}\"/)
+          expect(response.body).to eq("{\"elements\":[#{ElementSerializer.new(other_element).to_json}]}")
+        end
+      end
+
+      context 'with empty named param' do
+        it "returns all elements" do
+          alchemy_get :index, named: '', format: :json
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+          expect(response.body).to_not eq('{"elements:[]"}')
+          expect(response.body).to eq("{\"elements\":[#{ElementSerializer.new(element).to_json}]}")
         end
       end
     end
@@ -49,10 +66,11 @@ module Alchemy
         expect(Element).to receive(:find).and_return(element)
       end
 
-      it "responds to json" do
+      it "returns element as json" do
         alchemy_get :show, id: element.id, format: :json
         expect(response.status).to eq(200)
         expect(response.content_type).to eq('application/json')
+        expect(response.body).to eq(ElementSerializer.new(element).to_json)
       end
 
       context 'requesting an restricted element' do
@@ -62,6 +80,7 @@ module Alchemy
           alchemy_get :show, id: element.id, format: :json
           expect(response.content_type).to eq('application/json')
           expect(response.status).to eq(403)
+          expect(response.body).to eq('{"error":"Not authorized"}')
         end
       end
     end
