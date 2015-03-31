@@ -66,8 +66,8 @@ module Alchemy
         Alchemy.registered_abilities.each do |klass|
           alchemy_permissions.merge(klass.new(current_alchemy_user))
         end
-        if (Object.const_get('Ability') rescue false)
-          alchemy_permissions.merge(Ability.new(current_alchemy_user))
+        if (Object.const_get('::Ability') rescue false)
+          alchemy_permissions.merge(::Ability.new(current_alchemy_user))
         end
         alchemy_permissions
       end
