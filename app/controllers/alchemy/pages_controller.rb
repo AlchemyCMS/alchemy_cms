@@ -6,7 +6,7 @@ module Alchemy
     # Anyone with a better idea please provide a patch.
     include Alchemy::BaseHelper
 
-    rescue_from ActionController::RoutingError, :with => :render_404
+    # rescue_from ActionController::RoutingError, :with => :render_404
 
     before_action :enforce_primary_host_for_site
     before_action :render_page_or_redirect, only: [:show]

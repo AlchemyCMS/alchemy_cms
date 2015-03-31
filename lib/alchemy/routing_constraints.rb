@@ -1,0 +1,38 @@
+module Alchemy
+
+  # Routing constraints for Alchemy's strong catch all route.
+  #
+  # Alchemy has a very strong catch all route.
+  # But we don't want to handle all requests.
+  #
+  # For instance we only want to handle html requests and
+  # don't want to swallow the rails/info routes in development mode.
+  #
+  class RoutingConstraints
+    LANG_REGEXP = /\A[a-z]{2}(-[a-z]{2})?\z/
+
+    def matches?(request)
+      @request = request
+      @params = @request.params
+
+      handable_format? && no_rails_route?
+    end
+
+    private
+
+    # We only want html requests to be handled by us.
+    #
+    # If an unknown format is requested we want to handle this,
+    # because it could be a legacy route that needs to be redirected.
+    #
+    def handable_format?
+      @request.format.symbol.nil? || (@request.format.symbol == :html)
+    end
+
+    # We don't want to handle the Rails info routes.
+    def no_rails_route?
+      return true if !%w(development test).include?(Rails.env)
+      (@params['urlname'] =~ /\Arails\//).nil?
+    end
+  end
+end

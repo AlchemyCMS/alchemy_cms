@@ -212,4 +212,42 @@ describe "The Routing" do
 
   end
 
+  describe "image format requests" do
+    it "should not be handled by alchemy/pages controller" do
+      expect({
+        get: "/products/my-product.jpg"
+      }).not_to be_routable
+    end
+  end
+
+  describe "unknown formats" do
+    it "should be handled by alchemy/pages controller" do
+      expect({
+        get: "/index.php?id=234"
+      }).to route_to(
+        controller: "alchemy/pages",
+        action: "show",
+        urlname: "index",
+        format: "php",
+        id: "234"
+      )
+
+      expect({
+        get: "/action.do"
+      }).to route_to(
+        controller: "alchemy/pages",
+        action: "show",
+        urlname: "action",
+        format: "do"
+      )
+    end
+  end
+
+  describe "Rails info requests" do
+    it "should not be handled by alchemy/pages controller" do
+      expect({
+        get: "/rails/info/routes"
+      }).not_to be_routable
+    end
+  end
 end
