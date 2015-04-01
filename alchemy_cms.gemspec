@@ -26,7 +26,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'awesome_nested_set',               ['~> 3.0.0']
   gem.add_runtime_dependency 'cancancan',                        ['~> 1.9']
   gem.add_runtime_dependency 'coffee-rails',                     ['~> 4.0']
-  gem.add_runtime_dependency 'compass-rails',                    ['>= 1.1.2']
+  gem.add_runtime_dependency 'compass-rails',                    ['~> 2.0', '>= 2.0.4']
   gem.add_runtime_dependency 'dragonfly',                        ['~> 1.0.1']
   gem.add_runtime_dependency 'jquery-rails',                     ['~> 4.0.3']
   gem.add_runtime_dependency 'jquery-ui-rails',                  ['~> 5.0.0']
