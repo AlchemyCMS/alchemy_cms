@@ -1,58 +1,62 @@
 require 'spec_helper'
 
-describe "Picture Library", type: :feature, js: true do
-
+RSpec.feature "Picture Library" do
   before do
     authorize_as_admin
   end
 
   describe "Tagging" do
+    let!(:picture_1) { create(:picture, tag_list: 'tag1', name: 'TaggedWith1') }
+    let!(:picture_2) { create(:picture, tag_list: 'tag2', name: 'TaggedWith2') }
 
-    before do
-      picture = FactoryGirl.create(:picture, tag_list: 'tag1', name: 'TaggedWith1')
-      picture = FactoryGirl.create(:picture, tag_list: 'tag2', name: 'TaggedWith2')
+    scenario "it's possible to filter tags by clicking on its name in the tag list." do
+      visit alchemy.admin_pictures_path
+
+      click_on 'tag1 (1)'
+
+      expect(page).to have_content('TaggedWith1')
+      expect(page).not_to have_content('TaggedWith2')
     end
 
-    it "it should be possible to filter tags by clicking on its name in the tag list" do
-      visit '/admin/pictures'
+    scenario "it's possible to undo tag filtering by clicking on an active tag name" do
+      visit alchemy.admin_pictures_path
+
       click_on 'tag1 (1)'
-      expect(page).to have_content 'TaggedWith1'
-      expect(page).not_to have_content 'TaggedWith2'
+
+      expect(page).to have_content('TaggedWith1')
+      expect(page).not_to have_content('TaggedWith2')
+
+      click_on 'tag1 (1)'
+
+      expect(page).to have_content('TaggedWith1')
+      expect(page).to have_content('TaggedWith2')
     end
 
-    it "it should be possible to undo tag filtering by clicking on an active tag name" do
-      visit '/admin/pictures'
-      click_on 'tag1 (1)'
-      expect(page).not_to have_content 'TaggedWith2'
-      click_on 'tag1 (1)'
-      expect(page).to have_content 'TaggedWith2'
-    end
+    scenario "it's possible to tighten the tag scope by clicking on another tag name." do
+      visit alchemy.admin_pictures_path
 
-    it "it should be possible to tighten the tag scope by clicking on another tag name" do
-      visit '/admin/pictures'
       click_on 'tag1 (1)'
       click_on 'tag2 (1)'
-      expect(page).to have_content "You don't have any images in your archive"
-    end
 
+      expect(page).to have_content("You don't have any images in your archive")
+    end
   end
 
   describe "Filter by tag" do
+    let!(:picture) { create(:picture, tag_list: 'bla') }
 
-    before do
-      FactoryGirl.create(:picture, tag_list: 'bla')
+    scenario "lists all applied tags." do
+      visit alchemy.admin_pictures_path
+
+      expect(page).to have_content('bla')
     end
 
-    it "should list all applied tags" do
-      visit '/admin/pictures'
-      expect(page).to have_content 'bla'
-    end
+    scenario "it's possible to filter pictures by tag." do
+      visit alchemy.admin_pictures_path
 
-    it "should be possible to filter pictures by tag" do
-      visit '/admin/pictures'
       click_on 'bla (1)'
-      expect(page).to have_content 'bla'
-    end
 
+      expect(page).to have_content('bla')
+    end
   end
 end
