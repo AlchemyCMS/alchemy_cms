@@ -2,6 +2,23 @@ require 'spec_helper'
 
 module Alchemy
   describe Api::ContentsController do
+    # We need to be sure, that the timestamps are always the same,
+    # while comparing json objects
+    before do
+      allow_any_instance_of(Alchemy::Content).
+        to receive(:created_at).and_return(Time.now)
+      allow_any_instance_of(Alchemy::Content).
+        to receive(:updated_at).and_return(Time.now)
+      allow_any_instance_of(Alchemy::EssenceText).
+        to receive(:created_at).and_return(Time.now)
+      allow_any_instance_of(Alchemy::EssenceText).
+        to receive(:updated_at).and_return(Time.now)
+      allow_any_instance_of(Alchemy::EssenceRichtext).
+        to receive(:created_at).and_return(Time.now)
+      allow_any_instance_of(Alchemy::EssenceRichtext).
+        to receive(:updated_at).and_return(Time.now)
+    end
+
     describe '#index' do
       let!(:page)    { create(:page) }
       let!(:element) { create(:element, page: page) }

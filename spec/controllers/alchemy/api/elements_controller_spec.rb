@@ -2,6 +2,15 @@ require 'spec_helper'
 
 module Alchemy
   describe Api::ElementsController do
+    # We need to be sure, that the timestamps are always the same,
+    # while comparing json objects
+    before do
+      allow_any_instance_of(Alchemy::Element).
+        to receive(:created_at).and_return(Time.now)
+      allow_any_instance_of(Alchemy::Element).
+        to receive(:updated_at).and_return(Time.now)
+    end
+
     describe '#index' do
       let!(:page)    { create(:public_page) }
       let!(:element) { create(:element, page: page) }
