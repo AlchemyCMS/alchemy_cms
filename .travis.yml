@@ -24,4 +24,4 @@ notifications:
     secure: QzOFw1Ph69pzwWBFgtIVkOnjbcRxB9HPRQ+RYjK+2tg+fsbiTJ+wYgHcZL49tPYcLAls4kymkFWzWBF3PCAXJMfKgUCqXzdQ2FuJC/JoVRTLll4wDnZFPG33jsm5tVznmycZ3ma4+ZWfJQ+C+elEBOba6v1kG9eGIy6sH2cvXfE=
 addons:
   code_climate:
-    repo_token: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
+    secure: qmOMqc4FUBRP25XqaYIKuxZQ/GrGLKjIc3vUqZa+XfkQKh6xLXvOF7YUM/XJZ5u6D6hk0Ly8UxjctvDY+tQxEAK49lFwK51i7bODfkQjfVBrFzfht7QhxY5HJKx7F0HHmpyNJet4n8mR0gGlhwVyXv+Tz7Rm6O3Hq3+TEbY9+pk=
