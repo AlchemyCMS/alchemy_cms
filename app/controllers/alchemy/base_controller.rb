@@ -61,13 +61,6 @@ module Alchemy
       ActionMailer::Base.default_url_options[:host] = request.host_with_port
     end
 
-    def render_404(exception = nil)
-      if exception
-        logger.info "Rendering 404: #{exception.message}"
-      end
-      render :file => Rails.root.join("public/404.html"), :status => 404, :layout => false
-    end
-
     # Enforce ssl for login and all admin modules.
     #
     # Default is +false+
@@ -150,10 +143,5 @@ WARN
       Rails.logger.error("\n#{e.class} #{e.message} in #{e.backtrace.first}")
       Rails.logger.error(e.backtrace[1..50].each { |l| l.gsub(/#{Rails.root.to_s}/, '') }.join("\n"))
     end
-
-    def raise_authorization_exception(exception)
-      raise("Not permitted to #{exception.action} #{exception.subject}")
-    end
-
   end
 end

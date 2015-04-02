@@ -15,8 +15,9 @@ module Alchemy
       before { allow(controller).to receive(:current_alchemy_user).and_return(author_user) }
 
       it "should not be able to visit a unpublic page" do
-        alchemy_get :show, urlname: unpublic.urlname
-        expect(response.status).to eq(404)
+        expect {
+          alchemy_get :show, urlname: unpublic.urlname
+        }.to raise_error(ActionController::RoutingError)
       end
     end
 
@@ -75,18 +76,18 @@ module Alchemy
 
       context "with incorrect levelnames in params" do
         it "should render a 404 page" do
-          alchemy_get :show, {urlname: 'catalog/faqs/screwdriver'}
-          expect(response.status).to eq(404)
-          expect(response.body).to have_content('The page you were looking for doesn\'t exist')
+          expect {
+            alchemy_get :show, {urlname: 'catalog/faqs/screwdriver'}
+          }.to raise_error(ActionController::RoutingError)
         end
       end
     end
 
     context "when a non-existent page is requested" do
       it "should rescue a RoutingError with rendering a 404 page." do
-        alchemy_get :show, {urlname: 'doesntexist'}
-        expect(response.status).to eq(404)
-        expect(response.body).to have_content('The page you were looking for doesn\'t exist')
+        expect {
+          alchemy_get :show, {urlname: 'doesntexist'}
+        }.to raise_error(ActionController::RoutingError)
       end
     end
 
@@ -184,12 +185,12 @@ module Alchemy
 
         context "with no lang parameter present" do
           it "should store defaults language id in the session." do
-            alchemy_get :show, urlname: 'a-public-page'
+            alchemy_get :show, urlname: page.urlname
             expect(controller.session[:alchemy_language_id]).to eq(Language.default.id)
           end
 
           it "should store default language as class var." do
-            alchemy_get :show, urlname: 'a-public-page'
+            alchemy_get :show, urlname: page.urlname
             expect(Language.current).to eq(Language.default)
           end
         end

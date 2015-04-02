@@ -71,14 +71,13 @@ module Alchemy
 
     def render_page_or_redirect
       @page ||= load_page
+
       if signup_required?
         redirect_to Alchemy.signup_path
       elsif @page.nil? && last_legacy_url
         @page = last_legacy_url.page
-
         # This drops the given query string.
         redirect_legacy_page
-
       elsif @page.blank?
         raise_not_found_error
       elsif multi_language? && params[:locale].blank?
