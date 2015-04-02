@@ -12,7 +12,7 @@ describe "element trash feature", js: true do
 
   it "removes an element from the list" do
     expect(page).to have_selector(".element_editor", count: 1)
-    within ".alchemy-elements-window .element_editor:first" do
+    within ".alchemy-elements-window .element_editor:first-of-type" do
       click_link Alchemy::I18n.t("trash element")
     end
     expect(page).to have_content Alchemy::I18n.t('Element trashed')

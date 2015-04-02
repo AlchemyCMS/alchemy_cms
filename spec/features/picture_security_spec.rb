@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'Picture renderung security', :js => true do
+describe 'Picture renderung security' do
 
   let(:picture) { Alchemy::Picture.create(:image_file => File.new(File.expand_path('../../fixtures/image.png', __FILE__))) }
 
@@ -23,7 +23,7 @@ describe 'Picture renderung security', :js => true do
     end
 
     it 'should return image' do
-      page.body.should match(/img/)
+      page.body.should match(/PNG/)
     end
 
     it 'should return status ok (200)' do
