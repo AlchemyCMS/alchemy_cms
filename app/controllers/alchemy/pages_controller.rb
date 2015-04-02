@@ -26,6 +26,8 @@ module Alchemy
           end
         end
       end
+    rescue ActionController::UnknownFormat
+      page_not_found!
     end
 
     # Renders a search engine compatible xml sitemap.
@@ -74,12 +76,12 @@ module Alchemy
 
       if signup_required?
         redirect_to Alchemy.signup_path
-      elsif @page.nil? && last_legacy_url
+      elsif (@page.nil? || request.format.nil?) && last_legacy_url
         @page = last_legacy_url.page
         # This drops the given query string.
         redirect_legacy_page
       elsif @page.blank?
-        raise_not_found_error
+        page_not_found!
       elsif multi_language? && params[:locale].blank?
         redirect_page(locale: Language.current.code)
       elsif multi_language? && params[:urlname].blank? && !params[:locale].blank? && configuration(:redirect_index)
@@ -111,11 +113,7 @@ module Alchemy
 
     def redirect_to_public_child
       @page = @page.self_and_descendants.published.not_restricted.first
-      if @page
-        redirect_page
-      else
-        raise_not_found_error
-      end
+      @page ? redirect_page : page_not_found!
     end
 
     # Redirects page to given url with 301 status while keeping all additional params
@@ -153,10 +151,8 @@ module Alchemy
     end
 
     def legacy_urls
-
       # /slug/tree => slug/tree
       urlname = (request.fullpath[1..-1] if request.fullpath[0] == '/') || request.fullpath
-
       LegacyPageUrl.joins(:page).where(urlname: urlname, alchemy_pages: {language_id: Language.current.id})
     end
 
@@ -211,6 +207,10 @@ module Alchemy
       !cache_page? || stale?(etag: page_etag,
         last_modified: @page.published_at,
         public: !@page.restricted)
+    end
+
+    def page_not_found!
+      not_found_error!("Alchemy::Page not found \"#{request.fullpath}\"")
     end
   end
 end

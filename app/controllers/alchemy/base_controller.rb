@@ -42,8 +42,8 @@ module Alchemy
       Site.count > 1
     end
 
-    def raise_not_found_error
-      raise ActionController::RoutingError.new('Not Found')
+    def not_found_error!(msg = "Not found \"#{request.fullpath}\"")
+      raise ActionController::RoutingError.new(msg)
     end
 
     # Shortcut for Alchemy::I18n.translate method

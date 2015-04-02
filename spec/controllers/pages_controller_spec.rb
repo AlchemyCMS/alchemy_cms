@@ -140,14 +140,14 @@ module Alchemy
 
         it "should redirect permanently to page that belongs to legacy page url even if url has an unknown format & get parameters" do
           expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url4.urlname)
-          alchemy_get :show, urlname: "index.php"
+          alchemy_get :show, urlname: legacy_url4.urlname
           expect(response.status).to eq(301)
           expect(response).to redirect_to("/#{second_page.urlname}")
         end
 
         it "should not pass query string for legacy routes" do
           expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url3.urlname)
-          alchemy_get :show, urlname: "index.php"
+          alchemy_get :show, urlname: legacy_url4.urlname
           expect(URI.parse(response["Location"]).query).to be_nil
         end
 
