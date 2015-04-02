@@ -47,7 +47,7 @@ module Alchemy
     helper 'alchemy/pages'
 
     def index #:nodoc:
-      redirect_to show_page_path(urlname: @page.urlname, lang: multi_language? ? @page.language_code : nil)
+      redirect_to show_page_path(urlname: @page.urlname, locale: multi_language? ? @page.language_code : nil)
     end
 
     def new #:nodoc:
@@ -99,7 +99,7 @@ module Alchemy
       else
         urlname = Language.current_root_page.urlname
       end
-      redirect_to show_page_path(urlname: urlname, lang: multi_language? ? Language.current.code : nil)
+      redirect_to show_page_path(urlname: urlname, locale: multi_language? ? Language.current.code : nil)
     end
 
     def get_page

@@ -153,7 +153,7 @@ module Alchemy
 
       def visit
         @page.unlock!
-        redirect_to show_page_path(:urlname => @page.urlname, :lang => multi_language? ? @page.language_code : nil)
+        redirect_to show_page_path(urlname: @page.urlname, locale: multi_language? ? @page.language_code : nil)
       end
 
       # Sets the page public and updates the published_at attribute that is used as cache_key

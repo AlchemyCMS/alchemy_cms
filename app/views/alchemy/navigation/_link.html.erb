@@ -13,7 +13,7 @@
     {
       class: (page_active?(page) ? 'active' : nil),
       title: (options[:show_title] ? page.title : nil),
-      lang: page.language_code,
+      locale: page.language_code,
       data: {'page-id' => page.id}
     }
   ) %>

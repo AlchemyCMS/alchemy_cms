@@ -109,7 +109,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
 
     context "with lang param" do
       it "should set the language" do
-        allow(controller).to receive(:params).and_return(lang: klingonian.code)
+        allow(controller).to receive(:params).and_return(locale: klingonian.code)
         controller.send :set_alchemy_language
         expect(assigns(:language)).to eq(klingonian)
         expect(Alchemy::Language.current).to eq(klingonian)
@@ -118,7 +118,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
 
       context "for language that does not exist" do
         before do
-          allow(controller).to receive(:params).and_return(lang: 'fo')
+          allow(controller).to receive(:params).and_return(locale: 'fo')
           controller.send :set_alchemy_language
         end
 
