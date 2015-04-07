@@ -95,8 +95,8 @@ module Alchemy
     end
 
     def load_alchemy_language_from_params
-      if params[:lang].present?
-        Language.find_by_code(params[:lang])
+      if params[:locale].present?
+        Language.find_by_code(params[:locale])
       end
     end
 

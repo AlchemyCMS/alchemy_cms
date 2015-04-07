@@ -6,7 +6,7 @@
 
 <%= link_to(
   content_tag(:span, language.label(options[:linkname])).html_safe,
-  show_alchemy_page_path(language.pages.language_roots.first, lang: language.code),
+  show_alchemy_page_path(language.pages.language_roots.first, locale: language.code),
   class: css_classes.join(" "),
   title: link_title
 ) %>

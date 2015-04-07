@@ -3,14 +3,14 @@ require 'spec_helper'
 module Alchemy
   describe 'Page' do
     let(:default_language)      { Language.default }
-    let(:default_language_root) { FactoryGirl.create(:language_root_page, :language => default_language, :name => 'Home') }
-    let(:public_page_1)         { FactoryGirl.create(:public_page, :visible => true, :name => 'Page 1') }
-    let(:public_child)          { FactoryGirl.create(:public_page, :name => 'Public Child', :parent_id => public_page_1.id) }
+    let(:default_language_root) { create(:language_root_page, :language => default_language, :name => 'Home') }
+    let(:public_page_1)         { create(:public_page, :visible => true, :name => 'Page 1') }
+    let(:public_child)          { create(:public_page, :name => 'Public Child', :parent_id => public_page_1.id) }
 
     before { default_language_root }
 
     it "should include all its elements and contents" do
-      p = FactoryGirl.create(:public_page, :do_not_autogenerate => false)
+      p = create(:public_page, :do_not_autogenerate => false)
       article = p.elements.find_by_name('article')
       article.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
       visit "/#{p.urlname}"
@@ -19,8 +19,8 @@ module Alchemy
 
     it "should show the navigation with all visible pages" do
       pages = [
-        FactoryGirl.create(:public_page, :visible => true, :name => 'Page 1'),
-        FactoryGirl.create(:public_page, :visible => true, :name => 'Page 2')
+        create(:public_page, :visible => true, :name => 'Page 1'),
+        create(:public_page, :visible => true, :name => 'Page 2')
       ]
       visit '/'
       within('div#navigation ul') { expect(page).to have_selector('li a[href="/page-1"], li a[href="/page-2"]') }
@@ -33,7 +33,7 @@ module Alchemy
           allow_any_instance_of(PagesController).to receive(:multi_language?).and_return(true)
         end
 
-        let(:second_page) { FactoryGirl.create(:public_page, name: 'Second Page') }
+        let(:second_page) { create(:public_page, name: 'Second Page') }
         let(:legacy_url)  { LegacyPageUrl.create(urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69', page: second_page) }
 
         it "should redirect legacy url with unknown format & query string" do
@@ -100,16 +100,18 @@ module Alchemy
           before { allow(Alchemy.user_class).to receive(:admins).and_return([1, 2]) }
 
           it "should render 404 if urlname and lang parameter do not belong to same page" do
-            FactoryGirl.create(:klingonian)
-            visit "/kl/#{public_page_1.urlname}"
-            expect(page.status_code).to eq(404)
+            create(:klingonian)
+            expect {
+              visit "/kl/#{public_page_1.urlname}"
+            }.to raise_error(ActionController::RoutingError)
           end
 
           it "should render 404 if requested language does not exist" do
             public_page_1
             LegacyPageUrl.delete_all
-            visit "/fo/#{public_page_1.urlname}"
-            expect(page.status_code).to eq(404)
+            expect {
+              visit "/fo/#{public_page_1.urlname}"
+            }.to raise_error(ActionController::RoutingError)
           end
         end
       end
@@ -120,7 +122,7 @@ module Alchemy
           allow(Config).to receive(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
         end
 
-        let(:second_page) { FactoryGirl.create(:public_page, name: 'Second Page') }
+        let(:second_page) { create(:public_page, name: 'Second Page') }
         let(:legacy_url) { LegacyPageUrl.create(urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69', page: second_page) }
 
         it "should redirect legacy url with unknown format & query string" do
@@ -158,7 +160,7 @@ module Alchemy
         end
 
         it "should keep additional params" do
-          visit "/de/#{public_page_1.urlname}?query=Peter"
+          visit "/en/#{public_page_1.urlname}?query=Peter"
           expect(page.current_url).to match(/\?query=Peter/)
         end
       end
@@ -166,12 +168,14 @@ module Alchemy
 
     describe "Handling of non-existing pages" do
       before do
-        allow(Alchemy.user_class).to receive(:admins).and_return([1, 2]) # We need a admin user or the signup page will show up
-        visit "/non-existing-page"
+        # We need a admin user or the signup page will show up
+        allow(Alchemy.user_class).to receive(:admins).and_return([1, 2])
       end
 
       it "should render public/404.html" do
-        expect(page.status_code).to eq(404)
+        expect {
+          visit "/non-existing-page"
+        }.to raise_error(ActionController::RoutingError)
       end
     end
 
@@ -228,15 +232,21 @@ module Alchemy
         end
 
         it "a link to the admin area" do
-          within('#alchemy_menubar') { expect(page).to have_selector("li a[href='#{alchemy.admin_dashboard_path}']") }
+          within('#alchemy_menubar') do
+            expect(page).to have_selector("li a[href='#{alchemy.admin_dashboard_path}']")
+          end
         end
 
         it "a link to edit the current page" do
-          within('#alchemy_menubar') { expect(page).to have_selector("li a[href='#{alchemy.edit_admin_page_path(public_page_1)}']") }
+          within('#alchemy_menubar') do
+            expect(page).to have_selector("li a[href='#{alchemy.edit_admin_page_path(public_page_1)}']")
+          end
         end
 
         it "a form and button to logout of alchemy" do
-          within('#alchemy_menubar') { expect(page).to have_selector("li form[action='#{Alchemy.logout_path}'], li button[type='submit']") }
+          within('#alchemy_menubar') do
+            expect(page).to have_selector("li form[action='#{Alchemy.logout_path}'], li button[type='submit']")
+          end
         end
       end
     end
@@ -273,6 +283,5 @@ module Alchemy
         end
       end
     end
-
   end
 end

@@ -53,8 +53,8 @@ module Alchemy
     # Returns the correct params-hash for passing to show_page_path
     def show_page_path_params(page, optional_params={})
       raise ArgumentError, 'Page is nil' if page.nil?
-      url_params = {:urlname => page.urlname}.update(optional_params)
-      multi_language? ? url_params.update(:lang => page.language_code) : url_params
+      url_params = {urlname: page.urlname}.update(optional_params)
+      multi_language? ? url_params.update(locale: page.language_code) : url_params
     end
 
     # Returns the path for downloading an alchemy attachment
