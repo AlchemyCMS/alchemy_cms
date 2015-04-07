@@ -26,3 +26,6 @@
 - name: external
   unique: false
   redirects_to_external: true
+
+- name: <%= 'erb_' + 'layout' %>
+  unique: true

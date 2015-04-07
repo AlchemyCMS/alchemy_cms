@@ -157,7 +157,7 @@ module Alchemy
       #
       def read_layouts_file
         if File.exists?(layouts_file_path)
-          YAML.load_file(layouts_file_path) || []
+          YAML.load(ERB.new(File.read(layouts_file_path)).result) || []
         else
           raise LoadError, "Could not find page_layouts.yml file! Please run `rails generate alchemy:scaffold`"
         end

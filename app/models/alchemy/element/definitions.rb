@@ -23,7 +23,7 @@ module Alchemy
       #
       def read_definitions_file
         if ::File.exists?(definitions_file_path)
-          ::YAML.load_file(definitions_file_path) || []
+          ::YAML.load(ERB.new(File.read(definitions_file_path)).result) || []
         else
           raise LoadError, "Could not find elements.yml file! Please run `rails generate alchemy:scaffold`"
         end

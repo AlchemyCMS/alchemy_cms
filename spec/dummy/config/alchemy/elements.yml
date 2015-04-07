@@ -102,3 +102,8 @@
     type: EssenceSelect
   - name: essence_text
     type: EssenceText
+
+- name: <%= 'erb_' + 'element' %>
+  contents:
+  - name: text
+    type: EssenceRichtext
