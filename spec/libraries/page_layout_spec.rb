@@ -15,7 +15,7 @@ module Alchemy
       end
 
       context "with empty layouts file" do
-        before { expect(YAML).to receive(:load_file).and_return(false) }
+        before { expect(YAML).to receive(:load).and_return(false) }
 
         it "returns empty array" do
           is_expected.to eq([])
