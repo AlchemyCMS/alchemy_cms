@@ -15,7 +15,7 @@ module Alchemy
       end
 
       it "should allow erb generated layouts" do
-        expect(subject.collect { |l| l['name'] }).to include('erb_layout')
+        expect(subject.map { |l| l['name'] }).to include('erb_layout')
       end
 
       context "with empty layouts file" do

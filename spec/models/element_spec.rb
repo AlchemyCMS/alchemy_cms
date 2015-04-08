@@ -34,7 +34,7 @@ module Alchemy
 
     describe '.definitions' do
       it "should allow erb generated elements" do
-        expect(Element.definitions.collect {|el| el['name']}).to include('erb_element')
+        expect(Element.definitions.map { |el| el['name'] }).to include('erb_element')
       end
 
       context "without existing yml files" do
