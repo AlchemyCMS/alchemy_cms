@@ -10,6 +10,10 @@ module Alchemy
       it "should return an Array" do
         expect(Cell.definitions).to be_a(Array)
       end
+
+      it "should allow erb generated definitions" do
+        expect(Cell.definitions.collect { |d| d['name']} ).to include('erb_cell')
+      end
     end
 
     describe '.definition_for' do
