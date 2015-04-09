@@ -137,6 +137,10 @@ select {
 
   .select2-search {
     margin: $default-margin 0;
+
+    .select2-input {
+      width: inherit;
+    }
   }
 
   &.select2-with-searchbox .select2-results > .select2-result:first-child {
