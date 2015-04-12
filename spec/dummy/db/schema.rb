@@ -11,9 +11,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122213514) do
+ActiveRecord::Schema.define(version: 20150412103152) do
 
-  create_table "alchemy_attachments", force: true do |t|
+  create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
     t.string   "file_name"
     t.string   "file_mime_type"
@@ -28,14 +28,14 @@ ActiveRecord::Schema.define(version: 20150122213514) do
 
   add_index "alchemy_attachments", ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
 
-  create_table "alchemy_cells", force: true do |t|
+  create_table "alchemy_cells", force: :cascade do |t|
     t.integer  "page_id"
     t.string   "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "alchemy_contents", force: true do |t|
+  create_table "alchemy_contents", force: :cascade do |t|
     t.string   "name"
     t.string   "essence_type"
     t.integer  "essence_id"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
 
   add_index "alchemy_contents", ["element_id", "position"], name: "index_contents_on_element_id_and_position"
 
-  create_table "alchemy_elements", force: true do |t|
+  create_table "alchemy_elements", force: :cascade do |t|
     t.string   "name"
     t.integer  "position"
     t.integer  "page_id"
@@ -66,12 +66,12 @@ ActiveRecord::Schema.define(version: 20150122213514) do
 
   add_index "alchemy_elements", ["page_id", "position"], name: "index_elements_on_page_id_and_position"
 
-  create_table "alchemy_elements_alchemy_pages", id: false, force: true do |t|
+  create_table "alchemy_elements_alchemy_pages", id: false, force: :cascade do |t|
     t.integer "element_id"
     t.integer "page_id"
   end
 
-  create_table "alchemy_essence_booleans", force: true do |t|
+  create_table "alchemy_essence_booleans", force: :cascade do |t|
     t.boolean  "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
 
   add_index "alchemy_essence_booleans", ["value"], name: "index_alchemy_essence_booleans_on_value"
 
-  create_table "alchemy_essence_dates", force: true do |t|
+  create_table "alchemy_essence_dates", force: :cascade do |t|
     t.datetime "date"
     t.integer  "creator_id"
     t.integer  "updater_id"
@@ -89,7 +89,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "alchemy_essence_files", force: true do |t|
+  create_table "alchemy_essence_files", force: :cascade do |t|
     t.integer  "attachment_id"
     t.string   "title"
     t.string   "css_class"
@@ -99,7 +99,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "alchemy_essence_htmls", force: true do |t|
+  create_table "alchemy_essence_htmls", force: :cascade do |t|
     t.text     "source"
     t.integer  "creator_id"
     t.integer  "updater_id"
@@ -107,7 +107,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "alchemy_essence_links", force: true do |t|
+  create_table "alchemy_essence_links", force: :cascade do |t|
     t.string   "link"
     t.string   "link_title"
     t.string   "link_target"
@@ -118,7 +118,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
     t.integer  "updater_id"
   end
 
-  create_table "alchemy_essence_pictures", force: true do |t|
+  create_table "alchemy_essence_pictures", force: :cascade do |t|
     t.integer  "picture_id"
     t.string   "caption"
     t.string   "title"
@@ -137,7 +137,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
     t.string   "render_size"
   end
 
-  create_table "alchemy_essence_richtexts", force: true do |t|
+  create_table "alchemy_essence_richtexts", force: :cascade do |t|
     t.text     "body"
     t.text     "stripped_body"
     t.boolean  "public"
@@ -147,7 +147,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
     t.datetime "updated_at",    null: false
   end
 
-  create_table "alchemy_essence_selects", force: true do |t|
+  create_table "alchemy_essence_selects", force: :cascade do |t|
     t.string   "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -157,7 +157,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
 
   add_index "alchemy_essence_selects", ["value"], name: "index_alchemy_essence_selects_on_value"
 
-  create_table "alchemy_essence_texts", force: true do |t|
+  create_table "alchemy_essence_texts", force: :cascade do |t|
     t.text     "body"
     t.string   "link"
     t.string   "link_title"
@@ -170,13 +170,13 @@ ActiveRecord::Schema.define(version: 20150122213514) do
     t.datetime "updated_at",                      null: false
   end
 
-  create_table "alchemy_folded_pages", force: true do |t|
+  create_table "alchemy_folded_pages", force: :cascade do |t|
     t.integer "page_id"
     t.integer "user_id"
     t.boolean "folded",  default: false
   end
 
-  create_table "alchemy_languages", force: true do |t|
+  create_table "alchemy_languages", force: :cascade do |t|
     t.string   "name"
     t.string   "language_code"
     t.string   "frontpage_name"
@@ -195,7 +195,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
   add_index "alchemy_languages", ["language_code"], name: "index_alchemy_languages_on_language_code"
   add_index "alchemy_languages", ["site_id"], name: "index_alchemy_languages_on_site_id"
 
-  create_table "alchemy_legacy_page_urls", force: true do |t|
+  create_table "alchemy_legacy_page_urls", force: :cascade do |t|
     t.string   "urlname",    null: false
     t.integer  "page_id",    null: false
     t.datetime "created_at", null: false
@@ -204,7 +204,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
 
   add_index "alchemy_legacy_page_urls", ["urlname"], name: "index_alchemy_legacy_page_urls_on_urlname"
 
-  create_table "alchemy_pages", force: true do |t|
+  create_table "alchemy_pages", force: :cascade do |t|
     t.string   "name"
     t.string   "urlname"
     t.string   "title"
@@ -239,7 +239,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
   add_index "alchemy_pages", ["parent_id", "lft"], name: "index_pages_on_parent_id_and_lft"
   add_index "alchemy_pages", ["urlname"], name: "index_pages_on_urlname"
 
-  create_table "alchemy_pictures", force: true do |t|
+  create_table "alchemy_pictures", force: :cascade do |t|
     t.string   "name"
     t.string   "image_file_name"
     t.integer  "image_file_width"
@@ -254,7 +254,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
     t.integer  "image_file_size"
   end
 
-  create_table "alchemy_sites", force: true do |t|
+  create_table "alchemy_sites", force: :cascade do |t|
     t.string   "host"
     t.string   "name"
     t.datetime "created_at",                               null: false
@@ -267,14 +267,18 @@ ActiveRecord::Schema.define(version: 20150122213514) do
   add_index "alchemy_sites", ["host", "public"], name: "alchemy_sites_public_hosts_idx"
   add_index "alchemy_sites", ["host"], name: "index_alchemy_sites_on_host"
 
-  create_table "dummy_users", force: true do |t|
+  create_table "dummy_models", force: :cascade do |t|
+    t.string "data"
+  end
+
+  create_table "dummy_users", force: :cascade do |t|
     t.string "email"
     t.string "password"
   end
 
   add_index "dummy_users", ["email"], name: "index_dummy_users_on_email"
 
-  create_table "events", force: true do |t|
+  create_table "events", force: :cascade do |t|
     t.string   "name"
     t.string   "hidden_name"
     t.datetime "starts_at"
@@ -289,13 +293,13 @@ ActiveRecord::Schema.define(version: 20150122213514) do
     t.datetime "updated_at",                              null: false
   end
 
-  create_table "locations", force: true do |t|
+  create_table "locations", force: :cascade do |t|
     t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "taggings", force: true do |t|
+  create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.integer  "taggable_id"
     t.string   "taggable_type"
@@ -308,7 +312,7 @@ ActiveRecord::Schema.define(version: 20150122213514) do
   add_index "taggings", ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
   add_index "taggings", ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
 
-  create_table "tags", force: true do |t|
+  create_table "tags", force: :cascade do |t|
     t.string  "name"
     t.integer "taggings_count", default: 0
   end
