@@ -19,6 +19,14 @@
       options_for_select([[_t('Please choose'), '']]),
       class: 'alchemy_selectbox') %>
   </div>
+  <div class="input select">
+    <label for="internal_class" class="control-label">
+      <%= _t(:class) %>
+    </label>
+    <%= select_tag(:internal_class,
+       options_for_select([[_t('Please choose'), '']]),
+       class: 'alchemy_selectbox link_class') %>
+  </div>
   <div class="input text">
     <label for="internal_link_title" class="control-label">
       <%= _t(:link_title) %>
@@ -35,6 +43,7 @@
   </div>
   <div class="submit">
     <%= hidden_field_tag(:internal_urlname) %>
+    <%= hidden_field_tag(:internal_link_class) %>
     <%= hidden_field_tag(:page_anchor) %>
     <%= link_to _t(:apply), '', class: 'create-link button', 'data-link-type' => 'internal' %>
   </div>
