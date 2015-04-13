@@ -12,7 +12,9 @@ module Alchemy
 
     describe '.language_root_nodes' do
       context 'with no current language present' do
-        before { Language.stub(current: nil) }
+        before do
+          expect(Language).to receive(:current).and_return(nil)
+        end
 
         it "raises error if no current language is set" do
           expect { Node.language_root_nodes }.to raise_error
@@ -57,7 +59,7 @@ module Alchemy
         let(:node) { build_stubbed(:node) }
 
         it "returns true" do
-          expect(node.root?).to be_true
+          expect(node.root?).to be_truthy
         end
       end
 
@@ -66,7 +68,7 @@ module Alchemy
         let(:node)   { build_stubbed(:node, parent_id: parent.id) }
 
         it "returns false" do
-          expect(node.root?).to be_false
+          expect(node.root?).to be_falsey
         end
       end
     end
