@@ -1,10 +1,10 @@
 <% content_for :toolbar do %>
 <div class="toolbar_buttons">
-  <%= render partial: 'alchemy/admin/partials/language_tree_select' %>
+  <%= render 'alchemy/admin/partials/language_tree_select' %>
   <div class="toolbar_spacer"></div>
   <%= toolbar_button(
     icon: 'add_page',
-    url: alchemy.new_admin_page_path(parent_id: @layout_root.id, layoutpage: true),
+    url: alchemy.new_admin_page_path(layoutpage: true),
     hotkey: 'alt+n',
     dialog_options: {
       title: _t('Add global page'),
@@ -30,5 +30,5 @@
 <% end %>
 
 <ul class="list" id="layoutpages">
-  <%= render partial: "layoutpage", collection: @layout_root.children %>
+  <%= render partial: "layoutpage", collection: @layoutpages %>
 </ul>

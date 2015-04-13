@@ -4,7 +4,7 @@ module Alchemy
       authorize_resource class: :alchemy_admin_layoutpages
 
       def index
-        @layout_root = Page.find_or_create_layout_root_for(Language.current.id)
+        @layoutpages = Page.layoutpages
         @languages = Language.all
       end
 

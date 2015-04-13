@@ -8,9 +8,9 @@ module Alchemy
     end
 
     describe "#index" do
-      it "should assign @layout_root" do
+      it "should assign @layoutpages" do
         alchemy_get :index
-        expect(assigns(:layout_root)).to be_a(Page)
+        expect(assigns(:layoutpages)).to eq(Page.layoutpages)
       end
 
       it "should assign @languages" do
