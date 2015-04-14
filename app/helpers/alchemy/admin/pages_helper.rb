@@ -48,6 +48,23 @@ module Alchemy
         end.delete_if(&:blank?).join("<br>").html_safe
       end
 
+      # Renders a label for page's page layout
+      #
+      # If the page layout description of the page is missing, it displays a warning.
+      #
+      def page_layout_label(page)
+        if page.persisted? && page.layout_description.blank?
+          [
+            content_tag(:span, '',
+              class: 'inline warning icon',
+              title: _t(:page_layout_description_missing)
+            ),
+            _t(:page_type)
+          ].join('&nbsp;').html_safe
+        else
+          _t(:page_type)
+        end
+      end
     end
   end
 end

@@ -61,4 +61,35 @@ describe Alchemy::Admin::PagesHelper do
     end
   end
 
+  describe '#page_layout_label' do
+    let(:page) { build(:page) }
+
+    subject { helper.page_layout_label(page) }
+
+    context 'when page is not yet persisted' do
+      it 'displays text only' do
+        is_expected.to eq(Alchemy::I18n.t(:page_type))
+      end
+    end
+
+    context 'when page is persited' do
+      before { page.save! }
+
+      context 'with page layout existing' do
+        it 'displays text only' do
+          is_expected.to eq(Alchemy::I18n.t(:page_type))
+        end
+      end
+
+      context 'with page layout description missing' do
+        before do
+          expect(page).to receive(:layout_description).and_return([])
+        end
+
+        it 'displays icon with warning' do
+          is_expected.to match /warning icon/
+        end
+      end
+    end
+  end
 end
