@@ -13,7 +13,7 @@ module Alchemy
   class DefaultLanguageNotFoundError < StandardError
     # Raised if no default language can be found.
     def message
-      "No default language found. Have you run the rake alchemy:db:seed task?"
+      "No default language found! Please run the `bin/rake db:seed` task."
     end
   end
 

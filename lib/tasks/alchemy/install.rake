@@ -20,26 +20,32 @@ class Alchemy::InstallTask < Thor
         match = "default_language:\n  code: #{code}\n  name: #{name}"
       end
     end
-  end
 
+    def inject_seeder
+      append_file "./db/seeds.rb", "Alchemy::Seeder.seed!\n"
+    end
+  end
 end
 
 namespace :alchemy do
 
   desc "Installs Alchemy CMS into your app."
   task :install do
+    install_helper = Alchemy::InstallTask.new
+
     unless ENV['from_binary']
       puts "\nAlchemy Installer"
       puts "-----------------"
     end
     Rake::Task["alchemy:mount"].invoke
     system("rails g alchemy:scaffold#{ ENV['from_binary'] ? ' --force' : '' }") || exit!(1)
-    Alchemy::InstallTask.new.set_primary_language
+    install_helper.set_primary_language
     Rake::Task["db:create"].invoke
     # We can't invoke this rake task, because Rails will use wrong engine names otherwise
     `bundle exec rake railties:install:migrations`
     Rake::Task["db:migrate"].invoke
-    Rake::Task["alchemy:db:seed"].invoke
+    install_helper.inject_seeder
+    Rake::Task["db:seed"].invoke
     unless ENV['from_binary']
       puts "\nAlchemy successfully installed."
       puts "\nNow start the server with:"
@@ -52,5 +58,4 @@ namespace :alchemy do
   task :mount do
     Alchemy::InstallTask.new.inject_routes
   end
-
 end

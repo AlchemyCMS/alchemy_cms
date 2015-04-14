@@ -1,3 +1,5 @@
+require 'alchemy/shell'
+
 namespace :alchemy do
   namespace :tidy do
 

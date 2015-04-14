@@ -11,7 +11,7 @@ include Alchemy::Tasks::Helpers
 
   after "deploy:setup", "alchemy:shared_folders:create"
   after "deploy:finalize_update", "alchemy:shared_folders:symlink"
-  before "deploy:start", "alchemy:db:seed"
+  before "deploy:start", "deploy:seed"
 
   namespace :alchemy do
 
@@ -92,11 +92,6 @@ EOF
     end
 
     namespace :db do
-
-      desc "Seeds the database with essential data."
-      task :seed, :roles => :db do
-        run "cd #{current_path} && #{rake} RAILS_ENV=#{fetch(:rails_env, 'production')} alchemy:db:seed"
-      end
 
       desc "Dumps the database into 'db/dumps' on the server."
       task :dump, :roles => :db do

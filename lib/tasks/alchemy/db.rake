@@ -1,14 +1,9 @@
 require 'shellwords'
-require 'alchemy/seeder'
 require 'alchemy/tasks/helpers'
 include Alchemy::Tasks::Helpers
 
 namespace :alchemy do
   namespace :db do
-    desc "Seeds your database with essential data for Alchemy CMS."
-    task :seed => :environment do
-      Alchemy::Seeder.seed!
-    end
 
     desc "Dumps the database to STDOUT (Pass DUMP_FILENAME to store the dump into a file)."
     task :dump => :environment do

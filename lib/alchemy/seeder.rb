@@ -6,8 +6,10 @@ module Alchemy
 
     class << self
 
-      # This seed builds the necessary page structure for alchemy in your database.
-      # Run the alchemy:db:seed rake task to seed your database.
+      # This seed builds the necessary page structure for Alchemy in your database.
+      #
+      # Call this from your db/seeds.rb file with the rake db:seed task.
+      #
       def seed!
         create_default_site
         create_root_page

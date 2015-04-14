@@ -22,6 +22,10 @@ class Alchemy::Upgrader::ThreePointTwoTask < Thor
           { after: sentinel, verbose: true }
       end
     end
+
+    def inject_seeder
+      append_file "./db/seeds.rb", "Alchemy::Seeder.seed!\n"
+    end
   end
 end
 
@@ -30,10 +34,16 @@ module Alchemy
     private
 
     def upgrade_acts_as_taggable_on_migrations
+      desc 'Installs acts_as_taggable_on migrations.'
       # We can't invoke this rake task, because Rails will use wrong engine names otherwise
       `bundle exec rake railties:install:migrations`
       Alchemy::Upgrader::ThreePointTwoTask.new.patch_acts_as_taggable_on_migrations
       Rake::Task["db:migrate"].invoke
+    end
+
+    def inject_seeder
+      desc 'Add Alchemy seeder to `db/seeds.rb` file.'
+      Alchemy::Upgrader::ThreePointTwoTask.new.inject_seeder
     end
   end
 end
