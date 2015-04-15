@@ -22,7 +22,7 @@
     <% end %>
   </td>
   <td><%= page.urlname %></td>
-  <td class="date"><%= l(page.updated_at) %></td>
+  <td class="date"><%= l(page.updated_at, format: :short) %></td>
   <td class="date"><%= page.creator.try(:name) %></td>
   <td class="center" id="page_<%= page.id %>_infos">
     <span class="page_status <%= page.public ? 'public' : 'not_public' %>" title="<%= page.status_title(:public) %>"></span>
