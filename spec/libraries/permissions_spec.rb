@@ -33,14 +33,13 @@ describe Alchemy::Permissions do
       is_expected.not_to be_able_to(:show, restricted_attachment)
     end
 
-    it "can only download not restricted pictures" do
-      is_expected.to be_able_to(:download, picture)
-      is_expected.not_to be_able_to(:download, restricted_picture)
-    end
-
     it "can only see not restricted pictures" do
       is_expected.to be_able_to(:show, picture)
+      is_expected.to be_able_to(:thumbnail, picture)
+      is_expected.to be_able_to(:zoom, picture)
       is_expected.not_to be_able_to(:show, restricted_picture)
+      is_expected.not_to be_able_to(:thumbnail, restricted_picture)
+      is_expected.not_to be_able_to(:zoom, restricted_picture)
     end
 
     it "can only visit not restricted pages" do
@@ -83,14 +82,13 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:show, restricted_attachment)
     end
 
-    it "can download all pictures" do
-      is_expected.to be_able_to(:download, picture)
-      is_expected.to be_able_to(:download, restricted_picture)
-    end
-
     it "can see all pictures" do
       is_expected.to be_able_to(:show, picture)
+      is_expected.to be_able_to(:thumbnail, picture)
+      is_expected.to be_able_to(:zoom, picture)
       is_expected.to be_able_to(:show, restricted_picture)
+      is_expected.to be_able_to(:thumbnail, restricted_picture)
+      is_expected.to be_able_to(:zoom, restricted_picture)
     end
 
     it "can visit restricted pages" do
