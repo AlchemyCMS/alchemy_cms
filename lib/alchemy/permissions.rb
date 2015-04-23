@@ -46,7 +46,7 @@ module Alchemy
           p.public? && !p.restricted?
         end
         can :see,               Alchemy::Page,       restricted: false, visible: true
-        can([:show, :download], Alchemy::Picture)    { |p| !p.restricted? }
+        can(:display,           Alchemy::Picture)    { |p| !p.restricted? }
       end
     end
 
@@ -72,7 +72,7 @@ module Alchemy
           p.public?
         end
         can :see,               Alchemy::Page,      restricted: true, visible: true
-        can [:show, :download], Alchemy::Picture
+        can :display,           Alchemy::Picture
         can [:read, :update],   Alchemy.user_class, id: @user.id
       end
     end
@@ -99,22 +99,22 @@ module Alchemy
         ]
 
         # Controller actions
-        can :leave,                     :alchemy_admin
-        can [:info, :help],             :alchemy_admin_dashboard
-        can :manage,                    :alchemy_admin_clipboard
-        can :index,                     :trash
-        can :edit,                      :alchemy_admin_layoutpages
+        can :leave,                 :alchemy_admin
+        can [:info, :help],         :alchemy_admin_dashboard
+        can :manage,                :alchemy_admin_clipboard
+        can :index,                 :trash
+        can :edit,                  :alchemy_admin_layoutpages
 
         # Resources
-        can [:read, :download],         Alchemy::Attachment
-        can :manage,                    Alchemy::Content
-        can :manage,                    Alchemy::Element
-        can :manage,                    Alchemy::EssenceFile
-        can :manage,                    Alchemy::EssencePicture
-        can :manage,                    Alchemy::LegacyPageUrl
-        can :edit_content,              Alchemy::Page
-        can [:read, :thumbnail, :info], Alchemy::Picture
-        can [:read, :autocomplete],     Alchemy::Tag
+        can [:read, :download],     Alchemy::Attachment
+        can :manage,                Alchemy::Content
+        can :manage,                Alchemy::Element
+        can :manage,                Alchemy::EssenceFile
+        can :manage,                Alchemy::EssencePicture
+        can :manage,                Alchemy::LegacyPageUrl
+        can :edit_content,          Alchemy::Page
+        can [:read, :info],         Alchemy::Picture
+        can [:read, :autocomplete], Alchemy::Tag
       end
     end
 
@@ -203,6 +203,11 @@ module Alchemy
         :unlock,
         :visit,
         to: :edit_content
+
+      alias_action :show,
+        :thumbnail,
+        :zoom,
+        to: :display
     end
 
     # Include the role specific permissions.
