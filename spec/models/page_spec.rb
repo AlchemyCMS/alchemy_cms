@@ -55,7 +55,7 @@ module Alchemy
         end
 
         context "with url_nesting set to true" do
-          let(:other_parent) { FactoryGirl.create(:page, parent_id: Page.root.id) }
+          let(:other_parent) { create(:page, parent_id: Page.root.id, visible: true) }
 
           before do
             allow(Config).to receive(:get).and_return(true)
@@ -1423,6 +1423,18 @@ module Alchemy
 
         it "should not include invisible pages" do
           expect(contact.urlname).not_to match(/invisible/)
+        end
+
+        context "with an invisible parent" do
+          before { parent.update_attribute(:visible, false) }
+
+          it "does not change if set_urlname is called" do
+            expect { page.send(:set_urlname) }.not_to change { page.urlname }
+          end
+
+          it "does not change if update_urlname! is called" do
+            expect { page.update_urlname! }.not_to change { page.urlname }
+          end
         end
 
         context "after changing page's urlname" do
