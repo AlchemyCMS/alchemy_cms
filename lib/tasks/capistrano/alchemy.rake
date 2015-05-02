@@ -9,18 +9,16 @@ namespace :alchemy do
     set :alchemy_picture_cache_path,
       -> { File.join('public', fetch(:alchemy_mount_point), 'pictures') }
 
-    set :linked_dirs, -> { fetch(:linked_dirs, []) + [
+    set :linked_dirs, fetch(:linked_dirs, []) + [
       "uploads/pictures",
       "uploads/attachments",
       fetch(:alchemy_picture_cache_path),
       "tmp/cache/assets"
-    ] }
+    ]
 
     # TODO: Check, if this is the right approach to ensure that we don't overwrite existing settings?
     # Or does Capistrano already handle this for us?
-    set :linked_files, -> {
-      fetch(:linked_files, []) + %w(config/database.yml)
-    }
+    set :linked_files, fetch(:linked_files, []) + %w(config/database.yml)
   end
 
   # TODO: Do we really need this in Alchemy or should we release an official Capistrano plugin for that?
