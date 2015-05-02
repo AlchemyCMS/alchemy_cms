@@ -166,11 +166,15 @@ EOF
       end
     end
   end
+
+  # hook the deploy path into alchemy
   after 'deploy:check', 'alchemy:set_paths'
   before 'import:all', 'deploy:check'
   before 'import:database', 'deploy:check'
   before 'import:pictures', 'deploy:check'
   before 'import:attachments', 'deploy:check'
   before 'upgrade', 'deploy:check'
+  before 'db:seed', 'deploy:check'
+  before 'db:dump', 'deploy:check'
 end
 
