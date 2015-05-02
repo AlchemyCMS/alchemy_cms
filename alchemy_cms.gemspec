@@ -19,28 +19,30 @@ Gem::Specification.new do |gem|
   gem.executables           = 'alchemy'
   gem.require_paths         = ['lib']
 
-  gem.add_runtime_dependency 'rails',                            '>= 4.0', '< 5.0'
-  gem.add_runtime_dependency 'actionpack-page_caching',          '~> 1.0.0'
-  gem.add_runtime_dependency 'awesome_nested_set',               '~> 3.0.0.rc.2'
-  gem.add_runtime_dependency 'acts-as-taggable-on',              '~> 3.1'
-  gem.add_runtime_dependency 'cancan',                           '~> 1.6.10'
-  gem.add_runtime_dependency 'dragonfly',                        '~> 1.0.1'
-  gem.add_runtime_dependency 'kaminari',                         '~> 0.15.0'
-  gem.add_runtime_dependency 'acts_as_list',                     '~> 0.3.0'
-  gem.add_runtime_dependency 'magiclabs-userstamp',              '~> 2.1.0'
-  gem.add_runtime_dependency 'simple_form',                      '~> 3.0.1'
-  gem.add_runtime_dependency 'jquery-rails',                     '~> 3.1.0'
-  gem.add_runtime_dependency 'jquery-ui-rails',                  '~> 4.1.1'
-  gem.add_runtime_dependency 'sass-rails',                       '~> 4.0.2'
-  gem.add_runtime_dependency 'uglifier',                         '>= 1.3.0'
-  gem.add_runtime_dependency 'coffee-rails',                     '~> 4.0.0'
-  gem.add_runtime_dependency 'compass-rails',                    '~> 1.1.2'
-  gem.add_runtime_dependency 'sassy-buttons',                    '~> 0.2.6'
-  gem.add_runtime_dependency 'select2-rails',                    '~> 3.4'
-  gem.add_runtime_dependency 'tvdeyen-handles_sortable_columns', '~> 0.1.5'
-  gem.add_runtime_dependency 'turbolinks',                       '~> 2.0'
-  gem.add_runtime_dependency 'non-stupid-digest-assets',         '~> 1.0.3'
-  gem.add_runtime_dependency 'active_model_serializers',         '>= 0.8.1', '< 0.10.0'
+  gem.add_runtime_dependency 'actionpack-page_caching',          ['~> 1.0.0']
+  gem.add_runtime_dependency 'active_model_serializers',         ['~> 0.9']
+  gem.add_runtime_dependency 'acts_as_list',                     ['~> 0.3']
+  gem.add_runtime_dependency 'acts-as-taggable-on',              ['~> 3.1']
+  gem.add_runtime_dependency 'awesome_nested_set',               ['~> 3.0.0']
+  gem.add_runtime_dependency 'cancancan',                        ['~> 1.9']
+  gem.add_runtime_dependency 'coffee-rails',                     ['~> 4.0']
+  gem.add_runtime_dependency 'compass-rails',                    ['~> 2.0', '>= 2.0.4']
+  gem.add_runtime_dependency 'dragonfly',                        ['~> 1.0.1']
+  gem.add_runtime_dependency 'jquery-rails',                     ['~> 4.0.3']
+  gem.add_runtime_dependency 'jquery-ui-rails',                  ['~> 5.0.0']
+  gem.add_runtime_dependency 'kaminari',                         ['~> 0.15']
+  gem.add_runtime_dependency 'magiclabs-userstamp',              ['~> 2.1.0']
+  gem.add_runtime_dependency 'non-stupid-digest-assets',         ['~> 1.0.3']
+  gem.add_runtime_dependency 'rails',                            ['>= 4.2.0', '< 5.0']
+  gem.add_runtime_dependency 'request_store',                    ['~> 1.1.0']
+  gem.add_runtime_dependency 'responders',                       ['~> 2.0']
+  gem.add_runtime_dependency 'sass-rails',                       ['~> 5.0']
+  gem.add_runtime_dependency 'sassy-buttons',                    ['~> 0.2.6']
+  gem.add_runtime_dependency 'select2-rails',                    ['>= 3.5.9.1', '< 4.0']
+  gem.add_runtime_dependency 'simple_form',                      ['~> 3.0']
+  gem.add_runtime_dependency 'spinner.rb'
+  gem.add_runtime_dependency 'turbolinks',                       ['~> 2.5']
+  gem.add_runtime_dependency 'tvdeyen-handles_sortable_columns', ['~> 0.1.5']
 
   gem.add_development_dependency 'capybara',                     ['~> 2.4']
   gem.add_development_dependency 'database_cleaner',             ['~> 1.3']
