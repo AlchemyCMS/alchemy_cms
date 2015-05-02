@@ -11,7 +11,7 @@ include Alchemy::Tasks::Helpers
 
 if defined?(Capistrano::VERSION)
   # load Capistrano 3 tasks
-  load File.expand_path('../../tasks/capistrano/alchemy.cap', __FILE__)
+  load File.expand_path('../../tasks/capistrano/alchemy.rake', __FILE__)
 else
   # load Capistrano 2 tasks
   Capistrano::Configuration.instance(:must_exist).load do

@@ -5,7 +5,7 @@ namespace :alchemy do
   # TODO: split up this namespace into something that runs once on `cap install` and
   # once on every deploy
   desc "Prepare Alchemy for deployment."
-  task :install do
+  task :set_paths do
     set :alchemy_picture_cache_path,
       -> { File.join('public', fetch(:alchemy_mount_point), 'pictures') }
 
@@ -166,9 +166,11 @@ EOF
       end
     end
   end
+  after 'deploy:check', 'alchemy:set_paths'
+  before 'import:all', 'deploy:check'
+  before 'import:database', 'deploy:check'
+  before 'import:pictures', 'deploy:check'
+  before 'import:attachments', 'deploy:check'
+  before 'upgrade', 'deploy:check'
 end
 
-# TODO: FIX ME!
-# after :install, "alchemy:shared_folders:create"
-# TODO: Refactor me to use linked_dirs
-# after "deploy:symlink:linked_dirs", "alchemy:shared_folders:symlink"
