@@ -1,6 +1,7 @@
 module Alchemy
   class PasswordsController < ::Devise::PasswordsController
-    include Locale
+    include Alchemy::Locale
+    include Alchemy::SSLProtection
 
     before_action { enforce_ssl if ssl_required? && !request.ssl? }
 
