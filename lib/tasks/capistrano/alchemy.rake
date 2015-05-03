@@ -5,7 +5,7 @@ namespace :alchemy do
   # TODO: split up this namespace into something that runs once on `cap install` and
   # once on every deploy
   desc "Prepare Alchemy for deployment."
-  task :set_paths do
+  task :default_paths do
     set :alchemy_picture_cache_path,
       -> { File.join('public', fetch(:alchemy_mount_point), 'pictures') }
 
@@ -166,7 +166,6 @@ EOF
   end
 
   # hook the deploy path into alchemy
-  after 'deploy:check', 'alchemy:set_paths'
   before 'import:all', 'deploy:check'
   before 'import:database', 'deploy:check'
   before 'import:pictures', 'deploy:check'
@@ -174,5 +173,11 @@ EOF
   before 'upgrade', 'deploy:check'
   before 'db:seed', 'deploy:check'
   before 'db:dump', 'deploy:check'
+end
+
+namespace :load do
+  task :defaults do
+    invoke 'alchemy:default_paths'
+  end
 end
 
