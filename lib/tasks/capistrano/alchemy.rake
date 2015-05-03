@@ -1,4 +1,5 @@
 # https://github.com/magiclabs/alchemy_cms/pull/616
+require 'alchemy/mount_point'
 
 namespace :alchemy do
 
