@@ -1,6 +1,3 @@
-# https://github.com/magiclabs/alchemy_cms/pull/616
-require 'alchemy/mount_point'
-
 namespace :alchemy do
 
   # TODO: split up this namespace into something that runs once on `cap install` and
@@ -8,7 +5,7 @@ namespace :alchemy do
   desc "Prepare Alchemy for deployment."
   task :default_paths do
     set :alchemy_picture_cache_path,
-      -> { File.join('public', fetch(:alchemy_mount_point), 'pictures') }
+      -> { File.join('public', Alchemy::MountPoint.get, 'pictures') }
 
     set :linked_dirs, fetch(:linked_dirs, []) + [
       "uploads/pictures",
