@@ -1,6 +1,7 @@
 module Alchemy
   class UserSessionsController < ::Devise::SessionsController
     include Alchemy::Locale
+    include Alchemy::SSLProtection
 
     before_action except: 'destroy' do
       enforce_ssl if ssl_required? && !request.ssl?
