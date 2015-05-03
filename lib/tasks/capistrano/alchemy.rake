@@ -13,7 +13,7 @@ namespace :alchemy do
       fetch(:alchemy_picture_cache_path),
       "tmp/cache/assets"
     ]
-
+    require 'pry'; binding.pry
     # TODO: Check, if this is the right approach to ensure that we don't overwrite existing settings?
     # Or does Capistrano already handle this for us?
     set :linked_files, fetch(:linked_files, []) + %w(config/database.yml)
