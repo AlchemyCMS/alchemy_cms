@@ -85,17 +85,33 @@ module Alchemy
       element_definitions_by_name(element_definition_names)
     end
 
-    # All names of elements that are defined in the page's page_layout definition.
+    # All names of elements that are defined in the corresponding
+    # page and cell definition.
     #
-    # Define elements in +config/alchemy/page_layout.yml+ file
+    # Assign elements to a page in +config/alchemy/page_layouts.yml+ and/or
+    # +config/alchemy/cells.yml+ file.
     #
-    # == Example:
+    # == Example of page_layouts.yml:
     #
     #   - name: contact
+    #     cells: [right_column]
     #     elements: [headline, contactform]
     #
+    # == Example of cells.yml:
+    #
+    #   - name: right_column
+    #     elements: [teaser]
+    #
     def element_definition_names
+      element_names_from_page_definition | element_names_from_cell_definition
+    end
+
+    def element_names_from_page_definition
       definition['elements'] || []
+    end
+
+    def element_names_from_cell_definition
+      cell_definitions.map { |d| d['elements'] }.flatten
     end
 
     # Returns Element definitions with given name(s)

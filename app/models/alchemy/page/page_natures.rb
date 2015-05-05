@@ -62,8 +62,8 @@ module Alchemy
       I18n.t(self.status[status_type].to_s, scope: "page_states.#{status_type}")
     end
 
-    # Returns the self#page_layout description from config/alchemy/page_layouts.yml file.
-    def layout_description
+    # Returns the self#page_layout definition from config/alchemy/page_layouts.yml file.
+    def definition
       return {} if self.systempage?
       description = PageLayout.get(self.page_layout)
       if description.nil?
@@ -72,7 +72,7 @@ module Alchemy
       end
       description
     end
-    alias_method :definition, :layout_description
+    alias_method :layout_description, :definition
 
     # Returns translated name of the pages page_layout value.
     # Page layout names are defined inside the config/alchemy/page_layouts.yml file.
