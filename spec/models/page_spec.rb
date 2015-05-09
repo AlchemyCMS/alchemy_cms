@@ -760,7 +760,7 @@ module Alchemy
     describe '#cell_definitions' do
       before do
         @page = FactoryGirl.build(:page, page_layout: 'foo')
-        allow(@page).to receive(:layout_description).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
+        allow(@page).to receive(:definition).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
         @cell_descriptions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
         allow(Cell).to receive(:definitions).and_return(@cell_descriptions)
       end
@@ -770,7 +770,7 @@ module Alchemy
       end
 
       it "should return empty array if no cells defined in page layout" do
-        allow(@page).to receive(:layout_description).and_return({'name' => "foo"})
+        allow(@page).to receive(:definition).and_return({'name' => "foo"})
         expect(@page.cell_definitions).to eq([])
       end
     end
@@ -783,17 +783,6 @@ module Alchemy
           news_page.destroy
           expect(Element.trashed).not_to be_empty
         end
-      end
-    end
-
-    describe '#element_definitions' do
-      let(:page) { FactoryGirl.build_stubbed(:page) }
-      subject { page.element_definitions }
-      before { expect(Element).to receive(:definitions).and_return([{'name' => 'article'}, {'name' => 'header'}]) }
-
-      it "returns all element definitions that could be placed on current page" do
-        is_expected.to include({'name' => 'article'})
-        is_expected.to include({'name' => 'header'})
       end
     end
 
@@ -835,13 +824,96 @@ module Alchemy
     describe '#element_definition_names' do
       let(:page) { FactoryGirl.build_stubbed(:public_page) }
 
-      it "returns all element names defined in page layout" do
-        expect(page.element_definition_names).to eq(%w(article header))
+      context "with assigned elements from page and cell definition" do
+        before do
+          allow(page).to receive(:element_names_from_page_definition).and_return(['header', 'article'])
+          allow(page).to receive(:element_names_from_cell_definition).and_return(['search'])
+        end
+
+        it "returns the combined element names" do
+          expect(page.element_definition_names).to eq(%w(header article search))
+        end
+
+        context "when cell definition contains same element name as page definition" do
+          before do
+            allow(page).to receive(:element_names_from_page_definition).and_return(['header', 'article'])
+            allow(page).to receive(:element_names_from_cell_definition).and_return(['header', 'search'])
+          end
+
+          it "returns no duplicates" do
+            expect(page.element_definition_names).to eq(%w(header article search))
+          end
+        end
       end
 
-      it "returns always an array" do
-        allow(page).to receive(:definition).and_return({})
-        expect(page.element_definition_names).to be_an(Array)
+      context "without assigned elements from page definition" do
+        before do
+          allow(page).to receive(:element_names_from_page_definition).and_return([])
+          allow(page).to receive(:element_names_from_cell_definition).and_return(['article'])
+        end
+
+        it "returns an array" do
+          expect(page.element_definition_names).to be_an(Array)
+        end
+      end
+
+      context "without assigned elements from cell definition" do
+        before do
+          allow(page).to receive(:element_names_from_page_definition).and_return(['article'])
+          allow(page).to receive(:element_names_from_cell_definition).and_return([])
+        end
+
+        it "returns an array" do
+          expect(page.element_definition_names).to be_an(Array)
+        end
+      end
+    end
+
+    describe "#element_names_from_page_definition" do
+      let(:page) { FactoryGirl.build_stubbed(:public_page) }
+
+      context "with assigned elements from page definition" do
+        before do
+          allow(page).to receive(:definition).and_return(
+            {'name' => 'test_page', 'elements' => ['article']}
+          )
+        end
+
+        it "returns an array of the page's element names" do
+          expect(page.element_names_from_page_definition).to eq(['article'])
+        end
+      end
+
+      context "without assigned elements from page definition" do
+        before do
+          allow(page).to receive(:definition).and_return({})
+        end
+
+        it "returns an array" do
+          expect(page.element_names_from_page_definition).to be_an(Array)
+        end
+      end
+    end
+
+    describe "#element_names_from_cell_definition" do
+      let(:page) { FactoryGirl.build_stubbed(:public_page) }
+
+      context "with assigned elements from cell definition" do
+        before do
+          allow(page).to receive(:cell_definitions).and_return([
+            {'name' => 'header', 'elements' => ['article']}
+          ])
+        end
+
+        it "returns an array of the cell's element names" do
+          expect(page.element_names_from_cell_definition).to eq(['article'])
+        end
+      end
+
+      context "without assigned elements from cell definition" do
+        it "returns an array" do
+          expect(page.element_names_from_cell_definition).to be_an(Array)
+        end
       end
     end
 

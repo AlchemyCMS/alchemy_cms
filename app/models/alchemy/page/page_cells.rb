@@ -36,9 +36,9 @@ module Alchemy
       cells.any?
     end
 
-    # Returns the cell definitions from page's page_layout defintion.
+    # Returns the cell definitions from page definition.
     def cell_definitions
-      cell_names = self.layout_description['cells']
+      cell_names = definition['cells']
       return [] if cell_names.blank?
       Cell.all_definitions_for(cell_names)
     end

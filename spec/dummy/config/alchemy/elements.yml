@@ -35,6 +35,9 @@
   - name: text
     type: EssenceRichtext
 
+- name: search
+  contents: []
+
 - name: news
   contents:
   - name: date

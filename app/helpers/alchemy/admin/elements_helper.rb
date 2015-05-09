@@ -54,30 +54,30 @@ module Alchemy
         end
       end
 
-      # Returns all elements that could be placed on that page because of the pages layout.
+      # Returns all elements that can be placed on the current page.
       # The elements will be grouped by cell.
+      #
+      # @param [Array] elements
+      #   collection of element objects
+      # @param [String] object_method
+      #   method that is called on the element objects used for the select option value
+      #
       def grouped_elements_for_select(elements, object_method = 'name')
-        return "" if elements.blank?
+        return [] if elements.blank?
         cells_definition = @page.cell_definitions
-        return "" if cells_definition.blank?
+        return [] if cells_definition.blank?
         options = {}
-        celled_elements = []
         cells_definition.each do |cell|
-          cell_elements = elements.select { |e| cell['elements'].include?(e.class.name == 'Element' ? e.name : e['name']) }
-          celled_elements += cell_elements
+          cell_elements = elements_for_cell(elements, cell)
           optgroup_label = Cell.translated_label_for(cell['name'])
           options[optgroup_label] = cell_elements.map do |e|
             element_array_for_options(e, object_method, cell)
           end
         end
-        other_elements = elements - celled_elements
-        unless other_elements.blank?
-          options[_t(:main_content)] = other_elements.map do |e|
-            element_array_for_options(e, object_method)
-          end
+        options[_t(:main_content)] = elements_for_main_content(elements).map do |e|
+          element_array_for_options(e, object_method)
         end
-        # We don't want to show empty cells
-        options.delete_if { |cell, elements| elements.blank? }
+        options.delete_if { |_cell, elements| elements.blank? } # Throw out empty cells
       end
 
       def element_array_for_options(e, object_method, cell = nil)
@@ -111,6 +111,22 @@ module Alchemy
         elements.collect do |element|
           render 'alchemy/admin/elements/refresh_editor', element: element
         end.join.html_safe
+      end
+
+      private
+
+      def elements_for_main_content(elements)
+        page_definition = @page.definition['elements']
+        elements.select do |e|
+          page_definition.include?(e.class.name == 'Element' ? e.name : e['name'])
+        end
+      end
+
+      def elements_for_cell(elements, cell)
+        cell_elements = cell['elements']
+        elements.select do |e|
+          cell_elements.include?(e.class.name == 'Element' ? e.name : e['name'])
+        end
       end
 
     end
