@@ -4,7 +4,7 @@ describe 'Page editing feature' do
   let(:a_page) { create(:page) }
 
   context 'as author' do
-    before { authorize_as_admin(build(:author_user)) }
+    before { authorize_as_admin(build(:alchemy_author_user)) }
 
     it 'cannot publish page.' do
       visit alchemy.edit_admin_page_path(a_page)
@@ -13,7 +13,7 @@ describe 'Page editing feature' do
   end
 
   context 'as editor' do
-    before { authorize_as_admin(build(:editor_user)) }
+    before { authorize_as_admin(build(:alchemy_editor_user)) }
 
     it 'can publish page.' do
       visit alchemy.edit_admin_page_path(a_page)
