@@ -84,50 +84,24 @@ shared_examples_for "an essence" do
     end
 
     describe 'presence' do
-      before do
-        allow(essence).to receive(:description).and_return({'validate' => ['presence']})
-      end
-
-      context 'when the ingredient column is empty' do
+      context 'with string given as validation type' do
         before do
-          essence.update(essence.ingredient_column.to_sym => nil)
+          allow(essence).to receive(:description).and_return({'validate' => ['presence']})
         end
 
-        it 'should not be valid' do
-          expect(essence).to_not be_valid
-        end
-      end
-
-      context 'when the ingredient column is not nil' do
-        before do
-          essence.update(essence.ingredient_column.to_sym => ingredient_value)
-        end
-
-        it 'should be valid' do
-          expect(essence).to be_valid
-        end
-      end
-    end
-
-    describe 'uniqueness' do
-      before do
-        allow(essence).to receive(:element).and_return(build_stubbed(:element))
-        expect(essence).to receive(:description).at_least(:once).and_return({'validate' => ['uniqueness']})
-        essence.update(essence.ingredient_column.to_sym => ingredient_value)
-      end
-
-      context 'when a duplicate exists' do
-        before do
-          allow(essence).to receive(:duplicates).and_return([essence.dup])
-        end
-
-        it 'should not be valid' do
-          expect(essence).to_not be_valid
-        end
-
-        context 'when validated essence is not public' do
+        context 'when the ingredient column is empty' do
           before do
-            expect(essence).to receive(:public?).and_return(false)
+            essence.update(essence.ingredient_column.to_sym => nil)
+          end
+
+          it 'should not be valid' do
+            expect(essence).to_not be_valid
+          end
+        end
+
+        context 'when the ingredient column is not nil' do
+          before do
+            essence.update(essence.ingredient_column.to_sym => ingredient_value)
           end
 
           it 'should be valid' do
@@ -136,13 +110,132 @@ shared_examples_for "an essence" do
         end
       end
 
-      context 'when no duplicate exists' do
-        before do
-          expect(essence).to receive(:duplicates).and_return([])
+      context 'with hash given as validation type' do
+        context 'where the value is true' do
+          before do
+            allow(essence).to receive(:description).and_return({'validate' => [{'presence' => true}]})
+          end
+
+          context 'when the ingredient column is empty' do
+            before do
+              essence.update(essence.ingredient_column.to_sym => nil)
+            end
+
+            it 'should not be valid' do
+              expect(essence).to_not be_valid
+            end
+          end
+
+          context 'when the ingredient column is not nil' do
+            before do
+              essence.update(essence.ingredient_column.to_sym => ingredient_value)
+            end
+
+            it 'should be valid' do
+              expect(essence).to be_valid
+            end
+          end
         end
 
-        it 'should be valid' do
-          expect(essence).to be_valid
+        context 'where the value is false' do
+          before do
+            allow(essence).to receive(:description).and_return({'validate' => [{'presence' => false}]})
+          end
+
+          it 'should be valid' do
+            expect(essence).to be_valid
+          end
+        end
+      end
+    end
+
+    describe 'uniqueness' do
+      before do
+        allow(essence).to receive(:element).and_return(build_stubbed(:element))
+        essence.update(essence.ingredient_column.to_sym => ingredient_value)
+      end
+
+      context 'with string given as validation type' do
+        before do
+          expect(essence).to receive(:description).at_least(:once).and_return({'validate' => ['uniqueness']})
+        end
+
+        context 'when a duplicate exists' do
+          before do
+            allow(essence).to receive(:duplicates).and_return([essence.dup])
+          end
+
+          it 'should not be valid' do
+            expect(essence).to_not be_valid
+          end
+
+          context 'when validated essence is not public' do
+            before do
+              expect(essence).to receive(:public?).and_return(false)
+            end
+
+            it 'should be valid' do
+              expect(essence).to be_valid
+            end
+          end
+        end
+
+        context 'when no duplicate exists' do
+          before do
+            expect(essence).to receive(:duplicates).and_return([])
+          end
+
+          it 'should be valid' do
+            expect(essence).to be_valid
+          end
+        end
+      end
+
+      context 'with hash given as validation type' do
+        context 'where the value is true' do
+          before do
+            expect(essence).to receive(:description).at_least(:once).and_return({'validate' => [{'uniqueness' => true}]})
+          end
+
+          context 'when a duplicate exists' do
+            before do
+              allow(essence).to receive(:duplicates).and_return([essence.dup])
+            end
+
+            it 'should not be valid' do
+              expect(essence).to_not be_valid
+            end
+
+            context 'when validated essence is not public' do
+              before do
+                expect(essence).to receive(:public?).and_return(false)
+              end
+
+              it 'should be valid' do
+                expect(essence).to be_valid
+              end
+            end
+          end
+
+          context 'when no duplicate exists' do
+            before do
+              expect(essence).to receive(:duplicates).and_return([])
+            end
+
+            it 'should be valid' do
+              expect(essence).to be_valid
+            end
+          end
+        end
+
+        context 'where the value is false' do
+          before do
+            allow(essence).to receive(:description).and_return({'validate' => [{'uniqueness' => false}]})
+          end
+
+          it 'should be valid' do
+            expect(essence).to be_valid
+          end
         end
       end
     end
