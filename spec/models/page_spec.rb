@@ -1661,7 +1661,7 @@ module Alchemy
 
     context 'indicate page editors' do
       let(:page) { Page.new }
-      let(:user) { create(:editor_user) }
+      let(:user) { create(:alchemy_editor_user) }
 
       describe '#creator' do
         before { page.update(creator_id: user.id) }
