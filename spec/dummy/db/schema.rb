@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150412103152) do
+ActiveRecord::Schema.define(version: 20150511051944) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
@@ -233,6 +233,7 @@ ActiveRecord::Schema.define(version: 20150412103152) do
     t.integer  "language_id"
     t.text     "cached_tag_list"
     t.datetime "published_at"
+    t.datetime "deleted_at"
   end
 
   add_index "alchemy_pages", ["language_id"], name: "index_pages_on_language_id"

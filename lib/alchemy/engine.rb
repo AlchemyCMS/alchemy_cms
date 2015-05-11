@@ -45,6 +45,7 @@ require_relative './ssl_protection'
 require_relative './resource'
 require_relative './tinymce'
 require_relative './touching'
+require_relative './soft_deleteable'
 
 # Require hacks
 require_relative './kaminari/scoped_pagination_url_helper'

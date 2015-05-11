@@ -14,6 +14,15 @@ module Alchemy
     let(:news_page)     { FactoryGirl.create(:public_page, page_layout: 'news', do_not_autogenerate: false) }
 
 
+    # Scopes
+
+    context 'scopes' do
+      it 'it uses not_deleted as default scope' do
+        expect(Page).to receive(:not_deleted)
+        Page.first
+      end
+    end
+
     # Validations
 
     context 'validations' do
