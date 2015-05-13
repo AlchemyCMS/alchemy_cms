@@ -54,13 +54,6 @@ module Alchemy
       end
     end
 
-    # Returns an array of all pages in the same branch from current.
-    # I.e. used to find the active page in navigation.
-    def breadcrumb(current)
-      return [] if current.nil?
-      current.self_and_ancestors.where("parent_id IS NOT NULL")
-    end
-
     # Returns the Alchemy configuration.
     #
     # *DO NOT REMOVE THIS HERE.*
@@ -104,6 +97,5 @@ module Alchemy
         page
       end
     end
-
   end
 end

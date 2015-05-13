@@ -199,7 +199,14 @@ module Alchemy
         options
       end
 
-    private
+      # Returns an array of all pages in the same branch from current.
+      # I.e. used to find the active page in navigation.
+      def ancestors_for(current)
+        return [] if current.nil?
+        current.self_and_ancestors.contentpages
+      end
+
+      private
 
       # Aggregates the attributes from given source for copy of page.
       #
