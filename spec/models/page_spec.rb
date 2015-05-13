@@ -416,6 +416,26 @@ module Alchemy
       end
     end
 
+    describe '.ancestors_for' do
+      let(:lang_root) { Page.language_root_for(Language.default.id) }
+      let(:parent)    { create(:public_page) }
+      let(:page)      { create(:public_page, parent_id: parent.id) }
+
+      it "returns an array of all parents including self" do
+        expect(Page.ancestors_for(page)).to eq([lang_root, parent, page])
+      end
+
+      it "does not include the root page" do
+        expect(Page.ancestors_for(page)).not_to include(Page.root)
+      end
+
+      context "with current page nil" do
+        it "should return an empty array" do
+          expect(Page.ancestors_for(nil)).to eq([])
+        end
+      end
+    end
+
     describe '.contentpages' do
       before do
         layoutroot = Page.find_or_create_layout_root_for(klingonian.id)

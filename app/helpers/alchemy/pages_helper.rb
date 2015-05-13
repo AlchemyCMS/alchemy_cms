@@ -207,8 +207,8 @@ module Alchemy
 
     # Returns true if page is in the active branch
     def page_active?(page)
-      @breadcrumb ||= breadcrumb(@page)
-      @breadcrumb.include?(page)
+      @_page_ancestors ||= Page.ancestors_for(@page)
+      @_page_ancestors.include?(page)
     end
 
     # Returns +'active'+ if the given external page is in the current url path or +nil+.
@@ -235,7 +235,7 @@ module Alchemy
         reverse: false,
         link_active_page: false
       }.merge(options)
-      pages = breadcrumb(options[:page]).accessible_by(current_ability, :see)
+      pages = Page.ancestors_for(options[:page]).accessible_by(current_ability, :see)
       pages = pages.restricted if options.delete(:restricted_only)
       pages.to_a.reverse! if options[:reverse]
       if options[:without].present?

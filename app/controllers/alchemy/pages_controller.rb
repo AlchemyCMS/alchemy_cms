@@ -1,10 +1,5 @@
 module Alchemy
   class PagesController < Alchemy::BaseController
-    # We need to include this helper because we need the breadcrumb method.
-    # And we cannot define the breadcrump method as helper_method, because rspec does not see helper_methods.
-    # Not the best solution, but's working.
-    # Anyone with a better idea please provide a patch.
-    include Alchemy::BaseHelper
 
     before_action :enforce_primary_host_for_site
     before_action :render_page_or_redirect, only: [:show]

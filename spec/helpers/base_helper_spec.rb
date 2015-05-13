@@ -40,26 +40,6 @@ module Alchemy
       end
     end
 
-    describe '#breadcrumb' do
-      let(:lang_root) { Page.language_root_for(Language.default.id) }
-      let(:parent)    { FactoryGirl.create(:public_page) }
-      let(:page)      { FactoryGirl.create(:public_page, parent_id: parent.id) }
-
-      it "returns an array of all parents including self" do
-        expect(helper.breadcrumb(page)).to eq([lang_root, parent, page])
-      end
-
-      it "does not include the root page" do
-        expect(helper.breadcrumb(page)).not_to include(Page.root)
-      end
-
-      context "with current page nil" do
-        it "should return an empty array" do
-          expect(helper.breadcrumb(nil)).to eq([])
-        end
-      end
-    end
-
     describe '#page_or_find' do
       let(:page) { FactoryGirl.create(:public_page) }
 
@@ -83,8 +63,6 @@ module Alchemy
           expect(helper.page_or_find(page)).to eq(page)
         end
       end
-
     end
-
   end
 end
