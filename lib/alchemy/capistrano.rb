@@ -157,7 +157,7 @@ EOF
         database
       end
 
-      desc "Imports the server database into your local development machine."
+      desc "Exports your local development machine database into the server database."
       task :database, :roles => [:db], :only => {:primary => true} do
         if Capistrano::CLI.ui.agree('WARNING: This task will override your remote database. Do you want me to make a backup? (y/n)')
           backup_database
