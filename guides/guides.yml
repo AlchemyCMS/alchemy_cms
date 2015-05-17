@@ -89,9 +89,12 @@ index:
 
 
   6.) Deployment:
+    - title: Deploying on Heroku
+      url: deploy_on_heroku
+      text: How to deploy your Alchemy site on Heroku.
     - title: Deploying on RailsHoster
       url: deploy_on_railshoster
-      text: How to deploy your Alchems site on RailsHoster.
+      text: How to deploy your Alchemy site on RailsHoster.
 
 authors:
   Core Team:
