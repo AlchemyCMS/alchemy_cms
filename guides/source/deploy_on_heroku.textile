@@ -21,7 +21,7 @@ h3. Amazon (AWS) setup
 
 h4. Create S3 buckets
 
-Heroku does not provide data storage on its filesystem (beside a small amount for the application code and some temporary data). So we have to store our pictures and attachments outside from Heroku. Amazon S3 comes for the rescue. We need two S3 buckets, one for Alchemy pictures and another for Alchemy attachments.
+Heroku does not provide data storage on its filesystem (beside a small amount for the application code and some temporary data). So we have to store our pictures and attachments outside of Heroku. Amazon S3 comes for the rescue. We need two S3 buckets, one for Alchemy pictures and another for Alchemy attachments.
 
 Please create two S3 buckets now and name them as follows:
 
@@ -213,7 +213,7 @@ $ heroku git:remote -a my-project
 
 h3. Deployment
 
-h4. Deploy for first time
+h4. First deployment
 
 Lets deploy the application to heroku the first time! Its easy as pushing our repository to the heroku git remote.
 
