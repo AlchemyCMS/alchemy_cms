@@ -2,6 +2,7 @@
 #
 # For further informations please see http://guides.alchemy-cms.com/create_elements.html
 
+<%- unless @options[:skip_demo_files] -%>
 - name: article
   hint: true
   unique: true
@@ -17,3 +18,4 @@
     type: EssenceRichtext
     default: :article_text
     hint: true
+<%- end -%>

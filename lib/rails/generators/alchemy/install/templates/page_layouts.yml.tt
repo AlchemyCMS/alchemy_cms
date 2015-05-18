@@ -2,7 +2,9 @@
 #
 # For further informations please see http://guides.alchemy-cms.com/create_page_layouts.html
 
+<%- unless @options[:skip_demo_files] -%>
 - name: <%= Alchemy::Config.get(:default_language)['page_layout'] %>
   unique: true
   elements: [article]
   autogenerate: [article]
+<%- end -%>
