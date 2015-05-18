@@ -1,0 +1,13 @@
+<% if pages.any? %>
+  <div class="breadcrumb">
+    <%= render({
+        collection: pages,
+        partial: 'alchemy/breadcrumb/page',
+        spacer_template: 'alchemy/breadcrumb/separator',
+        locals: {
+          pages: pages,
+          options: options
+        }
+      }.delete_if { |k, _v| k == :spacer_template && options[:separator].blank? }) %>
+  </div>
+<% end %>
