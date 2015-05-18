@@ -258,7 +258,9 @@ module Alchemy
 
         it "should render a breadcrumb of restricted pages only" do
           page.update_attributes!(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')
-          expect(helper.render_breadcrumb(page: page, restricted_only: true).strip).to match(/^(<span(.[^>]+)>)A restricted Public Page/)
+          result = helper.render_breadcrumb(page: page, restricted_only: true).strip
+          expect(result).to have_selector("*[contains(\"#{page.name}\")]")
+          expect(result).to_not have_selector("*[contains(\"#{parent.name}\")]")
         end
       end
 
