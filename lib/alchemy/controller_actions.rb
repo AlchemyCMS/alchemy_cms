@@ -125,6 +125,5 @@ module Alchemy
         Language.current = language
       end
     end
-
   end
 end
