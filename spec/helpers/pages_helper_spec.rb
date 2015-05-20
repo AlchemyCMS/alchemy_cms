@@ -1,26 +1,25 @@
 # encoding: utf-8
 require 'spec_helper'
 
-include Alchemy::BaseHelper
-
 module Alchemy
   describe PagesHelper do
 
     # Fixtures
-    let(:language)                  { mock_model('Language', :code => 'en') }
-    let(:default_language)          { Language.default }
-    let(:language_root)             { FactoryGirl.create(:language_root_page) }
-    let(:public_page)               { FactoryGirl.create(:public_page) }
-    let(:visible_page)              { FactoryGirl.create(:public_page, :visible => true) }
-    let(:restricted_page)           { FactoryGirl.create(:public_page, :visible => true, :restricted => true) }
-    let(:level_2_page)              { FactoryGirl.create(:public_page, :parent_id => visible_page.id, :visible => true, :name => 'Level 2') }
-    let(:level_3_page)              { FactoryGirl.create(:public_page, :parent_id => level_2_page.id, :visible => true, :name => 'Level 3') }
-    let(:level_4_page)              { FactoryGirl.create(:public_page, :parent_id => level_3_page.id, :visible => true, :name => 'Level 4') }
-    let(:klingonian)                { FactoryGirl.create(:klingonian) }
-    let(:klingonian_language_root)  { FactoryGirl.create(:language_root_page, :language => klingonian) }
-    let(:klingonian_public_page)    { FactoryGirl.create(:public_page, :language => klingonian, :parent_id => klingonian_language_root.id) }
+    let(:language)                 { mock_model('Language', :code => 'en') }
+    let(:default_language)         { Language.default }
+    let(:language_root)            { FactoryGirl.create(:language_root_page) }
+    let(:public_page)              { FactoryGirl.create(:public_page) }
+    let(:visible_page)             { FactoryGirl.create(:public_page, :visible => true) }
+    let(:restricted_page)          { FactoryGirl.create(:public_page, :visible => true, :restricted => true) }
+    let(:level_2_page)             { FactoryGirl.create(:public_page, :parent_id => visible_page.id, :visible => true, :name => 'Level 2') }
+    let(:level_3_page)             { FactoryGirl.create(:public_page, :parent_id => level_2_page.id, :visible => true, :name => 'Level 3') }
+    let(:level_4_page)             { FactoryGirl.create(:public_page, :parent_id => level_3_page.id, :visible => true, :name => 'Level 4') }
+    let(:klingonian)               { FactoryGirl.create(:klingonian) }
+    let(:klingonian_language_root) { FactoryGirl.create(:language_root_page, :language => klingonian) }
+    let(:klingonian_public_page)   { FactoryGirl.create(:public_page, :language => klingonian, :parent_id => klingonian_language_root.id) }
 
     before do
+      helper.controller.class_eval { include Alchemy::ConfigurationMethods }
       allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
       @root_page = language_root # We need this instance variable in the helpers
     end

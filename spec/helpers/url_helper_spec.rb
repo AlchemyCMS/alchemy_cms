@@ -1,11 +1,14 @@
 require 'spec_helper'
 
-include Alchemy::BaseHelper
 include Alchemy::ElementsHelper
 
 module Alchemy
   describe UrlHelper do
     let(:page) { mock_model(Page, urlname: 'testpage', language_code: 'en') }
+
+    before do
+      helper.controller.class_eval { include Alchemy::ConfigurationMethods }
+    end
 
     context 'page path helpers' do
       describe "#show_page_path_params" do

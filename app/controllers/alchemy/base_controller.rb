@@ -2,6 +2,7 @@
 #
 module Alchemy
   class BaseController < ApplicationController
+    include Alchemy::ConfigurationMethods
     include Alchemy::ControllerActions
     include Alchemy::Modules
     include Alchemy::SSLProtection
@@ -10,8 +11,6 @@ module Alchemy
 
     before_action :mailer_set_url_options
     before_action :set_locale
-
-    helper_method :multi_site?
 
     helper 'alchemy/admin/form'
 
@@ -25,22 +24,6 @@ module Alchemy
     #
     def set_locale
       ::I18n.locale = Language.current.code
-    end
-
-    # Returns the configuration value of given key.
-    #
-    # Config file is in +config/alchemy/config.yml+
-    #
-    def configuration(name)
-      Alchemy::Config.get(name)
-    end
-
-    def multi_language?
-      Language.published.count > 1
-    end
-
-    def multi_site?
-      Site.count > 1
     end
 
     def not_found_error!(msg = "Not found \"#{request.fullpath}\"")

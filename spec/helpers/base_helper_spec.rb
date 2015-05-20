@@ -17,29 +17,6 @@ module Alchemy
       end
     end
 
-    describe "#configuration" do
-      it "should return certain configuration options" do
-        allow(Config).to receive(:show).and_return({"some_option" => true})
-        expect(helper.configuration(:some_option)).to eq(true)
-      end
-    end
-
-    describe "#multi_language?" do
-      context "if more than one published language exists" do
-        it "should return true" do
-          allow(Alchemy::Language).to receive(:published).and_return double(count: 2)
-          expect(helper.multi_language?).to eq(true)
-        end
-      end
-
-      context "if less than two published languages exists" do
-        it "should return false" do
-          allow(Alchemy::Language).to receive(:published).and_return double(count: 1)
-          expect(helper.multi_language?).to eq(false)
-        end
-      end
-    end
-
     describe '#page_or_find' do
       let(:page) { FactoryGirl.create(:public_page) }
 
