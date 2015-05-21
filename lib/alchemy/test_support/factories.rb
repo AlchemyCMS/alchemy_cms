@@ -2,23 +2,20 @@ require 'factory_girl'
 
 FactoryGirl.define do
 
-  factory :alchemy_user, class: 'DummyUser' do
+  factory :alchemy_dummy_user, class: 'DummyUser' do
     sequence(:email) { |n| "john.#{n}@doe.com" }
     password 's3cr3t'
+    alchemy_roles ['member']
 
-    factory :alchemy_admin_user do
+    trait :as_admin do
       alchemy_roles ['admin']
     end
 
-    factory :alchemy_member_user do
-      alchemy_roles ['member']
-    end
-
-    factory :alchemy_author_user do
+    trait :as_author do
       alchemy_roles ['author']
     end
 
-    factory :alchemy_editor_user do
+    trait :as_editor do
       alchemy_roles ['editor']
     end
   end

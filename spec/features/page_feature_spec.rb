@@ -275,7 +275,7 @@ module Alchemy
       end
 
       context 'as a member user' do
-        before { authorize_as_admin(create(:alchemy_member_user)) }
+        before { authorize_as_admin(create(:alchemy_dummy_user)) }
 
         it "I am able to visit the page" do
           visit restricted_page.urlname

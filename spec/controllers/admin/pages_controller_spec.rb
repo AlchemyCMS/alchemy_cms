@@ -367,7 +367,7 @@ module Alchemy
 
       describe '#edit' do
         let!(:page)       { create(:page) }
-        let!(:other_user) { create(:alchemy_author_user) }
+        let!(:other_user) { create(:alchemy_dummy_user, :as_author) }
 
         context 'if page is locked by another user' do
           before { page.lock_to!(other_user) }
