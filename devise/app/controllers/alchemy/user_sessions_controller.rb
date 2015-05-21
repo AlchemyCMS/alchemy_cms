@@ -1,7 +1,6 @@
 module Alchemy
   class UserSessionsController < ::Devise::SessionsController
     include Alchemy::Locale
-    include Alchemy::SSLProtection
 
     before_action except: 'destroy' do
       enforce_ssl if ssl_required? && !request.ssl?
@@ -9,7 +8,7 @@ module Alchemy
 
     before_action :check_user_count, :only => :new
 
-    helper 'Alchemy::Admin::Base', 'Alchemy::Pages'
+    helper 'Alchemy::Admin::Base'
 
     layout 'alchemy/login'
 
