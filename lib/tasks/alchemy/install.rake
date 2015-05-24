@@ -38,7 +38,7 @@ namespace :alchemy do
       puts "-----------------"
     end
     Rake::Task["alchemy:mount"].invoke
-    system("rails g alchemy:scaffold#{ ENV['from_binary'] ? ' --force' : '' }") || exit!(1)
+    system("rails g alchemy:install#{ ENV['from_binary'] ? ' --force' : '' }") || exit!(1)
     install_helper.set_primary_language
     Rake::Task["db:create"].invoke
     # We can't invoke this rake task, because Rails will use wrong engine names otherwise
