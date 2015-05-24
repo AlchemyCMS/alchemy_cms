@@ -19,7 +19,6 @@ require 'database_cleaner'
 require 'rspec-activemodel-mocks'
 
 require 'alchemy/seeder'
-require 'alchemy/test_support/auth_helpers'
 require 'alchemy/test_support/controller_requests'
 require 'alchemy/test_support/essence_shared_examples'
 require 'alchemy/test_support/integration_helpers'
@@ -52,9 +51,10 @@ RSpec.configure do |config|
   config.run_all_when_everything_filtered = true
   config.filter_run :focus
   config.include Alchemy::Engine.routes.url_helpers
-  config.include Alchemy::TestSupport::AuthHelpers
   config.include Alchemy::TestSupport::ControllerRequests, type: :controller
-  config.include Alchemy::TestSupport::IntegrationHelpers, type: :feature
+  [:controller, :feature].each do |type|
+    config.include Alchemy::TestSupport::IntegrationHelpers, type: type
+  end
   config.include FactoryGirl::Syntax::Methods
 
   config.use_transactional_fixtures = false

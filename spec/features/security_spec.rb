@@ -13,7 +13,7 @@ describe "Security." do
       allow_any_instance_of(Alchemy::BaseController)
         .to receive(:ssl_required?)
         .and_return(true)
-      authorize_as_admin(DummyUser.new(alchemy_roles: %w(admin)))
+      authorize_user(:as_admin)
     end
 
     it "redirects every request to https." do

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 RSpec.feature "Picture Library" do
   before do
-    authorize_as_admin
+    authorize_user(:as_admin)
   end
 
   describe "Tagging" do

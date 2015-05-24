@@ -12,7 +12,7 @@ module Alchemy
     context 'an author' do
       let(:unpublic) { create(:page, parent: default_language_root) }
 
-      before { allow(controller).to receive(:current_alchemy_user).and_return(author_user) }
+      before { authorize_user(:as_author) }
 
       it "should not be able to visit a unpublic page" do
         expect {
@@ -210,10 +210,8 @@ module Alchemy
       end
 
       context 'with user logged in' do
-        let(:author_user) { mock_model(Alchemy.user_class, cache_key: 'bbb') }
-
         before do
-          sign_in(author_user)
+          authorize_user(mock_model(Alchemy.user_class, cache_key: 'bbb'))
         end
 
         it "returns another etag for response headers" do

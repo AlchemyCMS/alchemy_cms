@@ -9,7 +9,7 @@ module Alchemy
       let(:element) { FactoryGirl.create(:element, :public => false, :page => alchemy_page) }
 
       before {
-        sign_in(admin_user)
+        authorize_user(:as_admin)
         element.trash!
       }
 

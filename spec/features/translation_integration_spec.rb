@@ -2,9 +2,9 @@ require 'spec_helper'
 
 describe "Translation integration" do
   context "in admin backend" do
-    let(:dummy_user) { mock_model('DummyUser', alchemy_roles: %w(admin), language: 'de') }
+    let(:dummy_user) { mock_model(Alchemy.user_class, alchemy_roles: %w(admin), language: 'de') }
 
-    before { authorize_as_admin(dummy_user) }
+    before { authorize_user(dummy_user) }
 
     it "should be possible to set the locale of the admin backend via params" do
       visit admin_dashboard_path(locale: 'nl')
@@ -38,7 +38,7 @@ describe "Translation integration" do
       end
 
       context "if user has no preferred locale" do
-        let(:dummy_user) { mock_model('DummyUser', alchemy_roles: %w(admin), language: nil) }
+        let(:dummy_user) { mock_model(Alchemy.user_class, alchemy_roles: %w(admin), language: nil) }
 
         it "should use the browsers language setting" do
           page.driver.header 'ACCEPT-LANGUAGE', 'es-ES'

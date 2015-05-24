@@ -2,9 +2,9 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::DashboardController do
-    let(:user) { admin_user }
+    let(:user) { build(:alchemy_dummy_user, :as_admin) }
 
-    before { sign_in(user) }
+    before { authorize_user(user) }
 
     describe '#index' do
       before do

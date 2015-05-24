@@ -70,7 +70,7 @@ describe Alchemy::Permissions do
   end
 
   context "A member" do
-    let(:user) { member_user }
+    let(:user) { build(:alchemy_dummy_user) }
 
     it "can download all attachments" do
       is_expected.to be_able_to(:download, attachment)
@@ -123,7 +123,7 @@ describe Alchemy::Permissions do
   end
 
   context "An author" do
-    let(:user) { author_user }
+    let(:user) { build(:alchemy_dummy_user, :as_author) }
 
     it "can leave the admin area" do
       is_expected.to be_able_to(:leave, :alchemy_admin)
@@ -196,7 +196,7 @@ describe Alchemy::Permissions do
   end
 
   context "An editor" do
-    let(:user) { editor_user }
+    let(:user) { build(:alchemy_dummy_user, :as_editor) }
 
     it "can manage pages" do
       is_expected.to be_able_to(:copy, Alchemy::Page)
@@ -235,7 +235,7 @@ describe Alchemy::Permissions do
   end
 
   context "An admin" do
-    let(:user) { admin_user }
+    let(:user) { build(:alchemy_dummy_user, :as_admin) }
 
     it "can check for alchemy updates" do
       is_expected.to be_able_to(:update_check, :alchemy_admin_dashboard)
@@ -251,7 +251,7 @@ describe Alchemy::Permissions do
   end
 
   context "A logged in user without a role" do
-    let(:user) { mock_user([]) }
+    let(:user) { mock_model(Alchemy.user_class, alchemy_roles: []) }
 
     it "can only see visible not restricted pages (like the guest role)" do
       is_expected.to be_able_to(:see, visible_page)

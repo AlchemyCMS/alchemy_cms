@@ -47,7 +47,7 @@ module Alchemy
       end
 
       context "as member user" do
-        before { sign_in(member_user) }
+        before { authorize_user(build(:alchemy_dummy_user)) }
 
         it "should be possible to download attachments from restricted pages" do
           alchemy_get :download, :id => attachment.id

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Alchemy::Admin::LanguagesController do
 
   before do
-    sign_in(admin_user)
+    authorize_user(:as_admin)
   end
 
   describe "#new" do

@@ -7,7 +7,7 @@ module Alchemy
     let(:element_in_clipboard) { create(:element, :page_id => alchemy_page.id) }
     let(:clipboard)            { session[:alchemy_clipboard] = {} }
 
-    before { sign_in(author_user) }
+    before { authorize_user(:as_author) }
 
     describe '#index' do
       let(:alchemy_page) { build_stubbed(:page) }

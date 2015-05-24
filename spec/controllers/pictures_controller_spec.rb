@@ -41,7 +41,7 @@ module Alchemy
 
         context "as member user" do
           before do
-            sign_in(member_user)
+            authorize_user(build(:alchemy_dummy_user))
           end
 
           it "should render the picture" do
@@ -226,7 +226,7 @@ module Alchemy
 
         context "as member user" do
           before do
-            sign_in(member_user)
+            authorize_user(build(:alchemy_dummy_user))
           end
 
           it "should render the picture" do
@@ -294,7 +294,7 @@ module Alchemy
 
         context "as member user" do
           before do
-            sign_in(member_user)
+            authorize_user(build(:alchemy_dummy_user))
           end
 
           it "should render the picture" do

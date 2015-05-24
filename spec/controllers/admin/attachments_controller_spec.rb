@@ -5,7 +5,7 @@ module Alchemy
     let(:attachment) { build_stubbed(:attachment) }
 
     before do
-      sign_in(admin_user)
+      authorize_user(:as_admin)
     end
 
     describe "#index" do

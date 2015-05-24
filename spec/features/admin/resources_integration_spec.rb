@@ -4,7 +4,7 @@ describe "Resources" do
   let(:event)        { FactoryGirl.create(:event) }
   let(:second_event) { FactoryGirl.create(:event, :name => 'My second Event', :entrance_fee => 12.32) }
 
-  before { authorize_as_admin }
+  before { authorize_user(:as_admin) }
 
   describe "index view" do
 

@@ -4,7 +4,7 @@ module Alchemy
   describe Admin::PicturesController do
 
     before do
-      sign_in(admin_user)
+      authorize_user(:as_admin)
     end
 
     describe "#index" do

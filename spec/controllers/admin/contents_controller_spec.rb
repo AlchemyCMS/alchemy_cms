@@ -6,7 +6,7 @@ module Alchemy
     let(:content) { build_stubbed(:content, element: element) }
 
     before do
-      sign_in(admin_user)
+      authorize_user(:as_admin)
     end
 
     context 'with element_id parameter' do
