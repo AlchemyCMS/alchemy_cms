@@ -46,16 +46,17 @@ $.extend Alchemy,
   # fades the image after its been loaded
   ImageLoader: (scope = document, options = {color: '#fff'}) ->
     $('img', scope).each ->
-      image = $(this).hide()
-      $parent = image.parent()
-      spinner = Alchemy.Spinner.small options
-      spinner.spin $parent[0]
-      image.on 'load', ->
-        spinner.stop()
-        image.fadeIn 400
-      image.on 'error', ->
-        spinner.stop()
-        $parent.html('<span class="icon warn"/>')
+      if !this.complete
+        image = $(this).hide()
+        $parent = image.parent()
+        spinner = Alchemy.Spinner.small options
+        spinner.spin $parent[0]
+        image.on 'load', ->
+          spinner.stop()
+          image.fadeIn 400
+        image.on 'error', ->
+          spinner.stop()
+          $parent.html('<span class="icon warn"/>')
 
   removePicture: (selector) ->
     $form_field = $(selector)
