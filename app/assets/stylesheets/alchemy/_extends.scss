@@ -47,12 +47,6 @@
   line-height: 0;
 }
 
-%button-defaults {
-  @include sassy-button('simple', $sb-border-radius, $sb-font-size, $sb-base-color, $sb-second-color, $sb-text-color, $sb-text-style, $sb-pseudo-states, $sb-ie-support);
-  border-color: $button-border-color;
-  margin: $default-form-field-margin;
-}
-
 %field-with-error {
   border-color: $error_border_color;
   color: $error_text_color;

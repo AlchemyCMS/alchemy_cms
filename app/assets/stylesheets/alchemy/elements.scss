@@ -305,12 +305,12 @@ div#cells {
   right: 0;
 
   .icon_button {
+    @include button-defaults;
     margin: 0 0 0 4px;
     padding: 3px;
     position: absolute;
     bottom: 4px;
     right: 28px;
-    @extend %button-defaults;
     @include border-radius(0);
 
     &.unlink {

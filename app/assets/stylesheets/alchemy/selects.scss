@@ -1,5 +1,5 @@
 select {
-  @extend %button-defaults;
+  @include button-defaults;
   height: 29px;
   padding: 0.4em 0.6em;
 }

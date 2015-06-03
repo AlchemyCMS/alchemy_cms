@@ -5,7 +5,7 @@ a#uploadswitcher, a.underline {
 .upload-container {
 
   label {
-    @extend %button-defaults;
+    @include button-defaults;
     text-align: center;
     width: 80px;
   }
