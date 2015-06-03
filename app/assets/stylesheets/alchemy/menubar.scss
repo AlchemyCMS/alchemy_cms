@@ -62,7 +62,7 @@
       text-align: center;
 
       a, button {
-        @extend %button-defaults;
+        @include button-defaults;
         padding-left: $default-padding;
         padding-right: $default-padding;
         width: 100%;
