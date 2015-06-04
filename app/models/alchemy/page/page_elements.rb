@@ -8,7 +8,9 @@ module Alchemy
 
       has_many :elements, -> { order(:position) }
       has_many :contents, :through => :elements
-      has_and_belongs_to_many :to_be_sweeped_elements, -> { uniq }, class_name: 'Alchemy::Element', join_table: 'alchemy_elements_alchemy_pages'
+      has_and_belongs_to_many :to_be_sweeped_elements, -> { uniq },
+        class_name: 'Alchemy::Element',
+        join_table: ElementToPage.table_name
 
       after_create :autogenerate_elements, :unless => proc { systempage? || do_not_autogenerate }
       after_update :trash_not_allowed_elements, :if => :page_layout_changed?
@@ -185,7 +187,7 @@ module Alchemy
     # Returns an array of all EssenceRichtext contents ids
     #
     def richtext_contents_ids
-      contents.essence_richtexts.pluck('alchemy_contents.id')
+      contents.essence_richtexts.pluck("#{Content.table_name}.id")
     end
 
     private

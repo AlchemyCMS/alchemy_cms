@@ -37,7 +37,7 @@ module Alchemy
     before_save :remove_old_default, if: proc { |m| m.default_changed? && m != Language.default }
 
     scope :published,      -> { where(public: true) }
-    scope :with_root_page, -> { joins(:pages).where(alchemy_pages: {language_root: true}) }
+    scope :with_root_page, -> { joins(:pages).where(Page.table_name => {language_root: true}) }
     scope :on_site,        ->(s) { s.present? ? where(site_id: s) : all }
     default_scope { on_site(Site.current) }
 
