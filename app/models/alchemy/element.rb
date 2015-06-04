@@ -37,7 +37,7 @@ module Alchemy
     belongs_to :page
     has_and_belongs_to_many :touchable_pages, -> { uniq },
       class_name: 'Alchemy::Page',
-      join_table: 'alchemy_elements_alchemy_pages'
+      join_table: ElementToPage.table_name
 
     validates_presence_of :name, :on => :create
     validates_format_of :name, :on => :create, :with => /\A[a-z0-9_-]+\z/
@@ -57,7 +57,7 @@ module Alchemy
     scope :excluded,          ->(names) { where(arel_table[:name].not_in(names)) }
     scope :not_in_cell,       -> { where(cell_id: nil) }
     scope :in_cell,           -> { where("#{self.table_name}.cell_id IS NOT NULL") }
-    scope :from_current_site, -> { where(alchemy_languages: {site_id: Site.current || Site.default}).joins(page: 'language') }
+    scope :from_current_site, -> { where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: 'language') }
 
     delegate :restricted?, to: :page, allow_nil: true
 
@@ -384,7 +384,7 @@ module Alchemy
     # Returns an array of all EssenceRichtext contents ids
     #
     def richtext_contents_ids
-      contents.essence_richtexts.pluck('alchemy_contents.id')
+      contents.essence_richtexts.pluck("#{Content.table_name}.id")
     end
 
     # The names of all cells from given page this element could be placed in.
