@@ -22,6 +22,12 @@ module Alchemy
           expect(Content.normalize_essence_type('EssenceText')).to eq("Alchemy::EssenceText")
         end
       end
+
+      context "passing non-namespaced essence type for an existing non-namespaced essence" do
+        it "should not add alchemy namespace" do
+          expect(Content.normalize_essence_type('DummyModel')).to eq("DummyModel")
+        end
+      end
     end
 
     describe '#normalized_essence_type' do
