@@ -30,6 +30,12 @@ Alchemy.Initializer = ->
     delimiter = if url.match(/\?/) then '&' else '?'
     window.location.href = "#{url}#{delimiter}locale=#{$(this).val()}"
 
+  # Site select handler
+  $('select#change_site').on 'change', (e) ->
+    url = window.location.pathname
+    delimiter = if url.match(/\?/) then '&' else '?'
+    window.location.href = "#{url}#{delimiter}site_id=#{$(this).val()}"
+
   # Submit forms of selects with `data-autosubmit="true"`
   $('select[data-auto-submit="true"]').on 'change', (e) ->
     Alchemy.pleaseWaitOverlay()

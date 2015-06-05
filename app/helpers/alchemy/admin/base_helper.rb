@@ -64,6 +64,13 @@ module Alchemy
         end
       end
 
+      # Used for site selector in Alchemy cockpit.
+      def sites_for_select
+        Alchemy::Site.all.map do |site|
+          [site.name, site.id]
+        end
+      end
+
       # Returns a javascript driven live filter for lists.
       #
       # The items must have a html +name+ attribute that holds the filterable value.
