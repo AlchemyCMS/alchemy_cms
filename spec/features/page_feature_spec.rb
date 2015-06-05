@@ -233,13 +233,13 @@ module Alchemy
 
         it "a link to the admin area" do
           within('#alchemy_menubar') do
-            expect(page).to have_selector("li a[href='#{alchemy.admin_dashboard_path}']")
+            expect(page).to have_selector("li a[href='#{alchemy.admin_dashboard_url}']")
           end
         end
 
         it "a link to edit the current page" do
           within('#alchemy_menubar') do
-            expect(page).to have_selector("li a[href='#{alchemy.edit_admin_page_path(public_page_1)}']")
+            expect(page).to have_selector("li a[href='#{alchemy.edit_admin_page_url(public_page_1)}']")
           end
         end
 

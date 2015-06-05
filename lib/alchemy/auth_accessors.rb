@@ -40,7 +40,9 @@ module Alchemy
     :current_user_method,
     :signup_path,
     :login_path,
-    :logout_path
+    :logout_path,
+    :admin_path,
+    :admin_constraints
 
   # Defaults
   #
@@ -49,6 +51,8 @@ module Alchemy
   @@signup_path = '/signup'
   @@login_path = '/login'
   @@logout_path = '/logout'
+  @@admin_path = '/admin'
+  @@admin_constraints = {}
 
   # Returns the user class
   #
