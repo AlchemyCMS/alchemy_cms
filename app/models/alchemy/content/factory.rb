@@ -122,19 +122,26 @@ module Alchemy
       # Returns a normalized Essence type
       #
       # Adds Alchemy module name in front of given essence type
+      # unless there is a Class with the specified name that is an essence.
       #
       # @param [String]
       #   the essence type to normalize
       #
       def normalize_essence_type(essence_type)
         essence_type = essence_type.classify
-        if essence_type.match(/\AAlchemy::/)
-          essence_type
-        else
-          essence_type.gsub!(/\AEssence/, 'Alchemy::Essence')
-        end
+        return essence_type if is_an_essence?(essence_type)
+
+        "Alchemy::#{essence_type}"
       end
 
+      private
+
+      def is_an_essence?(essence_type)
+        klass = Module.const_get(essence_type)
+        klass.is_a?(Class) && klass.new.acts_as_essence?
+      rescue NameError
+        false
+      end
     end # end class methods
 
     # Instance Methods
@@ -179,6 +186,5 @@ module Alchemy
       }
       attributes
     end
-
   end
 end
