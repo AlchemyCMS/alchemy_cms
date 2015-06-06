@@ -86,6 +86,11 @@
         <%= select_tag 'change_locale',
           options_for_select(translations_for_select, ::I18n.locale),
           class: 'alchemy_selectbox tiny' %>
+        <%- if multi_site? -%>
+        <%= select_tag 'change_site',
+          options_for_select(sites_for_select, Alchemy::Site.current.id),
+          class: 'alchemy_selectbox tiny' %>
+        <%- end -%>
       </div>
     </div>
     <% end %>

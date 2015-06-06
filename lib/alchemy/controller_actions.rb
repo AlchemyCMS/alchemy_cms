@@ -46,7 +46,16 @@ module Alchemy
     # Returns the current site.
     #
     def current_alchemy_site
-      @current_alchemy_site ||= Site.find_for_host(request.host)
+      @current_alchemy_site ||= begin
+        site_id = params[:site_id] || session[:site_id]
+        if site_id.nil?
+          session.delete :site_id
+          Site.find_for_host(request.host)
+        else
+          session[:site_id] = site_id
+          Site.find(site_id)
+        end
+      end
     end
 
     # Ensures usage of Alchemy's permissions class.
