@@ -148,7 +148,7 @@ module Alchemy
     def legacy_urls
       # /slug/tree => slug/tree
       urlname = (request.fullpath[1..-1] if request.fullpath[0] == '/') || request.fullpath
-      LegacyPageUrl.joins(:page).where(urlname: urlname, alchemy_pages: {language_id: Language.current.id})
+      LegacyPageUrl.joins(:page).where(urlname: urlname, Page.table_name => {language_id: Language.current.id})
     end
 
     def last_legacy_url

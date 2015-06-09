@@ -105,8 +105,8 @@ module Alchemy
       #
       def update_essence_select_elements(page, element)
         elements = page.elements.not_trashed.joins(:contents)
-          .where("alchemy_contents.element_id != #{element.id}")
-          .where("alchemy_contents.essence_type" => "Alchemy::EssenceSelect")
+          .where(["#{Content.table_name}.element_id != ?", element.id])
+          .where(Content.table_name => {essence_type: "Alchemy::EssenceSelect"})
         return if elements.blank?
         elements.collect do |element|
           render 'alchemy/admin/elements/refresh_editor', element: element

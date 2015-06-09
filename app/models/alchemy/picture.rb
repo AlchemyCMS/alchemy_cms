@@ -71,7 +71,7 @@ module Alchemy
     }
 
     scope :deletable, -> {
-      where("#{self.table_name}.id NOT IN (SELECT picture_id FROM alchemy_essence_pictures)")
+      where("#{table_name}.id NOT IN (SELECT picture_id FROM #{EssencePicture.table_name})")
     }
 
     scope :without_tag, -> {
