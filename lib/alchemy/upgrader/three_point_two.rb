@@ -35,10 +35,10 @@ module Alchemy
 
     def upgrade_acts_as_taggable_on_migrations
       desc 'Installs acts_as_taggable_on migrations.'
-      # We can't invoke this rake task, because Rails will use wrong engine names otherwise
-      `bundle exec rake railties:install:migrations`
-      Alchemy::Upgrader::ThreePointTwoTask.new.patch_acts_as_taggable_on_migrations
-      Rake::Task["db:migrate"].invoke
+      if !`bundle exec rake railties:install:migrations FROM=acts_as_taggable_on_engine`.empty?
+        Alchemy::Upgrader::ThreePointTwoTask.new.patch_acts_as_taggable_on_migrations
+      end
+      `bundle exec rake db:migrate`
     end
 
     def inject_seeder
