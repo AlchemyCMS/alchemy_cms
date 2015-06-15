@@ -194,69 +194,13 @@ Also, `git diff` is your friend. You are using git to track changes of your proj
 
 ## Deployment
 
-Alchemy ships with Capistrano based deployment receipts which takes care of everything you need to deploy an Alchemy site.
+Alchemy has an official Capistrano extension which takes care of everything you need to deploy an Alchemy site.
 
-### 1. Add Capistrano gem
-
-First you need to add Capistrano to your `Gemfile`:
-
-```ruby
-# Gemfile
-gem 'capistrano', '2.15.5', group: 'development'
-```
-
-**A note about Capistrano version:**
-
-Alchemy's deploy script is currently **only compatible with Capistrano 2.x** ([See this pull request](https://github.com/AlchemyCMS/alchemy_cms/pull/616) if you want to help us upgrade to 3.x).
-
-### 2. Generate the deploy file
-
-To generate the deploy file you need to use this generator:
-
-```shell
-$ bin/rails g alchemy:deploy_script
-```
-
-and follow the instructions.
-
-If you *have your own Capistrano receipts* you can require the Alchemy tasks in your `config/deploy.rb` file:
-
-```ruby
-# deploy.rb
-require 'alchemy/capistrano'
-```
-
-### Synchronize your data
-
-Alchemy Capistrano receipts offer much more then only deployment related tasks. We also have tasks to make your local development easier. To get a list of all receipts type:
-
-```shell
-$ bundle exec cap -T alchemy
-```
-
-#### Import data from server
-
-```shell
-$ bundle exec cap alchemy:import:all
-```
-
-This imports your servers data onto your local development machine. This is very handy if you want to clone the current server state.
-
-#### Export data to server
-
-That even works the other way around:
-
-```shell
-$ bundle exec cap alchemy:export:all
-```
-
-**NOTE:** This will **overwrite the database** on your server. But calm down my dear friend, Alchemy will ask you to perform a backup before overwriting it.
+Please use https://github.com/AlchemyCMS/capistrano-alchemy, if you want to deploy with Capistrano.
 
 ### Without Capistrano
 
 If you don't use Capistrano you have to **make sure** that the `uploads`, `tmp/cache/assets`, `public/assets` and `public/pictures` folders get **shared between deployments**, otherwise you **will loose data**. No, not really, but you know, just keep them in sync.
-
-Please take a look into Alchemys [Capistrano receipt](https://github.com/AlchemyCMS/alchemy_cms/blob/master/lib/alchemy/capistrano.rb) in order to see how you could achieve this.
 
 
 ## Testing

@@ -45,5 +45,25 @@ module Alchemy
       desc 'Add Alchemy seeder to `db/seeds.rb` file.'
       Alchemy::Upgrader::ThreePointTwoTask.new.inject_seeder
     end
+
+    def alchemy_3_2_todos
+      notice = <<-NOTE
+
+Capistrano 2 deploy script removed
+----------------------------------
+
+The Capistrano 2 based deploy script has been removed and replaced by an Capistrano 3 extension.
+
+Please update your Gemfile:
+
+group :development do
+  gem 'capistrano-alchemy', github: 'AlchemyCMS/capistrano-alchemy', branch: 'master', require: false
+end
+
+For more information please visit https://github.com/AlchemyCMS/capistrano-alchemy.
+
+NOTE
+      todo notice, 'Alchemy v3.2 changes'
+    end
   end
 end
