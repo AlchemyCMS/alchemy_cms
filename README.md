@@ -1,7 +1,5 @@
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.svg)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://travis-ci.org/AlchemyCMS/alchemy_cms.svg?branch=master)](https://travis-ci.org/AlchemyCMS/alchemy_cms) [![Code Climate](https://codeclimate.com/github/AlchemyCMS/alchemy_cms.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms) [![Test Coverage](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/badges/coverage.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms)
-
-**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms/versions/3.0.0), or the [latest stable branch (3.1-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/3.1-stable).**
+[![Build Status](https://travis-ci.org/AlchemyCMS/alchemy_cms.svg?branch=3.2-stable)](https://travis-ci.org/AlchemyCMS/alchemy_cms) [![Code Climate](https://codeclimate.com/github/AlchemyCMS/alchemy_cms.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms) [![Test Coverage](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/badges/coverage.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms)
 
 
 ## About
@@ -75,7 +73,7 @@ $ alchemy --help
 Put this into your `Gemfile`:
 
 ```ruby
-gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
+gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: '3.2-stable'
 ```
 
 **NOTE:** You normally want to use a stable branch, like `3.0-stable`.
@@ -104,7 +102,7 @@ the Devise based user model that Alchemy provides and was extracted [into its ow
 If you don't have your own user class, you can use the Alchemy user model. Just add the following gem into your `Gemfile`:
 
 ```ruby
-gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
+gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: '3.2-stable'
 ```
 
 **NOTE:** You normally want to use a stable branch, like `2.0-stable`.
