@@ -1,11 +1,9 @@
 require 'spec_helper'
 
 describe 'TinyMCE Editor' do
-  let(:user) { DummyUser.new }
 
   before do
-    user.update(alchemy_roles: %w(admin), name: "Joe User", id: 1)
-    authorize_as_admin(user)
+    authorize_user(:as_admin)
   end
 
   it 'base path should be set to tinymce asset folder' do

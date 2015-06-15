@@ -3,7 +3,7 @@ require "spec_helper"
 module Alchemy
   describe Admin::EssenceFilesController do
     before do
-      sign_in(admin_user)
+      authorize_user(:as_admin)
     end
 
     let(:essence_file) { mock_model('EssenceFile', :attachment= => nil, content: content) }

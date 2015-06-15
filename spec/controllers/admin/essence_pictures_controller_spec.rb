@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::EssencePicturesController do
-    before { sign_in(admin_user) }
+    before { authorize_user(:as_admin) }
 
     let(:essence) { EssencePicture.new }
     let(:content) { Content.new }

@@ -4,7 +4,7 @@ describe 'Locale select' do
   let(:a_page) { FactoryGirl.create(:public_page) }
   before do
     allow(Alchemy::I18n).to receive(:translation_files).and_return ['alchemy.kl.yml', 'alchemy.jp.yml', 'alchemy.cz.yml']
-    authorize_as_admin
+    authorize_user(:as_admin)
   end
 
   it "contains all locales in a selectbox" do

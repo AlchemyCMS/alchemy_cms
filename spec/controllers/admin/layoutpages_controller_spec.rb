@@ -4,7 +4,7 @@ module Alchemy
   describe Admin::LayoutpagesController do
 
     before(:each) do
-      sign_in(admin_user)
+      authorize_user(:as_admin)
     end
 
     describe "#index" do

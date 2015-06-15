@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe "Page creation" do
-    before { authorize_as_admin }
+    before { authorize_user(:as_admin) }
 
     describe "overlay GUI" do
       context "without having a Page in the clipboard" do

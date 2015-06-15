@@ -4,7 +4,7 @@ describe 'Page editing feature' do
   let(:a_page) { create(:page) }
 
   context 'as author' do
-    before { authorize_as_admin(build(:alchemy_dummy_user, :as_author)) }
+    before { authorize_user(:as_author) }
 
     it 'cannot publish page.' do
       visit alchemy.edit_admin_page_path(a_page)
@@ -13,7 +13,7 @@ describe 'Page editing feature' do
   end
 
   context 'as editor' do
-    before { authorize_as_admin(build(:alchemy_dummy_user, :as_editor)) }
+    before { authorize_user(:as_editor) }
 
     it 'can publish page.' do
       visit alchemy.edit_admin_page_path(a_page)
@@ -34,7 +34,7 @@ describe 'Page editing feature' do
   context 'as admin' do
     let(:a_page) { create(:public_page, visible: true) }
 
-    before { authorize_as_admin }
+    before { authorize_user(:as_admin) }
 
     context "in configure overlay" do
       context "when editing a normal page" do

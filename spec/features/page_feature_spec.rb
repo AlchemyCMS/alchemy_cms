@@ -195,7 +195,7 @@ module Alchemy
 
       context "rendering for members" do
         it "is prohibited" do
-          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(member), language: 'en'))
+          authorize_user(build(:alchemy_dummy_user))
           visit "/#{public_page_1.urlname}"
           within('body') { expect(page).not_to have_selector('#alchemy_menubar') }
         end
@@ -203,7 +203,7 @@ module Alchemy
 
       context "rendering for authors" do
         it "is allowed" do
-          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(author), language: 'en', cache_key: 'aaa'))
+          authorize_user(:as_author)
           visit "/#{public_page_1.urlname}"
           within('body') { expect(page).to have_selector('#alchemy_menubar') }
         end
@@ -211,7 +211,7 @@ module Alchemy
 
       context "rendering for editors" do
         it "is allowed" do
-          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(editor), language: 'en', cache_key: 'aaa'))
+          authorize_user(:as_editor)
           visit "/#{public_page_1.urlname}"
           within('body') { expect(page).to have_selector('#alchemy_menubar') }
         end
@@ -219,7 +219,7 @@ module Alchemy
 
       context "rendering for admins" do
         it "is allowed" do
-          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(admin), language: 'en', cache_key: 'aaa'))
+          authorize_user(:as_admin)
           visit "/#{public_page_1.urlname}"
           within('body') { expect(page).to have_selector('#alchemy_menubar') }
         end
@@ -227,7 +227,7 @@ module Alchemy
 
       context "contains" do
         before do
-          authorize_as_admin(mock_model('DummyUser', alchemy_roles: %w(admin), language: 'en', cache_key: 'aaa'))
+          authorize_user(:as_admin)
           visit "/#{public_page_1.urlname}"
         end
 
@@ -275,7 +275,7 @@ module Alchemy
       end
 
       context 'as a member user' do
-        before { authorize_as_admin(create(:alchemy_dummy_user)) }
+        before { authorize_user(create(:alchemy_dummy_user)) }
 
         it "I am able to visit the page" do
           visit restricted_page.urlname

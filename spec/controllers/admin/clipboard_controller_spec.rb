@@ -7,7 +7,7 @@ module Alchemy
     let(:another_element) { build_stubbed(:element, page: public_page) }
 
     before do
-      sign_in(admin_user)
+      authorize_user(:as_admin)
       session[:alchemy_clipboard] = {}
     end
 

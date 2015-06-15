@@ -14,7 +14,7 @@ describe Admin::EventsController do
     let(:lustig) { Event.create(name: 'Lustig') }
 
     before do
-      sign_in(admin_user)
+      authorize_user(:as_admin)
       peter; lustig
     end
 

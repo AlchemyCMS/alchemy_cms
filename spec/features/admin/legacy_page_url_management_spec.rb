@@ -3,7 +3,7 @@ require 'spec_helper'
 
 describe 'Legacy page url management', type: :feature, js: true do
   before do
-    authorize_as_admin
+    authorize_user(:as_admin)
   end
 
   let!(:a_page) { create(:page) }

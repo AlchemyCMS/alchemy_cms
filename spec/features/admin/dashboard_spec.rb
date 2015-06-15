@@ -1,11 +1,10 @@
 require 'spec_helper'
 
 describe 'Dashboard feature' do
-  let(:user) { DummyUser.new }
+  let(:user) { create(:alchemy_dummy_user, :as_admin, name: "Joe User") }
 
   before do
-    user.update_attributes(alchemy_roles: %w(admin), name: "Joe User", id: 1)
-    authorize_as_admin(user)
+    authorize_user(user)
   end
 
   describe 'Locked pages summary' do
@@ -30,11 +29,11 @@ describe 'Dashboard feature' do
     end
 
     context 'When locked by another user' do
-      it "should show locked by user's name" do
-        user = DummyUser.new
-        user.update_attributes(alchemy_roles: %w(admin), name: "Sue Smith", id: 2)
-        a_page.lock_to!(user)
-        allow(DummyUser).to receive(:find_by).and_return(user)
+      let(:other_user) { create(:alchemy_dummy_user, :as_admin, name: "Sue Smith") }
+
+      it "shows the name of the user who locked the page" do
+        a_page.lock_to!(other_user)
+        allow(user.class).to receive(:find_by).and_return(other_user)
         visit admin_dashboard_path
         locked_pages_widget = all('div[@class="widget"]').first
         expect(locked_pages_widget).to have_content "Currently locked pages:"
@@ -46,7 +45,10 @@ describe 'Dashboard feature' do
 
   describe 'Sites widget' do
     context 'with multiple sites' do
-      let!(:site) { Alchemy::Site.create!(name: 'Site', host: 'site.com') }
+
+      before do
+        Alchemy::Site.create!(name: 'Site', host: 'site.com')
+      end
 
       it "lists all sites" do
         visit admin_dashboard_path

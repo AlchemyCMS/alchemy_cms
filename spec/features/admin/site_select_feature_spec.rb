@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'Site select' do
 
   before do
-    authorize_as_admin
+    authorize_user(:as_admin)
   end
 
   it "does not display the site change" do

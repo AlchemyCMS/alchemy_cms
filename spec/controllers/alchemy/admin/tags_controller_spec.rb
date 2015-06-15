@@ -3,7 +3,7 @@ require 'spec_helper'
 module Alchemy
   module Admin
     describe TagsController do
-      before { sign_in(admin_user) }
+      before { authorize_user(:as_admin) }
 
       describe '#create' do
         context 'without required params' do
