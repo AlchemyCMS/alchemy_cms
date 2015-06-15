@@ -32,6 +32,18 @@ module Alchemy
   #       %w(id updated_at secret_token remote_ip)
   #     end
   #
+  # == Add attributes
+  #
+  # You might want to show or sort by some more attributes that might be methods. These attributes will be skipped (not editable) by default.
+  # To define your own set of added attributes, define a class method +added_alchemy_resource_attributes like the following:
+  #
+  #     def self.added_alchemy_resource_attributes
+  #       [
+  #         {name: 'location', type: 'string'},
+  #         {name: 'attending', type: 'boolean'}
+  #       ]
+  #     end
+  #
   # == Restrict attributes
   #
   # Beside skipping certain attributes you can also restrict them. Restricted attributes can not be edited by the user but still be seen in the index view.
@@ -84,7 +96,7 @@ module Alchemy
   #     resource = Resource.new('/admin/tags', {"engine_name"=>"alchemy"}, ActsAsTaggableOn::Tag)
   #
   class Resource
-    attr_accessor :skipped_attributes, :restricted_attributes, :resource_relations, :model_associations
+    attr_accessor :resource_relations, :model_associations
     attr_reader :model
 
     DEFAULT_SKIPPED_ATTRIBUTES = %w(id updated_at created_at creator_id updater_id)
@@ -94,8 +106,6 @@ module Alchemy
       @controller_path = controller_path
       @module_definition = module_definition
       @model = (custom_model or guess_model_from_controller_path)
-      self.skipped_attributes = model.respond_to?(:skipped_alchemy_resource_attributes) ? model.skipped_alchemy_resource_attributes : DEFAULT_SKIPPED_ATTRIBUTES
-      self.restricted_attributes = model.respond_to?(:restricted_alchemy_resource_attributes) ? model.restricted_alchemy_resource_attributes : []
       if model.respond_to?(:alchemy_resource_relations)
         if not model.respond_to?(:reflect_on_all_associations)
           raise MissingActiveRecordAssociation
@@ -148,7 +158,7 @@ module Alchemy
             relation: resource_relation(col.name)
           }.delete_if { |k, v| v.nil? }
         end
-      end.compact
+      end.compact + added_attributes
     end
 
     def editable_attributes
@@ -185,6 +195,38 @@ module Alchemy
       ::I18n.translate!(attribute[:name], :scope => [:alchemy, :resource_help_texts, resource_name])
     rescue ::I18n::MissingTranslationData
       false
+    end
+
+    # Return attributes that should neither be viewable nor editable.
+    #
+    def skipped_attributes
+      if model.respond_to?(:skipped_alchemy_resource_attributes)
+        model.skipped_alchemy_resource_attributes
+      else
+        DEFAULT_SKIPPED_ATTRIBUTES
+      end
+    end
+
+    # Return attributes that should be viewable, but are not regular
+    # activerecord attributes.
+    #
+    def added_attributes
+      if model.respond_to?(:added_alchemy_resource_attributes)
+        model.added_alchemy_resource_attributes
+      else
+        []
+      end
+    end
+
+    # Return attributes that should be viewable but not editable.
+    #
+    def restricted_attributes
+      if model.respond_to?(:restricted_alchemy_resource_attributes)
+        attrs = model.restricted_alchemy_resource_attributes
+      else
+        attrs = []
+      end
+      attrs + added_attributes
     end
 
     private
@@ -233,6 +275,5 @@ module Alchemy
     def association_from_relation_name(name)
       model_associations.detect { |a| a.name == name.to_sym }
     end
-
   end
 end
