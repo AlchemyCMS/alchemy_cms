@@ -58,16 +58,6 @@ module Alchemy
     end
 
     describe "#initialize" do
-      it "sets the standard database attributes (rails defaults) to be skipped" do
-        resource = Resource.new("admin/parties")
-        expect(resource.skipped_attributes).to eq(%w(id updated_at created_at creator_id updater_id))
-      end
-
-      it "sets the restricted attributes accessor to an empty array by default" do
-        resource = Resource.new("admin/parties")
-        expect(resource.restricted_attributes).to eq([])
-      end
-
       it "sets an instance variable that holds the controller path" do
         resource = Resource.new("admin/parties")
         expect(resource.instance_variable_get(:@controller_path)).to eq("admin/parties")
@@ -180,26 +170,58 @@ module Alchemy
     end
 
     describe "#attributes" do
+      subject { resource.attributes }
+
       it "parses and returns the resource model's attributes from ActiveRecord::ModelSchema" do
-        expect(resource.attributes).to eq([
-          {:name => "name", :type => :string},
-          {:name => "hidden_value", :type => :string},
-          {:name => "description", :type => :string},
-          {:name => "starts_at", :type => :datetime},
-          {:name => "location_id", :type => :integer},
-          {:name => "organizer_id", :type => :integer},
+        expect(subject).to eq([
+          {name: "name", type: :string},
+          {name: "hidden_value", type: :string},
+          {name: "description", type: :string},
+          {name: "starts_at", type: :datetime},
+          {name: "location_id", type: :integer},
+          {name: "organizer_id", type: :integer},
         ])
+      end
+
+      it "skips the standard database attributes (rails defaults)" do
+        expect(subject.map { |el| el[:name] }).not_to include(%w(id updated_at created_at creator_id updater_id))
       end
 
       it "skips attributes returned by skipped_alchemy_resource_attributes" do
         allow(Party).to receive(:skipped_alchemy_resource_attributes) { %w(hidden_value) }
-        expect(resource.attributes).to include({:name => "id", :type => :integer})
-        expect(resource.attributes).not_to include({:name => "hidden_value", :type => :string})
+        expect(subject).to include({:name => "id", :type => :integer})
+        expect(subject).not_to include({:name => "hidden_value", :type => :string})
       end
 
       context "when resource_relations are not defined" do
         it "includes the attribute" do
-          expect(resource.attributes.detect { |a| a[:name] == "location_id" }).to eq({:name => "location_id", :type => :integer})
+          expect(subject.detect { |a| a[:name] == "location_id" }).to eq({:name => "location_id", :type => :integer})
+        end
+      end
+
+      context "with custom additional attributes" do
+        let(:custom_attributes) { [{name: "foo", type: :string}] }
+
+        before do
+          allow(Party).to receive(:additional_alchemy_resource_attributes) do
+            custom_attributes
+          end
+        end
+
+        it "includes the added attributes" do
+          expect(subject).to include({name: "foo", type: :string})
+        end
+      end
+
+      context "with restricted attributes set" do
+        before do
+          allow(Party).to receive(:restricted_alchemy_resource_attributes) do
+            [{name: "name", type: :string}]
+          end
+        end
+
+        it "should include the restricted attributes" do
+          expect(subject).to include(name: "name", type: :string)
         end
       end
     end
@@ -219,20 +241,10 @@ module Alchemy
           expect(resource.attributes.detect { |a| a[:name] == 'name' }).not_to be_nil
         end
       end
-
-      describe '#skipped_attributes' do
-        it "returns the result of Model.skipped_alchemy_resource_attributes" do
-          expect(resource.skipped_attributes).to eq(custom_skipped_attributes)
-        end
-      end
     end
 
     describe "#searchable_attributes" do
       subject { resource.searchable_attributes }
-
-      before do
-        allow(Party).to receive(:skipped_alchemy_resource_attributes) { [] }
-      end
 
       it "returns all attributes of type string" do
         is_expected.to eq([
@@ -252,6 +264,20 @@ module Alchemy
 
         it "does not include this column" do
           is_expected.to eq([{name: "name", type: :string}])
+        end
+      end
+
+      context "with additional attributes set" do
+        let(:custom_attributes) { [{name: "foo", type: "string"}] }
+
+        before do
+          allow(Party).to receive(:additional_alchemy_resource_attributes) do
+            custom_attributes
+          end
+        end
+
+        it "does not include the added attributes" do
+          expect(subject).not_to include({name: "foo", type: "string"})
         end
       end
     end
@@ -340,40 +366,6 @@ module Alchemy
     describe "#in_engine?" do
       it "should return true if the module is shipped within an engine" do
         expect(resource.in_engine?).to eq(true)
-      end
-    end
-
-    describe "#added_attributes" do
-      let(:custom_attributes) { [{name: "foo", type: "string"}] }
-      subject { resource.added_attributes }
-
-      before do
-        allow(Party).to receive(:added_alchemy_resource_attributes) do
-          custom_attributes
-        end
-      end
-
-      context "vanilla, no other stuff set" do
-
-        it { is_expected.to eq([{name: "foo", type: "string"}]) }
-
-        describe "#restricted_attributes" do
-          it "includes the added attributes" do
-            expect(resource.restricted_attributes).to eq(custom_attributes)
-          end
-        end
-      end
-
-      context "with other restricted attributes set" do
-        before do
-          allow(Party).to receive(:restricted_alchemy_resource_attributes) do
-            [{name: "bar", type: "boolean"}]
-          end
-        end
-
-        it "should not include the other restricted attributes" do
-          expect(subject).not_to include({name: "bar", type: "boolean"})
-        end
       end
     end
   end
