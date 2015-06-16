@@ -8,10 +8,8 @@ module Alchemy
   end
 
   describe "Tasks:Helpers" do
-
     let(:config) do
-      {
-        'test' => {
+      { 'test' => {
           'adapter'  => 'mysql2',
           'username' => 'testuser',
           'password' => '123456',
@@ -21,8 +19,16 @@ module Alchemy
     end
 
     before do
-      allow(File).to receive(:exists?).and_return( true)
-      allow(YAML).to receive(:load_file).and_return(config)
+      allow(File).to receive(:exists?) { true }
+      allow(File).to receive(:read) do
+<<-END
+test:
+  adapter: mysql2
+  username: testuser
+  password: "123456"
+  host: localhost
+END
+      end
     end
 
     describe "#database_dump_command" do
@@ -68,7 +74,7 @@ module Alchemy
 
           context "and the host is anything but not localhost" do
             before do
-              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
+              allow(File).to receive(:read).and_return("test:\n  host: mydomain.com")
             end
             it { is_expected.to include("--host='mydomain.com'") }
           end
@@ -97,7 +103,7 @@ module Alchemy
 
           context "and the host is anything but not localhost" do
             before do
-              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
+              allow(File).to receive(:read).and_return("test:\n  host: mydomain.com")
             end
             it { is_expected.to include("--host='mydomain.com'") }
           end
@@ -152,7 +158,7 @@ module Alchemy
 
           context "and the host is anything but not localhost" do
             before do
-              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
+              allow(File).to receive(:read).and_return("test:\n  host: mydomain.com")
             end
             it { is_expected.to include("--host='mydomain.com'") }
           end
@@ -181,7 +187,7 @@ module Alchemy
 
           context "and the host is anything but not localhost" do
             before do
-              allow(YAML).to receive(:load_file).and_return({'test' => {'host' => 'mydomain.com'}})
+              allow(File).to receive(:read).and_return("test:\n  host: mydomain.com")
             end
             it { is_expected.to include("--host='mydomain.com'") }
           end
