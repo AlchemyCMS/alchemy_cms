@@ -24,7 +24,7 @@ class AlchemyInstaller < Thor
     say welcome_message, :yellow
     say "Step 1: Creating a Rails #{rails_version} application.", :yellow
     say "Please wait...", :yellow
-    system("rails _#{rails_version}_ new #{@application} -m #{alchemy_template} -d #{options[:database]} -JT --quiet") || exit!(1)
+    system("rails _#{rails_version}_ new #{@application} -m #{alchemy_template} -d #{options[:database]} -T --quiet") || exit!(1)
     say "Successfully created the Rails application!", :green
     say instructions, :yellow
     if options[:database] == 'mysql' || options[:database] == 'postgresql'
