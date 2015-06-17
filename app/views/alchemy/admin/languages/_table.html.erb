@@ -3,13 +3,13 @@
   <thead>
     <tr>
       <th>
-        <%= sortable_column(Alchemy::Language.human_attribute_name(:name), column: :name) %>
+        <%= sort_link @query, :name, hide_indicator: true %>
       </th>
       <th>
-        <%= sortable_column(Alchemy::Language.human_attribute_name(:language_code), column: :language_code) %>
+        <%= sort_link @query, :language_code, hide_indicator: true %>
       </th>
       <th>
-        <%= sortable_column(Alchemy::Language.human_attribute_name(:country_code), column: :country_code) %>
+        <%= sort_link @query, :country_code, hide_indicator: true %>
       </th>
       <th>
         <%= Alchemy::Language.human_attribute_name(:frontpage_name) %>

@@ -1,20 +1,18 @@
-<%- url_scope =
-        begin
-          resource_url_proxy
-        rescue NameError
-          self
-        end -%>
-<%- url ||= url_scope.url_for(action: 'index') -%>
-<%= form_tag(url, method: 'get', class: 'search_form') do %>
+<%- url ||= resource_url_proxy.url_for(action: 'index') -%>
+
+<%= search_form_for @query, url: url, class: 'search_form' do |f| %>
   <div class="search_field">
     <%= render_icon('search') %>
-    <%= text_field_tag 'query', params['query'],
-      class: 'thin_border', id: 'search_input_field',
+    <%= f.search_field resource_handler.search_field_name,
+      id: 'search_input_field',
       placeholder: _t(:search) %>
     <%= link_to '', url,
         class: 'search_field_clear',
         id: 'search_field_clear',
         title: _t(:click_to_show_all),
-        style: params[:query].nil? ? 'display: none' : 'display: block' %>
+        style: params[:q].present? ? 'display: block' : 'display: none' %>
+    <% local_assigns.fetch(:additional_params, []).each do |additional_param| %>
+      <%= hidden_field_tag additional_param, params[additional_param] %>
+    <% end %>
   </div>
 <% end %>

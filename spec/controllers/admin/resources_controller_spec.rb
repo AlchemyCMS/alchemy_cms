@@ -9,13 +9,12 @@ describe Admin::EventsController do
   end
 
   describe '#index' do
-    let(:params) { Hash.new }
-    let(:peter)  { Event.create(name: 'Peter') }
-    let(:lustig) { Event.create(name: 'Lustig') }
+    let(:params)  { Hash.new }
+    let!(:peter)  { Event.create(name: 'Peter') }
+    let!(:lustig) { Event.create(name: 'Lustig') }
 
     before do
       authorize_user(:as_admin)
-      peter; lustig
     end
 
     it "returns all records" do

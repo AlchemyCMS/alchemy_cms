@@ -26,9 +26,9 @@
     <thead>
       <tr>
         <th class="icon"></th>
-        <th class="name"><%= sortable_column(ActsAsTaggableOn::Tag.human_attribute_name(:name), column: :name) %></th>
+        <th class="name"><%= sort_link(@query, :name, hide_indicator: true) %></th>
         <th class="count"><%= ActsAsTaggableOn::Tag.human_attribute_name(:taggings_types) %></th>
-        <th class="count"><%= sortable_column(ActsAsTaggableOn::Tag.human_attribute_name(:taggings_count), column: :taggings_count) %></th>
+        <th class="count"><%= sort_link(@query, :taggings_count, hide_indicator: true) %></th>
         <th class="tools"></th>
       </tr>
     </thead>
