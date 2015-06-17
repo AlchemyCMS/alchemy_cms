@@ -251,6 +251,7 @@ Style/ClassCheck:
 
 # Align with the style guide.
 Style/CollectionMethods:
+  Enabled: false
   # Mapping from undesired method to desired_method
   # e.g. to use `detect` over `find`:
   #
@@ -344,12 +345,14 @@ Style/EmptyLinesAroundBlockBody:
     - no_empty_lines
 
 Style/EmptyLinesAroundClassBody:
+  Enabled: false
   EnforcedStyle: no_empty_lines
   SupportedStyles:
     - empty_lines
     - no_empty_lines
 
 Style/EmptyLinesAroundModuleBody:
+  Enabled: false
   EnforcedStyle: no_empty_lines
   SupportedStyles:
     - empty_lines
