@@ -163,6 +163,14 @@ module Alchemy
       self.attributes.select { |a| a[:type].to_sym == :string }
     end
 
+    # Search field input name
+    #
+    # Joins all searchable attributes into a Ransack compatible search query
+    #
+    def search_field_name
+      searchable_attributes.collect { |a| a[:name] }.join("_or_") + "_cont"
+    end
+
     def in_engine?
       not self.engine_name.nil?
     end

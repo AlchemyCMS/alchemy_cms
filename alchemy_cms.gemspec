@@ -34,6 +34,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'magiclabs-userstamp',              ['~> 2.1.0']
   gem.add_runtime_dependency 'non-stupid-digest-assets',         ['~> 1.0.3']
   gem.add_runtime_dependency 'rails',                            ['>= 4.2.0', '< 5.0']
+  gem.add_runtime_dependency 'ransack',                          ['~> 1.6']
   gem.add_runtime_dependency 'request_store',                    ['~> 1.1.0']
   gem.add_runtime_dependency 'responders',                       ['~> 2.0']
   gem.add_runtime_dependency 'sass-rails',                       ['~> 5.0']
@@ -42,7 +43,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'simple_form',                      ['~> 3.0']
   gem.add_runtime_dependency 'spinner.rb'
   gem.add_runtime_dependency 'turbolinks',                       ['~> 2.5']
-  gem.add_runtime_dependency 'tvdeyen-handles_sortable_columns', ['~> 0.1.5']
 
   gem.add_development_dependency 'capybara',                     ['~> 2.4']
   gem.add_development_dependency 'database_cleaner',             ['~> 1.3']

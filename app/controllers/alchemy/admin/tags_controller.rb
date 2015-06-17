@@ -4,9 +4,12 @@ module Alchemy
       before_filter :load_tag, only: [:edit, :update, :destroy]
 
       def index
-        @tags = ActsAsTaggableOn::Tag.where(
-          "name LIKE '%#{params[:query]}%'"
-        ).page(params[:page] || 1).per(per_page_value_for_screen_size).order("name ASC")
+        @query = ActsAsTaggableOn::Tag.ransack(params[:q])
+        @tags = @query
+                  .result
+                  .page(params[:page] || 1)
+                  .per(per_page_value_for_screen_size)
+                  .order("name ASC")
       end
 
       def new
