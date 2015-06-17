@@ -1,0 +1,11 @@
+<div class="element-footer">
+  <% if element.has_validations? %>
+    <p class="validation_notice">
+      <span class="validation_indicator">*</span> <%= _t('Mandatory') %>
+    </p>
+  <% end %>
+
+  <button type="submit" form="element_<%= element.id %>_form" class="button" data-alchemy-button>
+    <%= _t(:save) %>
+  </button>
+</div>

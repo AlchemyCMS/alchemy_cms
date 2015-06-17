@@ -2,14 +2,13 @@ button, input[type="submit"], a.button, input.button {
   @include button-defaults;
 
   &.small {
-    padding: 2px 2*$default-padding;
-    @include border-radius(10px);
+    padding: $default-padding 3*$default-padding;
     vertical-align: inherit;
     line-height: 4*$default-padding;
     font-size: inherit;
 
     &.with_icon {
-      padding: 2px 2*$default-padding 2px $default-padding;
+      padding: $default-padding 3*$default-padding $default-padding 6px;
     }
   }
 
@@ -49,8 +48,9 @@ button, input[type="submit"], a.button, input.button {
 }
 
 .icon_button {
-  width: 21px;
-  height: 21px;
+  @include box-sizing(border-box);
+  width: 27px;
+  height: 27px;
   line-height: 21px;
   margin: 0;
   padding: 3px;
@@ -58,8 +58,8 @@ button, input[type="submit"], a.button, input.button {
   text-align: center;
 
   .spinner {
-    left: 50%;
-    top: 50%;
+    left: 50% !important; // the spin.js lib calculates false!
+    top: 50% !important;
   }
 
   .icon {
@@ -168,7 +168,10 @@ button.icon_button {
   border: 0 none;
   @include border-radius(0);
   @include box-shadow(none);
-  @include box-sizing(content-box);
+
+  &:disabled, &.disabled {
+    background: transparent;
+  }
 }
 
 #new_element button.button {
@@ -225,8 +228,8 @@ button.icon_button {
 .button_with_label, .button_group {
 
   .icon_button {
-    width: 23px;
-    height: 23px;
+    width: 29px;
+    height: 29px;
     line-height: 23px;
   }
 
@@ -252,6 +255,18 @@ button.icon_button {
       left: 8px;
       border: 5px transparent solid;
       border-top-color: $dark-gray;
+    }
+
+    &.right-aligned {
+      left: auto;
+      margin-left: auto;
+      right: 50%;
+      margin-right: -13px;
+
+      &:before {
+        left: auto;
+        right: 8px;
+      }
     }
   }
 

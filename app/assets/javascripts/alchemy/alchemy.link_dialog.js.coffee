@@ -92,7 +92,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Sets the link either in TinyMCE or on an Essence.
   setLink: (url, title, target) ->
-    Alchemy.setElementDirty(@$link_object.parents('.element_editor'))
+    Alchemy.setElementDirty(@$link_object.closest('.element-editor'))
     if @link_object.editor
       @setTinyMCELink(url, title, target)
     else
@@ -171,7 +171,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     if ($sitemap_line.length > 0)
       # Select the line where the link was detected in.
       $sitemap_line.addClass('selected_page')
-      @$page_container.scrollTo($sitemap_line.parents('li'), {duration: 400, offset: -10})
+      @$page_container.scrollTo($sitemap_line.closest('li'), {duration: 400, offset: -10})
 
   # Opens a new Dialog that shows the elements from given page_id in a selectbox.
   # The value is stored as anchor and the url gets updated so it includes the anchor link
@@ -244,7 +244,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     $("#contents_#{content_id}_link_class_name").val('')
     $("#contents_#{content_id}_link_target").val('')
     if $link.hasClass('linked')
-      Alchemy.setElementDirty $(link).parents('.element_editor')
+      Alchemy.setElementDirty $(link).closest('.element-editor')
       $link.removeClass('linked').addClass('disabled')
     $('#edit_link_' + content_id).removeClass('linked')
     false

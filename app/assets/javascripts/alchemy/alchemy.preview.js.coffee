@@ -54,7 +54,7 @@ Alchemy.initAlchemyPreviewMode = ($) ->
           $el = $(e.delegateTarget)
           $el.removeAttr("title")
           $el.css(@getStyle("reset")) unless $el.hasClass("selected")
-        $elements.on "Alchemy.SelectElement", (e) =>
+        $elements.on "SelectPreviewElement.Alchemy", (e) =>
           @selectElement(e)
         $elements.click (e) =>
           @clickElement(e)
@@ -64,7 +64,8 @@ Alchemy.initAlchemyPreviewMode = ($) ->
         $elements = @$previewElements
         offset = @scrollOffset
         el_offset = $el.offset()
-        e.preventDefault()
+        # Stop the event from bubbling up to parent elements
+        e.stopPropagation()
         $elements.removeClass("selected").css(@getStyle("reset"))
         $el.addClass("selected").css(@getStyle("selected"))
         $("html, body").animate
@@ -77,13 +78,13 @@ Alchemy.initAlchemyPreviewMode = ($) ->
         $el = $(e.delegateTarget)
         parent$ = window.parent.jQuery
         target_id = $el.data("alchemy-element")
-        $element_editor = parent$("#element_area .element_editor").closest("[id=\"element_" + target_id + "\"]")
+        $element_editor = parent$("#element_area .element-editor").closest("[id=\"element_" + target_id + "\"]")
         elementsWindow = window.parent.Alchemy.ElementsWindow
         e.preventDefault()
-        $element_editor.trigger("Alchemy.SelectElementEditor", target_id)
+        $element_editor.trigger("FocusElementEditor.Alchemy", target_id)
         if elementsWindow.hidden
           elementsWindow.show()
-        $el.trigger("Alchemy.SelectElement")
+        $el.trigger("SelectPreviewElement.Alchemy")
         return
 
       getStyle: (state) ->

@@ -25,15 +25,11 @@
   }
 }
 
-.element_heading {
-  padding: 0;
-  z-index: 0;
+.element-title {
   overflow: hidden;
   white-space: nowrap;
-  position: absolute;
-  left: 35px;
-  top: 11px;
-  width: 322px;
+  max-width: 322px;
+  margin-left: $default-margin;
 
   .preview_text_quote {
     font-size: 10px;
@@ -42,19 +38,23 @@
   }
 }
 
-span.preview_text_element_name {
+.preview_text_element_name {
   font-size: 10px;
   text-shadow: #efefef 1px 1px 1px;
   font-weight: bold;
   line-height: 15px;
 }
 
-.element_handle {
+.element-handle,
+.element-title {
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.element-handle {
+  position: relative;
   width: 18px;
   height: 18px;
-  position: absolute;
-  left: 8px;
-  top: 9px;
 
   .element.icon {
     position: absolute;
@@ -62,7 +62,7 @@ span.preview_text_element_name {
     left: 0;
   }
 
-  span.icon {
+  .icon {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -73,8 +73,24 @@ span.preview_text_element_name {
   }
 }
 
-.draggable .element_handle {
+.draggable .element-handle {
   cursor: move;
+}
+
+.ajax-folder {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+
+  .error_icon {
+    float: left;
+    width: 14px;
+    height: 15px;
+    text-align: center;
+    background-color: white;
+    border: 1px solid #935b5b;
+    color: #935b5b;
+  }
 }
 
 .add_picture {
@@ -114,13 +130,7 @@ span.preview_text_element_name {
   }
 }
 
-.ajax_folder {
-  position: absolute;
-  right: 8px;
-  top: 8px;
-}
-
-.element_editor {
+.element-editor {
   border: 1px solid $default-border-color;
   @extend %rounded-border;
   background-color: $light-gray;
@@ -133,7 +143,7 @@ span.preview_text_element_name {
   &.dirty {
     border-color: #d0c83d;
 
-    .element_head, .element_foot {
+    > .element-header {
       background-color: #fff8df;
     }
   }
@@ -143,14 +153,38 @@ span.preview_text_element_name {
     @include box-shadow(0 0 4px $blue);
   }
 
+  &.folded {
+
+    .nested-elements {
+      display: none;
+    }
+  }
+
+  &.dragged {
+    border-style: dotted;
+    height: 36px;
+
+    * { display: none }
+  }
+
+  &.with-contents {
+
+    .element-content {
+      padding: 2*$default-padding 2*$default-padding 0;
+      border-top: 1px solid $medium-gray;
+    }
+  }
+
   form {
     margin: 0;
-    padding: 8px 8px 0 8px;
   }
 
   .validation_notice {
+    float: left;
+    margin-top: 8px;
+    margin-bottom: 4px;
     font-size: 10px;
-    margin-top: 1em;
+    text-align: left;
   }
 
   .foot_note {
@@ -165,7 +199,7 @@ span.preview_text_element_name {
     margin-top: 4px;
     @extend %rounded-border;
 
-    span.icon.warning {
+    .icon.warning {
       position: relative;
       top: 2px;
       margin-right: 8px;
@@ -174,42 +208,40 @@ span.preview_text_element_name {
   }
 
   .autocomplete_tag_list {
-    background-color: #e5dcca;
-    margin: 0 -8px 1px -8px;
-    padding: 2*$default-padding;
-    padding-left: 38px;
+    padding: $default-padding 0;
 
     label {
-      top: 21px;
-      left: 8px;
       font-size: 10px;
-      z-index: 1;
     }
 
     .select2-container {
       width: 100%;
 
       .select2-choices {
-        background-color: #F1EAD9;
-
-        .select2-search-choice {
-          background-color: #e5dcca;
-        }
+        width: 100%;
+        margin-bottom: 0;
+        margin-top: 8px;
       }
     }
   }
+
+  hr {
+    height: 0;
+    width: 100%;
+    margin: 0 0 4*$default-margin 0;
+    border: 0 none;
+    border-top: 1px solid $medium-gray;
+    @include opacity(1);
+  }
 }
 
-.element_head, .element_foot {
+.element-header {
   position: relative;
-}
-
-.element_head {
-  padding: 8px 0 6px;
-  margin-bottom: 0;
   height: 20px;
+  padding: 2*$default-padding;
   background-color: $medium-gray;
   @extend .disable-user-select;
+  cursor: pointer;
 
   .spinner {
     top: 9px;
@@ -217,59 +249,30 @@ span.preview_text_element_name {
   }
 }
 
-.element_foot {
-  padding: 2*$default-padding;
-  width: 100%;
-  height: 29px;
-  margin-left: -8px;
-  margin-right: -8px;
-  background-color: $medium-gray;
+.element-toolbar {
+  padding: 6px 0;
+  height: 6*$default-padding;
+  background-color: #f0f0f0;
 
   .element_tools {
     float: left;
-    margin-right: 8px;
-    margin-top: 6px;
+    margin-top: -3px;
+    margin-left: -4px;
   }
+}
 
-  .element_public {
-    float: left;
-    margin-top: 6px;
-  }
+.element-footer {
+  border-top: 1px solid $medium-gray;
+  margin: 8px 0 0 0;
+  padding: 2*$default-padding;
+  text-align: right;
 
   .button {
-    float: right;
     margin: 0;
   }
 }
 
-div.element_tools {
-  height: 20px;
-}
-
-span.element_tools_icons {
-  float: left;
-}
-
-.element_tools a {
-  width: 16px;
-  height: 16px;
-  float: left;
-  margin: 1px 4px 1px 1px;
-}
-
-a.delete_element_button {
-  background: image-url('alchemy/icons.png') no-repeat -63px -72px;
-}
-
-a.element_copy_button {
-  background: image-url('alchemy/icons.png') no-repeat -128px -72px;
-}
-
-a.element_move_button {
-  background: image-url('alchemy/icons.png') no-repeat -97px -72px;
-}
-
-div.picture_gallery_images {
+.picture_gallery_images {
   overflow: hidden;
   margin: $default-margin 0;
   border: 1px solid $default-border-color;
@@ -286,7 +289,7 @@ div.picture_gallery_images {
   }
 }
 
-div.picture_thumbnail div.picture_image {
+.picture_thumbnail .picture_image {
   height: 93px;
   overflow: hidden;
 
@@ -295,21 +298,23 @@ div.picture_thumbnail div.picture_image {
   }
 }
 
-div#cells {
+#cells {
   min-height: 100px;
 }
 
 .linkable_essence_tools {
   position: absolute;
-  bottom: 0;
+  bottom: 6px;
   right: 0;
 
   .icon_button {
     @include button-defaults;
+    width: 29px;
+    height: 28px;
     margin: 0 0 0 4px;
-    padding: 3px;
+    padding: 2px;
     position: absolute;
-    bottom: 4px;
+    bottom: 3px;
     right: 28px;
     @include border-radius(0);
 
@@ -320,8 +325,10 @@ div#cells {
   }
 }
 
-a.expand_element {
-  background: image-url('alchemy/icons.png') no-repeat -160px -72px;
+.expand_element,
+.fold_element {
+  background-image: image-url('alchemy/icons.png');
+  background-repeat: no-repeat;
   height: 16px;
   width: 16px;
   text-decoration: none;
@@ -329,19 +336,20 @@ a.expand_element {
   margin: 1px;
 }
 
-a.fold_element {
-  background: image-url('alchemy/icons.png') no-repeat -192px -72px;
-  height: 16px;
-  width: 16px;
-  text-decoration: none;
-  display: block;
-  margin: 1px;
+.expand_element {
+  background-position: -160px -72px;
+}
+
+.fold_element {
+  background-position: -192px -72px;
 }
 
 .droppable_element_placeholder {
+  height: 36px;
   border: 1px dotted $button-border-color;
   background-color: $medium-gray;
   margin-bottom: 2*$default-margin;
+  @include border-radius($default-border-radius);
 }
 
 .edit_images_bottom {
@@ -380,7 +388,7 @@ a.fold_element {
   }
 }
 
-div.content_editor.essence_date {
+.content_editor.essence_date {
   float: none;
   @include inline-block;
   vertical-align: top;
@@ -390,7 +398,7 @@ div.content_editor.essence_date {
   }
 }
 
-div.essence_picture_editor {
+.essence_picture_editor {
   position: relative;
 
   .picture_tool_delete {
@@ -555,8 +563,8 @@ select.long {
   padding: 0;
 }
 
-div.content_editor {
-  margin-bottom: 8px;
+.content_editor {
+  padding: $default-padding 0;
   position: relative;
 
   .thin_border, input[type="text"] {
@@ -571,10 +579,15 @@ div.content_editor {
     @extend %rounded-border;
     font-size: 11px;
 
-    span.icon.warning {
+    .icon.warning {
       vertical-align: text-bottom;
       margin-left: 2px;
       margin-right: 6px;
+    }
+
+    .button {
+      float: right;
+      margin: 0;
     }
   }
 
@@ -723,6 +736,7 @@ textarea.default_tinymce, textarea.custom_tinymce {
 }
 
 .element_errors {
+  display: none;
   margin-top: 8px;
   margin-bottom: 8px;
   background-color: $error_background_color;
@@ -769,4 +783,29 @@ a.hint {
       left: 5px;
     }
   }
+}
+
+.nestable-elements {
+  @include box-shadow(inset 0 4px 8px -2px darken($medium-gray, 15%));
+  background-color: $medium-gray;
+
+  .expanded.element-editor > & {
+    padding: 16px 8px 8px;
+  }
+}
+
+.nested-elements {
+
+  .element-header {
+    background-color: transparent;
+  }
+
+  .element-toolbar {
+    background-color: transparent;
+    border-top: 1px solid $medium-gray;
+  }
+}
+
+.add-nestable-element-button {
+  margin-top: 0;
 }

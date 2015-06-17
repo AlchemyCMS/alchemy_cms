@@ -36,14 +36,16 @@ $.extend Alchemy.Tinymce,
   #
   initEditor: (id) ->
     textarea = $("textarea#tinymce_#{id}")
-    return if textarea.length == 0
+    if textarea.length == 0
+      Alchemy.log_error "Could not initialize TinyMCE for textarea#tinymce_#{id}!"
+      return
     if selector = textarea[0].classList[1]
       config = @getCustomConfig(id, selector)
     else
       config = @getDefaultConfig(id)
     if config
       spinner = Alchemy.Spinner.small()
-      textarea.parents('.tinymce_container').prepend spinner.spin().el
+      textarea.closest('.tinymce_container').prepend spinner.spin().el
       tinymce.init(config)
     else
       Alchemy.debug('No tinymce configuration found for', id)
@@ -52,7 +54,7 @@ $.extend Alchemy.Tinymce,
   #
   initInstanceCallback: (inst) ->
     $this = $("##{inst.id}")
-    parent = $this.parents('.element_editor')
+    parent = $this.closest('.element-editor')
     parent.find('.spinner').remove()
     inst.on 'change', (e) ->
       Alchemy.setElementDirty(parent)

@@ -1,7 +1,7 @@
 module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
-      before_action :load_element, only: [:update, :trash, :fold]
+      before_action :load_element, only: [:update, :trash, :fold, :publish]
       authorize_resource class: Alchemy::Element
 
       def index
@@ -23,9 +23,10 @@ module Alchemy
       end
 
       def new
-        @page = Page.find_by_id(params[:page_id])
+        @page = Page.find(params[:page_id])
+        @parent_element = Element.find_by(id: params[:parent_element_id])
+        @elements = @page.available_element_definitions(@parent_element.try(:name))
         @element = @page.elements.build
-        @elements = @page.available_element_definitions
         @clipboard = get_clipboard('elements')
         @clipboard_items = Element.all_from_clipboard_for_page(@clipboard, @page)
       end
@@ -77,6 +78,10 @@ module Alchemy
         end
       end
 
+      def publish
+        @element.update(public: !@element.public?)
+      end
+
       # Trashes the Element instead of deleting it.
       def trash
         @page = @element.page
@@ -84,14 +89,15 @@ module Alchemy
       end
 
       def order
-        @trashed_elements = Element.trashed.where(id: params[:element_ids]).pluck(:id)
+        @trashed_element_ids = Element.trashed.where(id: params[:element_ids]).pluck(:id)
         Element.transaction do
           params[:element_ids].each_with_index do |element_id, idx|
-            # Ensure to set page_id and cell_id to the current page and
+            # Ensure to set page_id, cell_id and parent_element_id to the current page and
             # cell because of trashed elements could still have old values
             Element.where(id: element_id).update_all(
               page_id: params[:page_id],
               cell_id: params[:cell_id],
+              parent_element_id: params[:parent_element_id],
               position: idx + 1
             )
           end
@@ -159,9 +165,12 @@ module Alchemy
       end
 
       def element_params
-        params.require(:element).permit(:public, :tag_list)
+        if @element.taggable?
+          params.fetch(:element, {}).permit(:tag_list)
+        else
+          params.fetch(:element, {})
+        end
       end
-
     end
   end
 end

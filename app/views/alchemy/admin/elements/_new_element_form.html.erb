@@ -21,6 +21,7 @@
       prompt: _t(:select_element),
       input_html: {class: 'alchemy_selectbox', autofocus: true} %>
   <%- end -%>
+    <%= form.hidden_field :parent_element_id, value: @parent_element.try(:id) %>
     <%= form.submit _t(:add) %>
   <%- end -%>
 <%- end -%>

@@ -6,8 +6,13 @@ module Alchemy
     included do
       attr_accessor :do_not_autogenerate
 
-      has_many :elements, -> { order(:position) }
+      has_many :elements, -> { where(parent_element_id: nil).order(:position) }
+      has_many :descendent_elements, -> { order(:position) }, class_name: 'Alchemy::Element'
       has_many :contents, through: :elements
+      has_many :descendent_contents,
+        through: :descendent_elements,
+        class_name: 'Alchemy::Content',
+        source: :contents
       has_and_belongs_to_many :to_be_sweeped_elements, -> { uniq },
         class_name: 'Alchemy::Element',
         join_table: ElementToPage.table_name
@@ -111,7 +116,13 @@ module Alchemy
     #       type: EssenceRichtext
     #
     def available_element_definitions(only_element_named = nil)
-      @_element_definitions = element_definitions
+      @_element_definitions ||= if only_element_named
+        definition = Element.definition_by_name(only_element_named)
+        element_definitions_by_name(definition['nestable_elements'])
+      else
+        element_definitions
+      end
+
       return [] if @_element_definitions.blank?
 
       @_existing_element_names = elements.not_trashed.pluck(:name)
@@ -186,17 +197,20 @@ module Alchemy
       elements.named(definition['feed_elements'])
     end
 
-    # Returns an array of all EssenceRichtext contents ids
+    # Returns an array of all EssenceRichtext contents ids from not folded elements
     #
     def richtext_contents_ids
-      contents.essence_richtexts.pluck("#{Content.table_name}.id")
+      descendent_contents
+        .where(Element.table_name => {folded: false})
+        .essence_richtexts
+        .pluck("#{Content.table_name}.id")
     end
-
-    private
 
     def element_names_from_definition
       definition['elements'] || []
     end
+
+    private
 
     def element_names_from_cell_definitions
       @_element_names_from_cell_definitions ||= cell_definitions.map do |d|

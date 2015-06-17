@@ -1,18 +1,18 @@
-<div class="element_head">
-  <div class="element_handle">
+<div class="element-header">
+  <span class="element-handle">
     <%= render_icon(:element) %>
     <% if element.description.blank? %>
     <span class="warning icon" title="<%= _t(:element_description_missing) %>"></span>
     <% else %>
     <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
     <% end %>
-  </div>
-  <span class="element_heading">
+  </span>
+  <span class="element-title">
     <span class="preview_text_element_name"><%= element.display_name %></span>
     <span class="preview_text_quote"><%= sanitize(element.preview_text) %></span>
   </span>
   <%= render_hint_for(element) unless element.trashed? %>
-  <span class="ajax_folder" <%= element.trashed? ? 'style="display: none"'.html_safe : '' %>>
+  <span class="ajax-folder" <%= element.trashed? ? 'style="display: none"'.html_safe : '' %>>
     <%= link_to '', '#', {
       'data-element-toggle' => element.id,
       class: element.folded? ? 'expand_element' : 'fold_element',

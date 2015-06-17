@@ -1,6 +1,6 @@
 <%- rtfs = element.richtext_contents_ids -%>
 (function() {
-  var $element = $('.element_content', '#element_<%= element.id %>');
+  var $element = $('.element-content-editors', '#element_<%= element.id %>');
   Alchemy.Tinymce.remove(<%= rtfs.to_json %>);
   $element.html('<%= j render_editor(element) %>');
   Alchemy.GUI.init($element);

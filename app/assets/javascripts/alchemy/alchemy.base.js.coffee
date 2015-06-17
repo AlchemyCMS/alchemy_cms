@@ -60,7 +60,7 @@ $.extend Alchemy,
 
   removePicture: (selector) ->
     $form_field = $(selector)
-    $element = $form_field.parents(".element_editor")
+    $element = $form_field.closest(".element-editor")
     if $form_field
       $form_field.val ""
       $form_field.prev().remove()

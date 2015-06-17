@@ -17,7 +17,13 @@ module Alchemy
       end
       alias_method :descriptions, :definitions
 
-    private
+      # Returns one element definition by given name.
+      #
+      def definition_by_name(name)
+        definitions.detect { |d| d['name'] == name }
+      end
+
+      private
 
       # Reads the element definitions file named +elements.yml+ from +config/alchemy/+ folder.
       #

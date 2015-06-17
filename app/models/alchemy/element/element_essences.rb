@@ -17,7 +17,7 @@ module Alchemy
     # Returns all essence errors in the format of:
     #
     #   {
-    #     essence.content.name => [
+    #     content.name => [
     #       error_message_for_validation_1,
     #       error_message_for_validation_2
     #     ]
@@ -27,9 +27,9 @@ module Alchemy
     #
     def essence_errors
       essence_errors = {}
-      essences.each do |essence|
-        unless essence.errors.blank?
-          essence_errors[essence.content.name] = essence.validation_errors
+      contents.each do |content|
+        if content.essence_validation_failed?
+          essence_errors[content.name] = content.essence.validation_errors
         end
       end
       essence_errors

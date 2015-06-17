@@ -1,0 +1,49 @@
+<% remarkable_type = element.class.name.demodulize.underscore.pluralize %>
+<div class="element-toolbar">
+  <span class="element_tools">
+    <div class="button_with_label">
+      <%= link_to(
+        render_icon(:element_copy),
+        alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id),
+        remote: true,
+        method: :post,
+        class: "icon_button"
+      ) %>
+      <label><%= _t(:copy_element) %></label>
+    </div>
+    <div class="button_with_label">
+      <%= link_to(
+        render_icon(:cut),
+        alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id, remove: true),
+        remote: true,
+        method: :post,
+        class: "icon_button"
+      ) %>
+      <label><%= _t(:cut_element) %></label>
+    </div>
+    <div class="button_with_label">
+      <%= link_to(
+        render_icon(:remove),
+        alchemy.trash_admin_element_path(element),
+        method: :delete,
+        class: "icon_button",
+        remote: true
+      ) -%>
+      <label><%= _t("trash element") %></label>
+    </div>
+    <div class="button_with_label publish-element-button">
+      <%= link_to(
+        render_icon('element-hide'),
+        alchemy.publish_admin_element_path(id: element.id),
+        remote: true,
+        method: :patch,
+        class: "icon_button"
+      ) %>
+      <% if element.public? %>
+        <label><%= _t(:hide_element) %></label>
+      <% else %>
+        <label><%= _t(:show_element) %></label>
+      <% end %>
+    </div>
+  </span>
+</div>

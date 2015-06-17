@@ -113,6 +113,28 @@ module Alchemy
         end.join.html_safe
       end
 
+      # CSS classes for the element editor partial.
+      def element_editor_classes(element, local_assigns)
+        [
+          'element-editor',
+          element.content_definitions.present? ? 'with-contents' : 'without-contents',
+          element.nestable_elements.any? ? 'nestable' : 'not-nestable',
+          element.taggable? ? 'taggable' : 'not-taggable',
+          element.folded ? 'folded' : 'expanded',
+          local_assigns[:draggable] == false ? 'not-draggable' : 'draggable'
+        ].join(' ')
+      end
+
+      # Tells us, if we should show the element footer.
+      def show_element_footer?(element, with_nestable_elements = nil)
+        return false if element.folded?
+        if with_nestable_elements
+          element.content_definitions.present? || element.taggable?
+        else
+          element.nestable_elements.empty?
+        end
+      end
+
       private
 
       def elements_for_main_content(elements)
@@ -128,7 +150,6 @@ module Alchemy
           cell_elements.include?(e.class.name == 'Element' ? e.name : e['name'])
         end
       end
-
     end
   end
 end

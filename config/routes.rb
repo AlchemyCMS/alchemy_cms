@@ -86,6 +86,7 @@ Alchemy::Engine.routes.draw do
         post :order
       end
       member do
+        patch :publish
         post :fold
         delete :trash
       end

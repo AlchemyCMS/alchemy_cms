@@ -12,7 +12,7 @@ $.extend Alchemy,
       showButtonPanel: true
       showOtherMonths: true
       onSelect: ->
-        Alchemy.setElementDirty $(this).parents("div.element_editor")
+        Alchemy.setElementDirty $(this).closest(".element-editor")
 
     if Alchemy.locale is "de"
       $.extend datepicker_options,
