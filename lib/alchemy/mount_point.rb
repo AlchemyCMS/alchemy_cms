@@ -27,7 +27,7 @@ module Alchemy
       def path
         match = File.read(routes_file_path).match(MOUNT_POINT_REGEXP)
         if match.nil?
-          raise "Alchemy mount point not found! Please run `bin/rake alchemy:mount'"
+          raise NotMountedError
         else
           match[1]
         end
