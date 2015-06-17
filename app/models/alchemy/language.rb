@@ -19,6 +19,9 @@
 
 module Alchemy
   class Language < ActiveRecord::Base
+    belongs_to :site
+    has_many :pages
+
     validates_presence_of :name
     validates_presence_of :language_code
     validates_presence_of :page_layout
@@ -26,20 +29,30 @@ module Alchemy
     validates_uniqueness_of :language_code, scope: [:site_id, :country_code]
     validate :presence_of_default_language
     validate :publicity_of_default_language
-    has_many :pages
-    belongs_to :site
-    after_destroy :delete_language_root_page
-    validates_format_of :language_code, with: /\A[a-z]{2}\z/, if: -> { language_code.present? }
-    validates_format_of :country_code, with: /\A[a-z]{2}\z/, if: -> { country_code.present? }
+
+    validates_format_of :language_code, with: /\A[a-z]{2}\z/,
+      if: -> { language_code.present? }
+
+    validates_format_of :country_code, with: /\A[a-z]{2}\z/,
+      if: -> { country_code.present? }
+
+    before_save :remove_old_default,
+      if: -> { default_changed? && self != Language.default }
+
+    after_update :set_pages_language,
+      if: -> { language_code_changed? || country_code_changed? }
+
+    after_update :unpublish_pages,
+      if: -> { changes[:public] == [true, false] }
+
     before_destroy :check_for_default
-    after_update :set_pages_language, if: proc { |m| m.language_code_changed? || m.country_code_changed? }
-    after_update :unpublish_pages, if: proc { changes[:public] == [true, false] }
-    before_save :remove_old_default, if: proc { |m| m.default_changed? && m != Language.default }
+    after_destroy :delete_language_root_page
+
+    default_scope { on_site(Site.current) }
 
     scope :published,      -> { where(public: true) }
     scope :with_root_page, -> { joins(:pages).where(Page.table_name => {language_root: true}) }
     scope :on_site,        ->(s) { s.present? ? where(site_id: s) : all }
-    default_scope { on_site(Site.current) }
 
     class << self
 
@@ -117,7 +130,7 @@ module Alchemy
     end
 
     def check_for_default
-      raise "Default language is not deletable" if self.default?
+      raise DefaultLanguageNotDeletable if default?
     end
 
     def delete_language_root_page
@@ -127,6 +140,5 @@ module Alchemy
     def unpublish_pages
       self.pages.update_all(public: false)
     end
-
   end
 end

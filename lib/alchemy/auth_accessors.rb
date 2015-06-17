@@ -66,7 +66,7 @@ module Alchemy
       if @@user_class_name.is_a?(String)
         @@user_class_name.constantize
       else
-        raise 'Alchemy.user_class_name must be a String, not a Class.'
+        raise TypeError, 'Alchemy.user_class_name must be a String, not a Class.'
       end
     end
   rescue NameError => e

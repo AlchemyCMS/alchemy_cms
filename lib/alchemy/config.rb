@@ -15,12 +15,12 @@ module Alchemy
       alias_method :parameter, :get
 
       # Returns a merged configuration of the following files
-      # 
+      #
       # Alchemy´s default config: +gems/../alchemy_cms/config/alchemy/config.yml+
       # Your apps default config: +your_app/config/alchemy/config.yml+
       # Environment specific config: +your_app/config/alchemy/development.config.yml+
       #
-      # An environment specific config overwrites the settings of your apps default config, 
+      # An environment specific config overwrites the settings of your apps default config,
       # while your apps default config has precedence over Alchemy´s default config.
       #
       def show
@@ -53,15 +53,13 @@ module Alchemy
       end
 
       # Merges all given configs together
-      # 
+      #
       def merge_configs!(*config_files)
         raise LoadError, 'No Alchemy config file found!' if config_files.map(&:blank?).all?
         config = {}
         config_files.each {|h| config.merge!(h.stringify_keys!) }
         config
       end
-
     end
-
   end
 end

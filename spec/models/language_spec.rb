@@ -48,7 +48,9 @@ module Alchemy
     end
 
     it "should not be deletable if it is the default language" do
-      expect { default_language.destroy }.to raise_error
+      expect {
+        default_language.destroy
+      }.to raise_error(DefaultLanguageNotDeletable)
     end
 
     describe "before save" do
