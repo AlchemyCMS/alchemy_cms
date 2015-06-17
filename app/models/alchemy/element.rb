@@ -63,6 +63,8 @@ module Alchemy
 
     # Concerns
     include Alchemy::Element::Definitions
+    include Alchemy::Element::ElementContents
+    include Alchemy::Element::ElementEssences
     include Alchemy::Element::Presenters
 
     # class methods
@@ -187,224 +189,6 @@ module Alchemy
       self.position.nil?
     end
 
-    def content_by_name(name)
-      self.contents.find_by_name(name)
-    end
-
-    def content_by_type(essence_type)
-      self.contents.find_by_essence_type(Content.normalize_essence_type(essence_type))
-    end
-
-    def all_contents_by_name(name)
-      self.contents.where(:name => name)
-    end
-
-    def all_contents_by_type(essence_type)
-      self.contents.where(:essence_type => Content.normalize_essence_type(essence_type))
-    end
-
-    # Returns the content that is marked as rss title.
-    #
-    # Mark a content as rss title in your +elements.yml+ file:
-    #
-    #   - name: news
-    #     contents:
-    #     - name: headline
-    #       type: EssenceText
-    #       rss_title: true
-    #
-    def content_for_rss_title
-      content_for_rss_meta('title')
-    end
-
-    # Returns the content that is marked as rss description.
-    #
-    # Mark a content as rss description in your +elements.yml+ file:
-    #
-    #   - name: news
-    #     contents:
-    #     - name: body
-    #       type: EssenceRichtext
-    #       rss_description: true
-    #
-    def content_for_rss_description
-      content_for_rss_meta('description')
-    end
-
-    # Returns the array with the hashes for all element contents in the elements.yml file
-    def content_descriptions
-      return nil if definition.blank?
-      definition['contents']
-    end
-
-    # Returns the definition for given content_name
-    def content_description_for(content_name)
-      if content_descriptions.blank?
-        log_warning "Element #{self.name} is missing the content definition for #{content_name}"
-        return nil
-      else
-        content_descriptions.detect { |d| d['name'] == content_name }
-      end
-    end
-
-    # Returns the definition for given content_name inside the available_contents
-    def available_content_description_for(content_name)
-      return nil if available_contents.blank?
-      available_contents.detect { |d| d['name'] == content_name }
-    end
-
-    # returns the collection of available essence_types that can be created for this element depending on its description in elements.yml
-    def available_contents
-      definition['available_contents']
-    end
-
-    # Returns the contents ingredient for passed content name.
-    def ingredient(name)
-      content = content_by_name(name)
-      return nil if content.blank?
-      content.ingredient
-    end
-
-    def has_ingredient?(name)
-      self.ingredient(name).present?
-    end
-
-    # Updates all related contents by calling +update_essence+ on each of them.
-    #
-    # @param contents_attributes [Hash]
-    #   Hash of contents attributes.
-    #   The keys has to be the #id of the content to update.
-    #   The values a Hash of attribute names and values
-    #
-    # @return [Boolean]
-    #   True if +self.errors+ are blank or +contents_attributes+ hash is nil
-    #
-    # == Example
-    #
-    #   @element.update_contents({1 => {ingredient: 'Title'}, 2 => {link: 'https://google.com'}})
-    #
-    def update_contents(contents_attributes)
-      return true if contents_attributes.nil?
-      contents.each do |content|
-        content_hash = contents_attributes["#{content.id}"] || next
-        content.update_essence(content_hash) || errors.add(:base, :essence_validation_failed)
-      end
-      errors.blank?
-    end
-
-    def essences
-      return [] if contents.blank?
-      contents.collect(&:essence)
-    end
-
-    # Returns all essence_errors in the format:
-    #
-    #   {
-    #     essence.content.name => [error_message_for_validation_1, error_message_for_validation_2]
-    #   }
-    #
-    # Get translated error messages with Element#essence_error_messages
-    #
-    def essence_errors
-      essence_errors = {}
-      essences.each do |essence|
-        unless essence.errors.blank?
-          essence_errors[essence.content.name] = essence.validation_errors
-        end
-      end
-      essence_errors
-    end
-
-    # Essence validation errors
-    #
-    # == Error messages are translated via I18n
-    #
-    # Inside your translation file add translations like:
-    #
-    #   alchemy:
-    #     content_validations:
-    #       name_of_the_element:
-    #         name_of_the_content:
-    #           validation_error_type: Error Message
-    #
-    # NOTE: +validation_error_type+ has to be one of:
-    #
-    #   * blank
-    #   * taken
-    #   * invalid
-    #
-    # === Example:
-    #
-    #   de:
-    #     alchemy:
-    #       content_validations:
-    #         contactform:
-    #           email:
-    #             invalid: 'Die Email hat nicht das richtige Format'
-    #
-    #
-    # == Error message translation fallbacks
-    #
-    # In order to not translate every single content for every element you can provide default error messages per content name:
-    #
-    # === Example
-    #
-    #   en:
-    #     alchemy:
-    #       content_validations:
-    #         fields:
-    #           email:
-    #             invalid: E-Mail has wrong format
-    #             blank: E-Mail can't be blank
-    #
-    # And even further you can provide general field agnostic error messages:
-    #
-    # === Example
-    #
-    #   en:
-    #     alchemy:
-    #       content_validations:
-    #         errors:
-    #           invalid: %{field} has wrong format
-    #           blank: %{field} can't be blank
-    #
-    def essence_error_messages
-      messages = []
-      essence_errors.each do |content_name, errors|
-        errors.each do |error|
-          messages << I18n.t(
-            "#{self.name}.#{content_name}.#{error}",
-            scope: 'content_validations',
-            default: [
-              "fields.#{content_name}.#{error}".to_sym,
-              "errors.#{error}".to_sym
-            ],
-            field: Content.translated_label_for(content_name, name)
-          )
-        end
-      end
-      messages
-    end
-
-    def contents_with_errors
-      contents.select(&:essence_validation_failed?)
-    end
-
-    def has_validations?
-      !contents.detect(&:has_validations?).blank?
-    end
-
-    def rtf_contents
-      contents.essence_richtexts
-    end
-    alias_method :richtext_contents, :rtf_contents
-
-    # Returns an array of all EssenceRichtext contents ids
-    #
-    def richtext_contents_ids
-      contents.essence_richtexts.pluck("#{Content.table_name}.id")
-    end
-
     # The names of all cells from given page this element could be placed in.
     #
     def available_page_cell_names(page)
@@ -455,24 +239,6 @@ module Alchemy
 
     private
 
-    def content_for_rss_meta(type)
-      description = content_descriptions.detect { |c| c["rss_#{type}"] }
-      return if description.blank?
-      contents.find_by(name: description['name'])
-    end
-
-    # creates the contents for this element as described in the elements.yml
-    def create_contents
-      contents = []
-      if definition["contents"].blank?
-        log_warning "Could not find any content descriptions for element: #{self.name}"
-      else
-        definition["contents"].each do |content_hash|
-          contents << Content.create_from_scratch(self, content_hash.symbolize_keys)
-        end
-      end
-    end
-
     # Returns previous or next public element from same page.
     #
     # @param [String]
@@ -506,8 +272,7 @@ module Alchemy
     # Called after_update
     #
     def touch_cell
-      self.cell.touch
+      cell.touch
     end
-
   end
 end
