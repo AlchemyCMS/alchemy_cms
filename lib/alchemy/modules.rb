@@ -39,7 +39,7 @@ module Alchemy
           definition_from_subnavi(alchemy_module, name.symbolize_keys)
         end
       else
-        raise "Could not find module definition for #{name}"
+        raise ArgumentError, "Could not find module definition for #{name}"
       end
     end
 

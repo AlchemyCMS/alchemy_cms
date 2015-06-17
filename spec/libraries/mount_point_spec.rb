@@ -58,7 +58,7 @@ describe Alchemy::MountPoint do
       it "raises an exception" do
         expect {
           Alchemy::MountPoint.path
-        }.to raise_error
+        }.to raise_error(Alchemy::NotMountedError)
       end
     end
 

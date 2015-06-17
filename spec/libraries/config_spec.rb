@@ -96,7 +96,7 @@ module Alchemy
 
       context 'when all passed configs are empty' do
         it "should raise an error" do
-          expect { Config.send(:merge_configs!, {}) }.to raise_error
+          expect { Config.send(:merge_configs!, {}) }.to raise_error(LoadError)
         end
       end
 
@@ -108,7 +108,5 @@ module Alchemy
         end
       end
     end
-
   end
-
 end

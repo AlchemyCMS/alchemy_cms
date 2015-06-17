@@ -85,7 +85,7 @@ module Alchemy
         end
 
         it "should raise error" do
-          expect { subject }.to raise_error
+          expect { subject }.to raise_error(EssenceMissingError)
         end
       end
     end
@@ -217,7 +217,7 @@ module Alchemy
 
         it "should raise error" do
           c = Content.create(:element_id => element.id, name: 'headline')
-          expect { c.ingredient = "Welcome" }.to raise_error
+          expect { c.ingredient = "Welcome" }.to raise_error(EssenceMissingError)
         end
       end
     end
