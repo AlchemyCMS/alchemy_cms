@@ -1,5 +1,5 @@
 Alchemy CMS is an open source project and we encourage contributions. Please read these
-contributors guidelines before contributing.
+contributors guidelines and our code of conduct before contributing.
 
 ## Filing an issue
 
