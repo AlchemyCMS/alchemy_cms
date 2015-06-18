@@ -178,18 +178,18 @@ nl:
     "Currently locked pages": "Vergrendelde pagina's"
     "Default language has to be public": "De standaardpagina moet publiek zijn."
     "Delete image": "Afbeelding verwijderen"
-    "Do you really want to clear the clipboard?": "Klembord zeker leegmaken?"
-    "Do you really want to clear the trash?": "Prullenbak zeker leeg maken?"
-    "Do you really want to delete this content?": "Deze inhoud zeker verwijderen?"
+    "Do you really want to clear the clipboard?": "Klembord echt leeg maken?"
+    "Do you really want to clear the trash?": "Prullenbak echt leeg maken?"
+    "Do you really want to delete this content?": "Inhoud echt verwijderen?"
     "Drag an element over to the element window to restore it": "Sleep een element over het elementenvenster om deze te herstellen"
-    "Edit Picturemask": "Afbeeldingsmaker bewerken"
+    "Edit Picturemask": "Afbeeldingsmasker bewerken"
     "Edit image": "Afbeelding bewerken"
     "Edit multiple pictures": "Meerdere afbeeldingen bewerken"
     "Elements": "Elementen"
     "Element trashed": "Element verwijderd"
     "Error with the Flash® Uploader!": "Fout in de Flash® Uploader!"
     "Excerpt": "fragment"
-    "File uploaded succesfully": "Bestand %{name} geüploadet"
+    "File uploaded succesfully": "Bestand %{name} geüpload"
     "File successfully updated": "Bestand is succesvol geüpdatet"
     "File upload error": "Bestand kon niet worden geüpload: %{error}"
     "File deleted successfully": "%{name} verwijderd"
@@ -231,7 +231,7 @@ nl:
     "Pages order saved": "Paginasortering is opgeslagen"
     "Password": "Wachtwoord"
     "Password reset": "Wachtwoord resetten"
-    "Paste from clipboard": "Uit klembord kopieren"
+    "Paste from clipboard": "Uit klembord kopiëren"
     "Picture infos": "Afbeeldingsinformatie"
     "Picture uploaded succesfully": "Afbeelding %{name} is geüpload"
     "Picture validation error": "Fout bij het uploaden van afbeelding %{name}"
@@ -290,11 +290,11 @@ nl:
     "Welcome to Alchemy": "Welkom bij Alchemy"
     "Who else is online": "Wie is ook online"
     "Yes": "Ja"
-    "You are not authorized": "U bent niet geauthoriseerd."
+    "You are not authorized": "U bent niet geautoriseerd."
     "You are about to edit many pictures at once": "%{length} afbeeldingen worden in een keer aangepast"
     element_dirty_close_window_notice: "Elementen zijn nog niet opgeslagen. Dit venster toch sluiten?"
     "You may upload files with following extensions": "%{file_types_description} mogen worden geüpload met de volgende extensies: %{file_types}"
-    "You may upload any file": "Alle bestanden kunnen worden geüploadet"
+    "You may upload any file": "Alle bestanden kunnen worden geüpload"
     "Your last login was on": "Uw laatste aanmelding was op %{time}."
     "Your last updated pages": "Your last updated pages"
     "Your trash is empty": "De prullenbak is leeg"
@@ -329,11 +329,11 @@ nl:
     content_essence_not_found: "Content essence is niet gevonden"
     content_not_found: "Veld voor content is niet aanwezig"
     content_validations_headline: "Controleer de gemarkeerde velden"
-    copy: "kopieren"
-    copy_element: "Dit element kopieren"
-    copy_page: "Pagina kopieren"
+    copy: "kopiëren"
+    copy_element: "Dit element kopiëren"
+    copy_page: "Pagina kopiëren"
     "Could not delete Pictures": "Kan de afbeeldingen niet verwijderen"
-    copy_language_tree_heading: "Paginastructuur kopieren"
+    copy_language_tree_heading: "Paginastructuur kopiëren"
     country_code_placeholder: 'bijv. us (optioneel)'
     country_code_foot_note: "Een landcode is alleen nodig voor het toewijzen van een aparte taal aan elk land."
     create: "maken"
@@ -347,25 +347,25 @@ nl:
     delete_image: "Deze afbeelding verwijderen"
     delete_language: "Deze taal verwijderen"
     delete_page: "Deze pagina verwijderen"
-    delete_tag: 'Tag löschen'
+    delete_tag: 'Tag wissen'
     document: "Bestand"
     documents: "Bestanden"
     download_csv: "CSV downloaden"
     download_file: "Bestand '%{filename}' downloaden"
-    do_you_really_want_to_delete_this_tag?: "Do you really want to delete this tag?"
+    do_you_really_want_to_delete_this_tag?: "Wilt u deze tag echt verwijderen?"
     drag_to_sort: "slepen om afbeeldingen te sorteren"
     edit_file_properties: "Eigenschappen van het bestand aanpassen"
     edit_image_properties: "Eigenschappen van de afbeelding aanpassen"
     edit_language: "Taal aanpassen"
     edit_page: "Pagina aanpassen"
     edit_page_properties: "Eigenschappen van de pagina aanpassen"
-    edit_tag: 'Tag bearbeiten'
+    edit_tag: 'Tag bewerken'
     edit_selected_pictures: "Geselecteerde afbeeldingen aanpassen"
     element_editor_not_found: "Foutmelding in het element"
     element_of_type: "Element"
     element_saved: "Opgeslagen element."
     enter_external_link: "Voer de URL van de snelkoppeling in"
-    explain_cropping: "<p>Verplaats het frame en verander de grootte om de uitsnede aan te passen.</p><p>Klik op apply als het goed is.</p>"
+    explain_cropping: "<p>Verplaats het frame en verander de grootte om de uitsnede aan te passen.</p><p>Klik op 'toepassen' als het goed is.</p>"
     explain_publishing: "Pagina publiceren en gecachede versie van de server verwijderen."
     explain_sitemap_dragndrop_sorting: "Tip: Versleep de pagina's met het icoon om ze te sorteren."
     explain_unlocking: "Pagina verlaten en ontgrendelen voor andere gebruikers."
@@ -373,7 +373,7 @@ nl:
       footnote: "HINT! Gebruik de CTRL knop (of CMD voor OSX) om meerdere %{name} te uploaden."
       intro: "Zo werkt het uploaden van %{name}."
       step1: "Klik op 'browse' en ga naar de %{name} map"
-      step2: "Selecteer alle %{name} die je wilt uploaden"
+      step2: "Selecteer alle %{name} die u wilt uploaden"
       step3: "Klik op 'open'."
       dragndrop: "Of sleep de bestanden op onderstaande vlak"
     external_link_notice_1: "Voer de complete URL in (inclusief bijvoorbeeld http://)"
@@ -406,19 +406,19 @@ nl:
     image_title: "Titel-tag"
     images: "Bilder"
     internal_link_headline: "Kies een pagina om een snelkoppeling naar te maken."
-    internal_link_page_elements_explanation: "Additionally you can click right beside a page on 'Show Elements' to link to an anchor of an element from that page."
-    internal_link_page_anchors_explanation: "Alternativly you can link to an anchor of the actual page."
-    "item copied to clipboard": "%{name} naar het klembord gekopieerd"
+    internal_link_page_elements_explanation: "Ook kunt u rechts klikken op een pagina in 'Toon Elementen' om naar een interne verwijzing (anchor) van deze pagina te verwijzen."
+    internal_link_page_anchors_explanation: "Ook kunt u naar de pagina zelf verwijzen."
+    "item copied to clipboard": "%{name} naar het klembord gekopiëerd"
     "item moved to clipboard": "%{name} naar het klembord verplaatst"
     "item removed from clipboard": "%{name} van het klembord verwijderd"
     javascript_disabled_headline: "Javascript is uitgeschakeld!"
-    javascript_disabled_text: "Javascript is nodig voor een juiste werking van Alchemy. Gebruik de browseringstellingen om Javascript in te schakelen."
+    javascript_disabled_text: "Javascript is nodig voor een juiste werking van Alchemy. Gebruik de browserinstellingen om Javascript in te schakelen."
     language_code_placeholder: 'bijv. en'
     language_does_not_exist: "Deze boomstructuur bestaat niet."
     language_pages_copied: "Boomstructuur gekopieerd."
     last_upload_only: "Alleen de laatste upload"
     left: "links"
-    legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
+    legacy_url_info_text: "Een link is een omleiding van een historische URL naar de huidige URL van deze pagina. Deze omleiding gebeurt met een <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
     link_image: "Snelkoppeling naar deze afbeelding maken."
     link_overlay_tab_label:
       contactform: "Contactformulier"
@@ -489,7 +489,7 @@ nl:
     page_type: "Type"
     page_visible_in_navigation: "Zichtbaar in navigatie"
     page_was_created: "Is aangemaakt"
-    page_was_updated: "Is geüpdated"
+    page_was_updated: "Is geüpdatet"
     pages:
       update:
         comma_seperated: "Komma gescheiden"
@@ -556,7 +556,7 @@ nl:
     title: "Titel"
     to_alchemy: "Naar Alchemy"
     "trash element": "Element naar de prullenbak verplaatsen"
-    unknown: "unknown"
+    unknown: "onbekend"
     unlink: "Snelkoppeling van deze afbeelding verwijderen."
     unlock_page: "Pagina verlaten"
     unlocked_page: "pagina %{name} is ontgrendeld."
@@ -565,8 +565,8 @@ nl:
     url_name: "URL-Naam"
     visible: "zichtbaar"
     want_to_create_new_language: "Nieuwe boomstructuur aanmaken?"
-    want_to_make_copy_of_existing_language: "Een boomstructuur kopieren?"
-    "We need at least one default.": "Er moet een standarad taal zijn."
+    want_to_make_copy_of_existing_language: "Een boomstructuur kopiëren?"
+    "We need at least one default.": "Er moet minimaal één standaard taal zijn."
     welcome_note: "Welkom %{name}"
     welcome_back_note: "Welkom terug %{name}"
     welcome_please_identify_notice: "Welkom! voer uw gegevens in."
@@ -576,7 +576,7 @@ nl:
     zoom_image: "Afbeelding vergroten"
     "Leave Alchemy": "Alchemy verlaten"
     leave: "Afmelden"
-    "You are about to leave Alchemy": "U staat op het punt de NVM Regiosite te verlaten"
+    "You are about to leave Alchemy": "U staat op het punt Alchemy te verlaten"
     "Do you want to": "Wilt u"
     "stay logged in": "ingelogd blijven"
     "or to completely": "of compleet"
@@ -631,15 +631,15 @@ nl:
     distance_in_words:
       half_a_minute: "halve minuut"
       less_than_x_seconds:
-        zero: 'weniger als 1 Sekunde'
+        zero: 'minder dan nul seconden'
         one:  "minder dan 1 seconde"
         many: "minder dan %{count} seconden"
       x_seconds:
         one:  "1 seconde"
         many: "%{count} seconden"
       less_than_x_minutes:
-        zero: 'weniger als 1 Minute'
-        one:  "minder dan een minuut"
+        zero: 'minder dan nul minuten'
+        one:  "minder dan één minuut"
         many: "minder dan %{count} minuten"
       x_minutes:
         one:  "1 minuut"
@@ -857,9 +857,9 @@ nl:
         link_title: Link-Titel
         css_class: Stijl
         link_target: Link-Doel
-        render_size: Rendergrootte
-        crop_from: Crop van
-        crop_size: Cropgrotte
+        render_size: Weergavegrootte
+        crop_from: Uitsnede uit
+        crop_size: Grootte van uitsnede
         picture_id: Afbeelding
 
       alchemy/language:
@@ -880,12 +880,12 @@ nl:
         locked: "Deze pagina is geblokkeerd door een andere gebruiker."
         locked_by: "geblokkeerd door"
         meta_description: "Omschrijving"
-        meta_keywords: "Keywords"
+        meta_keywords: "Sleutelwoorden"
         name: "Naam"
         page_layout: "Paginatype"
         public: "publiek"
         restricted: "afgeschermd"
-        robot_follow: "robot mag links volgen"
+        robot_follow: "robot mag URL's volgen"
         robot_index: "robot mag index volgen"
         sitemap: "zichtbaar in sitemap"
         tag_list: Tags
