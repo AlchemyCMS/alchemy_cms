@@ -28,9 +28,13 @@ select {
 
         b {
           @extend .icon-menu;
-          width: 18px;
-          line-height: 23px;
           background-image: none;
+
+          &:before {
+            position: relative;
+            top: 5px;
+            left: 1px;
+          }
         }
       }
     }
@@ -55,6 +59,11 @@ select {
             line-height: 4px;
             width: 12px;
             font-size: 10px;
+
+            &:before {
+              top: 0px;
+              left: 0px;
+            }
           }
         }
       }
@@ -207,5 +216,20 @@ select {
   label {
     @include inline-block;
     margin-right: 2*$default-margin;
+  }
+}
+
+// overriding important of select2 default style for retina screens
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+       only screen and (min-resolution: 2dppx) {
+
+  #alchemy {
+
+    .select2-search input,
+    .select2-search-choice-close,
+    .select2-container .select2-choice abbr,
+    .select2-container .select2-choice .select2-arrow b {
+       background-image: none !important;
+    }
   }
 }
