@@ -6,6 +6,8 @@ Alchemy::Engine.routes.draw do
   get '/sitemap.xml' => 'pages#sitemap', format: 'xml'
 
   get '/admin' => redirect('admin/dashboard')
+  get '/admin/sites/:id/select' => 'admin/change_site#index',
+        :as => :admin_select_site
   get '/admin/dashboard' => 'admin/dashboard#index',
         :as => :admin_dashboard
   get '/admin/dashboard/info' => 'admin/dashboard#info',
