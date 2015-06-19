@@ -25,7 +25,7 @@ describe 'Site select' do
         expect(page).to have_select('change_site', selected: a_site.name)
 
         visit admin_dashboard_path
-        expect(page).to have_select('change_site', selected: a_site.name)
+        expect(page).to have_select('change_site', selected: Alchemy::Site.default.name)
       end
     end
   end

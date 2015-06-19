@@ -99,7 +99,6 @@ module Alchemy
 
         # Controller actions
         can :leave,                 :alchemy_admin
-        can :select,                :alchemy_admin_site
         can [:info, :help],         :alchemy_admin_dashboard
         can :manage,                :alchemy_admin_clipboard
         can :index,                 :trash
@@ -171,6 +170,7 @@ module Alchemy
 
         # Controller actions
         can [:info, :update_check], :alchemy_admin_dashboard
+        can :select,                :alchemy_admin_site
 
         # Resources
         can :manage,                Alchemy::Language
