@@ -108,15 +108,15 @@ module Alchemy
     #
     def element_view_for(element, options = {})
       options = {
-        :tag   => :div,
-        :id    => element_dom_id(element),
-        :class => element.name,
-        :tags_formatter => lambda { |tags| tags.join(" ") }
+        tag: :div,
+        id: element_dom_id(element),
+        class: element.name,
+        tags_formatter: ->(tags) { tags.join(" ") }
       }.merge(options)
 
       # capture inner template block
       output = capture do
-        yield ElementViewHelper.new(self, :element => element) if block_given?
+        yield ElementViewHelper.new(self, element: element) if block_given?
       end
 
       # wrap output in a useful DOM element
@@ -155,7 +155,7 @@ module Alchemy
       }.merge(options)
 
       capture do
-        yield ElementEditorHelper.new(self, :element => element)
+        yield ElementEditorHelper.new(self, element: element) if block_given?
       end
     end
   end
