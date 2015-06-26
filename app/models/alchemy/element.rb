@@ -62,7 +62,7 @@ module Alchemy
 
     # Elements can have other elements nested inside
     has_many :nested_elements,
-      -> { order(:position) },
+      -> { order(:position).not_trashed },
       class_name: 'Alchemy::Element',
       foreign_key: :parent_element_id
 

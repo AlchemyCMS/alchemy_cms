@@ -342,9 +342,9 @@ module Alchemy
         let(:news_element) { news_page.elements.find_by(name: 'news') }
 
         it "all elements not allowed on this page should be trashed" do
-          expect(news_page.elements.trashed).to be_empty
+          expect(news_page.trashed_elements).to be_empty
           news_page.update_attributes(page_layout: 'standard')
-          trashed = news_page.elements.trashed.pluck(:name)
+          trashed = news_page.trashed_elements.pluck(:name)
           expect(trashed).to eq(['news'])
           expect(trashed).to_not include('article', 'header')
         end

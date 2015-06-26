@@ -6,8 +6,13 @@ module Alchemy
     included do
       attr_accessor :do_not_autogenerate
 
-      has_many :elements, -> { where(parent_element_id: nil).order(:position) }
-      has_many :descendent_elements, -> { order(:position) }, class_name: 'Alchemy::Element'
+      has_many :elements, -> { where(parent_element_id: nil).not_trashed.order(:position) }
+      has_many :trashed_elements,
+        -> { Element.trashed.order(:position) },
+        class_name: 'Alchemy::Element'
+      has_many :descendent_elements,
+        -> { order(:position).not_trashed },
+        class_name: 'Alchemy::Element'
       has_many :contents, through: :elements
       has_many :descendent_contents,
         through: :descendent_elements,
