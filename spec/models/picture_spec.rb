@@ -317,14 +317,5 @@ module Alchemy
         it { is_expected.to be_falsey }
       end
     end
-
-    describe '.find_paginated' do
-      subject { Picture.find_paginated({query: 'kitten'}, 5) }
-
-      it "finds pages by name" do
-        expect(Picture).to receive(:named).with('kitten').and_return(Picture.none)
-        subject
-      end
-    end
   end
 end
