@@ -32,6 +32,24 @@ module Alchemy
   #       %w(id updated_at secret_token remote_ip)
   #     end
   #
+  # == Adding non-database attributes attributes
+  #
+  # You might want to show some more attributes that which are not in the database, but methods on
+  # your object. These attributes will be restricted (not editable) by default, and you cannot
+  # search for them or sort by them, either.
+  #
+  # To define your own set of additional attributes, define a class method
+  # +additional_alchemy_resource_attributes like the following:
+  #
+  # === Example
+  #
+  #     def self.additional_alchemy_resource_attributes
+  #       [
+  #         {name: 'location', type: 'string'},
+  #         {name: 'attending', type: 'boolean'}
+  #       ]
+  #     end
+  #
   # == Restrict attributes
   #
   # Beside skipping certain attributes you can also restrict them. Restricted attributes can not be edited by the user but still be seen in the index view.
@@ -84,7 +102,7 @@ module Alchemy
   #     resource = Resource.new('/admin/tags', {"engine_name"=>"alchemy"}, ActsAsTaggableOn::Tag)
   #
   class Resource
-    attr_accessor :skipped_attributes, :restricted_attributes, :resource_relations, :model_associations
+    attr_accessor :resource_relations, :model_associations
     attr_reader :model
 
     DEFAULT_SKIPPED_ATTRIBUTES = %w(id updated_at created_at creator_id updater_id)
@@ -94,8 +112,6 @@ module Alchemy
       @controller_path = controller_path
       @module_definition = module_definition
       @model = (custom_model or guess_model_from_controller_path)
-      self.skipped_attributes = model.respond_to?(:skipped_alchemy_resource_attributes) ? model.skipped_alchemy_resource_attributes : DEFAULT_SKIPPED_ATTRIBUTES
-      self.restricted_attributes = model.respond_to?(:restricted_alchemy_resource_attributes) ? model.restricted_alchemy_resource_attributes : []
       if model.respond_to?(:alchemy_resource_relations)
         if not model.respond_to?(:reflect_on_all_associations)
           raise MissingActiveRecordAssociation
@@ -141,18 +157,18 @@ module Alchemy
 
     def attributes
       @_attributes ||= self.model.columns.collect do |col|
-        unless self.skipped_attributes.include?(col.name)
+        unless skipped_attributes.include?(col.name)
           {
             name: col.name,
             type: resource_column_type(col),
             relation: resource_relation(col.name)
           }.delete_if { |k, v| v.nil? }
         end
-      end.compact
+      end.compact + additional_attributes
     end
 
     def editable_attributes
-      attributes.reject { |h| self.restricted_attributes.map(&:to_s).include?(h[:name].to_s) }
+      attributes.reject { |h| restricted_attributes.map(&:to_s).include?(h[:name].to_s) }
     end
 
     # Returns all columns that are searchable
@@ -160,7 +176,7 @@ module Alchemy
     # For now it only uses string type columns
     #
     def searchable_attributes
-      self.attributes.select { |a| a[:type].to_sym == :string }
+      attributes.select { |a| a[:type].to_sym == :string } - additional_attributes
     end
 
     def in_engine?
@@ -187,7 +203,39 @@ module Alchemy
       false
     end
 
+    # Return attributes that should be viewable but not editable.
+    #
+    def restricted_attributes
+      if model.respond_to?(:restricted_alchemy_resource_attributes)
+        attrs = model.restricted_alchemy_resource_attributes
+      else
+        attrs = []
+      end
+      attrs + additional_attributes
+    end
+
     private
+
+    # Return attributes that should neither be viewable nor editable.
+    #
+    def skipped_attributes
+      if model.respond_to?(:skipped_alchemy_resource_attributes)
+        model.skipped_alchemy_resource_attributes
+      else
+        DEFAULT_SKIPPED_ATTRIBUTES
+      end
+    end
+
+    # Return attributes that should be viewable, but are not regular
+    # activerecord attributes.
+    #
+    def additional_attributes
+      if model.respond_to?(:additional_alchemy_resource_attributes)
+        model.additional_alchemy_resource_attributes
+      else
+        []
+      end
+    end
 
     def guess_model_from_controller_path
       resource_array.join('/').classify.constantize
@@ -233,6 +281,5 @@ module Alchemy
     def association_from_relation_name(name)
       model_associations.detect { |a| a.name == name.to_sym }
     end
-
   end
 end
