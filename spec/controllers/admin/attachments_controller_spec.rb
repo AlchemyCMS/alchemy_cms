@@ -10,7 +10,7 @@ module Alchemy
 
     describe "#index" do
       it "should always paginate the records" do
-        expect(Attachment).to receive(:find_paginated)
+        expect_any_instance_of(ActiveRecord::Relation).to receive(:page).and_call_original
         alchemy_get :index
       end
 
