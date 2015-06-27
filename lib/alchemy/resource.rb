@@ -160,7 +160,7 @@ module Alchemy
     # For now it only uses string type columns
     #
     def searchable_attributes
-      self.attributes.select { |a| a[:type].to_sym == :string }
+      attributes.select { |a| string_attribute?(a) } + searchable_relation_attributes?(attributes)
     end
 
     # Search field input name
@@ -196,6 +196,25 @@ module Alchemy
     end
 
     private
+
+    def string_attribute?(a)
+      a[:type].to_sym == :string && !a.has_key?(:relation)
+    end
+
+    def string_attribute_on_relation?(a)
+      a.has_key?(:relation) && a[:relation][:attr_type].to_sym == :string
+    end
+
+    def searchable_relation_attributes?(attrs)
+      attrs.select { |a| string_attribute_on_relation?(a) }.map { |a| searchable_relation_attribute(a) }
+    end
+
+    def searchable_relation_attribute(a)
+      {
+        name: "#{a[:relation][:model_association].name}_#{a[:relation][:attr_method]}",
+        type: a[:relation][:attr_type]
+      }
+    end
 
     def guess_model_from_controller_path
       resource_array.join('/').classify.constantize
