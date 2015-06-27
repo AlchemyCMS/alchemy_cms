@@ -3,8 +3,8 @@ module Alchemy
     class PicturesController < Alchemy::Admin::ResourcesController
       helper 'alchemy/admin/tags'
 
-      before_action :load_picture,
-        only: [:show, :edit, :update, :info, :destroy]
+      before_action :load_resource,
+        only: [:show, :edit, :update, :destroy, :info]
 
       authorize_resource class: Alchemy::Picture
 
@@ -120,10 +120,6 @@ module Alchemy
       end
 
       private
-
-      def load_picture
-        @picture = Picture.find(params[:id])
-      end
 
       def pictures_per_page_for_size(size)
         case size
