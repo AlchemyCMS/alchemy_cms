@@ -208,7 +208,7 @@ module Alchemy
           end
         end
 
-        it "includes the added attributes" do
+        it "includes the additional attributes" do
           expect(subject).to include({name: "foo", type: :string})
         end
       end
@@ -276,7 +276,7 @@ module Alchemy
           end
         end
 
-        it "does not include the added attributes" do
+        it "does not include the additional attributes" do
           expect(subject).not_to include({name: "foo", type: "string"})
         end
       end

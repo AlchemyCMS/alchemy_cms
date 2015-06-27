@@ -32,11 +32,14 @@ module Alchemy
   #       %w(id updated_at secret_token remote_ip)
   #     end
   #
-  # == Add attributes
+  # == Adding non-database attributes attributes
   #
-  # You might want to show or sort by some more attributes that might be methods.
-  # These attributes will be restricted (not editable) by default, and you cannot search for them, either.
-  # To define your own set of added attributes, define a class method +additional_alchemy_resource_attributes like the following:
+  # You might want to show some more attributes that which are not in the database, but methods on
+  # your object. These attributes will be restricted (not editable) by default, and you cannot
+  # search for them or sort by them, either.
+  #
+  # To define your own set of additional attributes, define a class method
+  # +additional_alchemy_resource_attributes like the following:
   #
   # === Example
   #
@@ -161,7 +164,7 @@ module Alchemy
             relation: resource_relation(col.name)
           }.delete_if { |k, v| v.nil? }
         end
-      end.compact + added_attributes
+      end.compact + additional_attributes
     end
 
     def editable_attributes
@@ -216,7 +219,7 @@ module Alchemy
       else
         attrs = []
       end
-      attrs + added_attributes
+      attrs + additional_attributes
     end
 
     private
@@ -234,7 +237,7 @@ module Alchemy
     # Return attributes that should be viewable, but are not regular
     # activerecord attributes.
     #
-    def added_attributes
+    def additional_attributes
       if model.respond_to?(:additional_alchemy_resource_attributes)
         model.additional_alchemy_resource_attributes
       else
