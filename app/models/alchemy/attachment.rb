@@ -50,18 +50,6 @@ module Alchemy
 
     after_update :touch_contents
 
-    # Class methods
-
-    class << self
-
-      def find_paginated(params, per_page, order)
-        attachments = Attachment.arel_table
-        cond = attachments[:name].matches("%#{params[:query]}%").or(attachments[:file_name].matches("%#{params[:query]}%"))
-        self.where(cond).page(params[:page] || 1).per(per_page).order(order)
-      end
-
-    end
-
     # Instance methods
 
     def to_jq_upload
