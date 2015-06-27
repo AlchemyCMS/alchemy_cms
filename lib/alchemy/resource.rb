@@ -160,7 +160,13 @@ module Alchemy
     # For now it only uses string type columns
     #
     def searchable_attributes
-      self.attributes.select { |a| a[:type].to_sym == :string }
+      attributes.select { |a| a[:type].to_sym == :string && !a.has_key?(:relation) } +
+      attributes.select { |a| a.has_key?(:relation) }.map do |a|
+        {
+          name: "#{a[:relation][:model_association].name}_#{a[:relation][:attr_method]}",
+          type: a[:relation][:attr_type]
+        }
+      end
     end
 
     # Search field input name
