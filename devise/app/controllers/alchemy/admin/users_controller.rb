@@ -11,23 +11,14 @@ module Alchemy
       authorize_resource class: Alchemy::User,
         only: [:index, :new, :signup, :create]
 
-      handles_sortable_columns do |c|
-        c.default_sort_value = :login
-      end
-
       helper_method :while_signup?, :can_update_role?
 
       def index
-        if params[:query].present?
-          @users = User.search(params[:query])
-        else
-          @users = User.all
-        end
-
-        @users = @users
+        @query = User.ransack(params[:q])
+        @query.sorts = 'login asc' if @query.sorts.empty?
+        @users = @query.result
           .page(params[:page] || 1)
           .per(per_page_value_for_screen_size)
-          .order(sort_order)
       end
 
       def new

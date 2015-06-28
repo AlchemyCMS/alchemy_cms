@@ -25,20 +25,20 @@
         <th class="icon"></th>
         <th class="login_status"></th>
         <th class="login">
-          <%= sortable_column(Alchemy::User.human_attribute_name('login'), column: :login) %>
+          <%= sort_link @query, :login, hide_indicator: true %>
         </th>
         <th class="name">
-          <%= sortable_column(Alchemy::User.human_attribute_name('firstname'), column: :firstname) %>
+          <%= sort_link @query, :firstname, hide_indicator: true %>
         </th>
         <th>
-          <%= sortable_column(Alchemy::User.human_attribute_name('lastname'), column: :lastname) %>
+          <%= sort_link @query, :lastname, hide_indicator: true %>
         </th>
         <th class="email">
-          <%= sortable_column(Alchemy::User.human_attribute_name('email'), column: :email) %>
+          <%= sort_link @query, :email, hide_indicator: true %>
         </th>
         <th><%= Alchemy::User.human_attribute_name('language') %></th>
         <th>
-          <%= sortable_column(Alchemy::User.human_attribute_name('last_sign_in_at'), column: :last_sign_in_at) %>
+          <%= sort_link @query, :last_sign_in_at, hide_indicator: true %>
         </th>
         <th class="role"><%= Alchemy::User.human_attribute_name('roles') %></th>
         <th class="tools"></th>
