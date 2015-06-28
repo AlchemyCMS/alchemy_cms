@@ -199,20 +199,6 @@ module Alchemy
         end
       end
 
-      context "with custom additional attributes" do
-        let(:custom_attributes) { [{name: "foo", type: :string}] }
-
-        before do
-          allow(Party).to receive(:additional_alchemy_resource_attributes) do
-            custom_attributes
-          end
-        end
-
-        it "includes the additional attributes" do
-          expect(subject).to include({name: "foo", type: :string})
-        end
-      end
-
       context "with restricted attributes set" do
         before do
           allow(Party).to receive(:restricted_alchemy_resource_attributes) do
@@ -264,20 +250,6 @@ module Alchemy
 
         it "does not include this column" do
           is_expected.to eq([{name: "name", type: :string}])
-        end
-      end
-
-      context "with additional attributes set" do
-        let(:custom_attributes) { [{name: "foo", type: "string"}] }
-
-        before do
-          allow(Party).to receive(:additional_alchemy_resource_attributes) do
-            custom_attributes
-          end
-        end
-
-        it "does not include the additional attributes" do
-          expect(subject).not_to include({name: "foo", type: "string"})
         end
       end
     end

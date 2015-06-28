@@ -32,24 +32,6 @@ module Alchemy
   #       %w(id updated_at secret_token remote_ip)
   #     end
   #
-  # == Adding non-database attributes attributes
-  #
-  # You might want to show some more attributes that which are not in the database, but methods on
-  # your object. These attributes will be restricted (not editable) by default, and you cannot
-  # search for them or sort by them, either.
-  #
-  # To define your own set of additional attributes, define a class method
-  # +additional_alchemy_resource_attributes like the following:
-  #
-  # === Example
-  #
-  #     def self.additional_alchemy_resource_attributes
-  #       [
-  #         {name: 'location', type: 'string'},
-  #         {name: 'attending', type: 'boolean'}
-  #       ]
-  #     end
-  #
   # == Restrict attributes
   #
   # Beside skipping certain attributes you can also restrict them. Restricted attributes can not be edited by the user but still be seen in the index view.
@@ -164,7 +146,7 @@ module Alchemy
             relation: resource_relation(col.name)
           }.delete_if { |k, v| v.nil? }
         end
-      end.compact + additional_attributes
+      end.compact
     end
 
     def editable_attributes
@@ -176,7 +158,7 @@ module Alchemy
     # For now it only uses string type columns
     #
     def searchable_attributes
-      attributes.select { |a| string_attribute?(a) } + searchable_relation_attributes?(attributes) - added_attributes
+      attributes.select { |a| string_attribute?(a) } + searchable_relation_attributes?(attributes)
     end
 
     # Search field input name
@@ -215,14 +197,11 @@ module Alchemy
     #
     def restricted_attributes
       if model.respond_to?(:restricted_alchemy_resource_attributes)
-        attrs = model.restricted_alchemy_resource_attributes
+        model.restricted_alchemy_resource_attributes
       else
-        attrs = []
+        []
       end
-      attrs + additional_attributes
     end
-
-    private
 
     # Return attributes that should neither be viewable nor editable.
     #
@@ -234,27 +213,7 @@ module Alchemy
       end
     end
 
-    # Return attributes that should be viewable, but are not regular
-    # activerecord attributes.
-    #
-    def additional_attributes
-      if model.respond_to?(:additional_alchemy_resource_attributes)
-        model.additional_alchemy_resource_attributes
-      else
-        []
-      end
-    end
-
-    # Return attributes that should be viewable but not editable.
-    #
-    def restricted_attributes
-      if model.respond_to?(:restricted_alchemy_resource_attributes)
-        attrs = model.restricted_alchemy_resource_attributes
-      else
-        attrs = []
-      end
-      attrs + added_attributes
-    end
+    private
 
     def string_attribute?(a)
       a[:type].to_sym == :string && !a.has_key?(:relation)
