@@ -18,7 +18,7 @@ describe "Admin users feature." do
   end
 
   context 'logged in as admin' do
-    before { authorize_as_admin(create(:alchemy_admin_user)) }
+    before { authorize_user(create(:alchemy_admin_user)) }
 
     describe 'create new user' do
       it "has send_credentials checkbox activated" do

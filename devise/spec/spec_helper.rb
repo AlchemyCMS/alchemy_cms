@@ -18,7 +18,6 @@ require 'rspec/active_model/mocks'
 require "capybara/rails"
 require 'factory_girl'
 require 'alchemy/seeder'
-require 'alchemy/test_support/auth_helpers'
 require 'alchemy/test_support/controller_requests'
 require 'alchemy/test_support/integration_helpers'
 require 'alchemy/test_support/factories'
@@ -36,11 +35,12 @@ RSpec.configure do |config|
   config.raise_errors_for_deprecations!
   config.use_transactional_fixtures = true
   config.include Devise::TestHelpers, :type => :controller
-  config.include Alchemy::TestSupport::AuthHelpers
   config.include Alchemy::TestSupport::ControllerRequests, :type => :controller
-  config.include Alchemy::TestSupport::IntegrationHelpers, :type => :feature
   config.include Alchemy::Engine.routes.url_helpers
   config.include FactoryGirl::Syntax::Methods
+  [:controller, :feature].each do |type|
+    config.include Alchemy::TestSupport::IntegrationHelpers, type: type
+  end
   config.before(:suite) do
     Alchemy::Seeder.seed!
   end
