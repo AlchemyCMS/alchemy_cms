@@ -25,4 +25,5 @@
 <%- end -%>
 <script type="text/javascript" charset="utf-8">
   Alchemy.DraggableTrashItems(<%= @draggable_trash_items.to_json.html_safe %>);
+  Alchemy.TrashWindow.updateIcon();
 </script>
