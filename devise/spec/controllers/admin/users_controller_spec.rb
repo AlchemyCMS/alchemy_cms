@@ -8,29 +8,28 @@ module Alchemy
     before do
       allow(controller).to receive_messages(store_user_request_time: true)
       allow(User).to receive(:find).and_return(user)
-      sign_in(admin)
+      authorize_user(admin)
     end
 
     describe '#index' do
-      let(:users) { [] }
+      let(:user) { create :alchemy_user}
 
-      before do
-        allow(users)
-          .to receive_message_chain(:page, :per, :order)
-          .and_return([user])
-      end
-
-      context 'with search query' do
+      context 'with matching search query' do
         it "lists all matching users" do
-          expect(User).to receive(:search).and_return(users)
           alchemy_get :index, query: user.email
           expect(assigns(:users)).to include(user)
         end
       end
 
+      context 'with non-matching search query' do
+        it "lists all matching users" do
+          alchemy_get :index, query: "Tarzan"
+          expect(assigns(:users)).not_to include(user)
+        end
+      end
+
       context 'without search query' do
         it "lists all users" do
-          allow(User).to receive(:all).and_return(users)
           alchemy_get :index
           expect(assigns(:users)).to include(user)
         end

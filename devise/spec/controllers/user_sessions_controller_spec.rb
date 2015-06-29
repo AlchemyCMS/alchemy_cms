@@ -72,7 +72,7 @@ describe Alchemy::UserSessionsController do
         allow(controller)
           .to receive(:all_signed_out?)
           .and_return(false)
-        sign_in(user)
+        authorize_user(user)
       end
 
       it "should unlock all pages" do
