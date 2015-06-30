@@ -431,6 +431,7 @@ module Alchemy
         before { clipboard['pages'] = [{'id' => page.id.to_s}] }
 
         it "should also remove the page from clipboard" do
+          expect_any_instance_of(Page).to receive(:soft_delete).and_return true
           alchemy_xhr :post, :destroy, {id: page.id, _method: :delete}
           expect(clipboard['pages']).to be_empty
         end

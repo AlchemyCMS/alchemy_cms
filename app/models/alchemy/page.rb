@@ -31,6 +31,7 @@
 #  language_id      :integer
 #  cached_tag_list  :text
 #  published_at     :datetime
+#  deleted_at       :datetime
 #
 
 module Alchemy
@@ -38,6 +39,7 @@ module Alchemy
     include Alchemy::Hints
     include Alchemy::Logger
     include Alchemy::Touching
+    include Alchemy::SoftDeleteable
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       :do_not_autogenerate => true,
@@ -73,6 +75,8 @@ module Alchemy
     has_many :folded_pages
     has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
     belongs_to :language
+
+    default_scope { not_deleted }
 
     validates_presence_of :language, :on => :create, :unless => :root
     validates_presence_of :page_layout, :unless => :systempage?
