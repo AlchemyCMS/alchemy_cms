@@ -82,7 +82,8 @@
     </div>
   </div>
 
-  <%= render partial: 'alchemy/admin/partials/search_form' %>
+  <%= render 'alchemy/admin/partials/search_form',
+    additional_params: [:filter, :tagged_with, :size] %>
 <% end %>
 
 <div id="picture_archive">

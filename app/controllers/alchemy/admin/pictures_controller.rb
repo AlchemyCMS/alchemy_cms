@@ -1,16 +1,30 @@
 module Alchemy
   module Admin
-    class PicturesController < Alchemy::Admin::BaseController
+    class PicturesController < Alchemy::Admin::ResourcesController
       helper 'alchemy/admin/tags'
 
-      before_action :load_picture,
-        only: [:show, :edit, :update, :info, :destroy]
+      before_action :load_resource,
+        only: [:show, :edit, :update, :destroy, :info]
 
       authorize_resource class: Alchemy::Picture
 
       def index
         @size = params[:size].present? ? params[:size] : 'medium'
-        @pictures = Picture.find_paginated(params, pictures_per_page_for_size(@size))
+
+        @query = Picture.ransack(params[:q])
+        @pictures = @query.result
+        if params[:tagged_with].present?
+          @pictures = @pictures.tagged_with(params[:tagged_with])
+        end
+        if params[:filter].present?
+          @pictures = @pictures.filtered_by(params[:filter])
+        end
+
+        @pictures = @pictures
+          .page(params[:page] || 1)
+          .per(pictures_per_page_for_size(@size))
+          .order(:name)
+
         if in_overlay?
           archive_overlay
         end
@@ -106,10 +120,6 @@ module Alchemy
       end
 
       private
-
-      def load_picture
-        @picture = Picture.find(params[:id])
-      end
 
       def pictures_per_page_for_size(size)
         case size

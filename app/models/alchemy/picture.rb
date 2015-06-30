@@ -84,23 +84,6 @@ module Alchemy
 
     class << self
 
-      # Returns filtered, paginated and ordered picture collection.
-      def find_paginated(params, per_page)
-        @pictures = Picture.all
-
-        if params[:tagged_with].present?
-          @pictures = @pictures.tagged_with(params[:tagged_with])
-        end
-        if params[:filter].present?
-          @pictures = @pictures.filtered_by(params[:filter])
-        end
-        if params[:query].present?
-          @pictures = @pictures.named(params[:query])
-        end
-
-        @pictures.page(params[:page] || 1).per(per_page).order(:name)
-      end
-
       def last_upload
         last_picture = Picture.last
         return Picture.all unless last_picture

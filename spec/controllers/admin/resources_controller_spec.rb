@@ -9,13 +9,12 @@ describe Admin::EventsController do
   end
 
   describe '#index' do
-    let(:params) { Hash.new }
-    let(:peter)  { Event.create(name: 'Peter') }
-    let(:lustig) { Event.create(name: 'Lustig') }
+    let(:params)  { Hash.new }
+    let!(:peter)  { Event.create(name: 'Peter') }
+    let!(:lustig) { Event.create(name: 'Lustig') }
 
     before do
       authorize_user(:as_admin)
-      peter; lustig
     end
 
     it "returns all records" do
@@ -25,7 +24,7 @@ describe Admin::EventsController do
     end
 
     context 'with search query given' do
-      let(:params) { {query: 'PeTer'} }
+      let(:params) { {q: {name_or_hidden_name_or_location_name_cont: "PeTer"}} }
 
       it "returns only matching records" do
         get :index, params
@@ -35,7 +34,7 @@ describe Admin::EventsController do
 
       context "but searching for record with certain association" do
         let(:bauwagen) { Location.create(name: 'Bauwagen') }
-        let(:params)   { {query: 'Bauwagen'} }
+        let(:params)   { {q: {name_or_hidden_name_or_location_name_cont: "Bauwagen"}} }
 
         before do
           peter.location = bauwagen

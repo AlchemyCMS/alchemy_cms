@@ -4,7 +4,9 @@ module Alchemy
       helper 'alchemy/admin/tags'
 
       def index
-        @attachments = Attachment.all
+        @query = Attachment.ransack(params[:q])
+        @attachments = @query.result
+
         if params[:only].present?
           @attachments = @attachments.where("file_mime_type LIKE '%#{params[:only]}%'")
         end
@@ -14,7 +16,11 @@ module Alchemy
         if params[:tagged_with].present?
           @attachments = @attachments.tagged_with(params[:tagged_with])
         end
-        @attachments = @attachments.find_paginated(params, 15, sort_order)
+
+        @attachments = @attachments
+          .page(params[:page] || 1)
+          .per(15)
+
         @options = options_from_params
         if in_overlay?
           archive_overlay

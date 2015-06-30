@@ -16,7 +16,7 @@
     },
     {
       icon: 'download',
-      url: resource_url_proxy.url_for(action: 'index', format: 'csv', query: params[:query], sort: params[:sort]),
+      url: resource_url_proxy.url_for(action: 'index', format: 'csv', q: params[:q], sort: params[:sort]),
       label: _t(:download_csv),
       title: _t(:download_csv),
       dialog: false,

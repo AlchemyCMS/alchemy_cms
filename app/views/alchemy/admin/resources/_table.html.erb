@@ -4,11 +4,9 @@
     <tr>
     <% resource_handler.attributes.each do |attribute| %>
       <th class="<%= attribute[:type] %> <%= attribute[:name] %>">
-        <%= sortable_column(
-          resource_handler.model.human_attribute_name(attribute[:name]),
-          :column => sortable_resource_header_column(attribute),
-          :route_proxy => resource_url_proxy
-        ) %>
+        <%= sort_link [:resource_url_proxy, @query],
+          sortable_resource_header_column(attribute),
+          hide_indicator: true %>
       </th>
     <% end %>
       <th class="tools"></th>

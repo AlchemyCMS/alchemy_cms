@@ -1,7 +1,6 @@
 require 'csv'
 require 'alchemy/resource'
 require 'alchemy/resources_helper'
-require 'handles_sortable_columns'
 
 module Alchemy
   module Admin
@@ -18,22 +17,12 @@ module Alchemy
         authorize!(action_name.to_sym, resource_instance_variable || resource_handler.model)
       end
 
-      handles_sortable_columns do |c|
-        c.default_sort_value = :name
-        c.link_class = 'sortable'
-        c.indicator_class = {:asc => "sorted asc", :desc => "sorted desc"}
-        c.indicator_text = {:asc => "<i>&nbsp;&darr;&nbsp;</i>", :desc => "<i>&nbsp;&uarr;&nbsp;</i>"}
-      end
-
       def index
-        items = resource_handler.model
+        @query = resource_handler.model.ransack(params[:q])
+        items = @query.result
         if contains_relations?
           items = items.includes(*resource_relations_names)
         end
-        if params[:query].present?
-          items = query_items(items)
-        end
-        items = items.order(sort_order)
         respond_to do |format|
           format.html {
             items = items.page(params[:page] || 1).per(per_page_value_for_screen_size)
@@ -113,61 +102,6 @@ module Alchemy
         instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.find(params[:id]))
       end
 
-      # Returns a sort order for AR#sort method
-      #
-      # Falls back to fallback_sort_order, if the requested column is not a column of model.
-      #
-      # If the column is a tablename and column combination that matches any resource relations, than this order will be taken.
-      #
-      def sort_order
-        sortable_column_order do |column, direction|
-          if resource_handler.model_associations.present? && column.match(/\./)
-            table, column = column.split('.')
-            if resource_handler.model_associations.detect { |a| a.table_name == table }
-              "#{table}.#{column} #{direction}"
-            else
-              fallback_sort_order(direction)
-            end
-          elsif resource_handler.model.column_names.include?(column.to_s)
-            "#{resource_handler.model.table_name}.#{column} #{direction}"
-          else
-            fallback_sort_order(direction)
-          end
-        end
-      end
-
-      # Default sort order fallback
-      #
-      # Overwrite this in your controller to define custom fallback
-      #
-      def fallback_sort_order(direction)
-        "#{resource_handler.model.table_name}.id #{direction}"
-      end
-
-      # Returns an activerecord object that contains items matching params[:query]
-      #
-      def query_items(items)
-        query = params[:query].downcase.split(' ').join('%')
-        query = ActiveRecord::Base.sanitize("%#{query}%")
-        items.eager_load(resource_handler.model_association_names).where(search_query(query))
-      end
-
-      # Returns a search query string
-      #
-      # It queries all searchable attributes from resource model via LIKE and joins them via OR.
-      #
-      # If the attribute is a relation it builds the query for the associated table.
-      #
-      def search_query(search_terms)
-        resource_handler.searchable_attributes.map do |attribute|
-          if relation = attribute[:relation]
-            "LOWER(#{relation[:model_association].klass.table_name}.#{relation[:attr_method]}) LIKE #{search_terms}"
-          else
-            "LOWER(#{resource_handler.model.table_name}.#{attribute[:name]}) LIKE #{search_terms}"
-          end
-        end.join(" OR ")
-      end
-
       # Permits all parameters as default!
       #
       # THIS IS INSECURE! Although only signed in admin users can send requests anyway, but we should change this.
@@ -179,7 +113,6 @@ module Alchemy
       def resource_params
         params.require(resource_handler.namespaced_resource_name).permit!
       end
-
     end
   end
 end

@@ -3,6 +3,7 @@ input[type="url"],
 input[type="text"],
 input[type="email"],
 input[type="password"],
+input[type="search"],
 .thin_border,
 .input_field {
   @extend %default-input-style;
@@ -10,6 +11,17 @@ input[type="password"],
   &.dirty {
     background-color: #fff8df;
   }
+}
+
+input[type="search"] {
+  -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration  {
+  -webkit-appearance: none;
 }
 
 textarea {

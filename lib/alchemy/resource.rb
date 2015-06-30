@@ -84,7 +84,7 @@ module Alchemy
   #     resource = Resource.new('/admin/tags', {"engine_name"=>"alchemy"}, ActsAsTaggableOn::Tag)
   #
   class Resource
-    attr_accessor :skipped_attributes, :restricted_attributes, :resource_relations, :model_associations
+    attr_accessor :resource_relations, :model_associations
     attr_reader :model
 
     DEFAULT_SKIPPED_ATTRIBUTES = %w(id updated_at created_at creator_id updater_id)
@@ -94,8 +94,6 @@ module Alchemy
       @controller_path = controller_path
       @module_definition = module_definition
       @model = (custom_model or guess_model_from_controller_path)
-      self.skipped_attributes = model.respond_to?(:skipped_alchemy_resource_attributes) ? model.skipped_alchemy_resource_attributes : DEFAULT_SKIPPED_ATTRIBUTES
-      self.restricted_attributes = model.respond_to?(:restricted_alchemy_resource_attributes) ? model.restricted_alchemy_resource_attributes : []
       if model.respond_to?(:alchemy_resource_relations)
         if not model.respond_to?(:reflect_on_all_associations)
           raise MissingActiveRecordAssociation
@@ -141,7 +139,7 @@ module Alchemy
 
     def attributes
       @_attributes ||= self.model.columns.collect do |col|
-        unless self.skipped_attributes.include?(col.name)
+        unless skipped_attributes.include?(col.name)
           {
             name: col.name,
             type: resource_column_type(col),
@@ -152,7 +150,7 @@ module Alchemy
     end
 
     def editable_attributes
-      attributes.reject { |h| self.restricted_attributes.map(&:to_s).include?(h[:name].to_s) }
+      attributes.reject { |h| restricted_attributes.map(&:to_s).include?(h[:name].to_s) }
     end
 
     # Returns all columns that are searchable
@@ -160,7 +158,15 @@ module Alchemy
     # For now it only uses string type columns
     #
     def searchable_attributes
-      self.attributes.select { |a| a[:type].to_sym == :string }
+      attributes.select { |a| string_attribute?(a) } + searchable_relation_attributes?(attributes)
+    end
+
+    # Search field input name
+    #
+    # Joins all searchable attributes into a Ransack compatible search query
+    #
+    def search_field_name
+      searchable_attributes.collect { |a| a[:name] }.join("_or_") + "_cont"
     end
 
     def in_engine?
@@ -187,7 +193,46 @@ module Alchemy
       false
     end
 
+    # Return attributes that should be viewable but not editable.
+    #
+    def restricted_attributes
+      if model.respond_to?(:restricted_alchemy_resource_attributes)
+        model.restricted_alchemy_resource_attributes
+      else
+        []
+      end
+    end
+
+    # Return attributes that should neither be viewable nor editable.
+    #
+    def skipped_attributes
+      if model.respond_to?(:skipped_alchemy_resource_attributes)
+        model.skipped_alchemy_resource_attributes
+      else
+        DEFAULT_SKIPPED_ATTRIBUTES
+      end
+    end
+
     private
+
+    def string_attribute?(a)
+      a[:type].to_sym == :string && !a.has_key?(:relation)
+    end
+
+    def string_attribute_on_relation?(a)
+      a.has_key?(:relation) && a[:relation][:attr_type].to_sym == :string
+    end
+
+    def searchable_relation_attributes?(attrs)
+      attrs.select { |a| string_attribute_on_relation?(a) }.map { |a| searchable_relation_attribute(a) }
+    end
+
+    def searchable_relation_attribute(a)
+      {
+        name: "#{a[:relation][:model_association].name}_#{a[:relation][:attr_method]}",
+        type: a[:relation][:attr_type]
+      }
+    end
 
     def guess_model_from_controller_path
       resource_array.join('/').classify.constantize
@@ -233,6 +278,5 @@ module Alchemy
     def association_from_relation_name(name)
       model_associations.detect { |a| a.name == name.to_sym }
     end
-
   end
 end
