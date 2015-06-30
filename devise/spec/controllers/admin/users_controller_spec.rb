@@ -16,14 +16,14 @@ module Alchemy
 
       context 'with matching search query' do
         it "lists all matching users" do
-          alchemy_get :index, query: user.email
+          alchemy_get :index, q: { email_cont: user.email }
           expect(assigns(:users)).to include(user)
         end
       end
 
       context 'with non-matching search query' do
         it "lists all matching users" do
-          alchemy_get :index, query: "Tarzan"
+          alchemy_get :index, q: { email_cont: "Tarzan" }
           expect(assigns(:users)).not_to include(user)
         end
       end
