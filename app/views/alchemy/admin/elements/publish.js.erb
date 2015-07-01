@@ -1,0 +1,15 @@
+var el = $('.element-editor[data-element-id="<%= @element.id %>"]');
+var icon = el.find('> .element-header > .element-handle .icon:not(.element)');
+var label = el.find('> .element-toolbar .publish-element-button label');
+
+<%- if @element.public? -%>
+  icon.removeClass('element_draft');
+  icon.addClass('element_public');
+  label.text('<%= _t(:hide_element) %>');
+<%- else -%>
+  icon.removeClass('element_public');
+  icon.addClass('element_draft');
+  label.text('<%= _t(:show_element) %>');
+<%- end -%>
+
+Alchemy.reloadPreview();

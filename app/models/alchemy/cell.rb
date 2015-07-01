@@ -82,13 +82,13 @@ module Alchemy
     alias_method :description, :definition
 
     # Returns all elements that can be placed in this cell
-    def available_elements
+    def element_definitions
       definition['elements'] || []
     end
+    alias_method :available_elements, :element_definitions
 
     def name_for_label
       self.class.translated_label_for(self.name)
     end
-
   end
 end

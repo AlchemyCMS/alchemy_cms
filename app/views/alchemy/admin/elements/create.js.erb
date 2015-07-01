@@ -4,7 +4,7 @@
   var element_html = '<%= j render("element", element: @element, draggable: true) %>';
 
 <%- if @cutted_element_id -%>
-  $('.element_editor[data-element-id="<%= @cutted_element_id %>"]').remove();
+  $('.element-editor[data-element-id="<%= @cutted_element_id %>"]').remove();
 <%- end -%>
 
 <%- if @page.can_have_cells? -%>
@@ -14,7 +14,11 @@
   Alchemy.selectOrCreateCellTab('<%= @cell_name %>', '<%= @cell.nil? ? _t(:main_content) : @cell.name_for_label %>');
 <%- end -%>
 
+<%- if @element.parent_element -%>
+  $element_area = $('[data-element-id="<%= @element.parent_element_id %>"] .nested-elements');
+<%- else -%>
   $element_area = $('#cell_<%= @cell_name %>');
+<%- end -%>
 
 <%- if @insert_at_top -%>
   $element_area.prepend(element_html);
@@ -22,7 +26,7 @@
   $element_area.append(element_html);
 <%- end -%>
 
-  if ($element_area.find('.element_editor').length > 0) {
+  if ($element_area.find('.element-editor').length > 0) {
     Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>', $element_area);
   } else {
     $element_area.sortable('refresh');
@@ -35,7 +39,7 @@
   Alchemy.ElementEditors.init();
 
   $el = $('#element_<%= @element.id %>');
-  $el.trigger('Alchemy.SelectElementEditor');
+  $el.trigger('FocusElementEditor.Alchemy');
   Alchemy.GUI.initElement($el);
 
 <%- if @clipboard.blank? -%>

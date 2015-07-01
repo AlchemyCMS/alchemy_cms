@@ -60,7 +60,7 @@ $.extend Alchemy,
 
   removePicture: (selector) ->
     $form_field = $(selector)
-    $element = $form_field.parents(".element_editor")
+    $element = $form_field.closest(".element-editor")
     if $form_field
       $form_field.val ""
       $form_field.prev().remove()
@@ -116,6 +116,12 @@ $.extend Alchemy,
     if window["console"]
       console.debug e
       console.trace()
+    return
+
+  # Logs errors to js console, if present.
+  log_error: (e) ->
+    if window["console"]
+      console.error e
     return
 
   getUrlParam: (name) ->

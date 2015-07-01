@@ -12,7 +12,9 @@
   <%= render partial: 'alchemy/admin/elements/element',
     object: element,
     locals: {
-      draggable: @allowed_elements.any? { |e| e['name'] == element.name }
+      draggable: @allowed_elements.any? do |e|
+        e['name'] == element.name || e.fetch('nestable_elements', []).include?(element.name)
+      end
     } %>
 <%- end -%>
 </div>
@@ -24,5 +26,6 @@
 </p>
 <%- end -%>
 <script type="text/javascript" charset="utf-8">
-  Alchemy.DraggableTrashItems(<%= @draggable_trash_items.to_json.html_safe %>);
+  Alchemy.DraggableTrashItems();
+  Alchemy.TrashWindow.updateIcon();
 </script>

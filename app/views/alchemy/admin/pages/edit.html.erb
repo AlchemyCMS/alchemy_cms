@@ -153,7 +153,7 @@
           onClick: function() {
             Alchemy.openDialog('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {
               title :'<%= _t("Clipboard") %>',
-              size: '380x305'
+              size: '400x305'
             });
           }
         },
@@ -171,12 +171,12 @@
       Alchemy.ImageLoader('#element_area');
       Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
       Alchemy.ElementEditors.init();
-      Alchemy.SelectBox('.element_editor');
+      Alchemy.SelectBox('.element-editor');
       Alchemy.Tinymce.init(<%= @page.richtext_contents_ids.to_json %>);
       $('#cells').tabs().tabs('paging', { follow: true, followOnSelect: true } );
       Alchemy.ElementDirtyObserver('#element_area');
       if (window.location.hash) {
-        $(window.location.hash).trigger('Alchemy.SelectElementEditor');
+        $(window.location.hash).trigger('FocusElementEditor.Alchemy');
       }
     });
 

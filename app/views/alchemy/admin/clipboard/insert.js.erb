@@ -1,6 +1,6 @@
 <% if params[:remove] -%>
 
-$(".element_editor[data-element-id='<%= @item.id %>']").remove();
+$(".element-editor[data-element-id='<%= @item.id %>']").remove();
 
 <% if @item.class.to_s == 'Element' -%>
 

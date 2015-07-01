@@ -89,7 +89,7 @@ module Alchemy
 
         it "sets a list of trashed element ids" do
           alchemy_xhr :post, :order, element_ids: [trashed_element.id]
-          expect(assigns(:trashed_elements).to_a).to eq [trashed_element.id]
+          expect(assigns(:trashed_element_ids).to_a).to eq [trashed_element.id]
         end
 
         it "sets a new position to the element" do
@@ -116,7 +116,7 @@ module Alchemy
       let(:alchemy_page) { build_stubbed(:page) }
 
       before do
-        expect(Page).to receive(:find_by_id).and_return(alchemy_page)
+        expect(Page).to receive(:find).and_return(alchemy_page)
       end
 
       it "assign variable for all available element definitions" do
@@ -414,16 +414,31 @@ module Alchemy
       context "element params" do
         let(:parameters) { ActionController::Parameters.new(element: {public: true}) }
 
-        specify ":element is required" do
-          expect(controller.params).to receive(:require).with(:element).and_return(parameters)
-          controller.send :element_params
+        before do
+          expect(controller).to receive(:params).and_return(parameters)
+          expect(parameters).to receive(:fetch).with(:element, {}).and_return(parameters)
         end
 
-        specify ":public and :tag_list is permitted" do
-          expect(controller).to receive(:params).and_return(parameters)
-          expect(parameters).to receive(:require).with(:element).and_return(parameters)
-          expect(parameters).to receive(:permit).with(:public, :tag_list)
-          controller.send :element_params
+        context 'with taggable element' do
+          before do
+            controller.instance_variable_set(:'@element', mock_model(Element, taggable?: true))
+          end
+
+          specify ":tag_list is permitted" do
+            expect(parameters).to receive(:permit).with(:tag_list)
+            controller.send :element_params
+          end
+        end
+
+        context 'with not taggable element' do
+          before do
+            controller.instance_variable_set(:'@element', mock_model(Element, taggable?: false))
+          end
+
+          specify ":tag_list is not permitted" do
+            expect(parameters).to_not receive(:permit)
+            controller.send :element_params
+          end
         end
       end
     end
@@ -455,7 +470,7 @@ module Alchemy
         before { expect(element).to receive(:folded).and_return true }
 
         it "sets folded to false." do
-          expect(element).to receive(:folded=).with(false).and_return(true)
+          expect(element).to receive(:folded=).with(false).and_return(false)
           subject
         end
       end

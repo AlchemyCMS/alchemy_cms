@@ -23,28 +23,65 @@ module Alchemy
     include Alchemy::Touching
     include Alchemy::Hints
 
-    FORBIDDEN_DEFINITION_ATTRIBUTES = %w(contents available_contents amount picture_gallery taggable hint)
-    SKIPPED_ATTRIBUTES_ON_COPY = %w(id position folded created_at updated_at creator_id updater_id cached_tag_list)
+    FORBIDDEN_DEFINITION_ATTRIBUTES = [
+      "amount",
+      "available_contents",
+      "nestable_elements",
+      "contents",
+      "hint",
+      "picture_gallery",
+      "taggable"
+    ].freeze
+
+    SKIPPED_ATTRIBUTES_ON_COPY = [
+      "cached_tag_list",
+      "created_at",
+      "creator_id",
+      "id",
+      "folded",
+      "position",
+      "updated_at",
+      "updater_id"
+    ].freeze
 
     acts_as_taggable
 
-    # All Elements inside a cell are a list. All Elements not in cell are in the cell_id.nil list.
-    acts_as_list scope: [:page_id, :cell_id]
+    # All Elements that share the same page id, cell id and parent element id are considered a list.
+    #
+    # If cell id and parent element id are nil (typical case for a simple page),
+    # then all elements on that page are still in one list,
+    # because acts_as_list correctly creates this statement:
+    #
+    #   WHERE page_id = 1 and cell_id = NULL AND parent_element_id = NULL
+    #
+    acts_as_list scope: [:page_id, :cell_id, :parent_element_id]
+
     stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :contents, -> { order(:position) }, dependent: :destroy
+
+    # Elements can have other elements nested inside
+    has_many :nested_elements,
+      -> { order(:position).not_trashed },
+      class_name: 'Alchemy::Element',
+      foreign_key: :parent_element_id
+
     belongs_to :cell
     belongs_to :page
+
+    # A nested element belongs to a parent element.
+    belongs_to :parent_element, class_name: 'Alchemy::Element', touch: true
+
     has_and_belongs_to_many :touchable_pages, -> { uniq },
       class_name: 'Alchemy::Page',
       join_table: ElementToPage.table_name
 
-    validates_presence_of :name, :on => :create
-    validates_format_of :name, :on => :create, :with => /\A[a-z0-9_-]+\z/
+    validates_presence_of :name, on: :create
+    validates_format_of :name, on: :create, with: /\A[a-z0-9_-]+\z/
 
     attr_accessor :create_contents_after_create
 
-    after_create :create_contents, :unless => proc { |e| e.create_contents_after_create == false }
+    after_create :create_contents, unless: proc { |e| e.create_contents_after_create == false }
     after_update :touch_pages
     after_update :touch_cell, unless: -> { self.cell.nil? }
 
@@ -107,20 +144,32 @@ module Alchemy
       #
       # == Example
       #
-      #   @copy = Alchemy::Element.copy(@element, {:public => false})
+      #   @copy = Alchemy::Element.copy(@element, {public: false})
       #   @copy.public? # => false
       #
-      def copy(source, differences = {})
-        source.attributes.stringify_keys!
+      def copy(source_element, differences = {})
+        source_element.attributes.stringify_keys!
         differences.stringify_keys!
-        attributes = source.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY).merge(differences)
-        element = self.create!(attributes.merge(:create_contents_after_create => false))
-        element.tag_list = source.tag_list
-        source.contents.each do |content|
-          new_content = Content.copy(content, :element_id => element.id)
-          new_content.move_to_bottom
+
+        attributes = source_element.attributes
+                       .except(*SKIPPED_ATTRIBUTES_ON_COPY)
+                       .merge(differences)
+                       .merge({
+                         create_contents_after_create: false,
+                         tag_list: source_element.tag_list
+                       })
+
+        new_element = create!(attributes)
+
+        if source_element.contents.any?
+          source_element.copy_contents_to(new_element)
         end
-        element
+
+        if source_element.nested_elements.any?
+          source_element.copy_nested_elements_to(new_element)
+        end
+
+        new_element
       end
 
       def all_from_clipboard(clipboard)
@@ -142,10 +191,10 @@ module Alchemy
       def new_element_from_definition_by(attributes)
         remove_cell_name_from_element_name!(attributes)
 
-        element_scratch = definitions.detect { |el| el['name'] == attributes[:name] }
-        return if element_scratch.nil?
+        element_definition = Element.definition_by_name(attributes[:name])
+        return if element_definition.nil?
 
-        new(element_scratch.merge(attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
+        new(element_definition.merge(attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
 
       def remove_cell_name_from_element_name!(attributes)
@@ -205,6 +254,11 @@ module Alchemy
       definition['taggable'] == true
     end
 
+    # The opposite of folded?
+    def expanded?
+      !folded?
+    end
+
     # The element's view partial is dependent from its name
     #
     # == Define elements
@@ -234,6 +288,18 @@ module Alchemy
         "alchemy/elements/#{id}-#{updated_at}"
       else
         "alchemy/elements/#{id}-#{page.published_at}"
+      end
+    end
+
+    # A collection of element names that can be nested inside this element.
+    def nestable_elements
+      definition.fetch('nestable_elements', [])
+    end
+
+    # Copy all nested elements from current element to given target element.
+    def copy_nested_elements_to(target_element)
+      nested_elements.map do |nested_element|
+        Element.copy(nested_element, parent_element_id: target_element.id)
       end
     end
 

@@ -51,6 +51,13 @@ module Alchemy
       errors.blank?
     end
 
+    # Copy current content's contents to given target element
+    def copy_contents_to(element)
+      contents.map do |content|
+        Content.copy(content, element_id: element.id)
+      end
+    end
+
     # Returns the content that is marked as rss title.
     #
     # Mark a content as rss title in your +elements.yml+ file:
@@ -110,7 +117,7 @@ module Alchemy
       definition['available_contents']
     end
 
-    # Returns an array of all EssenceRichtext contents ids
+    # Returns an array of all EssenceRichtext contents ids from elements
     #
     def richtext_contents_ids
       richtext_contents.pluck("#{Content.table_name}.id")

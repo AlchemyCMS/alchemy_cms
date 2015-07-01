@@ -1,12 +1,13 @@
 (function() {
   var $el = $('#element_<%= @element.id %>');
-  $('.content_editor', $el).removeClass('validation_failed');
+  var $errors = $('#element_<%= @element.id %>_errors');
+  $('> .element-content .content_editor', $el).removeClass('validation_failed');
 
 <%- if @element_validated -%>
 
-  $('.element_head', $el).replaceWith('<%= j render("element_head", element: @element) %>');
+  $el.find('> .element-header').replaceWith('<%= j render("element_header", element: @element) %>');
   Alchemy.ElementEditors.reinit($el);
-  $("#element_<%= @element.id %>_errors").hide();
+  $errors.hide();
   Alchemy.setElementSaved($el);
   Alchemy.growl('<%= _t(:element_saved) %>');
   Alchemy.PreviewWindow.refresh(function() {
@@ -17,10 +18,9 @@
 <%- else -%>
 
   Alchemy.growl('<%= j @notice %>', 'warn');
-  $('#element_<%= @element.id %>_errors').html('<%= j @error_message %><ul><li><%== j @element.essence_error_messages.join("</li><li>") %></li></ul>');
-  $("#element_<%= @element.id %>_errors").show();
+  $errors.html('<%= j @error_message %><ul><li><%== j @element.essence_error_messages.join("</li><li>") %></li></ul>');
+  $errors.show();
   $('<%= @element.contents_with_errors.map { |content| "#" + content.dom_id }.join(", ") %>').addClass('validation_failed');
-  Alchemy.ElementEditors.scrollToElement('#element_<%= @element.id %>');
   Alchemy.Buttons.enable($el);
 
 <%- end -%>

@@ -1,10 +1,12 @@
-$('#element_area .ajax_folder').show();
+$('#element_area .ajax-folder').show();
 Alchemy.PreviewWindow.refresh();
-<% if @trashed_elements.any? %>
+<% if @trashed_element_ids.any? %>
 Alchemy.growl('<%= _t(:successfully_restored_element) -%>');
-<% element_ids = @trashed_elements.collect { |e| ".dragged[data-element-id=\"#{e.id}\"]" }.join(", ").html_safe %>
-<% @trashed_elements.each do |element| %>
-$('<%= element_ids %>').each(function() { this.id = 'element_' + <%= element.id %> });
+<% element_ids = @trashed_element_ids.collect do |id|
+                   "#element_area [data-element-id=\"#{id}\"]"
+                 end.join(", ").html_safe %>
+<% @trashed_element_ids.each do |id| %>
+$('<%= element_ids %>').each(function() { this.id = 'element_' + <%= id %> });
 <% end %>
 Alchemy.ElementEditors.reinit('<%= element_ids %>');
 <% else %>

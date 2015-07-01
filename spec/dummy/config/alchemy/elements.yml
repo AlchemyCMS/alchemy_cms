@@ -110,3 +110,12 @@
   contents:
   - name: text
     type: EssenceRichtext
+
+- name: slide
+  contents:
+    - name: picture
+      type: EssencePicture
+
+- name: slider
+  nestable_elements:
+    - slide

@@ -338,8 +338,9 @@ module Alchemy
       end
 
       def page_is_locked?
-        return if !@page.locker.try(:logged_in?)
-        @page.locked? && @page.locker != current_alchemy_user
+        return false if !@page.locker.try(:logged_in?)
+        return false if !current_alchemy_user.respond_to?(:id)
+        @page.locked? && @page.locker.id != current_alchemy_user.id
       end
 
       def paste_from_clipboard

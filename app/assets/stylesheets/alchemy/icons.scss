@@ -101,12 +101,24 @@
     background-position: 1px -70px;
   }
 
+  &.element-hide {
+    background-position: -416px -168px;
+  }
+
   &.element_public {
     background-position: -94px -166px;
   }
 
   &.element_window {
     background-position: -512px -72px;
+  }
+
+  &.element_copy {
+    background-position: -128px -72px;
+  }
+
+  &.cut {
+    background-position: -97px -72px;
   }
 
   &.error {
@@ -211,6 +223,10 @@
 
   &.publish {
     background-position: -64px -136px;
+  }
+
+  &.remove {
+    background-position: -63px -72px;
   }
 
   &.rtf {
