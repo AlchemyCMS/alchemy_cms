@@ -125,7 +125,7 @@ module Alchemy
     #
     def sortable_resource_header_column(attribute)
       if relation = attribute[:relation]
-        "#{relation[:model_association].table_name}.#{relation[:attr_method]}"
+        "#{relation[:model_association].name}_#{relation[:attr_method]}"
       else
         attribute[:name]
       end
