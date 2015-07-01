@@ -29,7 +29,7 @@ Read more about Alchemy on the [website](http://alchemy-cms.com) and in the [gui
 
 ## Rails Version
 
-**This version of Alchemy CMS runs with Rails 4.2**
+**This version of Alchemy CMS runs with Rails 4.2 only**
 
 * For a Rails 4.0/4.1 compatible version use the [`3.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.1-stable).
 * For a Rails 3.2 compatible version use the [`2.8-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/2.8-stable).
@@ -54,7 +54,7 @@ For a Ruby 1.8.7 compatible version use the [`2.3-stable` branch](https://github
 Use the installer:
 
 ```shell
-$ gem install alchemy_cms --pre
+$ gem install alchemy_cms
 $ alchemy new my_magicpage
 ```
 
