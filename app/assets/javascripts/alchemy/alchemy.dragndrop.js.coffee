@@ -30,11 +30,6 @@ $.extend Alchemy,
           $(child).attr "data-element-id"
         params_string = ""
         cell_id = $(this).attr("data-cell-id")
-        # Is the trash window open?
-        if Alchemy.TrashWindow.current
-          # update the trash icon
-          if $("#trash_items div.element_editor").not(".dragged").length is 0
-            $("#element_trash_button .icon").removeClass "full"
         $(event.target).css "cursor", "progress"
         params_string = "page_id=" + page_id + "&authenticity_token=" + encodeURIComponent(form_token) + "&" + $.param(element_ids: ids)
         params_string += "&cell_id=" + cell_id  if cell_id
@@ -82,7 +77,8 @@ $.extend Alchemy,
         iframeFix: "iframe#alchemy_preview_window"
         connectToSortable: cell_classes.replace(/,.$/, "")
         start: (event, ui) ->
-          $(this).hide().addClass "dragged"
-          ui.helper.css width: "300px"
-        stop: ->
-          $(this).show().removeClass "dragged"
+          $(this).hide().addClass("dragged")
+          ui.helper.css("width", "300px")
+        stop: (event, ui) ->
+          $(this).show().removeClass("dragged")
+          ui.helper.css("width", "")

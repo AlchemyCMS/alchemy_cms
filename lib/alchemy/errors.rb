@@ -17,6 +17,13 @@ module Alchemy
     end
   end
 
+  class DefaultLanguageNotDeletable < StandardError
+    # Raised if one tries to delete the default language.
+    def message
+      "Default language is not deletable!"
+    end
+  end
+
   class ElementDefinitionError < StandardError
     # Raised if element definition can not be found.
     def initialize(attributes)
@@ -37,6 +44,13 @@ module Alchemy
 
   class MissingImageFileError < StandardError
     # Raised if calling +image_file+ on a Picture object returns nil.
+  end
+
+  class NotMountedError < StandardError
+    # Raised if Alchemy is not properly mounted in the apps routes file.
+    def message
+      "Alchemy mount point not found! Please run `bin/rake alchemy:mount'"
+    end
   end
 
   class PictureInUseError < StandardError

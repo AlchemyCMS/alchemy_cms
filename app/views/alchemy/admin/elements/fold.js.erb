@@ -19,7 +19,6 @@
 <% else -%>
 
   $el.trigger('Alchemy.SelectElementEditor');
-  Alchemy.SelectBox($el);
   Alchemy.Tinymce.init(<%= @element.richtext_contents_ids.to_json %>);
   Alchemy.GUI.initElement($el);
 

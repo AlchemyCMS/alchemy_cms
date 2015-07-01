@@ -20,4 +20,3 @@ Alchemy.GUI =
     Alchemy.ElementDirtyObserver($el)
     Alchemy.GUI.init($el)
     Alchemy.ImageLoader($el)
-    Alchemy.Spinner.watch($el)

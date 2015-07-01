@@ -8,28 +8,43 @@ module Alchemy
 
       it "returns all public pages as json objects" do
         alchemy_get :index, format: :json
+
         expect(response.status).to eq(200)
         expect(response.content_type).to eq('application/json')
-        expect(response.body).to eq("{\"pages\":[#{PageSerializer.new(page.parent).to_json},#{PageSerializer.new(page).to_json}]}")
+
+        result = JSON.parse(response.body)
+
+        expect(result).to have_key('pages')
+        expect(result['pages'].size).to eq(2)
       end
 
       context 'with page_layout' do
         let!(:other_page) { create(:public_page, page_layout: 'news') }
 
-        it "returns only pages with this page layout" do
+        it "returns only page with this page layout" do
           alchemy_get :index, {page_layout: 'news', format: :json}
+
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
-          expect(response.body).to eq("{\"pages\":[#{PageSerializer.new(other_page).to_json}]}")
+
+          result = JSON.parse(response.body)
+
+          expect(result).to have_key('pages')
+          expect(result['pages'].size).to eq(1)
         end
       end
 
       context 'with empty string as page_layout' do
         it "returns all pages" do
           alchemy_get :index, {page_layout: '', format: :json}
+
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
-          expect(response.body).to eq("{\"pages\":[#{PageSerializer.new(page.parent).to_json},#{PageSerializer.new(page).to_json}]}")
+
+          result = JSON.parse(response.body)
+
+          expect(result).to have_key('pages')
+          expect(result['pages'].size).to eq(2)
         end
       end
     end
@@ -44,9 +59,13 @@ module Alchemy
 
         it "returns page as json" do
           alchemy_get :show, {urlname: page.urlname, format: :json}
+
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
-          expect(response.body).to eq(PageSerializer.new(page).to_json)
+
+          result = JSON.parse(response.body)
+
+          expect(result['id']).to eq(page.id)
         end
 
         context 'requesting an restricted page' do
@@ -54,9 +73,14 @@ module Alchemy
 
           it "responds with 403" do
             alchemy_get :show, {urlname: page.urlname, format: :json}
-            expect(response.content_type).to eq('application/json')
+
             expect(response.status).to eq(403)
-            expect(response.body).to eq('{"error":"Not authorized"}')
+            expect(response.content_type).to eq('application/json')
+
+            result = JSON.parse(response.body)
+
+            expect(result).to have_key('error')
+            expect(result['error']).to eq("Not authorized")
           end
         end
 
@@ -65,9 +89,14 @@ module Alchemy
 
           it "responds with 403" do
             alchemy_get :show, {urlname: page.urlname, format: :json}
-            expect(response.content_type).to eq('application/json')
+
             expect(response.status).to eq(403)
-            expect(response.body).to eq('{"error":"Not authorized"}')
+            expect(response.content_type).to eq('application/json')
+
+            result = JSON.parse(response.body)
+
+            expect(result).to have_key('error')
+            expect(result['error']).to eq("Not authorized")
           end
         end
       end
@@ -75,9 +104,14 @@ module Alchemy
       context 'requesting an unknown page' do
         it "responds with 404" do
           alchemy_get :show, {urlname: 'not-existing', format: :json}
-          expect(response.content_type).to eq('application/json')
+
           expect(response.status).to eq(404)
-          expect(response.body).to eq('{"error":"Record not found"}')
+          expect(response.content_type).to eq('application/json')
+
+          result = JSON.parse(response.body)
+
+          expect(result).to have_key('error')
+          expect(result['error']).to eq("Record not found")
         end
       end
 
@@ -86,9 +120,13 @@ module Alchemy
 
         it "responds with json" do
           alchemy_get :show, {id: page.id, format: :json}
+
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
-          expect(response.body).to eq(PageSerializer.new(page).to_json)
+
+          result = JSON.parse(response.body)
+
+          expect(result['id']).to eq(page.id)
         end
       end
     end

@@ -42,7 +42,7 @@ module Alchemy
       context 'with nil given as name' do
         let(:name) { nil }
         it 'raises an error' do
-          expect { subject }.to raise_error('Could not find module definition for ')
+          expect { subject }.to raise_error(ArgumentError)
         end
       end
     end
