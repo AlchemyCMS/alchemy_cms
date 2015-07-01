@@ -84,7 +84,7 @@ module Alchemy
       end
 
       def order
-        @trashed_elements = Element.trashed.where(id: params[:element_ids]).pluck(:id)
+        @trashed_element_ids = Element.trashed.where(id: params[:element_ids]).pluck(:id)
         Element.transaction do
           params[:element_ids].each_with_index do |element_id, idx|
             # Ensure to set page_id and cell_id to the current page and

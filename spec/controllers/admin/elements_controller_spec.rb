@@ -89,7 +89,7 @@ module Alchemy
 
         it "sets a list of trashed element ids" do
           alchemy_xhr :post, :order, element_ids: [trashed_element.id]
-          expect(assigns(:trashed_elements).to_a).to eq [trashed_element.id]
+          expect(assigns(:trashed_element_ids).to_a).to eq [trashed_element.id]
         end
 
         it "sets a new position to the element" do

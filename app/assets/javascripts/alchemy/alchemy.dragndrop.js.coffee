@@ -77,7 +77,8 @@ $.extend Alchemy,
         iframeFix: "iframe#alchemy_preview_window"
         connectToSortable: cell_classes.replace(/,.$/, "")
         start: (event, ui) ->
-          $(this).hide().addClass "dragged"
-          ui.helper.css width: "300px"
-        stop: ->
-          $(this).show().removeClass "dragged"
+          $(this).hide().addClass("dragged")
+          ui.helper.css("width", "300px")
+        stop: (event, ui) ->
+          $(this).show().removeClass("dragged")
+          ui.helper.css("width", "")
