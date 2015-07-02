@@ -44,9 +44,9 @@ module Alchemy
         end
 
         context "if no language params are given" do
-          it "should redirect to url with nested language code" do
-            visit "/#{public_page_1.urlname}"
-            expect(page.current_path).to eq("/#{public_page_1.language_code}/#{public_page_1.urlname}")
+          it "doesn't prepend the url with the locale string" do
+            visit("/#{public_page_1.urlname}")
+            expect(page.current_path).to eq("/#{public_page_1.urlname}")
           end
         end
 

@@ -77,7 +77,7 @@ module Alchemy
         redirect_legacy_page
       elsif @page.blank?
         page_not_found!
-      elsif multi_language? && params[:locale].blank?
+      elsif multi_language? && params[:locale].blank? && !default_locale?
         redirect_page(locale: Language.current.code)
       elsif multi_language? && params[:urlname].blank? && !params[:locale].blank? && configuration(:redirect_index)
         redirect_page(locale: params[:locale])
@@ -114,7 +114,7 @@ module Alchemy
     # Redirects page to given url with 301 status while keeping all additional params
     def redirect_page(options = {})
       options = {
-        locale: (multi_language? ? @page.language_code : nil),
+        locale: (multi_language? && !default_locale? ? @page.language_code : nil),
         urlname: @page.urlname
       }.merge(options)
 
@@ -206,6 +206,10 @@ module Alchemy
 
     def page_not_found!
       not_found_error!("Alchemy::Page not found \"#{request.fullpath}\"")
+    end
+
+    def default_locale?
+      Language.current.code.to_sym == ::I18n.default_locale.to_sym
     end
   end
 end
