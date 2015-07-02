@@ -32,7 +32,7 @@ module Alchemy
       end
 
       def load_alchemy_yaml(name)
-        YAML.load_file "#{Rails.root}/config/alchemy/#{name}"
+        YAML.load(ERB.new(File.read("#{Rails.root}/config/alchemy/#{name}")).result)
       rescue Errno::ENOENT
         puts "\nERROR: Could not read config/alchemy/#{name} file. Please run: rails generate alchemy:scaffold"
       end
