@@ -15,7 +15,7 @@
 <%- end -%>
 
 <%- if @element.parent_element -%>
-  $element_area = $('[data-element-id="<%= @element.parent_element_id %>"] .nested-elements');
+  $element_area = $('#element_<%= @element.parent_element_id %> > .nestable-elements > .nested-elements');
 <%- else -%>
   $element_area = $('#cell_<%= @cell_name %>');
 <%- end -%>
