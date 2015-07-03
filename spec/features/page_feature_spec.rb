@@ -56,22 +56,15 @@ module Alchemy
           end
 
           it "should redirect to public child" do
-            visit "/#{default_language.code}/not-public"
-            expect(page.current_path).to eq("/#{default_language.code}/public-child")
-          end
-
-          context "and url has no language code" do
-            it "should redirect to url of public child with language code of default language" do
-              visit '/not-public'
-              expect(page.current_path).to eq("/#{default_language.code}/public-child")
-            end
+            visit "/not-public"
+            expect(page.current_path).to eq("/public-child")
           end
         end
 
-        context "if requested url is index url" do
-          it "should redirect to pages url with default language" do
+        context "if requested url is the index url" do
+          it "redirects to the url of the default language root page" do
             visit '/'
-            expect(page.current_path).to eq("/#{default_language.code}/home")
+            expect(page.current_path).to eq("/home")
           end
         end
 
@@ -79,13 +72,6 @@ module Alchemy
           it "should redirect to pages url with default language" do
             visit "/#{default_language.code}"
             expect(page.current_path).to eq("/#{default_language.code}/home")
-          end
-        end
-
-        context "requested url is only the urlname" do
-          it "then it should redirect to pages url with nested language." do
-            visit '/home'
-            expect(page.current_path).to eq('/en/home')
           end
         end
 
