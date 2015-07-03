@@ -18,10 +18,8 @@ module Alchemy
     end
 
     it "should show the navigation with all visible pages" do
-      pages = [
-        create(:public_page, :visible => true, :name => 'Page 1'),
-        create(:public_page, :visible => true, :name => 'Page 2')
-      ]
+      create(:public_page, visible: true, name: 'Page 1')
+      create(:public_page, visible: true, name: 'Page 2')
       visit '/'
       within('div#navigation ul') { expect(page).to have_selector('li a[href="/page-1"], li a[href="/page-2"]') }
     end

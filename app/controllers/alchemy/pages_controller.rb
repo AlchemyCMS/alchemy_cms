@@ -79,13 +79,13 @@ module Alchemy
         page_not_found!
       elsif multi_language? && params[:locale].blank? && !default_locale?
         redirect_page(locale: Language.current.code)
-      elsif multi_language? && params[:urlname].blank? && !params[:locale].blank? && configuration(:redirect_index)
+      elsif multi_language? && params[:urlname].blank? && params[:locale].present? && configuration(:redirect_index)
         redirect_page(locale: params[:locale])
       elsif configuration(:redirect_to_public_child) && !@page.public?
         redirect_to_public_child
       elsif params[:urlname].blank? && configuration(:redirect_index)
         redirect_page
-      elsif !multi_language? && !params[:locale].blank?
+      elsif !multi_language? && params[:locale].present?
         redirect_page
       elsif @page.has_controller?
         redirect_to main_app.url_for(@page.controller_and_action)
