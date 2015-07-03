@@ -24,11 +24,6 @@
     type: EssenceRichtext
     settings:
       deletable: true
-  available_contents:
-  - name: text
-    type: EssenceRichtext
-  - name: headline
-    type: EssenceText
 
 - name: text
   contents:
@@ -55,9 +50,6 @@
     type: EssenceFile
     settings:
       deletable: true
-  available_contents:
-  - name: file
-    type: EssenceFile
 
 - name: bild
   contents:

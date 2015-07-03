@@ -150,11 +150,10 @@ module Alchemy
       context "with content description not found" do
         before {
           expect(element).to receive(:content_description_for).and_return(nil)
-          expect(element).to receive(:available_content_description_for).and_return(essence)
         }
 
-        it "returns the description hash from available contents" do
-          expect(Content.content_description(element, name: 'headline')).to eq(essence)
+        it "returns nil" do
+          expect(Content.content_description(element, name: 'headline')).to be_nil
         end
       end
     end
