@@ -117,17 +117,22 @@ module Alchemy
       definition['available_contents']
     end
 
-    # Returns an array of all EssenceRichtext contents ids from elements
+    # Returns an array of ids from element's EssenceRichtext contents
+    # and element's all descendent elements EssenceRichtext contents.
+    #
+    # This is used to initialize the TinyMCE editor in the element editor.
     #
     def richtext_contents_ids
-      richtext_contents.pluck("#{Content.table_name}.id")
+      # This is not very efficient SQL wise I know, but we need to iterate
+      # recursivly through all descendent elements and I don't know how to do this
+      # in pure SQL. Anyone with a better idea is welcome to submit a patch.
+      ids = contents.essence_richtexts.pluck("#{Content.table_name}.id")
+      expanded_nested_elements = nested_elements.expanded
+      if expanded_nested_elements.any?
+        ids += expanded_nested_elements.collect(&:richtext_contents_ids)
+      end
+      ids.flatten
     end
-
-    # All contents that are type of EssenceRichtext.
-    def rtf_contents
-      contents.essence_richtexts
-    end
-    alias_method :richtext_contents, :rtf_contents
 
     # True, if any of the element's contents has essence validations defined.
     def has_validations?
