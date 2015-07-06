@@ -95,6 +95,8 @@ module Alchemy
     scope :not_in_cell,       -> { where(cell_id: nil) }
     scope :in_cell,           -> { where("#{self.table_name}.cell_id IS NOT NULL") }
     scope :from_current_site, -> { where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: 'language') }
+    scope :folded,            -> { where(folded: true) }
+    scope :expanded,          -> { where(folded: false) }
 
     delegate :restricted?, to: :page, allow_nil: true
 

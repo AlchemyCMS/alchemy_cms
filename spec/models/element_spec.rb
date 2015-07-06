@@ -125,10 +125,10 @@ module Alchemy
     describe '.named' do
       it "should return all elements by name" do
         element_1 = create(:element, name: 'article')
-        element_2 = create(:element, name: 'article')
+        element_2 = create(:element, name: 'headline')
         elements = Element.named(['article'])
         expect(elements).to include(element_1)
-        expect(elements).to include(element_2)
+        expect(elements).to_not include(element_2)
       end
     end
 
@@ -144,10 +144,30 @@ module Alchemy
     describe '.published' do
       it "should return all public elements" do
         element_1 = create(:element, public: true)
-        element_2 = create(:element, public: true)
+        element_2 = create(:element, public: false)
         elements = Element.published
         expect(elements).to include(element_1)
-        expect(elements).to include(element_2)
+        expect(elements).to_not include(element_2)
+      end
+    end
+
+    describe '.folded' do
+      it "returns all folded elements" do
+        element_1 = create(:element, folded: true)
+        element_2 = create(:element, folded: false)
+        elements = Element.folded
+        expect(elements).to include(element_1)
+        expect(elements).to_not include(element_2)
+      end
+    end
+
+    describe '.expanded' do
+      it "returns all expanded elements" do
+        element_1 = create(:element, folded: false)
+        element_2 = create(:element, folded: true)
+        elements = Element.expanded
+        expect(elements).to include(element_1)
+        expect(elements).to_not include(element_2)
       end
     end
 
@@ -700,8 +720,48 @@ module Alchemy
 
     describe '#richtext_contents_ids' do
       subject { element.richtext_contents_ids }
-      let!(:element) { create(:element, :with_contents) }
-      it { expect(subject.size).to eq(1) }
+
+      let(:element) { create(:element, :with_contents, name: 'text') }
+
+      it { is_expected.to eq(element.content_ids) }
+
+      context 'for element with nested elements' do
+        let!(:element) do
+          create(:element, :with_contents, name: 'text')
+        end
+
+        let!(:nested_element_1) do
+          create(:element, :with_contents, {
+            name: 'text',
+            parent_element: element,
+            folded: false
+          })
+        end
+
+        let!(:nested_element_2) do
+          create(:element, :with_contents, {
+            name: 'text',
+            parent_element: nested_element_1,
+            folded: false
+          })
+        end
+
+        let!(:folded_nested_element_3) do
+          create(:element, :with_contents, {
+            name: 'text',
+            parent_element: nested_element_1,
+            folded: true
+          })
+        end
+
+        it 'includes all richtext contents from all expanded descendent elements' do
+          is_expected.to eq(
+            element.content_ids +
+            nested_element_1.content_ids +
+            nested_element_2.content_ids
+          )
+        end
+      end
     end
 
     context 'with parent element' do
