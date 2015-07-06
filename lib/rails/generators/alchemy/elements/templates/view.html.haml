@@ -14,10 +14,6 @@
     = el.render :<%= content["name"] %>
     <%- end -%>
   <%- end -%>
-  <%- if @element['available_contents'] -%>
-    - element.contents.named(['<%= @available_contents_names.join("', '") %>']).each do |content|
-      = render_essence_view(content)
-  <%- end -%>
   <%- if @element['nestable_elements'].present? -%>
     - element.nested_elements.available.each do |nested_element|
       = render_element(nested_element)

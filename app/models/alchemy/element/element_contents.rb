@@ -104,21 +104,7 @@ module Alchemy
     end
     alias_method :content_description_for, :content_definition_for
 
-    # Returns the definition for given content_name inside the available_contents
-    def available_content_definition_for(content_name)
-      return nil if available_contents.blank?
-      available_contents.detect { |d| d['name'] == content_name }
-    end
-    alias_method :available_content_description_for, :available_content_definition_for
-
-    # The collection of available essence_types that can be created for
-    # this element depending on its description in +elements.yml+.
-    def available_contents
-      definition['available_contents']
-    end
-
-    # Returns an array of ids from element's EssenceRichtext contents
-    # and element's all descendent elements EssenceRichtext contents.
+    # Returns an array of all EssenceRichtext contents ids from elements
     #
     # This is used to initialize the TinyMCE editor in the element editor.
     #

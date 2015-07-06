@@ -25,7 +25,6 @@ module Alchemy
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = [
       "amount",
-      "available_contents",
       "nestable_elements",
       "contents",
       "hint",

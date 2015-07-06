@@ -60,14 +60,6 @@ module Alchemy
                 is_expected.to include('alchemy/essences/_essence_picture_view')
               end
             end
-
-            context 'and element has available_contents defined' do
-              let(:elements) { [{'name' => 'text', 'available_contents' => ['type' => 'EssenceFile']}] }
-
-              it "has these essences as template dependency" do
-                is_expected.to include('alchemy/essences/_essence_file_view')
-              end
-            end
           end
 
           context 'that has no description' do
@@ -88,7 +80,6 @@ module Alchemy
           end
         end
       end
-
     end
   end
 end

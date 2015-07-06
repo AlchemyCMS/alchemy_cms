@@ -99,9 +99,7 @@ module Alchemy
 
       # Returns the content description hash from element.
       #
-      # It first uses the normal content description described in the +elements.yml+ +contents+ array.
-      #
-      # If the content description could not be found it tries to load it from +available_contents+ array.
+      # Content descriptions are described in the +elements.yml+ +contents+ array.
       #
       # @param [Alchemy::Element]
       #   The element instance the content is for
@@ -109,8 +107,7 @@ module Alchemy
       #   The name of the content
       #
       def content_description_from_element(element, name)
-        element.content_description_for(name) ||
-          element.available_content_description_for(name)
+        element.content_description_for(name)
       end
 
       # Returns all content descriptions from elements.yml

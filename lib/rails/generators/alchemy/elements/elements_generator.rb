@@ -15,13 +15,7 @@ module Alchemy
         @elements = load_alchemy_yaml('elements.yml')
         @elements.each do |element|
           @element = element
-          contents = element["contents"] || []
-          if @element['available_contents']
-            @available_contents_names = @element['available_contents'].collect { |c| c['name'] }
-            @contents = contents.delete_if { |c| @available_contents_names.include?(c['name']) } or []
-          else
-            @contents = contents
-          end
+          @contents = element["contents"] || []
           if element["name"] =~ /\A[a-z0-9_-]+\z/
             @element_name = element["name"].underscore
           else

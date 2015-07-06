@@ -8,7 +8,6 @@ module Alchemy
       def new
         @element = Element.find(params[:element_id])
         @options = options_from_params
-        @contents = @element.available_contents
         @content = @element.contents.build
       end
 
@@ -70,7 +69,6 @@ module Alchemy
           html_options: @html_options.symbolize_keys
         }
       end
-
     end
   end
 end

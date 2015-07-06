@@ -6,12 +6,6 @@
 <%- @contents.each do |content| -%>
   = el.edit :<%= content["name"] %>
 <%- end -%>
-<%- if @element['available_contents'] -%>
-  - element.contents.named(['<%= @available_contents_names.join("', '") %>']).each do |content|
-    = render_essence_editor content
-  %p
-    = render_new_content_link(element)
-<%- end -%>
 <%- else -%>
 = element_editor_for(element)
 <%- end -%>
