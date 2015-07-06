@@ -79,7 +79,6 @@ module Alchemy
         definition
       end
     end
-    alias_method :description, :definition
 
     # Returns all elements that can be placed in this cell
     def element_definitions

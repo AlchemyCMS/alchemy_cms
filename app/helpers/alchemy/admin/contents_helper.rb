@@ -5,7 +5,7 @@ module Alchemy
 
       # Renders the name of elements content.
       #
-      # Displays a warning icon if content is missing its description.
+      # Displays a warning icon if content is missing its definition.
       #
       # Displays a mandatory field indicator, if the content has validations.
       #
@@ -16,9 +16,9 @@ module Alchemy
         else
           content_name = content.name_for_label
         end
-        if content.description.blank?
-          warning("Content #{content.name} is missing its description")
-          title = _t(:content_description_missing)
+        if content.definition.blank?
+          warning("Content #{content.name} is missing its definition")
+          title = _t(:content_definition_missing)
           content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;#{content_name}).html_safe
         end
         if content.has_validations?
@@ -107,7 +107,6 @@ module Alchemy
           [render_hint_for(content), render_content_name(content), delete_content_link(content)].compact.join('&nbsp;').html_safe
         end
       end
-
     end
   end
 end

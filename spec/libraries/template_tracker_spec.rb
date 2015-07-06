@@ -46,8 +46,8 @@ module Alchemy
           let(:name) { 'alchemy/elements/_text_view' }
           let(:elements) { [{'name' => 'text', 'contents' => [{'type' => 'EssenceText'}]}] }
 
-          context 'that is having a description' do
-            before { allow(Element).to receive(:descriptions).and_return(elements) }
+          context 'that is having a definition' do
+            before { allow(Element).to receive(:definitions).and_return(elements) }
 
             it "returns all essence layout view partial names for that element" do
               is_expected.to include('alchemy/essences/_essence_text_view')
@@ -62,8 +62,8 @@ module Alchemy
             end
           end
 
-          context 'that has no description' do
-            before { allow(Element).to receive(:descriptions).and_return([]) }
+          context 'that has no definition' do
+            before { allow(Element).to receive(:definitions).and_return([]) }
 
             it "returns empty array" do
               is_expected.to be_empty

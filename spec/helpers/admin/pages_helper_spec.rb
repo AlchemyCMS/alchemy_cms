@@ -81,9 +81,9 @@ describe Alchemy::Admin::PagesHelper do
         end
       end
 
-      context 'with page layout description missing' do
+      context 'with page layout definition missing' do
         before do
-          expect(page).to receive(:layout_description).and_return([])
+          expect(page).to receive(:definition).and_return([])
         end
 
         it 'displays icon with warning' do

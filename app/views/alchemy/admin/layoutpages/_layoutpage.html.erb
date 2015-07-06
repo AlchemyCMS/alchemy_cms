@@ -1,8 +1,8 @@
 <li class="page_level_<%= layoutpage.level %>" id="page_<%= layoutpage.id %>">
   <div class="sitemap_page<%= layoutpage.locked ? ' locked' : '' %>">
     <div class="sitemap_left_images">
-    <% if layoutpage.layout_description.blank? %>
-      <span class="inline warning icon" title="<%= _t(:page_layout_description_missing) %>"></span>
+    <% if layoutpage.definition.blank? %>
+      <span class="inline warning icon" title="<%= _t(:page_definition_missing) %>"></span>
     <% else %>
       <%= render_icon(:page) %>
     <% end %>

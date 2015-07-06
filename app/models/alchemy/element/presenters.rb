@@ -32,12 +32,12 @@ module Alchemy
     # @see Alchemy::Element::Presenters#display_name_for
     #
     def display_name
-      self.class.display_name_for(description['name'] || self.name)
+      self.class.display_name_for(definition['name'] || self.name)
     end
 
     # Returns a preview text for element.
     #
-    # It's taken from the first Content found in the +elements.yml+ description file.
+    # It's taken from the first Content found in the +elements.yml+ definition file.
     #
     # You can flag a Content as +as_element_title+ to take this as preview.
     #

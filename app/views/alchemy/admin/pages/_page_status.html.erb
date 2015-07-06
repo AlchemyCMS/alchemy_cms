@@ -1,6 +1,6 @@
 <div class="page_status_and_name" id="page_<%= @page.id %>_status">
-  <% if @page.layout_description.blank? %>
-    <span class="inline warning icon" title="<%= _t(:page_layout_description_missing) %>"></span>
+  <% if @page.definition.blank? %>
+    <span class="inline warning icon" title="<%= _t(:page_definition_missing) %>"></span>
   <% end %>
   <span class="page_name"><%= @page.name %></span>
   <%- if multi_language? -%>

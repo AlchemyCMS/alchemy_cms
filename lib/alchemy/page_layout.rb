@@ -7,16 +7,16 @@ module Alchemy
       # They are defined in +config/alchemy/page_layout.yml+ file.
       #
       def all
-        @definitions ||= read_layouts_file
+        @definitions ||= read_definitions_file
       end
 
-      # Add additional page layout definitions to collection.
+      # Add additional page definitions to collection.
       #
       # Useful for extending the page layouts from an Alchemy module.
       #
       # === Usage Example
       #
-      #   Call +Alchemy::PageLayout.add(your_layout_definition)+ in your engine.rb file.
+      #   Call +Alchemy::PageLayout.add(your_definition)+ in your engine.rb file.
       #
       # @param [Array || Hash]
       #   You can pass a single layout definition as Hash, or a collection of page layouts as Array.
@@ -32,7 +32,7 @@ module Alchemy
         end
       end
 
-      # Returns one page layout description by given name.
+      # Returns one page definition by given name.
       #
       def get(name)
         return {} if name.blank?
@@ -95,10 +95,10 @@ module Alchemy
       # Returns all names of elements defined in given page layout.
       #
       def element_names_for(page_layout)
-        if layout_description = get(page_layout)
-          layout_description.fetch('elements', [])
+        if definition = get(page_layout)
+          definition.fetch('elements', [])
         else
-          Rails.logger.warn "\n+++ Warning: No Layout Description for #{page_layout} found! in page_layouts.yml\n"
+          Rails.logger.warn "\n+++ Warning: No layout definition for #{page_layout} found! in page_layouts.yml\n"
           return []
         end
       end
@@ -150,12 +150,12 @@ module Alchemy
       #     page_layouts: [default_intro]
       #
       def available_on_site?(layout)
-        Site.current.layout_definition.blank? || Site.current.layout_definition.fetch('page_layouts', []).include?(layout['name'])
+        Site.current.definition.blank? || Site.current.definition.fetch('page_layouts', []).include?(layout['name'])
       end
 
       # Reads the layout definitions from +config/alchemy/page_layouts.yml+.
       #
-      def read_layouts_file
+      def read_definitions_file
         if File.exists?(layouts_file_path)
           YAML.load(ERB.new(File.read(layouts_file_path)).result) || []
         else
