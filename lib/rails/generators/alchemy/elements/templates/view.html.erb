@@ -19,9 +19,14 @@
     <%- end -%>
   <%- end -%>
   <%- if @element['available_contents'] -%>
-    <%%- element.contents.where(name: ['<%= @available_contents_names.join("', '") %>']).each do |content| -%>
+    <%%- element.contents.named(['<%= @available_contents_names.join("', '") %>']).each do |content| -%>
       <%%= render_essence_view(content) %>
     <%%- end -%>
+  <%- end -%>
+  <%- if @element['nestable_elements'].present? -%>
+    <%% element.nested_elements.available.each do |nested_element| %>
+      <%%= render_element(nested_element) %>
+    <%% end %>
   <%- end -%>
   <%%- end -%>
 <%%- end -%>
