@@ -22,7 +22,7 @@ module Alchemy
           return element_templates cell_definition($1)
         when /alchemy\/elements\/_(.+)_view/
           essences = essence_types($1)
-          element = element_description($1)
+          element = element_definition($1)
           if element && element['picture_gallery']
             essences += ['EssencePicture']
           end
@@ -46,12 +46,12 @@ module Alchemy
         Cell.definition_for(name)
       end
 
-      def element_description(name)
-        Element.descriptions.detect { |e| e['name'] == name }
+      def element_definition(name)
+        Element.definitions.detect { |e| e['name'] == name }
       end
 
       def essence_types(name)
-        element = element_description(name)
+        element = element_definition(name)
         return [] unless element
         element.fetch('contents', []).collect { |c| c['type'] }
       end

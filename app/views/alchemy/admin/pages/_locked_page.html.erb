@@ -3,8 +3,8 @@
 <% else %>
   <div class="subnavi_tab wide" id="locked_page_<%= locked_page.id %>">
     <%= link_to alchemy.edit_admin_page_path(locked_page) do %>
-      <% if locked_page.layout_description.blank? %>
-        <span class="inline warning icon" title="<%= _t(:page_layout_description_missing) %>"></span>
+      <% if locked_page.definition.blank? %>
+        <span class="inline warning icon" title="<%= _t(:page_definition_missing) %>"></span>
       <% end %>
       <span class="page_name" title="<%= locked_page.name %>">
         <%= truncate locked_page.name, length: 15 %>

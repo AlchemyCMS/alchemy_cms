@@ -13,17 +13,18 @@ module Alchemy
       # @param [Alchemy::Element]
       #   The element the content is for
       # @param [Hash]
-      #   The content description used for finding the content in +elements.yml+ file
+      #   The content definition used for finding the content in +elements.yml+ file
       #
       def build(element, essence_hash)
-        if (description = content_description(element, essence_hash)).blank?
-          raise ContentDefinitionError, "No description found in elements.yml for #{essence_hash.inspect} and #{element.inspect}"
+        definition = content_definition(element, essence_hash)
+        if definition.blank?
+          raise ContentDefinitionError, "No definition found in elements.yml for #{essence_hash.inspect} and #{element.inspect}"
         else
-          new(name: description['name'], element_id: element.id)
+          new(name: definition['name'], element_id: element.id)
         end
       end
 
-      # Creates a new content from elements description in the +elements.yml+ file.
+      # Creates a new content from elements definition in the +elements.yml+ file.
       #
       # 1. It builds the content
       # 2. It creates the essence record (content object gets saved)
@@ -57,18 +58,18 @@ module Alchemy
         content
       end
 
-      # Returns the content description for building a content.
+      # Returns the content definition for building a content.
       #
-      # 1. It looks in the element's contents description
-      # 2. It builds a description hash from essence type, if the the name key is not present
+      # 1. It looks in the element's contents definition
+      # 2. It builds a definition hash from essence type, if the the name key is not present
       #
-      def content_description(element, essence_hash)
+      def content_definition(element, essence_hash)
         essence_hash.stringify_keys!
         # No name given. We build the content from essence type.
         if essence_hash['name'].blank? && essence_hash['essence_type'].present?
-          content_description_from_essence_type(element, essence_hash['essence_type'])
+          content_definition_from_essence_type(element, essence_hash['essence_type'])
         else
-          content_description_from_element(element, essence_hash['name'])
+          element.content_definition_for(essence_hash['name'])
         end
       end
 
@@ -79,7 +80,7 @@ module Alchemy
       # @param [String]
       #   The essence type the content is from
       #
-      def content_description_from_essence_type(element, essence_type)
+      def content_definition_from_essence_type(element, essence_type)
         {
           'type' => essence_type,
           'name' => content_name_from_element_and_essence_type(element, essence_type)
@@ -97,23 +98,10 @@ module Alchemy
         "#{essence_type.classify.demodulize.underscore}_#{essences_of_same_type.count + 1}"
       end
 
-      # Returns the content description hash from element.
+      # Returns all content definitions from elements.yml
       #
-      # Content descriptions are described in the +elements.yml+ +contents+ array.
-      #
-      # @param [Alchemy::Element]
-      #   The element instance the content is for
-      # @param [String]
-      #   The name of the content
-      #
-      def content_description_from_element(element, name)
-        element.content_description_for(name)
-      end
-
-      # Returns all content descriptions from elements.yml
-      #
-      def descriptions
-        Element.descriptions.collect { |e| e['contents'] }.flatten.compact
+      def definitions
+        Element.definitions.collect { |e| e['contents'] }.flatten.compact
       end
 
       # Returns a normalized Essence type
@@ -143,34 +131,33 @@ module Alchemy
 
     # Instance Methods
 
-    # Returns the description hash from +elements.yml+ file.
+    # Returns the definition hash from +elements.yml+ file.
     #
-    def description
+    def definition
       if element.blank?
         log_warning "Content with id #{self.id} is missing its Element."
         return {}
       end
-      Content.content_description_from_element(element, name) || {}
+      element.content_definition_for(name) || {}
     end
-    alias_method :definition, :description
 
-    # Creates essence from description.
+    # Creates essence from definition.
     #
     # If an optional type is passed, this type of essence gets created.
     #
     def create_essence!(type = nil)
       self.essence = essence_class(type).create!(prepared_attributes_for_essence)
-      self.save!
+      save!
     end
 
-  private
+    private
 
-    # Returns a class constant from description's type field.
+    # Returns a class constant from definition's type field.
     #
     # If an optional type is passed, this type of essence gets constantized.
     #
     def essence_class(type = nil)
-      Content.normalize_essence_type(type || description['type']).constantize
+      Content.normalize_essence_type(type || definition['type']).constantize
     end
 
     # Prepares the attributes for creating the essence.
@@ -179,7 +166,7 @@ module Alchemy
     #
     def prepared_attributes_for_essence
       attributes = {
-        ingredient: default_text(description['default'])
+        ingredient: default_text(definition['default'])
       }
       attributes
     end

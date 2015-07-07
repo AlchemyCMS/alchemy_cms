@@ -3,7 +3,7 @@ require 'spec_helper'
 shared_examples_for "an essence" do
   let(:element) { Alchemy::Element.new }
   let(:content) { Alchemy::Content.new(name: 'foo') }
-  let(:content_description) { {'name' => 'foo'} }
+  let(:content_definition) { {'name' => 'foo'} }
 
   it "touches the content after update" do
     essence.save
@@ -19,8 +19,8 @@ shared_examples_for "an essence" do
     expect(essence.to_partial_path).to eq("alchemy/essences/#{underscored_essence}_view")
   end
 
-  describe '#description' do
-    subject { essence.description }
+  describe '#definition' do
+    subject { essence.definition }
 
     context 'without element' do
       it { is_expected.to eq({}) }
@@ -31,28 +31,28 @@ shared_examples_for "an essence" do
         expect(essence).to receive(:element).at_least(:once).and_return(element)
       end
 
-      context 'but without content descriptions' do
+      context 'but without content definitions' do
         it { is_expected.to eq({}) }
       end
 
-      context 'and content descriptions' do
+      context 'and content definitions' do
         before do
           allow(essence).to receive(:content).and_return(content)
         end
 
         context 'containing the content name' do
           before do
-            expect(element).to receive(:content_descriptions).at_least(:once).and_return([content_description])
+            expect(element).to receive(:content_definitions).at_least(:once).and_return([content_definition])
           end
 
-          it "returns the content description" do
-            is_expected.to eq(content_description)
+          it "returns the content definition" do
+            is_expected.to eq(content_definition)
           end
         end
 
         context 'not containing the content name' do
           before do
-            expect(element).to receive(:content_descriptions).at_least(:once).and_return([])
+            expect(element).to receive(:content_definitions).at_least(:once).and_return([])
           end
 
           it { is_expected.to eq({}) }
@@ -69,16 +69,16 @@ shared_examples_for "an essence" do
   end
 
   describe 'validations' do
-    context 'without essence description in elements.yml' do
+    context 'without essence definition in elements.yml' do
       it 'should return an empty array' do
-        allow(essence).to receive(:description).and_return nil
+        allow(essence).to receive(:definition).and_return nil
         expect(essence.validations).to eq([])
       end
     end
 
-    context 'without validations defined in essence description in elements.yml' do
+    context 'without validations defined in essence definition in elements.yml' do
       it 'should return an empty array' do
-        allow(essence).to receive(:description).and_return({name: 'test', type: 'EssenceText'})
+        allow(essence).to receive(:definition).and_return({name: 'test', type: 'EssenceText'})
         expect(essence.validations).to eq([])
       end
     end
@@ -86,7 +86,7 @@ shared_examples_for "an essence" do
     describe 'presence' do
       context 'with string given as validation type' do
         before do
-          allow(essence).to receive(:description).and_return({'validate' => ['presence']})
+          allow(essence).to receive(:definition).and_return({'validate' => ['presence']})
         end
 
         context 'when the ingredient column is empty' do
@@ -113,7 +113,7 @@ shared_examples_for "an essence" do
       context 'with hash given as validation type' do
         context 'where the value is true' do
           before do
-            allow(essence).to receive(:description).and_return({'validate' => [{'presence' => true}]})
+            allow(essence).to receive(:definition).and_return({'validate' => [{'presence' => true}]})
           end
 
           context 'when the ingredient column is empty' do
@@ -139,7 +139,7 @@ shared_examples_for "an essence" do
 
         context 'where the value is false' do
           before do
-            allow(essence).to receive(:description).and_return({'validate' => [{'presence' => false}]})
+            allow(essence).to receive(:definition).and_return({'validate' => [{'presence' => false}]})
           end
 
           it 'should be valid' do
@@ -157,7 +157,7 @@ shared_examples_for "an essence" do
 
       context 'with string given as validation type' do
         before do
-          expect(essence).to receive(:description).at_least(:once).and_return({'validate' => ['uniqueness']})
+          expect(essence).to receive(:definition).at_least(:once).and_return({'validate' => ['uniqueness']})
         end
 
         context 'when a duplicate exists' do
@@ -194,7 +194,7 @@ shared_examples_for "an essence" do
       context 'with hash given as validation type' do
         context 'where the value is true' do
           before do
-            expect(essence).to receive(:description).at_least(:once).and_return({'validate' => [{'uniqueness' => true}]})
+            expect(essence).to receive(:definition).at_least(:once).and_return({'validate' => [{'uniqueness' => true}]})
           end
 
           context 'when a duplicate exists' do
@@ -230,7 +230,7 @@ shared_examples_for "an essence" do
 
         context 'where the value is false' do
           before do
-            allow(essence).to receive(:description).and_return({'validate' => [{'uniqueness' => false}]})
+            allow(essence).to receive(:definition).and_return({'validate' => [{'uniqueness' => false}]})
           end
 
           it 'should be valid' do

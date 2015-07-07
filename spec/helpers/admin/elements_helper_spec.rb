@@ -154,15 +154,15 @@ module Alchemy
         end
       end
 
-      context "passing a hash with element descriptions" do
-        let(:element_descriptions) do
+      context "passing a hash with element definitions" do
+        let(:element_definitions) do
           [{
             'name' => 'headline',
             'contents' => []
           }]
         end
 
-        subject { helper.elements_for_select(element_descriptions) }
+        subject { helper.elements_for_select(element_definitions) }
 
         it "should return a array for option tags" do
           expect(subject).to include(['Headline', 'headline'])

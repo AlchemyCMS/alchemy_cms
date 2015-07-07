@@ -1,8 +1,8 @@
 <div class="element-header">
   <span class="element-handle">
     <%= render_icon(:element) %>
-    <% if element.description.blank? %>
-    <span class="warning icon" title="<%= _t(:element_description_missing) %>"></span>
+    <% if element.definition.blank? %>
+    <span class="warning icon" title="<%= _t(:element_definition_missing) %>"></span>
     <% else %>
     <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
     <% end %>

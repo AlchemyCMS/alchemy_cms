@@ -15,7 +15,6 @@ module Alchemy
       def definitions
         @definitions ||= read_definitions_file
       end
-      alias_method :descriptions, :definitions
 
       # Returns one element definition by given name.
       #
@@ -52,7 +51,5 @@ module Alchemy
         return {}
       end
     end
-    alias_method :description, :definition
-
   end
 end

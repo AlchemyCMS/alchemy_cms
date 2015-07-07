@@ -96,11 +96,11 @@ module Alchemy
       end
     end
 
-    describe '.layout_definitions' do
+    describe '.definitions' do
       # To prevent memoization across specs
-      before { Site.instance_variable_set("@layout_definitions", nil) }
+      before { Site.instance_variable_set("@definitions", nil) }
 
-      subject { Site.layout_definitions }
+      subject { Site.definitions }
 
       context "with file present" do
         let(:definitions) { [{'name' => 'lala'}] }
@@ -118,11 +118,11 @@ module Alchemy
       end
     end
 
-    describe '.layout_definitions' do
+    describe '.definitions' do
       # To prevent memoization across specs
-      before { Site.instance_variable_set("@layout_definitions", nil) }
+      before { Site.instance_variable_set("@definitions", nil) }
 
-      subject { Site.layout_definitions }
+      subject { Site.definitions }
 
       context "with file present" do
         let(:definitions) { [{'name' => 'lala'}] }
@@ -140,11 +140,11 @@ module Alchemy
       end
     end
 
-    describe '.layout_definitions' do
+    describe '.definitions' do
       # To prevent memoization across specs
-      before { Site.instance_variable_set("@layout_definitions", nil) }
+      before { Site.instance_variable_set("@definitions", nil) }
 
-      subject { Site.layout_definitions }
+      subject { Site.definitions }
 
       context "with file present" do
         let(:definitions) { [{'name' => 'lala'}] }
@@ -162,11 +162,11 @@ module Alchemy
       end
     end
 
-    describe '.layout_definitions' do
+    describe '.definitions' do
       # To prevent memoization across specs
-      before { Site.instance_variable_set("@layout_definitions", nil) }
+      before { Site.instance_variable_set("@definitions", nil) }
 
-      subject { Site.layout_definitions }
+      subject { Site.definitions }
 
       context "with file present" do
         let(:definitions) { [{'name' => 'lala'}] }
@@ -211,23 +211,22 @@ module Alchemy
       end
     end
 
-    describe '#layout_partial_name' do
+    describe '#partial_name' do
       let(:site) {Site.new(name: 'My custom site')}
 
       it "returns the name for layout partial" do
-        expect(site.layout_partial_name).to eq("my_custom_site")
+        expect(site.partial_name).to eq("my_custom_site")
       end
     end
 
-    describe '#layout_definition' do
+    describe '#definition' do
       let(:site) {Site.new(name: 'My custom site')}
       let(:definitions) { [{'name' => 'my_custom_site', 'page_layouts' => %w(standard)}] }
 
       it "returns layout definition from site_layouts.yml file" do
-        allow(Site).to receive(:layout_definitions).and_return(definitions)
-        expect(site.layout_definition).to eq(definitions.first)
+        allow(Site).to receive(:definitions).and_return(definitions)
+        expect(site.definition).to eq(definitions.first)
       end
     end
-
   end
 end

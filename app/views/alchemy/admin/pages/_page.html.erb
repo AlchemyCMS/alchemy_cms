@@ -2,8 +2,8 @@
   <div class="sitemap_page<%= page.locked ? ' locked' : '' %>" name="<%= page.name %>">
     <div class="sitemap_left_images">
       <%= sitemap_folder_link(page) unless page.level == 1 || page.children.blank? || @sorting %>
-      <% if page.layout_description.blank? %>
-        <span class="inline warning icon" title="<%= _t(:page_layout_description_missing) %>"></span>
+      <% if page.definition.blank? %>
+        <span class="inline warning icon" title="<%= _t(:page_definition_missing) %>"></span>
       <% else %>
         <div class="page icon <%= @sorting && page.level > 1 ? 'handle' : nil %>"></div>
       <% end %>

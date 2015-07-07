@@ -41,7 +41,7 @@ module Alchemy
 
       # Returns an elements array for select helper.
       #
-      # @param [Array] elements descriptions
+      # @param [Array] elements definitions
       # @return [Array]
       #
       def elements_for_select(elements)

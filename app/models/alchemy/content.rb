@@ -104,8 +104,8 @@ module Alchemy
 
     # Settings from the elements.yml definition
     def settings
-      return {} if description.blank?
-      @settings ||= description.fetch('settings', {}).symbolize_keys
+      return {} if definition.blank?
+      @settings ||= definition.fetch('settings', {}).symbolize_keys
     end
 
     def siblings
@@ -165,7 +165,7 @@ module Alchemy
     end
 
     def has_validations?
-      description['validate'].present?
+      definition['validate'].present?
     end
 
     # Returns a string to be passed to Rails form field tags to ensure we have same params layout everywhere.
@@ -207,10 +207,10 @@ module Alchemy
 
     # Returns true if this content should be taken for element preview.
     def preview_content?
-      if description['take_me_for_preview']
+      if definition['take_me_for_preview']
         ActiveSupport::Deprecation.warn("Content definition's `take_me_for_preview` key is deprecated. Please use `as_element_title` instead.")
       end
-      !!description['take_me_for_preview'] || !!description['as_element_title']
+      !!definition['take_me_for_preview'] || !!definition['as_element_title']
     end
 
     # Proxy method that returns the preview text from essence.
@@ -240,7 +240,7 @@ module Alchemy
       end
     end
 
-    # Returns the default value from content description
+    # Returns the default value from content definition
     # If the value is a symbol it gets passed through i18n inside the +alchemy.default_content_texts+ scope
     def default_text(default)
       case default

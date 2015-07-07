@@ -38,7 +38,7 @@ module Alchemy
     # Please use <tt>rails g alchemy:site_layouts</tt> to generate partials for all your sites.
     #
     def to_partial_path
-      "alchemy/site_layouts/#{layout_partial_name}"
+      "alchemy/site_layouts/#{partial_name}"
     end
 
     class << self
@@ -86,6 +86,5 @@ module Alchemy
         )
       end
     end
-
   end
 end

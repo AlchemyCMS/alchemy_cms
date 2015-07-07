@@ -65,7 +65,7 @@ module Alchemy
 
         context 'given a regex string' do
           before do
-            allow(essence).to receive(:description).and_return({'validate' => [{'format' => /\Ahttps:\/\/[\S]+/}]})
+            allow(essence).to receive(:definition).and_return({'validate' => [{'format' => /\Ahttps:\/\/[\S]+/}]})
           end
 
           context 'when ingredient string does not match the given regex' do
@@ -87,7 +87,7 @@ module Alchemy
 
         context 'given a key from the config`s format_matcher list' do
           before do
-            allow(essence).to receive(:description).and_return({'validate' => [{'format' => 'email'}]})
+            allow(essence).to receive(:definition).and_return({'validate' => [{'format' => 'email'}]})
           end
 
           context 'when ingredient string does not match the given format matcher' do

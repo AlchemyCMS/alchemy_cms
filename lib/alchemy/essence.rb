@@ -134,7 +134,7 @@ module Alchemy #:nodoc:
       end
 
       def validations
-        @validations ||= description.present? ? description['validate'] || [] : []
+        @validations ||= definition.present? ? definition['validate'] || [] : []
       end
 
       def validation_errors
@@ -191,10 +191,10 @@ module Alchemy #:nodoc:
         ingredient_column.to_s + '='
       end
 
-      # Essence description from config/elements.yml
-      def description
-        return {} if element.nil? or element.content_descriptions.nil?
-        element.content_descriptions.detect { |c| c['name'] == self.content.name } || {}
+      # Essence definition from config/elements.yml
+      def definition
+        return {} if element.nil? or element.content_definitions.nil?
+        element.content_definitions.detect { |c| c['name'] == self.content.name } || {}
       end
 
       # Touch content. Called after update.

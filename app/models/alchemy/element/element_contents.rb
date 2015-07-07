@@ -91,18 +91,16 @@ module Alchemy
       return nil if definition.blank?
       definition['contents']
     end
-    alias_method :content_descriptions, :content_definitions
 
     # Returns the definition for given content_name
     def content_definition_for(content_name)
-      if content_descriptions.blank?
+      if content_definitions.blank?
         log_warning "Element #{name} is missing the content definition for #{content_name}"
         return nil
       else
         content_definitions.detect { |d| d['name'] == content_name }
       end
     end
-    alias_method :content_description_for, :content_definition_for
 
     # Returns an array of all EssenceRichtext contents ids from elements
     #
@@ -133,16 +131,16 @@ module Alchemy
     private
 
     def content_for_rss_meta(type)
-      description = content_descriptions.detect { |c| c["rss_#{type}"] }
-      return if description.blank?
-      contents.find_by(name: description['name'])
+      definition = content_definitions.detect { |c| c["rss_#{type}"] }
+      return if definition.blank?
+      contents.find_by(name: definition['name'])
     end
 
     # creates the contents for this element as described in the elements.yml
     def create_contents
       contents = []
       if definition["contents"].blank?
-        log_warning "Could not find any content descriptions for element: #{name}"
+        log_warning "Could not find any content definitions for element: #{name}"
       else
         definition["contents"].each do |content_hash|
           contents << Content.create_from_scratch(self, content_hash.symbolize_keys)

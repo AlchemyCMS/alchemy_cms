@@ -115,55 +115,35 @@ module Alchemy
     describe '.build' do
       let(:element) { FactoryGirl.build_stubbed(:element) }
 
-      it "builds a new instance from elements.yml description" do
+      it "builds a new instance from elements.yml definition" do
         expect(Content.build(element, {name: 'headline'})).to be_instance_of(Content)
       end
     end
 
-    describe '.content_description' do
+    describe '.content_definition' do
       let(:element) { FactoryGirl.build_stubbed(:element) }
 
       context "with blank name key" do
         it "returns a essence hash build from essence type" do
-          expect(Content).to receive(:content_description_from_essence_type).with(element, 'EssenceText')
-          Content.content_description(element, essence_type: 'EssenceText')
+          expect(Content).to receive(:content_definition_from_essence_type).with(element, 'EssenceText')
+          Content.content_definition(element, essence_type: 'EssenceText')
         end
       end
 
       context "with name key present" do
         it "returns a essence hash from element" do
-          expect(Content).to receive(:content_description_from_element).with(element, 'headline')
-          Content.content_description(element, name: 'headline')
+          expect(element).to receive(:content_definition_for).with('headline')
+          Content.content_definition(element, name: 'headline')
         end
       end
     end
 
-    describe '.content_description_from_element' do
-      let(:element) { FactoryGirl.build_stubbed(:element) }
-      let(:essence) { {name: 'headline', type: 'EssenceText'} }
-
-      it "returns the description hash from element" do
-        expect(element).to receive(:content_description_for).and_return(essence)
-        expect(Content.content_description(element, name: 'headline')).to eq(essence)
-      end
-
-      context "with content description not found" do
-        before {
-          expect(element).to receive(:content_description_for).and_return(nil)
-        }
-
-        it "returns nil" do
-          expect(Content.content_description(element, name: 'headline')).to be_nil
-        end
-      end
-    end
-
-    describe '.content_description_from_essence_type' do
+    describe '.content_definition_from_essence_type' do
       let(:element) { FactoryGirl.build_stubbed(:element) }
 
-      it "returns the description hash from element" do
+      it "returns the definition hash from element" do
         expect(Content).to receive(:content_name_from_element_and_essence_type).with(element, 'EssenceText').and_return('Foo')
-        expect(Content.content_description_from_essence_type(element, 'EssenceText')).to eq({
+        expect(Content.content_definition_from_essence_type(element, 'EssenceText')).to eq({
           'type' => 'EssenceText',
           'name' => 'Foo'
         })
@@ -195,7 +175,9 @@ module Alchemy
 
       context "with default value present" do
         it "should have the ingredient column filled with default value." do
-          allow(Content).to receive(:content_description_from_element).and_return({'name' => 'headline', 'type' => 'EssenceText', 'default' => 'Welcome'})
+          allow_any_instance_of(Element).to receive(:content_definition_for) do
+            {'name' => 'headline', 'type' => 'EssenceText', 'default' => 'Welcome'}
+          end
           content = Content.create_from_scratch(element, name: 'headline')
           expect(content.ingredient).to eq("Welcome")
         end
@@ -221,12 +203,12 @@ module Alchemy
       end
     end
 
-    describe "#descriptions" do
-      context "without any descriptions in elements.yml file" do
-        before { allow(Element).to receive(:descriptions).and_return([]) }
+    describe "#definitions" do
+      context "without any definitions in elements.yml file" do
+        before { allow(Element).to receive(:definitions).and_return([]) }
 
         it "should return an empty array" do
-          expect(Content.descriptions).to eq([])
+          expect(Content.definitions).to eq([])
         end
       end
     end
@@ -275,7 +257,7 @@ module Alchemy
 
       context 'defined as preview content via take_me_for_preview' do
         before do
-          expect(content).to receive(:description).at_least(:once).and_return({
+          expect(content).to receive(:definition).at_least(:once).and_return({
             'take_me_for_preview' => true
           })
         end
@@ -294,7 +276,7 @@ module Alchemy
 
       context 'defined as preview content via as_element_title' do
         before do
-          expect(content).to receive(:description).at_least(:once).and_return({
+          expect(content).to receive(:definition).at_least(:once).and_return({
             'as_element_title' => true
           })
         end
@@ -364,7 +346,7 @@ module Alchemy
       let(:element) { build_stubbed(:element, name: 'article') }
       let(:content) { build_stubbed(:content, name: 'headline', element: element) }
 
-      it "returns the settings hash from description" do
+      it "returns the settings hash from definition" do
         expect(content.settings).to eq({deletable: true})
       end
 

@@ -49,7 +49,7 @@ module Alchemy
     end
 
     describe ".get" do
-      it "should return the page_layout description found by given name" do
+      it "should return the page_layout definition found by given name" do
         allow(PageLayout).to receive(:all).and_return([{'name' => 'default'}, {'name' => 'contact'}])
         expect(PageLayout.get('default')).to eq({'name' => 'default'})
       end
@@ -91,7 +91,7 @@ module Alchemy
         end
 
         before do
-          allow(Site).to receive(:layout_definitions).and_return(definitions)
+          allow(Site).to receive(:definitions).and_return(definitions)
         end
 
         it "should only return layouts for site" do
@@ -113,7 +113,7 @@ module Alchemy
         end
       end
 
-      context "when page_layout description does not contain the elements key" do
+      context "when page_layout definition does not contain the elements key" do
         it "should return an empty array" do
           allow(PageLayout).to receive(:get).with('layout_without_elements_key').and_return({'name' => 'layout_without_elements_key'})
           expect(PageLayout.element_names_for('layout_without_elements_key')).to eq([])

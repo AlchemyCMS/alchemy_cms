@@ -455,7 +455,7 @@ module Alchemy
       end
 
       context 'if no content is defined as rss title' do
-        before { expect(element).to receive(:content_descriptions).and_return([]) }
+        before { expect(element).to receive(:content_definitions).and_return([]) }
 
         it "should return nil" do
           expect(element.content_for_rss_title).to be_nil
@@ -463,7 +463,7 @@ module Alchemy
       end
 
       context 'if no content is defined as rss description' do
-        before { expect(element).to receive(:content_descriptions).and_return([]) }
+        before { expect(element).to receive(:content_definitions).and_return([]) }
 
         it "should return nil" do
           expect(element.content_for_rss_description).to be_nil

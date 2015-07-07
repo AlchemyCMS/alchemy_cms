@@ -28,7 +28,7 @@ describe 'alchemy/essences/_essence_link_view' do
     end
   end
 
-  context 'with text setting on content description' do
+  context 'with text setting on content definition' do
     before do
       allow(content).to receive(:settings).and_return({text: 'Yahoo'})
     end
