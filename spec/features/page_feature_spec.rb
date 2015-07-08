@@ -41,10 +41,18 @@ module Alchemy
           expect(uri.request_uri).to eq("/en/#{second_page.urlname}")
         end
 
-        context "if no language params are given" do
+        context "if no language params are given and page locale == default locale" do
           it "doesn't prepend the url with the locale string" do
             visit("/#{public_page_1.urlname}")
             expect(page.current_path).to eq("/#{public_page_1.urlname}")
+          end
+        end
+
+        context "if no language params are given and page locale != default locale" do
+          it "prepends the url with the locale string" do
+            allow(::I18n).to receive(:default_locale).and_return(:de)
+            visit("/#{public_page_1.urlname}")
+            expect(page.current_path).to eq("/en/#{public_page_1.urlname}")
           end
         end
 
