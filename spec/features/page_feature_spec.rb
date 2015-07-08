@@ -67,12 +67,28 @@ module Alchemy
             visit "/not-public"
             expect(page.current_path).to eq("/public-child")
           end
+
+          context "if page.locale != then the default locale" do
+            it "prepends the public child path with it's locale" do
+              allow(::I18n).to receive(:default_locale).and_return(:de)
+              visit "/not-public"
+              expect(page.current_path).to eq("/en/public-child")
+            end
+          end
         end
 
         context "if requested url is the index url" do
           it "redirects to the url of the default language root page" do
             visit '/'
             expect(page.current_path).to eq("/home")
+          end
+
+          context "if page.locale != then the default locale" do
+            it "prepends the locale to the url" do
+              allow(::I18n).to receive(:default_locale).and_return(:de)
+              visit '/'
+              expect(page.current_path).to eq("/en/home")
+            end
           end
         end
 
