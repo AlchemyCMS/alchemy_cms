@@ -44,13 +44,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'spinner.rb'
   gem.add_runtime_dependency 'turbolinks',                       ['~> 2.5']
 
-  gem.add_development_dependency 'capybara',                     ['~> 2.4']
-  gem.add_development_dependency 'database_cleaner',             ['~> 1.3']
-  gem.add_development_dependency 'factory_girl_rails',           ['~> 4.5']
-  gem.add_development_dependency 'poltergeist',                  ['~> 1.5']
-  gem.add_development_dependency 'rspec-activemodel-mocks',      ['~> 1.0']
-  gem.add_development_dependency 'rspec-rails',                  ['~> 3.0']
-
   gem.post_install_message =<<-MSG
 -------------------------------------------------------------
             Thank you for installing Alchemy CMS
