@@ -91,6 +91,8 @@
     type: EssenceRichtext
   - name: essence_select
     type: EssenceSelect
+    settings:
+      select_values: [a, b, c]
   - name: essence_text
     type: EssenceText
 
