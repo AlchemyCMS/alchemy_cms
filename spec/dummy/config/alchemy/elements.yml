@@ -107,3 +107,11 @@
 - name: slider
   nestable_elements:
     - slide
+
+# Fixed elements
+
+- name: right_column
+  fixed: true
+  nestable_elements:
+    - search
+    - text

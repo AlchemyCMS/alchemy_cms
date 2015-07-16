@@ -13,7 +13,6 @@
 #  updated_at      :datetime         not null
 #  creator_id      :integer
 #  updater_id      :integer
-#  cell_id         :integer
 #  cached_tag_list :text
 #
 
@@ -45,15 +44,14 @@ module Alchemy
 
     acts_as_taggable
 
-    # All Elements that share the same page id, cell id and parent element id are considered a list.
+    # All Elements that share the same page id,
+    # parent element id and fixed value are considered a list.
     #
-    # If cell id and parent element id are nil (typical case for a simple page),
-    # then all elements on that page are still in one list,
-    # because acts_as_list correctly creates this statement:
+    # If parent element id is nil (typical case for a simple page),
+    # then all elements on that page are still in one list as long as
+    # they share the same value for fixed.
     #
-    #   WHERE page_id = 1 and cell_id = NULL AND parent_element_id = NULL
-    #
-    acts_as_list scope: [:page_id, :cell_id, :parent_element_id]
+    acts_as_list scope: [:page_id, :parent_element_id, :fixed]
 
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -65,7 +63,6 @@ module Alchemy
       class_name: 'Alchemy::Element',
       foreign_key: :parent_element_id
 
-    belongs_to :cell
     belongs_to :page
 
     # A nested element belongs to a parent element.
@@ -80,22 +77,25 @@ module Alchemy
 
     attr_accessor :create_contents_after_create
 
-    after_create :create_contents, unless: proc { |e| e.create_contents_after_create == false }
+    after_create :create_contents, unless: -> { create_contents_after_create == false }
     after_update :touch_pages
-    after_update :touch_cell, unless: -> { self.cell.nil? }
 
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
-    scope :not_trashed,       -> { where(Element.arel_table[:position].not_eq(nil)) }
+    scope :not_trashed,       -> { where.not(position: nil) }
     scope :published,         -> { where(public: true) }
     scope :not_restricted,    -> { joins(:page).merge(Page.not_restricted) }
     scope :available,         -> { published.not_trashed }
     scope :named,             ->(names) { where(name: names) }
     scope :excluded,          ->(names) { where(arel_table[:name].not_in(names)) }
-    scope :not_in_cell,       -> { where(cell_id: nil) }
-    scope :in_cell,           -> { where("#{self.table_name}.cell_id IS NOT NULL") }
-    scope :from_current_site, -> { where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: 'language') }
+    scope :from_current_site, -> do
+      where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: 'language')
+    end
     scope :folded,            -> { where(folded: true) }
     scope :expanded,          -> { where(folded: false) }
+    scope :fixed,             -> { where(fixed: true) }
+    scope :unfixed,           -> { where(fixed: false) }
+    scope :nested,            -> { where.not(parent_element_id: nil) }
+    scope :unnested,          -> { where(parent_element_id: nil) }
 
     delegate :restricted?, to: :page, allow_nil: true
 
