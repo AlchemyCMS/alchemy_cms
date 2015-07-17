@@ -19,3 +19,5 @@ spec/dummy/config/locales/**/*
 /index/
 /.bundle/
 .rbenv-version
+.ruby-gemset
+.ruby-version
