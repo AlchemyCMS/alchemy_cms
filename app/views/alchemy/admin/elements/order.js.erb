@@ -8,7 +8,6 @@ Alchemy.growl('<%= _t(:successfully_restored_element) -%>');
 <% @trashed_element_ids.each do |id| %>
 $('<%= element_ids %>').each(function() { this.id = 'element_' + <%= id %> });
 <% end %>
-Alchemy.ElementEditors.reinit('<%= element_ids %>');
 <% else %>
 Alchemy.growl('<%= _t(:successfully_saved_element_position) -%>');
 <% end %>

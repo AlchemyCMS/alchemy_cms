@@ -13,43 +13,25 @@ Alchemy.ElementEditors =
   # Calles once per page load.
   #
   init: ->
-    $elements = $("#element_area .element-editor")
-    self = Alchemy.ElementEditors
-    self.reinit($elements)
+    @element_area = $("#element_area")
+    # Binds the custom FocusElementEditor event
+    @element_area.on "FocusElementEditor.Alchemy", '.element-editor', (e) =>
+      @onFocusElement(e)
+    @bindClickEvents()
+    return
 
-  # Binds events to all given element editors.
-  #
-  # Called after replacing element editors via ajax.
-  #
-  reinit: (elements) ->
-    self = Alchemy.ElementEditors
-    $elements = $(elements)
-    $elements.each ->
-      self.bindEvent(this)
-    $elements.find(".element-header").click (e) =>
-      e.stopPropagation()
+  # Binds click events on several DOM elements from element editors
+  # Uses event delegation, so it is not necessary to rebind these events.
+  bindClickEvents: ->
+    @element_area.on "click", ".element-header", (e) =>
       @onClickElement(e)
-      false
-    $elements.find(".element-header").dblclick (e) =>
-      id = $(e.target).closest('.element-editor').attr('id').replace(/\D/g, '')
-      e.stopPropagation()
-      @toggle(id)
-      false
-    Alchemy.ElementEditors.observeToggler($elements)
-    Alchemy.ElementEditors.missingContentsObserver($elements)
-
-  # Click event handler.
-  #
-  # Also triggers custom 'SelectPreviewElement.Alchemy' event on target element in preview frame.
-  #
-  onClickElement: (e) ->
-    $element = $(e.target).closest(".element-editor")
-    element_id = $element.attr("id").replace(/\D/g, "")
-    $("#element_area .element-editor").removeClass("selected")
-    $element.addClass("selected")
-    @selectElement($element)
-    @selectElementInPreview(element_id)
-    false
+    @element_area.on "dblclick", ".element-header", (e) =>
+      @onDoubleClickElement(e)
+    @element_area.on "click", "[data-element-toggle]", (e) =>
+      @onClickToggle(e)
+    @element_area.on "click", '[data-create-missing-content]', (e) =>
+      @onClickMissingContent(e)
+    return
 
   # Selects and scrolls to element with given id in the preview window.
   #
@@ -61,17 +43,6 @@ Alchemy.ElementEditors =
     $selected_element = $frame_elements.closest("[data-alchemy-element='#{element_id}']")
     $selected_element.trigger("SelectPreviewElement.Alchemy")
     return
-
-  # Binds the custom 'FocusElementEditor.Alchemy' event.
-  #
-  # Triggered, if a user clicks on an element inside the preview iframe.
-  #
-  bindEvent: (element) ->
-    $(element).bind "FocusElementEditor.Alchemy", (e) =>
-      $element = $(e.target)
-      e.stopPropagation()
-      @focusElement($element)
-      return
 
   # Selects element
   # Scrolls to element
@@ -174,19 +145,58 @@ Alchemy.ElementEditors =
         callback.call()
       return
 
-  observeToggler: (scope) ->
-    $('[data-element-toggle]', scope).click (e) ->
-      Alchemy.ElementEditors.toggle $(e.target).data('element-toggle')
-      e.stopPropagation()
-      e.preventDefault()
+  # Event handlers
 
-  # Handles the missing content links.
+  # Click event handler for element head.
+  #
+  # - Focuses the element
+  # - Triggers custom 'SelectPreviewElement.Alchemy' event on target element in preview frame.
+  #
+  onClickElement: (e) ->
+    $element = $(e.target).closest(".element-editor")
+    element_id = $element.attr("id").replace(/\D/g, "")
+    $("#element_area .element-editor").removeClass("selected")
+    $element.addClass("selected")
+    @selectElement($element)
+    @selectElementInPreview(element_id)
+    e.preventDefault()
+    e.stopPropagation()
+    false
+
+  # Double click event handler for element head.
+  onDoubleClickElement: (e) ->
+    id = $(e.target).closest('.element-editor').attr('id').replace(/\D/g, '')
+    @toggle(id)
+    e.preventDefault()
+    e.stopPropagation()
+    false
+
+  # Click event handler for element toggle icon.
+  onClickToggle: (e) ->
+    id = $(e.target).data('element-toggle')
+    @toggle(id)
+    e.preventDefault()
+    e.stopPropagation()
+    false
+
+  # Handles the custom 'FocusElementEditor.Alchemy' event.
+  #
+  # Triggered, if a user clicks on an element inside the preview iframe.
+  #
+  onFocusElement: (e) ->
+    $element = $(e.target)
+    @focusElement($element)
+    e.stopPropagation()
+    false
+
+  # Handles the missing content button click events.
+  #
   # Ensures that the links query string is converted into post body and send
   # the request via a real ajax post to server, to allow long query strings.
-  missingContentsObserver: (scope) ->
-    $('[data-create-missing-content]', scope).click ->
-      $link = $(this)
-      url = this.pathname
-      querystring = this.search.replace(/\?/, '')
-      $.post url, querystring
-      return false
+  #
+  onClickMissingContent: (e) ->
+    link = e.target
+    url = link.pathname
+    querystring = link.search.replace(/\?/, '')
+    $.post(url, querystring)
+    false

@@ -36,7 +36,6 @@
   Alchemy.closeCurrentDialog();
   Alchemy.Tinymce.init(<%= @element.richtext_contents_ids.to_json %>);
   Alchemy.PreviewWindow.refresh();
-  Alchemy.ElementEditors.init();
 
   $el = $('#element_<%= @element.id %>');
   $el.trigger('FocusElementEditor.Alchemy');

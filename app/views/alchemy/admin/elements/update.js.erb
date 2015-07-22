@@ -6,7 +6,6 @@
 <%- if @element_validated -%>
 
   $el.find('> .element-header').replaceWith('<%= j render("element_header", element: @element) %>');
-  Alchemy.ElementEditors.reinit($el);
   $errors.hide();
   Alchemy.setElementSaved($el);
   Alchemy.growl('<%= _t(:element_saved) %>');
