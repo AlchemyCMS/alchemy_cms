@@ -11,7 +11,6 @@
   $el.replaceWith('<%= j render(partial: "element", object: @element) %>');
   $el = $('#element_<%= @element.id %>');
   $('#element_area .sortable_cell').sortable('refresh');
-  Alchemy.ElementEditors.reinit($el);
 
   <% if @element.folded? -%>
 
