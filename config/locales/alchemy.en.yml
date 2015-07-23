@@ -198,7 +198,7 @@ en:
     "Flush picture cache": "Flush picture cache"
     "Global shortcuts": "Global shortcuts"
     "Hide childpages": "Hide childpages"
-    "Hide Elements": "Hide Elements"
+    hide_elements: hide_elements
     "If you have any problems using the Flash uploader you can switch to": "If you have any problems using the Flash uploader you can switch to %{link}"
     "Image missing": "Image missing"
     "Image size": "Image size"
@@ -259,7 +259,7 @@ en:
     "Select an content": "Select a content"
     "Select style": "Select style"
     "Send reset instructions": "Send reset instructions"
-    "Show Elements": "Show Elements"
+    show_elements: "Show Elements"
     "Show childpages": "Show childpages"
     "Show clipboard": "Show clipboard"
     "Show picture infos": "Show picture infos"
