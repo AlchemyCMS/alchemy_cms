@@ -92,9 +92,10 @@ module Alchemy
     #
     # @see lib/alchemy/essence.rb:71
     config.to_prepare do
-      return if Rails.configuration.cache_classes
-      essences = File.join(File.dirname(__FILE__), '../../app/models/alchemy/essence_*.rb')
-      Dir.glob(essences).each { |essence| load(essence) }
+      unless Rails.configuration.cache_classes
+        essences = File.join(File.dirname(__FILE__), '../../app/models/alchemy/essence_*.rb')
+        Dir.glob(essences).each { |essence| load(essence) }
+      end
     end
 
     config.after_initialize do
