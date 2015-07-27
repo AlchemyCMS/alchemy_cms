@@ -199,6 +199,7 @@ en:
     "Global shortcuts": "Global shortcuts"
     "Hide childpages": "Hide childpages"
     hide_elements: hide_elements
+    hide_element: "Hide element"
     "If you have any problems using the Flash uploader you can switch to": "If you have any problems using the Flash uploader you can switch to %{link}"
     "Image missing": "Image missing"
     "Image size": "Image size"
@@ -260,6 +261,7 @@ en:
     "Select style": "Select style"
     "Send reset instructions": "Send reset instructions"
     show_elements: "Show Elements"
+    show_element: "Show element"
     "Show childpages": "Show childpages"
     "Show clipboard": "Show clipboard"
     "Show picture infos": "Show picture infos"
