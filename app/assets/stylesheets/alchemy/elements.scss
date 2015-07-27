@@ -575,13 +575,17 @@ select.long {
     width: 100%;
   }
 
-  &.missing p {
-    line-height: 25px;
-    padding: 2*$default-padding;
-    border: 1px solid #f5b04e;
-    background-color: #f5dea9;
-    @extend %rounded-border;
-    font-size: 11px;
+  &.missing {
+
+    .message {
+      margin: 0;
+      @include clearfix;
+    }
+
+    p {
+      float: left;
+      width: 70%;
+    }
 
     .icon.warning {
       vertical-align: text-bottom;
@@ -592,6 +596,7 @@ select.long {
     .button {
       float: right;
       margin: 0;
+      text-decoration: none;
     }
   }
 
