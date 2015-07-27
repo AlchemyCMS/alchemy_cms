@@ -1,4 +1,4 @@
-<%- if @contents.any? || @element['picture_gallery'] || @element['available_contents'] -%>
+<%- if @contents.any? || @element['picture_gallery'] -%>
 <%%= element_editor_for(element) do |el| -%>
 <%- if @element['picture_gallery'] -%>
   <%%= render_picture_gallery_editor(element, max_images: nil, crop: true) %>
