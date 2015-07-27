@@ -347,7 +347,7 @@ module Alchemy
       let(:content) { build_stubbed(:content, name: 'headline', element: element) }
 
       it "returns the settings hash from definition" do
-        expect(content.settings).to eq({deletable: true})
+        expect(content.settings).to eq({linkable: true})
       end
 
       context 'if settings are not defined' do

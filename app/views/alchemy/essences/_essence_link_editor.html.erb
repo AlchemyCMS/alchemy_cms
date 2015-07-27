@@ -1,6 +1,6 @@
 <% cache(content) do %>
 <div class="content_editor essence_link" id="<%= content.dom_id %>" data-content-id="<%= content.id %>">
-  <%= label_and_remove_link(content) %>
+  <%= content_label(content) %>
   <%= text_field_tag '', content.ingredient,
     class: "thin_border text_with_icon disabled",
     name: nil,

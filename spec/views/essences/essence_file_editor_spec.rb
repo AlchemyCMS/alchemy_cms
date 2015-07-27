@@ -14,7 +14,7 @@ describe 'alchemy/essences/_essence_editor_view' do
   before do
     view.class.send :include, Alchemy::Admin::BaseHelper
     allow(view).to receive(:_t).and_return('')
-    allow(view).to receive(:label_and_remove_link).and_return('')
+    allow(view).to receive(:content_label).and_return('')
   end
 
   context 'with ingredient present' do

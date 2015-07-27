@@ -90,21 +90,10 @@ module Alchemy
         )
       end
 
-      # Renders a link for removing that content
-      def delete_content_link(content)
-        link_to_confirm_dialog(
-          render_icon('delete-small'),
-          _t('Do you really want to delete this content?'),
-          alchemy.admin_content_path(content),
-          class: 'icon_button small',
-          title: _t('Remove this content')
-        ) if content.settings[:deletable]
-      end
-
       # Renders the label and a remove link for a content.
-      def label_and_remove_link(content)
+      def content_label(content)
         content_tag :label do
-          [render_hint_for(content), render_content_name(content), delete_content_link(content)].compact.join('&nbsp;').html_safe
+          [render_hint_for(content), render_content_name(content)].compact.join('&nbsp;').html_safe
         end
       end
     end

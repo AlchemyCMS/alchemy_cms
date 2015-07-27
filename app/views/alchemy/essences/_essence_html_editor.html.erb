@@ -1,6 +1,6 @@
 <% cache(content) do %>
 <div class="content_editor essence_html_editor" data-content-id="<%= content.id %>">
-  <%= label_and_remove_link(content) %>
+  <%= content_label(content) %>
   <%= text_area_tag(
     content.form_field_name,
     content.ingredient

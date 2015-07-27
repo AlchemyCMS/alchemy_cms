@@ -21,7 +21,7 @@
 ) %>
 
 <div class="content_editor essence_file" id="<%= content.dom_id %>" data-content-id="<%= content.id %>">
-  <%= label_and_remove_link(content) %>
+  <%= content_label(content) %>
   <div class="file" id="file_<%= content.id %>">
     <div class="file_icon">
     <% if content.ingredient %>

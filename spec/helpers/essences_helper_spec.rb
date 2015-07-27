@@ -21,7 +21,7 @@ describe Alchemy::EssencesHelper do
       subject { helper.render_essence(content, :editor) }
 
       before do
-        allow(helper).to receive(:label_and_remove_link)
+        allow(helper).to receive(:content_label)
         allow(content).to receive(:settings).and_return({})
       end
 
