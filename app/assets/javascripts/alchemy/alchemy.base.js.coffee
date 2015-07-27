@@ -58,6 +58,7 @@ $.extend Alchemy,
           spinner.stop()
           $parent.html('<span class="icon warn"/>')
 
+  # Removes the picture from essence picture thumbnail
   removePicture: (selector) ->
     $form_field = $(selector)
     $element = $form_field.closest(".element-editor")
@@ -66,14 +67,14 @@ $.extend Alchemy,
       $form_field.prev().remove()
       $form_field.parent().addClass "missing"
       Alchemy.setElementDirty $element
-    return
+    false
 
   # Sets the element to saved state
   setElementSaved: (selector) ->
     $element = $(selector)
     Alchemy.setElementClean selector
     Alchemy.Buttons.enable $element
-    return true
+    true
 
   # Initializes all select tag with .alchemy_selectbox class as selectBoxIt instance
   # Pass a jQuery scope to only init a subset of selectboxes.

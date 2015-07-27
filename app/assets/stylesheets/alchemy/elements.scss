@@ -364,12 +364,15 @@
   bottom: 2px;
   width: 111px;
 
-  a {
+  > a, > span.icon {
     float: left;
     margin-left: 2px;
     margin-right: 2px;
     width: 18px;
     height: 18px;
+  }
+
+  a {
 
     &.linked {
       position: relative;
@@ -384,11 +387,11 @@
 
       .icon { margin-left: 1px }
     }
+  }
 
-    &.disabled {
-      @include opacity(0.3);
-      cursor: default;
-    }
+  a.disabled, > span.icon {
+    @include opacity(0.3);
+    cursor: default;
   }
 }
 

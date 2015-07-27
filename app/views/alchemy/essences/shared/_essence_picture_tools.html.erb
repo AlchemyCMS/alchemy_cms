@@ -1,23 +1,23 @@
-<% if options[:crop] && content.ingredient && content.ingredient.can_be_cropped_to(options[:image_size], options[:upsample]) %>
-<%= link_to_dialog(
-  render_icon('crop'),
-  alchemy.crop_admin_essence_picture_path(content.essence, options: options.to_json),
-  {
-    size: "1000x615",
-    title: _t('Edit Picturemask'),
-    image_loader: false,
-    padding: false
-  },
-  {
-    title: _t('Edit Picturemask')
-  }
-) %>
+<% linkable = content_settings_value(
+    content, :linkable,
+    local_assigns.fetch(:options, {})
+  ) != false %>
+
+<% if options[:crop] &&
+    content.ingredient &&
+    content.ingredient.can_be_cropped_to(options[:image_size], options[:upsample]) %>
+  <%= link_to_dialog render_icon('crop'),
+    alchemy.crop_admin_essence_picture_path(content.essence, options: options.to_json), {
+      size: "1000x615",
+      title: _t('Edit Picturemask'),
+      image_loader: false,
+      padding: false
+    }, {title: _t('Edit Picturemask')} %>
 <%- else -%>
-<a href="#" class="disabled"><%= render_icon('crop') %></a>
+  <a href="#" class="disabled"><%= render_icon('crop') %></a>
 <%- end -%>
 
-<%= link_to_dialog(
-  render_icon('swap_picture'),
+<%= link_to_dialog render_icon('swap_picture'),
   alchemy.admin_pictures_path(
     element_id: content.element,
     content_id: content.id,
@@ -29,33 +29,28 @@
     size: '780x580',
     padding: false
   },
-  title: (content.ingredient ? _t(:swap_image) : _t(:insert_image))
-) %>
+  title: (content.ingredient ? _t(:swap_image) : _t(:insert_image)) %>
 
-<%= link_to(render_icon(:link), '', {
+<%= link_to_if linkable, render_icon(:link), '', {
   onclick: 'd = new Alchemy.LinkDialog(this); d.open(); return false;',
   class: content.linked? ? 'linked' : nil,
   title: _t(:link_image),
   'data-content-id' => content.id,
   id: "edit_link_#{content.id}"
-}) %>
+} %>
 
-<%= link_to(render_icon('unlink'), '', {
+<%= link_to_if linkable, render_icon('unlink'), '', {
   onclick: "return Alchemy.LinkDialog.removeLink(this, #{content.id})",
   class: content.linked? ? 'linked' : 'disabled',
   title: _t(:unlink)
-}) %>
+} %>
 
-<%= link_to_dialog(
-  render_icon('edit'),
+<%= link_to_dialog render_icon('edit'),
   alchemy.edit_admin_essence_picture_path(
     id: content.essence.id,
     content_id: content.id,
     options: options.to_json
-  ),
-  {
+  ), {
     title: _t(:edit_image_properties),
     size: (options[:caption_as_textarea] ? (options[:sizes] ? '380x320' : '380x300') : (options[:sizes] ? '380x290' : '380x255'))
-  },
-  title: _t(:edit_image_properties)
-) %>
+  }, title: _t(:edit_image_properties) %>
