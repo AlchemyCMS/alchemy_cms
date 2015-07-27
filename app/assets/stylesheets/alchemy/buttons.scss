@@ -96,13 +96,10 @@ button, input[type="submit"], a.button, input.button {
     @include box-shadow(none);
 
     .icon {
-      left: auto;
       position: absolute;
-      left: 1px;
-      top: 3px;
-      width: 8px;
+      top: 50%;
       height: 8px;
-      margin-top: 0;
+      @include transform(translateX(-50%) translateY(-50%));
 
       &:before {
         line-height: 10px;
@@ -117,13 +114,6 @@ button, input[type="submit"], a.button, input.button {
       border: $default-border-width $default-border-style $button-hover-border-color;
       @include border-radius($default-border-radius);
       background: $button-hover-bg-color;
-      top: -1px;
-      right: -1px;
-
-      .icon {
-        left: 1px;
-        top: 3px;
-      }
     }
   }
 
@@ -247,6 +237,7 @@ button.icon_button {
     line-height: 1;
     @include box-shadow(0 0 4px $default-border-color);
     white-space: nowrap;
+    pointer-events: none;
 
     &:before {
       content: '';

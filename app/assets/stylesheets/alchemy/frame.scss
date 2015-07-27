@@ -201,18 +201,12 @@ div#user_info {
     text-shadow: 0px 1px 1px #FFFFFF;
     @extend .disable-user-select;
     cursor: default;
-    line-height: 27px;
     float: left;
     @extend .top-rounded-border;
     border: $default-border;
     border-bottom-style: none;
     height: 24px;
     margin-right: 1px;
-
-    .page_name {
-      position: relative;
-      bottom: 2px;
-    }
   }
 
   .page_name {
@@ -221,14 +215,11 @@ div#user_info {
 
   .page_language {
     float: none;
-    position: relative;
     @include inline-block;
-    bottom: 3px;
     color: #3265b1;
     @extend %rounded-border;
     margin-right: 2px;
     font-size: 10px;
-    line-height: 12px;
     text-transform: uppercase;
   }
 

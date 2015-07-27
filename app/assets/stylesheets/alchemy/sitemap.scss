@@ -218,7 +218,7 @@ div.page_infos {
 
 #sub_navigation .page_status_and_name .page_status {
   float: none;
-  @include inline-block(-1px);
+  @include inline-block(-3px);
   margin-left: 2px;
 }
 
