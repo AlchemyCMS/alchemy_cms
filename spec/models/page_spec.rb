@@ -398,14 +398,14 @@ module Alchemy
       end
     end
 
-    describe '.all_locked' do
+    describe '.locked' do
       it "should return 1 page that is blocked by a user at the moment" do
         create(:public_page, locked: true, name: 'First Public Child', parent_id: language_root.id, language: language)
-        expect(Page.all_locked.size).to eq(1)
+        expect(Page.locked.size).to eq(1)
       end
     end
 
-    describe '.all_locked_by' do
+    describe '.locked_by' do
       let(:user) { double(:user, id: 1, class: DummyUser) }
 
       before do
@@ -417,7 +417,7 @@ module Alchemy
 
       it "should return the correct page collection blocked by a certain user" do
         page = create(:public_page, locked: true, locked_by: 1)
-        expect(Page.all_locked_by(user).pluck(:id)).to eq([page.id])
+        expect(Page.locked_by(user).pluck(:id)).to eq([page.id])
       end
 
       context 'with user class having a different primary key' do
@@ -431,7 +431,7 @@ module Alchemy
 
         it "should return the correct page collection blocked by a certain user" do
           page = create(:public_page, locked: true, locked_by: 123)
-          expect(Page.all_locked_by(user).pluck(:id)).to eq([page.id])
+          expect(Page.locked_by(user).pluck(:id)).to eq([page.id])
         end
       end
     end

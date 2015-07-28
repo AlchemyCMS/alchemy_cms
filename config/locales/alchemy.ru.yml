@@ -160,7 +160,7 @@ ru:
     anchor: 'Анкор'
     back: 'назад'
     create_tree_as_new_language: "Создать дерево языка %{language}"
-    "Active Pages": "Активные страницы"
+    locked_pages: "Активные страницы"
     "Add global page": "Добавить часть макета"
     "Add page link": "Добавить ссылку на страницу"
     "Adobe Website": "Adobe Website"

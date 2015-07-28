@@ -159,7 +159,7 @@ en:
     anchor: 'Anchor'
     back: 'back'
     create_tree_as_new_language: "Create %{language} as a new language tree"
-    "Active Pages": "Active pages"
+    locked_pages: "Active pages"
     "Add global page": "Add global page"
     "Add page link": "Add page link"
     "Adobe Website": "Adobe Website"

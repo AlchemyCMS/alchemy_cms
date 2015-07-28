@@ -159,7 +159,7 @@ nl:
     anchor: 'Anchor'
     back: 'back'
     create_tree_as_new_language: "%{language} aanmaken als nieuwe boomstructuur"
-    "Active Pages": "Actieve pagina's"
+    locked_pages: "Actieve pagina's"
     "Add global page": "Nieuwe globale pagina"
     "Add page link": "Voeg pagina link toe"
     "Adobe Website": "Adobe Website"

@@ -16,13 +16,13 @@ module Alchemy
 
       # All locked pages
       #
-      scope :all_locked, -> { where(locked: true) }
+      scope :locked, -> { where(locked: true) }
 
       # All pages locked by given user
       #
-      scope :all_locked_by, ->(user) {
+      scope :locked_by, ->(user) {
         if user.class.respond_to? :primary_key
-          all_locked.where(locked_by: user.send(user.class.primary_key))
+          locked.where(locked_by: user.send(user.class.primary_key))
         end
       }
 
@@ -68,7 +68,9 @@ module Alchemy
 
       # Returns all content pages.
       #
-      scope :contentpages, -> { where(layoutpage: [false, nil]).where(Page.arel_table[:parent_id].not_eq(nil)) }
+      scope :contentpages, -> {
+        where(layoutpage: [false, nil]).where(Page.arel_table[:parent_id].not_eq(nil))
+      }
 
       # Returns all public contentpages that are not locked.
       #
@@ -90,6 +92,5 @@ module Alchemy
       #
       scope :sitemap, -> { from_current_site.published.contentpages.where(sitemap: true) }
     end
-
   end
 end

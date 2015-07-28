@@ -501,7 +501,7 @@ module Alchemy
 
         before do
           allow(Page).to receive(:find).with("#{page.id}").and_return(page)
-          allow(Page).to receive(:from_current_site).and_return(double(all_locked_by: nil))
+          allow(Page).to receive(:from_current_site).and_return(double(locked_by: nil))
           expect(page).to receive(:unlock!).and_return(true)
         end
 

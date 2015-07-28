@@ -4,7 +4,8 @@ module Alchemy
       include Userstamp
       include Alchemy::Locale
 
-      before_filter { enforce_ssl if ssl_required? && !request.ssl? }
+      before_action { enforce_ssl if ssl_required? && !request.ssl? }
+      before_action :load_locked_pages
 
       helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
 
@@ -163,6 +164,9 @@ module Alchemy
         controller_path == 'alchemy/admin/pages' && action_name == 'show'
       end
 
+      def load_locked_pages
+        @locked_pages = Page.from_current_site.locked_by(current_alchemy_user)
+      end
     end
   end
 end

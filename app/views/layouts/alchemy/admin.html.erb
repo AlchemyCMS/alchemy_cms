@@ -74,9 +74,12 @@
     <div id="top_menu">
       <div id="sub_navigation">
         <%= admin_subnavigation %>
-        <div id="subnav_additions">
-          <%= yield(:subnav_additions) %>
-        </div>
+        <% if @locked_pages.present? %>
+          <div id="locked_pages">
+            <label><%= _t(:locked_pages) %> &raquo;</label>
+            <%= render partial: 'alchemy/admin/pages/locked_page', collection: @locked_pages %>
+          </div>
+        <% end %>
       </div>
       <div id="toolbar">
         <%= yield(:toolbar) %>

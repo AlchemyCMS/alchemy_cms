@@ -8,7 +8,7 @@ module Alchemy
 
       def index
         @last_edited_pages = Page.from_current_site.all_last_edited_from(current_alchemy_user)
-        @locked_pages = Page.from_current_site.all_locked
+        @all_locked_pages = Page.from_current_site.locked
         if Alchemy.user_class.respond_to?(:logged_in)
           @online_users = Alchemy.user_class.logged_in.to_a - [current_alchemy_user]
         end

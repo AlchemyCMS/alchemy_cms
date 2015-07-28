@@ -175,7 +175,7 @@ fr:
     back: 'arrière'
     create_tree_as_new_language: "%{language} Création d'un nouvel arbre de la langue"
     "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>": ""
-    "Active Pages": "sites actifs"
+    locked_pages: "sites actifs"
     "Add global page": "Nouvelle page globale"
     "Add page link": "Add Reference"
     "Adobe Website": "site Web d'Adobe"
