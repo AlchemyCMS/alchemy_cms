@@ -14,19 +14,11 @@
   <thead>
     <tr>
       <th class="icon"></th>
-      <th class="name">
-        <%= sortable_column(Alchemy::Attachment.human_attribute_name('name'), column: :name) %>
-      </th>
-      <th class="file_name">
-        <%= sortable_column(Alchemy::Attachment.human_attribute_name('file_name'), column: :file_name) %>
-      </th>
+      <th class="name"><%= sort_link(@query, :name, hide_indicator: true) %></th>
+      <th class="file_name"><%= sort_link(@query, :file_name, hide_indicator: true) %></th>
       <th class="file_type"><%= Alchemy::Attachment.human_attribute_name('file_mime_type') %></th>
-      <th class="file_size">
-        <%= sortable_column(Alchemy::Attachment.human_attribute_name('file_size'), column: :file_size) %>
-      </th>
-      <th class="date">
-        <%= sortable_column(Alchemy::Attachment.human_attribute_name('created_at'), column: :created_at) %>
-      </th>
+      <th class="file_size"><%= sort_link(@query, :file_size, hide_indicator: true) %></th>
+      <th class="date"><%= sort_link(@query, :created_at, hide_indicator: true) %></th>
       <th class="tools"></th>
     </tr>
   </thead>
