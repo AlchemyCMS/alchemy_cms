@@ -2,14 +2,19 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::DashboardController do
-    let(:user) { build(:alchemy_dummy_user, :as_admin) }
+    let(:user) { build_stubbed(:alchemy_dummy_user, :as_admin) }
 
     before { authorize_user(user) }
 
     describe '#index' do
       before do
-        expect(Page).to receive(:from_current_site).and_return(double(all_last_edited_from: []))
-        expect(Page).to receive(:from_current_site).and_return(double(all_locked: []))
+        allow(Page).to receive(:from_current_site).and_return(
+          double(
+            all_last_edited_from: [],
+            locked_by: [],
+            locked: []
+          )
+        )
       end
 
       it "assigns @last_edited_pages" do
@@ -17,9 +22,9 @@ module Alchemy
         expect(assigns(:last_edited_pages)).to eq([])
       end
 
-      it "assigns @locked_pages" do
+      it "assigns @all_locked_pages" do
         alchemy_get :index
-        expect(assigns(:locked_pages)).to eq([])
+        expect(assigns(:all_locked_pages)).to eq([])
       end
 
       context 'with user class having logged_in scope' do

@@ -17,7 +17,6 @@ module Alchemy
       def index
         authorize! :index, :alchemy_admin_pages
 
-        @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         @languages = Language.all
         if !@page_root
           @language = Language.current
@@ -67,7 +66,6 @@ module Alchemy
           redirect_to admin_pages_path
         else
           @page.lock_to!(current_alchemy_user)
-          @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
         end
         @layoutpage = @page.layoutpage?
       end
@@ -142,7 +140,7 @@ module Alchemy
         # fetching page via before filter
         @page.unlock!
         flash[:notice] = _t(:unlocked_page, :name => @page.name)
-        @pages_locked_by_user = Page.from_current_site.all_locked_by(current_alchemy_user)
+        @pages_locked_by_user = Page.from_current_site.locked_by(current_alchemy_user)
         respond_to do |format|
           format.js
           format.html {

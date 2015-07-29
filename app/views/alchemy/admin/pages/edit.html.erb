@@ -1,10 +1,5 @@
 <% content_for(:title) { @page.name } %>
 
-<% content_for(:subnav_additions) do %>
-  <label><%= _t('Active Pages') %> &raquo;</label>
-  <%= render partial: 'locked_page', collection: @locked_pages %>
-<% end %>
-
 <% content_for(:toolbar) do %>
 <div class="toolbar_buttons">
   <div class="button_with_label">

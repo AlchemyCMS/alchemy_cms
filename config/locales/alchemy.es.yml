@@ -160,7 +160,7 @@ es:
     anchor: 'Ancla'
     back: 'Atras'
     create_tree_as_new_language: "Crear %{language} como nuevo árbol de idioma"
-    "Active Pages": "Páginas activas"
+    locked_pages: "Páginas activas"
     "Add global page": "Añadir página global"
     "Add page link": "Añadir redirección"
     "Adobe Website": "Sitio web de Adobe"

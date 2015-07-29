@@ -16,7 +16,7 @@ Alchemy.Initializer = ->
 
   # Add observer for please wait overlay.
   $('a.please_wait, #main_navi a.main_navi_entry, div.button_with_label form :submit, #sub_navigation .subnavi_tab a, .pagination a')
-    .not('*[data-alchemy-confirm], #subnav_additions .subnavi_tab button')
+    .not('*[data-alchemy-confirm], #locked_pages .subnavi_tab button')
     .click ->
       unless Alchemy.isPageDirty()
         Alchemy.pleaseWaitOverlay()

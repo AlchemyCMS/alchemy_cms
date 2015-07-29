@@ -71,4 +71,18 @@ describe Alchemy::Admin::BaseController do
     end
   end
 
+  context 'when current_alchemy_user is present' do
+    let!(:page) { create(:page) }
+    let!(:user) { create(:alchemy_dummy_user, :as_admin) }
+
+    before do
+      allow(controller).to receive(:current_alchemy_user) { user }
+      page.lock_to!(user)
+    end
+
+    it 'loads locked pages' do
+      controller.send(:load_locked_pages)
+      expect(assigns(:locked_pages)).to include(page)
+    end
+  end
 end

@@ -1,12 +1,12 @@
 <div class="widget">
   <h2><%= _t('Currently locked pages') %>:</h2>
   <table>
-  <% if @locked_pages.blank? %>
+  <% if @all_locked_pages.blank? %>
     <tr class="even">
       <td><%= _t('no pages') %></td>
     </tr>
   <% else %>
-    <% @locked_pages.each do |page| %>
+    <% @all_locked_pages.each do |page| %>
     <tr class="<%= cycle('even', 'odd', :name => 'locked_pages') %>">
       <% if current_alchemy_user.id == page.locked_by %>
       <td>

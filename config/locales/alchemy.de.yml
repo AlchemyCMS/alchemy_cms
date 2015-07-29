@@ -159,7 +159,7 @@ de:
     anchor: 'Sprungmarke'
     back: 'zurück'
     create_tree_as_new_language: "%{language} als neuen Sprachbaum anlegen"
-    "Active Pages": "Aktive Seiten"
+    locked_pages: "Aktive Seiten"
     "Add global page": "Neue globale Seite"
     "Add page link": "Verweis hinzufügen"
     "Adobe Website": "Adobe Webseite"

@@ -2,7 +2,7 @@
   $('#locked_page_<%= @page.id -%>').remove();
   $('#page_<%= @page.id -%> .sitemap_page').removeClass('locked');
   <%- if @pages_locked_by_user.blank? -%>
-  $('#subnav_additions label').hide();
+  $('#locked_pages label').hide();
   <%- end -%>
   Alchemy.growl('<%= flash[:notice] -%>');
 })(jQuery);

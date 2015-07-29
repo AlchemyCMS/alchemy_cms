@@ -8,11 +8,6 @@ module Alchemy
     end
 
     describe "#index" do
-      it "should assign @locked_pages" do
-        alchemy_get :index
-        expect(assigns(:locked_pages)).to eq([])
-      end
-
       it "should assign @layout_root" do
         alchemy_get :index
         expect(assigns(:layout_root)).to be_a(Page)
