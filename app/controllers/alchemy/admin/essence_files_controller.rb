@@ -36,7 +36,7 @@ module Alchemy
       private
 
       def essence_file_params
-        params.require(:essence_file).permit(:title, :css_class)
+        params.require(:essence_file).permit(:title, :css_class, :link_text)
       end
 
       def load_essence_file

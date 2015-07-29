@@ -45,7 +45,6 @@ module Alchemy
 
     before_create do
       write_attribute(:name, convert_to_humanized_name(self.file_name, self.file.ext))
-      write_attribute(:file_name, sanitized_filename)
     end
 
     after_update :touch_contents
@@ -60,8 +59,9 @@ module Alchemy
       }
     end
 
+    # An url save filename without format suffix
     def urlname
-      read_attribute :file_name
+      CGI.escape(file_name.gsub(/\.#{extension}$/, '').gsub(/\./, ' '))
     end
 
     # Checks if the attachment is restricted, because it is attached on restricted pages only
@@ -69,6 +69,7 @@ module Alchemy
       pages.any? && pages.not_restricted.blank?
     end
 
+    # File format suffix
     def extension
       file_name.split(".").last
     end
@@ -105,13 +106,5 @@ module Alchemy
         else "file"
       end
     end
-
-    def sanitized_filename
-      parts = self.file_name.split('.')
-      sfx = parts.pop
-      name = convert_to_urlname(parts.join('-'))
-      "#{name}.#{sfx}"
-    end
-
   end
 end
