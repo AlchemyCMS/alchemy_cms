@@ -1,10 +1,16 @@
 <%- cache(content) do -%>
 <%- if attachment = content.ingredient -%>
 <%= link_to(
-  h(attachment.name),
-  alchemy.download_attachment_path(attachment),
-  class: "file_link #{content.essence.css_class.blank? ? "" : content.essence.css_class}",
-  title: "#{content.essence.title.blank? ? attachment.file_name : content.essence.title}"
+  content.essence.link_text.presence ||
+    content_settings_value(content, :link_text, local_assigns.fetch(:options, {})) ||
+    attachment.name,
+  alchemy.download_attachment_path(
+    attachment,
+    name: attachment.urlname,
+    format: attachment.suffix
+  ),
+  class: content.essence.css_class.presence,
+  title: content.essence.title.presence
 ) -%>
 <%- end -%>
 <%- end -%>

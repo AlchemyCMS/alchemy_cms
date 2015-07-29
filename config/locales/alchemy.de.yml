@@ -846,6 +846,8 @@ de:
 
       alchemy/essence_file:
         css_class: Stil
+        link_text: Link-Text
+        title: Titel
 
       alchemy/essence_picture:
         caption: "Untertitel"

@@ -11,20 +11,6 @@ module Alchemy
       let(:ingredient_value) { attachment }
     end
 
-    describe '#attachment_url' do
-      subject { essence.attachment_url }
-
-      it "returns the download attachment url." do
-        is_expected.to match(/\/attachment\/#{attachment.id}\/download\/#{attachment.file_name}/)
-      end
-
-      context 'without attachment assigned' do
-        let(:attachment) { nil }
-
-        it { is_expected.to be_nil }
-      end
-    end
-
     describe '#preview_text' do
 
       it "returns the attachment's name as preview text" do
@@ -38,6 +24,5 @@ module Alchemy
         end
       end
     end
-
   end
 end

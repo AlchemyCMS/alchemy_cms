@@ -20,33 +20,29 @@ module Alchemy
         expect(attachment.name).to eq("image with spaces")
       end
 
-      it "should have a valid file_name" do
-        expect(attachment.file_name).to eq("image-with-spaces.png")
-      end
-
       after { attachment.destroy }
     end
 
     describe 'urlname sanitizing' do
-      it "should sanitize url characters in the filename" do
+      it "escapes unsafe url characters" do
         attachment.file_name = 'f#%&cking cute kitten pic.png'
-        attachment.save!
-        expect(attachment.urlname).to eq('f-cking-cute-kitten-pic.png')
+        expect(attachment.urlname).to eq('f%23%25%26cking+cute+kitten+pic')
       end
 
-      it "should sanitize lot of dots in the name" do
+      it "removes format suffix from end of file name" do
+        attachment.file_name = 'pic.png.png'
+        expect(attachment.urlname).to eq('pic+png')
+      end
+
+      it "converts dots into escaped spaces" do
         attachment.file_name = 'cute.kitten.pic.png'
-        attachment.save!
-        expect(attachment.urlname).to eq('cute-kitten-pic.png')
+        expect(attachment.urlname).to eq('cute+kitten+pic')
       end
 
-      it "should sanitize umlauts in the name" do
+      it "escapes umlauts in the name" do
         attachment.file_name = 'süßes katzenbild.png'
-        attachment.save!
-        expect(attachment.urlname).to eq('suesses-katzenbild.png')
+        expect(attachment.urlname).to eq('s%C3%BC%C3%9Fes+katzenbild')
       end
-
-      after { attachment.destroy }
     end
 
     describe 'validations' do

@@ -36,9 +36,14 @@ module Alchemy
       end
 
       it "should update the attributes of essence_file" do
-        alchemy_xhr :put, :update, id: essence_file.id, essence_file: {title: 'new title', css_class: 'left'}
+        alchemy_xhr :put, :update, id: essence_file.id, essence_file: {
+          title: 'new title',
+          css_class: 'left',
+          link_text: 'Download this file'
+        }
         expect(essence_file.title).to eq 'new title'
         expect(essence_file.css_class).to eq 'left'
+        expect(essence_file.link_text).to eq 'Download this file'
       end
     end
 
