@@ -28,68 +28,6 @@ module Alchemy
         end
       end
 
-      # Renders a link to show the new content overlay that lets you add additional contents.
-      #
-      # See +render_create_content_link+ helper for examples on how to define additional contents.
-      #
-      def render_new_content_link(element)
-        link_to_dialog(
-          "#{render_icon(:create)} #{_t('add new content')}".html_safe,
-          alchemy.new_admin_element_content_path(element),
-          {
-            size: '310x115',
-            title: _t('Select an content'),
-            overflow: true
-          },
-          {
-            id: "add_content_for_element_#{element.id}",
-            class: 'button with_icon new_content_link'
-          }
-        )
-      end
-
-      # Renders a link that dynamically adds an additional content into your element editor view.
-      #
-      # NOTE: You have to define additional contents in your elements.yml file first.
-      #
-      # ==== Example:
-      #
-      #   # config/alchemy/elements.yml
-      #   - name: downloads:
-      #     contents:
-      #     - name: file
-      #       type: EssenceFile
-      #     additional_contents:
-      #     - name: file
-      #       type: EssenceFile
-      #
-      # Then add this helper into the elements editor view partial:
-      #
-      #   <%= render_create_content_link(element, 'file') %>
-      #
-      # Optionally you can pass a label:
-      #
-      #   <%= render_create_content_link(element, 'file', label: 'Add a file') %>
-      #
-      def render_create_content_link(element, content_name, options = {}, options_for_content = {})
-        defaults = {
-          label: _t('Add %{name}', name: _t(content_name, scope: :content_names))
-        }
-        options = defaults.merge(options)
-        link_to(render_icon(:create) + options[:label], alchemy.admin_contents_path(
-            content: {
-              name: content_name,
-              element_id: element.id
-            },
-            options: options_for_content.to_json
-          ),
-          method: :post,
-          remote: true,
-          id: "add_content_for_element_#{element.id}",
-          class: 'button with_icon new_content_link'
-        )
-      end
-
       # Renders the label and a remove link for a content.
       def content_label(content)
         content_tag :label do

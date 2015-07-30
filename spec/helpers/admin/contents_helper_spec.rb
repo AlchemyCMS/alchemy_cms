@@ -43,23 +43,4 @@ describe Alchemy::Admin::ContentsHelper do
       end
     end
   end
-
-  describe 'render_new_content_link' do
-    subject { helper.render_new_content_link(element) }
-
-    it "renders a link to add new content to element" do
-      allow(helper).to receive(:render_icon).and_return('')
-      is_expected.to match(/a.+href.*admin\/elements\/#{element.id}\/contents\/new/m)
-    end
-  end
-
-  describe 'render_create_content_link' do
-    subject { helper.render_create_content_link(element, 'headline') }
-
-    it "should render a link to create a content in element" do
-      allow(helper).to receive(:render_icon).and_return('')
-      is_expected.to have_selector('a.new_content_link[data-method="post"]')
-    end
-  end
-
 end
