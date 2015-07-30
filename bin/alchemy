@@ -24,7 +24,7 @@ class AlchemyInstaller < Thor
     say welcome_message, :yellow
     say "Step 1: Creating a Rails #{rails_version} application.", :yellow
     say "Please wait...", :yellow
-    system("rails _#{rails_version}_ new #{@application} -m #{alchemy_template} -d #{options[:database]} -T --quiet") || exit!(1)
+    system("rails _#{rails_version}_ new #{@application} -m #{alchemy_template} -d #{options[:database]} -T") || exit!(1)
     say "Successfully created the Rails application!", :green
     say instructions, :yellow
     if options[:database] == 'mysql' || options[:database] == 'postgresql'
@@ -58,7 +58,7 @@ class AlchemyInstaller < Thor
   end
 
   def bundle_cmd
-    "cd #{@application} && bundle exec"
+    "cd #{@application} && DISABLE_SPRING=1 bundle exec"
   end
 
   def alchemy_template
@@ -89,7 +89,7 @@ INSTRUCTIONS
   def further_instructions
     <<-EOF
 
-Step 5: Further Instructions
+Step 4: Further Instructions
 
 Change into your app folder:
 
