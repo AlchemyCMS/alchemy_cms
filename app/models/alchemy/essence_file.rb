@@ -18,6 +18,15 @@ module Alchemy
     belongs_to :attachment
     acts_as_essence ingredient_column: 'attachment'
 
+    def attachment_url
+      return if attachment.nil?
+      routes.download_attachment_path(
+        id: attachment.id,
+        name: attachment.urlname,
+        format: attachment.suffix
+      )
+    end
+
     def preview_text(max=30)
       return "" if attachment.blank?
       attachment.name.to_s[0..max-1]
@@ -27,5 +36,12 @@ module Alchemy
     def serialized_ingredient
       attachment_url
     end
+
+    private
+
+    def routes
+      @routes ||= Engine.routes.url_helpers
+    end
+
   end
 end
