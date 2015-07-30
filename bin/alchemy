@@ -30,6 +30,7 @@ class AlchemyInstaller < Thor
     if options[:database] == 'mysql' || options[:database] == 'postgresql'
       create_database_yml(options[:database])
     end
+    system("cd #{@application} && bundle install")
     system("#{rake_cmd} alchemy:install from_binary=true") || exit!(1)
     say "\nStep 3: Installing Alchemy User into Rails app", :yellow
     say "Please wait...", :yellow
