@@ -6,8 +6,8 @@ de:
       already_confirmed: "wurde bereits bestätigt"
       not_locked: "ist nicht gesperrt"
       not_saved:
-        one: "Es konnte nicht fortfahren werden:"
-        other: "Es konnte nicht fortfahren werden:"
+        one: "Es konnte nicht fortgefahren werden:"
+        other: "Es konnte nicht fortgefahren werden:"
 
   devise:
     failure:
