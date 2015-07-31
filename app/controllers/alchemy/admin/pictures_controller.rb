@@ -38,6 +38,10 @@ module Alchemy
         end
       end
 
+      def show
+        render action: 'show'
+      end
+
       def create
         @picture = Picture.new(picture_params)
         @picture.name = @picture.humanized_name
