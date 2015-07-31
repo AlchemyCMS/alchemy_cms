@@ -50,6 +50,7 @@ class window.Alchemy.Dialog
     @overlay.removeClass('open') if @overlay?
     @$document.on 'webkitTransitionEnd transitionend oTransitionEnd', =>
       @$document.off 'webkitTransitionEnd transitionend oTransitionEnd'
+      Alchemy.Tinymce.removeFrom(@dialog_body)
       @dialog_container.remove()
       @overlay.remove() if @overlay?
       @$body.removeClass('prevent-scrolling')
@@ -95,6 +96,7 @@ class window.Alchemy.Dialog
   # Initializes the Dialog body
   init: ->
     Alchemy.GUI.init(@dialog_body)
+    Alchemy.Tinymce.initFor('.alchemy-dialog-body')
     $('#overlay_tabs', @dialog_body).tabs()
     @watch_remote_forms()
 

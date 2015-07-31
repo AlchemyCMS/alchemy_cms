@@ -34,7 +34,8 @@ form {
     input[type="password"],
     textarea,
     .select2-container,
-    .autocomplete_tag_list {
+    .autocomplete_tag_list,
+    .mce-tinymce {
       width: $form-right-width;
       float: right;
     }
