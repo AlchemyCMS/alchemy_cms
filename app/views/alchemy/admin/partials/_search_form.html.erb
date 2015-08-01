@@ -6,11 +6,14 @@
     <%= f.search_field resource_handler.search_field_name,
       id: 'search_input_field',
       placeholder: _t(:search) %>
+    <% local_assigns.fetch(:additional_query_fields, []).each do |field| %>
+      <%= f.hidden_field field %>
+    <% end %>
     <%= link_to '', url,
         class: 'search_field_clear',
         id: 'search_field_clear',
         title: _t(:click_to_show_all),
-        style: params[:q].present? ? 'display: block' : 'display: none' %>
+        style: params.fetch(:q, {}).fetch(resource_handler.search_field_name, '').present? ? 'display: block' : 'display: none' %>
     <% local_assigns.fetch(:additional_params, []).each do |additional_param| %>
       <%= hidden_field_tag additional_param, params[additional_param] %>
     <% end %>

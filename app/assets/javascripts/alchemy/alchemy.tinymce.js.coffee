@@ -29,6 +29,15 @@ $.extend Alchemy.Tinymce,
     for id in ids
       @initEditor(id)
 
+  # Initializes TinyMCE editors for all textareas with .tinymce class
+  #
+  initFor: (scope) ->
+    config = @defaults
+    config['selector'] = "#{scope} textarea.tinymce"
+    config['width'] = '65%'
+    tinymce.init(config)
+    return
+
   # Initializes one specific TinyMCE editor
   #
   # @param id [Number]
@@ -66,3 +75,10 @@ $.extend Alchemy.Tinymce,
       editor = tinymce.get("tinymce_#{id}")
       if editor
         editor.remove()
+
+  # Remove all tinymce instances within given $scope
+  removeFrom: ($scope) ->
+    $('textarea.tinymce', $scope).each ->
+      tinymce.get(this.id).remove()
+      return
+    return

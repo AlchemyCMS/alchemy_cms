@@ -25,7 +25,7 @@ input[type="search"]::-webkit-search-results-decoration  {
 }
 
 textarea {
-  height: auto;
+  height: auto !important;
   padding: 4px 8px !important;
   line-height: 19px !important;
 }
