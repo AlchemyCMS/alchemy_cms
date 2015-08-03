@@ -504,6 +504,8 @@ de:
         last_upload: "die zuletzt hochgeladen wurden"
         recent: "aus den letzten 24 Stunden"
         without_tag: "ohne Tag"
+    picture_not_in_use_yet: Dieses Bild ist bisher nicht in Verwendung
+    pictures_in_page: "%{page} in %{pictures}"
     place_link: "Text verlinken"
     player_version: "Flashplayer Version"
     "please enter subject and mail address": "Bitte geben Sie den Betreff und eine Empfängeradresse an."

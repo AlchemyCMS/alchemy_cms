@@ -1,11 +1,13 @@
 <div id="zoomed_picture_background">
-  <%= image_tag(
-    alchemy.zoom_picture_path(
-      id: @picture.id,
-      name: @picture.urlname,
-      format: 'png',
-      sh: @picture.security_token
-    ),
-    class: "zoomed_picture"
+  <%= image_tag alchemy.zoom_picture_path(
+    id: @picture.id,
+    name: @picture.urlname,
+    format: 'png',
+    sh: @picture.security_token
   ) %>
+</div>
+
+<div class="picture-details-overlay">
+  <%= render 'form' %>
+  <%= render 'infos' %>
 </div>

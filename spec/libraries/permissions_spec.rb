@@ -165,7 +165,6 @@ describe Alchemy::Permissions do
 
     it "can see all pictures" do
       is_expected.to be_able_to(:read, Alchemy::Picture)
-      is_expected.to be_able_to(:info, Alchemy::Picture)
     end
 
     it "can manage contents" do

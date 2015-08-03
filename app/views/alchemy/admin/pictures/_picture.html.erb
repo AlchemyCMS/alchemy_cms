@@ -21,62 +21,23 @@
     ) -%>
   </span>
   <% end %>
-  <% if can?(:edit, picture) %>
-  <span class="picture_tool edit">
-    <%= link_to_dialog(
-      "",
-      alchemy.edit_admin_picture_path(
-        id: picture,
-        query: params[:query],
-        page: params[:page],
-        tagged_with: params[:tagged_with],
-        size: params[:size],
-        filter: params[:filter]
-      ),
-      {
-        title: _t('Edit image'),
-        size: "400x210"
-      },
-      {
-        title: _t('Edit image')
-      }
-    ) -%>
-  </span>
-  <% end %>
-  <% if can?(:info, picture) %>
-  <span class="picture_tool info">
-    <%= link_to_dialog(
-      "",
-      alchemy.info_admin_picture_path(
-        id: picture,
-        query: params[:query],
-        page: params[:page],
-        tagged_with: params[:tagged_with],
-        size: params[:size],
-        filter: params[:filter]
-      ),
-      {
-        title: _t('Picture infos'),
-        size: "400x270"
-      },
-      {
-        title: _t('Show picture infos')
-      }
-    ) -%>
-  </span>
-  <% end %>
-  <%= link_to(
-    image_tag(
-      alchemy.thumbnail_path(id: picture, size: @size, sh: picture.security_token(size: @size)),
-      alt: picture.name,
-      title: _t(:zoom_image)
-    ),
-    '#',
-    onclick: "Alchemy.zoomImage('#{admin_picture_path(id: picture.id, sh: picture.security_token)}', '#{picture.name}', #{picture.image_file_width || 320}, #{picture.image_file_height || 240}); return false",
-    class: 'thumbnail_background',
-    id: 'show_in_window'
+  <% image = image_tag(
+    alchemy.thumbnail_path(id: picture, size: @size, sh: picture.security_token(size: @size)),
+    alt: picture.name,
+    title: _t(:zoom_image)
   ) %>
-  <span class="picture_name" title="<%= picture.name %>" id="image_picture_<%= picture.id %>_name">
+  <% if can?(:edit, picture) %>
+    <%= link_to(
+      image,
+      '#',
+      onclick: "Alchemy.zoomImage('#{admin_picture_path(id: picture.id, sh: picture.security_token)}', '#{picture.name}', #{picture.image_file_width || 320}, #{picture.image_file_height || 240}); return false",
+      class: 'thumbnail_background',
+      id: 'show_in_window'
+    ) %>
+  <% else %>
+    <%= image %>
+  <% end %>
+  <span class="picture_name" title="<%= picture.name %>">
     <%= picture.name %>
   </span>
   <div class="picture_tags">

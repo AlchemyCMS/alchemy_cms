@@ -1,0 +1,142 @@
+$image-overlay-form-width: 350px;
+
+.alchemy-image-overlay {
+
+  &.open {
+    background-color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+.alchemy-image-overlay-container,
+.alchemy-image-overlay-dialog {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+.alchemy-image-overlay-body {
+  width: 100%;
+  height: 100%;
+}
+
+.alchemy-image-overlay-close {
+  width: 32px;
+  height: 32px;
+  top: 2*$default-padding;
+  right: $image-overlay-form-width + 2*$default-padding;
+  cursor: pointer;
+
+  .icon.close.small {
+    font-size: 32px;
+    color: white;
+  }
+}
+
+.picture-details-overlay {
+  @include box-sizing(border-box);
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: $image-overlay-form-width;
+  height: 100%;
+  background-color: $medium-gray;
+  padding: 2*$default-padding 4*$default-padding;
+  overflow: auto;
+  @include box-shadow(-2px 0 $default-padding -2px $text-color);
+
+  form .control-label,
+  .resource_info .value label {
+    width: 100%;
+    text-align: left;
+    float: none;
+    display: block;
+    padding: 0;
+    margin: $default-margin 0 0;
+  }
+
+  form .input .hint {
+    margin-left: 0;
+  }
+
+  form .input .select2-container,
+  form .input input[type="text"],
+  .resource_info .value p {
+    width: 100%;
+  }
+}
+
+#zoomed_picture_background {
+  @include box-sizing(border-box);
+  width: 100%;
+  height: 100%;
+  padding-top: 2*$default-padding;
+  padding-right: $image-overlay-form-width + 2*$default-padding;
+  padding-bottom: 2*$default-padding;
+  padding-left: 2*$default-padding;
+  margin: 0 auto;
+  text-align: center;
+  cursor: pointer;
+
+  &:before {
+    content: '';
+    vertical-align: middle;
+    display: inline-block;
+    height: 100%;
+    margin-left: -4px;
+  }
+
+  .spinner {
+    position: absolute !important;
+    left: 50% !important;
+    top: 50% !important;
+    @include transform(translateY(-50%));
+    margin-left: -$image-overlay-form-width/2;
+  }
+
+  img {
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    @include box-shadow(0 0 2*$default-margin $text-color);
+    background-color: $dark-gray;
+    vertical-align: middle;
+    cursor: default;
+  }
+}
+
+.picture-file-infos,
+.picture-usage-info {
+  padding: 2*$default-padding 0;
+
+  .message {
+    @include box-sizing(border-box);
+    margin: 2*$default-padding 0;
+  }
+}
+
+#pictures_page_list {
+
+  h3 {
+    padding: $default-padding 0 0;
+    margin: 0;
+  }
+
+  ol {
+    padding-left: 0;
+    list-style-position: inside;
+  }
+
+  .list {
+    margin: 2*$default-margin 0;
+
+    li {
+      padding: 2*$default-padding;
+      @include border-radius($default-border-radius);
+      white-space: normal;
+
+      &.even { background: #F7F7F7 }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+<div class="resource_info">
+  <div class="picture-file-infos">
+    <h2><%= _t('Picture infos') %></h2>
+    <div class="value">
+      <label><%= Alchemy::Picture.human_attribute_name(:image_file_name) %></label>
+      <p><%= @picture.image_file_name %></p>
+    </div>
+    <div class="value">
+      <label><%= Alchemy::Picture.human_attribute_name(:image_file_dimensions) %></label>
+      <p><%= @picture.image_file_dimensions %>px</p>
+    </div>
+    <div class="value">
+      <label><%= Alchemy::Picture.human_attribute_name(:image_file_size) %></label>
+      <p><%= number_to_human_size @picture.image_file_size %></p>
+    </div>
+  </div>
+</div>
+
+<div class="picture-usage-info resource_info">
+  <h2><%= _t(:this_picture_is_used_on_these_pages) %></h2>
+  <div id="pictures_page_list">
+    <% if @pages.any? %>
+      <ol>
+        <% @pages.each do |page, essence_pictures| %>
+          <% if page %>
+            <li>
+              <h3><%= link_to page.name, edit_admin_page_path(page) %></h3>
+              <ul class="list">
+                <% essence_pictures.group_by(&:element).each do |element, essence_pictures| %>
+                  <li class="<%= cycle('even', 'odd') %>">
+                    <% page_link = link_to element.display_name_with_preview_text,
+                                   edit_admin_page_path(page, anchor: "element_#{element.id}") %>
+                    <% pictures = essence_pictures.collect do |e|
+                                    e.content.name_for_label
+                                  end.to_sentence %>
+                    <%== _t(:pictures_in_page, page: page_link, pictures: pictures) %>
+                  </li>
+                <% end %>
+              </ul>
+            </li>
+          <% end %>
+        <% end %>
+      </ol>
+    <% else %>
+      <%= render_message do %>
+        <%= _t(:picture_not_in_use_yet) %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

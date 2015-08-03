@@ -175,7 +175,7 @@ module Alchemy
     # 200 x 100
     #
     def image_file_dimensions
-      "#{image_file_width} x #{image_file_height}"
+      "#{image_file_width}x#{image_file_height}"
     end
 
     # Returns a security token for signed picture rendering requests.

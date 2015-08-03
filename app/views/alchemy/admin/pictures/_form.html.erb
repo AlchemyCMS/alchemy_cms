@@ -1,13 +1,14 @@
 <%= alchemy_form_for [:admin, @picture] do |f| %>
-  <%= hidden_field_tag :query, params[:query] %>
-  <%= hidden_field_tag :size, params[:size] %>
-  <%= hidden_field_tag :tagged_with, params[:tagged_with] %>
-  <%= hidden_field_tag :filter, params[:filter] %>
+  <h2><%= _t('Edit image') %></h2>
   <%= f.input :name %>
   <div class="input tag_list">
     <%= f.label :tag_list %>
     <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
     <small class="hint"><%= _t('Please seperate the tags with commata') %></small>
   </div>
+  <%= hidden_field_tag :query, params[:query] %>
+  <%= hidden_field_tag :size, params[:size] %>
+  <%= hidden_field_tag :tagged_with, params[:tagged_with] %>
+  <%= hidden_field_tag :filter, params[:filter] %>
   <%= f.submit _t(:save) %>
 <% end %>
