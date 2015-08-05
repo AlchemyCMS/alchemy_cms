@@ -63,6 +63,28 @@ module Alchemy
         end
       end
 
+      context "having a filename with special characters" do
+        before do
+           attachment.file_name = 'my FileNämü.pdf'
+           attachment.save
+         end
+
+        it "should be valid" do
+          expect(attachment).to be_valid
+        end
+      end
+
+      context "having a filename with unallowed character" do
+        before do
+          attachment.file_name = 'my FileNämü?!.pdf'
+          attachment.save
+        end
+
+        it "should not be valid" do
+          expect(attachment).not_to be_valid
+        end
+      end
+
     end
 
     context 'PNG image' do
