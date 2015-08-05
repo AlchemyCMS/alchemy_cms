@@ -94,7 +94,6 @@ module Alchemy
     include Alchemy::Page::PageNatures
     include Alchemy::Page::PageNaming
     include Alchemy::Page::PageUsers
-    include Alchemy::Page::PageCells
     include Alchemy::Page::PageElements
 
     # Class methods
@@ -147,8 +146,9 @@ module Alchemy
         end
       end
 
+      # Returns layout root page for given language id
       def layout_root_for(language_id)
-        where({:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id}).limit(1).first
+        find_by(parent_id: Page.root.id, layoutpage: true, language_id: language_id)
       end
 
       def find_or_create_layout_root_for(language_id)
@@ -324,8 +324,8 @@ module Alchemy
       self.children.each do |child|
         next if child == new_parent
         new_child = Page.copy(child, {
-          :language_id => new_parent.language_id,
-          :language_code => new_parent.language_code
+          language_id: new_parent.language_id,
+          language_code: new_parent.language_code
         })
         new_child.move_to_child_of(new_parent)
         child.copy_children_to(new_child) unless child.children.blank?
@@ -351,7 +351,13 @@ module Alchemy
     #   A tree node with new lft, rgt, depth, url, parent_id and restricted indexes to be updated
     #
     def update_node!(node)
-      hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted}
+      hash = {
+        lft: node.left,
+        rgt: node.right,
+        parent_id: node.parent,
+        depth: node.depth,
+        restricted: node.restricted
+      }
 
       if Config.get(:url_nesting) && !self.redirects_to_external? && self.urlname != node.url
         LegacyPageUrl.create(page_id: self.id, urlname: self.urlname)
@@ -404,6 +410,5 @@ module Alchemy
     def update_published_at
       self.published_at = Time.now
     end
-
   end
 end

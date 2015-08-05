@@ -136,15 +136,11 @@ module Alchemy
       contents.find_by(name: definition['name'])
     end
 
-    # creates the contents for this element as described in the elements.yml
+    # Creates the contents for this element as described in the elements.yml file.
     def create_contents
-      contents = []
-      if definition["contents"].blank?
-        log_warning "Could not find any content definitions for element: #{name}"
-      else
-        definition["contents"].each do |content_hash|
-          contents << Content.create_from_scratch(self, content_hash.symbolize_keys)
-        end
+      return if definition["contents"].blank?
+      definition["contents"].each do |content_hash|
+        contents << Content.create_from_scratch(self, content_hash.symbolize_keys)
       end
     end
   end

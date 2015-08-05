@@ -1,30 +1,74 @@
-<% if @cells.any? %>
-  <div id="cells">
-    <ul>
-      <li><a href="#cell_for_other_elements"><%= _t(:main_content) %></a></li>
-      <% @elements.each do |cell, elements| %>
-        <li>
-          <a href="#cell_<%= cell.name %>">
-            <%= _t(cell.name, scope: :cell_names) %>
-          </a>
-        </li>
-      <% end %>
-    </ul>
-    <div id="cell_for_other_elements" class="sortable_cell for_other_elements_cell">
-      <%= render partial: 'alchemy/admin/elements/element',
-        collection: @page.elements.not_trashed.not_in_cell %>
+<% if @page.can_have_fixed_elements? %>
+  <div id="fixed_elements">
+    <div class="fixed-elements-nav">
+      <ul>
+        <li><a href="#main_content_elements"><%= _t(:main_content) %></a></li>
+        <% @fixed_elements.each do |fixed_element| %>
+          <li>
+            <a href="#fixed_element_<%= fixed_element.id %>">
+              <%= fixed_element.display_name %>
+            </a>
+          </li>
+        <% end %>
+      </ul>
+      <div class="add-fixed-element-tab">
+        <% if @page.available_element_definitions(nil, true).present? %>
+          <%= link_to_dialog render_icon('plus'),
+            alchemy.new_admin_element_path(
+              fixed_only: true,
+              page_id: @page.id
+            ), {
+              size: "320x125",
+              title: _t("New fixed element")
+            },
+            class: "small button add-element-button",
+            title: _t("New fixed element") %>
+        <% end %>
+      </div>
     </div>
-    <% @elements.each do |cell, elements| -%>
-      <%= content_tag :div,
-        id: "cell_#{cell.name}",
-        class: ["sortable_cell", "#{cell.name}_cell"].join(' '),
-        data: {'cell-id' => cell.id, 'data-droppable-elements' => cell.element_definitions.join(' ')} do %>
-        <%= render partial: 'alchemy/admin/elements/element', collection: elements %>
+    <div id="main_content_elements" class="sortable-elements">
+      <%= render 'alchemy/admin/elements/add_element_button', insert_at: 'top' %>
+      <% @page.unfixed_elements.unnested.each do |element| %>
+        <%= render 'alchemy/admin/elements/element', element: element %>
+      <% end %>
+      <% if @page.unfixed_elements.unnested.any? %>
+        <%= render 'alchemy/admin/elements/add_element_button' %>
+      <% end %>
+    </div>
+    <% @fixed_elements.each do |fixed_element| -%>
+      <%= content_tag :div, id: "fixed_element_#{fixed_element.id}",
+        class: ["sortable-elements", "#{fixed_element.name}_fixed_element"].join(' '),
+        data: {
+          'fixed-element-id' => fixed_element.id,
+          'droppable-elements' => fixed_element.nestable_elements.join(' ')
+        } do %>
+          <%= render 'alchemy/admin/elements/add_element_button',
+            parent_element_id: fixed_element.id,
+            insert_at: 'top' %>
+          <% fixed_element.nested_elements.each do |nested_element| %>
+            <%= render 'alchemy/admin/elements/element', element: nested_element %>
+          <% end %>
+          <% if fixed_element.nested_elements.any? %>
+            <%= render 'alchemy/admin/elements/add_element_button',
+              parent_element_id: fixed_element.id %>
+          <% end %>
       <% end %>
     <% end %>
   </div>
+<% elsif @elements.any? %>
+  <%= content_tag :div, class: 'sortable-elements', id: 'main_content_elements',
+    'data-droppable-elements': @page.defined_element_names.join(' ') do %>
+    <%= render 'alchemy/admin/elements/add_element_button', insert_at: 'top' %>
+    <% @elements.each do |element| %>
+      <%= render 'alchemy/admin/elements/element', element: element %>
+    <% end %>
+    <% if @elements.any? %>
+      <%= render 'alchemy/admin/elements/add_element_button' %>
+    <% end %>
+  <% end %>
 <% else %>
-  <div class="sortable_cell for_other_elements_cell" id="cell_for_other_elements" data-droppable-elements="<%= @page.element_names_from_definition.join(' ') %>">
-    <%= render partial: 'alchemy/admin/elements/element', collection: @elements %>
+  <div class="info message with_margin">
+    <%= render_icon(:info) %>
+    <p><%= _t('This page does not have any elements defined.') %></p>
   </div>
 <% end %>

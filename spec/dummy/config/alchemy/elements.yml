@@ -114,6 +114,9 @@
 
 - name: right_column
   fixed: true
+  contents:
+    - name: headline
+      type: EssenceText
   nestable_elements:
     - search
     - text

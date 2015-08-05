@@ -6,12 +6,8 @@ module Alchemy
 
       def index
         @page = Page.find(params[:page_id])
-        @cells = @page.cells
-        if @cells.blank?
-          @elements = @page.elements.not_trashed
-        else
-          @elements = @page.elements_grouped_by_cells
-        end
+        @elements = @page.unfixed_elements
+        @fixed_elements = @page.fixed_elements
       end
 
       def list
@@ -25,7 +21,10 @@ module Alchemy
       def new
         @page = Page.find(params[:page_id])
         @parent_element = Element.find_by(id: params[:parent_element_id])
-        @elements = @page.available_element_definitions(@parent_element.try(:name))
+        @elements = @page.available_element_definitions(
+          @parent_element.try(:name),
+          params[:fixed_only].present?
+        )
         @element = @page.elements.build
         @clipboard = get_clipboard('elements')
         @clipboard_items = Element.all_from_clipboard_for_page(@clipboard, @page)
@@ -35,23 +34,11 @@ module Alchemy
       def create
         @page = Page.find(params[:element][:page_id])
         Element.transaction do
-          if @paste_from_clipboard = params[:paste_from_clipboard].present?
-            @element = paste_element_from_clipboard
-            @cell = @element.cell
-          else
-            @element = Element.new_from_scratch(params[:element])
-            if @page.can_have_cells?
-              @cell = find_or_create_cell
-              @element.cell = @cell
-            end
-            @element.save
-          end
-          if @page.definition['insert_elements_at'] == 'top'
-            @insert_at_top = true
+          @element = element_from_clipboard_or_create
+          if params['insert_at'] == 'top'
             @element.move_to_top
           end
         end
-        @cell_name = @cell.nil? ? "for_other_elements" : @cell.name
         if @element.valid?
           render :create
         else
@@ -116,22 +103,12 @@ module Alchemy
         @element = Element.find(params[:id])
       end
 
-      # Returns the cell for element name in params.
-      # Creates the cell if necessary.
-      def find_or_create_cell
-        if @paste_from_clipboard
-          element_with_cell_name = params[:paste_from_clipboard]
+      def element_from_clipboard_or_create
+        if params[:paste_from_clipboard].present?
+          paste_element_from_clipboard
         else
-          element_with_cell_name = params[:element][:name]
+          Element.create_from_scratch(params[:element])
         end
-        return nil if element_with_cell_name.blank?
-        return nil unless element_with_cell_name.include?('#')
-        cell_name = element_with_cell_name.split('#').last
-        cell_definition = Cell.definition_for(cell_name)
-        if cell_definition.blank?
-          raise CellDefinitionError, "Cell definition not found for #{cell_name}"
-        end
-        @page.cells.find_or_create_by(name: cell_definition['name'])
       end
 
       def element_from_clipboard
@@ -144,7 +121,7 @@ module Alchemy
       def paste_element_from_clipboard
         @source_element = Element.find(element_from_clipboard['id'])
         new_attributes = {:page_id => @page.id}
-        if @page.can_have_cells?
+        if @page.can_have_fixed_elements?
           new_attributes = new_attributes.merge({:cell_id => find_or_create_cell.try(:id)})
         end
         element = Element.copy(@source_element, new_attributes)

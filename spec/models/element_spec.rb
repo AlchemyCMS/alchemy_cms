@@ -171,6 +171,26 @@ module Alchemy
       end
     end
 
+    describe ".fixed" do
+      it 'only returns fixed elements' do
+        element_1 = create(:element, fixed: true)
+        element_2 = create(:element, fixed: false)
+        elements = Element.fixed
+        expect(elements).to include(element_1)
+        expect(elements).to_not include(element_2)
+      end
+    end
+
+    describe ".unfixed" do
+      it 'only returns unfixed elements' do
+        element_1 = create(:element, fixed: false)
+        element_2 = create(:element, fixed: true)
+        elements = Element.unfixed
+        expect(elements).to include(element_1)
+        expect(elements).to_not include(element_2)
+      end
+    end
+
     context 'trash' do
       let(:element) { create(:element, page_id: 1) }
 
@@ -236,53 +256,6 @@ module Alchemy
         subject { element.all_contents_by_type('EssenceText') }
         it { is_expected.not_to be_empty }
         it('should return the correct list of essences') { is_expected.to eq(expected_contents) }
-      end
-    end
-
-    describe '#available_page_cell_names' do
-      let(:page)    { create(:public_page) }
-      let(:element) { create(:element, page: page) }
-
-      context "with page having cells defining the correct elements" do
-        before do
-          allow(Cell).to receive(:definitions).and_return([
-            {'name' => 'header', 'elements' => ['article', 'headline']},
-            {'name' => 'footer', 'elements' => ['article', 'text']},
-            {'name' => 'sidebar', 'elements' => ['teaser']}
-          ])
-        end
-
-        it "should return a list of all cells from given page this element could be placed in" do
-          create(:cell, name: 'header', page: page)
-          create(:cell, name: 'footer', page: page)
-          create(:cell, name: 'sidebar', page: page)
-          expect(element.available_page_cell_names(page)).to include('header')
-          expect(element.available_page_cell_names(page)).to include('footer')
-        end
-
-        context "but without any cells" do
-          it "should return the 'nil cell'" do
-            expect(element.available_page_cell_names(page)).to eq(['for_other_elements'])
-          end
-        end
-
-      end
-
-      context "with page having cells defining the wrong elements" do
-        before do
-          allow(Cell).to receive(:definitions).and_return([
-            {'name' => 'header', 'elements' => ['download', 'headline']},
-            {'name' => 'footer', 'elements' => ['contactform', 'text']},
-            {'name' => 'sidebar', 'elements' => ['teaser']}
-          ])
-        end
-
-        it "should return the 'nil cell'" do
-          create(:cell, name: 'header', page: page)
-          create(:cell, name: 'footer', page: page)
-          create(:cell, name: 'sidebar', page: page)
-          expect(element.available_page_cell_names(page)).to eq(['for_other_elements'])
-        end
       end
     end
 

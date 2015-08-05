@@ -6,12 +6,18 @@ module Alchemy
     included do
       attr_accessor :do_not_autogenerate
 
-      has_many :elements, -> { where(parent_element_id: nil).not_trashed.order(:position) }
+      has_many :elements, -> { Element.unnested.not_trashed.order(:position) }
       has_many :trashed_elements,
         -> { Element.trashed.order(:position) },
         class_name: 'Alchemy::Element'
       has_many :descendent_elements,
-        -> { order(:position).not_trashed },
+        -> { Element.not_trashed.order(:position) },
+        class_name: 'Alchemy::Element'
+      has_many :fixed_elements,
+        -> { Element.fixed.not_trashed.order(:position) },
+        class_name: 'Alchemy::Element'
+      has_many :unfixed_elements,
+        -> { Element.unfixed.not_trashed.order(:position) },
         class_name: 'Alchemy::Element'
       has_many :contents, through: :elements
       has_many :descendent_contents,
@@ -22,9 +28,9 @@ module Alchemy
         class_name: 'Alchemy::Element',
         join_table: ElementToPage.table_name
 
-      after_create :autogenerate_elements, unless: -> { systempage? || do_not_autogenerate }
+      after_create :autogenerate_elements!, unless: -> { systempage? || do_not_autogenerate }
       after_update :trash_not_allowed_elements!, if: :page_layout_changed?
-      after_update :autogenerate_elements, if: :page_layout_changed?
+      after_update :autogenerate_elements!, if: :page_layout_changed?
 
       after_destroy do
         elements.each do |element|
@@ -77,26 +83,27 @@ module Alchemy
     #   Starts with an offset while returning elements
     # @option options [Boolean] random (false)
     #   Return elements randomly shuffled
-    # @option options [Alchemy::Cell || String] from_cell
-    #   Return elements from given cell
     #
     # @return [ActiveRecord::Relation]
     #
     def find_elements(options = {}, show_non_public = false)
-      elements = elements_from_cell_or_self(options[:from_cell])
-      if options[:only].present?
-        elements = elements.named(options[:only])
-      elsif options[:except].present?
-        elements = elements.excluded(options[:except])
-      end
+      @_elements = if options[:only].present?
+                     elements.named(options[:only])
+                   elsif options[:except].present?
+                     elements.excluded(options[:except])
+                   end
+
       if options[:reverse_sort] || options[:reverse]
-        elements = elements.reverse_order
+        @_elements = @_elements.reverse_order
       end
-      elements = elements.offset(options[:offset]).limit(options[:count])
+
+      @_elements = @_elements.offset(options[:offset]).limit(options[:count])
+
       if options[:random]
-        elements = elements.order("RAND()")
+        @_elements = @_elements.order("RAND()")
       end
-      show_non_public ? elements : elements.published
+
+      show_non_public ? @_elements : @_elements.published
     end
     alias_method :find_selected_elements, :find_elements
 
@@ -120,21 +127,30 @@ module Alchemy
     #     - name: text
     #       type: EssenceRichtext
     #
-    def available_element_definitions(only_element_named = nil)
-      @_element_definitions ||= if only_element_named
+    def available_element_definitions(only_element_named = nil, only_fixed_elements = false)
+      @_available_element_definitions ||= if only_element_named
         definition = Element.definition_by_name(only_element_named)
         element_definitions_by_name(definition['nestable_elements'])
       else
         element_definitions
       end
 
-      return [] if @_element_definitions.blank?
+      return [] if @_available_element_definitions.blank?
 
-      @_existing_element_names = elements.not_trashed.pluck(:name)
+      @_existing_element_names = elements.pluck(:name)
+
       delete_unique_element_definitions!
       delete_outnumbered_element_definitions!
 
-      @_element_definitions
+      @_available_element_definitions.reject! do |definition|
+        if only_fixed_elements
+          definition['fixed'] != true
+        else
+          definition['fixed'] == true
+        end
+      end
+
+      @_available_element_definitions
     end
 
     # All names of elements that can actually be placed on current page.
@@ -149,28 +165,20 @@ module Alchemy
     # it is more safe to ask for +available_element_definitions+
     #
     def element_definitions
-      @_element_definitions ||= element_definitions_by_name(element_definition_names)
+      @_element_definitions ||= element_definitions_by_name(defined_element_names)
     end
 
-    # All names of elements that are defined in the corresponding
-    # page and cell definition.
+    # All names of elements that are defined in the page definition.
     #
-    # Assign elements to a page in +config/alchemy/page_layouts.yml+ and/or
-    # +config/alchemy/cells.yml+ file.
+    # Assign elements to a page in +config/alchemy/page_layouts.yml+
     #
     # == Example of page_layouts.yml:
     #
     #   - name: contact
-    #     cells: [right_column]
     #     elements: [headline, contactform]
     #
-    # == Example of cells.yml:
-    #
-    #   - name: right_column
-    #     elements: [teaser]
-    #
-    def element_definition_names
-      element_names_from_definition | element_names_from_cell_definitions
+    def defined_element_names
+      @_defined_element_names ||= definition.fetch('elements', []).uniq
     end
 
     # Element definitions with given name(s)
@@ -211,43 +219,37 @@ module Alchemy
         .pluck("#{Content.table_name}.id")
     end
 
-    def element_names_from_definition
-      definition['elements'] || []
+    # Returns true, if this page's page_layout defines fixed elements.
+    def can_have_fixed_elements?
+      fixed_element_definitions.try(:any?)
+    end
+
+    # Collection of all element definitions that are fixed
+    def fixed_element_definitions
+      @_fixed_element_definitions ||= element_definitions.find_all do |definition|
+        definition['fixed'] == true
+      end
     end
 
     private
 
-    def element_names_from_cell_definitions
-      @_element_names_from_cell_definitions ||= cell_definitions.map do |d|
-        d['elements']
-      end.flatten
-    end
+    # Create elements listed in the page definition as autogenerate elements.
+    #
+    # == Example Page Layout with autogenerate elements:
+    #
+    #     # config/alchemy/page_layouts.yml
+    #     - name: contact
+    #       autogenerate:
+    #       - contactform
+    #
+    def autogenerate_elements!
+      element_names_already_on_page = elements.available.pluck(:name)
+      element_names = definition["autogenerate"]
+      return if element_names.blank?
 
-    # Looks in the page_layout descripion, if there are elements to autogenerate.
-    #
-    # And if so, it generates them.
-    #
-    # If the page has cells, it looks if there are elements to generate.
-    #
-    def autogenerate_elements
-      elements_already_on_page = elements.available.pluck(:name)
-      elements = definition["autogenerate"]
-      if elements.present?
-        elements.each do |element|
-          next if elements_already_on_page.include?(element)
-          Element.create_from_scratch(attributes_for_element_name(element))
-        end
-      end
-    end
-
-    # Returns a hash of attributes for given element name
-    def attributes_for_element_name(element)
-      element_cell_definition = cell_definitions.detect { |c| c['elements'].include?(element) }
-      if has_cells? && element_cell_definition
-        cell = cells.find_by!(name: element_cell_definition['name'])
-        {page_id: id, cell_id: cell.id, name: element}
-      else
-        {page_id: id, name: element}
+      element_names.each do |name|
+        next if element_names_already_on_page.include?(name)
+        Element.create_from_scratch(page_id: id, name: name)
       end
     end
 
@@ -260,10 +262,10 @@ module Alchemy
       not_allowed_elements.to_a.map(&:trash!)
     end
 
-    # Deletes unique and already present definitions from @_element_definitions.
+    # Deletes unique and already present definitions from @_available_element_definitions.
     #
     def delete_unique_element_definitions!
-      @_element_definitions.delete_if do |element|
+      @_available_element_definitions.delete_if do |element|
         element['unique'] && @_existing_element_names.include?(element['name'])
       end
     end
@@ -271,33 +273,9 @@ module Alchemy
     # Deletes limited and outnumbered definitions from @_element_definitions.
     #
     def delete_outnumbered_element_definitions!
-      @_element_definitions.delete_if do |element|
+      @_available_element_definitions.delete_if do |element|
         outnumbered = @_existing_element_names.select { |name| name == element['name'] }
         element['amount'] && outnumbered.count >= element['amount'].to_i
-      end
-    end
-
-    # Returns elements either from given cell or self
-    #
-    def elements_from_cell_or_self(cell)
-      case cell.class.name
-      when 'Alchemy::Cell'
-        cell.elements
-      when 'String'
-        cell_elements_by_name(cell)
-      else
-        elements.not_in_cell
-      end
-    end
-
-    # Returns all elements from given cell name
-    #
-    def cell_elements_by_name(name)
-      if cell = cells.find_by_name(name)
-        cell.elements
-      else
-        Alchemy::Logger.warn("Cell with name `#{name}` could not be found!", caller.first)
-        Element.none
       end
     end
   end

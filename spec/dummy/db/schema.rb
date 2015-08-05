@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608204610) do
+ActiveRecord::Schema.define(version: 20150706190312) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
@@ -63,8 +63,10 @@ ActiveRecord::Schema.define(version: 20150608204610) do
     t.integer  "cell_id"
     t.text     "cached_tag_list"
     t.integer  "parent_element_id"
+    t.boolean  "fixed",             default: false
   end
 
+  add_index "alchemy_elements", ["page_id", "fixed"], name: "index_alchemy_elements_on_page_id_and_fixed"
   add_index "alchemy_elements", ["page_id", "parent_element_id"], name: "index_alchemy_elements_on_page_id_and_parent_element_id"
   add_index "alchemy_elements", ["page_id", "position"], name: "index_elements_on_page_id_and_position"
 

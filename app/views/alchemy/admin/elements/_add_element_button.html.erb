@@ -1,0 +1,11 @@
+<%= link_to_dialog render_icon(:create),
+  alchemy.new_admin_element_path(
+    parent_element_id: local_assigns[:parent_element_id],
+    insert_at: local_assigns[:insert_at],
+    page_id: @page.id
+  ), {
+    size: "320x125",
+    title: _t("New Element")
+  },
+  class: "button with_icon add-element-button",
+  title: _t("New Element") %>

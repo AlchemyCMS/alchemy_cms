@@ -1,4 +1,9 @@
 (function() {
+<%- if @element.fixed? -%>
+  Alchemy.FixedElements.selectOrCreateTab('<%= @element.name %>', '<%= @element.display_name %>');
+  $('#fixed_element_<%= @element.name %>')
+    .append('<%= j render("add_element_button", parent_element_id: @element.id) %>');
+<%- else -%>
   var $el;
   var $element_area;
   var element_html = '<%= j render("element", element: @element, draggable: true) %>';
@@ -7,21 +12,18 @@
   $('.element-editor[data-element-id="<%= @cutted_element_id %>"]').remove();
 <%- end -%>
 
-<%- if @page.can_have_cells? -%>
-  if ($('#cells').length == 0) {
-    Alchemy.buildTabbedCells('<%= _t(:main_content) %>');
-  }
-  Alchemy.selectOrCreateCellTab('<%= @cell_name %>', '<%= @cell.nil? ? _t(:main_content) : @cell.name_for_label %>');
-<%- end -%>
-
 <%- if @element.parent_element -%>
+  <%- if @element.parent_element.fixed? -%>
+  $element_area = $('#element_<%= @element.parent_element_id %>');
+  <%- else -%>
   $element_area = $('#element_<%= @element.parent_element_id %> > .nestable-elements > .nested-elements');
+  <%- end -%>
 <%- else -%>
-  $element_area = $('#cell_<%= @cell_name %>');
+  $element_area = $('#main_content_elements');
 <%- end -%>
 
-<%- if @insert_at_top -%>
-  $element_area.prepend(element_html);
+<%- if @element.lower_item -%>
+  $('#element_<%= @element.lower_item.id %>').before(element_html);
 <%- else -%>
   $element_area.append(element_html);
 <%- end -%>
@@ -31,9 +33,6 @@
   } else {
     $element_area.sortable('refresh');
   }
-
-  Alchemy.growl('<%= _t(:successfully_added_element) %>');
-  Alchemy.closeCurrentDialog();
   Alchemy.Tinymce.init(<%= @element.richtext_contents_ids.to_json %>);
   Alchemy.PreviewWindow.refresh(function() {
     Alchemy.ElementEditors.selectElementInPreview(<%= @element.id %>);
@@ -46,6 +45,10 @@
 <%- if @clipboard.blank? -%>
   $('#clipboard_button .icon.clipboard').removeClass('full');
 <%- end -%>
-
   <%= update_essence_select_elements(@page, @element) -%>
+<%- end -%>
+
+  Alchemy.growl('<%= _t(:successfully_added_element) %>');
+  Alchemy.PreviewWindow.refresh();
+  Alchemy.closeCurrentDialog();
 })();

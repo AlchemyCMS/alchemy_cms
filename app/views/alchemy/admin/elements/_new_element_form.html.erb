@@ -6,22 +6,13 @@
 <%- else -%>
   <%= alchemy_form_for [:admin, @element] do |form| %>
     <%= form.hidden_field :page_id %>
-  <%- if @page.can_have_cells? -%>
-    <%= form.input :name,
-      label: _t(:element_of_type),
-      collection: grouped_elements_for_select(@elements),
-      as: :grouped_select,
-      group_method: :second,
-      prompt: _t(:select_element),
-      input_html: {class: 'alchemy_selectbox', autofocus: true} %>
-  <%- else -%>
     <%= form.input :name,
       label: _t(:element_of_type),
       collection: elements_for_select(@elements),
       prompt: _t(:select_element),
       input_html: {class: 'alchemy_selectbox', autofocus: true} %>
-  <%- end -%>
-    <%= form.hidden_field :parent_element_id, value: @parent_element.try(:id) %>
+    <%= form.hidden_field :parent_element_id, value: params[:parent_element_id] %>
+    <%= hidden_field_tag :insert_at, params[:insert_at] %>
     <%= form.submit _t(:add) %>
   <%- end -%>
 <%- end -%>

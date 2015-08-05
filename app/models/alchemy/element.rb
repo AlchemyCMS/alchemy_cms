@@ -190,16 +190,10 @@ module Alchemy
       private
 
       def new_element_from_definition_by(attributes)
-        remove_cell_name_from_element_name!(attributes)
-
         element_definition = Element.definition_by_name(attributes[:name])
         return if element_definition.nil?
 
         new(element_definition.merge(attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
-      end
-
-      def remove_cell_name_from_element_name!(attributes)
-        attributes[:name] = attributes[:name].split('#').first
       end
     end
 
@@ -237,17 +231,6 @@ module Alchemy
 
     def trashed?
       self.position.nil?
-    end
-
-    # The names of all cells from given page this element could be placed in.
-    #
-    def available_page_cell_names(page)
-      cellnames = unique_available_page_cell_names(page)
-      if cellnames.blank? || !page.has_cells?
-        ['for_other_elements']
-      else
-        cellnames
-      end
     end
 
     # Returns true if the definition of this element has a taggable true value.
@@ -317,29 +300,6 @@ module Alchemy
       elements = page.elements.published.where("#{self.class.table_name}.position #{dir} #{position}")
       elements = elements.named(name) if name.present?
       elements.reorder("position #{dir == '>' ? 'ASC' : 'DESC'}").limit(1).first
-    end
-
-    # Returns all cells from given page this element could be placed in.
-    #
-    def available_page_cells(page)
-      page.cells.select do |cell|
-        cell.available_elements.include?(self.name)
-      end
-    end
-
-    # Returns all uniq cell names from given page this element could be placed in.
-    #
-    def unique_available_page_cell_names(page)
-      available_page_cells(page).collect(&:name).uniq
-    end
-
-    # If element has a +cell+ associated,
-    # it updates it's timestamp.
-    #
-    # Called after_update
-    #
-    def touch_cell
-      cell.touch
     end
   end
 end

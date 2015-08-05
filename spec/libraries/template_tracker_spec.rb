@@ -8,7 +8,10 @@ module Alchemy
       describe '#dependencies' do
         context 'with alchemy/pages/show given as template name' do
           let(:name) { 'alchemy/pages/show' }
-          before { allow(PageLayout).to receive(:all).and_return([{'name' => 'intro'}, {'name' => 'contact'}]) }
+
+          before do
+            allow(PageLayout).to receive(:all) { [{'name' => 'intro'}, {'name' => 'contact'}] }
+          end
 
           it "returns all page layout view partial names" do
             is_expected.to include('alchemy/page_layouts/_intro', 'alchemy/page_layouts/_contact')
@@ -18,26 +21,10 @@ module Alchemy
         context 'with a page layout given as template name' do
           let(:name) { 'alchemy/page_layouts/_intro' }
           let(:page_layout) { {'name' => 'intro', 'elements' => ['text']} }
+
           before { allow(PageLayout).to receive(:get).and_return(page_layout) }
 
           it "returns all element layout view partial names for that layout" do
-            is_expected.to include('alchemy/elements/_text_view')
-          end
-
-          context 'and page layout having cells' do
-            let(:page_layout) { {'name' => 'intro', 'elements' => ['text'], 'cells' => ['header']} }
-
-            it "returns all cell view partial names for that layout" do
-              is_expected.to include('alchemy/cells/_header')
-            end
-          end
-        end
-
-        context 'with a cell given as template name' do
-          let(:name) { 'alchemy/cells/_header' }
-          before { allow(Cell).to receive(:definition_for).and_return({'name' => 'header', 'elements' => ['text']}) }
-
-          it "returns all element layout view partial names for that cell" do
             is_expected.to include('alchemy/elements/_text_view')
           end
         end

@@ -13,29 +13,26 @@ module Alchemy
         render_element(element, :editor)
       end
 
-      # Renders a drag'n'drop picture gallery editor for all EssencePictures.
+      # Renders a drag'n'drop picture gallery editor for element's gallery_pictures.
       #
-      # It brings full functionality for adding images, deleting images and sorting them via drag'n'drop.
-      # Just place this helper inside your element editor view, pass the element as parameter and that's it.
+      # It brings full functionality for adding images, deleting images and
+      # sorting them via drag'n'drop.
+      #
+      # Just place this helper inside your element editor view,
+      # pass the element as parameter and that's it.
       #
       # === Options:
       #
-      #   :maximum_amount_of_images    [Integer]   # This option let you handle the amount of images your customer can add to this element.
+      #   :maximum_amount_of_images    [Integer]
+      #     - This option let you handle the amount of images your customer can add to this element.
       #
       def render_picture_gallery_editor(element, options={})
-        default_options = {
-          :maximum_amount_of_images => nil,
-          :grouped => true
-        }
-        options = default_options.merge(options)
-        render(
-          :partial => "alchemy/admin/elements/picture_gallery_editor",
-          :locals => {
-            :pictures => element.contents.gallery_pictures,
-            :element => element,
-            :options => options
+        options = {maximum_amount_of_images: nil, grouped: true}.merge(options)
+        render "alchemy/admin/elements/picture_gallery_editor", {
+            pictures: element.contents.gallery_pictures,
+            element: element,
+            options: options
           }
-        )
       end
       alias_method :render_picture_editor, :render_picture_gallery_editor
 
@@ -50,46 +47,6 @@ module Alchemy
           [
             Element.display_name_for(e['name']),
             e['name']
-          ]
-        end
-      end
-
-      # Returns all elements that can be placed on the current page.
-      # The elements will be grouped by cell.
-      #
-      # @param [Array] elements
-      #   collection of element objects
-      # @param [String] object_method
-      #   method that is called on the element objects used for the select option value
-      #
-      def grouped_elements_for_select(elements, object_method = 'name')
-        return [] if elements.blank?
-        cells_definition = @page.cell_definitions
-        return [] if cells_definition.blank?
-        options = {}
-        cells_definition.each do |cell|
-          cell_elements = elements_for_cell(elements, cell)
-          optgroup_label = Cell.translated_label_for(cell['name'])
-          options[optgroup_label] = cell_elements.map do |e|
-            element_array_for_options(e, object_method, cell)
-          end
-        end
-        options[_t(:main_content)] = elements_for_main_content(elements).map do |e|
-          element_array_for_options(e, object_method)
-        end
-        options.delete_if { |_cell, elements| elements.blank? } # Throw out empty cells
-      end
-
-      def element_array_for_options(e, object_method, cell = nil)
-        if e.class.name == 'Alchemy::Element'
-          [
-            e.display_name_with_preview_text,
-            e.send(object_method).to_s + (cell ? "##{cell['name']}" : "")
-          ]
-        else
-          [
-            Element.display_name_for(e['name']),
-            e[object_method] + (cell ? "##{cell['name']}" : "")
           ]
         end
       end
@@ -124,6 +81,7 @@ module Alchemy
           local_assigns[:draggable] == false ? 'not-draggable' : 'draggable'
         ].join(' ')
       end
+      # TODO: Is options[:draggable] still needed for trash window?
 
       # Tells us, if we should show the element footer.
       def show_element_footer?(element, with_nestable_elements = nil)
@@ -132,22 +90,6 @@ module Alchemy
           element.content_definitions.present? || element.taggable?
         else
           element.nestable_elements.empty?
-        end
-      end
-
-      private
-
-      def elements_for_main_content(elements)
-        page_definition = @page.definition['elements']
-        elements.select do |e|
-          page_definition.include?(e.class.name == 'Element' ? e.name : e['name'])
-        end
-      end
-
-      def elements_for_cell(elements, cell)
-        cell_elements = cell['elements']
-        elements.select do |e|
-          cell_elements.include?(e.class.name == 'Element' ? e.name : e['name'])
         end
       end
     end

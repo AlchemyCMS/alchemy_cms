@@ -572,7 +572,7 @@
   &:before {
     text-indent: 0;
     position: absolute;
-    right: 4px;
+    right: $default-padding;
     top: 3px;
   }
 }
@@ -1129,7 +1129,7 @@
 /* position: relative prevents IE scroll bug (element with position: relative inside container with overflow: auto appear as "fixed') */
 
 .ui-tabs .ui-tabs-nav {
-  padding: 4px 8px 0;
+  padding: $default-padding 8px 0;
   background: transparent;
   @include border-radius(0);
   border-bottom: $default-border;
@@ -1141,7 +1141,7 @@
   float: left;
   position: relative;
   top: 1px;
-  margin: 0 .2em 1px 0;
+  margin: 0 $default-margin 0 0;
   border-color: $default-border-color;
   border-bottom: 0 !important;
   @include border-bottom-radius(0);
@@ -1161,6 +1161,7 @@
 
 .ui-tabs .ui-tabs-nav li a {
   float: left;
+  height: 16px;
   text-decoration: none;
   padding: 6px 12px 5px;
 }
@@ -1194,23 +1195,25 @@
 /* UI Tabs Paging */
 
 .ui-tabs li.ui-tabs-paging-next {
-  float: right !important;
+  position: absolute;
+  top: 5px;
+  right: 0;
   padding: 0 !important;
+  margin-right: 0;
 }
 
 .ui-tabs .ui-tabs-nav .ui-tabs-paging-prev,
 .ui-tabs .ui-tabs-nav .ui-tabs-paging-next {
-  height: 26px;
+  background: transparent;
+  border: 0 none;
 }
 
 .ui-tabs .ui-tabs-nav .ui-tabs-paging-prev a,
 .ui-tabs .ui-tabs-nav .ui-tabs-paging-next a {
   display: block;
   position: relative;
-  top: 1px;
   border: 0;
-  z-index: 2;
-  padding: 5px;
+  padding: 6px;
   color: #444;
   text-decoration: none;
   background: #eee;
@@ -1227,7 +1230,7 @@
 }
 
 .ui-tabs .ui-tabs-nav .ui-tabs-paging-disabled {
-  visibility: hidden;
+  display: none;
 }
 
 /*
@@ -1259,7 +1262,7 @@
 
 .ui-datepicker .ui-datepicker-prev, .ui-datepicker .ui-datepicker-next {
   position: absolute;
-  top: $default-padding;
+  top: $default-margin;
   width: 1.8em;
   height: 1.8em;
 }
@@ -1480,9 +1483,9 @@
 /*must have*/
   filter: mask();
 /*must have*/
-  top: -4px;
+  top: -$default-padding;
 /*must have*/
-  left: -4px;
+  left: -$default-padding;
 /*must have*/
   width: 200px;
 /*must have*/

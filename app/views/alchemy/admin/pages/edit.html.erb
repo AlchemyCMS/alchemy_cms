@@ -93,6 +93,29 @@
   </div>
 </div>
 <div class="toolbar_buttons right">
+  <div class="button_with_label" id="clipboard_button">
+    <%= link_to_dialog(
+      render_icon("clipboard#{clipboard_empty?('elements') ? '' : ' full'}"),
+      alchemy.admin_clipboard_path(remarkable_type: "elements"),
+      {
+        title: _t("Clipboard"),
+        size: '400x305'
+      },
+      class: :icon_button,
+      title: _t("Clipboard")
+    ) %>
+    <label><%= _t("Show clipboard") %></label>
+  </div>
+  <div class="button_with_label" id="element_trash_button">
+    <%= link_to(
+      render_icon("trash#{trash_empty?('elements') ? '' : ' full'}"),
+      "#",
+      onclick: "Alchemy.TrashWindow.open(#{@page.id}, '#{_t("Trash")}')",
+      class: "icon_button",
+      title: _t("Show trash")
+    ) %>
+    <label><%= _t("Show trash") %></label>
+  </div>
   <div class="button_with_label" id="element_window_button">
     <%= link_to render_icon(:element_window), '', {
       title: _t(:hide_elements),
@@ -126,49 +149,14 @@
         cancel_label: '<%= _t("No") %>',
         hideElements: '<%= _t(:hide_elements) %>',
         showElements: '<%= _t(:show_elements) %>'
-      },
-      toolbarButtons: [
-        {
-          title: '<%= _t("New Element") %>',
-          label: '<%= _t("New Element") %>',
-          hotkey: 'alt+n',
-          iconClass: 'new_element',
-          onClick: function() {
-            Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_id: @page.id) %>', {
-              title: '<%= _t("New Element") %>',
-              size: '320x125'
-            });
-          }
-        },
-        {
-          title: '<%= _t("Clipboard") %>',
-          label: '<%= _t("Show clipboard") %>',
-          iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" %>',
-          buttonId: 'clipboard_button',
-          onClick: function() {
-            Alchemy.openDialog('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {
-              title :'<%= _t("Clipboard") %>',
-              size: '400x305'
-            });
-          }
-        },
-        {
-          title: '<%= _t("Show trash") %>',
-          label: '<%= _t("Show trash") %>',
-          iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" %>',
-          buttonId: 'element_trash_button',
-          onClick: function() {
-            Alchemy.TrashWindow.open(<%= @page.id %>, '<%= _t("Trash") %>');
-          }
-        }
-      ]
+      }
     }, function() {
       Alchemy.ImageLoader('#element_area');
       Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
       Alchemy.ElementEditors.init();
       Alchemy.SelectBox('.element-editor');
       Alchemy.Tinymce.init(<%= @page.richtext_contents_ids.to_json %>);
-      $('#cells').tabs().tabs('paging', { follow: true, followOnSelect: true } );
+      $('#fixed_elements').tabs().tabs('paging', { follow: true, followOnSelect: true } );
       Alchemy.ElementDirtyObserver('#element_area');
       if (window.location.hash) {
         $(window.location.hash).trigger('FocusElementEditor.Alchemy');

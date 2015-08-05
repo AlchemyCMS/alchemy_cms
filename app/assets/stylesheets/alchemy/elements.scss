@@ -7,6 +7,23 @@
   height: auto;
   border-left: $default-border;
   @include transition(200ms ease-in-out);
+
+  .add-element-button {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    text-align: center;
+    padding: 6px 8px;
+    background: $light-gray;
+    border-color: rgba($default-border-color, 0.5);
+    @include box-shadow(none);
+    @include transition(all 200ms ease-out);
+
+    &:hover {
+      background-color: $medium-gray;
+      border-color: rgba($default-border-color, 1);
+    }
+  }
 }
 
 #element_area {
@@ -14,9 +31,9 @@
   overflow-x: hidden;
   overflow-y: auto;
 
-  .sortable_cell {
+  .sortable-elements {
     min-height: 100px;
-    padding: 2*$default-padding $default-padding 2px;
+    padding: $default-padding;
   }
 
   textarea {
@@ -134,7 +151,7 @@
   border: 1px solid $default-border-color;
   @extend %rounded-border;
   background-color: $light-gray;
-  margin-bottom: 2*$default-margin;
+  margin: 2*$default-margin 0;
 
   &.not-draggable {
     @include opacity(0.5);
@@ -302,8 +319,38 @@
   }
 }
 
-#cells {
+#fixed_elements {
   min-height: 100px;
+
+  .fixed-elements-nav {
+    @include clearfix;
+  }
+
+  .ui-tabs-nav {
+    position: relative;
+    @include box-sizing(border-box);
+    float: left;
+    width: 90%;
+    padding: $default-padding 0 0 $default-padding;
+
+    + .add-fixed-element-tab {
+      @include box-sizing(border-box);
+      width: 10%;
+      height: 34px;
+      float: right;
+      padding: $default-padding $default-padding 0 $default-padding;
+      border-bottom: $default-border;
+
+      .add-element-button {
+        width: auto;
+        height: 28px;
+        padding: $default-padding;
+        margin: 1px 0 0 0;
+        border-bottom: 0;
+        @include border-bottom-radius(0);
+      }
+    }
+  }
 }
 
 .linkable_essence_tools {
@@ -804,6 +851,10 @@ a.hint {
   .expanded.element-editor > & {
     padding: 16px 8px 8px;
   }
+
+  .add-element-button {
+    margin-top: 0;
+  }
 }
 
 .nested-elements {
@@ -816,8 +867,4 @@ a.hint {
     background-color: transparent;
     border-top: 1px solid $medium-gray;
   }
-}
-
-.add-nestable-element-button {
-  margin-top: 0;
 }

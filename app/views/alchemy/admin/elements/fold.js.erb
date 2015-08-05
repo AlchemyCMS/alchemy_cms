@@ -10,7 +10,7 @@
 
   $el.replaceWith('<%= j render(partial: "element", object: @element) %>');
   $el = $('#element_<%= @element.id %>');
-  $('#element_area .sortable_cell').sortable('refresh');
+  $('#element_area .sortable-elements').sortable('refresh');
 
   <% if @element.folded? -%>
 

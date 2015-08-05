@@ -16,29 +16,14 @@ module Alchemy
         expect(Page).to receive(:find).and_return alchemy_page
       end
 
-      context 'with cells' do
-        let(:cell) { build_stubbed(:cell, page: alchemy_page) }
-
-        before do
-          expect(alchemy_page).to receive(:cells).and_return [cell]
-        end
-
-        it "groups elements by cell" do
-          expect(alchemy_page).to receive(:elements_grouped_by_cells)
-          alchemy_get :index, {page_id: alchemy_page.id}
-          expect(assigns(:cells)).to eq([cell])
-        end
+      it "assigns unfixed elements" do
+        expect(alchemy_page).to receive(:unfixed_elements)
+        alchemy_get :index, {page_id: alchemy_page.id}
       end
 
-      context 'without cells' do
-        before do
-          expect(alchemy_page).to receive(:cells).and_return []
-        end
-
-        it "assigns page elements" do
-          expect(alchemy_page).to receive(:elements).and_return(double(not_trashed: []))
-          alchemy_get :index, {page_id: alchemy_page.id}
-        end
+      it "assigns fixed elements" do
+        expect(alchemy_page).to receive(:fixed_elements)
+        alchemy_get :index, {page_id: alchemy_page.id}
       end
     end
 
@@ -347,17 +332,6 @@ module Alchemy
 
         it "should return nil" do
           expect(controller.send(:find_or_create_cell)).to be_nil
-        end
-      end
-
-      context 'with cell definition not found' do
-        before do
-          expect(controller).to receive(:params).and_return({element: {name: 'header#header'}})
-          expect(Cell).to receive(:definition_for).and_return nil
-        end
-
-        it "raises error" do
-          expect { controller.send(:find_or_create_cell) }.to raise_error(CellDefinitionError)
         end
       end
     end

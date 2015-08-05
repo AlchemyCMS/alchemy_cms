@@ -253,43 +253,6 @@ module Alchemy
           end
         end
 
-        context "with cells" do
-          before do
-            allow(page).to receive(:definition) do
-              {
-                'cells' => %w(header main),
-                'autogenerate' => %w(article)
-              }
-            end
-          end
-
-          context 'with elements defined in cells' do
-            before do
-              allow(page).to receive(:cell_definitions) do
-                [{'name' => 'header', 'elements' => %w(article)}]
-              end
-            end
-
-            it "has the generated elements in their cells" do
-              page.save!
-              expect(page.cells.where(name: 'header').first.elements).not_to be_empty
-            end
-          end
-
-          context "and no elements in cell definitions" do
-            before do
-              allow(page).to receive(:cell_definitions) do
-                [{'name' => 'header', 'elements' => []}]
-              end
-            end
-
-            it "should have the elements in the nil cell" do
-              page.save!
-              expect(page.cells.collect(&:elements).flatten).to be_empty
-            end
-          end
-        end
-
         context "with children getting restricted set to true" do
           before do
             page.save
@@ -717,7 +680,6 @@ module Alchemy
       end
     end
 
-
     # InstanceMethods (a-z)
 
     describe '#available_element_definitions' do
@@ -826,24 +788,6 @@ module Alchemy
       end
     end
 
-    describe '#cell_definitions' do
-      before do
-        @page = build(:page, page_layout: 'foo')
-        allow(@page).to receive(:definition).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
-        @cell_definitions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
-        allow(Cell).to receive(:definitions).and_return(@cell_definitions)
-      end
-
-      it "should return all cell definitions for its page_layout" do
-        expect(@page.cell_definitions).to eq(@cell_definitions)
-      end
-
-      it "should return empty array if no cells defined in page layout" do
-        allow(@page).to receive(:definition).and_return({'name' => "foo"})
-        expect(@page.cell_definitions).to eq([])
-      end
-    end
-
     describe '#destroy' do
       context "with trashed but still assigned elements" do
         before { news_page.elements.map(&:trash!) }
@@ -911,6 +855,32 @@ module Alchemy
       end
     end
 
+    describe '#fixed_elements' do
+      subject { page.fixed_elements }
+
+      let!(:page) { create(:page) }
+      let!(:element_1) { create(:element, fixed: true, page: page) }
+      let!(:element_2) { create(:element, fixed: false, page: page) }
+
+      it 'returns only fixed elements' do
+        is_expected.to include(element_1)
+        is_expected.to_not include(element_2)
+      end
+    end
+
+    describe '#unfixed_elements' do
+      subject { page.unfixed_elements }
+
+      let!(:page) { create(:page) }
+      let!(:element_1) { create(:element, fixed: false, page: page) }
+      let!(:element_2) { create(:element, fixed: true, page: page) }
+
+      it 'returns only fixed elements' do
+        is_expected.to include(element_1)
+        is_expected.to_not include(element_2)
+      end
+    end
+
     describe "#descendent_contents" do
       let!(:page) do
         create(:page)
@@ -973,101 +943,19 @@ module Alchemy
       end
     end
 
-    describe '#element_definition_names' do
+    describe '#defined_element_names' do
       let(:page) { build_stubbed(:public_page) }
 
-      subject { page.element_definition_names }
+      subject { page.defined_element_names }
 
       before do
-        allow(page).to receive(:definition) { page_definition }
-        allow(page).to receive(:cell_definitions) { cell_definitions }
-      end
-
-      context "with elements only assigned in page definition" do
-        let(:page_definition) do
+        allow(page).to receive(:definition) do
           {'elements' => %w(article)}
         end
-
-        let(:cell_definitions) { [] }
-
-        it "returns an array of the page's element names" do
-          is_expected.to eq %w(article)
-        end
       end
 
-      context "with elements assigned only in cell definition" do
-        before do
-          allow(page).to receive(:definition).and_return({})
-          allow(page).to receive(:cell_definitions) do
-            [{'elements' => ['search']}]
-          end
-        end
-
-        it "returns an array of the cell's element names" do
-          is_expected.to eq(['search'])
-        end
-      end
-
-      context "with elements assigned in page and cell definition" do
-        let(:page_definition) do
-          {'elements' => %w(header article)}
-        end
-
-        let(:cell_definitions) do
-          [{'elements' => %w(search)}]
-        end
-
-        it "returns the combined element names" do
-          is_expected.to eq %w(header article search)
-        end
-
-        context "and cell definition contains same element name as page definition" do
-          let(:page_definition) do
-            {'elements' => %w(header article)}
-          end
-
-          let(:cell_definitions) do
-            [{'elements' => %w(header search)}]
-          end
-
-          it "includes no duplicates" do
-            is_expected.to eq %w(header article search)
-          end
-        end
-      end
-
-      context "without elements assigned in page definition or cell definition" do
-        let(:page_definition) { {} }
-        let(:cell_definitions) { [] }
-
-        it { is_expected.to eq([]) }
-      end
-    end
-
-    describe '#elements_grouped_by_cells' do
-      let(:page) { create(:public_page, do_not_autogenerate: false) }
-
-      before do
-        allow(PageLayout).to receive(:get).and_return({
-          'name' => 'standard',
-          'cells' => ['header'],
-          'elements' => ['header', 'text'],
-          'autogenerate' => ['header', 'text']
-        })
-        allow(Cell).to receive(:definitions).and_return([{
-          'name' => "header",
-          'elements' => ["header"]
-        }])
-      end
-
-      it "should return elements grouped by cell" do
-        elements = page.elements_grouped_by_cells
-        expect(elements.keys.first).to be_instance_of(Cell)
-        expect(elements.values.first.first).to be_instance_of(Element)
-      end
-
-      it "should only include elements beeing in a cell " do
-        expect(page.elements_grouped_by_cells.keys).not_to include(nil)
+      it "returns an array of the page's element names" do
+        is_expected.to eq %w(article)
       end
     end
 

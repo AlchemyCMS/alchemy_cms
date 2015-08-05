@@ -67,10 +67,10 @@ Alchemy.ElementEditors =
 
   # Select cell for given element
   selectCellForElement: ($element) ->
-    $cells = $("#cells .sortable_cell")
+    $cells = $("#fixed_elements .sortable-elements")
     if $cells.size() > 0
-      $cell = $element.parent(".sortable_cell")
-      $("#cells").tabs("option", "active", $cells.index($cell))
+      $cell = $element.parent(".sortable-elements")
+      $("#fixed_elements").tabs("option", "active", $cells.index($cell))
 
   # Marks an element as selected in the element window and scrolls to it.
   #
