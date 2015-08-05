@@ -27,7 +27,6 @@ describe "Resources" do
       visit '/admin/events'
       expect(page).to have_selector('div#archive_all table.list')
     end
-
   end
 
   describe "form for creating and updating items" do

@@ -114,24 +114,58 @@ describe Alchemy::ResourcesHelper do
   end
 
   describe "#render_attribute" do
+    subject { controller.render_attribute(resource_item, attributes, options) }
+
+    let(:options) { {} }
+    let(:attributes) { {name: 'name'} }
+
     it "should return the value from resource attribute" do
       allow(resource_item).to receive(:name).and_return('my-name')
-      expect(controller.render_attribute(resource_item, {name: 'name'})).to eq('my-name')
+      is_expected.to eq('my-name')
     end
 
     context "resource having a relation" do
       let(:associated_object) { double("location", title: 'Title of related object') }
       let(:associated_klass) { double("klass", find: associated_object) }
-      let(:relation) {
+      let(:relation) do
         {
           attr_method: 'title',
           model_association: OpenStruct.new(klass: associated_klass)
         }
-      }
+      end
+      let(:attributes) do
+        {name: 'name', relation: relation}
+      end
 
       it "should return the value from the related object attribute" do
         allow(resource_item).to receive(:name).and_return('my-name')
-        expect(controller.render_attribute(resource_item, {name: 'name', relation: relation})).to eq('Title of related object')
+        is_expected.to eq('Title of related object')
+      end
+    end
+
+    context 'with long values' do
+      before do
+        allow(resource_item).to receive(:name).and_return('*' * 51)
+      end
+
+      it 'truncates the values' do
+        expect(subject.length).to eq(50)
+      end
+
+      context 'but with options[:truncate] set to 10' do
+        let(:options) { {truncate: 10} }
+
+        it 'does not truncate the values' do
+          expect(subject.length).to eq(10)
+        end
+      end
+
+      context 'but with options[:truncate] set to false' do
+        let(:options) { {truncate: false} }
+
+        it 'does not truncate the values' do
+          expect(subject.length).to eq(51)
+        end
       end
     end
   end
