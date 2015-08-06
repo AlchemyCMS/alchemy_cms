@@ -61,6 +61,7 @@ module Alchemy
     # If the attribute has a relation, the related object's attribute value will be returned.
     #
     # The output will be truncated after 50 chars.
+    # Pass another number to truncate then and pass false to disable this completely.
     #
     # @param [Alchemy::Resource] resource
     # @param [Hash] attribute
@@ -77,7 +78,10 @@ module Alchemy
       elsif attribute[:type] == :datetime && value.present?
         value = l(value)
       end
-      value.to_s.truncate(options[:truncate])
+      if options[:truncate]
+        value = value.to_s.truncate(options[:truncate])
+      end
+      value
     rescue ActiveRecord::RecordNotFound => e
       warning e
       _t(:not_found)
