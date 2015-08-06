@@ -73,6 +73,8 @@ module Alchemy
       @current_ability ||= begin
         alchemy_permissions = Alchemy::Permissions.new(current_alchemy_user)
         Alchemy.registered_abilities.each do |klass|
+          # Ensure to avoid issues with Rails constant lookup.
+          klass = "::#{klass}".constantize
           alchemy_permissions.merge(klass.new(current_alchemy_user))
         end
         if (Object.const_get('::Ability') rescue false)
