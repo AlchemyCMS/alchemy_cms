@@ -153,6 +153,7 @@ module Alchemy
         can :manage, Alchemy::Attachment
         can :read,   Alchemy.user_class
         can :manage, Alchemy::Tag
+        can :index,  Alchemy::Language
       end
     end
 
