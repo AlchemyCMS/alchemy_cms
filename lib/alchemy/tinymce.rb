@@ -24,9 +24,6 @@ module Alchemy
     }
 
     def self.init=(settings)
-      if contains_old_tinymce_toolbar_config?('tinymce' => settings.stringify_keys)
-        warn_about_deprecation!
-      end
       @@init.merge!(settings)
     end
 
@@ -36,14 +33,10 @@ module Alchemy
 
     def self.custom_config_contents(page = nil)
       if page
-        definitions = content_definitions_from_elements(page.element_definitions)
+        content_definitions_from_elements(page.element_definitions)
       else
-        definitions = content_definitions_from_elements(Element.definitions)
+        content_definitions_from_elements(Element.definitions)
       end
-      if definitions.any? { |d| contains_old_tinymce_toolbar_config?(d['settings']) }
-        warn_about_deprecation!
-      end
-      definitions
     end
 
     private
@@ -57,14 +50,6 @@ module Alchemy
         next if contents.blank?
         contents.map { |c| c.merge('element' => el['name']) }
       end.flatten.compact
-    end
-
-    def self.contains_old_tinymce_toolbar_config?(settings)
-      settings['tinymce'] && settings['tinymce'].keys.any? { |k| k.match(/toolbar[0-9]/) }
-    end
-
-    def self.warn_about_deprecation!
-      ActiveSupport::Deprecation.warn("You use old TinyMCE 4.0 based toolbar config! Please consider to upgrade it to 4.1 compatible syntax. I.e. don't use 'toolbarN', use 'toolbar' with array instead. Visit http://www.tinymce.com/wiki.php/Configuration:toolbar for more information.")
     end
   end
 end
