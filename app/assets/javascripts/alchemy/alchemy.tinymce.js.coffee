@@ -2,6 +2,8 @@
 #
 $.extend Alchemy.Tinymce,
 
+  customConfigs: {}
+
   # Returns default config for a tinymce editor.
   #
   getDefaultConfig: (id) ->
@@ -15,10 +17,12 @@ $.extend Alchemy.Tinymce,
   #
   # It uses the +.getDefaultConfig+ and merges the custom parts.
   #
-  getCustomConfig: (id, selector) ->
+  getConfig: (id, selector) ->
     editor_config = @customConfigs[selector]
     if editor_config
       $.extend({}, @getDefaultConfig(id), editor_config)
+    else
+      @getDefaultConfig(id)
 
   # Initializes all TinyMCE editors with given ids
   #
@@ -48,10 +52,7 @@ $.extend Alchemy.Tinymce,
     if textarea.length == 0
       Alchemy.log_error "Could not initialize TinyMCE for textarea#tinymce_#{id}!"
       return
-    if selector = textarea[0].classList[1]
-      config = @getCustomConfig(id, selector)
-    else
-      config = @getDefaultConfig(id)
+    config = @getConfig(id, textarea[0].classList[1])
     if config
       spinner = Alchemy.Spinner.small()
       textarea.closest('.tinymce_container').prepend spinner.spin().el

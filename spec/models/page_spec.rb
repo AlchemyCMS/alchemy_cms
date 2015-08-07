@@ -1999,5 +1999,66 @@ module Alchemy
       end
     end
 
+    describe "#richtext_contents_ids" do
+      let!(:page) { create(:page) }
+
+      let!(:expanded_element) do
+        create :element,
+          name: 'article',
+          page: page,
+          folded: false,
+          create_contents_after_create: true
+      end
+
+      let!(:folded_element) do
+        create :element,
+          name: 'article',
+          page: page,
+          folded: true,
+          create_contents_after_create: true
+      end
+
+      subject(:richtext_contents_ids) { page.richtext_contents_ids }
+
+      it 'returns content ids for all expanded elements that have tinymce enabled' do
+        expanded_rtf_contents = expanded_element.contents.essence_richtexts
+        expect(richtext_contents_ids).to eq(expanded_rtf_contents.pluck(:id))
+        folded_rtf_content = folded_element.contents.essence_richtexts.first
+        expect(richtext_contents_ids).to_not include(folded_rtf_content.id)
+      end
+
+      context 'with nested elements' do
+        let!(:nested_expanded_element) do
+          create :element,
+            name: 'article',
+            page: page,
+            parent_element: expanded_element,
+            folded: false,
+            create_contents_after_create: true
+        end
+
+        let!(:nested_folded_element) do
+          create :element,
+            name: 'article',
+            page: page,
+            parent_element: folded_element,
+            folded: true,
+            create_contents_after_create: true
+        end
+
+        it 'returns content ids for all expanded nested elements that have tinymce enabled' do
+          expanded_rtf_contents = expanded_element.contents.essence_richtexts
+          nested_expanded_rtf_contents = nested_expanded_element.contents.essence_richtexts
+          rtf_content_ids = expanded_rtf_contents.pluck(:id) +
+                            nested_expanded_rtf_contents.pluck(:id)
+          expect(richtext_contents_ids.sort).to eq(rtf_content_ids)
+
+          folded_rtf_content = folded_element.contents.essence_richtexts.first
+          nested_folded_rtf_content = nested_folded_element.contents.essence_richtexts.first
+
+          expect(richtext_contents_ids).to_not include(nested_folded_rtf_content.id)
+        end
+      end
+    end
   end
 end

@@ -21,8 +21,23 @@ module Alchemy
     end
 
     context 'Methods for contents with custom tinymce config.' do
-      let(:content_definition) { {'name' => 'text', 'settings' => {'tinymce' => {'foo' => 'bar'}}} }
-      let(:element_definition) { {'name' => 'article', 'contents' => [content_definition]} }
+      let(:content_definition) do
+        {
+          'name' => 'text',
+          'settings' => {
+            'tinymce' => {
+              'foo' => 'bar'
+            }
+          }
+        }
+      end
+
+      let(:element_definition) do
+        {
+          'name' => 'article',
+          'contents' => [content_definition]
+        }
+      end
 
       describe '.custom_config_contents' do
         subject { Tinymce.custom_config_contents }
@@ -33,18 +48,47 @@ module Alchemy
           Tinymce.class_variable_set('@@custom_config_contents', nil)
         end
 
-        it "returns an array of content definitions that contain custom tinymce config and element name" do
+        it "returns an array of content definitions that contain custom tinymce config
+        and element name" do
           is_expected.to be_an(Array)
-          is_expected.to include({'element' => element_definition['name']}.merge(content_definition))
+          is_expected.to include({
+            'element' => element_definition['name']
+          }.merge(content_definition))
         end
 
         context 'with no contents having custom tinymce config' do
-          let(:content_definition) { {'name' => 'text'} }
+          let(:content_definition) do
+            {'name' => 'text'}
+          end
+
           it { is_expected.to eq([]) }
         end
 
         context 'with element definition having nil as contents value' do
-          let(:element_definition) { {'name' => 'element', 'contents' => nil} }
+          let(:element_definition) do
+            {
+              'name' => 'element',
+              'contents' => nil
+            }
+          end
+
+          it "returns empty array" do
+            is_expected.to eq([])
+          end
+        end
+
+        context 'with content settings tinymce set to true only' do
+          let(:element_definition) do
+            {
+              'name' => 'element',
+              'contents' => [
+                'name' => 'headline',
+                'settings' => {
+                  'tinymce' => true
+                }
+              ]
+            }
+          end
 
           it "returns empty array" do
             is_expected.to eq([])
@@ -57,11 +101,12 @@ module Alchemy
 
           it "only returns custom tinymce config for elements of that page" do
             expect(page).to receive(:element_definitions).and_return([element_definition])
-            is_expected.to include({'element' => element_definition['name']}.merge(content_definition))
+            is_expected.to include(
+              {'element' => element_definition['name']
+            }.merge(content_definition))
           end
         end
       end
     end
-
   end
 end

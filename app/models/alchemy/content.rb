@@ -228,20 +228,26 @@ module Alchemy
       self.class.normalize_essence_type(self.essence_type)
     end
 
-    def has_custom_tinymce_config?
-      settings[:tinymce].present?
+    # Returns true if there is a tinymce setting defined on the content definiton
+    # or if the +essence.has_tinymce?+ returns true.
+    def has_tinymce?
+      settings[:tinymce].present? || essence.has_tinymce?
     end
 
+    # Returns true if there is a tinymce setting defined that contains settings.
+    def has_custom_tinymce_config?
+      settings[:tinymce].is_a?(Hash)
+    end
+
+    # Returns css class names for the content textarea.
     def tinymce_class_name
-      if has_custom_tinymce_config?
-        "custom_tinymce #{element.name}_#{name}"
-      else
-        "default_tinymce"
-      end
+      "has_tinymce" + (has_custom_tinymce_config? ? " #{element.name}_#{name}" : "")
     end
 
     # Returns the default value from content definition
-    # If the value is a symbol it gets passed through i18n inside the +alchemy.default_content_texts+ scope
+    #
+    # If the value is a symbol it gets passed through i18n
+    # inside the +alchemy.default_content_texts+ scope
     def default_text(default)
       case default
       when Symbol
@@ -250,6 +256,5 @@ module Alchemy
         default
       end
     end
-
   end
 end

@@ -297,16 +297,68 @@ module Alchemy
       end
     end
 
+    describe '#has_tinymce?' do
+      let(:element) { build_stubbed(:element, name: 'article') }
+      let(:content) { build_stubbed(:content, name: 'text', element: element) }
+
+      subject { content.has_tinymce? }
+
+      it { is_expected.to eq(false) }
+
+      context 'having custom tinymce config hash' do
+        before do
+          expect(content).to receive(:settings) do
+            {tinymce: {toolbar: []}}
+          end
+        end
+
+        it { is_expected.to eq(true) }
+      end
+
+      context 'having essence that has_tinymce? eq true' do
+        before do
+          expect(content.essence).to receive(:has_tinymce?) { true }
+        end
+
+        it { is_expected.to eq(true) }
+      end
+    end
+
+    describe '#has_custom_tinymce_config?' do
+      let(:element) { build_stubbed(:element, name: 'article') }
+      let(:content) { build_stubbed(:content, name: 'text', element: element) }
+
+      subject { content.has_custom_tinymce_config? }
+
+      it { is_expected.to eq(false) }
+
+      context 'having custom tinymce config hash' do
+        before do
+          expect(content).to receive(:settings) do
+            {tinymce: {toolbar: []}}
+          end
+        end
+
+        it { is_expected.to eq(true) }
+      end
+    end
+
     describe '#tinymce_class_name' do
-      let(:element) { FactoryGirl.build_stubbed(:element, name: 'article') }
-      let(:content) { c = Content.new(name: 'text'); c.element = element; c }
+      let(:element) { build_stubbed(:element, name: 'article') }
+      let(:content) { build_stubbed(:content, name: 'text', element: element) }
+
       subject { content.tinymce_class_name }
 
-      it { eq('default_tinymce') }
+      it { is_expected.to eq('has_tinymce') }
 
       context 'having custom tinymce config' do
-        before { allow(content).to receive(:has_custom_tinymce_config?).and_return(true) }
-        it('returns name including element name') { eq('custom_tinymce article_text') }
+        before do
+          expect(content).to receive(:has_custom_tinymce_config?).and_return(true)
+        end
+
+        it 'returns name including element name' do
+          is_expected.to eq('has_tinymce article_text')
+        end
       end
     end
 
