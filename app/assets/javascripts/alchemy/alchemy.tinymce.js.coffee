@@ -33,13 +33,10 @@ $.extend Alchemy.Tinymce,
     for id in ids
       @initEditor(id)
 
-  # Initializes TinyMCE editors for all textareas with .tinymce class
+  # Initializes TinyMCE editor with given options
   #
-  initFor: (scope) ->
-    config = @defaults
-    config['selector'] = "#{scope} textarea.tinymce"
-    config['width'] = '65%'
-    tinymce.init(config)
+  initWith: (options) ->
+    tinymce.init $.extend({}, @defaults, options)
     return
 
   # Initializes one specific TinyMCE editor

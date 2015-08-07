@@ -96,7 +96,9 @@ class window.Alchemy.Dialog
   # Initializes the Dialog body
   init: ->
     Alchemy.GUI.init(@dialog_body)
-    Alchemy.Tinymce.initFor('.alchemy-dialog-body')
+    Alchemy.Tinymce.initWith
+      selector: ".alchemy-dialog-body textarea.tinymce",
+      width: '65%'
     $('#overlay_tabs', @dialog_body).tabs()
     @watch_remote_forms()
 
