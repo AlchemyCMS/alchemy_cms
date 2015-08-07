@@ -21,7 +21,11 @@
 
   textarea {
     width: 100%;
-    height: 140px;
+
+    &.has_tinymce {
+      // We need to do this, because globally all texareas have height: auto !important
+      height: 140px !important;
+    }
   }
 }
 
