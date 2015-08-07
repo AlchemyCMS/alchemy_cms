@@ -58,4 +58,17 @@ describe Alchemy::Admin::LanguagesController do
       end
     end
   end
+
+  describe "#index" do
+    context "editor users" do
+      before do
+        authorize_user(:as_editor)
+      end
+
+      it "should be able to index language" do
+        alchemy_get :index
+        expect(response).to render_template(:index)
+      end
+    end
+  end
 end
