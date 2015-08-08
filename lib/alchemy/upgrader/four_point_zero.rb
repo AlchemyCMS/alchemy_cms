@@ -113,17 +113,14 @@ class Alchemy::Upgrader::FourPointZeroTasks < Thor
                       Dir.glob(Rails.root.join('app', 'views', 'alchemy', 'elements', '*_view.html.slim'))
     erb_snippet = <<ERB
     <!-- Move this up into your element_view_for loop!
-    <%- if @element['nestable_elements'].present? -%>
-      <%% element.nested_elements.available.each do |nested_element| %>
-        <%%= render_element(nested_element) %>
-      <%% end %>
-    <%- end -%>
+    <% element.nested_elements.available.each do |nested_element| %>
+      <%= render_element(nested_element) %>
+    <% end %>
     -->
 ERB
     haml_slim_snippet = <<HAMLSLIM
-    - if @element['nestable_elements'].present?
-      - element.nested_elements.available.each do |nested_element|
-        = render_element(nested_element)
+    - element.nested_elements.available.each do |nested_element|
+      = render_element(nested_element)
 HAMLSLIM
     erb_views.each { |view| append_to_file view, erb_snippet }
     haml_slim_views.each { |view| append_to_file view, haml_slim_snippet }
