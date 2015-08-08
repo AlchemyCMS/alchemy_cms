@@ -5,6 +5,7 @@ module Alchemy
 
     Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].each { |f| require f }
 
+    extend Alchemy::Upgrader::FourPointZero
     extend Alchemy::Upgrader::ThreePointTwo
     extend Alchemy::Upgrader::ThreePointOne
     extend Alchemy::Upgrader::ThreePointZero
