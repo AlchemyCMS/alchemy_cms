@@ -1,0 +1,1 @@
+db/migrate/20150808144451_convert_available_contents_to_nested_elements.rb
