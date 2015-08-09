@@ -22,7 +22,9 @@ class Alchemy::Upgrader::FourPointZeroTasks < Thor
     def remove_available_contents
       config = read_config
 
-      elements_with_available_contents, new_elements = config.partition { |e| e['available_contents'] }
+      elements_with_available_contents, new_elements = config.partition do |e|
+        e['available_contents']
+      end
 
       print 'Converting to `nestable_elements` ... '
       elements_with_available_contents.inject(new_elements) do |ne, old_element|
