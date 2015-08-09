@@ -6,7 +6,6 @@ class Alchemy::Upgrader::FourPointZeroTasks < Thor
   no_tasks do
 
     def generate_nestable_elements
-      backup_config
       config = read_config
 
       elements_with_available_contents = config.select { |e| e['available_contents'] }
@@ -21,7 +20,6 @@ class Alchemy::Upgrader::FourPointZeroTasks < Thor
     end
 
     def remove_available_contents
-      backup_config
       config = read_config
 
       elements_with_available_contents, new_elements = config.partition { |e| e['available_contents'] }
@@ -70,6 +68,7 @@ class Alchemy::Upgrader::FourPointZeroTasks < Thor
   end
 
   def write_config(config)
+    backup_config
     File.open(Rails.root.join('config', 'alchemy', 'elements.yml'), "w") do |f|
       f.write config.to_yaml
     end
@@ -87,6 +86,7 @@ class Alchemy::Upgrader::FourPointZeroTasks < Thor
   def remove_new_content_link_from_editor_partials
     editor_partials = Dir.glob(Rails.root.join('app', 'views', 'alchemy', 'elements', '*_editor*'))
     system "sed -i '' '/^.*render_new_content_link.*$/d' #{editor_partials.join(' ')}"
+    system "sed -i '' '/^.*label_and_remove_link.*$/d' #{editor_partials.join(' ')}"
   end
 
   def build_new_elements(element)
