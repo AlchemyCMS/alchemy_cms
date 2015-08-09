@@ -4,21 +4,6 @@ class Alchemy::Upgrader::FourPointZeroTasks < Thor
   include Thor::Actions
 
   no_tasks do
-
-    def generate_nestable_elements
-      config = read_config
-
-      elements_with_available_contents = config.select { |e| e['available_contents'] }
-      elements_with_available_contents.inject(config) do |conf, element|
-        build_new_elements(element).inject(conf) do |conf, element_from_contents|
-          conf << element_from_contents.deep_dup
-        end
-      end
-      config = config.uniq
-
-      write_config(config)
-    end
-
     def remove_available_contents
       config = read_config
 
@@ -201,10 +186,6 @@ NOTE
 
     def generate_nestable_elements
       Alchemy::Upgrader::FourPointZeroTasks.new.generate_nestable_elements
-    end
-
-    def remove_available_contents
-      Alchemy::Upgrader::FourPointZeroTasks.new.remove_available_contents
     end
   end
 end
