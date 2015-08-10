@@ -4,12 +4,14 @@ class Alchemy::Upgrader::FourPointZeroTasks < Thor
   include Thor::Actions
 
   no_tasks do
-    def remove_available_contents
+    def convert_available_contents
       config = read_config
 
       elements_with_available_contents, new_elements = config.partition do |e|
         e['available_contents']
       end
+
+      return if elements_with_available_contents.empty?
 
       print 'Converting to `nestable_elements` ... '
       elements_with_available_contents.inject(new_elements) do |ne, old_element|
@@ -29,11 +31,8 @@ class Alchemy::Upgrader::FourPointZeroTasks < Thor
       remove_new_content_link_from_editor_partials
       puts 'done.'
 
-      print 'Adding hints for rendering nested elements to your views ... '
+      puts 'Adding hints for rendering nested elements to your views: '
       add_render_nested_elements_hints
-      puts 'done.'
-
-      puts "Please run `rails g alchemy:elements --skip` to generate partials for your new nested elements."
     end
   end
 
@@ -99,17 +98,17 @@ class Alchemy::Upgrader::FourPointZeroTasks < Thor
     haml_slim_views = Dir.glob(Rails.root.join('app', 'views', 'alchemy', 'elements', '*_view.html.haml')) +
                       Dir.glob(Rails.root.join('app', 'views', 'alchemy', 'elements', '*_view.html.slim'))
     erb_snippet = <<ERB
-    <!-- Move this up into your element_view_for loop!
     <% element.nested_elements.available.each do |nested_element| %>
       <%= render_element(nested_element) %>
     <% end %>
-    -->
 ERB
     haml_slim_snippet = <<HAMLSLIM
     - element.nested_elements.available.each do |nested_element|
       = render_element(nested_element)
 HAMLSLIM
-    erb_views.each { |view| append_to_file view, erb_snippet }
+    erb_views.each do |view|
+      gsub_file view, /(?<doubleend>^.*<%- end -%>.*\n.*<%- end -%>.*$)/, erb_snippet + '\k<doubleend>'
+    end
     haml_slim_views.each { |view| append_to_file view, haml_slim_snippet }
   end
 end
@@ -126,9 +125,9 @@ Element's "available_contents" feature removed
 
 The `available_contents` feature of elements was removed and replaced by nestable elements.
 
-Please update your `config/alchemy/elements.yml` so that you define an element for each content
-in `available_contents` and put its name into the `nestable_elements` collection in the parent
-element's definition.
+The automatic updater will update your `config/alchemy/elements.yml`: It will define an element
+for each content type in `available_contents` and put its name into the `nestable_elements`
+collection in the parent element's definition.
 
 ## Example:
 
@@ -149,17 +148,18 @@ becomes
       - name: headline
         type: EssenceText
       nestable_elements:
-      - link_list_link
+      - addable_link
 
-    - name: link_list_link
+    - name: addable_link
       contents:
       - name: link
         type: EssenceText
         settings:
           linkable: true
 
-Also update your element view partials, so they use the `element.nested_elements` collection
-instead of the `element.contents.named` collection.
+It will also update your element view partials and render the child elements after all other
+partials. Any call to `element.contents.named` that refers to previously `available_contents` should
+be replaced by a call to the `element.nested_elements`.
 
 ## Example:
 
@@ -174,18 +174,18 @@ becomes
 The code for the available contents button in the element editor partial can be removed
 without replacement. The nested elements editor partials render automatically.
 
-We have an experimental automatic upgrader which you can call using
-
-    $ rake alchemy:upgrade UPGRADE='generate_nestable_elements'
+    $ rake alchemy:upgrade
+    $ rake alchemy:install:migrations
     $ rake db:migrate
-    $ rake alchemy:upgrade UPGRADE='remove_available_contents'
 
 NOTE
       todo notice, 'Alchemy v4.0 changes'
     end
 
     def generate_nestable_elements
-      Alchemy::Upgrader::FourPointZeroTasks.new.generate_nestable_elements
+      Alchemy::Upgrader::FourPointZeroTasks.new.convert_available_contents
+      system "rails g alchemy:elements --skip"
     end
+
   end
 end
