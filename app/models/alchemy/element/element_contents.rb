@@ -104,15 +104,15 @@ module Alchemy
 
     # Returns an array of all EssenceRichtext contents ids from elements
     #
-    # This is used to initialize the TinyMCE editor in the element editor.
+    # This is used to re-initialize the TinyMCE editor in the element editor.
     #
     def richtext_contents_ids
       # This is not very efficient SQL wise I know, but we need to iterate
       # recursivly through all descendent elements and I don't know how to do this
       # in pure SQL. Anyone with a better idea is welcome to submit a patch.
-      ids = contents.essence_richtexts.pluck("#{Content.table_name}.id")
+      ids = contents.select(&:has_tinymce?).collect(&:id)
       expanded_nested_elements = nested_elements.expanded
-      if expanded_nested_elements.any?
+      if expanded_nested_elements.present?
         ids += expanded_nested_elements.collect(&:richtext_contents_ids)
       end
       ids.flatten

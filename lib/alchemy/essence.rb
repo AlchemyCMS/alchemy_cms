@@ -225,8 +225,10 @@ module Alchemy #:nodoc:
         "alchemy/essences/#{partial_name}_view"
       end
 
+      def has_tinymce?
+        false
+      end
     end
-
   end
 end
 ActiveRecord::Base.class_eval { include Alchemy::Essence } if defined?(Alchemy::Essence)

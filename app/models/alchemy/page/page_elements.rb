@@ -207,8 +207,8 @@ module Alchemy
     def richtext_contents_ids
       descendent_contents
         .where(Element.table_name => {folded: false})
-        .essence_richtexts
-        .pluck("#{Content.table_name}.id")
+        .select(&:has_tinymce?)
+        .collect(&:id)
     end
 
     def element_names_from_definition

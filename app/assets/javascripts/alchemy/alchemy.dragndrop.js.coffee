@@ -11,7 +11,7 @@ $.extend Alchemy,
 
     getTinymceIDs = (ui) ->
       ids = []
-      $textareas = ui.item.find('textarea.default_tinymce, textarea.custom_tinymce')
+      $textareas = ui.item.find('textarea.has_tinymce')
       $($textareas).each ->
         id = this.id.replace(/tinymce_/, '')
         ids.push parseInt(id, 10)

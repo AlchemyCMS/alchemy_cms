@@ -18,7 +18,11 @@ module Alchemy
 
     before_save :strip_content
 
-  private
+    def has_tinymce?
+      true
+    end
+
+    private
 
     def strip_content
       self.stripped_body = strip_tags(self.body)

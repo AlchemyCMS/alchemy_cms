@@ -61,3 +61,10 @@ Turbolinks.enableProgressBar()
 # Turbolinks DOM Ready
 $(document).on 'page:change', ->
   Alchemy.Initializer()
+  return
+
+# Turbolinks before parsing a new page
+$(document).on 'page:receive', ->
+  # Ensure that all tinymce editors get removed before parsing a new page
+  Alchemy.Tinymce.removeFrom $('.has_tinymce')
+  return
