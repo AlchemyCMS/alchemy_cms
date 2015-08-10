@@ -12,6 +12,8 @@ class ConvertAvailableContentsToNestedElements < ActiveRecord::Migration
       orphaned_contents = el.contents.where.not(name: content_names)
 
       orphaned_contents.each do |content|
+        next unless addable_element_present_for?(content.name)
+
         parent = content.element
         new_element = content.element.dup
         new_element.update(name: "addable_#{content.name}")
@@ -22,5 +24,14 @@ class ConvertAvailableContentsToNestedElements < ActiveRecord::Migration
     end
   end
   def down
+  end
+
+
+  private
+
+  def addable_content_present_for(content_name)
+    Alchemy::Element.definitions.any? do |definition|
+      definition['name'] == "addable_#{content_name}"
+    end
   end
 end
