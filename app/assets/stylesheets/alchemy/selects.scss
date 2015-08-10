@@ -2,6 +2,7 @@ select {
   @include button-defaults;
   height: 29px;
   padding: 0.4em 0.6em;
+  max-width: 100%;
 }
 
 .select2-container {
