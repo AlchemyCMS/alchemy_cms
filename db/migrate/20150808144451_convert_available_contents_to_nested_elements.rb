@@ -20,15 +20,24 @@ class ConvertAvailableContentsToNestedElements < ActiveRecord::Migration
         next unless addable_element_present_for?(content.name)
 
         parent = content.element
-        new_element = content.element.dup
-        new_element.update(name: "addable_#{content.name}")
-        content.element = new_element
-        new_element.save
-        parent.nested_elements << new_element
+
+        new_element = Alchemy::Element.create(
+          name: "addable_#{content.name}",
+          parent_element_id: parent.id,
+          public: parent.public,
+          folded: parent.folded,
+          creator: parent.creator,
+          updater: parent.updater,
+          page: parent.page,
+          create_contents_after_create: false
+        )
+
+        content.update_columns(element_id: new_element.id)
       end
     end
   end
   def down
+    raise ActiveRecord::IrreversibleMigrationError
   end
 
 
