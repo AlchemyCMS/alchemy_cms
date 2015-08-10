@@ -182,7 +182,7 @@ NOTE
       todo notice, 'Alchemy v4.0 changes'
     end
 
-    def generate_nestable_elements
+    def convert_available_contents
       Alchemy::Upgrader::FourPointZeroTasks.new.convert_available_contents
       system "rails g alchemy:elements --skip"
     end
