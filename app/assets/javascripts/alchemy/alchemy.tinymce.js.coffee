@@ -9,7 +9,7 @@ $.extend Alchemy.Tinymce,
   getDefaultConfig: (id) ->
     config = @defaults
     config.language = Alchemy.locale
-    config.selector = "textarea#tinymce_#{id}"
+    config.selector = "#tinymce_#{id}"
     config.init_instance_callback = @initInstanceCallback
     return config
 
@@ -45,7 +45,7 @@ $.extend Alchemy.Tinymce,
   #   - Editor id that should be initialized.
   #
   initEditor: (id) ->
-    textarea = $("textarea#tinymce_#{id}")
+    textarea = $("#tinymce_#{id}")
     if textarea.length == 0
       Alchemy.log_error "Could not initialize TinyMCE for textarea#tinymce_#{id}!"
       return
@@ -74,9 +74,9 @@ $.extend Alchemy.Tinymce,
       if editor
         editor.remove()
 
-  # Remove all tinymce instances within given $scope
-  removeFrom: ($scope) ->
-    $('textarea.tinymce', $scope).each ->
+  # Remove all tinymce instances for given selector
+  removeFrom: (selector) ->
+    $(selector).each ->
       tinymce.get(this.id).remove()
       return
     return

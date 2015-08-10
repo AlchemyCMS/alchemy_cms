@@ -50,7 +50,7 @@ class window.Alchemy.Dialog
     @overlay.removeClass('open') if @overlay?
     @$document.on 'webkitTransitionEnd transitionend oTransitionEnd', =>
       @$document.off 'webkitTransitionEnd transitionend oTransitionEnd'
-      Alchemy.Tinymce.removeFrom(@dialog_body)
+      Alchemy.Tinymce.removeFrom $('.tinymce', @dialog_body)
       @dialog_container.remove()
       @overlay.remove() if @overlay?
       @$body.removeClass('prevent-scrolling')
