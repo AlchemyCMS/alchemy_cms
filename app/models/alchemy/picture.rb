@@ -78,6 +78,14 @@ module Alchemy
       where("#{self.table_name}.cached_tag_list IS NULL OR #{self.table_name}.cached_tag_list = ''")
     }
 
+    def previous
+      self.class.where("name < ?", name).order(:name).last
+    end
+
+    def next
+      self.class.where("name > ?", name).order(:name).first
+    end
+
     after_update :touch_contents
 
     # Class methods
@@ -198,6 +206,5 @@ module Alchemy
       })
       PictureAttributes.secure(params)
     end
-
   end
 end

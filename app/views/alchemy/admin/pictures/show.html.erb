@@ -7,6 +7,23 @@
   ) %>
 </div>
 
+<div class="picture-overlay-navigation">
+  <% if @picture.previous %>
+    <%= link_to alchemy.admin_picture_path(@picture.previous),
+      class: "previous-picture",
+      remote: true do %>
+      <span class="icon-angle-left"></span>
+    <% end %>
+  <% end %>
+  <% if @picture.next %>
+    <%= link_to alchemy.admin_picture_path(@picture.next),
+      class: "next-picture",
+      remote: true do %>
+      <span class="icon-angle-right"></span>
+    <% end %>
+  <% end %>
+</div>
+
 <div class="picture-details-overlay">
   <%= render 'form' %>
   <%= render 'infos' %>

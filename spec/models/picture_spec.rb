@@ -317,5 +317,26 @@ module Alchemy
         it { is_expected.to be_falsey }
       end
     end
+
+    context 'navigating records' do
+      let!(:picture1) { create(:alchemy_picture, name: 'abc') }
+      let!(:picture2) { create(:alchemy_picture, name: 'def') }
+
+      describe "#previous" do
+        subject { picture2.previous }
+
+        it "returns the previous record by name" do
+          is_expected.to eq(picture1)
+        end
+      end
+
+      describe "#next" do
+        subject { picture1.next }
+
+        it "returns the next record by name" do
+          is_expected.to eq(picture2)
+        end
+      end
+    end
   end
 end
