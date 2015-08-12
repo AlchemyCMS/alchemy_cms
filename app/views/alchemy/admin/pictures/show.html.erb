@@ -1,4 +1,4 @@
-<div id="zoomed_picture_background">
+<div class="zoomed-picture-background">
   <%= image_tag alchemy.zoom_picture_path(
     id: @picture.id,
     name: @picture.urlname,
@@ -27,4 +27,8 @@
 <div class="picture-details-overlay">
   <%= render 'form' %>
   <%= render 'infos' %>
+</div>
+
+<div class="picture-overlay-handle">
+  <span class="icon-angle-double-right"></span>
 </div>

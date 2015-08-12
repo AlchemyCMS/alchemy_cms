@@ -8,14 +8,18 @@ class window.Alchemy.ImageOverlay extends Alchemy.Dialog
 
   init: ->
     Alchemy.ImageLoader(@dialog_body)
-    $('#zoomed_picture_background').click (e) =>
+    $('.zoomed-picture-background').click (e) =>
       e.stopPropagation()
       return if e.target.nodeName == 'IMG'
       @close()
       false
+    $('.picture-overlay-handle').click (e) =>
+      @dialog.toggleClass('hide-form')
+      false
     @$previous = $('.previous-picture')
     @$next = $('.next-picture')
     @$document.keydown (e) =>
+      return true if e.target.nodeName == 'INPUT'
       switch e.which
         when 37
           @previous()
