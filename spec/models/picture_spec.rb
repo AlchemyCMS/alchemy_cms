@@ -208,7 +208,7 @@ module Alchemy
     describe "#image_file_dimensions" do
       it "should return the width and height in the format of '1024x768'" do
         picture.image_file = image_file
-        expect(picture.image_file_dimensions).to eq('1 x 1')
+        expect(picture.image_file_dimensions).to eq('1x1')
       end
     end
 

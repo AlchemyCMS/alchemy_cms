@@ -14,23 +14,6 @@ div#image_assign_filter_and_image_sizing {
   }
 }
 
-#zoomed_picture_background {
-  text-align: center;
-  height: 100%;
-
-  .spinner {
-    position: absolute !important;
-    left: 50% !important;
-    top: 50% !important;
-  }
-
-  .zoomed_picture {
-    max-width: 100%;
-    max-height: 100%;
-    margin-bottom: -4px;
-  }
-}
-
 .picture_thumbnail {
   padding: $default-padding;
   margin: 2px 1px 2px 2px;
@@ -178,26 +161,6 @@ div.assign_image_list_image {
     }
   }
 
-  &.edit {
-    top: auto;
-    right: 4px;
-    bottom: 24px;
-
-    a {
-      background: image-url('alchemy/icons.png') no-repeat -160px -167px;
-    }
-  }
-
-  &.info {
-    top: auto;
-    left: 4px;
-    bottom: 24px;
-
-    a {
-      background: image-url('alchemy/icons.png') no-repeat -64px -168px;
-    }
-  }
-
   a {
     display: block;
     width: 16px;
@@ -335,26 +298,6 @@ div#filter_bar {
 
   &.filtered #tag_list ul {
     height: 372px;
-  }
-}
-
-div#pictures_page_list {
-  max-height: 100px;
-  overflow: auto;
-
-  h3 { padding: 0 $default-padding }
-
-  ul {
-    @include form-value-display;
-    list-style-type: none;
-  }
-
-  li {
-    padding: 0 $default-padding;
-
-    &.even { background: #F7F7F7 }
-
-    &:last-child { margin-bottom: 0 }
   }
 }
 

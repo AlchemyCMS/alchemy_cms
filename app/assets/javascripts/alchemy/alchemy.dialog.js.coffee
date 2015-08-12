@@ -9,6 +9,7 @@ class window.Alchemy.Dialog
     title: ''
     modal: true
     overflow: 'visible'
+    draggable: true
     ready: ->
     closed: ->
 
@@ -34,10 +35,11 @@ class window.Alchemy.Dialog
     window.requestAnimationFrame =>
       @dialog_container.addClass('open')
       @overlay.addClass('open') if @overlay?
-    @dialog.draggable
-      iframeFix: true
-      handle: '.alchemy-dialog-title'
-      containment: 'parent'
+    if @options.draggable
+      @dialog.draggable
+        iframeFix: true
+        handle: '.alchemy-dialog-title'
+        containment: 'parent'
     @$body.addClass('prevent-scrolling')
     Alchemy.currentDialogs.push(this)
     @load()

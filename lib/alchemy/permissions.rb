@@ -113,7 +113,7 @@ module Alchemy
         can :manage,                Alchemy::EssencePicture
         can :manage,                Alchemy::LegacyPageUrl
         can :edit_content,          Alchemy::Page
-        can [:read, :info],         Alchemy::Picture
+        can :read,                  Alchemy::Picture
         can [:read, :autocomplete], Alchemy::Tag
       end
     end

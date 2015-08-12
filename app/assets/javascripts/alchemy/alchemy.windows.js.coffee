@@ -2,15 +2,10 @@ $.extend Alchemy,
 
   # Opens an image in a dialog
   # Used by the picture library
-  zoomImage: (url, title, width, height) ->
-    Alchemy.openDialog url,
-      size: "#{width}x#{height}"
-      title: title
-      padding: false
-      overflow: 'hidden'
-      ready: (dialog) ->
-        Alchemy.ImageLoader dialog,
-          color: '#000'
+  zoomImage: (url) ->
+    overlay = new Alchemy.ImageOverlay(url)
+    overlay.open()
+    return
 
   # Trash window methods
   TrashWindow:

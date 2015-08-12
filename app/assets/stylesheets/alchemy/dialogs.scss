@@ -1,3 +1,4 @@
+.alchemy-image-overlay-container,
 .alchemy-dialog-container {
   position: fixed;
   overflow: auto;
@@ -26,6 +27,7 @@
   }
 }
 
+.alchemy-image-overlay,
 .alchemy-dialog-overlay {
   position: fixed;
   top: 0;
@@ -36,21 +38,28 @@
   background-color: rgba(0, 0, 0, 0.0);
   @include transition(background-color 200ms linear);
 
-  &.open {
-    background-color: rgba(0, 0, 0, 0.4);
-  }
-
   &.closable {
     cursor: pointer;
   }
 }
 
-.alchemy-dialog {
+.alchemy-dialog-overlay {
+
+  &.open {
+    background-color: rgba(0, 0, 0, 0.4);
+  }
+}
+
+.alchemy-dialog,
+.alchemy-image-overlay-dialog {
   position: relative;
   max-width: 100%;
   display: inline-block;
   vertical-align: middle;
   text-align: left;
+}
+
+.alchemy-dialog {
   white-space: normal;
   background-color: $light-gray;
   margin: 2*$default-margin;
@@ -137,19 +146,26 @@
   text-overflow: ellipsis;
 }
 
+.alchemy-image-overlay-close,
 .alchemy-dialog-close {
   position: absolute;
-  top: 0;
-  right: 2*$default-padding;
   z-index: 1;
-  padding: 0 $default-padding;
-  color: inherit;
   cursor: pointer;
 
   .icon.close.small {
     line-height: 1;
-    font-size: 16px;
     vertical-align: text-top;
+  }
+}
+
+.alchemy-dialog-close {
+  top: 0;
+  right: 2*$default-padding;
+  padding: 0 $default-padding;
+  color: inherit;
+
+  .icon.close.small {
+    font-size: 16px;
   }
 }
 

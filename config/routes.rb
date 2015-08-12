@@ -101,7 +101,6 @@ Alchemy::Engine.routes.draw do
         get :edit_multiple
       end
       member do
-        get :info
         delete :remove
       end
     end

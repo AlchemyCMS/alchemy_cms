@@ -38,6 +38,11 @@ module Alchemy
         end
       end
 
+      def show
+        @pages = @picture.essence_pictures.group_by(&:page)
+        render action: 'show'
+      end
+
       def create
         @picture = Picture.new(picture_params)
         @picture.name = @picture.humanized_name
@@ -50,7 +55,13 @@ module Alchemy
           render json: {files: [@picture.to_jq_upload], growl_message: message}, status: :created
         else
           message = _t('Picture validation error', name: @picture.name)
-          render json: {files: [@picture.to_jq_upload], growl_message: message}, status: :unprocessable_entity
+          render(
+            json: {
+              files: [@picture.to_jq_upload],
+              growl_message: message
+            },
+            status: :unprocessable_entity
+          )
         end
       end
 
@@ -91,7 +102,10 @@ module Alchemy
             end
           end
           if not_deletable.any?
-            flash[:warn] = _t("These pictures could not be deleted, because they were in use", :names => not_deletable.to_sentence)
+            flash[:warn] = _t(
+              "These pictures could not be deleted, because they were in use",
+              names: not_deletable.to_sentence
+            )
           else
             flash[:notice] = _t("Pictures deleted successfully", :names => names.to_sentence)
           end
@@ -111,7 +125,7 @@ module Alchemy
       rescue Exception => e
         flash[:error] = e.message
       ensure
-        do_redirect_to admin_pictures_path(:per_page => params[:per_page], :page => params[:page], :query => params[:query])
+        redirect_to_index
       end
 
       def flush
@@ -148,11 +162,12 @@ module Alchemy
       end
 
       def redirect_to_index
-        redirect_to admin_pictures_path(
-          query: params[:query],
-          tagged_with: params[:tagged_with],
-          size: params[:size],
-          filter: params[:filter]
+        do_redirect_to admin_pictures_path(
+          filter: params[:filter].presence,
+          page: params[:page].presence,
+          query: params[:query].presence,
+          size: params[:size].presence,
+          tagged_with: params[:tagged_with].presence
         )
       end
 
@@ -172,7 +187,6 @@ module Alchemy
         @page = params[:page] || 1
         @per_page = pictures_per_page_for_size(@size)
       end
-
     end
   end
 end
