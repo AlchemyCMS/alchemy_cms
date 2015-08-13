@@ -71,12 +71,18 @@ module Alchemy
       end
 
       def update
-        if @picture.update_attributes(picture_params)
-          flash[:notice] = _t(:picture_updated_successfully, name: @picture.name)
+        if @picture.update(picture_params)
+          @message = {
+            body: _t(:picture_updated_successfully, name: @picture.name),
+            type: 'notice'
+          }
         else
-          flash[:error] = _t(:picture_update_failed)
+          @message = {
+            body: _t(:picture_update_failed),
+            type: 'error'
+          }
         end
-        redirect_to_index
+        render :update
       end
 
       def update_multiple

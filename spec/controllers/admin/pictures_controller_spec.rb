@@ -177,7 +177,7 @@ module Alchemy
     end
 
     describe '#update' do
-      subject { alchemy_put :update, {id: 1, picture: {name: ''}} }
+      subject { alchemy_xhr :put, :update, {id: 1, picture: {name: ''}} }
 
       let(:picture) { build_stubbed(:alchemy_picture, name: 'Cute kitten') }
 
@@ -187,31 +187,26 @@ module Alchemy
 
       context 'with passing validations' do
         before do
-          expect(picture).to receive(:update_attributes).and_return(true)
+          expect(picture).to receive(:update).and_return(true)
         end
 
         it "sets success notice" do
           subject
-          expect(flash[:notice]).not_to be_blank
-        end
-
-        it "redirects to index path" do
-          is_expected.to redirect_to admin_pictures_path
+          expect(assigns(:message)[:body]).to \
+            eq(Alchemy::I18n.t(:picture_updated_successfully, name: picture.name))
+          expect(assigns(:message)[:type]).to eq('notice')
         end
       end
 
       context 'with failing validations' do
         before do
-          expect(picture).to receive(:update_attributes).and_return(false)
+          expect(picture).to receive(:update).and_return(false)
         end
 
-        it "sets error notice and redirects to index path" do
+        it "sets error notice" do
           subject
-          expect(flash[:error]).not_to be_blank
-        end
-
-        it "redirects to index path" do
-          is_expected.to redirect_to admin_pictures_path
+          expect(assigns(:message)[:body]).to eq(Alchemy::I18n.t(:picture_update_failed))
+          expect(assigns(:message)[:type]).to eq('error')
         end
       end
     end
