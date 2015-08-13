@@ -3,6 +3,7 @@ module Alchemy
     class ElementsController < Alchemy::Admin::BaseController
       before_action :load_element, only: [:update, :trash, :fold, :publish]
       authorize_resource class: Alchemy::Element
+      helper 'alchemy/admin/picture_styles'
 
       def index
         @page = Page.find(params[:page_id])

@@ -3,7 +3,7 @@
   Alchemy.closeCurrentDialog();
   Alchemy.setElementDirty('#element_<%= @content.element.id %>');
 <% if @content.ingredient %>
-  $('.thumbnail_background img', '#<%= @content.dom_id %>').replaceWith('<%= picture_thumbnail(@essence_picture.picture_style, @options) %>');
+  $('.thumbnail_background img', '#<%= @content.dom_id %>').replaceWith('<%= picture_thumbnail(@picture_style, @options) %>');
   Alchemy.ImageLoader('#<%= @content.dom_id %> .thumbnail_background');
 <% end %>
 })(jQuery);

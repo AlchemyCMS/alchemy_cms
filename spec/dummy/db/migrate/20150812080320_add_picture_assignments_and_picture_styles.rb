@@ -1,0 +1,1 @@
+../../../../db/migrate/20150812080320_add_picture_assignments_and_picture_styles.rb

@@ -3,8 +3,8 @@
 # Table name: alchemy_contents
 #
 #  id           :integer          not null, primary key
-#  name         :string(255)
-#  essence_type :string(255)
+#  name         :string
+#  essence_type :string
 #  essence_id   :integer
 #  element_id   :integer
 #  position     :integer

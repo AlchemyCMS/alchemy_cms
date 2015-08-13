@@ -3,7 +3,7 @@
 # Table name: alchemy_essence_selects
 #
 #  id         :integer          not null, primary key
-#  value      :string(255)
+#  value      :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  creator_id :integer

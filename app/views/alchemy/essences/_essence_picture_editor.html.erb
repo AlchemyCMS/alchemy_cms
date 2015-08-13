@@ -24,7 +24,7 @@
       <div class="picture_image">
         <div class="thumbnail_background<%= ' missing' if content.ingredient.nil? %>">
           <%- if content.ingredient -%>
-          <%= essence_picture_thumbnail(content, options) %>
+          <%= picture_thumbnail(content.essence.picture_assignment.picture_style, options) %>
           <%= hidden_field_tag content.form_field_name(:picture_id), content.ingredient.id %>
           <% end %>
         </div>

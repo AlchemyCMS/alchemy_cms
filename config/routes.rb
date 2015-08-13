@@ -115,10 +115,9 @@ Alchemy::Engine.routes.draw do
       collection do
         put :assign
       end
-      member do
-        get :crop
-      end
     end
+
+    resources :picture_styles, only: [:edit, :update]
 
     resources :essence_files, :only => [:edit, :update] do
       collection do

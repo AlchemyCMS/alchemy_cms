@@ -27,7 +27,7 @@ module Alchemy
       context "Requesting a picture that is assigned with restricted pages only" do
         before do
           essence = restricted_element.contents.where(name: 'image').first.essence
-          essence.picture_id = picture.id
+          essence.picture = picture
           essence.save
         end
 
@@ -212,7 +212,7 @@ module Alchemy
       context "Requesting a picture that is assigned with restricted pages only" do
         before do
           essence = restricted_element.contents.where(name: 'image').first.essence
-          essence.picture_id = picture.id
+          essence.picture = picture
           essence.save
         end
 
@@ -303,7 +303,7 @@ module Alchemy
       context "Requesting a picture that is assigned with restricted pages only" do
         before do
           essence = restricted_element.contents.where(name: 'image').first.essence
-          essence.picture_id = picture.id
+          essence.picture = picture
           essence.save
         end
 

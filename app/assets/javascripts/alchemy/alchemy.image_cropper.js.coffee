@@ -5,8 +5,8 @@ Alchemy.ImageCropper =
   initialized: false
 
   init: (box, min_size, default_box, ratio, true_size) ->
-    crop_from_field = $("#essence_picture_crop_from")
-    crop_size_field = $("#essence_picture_crop_size")
+    crop_from_field = $("#picture_style_crop_from")
+    crop_size_field = $("#picture_style_crop_size")
     options =
       onSelect: (coords) ->
         crop_from_field.val coords.x + "x" + coords.y

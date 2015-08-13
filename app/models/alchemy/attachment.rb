@@ -3,16 +3,16 @@
 # Table name: alchemy_attachments
 #
 #  id              :integer          not null, primary key
-#  name            :string(255)
-#  file_name       :string(255)
-#  file_mime_type  :string(255)
+#  name            :string
+#  file_name       :string
+#  file_mime_type  :string
 #  file_size       :integer
 #  creator_id      :integer
 #  updater_id      :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  cached_tag_list :text
-#  file_uid        :string(255)
+#  file_uid        :string
 #
 
 module Alchemy

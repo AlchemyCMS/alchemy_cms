@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729151825) do
+ActiveRecord::Schema.define(version: 20150812080320) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
@@ -122,7 +122,6 @@ ActiveRecord::Schema.define(version: 20150729151825) do
   end
 
   create_table "alchemy_essence_pictures", force: :cascade do |t|
-    t.integer  "picture_id"
     t.string   "caption"
     t.string   "title"
     t.string   "alt_tag"
@@ -135,9 +134,6 @@ ActiveRecord::Schema.define(version: 20150729151825) do
     t.integer  "updater_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
-    t.string   "crop_from"
-    t.string   "crop_size"
-    t.string   "render_size"
   end
 
   create_table "alchemy_essence_richtexts", force: :cascade do |t|
@@ -242,6 +238,31 @@ ActiveRecord::Schema.define(version: 20150729151825) do
   add_index "alchemy_pages", ["parent_id", "lft"], name: "index_pages_on_parent_id_and_lft"
   add_index "alchemy_pages", ["urlname"], name: "index_pages_on_urlname"
 
+  create_table "alchemy_picture_assignments", force: :cascade do |t|
+    t.integer  "picture_id"
+    t.integer  "assignable_id"
+    t.string   "assignable_type"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+  end
+
+  add_index "alchemy_picture_assignments", ["assignable_id", "assignable_type"], name: "index_picture_assignments_on_assignable_type_and_assignable_id"
+
+  create_table "alchemy_picture_styles", force: :cascade do |t|
+    t.integer  "picture_assignment_id"
+    t.string   "crop_from"
+    t.string   "crop_size"
+    t.string   "render_size"
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+  end
+
+  add_index "alchemy_picture_styles", ["picture_assignment_id"], name: "index_alchemy_picture_styles_on_picture_assignment_id"
+
   create_table "alchemy_pictures", force: :cascade do |t|
     t.string   "name"
     t.string   "image_file_name"
@@ -255,6 +276,7 @@ ActiveRecord::Schema.define(version: 20150729151825) do
     t.text     "cached_tag_list"
     t.string   "image_file_uid"
     t.integer  "image_file_size"
+    t.integer  "picture_id"
   end
 
   create_table "alchemy_sites", force: :cascade do |t|

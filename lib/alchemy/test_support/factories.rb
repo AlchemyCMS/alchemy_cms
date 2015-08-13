@@ -112,6 +112,9 @@ FactoryGirl.define do
     upload_hash Time.now.hash
   end
 
+  factory :picture_style, class: 'Alchemy::PictureStyle' do
+  end
+
   factory :content, :class => 'Alchemy::Content' do
     name "text"
     essence_type "Alchemy::EssenceText"

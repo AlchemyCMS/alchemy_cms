@@ -3,12 +3,12 @@
 # Table name: alchemy_pages
 #
 #  id               :integer          not null, primary key
-#  name             :string(255)
-#  urlname          :string(255)
-#  title            :string(255)
-#  language_code    :string(255)
+#  name             :string
+#  urlname          :string
+#  title            :string
+#  language_code    :string
 #  language_root    :boolean
-#  page_layout      :string(255)
+#  page_layout      :string
 #  meta_keywords    :text
 #  meta_description :text
 #  lft              :integer

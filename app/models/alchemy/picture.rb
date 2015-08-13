@@ -3,18 +3,19 @@
 # Table name: alchemy_pictures
 #
 #  id                :integer          not null, primary key
-#  name              :string(255)
-#  image_file_name   :string(255)
+#  name              :string
+#  image_file_name   :string
 #  image_file_width  :integer
 #  image_file_height :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  creator_id        :integer
 #  updater_id        :integer
-#  upload_hash       :string(255)
+#  upload_hash       :string
 #  cached_tag_list   :text
-#  image_file_uid    :string(255)
+#  image_file_uid    :string
 #  image_file_size   :integer
+#  picture_id        :integer
 #
 
 module Alchemy
@@ -24,7 +25,10 @@ module Alchemy
     include Alchemy::Picture::Sweeping
     include Alchemy::Picture::Transformations
 
-    has_many :essence_pictures, class_name: 'Alchemy::EssencePicture', foreign_key: 'picture_id'
+    has_many :picture_styles, through: :picture_assignments
+    has_many :picture_assignments
+    has_many :essence_pictures, through: :picture_assignments,
+      source: :assignable, source_type: 'Alchemy::EssencePicture'
     has_many :contents, through: :essence_pictures
     has_many :elements, through: :contents
     has_many :pages, through: :elements
@@ -159,13 +163,14 @@ module Alchemy
     # even if it is also assigned on a restricted page.
     #
     def restricted?
+      # TODO could this possibly be a huge performance issue?
       pages.any? && pages.not_restricted.blank?
     end
 
-    # Returns true if picture is not assigned to any EssencePicture.
+    # Returns true if picture is not assigned to any Object.
     #
     def deletable?
-      !essence_pictures.any?
+      picture_assignments.empty?
     end
 
     # A size String from original image file values.

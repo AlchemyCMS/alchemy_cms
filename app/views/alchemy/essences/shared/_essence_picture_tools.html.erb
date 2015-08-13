@@ -2,10 +2,7 @@
 
 <% if content.essence && content.essence.allow_image_cropping?(options) %>
   <%= link_to_dialog render_icon('crop'),
-    alchemy.crop_admin_essence_picture_path(
-      content.essence,
-      options: content.settings.update(options).to_json
-    ), {
+    alchemy.edit_admin_picture_style_path(content.essence.picture_assignment.picture_style, options: options.to_json), {
       size: "1000x615",
       title: _t('Edit Picturemask'),
       image_loader: false,

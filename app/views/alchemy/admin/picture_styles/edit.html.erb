@@ -1,0 +1,49 @@
+<div id="jscropper">
+<% if @no_image_notice %>
+  <%= render_message :warn do %>
+    <%= @no_image_notice %>
+  <% end %>
+<% else %>
+  <%= render_message do %>
+    <%= simple_format _t(:explain_cropping) %>
+  <% end %>
+  <div class="thumbnail_background">
+    <%= image_tag(
+      show_alchemy_picture_path(@picture, size: '800x600', format: 'png'),
+      id: 'imageToCrop'
+    ) %>
+  </div>
+  <%= form_for(
+    @picture_style,
+    url: alchemy.admin_picture_style_path(@picture_style, options: @options.to_json),
+    id: 'image_cropper_form',
+    remote: true
+  ) do |f| %>
+    <%= f.hidden_field :crop_from %>
+    <%= f.hidden_field :crop_size %>
+    <%= f.button "#{render_icon(:true)} #{_t(:apply)}".html_safe, class: 'with_icon' %>
+    <%= link_to _t('Reset Imagemask'), '#', {
+      onclick: 'Alchemy.ImageCropper.reset(); return false',
+      class: 'reset_mask'
+    } %>
+  <% end %>
+</div>
+<% end %>
+<% if @crop_settings.initial_box && @crop_settings.default_box %>
+<script type="text/javascript">
+  Alchemy.ImageLoader('#jscropper .thumbnail_background');
+  $('#imageToCrop').load(function() {
+    Alchemy.ImageCropper.init(
+       <%= @crop_settings.initial_box.values.to_json %>,
+      <% if @picture_style.can_be_cropped_to("#{@crop_settings.dimensions[:width]}x#{@crop_settings.dimensions[:height]}") %>
+        <%= @crop_settings.dimensions.values.to_json %>,
+      <% else %>
+        <%= false %>,
+      <% end %>
+      <%= @crop_settings.default_box.values.to_json %>,
+      <%= @crop_settings.ratio %>,
+      <%= @picture.image_size.values.to_json %>
+    );
+  });
+</script>
+<% end %>

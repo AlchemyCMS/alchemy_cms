@@ -1,9 +1,13 @@
 require 'spec_helper'
 
 describe "essences/_essence_picture_view" do
+  let(:essence_picture) do
+    create(:essence_picture, caption: 'This is a cute cat')
+  end
 
-  let(:essence_picture) { stub_model(Alchemy::EssencePicture, picture: stub_model(Alchemy::Picture), caption: 'This is a cute cat') }
-  let(:content) { stub_model(Alchemy::Content, name: 'image', essence_type: 'EssencePicture', essence: essence_picture) }
+  let!(:content) do
+    create(:content, name: 'image', essence_type: 'EssencePicture', essence: essence_picture)
+  end
 
   before do
     ActionView::Base.send(:include, Alchemy::UrlHelper)
