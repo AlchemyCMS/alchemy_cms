@@ -33,25 +33,17 @@ module Alchemy
   #     end
   #
   module OnPageLayout
+    mattr_accessor :callbacks
 
-    def on_page_layout(page_layout, callback = nil)
-      Alchemy::PagesController.class_eval do
-
-        append_before_action only: :show, if: -> { call_page_layout_callback_for?(page_layout) } do
-          if block_given?
-            instance_eval(&Proc.new)
-          elsif callback
-            self.send(callback)
-          else
-            raise "You need to either pass a block or method name as callback for `on_page_layout`"
-          end
-        end
-
-        private
-
-        def call_page_layout_callback_for?(page_layout)
-          page_layout.to_sym == :all || @page.page_layout.to_sym == page_layout.to_sym
-        end
+    def on_page_layout(page_layout, callback = nil, &block)
+      @@callbacks = {}
+      @@callbacks[page_layout] = []
+      if block_given?
+        @@callbacks[page_layout] << block
+      elsif callback
+        @@callbacks[page_layout] << callback
+      else
+        raise "You need to either pass a block or method name as callback for `on_page_layout`"
       end
     end
   end
