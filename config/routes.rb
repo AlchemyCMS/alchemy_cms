@@ -6,7 +6,7 @@ Alchemy::Engine.routes.draw do
   get '/sitemap.xml' => 'pages#sitemap', format: 'xml'
 
   scope Alchemy.admin_path, { constraints: Alchemy.admin_constraints } do
-    get '/' => redirect('admin/dashboard'), as: :admin
+    get '/' => redirect("#{Alchemy.admin_path}/dashboard"), as: :admin
     get '/dashboard' => 'admin/dashboard#index', as: :admin_dashboard
     get '/dashboard/info' => 'admin/dashboard#info', as: :dashboard_info
     get '/help' => 'admin/dashboard#help', as: :help
