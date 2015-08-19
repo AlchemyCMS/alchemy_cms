@@ -111,6 +111,8 @@ option. It depends on what you need for pages with that layout type.
 -   <code>redirects\_to\_external:</code> <code>[Boolean]</code><br>\
      Pass true to disable normal page rendering and redirect to a
     external page instead.
+-   <code>taggable:</code> <code>[Boolean]</code><br>\
+     Pass true to be able to assign tags within page settings.
 -   <code>controller:</code> <code>[String]</code><br>\
      Controller to use instead of the default Alchemy::PagesController
 -   <code>action:</code> <code>[String]</code><br>\
