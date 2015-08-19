@@ -75,6 +75,8 @@ h5. Additional/advanced options
   Pass true to enable a RSS feed of news elements from this page.
 * <code>redirects_to_external:</code> <code>[Boolean]</code><br>
   Pass true to disable normal page rendering and redirect to a external page instead.
+* <code>taggable:</code> <code>[Boolean]</code><br>
+  Pass true to be able to assign tags within page settings.
 * <code>controller:</code> <code>[String]</code><br>
   Controller to use instead of the default Alchemy::PagesController
 * <code>action:</code> <code>[String]</code><br>
