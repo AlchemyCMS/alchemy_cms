@@ -2,9 +2,9 @@
   <div class="content_editor essence_boolean" id="<%= content.dom_id %>" data-content-id="<%= content.id %>">
     <input type="hidden" value="0" name="<%= content.form_field_name %>">
     <%= check_box_tag content.form_field_name, 1,
-      content.ingredient.presence || content_settings_value(
-        content, :default_value,
-        local_assigns.fetch(:options, {})),
+      content.ingredient.presence || content.settings_value(
+        :default_value, local_assigns.fetch(:options, {})
+      ),
       class: local_assigns.fetch(:html_options, {})[:class],
       style: local_assigns.fetch(:html_options, {})[:style] %>
     <label for="<%= content.form_field_id %>" style="display: inline">

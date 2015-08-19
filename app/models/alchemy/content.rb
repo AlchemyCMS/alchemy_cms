@@ -108,6 +108,16 @@ module Alchemy
       @settings ||= definition.fetch('settings', {}).symbolize_keys
     end
 
+    # Fetches value from settings
+    #
+    # @param key [Symbol]               - The hash key you want to fetch the value from
+    # @param options [Hash]             - An optional Hash that can override the settings.
+    #                                     Normally passed as options hash into the content
+    #                                     editor view.
+    def settings_value(key, options = {})
+      settings.update(options || {}).symbolize_keys[key.to_sym]
+    end
+
     def siblings
       return [] if !element
       self.element.contents

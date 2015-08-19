@@ -1,7 +1,4 @@
-<% linkable = content_settings_value(
-    content, :linkable,
-    local_assigns.fetch(:options, {})
-  ) != false %>
+<% linkable = content.settings_value(:linkable, local_assigns.fetch(:options, {})) != false %>
 
 <% if options[:crop] &&
     content.ingredient &&

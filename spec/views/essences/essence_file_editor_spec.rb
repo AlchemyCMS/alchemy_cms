@@ -1,10 +1,9 @@
 require 'spec_helper'
 
 describe 'alchemy/essences/_essence_editor_view' do
-  let(:file)       { File.new(File.expand_path('../../../fixtures/image with spaces.png', __FILE__)) }
-  let(:attachment) { mock_model('Attachment', file: file, name: 'image', file_name: 'Image', icon_css_class: 'image') }
-  let(:essence)    { mock_model('EssenceFile', attachment: attachment) }
-  let(:content)    { mock_model('Content', essence: essence, settings: {}, dom_id: 'essence_file_1', form_field_name: '"contents[1][attachment_id]"') }
+  let(:attachment) { build_stubbed(:attachment) }
+  let(:essence) { build_stubbed(:essence_file, attachment: attachment) }
+  let(:content) { build_stubbed(:content, essence: essence) }
 
   subject do
     render partial: "alchemy/essences/essence_file_editor", locals: {content: content}
