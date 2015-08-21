@@ -2,7 +2,7 @@
 <%- options = local_assigns.fetch(:options, {}) -%>
 <%- html_options = local_assigns.fetch(:html_options, {}) -%>
 <%- if content.essence.link.blank? ||
-    content_settings_value(content, :disable_link, options) -%>
+    content.settings_value(:disable_link, options) -%>
 <%= content.ingredient -%>
 <%- else -%>
 <%= link_to(

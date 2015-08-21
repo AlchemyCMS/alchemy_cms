@@ -411,6 +411,82 @@ module Alchemy
       end
     end
 
+    describe '#settings_value' do
+      let(:key) { :key }
+      let(:settings) { Hash.new }
+
+      subject { content.settings_value(key, options) }
+
+      before do
+        allow(content).to receive(:settings) { settings }
+      end
+
+      context 'with content having settings' do
+        let(:settings) { {key: 'settings_value'} }
+
+        context 'and empty options' do
+          let(:options) { {} }
+
+          it "returns the value for key from content settings" do
+            expect(subject).to eq('settings_value')
+          end
+        end
+
+        context 'and nil options' do
+          let(:options) { nil }
+
+          it "returns the value for key from content settings" do
+            expect(subject).to eq('settings_value')
+          end
+        end
+
+        context 'but same key present in options' do
+          let(:options) { {key: 'options_value'} }
+
+          it "returns the value for key from options" do
+            expect(subject).to eq('options_value')
+          end
+        end
+      end
+
+      context 'with content having no settings' do
+        let(:settings) { {} }
+
+        context 'and empty options' do
+          let(:options) { {} }
+
+          it { expect(subject).to eq(nil) }
+        end
+
+        context 'but key present in options' do
+          let(:options) { {key: 'options_value'} }
+
+          it "returns the value for key from options" do
+            expect(subject).to eq('options_value')
+          end
+        end
+      end
+
+      context 'with content having settings with string as key' do
+        let(:settings) { {'key' => 'value_from_string_key'} }
+        let(:options) { {} }
+
+        it "returns value" do
+          expect(subject).to eq('value_from_string_key')
+        end
+      end
+
+      context 'with key passed as string' do
+        let(:settings) { {key: 'value_from_symbol_key'} }
+        let(:key)     { 'key' }
+        let(:options) { {} }
+
+        it "returns value" do
+          expect(subject).to eq('value_from_symbol_key')
+        end
+      end
+    end
+
     context 'delegations' do
       let(:page) { create(:restricted_page) }
 

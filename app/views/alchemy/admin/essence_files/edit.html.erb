@@ -1,7 +1,4 @@
-<% css_classes = content_settings_value(
-  @content,
-  :css_classes, local_assigns.fetch(:options, {})
-) %>
+<% css_classes = @content.settings_value(:css_classes, local_assigns.fetch(:options, {})) %>
 
 <%= alchemy_form_for [:admin, @essence_file] do |f| %>
   <%= f.input :link_text %>

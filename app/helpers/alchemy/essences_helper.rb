@@ -123,16 +123,5 @@ module Alchemy
         output
       end
     end
-
-    # Fetches value from settings of given content
-    #
-    # @param content [Alchemy::Content] - The content that settings should be taken
-    # @param key [Symbol]               - The hash key you want to fetch the value from
-    # @param options [Hash]             - An optional Hash that can override the settings.
-    #                                     Normally passed as options hash into the content editor view
-    def content_settings_value(content, key, options = {})
-      content.settings.update(options || {}).symbolize_keys[key.to_sym]
-    end
-
   end
 end

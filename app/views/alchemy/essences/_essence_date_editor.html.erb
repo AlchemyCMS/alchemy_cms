@@ -5,11 +5,7 @@
     content.essence, :date, {
       name: content.form_field_name,
       id: content.form_field_id,
-      value: content_settings_value(
-        content,
-        :default_value,
-        local_assigns.fetch(:options, {})
-      )
+      value: content.settings_value(:default_value, local_assigns.fetch(:options, {}))
     }
   ) %>
   <label for="<%= content.form_field_id %>" style="cursor: pointer; display: inline; display: inline-block; position: relative; top: 3px; margin: 0;">

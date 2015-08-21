@@ -2,7 +2,7 @@
 <%- if attachment = content.ingredient -%>
 <%= link_to(
   content.essence.link_text.presence ||
-    content_settings_value(content, :link_text, local_assigns.fetch(:options, {})) ||
+    content.settings_value(:link_text, local_assigns.fetch(:options, {})) ||
     attachment.name,
   alchemy.download_attachment_path(
     attachment,
