@@ -1,10 +1,11 @@
-<% linkable = content.settings_value(:linkable, local_assigns.fetch(:options, {})) != false %>
+<% linkable = content.settings_value(:linkable, options) != false %>
 
-<% if options[:crop] &&
-    content.ingredient &&
-    content.ingredient.can_be_cropped_to(options[:image_size], options[:upsample]) %>
+<% if content.essence && content.essence.allow_image_cropping?(options) %>
   <%= link_to_dialog render_icon('crop'),
-    alchemy.crop_admin_essence_picture_path(content.essence, options: options.to_json), {
+    alchemy.crop_admin_essence_picture_path(
+      content.essence,
+      options: content.settings.update(options).to_json
+    ), {
       size: "1000x615",
       title: _t('Edit Picturemask'),
       image_loader: false,
@@ -49,5 +50,5 @@
     options: options.to_json
   ), {
     title: _t(:edit_image_properties),
-    size: (options[:caption_as_textarea] ? (options[:sizes] ? '380x320' : '380x300') : (options[:sizes] ? '380x290' : '380x255'))
+    size: edit_picture_dialog_size(content, options)
   }, title: _t(:edit_image_properties) %>

@@ -3,7 +3,9 @@ require 'spec_helper'
 describe Alchemy::Admin::EssencesHelper do
   include Alchemy::Admin::ElementsHelper
 
-  let(:element) { FactoryGirl.create(:element, :name => 'article', :create_contents_after_create => true) }
+  let(:element) do
+    create(:element, name: 'article', create_contents_after_create: true)
+  end
 
   describe 'essence rendering' do
     before do
@@ -15,7 +17,8 @@ describe Alchemy::Admin::EssencesHelper do
     describe '#render_essence_editor' do
       it "should render an essence editor" do
         content = element.content_by_name('intro')
-        expect(helper.render_essence_editor(content)).to match(/input.+type="text".+value="hello!/)
+        expect(helper.render_essence_editor(content)).
+          to match(/input.+type="text".+value="hello!/)
       end
     end
 
@@ -48,10 +51,13 @@ describe Alchemy::Admin::EssencesHelper do
   end
 
   describe '#pages_for_select' do
-    let(:contact_form) { FactoryGirl.create(:element, :name => 'contactform', :create_contents_after_create => true) }
-    let(:page_a) { FactoryGirl.create(:public_page, :name => 'Page A') }
-    let(:page_b) { FactoryGirl.create(:public_page, :name => 'Page B') }
-    let(:page_c) { FactoryGirl.create(:public_page, :name => 'Page C', :parent_id => page_b.id) }
+    let(:contact_form) do
+      create(:element, name: 'contactform', create_contents_after_create: true)
+    end
+
+    let(:page_a) { create(:public_page, name: 'Page A') }
+    let(:page_b) { create(:public_page, name: 'Page B') }
+    let(:page_c) { create(:public_page, name: 'Page C', parent_id: page_b.id) }
 
     before do
       # to be shure the ordering is alphabetic
@@ -75,7 +81,7 @@ describe Alchemy::Admin::EssencesHelper do
     context "with pages passed in" do
       before do
         @pages = []
-        3.times { @pages << FactoryGirl.create(:public_page) }
+        3.times { @pages << create(:public_page) }
       end
 
       it "should return options for select with only these pages" do
@@ -137,4 +143,59 @@ describe Alchemy::Admin::EssencesHelper do
     end
   end
 
+  describe "#edit_picture_dialog_size" do
+    let(:content) { build_stubbed(:content) }
+
+    subject { edit_picture_dialog_size(content) }
+
+    context "with content having setting caption_as_textarea being true and sizes set" do
+      before do
+        allow(content).to receive(:settings) do
+          {
+            caption_as_textarea: true,
+            sizes: ['100x100', '200x200']
+          }
+        end
+
+        it { is_expected.to eq("380x320") }
+      end
+    end
+
+    context "with content having setting caption_as_textarea being true and no sizes set" do
+      before do
+        allow(content).to receive(:settings) do
+          {
+            caption_as_textarea: true
+          }
+        end
+
+        it { is_expected.to eq("380x300") }
+      end
+    end
+
+    context "with content having setting caption_as_textarea being false and sizes set" do
+      before do
+        allow(content).to receive(:settings) do
+          {
+            caption_as_textarea: false,
+            sizes: ['100x100', '200x200']
+          }
+        end
+
+        it { is_expected.to eq("380x290") }
+      end
+    end
+
+    context "with content having setting caption_as_textarea being false and no sizes set" do
+      before do
+        allow(content).to receive(:settings) do
+          {
+            caption_as_textarea: false
+          }
+        end
+
+        it { is_expected.to eq("380x255") }
+      end
+    end
+  end
 end

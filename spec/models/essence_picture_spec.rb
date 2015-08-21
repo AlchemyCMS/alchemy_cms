@@ -179,5 +179,61 @@ module Alchemy
       end
     end
 
+    describe "#allow_image_cropping?" do
+      let(:essence_picture) do
+        stub_model(
+          Alchemy::EssencePicture,
+          picture: picture,
+          caption: 'This is a cute cat'
+        )
+      end
+
+      let(:content) do
+        stub_model(
+          Alchemy::Content,
+          name: 'image',
+          essence_type: 'EssencePicture',
+          essence: essence_picture
+        )
+      end
+
+      let(:picture) { stub_model(Alchemy::Picture) }
+
+      subject { essence_picture.allow_image_cropping? }
+
+      it { is_expected.to be_falsy }
+
+      context "with content existing?" do
+        before do
+          allow(essence_picture).to receive(:content) { content }
+        end
+
+        it { is_expected.to be_falsy }
+
+        context "with picture assigned" do
+          before do
+            allow(content).to receive(:ingredient) { picture }
+          end
+
+          it { is_expected.to be_falsy }
+
+          context "and with image larger than crop size" do
+            before do
+              allow(picture).to receive(:can_be_cropped_to) { true }
+            end
+
+            it { is_expected.to be_falsy }
+
+            context "with crop set to true" do
+              before do
+                allow(content).to receive(:settings_value) { true }
+              end
+
+              it { is_expected.to be(true) }
+            end
+          end
+        end
+      end
+    end
   end
 end

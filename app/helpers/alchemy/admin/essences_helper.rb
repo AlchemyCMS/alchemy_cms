@@ -80,6 +80,15 @@ module Alchemy
         )
       end
 
+      # Size value for edit picture dialog
+      def edit_picture_dialog_size(content, options = {})
+        if content.settings_value(:caption_as_textarea, options)
+          content.settings_value(:sizes, options) ? '380x320' : '380x300'
+        else
+          content.settings_value(:sizes, options) ? '380x290' : '380x255'
+        end
+      end
+
       private
 
       # Returns an Array with page attributes for select options
@@ -114,7 +123,6 @@ module Alchemy
           page.name
         end
       end
-
     end
   end
 end
