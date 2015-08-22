@@ -78,14 +78,6 @@ module Alchemy
       where("#{self.table_name}.cached_tag_list IS NULL OR #{self.table_name}.cached_tag_list = ''")
     }
 
-    def previous
-      self.class.where("name < ?", name).order(:name).last
-    end
-
-    def next
-      self.class.where("name > ?", name).order(:name).first
-    end
-
     after_update :touch_contents
 
     # Class methods
@@ -96,6 +88,24 @@ module Alchemy
         last_picture = Picture.last
         return Picture.all unless last_picture
         Picture.where(upload_hash: last_picture.upload_hash)
+      end
+
+      def search_by(params, query, per_page = nil)
+        pictures = query.result
+
+        if params[:tagged_with].present?
+          pictures = pictures.tagged_with(params[:tagged_with])
+        end
+
+        if params[:filter].present?
+          pictures = pictures.filtered_by(params[:filter])
+        end
+
+        if per_page
+          pictures = pictures.page(params[:page] || 1).per(per_page)
+        end
+
+        pictures.order(:name)
       end
 
       def filtered_by(filter = '')
@@ -110,6 +120,16 @@ module Alchemy
     end
 
     # Instance methods
+
+    def previous(params = {})
+      query = Picture.ransack(params[:q])
+      Picture.search_by(params, query).where("name < ?", name).last
+    end
+
+    def next(params = {})
+      query = Picture.ransack(params[:q])
+      Picture.search_by(params, query).where("name > ?", name).first
+    end
 
     # Updates name and tag_list attributes.
     #

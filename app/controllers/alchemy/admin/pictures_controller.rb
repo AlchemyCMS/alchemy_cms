@@ -10,20 +10,8 @@ module Alchemy
 
       def index
         @size = params[:size].present? ? params[:size] : 'medium'
-
         @query = Picture.ransack(params[:q])
-        @pictures = @query.result
-        if params[:tagged_with].present?
-          @pictures = @pictures.tagged_with(params[:tagged_with])
-        end
-        if params[:filter].present?
-          @pictures = @pictures.filtered_by(params[:filter])
-        end
-
-        @pictures = @pictures
-          .page(params[:page] || 1)
-          .per(pictures_per_page_for_size(@size))
-          .order(:name)
+        @pictures = Picture.search_by(params, @query, pictures_per_page_for_size(@size))
 
         if in_overlay?
           archive_overlay
@@ -39,6 +27,8 @@ module Alchemy
       end
 
       def show
+        @previous = @picture.previous(params)
+        @next = @picture.next(params)
         @pages = @picture.essence_pictures.group_by(&:page)
         render action: 'show'
       end

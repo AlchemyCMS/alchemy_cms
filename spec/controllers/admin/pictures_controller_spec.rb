@@ -7,30 +7,57 @@ module Alchemy
       authorize_user(:as_admin)
     end
 
-    describe "#index" do
-      it "should always paginate the records" do
-        expect_any_instance_of(ActiveRecord::Relation).to receive(:page).and_call_original
+    describe '#index' do
+      context 'with search params' do
+        let!(:picture_1) { create(:alchemy_picture, name: 'cute kitten') }
+        let!(:picture_2) { create(:alchemy_picture, name: 'nice beach') }
+
+        it 'assigns @pictures with filtered pictures' do
+          alchemy_get :index, q: {name_cont: 'kitten'}
+          expect(assigns(:pictures)).to include(picture_1)
+          expect(assigns(:pictures)).to_not include(picture_2)
+        end
+      end
+
+      context 'with filter params' do
+        let!(:picture_1) { create(:alchemy_picture) }
+        let!(:picture_2) { create(:alchemy_picture, tag_list: %w(kitten)) }
+
+        it 'assigns @pictures with filtered pictures' do
+          alchemy_get :index, filter: 'without_tag'
+          expect(assigns(:pictures)).to include(picture_1)
+          expect(assigns(:pictures)).to_not include(picture_2)
+        end
+      end
+
+      context 'with tag params' do
+        let!(:picture_1) { create(:alchemy_picture, tag_list: %w(water)) }
+        let!(:picture_2) { create(:alchemy_picture, tag_list: %w(kitten)) }
+
+        it 'assigns @pictures with filtered pictures' do
+          alchemy_get :index, tagged_with: 'water'
+          expect(assigns(:pictures)).to include(picture_1)
+          expect(assigns(:pictures)).to_not include(picture_2)
+        end
+      end
+
+      it 'assigns @size to default value' do
         alchemy_get :index
+        expect(assigns(:size)).to eq('medium')
       end
 
-      context "when params[:filter] is set" do
-        it "should filter the pictures collection by the given filter string." do
-          expect(Picture).to receive(:filtered_by).with('recent').and_return(Picture.all)
-          alchemy_get :index, filter: 'recent'
+      context "with params[:size] set to 'large'" do
+        it 'assigns @size to large' do
+          alchemy_get :index, size: 'large'
+          expect(assigns(:size)).to eq('large')
         end
       end
 
-      context "when params[:tagged_with] is set" do
-        it "should filter the records by tags" do
-          expect(Picture).to receive(:tagged_with).and_return(Picture.all)
-          alchemy_get :index, tagged_with: "red"
-        end
-      end
-
-      context "when params[:content_id]" do
+      context "when params[:element_id]" do
         context "is set" do
           before do
-            allow(Element).to receive(:find).with('1', {:select => 'id'}).and_return(mock_model(Element))
+            allow(Element).to \
+              receive(:find).with('1', {select: 'id'}).and_return(mock_model(Element))
           end
 
           it "for html requests it renders the archive_overlay partial" do
@@ -157,6 +184,45 @@ module Alchemy
           json = JSON.parse(response.body)
           expect(json).to have_key('growl_message')
           expect(json).to have_key('files')
+        end
+      end
+    end
+
+    describe '#show' do
+      let(:picture) { create(:alchemy_picture, name: 'kitten') }
+
+      it 'assigns @picture' do
+        alchemy_get :show, id: picture.id
+        expect(assigns(:picture).id).to eq(picture.id)
+      end
+
+      context 'with assignments' do
+        let!(:page) { create(:alchemy_page) }
+        let!(:element) { create(:alchemy_element, page: page) }
+        let!(:content) { create(:alchemy_content, element: element) }
+        let!(:essence) { create(:alchemy_essence_picture, content: content, picture: picture) }
+
+        it 'assigns @pages to assignments grouped by page' do
+          alchemy_get :show, id: picture.id
+          expect(assigns(:pages)).to eq({page => [essence]})
+        end
+      end
+
+      context 'with previous picture existing' do
+        let!(:previous) { create(:alchemy_picture, name: 'abraham') }
+
+        it 'assigns @previous to previous picture' do
+          alchemy_get :show, id: picture.id
+          expect(assigns(:previous).id).to eq(previous.id)
+        end
+      end
+
+      context 'with next picture existing' do
+        let!(:next_picture) { create(:alchemy_picture, name: 'zebra') }
+
+        it 'assigns @next to next picture' do
+          alchemy_get :show, id: picture.id
+          expect(assigns(:next).id).to eq(next_picture.id)
         end
       end
     end
