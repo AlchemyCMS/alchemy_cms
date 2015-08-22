@@ -1,12 +1,5 @@
 $.extend Alchemy,
 
-  # Opens an image in a dialog
-  # Used by the picture library
-  zoomImage: (url) ->
-    overlay = new Alchemy.ImageOverlay(url)
-    overlay.open()
-    return
-
   # Trash window methods
   TrashWindow:
 

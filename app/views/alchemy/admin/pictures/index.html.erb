@@ -104,7 +104,13 @@
         e.preventDefault;
         return false;
       });
-
+      $('.thumbnail_background').click(function(event) {
+        var url = $(this).attr('href');
+        var overlay = new Alchemy.ImageOverlay(url);
+        overlay.open();
+        event.preventDefault();
+        return false;
+      });
     });
   </script>
 <% end %>
