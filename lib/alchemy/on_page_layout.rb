@@ -42,7 +42,7 @@ module Alchemy
       elsif callback
         @@callbacks[page_layout] << callback
       else
-        raise "You need to either pass a block or method name as callback for `on_page_layout`"
+        raise ArgumentError, "You need to either pass a block or method name as callback for `on_page_layout`"
       end
     end
   end

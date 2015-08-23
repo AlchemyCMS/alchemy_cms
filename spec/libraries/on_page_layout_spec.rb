@@ -9,47 +9,20 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
 
   describe '.on_page_layout' do
     context 'with :all as argument for page_layout' do
-      context 'and block given' do
-        before do
-          ApplicationController.class_eval do
-            on_page_layout(:all) do
-              @successful_for_all = true
-              @the_page_instance = @page
-            end
+      let(:page_two) { create(:public_page, page_layout: 'news') }
+
+      before do
+        ApplicationController.class_eval do
+          on_page_layout(:all) do
+            @successful_for_page = @page
           end
-        end
-
-        it 'runs on all page layouts' do
-          alchemy_get :show, urlname: page.urlname
-          expect(assigns(:successful_for_all)).to eq(true)
-        end
-
-        it 'has @page instance' do
-          alchemy_get :show, urlname: page.urlname
-          expect(assigns(:the_page_instance)).to eq(page)
         end
       end
 
-      context 'and method name instead of block given' do
-        before do
-          ApplicationController.class_eval do
-            on_page_layout :all, :my_all_callback_method
-
-            def my_all_callback_method
-              @successful_for_all_callback_method = true
-              @the_all_page_instance = @page
-            end
-          end
-        end
-
-        it 'runs on all page layouts' do
-          alchemy_get :show, urlname: page.urlname
-          expect(assigns(:successful_for_all_callback_method)).to eq(true)
-        end
-
-        it 'has @page instance' do
-          alchemy_get :show, urlname: page.urlname
-          expect(assigns(:the_all_page_instance)).to eq(page)
+      it 'runs on all page layouts' do
+        [page, page_two].each do |p|
+          alchemy_get :show, urlname: p.urlname
+          expect(assigns(:successful_for_page)).to eq(p)
         end
       end
     end
@@ -84,11 +57,11 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
       before do
         ApplicationController.class_eval do
           on_page_layout(:standard) do
-            @successful_for_page = true
+            @successful_for_standard = true
           end
 
           on_page_layout(:news) do
-            @successful_for_page = true
+            @successful_for_news = true
           end
         end
       end
@@ -96,7 +69,7 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
       it 'runs both callbacks' do
         [:standard, :news].each do |page_layout|
           alchemy_get :show, urlname: create(:public_page, page_layout: page_layout).urlname
-          expect(assigns(:successful_for_page)).to eq(true)
+          expect(assigns("successful_for_#{page_layout}".to_sym)).to eq(true)
         end
       end
     end
@@ -118,6 +91,48 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
         alchemy_get :show, urlname: page.urlname
         expect(assigns(:successful_for_standard_first)).to eq(true)
         expect(assigns(:successful_for_standard_second)).to eq(true)
+      end
+    end
+
+    context 'when block is given' do
+      before do
+        ApplicationController.class_eval do
+          on_page_layout :standard do
+            @successful_for_callback_method = true
+          end
+        end
+      end
+
+      it 'evaluates the given block' do
+        alchemy_get :show, urlname: page.urlname
+        expect(assigns(:successful_for_callback_method)).to eq(true)
+      end
+    end
+
+    context 'when callback method name is given' do
+      before do
+        ApplicationController.class_eval do
+          on_page_layout :standard, :run_method
+
+          def run_method
+            @successful_for_callback_method = true
+          end
+        end
+      end
+
+      it 'runs the given callback method' do
+        alchemy_get :show, urlname: page.urlname
+        expect(assigns(:successful_for_callback_method)).to eq(true)
+      end
+    end
+
+    context 'when neither callback method name nor block given' do
+      it 'raises an ArgumentError' do
+        expect do
+          ApplicationController.class_eval do
+            on_page_layout :standard
+          end
+        end.to raise_error(ArgumentError)
       end
     end
   end
