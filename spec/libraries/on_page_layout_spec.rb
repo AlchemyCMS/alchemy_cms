@@ -79,6 +79,47 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
         end
       end
     end
+
+    context 'when defining two callbacks for different page_layouts' do
+      before do
+        ApplicationController.class_eval do
+          on_page_layout(:standard) do
+            @successful_for_page = true
+          end
+
+          on_page_layout(:news) do
+            @successful_for_page = true
+          end
+        end
+      end
+
+      it 'runs both callbacks' do
+        [:standard, :news].each do |page_layout|
+          alchemy_get :show, urlname: create(:public_page, page_layout: page_layout).urlname
+          expect(assigns(:successful_for_page)).to be_truthy
+        end
+      end
+    end
+
+    context 'when defining two callbacks for the same page_layout' do
+      before do
+        ApplicationController.class_eval do
+          on_page_layout(:standard) do
+            @successful_for_standard_first = true
+          end
+
+          on_page_layout(:standard) do
+            @successful_for_standard_second = true
+          end
+        end
+      end
+
+      it 'runs both callbacks' do
+        alchemy_get :show, urlname: page.urlname
+        expect(assigns(:successful_for_standard_first)).to be_truthy
+        expect(assigns(:successful_for_standard_second)).to be_truthy
+      end
+    end
   end
 end
 
