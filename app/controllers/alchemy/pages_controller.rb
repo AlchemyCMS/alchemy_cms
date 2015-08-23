@@ -4,6 +4,9 @@ module Alchemy
     before_action :enforce_primary_host_for_site
     before_action :render_page_or_redirect, only: [:show]
 
+    before_action :run_on_page_layout_callbacks, only: :show,
+      if: -> { OnPageLayout.callbacks.present? }
+
     # Showing page from params[:urlname]
     #
     def show
@@ -206,6 +209,23 @@ module Alchemy
 
     def page_not_found!
       not_found_error!("Alchemy::Page not found \"#{request.fullpath}\"")
+    end
+
+    def run_on_page_layout_callbacks
+      OnPageLayout.callbacks.each do |page_layout, callbacks|
+        next unless call_page_layout_callback_for?(page_layout)
+        callbacks.each do |callback|
+          if callback.respond_to?(:call)
+            instance_eval(&callback)
+          else
+            send(callback)
+          end
+        end
+      end
+    end
+
+    def call_page_layout_callback_for?(page_layout)
+      page_layout.to_sym == :all || @page.page_layout.to_sym == page_layout.to_sym
     end
   end
 end
