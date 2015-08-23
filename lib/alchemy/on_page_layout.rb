@@ -33,11 +33,10 @@ module Alchemy
   #     end
   #
   module OnPageLayout
-    mattr_accessor :callbacks
+    mattr_accessor(:callbacks) { Hash.new }
 
     def on_page_layout(page_layout, callback = nil, &block)
-      @@callbacks = {}
-      @@callbacks[page_layout] = []
+      @@callbacks[page_layout] ||= []
       if block_given?
         @@callbacks[page_layout] << block
       elsif callback
