@@ -84,6 +84,15 @@ module Alchemy
       picture_url(content.settings)
     end
 
+    # Show image cropping link for content and options?
+    def allow_image_cropping?(options = {})
+      content && content.settings_value(:crop, options) && picture &&
+        picture.can_be_cropped_to(
+          content.settings_value(:image_size, options),
+          content.settings_value(:upsample, options)
+        )
+    end
+
     private
 
     def fix_crop_values
@@ -146,6 +155,5 @@ module Alchemy
       secure_attributes += %w(name format sh)
       params.delete_if { |k, v| !secure_attributes.include?(k.to_s) || v.blank? }
     end
-
   end
 end
