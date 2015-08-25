@@ -697,6 +697,13 @@ module Alchemy
       end
     end
 
+    describe '.public_language_roots' do
+      it "should return pages that public language roots" do
+        create(:public_page, name: 'First Public Child', parent_id: language_root.id, language: language)
+        expect(Page.public_language_roots.size).to eq(1)
+      end
+    end
+
     describe '.restricted' do
       it "should return 1 restricted page" do
         create(:public_page, name: 'First Public Child', restricted: true, parent_id: language_root.id, language: language)
