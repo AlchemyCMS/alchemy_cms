@@ -59,11 +59,11 @@ module Alchemy
     #
     def resize(size, upsample = false, fit = false)
       if fit
-        self.image_file.thumb("#{size}#")
+        image_file.thumb("#{size}#")
       elsif upsample
-        self.image_file.thumb("#{size}>")
+        image_file.thumb("#{size}>")
       else
-        self.image_file.thumb(size)
+        image_file.thumb(size)
       end
     end
 
