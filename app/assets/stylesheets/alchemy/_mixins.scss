@@ -110,3 +110,19 @@
     line-height: 8px;
   }
 }
+
+@mixin linked-button($border-radius: $default-border-radius) {
+  @include sassy-button(
+    'matte',
+    $border-radius,
+    $sb-font-size,
+    $linked-button-color,
+    $sb-second-color,
+    $sb-text-color,
+    $sb-text-style,
+    $sb-pseudo-states,
+    $sb-ie-support
+  );
+  padding: 3px;
+  border-color: $default-border-color;
+}
