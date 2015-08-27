@@ -326,7 +326,15 @@
     right: 28px;
     @include border-radius(0);
 
-    &.unlink {
+    &.linked.link-essence {
+      @include linked-button($border-radius: 0 0 0 0);
+    }
+
+    &.linked.unlink-essence {
+      @include linked-button($border-radius: 0 $default-border-radius $default-border-radius 0);
+    }
+
+    &.unlink-essence {
       right: 0;
       @extend .right-rounded-border;
     }

@@ -143,9 +143,7 @@ button, input[type="submit"], a.button, input.button {
   }
 
   &.linked {
-    @include sassy-button('matte', $sb-border-radius, $sb-font-size, #ffd77a, $sb-second-color, $sb-text-color, $sb-text-style, $sb-pseudo-states, $sb-ie-support);
-    padding: 3px;
-    border-color: $default-border-color;
+    @include linked-button;
   }
 
   &:focus {
