@@ -14,7 +14,7 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
       before do
         ApplicationController.class_eval do
           on_page_layout(:all) do
-            @successful_for_page = @page
+            @urlname = params[:urlname]
           end
         end
       end
@@ -22,7 +22,7 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
       it 'runs on all page layouts' do
         [page, page_two].each do |p|
           alchemy_get :show, urlname: p.urlname
-          expect(assigns(:successful_for_page)).to eq(p)
+          expect(assigns(:urlname)).to eq(p.urlname)
         end
       end
     end
@@ -57,19 +57,20 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
       before do
         ApplicationController.class_eval do
           on_page_layout(:standard) do
-            @successful_for_standard = true
+            @urlname = params[:urlname]
           end
 
           on_page_layout(:news) do
-            @successful_for_news = true
+            @urlname = params[:urlname]
           end
         end
       end
 
       it 'runs both callbacks' do
         [:standard, :news].each do |page_layout|
-          alchemy_get :show, urlname: create(:public_page, page_layout: page_layout).urlname
-          expect(assigns("successful_for_#{page_layout}".to_sym)).to eq(true)
+          page = create(:public_page, page_layout: page_layout)
+          alchemy_get :show, urlname: page.urlname
+          expect(assigns(:urlname)).to eq(page.urlname)
         end
       end
     end

@@ -21,6 +21,7 @@ module Alchemy
   #       end
   #
   #       on_page_layout :contact, :do_something
+  #       on_page_layout :news, :do_something_else
   #
   #       private
   #
@@ -33,16 +34,35 @@ module Alchemy
   #     end
   #
   module OnPageLayout
-    mattr_accessor(:callbacks) { Hash.new }
 
+    # All registered callbacks
+    def self.callbacks
+      @callbacks
+    end
+
+    # Registers a callback for given page layout
+    def self.register_callback(page_layout, callback)
+      @callbacks ||= {}
+      @callbacks[page_layout] ||= []
+      @callbacks[page_layout] << callback
+    end
+
+    # Define a page layout callback
+    #
+    # Pass a block or method name in which you have the +@page+ object and can do
+    # everything as if you where in a normal controller action.
+    #
+    # Pass a +Alchemy::PageLayout+ name or +:all+ to
+    # call a callback only on specific pages or on all pages.
+    #
     def on_page_layout(page_layout, callback = nil, &block)
-      @@callbacks[page_layout] ||= []
       if block_given?
-        @@callbacks[page_layout] << block
+        OnPageLayout.register_callback(page_layout, block)
       elsif callback
-        @@callbacks[page_layout] << callback
+        OnPageLayout.register_callback(page_layout, callback)
       else
-        raise ArgumentError, "You need to either pass a block or method name as callback for `on_page_layout`"
+        raise ArgumentError,
+          "You need to either pass a block or method name as callback for `on_page_layout`"
       end
     end
   end
