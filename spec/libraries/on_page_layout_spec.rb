@@ -167,3 +167,27 @@ RSpec.describe ApplicationController, 'OnPageLayout mixin', type: :controller do
     end
   end
 end
+
+RSpec.describe Alchemy::Admin::PagesController, 'OnPageLayout mixin', type: :controller do
+  before(:all) do
+    ApplicationController.send(:extend, Alchemy::OnPageLayout)
+  end
+
+  context 'in admin/pages_controller' do
+    before do
+      ApplicationController.class_eval do
+        on_page_layout(:standard) do
+          @successful_for_alchemy_admin_pages_controller = true
+        end
+      end
+      authorize_user(:as_admin)
+    end
+
+    let(:page) { create(:page, page_layout: 'standard') }
+
+    it 'callback also runs' do
+      alchemy_get :show, id: page.id
+      expect(assigns(:successful_for_alchemy_admin_pages_controller)).to be(true)
+    end
+  end
+end
