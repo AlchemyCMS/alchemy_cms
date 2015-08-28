@@ -47,9 +47,12 @@ module Alchemy
         expect(subject.contents.count).to eq(element.contents.count)
       end
 
-      it "should create a new record with all attributes of source except given differences" do
-        copy = Element.copy(element, {name: 'foobar'})
-        expect(copy.name).to eq('foobar')
+      context 'with differences' do
+        subject(:copy) { Element.copy(element, {name: 'foobar'}) }
+
+        it "should create a new record with all attributes of source except given differences" do
+          expect(copy.name).to eq('foobar')
+        end
       end
 
       it "should make copies of all contents of source" do
@@ -65,7 +68,8 @@ module Alchemy
         let(:element) do
           create(:element, :with_nestable_elements, {
             create_contents_after_create: true,
-            tag_list: 'red, yellow'
+            tag_list: 'red, yellow',
+            page: create(:page)
           })
         end
 
@@ -75,6 +79,34 @@ module Alchemy
 
         it "should copy nested elements" do
           expect(subject.nested_elements).to_not be_empty
+        end
+
+        context 'copy to new page' do
+          let(:new_page) { create(:page) }
+
+          subject(:new_element) do
+            Element.copy(element, {page_id: new_page.id})
+          end
+
+          it "should set page id to new page's id" do
+            new_element.nested_elements.each do |nested_element|
+              expect(nested_element.page_id).to eq(new_page.id)
+            end
+          end
+        end
+
+        context 'copy to new cell' do
+          let(:new_cell) { create(:cell) }
+
+          subject(:new_element) do
+            Element.copy(element, {cell_id: new_cell.id})
+          end
+
+          it "should set cell id to new cell's id" do
+            new_element.nested_elements.each do |nested_element|
+              expect(nested_element.cell_id).to eq(new_cell.id)
+            end
+          end
         end
       end
     end
