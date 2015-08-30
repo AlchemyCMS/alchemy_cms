@@ -38,7 +38,7 @@ RSpec.configure do |config|
   config.include Alchemy::TestSupport::ControllerRequests, :type => :controller
   config.include Alchemy::Engine.routes.url_helpers
   config.include FactoryGirl::Syntax::Methods
-  [:controller, :feature].each do |type|
+  [:controller, :feature, :request].each do |type|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type
   end
   config.before(:suite) do
