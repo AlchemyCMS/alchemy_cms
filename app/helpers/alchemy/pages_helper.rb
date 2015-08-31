@@ -299,7 +299,7 @@ module Alchemy
         separator: ""
       }
       options = default_options.merge(options)
-      %(<title>#{render_page_title(options)}</title>).html_safe
+      content_tag(:title, render_page_title(options).html_safe)
     end
 
     # Renders a html <meta> tag for name: "" and content: ""
@@ -317,7 +317,7 @@ module Alchemy
       }
       options = default_options.merge(options)
       lang = (@page.language.blank? ? options[:default_language] : @page.language.code)
-      %(<meta name="#{options[:name]}" content="#{options[:content]}" lang="#{lang}">).html_safe
+      tag(:meta, name: options[:name], content: options[:content], lang: lang)
     end
 
     # This helper takes care of all important meta tags for your page.
@@ -332,7 +332,7 @@ module Alchemy
     #
     # Then placing +render_meta_data(title_prefix: "Company", title_separator: "-")+ into the <head> part of the +pages.html.erb+ layout produces:
     #
-    #   <meta charset="UTF-8">
+    #   <meta charset="utf-8">
     #   <title>Company - #{@page.title}</title>
     #   <meta name="description" content="Your page description">
     #   <meta name="keywords" content="cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax">
@@ -364,19 +364,27 @@ module Alchemy
       end
       robot = "#{@page.robot_index? ? "" : "no"}index, #{@page.robot_follow? ? "" : "no"}follow"
       meta_string = %(
-        <meta charset="UTF-8">
+        #{tag(:meta, charset: 'utf-8')}
         #{render_title_tag(prefix: options[:title_prefix], separator: options[:title_separator])}
-        #{render_meta_tag(name: "description", content: description)}
-        #{render_meta_tag(name: "keywords", content: keywords)}
-        <meta name="created" content="#{@page.updated_at}">
-        <meta name="robots" content="#{robot}">
+        #{render_meta_tag(name: "created", content: @page.updated_at)}
+        #{render_meta_tag(name: "robots", content: robot)}
       )
-      if @page.contains_feed?
+      if description.present?
         meta_string += %(
-          <link rel="alternate" type="application/rss+xml" title="RSS" href="#{show_alchemy_page_url(@page, format: :rss)}">
+          render_meta_tag(name: "description", content: description.html_safe)
         )
       end
-      return meta_string.html_safe
+      if keywords.present?
+        meta_string += %(
+          render_meta_tag(name: "keywords", content: keywords.html_safe)
+        )
+      end
+      if @page.contains_feed?
+        meta_string += %(
+          auto_discovery_link_tag(:rss, show_alchemy_page_url(@page, format: :rss))
+        )
+      end
+      meta_string.html_safe
     end
 
     # Renders the partial for the cell with the given name of the current page.
