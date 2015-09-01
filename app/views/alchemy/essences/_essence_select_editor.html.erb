@@ -8,11 +8,9 @@
       <%= warning(':select_values is nil', "<strong>No select values given.</strong><br>Please provide :<code>select_values</code> either as argument to <code>render_essence_editor</code> helper or as setting on the content definition in <code>elements.yml</code>.".html_safe) %>
     <% else %>
       <%  if select_values.is_a?(Hash)
-            options_tags = grouped_options_for_select select_values,
-              content.ingredient, ''
+            options_tags = grouped_options_for_select(select_values, content.ingredient)
           else
-            options_tags = options_for_select select_values,
-              content.ingredient
+            options_tags = options_for_select(select_values, content.ingredient)
           end %>
 
       <%= select_tag content.form_field_name, options_tags, {
