@@ -2,7 +2,7 @@
   <%= image_tag alchemy.zoom_picture_path(
     id: @picture.id,
     name: @picture.urlname,
-    format: 'png',
+    format: @picture.suffix,
     sh: @picture.security_token
   ) %>
 </div>
