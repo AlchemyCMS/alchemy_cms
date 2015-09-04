@@ -55,14 +55,15 @@ module Alchemy
     # Pass a +Alchemy::PageLayout+ name or +:all+ to
     # call a callback only on specific pages or on all pages.
     #
-    def on_page_layout(page_layout, callback = nil, &block)
-      if block_given?
-        OnPageLayout.register_callback(page_layout, block)
-      elsif callback
-        OnPageLayout.register_callback(page_layout, callback)
-      else
-        raise ArgumentError,
-          "You need to either pass a block or method name as callback for `on_page_layout`"
+    def on_page_layout(page_layouts, callback = nil, &block)
+      callback = block || callback
+      [page_layouts].flatten.each do |page_layout|
+        if callback
+          OnPageLayout.register_callback(page_layout, callback)
+        else
+          raise ArgumentError,
+            "You need to either pass a block or method name as callback for `on_page_layout`"
+        end
       end
     end
   end

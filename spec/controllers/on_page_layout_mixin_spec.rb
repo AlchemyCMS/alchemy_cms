@@ -5,12 +5,11 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
     ApplicationController.send(:extend, Alchemy::OnPageLayout)
   end
 
-  let(:page) { create(:public_page, page_layout: 'standard') }
+  let(:page)     { create(:public_page, page_layout: 'standard') }
+  let(:page_two) { create(:public_page, page_layout: 'news') }
 
   describe '.on_page_layout' do
     context 'with :all as argument for page_layout' do
-      let(:page_two) { create(:public_page, page_layout: 'news') }
-
       before do
         ApplicationController.class_eval do
           on_page_layout(:all) do
@@ -134,6 +133,23 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
             on_page_layout :standard
           end
         end.to raise_error(ArgumentError)
+      end
+    end
+
+    context 'when passing two page_layouts for a callback' do
+      before do
+        ApplicationController.class_eval do
+          on_page_layout([:standard, :news]) do
+            @successful = true
+          end
+        end
+      end
+
+      it 'evaluates the given callback on both page_layouts' do
+        [page, page_two].each do |page|
+          alchemy_get :show, urlname: page.urlname
+          expect(assigns(:successful)).to eq(true)
+        end
       end
     end
   end
