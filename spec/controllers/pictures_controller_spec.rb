@@ -235,6 +235,29 @@ module Alchemy
           end
         end
       end
+
+      context 'requesting an animated gif with different format' do
+        let(:image) do
+          fixture_file_upload(
+            File.expand_path('../../fixtures/animated.gif', __FILE__),
+            'image/gif'
+          )
+        end
+
+        let(:picture) { build_stubbed(:picture, image_file: image) }
+
+        before do
+          expect(image).to receive(:ext) { 'gif' }
+          expect(picture).to receive(:image_file) { image }
+          expect(Alchemy::Picture).to receive(:find) { picture }
+        end
+
+        it 'flattens the gif before converting the format.' do
+          expect(image).to receive(:encode).with('png', '-flatten') { double(data: '') }
+          alchemy_get :show, id: picture.id, name: picture.urlname,
+            format: 'png', sh: picture.security_token
+        end
+      end
     end
 
     describe '#thumbnail' do
