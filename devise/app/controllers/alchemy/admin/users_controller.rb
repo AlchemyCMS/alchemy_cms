@@ -3,7 +3,6 @@ module Alchemy
     class UsersController < ResourcesController
 
       before_action :set_roles_and_genders, except: [:index, :destroy]
-      after_action :deliver_welcome_mail, only: [:create, :update]
 
       load_and_authorize_resource class: Alchemy::User,
         only: [:edit, :update, :destroy]
@@ -38,9 +37,9 @@ module Alchemy
         @user = User.new(user_params)
 
         if while_signup?
-          signup_admin_or_redirect(@user)
+          signup_admin_or_redirect
         else
-          create_user_or_redirect(@user)
+          create_user_or_redirect
         end
       end
 
@@ -51,7 +50,7 @@ module Alchemy
         else
           @user.update_without_password(user_params)
         end
-
+        deliver_welcome_mail
         render_errors_or_redirect @user,
           admin_users_path,
           _t("User updated", :name => @user.name)
@@ -93,22 +92,24 @@ module Alchemy
         User.count == 0
       end
 
-      def signup_admin_or_redirect(user)
-        user.alchemy_roles = %w(admin)
-        if user.save
+      def signup_admin_or_redirect
+        @user.alchemy_roles = %w(admin)
+        if @user.save
           flash[:notice] = _t('Successfully signup admin user')
-          sign_in :user, user
+          sign_in :user, @user
+          deliver_welcome_mail
           redirect_to admin_pages_path
         else
           render :signup
         end
       end
 
-      def create_user_or_redirect(user)
-        user.save
-        render_errors_or_redirect user,
+      def create_user_or_redirect
+        @user.save
+        deliver_welcome_mail
+        render_errors_or_redirect @user,
           admin_users_path,
-          _t("User created", name: user.name)
+          _t("User created", name: @user.name)
       end
 
       def can_update_role?
