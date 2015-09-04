@@ -14,6 +14,9 @@ module Alchemy
 
       authorize_resource class: Alchemy::Page, except: :index
 
+      # Needs to be included after +before_action+ calls, to be sure the filters are appended.
+      include OnPageLayout::CallbacksRunner
+
       def index
         authorize! :index, :alchemy_admin_pages
 
