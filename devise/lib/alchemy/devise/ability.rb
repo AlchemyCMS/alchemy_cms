@@ -10,7 +10,7 @@ module Alchemy
         can :create, Alchemy::User if Alchemy::User.count == 0
 
         if member? || author? || editor?
-          can [:read, :update], Alchemy.user_class, id: user.id
+          can [:show, :update], Alchemy.user_class, id: user.id
         end
 
         if editor? || admin?

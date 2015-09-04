@@ -43,8 +43,13 @@ describe Alchemy::Permissions do
       is_expected.not_to be_able_to(:update, another_user)
     end
 
-    it "can see its own record" do
-      is_expected.to be_able_to(:read, user)
+    it "can only see its own record" do
+      is_expected.to be_able_to(:show, user)
+      is_expected.not_to be_able_to(:show, another_user)
+    end
+
+    it "cannot see other user records" do
+      is_expected.to_not be_able_to(:index, Alchemy.user_class)
     end
   end
 
@@ -57,8 +62,9 @@ describe Alchemy::Permissions do
       is_expected.not_to be_able_to(:update, another_user)
     end
 
-    it "can see its own record" do
-      is_expected.to be_able_to(:read, user)
+    it "can only see its own record" do
+      is_expected.to be_able_to(:show, user)
+      is_expected.not_to be_able_to(:show, another_user)
     end
   end
 
