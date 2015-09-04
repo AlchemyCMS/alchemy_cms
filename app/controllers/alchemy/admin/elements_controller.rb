@@ -91,7 +91,7 @@ module Alchemy
       def order
         @trashed_element_ids = Element.trashed.where(id: params[:element_ids]).pluck(:id)
         Element.transaction do
-          params[:element_ids].each_with_index do |element_id, idx|
+          params.fetch(:element_ids, []).each_with_index do |element_id, idx|
             # Ensure to set page_id, cell_id and parent_element_id to the current page and
             # cell because of trashed elements could still have old values
             Element.where(id: element_id).update_all(

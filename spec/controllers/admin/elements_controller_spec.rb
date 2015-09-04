@@ -79,6 +79,14 @@ module Alchemy
         expect(Element.all.pluck(:id)).to eq(element_ids)
       end
 
+      context 'with missing [:element_ids] param' do
+        it 'does not raise any error and silently rejects to order' do
+          expect {
+            alchemy_xhr :post, :order
+          }.to_not raise_error
+        end
+      end
+
       context "untrashing" do
         let(:trashed_element) { FactoryGirl.create(:element, public: false, position: nil, page_id: 58, cell_id: 32) }
 
