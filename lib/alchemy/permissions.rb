@@ -73,7 +73,6 @@ module Alchemy
         end
         can :see,               Alchemy::Page,      restricted: true, visible: true
         can :display,           Alchemy::Picture
-        can [:read, :update],   Alchemy.user_class, id: @user.id
       end
     end
 
@@ -151,7 +150,6 @@ module Alchemy
         ], Alchemy::Page
         can :manage, Alchemy::Picture
         can :manage, Alchemy::Attachment
-        can :read,   Alchemy.user_class
         can :manage, Alchemy::Tag
         can :index,  Alchemy::Language
       end
@@ -174,7 +172,6 @@ module Alchemy
         can [:info, :update_check], :alchemy_admin_dashboard
 
         # Resources
-        can :manage,                Alchemy.user_class
         can :manage,                Alchemy::Language
         can :manage,                Alchemy::Site
       end
