@@ -63,7 +63,8 @@ module Alchemy
     has_many :nested_elements,
       -> { order(:position).not_trashed },
       class_name: 'Alchemy::Element',
-      foreign_key: :parent_element_id
+      foreign_key: :parent_element_id,
+      dependent: :destroy
 
     belongs_to :cell
     belongs_to :page
