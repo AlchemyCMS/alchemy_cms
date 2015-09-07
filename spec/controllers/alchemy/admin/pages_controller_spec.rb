@@ -103,7 +103,8 @@ module Alchemy
       end
 
       describe '#show' do
-        let(:page) { build_stubbed(:alchemy_page, language_code: 'nl') }
+        let(:language) { build_stubbed(:alchemy_language, locale: 'nl') }
+        let(:page) { build_stubbed(:alchemy_page, language: language) }
 
         before do
           expect(Page).to receive(:find).with(page.id.to_s).and_return(page)
@@ -353,11 +354,11 @@ module Alchemy
           allow_any_instance_of(Page).to receive(:move_to_child_of)
           allow_any_instance_of(Page).to receive(:copy_children_to)
           allow(controller).to receive(:store_current_language)
-          allow(Language).to receive(:current).and_return(mock_model('Language', language_code: 'it', code: 'it'))
+          allow(Language).to receive(:current).and_return(mock_model('Language', locale: 'de', code: 'de'))
         end
 
         it "should copy the language root page over to the other language" do
-          expect(Page).to receive(:copy).with(language_root_to_copy_from, {language_id: '2', language_code: 'it'})
+          expect(Page).to receive(:copy).with(language_root_to_copy_from, {language_id: '2', language_code: 'de'})
           alchemy_post :copy_language_tree, params
         end
 

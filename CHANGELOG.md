@@ -42,6 +42,7 @@ __Notable Changes__
 
 __Fixed Bugs__
 
+* Add `locale` to `Alchemy::Language` to avoid errors for languages with missing locale files #831
 * Fixes `Alchemy::PageLayout.get_all_by_attributes`
 * Fix tag list display in picture library
 * Animated GIFs display correctly
