@@ -419,6 +419,7 @@ es:
     javascript_disabled_text: "Alchemy necesita Javascript para funcionar correctamente. Por favor habilítalo en las opciones de tu navegador."
     language_code_placeholder: 'i.e. es'
     language_does_not_exist: "Este árbol de idioma no existe"
+    language_locale_notice: "Please choose the translation file you want this language to be assigned to. Typically this is the one matching the language code."
     language_pages_copied: "El árbol de idioma fue copiado correctamente."
     last_upload_only: "Solo última subida"
     left: "Izquierda"

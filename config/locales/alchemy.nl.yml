@@ -415,6 +415,7 @@ nl:
     javascript_disabled_text: "Javascript is nodig voor een juiste werking van Alchemy. Gebruik de browserinstellingen om Javascript in te schakelen."
     language_code_placeholder: 'bijv. en'
     language_does_not_exist: "Deze boomstructuur bestaat niet."
+    language_locale_notice: "Please choose the translation file you want this language to be assigned to. Typically this is the one matching the language code."
     language_pages_copied: "Boomstructuur gekopieerd."
     last_upload_only: "Alleen de laatste upload"
     left: "links"

@@ -418,6 +418,7 @@ de:
     javascript_disabled_text: "Alchemy funktioniert nur einwandfrei mit aktiviertem Javascript. Bitte aktivieren Sie es in Ihrem Browser."
     language_code_placeholder: 'z.B. de'
     language_does_not_exist: "Dieser Sprachbaum existiert noch nicht"
+    language_locale_notice: "Bitte wählen Sie die Übersetzungsdatei die sie dieser Sprache zuweisen wollen. Üblicherweise ist dies die, die dem Sprachkürzel entspricht."
     language_pages_copied: "Der Sprachbaum wurde kopiert"
     last_upload_only: "Zuletzt hochgeladene"
     left: "links"

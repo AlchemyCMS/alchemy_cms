@@ -419,6 +419,7 @@ ru:
     javascript_disabled_text: "Для работы Alchemy необходимо включить JavaScript."
     language_code_placeholder: 'например, ru'
     language_does_not_exist: "Дерево языка не существует"
+    language_locale_notice: "Please choose the translation file you want this language to be assigned to. Typically this is the one matching the language code."
     language_pages_copied: "Дерево языка успешно скопировано."
     last_upload_only: "Из последней загрузки"
     left: "слева"

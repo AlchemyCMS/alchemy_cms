@@ -41,12 +41,13 @@ module Alchemy
       when "Symbol"
         scope << options[:scope] unless options[:scope] == :alchemy
       end
-      ::I18n.t(msg, options.merge(:scope => scope))
+      ::I18n.t(msg, options.merge(scope: scope))
     end
 
     def self.available_locales
-      @@available_locales ||= nil
-      @@available_locales || translation_files.collect { |f| f.match(/.{2}\.yml$/).to_s.gsub(/\.yml/, '').to_sym }
+      @@available_locales ||= translation_files.collect do |f|
+        f.match(/.{2}\.yml$/).to_s.gsub(/\.yml/, '').to_sym
+      end
     end
 
     def self.available_locales=(locales)
@@ -58,7 +59,15 @@ module Alchemy
       Dir.glob(File.join(File.dirname(__FILE__), '../../config/locales/alchemy.*.yml'))
     end
 
-  private
+    def self.app_locales
+      @_app_locales ||= begin
+        app_locale_files.collect do |f|
+          f.match(/.{2}\.yml$/).to_s.gsub(/\.yml/, '')
+        end.uniq
+      end
+    end
+
+    private
 
     def self.humanize_default_string!(msg, options)
       if options[:default].blank?
@@ -66,5 +75,8 @@ module Alchemy
       end
     end
 
+    def self.app_locale_files
+      @_app_locale_files ||= Dir.glob(Rails.root.join('config/locales/*.yml'))
+    end
   end
 end
