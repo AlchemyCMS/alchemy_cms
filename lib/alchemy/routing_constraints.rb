@@ -5,7 +5,7 @@ module Alchemy
   # Alchemy has a very strong catch all route.
   # But we don't want to handle all requests.
   #
-  # For instance we only want to handle html requests and
+  # For instance we only want to handle html and rss requests and
   # don't want to swallow the rails/info routes in development mode.
   #
   class RoutingConstraints
@@ -22,13 +22,13 @@ module Alchemy
 
     private
 
-    # We only want html requests to be handled by us.
+    # We only want html and rss requests to be handled by us.
     #
     # If an unknown format is requested we want to handle this,
     # because it could be a legacy route that needs to be redirected.
     #
     def handable_format?
-      @request.format.symbol.nil? || (@request.format.symbol == :html)
+      @request.format.symbol.nil? || (@request.format.symbol == :html) || (@request.format.symbol == :rss)
     end
 
     # We don't want to handle the Rails info routes.
