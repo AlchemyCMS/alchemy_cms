@@ -76,6 +76,14 @@ module Alchemy
       #
       scope :flushables, -> { not_locked.published.contentpages }
 
+      # Returns all layoutpages that are not locked.
+      #
+      # Used for flushing all pages caches at once.
+      #
+      scope :flushable_layoutpages, -> {
+        not_locked.layoutpages.where.not(parent_id: Page.unscoped.root.id)
+      }
+
       # All searchable pages
       #
       scope :searchables, -> { not_restricted.published.contentpages }

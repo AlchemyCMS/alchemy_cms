@@ -56,18 +56,36 @@ module Alchemy
       end
 
       describe "#flush" do
-        let(:language) { mock_model('Language', code: 'en', pages: double(flushables: [page_1, page_2])) }
-        let(:page_1)   { build_stubbed(:page) }
-        let(:page_2)   { build_stubbed(:page) }
+        let(:content_page_1) { create(:public_page, name: "content page 1", published_at: Time.current - 5.days) }
+        let(:content_page_2) { create(:public_page, name: "content page 2", published_at: Time.current - 8.days) }
+        let(:layout_page_1)  { create(:page, layoutpage: true, name: "layout_page 1", published_at: Time.current - 5.days) }
+        let(:layout_page_2)  { create(:page, layoutpage: true, name: "layout_page 2", published_at: Time.current - 8.days) }
+        let(:content_pages)  { [content_page_1, content_page_2] }
+        let(:layout_pages)   { [layout_page_1, layout_page_2] }
 
         before do
-          expect(Language).to receive(:current).at_least(:once).and_return(language)
+          content_pages
+          layout_pages
         end
 
-        it "should remove the cache of all pages" do
-          expect(page_1).to receive(:publish!)
-          expect(page_2).to receive(:publish!)
-          alchemy_xhr :post, :flush
+        it "should update the published_at field of content pages" do
+          travel_to(Time.current) do
+            alchemy_xhr :post, :flush
+            content_pages.map(&:reload) # Reloading because published_at was directly updated in the database.
+            content_pages.each do |page|
+              expect(page.published_at).to eq(Time.current)
+            end
+          end
+        end
+
+        it "should update the published_at field of layout pages" do
+          travel_to(Time.current) do
+            alchemy_xhr :post, :flush
+            layout_pages.map(&:reload) # Reloading because published_at was directly updated in the database.
+            layout_pages.each do |page|
+              expect(page.published_at).to eq(Time.current)
+            end
+          end
         end
       end
 
