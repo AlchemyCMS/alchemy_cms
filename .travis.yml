@@ -22,6 +22,12 @@ notifications:
     - irc.freenode.org#alchemy_cms
   slack:
     secure: QzOFw1Ph69pzwWBFgtIVkOnjbcRxB9HPRQ+RYjK+2tg+fsbiTJ+wYgHcZL49tPYcLAls4kymkFWzWBF3PCAXJMfKgUCqXzdQ2FuJC/JoVRTLll4wDnZFPG33jsm5tVznmycZ3ma4+ZWfJQ+C+elEBOba6v1kG9eGIy6sH2cvXfE=
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/4dc02992aca8b4fd883b
+    on_success: always
+    on_failure: always
+    on_start: never
 addons:
   code_climate:
     secure: qmOMqc4FUBRP25XqaYIKuxZQ/GrGLKjIc3vUqZa+XfkQKh6xLXvOF7YUM/XJZ5u6D6hk0Ly8UxjctvDY+tQxEAK49lFwK51i7bODfkQjfVBrFzfht7QhxY5HJKx7F0HHmpyNJet4n8mR0gGlhwVyXv+Tz7Rm6O3Hq3+TEbY9+pk=
