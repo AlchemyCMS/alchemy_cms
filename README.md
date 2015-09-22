@@ -6,6 +6,8 @@
 
 ## About
 
+[![Join the chat at https://gitter.im/AlchemyCMS/alchemy_cms](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AlchemyCMS/alchemy_cms?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 ![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.svg)
 
 Alchemy is a powerful, flexible and user centric Rails CMS.
