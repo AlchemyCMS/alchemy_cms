@@ -1079,9 +1079,15 @@ module Alchemy
     end
 
     describe '#feed_elements' do
-      it "should return all rss feed elements" do
+      let(:news_element) { create(:element, name: 'news', public: false, page: news_page) }
+
+      it "should return all published rss feed elements" do
         expect(news_page.feed_elements).not_to be_empty
-        expect(news_page.feed_elements).to eq(Element.where(name: 'news').to_a)
+        expect(news_page.feed_elements).to eq(Element.where(name: 'news').published.to_a)
+      end
+
+      it "should not return unpublished rss feed elements" do
+        expect(news_page.feed_elements).not_to include(news_element)
       end
     end
 
