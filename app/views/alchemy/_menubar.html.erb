@@ -1,8 +1,8 @@
 <% if !@preview_mode && can?(:edit_content, @page) %>
   <div id="alchemy_menubar" style="display: none">
     <ul>
-      <li><%= link_to _t(:to_alchemy), alchemy.admin_dashboard_path %></li>
-      <li><%= link_to _t(:edit_page), alchemy.edit_admin_page_path(@page) %></li>
+      <li><%= link_to _t(:to_alchemy), alchemy.admin_dashboard_url %></li>
+      <li><%= link_to _t(:edit_page), alchemy.edit_admin_page_url(@page) %></li>
       <li>
         <%= form_tag Alchemy.logout_path, method: 'delete' do %>
           <%= button_tag _t(:logout) %>

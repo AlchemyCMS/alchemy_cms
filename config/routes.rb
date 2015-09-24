@@ -5,52 +5,16 @@ Alchemy::Engine.routes.draw do
 
   get '/sitemap.xml' => 'pages#sitemap', format: 'xml'
 
-  get '/admin' => redirect('admin/dashboard')
-  get '/admin/dashboard' => 'admin/dashboard#index',
-        :as => :admin_dashboard
-  get '/admin/dashboard/info' => 'admin/dashboard#info',
-        :as => :dashboard_info
-  get '/admin/help' => 'admin/dashboard#help',
-        :as => :help
-  get '/admin/dashboard/update_check' => 'admin/dashboard#update_check',
-        :as => :update_check
-
-  get '/attachment/:id/download(/:name)' => 'attachments#download',
-        :as => :download_attachment
-  get '/attachment/:id/show' => 'attachments#show',
-        :as => :show_attachment
-
-  # Picture urls
-  get "/pictures/:id/show(/:size)(/:crop)(/:crop_from/:crop_size)(/:quality)/:name.:format" => 'pictures#show',
-        :as => :show_picture
-  get '/pictures/:id/zoom/:name.:format' => 'pictures#zoom',
-        :as => :zoom_picture
-  get "/pictures/:id/thumbnails(/:size)(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
-        :as => :thumbnail, :defaults => {:format => 'png', :name => "thumbnail"}
-
-  get '/admin/leave' => 'admin/base#leave', :as => :leave_admin
-
-  resources :messages, :only => [:index, :new, :create]
-  resources :elements, :only => :show
-
-  namespace :api, defaults: {format: 'json'} do
-    resources :contents, only: [:index, :show]
-
-    resources :elements, only: [:index, :show] do
-      get '/contents' => 'contents#index', as: 'contents'
-      get '/contents/:name' => 'contents#show', as: 'content'
-    end
-
-    resources :pages, only: [:index] do
-      get 'elements' => 'elements#index', as: 'elements'
-      get 'elements/:named' => 'elements#index', as: 'named_elements'
-    end
-
-    get '/pages/*urlname(.:format)' => 'pages#show', as: 'page'
-    get '/admin/pages/:id(.:format)' => 'pages#show', as: 'preview_page'
+  scope Alchemy.admin_path, {constraints: Alchemy.admin_constraints} do
+    get '/' => redirect("#{Alchemy.admin_path}/dashboard"), as: :admin
+    get '/dashboard' => 'admin/dashboard#index', as: :admin_dashboard
+    get '/dashboard/info' => 'admin/dashboard#info', as: :dashboard_info
+    get '/help' => 'admin/dashboard#help', as: :help
+    get '/dashboard/update_check' => 'admin/dashboard#update_check', as: :update_check
+    get '/leave' => 'admin/base#leave', as: :leave_admin
   end
 
-  namespace :admin do
+  namespace :admin, {path: Alchemy.admin_path, constraints: Alchemy.admin_constraints} do
     resources :contents do
       collection do
         post :order
@@ -152,6 +116,40 @@ Alchemy::Engine.routes.draw do
     end
 
     resources :sites
+  end
+
+  get '/attachment/:id/download(/:name)' => 'attachments#download',
+      as: :download_attachment
+  get '/attachment/:id/show' => 'attachments#show',
+      as: :show_attachment
+
+  # Picture urls
+  get "/pictures/:id/show(/:size)(/:crop)(/:crop_from/:crop_size)(/:quality)/:name.:format" => 'pictures#show',
+      as: :show_picture
+  get '/pictures/:id/zoom/:name.:format' => 'pictures#zoom',
+      as: :zoom_picture
+  get "/pictures/:id/thumbnails(/:size)(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
+      as: :thumbnail, :defaults => {:format => 'png', :name => "thumbnail"}
+
+  resources :messages, :only => [:index, :new, :create]
+  resources :elements, :only => :show
+  resources :contents, :only => :show
+
+  namespace :api, defaults: {format: 'json'} do
+    resources :contents, only: [:index, :show]
+
+    resources :elements, only: [:index, :show] do
+      get '/contents' => 'contents#index', as: 'contents'
+      get '/contents/:name' => 'contents#show', as: 'content'
+    end
+
+    resources :pages, only: [:index] do
+      get 'elements' => 'elements#index', as: 'elements'
+      get 'elements/:named' => 'elements#index', as: 'named_elements'
+    end
+
+    get '/pages/*urlname(.:format)' => 'pages#show', as: 'page'
+    get '/admin/pages/:id(.:format)' => 'pages#show', as: 'preview_page'
   end
 
   get '/:locale' => 'pages#show',
