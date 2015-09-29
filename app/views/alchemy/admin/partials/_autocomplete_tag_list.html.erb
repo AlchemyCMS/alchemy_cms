@@ -1,1 +1,1 @@
-<%= f.text_field :tag_list, data: {autocomplete: alchemy.autocomplete_admin_tags_path} %>
+<%= f.text_field :tag_list, value: f.object.tag_list.join(","), data: {autocomplete: alchemy.autocomplete_admin_tags_path} %>
