@@ -10,12 +10,12 @@
 <% end %>
   <td class="tools">
     <% if can?(:destroy, resource) %>
-    <%= delete_button resource_path(resource) %>
+    <%= delete_button resource_path(resource, current_location_params) %>
     <% end %>
     <% if can?(:edit, resource) %>
     <%= link_to_dialog(
       '',
-      edit_resource_path(resource),
+      edit_resource_path(resource, current_location_params),
       {
         title: _t('Edit'),
         size: resource_window_size
