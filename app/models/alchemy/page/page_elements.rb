@@ -199,7 +199,7 @@ module Alchemy
     #     feed_elements: [element_name, element_2_name]
     #
     def feed_elements
-      elements.named(definition['feed_elements'])
+      elements.available.named(definition['feed_elements'])
     end
 
     # Returns an array of all EssenceRichtext contents ids from not folded elements
