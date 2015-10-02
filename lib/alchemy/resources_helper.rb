@@ -158,5 +158,15 @@ module Alchemy
     rescue ActionView::MissingTemplate
       render :partial => 'resource', :collection => resources_instance_variable
     end
+
+    # Returns all the params necessary to get you back from where you where
+    # before: the Ransack query and the current page.
+    #
+    def current_location_params
+      {
+        q: params[:q],
+        page: params[:page]
+      }
+    end
   end
 end

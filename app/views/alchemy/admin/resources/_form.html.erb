@@ -1,4 +1,4 @@
-<%= alchemy_form_for resource_instance_variable, url: resource_path(resource_instance_variable) do |f| %>
+<%= alchemy_form_for resource_instance_variable, url: resource_path(resource_instance_variable, current_location_params) do |f| %>
   <% resource_handler.editable_attributes.each do |attribute| %>
     <% if relation = attribute[:relation] %>
       <%= f.association relation[:name].to_sym,

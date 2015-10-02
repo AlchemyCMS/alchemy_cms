@@ -49,4 +49,33 @@ describe Admin::EventsController do
       end
     end
   end
+
+  describe '#update' do
+    let(:params) { {q: 'some_query', page: 6} }
+    let!(:peter)  { Event.create(name: 'Peter') }
+
+    it 'redirects to index, keeping the current location parameters' do
+      post :update, {id: peter.id, event: {name: "Hans"}}.merge(params)
+      expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q=some_query")
+    end
+  end
+
+  describe '#create' do
+    let(:params) { {q: 'some_query', page: 6} }
+
+    it 'redirects to index, keeping the current location parameters' do
+      post :create, {event: {name: "Hans"}}.merge(params)
+      expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q=some_query")
+    end
+  end
+
+  describe '#destroy' do
+    let(:params) { {q: 'some_query', page: 6} }
+    let!(:peter)  { Event.create(name: 'Peter') }
+
+    it 'redirects to index, keeping the current location parameters' do
+      delete :destroy, {id: peter.id}.merge(params)
+      expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q=some_query")
+    end
+  end
 end
