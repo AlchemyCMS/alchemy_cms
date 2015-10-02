@@ -6,12 +6,12 @@ module Alchemy
   module UrlHelper
 
     # Returns the path for rendering an alchemy page
-    def show_alchemy_page_path(page, optional_params={})
+    def show_alchemy_page_path(page, optional_params = {})
       alchemy.show_page_path(show_page_path_params(page, optional_params))
     end
 
     # Returns the url for rendering an alchemy page
-    def show_alchemy_page_url(page, optional_params={})
+    def show_alchemy_page_url(page, optional_params = {})
       alchemy.show_page_url(show_page_path_params(page, optional_params))
     end
 
@@ -21,9 +21,9 @@ module Alchemy
     #
     # Example:
     #
-    #   <%= image_tag show_alchemy_picture_path(picture, :size => '320x200', :format => :png) %>
+    #   <%= image_tag show_alchemy_picture_path(picture, size: '320x200', format: :png) %>
     #
-    def show_alchemy_picture_path(picture, optional_params={})
+    def show_alchemy_picture_path(picture, optional_params = {})
       alchemy.show_picture_path(show_picture_path_params(picture, optional_params))
     end
 
@@ -33,28 +33,28 @@ module Alchemy
     #
     # Example:
     #
-    #   <%= image_tag show_alchemy_picture_url(picture, :size => '320x200', :format => :png) %>
+    #   <%= image_tag show_alchemy_picture_url(picture, size: '320x200', format: :png) %>
     #
-    def show_alchemy_picture_url(picture, optional_params={})
+    def show_alchemy_picture_url(picture, optional_params = {})
       alchemy.show_picture_url(show_picture_path_params(picture, optional_params))
     end
 
     # Returns the correct params hash for passing to show_picture_path
-    def show_picture_path_params(picture, optional_params={})
+    def show_picture_path_params(picture, optional_params = {})
       url_params = {
-        :id => picture.id,
-        :name => picture.urlname,
-        :format => configuration(:image_output_format),
-        :sh => picture.security_token(optional_params)
+        id: picture.id,
+        name: picture.urlname,
+        format: configuration(:image_output_format),
+        sh: picture.security_token(optional_params)
       }
-      url_params.update(optional_params.update({:crop => optional_params[:crop] ? 'crop' : nil}))
+      url_params.update(optional_params.update(crop: optional_params[:crop] ? 'crop' : nil))
     end
 
     # Returns the correct params-hash for passing to show_page_path
-    def show_page_path_params(page, optional_params={})
+    def show_page_path_params(page, optional_params = {})
       raise ArgumentError, 'Page is nil' if page.nil?
       url_params = {urlname: page.urlname}.update(optional_params)
-      multi_language? ? url_params.update(locale: page.language_code) : url_params
+      prefix_locale? ? url_params.update(locale: page.language_code) : url_params
     end
 
     # Returns the path for downloading an alchemy attachment
@@ -71,6 +71,5 @@ module Alchemy
     def full_url_for_element(element)
       "#{current_server}/#{element.page.urlname}##{element_dom_id(element)}"
     end
-
   end
 end
