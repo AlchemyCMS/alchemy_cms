@@ -13,6 +13,18 @@ Run `bundle install` to install [guides](https://github.com/wycats/guides).
 
 To run a local guides server, run `guides preview`. The server will be available at [0.0.0.0:9292](http://0.0.0.0:9292).
 
+## Building and deployment
+
+Build the guides html files with:
+
+    bundle exec guides build --production
+
+If you are building the `master` branch, please use the `--edge` flag
+
+Deploy the files via:
+
+    bundle exec cap deploy
+
 ## Contributing
 
 1. Fork it
