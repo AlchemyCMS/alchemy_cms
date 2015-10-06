@@ -203,7 +203,7 @@ module Alchemy
       end
 
       it "should send the data to the browser" do
-        expect(controller).to receive(:send_data)
+        expect(controller).to receive(:send_file)
         alchemy_get :download, id: attachment.id
       end
     end

@@ -5,8 +5,8 @@ module Alchemy
 
     # sends file inline. i.e. for viewing pdfs/movies in browser
     def show
-      send_data(
-        @attachment.file.data,
+      send_file(
+        @attachment.file.path,
         {
           filename: @attachment.file_name,
           type: @attachment.file_mime_type,
@@ -17,8 +17,8 @@ module Alchemy
 
     # sends file as attachment. aka download
     def download
-      send_data(
-        @attachment.file.data, {
+      send_file(
+        @attachment.file.path, {
           filename: @attachment.file_name,
           type: @attachment.file_mime_type
         }
