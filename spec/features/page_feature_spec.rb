@@ -18,10 +18,8 @@ module Alchemy
     end
 
     it "should show the navigation with all visible pages" do
-      pages = [
-        create(:public_page, :visible => true, :name => 'Page 1'),
-        create(:public_page, :visible => true, :name => 'Page 2')
-      ]
+      create(:public_page, visible: true, name: 'Page 1')
+      create(:public_page, visible: true, name: 'Page 2')
       visit '/'
       within('div#navigation ul') { expect(page).to have_selector('li a[href="/page-1"], li a[href="/page-2"]') }
     end
@@ -43,10 +41,18 @@ module Alchemy
           expect(uri.request_uri).to eq("/en/#{second_page.urlname}")
         end
 
-        context "if no language params are given" do
-          it "should redirect to url with nested language code" do
-            visit "/#{public_page_1.urlname}"
-            expect(page.current_path).to eq("/#{public_page_1.language_code}/#{public_page_1.urlname}")
+        context "if no language params are given and page locale == default locale" do
+          it "doesn't prepend the url with the locale string" do
+            visit("/#{public_page_1.urlname}")
+            expect(page.current_path).to eq("/#{public_page_1.urlname}")
+          end
+        end
+
+        context "if no language params are given and page locale != default locale" do
+          it "prepends the url with the locale string" do
+            allow(::I18n).to receive(:default_locale).and_return(:de)
+            visit("/#{public_page_1.urlname}")
+            expect(page.current_path).to eq("/en/#{public_page_1.urlname}")
           end
         end
 
@@ -58,22 +64,31 @@ module Alchemy
           end
 
           it "should redirect to public child" do
-            visit "/#{default_language.code}/not-public"
-            expect(page.current_path).to eq("/#{default_language.code}/public-child")
+            visit "/not-public"
+            expect(page.current_path).to eq("/public-child")
           end
 
-          context "and url has no language code" do
-            it "should redirect to url of public child with language code of default language" do
-              visit '/not-public'
-              expect(page.current_path).to eq("/#{default_language.code}/public-child")
+          context "if page.locale != then the default locale" do
+            it "prepends the public child path with it's locale" do
+              allow(::I18n).to receive(:default_locale).and_return(:de)
+              visit "/not-public"
+              expect(page.current_path).to eq("/en/public-child")
             end
           end
         end
 
-        context "if requested url is index url" do
-          it "should redirect to pages url with default language" do
+        context "if requested url is the index url" do
+          it "redirects to the url of the default language root page" do
             visit '/'
-            expect(page.current_path).to eq("/#{default_language.code}/home")
+            expect(page.current_path).to eq("/home")
+          end
+
+          context "if page.locale != then the default locale" do
+            it "prepends the locale to the url" do
+              allow(::I18n).to receive(:default_locale).and_return(:de)
+              visit '/'
+              expect(page.current_path).to eq("/en/home")
+            end
           end
         end
 
@@ -81,13 +96,6 @@ module Alchemy
           it "should redirect to pages url with default language" do
             visit "/#{default_language.code}"
             expect(page.current_path).to eq("/#{default_language.code}/home")
-          end
-        end
-
-        context "requested url is only the urlname" do
-          it "then it should redirect to pages url with nested language." do
-            visit '/home'
-            expect(page.current_path).to eq('/en/home')
           end
         end
 
