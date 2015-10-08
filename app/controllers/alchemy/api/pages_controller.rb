@@ -5,11 +5,14 @@ module Alchemy
     # Returns all pages as json object
     #
     def index
-      @pages = Page.accessible_by(current_ability, :index)
+      @pages = Page.searchables
       if params[:page_layout].present?
         @pages = @pages.where(page_layout: params[:page_layout])
+      elsif params[:q].present?
+        @pages = @pages.where(["urlname like :q", q: "%#{params[:q]}%"])
       end
-      respond_with @pages
+      page = [params[:page].to_i, 1].min
+      respond_with @pages.page(page).per(25), meta: {total: @pages.count}
     end
 
     # Returns a json object for page

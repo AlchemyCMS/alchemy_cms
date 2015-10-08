@@ -130,6 +130,16 @@ module Alchemy
         end
       end
 
+      def page_for_link
+        @page = Page.find(params[:id])
+        @area_name = params[:area_name]
+        @url_prefix = ''
+        render partial: 'page_for_links',
+                object: @page,
+                locals: {area_name: @area_name},
+                layout: false
+      end
+
       def fold
         # @page is fetched via before filter
         @page.fold!(current_alchemy_user.id, !@page.folded?(current_alchemy_user.id))

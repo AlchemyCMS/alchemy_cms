@@ -21,6 +21,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     @$page_anchor = $('#page_anchor', @dialog_body)
     @$internal_urlname = $('#internal_urlname', @dialog_body)
     @$internal_anchor = $('#internal_anchor', @dialog_body)
+    @$interal_page_preview = $('#sitemap', @dialog_body)
     @$external_url = $('#external_url', @dialog_body)
     @$public_filename = $('#public_filename', @dialog_body)
     @$overlay_tabs = $('#overlay_tabs', @dialog_body)
@@ -34,19 +35,14 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   # Attaches click events to several buttons in the link dialog.
   attachEvents: ->
     # The select page and show elements links.
-    $('a.sitemap_pagename_link, a.show_elements_to_link', @dialog_body).click (e) =>
+    $(@dialog_body).delegate 'a.show_elements_to_link','click', (e) =>
       $this = $(e.target)
       page_id = $this.data('page-id')
       url = $this.data('url')
       # Select page in page tree
       @selectPage(page_id)
-      # if the show elements link was clicked
-      if $this.hasClass('show_elements_to_link')
-        # we open the elements select for that page
-        @showElementsSelect($this.attr('href'), url)
-      else
-        # store url
-        @$internal_urlname.val('/' + url)
+      # we open the elements select for that page
+      @showElementsSelect($this.attr('href'), url)
       false
     # The ok buttons
     $('.create-link.button', @dialog_body).click (e) =>
@@ -150,11 +146,19 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     # activate the tab jquery ui 1.10 style o.O
     @$overlay_tabs.tabs('option', 'active', $('#overlay_tabs > div').index(tab))
 
+  # load a page preview for the ajax page linking
+  loadPageSummary: (pageID) ->
+    $.get("/admin/pages/#{pageID}/page_for_link")
+      .done (html) =>
+        @$interal_page_preview.find('li').remove()
+        @$interal_page_preview.append $ html
+
   # Handles actions for internal link tab.
   selectInternalLinkTab: ($link) ->
     url = $link.attr('href').split('#')
     urlname = url[0]
     anchor = url[1]
+
     if anchor
       # store the anchor
       @$page_anchor.val("##{anchor}")
@@ -167,6 +171,41 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
         @$internal_anchor.select2 'val', value.replace(/^#/, '')
     else
       @$internal_urlname.val(urlname)
+
+    @$internal_urlname.select2({
+      placeholder: @$internal_urlname.attr('placeholder')
+      minimumInputLength: 2
+      width: '100%'
+      ajax:
+        url: '/api/pages'
+        dataType: 'json'
+        quietMillis: 250,
+        data: (term, page) ->
+          q: term,
+          page: page
+
+        results: (data, page) ->
+          hasMoreResults = (page * 50) < data.meta.total
+
+          results: (data.pages.map((data) ->
+              id: "/#{data.urlname}"
+              text: data.urlname
+              data: data
+            ))
+          more: hasMoreResults
+        cache: true
+
+      initSelection: (element, callback) =>
+        url = $(element).val()
+        if url != ''
+          $.getJSON( '/api/pages', { q: url.substring(1) })
+            .done (data) =>
+              page = data.pages[0]
+              page = { id: "/#{page.urlname}", text: page.urlname, data: page }
+              callback page
+              @loadPageSummary page.data.id
+    }).on('change', ({ added }) => @loadPageSummary(added.data.id) )
+
     $sitemap_line = $('.sitemap_sitename').closest('[name="'+urlname+'"]')
     if ($sitemap_line.length > 0)
       # Select the line where the link was detected in.

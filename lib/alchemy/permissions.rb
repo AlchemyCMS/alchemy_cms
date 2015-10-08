@@ -144,6 +144,7 @@ module Alchemy
           :destroy,
           :flush,
           :order,
+          :page_for_link,
           :publish,
           :sort,
           :switch_language
