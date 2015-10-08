@@ -170,6 +170,7 @@ module Alchemy
 
         # Controller actions
         can [:info, :update_check], :alchemy_admin_dashboard
+        can :select,                :alchemy_admin_site
 
         # Resources
         can :manage,                Alchemy::Language
