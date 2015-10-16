@@ -4,7 +4,7 @@ module Alchemy
   describe Api::PagesController do
 
     describe '#index' do
-      let!(:page) { create(:public_page) }
+      let!(:page) { create(:alchemy_page, :public) }
 
       it "returns all public pages as json objects" do
         alchemy_get :index, format: :json
@@ -19,7 +19,7 @@ module Alchemy
       end
 
       context 'with page_layout' do
-        let!(:other_page) { create(:public_page, page_layout: 'news') }
+        let!(:other_page) { create(:alchemy_page, :public, page_layout: 'news') }
 
         it "returns only page with this page layout" do
           alchemy_get :index, {page_layout: 'news', format: :json}
@@ -51,7 +51,7 @@ module Alchemy
 
     describe '#show' do
       context 'for existing page' do
-        let(:page) { build_stubbed(:public_page, urlname: 'a-page') }
+        let(:page) { build_stubbed(:alchemy_page, :public, urlname: 'a-page') }
 
         before do
           expect(Page).to receive(:find_by).and_return(page)
@@ -69,7 +69,7 @@ module Alchemy
         end
 
         context 'requesting an restricted page' do
-          let(:page) { build_stubbed(:page, restricted: true, urlname: 'a-page') }
+          let(:page) { build_stubbed(:alchemy_page, restricted: true, urlname: 'a-page') }
 
           it "responds with 403" do
             alchemy_get :show, {urlname: page.urlname, format: :json}
@@ -85,7 +85,7 @@ module Alchemy
         end
 
         context 'requesting a not public page' do
-          let(:page) { build_stubbed(:page, urlname: 'a-page') }
+          let(:page) { build_stubbed(:alchemy_page, urlname: 'a-page') }
 
           it "responds with 403" do
             alchemy_get :show, {urlname: page.urlname, format: :json}
@@ -116,7 +116,7 @@ module Alchemy
       end
 
       context 'requesting a page with id' do
-        let(:page) { create(:public_page) }
+        let(:page) { create(:alchemy_page, :public) }
 
         it "responds with json" do
           alchemy_get :show, {id: page.id, format: :json}

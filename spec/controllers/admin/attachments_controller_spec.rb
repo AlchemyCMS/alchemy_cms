@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::AttachmentsController do
-    let(:attachment) { build_stubbed(:attachment) }
+    let(:attachment) { build_stubbed(:alchemy_attachment) }
 
     before do
       authorize_user(:as_admin)
@@ -42,8 +42,8 @@ module Alchemy
       end
 
       describe 'only and expect options' do
-        let!(:png) { create(:attachment) }
-        let!(:jpg) { create(:attachment, file: File.new(File.expand_path('../../../../spec/fixtures/image3.jpeg', __FILE__))) }
+        let!(:png) { create(:alchemy_attachment) }
+        let!(:jpg) { create(:alchemy_attachment, file: File.new(File.expand_path('../../../../spec/fixtures/image3.jpeg', __FILE__))) }
 
         context 'with params[:only]' do
           it 'only loads attachments with matching content type' do
@@ -147,7 +147,7 @@ module Alchemy
     describe '#update' do
       subject { alchemy_put :update, {id: 1, attachment: {name: ''}} }
 
-      let(:attachment) { build_stubbed(:attachment) }
+      let(:attachment) { build_stubbed(:alchemy_attachment) }
 
       before do
         expect(Attachment).to receive(:find).and_return(attachment)
@@ -176,7 +176,7 @@ module Alchemy
     end
 
     describe '#destroy' do
-      let(:attachment) { build_stubbed(:attachment) }
+      let(:attachment) { build_stubbed(:alchemy_attachment) }
 
       before do
         expect(Attachment).to receive(:find).and_return(attachment)

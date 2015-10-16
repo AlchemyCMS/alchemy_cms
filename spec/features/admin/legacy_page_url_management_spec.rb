@@ -6,7 +6,7 @@ describe 'Legacy page url management', type: :feature, js: true do
     authorize_user(:as_admin)
   end
 
-  let!(:a_page) { create(:page) }
+  let!(:a_page) { create(:alchemy_page) }
 
   def open_page_properties
     visit admin_pages_path

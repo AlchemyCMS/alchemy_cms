@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Alchemy::Admin::ContentsHelper do
-  let(:element) { build_stubbed(:element, name: 'article') }
+  let(:element) { build_stubbed(:alchemy_element, name: 'article') }
   let(:content) { mock_model('Content', essence_partial_name: 'essence_text') }
 
   describe 'render_content_name' do

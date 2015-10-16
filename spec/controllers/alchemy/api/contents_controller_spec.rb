@@ -4,9 +4,9 @@ module Alchemy
   describe Api::ContentsController do
 
     describe '#index' do
-      let!(:page)    { create(:page) }
-      let!(:element) { create(:element, page: page) }
-      let!(:content) { create(:content, element: element) }
+      let!(:page)    { create(:alchemy_page) }
+      let!(:element) { create(:alchemy_element, page: page) }
+      let!(:content) { create(:alchemy_content, element: element) }
 
       it "returns all public contents as json objects" do
         alchemy_get :index, format: :json
@@ -21,8 +21,8 @@ module Alchemy
       end
 
       context 'with element_id' do
-        let!(:other_element) { create(:element, page: page) }
-        let!(:other_content) { create(:content, element: other_element) }
+        let!(:other_element) { create(:alchemy_element, page: page) }
+        let!(:other_content) { create(:alchemy_content, element: other_element) }
 
         it "returns only contents from this element" do
           alchemy_get :index, element_id: other_element.id, format: :json
@@ -55,9 +55,9 @@ module Alchemy
 
     describe '#show' do
       context 'with no other params given' do
-        let(:page)    { create(:page) }
-        let(:element) { create(:element, page: page) }
-        let(:content) { create(:content, element: element) }
+        let(:page)    { create(:alchemy_page) }
+        let(:element) { create(:alchemy_element, page: page) }
+        let(:content) { create(:alchemy_content, element: element) }
 
         before do
           expect(Content).to receive(:find).and_return(content)
@@ -75,7 +75,7 @@ module Alchemy
         end
 
         context 'requesting an restricted content' do
-          let(:page) { create(:page, restricted: true) }
+          let(:page) { create(:alchemy_page, restricted: true) }
 
           it "responds with 403" do
             alchemy_get :show, id: content.id, format: :json
@@ -92,9 +92,9 @@ module Alchemy
       end
 
       context 'with element_id and name params given' do
-        let!(:page)    { create(:page) }
-        let!(:element) { create(:element, page: page) }
-        let!(:content) { create(:content, element: element) }
+        let!(:page)    { create(:alchemy_page) }
+        let!(:element) { create(:alchemy_element, page: page) }
+        let!(:content) { create(:alchemy_content, element: element) }
 
         it 'returns the named content from element with given id.' do
           alchemy_get :show, element_id: element.id, name: content.name, format: :json

@@ -5,8 +5,8 @@ module Alchemy
     describe TrashController do
       render_views
 
-      let(:alchemy_page) { FactoryGirl.create(:public_page) }
-      let(:element) { FactoryGirl.create(:element, :public => false, :page => alchemy_page) }
+      let(:alchemy_page) { create(:alchemy_page, :public) }
+      let(:element) { create(:alchemy_element, :public => false, :page => alchemy_page) }
 
       before {
         authorize_user(:as_admin)
@@ -19,13 +19,13 @@ module Alchemy
       end
 
       it "should not hold elements that are not trashed" do
-        element = FactoryGirl.create(:element, :page => alchemy_page, :public => false)
+        element = create(:alchemy_element, :page => alchemy_page, :public => false)
         alchemy_get :index, :page_id => alchemy_page.id
         expect(response.body).not_to have_selector("#element_#{element.id}.element-editor")
       end
 
       context "with unique elements inside the trash" do
-        let(:trashed) { FactoryGirl.build_stubbed(:unique_element, position: nil, public: false, folded: true, page: alchemy_page) }
+        let(:trashed) { build_stubbed(:alchemy_element, :unique, position: nil, public: false, folded: true, page: alchemy_page) }
         before { allow(Element).to receive(:trashed).and_return([trashed]) }
 
         context "and no unique elements on the page" do
@@ -40,8 +40,8 @@ module Alchemy
         end
 
         context "and with an unique element on the page" do
-          let(:unique) { FactoryGirl.build_stubbed(:unique_element) }
-          let(:page) { FactoryGirl.build_stubbed(:public_page) }
+          let(:unique) { build_stubbed(:alchemy_element, :unique) }
+          let(:page) { build_stubbed(:alchemy_page, :public) }
 
           before do
             allow(Page).to receive(:find).and_return(page)

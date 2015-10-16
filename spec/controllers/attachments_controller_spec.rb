@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe AttachmentsController do
-    let(:attachment) { build_stubbed(:attachment) }
+    let(:attachment) { build_stubbed(:alchemy_attachment) }
 
     it "should raise ActiveRecord::RecordNotFound for requesting not existing attachments" do
       expect { alchemy_get :download, id: 0 }.to raise_error(ActiveRecord::RecordNotFound)

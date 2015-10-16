@@ -2,11 +2,11 @@ require 'spec_helper'
 
 module Alchemy
   describe Site do
-    let(:site) { FactoryGirl.create(:site) }
-    let(:another_site) { FactoryGirl.create(:site, name: 'Another Site', host: 'another.com') }
+    let(:site) { create(:alchemy_site) }
+    let(:another_site) { create(:alchemy_site, name: 'Another Site', host: 'another.com') }
 
     describe 'new instances' do
-      subject { FactoryGirl.build(:site) }
+      subject { build(:alchemy_site) }
 
       it 'should start out with no languages' do
         expect(subject.languages).to be_empty
@@ -22,7 +22,7 @@ module Alchemy
         end
 
         context 'when it already has a language' do
-          let(:language) { FactoryGirl.build(:language, site: nil) }
+          let(:language) { build(:alchemy_language, site: nil) }
           before { subject.languages << language }
 
           it 'should not create any additional languages' do
@@ -40,7 +40,7 @@ module Alchemy
       # But let's add some more:
       #
       let(:default_site)    { Site.default }
-      let!(:magiclabs_site) { FactoryGirl.create(:site, host: 'www.magiclabs.de', aliases: 'magiclabs.de magiclabs.com www.magiclabs.com') }
+      let!(:magiclabs_site) { create(:alchemy_site, host: 'www.magiclabs.de', aliases: 'magiclabs.de magiclabs.com www.magiclabs.com') }
 
       subject { Site.find_for_host(host) }
 

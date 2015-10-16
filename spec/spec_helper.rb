@@ -24,6 +24,7 @@ require 'alchemy/test_support/essence_shared_examples'
 require 'alchemy/test_support/integration_helpers'
 require 'alchemy/test_support/factories'
 
+require_relative 'factories'
 require_relative "support/hint_examples.rb"
 require_relative "support/transformation_examples.rb"
 

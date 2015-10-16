@@ -5,8 +5,8 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
     ApplicationController.send(:extend, Alchemy::OnPageLayout)
   end
 
-  let(:page)     { create(:public_page, page_layout: 'standard') }
-  let(:page_two) { create(:public_page, page_layout: 'news') }
+  let(:page)     { create(:alchemy_page, :public, page_layout: 'standard') }
+  let(:page_two) { create(:alchemy_page, :public, page_layout: 'news') }
 
   describe '.on_page_layout' do
     context 'with :all as argument for page_layout' do
@@ -43,7 +43,7 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
       end
 
       context 'and page not having standard layout' do
-        let(:page) { create(:public_page, page_layout: 'news') }
+        let(:page) { create(:alchemy_page, :public, page_layout: 'news') }
 
         it "doesn't run the callback" do
           alchemy_get :show, urlname: page.urlname
@@ -67,7 +67,7 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
 
       it 'runs both callbacks' do
         [:standard, :news].each do |page_layout|
-          page = create(:public_page, page_layout: page_layout)
+          page = create(:alchemy_page, :public, page_layout: page_layout)
           alchemy_get :show, urlname: page.urlname
           expect(assigns(:urlname)).to eq(page.urlname)
         end
@@ -199,7 +199,7 @@ RSpec.describe Alchemy::Admin::PagesController, 'OnPageLayout mixin', type: :con
       authorize_user(:as_admin)
     end
 
-    let(:page) { create(:page, page_layout: 'standard') }
+    let(:page) { create(:alchemy_page, page_layout: 'standard') }
 
     it 'callback also runs' do
       alchemy_get :show, id: page.id

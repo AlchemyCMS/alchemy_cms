@@ -3,14 +3,14 @@ require 'spec_helper'
 module Alchemy
   describe 'Page' do
     let(:default_language)      { Language.default }
-    let(:default_language_root) { create(:language_root_page, :language => default_language, :name => 'Home') }
-    let(:public_page_1)         { create(:public_page, :visible => true, :name => 'Page 1') }
-    let(:public_child)          { create(:public_page, :name => 'Public Child', :parent_id => public_page_1.id) }
+    let(:default_language_root) { create(:alchemy_page, :language_root, :language => default_language, :name => 'Home') }
+    let(:public_page_1)         { create(:alchemy_page, :public, :visible => true, :name => 'Page 1') }
+    let(:public_child)          { create(:alchemy_page, :public, :name => 'Public Child', :parent_id => public_page_1.id) }
 
     before { default_language_root }
 
     it "should include all its elements and contents" do
-      p = create(:public_page, :do_not_autogenerate => false)
+      p = create(:alchemy_page, :public, :do_not_autogenerate => false)
       article = p.elements.find_by_name('article')
       article.content_by_name('intro').essence.update_attributes(:body => 'Welcome to Peters Petshop', :public => true)
       visit "/#{p.urlname}"
@@ -19,8 +19,8 @@ module Alchemy
 
     it "should show the navigation with all visible pages" do
       pages = [
-        create(:public_page, :visible => true, :name => 'Page 1'),
-        create(:public_page, :visible => true, :name => 'Page 2')
+        create(:alchemy_page, :public, :visible => true, :name => 'Page 1'),
+        create(:alchemy_page, :public, :visible => true, :name => 'Page 2')
       ]
       visit '/'
       within('div#navigation ul') { expect(page).to have_selector('li a[href="/page-1"], li a[href="/page-2"]') }
@@ -33,7 +33,7 @@ module Alchemy
           allow_any_instance_of(PagesController).to receive(:multi_language?).and_return(true)
         end
 
-        let(:second_page) { create(:public_page, name: 'Second Page') }
+        let(:second_page) { create(:alchemy_page, :public, name: 'Second Page') }
         let(:legacy_url)  { LegacyPageUrl.create(urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69', page: second_page) }
 
         it "should redirect legacy url with unknown format & query string" do
@@ -100,7 +100,7 @@ module Alchemy
           before { allow(Alchemy.user_class).to receive(:admins).and_return([1, 2]) }
 
           it "should render 404 if urlname and lang parameter do not belong to same page" do
-            create(:klingonian)
+            create(:alchemy_language, :klingonian)
             expect {
               visit "/kl/#{public_page_1.urlname}"
             }.to raise_error(ActionController::RoutingError)
@@ -122,7 +122,7 @@ module Alchemy
           allow(Config).to receive(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
         end
 
-        let(:second_page) { create(:public_page, name: 'Second Page') }
+        let(:second_page) { create(:alchemy_page, :public, name: 'Second Page') }
         let(:legacy_url) { LegacyPageUrl.create(urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69', page: second_page) }
 
         it "should redirect legacy url with unknown format & query string" do
@@ -253,7 +253,7 @@ module Alchemy
 
     describe 'navigation rendering' do
       context 'with page having an external url without protocol' do
-        let!(:external_page) { create(:page, urlname: 'google.com', page_layout: 'external', visible: true) }
+        let!(:external_page) { create(:alchemy_page, urlname: 'google.com', page_layout: 'external', visible: true) }
 
         it "adds an prefix to url" do
           visit "/#{public_page_1.urlname}"
@@ -265,7 +265,7 @@ module Alchemy
     end
 
     describe 'accessing restricted pages' do
-      let!(:restricted_page) { create(:restricted_page, public: true) }
+      let!(:restricted_page) { create(:alchemy_page, :restricted, public: true) }
 
       context 'as a guest user' do
         it "I am not able to visit the page" do

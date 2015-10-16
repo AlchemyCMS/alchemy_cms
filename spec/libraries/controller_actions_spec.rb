@@ -53,7 +53,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
 
   describe "#set_alchemy_language" do
     let(:default_language) { Alchemy::Language.default }
-    let(:klingonian)       { FactoryGirl.create(:klingonian) }
+    let(:klingonian)       { create(:alchemy_language, :klingonian) }
 
     after do
       # We must never change the app's locale

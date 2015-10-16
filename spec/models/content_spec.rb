@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe Content do
-    let(:element) { create(:element, name: 'headline', create_contents_after_create: true) }
+    let(:element) { create(:alchemy_element, name: 'headline', create_contents_after_create: true) }
     let(:content) { element.contents.find_by(essence_type: 'Alchemy::EssenceText') }
 
     it "should return the ingredient from its essence" do
@@ -47,7 +47,7 @@ module Alchemy
     describe '#update_essence' do
       subject { content.update_essence(params) }
 
-      let(:element) { create(:element, name: 'text', create_contents_after_create: true) }
+      let(:element) { create(:alchemy_element, name: 'text', create_contents_after_create: true) }
       let(:content) { element.contents.first }
       let(:params)  { {} }
 
@@ -71,7 +71,7 @@ module Alchemy
       end
 
       context 'with validations and without params given' do
-        let(:element) { create(:element, name: 'contactform', create_contents_after_create: true) }
+        let(:element) { create(:alchemy_element, name: 'contactform', create_contents_after_create: true) }
 
         it "should add error messages if save fails and return false" do
           is_expected.to be_falsey
@@ -92,7 +92,7 @@ module Alchemy
 
     describe '.copy' do
       before(:each) do
-        @element = FactoryGirl.create(:element, :name => 'text', :create_contents_after_create => true)
+        @element = create(:alchemy_element, :name => 'text', :create_contents_after_create => true)
         @content = @element.contents.first
       end
 
@@ -113,7 +113,7 @@ module Alchemy
     end
 
     describe '.build' do
-      let(:element) { FactoryGirl.build_stubbed(:element) }
+      let(:element) { build_stubbed(:alchemy_element) }
 
       it "builds a new instance from elements.yml definition" do
         expect(Content.build(element, {name: 'headline'})).to be_instance_of(Content)
@@ -121,7 +121,7 @@ module Alchemy
     end
 
     describe '.content_definition' do
-      let(:element) { FactoryGirl.build_stubbed(:element) }
+      let(:element) { build_stubbed(:alchemy_element) }
 
       context "with blank name key" do
         it "returns a essence hash build from essence type" do
@@ -139,7 +139,7 @@ module Alchemy
     end
 
     describe '.content_definition_from_essence_type' do
-      let(:element) { FactoryGirl.build_stubbed(:element) }
+      let(:element) { build_stubbed(:alchemy_element) }
 
       it "returns the definition hash from element" do
         expect(Content).to receive(:content_name_from_element_and_essence_type).with(element, 'EssenceText').and_return('Foo')
@@ -151,7 +151,7 @@ module Alchemy
     end
 
     describe '.content_name_from_element_and_essence_type' do
-      let(:element) { FactoryGirl.build_stubbed(:element) }
+      let(:element) { build_stubbed(:alchemy_element) }
 
       it "returns a name from essence type and count of essences in element" do
         expect(Content.content_name_from_element_and_essence_type(element, 'EssenceText')).to eq("essence_text_1")
@@ -159,7 +159,7 @@ module Alchemy
     end
 
     describe '.create_from_scratch' do
-      let(:element) { FactoryGirl.create(:element, name: 'article') }
+      let(:element) { create(:alchemy_element, name: 'article') }
 
       it "builds the content" do
         expect(Content.create_from_scratch(element, name: 'headline')).to be_instance_of(Alchemy::Content)
@@ -185,7 +185,7 @@ module Alchemy
     end
 
     describe '#ingredient=' do
-      let(:element) { FactoryGirl.create(:element, name: 'headline') }
+      let(:element) { create(:alchemy_element, name: 'headline') }
 
       it "should set the given value to the ingredient column of essence" do
         c = Content.create_from_scratch(element, name: 'headline')
@@ -194,7 +194,7 @@ module Alchemy
       end
 
       context "no essence associated" do
-        let(:element) { FactoryGirl.create(:element, name: 'headline') }
+        let(:element) { create(:alchemy_element, name: 'headline') }
 
         it "should raise error" do
           c = Content.create(:element_id => element.id, name: 'headline')
@@ -214,7 +214,7 @@ module Alchemy
     end
 
     describe "#dom_id" do
-      let(:content) { build_stubbed(:content) }
+      let(:content) { build_stubbed(:alchemy_content) }
 
       it "returns a dom id string" do
         expect(content.dom_id).to eq("essence_text_#{content.id}")
@@ -230,7 +230,7 @@ module Alchemy
     end
 
     describe "#essence_partial_name" do
-      let(:content) { build_stubbed(:content) }
+      let(:content) { build_stubbed(:alchemy_content) }
 
       it "returns the essence#partial_name" do
         expect(content.essence).to receive(:partial_name)
@@ -247,7 +247,7 @@ module Alchemy
     end
 
     describe '#preview_content?' do
-      let(:content) { build_stubbed(:content) }
+      let(:content) { build_stubbed(:alchemy_content) }
 
       context 'not defined as preview content' do
         it "returns false" do
@@ -298,8 +298,8 @@ module Alchemy
     end
 
     describe '#has_tinymce?' do
-      let(:element) { build_stubbed(:element, name: 'article') }
-      let(:content) { build_stubbed(:content, name: 'text', element: element) }
+      let(:element) { build_stubbed(:alchemy_element, name: 'article') }
+      let(:content) { build_stubbed(:alchemy_content, name: 'text', element: element) }
 
       subject { content.has_tinymce? }
 
@@ -325,8 +325,8 @@ module Alchemy
     end
 
     describe '#has_custom_tinymce_config?' do
-      let(:element) { build_stubbed(:element, name: 'article') }
-      let(:content) { build_stubbed(:content, name: 'text', element: element) }
+      let(:element) { build_stubbed(:alchemy_element, name: 'article') }
+      let(:content) { build_stubbed(:alchemy_content, name: 'text', element: element) }
 
       subject { content.has_custom_tinymce_config? }
 
@@ -344,8 +344,8 @@ module Alchemy
     end
 
     describe '#tinymce_class_name' do
-      let(:element) { build_stubbed(:element, name: 'article') }
-      let(:content) { build_stubbed(:content, name: 'text', element: element) }
+      let(:element) { build_stubbed(:alchemy_element, name: 'article') }
+      let(:content) { build_stubbed(:alchemy_content, name: 'text', element: element) }
 
       subject { content.tinymce_class_name }
 
@@ -395,15 +395,15 @@ module Alchemy
     end
 
     describe '#settings' do
-      let(:element) { build_stubbed(:element, name: 'article') }
-      let(:content) { build_stubbed(:content, name: 'headline', element: element) }
+      let(:element) { build_stubbed(:alchemy_element, name: 'article') }
+      let(:content) { build_stubbed(:alchemy_content, name: 'headline', element: element) }
 
       it "returns the settings hash from definition" do
         expect(content.settings).to eq({linkable: true})
       end
 
       context 'if settings are not defined' do
-        let(:content) { build_stubbed(:content, name: 'intro', element: element) }
+        let(:content) { build_stubbed(:alchemy_content, name: 'intro', element: element) }
 
         it "returns empty hash" do
           expect(content.settings).to eq({})
@@ -488,7 +488,7 @@ module Alchemy
     end
 
     context 'delegations' do
-      let(:page) { create(:restricted_page) }
+      let(:page) { create(:alchemy_page, :restricted) }
 
       it "delegates restricted? to page" do
         element.update!(page: page)

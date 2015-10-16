@@ -2,10 +2,10 @@ require 'spec_helper'
 
 module Alchemy
   describe ElementsController do
-    let(:public_page)         { create(:public_page) }
-    let(:element)             { create(:element, page: public_page, name: 'download') }
-    let(:restricted_page)     { create(:public_page, restricted: true) }
-    let(:restricted_element)  { create(:element, page: restricted_page, name: 'download') }
+    let(:public_page)         { create(:alchemy_page, :public) }
+    let(:element)             { create(:alchemy_element, page: public_page, name: 'download') }
+    let(:restricted_page)     { create(:alchemy_page, :public, restricted: true) }
+    let(:restricted_element)  { create(:alchemy_element, page: restricted_page, name: 'download') }
 
     describe '#show' do
       it "should render available elements" do

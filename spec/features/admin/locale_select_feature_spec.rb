@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Locale select' do
-  let(:a_page) { FactoryGirl.create(:public_page) }
+  let(:a_page) { create(:alchemy_page, :public) }
   before do
     allow(Alchemy::I18n).to receive(:translation_files).and_return ['alchemy.kl.yml', 'alchemy.jp.yml', 'alchemy.cz.yml']
     authorize_user(:as_admin)

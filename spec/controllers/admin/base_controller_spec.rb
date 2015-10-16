@@ -72,7 +72,7 @@ describe Alchemy::Admin::BaseController do
   end
 
   context 'when current_alchemy_user is present' do
-    let!(:page) { create(:page) }
+    let!(:page) { create(:alchemy_page) }
     let!(:user) { create(:alchemy_dummy_user, :as_admin) }
 
     before do

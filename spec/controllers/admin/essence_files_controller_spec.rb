@@ -29,7 +29,7 @@ module Alchemy
     end
 
     describe '#update' do
-      let(:essence_file) { FactoryGirl.create(:essence_file) }
+      let(:essence_file) { create(:alchemy_essence_file) }
 
       before do
         expect(EssenceFile).to receive(:find).and_return(essence_file)
@@ -48,7 +48,7 @@ module Alchemy
     end
 
     describe '#assign' do
-      let(:content) { create(:content) }
+      let(:content) { create(:alchemy_content) }
 
       before do
         expect(Content).to receive(:find_by).and_return(content)

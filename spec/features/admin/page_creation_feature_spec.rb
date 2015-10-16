@@ -14,7 +14,7 @@ module Alchemy
 
       context "when having a Page in the clipboard" do
         before do
-          expect(Page).to receive(:all_from_clipboard_for_select).and_return [build_stubbed(:page)]
+          expect(Page).to receive(:all_from_clipboard_for_select).and_return [build_stubbed(:alchemy_page)]
         end
 
         it "contains tabs for creating a new page and pasting from clipboard" do

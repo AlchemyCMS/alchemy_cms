@@ -178,7 +178,7 @@ module Alchemy
               end
 
               context "and mailer_config has no instructions for success_page" do
-                let(:language) { mock_model('Language', code: 'en', pages: double(find_by: build_stubbed(:page))) }
+                let(:language) { mock_model('Language', code: 'en', pages: double(find_by: build_stubbed(:alchemy_page))) }
 
                 before do
                   allow(controller).to receive(:mailer_config).and_return({})

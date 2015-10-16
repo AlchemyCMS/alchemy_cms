@@ -163,7 +163,7 @@ module Alchemy
     describe '#full_url_for_element' do
       subject { full_url_for_element(element) }
 
-      let(:element) { build_stubbed(:element, name: 'headline', page: page) }
+      let(:element) { build_stubbed(:alchemy_element, name: 'headline', page: page) }
       let(:current_server) { '' }
 
       it "returns the url to this element" do

@@ -179,7 +179,7 @@ module Alchemy
     describe '#update' do
       subject { alchemy_put :update, {id: 1, picture: {name: ''}} }
 
-      let(:picture) { build_stubbed(:picture, name: 'Cute kitten') }
+      let(:picture) { build_stubbed(:alchemy_picture, name: 'Cute kitten') }
 
       before do
         expect(Picture).to receive(:find).and_return(picture)
@@ -217,7 +217,7 @@ module Alchemy
     end
 
     describe '#update_multiple' do
-      let(:picture)  { build_stubbed(:picture) }
+      let(:picture)  { build_stubbed(:alchemy_picture) }
       let(:pictures) { [picture] }
 
       before do
@@ -295,7 +295,7 @@ module Alchemy
     end
 
     describe '#destroy' do
-      let(:picture) { build_stubbed(:picture, name: 'Cute kitten') }
+      let(:picture) { build_stubbed(:alchemy_picture, name: 'Cute kitten') }
 
       before do
         expect(Picture).to receive(:find).and_return(picture)

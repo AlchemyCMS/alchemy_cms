@@ -153,11 +153,11 @@ module Alchemy
     end
 
     describe '#clipboard_select_tag_options' do
-      let(:page) { build_stubbed(:page) }
+      let(:page) { build_stubbed(:alchemy_page) }
       before { helper.instance_variable_set('@page', page) }
 
       context 'with element items' do
-        let(:element) { build_stubbed(:element) }
+        let(:element) { build_stubbed(:alchemy_element) }
         let(:clipboard_items) { [element] }
 
         it "should include select options with the display name and preview text" do
@@ -175,7 +175,7 @@ module Alchemy
       end
 
       context 'with page items' do
-        let(:page_in_clipboard) { build_stubbed(:page, name: 'Page name') }
+        let(:page_in_clipboard) { build_stubbed(:alchemy_page, name: 'Page name') }
         let(:clipboard_items) { [page_in_clipboard] }
 
         it "should include select options with page names" do

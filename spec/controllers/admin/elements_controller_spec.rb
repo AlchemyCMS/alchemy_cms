@@ -2,22 +2,22 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::ElementsController do
-    let(:alchemy_page)         { create(:page) }
-    let(:element)              { create(:element, :page_id => alchemy_page.id) }
-    let(:element_in_clipboard) { create(:element, :page_id => alchemy_page.id) }
+    let(:alchemy_page)         { create(:alchemy_page) }
+    let(:element)              { create(:alchemy_element, :page_id => alchemy_page.id) }
+    let(:element_in_clipboard) { create(:alchemy_element, :page_id => alchemy_page.id) }
     let(:clipboard)            { session[:alchemy_clipboard] = {} }
 
     before { authorize_user(:as_author) }
 
     describe '#index' do
-      let(:alchemy_page) { build_stubbed(:page) }
+      let(:alchemy_page) { build_stubbed(:alchemy_page) }
 
       before do
         expect(Page).to receive(:find).and_return alchemy_page
       end
 
       context 'with cells' do
-        let(:cell) { build_stubbed(:cell, page: alchemy_page) }
+        let(:cell) { build_stubbed(:alchemy_cell, page: alchemy_page) }
 
         before do
           expect(alchemy_page).to receive(:cells).and_return [cell]
@@ -69,9 +69,9 @@ module Alchemy
     end
 
     describe '#order' do
-      let(:element_1)   { FactoryGirl.create(:element) }
-      let(:element_2)   { FactoryGirl.create(:element) }
-      let(:element_3)   { FactoryGirl.create(:element) }
+      let(:element_1)   { create(:alchemy_element) }
+      let(:element_2)   { create(:alchemy_element) }
+      let(:element_3)   { create(:alchemy_element) }
       let(:element_ids) { [element_1.id, element_3.id, element_2.id] }
 
       it "sets new position for given element ids" do
@@ -88,7 +88,7 @@ module Alchemy
       end
 
       context "untrashing" do
-        let(:trashed_element) { FactoryGirl.create(:element, public: false, position: nil, page_id: 58, cell_id: 32) }
+        let(:trashed_element) { create(:alchemy_element, public: false, position: nil, page_id: 58, cell_id: 32) }
 
         before do
           # Because of a before_create filter it can not be created with a nil position and needs to be trashed here
@@ -121,7 +121,7 @@ module Alchemy
     end
 
     describe '#new' do
-      let(:alchemy_page) { build_stubbed(:page) }
+      let(:alchemy_page) { build_stubbed(:alchemy_page) }
 
       before do
         expect(Page).to receive(:find).and_return(alchemy_page)
@@ -173,7 +173,7 @@ module Alchemy
       end
 
       context "if page has cells" do
-        let(:page) { create(:public_page, do_not_autogenerate: false) }
+        let(:page) { create(:alchemy_page, :public, do_not_autogenerate: false) }
         let(:cell) { page.cells.first }
 
         context "not pasting from clipboard" do
@@ -249,10 +249,10 @@ module Alchemy
           end
 
           context "on a page with a setting for insert_elements_at of top" do
-            let!(:alchemy_page)         { create(:public_page, name: 'News') }
-            let!(:element_in_clipboard) { create(:element, page: alchemy_page, name: 'news') }
-            let!(:cell)                 { create(:cell, name: 'news', page: alchemy_page) }
-            let!(:element)              { create(:element, name: 'news', page: alchemy_page, cell: cell) }
+            let!(:alchemy_page)         { create(:alchemy_page, :public, name: 'News') }
+            let!(:element_in_clipboard) { create(:alchemy_element, page: alchemy_page, name: 'news') }
+            let!(:cell)                 { create(:alchemy_cell, name: 'news', page: alchemy_page) }
+            let!(:element)              { create(:alchemy_element, name: 'news', page: alchemy_page, cell: cell) }
 
             before do
               expect(PageLayout).to receive(:get).at_least(:once).and_return({
@@ -337,7 +337,7 @@ module Alchemy
 
         context "with the cell already present" do
           before do
-            create(:cell, page: alchemy_page, name: 'header')
+            create(:alchemy_cell, page: alchemy_page, name: 'header')
           end
 
           it "should load the cell" do
@@ -371,8 +371,8 @@ module Alchemy
     end
 
     describe '#update' do
-      let(:page)    { build_stubbed(:page) }
-      let(:element) { build_stubbed(:element, page: page) }
+      let(:page)    { build_stubbed(:alchemy_page) }
+      let(:element) { build_stubbed(:alchemy_element, page: page) }
       let(:contents_parameters) { ActionController::Parameters.new(1 => {ingredient: 'Title'}) }
       let(:element_parameters) { ActionController::Parameters.new(tag_list: 'Tag 1', public: false) }
 
@@ -454,7 +454,7 @@ module Alchemy
     describe '#trash' do
       subject { alchemy_xhr :delete, :trash, {id: element.id} }
 
-      let(:element) { build_stubbed(:element) }
+      let(:element) { build_stubbed(:alchemy_element) }
 
       before { expect(Element).to receive(:find).and_return element }
 
@@ -467,7 +467,7 @@ module Alchemy
     describe '#fold' do
       subject { alchemy_xhr :post, :fold, {id: element.id} }
 
-      let(:element) { build_stubbed(:element) }
+      let(:element) { build_stubbed(:alchemy_element) }
 
       before do
         expect(element).to receive(:save).and_return true

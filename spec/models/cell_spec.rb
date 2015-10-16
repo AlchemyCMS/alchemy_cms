@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe Cell do
-    let(:cell) { FactoryGirl.build(:cell) }
+    let(:cell) { build(:alchemy_cell) }
 
     # class methods
 

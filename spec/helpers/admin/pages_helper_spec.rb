@@ -41,7 +41,7 @@ describe Alchemy::Admin::PagesHelper do
   end
 
   describe '#combined_page_status' do
-    let(:page) { FactoryGirl.build_stubbed(:page, restricted: true, visible: true, public: true, locked: true) }
+    let(:page) { build_stubbed(:alchemy_page, restricted: true, visible: true, public: true, locked: true) }
     subject { helper.combined_page_status(page) }
 
     context 'when page is locked' do
@@ -62,7 +62,7 @@ describe Alchemy::Admin::PagesHelper do
   end
 
   describe '#page_layout_label' do
-    let(:page) { build(:page) }
+    let(:page) { build(:alchemy_page) }
 
     subject { helper.page_layout_label(page) }
 

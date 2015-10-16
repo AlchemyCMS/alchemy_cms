@@ -8,7 +8,7 @@ describe 'Dashboard feature' do
   end
 
   describe 'Locked pages summary' do
-    let(:a_page) { FactoryGirl.create(:public_page, visible: true) }
+    let(:a_page) { create(:alchemy_page, :public, visible: true) }
 
     it "should initially show no pages are locked" do
       visit admin_dashboard_path

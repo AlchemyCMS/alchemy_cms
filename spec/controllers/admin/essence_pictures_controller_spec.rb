@@ -179,7 +179,7 @@ module Alchemy
     end
 
     describe '#assign' do
-      let(:content) { create(:content) }
+      let(:content) { create(:alchemy_content) }
 
       before do
         expect(Content).to receive(:find).and_return(content)
