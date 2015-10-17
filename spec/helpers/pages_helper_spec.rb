@@ -7,16 +7,16 @@ module Alchemy
     # Fixtures
     let(:language)                 { mock_model('Language', :code => 'en') }
     let(:default_language)         { Language.default }
-    let(:language_root)            { FactoryGirl.create(:language_root_page) }
-    let(:public_page)              { FactoryGirl.create(:public_page) }
-    let(:visible_page)             { FactoryGirl.create(:public_page, :visible => true) }
-    let(:restricted_page)          { FactoryGirl.create(:public_page, :visible => true, :restricted => true) }
-    let(:level_2_page)             { FactoryGirl.create(:public_page, :parent_id => visible_page.id, :visible => true, :name => 'Level 2') }
-    let(:level_3_page)             { FactoryGirl.create(:public_page, :parent_id => level_2_page.id, :visible => true, :name => 'Level 3') }
-    let(:level_4_page)             { FactoryGirl.create(:public_page, :parent_id => level_3_page.id, :visible => true, :name => 'Level 4') }
-    let(:klingonian)               { FactoryGirl.create(:klingonian) }
-    let(:klingonian_language_root) { FactoryGirl.create(:language_root_page, :language => klingonian) }
-    let(:klingonian_public_page)   { FactoryGirl.create(:public_page, :language => klingonian, :parent_id => klingonian_language_root.id) }
+    let(:language_root)            { create(:alchemy_page, :language_root) }
+    let(:public_page)              { create(:alchemy_page, :public) }
+    let(:visible_page)             { create(:alchemy_page, :public, :visible => true) }
+    let(:restricted_page)          { create(:alchemy_page, :public, :visible => true, :restricted => true) }
+    let(:level_2_page)             { create(:alchemy_page, :public, :parent_id => visible_page.id, :visible => true, :name => 'Level 2') }
+    let(:level_3_page)             { create(:alchemy_page, :public, :parent_id => level_2_page.id, :visible => true, :name => 'Level 3') }
+    let(:level_4_page)             { create(:alchemy_page, :public, :parent_id => level_3_page.id, :visible => true, :name => 'Level 4') }
+    let(:klingonian)               { create(:alchemy_language, :klingonian) }
+    let(:klingonian_language_root) { create(:alchemy_page, :language_root, :language => klingonian) }
+    let(:klingonian_public_page)   { create(:alchemy_page, :public, :language => klingonian, :parent_id => klingonian_language_root.id) }
 
     before do
       helper.controller.class_eval { include Alchemy::ConfigurationMethods }
@@ -57,12 +57,12 @@ module Alchemy
       end
 
       it "should render only visible pages" do
-        not_visible_page = FactoryGirl.create(:page, visible: false)
+        not_visible_page = create(:alchemy_page, visible: false)
         expect(helper.render_navigation).not_to match(/#{not_visible_page.name}/)
       end
 
       it "should render visible unpublished pages" do
-        unpublished_visible_page = FactoryGirl.create(:page, visible: true, public: false)
+        unpublished_visible_page = create(:alchemy_page, visible: true, public: false)
         expect(helper.render_navigation).to match(/#{unpublished_visible_page.name}/)
       end
 
@@ -87,7 +87,7 @@ module Alchemy
           before { restricted_page }
 
           it "should render also restricted pages" do
-            not_restricted_page = FactoryGirl.create(:public_page, restricted: false, visible: true)
+            not_restricted_page = create(:alchemy_page, :public, restricted: false, visible: true)
             expect(helper.render_navigation).to match(/#{restricted_page.name}/)
             expect(helper.render_navigation).to match(/#{not_restricted_page.name}/)
           end
@@ -129,7 +129,7 @@ module Alchemy
         before { visible_page }
 
         context "with two pages on same level" do
-          before { FactoryGirl.create(:public_page, visible: true) }
+          before { create(:alchemy_page, :public, visible: true) }
 
           it "should render the given spacer" do
             expect(helper.render_navigation(spacer: '•')).to match(/•/)
@@ -227,8 +227,8 @@ module Alchemy
     end
 
     describe "#render_breadcrumb" do
-      let(:parent) { FactoryGirl.create(:public_page, visible: true) }
-      let(:page)   { FactoryGirl.create(:public_page, parent_id: parent.id, visible: true) }
+      let(:parent) { create(:alchemy_page, :public, visible: true) }
+      let(:page)   { create(:alchemy_page, :public, parent_id: parent.id, visible: true) }
       let(:user)   { nil }
 
       before do

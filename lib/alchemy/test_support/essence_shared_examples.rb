@@ -151,7 +151,7 @@ shared_examples_for "an essence" do
 
     describe 'uniqueness' do
       before do
-        allow(essence).to receive(:element).and_return(build_stubbed(:element))
+        allow(essence).to receive(:element).and_return(build_stubbed(:alchemy_element))
         essence.update(essence.ingredient_column.to_sym => ingredient_value)
       end
 
@@ -248,8 +248,8 @@ shared_examples_for "an essence" do
   end
 
   context 'delegations' do
-    let(:page)    { create(:restricted_page) }
-    let(:element) { create(:element, name: 'headline', create_contents_after_create: true, page: page) }
+    let(:page)    { create(:alchemy_page, :restricted) }
+    let(:element) { create(:alchemy_element, name: 'headline', create_contents_after_create: true, page: page) }
     let(:content) { element.contents.find_by(essence_type: 'Alchemy::EssenceText') }
     let(:essence) { content.essence }
 
@@ -272,8 +272,8 @@ shared_examples_for "an essence" do
   end
 
   describe 'essence relations' do
-    let(:page)    { create(:restricted_page) }
-    let(:element) { create(:element) }
+    let(:page)    { create(:alchemy_page, :restricted) }
+    let(:element) { create(:alchemy_element) }
 
     it "registers itself on page as essence relation" do
       expect(page.respond_to?(essence.class.model_name.route_key)).to be(true)

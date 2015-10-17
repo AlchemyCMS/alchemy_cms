@@ -8,7 +8,7 @@ module Alchemy
     end
 
     it_behaves_like "has image transformations" do
-      let(:picture) { build_stubbed(:essence_picture) }
+      let(:picture) { build_stubbed(:alchemy_essence_picture) }
     end
 
     it "should not store negative values for crop values" do
@@ -35,8 +35,8 @@ module Alchemy
       subject { essence.picture_url(options) }
 
       let(:options) { {} }
-      let(:picture) { build_stubbed(:picture) }
-      let(:essence) { build_stubbed(:essence_picture, picture: picture) }
+      let(:picture) { build_stubbed(:alchemy_picture) }
+      let(:essence) { build_stubbed(:alchemy_essence_picture, picture: picture) }
 
       it "returns the show picture url." do
         is_expected.to match(/\/pictures\/#{picture.id}\/show\/#{picture.urlname}\.#{Config.get(:image_output_format)}/)
@@ -125,7 +125,7 @@ module Alchemy
       subject { essence.cropping_mask }
 
       context 'with crop values given' do
-        let(:essence) { build_stubbed(:essence_picture, crop_from: '0x0', crop_size: '100x100') }
+        let(:essence) { build_stubbed(:alchemy_essence_picture, crop_from: '0x0', crop_size: '100x100') }
 
         it "returns a hash containing cropping coordinates" do
           is_expected.to eq({x1: 0, y1: 0, x2: 100, y2: 100})
@@ -133,7 +133,7 @@ module Alchemy
       end
 
       context 'with no crop values given' do
-        let(:essence) { build_stubbed(:essence_picture) }
+        let(:essence) { build_stubbed(:alchemy_essence_picture) }
 
         it { is_expected.to be_nil }
       end

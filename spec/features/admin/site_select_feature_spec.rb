@@ -12,7 +12,7 @@ describe 'Site select' do
   end
 
   context "multiple sites" do
-    let!(:a_site) { FactoryGirl.create(:site) }
+    let!(:a_site) { create(:alchemy_site) }
 
     it "contains all sites in a selectbox" do
       visit admin_dashboard_path

@@ -1,16 +1,16 @@
 require 'spec_helper'
 
 describe 'Language tree feature', type: :feature, js: true do
-  let(:klingonian) { FactoryGirl.create(:klingonian) }
+  let(:klingonian) { create(:alchemy_language, :klingonian) }
 
   before do
-    FactoryGirl.create(:language_root_page)
+    create(:alchemy_page, :language_root)
     authorize_user(:as_admin)
   end
 
   context "in a multilangual environment" do
     before do
-      FactoryGirl.create(:language_root_page, :name => 'Klingonian', :language => klingonian)
+      create(:alchemy_page, :language_root, :name => 'Klingonian', :language => klingonian)
     end
 
     it "one should be able to switch the language tree" do

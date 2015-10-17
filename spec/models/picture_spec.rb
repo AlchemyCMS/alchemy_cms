@@ -5,7 +5,7 @@ module Alchemy
   describe Picture do
 
     it_behaves_like "has image transformations" do
-      let(:picture) { FactoryGirl.build_stubbed(:picture) }
+      let(:picture) { build_stubbed(:alchemy_picture) }
     end
 
     let :image_file do
@@ -127,7 +127,7 @@ module Alchemy
     end
 
     describe '.filtered_by' do
-      let(:picture) { FactoryGirl.build_stubbed(:picture) }
+      let(:picture) { build_stubbed(:alchemy_picture) }
 
       context "with 'recent' as argument" do
         it 'should call the .recent scope' do
@@ -193,7 +193,7 @@ module Alchemy
     describe '#destroy' do
       context "a picture that is assigned in an essence" do
         let(:essence_picture) { EssencePicture.create }
-        let(:picture) { FactoryGirl.create :picture }
+        let(:picture) { create :alchemy_picture }
 
         before do
           essence_picture.update_attributes(picture_id: picture.id)
@@ -240,14 +240,14 @@ module Alchemy
     describe '#urlname' do
       subject { picture.urlname }
 
-      let(:picture) { build_stubbed(:picture, name: 'Cute kittens.jpg') }
+      let(:picture) { build_stubbed(:alchemy_picture, name: 'Cute kittens.jpg') }
 
       it "returns a uri escaped name" do
         is_expected.to eq('Cute+kittens')
       end
 
       context 'with blank name' do
-        let(:picture) { build_stubbed(:picture, name: '') }
+        let(:picture) { build_stubbed(:alchemy_picture, name: '') }
 
         it "returns generic name" do
           is_expected.to eq("image_#{picture.id}")
@@ -258,7 +258,7 @@ module Alchemy
     describe '#to_jq_upload' do
       subject { picture.to_jq_upload }
 
-      let(:picture) { build_stubbed(:picture, image_file_name: 'cute-kittens.jpg', image_file_size: 1024) }
+      let(:picture) { build_stubbed(:alchemy_picture, image_file_name: 'cute-kittens.jpg', image_file_size: 1024) }
 
       it "returns a hash containing data for jquery fileuploader" do
         is_expected.to be_an_instance_of(Hash)
@@ -267,7 +267,7 @@ module Alchemy
       end
 
       context 'with error' do
-        let(:picture) { build_stubbed(:picture) }
+        let(:picture) { build_stubbed(:alchemy_picture) }
 
         before do
           expect(picture).to receive(:errors).and_return({image_file: %w(stupid_cats)})
@@ -283,7 +283,7 @@ module Alchemy
     describe '#restricted?' do
       subject { picture.restricted? }
 
-      let(:picture) { build_stubbed(:picture) }
+      let(:picture) { build_stubbed(:alchemy_picture) }
 
       context 'is assigned on pages' do
         context 'that are all restricted' do

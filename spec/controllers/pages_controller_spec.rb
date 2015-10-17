@@ -4,13 +4,13 @@ require 'spec_helper'
 module Alchemy
   describe PagesController do
     let(:default_language)      { Language.default }
-    let(:default_language_root) { FactoryGirl.create(:language_root_page, language: default_language, name: 'Home', public: true) }
-    let(:page) { FactoryGirl.create(:public_page, parent_id: default_language_root.id, page_layout: 'news', name: 'News', urlname: 'news', language: default_language, do_not_autogenerate: false) }
+    let(:default_language_root) { create(:alchemy_page, :language_root, language: default_language, name: 'Home', public: true) }
+    let(:page) { create(:alchemy_page, :public, parent_id: default_language_root.id, page_layout: 'news', name: 'News', urlname: 'news', language: default_language, do_not_autogenerate: false) }
 
     before { allow(controller).to receive(:signup_required?).and_return(false) }
 
     context 'an author' do
-      let(:unpublic) { create(:page, parent: default_language_root) }
+      let(:unpublic) { create(:alchemy_page, parent: default_language_root) }
 
       before { authorize_user(:as_author) }
 
@@ -56,9 +56,9 @@ module Alchemy
     describe "url nesting" do
       render_views
 
-      let(:catalog)  { FactoryGirl.create(:public_page, name: "Catalog", urlname: 'catalog', parent: default_language_root, language: default_language, visible: true) }
-      let(:products) { FactoryGirl.create(:public_page, name: "Products", urlname: 'products', parent: catalog, language: default_language, visible: true) }
-      let(:product)  { FactoryGirl.create(:public_page, name: "Screwdriver", urlname: 'screwdriver', parent: products, language: default_language, do_not_autogenerate: false, visible: true) }
+      let(:catalog)  { create(:alchemy_page, :public, name: "Catalog", urlname: 'catalog', parent: default_language_root, language: default_language, visible: true) }
+      let(:products) { create(:alchemy_page, :public, name: "Products", urlname: 'products', parent: catalog, language: default_language, visible: true) }
+      let(:product)  { create(:alchemy_page, :public, name: "Screwdriver", urlname: 'screwdriver', parent: products, language: default_language, do_not_autogenerate: false, visible: true) }
 
       before do
         allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
@@ -92,9 +92,9 @@ module Alchemy
     end
 
     describe '#redirect_to_public_child' do
-      let(:root_page)    { FactoryGirl.create(:language_root_page, public: false) }
-      let(:page)         { FactoryGirl.create(:page, parent_id: root_page.id) }
-      let(:public_page)  { FactoryGirl.create(:public_page, parent_id: page.id) }
+      let(:root_page)    { create(:alchemy_page, :language_root, public: false) }
+      let(:page)         { create(:alchemy_page, parent_id: root_page.id) }
+      let(:public_page)  { create(:alchemy_page, :public, parent_id: page.id) }
 
       before { controller.instance_variable_set("@page", root_page) }
 
@@ -129,9 +129,9 @@ module Alchemy
 
     describe 'Redirecting to legacy page urls' do
       context 'Request a page with legacy url' do
-        let(:page)        { FactoryGirl.create(:public_page, name: 'New page name') }
-        let(:second_page) { FactoryGirl.create(:public_page, name: 'Second Page') }
-        let(:legacy_page) { FactoryGirl.create(:public_page, name: 'Legacy Url') }
+        let(:page)        { create(:alchemy_page, :public, name: 'New page name') }
+        let(:second_page) { create(:alchemy_page, :public, name: 'Second Page') }
+        let(:legacy_page) { create(:alchemy_page, :public, name: 'Legacy Url') }
         let!(:legacy_url) { LegacyPageUrl.create(urlname: 'legacy-url', page: page) }
         let(:legacy_url2) { LegacyPageUrl.create(urlname: 'legacy-url', page: second_page) }
         let(:legacy_url3) { LegacyPageUrl.create(urlname: 'index.php?id=2', page: second_page) }

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe Alchemy::LegacyPageUrl do
-  let(:page) { build_stubbed(:page) }
+  let(:page) { build_stubbed(:alchemy_page) }
 
   let(:page_url_with_parameters) do
     Alchemy::LegacyPageUrl.new(urlname: 'index.php?id=2', page: page)

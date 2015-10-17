@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe 'alchemy/essences/_essence_editor_view' do
-  let(:attachment) { build_stubbed(:attachment) }
-  let(:essence) { build_stubbed(:essence_file, attachment: attachment) }
-  let(:content) { build_stubbed(:content, essence: essence) }
+  let(:attachment) { build_stubbed(:alchemy_attachment) }
+  let(:essence) { build_stubbed(:alchemy_essence_file, attachment: attachment) }
+  let(:content) { build_stubbed(:alchemy_content, essence: essence) }
 
   subject do
     render partial: "alchemy/essences/essence_file_editor", locals: {content: content}

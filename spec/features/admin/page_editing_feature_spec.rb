@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe 'Page editing feature' do
-  let(:a_page) { create(:page) }
+  let(:a_page) { create(:alchemy_page) }
 
   context 'as author' do
     before { authorize_user(:as_author) }
@@ -22,7 +22,7 @@ describe 'Page editing feature' do
     end
 
     context 'while editing a global page' do
-      let(:a_page) { create(:page, layoutpage: true) }
+      let(:a_page) { create(:alchemy_page, layoutpage: true) }
 
       it 'cannot publish page.' do
         visit alchemy.edit_admin_page_path(a_page)
@@ -32,7 +32,7 @@ describe 'Page editing feature' do
   end
 
   context 'as admin' do
-    let(:a_page) { create(:public_page, visible: true) }
+    let(:a_page) { create(:alchemy_page, :public, visible: true) }
 
     before { authorize_user(:as_admin) }
 
@@ -74,7 +74,7 @@ describe 'Page editing feature' do
       end
 
       context "when editing a global page" do
-        let(:layout_page) { create(:page, layoutpage: true) }
+        let(:layout_page) { create(:alchemy_page, layoutpage: true) }
 
         it "should not show the input fields for normal pages" do
           visit alchemy.edit_admin_layoutpage_path(layout_page)
@@ -114,7 +114,7 @@ describe 'Page editing feature' do
 
     context 'in element panel' do
       let!(:everything_page) do
-        create(:page, page_layout: 'everything', do_not_autogenerate: false)
+        create(:alchemy_page, page_layout: 'everything', do_not_autogenerate: false)
       end
 
       it "renders essence editors for all elements" do

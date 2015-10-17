@@ -2,9 +2,9 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::ClipboardController do
-    let(:public_page)     { build_stubbed(:public_page) }
-    let(:element)         { build_stubbed(:element, page: public_page) }
-    let(:another_element) { build_stubbed(:element, page: public_page) }
+    let(:public_page)     { build_stubbed(:alchemy_page, :public) }
+    let(:element)         { build_stubbed(:alchemy_element, page: public_page) }
+    let(:another_element) { build_stubbed(:alchemy_element, page: public_page) }
 
     before do
       authorize_user(:as_admin)

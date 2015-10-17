@@ -5,7 +5,7 @@ module Alchemy
 
     describe '#set_locale' do
       context 'with Language.current set' do
-        let(:language) { create(:klingonian) }
+        let(:language) { create(:alchemy_language, :klingonian) }
 
         before { Alchemy::Language.current = language }
 

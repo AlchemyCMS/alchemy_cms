@@ -18,7 +18,7 @@ module Alchemy
     end
 
     describe '#page_or_find' do
-      let(:page) { FactoryGirl.create(:public_page) }
+      let(:page) { create(:alchemy_page, :public) }
 
       context "passing a page_layout string" do
         context "of a not existing page" do

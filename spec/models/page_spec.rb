@@ -7,20 +7,20 @@ module Alchemy
 
     let(:rootpage)      { Page.root }
     let(:language)      { Language.default }
-    let(:klingonian)    { create(:klingonian) }
-    let(:language_root) { create(:language_root_page) }
+    let(:klingonian)    { create(:alchemy_language, :klingonian) }
+    let(:language_root) { create(:alchemy_page, :language_root) }
     let(:page)          { mock_model(Page, page_layout: 'foo') }
-    let(:public_page)   { create(:public_page) }
-    let(:news_page)     { create(:public_page, page_layout: 'news', do_not_autogenerate: false) }
+    let(:public_page)   { create(:alchemy_page, :public) }
+    let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', do_not_autogenerate: false) }
 
 
     # Validations
 
     context 'validations' do
       context "Creating a normal content page" do
-        let(:contentpage)              { build(:page) }
-        let(:with_same_urlname)        { create(:page, urlname: "existing_twice") }
-        let(:global_with_same_urlname) { create(:page, urlname: "existing_twice", layoutpage: true) }
+        let(:contentpage)              { build(:alchemy_page) }
+        let(:with_same_urlname)        { create(:alchemy_page, urlname: "existing_twice") }
+        let(:global_with_same_urlname) { create(:alchemy_page, urlname: "existing_twice", layoutpage: true) }
 
         context "when its urlname exists as global page" do
           before { global_with_same_urlname }
@@ -55,7 +55,7 @@ module Alchemy
         end
 
         context "with url_nesting set to true" do
-          let(:other_parent) { create(:page, parent_id: Page.root.id, visible: true) }
+          let(:other_parent) { create(:alchemy_page, parent_id: Page.root.id, visible: true) }
 
           before do
             allow(Config).to receive(:get).and_return(true)
@@ -76,7 +76,7 @@ module Alchemy
       end
 
       context "creating the rootpage without parent_id and page_layout" do
-        let(:rootpage) { build(:page, parent_id: nil, page_layout: nil, name: 'Rootpage') }
+        let(:rootpage) { build(:alchemy_page, parent_id: nil, page_layout: nil, name: 'Rootpage') }
 
         before do
           Page.delete_all
@@ -88,7 +88,7 @@ module Alchemy
       end
 
       context "saving a systempage" do
-        let(:systempage) { build(:systempage) }
+        let(:systempage) { build(:alchemy_page, :system) }
 
         it "should not validate the page_layout" do
           expect(systempage).to be_valid
@@ -96,7 +96,7 @@ module Alchemy
       end
 
       context 'saving an external page' do
-        let(:external_page) { build(:page, page_layout: 'external') }
+        let(:external_page) { build(:alchemy_page, page_layout: 'external') }
 
         it "does not pass with invalid url given" do
           external_page.urlname = 'not, a valid page url'
@@ -131,7 +131,7 @@ module Alchemy
 
     context 'callbacks' do
       let(:page) do
-        create(:page, name: 'My Testpage', language: language, parent_id: language_root.id)
+        create(:alchemy_page, name: 'My Testpage', language: language, parent_id: language_root.id)
       end
 
       context 'before_save' do
@@ -207,9 +207,9 @@ module Alchemy
       end
 
       context 'after_move' do
-        let(:parent_1) { create(:page, name: 'Parent 1', visible: true) }
-        let(:parent_2) { create(:page, name: 'Parent 2', visible: true) }
-        let(:page)     { create(:page, parent_id: parent_1.id, name: 'Page', visible: true) }
+        let(:parent_1) { create(:alchemy_page, name: 'Parent 1', visible: true) }
+        let(:parent_2) { create(:alchemy_page, name: 'Parent 2', visible: true) }
+        let(:page)     { create(:alchemy_page, parent_id: parent_1.id, name: 'Page', visible: true) }
 
         it "updates the urlname" do
           expect(page.urlname).to eq('parent-1/page')
@@ -218,7 +218,7 @@ module Alchemy
         end
 
         context 'of an external page' do
-          let(:external) { create(:page, parent_id: parent_1.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
+          let(:external) { create(:alchemy_page, parent_id: parent_1.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
 
           it "the urlname does not get updated" do
             external.move_to_child_of parent_2
@@ -229,7 +229,7 @@ module Alchemy
 
       context "Saving a normal page" do
         let(:page) do
-          build(:page, language_code: nil, language: klingonian, do_not_autogenerate: false)
+          build(:alchemy_page, language_code: nil, language: klingonian, do_not_autogenerate: false)
         end
 
         it "sets the language code" do
@@ -244,7 +244,7 @@ module Alchemy
 
         context 'with elements already on the page' do
           before do
-            page.elements << create(:element, name: 'header')
+            page.elements << create(:alchemy_element, name: 'header')
           end
 
           it "does not autogenerate" do
@@ -293,7 +293,7 @@ module Alchemy
         context "with children getting restricted set to true" do
           before do
             page.save
-            @child1 = create(:page, name: 'Child 1', parent_id: page.id)
+            @child1 = create(:alchemy_page, name: 'Child 1', parent_id: page.id)
             page.reload
             page.restricted = true
             page.save
@@ -309,7 +309,7 @@ module Alchemy
           before do
             page.save
             page.parent.update!(restricted: true)
-            @new_page = create(:page, name: 'New Page', parent_id: page.id)
+            @new_page = create(:alchemy_page, name: 'New Page', parent_id: page.id)
           end
 
           it "is also be restricted" do
@@ -330,7 +330,7 @@ module Alchemy
       end
 
       context "Creating a systempage" do
-        let!(:page) { create(:systempage) }
+        let!(:page) { create(:alchemy_page, :system) }
 
         it "does not get the language code from language" do
           expect(page.language_code).to be_nil
@@ -365,8 +365,8 @@ module Alchemy
     describe '.all_from_clipboard_for_select' do
       context "with clipboard holding pages having non unique page layout" do
         it "should return the pages" do
-          page_1 = create(:page, language: language)
-          page_2 = create(:page, language: language, name: 'Another page')
+          page_1 = create(:alchemy_page, language: language)
+          page_2 = create(:alchemy_page, language: language, name: 'Another page')
           clipboard = [
             {'id' => page_1.id.to_s, 'action' => 'copy'},
             {'id' => page_2.id.to_s, 'action' => 'copy'}
@@ -377,7 +377,7 @@ module Alchemy
 
       context "with clipboard holding a page having unique page layout" do
         it "should not return any pages" do
-          page_1 = create(:page, language: language, page_layout: 'contact')
+          page_1 = create(:alchemy_page, language: language, page_layout: 'contact')
           clipboard = [
             {'id' => page_1.id.to_s, 'action' => 'copy'}
           ]
@@ -387,8 +387,8 @@ module Alchemy
 
       context "with clipboard holding two pages. One having a unique page layout." do
         it "should return one page" do
-          page_1 = create(:page, language: language, page_layout: 'standard')
-          page_2 = create(:page, name: 'Another page', language: language, page_layout: 'contact')
+          page_1 = create(:alchemy_page, language: language, page_layout: 'standard')
+          page_2 = create(:alchemy_page, name: 'Another page', language: language, page_layout: 'contact')
           clipboard = [
             {'id' => page_1.id.to_s, 'action' => 'copy'},
             {'id' => page_2.id.to_s, 'action' => 'copy'}
@@ -400,7 +400,7 @@ module Alchemy
 
     describe '.locked' do
       it "should return 1 page that is blocked by a user at the moment" do
-        create(:public_page, locked: true, name: 'First Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, locked: true, name: 'First Public Child', parent_id: language_root.id, language: language)
         expect(Page.locked.size).to eq(1)
       end
     end
@@ -409,14 +409,14 @@ module Alchemy
       let(:user) { double(:user, id: 1, class: DummyUser) }
 
       before do
-        create(:public_page, locked: true, locked_by: 53) # This page must not be part of the collection
+        create(:alchemy_page, :public, locked: true, locked_by: 53) # This page must not be part of the collection
         allow(user.class)
           .to receive(:primary_key)
           .and_return('id')
       end
 
       it "should return the correct page collection blocked by a certain user" do
-        page = create(:public_page, locked: true, locked_by: 1)
+        page = create(:alchemy_page, :public, locked: true, locked_by: 1)
         expect(Page.locked_by(user).pluck(:id)).to eq([page.id])
       end
 
@@ -430,7 +430,7 @@ module Alchemy
         end
 
         it "should return the correct page collection blocked by a certain user" do
-          page = create(:public_page, locked: true, locked_by: 123)
+          page = create(:alchemy_page, :public, locked: true, locked_by: 123)
           expect(Page.locked_by(user).pluck(:id)).to eq([page.id])
         end
       end
@@ -438,8 +438,8 @@ module Alchemy
 
     describe '.ancestors_for' do
       let(:lang_root) { Page.language_root_for(Language.default.id) }
-      let(:parent)    { create(:public_page) }
-      let(:page)      { create(:public_page, parent_id: parent.id) }
+      let(:parent)    { create(:alchemy_page, :public) }
+      let(:page)      { create(:alchemy_page, :public, parent_id: parent.id) }
 
       it "returns an array of all parents including self" do
         expect(Page.ancestors_for(page)).to eq([lang_root, parent, page])
@@ -462,7 +462,7 @@ module Alchemy
       end
 
       let!(:layoutpage) do
-        create :public_page, {
+        create :alchemy_page, :public, {
           name: 'layoutpage',
           layoutpage: true,
           parent_id: layoutroot.id,
@@ -471,7 +471,7 @@ module Alchemy
       end
 
       let!(:klingonian_lang_root) do
-        create :language_root_page, {
+        create :alchemy_page, :language_root, {
           name: 'klingonian_lang_root',
           layoutpage: nil,
           language: klingonian
@@ -479,7 +479,7 @@ module Alchemy
       end
 
       let!(:contentpage) do
-        create :public_page, {
+        create :alchemy_page, :public, {
           name: 'contentpage',
           parent_id: language_root.id,
           language: language
@@ -506,7 +506,7 @@ module Alchemy
     end
 
     describe '.copy' do
-      let(:page) { create(:page, name: 'Source') }
+      let(:page) { create(:alchemy_page, name: 'Source') }
       subject { Page.copy(page) }
 
       it "the copy should have added (copy) to name" do
@@ -526,7 +526,7 @@ module Alchemy
       end
 
       context "page with elements" do
-        before { page.elements << create(:element) }
+        before { page.elements << create(:alchemy_element) }
 
         it "the copy should have source elements" do
           expect(subject.elements).not_to be_empty
@@ -536,7 +536,7 @@ module Alchemy
 
       context "page with trashed elements" do
         before do
-          page.elements << create(:element)
+          page.elements << create(:alchemy_element)
           page.elements.first.trash!
         end
 
@@ -546,7 +546,7 @@ module Alchemy
       end
 
       context "page with cells" do
-        before { page.cells << create(:cell) }
+        before { page.cells << create(:alchemy_cell) }
 
         it "the copy should have source cells" do
           expect(subject.cells).not_to be_empty
@@ -556,7 +556,7 @@ module Alchemy
 
       context "page with autogenerate elements" do
         before do
-          page = create(:page)
+          page = create(:alchemy_page)
           allow(page).to receive(:definition).and_return({'name' => 'standard', 'elements' => ['headline'], 'autogenerate' => ['headline']})
         end
 
@@ -577,12 +577,12 @@ module Alchemy
     describe '.create' do
       context "before/after filter" do
         it "should automatically set the title from its name" do
-          page = create(:page, name: 'My Testpage', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'My Testpage', language: language, parent_id: language_root.id)
           expect(page.title).to eq('My Testpage')
         end
 
         it "should get a webfriendly urlname" do
-          page = create(:page, name: 'klingon$&stößel ', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'klingon$&stößel ', language: language, parent_id: language_root.id)
           expect(page.urlname).to eq('klingon-stoessel')
         end
 
@@ -594,22 +594,22 @@ module Alchemy
         end
 
         it "should generate a three letter urlname from two letter name" do
-          page = create(:page, name: 'Au', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'Au', language: language, parent_id: language_root.id)
           expect(page.urlname).to eq('-au')
         end
 
         it "should generate a three letter urlname from two letter name with umlaut" do
-          page = create(:page, name: 'Aü', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'Aü', language: language, parent_id: language_root.id)
           expect(page.urlname).to eq('aue')
         end
 
         it "should generate a three letter urlname from one letter name" do
-          page = create(:page, name: 'A', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'A', language: language, parent_id: language_root.id)
           expect(page.urlname).to eq('--a')
         end
 
         it "should add a user stamper" do
-          page = create(:page, name: 'A', language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: 'A', language: language, parent_id: language_root.id)
           expect(page.class.stamper_class.to_s).to eq('DummyUser')
         end
 
@@ -662,51 +662,51 @@ module Alchemy
 
     describe '.language_roots' do
       it "should return 1 language_root" do
-        create(:public_page, name: 'First Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'First Public Child', parent_id: language_root.id, language: language)
         expect(Page.language_roots.size).to eq(1)
       end
     end
 
     describe '.layoutpages' do
       it "should return 1 layoutpage" do
-        create(:public_page, layoutpage: true, name: 'Layoutpage', parent_id: rootpage.id, language: language)
+        create(:alchemy_page, :public, layoutpage: true, name: 'Layoutpage', parent_id: rootpage.id, language: language)
         expect(Page.layoutpages.size).to eq(1)
       end
     end
 
     describe '.not_locked' do
       it "should return pages that are not blocked by a user at the moment" do
-        create(:public_page, locked: true, name: 'First Public Child', parent_id: language_root.id, language: language)
-        create(:public_page, name: 'Second Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, locked: true, name: 'First Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'Second Public Child', parent_id: language_root.id, language: language)
         expect(Page.not_locked.size).to eq(3)
       end
     end
 
     describe '.not_restricted' do
       it "should return 2 accessible pages" do
-        create(:public_page, name: 'First Public Child', restricted: true, parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'First Public Child', restricted: true, parent_id: language_root.id, language: language)
         expect(Page.not_restricted.size).to eq(2)
       end
     end
 
     describe '.public' do
       it "should return pages that are public" do
-        create(:public_page, name: 'First Public Child', parent_id: language_root.id, language: language)
-        create(:public_page, name: 'Second Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'First Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'Second Public Child', parent_id: language_root.id, language: language)
         expect(Page.published.size).to eq(3)
       end
     end
 
     describe '.public_language_roots' do
       it "should return pages that public language roots" do
-        create(:public_page, name: 'First Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'First Public Child', parent_id: language_root.id, language: language)
         expect(Page.public_language_roots.size).to eq(1)
       end
     end
 
     describe '.restricted' do
       it "should return 1 restricted page" do
-        create(:public_page, name: 'First Public Child', restricted: true, parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'First Public Child', restricted: true, parent_id: language_root.id, language: language)
         expect(Page.restricted.size).to eq(1)
       end
     end
@@ -719,7 +719,7 @@ module Alchemy
 
     describe '.visible' do
       it "should return 1 visible page" do
-        create(:public_page, name: 'First Public Child', visible: true, parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: 'First Public Child', visible: true, parent_id: language_root.id, language: language)
         expect(Page.visible.size).to eq(1)
       end
     end
@@ -728,7 +728,7 @@ module Alchemy
     # InstanceMethods (a-z)
 
     describe '#available_element_definitions' do
-      let(:page) { build_stubbed(:public_page) }
+      let(:page) { build_stubbed(:alchemy_page, :public) }
 
       it "returns all element definitions of available elements" do
         expect(page.available_element_definitions).to be_an(Array)
@@ -736,7 +736,7 @@ module Alchemy
       end
 
       context "with unique elements already on page" do
-        let(:element) { build_stubbed(:unique_element) }
+        let(:element) { build_stubbed(:alchemy_element, :unique) }
 
         before do
           allow(page)
@@ -751,11 +751,13 @@ module Alchemy
       end
 
       context 'limited amount' do
-        let(:page) { build_stubbed(:page, page_layout: 'columns') }
-        let(:unique_element) { build_stubbed(:unique_element, name: 'unique_headline') }
-        let(:element_1) { build_stubbed(:element, name: 'column_headline') }
-        let(:element_2) { build_stubbed(:element, name: 'column_headline') }
-        let(:element_3) { build_stubbed(:element, name: 'column_headline') }
+        let(:page) { build_stubbed(:alchemy_page, page_layout: 'columns') }
+        let(:unique_element) do
+          build_stubbed(:alchemy_element, :unique, name: 'unique_headline')
+        end
+        let(:element_1) { build_stubbed(:alchemy_element, name: 'column_headline') }
+        let(:element_2) { build_stubbed(:alchemy_element, name: 'column_headline') }
+        let(:element_3) { build_stubbed(:alchemy_element, name: 'column_headline') }
 
         before {
           allow(Element).to receive(:definitions).and_return([
@@ -802,7 +804,7 @@ module Alchemy
     end
 
     describe '#available_element_names' do
-      let(:page) { build_stubbed(:page) }
+      let(:page) { build_stubbed(:alchemy_page) }
 
       it "returns all names of elements that could be placed on current page" do
         page.available_element_names == %w(header article)
@@ -835,7 +837,7 @@ module Alchemy
 
     describe '#cell_definitions' do
       before do
-        @page = build(:page, page_layout: 'foo')
+        @page = build(:alchemy_page, page_layout: 'foo')
         allow(@page).to receive(:definition).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
         @cell_definitions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
         allow(Cell).to receive(:definitions).and_return(@cell_definitions)
@@ -863,10 +865,10 @@ module Alchemy
     end
 
     describe "#elements" do
-      let(:page) { create(:page) }
-      let(:element_1) { create(:element) }
-      let(:element_2) { create(:element) }
-      let(:element_3) { create(:element) }
+      let(:page) { create(:alchemy_page) }
+      let(:element_1) { create(:alchemy_element) }
+      let(:element_2) { create(:alchemy_element) }
+      let(:element_3) { create(:alchemy_element) }
 
       before do
         page.elements << element_3
@@ -882,10 +884,10 @@ module Alchemy
       end
 
       context 'with nestable elements' do
-        let(:nestable_element) { create(:element, :with_nestable_elements) }
+        let(:nestable_element) { create(:alchemy_element, :with_nestable_elements) }
 
         before do
-          nestable_element.nested_elements << create(:element, name: 'slide')
+          nestable_element.nested_elements << create(:alchemy_element, name: 'slide')
           page.elements << nestable_element
         end
 
@@ -898,19 +900,19 @@ module Alchemy
 
     describe "#descendent_elements" do
       let!(:page) do
-        create(:page)
+        create(:alchemy_page)
       end
 
       let!(:element_1) do
-        create(:element, page_id: page.id)
+        create(:alchemy_element, page_id: page.id)
       end
 
       let!(:element_2) do
-        create(:element, :with_nestable_elements, page_id: page.id, parent_element_id: element_1.id)
+        create(:alchemy_element, :with_nestable_elements, page_id: page.id, parent_element_id: element_1.id)
       end
 
       let!(:element_3) do
-        create(:element, page_id: page.id)
+        create(:alchemy_element, page_id: page.id)
       end
 
       it 'returns an active record collection of all elements including nested elements on that page' do
@@ -920,15 +922,15 @@ module Alchemy
 
     describe "#descendent_contents" do
       let!(:page) do
-        create(:page)
+        create(:alchemy_page)
       end
 
       let!(:element_1) do
-        create(:element, :with_nestable_elements, :with_contents, name: 'slider', page_id: page.id)
+        create(:alchemy_element, :with_nestable_elements, :with_contents, name: 'slider', page_id: page.id)
       end
 
       let!(:element_2) do
-        create :element,
+        create :alchemy_element,
           :with_contents, {
             name: 'slide',
             page_id: page.id,
@@ -937,7 +939,7 @@ module Alchemy
       end
 
       let!(:element_3) do
-        create(:element, :with_contents, name: 'slide', page_id: page.id)
+        create(:alchemy_element, :with_contents, name: 'slide', page_id: page.id)
       end
 
       it 'returns an active record collection of all content including nested elements on that page' do
@@ -946,7 +948,7 @@ module Alchemy
     end
 
     describe '#element_definitions' do
-      let(:page) { build_stubbed(:page) }
+      let(:page) { build_stubbed(:alchemy_page) }
       subject { page.element_definitions }
       before { expect(Element).to receive(:definitions).and_return([{'name' => 'article'}, {'name' => 'header'}]) }
 
@@ -957,7 +959,7 @@ module Alchemy
     end
 
     describe '#element_definitions_by_name' do
-      let(:page) { build_stubbed(:public_page) }
+      let(:page) { build_stubbed(:alchemy_page, :public) }
 
       context "with no name given" do
         it "returns empty array" do
@@ -981,7 +983,7 @@ module Alchemy
     end
 
     describe '#element_definition_names' do
-      let(:page) { build_stubbed(:public_page) }
+      let(:page) { build_stubbed(:alchemy_page, :public) }
 
       subject { page.element_definition_names }
 
@@ -1052,7 +1054,7 @@ module Alchemy
     end
 
     describe '#elements_grouped_by_cells' do
-      let(:page) { create(:public_page, do_not_autogenerate: false) }
+      let(:page) { create(:alchemy_page, :public, do_not_autogenerate: false) }
 
       before do
         allow(PageLayout).to receive(:get).and_return({
@@ -1079,7 +1081,7 @@ module Alchemy
     end
 
     describe '#feed_elements' do
-      let(:news_element) { create(:element, name: 'news', public: false, page: news_page) }
+      let(:news_element) { create(:alchemy_element, name: 'news', public: false, page: news_page) }
 
       it "should return all published rss feed elements" do
         expect(news_page.feed_elements).not_to be_empty
@@ -1099,8 +1101,8 @@ module Alchemy
 
     describe '#find_elements' do
       before do
-        create(:element, public: false, page: public_page)
-        create(:element, public: false, page: public_page)
+        create(:alchemy_element, public: false, page: public_page)
+        create(:alchemy_element, public: false, page: public_page)
       end
 
       context "with show_non_public argument TRUE" do
@@ -1126,7 +1128,7 @@ module Alchemy
       end
 
       context "with options[:from_cell]" do
-        let(:element) { build_stubbed(:element) }
+        let(:element) { build_stubbed(:alchemy_element) }
 
         context "given as String" do
           context 'with elements present' do
@@ -1163,7 +1165,7 @@ module Alchemy
         end
 
         context "given as cell object" do
-          let(:cell) { build_stubbed(:cell, page: public_page) }
+          let(:cell) { build_stubbed(:alchemy_cell, page: public_page) }
 
           it "returns only the elements from given cell" do
             expect(cell)
@@ -1200,11 +1202,11 @@ module Alchemy
 
     describe '#first_public_child' do
       before do
-        create(:page, name: "First child", language: language, public: false, parent_id: language_root.id)
+        create(:alchemy_page, name: "First child", language: language, public: false, parent_id: language_root.id)
       end
 
       it "should return first_public_child" do
-        first_public_child = create(:public_page, name: "First public child", language: language, parent_id: language_root.id)
+        first_public_child = create(:alchemy_page, :public, name: "First public child", language: language, parent_id: language_root.id)
         expect(language_root.first_public_child).to eq(first_public_child)
       end
 
@@ -1265,7 +1267,7 @@ module Alchemy
 
     describe '#definition' do
       context 'if the page layout could not be found in the definition file' do
-        let(:page) { build_stubbed(:page, page_layout: 'notexisting') }
+        let(:page) { build_stubbed(:alchemy_page, page_layout: 'notexisting') }
 
         it "it loggs a warning." do
           expect(Alchemy::Logger).to receive(:warn)
@@ -1289,7 +1291,7 @@ module Alchemy
     end
 
     describe '#lock_to!' do
-      let(:page) { create(:page) }
+      let(:page) { create(:alchemy_page) }
       let(:user) { mock_model('DummyUser') }
 
       it "should set locked to true" do
@@ -1310,8 +1312,8 @@ module Alchemy
     end
 
     describe '#copy_and_paste' do
-      let(:source) { build_stubbed(:page) }
-      let(:new_parent) { build_stubbed(:page) }
+      let(:source) { build_stubbed(:alchemy_page) }
+      let(:new_parent) { build_stubbed(:alchemy_page) }
       let(:page_name) { "Pagename (pasted)" }
       let(:copied_page) { mock_model('Page') }
 
@@ -1343,10 +1345,10 @@ module Alchemy
     end
 
     context 'previous and next.' do
-      let(:center_page)     { create(:public_page, name: 'Center Page') }
-      let(:next_page)       { create(:public_page, name: 'Next Page') }
-      let(:non_public_page) { create(:page, name: 'Not public Page') }
-      let(:restricted_page) { create(:restricted_page, public: true) }
+      let(:center_page)     { create(:alchemy_page, :public, name: 'Center Page') }
+      let(:next_page)       { create(:alchemy_page, :public, name: 'Next Page') }
+      let(:non_public_page) { create(:alchemy_page, name: 'Not public Page') }
+      let(:restricted_page) { create(:alchemy_page, :restricted, public: true) }
 
       before do
         public_page
@@ -1411,7 +1413,7 @@ module Alchemy
     end
 
     describe '#publish!' do
-      let(:page) { build_stubbed(:page, public: false) }
+      let(:page) { build_stubbed(:alchemy_page, public: false) }
       let(:current_time) { Time.now }
 
       before do
@@ -1468,7 +1470,7 @@ module Alchemy
     describe '#taggable?' do
       context "definition has 'taggable' key with true value" do
         it "should return true" do
-          page = build(:page)
+          page = build(:alchemy_page)
           allow(page).to receive(:definition).and_return({'name' => 'standard', 'taggable' => true})
           expect(page.taggable?).to be_truthy
         end
@@ -1476,7 +1478,7 @@ module Alchemy
 
       context "definition has 'taggable' key with foo value" do
         it "should return false" do
-          page = build(:page)
+          page = build(:alchemy_page)
           allow(page).to receive(:definition).and_return({'name' => 'standard', 'taggable' => 'foo'})
           expect(page.taggable?).to be_falsey
         end
@@ -1484,7 +1486,7 @@ module Alchemy
 
       context "definition has no 'taggable' key" do
         it "should return false" do
-          page = build(:page)
+          page = build(:alchemy_page)
           allow(page).to receive(:definition).and_return({'name' => 'standard'})
           expect(page.taggable?).to be_falsey
         end
@@ -1492,7 +1494,7 @@ module Alchemy
     end
 
     describe '#unlock!' do
-      let(:page) { create(:page, locked: true, locked_by: 1) }
+      let(:page) { create(:alchemy_page, locked: true, locked_by: 1) }
 
       before do
         allow(page).to receive(:save).and_return(true)
@@ -1522,12 +1524,12 @@ module Alchemy
     end
 
     context 'urlname updating' do
-      let(:parentparent)  { create(:page, name: 'parentparent', visible: true) }
-      let(:parent)        { create(:page, parent_id: parentparent.id, name: 'parent', visible: true) }
-      let(:page)          { create(:page, parent_id: parent.id, name: 'page', visible: true) }
-      let(:invisible)     { create(:page, parent_id: page.id, name: 'invisible', visible: false) }
-      let(:contact)       { create(:page, parent_id: invisible.id, name: 'contact', visible: true) }
-      let(:external)      { create(:page, parent_id: parent.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
+      let(:parentparent)  { create(:alchemy_page, name: 'parentparent', visible: true) }
+      let(:parent)        { create(:alchemy_page, parent_id: parentparent.id, name: 'parent', visible: true) }
+      let(:page)          { create(:alchemy_page, parent_id: parent.id, name: 'page', visible: true) }
+      let(:invisible)     { create(:alchemy_page, parent_id: page.id, name: 'invisible', visible: false) }
+      let(:contact)       { create(:alchemy_page, parent_id: invisible.id, name: 'contact', visible: true) }
+      let(:external)      { create(:alchemy_page, parent_id: parent.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
       let(:language_root) { parentparent.parent }
 
       context "with activated url_nesting" do
@@ -1613,7 +1615,7 @@ module Alchemy
     describe "#update_node!" do
 
       let(:original_url) { "sample-url" }
-      let(:page) { create(:page, language: language, parent_id: language_root.id, urlname: original_url, restricted: false) }
+      let(:page) { create(:alchemy_page, language: language, parent_id: language_root.id, urlname: original_url, restricted: false) }
       let(:node) { TreeNode.new(10, 11, 12, 13, "another-url", true) }
 
       context "when nesting is enabled" do
@@ -1737,7 +1739,7 @@ module Alchemy
 
     describe '#slug' do
       context "with parents path saved in urlname" do
-        let(:page) { build(:page, urlname: 'root/parent/my-name')}
+        let(:page) { build(:alchemy_page, urlname: 'root/parent/my-name')}
 
         it "should return the last part of the urlname" do
           expect(page.slug).to eq('my-name')
@@ -1745,7 +1747,7 @@ module Alchemy
       end
 
       context "with single urlname" do
-        let(:page) { build(:page, urlname: 'my-name')}
+        let(:page) { build(:alchemy_page, urlname: 'my-name')}
 
         it "should return the last part of the urlname" do
           expect(page.slug).to eq('my-name')
@@ -1753,7 +1755,7 @@ module Alchemy
       end
 
       context "with nil as urlname" do
-        let(:page) { build(:page, urlname: nil)}
+        let(:page) { build(:alchemy_page, urlname: nil)}
 
         it "should return nil" do
           expect(page.slug).to be_nil
@@ -1762,7 +1764,7 @@ module Alchemy
     end
 
     describe '#external_urlname' do
-      let(:external_page) { build(:page, page_layout: 'external') }
+      let(:external_page) { build(:alchemy_page, page_layout: 'external') }
 
       context 'with missing protocol' do
         before { external_page.urlname = 'google.com'}
@@ -1790,7 +1792,7 @@ module Alchemy
     end
 
     context 'page status methods' do
-      let(:page) { build(:page, public: true, visible: true, restricted: false, locked: false)}
+      let(:page) { build(:alchemy_page, public: true, visible: true, restricted: false, locked: false)}
 
       describe '#status' do
         it "returns a combined status hash" do
@@ -2001,7 +2003,7 @@ module Alchemy
     describe '#published_at' do
       context 'with published_at date set' do
         let(:published_at) { Time.now }
-        let(:page)         { build_stubbed(:page, published_at: published_at) }
+        let(:page)         { build_stubbed(:alchemy_page, published_at: published_at) }
 
         it "returns the published_at value from database" do
           expect(page.published_at).to eq(published_at)
@@ -2010,7 +2012,7 @@ module Alchemy
 
       context 'with published_at is nil' do
         let(:updated_at) { Time.now }
-        let(:page)       { build_stubbed(:page, published_at: nil, updated_at: updated_at) }
+        let(:page)       { build_stubbed(:alchemy_page, published_at: nil, updated_at: updated_at) }
 
         it "returns the updated_at value" do
           expect(page.published_at).to eq(updated_at)
@@ -2019,10 +2021,10 @@ module Alchemy
     end
 
     describe "#richtext_contents_ids" do
-      let!(:page) { create(:page) }
+      let!(:page) { create(:alchemy_page) }
 
       let!(:expanded_element) do
-        create :element,
+        create :alchemy_element,
           name: 'article',
           page: page,
           folded: false,
@@ -2030,7 +2032,7 @@ module Alchemy
       end
 
       let!(:folded_element) do
-        create :element,
+        create :alchemy_element,
           name: 'article',
           page: page,
           folded: true,
@@ -2048,7 +2050,7 @@ module Alchemy
 
       context 'with nested elements' do
         let!(:nested_expanded_element) do
-          create :element,
+          create :alchemy_element,
             name: 'article',
             page: page,
             parent_element: expanded_element,
@@ -2057,7 +2059,7 @@ module Alchemy
         end
 
         let!(:nested_folded_element) do
-          create :element,
+          create :alchemy_element,
             name: 'article',
             page: page,
             parent_element: folded_element,

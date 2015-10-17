@@ -4,10 +4,10 @@ module Alchemy
   describe Api::ElementsController do
 
     describe '#index' do
-      let(:page) { create(:public_page) }
+      let(:page) { create(:alchemy_page, :public) }
 
       before do
-        2.times { create(:element, page: page) }
+        2.times { create(:alchemy_element, page: page) }
       end
 
       it "returns all public elements as json objects" do
@@ -23,8 +23,8 @@ module Alchemy
       end
 
       context 'with page_id param' do
-        let!(:other_page)    { create(:public_page) }
-        let!(:other_element) { create(:element, page: other_page) }
+        let!(:other_page)    { create(:alchemy_page, :public) }
+        let!(:other_element) { create(:alchemy_element, page: other_page) }
 
         it "returns only elements from this page" do
           alchemy_get :index, page_id: other_page.id, format: :json
@@ -55,7 +55,7 @@ module Alchemy
       end
 
       context 'with named param' do
-        let!(:other_element) { create(:element, page: page, name: 'news') }
+        let!(:other_element) { create(:alchemy_element, page: page, name: 'news') }
 
         it "returns only elements named like this." do
           alchemy_get :index, named: 'news', format: :json
@@ -87,8 +87,8 @@ module Alchemy
     end
 
     describe '#show' do
-      let(:page)    { build_stubbed(:page) }
-      let(:element) { build_stubbed(:element, page: page, position: 1) }
+      let(:page)    { build_stubbed(:alchemy_page) }
+      let(:element) { build_stubbed(:alchemy_element, page: page, position: 1) }
 
       before do
         expect(Element).to receive(:find).and_return(element)
@@ -106,7 +106,7 @@ module Alchemy
       end
 
       context 'requesting an restricted element' do
-        let(:page) { build_stubbed(:page, restricted: true) }
+        let(:page) { build_stubbed(:alchemy_page, restricted: true) }
 
         it "responds with 403" do
           alchemy_get :show, id: element.id, format: :json

@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::ContentsController do
-    let(:element) { build_stubbed(:element) }
-    let(:content) { build_stubbed(:content, element: element) }
+    let(:element) { build_stubbed(:alchemy_element) }
+    let(:content) { build_stubbed(:alchemy_content, element: element) }
 
     before do
       authorize_user(:as_admin)
@@ -15,7 +15,7 @@ module Alchemy
       end
 
       describe '#create' do
-        let(:element) { build_stubbed(:element, name: 'headline') }
+        let(:element) { build_stubbed(:alchemy_element, name: 'headline') }
 
         it "creates a content from name" do
           expect(Content).to receive(:create_from_scratch).and_return(content)

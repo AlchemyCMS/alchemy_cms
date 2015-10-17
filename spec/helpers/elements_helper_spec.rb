@@ -3,8 +3,8 @@ include Alchemy::BaseHelper
 
 module Alchemy
   describe ElementsHelper do
-    let(:page)    { build_stubbed(:public_page) }
-    let(:element) { build_stubbed(:element, name: 'headline', page: page) }
+    let(:page)    { build_stubbed(:alchemy_page, :public) }
+    let(:element) { build_stubbed(:alchemy_element, name: 'headline', page: page) }
 
     before do
       assign(:page, page)
@@ -28,7 +28,7 @@ module Alchemy
         end
 
         context 'with element view partial not found' do
-          let(:element) { build_stubbed(:element, name: 'not_present')}
+          let(:element) { build_stubbed(:alchemy_element, name: 'not_present')}
 
           it "renders the view not found partial" do
             is_expected.to match(/Missing view for not_present element/)
@@ -45,7 +45,7 @@ module Alchemy
         end
 
         context 'with element editor partial not found' do
-          let(:element) { build_stubbed(:element, name: 'not_present')}
+          let(:element) { build_stubbed(:alchemy_element, name: 'not_present')}
 
           it "renders the editor not found partial" do
             is_expected.to have_selector('div.error')
@@ -66,7 +66,7 @@ module Alchemy
     describe "#render_elements" do
       subject { helper.render_elements(options) }
 
-      let(:another_element) { build_stubbed(:element, page: page) }
+      let(:another_element) { build_stubbed(:alchemy_element, page: page) }
       let(:elements)        { [element, another_element] }
 
       context 'without any options' do
@@ -84,7 +84,7 @@ module Alchemy
 
       context "with from_page option" do
         context 'is a page object' do
-          let(:another_page) { build_stubbed(:public_page) }
+          let(:another_page) { build_stubbed(:alchemy_page, :public) }
           let(:options)      { {from_page: another_page} }
 
           before do
@@ -98,8 +98,8 @@ module Alchemy
         end
 
         context 'is a string' do
-          let(:another_page)    { build_stubbed(:public_page) }
-          let(:another_element) { build_stubbed(:element, page: another_page) }
+          let(:another_page)    { build_stubbed(:alchemy_page, :public) }
+          let(:another_element) { build_stubbed(:alchemy_element, page: another_page) }
           let(:other_elements)  { [another_element] }
           let(:options)         { {from_page: 'news'} }
 
@@ -151,8 +151,8 @@ module Alchemy
       end
 
       context "with option fallback" do
-        let(:another_page)    { build_stubbed(:public_page, name: 'Another Page', page_layout: 'news') }
-        let(:another_element) { build_stubbed(:element, page: another_page, name: 'news') }
+        let(:another_page)    { build_stubbed(:alchemy_page, :public, name: 'Another Page', page_layout: 'news') }
+        let(:another_element) { build_stubbed(:alchemy_element, page: another_page, name: 'news') }
         let(:elements)        { [another_element] }
 
         context 'with string given as :fallback_from' do
@@ -233,7 +233,7 @@ module Alchemy
     describe '#element_tags' do
       subject { element_tags(element, options) }
 
-      let(:element) { build_stubbed(:element) }
+      let(:element) { build_stubbed(:alchemy_element) }
       let(:options) { {} }
 
       context "element having tags" do
@@ -262,9 +262,9 @@ module Alchemy
     describe '#sort_elements_by_content' do
       subject { sort_elements_by_content(elements, 'headline') }
 
-      let(:element_1)    { build_stubbed(:element) }
-      let(:element_2)    { build_stubbed(:element) }
-      let(:element_3)    { build_stubbed(:element) }
+      let(:element_1)    { build_stubbed(:alchemy_element) }
+      let(:element_2)    { build_stubbed(:alchemy_element) }
+      let(:element_3)    { build_stubbed(:alchemy_element) }
       let(:ingredient_a) { double(ingredient: 'a') }
       let(:ingredient_b) { double(ingredient: 'b') }
       let(:ingredient_c) { double(ingredient: 'c') }
@@ -281,7 +281,7 @@ module Alchemy
       end
 
       context 'with element not having this content' do
-        let(:element_4) { build_stubbed(:element) }
+        let(:element_4) { build_stubbed(:alchemy_element) }
         let(:elements)  { [element_1, element_2, element_3, element_4] }
 
         before do
@@ -294,7 +294,7 @@ module Alchemy
       end
 
       context 'with element having content with nil as ingredient' do
-        let(:element_4) { build_stubbed(:element) }
+        let(:element_4) { build_stubbed(:alchemy_element) }
         let(:elements)  { [element_1, element_2, element_3, element_4] }
 
         before do

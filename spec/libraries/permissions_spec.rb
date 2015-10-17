@@ -9,12 +9,12 @@ describe Alchemy::Permissions do
   let(:restricted_attachment)   { mock_model(Alchemy::Attachment, restricted?: true) }
   let(:picture)                 { mock_model(Alchemy::Picture, restricted?: false) }
   let(:restricted_picture)      { mock_model(Alchemy::Picture, restricted?: true) }
-  let(:public_page)             { build_stubbed(:public_page, restricted: false) }
-  let(:unpublic_page)           { build_stubbed(:page, public: false) }
-  let(:visible_page)            { build_stubbed(:page, restricted: false, visible: true) }
-  let(:not_visible_page)        { build_stubbed(:public_page, restricted: false, visible: false) }
-  let(:restricted_page)         { build_stubbed(:public_page, public: true, restricted: true) }
-  let(:visible_restricted_page) { build_stubbed(:page, visible: true, restricted: true) }
+  let(:public_page)             { build_stubbed(:alchemy_page, :public, restricted: false) }
+  let(:unpublic_page)           { build_stubbed(:alchemy_page, public: false) }
+  let(:visible_page)            { build_stubbed(:alchemy_page, restricted: false, visible: true) }
+  let(:not_visible_page)        { build_stubbed(:alchemy_page, :public, restricted: false, visible: false) }
+  let(:restricted_page)         { build_stubbed(:alchemy_page, :public, public: true, restricted: true) }
+  let(:visible_restricted_page) { build_stubbed(:alchemy_page, visible: true, restricted: true) }
   let(:published_element)       { mock_model(Alchemy::Element, restricted?: false, public?: true, trashed?: false) }
   let(:restricted_element)      { mock_model(Alchemy::Element, restricted?: true, public?: true, trashed?: false) }
   let(:published_content)       { mock_model(Alchemy::Content, restricted?: false, public?: true, trashed?: false) }

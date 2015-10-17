@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::ElementsHelper do
-    let(:page)    { build_stubbed(:public_page) }
-    let(:element) { build_stubbed(:element, page: page) }
+    let(:page)    { build_stubbed(:alchemy_page, :public) }
+    let(:element) { build_stubbed(:alchemy_element, page: page) }
 
     context "partial rendering" do
       it "should render an element editor partial" do
@@ -178,7 +178,7 @@ module Alchemy
     describe '#element_editor_classes' do
       subject { element_editor_classes(element, locals) }
 
-      let(:element) { build_stubbed(:element) }
+      let(:element) { build_stubbed(:alchemy_element) }
       let(:locals) { Hash.new }
 
       it "returns css classes for element editor partial" do
@@ -201,12 +201,12 @@ module Alchemy
       end
 
       context 'with element is folded' do
-        let(:element) { build_stubbed(:element, folded: true) }
+        let(:element) { build_stubbed(:alchemy_element, folded: true) }
         it { is_expected.to include('folded') }
       end
 
       context 'with element is expanded' do
-        let(:element) { build_stubbed(:element, folded: false) }
+        let(:element) { build_stubbed(:alchemy_element, folded: false) }
         it { is_expected.to include('expanded') }
       end
 
@@ -261,7 +261,7 @@ module Alchemy
 
     describe "#show_element_footer?" do
       subject { show_element_footer?(element, nestable_elements) }
-      let(:element) { build_stubbed(:element) }
+      let(:element) { build_stubbed(:alchemy_element) }
       let(:nestable_elements) { nil }
 
       context "for folded element" do

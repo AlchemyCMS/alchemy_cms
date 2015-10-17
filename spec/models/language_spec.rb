@@ -4,8 +4,8 @@ require 'spec_helper'
 module Alchemy
   describe Language do
     let(:default_language) { Alchemy::Language.default }
-    let(:language)         { FactoryGirl.create(:klingonian) }
-    let(:page)             { FactoryGirl.create(:page, language: language) }
+    let(:language)         { create(:alchemy_language, :klingonian) }
+    let(:page)             { create(:alchemy_page, language: language) }
 
     it "should return a label for code" do
       expect(language.label(:code)).to eq('kl')
@@ -28,7 +28,7 @@ module Alchemy
         end
 
         it "should update all associated Pages with self.code as value for Page#language_code" do
-          page = FactoryGirl.create(:page, language: language)
+          page = create(:alchemy_page, language: language)
           language.country_code = 'cr'
           language.save
           page.reload; expect(page.language_code).to eq('kl-cr')
@@ -39,7 +39,7 @@ module Alchemy
     context "with country_code and_language_code" do
       context "removing the country_code" do
         it "should update all associated Pages´s language_code with Language#code" do
-          language = FactoryGirl.create(:language, country_code: 'kl')
+          language = create(:alchemy_language, country_code: 'kl')
           language.country_code = ''
           language.save
           page.reload; expect(page.language_code).to eq("kl")
@@ -67,7 +67,7 @@ module Alchemy
     context "after_update" do
       describe "#set_pages_language if language´s code has changed" do
         it "should update all its pages with the new code" do
-          @other_page = FactoryGirl.create(:page, language: language)
+          @other_page = create(:alchemy_page, language: language)
           language.update_attributes(code: "fo")
           language.reload; page.reload; @other_page.reload
           expect([page.language_code, @other_page.language_code]).to eq([language.code, language.code])
@@ -76,8 +76,8 @@ module Alchemy
 
       describe "#unpublish_pages" do
         it "should set all pages to unpublic if it gets set to unpublic" do
-          page = FactoryGirl.create(:page, language: language)
-          @other_page = FactoryGirl.create(:page, language: language)
+          page = create(:alchemy_page, language: language)
+          @other_page = create(:alchemy_page, language: language)
           language.update_attributes(public: false)
           language.reload; page.reload; @other_page.reload
           expect([page.public?, @other_page.public?]).to eq([false, false])
