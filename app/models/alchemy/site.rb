@@ -58,7 +58,7 @@ module Alchemy
         # These are split up into two separate queries in order to run the
         # fastest query first (selecting the domain by its primary host name).
         #
-        where(host: host).first || find_in_aliases(host) || default
+        find_by(host: host) || find_in_aliases(host) || default
       end
 
       def find_in_aliases(host)
@@ -70,21 +70,18 @@ module Alchemy
       end
     end
 
-    before_create do
-      # If no languages are present, create a default language based
-      # on the host app's Alchemy configuration.
-
-      if languages.empty?
-        default_language = Alchemy::Config.get(:default_language)
-        languages.build(
-          name:           default_language['name'],
-          language_code:  default_language['code'],
-          frontpage_name: default_language['frontpage_name'],
-          page_layout:    default_language['page_layout'],
-          public:         true,
-          default:        true
-        )
-      end
+    # If no languages are present, create a default language based
+    # on the host app's Alchemy configuration.
+    before_create unless: 'languages.any?' do
+      default_language = Alchemy::Config.get(:default_language)
+      languages.build(
+        name:           default_language['name'],
+        language_code:  default_language['code'],
+        frontpage_name: default_language['frontpage_name'],
+        page_layout:    default_language['page_layout'],
+        public:         true,
+        default:        true
+      )
     end
   end
 end

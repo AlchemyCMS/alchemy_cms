@@ -6,17 +6,20 @@ module Alchemy
     let(:another_site) { create(:alchemy_site, name: 'Another Site', host: 'another.com') }
 
     describe 'new instances' do
-      subject { build(:alchemy_site) }
+      subject { build(:alchemy_site, host: 'bla.com') }
+
+      before { Site.current = subject }
 
       it 'should start out with no languages' do
         expect(subject.languages).to be_empty
       end
 
       context 'when being saved' do
+
         context 'when it has no languages yet' do
           it 'should automatically create a default language' do
             subject.save!
-            expect(subject.languages.length).to eq(1) # using count returns 0, although the resulting array has a length of 1 / O.o
+            expect(subject.languages.count).to eq(1)
             expect(subject.languages.first).to be_default
           end
         end
