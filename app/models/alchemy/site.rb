@@ -23,6 +23,9 @@ module Alchemy
 
     scope :published, -> { where(public: true) }
 
+    # Callbacks
+    before_create :create_default_language, unless: -> { languages.any? }
+
     # concerns
     include Alchemy::Site::Layout
 
@@ -70,9 +73,11 @@ module Alchemy
       end
     end
 
+    private
+
     # If no languages are present, create a default language based
     # on the host app's Alchemy configuration.
-    before_create unless: 'languages.any?' do
+    def create_default_language
       default_language = Alchemy::Config.get(:default_language)
       languages.build(
         name:           default_language['name'],
