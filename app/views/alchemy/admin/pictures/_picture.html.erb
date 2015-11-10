@@ -9,7 +9,7 @@
       _t(:confirm_to_delete_image_from_server),
       alchemy.admin_picture_path(
         id: picture,
-        query: params[:query],
+        q: params[:q],
         page: params[:page],
         tagged_with: params[:tagged_with],
         size: params[:size],
@@ -29,10 +29,15 @@
   <% if can?(:edit, picture) %>
     <%= link_to(
       image,
-      '#',
-      onclick: "Alchemy.zoomImage('#{admin_picture_path(id: picture.id, sh: picture.security_token)}', '#{picture.name}', #{picture.image_file_width || 320}, #{picture.image_file_height || 240}); return false",
-      class: 'thumbnail_background',
-      id: 'show_in_window'
+      alchemy.admin_picture_path(
+        id: picture,
+        q: params[:q],
+        page: params[:page],
+        tagged_with: params[:tagged_with],
+        size: params[:size],
+        filter: params[:filter]
+      ),
+      class: 'thumbnail_background'
     ) %>
   <% else %>
     <%= image %>

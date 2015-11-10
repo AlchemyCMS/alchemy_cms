@@ -3,25 +3,49 @@ class window.Alchemy.ImageOverlay extends Alchemy.Dialog
   constructor: (url) ->
     @options =
       draggable: false
-      ready: (dialog) ->
-        Alchemy.ImageLoader(dialog)
-        return
     super(url, @options)
     return
 
   init: ->
-    $('#zoomed_picture_background').click (e) =>
+    Alchemy.ImageLoader(@dialog_body)
+    $('.zoomed-picture-background').click (e) =>
       e.stopPropagation()
       return if e.target.nodeName == 'IMG'
       @close()
       false
+    $('.picture-overlay-handle').click (e) =>
+      @dialog.toggleClass('hide-form')
+      false
+    @$previous = $('.previous-picture')
+    @$next = $('.next-picture')
+    @$document.keydown (e) =>
+      return true if e.target.nodeName == 'INPUT'
+      switch e.which
+        when 37
+          @previous()
+          false
+        when 39
+          @next()
+          false
+        else
+          true
     super()
+
+  previous: ->
+    @$previous.click()
+    return
+
+  next: ->
+    @$next.click()
+    return
 
   build: ->
     @dialog_container = $('<div class="alchemy-image-overlay-container" />')
     @dialog = $('<div class="alchemy-image-overlay-dialog" />')
     @dialog_body = $('<div class="alchemy-image-overlay-body" />')
-    @close_button = $('<a class="alchemy-image-overlay-close"><span class="icon close small"></span></a>')
+    @close_button = $('<a class="alchemy-image-overlay-close">
+      <span class="icon close small"></span>
+    </a>')
     @dialog.append(@close_button)
     @dialog.append(@dialog_body)
     @dialog_container.append(@dialog)

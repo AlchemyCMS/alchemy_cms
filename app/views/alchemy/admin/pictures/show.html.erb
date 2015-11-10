@@ -1,4 +1,4 @@
-<div id="zoomed_picture_background">
+<div class="zoomed-picture-background">
   <%= image_tag alchemy.zoom_picture_path(
     id: @picture.id,
     name: @picture.urlname,
@@ -7,7 +7,42 @@
   ) %>
 </div>
 
+<div class="picture-overlay-navigation">
+  <% if @previous %>
+    <%= link_to alchemy.admin_picture_path(
+        id: @previous,
+        q: params[:q],
+        page: params[:page],
+        tagged_with: params[:tagged_with],
+        size: params[:size],
+        filter: params[:filter]
+      ),
+      class: "previous-picture",
+      remote: true do %>
+      <span class="icon-angle-left"></span>
+    <% end %>
+  <% end %>
+  <% if @next %>
+    <%= link_to alchemy.admin_picture_path(
+        id: @next,
+        q: params[:q],
+        page: params[:page],
+        tagged_with: params[:tagged_with],
+        size: params[:size],
+        filter: params[:filter]
+      ),
+      class: "next-picture",
+      remote: true do %>
+      <span class="icon-angle-right"></span>
+    <% end %>
+  <% end %>
+</div>
+
 <div class="picture-details-overlay">
   <%= render 'form' %>
   <%= render 'infos' %>
+</div>
+
+<div class="picture-overlay-handle">
+  <span class="icon-angle-double-right"></span>
 </div>

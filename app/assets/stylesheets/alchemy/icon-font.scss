@@ -1,14 +1,17 @@
 @font-face {
   font-family: 'Alchemy Icons';
-  src: font-url('alchemy/icons.eot');
-  src: font-url('alchemy/icons.eot?#iefix') format('embedded-opentype'),
-       font-url('alchemy/icons.woff') format('woff'),
-       font-url('alchemy/icons.ttf') format('truetype'),
-       font-url('alchemy/icons.svg#Alchemy-Icons') format('svg');
+  src: font-url('alchemy/icons.eot?sgh5oh');
+  src: font-url('alchemy/icons.eot?#iefixsgh5oh') format('embedded-opentype'),
+       font-url('alchemy/icons.ttf?sgh5oh') format('truetype'),
+       font-url('alchemy/icons.woff?sgh5oh') format('woff'),
+       font-url('alchemy/icons.svg?sgh5oh#Alchemy-Icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
+.icon-angle-double-right,
+.icon-angle-left,
+.icon-angle-right,
 .icon-plus,
 .icon-minus,
 .icon-cross,
@@ -38,13 +41,17 @@
   text-transform: none;
   text-decoration: none;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   width: 16px;
   color: #666;
   text-align: center;
-  line-height: 1em;
+  line-height: 1;
   @include inline-block;
 }
 
+.icon-angle-double-right:before { content: "\f101" }
+.icon-angle-left:before { content: "\f104" }
+.icon-angle-right:before { content: "\f105" }
 .icon-plus:before { content: "\e000" }
 .icon-minus:before { content: "\e001" }
 .icon-cross:before { content: "\e004" }

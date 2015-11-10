@@ -1,4 +1,7 @@
-$image-overlay-form-width: 350px;
+$picture-overlay-handle-width: 18px;
+$image-overlay-form-width: 350px - $picture-overlay-handle-width;
+$image-overlay-transition-duration: 200ms;
+$image-overlay-transition-easing: ease-in;
 
 .alchemy-image-overlay {
 
@@ -15,35 +18,86 @@ $image-overlay-form-width: 350px;
   max-width: 100%;
 }
 
+.alchemy-image-overlay-dialog {
+
+  &.hide-form {
+
+    .picture-details-overlay {
+      right: -$image-overlay-form-width;
+    }
+
+    .zoomed-picture-background {
+      padding-right: 2*$default-padding;
+    }
+
+    .alchemy-image-overlay-close {
+      right: $picture-overlay-handle-width + 2*$default-padding;
+    }
+
+    .next-picture {
+      right: $picture-overlay-handle-width;
+    }
+
+    .spinner {
+      margin-left: 0;
+    }
+
+    .picture-overlay-handle {
+      right: 0;
+
+      .icon-angle-double-right {
+        @include transform(rotate(180deg) translate(50%, 50%));
+      }
+    }
+  }
+}
+
 .alchemy-image-overlay-body {
   width: 100%;
   height: 100%;
+
+  > .message {
+    margin: 2*$default-margin;
+    max-width: 400px;
+  }
 }
 
 .alchemy-image-overlay-close {
   width: 32px;
   height: 32px;
   top: 2*$default-padding;
-  right: $image-overlay-form-width + 2*$default-padding;
+  right: 2*$default-padding + $picture-overlay-handle-width + $image-overlay-form-width;
   cursor: pointer;
+  @include transition(right $image-overlay-transition-duration $image-overlay-transition-easing);
 
   .icon.close.small {
     font-size: 32px;
-    color: white;
+    color: $medium-gray;
+    text-shadow: 0 0 $default-padding $text-color;
+    @include transition(color $image-overlay-transition-duration linear);
+
+    &:hover {
+      color: $white;
+    }
   }
+}
+
+.picture-details-overlay,
+.picture-overlay-handle {
+  position: absolute;
+  top: 0;
+  background-color: $medium-gray;
+  @include box-shadow(-2px 0 $default-padding -2px $text-color);
+  @include transition(right $image-overlay-transition-duration $image-overlay-transition-easing);
 }
 
 .picture-details-overlay {
   @include box-sizing(border-box);
-  position: absolute;
-  top: 0;
   right: 0;
   width: $image-overlay-form-width;
   height: 100%;
-  background-color: $medium-gray;
-  padding: 2*$default-padding 4*$default-padding;
+  padding: 2*$default-padding 4*$default-padding 2*$default-padding $default-padding;
   overflow: auto;
-  @include box-shadow(-2px 0 $default-padding -2px $text-color);
 
   form .control-label,
   .resource_info .value label {
@@ -66,17 +120,39 @@ $image-overlay-form-width: 350px;
   }
 }
 
-#zoomed_picture_background {
+.picture-overlay-handle {
+  width: $picture-overlay-handle-width;
+  height: 100%;
+  right: $image-overlay-form-width;
+  cursor: pointer;
+
+  .icon-angle-double-right {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    @include transform(translate(-50%, -50%));
+    font-size: 14px;
+    color: $text-color;
+    @include transition(transform $image-overlay-transition-duration $image-overlay-transition-easing);
+  }
+
+  &:hover {
+    background-color: darken($medium-gray, 5%);
+  }
+}
+
+.zoomed-picture-background {
   @include box-sizing(border-box);
   width: 100%;
   height: 100%;
   padding-top: 2*$default-padding;
-  padding-right: $image-overlay-form-width + 2*$default-padding;
+  padding-right: $image-overlay-form-width + 2*$default-padding + $picture-overlay-handle-width;
   padding-bottom: 2*$default-padding;
   padding-left: 2*$default-padding;
   margin: 0 auto;
   text-align: center;
   cursor: pointer;
+  @include transition(padding-right $image-overlay-transition-duration $image-overlay-transition-easing);
 
   &:before {
     content: '';
@@ -91,7 +167,8 @@ $image-overlay-form-width: 350px;
     left: 50% !important;
     top: 50% !important;
     @include transform(translateY(-50%));
-    margin-left: -$image-overlay-form-width/2;
+    margin-left: -$image-overlay-form-width/2 + $picture-overlay-handle-width;
+    @include transition(margin-left $image-overlay-transition-duration $image-overlay-transition-easing);
   }
 
   img {
@@ -138,5 +215,55 @@ $image-overlay-form-width: 350px;
 
       &.even { background: #F7F7F7 }
     }
+  }
+}
+
+.picture-overlay-navigation {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+
+  .previous-picture,
+  .next-picture {
+    position: absolute;
+    top: 0;
+    width: 64px;
+    height: 128px;
+    line-height: 120px;
+    margin-top: -64px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    @include transition(background-color $image-overlay-transition-duration linear);
+
+    &:hover {
+      background-color: rgba(0,0,0, 0.3);
+
+      .icon-angle-left,
+      .icon-angle-right {
+        color: $white;
+        text-shadow: none;
+      }
+    }
+  }
+
+  .icon-angle-left,
+  .icon-angle-right {
+    font-size: 48px;
+    color: $medium-gray;
+    text-shadow: 0 0 $default-padding $text-color;
+    @include transition(all $image-overlay-transition-duration linear);
+  }
+
+  .previous-picture {
+    left: 0;
+    @include border-right-radius($default-border-radius);
+  }
+
+  .next-picture {
+    right: $image-overlay-form-width + $picture-overlay-handle-width;
+    @include border-left-radius($default-border-radius);
+    @include transition(right $image-overlay-transition-duration $image-overlay-transition-easing);
   }
 }

@@ -7,30 +7,57 @@ module Alchemy
       authorize_user(:as_admin)
     end
 
-    describe "#index" do
-      it "should always paginate the records" do
-        expect_any_instance_of(ActiveRecord::Relation).to receive(:page).and_call_original
+    describe '#index' do
+      context 'with search params' do
+        let!(:picture_1) { create(:alchemy_picture, name: 'cute kitten') }
+        let!(:picture_2) { create(:alchemy_picture, name: 'nice beach') }
+
+        it 'assigns @pictures with filtered pictures' do
+          alchemy_get :index, q: {name_cont: 'kitten'}
+          expect(assigns(:pictures)).to include(picture_1)
+          expect(assigns(:pictures)).to_not include(picture_2)
+        end
+      end
+
+      context 'with filter params' do
+        let!(:picture_1) { create(:alchemy_picture) }
+        let!(:picture_2) { create(:alchemy_picture, tag_list: %w(kitten)) }
+
+        it 'assigns @pictures with filtered pictures' do
+          alchemy_get :index, filter: 'without_tag'
+          expect(assigns(:pictures)).to include(picture_1)
+          expect(assigns(:pictures)).to_not include(picture_2)
+        end
+      end
+
+      context 'with tag params' do
+        let!(:picture_1) { create(:alchemy_picture, tag_list: %w(water)) }
+        let!(:picture_2) { create(:alchemy_picture, tag_list: %w(kitten)) }
+
+        it 'assigns @pictures with filtered pictures' do
+          alchemy_get :index, tagged_with: 'water'
+          expect(assigns(:pictures)).to include(picture_1)
+          expect(assigns(:pictures)).to_not include(picture_2)
+        end
+      end
+
+      it 'assigns @size to default value' do
         alchemy_get :index
+        expect(assigns(:size)).to eq('medium')
       end
 
-      context "when params[:filter] is set" do
-        it "should filter the pictures collection by the given filter string." do
-          expect(Picture).to receive(:filtered_by).with('recent').and_return(Picture.all)
-          alchemy_get :index, filter: 'recent'
+      context "with params[:size] set to 'large'" do
+        it 'assigns @size to large' do
+          alchemy_get :index, size: 'large'
+          expect(assigns(:size)).to eq('large')
         end
       end
 
-      context "when params[:tagged_with] is set" do
-        it "should filter the records by tags" do
-          expect(Picture).to receive(:tagged_with).and_return(Picture.all)
-          alchemy_get :index, tagged_with: "red"
-        end
-      end
-
-      context "when params[:content_id]" do
+      context "when params[:element_id]" do
         context "is set" do
           before do
-            allow(Element).to receive(:find).with('1', {:select => 'id'}).and_return(mock_model(Element))
+            allow(Element).to \
+              receive(:find).with('1', {select: 'id'}).and_return(mock_model(Element))
           end
 
           it "for html requests it renders the archive_overlay partial" do
@@ -161,6 +188,45 @@ module Alchemy
       end
     end
 
+    describe '#show' do
+      let(:picture) { create(:alchemy_picture, name: 'kitten') }
+
+      it 'assigns @picture' do
+        alchemy_get :show, id: picture.id
+        expect(assigns(:picture).id).to eq(picture.id)
+      end
+
+      context 'with assignments' do
+        let!(:page) { create(:alchemy_page) }
+        let!(:element) { create(:alchemy_element, page: page) }
+        let!(:content) { create(:alchemy_content, element: element) }
+        let!(:essence) { create(:alchemy_essence_picture, content: content, picture: picture) }
+
+        it 'assigns @pages to assignments grouped by page' do
+          alchemy_get :show, id: picture.id
+          expect(assigns(:pages)).to eq({page => [essence]})
+        end
+      end
+
+      context 'with previous picture existing' do
+        let!(:previous) { create(:alchemy_picture, name: 'abraham') }
+
+        it 'assigns @previous to previous picture' do
+          alchemy_get :show, id: picture.id
+          expect(assigns(:previous).id).to eq(previous.id)
+        end
+      end
+
+      context 'with next picture existing' do
+        let!(:next_picture) { create(:alchemy_picture, name: 'zebra') }
+
+        it 'assigns @next to next picture' do
+          alchemy_get :show, id: picture.id
+          expect(assigns(:next).id).to eq(next_picture.id)
+        end
+      end
+    end
+
     describe '#edit_multiple' do
       let(:pictures) { [mock_model('Picture', tag_list: 'kitten')] }
       before { expect(Picture).to receive(:where).and_return(pictures) }
@@ -177,7 +243,7 @@ module Alchemy
     end
 
     describe '#update' do
-      subject { alchemy_put :update, {id: 1, picture: {name: ''}} }
+      subject { alchemy_xhr :put, :update, {id: 1, picture: {name: ''}} }
 
       let(:picture) { build_stubbed(:alchemy_picture, name: 'Cute kitten') }
 
@@ -187,31 +253,26 @@ module Alchemy
 
       context 'with passing validations' do
         before do
-          expect(picture).to receive(:update_attributes).and_return(true)
+          expect(picture).to receive(:update).and_return(true)
         end
 
         it "sets success notice" do
           subject
-          expect(flash[:notice]).not_to be_blank
-        end
-
-        it "redirects to index path" do
-          is_expected.to redirect_to admin_pictures_path
+          expect(assigns(:message)[:body]).to \
+            eq(Alchemy::I18n.t(:picture_updated_successfully, name: picture.name))
+          expect(assigns(:message)[:type]).to eq('notice')
         end
       end
 
       context 'with failing validations' do
         before do
-          expect(picture).to receive(:update_attributes).and_return(false)
+          expect(picture).to receive(:update).and_return(false)
         end
 
-        it "sets error notice and redirects to index path" do
+        it "sets error notice" do
           subject
-          expect(flash[:error]).not_to be_blank
-        end
-
-        it "redirects to index path" do
-          is_expected.to redirect_to admin_pictures_path
+          expect(assigns(:message)[:body]).to eq(Alchemy::I18n.t(:picture_update_failed))
+          expect(assigns(:message)[:type]).to eq('error')
         end
       end
     end
