@@ -51,6 +51,7 @@ __Fixed Bugs__
 * Add missing element partials for dummy app
 * Eliminate an SQL lookup on frontend cached element partials
 * Add missing german and spanish translation for element toolbar
+* Use the site_id parameter and the session only in the Admin area
 
 [Full Change Log](https://github.com/AlchemyCMS/alchemy_cms/compare/v3.2.0...HEAD)
 
