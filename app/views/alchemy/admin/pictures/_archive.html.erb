@@ -25,7 +25,7 @@
     <%= link_to(
       render_icon('delete-small') + _t("Clear selection"),
       admin_pictures_path(
-        :query => params[:query],
+        :q => params[:q],
         :tagged_with => params[:tagged_with],
         :size => params[:size],
         :filter => params[:filter]
@@ -35,7 +35,7 @@
     ) %>
   </div>
   <div id="pictures">
-  <% if @pictures.blank? and @recent_pictures.blank? and params[:query].nil? %>
+  <% if @pictures.blank? and @recent_pictures.blank? and params[:q].blank? %>
     <div class="info">
       <%= render_icon('info') %>
       <%= _t(:no_images_in_archive) %>

@@ -43,7 +43,7 @@
 
   <%= render_message do %>
     <h2><%= _t('No Tags found') %></h2>
-    <% if params[:query].blank? %>
+    <% if params[:q].blank? %>
       <p><%= _t(:tags_get_created_if_used_the_first_time) %></p>
     <% end %>
   <% end %>

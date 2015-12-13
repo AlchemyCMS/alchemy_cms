@@ -1,5 +1,21 @@
 require 'spec_helper'
 
+RSpec.shared_examples :redirecting_to_picture_library do
+  let(:params) do
+    {
+      filter: 'latest',
+      page: 2,
+      q: {name_cont: 'kitten'},
+      size: 'small',
+      tagged_with: 'cat'
+    }
+  end
+
+  it 'redirects to index keeping all query, filter and page params' do
+    is_expected.to redirect_to admin_pictures_path(params)
+  end
+end
+
 module Alchemy
   describe Admin::PicturesController do
 
@@ -290,13 +306,30 @@ module Alchemy
         alchemy_post :update_multiple
         expect(assigns(:pictures)).to eq(pictures)
       end
+
+      it_behaves_like :redirecting_to_picture_library do
+        let(:subject) { alchemy_post(:update_multiple, params) }
+      end
     end
 
     describe "#delete_multiple" do
       subject { alchemy_delete :delete_multiple, picture_ids: picture_ids }
 
-      let(:deletable_picture)     { mock_model('Picture', name: 'pic of the pig', deletable?: true) }
-      let(:not_deletable_picture) { mock_model('Picture', name: 'pic of the chick', deletable?: false) }
+      it_behaves_like :redirecting_to_picture_library do
+        let(:subject) do
+          alchemy_delete :delete_multiple, {
+            picture_ids: %w(1 2)
+          }.merge(params)
+        end
+      end
+
+      let(:deletable_picture) do
+        mock_model('Picture', name: 'pic of the pig', deletable?: true)
+      end
+
+      let(:not_deletable_picture) do
+        mock_model('Picture', name: 'pic of the chick', deletable?: false)
+      end
 
       context "no picture_ids given" do
         let(:picture_ids) { '' }
@@ -383,6 +416,10 @@ module Alchemy
           alchemy_delete :destroy, id: picture.id
           expect(response).to redirect_to admin_pictures_path
         end
+      end
+
+      it_behaves_like :redirecting_to_picture_library do
+        let(:subject) { alchemy_delete :destroy, {id: picture.id}.merge(params) }
       end
     end
 

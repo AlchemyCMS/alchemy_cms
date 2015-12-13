@@ -1,5 +1,5 @@
 <%= alchemy_form_for([:admin, @attachment],
-  url: {action: :update, query: params[:query], page: params[:page]}) do |f| -%>
+  url: {action: :update, q: params[:q], page: params[:page]}) do |f| -%>
   <%= f.input :name, input_html: {autofocus: true} %>
   <%= f.input :file_name, input_html: {autofocus: true}, hint: _t(:attachment_filename_notice) %>
   <div class="input string">

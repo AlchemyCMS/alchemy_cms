@@ -31,8 +31,10 @@
           content_id: @content,
           element_id: @element,
           swap: @swap,
-          query: params[:query],
-          options: @options.to_json
+          q: params[:q],
+          options: @options.to_json,
+          filter: params[:filter],
+          tagged_with: params[:tagged_with]
         }),
         remote: true,
         title: _t(:small_thumbnails),
@@ -47,8 +49,10 @@
           content_id: @content,
           element_id: @element,
           swap: @swap,
-          query: params[:query],
-          options: @options.to_json
+          q: params[:q],
+          options: @options.to_json,
+          filter: params[:filter],
+          tagged_with: params[:tagged_with]
         }),
         remote: true,
         title: _t(:medium_thumbnails),
@@ -63,8 +67,10 @@
           content_id: @content,
           element_id: @element,
           swap: @swap,
-          query: params[:query],
-          options: @options.to_json
+          q: params[:q],
+          options: @options.to_json,
+          filter: params[:filter],
+          tagged_with: params[:tagged_with]
         }),
         remote: true,
         title: _t(:big_thumbnails),
