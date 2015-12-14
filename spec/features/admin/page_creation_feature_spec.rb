@@ -30,8 +30,8 @@ module Alchemy
 
           it "the create page tab is visible by default" do
             within('#overlay_tabs') do
-              expect(find '#create_page_tab').to be_visible
-              expect(find '#paste_page_tab').to_not be_visible
+              expect(page).to have_selector('#create_page_tab', visible: true)
+              expect(page).to have_selector('#paste_page_tab')
             end
           end
 
