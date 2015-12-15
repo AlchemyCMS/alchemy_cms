@@ -30,7 +30,7 @@
     <%= render_resources %>
   </tbody>
 </table>
-<%- elsif params[:query] -%>
+<%- elsif params[:q].present? -%>
 <p><%= _t('Nothing found') %></p>
 <%- end -%>
 

@@ -38,7 +38,7 @@
       _t(:confirm_to_delete_file),
       alchemy.admin_attachment_path(
         id: attachment,
-        query: params[:query],
+        q: params[:q],
         page: params[:page],
         per_page: params[:per_page]
       ),
@@ -50,7 +50,7 @@
   <% end %>
   <% if can?(:edit, attachment) %>
     <%= link_to_dialog("",
-      alchemy.edit_admin_attachment_path(attachment, query: params[:query], page: params[:page]),
+      alchemy.edit_admin_attachment_path(attachment, q: params[:q], page: params[:page]),
       {
         title: _t(:rename_file),
         size: '380x250'

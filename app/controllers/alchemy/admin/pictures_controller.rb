@@ -161,7 +161,7 @@ module Alchemy
         do_redirect_to admin_pictures_path(
           filter: params[:filter].presence,
           page: params[:page].presence,
-          query: params[:query].presence,
+          q: params[:q].presence,
           size: params[:size].presence,
           tagged_with: params[:tagged_with].presence
         )

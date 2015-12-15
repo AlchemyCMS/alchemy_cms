@@ -161,6 +161,24 @@ module Alchemy
         it "redirects to index path" do
           is_expected.to redirect_to admin_attachments_path
         end
+
+        context 'with search params' do
+          let(:search_params) do
+            {
+              q: {name_cont: 'kitten'},
+              per_page: 20,
+              page: 2
+            }
+          end
+
+          subject do
+            alchemy_put :update, {id: 1, attachment: {name: ''}}.merge(search_params)
+          end
+
+          it "passes them along" do
+            is_expected.to redirect_to admin_attachments_path(search_params)
+          end
+        end
       end
 
       context 'with failing validations' do

@@ -57,7 +57,11 @@ module Alchemy
         @attachment.update_attributes(attachment_attributes)
         render_errors_or_redirect(
           @attachment,
-          admin_attachments_path(page: params[:page], query: params[:query], per_page: params[:per_page]),
+          admin_attachments_path(
+            per_page: params[:per_page],
+            page: params[:page],
+            q: params[:q]
+          ),
           _t("File successfully updated")
         )
       end
@@ -68,7 +72,7 @@ module Alchemy
         @url = admin_attachments_url(
           per_page: params[:per_page],
           page: params[:page],
-          query: params[:query]
+          q: params[:q]
         )
         flash[:notice] = _t('File deleted successfully', name: name)
       end

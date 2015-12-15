@@ -1,4 +1,4 @@
-<% if @attachments.blank? && params[:query].nil? %>
+<% if @attachments.blank? && params[:q].blank? %>
 <div class="info" id="no_files_notice">
   <%= render_icon('info') %>
   <%= _t(:no_files_in_archive) %>
