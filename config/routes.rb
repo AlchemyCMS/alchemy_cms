@@ -1,7 +1,7 @@
 require 'alchemy/routing_constraints'
 
 Alchemy::Engine.routes.draw do
-  root :to => 'pages#show'
+  root to: 'pages#index'
 
   get '/sitemap.xml' => 'pages#sitemap', format: 'xml'
 
@@ -152,7 +152,7 @@ Alchemy::Engine.routes.draw do
     get '/admin/pages/:id(.:format)' => 'pages#show', as: 'preview_page'
   end
 
-  get '/:locale' => 'pages#show',
+  get '/:locale' => 'pages#index',
     constraints: {locale: Alchemy::RoutingConstraints::LOCALE_REGEXP},
     as: :show_language_root
 

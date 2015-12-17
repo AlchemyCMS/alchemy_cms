@@ -95,7 +95,7 @@ module Alchemy
           public_child
         end
 
-        it "should redirect to public child" do
+        it "redirects to public child" do
           visit "/not-public"
           expect(page.current_path).to eq("/public-child")
         end
@@ -173,14 +173,6 @@ module Alchemy
             visit '/'
             expect(page.current_path).to eq('/')
           end
-
-          context "if page.locale != then the default locale" do
-            it "redirects to the default language locale" do
-              allow(::I18n).to receive(:default_locale).and_return(:de)
-              visit '/'
-              expect(page.current_path).to eq('/en')
-            end
-          end
         end
       end
 
@@ -192,13 +184,15 @@ module Alchemy
             end
           end
 
-          it "should redirect to pages url with default language" do
-            visit "/#{default_language.code}"
-            expect(page.current_path).to eq("/#{default_language.code}/home")
+          context "if page locale is the default locale" do
+            it "redirects to pages url without locale prefixed" do
+              visit "/#{default_language.code}"
+              expect(page.current_path).to eq("/home")
+            end
           end
 
-          context "if page.locale != then the default locale" do
-            it "redirects to the default language root page's url with prefixed locale" do
+          context "if page locale is not the default locale" do
+            it "redirects to the default language root url with prefixed locale" do
               allow(::I18n).to receive(:default_locale).and_return(:de)
               visit "/#{default_language.code}"
               expect(page.current_path).to eq('/en/home')
@@ -224,7 +218,7 @@ module Alchemy
             end
           end
 
-          context "if page.locale != then the default locale" do
+          context "if page locale is not the default locale" do
             it "does not redirect" do
               visit "/#{default_language.code}"
               expect(page.current_path).to eq("/#{default_language.code}")
@@ -277,19 +271,19 @@ module Alchemy
         end
       end
 
-      it "should redirect legacy url with unknown format & query string" do
+      it "redirects legacy url with unknown format & query string" do
         visit "/#{legacy_url.urlname}"
         uri = URI.parse(page.current_url)
         expect(uri.query).to be_nil
         expect(uri.request_uri).to eq("/#{second_page.urlname}")
       end
 
-      it "should redirect from nested language code url to normal url" do
+      it "redirects from nested language code url to normal url" do
         visit "/en/#{public_page.urlname}"
         expect(page.current_path).to eq("/#{public_page.urlname}")
       end
 
-      context "should redirect to public child" do
+      context "redirects to public child" do
         before do
           public_page.update_attributes(public: false, name: 'Not Public', urlname: '')
           public_child
@@ -306,7 +300,7 @@ module Alchemy
         end
       end
 
-      it "should redirect to pages url, if requested url is index url" do
+      it "redirects to pages url, if requested url is index url" do
         visit '/'
         expect(page.current_path).to eq('/home')
       end

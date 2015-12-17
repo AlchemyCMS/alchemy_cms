@@ -3,6 +3,29 @@ require 'spec_helper'
 describe "The Routing" do
   routes { Alchemy::Engine.routes }
 
+  describe "root url" do
+    it "routes to pages_controller#index" do
+      expect({
+        get: "/"
+      }).to route_to(
+        controller: "alchemy/pages",
+        action: "index"
+      )
+    end
+
+    context 'with locale parameter' do
+      it 'routes to pages_controller#index' do
+        expect({
+          get: '/en'
+        }).to route_to(
+          controller: 'alchemy/pages',
+          action: 'index',
+          locale: 'en'
+        )
+      end
+    end
+  end
+
   context "for downloads" do
     it "should have a named route" do
       expect({

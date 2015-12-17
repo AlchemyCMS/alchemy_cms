@@ -9,6 +9,92 @@ module Alchemy
 
     before { allow(controller).to receive(:signup_required?).and_return(false) }
 
+    describe "#index" do
+      before do
+        default_language_root
+        allow(Config).to receive(:get) do |arg|
+          arg == :redirect_index ? false : Config.parameter(arg)
+        end
+      end
+
+      it 'renders :show template' do
+        expect(alchemy_get(:index)).to render_template(:show)
+      end
+
+      context 'requesting nothing' do
+        it 'loads default language root page' do
+          alchemy_get :index
+          expect(assigns(:page)).to eq(default_language_root)
+        end
+
+        context 'and the root page is not public' do
+          before do
+            default_language_root.update!(public: false)
+          end
+
+          context 'that has a public child' do
+            let!(:public_child) do
+              create(:alchemy_page, :public, parent: default_language_root)
+            end
+
+            it 'loads this page' do
+              alchemy_get :index
+              expect(assigns(:page)).to eq(public_child)
+            end
+          end
+
+          context 'that has a non public child' do
+            let!(:non_public_child) do
+              create(:alchemy_page, parent: default_language_root)
+            end
+
+            context 'that has a public child' do
+              let!(:public_child) do
+                create(:alchemy_page, :public, parent: non_public_child)
+              end
+
+              it 'loads this page' do
+                alchemy_get :index
+                expect(assigns(:page)).to eq(public_child)
+              end
+            end
+
+            context 'that has a non public child' do
+              before do
+                create(:alchemy_page, parent: non_public_child)
+              end
+
+              it 'raises routing error (404)' do
+                expect {
+                  alchemy_get :index
+                }.to raise_error(ActionController::RoutingError)
+              end
+            end
+          end
+        end
+      end
+
+      context 'requesting non default locale' do
+        let!(:deutsch) do
+          create(:alchemy_language, name: 'Deutsch', code: 'de', default: false)
+        end
+
+        let!(:startseite) do
+          create :alchemy_page, :language_root,
+            language: deutsch, public: true, name: 'Startseite'
+        end
+
+        before do
+          allow(::I18n).to receive(:default_locale) { 'en' }
+        end
+
+        it 'loads the root page of that language' do
+          alchemy_get :index, locale: 'de'
+          expect(assigns(:page)).to eq(startseite)
+        end
+      end
+    end
+
     context 'an author' do
       let(:unpublic) { create(:alchemy_page, parent: default_language_root) }
 
