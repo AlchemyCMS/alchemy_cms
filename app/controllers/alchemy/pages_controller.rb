@@ -1,8 +1,16 @@
 module Alchemy
   class PagesController < Alchemy::BaseController
+
+    # Redirects to signup path, if no admin user is present yet
+    before_action if: :signup_required? do
+      redirect_to Alchemy.signup_path
+    end
+
     before_action :enforce_primary_host_for_site
-    before_action :enforce_no_locale, only: [:index],
+
+    before_action :enforce_no_locale, only: [:index, :show],
       if: :default_locale_requested?
+
     before_action :render_page_or_redirect, only: [:show]
 
     # Needs to be included after +before_action+ calls, to be sure the filters are appended.
@@ -121,9 +129,7 @@ module Alchemy
     def render_page_or_redirect
       @page ||= load_page
 
-      if signup_required?
-        redirect_to Alchemy.signup_path
-      elsif (@page.nil? || request.format.nil?) && last_legacy_url
+      if (@page.nil? || request.format.nil?) && last_legacy_url
         @page = last_legacy_url.page
         # This drops the given query string.
         redirect_legacy_page
