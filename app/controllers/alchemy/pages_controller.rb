@@ -13,6 +13,8 @@ module Alchemy
 
     before_action :render_page_or_redirect, only: [:show]
 
+    before_action :set_root_page, only: [:index, :show]
+
     # Needs to be included after +before_action+ calls, to be sure the filters are appended.
     include OnPageLayout::CallbacksRunner
 
@@ -114,6 +116,10 @@ module Alchemy
       )
     end
 
+    def set_root_page
+      @root_page = Language.current_root_page
+    end
+
     def enforce_primary_host_for_site
       if needs_redirect_to_primary_host?
         redirect_to url_for(host: current_alchemy_site.host), :status => 301
@@ -146,7 +152,6 @@ module Alchemy
       else
         # setting the language to page.language to be sure it's correct
         set_alchemy_language(@page.language)
-        @root_page = Language.current_root_page
       end
     end
 
