@@ -8,14 +8,11 @@ module Alchemy
     # @see OnPageLayout in order to learn how to define +on_page_layout+ callbacks.
     #
     module CallbacksRunner
-      extend ActiveSupport::Concern
-
-      included do
-        before_action :run_on_page_layout_callbacks, only: :show,
-          if: -> { OnPageLayout.callbacks.present? }
-      end
-
       private
+
+      def run_on_page_layout_callbacks?
+        OnPageLayout.callbacks.present?
+      end
 
       def run_on_page_layout_callbacks
         OnPageLayout.callbacks.each do |page_layout, callbacks|

@@ -9,13 +9,14 @@ module Alchemy
     include SiteRedirects
     include LocaleRedirects
     include PageRedirects
+    include OnPageLayout::CallbacksRunner
 
     before_action :load_index_page, only: [:index]
     before_action :load_page, only: [:show]
     before_action :set_root_page, only: [:index, :show]
-
-    # Needs to be included after +before_action+ calls, to be sure the filters are appended.
-    include OnPageLayout::CallbacksRunner
+    before_action :run_on_page_layout_callbacks,
+      if: :run_on_page_layout_callbacks?,
+      only: [:index, :show]
 
     rescue_from ActionController::UnknownFormat, with: :page_not_found!
 

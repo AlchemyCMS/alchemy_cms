@@ -5,23 +5,36 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
     ApplicationController.send(:extend, Alchemy::OnPageLayout)
   end
 
-  let(:page)     { create(:alchemy_page, :public, page_layout: 'standard') }
-  let(:page_two) { create(:alchemy_page, :public, page_layout: 'news') }
+  let(:page) { create(:alchemy_page, :public, page_layout: 'standard') }
 
   describe '.on_page_layout' do
     context 'with :all as argument for page_layout' do
       before do
         ApplicationController.class_eval do
           on_page_layout(:all) do
-            @urlname = params[:urlname]
+            @on_all_layouts = @page.page_layout
           end
         end
       end
 
-      it 'runs on all page layouts' do
-        [page, page_two].each do |p|
-          alchemy_get :show, urlname: p.urlname
-          expect(assigns(:urlname)).to eq(p.urlname)
+      context "for show action" do
+        %w(standard news).each do |page_layout|
+          it "runs callback on #{page_layout} layout" do
+            page = create(:alchemy_page, :public, page_layout: page_layout)
+            alchemy_get :show, urlname: page.urlname
+            expect(assigns(:on_all_layouts)).to eq(page_layout)
+          end
+        end
+      end
+
+      context "for index action" do
+        %w(standard news).each do |page_layout|
+          it "runs callback on #{page_layout} layout" do
+            page = create(:alchemy_page, :language_root, page_layout: page_layout)
+
+            alchemy_get :index
+            expect(assigns(:on_all_layouts)).to eq(page_layout)
+          end
         end
       end
     end
@@ -36,40 +49,90 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
       end
 
       context 'and page having standard layout' do
-        it 'runs the callback' do
-          alchemy_get :show, urlname: page.urlname
-          expect(assigns(:successful_for_standard)).to eq(true)
+        context "for show action" do
+          let(:page) { create(:alchemy_page, :public, page_layout: 'standard') }
+
+          it 'runs the callback' do
+            alchemy_get :show, urlname: page.urlname
+            expect(assigns(:successful_for_standard)).to eq(true)
+          end
+        end
+
+        context "for index action" do
+          let!(:page) { create(:alchemy_page, :language_root, page_layout: 'standard') }
+
+          it 'runs the callback' do
+            alchemy_get :index
+            expect(assigns(:successful_for_standard)).to eq(true)
+          end
         end
       end
 
       context 'and page not having standard layout' do
         let(:page) { create(:alchemy_page, :public, page_layout: 'news') }
 
-        it "doesn't run the callback" do
-          alchemy_get :show, urlname: page.urlname
-          expect(assigns(:successful_for_standard)).to eq(nil)
+        context "for show action" do
+          it "doesn't run the callback" do
+            alchemy_get :show, urlname: page.urlname
+            expect(assigns(:successful_for_standard)).to eq(nil)
+          end
+        end
+
+        context "for index action" do
+          let!(:page) { create(:alchemy_page, :language_root, page_layout: 'news') }
+
+          it "doesn't run the callback" do
+            alchemy_get :index
+            expect(assigns(:successful_for_standard)).to eq(nil)
+          end
         end
       end
     end
 
-    context 'when defining two callbacks for different page_layouts' do
-      before do
-        ApplicationController.class_eval do
-          on_page_layout(:standard) do
-            @urlname = params[:urlname]
-          end
+    context 'when defining two callbacks for different page layouts' do
+      context "for show action" do
+        before do
+          ApplicationController.class_eval do
+            on_page_layout(:standard) do
+              @urlname = @page.urlname
+            end
 
-          on_page_layout(:news) do
-            @urlname = params[:urlname]
+            on_page_layout(:news) do
+              @urlname = @page.urlname
+            end
+          end
+        end
+
+        %w(standard news).each do |page_layout|
+          it "runs both callbacks for #{page_layout} layout" do
+            page = create(:alchemy_page, :public, page_layout: page_layout)
+
+            alchemy_get :show, urlname: page.urlname
+            expect(assigns(:urlname)).to eq(page.urlname)
           end
         end
       end
 
-      it 'runs both callbacks' do
-        [:standard, :news].each do |page_layout|
-          page = create(:alchemy_page, :public, page_layout: page_layout)
-          alchemy_get :show, urlname: page.urlname
-          expect(assigns(:urlname)).to eq(page.urlname)
+      context "for index action" do
+        before do
+          ApplicationController.class_eval do
+            on_page_layout(:standard) do
+              @page_layout = @page.page_layout
+            end
+
+            on_page_layout(:news) do
+              @page_layout = @page.page_layout
+            end
+          end
+        end
+
+        %w(standard news).each do |page_layout|
+          it "runs both callbacks on #{page_layout} layout" do
+            page = create(:alchemy_page, :language_root, page_layout: page_layout)
+
+            alchemy_get :index
+            expect(assigns(:page_layout)).to eq(page_layout)
+          end
         end
       end
     end
@@ -87,10 +150,22 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
         end
       end
 
-      it 'runs both callbacks' do
-        alchemy_get :show, urlname: page.urlname
-        expect(assigns(:successful_for_standard_first)).to eq(true)
-        expect(assigns(:successful_for_standard_second)).to eq(true)
+      context "for show action" do
+        it 'runs both callbacks' do
+          alchemy_get :show, urlname: page.urlname
+          expect(assigns(:successful_for_standard_first)).to eq(true)
+          expect(assigns(:successful_for_standard_second)).to eq(true)
+        end
+      end
+
+      context "for index action" do
+        let!(:page) { create(:alchemy_page, :language_root, page_layout: 'standard') }
+
+        it 'runs both callbacks' do
+          alchemy_get :index
+          expect(assigns(:successful_for_standard_first)).to eq(true)
+          expect(assigns(:successful_for_standard_second)).to eq(true)
+        end
       end
     end
 
@@ -103,9 +178,20 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
         end
       end
 
-      it 'evaluates the given block' do
-        alchemy_get :show, urlname: page.urlname
-        expect(assigns(:successful_for_callback_method)).to eq(true)
+      context 'for show action' do
+        it 'evaluates the given block' do
+          alchemy_get :show, urlname: page.urlname
+          expect(assigns(:successful_for_callback_method)).to eq(true)
+        end
+      end
+
+      context 'for index action' do
+        let!(:page) { create(:alchemy_page, :language_root, page_layout: 'standard') }
+
+        it 'evaluates the given block' do
+          alchemy_get :index
+          expect(assigns(:successful_for_callback_method)).to eq(true)
+        end
       end
     end
 
@@ -120,9 +206,20 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
         end
       end
 
-      it 'runs the given callback method' do
-        alchemy_get :show, urlname: page.urlname
-        expect(assigns(:successful_for_callback_method)).to eq(true)
+      context 'for show action' do
+        it 'runs the given callback method' do
+          alchemy_get :show, urlname: page.urlname
+          expect(assigns(:successful_for_callback_method)).to eq(true)
+        end
+      end
+
+      context 'for index action' do
+        let!(:page) { create(:alchemy_page, :language_root, page_layout: 'standard') }
+
+        it 'runs the given callback method' do
+          alchemy_get :index
+          expect(assigns(:successful_for_callback_method)).to eq(true)
+        end
       end
     end
 
@@ -140,15 +237,26 @@ RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller
       before do
         ApplicationController.class_eval do
           on_page_layout([:standard, :news]) do
-            @successful = true
+            @successful = @page.page_layout
           end
         end
       end
 
-      it 'evaluates the given callback on both page_layouts' do
-        [page, page_two].each do |page|
+      %w(standard news).each do |page_layout|
+        it 'evaluates the given callback on both page_layouts for show action' do
+          page = create(:alchemy_page, :public, page_layout: page_layout)
+
           alchemy_get :show, urlname: page.urlname
-          expect(assigns(:successful)).to eq(true)
+          expect(assigns(:successful)).to eq(page_layout)
+        end
+      end
+
+      %w(standard news).each do |page_layout|
+        it 'evaluates the given callback on both page_layouts for index action' do
+          page = create(:alchemy_page, :language_root, page_layout: page_layout)
+
+          alchemy_get :index
+          expect(assigns(:successful)).to eq(page_layout)
         end
       end
     end
@@ -199,11 +307,24 @@ RSpec.describe Alchemy::Admin::PagesController, 'OnPageLayout mixin', type: :con
       authorize_user(:as_admin)
     end
 
-    let(:page) { create(:alchemy_page, page_layout: 'standard') }
+    context "for show action" do
+      let(:page) { create(:alchemy_page, page_layout: 'standard') }
 
-    it 'callback also runs' do
-      alchemy_get :show, id: page.id
-      expect(assigns(:successful_for_alchemy_admin_pages_controller)).to be(true)
+      it 'callback also runs' do
+        alchemy_get :show, id: page.id
+        expect(assigns(:successful_for_alchemy_admin_pages_controller)).to be(true)
+      end
     end
+
+    context "for index action" do
+      it 'does not run callback' do
+        alchemy_get :index
+        expect(assigns(:successful_for_alchemy_admin_pages_controller)).to be(nil)
+      end
+    end
+  end
+
+  after(:all) do
+    Alchemy::OnPageLayout.instance_variable_set(:@callbacks, nil)
   end
 end

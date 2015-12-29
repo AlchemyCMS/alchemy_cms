@@ -1,6 +1,8 @@
 module Alchemy
   module Admin
     class PagesController < Alchemy::Admin::BaseController
+      include OnPageLayout::CallbacksRunner
+
       helper 'alchemy/pages'
 
       before_action :set_translation,
@@ -14,8 +16,9 @@ module Alchemy
 
       authorize_resource class: Alchemy::Page, except: :index
 
-      # Needs to be included after +before_action+ calls, to be sure the filters are appended.
-      include OnPageLayout::CallbacksRunner
+      before_action :run_on_page_layout_callbacks,
+        if: :run_on_page_layout_callbacks?,
+        only: [:show]
 
       def index
         authorize! :index, :alchemy_admin_pages
