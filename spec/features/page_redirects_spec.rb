@@ -33,7 +33,7 @@ module Alchemy
       context 'if language params are given' do
         context "and page locale is default locale" do
           it "redirects to unprefixed locale url" do
-            allow(::I18n).to receive(:default_locale).and_return(public_page.language_code)
+            allow(::I18n).to receive(:default_locale) { public_page.language_code.to_sym }
             visit("/#{public_page.language_code}/#{public_page.urlname}")
             expect(page.current_path).to eq("/#{public_page.urlname}")
           end
@@ -51,13 +51,13 @@ module Alchemy
       context 'if no language params are given' do
         context "and page locale is default locale" do
           it "doesn't prepend the url with the locale string" do
-            allow(::I18n).to receive(:default_locale).and_return(public_page.language_code)
+            allow(::I18n).to receive(:default_locale) { public_page.language_code.to_sym }
             visit("/#{public_page.urlname}")
             expect(page.current_path).to eq("/#{public_page.urlname}")
           end
 
           it "redirects legacy url with unknown format & query string without locale prefix" do
-            allow(::I18n).to receive(:default_locale).and_return(second_page.language_code)
+            allow(::I18n).to receive(:default_locale) { second_page.language_code.to_sym }
             visit "/#{legacy_url.urlname}"
             uri = URI.parse(page.current_url)
             expect(uri.query).to be_nil
@@ -70,7 +70,7 @@ module Alchemy
             allow(::I18n).to receive(:default_locale).and_return(:de)
           end
 
-          it "prepends the url with the locale string" do
+          it "redirects to url with the locale prefixed" do
             visit("/#{public_page.urlname}")
             expect(page.current_path).to eq("/en/#{public_page.urlname}")
           end
@@ -219,6 +219,10 @@ module Alchemy
           end
 
           context "if page locale is not the default locale" do
+            before do
+              allow(::I18n).to receive(:default_locale) { :de }
+            end
+
             it "does not redirect" do
               visit "/#{default_language.code}"
               expect(page.current_path).to eq("/#{default_language.code}")
