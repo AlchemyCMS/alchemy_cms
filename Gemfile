@@ -31,7 +31,7 @@ group :development, :test do
   gem 'poltergeist', '~> 1.5'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'rspec-rails', '~> 3.0'
-
+  gem 'sprockets', '>= 2.8'
 end
 
 # We need this if we want to start the dummy app in production, ie on Teatro.io
