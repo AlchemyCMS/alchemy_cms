@@ -33,6 +33,11 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
 end
 
+# We need this if we want to start the dummy app in development mode
+group :development, :production do
+  gem 'quiet_assets'
+end
+
 # We need this if we want to start the dummy app in production, ie on Teatro.io
 group :production do
   gem 'uglifier', '>= 1.0.3'
