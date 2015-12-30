@@ -37,25 +37,30 @@ module Alchemy
             default_language_root.update!(public: false)
           end
 
-          context 'that has a public child' do
-            let!(:public_child) do
-              create(:alchemy_page, :public, parent: default_language_root)
+          context 'and redirect_to_public_child is set to false' do
+            before do
+              allow(Config).to receive(:get) do |arg|
+                arg == :redirect_to_public_child ? false : Config.parameter(arg)
+              end
             end
 
-            it 'loads this page' do
-              alchemy_get :index
-              expect(assigns(:page)).to eq(public_child)
+            it 'raises routing error (404)' do
+              expect {
+                alchemy_get :index
+              }.to raise_error(ActionController::RoutingError)
             end
           end
 
-          context 'that has a non public child' do
-            let!(:non_public_child) do
-              create(:alchemy_page, parent: default_language_root)
+          context 'and redirect_to_public_child is set to true' do
+            before do
+              allow(Config).to receive(:get) do |arg|
+                arg == :redirect_to_public_child ? true : Config.parameter(arg)
+              end
             end
 
             context 'that has a public child' do
               let!(:public_child) do
-                create(:alchemy_page, :public, parent: non_public_child)
+                create(:alchemy_page, :public, parent: default_language_root)
               end
 
               it 'loads this page' do
@@ -65,14 +70,31 @@ module Alchemy
             end
 
             context 'that has a non public child' do
-              before do
-                create(:alchemy_page, parent: non_public_child)
+              let!(:non_public_child) do
+                create(:alchemy_page, parent: default_language_root)
               end
 
-              it 'raises routing error (404)' do
-                expect {
+              context 'that has a public child' do
+                let!(:public_child) do
+                  create(:alchemy_page, :public, parent: non_public_child)
+                end
+
+                it 'loads this page' do
                   alchemy_get :index
-                }.to raise_error(ActionController::RoutingError)
+                  expect(assigns(:page)).to eq(public_child)
+                end
+              end
+
+              context 'that has a non public child' do
+                before do
+                  create(:alchemy_page, parent: non_public_child)
+                end
+
+                it 'raises routing error (404)' do
+                  expect {
+                    alchemy_get :index
+                  }.to raise_error(ActionController::RoutingError)
+                end
               end
             end
           end

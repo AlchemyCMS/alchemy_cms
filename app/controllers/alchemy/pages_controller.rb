@@ -11,9 +11,9 @@ module Alchemy
     include PageRedirects
     include OnPageLayout::CallbacksRunner
 
+    before_action :set_root_page, only: [:index, :show]
     before_action :load_index_page, only: [:index]
     before_action :load_page, only: [:show]
-    before_action :set_root_page, only: [:index, :show]
     before_action :run_on_page_layout_callbacks,
       if: :run_on_page_layout_callbacks?,
       only: [:index, :show]
@@ -77,12 +77,13 @@ module Alchemy
 
     # == Loads index page
     #
-    # Tries to load the public root page, falls back to the first published child,
-    # if root page is not public.
+    # Loads the current public language root page.
+    #
+    # If the root page is not public it loads the first published child.
+    # This can be configured via `redirect_to_public_child` [default: true]
     #
     def load_index_page
-      @page ||= Language.current.pages.published.language_roots.first ||
-        Language.current_root_page.descendants.published.first
+      @page ||= public_root_page || first_public_child
     end
 
     # == Loads page by urlname
@@ -99,6 +100,24 @@ module Alchemy
         urlname: params[:urlname],
         language_code: params[:locale] || Language.current.code
       )
+    end
+
+    # Returns the current language root page, if it's published.
+    #
+    # Otherwise it returns nil.
+    #
+    def public_root_page
+      @root_page if @root_page.public?
+    end
+
+    # Returns the first public child of the current language root page.
+    #
+    # If +redirect_to_public_child+ is configured to +false+ it returns +nil+.
+    #
+    def first_public_child
+      if Alchemy::Config.get(:redirect_to_public_child)
+        @root_page.descendants.published.first
+      end
     end
 
     # Redirects to given url with 301 status
