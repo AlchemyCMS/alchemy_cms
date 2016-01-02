@@ -62,7 +62,6 @@ module Alchemy
 
       before do
         allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
-        allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : false }
         product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       end
 

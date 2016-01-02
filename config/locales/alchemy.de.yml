@@ -210,6 +210,7 @@ de:
     "Layout default": "Standard des Layouts"
     "Library shortcuts": "Tastaturbefehle in der Bibliothek"
     "Logged in as": "Angemeldet als"
+    "Main Menu": "Hauptmenü"
     "Mandatory": "Pflichtfelder"
     "Name": "Name"
     "New": "Neu"
@@ -446,12 +447,15 @@ de:
       languages: "Sprachen"
       layoutpages: "Globale Seiten"
       library: "Bibliothek"
+      nodes: "Menüs"
       pages: "Seiten"
       tags: "Tags"
       sites: "Websites"
     name: "Name"
     names: "Namen"
     navigation_name: "Navigationsname"
+    node_types:
+      alchemy/pages: "Seiten"
     no_image_for_cropper_found: "Es wurde kein Bild gefunden. Bitte speichern Sie zuerst das Element."
     no: "Nein"
     "no pages": "Keine Seiten"
@@ -475,9 +479,6 @@ de:
     page_published: "Seite wurde veröffentlicht."
     page_restricted: "geschützt"
     page_states:
-      visible:
-        "true": "Die Seite ist in der Navigation sichtbar."
-        "false": "Die Seite ist nicht in der Navigation sichtbar."
       public:
         "true": "Die Seite ist veröffentlicht."
         "false": "Die Seite ist nicht veröffentlicht."
@@ -571,7 +572,7 @@ de:
     visible: "sichtbar"
     want_to_create_new_language: "Wollen Sie einen neuen leeren Sprachbaum erstellen?"
     want_to_make_copy_of_existing_language: "Wollen Sie eine Kopie eines vorhanden Sprachbaums machen?"
-    "We need at least one default.": "Es muss eine Standardsprache geben."
+    "We need at least one default language.": "Es muss eine Standardsprache geben."
     welcome_note: "Willkommen %{name}"
     welcome_back_note: "Willkommen zurück %{name}"
     welcome_please_identify_notice: "Willkommen! Bitte identifizieren Sie sich."
@@ -874,17 +875,26 @@ de:
         page_layout: "Seitentyp der Startseite"
         public: "Sprache veröffentlichen"
 
+      alchemy/node:
+        name: "Name"
+        title: "Titel"
+        nofollow: "Suchmaschine soll nicht folgen"
+        url: "URL"
+        navigatable_type: "Typ"
+
       alchemy/legacy_page_url:
         urlname: "URL-Pfad"
 
       alchemy/page:
         created_at: "Erstellt am"
+        create_node: "Erstelle Navigationseintrag"
         language: "Sprache"
         locked: "Die Seite ist gesperrt"
         locked_by: "Gesperrt durch"
         meta_description: "Seitenbeschreibung"
         meta_keywords: "Suchbegriffe"
         name: "Name"
+        parent_id: "Eltern"
         page_layout: "Seitentyp"
         public: "veröffentlicht"
         restricted: "Passwort geschützt"

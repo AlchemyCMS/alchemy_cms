@@ -29,7 +29,6 @@ module Alchemy
     describe "redirecting" do
       context "in multi language mode" do
         before do
-          allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
           allow_any_instance_of(PagesController).to receive(:multi_language?).and_return(true)
         end
 
@@ -52,7 +51,6 @@ module Alchemy
 
         context "if requested page is unpublished" do
           before do
-            allow(Config).to receive(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
             public_page_1.update_attributes(:public => false, :name => 'Not Public', :urlname => '')
             public_child
           end
@@ -119,7 +117,6 @@ module Alchemy
       context "not in multi language mode" do
         before do
           allow_any_instance_of(PagesController).to receive(:multi_language?).and_return(false)
-          allow(Config).to receive(:get) { |arg| arg == :url_nesting ? false : Config.parameter(arg) }
         end
 
         let(:second_page) { create(:alchemy_page, :public, name: 'Second Page') }

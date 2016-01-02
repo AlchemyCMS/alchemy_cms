@@ -25,6 +25,9 @@
       - name: 'modules.pages'
         controller: 'alchemy/admin/pages'
         action: index
+      - name: 'modules.nodes'
+        controller: 'alchemy/admin/nodes'
+        action: index
       - name: 'modules.layoutpages'
         controller: 'alchemy/admin/layoutpages'
         action: index

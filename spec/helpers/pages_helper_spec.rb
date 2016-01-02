@@ -20,7 +20,6 @@ module Alchemy
 
     before do
       helper.controller.class_eval { include Alchemy::ConfigurationMethods }
-      allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
       @root_page = language_root # We need this instance variable in the helpers
     end
 

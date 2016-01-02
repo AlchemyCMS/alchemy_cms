@@ -443,12 +443,15 @@ nl:
       languages: "Talen"
       layoutpages: "Globale Pagina's"
       library: "Bibliotheek"
+      nodes: "Navigations"
       pages: "Pagina's"
       tags: "Tags"
       sites: "Sites"
     name: "Naam"
     names: "Namen"
     navigation_name: "Navigatiename"
+    node_types:
+      alchemy/pages: "Pagina's"
     no_image_for_cropper_found: "Geen afbeelding gevonden. Sla eerst het element op."
     no: "Nee"
     "no pages": "Geen pagina's"
@@ -472,9 +475,6 @@ nl:
     page_published: "Gepubliceerde pagina"
     page_restricted: "afgeschermd"
     page_states:
-      visible:
-        "true": "Pagina is zichtbaar in navigatie."
-        "false": "Pagina is niet zichtbaar in navigatie."
       public:
         "true": "Pagina is gepubliceerd."
         "false": "Pagina is niet gepubliceerd."
@@ -566,7 +566,7 @@ nl:
     visible: "zichtbaar"
     want_to_create_new_language: "Nieuwe boomstructuur aanmaken?"
     want_to_make_copy_of_existing_language: "Een boomstructuur kopiëren?"
-    "We need at least one default.": "Er moet minimaal één standaard taal zijn."
+    "We need at least one default language.": "Er moet minimaal één standaard taal zijn."
     welcome_note: "Welkom %{name}"
     welcome_back_note: "Welkom terug %{name}"
     welcome_please_identify_notice: "Welkom! voer uw gegevens in."
@@ -861,6 +861,13 @@ nl:
         crop_from: Uitsnede uit
         crop_size: Grootte van uitsnede
         picture_id: Afbeelding
+
+      alchemy/node:
+        name: "Name"
+        title: "Title"
+        nofollow: "Search engine must not follow"
+        url: "URL"
+        navigatable_type: "Type"
 
       alchemy/language:
         country_code: "Landcode"

@@ -89,8 +89,6 @@ module Alchemy
         redirect_page
       elsif !multi_language? && !params[:locale].blank?
         redirect_page
-      elsif @page.has_controller?
-        redirect_to main_app.url_for(@page.controller_and_action)
       else
         # setting the language to page.language to be sure it's correct
         set_alchemy_language(@page.language)

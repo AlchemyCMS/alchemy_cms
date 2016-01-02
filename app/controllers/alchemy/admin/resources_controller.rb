@@ -45,8 +45,7 @@ module Alchemy
       def edit; end
 
       def create
-        instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.new(resource_params))
-        resource_instance_variable.save
+        instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.create(resource_params))
         render_errors_or_redirect(
           resource_instance_variable,
           resources_path(resource_handler.resources_name, current_location_params),
@@ -55,7 +54,7 @@ module Alchemy
       end
 
       def update
-        resource_instance_variable.update_attributes(resource_params)
+        resource_instance_variable.update(resource_params)
         render_errors_or_redirect(
           resource_instance_variable,
           resources_path(resource_handler.resources_name, current_location_params),

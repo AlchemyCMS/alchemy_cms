@@ -1,62 +1,64 @@
 <%= alchemy_form_for [:admin, @page], class: 'edit_page' do |f| %>
+  <%= f.input :parent_id,
+    collection: @parents.map { |p| [p.name, p.id] },
+    include_blank: _t('- none -'),
+    input_html: {class: 'alchemy_selectbox'} %>
   <%= f.input :page_layout,
     collection: @page_layouts,
     label: page_layout_label(@page),
     include_blank: false,
     input_html: {class: 'alchemy_selectbox'} %>
-  <div class="input check_boxes">
-    <label class="control-label"><%= _t(:page_status) %></label>
-    <div class="control_group">
-      <label class="checkbox">
-        <%= f.check_box :public %>
-        <%= f.object.class.human_attribute_name :public %>
-      </label>
-      <label class="checkbox">
-        <%= f.check_box :visible %>
-        <%= f.object.class.human_attribute_name :visible %>
-      </label>
-      <label class="checkbox">
-        <%= f.check_box :restricted %>
-        <%= f.object.class.human_attribute_name :restricted %>
-      </label>
-    <% if configuration(:sitemap)['show_flag'] %>
-      <label class="checkbox">
-        <%= f.check_box :sitemap %>
-        <%= f.object.class.human_attribute_name :sitemap %>
-      </label>
-    <% end %>
+  <% unless @page.new_record? %>
+    <div class="input check_boxes">
+      <label class="control-label"><%= _t(:page_status) %></label>
+      <div class="control_group">
+        <label class="checkbox">
+          <%= f.check_box :public %>
+          <%= f.object.class.human_attribute_name :public %>
+        </label>
+        <label class="checkbox">
+          <%= f.check_box :restricted %>
+          <%= f.object.class.human_attribute_name :restricted %>
+        </label>
+      </div>
     </div>
-  </div>
-  <h2><%= _t(:names) %></h2>
-  <%= f.input :name, autofocus: true %>
-  <%= f.input :urlname, as: 'string', input_html: {value: @page.slug} %>
-  <%= f.input :title,
-    input_html: {'data-alchemy-char-counter' => 60} %>
-  <h2><%= _t(:meta_data) %></h2>
-  <div class="input check_boxes">
-    <label class="control-label"><%= _t(:search_engines) %></label>
-    <div class="control_group">
-      <label class="checkbox">
-        <%= f.check_box :robot_index %>
-        <%= f.object.class.human_attribute_name :robot_index %>
-      </label>
-      <label class="checkbox">
-        <%= f.check_box :robot_follow %>
-        <%= f.object.class.human_attribute_name :robot_follow %>
-      </label>
-    </div>
-  </div>
-  <%= f.input :meta_description,
-    as: 'text',
-    input_html: {'data-alchemy-char-counter' => 160} %>
-  <%= f.input :meta_keywords,
-    as: 'text',
-    hint: _t('pages.update.comma_seperated') %>
-  <% if @page.taggable? %>
-    <div class="input string">
-      <%= f.label :tag_list %>
-      <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
-    </div>
+    <h2><%= _t(:names) %></h2>
   <% end %>
+  <%= f.input :name, autofocus: true %>
+  <% unless @page.new_record? %>
+    <%= f.input :urlname, as: 'string', input_html: {value: @page.slug} %>
+    <%= f.input :title,
+      input_html: {'data-alchemy-char-counter' => 60} %>
+    <h2><%= _t(:meta_data) %></h2>
+    <div class="input check_boxes">
+      <label class="control-label"><%= _t(:search_engines) %></label>
+      <div class="control_group">
+        <label class="checkbox">
+          <%= f.check_box :robot_index %>
+          <%= f.object.class.human_attribute_name :robot_index %>
+        </label>
+        <label class="checkbox">
+          <%= f.check_box :robot_follow %>
+          <%= f.object.class.human_attribute_name :robot_follow %>
+        </label>
+      </div>
+    </div>
+    <%= f.input :meta_description,
+      as: 'text',
+      input_html: {'data-alchemy-char-counter' => 160} %>
+    <%= f.input :meta_keywords,
+      as: 'text',
+      hint: _t('pages.update.comma_seperated') %>
+    <% if @page.taggable? %>
+      <div class="input string">
+        <%= f.label :tag_list %>
+        <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
+      </div>
+    <% end %>
+  <% end %>
+  <% if @page.new_record? %>
+    <%= f.input :create_node, as: :boolean %>
+  <% end %>
+  <%= f.hidden_field :language_id %>
   <%= f.submit _t(:save) %>
 <% end %>

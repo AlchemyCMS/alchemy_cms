@@ -7,41 +7,29 @@ module Alchemy
 
     included do
       before_validation :set_urlname,
-        if: :renamed?,
-        unless: -> { systempage? || redirects_to_external? || name.blank? }
+        unless: -> { name.blank? }
 
       validates :name,
         presence: true
+
       validates :urlname,
-        uniqueness: {scope: [:language_id, :layoutpage], if: 'urlname.present?'},
-        exclusion:  {in: RESERVED_URLNAMES},
-        length:     {minimum: 3, if: 'urlname.present?'},
-        format:     {with: /\A[:\.\w\-+_\/\?&%;=]*\z/, if: :redirects_to_external?}
-      validates :urlname,
-        on: :update,
-        presence: {if: :redirects_to_external?}
+        uniqueness: {
+          scope: [:language_id, :layoutpage],
+          if: 'urlname.present?'
+        },
+        exclusion: {
+          in: RESERVED_URLNAMES
+        },
+        length: {
+          minimum: 3,
+          if: 'urlname.present?'
+        }
 
-      before_save :set_title, :if => 'title.blank?', :unless => proc { systempage? || redirects_to_external? }
-      after_update :update_descendants_urlnames,
-        if: -> { Config.get(:url_nesting) && (urlname_changed? || visible_changed?) }
-      after_move :update_urlname!,
-        if: -> { Config.get(:url_nesting) },
-        unless: :redirects_to_external?
-    end
+      before_save :set_title,
+        if: -> { title.blank? }
 
-    # Returns true if name or urlname has changed.
-    def renamed?
-      name_changed? || urlname_changed?
-    end
-
-    # Makes a slug of all ancestors urlnames including mine and delimit them be slash.
-    # So the whole path is stored as urlname in the database.
-    def update_urlname!
-      new_urlname = nested_url_name(slug)
-      if urlname != new_urlname
-        legacy_urls.create(urlname: urlname)
-        update_column(:urlname, new_urlname)
-      end
+      after_update :update_children_urlnames,
+        if: -> { children.any? && urlname_changed? }
     end
 
     # Returns always the last part of a urlname path
@@ -49,10 +37,10 @@ module Alchemy
       urlname.to_s.split('/').last
     end
 
-    # Returns an urlname prefixed with http://, if no protocol is given
-    def external_urlname
-      return urlname if urlname =~ /\A(\/|[a-z]+:\/\/)/
-      "http://#{urlname}"
+    # Updates the urlname column directly in the database
+    # NOTE: Does not call any callbacks!
+    def update_urlname!
+      update_column(:urlname, nested_urlname)
     end
 
     # Returns an array of visible/non-language_root ancestors.
@@ -69,24 +57,24 @@ module Alchemy
 
     private
 
-    def update_descendants_urlnames
-      self.reload
-      descendants.each do |descendant|
-        next if descendant.redirects_to_external?
-        descendant.update_urlname!
-      end
+    # Sets the urlname attribute to a url friendly slug.
+    # NOTE: Does not save
+    def set_urlname
+      write_attribute(:urlname, nested_urlname)
     end
 
-    # Sets the urlname to a url friendly slug.
-    # Either from name, or if present, from urlname.
-    # If url_nesting is enabled the urlname contains the whole path.
-    def set_urlname
-      if Config.get(:url_nesting)
-        value = slug
-      else
-        value = urlname
-      end
-      self[:urlname] = nested_url_name(value)
+    # Returns the urlname to a url friendly slug.
+    #
+    def nested_urlname
+      url_name = [
+        parent_urlname,
+        convert_url_name(urlname.blank? ? name : slug)
+      ].compact.join('/')
+    end
+
+    # Calls update_urlname! of all children
+    def update_children_urlnames
+      children.map(&:update_urlname!)
     end
 
     def set_title
@@ -105,18 +93,6 @@ module Alchemy
       else
         url_name
       end
-    end
-
-    def nested_url_name(value)
-      (ancestor_slugs << convert_url_name(value)).join('/')
-    end
-
-    # Slugs of all visible/non-language_root ancestors.
-    # Returns [], if there is no parent, the parent is
-    # the root page itself, or url_nesting is off.
-    def ancestor_slugs
-      return [] if !Config.get(:url_nesting) || parent.nil? || parent.root?
-      visible_ancestors.map(&:slug).compact
     end
   end
 end

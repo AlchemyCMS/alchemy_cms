@@ -1,0 +1,91 @@
+<% content_for :toolbar do %>
+<div class="toolbar_buttons">
+  <%= render 'alchemy/admin/partials/language_tree_select' %>
+  <%= toolbar_button(
+    icon: 'create',
+    label: _t('Add a navigation'),
+    url: alchemy.new_admin_node_path,
+    hotkey: 'alt+n',
+    dialog_options: {
+      title: _t('Add a navigation'),
+      size: '340x120'
+    },
+    if_permitted_to: [:create, Alchemy::Node]
+  ) %>
+</div>
+<div class="js_filter_field_box">
+  <%= text_field_tag 'filter', '',
+    class: 'thin_border js_filter_field',
+    id: 'search_field',
+    placeholder: _t(:search) %>
+  <%= render_icon :search %>
+  <%= link_to('', '#', {
+    class: "js_filter_field_clear",
+    title: _t(:click_to_show_all)
+  }) %>
+</div>
+<% end %>
+
+<div id="archive_all">
+  <h1 id="node_filter_result"></h1>
+  <% @nodes.each do |root_node| %>
+    <ul id="sitemap" class="list">
+      <li class="root_node" id="<%= dom_id(root_node) %>">
+        <span class="sitemap_right_tools">
+          <%- if can?(:edit, root_node) -%>
+            <%= link_to_dialog(
+              render_icon('edit'),
+              alchemy.edit_admin_node_path(root_node),
+              {
+                title: _t(:edit_navigation),
+                size: '340x120'
+              },
+              title: _t(:edit_navigation)
+            ) -%>
+          <%- end -%>
+          <%- if can?(:destroy, root_node) -%>
+            <%= link_to_confirm_dialog(
+              render_icon('delete_node'),
+              _t(:confirm_to_delete_node),
+              url_for(
+                controller: 'nodes',
+                action: 'destroy',
+                id: root_node.id
+              ),
+              {
+                title: _t(:delete_node)
+              }
+            ) -%>
+          <%- end -%>
+          <%- if can?(:create, Alchemy::Node) -%>
+            <%= link_to_dialog(
+              render_icon('add_node'),
+              alchemy.new_admin_node_path(parent_id: root_node.id),
+              {
+                title: _t(:create_node),
+                size: '400x270',
+                overflow: true
+              },
+              title: _t(:create_node)
+            ) -%>
+          <%- end -%>
+        </span>
+        <%= root_node.name %>
+      </li>
+      <% if root_node.children.any? %>
+        <div class="legend">
+          <span class="node_name">
+            <%= Alchemy::Node.human_attribute_name(:name) %>
+          </span>
+          <span class="node_url">
+            <%= Alchemy::Node.human_attribute_name(:url) %>
+          </span>
+          <span class="node_type">
+            <%= Alchemy::Node.human_attribute_name(:navigatable_type) %>
+          </span>
+        </div>
+        <%= render partial: 'node', collection: root_node.children %>
+      <% end %>
+    </ul>
+  <% end %>
+</div>

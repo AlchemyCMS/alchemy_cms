@@ -467,12 +467,15 @@ fr:
       languages: "Langues"
       layoutpages: "Pages globales"
       library: "Bibliothèque"
+      nodes: "Navigations"
       pages: "Pages"
       tags: "Tags"
       sites: "Websites"
     name: "Nom"
     names: "Prénom"
     navigation_name: "Nom de navigation"
+    node_types:
+      alchemy/pages: "Pages"
     no_image_for_cropper_found: "Il y avait trouvé aucune image. S'il vous plaît enregistrer dabord l'élément."
     no: "Non"
     "no pages": "Pas de pages"
@@ -496,9 +499,6 @@ fr:
     page_published: "Cette page a été publiée."
     page_restricted: "protégé"
     page_states:
-      visible:
-        "true": "Le site est visible dans la navigation."
-        "false": "Le site n'est pas visible dans la navigation."
       public:
         "true": "La page est publiée."
         "false": "La page n'est pas publiée."
@@ -592,7 +592,7 @@ fr:
     visible: "visible"
     want_to_create_new_language: "Voulez-vous créer un nouvel arbre de langage vide?,"
     want_to_make_copy_of_existing_language: "Voulez-vous faire une copie d'une arbre de la langue existante"
-    "We need at least one default.": "Il doit y avoir une langue par défaut."
+    "We need at least one default language.": "Il doit y avoir une langue par défaut."
     welcome_note: "Bievenu %{name}"
     welcome_back_note: "Bienvenue à nouveau %{name}"
     welcome_please_identify_notice: "Bienvenue! S'il vous plaît identifier vous."
@@ -894,6 +894,13 @@ fr:
         name: "Naom"
         page_layout: "Page Type de Page d'accueil"
         public: "publier langage"
+
+      alchemy/node:
+        name: "Name"
+        title: "Title"
+        nofollow: "Search engine must not follow"
+        url: "URL"
+        navigatable_type: "Type"
 
       alchemy/page:
         created_at: "créée le"

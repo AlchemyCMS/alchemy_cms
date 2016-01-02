@@ -6,9 +6,6 @@ module Alchemy
     extend ActiveSupport::Concern
 
     included do
-      # All language root pages
-      #
-      scope :language_roots, -> { where(language_root: true) }
 
       # All layout pages
       #
@@ -30,10 +27,6 @@ module Alchemy
       #
       scope :not_locked, -> { where(locked: false) }
 
-      # All visible pages
-      #
-      scope :visible, -> { where(visible: true) }
-
       # All public pages
       #
       scope :published, -> { where(public: true) }
@@ -45,14 +38,6 @@ module Alchemy
       # All restricted pages
       #
       scope :restricted, -> { where(restricted: true) }
-
-      # All pages that are a published language root
-      #
-      scope :public_language_roots, -> {
-        published.language_roots.where(
-          language_code: Language.published.pluck(:language_code)
-        )
-      }
 
       # Last 5 pages that where recently edited by given user
       #
@@ -68,9 +53,7 @@ module Alchemy
 
       # Returns all content pages.
       #
-      scope :contentpages, -> {
-        where(layoutpage: [false, nil]).where(Page.arel_table[:parent_id].not_eq(nil))
-      }
+      scope :contentpages, -> { where(layoutpage: [false, nil]) }
 
       # Returns all public contentpages that are not locked.
       #
@@ -95,10 +78,6 @@ module Alchemy
       scope :from_current_site, -> {
         where(Language.table_name => {site_id: Site.current || Site.default}).joins(:language)
       }
-
-      # All pages for xml sitemap
-      #
-      scope :sitemap, -> { from_current_site.published.contentpages.where(sitemap: true) }
     end
   end
 end

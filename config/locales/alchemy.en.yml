@@ -446,12 +446,15 @@ en:
       languages: "Languages"
       layoutpages: "Global Pages"
       library: "Library"
+      nodes: "Menus"
       pages: "Pages"
       tags: "Tags"
       sites: "Sites"
     name: "Name"
     names: "Names"
     navigation_name: "Navigation name"
+    node_types:
+      alchemy/pages: "Pages"
     no_image_for_cropper_found: "No image found. Please save the element first."
     no: "No"
     "no pages": "no pages"
@@ -475,9 +478,6 @@ en:
     page_published: "Published page"
     page_restricted: "restricted"
     page_states:
-      visible:
-        "true": "Page is visible in navigation."
-        "false": "Page is not visible in navigation."
       public:
         "true": "Page is published."
         "false": "Page is unpublished."
@@ -570,7 +570,7 @@ en:
     visible: "visible"
     want_to_create_new_language: "Do you want to create a new empty language tree?"
     want_to_make_copy_of_existing_language: "Do you want to copy an existing language tree?"
-    "We need at least one default.": "A default language must exist."
+    "We need at least one default language.": "A default language must exist."
     welcome_note: "Welcome %{name}"
     welcome_back_note: "Welcome back %{name}"
     welcome_please_identify_notice: "Welcome! Please identify."
@@ -875,8 +875,16 @@ en:
       alchemy/legacy_page_url:
         urlname: "URL path"
 
+      alchemy/node:
+        name: "Name"
+        title: "Title"
+        nofollow: "Search engine must not follow"
+        url: "URL"
+        navigatable_type: "Type"
+
       alchemy/page:
         created_at: "Created at"
+        create_node: "Create menu entry"
         language: "Language"
         locked: "This page is locked by another user."
         locked_by: "locked by"
@@ -884,6 +892,7 @@ en:
         meta_keywords: "Keywords"
         name: "Name"
         page_layout: "Page type"
+        parent_id: "Parent"
         public: "public"
         restricted: "restricted"
         robot_follow: "robot may follow links"

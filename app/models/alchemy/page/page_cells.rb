@@ -5,7 +5,7 @@ module Alchemy
 
     included do
       has_many :cells, dependent: :destroy
-      after_create :create_cells, if: :can_have_cells?, unless: :systempage?
+      after_create :create_cells, if: :can_have_cells?
     end
 
     module ClassMethods

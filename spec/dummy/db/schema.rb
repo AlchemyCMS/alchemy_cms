@@ -173,12 +173,6 @@ ActiveRecord::Schema.define(version: 20150729151825) do
     t.datetime "updated_at",                      null: false
   end
 
-  create_table "alchemy_folded_pages", force: :cascade do |t|
-    t.integer "page_id"
-    t.integer "user_id"
-    t.boolean "folded",  default: false
-  end
-
   create_table "alchemy_languages", force: :cascade do |t|
     t.string   "name"
     t.string   "language_code"
@@ -207,27 +201,46 @@ ActiveRecord::Schema.define(version: 20150729151825) do
 
   add_index "alchemy_legacy_page_urls", ["urlname"], name: "index_alchemy_legacy_page_urls_on_urlname"
 
+  create_table "alchemy_nodes", force: :cascade do |t|
+    t.string   "name"
+    t.string   "title"
+    t.string   "url"
+    t.integer  "lft"
+    t.integer  "rgt"
+    t.integer  "parent_id"
+    t.integer  "depth"
+    t.boolean  "nofollow",         default: false
+    t.integer  "navigatable_id"
+    t.string   "navigatable_type"
+    t.integer  "creator_id"
+    t.integer  "updater_id"
+    t.integer  "language_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "alchemy_nodes", ["creator_id"], name: "index_alchemy_nodes_on_creator_id"
+  add_index "alchemy_nodes", ["depth"], name: "index_alchemy_nodes_on_depth"
+  add_index "alchemy_nodes", ["language_id"], name: "index_alchemy_nodes_on_language_id"
+  add_index "alchemy_nodes", ["navigatable_type", "navigatable_id"], name: "index_alchemy_nodes_on_navigatable_type_and_navigatable_id"
+  add_index "alchemy_nodes", ["parent_id", "lft"], name: "index_alchemy_nodes_on_parent_id_and_lft"
+  add_index "alchemy_nodes", ["rgt"], name: "index_alchemy_nodes_on_rgt"
+  add_index "alchemy_nodes", ["updater_id"], name: "index_alchemy_nodes_on_updater_id"
+
   create_table "alchemy_pages", force: :cascade do |t|
     t.string   "name"
     t.string   "urlname"
     t.string   "title"
     t.string   "language_code"
-    t.boolean  "language_root"
     t.string   "page_layout"
     t.text     "meta_keywords"
     t.text     "meta_description"
-    t.integer  "lft"
-    t.integer  "rgt"
-    t.integer  "parent_id"
-    t.integer  "depth"
-    t.boolean  "visible",          default: false
     t.boolean  "public",           default: false
     t.boolean  "locked",           default: false
     t.integer  "locked_by"
     t.boolean  "restricted",       default: false
     t.boolean  "robot_index",      default: true
     t.boolean  "robot_follow",     default: true
-    t.boolean  "sitemap",          default: true
     t.boolean  "layoutpage",       default: false
     t.datetime "created_at",                       null: false
     t.datetime "updated_at",                       null: false
@@ -236,10 +249,11 @@ ActiveRecord::Schema.define(version: 20150729151825) do
     t.integer  "language_id"
     t.text     "cached_tag_list"
     t.datetime "published_at"
+    t.integer  "parent_id"
   end
 
   add_index "alchemy_pages", ["language_id"], name: "index_pages_on_language_id"
-  add_index "alchemy_pages", ["parent_id", "lft"], name: "index_pages_on_parent_id_and_lft"
+  add_index "alchemy_pages", ["parent_id"], name: "index_alchemy_pages_on_parent_id"
   add_index "alchemy_pages", ["urlname"], name: "index_pages_on_urlname"
 
   create_table "alchemy_pictures", force: :cascade do |t|

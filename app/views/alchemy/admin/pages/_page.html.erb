@@ -1,112 +1,79 @@
-<li id="page_<%= page.id %>" class="page_level_<%= "#{page.level} #{page.page_layout}" %>" data-slug="<%= page.slug %>" data-restricted="<%= page.restricted? %>" data-visible="<%= page.visible? %>" data-external="<%= page.redirects_to_external? %>">
-  <div class="sitemap_page<%= page.locked ? ' locked' : '' %>" name="<%= page.name %>">
-    <div class="sitemap_left_images">
-      <%= sitemap_folder_link(page) unless page.level == 1 || page.children.blank? || @sorting %>
-      <% if page.definition.blank? %>
-        <span class="inline warning icon" title="<%= _t(:page_definition_missing) %>"></span>
-      <% else %>
-        <div class="page icon <%= @sorting && page.level > 1 ? 'handle' : nil %>"></div>
-      <% end %>
-    </div>
-    <div class="sitemap_right_tools">
-    <%- unless @sorting -%>
-      <%- if can?(:info, page) -%>
-        <%= link_to_dialog(
-          render_icon('info'),
-          alchemy.info_admin_page_path(page),
-          {
-            title: _t(:page_infos),
-            size: '520x290'
-          },
-          {
-            title: _t(:page_infos),
-            class: 'sitemap_tool'
-          }
-        ) %>
-      <%- end -%>
-      <%- if can?(:configure, page) -%>
-        <%= link_to_dialog(
-          render_icon('configure_page'),
-          alchemy.configure_admin_page_path(page),
-          {
-            title: _t(:edit_page_properties),
-            size: page.redirects_to_external? ? '450x330' : '450x720'
-          },
-          title: _t(:edit_page_properties),
-          class: 'sitemap_tool'
-        ) -%>
-      <%- end -%>
-      <span class="sitemap_sitetools">
-      <%- if can?(:copy, page) -%>
-        <%= link_to(
-          render_icon("copy_page"),
-          alchemy.insert_admin_clipboard_path(
-            remarkable_type: page.class.name.demodulize.underscore.pluralize,
-            remarkable_id: page.id
-          ),
-          remote: true,
-          method: 'post',
-          title: _t(:copy_page),
-          class: 'sitemap_tool'
-        ) %>
-      <%- end -%>
-      <%- if can?(:destroy, page) -%>
-        <%= link_to_confirm_dialog(
-          render_icon('delete_page'),
-          _t(:confirm_to_delete_page),
-          url_for(
-            controller: 'pages',
-            action: 'destroy',
-            id: page.id
-          ),
-          {
-            title: _t(:delete_page),
-            class: 'sitemap_tool'
-          }
-        ) -%>
-      <%- end -%>
-      <%- if can?(:create, Alchemy::Page) -%>
-        <%= link_to_dialog(
-          render_icon('add_page'),
-          alchemy.new_admin_page_path(parent_id: page.id),
-          {
-            title: _t(:create_page),
-            size: '340x165',
-            overflow: true
-          },
-          title: _t(:create_page),
-          class: 'sitemap_tool'
-        ) -%>
-      <%- end -%>
-      </span>
-    <%- end -%>
-    </div>
-    <div class="page_infos" id="page_<%= page.id %>_infos">
-      <span class="page_status <%= page.public ? 'public' : 'not_public' %>" title="<%= page.status_title(:public) %>"></span>
-      <span class="page_status <%= page.visible ? 'visible' : 'not_visible' %>" title="<%= page.status_title(:visible) %>"></span>
-      <span class="page_status <%= page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page.status_title(:restricted) %>"></span>
-    </div>
-    <div class="sitemap_sitename">
-    <%- if page.redirects_to_external? -%>
-      <span class="sitemap_pagename_link inactive"><%= page.name %></span>
-      <span class="redirect_url" title="<%= h page.urlname %>">
-        &raquo; <%= _t('Redirects to') %>:
-        <%= h page.external_urlname %>
-      </span>
-    <%- else -%>
-      <%= link_to_unless(
-        @sorting,
+<tr id="page_<%= page.id %>" class="sitemap_page<%= page.locked ? ' locked' : '' %> <%= cycle('even', 'odd') %>">
+  <td class="icon">
+    <% if page.definition.blank? %>
+      <span class="inline warning icon" title="<%= _t(:page_definition_missing) %>"></span>
+    <% else %>
+      <%= render_icon(:page) %>
+    <% end %>
+  </td>
+  <td class="name">
+    <% if page.parents.present? %>
+      <%= page.parents.collect(&:name).join(' - ') %>
+      -
+    <% end %>
+    <% if can?(:edit, page) %>
+      <%= link_to(
         page.name,
         alchemy.edit_admin_page_path(page),
-        title: _t(:edit_page),
-        class: "sitemap_pagename_link"
-      ) { content_tag('span', page.name, class: "sitemap_pagename_link") } -%>
+        title: _t(:edit_page)
+      ) -%>
+    <% else %>
+      <%= page.name %>
+    <% end %>
+  </td>
+  <td><%= page.urlname %></td>
+  <td class="date"><%= l(page.updated_at, format: :short) %></td>
+  <td class="date"><%= page.creator.try(:name) %></td>
+  <td class="center" id="page_<%= page.id %>_infos">
+    <span class="page_status <%= page.public ? 'public' : 'not_public' %>" title="<%= page.status_title(:public) %>"></span>
+    <span class="page_status <%= page.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page.status_title(:restricted) %>"></span>
+  </td>
+  <td class="tools">
+    <%- if can?(:destroy, page) -%>
+      <%= link_to_confirm_dialog(
+        render_icon('delete_page'),
+        _t(:confirm_to_delete_page),
+        url_for(
+          controller: 'pages',
+          action: 'destroy',
+          id: page.id
+        ),
+        {
+          title: _t(:delete_page),
+          class: 'sitemap_tool'
+        }
+      ) -%>
     <%- end -%>
-    </div>
-  </div>
-  <%- if @sorting || (!page.folded?(current_alchemy_user) && !page.children.empty?) -%>
-  <ul id="page_<%= page.id %>_children" class="level_<%= page.level %>_children">
-    <%= render partial: 'page', collection: page.children %>
-  </ul>
-  <%- end -%>
-</li>
+    <% if can?(:edit, page) %>
+      <%= link_to(
+        render_icon(:edit),
+        alchemy.edit_admin_page_path(page),
+        title: _t(:edit_page)
+      ) -%>
+    <% end %>
+    <% if can?(:configure, page) %>
+      <%= link_to_dialog(
+        render_icon('configure_page'),
+        alchemy.configure_admin_page_path(page),
+        {
+          title: _t(:edit_page_properties),
+          size: '450x720'
+        },
+        title: _t(:edit_page_properties),
+        class: 'sitemap_tool'
+      ) -%>
+    <% end %>
+    <% if can?(:create, Alchemy::Page) %>
+      <%= link_to_dialog(
+        render_icon(:add_page),
+        alchemy.new_admin_page_path(parent_id: page.id),
+        {
+          title: _t(:create_page),
+          size: '340x240'
+        },
+        title: _t(:create_page),
+        class: 'sitemap_tool'
+      ) -%>
+    <% end %>
+  </td>
+</tr>

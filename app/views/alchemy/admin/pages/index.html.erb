@@ -1,44 +1,41 @@
 <% content_for :toolbar do %>
 <div class="toolbar_buttons">
-  <%= render :partial => 'alchemy/admin/partials/language_tree_select' %>
+  <%= render partial: 'alchemy/admin/partials/language_tree_select' %>
+  <%= toolbar_button(
+    icon: 'create',
+    label: _t(:create_page),
+    url: alchemy.new_admin_page_path,
+    hotkey: 'alt+n',
+    dialog_options: {
+      title: _t(:create_page),
+      size: '340x240'
+    },
+    if_permitted_to: [:create, Alchemy::Page]
+  ) %>
   <div class="toolbar_spacer"></div>
   <% if can?(:flush, Alchemy::Page) %>
   <div class="button_with_label">
     <%= link_to(
       render_icon('flush'),
       alchemy.flush_admin_pages_path,
-      :remote => true,
-      :method => :post,
-      :class => 'icon_button please_wait',
-      :title => _t('Flush page cache')
+      remote: true,
+      method: 'post',
+      class: 'icon_button please_wait',
+      title: _t('Flush page cache')
     ) %>
     <label><%= _t('Flush page cache') %></label>
-  </div>
-  <% end %>
-  <% if can?(:sort, Alchemy::Page) %>
-  <div class="button_with_label" id="page_sorting_button">
-    <%= link_to(
-      render_icon('sort'),
-      alchemy.sort_admin_pages_path,
-      :complete => '',
-      :method => :get,
-      :remote => true,
-      :class => 'icon_button please_wait',
-      :title => _t('Sort pages')
-    ) %>
-    <label><%= _t('Sort pages') %></label>
   </div>
   <% end %>
   <div class="button_with_label" id="clipboard_button">
     <%= link_to_dialog(
       render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
-      alchemy.admin_clipboard_path(:remarkable_type => 'pages'),
+      alchemy.admin_clipboard_path(remarkable_type: 'pages'),
       {
-        :title => _t('Clipboard'),
-        :size => '380x305'
+        title: _t('Clipboard'),
+        size: '380x305'
       },
-      :class => 'icon_button',
-      :title => _t('Show clipboard')
+      class: 'icon_button',
+      title: _t('Show clipboard')
     ) %>
     <label><%= _t('Show clipboard') %></label>
   </div>
@@ -57,38 +54,39 @@
 <% end %>
 
 <div id="archive_all">
-<% if @page_root %>
-
-  <div id="sort_panel" style="display: none">
-    <div class="info">
-      <%= render_icon('info') %>
-      <%= _t(:explain_sitemap_dragndrop_sorting) %>
-    </div>
-    <div class="buttons">
-      <%= link_to( _t(:cancel), alchemy.admin_pages_path, :class => 'button' ) %>&nbsp;
-      <%= submit_tag( _t('save order'), :id => 'save_page_order', :class => 'button' ) %>
-    </div>
+  <% if @pages.any? %>
+  <h1>
+    <%= @pages.total_count %>
+    <%= Alchemy::Page.model_name.human(count: @pages.total_count) %>
+  </h1>
+  <table class="list">
+    <tr>
+      <th class="icon"></th>
+      <% %w(name urlname updated_at).each do |attribute| %>
+      <th class="<%= attribute.downcase %>">
+        <%= sortable_column(
+          Alchemy::Page.human_attribute_name(attribute),
+          column: attribute
+        ) %>
+      </th>
+      <% end %>
+      <th><%= Alchemy::Page.human_attribute_name(:creator) %></th>
+      <th class="status"><%= _t('Page status') %></th>
+      <th class="tools"></th>
+    </tr>
+    <%= render partial: 'page', collection: @pages %>
+  </table>
+  <% else %>
+  <div class="with_padding">
+    <p>You have no pages yet.</p>
+    <%= link_to_dialog render_icon(:create) + _t(:create_page),
+      alchemy.new_admin_page_path, {
+        title: _t(:create_page),
+        size: '340x165',
+        overflow: true
+      },
+      title: _t(:create_page),
+      class: 'button with_icon' %>
   </div>
-
-  <h1 id="page_filter_result"></h1>
-
-  <h2 id="sitemap_heading">
-    <span class="page_name"><%= _t('Name') %></span>
-    <span class="page_infos"><%= _t('Status') %></span>
-  </h2>
-
-  <%= render :partial => 'sitemap' %>
-
-<% elsif can?(:create, Alchemy::Page) %>
-
-  <%= render partial: 'create_language_form' %>
-
-<% else %>
-
-  <%= render_message :warn do %>
-    <h2>No language root page found.</h2>
-    <p>Please ask the admin to create one.</p>
   <% end %>
-
-<% end %>
 </div>
