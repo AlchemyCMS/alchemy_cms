@@ -127,6 +127,14 @@ module Alchemy
             allow(Config).to receive(:get) do |arg|
               arg == :redirect_index ? true : Config.parameter(arg)
             end
+            if Alchemy.version == "4.0.0.rc1"
+              raise "Remove deprecated `redirect_index` configuration!"
+            end
+            ActiveSupport::Deprecation.silenced = true
+          end
+
+          after do
+            ActiveSupport::Deprecation.silenced = false
           end
 
           context "and if page locale is the default locale" do
@@ -182,6 +190,14 @@ module Alchemy
             allow(Config).to receive(:get) do |arg|
               arg == :redirect_index ? true : Config.parameter(arg)
             end
+            if Alchemy.version == "4.0.0.rc1"
+              raise "Remove deprecated `redirect_index` configuration!"
+            end
+            ActiveSupport::Deprecation.silenced = true
+          end
+
+          after do
+            ActiveSupport::Deprecation.silenced = false
           end
 
           context "if page locale is the default locale" do
@@ -270,9 +286,6 @@ module Alchemy
 
       before do
         allow_any_instance_of(PagesController).to receive(:multi_language?).and_return(false)
-        allow(Config).to receive(:get) do |arg|
-          arg == :url_nesting ? false : Config.parameter(arg)
-        end
       end
 
       it "redirects legacy url with unknown format & query string" do
@@ -289,7 +302,12 @@ module Alchemy
 
       context "redirects to public child" do
         before do
-          public_page.update_attributes(public: false, name: 'Not Public', urlname: '')
+          public_page.update_attributes(
+            public: false,
+            visible: false,
+            name: 'Not Public',
+            urlname: ''
+          )
           public_child
         end
 
@@ -304,9 +322,31 @@ module Alchemy
         end
       end
 
-      it "redirects to pages url, if requested url is index url" do
-        visit '/'
-        expect(page.current_path).to eq('/home')
+      context 'if requested url is index url' do
+        context "when locale is prefixed" do
+          it "redirects to normal url" do
+            visit "/en"
+            expect(page.current_path).to eq("/")
+          end
+        end
+
+        context "when redirect_index is enabled" do
+          before do
+            allow(Config).to receive(:get) do |arg|
+              arg == :redirect_index ? true : Config.parameter(arg)
+            end
+            if Alchemy.version == "4.0.0.rc1"
+              raise "Remove deprecated `redirect_index` configuration!"
+            end
+          end
+
+          it "redirects to pages url" do
+            ActiveSupport::Deprecation.silence do
+              visit '/'
+              expect(page.current_path).to eq('/home')
+            end
+          end
+        end
       end
 
       it "should keep additional params" do
