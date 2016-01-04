@@ -1,40 +1,40 @@
 module Alchemy
+
+  # Handles page redirect urls
+  #
+  # Lots of reasons exist to redirect to another URL than the requested one.
+  # These module holds the logic behind these needs.
+  #
   module PageRedirects
+    extend ActiveSupport::Concern
+
+    included do
+      # We need a +@page+ to work with
+      before_action :page_not_found!,
+        if: -> { @page.blank? },
+        only: [:show]
+    end
 
     private
 
-    # = Page redirect url
+    # Returns an URL to redirect the request to.
     #
-    # Lots of reasons exist to redirect to another url, then the requested one.
-    # These module holds the logic behind this needs.
+    # == Lookup:
     #
-    # If no redirect is needed returns nil.
+    # 1. If the page is not published and we have a published child,
+    #    we return the url top that page. (Configurable through +redirect_to_public_child+).
+    # 2. If the page layout of the page found has a controller and action configured,
+    #    we return the url to that route. (Configure controller and action in `page_layouts.yml`).
+    # 3. If the current page URL has no locale prefixed, but we should have one,
+    #    we return the prefixed URL.
+    # 4. If no redirection is needed returns nil.
     #
     # @return String
     # @return NilClass
     #
     def redirect_url
-      @_redirect_url ||= legacy_page_redirect_url || raise_page_not_found ||
-        public_child_redirect_url || controller_and_action_url || locale_prefixed_url || nil
-    end
-
-    # Use the bare minimum to redirect to page
-    # Don't use query string of legacy urlname
-    # This drops the given query string.
-    def legacy_page_redirect_url
-      return unless redirect_to_legacy_url?
-
-      page = last_legacy_url.page
-      return unless page
-
-      alchemy.show_page_path(
-        locale: prefix_locale? ? page.language_code : nil,
-        urlname: page.urlname
-      )
-    end
-
-    def raise_page_not_found
-      page_not_found! if @page.blank?
+      @_redirect_url ||= public_child_redirect_url || controller_and_action_url ||
+        locale_prefixed_url || nil
     end
 
     def locale_prefixed_url
@@ -66,31 +66,12 @@ module Alchemy
       alchemy.show_page_path additional_params.merge(options)
     end
 
-    def legacy_urls
-      # /slug/tree => slug/tree
-      urlname = (request.fullpath[1..-1] if request.fullpath[0] == '/') || request.fullpath
-      LegacyPageUrl.joins(:page).where(
-        urlname: urlname,
-        Page.table_name => {
-          language_id: Language.current.id
-        }
-      )
-    end
-
-    def last_legacy_url
-      @_last_legacy_url ||= legacy_urls.last
-    end
-
     def default_locale?
       Language.current.code.to_sym == ::I18n.default_locale.to_sym
     end
 
     def locale_prefix_missing?
       multi_language? && params[:locale].blank? && !default_locale?
-    end
-
-    def redirect_to_legacy_url?
-      (@page.nil? || request.format.nil?) && last_legacy_url
     end
 
     def redirect_to_public_child?

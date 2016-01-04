@@ -1,19 +1,27 @@
 module Alchemy
   class PagesController < Alchemy::BaseController
+    include OnPageLayout::CallbacksRunner
 
     # Redirects to signup path, if no admin user is present yet
     before_action if: :signup_required? do
       redirect_to Alchemy.signup_path
     end
 
+    # Redirecting concerns. Order is important here!
     include SiteRedirects
     include LocaleRedirects
-    include PageRedirects
-    include OnPageLayout::CallbacksRunner
 
-    before_action :set_root_page, only: [:index, :show]
     before_action :load_index_page, only: [:index]
     before_action :load_page, only: [:show]
+
+    # Page redirects need to run after the page was loaded. Order is important here!
+    include LegacyPageRedirects
+    include PageRedirects
+
+    # We only need to set the +@root_page+ if we are sure that no more redirects happen.
+    before_action :set_root_page, only: [:index, :show]
+
+    # Page layout callbacks need to run after all other callbacks
     before_action :run_on_page_layout_callbacks,
       if: :run_on_page_layout_callbacks?,
       only: [:index, :show]
@@ -107,6 +115,7 @@ module Alchemy
     # Otherwise it returns nil.
     #
     def public_root_page
+      @root_page ||= Language.current_root_page
       @root_page if @root_page.public?
     end
 
@@ -161,7 +170,7 @@ module Alchemy
     end
 
     def set_root_page
-      @root_page = Language.current_root_page
+      @root_page ||= Language.current_root_page
     end
 
     def signup_required?
