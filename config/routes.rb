@@ -40,6 +40,7 @@ Alchemy::Engine.routes.draw do
         get :configure
         get :preview
         get :info
+        get :page_for_link
       end
     end
 

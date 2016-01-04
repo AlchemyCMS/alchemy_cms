@@ -38,7 +38,7 @@ describe "Link overlay" do
 
     it "should have a tree of internal pages" do
       visit link_admin_pages_path
-      expect(page).to have_selector('ul#sitemap li a')
+      expect(page).to have_selector('ul#sitemap')
     end
 
     it "should not have a link for pages that redirect to external" do
