@@ -35,7 +35,7 @@ module Alchemy
     # Instance methods
 
     describe '#url' do
-      let(:page) { build_stubbed(:page) }
+      let(:page) { build_stubbed(:alchemy_page) }
 
       context 'with navigatable attached' do
         let(:node) { build_stubbed(:node, navigatable: page) }

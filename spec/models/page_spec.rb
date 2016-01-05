@@ -213,7 +213,7 @@ module Alchemy
         end
 
         context "with a restricted parent" do
-          let(:child) { build(:page, parent: page) }
+          let(:child) { build(:alchemy_page, parent: page) }
 
           before do
             page.update!(restricted: true)
@@ -271,7 +271,7 @@ module Alchemy
 
       describe 'after_create' do
         let(:root_node) { Node.root }
-        let(:page)      { build(:page) }
+        let(:page)      { build(:alchemy_page) }
 
         context 'with #create_node set to true' do
           before { page.create_node = true }
