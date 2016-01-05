@@ -22,8 +22,8 @@ module Alchemy
       end
 
       context 'with current language present' do
-        let(:root_node)  { create(:node) }
-        let(:child_node) { create(:node, parent_id: root_node.id) }
+        let(:root_node)  { create(:alchemy_node) }
+        let(:child_node) { create(:alchemy_node, parent_id: root_node.id) }
 
         it "returns root nodes from curren language" do
           expect(Node.language_root_nodes).to include(root_node)
@@ -35,10 +35,10 @@ module Alchemy
     # Instance methods
 
     describe '#url' do
-      let(:page) { build_stubbed(:page) }
+      let(:page) { build_stubbed(:alchemy_page) }
 
       context 'with navigatable attached' do
-        let(:node) { build_stubbed(:node, navigatable: page) }
+        let(:node) { build_stubbed(:alchemy_node, navigatable: page) }
 
         it "gets the url from navigatable" do
           expect(node.url).to eq(page.urlname)
@@ -46,7 +46,7 @@ module Alchemy
       end
 
       context 'without navigatable attached' do
-        let(:node) { build_stubbed(:node, url: 'http://google.com') }
+        let(:node) { build_stubbed(:alchemy_node, url: 'http://google.com') }
 
         it "gets the url from url attribute" do
           expect(node.url).to eq('http://google.com')
@@ -56,7 +56,7 @@ module Alchemy
 
     describe '#root?' do
       context 'without parent' do
-        let(:node) { build_stubbed(:node) }
+        let(:node) { build_stubbed(:alchemy_node) }
 
         it "returns true" do
           expect(node.root?).to be_truthy
@@ -64,8 +64,8 @@ module Alchemy
       end
 
       context 'with parent' do
-        let(:parent) { build_stubbed(:node) }
-        let(:node)   { build_stubbed(:node, parent_id: parent.id) }
+        let(:parent) { build_stubbed(:alchemy_node) }
+        let(:node)   { build_stubbed(:alchemy_node, parent_id: parent.id) }
 
         it "returns false" do
           expect(node.root?).to be_falsey

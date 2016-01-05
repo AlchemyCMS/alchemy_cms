@@ -89,7 +89,7 @@ module Alchemy
           end
 
           context 'with children present' do
-            let(:child) { create(:page) }
+            let(:child) { create(:alchemy_page) }
 
             before do
               page.children << child
@@ -213,7 +213,7 @@ module Alchemy
         end
 
         context "with a restricted parent" do
-          let(:child) { build(:page, parent: page) }
+          let(:child) { build(:alchemy_page, parent: page) }
 
           before do
             page.update!(restricted: true)
@@ -226,8 +226,8 @@ module Alchemy
         end
 
         context 'after updating the restricted status' do
-          let!(:child_1) { create(:page, restricted: false) }
-          let!(:child_2) { create(:page, restricted: false) }
+          let!(:child_1) { create(:alchemy_page, restricted: false) }
+          let!(:child_2) { create(:alchemy_page, restricted: false) }
 
           it "all children should inherit that status" do
             child_1.children << child_2
@@ -271,7 +271,7 @@ module Alchemy
 
       describe 'after_create' do
         let(:root_node) { Node.root }
-        let(:page)      { build(:page) }
+        let(:page)      { build(:alchemy_page) }
 
         context 'with #create_node set to true' do
           before { page.create_node = true }
@@ -282,7 +282,7 @@ module Alchemy
           end
 
           context 'with parent page that has a node' do
-            let!(:parent)      { create(:page) }
+            let!(:parent)      { create(:alchemy_page) }
             let!(:parent_node) { Node.create!(name: 'Parent node', navigatable: parent, language: Language.default) }
 
             before do

@@ -275,7 +275,7 @@ module Alchemy
         end
 
         context 'if page is locked by myself' do
-          let(:locked_page) { create(:page, locked: true, locked_by: user.id) }
+          let(:locked_page) { create(:alchemy_page, locked: true, locked_by: user.id) }
 
           before do
             expect(user).to receive(:logged_in?).and_return(true)
@@ -324,7 +324,7 @@ module Alchemy
       end
 
       describe '#info' do
-        let(:page) { create(:page) }
+        let(:page) { create(:alchemy_page) }
 
         it "shows information about the page" do
           get :info, id: page.id
@@ -375,7 +375,7 @@ module Alchemy
       end
 
       describe '#upate' do
-        let(:page) { create(:page) }
+        let(:page) { create(:alchemy_page) }
 
         before do
           allow(Page).to receive(:find).and_return(page)
