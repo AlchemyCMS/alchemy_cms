@@ -8,7 +8,7 @@ module Alchemy
 
     describe '#index' do
       let!(:root_node)  { Node.root }
-      let!(:child_node) { create(:node, parent_id: root_node.id) }
+      let!(:child_node) { create(:alchemy_node, parent_id: root_node.id) }
 
       it "loads only root nodes from current language" do
         alchemy_get :index
@@ -41,7 +41,7 @@ module Alchemy
     end
 
     describe '#update' do
-      let(:node) { create(:node) }
+      let(:node) { create(:alchemy_node) }
 
       context 'with valid params' do
         it "redirects to nodes path" do
