@@ -1,7 +1,17 @@
 <%= alchemy_form_for [alchemy, :admin, @language] do |f| %>
   <%= f.input :name, autofocus: true %>
   <%= f.input :language_code, placeholder: _t(:language_code_placeholder) %>
-  <%= f.input :country_code, as: 'string', placeholder: _t(:country_code_placeholder), hint: _t(:country_code_foot_note) %>
+  <%= f.input :country_code,
+    as: 'string',
+    placeholder: _t(:country_code_placeholder),
+    hint: _t(:country_code_foot_note) %>
+  <% if Alchemy::I18n.app_locales.present? %>
+    <%= f.input :locale,
+      collection: Alchemy::I18n.app_locales,
+      selected: @language.language_code,
+      hint: _t(:language_locale_notice),
+      input_html: {class: 'alchemy_selectbox'} %>
+  <% end %>
   <%= f.input :frontpage_name %>
   <%= f.input :page_layout,
     collection: Alchemy::PageLayout.all,

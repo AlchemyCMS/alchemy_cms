@@ -26,6 +26,7 @@ module Alchemy
     validates_presence_of :language_code
     validates_presence_of :page_layout
     validates_presence_of :frontpage_name
+    validates_presence_of :locale, if: -> { Alchemy::I18n.app_locales.present? }
     validates_uniqueness_of :language_code, scope: [:site_id, :country_code]
     validate :presence_of_default_language
     validate :publicity_of_default_language

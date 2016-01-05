@@ -439,6 +439,7 @@ fr:
     javascript_disabled_text: "Alchimie ne fonctionne correctement qu'avec Javascript. S'il vous plaît activer dans votre navigateur."
     language_code_placeholder: 'par exemple. de'
     language_does_not_exist: "l'arbre de langue n´existe pas encore"
+    language_locale_notice: "Please choose the translation file you want this language to be assigned to. Typically this is the one matching the language code."
     language_pages_copied: "L'arbre de la langue a été copié"
     last_upload_only: "Dernière téléchargées"
     left: "Gauche"

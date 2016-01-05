@@ -418,6 +418,7 @@ en:
     javascript_disabled_text: "Alchemy needs Javascript to run smoothly. Please enable it in your browser settings."
     language_code_placeholder: 'i.e. en'
     language_does_not_exist: "This language tree does not exist"
+    language_locale_notice: "Please choose the translation file you want this language to be assigned to. Typically this is the one matching the language code."
     language_pages_copied: "Language tree successfully copied."
     last_upload_only: "Last upload only"
     left: "left"
