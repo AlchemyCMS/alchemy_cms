@@ -1,3 +1,118 @@
+require 'thor'
+
+class Alchemy::Upgrader::FourPointZeroTasks < Thor
+  include Thor::Actions
+
+  no_tasks do
+    def convert_available_contents
+      config = read_config
+
+      elements_with_available_contents, new_elements = config.partition do |e|
+        e['available_contents']
+      end
+
+      return if elements_with_available_contents.empty?
+
+      print 'Converting to `nestable_elements` ... '
+      elements_with_available_contents.inject(new_elements) do |ne, old_element|
+        ne << modify_old_element(old_element.dup)
+        build_new_elements(old_element).inject(ne) do |ne, element_from_contents|
+          ne << element_from_contents
+        end
+      end
+      new_elements = new_elements.uniq.sort {|a, b| a['name'] <=> b['name'] }
+      puts 'done.'
+
+      print 'Writing new `config/alchemy/elements.yml` ... '
+      write_config(new_elements)
+      puts 'done.'
+
+      print 'Removing `render_new_content_link` helper from editor partials ... '
+      remove_new_content_link_from_editor_partials
+      puts 'done.'
+
+      puts 'Adding hints for rendering nested elements to your views: '
+      add_render_nested_elements_hints
+    end
+  end
+
+  private
+
+  def backup_config
+    print "Copying existing config file to config/alchemy/elements.yml.old ... "
+    FileUtils.copy  Rails.root.join('config', 'alchemy', 'elements.yml'),
+                    Rails.root.join('config', 'alchemy', 'elements.yml.old')
+    puts "done."
+  end
+
+  def read_config
+    print "Reading config/alchemy/elements.yml ... "
+    old_config_file = Rails.root.join('config', 'alchemy', 'elements.yml')
+    config = YAML.load_file(old_config_file)
+    puts "done."
+    config
+  end
+
+  def write_config(config)
+    backup_config
+    File.open(Rails.root.join('config', 'alchemy', 'elements.yml'), "w") do |f|
+      f.write config.to_yaml
+    end
+  end
+
+  def modify_old_element(element)
+    nestable_elements = element['available_contents'].map do |content|
+      "addable_#{content['name']}"
+    end
+    element.delete('available_contents') # Hashes are mutable. Welcome!
+    element['nestable_elements'] = nestable_elements
+    element
+  end
+
+  def remove_new_content_link_from_editor_partials
+    editor_partials = Dir.glob(Rails.root.join('app', 'views', 'alchemy', 'elements', '*_editor*'))
+    system "sed -i '' '/^.*render_new_content_link.*$/d' #{editor_partials.join(' ')}"
+    system "sed -i '' '/^.*label_and_remove_link.*$/d' #{editor_partials.join(' ')}"
+  end
+
+  def build_new_elements(element)
+    element['available_contents'].inject([]) do |collection, content|
+      collection << build_new_element(content)
+    end
+  end
+
+  def build_new_element(content)
+    # All nestable elements are deletable
+    content['settings'].delete('deletable') if content['settings']
+    # If the only content is not present, the whole things doesn't make much sense
+    content['validate'] = ['presence']
+    content.delete('settings') if content['settings'] == {}
+    {
+      'name' => "addable_#{content['name']}",
+      'contents' => [content]
+    }
+  end
+
+  def add_render_nested_elements_hints
+    erb_views = Dir.glob(Rails.root.join('app', 'views', 'alchemy', 'elements', '*_view.html.erb'))
+    haml_slim_views = Dir.glob(Rails.root.join('app', 'views', 'alchemy', 'elements', '*_view.html.haml')) +
+                      Dir.glob(Rails.root.join('app', 'views', 'alchemy', 'elements', '*_view.html.slim'))
+    erb_snippet = <<ERB
+    <% element.nested_elements.available.each do |nested_element| %>
+      <%= render_element(nested_element) %>
+    <% end %>
+ERB
+    haml_slim_snippet = <<HAMLSLIM
+    - element.nested_elements.available.each do |nested_element|
+      = render_element(nested_element)
+HAMLSLIM
+    erb_views.each do |view|
+      gsub_file view, /(?<doubleend>^.*<%- end -%>.*\n.*<%- end -%>.*$)/, erb_snippet + '\k<doubleend>'
+    end
+    haml_slim_views.each { |view| append_to_file view, haml_slim_snippet }
+  end
+end
+
 module Alchemy
   module Upgrader::FourPointZero
     private
@@ -10,9 +125,9 @@ Element's "available_contents" feature removed
 
 The `available_contents` feature of elements was removed and replaced by nestable elements.
 
-Please update your `config/alchemy/elements.yml` so that you define an element for each content
-in `available_contents` and put its name into the `nestable_elements` collection in the parent
-element's definition.
+The automatic updater will update your `config/alchemy/elements.yml`: It will define an element
+for each content type in `available_contents` and put its name into the `nestable_elements`
+collection in the parent element's definition.
 
 ## Example:
 
@@ -33,17 +148,18 @@ becomes
       - name: headline
         type: EssenceText
       nestable_elements:
-      - link_list_link
+      - addable_link
 
-    - name: link_list_link
+    - name: addable_link
       contents:
       - name: link
         type: EssenceText
         settings:
           linkable: true
 
-Also update your element view partials, so they use the `element.nested_elements` collection
-instead of the `element.contents.named` collection.
+It will also update your element view partials and render the child elements after all other
+partials. Any call to `element.contents.named` that refers to previously `available_contents` should
+be replaced by a call to the `element.nested_elements`.
 
 ## Example:
 
@@ -58,8 +174,18 @@ becomes
 The code for the available contents button in the element editor partial can be removed
 without replacement. The nested elements editor partials render automatically.
 
+    $ rake alchemy:upgrade
+    $ rake alchemy:install:migrations
+    $ rake db:migrate
+
 NOTE
       todo notice, 'Alchemy v4.0 changes'
     end
+
+    def convert_available_contents
+      Alchemy::Upgrader::FourPointZeroTasks.new.convert_available_contents
+      system "rails g alchemy:elements --skip"
+    end
+
   end
 end
