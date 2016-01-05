@@ -1,5 +1,3 @@
-require 'handles_sortable_columns'
-
 module Alchemy
   module Admin
     class PagesController < Alchemy::Admin::BaseController
