@@ -47,5 +47,61 @@ module Alchemy
         end
       end
     end
+
+    describe "#prefix_locale?" do
+      subject(:prefix_locale?) { controller.prefix_locale? }
+
+      context "if multi_language? is true" do
+        before do
+          expect(controller).to receive(:multi_language?) { true }
+        end
+
+        context "and current language is not the default locale" do
+          before do
+            allow(Alchemy::Language).to receive(:current) { double(code: 'en') }
+            allow(::I18n).to receive(:default_locale) { :de }
+          end
+
+          it { expect(prefix_locale?).to be(true) }
+        end
+
+        context "and current language is the default locale" do
+          before do
+            allow(Alchemy::Language).to receive(:current) { double(code: 'de') }
+            allow(::I18n).to receive(:default_locale) { :de }
+          end
+
+          it { expect(prefix_locale?).to be(false) }
+        end
+
+        context "and passed in locale is not the default locale" do
+          subject(:prefix_locale?) { controller.prefix_locale?('en') }
+
+          before do
+            allow(::I18n).to receive(:default_locale) { :de }
+          end
+
+          it { expect(prefix_locale?).to be(true) }
+        end
+
+        context "and passed in locale is the default locale" do
+          subject(:prefix_locale?) { controller.prefix_locale?('de') }
+
+          before do
+            allow(::I18n).to receive(:default_locale) { :de }
+          end
+
+          it { expect(prefix_locale?).to be(false) }
+        end
+      end
+
+      context "if multi_language? is false" do
+        before do
+          expect(controller).to receive(:multi_language?) { false }
+        end
+
+        it { expect(prefix_locale?).to be(false) }
+      end
+    end
   end
 end

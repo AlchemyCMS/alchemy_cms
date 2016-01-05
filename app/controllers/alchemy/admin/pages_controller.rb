@@ -1,6 +1,8 @@
 module Alchemy
   module Admin
     class PagesController < Alchemy::Admin::BaseController
+      include OnPageLayout::CallbacksRunner
+
       helper 'alchemy/pages'
 
       before_action :set_translation,
@@ -14,8 +16,9 @@ module Alchemy
 
       authorize_resource class: Alchemy::Page, except: :index
 
-      # Needs to be included after +before_action+ calls, to be sure the filters are appended.
-      include OnPageLayout::CallbacksRunner
+      before_action :run_on_page_layout_callbacks,
+        if: :run_on_page_layout_callbacks?,
+        only: [:show]
 
       def index
         authorize! :index, :alchemy_admin_pages
@@ -113,7 +116,6 @@ module Alchemy
       end
 
       def link
-        @url_prefix = ""
         if configuration(:show_real_root)
           @page_root = Page.root
         else
@@ -121,13 +123,10 @@ module Alchemy
         end
         @area_name = params[:area_name]
         @content_id = params[:content_id]
-        @attachments = Attachment.all.collect { |f| [f.name, download_attachment_path(:id => f.id, :name => f.urlname)] }
-        if params[:link_urls_for] == "newsletter"
-          @url_prefix = current_server
-        end
-        if multi_language?
-          @url_prefix = "#{Language.current.code}/"
-        end
+        @attachments = Attachment.all.collect { |f|
+          [f.name, download_attachment_path(id: f.id, name: f.urlname)]
+        }
+        @url_prefix = prefix_locale? ? "#{Language.current.code}/" : ""
       end
 
       def fold
@@ -154,7 +153,10 @@ module Alchemy
 
       def visit
         @page.unlock!
-        redirect_to show_page_path(urlname: @page.urlname, locale: multi_language? ? @page.language_code : nil)
+        redirect_to show_page_path(
+          urlname: @page.urlname,
+          locale: prefix_locale? ? @page.language_code : nil
+        )
       end
 
       # Sets the page public and updates the published_at attribute that is used as cache_key

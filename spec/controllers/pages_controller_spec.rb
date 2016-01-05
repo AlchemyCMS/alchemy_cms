@@ -9,6 +9,124 @@ module Alchemy
 
     before { allow(controller).to receive(:signup_required?).and_return(false) }
 
+    describe "#index" do
+      before do
+        default_language_root
+        allow(Config).to receive(:get) do |arg|
+          arg == :redirect_index ? false : Config.parameter(arg)
+        end
+      end
+
+      it 'renders :show template' do
+        expect(alchemy_get(:index)).to render_template(:show)
+      end
+
+      context 'requesting nothing' do
+        it 'loads default language root page' do
+          alchemy_get :index
+          expect(assigns(:page)).to eq(default_language_root)
+        end
+
+        it 'sets @root_page to default language root' do
+          alchemy_get(:index)
+          expect(assigns(:root_page)).to eq(default_language_root)
+        end
+
+        context 'and the root page is not public' do
+          before do
+            default_language_root.update!(public: false)
+          end
+
+          context 'and redirect_to_public_child is set to false' do
+            before do
+              allow(Config).to receive(:get) do |arg|
+                arg == :redirect_to_public_child ? false : Config.parameter(arg)
+              end
+            end
+
+            it 'raises routing error (404)' do
+              expect {
+                alchemy_get :index
+              }.to raise_error(ActionController::RoutingError)
+            end
+          end
+
+          context 'and redirect_to_public_child is set to true' do
+            before do
+              allow(Config).to receive(:get) do |arg|
+                arg == :redirect_to_public_child ? true : Config.parameter(arg)
+              end
+            end
+
+            context 'that has a public child' do
+              let!(:public_child) do
+                create(:alchemy_page, :public, parent: default_language_root)
+              end
+
+              it 'loads this page' do
+                alchemy_get :index
+                expect(assigns(:page)).to eq(public_child)
+              end
+            end
+
+            context 'that has a non public child' do
+              let!(:non_public_child) do
+                create(:alchemy_page, parent: default_language_root)
+              end
+
+              context 'that has a public child' do
+                let!(:public_child) do
+                  create(:alchemy_page, :public, parent: non_public_child)
+                end
+
+                it 'loads this page' do
+                  alchemy_get :index
+                  expect(assigns(:page)).to eq(public_child)
+                end
+              end
+
+              context 'that has a non public child' do
+                before do
+                  create(:alchemy_page, parent: non_public_child)
+                end
+
+                it 'raises routing error (404)' do
+                  expect {
+                    alchemy_get :index
+                  }.to raise_error(ActionController::RoutingError)
+                end
+              end
+            end
+          end
+        end
+      end
+
+      context 'requesting non default locale' do
+        let!(:deutsch) do
+          create(:alchemy_language, name: 'Deutsch', code: 'de', default: false)
+        end
+
+        let!(:startseite) do
+          create :alchemy_page, :language_root,
+            language: deutsch, public: true, name: 'Startseite'
+        end
+
+        before do
+          allow(::I18n).to receive(:default_locale) { 'en' }
+        end
+
+        it 'loads the root page of that language' do
+          alchemy_get :index, locale: 'de'
+          expect(assigns(:page)).to eq(startseite)
+        end
+
+        it 'sets @root_page to root page of that language' do
+          alchemy_get :index, locale: 'de'
+          expect(assigns(:root_page)).to eq(startseite)
+        end
+      end
+    end
+
     context 'an author' do
       let(:unpublic) { create(:alchemy_page, parent: default_language_root) }
 
@@ -88,42 +206,6 @@ module Alchemy
         expect {
           alchemy_get :show, {urlname: 'doesntexist'}
         }.to raise_error(ActionController::RoutingError)
-      end
-    end
-
-    describe '#redirect_to_public_child' do
-      let(:root_page)    { create(:alchemy_page, :language_root, public: false) }
-      let(:page)         { create(:alchemy_page, parent_id: root_page.id) }
-      let(:public_page)  { create(:alchemy_page, :public, parent_id: page.id) }
-
-      before { controller.instance_variable_set("@page", root_page) }
-
-      context 'as guest user' do
-        context "with unpublished and published pages in page tree" do
-          before do
-            public_page
-            root_page.reload
-          end
-
-          it "should redirect to first public child" do
-            expect(controller).to receive(:redirect_page)
-            controller.send(:redirect_to_public_child)
-            expect(controller.instance_variable_get('@page')).to eq(public_page)
-          end
-        end
-
-        context "with only unpublished pages in page tree" do
-          before do
-            page
-            root_page.reload
-          end
-
-          it "should raise not found error" do
-            expect {
-              controller.send(:redirect_to_public_child)
-            }.to raise_error(ActionController::RoutingError)
-          end
-        end
       end
     end
 

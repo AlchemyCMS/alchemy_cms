@@ -1,12 +1,18 @@
-<% css_classes = [language.code] %>
-<% css_classes << 'active' if Alchemy::Language.current.id == language.id %>
-<% css_classes << 'first' if languages.first == language %>
-<% css_classes << 'last' if languages.last == language %>
-<% link_title = options[:show_title] ? _t("#{language.code}.title", scope: 'language_links', default: language.name) : nil %>
-
 <%= link_to(
   content_tag(:span, language.label(options[:linkname])).html_safe,
-  show_alchemy_page_path(language.pages.language_roots.first, locale: language.code),
-  class: css_classes.join(" "),
-  title: link_title
+  show_alchemy_page_path(
+    language.pages.language_roots.first,
+    locale: prefix_locale?(language.code) ? language.code : nil
+  ),
+  class: [
+    language.code,
+    Alchemy::Language.current.id == language.id ? 'active' : nil,
+    languages.first == language ? 'first' : nil,
+    languages.last == language ? 'last' : nil
+  ].compact,
+  title: options[:show_title] ? _t(
+    "#{language.code}.title",
+    scope: 'language_links',
+    default: language.name
+  ) : nil
 ) %>

@@ -186,7 +186,7 @@ module Alchemy
                 end
 
                 it "should redirect to the language root page" do
-                  expect(Language).to receive(:current).and_return(language)
+                  allow(Language).to receive(:current).and_return(language)
                   expect(alchemy_post :create).to redirect_to(show_page_path(urlname: 'lang-root'))
                 end
               end
