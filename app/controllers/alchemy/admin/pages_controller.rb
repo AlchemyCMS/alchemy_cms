@@ -24,7 +24,8 @@ module Alchemy
       # Lists all pages
       #
       def index
-        @pages = Language.current.pages
+        @query = Language.current.pages.ransack(params[:q])
+        @pages = @query.result
         @pages = @pages.page(params[:page] || 1).per(per_page_value_for_screen_size)
       end
 

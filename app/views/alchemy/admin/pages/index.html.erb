@@ -64,10 +64,7 @@
       <th class="icon"></th>
       <% %w(name urlname updated_at).each do |attribute| %>
       <th class="<%= attribute.downcase %>">
-        <%= sortable_column(
-          Alchemy::Page.human_attribute_name(attribute),
-          column: attribute
-        ) %>
+        <%= sort_link(@query, attribute, hide_indicator: true) %>
       </th>
       <% end %>
       <th><%= Alchemy::Page.human_attribute_name(:creator) %></th>
