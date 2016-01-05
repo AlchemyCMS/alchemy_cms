@@ -4,7 +4,7 @@ require 'alchemy/test_support/factories/page_factory'
 FactoryGirl.define do
 
   factory :alchemy_cell, class: 'Alchemy::Cell' do
-    page
+    association :page, factory: :alchemy_page
     name "a_cell"
   end
 end
