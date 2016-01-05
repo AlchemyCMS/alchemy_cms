@@ -5,7 +5,7 @@ module Alchemy
     before { authorize_user(:as_admin) }
 
     it "is possible to choose the parent page" do
-      parent = create(:page, name: 'Parent')
+      parent = create(:alchemy_page, name: 'Parent')
       visit new_admin_page_path
       select 'Parent', from: 'page_parent_id'
       select 'Standard', from: 'page_page_layout'

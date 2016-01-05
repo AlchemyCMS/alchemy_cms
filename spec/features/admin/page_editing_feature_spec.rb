@@ -38,7 +38,7 @@ describe 'Page editing feature' do
 
     context "in configure overlay" do
       it "is possible to choose the parent page" do
-        parent = create(:page, name: 'Parent')
+        parent = create(:alchemy_page, name: 'Parent')
         visit alchemy.configure_admin_page_path(a_page)
         select 'Parent', from: 'page_parent_id'
         click_button 'Save'
