@@ -311,7 +311,7 @@ module Alchemy
 
       describe '#destroy' do
         let(:clipboard) { session[:alchemy_clipboard] = {} }
-        let(:page)      { create(: alchemy_page, :public) }
+        let(:page)      { create(:alchemy_page, :public) }
 
         before do
           clipboard['pages'] = [{'id' => page.id.to_s}]
