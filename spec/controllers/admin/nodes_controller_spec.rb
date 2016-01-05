@@ -2,16 +2,16 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::NodesController do
-    let(:user) { editor_user }
-
-    before { sign_in(user) }
+    before do
+      authorize_user(:as_editor)
+    end
 
     describe '#index' do
       let!(:root_node)  { Node.root }
       let!(:child_node) { create(:node, parent_id: root_node.id) }
 
       it "loads only root nodes from current language" do
-        get :index
+        alchemy_get :index
         expect(assigns('nodes').to_a).to eq([root_node])
         expect(assigns('nodes').to_a).to_not eq([child_node])
       end
@@ -19,13 +19,13 @@ module Alchemy
 
     describe '#new' do
       it "sets the current language" do
-        get :new
+        alchemy_get :new
         expect(assigns('node').language).to eq(Language.current)
       end
 
       context 'with parent id in params' do
         it "sets it to node" do
-          get :new, parent_id: 1
+          alchemy_get :new, parent_id: 1
           expect(assigns('node').parent_id).to eq(1)
         end
       end
@@ -34,7 +34,7 @@ module Alchemy
     describe '#create' do
       context 'with valid params' do
         it "redirects to nodes path" do
-          post :create, node: {name: 'Node', language_id: Language.current.id}
+          alchemy_post :create, node: {name: 'Node', language_id: Language.current.id}
           expect(response).to redirect_to(admin_nodes_path)
         end
       end
@@ -45,7 +45,7 @@ module Alchemy
 
       context 'with valid params' do
         it "redirects to nodes path" do
-          put :update, id: node.id, node: {name: 'Node'}
+          alchemy_put :update, id: node.id, node: {name: 'Node'}
           expect(response).to redirect_to(admin_nodes_path)
         end
       end
