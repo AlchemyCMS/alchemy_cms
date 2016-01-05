@@ -183,7 +183,7 @@ module Alchemy
       end
 
       def load_locked_pages
-        @locked_pages = Page.from_current_site.all_locked_by(current_alchemy_user)
+        @locked_pages = Page.from_current_site.locked_by(current_alchemy_user)
       end
 
       def redirect_path_after_create_page
