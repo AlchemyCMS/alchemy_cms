@@ -32,6 +32,10 @@ module Alchemy
       respond_to { |format| send_image(@picture.image_file, format) }
     end
 
+    def resource_url_proxy
+      alchemy
+    end
+
     private
 
     def ensure_secure_params

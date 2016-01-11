@@ -18,7 +18,7 @@ module Alchemy
           li_s << content_tag('li', name: tag.name, class: tag_list_tag_active?(tag, params) ? 'active' : nil) do
             link_to(
               "#{tag.name} (#{tag.count})",
-              url_for(
+              resource_url_proxy.url_for(
                 params.delete_if { |k, v| k == "page" }.merge(
                   action: 'index',
                   tagged_with: tags
