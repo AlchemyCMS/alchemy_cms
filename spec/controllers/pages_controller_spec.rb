@@ -3,9 +3,21 @@ require 'spec_helper'
 
 module Alchemy
   describe PagesController do
-    let(:default_language)      { Language.default }
-    let(:default_language_root) { create(:alchemy_page, :language_root, language: default_language, name: 'Home', public: true) }
-    let(:page) { create(:alchemy_page, :public, parent_id: default_language_root.id, page_layout: 'news', name: 'News', urlname: 'news', language: default_language, do_not_autogenerate: false) }
+    let(:default_language) { Language.default }
+
+    let(:default_language_root) do
+      create(:alchemy_page, :language_root, language: default_language, name: 'Home')
+    end
+
+    let(:page) do
+      create :alchemy_page, :public,
+        parent_id: default_language_root.id,
+        page_layout: 'news',
+        name: 'News',
+        urlname: 'news',
+        language: default_language,
+        do_not_autogenerate: false
+    end
 
     before { allow(controller).to receive(:signup_required?).and_return(false) }
 
@@ -34,7 +46,7 @@ module Alchemy
 
         context 'and the root page is not public' do
           before do
-            default_language_root.update!(public: false)
+            default_language_root.update!(public_on: nil)
           end
 
           context 'and redirect_to_public_child is set to false' do
@@ -108,7 +120,8 @@ module Alchemy
 
         let!(:startseite) do
           create :alchemy_page, :language_root,
-            language: deutsch, public: true, name: 'Startseite'
+            language: deutsch,
+            name: 'Startseite'
         end
 
         before do
