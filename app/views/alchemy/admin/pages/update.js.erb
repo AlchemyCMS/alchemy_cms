@@ -11,7 +11,7 @@
 <% if @while_page_edit -%>
 
   Alchemy.reloadPreview();
-  $('#page_<%= @page.id %>_status').replaceWith('<%= j render("page_status") %>');
+  $('#page_<%= @page.id %>_status').replaceWith('<%= j render("page_status", page: @page) %>');
 
 <% else -%>
 
