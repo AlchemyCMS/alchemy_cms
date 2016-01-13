@@ -162,7 +162,7 @@ module Alchemy
     end
 
     describe 'accessing restricted pages' do
-      let!(:restricted_page) { create(:alchemy_page, :restricted, public: true) }
+      let!(:restricted_page) { create(:alchemy_page, :restricted, public_on: Time.current) }
 
       context 'as a guest user' do
         it "I am not able to visit the page" do

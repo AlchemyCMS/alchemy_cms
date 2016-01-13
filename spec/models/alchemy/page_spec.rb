@@ -182,25 +182,45 @@ module Alchemy
           end
         end
 
-        context "public has changed" do
-          it "should update published_at" do
-            expect {
-              page.update_attributes!(public: true)
-            }.to change { page.read_attribute(:published_at) }
+        context "page is public" do
+          before do
+            expect(page).to receive(:public?) { true }
           end
 
-          it "should not update already set published_at" do
-            page.update_attributes!(published_at: 2.weeks.ago)
-            expect {
-              page.update_attributes!(public: true)
-            }.to_not change { page.read_attribute(:published_at) }
+          context "and published_at is nil" do
+            before do
+              expect(page).to receive(:published_at) { nil }
+            end
+
+            it "should set published_at" do
+              expect {
+                page.save!
+              }.to change { page.read_attribute(:published_at) }
+            end
+          end
+
+          context "and published_at is already set" do
+            before do
+              expect(page).to receive(:published_at) { 2.weeks.ago }
+            end
+
+            it "should not set published_at" do
+              expect {
+                page.save!
+              }.not_to change { page.read_attribute(:published_at) }
+            end
           end
         end
 
-        context "public has not changed" do
+        context "page is not public" do
+          before do
+            expect(page).to receive(:public?) { false }
+          end
+
           it "should not update published_at" do
-            page.update_attributes!(name: 'New Name')
-            expect(page.read_attribute(:published_at)).to be_nil
+            expect {
+              page.save!
+            }.not_to change { page.read_attribute(:published_at) }
           end
         end
       end
@@ -505,21 +525,50 @@ module Alchemy
 
     describe '.copy' do
       let(:page) { create(:alchemy_page, name: 'Source') }
+
       subject { Page.copy(page) }
 
       it "the copy should have added (copy) to name" do
         expect(subject.name).to eq("#{page.name} (Copy)")
       end
 
+      context 'a visible page' do
+        let(:page) { create(:alchemy_page, name: 'Source', visible: true) }
+
+        it "the copy should not be visible" do
+          expect(subject.visible).to be(false)
+        end
+      end
+
+      context 'a public page' do
+        let(:page) { create(:alchemy_page, :public, name: 'Source', public_until: Time.current) }
+
+        it "the copy should not be public" do
+          expect(subject.public_on).to be(nil)
+          expect(subject.public_until).to be(nil)
+        end
+      end
+
+      context 'a locked page' do
+        let(:page) do
+          create(:alchemy_page, :public, name: 'Source', locked: true, locked_by: 1)
+        end
+
+        it "the copy should not be locked" do
+          expect(subject.locked).to be(false)
+          expect(subject.locked_by).to be(nil)
+        end
+      end
+
       context "page with tags" do
-        before { page.tag_list = 'red, yellow'; page.save }
+        before do
+          page.tag_list = 'red, yellow'
+          page.save!
+        end
 
         it "the copy should have source tag_list" do
-          # The order of tags varies between postgresql and sqlite/mysql
-          # This is related to acts-as-taggable-on v.2.4.1
-          # To fix the spec we sort the tags until the issue is solved (https://github.com/mbleigh/acts-as-taggable-on/issues/363)
           expect(subject.tag_list).not_to be_empty
-          expect(subject.tag_list.sort).to eq(page.tag_list.sort)
+          expect(subject.tag_list).to match_array(page.tag_list)
         end
       end
 
@@ -555,7 +604,11 @@ module Alchemy
       context "page with autogenerate elements" do
         before do
           page = create(:alchemy_page)
-          allow(page).to receive(:definition).and_return({'name' => 'standard', 'elements' => ['headline'], 'autogenerate' => ['headline']})
+          allow(page).to receive(:definition).and_return({
+            'name' => 'standard',
+            'elements' => ['headline'],
+            'autogenerate' => ['headline']
+          })
         end
 
         it "the copy should not autogenerate elements" do
@@ -687,11 +740,34 @@ module Alchemy
       end
     end
 
-    describe '.public' do
-      it "should return pages that are public" do
-        create(:alchemy_page, :public, name: 'First Public Child', parent_id: language_root.id, language: language)
-        create(:alchemy_page, :public, name: 'Second Public Child', parent_id: language_root.id, language: language)
-        expect(Page.published.size).to eq(3)
+    describe '.published' do
+      subject(:published) { Page.published }
+
+      let!(:public_one) do
+        create :alchemy_page, :public,
+          name: 'First Public Child',
+          parent_id: language_root.id,
+          language: language
+      end
+
+      let!(:public_two) do
+        create :alchemy_page, :public,
+          name: 'Second Public Child',
+          parent_id: language_root.id,
+          language: language
+      end
+
+      let!(:non_public_page) do
+        create :alchemy_page,
+          name: 'Non Public Child',
+          parent_id: language_root.id,
+          language: language
+      end
+
+      it "returns public available pages" do
+        expect(published).to include(public_one)
+        expect(published).to include(public_two)
+        expect(published).to_not include(non_public_page)
       end
     end
 
@@ -1194,12 +1270,23 @@ module Alchemy
 
     describe '#first_public_child' do
       before do
-        create(:alchemy_page, name: "First child", language: language, public: false, parent_id: language_root.id)
+        create :alchemy_page,
+          name: "First child",
+          language: language,
+          parent_id: language_root.id
       end
 
-      it "should return first_public_child" do
-        first_public_child = create(:alchemy_page, :public, name: "First public child", language: language, parent_id: language_root.id)
-        expect(language_root.first_public_child).to eq(first_public_child)
+      context "with existing public child" do
+        let!(:first_public_child) do
+          create :alchemy_page, :public,
+          name: "First public child",
+          language: language,
+          parent_id: language_root.id
+        end
+
+        it "should return first_public_child" do
+          expect(language_root.first_public_child).to eq(first_public_child)
+        end
       end
 
       it "should return nil if no public child exists" do
@@ -1340,7 +1427,7 @@ module Alchemy
       let(:center_page)     { create(:alchemy_page, :public, name: 'Center Page') }
       let(:next_page)       { create(:alchemy_page, :public, name: 'Next Page') }
       let(:non_public_page) { create(:alchemy_page, name: 'Not public Page') }
-      let(:restricted_page) { create(:alchemy_page, :restricted, public: true) }
+      let(:restricted_page) { create(:alchemy_page, :restricted, :public) }
 
       before do
         public_page
@@ -1404,22 +1491,84 @@ module Alchemy
       end
     end
 
-    describe '#publish!' do
-      let(:page) { build_stubbed(:alchemy_page, public: false) }
-      let(:current_time) { Time.current }
+    describe '#public?' do
+      subject { page.public? }
 
-      before do
-        current_time
-        allow(Time).to receive(:now).and_return(current_time)
-        page.publish!
+      context "when public_on is not set" do
+        let(:page) { create(:alchemy_page, public_on: nil) }
+
+        it { is_expected.to be(false) }
       end
 
-      it "sets public attribute to true" do
-        expect(page.public).to eq(true)
+      context "when public_on is set to past date" do
+        context "and public_until is set to nil" do
+          let(:page) do
+            create :alchemy_page,
+              public_on: Time.current - 2.days,
+              public_until: nil
+          end
+
+          it { is_expected.to be(true) }
+        end
+
+        context "and public_until is set to future date" do
+          let(:page) do
+            create :alchemy_page,
+              public_on: Time.current - 2.days,
+              public_until: Time.current + 2.days
+          end
+
+          it { is_expected.to be(true) }
+        end
+
+        context "and public_until is set to past date" do
+          let(:page) do
+            create :alchemy_page,
+              public_on: Time.current - 2.days,
+              public_until: Time.current - 1.days
+          end
+
+          it { is_expected.to be(false) }
+        end
+      end
+
+      context "when public_on is set to future date" do
+        let(:page) { create(:alchemy_page, public_on: Time.current + 2.days) }
+
+        it { is_expected.to be(false) }
+      end
+    end
+
+    describe '#publish!' do
+      let(:current_time) { Time.current }
+      let(:page) { create(:alchemy_page) }
+
+      subject(:publish!) { page.publish! }
+
+      before do
+        allow(Time).to receive(:current).and_return(current_time)
+      end
+
+      it "sets public_on attribute to current time" do
+        expect {
+          publish!
+        }.to change(page, :public_on).to(current_time)
       end
 
       it "sets published_at attribute to current time" do
-        expect(page.published_at).to eq(current_time)
+        expect {
+          publish!
+        }.to change(page, :published_at).to(current_time)
+      end
+
+      context "when page public state expired" do
+        let(:page) { create(:alchemy_page, public_until: 2.days.ago) }
+
+        it "sets public_until attribute to nil" do
+          expect {
+            publish!
+          }.to change(page, :public_until).to(nil)
+        end
       end
     end
 
@@ -1818,7 +1967,9 @@ module Alchemy
     end
 
     context 'page status methods' do
-      let(:page) { build(:alchemy_page, public: true, visible: true, restricted: false, locked: false) }
+      let(:page) do
+        build(:alchemy_page, :public, visible: true, restricted: false, locked: false)
+      end
 
       describe '#status' do
         it "returns a combined status hash" do

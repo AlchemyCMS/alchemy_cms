@@ -8,7 +8,7 @@
     <label class="control-label"><%= Alchemy.t(:page_status) %></label>
     <div class="control_group">
       <label class="checkbox">
-        <%= f.check_box :public %>
+        <%= f.check_box :public_on, {checked: @page.public?}, Time.current %>
         <%= f.object.class.human_attribute_name :public %>
       </label>
       <label class="checkbox">

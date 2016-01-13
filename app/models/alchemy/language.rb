@@ -165,7 +165,7 @@ module Alchemy
     end
 
     def unpublish_pages
-      pages.update_all(public: false)
+      pages.update_all(public_on: nil, public_until: nil)
     end
   end
 end

@@ -22,7 +22,8 @@ module Alchemy
       def combined_page_status(page)
         page.status.map do |state, _value|
           next if state == :locked
-          val = content_tag(:span, '', class: page.send(state) ? "page_status #{state}" : "page_status not_#{state}")
+          css_class = page.send("#{state}?") ? "page_status #{state}" : "page_status not_#{state}"
+          val = content_tag(:span, '', class: css_class)
           val + page.status_title(state)
         end.delete_if(&:blank?).join("<br>").html_safe
       end
