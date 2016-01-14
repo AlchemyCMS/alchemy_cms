@@ -157,15 +157,60 @@ module Alchemy
       end
     end
 
-    context 'an author' do
-      let(:unpublic) { create(:alchemy_page, parent: default_language_root) }
+    describe 'requesting a not yet public page' do
+      let(:not_yet_public) do
+        create :alchemy_page,
+          parent: default_language_root,
+          public_on: 1.day.from_now
+      end
 
-      before { authorize_user(:as_author) }
-
-      it "should not be able to visit a unpublic page" do
+      it "renders 404" do
         expect {
-          alchemy_get :show, urlname: unpublic.urlname
+          alchemy_get :show, urlname: not_yet_public.urlname
         }.to raise_error(ActionController::RoutingError)
+      end
+    end
+
+    describe 'requesting a no longer public page' do
+      let(:no_longer_public) do
+        create :alchemy_page,
+          parent: default_language_root,
+          public_on: 2.days.ago,
+          public_until: 1.day.ago
+      end
+
+      it "renders 404" do
+        expect {
+          alchemy_get :show, urlname: no_longer_public.urlname
+        }.to raise_error(ActionController::RoutingError)
+      end
+    end
+
+    describe 'requesting a still public page' do
+      let(:still_public_page) do
+        create :alchemy_page,
+          parent: default_language_root,
+          public_on: 2.days.ago,
+          public_until: 1.day.from_now
+      end
+
+      it "renders page" do
+        alchemy_get :show, urlname: still_public_page.urlname
+        expect(response).to be_success
+      end
+    end
+
+    describe 'requesting a page without time limit' do
+      let(:still_public_page) do
+        create :alchemy_page,
+          parent: default_language_root,
+          public_on: 2.days.ago,
+          public_until: nil
+      end
+
+      it "renders page" do
+        alchemy_get :show, urlname: still_public_page.urlname
+        expect(response).to be_success
       end
     end
 
