@@ -3,7 +3,6 @@
 //= require jquery2
 //= require jquery_ujs
 //= require turbolinks
-//= require jquery-ui/datepicker
 //= require jquery-ui/draggable
 //= require jquery-ui/effect-drop
 //= require jquery-ui/effect-fade

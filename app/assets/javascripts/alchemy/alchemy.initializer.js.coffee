@@ -60,7 +60,7 @@ Turbolinks.enableProgressBar()
 
 # Turbolinks DOM Ready
 $(document).on 'page:change', ->
-  Alchemy.Initializer()
+  Alchemy.Initializer() if Alchemy.Initializer?
   return
 
 # Turbolinks before parsing a new page
