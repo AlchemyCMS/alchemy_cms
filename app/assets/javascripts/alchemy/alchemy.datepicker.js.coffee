@@ -3,30 +3,38 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 $.extend Alchemy,
 
   Datepicker: (scope) ->
-    browserHasDatepicker = Alchemy.isiOS
-    datepicker_options =
-      dateFormat: "yy-mm-dd"
-      changeMonth: true
-      changeYear: true
-      showWeek: true
-      showButtonPanel: true
-      showOtherMonths: true
-      onSelect: ->
+    options =
+      format: "Y/m/d H:i"
+      formatDate: "Y/m/d"
+      formatTime: "H:i"
+      onSelectDate: ->
         Alchemy.setElementDirty $(this).closest(".element-editor")
 
     if Alchemy.locale is "de"
-      $.extend datepicker_options,
-        dateFormat: "dd.mm.yy"
-        firstDay: 1
-        dayNames: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
-        dayNamesMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
-        monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
-        monthNamesShort: ["Jan", "Feb", "Mär", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Okt", "Nov", "Dez"]
-        closeText: "Ok"
-        currentText: "Heute"
-        weekHeader: "KW"
-        nextText: "nächster"
-        prevText: "vorheriger"
+      $.extend options,
+        format: "d.m.Y H:i"
+        formatDate: "d.m.Y"
+        dayOfWeekStart: 1
 
-    # Initializes the jQueryUI datepicker and disables the browsers default Datepicker unless the browser is iOS.
-    $('input[type="date"], input.date', scope).datepicker(datepicker_options).prop "type", "text" unless browserHasDatepicker
+    datepicker_options = $.extend {}, options,
+      format: options.formatDate
+      timepicker: false
+
+    timepicker_options = $.extend {}, options,
+      format: options.formatTime
+      datepicker: false
+
+    $.datetimepicker.setLocale(Alchemy.locale);
+
+    # Initializes the datepickers and disables the browsers default Datepicker
+    # unless the browser is iOS.
+    $('input[type="date"], input.date', scope)
+      .datetimepicker(datepicker_options).prop "type", "text" unless Alchemy.isiOS
+
+    $('input[type="time"], input.time', scope)
+      .datetimepicker(timepicker_options).prop "type", "text" unless Alchemy.isiOS
+
+    $('input[type="datetime"], input.datetime', scope)
+      .datetimepicker(options).prop "type", "text" unless Alchemy.isiOS
+
+    return
