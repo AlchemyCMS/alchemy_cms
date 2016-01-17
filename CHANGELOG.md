@@ -8,6 +8,7 @@ __New Features__
 when it is defined.
 * Adds time based published pages: The public status of a page is now made of two time stamps:
   `public_on` and `public_until`
+* Send page expiration cache headers
 
 __Notable Changes__
 
