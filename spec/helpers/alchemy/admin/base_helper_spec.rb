@@ -215,17 +215,38 @@ module Alchemy
     end
 
     describe '#alchemy_datepicker' do
-      subject { alchemy_datepicker(essence, :date, {value: now}) }
+      subject { alchemy_datepicker(essence, :date, {value: value, type: type}) }
 
       let(:essence) { EssenceDate.new }
-      let(:now)     { Time.current }
+      let(:value) { nil }
+      let(:type) { nil }
 
       it "renders a date field" do
         is_expected.to have_selector("input[type='date']")
       end
 
-      it "sets default date as value" do
-        is_expected.to have_selector("input[value='#{::I18n.l(now, format: :datepicker)}']")
+      context "when datetime given as type" do
+        let(:type) { :datetime }
+
+        it "renders a datetime field" do
+          is_expected.to have_selector("input[type='datetime']")
+        end
+      end
+
+      context "when time given as type" do
+        let(:type) { :time }
+
+        it "renders a time field" do
+          is_expected.to have_selector("input[type='time']")
+        end
+      end
+
+      context "with date given as value" do
+        let(:value) { Time.now }
+
+        it "sets given date as value" do
+          is_expected.to have_selector("input[value='#{::I18n.l(value, format: :datepicker)}']")
+        end
       end
 
       context 'with date stored on object' do
