@@ -6,6 +6,8 @@ __New Features__
 
 * `MessagesMailer` (formerly known as `Messages`) now inherits from `ApplicationMailer`
 when it is defined.
+* Adds time based published pages: The public status of a page is now made of two time stamps:
+  `public_on` and `public_until`
 
 __Notable Changes__
 

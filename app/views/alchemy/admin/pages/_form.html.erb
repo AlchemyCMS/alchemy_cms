@@ -8,9 +8,24 @@
     <label class="control-label"><%= Alchemy.t(:page_status) %></label>
     <div class="control_group">
       <label class="checkbox">
-        <%= f.check_box :public_on, {checked: @page.public?}, Time.current %>
+        <%= check_box_tag :page_public, nil, @page.public?, name: nil,
+          data: {date_format: I18n.t(:datetimepicker, scope: 'time.formats')} %>
         <%= f.object.class.human_attribute_name :public %>
       </label>
+      <%= content_tag :div, class: [
+        @page.public_on.present? || @page.public_until.present? ? nil : 'hidden',
+        'page-publication-date-fields',
+        'input-row'
+      ] do %>
+        <div class="input-column">
+          <label><%= Alchemy.t(:from) %></label>
+          <%= alchemy_datepicker @page, :public_on, type: :datetime %>
+        </div>
+        <div class="input-column">
+          <label><%= Alchemy.t(:until) %></label>
+          <%= alchemy_datepicker @page, :public_until, type: :datetime %>
+        </div>
+      <% end %>
       <label class="checkbox">
         <%= f.check_box :visible %>
         <%= f.object.class.human_attribute_name :visible %>

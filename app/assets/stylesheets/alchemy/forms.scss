@@ -28,19 +28,19 @@ form {
     padding: $default-padding 0;
     @include pie-clearfix;
 
-    input[type="url"],
-    input[type="text"],
-    input[type="email"],
-    input[type="password"],
-    textarea,
-    .select2-container,
-    .autocomplete_tag_list,
-    .mce-tinymce {
+    > input[type="url"],
+    > input[type="text"],
+    > input[type="email"],
+    > input[type="password"],
+    > textarea,
+    > .select2-container,
+    > .autocomplete_tag_list,
+    > .mce-tinymce {
       width: $form-right-width;
       float: right;
     }
 
-    .autocomplete_tag_list {
+    > .autocomplete_tag_list {
 
       .select2-container, .select2-choices {
         width: 100%;
@@ -77,7 +77,7 @@ form {
 
       input {
         margin-right: $default-margin;
-        margin-left: $default-margin;
+        margin-left: 1px;
       }
     }
 
@@ -168,6 +168,27 @@ form {
     padding: $default-padding 0;
     text-align: right;
   }
+
+  .input-column {
+    @include box-sizing(border-box);
+    float: left;
+    padding: 0 $default-padding;
+    width: 50%;
+  }
+
+  .input-row {
+
+    .input-column {
+
+      &:first-of-type {
+        padding-left: 0;
+      }
+
+      &:last-of-type {
+        padding-right: 0;
+      }
+    }
+  }
 }
 
 textarea#essence_picture_caption {
@@ -199,4 +220,9 @@ textarea#essence_picture_caption {
   .select2-container {
     width: 100%;
   }
+}
+
+.input-column > label {
+  display: block;
+  margin-top: $default-margin +1;
 }
