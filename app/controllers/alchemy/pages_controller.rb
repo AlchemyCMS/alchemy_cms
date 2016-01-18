@@ -10,6 +10,7 @@ module Alchemy
     # Redirecting concerns. Order is important here!
     include SiteRedirects
     include LocaleRedirects
+    include ControllerCallbacks
 
     before_action :load_index_page, only: [:index]
     before_action :load_page, only: [:show]
@@ -49,6 +50,7 @@ module Alchemy
         redirect_permanently_to page_redirect_url
       else
         authorize! :index, @page
+        run_callback :pages, :show
         render_page if render_fresh_page?
       end
     end
@@ -69,6 +71,7 @@ module Alchemy
         redirect_permanently_to redirect_url
       else
         authorize! :show, @page
+        run_callback :pages, :show
         render_page if render_fresh_page?
       end
     end
