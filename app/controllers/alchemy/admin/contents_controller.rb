@@ -33,9 +33,10 @@ module Alchemy
       end
 
       def order
-        params[:content_ids].each do |id|
-          content = Content.find(id)
-          content.move_to_bottom
+        Content.transaction do
+          params[:content_ids].each_with_index do |id, idx|
+            Content.where(id: id).update_all(position: idx + 1)
+          end
         end
         @notice = _t("Successfully saved content position")
       end

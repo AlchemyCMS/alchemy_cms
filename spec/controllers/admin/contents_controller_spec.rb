@@ -60,11 +60,17 @@ module Alchemy
 
     describe "#order" do
       context "with content_ids in params" do
+        let(:element) do
+          create(:element, name: 'all_you_can_eat', create_contents_after_create: true)
+        end
+
+        let(:content_ids) { element.contents.pluck(:id).shuffle }
+
         it "should reorder the contents" do
-          content_ids = element.contents.essence_texts.pluck(:id)
-          alchemy_xhr :post, :order, {content_ids: content_ids.reverse}
+          alchemy_xhr :post, :order, {content_ids: content_ids}
+
           expect(response.status).to eq(200)
-          expect(element.contents.essence_texts.pluck(:id)).to eq(content_ids.reverse)
+          expect(element.contents(true).pluck(:id)).to eq(content_ids)
         end
       end
     end
