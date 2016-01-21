@@ -136,12 +136,28 @@ module Alchemy
         it { is_expected.to be_blank }
       end
 
+      context 'with sort_by and reverse option given' do
+        let(:options)           { {sort_by: true, reverse: true} }
+        let(:sorted_elements) { [another_element, element] }
+
+        before do
+          expect(elements).to receive(:sort_by).and_return(sorted_elements)
+          expect(sorted_elements).to receive(:reverse).and_return(elements)
+          expect(page).to receive(:find_elements).and_return(elements)
+        end
+
+        it "renders the sorted elements in reverse order" do
+          is_expected.not_to be_blank
+        end
+      end
+
       context 'with sort_by option given' do
         let(:options)         { {sort_by: 'title'} }
         let(:sorted_elements) { [another_element, element] }
 
         before do
           expect(elements).to receive(:sort_by).and_return(sorted_elements)
+          expect(elements).not_to receive(:reverse)
           expect(page).to receive(:find_elements).and_return(elements)
         end
 
