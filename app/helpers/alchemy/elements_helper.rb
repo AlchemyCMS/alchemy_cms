@@ -159,7 +159,10 @@ module Alchemy
         locals: options.delete(:locals) || {}
       }
 
-      element.store_page(@page) if part.to_sym == :view
+      if part.to_sym == :view && @page.cache_page?
+        element.store_page(@page)
+      end
+
       render "alchemy/elements/#{element.name}_#{part}", options
     rescue ActionView::MissingTemplate => e
       warning(%(
