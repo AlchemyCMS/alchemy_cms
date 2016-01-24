@@ -12,7 +12,7 @@ module Alchemy
     end
 
     describe '#render_element' do
-      subject { helper.render_element(element, part) }
+      subject { render_element(element, part) }
 
       context 'with nil element' do
         let(:element) { nil }
@@ -25,22 +25,6 @@ module Alchemy
 
         it "renders the element's view partial" do
           is_expected.to have_selector("##{element.name}_#{element.id}")
-        end
-
-        context 'when page is cached' do
-          it "stores the element within its rendered page for cache invalidation use" do
-            expect(page).to receive(:cache_page?).and_return (true)
-            expect(element).to receive(:store_page).with(page)
-            subject
-          end
-        end
-
-        context 'when page is not cached' do
-          it "does not store the element for cache invalidation & saves a db lookup" do
-            allow(page).to receive(:cache_page?).and_return (false)
-            expect(element).not_to receive(:store_page)
-            subject
-          end
         end
 
         context 'with element view partial not found' do
@@ -56,14 +40,6 @@ module Alchemy
         let(:part) {:editor}
 
         it "renders the element's editor partial" do
-          expect(helper).to receive(:render_essence_editor_by_name)
-          subject
-        end
-
-        it "does not stores the element for cache invalidation" do
-          allow(page).to receive(:cache_page?).and_return true
-
-          expect(element).not_to receive(:store_page).with(page)
           expect(helper).to receive(:render_essence_editor_by_name)
           subject
         end
