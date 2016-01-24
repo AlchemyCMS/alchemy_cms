@@ -109,5 +109,42 @@ module Alchemy
       read_attribute(:published_at) || updated_at
     end
 
+    # Returns true if the page cache control headers should be set.
+    #
+    # == Disable Alchemy's page caching globally
+    #
+    #     # config/alchemy/config.yml
+    #     ...
+    #     cache_pages: false
+    #
+    # == Disable caching on page layout level
+    #
+    #     # config/alchemy/page_layouts.yml
+    #     - name: contact
+    #       cache: false
+    #
+    # == Note:
+    #
+    # This only sets the cache control headers and skips rendering of the page body,
+    # if the cache is fresh.
+    # This does not disable the fragment caching in the views.
+    # So if you don't want a page and it's elements to be cached,
+    # then be sure to not use <% cache element %> in the views.
+    #
+    # @returns Boolean
+    #
+    def cache_page?
+      return false unless caching_enabled?
+      page_layout = PageLayout.get(self.page_layout)
+      page_layout['cache'] != false && page_layout['searchresults'] != true
+    end
+
+    private
+
+    def caching_enabled?
+      Alchemy::Config.get(:cache_pages) &&
+        Rails.application.config.action_controller.perform_caching
+    end
+
   end
 end

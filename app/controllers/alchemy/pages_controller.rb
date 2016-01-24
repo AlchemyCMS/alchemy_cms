@@ -179,38 +179,6 @@ module Alchemy
       end
     end
 
-    # Returns true if the page cache control headers should be set.
-    #
-    # == Disable Alchemy's page caching globally
-    #
-    #     # config/alchemy/config.yml
-    #     ...
-    #     cache_pages: false
-    #
-    # == Disable caching on page layout level
-    #
-    #     # config/alchemy/page_layouts.yml
-    #     - name: contact
-    #       cache: false
-    #
-    # == Note:
-    #
-    # This only sets the cache control headers and skips rendering of the page body,
-    # if the cache is fresh.
-    # This does not disable the fragment caching in the views.
-    # So if you don't want a page and it's elements to be cached,
-    # then be sure to not use <% cache element %> in the views.
-    #
-    # @returns Boolean
-    #
-    def cache_page?
-      return false if @page.nil? ||
-        !Rails.application.config.action_controller.perform_caching ||
-        !Alchemy::Config.get(:cache_pages)
-      page_layout = PageLayout.get(@page.page_layout)
-      page_layout['cache'] != false && page_layout['searchresults'] != true
-    end
-
     # Returns the etag used for response headers.
     #
     # If a user is logged in, we append theirs etag to prevent caching of user related content.
@@ -229,7 +197,7 @@ module Alchemy
     # or the cache is stale, because it's been republished by the user.
     #
     def render_fresh_page?
-      !cache_page? || stale?(etag: page_etag,
+      !@page.cache_page? || stale?(etag: page_etag,
         last_modified: @page.published_at,
         public: !@page.restricted)
     end
