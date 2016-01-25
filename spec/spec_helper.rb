@@ -26,7 +26,6 @@ require 'alchemy/test_support/factories'
 
 require_relative "support/hint_examples.rb"
 require_relative "support/transformation_examples.rb"
-require_relative "support/rspec-activemodel-mocks_patch.rb"
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
