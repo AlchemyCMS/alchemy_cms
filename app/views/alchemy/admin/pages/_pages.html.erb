@@ -107,7 +107,7 @@
         <%- end -%>
       </div>
     </div>
-    <%- if @sorting || (!page.folded?(current_alchemy_user) && page_has_children) -%>
+    <%- if @sorting || (page_has_children && !page.folded?(current_alchemy_user)) -%>
       <ul id="page_<%= page.id %>_children" class="level_<%= level %>_children">
     <%- elsif !tree[i + 1] || tree[i + 1][1] < level -%>
       <%- (level - (tree[i + 1] ? tree[i + 1][1] : 1)).times do -%></li></ul><%- end -%>
