@@ -67,6 +67,7 @@ Alchemy::Engine.routes.draw do
         get :create_language
         get :link
         get :sort
+        get :tree
       end
       member do
         post :unlock

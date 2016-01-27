@@ -1,3 +1,4 @@
+# coding: utf-8
 module Alchemy
   module Admin
     class PagesController < Alchemy::Admin::BaseController
@@ -7,12 +8,12 @@ module Alchemy
         except: [:show]
 
       before_action :load_page,
-        only: [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold]
+        only: [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold, :tree]
 
       before_action :set_root_page,
         only: [:index, :show, :sort, :order]
 
-      authorize_resource class: Alchemy::Page, except: :index
+      authorize_resource class: Alchemy::Page, except: [:index, :tree]
 
       def index
         authorize! :index, :alchemy_admin_pages
@@ -23,6 +24,41 @@ module Alchemy
           @language = Language.current
           @languages_with_page_tree = Language.with_root_page
         end
+      end
+
+      # Returns all pages as a tree from the root given by the id parameter
+      #
+      def tree
+        authorize! :tree, :alchemy_admin_pages
+
+        tree = []
+        path = [{id: @page.parent_id, children: tree}]
+
+        @page.self_and_descendants.each do |page|
+          if page.parent_id != path.last[:id]
+            if path.map{ |o| o[:id] }.include?(page.parent_id) # Lower level
+              path.pop while path.last[:id] != page.parent_id
+            else # One level up
+              path << path.last[:children].last
+            end
+          end
+
+          path.last[:children] << {
+            id: page.id,
+            name: page.name,
+            can_info: can?(:info, page),
+            can_configure: can?(:configure, page),
+            can_copy: can?(:copy, page),
+            can_destroy: can?(:destroy, page),
+            can_create: can?(:create, Alchemy::Page),
+            public: page.public?,
+            visible: page.visible?,
+            restrictred: page.restricted?,
+            children: []
+          }
+        end
+
+        render json: tree
       end
 
       # Used by page preview iframe in Page#edit view.

@@ -55,6 +55,10 @@ module Alchemy
         end
       end
 
+      describe '#tree' do
+
+      end
+
       describe "#flush" do
         let(:content_page_1) { create(:public_page, name: "content page 1", published_at: Time.current - 5.days) }
         let(:content_page_2) { create(:public_page, name: "content page 2", published_at: Time.current - 8.days) }
