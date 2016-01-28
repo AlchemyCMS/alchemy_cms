@@ -56,7 +56,47 @@ module Alchemy
       end
 
       describe '#tree' do
+        let(:page_1) { FactoryGirl.create(:page, visible: true) }
+        let(:page_2) { FactoryGirl.create(:page, visible: true, parent_id: page_1.id) }
+        let(:page_3) { FactoryGirl.create(:page, visible: true, parent_id: page_2.id) }
+        let(:pages)  { [page_1, page_2, page_3] }
 
+        before do
+          pages
+        end
+
+        it 'returns a tree as JSON' do
+          alchemy_get :tree, id: page_1.id
+
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+
+          result = JSON.parse(response.body)
+
+          expect(result).to have_key('pages')
+          expect(result['pages'].count).to eq(1)
+
+          page = result['pages'].first
+
+          expect(page).to have_key('id')
+          expect(page['id']).to eq(page_1.id)
+          expect(page).to have_key('children')
+          expect(page['children'].count).to eq(1)
+
+          page = page['children'].first
+
+          expect(page).to have_key('id')
+          expect(page['id']).to eq(page_2.id)
+          expect(page).to have_key('children')
+          expect(page['children'].count).to eq(1)
+
+          page = page['children'].first
+
+          expect(page).to have_key('id')
+          expect(page['id']).to eq(page_3.id)
+          expect(page).to have_key('children')
+          expect(page['children'].count).to eq(0)
+        end
       end
 
       describe "#flush" do
