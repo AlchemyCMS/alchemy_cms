@@ -33,8 +33,9 @@ module Alchemy
 
         tree = []
         path = [{id: @page.parent_id, children: tree}]
+        page_list = @page.self_and_descendants
 
-        @page.self_and_descendants.each do |page|
+        page_list.each_with_index do |page, i|
           if page.parent_id != path.last[:id]
             if path.map{ |o| o[:id] }.include?(page.parent_id) # Lower level
               path.pop while path.last[:id] != page.parent_id
@@ -42,6 +43,9 @@ module Alchemy
               path << path.last[:children].last
             end
           end
+
+          has_children = page_list[i+1] && page_list[i+1].parent_id == page.id
+          level = path.count
 
           path.last[:children] << {
             id: page.id,
@@ -53,7 +57,21 @@ module Alchemy
             can_create: can?(:create, Alchemy::Page),
             public: page.public?,
             visible: page.visible?,
-            restrictred: page.restricted?,
+            restricted: page.restricted?,
+            public_status_title: page.status_title(:public),
+            visible_status_title: page.status_title(:visible),
+            restricted_status_title: page.status_title(:restricted),
+            page_layout: page.page_layout,
+            slug: page.slug,
+            redirects_to_external: page.redirects_to_external?,
+            locked: page.locked,
+            layout_description_missing: page.layout_description.blank?,
+            urlname: page.urlname,
+            external_urlname: page.external_urlname,
+            level: level,
+            root: level == 1,
+            folded: (has_children && page.folded?(current_alchemy_user)),
+            root_or_leaf: level == 1 || !has_children,
             children: []
           }
         end
