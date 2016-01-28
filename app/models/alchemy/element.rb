@@ -284,12 +284,12 @@ module Alchemy
     #
     # If the page is the current preview it uses the element's updated_at value as cache key.
     #
+    # Larry's Note:
+    # The following method has been monkey-patched to never use 'published_at' and always use 'updated_at'
+    # As this would cause problems for elements changed via Spree Admin (as opposed to cms/admin)
+    #
     def cache_key
-      if Page.current_preview == self.page
-        "alchemy/elements/#{id}-#{updated_at}"
-      else
-        "alchemy/elements/#{id}-#{page.published_at}"
-      end
+      "alchemy/elements/#{id}-#{updated_at}"
     end
 
     # A collection of element names that can be nested inside this element.
