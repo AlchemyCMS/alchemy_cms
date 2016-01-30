@@ -70,7 +70,7 @@ module Alchemy
             external_urlname: page.external_urlname,
             level: level,
             root: level == 1,
-            folded: (has_children && page.folded?(current_alchemy_user)),
+            folded: has_children && page.folded?(current_alchemy_user),
             root_or_leaf: level == 1 || !has_children,
             children: []
           }

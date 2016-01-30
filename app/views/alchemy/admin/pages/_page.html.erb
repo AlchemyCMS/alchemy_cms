@@ -3,7 +3,16 @@
     <div class="sitemap_left_images">
       <% unless @sorting %>
         {{#unless root_or_leaf}}
-        <%= sitemap_folder_link(page) %>
+        <%= link_to(
+          '',
+          alchemy.fold_admin_page_path(page),
+          remote: true,
+          method: :post,
+          class: "page_folder {{#if folded}}folded{{else}}collapsed{{/if}} spinner",
+          title: "{{#if folded}}#{_t('Show childpages')}{{else}}#{_t('Hide childpages')}{{/if}}",
+          id: "fold_button_{{id}}"
+        )
+        %>
         {{/unless}}
       <% end %>
       {{#if layout_description_missing}}
