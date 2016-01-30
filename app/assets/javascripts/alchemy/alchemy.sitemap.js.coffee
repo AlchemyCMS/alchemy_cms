@@ -4,12 +4,32 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 Alchemy.Sitemap =
 
   # Storing some objects.
-  init: ->
+  init: (url, page_root_id) ->
     @search_field = $("#search_field")
     @filter_field_clear = $('.js_filter_field_clear')
     @display = $('#page_filter_result')
-    @items = $(".sitemap_page", '#sitemap')
-    @_observe()
+    @sitemap_wrapper = $('#sitemap-wrapper')
+    @template = Handlebars.compile($('#sitemap-template').html())
+    list_template_regexp = new RegExp '\/' + page_root_id, 'g'
+    @list_template = $('#sitemap-list').html().replace(list_template_regexp, '/{{id}}');
+    @items = null
+    @url = url
+    @fetch()
+
+  # Fetches the sitemap from JSON
+  fetch: ->
+    self = Alchemy.Sitemap
+    request = $.ajax @url
+
+    request.done (data) ->
+      Handlebars.registerPartial('list', self.list_template)
+      self.sitemap_wrapper.html(self.template({children: data.pages}));
+      self.items = $(".sitemap_page", '#sitemap')
+      self._observe()
+
+    # TODO: Prettify this.
+    request.fail (jqXHR, status) ->
+      alert("Request failed: " + status)
 
   # Filters the sitemap
   filter: (term) ->
