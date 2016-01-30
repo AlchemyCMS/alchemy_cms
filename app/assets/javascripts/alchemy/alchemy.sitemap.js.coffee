@@ -20,12 +20,14 @@ Alchemy.Sitemap =
   fetch: ->
     self = Alchemy.Sitemap
     request = $.ajax @url
+    Alchemy.pleaseWaitOverlay()
 
     request.done (data) ->
       Handlebars.registerPartial('list', self.list_template)
       self.sitemap_wrapper.html(self.template({children: data.pages}));
       self.items = $(".sitemap_page", '#sitemap')
       self._observe()
+      Alchemy.pleaseWaitOverlay(false)
 
     # TODO: Prettify this.
     request.fail (jqXHR, status) ->
