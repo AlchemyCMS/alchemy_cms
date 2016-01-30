@@ -11,7 +11,7 @@ Alchemy.Sitemap =
     @sitemap_wrapper = $('#sitemap-wrapper')
     @template = Handlebars.compile($('#sitemap-template').html())
     list_template_regexp = new RegExp '\/' + page_root_id, 'g'
-    @list_template = $('#sitemap-list').html().replace(list_template_regexp, '/{{id}}');
+    @list_template = $('#sitemap-list').html().replace(list_template_regexp, '/{{id}}')
     @items = null
     @url = url
     @sorting = sorting
@@ -25,7 +25,7 @@ Alchemy.Sitemap =
 
     request.done (data) ->
       Handlebars.registerPartial('list', self.list_template)
-      self.sitemap_wrapper.html(self.template({children: data.pages}));
+      self.sitemap_wrapper.html(self.template({children: data.pages}))
       self.items = $(".sitemap_page", '#sitemap')
       self._observe()
       Alchemy.PageSorter.init() if self.sorting
