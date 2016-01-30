@@ -118,10 +118,10 @@
     </div>
   </div>
   {{#if children}}
-  {{#unless folded}} {{! TODO: OR SORTING}}
+  <% unless @sorting %>{{#unless folded}}<% end %>
   <ul id="page_{{id}}_children" class="level_{{level}}_children">
     {{> list}}
   </ul>
-  {{/unless}}
+  <% unless @sorting %>{{/unless}}<% end %>
   {{/if}}
 </li>

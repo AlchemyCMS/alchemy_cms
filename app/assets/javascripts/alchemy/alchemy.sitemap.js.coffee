@@ -4,7 +4,7 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 Alchemy.Sitemap =
 
   # Storing some objects.
-  init: (url, page_root_id) ->
+  init: (url, page_root_id, sorting) ->
     @search_field = $("#search_field")
     @filter_field_clear = $('.js_filter_field_clear')
     @display = $('#page_filter_result')
@@ -14,6 +14,7 @@ Alchemy.Sitemap =
     @list_template = $('#sitemap-list').html().replace(list_template_regexp, '/{{id}}');
     @items = null
     @url = url
+    @sorting = sorting
     @fetch()
 
   # Fetches the sitemap from JSON
@@ -27,6 +28,7 @@ Alchemy.Sitemap =
       self.sitemap_wrapper.html(self.template({children: data.pages}));
       self.items = $(".sitemap_page", '#sitemap')
       self._observe()
+      Alchemy.PageSorter.init() if self.sorting
       Alchemy.pleaseWaitOverlay(false)
 
     # TODO: Prettify this.
