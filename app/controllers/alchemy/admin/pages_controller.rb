@@ -8,7 +8,8 @@ module Alchemy
         except: [:show]
 
       before_action :load_page,
-        only: [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold, :tree]
+        only: [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold,
+               :tree]
 
       before_action :set_root_page,
         only: [:index, :show, :sort, :order]
@@ -37,14 +38,14 @@ module Alchemy
 
         page_list.each_with_index do |page, i|
           if page.parent_id != path.last[:id]
-            if path.map{ |o| o[:id] }.include?(page.parent_id) # Lower level
+            if path.map { |o| o[:id] }.include?(page.parent_id) # Lower level
               path.pop while path.last[:id] != page.parent_id
             else # One level up
               path << path.last[:children].last
             end
           end
 
-          has_children = page_list[i+1] && page_list[i+1].parent_id == page.id
+          has_children = page_list[i + 1] && page_list[i + 1].parent_id == page.id
           level = path.count
 
           path.last[:children] << {
