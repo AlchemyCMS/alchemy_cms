@@ -46,7 +46,7 @@ module Alchemy
         double(:column, {name: 'id', type: :integer, array: false}),
         double(:column, {name: 'starts_at', type: :datetime, array: false}),
         double(:column, {name: 'location_id', type: :integer, array: false}),
-        double(:column, {name: 'organizer_id', type: :integer, array: false}),
+        double(:column, {name: 'organizer_id', type: :integer, array: false})
       ]
     end
 
@@ -179,7 +179,7 @@ module Alchemy
           {name: "description", type: :string},
           {name: "starts_at", type: :datetime},
           {name: "location_id", type: :integer},
-          {name: "organizer_id", type: :integer},
+          {name: "organizer_id", type: :integer}
         ])
       end
 
@@ -189,13 +189,13 @@ module Alchemy
 
       it "skips attributes returned by skipped_alchemy_resource_attributes" do
         allow(Party).to receive(:skipped_alchemy_resource_attributes) { %w(hidden_value) }
-        expect(subject).to include({:name => "id", :type => :integer})
-        expect(subject).not_to include({:name => "hidden_value", :type => :string})
+        expect(subject).to include({name: "id", type: :integer})
+        expect(subject).not_to include({name: "hidden_value", type: :string})
       end
 
       context "when resource_relations are not defined" do
         it "includes the attribute" do
-          expect(subject.detect { |a| a[:name] == "location_id" }).to eq({:name => "location_id", :type => :integer})
+          expect(subject.detect { |a| a[:name] == "location_id" }).to eq({name: "location_id", type: :integer})
         end
       end
 
@@ -234,9 +234,9 @@ module Alchemy
 
       it "returns all attributes of type string" do
         is_expected.to eq([
-          {:name => "name", :type => :string},
-          {:name => "hidden_value", :type => :string},
-          {:name => "description", :type => :string}
+          {name: "name", type: :string},
+          {name: "hidden_value", type: :string},
+          {name: "description", type: :string}
         ])
       end
 
@@ -283,7 +283,7 @@ module Alchemy
       before do
         allow(Event).to receive(:alchemy_resource_relations) do
           {
-            :location => {:attr_method => "name", :attr_type => :string}
+            location: {attr_method: "name", attr_type: :string}
           }
         end
       end

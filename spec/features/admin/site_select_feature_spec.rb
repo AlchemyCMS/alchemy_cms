@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'Site select' do
-
   before do
     authorize_user(:as_admin)
   end

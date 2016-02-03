@@ -6,7 +6,7 @@ module Alchemy
       render_views
 
       let(:alchemy_page) { create(:alchemy_page, :public) }
-      let(:element) { create(:alchemy_element, :public => false, :page => alchemy_page) }
+      let(:element) { create(:alchemy_element, public: false, page: alchemy_page) }
 
       before {
         authorize_user(:as_admin)
@@ -14,13 +14,13 @@ module Alchemy
       }
 
       it "should hold trashed elements" do
-        alchemy_get :index, :page_id => alchemy_page.id
+        alchemy_get :index, page_id: alchemy_page.id
         expect(response.body).to have_selector("#element_#{element.id}.element-editor")
       end
 
       it "should not hold elements that are not trashed" do
-        element = create(:alchemy_element, :page => alchemy_page, :public => false)
-        alchemy_get :index, :page_id => alchemy_page.id
+        element = create(:alchemy_element, page: alchemy_page, public: false)
+        alchemy_get :index, page_id: alchemy_page.id
         expect(response.body).not_to have_selector("#element_#{element.id}.element-editor")
       end
 
@@ -62,7 +62,6 @@ module Alchemy
           expect(Element.trashed).to be_empty
         end
       end
-
     end
   end
 end

@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe Api::ContentsController do
-
     describe '#index' do
       let!(:page)    { create(:alchemy_page) }
       let!(:element) { create(:alchemy_element, page: page) }

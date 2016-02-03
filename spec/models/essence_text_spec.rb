@@ -17,12 +17,12 @@ module Alchemy
       end
 
       it "should return a preview text" do
-        expect(essence.preview_text).to eq("#{ingredient_value}")
+        expect(essence.preview_text).to eq(ingredient_value.to_s)
       end
 
       context "with given maxlength" do
         it "should return as much beginning characters as defined with maxlength" do
-          expect(essence.preview_text(2)).to eq("#{ingredient_value}"[0..1])
+          expect(essence.preview_text(2)).to eq(ingredient_value.to_s[0..1])
         end
       end
 
@@ -44,7 +44,6 @@ module Alchemy
 
       context 'essence responds to link_taget' do
         context 'if link_target attribute is set to "blank"' do
-
           before { essence.link_target = 'blank' }
 
           it "should return true" do
@@ -62,7 +61,6 @@ module Alchemy
 
     describe 'validations' do
       describe 'format' do
-
         context 'given a regex string' do
           before do
             allow(essence).to receive(:definition).and_return({'validate' => [{'format' => /\Ahttps:\/\/[\S]+/}]})
@@ -106,9 +104,7 @@ module Alchemy
             end
           end
         end
-
       end
     end
-
   end
 end

@@ -113,11 +113,11 @@ module Alchemy
 
     describe '.definitions' do
       it "should allow erb generated elements" do
-        expect(Element.definitions.collect { |el| el['name']} ).to include('erb_element')
+        expect(Element.definitions.collect { |el| el['name'] }).to include('erb_element')
       end
 
       context "without existing yml files" do
-        before { allow(File).to receive(:exists?).and_return(false) }
+        before { allow(File).to receive(:exist?).and_return(false) }
 
         it "should raise an error" do
           expect { Element.definitions }.to raise_error(LoadError)
@@ -297,7 +297,6 @@ module Alchemy
             expect(element.available_page_cell_names(page)).to eq(['for_other_elements'])
           end
         end
-
       end
 
       context "with page having cells defining the wrong elements" do
@@ -519,7 +518,7 @@ module Alchemy
       end
 
       context "with valid attributes hash" do
-        let(:params) { {"#{content1.id}" => {body: 'Title'}} }
+        let(:params) { {content1.id.to_s => {body: 'Title'}} }
 
         context 'when certain content is not part of the attributes hash (cause it was not filled by the user)' do
           before do
@@ -641,7 +640,7 @@ module Alchemy
 
     describe '#trash!' do
       let(:element)         { create(:alchemy_element, page_id: 1, cell_id: 1) }
-      let(:trashed_element) { element.trash! ; element }
+      let(:trashed_element) { element.trash!; element }
       subject               { trashed_element }
 
       it             { is_expected.not_to be_public }

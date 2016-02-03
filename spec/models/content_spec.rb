@@ -6,7 +6,7 @@ module Alchemy
     let(:content) { element.contents.find_by(essence_type: 'Alchemy::EssenceText') }
 
     it "should return the ingredient from its essence" do
-      content.essence.update_attributes(:body => "Hello")
+      content.essence.update_attributes(body: "Hello")
       expect(content.ingredient).to eq("Hello")
     end
 
@@ -33,13 +33,13 @@ module Alchemy
     describe '#normalized_essence_type' do
       context "without namespace in essence_type column" do
         it "should return the namespaced essence type" do
-          expect(Content.new(:essence_type => 'EssenceText').normalized_essence_type).to eq('Alchemy::EssenceText')
+          expect(Content.new(essence_type: 'EssenceText').normalized_essence_type).to eq('Alchemy::EssenceText')
         end
       end
 
       context "with namespace in essence_type column" do
         it "should return the namespaced essence type" do
-          expect(Content.new(:essence_type => 'Alchemy::EssenceText').normalized_essence_type).to eq('Alchemy::EssenceText')
+          expect(Content.new(essence_type: 'Alchemy::EssenceText').normalized_essence_type).to eq('Alchemy::EssenceText')
         end
       end
     end
@@ -92,22 +92,22 @@ module Alchemy
 
     describe '.copy' do
       before(:each) do
-        @element = create(:alchemy_element, :name => 'text', :create_contents_after_create => true)
+        @element = create(:alchemy_element, name: 'text', create_contents_after_create: true)
         @content = @element.contents.first
       end
 
       it "should create a new record with all attributes of source except given differences" do
-        copy = Content.copy(@content, {:name => 'foobar', :element_id => @element.id + 1})
+        copy = Content.copy(@content, {name: 'foobar', element_id: @element.id + 1})
         expect(copy.name).to eq('foobar')
       end
 
       it "should make a new record for essence of source" do
-        copy = Content.copy(@content, {:element_id => @element.id + 1})
+        copy = Content.copy(@content, {element_id: @element.id + 1})
         expect(copy.essence_id).not_to eq(@content.essence_id)
       end
 
       it "should copy source essence attributes" do
-        copy = Content.copy(@content, {:element_id => @element.id + 1})
+        copy = Content.copy(@content, {element_id: @element.id + 1})
         copy.essence.body == @content.essence.body
       end
     end
@@ -197,8 +197,8 @@ module Alchemy
         let(:element) { create(:alchemy_element, name: 'headline') }
 
         it "should raise error" do
-          c = Content.create(:element_id => element.id, name: 'headline')
-          expect { c.ingredient = "Welcome" }.to raise_error(EssenceMissingError)
+          content = Content.create(element_id: element.id, name: 'headline')
+          expect { content.ingredient = "Welcome" }.to raise_error(EssenceMissingError)
         end
       end
     end

@@ -1,49 +1,55 @@
 require 'spec_helper'
 
 describe Alchemy::Admin::NavigationHelper do
-  let(:alchemy_module) { {
-    'name' => 'dashboard',
-    'engine_name' => 'alchemy',
-    'navigation' => {
-      'name' => 'modules.dashboard',
-      'controller' => 'alchemy/admin/dashboard',
-      'action' => 'index',
-      'icon' => 'dashboard',
-      'sub_navigation' => [{
-        'controller' => 'alchemy/admin/layoutpages',
-        'action' => 'index'
-      }]
+  let(:alchemy_module) do
+    {
+      'name' => 'dashboard',
+      'engine_name' => 'alchemy',
+      'navigation' => {
+        'name' => 'modules.dashboard',
+        'controller' => 'alchemy/admin/dashboard',
+        'action' => 'index',
+        'icon' => 'dashboard',
+        'sub_navigation' => [{
+          'controller' => 'alchemy/admin/layoutpages',
+          'action' => 'index'
+        }]
+      }
     }
-  } }
+  end
 
-  let(:event_module) { {
-    'navigation' => {
-      'controller' => '/admin/events',
-      'action' => 'index',
-      'sub_navigation' => [{
+  let(:event_module) do
+    {
+      'navigation' => {
         'controller' => '/admin/events',
-        'action' => 'index'
-      }]
+        'action' => 'index',
+        'sub_navigation' => [{
+          'controller' => '/admin/events',
+          'action' => 'index'
+        }]
+      }
     }
-  } }
+  end
 
-  let(:event_module_with_params) { {
-    'navigation' => {
-      'controller' => '/admin/events',
-      'action' => 'index',
-      'params' => {
-          'key' => 'value'
-      },
-      'sub_navigation' => [{
+  let(:event_module_with_params) do
+    {
+      'navigation' => {
         'controller' => '/admin/events',
         'action' => 'index',
         'params' => {
-           'key' => 'value',
-           'key2' => 'value2'
-        }
-     }]
+            'key' => 'value'
+        },
+        'sub_navigation' => [{
+          'controller' => '/admin/events',
+          'action' => 'index',
+          'params' => {
+             'key' => 'value',
+             'key2' => 'value2'
+          }
+       }]
       }
-  } }
+    }
+  end
 
   let(:navigation) { alchemy_module['navigation'] }
 

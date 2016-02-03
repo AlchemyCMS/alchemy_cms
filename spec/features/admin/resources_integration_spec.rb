@@ -2,12 +2,11 @@ require 'spec_helper'
 
 describe "Resources" do
   let(:event)        { create(:event) }
-  let(:second_event) { create(:event, :name => 'My second Event', :entrance_fee => 12.32) }
+  let(:second_event) { create(:event, name: 'My second Event', entrance_fee: 12.32) }
 
   before { authorize_user(:as_admin) }
 
   describe "index view" do
-
     it "should have a button for creating a new resource items" do
       visit '/admin/events'
       expect(page).to have_selector('#toolbar div.button_with_label a.icon_button span.icon.create')
@@ -52,12 +51,11 @@ describe "Resources" do
   end
 
   describe "create resource item" do
-
     context "when form filled with valid data" do
       before do
         visit '/admin/events/new'
-        fill_in 'event_name', :with => 'My second event'
-        fill_in 'event_starts_at', :with => DateTime.new(2012, 03, 03, 20, 00)
+        fill_in 'event_name', with: 'My second event'
+        fill_in 'event_starts_at', with: DateTime.new(2012, 03, 03, 20, 00)
         click_on 'Save'
       end
 
@@ -74,7 +72,7 @@ describe "Resources" do
     context "when form filled with invalid data" do
       before do
         visit '/admin/events/new'
-        fill_in 'event_name', :with => '' #invalid!
+        fill_in 'event_name', with: '' # invalid!
         click_on 'Save'
       end
 
@@ -90,13 +88,12 @@ describe "Resources" do
         expect(page).not_to have_content("successfully created")
       end
     end
-
   end
 
   describe "updating an item" do
     before do
       visit("/admin/events/#{event.id}/edit")
-      fill_in 'event_name', :with => 'New event name'
+      fill_in 'event_name', with: 'New event name'
       click_on 'Save'
     end
 
@@ -114,7 +111,7 @@ describe "Resources" do
       event
       second_event
       visit '/admin/events'
-      within('tr', :text => 'My second Event') do
+      within('tr', text: 'My second Event') do
         click_on 'Delete'
       end
     end
@@ -128,5 +125,4 @@ describe "Resources" do
       expect(page).to have_content("Succesfully removed")
     end
   end
-
 end

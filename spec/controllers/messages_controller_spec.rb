@@ -38,7 +38,6 @@ module Alchemy
       end
 
       context "if validation of message" do
-
         before do
           allow(Element).to receive(:find_by).and_return(element)
           allow(element).to receive(:ingredient).with(:success_page).and_return('thank-you')

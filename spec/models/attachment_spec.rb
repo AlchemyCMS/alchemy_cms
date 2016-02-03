@@ -46,7 +46,6 @@ module Alchemy
     end
 
     describe 'validations' do
-
       context "having a png, but only pdf allowed" do
         before { allow(Config).to receive(:get).and_return({'allowed_filetypes' => {'attachments' => ['pdf']}}) }
 
@@ -67,7 +66,7 @@ module Alchemy
         before do
            attachment.file_name = 'my FileNämü.pdf'
            attachment.save
-         end
+        end
 
         it "should be valid" do
           expect(attachment).to be_valid
@@ -84,7 +83,6 @@ module Alchemy
           expect(attachment).not_to be_valid
         end
       end
-
     end
 
     context 'PNG image' do
@@ -240,6 +238,5 @@ module Alchemy
         it { is_expected.to be_falsey }
       end
     end
-
   end
 end

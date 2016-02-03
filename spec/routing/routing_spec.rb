@@ -146,9 +146,9 @@ describe "The Routing" do
     end
 
     it "should route to cropped mask show action" do
-      expect(get(
-        "/pictures/3/show/300x300/crop/200x50/100x100/kitten.jpg"
-      )).to route_to(
+      expect(
+        get("/pictures/3/show/300x300/crop/200x50/100x100/kitten.jpg")
+      ).to route_to(
         controller: "alchemy/pictures",
         action: "show",
         id: "3",
@@ -162,9 +162,9 @@ describe "The Routing" do
     end
 
     it "should route to thumbnail action" do
-      expect(get(
-        "/pictures/3/thumbnails/small/kitten.jpg"
-      )).to route_to(
+      expect(
+        get("/pictures/3/thumbnails/small/kitten.jpg")
+      ).to route_to(
         controller: "alchemy/pictures",
         action: "thumbnail",
         id: "3",
@@ -175,9 +175,9 @@ describe "The Routing" do
     end
 
     it "should route to cropped thumbnail action" do
-      expect(get(
-        "/pictures/3/thumbnails/small/crop/kitten.jpg"
-      )).to route_to(
+      expect(
+        get("/pictures/3/thumbnails/small/crop/kitten.jpg")
+      ).to route_to(
         controller: "alchemy/pictures",
         action: "thumbnail",
         id: "3",
@@ -189,9 +189,9 @@ describe "The Routing" do
     end
 
     it "should route to cropped and masked thumbnail" do
-      expect(get(
-        "/pictures/3/thumbnails/small/0x0/200x200/kitten.jpg"
-      )).to route_to(
+      expect(
+        get("/pictures/3/thumbnails/small/0x0/200x200/kitten.jpg")
+      ).to route_to(
         controller: "alchemy/pictures",
         action: "thumbnail",
         id: "3",
@@ -204,9 +204,9 @@ describe "The Routing" do
     end
 
     it "should route to zoomed picture" do
-      expect(get(
-        "/pictures/3/zoom/kitten.jpg"
-      )).to route_to(
+      expect(
+        get("/pictures/3/zoom/kitten.jpg")
+      ).to route_to(
         controller: "alchemy/pictures",
         action: "zoom",
         id: "3",

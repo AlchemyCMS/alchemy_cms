@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe PageLayout do
-
     describe ".all" do
       # skip memoization
       before { PageLayout.instance_variable_set("@definitions", nil) }
@@ -27,7 +26,7 @@ module Alchemy
       end
 
       context "with missing layouts file" do
-        before { expect(File).to receive(:exists?).and_return(false) }
+        before { expect(File).to receive(:exist?).and_return(false) }
 
         it "raises error empty array" do
           expect { subject }.to raise_error(LoadError)
@@ -139,6 +138,5 @@ module Alchemy
         end
       end
     end
-
   end
 end

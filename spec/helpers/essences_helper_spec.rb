@@ -3,7 +3,7 @@ require 'spec_helper'
 describe Alchemy::EssencesHelper do
   let(:element) { build_stubbed(:alchemy_element) }
   let(:content) { build_stubbed(:alchemy_content, element: element, ingredient: 'hello!') }
-  let(:essence) { mock_model('EssenceText', link: nil, partial_name: 'essence_text', ingredient: 'hello!')}
+  let(:essence) { mock_model('EssenceText', link: nil, partial_name: 'essence_text', ingredient: 'hello!') }
 
   before do
     allow_message_expectations_on_nil

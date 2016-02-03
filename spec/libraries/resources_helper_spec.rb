@@ -25,7 +25,6 @@ class ResourcesControllerForEngine
   end
 end
 
-
 describe Alchemy::ResourcesHelper do
   let(:controller) { ResourcesController.new }
   let(:resource_item) { double('resource-item') }
@@ -54,7 +53,7 @@ describe Alchemy::ResourcesHelper do
 
     describe "#resource_scope" do
       it "returns an array containing a proxy and namespaces for url_for-based helper-methods" do
-        expect(controller.resource_scope).to eq(%W[main_app_proxy admin])
+        expect(controller.resource_scope).to eq(%w[main_app_proxy admin])
       end
     end
 

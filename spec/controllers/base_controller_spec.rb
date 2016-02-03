@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe BaseController do
-
     describe '#set_locale' do
       context 'with Language.current set' do
         let(:language) { create(:alchemy_language, :klingonian) }

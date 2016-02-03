@@ -4,7 +4,6 @@ require 'spec_helper'
 
 module Alchemy
   describe Page do
-
     let(:rootpage)      { Page.root }
     let(:language)      { Language.default }
     let(:klingonian)    { create(:alchemy_language, :klingonian) }
@@ -12,7 +11,6 @@ module Alchemy
     let(:page)          { mock_model(Page, page_layout: 'foo') }
     let(:public_page)   { create(:alchemy_page, :public) }
     let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', do_not_autogenerate: false) }
-
 
     # Validations
 
@@ -126,7 +124,6 @@ module Alchemy
       end
     end
 
-
     # Callbacks
 
     context 'callbacks' do
@@ -187,7 +184,7 @@ module Alchemy
           it "should update published_at" do
             expect {
               page.update_attributes!(public: true)
-            }.to change {page.read_attribute(:published_at) }
+            }.to change { page.read_attribute(:published_at) }
           end
 
           it "should not update already set published_at" do
@@ -359,7 +356,6 @@ module Alchemy
       end
     end
 
-
     # ClassMethods (a-z)
 
     describe '.all_from_clipboard_for_select' do
@@ -500,7 +496,7 @@ module Alchemy
 
       it "contains pages with attribute :layoutpage set to nil" do
         expect(Page.contentpages.to_a.select do |page|
-          page.layoutpage == nil
+          page.layoutpage.nil?
         end).to include(klingonian_lang_root)
       end
     end
@@ -723,7 +719,6 @@ module Alchemy
         expect(Page.visible.size).to eq(1)
       end
     end
-
 
     # InstanceMethods (a-z)
 
@@ -1144,7 +1139,7 @@ module Alchemy
           end
 
           context "that can not be found" do
-            let(:elements) {[]}
+            let(:elements) { [] }
 
             before do
               allow(elements)
@@ -1179,7 +1174,7 @@ module Alchemy
 
       context "with show_non_public argument FALSE" do
         it "should return all elements from empty arguments" do
-          expect(public_page.find_elements().to_a).to eq(public_page.elements.published.to_a)
+          expect(public_page.find_elements.to_a).to eq(public_page.elements.published.to_a)
         end
 
         it "should only return the public elements passed as options[:only]" do
@@ -1249,7 +1244,7 @@ module Alchemy
 
           context 'if page is not folded' do
             it "should return false" do
-              expect(page.folded?(101093)).to eq(false)
+              expect(page.folded?(101_093)).to eq(false)
             end
           end
         end
@@ -1613,7 +1608,6 @@ module Alchemy
     end
 
     describe "#update_node!" do
-
       let(:original_url) { "sample-url" }
       let(:page) { create(:alchemy_page, language: language, parent_id: language_root.id, urlname: original_url, restricted: false) }
       let(:node) { TreeNode.new(10, 11, 12, 13, "another-url", true) }
@@ -1622,7 +1616,6 @@ module Alchemy
         before { allow(Alchemy::Config).to receive(:get).with(:url_nesting) { true } }
 
         context "when page is not external" do
-
           before do
             expect(page).to receive(:redirects_to_external?).and_return(false)
           end
@@ -1775,7 +1768,7 @@ module Alchemy
 
     describe '#slug' do
       context "with parents path saved in urlname" do
-        let(:page) { build(:alchemy_page, urlname: 'root/parent/my-name')}
+        let(:page) { build(:alchemy_page, urlname: 'root/parent/my-name') }
 
         it "should return the last part of the urlname" do
           expect(page.slug).to eq('my-name')
@@ -1783,7 +1776,7 @@ module Alchemy
       end
 
       context "with single urlname" do
-        let(:page) { build(:alchemy_page, urlname: 'my-name')}
+        let(:page) { build(:alchemy_page, urlname: 'my-name') }
 
         it "should return the last part of the urlname" do
           expect(page.slug).to eq('my-name')
@@ -1791,7 +1784,7 @@ module Alchemy
       end
 
       context "with nil as urlname" do
-        let(:page) { build(:alchemy_page, urlname: nil)}
+        let(:page) { build(:alchemy_page, urlname: nil) }
 
         it "should return nil" do
           expect(page.slug).to be_nil
@@ -1803,7 +1796,7 @@ module Alchemy
       let(:external_page) { build(:alchemy_page, page_layout: 'external') }
 
       context 'with missing protocol' do
-        before { external_page.urlname = 'google.com'}
+        before { external_page.urlname = 'google.com' }
 
         it "returns an urlname prefixed with http://" do
           expect(external_page.external_urlname).to eq 'http://google.com'
@@ -1811,7 +1804,7 @@ module Alchemy
       end
 
       context 'with protocol present' do
-        before { external_page.urlname = 'ftp://google.com'}
+        before { external_page.urlname = 'ftp://google.com' }
 
         it "returns the urlname" do
           expect(external_page.external_urlname).to eq 'ftp://google.com'
@@ -1819,7 +1812,7 @@ module Alchemy
       end
 
       context 'beginngin with a slash' do
-        before { external_page.urlname = '/internal-url'}
+        before { external_page.urlname = '/internal-url' }
 
         it "returns the urlname" do
           expect(external_page.external_urlname).to eq '/internal-url'
@@ -1828,7 +1821,7 @@ module Alchemy
     end
 
     context 'page status methods' do
-      let(:page) { build(:alchemy_page, public: true, visible: true, restricted: false, locked: false)}
+      let(:page) { build(:alchemy_page, public: true, visible: true, restricted: false, locked: false) }
 
       describe '#status' do
         it "returns a combined status hash" do

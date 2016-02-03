@@ -3,20 +3,19 @@ require 'spec_helper'
 
 module Alchemy
   describe PagesHelper do
-
     # Fixtures
-    let(:language)                 { mock_model('Language', :code => 'en') }
+    let(:language)                 { mock_model('Language', code: 'en') }
     let(:default_language)         { Language.default }
     let(:language_root)            { create(:alchemy_page, :language_root) }
     let(:public_page)              { create(:alchemy_page, :public) }
-    let(:visible_page)             { create(:alchemy_page, :public, :visible => true) }
-    let(:restricted_page)          { create(:alchemy_page, :public, :visible => true, :restricted => true) }
-    let(:level_2_page)             { create(:alchemy_page, :public, :parent_id => visible_page.id, :visible => true, :name => 'Level 2') }
-    let(:level_3_page)             { create(:alchemy_page, :public, :parent_id => level_2_page.id, :visible => true, :name => 'Level 3') }
-    let(:level_4_page)             { create(:alchemy_page, :public, :parent_id => level_3_page.id, :visible => true, :name => 'Level 4') }
+    let(:visible_page)             { create(:alchemy_page, :public, visible: true) }
+    let(:restricted_page)          { create(:alchemy_page, :public, visible: true, restricted: true) }
+    let(:level_2_page)             { create(:alchemy_page, :public, parent_id: visible_page.id, visible: true, name: 'Level 2') }
+    let(:level_3_page)             { create(:alchemy_page, :public, parent_id: level_2_page.id, visible: true, name: 'Level 3') }
+    let(:level_4_page)             { create(:alchemy_page, :public, parent_id: level_3_page.id, visible: true, name: 'Level 4') }
     let(:klingonian)               { create(:alchemy_language, :klingonian) }
-    let(:klingonian_language_root) { create(:alchemy_page, :language_root, :language => klingonian) }
-    let(:klingonian_public_page)   { create(:alchemy_page, :public, :language => klingonian, :parent_id => klingonian_language_root.id) }
+    let(:klingonian_language_root) { create(:alchemy_page, :language_root, language: klingonian) }
+    let(:klingonian_public_page)   { create(:alchemy_page, :public, language: klingonian, parent_id: klingonian_language_root.id) }
 
     before do
       helper.controller.class_eval { include Alchemy::ConfigurationMethods }
@@ -100,18 +99,18 @@ module Alchemy
           end
 
           it "should render nested page links" do
-            expect(helper.render_navigation(:all_sub_menues => true)).to have_selector("ul li a[href=\"/#{level_3_page.urlname}\"]")
+            expect(helper.render_navigation(all_sub_menues: true)).to have_selector("ul li a[href=\"/#{level_3_page.urlname}\"]")
           end
         end
       end
 
       context "with id and class in the html options" do
         it "should append id to the generated ul tag" do
-          expect(helper.render_navigation({}, {:id => 'foobar_id'})).to have_selector("ul[id='foobar_id']")
+          expect(helper.render_navigation({}, {id: 'foobar_id'})).to have_selector("ul[id='foobar_id']")
         end
 
         it "should replace the default css class from the generated ul tag" do
-          expect(helper.render_navigation({}, {:class => 'foobar_class'})).to have_selector("ul[class='foobar_class']")
+          expect(helper.render_navigation({}, {class: 'foobar_class'})).to have_selector("ul[class='foobar_class']")
         end
       end
 
@@ -220,7 +219,7 @@ module Alchemy
 
         context "beginning with level 3" do
           it "should render the navigation beginning from its parent" do
-            expect(helper.render_subnavigation(:level => 3)).to have_selector("ul > li > ul > li > a[href='/#{level_4_page.urlname}']")
+            expect(helper.render_subnavigation(level: 3)).to have_selector("ul > li > ul > li > a[href='/#{level_4_page.urlname}']")
           end
         end
       end
@@ -289,18 +288,21 @@ module Alchemy
     end
 
     describe "#render_meta_data" do
-      let(:page) { mock_model('Page',
-        language: language,
-        title: 'A Public Page',
-        meta_keywords: '',
-        meta_description: '',
-        robot_index?: false,
-        robot_follow?: false,
-        contains_feed?: false,
-        updated_at: '2011-11-29-23:00:00')
-      }
+      let(:page) do
+        mock_model('Page',
+          language: language,
+          title: 'A Public Page',
+          meta_keywords: '',
+          meta_description: '',
+          robot_index?: false,
+          robot_follow?: false,
+          contains_feed?: false,
+          updated_at: '2011-11-29-23:00:00'
+        )
+      end
 
       let(:root_page) { Page.new }
+
       before { helper.instance_variable_set('@page', page) }
 
       subject { helper.render_meta_data }
@@ -315,6 +317,7 @@ module Alchemy
 
       context "when the current page's meta keywords are set" do
         before { allow(page).to receive_messages(meta_keywords: 'keyword1, keyword2') }
+
         it "should render them" do
           is_expected.to match /meta name="keywords" content="keyword1, keyword2"/
         end
@@ -322,6 +325,7 @@ module Alchemy
 
       context "when the current page's meta description is set" do
         before { allow(page).to receive_messages(meta_description: 'blah blah') }
+
         it "should render it" do
           is_expected.to match /meta name="description" content="blah blah"/
         end
@@ -356,6 +360,7 @@ module Alchemy
 
     describe "#render_title_tag" do
       let(:page) { mock_model('Page', title: 'A Public Page') }
+
       before { helper.instance_variable_set('@page', page) }
 
       it "should render a title tag for current page" do
@@ -383,7 +388,7 @@ module Alchemy
           before { klingonian_language_root }
 
           it "should render two language links" do
-            expect(helper.language_links).to have_selector('a', :count => 2)
+            expect(helper.language_links).to have_selector('a', count: 2)
           end
 
           it "should render language links referring to their language root page" do
@@ -408,7 +413,7 @@ module Alchemy
 
           context "spacer set to '\o/'" do
             it "should render the given string as a spacer" do
-              expect(helper.language_links(spacer: '<span>\o/</span>')).to have_selector('span[contains("\o/")]', :count => 1)
+              expect(helper.language_links(spacer: '<span>\o/</span>')).to have_selector('span[contains("\o/")]', count: 1)
             end
           end
 
@@ -452,6 +457,5 @@ module Alchemy
         expect(helper.picture_essence_caption(content)).to eq "my caption"
       end
     end
-
   end
 end

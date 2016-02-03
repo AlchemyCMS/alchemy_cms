@@ -21,14 +21,14 @@ module Alchemy
       end
 
       context 'with view as part given' do
-        let(:part) {:view}
+        let(:part) { :view }
 
         it "renders the element's view partial" do
           is_expected.to have_selector("##{element.name}_#{element.id}")
         end
 
         context 'with element view partial not found' do
-          let(:element) { build_stubbed(:alchemy_element, name: 'not_present')}
+          let(:element) { build_stubbed(:alchemy_element, name: 'not_present') }
 
           it "renders the view not found partial" do
             is_expected.to match(/Missing view for not_present element/)
@@ -37,7 +37,7 @@ module Alchemy
       end
 
       context 'with editor as part given' do
-        let(:part) {:editor}
+        let(:part) { :editor }
 
         it "renders the element's editor partial" do
           expect(helper).to receive(:render_essence_editor_by_name)
@@ -45,7 +45,7 @@ module Alchemy
         end
 
         context 'with element editor partial not found' do
-          let(:element) { build_stubbed(:alchemy_element, name: 'not_present')}
+          let(:element) { build_stubbed(:alchemy_element, name: 'not_present') }
 
           it "renders the editor not found partial" do
             is_expected.to have_selector('div.error')
@@ -306,6 +306,5 @@ module Alchemy
         end
       end
     end
-
   end
 end

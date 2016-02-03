@@ -2,7 +2,6 @@ require 'spec_helper'
 require 'alchemy/tasks/helpers'
 
 module Alchemy
-
   class Foo
     extend Tasks::Helpers
   end
@@ -19,7 +18,7 @@ module Alchemy
     end
 
     before do
-      allow(File).to receive(:exists?) { true }
+      allow(File).to receive(:exist?) { true }
       allow(File).to receive(:read) do
 <<-END
 test:
@@ -207,13 +206,12 @@ END
       end
 
       context 'for missing database config file' do
-        before { allow(File).to receive(:exists?).and_return( false) }
+        before { allow(File).to receive(:exist?).and_return( false) }
 
         it "raises error" do
           expect { Foo.database_config }.to raise_error(RuntimeError)
         end
       end
     end
-
   end
 end

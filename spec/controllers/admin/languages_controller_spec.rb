@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Alchemy::Admin::LanguagesController do
-
   before do
     authorize_user(:as_admin)
   end

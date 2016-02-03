@@ -9,42 +9,46 @@ module Alchemy
 
       context "with max_images option set to emtpy string" do
         let(:options) { {max_images: ""} }
+
         it { is_expected.to eq(nil) }
       end
 
       context "with max_images option set to '1'" do
         let(:options) { {max_images: "1"} }
+
         it { is_expected.to eq(1) }
       end
 
       context "with maximum_amount_of_images option set to emtpy string" do
         let(:options) { {maximum_amount_of_images: ""} }
+
         it { is_expected.to eq(nil) }
       end
 
       context "with maximum_amount_of_images option set to '1'" do
         let(:options) { {maximum_amount_of_images: "1"} }
+
         it { is_expected.to eq(1) }
       end
     end
 
     describe "#merge_params" do
       before do
-        allow(controller).to receive(:params).and_return({:first => '1', :second => '2'})
+        allow(controller).to receive(:params).and_return({first: '1', second: '2'})
       end
 
       it "returns a hash that contains the current params and additional params given as attributes" do
-        expect(helper.merge_params(:third => '3', :fourth => '4')).to eq({:first => '1', :second => '2', :third => '3', :fourth => '4'})
+        expect(helper.merge_params(third: '3', fourth: '4')).to eq({first: '1', second: '2', third: '3', fourth: '4'})
       end
     end
 
     describe "#merge_params_without" do
       before do
-        allow(controller).to receive(:params).and_return({:first => '1', :second => '2'})
+        allow(controller).to receive(:params).and_return({first: '1', second: '2'})
       end
 
       it "can delete a single param" do
-        expect(helper.merge_params_without(:second)).to eq({:first => '1'})
+        expect(helper.merge_params_without(:second)).to eq({first: '1'})
       end
 
       it "can delete several params" do
@@ -52,35 +56,35 @@ module Alchemy
       end
 
       it "can delete a param and add new params at the same time" do
-        expect(helper.merge_params_without([:first], {:third => '3'})).to eq({:second => '2', :third => '3'})
+        expect(helper.merge_params_without([:first], {third: '3'})).to eq({second: '2', third: '3'})
       end
 
       it "should not change params" do
         helper.merge_params_without([:first])
-        expect(controller.params).to eq({:first => '1', :second => '2'})
+        expect(controller.params).to eq({first: '1', second: '2'})
       end
     end
 
     describe "#merge_params_only" do
       before do
-        allow(controller).to receive(:params).and_return({:first => '1', :second => '2', :third => '3'})
+        allow(controller).to receive(:params).and_return({first: '1', second: '2', third: '3'})
       end
 
       it "can keep a single param" do
-        expect(helper.merge_params_only(:second)).to eq({:second => '2'})
+        expect(helper.merge_params_only(:second)).to eq({second: '2'})
       end
 
       it "can keep several params" do
-        expect(helper.merge_params_only([:first, :second])).to eq({:first => '1', :second => '2'})
+        expect(helper.merge_params_only([:first, :second])).to eq({first: '1', second: '2'})
       end
 
       it "can keep a param and add new params at the same time" do
-        expect(helper.merge_params_only([:first], {:third => '3'})).to eq({:first => '1', :third => '3'})
+        expect(helper.merge_params_only([:first], {third: '3'})).to eq({first: '1', third: '3'})
       end
 
       it "should not change params" do
         helper.merge_params_only([:first])
-        expect(controller.params).to eq({:first => '1', :second => '2', :third => '3'})
+        expect(controller.params).to eq({first: '1', second: '2', third: '3'})
       end
     end
 
@@ -90,7 +94,7 @@ module Alchemy
 
         it "renders a toolbar button" do
           expect(helper.toolbar_button(
-            url: admin_dashboard_path
+                   url: admin_dashboard_path
           )).to match /<div.+class="button_with_label/
         end
       end
@@ -99,9 +103,9 @@ module Alchemy
         before { allow(helper).to receive(:can?).and_return(false) }
 
         it "returns empty string" do
-          expect(helper.toolbar_button(
-            url: admin_dashboard_path
-          )).to be_empty
+          expect(
+            helper.toolbar_button(url: admin_dashboard_path)
+          ).to be_empty
         end
       end
 
@@ -109,10 +113,12 @@ module Alchemy
         before { allow(helper).to receive(:can?).and_return(false) }
 
         it "returns the button" do
-          expect(helper.toolbar_button(
-            url: admin_dashboard_path,
-            skip_permission_check: true
-          )).to match /<div.+class="button_with_label/
+          expect(
+            helper.toolbar_button(
+              url: admin_dashboard_path,
+              skip_permission_check: true
+            )
+          ).to match /<div.+class="button_with_label/
         end
       end
 
@@ -121,10 +127,12 @@ module Alchemy
 
         it "returns reads the permission from url" do
           expect(helper).to receive(:permission_array_from_url)
-          expect(helper.toolbar_button(
-            url: admin_dashboard_path,
-            if_permitted_to: ''
-          )).not_to be_empty
+          expect(
+            helper.toolbar_button(
+              url: admin_dashboard_path,
+              if_permitted_to: ''
+            )
+          ).not_to be_empty
         end
       end
 
@@ -154,6 +162,7 @@ module Alchemy
 
     describe '#clipboard_select_tag_options' do
       let(:page) { build_stubbed(:alchemy_page) }
+
       before { helper.instance_variable_set('@page', page) }
 
       context 'with element items' do
@@ -167,6 +176,7 @@ module Alchemy
 
         context "when @page can have cells" do
           before { allow(page).to receive(:can_have_cells?).and_return(true) }
+
           it "should group the elements in the clipboard by cell" do
             expect(helper).to receive(:grouped_elements_for_select).and_return({})
             helper.clipboard_select_tag_options(clipboard_items)
@@ -207,7 +217,7 @@ module Alchemy
     describe '#alchemy_datepicker' do
       subject { alchemy_datepicker(essence, :date, {value: now}) }
 
-      let(:essence) { EssenceDate.new() }
+      let(:essence) { EssenceDate.new }
       let(:now)     { Time.now }
 
       it "renders a date field" do

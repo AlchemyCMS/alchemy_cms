@@ -211,7 +211,7 @@ module Alchemy
 
     describe "#download" do
       before do
-        expect(Attachment).to receive(:find).with("#{attachment.id}").and_return(attachment)
+        expect(Attachment).to receive(:find).with(attachment.id.to_s).and_return(attachment)
         allow(controller).to receive(:render).and_return(nil)
       end
 

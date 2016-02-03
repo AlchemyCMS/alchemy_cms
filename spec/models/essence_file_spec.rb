@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe EssenceFile do
-
     let(:attachment) { build_stubbed(:alchemy_attachment) }
     let(:essence)    { EssenceFile.new(attachment: attachment) }
 
@@ -26,7 +25,6 @@ module Alchemy
     end
 
     describe '#preview_text' do
-
       it "returns the attachment's name as preview text" do
         expect(essence.preview_text).to eq(attachment.name)
       end
@@ -38,6 +36,5 @@ module Alchemy
         end
       end
     end
-
   end
 end

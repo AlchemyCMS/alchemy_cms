@@ -45,7 +45,6 @@ describe 'Dashboard feature' do
 
   describe 'Sites widget' do
     context 'with multiple sites' do
-
       before do
         Alchemy::Site.create!(name: 'Site', host: 'site.com')
       end

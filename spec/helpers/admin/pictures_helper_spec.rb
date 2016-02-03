@@ -2,7 +2,6 @@ require 'spec_helper'
 
 describe Alchemy::Admin::PicturesHelper do
   describe "#create_or_assign_url" do
-
     let(:picture) { mock_model('Picture') }
     let(:options) { Hash.new }
 

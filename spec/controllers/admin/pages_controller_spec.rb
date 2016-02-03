@@ -3,7 +3,6 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::PagesController do
-
     context 'a guest' do
       it 'can not access page tree' do
         alchemy_get :index
@@ -107,7 +106,7 @@ module Alchemy
         let(:page) { build_stubbed(:alchemy_page, language_code: 'nl') }
 
         before do
-          expect(Page).to receive(:find).with("#{page.id}").and_return(page)
+          expect(Page).to receive(:find).with(page.id.to_s).and_return(page)
           allow(Page).to receive(:language_root_for).and_return(mock_model(Alchemy::Page))
         end
 
@@ -156,7 +155,7 @@ module Alchemy
           it "updates the pages urlnames" do
             alchemy_xhr :post, :order, set: set_of_pages.to_json
             [page_1, page_2, page_3].map(&:reload)
-            expect(page_1.urlname).to eq("#{page_1.slug}")
+            expect(page_1.urlname).to eq(page_1.slug.to_s)
             expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
             expect(page_3.urlname).to eq("#{page_1.slug}/#{page_2.slug}/#{page_3.slug}")
           end
@@ -174,7 +173,7 @@ module Alchemy
             it "does not use this pages slug in urlnames of descendants" do
               alchemy_xhr :post, :order, set: set_of_pages.to_json
               [page_1, page_2, page_3].map(&:reload)
-              expect(page_1.urlname).to eq("#{page_1.slug}")
+              expect(page_1.urlname).to eq(page_1.slug.to_s)
               expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
               expect(page_3.urlname).to eq("#{page_1.slug}/#{page_3.slug}")
             end
@@ -325,8 +324,8 @@ module Alchemy
           let(:page_in_clipboard) { mock_model(Alchemy::Page) }
 
           before do
-            allow(Page).to receive(:find_by).with(id: "#{parent.id}").and_return(parent)
-            allow(Page).to receive(:find).with("#{page_in_clipboard.id}").and_return(page_in_clipboard)
+            allow(Page).to receive(:find_by).with(id: parent.id.to_s).and_return(parent)
+            allow(Page).to receive(:find).with(page_in_clipboard.id.to_s).and_return(page_in_clipboard)
           end
 
           it "should call Page#copy_and_paste" do
@@ -472,7 +471,7 @@ module Alchemy
         let(:page) { mock_model(Alchemy::Page, urlname: 'home') }
 
         before do
-          allow(Page).to receive(:find).with("#{page.id}").and_return(page)
+          allow(Page).to receive(:find).with(page.id.to_s).and_return(page)
           allow(page).to receive(:unlock!).and_return(true)
           allow(@controller).to receive(:multi_language?).and_return(false)
         end
@@ -518,13 +517,13 @@ module Alchemy
         let(:page) { mock_model(Alchemy::Page, name: 'Best practices') }
 
         before do
-          allow(Page).to receive(:find).with("#{page.id}").and_return(page)
+          allow(Page).to receive(:find).with(page.id.to_s).and_return(page)
           allow(Page).to receive(:from_current_site).and_return(double(locked_by: nil))
           expect(page).to receive(:unlock!).and_return(true)
         end
 
         it "should unlock the page" do
-          alchemy_xhr :post, :unlock, id: "#{page.id}"
+          alchemy_xhr :post, :unlock, id: page.id.to_s
         end
 
         context 'requesting for html format' do
@@ -541,7 +540,7 @@ module Alchemy
       end
 
       describe "#switch_language" do
-        let(:language) { build_stubbed(:alchemy_language, :klingonian)}
+        let(:language) { build_stubbed(:alchemy_language, :klingonian) }
 
         before do
           allow(Language).to receive(:find_by).and_return(language)

@@ -3,8 +3,8 @@ require 'spec_helper'
 module Alchemy
   describe Admin::ElementsController do
     let(:alchemy_page)         { create(:alchemy_page) }
-    let(:element)              { create(:alchemy_element, :page_id => alchemy_page.id) }
-    let(:element_in_clipboard) { create(:alchemy_element, :page_id => alchemy_page.id) }
+    let(:element)              { create(:alchemy_element, page_id: alchemy_page.id) }
+    let(:element_in_clipboard) { create(:alchemy_element, page_id: alchemy_page.id) }
     let(:clipboard)            { session[:alchemy_clipboard] = {} }
 
     before { authorize_user(:as_author) }
@@ -242,7 +242,7 @@ module Alchemy
 
             context "and no cell name in element name" do
               it "should create the element in the nil cell" do
-                alchemy_xhr :post, :create, {element: {page_id: page.id}, paste_from_clipboard: "#{element_in_clipboard.id}"}
+                alchemy_xhr :post, :create, {element: {page_id: page.id}, paste_from_clipboard: element_in_clipboard.id.to_s}
                 expect(page.elements.first.cell).to eq(nil)
               end
             end

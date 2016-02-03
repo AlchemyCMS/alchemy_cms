@@ -12,21 +12,21 @@ module Alchemy
     end
 
     it "should not store negative values for crop values" do
-      essence = EssencePicture.new(:crop_from => '-1x100', :crop_size => '-20x30')
+      essence = EssencePicture.new(crop_from: '-1x100', crop_size: '-20x30')
       essence.save!
       expect(essence.crop_from).to eq("0x100")
       expect(essence.crop_size).to eq("0x30")
     end
 
     it "should not store float values for crop values" do
-      essence = EssencePicture.new(:crop_from => '0.05x104.5', :crop_size => '99.5x203.4')
+      essence = EssencePicture.new(crop_from: '0.05x104.5', crop_size: '99.5x203.4')
       essence.save!
       expect(essence.crop_from).to eq("0x105")
       expect(essence.crop_size).to eq("100x203")
     end
 
     it "should convert newlines in caption into <br/>s" do
-      essence = EssencePicture.new(:caption => "hello\nkitty")
+      essence = EssencePicture.new(caption: "hello\nkitty")
       essence.save!
       expect(essence.caption).to eq("hello<br/>kitty")
     end
@@ -140,7 +140,7 @@ module Alchemy
     end
 
     describe '#preview_text' do
-      let(:picture) { mock_model(Picture, name: 'Cute Cat Kittens')}
+      let(:picture) { mock_model(Picture, name: 'Cute Cat Kittens') }
       let(:essence) { EssencePicture.new }
 
       it "should return the pictures name as preview text" do
@@ -157,7 +157,7 @@ module Alchemy
 
     describe '#serialized_ingredient' do
       let(:content) { Content.new }
-      let(:picture) { mock_model(Picture, name: 'Cute Cat Kittens', urlname: 'cute-cat-kittens', security_token: 'kljhgfd')}
+      let(:picture) { mock_model(Picture, name: 'Cute Cat Kittens', urlname: 'cute-cat-kittens', security_token: 'kljhgfd') }
       let(:essence) { EssencePicture.new(content: content, picture: picture) }
 
       it "returns the url to render the picture" do
@@ -166,7 +166,7 @@ module Alchemy
 
       context 'with image settings given at content' do
         before do
-          expect(content).to receive(:settings).and_return({size: '150x150', format: 'png', select_values: [1,2,3]})
+          expect(content).to receive(:settings).and_return({size: '150x150', format: 'png', select_values: [1, 2, 3]})
         end
 
         it "returns the url with cropping and resizing options" do

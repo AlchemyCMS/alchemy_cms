@@ -48,5 +48,4 @@ describe 'alchemy/essences/_essence_text_view' do
       end
     end
   end
-
 end
