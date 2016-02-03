@@ -56,9 +56,9 @@ module Alchemy
       end
 
       describe '#tree' do
-        let(:page_1) { FactoryGirl.create(:page, visible: true) }
-        let(:page_2) { FactoryGirl.create(:page, visible: true, parent_id: page_1.id) }
-        let(:page_3) { FactoryGirl.create(:page, visible: true, parent_id: page_2.id) }
+        let(:page_1) { FactoryGirl.create(:page, visible: true, name: 'one') }
+        let(:page_2) { FactoryGirl.create(:page, visible: true, name: 'two', parent_id: page_1.id) }
+        let(:page_3) { FactoryGirl.create(:page, visible: true, name: 'three', parent_id: page_2.id) }
         let(:pages)  { [page_1, page_2, page_3] }
 
         before do
@@ -80,6 +80,8 @@ module Alchemy
 
           expect(page).to have_key('id')
           expect(page['id']).to eq(page_1.id)
+          expect(page).to have_key('name')
+          expect(page['name']).to eq(page_1.name)
           expect(page).to have_key('children')
           expect(page['children'].count).to eq(1)
 
@@ -87,6 +89,8 @@ module Alchemy
 
           expect(page).to have_key('id')
           expect(page['id']).to eq(page_2.id)
+          expect(page).to have_key('name')
+          expect(page['name']).to eq(page_2.name)
           expect(page).to have_key('children')
           expect(page['children'].count).to eq(1)
 
@@ -94,6 +98,8 @@ module Alchemy
 
           expect(page).to have_key('id')
           expect(page['id']).to eq(page_3.id)
+          expect(page).to have_key('name')
+          expect(page['name']).to eq(page_3.name)
           expect(page).to have_key('children')
           expect(page['children'].count).to eq(0)
         end

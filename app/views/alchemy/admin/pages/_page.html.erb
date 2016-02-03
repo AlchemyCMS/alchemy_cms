@@ -23,7 +23,7 @@
     </div>
     <div class="sitemap_right_tools">
       <%- unless @sorting -%>
-        {{#if can_info}}
+        {{#if permissions.info}}
         <%= link_to_dialog(
           render_icon('info'),
           alchemy.info_admin_page_path(page),
@@ -37,7 +37,7 @@
           }
           ) %>
         {{/if}}
-        {{#if can_configure}}
+        {{#if permissions.configure}}
         <%= link_to_dialog(
           render_icon('configure_page'),
           alchemy.configure_admin_page_path(page),
@@ -50,7 +50,7 @@
         ) -%>
         {{/if}}
         <span class="sitemap_sitetools">
-          {{#if can_copy}}
+          {{#if permissions.copy}}
           <%= link_to(
             render_icon("copy_page"),
             alchemy.insert_admin_clipboard_path(
@@ -63,7 +63,7 @@
             class: 'sitemap_tool'
           ) %>
           {{/if}}
-          {{#if can_destroy}}
+          {{#if permissions.destroy}}
           <%= link_to_confirm_dialog(
             render_icon('delete_page'),
             _t(:confirm_to_delete_page),
@@ -78,7 +78,7 @@
             }
           ) -%>
           {{/if}}
-          {{#if can_create}}
+          {{#if permissions.create}}
           <%= link_to_dialog(
             render_icon('add_page'),
             alchemy.new_admin_page_path(parent_id: '{{id}}'),
@@ -95,14 +95,14 @@
       <%- end -%>
     </div>
     <div class="page_infos" id="page_<%= page.id %>_infos">
-      <span class="page_status {{#unless public}}not_{{/unless}}public" title="{{ public_status_title }}"></span>
-      <span class="page_status {{#unless visible}}not_{{/unless}}visible" title="{{ visible_status_title}}"></span>
-      <span class="page_status {{#unless restricted}}not_{{/unless}}restricted" title="{{ restricted_status_title }}"></span>
+      <span class="page_status {{#unless public}}not_{{/unless}}public" title="{{status_titles.public}}"></span>
+      <span class="page_status {{#unless visible}}not_{{/unless}}visible" title="{{status_title.visible}}"></span>
+      <span class="page_status {{#unless restricted}}not_{{/unless}}restricted" title="{{status_titles.restricted}}"></span>
     </div>
     <div class="sitemap_sitename">
       {{#if redirects_to_external}}
       <span class="sitemap_pagename_link inactive">{{ name }}</span>
-      <span class="redirect_url" title="{{ urlname }}">
+      <span class="redirect_url" title="{{urlname}}">
         &raquo; <%= _t('Redirects to') %>:
         {{ external_urlname }}
       </span>

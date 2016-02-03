@@ -32,52 +32,7 @@ module Alchemy
       def tree
         authorize! :tree, :alchemy_admin_pages
 
-        tree = []
-        path = [{id: @page.parent_id, children: tree}]
-        page_list = @page.self_and_descendants
-
-        page_list.each_with_index do |page, i|
-          if page.parent_id != path.last[:id]
-            if path.map { |o| o[:id] }.include?(page.parent_id) # Lower level
-              path.pop while path.last[:id] != page.parent_id
-            else # One level up
-              path << path.last[:children].last
-            end
-          end
-
-          has_children = page_list[i + 1] && page_list[i + 1].parent_id == page.id
-          level = path.count
-
-          path.last[:children] << {
-            id: page.id,
-            name: page.name,
-            can_info: can?(:info, page),
-            can_configure: can?(:configure, page),
-            can_copy: can?(:copy, page),
-            can_destroy: can?(:destroy, page),
-            can_create: can?(:create, Alchemy::Page),
-            public: page.public?,
-            visible: page.visible?,
-            restricted: page.restricted?,
-            public_status_title: page.status_title(:public),
-            visible_status_title: page.status_title(:visible),
-            restricted_status_title: page.status_title(:restricted),
-            page_layout: page.page_layout,
-            slug: page.slug,
-            redirects_to_external: page.redirects_to_external?,
-            locked: page.locked,
-            layout_description_missing: page.layout_description.blank?,
-            urlname: page.urlname,
-            external_urlname: page.external_urlname,
-            level: level,
-            root: level == 1,
-            folded: has_children && page.folded?(current_alchemy_user),
-            root_or_leaf: level == 1 || !has_children,
-            children: []
-          }
-        end
-
-        render json: tree
+        render json: PageTreePresenter.new(@page, ability: current_ability, user: current_alchemy_user)
       end
 
       # Used by page preview iframe in Page#edit view.
