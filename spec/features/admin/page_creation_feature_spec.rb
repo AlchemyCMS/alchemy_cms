@@ -39,8 +39,8 @@ module Alchemy
             it "shows that clicked tab" do
               within('#overlay_tabs') do
                 click_link('Paste from clipboard')
-                expect(find '#create_page_tab').to_not be_visible
-                expect(find '#paste_page_tab').to be_visible
+                expect(find('#create_page_tab')).to_not be_visible
+                expect(find('#paste_page_tab')).to be_visible
               end
             end
           end

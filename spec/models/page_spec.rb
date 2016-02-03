@@ -2103,7 +2103,6 @@ module Alchemy
                             nested_expanded_rtf_contents.pluck(:id)
           expect(richtext_contents_ids.sort).to eq(rtf_content_ids)
 
-          folded_rtf_content = folded_element.contents.essence_richtexts.first
           nested_folded_rtf_content = nested_folded_element.contents.essence_richtexts.first
 
           expect(richtext_contents_ids).to_not include(nested_folded_rtf_content.id)

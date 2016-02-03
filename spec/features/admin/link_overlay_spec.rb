@@ -28,8 +28,8 @@ describe "Link overlay" do
     end
 
     before do
-      public_page = create(:alchemy_page, :public, parent_id: lang_root.id)
-      public_page_2 = create(:alchemy_page, :public, parent_id: lang_root.id)
+      create(:alchemy_page, :public, parent_id: lang_root.id)
+      create(:alchemy_page, :public, parent_id: lang_root.id)
     end
 
     it "should have a tree of internal pages" do
@@ -38,8 +38,10 @@ describe "Link overlay" do
     end
 
     it "should not have a link for pages that redirect to external" do
-      redirect = create(:alchemy_page, parent_id: lang_root.id, name: 'Google', urlname: 'http://www.google.com')
-      allow_any_instance_of(Alchemy::Page).to receive(:definition).and_return({'redirects_to_external' => true})
+      create(:alchemy_page, parent_id: lang_root.id, name: 'Google', urlname: 'http://www.google.com')
+      allow_any_instance_of(Alchemy::Page).to receive(:definition) do
+        {'redirects_to_external' => true}
+      end
       visit link_admin_pages_path
       expect(page).not_to have_selector('ul#sitemap li div[name="/http-www-google-com"] a')
       allow_any_instance_of(Alchemy::Page).to receive(:definition).and_call_original

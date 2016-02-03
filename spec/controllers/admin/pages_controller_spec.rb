@@ -276,7 +276,6 @@ module Alchemy
           end
 
           it "redirects to edit page template" do
-            page = mock_model('Page')
             expect(controller).to receive(:edit_admin_page_path).and_return('bla')
             alchemy_post :create, page: page_params
             expect(response).to redirect_to('bla')
@@ -477,7 +476,7 @@ module Alchemy
         end
 
         it "should redirect to the page path" do
-          expect(alchemy_post :visit, id: page.id).to redirect_to(show_page_path(urlname: 'home'))
+          expect(alchemy_post(:visit, id: page.id)).to redirect_to(show_page_path(urlname: 'home'))
         end
       end
 
@@ -528,12 +527,14 @@ module Alchemy
 
         context 'requesting for html format' do
           it "should redirect to admin_pages_path" do
-            expect(alchemy_post :unlock, id: page.id).to redirect_to(admin_pages_path)
+            expect(alchemy_post(:unlock, id: page.id)).to redirect_to(admin_pages_path)
           end
 
           context 'if passing :redirect_to through params' do
             it "should redirect to the given path" do
-              expect(alchemy_post :unlock, id: page.id, redirect_to: 'this/path').to redirect_to('this/path')
+              expect(
+                alchemy_post(:unlock, id: page.id, redirect_to: 'this/path')
+              ).to redirect_to('this/path')
             end
           end
         end
@@ -552,7 +553,9 @@ module Alchemy
         end
 
         it "should redirect to sitemap" do
-          expect(alchemy_get :switch_language, {language_id: language.id}).to redirect_to(admin_pages_path)
+          expect(
+            alchemy_get(:switch_language, language_id: language.id)
+          ).to redirect_to(admin_pages_path)
         end
 
         context "coming from layoutpages" do
@@ -561,7 +564,9 @@ module Alchemy
           }
 
           it "should redirect to layoutpages" do
-            expect(alchemy_get :switch_language, {language_id: language.id}).to redirect_to(admin_layoutpages_path)
+            expect(
+              alchemy_get(:switch_language, language_id: language.id)
+            ).to redirect_to(admin_layoutpages_path)
           end
         end
       end
