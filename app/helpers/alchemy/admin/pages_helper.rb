@@ -38,13 +38,13 @@ module Alchemy
         ])
       end
 
-      # Returns the translated explanation of the page´s status.
+      # Returns the translated explanation of the page status.
       #
       def combined_page_status(page)
         page.status.map do |state, _value|
           next if state == :locked
           val = content_tag(:span, '', class: page.send(state) ? "page_status #{state}" : "page_status not_#{state}")
-          val += page.status_title(state)
+          val + page.status_title(state)
         end.delete_if(&:blank?).join("<br>").html_safe
       end
 

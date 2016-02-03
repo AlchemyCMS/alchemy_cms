@@ -23,33 +23,35 @@ module Alchemy
       element_format: 'html'
     }
 
-    def self.init=(settings)
-      @@init.merge!(settings)
-    end
-
-    def self.init
-      @@init
-    end
-
-    def self.custom_config_contents(page = nil)
-      if page
-        content_definitions_from_elements(page.element_definitions)
-      else
-        content_definitions_from_elements(Element.definitions)
+    class << self
+      def init=(settings)
+        @@init.merge!(settings)
       end
-    end
 
-    private
+      def init
+        @@init
+      end
 
-    def self.content_definitions_from_elements(definitions)
-      definitions.collect do |el|
-        next if el['contents'].blank?
-        contents = el['contents'].select do |c|
-          c['settings'] && c['settings']['tinymce'].is_a?(Hash)
+      def custom_config_contents(page = nil)
+        if page
+          content_definitions_from_elements(page.element_definitions)
+        else
+          content_definitions_from_elements(Element.definitions)
         end
-        next if contents.blank?
-        contents.map { |c| c.merge('element' => el['name']) }
-      end.flatten.compact
+      end
+
+      private
+
+      def content_definitions_from_elements(definitions)
+        definitions.collect do |el|
+          next if el['contents'].blank?
+          contents = el['contents'].select do |c|
+            c['settings'] && c['settings']['tinymce'].is_a?(Hash)
+          end
+          next if contents.blank?
+          contents.map { |c| c.merge('element' => el['name']) }
+        end.flatten.compact
+      end
     end
   end
 end

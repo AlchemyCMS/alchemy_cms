@@ -14,12 +14,12 @@ module Alchemy
 
       # Returns a merged configuration of the following files
       #
-      # Alchemy´s default config: +gems/../alchemy_cms/config/alchemy/config.yml+
+      # Alchemys default config: +gems/../alchemy_cms/config/alchemy/config.yml+
       # Your apps default config: +your_app/config/alchemy/config.yml+
       # Environment specific config: +your_app/config/alchemy/development.config.yml+
       #
       # An environment specific config overwrites the settings of your apps default config,
-      # while your apps default config has precedence over Alchemy´s default config.
+      # while your apps default config has precedence over Alchemys default config.
       #
       def show
         @config ||= merge_configs!(alchemy_config, main_app_config, env_specific_config)

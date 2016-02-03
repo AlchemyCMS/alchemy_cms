@@ -16,8 +16,8 @@ class Alchemy::InstallTask < Thor
       code = "en" if code.empty?
       name = ask "What's the name of your site's primary language? (DEFAULT: English)"
       name = "English" if name.empty?
-      gsub_file "./config/alchemy/config.yml", /default_language:\n\s\scode:\sen\n\s\sname:\sEnglish/m do |_match|
-        match = "default_language:\n  code: #{code}\n  name: #{name}"
+      gsub_file "./config/alchemy/config.yml", /default_language:\n\s\scode:\sen\n\s\sname:\sEnglish/m do
+        "default_language:\n  code: #{code}\n  name: #{name}"
       end
     end
 

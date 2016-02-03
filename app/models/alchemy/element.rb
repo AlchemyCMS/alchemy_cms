@@ -117,11 +117,9 @@ module Alchemy
       #
       def new_from_scratch(attributes = {})
         attributes = attributes.dup.symbolize_keys
-
         return new if attributes[:name].blank?
 
-        new_element_from_definition_by(attributes) ||
-          raise(ElementDefinitionError.new(attributes))
+        new_element_from_definition_by(attributes) || raise(ElementDefinitionError, attributes)
       end
 
       # Creates a new element as described in +/config/alchemy/elements.yml+

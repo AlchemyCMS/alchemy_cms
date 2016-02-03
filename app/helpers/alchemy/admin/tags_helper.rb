@@ -10,7 +10,7 @@ module Alchemy
       #   A HTML string containing <tt><li></tt> tags
       #
       def render_tag_list(class_name, params)
-        raise ArgumentError.new('Please provide a String as class_name') if class_name.nil?
+        raise ArgumentError, 'Please provide a String as class_name' if class_name.nil?
         li_s = []
         class_name.constantize.tag_counts.sort { |x, y| x.name.downcase <=> y.name.downcase }.each do |tag|
           tags = filtered_by_tag?(tag) ? tag_filter(remove: tag) : tag_filter(add: tag)

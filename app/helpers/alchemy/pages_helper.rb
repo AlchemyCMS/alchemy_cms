@@ -408,8 +408,8 @@ module Alchemy
     # Include this in your layout file to have element selection magic in the page edit preview window.
     def alchemy_preview_mode_code
       if @preview_mode
-        output = javascript_tag("Alchemy = { locale: '#{session[:alchemy_locale]}' };")
-        output += javascript_include_tag("alchemy/preview")
+        javascript_tag("Alchemy = { locale: '#{session[:alchemy_locale]}' };") +
+          javascript_include_tag("alchemy/preview")
       end
     end
   end

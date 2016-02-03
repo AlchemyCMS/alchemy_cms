@@ -205,7 +205,6 @@ module Alchemy
         # We need to ensure, that also all layoutpages get the +published_at+ timestamp set,
         # but not set to public true, because the cache_key for an element is +published_at+
         # and we don't want the layout pages to be present in +Page.published+ scope.
-        # Not the greatest solution, but ¯\_(ツ)_/¯
         Language.current.pages.flushable_layoutpages.update_all(published_at: Time.current)
         respond_to { |format| format.js }
       end
@@ -310,7 +309,12 @@ module Alchemy
       end
 
       def pages_from_raw_request
-        request.raw_post.split('&').map { |i| i = {i.split('=')[0].gsub(/[^0-9]/, '') => i.split('=')[1]} }
+        request.raw_post.split('&').map do |i|
+          parts = i.split('=')
+          {
+            parts[0].gsub(/[^0-9]/, '') => parts[1]
+          }
+        end
       end
 
       def redirect_path_for_switch_language

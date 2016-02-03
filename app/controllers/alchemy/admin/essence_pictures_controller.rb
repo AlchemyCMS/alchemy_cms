@@ -100,14 +100,16 @@ module Alchemy
         end
       end
 
-      # Infers the minimum width or height if the aspect ratio and one dimension
-      # is specified.
+      # Infers the minimum width or height
+      # if the aspect ratio and one dimension is specified.
       #
       def infer_width_or_height_from_ratio
+        return unless @ratio
+
         if @min_size[:height].zero?
-          @min_size[:height] = (@min_size[:width] / @ratio).to_i if @ratio
+          @min_size[:height] = (@min_size[:width] / @ratio).to_i
         else
-          @min_size[:width] = (@min_size[:height] * @ratio).to_i if @ratio
+          @min_size[:width] = (@min_size[:height] * @ratio).to_i
         end
       end
 

@@ -54,8 +54,9 @@ module Alchemy
       module_navi = alchemy_module_navigation(alchemy_module)
       subnavi = module_navi['sub_navigation']
       return if subnavi.nil?
-      subnavi.map(&:stringify_keys).detect do |subnavi|
-        controller_matches?(subnavi, name) && action_matches?(subnavi, name)
+
+      subnavi.map(&:stringify_keys).detect do |sn|
+        controller_matches?(sn, name) && action_matches?(sn, name)
       end
     end
 

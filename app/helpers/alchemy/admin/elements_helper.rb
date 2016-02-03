@@ -76,7 +76,8 @@ module Alchemy
         options[_t(:main_content)] = elements_for_main_content(elements).map do |e|
           element_array_for_options(e, object_method)
         end
-        options.delete_if { |_cell, elements| elements.blank? } # Throw out empty cells
+        # Remove empty cells
+        options.delete_if { |_c, e| e.blank? }
       end
 
       def element_array_for_options(e, object_method, cell = nil)
@@ -107,8 +108,8 @@ module Alchemy
           .where(["#{Content.table_name}.element_id != ?", element.id])
           .where(Content.table_name => {essence_type: "Alchemy::EssenceSelect"})
         return if elements.blank?
-        elements.collect do |element|
-          render 'alchemy/admin/elements/refresh_editor', element: element
+        elements.collect do |el|
+          render 'alchemy/admin/elements/refresh_editor', element: el
         end.join.html_safe
       end
 
