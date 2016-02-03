@@ -32,7 +32,8 @@ module Alchemy
       def tree
         authorize! :tree, :alchemy_admin_pages
 
-        render json: PageTreePresenter.new(@page, ability: current_ability, user: current_alchemy_user)
+        render json: PageTreePresenter.new(@page, ability: current_ability,
+                                           user: current_alchemy_user)
       end
 
       # Used by page preview iframe in Page#edit view.

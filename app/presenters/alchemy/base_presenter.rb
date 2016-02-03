@@ -20,8 +20,8 @@ module Alchemy
     # If the presenter implements an attribute, use that. Otherwise, delegate to
     # the object.
     def read_attribute_for_serialization(key)
-      if self.respond_to?(key)
-        self.send(key)
+      if respond_to?(key)
+        send(key)
       else
         object.send(key)
       end
