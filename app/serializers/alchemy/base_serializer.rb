@@ -1,5 +1,5 @@
 module Alchemy
-  class BasePresenter
+  class BaseSerializer
     include ActiveModel::Serializers::JSON
 
     attr_reader :object, :opts

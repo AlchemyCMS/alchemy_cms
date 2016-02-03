@@ -1,5 +1,5 @@
 module Alchemy
-  class PageTreePresenter < BasePresenter
+  class PageTreeSerializer < BaseSerializer
     def attributes
       {'pages' => nil}
     end
