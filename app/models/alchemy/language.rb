@@ -55,7 +55,6 @@ module Alchemy
     scope :on_site,        ->(s) { s.present? ? where(site_id: s.id) : all }
 
     class << self
-
       # Store the current language in the current thread.
       def current=(v)
         RequestStore.store[:alchemy_current_language] = v
@@ -80,9 +79,9 @@ module Alchemy
 
     def label(attrib)
       if attrib.to_sym == :code
-        self.code
+        code
       else
-        I18n.t(self.code, default: self.name)
+        I18n.t(code, default: name)
       end
     end
 
@@ -101,7 +100,7 @@ module Alchemy
     private
 
     def publicity_of_default_language
-      if self.default? && !self.public?
+      if default? && !public?
         errors.add(:public, I18n.t("Default language has to be public"))
         return false
       else
@@ -110,7 +109,7 @@ module Alchemy
     end
 
     def presence_of_default_language
-      if Language.default == self && self.default_changed?
+      if Language.default == self && default_changed?
         errors.add(:default, I18n.t("We need at least one default."))
         return false
       else
@@ -126,7 +125,7 @@ module Alchemy
     end
 
     def set_pages_language
-      pages.update_all language_code: self.code
+      pages.update_all language_code: code
     end
 
     def check_for_default
@@ -138,7 +137,7 @@ module Alchemy
     end
 
     def unpublish_pages
-      self.pages.update_all(public: false)
+      pages.update_all(public: false)
     end
   end
 end

@@ -1,6 +1,5 @@
 module Alchemy
   module Element::ElementEssences
-
     # Returns the contents essence value (aka. ingredient) for passed content name.
     def ingredient(name)
       content = content_by_name(name)

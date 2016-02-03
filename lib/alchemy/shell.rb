@@ -2,7 +2,6 @@
 require 'thor/shell/color'
 
 module Alchemy
-
   # Provides methods for collecting sentences and displaying them
   # in a list on the shell / log
   #
@@ -26,7 +25,7 @@ module Alchemy
       end
     end
 
-    def todo(todo, title='')
+    def todo(todo, title = '')
       add_todo [title, todo]
     end
 
@@ -53,7 +52,7 @@ module Alchemy
         log "\nTODOs:", :message
         log "------\n", :message
         todos.each_with_index do |todo, i|
-          title = "\n#{i+1}. #{todo[0]}"
+          title = "\n#{i + 1}. #{todo[0]}"
           log title, :message
           puts '-' * title.length
           log todo[1], :message
@@ -66,7 +65,7 @@ module Alchemy
     # @param [String] message
     # @param [Symbol] type
     #
-    def log(message, type=nil)
+    def log(message, type = nil)
       unless Alchemy::Shell.silenced?
         case type
         when :skip
@@ -81,7 +80,7 @@ module Alchemy
       end
     end
 
-  private
+    private
 
     # Gives the color string using Thor
     # Used for colorizing the message on the shell
@@ -97,6 +96,5 @@ module Alchemy
         ""
       end
     end
-
   end
 end

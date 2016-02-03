@@ -1,6 +1,5 @@
 module Alchemy
   class Messages < ActionMailer::Base
-
     def contact_form_mail(message, mail_to, mail_from, subject)
       @message = message
       mail(
@@ -10,6 +9,5 @@ module Alchemy
         subject: subject
       )
     end
-
   end
 end

@@ -4,7 +4,6 @@ module Alchemy
   # Provides methods for converting names into urlnames and vice versa.
   #
   module NameConversions
-
     # Converts a given name into url save and readable urlanme.
     # Uses rails parameterize, but converts german umlauts before.
     #
@@ -21,8 +20,7 @@ module Alchemy
     # Converts a filename and suffix into a human readable name.
     #
     def convert_to_humanized_name(name, suffix)
-      name.gsub(/\.#{::Regexp.quote(suffix)}$/i, '').gsub(/_/, ' ').strip
+      name.gsub(/\.#{::Regexp.quote(suffix)}$/i, '').tr('_', ' ').strip
     end
-
   end
 end

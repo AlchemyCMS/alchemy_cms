@@ -1,6 +1,5 @@
 module Alchemy
   module Page::PageNatures
-
     extend ActiveSupport::Concern
 
     def taggable?
@@ -145,6 +144,5 @@ module Alchemy
       Alchemy::Config.get(:cache_pages) &&
         Rails.application.config.action_controller.perform_caching
     end
-
   end
 end

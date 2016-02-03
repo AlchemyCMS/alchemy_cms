@@ -7,6 +7,5 @@ module Alchemy
       :css_class
 
     has_one :attachment
-
   end
 end

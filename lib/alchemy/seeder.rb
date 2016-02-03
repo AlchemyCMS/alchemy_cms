@@ -5,7 +5,6 @@ module Alchemy
     extend Alchemy::Shell
 
     class << self
-
       # This seed builds the necessary page structure for Alchemy in your database.
       #
       # Call this from your db/seeds.rb file with the rake db:seed task.
@@ -15,7 +14,7 @@ module Alchemy
         create_root_page
       end
 
-    protected
+      protected
 
       def create_default_site
         desc "Creating default Alchemy site"
@@ -46,8 +45,6 @@ module Alchemy
           log "Alchemy root page was already present.", :skip
         end
       end
-
     end
-
   end
 end

@@ -51,9 +51,9 @@ module Alchemy
         @notice = e.message[0..255]
         @trace = e.backtrace[0..50]
         if request.xhr?
-          render :action => "error_notice"
+          render action: "error_notice"
         else
-          render '500', :status => 500
+          render '500', status: 500
         end
       end
 

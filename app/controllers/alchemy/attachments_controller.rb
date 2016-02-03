@@ -30,6 +30,5 @@ module Alchemy
     def load_attachment
       @attachment = Attachment.find(params[:id])
     end
-
   end
 end

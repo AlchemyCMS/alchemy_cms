@@ -1,12 +1,10 @@
 module Alchemy
-
   # Methods used for presenting an Alchemy Element.
   #
   module Element::Presenters
     extend ActiveSupport::Concern
 
     module ClassMethods
-
       # Human name for displaying elements in select boxes and element editor views.
       #
       # The name is beeing translated from given name value as described in +config/alchemy/elements.yml+
@@ -32,7 +30,7 @@ module Alchemy
     # @see Alchemy::Element::Presenters#display_name_for
     #
     def display_name
-      self.class.display_name_for(definition['name'] || self.name)
+      self.class.display_name_for(definition['name'] || name)
     end
 
     # Returns a preview text for element.
@@ -81,7 +79,5 @@ module Alchemy
     def dom_id
       "#{name}_#{id}"
     end
-
   end
-
 end

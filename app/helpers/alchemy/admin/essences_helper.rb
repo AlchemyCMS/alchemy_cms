@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     module EssencesHelper
-
       include Alchemy::EssencesHelper
       include Alchemy::Admin::ContentsHelper
 
@@ -60,7 +59,7 @@ module Alchemy
       def essence_picture_thumbnail(content, options)
         return if content.ingredient.blank?
         crop = !(content.essence.crop_size.blank? && content.essence.crop_from.blank?) ||
-          (content.settings_value(:crop, options) == true || content.settings_value(:crop, options) == "true")
+               (content.settings_value(:crop, options) == true || content.settings_value(:crop, options) == "true")
         image_options = {
           size: content.essence.thumbnail_size(content.essence.render_size.blank? ? content.settings_value(:size, options) : content.essence.render_size, crop),
           crop_from: content.essence.crop_from.blank? ? nil : content.essence.crop_from,

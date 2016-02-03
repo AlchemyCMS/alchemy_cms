@@ -1,7 +1,6 @@
 module Alchemy
   module Tasks
     module Helpers
-
       def database_dump_command(adapter)
         database_command(adapter, 'dump')
       end
@@ -11,18 +10,18 @@ module Alchemy
       end
 
       def database_config
-        raise "Could not find #{database_config_file}!" if !File.exists?(database_config_file)
+        raise "Could not find #{database_config_file}!" if !File.exist?(database_config_file)
         @database_config ||= begin
           config_file = YAML.load(ERB.new(File.read(database_config_file)).result)
           config_file.fetch(environment)
-          rescue KeyError
+        rescue KeyError
             raise "Database configuration for #{environment} not found!"
         end
       end
 
       private
 
-      def database_command(adapter, action='import')
+      def database_command(adapter, action = 'import')
         case adapter.to_s
         when /mysql/
           "#{mysql_command(mysql_command_for(action))} #{database_config['database']}"
@@ -33,7 +32,7 @@ module Alchemy
         end
       end
 
-      def mysql_command(cmd='mysql')
+      def mysql_command(cmd = 'mysql')
         command = [cmd]
         if database_config['username']
           command << "--user='#{database_config['username']}'"
@@ -47,7 +46,7 @@ module Alchemy
         command.join(' ')
       end
 
-      def postgres_command(cmd='psql')
+      def postgres_command(cmd = 'psql')
         command = []
         if database_config['password']
           command << "PGPASSWORD='#{database_config['password']}'"
@@ -77,7 +76,6 @@ module Alchemy
       def environment
         ENV['RAILS_ENV'] || 'development'
       end
-
     end
   end
 end

@@ -1,6 +1,5 @@
 module Alchemy
   module Page::PageCells
-
     extend ActiveSupport::Concern
 
     included do
@@ -9,7 +8,6 @@ module Alchemy
     end
 
     module ClassMethods
-
       # Copy page cells
       #
       # @param source [Alchemy::Page]

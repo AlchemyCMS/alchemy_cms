@@ -3,7 +3,6 @@ require 'rails'
 module Alchemy
   module Generators
     class InstallGenerator < ::Rails::Generators::Base
-
       desc "Installs Alchemy into your App."
 
       class_option :skip_demo_files,

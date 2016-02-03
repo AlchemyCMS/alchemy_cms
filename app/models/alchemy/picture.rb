@@ -63,11 +63,11 @@ module Alchemy
     stampable stamper_class_name: Alchemy.user_class_name
 
     scope :named, ->(name) {
-      where("#{self.table_name}.name LIKE ?", "%#{name}%")
+      where("#{table_name}.name LIKE ?", "%#{name}%")
     }
 
     scope :recent, -> {
-      where("#{self.table_name}.created_at > ?", Time.now - 24.hours).order(:created_at)
+      where("#{table_name}.created_at > ?", Time.now - 24.hours).order(:created_at)
     }
 
     scope :deletable, -> {
@@ -75,7 +75,7 @@ module Alchemy
     }
 
     scope :without_tag, -> {
-      where("#{self.table_name}.cached_tag_list IS NULL OR #{self.table_name}.cached_tag_list = ''")
+      where("#{table_name}.cached_tag_list IS NULL OR #{table_name}.cached_tag_list = ''")
     }
 
     after_update :touch_contents
@@ -83,7 +83,6 @@ module Alchemy
     # Class methods
 
     class << self
-
       def last_upload
         last_picture = Picture.last
         return Picture.all unless last_picture
@@ -110,9 +109,9 @@ module Alchemy
 
       def filtered_by(filter = '')
         case filter
-          when 'recent'      then recent
-          when 'last_upload' then last_upload
-          when 'without_tag' then without_tag
+        when 'recent'      then recent
+        when 'last_upload' then last_upload
+        when 'without_tag' then without_tag
         else
           all
         end
@@ -142,7 +141,7 @@ module Alchemy
         self.name = params[:pictures_name]
       end
       self.tag_list = params[:pictures_tag_list]
-      self.save!
+      save!
     end
 
     # Returns a Hash suitable for jquery fileupload json.
@@ -158,10 +157,10 @@ module Alchemy
     # Returns an uri escaped name.
     #
     def urlname
-      if self.name.blank?
-        "image_#{self.id}"
+      if name.blank?
+        "image_#{id}"
       else
-        ::CGI.escape(self.name.gsub(/\.(gif|png|jpe?g|tiff?)/i, '').gsub(/\./, ' '))
+        ::CGI.escape(name.gsub(/\.(gif|png|jpe?g|tiff?)/i, '').tr('.', ' '))
       end
     end
 
@@ -222,7 +221,7 @@ module Alchemy
       params = params.dup.stringify_keys
       params.update({
         'crop' => params['crop'] ? 'crop' : nil,
-        'id' => self.id
+        'id' => id
       })
       PictureAttributes.secure(params)
     end

@@ -2,7 +2,6 @@
 #
 module Alchemy
   module Element::ElementContents
-
     # Find first content from element by given name.
     def content_by_name(name)
       contents_by_name(name).first
@@ -45,7 +44,7 @@ module Alchemy
     def update_contents(contents_attributes)
       return true if contents_attributes.nil?
       contents.each do |content|
-        content_hash = contents_attributes["#{content.id}"] || next
+        content_hash = contents_attributes[content.id.to_s] || next
         content.update_essence(content_hash) || errors.add(:base, :essence_validation_failed)
       end
       errors.blank?

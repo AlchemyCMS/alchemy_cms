@@ -4,7 +4,7 @@ module Alchemy
   module Generators
     class ModuleGenerator < ::Rails::Generators::Base
       desc "This generator generates an Alchemy module for you."
-      argument :module_name, :banner => "your_module_name"
+      argument :module_name, banner: "your_module_name"
       source_root File.expand_path('templates', File.dirname(__FILE__))
 
       def init

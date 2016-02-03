@@ -1,6 +1,5 @@
 module Alchemy
   module I18n
-
     # Alchemy translation methods
     #
     # Instead of having to translate strings and defining a default value:
@@ -41,7 +40,7 @@ module Alchemy
       when "Symbol"
         scope << options[:scope] unless options[:scope] == :alchemy
       end
-      ::I18n.t(msg, options.merge(:scope => scope))
+      ::I18n.t(msg, options.merge(scope: scope))
     end
 
     def self.available_locales
@@ -50,7 +49,7 @@ module Alchemy
     end
 
     def self.available_locales=(locales)
-      @@available_locales = Array(locales).map { |locale| locale.to_sym }
+      @@available_locales = Array(locales).map(&:to_sym)
       @@available_locales = nil if @@available_locales.empty?
     end
 
@@ -58,13 +57,12 @@ module Alchemy
       Dir.glob(File.join(File.dirname(__FILE__), '../../config/locales/alchemy.*.yml'))
     end
 
-  private
+    private
 
     def self.humanize_default_string!(msg, options)
       if options[:default].blank?
         options[:default] = msg.is_a?(Symbol) ? msg.to_s.humanize : msg
       end
     end
-
   end
 end

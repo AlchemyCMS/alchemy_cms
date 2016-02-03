@@ -70,6 +70,5 @@ module Alchemy
     def remove_slash(name)
       name.gsub(/^\//, '')
     end
-
   end
 end

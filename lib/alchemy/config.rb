@@ -2,9 +2,7 @@
 
 module Alchemy
   class Config
-
     class << self
-
       # Returns the configuration for given parameter name.
       #
       # @param name [String]
@@ -27,7 +25,7 @@ module Alchemy
         @config ||= merge_configs!(alchemy_config, main_app_config, env_specific_config)
       end
 
-    private
+      private
 
       # Alchemy default configuration
       def alchemy_config
@@ -48,7 +46,7 @@ module Alchemy
       # If it does not exist, or its empty, it returns an empty Hash.
       #
       def read_file(file)
-        return YAML.load_file(file) || {} if File.exists?(file) # YAML.load_file returns false if file is empty.
+        return YAML.load_file(file) || {} if File.exist?(file) # YAML.load_file returns false if file is empty.
         {}
       end
 
@@ -57,7 +55,7 @@ module Alchemy
       def merge_configs!(*config_files)
         raise LoadError, 'No Alchemy config file found!' if config_files.map(&:blank?).all?
         config = {}
-        config_files.each {|h| config.merge!(h.stringify_keys!) }
+        config_files.each { |h| config.merge!(h.stringify_keys!) }
         config
       end
     end

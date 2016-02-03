@@ -1,6 +1,5 @@
 module Alchemy
   module Touching
-
     # Touches the timestamps and userstamps
     #
     def touch
@@ -18,8 +17,8 @@ module Alchemy
     # not on top to bottom ones like +Alchemy::Element+.
     #
     def touch_contents
-      return unless self.respond_to?(:contents)
-      self.contents.update_all(touchable_attributes)
+      return unless respond_to?(:contents)
+      contents.update_all(touchable_attributes)
     end
 
     # If the model has a +touchable_pages+ association,
@@ -28,8 +27,8 @@ module Alchemy
     # Used by +Alchemy::Element+
     #
     def touch_pages
-      return unless self.respond_to?(:touchable_pages)
-      self.touchable_pages.update_all(touchable_attributes)
+      return unless respond_to?(:touchable_pages)
+      touchable_pages.update_all(touchable_attributes)
     end
 
     # Returns the attributes hash for touching a model.

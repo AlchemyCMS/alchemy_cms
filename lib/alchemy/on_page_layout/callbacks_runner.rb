@@ -1,6 +1,5 @@
 module Alchemy
   module OnPageLayout
-
     # Runs OnPageLayout callbacks
     #
     # Included in +Alchemy::PagesController+ and +Alchemy::Admin::PagesController+

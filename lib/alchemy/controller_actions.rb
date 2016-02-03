@@ -77,7 +77,7 @@ module Alchemy
           klass = "::#{klass}".constantize
           alchemy_permissions.merge(klass.new(current_alchemy_user))
         end
-        if (Object.const_get('::Ability') rescue false)
+        if host_app_ability_present?
           alchemy_permissions.merge(::Ability.new(current_alchemy_user))
         end
         alchemy_permissions
@@ -119,7 +119,7 @@ module Alchemy
 
     def load_alchemy_language_from_id_or_code(id_or_code)
       Language.find_by(id: id_or_code) ||
-      Language.find_by_code(id_or_code)
+        Language.find_by_code(id_or_code)
     end
 
     def load_default_alchemy_language
@@ -135,6 +135,12 @@ module Alchemy
         session[:alchemy_language_id] = language.id
         Language.current = language
       end
+    end
+
+    def host_app_ability_present?
+      Object.const_get('::Ability')
+    rescue
+      false
     end
   end
 end

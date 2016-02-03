@@ -40,12 +40,12 @@ module Alchemy
     include Alchemy::Touching
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
-      :do_not_autogenerate => true,
-      :do_not_sweep => true,
-      :visible => false,
-      :public => false,
-      :locked => false,
-      :locked_by => nil
+      do_not_autogenerate: true,
+      do_not_sweep: true,
+      visible: false,
+      public: false,
+      locked: false,
+      locked_by: nil
     }
     SKIPPED_ATTRIBUTES_ON_COPY = %w(id updated_at created_at creator_id updater_id lft rgt depth urlname cached_tag_list)
     PERMITTED_ATTRIBUTES = [
@@ -66,18 +66,18 @@ module Alchemy
     ]
 
     acts_as_taggable
-    acts_as_nested_set(:dependent => :destroy)
+    acts_as_nested_set(dependent: :destroy)
 
     stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :folded_pages
-    has_many :legacy_urls, :class_name => 'Alchemy::LegacyPageUrl'
+    has_many :legacy_urls, class_name: 'Alchemy::LegacyPageUrl'
     belongs_to :language
 
-    validates_presence_of :language, :on => :create, :unless => :root
-    validates_presence_of :page_layout, :unless => :systempage?
+    validates_presence_of :language, on: :create, unless: :root
+    validates_presence_of :page_layout, unless: :systempage?
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { systempage? || page_layout.blank? }
-    validates_presence_of :parent_id, :if => proc { Page.count > 1 }
+    validates_presence_of :parent_id, if: proc { Page.count > 1 }
 
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
@@ -100,7 +100,6 @@ module Alchemy
     # Class methods
     #
     class << self
-
       alias_method :rootpage, :root
 
       # Used to store the current page previewed in the edit page template.
@@ -119,7 +118,7 @@ module Alchemy
       # @param language_id [Fixnum]
       #
       def language_root_for(language_id)
-        self.language_roots.find_by_language_id(language_id)
+        language_roots.find_by_language_id(language_id)
       end
 
       # Creates a copy of given source.
@@ -148,7 +147,7 @@ module Alchemy
       end
 
       def layout_root_for(language_id)
-        where({:parent_id => Page.root.id, :layoutpage => true, :language_id => language_id}).limit(1).first
+        where({parent_id: Page.root.id, layoutpage: true, language_id: language_id}).limit(1).first
       end
 
       def find_or_create_layout_root_for(language_id)
@@ -174,7 +173,7 @@ module Alchemy
         if source.children.any?
           source.copy_children_to(page)
         end
-        return page
+        page
       end
 
       def all_from_clipboard(clipboard)
@@ -184,7 +183,7 @@ module Alchemy
 
       def all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)
         return [] if clipboard.blank?
-        clipboard_pages = self.all_from_clipboard(clipboard)
+        clipboard_pages = all_from_clipboard(clipboard)
         allowed_page_layouts = Alchemy::PageLayout.selectable_layouts(language_id, layoutpage)
         allowed_page_layout_names = allowed_page_layouts.collect { |p| p['name'] }
         clipboard_pages.select { |cp| allowed_page_layout_names.include?(cp.page_layout) }
@@ -220,7 +219,7 @@ module Alchemy
         differences.stringify_keys!
         attributes = source.attributes.merge(differences)
         attributes.merge!(DEFAULT_ATTRIBUTES_FOR_COPY)
-        attributes.merge!('name' => new_name_for_copy(differences['name'], source.name))
+        attributes['name'] = new_name_for_copy(differences['name'], source.name)
         attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY)
       end
 
@@ -238,7 +237,6 @@ module Alchemy
         return custom_name if custom_name.present?
         "#{source_name} (#{I18n.t('Copy')})"
       end
-
     end
 
     # Instance methods
@@ -283,13 +281,13 @@ module Alchemy
     # Locks the page to given user without updating the timestamps
     #
     def lock_to!(user)
-      self.update_columns(locked: true, locked_by: user.id)
+      update_columns(locked: true, locked_by: user.id)
     end
 
     # Unlocks the page without updating the timestamps
     #
     def unlock!
-      if self.update_columns(locked: false, locked_by: nil)
+      if update_columns(locked: false, locked_by: nil)
         Page.current_preview = nil
       end
     end
@@ -302,7 +300,7 @@ module Alchemy
 
     def set_restrictions_to_child_pages
       descendants.each do |child|
-        child.update_attributes(:restricted => self.restricted?)
+        child.update_attributes(restricted: restricted?)
       end
     end
 
@@ -321,11 +319,11 @@ module Alchemy
     end
 
     def copy_children_to(new_parent)
-      self.children.each do |child|
+      children.each do |child|
         next if child == new_parent
         new_child = Page.copy(child, {
-          :language_id => new_parent.language_id,
-          :language_code => new_parent.language_code
+          language_id: new_parent.language_id,
+          language_code: new_parent.language_code
         })
         new_child.move_to_child_of(new_parent)
         child.copy_children_to(new_child) unless child.children.blank?
@@ -353,9 +351,9 @@ module Alchemy
     def update_node!(node)
       hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted}
 
-      if Config.get(:url_nesting) && !self.redirects_to_external? && self.urlname != node.url
-        LegacyPageUrl.create(page_id: self.id, urlname: self.urlname)
-        hash.merge!(urlname: node.url)
+      if Config.get(:url_nesting) && !redirects_to_external? && urlname != node.url
+        LegacyPageUrl.create(page_id: id, urlname: urlname)
+        hash[:urlname] = node.url
       end
 
       update_columns(hash)
@@ -388,12 +386,12 @@ module Alchemy
     end
 
     def set_language_from_parent_or_default
-      self.language = self.parent.language || Language.default
+      self.language = parent.language || Language.default
       set_language_code
     end
 
     def set_language_code
-      self.language_code = self.language.code
+      self.language_code = language.code
     end
 
     # Stores the old urlname in a LegacyPageUrl
@@ -404,6 +402,5 @@ module Alchemy
     def update_published_at
       self.published_at = Time.now
     end
-
   end
 end

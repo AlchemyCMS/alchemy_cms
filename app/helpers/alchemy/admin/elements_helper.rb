@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     module ElementsHelper
-
       include Alchemy::ElementsHelper
       include Alchemy::ElementsBlockHelper
       include Alchemy::Admin::BaseHelper
@@ -22,18 +21,18 @@ module Alchemy
       #
       #   :maximum_amount_of_images    [Integer]   # This option let you handle the amount of images your customer can add to this element.
       #
-      def render_picture_gallery_editor(element, options={})
+      def render_picture_gallery_editor(element, options = {})
         default_options = {
-          :maximum_amount_of_images => nil,
-          :grouped => true
+          maximum_amount_of_images: nil,
+          grouped: true
         }
         options = default_options.merge(options)
         render(
-          :partial => "alchemy/admin/elements/picture_gallery_editor",
-          :locals => {
-            :pictures => element.contents.gallery_pictures,
-            :element => element,
-            :options => options
+          partial: "alchemy/admin/elements/picture_gallery_editor",
+          locals: {
+            pictures: element.contents.gallery_pictures,
+            element: element,
+            options: options
           }
         )
       end

@@ -6,21 +6,16 @@ module Alchemy
     # Base class for our block-level helpers.
     #
     class BlockHelper
+      attr_reader :helpers
+      attr_reader :opts
+
       def initialize(helpers, opts = {})
         @helpers = helpers
         @opts = opts
       end
 
-      def opts
-        @opts
-      end
-
       def element
         opts[:element]
-      end
-
-      def helpers
-        @helpers
       end
     end
 
@@ -135,6 +130,7 @@ module Alchemy
       # that's it!
       output
     end
+
     # Block-level helper for element editors. Provides a block helper object
     # you can use for concise access to Alchemy's various helpers.
     #
@@ -149,11 +145,7 @@ module Alchemy
     # @param [Alchemy::Element] element
     #   The element to display.
     #
-    def element_editor_for(element, options = {})
-      options = {
-        # nothing here yet.
-      }.merge(options)
-
+    def element_editor_for(element)
       capture do
         yield ElementEditorHelper.new(self, element: element) if block_given?
       end

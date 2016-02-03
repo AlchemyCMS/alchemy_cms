@@ -1,5 +1,4 @@
 module Alchemy
-
   # Handles Legacy page redirects
   #
   # If the page could not be found via its urlname we try to find

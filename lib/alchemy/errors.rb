@@ -1,7 +1,6 @@
 # Custom error classes.
 #
 module Alchemy
-
   class CellDefinitionError < StandardError
     # Raised if no cell definition can be found.
   end

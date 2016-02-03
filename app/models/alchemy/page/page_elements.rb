@@ -1,6 +1,5 @@
 module Alchemy
   module Page::PageElements
-
     extend ActiveSupport::Concern
 
     included do
@@ -35,7 +34,6 @@ module Alchemy
     end
 
     module ClassMethods
-
       # Copy page elements
       #
       # @param source [Alchemy::Page]

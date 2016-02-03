@@ -13,6 +13,5 @@ module Alchemy
     def elements
       object.elements.published
     end
-
   end
 end

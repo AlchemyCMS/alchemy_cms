@@ -1,14 +1,12 @@
 require 'rails'
 
 module Alchemy
-
   # Utilities for Alchemy's mount point in the host rails app.
   #
   class MountPoint
     MOUNT_POINT_REGEXP = /mount\sAlchemy::Engine\s=>\s['|"](\/\w*)['|"]/
 
     class << self
-
       # Returns the path of Alchemy's mount point in current rails app.
       #
       # @param [Boolean] remove_leading_slash_if_blank

@@ -29,10 +29,10 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    has_many :essence_files, :class_name => 'Alchemy::EssenceFile', :foreign_key => 'attachment_id'
-    has_many :contents, :through => :essence_files
-    has_many :elements, :through => :contents
-    has_many :pages, :through => :elements
+    has_many :essence_files, class_name: 'Alchemy::EssenceFile', foreign_key: 'attachment_id'
+    has_many :contents, through: :essence_files
+    has_many :elements, through: :contents
+    has_many :pages, through: :elements
 
     validates_presence_of :file
     validates_format_of :file_name, with: /\A[A-Za-z0-9\. \-_äÄöÖüÜß]+\z/, on: :update
@@ -44,7 +44,7 @@ module Alchemy
       unless: -> { Config.get(:uploader)['allowed_filetypes']['attachments'].include?('*') }
 
     before_create do
-      write_attribute(:name, convert_to_humanized_name(self.file_name, self.file.ext))
+      write_attribute(:name, convert_to_humanized_name(file_name, file.ext))
     end
 
     after_update :touch_contents
@@ -61,7 +61,7 @@ module Alchemy
 
     # An url save filename without format suffix
     def urlname
-      CGI.escape(file_name.gsub(/\.#{extension}$/, '').gsub(/\./, ' '))
+      CGI.escape(file_name.gsub(/\.#{extension}$/, '').tr('.', ' '))
     end
 
     # Checks if the attachment is restricted, because it is attached on restricted pages only
@@ -79,31 +79,32 @@ module Alchemy
     #
     def icon_css_class
       case file_mime_type
-        when *ARCHIVE_FILE_TYPES
-          then "archive"
-        when *AUDIO_FILE_TYPES
-          then "audio"
-        when *IMAGE_FILE_TYPES
-          then "image"
-        when *VIDEO_FILE_TYPES
-          then "video"
-        when "application/x-shockwave-flash"
-          then "flash"
-        when "image/x-psd"
-          then "psd"
-        when "text/plain"
-          then "text"
-        when "application/rtf"
-          then "rtf"
-        when "application/pdf"
-          then "pdf"
-        when "application/msword"
-          then "word"
-        when "application/vnd.ms-excel"
-          then "excel"
-        when *VCARD_FILE_TYPES
-          then "vcard"
-        else "file"
+      when "application/x-shockwave-flash"
+        then "flash"
+      when "image/x-psd"
+        then "psd"
+      when "text/plain"
+        then "text"
+      when "application/rtf"
+        then "rtf"
+      when "application/pdf"
+        then "pdf"
+      when "application/msword"
+        then "word"
+      when "application/vnd.ms-excel"
+        then "excel"
+      when *VCARD_FILE_TYPES
+        then "vcard"
+      when *ARCHIVE_FILE_TYPES
+        then "archive"
+      when *AUDIO_FILE_TYPES
+        then "audio"
+      when *IMAGE_FILE_TYPES
+        then "image"
+      when *VIDEO_FILE_TYPES
+        then "video"
+      else
+        "file"
       end
     end
   end

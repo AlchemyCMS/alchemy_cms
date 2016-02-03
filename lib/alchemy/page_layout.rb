@@ -1,7 +1,6 @@
 module Alchemy
   class PageLayout
     class << self
-
       # Returns all page layouts.
       #
       # They are defined in +config/alchemy/page_layout.yml+ file.
@@ -44,7 +43,7 @@ module Alchemy
         if attributes.class.name == 'Hash'
           layouts = []
           attributes.stringify_keys.each do |key, value|
-            result = all.select { |a| a[key].to_s.downcase == value.to_s.downcase if a.has_key?(key) }
+            result = all.select { |a| a[key].to_s.downcase == value.to_s.downcase if a.key?(key) }
             layouts += result unless result.empty?
           end
           return layouts
@@ -119,7 +118,7 @@ module Alchemy
         I18n.t(layout, scope: 'page_layout_names', default: layout.to_s.humanize)
       end
 
-    private
+      private
 
       # Returns true if the given layout is unique and not already taken or it should be hidden.
       #
@@ -156,7 +155,7 @@ module Alchemy
       # Reads the layout definitions from +config/alchemy/page_layouts.yml+.
       #
       def read_definitions_file
-        if File.exists?(layouts_file_path)
+        if File.exist?(layouts_file_path)
           YAML.load(ERB.new(File.read(layouts_file_path)).result) || []
         else
           raise LoadError, "Could not find page_layouts.yml file! Please run `rails generate alchemy:scaffold`"
@@ -177,7 +176,6 @@ module Alchemy
         end
         @map_array
       end
-
     end
   end
 end

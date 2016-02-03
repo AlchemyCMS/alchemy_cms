@@ -7,7 +7,6 @@
 #
 class AlchemyTwoPointSix < ActiveRecord::Migration
   def up
-
     unless table_exists?('alchemy_attachments')
       create_table "alchemy_attachments" do |t|
         t.string   "name"
@@ -194,7 +193,7 @@ class AlchemyTwoPointSix < ActiveRecord::Migration
       create_table "alchemy_folded_pages" do |t|
         t.integer "page_id"
         t.integer "user_id"
-        t.boolean "folded",  default: false
+        t.boolean "folded", default: false
       end
     end
 
@@ -375,6 +374,5 @@ class AlchemyTwoPointSix < ActiveRecord::Migration
     if table_exists?('alchemy_sites')
       drop_table "alchemy_sites"
     end
-
   end
 end

@@ -2,15 +2,14 @@ require 'alchemy/upgrader'
 require 'alchemy/version'
 
 namespace :alchemy do
-
   desc "Upgrades database content to Alchemy CMS v#{Alchemy::VERSION} (Set UPGRADE env variable to only run a specific task)."
-  task :upgrade => :environment do
+  task upgrade: :environment do
     Alchemy::Upgrader.run!
   end
 
   namespace :upgrade do
     desc "List all available upgrade tasks."
-    task :list => [:environment] do
+    task list: [:environment] do
       puts "\nAvailable upgrade tasks"
       puts "-----------------------\n"
       methods = Alchemy::Upgrader.all_upgrade_tasks
@@ -24,5 +23,4 @@ namespace :alchemy do
       end
     end
   end
-
 end

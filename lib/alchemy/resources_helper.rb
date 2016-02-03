@@ -31,20 +31,20 @@ module Alchemy
       @_resource_scope ||= [resource_url_proxy].concat(resource_handler.namespace_for_scope)
     end
 
-    def resources_path(resource_or_name=resource_handler.resources_name, options={})
+    def resources_path(resource_or_name = resource_handler.resources_name, options = {})
       polymorphic_path (resource_scope + [resource_or_name]), options
     end
 
-    def resource_path(resource=resource_handler.resource_name, options={})
+    def resource_path(resource = resource_handler.resource_name, options = {})
       resources_path(resource, options)
     end
 
-    def new_resource_path(options={})
+    def new_resource_path(options = {})
       new_polymorphic_path (resource_scope + [resource_handler.resource_name]), options
     end
 
-    def edit_resource_path(resource=nil, options={})
-      path_segments = (resource_scope + [resource] or resource_handler.resource_array)
+    def edit_resource_path(resource = nil, options = {})
+      path_segments = (resource_scope + [resource] || resource_handler.resource_array)
       edit_polymorphic_path path_segments, options
     end
 
@@ -69,7 +69,7 @@ module Alchemy
     #
     # @return [String]
     #
-    def render_attribute(resource, attribute, options={})
+    def render_attribute(resource, attribute, options = {})
       options.reverse_merge!(truncate: 50)
       value = resource.send(attribute[:name])
       if (relation = attribute[:relation]) && value.present?
@@ -120,7 +120,7 @@ module Alchemy
 
     # Returns an array of all resource_relations names
     def resource_relations_names
-      resource_handler.resource_relations.collect { |k, v| v[:name].to_sym }
+      resource_handler.resource_relations.collect { |_k, v| v[:name].to_sym }
     end
 
     # Returns the attribute's column for sorting
@@ -154,9 +154,9 @@ module Alchemy
     # NOTE: Alchemy gives you a local variable named like your resource
     #
     def render_resources
-      render :partial => resource_name, :collection => resources_instance_variable
+      render partial: resource_name, collection: resources_instance_variable
     rescue ActionView::MissingTemplate
-      render :partial => 'resource', :collection => resources_instance_variable
+      render partial: 'resource', collection: resources_instance_variable
     end
 
     # Returns all the params necessary to get you back from where you where

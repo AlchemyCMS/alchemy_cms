@@ -1,5 +1,4 @@
 module Alchemy
-
   # ## Alchemy's permissions
   #
   # These are CanCan abilities, but to prevent any naming collusions we named it permissions.
@@ -39,10 +38,10 @@ module Alchemy
         can :read,              Alchemy::Content,    Alchemy::Content.available.not_restricted do |c|
           c.public? && !c.restricted? && !c.trashed?
         end
-        can :read,              Alchemy::Element,    Alchemy::Element.available.not_restricted do |e|
+        can :read, Alchemy::Element, Alchemy::Element.available.not_restricted do |e|
           e.public? && !e.restricted? && !e.trashed?
         end
-        can :read,              Alchemy::Page,       Alchemy::Page.published.not_restricted do |p|
+        can :read, Alchemy::Page, Alchemy::Page.published.not_restricted do |p|
           p.public? && !p.restricted?
         end
         can :see,               Alchemy::Page,       restricted: false, visible: true
@@ -62,16 +61,14 @@ module Alchemy
 
         # Resources
         can [:show, :download], Alchemy::Attachment
-        can :read,              Alchemy::Content,   Alchemy::Content.available do |c|
+        can :read,              Alchemy::Content, Alchemy::Content.available do |c|
           c.public? && !c.trashed?
         end
-        can :read,              Alchemy::Element,   Alchemy::Element.available do |e|
+        can :read, Alchemy::Element, Alchemy::Element.available do |e|
           e.public? && !e.trashed?
         end
-        can :read,              Alchemy::Page,      Alchemy::Page.published do |p|
-          p.public?
-        end
-        can :see,               Alchemy::Page,      restricted: true, visible: true
+        can :read, Alchemy::Page, Alchemy::Page.published, &:public?
+        can :see,               Alchemy::Page, restricted: true, visible: true
         can :display,           Alchemy::Picture
       end
     end
@@ -134,7 +131,7 @@ module Alchemy
         ]
 
         # Controller actions
-        can :clear,  :trash
+        can :clear, :trash
 
         # Resources
         can [
@@ -214,6 +211,5 @@ module Alchemy
     include AuthorUser
     include EditorUser
     include AdminUser
-
   end
 end

@@ -73,7 +73,6 @@ module Alchemy
           {id: value, text: value}
         end
       end
-
     end
   end
 end

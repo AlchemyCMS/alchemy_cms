@@ -23,7 +23,7 @@ module Alchemy
     # Concerns
     include Alchemy::Content::Factory
 
-    belongs_to :essence, :polymorphic => true, :dependent => :destroy
+    belongs_to :essence, polymorphic: true, dependent: :destroy
     belongs_to :element, touch: true
     has_one :page, through: :element
 
@@ -44,7 +44,7 @@ module Alchemy
     scope :essence_htmls,     -> { where(essence_type: "Alchemy::EssenceHtml") }
     scope :essence_links,     -> { where(essence_type: "Alchemy::EssenceLink") }
     scope :essence_pictures,  -> { where(essence_type: "Alchemy::EssencePicture") }
-    scope :gallery_pictures,  -> { essence_pictures.where("#{self.table_name}.name LIKE 'essence_picture_%'") }
+    scope :gallery_pictures,  -> { essence_pictures.where("#{table_name}.name LIKE 'essence_picture_%'") }
     scope :essence_richtexts, -> { where(essence_type: "Alchemy::EssenceRichtext") }
     scope :essence_selects,   -> { where(essence_type: "Alchemy::EssenceSelect") }
     scope :essence_texts,     -> { where(essence_type: "Alchemy::EssenceText") }
@@ -120,7 +120,7 @@ module Alchemy
 
     def siblings
       return [] if !element
-      self.element.contents
+      element.contents
     end
 
     # Gets the ingredient from essence
@@ -193,11 +193,11 @@ module Alchemy
     #   <%= text_field_tag content.form_field_name(:link), content.ingredient %>
     #
     def form_field_name(essence_column = 'ingredient')
-      "contents[#{self.id}][#{essence_column}]"
+      "contents[#{id}][#{essence_column}]"
     end
 
     def form_field_id(essence_column = 'ingredient')
-      "contents_#{self.id}_#{essence_column}"
+      "contents_#{id}_#{essence_column}"
     end
 
     # Returns a string used as dom id on html elements.
@@ -208,7 +208,7 @@ module Alchemy
 
     # Returns the translated name for displaying in labels, etc.
     def name_for_label
-      self.class.translated_label_for(self.name, self.element.name)
+      self.class.translated_label_for(name, element.name)
     end
 
     def linked?
@@ -235,7 +235,7 @@ module Alchemy
     end
 
     def normalized_essence_type
-      self.class.normalize_essence_type(self.essence_type)
+      self.class.normalize_essence_type(essence_type)
     end
 
     # Returns true if there is a tinymce setting defined on the content definiton

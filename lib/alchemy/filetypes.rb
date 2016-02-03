@@ -1,6 +1,5 @@
 module Alchemy
   module Filetypes
-
     ARCHIVE_FILE_TYPES = ["application/zip", "application/x-rar"]
 
     AUDIO_FILE_TYPES = [
@@ -28,6 +27,5 @@ module Alchemy
       "video/x-msvideo",
       "video/x-ms-wmv"
     ]
-
   end
 end

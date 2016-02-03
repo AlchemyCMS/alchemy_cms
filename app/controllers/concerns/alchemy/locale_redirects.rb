@@ -1,5 +1,4 @@
 module Alchemy
-
   # Handles locale redirects
   #
   # If the current URL has a locale prefix, but should not have one it redirects

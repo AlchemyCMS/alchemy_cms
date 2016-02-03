@@ -45,7 +45,6 @@ module Alchemy
       def model_class
         "alchemy/#{params[:remarkable_type]}".classify.constantize
       end
-
     end
   end
 end

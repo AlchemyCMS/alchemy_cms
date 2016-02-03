@@ -60,6 +60,5 @@ module Alchemy
     def locale_from_browser
       request.env['HTTP_ACCEPT_LANGUAGE'].try(:scan, /\A[a-z]{2}/).try(:first)
     end
-
   end
 end

@@ -26,12 +26,12 @@ module Alchemy
       def update_check
         @alchemy_version = Alchemy.version
         if @alchemy_version < latest_alchemy_version
-          render :text => 'true'
+          render text: 'true'
         else
-          render :text => 'false'
+          render text: 'false'
         end
       rescue UpdateServiceUnavailable => e
-        render :text => e, :status => 503
+        render text: e, status: 503
       end
 
       private

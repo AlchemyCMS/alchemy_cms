@@ -1,5 +1,4 @@
 module Alchemy
-
   # Handles page redirect urls
   #
   # Lots of reasons exist to redirect to another URL than the requested one.
@@ -34,7 +33,7 @@ module Alchemy
     #
     def redirect_url
       @_redirect_url ||= public_child_redirect_url || controller_and_action_url ||
-        locale_prefixed_url || nil
+                         locale_prefixed_url || nil
     end
 
     def locale_prefixed_url

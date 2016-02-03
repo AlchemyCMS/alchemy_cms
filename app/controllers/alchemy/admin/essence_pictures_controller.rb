@@ -17,7 +17,7 @@ module Alchemy
       def crop
         if @picture = @essence_picture.picture
           @content = @essence_picture.content
-          @options[:format] ||= (configuration(:image_store_format) or 'png')
+          @options[:format] ||= (configuration(:image_store_format) || 'png')
 
           @min_size = sizes_from_essence_or_params
           @ratio = ratio_from_size_or_params
@@ -91,7 +91,7 @@ module Alchemy
       # aspect ratio, don't specify a size or only width or height.
       #
       def ratio_from_size_or_params
-        if @min_size.has_value?(0) && @options[:fixed_ratio]
+        if @min_size.value?(0) && @options[:fixed_ratio]
           @options[:fixed_ratio].to_f
         elsif !@min_size[:width].zero? && !@min_size[:height].zero?
           @min_size[:width].to_f / @min_size[:height].to_f
@@ -114,7 +114,6 @@ module Alchemy
       def essence_picture_params
         params.require(:essence_picture).permit(:alt_tag, :caption, :css_class, :render_size, :title, :crop_from, :crop_size)
       end
-
     end
   end
 end

@@ -1,5 +1,4 @@
 module Alchemy
-
   # = Provides a DSL to define callbacks run in a before filter on pages show action
   #
   # Use this mixin to add the +on_page_layout+ class method
@@ -38,7 +37,6 @@ module Alchemy
   #     end
   #
   module OnPageLayout
-
     # All registered callbacks
     def self.callbacks
       @callbacks

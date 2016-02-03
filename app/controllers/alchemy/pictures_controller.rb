@@ -17,10 +17,10 @@ module Alchemy
 
     def thumbnail
       case params[:size]
-        when 'small'  then @size = '80x60'
-        when 'medium' then @size = '160x120'
-        when 'large'  then @size = '240x180'
-        when nil      then @size = '111x93'
+      when 'small'  then @size = '80x60'
+      when 'medium' then @size = '160x120'
+      when 'large'  then @size = '240x180'
+      when nil      then @size = '111x93'
       else
         @size = params[:size]
       end
@@ -42,7 +42,7 @@ module Alchemy
 
     def bad_request
       render text: "Bad picture parameters in #{request.path}", status: 400
-      return false
+      false
     end
 
     def send_image(image, format)
@@ -80,6 +80,5 @@ module Alchemy
         @image
       end
     end
-
   end
 end

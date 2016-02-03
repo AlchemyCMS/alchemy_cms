@@ -87,15 +87,15 @@ module Alchemy
         when :destroy
           verb = "removed"
         end
-        flash[:notice] = _t("#{resource_handler.resource_name.classify} successfully #{verb}", :default => _t("Succesfully #{verb}"))
+        flash[:notice] = _t("#{resource_handler.resource_name.classify} successfully #{verb}", default: _t("Succesfully #{verb}"))
       end
 
       def is_alchemy_module?
-        not alchemy_module.nil? and not alchemy_module['engine_name'].nil?
+        !alchemy_module.nil? && !alchemy_module['engine_name'].nil?
       end
 
       def alchemy_module
-        @alchemy_module ||= module_definition_for(:controller => params[:controller], :action => 'index')
+        @alchemy_module ||= module_definition_for(controller: params[:controller], action: 'index')
       end
 
       def load_resource

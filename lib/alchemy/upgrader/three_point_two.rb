@@ -4,7 +4,6 @@ class Alchemy::Upgrader::ThreePointTwoTask < Thor
   include Thor::Actions
 
   no_tasks do
-
     def patch_acts_as_taggable_on_migrations
       sentinel = /def self.up/
 
