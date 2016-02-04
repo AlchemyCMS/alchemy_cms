@@ -16,7 +16,7 @@
 <script type="text/javascript">
  $(function() {
    Alchemy.Sitemap.init(
-     '<%= alchemy.tree_admin_pages_path(id: @page_root.id) %>',
+     '<%= alchemy.tree_admin_pages_path %>',
      <%= @page_root.id %>,
      <%= !!@sorting %>
    );

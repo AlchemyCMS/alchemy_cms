@@ -14,13 +14,16 @@ Alchemy.Sitemap =
     @list_template = $('#sitemap-list').html().replace(list_template_regexp, '/{{id}}')
     @items = null
     @url = url
+    @page_root_id = page_root_id
     @sorting = sorting
     @fetch()
 
   # Fetches the sitemap from JSON
   fetch: ->
     self = Alchemy.Sitemap
-    request = $.ajax @url
+    request = $.ajax url: @url, data:
+      id: @page_root_id
+      full: @sorting
     Alchemy.pleaseWaitOverlay()
 
     request.done (data) ->

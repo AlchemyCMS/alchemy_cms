@@ -33,7 +33,8 @@ module Alchemy
         authorize! :tree, :alchemy_admin_pages
 
         render json: PageTreeSerializer.new(@page, ability: current_ability,
-                                            user: current_alchemy_user)
+                                            user: current_alchemy_user,
+                                            full: params[:full] == 'true')
       end
 
       # Used by page preview iframe in Page#edit view.

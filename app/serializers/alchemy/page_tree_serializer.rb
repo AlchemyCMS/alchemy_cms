@@ -8,8 +8,24 @@ module Alchemy
       tree = []
       path = [{id: object.parent_id, children: tree}]
       page_list = object.self_and_descendants
+      skip_branch = false
 
       page_list.each_with_index do |page, i|
+        has_children = page_list[i + 1] && page_list[i + 1].parent_id == page.id
+        folded = has_children && page.folded?(opts[:user])
+
+        if skip_branch
+          next if page.parent_id == path.last[:children].last[:id]
+
+          skip_branch = false
+        end
+
+        # Do not walk my children if I'm folded and you don't need to have the
+        # full tree.
+        if folded && !opts[:full]
+          skip_branch = true
+        end
+
         if page.parent_id != path.last[:id]
           if path.map { |o| o[:id] }.include?(page.parent_id) # Lower level
             path.pop while path.last[:id] != page.parent_id
@@ -18,10 +34,9 @@ module Alchemy
           end
         end
 
-        has_children = page_list[i + 1] && page_list[i + 1].parent_id == page.id
         level = path.count
 
-        path.last[:children] << page_hash(page, has_children, level)
+        path.last[:children] << page_hash(page, has_children, level, folded)
       end
 
       tree
@@ -29,7 +44,7 @@ module Alchemy
 
     protected
 
-    def page_hash(page, has_children, level)
+    def page_hash(page, has_children, level, folded)
       {
         id: page.id,
         name: page.name,
@@ -47,7 +62,7 @@ module Alchemy
         external_urlname: page.external_urlname,
         level: level,
         root: level == 1,
-        folded: has_children && page.folded?(opts[:user]),
+        folded: folded,
         root_or_leaf: level == 1 || !has_children,
         children: []
       }
