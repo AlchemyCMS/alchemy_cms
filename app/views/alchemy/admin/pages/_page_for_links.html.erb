@@ -18,9 +18,7 @@
       <% end %>
     </div>
     <div class="page_infos">
-      <span class="page_status <%= page_for_links.public ? 'public' : 'not_public' %>" title="<%= page_for_links.status_title(:public) %>"></span>
-      <span class="page_status <%= page_for_links.visible ? 'visible' : 'not_visible' %>" title="<%= page_for_links.status_title(:visible) %>"></span>
-      <span class="page_status <%= page_for_links.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page_for_links.status_title(:restricted) %>"></span>
+      <%= render 'alchemy/admin/pages/page_infos', page: page_for_links %>
     </div>
     <div class="sitemap_sitename" id="sitemap_sitename_<%= page_for_links.id %>" name="<%= parse_sitemap_name(page_for_links) %>">
       <% if page_for_links.redirects_to_external? %>
