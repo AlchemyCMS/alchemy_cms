@@ -1,6 +1,6 @@
-# == In this configuration you setup Alchemy´s element layouts.
+# == In this configuration, you set up Alchemy's element layouts.
 #
-# For further informations please see http://guides.alchemy-cms.com/create_elements.html
+# For further information please see http://guides.alchemy-cms.com/edge/elements.html
 
 <%- unless @options[:skip_demo_files] -%>
 - name: article
