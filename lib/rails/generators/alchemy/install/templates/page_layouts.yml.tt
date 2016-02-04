@@ -1,6 +1,6 @@
 # == This file defines the page layouts for new pages.
 #
-# For further information please see http://guides.alchemy-cms.com/edge/page_layouts.html
+# For further information please see http://guides.alchemy-cms.com/stable/page_layouts.html
 
 <%- unless @options[:skip_demo_files] -%>
 - name: <%= Alchemy::Config.get(:default_language)['page_layout'] %>
