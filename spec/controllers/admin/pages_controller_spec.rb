@@ -66,7 +66,7 @@ module Alchemy
         end
 
         it 'returns a tree as JSON' do
-          alchemy_get :tree, id: page_1.id
+          alchemy_get :tree, id: page_1.id, full: 'true'
 
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
@@ -101,6 +101,19 @@ module Alchemy
           expect(page).to have_key('name')
           expect(page['name']).to eq(page_3.name)
           expect(page).to have_key('children')
+          expect(page['children'].count).to eq(0)
+        end
+
+        it 'does not return a branch that is folded' do
+          alchemy_xhr :post, :fold, id: page_2.id
+          alchemy_get :tree, id: page_1.id, full: 'false'
+
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+
+          result = JSON.parse(response.body)
+          page = result['pages'].first['children'].first
+
           expect(page['children'].count).to eq(0)
         end
       end
