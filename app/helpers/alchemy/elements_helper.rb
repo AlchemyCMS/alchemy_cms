@@ -76,7 +76,8 @@ module Alchemy
     def render_elements(options = {})
       options = {
         from_page: @page,
-        render_format: 'html'
+        render_format: 'html',
+        reverse: false
       }.update(options)
 
       pages = pages_holding_elements(options.delete(:from_page))
@@ -89,7 +90,11 @@ module Alchemy
       elements = collect_elements_from_pages(pages, options)
 
       if options[:sort_by].present?
-        elements = sort_elements_by_content(elements, options.delete(:sort_by))
+        elements = sort_elements_by_content(
+          elements,
+          options.delete(:sort_by),
+          options[:reverse]
+        )
       end
 
       render_element_view_partials(elements, options)
@@ -225,14 +230,17 @@ module Alchemy
     #
     # @param [Array] elements - The elements you want to sort
     # @param [String] content_name - The name of the content you want to sort by
+    # @param [Boolean] reverse - Reverse the sorted elements order
     #
     # @return [Array]
     #
-    def sort_elements_by_content(elements, content_name)
-      elements.sort_by do |element|
+    def sort_elements_by_content(elements, content_name, reverse = false)
+      sorted_elements = elements.sort_by do |element|
         content = element.content_by_name(content_name)
         content ? content.ingredient.to_s : ''
       end
+
+      reverse ? sorted_elements.reverse : sorted_elements
     end
 
     private
