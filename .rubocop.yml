@@ -54,6 +54,9 @@ Style/AlignParameters:
 Style/ClosingParenthesisIndentation:
   Enabled: false
 
+Style/CollectionMethods:
+  Enabled: false
+
 Style/MultilineMethodCallIndentation:
   Enabled: false
 
