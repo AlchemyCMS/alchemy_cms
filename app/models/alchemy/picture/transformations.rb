@@ -57,8 +57,14 @@ module Alchemy
 
     # Returns the rendered resized image using imagemagick directly.
     #
-    def resize(size, upsample = false)
-      self.image_file.thumb(upsample ? size : "#{size}>")
+    def resize(size, upsample = false, fit = false)
+      if fit
+        image_file.thumb("#{size}#")
+      elsif upsample
+        image_file.thumb("#{size}>")
+      else
+        image_file.thumb(size)
+      end
     end
 
     # Given a string with an x, this function returns a Hash with point

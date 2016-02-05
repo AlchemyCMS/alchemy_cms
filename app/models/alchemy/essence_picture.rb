@@ -54,6 +54,9 @@ module Alchemy
     # @option options crop [Boolean]
     #   If set to true the picture will be cropped to fit the size value.
     #
+    # @option options fit [Boolean]
+    #   If set to true the picture will be resized to fit/cover the size value.
+    #
     def picture_url(options = {})
       return if picture.nil?
       routes.show_picture_path(picture_params(options))

@@ -3,7 +3,7 @@ module Alchemy
   #
   class PictureAttributes
 
-    SECURE_ATTRIBUTES = %w(id size crop crop_from crop_size quality upsample).freeze
+    SECURE_ATTRIBUTES = %w(id size crop crop_from crop_size quality upsample fit).freeze
 
     class << self
 
