@@ -86,7 +86,7 @@ module Alchemy
     #   :disable_link => true                          # You can surpress the link of an EssencePicture. Default false
     #
     def render_essence_view(content, options = {}, html_options = {})
-      render_essence(content, :view, {:for_view => options}, html_options)
+      render_essence(content, :view, {for_view: options}, html_options)
     end
 
     # Renders a essence picture
@@ -113,9 +113,9 @@ module Alchemy
           title: content.essence.link_title.blank? ? nil : content.essence.link_title,
           target: (content.essence.link_target == "blank" ? "_blank" : nil),
           'data-link-target' => content.essence.link_target.blank? ? nil : content.essence.link_target
-        }) do
+        }) {
           output
-        end
+        }
       end
       if caption
         content_tag(:figure, output, {class: content.essence.css_class.blank? ? nil : content.essence.css_class}.merge(html_options))

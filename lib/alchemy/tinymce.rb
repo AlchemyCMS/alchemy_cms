@@ -3,7 +3,7 @@ module Alchemy
     mattr_accessor :languages, :plugins
 
     @@plugins = %w(alchemy_link anchor autoresize charmap code directionality fullscreen hr link paste tabfocus table)
-    @@languages = ['en', 'de']
+    @@languages = %w(en de)
     @@init = {
       skin: 'alchemy',
       width: '100%',
@@ -42,14 +42,14 @@ module Alchemy
     private
 
     def self.content_definitions_from_elements(definitions)
-      definitions.collect do |el|
+      definitions.collect { |el|
         next if el['contents'].blank?
-        contents = el['contents'].select do |c|
+        contents = el['contents'].select { |c|
           c['settings'] && c['settings']['tinymce'].is_a?(Hash)
-        end
+        }
         next if contents.blank?
         contents.map { |c| c.merge('element' => el['name']) }
-      end.flatten.compact
+      }.flatten.compact
     end
   end
 end

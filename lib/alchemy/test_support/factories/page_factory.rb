@@ -4,8 +4,8 @@ require 'alchemy/test_support/factories/language_factory'
 FactoryGirl.define do
 
   factory :alchemy_page, class: 'Alchemy::Page' do
-    language { Alchemy::Language.default || FactoryGirl.create(:alchemy_language) }
-    sequence(:name) { |n| "A Page #{n}" }
+    language do Alchemy::Language.default || FactoryGirl.create(:alchemy_language) end
+    sequence(:name) do |n| "A Page #{n}" end
     page_layout "standard"
 
     parent_id do
@@ -19,20 +19,20 @@ FactoryGirl.define do
 
     trait :language_root do
       name 'Startseite'
-      page_layout { language.page_layout }
+      page_layout do language.page_layout end
       language_root true
       public true
       parent_id { Alchemy::Page.root.id }
     end
 
     trait :public do
-      sequence(:name) { |n| "A Public Page #{n}" }
+      sequence(:name) do |n| "A Public Page #{n}" end
       public true
     end
 
     trait :system do
       name "Systempage"
-      parent_id { Alchemy::Page.root.id }
+      parent_id do Alchemy::Page.root.id end
       language_root false
       page_layout nil
       language nil

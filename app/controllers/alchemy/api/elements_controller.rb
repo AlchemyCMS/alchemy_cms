@@ -12,9 +12,7 @@ module Alchemy
       if params[:page_id].present?
         @elements = @elements.where(page_id: params[:page_id])
       end
-      if params[:named].present?
-        @elements = @elements.named(params[:named])
-      end
+      @elements = @elements.named(params[:named]) if params[:named].present?
       respond_with @elements
     end
 

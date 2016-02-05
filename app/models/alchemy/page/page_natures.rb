@@ -37,7 +37,7 @@ module Alchemy
     def controller_and_action
       if has_controller?
         {
-          controller: definition["controller"].gsub(/(^\b)/, "/#{$1}"),
+          controller: definition["controller"].gsub(/(^\b)/, "/#{Regexp.last_match(1)}"),
           action: definition["action"]
         }
       end

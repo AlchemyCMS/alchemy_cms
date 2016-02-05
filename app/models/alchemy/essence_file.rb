@@ -27,9 +27,9 @@ module Alchemy
       )
     end
 
-    def preview_text(max=30)
+    def preview_text(max = 30)
       return "" if attachment.blank?
-      attachment.name.to_s[0..max-1]
+      attachment.name.to_s[0..max - 1]
     end
 
     # Returns a serialized ingredient value for json api

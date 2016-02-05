@@ -11,7 +11,7 @@ module Alchemy
       end
 
       def database_config
-        raise "Could not find #{database_config_file}!" if !File.exists?(database_config_file)
+        raise "Could not find #{database_config_file}!" unless File.exists?(database_config_file)
         @database_config ||= begin
           config_file = YAML.load(ERB.new(File.read(database_config_file)).result)
           config_file.fetch(environment)
@@ -22,18 +22,18 @@ module Alchemy
 
       private
 
-      def database_command(adapter, action='import')
+      def database_command(adapter, action = 'import')
         case adapter.to_s
-        when /mysql/
-          "#{mysql_command(mysql_command_for(action))} #{database_config['database']}"
-        when /postgresql/
-          "#{postgres_command(postgres_command_for(action))} #{database_config['database']}"
+          when /mysql/
+            "#{mysql_command(mysql_command_for(action))} #{database_config['database']}"
+          when /postgresql/
+            "#{postgres_command(postgres_command_for(action))} #{database_config['database']}"
         else
-          raise ArgumentError, "Alchemy only supports #{action}ing MySQL and PostgreSQL databases. #{adapter} is not supported."
+            raise ArgumentError, "Alchemy only supports #{action}ing MySQL and PostgreSQL databases. #{adapter} is not supported."
         end
       end
 
-      def mysql_command(cmd='mysql')
+      def mysql_command(cmd = 'mysql')
         command = [cmd]
         if database_config['username']
           command << "--user='#{database_config['username']}'"
@@ -47,7 +47,7 @@ module Alchemy
         command.join(' ')
       end
 
-      def postgres_command(cmd='psql')
+      def postgres_command(cmd = 'psql')
         command = []
         if database_config['password']
           command << "PGPASSWORD='#{database_config['password']}'"

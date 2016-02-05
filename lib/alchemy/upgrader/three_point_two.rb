@@ -12,14 +12,14 @@ class Alchemy::Upgrader::ThreePointTwoTask < Thor
       if aato_file
         inject_into_file aato_file,
           "\n    # inserted by Alchemy CMS upgrader\n    return if table_exists?(:tags)\n",
-          { after: sentinel, verbose: true }
+          {after: sentinel, verbose: true}
       end
 
       aato_file = Dir.glob('db/migrate/*_add_missing_unique_indices.*.rb').first
       if aato_file
         inject_into_file aato_file,
           "\n    # inserted by Alchemy CMS upgrader\n    return if index_exists?(:tags, :name)\n",
-          { after: sentinel, verbose: true }
+          {after: sentinel, verbose: true}
       end
     end
 
@@ -35,7 +35,7 @@ module Alchemy
 
     def upgrade_acts_as_taggable_on_migrations
       desc 'Installs acts_as_taggable_on migrations.'
-      if !`bundle exec rake railties:install:migrations FROM=acts_as_taggable_on_engine`.empty?
+      unless `bundle exec rake railties:install:migrations FROM=acts_as_taggable_on_engine`.empty?
         Alchemy::Upgrader::ThreePointTwoTask.new.patch_acts_as_taggable_on_migrations
       end
       `bundle exec rake db:migrate`

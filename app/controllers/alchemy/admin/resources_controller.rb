@@ -20,14 +20,12 @@ module Alchemy
       def index
         @query = resource_handler.model.ransack(params[:q])
         items = @query.result
-        if contains_relations?
-          items = items.includes(*resource_relations_names)
-        end
+        items = items.includes(*resource_relations_names) if contains_relations?
         respond_to do |format|
-          format.html {
+          format.html do
             items = items.page(params[:page] || 1).per(per_page_value_for_screen_size)
             instance_variable_set("@#{resource_handler.resources_name}", items)
-          }
+          end
           format.csv {
             instance_variable_set("@#{resource_handler.resources_name}", items)
           }
@@ -80,22 +78,22 @@ module Alchemy
       def flash_notice_for_resource_action(action = params[:action])
         return if resource_instance_variable.errors.any?
         case action.to_sym
-        when :create
-          verb = "created"
-        when :update
-          verb = "updated"
-        when :destroy
-          verb = "removed"
+          when :create
+            verb = "created"
+          when :update
+            verb = "updated"
+          when :destroy
+            verb = "removed"
         end
-        flash[:notice] = _t("#{resource_handler.resource_name.classify} successfully #{verb}", :default => _t("Succesfully #{verb}"))
+        flash[:notice] = _t("#{resource_handler.resource_name.classify} successfully #{verb}", default: _t("Succesfully #{verb}"))
       end
 
       def is_alchemy_module?
-        not alchemy_module.nil? and not alchemy_module['engine_name'].nil?
+        !alchemy_module.nil? and !alchemy_module['engine_name'].nil?
       end
 
       def alchemy_module
-        @alchemy_module ||= module_definition_for(:controller => params[:controller], :action => 'index')
+        @alchemy_module ||= module_definition_for(controller: params[:controller], action: 'index')
       end
 
       def load_resource

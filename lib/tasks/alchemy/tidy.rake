@@ -11,7 +11,7 @@ namespace :alchemy do
     end
 
     desc "Creates missing cells for pages."
-    task :cells => :environment do
+    task cells: :environment do
       if !File.exist? Rails.root.join('config/alchemy/cells.yml')
         puts "No page cell definitions found."
       else
@@ -26,12 +26,12 @@ namespace :alchemy do
     end
 
     desc "Fixes element positions."
-    task :element_positions => [:environment] do
+    task element_positions: [:environment] do
       Alchemy::Tidy.update_element_positions
     end
 
     desc "Fixes content positions."
-    task :content_positions => [:environment] do
+    task content_positions: [:environment] do
       Alchemy::Tidy.update_content_positions
     end
   end
@@ -65,7 +65,7 @@ module Alchemy
         if page.elements.any?
           puts "\n## Updating element positions of page `#{page.name}`"
         end
-        page.elements.group_by(&:cell_id).each do |cell_id, elements|
+        page.elements.group_by(&:cell_id).each do |_cell_id, elements|
           elements.each_with_index do |element, idx|
             position = idx + 1
             if element.position != position

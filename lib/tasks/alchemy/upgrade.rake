@@ -4,18 +4,18 @@ require 'alchemy/version'
 namespace :alchemy do
 
   desc "Upgrades database content to Alchemy CMS v#{Alchemy::VERSION} (Set UPGRADE env variable to only run a specific task)."
-  task :upgrade => :environment do
+  task upgrade: :environment do
     Alchemy::Upgrader.run!
   end
 
   namespace :upgrade do
     desc "List all available upgrade tasks."
-    task :list => [:environment] do
+    task list: [:environment] do
       puts "\nAvailable upgrade tasks"
       puts "-----------------------\n"
       methods = Alchemy::Upgrader.all_upgrade_tasks
       if methods.any?
-        methods.each { |method| puts method }
+        methods.each do |method| puts method end
         puts "\nUsage:"
         puts "------"
         puts "Run one or more tasks with `bundle exec rake alchemy:upgrade UPGRADE=task_name1,task_name2`\n"

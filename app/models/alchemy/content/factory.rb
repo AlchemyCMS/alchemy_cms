@@ -135,7 +135,7 @@ module Alchemy
     #
     def definition
       if element.blank?
-        log_warning "Content with id #{self.id} is missing its Element."
+        log_warning "Content with id #{id} is missing its Element."
         return {}
       end
       element.content_definition_for(name) || {}

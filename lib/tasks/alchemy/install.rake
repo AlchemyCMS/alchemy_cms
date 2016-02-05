@@ -8,7 +8,7 @@ class Alchemy::InstallTask < Thor
       mountpoint = ask "\nAt which path do you want to mount Alchemy CMS at? (DEFAULT: At root path '/')"
       mountpoint = "/" if mountpoint.empty?
       sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
-      inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", { after: sentinel, verbose: true }
+      inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", {after: sentinel, verbose: true}
     end
 
     def set_primary_language
@@ -16,7 +16,7 @@ class Alchemy::InstallTask < Thor
       code = "en" if code.empty?
       name = ask "What's the name of your site's primary language? (DEFAULT: English)"
       name = "English" if name.empty?
-      gsub_file "./config/alchemy/config.yml", /default_language:\n\s\scode:\sen\n\s\sname:\sEnglish/m do |match|
+      gsub_file "./config/alchemy/config.yml", /default_language:\n\s\scode:\sen\n\s\sname:\sEnglish/m do |_match|
         match = "default_language:\n  code: #{code}\n  name: #{name}"
       end
     end
@@ -38,7 +38,7 @@ namespace :alchemy do
       puts "-----------------"
     end
     Rake::Task["alchemy:mount"].invoke
-    system("rails g alchemy:install#{ ENV['from_binary'] ? ' --force' : '' }") || exit!(1)
+    system("rails g alchemy:install#{ENV['from_binary'] ? ' --force' : ''}") || exit!(1)
     install_helper.set_primary_language
     Rake::Task["db:create"].invoke
     # We can't invoke this rake task, because Rails will use wrong engine names otherwise

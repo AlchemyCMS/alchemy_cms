@@ -37,7 +37,7 @@ module Alchemy
     # to ensure this runs before Dragonfly's before_destroy callback.
     #
     before_destroy unless: :deletable? do
-      raise PictureInUseError, I18n.t(:cannot_delete_picture_notice) % { name: name }
+      raise PictureInUseError, I18n.t(:cannot_delete_picture_notice) % {name: name}
     end
 
     # Enables Dragonfly image processing
@@ -62,20 +62,20 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    scope :named, ->(name) {
-      where("#{self.table_name}.name LIKE ?", "%#{name}%")
+    scope :named, lambda { |name|
+      where("#{table_name}.name LIKE ?", "%#{name}%")
     }
 
-    scope :recent, -> {
-      where("#{self.table_name}.created_at > ?", Time.now - 24.hours).order(:created_at)
+    scope :recent, lambda {
+      where("#{table_name}.created_at > ?", Time.now - 24.hours).order(:created_at)
     }
 
-    scope :deletable, -> {
+    scope :deletable, lambda {
       where("#{table_name}.id NOT IN (SELECT picture_id FROM #{EssencePicture.table_name})")
     }
 
-    scope :without_tag, -> {
-      where("#{self.table_name}.cached_tag_list IS NULL OR #{self.table_name}.cached_tag_list = ''")
+    scope :without_tag, lambda {
+      where("#{table_name}.cached_tag_list IS NULL OR #{table_name}.cached_tag_list = ''")
     }
 
     after_update :touch_contents
@@ -101,9 +101,7 @@ module Alchemy
           pictures = pictures.filtered_by(params[:filter])
         end
 
-        if per_page
-          pictures = pictures.page(params[:page] || 1).per(per_page)
-        end
+        pictures = pictures.page(params[:page] || 1).per(per_page) if per_page
 
         pictures.order(:name)
       end
@@ -114,7 +112,7 @@ module Alchemy
           when 'last_upload' then last_upload
           when 'without_tag' then without_tag
         else
-          all
+            all
         end
       end
     end
@@ -138,9 +136,7 @@ module Alchemy
     # Note: Does not delete name value, if the form field is blank.
     #
     def update_name_and_tag_list!(params)
-      if params[:pictures_name].present?
-        self.name = params[:pictures_name]
-      end
+      self.name = params[:pictures_name] if params[:pictures_name].present?
       self.tag_list = params[:pictures_tag_list]
       self.save!
     end
@@ -158,10 +154,10 @@ module Alchemy
     # Returns an uri escaped name.
     #
     def urlname
-      if self.name.blank?
-        "image_#{self.id}"
+      if name.blank?
+        "image_#{id}"
       else
-        ::CGI.escape(self.name.gsub(/\.(gif|png|jpe?g|tiff?)/i, '').gsub(/\./, ' '))
+        ::CGI.escape(name.gsub(/\.(gif|png|jpe?g|tiff?)/i, '').gsub(/\./, ' '))
       end
     end
 
@@ -222,7 +218,7 @@ module Alchemy
       params = params.dup.stringify_keys
       params.update({
         'crop' => params['crop'] ? 'crop' : nil,
-        'id' => self.id
+        'id' => id
       })
       PictureAttributes.secure(params)
     end

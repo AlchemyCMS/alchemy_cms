@@ -47,7 +47,7 @@ module Alchemy
       if definition = self.class.definitions.detect { |d| d['name'] == name }
         definition
       else
-        log_warning "Could not find element definition for #{self.name}. Please check your elements.yml file!"
+        log_warning "Could not find element definition for #{name}. Please check your elements.yml file!"
         return {}
       end
     end

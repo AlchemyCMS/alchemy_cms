@@ -19,7 +19,7 @@ module Alchemy
     #
     def touch_contents
       return unless self.respond_to?(:contents)
-      self.contents.update_all(touchable_attributes)
+      contents.update_all(touchable_attributes)
     end
 
     # If the model has a +touchable_pages+ association,
@@ -29,7 +29,7 @@ module Alchemy
     #
     def touch_pages
       return unless self.respond_to?(:touchable_pages)
-      self.touchable_pages.update_all(touchable_attributes)
+      touchable_pages.update_all(touchable_attributes)
     end
 
     # Returns the attributes hash for touching a model.

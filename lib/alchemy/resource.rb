@@ -91,12 +91,12 @@ module Alchemy
     DEFAULT_SKIPPED_ATTRIBUTES = %w(id updated_at created_at creator_id updater_id)
     DEFAULT_SKIPPED_ASSOCIATIONS = %w(creator updater)
 
-    def initialize(controller_path, module_definition=nil, custom_model=nil)
+    def initialize(controller_path, module_definition = nil, custom_model = nil)
       @controller_path = controller_path
       @module_definition = module_definition
       @model = (custom_model or guess_model_from_controller_path)
       if model.respond_to?(:alchemy_resource_relations)
-        if not model.respond_to?(:reflect_on_all_associations)
+        unless model.respond_to?(:reflect_on_all_associations)
           raise MissingActiveRecordAssociation
         end
         store_model_associations
@@ -139,15 +139,15 @@ module Alchemy
     end
 
     def attributes
-      @_attributes ||= self.model.columns.collect do |col|
+      @_attributes ||= model.columns.collect { |col|
         unless skipped_attributes.include?(col.name)
           {
             name: col.name,
             type: resource_column_type(col),
             relation: resource_relation(col.name)
-          }.delete_if { |k, v| v.nil? }
+          }.delete_if { |_k, v| v.nil? }
         end
-      end.compact
+      }.compact
     end
 
     def editable_attributes
@@ -171,7 +171,7 @@ module Alchemy
     end
 
     def in_engine?
-      not self.engine_name.nil?
+      !engine_name.nil?
     end
 
     def engine_name
@@ -189,7 +189,7 @@ module Alchemy
     #           attribute_name: This is the fancy help text
     #
     def help_text_for(attribute)
-      ::I18n.translate!(attribute[:name], :scope => [:alchemy, :resource_help_texts, resource_name])
+      ::I18n.translate!(attribute[:name], scope: [:alchemy, :resource_help_texts, resource_name])
     rescue ::I18n::MissingTranslationData
       false
     end
@@ -217,11 +217,11 @@ module Alchemy
     private
 
     def string_attribute?(a)
-      a[:type].to_sym == :string && !a.has_key?(:relation)
+      a[:type].to_sym == :string && !a.key?(:relation)
     end
 
     def string_attribute_on_relation?(a)
-      a.has_key?(:relation) && a[:relation][:attr_type].to_sym == :string
+      a.key?(:relation) && a[:relation][:attr_type].to_sym == :string
     end
 
     def searchable_relation_attributes?(attrs)
@@ -266,7 +266,7 @@ module Alchemy
         name = name.to_s.gsub(/_id$/, '') # ensure that we don't have an id
         association = association_from_relation_name(name)
         foreign_key = association.options[:foreign_key] || "#{association.name}_id".to_sym
-        self.resource_relations[foreign_key] = options.merge(:model_association => association, :name => name)
+        resource_relations[foreign_key] = options.merge(model_association: association, name: name)
       end
     end
 

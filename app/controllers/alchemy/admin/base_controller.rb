@@ -4,7 +4,7 @@ module Alchemy
       include Userstamp
       include Alchemy::Locale
 
-      before_action { enforce_ssl if ssl_required? && !request.ssl? }
+      before_action do enforce_ssl if ssl_required? && !request.ssl? end
       before_action :load_locked_pages
 
       helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
@@ -51,9 +51,9 @@ module Alchemy
         @notice = e.message[0..255]
         @trace = e.backtrace[0..50]
         if request.xhr?
-          render :action => "error_notice"
+          render action: "error_notice"
         else
-          render '500', :status => 500
+          render '500', status: 500
         end
       end
 
@@ -94,7 +94,7 @@ module Alchemy
 
       # Returns true if the current_alchemy_user (The logged-in Alchemy User) has the admin role.
       def is_admin?
-        return false if !current_alchemy_user
+        return false unless current_alchemy_user
         current_alchemy_user.admin?
       end
 
@@ -124,10 +124,10 @@ module Alchemy
       #
       def do_redirect_to(url_or_path)
         respond_to do |format|
-          format.js   {
+          format.js   do
             @redirect_url = url_or_path
             render :redirect
-          }
+          end
           format.html { redirect_to url_or_path }
         end
       end
@@ -138,16 +138,16 @@ module Alchemy
       #
       def options_from_params
         case params[:options]
-        when ''
-          {}
-        when String
-          JSON.parse(params[:options])
-        when Hash
-          params[:options]
-        when Array
-          params[:options]
+          when ''
+            {}
+          when String
+            JSON.parse(params[:options])
+          when Hash
+            params[:options]
+          when Array
+            params[:options]
         else
-          {}
+            {}
         end.symbolize_keys
       end
 

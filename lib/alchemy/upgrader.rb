@@ -15,7 +15,7 @@ module Alchemy
       #
       def run!
         upgrade_tasks.each do |task|
-          self.send(task)
+          send(task)
         end
         puts "\n"
         log "Upgrade done!"

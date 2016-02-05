@@ -66,7 +66,7 @@ module Alchemy
     #
     def preview_text(max = 30)
       return "" if picture.nil?
-      picture.name.to_s[0..max-1]
+      picture.name.to_s[0..max - 1]
     end
 
     # A Hash of coordinates suitable for the graphical image cropper.
@@ -102,7 +102,7 @@ module Alchemy
     end
 
     def normalize_crop_value(crop_value)
-      self.send(crop_value).to_s.split('x').map { |n| normalize_number(n) }.join('x')
+      send(crop_value).to_s.split('x').map { |n| normalize_number(n) }.join('x')
     end
 
     def normalize_number(number)
@@ -145,12 +145,8 @@ module Alchemy
     # Ensures correct and clean params for show picture path.
     #
     def clean_picture_params(params)
-      if params[:crop] == true
-        params[:crop] = 'crop'
-      end
-      if params[:image_size]
-        params[:size] = params.delete(:image_size)
-      end
+      params[:crop] = 'crop' if params[:crop] == true
+      params[:size] = params.delete(:image_size) if params[:image_size]
       secure_attributes = PictureAttributes::SECURE_ATTRIBUTES.dup
       secure_attributes += %w(name format sh)
       params.delete_if { |k, v| !secure_attributes.include?(k.to_s) || v.blank? }

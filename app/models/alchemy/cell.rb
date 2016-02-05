@@ -53,7 +53,7 @@ module Alchemy
         I18n.t(cell_name, scope: 'cell_names', default: cell_name.to_s.humanize)
       end
 
-    private
+      private
 
       def read_yml_file
         ::YAML.load(ERB.new(File.read(yml_file_path)).result) || []
@@ -71,9 +71,9 @@ module Alchemy
     # Returns the cell definition defined in +config/alchemy/cells.yml+
     #
     def definition
-      definition = self.class.definition_for(self.name)
+      definition = self.class.definition_for(name)
       if definition.blank?
-        log_warning "Could not find cell definition for #{self.name}. Please check your cells.yml!"
+        log_warning "Could not find cell definition for #{name}. Please check your cells.yml!"
         return {}
       else
         definition
@@ -87,7 +87,7 @@ module Alchemy
     alias_method :available_elements, :element_definitions
 
     def name_for_label
-      self.class.translated_label_for(self.name)
+      self.class.translated_label_for(name)
     end
   end
 end

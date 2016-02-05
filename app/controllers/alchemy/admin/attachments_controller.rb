@@ -22,9 +22,8 @@ module Alchemy
           .per(15)
 
         @options = options_from_params
-        if in_overlay?
-          archive_overlay
-        end
+
+        archive_overlay if in_overlay?
       end
 
       # The resources controller renders the edit form as default for show actions.
@@ -34,22 +33,21 @@ module Alchemy
 
       def new
         @attachment = Attachment.new
-        if in_overlay?
-          set_instance_variables
-        end
+
+        set_instance_variables if in_overlay?
       end
 
       def create
         @attachment = Attachment.new(attachment_attributes)
         if @attachment.save
-          if in_overlay?
-            set_instance_variables
-          end
+          set_instance_variables if in_overlay?
+
           message = _t('File uploaded succesfully', name: @attachment.name)
           render json: {files: [@attachment.to_jq_upload], growl_message: message}, status: :created
         else
           message = _t('File upload error', error: @attachment.errors[:file].join)
-          render json: {files: [@attachment.to_jq_upload], growl_message: message}, status: :unprocessable_entity
+          render json: {files: [@attachment.to_jq_upload], growl_message: message},
+                 status: :unprocessable_entity
         end
       end
 
@@ -62,7 +60,7 @@ module Alchemy
             page: params[:page],
             q: params[:q]
           ),
-          _t("File successfully updated")
+          _t('File successfully updated')
         )
       end
 
@@ -95,7 +93,7 @@ module Alchemy
         @content = Content.find_by(id: params[:content_id])
         @options = options_from_params
         respond_to do |format|
-          format.html { render partial: 'archive_overlay' }
+          format.html do render partial: 'archive_overlay' end
           format.js   { render action:  'archive_overlay' }
         end
       end

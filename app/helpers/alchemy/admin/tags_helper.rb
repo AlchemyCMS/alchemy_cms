@@ -15,11 +15,11 @@ module Alchemy
         li_s = []
         class_name.constantize.tag_counts.sort { |x, y| x.name.downcase <=> y.name.downcase }.each do |tag|
           tags = filtered_by_tag?(tag) ? tag_filter(remove: tag) : tag_filter(add: tag)
-          li_s << content_tag('li', name: tag.name, class: tag_list_tag_active?(tag, params) ? 'active' : nil) do
+          li_s << content_tag('li', name: tag.name, class: tag_list_tag_active?(tag, params) ? 'active' : nil) {
             link_to(
               "#{tag.name} (#{tag.count})",
               url_for(
-                params.delete_if { |k, v| k == "page" }.merge(
+                params.delete_if { |k, _v| k == "page" }.merge(
                   action: 'index',
                   tagged_with: tags
                 )
@@ -27,7 +27,7 @@ module Alchemy
               remote: request.xhr?,
               class: 'please_wait'
             )
-          end
+          }
         end
         li_s.join.html_safe
       end
@@ -84,7 +84,7 @@ module Alchemy
       #   ** :add (ActsAsTaggableOn::Tag) - The tag that should be added to the tag-filter
       #   ** :remove (ActsAsTaggableOn::Tag) - The tag that should be removed from the tag-filter
       #
-      def tag_filter(options={})
+      def tag_filter(options = {})
         case
           when options[:add]
             taglist = add_to_tag_filter(options[:add]) if options[:add]

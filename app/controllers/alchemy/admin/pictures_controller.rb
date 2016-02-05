@@ -13,17 +13,13 @@ module Alchemy
         @query = Picture.ransack(params[:q])
         @pictures = Picture.search_by(params, @query, pictures_per_page_for_size(@size))
 
-        if in_overlay?
-          archive_overlay
-        end
+        archive_overlay if in_overlay?
       end
 
       def new
         @picture = Picture.new
         set_size_or_default
-        if in_overlay?
-          set_instance_variables
-        end
+        set_instance_variables if in_overlay?
       end
 
       def show
@@ -38,9 +34,7 @@ module Alchemy
         @picture.name = @picture.humanized_name
         if @picture.save
           set_size_or_default
-          if in_overlay?
-            set_instance_variables
-          end
+          set_instance_variables if in_overlay?
           message = _t('Picture uploaded succesfully', name: @picture.name)
           render json: {files: [@picture.to_jq_upload], growl_message: message}, status: :created
         else
@@ -103,7 +97,7 @@ module Alchemy
               names: not_deletable.to_sentence
             )
           else
-            flash[:notice] = _t("Pictures deleted successfully", :names => names.to_sentence)
+            flash[:notice] = _t("Pictures deleted successfully", names: names.to_sentence)
           end
         else
           flash[:warn] = _t("Could not delete Pictures")
@@ -117,7 +111,7 @@ module Alchemy
       def destroy
         name = @picture.name
         @picture.destroy
-        flash[:notice] = _t("Picture deleted successfully", :name => name)
+        flash[:notice] = _t("Picture deleted successfully", name: name)
       rescue Exception => e
         flash[:error] = e.message
       ensure
@@ -133,14 +127,14 @@ module Alchemy
 
       def pictures_per_page_for_size(size)
         case size
-        when 'small'
-          per_page = in_overlay? ? 25 : (per_page_value_for_screen_size * 2.9).floor
-        when 'large'
-          per_page = in_overlay? ? 4 : (per_page_value_for_screen_size / 1.7).floor + 1
+          when 'small'
+            per_page = in_overlay? ? 25 : (per_page_value_for_screen_size * 2.9).floor
+          when 'large'
+            per_page = in_overlay? ? 4 : (per_page_value_for_screen_size / 1.7).floor + 1
         else
-          per_page = in_overlay? ? 9 : (per_page_value_for_screen_size / 1.0).ceil + 4
+            per_page = in_overlay? ? 9 : (per_page_value_for_screen_size / 1.0).ceil + 4
         end
-        return per_page
+        per_page
       end
 
       def in_overlay?
@@ -152,7 +146,7 @@ module Alchemy
         @element = Element.select('id').find_by(id: params[:element_id])
         @options = options_from_params
         respond_to do |format|
-          format.html { render partial: 'archive_overlay' }
+          format.html do render partial: 'archive_overlay' end
           format.js   { render action:  'archive_overlay' }
         end
       end
