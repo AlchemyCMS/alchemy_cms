@@ -46,8 +46,6 @@ module Alchemy
           log "Alchemy root page was already present.", :skip
         end
       end
-
     end
-
   end
 end

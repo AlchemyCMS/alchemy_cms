@@ -93,3 +93,12 @@ fieldset {
   line-height: 1.5;
   color: $default-border-color;
 }
+
+.page-publication-date-fields {
+  padding-bottom: $default-padding;
+  @include clearfix;
+
+  &.hidden {
+    display: none;
+  }
+}

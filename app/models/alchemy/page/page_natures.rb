@@ -3,6 +3,15 @@ module Alchemy
 
     extend ActiveSupport::Concern
 
+    def public?
+      current_time = Time.current
+      already_public_for?(current_time) && still_public_for?(current_time)
+    end
+
+    def expiration_time
+      public_until? ? public_until - Time.current : nil
+    end
+
     def taggable?
       definition['taggable'] == true
     end
@@ -146,5 +155,12 @@ module Alchemy
         Rails.application.config.action_controller.perform_caching
     end
 
+    def already_public_for?(time)
+      !public_on.nil? && public_on <= time
+    end
+
+    def still_public_for?(time)
+      public_until.nil? || public_until >= time
+    end
   end
 end

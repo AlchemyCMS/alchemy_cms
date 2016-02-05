@@ -1,3 +1,5 @@
+#= require date-formatter
+
 window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 # The admin sitemap Alchemy module
@@ -10,6 +12,8 @@ Alchemy.Sitemap =
     @display = $('#page_filter_result')
     @items = $(".sitemap_page", '#sitemap')
     @_observe()
+    @watchPagePublicationState()
+    true
 
   # Filters the sitemap
   filter: (term) ->
@@ -48,3 +52,25 @@ Alchemy.Sitemap =
     @filter_field_clear.click =>
       @search_field.val('')
       filter('')
+
+  # Handles the page publication date fields
+  watchPagePublicationState: ->
+    $(document).on 'DialogReady.Alchemy', (e, $dialog) ->
+      $public_on_field = $('#page_public_on', $dialog)
+      $public_until_field = $('#page_public_until', $dialog)
+      $publication_date_fields = $('.page-publication-date-fields', $dialog)
+
+      $('#page_public', $dialog).click ->
+        $checkbox = $(this)
+        format = $checkbox.data('date-format')
+        now = new Date()
+        if $checkbox.is(':checked')
+          $publication_date_fields.removeClass('hidden')
+          $public_on_field.val Date.format(now, format)
+        else
+          $publication_date_fields.addClass('hidden')
+          $public_on_field.val('')
+        $public_until_field.val('')
+        true
+
+    return
