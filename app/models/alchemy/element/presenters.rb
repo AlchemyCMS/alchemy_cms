@@ -32,7 +32,7 @@ module Alchemy
     # @see Alchemy::Element::Presenters#display_name_for
     #
     def display_name
-      self.class.display_name_for(definition['name'] || self.name)
+      self.class.display_name_for(definition['name'] || name)
     end
 
     # Returns a preview text for element.

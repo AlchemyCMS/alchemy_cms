@@ -22,18 +22,18 @@ module Alchemy
       #
       #   :maximum_amount_of_images    [Integer]   # This option let you handle the amount of images your customer can add to this element.
       #
-      def render_picture_gallery_editor(element, options={})
+      def render_picture_gallery_editor(element, options = {})
         default_options = {
-          :maximum_amount_of_images => nil,
-          :grouped => true
+          maximum_amount_of_images: nil,
+          grouped: true
         }
         options = default_options.merge(options)
         render(
-          :partial => "alchemy/admin/elements/picture_gallery_editor",
-          :locals => {
-            :pictures => element.contents.gallery_pictures,
-            :element => element,
-            :options => options
+          partial: "alchemy/admin/elements/picture_gallery_editor",
+          locals: {
+            pictures: element.contents.gallery_pictures,
+            element: element,
+            options: options
           }
         )
       end
@@ -70,13 +70,13 @@ module Alchemy
         cells_definition.each do |cell|
           cell_elements = elements_for_cell(elements, cell)
           optgroup_label = Cell.translated_label_for(cell['name'])
-          options[optgroup_label] = cell_elements.map do |e|
+          options[optgroup_label] = cell_elements.map { |e|
             element_array_for_options(e, object_method, cell)
-          end
+          }
         end
-        options[_t(:main_content)] = elements_for_main_content(elements).map do |e|
+        options[_t(:main_content)] = elements_for_main_content(elements).map { |e|
           element_array_for_options(e, object_method)
-        end
+        }
         options.delete_if { |_cell, elements| elements.blank? } # Throw out empty cells
       end
 
@@ -108,9 +108,9 @@ module Alchemy
           .where(["#{Content.table_name}.element_id != ?", element.id])
           .where(Content.table_name => {essence_type: "Alchemy::EssenceSelect"})
         return if elements.blank?
-        elements.collect do |element|
+        elements.collect { |element|
           render 'alchemy/admin/elements/refresh_editor', element: element
-        end.join.html_safe
+        }.join.html_safe
       end
 
       # CSS classes for the element editor partial.

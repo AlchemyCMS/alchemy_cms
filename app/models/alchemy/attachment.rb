@@ -29,10 +29,10 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    has_many :essence_files, :class_name => 'Alchemy::EssenceFile', :foreign_key => 'attachment_id'
-    has_many :contents, :through => :essence_files
-    has_many :elements, :through => :contents
-    has_many :pages, :through => :elements
+    has_many :essence_files, class_name: 'Alchemy::EssenceFile', foreign_key: 'attachment_id'
+    has_many :contents, through: :essence_files
+    has_many :elements, through: :contents
+    has_many :pages, through: :elements
 
     validates_presence_of :file
     validates_format_of :file_name, with: /\A[A-Za-z0-9\. \-_äÄöÖüÜß]+\z/, on: :update
@@ -44,7 +44,7 @@ module Alchemy
       unless: -> { Config.get(:uploader)['allowed_filetypes']['attachments'].include?('*') }
 
     before_create do
-      write_attribute(:name, convert_to_humanized_name(self.file_name, self.file.ext))
+      write_attribute(:name, convert_to_humanized_name(file_name, file.ext))
     end
 
     after_update :touch_contents

@@ -48,7 +48,7 @@ module Alchemy
     before_destroy :check_for_default
     after_destroy :delete_language_root_page
 
-    default_scope { on_site(Site.current) }
+    default_scope do on_site(Site.current) end
 
     scope :published,      -> { where(public: true) }
     scope :with_root_page, -> { joins(:pages).where(Page.table_name => {language_root: true}) }
@@ -80,9 +80,9 @@ module Alchemy
 
     def label(attrib)
       if attrib.to_sym == :code
-        self.code
+        code
       else
-        I18n.t(self.code, default: self.name)
+        I18n.t(code, default: name)
       end
     end
 
@@ -126,7 +126,7 @@ module Alchemy
     end
 
     def set_pages_language
-      pages.update_all language_code: self.code
+      pages.update_all language_code: code
     end
 
     def check_for_default
@@ -138,7 +138,7 @@ module Alchemy
     end
 
     def unpublish_pages
-      self.pages.update_all(public: false)
+      pages.update_all(public: false)
     end
   end
 end

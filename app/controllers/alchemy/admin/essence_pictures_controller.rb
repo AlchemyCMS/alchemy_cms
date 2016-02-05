@@ -83,7 +83,7 @@ module Alchemy
         elsif @options[:image_size]
           @essence_picture.sizes_from_string(@options[:image_size])
         else
-          { width: 0, height: 0 }
+          {width: 0, height: 0}
         end
       end
 
@@ -91,7 +91,7 @@ module Alchemy
       # aspect ratio, don't specify a size or only width or height.
       #
       def ratio_from_size_or_params
-        if @min_size.has_value?(0) && @options[:fixed_ratio]
+        if @min_size.value?(0) && @options[:fixed_ratio]
           @options[:fixed_ratio].to_f
         elsif !@min_size[:width].zero? && !@min_size[:height].zero?
           @min_size[:width].to_f / @min_size[:height].to_f

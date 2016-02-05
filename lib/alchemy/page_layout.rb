@@ -44,7 +44,7 @@ module Alchemy
         if attributes.class.name == 'Hash'
           layouts = []
           attributes.stringify_keys.each do |key, value|
-            result = all.select { |a| a[key].to_s.downcase == value.to_s.downcase if a.has_key?(key) }
+            result = all.select { |a| a[key].to_s.downcase == value.to_s.downcase if a.key?(key) }
             layouts += result unless result.empty?
           end
           return layouts
@@ -119,7 +119,7 @@ module Alchemy
         I18n.t(layout, scope: 'page_layout_names', default: layout.to_s.humanize)
       end
 
-    private
+      private
 
       # Returns true if the given layout is unique and not already taken or it should be hidden.
       #

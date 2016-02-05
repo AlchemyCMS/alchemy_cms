@@ -32,14 +32,14 @@ module Alchemy
     #
     def module_definition_for(name)
       case name
-      when String
-        alchemy_modules.detect { |p| p['name'] == name }
-      when Hash
-        alchemy_modules.detect do |alchemy_module|
-          definition_from_subnavi(alchemy_module, name.symbolize_keys)
-        end
+        when String
+          alchemy_modules.detect { |p| p['name'] == name }
+        when Hash
+          alchemy_modules.detect do |alchemy_module|
+            definition_from_subnavi(alchemy_module, name.symbolize_keys)
+          end
       else
-        raise ArgumentError, "Could not find module definition for #{name}"
+          raise ArgumentError, "Could not find module definition for #{name}"
       end
     end
 

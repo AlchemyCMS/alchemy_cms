@@ -8,9 +8,9 @@ FactoryGirl.define do
     code 'de'
     default true
     frontpage_name 'Intro'
-    page_layout { Alchemy::Config.get(:default_language)['page_layout'] }
+    page_layout do Alchemy::Config.get(:default_language)['page_layout'] end
     public true
-    site { Alchemy::Site.first || FactoryGirl.create(:site) }
+    site do Alchemy::Site.first || FactoryGirl.create(:site) end
 
     trait :klingonian do
       name 'Klingonian'

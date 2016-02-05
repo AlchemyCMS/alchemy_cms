@@ -34,14 +34,14 @@ module Alchemy
       humanize_default_string!(msg, options)
       scope = ['alchemy']
       case options[:scope].class.name
-      when "Array"
-        scope += options[:scope]
-      when "String"
-        scope << options[:scope]
-      when "Symbol"
-        scope << options[:scope] unless options[:scope] == :alchemy
+        when "Array"
+          scope += options[:scope]
+        when "String"
+          scope << options[:scope]
+        when "Symbol"
+          scope << options[:scope] unless options[:scope] == :alchemy
       end
-      ::I18n.t(msg, options.merge(:scope => scope))
+      ::I18n.t(msg, options.merge(scope: scope))
     end
 
     def self.available_locales
@@ -58,7 +58,7 @@ module Alchemy
       Dir.glob(File.join(File.dirname(__FILE__), '../../config/locales/alchemy.*.yml'))
     end
 
-  private
+    private
 
     def self.humanize_default_string!(msg, options)
       if options[:default].blank?

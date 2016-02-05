@@ -191,7 +191,7 @@ module Alchemy
     # Returns a hash containing the HTML tag attributes required for preview mode.
     def element_preview_code_attributes(element)
       return {} unless element.present? && @preview_mode && element.page == @page
-      { :'data-alchemy-element' => element.id }
+      {'data-alchemy-element': element.id}
     end
 
     # Returns the element's tags information as a string. Parameters and options
@@ -219,11 +219,11 @@ module Alchemy
     #
     def element_tags_attributes(element, options = {})
       options = {
-        formatter: lambda { |tags| tags.join(' ') }
+        formatter: ->(tags) { tags.join(' ') }
       }.merge(options)
 
       return {} if !element.taggable? || element.tag_list.blank?
-      { :'data-element-tags' => options[:formatter].call(element.tag_list) }
+      {'data-element-tags': options[:formatter].call(element.tag_list)}
     end
 
     # Sort given elements by content.
@@ -235,10 +235,10 @@ module Alchemy
     # @return [Array]
     #
     def sort_elements_by_content(elements, content_name, reverse = false)
-      sorted_elements = elements.sort_by do |element|
+      sorted_elements = elements.sort_by { |element|
         content = element.content_by_name(content_name)
         content ? content.ingredient.to_s : ''
-      end
+      }
 
       reverse ? sorted_elements.reverse : sorted_elements
     end
@@ -247,13 +247,13 @@ module Alchemy
 
     def pages_holding_elements(page)
       case page
-      when String
-        Language.current.pages.where(
-          page_layout: page,
-          restricted: false
-        ).to_a
-      when Page
-        page
+        when String
+          Language.current.pages.where(
+            page_layout: page,
+            restricted: false
+          ).to_a
+        when Page
+          page
       end
     end
 
@@ -276,13 +276,13 @@ module Alchemy
     def fallback_elements(options)
       fallback_options = options.delete(:fallback)
       case fallback_options[:from]
-      when String
-        page = Language.current.pages.find_by(
-          page_layout: fallback_options[:from],
-          restricted: false
-        )
-      when Page
-        page = fallback_options[:from]
+        when String
+          page = Language.current.pages.find_by(
+            page_layout: fallback_options[:from],
+            restricted: false
+          )
+        when Page
+          page = fallback_options[:from]
       end
       return [] if page.blank?
       page.elements.named(fallback_options[:with].blank? ? fallback_options[:for] : fallback_options[:with])

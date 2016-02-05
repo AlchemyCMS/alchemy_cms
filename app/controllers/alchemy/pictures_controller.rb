@@ -22,7 +22,7 @@ module Alchemy
         when 'large'  then @size = '240x180'
         when nil      then @size = '111x93'
       else
-        @size = params[:size]
+          @size = params[:size]
       end
 
       respond_to { |format| send_image(processed_image, format) }
@@ -42,7 +42,7 @@ module Alchemy
 
     def bad_request
       render text: "Bad picture parameters in #{request.path}", status: 400
-      return false
+      false
     end
 
     def send_image(image, format)
@@ -55,9 +55,7 @@ module Alchemy
             options << "-quality #{quality}"
           end
           # Flatten animated gifs, only if converting to a different format.
-          if type != "gif" && image.ext == 'gif'
-            options << "-flatten"
-          end
+          options << "-flatten" if type != "gif" && image.ext == 'gif'
           render text: image.encode(type, options.join(' ')).data
         end
       end

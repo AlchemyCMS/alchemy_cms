@@ -23,25 +23,23 @@ module Alchemy
     include Alchemy::Touching
     include Alchemy::Hints
 
-    FORBIDDEN_DEFINITION_ATTRIBUTES = [
-      "amount",
-      "nestable_elements",
-      "contents",
-      "hint",
-      "picture_gallery",
-      "taggable"
-    ].freeze
+    FORBIDDEN_DEFINITION_ATTRIBUTES = %w(
+amount
+nestable_elements
+contents
+hint
+picture_gallery
+taggable).freeze
 
-    SKIPPED_ATTRIBUTES_ON_COPY = [
-      "cached_tag_list",
-      "created_at",
-      "creator_id",
-      "id",
-      "folded",
-      "position",
-      "updated_at",
-      "updater_id"
-    ].freeze
+    SKIPPED_ATTRIBUTES_ON_COPY = %w(
+cached_tag_list
+created_at
+creator_id
+id
+folded
+position
+updated_at
+updater_id).freeze
 
     acts_as_taggable
 
@@ -83,7 +81,7 @@ module Alchemy
 
     after_create :create_contents, unless: proc { |e| e.create_contents_after_create == false }
     after_update :touch_pages
-    after_update :touch_cell, unless: -> { self.cell.nil? }
+    after_update :touch_cell, unless: -> { cell.nil? }
 
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
     scope :not_trashed,       -> { where(Element.arel_table[:position].not_eq(nil)) }
@@ -93,7 +91,7 @@ module Alchemy
     scope :named,             ->(names) { where(name: names) }
     scope :excluded,          ->(names) { where(arel_table[:name].not_in(names)) }
     scope :not_in_cell,       -> { where(cell_id: nil) }
-    scope :in_cell,           -> { where("#{self.table_name}.cell_id IS NOT NULL") }
+    scope :in_cell,           -> { where("#{table_name}.cell_id IS NOT NULL") }
     scope :from_current_site, -> { where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: 'language') }
     scope :folded,            -> { where(folded: true) }
     scope :expanded,          -> { where(folded: false) }
@@ -223,9 +221,9 @@ module Alchemy
     # Stores the page into +touchable_pages+ (Pages that have to be touched after updating the element).
     def store_page(page)
       return true if page.nil?
-      unless self.touchable_pages.include? page
-        self.touchable_pages << page
-        self.save
+      unless touchable_pages.include? page
+        touchable_pages << page
+        save
       end
     end
 
@@ -233,11 +231,11 @@ module Alchemy
     def trash!
       self.public = false
       self.folded = true
-      self.remove_from_list
+      remove_from_list
     end
 
     def trashed?
-      self.position.nil?
+      position.nil?
     end
 
     # The names of all cells from given page this element could be placed in.
@@ -328,7 +326,7 @@ module Alchemy
     #
     def available_page_cells(page)
       page.cells.select do |cell|
-        cell.available_elements.include?(self.name)
+        cell.available_elements.include?(name)
       end
     end
 

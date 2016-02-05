@@ -3,7 +3,7 @@ module Alchemy
     load_and_authorize_resource
     layout false
 
-    rescue_from CanCan::AccessDenied do |exception|
+    rescue_from CanCan::AccessDenied do |_exception|
       raise ActiveRecord::RecordNotFound
     end
 

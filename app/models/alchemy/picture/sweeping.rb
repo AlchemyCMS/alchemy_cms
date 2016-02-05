@@ -3,7 +3,7 @@ module Alchemy
     extend ActiveSupport::Concern
 
     included do
-      after_update  { expire_cache_for(self) }
+      after_update  do expire_cache_for(self) end
       after_destroy { expire_cache_for(self) }
     end
 

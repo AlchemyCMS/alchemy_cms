@@ -18,7 +18,7 @@ module Alchemy
 
     # Returns a host string with the domain the app is running on.
     def current_server
-     "#{request.protocol}#{request.host_with_port}"
+      "#{request.protocol}#{request.host_with_port}"
     end
 
     # The current authorized user.
@@ -33,7 +33,7 @@ module Alchemy
     #
     def current_alchemy_user
       current_user_method = Alchemy.current_user_method
-      raise NoCurrentUserFoundError if !respond_to?(current_user_method, true)
+      raise NoCurrentUserFoundError unless respond_to?(current_user_method, true)
       send current_user_method
     end
 
@@ -77,7 +77,11 @@ module Alchemy
           klass = "::#{klass}".constantize
           alchemy_permissions.merge(klass.new(current_alchemy_user))
         end
-        if (Object.const_get('::Ability') rescue false)
+        if begin
+              Object.const_get('::Ability')
+            rescue
+              false
+            end
           alchemy_permissions.merge(::Ability.new(current_alchemy_user))
         end
         alchemy_permissions
@@ -106,9 +110,7 @@ module Alchemy
     end
 
     def load_alchemy_language_from_params
-      if params[:locale].present?
-        Language.find_by_code(params[:locale])
-      end
+      Language.find_by_code(params[:locale]) if params[:locale].present?
     end
 
     def load_alchemy_language_from_session

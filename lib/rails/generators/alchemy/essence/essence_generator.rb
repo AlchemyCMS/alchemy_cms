@@ -4,7 +4,7 @@ module Alchemy
   module Generators
     class EssenceGenerator < ::Rails::Generators::Base
       desc "This generator generates an Alchemy essence for you."
-      argument :essence_name, :banner => "YourEssenceName"
+      argument :essence_name, banner: "YourEssenceName"
       source_root File.expand_path('templates', File.dirname(__FILE__))
 
       def init

@@ -43,15 +43,13 @@ module Alchemy
 
     # Try to get the locale from user settings.
     def locale_from_user
-      return if !current_alchemy_user
-      if user_has_preferred_language?
-        current_alchemy_user.language
-      end
+      return unless current_alchemy_user
+      current_alchemy_user.language if user_has_preferred_language?
     end
 
     # Checks if the +current_alchemy_user+ has a preferred language set or not.
     def user_has_preferred_language?
-      return if !current_alchemy_user
+      return unless current_alchemy_user
       current_alchemy_user.respond_to?(:language) &&
         current_alchemy_user.language.present?
     end

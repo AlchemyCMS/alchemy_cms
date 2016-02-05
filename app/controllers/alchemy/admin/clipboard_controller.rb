@@ -26,7 +26,7 @@ module Alchemy
 
       def remove
         @item = model_class.find(params[:remarkable_id])
-        @clipboard.delete_if { |item| item['id'] == params[:remarkable_id] }
+        @clipboard.delete_if do |item| item['id'] == params[:remarkable_id] end
         respond_to do |format|
           format.js
         end

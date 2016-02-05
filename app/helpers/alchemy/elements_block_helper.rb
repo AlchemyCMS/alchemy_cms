@@ -11,17 +11,13 @@ module Alchemy
         @opts = opts
       end
 
-      def opts
-        @opts
-      end
+      attr_reader :opts
 
       def element
         opts[:element]
       end
 
-      def helpers
-        @helpers
-      end
+      attr_reader :helpers
     end
 
     # Block-level helper class for element views.
@@ -115,9 +111,9 @@ module Alchemy
       }.merge(options)
 
       # capture inner template block
-      output = capture do
+      output = capture {
         yield ElementViewHelper.new(self, element: element) if block_given?
-      end
+      }
 
       # wrap output in a useful DOM element
       if tag = options.delete(:tag)
@@ -135,6 +131,7 @@ module Alchemy
       # that's it!
       output
     end
+
     # Block-level helper for element editors. Provides a block helper object
     # you can use for concise access to Alchemy's various helpers.
     #

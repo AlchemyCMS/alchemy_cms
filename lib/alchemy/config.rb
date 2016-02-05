@@ -27,7 +27,7 @@ module Alchemy
         @config ||= merge_configs!(alchemy_config, main_app_config, env_specific_config)
       end
 
-    private
+      private
 
       # Alchemy default configuration
       def alchemy_config

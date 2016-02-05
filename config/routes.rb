@@ -56,7 +56,7 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :layoutpages, :only => [:index, :edit]
+    resources :layoutpages, only: [:index, :edit]
 
     resources :pictures do
       collection do
@@ -75,7 +75,7 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :essence_pictures, :except => [:show, :new, :create] do
+    resources :essence_pictures, except: [:show, :new, :create] do
       collection do
         put :assign
       end
@@ -84,7 +84,7 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :essence_files, :only => [:edit, :update] do
+    resources :essence_files, only: [:edit, :update] do
       collection do
         put :assign
       end
@@ -93,7 +93,7 @@ Alchemy::Engine.routes.draw do
     resources :legacy_page_urls
     resources :languages
 
-    resource :clipboard, :only => :index, :controller => 'clipboard' do
+    resource :clipboard, only: :index, controller: 'clipboard' do
       collection do
         get :index
         delete :clear
@@ -102,7 +102,7 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resource :trash, :only => :index, :controller => 'trash' do
+    resource :trash, only: :index, controller: 'trash' do
       collection do
         get :index
         delete :clear
@@ -129,11 +129,11 @@ Alchemy::Engine.routes.draw do
   get '/pictures/:id/zoom/:name.:format' => 'pictures#zoom',
       as: :zoom_picture
   get "/pictures/:id/thumbnails(/:size)(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
-      as: :thumbnail, :defaults => {:format => 'png', :name => "thumbnail"}
+      as: :thumbnail, :defaults => {format: 'png', name: "thumbnail"}
 
-  resources :messages, :only => [:index, :new, :create]
-  resources :elements, :only => :show
-  resources :contents, :only => :show
+  resources :messages, only: [:index, :new, :create]
+  resources :elements, only: :show
+  resources :contents, only: :show
 
   namespace :api, defaults: {format: 'json'} do
     resources :contents, only: [:index, :show]

@@ -29,23 +29,23 @@ module Alchemy
       def preview_sizes_for_select
         options_for_select([
           'auto',
-          [_t('240', :scope => 'preview_sizes'), 240],
-          [_t('320', :scope => 'preview_sizes'), 320],
-          [_t('480', :scope => 'preview_sizes'), 480],
-          [_t('768', :scope => 'preview_sizes'), 768],
-          [_t('1024', :scope => 'preview_sizes'), 1024],
-          [_t('1280', :scope => 'preview_sizes'), 1280]
+          [_t('240', scope: 'preview_sizes'), 240],
+          [_t('320', scope: 'preview_sizes'), 320],
+          [_t('480', scope: 'preview_sizes'), 480],
+          [_t('768', scope: 'preview_sizes'), 768],
+          [_t('1024', scope: 'preview_sizes'), 1024],
+          [_t('1280', scope: 'preview_sizes'), 1280]
         ])
       end
 
       # Returns the translated explanation of the page´s status.
       #
       def combined_page_status(page)
-        page.status.map do |state, value|
+        page.status.map { |state, _value|
           next if state == :locked
           val = content_tag(:span, '', class: page.send(state) ? "page_status #{state}" : "page_status not_#{state}")
           val += page.status_title(state)
-        end.delete_if(&:blank?).join("<br>").html_safe
+        }.delete_if(&:blank?).join("<br>").html_safe
       end
 
       # Renders a label for page's page layout

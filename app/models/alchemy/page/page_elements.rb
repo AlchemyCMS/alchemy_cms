@@ -93,9 +93,7 @@ module Alchemy
         elements = elements.reverse_order
       end
       elements = elements.offset(options[:offset]).limit(options[:count])
-      if options[:random]
-        elements = elements.order("RAND()")
-      end
+      elements = elements.order("RAND()") if options[:random]
       show_non_public ? elements : elements.published
     end
     alias_method :find_selected_elements, :find_elements
@@ -122,7 +120,7 @@ module Alchemy
     #
     def available_element_definitions(only_element_named = nil)
       @_element_definitions ||= if only_element_named
-        definition = Element.definition_by_name(only_element_named)
+                                  definition = Element.definition_by_name(only_element_named)
         element_definitions_by_name(definition['nestable_elements'])
       else
         element_definitions
@@ -218,9 +216,9 @@ module Alchemy
     private
 
     def element_names_from_cell_definitions
-      @_element_names_from_cell_definitions ||= cell_definitions.map do |d|
+      @_element_names_from_cell_definitions ||= cell_definitions.map { |d|
         d['elements']
-      end.flatten
+      }.flatten
     end
 
     # Looks in the page_layout descripion, if there are elements to autogenerate.
@@ -281,12 +279,12 @@ module Alchemy
     #
     def elements_from_cell_or_self(cell)
       case cell.class.name
-      when 'Alchemy::Cell'
-        cell.elements
-      when 'String'
-        cell_elements_by_name(cell)
+        when 'Alchemy::Cell'
+          cell.elements
+        when 'String'
+          cell_elements_by_name(cell)
       else
-        elements.not_in_cell
+          elements.not_in_cell
       end
     end
 
