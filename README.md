@@ -149,7 +149,7 @@ def alchemy_roles
 end
 ```
 
-Please follow [this guide](http://guides.alchemy-cms.com/edge/custom_authentication.html) for further instructions on how to customize your user class even more.
+Please follow [this guide](http://guides.alchemy-cms.com/stable/custom_authentication.html) for further instructions on how to customize your user class even more.
 
 #### 4. Install Alchemy into your app:
 
@@ -168,7 +168,7 @@ Now everything should be set up and you should be able to visit the Alchemy Dash
 
 ## Customizing
 
-Alchemy has very flexible ways to organize and manage content. Please be sure to read [the introduction guide](http://guides.alchemy-cms.com/edge/index.html) in order to understand the basic idea of how Alchemy works.
+Alchemy has very flexible ways to organize and manage content. Please be sure to read [the introduction guide](http://guides.alchemy-cms.com/stable/index.html) in order to understand the basic idea of how Alchemy works.
 
 
 ### Custom Controllers
