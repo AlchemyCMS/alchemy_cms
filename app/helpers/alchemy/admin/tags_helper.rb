@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     module TagsHelper
-
       # Renders tags list items for given class name
       #
       # @param class_name [String]
@@ -11,7 +10,7 @@ module Alchemy
       #   A HTML string containing <tt><li></tt> tags
       #
       def render_tag_list(class_name, params)
-        raise ArgumentError.new('Please provide a String as class_name') if class_name.nil?
+        raise ArgumentError, 'Please provide a String as class_name' if class_name.nil?
         li_s = []
         class_name.constantize.tag_counts.sort { |x, y| x.name.downcase <=> y.name.downcase }.each do |tag|
           tags = filtered_by_tag?(tag) ? tag_filter(remove: tag) : tag_filter(add: tag)
@@ -19,7 +18,7 @@ module Alchemy
             link_to(
               "#{tag.name} (#{tag.count})",
               url_for(
-                params.delete_if { |k, v| k == "page" }.merge(
+                params.delete_if { |k, _v| k == "page" }.merge(
                   action: 'index',
                   tagged_with: tags
                 )
@@ -84,11 +83,11 @@ module Alchemy
       #   ** :add (ActsAsTaggableOn::Tag) - The tag that should be added to the tag-filter
       #   ** :remove (ActsAsTaggableOn::Tag) - The tag that should be removed from the tag-filter
       #
-      def tag_filter(options={})
+      def tag_filter(options = {})
         case
-          when options[:add]
+        when options[:add]
             taglist = add_to_tag_filter(options[:add]) if options[:add]
-          when options[:remove]
+        when options[:remove]
             taglist = remove_from_tag_filter(options[:remove]) if options[:remove]
           else
             return params[:tagged_with]
@@ -96,7 +95,6 @@ module Alchemy
         return nil if taglist.blank?
         taglist.uniq.join(',')
       end
-
     end
   end
 end

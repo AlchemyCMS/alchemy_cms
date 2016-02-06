@@ -1,5 +1,4 @@
 module Alchemy
-
   # Routing constraints for Alchemy's strong catch all route.
   #
   # Alchemy has a very strong catch all route.

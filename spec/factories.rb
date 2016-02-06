@@ -1,5 +1,4 @@
 FactoryGirl.define do
-
   factory :event do
     name 'My Event'
     hidden_name 'not shown'

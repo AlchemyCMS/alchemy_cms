@@ -10,7 +10,6 @@
 # The original Tag model is ActsAsTaggableOn::Tag
 module Alchemy
   class Tag < ActsAsTaggableOn::Tag
-
     # Replaces tag with new tag on all models tagged with tag.
     def self.replace(tag, new_tag)
       tag.taggings.collect(&:taggable).each do |taggable|
@@ -19,6 +18,5 @@ module Alchemy
         taggable.save
       end
     end
-
   end
 end

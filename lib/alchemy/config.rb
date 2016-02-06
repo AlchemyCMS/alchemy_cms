@@ -2,9 +2,7 @@
 
 module Alchemy
   class Config
-
     class << self
-
       # Returns the configuration for given parameter name.
       #
       # @param name [String]
@@ -16,18 +14,18 @@ module Alchemy
 
       # Returns a merged configuration of the following files
       #
-      # Alchemy´s default config: +gems/../alchemy_cms/config/alchemy/config.yml+
+      # Alchemys default config: +gems/../alchemy_cms/config/alchemy/config.yml+
       # Your apps default config: +your_app/config/alchemy/config.yml+
       # Environment specific config: +your_app/config/alchemy/development.config.yml+
       #
       # An environment specific config overwrites the settings of your apps default config,
-      # while your apps default config has precedence over Alchemy´s default config.
+      # while your apps default config has precedence over Alchemys default config.
       #
       def show
         @config ||= merge_configs!(alchemy_config, main_app_config, env_specific_config)
       end
 
-    private
+      private
 
       # Alchemy default configuration
       def alchemy_config
@@ -48,7 +46,7 @@ module Alchemy
       # If it does not exist, or its empty, it returns an empty Hash.
       #
       def read_file(file)
-        return YAML.load_file(file) || {} if File.exists?(file) # YAML.load_file returns false if file is empty.
+        return YAML.load_file(file) || {} if File.exist?(file) # YAML.load_file returns false if file is empty.
         {}
       end
 
@@ -57,7 +55,7 @@ module Alchemy
       def merge_configs!(*config_files)
         raise LoadError, 'No Alchemy config file found!' if config_files.map(&:blank?).all?
         config = {}
-        config_files.each {|h| config.merge!(h.stringify_keys!) }
+        config_files.each { |h| config.merge!(h.stringify_keys!) }
         config
       end
     end

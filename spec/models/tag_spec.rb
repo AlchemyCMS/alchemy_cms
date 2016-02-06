@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe Tag do
-
     describe '.replace' do
       let(:picture) { Picture.new }
       let(:element) { Element.new }
@@ -26,6 +25,5 @@ module Alchemy
         expect(element.tag_list).to eq(['green'])
       end
     end
-
   end
 end

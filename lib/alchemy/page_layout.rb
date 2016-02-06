@@ -1,7 +1,6 @@
 module Alchemy
   class PageLayout
     class << self
-
       # Returns all page layouts.
       #
       # They are defined in +config/alchemy/page_layout.yml+ file.
@@ -36,20 +35,21 @@ module Alchemy
       #
       def get(name)
         return {} if name.blank?
-        all.detect { |a| a['name'].downcase == name.downcase }
+        all.detect { |a| a['name'].casecmp(name) == 0 }
       end
 
       def get_all_by_attributes(attributes)
         return [] if attributes.blank?
-        if attributes.class.name == 'Hash'
+
+        if attributes.class.is_a? Hash
           layouts = []
           attributes.stringify_keys.each do |key, value|
-            result = all.select { |a| a[key].to_s.downcase == value.to_s.downcase if a.has_key?(key) }
+            result = all.select { |l| l.key?(key) && l[key].to_s.casecmp(value.to_s) == 0 }
             layouts += result unless result.empty?
           end
-          return layouts
+          layouts
         else
-          return []
+          []
         end
       end
 
@@ -83,13 +83,13 @@ module Alchemy
       #
       def selectable_layouts(language_id, only_layoutpages = false)
         @language_id = language_id
-        all.select { |layout|
+        all.select do |layout|
           if only_layoutpages
             layout['layoutpage'] && layout_available?(layout)
           else
             !layout['layoutpage'] && layout_available?(layout)
           end
-        }
+        end
       end
 
       # Returns all names of elements defined in given page layout.
@@ -107,10 +107,10 @@ module Alchemy
       #
       # === Translation example
       #
-      #   de:
+      #   en:
       #     alchemy:
       #       page_layout_names:
-      #         products_overview: Produktübersicht
+      #         products_overview: Products Overview
       #
       # @param [String]
       #   The layout name
@@ -119,7 +119,7 @@ module Alchemy
         I18n.t(layout, scope: 'page_layout_names', default: layout.to_s.humanize)
       end
 
-    private
+      private
 
       # Returns true if the given layout is unique and not already taken or it should be hidden.
       #
@@ -156,7 +156,7 @@ module Alchemy
       # Reads the layout definitions from +config/alchemy/page_layouts.yml+.
       #
       def read_definitions_file
-        if File.exists?(layouts_file_path)
+        if File.exist?(layouts_file_path)
           YAML.load(ERB.new(File.read(layouts_file_path)).result) || []
         else
           raise LoadError, "Could not find page_layouts.yml file! Please run `rails generate alchemy:scaffold`"
@@ -177,7 +177,6 @@ module Alchemy
         end
         @map_array
       end
-
     end
   end
 end

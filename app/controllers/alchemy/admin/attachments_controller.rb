@@ -110,7 +110,6 @@ module Alchemy
         @swap = params[:swap]
         @options = options_from_params
       end
-
     end
   end
 end

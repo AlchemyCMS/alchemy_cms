@@ -1,7 +1,6 @@
 module Alchemy
   module Forms
     class Builder < SimpleForm::FormBuilder
-
       # Renders a simple_form input, but uses input alchemy_wrapper
       #
       def input(attribute_name, options = {}, &block)
@@ -17,7 +16,6 @@ module Alchemy
           template.content_tag('button', label, options[:input_html])
         end
       end
-
     end
   end
 end

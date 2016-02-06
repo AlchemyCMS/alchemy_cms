@@ -90,7 +90,7 @@ module Alchemy
         # stores old page_layout value, because unfurtunally rails @page.changes does not work here.
         @old_page_layout = @page.page_layout
         if @page.update_attributes(page_params)
-          @notice = _t("Page saved", :name => @page.name)
+          @notice = _t("Page saved", name: @page.name)
           @while_page_edit = request.referer.include?('edit')
         else
           configure
@@ -104,7 +104,7 @@ module Alchemy
         @layoutpage = @page.layoutpage?
         if @page.destroy
           set_root_page
-          @message = _t("Page deleted", :name => name)
+          @message = _t("Page deleted", name: name)
           flash[:notice] = @message
           respond_to do |format|
             format.js
@@ -141,7 +141,7 @@ module Alchemy
       def unlock
         # fetching page via before filter
         @page.unlock!
-        flash[:notice] = _t(:unlocked_page, :name => @page.name)
+        flash[:notice] = _t(:unlocked_page, name: @page.name)
         @pages_locked_by_user = Page.from_current_site.locked_by(current_alchemy_user)
         respond_to do |format|
           format.js
@@ -164,7 +164,7 @@ module Alchemy
       def publish
         # fetching page via before filter
         @page.publish!
-        flash[:notice] = _t(:page_published, :name => @page.name)
+        flash[:notice] = _t(:page_published, name: @page.name)
         redirect_back_or_to_default(admin_pages_path)
       end
 
@@ -205,7 +205,6 @@ module Alchemy
         # We need to ensure, that also all layoutpages get the +published_at+ timestamp set,
         # but not set to public true, because the cache_key for an element is +published_at+
         # and we don't want the layout pages to be present in +Page.published+ scope.
-        # Not the greatest solution, but ¯\_(ツ)_/¯
         Language.current.pages.flushable_layoutpages.update_all(published_at: Time.current)
         respond_to { |format| format.js }
       end
@@ -310,7 +309,12 @@ module Alchemy
       end
 
       def pages_from_raw_request
-        request.raw_post.split('&').map { |i| i = {i.split('=')[0].gsub(/[^0-9]/, '') => i.split('=')[1]} }
+        request.raw_post.split('&').map do |i|
+          parts = i.split('=')
+          {
+            parts[0].gsub(/[^0-9]/, '') => parts[1]
+          }
+        end
       end
 
       def redirect_path_for_switch_language
@@ -358,7 +362,6 @@ module Alchemy
       def set_root_page
         @page_root = Language.current_root_page
       end
-
     end
   end
 end

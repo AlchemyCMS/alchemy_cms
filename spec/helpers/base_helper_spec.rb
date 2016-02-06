@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe BaseHelper do
-
     describe "#render_message" do
       context "if no argument is passed" do
         it "should render a div with an info icon and the given content" do

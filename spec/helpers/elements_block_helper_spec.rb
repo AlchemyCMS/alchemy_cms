@@ -109,7 +109,7 @@ module Alchemy
       describe '#essence' do
         it "should provide the specified content essence" do
           expect(subject).to receive(:content).with(:title).
-            and_return(mock_model('Content', :essence => mock_model('EssenceText')))
+            and_return(mock_model('Content', essence: mock_model('EssenceText')))
 
           subject.essence :title
         end

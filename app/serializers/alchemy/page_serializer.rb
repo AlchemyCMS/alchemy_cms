@@ -24,6 +24,5 @@ module Alchemy
         object.elements.published
       end
     end
-
   end
 end

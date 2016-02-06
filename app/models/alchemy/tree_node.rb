@@ -1,4 +1,5 @@
-module Alchemy
-  class TreeNode < Struct.new(:left, :right, :parent, :depth, :url, :restricted)
-  end
-end
+# Represents a node in the admin page tree
+#
+# Used by page reorder
+#
+Alchemy::TreeNode = Struct.new(:left, :right, :parent, :depth, :url, :restricted)

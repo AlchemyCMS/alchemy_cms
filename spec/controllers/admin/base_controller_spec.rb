@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Alchemy::Admin::BaseController do
-
   describe '#options_from_params' do
     subject { controller.send(:options_from_params) }
 

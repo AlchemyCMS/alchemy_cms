@@ -153,7 +153,7 @@ module Alchemy
         context 'with no fixed_ratio set in params' do
           it "sets a fixed ratio from sizes" do
             alchemy_get :crop, id: 1, options: {image_size: '80x60'}
-            expect(assigns(:ratio)).to eq(80.0/60.0)
+            expect(assigns(:ratio)).to eq(80.0 / 60.0)
           end
         end
       end

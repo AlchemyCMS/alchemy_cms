@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe Config do
-
     describe ".get" do
       it "should call #show" do
         expect(Config).to receive(:show).and_return({})
@@ -55,7 +54,7 @@ module Alchemy
 
     describe '.read_file' do
       context 'when given path to yml file exists' do
-        before { allow(File).to receive(:exists?).and_return(true) }
+        before { allow(File).to receive(:exist?).and_return(true) }
 
         it 'should call YAML.load_file with the given config path' do
           expect(YAML).to receive(:load_file).once.with('path/to/config.yml').and_return({})
@@ -64,7 +63,7 @@ module Alchemy
 
         context 'but its empty' do
           before do
-            allow(File).to receive(:exists?).with('empty_file.yml').and_return(true)
+            allow(File).to receive(:exist?).with('empty_file.yml').and_return(true)
             allow(YAML).to receive(:load_file).and_return(false) # YAML.load_file returns false if file is empty.
           end
 

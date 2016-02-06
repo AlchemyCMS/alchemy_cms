@@ -8,5 +8,4 @@ describe 'alchemy/essences/_essence_select_view' do
     render content, content: content
     expect(rendered).to have_content('blue')
   end
-
 end

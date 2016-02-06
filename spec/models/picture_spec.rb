@@ -3,7 +3,6 @@ require 'spec_helper'
 
 module Alchemy
   describe Picture do
-
     it_behaves_like "has image transformations" do
       let(:picture) { build_stubbed(:alchemy_picture) }
     end
@@ -228,7 +227,7 @@ module Alchemy
         expect(Picture.last_upload).to include(same_upload)
         expect(Picture.last_upload).not_to include(other_upload)
 
-        [other_upload, same_upload, most_recent].each { |p| p.destroy }
+        [other_upload, same_upload, most_recent].each(&:destroy)
       end
     end
 
@@ -237,8 +236,8 @@ module Alchemy
         now = Time.now
         @recent = Picture.create!(image_file: image_file)
         @old_picture = Picture.create!(image_file: image_file)
-        @recent.update_column(:created_at, now-23.hours)
-        @old_picture.update_column(:created_at, now-10.days)
+        @recent.update_column(:created_at, now - 23.hours)
+        @old_picture.update_column(:created_at, now - 10.days)
       end
 
       it "should return all pictures that have been created in the last 24 hours" do

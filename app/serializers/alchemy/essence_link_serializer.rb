@@ -9,6 +9,5 @@ module Alchemy
       :link_class_name,
       :created_at,
       :updated_at
-
   end
 end

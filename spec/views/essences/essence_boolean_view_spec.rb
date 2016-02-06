@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe 'alchemy/essences/_essence_boolean_view' do
-
   context 'with true as ingredient' do
     let(:content) { Alchemy::EssenceBoolean.new(ingredient: true) }
     before { allow(view).to receive(:_t).and_return('true') }
@@ -21,5 +20,4 @@ describe 'alchemy/essences/_essence_boolean_view' do
       expect(rendered).to have_content('false')
     end
   end
-
 end

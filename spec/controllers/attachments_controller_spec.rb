@@ -14,13 +14,13 @@ module Alchemy
       end
 
       it "sends download as attachment." do
-        alchemy_get :download, :id => attachment.id
+        alchemy_get :download, id: attachment.id
         expect(response.status).to eq(200)
         expect(response.headers['Content-Disposition']).to match(/attachment/)
       end
 
       it "sends download inline." do
-        alchemy_get :show, :id => attachment.id
+        alchemy_get :show, id: attachment.id
         expect(response.status).to eq(200)
         expect(response.headers['Content-Disposition']).to match(/inline/)
       end
@@ -34,13 +34,13 @@ module Alchemy
 
       context 'as anonymous user' do
         it "should not be possible to download attachments from restricted pages" do
-          alchemy_get :download, :id => attachment.id
+          alchemy_get :download, id: attachment.id
           expect(response.status).to eq(302)
           expect(response).to redirect_to(Alchemy.login_path)
         end
 
         it "should not be possible to see attachments from restricted pages" do
-          alchemy_get :show, :id => attachment.id
+          alchemy_get :show, id: attachment.id
           expect(response.status).to eq(302)
           expect(response).to redirect_to(Alchemy.login_path)
         end
@@ -50,12 +50,12 @@ module Alchemy
         before { authorize_user(build(:alchemy_dummy_user)) }
 
         it "should be possible to download attachments from restricted pages" do
-          alchemy_get :download, :id => attachment.id
+          alchemy_get :download, id: attachment.id
           expect(response.status).to eq(200)
         end
 
         it "should be possible to see attachments from restricted pages" do
-          alchemy_get :show, :id => attachment.id
+          alchemy_get :show, id: attachment.id
           expect(response.status).to eq(200)
         end
       end

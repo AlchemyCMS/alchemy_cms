@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::LayoutpagesController do
-
     before(:each) do
       authorize_user(:as_admin)
     end

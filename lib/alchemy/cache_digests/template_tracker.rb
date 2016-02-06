@@ -1,7 +1,6 @@
 module Alchemy
   module CacheDigests
     class TemplateTracker
-
       def self.call(name, template)
         new(name, template).dependencies
       end
@@ -17,7 +16,7 @@ module Alchemy
         when /^alchemy\/page_layouts\/_(.+)/
           page_layout = page_layout($1)
           return element_templates(page_layout) +
-            page_layout.fetch('cells', []).map { |name| "alchemy/cells/_#{name}" }
+                 page_layout.fetch('cells', []).map { |name| "alchemy/cells/_#{name}" }
         when /^alchemy\/cells\/_(.+)/
           return element_templates cell_definition($1)
         when /alchemy\/elements\/_(.+)_view/

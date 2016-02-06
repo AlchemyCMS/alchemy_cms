@@ -19,6 +19,5 @@ describe "Modules" do
       click_on 'Events'
       expect(page).not_to have_content('Upps!')
     end
-
   end
 end

@@ -103,12 +103,12 @@ module Alchemy
               names: not_deletable.to_sentence
             )
           else
-            flash[:notice] = _t("Pictures deleted successfully", :names => names.to_sentence)
+            flash[:notice] = _t("Pictures deleted successfully", names: names.to_sentence)
           end
         else
           flash[:warn] = _t("Could not delete Pictures")
         end
-      rescue Exception => e
+      rescue => e
         flash[:error] = e.message
       ensure
         redirect_to_index
@@ -117,8 +117,8 @@ module Alchemy
       def destroy
         name = @picture.name
         @picture.destroy
-        flash[:notice] = _t("Picture deleted successfully", :name => name)
-      rescue Exception => e
+        flash[:notice] = _t("Picture deleted successfully", name: name)
+      rescue => e
         flash[:error] = e.message
       ensure
         redirect_to_index
@@ -140,7 +140,7 @@ module Alchemy
         else
           per_page = in_overlay? ? 9 : (per_page_value_for_screen_size / 1.0).ceil + 4
         end
-        return per_page
+        per_page
       end
 
       def in_overlay?

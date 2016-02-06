@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   shared_examples_for "having a hint" do
-
     describe '#hint' do
       context 'with hint as text' do
         before do
@@ -25,6 +24,5 @@ module Alchemy
         end
       end
     end
-
   end
 end

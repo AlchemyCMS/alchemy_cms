@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe ElementToPage do
-
     # ClassMethods
 
     describe '.table_name' do

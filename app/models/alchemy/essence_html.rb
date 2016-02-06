@@ -18,6 +18,5 @@ module Alchemy
     def preview_text(maxlength = 30)
       ::CGI.escapeHTML(source.to_s)[0..maxlength]
     end
-
   end
 end

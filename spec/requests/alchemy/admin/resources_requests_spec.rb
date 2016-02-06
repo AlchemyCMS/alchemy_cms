@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 RSpec.describe 'Resource requests' do
-
   describe 'csv export' do
     it 'returns valid csv file' do
       get '/admin/events.csv'

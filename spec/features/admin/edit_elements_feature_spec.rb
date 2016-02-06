@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.feature "The edit elements feature" do
-  let!(:a_page)  { create(:alchemy_page) }
+  let!(:a_page) { create(:alchemy_page) }
 
   background do
     authorize_user(:as_editor)
@@ -20,7 +20,7 @@ RSpec.feature "The edit elements feature" do
 
       scenario 'a hidden field with parent element id is in the form.' do
         visit alchemy.new_admin_element_path(page_id: a_page.id, parent_element_id: element.id)
-        expect(page).to have_selector(%Q(input[type="hidden"][name="element[parent_element_id]"][value="#{element.id}"]))
+        expect(page).to have_selector(%(input[type="hidden"][name="element[parent_element_id]"][value="#{element.id}"]))
       end
     end
   end

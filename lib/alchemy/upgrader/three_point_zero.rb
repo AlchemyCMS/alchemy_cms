@@ -88,6 +88,5 @@ for a detailed explanation.
 NOTE
       todo notice, 'Alchemy v3.0 changes'
     end
-
   end
 end

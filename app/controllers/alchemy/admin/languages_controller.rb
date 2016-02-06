@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     class LanguagesController < ResourcesController
-
       def new
         @language = Language.new
         @language.page_layout = configured_page_layout || @language.page_layout

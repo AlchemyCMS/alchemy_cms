@@ -1,6 +1,5 @@
 module Alchemy
   module BaseHelper
-
     def _t(key, *args)
       I18n.t(key, *args)
     end
@@ -8,7 +7,7 @@ module Alchemy
     # An alias for truncate.
     # Left here for downwards compatibilty.
     def shorten(text, length)
-      text.truncate(:length => length)
+      text.truncate(length: length)
     end
 
     def parse_sitemap_name(page)
@@ -24,7 +23,7 @@ module Alchemy
     def warning(message, text = nil)
       Logger.warn(message, caller.first)
       unless text.nil?
-        warning = content_tag('p', :class => 'content_editor_error') do
+        warning = content_tag('p', class: 'content_editor_error') do
           render_icon('warning') + text
         end
         return warning
@@ -33,7 +32,7 @@ module Alchemy
 
     # Returns an icon
     def render_icon(icon_class)
-      content_tag('span', '', :class => "icon #{icon_class}")
+      content_tag('span', '', class: "icon #{icon_class}")
     end
 
     # Returns a div with an icon and the passed content
@@ -48,9 +47,9 @@ module Alchemy
     #
     def render_message(type = :info, msg = nil, &blk)
       if block_given?
-        content_tag :div, render_icon(type) + capture(&blk), :class => "#{type} message"
+        content_tag :div, render_icon(type) + capture(&blk), class: "#{type} message"
       else
-        content_tag :div, render_icon(type) + msg, :class => "#{type} message"
+        content_tag :div, render_icon(type) + msg, class: "#{type} message"
       end
     end
 

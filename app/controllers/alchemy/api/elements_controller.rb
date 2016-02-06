@@ -1,6 +1,5 @@
 module Alchemy
   class Api::ElementsController < Api::BaseController
-
     # Returns all elements as json object
     #
     # You can either load all or only these for :page_id param

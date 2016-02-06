@@ -1,10 +1,8 @@
 module Alchemy
   module Admin
-
     # This module contains helper methods for rendering the admin navigation.
     #
     module NavigationHelper
-
       # Renders one admin main navigation entry
       #
       # @param [Hash] alchemy_module
@@ -203,11 +201,11 @@ module Alchemy
       def admin_mainnavi_active?(main_navigation)
         main_navigation.stringify_keys!
         # Has the given navigation entry a active sub navigation?
-        has_active_entry?(module_sub_navigation(main_navigation)) or
+        has_active_entry?(module_sub_navigation(main_navigation)) ||
           # Has the given navigation entry a active nested navigation?
-          has_active_entry?(module_nested_navigation(main_navigation)) or
-            # Is the navigation entry active?
-            entry_active?(main_navigation)
+          has_active_entry?(module_nested_navigation(main_navigation)) ||
+          # Is the navigation entry active?
+          entry_active?(main_navigation)
       end
 
       # Returns true if the given entry's controller is current controller
@@ -232,7 +230,6 @@ module Alchemy
       def has_active_entry?(entries)
         !entries.detect { |entry| entry_active?(entry) }.nil?
       end
-
     end
   end
 end

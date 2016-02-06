@@ -2,7 +2,6 @@ require 'factory_girl'
 require 'alchemy/test_support/factories/language_factory'
 
 FactoryGirl.define do
-
   factory :alchemy_page, class: 'Alchemy::Page' do
     language { Alchemy::Language.default || FactoryGirl.create(:alchemy_language) }
     sequence(:name) { |n| "A Page #{n}" }

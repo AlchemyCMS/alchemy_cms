@@ -2,7 +2,6 @@ require 'alchemy/seeder'
 
 module Alchemy
   class Upgrader < Alchemy::Seeder
-
     Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].each { |f| require f }
 
     extend Alchemy::Upgrader::ThreePointTwo
@@ -10,12 +9,11 @@ module Alchemy
     extend Alchemy::Upgrader::ThreePointZero
 
     class << self
-
       # Runs ugrades
       #
       def run!
         upgrade_tasks.each do |task|
-          self.send(task)
+          send(task)
         end
         puts "\n"
         log "Upgrade done!"
@@ -62,7 +60,7 @@ module Alchemy
         desc "Copy configuration file."
         config_file = Rails.root.join('config/alchemy/config.yml')
         default_config = File.join(File.dirname(__FILE__), '../../config/alchemy/config.yml')
-        if !File.exists? config_file
+        if !File.exist? config_file
           log "No configuration file found. Creating it."
           FileUtils.cp default_config, Rails.root.join('config/alchemy/config.yml')
         elsif FileUtils.identical? default_config, config_file
@@ -74,7 +72,6 @@ module Alchemy
           todo "Check the default configuration file (./config/alchemy/config.yml.defaults) for new configuration options and insert them into your config file.", 'Configuration has changed'
         end
       end
-
     end
   end
 end

@@ -295,6 +295,5 @@ module Alchemy
       end
       buff.join(options[:separator]).html_safe
     end
-
   end
 end

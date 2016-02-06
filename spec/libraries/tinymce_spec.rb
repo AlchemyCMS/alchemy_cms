@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe Tinymce do
-
     describe '.init' do
       subject { Tinymce.init }
 

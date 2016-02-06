@@ -5,7 +5,7 @@ class ActiveRecord::Base
   @@shared_connection = nil
 
   def self.connection
-    @@shared_connection || ConnectionPool::Wrapper.new(:size => 1) { retrieve_connection }
+    @@shared_connection || ConnectionPool::Wrapper.new(size: 1) { retrieve_connection }
   end
 end
 ActiveRecord::Base.shared_connection = ActiveRecord::Base.connection
@@ -19,9 +19,9 @@ def truncate_all_tables
     connection.tables.each do |table_name|
       next if connection.select_value("SELECT count(*) FROM #{table_name}") == 0
       case config["adapter"]
-        when "mysql2", "postgresql"
+      when "mysql2", "postgresql"
           connection.execute("TRUNCATE #{table_name}")
-        when "sqlite3"
+      when "sqlite3"
           connection.execute("DELETE FROM #{table_name}")
           connection.execute("DELETE FROM sqlite_sequence where name='#{table_name}'")
       end

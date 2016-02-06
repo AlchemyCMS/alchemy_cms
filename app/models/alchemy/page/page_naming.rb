@@ -1,6 +1,5 @@
 module Alchemy
   module Page::PageNaming
-
     extend ActiveSupport::Concern
     include NameConversions
     RESERVED_URLNAMES = %w(admin messages new)
@@ -21,7 +20,7 @@ module Alchemy
         on: :update,
         presence: {if: :redirects_to_external?}
 
-      before_save :set_title, :if => 'title.blank?', :unless => proc { systempage? || redirects_to_external? }
+      before_save :set_title, if: 'title.blank?', unless: proc { systempage? || redirects_to_external? }
       after_update :update_descendants_urlnames,
         if: -> { Config.get(:url_nesting) && (urlname_changed? || visible_changed?) }
       after_move :update_urlname!,
@@ -70,7 +69,7 @@ module Alchemy
     private
 
     def update_descendants_urlnames
-      self.reload
+      reload
       descendants.each do |descendant|
         next if descendant.redirects_to_external?
         descendant.update_urlname!

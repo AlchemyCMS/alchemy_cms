@@ -1,5 +1,4 @@
 module Alchemy
-
   # Holds everything concerning the building and creating of contents and the related essence object.
   #
   module Content::Factory
@@ -50,7 +49,7 @@ module Alchemy
       #
       def copy(source, differences = {})
         attributes = source.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY).merge(differences.stringify_keys)
-        content = self.create!(attributes)
+        content = create!(attributes)
         new_essence = content.essence.class.new(content.essence.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY))
         new_essence.save!
         raise "Essence not cloned" if new_essence.id == content.essence_id
@@ -135,7 +134,7 @@ module Alchemy
     #
     def definition
       if element.blank?
-        log_warning "Content with id #{self.id} is missing its Element."
+        log_warning "Content with id #{id} is missing its Element."
         return {}
       end
       element.content_definition_for(name) || {}

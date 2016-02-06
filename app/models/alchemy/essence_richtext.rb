@@ -25,7 +25,7 @@ module Alchemy
     private
 
     def strip_content
-      self.stripped_body = strip_tags(self.body)
+      self.stripped_body = strip_tags(body)
     end
 
     # Stripping HTML Tags and only returns plain text.
@@ -46,6 +46,5 @@ module Alchemy
         html # already plain text
       end
     end
-
   end
 end

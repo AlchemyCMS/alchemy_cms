@@ -70,7 +70,7 @@ module Alchemy
       end
     end
   rescue NameError => e
-    if e.message.match(/#{Regexp.escape(@@user_class_name)}/)
+    if e.message =~ /#{Regexp.escape(@@user_class_name)}/
       abort <<-MSG
 
 AlchemyCMS cannot find any user class!

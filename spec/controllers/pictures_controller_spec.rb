@@ -7,7 +7,6 @@ end
 
 module Alchemy
   describe PicturesController do
-
     let(:public_page)        { create(:alchemy_page, :public, restricted: false) }
     let(:restricted_page)    { create(:alchemy_page, :public, restricted: true) }
     let(:element)            { create(:alchemy_element, page: public_page, name: 'bild', create_contents_after_create: true) }
@@ -129,7 +128,7 @@ module Alchemy
               crop: true,
               size: '100x100'
             )
-         expect(response.body[0x10..0x18].unpack('NN')).to eq [100, 100]
+          expect(response.body[0x10..0x18].unpack('NN')).to eq [100, 100]
         end
       end
 
@@ -341,7 +340,7 @@ module Alchemy
             format: 'png'
           }
           alchemy_get :show, options.merge(id: big_picture.id, name: big_picture.urlname, sh: big_picture.security_token(options))
-          expect(response.body[0x10..0x18].unpack('NN')).to eq([10,10])
+          expect(response.body[0x10..0x18].unpack('NN')).to eq([10, 10])
         end
 
         context "without a full size specification" do
@@ -365,7 +364,7 @@ module Alchemy
               format: 'png'
             }
             alchemy_get :show, options.merge(id: picture.id, name: big_picture.urlname, sh: picture.security_token(options))
-            expect(response.body[0x10..0x18].unpack('NN')).to eq([1,1])
+            expect(response.body[0x10..0x18].unpack('NN')).to eq([1, 1])
           end
         end
 
@@ -378,7 +377,7 @@ module Alchemy
               format: 'png'
             }
             alchemy_get :show, options.merge(id: picture.id, name: big_picture.urlname, sh: picture.security_token(options))
-            expect(response.body[0x10..0x18].unpack('NN')).to eq([10,10])
+            expect(response.body[0x10..0x18].unpack('NN')).to eq([10, 10])
           end
         end
       end
@@ -390,7 +389,7 @@ module Alchemy
             format: 'png'
           }
           alchemy_get :show, options.merge(id: big_picture.id, name: big_picture.urlname, sh: big_picture.security_token(options))
-          expect(response.body[0x10..0x18].unpack('NN')).to eq([40,30])
+          expect(response.body[0x10..0x18].unpack('NN')).to eq([40, 30])
         end
 
         it "should resize the image inferring the height if not given" do
@@ -399,7 +398,7 @@ module Alchemy
             format: 'png'
           }
           alchemy_get :show, options.merge(id: big_picture.id, name: big_picture.urlname, sh: big_picture.security_token(options))
-          expect(response.body[0x10..0x18].unpack('NN')).to eq([40,30])
+          expect(response.body[0x10..0x18].unpack('NN')).to eq([40, 30])
         end
 
         it "should resize the image inferring the width if not given" do
@@ -408,7 +407,7 @@ module Alchemy
             format: 'png'
           }
           alchemy_get :show, options.merge(id: big_picture.id, name: big_picture.urlname, sh: big_picture.security_token(options))
-          expect(response.body[0x10..0x18].unpack('NN')).to eq([40,30])
+          expect(response.body[0x10..0x18].unpack('NN')).to eq([40, 30])
         end
       end
     end

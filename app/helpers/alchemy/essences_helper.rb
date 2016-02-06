@@ -1,5 +1,4 @@
 module Alchemy
-
   # This helper contains methods to render the +essence+ from an +Element+ +Content+.
   #
   # Essences have two kinds of partials. An +editor+ and a +view+ partial.
@@ -27,7 +26,6 @@ module Alchemy
   # And the +render_essence_editor_by_name+ helper for Alchemy backend views.
   #
   module EssencesHelper
-
     # Renders the +Essence+ view partial from +Element+ by name.
     #
     # Pass the name of the +Content+ from +Element+ as second argument.
@@ -86,7 +84,7 @@ module Alchemy
     #   :disable_link => true                          # You can surpress the link of an EssencePicture. Default false
     #
     def render_essence_view(content, options = {}, html_options = {})
-      render_essence(content, :view, {:for_view => options}, html_options)
+      render_essence(content, :view, {for_view: options}, html_options)
     end
 
     # Renders a essence picture

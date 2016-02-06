@@ -1,5 +1,4 @@
 module Alchemy
-
   # ActiveRecord scopes for Alchemy::Page
   #
   module Page::PageScopes

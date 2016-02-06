@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::TagsHelper do
-
     let(:tag)    { mock_model(ActsAsTaggableOn::Tag, name: 'foo', count: 1) }
     let(:tag2)   { mock_model(ActsAsTaggableOn::Tag, name: 'abc', count: 1) }
     let(:params) { {controller: 'admin/attachments', action: 'index', use_route: 'alchemy', tagged_with: 'foo'} }
@@ -108,6 +107,5 @@ module Alchemy
         end
       end
     end
-
   end
 end

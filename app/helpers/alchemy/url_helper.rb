@@ -4,7 +4,6 @@
 #
 module Alchemy
   module UrlHelper
-
     # Returns the path for rendering an alchemy page
     def show_alchemy_page_path(page, optional_params = {})
       alchemy.show_page_path(show_page_path_params(page, optional_params))

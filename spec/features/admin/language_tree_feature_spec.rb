@@ -10,7 +10,7 @@ describe 'Language tree feature', type: :feature, js: true do
 
   context "in a multilangual environment" do
     before do
-      create(:alchemy_page, :language_root, :name => 'Klingonian', :language => klingonian)
+      create(:alchemy_page, :language_root, name: 'Klingonian', language: klingonian)
     end
 
     it "one should be able to switch the language tree" do
@@ -29,5 +29,4 @@ describe 'Language tree feature', type: :feature, js: true do
       expect(page).to have_content('This language tree does not exist')
     end
   end
-
 end

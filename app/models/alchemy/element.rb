@@ -83,7 +83,7 @@ module Alchemy
 
     after_create :create_contents, unless: proc { |e| e.create_contents_after_create == false }
     after_update :touch_pages
-    after_update :touch_cell, unless: -> { self.cell.nil? }
+    after_update :touch_cell, unless: -> { cell.nil? }
 
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
     scope :not_trashed,       -> { where(Element.arel_table[:position].not_eq(nil)) }
@@ -93,7 +93,7 @@ module Alchemy
     scope :named,             ->(names) { where(name: names) }
     scope :excluded,          ->(names) { where(arel_table[:name].not_in(names)) }
     scope :not_in_cell,       -> { where(cell_id: nil) }
-    scope :in_cell,           -> { where("#{self.table_name}.cell_id IS NOT NULL") }
+    scope :in_cell,           -> { where("#{table_name}.cell_id IS NOT NULL") }
     scope :from_current_site, -> { where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: 'language') }
     scope :folded,            -> { where(folded: true) }
     scope :expanded,          -> { where(folded: false) }
@@ -108,7 +108,6 @@ module Alchemy
 
     # class methods
     class << self
-
       # Builds a new element as described in +/config/alchemy/elements.yml+
       #
       # - Returns a new Alchemy::Element object if no name is given in attributes,
@@ -118,11 +117,9 @@ module Alchemy
       #
       def new_from_scratch(attributes = {})
         attributes = attributes.dup.symbolize_keys
-
         return new if attributes[:name].blank?
 
-        new_element_from_definition_by(attributes) ||
-          raise(ElementDefinitionError.new(attributes))
+        new_element_from_definition_by(attributes) || raise(ElementDefinitionError, attributes)
       end
 
       # Creates a new element as described in +/config/alchemy/elements.yml+
@@ -223,9 +220,9 @@ module Alchemy
     # Stores the page into +touchable_pages+ (Pages that have to be touched after updating the element).
     def store_page(page)
       return true if page.nil?
-      unless self.touchable_pages.include? page
-        self.touchable_pages << page
-        self.save
+      unless touchable_pages.include? page
+        touchable_pages << page
+        save
       end
     end
 
@@ -233,11 +230,11 @@ module Alchemy
     def trash!
       self.public = false
       self.folded = true
-      self.remove_from_list
+      remove_from_list
     end
 
     def trashed?
-      self.position.nil?
+      position.nil?
     end
 
     # The names of all cells from given page this element could be placed in.
@@ -328,7 +325,7 @@ module Alchemy
     #
     def available_page_cells(page)
       page.cells.select do |cell|
-        cell.available_elements.include?(self.name)
+        cell.available_elements.include?(name)
       end
     end
 

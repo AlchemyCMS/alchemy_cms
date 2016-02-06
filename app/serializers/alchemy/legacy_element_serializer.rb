@@ -12,6 +12,5 @@ module Alchemy
       :updated_at
 
     has_many :contents
-
   end
 end

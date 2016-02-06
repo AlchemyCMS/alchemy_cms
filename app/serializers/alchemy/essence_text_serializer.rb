@@ -17,6 +17,5 @@ module Alchemy
         target: object.link_target
       }
     end
-
   end
 end

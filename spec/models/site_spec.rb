@@ -15,7 +15,6 @@ module Alchemy
       end
 
       context 'when being saved' do
-
         context 'when it has no languages yet' do
           it 'should automatically create a default language' do
             subject.save!
@@ -207,7 +206,7 @@ module Alchemy
     end
 
     describe '#to_partial_path' do
-      let(:site) {Site.new(name: 'My custom site')}
+      let(:site) { Site.new(name: 'My custom site') }
 
       it "returns the path to partial" do
         expect(site.to_partial_path).to eq("alchemy/site_layouts/my_custom_site")
@@ -215,7 +214,7 @@ module Alchemy
     end
 
     describe '#partial_name' do
-      let(:site) {Site.new(name: 'My custom site')}
+      let(:site) { Site.new(name: 'My custom site') }
 
       it "returns the name for layout partial" do
         expect(site.partial_name).to eq("my_custom_site")
@@ -223,7 +222,7 @@ module Alchemy
     end
 
     describe '#definition' do
-      let(:site) {Site.new(name: 'My custom site')}
+      let(:site) { Site.new(name: 'My custom site') }
       let(:definitions) { [{'name' => 'my_custom_site', 'page_layouts' => %w(standard)}] }
 
       it "returns layout definition from site_layouts.yml file" do

@@ -35,5 +35,4 @@ describe 'alchemy/essences/_essence_date_view' do
       expect(rendered).to eq('')
     end
   end
-
 end

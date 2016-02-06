@@ -2,7 +2,6 @@ require 'spec_helper'
 
 module Alchemy
   describe Messages do
-
     let(:message) { Message.new(email: 'jon@doe.com', message: 'Lorem ipsum') }
     let(:mail) { Messages.contact_form_mail(message, 'admin@page.com', 'contact@page.com', 'Subject') }
 
@@ -18,6 +17,5 @@ module Alchemy
     it "mail body includes message" do
       expect(mail.body).to match /#{message.message}/
     end
-
   end
 end

@@ -20,7 +20,7 @@ class AlchemyInstaller < Thor
   desc "new PROJECT", "Creates a new Alchemy CMS project."
   method_option :database, type: :string, aliases: "-d", desc: "Type of database to use for this project. Default sqlite."
   def new(project)
-    @application = project.downcase.strip.gsub(/ /, '_')
+    @application = project.downcase.strip.tr(' ', '_')
     say welcome_message, :yellow
     say "Step 1: Creating a Rails #{rails_version} application.", :yellow
     say "Please wait...", :yellow
@@ -120,11 +120,11 @@ config/database.yml
 config/initializers/secret_token.rb
 GITIGNORE
     end
-    %x[
+    `
       cd #{@application}
       mkdir -p ./uploads
       touch ./uploads/.gitkeep
-    ]
+    `
   end
 
   def create_database_yml(type)
@@ -261,7 +261,6 @@ DATABASE
     puts "\n"
     password
   end
-
 end
 
 AlchemyInstaller.start

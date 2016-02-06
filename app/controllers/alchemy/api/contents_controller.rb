@@ -1,6 +1,5 @@
 module Alchemy
   class Api::ContentsController < Api::BaseController
-
     # Returns all contents as json object
     #
     # You can either load all or only these for :element_id param

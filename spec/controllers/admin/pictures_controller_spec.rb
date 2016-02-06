@@ -18,7 +18,6 @@ end
 
 module Alchemy
   describe Admin::PicturesController do
-
     before do
       authorize_user(:as_admin)
     end
@@ -342,7 +341,7 @@ module Alchemy
 
       context "picture_ids given" do
         context "all are deletable" do
-          let(:picture_ids) { "#{deletable_picture.id}" }
+          let(:picture_ids) { deletable_picture.id.to_s }
 
           before do
             allow(Picture).to receive(:find).and_return([deletable_picture])
@@ -369,7 +368,7 @@ module Alchemy
         end
 
         context 'with error happening' do
-          let(:picture_ids) { "#{deletable_picture.id}" }
+          let(:picture_ids) { deletable_picture.id.to_s }
 
           before do
             expect(Picture).to receive(:find).and_raise('yada')

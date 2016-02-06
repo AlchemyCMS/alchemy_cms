@@ -1,7 +1,6 @@
 module Alchemy
   module Admin
     class TrashController < Alchemy::Admin::BaseController
-
       helper "alchemy/admin/elements"
 
       authorize_resource class: false

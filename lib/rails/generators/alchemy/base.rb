@@ -3,7 +3,7 @@ require 'rails'
 module Alchemy
   module Generators
     class Base < ::Rails::Generators::Base
-      class_option :template_engine, :type => :string, :aliases => '-e', :desc => 'Template engine for the views. Available options are "erb", "haml", and "slim".'
+      class_option :template_engine, type: :string, aliases: '-e', desc: 'Template engine for the views. Available options are "erb", "haml", and "slim".'
 
       private
 

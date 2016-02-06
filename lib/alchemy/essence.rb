@@ -13,7 +13,6 @@ module Alchemy #:nodoc:
     #   * several getters (ie: page, element, content, ingredient, preview_text)
     #
     module ClassMethods
-
       # Turn any active record model into an essence by calling this class method
       #
       # @option options [String || Symbol] ingredient_column ('body')
@@ -23,7 +22,7 @@ module Alchemy #:nodoc:
       # @option options [String || Symbol] preview_text_column (ingredient_column)
       #   Specify the column for the preview_text method.
       #
-      def acts_as_essence(options={})
+      def acts_as_essence(options = {})
         register_as_essence_association!
 
         configuration = {
@@ -50,7 +49,7 @@ module Alchemy #:nodoc:
           after_update :touch_content
 
           def acts_as_essence_class
-            #{self.name}
+            #{name}
           end
 
           def ingredient_column
@@ -69,7 +68,7 @@ module Alchemy #:nodoc:
 
       # Register the current class as has_many association on +Alchemy::Page+ and +Alchemy::Element+ models
       def register_as_essence_association!
-        klass_name = self.model_name.to_s
+        klass_name = model_name.to_s
         arguments = [:has_many, klass_name.demodulize.tableize.to_sym, through: :contents,
           source: :essence, source_type: klass_name]
         %w(Page Element).each { |k| "Alchemy::#{k}".constantize.send(*arguments) }
@@ -77,7 +76,6 @@ module Alchemy #:nodoc:
     end
 
     module InstanceMethods
-
       # Essence Validations:
       #
       # Essence validations can be set inside the config/elements.yml file.
@@ -125,10 +123,10 @@ module Alchemy #:nodoc:
         validations.each do |validation|
           if validation.respond_to?(:keys)
             validation.map do |key, value|
-              self.send("validate_#{key}", value)
+              send("validate_#{key}", value)
             end
           else
-            self.send("validate_#{validation}")
+            send("validate_#{validation}")
           end
         end
       end
@@ -168,21 +166,21 @@ module Alchemy #:nodoc:
         acts_as_essence_class
           .available
           .from_element(element.name)
-          .where("#{ingredient_column}" => ingredient)
-          .where.not(id: self.id)
+          .where(ingredient_column.to_s => ingredient)
+          .where.not(id: id)
       end
 
       # Returns the value stored from the database column that is configured as ingredient column.
       def ingredient
-        if self.respond_to?(ingredient_column)
-          self.send(ingredient_column)
+        if respond_to?(ingredient_column)
+          send(ingredient_column)
         end
       end
 
       # Returns the value stored from the database column that is configured as ingredient column.
       def ingredient=(value)
-        if self.respond_to?(ingredient_setter_method)
-          self.send(ingredient_setter_method, value)
+        if respond_to?(ingredient_setter_method)
+          send(ingredient_setter_method, value)
         end
       end
 
@@ -193,8 +191,8 @@ module Alchemy #:nodoc:
 
       # Essence definition from config/elements.yml
       def definition
-        return {} if element.nil? or element.content_definitions.nil?
-        element.content_definitions.detect { |c| c['name'] == self.content.name } || {}
+        return {} if element.nil? || element.content_definitions.nil?
+        element.content_definitions.detect { |c| c['name'] == content.name } || {}
       end
 
       # Touch content. Called after update.
@@ -206,7 +204,7 @@ module Alchemy #:nodoc:
       # Returns the first x (default 30) characters of ingredient for the Element#preview_text method.
       #
       def preview_text(maxlength = 30)
-        self.send(preview_text_column).to_s[0..maxlength-1]
+        send(preview_text_column).to_s[0..maxlength - 1]
       end
 
       def open_link_in_new_window?

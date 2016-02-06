@@ -1,12 +1,10 @@
 module Alchemy
   module TestSupport
-
     # Helpers for integration specs
     #
     # This file is included in spec_helper.rb
     #
     module IntegrationHelpers
-
       # Used to stub the current_alchemy_user
       #
       # Pass either a user object or a symbol in the format of ':as_admin'.
@@ -28,6 +26,5 @@ module Alchemy
         end
       end
     end
-
   end
 end

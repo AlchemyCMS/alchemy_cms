@@ -72,13 +72,13 @@ module Alchemy
       ]
     end
 
-    initializer 'alchemy.dependency_tracker' do |app|
+    initializer 'alchemy.dependency_tracker' do
       [:erb, :slim, :haml].each do |handler|
         ActionView::DependencyTracker.register_tracker(handler, CacheDigests::TemplateTracker)
       end
     end
 
-    initializer 'alchemy.non_digest_assets' do |app|
+    initializer 'alchemy.non_digest_assets' do
       NonStupidDigestAssets.whitelist += [/^tinymce\//]
     end
 

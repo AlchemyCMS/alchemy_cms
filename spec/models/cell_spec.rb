@@ -12,7 +12,7 @@ module Alchemy
       end
 
       it "should allow erb generated definitions" do
-        expect(Cell.definitions.collect { |d| d['name']} ).to include('erb_cell')
+        expect(Cell.definitions.collect { |d| d['name'] }).to include('erb_cell')
       end
     end
 
@@ -97,6 +97,5 @@ module Alchemy
         cell.name_for_label
       end
     end
-
   end
 end

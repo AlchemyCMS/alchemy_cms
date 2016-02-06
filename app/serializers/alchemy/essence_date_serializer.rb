@@ -6,6 +6,5 @@ module Alchemy
       :date,
       :created_at,
       :updated_at
-
   end
 end

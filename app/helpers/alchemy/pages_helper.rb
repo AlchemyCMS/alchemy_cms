@@ -21,7 +21,7 @@ module Alchemy
     # @option options reverse [Boolean] (false)
     #   Reverses the ordering of the links.
     #
-    def language_links(options={})
+    def language_links(options = {})
       options = {
         linkname: 'name',
         show_title: true,
@@ -196,7 +196,7 @@ module Alchemy
       }
       options = default_options.merge(options)
       if !options[:from_page].nil?
-        while options[:from_page].level > options[:level] do
+        while options[:from_page].level > options[:level]
           options[:from_page] = options[:from_page].parent
         end
         render_navigation(options, html_options)
@@ -227,7 +227,7 @@ module Alchemy
     #   restricted_only: false                              # Pass boolean for displaying restricted pages only.
     #   reverse: false                                      # Pass boolean for displaying breadcrumb in reversed reversed.
     #
-    def render_breadcrumb(options={})
+    def render_breadcrumb(options = {})
       options = {
         separator: ">",
         page: @page,
@@ -293,7 +293,7 @@ module Alchemy
     # Please use the render_meta_data() helper. There all important meta information gets rendered in one helper.
     # So you dont have to worry about anything.
     #
-    def render_title_tag(options={})
+    def render_title_tag(options = {})
       default_options = {
         prefix: "",
         separator: ""
@@ -309,7 +309,7 @@ module Alchemy
     # Please use the render_meta_data() helper. There all important meta information gets rendered in one helper.
     # So you dont have to worry about anything.
     #
-    def render_meta_tag(options={})
+    def render_meta_tag(options = {})
       default_options = {
         name: "",
         default_language: "de",
@@ -339,7 +339,7 @@ module Alchemy
     #   <meta name="created" content="Tue Dec 16 10:21:26 +0100 2008">
     #   <meta name="robots" content="index, follow">
     #
-    def render_meta_data options={}
+    def render_meta_data(options = {})
       if @page.blank?
         warning("No Page found!")
         return nil
@@ -362,12 +362,12 @@ module Alchemy
       else
         keywords = @page.meta_keywords
       end
-      robot = "#{@page.robot_index? ? "" : "no"}index, #{@page.robot_follow? ? "" : "no"}follow"
+      robot = "#{@page.robot_index? ? '' : 'no'}index, #{@page.robot_follow? ? '' : 'no'}follow"
       meta_string = %(
         <meta charset="UTF-8">
         #{render_title_tag(prefix: options[:title_prefix], separator: options[:title_separator])}
-        #{render_meta_tag(name: "description", content: description)}
-        #{render_meta_tag(name: "keywords", content: keywords)}
+        #{render_meta_tag(name: 'description', content: description)}
+        #{render_meta_tag(name: 'keywords', content: keywords)}
         <meta name="created" content="#{@page.updated_at}">
         <meta name="robots" content="#{robot}">
       )
@@ -376,7 +376,7 @@ module Alchemy
           <link rel="alternate" type="application/rss+xml" title="RSS" href="#{show_alchemy_page_url(@page, format: :rss)}">
         )
       end
-      return meta_string.html_safe
+      meta_string.html_safe
     end
 
     # Renders the partial for the cell with the given name of the current page.
@@ -387,7 +387,7 @@ module Alchemy
     #   from_page: Alchemy::Page     # Alchemy::Page object from which the elements are rendered from.
     #   locals: Hash                 # Hash of variables that will be available in the partial. Example: {user: var1, product: var2}
     #
-    def render_cell(name, options={})
+    def render_cell(name, options = {})
       default_options = {
         from_page: @page,
         locals: {}
@@ -408,10 +408,9 @@ module Alchemy
     # Include this in your layout file to have element selection magic in the page edit preview window.
     def alchemy_preview_mode_code
       if @preview_mode
-        output = javascript_tag("Alchemy = { locale: '#{session[:alchemy_locale]}' };")
-        output += javascript_include_tag("alchemy/preview")
+        javascript_tag("Alchemy = { locale: '#{session[:alchemy_locale]}' };") +
+          javascript_include_tag("alchemy/preview")
       end
     end
-
   end
 end

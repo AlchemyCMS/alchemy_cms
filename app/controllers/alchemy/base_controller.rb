@@ -27,7 +27,7 @@ module Alchemy
     end
 
     def not_found_error!(msg = "Not found \"#{request.fullpath}\"")
-      raise ActionController::RoutingError.new(msg)
+      raise ActionController::RoutingError, msg
     end
 
     # Shortcut for Alchemy::I18n.translate method

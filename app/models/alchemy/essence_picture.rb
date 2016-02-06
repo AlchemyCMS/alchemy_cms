@@ -66,7 +66,7 @@ module Alchemy
     #
     def preview_text(max = 30)
       return "" if picture.nil?
-      picture.name.to_s[0..max-1]
+      picture.name.to_s[0..max - 1]
     end
 
     # A Hash of coordinates suitable for the graphical image cropper.
@@ -102,7 +102,7 @@ module Alchemy
     end
 
     def normalize_crop_value(crop_value)
-      self.send(crop_value).to_s.split('x').map { |n| normalize_number(n) }.join('x')
+      send(crop_value).to_s.split('x').map { |n| normalize_number(n) }.join('x')
     end
 
     def normalize_number(number)

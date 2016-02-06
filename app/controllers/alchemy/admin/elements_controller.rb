@@ -143,9 +143,9 @@ module Alchemy
 
       def paste_element_from_clipboard
         @source_element = Element.find(element_from_clipboard['id'])
-        new_attributes = {:page_id => @page.id}
+        new_attributes = {page_id: @page.id}
         if @page.can_have_cells?
-          new_attributes = new_attributes.merge({:cell_id => find_or_create_cell.try(:id)})
+          new_attributes = new_attributes.merge({cell_id: find_or_create_cell.try(:id)})
         end
         element = Element.copy(@source_element, new_attributes)
         if element_from_clipboard['action'] == 'cut'
