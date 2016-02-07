@@ -43,7 +43,7 @@ Alchemy.initAlchemyPreviewMode = ($) ->
         @$previewElements = $elements
         $elements.mouseover (e) =>
           $el = $(e.delegateTarget)
-          $el.attr("title", Alchemy._t('click_to_edit'))
+          $el.attr("title", Alchemy.t('click_to_edit'))
           $el.css(@getStyle("hover")) unless $el.hasClass("selected")
           return
         $elements.mouseout (e) =>

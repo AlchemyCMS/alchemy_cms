@@ -22,5 +22,5 @@ Alchemy.I18n =
 
 # Global utility method for translating a given string
 #
-Alchemy._t = (key, replacement) ->
+Alchemy.t = (key, replacement) ->
   Alchemy.I18n.translate(key, replacement)

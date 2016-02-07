@@ -19,7 +19,7 @@ $.extend Alchemy,
 
   pageUnload: ->
     Alchemy.pleaseWaitOverlay(false)
-    Alchemy._t('page_dirty_notice')
+    Alchemy.t('page_dirty_notice')
 
   setElementClean: (element) ->
     $element = $(element)
@@ -46,10 +46,10 @@ $.extend Alchemy,
       callback = ->
         window.location.href = element.pathname
     if Alchemy.isPageDirty()
-      Alchemy.openConfirmDialog Alchemy._t('page_dirty_notice'),
-        title: Alchemy._t('warning')
-        ok_label: Alchemy._t('ok')
-        cancel_label: Alchemy._t('cancel')
+      Alchemy.openConfirmDialog Alchemy.t('page_dirty_notice'),
+        title: Alchemy.t('warning')
+        ok_label: Alchemy.t('ok')
+        cancel_label: Alchemy.t('cancel')
         on_ok: ->
           window.onbeforeunload = undefined
           Alchemy.pleaseWaitOverlay()
