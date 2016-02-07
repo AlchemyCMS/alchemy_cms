@@ -56,7 +56,7 @@ describe Alchemy::Admin::NavigationHelper do
   describe '#alchemy_main_navigation_entry' do
     before do
       allow(helper).to receive(:url_for_module).and_return('')
-      allow(helper).to receive(:_t).and_return(alchemy_module['name'])
+      allow(Alchemy).to receive(:t).and_return(alchemy_module['name'])
     end
 
     context "with permission" do
@@ -84,7 +84,7 @@ describe Alchemy::Admin::NavigationHelper do
     before do
       allow(helper).to receive(:current_alchemy_module).and_return(alchemy_module)
       allow(helper).to receive(:url_for_module_sub_navigation).and_return('')
-      allow(helper).to receive(:_t).and_return(alchemy_module['name'])
+      allow(Alchemy).to receive(:t).and_return(alchemy_module['name'])
     end
 
     context "with permission" do

@@ -131,7 +131,7 @@ module Alchemy
       end
 
       context "with translation present" do
-        before { expect(I18n).to receive(:t).and_return('Kontakt') }
+        before { expect(Alchemy).to receive(:t).and_return('Kontakt') }
 
         it "returns the translated name" do
           is_expected.to eq('Kontakt')

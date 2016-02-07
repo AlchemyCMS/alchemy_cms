@@ -1,8 +1,8 @@
 <%= form_tag do %>
   <%= render_message do %>
-    <h2><%= _t(:internal_link_headline) %></h2>
-    <p><%= _t(:internal_link_page_elements_explanation) %></p>
-    <p><%= _t(:internal_link_page_anchors_explanation) %></p>
+    <h2><%= Alchemy.t(:internal_link_headline) %></h2>
+    <p><%= Alchemy.t(:internal_link_page_elements_explanation) %></p>
+    <p><%= Alchemy.t(:internal_link_page_anchors_explanation) %></p>
   <% end %>
   <div id="page_selector_container">
     <% if @page_root %>
@@ -13,21 +13,21 @@
   </div>
   <div class="input select">
     <label for="internal_anchor" class="control-label">
-      <%= _t(:anchor) %>
+      <%= Alchemy.t(:anchor) %>
     </label>
     <%= select_tag(:internal_anchor,
-      options_for_select([[_t('Please choose'), '']]),
+      options_for_select([[Alchemy.t('Please choose'), '']]),
       class: 'alchemy_selectbox') %>
   </div>
   <div class="input text">
     <label for="internal_link_title" class="control-label">
-      <%= _t(:link_title) %>
+      <%= Alchemy.t(:link_title) %>
     </label>
     <%= text_field_tag "internal_link_title", '', class: 'link_title' %>
   </div>
   <div class="input select">
     <label for="internal_link_target" class="control-label">
-      <%= _t("Open Link in") %>
+      <%= Alchemy.t("Open Link in") %>
     </label>
     <%= select_tag 'internal_link_target',
       options_for_select(Alchemy::Page.link_target_options),
@@ -36,6 +36,6 @@
   <div class="submit">
     <%= hidden_field_tag(:internal_urlname) %>
     <%= hidden_field_tag(:page_anchor) %>
-    <%= link_to _t(:apply), '', class: 'create-link button', 'data-link-type' => 'internal' %>
+    <%= link_to Alchemy.t(:apply), '', class: 'create-link button', 'data-link-type' => 'internal' %>
   </div>
 <% end %>

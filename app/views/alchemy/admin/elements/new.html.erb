@@ -3,8 +3,8 @@
 <%- else -%>
 <div id="overlay_tabs">
   <ul>
-    <li><a href="#create_element_tab"><%= _t('New') %></a></li>
-    <li><a href="#paste_element_tab"><%= _t('Paste from clipboard') %></a></li>
+    <li><a href="#create_element_tab"><%= Alchemy.t('New') %></a></li>
+    <li><a href="#paste_element_tab"><%= Alchemy.t('Paste from clipboard') %></a></li>
   </ul>
   <div id="create_element_tab">
     <%= render 'new_element_form' %>
@@ -13,12 +13,12 @@
     <%= alchemy_form_for([:admin, @element]) do |f| %>
       <%= f.hidden_field(:page_id) %>
       <div class="input select">
-        <label for="paste_from_clipboard" class="control-label"><%= _t("Element") %></label>
+        <label for="paste_from_clipboard" class="control-label"><%= Alchemy.t("Element") %></label>
         <%= select_tag 'paste_from_clipboard',
           clipboard_select_tag_options(@clipboard_items),
           class: 'alchemy_selectbox' %>
       </div>
-      <%= f.submit _t(:paste) %>
+      <%= f.submit Alchemy.t(:paste) %>
     <% end %>
   </div>
 </div>

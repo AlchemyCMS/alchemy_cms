@@ -190,10 +190,11 @@ module Alchemy
       end
 
       def link_target_options
-        options = [[I18n.t(:default, scope: 'link_target_options'), '']]
+        options = [[Alchemy.t(:default, scope: 'link_target_options'), '']]
         link_target_options = Config.get(:link_target_options)
         link_target_options.each do |option|
-          options << [I18n.t(option, scope: 'link_target_options', default: option.to_s.humanize), option]
+          options << [Alchemy.t(option, scope: 'link_target_options',
+                                default: option.to_s.humanize), option]
         end
         options
       end
@@ -235,7 +236,7 @@ module Alchemy
       #
       def new_name_for_copy(custom_name, source_name)
         return custom_name if custom_name.present?
-        "#{source_name} (#{I18n.t('Copy')})"
+        "#{source_name} (#{Alchemy.t('Copy')})"
       end
     end
 

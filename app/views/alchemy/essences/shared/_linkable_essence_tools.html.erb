@@ -5,7 +5,7 @@
     onclick: "d = new Alchemy.LinkDialog(this); d.open(); return false;",
     class: "icon_button#{content.linked? ? ' linked' : ''} link-essence",
     'data-content-id' => content.id,
-    title: _t(:place_link),
+    title: Alchemy.t(:place_link),
     id: "edit_link_#{content.id}"
   ) %>
   <%= link_to(
@@ -14,6 +14,6 @@
     onclick: "return Alchemy.LinkDialog.removeLink(this, #{content.id})",
     class: "icon_button unlink-essence #{content.linked? ? 'linked' : 'disabled'}",
     'data-content-id' => content.id,
-    title: _t(:unlink)
+    title: Alchemy.t(:unlink)
   ) %>
 </span>

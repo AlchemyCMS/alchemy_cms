@@ -37,13 +37,13 @@ module Alchemy
             Content.where(id: id).update_all(position: idx + 1)
           end
         end
-        @notice = _t("Successfully saved content position")
+        @notice = Alchemy.t("Successfully saved content position")
       end
 
       def destroy
         @content = Content.find(params[:id])
         @content_dom_id = @content.dom_id
-        @notice = _t("Successfully deleted content", content: @content.name_for_label)
+        @notice = Alchemy.t("Successfully deleted content", content: @content.name_for_label)
         @content.destroy
       end
 

@@ -1,31 +1,31 @@
 <%= form_tag do %>
   <%= render_message do %>
-    <h2><%= _t(:choose_file_to_link) %></h2>
+    <h2><%= Alchemy.t(:choose_file_to_link) %></h2>
   <% end %>
   <div class="input select">
     <label for="public_filename" class="control-label">
-      <%= _t(:file) %>
+      <%= Alchemy.t(:file) %>
     </label>
     <%= select_tag "public_filename",
       options_for_select(@attachments),
-      prompt: _t('Please choose'),
+      prompt: Alchemy.t('Please choose'),
       class: "alchemy_selectbox" %>
   </div>
   <div class="input text">
     <label for="file_link_title" class="control-label">
-      <%= _t(:link_title) %>
+      <%= Alchemy.t(:link_title) %>
     </label>
     <%= text_field_tag "file_link_title", '', class: 'link_title' %>
   </div>
   <div class="input select">
     <label for="file_link_target" class="control-label">
-      <%= _t("Open Link in") %>
+      <%= Alchemy.t("Open Link in") %>
     </label>
     <%= select_tag 'file_link_target',
       options_for_select(Alchemy::Page.link_target_options),
       class: 'alchemy_selectbox link_target' %>
   </div>
   <div class="submit">
-    <%= link_to _t(:apply), '#', class: 'create-link button', 'data-link-type' => 'file' %>
+    <%= link_to Alchemy.t(:apply), '#', class: 'create-link button', 'data-link-type' => 'file' %>
   </div>
 <% end %>

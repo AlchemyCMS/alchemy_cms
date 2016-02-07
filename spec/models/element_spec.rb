@@ -136,7 +136,7 @@ module Alchemy
 
     describe '.display_name_for' do
       it "should return the translation for the given name" do
-        expect(I18n).to receive(:t).with('subheadline', scope: "element_names", default: 'Subheadline').and_return('Überschrift')
+        expect(Alchemy).to receive(:t).with('subheadline', scope: "element_names", default: 'Subheadline').and_return('Überschrift')
         expect(Element.display_name_for('subheadline')).to eq('Überschrift')
       end
 
@@ -366,13 +366,13 @@ module Alchemy
       let(:element) { Element.new(name: 'article') }
 
       it "should return the translation with the translated content label" do
-        expect(I18n).to receive(:t)
+        expect(Alchemy).to receive(:t)
           .with('content_names.content', default: 'Content')
           .and_return('Content')
-        expect(I18n).to receive(:t)
+        expect(Alchemy).to receive(:t)
           .with('content', scope: "content_names.article", default: 'Content')
           .and_return('Contenido')
-        expect(I18n).to receive(:t)
+        expect(Alchemy).to receive(:t)
           .with('article.content.invalid', {
             scope: "content_validations",
             default: [:"fields.content.invalid", :"errors.invalid"],

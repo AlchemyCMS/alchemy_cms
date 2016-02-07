@@ -6,7 +6,7 @@
   <span class="picture_tool delete">
     <%= link_to_confirm_dialog(
       "",
-      _t(:confirm_to_delete_image_from_server),
+      Alchemy.t(:confirm_to_delete_image_from_server),
       alchemy.admin_picture_path(
         id: picture,
         q: params[:q],
@@ -16,7 +16,7 @@
         filter: params[:filter]
       ),
       {
-        title: _t('Delete image')
+        title: Alchemy.t('Delete image')
       }
     ) -%>
   </span>
@@ -24,7 +24,7 @@
   <% image = image_tag(
     alchemy.thumbnail_path(id: picture, size: @size, sh: picture.security_token(size: @size)),
     alt: picture.name,
-    title: _t(:zoom_image)
+    title: Alchemy.t(:zoom_image)
   ) %>
   <% if can?(:edit, picture) %>
     <%= link_to(

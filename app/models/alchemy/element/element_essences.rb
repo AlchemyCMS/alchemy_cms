@@ -92,7 +92,7 @@ module Alchemy
       messages = []
       essence_errors.each do |content_name, errors|
         errors.each do |error|
-          messages << I18n.t(
+          messages << Alchemy.t(
             "#{name}.#{content_name}.#{error}",
             scope: 'content_validations',
             default: [

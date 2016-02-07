@@ -1,7 +1,7 @@
 <%= form_for [:admin, @attachment], html: {multipart: true} do |f| %>
   <%= render 'alchemy/admin/partials/upload_form', {
       file_types: configuration(:uploader)['allowed_filetypes']['attachments'],
-      file_types_description: _t(:documents),
+      file_types_description: Alchemy.t(:documents),
       redirect_url: admin_attachments_path(
         swap: @swap,
         element_id: @element ? @element.id : nil,
@@ -9,6 +9,6 @@
         options: @options ? @options.to_json : nil),
       model_name: 'attachment',
       file_attribute: 'file',
-      item_type: _t(:files)
+      item_type: Alchemy.t(:files)
     } %>
 <% end %>

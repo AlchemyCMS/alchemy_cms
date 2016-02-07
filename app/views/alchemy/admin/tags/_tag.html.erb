@@ -8,20 +8,20 @@
   <td class="tools">
     <% if can?(:destroy, Alchemy::Tag) %>
     <%= delete_button admin_tag_path(tag), {
-      message: _t(:do_you_really_want_to_delete_this_tag?),
+      message: Alchemy.t(:do_you_really_want_to_delete_this_tag?),
       icon: 'tag_delete',
-      title: _t(:delete_tag)
+      title: Alchemy.t(:delete_tag)
     } %>
     <% end %>
     <% if can?(:edit, Alchemy::Tag) %>
     <%= link_to_dialog '',
       edit_admin_tag_path(tag),
       {
-        title: _t(:edit_tag),
+        title: Alchemy.t(:edit_tag),
         size: '360x410'
       },
       {
-        title: _t(:edit_tag),
+        title: Alchemy.t(:edit_tag),
         class: 'icon tag_edit'
       }
     %>

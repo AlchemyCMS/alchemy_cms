@@ -7,24 +7,24 @@
     url: alchemy.new_admin_page_path(parent_id: @layout_root.id, layoutpage: true),
     hotkey: 'alt+n',
     dialog_options: {
-      title: _t('Add global page'),
+      title: Alchemy.t('Add global page'),
       size: '340x170',
       overflow: true
     },
-    title: _t('Add global page'),
-    label: _t('Add global page'),
+    title: Alchemy.t('Add global page'),
+    label: Alchemy.t('Add global page'),
     if_permitted_to: [:create, Alchemy::Page]
   ) %>
   <%= toolbar_button(
     icon: "clipboard#{clipboard_empty?('pages') ? '' : ' full'}",
     url: alchemy.admin_clipboard_path(remarkable_type: 'pages'),
     dialog_options: {
-      title: _t('Clipboard'),
+      title: Alchemy.t('Clipboard'),
       size: '380x270'
     },
-    title: _t('Show clipboard'),
+    title: Alchemy.t('Show clipboard'),
     id: "clipboard_button",
-    label: _t('Show clipboard')
+    label: Alchemy.t('Show clipboard')
   ) %>
 </div>
 <% end %>

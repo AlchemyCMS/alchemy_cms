@@ -1,7 +1,7 @@
 $('#element_area .ajax-folder').show();
 Alchemy.PreviewWindow.refresh();
 <% if @trashed_element_ids.any? %>
-Alchemy.growl('<%= _t(:successfully_restored_element) -%>');
+Alchemy.growl('<%= Alchemy.t(:successfully_restored_element) -%>');
 <% element_ids = @trashed_element_ids.collect do |id|
                    "#element_area [data-element-id=\"#{id}\"]"
                  end.join(", ").html_safe %>
@@ -9,5 +9,5 @@ Alchemy.growl('<%= _t(:successfully_restored_element) -%>');
 $('<%= element_ids %>').each(function() { this.id = 'element_' + <%= id %> });
 <% end %>
 <% else %>
-Alchemy.growl('<%= _t(:successfully_saved_element_position) -%>');
+Alchemy.growl('<%= Alchemy.t(:successfully_saved_element_position) -%>');
 <% end %>

@@ -12,7 +12,6 @@ describe 'alchemy/essences/_essence_editor_view' do
 
   before do
     view.class.send :include, Alchemy::Admin::BaseHelper
-    allow(view).to receive(:_t).and_return('')
     allow(view).to receive(:content_label).and_return('')
   end
 

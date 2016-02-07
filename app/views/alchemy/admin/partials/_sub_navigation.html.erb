@@ -2,7 +2,7 @@
   <% entry.stringify_keys! %>
   <% if can? *navigate_module(entry) %>
   <div class="subnavi_tab<%= entry_active?(entry) ? ' active' : nil %>">
-    <%= link_to _t(entry['name']), url_for_module_sub_navigation(entry) %>
+    <%= link_to Alchemy.t(entry['name']), url_for_module_sub_navigation(entry) %>
   </div>
   <% end %>
 <% end %>

@@ -1,8 +1,8 @@
 <%= form_tag do %>
   <%= render_message do %>
-    <h2><%= _t(:enter_external_link) %></h2>
-    <p><%= _t(:external_link_notice_1) %></p>
-    <p><%= _t(:external_link_notice_2) %></p>
+    <h2><%= Alchemy.t(:enter_external_link) %></h2>
+    <p><%= Alchemy.t(:external_link_notice_1) %></p>
+    <p><%= Alchemy.t(:external_link_notice_2) %></p>
   <% end %>
   <div id="errors" class="errors">
     <ul></ul>
@@ -13,19 +13,19 @@
   </div>
   <div class="input text">
     <label for="external_link_title" class="control-label">
-      <%= _t(:link_title) %>
+      <%= Alchemy.t(:link_title) %>
     </label>
     <%= text_field_tag "external_link_title", '', class: 'link_title' %>
   </div>
   <div class="input select">
     <label for="external_link_target" class="control-label">
-      <%= _t("Open Link in") %>
+      <%= Alchemy.t("Open Link in") %>
     </label>
     <%= select_tag 'external_link_target',
       options_for_select(Alchemy::Page.link_target_options),
       class: 'alchemy_selectbox link_target' %>
   </div>
   <div class="submit">
-    <%= link_to _t(:apply), '#', class: 'create-link button', 'data-link-type' => 'external' %>
+    <%= link_to Alchemy.t(:apply), '#', class: 'create-link button', 'data-link-type' => 'external' %>
   </div>
 <% end %>

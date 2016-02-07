@@ -8,10 +8,10 @@ module Alchemy
       def sitemap_folder_link(page)
         if page.folded?(current_alchemy_user.id)
           css_class = 'folded'
-          title = _t('Show childpages')
+          title = Alchemy.t('Show childpages')
         else
           css_class = 'collapsed'
-          title = _t('Hide childpages')
+          title = Alchemy.t('Hide childpages')
         end
         link_to(
           '',
@@ -29,12 +29,12 @@ module Alchemy
       def preview_sizes_for_select
         options_for_select([
           'auto',
-          [_t('240', scope: 'preview_sizes'), 240],
-          [_t('320', scope: 'preview_sizes'), 320],
-          [_t('480', scope: 'preview_sizes'), 480],
-          [_t('768', scope: 'preview_sizes'), 768],
-          [_t('1024', scope: 'preview_sizes'), 1024],
-          [_t('1280', scope: 'preview_sizes'), 1280]
+          [Alchemy.t('240', scope: 'preview_sizes'), 240],
+          [Alchemy.t('320', scope: 'preview_sizes'), 320],
+          [Alchemy.t('480', scope: 'preview_sizes'), 480],
+          [Alchemy.t('768', scope: 'preview_sizes'), 768],
+          [Alchemy.t('1024', scope: 'preview_sizes'), 1024],
+          [Alchemy.t('1280', scope: 'preview_sizes'), 1280]
         ])
       end
 
@@ -57,12 +57,12 @@ module Alchemy
           [
             content_tag(:span, '',
               class: 'inline warning icon',
-              title: _t(:page_definition_missing)
+              title: Alchemy.t(:page_definition_missing)
             ),
-            _t(:page_type)
+            Alchemy.t(:page_type)
           ].join('&nbsp;').html_safe
         else
-          _t(:page_type)
+          Alchemy.t(:page_type)
         end
       end
     end

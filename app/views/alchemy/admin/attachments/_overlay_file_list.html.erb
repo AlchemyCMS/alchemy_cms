@@ -1,7 +1,7 @@
 <% if @attachments.empty? %>
   <div class="info">
     <%= render_icon('info') %>
-    <%= _t(:no_files_in_archive) %>
+    <%= Alchemy.t(:no_files_in_archive) %>
   </div>
 <% else %>
   <ul>

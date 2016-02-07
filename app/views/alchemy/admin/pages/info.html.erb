@@ -7,7 +7,7 @@
   <div class="value">
     <label>
       <% if @page.definition.blank? %>
-        <span class="inline warning icon" title="<%= _t(:page_definition_missing) %>"></span>
+        <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
       <% end %>
       <%= Alchemy::Page.human_attribute_name(:page_layout) %>
     </label>
@@ -23,20 +23,20 @@
   <% end %>
   </div>
   <div class="value">
-    <label><%= _t(:page_status) %></label>
+    <label><%= Alchemy.t(:page_status) %></label>
     <p><%= combined_page_status(@page) %></p>
   </div>
   <div class="value">
-    <label><%= _t(:page_was_created) %></label>
-    <p><%= _t(:from_at) % {by: @page.creator_name, at: l(@page.created_at, format: :page_status)} %></p>
+    <label><%= Alchemy.t(:page_was_created) %></label>
+    <p><%= Alchemy.t(:from_at) % {by: @page.creator_name, at: l(@page.created_at, format: :page_status)} %></p>
   </div>
   <div class="value">
-    <label><%= _t(:page_was_updated) %></label>
-    <p><%= _t(:from_at) % {by: @page.updater_name, at: l(@page.updated_at, format: :page_status)} %></p>
+    <label><%= Alchemy.t(:page_was_updated) %></label>
+    <p><%= Alchemy.t(:from_at) % {by: @page.updater_name, at: l(@page.updated_at, format: :page_status)} %></p>
   </div>
   <% if @page.locked? %>
   <div class="value">
-    <label><%= _t(:currently_edited_by) %></label>
+    <label><%= Alchemy.t(:currently_edited_by) %></label>
     <p><%= @page.locker_name %></p>
   </div>
   <% end %>

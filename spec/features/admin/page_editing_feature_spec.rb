@@ -18,7 +18,7 @@ describe 'Page editing feature' do
     it 'can publish page.' do
       visit alchemy.edit_admin_page_path(a_page)
       find('#publish_page_form button').click
-      expect(page).to have_content Alchemy::I18n.t(:page_published, name: a_page.name)
+      expect(page).to have_content Alchemy.t(:page_published, name: a_page.name)
     end
 
     context 'while editing a global page' do

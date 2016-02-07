@@ -37,7 +37,7 @@ module Alchemy
     # to ensure this runs before Dragonfly's before_destroy callback.
     #
     before_destroy unless: :deletable? do
-      raise PictureInUseError, I18n.t(:cannot_delete_picture_notice) % { name: name }
+      raise PictureInUseError, Alchemy.t(:cannot_delete_picture_notice) % { name: name }
     end
 
     # Enables Dragonfly image processing
@@ -56,7 +56,7 @@ module Alchemy
       of: :image_file,
       in: Config.get(:uploader)['allowed_filetypes']['pictures'],
       case_sensitive: false,
-      message: I18n.t("not a valid image")
+      message: Alchemy.t("not a valid image")
 
     acts_as_taggable
 

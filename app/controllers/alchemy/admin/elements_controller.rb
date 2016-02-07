@@ -73,8 +73,8 @@ module Alchemy
           @element_validated = @element.update_attributes!(element_params)
         else
           @element_validated = false
-          @notice = _t('Validation failed')
-          @error_message = "<h2>#{@notice}</h2><p>#{_t(:content_validations_headline)}</p>".html_safe
+          @notice = Alchemy.t('Validation failed')
+          @error_message = "<h2>#{@notice}</h2><p>#{Alchemy.t(:content_validations_headline)}</p>".html_safe
         end
       end
 

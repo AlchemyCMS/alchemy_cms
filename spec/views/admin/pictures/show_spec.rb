@@ -18,7 +18,6 @@ describe "alchemy/admin/pictures/show.html.erb" do
 
   before do
     allow(view).to receive(:admin_picture_path).and_return("/path")
-    allow(view).to receive(:_t) {}
     allow(view).to receive(:render_message) {}
     view.extend Alchemy::Admin::FormHelper
   end

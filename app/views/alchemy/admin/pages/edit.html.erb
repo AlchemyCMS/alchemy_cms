@@ -4,20 +4,20 @@
 <div class="toolbar_buttons">
   <div class="button_with_label">
     <%= form_tag alchemy.unlock_admin_page_path(@page, redirect_to: @layoutpage ? alchemy.admin_layoutpages_path : alchemy.admin_pages_path), id: 'unlock_page_form' do %>
-      <button class="icon_button" title="<%= _t(:explain_unlocking) %>" data-alchemy-hotkey="alt+x">
+      <button class="icon_button" title="<%= Alchemy.t(:explain_unlocking) %>" data-alchemy-hotkey="alt+x">
         <%= render_icon('close') %>
       </button>
-      <label><%= _t(:unlock_page) %></label>
+      <label><%= Alchemy.t(:unlock_page) %></label>
     <% end %>
   </div>
   <div class="toolbar_spacer"></div>
   <% unless @page.layoutpage? %>
   <div class="button_with_label">
     <%= form_tag alchemy.visit_admin_page_path(@page), id: 'visit_page_form' do %>
-      <button class="icon_button" title="<%= _t('Visit page') %>">
+      <button class="icon_button" title="<%= Alchemy.t('Visit page') %>">
         <%= render_icon('visit_page') %>
       </button>
-      <label><%= _t("Visit page") %></label>
+      <label><%= Alchemy.t("Visit page") %></label>
     <% end %>
   </div>
   <% end %>
@@ -26,16 +26,16 @@
       render_icon('info'),
       alchemy.info_admin_page_path(@page),
       {
-        title: _t(:page_infos),
+        title: Alchemy.t(:page_infos),
         size: '520x320'
       },
       {
         class: 'icon_button',
-        title: _t(:page_infos),
+        title: Alchemy.t(:page_infos),
         'data-alchemy-hotkey' => 'alt+i'
       }
     ) %>
-    <label><%= _t(:page_infos) %></label>
+    <label><%= Alchemy.t(:page_infos) %></label>
   </div>
   <div class="button_with_label">
     <% if @page.layoutpage? %>
@@ -43,11 +43,11 @@
         render_icon('settings'),
         alchemy.edit_admin_layoutpage_path(@page),
         {
-          title: _t(:edit_page_properties),
+          title: Alchemy.t(:edit_page_properties),
           size: '450x170'
         },
         class: :icon_button,
-        title: _t(:edit_page_properties),
+        title: Alchemy.t(:edit_page_properties),
         'data-alchemy-hotkey' => 'alt+e'
       ) %>
     <% else %>
@@ -55,29 +55,29 @@
         render_icon('settings'),
         alchemy.configure_admin_page_path(@page),
         {
-          title: _t(:edit_page_properties),
+          title: Alchemy.t(:edit_page_properties),
           size: '450x720'
         },
         class: :icon_button,
-        title: _t(:edit_page_properties),
+        title: Alchemy.t(:edit_page_properties),
         'data-alchemy-hotkey' => 'alt+e'
       ) %>
     <% end %>
-    <label><%= _t(:page_properties) %></label>
+    <label><%= Alchemy.t(:page_properties) %></label>
   </div>
   <% if can?(:publish, @page) && !@page.layoutpage? %>
     <div class="button_with_label">
       <%= form_tag alchemy.publish_admin_page_path(@page), id: 'publish_page_form' do %>
-        <%= button_tag class: 'icon_button', title: _t(:explain_publishing) do %>
+        <%= button_tag class: 'icon_button', title: Alchemy.t(:explain_publishing) do %>
           <%= render_icon('publish') %>
         <% end %>
-        <label><%= _t("Publish page") %></label>
+        <label><%= Alchemy.t("Publish page") %></label>
       <% end %>
     </div>
   <% end %>
   <div class="toolbar_spacer"></div>
   <div class="select_with_label">
-    <label><%= _t(:preview_size) %></label>
+    <label><%= Alchemy.t(:preview_size) %></label>
     <%= select_tag 'preview_size',
       preview_sizes_for_select,
       class: 'alchemy_selectbox medium' %>
@@ -85,20 +85,20 @@
   <div class="toolbar_spacer"></div>
   <div class="button_with_label">
     <%= link_to render_icon(:reload), '#', {
-      title: _t('Reload Preview'),
+      title: Alchemy.t('Reload Preview'),
       class: 'icon_button',
       id: 'reload_preview_button'
     } %>
-    <label><%= _t('Reload Preview') %></label>
+    <label><%= Alchemy.t('Reload Preview') %></label>
   </div>
 </div>
 <div class="toolbar_buttons right">
   <div class="button_with_label" id="element_window_button">
     <%= link_to render_icon(:element_window), '', {
-      title: _t(:hide_elements),
+      title: Alchemy.t(:hide_elements),
       class: 'icon_button'
     } %>
-    <label><%= _t(:hide_elements) %></label>
+    <label><%= Alchemy.t(:hide_elements) %></label>
   </div>
 </div>
 <% end %>
@@ -119,46 +119,46 @@
     Alchemy.PreviewWindow.init('<%= admin_page_url(@page) %>');
     Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_id: @page.id) %>', {
       texts: {
-        title: '<%= _t("Elements") %>',
-        dirtyTitle: '<%= _t("Warning!") %>',
-        dirtyMessage: '<%= _t(:element_dirty_close_window_notice) %>',
-        ok_label: '<%= _t("Yes") %>',
-        cancel_label: '<%= _t("No") %>',
-        hideElements: '<%= _t(:hide_elements) %>',
-        showElements: '<%= _t(:show_elements) %>'
+        title: '<%= Alchemy.t("Elements") %>',
+        dirtyTitle: '<%= Alchemy.t("Warning!") %>',
+        dirtyMessage: '<%= Alchemy.t(:element_dirty_close_window_notice) %>',
+        ok_label: '<%= Alchemy.t("Yes") %>',
+        cancel_label: '<%= Alchemy.t("No") %>',
+        hideElements: '<%= Alchemy.t(:hide_elements) %>',
+        showElements: '<%= Alchemy.t(:show_elements) %>'
       },
       toolbarButtons: [
         {
-          title: '<%= _t("New Element") %>',
-          label: '<%= _t("New Element") %>',
+          title: '<%= Alchemy.t("New Element") %>',
+          label: '<%= Alchemy.t("New Element") %>',
           hotkey: 'alt+n',
           iconClass: 'new_element',
           onClick: function() {
             Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_id: @page.id) %>', {
-              title: '<%= _t("New Element") %>',
+              title: '<%= Alchemy.t("New Element") %>',
               size: '320x125'
             });
           }
         },
         {
-          title: '<%= _t("Clipboard") %>',
-          label: '<%= _t("Show clipboard") %>',
+          title: '<%= Alchemy.t("Clipboard") %>',
+          label: '<%= Alchemy.t("Show clipboard") %>',
           iconClass: 'clipboard<%= clipboard_empty?("elements") ? "" : " full" %>',
           buttonId: 'clipboard_button',
           onClick: function() {
             Alchemy.openDialog('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {
-              title :'<%= _t("Clipboard") %>',
+              title :'<%= Alchemy.t("Clipboard") %>',
               size: '400x305'
             });
           }
         },
         {
-          title: '<%= _t("Show trash") %>',
-          label: '<%= _t("Show trash") %>',
+          title: '<%= Alchemy.t("Show trash") %>',
+          label: '<%= Alchemy.t("Show trash") %>',
           iconClass: 'trash<%= trash_empty?("elements") ? "" : " full" %>',
           buttonId: 'element_trash_button',
           onClick: function() {
-            Alchemy.TrashWindow.open(<%= @page.id %>, '<%= _t("Trash") %>');
+            Alchemy.TrashWindow.open(<%= @page.id %>, '<%= Alchemy.t("Trash") %>');
           }
         }
       ]

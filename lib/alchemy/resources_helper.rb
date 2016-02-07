@@ -84,7 +84,7 @@ module Alchemy
       value
     rescue ActiveRecord::RecordNotFound => e
       warning e
-      _t(:not_found)
+      Alchemy.t(:not_found)
     end
 
     # Returns a options hash for simple_form input fields.

@@ -13,7 +13,7 @@
             url: @url_prefix + page_for_links.urlname
           },
           class: "show_elements_to_link",
-          title: _t(:show_elements_from_page)
+          title: Alchemy.t(:show_elements_from_page)
         %>
       <% end %>
     </div>
@@ -29,7 +29,7 @@
             'page-id' => page_for_links.id,
             url: @url_prefix + page_for_links.urlname
           },
-          title: _t('page_for_links.choose_page', name: page_for_links.name),
+          title: Alchemy.t('page_for_links.choose_page', name: page_for_links.name),
           class: "sitemap_pagename_link"
         }) %>
       <% end %>

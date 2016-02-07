@@ -45,10 +45,10 @@ module Alchemy
           if in_overlay?
             set_instance_variables
           end
-          message = _t('File uploaded succesfully', name: @attachment.name)
+          message = Alchemy.t('File uploaded succesfully', name: @attachment.name)
           render json: {files: [@attachment.to_jq_upload], growl_message: message}, status: :created
         else
-          message = _t('File upload error', error: @attachment.errors[:file].join)
+          message = Alchemy.t('File upload error', error: @attachment.errors[:file].join)
           render json: {files: [@attachment.to_jq_upload], growl_message: message}, status: :unprocessable_entity
         end
       end
@@ -62,7 +62,7 @@ module Alchemy
             page: params[:page],
             q: params[:q]
           ),
-          _t("File successfully updated")
+          Alchemy.t("File successfully updated")
         )
       end
 
@@ -74,7 +74,7 @@ module Alchemy
           page: params[:page],
           q: params[:q]
         )
-        flash[:notice] = _t('File deleted successfully', name: name)
+        flash[:notice] = Alchemy.t('File deleted successfully', name: name)
       end
 
       def download

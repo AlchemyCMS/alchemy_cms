@@ -33,7 +33,7 @@ module Alchemy
 
         it "renders error message" do
           alchemy_get :crop, id: 1
-          expect(assigns(:no_image_notice)).to eq(Alchemy::I18n.t(:no_image_for_cropper_found))
+          expect(assigns(:no_image_notice)).to eq(Alchemy.t(:no_image_for_cropper_found))
         end
       end
 

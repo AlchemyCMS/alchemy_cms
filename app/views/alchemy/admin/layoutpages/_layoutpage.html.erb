@@ -2,7 +2,7 @@
   <div class="sitemap_page<%= layoutpage.locked ? ' locked' : '' %>">
     <div class="sitemap_left_images">
     <% if layoutpage.definition.blank? %>
-      <span class="inline warning icon" title="<%= _t(:page_definition_missing) %>"></span>
+      <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
     <% else %>
       <%= render_icon(:page) %>
     <% end %>
@@ -13,11 +13,11 @@
         render_icon('configure_page'),
         alchemy.edit_admin_layoutpage_path(layoutpage),
         {
-          title: _t(:edit_page_properties),
+          title: Alchemy.t(:edit_page_properties),
           size: '410x170'
         },
         class: 'sitemap_tool',
-        title: _t(:edit_page_properties)
+        title: Alchemy.t(:edit_page_properties)
       ) -%>
       <%- end -%>
       <span class="sitemap_sitetools">
@@ -31,13 +31,13 @@
           remote: true,
           method: 'post',
           class: "sitemap_tool",
-          title: _t(:copy_page)
+          title: Alchemy.t(:copy_page)
         ) %>
       <%- end -%>
       <%- if can?(:destroy, layoutpage) -%>
         <%= link_to_confirm_dialog(
           render_icon('delete_page'),
-          _t(:confirm_to_delete_page),
+          Alchemy.t(:confirm_to_delete_page),
           url_for(
             controller: 'pages',
             action: 'destroy',
@@ -45,7 +45,7 @@
           ),
           {
             class: "sitemap_tool",
-            title: _t(:delete_page)
+            title: Alchemy.t(:delete_page)
           }
         ) -%>
       <%- end -%>
@@ -55,7 +55,7 @@
       <%= link_to(
         layoutpage.name,
         alchemy.edit_admin_page_path(layoutpage),
-        title: _t(:edit_page),
+        title: Alchemy.t(:edit_page),
         class: "sitemap_pagename_link #{cycle('even', 'odd')}"
       ) -%>
     </div>

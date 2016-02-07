@@ -18,7 +18,7 @@ module Alchemy
 
       def create
         @tag = ActsAsTaggableOn::Tag.create(tag_params)
-        render_errors_or_redirect @tag, admin_tags_path, _t('New Tag Created')
+        render_errors_or_redirect @tag, admin_tags_path, Alchemy.t('New Tag Created')
       end
 
       def edit
@@ -29,12 +29,12 @@ module Alchemy
         if tag_params[:merge_to]
           @new_tag = ActsAsTaggableOn::Tag.find(tag_params[:merge_to])
           Tag.replace(@tag, @new_tag)
-          operation_text = _t('Replaced Tag') % {old_tag: @tag.name, new_tag: @new_tag.name}
+          operation_text = Alchemy.t('Replaced Tag') % {old_tag: @tag.name, new_tag: @new_tag.name}
           @tag.destroy
         else
           @tag.update_attributes(tag_params)
           @tag.save
-          operation_text = _t(:successfully_updated_tag)
+          operation_text = Alchemy.t(:successfully_updated_tag)
         end
         render_errors_or_redirect @tag, admin_tags_path, operation_text
       end
@@ -42,7 +42,7 @@ module Alchemy
       def destroy
         if request.delete?
           @tag.destroy
-          flash[:notice] = _t(:successfully_deleted_tag)
+          flash[:notice] = Alchemy.t(:successfully_deleted_tag)
         end
         do_redirect_to admin_tags_path
       end

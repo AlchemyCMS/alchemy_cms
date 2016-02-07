@@ -26,7 +26,7 @@ module Alchemy
     # does not respond to +#name+ it returns +'unknown'+
     #
     def creator_name
-      (creator && creator.try(:name)) || I18n.t('unknown')
+      (creator && creator.try(:name)) || Alchemy.t('unknown')
     end
 
     # Returns the name of the last updater of this page.
@@ -35,7 +35,7 @@ module Alchemy
     # does not respond to +#name+ it returns +'unknown'+
     #
     def updater_name
-      (updater && updater.try(:name)) || I18n.t('unknown')
+      (updater && updater.try(:name)) || Alchemy.t('unknown')
     end
 
     # Returns the name of the user currently editing this page.
@@ -44,7 +44,7 @@ module Alchemy
     # does not respond to +#name+ it returns +'unknown'+
     #
     def locker_name
-      (locker && locker.try(:name)) || I18n.t('unknown')
+      (locker && locker.try(:name)) || Alchemy.t('unknown')
     end
 
     private

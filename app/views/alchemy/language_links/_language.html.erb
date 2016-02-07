@@ -10,7 +10,7 @@
     languages.first == language ? 'first' : nil,
     languages.last == language ? 'last' : nil
   ].compact,
-  title: options[:show_title] ? _t(
+  title: options[:show_title] ? Alchemy.t(
     "#{language.code}.title",
     scope: 'language_links',
     default: language.name

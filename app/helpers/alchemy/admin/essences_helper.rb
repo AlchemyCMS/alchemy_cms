@@ -19,7 +19,7 @@ module Alchemy
       #
       def render_essence_editor_by_name(element, name, options = {}, html_options = {})
         if element.blank?
-          return warning('Element is nil', _t(:no_element_given))
+          return warning('Element is nil', Alchemy.t(:no_element_given))
         end
         content = element.content_by_name(name)
         if content.nil?
@@ -41,7 +41,7 @@ module Alchemy
       #   Method that is called on the page object to get the value that is passed with the params of the form.
       #
       def pages_for_select(pages = nil, selected = nil, prompt = "Choose page", page_attribute = :id)
-        values = [[_t(prompt), ""]]
+        values = [[Alchemy.t(prompt), ""]]
         pages ||= begin
           nested = true
           Language.current.pages.published.order(:lft)
@@ -75,7 +75,7 @@ module Alchemy
           }.merge(image_options)),
           alt: content.ingredient.name,
           class: 'img_paddingtop',
-          title: _t(:image_name) + ": #{content.ingredient.name}"
+          title: Alchemy.t(:image_name) + ": #{content.ingredient.name}"
         )
       end
 

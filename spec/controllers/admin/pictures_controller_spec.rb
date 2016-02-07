@@ -274,7 +274,7 @@ module Alchemy
         it "sets success notice" do
           subject
           expect(assigns(:message)[:body]).to \
-            eq(Alchemy::I18n.t(:picture_updated_successfully, name: picture.name))
+            eq(Alchemy.t(:picture_updated_successfully, name: picture.name))
           expect(assigns(:message)[:type]).to eq('notice')
         end
       end
@@ -286,7 +286,7 @@ module Alchemy
 
         it "sets error notice" do
           subject
-          expect(assigns(:message)[:body]).to eq(Alchemy::I18n.t(:picture_update_failed))
+          expect(assigns(:message)[:body]).to eq(Alchemy.t(:picture_update_failed))
           expect(assigns(:message)[:type]).to eq('error')
         end
       end

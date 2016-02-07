@@ -1,26 +1,26 @@
 <p class="center"><%= image_tag('alchemy/alchemy-logo.svg') %></p>
 <h2 class="center">
-  <%= _t("Version") %>: <%= @alchemy_version %>
+  <%= Alchemy.t("Version") %>: <%= @alchemy_version %>
 </h2>
 <% if can? :update_check, :alchemy_admin_dashboard %>
 <p class="center" id="update_check">
   <span id="update_available">
     <%= render_icon('warning') %>
-    <%= _t 'Update available' %>
+    <%= Alchemy.t 'Update available' %>
   </span>
   <span id="up_to_date">
     <%= render_icon('ok') %>
-    <%= _t 'Alchemy is up to date' %>
+    <%= Alchemy.t 'Alchemy is up to date' %>
   </span>
   <span id="error">
     <%= render_icon('warning') %>
-    <%= _t 'Update status unavailable' %>
+    <%= Alchemy.t 'Update status unavailable' %>
   </span>
 </p>
 <% end %>
 <div class="info">
   <%= render_icon('info') %>
-  <p><%= _t('Alchemy is open software and itself uses open software and free resources:') %></p>
+  <p><%= Alchemy.t('Alchemy is open software and itself uses open software and free resources:') %></p>
   <ul>
     <li>
       <a href="http://rubyonrails.org" target="_blank">RubyOnRails</a>

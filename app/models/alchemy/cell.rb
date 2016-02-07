@@ -50,7 +50,7 @@ module Alchemy
       end
 
       def translated_label_for(cell_name)
-        I18n.t(cell_name, scope: 'cell_names', default: cell_name.to_s.humanize)
+        Alchemy.t(cell_name, scope: 'cell_names', default: cell_name.to_s.humanize)
       end
 
       private

@@ -26,7 +26,7 @@ module Alchemy
           @default_box = @essence_picture.default_mask(@min_size)
           @initial_box = @essence_picture.cropping_mask || @default_box
         else
-          @no_image_notice = _t(:no_image_for_cropper_found)
+          @no_image_notice = Alchemy.t(:no_image_for_cropper_found)
         end
       end
 

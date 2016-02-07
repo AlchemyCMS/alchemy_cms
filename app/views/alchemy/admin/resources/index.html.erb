@@ -1,4 +1,4 @@
-<% label_title = _t("Create #{resource_name}", default: _t('Create')) %>
+<% label_title = Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')) %>
 
 <% toolbar(
   buttons: [
@@ -17,8 +17,8 @@
     {
       icon: 'download',
       url: resource_url_proxy.url_for(action: 'index', format: 'csv', q: params[:q], sort: params[:sort]),
-      label: _t(:download_csv),
-      title: _t(:download_csv),
+      label: Alchemy.t(:download_csv),
+      title: Alchemy.t(:download_csv),
       dialog: false,
       loading_indicator: false,
       if_permitted_to: [:index, resource_model]

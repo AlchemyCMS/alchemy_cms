@@ -1,17 +1,17 @@
 <%= alchemy_form_for @tag, as: 'tag', url: alchemy.admin_tag_path(@tag), html: {method: 'patch'} do |f| %>
   <%= render_message :info do %>
-    <%= _t(:you_can_rename_this_tag) %>
+    <%= Alchemy.t(:you_can_rename_this_tag) %>
   <% end %>
   <%= f.input :name %>
-  <%= f.submit _t(:rename) %>
+  <%= f.submit Alchemy.t(:rename) %>
 <% end %>
 <% if @tags.any? -%>
   <%= alchemy_form_for @tag, as: 'tag', url: alchemy.admin_tag_path(@tag), html: {method: 'patch'} do |f| %>
     <%= render_message :info do %>
-      <%= _t(:or_replace_it_with_an_existing_tag) %>
+      <%= Alchemy.t(:or_replace_it_with_an_existing_tag) %>
     <% end %>
     <div class="input tags">
-      <label class="control-label"><%= _t('Tags') %></label>
+      <label class="control-label"><%= Alchemy.t('Tags') %></label>
       <div class="control_group" id="tags_tag_list">
         <%= js_filter_field '#tag_list li' %>
         <ul id="tag_list" class="tags">
@@ -19,6 +19,6 @@
         </ul>
       </div>
     </div>
-    <%= f.submit _t(:replace) %>
+    <%= f.submit Alchemy.t(:replace) %>
   <% end %>
 <% end %>

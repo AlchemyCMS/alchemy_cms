@@ -3,8 +3,8 @@
     {
       icon: 'back',
       url: request.referer || "#{Alchemy::MountPoint.get}/admin/dashboard",
-      label: _t(:back),
-      title: _t(:back),
+      label: Alchemy.t(:back),
+      title: Alchemy.t(:back),
       hotkey: 'alt+z',
       dialog: false,
       skip_permission_check: true
@@ -13,7 +13,7 @@
 ) %>
 
 <%= render_message(:error) do %>
-  <h1><%= _t('An error happened') %></h1>
+  <h1><%= Alchemy.t('An error happened') %></h1>
   <h2>
     <%= @error.class %>
     <%= @notice %>

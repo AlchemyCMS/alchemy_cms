@@ -67,7 +67,7 @@ describe Alchemy::Admin::PagesHelper do
 
     context 'when page is not yet persisted' do
       it 'displays text only' do
-        is_expected.to eq(Alchemy::I18n.t(:page_type))
+        is_expected.to eq(Alchemy.t(:page_type))
       end
     end
 
@@ -76,7 +76,7 @@ describe Alchemy::Admin::PagesHelper do
 
       context 'with page layout existing' do
         it 'displays text only' do
-          is_expected.to eq(Alchemy::I18n.t(:page_type))
+          is_expected.to eq(Alchemy.t(:page_type))
         end
       end
 

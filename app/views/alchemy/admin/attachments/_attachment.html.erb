@@ -12,7 +12,7 @@
         size: "fullscreen"
       },
       {
-        title: _t('View File')
+        title: Alchemy.t('View File')
       }
     ) %>
   <% else %>
@@ -28,14 +28,14 @@
     <%= link_to(
       "",
       alchemy.download_admin_attachment_path(attachment),
-      title: _t("download_file", filename: attachment.file_name),
+      title: Alchemy.t("download_file", filename: attachment.file_name),
       class: "icon file_download"
     ) %>
   <% end %>
   <% if can?(:destroy, attachment) %>
     <%= link_to_confirm_dialog(
       "",
-      _t(:confirm_to_delete_file),
+      Alchemy.t(:confirm_to_delete_file),
       alchemy.admin_attachment_path(
         id: attachment,
         q: params[:q],
@@ -44,7 +44,7 @@
       ),
       {
         class: 'icon file_delete',
-        title: _t(:delete_file)
+        title: Alchemy.t(:delete_file)
       }
     ) %>
   <% end %>
@@ -52,11 +52,11 @@
     <%= link_to_dialog("",
       alchemy.edit_admin_attachment_path(attachment, q: params[:q], page: params[:page]),
       {
-        title: _t(:rename_file),
+        title: Alchemy.t(:rename_file),
         size: '380x250'
       },
       class: 'icon file_edit',
-      title: _t(:rename_file)
+      title: Alchemy.t(:rename_file)
     ) %>
   <% end %>
   </td>

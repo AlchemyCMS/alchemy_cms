@@ -39,13 +39,13 @@
       <% end %>
 
       <% if element.expanded? %>
-        <%= link_to_dialog render_icon(:create) + _t("New Element"),
+        <%= link_to_dialog render_icon(:create) + Alchemy.t("New Element"),
           alchemy.new_admin_element_path(
             parent_element_id: element.id,
             page_id: element.page.id
           ), {
             size: "320x125",
-            title: _t("New Element")
+            title: Alchemy.t("New Element")
           }, class: "button with_icon add-nestable-element-button" %>
       <% end %>
     </div>

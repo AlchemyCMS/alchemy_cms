@@ -9,9 +9,9 @@
 
 <%- if @page.can_have_cells? -%>
   if ($('#cells').length == 0) {
-    Alchemy.buildTabbedCells('<%= _t(:main_content) %>');
+    Alchemy.buildTabbedCells('<%= Alchemy.t(:main_content) %>');
   }
-  Alchemy.selectOrCreateCellTab('<%= @cell_name %>', '<%= @cell.nil? ? _t(:main_content) : @cell.name_for_label %>');
+  Alchemy.selectOrCreateCellTab('<%= @cell_name %>', '<%= @cell.nil? ? Alchemy.t(:main_content) : @cell.name_for_label %>');
 <%- end -%>
 
 <%- if @element.parent_element -%>
@@ -32,7 +32,7 @@
     $element_area.sortable('refresh');
   }
 
-  Alchemy.growl('<%= _t(:successfully_added_element) %>');
+  Alchemy.growl('<%= Alchemy.t(:successfully_added_element) %>');
   Alchemy.closeCurrentDialog();
   Alchemy.Tinymce.init(<%= @element.richtext_contents_ids.to_json %>);
   Alchemy.PreviewWindow.refresh(function() {

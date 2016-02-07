@@ -1,7 +1,7 @@
 <%= alchemy_form_for [:admin, @tag], as: 'tag', url: admin_tags_path do |form| %>
   <%= render_message do %>
-    <p><%= _t(:tags_get_created_if_used_the_first_time) %></p>
+    <p><%= Alchemy.t(:tags_get_created_if_used_the_first_time) %></p>
   <% end %>
   <%= form.input :name, autofocus: true %>
-  <%= form.submit _t(:save) %>
+  <%= form.submit Alchemy.t(:save) %>
 <% end %>

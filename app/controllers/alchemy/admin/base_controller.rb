@@ -107,7 +107,7 @@ module Alchemy
       #
       def render_errors_or_redirect(object, redirect_url, flash_notice)
         if object.errors.empty?
-          flash[:notice] = _t(flash_notice)
+          flash[:notice] = Alchemy.t(flash_notice)
           do_redirect_to redirect_url
         else
           render action: (params[:action] == 'update' ? 'edit' : 'new')

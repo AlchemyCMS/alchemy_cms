@@ -40,7 +40,7 @@ module Alchemy
     validates_property :ext, of: :file,
       in: Config.get(:uploader)['allowed_filetypes']['attachments'],
       case_sensitive: false,
-      message: I18n.t("not a valid file"),
+      message: Alchemy.t("not a valid file"),
       unless: -> { Config.get(:uploader)['allowed_filetypes']['attachments'].include?('*') }
 
     before_create do

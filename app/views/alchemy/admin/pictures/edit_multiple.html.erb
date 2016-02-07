@@ -10,21 +10,21 @@
 
   <div class="info">
     <%= render_icon :info %>
-    <p><%= _t('You are about to edit many pictures at once') % {length: @pictures.size} %></p>
+    <p><%= Alchemy.t('You are about to edit many pictures at once') % {length: @pictures.size} %></p>
   </div>
 
   <div class="input text">
-    <%= label_tag :pictures_name, _t('Name'), class: 'control-label' %>
+    <%= label_tag :pictures_name, Alchemy.t('Name'), class: 'control-label' %>
     <%= text_field_tag :pictures_name %>
   </div>
 
   <div class="input tag_list">
-    <%= label_tag :pictures_tag_list, _t(:tags), class: 'control-label' %>
+    <%= label_tag :pictures_tag_list, Alchemy.t(:tags), class: 'control-label' %>
     <%= text_field_tag :pictures_tag_list, @tags, data: {autocomplete: alchemy.autocomplete_admin_tags_path} %>
-    <small class="hint"><%= _t('Please seperate the tags with commata') %></small>
+    <small class="hint"><%= Alchemy.t('Please seperate the tags with commata') %></small>
   </div>
 
   <div class="submit">
-    <%= button_tag _t(:save), name: nil, class: 'button' %>
+    <%= button_tag Alchemy.t(:save), name: nil, class: 'button' %>
   </div>
 <% end %>

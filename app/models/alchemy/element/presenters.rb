@@ -21,7 +21,7 @@ module Alchemy
       # If no translation is found a humanized name is used.
       #
       def display_name_for(name)
-        I18n.t(name, scope: 'element_names', default: name.to_s.humanize)
+        Alchemy.t(name, scope: 'element_names', default: name.to_s.humanize)
       end
     end
 

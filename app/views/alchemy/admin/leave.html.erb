@@ -1,11 +1,11 @@
 <%= render_message do %>
-  <%= _t("You are about to leave Alchemy") %>
+  <%= Alchemy.t("You are about to leave Alchemy") %>
 <% end %>
 <p class="buttons">
-  <label><%= _t("Do you want to") %></label>
-  <%= link_to _t('stay logged in'), alchemy.root_path, class: 'button' %>
+  <label><%= Alchemy.t("Do you want to") %></label>
+  <%= link_to Alchemy.t('stay logged in'), alchemy.root_path, class: 'button' %>
 </p>
 <%= form_tag Alchemy.logout_path, method: 'delete', class: 'buttons' do %>
-  <label><%= _t('or to completely') %></label>
-  <%= button_tag _t(:logout), autofocus: true %>
+  <label><%= Alchemy.t('or to completely') %></label>
+  <%= button_tag Alchemy.t(:logout), autofocus: true %>
 <% end %>

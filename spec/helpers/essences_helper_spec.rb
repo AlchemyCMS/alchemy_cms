@@ -41,7 +41,7 @@ describe Alchemy::EssencesHelper do
       context 'editor given as part' do
         subject { helper.render_essence(content, :editor) }
 
-        before { allow(helper).to receive(:_t).and_return('') }
+        before { allow(Alchemy).to receive(:t).and_return('') }
 
         it "displays warning" do
           expect(helper).to receive(:warning).and_return('')
@@ -60,7 +60,7 @@ describe Alchemy::EssencesHelper do
       context 'editor given as part' do
         subject { helper.render_essence(content, :editor) }
 
-        before { allow(helper).to receive(:_t).and_return('') }
+        before { allow(Alchemy).to receive(:t).and_return('') }
 
         it "displays warning" do
           expect(helper).to receive(:warning).and_return('')

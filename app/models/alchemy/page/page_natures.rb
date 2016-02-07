@@ -58,7 +58,7 @@ module Alchemy
     # @param [Symbol] status_type
     #
     def status_title(status_type)
-      I18n.t(status[status_type].to_s, scope: "page_states.#{status_type}")
+      Alchemy.t(status[status_type].to_s, scope: "page_states.#{status_type}")
     end
 
     # Returns the self#page_layout definition from config/alchemy/page_layouts.yml file.
@@ -76,7 +76,7 @@ module Alchemy
     # Page layout names are defined inside the config/alchemy/page_layouts.yml file.
     # Translate the name in your config/locales language yml file.
     def layout_display_name
-      I18n.t(page_layout, scope: 'page_layout_names')
+      Alchemy.t(page_layout, scope: 'page_layout_names')
     end
 
     # Returns the name for the layout partial

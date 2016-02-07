@@ -12,14 +12,14 @@
       ),
       {
         size: "540x550",
-        title: _t(:upload_image)
+        title: Alchemy.t(:upload_image)
       },
       {
         class: 'icon_button',
-        title: _t(:upload_image)
+        title: Alchemy.t(:upload_image)
       }
     ) %>
-    <label><%= _t(:upload_image) %></label>
+    <label><%= Alchemy.t(:upload_image) %></label>
   </div>
   <div class="toolbar_spacer"></div>
   <div class="button_group">
@@ -37,7 +37,7 @@
           tagged_with: params[:tagged_with]
         }),
         remote: true,
-        title: _t(:small_thumbnails),
+        title: Alchemy.t(:small_thumbnails),
         class: "icon_button"
       ) %>
     </div>
@@ -55,7 +55,7 @@
           tagged_with: params[:tagged_with]
         }),
         remote: true,
-        title: _t(:medium_thumbnails),
+        title: Alchemy.t(:medium_thumbnails),
         class: "icon_button"
       ) %>
     </div>
@@ -73,11 +73,11 @@
           tagged_with: params[:tagged_with]
         }),
         remote: true,
-        title: _t(:big_thumbnails),
+        title: Alchemy.t(:big_thumbnails),
         class: "icon_button"
       ) %>
     </div>
-    <label><%= _t('Image size') %></label>
+    <label><%= Alchemy.t('Image size') %></label>
     <%= hidden_field_tag('size', @size, id: 'overlay_thumbnails_size') %>
   </div>
   <%= render partial: 'alchemy/admin/partials/remote_search_form' %>

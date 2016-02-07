@@ -7,10 +7,10 @@
       options: content.settings.update(options).to_json
     ), {
       size: "1000x615",
-      title: _t('Edit Picturemask'),
+      title: Alchemy.t('Edit Picturemask'),
       image_loader: false,
       padding: false
-    }, {title: _t('Edit Picturemask')} %>
+    }, {title: Alchemy.t('Edit Picturemask')} %>
 <%- else -%>
   <a href="#" class="disabled"><%= render_icon('crop') %></a>
 <%- end -%>
@@ -23,16 +23,16 @@
     options: options.to_json
   ),
   {
-    title: (content.ingredient ? _t(:swap_image) : _t(:insert_image)),
+    title: (content.ingredient ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)),
     size: '780x580',
     padding: false
   },
-  title: (content.ingredient ? _t(:swap_image) : _t(:insert_image)) %>
+  title: (content.ingredient ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)) %>
 
 <%= link_to_if linkable, render_icon(:link), '', {
   onclick: 'd = new Alchemy.LinkDialog(this); d.open(); return false;',
   class: content.linked? ? 'linked' : nil,
-  title: _t(:link_image),
+  title: Alchemy.t(:link_image),
   'data-content-id' => content.id,
   id: "edit_link_#{content.id}"
 } %>
@@ -40,7 +40,7 @@
 <%= link_to_if linkable, render_icon('unlink'), '', {
   onclick: "return Alchemy.LinkDialog.removeLink(this, #{content.id})",
   class: content.linked? ? 'linked' : 'disabled',
-  title: _t(:unlink)
+  title: Alchemy.t(:unlink)
 } %>
 
 <%= link_to_dialog render_icon('edit'),
@@ -49,6 +49,6 @@
     content_id: content.id,
     options: options.to_json
   ), {
-    title: _t(:edit_image_properties),
+    title: Alchemy.t(:edit_image_properties),
     size: edit_picture_dialog_size(content, options)
-  }, title: _t(:edit_image_properties) %>
+  }, title: Alchemy.t(:edit_image_properties) %>

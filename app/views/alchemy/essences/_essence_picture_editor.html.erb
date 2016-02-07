@@ -8,18 +8,18 @@
     <div class="picture_thumbnail">
       <span class="picture_tool delete">
         <% if options[:grouped] %>
-          <%= link_to_confirm_dialog "", _t(:confirm_to_delete_image),
+          <%= link_to_confirm_dialog "", Alchemy.t(:confirm_to_delete_image),
             alchemy.admin_essence_picture_path(
               id: content,
               options: options
-            ), {title: _t(:delete_image)} %>
+            ), {title: Alchemy.t(:delete_image)} %>
         <% else %>
           <%= link_to '', '#',
             onclick: "return Alchemy.removePicture('##{content.form_field_id(:picture_id)}');" %>
         <% end %>
       </span>
       <%- if content.ingredient -%>
-        <div class="picture_handle" title="<%= _t(:drag_to_sort) if options[:dragable] %>"></div>
+        <div class="picture_handle" title="<%= Alchemy.t(:drag_to_sort) if options[:dragable] %>"></div>
       <%- end -%>
       <div class="picture_image">
         <div class="thumbnail_background<%= ' missing' if content.ingredient.nil? %>">
@@ -31,7 +31,7 @@
       </div>
       <%- if content.essence.css_class.present? -%>
         <div class="essence_picture_css_class">
-          <%= _t("alchemy.essence_pictures.css_classes.#{content.essence.css_class}",
+          <%= Alchemy.t("alchemy.essence_pictures.css_classes.#{content.essence.css_class}",
             default: content.essence.css_class.camelcase) %>
         </div>
       <%- end -%>

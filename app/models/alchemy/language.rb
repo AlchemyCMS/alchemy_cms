@@ -81,7 +81,7 @@ module Alchemy
       if attrib.to_sym == :code
         code
       else
-        I18n.t(code, default: name)
+        Alchemy.t(code, default: name)
       end
     end
 
@@ -101,7 +101,7 @@ module Alchemy
 
     def publicity_of_default_language
       if default? && !public?
-        errors.add(:public, I18n.t("Default language has to be public"))
+        errors.add(:public, Alchemy.t("Default language has to be public"))
         return false
       else
         return true
@@ -110,7 +110,7 @@ module Alchemy
 
     def presence_of_default_language
       if Language.default == self && default_changed?
-        errors.add(:default, I18n.t("We need at least one default."))
+        errors.add(:default, Alchemy.t("We need at least one default."))
         return false
       else
         return true
