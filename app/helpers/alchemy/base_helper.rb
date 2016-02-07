@@ -1,7 +1,8 @@
 module Alchemy
   module BaseHelper
     def _t(key, *args)
-      I18n.t(key, *args)
+      ActiveSupport::Deprecation.warn("Alchemys `_t` method is deprecated! Use `Alchemy.t` instead.", caller.unshift)
+      Alchemy.t(key, *args)
     end
 
     # An alias for truncate.

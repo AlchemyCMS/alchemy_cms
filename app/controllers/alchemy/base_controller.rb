@@ -32,7 +32,8 @@ module Alchemy
 
     # Shortcut for Alchemy::I18n.translate method
     def _t(key, *args)
-      I18n.t(key, *args)
+      ActiveSupport::Deprecation.warn("Alchemys `_t` method is deprecated! Use `Alchemy.t` instead.", caller.unshift)
+      Alchemy.t(key, *args)
     end
 
     # Store current request path into session,
