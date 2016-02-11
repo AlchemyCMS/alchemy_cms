@@ -19,20 +19,28 @@ Alchemy.Sitemap =
     @fetch()
 
   # Fetches the sitemap from JSON
-  fetch: ->
+  fetch: (foldingId) ->
     self = Alchemy.Sitemap
     request = $.ajax url: @url, data:
       id: @page_root_id
       full: @sorting
-    Alchemy.pleaseWaitOverlay()
+
+    if foldingId
+      spinner = Alchemy.Spinner.small()
+      spinTarget = $('#fold_button_' + foldingId)
+    else
+      spinner = Alchemy.Spinner.medium()
+      spinTarget = self.sitemap_wrapper
+
+    spinner.spin(spinTarget[0])
 
     request.done (data) ->
       Handlebars.registerPartial('list', self.list_template)
+      # This will also remove the spinner
       self.sitemap_wrapper.html(self.template({children: data.pages}))
       self.items = $(".sitemap_page", '#sitemap')
       self._observe()
       Alchemy.PageSorter.init() if self.sorting
-      Alchemy.pleaseWaitOverlay(false)
 
     # TODO: Prettify this.
     request.fail (jqXHR, status) ->
