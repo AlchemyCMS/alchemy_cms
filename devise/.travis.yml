@@ -8,6 +8,8 @@ rvm:
 branches:
   only:
     - master
+before_install:
+  - gem install bundler
 before_script: 'bundle exec rake alchemy:spec:prepare'
 script: 'bundle exec rspec'
 env:
