@@ -3,7 +3,7 @@ require 'spec_helper'
 module Alchemy
   describe User do
     let(:user) { build_stubbed(:alchemy_user) }
-    let(:page) { build_stubbed(:page) }
+    let(:page) { build_stubbed(:alchemy_page) }
 
     it "should have at least member role" do
       expect(user.alchemy_roles).not_to be_blank
@@ -234,7 +234,7 @@ module Alchemy
 
     describe "#pages_locked_by_me" do
       let(:user) { create(:alchemy_admin_user) }
-      let(:page) { create(:page) }
+      let(:page) { create(:alchemy_page) }
 
       before { allow(Alchemy::PageLayout).to receive(:get).and_return({}) }
 
