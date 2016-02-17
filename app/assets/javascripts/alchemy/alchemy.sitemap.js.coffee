@@ -27,10 +27,10 @@ Alchemy.Sitemap =
     self.filter_field_clear.show()
     length = results.length
     if length == 1
-      self.display.show().text("1 #{Alchemy._t('page_found')}")
+      self.display.show().text("1 #{Alchemy.t('page_found')}")
       $.scrollTo(results[0], {duration: 400, offset: -80})
     else if length > 1
-      self.display.show().text("#{length} #{Alchemy._t('pages_found')}")
+      self.display.show().text("#{length} #{Alchemy.t('pages_found')}")
     else
       self.items.removeClass('no-match highlight')
       self.display.hide()

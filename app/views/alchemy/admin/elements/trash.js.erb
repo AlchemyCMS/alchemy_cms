@@ -1,6 +1,6 @@
 $('#element_<%= @element.id %>').hide(200, function() {
   $(this).remove();
-  Alchemy.growl('<%= j _t("Element trashed") %>');
+  Alchemy.growl('<%= j Alchemy.t("Element trashed") %>');
   $('#element_area .sortable_cell').sortable('refresh');
   Alchemy.TrashWindow.refresh();
   $('#element_trash_button .icon').addClass('full');

@@ -9,7 +9,7 @@
         method: :post,
         class: "icon_button"
       ) %>
-      <label><%= _t(:copy_element) %></label>
+      <label><%= Alchemy.t(:copy_element) %></label>
     </div>
     <div class="button_with_label">
       <%= link_to(
@@ -19,7 +19,7 @@
         method: :post,
         class: "icon_button"
       ) %>
-      <label><%= _t(:cut_element) %></label>
+      <label><%= Alchemy.t(:cut_element) %></label>
     </div>
     <div class="button_with_label">
       <%= link_to(
@@ -29,7 +29,7 @@
         class: "icon_button",
         remote: true
       ) -%>
-      <label><%= _t("trash element") %></label>
+      <label><%= Alchemy.t("trash element") %></label>
     </div>
     <div class="button_with_label publish-element-button">
       <%= link_to(
@@ -40,9 +40,9 @@
         class: "icon_button"
       ) %>
       <% if element.public? %>
-        <label><%= _t(:hide_element) %></label>
+        <label><%= Alchemy.t(:hide_element) %></label>
       <% else %>
-        <label><%= _t(:show_element) %></label>
+        <label><%= Alchemy.t(:show_element) %></label>
       <% end %>
     </div>
   </span>

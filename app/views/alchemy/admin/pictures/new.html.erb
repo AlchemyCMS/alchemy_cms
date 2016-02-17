@@ -1,7 +1,7 @@
 <%= form_for [:admin, @picture], html: {multipart: true} do |f| %>
   <%= render 'alchemy/admin/partials/upload_form', {
       file_types: configuration(:uploader)['allowed_filetypes']['pictures'],
-      file_types_description: _t(:images),
+      file_types_description: Alchemy.t(:images),
       redirect_url: admin_pictures_path(
         size: params[:size],
         filter: 'last_upload',
@@ -10,7 +10,7 @@
         options: @options ? @options.to_json : nil),
       model_name: 'picture',
       file_attribute: 'image_file',
-      item_type: _t(:images)
+      item_type: Alchemy.t(:images)
     } %>
   <%= f.submit :upload, class: 'upload-button' %>
 <% end %>

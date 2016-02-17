@@ -1,11 +1,11 @@
 <%= alchemy_form_for [:admin, @page] do |f| %>
   <%= f.input :page_layout,
     collection: @page_layouts,
-    label: _t(:page_type),
+    label: Alchemy.t(:page_type),
     include_blank: false,
     input_html: {class: 'alchemy_selectbox'} %>
   <div class="input check_boxes">
-    <label class="control-label"><%= _t(:page_status) %></label>
+    <label class="control-label"><%= Alchemy.t(:page_status) %></label>
     <div class="control_group">
       <label class="checkbox">
         <%= f.check_box :visible %>
@@ -19,7 +19,7 @@
     <% end %>
     </div>
   </div>
-  <h2><%= _t(:names) %></h2>
+  <h2><%= Alchemy.t(:names) %></h2>
   <%= f.input :name, autofocus: true %>
   <%= f.input :urlname, as: 'string' %>
   <%= f.input :title %>
@@ -29,5 +29,5 @@
       <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
     </div>
   <% end %>
-  <%= f.submit _t(:save) %>
+  <%= f.submit Alchemy.t(:save) %>
 <% end %>

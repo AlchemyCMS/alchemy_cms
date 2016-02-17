@@ -1,6 +1,6 @@
 <div class="resource_info">
   <div class="picture-file-infos">
-    <h2><%= _t('Picture infos') %></h2>
+    <h2><%= Alchemy.t('Picture infos') %></h2>
     <div class="value">
       <label><%= Alchemy::Picture.human_attribute_name(:image_file_name) %></label>
       <p><%= @picture.image_file_name %></p>
@@ -17,7 +17,7 @@
 </div>
 
 <div class="picture-usage-info resource_info">
-  <h2><%= _t(:this_picture_is_used_on_these_pages) %></h2>
+  <h2><%= Alchemy.t(:this_picture_is_used_on_these_pages) %></h2>
   <div id="pictures_page_list">
     <% if @pages.any? %>
       <ol>
@@ -33,7 +33,7 @@
                     <% pictures = essence_pictures.collect do |e|
                                     e.content.name_for_label
                                   end.to_sentence %>
-                    <%== _t(:pictures_in_page, page: page_link, pictures: pictures) %>
+                    <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: pictures) %>
                   </li>
                 <% end %>
               </ul>
@@ -43,7 +43,7 @@
       </ol>
     <% else %>
       <%= render_message do %>
-        <%= _t(:picture_not_in_use_yet) %>
+        <%= Alchemy.t(:picture_not_in_use_yet) %>
       <% end %>
     <% end %>
   </div>

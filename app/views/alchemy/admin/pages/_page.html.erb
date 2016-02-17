@@ -3,7 +3,7 @@
     <div class="sitemap_left_images">
       <%= sitemap_folder_link(page) unless page.level == 1 || page.children.blank? || @sorting %>
       <% if page.definition.blank? %>
-        <span class="inline warning icon" title="<%= _t(:page_definition_missing) %>"></span>
+        <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
       <% else %>
         <div class="page icon <%= @sorting && page.level > 1 ? 'handle' : nil %>"></div>
       <% end %>
@@ -15,11 +15,11 @@
           render_icon('info'),
           alchemy.info_admin_page_path(page),
           {
-            title: _t(:page_infos),
+            title: Alchemy.t(:page_infos),
             size: '520x290'
           },
           {
-            title: _t(:page_infos),
+            title: Alchemy.t(:page_infos),
             class: 'sitemap_tool'
           }
         ) %>
@@ -29,10 +29,10 @@
           render_icon('configure_page'),
           alchemy.configure_admin_page_path(page),
           {
-            title: _t(:edit_page_properties),
+            title: Alchemy.t(:edit_page_properties),
             size: page.redirects_to_external? ? '450x330' : '450x720'
           },
-          title: _t(:edit_page_properties),
+          title: Alchemy.t(:edit_page_properties),
           class: 'sitemap_tool'
         ) -%>
       <%- end -%>
@@ -46,21 +46,21 @@
           ),
           remote: true,
           method: 'post',
-          title: _t(:copy_page),
+          title: Alchemy.t(:copy_page),
           class: 'sitemap_tool'
         ) %>
       <%- end -%>
       <%- if can?(:destroy, page) -%>
         <%= link_to_confirm_dialog(
           render_icon('delete_page'),
-          _t(:confirm_to_delete_page),
+          Alchemy.t(:confirm_to_delete_page),
           url_for(
             controller: 'pages',
             action: 'destroy',
             id: page.id
           ),
           {
-            title: _t(:delete_page),
+            title: Alchemy.t(:delete_page),
             class: 'sitemap_tool'
           }
         ) -%>
@@ -70,11 +70,11 @@
           render_icon('add_page'),
           alchemy.new_admin_page_path(parent_id: page.id),
           {
-            title: _t(:create_page),
+            title: Alchemy.t(:create_page),
             size: '340x165',
             overflow: true
           },
-          title: _t(:create_page),
+          title: Alchemy.t(:create_page),
           class: 'sitemap_tool'
         ) -%>
       <%- end -%>
@@ -88,7 +88,7 @@
     <%- if page.redirects_to_external? -%>
       <span class="sitemap_pagename_link inactive"><%= page.name %></span>
       <span class="redirect_url" title="<%= h page.urlname %>">
-        &raquo; <%= _t('Redirects to') %>:
+        &raquo; <%= Alchemy.t('Redirects to') %>:
         <%= h page.external_urlname %>
       </span>
     <%- else -%>
@@ -96,7 +96,7 @@
         @sorting,
         page.name,
         alchemy.edit_admin_page_path(page),
-        title: _t(:edit_page),
+        title: Alchemy.t(:edit_page),
         class: "sitemap_pagename_link"
       ) { content_tag('span', page.name, class: "sitemap_pagename_link") } -%>
     <%- end -%>

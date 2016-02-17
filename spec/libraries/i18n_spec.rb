@@ -1,6 +1,13 @@
 require 'spec_helper'
 
 module Alchemy
+  describe ".t" do
+    it 'scopes translations intro alchemy namespace' do
+      expect(::I18n).to receive(:t).with(:foo, default: 'Foo', scope: ['alchemy'])
+      ::Alchemy.t(:foo)
+    end
+  end
+
   describe I18n do
     describe '.translation_files' do
       subject { I18n.translation_files }

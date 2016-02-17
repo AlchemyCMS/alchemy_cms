@@ -31,7 +31,7 @@
   </tbody>
 </table>
 <%- elsif params[:q].present? -%>
-<p><%= _t('Nothing found') %></p>
+<p><%= Alchemy.t('Nothing found') %></p>
 <%- end -%>
 
 <%= paginate @languages, theme: 'alchemy' %>

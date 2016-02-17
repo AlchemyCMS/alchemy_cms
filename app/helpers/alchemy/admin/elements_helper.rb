@@ -73,7 +73,7 @@ module Alchemy
             element_array_for_options(e, object_method, cell)
           end
         end
-        options[_t(:main_content)] = elements_for_main_content(elements).map do |e|
+        options[Alchemy.t(:main_content)] = elements_for_main_content(elements).map do |e|
           element_array_for_options(e, object_method)
         end
         # Remove empty cells

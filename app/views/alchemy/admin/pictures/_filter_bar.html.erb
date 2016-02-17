@@ -1,14 +1,14 @@
 <% params_to_keep = [:size, :tagged_with, :query, :element_id, :options, :content_id, :_] %>
 
 <div id="filter_bar">
-  <h2><%= _t('Filter') %></h2>
+  <h2><%= Alchemy.t('Filter') %></h2>
   <%= select_tag(
     'picture_filter',
     options_for_select([
-      [_t(:all_pictures), ''],
-      [_t(:last_upload_only), 'last_upload'],
-      [_t(:recently_uploaded_only), 'recent'],
-      [_t(:without_tag), 'without_tag']
+      [Alchemy.t(:all_pictures), ''],
+      [Alchemy.t(:last_upload_only), 'last_upload'],
+      [Alchemy.t(:recently_uploaded_only), 'recent'],
+      [Alchemy.t(:without_tag), 'without_tag']
     ], params[:filter]),
     :data => { :remote => !!request.xhr? },
     :class => 'alchemy_selectbox'

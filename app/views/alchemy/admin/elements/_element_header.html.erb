@@ -2,7 +2,7 @@
   <span class="element-handle">
     <%= render_icon(:element) %>
     <% if element.definition.blank? %>
-    <span class="warning icon" title="<%= _t(:element_definition_missing) %>"></span>
+    <span class="warning icon" title="<%= Alchemy.t(:element_definition_missing) %>"></span>
     <% else %>
     <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
     <% end %>
@@ -16,7 +16,7 @@
     <%= link_to '', '#', {
       'data-element-toggle' => element.id,
       class: element.folded? ? 'expand_element' : 'fold_element',
-      title: element.folded? ? _t(:show_element_content) : _t(:hide_element_content),
+      title: element.folded? ? Alchemy.t(:show_element_content) : Alchemy.t(:hide_element_content),
       id: "element_#{element.id}_folder"
     } %>
   </span>

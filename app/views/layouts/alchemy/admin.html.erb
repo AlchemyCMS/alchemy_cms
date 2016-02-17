@@ -39,12 +39,12 @@
   </head>
   <body id="alchemy" class="<%= alchemy_body_class %>">
     <noscript>
-      <h1><%= _t(:javascript_disabled_headline) %></h1>
-      <p><%= _t(:javascript_disabled_text) %></p>
+      <h1><%= Alchemy.t(:javascript_disabled_headline) %></h1>
+      <p><%= Alchemy.t(:javascript_disabled_text) %></p>
     </noscript>
     <div id="overlay">
       <div id="overlay_text_box">
-        <span id="overlay_text"><%= _t(:please_wait) %></span>
+        <span id="overlay_text"><%= Alchemy.t(:please_wait) %></span>
       </div>
     </div>
     <div id="left_menu">
@@ -57,15 +57,15 @@
       <div id="logout">
         <% if current_alchemy_user %>
           <%= link_to_dialog(
-            "#{render_icon('exit module')}<label>#{_t(:leave)}</label>".html_safe,
+            "#{render_icon('exit module')}<label>#{Alchemy.t(:leave)}</label>".html_safe,
             alchemy.leave_admin_path, {
               size: "300x155",
-              title: _t("Leave Alchemy")
+              title: Alchemy.t("Leave Alchemy")
           }, {'data-alchemy-hotkey' => 'alt+q'}) %>
         <% else %>
           <%= link_to(alchemy.root_path) do %>
             <span class="module icon exit"></span>
-            <label><%= _t(:leave) %></label>
+            <label><%= Alchemy.t(:leave) %></label>
           <% end %>
         <% end %>
       </div>
@@ -76,7 +76,7 @@
         <%= admin_subnavigation %>
         <% if @locked_pages.present? %>
           <div id="locked_pages">
-            <label><%= _t(:locked_pages) %> &raquo;</label>
+            <label><%= Alchemy.t(:locked_pages) %> &raquo;</label>
             <%= render partial: 'alchemy/admin/pages/locked_page', collection: @locked_pages %>
           </div>
         <% end %>

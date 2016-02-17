@@ -35,7 +35,7 @@ module Alchemy
     def hint
       hint = definition['hint']
       if hint == true
-        I18n.t(name, scope: hint_translation_scope)
+        Alchemy.t(name, scope: hint_translation_scope)
       else
         hint
       end

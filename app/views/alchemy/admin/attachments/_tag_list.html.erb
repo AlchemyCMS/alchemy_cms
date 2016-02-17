@@ -1,12 +1,12 @@
 <% p = params.dup %>
-<h2><%= _t("Filter by tag") %></h2>
+<h2><%= Alchemy.t("Filter by tag") %></h2>
 <%= js_filter_field '#tag_list li' %>
 <ul>
   <%= render_tag_list('Alchemy::Attachment', p) %>
 </ul>
 <% if p[:tagged_with].present? %>
   <%= link_to(
-    render_icon('delete-small') + _t('Remove tag filter'),
+    render_icon('delete-small') + Alchemy.t('Remove tag filter'),
     url_for(p.delete_if { |k, v| k == "tagged_with" }.merge(action: 'index')),
     remote: request.xhr?,
     class: 'button small with_icon please_wait'

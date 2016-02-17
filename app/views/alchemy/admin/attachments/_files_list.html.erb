@@ -1,12 +1,12 @@
 <% if @attachments.blank? && params[:q].blank? %>
 <div class="info" id="no_files_notice">
   <%= render_icon('info') %>
-  <%= _t(:no_files_in_archive) %>
+  <%= Alchemy.t(:no_files_in_archive) %>
 </div>
 <% elsif @attachments.blank? %>
 <div class="info">
   <%= render_icon('info') %>
-  <%= _t(:no_search_results) %>
+  <%= Alchemy.t(:no_search_results) %>
 </div>
 <% end %>
 <table id="all_files" class="list">

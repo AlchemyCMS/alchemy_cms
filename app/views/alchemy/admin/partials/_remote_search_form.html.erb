@@ -9,7 +9,7 @@
   <%= render_icon('search') %>
     <%= f.search_field resource_handler.search_field_name,
       id: 'search_input_field',
-      placeholder: _t(:search) %>
+      placeholder: Alchemy.t(:search) %>
     <%= link_to '', url_for(
         action: 'index',
         element_id: @element.blank? ? '' : @element.id,
@@ -21,7 +21,7 @@
       remote: true,
       class: 'search_field_clear',
       id: 'search_field_clear',
-      title: _t(:click_to_show_all),
+      title: Alchemy.t(:click_to_show_all),
       style: params[:q].blank? ? 'display: none' : 'display: block' %>
   </div>
 <% end %>

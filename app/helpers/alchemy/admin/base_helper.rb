@@ -21,7 +21,7 @@ module Alchemy
       def current_alchemy_user_name
         name = current_alchemy_user.try(:alchemy_display_name)
         if name.present?
-          content_tag :span, "#{_t('Logged in as')} #{name}", class: 'current-user-name'
+          content_tag :span, "#{Alchemy.t('Logged in as')} #{name}", class: 'current-user-name'
         end
       end
 
@@ -59,7 +59,7 @@ module Alchemy
       # Used for translations selector in Alchemy cockpit user settings.
       def translations_for_select
         Alchemy::I18n.available_locales.map do |locale|
-          [_t(locale, scope: :translations), locale]
+          [Alchemy.t(locale, scope: :translations), locale]
         end
       end
 
@@ -103,8 +103,8 @@ module Alchemy
         content_tag(:div, class: 'js_filter_field_box') do
           concat text_field_tag(nil, nil, options)
           concat render_icon(:search)
-          concat link_to('', '', class: 'js_filter_field_clear', title: _t(:click_to_show_all))
-          concat content_tag(:label, _t(:search), for: options[:id])
+          concat link_to('', '', class: 'js_filter_field_clear', title: Alchemy.t(:click_to_show_all))
+          concat content_tag(:label, Alchemy.t(:search), for: options[:id])
         end
       end
 
@@ -123,23 +123,23 @@ module Alchemy
       # @param [Hash] html_options
       #   HTML options get passed to the link
       #
-      # @option html_options [String] :title (_t(:please_confirm))
+      # @option html_options [String] :title (Alchemy.t(:please_confirm))
       #   The dialog title
       # @option html_options [String] :message (message)
       #   The message displayed in the dialog
-      # @option html_options [String] :ok_label (_t("Yes"))
+      # @option html_options [String] :ok_label (Alchemy.t("Yes"))
       #   The label for the ok button
-      # @option html_options [String] :cancel_label (_t("No"))
+      # @option html_options [String] :cancel_label (Alchemy.t("No"))
       #   The label for the cancel button
       #
       def link_to_confirm_dialog(link_string = "", message = "", url = "", html_options = {})
         link_to(link_string, url,
           html_options.merge(
             'data-alchemy-confirm-delete' => {
-              title: _t(:please_confirm),
+              title: Alchemy.t(:please_confirm),
               message: message,
-              ok_label: _t("Yes"),
-              cancel_label: _t("No")
+              ok_label: Alchemy.t("Yes"),
+              cancel_label: Alchemy.t("No")
             }.to_json
           )
         )
@@ -166,10 +166,10 @@ module Alchemy
       #
       def button_with_confirm(value = "", url = "", options = {}, html_options = {})
         options = {
-          message: _t(:confirm_to_proceed),
-          ok_label: _t("Yes"),
-          title: _t(:please_confirm),
-          cancel_label: _t("No")
+          message: Alchemy.t(:confirm_to_proceed),
+          ok_label: Alchemy.t("Yes"),
+          title: Alchemy.t(:please_confirm),
+          cancel_label: Alchemy.t("No")
         }.merge(options)
         form_tag url, {method: html_options.delete(:method), class: 'button-with-confirm'} do
           button_tag value, html_options.merge('data-alchemy-confirm' => options.to_json)
@@ -187,8 +187,8 @@ module Alchemy
       #
       def delete_button(url, options = {}, html_options = {})
         options = {
-          title: _t('Delete'),
-          message: _t('Are you sure?'),
+          title: Alchemy.t('Delete'),
+          message: Alchemy.t('Are you sure?'),
           icon: 'destroy'
         }.merge(options)
         button_with_confirm(
@@ -208,7 +208,7 @@ module Alchemy
         if content_for?(:title)
           title = content_for(:title)
         else
-          title = _t(controller_name, scope: :modules)
+          title = Alchemy.t(controller_name, scope: :modules)
         end
         "Alchemy CMS - #{title}"
       end
@@ -282,7 +282,7 @@ module Alchemy
       #
       # == Example
       #
-      #   <% label_title = _t("Create #{resource_name}", default: _t('Create')) %>
+      #   <% label_title = Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')) %>
       #   <% toolbar(
       #     buttons: [
       #       {

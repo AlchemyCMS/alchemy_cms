@@ -16,7 +16,7 @@ $("<%= @content_dom_id %>").before('<%= j(
   )
 ) %>');
 Alchemy.Buttons.enable();
-Alchemy.growl('<%= j _t("Successfully added content") % {content: @content.name_for_label} %>')
+Alchemy.growl('<%= j Alchemy.t("Successfully added content") % {content: @content.name_for_label} %>')
 
 <% end %>
 

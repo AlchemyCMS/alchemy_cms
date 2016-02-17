@@ -4,7 +4,7 @@
   <div class="subnavi_tab wide" id="locked_page_<%= locked_page.id %>">
     <%= link_to alchemy.edit_admin_page_path(locked_page) do %>
       <% if locked_page.definition.blank? %>
-        <span class="inline warning icon" title="<%= _t(:page_definition_missing) %>"></span>
+        <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
       <% end %>
       <span class="page_name" title="<%= locked_page.name %>">
         <%= truncate locked_page.name, length: 15 %>
@@ -16,7 +16,7 @@
       <%- end -%>
     <% end %>
     <%= form_tag(alchemy.unlock_admin_page_path(locked_page), remote: true) do %>
-      <button class="icon_button small" title="<%= _t(:explain_unlocking) %>">
+      <button class="icon_button small" title="<%= Alchemy.t(:explain_unlocking) %>">
         <%= render_icon('close small') %>
       </button>
     <% end %>

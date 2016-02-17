@@ -11,7 +11,7 @@ describe 'Legacy page url management', type: :feature, js: true do
   def open_page_properties
     visit admin_pages_path
     within "#page_#{a_page.id}" do
-      click_link Alchemy::I18n.t(:edit_page_properties)
+      click_link Alchemy.t(:edit_page_properties)
     end
   end
 
@@ -52,7 +52,7 @@ describe 'Legacy page url management', type: :feature, js: true do
       click_button 'Yes'
       within '#legacy_page_urls' do
         expect(page).to_not have_content('a-page-link')
-        expect(page).to have_content(Alchemy::I18n.t('No page links for this page found'))
+        expect(page).to have_content(Alchemy.t('No page links for this page found'))
       end
       within '#legacy_urls_label' do
         expect(page).to have_content('(0) Links')

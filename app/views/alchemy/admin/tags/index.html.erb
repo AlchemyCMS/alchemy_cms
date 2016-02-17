@@ -2,12 +2,12 @@
   buttons: [
     {
       icon: 'tag_add',
-      label: _t('New Tag'),
+      label: Alchemy.t('New Tag'),
       url: alchemy.new_admin_tag_path,
-      title: _t('New Tag'),
+      title: Alchemy.t('New Tag'),
       hotkey: 'alt+n',
       dialog_options: {
-        title: _t('New Tag'),
+        title: Alchemy.t('New Tag'),
         size: '310x180'
       },
       if_permitted_to: [:create, Alchemy::Tag]
@@ -42,9 +42,9 @@
   <% else %>
 
   <%= render_message do %>
-    <h2><%= _t('No Tags found') %></h2>
+    <h2><%= Alchemy.t('No Tags found') %></h2>
     <% if params[:q].blank? %>
-      <p><%= _t(:tags_get_created_if_used_the_first_time) %></p>
+      <p><%= Alchemy.t(:tags_get_created_if_used_the_first_time) %></p>
     <% end %>
   <% end %>
 

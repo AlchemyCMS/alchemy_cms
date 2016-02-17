@@ -1,9 +1,9 @@
 <div class="widget">
-  <h2><%= _t('Who else is online') %>:</h2>
+  <h2><%= Alchemy.t('Who else is online') %>:</h2>
   <table>
   <% if @online_users.blank? %>
     <tr class="even">
-      <td><%= _t('no users') %></td>
+      <td><%= Alchemy.t('no users') %></td>
     </tr>
   <% else %>
     <% @online_users.each do |user| %>

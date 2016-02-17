@@ -63,9 +63,9 @@ module Alchemy
     def render_essence(content, part = :view, options = {}, html_options = {})
       options = {for_view: {}, for_editor: {}}.update(options)
       if content.nil?
-        return part == :view ? "" : warning('Content is nil', _t(:content_not_found))
+        return part == :view ? "" : warning('Content is nil', Alchemy.t(:content_not_found))
       elsif content.essence.nil?
-        return part == :view ? "" : warning('Essence is nil', _t(:content_essence_not_found))
+        return part == :view ? "" : warning('Essence is nil', Alchemy.t(:content_essence_not_found))
       end
       render partial: "alchemy/essences/#{content.essence_partial_name}_#{part}", locals: {
         content: content,

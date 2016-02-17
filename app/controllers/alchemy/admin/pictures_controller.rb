@@ -41,10 +41,10 @@ module Alchemy
           if in_overlay?
             set_instance_variables
           end
-          message = _t('Picture uploaded succesfully', name: @picture.name)
+          message = Alchemy.t('Picture uploaded succesfully', name: @picture.name)
           render json: {files: [@picture.to_jq_upload], growl_message: message}, status: :created
         else
-          message = _t('Picture validation error', name: @picture.name)
+          message = Alchemy.t('Picture validation error', name: @picture.name)
           render(
             json: {
               files: [@picture.to_jq_upload],
@@ -63,12 +63,12 @@ module Alchemy
       def update
         if @picture.update(picture_params)
           @message = {
-            body: _t(:picture_updated_successfully, name: @picture.name),
+            body: Alchemy.t(:picture_updated_successfully, name: @picture.name),
             type: 'notice'
           }
         else
           @message = {
-            body: _t(:picture_update_failed),
+            body: Alchemy.t(:picture_update_failed),
             type: 'error'
           }
         end
@@ -80,7 +80,7 @@ module Alchemy
         @pictures.each do |picture|
           picture.update_name_and_tag_list!(params)
         end
-        flash[:notice] = _t("Pictures updated successfully")
+        flash[:notice] = Alchemy.t("Pictures updated successfully")
         redirect_to_index
       end
 
@@ -98,15 +98,15 @@ module Alchemy
             end
           end
           if not_deletable.any?
-            flash[:warn] = _t(
+            flash[:warn] = Alchemy.t(
               "These pictures could not be deleted, because they were in use",
               names: not_deletable.to_sentence
             )
           else
-            flash[:notice] = _t("Pictures deleted successfully", names: names.to_sentence)
+            flash[:notice] = Alchemy.t("Pictures deleted successfully", names: names.to_sentence)
           end
         else
-          flash[:warn] = _t("Could not delete Pictures")
+          flash[:warn] = Alchemy.t("Could not delete Pictures")
         end
       rescue => e
         flash[:error] = e.message
@@ -117,7 +117,7 @@ module Alchemy
       def destroy
         name = @picture.name
         @picture.destroy
-        flash[:notice] = _t("Picture deleted successfully", name: name)
+        flash[:notice] = Alchemy.t("Picture deleted successfully", name: name)
       rescue => e
         flash[:error] = e.message
       ensure
@@ -126,7 +126,7 @@ module Alchemy
 
       def flush
         FileUtils.rm_rf Rails.root.join('public', Alchemy::MountPoint.get, 'pictures')
-        @notice = _t('Picture cache flushed')
+        @notice = Alchemy.t('Picture cache flushed')
       end
 
       private

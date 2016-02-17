@@ -1,9 +1,9 @@
 <div class="widget">
-  <h2><%= _t('Your last updated pages') %>:</h2>
+  <h2><%= Alchemy.t('Your last updated pages') %>:</h2>
   <table>
   <% if @last_edited_pages.blank? %>
     <tr class="even">
-      <td><%= _t('no pages') %></td>
+      <td><%= Alchemy.t('no pages') %></td>
     </tr>
   <% else %>
     <% @last_edited_pages.each do |page| %>

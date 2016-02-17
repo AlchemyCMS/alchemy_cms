@@ -6,24 +6,24 @@
 </div>
 <%= form_tag delete_multiple_admin_pictures_path, :method => :delete do %>
   <div class="selected_item_tools">
-    <h2><%= _t(:edit_selected_pictures) %></h2>
+    <h2><%= Alchemy.t(:edit_selected_pictures) %></h2>
     <%= link_to(
-      render_icon('edit') + _t("Edit"),
+      render_icon('edit') + Alchemy.t("Edit"),
       edit_multiple_admin_pictures_path,
       :class => 'button with_icon',
-      :title => _t('Edit multiple pictures'),
+      :title => Alchemy.t('Edit multiple pictures'),
       :id => 'edit_multiple_pictures',
       :style => 'float: none'
     ) %>
-    <%= button_tag render_icon('destroy') + _t("Delete"), 'data-alchemy-confirm' => {
-      :title => _t(:please_confirm),
-      :message => _t(:confirm_to_delete_images_from_server),
-      :ok_label => _t("Yes"),
-      :cancel_label => _t("No")
+    <%= button_tag render_icon('destroy') + Alchemy.t("Delete"), 'data-alchemy-confirm' => {
+      :title => Alchemy.t(:please_confirm),
+      :message => Alchemy.t(:confirm_to_delete_images_from_server),
+      :ok_label => Alchemy.t("Yes"),
+      :cancel_label => Alchemy.t("No")
     }.to_json, :class => 'button with_icon' %>
-    &nbsp;<%= _t(:or) %>&nbsp;
+    &nbsp;<%= Alchemy.t(:or) %>&nbsp;
     <%= link_to(
-      render_icon('delete-small') + _t("Clear selection"),
+      render_icon('delete-small') + Alchemy.t("Clear selection"),
       admin_pictures_path(
         :q => params[:q],
         :tagged_with => params[:tagged_with],
@@ -38,12 +38,12 @@
   <% if @pictures.blank? and @recent_pictures.blank? and params[:q].blank? %>
     <div class="info">
       <%= render_icon('info') %>
-      <%= _t(:no_images_in_archive) %>
+      <%= Alchemy.t(:no_images_in_archive) %>
     </div>
   <% elsif @pictures.blank? and @recent_pictures.blank? %>
     <div class="info">
       <%= render_icon('info') %>
-      <%= _t(:no_search_results) %>
+      <%= Alchemy.t(:no_search_results) %>
     </div>
   <% else %>
     <%= render :partial => 'picture', :collection => @pictures %>

@@ -1,21 +1,21 @@
 <% if root = Alchemy::Page.rootpage %>
 <div id="create_language_tree_form">
   <%= render_message do %>
-    <h2><%= _t(:language_does_not_exist) %></h2>
+    <h2><%= Alchemy.t(:language_does_not_exist) %></h2>
   <% end %>
 <%- if @language -%>
 
   <%- if @languages_with_page_tree.size >= 1 -%>
     <%= form_tag(alchemy.copy_language_tree_admin_pages_path) do %>
-      <h3><%= _t(:copy_language_tree_heading) %></h3>
-      <p><%= _t(:want_to_make_copy_of_existing_language) %></p>
+      <h3><%= Alchemy.t(:copy_language_tree_heading) %></h3>
+      <p><%= Alchemy.t(:want_to_make_copy_of_existing_language) %></p>
       <div class="input select">
-        <%= label_tag('languages[old_lang_id]', _t('Language tree'), class: 'control-label') %>
+        <%= label_tag('languages[old_lang_id]', Alchemy.t('Language tree'), class: 'control-label') %>
         <%= select_tag("languages[old_lang_id]", options_for_select(@languages_with_page_tree.map{ |l| [l.name, l.id] }), class: "alchemy_selectbox") %>
         <%= hidden_field_tag("languages[new_lang_id]", @language.id) %>
       </div>
       <div class="submit">
-        <%= button_tag _t(:copy) %>
+        <%= button_tag Alchemy.t(:copy) %>
       </div>
     <% end %>
   <%- end -%>
@@ -23,8 +23,8 @@
   <%- if params[:action] == "index" -%>
 
   <%= form_for([:admin, Alchemy::Page.new]) do |form| %>
-    <h3><%= _t(:create_language_tree_heading) %></h3>
-    <p><%= _t(:want_to_create_new_language) %></p>
+    <h3><%= Alchemy.t(:create_language_tree_heading) %></h3>
+    <p><%= Alchemy.t(:want_to_create_new_language) %></p>
     <%= form.hidden_field :name, value: @language.frontpage_name %>
     <%= form.hidden_field :language_id, value: @language.id %>
     <%= form.hidden_field :language_code, value: @language.code %>
@@ -33,7 +33,7 @@
     <%= form.hidden_field :parent_id, value: root.id %>
     <%= form.hidden_field :public, value: Alchemy::Language.all.size == 1 %>
     <div class="submit">
-      <%= form.button _t("create_tree_as_new_language", language: @language.name), autofocus: true %>
+      <%= form.button Alchemy.t("create_tree_as_new_language", language: @language.name), autofocus: true %>
     </div>
   <% end %>
 
@@ -41,7 +41,7 @@
 
 <%- else -%>
 
-  <p><%= _t("Actually this language does not exist. Please create this language first.") %></p>
+  <p><%= Alchemy.t("Actually this language does not exist. Please create this language first.") %></p>
 
 <%- end -%>
 

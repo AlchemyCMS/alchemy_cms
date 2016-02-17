@@ -94,7 +94,7 @@ module Alchemy
     end
 
     def redirect_to_success_page
-      flash[:notice] = _t(:success, scope: 'contactform.messages')
+      flash[:notice] = Alchemy.t(:success, scope: 'contactform.messages')
       if @element.ingredient(:success_page)
         urlname = @element.ingredient(:success_page)
       elsif mailer_config['forward_to_page'] && mailer_config['mail_success_page']

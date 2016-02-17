@@ -1,26 +1,26 @@
 <div class="info">
   <%= render_icon('info') %>
-  <p><%= _t('explain_upload.intro', name: item_type) %>:</p>
+  <p><%= Alchemy.t('explain_upload.intro', name: item_type) %>:</p>
   <ol>
-    <li><%= _t('explain_upload.step1', name: item_type) %></li>
-    <li><%= _t('explain_upload.step2', name: item_type) %>*</li>
-    <li id="explain_step3"><%= _t('explain_upload.step3') %></li>
-    <li id="explain_drag_n_drop"><%= _t('explain_upload.dragndrop', name: item_type) %></li>
+    <li><%= Alchemy.t('explain_upload.step1', name: item_type) %></li>
+    <li><%= Alchemy.t('explain_upload.step2', name: item_type) %>*</li>
+    <li id="explain_step3"><%= Alchemy.t('explain_upload.step3') %></li>
+    <li id="explain_drag_n_drop"><%= Alchemy.t('explain_upload.dragndrop', name: item_type) %></li>
   </ol>
   <% unless file_types.first == '*' %>
   <p>
-    <%= _t('You may upload files with following extensions',
+    <%= Alchemy.t('You may upload files with following extensions',
       file_types_description: file_types_description,
       file_types: file_types.to_sentence) %>.
   </p>
   <% end %>
-  <small>*<%= _t('explain_upload.footnote', name: item_type) %></small>
+  <small>*<%= Alchemy.t('explain_upload.footnote', name: item_type) %></small>
 </div>
 
 <div class="upload-container">
-  <%= label_tag :fileupload, _t(:browse) %>
-  <input name="<%= model_name %>[<%= file_attribute %>]" id="fileupload" type="file" multiple value="<%= _t(:browse) %>">
-  <div id="dropbox"><%= _t('Or drag files over here') %></div>
+  <%= label_tag :fileupload, Alchemy.t(:browse) %>
+  <input name="<%= model_name %>[<%= file_attribute %>]" id="fileupload" type="file" multiple value="<%= Alchemy.t(:browse) %>">
+  <div id="dropbox"><%= Alchemy.t('Or drag files over here') %></div>
 </div>
 
 <div class="overall-upload">

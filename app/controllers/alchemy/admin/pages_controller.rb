@@ -54,7 +54,7 @@ module Alchemy
       def create
         @page = paste_from_clipboard || Page.new(page_params)
         if @page.save
-          flash[:notice] = _t("Page created", name: @page.name)
+          flash[:notice] = Alchemy.t("Page created", name: @page.name)
           do_redirect_to(redirect_path_after_create_page)
         else
           @page_layouts = PageLayout.layouts_for_select(Language.current.id, @page.layoutpage?)
@@ -68,7 +68,7 @@ module Alchemy
       def edit
         # fetching page via before filter
         if page_is_locked?
-          flash[:notice] = _t('This page is locked', name: @page.locker_name)
+          flash[:notice] = Alchemy.t('This page is locked', name: @page.locker_name)
           redirect_to admin_pages_path
         else
           @page.lock_to!(current_alchemy_user)
@@ -90,7 +90,7 @@ module Alchemy
         # stores old page_layout value, because unfurtunally rails @page.changes does not work here.
         @old_page_layout = @page.page_layout
         if @page.update_attributes(page_params)
-          @notice = _t("Page saved", name: @page.name)
+          @notice = Alchemy.t("Page saved", name: @page.name)
           @while_page_edit = request.referer.include?('edit')
         else
           configure
@@ -104,7 +104,7 @@ module Alchemy
         @layoutpage = @page.layoutpage?
         if @page.destroy
           set_root_page
-          @message = _t("Page deleted", name: name)
+          @message = Alchemy.t("Page deleted", name: name)
           flash[:notice] = @message
           respond_to do |format|
             format.js
@@ -141,7 +141,7 @@ module Alchemy
       def unlock
         # fetching page via before filter
         @page.unlock!
-        flash[:notice] = _t(:unlocked_page, name: @page.name)
+        flash[:notice] = Alchemy.t(:unlocked_page, name: @page.name)
         @pages_locked_by_user = Page.from_current_site.locked_by(current_alchemy_user)
         respond_to do |format|
           format.js
@@ -164,13 +164,13 @@ module Alchemy
       def publish
         # fetching page via before filter
         @page.publish!
-        flash[:notice] = _t(:page_published, name: @page.name)
+        flash[:notice] = Alchemy.t(:page_published, name: @page.name)
         redirect_back_or_to_default(admin_pages_path)
       end
 
       def copy_language_tree
         language_root_to_copy_from.copy_children_to(copy_of_language_root)
-        flash[:notice] = _t(:language_pages_copied)
+        flash[:notice] = Alchemy.t(:language_pages_copied)
         redirect_to admin_pages_path
       end
 
@@ -191,7 +191,7 @@ module Alchemy
           end
         end
 
-        flash[:notice] = _t("Pages order saved")
+        flash[:notice] = Alchemy.t("Pages order saved")
         do_redirect_to admin_pages_path
       end
 

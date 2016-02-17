@@ -8,13 +8,13 @@
     options: local_assigns.fetch(:options, {}).to_json
   ),
   {
-    title: _t(:assign_file),
+    title: Alchemy.t(:assign_file),
     size: '780x585',
     padding: false
   },
   {
     class: 'assign_file',
-    title: _t(:assign_file)
+    title: Alchemy.t(:assign_file)
   }
 ) %>
 
@@ -30,7 +30,7 @@
     </div>
     <div class="file_name">
       <%= content.ingredient.try(:name) ||
-        ("&#x2190;" + _t(:assign_file_from_archive)).html_safe %>
+        ("&#x2190;" + Alchemy.t(:assign_file_from_archive)).html_safe %>
     </div>
     <div class="essence_file_tools">
       <%= dialog_link %>
@@ -40,11 +40,11 @@
           options: local_assigns.fetch(:options, {}).to_json
         ),
         {
-          title: _t(:edit_file_properties),
+          title: Alchemy.t(:edit_file_properties),
           size: '400x215'
         },
         class: 'edit_file',
-        title: _t(:edit_file_properties) %>
+        title: Alchemy.t(:edit_file_properties) %>
     </div>
     <% if content.ingredient %>
       <%= hidden_field_tag content.form_field_name(:attachment_id),

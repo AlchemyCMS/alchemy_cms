@@ -8,13 +8,13 @@
           options: @options.to_json
         ),
         {
-          title: _t(:upload_file),
+          title: Alchemy.t(:upload_file),
           size: '540x550'
         },
-        title: _t(:upload_file),
+        title: Alchemy.t(:upload_file),
         class: 'icon_button'
       ) %>
-    <label><%= _t(:upload_file) %></label>
+    <label><%= Alchemy.t(:upload_file) %></label>
   </div>
   <%= render 'alchemy/admin/partials/remote_search_form' %>
 </div>

@@ -215,7 +215,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Shows validation errors
   showValidationError: ->
-    $('#errors ul', @dialog_body).html("<li>#{Alchemy._t('url_validation_failed')}</li>")
+    $('#errors ul', @dialog_body).html("<li>#{Alchemy.t('url_validation_failed')}</li>")
     $('#errors', @dialog_body).show()
 
   # Populates the internal anchors select
@@ -227,7 +227,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
         if element.id
           @$internal_anchor.append("<option value='#{element.id}'>##{element.id}</option>")
     else
-      @$internal_anchor.html("<option>#{Alchemy._t('No anchors found')}</option>")
+      @$internal_anchor.html("<option>#{Alchemy.t('No anchors found')}</option>")
     @$internal_anchor.change (e) =>
       # deselect any selected page from page tree
       @deselectPage()

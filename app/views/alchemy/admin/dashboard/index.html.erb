@@ -2,11 +2,11 @@
   buttons: [
     {
       icon: 'info',
-      label: _t(:info),
+      label: Alchemy.t(:info),
       url: alchemy.dashboard_info_path,
-      title: _t(:info),
+      title: Alchemy.t(:info),
       dialog_options: {
-        title: _t(:info),
+        title: Alchemy.t(:info),
         size: "420x380"
       },
       if_permitted_to: [:info, :alchemy_admin_dashboard],
@@ -19,14 +19,14 @@
 <div id="dashboard">
   <h1>
     <% if @first_time -%>
-    <%= _t(:welcome_note, name: current_alchemy_user.try(:name)) %>
+    <%= Alchemy.t(:welcome_note, name: current_alchemy_user.try(:name)) %>
     <% else -%>
-    <%= _t(:welcome_back_note, name: current_alchemy_user.try(:name)) %>
+    <%= Alchemy.t(:welcome_back_note, name: current_alchemy_user.try(:name)) %>
     <% end -%>
   </h1>
   <% if @last_sign_at %>
   <p>
-    <small><%= _t('Your last login was on', time: l(@last_sign_at)) %></small>
+    <small><%= Alchemy.t('Your last login was on', time: l(@last_sign_at)) %></small>
   </p>
   <% end %>
   <div class="column left">

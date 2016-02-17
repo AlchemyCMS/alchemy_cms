@@ -3,9 +3,9 @@
   <%= hidden_field_tag('options', @options.to_json) %>
   <%= f.input :name, collection: @contents.map { |content|
       [
-        _t(content['name'], scope: 'content_names', default: content['name'].humanize),
+        Alchemy.t(content['name'], scope: 'content_names', default: content['name'].humanize),
         content['name']
       ]
     }, include_blank: false, input_html: {class: 'alchemy_selectbox'} %>
-  <%= f.submit _t(:create) %>
+  <%= f.submit Alchemy.t(:create) %>
 <% end %>

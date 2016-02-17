@@ -1,6 +1,6 @@
 <%- max_image_count = options[:maximum_amount_of_images] || options[:max_images] -%>
 <div class="content_editor picture_gallery_editor">
-  <label><%= _t("picture_gallery_editor.#{element.name}", default: _t(:picture_gallery_editor)) %></label>
+  <label><%= Alchemy.t("picture_gallery_editor.#{element.name}", default: Alchemy.t(:picture_gallery_editor)) %></label>
   <div class="picture_gallery_images" id="element_<%= element.id %>_contents">
     <%- pictures.each do |picture| -%>
       <%= render_essence_editor(picture, {dragable: (pictures.size > 1)}.merge(options)) %>

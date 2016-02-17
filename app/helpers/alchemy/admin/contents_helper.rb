@@ -18,7 +18,7 @@ module Alchemy
         end
         if content.definition.blank?
           warning("Content #{content.name} is missing its definition")
-          title = _t(:content_definition_missing)
+          title = Alchemy.t(:content_definition_missing)
           content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;#{content_name}).html_safe
         end
         if content.has_validations?

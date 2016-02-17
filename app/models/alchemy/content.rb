@@ -75,10 +75,10 @@ module Alchemy
       #         foo: Baz
       #
       def translated_label_for(content_name, element_name = nil)
-        I18n.t(
+        Alchemy.t(
           content_name,
           scope: "content_names.#{element_name}",
-          default: I18n.t("content_names.#{content_name}", default: content_name.humanize)
+          default: Alchemy.t("content_names.#{content_name}", default: content_name.humanize)
         )
       end
     end
@@ -261,7 +261,7 @@ module Alchemy
     def default_text(default)
       case default
       when Symbol
-        I18n.t(default, scope: :default_content_texts)
+        Alchemy.t(default, scope: :default_content_texts)
       else
         default
       end

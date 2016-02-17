@@ -2,15 +2,15 @@
   <div class="toolbar_buttons">
     <%= toolbar_button(
       icon: 'upload',
-      label: _t(:upload_image),
+      label: Alchemy.t(:upload_image),
       url: alchemy.new_admin_picture_path(size: @size),
       hotkey: 'alt+n',
       dialog_options: {
-        title: _t(:upload_image),
+        title: Alchemy.t(:upload_image),
         size: '540x525'
       },
       class: 'icon_button',
-      title: _t(:upload_image),
+      title: Alchemy.t(:upload_image),
       if_permitted_to: [:create, Alchemy::Picture]
     ) %>
     <% if can? :create, Alchemy::Picture %>
@@ -21,7 +21,7 @@
         <%= link_to(
           render_icon('zoom-out'),
           alchemy.admin_pictures_path(size: "small", q: params[:q]),
-          title: _t(:small_thumbnails),
+          title: Alchemy.t(:small_thumbnails),
           class: "icon_button please_wait"
         ) %>
       </div>
@@ -29,7 +29,7 @@
         <%= link_to(
           render_icon('zoom-equal'),
           alchemy.admin_pictures_path(size: "medium", q: params[:q]),
-          title: _t(:medium_thumbnails),
+          title: Alchemy.t(:medium_thumbnails),
           class: "icon_button please_wait"
         ) %>
       </div>
@@ -37,11 +37,11 @@
         <%= link_to(
           render_icon('zoom-in'),
           alchemy.admin_pictures_path(size: "large", q: params[:q]),
-          title: _t(:big_thumbnails),
+          title: Alchemy.t(:big_thumbnails),
           class: "icon_button please_wait"
         ) %>
       </div>
-      <label><%= _t('Image size') %></label>
+      <label><%= Alchemy.t('Image size') %></label>
       <%= hidden_field_tag('size', @size, id: 'overlay_thumbnails_size') %>
     </div>
     <% if can?(:flush, Alchemy::Picture) %>
@@ -54,9 +54,9 @@
           remote: true,
           method: :post
         },
-        label: _t('Flush picture cache'),
+        label: Alchemy.t('Flush picture cache'),
         class: 'icon_button please_wait',
-        title: _t('Flush picture cache'),
+        title: Alchemy.t('Flush picture cache'),
         skip_permission_check: true
       ) %>
     <% end %>
@@ -69,7 +69,7 @@
         class: 'icon_button',
         'data-alchemy-hotkey' => 'alt+a'
       ) %>
-      <label><%= _t("Select all") %></label>
+      <label><%= Alchemy.t("Select all") %></label>
     </div>
   </div>
 
@@ -81,7 +81,7 @@
   <h1>
     <%= @pictures.total_count %>
     <%= Alchemy::Picture.model_name.human(count: @pictures.total_count) %>
-    <%= _t("picture_library.filter.#{params[:filter]}") if params[:filter].present? %>
+    <%= Alchemy.t("picture_library.filter.#{params[:filter]}") if params[:filter].present? %>
   </h1>
   <%= render 'archive' %>
 </div>

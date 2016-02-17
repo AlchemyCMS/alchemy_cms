@@ -1,9 +1,9 @@
 <div class="widget">
-  <h2><%= _t('Currently locked pages') %>:</h2>
+  <h2><%= Alchemy.t('Currently locked pages') %>:</h2>
   <table>
   <% if @all_locked_pages.blank? %>
     <tr class="even">
-      <td><%= _t('no pages') %></td>
+      <td><%= Alchemy.t('no pages') %></td>
     </tr>
   <% else %>
     <% @all_locked_pages.each do |page| %>
@@ -13,11 +13,11 @@
         <%= link_to(page.name, alchemy.edit_admin_page_path(page)) %>
       </td>
       <td>
-        <small><%= _t(:me) %></small>
+        <small><%= Alchemy.t(:me) %></small>
       </td>
       <td>
         <%= form_tag(alchemy.unlock_admin_page_path(page, :redirect_to => alchemy.admin_dashboard_url)) do %>
-          <button class="icon_button small" title="<%= _t(:explain_unlocking) %>">
+          <button class="icon_button small" title="<%= Alchemy.t(:explain_unlocking) %>">
             <%= render_icon('close small') %>
           </button>
         <% end %>

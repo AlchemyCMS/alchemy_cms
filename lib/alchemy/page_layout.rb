@@ -56,7 +56,7 @@ module Alchemy
       # Returns page layouts ready for Rails' select form helper.
       #
       def layouts_for_select(language_id, only_layoutpages = false)
-        @map_array = [[I18n.t('Please choose'), '']]
+        @map_array = [[Alchemy.t('Please choose'), '']]
         mapped_layouts_for_select(selectable_layouts(language_id, only_layoutpages))
       end
 
@@ -116,7 +116,7 @@ module Alchemy
       #   The layout name
       #
       def human_layout_name(layout)
-        I18n.t(layout, scope: 'page_layout_names', default: layout.to_s.humanize)
+        Alchemy.t(layout, scope: 'page_layout_names', default: layout.to_s.humanize)
       end
 
       private

@@ -434,7 +434,7 @@ module Alchemy
           context "with options[:show_title]" do
             context "set to true" do
               it "should render the language links with titles" do
-                allow(helper).to receive(:_t).and_return("my title")
+                allow(Alchemy).to receive(:t).and_return("my title")
                 expect(helper.language_links(show_title: true)).to have_selector('a[title="my title"]')
               end
             end
