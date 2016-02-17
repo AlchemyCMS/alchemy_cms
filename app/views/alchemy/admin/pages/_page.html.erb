@@ -55,8 +55,8 @@
             render_icon("copy_page"),
             alchemy.insert_admin_clipboard_path(
               remarkable_type: page.class.name.demodulize.underscore.pluralize,
-              remarkable_id: '{{id}}',
-            ),
+              remarkable_id: '__ID__',
+            ).gsub('__ID__', '{{id}}'),
             remote: true,
             method: 'post',
             title: _t(:copy_page),
@@ -70,8 +70,8 @@
             url_for(
               controller: 'pages',
               action: 'destroy',
-              id: '{{id}}'
-              ),
+              id: '__ID__'
+            ).gsub('__ID__', '{{id}}'),
             {
               title: _t(:delete_page),
               class: 'sitemap_tool'
@@ -81,7 +81,7 @@
           {{#if permissions.create}}
           <%= link_to_dialog(
             render_icon('add_page'),
-            alchemy.new_admin_page_path(parent_id: '{{id}}'),
+            alchemy.new_admin_page_path(parent_id: '__ID__').gsub('__ID__', '{{id}}'),
             {
               title: _t(:create_page),
               size: '340x165',
