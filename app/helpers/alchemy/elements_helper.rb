@@ -276,7 +276,7 @@ module Alchemy
         page = fallback_options[:from]
       end
       return [] if page.blank?
-      page.elements.named(fallback_options[:with].blank? ? fallback_options[:for] : fallback_options[:with])
+      page.elements.not_trashed.named(fallback_options[:with].presence || fallback_options[:for])
     end
 
     def render_element_view_partials(elements, options = {})
