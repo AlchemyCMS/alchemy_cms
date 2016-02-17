@@ -176,7 +176,7 @@ module Alchemy
 
           before do
             allow(Language).to receive(:current).and_return double(pages: double(find_by: another_page))
-            allow(another_page).to receive(:elements).and_return double(named: elements)
+            allow(another_page).to receive(:elements).and_return double(not_trashed: double(named: elements))
           end
 
           it "renders the fallback element" do
@@ -188,7 +188,7 @@ module Alchemy
           let(:options) { {fallback: {for: 'higgs', with: 'news', from: another_page}} }
 
           before do
-            allow(another_page).to receive(:elements).and_return double(named: elements)
+            allow(another_page).to receive(:elements).and_return double(not_trashed: double(named: elements))
           end
 
           it "renders the fallback element" do
