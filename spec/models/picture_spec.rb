@@ -40,17 +40,34 @@ module Alchemy
         File.new(File.expand_path('../../fixtures/80x60.png', __FILE__))
       end
 
-      before do
-        allow(Config).to receive(:get) do |arg|
-          if arg == :preprocess_image_resize
-            '10x10'
+      context 'with > geometry string' do
+        before do
+          allow(Config).to receive(:get) do |arg|
+            if arg == :preprocess_image_resize
+              '10x10>'
+            end
           end
+        end
+
+        it "it resizes the image after upload" do
+          picture = Picture.new(image_file: image_file)
+          expect(picture.image_file.data[0x10..0x18].unpack('NN')).to eq([10, 8])
         end
       end
 
-      it "it resizes the image after upload" do
-        picture = Picture.new(image_file: image_file)
-        expect(picture.image_file.data[0x10..0x18].unpack('NN')).to eq([10, 8])
+      context 'without > geometry string' do
+        before do
+          allow(Config).to receive(:get) do |arg|
+            if arg == :preprocess_image_resize
+              '10x10'
+            end
+          end
+        end
+
+        it "it resizes the image after upload" do
+          picture = Picture.new(image_file: image_file)
+          expect(picture.image_file.data[0x10..0x18].unpack('NN')).to eq([10, 8])
+        end
       end
     end
 

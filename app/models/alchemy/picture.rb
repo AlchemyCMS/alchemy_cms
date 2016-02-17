@@ -44,9 +44,8 @@ module Alchemy
     dragonfly_accessor :image_file, app: :alchemy_pictures do
       # Preprocess after uploading the picture
       after_assign do |p|
-        if Config.get(:preprocess_image_resize).present?
-          p.thumb!("#{Config.get(:preprocess_image_resize)}>")
-        end
+        resize = Config.get(:preprocess_image_resize)
+        p.thumb!(resize) if resize.present?
       end
     end
 
