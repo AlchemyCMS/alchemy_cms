@@ -410,7 +410,7 @@ module Alchemy
     def cell_empty?(name)
       cell = @page.cells.find_by_name(name)
       return true if cell.blank?
-      cell.elements.blank?
+      cell.elements.not_trashed.empty?
     end
 
     # Include this in your layout file to have element selection magic in the page edit preview window.
