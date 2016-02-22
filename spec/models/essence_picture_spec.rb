@@ -68,33 +68,64 @@ module Alchemy
         end
       end
 
-      context 'with crop sizes set' do
-        before do
-          expect(essence).to receive(:crop_size).at_least(:once).and_return('200x200')
-          expect(essence).to receive(:crop_from).at_least(:once).and_return('10x10')
+      context 'when cropping is allowed' do
+        let(:options) { {crop: true} }
+
+        it 'converts the value `true` of the `crop` option into `crop` as part of the url' do
+          is_expected.to match /crop/
+          is_expected.not_to match /true/
         end
 
-        it "includes the crop sizes in the url." do
-          is_expected.to match(/200x200/)
-          is_expected.to match(/10x10/)
-        end
+        context 'and crop sizes are set' do
+          before do
+            expect(essence).to receive(:crop_size).at_least(:once).and_return('200x200')
+            expect(essence).to receive(:crop_from).at_least(:once).and_return('10x10')
+          end
 
-        context 'but with crop sizes in the options' do
-          let(:options) { {crop_from: '30x30', crop_size: '75x75'} }
+          it "includes the crop sizes in the url." do
+            is_expected.to match(/200x200/)
+            is_expected.to match(/10x10/)
+          end
 
-          it "includes these crop sizes instead." do
-            is_expected.to match(/30x30/)
-            is_expected.to match(/75x75/)
+          context 'but with crop sizes in the options' do
+            before do
+              options.update({crop_from: '30x30', crop_size: '75x75'})
+            end
+
+            it "includes these crop sizes instead." do
+              is_expected.to match(/30x30/)
+              is_expected.to match(/75x75/)
+            end
           end
         end
       end
 
-      context 'with crop true in the options' do
-        let(:options) { {crop: true} }
+      context 'when cropping is prohibited' do
+        before do
+          expect(essence).not_to receive(:crop_size)
+          expect(essence).not_to receive(:crop_from)
+        end
 
-        it 'converts the value into `crop`' do
-          is_expected.to match /crop/
-          is_expected.not_to match /true/
+        context 'without setting `crop` in the options' do
+          it "does not include `crop` in the url" do
+            is_expected.not_to match(/crop/)
+          end
+        end
+
+        context 'when `crop` is explicitly set to `false`' do
+          let(:options) { {crop: false} }
+
+          it "does not include `crop` in the url" do
+            is_expected.not_to match(/crop/)
+          end
+        end
+
+        context 'even when crop sizes are set' do
+          it "does not include any cropping information in the url" do
+            is_expected.not_to match(/crop/)
+            is_expected.not_to match(/200x200/)
+            is_expected.not_to match(/10x10/)
+          end
         end
       end
 
