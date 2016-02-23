@@ -131,7 +131,7 @@ module Alchemy
         name: picture.urlname,
         format: Config.get(:image_output_format)
       }.merge(options)
-      if crop_from.present? && crop_size.present?
+      if options[:crop] && crop_from.present? && crop_size.present?
         params = {
           crop: true,
           crop_from: crop_from,
