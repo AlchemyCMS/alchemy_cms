@@ -52,7 +52,7 @@ module Alchemy
       let(:params)  { {} }
 
       context 'with params given' do
-        let(:params)  { {body: 'Mikes Petshop'} }
+        let(:params)  { {'body' => 'Mikes Petshop'} }
         let(:essence) { content.essence }
 
         before do
@@ -67,6 +67,10 @@ module Alchemy
         it "updates timestamp after updating related essence" do
           expect(content).to receive(:touch)
           subject
+        end
+
+        it 'also stores params in essence_data column' do
+          expect { subject }.to change { content.essence_data }
         end
       end
 

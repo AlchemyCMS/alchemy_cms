@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729151825) do
+ActiveRecord::Schema.define(version: 20160224205945) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
@@ -45,9 +45,11 @@ ActiveRecord::Schema.define(version: 20150729151825) do
     t.datetime "updated_at",   null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
+    t.text     "essence_data"
   end
 
   add_index "alchemy_contents", ["element_id", "position"], name: "index_contents_on_element_id_and_position"
+  add_index "alchemy_contents", ["essence_data"], name: "index_alchemy_contents_on_essence_data"
 
   create_table "alchemy_elements", force: :cascade do |t|
     t.string   "name"

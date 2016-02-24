@@ -31,6 +31,10 @@ module Alchemy
 
     acts_as_list
 
+    unless ActiveRecord::Base.connection.adapter_name == 'postgresql'
+      serialize :essence_data, Hash
+    end
+
     # ActsAsList scope
     def scope_condition
       # Fixes a bug with postgresql having a wrong element_id value, if element_id is nil.
@@ -154,13 +158,14 @@ module Alchemy
       essence.ingredient = value
     end
 
-    # Updates the essence.
+    # Updates the essence and also stores the data in essence_data column.
     #
     # Called from +Alchemy::Element#update_contents+
     #
     # Adds errors to self.base if essence validation fails.
     #
     def update_essence(params = {})
+      update_columns(essence_data: params)
       raise EssenceMissingError if essence.nil?
       if essence.update(params)
         return true
