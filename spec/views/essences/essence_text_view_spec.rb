@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe 'alchemy/essences/_essence_text_view' do
   let(:essence) { Alchemy::EssenceText.new(body: 'Hello World') }
-  let(:content) { Alchemy::Content.new(essence: essence) }
+
+  let(:content) do
+    Alchemy::Content.new(essence: essence, essence_data: {'body' => essence.body})
+  end
 
   context 'with blank link value' do
     it "only renders the ingredient" do

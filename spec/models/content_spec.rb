@@ -5,11 +5,6 @@ module Alchemy
     let(:element) { create(:alchemy_element, name: 'headline', create_contents_after_create: true) }
     let(:content) { element.contents.find_by(essence_type: 'Alchemy::EssenceText') }
 
-    it "should return the ingredient from its essence" do
-      content.essence.update_attributes(body: "Hello")
-      expect(content.ingredient).to eq("Hello")
-    end
-
     describe '.normalize_essence_type' do
       context "passing namespaced essence type" do
         it "should not add alchemy namespace" do
@@ -213,6 +208,13 @@ module Alchemy
             content.ingredient = "Welcome"
           }.to raise_error(EssenceMissingError)
         end
+      end
+    end
+
+    describe "#ingredient" do
+      it "reads the value from essence_data hash" do
+        content.essence_data = {body: "Hello"}
+        expect(content.ingredient).to eq("Hello")
       end
     end
 

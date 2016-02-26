@@ -2,7 +2,10 @@ require 'spec_helper'
 
 describe 'alchemy/essences/_essence_html_view' do
   let(:essence) { Alchemy::EssenceHtml.new(source: '<script>alert("hacked");</script>') }
-  let(:content) { Alchemy::Content.new(essence: essence) }
+
+  let(:content) do
+    Alchemy::Content.new(essence: essence, essence_data: {'source' => essence.source})
+  end
 
   context 'without value' do
     let(:essence) { Alchemy::EssenceHtml.new(source: nil) }

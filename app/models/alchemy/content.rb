@@ -127,10 +127,10 @@ module Alchemy
       element.contents
     end
 
-    # Gets the ingredient from essence
+    # Reads the ingredient from essence_data
     def ingredient
-      return nil if essence.nil?
-      essence.ingredient
+      # TODO: Typecast! Or delegate to essence and let that return the correct type
+      essence_data[essence.ingredient_column.to_s]
     end
 
     # Serialized object representation for json api
