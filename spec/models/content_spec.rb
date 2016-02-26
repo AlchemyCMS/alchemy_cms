@@ -367,10 +367,10 @@ module Alchemy
     end
 
     describe '#form_field_name' do
-      let(:content) { Content.new(id: 1) }
+      let(:content) { Content.new(id: 1, essence: EssenceText.new) }
 
-      it "returns a name value for form fields with ingredient as default" do
-        expect(content.form_field_name).to eq('contents[1][ingredient]')
+      it "returns a name value for form fields with essence's ingredient_column as default" do
+        expect(content.form_field_name).to eq('contents[1][body]')
       end
 
       context 'with a essence column given' do
@@ -381,10 +381,10 @@ module Alchemy
     end
 
     describe '#form_field_id' do
-      let(:content) { Content.new(id: 1) }
+      let(:content) { Content.new(id: 1, essence: EssenceText.new) }
 
-      it "returns a id value for form fields with ingredient as default" do
-        expect(content.form_field_id).to eq('contents_1_ingredient')
+      it "returns a id value for form fields with essence's ingredient_column as default" do
+        expect(content.form_field_id).to eq('contents_1_body')
       end
 
       context 'with a essence column given' do

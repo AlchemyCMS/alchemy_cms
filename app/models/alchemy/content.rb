@@ -183,7 +183,9 @@ module Alchemy
       definition['validate'].present?
     end
 
-    # Returns a string to be passed to Rails form field tags to ensure we have same params layout everywhere.
+    # Returns a string to be passed to Rails form field tags
+    #
+    # So we be sure we have same params layout for all essence types.
     #
     # === Example:
     #
@@ -191,18 +193,18 @@ module Alchemy
     #
     # === Options:
     #
-    # You can pass an Essence column_name. Default is 'ingredient'
+    # You can pass an Essence's column_name. Default is +essence.ingredient_column+
     #
     # ==== Example:
     #
     #   <%= text_field_tag content.form_field_name(:link), content.ingredient %>
     #
-    def form_field_name(essence_column = 'ingredient')
-      "contents[#{id}][#{essence_column}]"
+    def form_field_name(column_name = essence.ingredient_column)
+      "contents[#{id}][#{column_name}]"
     end
 
-    def form_field_id(essence_column = 'ingredient')
-      "contents_#{id}_#{essence_column}"
+    def form_field_id(column_name = essence.ingredient_column)
+      "contents_#{id}_#{column_name}"
     end
 
     # Returns a string used as dom id on html elements.
