@@ -190,19 +190,28 @@ module Alchemy
 
     describe '#ingredient=' do
       let(:element) { create(:alchemy_element, name: 'headline') }
+      let(:content) { Content.create_from_scratch(element, name: 'headline') }
+
+      subject { content.ingredient = "Welcome" }
 
       it "should set the given value to the ingredient column of essence" do
-        c = Content.create_from_scratch(element, name: 'headline')
-        c.ingredient = "Welcome"
-        expect(c.ingredient).to eq("Welcome")
+        subject
+        expect(content.essence.ingredient).to eq("Welcome")
       end
 
-      context "no essence associated" do
+      it 'also sets the value into +essence_data+ hash' do
+        subject
+        expect(content.essence_data).to eq("body" => "Welcome")
+      end
+
+      context "without essence associated" do
         let(:element) { create(:alchemy_element, name: 'headline') }
+        let(:content) { Content.create(element_id: element.id, name: 'headline') }
 
         it "should raise error" do
-          content = Content.create(element_id: element.id, name: 'headline')
-          expect { content.ingredient = "Welcome" }.to raise_error(EssenceMissingError)
+          expect {
+            content.ingredient = "Welcome"
+          }.to raise_error(EssenceMissingError)
         end
       end
     end

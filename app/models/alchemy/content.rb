@@ -152,9 +152,13 @@ module Alchemy
       essence.try(:serialized_ingredient) || ingredient
     end
 
-    # Sets the ingredient from essence
+    # Sets value to ingredient of essence
+    #
+    # Also sets the value into +essence_data+ hash
+    #
     def ingredient=(value)
       raise EssenceMissingError if essence.nil?
+      self.essence_data = {essence.ingredient_column.to_s => value}
       essence.ingredient = value
     end
 
