@@ -11,11 +11,11 @@ module Alchemy
     let(:restricted_page)    { create(:alchemy_page, :public, restricted: true) }
     let(:element)            { create(:alchemy_element, page: public_page, name: 'bild', create_contents_after_create: true) }
     let(:restricted_element) { create(:alchemy_element, page: restricted_page, name: 'bild', create_contents_after_create: true) }
-    let(:picture)            { create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/image.png', __FILE__), 'image/png')) }
+    let(:picture)            { create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../../fixtures/image.png', __FILE__), 'image/png')) }
 
     describe '#zoom' do
       let(:picture) do
-        create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/80x60.png', __FILE__), 'image/png'))
+        create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../../fixtures/80x60.png', __FILE__), 'image/png'))
       end
 
       it "renders the original image without any resizing" do
@@ -97,7 +97,7 @@ module Alchemy
 
       context "Requesting a picture with crop_from and crop_size parameters" do
         let(:picture) do
-          create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png'))
+          create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../../fixtures/500x500.png', __FILE__), 'image/png'))
         end
 
         it "renders the cropped picture" do
@@ -110,7 +110,7 @@ module Alchemy
 
       context "Requesting a picture with crop_from and crop_size parameters with different size param" do
         let(:picture) do
-          create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png'))
+          create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../../fixtures/500x500.png', __FILE__), 'image/png'))
         end
 
         it "renders the cropped picture" do
@@ -134,7 +134,7 @@ module Alchemy
 
       context "Requesting a picture with crop_from and crop_size parameters with larger size param" do
         let(:picture) do
-          create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png'))
+          create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../../fixtures/500x500.png', __FILE__), 'image/png'))
         end
 
         it "renders the cropped picture without upsampling" do
@@ -158,7 +158,7 @@ module Alchemy
 
       context "Requesting a picture with crop_from and crop_size parameters with larger size param and upsample set" do
         let(:picture) do
-          create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png'))
+          create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../../fixtures/500x500.png', __FILE__), 'image/png'))
         end
 
         it "renders the cropped picture with upsampling" do
@@ -238,7 +238,7 @@ module Alchemy
       context 'requesting an animated gif with different format' do
         let(:image) do
           fixture_file_upload(
-            File.expand_path('../../fixtures/animated.gif', __FILE__),
+            File.expand_path('../../../fixtures/animated.gif', __FILE__),
             'image/gif'
           )
         end
@@ -261,7 +261,7 @@ module Alchemy
 
     describe '#thumbnail' do
       let(:picture) do
-        create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/500x500.png', __FILE__), 'image/png'))
+        create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../../fixtures/500x500.png', __FILE__), 'image/png'))
       end
 
       context 'with size param set to small' do
@@ -329,7 +329,7 @@ module Alchemy
 
     describe 'Picture processing' do
       let(:big_picture) do
-        create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../fixtures/80x60.png', __FILE__), 'image/png'))
+        create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../../fixtures/80x60.png', __FILE__), 'image/png'))
       end
 
       context "with crop and size parameters" do

@@ -43,7 +43,7 @@ module Alchemy
 
       describe 'only and expect options' do
         let!(:png) { create(:alchemy_attachment) }
-        let!(:jpg) { create(:alchemy_attachment, file: File.new(File.expand_path('../../../../spec/fixtures/image3.jpeg', __FILE__))) }
+        let!(:jpg) { create(:alchemy_attachment, file: File.new(File.expand_path('../../../../fixtures/image3.jpeg', __FILE__))) }
 
         context 'with params[:only]' do
           it 'only loads attachments with matching content type' do
