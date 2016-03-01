@@ -94,6 +94,11 @@ module Alchemy
     has_many :folded_pages
     has_many :legacy_urls, class_name: 'Alchemy::LegacyPageUrl'
 
+    has_many :versions,
+      class_name: 'Alchemy::PageVersion',
+      dependent: :destroy,
+      inverse_of: :page
+
     validates_presence_of :language, on: :create, unless: :root
     validates_presence_of :page_layout, unless: :systempage?
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { systempage? || page_layout.blank? }

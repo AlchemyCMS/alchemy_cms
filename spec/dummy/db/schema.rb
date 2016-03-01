@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160928080104) do
+ActiveRecord::Schema.define(version: 20161104160033) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
@@ -218,6 +218,13 @@ ActiveRecord::Schema.define(version: 20160928080104) do
 
   add_index "alchemy_legacy_page_urls", ["page_id"], name: "index_alchemy_legacy_page_urls_on_page_id"
   add_index "alchemy_legacy_page_urls", ["urlname"], name: "index_alchemy_legacy_page_urls_on_urlname"
+
+  create_table "alchemy_page_versions", force: :cascade do |t|
+    t.integer "page_id"
+    t.string  "title"
+  end
+
+  add_index "alchemy_page_versions", ["page_id"], name: "index_alchemy_page_versions_on_page_id"
 
   create_table "alchemy_pages", force: :cascade do |t|
     t.string   "name"
