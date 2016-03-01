@@ -41,6 +41,8 @@ Alchemy.Sitemap =
       self.items = $(".sitemap_page", '#sitemap')
       self._observe()
 
+      Alchemy.watchForDialogs('#sitemap')
+
       if self.sorting
         Alchemy.PageSorter.init()
         Alchemy.pleaseWaitOverlay(false)
