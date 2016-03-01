@@ -72,6 +72,15 @@ module Alchemy
 
     has_many :folded_pages
     has_many :legacy_urls, class_name: 'Alchemy::LegacyPageUrl'
+
+    has_many :versions,
+      class_name: 'Alchemy::PageVersion',
+      dependent: :destroy,
+      inverse_of: :page
+
+    belongs_to :current_version, class_name: 'Alchemy::PageVersion'
+    belongs_to :public_version, class_name: 'Alchemy::PageVersion'
+
     belongs_to :language
 
     validates_presence_of :language, on: :create, unless: :root
