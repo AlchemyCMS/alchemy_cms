@@ -40,7 +40,10 @@ Alchemy.Sitemap =
       self.sitemap_wrapper.html(self.template({children: data.pages}))
       self.items = $(".sitemap_page", '#sitemap')
       self._observe()
-      Alchemy.PageSorter.init() if self.sorting
+
+      if self.sorting
+        Alchemy.PageSorter.init()
+        Alchemy.pleaseWaitOverlay(false)
 
     # TODO: Prettify this.
     request.fail (jqXHR, status) ->
