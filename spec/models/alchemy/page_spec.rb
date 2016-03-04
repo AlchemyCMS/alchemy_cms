@@ -1834,6 +1834,10 @@ module Alchemy
           expect(page.public_until).to eq(nil)
         end
       end
+
+      it "sets current version as public version" do
+        expect(page.public_version_id).to eq(page.current_version_id)
+      end
     end
 
     describe '#set_language_from_parent_or_default' do
