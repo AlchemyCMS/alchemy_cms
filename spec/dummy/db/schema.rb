@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161104160033) do
+ActiveRecord::Schema.define(version: 20161104203630) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
@@ -239,15 +239,15 @@ ActiveRecord::Schema.define(version: 20161104160033) do
     t.integer  "rgt"
     t.integer  "parent_id"
     t.integer  "depth"
-    t.boolean  "visible",          default: false
+    t.boolean  "visible",            default: false
     t.integer  "locked_by"
-    t.boolean  "restricted",       default: false
-    t.boolean  "robot_index",      default: true
-    t.boolean  "robot_follow",     default: true
-    t.boolean  "sitemap",          default: true
-    t.boolean  "layoutpage",       default: false
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.boolean  "restricted",         default: false
+    t.boolean  "robot_index",        default: true
+    t.boolean  "robot_follow",       default: true
+    t.boolean  "sitemap",            default: true
+    t.boolean  "layoutpage",         default: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
     t.integer  "creator_id"
     t.integer  "updater_id"
     t.integer  "language_id"
@@ -256,12 +256,16 @@ ActiveRecord::Schema.define(version: 20161104160033) do
     t.datetime "public_on"
     t.datetime "public_until"
     t.datetime "locked_at"
+    t.integer  "current_version_id"
+    t.integer  "public_version_id"
   end
 
+  add_index "alchemy_pages", ["current_version_id"], name: "index_alchemy_pages_on_current_version_id"
   add_index "alchemy_pages", ["language_id"], name: "index_pages_on_language_id"
   add_index "alchemy_pages", ["locked_at", "locked_by"], name: "index_alchemy_pages_on_locked_at_and_locked_by"
   add_index "alchemy_pages", ["parent_id", "lft"], name: "index_pages_on_parent_id_and_lft"
   add_index "alchemy_pages", ["public_on", "public_until"], name: "index_alchemy_pages_on_public_on_and_public_until"
+  add_index "alchemy_pages", ["public_version_id"], name: "index_alchemy_pages_on_public_version_id"
   add_index "alchemy_pages", ["rgt"], name: "index_alchemy_pages_on_rgt"
   add_index "alchemy_pages", ["urlname"], name: "index_pages_on_urlname"
 

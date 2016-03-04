@@ -10,7 +10,8 @@ namespace :alchemy do
     'alchemy:upgrade:3.2:run', 'alchemy:upgrade:3.2:todo',
     'alchemy:upgrade:3.3:run', 'alchemy:upgrade:3.3:todo',
     'alchemy:upgrade:3.4:run',
-    'alchemy:upgrade:3.5:run', 'alchemy:upgrade:3.5:todo'
+    'alchemy:upgrade:3.5:run', 'alchemy:upgrade:3.5:todo',
+    'alchemy:upgrade:4.0:run'
   ] do
     Alchemy::Upgrader.display_todos
   end
@@ -175,6 +176,23 @@ namespace :alchemy do
 
       task :todo do |t|
         Alchemy::Upgrader::ThreePointFive.alchemy_3_5_todos
+      end
+    end
+
+    desc 'Upgrade Alchemy to v4.0'
+    task '4.0' => [
+      'alchemy:upgrade:prepare',
+      'alchemy:upgrade:4.0:run'
+    ] do
+      Alchemy::Upgrader.display_todos
+    end
+
+    namespace '4.0' do
+      task run: ['alchemy:upgrade:4.0:create_page_versions']
+
+      desc 'Create versions for pages'
+      task create_page_versions: [:environment] do |t|
+        Alchemy::Upgrader::FourPointZero.create_page_versions
       end
     end
   end

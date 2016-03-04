@@ -345,6 +345,12 @@ module Alchemy
             expect(page.elements).to be_empty
           end
         end
+
+        it 'creates a current page version' do
+          page.save!
+          expect(page.versions).to_not be_empty
+          expect(page.current_version).to be_present
+        end
       end
 
       context "Creating a systempage" do
@@ -356,6 +362,10 @@ module Alchemy
 
         it "does not autogenerate the elements" do
           expect(page.elements).to be_empty
+        end
+
+        it 'does not create a page version' do
+          expect(page.versions).to be_empty
         end
       end
 
