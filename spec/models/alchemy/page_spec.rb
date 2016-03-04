@@ -1429,6 +1429,10 @@ module Alchemy
       it "sets published_at attribute to current time" do
         expect(page.published_at).to eq(current_time)
       end
+
+      it "sets current version as public version" do
+        expect(page.public_version_id).to eq(page.current_version_id)
+      end
     end
 
     describe '#set_language_from_parent_or_default' do

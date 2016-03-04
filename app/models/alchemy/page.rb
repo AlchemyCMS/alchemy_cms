@@ -356,14 +356,18 @@ module Alchemy
       end
     end
 
-    # Publishes the page.
+    # Takes the current version and sets it as public version.
     #
     # Sets +public+ to true and the +published_at+ value to current time.
     #
     # The +published_at+ attribute is used as +cache_key+.
     #
     def publish!
-      update_columns(published_at: Time.current, public: true)
+      update_columns(
+        public_version_id: current_version_id,
+        published_at: Time.current,
+        public: true
+      )
     end
 
     # Updates an Alchemy::Page based on a new ordering to be applied to it
