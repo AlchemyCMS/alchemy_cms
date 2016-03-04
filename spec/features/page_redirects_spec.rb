@@ -302,12 +302,8 @@ module Alchemy
 
       context "redirects to public child" do
         before do
-          public_page.update_attributes(
-            public: false,
-            visible: false,
-            name: 'Not Public',
-            urlname: ''
-          )
+          public_page.update(name: 'Not Public', urlname: '', visible: false)
+          public_page.public_version.delete
           public_child
         end
 

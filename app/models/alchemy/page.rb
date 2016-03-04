@@ -73,11 +73,7 @@ module Alchemy
     has_many :folded_pages
     has_many :legacy_urls, class_name: 'Alchemy::LegacyPageUrl'
 
-    has_many :versions,
-      class_name: 'Alchemy::PageVersion',
-      dependent: :destroy,
-      inverse_of: :page
-
+    has_many :versions, class_name: 'Alchemy::PageVersion', inverse_of: :page
     belongs_to :current_version, class_name: 'Alchemy::PageVersion'
     belongs_to :public_version, class_name: 'Alchemy::PageVersion'
 
@@ -91,12 +87,32 @@ module Alchemy
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_save :set_language_code, if: -> { language.present? }, unless: :systempage?
-    before_save :set_restrictions_to_child_pages, if: :restricted_changed?, unless: :systempage?
-    before_save :inherit_restricted_status, if: -> { parent && parent.restricted? }, unless: :systempage?
-    before_save :update_published_at, if: -> { public && read_attribute(:published_at).nil? }, unless: :systempage?
-    before_create :set_language_from_parent_or_default, if: -> { language_id.blank? }, unless: :systempage?
-    after_update :create_legacy_url, if: :urlname_changed?, unless: :redirects_to_external?
+    before_save :set_language_code,
+      if: -> { language.present? },
+      unless: :systempage?
+
+    before_save :set_restrictions_to_child_pages,
+      if: :restricted_changed?,
+      unless: :systempage?
+
+    before_save :inherit_restricted_status,
+      if: -> { parent && parent.restricted? },
+      unless: :systempage?
+
+    before_save :update_published_at,
+      if: -> { public? && read_attribute(:published_at).nil? },
+      unless: :systempage?
+
+    before_create :set_language_from_parent_or_default,
+      if: -> { language_id.blank? },
+      unless: :systempage?
+
+    after_create :create_current_version!,
+      unless: -> { systempage? || redirects_to_external? }
+
+    after_update :create_legacy_url,
+      if: :urlname_changed?,
+      unless: :redirects_to_external?
 
     # Concerns
     include Alchemy::Page::PageScopes
@@ -370,6 +386,12 @@ module Alchemy
     end
 
     private
+
+    # ActiveRecord doesn't seem to be as smart as one might think :(
+    def create_current_version!
+      build_current_version(page_id: id)
+      save!
+    end
 
     # Returns the next or previous page on the same level or nil.
     #
