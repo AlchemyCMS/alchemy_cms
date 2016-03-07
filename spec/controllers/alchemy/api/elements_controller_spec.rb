@@ -3,10 +3,16 @@ require 'spec_helper'
 module Alchemy
   describe Api::ElementsController do
     describe '#index' do
-      let(:page) { create(:alchemy_page, :public) }
+      let(:page) do
+        page = create(:alchemy_page, :public)
+        # TODO: Investigate why this is horribly broken in AR!
+        page.build_public_version(page_id: page.id)
+        page.save!
+        page
+      end
 
       before do
-        2.times { create(:alchemy_element, page: page) }
+        create_list(:alchemy_element, 2, page_version: page.public_version)
       end
 
       it "returns all public elements as json objects" do

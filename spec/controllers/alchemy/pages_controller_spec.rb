@@ -165,6 +165,10 @@ module Alchemy
       end
 
       it "should include content" do
+        # TODO: Investigate why this is horribly broken in AR!
+        page.build_public_version(page_id: page.id)
+        page.save!
+        page.public_version.elements << page.current_elements
         page.elements.first.content_by_name('news_headline').essence.update_attributes({body: 'Peters Petshop'})
         alchemy_get :show, urlname: 'news', format: :rss
         expect(response.body).to match /Peters Petshop/
@@ -198,7 +202,10 @@ module Alchemy
       before do
         allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
         allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : false }
-        product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
+        product.build_public_version(page_id: product.id)
+        product.save!
+        product.public_version.elements << product.current_elements
+        product.elements.find_by(name: 'article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       end
 
       context "with correct levelnames in params" do
@@ -300,19 +307,17 @@ module Alchemy
       let(:klingon) { create(:alchemy_language, :klingon) }
 
       context 'having two pages with the same url names in different languages' do
-        render_views
+        let!(:klingon_page) do
+          create(:alchemy_page, :public, language: klingon, name: "same-name", do_not_autogenerate: false)
+        end
 
-        let!(:klingon_page) { create(:alchemy_page, :public, language: klingon, name: "same-name", do_not_autogenerate: false) }
-        let!(:english_page) { create(:alchemy_page, :public, language: default_language, name: "same-name") }
-
-        before do
-          # Set a text in an essence rendered on the page so we can match against that
-          klingon_page.essence_texts.first.update_column(:body, 'klingon page')
+        let!(:english_page) do
+          create(:alchemy_page, :public, language: default_language, name: "same-name")
         end
 
         it 'renders the page related to its language' do
-          alchemy_get :show, {urlname: "same-name", locale: klingon_page.language_code}
-          expect(response.body).to have_content("klingon page")
+          alchemy_get :show, urlname: "same-name", locale: klingon_page.language_code
+          expect(assigns(:page)).to eq(klingon_page)
         end
       end
     end

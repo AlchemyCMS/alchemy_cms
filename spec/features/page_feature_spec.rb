@@ -33,17 +33,31 @@ module Alchemy
       end
     end
 
-    context 'rendered' do
-      let(:public_page) { create(:alchemy_page, :public, do_not_autogenerate: false) }
-      let(:article) { public_page.elements.find_by_name('article') }
-      let(:essence) { article.content_by_name('intro').essence }
-
-      before do
-        essence.update_attributes(body: 'Welcome to Peters Petshop', public: true)
+    describe 'gets rendered' do
+      let!(:public_page) do
+        page = create(:alchemy_page, :public)
+        # TODO: Investigate why this is horribly broken in AR!
+        page.build_public_version(page_id: page.id)
+        page.save!
+        page
       end
 
-      it "should include all its elements and contents" do
+      let!(:article) do
+        create :alchemy_element,
+          page_version_id: public_page.public_version_id,
+          create_contents_after_create: true,
+          name: 'article'
+      end
+
+      let!(:essence) { article.contents.find_by!(name: 'intro').essence }
+
+      before do
+        essence.update(body: 'Welcome to Peters Petshop', public: true)
+      end
+
+      it "includes all its elements and contents" do
         visit "/#{public_page.urlname}"
+
         within('div#content div.article div.intro') do
           expect(page).to have_content('Welcome to Peters Petshop')
         end

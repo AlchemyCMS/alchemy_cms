@@ -6,6 +6,7 @@ module Alchemy
       :name,
       :position,
       :page_id,
+      :page_version_id,
       :cell_id,
       :tag_list,
       :created_at,
@@ -15,6 +16,10 @@ module Alchemy
 
     def ingredients
       object.contents.collect(&:serialize)
+    end
+
+    def page_id
+      object.page_version.page_id
     end
   end
 end

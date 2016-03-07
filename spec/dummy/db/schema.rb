@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160301203630) do
+ActiveRecord::Schema.define(version: 20160301205721) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20160301203630) do
   create_table "alchemy_elements", force: :cascade do |t|
     t.string   "name"
     t.integer  "position"
-    t.integer  "page_id"
+    t.integer  "page_version_id"
     t.boolean  "public",            default: true
     t.boolean  "folded",            default: false
     t.boolean  "unique",            default: false
@@ -65,8 +65,8 @@ ActiveRecord::Schema.define(version: 20160301203630) do
     t.integer  "parent_element_id"
   end
 
-  add_index "alchemy_elements", ["page_id", "parent_element_id"], name: "index_alchemy_elements_on_page_id_and_parent_element_id"
-  add_index "alchemy_elements", ["page_id", "position"], name: "index_elements_on_page_id_and_position"
+  add_index "alchemy_elements", ["page_version_id", "parent_element_id"], name: "alchemy_elements_page_version_parent_element_idx"
+  add_index "alchemy_elements", ["page_version_id", "position"], name: "index_elements_on_page_id_and_position"
 
   create_table "alchemy_elements_alchemy_pages", id: false, force: :cascade do |t|
     t.integer "element_id"

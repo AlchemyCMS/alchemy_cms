@@ -26,8 +26,8 @@ module Alchemy
       end
 
       it "should merge given attributes into defined ones" do
-        el = Element.new_from_scratch(name: 'article', page_id: 1)
-        expect(el.page_id).to eq(1)
+        el = Element.new_from_scratch(name: 'article', page_version_id: 1)
+        expect(el.page_version_id).to eq(1)
       end
 
       it "should not have forbidden attributes from definition" do
@@ -68,8 +68,7 @@ module Alchemy
         let(:element) do
           create(:alchemy_element, :with_nestable_elements, {
             create_contents_after_create: true,
-            tag_list: 'red, yellow',
-            page: create(:alchemy_page)
+            tag_list: 'red, yellow'
           })
         end
 
@@ -81,16 +80,16 @@ module Alchemy
           expect(subject.nested_elements).to_not be_empty
         end
 
-        context 'copy to new page' do
+        context 'copy to new page version' do
           let(:new_page) { create(:alchemy_page) }
 
           subject(:new_element) do
-            Element.copy(element, {page_id: new_page.id})
+            Element.copy(element, {page_version_id: new_page.current_version_id})
           end
 
-          it "should set page id to new page's id" do
+          it "sets page version id to new page's current version id" do
             new_element.nested_elements.each do |nested_element|
-              expect(nested_element.page_id).to eq(new_page.id)
+              expect(nested_element.page_version_id).to eq(new_page.current_version_id)
             end
           end
         end
@@ -204,11 +203,9 @@ module Alchemy
     end
 
     context 'trash' do
-      let(:element) { create(:alchemy_element, page_id: 1) }
+      let!(:element) { create(:alchemy_element, page_version_id: 1) }
 
       describe '.not_trashed' do
-        before { element }
-
         it "should return a collection of not trashed elements" do
           expect(Element.not_trashed.to_a).to eq([element])
         end
@@ -494,32 +491,38 @@ module Alchemy
     context 'previous and next elements.' do
       let(:page) { create(:alchemy_page, :language_root) }
 
-      before(:each) do
-        @element1 = create(:alchemy_element, page: page, name: 'headline')
-        @element2 = create(:alchemy_element, page: page)
-        @element3 = create(:alchemy_element, page: page, name: 'text')
+      let!(:element1) do
+        create(:alchemy_element, page_version: page.current_version, name: 'headline')
+      end
+
+      let!(:element2) do
+        create(:alchemy_element, page_version: page.current_version)
+      end
+
+      let!(:element3) do
+        create(:alchemy_element, page_version: page.current_version, name: 'text')
       end
 
       describe '#prev' do
         it "should return previous element on same page" do
-          expect(@element3.prev).to eq(@element2)
+          expect(element3.prev).to eq(element2)
         end
 
         context "with name as parameter" do
           it "should return previous of this kind" do
-            expect(@element3.prev('headline')).to eq(@element1)
+            expect(element3.prev('headline')).to eq(element1)
           end
         end
       end
 
       describe '#next' do
         it "should return next element on same page" do
-          expect(@element2.next).to eq(@element3)
+          expect(element2.next).to eq(element3)
         end
 
         context "with name as parameter" do
           it "should return next of this kind" do
-            expect(@element1.next('text')).to eq(@element3)
+            expect(element1.next('text')).to eq(element3)
           end
         end
       end
@@ -694,22 +697,30 @@ module Alchemy
     end
 
     describe '#trash!' do
-      let(:element)         { create(:alchemy_element, page_id: 1, cell_id: 1) }
+      let(:element) { create(:alchemy_element, page_version_id: 1, cell_id: 1) }
       let(:trashed_element) { element.trash!; element }
-      subject               { trashed_element }
 
-      it             { is_expected.not_to be_public }
-      it             { is_expected.to be_folded }
+      subject { trashed_element }
+
+      it { is_expected.not_to be_public }
+      it { is_expected.to be_folded }
 
       describe '#position' do
-        subject { super().position }
+        subject { trashed_element.position }
+
         it { is_expected.to be_nil }
       end
-      specify        { expect { element.trash! }.to_not change(element, :page_id) }
-      specify        { expect { element.trash! }.to_not change(element, :cell_id) }
+
+      specify do
+        expect { element.trash! }.to_not change(element, :page_version_id)
+      end
+
+      specify do
+        expect { element.trash! }.to_not change(element, :cell_id)
+      end
 
       context "with already one trashed element on the same page" do
-        let(:element_2) { create(:alchemy_element, page_id: 1) }
+        let(:element_2) { create(:alchemy_element, page_version_id: 1) }
 
         before do
           trashed_element
