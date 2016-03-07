@@ -2,10 +2,17 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::ElementsController do
-    let(:alchemy_page)         { create(:alchemy_page) }
-    let(:element)              { create(:alchemy_element, page: alchemy_page) }
-    let(:element_in_clipboard) { create(:alchemy_element, page: alchemy_page) }
-    let(:clipboard)            { session[:alchemy_clipboard] = {} }
+    let(:alchemy_page) { create(:alchemy_page) }
+
+    let(:element) do
+      create(:alchemy_element, page_version_id: alchemy_page.current_version_id)
+    end
+
+    let(:element_in_clipboard) do
+      create(:alchemy_element, page_version_id: alchemy_page.current_version_id)
+    end
+
+    let(:clipboard) { session[:alchemy_clipboard] = {} }
 
     before { authorize_user(:as_author) }
 
@@ -13,14 +20,14 @@ module Alchemy
       let(:alchemy_page) { build_stubbed(:alchemy_page) }
 
       before do
-        expect(Page).to receive(:find).and_return alchemy_page
+        expect(Page).to receive(:find_by).and_return alchemy_page
       end
 
       context 'with cells' do
-        let(:cell) { build_stubbed(:alchemy_cell, page: alchemy_page) }
+        let(:cell) { create(:alchemy_cell, page: alchemy_page) }
 
         before do
-          expect(alchemy_page).to receive(:cells).and_return [cell]
+          alchemy_page.cells << cell
         end
 
         it "groups elements by cell" do
@@ -31,12 +38,8 @@ module Alchemy
       end
 
       context 'without cells' do
-        before do
-          expect(alchemy_page).to receive(:cells).and_return []
-        end
-
         it "assigns page elements" do
-          expect(alchemy_page).to receive(:elements).and_return(double(not_trashed: []))
+          expect(alchemy_page).to receive(:current_elements).and_return(double(not_trashed: []))
           alchemy_get :index, {page_id: alchemy_page.id}
         end
       end
@@ -45,45 +48,54 @@ module Alchemy
     describe '#list' do
       context 'without page_id, but with page_urlname' do
         it "loads page from urlname" do
-          expect {
-            alchemy_xhr :get, :list, {page_urlname: alchemy_page.urlname}
-          }.to_not raise_error
+          alchemy_xhr :get, :list, {page_urlname: alchemy_page.urlname}
+          expect(assigns(:elements)).to eq(alchemy_page.current_elements.published)
         end
 
         describe 'view' do
           render_views
 
-          it "should return a select tag with elements" do
-            alchemy_xhr :get, :list, {page_urlname: alchemy_page.urlname}
+          it "returns a select tag with elements" do
+            alchemy_xhr :get, :list, {page_id: alchemy_page.id}
             expect(response.body).to match(/select(.*)elements_from_page_selector(.*)option/)
           end
         end
       end
 
       context 'with page_id' do
-        it "loads page from urlname" do
+        it "loads elements from page id" do
           alchemy_xhr :get, :list, {page_id: alchemy_page.id}
-          expect(assigns(:page_id)).to eq(alchemy_page.id.to_s)
+          expect(assigns(:elements)).to eq(alchemy_page.current_elements.published)
         end
       end
     end
 
     describe '#order' do
-      let(:element_1)   { create(:alchemy_element) }
-      let(:element_2)   { create(:alchemy_element, page: page) }
-      let(:element_3)   { create(:alchemy_element, page: page) }
-      let(:element_ids) { [element_1.id, element_3.id, element_2.id] }
-      let(:page)        { element_1.page }
+      let(:element_1) do
+        create(:alchemy_element, page_version: alchemy_page.current_version)
+      end
+
+      let(:element_2) do
+        create(:alchemy_element, page_version: alchemy_page.current_version)
+      end
+
+      let(:element_3) do
+        create(:alchemy_element, page_version: alchemy_page.current_version)
+      end
+
+      let(:element_ids) do
+        [element_1.id, element_3.id, element_2.id]
+      end
 
       it "sets new position for given element ids" do
-        alchemy_xhr :post, :order, page_id: page.id, element_ids: element_ids
+        alchemy_xhr :post, :order, page_id: alchemy_page.id, element_ids: element_ids
         expect(Element.all.pluck(:id)).to eq(element_ids)
       end
 
       context 'with missing [:element_ids] param' do
         it 'does not raise any error and silently rejects to order' do
           expect {
-            alchemy_xhr :post, :order, page_id: page.id
+            alchemy_xhr :post, :order, page_id: alchemy_page.id
           }.to_not raise_error
         end
       end
@@ -95,14 +107,14 @@ module Alchemy
           expect(Element).to receive(:find_by) { parent }
           expect(parent).to receive(:touch) { true }
           alchemy_xhr :post, :order,
-            page_id: page.id,
+            page_id: alchemy_page.id,
             element_ids: element_ids,
             parent_element_id: parent.id
         end
 
         it 'assigns parent element id to each element' do
           alchemy_xhr :post, :order,
-            page_id: page.id,
+            page_id: alchemy_page.id,
             element_ids: element_ids,
             parent_element_id: parent.id
           [element_1, element_2, element_3].each do |element|
@@ -112,7 +124,11 @@ module Alchemy
       end
 
       context "untrashing" do
-        let(:trashed_element) { create(:alchemy_element) }
+        let(:trashed_element) do
+          create(:alchemy_element, page_version_id: alchemy_page.current_version_id)
+        end
+
+        let(:other_page) { create(:alchemy_page) }
 
         before do
           # Because of a before_create filter it can not be created with a nil position
@@ -121,24 +137,20 @@ module Alchemy
         end
 
         it "sets a list of trashed element ids" do
-          alchemy_xhr :post, :order, page_id: page.id, element_ids: [trashed_element.id]
+          alchemy_xhr :post, :order, page_id: alchemy_page.id, element_ids: [trashed_element.id]
           expect(assigns(:trashed_element_ids).to_a).to eq [trashed_element.id]
         end
 
         it "sets a new position to the element" do
-          alchemy_xhr :post, :order, page_id: page.id, element_ids: [trashed_element.id]
+          alchemy_xhr :post, :order, page_id: alchemy_page.id, element_ids: [trashed_element.id]
           trashed_element.reload
           expect(trashed_element.position).to_not be_nil
         end
 
-        context "with new page_id present" do
-          let(:page) { create(:alchemy_page) }
-
-          it "should assign the (new) page_id to the element" do
-            alchemy_xhr :post, :order, element_ids: [trashed_element.id], page_id: page.id
-            trashed_element.reload
-            expect(trashed_element.page_id).to be page.id
-          end
+        it "should assign the (new) page_version_id to the element" do
+          alchemy_xhr :post, :order, element_ids: [trashed_element.id], page_id: other_page.id, cell_id: nil
+          trashed_element.reload
+          expect(trashed_element.page_version_id).to be other_page.current_version_id
         end
 
         context "with cell_id present" do
@@ -147,7 +159,7 @@ module Alchemy
           it "should assign the (new) cell_id to the element" do
             alchemy_xhr :post, :order,
               element_ids: [trashed_element.id],
-              page_id: trashed_element.page_id,
+              page_id: alchemy_page.id,
               cell_id: cell.id
 
             trashed_element.reload
@@ -158,10 +170,12 @@ module Alchemy
     end
 
     describe '#new' do
-      let(:alchemy_page) { build_stubbed(:alchemy_page) }
+      let(:alchemy_page) do
+        build_stubbed(:alchemy_page)
+      end
 
       before do
-        expect(Page).to receive(:find).and_return(alchemy_page)
+        allow(Page).to receive(:find_by).and_return(alchemy_page)
       end
 
       it "assign variable for all available element definitions" do
@@ -171,9 +185,14 @@ module Alchemy
 
       context "with elements in clipboard" do
         let(:element) { build_stubbed(:alchemy_element) }
-        let(:clipboard_items) { [{'id' => element.id.to_s, 'action' => 'copy'}] }
 
-        before { clipboard['elements'] = clipboard_items }
+        let(:clipboard_items) do
+          [{'id' => element.id.to_s, 'action' => 'copy'}]
+        end
+
+        before do
+          clipboard['elements'] = clipboard_items
+        end
 
         it "should load all elements from clipboard" do
           expect(Element).to receive(:all_from_clipboard_for_page).and_return(clipboard_items)
@@ -187,10 +206,10 @@ module Alchemy
       describe 'insertion position' do
         before { element }
 
-        it "should insert the element at bottom of list" do
-          alchemy_xhr :post, :create, {element: {name: 'news', page_id: alchemy_page.id}}
-          expect(alchemy_page.elements.count).to eq(2)
-          expect(alchemy_page.elements.last.name).to eq('news')
+        it "inserts the element at bottom of list" do
+          alchemy_xhr :post, :create, page_id: alchemy_page.id, element: {name: 'news'}
+          expect(alchemy_page.current_elements.count).to eq(2)
+          expect(alchemy_page.current_elements.last.name).to eq('news')
         end
 
         context "on a page with a setting for insert_elements_at of top" do
@@ -203,9 +222,9 @@ module Alchemy
           end
 
           it "should insert the element at top of list" do
-            alchemy_xhr :post, :create, {element: {name: 'news', page_id: alchemy_page.id}}
-            expect(alchemy_page.elements.count).to eq(2)
-            expect(alchemy_page.elements.first.name).to eq('news')
+            alchemy_xhr :post, :create, page_id: alchemy_page.id, element: {name: 'news'}
+            expect(alchemy_page.current_elements.count).to eq(2)
+            expect(alchemy_page.current_elements.first.name).to eq('news')
           end
         end
       end
@@ -229,15 +248,15 @@ module Alchemy
             end
 
             it "should put the element in the correct cell" do
-              alchemy_xhr :post, :create, {element: {name: "article#header", page_id: page.id}}
+              alchemy_xhr :post, :create, page_id: page.id, element: {name: "article#header"}
               expect(cell.elements.first).to be_an_instance_of(Element)
             end
           end
 
           context "and no cell name in element name" do
             it "should put the element in the main cell" do
-              alchemy_xhr :post, :create, {element: {name: "article", page_id: page.id}}
-              expect(page.elements.not_in_cell.first).to be_an_instance_of(Element)
+              alchemy_xhr :post, :create, page_id: page.id, element: {name: "article"}
+              expect(page.current_elements.not_in_cell.first).to be_an_instance_of(Element)
             end
           end
         end
@@ -262,17 +281,21 @@ module Alchemy
               end
 
               it "should create the element in the correct cell" do
-                alchemy_xhr :post, :create, {element: {page_id: page.id}, paste_from_clipboard: "#{element_in_clipboard.id}##{cell.name}"}
+                alchemy_xhr :post, :create, page_id: page.id, element: {}, paste_from_clipboard: "#{element_in_clipboard.id}##{cell.name}"
                 expect(cell.elements.first).to be_an_instance_of(Element)
               end
 
               context "with elements already in cell" do
                 before do
-                  cell.elements.create(page_id: page.id, name: "article", create_contents_after_create: false)
+                  cell.elements.create(
+                    page_version_id: page.current_version_id,
+                    name: "article",
+                    create_contents_after_create: false
+                  )
                 end
 
                 it "should set the correct position for the element" do
-                  alchemy_xhr :post, :create, {element: {page_id: page.id}, paste_from_clipboard: "#{element_in_clipboard.id}##{cell.name}"}
+                  alchemy_xhr :post, :create, page_id: page.id, element: {}, paste_from_clipboard: "#{element_in_clipboard.id}##{cell.name}"
                   expect(cell.elements.last.position).to eq(cell.elements.count)
                 end
               end
@@ -280,17 +303,33 @@ module Alchemy
 
             context "and no cell name in element name" do
               it "should create the element in the nil cell" do
-                alchemy_xhr :post, :create, {element: {page_id: page.id}, paste_from_clipboard: element_in_clipboard.id.to_s}
-                expect(page.elements.first.cell).to eq(nil)
+                alchemy_xhr :post, :create, page_id: page.id, element: {}, paste_from_clipboard: element_in_clipboard.id.to_s
+                expect(page.current_elements.first.cell).to eq(nil)
               end
             end
           end
 
           context "on a page with a setting for insert_elements_at of top" do
-            let!(:alchemy_page)         { create(:alchemy_page, :public, name: 'News') }
-            let!(:element_in_clipboard) { create(:alchemy_element, page: alchemy_page, name: 'news') }
-            let!(:cell)                 { create(:alchemy_cell, name: 'news', page: alchemy_page) }
-            let!(:element)              { create(:alchemy_element, name: 'news', page: alchemy_page, cell: cell) }
+            let!(:alchemy_page) do
+              create(:alchemy_page, :public, name: 'News')
+            end
+
+            let!(:element_in_clipboard) do
+              create :alchemy_element,
+                page_version: alchemy_page.current_version,
+                name: 'news'
+            end
+
+            let!(:cell) do
+              create(:alchemy_cell, name: 'news', page: alchemy_page)
+            end
+
+            let!(:element) do
+              create :alchemy_element,
+                page_version: alchemy_page.current_version,
+                name: 'news',
+                cell: cell
+            end
 
             before do
               expect(PageLayout).to receive(:get).at_least(:once).and_return({
@@ -299,16 +338,18 @@ module Alchemy
                 'insert_elements_at' => 'top',
                 'cells' => ['news']
               })
+
               expect(Cell).to receive(:definition_for).and_return({
                 'name' => 'news',
                 'elements' => ['news']
               })
+
               clipboard['elements'] = [{'id' => element_in_clipboard.id.to_s}]
               cell.elements << element
             end
 
             it "should insert the element at top of list" do
-              alchemy_xhr :post, :create, {element: {name: 'news', page_id: alchemy_page.id}, paste_from_clipboard: "#{element_in_clipboard.id}##{cell.name}"}
+              alchemy_xhr :post, :create, page_id: alchemy_page.id, element: {name: 'news'}, paste_from_clipboard: "#{element_in_clipboard.id}##{cell.name}"
               expect(cell.elements.count).to eq(2)
               expect(cell.elements.first.name).to eq('news')
               expect(cell.elements.first).not_to eq(element)
@@ -325,21 +366,21 @@ module Alchemy
         end
 
         it "should create an element from clipboard" do
-          alchemy_xhr :post, :create, {paste_from_clipboard: element_in_clipboard.id, element: {page_id: alchemy_page.id}}
+          alchemy_xhr :post, :create, page_id: alchemy_page.id, paste_from_clipboard: element_in_clipboard.id, element: {}
           expect(response.status).to eq(200)
           expect(response.body).to match(/Successfully added new element/)
         end
 
         context "and with cut as action parameter" do
           it "should also remove the element id from clipboard" do
-            alchemy_xhr :post, :create, {paste_from_clipboard: element_in_clipboard.id, element: {page_id: alchemy_page.id}}
+            alchemy_xhr :post, :create, page_id: alchemy_page.id, paste_from_clipboard: element_in_clipboard.id, element: {}
             expect(session[:alchemy_clipboard]['elements'].detect { |item| item['id'] == element_in_clipboard.id.to_s }).to be_nil
           end
         end
       end
 
       context 'if element could not be saved' do
-        subject { alchemy_post :create, {element: {page_id: alchemy_page.id}} }
+        subject { alchemy_post :create, page_id: alchemy_page.id, element: {} }
 
         before do
           expect_any_instance_of(Element).to receive(:save).and_return false
@@ -362,7 +403,7 @@ module Alchemy
             'name' => 'header',
             'elements' => ['header']
           })
-          expect(controller).to receive(:params).and_return({element: {name: 'header#header'}})
+          allow(controller).to receive(:params).and_return({element: {name: 'header#header'}})
         end
 
         context "with cell not existing" do
@@ -388,7 +429,7 @@ module Alchemy
 
       context "with only the element name in the params" do
         before do
-          expect(controller).to receive(:params).and_return({element: {name: 'header'}})
+          allow(controller).to receive(:params).and_return({element: {name: 'header'}})
         end
 
         it "should return nil" do
@@ -398,7 +439,7 @@ module Alchemy
 
       context 'with cell definition not found' do
         before do
-          expect(controller).to receive(:params).and_return({element: {name: 'header#header'}})
+          allow(controller).to receive(:params).and_return({element: {name: 'header#header'}})
           expect(Cell).to receive(:definition_for).and_return nil
         end
 

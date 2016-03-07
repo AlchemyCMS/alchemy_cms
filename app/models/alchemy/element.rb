@@ -5,7 +5,7 @@
 #  id              :integer          not null, primary key
 #  name            :string(255)
 #  position        :integer
-#  page_id         :integer
+#  page_version_id :integer
 #  public          :boolean          default(TRUE)
 #  folded          :boolean          default(FALSE)
 #  unique          :boolean          default(FALSE)
@@ -45,15 +45,15 @@ module Alchemy
 
     acts_as_taggable
 
-    # All Elements that share the same page id, cell id and parent element id are considered a list.
+    # All Elements that share the same page_version id, cell id and parent element id are considered a list.
     #
     # If cell id and parent element id are nil (typical case for a simple page),
     # then all elements on that page are still in one list,
     # because acts_as_list correctly creates this statement:
     #
-    #   WHERE page_id = 1 and cell_id = NULL AND parent_element_id = NULL
+    #   WHERE page_version_id = 1 and cell_id = NULL AND parent_element_id = NULL
     #
-    acts_as_list scope: [:page_id, :cell_id, :parent_element_id]
+    acts_as_list scope: [:page_version_id, :cell_id, :parent_element_id]
 
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -69,7 +69,13 @@ module Alchemy
       dependent: :destroy
 
     belongs_to :cell, required: false
-    belongs_to :page, required: true
+
+    belongs_to :page_version,
+      class_name: 'Alchemy::PageVersion',
+      inverse_of: :elements,
+      required: true
+
+    has_one :page, through: :page_version
 
     # A nested element belongs to a parent element.
     belongs_to :parent_element,
@@ -102,6 +108,7 @@ module Alchemy
     scope :from_current_site, -> { where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: 'language') }
     scope :folded,            -> { where(folded: true) }
     scope :expanded,          -> { where(folded: false) }
+    scope :with_version,      ->(version_id) { where(page_version_id: version_id) }
 
     delegate :restricted?, to: :page, allow_nil: true
 
@@ -206,17 +213,24 @@ module Alchemy
       end
     end
 
-    # Returns next public element from same page.
+    ## Instance Methods
+
+    # Elements having same page version as this element
+    def siblings
+      self.class.with_version(page_version_id)
+    end
+
+    # Returns next public element from same page version.
     #
-    # Pass an element name to get next of this kind.
+    # Pass an element name to only get next element of this kind.
     #
     def next(name = nil)
       previous_or_next('>', name)
     end
 
-    # Returns previous public element from same page.
+    # Returns previous public element from same page version.
     #
-    # Pass an element name to get previous of this kind.
+    # Pass an element name to only get previous element of this kind.
     #
     def prev(name = nil)
       previous_or_next('<', name)
@@ -305,7 +319,7 @@ module Alchemy
       nested_elements.map do |nested_element|
         Element.copy(nested_element, {
           parent_element_id: target_element.id,
-          page_id: target_element.page_id,
+          page_version_id: target_element.page_version_id,
           cell_id: target_element.cell_id
         })
       end
@@ -313,7 +327,7 @@ module Alchemy
 
     private
 
-    # Returns previous or next public element from same page.
+    # Returns previous or next public element from same page version.
     #
     # @param [String]
     #   Pass '>' or '<' to find next or previous public element.
@@ -321,7 +335,7 @@ module Alchemy
     #   Pass an element name to get previous of this kind.
     #
     def previous_or_next(dir, name = nil)
-      elements = page.elements.published.where("#{self.class.table_name}.position #{dir} #{position}")
+      elements = siblings.published.where("#{Element.table_name}.position #{dir} #{position}")
       elements = elements.named(name) if name.present?
       elements.reorder("position #{dir == '>' ? 'ASC' : 'DESC'}").limit(1).first
     end

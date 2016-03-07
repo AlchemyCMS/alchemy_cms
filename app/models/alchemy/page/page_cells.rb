@@ -42,7 +42,7 @@ module Alchemy
 
     # Returns elements grouped by cell.
     def elements_grouped_by_cells
-      elements.not_trashed.in_cell.group_by(&:cell)
+      current_elements.not_trashed.in_cell.group_by(&:cell)
     end
 
     # Returns element names from cell definition.

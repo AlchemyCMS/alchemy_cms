@@ -9,7 +9,8 @@ module Alchemy
     def index
       @elements = Element.accessible_by(current_ability, :index)
       if params[:page_id].present?
-        @elements = @elements.where(page_id: params[:page_id])
+        @elements = @elements.joins(page: :public_version)
+                      .where(alchemy_page_versions: {page_id: params[:page_id]})
       end
       if params[:named].present?
         @elements = @elements.named(params[:named])

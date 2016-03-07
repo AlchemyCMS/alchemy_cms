@@ -4,7 +4,7 @@ class AddForeignKeyIndicesAndNullConstraints < ActiveRecord::Migration
     change_column_null :alchemy_contents, :element_id, false, 0
     change_column_null :alchemy_contents, :essence_id, false, 0
     change_column_null :alchemy_contents, :essence_type, false, 'Alchemy::EssenceText'
-    change_column_null :alchemy_elements, :page_id, false, 0
+    change_column_null :alchemy_elements, :page_version_id, false, 0
     change_column_null :alchemy_folded_pages, :page_id, false, 0
     change_column_null :alchemy_folded_pages, :user_id, false, 0
     change_column_null :alchemy_languages, :site_id, false, 0

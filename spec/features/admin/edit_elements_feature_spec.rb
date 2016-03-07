@@ -26,10 +26,12 @@ RSpec.feature "The edit elements feature" do
   end
 
   context 'With an element having nestable elements defined' do
-    let!(:element) { create(:alchemy_element, :with_nestable_elements, page: a_page) }
+    let!(:element) do
+      create(:alchemy_element, :with_nestable_elements, page_version: a_page.current_version)
+    end
 
     scenario 'a button to add an nestable element appears.' do
-      visit alchemy.admin_elements_path(page_id: element.page_id)
+      visit alchemy.admin_elements_path(page_id: element.page_version.page_id)
       expect(page).to have_selector('.add-nestable-element-button')
     end
   end

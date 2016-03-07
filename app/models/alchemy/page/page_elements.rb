@@ -5,18 +5,37 @@ module Alchemy
     included do
       attr_accessor :do_not_autogenerate
 
-      has_many :elements, -> { where(parent_element_id: nil).not_trashed.order(:position) }
+      has_many :public_elements,
+        -> { where(parent_element_id: nil).not_trashed.order(:position) },
+        through: :public_version,
+        source: :elements
+
+      alias_method :elements, :public_elements
+
+      has_many :current_elements,
+        -> { where(parent_element_id: nil).not_trashed.order(:position) },
+        through: :current_version,
+        source: :elements
+
       has_many :trashed_elements,
         -> { Element.trashed.order(:position) },
-        class_name: 'Alchemy::Element'
+        class_name: 'Alchemy::Element',
+        through: :public_version,
+        source: :elements
+
       has_many :descendent_elements,
         -> { order(:position).not_trashed },
-        class_name: 'Alchemy::Element'
-      has_many :contents, through: :elements
+        class_name: 'Alchemy::Element',
+        through: :public_version,
+        source: :elements
+
+      has_many :contents, through: :public_elements
+
       has_many :descendent_contents,
         through: :descendent_elements,
         class_name: 'Alchemy::Content',
         source: :contents
+
       has_and_belongs_to_many :to_be_swept_elements, -> { uniq },
         class_name: 'Alchemy::Element',
         join_table: ElementToPage.table_name
@@ -35,18 +54,20 @@ module Alchemy
       #
       def copy_elements(source, target)
         new_elements = []
-        source.elements.not_trashed.each do |source_element|
+
+        source.current_elements.not_trashed.each do |source_element|
           cell = nil
           if source_element.cell
             cell = target.cells.find_by(name: source_element.cell.name)
           end
           new_element = Element.copy source_element, {
-            page_id: target.id,
+            page_version_id: target.current_version_id,
             cell_id: cell.try(:id)
           }
           new_element.move_to_bottom
           new_elements << new_element
         end
+
         new_elements
       end
     end
@@ -203,13 +224,13 @@ module Alchemy
       elements.available.named(definition['feed_elements'])
     end
 
-    # Returns an array of all EssenceRichtext contents ids from not folded elements
+    # Returns an array of all EssenceRichtext contents ids
+    # from not folded elements of current page version.
+    #
+    # Used to initialize TinMCE editors in page edit admin UI.
     #
     def richtext_contents_ids
-      descendent_contents
-        .where(Element.table_name => {folded: false})
-        .select(&:has_tinymce?)
-        .collect(&:id)
+      @_richtext_contents_ids ||= expanded_richtext_contents.collect(&:id)
     end
 
     def element_names_from_definition
@@ -217,6 +238,20 @@ module Alchemy
     end
 
     private
+
+    # Returns all contents that has tinymce enabled from expanded contents.
+    def expanded_richtext_contents
+      @_expanded_richtext_contents ||= expanded_contents.select(&:has_tinymce?)
+    end
+
+    # Returns all contents from not folded elements of current page version.
+    def expanded_contents
+      Content.joins(:element)
+        .where(Element.table_name => {
+          page_version_id: current_version_id,
+          folded: false
+        })
+    end
 
     def element_names_from_cell_definitions
       @_element_names_from_cell_definitions ||= cell_definitions.map do |d|
@@ -231,13 +266,13 @@ module Alchemy
     # If the page has cells, it looks if there are elements to generate.
     #
     def autogenerate_elements
-      elements_already_on_page = elements.available.pluck(:name)
-      elements = definition["autogenerate"]
-      if elements.present?
-        elements.each do |element|
-          next if elements_already_on_page.include?(element)
-          Element.create_from_scratch(attributes_for_element_name(element))
-        end
+      elements_already_on_page = current_elements.available.pluck(:name)
+      generatable_elements = definition["autogenerate"]
+      return if generatable_elements.blank?
+
+      generatable_elements.each do |element_name|
+        next if elements_already_on_page.include?(element_name)
+        Element.create_from_scratch(attributes_for_element_name(element_name))
       end
     end
 
@@ -246,15 +281,15 @@ module Alchemy
       element_cell_definition = cell_definitions.detect { |c| c['elements'].include?(element) }
       if has_cells? && element_cell_definition
         cell = cells.find_by!(name: element_cell_definition['name'])
-        {page_id: id, cell_id: cell.id, name: element}
+        {page_version_id: current_version_id, cell_id: cell.id, name: element}
       else
-        {page_id: id, name: element}
+        {page_version_id: current_version_id, name: element}
       end
     end
 
     # Trashes all elements that are not allowed for this page_layout.
     def trash_not_allowed_elements!
-      not_allowed_elements = elements.where([
+      not_allowed_elements = current_elements.where([
         "#{Element.table_name}.name NOT IN (?)",
         element_names_from_definition
       ])

@@ -49,7 +49,13 @@ module Alchemy
     end
 
     describe '#nested' do
-      let!(:page) { create(:alchemy_page, :public, page_layout: 'contact') }
+      let!(:page) do
+        page = create(:alchemy_page, :public, page_layout: 'contact')
+        # TODO: Investigate why this is horribly broken in AR!
+        page.build_public_version(page_id: page.id)
+        page.save!
+        page
+      end
 
       it "returns all pages as nested json tree without admin related infos", :aggregate_failures do
         alchemy_get :nested, format: :json
@@ -133,6 +139,7 @@ module Alchemy
         context "and elements is a comma separated list of element names" do
           before do
             page.send(:autogenerate_elements)
+            page.current_elements.update_all(page_version_id: page.public_version_id)
           end
 
           it 'returns all pages as nested json tree with only these elements included' do
