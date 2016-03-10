@@ -39,7 +39,7 @@
   </div>
   <% if page_for_links.children.present? %>
     <ul id="page_<%= page_for_links.id %>_children">
-      <%= render partial: 'page_for_links', collection: page_for_links.children, locals: {area_name: @area_name} %>
+      <%= render partial: 'page_for_links', collection: page_for_links.children %>
     </ul>
   <% end %>
 </li>

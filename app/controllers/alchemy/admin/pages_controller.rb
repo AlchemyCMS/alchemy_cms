@@ -130,7 +130,6 @@ module Alchemy
         else
           set_root_page
         end
-        @area_name = params[:area_name]
         @content_id = params[:content_id]
         @attachments = Attachment.all.collect { |f| [f.name, download_attachment_path(:id => f.id, :name => f.urlname)] }
         if params[:link_urls_for] == "newsletter"
