@@ -48,13 +48,6 @@ module Alchemy
 
       after_update :autogenerate_elements,
         if: :page_layout_changed?
-
-      after_destroy do
-        elements.each do |element|
-          next if element.trashed?
-          element.destroy
-        end
-      end
     end
 
     module ClassMethods

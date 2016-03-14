@@ -867,19 +867,6 @@ module Alchemy
       end
     end
 
-    describe '#destroy' do
-      context "with trashed but still assigned elements" do
-        before do
-          news_page.current_elements.map(&:trash!)
-        end
-
-        it "should not delete the trashed elements" do
-          news_page.destroy
-          expect(Element.trashed).not_to be_empty
-        end
-      end
-    end
-
     describe "#elements" do
       let(:page) { create(:alchemy_page, :public) }
       let(:element_1) { create(:alchemy_element, page_version: page.public_version) }

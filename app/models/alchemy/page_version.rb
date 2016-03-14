@@ -8,5 +8,13 @@ module Alchemy
     has_many :elements, -> { order(:position) },
       class_name: 'Alchemy::Element',
       inverse_of: :page_version
+
+    after_destroy :destroy_not_trashed_elements
+
+    private
+
+    def destroy_not_trashed_elements
+      elements.not_trashed.destroy_all
+    end
   end
 end
