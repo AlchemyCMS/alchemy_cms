@@ -47,7 +47,22 @@ module Alchemy
       locked: false,
       locked_by: nil
     }
-    SKIPPED_ATTRIBUTES_ON_COPY = %w(id updated_at created_at creator_id updater_id lft rgt depth urlname cached_tag_list)
+
+    SKIPPED_ATTRIBUTES_ON_COPY = [
+      "id",
+      "updated_at",
+      "created_at",
+      "creator_id",
+      "updater_id",
+      "lft",
+      "rgt",
+      "depth",
+      "urlname",
+      "cached_tag_list",
+      "current_version_id",
+      "public_version_id"
+    ].freeze
+
     PERMITTED_ATTRIBUTES = [
       :meta_description,
       :meta_keywords,
@@ -107,7 +122,7 @@ module Alchemy
       if: -> { language_id.blank? },
       unless: :systempage?
 
-    after_create :create_current_version!,
+    after_create :create_current_version,
       unless: -> { systempage? || redirects_to_external? }
 
     after_update :create_legacy_url,
@@ -389,12 +404,43 @@ module Alchemy
       update_columns(hash)
     end
 
+    # Creates a new version
+    #
+    # And copy all current elements, if any exist.
+    #
+    # @return Alchemy::Version
+    #
+    def create_version
+      copy_current_elements_to(versions.create)
+    end
+
+    # Creates a new current version
+    #
+    # And copy all current elements, if any exist.
+    #
+    def create_current_version
+      update_columns(current_version_id: create_version.id)
+    end
+
+    # Creates a new public version
+    #
+    # And copy all current elements, if any exist.
+    #
+    def create_public_version
+      update_columns(public_version_id: create_version.id)
+    end
+
     private
 
-    # ActiveRecord doesn't seem to be as smart as one might think :(
-    def create_current_version!
-      build_current_version(page_id: id)
-      save!
+    # Copy current version's elements to given version
+    def copy_current_elements_to(version)
+      return version unless current_version
+
+      current_version.elements.each do |element|
+        Element.copy(element, page_version_id: version.id)
+      end
+
+      version
     end
 
     # Returns the next or previous page on the same level or nil.
