@@ -5,9 +5,7 @@ module Alchemy
     describe '#index' do
       let(:page) do
         page = create(:alchemy_page, :public)
-        # TODO: Investigate why this is horribly broken in AR!
-        page.build_public_version(page_id: page.id)
-        page.save!
+        page.create_public_version
         page
       end
 
@@ -30,9 +28,7 @@ module Alchemy
       context 'with page_id param' do
         let!(:other_page) do
           page = create(:alchemy_page, :public)
-          # TODO: Investigate why this is horribly broken in AR!
-          page.build_public_version(page_id: page.id)
-          page.save!
+          page.create_public_version
           page
         end
 

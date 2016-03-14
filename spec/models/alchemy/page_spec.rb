@@ -1019,7 +1019,7 @@ module Alchemy
     describe "#descendent_elements" do
       let!(:page) do
         page = create(:alchemy_page)
-        page.create_public_version!(page_id: page.id)
+        page.create_public_version
         page
       end
 
@@ -1045,7 +1045,7 @@ module Alchemy
     describe "#descendent_contents" do
       let!(:page) do
         page = create(:alchemy_page)
-        page.create_public_version!(page_id: page.id)
+        page.create_public_version
         page
       end
 
@@ -1242,7 +1242,7 @@ module Alchemy
     describe '#feed_elements' do
       let(:page) do
         page = create(:alchemy_page, :public, page_layout: 'news')
-        page.create_public_version!(page_id: page.id)
+        page.create_public_version
         page
       end
 

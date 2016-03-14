@@ -62,6 +62,8 @@ module Alchemy
       depth
       urlname
       cached_tag_list
+      current_version_id
+      public_version_id
     )
 
     PERMITTED_ATTRIBUTES = [
@@ -138,7 +140,7 @@ module Alchemy
       if: -> { language_id.blank? },
       unless: :systempage?
 
-    after_create :create_current_version!,
+    after_create :create_current_version,
       unless: -> { systempage? || redirects_to_external? }
 
     after_update :create_legacy_url,
@@ -462,6 +464,32 @@ module Alchemy
       attribute_fixed?(:public_until) ? fixed_attributes[:public_until] : self[:public_until]
     end
 
+    # Creates a new version
+    #
+    # And copy all current elements, if any exist.
+    #
+    # @return Alchemy::Version
+    #
+    def create_version
+      copy_current_elements_to(versions.create)
+    end
+
+    # Creates a new current version
+    #
+    # And copy all current elements, if any exist.
+    #
+    def create_current_version
+      update_columns(current_version_id: create_version.id)
+    end
+
+    # Creates a new public version
+    #
+    # And copy all current elements, if any exist.
+    #
+    def create_public_version
+      update_columns(public_version_id: create_version.id)
+    end
+
     private
 
     def set_fixed_attributes
@@ -470,10 +498,15 @@ module Alchemy
       end
     end
 
-    # ActiveRecord doesn't seem to be as smart as one might think :(
-    def create_current_version!
-      build_current_version(page_id: id)
-      save!
+    # Copy current version's elements to given version
+    def copy_current_elements_to(version)
+      return version unless current_version
+
+      current_version.elements.each do |element|
+        Element.copy(element, page_version_id: version.id)
+      end
+
+      version
     end
 
     # Returns the next or previous page on the same level or nil.

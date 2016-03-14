@@ -51,9 +51,7 @@ module Alchemy
     describe '#nested' do
       let!(:page) do
         page = create(:alchemy_page, :public, page_layout: 'contact')
-        # TODO: Investigate why this is horribly broken in AR!
-        page.build_public_version(page_id: page.id)
-        page.save!
+        page.create_public_version
         page
       end
 
