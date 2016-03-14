@@ -4,7 +4,7 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 Alchemy.Sitemap =
 
   # Storing some objects.
-  init: (url, page_root_id, sorting) ->
+  init: (url, page_root_id, full, callback) ->
     @search_field = $("#search_field")
     @filter_field_clear = $('.js_filter_field_clear')
     @display = $('#page_filter_result')
@@ -15,7 +15,8 @@ Alchemy.Sitemap =
     @items = null
     @url = url
     @page_root_id = page_root_id
-    @sorting = sorting
+    @full = full
+    @callback = callback
     @fetch()
 
   # Fetches the sitemap from JSON
@@ -23,7 +24,7 @@ Alchemy.Sitemap =
     self = Alchemy.Sitemap
     request = $.ajax url: @url, data:
       id: @page_root_id
-      full: @sorting
+      full: @full
 
     if foldingId
       spinner = Alchemy.Spinner.small()
@@ -43,9 +44,8 @@ Alchemy.Sitemap =
 
       Alchemy.watchForDialogs('#sitemap')
 
-      if self.sorting
-        Alchemy.PageSorter.init()
-        Alchemy.pleaseWaitOverlay(false)
+      if self.callback
+        self.callback()
 
     # TODO: Prettify this.
     request.fail (jqXHR, status) ->

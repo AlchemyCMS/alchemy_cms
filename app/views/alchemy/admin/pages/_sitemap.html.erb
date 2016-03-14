@@ -9,7 +9,7 @@
 
 <script id="sitemap-list" type="text/x-handlebars-template">
   {{#each children}}
-  <%= render partial: 'page', object: @page_root %>
+  <%= render partial: page_partial, object: @page_root %>
   {{/each}}
 </script>
 
@@ -18,7 +18,17 @@
    Alchemy.Sitemap.init(
      '<%= alchemy.tree_admin_pages_path %>',
      <%= @page_root.id %>,
-     <%= !!@sorting %>
+     <%= full %>
+     <% if @sorting  %>
+     ,function () {
+       Alchemy.PageSorter.init();
+     }
+     <% end %>
+     <% if @link %>
+     ,function () {
+       window.dialog.attachEvents();
+     }
+     <% end %>
    );
  });
 </script>

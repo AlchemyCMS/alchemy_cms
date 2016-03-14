@@ -15,8 +15,6 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   replace: (data) ->
     # let Dialog class handle the content replacement
     super(data)
-    # attach events we handle
-    @attachEvents()
     # Store some jQuery objects for further reference
     @$page_anchor = $('#page_anchor', @dialog_body)
     @$internal_urlname = $('#internal_urlname', @dialog_body)

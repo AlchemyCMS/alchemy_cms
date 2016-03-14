@@ -4,42 +4,42 @@
       <%= render_icon(:page) %>
     </div>
     <div class="sitemap_right_tools">
-      <% unless page_for_links.redirects_to_external? %>
+      {{#if redirects_to_external}}
         <%= link_to '',
-          alchemy.list_admin_elements_path(page_id: page_for_links.id),
+          alchemy.list_admin_elements_path(page_id: '{{id}}'),
           remote: true,
           data: {
-            'page-id' => page_for_links.id,
-            url: @url_prefix + page_for_links.urlname
+            'page-id' => '{{id}}',
+            url: @url_prefix + '{{urlname}}'
           },
           class: "show_elements_to_link",
           title: _t(:show_elements_from_page)
         %>
-      <% end %>
+      {{/if}}
     </div>
     <div class="page_infos">
-      <span class="page_status <%= page_for_links.public ? 'public' : 'not_public' %>" title="<%= page_for_links.status_title(:public) %>"></span>
-      <span class="page_status <%= page_for_links.visible ? 'visible' : 'not_visible' %>" title="<%= page_for_links.status_title(:visible) %>"></span>
-      <span class="page_status <%= page_for_links.restricted ? 'restricted' : 'not_restricted' %>" title="<%= page_for_links.status_title(:restricted) %>"></span>
+      <span class="page_status {{#unless public}}not_{{/unless}}public" title="{{status_titles.public}}"></span>
+      <span class="page_status {{#unless visible}}not_{{/unless}}visible" title="{{status_titles.visible}}"></span>
+      <span class="page_status {{#unless restricted}}not_{{/unless}}restricted" title="{{status_titles.restricted}}"></span>
     </div>
-    <div class="sitemap_sitename" id="sitemap_sitename_<%= page_for_links.id %>" name="<%= parse_sitemap_name(page_for_links) %>">
-      <% if page_for_links.redirects_to_external? %>
-        <span class="sitemap_pagename_link inactive"><%= page_for_links.name %></span>
-      <% else %>
-        <%= link_to(page_for_links.name, '', {
+    <div class="sitemap_sitename" id="sitemap_sitename_{{id}}" name="/<%= "#{Language.current.code}/" if multi_language? %> %>{{urlname}}">
+      {{#if redirects_to_external}}
+        <span class="sitemap_pagename_link inactive">{{ name }}</span>
+      {{else}}
+        <%= link_to('{{ name }}', '', {
           data: {
-            'page-id' => page_for_links.id,
-            url: @url_prefix + page_for_links.urlname
+            'page-id' => '{{id}}',
+            url: @url_prefix + '{{urlname}}'
           },
-          title: _t('page_for_links.choose_page', name: page_for_links.name),
+          title: _t('page_for_links.choose_page', name: '{{name}}'),
           class: "sitemap_pagename_link"
         }) %>
-      <% end %>
+      {{/if}}
     </div>
   </div>
-  <% if page_for_links.children.present? %>
-    <ul id="page_<%= page_for_links.id %>_children">
-      <%= render partial: 'page_for_links', collection: page_for_links.children %>
+  {{#if children}}
+    <ul id="page_{{id}}_children">
+      {{> list}}
     </ul>
-  <% end %>
+  {{/if}}
 </li>

@@ -6,9 +6,7 @@
   <% end %>
   <div id="page_selector_container">
     <% if @page_root %>
-    <ul id="sitemap">
-      <%= render partial: 'page_for_links', object: @page_root %>
-    </ul>
+      <%= render partial: 'sitemap', locals: {page_partial: 'page_for_links', full: true} %>
     <% end %>
   </div>
   <div class="input select">

@@ -11,15 +11,6 @@ module Alchemy
       text.truncate(:length => length)
     end
 
-    def parse_sitemap_name(page)
-      if multi_language?
-        pathname = "/#{Language.current.code}/#{page.urlname}"
-      else
-        pathname = "/#{page.urlname}"
-      end
-      pathname
-    end
-
     # Logs a message in the Rails logger (warn level) and optionally displays an error message to the user.
     def warning(message, text = nil)
       Logger.warn(message, caller.first)

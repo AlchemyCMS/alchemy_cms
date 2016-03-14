@@ -1,3 +1,4 @@
-$('#sitemap').replaceWith('<%= j render("sitemap") %>');
+$('#sitemap').replaceWith('<%= j render(partial: "sitemap", locals: {page_partial: 'page', full: true}) %>');
 $('#sort_panel').show();
 $('#sitemap_heading').css({'padding-top': 102});
+Alchemy.pleaseWaitOverlay(false);
