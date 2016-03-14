@@ -5,7 +5,7 @@ module Alchemy
     describe '#index' do
       let(:page) do
         page = create(:alchemy_page, :public)
-        page.create_public_version
+        page.publish!
         page
       end
 
@@ -28,7 +28,7 @@ module Alchemy
       context 'with page_id param' do
         let!(:other_page) do
           page = create(:alchemy_page, :public)
-          page.create_public_version
+          page.publish!
           page
         end
 

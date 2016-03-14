@@ -392,7 +392,7 @@ module Alchemy
       end
     end
 
-    # Takes the current version and sets it as public version.
+    # Creates a public version from current version.
     #
     # Sets +public_on+ and the +published_at+ value to current time
     # and resets +public_until+ to nil
@@ -402,7 +402,7 @@ module Alchemy
     def publish!
       current_time = Time.current
       update_columns(
-        public_version_id: current_version_id,
+        public_version_id: create_version.id,
         published_at: current_time,
         public_on: already_public_for?(current_time) ? public_on : current_time,
         public_until: still_public_for?(current_time) ? public_until : nil
@@ -480,14 +480,6 @@ module Alchemy
     #
     def create_current_version
       update_columns(current_version_id: create_version.id)
-    end
-
-    # Creates a new public version
-    #
-    # And copy all current elements, if any exist.
-    #
-    def create_public_version
-      update_columns(public_version_id: create_version.id)
     end
 
     private
