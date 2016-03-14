@@ -953,7 +953,7 @@ module Alchemy
     describe "#descendent_elements" do
       let!(:page) do
         page = create(:alchemy_page)
-        page.create_public_version
+        page.publish!
         page
       end
 
@@ -979,7 +979,7 @@ module Alchemy
     describe "#descendent_contents" do
       let!(:page) do
         page = create(:alchemy_page)
-        page.create_public_version
+        page.publish!
         page
       end
 
@@ -1145,7 +1145,7 @@ module Alchemy
     describe '#feed_elements' do
       let(:page) do
         page = create(:alchemy_page, :public, page_layout: 'news')
-        page.create_public_version
+        page.publish!
         page
       end
 
@@ -1498,11 +1498,10 @@ module Alchemy
     end
 
     describe '#publish!' do
-      let(:page) { build_stubbed(:alchemy_page, public: false) }
-      let(:current_time) { Time.current }
+      let!(:page) { create(:alchemy_page, public: false) }
+      let!(:current_time) { Time.current }
 
       before do
-        current_time
         allow(Time).to receive(:now).and_return(current_time)
         page.publish!
       end
@@ -1515,8 +1514,9 @@ module Alchemy
         expect(page.published_at).to eq(current_time)
       end
 
-      it "sets current version as public version" do
-        expect(page.public_version_id).to eq(page.current_version_id)
+      it "creates public version from current version" do
+        expect(page.public_version).to be_present
+        expect(page.public_version.elements).to match_array(page.current_version.elements)
       end
     end
 

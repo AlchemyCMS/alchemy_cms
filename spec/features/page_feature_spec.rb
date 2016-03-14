@@ -36,7 +36,7 @@ module Alchemy
     describe 'gets rendered' do
       let!(:public_page) do
         page = create(:alchemy_page, :public)
-        page.create_public_version
+        page.publish!
         page
       end
 

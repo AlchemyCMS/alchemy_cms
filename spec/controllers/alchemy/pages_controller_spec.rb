@@ -165,7 +165,7 @@ module Alchemy
       end
 
       it "should include content" do
-        page.create_public_version
+        page.publish!
         page.elements.first.content_by_name('news_headline').essence.update_attributes({body: 'Peters Petshop'})
         alchemy_get :show, urlname: 'news', format: :rss
         expect(response.body).to match /Peters Petshop/
@@ -199,7 +199,7 @@ module Alchemy
       before do
         allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
         allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : false }
-        product.create_public_version
+        product.publish!
         product.elements.find_by(name: 'article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       end
 

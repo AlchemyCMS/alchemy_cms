@@ -375,7 +375,7 @@ module Alchemy
       end
     end
 
-    # Takes the current version and sets it as public version.
+    # Creates a public version from current version.
     #
     # Sets +public+ to true and the +published_at+ value to current time.
     #
@@ -383,7 +383,7 @@ module Alchemy
     #
     def publish!
       update_columns(
-        public_version_id: current_version_id,
+        public_version_id: create_version.id,
         published_at: Time.current,
         public: true
       )
@@ -424,14 +424,6 @@ module Alchemy
     #
     def create_current_version
       update_columns(current_version_id: create_version.id)
-    end
-
-    # Creates a new public version
-    #
-    # And copy all current elements, if any exist.
-    #
-    def create_public_version
-      update_columns(public_version_id: create_version.id)
     end
 
     private
