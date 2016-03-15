@@ -434,6 +434,28 @@ module Alchemy
           expect(element.preview_text).to be_nil
         end
       end
+
+      context 'with nestable elements' do
+        let(:element) { build_stubbed(:alchemy_element, :with_nestable_elements, { create_contents_after_create: true } ) }
+        let(:preview_contents) { [preview_content] }
+        before { element.nested_elements << create(:alchemy_element, name: 'slide') }
+
+        context 'where parent element has content marked as preview' do
+          before { allow(element).to receive(:contents).and_return(preview_contents) }
+
+          it 'should return the preview text for the parent element' do
+            expect(element.preview_text).to eq(element.contents.first.preview_text)
+          end
+        end
+
+        context 'where parent element has no content marked as preview but nestable elements do have' do
+          before { allow(element.nested_elements.first).to receive(:contents).and_return(preview_contents) }
+
+          it 'should return the preview text for the first nested element' do
+            expect(element.preview_text).to eq(element.nested_elements.first.preview_text)
+          end
+        end
+      end
     end
 
     context 'previous and next elements.' do
