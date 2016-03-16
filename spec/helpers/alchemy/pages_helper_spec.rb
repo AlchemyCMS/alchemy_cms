@@ -339,8 +339,8 @@ module Alchemy
           is_expected.to match /meta name="description" content="root page's description"/
         end
 
-        it "should set it to empty when language root's page is also missing one" do
-          is_expected.to match /meta name="description" content=""/
+        it "should not be set when language root's page is also missing one" do
+          is_expected.not_to match /meta name="description"/
         end
       end
 
@@ -352,8 +352,8 @@ module Alchemy
           is_expected.to match /meta name="keywords" content="root page's keywords"/
         end
 
-        it "should set it to empty when language root's page is also missing one" do
-          is_expected.to match /meta name="keywords" content=""/
+        it "should not be set when language root's page is also missing one" do
+          is_expected.not_to match /meta name="keywords"/
         end
       end
     end
