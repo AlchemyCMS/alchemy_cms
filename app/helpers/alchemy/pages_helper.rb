@@ -283,11 +283,11 @@ module Alchemy
     end
 
     def meta_description
-      @page.meta_description.presence || Language.current_root_page.try(:meta_description)
+      @page.meta_description.presence || @page.get_language_root.try(:meta_description)
     end
 
     def meta_keywords
-      @page.meta_keywords.presence || Language.current_root_page.try(:meta_keywords)
+      @page.meta_keywords.presence || @page.get_language_root.try(:meta_keywords)
     end
 
     def meta_robots

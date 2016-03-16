@@ -3,14 +3,11 @@
 # Table name: alchemy_pages
 #
 #  id               :integer          not null, primary key
-#  name             :string
-#  urlname          :string
-#  title            :string
-#  language_code    :string
+#  name             :string(255)
+#  urlname          :string(255)
+#  language_code    :string(255)
 #  language_root    :boolean
-#  page_layout      :string
-#  meta_keywords    :text
-#  meta_description :text
+#  page_layout      :string(255)
 #  lft              :integer
 #  rgt              :integer
 #  parent_id        :integer
@@ -146,6 +143,14 @@ module Alchemy
     after_update :create_legacy_url,
       if: :urlname_changed?,
       unless: :redirects_to_external?
+
+    delegate :title, :meta_keywords, :meta_description,
+      to: :public_version,
+      allow_nil: true
+
+    delegate :title=, :meta_keywords=, :meta_description=,
+      to: :current_version,
+      allow_nil: true
 
     # Concerns
     include Alchemy::Page::PageScopes
@@ -471,7 +476,12 @@ module Alchemy
     # @return Alchemy::Version
     #
     def create_version
-      copy_current_elements_to(versions.create)
+      version = versions.create(
+        meta_description: current_version.try(:meta_description),
+        meta_keywords: current_version.try(:meta_keywords),
+        title: current_version.try(:title)
+      )
+      copy_current_elements_to(version)
     end
 
     # Creates a new current version

@@ -1,8 +1,16 @@
 require 'spec_helper'
 module Alchemy
   describe 'alchemy/pages/_meta_data' do
-    let(:root_page)       { Page.new }
-    let(:page)            { Page.new(language_code: "en", title: "Road Runner", urlname: "roadrunner") }
+    let(:root_page)       { Page.new(public_version: PageVersion.new) }
+    let(:page_version)    { PageVersion.new(title: "Road Runner") }
+
+    let(:page) do
+      Page.new(
+        language_code: "en",
+        urlname: "roadrunner",
+        public_version: page_version)
+    end
+
     let(:title_prefix)    { "" }
     let(:title_separator) { "" }
 
@@ -15,7 +23,7 @@ module Alchemy
 
       describe "meta keywords" do
         context "are set" do
-          before { allow(page).to receive_messages(meta_keywords: 'cartoon, road runner') }
+          before { allow(page_version).to receive_messages(meta_keywords: 'cartoon, road runner') }
 
           it "renders the keywords in the correct meta tag" do
             is_expected.to match /meta name="keywords" content="cartoon, road runner" lang="en"/
@@ -23,10 +31,12 @@ module Alchemy
         end
 
         context "are not set" do
-          before { allow(Language).to receive(:current_root_page).and_return(root_page) }
+          before { allow(page).to receive(:get_language_root).and_return(root_page) }
 
           context "but the language root page has meta keywords" do
-            before { root_page.meta_keywords = "keywords, language, root" }
+            before do
+              root_page.public_version.meta_keywords = "keywords, language, root"
+            end
 
             it "renders its keywords in the correct meta tag" do
               is_expected.to match /meta name="keywords" content="keywords, language, root" lang="en"/
@@ -34,6 +44,10 @@ module Alchemy
           end
 
           context "and the language root page is also missing meta keywords" do
+            before do
+              root_page.public_version.meta_keywords = ""
+            end
+
             it "does not render the meta keywords tag" do
               is_expected.not_to match /meta name="keywords"/
             end
@@ -43,7 +57,9 @@ module Alchemy
 
       describe "meta description" do
         context "is set" do
-          before { allow(page).to receive_messages(meta_description: 'road runner goes meep meep') }
+          before do
+            allow(page_version).to receive_messages(meta_description: 'road runner goes meep meep')
+          end
 
           it "renders the description in the correct meta tag" do
             is_expected.to match /meta name="description" content="road runner goes meep meep"/
@@ -51,10 +67,14 @@ module Alchemy
         end
 
         context "is not set" do
-          before { allow(Language).to receive(:current_root_page).and_return(root_page) }
+          before do
+            allow(page).to receive(:get_language_root).and_return(root_page)
+          end
 
           context "but the language root page has a meta description" do
-            before { root_page.meta_description = "description from language root" }
+            before do
+              root_page.public_version.meta_description = "description from language root"
+            end
 
             it "renders its description in the correct meta tag" do
               is_expected.to match /meta name="description" content="description from language root"/
@@ -62,6 +82,10 @@ module Alchemy
           end
 
           context "and the language root page is also missing a meta description" do
+            before do
+              root_page.public_version.meta_description = ""
+            end
+
             it "does not render the meta description tag" do
               is_expected.not_to match /meta name="description"/
             end

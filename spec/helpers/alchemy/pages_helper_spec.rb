@@ -4,7 +4,7 @@ require 'spec_helper'
 module Alchemy
   describe PagesHelper do
     # Fixtures
-    let(:language)                 { mock_model('Language', code: 'en') }
+    let(:language)                 { mock_model('Language', code: 'en', page_layout: 'index') }
     let(:default_language)         { Language.default }
     let(:language_root)            { create(:alchemy_page, :language_root) }
     let(:public_page)              { create(:alchemy_page, :public) }
@@ -403,24 +403,45 @@ module Alchemy
     end
 
     describe "meta data" do
-      before { @page = public_page }
+      let!(:root_page) do
+        create(:alchemy_page, :language_root, language: language)
+      end
+
+      let(:public_page) do
+        page = create(:alchemy_page, :public,
+          title: 'A Public Page',
+          updated_at: '2011-11-29-23:00:00',
+          parent: root_page
+        )
+        page.publish!
+        page
+      end
+
+      before do
+        helper.instance_variable_set('@page', public_page)
+      end
 
       describe "#meta_description" do
         subject { helper.meta_description }
 
         context "when current page has a meta description set" do
-          before { public_page.meta_description = "description of my public page" }
+          before do
+            public_page.public_version.update(meta_description: "description of my public page")
+          end
+
           it { is_expected.to eq "description of my public page" }
         end
 
         context "when current page has no meta description set" do
           before do
-            language_root.meta_description = "description from language root"
-            allow(Language).to receive_messages(current_root_page: language_root)
+            root_page.current_version.update(meta_description: "description from language root")
+            root_page.publish!
           end
 
           context "when #meta_description is an empty string" do
-            before { public_page.meta_description = "" }
+            before do
+              public_page.public_version.update(meta_description: "")
+            end
 
             it "returns the meta description of its language root page" do
               is_expected.to eq "description from language root"
@@ -428,7 +449,9 @@ module Alchemy
           end
 
           context "when #meta_description is nil" do
-            before { public_page.meta_description = nil }
+            before do
+              public_page.public_version.update(meta_description: nil)
+            end
 
             it "returns the meta description of its language root page" do
               is_expected.to eq "description from language root"
@@ -441,18 +464,23 @@ module Alchemy
         subject { helper.meta_keywords }
 
         context "when current page has meta keywords set" do
-          before { public_page.meta_keywords = "keywords, from public page" }
+          before do
+            public_page.public_version.update(meta_keywords: "keywords, from public page")
+          end
+
           it { is_expected.to eq "keywords, from public page" }
         end
 
         context "when current page has no meta keywords set" do
           before do
-            language_root.meta_keywords = "keywords, from language root"
-            allow(Language).to receive_messages(current_root_page: language_root)
+            root_page.current_version.update(meta_keywords: "keywords, from language root")
+            root_page.publish!
           end
 
           context "when #meta_keywords is an empty string" do
-            before { public_page.meta_keywords = "" }
+            before do
+              public_page.public_version.update(meta_keywords: "")
+            end
 
             it "returns the keywords of its language root page" do
               is_expected.to eq "keywords, from language root"
@@ -460,7 +488,9 @@ module Alchemy
           end
 
           context "when #meta_keywords is nil" do
-            before { public_page.meta_keywords = nil }
+            before do
+              public_page.public_version.update(meta_keywords: nil)
+            end
 
             it "returns the keywords of its language root page" do
               is_expected.to eq "keywords, from language root"
