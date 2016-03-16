@@ -126,26 +126,35 @@ module Alchemy
 
     # Callbacks
 
-    context 'callbacks' do
+    describe 'callbacks' do
       let(:page) do
-        create(:alchemy_page, name: 'My Testpage', language: language, parent_id: language_root.id)
+        create :alchemy_page,
+          name: 'My Testpage',
+          language: language,
+          parent_id: language_root.id
       end
 
-      context 'before_save' do
-        it "should not set the title automatically if the name changed but title is not blank" do
-          page.name = "My Renaming Test"
-          page.save; page.reload
-          expect(page.title).to eq("My Testpage")
+      describe 'before_save' do
+        context "if the name changed but title is not blank" do
+          before do
+            page.current_version.update!(title: "My Title")
+          end
+
+          it "does not set the title from name" do
+            page.update!(name: "My changed Name")
+            expect(page.current_version.title).to eq("My Title")
+          end
         end
 
-        it "should not automatically set the title if it changed its value" do
-          page.title = "I like SEO"
-          page.save; page.reload
-          expect(page.title).to eq("I like SEO")
+        context "if the title changed its value" do
+          it "does not set the title from name" do
+            page.current_version.update!(title: "I like SEO")
+            expect(page.current_version.title).to eq("I like SEO")
+          end
         end
       end
 
-      context 'after_update' do
+      describe 'after_update' do
         context "urlname has changed" do
           it "should store legacy url if page is not redirect to external page" do
             page.urlname = 'new-urlname'
@@ -232,7 +241,7 @@ module Alchemy
         end
       end
 
-      context 'after_move' do
+      describe 'after_move' do
         let(:parent_1) { create(:alchemy_page, name: 'Parent 1', visible: true) }
         let(:parent_2) { create(:alchemy_page, name: 'Parent 2', visible: true) }
         let(:page)     { create(:alchemy_page, parent_id: parent_1.id, name: 'Page', visible: true) }
@@ -253,7 +262,7 @@ module Alchemy
         end
       end
 
-      context "Creating a normal page" do
+      describe "Creating a normal page" do
         let(:page) do
           build(:alchemy_page, language_code: nil, language: klingon, do_not_autogenerate: false)
         end
@@ -350,7 +359,7 @@ module Alchemy
         end
       end
 
-      context "Creating a systempage" do
+      describe "Creating a systempage" do
         let!(:page) { create(:alchemy_page, :system) }
 
         it "does not get the language code from language" do
@@ -592,12 +601,20 @@ module Alchemy
     describe '.create' do
       context "before/after filter" do
         it "should automatically set the title from its name" do
-          page = create(:alchemy_page, name: 'My Testpage', language: language, parent_id: language_root.id)
-          expect(page.title).to eq('My Testpage')
+          page = create :alchemy_page,
+                   name: 'My Testpage',
+                   language: language,
+                   parent_id: language_root.id
+
+          expect(page.current_version.title).to eq('My Testpage')
         end
 
         it "should get a webfriendly urlname" do
-          page = create(:alchemy_page, name: 'klingon$&stößel ', language: language, parent_id: language_root.id)
+          page = create :alchemy_page,
+                   name: 'klingon$&stößel ',
+                   language: language,
+                   parent_id: language_root.id
+
           expect(page.urlname).to eq('klingon-stoessel')
         end
 

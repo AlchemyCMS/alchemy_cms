@@ -352,13 +352,13 @@ module Alchemy
       options = default_options.merge(options)
       # render meta description of the root page from language if the current meta description is empty
       if @page.meta_description.blank?
-        description = Language.current_root_page.try(:meta_description)
+        description = @page.get_language_root.try(:meta_description)
       else
         description = @page.meta_description
       end
       # render meta keywords of the root page from language if the current meta keywords is empty
       if @page.meta_keywords.blank?
-        keywords = Language.current_root_page.try(:meta_keywords)
+        keywords = @page.get_language_root.try(:meta_keywords)
       else
         keywords = @page.meta_keywords
       end
