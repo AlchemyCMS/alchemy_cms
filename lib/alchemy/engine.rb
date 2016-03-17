@@ -92,7 +92,7 @@ module Alchemy
         Dir.glob(essences).each { |essence| load(essence) }
       end
     end
-    
+ 
     config.to_prepare do
       Dir.glob(Rails.root + "app/decorators/**/*_decorator*.rb").each do |decorator|
         require_dependency(decorator)
