@@ -43,7 +43,7 @@ module Alchemy
     #   Length of characters after the text will be cut off.
     #
     def preview_text(maxlength = 30)
-      (contents.detect(&:preview_content?) || contents.first).try(:preview_text, maxlength)
+      preview_text_from_nested_elements(maxlength) || preview_text_from_preview_content(maxlength)
     end
 
     # Generates a preview text containing Element#display_name and Element#preview_text.
@@ -78,6 +78,21 @@ module Alchemy
     #
     def dom_id
       "#{name}_#{id}"
+    end
+
+    def preview_content
+      @_preview_content ||= contents.detect(&:preview_content?)
+    end
+
+    private
+
+    def preview_text_from_nested_elements(maxlength)
+      return unless nested_elements.exists? && !preview_content
+      nested_elements.first.preview_text(maxlength)
+    end
+
+    def preview_text_from_preview_content(maxlength)
+      (preview_content || contents.first).try(:preview_text, maxlength)
     end
   end
 end
