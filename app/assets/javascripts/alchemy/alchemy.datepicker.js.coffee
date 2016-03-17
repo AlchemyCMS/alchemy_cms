@@ -17,6 +17,7 @@ $.extend Alchemy,
     if Alchemy.locale is "de"
       $.extend datepicker_options,
         dateFormat: "dd.mm.yy"
+        firstDay: 1
         dayNames: ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"]
         dayNamesMin: ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"]
         monthNames: ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"]
