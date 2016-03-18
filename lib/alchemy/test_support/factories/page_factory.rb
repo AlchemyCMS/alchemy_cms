@@ -9,7 +9,7 @@ FactoryGirl.define do
 
     parent_id do
       (Alchemy::Page.find_by(language_root: true) ||
-        FactoryGirl.create(:alchemy_page, :language_root)).id
+        FactoryGirl.create(:alchemy_page, :public, :language_root)).id
     end
 
     # This speeds up creating of pages dramatically.
@@ -20,13 +20,23 @@ FactoryGirl.define do
       name 'Startseite'
       page_layout { language.page_layout }
       language_root true
-      public true
       parent_id { Alchemy::Page.root.id }
     end
 
     trait :public do
       sequence(:name) { |n| "A Public Page #{n}" }
-      public true
+
+      after(:build) do |page|
+        page.public_version = FactoryGirl.build(:alchemy_page_version, page: page)
+      end
+
+      after(:stub) do |page|
+        page.public_version = FactoryGirl.build_stubbed(:alchemy_page_version, page: page)
+      end
+
+      after(:create) do |page|
+        page.update(public_version: FactoryGirl.create(:alchemy_page_version, page: page))
+      end
     end
 
     trait :system do

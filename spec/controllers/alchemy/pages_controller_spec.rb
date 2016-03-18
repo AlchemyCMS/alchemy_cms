@@ -6,10 +6,9 @@ module Alchemy
     let(:default_language) { Language.default }
 
     let(:default_language_root) do
-      create :alchemy_page, :language_root,
+      create :alchemy_page, :public, :language_root,
         language: default_language,
-        name: 'Home',
-        public: true
+        name: 'Home'
     end
 
     let(:page) do
@@ -23,7 +22,7 @@ module Alchemy
     end
 
     before do
-      allow(controller).to receive(:signup_required?).and_return(false)
+      allow(controller).to receive(:signup_required?) { false }
     end
 
     describe "#index" do
@@ -51,7 +50,7 @@ module Alchemy
 
         context 'and the root page is not public' do
           before do
-            default_language_root.update!(public: false)
+            default_language_root.public_version.delete
           end
 
           context 'and redirect_to_public_child is set to false' do
@@ -124,8 +123,9 @@ module Alchemy
         end
 
         let!(:startseite) do
-          create :alchemy_page, :language_root,
-            language: deutsch, public: true, name: 'Startseite'
+          create :alchemy_page, :public, :language_root,
+            language: deutsch,
+            name: 'Startseite'
         end
 
         before do
@@ -192,9 +192,33 @@ module Alchemy
     describe "url nesting" do
       render_views
 
-      let(:catalog)  { create(:alchemy_page, :public, name: "Catalog", urlname: 'catalog', parent: default_language_root, language: default_language, visible: true) }
-      let(:products) { create(:alchemy_page, :public, name: "Products", urlname: 'products', parent: catalog, language: default_language, visible: true) }
-      let(:product)  { create(:alchemy_page, :public, name: "Screwdriver", urlname: 'screwdriver', parent: products, language: default_language, do_not_autogenerate: false, visible: true) }
+      let(:catalog) do
+        create :alchemy_page, :public,
+          name: "Catalog",
+          urlname: 'catalog',
+          parent: default_language_root,
+          language: default_language,
+          visible: true
+      end
+
+      let(:products) do
+        create :alchemy_page, :public,
+          name: "Products",
+          urlname: 'products',
+          parent: catalog,
+          language: default_language,
+          visible: true
+      end
+
+      let(:product) do
+        create :alchemy_page, :public,
+          name: "Screwdriver",
+          urlname: 'screwdriver',
+          parent: products,
+          language: default_language,
+          do_not_autogenerate: false,
+          visible: true
+      end
 
       before do
         allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160315212914) do
+ActiveRecord::Schema.define(version: 20160316202352) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
@@ -228,7 +228,6 @@ ActiveRecord::Schema.define(version: 20160315212914) do
     t.integer  "parent_id"
     t.integer  "depth"
     t.boolean  "visible",            default: false
-    t.boolean  "public",             default: false
     t.boolean  "locked",             default: false
     t.integer  "locked_by"
     t.boolean  "restricted",         default: false

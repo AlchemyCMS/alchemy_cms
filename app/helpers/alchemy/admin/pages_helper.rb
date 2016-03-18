@@ -20,11 +20,10 @@ module Alchemy
       # Returns the translated explanation of the page status.
       #
       def combined_page_status(page)
-        page.status.map do |state, _value|
-          next if state == :locked
-          val = content_tag(:span, '', class: page.send(state) ? "page_status #{state}" : "page_status not_#{state}")
-          val + page.status_title(state)
-        end.delete_if(&:blank?).join("<br>").html_safe
+        page.status.delete_if { |s| s == :locked }.map do |state, true_value|
+          classes = true_value ? "page_status #{state}" : "page_status not_#{state}"
+          content_tag(:span, '', class: classes) + page.status_title(state)
+        end.join("<br>").html_safe
       end
 
       # Renders a label for page's page layout

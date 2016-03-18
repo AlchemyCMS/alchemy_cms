@@ -9,23 +9,29 @@ describe Alchemy::Admin::PagesHelper do
   end
 
   describe '#combined_page_status' do
-    let(:page) { build_stubbed(:alchemy_page, restricted: true, visible: true, public: true, locked: true) }
+    let(:page) do
+      build_stubbed :alchemy_page, :public,
+        restricted: true,
+        visible: true,
+        locked: true
+    end
+
     subject { helper.combined_page_status(page) }
 
     context 'when page is locked' do
-      it { is_expected.not_to match(/locked/) } # We don't want the locked status in the return string
+      it { is_expected.not_to match(/<span.+locked/) } # We don't want the locked status in the return string
     end
 
     context 'when page is restricted' do
-      it { is_expected.to match(/is restricted/) }
+      it { is_expected.to match(/<span.+is restricted/) }
     end
 
     context 'when page is visible in navigation' do
-      it { is_expected.to match(/is visible/) }
+      it { is_expected.to match(/<span.+is visible/) }
     end
 
     context 'when page is published' do
-      it { is_expected.to match(/is published/) }
+      it { is_expected.to match(/<span.+is published/) }
     end
   end
 

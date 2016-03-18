@@ -6,7 +6,7 @@ RSpec.describe 'Site requests' do
 
     let(:page) do
       Alchemy::Site.current = site
-      root = create(:alchemy_page, :language_root, language: site.languages.last)
+      root = create(:alchemy_page, :public, :language_root, language: site.languages.last)
       create(:alchemy_page, :public, parent: root)
     end
 

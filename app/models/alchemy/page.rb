@@ -13,7 +13,6 @@
 #  parent_id        :integer
 #  depth            :integer
 #  visible          :boolean          default(FALSE)
-#  public           :boolean          default(FALSE)
 #  locked           :boolean          default(FALSE)
 #  locked_by        :integer
 #  restricted       :boolean          default(FALSE)
@@ -40,7 +39,6 @@ module Alchemy
       do_not_autogenerate: true,
       do_not_sweep: true,
       visible: false,
-      public: false,
       locked: false,
       locked_by: nil
     }
@@ -65,7 +63,6 @@ module Alchemy
       :meta_keywords,
       :name,
       :page_layout,
-      :public,
       :restricted,
       :robot_index,
       :robot_follow,
@@ -113,10 +110,6 @@ module Alchemy
 
     before_save :inherit_restricted_status,
       if: -> { parent && parent.restricted? },
-      unless: :systempage?
-
-    before_save :update_published_at,
-      if: -> { public? && read_attribute(:published_at).nil? },
       unless: :systempage?
 
     before_create :set_language_from_parent_or_default,
@@ -389,9 +382,13 @@ module Alchemy
     def publish!
       update_columns(
         public_version_id: create_version.id,
-        published_at: Time.current,
-        public: true
+        published_at: Time.current
       )
+    end
+
+    # Returns true if a public version is present
+    def public?
+      public_version.present?
     end
 
     # Updates an Alchemy::Page based on a new ordering to be applied to it
@@ -465,10 +462,15 @@ module Alchemy
         public: true
       }.update(options)
 
-      self_and_siblings
-        .where(["#{self.class.table_name}.lft #{dir} ?", lft])
-        .where(public: options[:public])
-        .where(restricted: options[:restricted])
+      pages = self_and_siblings.where(["#{self.class.table_name}.lft #{dir} ?", lft])
+
+      if options[:public]
+        pages = pages.published
+      else
+        pages = pages.where(public_version_id: nil)
+      end
+
+      pages.where(restricted: options[:restricted])
         .reorder(dir == '>' ? 'lft' : 'lft DESC')
         .limit(1).first
     end

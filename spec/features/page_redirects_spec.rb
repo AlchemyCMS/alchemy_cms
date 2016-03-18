@@ -5,7 +5,7 @@ module Alchemy
     let!(:default_language) { Language.default }
 
     let!(:default_language_root) do
-      create(:alchemy_page, :language_root, language: default_language, name: 'Home')
+      create(:alchemy_page, :public, :language_root, language: default_language, name: 'Home')
     end
 
     let(:public_page) do
@@ -87,11 +87,11 @@ module Alchemy
       context "if requested page is unpublished" do
         before do
           public_page.update_attributes(
-            public: false,
             visible: false,
             name: 'Not Public',
             urlname: ''
           )
+          public_page.public_version.delete
           public_child
         end
 
@@ -102,7 +102,7 @@ module Alchemy
 
         context "with only unpublished pages in page tree" do
           before do
-            public_child.update_attributes(public: false)
+            public_child.public_version.delete
           end
 
           it "should raise not found error" do

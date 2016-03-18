@@ -5,7 +5,7 @@ module Alchemy
     let!(:default_language) { Language.default }
 
     let!(:default_language_root) do
-      create(:alchemy_page, :language_root, language: default_language, name: 'Home')
+      create(:alchemy_page, :public, :language_root, language: default_language, name: 'Home')
     end
 
     let(:public_page) do
@@ -35,9 +35,7 @@ module Alchemy
 
     describe 'gets rendered' do
       let!(:public_page) do
-        page = create(:alchemy_page, :public)
-        page.publish!
-        page
+        create(:alchemy_page, :public)
       end
 
       let!(:article) do
@@ -50,7 +48,7 @@ module Alchemy
       let!(:essence) { article.contents.find_by!(name: 'intro').essence }
 
       before do
-        essence.update(body: 'Welcome to Peters Petshop', public: true)
+        essence.update(body: 'Welcome to Peters Petshop')
       end
 
       it "includes all its elements and contents" do
@@ -174,7 +172,7 @@ module Alchemy
     end
 
     describe 'accessing restricted pages' do
-      let!(:restricted_page) { create(:alchemy_page, :restricted, public: true) }
+      let!(:restricted_page) { create(:alchemy_page, :restricted, :public) }
 
       context 'as a guest user' do
         it "I am not able to visit the page" do

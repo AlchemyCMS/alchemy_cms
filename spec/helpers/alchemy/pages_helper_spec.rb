@@ -6,7 +6,7 @@ module Alchemy
     # Fixtures
     let(:language)                 { mock_model('Language', code: 'en', page_layout: 'index') }
     let(:default_language)         { Language.default }
-    let(:language_root)            { create(:alchemy_page, :language_root) }
+    let(:language_root)            { create(:alchemy_page, :public, :language_root) }
     let(:public_page)              { create(:alchemy_page, :public) }
     let(:visible_page)             { create(:alchemy_page, :public, visible: true) }
     let(:restricted_page)          { create(:alchemy_page, :public, visible: true, restricted: true) }
@@ -14,7 +14,7 @@ module Alchemy
     let(:level_3_page)             { create(:alchemy_page, :public, parent_id: level_2_page.id, visible: true, name: 'Level 3') }
     let(:level_4_page)             { create(:alchemy_page, :public, parent_id: level_3_page.id, visible: true, name: 'Level 4') }
     let(:klingon)                  { create(:alchemy_language, :klingon) }
-    let(:klingon_language_root)    { create(:alchemy_page, :language_root, language: klingon) }
+    let(:klingon_language_root)    { create(:alchemy_page, :public, :language_root, language: klingon) }
     let(:klingon_public_page)      { create(:alchemy_page, :public, language: klingon, parent_id: klingon_language_root.id) }
 
     before do
@@ -61,7 +61,7 @@ module Alchemy
       end
 
       it "should render visible unpublished pages" do
-        unpublished_visible_page = create(:alchemy_page, visible: true, public: false)
+        unpublished_visible_page = create(:alchemy_page, visible: true)
         expect(helper.render_navigation).to match(/#{unpublished_visible_page.name}/)
       end
 
@@ -268,7 +268,7 @@ module Alchemy
       end
 
       it "should render a breadcrumb of visible and unpublished pages" do
-        page.update_attributes!(public: false, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
+        page.update_attributes!(name: 'A Unpublic Page')
         expect(helper.render_breadcrumb(page: page)).to match(/A Unpublic Page/)
       end
 
@@ -288,11 +288,11 @@ module Alchemy
     end
 
     describe "#render_meta_data" do
-      let!(:root_page) do
-        create(:alchemy_page, :language_root, language: language)
+      let(:root_page) do
+        create(:alchemy_page, :public, :language_root, language: language)
       end
 
-      let!(:page) do
+      let(:page) do
         create(:alchemy_page, :public,
           title: 'A Public Page',
           updated_at: '2011-11-29-23:00:00',
@@ -333,8 +333,7 @@ module Alchemy
       context 'when the current page is missing its meta description' do
         context "but the root page has meta description" do
           before do
-            root_page.current_version.update(meta_description: "root page's description")
-            root_page.publish!
+            root_page.public_version.update(meta_description: "root page's description")
           end
 
           it "uses these" do
@@ -352,8 +351,7 @@ module Alchemy
       context 'when the current page is missing its meta keywords' do
         context "but the root page has meta keywords" do
           before do
-            root_page.current_version.update(meta_keywords: "root page's keywords")
-            root_page.publish!
+            root_page.public_version.update(meta_keywords: "root page's keywords")
           end
 
           it "uses these" do
