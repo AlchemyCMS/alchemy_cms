@@ -24,7 +24,7 @@ describe "Link overlay" do
 
   context "linking internal pages", js: true do
     let(:lang_root) do
-      create(:alchemy_page, :language_root)
+      create(:alchemy_page, :public, :language_root)
     end
 
     before do

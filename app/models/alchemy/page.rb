@@ -13,7 +13,6 @@
 #  parent_id        :integer
 #  depth            :integer
 #  visible          :boolean          default(FALSE)
-#  public           :boolean          default(FALSE)
 #  locked_at        :datetime
 #  locked_by        :integer
 #  restricted       :boolean          default(FALSE)

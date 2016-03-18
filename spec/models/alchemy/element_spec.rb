@@ -487,7 +487,7 @@ module Alchemy
     end
 
     context 'previous and next elements.' do
-      let(:page) { create(:alchemy_page, :language_root) }
+      let(:page) { create(:alchemy_page, :public, :language_root) }
 
       let!(:element1) do
         create(:alchemy_element, page_version: page.current_version, name: 'headline')

@@ -50,9 +50,7 @@ module Alchemy
 
     describe '#nested' do
       let!(:page) do
-        page = create(:alchemy_page, :public, page_layout: 'contact')
-        page.publish!
-        page
+        create(:alchemy_page, :public, page_layout: 'contact')
       end
 
       it "returns all pages as nested json tree without admin related infos", :aggregate_failures do

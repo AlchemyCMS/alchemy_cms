@@ -28,7 +28,7 @@ module Alchemy
         let!(:language) { create(:alchemy_language) }
 
         context 'with existing language root page' do
-          let!(:language_root) { create(:alchemy_page, :language_root) }
+          let!(:language_root) { create(:alchemy_page, :public, :language_root) }
 
           it "assigns @page_root variable" do
             alchemy_get :index
@@ -184,7 +184,7 @@ module Alchemy
       describe "#flush" do
         let(:content_page_1) do
           time = Time.current - 5.days
-          create :alchemy_page,
+          create :alchemy_page, :with_public_version,
             public_on: time,
             name: "content page 1",
             published_at: time
@@ -192,7 +192,7 @@ module Alchemy
 
         let(:content_page_2) do
           time = Time.current - 8.days
-          create :alchemy_page,
+          create :alchemy_page, :with_public_version,
             public_on: time,
             name: "content page 2",
             published_at: time
@@ -212,8 +212,8 @@ module Alchemy
             published_at: Time.current - 8.days
         end
 
-        let(:content_pages) { [content_page_1, content_page_2] }
-        let(:layout_pages) { [layout_page_1, layout_page_2] }
+        let(:content_pages)  { [content_page_1, content_page_2] }
+        let(:layout_pages)   { [layout_page_1, layout_page_2] }
 
         it "should update the published_at field of content pages" do
           content_pages
@@ -511,8 +511,8 @@ module Alchemy
 
       describe '#copy_language_tree' do
         let(:params)                     { {languages: {new_lang_id: '2', old_lang_id: '1'}} }
-        let(:language_root_to_copy_from) { build_stubbed(:alchemy_page, :language_root) }
-        let(:copy_of_language_root)      { build_stubbed(:alchemy_page, :language_root) }
+        let(:language_root_to_copy_from) { build_stubbed(:alchemy_page, :public, :language_root) }
+        let(:copy_of_language_root)      { build_stubbed(:alchemy_page, :public, :language_root) }
         let(:root_page)                  { mock_model('Page') }
 
         before do
@@ -653,20 +653,11 @@ module Alchemy
       end
 
       describe '#publish' do
-        let(:page) do
-          stub_model Page,
-            published_at: nil,
-            public_on: nil,
-            name: "page",
-            parent_id: 1,
-            urlname: "page",
-            language: stub_model(Language),
-            page_layout: "bla"
-        end
+        let(:page) { build_stubbed(:alchemy_page) }
 
         before do
-          allow(@controller).to receive(:load_page).and_return(page)
-          @controller.instance_variable_set("@page", page)
+          allow(controller).to receive(:load_page).and_return(page)
+          controller.instance_variable_set("@page", page)
         end
 
         it "should publish the page" do

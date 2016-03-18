@@ -6,7 +6,7 @@ module Alchemy
     # Fixtures
     let(:language)                 { mock_model('Language', code: 'en', page_layout: 'index') }
     let(:default_language)         { Language.default }
-    let(:language_root)            { create(:alchemy_page, :language_root) }
+    let(:language_root)            { create(:alchemy_page, :public, :language_root) }
     let(:public_page)              { create(:alchemy_page, :public) }
     let(:visible_page)             { create(:alchemy_page, :public, visible: true) }
     let(:restricted_page)          { create(:alchemy_page, :public, visible: true, restricted: true) }
@@ -14,7 +14,7 @@ module Alchemy
     let(:level_3_page)             { create(:alchemy_page, :public, parent_id: level_2_page.id, visible: true, name: 'Level 3') }
     let(:level_4_page)             { create(:alchemy_page, :public, parent_id: level_3_page.id, visible: true, name: 'Level 4') }
     let(:klingon)                  { create(:alchemy_language, :klingon) }
-    let(:klingon_language_root)    { create(:alchemy_page, :language_root, language: klingon) }
+    let(:klingon_language_root)    { create(:alchemy_page, :public, :language_root, language: klingon) }
     let(:klingon_public_page)      { create(:alchemy_page, :public, language: klingon, parent_id: klingon_language_root.id) }
 
     before do
@@ -268,7 +268,7 @@ module Alchemy
       end
 
       it "should render a breadcrumb of visible and unpublished pages" do
-        page.update_attributes!(public_on: nil, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
+        page.update_attributes!(public_on: nil, name: 'A Unpublic Page')
         expect(helper.render_breadcrumb(page: page)).to match(/A Unpublic Page/)
       end
 
@@ -404,17 +404,15 @@ module Alchemy
 
     describe "meta data" do
       let!(:root_page) do
-        create(:alchemy_page, :language_root, language: language)
+        create(:alchemy_page, :public, :language_root, language: language)
       end
 
       let(:public_page) do
-        page = create(:alchemy_page, :public,
+        create(:alchemy_page, :public,
           title: 'A Public Page',
           updated_at: '2011-11-29-23:00:00',
           parent: root_page
         )
-        page.publish!
-        page
       end
 
       before do
@@ -434,8 +432,7 @@ module Alchemy
 
         context "when current page has no meta description set" do
           before do
-            root_page.current_version.update(meta_description: "description from language root")
-            root_page.publish!
+            root_page.public_version.update(meta_description: "description from language root")
           end
 
           context "when #meta_description is an empty string" do
@@ -473,8 +470,7 @@ module Alchemy
 
         context "when current page has no meta keywords set" do
           before do
-            root_page.current_version.update(meta_keywords: "keywords, from language root")
-            root_page.publish!
+            root_page.public_version.update(meta_keywords: "keywords, from language root")
           end
 
           context "when #meta_keywords is an empty string" do

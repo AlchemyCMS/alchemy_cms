@@ -3,11 +3,7 @@ require 'spec_helper'
 module Alchemy
   describe Api::ElementsController do
     describe '#index' do
-      let(:page) do
-        page = create(:alchemy_page, :public)
-        page.publish!
-        page
-      end
+      let(:page) { create(:alchemy_page, :public) }
 
       before do
         create_list(:alchemy_element, 2, page_version: page.public_version)
@@ -27,9 +23,7 @@ module Alchemy
 
       context 'with page_id param' do
         let!(:other_page) do
-          page = create(:alchemy_page, :public)
-          page.publish!
-          page
+          create(:alchemy_page, :public)
         end
 
         let!(:other_element) { create(:alchemy_element, page: other_page) }

@@ -4,7 +4,8 @@ module Alchemy
 
     def public?
       current_time = Time.current
-      already_public_for?(current_time) && still_public_for?(current_time)
+      already_public_for?(current_time) &&
+        still_public_for?(current_time) && public_version.present?
     end
 
     def expiration_time

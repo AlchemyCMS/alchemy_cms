@@ -7,7 +7,7 @@ module Alchemy
     let(:rootpage)      { Page.root }
     let(:language)      { Language.default }
     let(:klingon)       { create(:alchemy_language, :klingon) }
-    let(:language_root) { create(:alchemy_page, :language_root) }
+    let(:language_root) { create(:alchemy_page, :public, :language_root) }
     let(:page)          { mock_model(Page, page_layout: 'foo') }
     let(:public_page)   { create(:alchemy_page, :public) }
     let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', do_not_autogenerate: false) }
@@ -508,7 +508,7 @@ module Alchemy
       end
 
       let!(:klingon_lang_root) do
-        create :alchemy_page, :language_root, {
+        create :alchemy_page, :public, :language_root, {
           name: 'klingon_lang_root',
           layoutpage: nil,
           language: klingon
@@ -804,7 +804,7 @@ module Alchemy
 
     describe '.public_language_roots' do
       it "should return pages that public language roots" do
-        create(:alchemy_page, :public, name: 'First Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, :language_root, name: 'Language root', language: language)
         expect(Page.public_language_roots.size).to eq(1)
       end
     end
@@ -971,7 +971,6 @@ module Alchemy
       let(:element_3) { create(:alchemy_element, page_version: page.public_version) }
 
       before do
-        page.publish!
         element_3.move_to_top
       end
 
@@ -1041,11 +1040,7 @@ module Alchemy
     end
 
     describe "#descendent_elements" do
-      let!(:page) do
-        page = create(:alchemy_page)
-        page.publish!
-        page
-      end
+      let!(:page) { create(:alchemy_page, :public) }
 
       let!(:element_1) do
         create(:alchemy_element, page_version: page.public_version)
@@ -1067,11 +1062,7 @@ module Alchemy
     end
 
     describe "#descendent_contents" do
-      let!(:page) do
-        page = create(:alchemy_page)
-        page.publish!
-        page
-      end
+      let!(:page) { create(:alchemy_page, :public) }
 
       let!(:element_1) do
         create :alchemy_element, :with_nestable_elements, :with_contents,
@@ -1265,9 +1256,7 @@ module Alchemy
 
     describe '#feed_elements' do
       let(:page) do
-        page = create(:alchemy_page, :public, page_layout: 'news')
-        page.publish!
-        page
+        create(:alchemy_page, :public, page_layout: 'news')
       end
 
       let(:news_element) do
@@ -1744,46 +1733,60 @@ module Alchemy
     describe '#public?' do
       subject { page.public? }
 
-      context "when public_on is not set" do
-        let(:page) { create(:alchemy_page, public_on: nil) }
-
-        it { is_expected.to be(false) }
-      end
-
-      context "when public_on is set to past date" do
-        context "and public_until is set to nil" do
+      context "when public version is present" do
+        context "when public_on is not set" do
           let(:page) do
-            create :alchemy_page,
-              public_on: Time.current - 2.days,
-              public_until: nil
+            build_stubbed :alchemy_page, :with_public_version,
+              public_on: nil
           end
 
-          it { is_expected.to be(true) }
+          it { is_expected.to be(false) }
         end
 
-        context "and public_until is set to future date" do
-          let(:page) do
-            create :alchemy_page,
-              public_on: Time.current - 2.days,
-              public_until: Time.current + 2.days
+        context "when public_on is set to past date" do
+          context "and public_until is set to nil" do
+            let(:page) do
+              build_stubbed :alchemy_page, :with_public_version,
+                public_on: Time.current - 2.days,
+                public_until: nil
+            end
+
+            it { is_expected.to be(true) }
           end
 
-          it { is_expected.to be(true) }
+          context "and public_until is set to future date" do
+            let(:page) do
+              build_stubbed :alchemy_page, :with_public_version,
+                public_on: Time.current - 2.days,
+                public_until: Time.current + 2.days
+            end
+
+            it { is_expected.to be(true) }
+          end
+
+          context "and public_until is set to past date" do
+            let(:page) do
+              build_stubbed :alchemy_page, :with_public_version,
+                public_on: Time.current - 2.days,
+                public_until: Time.current - 1.days
+            end
+
+            it { is_expected.to be(false) }
+          end
         end
 
-        context "and public_until is set to past date" do
+        context "when public_on is set to future date" do
           let(:page) do
-            create :alchemy_page,
-              public_on: Time.current - 2.days,
-              public_until: Time.current - 1.days
+            build_stubbed :alchemy_page, :with_public_version,
+              public_on: Time.current + 2.days
           end
 
           it { is_expected.to be(false) }
         end
       end
 
-      context "when public_on is set to future date" do
-        let(:page) { create(:alchemy_page, public_on: Time.current + 2.days) }
+      context "when public version is missing" do
+        let(:page) { build_stubbed(:alchemy_page) }
 
         it { is_expected.to be(false) }
       end
@@ -2263,12 +2266,20 @@ module Alchemy
 
     context 'page status methods' do
       let(:page) do
-        build(:alchemy_page, :public, visible: true, restricted: false)
+        build_stubbed :alchemy_page, :public,
+          visible: true,
+          restricted: false,
+          locked_at: nil
       end
 
       describe '#status' do
         it "returns a combined status hash" do
-          expect(page.status).to eq({public: true, visible: true, restricted: false, locked: false})
+          expect(page.status).to eq(
+            public: true,
+            visible: true,
+            restricted: false,
+            locked: false
+          )
         end
       end
 

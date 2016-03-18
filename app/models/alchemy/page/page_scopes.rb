@@ -100,17 +100,19 @@ module Alchemy
       # All public pages
       #
       def published
-        where("#{table_name}.public_on <= :time AND " \
-              "(#{table_name}.public_until IS NULL " \
-              "OR #{table_name}.public_until >= :time)", time: Time.current)
+        joins(:public_version).
+          where("#{table_name}.public_on <= :time AND " \
+                "(#{table_name}.public_until IS NULL " \
+                "OR #{table_name}.public_until >= :time)", time: Time.current)
       end
 
       # All not public pages
       #
       def not_public
-        where("#{table_name}.public_on IS NULL OR " \
-              "#{table_name}.public_on >= :time OR " \
-              "#{table_name}.public_until <= :time", time: Time.current)
+        where(public_version_id: nil).
+          where("#{table_name}.public_on IS NULL OR " \
+                "#{table_name}.public_on >= :time OR " \
+                "#{table_name}.public_until <= :time", time: Time.current)
       end
     end
   end
