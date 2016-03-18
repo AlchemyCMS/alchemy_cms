@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Welcome to AlchemyCMS</title>
+    <link href='https://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <%= stylesheet_link_tag "alchemy/welcome", media: "all" %>
+  </head>
+  <body>
+    <div class="container">
+      <%= image_tag 'alchemy/alchemy-logo.svg' %>
+      <h3>You have succesfully installed AlchemyCMS!</h3>
+      <p>
+        Thank you for using Alchemy. We hope you enjoy using it as much as we do.
+      </p>
+      <p>
+        The first thing you probably want to do before creating your first page:
+      </p>
+      <ul>
+        <li><%= link_to 'Create your first admin user', Alchemy.signup_path %></li>
+        <li><%= link_to 'Read the guidelines', 'http://guides.alchemy-cms.com/stable', target: '_blank' %></li>
+      </ul>
+    </div>
+  </body>
+</html>

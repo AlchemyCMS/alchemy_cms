@@ -3,11 +3,28 @@ require 'spec_helper'
 
 module Alchemy
   describe PagesController do
-    let(:default_language)      { Language.default }
-    let(:default_language_root) { create(:alchemy_page, :language_root, language: default_language, name: 'Home', public: true) }
-    let(:page) { create(:alchemy_page, :public, parent_id: default_language_root.id, page_layout: 'news', name: 'News', urlname: 'news', language: default_language, do_not_autogenerate: false) }
+    let(:default_language) { Language.default }
 
-    before { allow(controller).to receive(:signup_required?).and_return(false) }
+    let(:default_language_root) do
+      create :alchemy_page, :language_root,
+        language: default_language,
+        name: 'Home',
+        public: true
+    end
+
+    let(:page) do
+      create :alchemy_page, :public,
+        parent_id: default_language_root.id,
+        page_layout: 'news',
+        name: 'News',
+        urlname: 'news',
+        language: default_language,
+        do_not_autogenerate: false
+    end
+
+    before do
+      allow(controller).to receive(:signup_required?).and_return(false)
+    end
 
     describe "#index" do
       before do

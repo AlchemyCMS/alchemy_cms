@@ -8,5 +8,6 @@ Rails.application.config.assets.precompile += [
   'alchemy/menubar.css',
   'alchemy/menubar.js',
   'alchemy/print.css',
+  'alchemy/welcome.css',
   'tinymce/*'
 ]

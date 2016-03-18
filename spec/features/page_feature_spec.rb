@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 module Alchemy
-  describe 'Page' do
+  describe 'Show page feature:' do
     let!(:default_language) { Language.default }
 
     let!(:default_language_root) do
@@ -14,6 +14,23 @@ module Alchemy
 
     let(:public_child) do
       create(:alchemy_page, :public, name: 'Public Child', parent_id: public_page.id)
+    end
+
+    context "When no page is present" do
+      before do
+        Alchemy::Page.delete_all
+      end
+
+      context "and no admin user is present yet" do
+        before do
+          Alchemy.user_class.delete_all
+        end
+
+        it 'shows a welcome page' do
+          visit "/"
+          expect(page).to have_content('Welcome to Alchemy')
+        end
+      end
     end
 
     context 'rendered' do

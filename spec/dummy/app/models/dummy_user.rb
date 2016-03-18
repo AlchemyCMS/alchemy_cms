@@ -5,6 +5,10 @@ class DummyUser < ActiveRecord::Base
     []
   end
 
+  def self.admins
+    [first].compact
+  end
+
   def alchemy_roles
     @alchemy_roles || %w(admin)
   end
