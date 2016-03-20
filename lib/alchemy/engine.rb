@@ -63,6 +63,7 @@ module Alchemy
     initializer 'alchemy.assets' do |app|
       app.config.assets.precompile += [
         'alchemy/alchemy.js',
+        'alchemy/favicon.ico',
         'alchemy/preview.js',
         'alchemy/admin.css',
         'alchemy/menubar.css',
