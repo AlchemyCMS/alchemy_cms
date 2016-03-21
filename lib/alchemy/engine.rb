@@ -59,20 +59,6 @@ module Alchemy
     engine_name 'alchemy'
     config.mount_at = '/'
 
-    # Enabling assets precompiling
-    initializer 'alchemy.assets' do |app|
-      app.config.assets.precompile += [
-        'alchemy/alchemy.js',
-        'alchemy/favicon.ico',
-        'alchemy/preview.js',
-        'alchemy/admin.css',
-        'alchemy/menubar.css',
-        'alchemy/menubar.js',
-        'alchemy/print.css',
-        'tinymce/*'
-      ]
-    end
-
     initializer 'alchemy.dependency_tracker' do
       [:erb, :slim, :haml].each do |handler|
         ActionView::DependencyTracker.register_tracker(handler, CacheDigests::TemplateTracker)
