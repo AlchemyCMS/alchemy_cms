@@ -41,8 +41,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'sassy-buttons',                    ['~> 0.2.6']
   gem.add_runtime_dependency 'select2-rails',                    ['>= 3.5.9.1', '< 4.0']
   gem.add_runtime_dependency 'simple_form',                      ['~> 3.0']
-  gem.add_runtime_dependency 'spinner.rb'
-  gem.add_runtime_dependency 'turbolinks', ['~> 2.5']
+  gem.add_runtime_dependency 'turbolinks',                       ['~> 2.5']
 
   gem.post_install_message = <<-MSG
 -------------------------------------------------------------
