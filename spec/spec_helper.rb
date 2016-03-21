@@ -76,6 +76,7 @@ RSpec.configure do |config|
       DatabaseCleaner.strategy = :transaction
     end
     DatabaseCleaner.start
+    Bullet.start_request if Bullet.enable?
   end
 
   # After each spec the database gets cleaned. (via rollback or truncate for feature specs)
@@ -86,5 +87,6 @@ RSpec.configure do |config|
       allow(Alchemy::Seeder).to receive(:puts)
       Alchemy::Seeder.seed!
     end
+    Bullet.end_request if Bullet.enable?
   end
 end
