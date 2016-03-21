@@ -2,11 +2,6 @@ module Alchemy
   class PagesController < Alchemy::BaseController
     include OnPageLayout::CallbacksRunner
 
-    # Redirects to signup path, if no admin user is present yet
-    before_action if: :signup_required? do
-      redirect_to Alchemy.signup_path
-    end
-
     # Redirecting concerns. Order is important here!
     include SiteRedirects
     include LocaleRedirects
@@ -88,10 +83,13 @@ module Alchemy
     # Loads the current public language root page.
     #
     # If the root page is not public it loads the first published child.
-    # This can be configured via `redirect_to_public_child` [default: true]
+    # This can be configured via +redirect_to_public_child+ [default: true]
+    #
+    # If no index page and no admin users are present we show the "Welcome to Alchemy" page.
     #
     def load_index_page
       @page ||= public_root_page || first_public_child
+      render template: 'alchemy/welcome', layout: false if signup_required?
     end
 
     # == Loads page by urlname
@@ -116,7 +114,7 @@ module Alchemy
     #
     def public_root_page
       @root_page ||= Language.current_root_page
-      @root_page if @root_page.public?
+      @root_page if @root_page && @root_page.public?
     end
 
     # Returns the first public child of the current language root page.
@@ -125,6 +123,7 @@ module Alchemy
     #
     def first_public_child
       if Alchemy::Config.get(:redirect_to_public_child)
+        return unless @root_page
         @root_page.descendants.published.first
       end
     end
