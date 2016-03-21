@@ -54,6 +54,14 @@ module Alchemy
       end
     end
 
+    describe ".get_all_by_attributes" do
+      subject { PageLayout.get_all_by_attributes(unique: true) }
+
+      it "should return all page layout with the given attribute" do
+        expect(subject.map { |page_layout| page_layout['name'] }.to_a).to eq(['index', 'news', 'contact', 'erb_layout'])
+      end
+    end
+
     describe '.layouts_with_own_for_select' do
       it "should not hold a layout twice" do
         layouts = PageLayout.layouts_with_own_for_select('standard', 1, false)

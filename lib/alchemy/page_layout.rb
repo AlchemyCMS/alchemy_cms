@@ -41,7 +41,7 @@ module Alchemy
       def get_all_by_attributes(attributes)
         return [] if attributes.blank?
 
-        if attributes.class.is_a? Hash
+        if attributes.is_a? Hash
           layouts = []
           attributes.stringify_keys.each do |key, value|
             result = all.select { |l| l.key?(key) && l[key].to_s.casecmp(value.to_s) == 0 }
