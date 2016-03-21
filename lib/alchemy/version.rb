@@ -1,5 +1,5 @@
 module Alchemy
-  VERSION = "4.0.0.beta"
+  VERSION = "3.3.0.beta1"
 
   def self.version
     VERSION
