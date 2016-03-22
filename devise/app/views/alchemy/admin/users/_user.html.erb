@@ -7,26 +7,26 @@
   <td class="name"><%= user.firstname %></td>
   <td><%= user.lastname %></td>
   <td class="email"><%= user.email %></td>
-  <td><%= _t(user.language, scope: 'translations', default: _t(:unknown)) %></td>
-  <td><%= user.last_sign_in_at.present? ? l(user.last_sign_in_at, format: :default) : _t(:unknown) %></td>
+  <td><%= Alchemy.t(user.language, scope: 'translations', default: Alchemy.t(:unknown)) %></td>
+  <td><%= user.last_sign_in_at.present? ? l(user.last_sign_in_at, format: :default) : Alchemy.t(:unknown) %></td>
   <td class="role"><%= user.human_roles_string %></td>
   <td class="tools">
   <% if can?(:destroy, user) %>
     <%= delete_button alchemy.admin_user_path(user), {
-      message: _t(:confirm_to_delete_user),
-      title: _t(:delete_user),
+      message: Alchemy.t(:confirm_to_delete_user),
+      title: Alchemy.t(:delete_user),
       icon: "user_delete#{user.gender == 'female' ? ' female' : ' male'}"
     } %>
   <% end %>
   <% if can?(:edit, user) %>
     <%= link_to_dialog '',
       alchemy.edit_admin_user_path(user), {
-        title: _t(:edit_user),
+        title: Alchemy.t(:edit_user),
         overflow: true,
         size: '430x560'
       }, {
         class: "icon user_edit#{user.gender == 'female' ? ' female' : ' male'}",
-        title: _t(:edit_user)
+        title: Alchemy.t(:edit_user)
       }
     %>
   <% end %>

@@ -2,12 +2,12 @@
   buttons: [
     {
       icon: 'user_add',
-      label: _t(:create_user),
+      label: Alchemy.t(:create_user),
       url: alchemy.new_admin_user_path,
-      title: _t(:create_user),
+      title: Alchemy.t(:create_user),
       hotkey: 'alt+n',
       dialog_options: {
-        title: _t(:create_user),
+        title: Alchemy.t(:create_user),
         size: "430x560"
       },
       if_permitted_to: [:create, Alchemy::User]
@@ -55,7 +55,7 @@
 
   <div class="info">
     <%= render_icon('info') %>
-    <%= _t('No users found') %>
+    <%= Alchemy.t('No users found') %>
   </div>
 
 <% end %>

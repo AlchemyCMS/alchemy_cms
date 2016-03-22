@@ -5,8 +5,8 @@
   <div class="login_signup_box">
   <% if @user.errors.blank? %>
     <%= render_message do %>
-      <h1><%= _t 'Password reset' %></h1>
-      <p><%= _t 'Please enter your email address' %></p>
+      <h1><%= Alchemy.t('Password reset') %></h1>
+      <p><%= Alchemy.t('Please enter your email address') %></p>
     <% end %>
   <% else %>
     <div id="errors" style="display: block">
@@ -17,7 +17,7 @@
       <%= f.input :email,
         autofocus: true,
         input_html: {value: params[:email]} %>
-      <%= f.submit _t("Send reset instructions") %>
+      <%= f.submit Alchemy.t("Send reset instructions") %>
     <% end %>
   </div>
 </div>

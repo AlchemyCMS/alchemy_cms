@@ -4,8 +4,8 @@
 
 <div id="user_signup" class="login_signup_box">
   <%= render_message do %>
-    <h1><%= _t('Welcome to Alchemy') %></h1>
-    <p><%= _t("Please Signup") %></p>
+    <h1><%= Alchemy.t('Welcome to Alchemy') %></h1>
+    <p><%= Alchemy.t("Please Signup") %></p>
   <% end %>
   <%= alchemy_form_for [:admin, @user] do |f| %>
     <%= render 'fields', f: f %>

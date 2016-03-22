@@ -1,6 +1,6 @@
 <%= f.input :gender,
   collection: @user_genders,
-  prompt: _t('Please choose'),
+  prompt: Alchemy.t('Please choose'),
   input_html: {class: 'alchemy_selectbox'} %>
 <%= f.input :firstname %>
 <%= f.input :lastname %>
@@ -27,4 +27,4 @@
   </div>
 <% end %>
 <%= f.input :send_credentials, as: 'boolean' %>
-<%= f.submit _t(:save) %>
+<%= f.submit Alchemy.t(:save) %>

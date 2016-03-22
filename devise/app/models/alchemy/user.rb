@@ -51,13 +51,13 @@ module Alchemy
 
     class << self
       def human_rolename(role)
-        I18n.t("user_roles.#{role}")
+        Alchemy.t("user_roles.#{role}")
       end
 
       def genders_for_select
         [
-          [I18n.t('male'), 'male'],
-          [I18n.t('female'), 'female']
+          [Alchemy.t('male'), 'male'],
+          [Alchemy.t('female'), 'female']
         ]
       end
 

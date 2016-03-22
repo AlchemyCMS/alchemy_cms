@@ -28,7 +28,7 @@ module Alchemy
         if while_signup?
           new
         else
-          flash[:warning] = _t(:cannot_signup_more_then_once)
+          flash[:warning] = Alchemy.t(:cannot_signup_more_then_once)
           redirect_to admin_dashboard_path
         end
       end
@@ -53,14 +53,14 @@ module Alchemy
         deliver_welcome_mail
         render_errors_or_redirect @user,
           admin_users_path,
-          _t("User updated", :name => @user.name)
+          Alchemy.t("User updated", :name => @user.name)
       end
 
       def destroy
         # User is fetched via before filter
         name = @user.name
         if @user.destroy
-          flash[:notice] = _t("User deleted", name: name)
+          flash[:notice] = Alchemy.t("User deleted", name: name)
         end
         do_redirect_to admin_users_path
       end
@@ -95,7 +95,7 @@ module Alchemy
       def signup_admin_or_redirect
         @user.alchemy_roles = %w(admin)
         if @user.save
-          flash[:notice] = _t('Successfully signup admin user')
+          flash[:notice] = Alchemy.t('Successfully signup admin user')
           sign_in :user, @user
           deliver_welcome_mail
           redirect_to admin_pages_path
@@ -109,7 +109,7 @@ module Alchemy
         deliver_welcome_mail
         render_errors_or_redirect @user,
           admin_users_path,
-          _t("User created", name: @user.name)
+          Alchemy.t("User created", name: @user.name)
       end
 
       def can_update_role?

@@ -8,7 +8,7 @@ module Alchemy
       @url = login_url
       mail(
         to: user.email,
-        subject: I18n.t("Your user credentials")
+        subject: Alchemy.t("Your user credentials")
       )
     end
 
@@ -17,7 +17,7 @@ module Alchemy
       @url = admin_url
       mail(
         to: user.email,
-        subject: I18n.t("Your Alchemy Login")
+        subject: Alchemy.t("Your Alchemy Login")
       )
     end
 
@@ -26,7 +26,7 @@ module Alchemy
       @token = token
       mail(
         to: user.email,
-        subject: I18n.t("Reset password instructions")
+        subject: Alchemy.t("Reset password instructions")
       )
     end
   end

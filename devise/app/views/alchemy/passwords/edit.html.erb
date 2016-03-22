@@ -5,8 +5,8 @@
   <div class="login_signup_box">
   <% if @user.errors.blank? %>
     <%= render_message do %>
-      <h1><%= _t 'Password reset' %></h1>
-      <p><%= _t 'Please enter a new password' %></p>
+      <h1><%= Alchemy.t('Password reset') %></h1>
+      <p><%= Alchemy.t('Please enter a new password') %></p>
     <% end %>
   <% else %>
     <div id="errors" style="display: block">
@@ -15,9 +15,9 @@
   <% end %>
     <%= alchemy_form_for resource, as: resource_name, url: update_password_path, method: 'patch' do |f| %>
       <%= f.hidden_field :reset_password_token %>
-      <%= f.input :password, autofocus: true, label: _t("New password") %>
-      <%= f.input :password_confirmation, label: _t("Confirm new password") %>
-      <%= f.submit _t("Change password") %>
+      <%= f.input :password, autofocus: true, label: Alchemy.t("New password") %>
+      <%= f.input :password_confirmation, label: Alchemy.t("Confirm new password") %>
+      <%= f.submit Alchemy.t("Change password") %>
     <% end %>
   </div>
 </div>

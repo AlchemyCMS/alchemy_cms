@@ -7,11 +7,11 @@
       <%= f.input :login, autofocus: true %>
       <%= f.input :password %>
       <p class="foot_note">
-        <%= link_to _t('Forgot your password?'), new_password_path %>
+        <%= link_to Alchemy.t('Forgot your password?'), new_password_path %>
       </p>
       <div class="submit">
         <%= hidden_field_tag 'user_screensize' %>
-        <button><%= _t(:login) %></button>
+        <button><%= Alchemy.t(:login) %></button>
       </div>
     <% end %>
   </div>
