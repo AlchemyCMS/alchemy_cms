@@ -76,8 +76,6 @@ module Alchemy
     #
     # @param [Hash]
     #   options hash
-    # @param [Boolean] (false)
-    #   Pass true, if you want to also have not published elements.
     #
     # @option options [Array] only
     #   Returns only elements with given names
@@ -94,21 +92,26 @@ module Alchemy
     #
     # @return [ActiveRecord::Relation]
     #
-    def find_elements(options = {}, show_non_public = false)
+    def find_elements(options = {})
       elements = elements_from_cell_or_self(options[:from_cell])
+
       if options[:only].present?
         elements = elements.named(options[:only])
       elsif options[:except].present?
         elements = elements.excluded(options[:except])
       end
+
       if options[:reverse_sort] || options[:reverse]
         elements = elements.reverse_order
       end
+
       elements = elements.offset(options[:offset]).limit(options[:count])
+
       if options[:random]
         elements = elements.order("RAND()")
       end
-      show_non_public ? elements : elements.published
+
+      elements.published
     end
     alias_method :find_selected_elements, :find_elements
 
@@ -322,8 +325,25 @@ module Alchemy
       when 'String'
         cell_elements_by_name(cell)
       else
-        elements.not_in_cell
+        elements_from_version
       end
+    end
+
+    # Loads elements from one of page versions
+    #
+    # Defaults to elements from +public_version+
+    #
+    # If page is current preview page (because we currently edit it's content)
+    # loads elements from +current_version+ instead.
+    #
+    def elements_from_version(version: public_version)
+      if Page.current_preview == self
+        version = current_version
+      end
+
+      return Element.none if version.nil?
+
+      version.elements.not_in_cell
     end
 
     # Returns all elements from given cell name
