@@ -1,5 +1,5 @@
 module Alchemy
   module Devise
-    VERSION = "4.0.0.beta"
+    VERSION = "3.3.0.beta"
   end
 end
