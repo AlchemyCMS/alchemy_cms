@@ -1,12 +1,13 @@
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.svg)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://travis-ci.org/AlchemyCMS/alchemy_cms.svg?branch=master)](https://travis-ci.org/AlchemyCMS/alchemy_cms) [![Code Climate](https://codeclimate.com/github/AlchemyCMS/alchemy_cms.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms) [![Test Coverage](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/badges/coverage.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms)
+[![Build Status](https://travis-ci.org/AlchemyCMS/alchemy_cms.svg?branch=master)](https://travis-ci.org/AlchemyCMS/alchemy_cms)
+[![Code Climate](https://codeclimate.com/github/AlchemyCMS/alchemy_cms.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms)
+[![Test Coverage](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/badges/coverage.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms)
+[![Slack Status](http://slack.alchemy-cms.com/badge.svg)](http://slack.alchemy-cms.com)
 
 **CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms/versions/3.2.0), or the [latest stable branch (3.2-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/3.2-stable).**
 
 
 ## About
-
-[![Join the chat at https://gitter.im/AlchemyCMS/alchemy_cms](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/AlchemyCMS/alchemy_cms?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.svg)
 
