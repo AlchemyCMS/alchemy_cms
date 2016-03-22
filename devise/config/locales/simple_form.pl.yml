@@ -1,0 +1,6 @@
+pl:
+  simple_form:
+    labels:
+      user:
+        login: Login
+        password: Hasło
