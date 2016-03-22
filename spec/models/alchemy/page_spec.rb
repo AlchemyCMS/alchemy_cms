@@ -1169,30 +1169,105 @@ module Alchemy
     end
 
     describe '#find_elements' do
-      before do
-        create(:alchemy_element, public: false, page: public_page)
-        create(:alchemy_element, public: false, page: public_page)
+      let(:options) { Hash.new }
+
+      let(:articles) do
+        create_list :alchemy_element, 2,
+          name: 'article',
+          page_version: public_page.public_version
       end
 
-      context "with show_non_public argument TRUE" do
-        it "should return all elements from empty options" do
-          expect(public_page.find_elements({}, true).to_a).to eq(public_page.elements.to_a)
+      let(:headlines) do
+        create_list :alchemy_element, 2,
+          name: 'headline',
+          page_version: public_page.public_version
+      end
+
+      let(:published_elements) do
+        articles + headlines
+      end
+
+      subject(:found_elements) do
+        public_page.find_elements(options)
+      end
+
+      it "returns all published elements from page's public version" do
+        expect(found_elements).to match_array(published_elements)
+      end
+
+      context 'with page not having a public version' do
+        before do
+          public_page.update!(public_version: nil)
         end
 
-        it "should only return the elements passed as options[:only]" do
-          expect(public_page.find_elements({only: ['article']}, true).to_a).to eq(public_page.elements.named('article').to_a)
+        it 'returns empty relation' do
+          expect(found_elements).to be_empty
+        end
+      end
+
+      context "with page being the current page preview" do
+        let(:current_articles) do
+          create_list :alchemy_element, 2,
+            name: 'article',
+            page_version: public_page.current_version
         end
 
-        it "should not return the elements passed as options[:except]" do
-          expect(public_page.find_elements({except: ['article']}, true).to_a).to eq(public_page.elements - public_page.elements.named('article').to_a)
+        let(:current_headlines) do
+          create_list :alchemy_element, 2,
+            name: 'headline',
+            page_version: public_page.current_version
         end
 
-        it "should return elements offsetted" do
-          expect(public_page.find_elements({offset: 2}, true).to_a).to eq(public_page.elements.offset(2))
+        let(:current_elements) do
+          current_articles + current_headlines
         end
 
-        it "should return elements limitted in count" do
-          expect(public_page.find_elements({count: 1}, true).to_a).to eq(public_page.elements.limit(1))
+        before do
+          allow(Alchemy::Page).to receive(:current_preview) { public_page }
+        end
+
+        it 'loads the elements from the current_version' do
+          expect(found_elements).to eq(current_elements)
+        end
+      end
+
+      context "with options[:only]" do
+        let(:options) do
+          {only: ['article']}
+        end
+
+        it "returns only elements named like this" do
+          expect(found_elements).to match_array(articles)
+        end
+      end
+
+      context "with options[:except]" do
+        let(:options) do
+          {except: ['article']}
+        end
+
+        it "returns elements except named like this" do
+          expect(found_elements).to match_array(headlines)
+        end
+      end
+
+      context "with options[:offset]" do
+        let(:options) do
+          {offset: 2}
+        end
+
+        it "returns elements offsetted" do
+          expect(found_elements).to match_array(published_elements[2..-1])
+        end
+      end
+
+      context "with options[:count]" do
+        let(:options) do
+          {count: 1}
+        end
+
+        it "returns elements limitted in count" do
+          expect(found_elements).to match_array(published_elements[0])
         end
       end
 
@@ -1243,28 +1318,6 @@ module Alchemy
 
             expect(public_page.find_elements(from_cell: cell).to_a).to eq([element])
           end
-        end
-      end
-
-      context "with show_non_public argument FALSE" do
-        it "should return all elements from empty arguments" do
-          expect(public_page.find_elements.to_a).to eq(public_page.elements.published.to_a)
-        end
-
-        it "should only return the public elements passed as options[:only]" do
-          expect(public_page.find_elements(only: ['article']).to_a).to eq(public_page.elements.published.named('article').to_a)
-        end
-
-        it "should return all public elements except the ones passed as options[:except]" do
-          expect(public_page.find_elements(except: ['article']).to_a).to eq(public_page.elements.published.to_a - public_page.elements.published.named('article').to_a)
-        end
-
-        it "should return elements offsetted" do
-          expect(public_page.find_elements({offset: 2}).to_a).to eq(public_page.elements.published.offset(2))
-        end
-
-        it "should return elements limitted in count" do
-          expect(public_page.find_elements({count: 1}).to_a).to eq(public_page.elements.published.limit(1))
         end
       end
     end
