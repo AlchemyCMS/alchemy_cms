@@ -14,6 +14,9 @@ group :test do
   gem 'sqlite3' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'mysql2'  if ENV['DB'] == 'mysql'
   gem 'pg'      if ENV['DB'] == 'postgresql'
+  if ENV['TRAVIS']
+    gem "codeclimate-test-reporter", require: false
+  else
+    gem 'simplecov', require: false
+  end
 end
-
-gem 'coveralls', require: false
