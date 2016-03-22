@@ -172,9 +172,9 @@ module Alchemy
     #
     def deliver_welcome_mail
       if has_role?('author') || has_role?('editor') || has_role?('admin')
-        Notifications.alchemy_user_created(self).deliver
+        Notifications.alchemy_user_created(self).deliver_later
       else
-        Notifications.member_created(self).deliver
+        Notifications.member_created(self).deliver_later
       end
     end
 
