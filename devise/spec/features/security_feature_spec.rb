@@ -1,13 +1,6 @@
 require 'spec_helper'
 
 describe "Security: " do
-  context "If no user is present" do
-    it "render the signup view" do
-      visit '/'
-      expect(current_path).to eq('/admin/signup')
-    end
-  end
-
   context "If user is present" do
     before { allow(Alchemy::User).to receive_messages(:count => 1) }
 
