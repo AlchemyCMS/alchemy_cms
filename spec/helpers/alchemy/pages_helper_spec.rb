@@ -449,6 +449,44 @@ module Alchemy
       end
     end
 
+    describe "#cell_empty" do
+      let(:cell)    { create(:alchemy_cell, name: 'test_cell', page: public_page) }
+      let(:element) { create(:alchemy_element) }
+
+      before { @page = public_page }
+
+      context "with elements" do
+        before do
+          cell.elements << element
+          cell.save!
+        end
+
+        it "should return true" do
+          expect(helper.cell_empty?('test_cell')).to eq(false)
+        end
+      end
+
+      context "with zero elements" do
+        it "should return true" do
+          expect(helper.cell_empty?('test_cell')).to eq(true)
+        end
+      end
+
+      context "with trashed elements" do
+        before do
+          cell.elements << element
+          cell.save!
+
+          element.trash!
+          element.save!
+        end
+
+        it "should return true" do
+          expect(helper.cell_empty?('test_cell')).to eq(true)
+        end
+      end
+    end
+
     describe "#picture_essence_caption" do
       let(:essence) { mock_model('EssencePicture', caption: 'my caption') }
       let(:content) { mock_model('Content', essence: essence) }
