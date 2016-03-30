@@ -427,6 +427,7 @@ en:
       file: "File"
       internal: "Internal"
     link_title: "Link title"
+    loading_sitemap: "Loading sitemap"
     login: "login"
     logout: "logout"
     mail_to: "Recipient"

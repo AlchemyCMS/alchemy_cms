@@ -25,13 +25,12 @@ Alchemy.Sitemap =
     request = $.ajax url: @url, data:
       id: @page_root_id
       full: @full
+    spinner = Alchemy.Spinner.small()
 
     if foldingId
-      spinner = Alchemy.Spinner.small()
       spinTarget = $('#fold_button_' + foldingId)
     else
-      spinner = Alchemy.Spinner.medium()
-      spinTarget = self.sitemap_wrapper
+      spinTarget = self.sitemap_wrapper.find('.sitemap-load-notice')
 
     spinner.spin(spinTarget[0])
 

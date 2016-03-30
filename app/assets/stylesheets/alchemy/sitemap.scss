@@ -19,7 +19,21 @@
 }
 
 #sitemap-wrapper {
-  min-height: 400px;
+  position: relative;
+  min-height: 100%;
+
+  .sitemap-load-notice {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .spinner {
+    left: 0 !important;
+    top: -1px !important;
+    margin-right: 10px;
+  }
 }
 
 .sitemap_pagename_link {
