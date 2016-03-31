@@ -19,10 +19,8 @@ auto_logout_time: 30
 
 # === Redirect Options
 #
-#   redirect_index            [Boolean]   # You can disable the redirect to first child page for not public pages.
 #   redirect_to_public_child  [Boolean]   # Alchemy redirects to the first public child page found, if a page is not visible.
 #
-redirect_index: true
 redirect_to_public_child: true
 
 # === Page caching
