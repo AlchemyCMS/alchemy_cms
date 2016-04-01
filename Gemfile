@@ -10,6 +10,8 @@ gem 'sqlite3' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
 gem 'mysql2', '~> 0.3.18' if ENV['DB'] == 'mysql'
 gem 'pg'      if ENV['DB'] == 'postgresql'
 
+gem 'mime-types', '< 3' # otherwise we can't build for Ruby 1.9
+
 group :development, :test do
   gem 'jasmine-rails',        github: 'searls/jasmine-rails'
   gem 'jasmine-jquery-rails', github: 'travisjeffery/jasmine-jquery-rails'
@@ -24,7 +26,7 @@ group :development, :test do
     gem 'bumpy'
     gem 'yard'
     gem 'redcarpet'
-    gem 'pry-byebug'
+    gem 'pry'
     gem 'spring'
     gem 'spring-commands-rspec'
   end
