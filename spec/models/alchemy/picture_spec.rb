@@ -250,7 +250,7 @@ module Alchemy
 
     describe '.recent' do
       before do
-        now = Time.now
+        now = Time.current
         @recent = Picture.create!(image_file: image_file)
         @old_picture = Picture.create!(image_file: image_file)
         @recent.update_column(:created_at, now - 23.hours)

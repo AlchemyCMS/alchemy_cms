@@ -808,7 +808,7 @@ module Alchemy
 
     describe '#cache_key' do
       let(:page) do
-        stub_model(Page, updated_at: Time.now, published_at: Time.now - 1.week)
+        stub_model(Page, updated_at: Time.current, published_at: Time.current - 1.week)
       end
 
       subject { page.cache_key }
@@ -1409,7 +1409,7 @@ module Alchemy
 
     describe '#publish!' do
       let(:page) { build_stubbed(:alchemy_page, public: false) }
-      let(:current_time) { Time.now }
+      let(:current_time) { Time.current }
 
       before do
         current_time
@@ -2031,7 +2031,7 @@ module Alchemy
 
     describe '#published_at' do
       context 'with published_at date set' do
-        let(:published_at) { Time.now }
+        let(:published_at) { Time.current }
         let(:page)         { build_stubbed(:alchemy_page, published_at: published_at) }
 
         it "returns the published_at value from database" do
@@ -2040,7 +2040,7 @@ module Alchemy
       end
 
       context 'with published_at is nil' do
-        let(:updated_at) { Time.now }
+        let(:updated_at) { Time.current }
         let(:page)       { build_stubbed(:alchemy_page, published_at: nil, updated_at: updated_at) }
 
         it "returns the updated_at value" do

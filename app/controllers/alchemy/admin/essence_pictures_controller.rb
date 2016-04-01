@@ -49,7 +49,7 @@ module Alchemy
         # but the cache needs to be get invalid.
         # And we don't user @content.touch here, because that updates
         # also the element and page timestamps what we don't want yet.
-        @content.update_column(:updated_at, Time.now)
+        @content.update_column(:updated_at, Time.current)
       end
 
       def destroy

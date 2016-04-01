@@ -37,7 +37,7 @@
   {name: 'content_id', value: @content.blank? ? nil : @content.id},
   {name: 'element_id', value: @element.blank? ? nil : @element.id},
   {name: 'size', value: @size},
-  {name: "#{model_name}[upload_hash]", value: model_name == 'picture' ? Time.now.hash : nil},
+  {name: "#{model_name}[upload_hash]", value: model_name == 'picture' ? Time.current.hash : nil},
   {name: 'options', value: @options ? @options.to_json : nil}
 ].delete_if { |h| !h.detect { |k, v| v.blank? }.nil? }.to_json -%>
 

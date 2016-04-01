@@ -580,7 +580,7 @@ module Alchemy
     describe '.after_update' do
       let(:page)    { create(:alchemy_page) }
       let(:element) { create(:alchemy_element, page: page) }
-      let(:now)     { Time.now }
+      let(:now)     { Time.current }
 
       before do
         allow(Time).to receive(:now).and_return(now)
@@ -697,8 +697,8 @@ module Alchemy
     end
 
     describe '#cache_key' do
-      let(:page) { stub_model(Page, published_at: Time.now - 1.week) }
-      let(:element) { stub_model(Element, page: page, updated_at: Time.now) }
+      let(:page) { stub_model(Page, published_at: Time.current - 1.week) }
+      let(:element) { stub_model(Element, page: page, updated_at: Time.current) }
 
       subject { element.cache_key }
 

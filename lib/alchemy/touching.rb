@@ -34,7 +34,7 @@ module Alchemy
     # Returns the attributes hash for touching a model.
     #
     def touchable_attributes
-      {updated_at: Time.now, updater_id: Alchemy.user_class.try(:stamper)}
+      {updated_at: Time.current, updater_id: Alchemy.user_class.try(:stamper)}
     end
   end
 end
