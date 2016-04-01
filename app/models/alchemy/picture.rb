@@ -66,7 +66,7 @@ module Alchemy
     }
 
     scope :recent, -> {
-      where("#{table_name}.created_at > ?", Time.now - 24.hours).order(:created_at)
+      where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at)
     }
 
     scope :deletable, -> {

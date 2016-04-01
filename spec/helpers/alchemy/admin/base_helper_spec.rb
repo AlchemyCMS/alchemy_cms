@@ -218,7 +218,7 @@ module Alchemy
       subject { alchemy_datepicker(essence, :date, {value: now}) }
 
       let(:essence) { EssenceDate.new }
-      let(:now)     { Time.now }
+      let(:now)     { Time.current }
 
       it "renders a date field" do
         is_expected.to have_selector("input[type='date']")

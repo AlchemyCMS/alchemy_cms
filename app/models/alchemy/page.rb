@@ -338,7 +338,7 @@ module Alchemy
     # The +published_at+ attribute is used as +cache_key+.
     #
     def publish!
-      update_columns(published_at: Time.now, public: true)
+      update_columns(published_at: Time.current, public: true)
     end
 
     # Updates an Alchemy::Page based on a new ordering to be applied to it
@@ -401,7 +401,7 @@ module Alchemy
     end
 
     def update_published_at
-      self.published_at = Time.now
+      self.published_at = Time.current
     end
   end
 end

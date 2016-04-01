@@ -6,7 +6,7 @@ module Alchemy
 
     it_behaves_like "an essence" do
       let(:essence)          { EssenceDate.new }
-      let(:ingredient_value) { DateTime.now }
+      let(:ingredient_value) { DateTime.current }
     end
 
     describe '#preview_text' do
@@ -18,7 +18,7 @@ module Alchemy
 
       context "if date set" do
         it "should format the date by i18n" do
-          essence.date = DateTime.now
+          essence.date = DateTime.current
           expect(::I18n).to receive(:l).with(essence.date, format: :date)
           essence.preview_text
         end

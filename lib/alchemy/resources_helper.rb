@@ -97,7 +97,7 @@ module Alchemy
         options.merge as: 'string',
           input_html: {
             type: 'date',
-            value: l(resource_instance_variable.send(attribute[:name]) || Time.now, format: :datepicker)
+            value: l(resource_instance_variable.send(attribute[:name]) || Time.current, format: :datepicker)
           }
       when 'time'
         options.merge(as: 'time')

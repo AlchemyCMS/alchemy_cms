@@ -21,6 +21,7 @@ __New Features__
 
 __Notable Changes__
 
+* Uses Time.current instead of Time.now for proper timezone support
 * Adds year to `created_at` column of attachments table
 * Removes "available contents" feature.
 * Use Ransack for Admin Resources filtering, sorting and searching
