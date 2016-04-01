@@ -6,6 +6,8 @@ module Alchemy
 
     before_filter :ensure_secure_params
 
+    helper_method :resource_url_proxy
+
     load_and_authorize_resource
 
     def show
@@ -30,6 +32,10 @@ module Alchemy
 
     def zoom
       respond_to { |format| send_image(@picture.image_file, format) }
+    end
+
+    def resource_url_proxy
+      alchemy
     end
 
     private
