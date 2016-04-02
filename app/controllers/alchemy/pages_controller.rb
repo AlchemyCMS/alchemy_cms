@@ -173,7 +173,7 @@ module Alchemy
 
     def signup_required?
       if Alchemy.user_class.respond_to?(:admins)
-        Alchemy.user_class.admins.size == 0 && @page.nil?
+        Alchemy.user_class.admins.empty? && @page.nil?
       end
     end
 
