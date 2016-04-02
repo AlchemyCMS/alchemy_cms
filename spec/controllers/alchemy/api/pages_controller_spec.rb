@@ -112,6 +112,15 @@ module Alchemy
           expect(result).to have_key('error')
           expect(result['error']).to eq("Record not found")
         end
+
+        context "because of requesting not existing language" do
+          let(:page) { create(:alchemy_page, :public) }
+
+          it "responds with 404" do
+            alchemy_get :show, {urlname: page.urlname, locale: 'na', format: :json}
+            expect(response.status).to eq(404)
+          end
+        end
       end
 
       context 'requesting a page with id' do
@@ -126,6 +135,31 @@ module Alchemy
           result = JSON.parse(response.body)
 
           expect(result['id']).to eq(page.id)
+        end
+      end
+
+      context 'in an environment with multiple languages' do
+        let(:klingonian) { create(:alchemy_language, :klingonian) }
+
+        context 'having two pages with the same url names in different languages' do
+          let!(:english_page) { create(:alchemy_page, :public, language: Language.default, name: "same-name") }
+          let!(:klingonian_page) { create(:alchemy_page, :public, language: klingonian, name: "same-name") }
+
+          context 'when a locale is given' do
+            it 'renders the page related to its language' do
+              alchemy_get :show, {urlname: "same-name", locale: klingonian_page.language_code, format: :json}
+              result = JSON.parse(response.body)
+              expect(result['id']).to eq(klingonian_page.id)
+            end
+          end
+
+          context 'when no locale is given' do
+            it 'renders the page of the default language' do
+              alchemy_get :show, {urlname: "same-name", format: :json}
+              result = JSON.parse(response.body)
+              expect(result['id']).to eq(english_page.id)
+            end
+          end
         end
       end
     end

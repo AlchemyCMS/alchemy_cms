@@ -315,7 +315,6 @@ module Alchemy
           expect(response.body).to have_content("klingonian page")
         end
       end
-
     end
 
     describe '#page_etag' do

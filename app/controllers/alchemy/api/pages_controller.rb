@@ -25,7 +25,10 @@ module Alchemy
 
     def load_page
       @page = Page.find_by(id: params[:id]) ||
-              Page.find_by(urlname: params[:urlname]) ||
+              Language.current.pages.find_by(
+                urlname: params[:urlname],
+                language_code: params[:locale] || Language.current.code
+              ) ||
               raise(ActiveRecord::RecordNotFound)
     end
   end
