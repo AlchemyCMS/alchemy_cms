@@ -48,15 +48,15 @@ module Alchemy
     # Prints out all the todos
     #
     def display_todos
-      if todos.length > 0
-        log "\nTODOs:", :message
-        log "------\n", :message
-        todos.each_with_index do |todo, i|
-          title = "\n#{i + 1}. #{todo[0]}"
-          log title, :message
-          puts '-' * title.length
-          log todo[1], :message
-        end
+      return if todos.empty?
+
+      log "\nTODOs:", :message
+      log "------\n", :message
+      todos.each_with_index do |todo, i|
+        title = "\n#{i + 1}. #{todo[0]}"
+        log title, :message
+        puts '-' * title.length
+        log todo[1], :message
       end
     end
 
