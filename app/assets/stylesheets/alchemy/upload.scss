@@ -5,28 +5,37 @@ a#uploadswitcher, a.underline {
 .upload-container {
 
   label {
+    box-sizing: border-box;
+    width: 50%;
     @include button-defaults;
     text-align: center;
-    width: 80px;
   }
+
   input { display: none }
 }
 
-#dropbox {
+.drag-drop-note {
+  width: 50%;
   display: inline-block;
-  background: $medium-gray;
-  border: $default-border;
-  @extend %rounded-border;
-  padding: $default-padding 2*$default-padding;
   text-align: center;
   line-height: 19px;
-  width: 364px;
-  margin-left: 4px;
+  margin-left: -4px;
+}
+
+#dropbox {
+  height: 270px;
+  margin-top: 2*$default-margin;
+  @extend %rounded-border;
+  border: 1px dashed #ccc;
+  transition: background-color 200ms;
 
   &.dragover {
-    background: $dark-gray;
-    color: $light-gray;
-    border-color: $light-gray;
+    border: 0 none;
+    background-color: #ccc;
+  }
+
+  &.upload-in-progress {
+    border: 0 none;
   }
 }
 
@@ -53,7 +62,7 @@ a#uploadswitcher, a.underline {
 #uploadProgressContainer {
   overflow-x: hidden;
   overflow-y: auto;
-  height: 234px;
+  height: 236px;
 }
 
 #uploadProgressContainer .progressWrapper {

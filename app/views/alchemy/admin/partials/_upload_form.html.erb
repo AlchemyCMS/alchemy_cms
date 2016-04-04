@@ -20,17 +20,19 @@
 <div class="upload-container">
   <%= label_tag :fileupload, Alchemy.t(:browse) %>
   <input name="<%= model_name %>[<%= file_attribute %>]" id="fileupload" type="file" multiple value="<%= Alchemy.t(:browse) %>">
-  <div id="dropbox"><%= Alchemy.t('Or drag files over here') %></div>
+  <span class="drag-drop-note">&darr;&nbsp;<%= Alchemy.t('Or drag files over here') %>&nbsp;&darr;</span>
 </div>
 
-<div class="overall-upload">
-  <div class="progress">
-    <span class="progress-status">0%</span>
-    (<span class="uploaded-files-count">0</span>/<span class="total-files-count">0</span>)
+<div id="dropbox">
+  <div class="overall-upload">
+    <div class="progress">
+      <span class="progress-status">0%</span>
+      (<span class="uploaded-files-count">0</span>/<span class="total-files-count">0</span>)
+    </div>
   </div>
+  <div id="uploadProgressContainer"></div>
 </div>
 
-<div id="uploadProgressContainer"></div>
 
 <%- post_params = [
   {name: 'while_assigning', value: !!@while_assigning},

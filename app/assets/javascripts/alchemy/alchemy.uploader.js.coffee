@@ -10,6 +10,7 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 Alchemy.Uploader = (settings) ->
   totalFilesCount = 0
   completedUploads = 0
+  $dropZone = $('#dropbox')
 
   # Normalize file types regex
   file_types = if settings.file_types == '*' then '.+' else settings.file_types
@@ -21,9 +22,12 @@ Alchemy.Uploader = (settings) ->
   # Hide the upload form submit button
   $('.upload-button').hide()
 
+  $dropZone.on 'dragleave', ->
+    $dropZone.removeClass('dragover')
+
   # Init jquery.fileupload
   $("#fileupload").fileupload
-    dropZone: '#dropbox'
+    dropZone: $dropZone
     dataType: 'json'
     filesContainer: $('#uploadProgressContainer')
     acceptFileTypes: new RegExp("(.|/)(#{file_types})", "i")
@@ -37,11 +41,14 @@ Alchemy.Uploader = (settings) ->
       @filesContainer
         .children()
         .not('.progressBarInProgress').length - 1
+    dragover: ->
+      $dropZone.addClass('dragover')
     add: (e, data) ->
       $this = $(this)
       data.context = new Alchemy.FileProgress(data.files[0])
       totalFilesCount = data.originalFiles.length
       $('.total-files-count').text(totalFilesCount)
+      $dropZone.removeClass('dragover').addClass('upload-in-progress')
       $('.overall-upload').show()
       # trigger validations
       data.process -> $this.fileupload('process', data)

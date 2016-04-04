@@ -315,7 +315,7 @@ de:
     attachment_filename_notice: "* Bitte verwenden Sie keine Sonderzeichen oder Umlaute in dem Dateinamen."
     auto_play: "Film automatisch abspielen"
     big_thumbnails: "große Miniaturbilder"
-    browse: "durchsuchen"
+    browse: "Ihren Computer durchsuchen"
     cancel: "abbrechen"
     cannot_delete_picture_notice: "Das Bild %{name} kann nicht gelöscht werden, da es noch auf Seiten benutzt wird."
     choose_element_as_target: "Wählen Sie ein Element dieser Seite als Ziel"
