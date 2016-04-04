@@ -403,13 +403,25 @@ module Alchemy
 
     describe '#preview_text' do
       let(:element) { build_stubbed(:alchemy_element) }
-      let(:content) { mock_model(Content, preview_text: 'Lorem', preview_content?: false) }
-      let(:content_2) { mock_model(Content, preview_text: 'Lorem', preview_content?: false) }
-      let(:preview_content) { mock_model(Content, preview_text: 'Lorem', preview_content?: true) }
+
+      let(:content) do
+        mock_model(Content, preview_text: 'Content 1', preview_content?: false)
+      end
+
+      let(:content_2) do
+        mock_model(Content, preview_text: 'Content 2', preview_content?: false)
+      end
+
+      let(:preview_content) do
+        mock_model(Content, preview_text: 'Preview Content', preview_content?: true)
+      end
 
       context "without a content marked as preview" do
         let(:contents) { [content, content_2] }
-        before { allow(element).to receive(:contents).and_return(contents) }
+
+        before do
+          allow(element).to receive(:contents).and_return(contents)
+        end
 
         it "returns the preview text of first content found" do
           expect(content).to receive(:preview_text).with(30)
@@ -419,7 +431,10 @@ module Alchemy
 
       context "with a content marked as preview" do
         let(:contents) { [content, preview_content] }
-        before { allow(element).to receive(:contents).and_return(contents) }
+
+        before do
+          allow(element).to receive(:contents).and_return(contents)
+        end
 
         it "should return the preview_text of this content" do
           expect(preview_content).to receive(:preview_text).with(30)
@@ -428,31 +443,49 @@ module Alchemy
       end
 
       context "without any contents present" do
-        before { allow(element).to receive(:contents).and_return([]) }
+        before do
+          allow(element).to receive(:contents).and_return([])
+        end
 
         it "should return nil" do
           expect(element.preview_text).to be_nil
         end
       end
 
-      context 'with nestable elements' do
-        let(:element) { build_stubbed(:alchemy_element, :with_nestable_elements, { create_contents_after_create: true } ) }
-        let(:preview_contents) { [preview_content] }
-        before { element.nested_elements << create(:alchemy_element, name: 'slide') }
+      context 'with nested elements' do
+        let(:element) do
+          build_stubbed(:alchemy_element, :with_nestable_elements)
+        end
 
-        context 'where parent element has content marked as preview' do
-          before { allow(element).to receive(:contents).and_return(preview_contents) }
+        let(:nested_element) do
+          build_stubbed(:alchemy_element, name: 'slide')
+        end
 
-          it 'should return the preview text for the parent element' do
-            expect(element.preview_text).to eq(element.contents.first.preview_text)
+        before do
+          allow(nested_element).to receive(:contents) { [content_2] }
+          allow(element).to receive(:nested_elements) { [nested_element] }
+        end
+
+        context 'when parent element has contents' do
+          before do
+            allow(element).to receive(:contents) { [content] }
+          end
+
+          it 'returns the preview text from the parent element' do
+            expect(content).to receive(:preview_text)
+            expect(element.preview_text)
           end
         end
 
-        context 'where parent element has no content marked as preview but nestable elements do have' do
-          before { allow(element.nested_elements.first).to receive(:contents).and_return(preview_contents) }
+        context 'when parent element has no contents but nestable element has' do
+          before do
+            allow(element).to receive(:contents) { [] }
+            allow(nested_element).to receive(:contents) { [content_2] }
+          end
 
-          it 'should return the preview text for the first nested element' do
-            expect(element.preview_text).to eq(element.nested_elements.first.preview_text)
+          it 'returns the preview text from the first nested element' do
+            expect(content_2).to receive(:preview_text)
+            expect(element.preview_text)
           end
         end
       end
