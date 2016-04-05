@@ -30,9 +30,18 @@ module Alchemy::Upgrader::Tasks
     end
 
     def element_content_names(el)
-      el.definition.fetch('contents', []).collect do |definition|
+      # names of contents directly defined on element
+      content_names = el.definition.fetch('contents', []).collect do |definition|
         definition['name']
       end
+
+      # names of contents defined on elements nestable elements
+      nestable_content_names = el.definition['nestable_elements'].collect { |name|
+        Alchemy::Element.definition_by_name(name).try(:content_definitions)
+      }.compact.collect { |c| c['name'] }.uniq
+
+      # we only want content names that are not defined on nestable elements, so we can move them
+      content_names - nestable_content_names
     end
 
     def create_element_for_content(content)
