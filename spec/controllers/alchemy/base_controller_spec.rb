@@ -4,7 +4,7 @@ module Alchemy
   describe BaseController do
     describe '#set_locale' do
       context 'with Language.current set' do
-        let(:language) { create(:alchemy_language, :klingonian) }
+        let(:language) { create(:alchemy_language, :klingon) }
 
         before { Alchemy::Language.current = language }
 

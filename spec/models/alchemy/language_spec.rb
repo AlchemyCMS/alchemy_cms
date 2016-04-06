@@ -4,7 +4,7 @@ require 'spec_helper'
 module Alchemy
   describe Language do
     let(:default_language) { Alchemy::Language.default }
-    let(:language)         { create(:alchemy_language, :klingonian) }
+    let(:language)         { create(:alchemy_language, :klingon) }
     let(:page)             { create(:alchemy_page, language: language) }
 
     it "should return a label for code" do
@@ -12,7 +12,7 @@ module Alchemy
     end
 
     it "should return a label for name" do
-      expect(language.label(:name)).to eq('Klingonian')
+      expect(language.label(:name)).to eq('Klingon')
     end
 
     context "with language_code and empty country_code" do

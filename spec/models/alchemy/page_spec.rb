@@ -6,7 +6,7 @@ module Alchemy
   describe Page do
     let(:rootpage)      { Page.root }
     let(:language)      { Language.default }
-    let(:klingonian)    { create(:alchemy_language, :klingonian) }
+    let(:klingon)       { create(:alchemy_language, :klingon) }
     let(:language_root) { create(:alchemy_page, :language_root) }
     let(:page)          { mock_model(Page, page_layout: 'foo') }
     let(:public_page)   { create(:alchemy_page, :public) }
@@ -226,7 +226,7 @@ module Alchemy
 
       context "Saving a normal page" do
         let(:page) do
-          build(:alchemy_page, language_code: nil, language: klingonian, do_not_autogenerate: false)
+          build(:alchemy_page, language_code: nil, language: klingon, do_not_autogenerate: false)
         end
 
         it "sets the language code" do
@@ -454,7 +454,7 @@ module Alchemy
 
     describe '.contentpages' do
       let!(:layoutroot) do
-        Page.find_or_create_layout_root_for(klingonian.id)
+        Page.find_or_create_layout_root_for(klingon.id)
       end
 
       let!(:layoutpage) do
@@ -462,15 +462,15 @@ module Alchemy
           name: 'layoutpage',
           layoutpage: true,
           parent_id: layoutroot.id,
-          language: klingonian
+          language: klingon
         }
       end
 
-      let!(:klingonian_lang_root) do
+      let!(:klingon_lang_root) do
         create :alchemy_page, :language_root, {
-          name: 'klingonian_lang_root',
+          name: 'klingon_lang_root',
           layoutpage: nil,
-          language: klingonian
+          language: klingon
         }
       end
 
@@ -485,7 +485,7 @@ module Alchemy
       it "returns a collection of contentpages" do
         expect(Page.contentpages.to_a).to include(
           language_root,
-          klingonian_lang_root,
+          klingon_lang_root,
           contentpage
         )
       end
@@ -497,7 +497,7 @@ module Alchemy
       it "contains pages with attribute :layoutpage set to nil" do
         expect(Page.contentpages.to_a.select do |page|
           page.layoutpage.nil?
-        end).to include(klingonian_lang_root)
+        end).to include(klingon_lang_root)
       end
     end
 

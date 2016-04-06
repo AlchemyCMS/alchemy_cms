@@ -13,9 +13,9 @@ module Alchemy
     let(:level_2_page)             { create(:alchemy_page, :public, parent_id: visible_page.id, visible: true, name: 'Level 2') }
     let(:level_3_page)             { create(:alchemy_page, :public, parent_id: level_2_page.id, visible: true, name: 'Level 3') }
     let(:level_4_page)             { create(:alchemy_page, :public, parent_id: level_3_page.id, visible: true, name: 'Level 4') }
-    let(:klingonian)               { create(:alchemy_language, :klingonian) }
-    let(:klingonian_language_root) { create(:alchemy_page, :language_root, language: klingonian) }
-    let(:klingonian_public_page)   { create(:alchemy_page, :public, language: klingonian, parent_id: klingonian_language_root.id) }
+    let(:klingon)                  { create(:alchemy_language, :klingon) }
+    let(:klingon_language_root)    { create(:alchemy_page, :language_root, language: klingon) }
+    let(:klingon_public_page)      { create(:alchemy_page, :public, language: klingon, parent_id: klingon_language_root.id) }
 
     before do
       helper.controller.class_eval { include Alchemy::ConfigurationMethods }
@@ -375,7 +375,7 @@ module Alchemy
     describe "#language_links" do
       context "with two public languages" do
         # Always create second language
-        before { klingonian }
+        before { klingon }
 
         context "with only one language root page" do
           it "should return nil" do
@@ -384,29 +384,29 @@ module Alchemy
         end
 
         context "with two language root pages" do
-          # Always create a language root page for klingonian
-          before { klingonian_language_root }
+          # Always create a language root page for klingon
+          before { klingon_language_root }
 
           it "should render two language links" do
             expect(helper.language_links).to have_selector('a', count: 2)
           end
 
           it "should render language links referring to their language root page" do
-            code = klingonian_language_root.language_code
-            urlname = klingonian_language_root.urlname
+            code = klingon_language_root.language_code
+            urlname = klingon_language_root.urlname
             expect(helper.language_links).to have_selector("a.#{code}[href='/#{code}/#{urlname}']")
           end
 
           context "with options[:linkname]" do
             context "set to 'name'" do
               it "should render the name of the language" do
-                expect(helper.language_links(linkname: 'name')).to have_selector("span[contains('#{klingonian_language_root.language.name}')]")
+                expect(helper.language_links(linkname: 'name')).to have_selector("span[contains('#{klingon_language_root.language.name}')]")
               end
             end
 
             context "set to 'code'" do
               it "should render the code of the language" do
-                expect(helper.language_links(linkname: 'code')).to have_selector("span[contains('#{klingonian_language_root.language.code}')]")
+                expect(helper.language_links(linkname: 'code')).to have_selector("span[contains('#{klingon_language_root.language.code}')]")
               end
             end
           end

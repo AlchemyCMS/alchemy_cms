@@ -11,8 +11,8 @@ FactoryGirl.define do
     public true
     site { Alchemy::Site.first || FactoryGirl.create(:site) }
 
-    trait :klingonian do
-      name 'Klingonian'
+    trait :klingon do
+      name 'Klingon'
       code 'kl'
       frontpage_name 'Tuq'
       default false

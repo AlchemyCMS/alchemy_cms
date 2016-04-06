@@ -297,22 +297,22 @@ module Alchemy
     end
 
     context 'in an environment with multiple languages' do
-      let(:klingonian) { create(:alchemy_language, :klingonian) }
+      let(:klingon) { create(:alchemy_language, :klingon) }
 
       context 'having two pages with the same url names in different languages' do
         render_views
 
-        let!(:klingonian_page) { create(:alchemy_page, :public, language: klingonian, name: "same-name", do_not_autogenerate: false) }
+        let!(:klingon_page) { create(:alchemy_page, :public, language: klingon, name: "same-name", do_not_autogenerate: false) }
         let!(:english_page) { create(:alchemy_page, :public, language: default_language, name: "same-name") }
 
         before do
           # Set a text in an essence rendered on the page so we can match against that
-          klingonian_page.essence_texts.first.update_column(:body, 'klingonian page')
+          klingon_page.essence_texts.first.update_column(:body, 'klingon page')
         end
 
         it 'renders the page related to its language' do
-          alchemy_get :show, {urlname: "same-name", locale: klingonian_page.language_code}
-          expect(response.body).to have_content("klingonian page")
+          alchemy_get :show, {urlname: "same-name", locale: klingon_page.language_code}
+          expect(response.body).to have_content("klingon page")
         end
       end
     end
