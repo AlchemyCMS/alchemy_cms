@@ -12,7 +12,6 @@ log
 spec/dummy/uploads/
 spec/dummy/db/*.sqlite3*
 spec/dummy/public/assets
-spec/dummy/config/locales/**/*
 .rvmrc
 /coverage/
 *.gem
