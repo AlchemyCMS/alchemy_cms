@@ -337,7 +337,7 @@ en:
     copy_page: "Copy page"
     "Could not delete Pictures": "Could not delete Pictures"
     copy_language_tree_heading: "Copy page tree"
-    country_code_placeholder: 'i.e. us (optional)'
+    country_code_placeholder: 'i.e. US (optional)'
     country_code_foot_note: "You only need to set a country code if you want to support multiple countries with the same language."
     create: "create"
     "Create language": "Create a new language"

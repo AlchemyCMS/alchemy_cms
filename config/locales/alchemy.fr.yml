@@ -358,7 +358,7 @@ fr:
     copy_page: "Copier page"
     "Could not delete Pictures": "Images n'ont pas pu être supprimés"
     copy_language_tree_heading: "Copier un langage d'arbres"
-    country_code_placeholder: 'par exemple at (optionnel)'
+    country_code_placeholder: 'par exemple AT (optionnel)'
     country_code_foot_note: "Le code du pays est seulement nécessaire si vous souhaitez appliquer plusieurs pays de langues différentes."
     create: "Etablir"
     "Create language": "Création d´un nouveau langage"

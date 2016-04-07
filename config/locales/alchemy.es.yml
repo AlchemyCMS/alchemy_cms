@@ -338,7 +338,7 @@ es:
     copy_page: "Copiar página"
     "Could not delete Pictures": "No se puede eliminar las imágenes"
     copy_language_tree_heading: "Copiar árbol de páginas"
-    country_code_placeholder: 'i.e. es (opcional)'
+    country_code_placeholder: 'i.e. ES (opcional)'
     country_code_foot_note: "Solo es necesario establecer un código de país si desea establecer cada país con su idioma."
     create: "Crear"
     "Create language": "Crear un nuevo idioma"

@@ -334,7 +334,7 @@ nl:
     copy_page: "Pagina kopiëren"
     "Could not delete Pictures": "Kan de afbeeldingen niet verwijderen"
     copy_language_tree_heading: "Paginastructuur kopiëren"
-    country_code_placeholder: 'bijv. us (optioneel)'
+    country_code_placeholder: 'bijv. US (optioneel)'
     country_code_foot_note: "Een landcode is alleen nodig voor het toewijzen van een aparte taal aan elk land."
     create: "maken"
     "Create language": "Nieuwe taal maken"

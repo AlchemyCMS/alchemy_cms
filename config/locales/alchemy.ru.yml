@@ -337,7 +337,7 @@ ru:
     copy_page: "Копировать страницу"
     "Could not delete Pictures": "Невозможно удалить изображения"
     copy_language_tree_heading: "Копировать дерево страниц"
-    country_code_placeholder: 'например, ru (необязательно)'
+    country_code_placeholder: 'например, RU (необязательно)'
     country_code_foot_note: "Вам нужно установать код страны, если Вы хотите использовать индивидуальный перевод для каждой страны."
     create: "создать"
     "Create language": "Создать новый язык"

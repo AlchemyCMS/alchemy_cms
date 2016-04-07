@@ -337,7 +337,7 @@ de:
     copy_page: "Seite kopieren"
     "Could not delete Pictures": "Bilder konnten nicht gelöscht werden"
     copy_language_tree_heading: "Einen Sprachbaum kopieren"
-    country_code_placeholder: 'z.B. at (optional)'
+    country_code_placeholder: 'z.B. AT (optional)'
     country_code_foot_note: "Das Länderkürzel ist nur notwendig, wenn Sie unterschiedliche Länder mit der gleichen Sprache versehen wollen."
     create: "erstellen"
     "Create language": "Eine neue Sprache erstellen"
