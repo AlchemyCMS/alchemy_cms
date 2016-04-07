@@ -753,7 +753,7 @@ nl:
             invalid: '^Formaat van de taalcode is niet juist. Gebruik exact twee kleine letters.'
             taken: 'Is al in gebruik.'
           locale:
-            missing_file: "Locale file not found for given language code. Please choose an existing one."
+            missing_file: "Localization not found for given language code. Please choose an existing one."
       alchemy/page:
         attributes:
           name:
@@ -872,7 +872,7 @@ nl:
         name: "Naam"
         page_layout: "Paginatype van voorpagina"
         public: "Publiek"
-        locale: Locale file
+        locale: Localization
 
       alchemy/legacy_page_url:
         urlname: "URL pad"

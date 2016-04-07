@@ -792,7 +792,7 @@ es:
             invalid: '^El formato del código de lenguaje no es válido. Por favor usa exactamente 2 letras minúsculas.'
             taken: 'ya está en uso para este código de país.'
           locale:
-            missing_file: Archivo de traducción no encontrado para el código de idioma dado. Por favor, elige uno de los existentes.
+            missing_file: Localización no encontrado para el código de idioma dado. Por favor, elige uno de los existentes.
       alchemy/page:
         attributes:
           name:
@@ -911,7 +911,7 @@ es:
         name: "Nombre"
         page_layout: "Tipo de la primera página"
         public: "Pública"
-        locale: Archivo de traducción
+        locale: Localización
 
       alchemy/legacy_page_url:
         urlname: "Ruta URL"

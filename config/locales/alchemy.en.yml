@@ -755,7 +755,7 @@ en:
             invalid: '^Format of languagecode is not valid. Please use exactly two lowercase characters.'
             taken: 'is already taken for this country code.'
           locale:
-            missing_file: "Locale file not found for given language code. Please choose an existing one."
+            missing_file: "Localization not found for given language code. Please choose an existing one."
       alchemy/page:
         attributes:
           name:
@@ -873,7 +873,7 @@ en:
         name: "Name"
         page_layout: "Pagetype of frontpage"
         public: "Public"
-        locale: Locale file
+        locale: Localization
 
       alchemy/legacy_page_url:
         urlname: "URL path"

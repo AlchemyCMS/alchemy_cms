@@ -778,7 +778,7 @@ fr:
             invalid: "n'est pas correct. S'il vous plaît utiliser deux minuscules exactement."
             taken: 'existe déjà pour les codes de ce pays.'
           locale:
-            missing_file: "Locale file not found for given language code. Please choose an existing one."
+            missing_file: "Localization not found for given language code. Please choose an existing one."
       alchemy/page:
         attributes:
           name:
@@ -896,7 +896,7 @@ fr:
         name: "Naom"
         page_layout: "Page Type de Page d'accueil"
         public: "publier langage"
-        locale: Locale file
+        locale: Localization
 
       alchemy/page:
         created_at: "créée le"

@@ -338,7 +338,7 @@ de:
     "Could not delete Pictures": "Bilder konnten nicht gelöscht werden"
     copy_language_tree_heading: "Einen Sprachbaum kopieren"
     country_code_placeholder: 'z.B. at (optional)'
-    country_code_foot_note: "Der Ländercode ist nur notwendig, wenn Sie unterschiedliche Länder mit der gleichen Sprache versehen wollen."
+    country_code_foot_note: "Das Länderkürzel ist nur notwendig, wenn Sie unterschiedliche Länder mit der gleichen Sprache versehen wollen."
     create: "erstellen"
     "Create language": "Eine neue Sprache erstellen"
     "Create site": "Eine neue Website erstellen"
@@ -754,7 +754,7 @@ de:
             invalid: 'ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden.'
             taken: 'ist für dieses Länderkürzel bereits vergeben.'
           locale:
-            missing_file: "Eine Übersetzungsdatei für dieses Sprachkürzel konnte nicht gefunden werden. Bitte wählen Sie eine der vorhandenen aus."
+            missing_file: "Eine Lokalisierung für dieses Sprachkürzel konnte nicht gefunden werden. Bitte wählen Sie eine der vorhandenen aus."
       alchemy/page:
         attributes:
           name:
@@ -875,7 +875,8 @@ de:
         name: "Name"
         page_layout: "Seitentyp der Startseite"
         public: "Sprache veröffentlichen"
-        locale: Übersetzungsdatei
+        locale: Lokalisierung
+        code: ISO-Code
 
       alchemy/legacy_page_url:
         urlname: "URL-Pfad"
