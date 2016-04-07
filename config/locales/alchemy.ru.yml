@@ -788,6 +788,7 @@ ru:
         page_layout: "Тип главной страницы"
         public: "Публичный"
         locale: Localization
+        code: ISO Code
 
       alchemy/legacy_page_url:
         urlname: "Путь URL"

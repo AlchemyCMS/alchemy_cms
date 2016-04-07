@@ -912,6 +912,7 @@ es:
         page_layout: "Tipo de la primera página"
         public: "Pública"
         locale: Localización
+        code: Código ISO
 
       alchemy/legacy_page_url:
         urlname: "Ruta URL"

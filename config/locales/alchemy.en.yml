@@ -874,6 +874,7 @@ en:
         page_layout: "Pagetype of frontpage"
         public: "Public"
         locale: Localization
+        code: ISO Code
 
       alchemy/legacy_page_url:
         urlname: "URL path"

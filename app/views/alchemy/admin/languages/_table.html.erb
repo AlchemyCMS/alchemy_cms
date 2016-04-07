@@ -12,6 +12,12 @@
         <%= sort_link @query, :country_code, hide_indicator: true %>
       </th>
       <th>
+        <%= Alchemy::Language.human_attribute_name(:code) %>
+      </th>
+      <th>
+        <%= Alchemy::Language.human_attribute_name(:locale) %>
+      </th>
+      <th>
         <%= Alchemy::Language.human_attribute_name(:frontpage_name) %>
       </th>
       <th>

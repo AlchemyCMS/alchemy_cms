@@ -873,6 +873,7 @@ nl:
         page_layout: "Paginatype van voorpagina"
         public: "Publiek"
         locale: Localization
+        code: ISO Code
 
       alchemy/legacy_page_url:
         urlname: "URL pad"

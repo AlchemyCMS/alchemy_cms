@@ -897,6 +897,7 @@ fr:
         page_layout: "Page Type de Page d'accueil"
         public: "publier langage"
         locale: Localization
+        code: ISO code
 
       alchemy/page:
         created_at: "créée le"
