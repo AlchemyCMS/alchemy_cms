@@ -22,7 +22,7 @@ module Alchemy
     belongs_to :site
     has_many :pages
 
-    before_validation :set_locale
+    before_validation :set_locale, if: -> { locale.blank? }
 
     validates :name, presence: true
     validates :page_layout, presence: true

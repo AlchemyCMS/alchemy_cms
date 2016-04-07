@@ -126,8 +126,18 @@ module Alchemy
         end
 
         before do
-          expect(::I18n).to receive(:available_locales) do
+          allow(::I18n).to receive(:available_locales) do
             [:de, :'de-at', :en, :'en-uk']
+          end
+        end
+
+        context 'when locale is already set' do
+          let(:language) do
+            build(:alchemy_language, language_code: 'de', locale: 'de')
+          end
+
+          it 'does not set the locale again' do
+            expect(language).to_not receive(:set_locale)
           end
         end
 
