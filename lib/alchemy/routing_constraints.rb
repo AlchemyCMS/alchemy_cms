@@ -8,7 +8,7 @@ module Alchemy
   # don't want to swallow the rails/info routes in development mode.
   #
   class RoutingConstraints
-    LOCALE_REGEXP = /[a-z]{2}(-[a-z]{2})?/
+    LOCALE_REGEXP = /[a-z]{2}(-[a-zA-Z]{2})?/
 
     def matches?(request)
       @request = request

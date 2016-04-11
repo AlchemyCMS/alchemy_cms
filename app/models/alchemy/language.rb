@@ -34,7 +34,7 @@ module Alchemy
       format: { with: /\A[a-z]{2}\z/, if: -> { language_code.present? } }
 
     validates :country_code,
-      format: { with: /\A[a-z]{2}\z/, if: -> { country_code.present? } }
+      format: { with: /\A[a-zA-Z]{2}\z/, if: -> { country_code.present? } }
 
     validate :presence_of_default_language
     validate :publicity_of_default_language

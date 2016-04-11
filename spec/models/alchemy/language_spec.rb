@@ -7,6 +7,17 @@ module Alchemy
     let(:language)         { create(:alchemy_language, :klingon) }
     let(:page)             { create(:alchemy_page, language: language) }
 
+    it 'is valid with uppercase country code' do
+      language = Alchemy::Language.new(
+        country_code: 'AT',
+        language_code: 'de',
+        name: 'Österreich',
+        frontpage_name: 'Start',
+        page_layout: 'index'
+      )
+      expect(language).to be_valid
+    end
+
     it "should return a label for code" do
       expect(language.label(:code)).to eq('kl')
     end

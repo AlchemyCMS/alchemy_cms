@@ -21,6 +21,7 @@ __New Features__
 
 __Notable Changes__
 
+* Allow uppercase country codes
 * Larger upload dropzone
 * Uses Time.current instead of Time.now for proper timezone support
 * Adds year to `created_at` column of attachments table

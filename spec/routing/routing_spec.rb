@@ -23,6 +23,18 @@ describe "The Routing" do
           locale: 'en'
         )
       end
+
+      context 'that contains uppercase country code' do
+        it 'routes to pages_controller#index' do
+          expect({
+            get: '/en-UK'
+          }).to route_to(
+            controller: 'alchemy/pages',
+            action: 'index',
+            locale: 'en-UK'
+          )
+        end
+      end
     end
   end
 
