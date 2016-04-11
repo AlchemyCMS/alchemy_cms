@@ -139,17 +139,17 @@ module Alchemy
       end
 
       context 'in an environment with multiple languages' do
-        let(:klingonian) { create(:alchemy_language, :klingonian) }
+        let(:klingon) { create(:alchemy_language, :klingon) }
 
         context 'having two pages with the same url names in different languages' do
           let!(:english_page) { create(:alchemy_page, :public, language: Language.default, name: "same-name") }
-          let!(:klingonian_page) { create(:alchemy_page, :public, language: klingonian, name: "same-name") }
+          let!(:klingon_page) { create(:alchemy_page, :public, language: klingon, name: "same-name") }
 
           context 'when a locale is given' do
             it 'renders the page related to its language' do
-              alchemy_get :show, {urlname: "same-name", locale: klingonian_page.language_code, format: :json}
+              alchemy_get :show, {urlname: "same-name", locale: klingon_page.language_code, format: :json}
               result = JSON.parse(response.body)
-              expect(result['id']).to eq(klingonian_page.id)
+              expect(result['id']).to eq(klingon_page.id)
             end
           end
 

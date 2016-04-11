@@ -53,7 +53,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
 
   describe "#set_alchemy_language" do
     let(:default_language) { Alchemy::Language.default }
-    let(:klingonian)       { create(:alchemy_language, :klingonian) }
+    let(:klingon)          { create(:alchemy_language, :klingon) }
 
     after do
       # We must never change the app's locale
@@ -62,25 +62,25 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
 
     context "with a Language argument" do
       it "should set the language to the passed Language instance" do
-        controller.send :set_alchemy_language, klingonian
-        expect(assigns(:language)).to eq(klingonian)
-        expect(Alchemy::Language.current).to eq(klingonian)
+        controller.send :set_alchemy_language, klingon
+        expect(assigns(:language)).to eq(klingon)
+        expect(Alchemy::Language.current).to eq(klingon)
       end
     end
 
     context "with a language id argument" do
       it "should set the language to the language specified by the passed id" do
-        controller.send :set_alchemy_language, klingonian.id
-        expect(assigns(:language)).to eq(klingonian)
-        expect(Alchemy::Language.current).to eq(klingonian)
+        controller.send :set_alchemy_language, klingon.id
+        expect(assigns(:language)).to eq(klingon)
+        expect(Alchemy::Language.current).to eq(klingon)
       end
     end
 
     context "with a language code argument" do
       it "should set the language to the language specified by the passed code" do
-        controller.send :set_alchemy_language, klingonian.code
-        expect(assigns(:language)).to eq(klingonian)
-        expect(Alchemy::Language.current).to eq(klingonian)
+        controller.send :set_alchemy_language, klingon.code
+        expect(assigns(:language)).to eq(klingon)
+        expect(Alchemy::Language.current).to eq(klingon)
       end
     end
 
@@ -96,24 +96,24 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
 
     context "with language in the session" do
       before do
-        allow(controller).to receive(:session).and_return(alchemy_language_id: klingonian.id)
-        allow(Alchemy::Language).to receive(:current).and_return(klingonian)
+        allow(controller).to receive(:session).and_return(alchemy_language_id: klingon.id)
+        allow(Alchemy::Language).to receive(:current).and_return(klingon)
       end
 
       it "should use the language from the session" do
         controller.send :set_alchemy_language
-        expect(assigns(:language)).to eq(klingonian)
-        expect(Alchemy::Language.current).to eq(klingonian)
+        expect(assigns(:language)).to eq(klingon)
+        expect(Alchemy::Language.current).to eq(klingon)
       end
     end
 
     context "with lang param" do
       it "should set the language" do
-        allow(controller).to receive(:params).and_return(locale: klingonian.code)
+        allow(controller).to receive(:params).and_return(locale: klingon.code)
         controller.send :set_alchemy_language
-        expect(assigns(:language)).to eq(klingonian)
-        expect(Alchemy::Language.current).to eq(klingonian)
-        expect(controller.session).to include_language_information_for(klingonian)
+        expect(assigns(:language)).to eq(klingon)
+        expect(Alchemy::Language.current).to eq(klingon)
+        expect(controller.session).to include_language_information_for(klingon)
       end
 
       context "for language that does not exist" do

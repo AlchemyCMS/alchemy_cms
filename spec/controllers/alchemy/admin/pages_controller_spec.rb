@@ -541,7 +541,7 @@ module Alchemy
       end
 
       describe "#switch_language" do
-        let(:language) { build_stubbed(:alchemy_language, :klingonian) }
+        let(:language) { build_stubbed(:alchemy_language, :klingon) }
 
         before do
           allow(Language).to receive(:find_by).and_return(language)

@@ -258,7 +258,7 @@ module Alchemy
         end
 
         it "should render 404 if urlname and lang parameter do not belong to same page" do
-          create(:alchemy_language, :klingonian)
+          create(:alchemy_language, :klingon)
           expect {
             visit "/kl/#{public_page.urlname}"
           }.to raise_error(ActionController::RoutingError)
