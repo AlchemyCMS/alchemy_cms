@@ -337,8 +337,7 @@ ru:
     copy_page: "Копировать страницу"
     "Could not delete Pictures": "Невозможно удалить изображения"
     copy_language_tree_heading: "Копировать дерево страниц"
-    country_code_placeholder: 'например, ru (необязательно)'
-    country_code_foot_note: "You only need to set a country code if you want to provide each country with an individual language."
+    country_code_placeholder: 'например, RU (необязательно)'
     country_code_foot_note: "Вам нужно установать код страны, если Вы хотите использовать индивидуальный перевод для каждой страны."
     create: "создать"
     "Create language": "Создать новый язык"
@@ -651,6 +650,8 @@ ru:
           language_code:
             invalid: 'Неверный формат кода языка. Используйте две латинские строчные буквы.'
             taken: 'уже занят для кода этой страны.'
+          locale:
+            missing_file: "Localization not found for given language code. Please choose an existing one."
       alchemy/page:
         attributes:
           name:
@@ -786,6 +787,8 @@ ru:
         name: "Название"
         page_layout: "Тип главной страницы"
         public: "Публичный"
+        locale: Localization
+        code: ISO Code
 
       alchemy/legacy_page_url:
         urlname: "Путь URL"

@@ -60,6 +60,17 @@
   @extend .border-box-sizing;
 }
 
+@mixin form-hint($background-color: $light_yellow, $border-color: $medium-gray) {
+  font-size: 10px;
+  line-height: 1.5em;
+  padding: $default-padding;
+  background-color: $background-color;
+  border: 1px solid $border-color;
+  display: block;
+  clear: both;
+  @extend %rounded-border;
+}
+
 @mixin animate-left {
   -webkit-transition: left 0.15s ease-in-out;
   -moz-transition: left 0.15s ease-in-out;

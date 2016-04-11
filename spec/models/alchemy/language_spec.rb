@@ -7,6 +7,17 @@ module Alchemy
     let(:language)         { create(:alchemy_language, :klingon) }
     let(:page)             { create(:alchemy_page, language: language) }
 
+    it 'is valid with uppercase country code' do
+      language = Alchemy::Language.new(
+        country_code: 'AT',
+        language_code: 'de',
+        name: 'Österreich',
+        frontpage_name: 'Start',
+        page_layout: 'index'
+      )
+      expect(language).to be_valid
+    end
+
     it "should return a label for code" do
       expect(language.label(:code)).to eq('kl')
     end
@@ -93,7 +104,7 @@ module Alchemy
       end
     end
 
-    context 'validations' do
+    describe 'validations' do
       let(:language) { Language.new(default: true, public: false) }
 
       describe 'publicity_of_default_language' do
@@ -117,6 +128,115 @@ module Alchemy
             expect(language.errors.messages).to have_key(:default)
           end
         end
+      end
+
+      describe 'before' do
+        subject do
+          language.valid?
+          language.locale
+        end
+
+        before do
+          allow(::I18n).to receive(:available_locales) do
+            [:de, :'de-at', :en, :'en-uk']
+          end
+        end
+
+        context 'when locale is already set' do
+          let(:language) do
+            build(:alchemy_language, language_code: 'de', locale: 'de')
+          end
+
+          it 'does not set the locale again' do
+            expect(language).to_not receive(:set_locale)
+          end
+        end
+
+        context 'when code is an available locale' do
+          let(:language) do
+            build(:alchemy_language, language_code: 'de', country_code: 'at')
+          end
+
+          it 'sets the locale to code' do
+            is_expected.to eq('de-at')
+          end
+        end
+
+        context 'when code is not is an available locale, but language_code is' do
+          let(:language) do
+            build(:alchemy_language, language_code: 'de', country_code: 'ch')
+          end
+
+          it 'sets the locale to language code' do
+            is_expected.to eq('de')
+          end
+        end
+
+        context "when language_code is an available locale" do
+          let(:language) do
+            build(:alchemy_language, language_code: 'en')
+          end
+
+          it 'sets the locale to language_code' do
+            is_expected.to eq('en')
+          end
+        end
+
+        context "when neither language_code nor code is an available locale" do
+          it { is_expected.to be_nil }
+        end
+      end
+
+      describe 'presence_of_locale_file' do
+        context "when locale file is missing for selected language code" do
+          let(:language) do
+            build(:alchemy_language, language_code: 'jp')
+          end
+
+          it 'adds errors to locale attribute' do
+            expect(language).to_not be_valid
+            expect(language.errors).to have_key(:locale)
+          end
+        end
+
+        context "when locale file is present for selected language code" do
+          let(:language) do
+            build(:alchemy_language, :klingon)
+          end
+
+          it 'adds no errors to locale attribute' do
+            expect(language).to be_valid
+            expect(language.errors).to_not have_key(:locale)
+          end
+        end
+      end
+    end
+
+    describe '#matching_locales' do
+      let(:language) do
+        build(:alchemy_language, language_code: 'de')
+      end
+
+      subject do
+        language.matching_locales
+      end
+
+      before do
+        expect(::I18n).to receive(:available_locales) do
+          [:de, :'de-at', :'en-uk']
+        end
+      end
+
+      it 'returns locales matching the language code' do
+        is_expected.to eq [:de, :'de-at']
+      end
+
+      context 'when language code is not is an available locale' do
+        let(:language) do
+          build(:alchemy_language, language_code: 'jp')
+        end
+
+        it { is_expected.to eq [] }
       end
     end
   end

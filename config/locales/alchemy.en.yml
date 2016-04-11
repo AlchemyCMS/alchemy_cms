@@ -337,8 +337,8 @@ en:
     copy_page: "Copy page"
     "Could not delete Pictures": "Could not delete Pictures"
     copy_language_tree_heading: "Copy page tree"
-    country_code_placeholder: 'i.e. us (optional)'
-    country_code_foot_note: "You only need to set a country code if you want to provide each country with an individual language."
+    country_code_placeholder: 'i.e. US (optional)'
+    country_code_foot_note: "You only need to set a country code if you want to support multiple countries with the same language."
     create: "create"
     "Create language": "Create a new language"
     "Create site": "Create a new site"
@@ -754,6 +754,8 @@ en:
           language_code:
             invalid: '^Format of languagecode is not valid. Please use exactly two lowercase characters.'
             taken: 'is already taken for this country code.'
+          locale:
+            missing_file: "Localization not found for given language code. Please choose an existing one."
       alchemy/page:
         attributes:
           name:
@@ -871,6 +873,8 @@ en:
         name: "Name"
         page_layout: "Pagetype of frontpage"
         public: "Public"
+        locale: Localization
+        code: ISO Code
 
       alchemy/legacy_page_url:
         urlname: "URL path"

@@ -21,6 +21,7 @@ __New Features__
 
 __Notable Changes__
 
+* Allow uppercase country codes
 * Larger upload dropzone
 * Uses Time.current instead of Time.now for proper timezone support
 * Adds year to `created_at` column of attachments table
@@ -42,6 +43,7 @@ __Notable Changes__
 
 __Fixed Bugs__
 
+* Add `locale` to `Alchemy::Language` to avoid errors for languages with missing locale files #831
 * Fixes `Alchemy::PageLayout.get_all_by_attributes`
 * Fix tag list display in picture library
 * Animated GIFs display correctly

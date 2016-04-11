@@ -22,19 +22,23 @@ module Alchemy
     belongs_to :site
     has_many :pages
 
-    validates_presence_of :name
-    validates_presence_of :language_code
-    validates_presence_of :page_layout
-    validates_presence_of :frontpage_name
-    validates_uniqueness_of :language_code, scope: [:site_id, :country_code]
+    before_validation :set_locale, if: -> { locale.blank? }
+
+    validates :name, presence: true
+    validates :page_layout, presence: true
+    validates :frontpage_name, presence: true
+
+    validates :language_code,
+      presence: true,
+      uniqueness: { scope: [:site_id, :country_code] },
+      format: { with: /\A[a-z]{2}\z/, if: -> { language_code.present? } }
+
+    validates :country_code,
+      format: { with: /\A[a-zA-Z]{2}\z/, if: -> { country_code.present? } }
+
     validate :presence_of_default_language
     validate :publicity_of_default_language
-
-    validates_format_of :language_code, with: /\A[a-z]{2}\z/,
-      if: -> { language_code.present? }
-
-    validates_format_of :country_code, with: /\A[a-z]{2}\z/,
-      if: -> { country_code.present? }
+    validate :presence_of_locale_file, if: -> { language_code.present? }
 
     before_save :remove_old_default,
       if: -> { default_changed? && self != Language.default }
@@ -97,7 +101,31 @@ module Alchemy
       @layout_root_page ||= Page.layout_root_for(id)
     end
 
+    # All available locales matching this language
+    #
+    # Matching either the code (+language_code+ + +country_code+) or the +language_code+
+    #
+    # @return [Array]
+    #
+    def matching_locales
+      @_matching_locales ||= ::I18n.available_locales.select do |locale|
+        locale.to_s.split('-')[0] == language_code
+      end
+    end
+
     private
+
+    def set_locale
+      self.locale = matching_locales.reverse.detect do |locale|
+        locale.to_s == code || locale.to_s == language_code
+      end
+    end
+
+    def presence_of_locale_file
+      if locale.nil?
+        errors.add(:locale, :missing_file)
+      end
+    end
 
     def publicity_of_default_language
       if default? && !public?

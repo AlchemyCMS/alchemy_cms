@@ -402,14 +402,7 @@ div#images {
 }
 
 .foot_note, form .input .hint {
-  font-size: 10px;
-  line-height: 1.5em;
-  padding: $default-padding;
-  background-color: $light_yellow;
-  border: 1px solid $medium-gray;
-  @extend %rounded-border;
-  display: block;
-  clear: both;
+  @include form-hint;
 }
 
 #all_files td.name a {

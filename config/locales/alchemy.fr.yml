@@ -358,7 +358,7 @@ fr:
     copy_page: "Copier page"
     "Could not delete Pictures": "Images n'ont pas pu être supprimés"
     copy_language_tree_heading: "Copier un langage d'arbres"
-    country_code_placeholder: 'par exemple at (optionnel)'
+    country_code_placeholder: 'par exemple AT (optionnel)'
     country_code_foot_note: "Le code du pays est seulement nécessaire si vous souhaitez appliquer plusieurs pays de langues différentes."
     create: "Etablir"
     "Create language": "Création d´un nouveau langage"
@@ -777,6 +777,8 @@ fr:
           language_code:
             invalid: "n'est pas correct. S'il vous plaît utiliser deux minuscules exactement."
             taken: 'existe déjà pour les codes de ce pays.'
+          locale:
+            missing_file: "Localization not found for given language code. Please choose an existing one."
       alchemy/page:
         attributes:
           name:
@@ -894,6 +896,8 @@ fr:
         name: "Naom"
         page_layout: "Page Type de Page d'accueil"
         public: "publier langage"
+        locale: Localization
+        code: ISO code
 
       alchemy/page:
         created_at: "créée le"

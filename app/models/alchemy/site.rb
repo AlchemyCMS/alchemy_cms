@@ -82,6 +82,7 @@ module Alchemy
       languages.build(
         name:           default_language['name'],
         language_code:  default_language['code'],
+        locale:         default_language['code'],
         frontpage_name: default_language['frontpage_name'],
         page_layout:    default_language['page_layout'],
         public:         true,

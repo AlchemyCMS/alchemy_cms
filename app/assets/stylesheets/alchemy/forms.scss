@@ -113,6 +113,14 @@ form {
       text-align: right;
       margin-bottom: 0.25em;
     }
+
+    &.language_locale small.error {
+      @include form-hint(
+        $background-color: $error_background_color,
+        $border-color: $error_border_color
+      );
+      text-align: left;
+    }
   }
 
   .inline-input {
