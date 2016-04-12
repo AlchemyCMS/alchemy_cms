@@ -1,4 +1,3 @@
-# coding: utf-8
 module Alchemy
   module Admin
     class PagesController < Alchemy::Admin::BaseController
