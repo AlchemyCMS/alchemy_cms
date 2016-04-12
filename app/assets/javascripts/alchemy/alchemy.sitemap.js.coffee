@@ -4,27 +4,24 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 Alchemy.Sitemap =
 
   # Storing some objects.
-  init: (url, page_root_id, full, callback) ->
+  init: (options) ->
     @search_field = $("#search_field")
     @filter_field_clear = $('.js_filter_field_clear')
     @display = $('#page_filter_result')
     @sitemap_wrapper = $('#sitemap-wrapper')
     @template = Handlebars.compile($('#sitemap-template').html())
-    list_template_regexp = new RegExp '\/' + page_root_id, 'g'
+    list_template_regexp = new RegExp '\/' + options.page_root_id, 'g'
     @list_template = $('#sitemap-list').html().replace(list_template_regexp, '/{{id}}')
     @items = null
-    @url = url
-    @page_root_id = page_root_id
-    @full = full
-    @callback = callback
+    @options = options
     @fetch()
 
   # Fetches the sitemap from JSON
   fetch: (foldingId) ->
     self = Alchemy.Sitemap
-    request = $.ajax url: @url, data:
-      id: @page_root_id
-      full: @full
+    request = $.ajax url: @options.url, data:
+      id: @options.page_root_id
+      full: @options.full
     spinner = Alchemy.Spinner.small()
 
     if foldingId
@@ -43,8 +40,8 @@ Alchemy.Sitemap =
 
       Alchemy.watchForDialogs('#sitemap')
 
-      if self.callback
-        self.callback()
+      if self.options.ready
+        self.options.ready()
 
     # TODO: Prettify this.
     request.fail (jqXHR, status) ->

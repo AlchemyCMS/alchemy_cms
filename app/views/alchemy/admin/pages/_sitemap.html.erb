@@ -16,20 +16,20 @@
 
 <script type="text/javascript">
  $(function() {
-   Alchemy.Sitemap.init(
-     '<%= alchemy.tree_admin_pages_path %>',
-     <%= @page_root.id %>,
-     <%= full %>
+   Alchemy.Sitemap.init({
+     url: '<%= alchemy.tree_admin_pages_path %>',
+     page_root_id: <%= @page_root.id %>,
+     full: <%= full %>
      <% if @sorting  %>
-     ,function () {
+     ,ready: function () {
        Alchemy.PageSorter.init();
      }
      <% end %>
      <% if @link %>
-     ,function () {
+     ,ready: function () {
        Alchemy.currentDialog().attachEvents();
      }
      <% end %>
-   );
+   });
  });
 </script>
