@@ -123,7 +123,6 @@ module Alchemy
       end
 
       def link
-        @link = true
         @url_prefix = ""
         if configuration(:show_real_root)
           @page_root = Page.root

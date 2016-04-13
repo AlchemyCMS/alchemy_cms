@@ -24,8 +24,7 @@
      ,ready: function () {
        Alchemy.PageSorter.init();
      }
-     <% end %>
-     <% if @link %>
+     <% elsif action_name == 'link' %>
      ,ready: function () {
        Alchemy.currentDialog().attachEvents();
      }
