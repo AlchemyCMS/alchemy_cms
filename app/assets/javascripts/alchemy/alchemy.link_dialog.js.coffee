@@ -24,10 +24,6 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     @$overlay_tabs = $('#overlay_tabs', @dialog_body)
     @$page_container = $('#page_selector_container')
     @initInternalAnchors()
-    # if we edit an existing link
-    if @link_object
-      # we select the correct tab
-      @selectTab()
 
   # Attaches click events to several buttons in the link dialog.
   attachEvents: ->
@@ -63,6 +59,11 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
         title: $("##{@link_type}_link_title").val()
         target: $("##{@link_type}_link_target").val()
       false
+    # if we edit an existing link
+    if @link_object
+      # we select the correct tab
+      @selectTab()
+
 
   # Sets the page selected and scrolls it in the viewport.
   selectPage: (page_id) ->
