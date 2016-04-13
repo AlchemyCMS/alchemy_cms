@@ -8,7 +8,7 @@ Alchemy.Sitemap =
     @search_field = $("#search_field")
     @filter_field_clear = $('.js_filter_field_clear')
     @display = $('#page_filter_result')
-    @sitemap_wrapper = $('#sitemap-wrapper .sitemap-load-notice')
+    @sitemap_wrapper = $('#sitemap-wrapper')
     @template = Handlebars.compile($('#sitemap-template').html())
     list_template_regexp = new RegExp '\/' + options.page_root_id, 'g'
     list_template_html = $('#sitemap-list').html().replace(list_template_regexp, '/{{id}}')
@@ -23,7 +23,8 @@ Alchemy.Sitemap =
   # Fetches the sitemap from JSON
   fetch: (foldingId) ->
     self = Alchemy.Sitemap
-    spinner = Alchemy.Spinner.small()
+    spinner_size = @options.spinner_size
+    spinner = if spinner_size == 'small' then Alchemy.Spinner.small() else Alchemy.Spinner.medium()
 
     if foldingId
       spinTarget = $('#fold_button_' + foldingId)
