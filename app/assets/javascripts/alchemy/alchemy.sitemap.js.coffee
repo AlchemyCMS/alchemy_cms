@@ -8,33 +8,43 @@ Alchemy.Sitemap =
     @search_field = $("#search_field")
     @filter_field_clear = $('.js_filter_field_clear')
     @display = $('#page_filter_result')
-    @sitemap_wrapper = $('#sitemap-wrapper')
+    @sitemap_wrapper = $('#sitemap-wrapper .sitemap-load-notice')
     @template = Handlebars.compile($('#sitemap-template').html())
     list_template_regexp = new RegExp '\/' + options.page_root_id, 'g'
-    @list_template = $('#sitemap-list').html().replace(list_template_regexp, '/{{id}}')
+    list_template_html = $('#sitemap-list').html().replace(list_template_regexp, '/{{id}}')
+    @list_template = Handlebars.compile(list_template_html)
     @items = null
     @options = options
+
+    Handlebars.registerPartial('list', list_template_html)
+
     @fetch()
 
   # Fetches the sitemap from JSON
   fetch: (foldingId) ->
     self = Alchemy.Sitemap
-    request = $.ajax url: @options.url, data:
-      id: @options.page_root_id
-      full: @options.full
     spinner = Alchemy.Spinner.small()
 
     if foldingId
       spinTarget = $('#fold_button_' + foldingId)
+      renderTarget = $('#page_' + foldingId)
+      renderTemplate = @list_template
+      pageId = foldingId
     else
-      spinTarget = self.sitemap_wrapper.find('.sitemap-load-notice')
+      spinTarget = @sitemap_wrapper
+      renderTarget = @sitemap_wrapper
+      renderTemplate = @template
+      pageId = @options.page_root_id
 
     spinner.spin(spinTarget[0])
 
+    request = $.ajax url: @options.url, data:
+      id: pageId
+      full: @options.full
+
     request.done (data) ->
-      Handlebars.registerPartial('list', self.list_template)
       # This will also remove the spinner
-      self.sitemap_wrapper.html(self.template({children: data.pages}))
+      renderTarget.replaceWith(renderTemplate({children: data.pages}))
       self.items = $(".sitemap_page", '#sitemap')
       self._observe()
 

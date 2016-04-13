@@ -9,6 +9,7 @@ module Alchemy
       path = [{id: object.parent_id, children: tree}]
       page_list = object.self_and_descendants
       skip_branch = false
+      base_level = object.level - 1
 
       page_list.each_with_index do |page, i|
         has_children = page_list[i + 1] && page_list[i + 1].parent_id == page.id
@@ -34,7 +35,7 @@ module Alchemy
           end
         end
 
-        level = path.count
+        level = path.count + base_level
 
         path.last[:children] << page_hash(page, has_children, level, folded)
       end
