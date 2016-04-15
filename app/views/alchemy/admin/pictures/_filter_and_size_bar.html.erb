@@ -1,27 +1,18 @@
 <div id="image_assign_filter_and_image_sizing">
-  <div class="button_with_label">
-    <%= link_to_dialog(
-      render_icon('upload'),
-      alchemy.new_admin_picture_path(
-        element_id: @element.blank? ? nil : @element.id,
-        content_id: @content.blank? ? nil : @content.id,
-        swap: @swap,
-        page: params[:page],
-        size: @size,
-        options: @options.to_json
-      ),
-      {
-        size: "540x550",
-        title: Alchemy.t(:upload_image)
-      },
-      {
-        class: 'icon_button',
-        title: Alchemy.t(:upload_image)
-      }
-    ) %>
-    <label><%= Alchemy.t(:upload_image) %></label>
-  </div>
-  <div class="toolbar_spacer"></div>
+  <% if can? :create, Alchemy::Picture %>
+    <%= render 'alchemy/admin/uploader/button',
+      model_class: Alchemy::Picture,
+      dropzone: '#assign_image_list',
+      file_attribute: 'image_file',
+      in_dialog: true,
+      redirect_url: alchemy.admin_pictures_path(
+        size: params[:size],
+        filter: 'last_upload',
+        content_id: @content.try(:id),
+        element_id: @element.try(:id)
+      ) %>
+    <div class="toolbar_spacer"></div>
+  <% end %>
   <div class="button_group">
     <div class="button_with_label">
       <%= link_to(
@@ -30,7 +21,6 @@
           size: "small",
           content_id: @content,
           element_id: @element,
-          swap: @swap,
           q: params[:q],
           options: @options.to_json,
           filter: params[:filter],
@@ -48,7 +38,6 @@
           size: "medium",
           content_id: @content,
           element_id: @element,
-          swap: @swap,
           q: params[:q],
           options: @options.to_json,
           filter: params[:filter],
@@ -66,7 +55,6 @@
           size: "large",
           content_id: @content,
           element_id: @element,
-          swap: @swap,
           q: params[:q],
           options: @options.to_json,
           filter: params[:filter],

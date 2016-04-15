@@ -32,19 +32,9 @@ module Alchemy
         render :show
       end
 
-      def new
-        @attachment = Attachment.new
-        if in_overlay?
-          set_instance_variables
-        end
-      end
-
       def create
         @attachment = Attachment.new(attachment_attributes)
         if @attachment.save
-          if in_overlay?
-            set_instance_variables
-          end
           message = Alchemy.t('File uploaded succesfully', name: @attachment.name)
           render json: {files: [@attachment.to_jq_upload], growl_message: message}, status: :created
         else
@@ -102,13 +92,6 @@ module Alchemy
 
       def attachment_attributes
         params.require(:attachment).permit(:file, :name, :file_name, :tag_list)
-      end
-
-      def set_instance_variables
-        @while_assigning = true
-        @content = Content.find_by(id: params[:content_id])
-        @swap = params[:swap]
-        @options = options_from_params
       end
     end
   end

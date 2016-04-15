@@ -296,8 +296,6 @@ de:
     "You are not authorized": "Sie sind dazu nicht authorisiert."
     "You are about to edit many pictures at once": "Sie sind dabei %{length} Bilder auf einmal zu bearbeiten."
     element_dirty_close_window_notice: "Sie haben ungesicherte Elemente. Möchten Sie das Elemente Fenster wirklich schließen?"
-    "You may upload files with following extensions": "Sie können %{file_types_description} mit folgenden Endungen hochladen: %{file_types}"
-    "You may upload any file": "Sie können jede Art von Datei hochladen."
     "Your last login was on": "Sie waren zuletzt angemeldet am %{time}."
     "Your last updated pages": "Ihre zuletzt bearbeiteten Seiten"
     "Your trash is empty": "Der Papierkorb ist leer"
@@ -315,7 +313,6 @@ de:
     attachment_filename_notice: "* Bitte verwenden Sie keine Sonderzeichen oder Umlaute in dem Dateinamen."
     auto_play: "Film automatisch abspielen"
     big_thumbnails: "große Miniaturbilder"
-    browse: "Ihren Computer durchsuchen"
     cancel: "abbrechen"
     cannot_delete_picture_notice: "Das Bild %{name} kann nicht gelöscht werden, da es noch auf Seiten benutzt wird."
     choose_element_as_target: "Wählen Sie ein Element dieser Seite als Ziel"
@@ -352,7 +349,6 @@ de:
     delete_page: "Seite löschen"
     delete_tag: 'Tag löschen'
     document: "Dokument"
-    documents: "Dateien"
     download_csv: "CSV runterladen"
     download_file: "%{filename} runterladen"
     do_you_really_want_to_delete_this_tag?: "Wollen Sie dieses Tag wirklich löschen?"
@@ -372,19 +368,11 @@ de:
     explain_publishing: "Die gecachte Version vom Server löschen und die aktuellen Änderungen veröffentlichen"
     explain_sitemap_dragndrop_sorting: "Tip: Halten Sie zum Sortieren der Seiten das Seitensymbol mit der Maus fest und bewegen Sie sie an ihre neue Position."
     explain_unlocking: "Die Seite verlassen und für andere Benutzer zum Bearbeiten freigeben."
-    explain_upload:
-      footnote: "TIP! Halten Sie die Strg-Taste (cmd-Taste auf einem Mac) während Sie die %{name} mit der Maus anklicken, um mehrere %{name} gleichzeitig hochzuladen."
-      intro: "So funktioniert das %{name} hochladen"
-      step1: "Klicken Sie auf 'durchsuchen' und öffnen Sie den Ordner mit Ihren %{name}"
-      step2: "Wählen Sie alle %{name} aus, die Sie gleichzeitig hochladen wollen"
-      step3: "Klicken Sie auf 'öffnen'. Das Hochladen beginnt!"
-      dragndrop: "Alternativ können Sie Dateien auch von Ihrem Computer mit der Maus auf die untere Fläche ziehen."
     external_link_notice_1: "Bitte geben Sie die URL komplett mit http:// (oder vergleichbarem Protokoll) ein."
     external_link_notice_2: "Um auf einen Pfad innerhalb der Webseiten URL zu verweisen, beginnen Sie mit einem /."
     female: "Frau"
     file: "Datei"
     file_rename_error: "Datei konnte nicht umbenannt werden."
-    files: "Dateien"
     from_at: "von %{by} am %{at}"
     height: "Höhe"
     help:
@@ -407,7 +395,6 @@ de:
     image_caption: "Bildunterschrift"
     image_name: "Name"
     image_title: "Titel-Tag"
-    images: "Bilder"
     internal_link_headline: "Wählen Sie eine Seite zum Verlinken aus."
     internal_link_page_elements_explanation: "Zusätzlich können Sie rechts neben der jeweiligen Seite auf 'Elemente anzeigen' klicken, um eine Sprungmarke zu einem Element dieser Seite zu erstellen."
     internal_link_page_anchors_explanation: "Alternativ können Sie auch eine Sprungmarke innerhalb der aktuellen Seite erstellen."
@@ -565,8 +552,11 @@ de:
     unlink: "Link entfernen"
     unlock_page: "Seite verlassen"
     unlocked_page: "Seite %{name} wurde freigegeben."
-    upload_file: "Datei(en) hochladen"
-    upload_image: "Bild(er) hochladen"
+    uploader:
+      alchemy/attachment:
+        button_label: Datei(en) hochladen
+      alchemy/picture:
+        button_label: Bild(er) hochladen
     url_name: "URL-Name"
     visible: "sichtbar"
     want_to_create_new_language: "Wollen Sie einen neuen leeren Sprachbaum erstellen?"
@@ -593,7 +583,6 @@ de:
     "Succesfully updated": "Erfolgreich aktualisiert"
     "Succesfully removed": "Erfolgreich gelöscht"
     "Nothing found": "Keine Einträge gefunden."
-    "Or drag files over here": "Oder ziehen Sie die Dateien hier rauf"
     complete: 'Abgeschlossen'
     "Update available": 'Es ist ein Update verfügbar'
     "Update status unavailable": 'Update Status konnte nicht ermittelt werden'

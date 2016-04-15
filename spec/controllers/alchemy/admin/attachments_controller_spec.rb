@@ -74,25 +74,6 @@ module Alchemy
       end
     end
 
-    describe "#new" do
-      context "in overlay" do
-        before do
-          expect(controller).to receive(:in_overlay?).and_return(true)
-          expect(Content).to receive(:find_by).and_return(mock_model('Content'))
-        end
-
-        it "should set @while_assigning to true" do
-          alchemy_get :new
-          expect(assigns(:while_assigning)).to eq(true)
-        end
-
-        it "should set @swap to params[:swap]" do
-          alchemy_get :new, swap: 'true'
-          expect(assigns(:swap)).to eq('true')
-        end
-      end
-    end
-
     describe '#create' do
       subject { alchemy_post :create, params }
 
@@ -103,23 +84,6 @@ module Alchemy
         before do
           expect(Attachment).to receive(:new).and_return(attachment)
           expect(attachment).to receive(:save).and_return(true)
-        end
-
-        context 'if inside of archive overlay' do
-          let(:params)  { {attachment: {name: ''}, content_id: 1} }
-          let(:content) { mock_model('Content') }
-
-          before do
-            expect(Content).to receive(:find_by).and_return(content)
-          end
-
-          it "assigns lots of instance variables" do
-            subject
-            expect(assigns(:options)).to eq({})
-            expect(assigns(:while_assigning)).to be_truthy
-            expect(assigns(:content)).to eq(content)
-            expect(assigns(:swap)).to eq(nil)
-          end
         end
 
         it "renders json response with success message" do

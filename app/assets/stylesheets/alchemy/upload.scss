@@ -1,51 +1,48 @@
-a#uploadswitcher, a.underline {
-  text-decoration: underline;
+.upload-button {
+  @include inline-block(top);
 }
 
-.upload-container {
-
-  label {
-    box-sizing: border-box;
-    width: 50%;
-    @include button-defaults;
-    text-align: center;
-  }
-
-  input { display: none }
+.fileupload {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
 }
 
-.drag-drop-note {
-  width: 50%;
-  display: inline-block;
-  text-align: center;
-  line-height: 19px;
-  margin-left: -4px;
-}
+.dragover,
+#main_content.dragover {
+  position: relative;
 
-#dropbox {
-  height: 270px;
-  margin-top: 2*$default-margin;
-  @extend %rounded-border;
-  border: 1px dashed #ccc;
-  transition: background-color 200ms;
-
-  &.dragover {
-    border: 0 none;
-    background-color: #ccc;
-  }
-
-  &.upload-in-progress {
-    border: 0 none;
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 20;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#ccc, 0.5);
   }
 }
 
 .overall-upload {
-  display: none;
+  box-sizing: border-box;
+  position: fixed;
+  bottom: -100%;
+  left: 0;
+  z-index: 150;
+  width: 100%;
+  height: auto;
+  padding: 8px;
   overflow: hidden;
-  @include border-radius($default-border-radius);
-  background-color: $medium-gray;
-  border: $default-border;
-  margin-bottom: 2*$default-margin;
+  background-color: rgba($dark-gray, 0.6);
+  transition: all 250ms ease-in-out;
+
+  &.visible {
+    bottom: 0;
+  }
 
   .progress {
     width: 0%;
@@ -56,75 +53,74 @@ a#uploadswitcher, a.underline {
     text-indent: 2*$default-padding;
     overflow: visible;
     white-space: nowrap;
+    @include border-radius($default-border-radius);
   }
 }
 
-#uploadProgressContainer {
+.upload-progress-container {
   overflow-x: hidden;
   overflow-y: auto;
-  height: 236px;
-}
+  max-height: 236px;
 
-#uploadProgressContainer .progressWrapper {
-  padding: 2*$default-padding;
-  background-color: $medium-gray;
-  position: relative;
-  margin-bottom: 8px;
-  border: 1px solid #9e9e9e;
-  @extend %rounded-border;
-}
+  .progress-wrapper {
+    padding: 2*$default-padding;
+    background-color: $medium-gray;
+    position: relative;
+    margin-top: 8px;
+    @extend %rounded-border;
+  }
 
-#uploadProgressContainer .progressName,
-#uploadProgressContainer .progressBarStatus {
-  margin-bottom: 4px;
-}
+  .progress-name,
+  .progress-bar-status {
+    margin-bottom: 4px;
+  }
 
-#uploadProgressContainer .progressBarStatus {
-  font-size: 10px;
-}
+  .progress-name {
+    text-shadow: 0 1px 2px #ffffff;
+  }
 
-#uploadProgressContainer .progressName {
-  text-shadow: 0 1px 2px #ffffff;
-}
+  .progress-bar-status {
+    font-size: 10px;
+  }
 
-#uploadProgressContainer .progressBarContainer {
-  background-color: #f9f9f9;
-  border: 1px solid #9e9e9e;
-  @extend %rounded-border;
-  height: 16px;
-  overflow: hidden;
-  width: 100%;
-}
+  .progress-bar-container {
+    background-color: #f9f9f9;
+    @extend %rounded-border;
+    height: 16px;
+    overflow: hidden;
+    width: 100%;
+  }
 
-#uploadProgressContainer .progressBarInProgress {
-  background-color: $info_background_color;
-  height: 16px;
-  width: 0;
-}
+  .progress-bar-in-progress {
+    background-color: $info_background_color;
+    height: 16px;
+    width: 0;
+  }
 
-#uploadProgressContainer .progressBarComplete {
-  background-color: $success_background_color;
-  height: 16px;
-  width: 0;
-}
+  .progress-bar-complete {
+    background-color: $success_background_color;
+    height: 16px;
+    width: 0;
+  }
 
-#uploadProgressContainer .progressBarError {
-  background-color: $error_background_color;
-  height: 16px;
-  width: 0;
-}
+  .progress-bar-error {
+    background-color: $error_background_color;
+    height: 16px;
+    width: 0;
+  }
 
-#uploadProgressContainer .progressBarCanceled {
-  background-color: #c9c9c9;
-  height: 16px;
-  width: 0;
-}
+  .progress-bar-canceled {
+    background-color: #c9c9c9;
+    height: 16px;
+    width: 0;
+  }
 
-#uploadProgressContainer .progressCancel {
-  @extend .icon-cross;
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  top: 8px;
-  right: 4px;
+  .progress-cancel {
+    @extend .icon-cross;
+    width: 16px;
+    height: 16px;
+    position: absolute;
+    top: 8px;
+    right: 4px;
+  }
 }

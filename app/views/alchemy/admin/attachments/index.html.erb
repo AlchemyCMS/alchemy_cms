@@ -1,21 +1,14 @@
 <% any_tags = Alchemy::Attachment.tag_counts.any? %>
-<%= toolbar(
-  buttons: [
-    {
-      icon: 'upload',
-      url: alchemy.new_admin_attachment_path,
-      hotkey: 'alt+n',
-      dialog_options: {
-        title: Alchemy.t(:upload_file),
-        size: '540x515'
-      },
-      title: Alchemy.t(:upload_file),
-      class: 'icon_button',
-      label: Alchemy.t(:upload_file),
-      if_permitted_to: [:create, Alchemy::Attachment]
-    }
-  ]
-) %>
+<% content_for(:toolbar) do %>
+  <div class="toolbar_buttons">
+    <% if can? :create, Alchemy::Attachment %>
+      <%= render 'alchemy/admin/uploader/button',
+        redirect_url: alchemy.admin_attachments_path,
+        model_class: Alchemy::Attachment,
+        file_attribute: 'file' %>
+    <% end %>
+  </div>
+<% end %>
 <div id="archive_all" class="<%= any_tags ? 'with_tag_filter ' : nil %>resources-table-wrapper">
   <%= resources_header %>
   <%= render partial: 'files_list' %>

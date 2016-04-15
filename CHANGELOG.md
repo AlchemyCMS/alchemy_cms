@@ -21,8 +21,10 @@ __New Features__
 
 __Notable Changes__
 
+* New simplified uploader that allows to drag and drop images onto the archive everywhere in your app
+  - Model names in uploader `allowed_filetypes` setting are now namespaced.
+    Please be sure to run `rake alchemy:upgrade` to update your settings.
 * Allow uppercase country codes
-* Larger upload dropzone
 * Uses Time.current instead of Time.now for proper timezone support
 * Adds year to `created_at` column of attachments table
 * Removes "available contents" feature.

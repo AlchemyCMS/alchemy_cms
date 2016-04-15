@@ -3,57 +3,57 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 Alchemy.FileProgress = (file) ->
 
     # Build Wrapper
-    @$fileProgressWrapper = $('<div class="progressWrapper"/>')
+    @$fileProgressWrapper = $('<div class="progress-wrapper"/>')
 
     # Build Container
-    @$fileProgressElement = $('<div class="progressContainer"/>')
+    @$fileProgressElement = $('<div class="progress-container"/>')
 
     # Append Cancel Button
-    @$fileProgressCancel = $('<a href="javascript:void(0);" class="progressCancel"/>')
+    @$fileProgressCancel = $('<a href="javascript:void(0);" class="progress-cancel"/>')
     @$fileProgressElement.append @$fileProgressCancel
 
     # Append Filename
-    @$fileProgressElement.append "<div class=\"progressName\">" + file.name + "</div>"
+    @$fileProgressElement.append "<div class=\"progress-name\">" + file.name + "</div>"
 
     # Append Progressbar Status Text
-    @$fileProgressStatus = $('<div class="progressBarStatus">&nbsp;</div>')
+    @$fileProgressStatus = $('<div class="progress-bar-status">&nbsp;</div>')
     @$fileProgressElement.append @$fileProgressStatus
 
     # Build Progressbar Container
-    $progressBarContainer = $('<div class="progressBarContainer"/>')
+    $progressBarContainer = $('<div class="progress-bar-container"/>')
 
     # Build Progressbar
-    @$progressBar = $('<div class="progressBarInProgress"/>')
+    @$progressBar = $('<div class="progress-bar-in-progress"/>')
 
     # Knit all together
     $progressBarContainer.append @$progressBar
     @$fileProgressElement.append $progressBarContainer
     @$fileProgressWrapper.append @$fileProgressElement
-    $('#uploadProgressContainer').append @$fileProgressWrapper
+    $('.upload-progress-container').append @$fileProgressWrapper
     this
 
 Alchemy.FileProgress::reset = ->
   @$fileProgressStatus.html '&nbsp;'
-  @$progressBar.removeClass().addClass 'progressBarInProgress'
+  @$progressBar.removeClass().addClass 'progress-bar-in-progress'
   @$progressBar.css width: '0%'
 
 Alchemy.FileProgress::setProgress = (percentage) ->
-  @$progressBar.removeClass().addClass 'progressBarInProgress'
+  @$progressBar.removeClass().addClass 'progress-bar-in-progress'
   @$progressBar.css width: percentage + '%'
 
 Alchemy.FileProgress::setComplete = ->
-  @$progressBar.removeClass().addClass 'progressBarComplete'
+  @$progressBar.removeClass().addClass 'progress-bar-complete'
   @$progressBar.css width: '100%'
   @$fileProgressCancel.hide()
   @$fileProgressWrapper.delay(1500).fadeOut ->
     $(this).remove()
 
 Alchemy.FileProgress::setError = ->
-  @$progressBar.removeClass().addClass 'progressBarError'
+  @$progressBar.removeClass().addClass 'progress-bar-error'
   @$progressBar.css width: '100%'
 
 Alchemy.FileProgress::setCancelled = ->
-  @$progressBar.removeClass().addClass 'progressBarCanceled'
+  @$progressBar.removeClass().addClass 'progress-bar-canceled'
   @$progressBar.css width: '100%'
   @$fileProgressCancel.hide()
   @$fileProgressWrapper.delay(1500).fadeOut ->

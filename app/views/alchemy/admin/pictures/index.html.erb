@@ -1,20 +1,14 @@
 <% content_for(:toolbar) do %>
   <div class="toolbar_buttons">
-    <%= toolbar_button(
-      icon: 'upload',
-      label: Alchemy.t(:upload_image),
-      url: alchemy.new_admin_picture_path(size: @size),
-      hotkey: 'alt+n',
-      dialog_options: {
-        title: Alchemy.t(:upload_image),
-        size: '540x550'
-      },
-      class: 'icon_button',
-      title: Alchemy.t(:upload_image),
-      if_permitted_to: [:create, Alchemy::Picture]
-    ) %>
     <% if can? :create, Alchemy::Picture %>
-    <div class="toolbar_spacer"></div>
+      <%= render 'alchemy/admin/uploader/button',
+        model_class: Alchemy::Picture,
+        file_attribute: 'image_file',
+        redirect_url: alchemy.admin_pictures_path(
+          size: params[:size],
+          filter: 'last_upload'
+        ) %>
+      <div class="toolbar_spacer"></div>
     <% end %>
     <div class="button_group">
       <div class="button_with_label">

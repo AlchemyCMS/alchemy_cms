@@ -58,7 +58,7 @@ Alchemy::Engine.routes.draw do
 
     resources :layoutpages, only: [:index, :edit]
 
-    resources :pictures do
+    resources :pictures, except: [:new] do
       collection do
         post :flush, :update_multiple
         delete :delete_multiple
@@ -69,7 +69,7 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :attachments do
+    resources :attachments, except: [:new] do
       member do
         get :download
       end

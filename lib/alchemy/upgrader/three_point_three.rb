@@ -37,6 +37,12 @@ without replacement, because the nested elements editor partials render automati
 
 PLEASE DOUBLE CHECK YOUR ELEMENT PARTIALS AND ADJUST ACCORDINGLY!
 
+Uploader `allowed_filetypes` setting changed
+--------------------------------------------
+
+The name of the model is now namespaced. `alchemy/pictures` instead of just `pictures`.
+Please ensure, to copy the new setting from the `config.yml.defaults` file.
+
 NOTE
       todo notice, 'Alchemy v3.3 changes'
     end

@@ -296,8 +296,6 @@ ru:
     "You are not authorized": "Вы не авторизованы"
     "You are about to edit many pictures at once": "Вы собираетесь отредактировать %{length} изображений одновременно"
     element_dirty_close_window_notice: "Есть несохраненные элементы. Вы действительно хотите закрыть панель элементов?"
-    "You may upload files with following extensions": "Вы можете загрузить %{file_types_description} со следующими расширениями: %{file_types}"
-    "You may upload any file": "Вы можете загрузить любой файл"
     "Your last login was on": "Последний раз Вы заходили в %{time}."
     "Your last updated pages": "Страницы, отредактированные Вами"
     "Your trash is empty": "Ваша корзина пуста"
@@ -315,7 +313,6 @@ ru:
     attachment_filename_notice: "* Пожалуйста, не используйте спецсимволы для имен файлов."
     auto_play: "Проиграть видеоролик после загрузки"
     big_thumbnails: "Большие миниатюры"
-    browse: "Обзор"
     cancel: "отмена"
     cannot_delete_picture_notice: "Невозможно удалить изображение %{name}, поскольку оно все еще используется."
     choose_element_as_target: "Пожалуйста, выберите целевой элемент"
@@ -352,7 +349,6 @@ ru:
     delete_page: "Удалить страницу"
     delete_tag: 'Удалить метку'
     document: "Файл"
-    documents: "Файлы"
     download_csv: "Скачать CSV"
     download_file: "Скачать файл '%{filename}'"
     do_you_really_want_to_delete_this_tag?: "Вы действительно хотите удалть эту метку?"
@@ -372,19 +368,11 @@ ru:
     explain_publishing: "Опубликовать страницу и удалить кэшированную версию с сервера."
     explain_sitemap_dragndrop_sorting: "Подсказка: для сортировки перетаскивайте страницы за иконку."
     explain_unlocking: "Покинуть страницу и разблокировать её для других пользователей."
-    explain_upload:
-      footnote: "Подсказка: Удерживайте CTRL (CMD на Mac) и нажимайте на %{name}, чтобы загрузить несколько %{name} сразу."
-      intro: "Как загрузить %{name}"
-      step1: "Нажмите кнопку 'обзор' и перейдите в папку с %{name}"
-      step2: "Выберите все %{name}, которые вы хотите загрузить"
-      step3: "Нажмите кнопку 'открыть'. Загрузка начинается!"
-      dragndrop: "Так же вы можете перетащить файлы с вашего компьютера на область ниже."
     external_link_notice_1: "Вводите полный адрес, содержащий http:// или другой протокол."
     external_link_notice_2: "Чтобы указать путь с вашего сайта, начните ввод с /."
     female: "Женщина"
     file: "Файл"
     file_rename_error: "Ошибка при переименовывании файла."
-    files: "Файлы"
     from_at: "%{by} %{at}"
     height: "Высота"
     help:
@@ -407,7 +395,6 @@ ru:
     image_caption: "Подпись"
     image_name: "Название"
     image_title: "Атрибут title"
-    images: "Изображения"
     internal_link_headline: "Выберите страницу, на которую будет вести ссылка."
     internal_link_page_elements_explanation: "Кроме того, вы можете нажать на 'Показать элементы страницы' и выбрать элемент, который будет покзан при переходе по ссылке."
     internal_link_page_anchors_explanation: "В качестве альтернативы вы можете указать анкор самостоятельно."
@@ -563,8 +550,11 @@ ru:
     unlink: "Убрать ссылку с изображения"
     unlock_page: "Покинуть страницу"
     unlocked_page: "Страница %{name} разблокирована."
-    upload_file: "Загрузить файлы"
-    upload_image: "Загрузить изображения"
+    uploader:
+      alchemy/attachment:
+        button_label: Загрузить файлы
+      alchemy/picture:
+        button_label: Загрузить изображения
     url_name: "Название URL"
     visible: "видимый"
     want_to_create_new_language: "Вы хотите создать новое пустое языковое дерево?"
@@ -591,7 +581,6 @@ ru:
     "Succesfully updated": "Успешно обновлено"
     "Succesfully removed": "Успешно удалено"
     "Nothing found": "Ничег не найдено."
-    "Or drag files over here": "Или перетащите файлы сюда"
     complete: 'Завершить'
     "Update available": 'Доступно обновление'
     "Update status unavailable": 'Статус обновлений недоступен'
