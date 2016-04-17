@@ -861,21 +861,16 @@ module Alchemy
 
     describe "#elements" do
       let(:page) { create(:alchemy_page) }
-      let(:element_1) { create(:alchemy_element) }
-      let(:element_2) { create(:alchemy_element) }
-      let(:element_3) { create(:alchemy_element) }
+      let!(:element_1) { create(:alchemy_element, page: page) }
+      let!(:element_2) { create(:alchemy_element, page: page) }
+      let!(:element_3) { create(:alchemy_element, page: page) }
 
       before do
-        page.elements << element_3
-        page.elements << element_1
-        page.elements << element_2
+        element_3.move_to_top
       end
 
       it 'returns a ordered active record collection of elements on that page' do
-        expect(page.elements).to_not be_empty
-        expect(page.elements[0].id).to eq(element_3.id)
-        expect(page.elements[1].id).to eq(element_1.id)
-        expect(page.elements[2].id).to eq(element_2.id)
+        expect(page.elements).to eq([element_3, element_1, element_2])
       end
 
       context 'with nestable elements' do
