@@ -190,9 +190,7 @@ ru:
     "Element trashed": "Элемент удален"
     "Error with the Flash® Uploader!": "Ошибка Flash® Uploader!"
     "Excerpt": "Отрывок"
-    "File uploaded succesfully": "Файл %{name} успешно загружен"
     "File successfully updated": "Файл успешно обновлен"
-    "File upload error": "Ошибка загрузки файла: %{error}"
     "File deleted successfully": "%{name} файл удален"
     "Filter": "Фильтровать"
     "Filter by tag": "Фильтровать по меткам"
@@ -235,8 +233,6 @@ ru:
     "Password reset": "Сброс пароля"
     "Paste from clipboard": "Вставить из буфера обмена"
     "Picture infos": "Информация об изображении"
-    "Picture uploaded succesfully": "Изображение %{name} успешно загружено"
-    "Picture validation error": "Ошибка при загрузке изображения %{name}"
     "Picture renamed successfully": "Изображение успешно переименовано из %{from} в %{to}"
     "Picture deleted successfully": "Изображение %{name} успешно удалено"
     "Pictures updated successfully": "Изображение  успешно обновлено"
@@ -553,8 +549,12 @@ ru:
     uploader:
       alchemy/attachment:
         button_label: Загрузить файлы
+        upload_success: "Файл %{name} успешно загружен"
+        upload_failure: "Ошибка загрузки файла: %{error}"
       alchemy/picture:
         button_label: Загрузить изображения
+        upload_success: "Изображение %{name} успешно загружено"
+        upload_failure: "Ошибка при загрузке изображения %{name}: %{error}"
     url_name: "Название URL"
     visible: "видимый"
     want_to_create_new_language: "Вы хотите создать новое пустое языковое дерево?"

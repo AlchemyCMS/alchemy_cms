@@ -189,9 +189,7 @@ en:
     "Element trashed": "Element trashed"
     "Error with the Flash® Uploader!": "Error with the Flash® Uploader!"
     "Excerpt": "Excerpt"
-    "File uploaded succesfully": "File %{name} succesfully uploaded"
     "File successfully updated": "File successfully updated"
-    "File upload error": "File upload error: %{error}"
     "File deleted successfully": "%{name} has been deleted"
     "Filter by tag": "Filter by tag"
     "Flush page cache": "Flush page cache"
@@ -234,8 +232,6 @@ en:
     "Password reset": "Password reset"
     "Paste from clipboard": "Paste from clipboard"
     "Picture infos": "Picture infos"
-    "Picture uploaded succesfully": "Picture %{name} uploaded successfully"
-    "Picture validation error": "Error while uploading %{name}"
     "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
     "Picture deleted successfully": "Picture %{name} successfully deleted"
     "Pictures updated successfully": "Pictures updated successfully"
@@ -554,8 +550,12 @@ en:
     uploader:
       alchemy/attachment:
         button_label: Upload file(s)
+        upload_success: "File %{name} succesfully uploaded"
+        upload_failure: "File %{name} upload error: %{error}"
       alchemy/picture:
         button_label: Upload image(s)
+        upload_success: "Picture %{name} uploaded successfully"
+        upload_failure: "Error while uploading %{name}: %{error}"
     url_name: "URL-Name"
     visible: "visible"
     want_to_create_new_language: "Do you want to create a new empty language tree?"

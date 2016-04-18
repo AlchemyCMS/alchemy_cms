@@ -205,9 +205,7 @@ fr:
     "Element trashed": "L'élément a été placé dans la corbeille"
     "Error with the Flash® Uploader!": "erreur avec le Flash® Uploader!"
     "Excerpt": "Extrait"
-    "File uploaded succesfully": "Element %{name} téléchargé"
     "File successfully updated": "Le fichier a été enregistré avec succès."
-    "File upload error": "Le fichier ne peut être téléchargé: %{error}"
     "File: '%{name}' deleted successfully": "%{name} effacé"
     "Filter by tag": "Filtrer par tag"
     "Flush page cache": "Effacer la page cache"
@@ -252,8 +250,6 @@ fr:
     "Password reset": "Remettre mot de passe"
     "Paste from clipboard": "du presse-papiers"
     "Picture infos": "Informations sur l'image"
-    "Picture uploaded succesfully": "Image %{name} à été téléchargé"
-    "Picture validation error": "Image %{name} ne peut être téléchargé"
     "Picture renamed successfully": "límage a été renommé avec succès de %{from} vers %{to} "
     "Picture deleted successfully": "%{name} A été effacé"
     "Pictures deleted successfully": "Les images %{names} ont été effacées"
@@ -575,8 +571,12 @@ fr:
     uploader:
       alchemy/attachment:
         button_label: Télécharger plusieurs fichiers
+        upload_success: "Element %{name} téléchargé"
+        upload_failure: "Le fichier %{name} ne peut être téléchargé: %{error}"
       alchemy/picture:
         button_label: Télécharger Images
+        upload_success: "Image %{name} à été téléchargé"
+        upload_failure: "Image %{name} ne peut être téléchargé: %{error}"
     url_name: "URL-Nom"
     visible: "visible"
     want_to_create_new_language: "Voulez-vous créer un nouvel arbre de langage vide?,"

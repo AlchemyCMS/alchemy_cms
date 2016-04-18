@@ -190,9 +190,7 @@ es:
     "Element trashed": "Elementos eliminados"
     "Error with the Flash® Uploader!": "Error con Flash Uploader!"
     "Excerpt": "Extracto"
-    "File uploaded succesfully": "Archivo %{name} subido correctamente"
     "File successfully updated": "Archivo actualizado correctamente"
-    "File upload error": "Error al subir archivo: %{error}"
     "File deleted successfully": "%{name} se ha eliminado"
     "Filter": Filtrar
     "Filter by tag": "Filtrar por etiqueta"
@@ -236,8 +234,6 @@ es:
     "Password reset": "Restablecer contraseña"
     "Paste from clipboard": "Pegar del portapapeles"
     "Picture infos": "Detalles de la imagen"
-    "Picture uploaded succesfully": "Imagen %{name} subida correctamente"
-    "Picture validation error": "Error al cargar %{name}"
     "Picture renamed successfully": "Imagen renombrada correctamente de %{from} a %{to}"
     "Picture deleted successfully": "Imagen %{name} eliminada correctamente"
     "Pictures updated successfully": "Imágenes actualizadas correctamente"
@@ -556,8 +552,12 @@ es:
     uploader:
       alchemy/attachment:
         button_label: Subir archivo(s)
+        upload_success: "Archivo %{name} subido correctamente"
+        upload_failure: "Error al subir archivo %{name}: %{error}"
       alchemy/picture:
         button_label: Subir imagen(es)
+        upload_success: "Imagen %{name} subida correctamente"
+        upload_failure: "Error al cargar %{name}: %{error}"
     url_name: "URL-Nombre"
     visible: "visible"
     want_to_create_new_language: "¿Quieres crear un árbol de idioma vacío?"

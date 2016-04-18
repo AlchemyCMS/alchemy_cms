@@ -189,9 +189,7 @@ nl:
     "Element trashed": "Element verwijderd"
     "Error with the Flash® Uploader!": "Fout in de Flash® Uploader!"
     "Excerpt": "fragment"
-    "File uploaded succesfully": "Bestand %{name} geüpload"
     "File successfully updated": "Bestand is succesvol geüpdatet"
-    "File upload error": "Bestand kon niet worden geüpload: %{error}"
     "File deleted successfully": "%{name} verwijderd"
     "Filter by tag": "Op tag filteren"
     "Flush page cache": "Paginacache leegmaken"
@@ -233,8 +231,6 @@ nl:
     "Password reset": "Wachtwoord resetten"
     "Paste from clipboard": "Uit klembord kopiëren"
     "Picture infos": "Afbeeldingsinformatie"
-    "Picture uploaded succesfully": "Afbeelding %{name} is geüpload"
-    "Picture validation error": "Fout bij het uploaden van afbeelding %{name}"
     "Picture renamed successfully": "Afbeelding hernoemd van %{from} naar %{to}"
     "Picture deleted successfully": "Afbeelding %{name} verwijderd"
     "Pictures updated successfully": "De afbeelding is geüpdatet"
@@ -550,8 +546,12 @@ nl:
     uploader:
       alchemy/attachment:
         button_label: Geüploade bestand(en)
+        upload_success: "Bestand %{name} geüpload"
+        upload_failure: "Bestand %{name} kon niet worden geüpload: %{error}"
       alchemy/picture:
         button_label: Geüploade afbeelding(en)
+        upload_success: "Afbeelding %{name} is geüpload"
+        upload_failure: "Fout bij het uploaden van afbeelding %{name}: %{error}"
     url_name: "URL-Naam"
     visible: "zichtbaar"
     want_to_create_new_language: "Nieuwe boomstructuur aanmaken?"

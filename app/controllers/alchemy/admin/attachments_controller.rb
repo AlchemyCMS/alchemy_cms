@@ -1,6 +1,8 @@
 module Alchemy
   module Admin
     class AttachmentsController < ResourcesController
+      include UploaderResponses
+
       helper 'alchemy/admin/tags'
 
       def index
@@ -35,11 +37,9 @@ module Alchemy
       def create
         @attachment = Attachment.new(attachment_attributes)
         if @attachment.save
-          message = Alchemy.t('File uploaded succesfully', name: @attachment.name)
-          render json: {files: [@attachment.to_jq_upload], growl_message: message}, status: :created
+          render succesful_uploader_response(file: @attachment)
         else
-          message = Alchemy.t('File upload error', error: @attachment.errors[:file].join)
-          render json: {files: [@attachment.to_jq_upload], growl_message: message}, status: :unprocessable_entity
+          render failed_uploader_response(file: @attachment)
         end
       end
 

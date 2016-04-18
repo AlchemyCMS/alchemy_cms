@@ -1,6 +1,8 @@
 module Alchemy
   module Admin
     class PicturesController < Alchemy::Admin::ResourcesController
+      include UploaderResponses
+
       helper 'alchemy/admin/tags'
 
       before_action :load_resource,
@@ -29,17 +31,9 @@ module Alchemy
         @picture = Picture.new(picture_params)
         @picture.name = @picture.humanized_name
         if @picture.save
-          message = Alchemy.t('Picture uploaded succesfully', name: @picture.name)
-          render json: {files: [@picture.to_jq_upload], growl_message: message}, status: :created
+          render succesful_uploader_response(file: @picture)
         else
-          message = Alchemy.t('Picture validation error', name: @picture.name)
-          render(
-            json: {
-              files: [@picture.to_jq_upload],
-              growl_message: message
-            },
-            status: :unprocessable_entity
-          )
+          render failed_uploader_response(file: @picture)
         end
       end
 
