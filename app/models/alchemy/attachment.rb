@@ -38,10 +38,10 @@ module Alchemy
     validates_format_of :file_name, with: /\A[A-Za-z0-9\. \-_äÄöÖüÜß]+\z/, on: :update
     validates_size_of :file, maximum: Config.get(:uploader)['file_size_limit'].megabytes
     validates_property :ext, of: :file,
-      in: Config.get(:uploader)['allowed_filetypes']['attachments'],
+      in: Config.get(:uploader)['allowed_filetypes']['alchemy/attachments'],
       case_sensitive: false,
       message: Alchemy.t("not a valid file"),
-      unless: -> { Config.get(:uploader)['allowed_filetypes']['attachments'].include?('*') }
+      unless: -> { Config.get(:uploader)['allowed_filetypes']['alchemy/attachments'].include?('*') }
 
     before_create do
       write_attribute(:name, convert_to_humanized_name(file_name, file.ext))

@@ -1,21 +1,16 @@
 <div id="overlay_toolbar">
-  <div class="button_with_label">
-    <%= link_to_dialog(
-        render_icon('upload'),
-        alchemy.new_admin_attachment_path(
-          content_id: @content.blank? ? nil : @content.id,
-          swap: @swap,
-          options: @options.to_json
-        ),
-        {
-          title: Alchemy.t(:upload_file),
-          size: '540x550'
-        },
-        title: Alchemy.t(:upload_file),
-        class: 'icon_button'
+  <% if can? :create, Alchemy::Attachment %>
+    <%= render 'alchemy/admin/uploader/button',
+      model_class: Alchemy::Attachment,
+      dropzone: '#assign_file_list',
+      file_attribute: 'file',
+      in_dialog: true,
+      redirect_url: admin_attachments_path(
+        element_id: @element.try(:id),
+        content_id: @content.try(:id),
+        options: @options ? @options.to_json : nil
       ) %>
-    <label><%= Alchemy.t(:upload_file) %></label>
-  </div>
+  <% end %>
   <%= render 'alchemy/admin/partials/remote_search_form' %>
 </div>
 <div id="assign_file_list" class="with_padding<%= params[:tagged_with].present? ? ' filtered' : '' %>">

@@ -10,7 +10,7 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 Alchemy.Uploader = (settings) ->
   totalFilesCount = 0
   completedUploads = 0
-  $dropZone = $('#dropbox')
+  $dropZone = $(settings.dropzone)
 
   # Normalize file types regex
   file_types = if settings.file_types == '*' then '.+' else settings.file_types
@@ -19,28 +19,21 @@ Alchemy.Uploader = (settings) ->
   $(document).bind 'drop dragover', (e) ->
     e.preventDefault()
 
-  # Hide the upload form submit button
-  $('.upload-button').hide()
-
   $dropZone.on 'dragleave', ->
     $dropZone.removeClass('dragover')
 
   # Init jquery.fileupload
-  $("#fileupload").fileupload
+  $(".fileupload").fileupload
     dropZone: $dropZone
     dataType: 'json'
-    filesContainer: $('#uploadProgressContainer')
+    filesContainer: $('.upload-progress-container')
     acceptFileTypes: new RegExp("(.|/)(#{file_types})", "i")
-    maxNumberOfFiles: settings.file_upload_limit
-    maxFileSize: settings.file_size_limit * 1000000
-    formData: (form) ->
-      form_data = form.serializeArray()
-      $.merge(form_data, settings.post_params)
-      form_data
+    maxNumberOfFiles: Alchemy.uploader_defaults.file_upload_limit
+    maxFileSize: Alchemy.uploader_defaults.file_size_limit * 1000000
     getNumberOfFiles: ->
       @filesContainer
         .children()
-        .not('.progressBarInProgress').length - 1
+        .not('.progress-bar-in-progress').length - 1
     dragover: ->
       $dropZone.addClass('dragover')
     add: (e, data) ->
@@ -49,7 +42,7 @@ Alchemy.Uploader = (settings) ->
       totalFilesCount = data.originalFiles.length
       $('.total-files-count').text(totalFilesCount)
       $dropZone.removeClass('dragover').addClass('upload-in-progress')
-      $('.overall-upload').show()
+      $('.overall-upload').addClass('visible')
       # trigger validations
       data.process -> $this.fileupload('process', data)
       if data.files.error
@@ -87,10 +80,8 @@ Alchemy.Uploader = (settings) ->
       if completedUploads == totalFilesCount
         completedUploads = 0
         totalFilesCount = 0
-        # wait 2 seconds before calling callback
-        window.setTimeout ->
-          settings.complete()
-        , 2000
+        $('.overall-upload').removeClass('visible')
+        settings.complete()
     fail: (e, data) ->
       data.context.setError()
       response_data = data.xhr().response

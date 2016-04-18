@@ -1,0 +1,39 @@
+<%= form_for [:admin, model_class.new], html: {multipart: true, class: 'upload-button'} do |f| %>
+  <%= f.file_field file_attribute,
+    class: 'fileupload', multiple: true,
+    name: "#{f.object_name}[#{file_attribute}]" %>
+  <%= hidden_field_tag "#{f.object_name}[upload_hash]", Time.current.hash %>
+  <%= f.label file_attribute, data: {alchemy_hotkey: 'alt+n'} do %>
+    <div class="button_with_label">
+      <span class="icon_button"><%= render_icon :upload %></span>
+      <label>
+        <%= local_assigns[:label] ||
+          Alchemy.t(:button_label, scope: [:uploader, model_class.model_name.i18n_key]) %>
+      </label>
+    </div>
+  <% end %>
+<% end %>
+
+<% file_types = (
+  local_assigns.fetch(:file_types, []).presence ||
+    configuration(:uploader)['allowed_filetypes'][model_class.model_name.collection]
+) %>
+
+<script type='text/javascript'>
+  $(function() {
+    var options = {
+      file_types: '<%= file_types.join("|") %>',
+      dropzone: '<%= local_assigns[:dropzone] || '#main_content' %>',
+      complete: function() {
+        var url = '<%= redirect_url.html_safe %>';
+      <% if local_assigns[:in_dialog] %>
+        $.get(url, null, null, 'script');
+      <% else %>
+        Alchemy.pleaseWaitOverlay();
+        window.location.href = url;
+      <% end %>
+      }
+    };
+    Alchemy.Uploader(options);
+  });
+</script>

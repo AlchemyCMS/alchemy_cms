@@ -95,45 +95,6 @@ module Alchemy
       end
     end
 
-    describe '#new' do
-      subject { alchemy_get :new, params }
-
-      let(:params) { Hash.new }
-
-      context 'if inside of archive overlay' do
-        let(:params)  { {element_id: 1, content_id: 1} }
-        let(:element) { mock_model('Element') }
-        let(:content) { mock_model('Content') }
-
-        before do
-          expect(Content).to receive(:select).and_return(double(find_by: content))
-          expect(Element).to receive(:select).and_return(double(find_by: element))
-        end
-
-        it "assigns lots of instance variables" do
-          subject
-          expect(assigns(:options)).to eq({})
-          expect(assigns(:while_assigning)).to be_truthy
-          expect(assigns(:content)).to eq(content)
-          expect(assigns(:element)).to eq(element)
-          expect(assigns(:page)).to eq(1)
-          expect(assigns(:per_page)).to eq(9)
-        end
-      end
-
-      context 'with size param given' do
-        let(:params) { {size: '200x200'} }
-        before { subject }
-        it { expect(assigns(:size)).to eq('200x200') }
-      end
-
-      context 'without size param given' do
-        let(:params) { {size: nil} }
-        before { subject }
-        it { expect(assigns(:size)).to eq('medium') }
-      end
-    end
-
     describe '#create' do
       subject { alchemy_post :create, params }
 
@@ -146,39 +107,6 @@ module Alchemy
           expect(picture).to receive(:name=).and_return('Cute kittens')
           expect(picture).to receive(:name).and_return('Cute kittens')
           expect(picture).to receive(:save).and_return(true)
-        end
-
-        context 'if inside of archive overlay' do
-          let(:params)  { {picture: {name: ''}, element_id: 1} }
-          let(:element) { mock_model('Element') }
-          let(:content) { mock_model('Content') }
-
-          before do
-            expect(Content).to receive(:select).and_return(double(find_by: content))
-            expect(Element).to receive(:select).and_return(double(find_by: element))
-          end
-
-          it "assigns lots of instance variables" do
-            subject
-            expect(assigns(:options)).to eq({})
-            expect(assigns(:while_assigning)).to be_truthy
-            expect(assigns(:content)).to eq(content)
-            expect(assigns(:element)).to eq(element)
-            expect(assigns(:page)).to eq(1)
-            expect(assigns(:per_page)).to eq(9)
-          end
-        end
-
-        context 'with size param given' do
-          let(:params) { {picture: {name: ''}, size: '200x200'} }
-          before { subject }
-          it { expect(assigns(:size)).to eq('200x200') }
-        end
-
-        context 'without size param given' do
-          let(:params) { {picture: {name: ''}, size: nil} }
-          before { subject }
-          it { expect(assigns(:size)).to eq('medium') }
         end
 
         it "renders json response with success message" do

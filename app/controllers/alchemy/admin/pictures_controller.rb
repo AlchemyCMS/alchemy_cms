@@ -1,6 +1,8 @@
 module Alchemy
   module Admin
     class PicturesController < Alchemy::Admin::ResourcesController
+      include UploaderResponses
+
       helper 'alchemy/admin/tags'
 
       before_action :load_resource,
@@ -18,14 +20,6 @@ module Alchemy
         end
       end
 
-      def new
-        @picture = Picture.new
-        set_size_or_default
-        if in_overlay?
-          set_instance_variables
-        end
-      end
-
       def show
         @previous = @picture.previous(params)
         @next = @picture.next(params)
@@ -37,21 +31,9 @@ module Alchemy
         @picture = Picture.new(picture_params)
         @picture.name = @picture.humanized_name
         if @picture.save
-          set_size_or_default
-          if in_overlay?
-            set_instance_variables
-          end
-          message = Alchemy.t('Picture uploaded succesfully', name: @picture.name)
-          render json: {files: [@picture.to_jq_upload], growl_message: message}, status: :created
+          render succesful_uploader_response(file: @picture)
         else
-          message = Alchemy.t('Picture validation error', name: @picture.name)
-          render(
-            json: {
-              files: [@picture.to_jq_upload],
-              growl_message: message
-            },
-            status: :unprocessable_entity
-          )
+          render failed_uploader_response(file: @picture)
         end
       end
 
@@ -169,19 +151,6 @@ module Alchemy
 
       def picture_params
         params.require(:picture).permit(:image_file, :upload_hash, :name, :tag_list)
-      end
-
-      def set_size_or_default
-        @size = params[:size] || 'medium'
-      end
-
-      def set_instance_variables
-        @while_assigning = true
-        @content = Content.select('id').find_by(id: params[:content_id])
-        @element = Element.select('id').find_by(id: params[:element_id])
-        @options = options_from_params
-        @page = params[:page] || 1
-        @per_page = pictures_per_page_for_size(@size)
       end
     end
   end

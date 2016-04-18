@@ -101,7 +101,7 @@
   @extend %gradiated-toolbar;
   border-bottom: $default-border;
 
-  a.button {
+  .button {
     width: 25px;
     height: 21px;
     text-decoration: none;
@@ -119,7 +119,7 @@
     }
   }
 
-  form {
+  .remote-search-form {
     float: right;
     margin-right: 8px;
 

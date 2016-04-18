@@ -53,7 +53,7 @@ module Alchemy
     validates_size_of :image_file, maximum: Config.get(:uploader)['file_size_limit'].megabytes
     validates_property :format,
       of: :image_file,
-      in: Config.get(:uploader)['allowed_filetypes']['pictures'],
+      in: Config.get(:uploader)['allowed_filetypes']['alchemy/pictures'],
       case_sensitive: false,
       message: Alchemy.t("not a valid image")
 

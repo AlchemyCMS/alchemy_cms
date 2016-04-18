@@ -189,9 +189,7 @@ en:
     "Element trashed": "Element trashed"
     "Error with the Flash® Uploader!": "Error with the Flash® Uploader!"
     "Excerpt": "Excerpt"
-    "File uploaded succesfully": "File %{name} succesfully uploaded"
     "File successfully updated": "File successfully updated"
-    "File upload error": "File upload error: %{error}"
     "File deleted successfully": "%{name} has been deleted"
     "Filter by tag": "Filter by tag"
     "Flush page cache": "Flush page cache"
@@ -200,7 +198,6 @@ en:
     "Hide childpages": "Hide childpages"
     hide_elements: hide_elements
     hide_element: "Hide element"
-    "If you have any problems using the Flash uploader you can switch to": "If you have any problems using the Flash uploader you can switch to %{link}"
     "Image missing": "Image missing"
     "Image size": "Image size"
     "Language successfully created": "Language successfully created."
@@ -234,8 +231,6 @@ en:
     "Password reset": "Password reset"
     "Paste from clipboard": "Paste from clipboard"
     "Picture infos": "Picture infos"
-    "Picture uploaded succesfully": "Picture %{name} uploaded successfully"
-    "Picture validation error": "Error while uploading %{name}"
     "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
     "Picture deleted successfully": "Picture %{name} successfully deleted"
     "Pictures updated successfully": "Pictures updated successfully"
@@ -296,8 +291,6 @@ en:
     "You are not authorized": "You are not authorized"
     "You are about to edit many pictures at once": "You are about to edit %{length} pictures at once"
     element_dirty_close_window_notice: "You have unsaved elements. Do you really want to close the elements window?"
-    "You may upload files with following extensions": "You may upload %{file_types_description} with following extensions: %{file_types}"
-    "You may upload any file": "You may upload any file"
     "Your last login was on": "Your last login was on %{time}."
     "Your last updated pages": "Your last updated pages"
     "Your trash is empty": "Your trash is empty"
@@ -315,7 +308,6 @@ en:
     attachment_filename_notice: "* Please do not use any special characters for the filename."
     auto_play: "Play movie after load"
     big_thumbnails: "Big thumbnails"
-    browse: "browse"
     cancel: "cancel"
     cannot_delete_picture_notice: "Cannot delete Picture %{name}, because it's still in use."
     choose_element_as_target: "Please choose an element as target"
@@ -352,7 +344,6 @@ en:
     delete_page: "Delete this page"
     delete_tag: 'Delete tag'
     document: "File"
-    documents: "Files"
     download_csv: "Download CSV"
     download_file: "Download file '%{filename}'"
     do_you_really_want_to_delete_this_tag?: "Do you really want to delete this tag?"
@@ -372,19 +363,11 @@ en:
     explain_publishing: "Publish the page and remove the cached version from the server."
     explain_sitemap_dragndrop_sorting: "Tip: Drag the pages at the icon in order to sort them."
     explain_unlocking: "Leave page and unlock it for other users."
-    explain_upload:
-      footnote: "HINT! Hold the CTRL button (CMD on a Mac) while clicking the %{name} with the mouse to upload multiple %{name} at once."
-      intro: "This is how the %{name} upload works"
-      step1: "Click the 'browse' button and navigate to your %{name} folder"
-      step2: "Select all the %{name} you want to upload"
-      step3: "Click the 'open' button. The upload starts!"
-      dragndrop: "You can also drag files from your computer over to the area underneath."
     external_link_notice_1: "Please enter the complete url with http:// or a similar protocol."
     external_link_notice_2: "To refer a path from your website url, start with a /."
     female: "Female"
     file: "File"
     file_rename_error: "Error renaming file."
-    files: "Files"
     from_at: "from %{by} at %{at}"
     height: "Height"
     help:
@@ -407,7 +390,6 @@ en:
     image_caption: "Caption"
     image_name: "Name"
     image_title: "Title-tag"
-    images: "Images"
     internal_link_headline: "Choose a page to link to."
     internal_link_page_elements_explanation: "Additionally you can click right beside a page on 'Show Elements' to link to an anchor of an element from that page."
     internal_link_page_anchors_explanation: "Alternatively you can link to an anchor of the actual page."
@@ -564,8 +546,15 @@ en:
     unlink: "Remove link from this image."
     unlock_page: "Leave page"
     unlocked_page: "Unlocked page %{name}."
-    upload_file: "Upload file(s)"
-    upload_image: "Upload image(s)"
+    uploader:
+      alchemy/attachment:
+        button_label: Upload file(s)
+        upload_success: "File %{name} succesfully uploaded"
+        upload_failure: "File %{name} upload error: %{error}"
+      alchemy/picture:
+        button_label: Upload image(s)
+        upload_success: "Picture %{name} uploaded successfully"
+        upload_failure: "Error while uploading %{name}: %{error}"
     url_name: "URL-Name"
     visible: "visible"
     want_to_create_new_language: "Do you want to create a new empty language tree?"
@@ -592,7 +581,6 @@ en:
     "Succesfully updated": "Succesfully updated"
     "Succesfully removed": "Succesfully removed"
     "Nothing found": "Nothing found."
-    "Or drag files over here": "Or drag files over here"
     complete: 'Abgeschlossen'
     "Update available": 'Update available'
     "Update status unavailable": 'Update status unavailable'

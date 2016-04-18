@@ -190,9 +190,7 @@ es:
     "Element trashed": "Elementos eliminados"
     "Error with the Flash® Uploader!": "Error con Flash Uploader!"
     "Excerpt": "Extracto"
-    "File uploaded succesfully": "Archivo %{name} subido correctamente"
     "File successfully updated": "Archivo actualizado correctamente"
-    "File upload error": "Error al subir archivo: %{error}"
     "File deleted successfully": "%{name} se ha eliminado"
     "Filter": Filtrar
     "Filter by tag": "Filtrar por etiqueta"
@@ -202,7 +200,6 @@ es:
     "Hide childpages": "Ocultar páginas hijas"
     hide_elements: "Ocultar elementos"
     hide_element: "Ocultar elemento"
-    "If you have any problems using the Flash uploader you can switch to": "Si tienes cualquier problema usando Flash uploader, puedes cambiar a %{link}"
     "Image missing": "Imagen perdida"
     "Image size": "Tamaño de las imágenes"
     "Language successfully created": "Idioma creado correctamente."
@@ -236,8 +233,6 @@ es:
     "Password reset": "Restablecer contraseña"
     "Paste from clipboard": "Pegar del portapapeles"
     "Picture infos": "Detalles de la imagen"
-    "Picture uploaded succesfully": "Imagen %{name} subida correctamente"
-    "Picture validation error": "Error al cargar %{name}"
     "Picture renamed successfully": "Imagen renombrada correctamente de %{from} a %{to}"
     "Picture deleted successfully": "Imagen %{name} eliminada correctamente"
     "Pictures updated successfully": "Imágenes actualizadas correctamente"
@@ -297,8 +292,6 @@ es:
     "You are not authorized": "No estas autorizado"
     "You are about to edit many pictures at once": "Vas a editar %{length} imágenes a la vez"
     element_dirty_close_window_notice: "Tienes elementos sin guardar. ¿Realmente quieres cerrar la ventana de elementos?"
-    "You may upload files with following extensions": "Puedes subir %{file_types_description} con las siguientes extensiones: %{file_types}"
-    "You may upload any file": "Puedes cargar cualquier archivo"
     "Your last login was on": "Tu última conexión fue el %{time}."
     "Your last updated pages": "Tus últimas páginas actualizadas"
     "Your trash is empty": "La papelera está vacía"
@@ -316,7 +309,6 @@ es:
     attachment_filename_notice: "* Por favor no uses ningún caracter especial para el nombre del archivo."
     auto_play: "Reproducir video después de cargar"
     big_thumbnails: "Miniaturas grandes"
-    browse: "examinar"
     cancel: "cancelar"
     cannot_delete_picture_notice: "No se puede eliminar %{name}, porque sigue en uso."
     choose_element_as_target: "Por favor elige un elemento como destino"
@@ -353,7 +345,6 @@ es:
     delete_page: "Eliminar esta página"
     delete_tag: 'Eliminar etiqueta'
     document: "Archivo"
-    documents: "archivos"
     download_csv: "Descargar CSV"
     download_file: "Descargar archivo '%{filename}'"
     do_you_really_want_to_delete_this_tag?: "¿Deseas realmente eliminar esta etiqueta?"
@@ -373,19 +364,11 @@ es:
     explain_publishing: "Publicar la página y eliminar la versión cacheada del servidor."
     explain_sitemap_dragndrop_sorting: "Consejo: Arrastra las páginas desde el icono para ordenarlas."
     explain_unlocking: "Dejar la página y desbloquearla para otros usuarios."
-    explain_upload:
-      footnote: "¡AVISO! Presiona el botón CTRL (CMD en Mac) mientras pulsas en %{name} con el ratón para subir múltiples %{name} de una vez."
-      intro: "Así es como funciona la subida de %{name}"
-      step1: "Pulsa en el botón 'Examinar' y navega hasta tu carpeta de %{name}"
-      step2: "Selecciona todos l@s %{name} que quieres subir"
-      step3: "Pulsa en el botón 'abrir'. ¡La subida comienza!"
-      dragndrop: "También puedes arrastrar los archivos desde tu ordenador sobre el área que hay debajo."
     external_link_notice_1: "Por favor introduce la URL completa con http:// o un protocolo similar."
     external_link_notice_2: "Para enlazar a una ruta de tu sitio web, empieza con una /."
     female: "Femenino"
     file: "Archivo"
     file_rename_error: "Error renombrando el archivo."
-    files: "archivos"
     from_at: "Por %{by} el %{at}"
     height: "Altura"
     help:
@@ -408,7 +391,6 @@ es:
     image_caption: "Subtítulo"
     image_name: "Nombre"
     image_title: "Titulo-tag"
-    images: "imágenes"
     internal_link_headline: "Escoge una página para enlazar."
     internal_link_page_elements_explanation: "Además, puedes pulsar a la derecha de una página en 'Mostrar elementos' para enlazar a un ancla de un elemento de esa página."
     internal_link_page_anchors_explanation: "También puedes enlazar a un ancla de la página actual."
@@ -566,8 +548,15 @@ es:
     unlink: "Eliminar enlace de esta imagen."
     unlock_page: "Salir de la página"
     unlocked_page: "Página %{name} desbloqueada."
-    upload_file: "Subir archivo(s)"
-    upload_image: "Subir imagen(es)"
+    uploader:
+      alchemy/attachment:
+        button_label: Subir archivo(s)
+        upload_success: "Archivo %{name} subido correctamente"
+        upload_failure: "Error al subir archivo %{name}: %{error}"
+      alchemy/picture:
+        button_label: Subir imagen(es)
+        upload_success: "Imagen %{name} subida correctamente"
+        upload_failure: "Error al cargar %{name}: %{error}"
     url_name: "URL-Nombre"
     visible: "visible"
     want_to_create_new_language: "¿Quieres crear un árbol de idioma vacío?"
@@ -594,7 +583,6 @@ es:
     "Succesfully updated": "Actualizado correctamente"
     "Succesfully removed": "Eliminado correctamente"
     "Nothing found": "No se encontró nada."
-    "Or drag files over here": "O arrastra archivos sobre esta caja"
     complete: 'Completado'
     "Update available": 'Actualización disponible'
     "Update status unavailable": 'Estado de actualización no disponible'

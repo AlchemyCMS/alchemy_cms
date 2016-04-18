@@ -187,6 +187,7 @@ button.icon_button {
     border: $default-border;
     padding: 2px;
     @extend %rounded-border;
+    cursor: pointer;
 
     &:focus {
       border: 0;

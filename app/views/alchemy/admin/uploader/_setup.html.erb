@@ -1,0 +1,13 @@
+<div class="overall-upload">
+  <div class="progress">
+    <span class="progress-status">0%</span>
+    (<span class="uploaded-files-count">0</span>/<span class="total-files-count">0</span>)
+  </div>
+  <div class="upload-progress-container"></div>
+</div>
+<script>
+  Alchemy.uploader_defaults = {
+    file_size_limit: <%= configuration(:uploader)['file_size_limit'] || 100 -%>,
+    file_upload_limit: <%= configuration(:uploader)['upload_limit'] || 50 -%>
+  }
+</script>
