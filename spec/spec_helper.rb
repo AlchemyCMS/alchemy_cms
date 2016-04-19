@@ -53,7 +53,7 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Alchemy::Engine.routes.url_helpers
   config.include Alchemy::TestSupport::ControllerRequests, type: :controller
-  [:controller, :feature].each do |type|
+  [:controller, :feature, :request].each do |type|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type
   end
   config.include FactoryGirl::Syntax::Methods
