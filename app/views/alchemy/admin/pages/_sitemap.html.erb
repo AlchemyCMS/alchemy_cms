@@ -1,6 +1,4 @@
-<div id="sitemap-wrapper">
-  <p class="center sitemap-load-notice"><%= _t(:loading_sitemap) %></p>
-</div>
+<div id="sitemap-wrapper"></div>
 
 <script id="sitemap-template" type="text/x-handlebars-template">
   <ul id="sitemap" class="list<%= @sorting ? ' sorting' : nil %>">
@@ -25,7 +23,8 @@
        Alchemy.PageSorter.init();
      }
      <% elsif action_name == 'link' %>
-     ,ready: function () {
+     ,spinner_size: 'small',
+     ready: function () {
        Alchemy.currentDialog().attachEvents();
      }
      <% end %>
