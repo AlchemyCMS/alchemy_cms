@@ -49,11 +49,18 @@ module Alchemy
       end
     end
 
+    # We need to define this method here to have it available in the validations below.
+    class << self
+      def allowed_filetypes
+        Config.get(:uploader).fetch('allowed_filetypes', {}).fetch('alchemy/pictures', [])
+      end
+    end
+
     validates_presence_of :image_file
     validates_size_of :image_file, maximum: Config.get(:uploader)['file_size_limit'].megabytes
     validates_property :format,
       of: :image_file,
-      in: Config.get(:uploader)['allowed_filetypes']['alchemy/pictures'],
+      in: allowed_filetypes,
       case_sensitive: false,
       message: Alchemy.t("not a valid image")
 
