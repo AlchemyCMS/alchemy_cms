@@ -1,8 +1,35 @@
-<ul id="sitemap" class="list<%= @sorting ? ' sorting' : nil %>">
-  <%= render :partial => 'page', :object => @page_root %>
-</ul>
+<div id="sitemap-wrapper">
+  <p class="loading"></p>
+</div>
+
+<script id="sitemap-template" type="text/x-handlebars-template">
+  <ul id="sitemap" class="list<%= @sorting ? ' sorting' : nil %>">
+    {{> list}}
+  </ul>
+</script>
+
+<script id="sitemap-list" type="text/x-handlebars-template">
+  {{#each children}}
+  <%= render partial: page_partial, object: @page_root %>
+  {{/each}}
+</script>
+
 <script type="text/javascript">
-  $(function() {
-    Alchemy.Sitemap.init();
-  });
+ $(function() {
+   Alchemy.Sitemap.init({
+     url: '<%= alchemy.tree_admin_pages_path %>',
+     page_root_id: <%= @page_root.id %>,
+     full: <%= full %>
+     <% if @sorting  %>
+     ,ready: function () {
+       Alchemy.PageSorter.init();
+     }
+     <% elsif action_name == 'link' %>
+     ,spinner: Alchemy.Spinner.small(),
+     ready: function () {
+       Alchemy.currentDialog().attachTreeEvents();
+     }
+     <% end %>
+   });
+ });
 </script>

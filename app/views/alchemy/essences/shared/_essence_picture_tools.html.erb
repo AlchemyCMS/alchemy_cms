@@ -33,7 +33,7 @@
 ) %>
 
 <%= link_to(render_icon(:link), '', {
-  onclick: 'd = new Alchemy.LinkDialog(this); d.open(); return false;',
+  onclick: 'new Alchemy.LinkDialog(this).open(); return false;',
   class: content.linked? ? 'linked' : nil,
   title: _t(:link_image),
   'data-content-id' => content.id,

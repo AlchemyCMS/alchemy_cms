@@ -55,6 +55,69 @@ module Alchemy
         end
       end
 
+      describe '#tree' do
+        let(:page_1) { FactoryGirl.create(:page, visible: true, name: 'one') }
+        let(:page_2) { FactoryGirl.create(:page, visible: true, name: 'two', parent_id: page_1.id) }
+        let(:page_3) { FactoryGirl.create(:page, visible: true, name: 'three', parent_id: page_2.id) }
+        let(:pages)  { [page_1, page_2, page_3] }
+
+        before do
+          pages
+        end
+
+        it 'returns a tree as JSON' do
+          alchemy_get :tree, id: page_1.id, full: 'true'
+
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+
+          result = JSON.parse(response.body)
+
+          expect(result).to have_key('pages')
+          expect(result['pages'].count).to eq(1)
+
+          page = result['pages'].first
+
+          expect(page).to have_key('id')
+          expect(page['id']).to eq(page_1.id)
+          expect(page).to have_key('name')
+          expect(page['name']).to eq(page_1.name)
+          expect(page).to have_key('children')
+          expect(page['children'].count).to eq(1)
+
+          page = page['children'].first
+
+          expect(page).to have_key('id')
+          expect(page['id']).to eq(page_2.id)
+          expect(page).to have_key('name')
+          expect(page['name']).to eq(page_2.name)
+          expect(page).to have_key('children')
+          expect(page['children'].count).to eq(1)
+
+          page = page['children'].first
+
+          expect(page).to have_key('id')
+          expect(page['id']).to eq(page_3.id)
+          expect(page).to have_key('name')
+          expect(page['name']).to eq(page_3.name)
+          expect(page).to have_key('children')
+          expect(page['children'].count).to eq(0)
+        end
+
+        it 'does not return a branch that is folded' do
+          alchemy_xhr :post, :fold, id: page_2.id
+          alchemy_get :tree, id: page_1.id, full: 'false'
+
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+
+          result = JSON.parse(response.body)
+          page = result['pages'].first['children'].first
+
+          expect(page['children'].count).to eq(0)
+        end
+      end
+
       describe "#flush" do
         let(:content_page_1) { create(:public_page, name: "content page 1", published_at: Time.current - 5.days) }
         let(:content_page_2) { create(:public_page, name: "content page 2", published_at: Time.current - 8.days) }
