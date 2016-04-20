@@ -43,6 +43,7 @@ __Notable Changes__
 * Remove the duplication of `#decription` vs. `#definition`
 * Resource CSV export now includes ID column and does not truncate large text columns anymore
 * `Alchemy::Attachment#urlname` now returns always an escaped urlname w/o format suffix and does not convert the `file_name` once on create anymore
+* Speed up the admin interface significantly when handling a large amount of pages
 
 __Fixed Bugs__
 

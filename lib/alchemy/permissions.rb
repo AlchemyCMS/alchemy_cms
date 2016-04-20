@@ -104,6 +104,7 @@ module Alchemy
         can :manage,                :alchemy_admin_clipboard
         can :index,                 :trash
         can :edit,                  :alchemy_admin_layoutpages
+        can :tree,                  :alchemy_admin_pages
 
         # Resources
         can [:read, :download],     Alchemy::Attachment

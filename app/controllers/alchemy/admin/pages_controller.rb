@@ -9,12 +9,13 @@ module Alchemy
         except: [:show]
 
       before_action :load_page,
-        only: [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold]
+        only: [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold,
+               :tree]
 
       before_action :set_root_page,
         only: [:index, :show, :sort, :order]
 
-      authorize_resource class: Alchemy::Page, except: :index
+      authorize_resource class: Alchemy::Page, except: [:index, :tree]
 
       before_action :run_on_page_layout_callbacks,
         if: :run_on_page_layout_callbacks?,
@@ -28,6 +29,16 @@ module Alchemy
           @language = Language.current
           @languages_with_page_tree = Language.with_root_page
         end
+      end
+
+      # Returns all pages as a tree from the root given by the id parameter
+      #
+      def tree
+        authorize! :tree, :alchemy_admin_pages
+
+        render json: PageTreeSerializer.new(@page, ability: current_ability,
+                                            user: current_alchemy_user,
+                                            full: params[:full] == 'true')
       end
 
       # Used by page preview iframe in Page#edit view.
@@ -121,7 +132,6 @@ module Alchemy
         else
           set_root_page
         end
-        @area_name = params[:area_name]
         @content_id = params[:content_id]
         @attachments = Attachment.all.collect { |f|
           [f.name, download_attachment_path(id: f.id, name: f.urlname)]
