@@ -8,7 +8,7 @@ module Alchemy
       source_root File.expand_path('templates', File.dirname(__FILE__))
 
       def init
-        @essence_name = Alchemy::Content.normalize_essence_type(essence_name).underscore
+        @essence_name = essence_name.underscore
         @essence_view_path = Rails.root.join('app/views/alchemy/essences')
       end
 
