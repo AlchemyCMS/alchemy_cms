@@ -21,6 +21,7 @@ __New Features__
 
 __Notable Changes__
 
+* Essence generator does not namespace the model into `Alchemy` namespace anymore
 * New simplified uploader that allows to drag and drop images onto the archive everywhere in your app
   - Model names in uploader `allowed_filetypes` setting are now namespaced.
     Please be sure to run `rake alchemy:upgrade` to update your settings.
