@@ -171,7 +171,7 @@
     * { display: none }
   }
 
-  &.with-contents {
+  &.with-contents, &.without-contents.not-nestable {
 
     .element-content {
       padding: 2*$default-padding 2*$default-padding 0;
