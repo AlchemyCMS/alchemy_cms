@@ -30,7 +30,7 @@
   title: (content.ingredient ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)) %>
 
 <%= link_to_if linkable, render_icon(:link), '', {
-  onclick: 'd = new Alchemy.LinkDialog(this); d.open(); return false;',
+  onclick: 'new Alchemy.LinkDialog(this).open(); return false;',
   class: content.linked? ? 'linked' : nil,
   title: Alchemy.t(:link_image),
   'data-content-id' => content.id,

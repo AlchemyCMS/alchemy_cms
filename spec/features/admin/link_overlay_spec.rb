@@ -22,7 +22,7 @@ describe "Link overlay" do
     end
   end
 
-  context "linking internal pages" do
+  context "linking internal pages", js: true do
     let(:lang_root) do
       create(:alchemy_page, :language_root)
     end
@@ -32,9 +32,12 @@ describe "Link overlay" do
       create(:alchemy_page, :public, parent_id: lang_root.id)
     end
 
-    it "should have a tree of internal pages" do
+    it "should have code to load a tree of internal pages" do
       visit link_admin_pages_path
-      expect(page).to have_selector('ul#sitemap li a')
+      # Doesn't work, because the parent page sets the `dialog` variable in window:
+      # expect(page).to have_selector('ul#sitemap li a')
+      expect(page).to have_selector('div#page_selector_container div#sitemap-wrapper')
+      expect(page).to have_selector('div#page_selector_container script')
     end
 
     it "should not have a link for pages that redirect to external" do

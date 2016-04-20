@@ -1,16 +1,29 @@
-<li id="page_<%= page.id %>" class="page_level_<%= "#{page.level} #{page.page_layout}" %>" data-slug="<%= page.slug %>" data-restricted="<%= page.restricted? %>" data-visible="<%= page.visible? %>" data-external="<%= page.redirects_to_external? %>">
-  <div class="sitemap_page<%= page.locked ? ' locked' : '' %>" name="<%= page.name %>">
+<li id="page_{{id}}" class="page_level_{{level}} {{page_layout}}" data-slug="{{slug}}" data-restricted="{{restricted}}" data-visible="{{visible}}" data-external="{{redirects_to_external}}">
+  <div class="sitemap_page{{#if locked}} locked{{/if}}" name="{{name}}">
     <div class="sitemap_left_images">
-      <%= sitemap_folder_link(page) unless page.level == 1 || page.children.blank? || @sorting %>
-      <% if page.definition.blank? %>
-        <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
-      <% else %>
-        <div class="page icon <%= @sorting && page.level > 1 ? 'handle' : nil %>"></div>
+      <% unless @sorting %>
+        {{#unless root_or_leaf}}
+        <%= link_to(
+          '',
+          alchemy.fold_admin_page_path(page),
+          remote: true,
+          method: :post,
+          class: "page_folder {{#if folded}}folded{{else}}collapsed{{/if}} spinner",
+          title: "{{#if folded}}#{Alchemy.t('Show childpages')}{{else}}#{Alchemy.t('Hide childpages')}{{/if}}",
+          id: "fold_button_{{id}}"
+        )
+        %>
+        {{/unless}}
       <% end %>
+      {{#if definition_missing}}
+        <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
+      {{else}}
+        <div class="page icon<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>"></div>
+      {{/if}}
     </div>
     <div class="sitemap_right_tools">
-    <%- unless @sorting -%>
-      <%- if can?(:info, page) -%>
+      <%- unless @sorting -%>
+        {{#if permissions.info}}
         <%= link_to_dialog(
           render_icon('info'),
           alchemy.info_admin_page_path(page),
@@ -22,9 +35,9 @@
             title: Alchemy.t(:page_infos),
             class: 'sitemap_tool'
           }
-        ) %>
-      <%- end -%>
-      <%- if can?(:configure, page) -%>
+          ) %>
+        {{/if}}
+        {{#if permissions.configure}}
         <%= link_to_dialog(
           render_icon('configure_page'),
           alchemy.configure_admin_page_path(page),
@@ -35,76 +48,80 @@
           title: Alchemy.t(:edit_page_properties),
           class: 'sitemap_tool'
         ) -%>
-      <%- end -%>
-      <span class="sitemap_sitetools">
-      <%- if can?(:copy, page) -%>
-        <%= link_to(
-          render_icon("copy_page"),
-          alchemy.insert_admin_clipboard_path(
-            remarkable_type: page.class.name.demodulize.underscore.pluralize,
-            remarkable_id: page.id
-          ),
-          remote: true,
-          method: 'post',
-          title: Alchemy.t(:copy_page),
-          class: 'sitemap_tool'
-        ) %>
-      <%- end -%>
-      <%- if can?(:destroy, page) -%>
-        <%= link_to_confirm_dialog(
-          render_icon('delete_page'),
-          Alchemy.t(:confirm_to_delete_page),
-          url_for(
-            controller: 'pages',
-            action: 'destroy',
-            id: page.id
-          ),
-          {
-            title: Alchemy.t(:delete_page),
+        {{/if}}
+        <span class="sitemap_sitetools">
+          {{#if permissions.copy}}
+          <%= link_to(
+            render_icon("copy_page"),
+            alchemy.insert_admin_clipboard_path(
+              remarkable_type: page.class.name.demodulize.underscore.pluralize,
+              remarkable_id: '__ID__',
+            ).gsub('__ID__', '{{id}}'),
+            remote: true,
+            method: 'post',
+            title: Alchemy.t(:copy_page),
             class: 'sitemap_tool'
-          }
-        ) -%>
-      <%- end -%>
-      <%- if can?(:create, Alchemy::Page) -%>
-        <%= link_to_dialog(
-          render_icon('add_page'),
-          alchemy.new_admin_page_path(parent_id: page.id),
-          {
+          ) %>
+          {{/if}}
+          {{#if permissions.destroy}}
+          <%= link_to_confirm_dialog(
+            render_icon('delete_page'),
+            Alchemy.t(:confirm_to_delete_page),
+            url_for(
+              controller: 'pages',
+              action: 'destroy',
+              id: '__ID__'
+            ).gsub('__ID__', '{{id}}'),
+            {
+              title: Alchemy.t(:delete_page),
+              class: 'sitemap_tool'
+            }
+          ) -%>
+          {{/if}}
+          {{#if permissions.create}}
+          <%= link_to_dialog(
+            render_icon('add_page'),
+            alchemy.new_admin_page_path(parent_id: '__ID__').gsub('__ID__', '{{id}}'),
+            {
+              title: Alchemy.t(:create_page),
+              size: '340x165',
+              overflow: true
+            },
             title: Alchemy.t(:create_page),
-            size: '340x165',
-            overflow: true
-          },
-          title: Alchemy.t(:create_page),
-          class: 'sitemap_tool'
-        ) -%>
+            class: 'sitemap_tool'
+          ) -%>
+          {{/if}}
+        </span>
       <%- end -%>
-      </span>
-    <%- end -%>
     </div>
     <div class="page_infos" id="page_<%= page.id %>_infos">
-      <%= render 'alchemy/admin/pages/page_infos', page: page %>
+      <span class="page_status {{#unless public}}not_{{/unless}}public" title="{{status_titles.public}}"></span>
+      <span class="page_status {{#unless visible}}not_{{/unless}}visible" title="{{status_titles.visible}}"></span>
+      <span class="page_status {{#unless restricted}}not_{{/unless}}restricted" title="{{status_titles.restricted}}"></span>
     </div>
     <div class="sitemap_sitename">
-    <%- if page.redirects_to_external? -%>
-      <span class="sitemap_pagename_link inactive"><%= page.name %></span>
-      <span class="redirect_url" title="<%= h page.urlname %>">
+      {{#if redirects_to_external}}
+      <span class="sitemap_pagename_link inactive">{{ name }}</span>
+      <span class="redirect_url" title="{{urlname}}">
         &raquo; <%= Alchemy.t('Redirects to') %>:
-        <%= h page.external_urlname %>
+        {{ external_urlname }}
       </span>
-    <%- else -%>
-      <%= link_to_unless(
-        @sorting,
-        page.name,
-        alchemy.edit_admin_page_path(page),
-        title: Alchemy.t(:edit_page),
-        class: "sitemap_pagename_link"
-      ) { content_tag('span', page.name, class: "sitemap_pagename_link") } -%>
-    <%- end -%>
+      {{else}}
+        <%= link_to_unless(
+          @sorting,
+          '{{name}}',
+          alchemy.edit_admin_page_path(page),
+          title: Alchemy.t(:edit_page),
+          class: "sitemap_pagename_link"
+        ) { content_tag('span', '{{name}}', class: "sitemap_pagename_link") } -%>
+      {{/if}}
     </div>
   </div>
-  <%- if @sorting || (!page.folded?(current_alchemy_user) && !page.children.empty?) -%>
-  <ul id="page_<%= page.id %>_children" class="level_<%= page.level %>_children">
-    <%= render partial: 'page', collection: page.children %>
+  {{#if children}}
+  <% unless @sorting %>{{#unless folded}}<% end %>
+  <ul id="page_{{id}}_children" class="level_{{level}}_children">
+    {{> list}}
   </ul>
-  <%- end -%>
+  <% unless @sorting %>{{/unless}}<% end %>
+  {{/if}}
 </li>

@@ -77,7 +77,7 @@
     <span class="page_infos"><%= Alchemy.t('Status') %></span>
   </h2>
 
-  <%= render :partial => 'sitemap' %>
+  <%= render 'sitemap', page_partial: 'page', full: !!@sorting %>
 
 <% elsif can?(:create, Alchemy::Page) %>
 

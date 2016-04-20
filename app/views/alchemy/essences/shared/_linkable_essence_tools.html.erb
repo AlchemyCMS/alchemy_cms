@@ -2,7 +2,7 @@
   <%= link_to(
     render_icon(:link),
     '#',
-    onclick: "d = new Alchemy.LinkDialog(this); d.open(); return false;",
+    onclick: 'new Alchemy.LinkDialog(this).open(); return false;',
     class: "icon_button#{content.linked? ? ' linked' : ''} link-essence",
     'data-content-id' => content.id,
     title: Alchemy.t(:place_link),

@@ -18,6 +18,17 @@
   }
 }
 
+#sitemap-wrapper {
+  position: relative;
+  min-height: 100%;
+
+  .loading .spinner {
+    position: absolute !important;
+    top: 50% !important;
+    left: 50% !important;
+  }
+}
+
 .sitemap_pagename_link {
   background-color: #fff;
   color: black;
