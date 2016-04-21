@@ -6,10 +6,9 @@ module Alchemy
     let(:default_language) { Language.default }
 
     let(:default_language_root) do
-      create :alchemy_page, :language_root,
+      create :alchemy_page, :public, :language_root,
         language: default_language,
-        name: 'Home',
-        public: true
+        name: 'Home'
     end
 
     let(:page) do
@@ -23,7 +22,7 @@ module Alchemy
     end
 
     before do
-      allow(controller).to receive(:signup_required?).and_return(false)
+      allow(controller).to receive(:signup_required?) { false }
     end
 
     describe "#index" do
@@ -51,7 +50,7 @@ module Alchemy
 
         context 'and the root page is not public' do
           before do
-            default_language_root.update!(public: false)
+            default_language_root.public_version.delete
           end
 
           context 'and redirect_to_public_child is set to false' do
@@ -124,8 +123,9 @@ module Alchemy
         end
 
         let!(:startseite) do
-          create :alchemy_page, :language_root,
-            language: deutsch, public: true, name: 'Startseite'
+          create :alchemy_page, :public, :language_root,
+            language: deutsch,
+            name: 'Startseite'
         end
 
         before do
@@ -165,6 +165,7 @@ module Alchemy
       end
 
       it "should include content" do
+        page.publish!
         page.elements.first.content_by_name('news_headline').essence.update_attributes({body: 'Peters Petshop'})
         alchemy_get :show, urlname: 'news', format: :rss
         expect(response.body).to match /Peters Petshop/
@@ -191,14 +192,39 @@ module Alchemy
     describe "url nesting" do
       render_views
 
-      let(:catalog)  { create(:alchemy_page, :public, name: "Catalog", urlname: 'catalog', parent: default_language_root, language: default_language, visible: true) }
-      let(:products) { create(:alchemy_page, :public, name: "Products", urlname: 'products', parent: catalog, language: default_language, visible: true) }
-      let(:product)  { create(:alchemy_page, :public, name: "Screwdriver", urlname: 'screwdriver', parent: products, language: default_language, do_not_autogenerate: false, visible: true) }
+      let(:catalog) do
+        create :alchemy_page, :public,
+          name: "Catalog",
+          urlname: 'catalog',
+          parent: default_language_root,
+          language: default_language,
+          visible: true
+      end
+
+      let(:products) do
+        create :alchemy_page, :public,
+          name: "Products",
+          urlname: 'products',
+          parent: catalog,
+          language: default_language,
+          visible: true
+      end
+
+      let(:product) do
+        create :alchemy_page, :public,
+          name: "Screwdriver",
+          urlname: 'screwdriver',
+          parent: products,
+          language: default_language,
+          do_not_autogenerate: false,
+          visible: true
+      end
 
       before do
         allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
         allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : false }
-        product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
+        product.publish!
+        product.elements.find_by(name: 'article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       end
 
       context "with correct levelnames in params" do
@@ -300,19 +326,17 @@ module Alchemy
       let(:klingon) { create(:alchemy_language, :klingon) }
 
       context 'having two pages with the same url names in different languages' do
-        render_views
+        let!(:klingon_page) do
+          create(:alchemy_page, :public, language: klingon, name: "same-name", do_not_autogenerate: false)
+        end
 
-        let!(:klingon_page) { create(:alchemy_page, :public, language: klingon, name: "same-name", do_not_autogenerate: false) }
-        let!(:english_page) { create(:alchemy_page, :public, language: default_language, name: "same-name") }
-
-        before do
-          # Set a text in an essence rendered on the page so we can match against that
-          klingon_page.essence_texts.first.update_column(:body, 'klingon page')
+        let!(:english_page) do
+          create(:alchemy_page, :public, language: default_language, name: "same-name")
         end
 
         it 'renders the page related to its language' do
-          alchemy_get :show, {urlname: "same-name", locale: klingon_page.language_code}
-          expect(response.body).to have_content("klingon page")
+          alchemy_get :show, urlname: "same-name", locale: klingon_page.language_code
+          expect(assigns(:page)).to eq(klingon_page)
         end
       end
     end

@@ -25,7 +25,7 @@ module Alchemy
         context "", js: true do
           before do
             visit admin_pages_path
-            page.first(:link, 'Create a new subpage').click
+            page.first(:link, 'Create a new subpage', minimum: 1).click
           end
 
           it "the create page tab is visible by default" do

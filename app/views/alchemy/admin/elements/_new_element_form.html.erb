@@ -5,7 +5,7 @@
   </div>
 <%- else -%>
   <%= alchemy_form_for [:admin, @element] do |form| %>
-    <%= form.hidden_field :page_id %>
+    <%= hidden_field_tag(:page_id, @page.id) %>
   <%- if @page.can_have_cells? -%>
     <%= form.input :name,
       label: Alchemy.t(:element_of_type),

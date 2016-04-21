@@ -6,7 +6,7 @@ module Alchemy
       let(:page) { create(:alchemy_page, :public) }
 
       before do
-        2.times { create(:alchemy_element, page: page) }
+        create_list(:alchemy_element, 2, page_version: page.public_version)
       end
 
       it "returns all public elements as json objects" do

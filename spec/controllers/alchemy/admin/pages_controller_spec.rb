@@ -26,7 +26,7 @@ module Alchemy
 
       describe '#index' do
         let(:language)      { build_stubbed(:alchemy_language) }
-        let(:language_root) { build_stubbed(:alchemy_page, :language_root) }
+        let(:language_root) { build_stubbed(:alchemy_page, :public, :language_root) }
 
         context 'with existing language root page' do
           before do
@@ -406,8 +406,8 @@ module Alchemy
 
       describe '#copy_language_tree' do
         let(:params)                     { {languages: {new_lang_id: '2', old_lang_id: '1'}} }
-        let(:language_root_to_copy_from) { build_stubbed(:alchemy_page, :language_root) }
-        let(:copy_of_language_root)      { build_stubbed(:alchemy_page, :language_root) }
+        let(:language_root_to_copy_from) { build_stubbed(:alchemy_page, :public, :language_root) }
+        let(:copy_of_language_root)      { build_stubbed(:alchemy_page, :public, :language_root) }
         let(:root_page)                  { mock_model('Page') }
 
         before do
@@ -517,11 +517,11 @@ module Alchemy
       end
 
       describe '#publish' do
-        let(:page) { stub_model(Page, published_at: nil, public: false, name: "page", parent_id: 1, urlname: "page", language: stub_model(Language), page_layout: "bla") }
+        let(:page) { build_stubbed(:alchemy_page) }
 
         before do
-          allow(@controller).to receive(:load_page).and_return(page)
-          @controller.instance_variable_set("@page", page)
+          allow(controller).to receive(:load_page).and_return(page)
+          controller.instance_variable_set("@page", page)
         end
 
         it "should publish the page" do

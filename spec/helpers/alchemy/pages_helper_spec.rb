@@ -4,9 +4,9 @@ require 'spec_helper'
 module Alchemy
   describe PagesHelper do
     # Fixtures
-    let(:language)                 { mock_model('Language', code: 'en') }
+    let(:language)                 { mock_model('Language', code: 'en', page_layout: 'index') }
     let(:default_language)         { Language.default }
-    let(:language_root)            { create(:alchemy_page, :language_root) }
+    let(:language_root)            { create(:alchemy_page, :public, :language_root) }
     let(:public_page)              { create(:alchemy_page, :public) }
     let(:visible_page)             { create(:alchemy_page, :public, visible: true) }
     let(:restricted_page)          { create(:alchemy_page, :public, visible: true, restricted: true) }
@@ -14,7 +14,7 @@ module Alchemy
     let(:level_3_page)             { create(:alchemy_page, :public, parent_id: level_2_page.id, visible: true, name: 'Level 3') }
     let(:level_4_page)             { create(:alchemy_page, :public, parent_id: level_3_page.id, visible: true, name: 'Level 4') }
     let(:klingon)                  { create(:alchemy_language, :klingon) }
-    let(:klingon_language_root)    { create(:alchemy_page, :language_root, language: klingon) }
+    let(:klingon_language_root)    { create(:alchemy_page, :public, :language_root, language: klingon) }
     let(:klingon_public_page)      { create(:alchemy_page, :public, language: klingon, parent_id: klingon_language_root.id) }
 
     before do
@@ -61,7 +61,7 @@ module Alchemy
       end
 
       it "should render visible unpublished pages" do
-        unpublished_visible_page = create(:alchemy_page, visible: true, public: false)
+        unpublished_visible_page = create(:alchemy_page, visible: true)
         expect(helper.render_navigation).to match(/#{unpublished_visible_page.name}/)
       end
 
@@ -268,7 +268,7 @@ module Alchemy
       end
 
       it "should render a breadcrumb of visible and unpublished pages" do
-        page.update_attributes!(public: false, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
+        page.update_attributes!(name: 'A Unpublic Page')
         expect(helper.render_breadcrumb(page: page)).to match(/A Unpublic Page/)
       end
 
@@ -288,22 +288,21 @@ module Alchemy
     end
 
     describe "#render_meta_data" do
+      let(:root_page) do
+        create(:alchemy_page, :public, :language_root, language: language)
+      end
+
       let(:page) do
-        mock_model('Page',
-          language: language,
+        create(:alchemy_page, :public,
           title: 'A Public Page',
-          meta_keywords: '',
-          meta_description: '',
-          robot_index?: false,
-          robot_follow?: false,
-          contains_feed?: false,
-          updated_at: '2011-11-29-23:00:00'
+          updated_at: '2011-11-29-23:00:00',
+          parent: root_page
         )
       end
 
-      let(:root_page) { Page.new }
-
-      before { helper.instance_variable_set('@page', page) }
+      before do
+        helper.instance_variable_set('@page', page)
+      end
 
       subject { helper.render_meta_data }
 
@@ -332,28 +331,38 @@ module Alchemy
       end
 
       context 'when the current page is missing its meta description' do
-        before { allow(Language).to receive(:current_root_page).and_return(root_page) }
+        context "but the root page has meta description" do
+          before do
+            root_page.public_version.update(meta_description: "root page's description")
+          end
 
-        it "should use the the one from the language root's page" do
-          root_page.meta_description = "root page's description"
-          is_expected.to match /meta name="description" content="root page's description"/
+          it "uses these" do
+            is_expected.to match /meta name="description" content="root page's description"/
+          end
         end
 
-        it "should not be set when language root's page is also missing one" do
-          is_expected.not_to match /meta name="description"/
+        context "and the root page also has no meta description" do
+          it "does not set it at all" do
+            is_expected.not_to match /meta name="description"/
+          end
         end
       end
 
       context 'when the current page is missing its meta keywords' do
-        before { allow(Language).to receive(:current_root_page).and_return(root_page) }
+        context "but the root page has meta keywords" do
+          before do
+            root_page.public_version.update(meta_keywords: "root page's keywords")
+          end
 
-        it "should use the the one from the language root's page" do
-          root_page.meta_keywords = "root page's keywords"
-          is_expected.to match /meta name="keywords" content="root page's keywords"/
+          it "uses these" do
+            is_expected.to match /meta name="keywords" content="root page's keywords"/
+          end
         end
 
-        it "should not be set when language root's page is also missing one" do
-          is_expected.not_to match /meta name="keywords"/
+        context "and the root page also has no meta keywords" do
+          it "does not set it at all" do
+            is_expected.not_to match /meta name="keywords"/
+          end
         end
       end
     end

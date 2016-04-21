@@ -33,9 +33,9 @@ module Alchemy
       #
       scope :visible, -> { where(visible: true) }
 
-      # All public pages
+      # All pages having a public version
       #
-      scope :published, -> { where(public: true) }
+      scope :published, -> { joins(:public_version) }
 
       # All not restricted pages
       #

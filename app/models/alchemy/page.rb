@@ -5,18 +5,14 @@
 #  id               :integer          not null, primary key
 #  name             :string(255)
 #  urlname          :string(255)
-#  title            :string(255)
 #  language_code    :string(255)
 #  language_root    :boolean
 #  page_layout      :string(255)
-#  meta_keywords    :text
-#  meta_description :text
 #  lft              :integer
 #  rgt              :integer
 #  parent_id        :integer
 #  depth            :integer
 #  visible          :boolean          default(FALSE)
-#  public           :boolean          default(FALSE)
 #  locked           :boolean          default(FALSE)
 #  locked_by        :integer
 #  restricted       :boolean          default(FALSE)
@@ -43,17 +39,30 @@ module Alchemy
       do_not_autogenerate: true,
       do_not_sweep: true,
       visible: false,
-      public: false,
       locked: false,
       locked_by: nil
     }
-    SKIPPED_ATTRIBUTES_ON_COPY = %w(id updated_at created_at creator_id updater_id lft rgt depth urlname cached_tag_list)
+
+    SKIPPED_ATTRIBUTES_ON_COPY = [
+      "id",
+      "updated_at",
+      "created_at",
+      "creator_id",
+      "updater_id",
+      "lft",
+      "rgt",
+      "depth",
+      "urlname",
+      "cached_tag_list",
+      "current_version_id",
+      "public_version_id"
+    ].freeze
+
     PERMITTED_ATTRIBUTES = [
       :meta_description,
       :meta_keywords,
       :name,
       :page_layout,
-      :public,
       :restricted,
       :robot_index,
       :robot_follow,
@@ -72,6 +81,15 @@ module Alchemy
 
     has_many :folded_pages
     has_many :legacy_urls, class_name: 'Alchemy::LegacyPageUrl'
+
+    has_many :versions,
+      class_name: 'Alchemy::PageVersion',
+      dependent: :destroy,
+      inverse_of: :page
+
+    belongs_to :current_version, class_name: 'Alchemy::PageVersion'
+    belongs_to :public_version, class_name: 'Alchemy::PageVersion'
+
     belongs_to :language
 
     validates_presence_of :language, on: :create, unless: :root
@@ -82,12 +100,36 @@ module Alchemy
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_save :set_language_code, if: -> { language.present? }, unless: :systempage?
-    before_save :set_restrictions_to_child_pages, if: :restricted_changed?, unless: :systempage?
-    before_save :inherit_restricted_status, if: -> { parent && parent.restricted? }, unless: :systempage?
-    before_save :update_published_at, if: -> { public && read_attribute(:published_at).nil? }, unless: :systempage?
-    before_create :set_language_from_parent_or_default, if: -> { language_id.blank? }, unless: :systempage?
-    after_update :create_legacy_url, if: :urlname_changed?, unless: :redirects_to_external?
+    before_save :set_language_code,
+      if: -> { language.present? },
+      unless: :systempage?
+
+    before_save :set_restrictions_to_child_pages,
+      if: :restricted_changed?,
+      unless: :systempage?
+
+    before_save :inherit_restricted_status,
+      if: -> { parent && parent.restricted? },
+      unless: :systempage?
+
+    before_create :set_language_from_parent_or_default,
+      if: -> { language_id.blank? },
+      unless: :systempage?
+
+    after_create :create_current_version,
+      unless: -> { systempage? || redirects_to_external? }
+
+    after_update :create_legacy_url,
+      if: :urlname_changed?,
+      unless: :redirects_to_external?
+
+    delegate :title, :meta_keywords, :meta_description,
+      to: :public_version,
+      allow_nil: true
+
+    delegate :title=, :meta_keywords=, :meta_description=,
+      to: :current_version,
+      allow_nil: true
 
     # Concerns
     include Alchemy::Page::PageScopes
@@ -331,14 +373,22 @@ module Alchemy
       end
     end
 
-    # Publishes the page.
+    # Creates a public version from current version.
     #
     # Sets +public+ to true and the +published_at+ value to current time.
     #
     # The +published_at+ attribute is used as +cache_key+.
     #
     def publish!
-      update_columns(published_at: Time.current, public: true)
+      update_columns(
+        public_version_id: create_version.id,
+        published_at: Time.current
+      )
+    end
+
+    # Returns true if a public version is present
+    def public?
+      public_version.present?
     end
 
     # Updates an Alchemy::Page based on a new ordering to be applied to it
@@ -360,7 +410,41 @@ module Alchemy
       update_columns(hash)
     end
 
+    # Creates a new version
+    #
+    # And copy all current elements, if any exist.
+    #
+    # @return Alchemy::Version
+    #
+    def create_version
+      version = versions.create(
+        meta_description: current_version.try(:meta_description),
+        meta_keywords: current_version.try(:meta_keywords),
+        title: current_version.try(:title)
+      )
+      copy_current_elements_to(version)
+    end
+
+    # Creates a new current version
+    #
+    # And copy all current elements, if any exist.
+    #
+    def create_current_version
+      update_columns(current_version_id: create_version.id)
+    end
+
     private
+
+    # Copy current version's elements to given version
+    def copy_current_elements_to(version)
+      return version unless current_version
+
+      current_version.elements.each do |element|
+        Element.copy(element, page_version_id: version.id)
+      end
+
+      version
+    end
 
     # Returns the next or previous page on the same level or nil.
     #
@@ -378,10 +462,15 @@ module Alchemy
         public: true
       }.update(options)
 
-      self_and_siblings
-        .where(["#{self.class.table_name}.lft #{dir} ?", lft])
-        .where(public: options[:public])
-        .where(restricted: options[:restricted])
+      pages = self_and_siblings.where(["#{self.class.table_name}.lft #{dir} ?", lft])
+
+      if options[:public]
+        pages = pages.published
+      else
+        pages = pages.where(public_version_id: nil)
+      end
+
+      pages.where(restricted: options[:restricted])
         .reorder(dir == '>' ? 'lft' : 'lft DESC')
         .limit(1).first
     end

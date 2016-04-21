@@ -7,7 +7,7 @@ module Alchemy
     let(:rootpage)      { Page.root }
     let(:language)      { Language.default }
     let(:klingon)       { create(:alchemy_language, :klingon) }
-    let(:language_root) { create(:alchemy_page, :language_root) }
+    let(:language_root) { create(:alchemy_page, :public, :language_root) }
     let(:page)          { mock_model(Page, page_layout: 'foo') }
     let(:public_page)   { create(:alchemy_page, :public) }
     let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', do_not_autogenerate: false) }
@@ -126,26 +126,35 @@ module Alchemy
 
     # Callbacks
 
-    context 'callbacks' do
+    describe 'callbacks' do
       let(:page) do
-        create(:alchemy_page, name: 'My Testpage', language: language, parent_id: language_root.id)
+        create :alchemy_page,
+          name: 'My Testpage',
+          language: language,
+          parent_id: language_root.id
       end
 
-      context 'before_save' do
-        it "should not set the title automatically if the name changed but title is not blank" do
-          page.name = "My Renaming Test"
-          page.save; page.reload
-          expect(page.title).to eq("My Testpage")
+      describe 'before_save' do
+        context "if the name changed but title is not blank" do
+          before do
+            page.current_version.update!(title: "My Title")
+          end
+
+          it "does not set the title from name" do
+            page.update!(name: "My changed Name")
+            expect(page.current_version.title).to eq("My Title")
+          end
         end
 
-        it "should not automatically set the title if it changed its value" do
-          page.title = "I like SEO"
-          page.save; page.reload
-          expect(page.title).to eq("I like SEO")
+        context "if the title changed its value" do
+          it "does not set the title from name" do
+            page.current_version.update!(title: "I like SEO")
+            expect(page.current_version.title).to eq("I like SEO")
+          end
         end
       end
 
-      context 'after_update' do
+      describe 'after_update' do
         context "urlname has changed" do
           it "should store legacy url if page is not redirect to external page" do
             page.urlname = 'new-urlname'
@@ -180,30 +189,37 @@ module Alchemy
           end
         end
 
-        context "public has changed" do
-          it "should update published_at" do
-            expect {
-              page.update_attributes!(public: true)
-            }.to change { page.read_attribute(:published_at) }
+        context 'with elements already on the current page version' do
+          let!(:page) do
+            create(:alchemy_page, do_not_autogenerate: false)
           end
 
-          it "should not update already set published_at" do
-            page.update_attributes!(published_at: 2.weeks.ago)
-            expect {
-              page.update_attributes!(public: true)
-            }.to_not change { page.read_attribute(:published_at) }
+          it "does not autogenerate new ones" do
+            page.update!(name: 'New Name')
+
+            expect(page.current_elements.select { |e|
+              e.name == 'header'
+            }.length).to eq(1)
           end
         end
 
-        context "public has not changed" do
-          it "should not update published_at" do
-            page.update_attributes!(name: 'New Name')
-            expect(page.read_attribute(:published_at)).to be_nil
+        context "after changing the page layout" do
+          it "all elements not allowed on this page should be trashed" do
+            expect(news_page.current_version.elements.trashed).to be_empty
+            news_page.update!(page_layout: 'standard')
+            trashed = news_page.current_version.elements.trashed.pluck(:name)
+            expect(trashed).to eq(['news'])
+            expect(trashed).to_not include('article', 'header')
+          end
+
+          it "should autogenerate elements" do
+            news_page.update!(page_layout: 'contact')
+            expect(news_page.current_elements.pluck(:name)).to include('contactform')
           end
         end
       end
 
-      context 'after_move' do
+      describe 'after_move' do
         let(:parent_1) { create(:alchemy_page, name: 'Parent 1', visible: true) }
         let(:parent_2) { create(:alchemy_page, name: 'Parent 2', visible: true) }
         let(:page)     { create(:alchemy_page, parent_id: parent_1.id, name: 'Page', visible: true) }
@@ -224,7 +240,7 @@ module Alchemy
         end
       end
 
-      context "Saving a normal page" do
+      describe "Creating a normal page" do
         let(:page) do
           build(:alchemy_page, language_code: nil, language: klingon, do_not_autogenerate: false)
         end
@@ -234,20 +250,9 @@ module Alchemy
           expect(page.language_code).to eq("kl")
         end
 
-        it "autogenerates the elements" do
+        it "autogenerates the elements on the current version" do
           page.save!
-          expect(page.elements).not_to be_empty
-        end
-
-        context 'with elements already on the page' do
-          before do
-            page.elements << create(:alchemy_element, name: 'header')
-          end
-
-          it "does not autogenerate" do
-            page.save!
-            expect(page.elements.select { |e| e.name == 'header' }.length).to eq(1)
-          end
+          expect(page.current_elements).not_to be_empty
         end
 
         context "with cells" do
@@ -324,9 +329,15 @@ module Alchemy
             expect(page.elements).to be_empty
           end
         end
+
+        it 'creates a current page version' do
+          page.save!
+          expect(page.versions).to_not be_empty
+          expect(page.current_version).to be_present
+        end
       end
 
-      context "Creating a systempage" do
+      describe "Creating a systempage" do
         let!(:page) { create(:alchemy_page, :system) }
 
         it "does not get the language code from language" do
@@ -336,22 +347,9 @@ module Alchemy
         it "does not autogenerate the elements" do
           expect(page.elements).to be_empty
         end
-      end
 
-      context "after changing the page layout" do
-        let(:news_element) { news_page.elements.find_by(name: 'news') }
-
-        it "all elements not allowed on this page should be trashed" do
-          expect(news_page.trashed_elements).to be_empty
-          news_page.update_attributes(page_layout: 'standard')
-          trashed = news_page.trashed_elements.pluck(:name)
-          expect(trashed).to eq(['news'])
-          expect(trashed).to_not include('article', 'header')
-        end
-
-        it "should autogenerate elements" do
-          news_page.update_attributes(page_layout: 'contact')
-          expect(news_page.elements.pluck(:name)).to include('contactform')
+        it 'does not create a page version' do
+          expect(page.versions).to be_empty
         end
       end
     end
@@ -467,7 +465,7 @@ module Alchemy
       end
 
       let!(:klingon_lang_root) do
-        create :alchemy_page, :language_root, {
+        create :alchemy_page, :public, :language_root, {
           name: 'klingon_lang_root',
           layoutpage: nil,
           language: klingon
@@ -503,6 +501,7 @@ module Alchemy
 
     describe '.copy' do
       let(:page) { create(:alchemy_page, name: 'Source') }
+
       subject { Page.copy(page) }
 
       it "the copy should have added (copy) to name" do
@@ -510,7 +509,10 @@ module Alchemy
       end
 
       context "page with tags" do
-        before { page.tag_list = 'red, yellow'; page.save }
+        before do
+          page.tag_list = 'red, yellow'
+          page.save
+        end
 
         it "the copy should have source tag_list" do
           # The order of tags varies between postgresql and sqlite/mysql
@@ -522,22 +524,26 @@ module Alchemy
       end
 
       context "page with elements" do
-        before { page.elements << create(:alchemy_element) }
+        before do
+          page.current_version.elements << create(:alchemy_element)
+        end
 
         it "the copy should have source elements" do
-          expect(subject.elements).not_to be_empty
-          expect(subject.elements.count).to eq(page.elements.count)
+          expect(subject.current_elements).not_to be_empty
+          expect(subject.current_elements.count).to eq(page.current_elements.count)
         end
       end
 
       context "page with trashed elements" do
+        let(:element) { create(:alchemy_element) }
+
         before do
-          page.elements << create(:alchemy_element)
-          page.elements.first.trash!
+          page.current_version.elements << element
+          element.trash!
         end
 
         it "the copy should not hold a copy of the trashed elements" do
-          expect(subject.elements).to be_empty
+          expect(subject.current_elements).to be_empty
         end
       end
 
@@ -573,12 +579,20 @@ module Alchemy
     describe '.create' do
       context "before/after filter" do
         it "should automatically set the title from its name" do
-          page = create(:alchemy_page, name: 'My Testpage', language: language, parent_id: language_root.id)
-          expect(page.title).to eq('My Testpage')
+          page = create :alchemy_page,
+                   name: 'My Testpage',
+                   language: language,
+                   parent_id: language_root.id
+
+          expect(page.current_version.title).to eq('My Testpage')
         end
 
         it "should get a webfriendly urlname" do
-          page = create(:alchemy_page, name: 'klingon$&stößel ', language: language, parent_id: language_root.id)
+          page = create :alchemy_page,
+                   name: 'klingon$&stößel ',
+                   language: language,
+                   parent_id: language_root.id
+
           expect(page.urlname).to eq('klingon-stoessel')
         end
 
@@ -695,7 +709,7 @@ module Alchemy
 
     describe '.public_language_roots' do
       it "should return pages that public language roots" do
-        create(:alchemy_page, :public, name: 'First Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, :language_root, name: 'Language root', language: language)
         expect(Page.public_language_roots.size).to eq(1)
       end
     end
@@ -849,21 +863,17 @@ module Alchemy
     end
 
     describe '#destroy' do
-      context "with trashed but still assigned elements" do
-        before { news_page.elements.map(&:trash!) }
-
-        it "should not delete the trashed elements" do
-          news_page.destroy
-          expect(Element.trashed).not_to be_empty
-        end
+      it 'removes all versions' do
+        news_page.destroy
+        expect(news_page.versions).to be_empty
       end
     end
 
     describe "#elements" do
-      let(:page) { create(:alchemy_page) }
-      let!(:element_1) { create(:alchemy_element, page: page) }
-      let!(:element_2) { create(:alchemy_element, page: page) }
-      let!(:element_3) { create(:alchemy_element, page: page) }
+      let(:page) { create(:alchemy_page, :public) }
+      let(:element_1) { create(:alchemy_element, page_version: page.public_version) }
+      let(:element_2) { create(:alchemy_element, page_version: page.public_version) }
+      let(:element_3) { create(:alchemy_element, page_version: page.public_version) }
 
       before do
         element_3.move_to_top
@@ -874,11 +884,17 @@ module Alchemy
       end
 
       context 'with nestable elements' do
-        let(:nestable_element) { create(:alchemy_element, :with_nestable_elements) }
+        let(:nestable_element) do
+          create(:alchemy_element, :with_nestable_elements)
+        end
+
+        let(:nested_element) do
+          create(:alchemy_element, name: 'slide')
+        end
 
         before do
-          nestable_element.nested_elements << create(:alchemy_element, name: 'slide')
-          page.elements << nestable_element
+          nestable_element.nested_elements << nested_element
+          page.public_version.elements << nestable_element
         end
 
         it 'does not contain nested elements of an element' do
@@ -888,51 +904,93 @@ module Alchemy
       end
     end
 
-    describe "#descendent_elements" do
-      let!(:page) do
-        create(:alchemy_page)
+    describe "#current_elements" do
+      let(:page) { create(:alchemy_page) }
+      let(:element_1) { create(:alchemy_element) }
+      let(:element_2) { create(:alchemy_element) }
+      let(:element_3) { create(:alchemy_element) }
+
+      before do
+        page.current_version.elements << element_3
+        page.current_version.elements << element_1
+        page.current_version.elements << element_2
       end
 
+      it 'returns an ordered collection of elements from current version of that page' do
+        expect(page.current_elements).to_not be_empty
+        expect(page.current_elements[0].id).to eq(element_3.id)
+        expect(page.current_elements[1].id).to eq(element_1.id)
+        expect(page.current_elements[2].id).to eq(element_2.id)
+      end
+
+      context 'with nestable elements' do
+        let(:nestable_element) do
+          create(:alchemy_element, :with_nestable_elements)
+        end
+
+        let(:nested_element) do
+          create(:alchemy_element, name: 'slide')
+        end
+
+        before do
+          nestable_element.nested_elements << nested_element
+          page.current_version.elements << nestable_element
+        end
+
+        it 'does not contain nested elements of an element' do
+          expect(nestable_element.nested_elements).to_not be_empty
+          expect(page.current_elements).to_not include(nestable_element.nested_elements.first)
+        end
+      end
+    end
+
+    describe "#descendent_elements" do
+      let!(:page) { create(:alchemy_page, :public) }
+
       let!(:element_1) do
-        create(:alchemy_element, page_id: page.id)
+        create(:alchemy_element, page_version: page.public_version)
       end
 
       let!(:element_2) do
-        create(:alchemy_element, :with_nestable_elements, page_id: page.id, parent_element_id: element_1.id)
+        create :alchemy_element, :with_nestable_elements,
+          page_version: page.public_version,
+          parent_element_id: element_1.id
       end
 
       let!(:element_3) do
-        create(:alchemy_element, page_id: page.id)
+        create(:alchemy_element, page_version: page.public_version)
       end
 
-      it 'returns an active record collection of all elements including nested elements on that page' do
+      it 'returns a collection of all elements including nested elements from public version of that page' do
         expect(page.descendent_elements.count).to eq(3)
       end
     end
 
     describe "#descendent_contents" do
-      let!(:page) do
-        create(:alchemy_page)
-      end
+      let!(:page) { create(:alchemy_page, :public) }
 
       let!(:element_1) do
-        create(:alchemy_element, :with_nestable_elements, :with_contents, name: 'slider', page_id: page.id)
+        create :alchemy_element, :with_nestable_elements, :with_contents,
+          name: 'slider',
+          page_version: page.public_version
       end
 
       let!(:element_2) do
         create :alchemy_element,
           :with_contents, {
             name: 'slide',
-            page_id: page.id,
+            page_version: page.public_version,
             parent_element_id: element_1.id
           }
       end
 
       let!(:element_3) do
-        create(:alchemy_element, :with_contents, name: 'slide', page_id: page.id)
+        create :alchemy_element, :with_contents,
+          name: 'slide',
+          page_version: page.public_version
       end
 
-      it 'returns an active record collection of all content including nested elements on that page' do
+      it 'returns a collection of all contents including nested elements on public version of page' do
         expect(page.descendent_contents.count).to eq(2)
       end
     end
@@ -1071,49 +1129,145 @@ module Alchemy
     end
 
     describe '#feed_elements' do
-      let(:news_element) { create(:alchemy_element, name: 'news', public: false, page: news_page) }
-
-      it "should return all published rss feed elements" do
-        expect(news_page.feed_elements).not_to be_empty
-        expect(news_page.feed_elements).to eq(Element.where(name: 'news').available.to_a)
+      let(:page) do
+        create(:alchemy_page, :public, page_layout: 'news')
       end
 
-      it "should not return unpublished rss feed elements" do
-        expect(news_page.feed_elements).not_to include(news_element)
+      let(:news_element) do
+        create(:alchemy_element, name: 'news')
       end
 
-      it "should not return trashed rss feed elements" do
-        news_element.update(public: true)
-        news_element.trash!
-        expect(news_page.feed_elements).not_to include(news_element)
+      let(:unpublic_news_element) do
+        create :alchemy_element,
+          name: 'news',
+          public: false,
+          page_version: page.public_version
+      end
+
+      let(:trashed_news_element) do
+        unpublic_news_element.update(public: true)
+        unpublic_news_element.trash!
+        unpublic_news_element
+      end
+
+      before do
+        page.public_version.elements << news_element
+      end
+
+      it "returns all rss feed elements from public version of page" do
+        expect(page.feed_elements).to be_present
+        expect(page.feed_elements).to eq(Element.where(name: 'news').available.to_a)
+      end
+
+      it "does not return unpublished rss feed elements" do
+        expect(page.feed_elements).not_to include(unpublic_news_element)
+      end
+
+      it "doest not return trashed rss feed elements" do
+        expect(page.feed_elements).not_to include(trashed_news_element)
       end
     end
 
     describe '#find_elements' do
-      before do
-        create(:alchemy_element, public: false, page: public_page)
-        create(:alchemy_element, public: false, page: public_page)
+      let(:options) { Hash.new }
+
+      let(:articles) do
+        create_list :alchemy_element, 2,
+          name: 'article',
+          page_version: public_page.public_version
       end
 
-      context "with show_non_public argument TRUE" do
-        it "should return all elements from empty options" do
-          expect(public_page.find_elements({}, true).to_a).to eq(public_page.elements.to_a)
+      let(:headlines) do
+        create_list :alchemy_element, 2,
+          name: 'headline',
+          page_version: public_page.public_version
+      end
+
+      let(:published_elements) do
+        articles + headlines
+      end
+
+      subject(:found_elements) do
+        public_page.find_elements(options)
+      end
+
+      it "returns all published elements from page's public version" do
+        expect(found_elements).to match_array(published_elements)
+      end
+
+      context 'with page not having a public version' do
+        before do
+          public_page.update!(public_version: nil)
         end
 
-        it "should only return the elements passed as options[:only]" do
-          expect(public_page.find_elements({only: ['article']}, true).to_a).to eq(public_page.elements.named('article').to_a)
+        it 'returns empty relation' do
+          expect(found_elements).to be_empty
+        end
+      end
+
+      context "with page being the current page preview" do
+        let(:current_articles) do
+          create_list :alchemy_element, 2,
+            name: 'article',
+            page_version: public_page.current_version
         end
 
-        it "should not return the elements passed as options[:except]" do
-          expect(public_page.find_elements({except: ['article']}, true).to_a).to eq(public_page.elements - public_page.elements.named('article').to_a)
+        let(:current_headlines) do
+          create_list :alchemy_element, 2,
+            name: 'headline',
+            page_version: public_page.current_version
         end
 
-        it "should return elements offsetted" do
-          expect(public_page.find_elements({offset: 2}, true).to_a).to eq(public_page.elements.offset(2))
+        let(:current_elements) do
+          current_articles + current_headlines
         end
 
-        it "should return elements limitted in count" do
-          expect(public_page.find_elements({count: 1}, true).to_a).to eq(public_page.elements.limit(1))
+        before do
+          allow(Alchemy::Page).to receive(:current_preview) { public_page }
+        end
+
+        it 'loads the elements from the current_version' do
+          expect(found_elements).to eq(current_elements)
+        end
+      end
+
+      context "with options[:only]" do
+        let(:options) do
+          {only: ['article']}
+        end
+
+        it "returns only elements named like this" do
+          expect(found_elements).to match_array(articles)
+        end
+      end
+
+      context "with options[:except]" do
+        let(:options) do
+          {except: ['article']}
+        end
+
+        it "returns elements except named like this" do
+          expect(found_elements).to match_array(headlines)
+        end
+      end
+
+      context "with options[:offset]" do
+        let(:options) do
+          {offset: 2}
+        end
+
+        it "returns elements offsetted" do
+          expect(found_elements).to match_array(published_elements[2..-1])
+        end
+      end
+
+      context "with options[:count]" do
+        let(:options) do
+          {count: 1}
+        end
+
+        it "returns elements limitted in count" do
+          expect(found_elements).to match_array(published_elements[0])
         end
       end
 
@@ -1166,33 +1320,14 @@ module Alchemy
           end
         end
       end
-
-      context "with show_non_public argument FALSE" do
-        it "should return all elements from empty arguments" do
-          expect(public_page.find_elements.to_a).to eq(public_page.elements.published.to_a)
-        end
-
-        it "should only return the public elements passed as options[:only]" do
-          expect(public_page.find_elements(only: ['article']).to_a).to eq(public_page.elements.published.named('article').to_a)
-        end
-
-        it "should return all public elements except the ones passed as options[:except]" do
-          expect(public_page.find_elements(except: ['article']).to_a).to eq(public_page.elements.published.to_a - public_page.elements.published.named('article').to_a)
-        end
-
-        it "should return elements offsetted" do
-          expect(public_page.find_elements({offset: 2}).to_a).to eq(public_page.elements.published.offset(2))
-        end
-
-        it "should return elements limitted in count" do
-          expect(public_page.find_elements({count: 1}).to_a).to eq(public_page.elements.published.limit(1))
-        end
-      end
     end
 
     describe '#first_public_child' do
       before do
-        create(:alchemy_page, name: "First child", language: language, public: false, parent_id: language_root.id)
+        create :alchemy_page,
+          name: "First child",
+          language: language,
+          parent_id: language_root.id
       end
 
       it "should return first_public_child" do
@@ -1338,7 +1473,7 @@ module Alchemy
       let(:center_page)     { create(:alchemy_page, :public, name: 'Center Page') }
       let(:next_page)       { create(:alchemy_page, :public, name: 'Next Page') }
       let(:non_public_page) { create(:alchemy_page, name: 'Not public Page') }
-      let(:restricted_page) { create(:alchemy_page, :restricted, public: true) }
+      let(:restricted_page) { create(:alchemy_page, :public, :restricted) }
 
       before do
         public_page
@@ -1403,21 +1538,22 @@ module Alchemy
     end
 
     describe '#publish!' do
-      let(:page) { build_stubbed(:alchemy_page, public: false) }
-      let(:current_time) { Time.current }
+      let!(:page) { create(:alchemy_page) }
+      let!(:current_time) { Time.current }
 
       before do
-        current_time
         allow(Time).to receive(:now).and_return(current_time)
-        page.publish!
       end
 
-      it "sets public attribute to true" do
-        expect(page.public).to eq(true)
-      end
+      subject! { page.publish! }
 
       it "sets published_at attribute to current time" do
         expect(page.published_at).to eq(current_time)
+      end
+
+      it "creates public version from current version" do
+        expect(page.public_version).to be_present
+        expect(page.public_version.elements).to match_array(page.current_version.elements)
       end
     end
 
@@ -1816,11 +1952,18 @@ module Alchemy
     end
 
     context 'page status methods' do
-      let(:page) { build(:alchemy_page, public: true, visible: true, restricted: false, locked: false) }
+      let(:page) do
+        build_stubbed(:alchemy_page, :public, visible: true, restricted: false, locked: false)
+      end
 
       describe '#status' do
         it "returns a combined status hash" do
-          expect(page.status).to eq({public: true, visible: true, restricted: false, locked: false})
+          expect(page.status).to eq(
+            public: true,
+            visible: true,
+            restricted: false,
+            locked: false
+          )
         end
       end
 
@@ -2024,6 +2167,22 @@ module Alchemy
       end
     end
 
+    describe '#public?' do
+      let(:page) { build_stubbed(:alchemy_page) }
+
+      subject { page.public? }
+
+      context "when public version is present" do
+        before { page.publish! }
+
+        it { is_expected.to be(true) }
+      end
+
+      context "when public version is missing" do
+        it { is_expected.to be(false) }
+      end
+    end
+
     describe '#published_at' do
       context 'with published_at date set' do
         let(:published_at) { Time.current }
@@ -2050,7 +2209,7 @@ module Alchemy
       let!(:expanded_element) do
         create :alchemy_element,
           name: 'article',
-          page: page,
+          page_version: page.current_version,
           folded: false,
           create_contents_after_create: true
       end
@@ -2058,17 +2217,23 @@ module Alchemy
       let!(:folded_element) do
         create :alchemy_element,
           name: 'article',
-          page: page,
+          page_version: page.current_version,
           folded: true,
           create_contents_after_create: true
+      end
+
+      let!(:expanded_rtf_contents) do
+        expanded_element.contents.essence_richtexts
+      end
+
+      let!(:folded_rtf_content) do
+        folded_element.contents.essence_richtexts.first
       end
 
       subject(:richtext_contents_ids) { page.richtext_contents_ids }
 
       it 'returns content ids for all expanded elements that have tinymce enabled' do
-        expanded_rtf_contents = expanded_element.contents.essence_richtexts
         expect(richtext_contents_ids).to eq(expanded_rtf_contents.pluck(:id))
-        folded_rtf_content = folded_element.contents.essence_richtexts.first
         expect(richtext_contents_ids).to_not include(folded_rtf_content.id)
       end
 
@@ -2076,7 +2241,7 @@ module Alchemy
         let!(:nested_expanded_element) do
           create :alchemy_element,
             name: 'article',
-            page: page,
+            page_version: page.current_version,
             parent_element: expanded_element,
             folded: false,
             create_contents_after_create: true
@@ -2085,21 +2250,26 @@ module Alchemy
         let!(:nested_folded_element) do
           create :alchemy_element,
             name: 'article',
-            page: page,
+            page_version: page.current_version,
             parent_element: folded_element,
             folded: true,
             create_contents_after_create: true
         end
 
+        let!(:nested_expanded_rtf_contents) do
+          nested_expanded_element.contents.essence_richtexts
+        end
+
+        let!(:rtf_content_ids) do
+          expanded_rtf_contents.pluck(:id) + nested_expanded_rtf_contents.pluck(:id)
+        end
+
+        let!(:nested_folded_rtf_content) do
+          nested_folded_element.contents.essence_richtexts.first
+        end
+
         it 'returns content ids for all expanded nested elements that have tinymce enabled' do
-          expanded_rtf_contents = expanded_element.contents.essence_richtexts
-          nested_expanded_rtf_contents = nested_expanded_element.contents.essence_richtexts
-          rtf_content_ids = expanded_rtf_contents.pluck(:id) +
-                            nested_expanded_rtf_contents.pluck(:id)
           expect(richtext_contents_ids.sort).to eq(rtf_content_ids)
-
-          nested_folded_rtf_content = nested_folded_element.contents.essence_richtexts.first
-
           expect(richtext_contents_ids).to_not include(nested_folded_rtf_content.id)
         end
       end
