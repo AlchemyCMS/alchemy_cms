@@ -1,6 +1,8 @@
 require 'spec_helper'
 
-describe "essences/_essence_picture_view" do
+describe Alchemy::EssencePictureView, type: :model do
+  include Capybara::RSpecMatchers
+
   let(:essence_picture) do
     stub_model Alchemy::EssencePicture,
       picture: stub_model(Alchemy::Picture, image_file_format: 'jpg'),
@@ -14,21 +16,17 @@ describe "essences/_essence_picture_view" do
       essence: essence_picture
   end
 
-  before do
-    ActionView::Base.send(:include, Alchemy::UrlHelper)
-    ActionView::Base.send(:include, Alchemy::EssencesHelper)
-  end
-
   context "with caption" do
-    let(:options) { {} }
-    let(:html_options) { {} }
+    let(:options) do
+      {}
+    end
+
+    let(:html_options) do
+      {}
+    end
 
     subject do
-      render partial: "alchemy/essences/essence_picture_view", locals: {
-        content: content,
-        options: options,
-        html_options: html_options
-      }
+      Alchemy::EssencePictureView.new(content, options, html_options).render
     end
 
     it "should enclose the image in a <figure> element" do
@@ -41,7 +39,9 @@ describe "essences/_essence_picture_view" do
     end
 
     context "but disabled in the options" do
-      let(:options) { {show_caption: false} }
+      let(:options) do
+        {show_caption: false}
+      end
 
       it "should not enclose the image in a <figure> element" do
         should_not have_selector('figure img')
@@ -74,7 +74,7 @@ describe "essences/_essence_picture_view" do
           should have_selector('figure img')
         end
 
-        it "should shows the caption" do
+        it "should show the caption" do
           should have_selector('figure figcaption')
           should have_content('This is a cute cat')
         end
@@ -82,7 +82,9 @@ describe "essences/_essence_picture_view" do
     end
 
     context "and essence with css class" do
-      before { essence_picture.css_class = 'left' }
+      before do
+        essence_picture.css_class = 'left'
+      end
 
       it "should have the class on the <figure> element" do
         is_expected.to have_selector('figure.left img')
@@ -94,7 +96,9 @@ describe "essences/_essence_picture_view" do
     end
 
     context "and css class in the html_options" do
-      before { html_options[:class] = 'right' }
+      before do
+        html_options[:class] = 'right'
+      end
 
       it "should have the class from the html_options on the <figure> element" do
         is_expected.to have_selector('figure.right img')
@@ -111,15 +115,13 @@ describe "essences/_essence_picture_view" do
   end
 
   context "with link" do
-    let(:options) { {} }
+    let(:options) do
+      {}
+    end
 
     subject do
       essence_picture.link = '/home'
-      render partial: "alchemy/essences/essence_picture_view", locals: {
-        content: content,
-        options: options,
-        html_options: {}
-      }
+      Alchemy::EssencePictureView.new(content, options).render
     end
 
     it "should enclose the image in a link tag" do
@@ -127,7 +129,9 @@ describe "essences/_essence_picture_view" do
     end
 
     context "but disabled link option" do
-      before { options[:disable_link] = true }
+      before do
+        options[:disable_link] = true
+      end
 
       it "should not enclose the image in a link tag" do
         is_expected.not_to have_selector('a img')
