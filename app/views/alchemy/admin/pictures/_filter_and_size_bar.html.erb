@@ -9,7 +9,8 @@
         size: params[:size],
         filter: 'last_upload',
         content_id: @content.try(:id),
-        element_id: @element.try(:id)
+        element_id: @element.try(:id),
+        options: @options
       ) %>
     <div class="toolbar_spacer"></div>
   <% end %>

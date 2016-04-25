@@ -1,5 +1,5 @@
 <div class="picture_thumbnail assign_image_list_detail <%= size.blank? ? 'medium' : size %>" name="<%= picture_to_assign.name %>" id="picture_to_assign_<%= picture_to_assign.id %>">
-<% unless params[:image_assign_url].blank? %>
+<% if params[:image_assign_url].present? %>
   <% action_url = params[:image_assign_url] + "?picture_id=#{picture_to_assign.id}" %>
   <% action_method = params[:image_assign_method] %>
 <% else %>
