@@ -1,11 +1,5 @@
 <div class="picture_thumbnail assign_image_list_detail <%= size.blank? ? 'medium' : size %>" name="<%= picture_to_assign.name %>" id="picture_to_assign_<%= picture_to_assign.id %>">
-<% unless params[:image_assign_url].blank? %>
-  <% action_url = params[:image_assign_url] + "?picture_id=#{picture_to_assign.id}" %>
-  <% action_method = params[:image_assign_method] %>
-<% else %>
   <% action_url = create_or_assign_url(picture_to_assign, @options.to_json) %>
-  <% action_method = @content.blank? ? 'post' : 'put' %>
-<% end %>
   <%= link_to(
     image_tag(
       alchemy.thumbnail_path(
@@ -18,7 +12,7 @@
     action_url,
     remote: true,
     onclick: '$(self).attr("href", "#").off("click"); return false',
-    method: action_method,
+    method: @content.blank? ? 'post' : 'put',
     title: Alchemy.t(:assign_image),
     class: 'thumbnail_background'
   ) %>
