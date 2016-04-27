@@ -11,7 +11,8 @@ module Alchemy
     let(:restricted_page)    { create(:alchemy_page, :public, restricted: true) }
     let(:element)            { create(:alchemy_element, page: public_page, name: 'bild', create_contents_after_create: true) }
     let(:restricted_element) { create(:alchemy_element, page: restricted_page, name: 'bild', create_contents_after_create: true) }
-    let(:picture)            { create(:alchemy_picture, image_file: fixture_file_upload(File.expand_path('../../../fixtures/image.png', __FILE__), 'image/png')) }
+    let(:image)              { fixture_file_upload(File.expand_path('../../../fixtures/image.png', __FILE__), 'image/png') }
+    let(:picture)            { create(:alchemy_picture, image_file: image) }
 
     describe '#zoom' do
       let(:picture) do
@@ -71,6 +72,17 @@ module Alchemy
         it "should convert the picture format" do
           alchemy_get :show, id: picture.id, name: picture.urlname, format: :jpeg, sh: picture.security_token
           expect(response.content_type).to eq('image/jpeg')
+        end
+
+        context "but that's not a convertible format (svg)" do
+          let(:image) do
+            fixture_file_upload(File.expand_path('../../../fixtures/icon.svg', __FILE__), 'image/svg+xml')
+          end
+
+          it 'does not convert the picture format' do
+            alchemy_get :show, id: picture.id, name: picture.urlname, format: :jpg, sh: picture.security_token
+            expect(response.body).to match /<!DOCTYPE svg/
+          end
         end
       end
 

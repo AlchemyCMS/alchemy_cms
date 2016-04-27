@@ -17,6 +17,7 @@ __Notable Changes__
 * Replace jQueryUI datepicker with $.datetimepicker
 * Thumbnails now render in original file format, but GIFs will always be flattened
 * Pictures will be rendered in original file format by default
+* Allow SVG files to be rendered as EssencePicture
 
 ## 3.3.0 (2016-05-18)
 

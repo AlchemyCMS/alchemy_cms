@@ -1,6 +1,6 @@
 module Alchemy
   class PicturesController < Alchemy::BaseController
-    ALLOWED_IMAGE_TYPES = %w(png jpeg gif)
+    ALLOWED_IMAGE_TYPES = %w(png jpeg gif svg)
 
     caches_page :show, :thumbnail, :zoom
 
@@ -63,7 +63,11 @@ module Alchemy
           if options[:flatten]
             encoding_options << "-flatten"
           end
-          render text: image.encode(type, encoding_options.join(' ')).data
+          if @picture.has_convertible_format?
+            render text: image.encode(type, encoding_options.join(' ')).data
+          else
+            render text: image.data
+          end
         end
       end
     end
@@ -75,7 +79,7 @@ module Alchemy
       if @image.nil?
         raise MissingImageFileError, "Missing image file for #{@picture.inspect}"
       end
-      if @size.present?
+      if resizable?
         if params[:crop_size].present? && params[:crop_from].present? || params[:crop].present?
           @picture.crop(@size, params[:crop_from], params[:crop_size], @upsample)
         else
@@ -84,6 +88,10 @@ module Alchemy
       else
         @image
       end
+    end
+
+    def resizable?
+      @size.present? && @picture.has_convertible_format?
     end
   end
 end

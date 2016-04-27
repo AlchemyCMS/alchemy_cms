@@ -449,8 +449,20 @@ module Alchemy
           end
         end
 
-        it "returns the configured file format." do
-          is_expected.to eq('jpg')
+        context "and the format is a convertible format" do
+          it "returns the configured file format." do
+            is_expected.to eq('jpg')
+          end
+        end
+
+        context "but the format is not a convertible format" do
+          before do
+            allow(picture).to receive(:image_file_format) { 'svg' }
+          end
+
+          it "returns the original file format." do
+            is_expected.to eq('svg')
+          end
         end
       end
     end
