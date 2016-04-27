@@ -25,7 +25,7 @@ module Alchemy
         @size = params[:size]
       end
 
-      respond_to { |format| send_image(processed_image, format) }
+      respond_to { |format| send_image(processed_image, format, flatten: true) }
     end
 
     def zoom
@@ -45,20 +45,25 @@ module Alchemy
       false
     end
 
-    def send_image(image, format)
+    def send_image(image, format, opts = {})
       request.session_options[:skip] = true
       ALLOWED_IMAGE_TYPES.each do |type|
+        # Flatten animated gifs, only if converting to a different format.
+        # Can be overwritten via +options[:flatten]+.
+        options = {
+          flatten: type != "gif" && image.ext == 'gif'
+        }.merge(opts)
+
         format.send(type) do
-          options = []
+          encoding_options = []
           if type == 'jpeg'
             quality = params[:quality] || Config.get(:output_image_jpg_quality)
-            options << "-quality #{quality}"
+            encoding_options << "-quality #{quality}"
           end
-          # Flatten animated gifs, only if converting to a different format.
-          if type != "gif" && image.ext == 'gif'
-            options << "-flatten"
+          if options[:flatten]
+            encoding_options << "-flatten"
           end
-          render text: image.encode(type, options.join(' ')).data
+          render text: image.encode(type, encoding_options.join(' ')).data
         end
       end
     end

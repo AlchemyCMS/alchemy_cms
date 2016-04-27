@@ -57,25 +57,40 @@ module Alchemy
       end
 
       def essence_picture_thumbnail(content, options)
-        return if content.ingredient.blank?
-        crop = !(content.essence.crop_size.blank? && content.essence.crop_from.blank?) ||
-               (content.settings_value(:crop, options) == true || content.settings_value(:crop, options) == "true")
+        ingredient = content.ingredient
+        essence = content.essence
+        return if ingredient.blank?
+
+        crop = !(essence.crop_size.blank? && essence.crop_from.blank?) ||
+               (
+                 content.settings_value(:crop, options) == true ||
+                 content.settings_value(:crop, options) == "true"
+               )
+
+        size = if essence.render_size.blank?
+                 content.settings_value(:size, options)
+               else
+                 essence.render_size
+               end
+
         image_options = {
-          size: content.essence.thumbnail_size(content.essence.render_size.blank? ? content.settings_value(:size, options) : content.essence.render_size, crop),
-          crop_from: content.essence.crop_from.blank? ? nil : content.essence.crop_from,
-          crop_size: content.essence.crop_size.blank? ? nil : content.essence.crop_size,
+          size: essence.thumbnail_size(size, crop),
+          crop_from: essence.crop_from.blank? ? nil : essence.crop_from,
+          crop_size: essence.crop_size.blank? ? nil : essence.crop_size,
           crop: crop ? 'crop' : nil,
           upsample: content.settings_value(:upsample, options)
         }
+
         image_tag(
           alchemy.thumbnail_path({
-            id: content.ingredient.id,
-            name: content.ingredient.urlname,
-            sh: content.ingredient.security_token(image_options)
+            id: ingredient.id,
+            name: ingredient.urlname,
+            sh: ingredient.security_token(image_options),
+            format: ingredient.image_file_format
           }.merge(image_options)),
-          alt: content.ingredient.name,
+          alt: ingredient.name,
           class: 'img_paddingtop',
-          title: Alchemy.t(:image_name) + ": #{content.ingredient.name}"
+          title: Alchemy.t(:image_name) + ": #{ingredient.name}"
         )
       end
 

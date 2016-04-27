@@ -246,7 +246,7 @@ module Alchemy
         let(:picture) { build_stubbed(:alchemy_picture, image_file: image) }
 
         before do
-          expect(image).to receive(:ext) { 'gif' }
+          allow(image).to receive(:ext) { 'gif' }
           expect(picture).to receive(:image_file) { image }
           expect(Alchemy::Picture).to receive(:find) { picture }
         end
@@ -323,6 +323,30 @@ module Alchemy
             alchemy_get :thumbnail, id: picture.id, name: picture.urlname, format: :png, sh: picture.security_token
             expect(response.status).to eq(200)
           end
+        end
+      end
+
+      context 'requesting an animated gif' do
+        let(:image) do
+          fixture_file_upload(
+            File.expand_path('../../../fixtures/animated.gif', __FILE__),
+            'image/gif'
+          )
+        end
+
+        let(:picture) { create(:alchemy_picture, image_file: image) }
+
+        before do
+          allow(image).to receive(:ext) { 'gif' }
+          allow(image).to receive(:thumb) { image }
+          allow(picture).to receive(:image_file) { image }
+          expect(Alchemy::Picture).to receive(:find) { picture }
+        end
+
+        it 'flattens the gif.' do
+          expect(image).to receive(:encode).with('gif', '-flatten') { double(data: '') }
+          alchemy_get :thumbnail, id: picture.id, name: picture.urlname,
+            format: 'gif', sh: picture.security_token
         end
       end
     end
