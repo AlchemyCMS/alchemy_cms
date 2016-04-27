@@ -69,13 +69,13 @@ url_nesting: true
 #
 #   output_image_jpg_quality  [Integer]       # If image gets rendered as JPG this is the quality setting for it. (Default 85)
 #   preprocess_image_resize   [String]        # Use this option to resize images to that value. Downsizing example: '1000x1000>' (Default nil)
-#   image_output_format       [String]        # The global image output format setting.
+#   image_output_format       [String]        # The global image output format setting. (Default +original+)
 #
-# NOTE: You can always override the output format in the options of your Essence. I.E. {:format => :gif}
+# NOTE: You can always override the output format in the options of your Essence. I.E. {format: 'gif'}
 #
 output_image_jpg_quality: 85
 preprocess_image_resize:
-image_output_format: jpg
+image_output_format: original
 
 # This is used by the seeder to create the default site.
 default_site:

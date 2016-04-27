@@ -184,6 +184,26 @@ module Alchemy
       convert_to_humanized_name(image_file_name, suffix)
     end
 
+    # Returns the format the image should be rendered with
+    #
+    # Only returns a format differing from original if an +image_output_format+ is set in config.
+    #
+    def default_render_format
+      if convertible?
+        Config.get(:image_output_format)
+      else
+        image_file_format
+      end
+    end
+
+    # Returns true if the image can be converted
+    #
+    # If the +image_output_format+ is set to +nil+ or +original+ this returns +false+
+    #
+    def convertible?
+      Config.get(:image_output_format) && Config.get(:image_output_format) != 'original'
+    end
+
     # Checks if the picture is restricted.
     #
     # A picture is only restricted if it's assigned on restricted pages only.

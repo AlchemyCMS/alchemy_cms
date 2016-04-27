@@ -129,7 +129,9 @@ module Alchemy
     end
 
     context 'picture path helpers' do
-      let(:picture) { stub_model(Picture, urlname: 'cute_kitten', id: 42) }
+      let(:picture) do
+        stub_model(Picture, urlname: 'cute_kitten', id: 42, image_file_format: 'jpg')
+      end
 
       describe '#show_alchemy_picture_path' do
         it "should return the correct relative path string" do

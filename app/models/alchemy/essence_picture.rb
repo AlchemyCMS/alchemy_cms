@@ -126,11 +126,13 @@ module Alchemy
     #
     def picture_params(options = {})
       return {} if picture.nil?
+
       params = {
         id: picture.id,
         name: picture.urlname,
-        format: Config.get(:image_output_format)
+        format: picture.default_render_format
       }.merge(options)
+
       if options[:crop] && crop_from.present? && crop_size.present?
         params = {
           crop: true,
@@ -138,6 +140,7 @@ module Alchemy
           crop_size: crop_size
         }.merge(params)
       end
+
       params = clean_picture_params(params)
       params.merge(sh: picture.security_token(params))
     end

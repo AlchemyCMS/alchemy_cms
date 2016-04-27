@@ -16,6 +16,7 @@ __Notable Changes__
 * Removed the auto-magically merge of Ability classes (#1022)
 * Replace jQueryUI datepicker with $.datetimepicker
 * Thumbnails now render in original file format, but GIFs will always be flattened
+* Pictures will be rendered in original file format by default
 
 ## 3.3.0 (2016-05-18)
 
