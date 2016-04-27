@@ -70,9 +70,11 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
+    belongs_to :language
+
+    has_one :site, through: :language
     has_many :folded_pages
     has_many :legacy_urls, class_name: 'Alchemy::LegacyPageUrl'
-    belongs_to :language
 
     validates_presence_of :language, on: :create, unless: :root
     validates_presence_of :page_layout, unless: :systempage?

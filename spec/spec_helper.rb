@@ -45,6 +45,13 @@ end
 Capybara.javascript_driver = :poltergeist
 Capybara.ignore_hidden_elements = false
 
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :active_record
+  end
+end
+
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.raise_errors_for_deprecations!

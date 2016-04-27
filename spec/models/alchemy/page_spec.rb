@@ -12,6 +12,8 @@ module Alchemy
     let(:public_page)   { create(:alchemy_page, :public) }
     let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', do_not_autogenerate: false) }
 
+    it { is_expected.to have_one(:site) }
+
     # Validations
 
     context 'validations' do
