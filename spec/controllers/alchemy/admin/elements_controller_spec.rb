@@ -87,6 +87,23 @@ module Alchemy
         end
       end
 
+      context "when nested inside parent element" do
+        let(:parent) { create(:alchemy_element) }
+
+        it 'touches the cache key of parent element' do
+          expect(Element).to receive(:find_by) { parent }
+          expect(parent).to receive(:touch) { true }
+          alchemy_xhr :post, :order, element_ids: element_ids, parent_element_id: parent.id
+        end
+
+        it 'assigns parent element id to each element' do
+          alchemy_xhr :post, :order, element_ids: element_ids, parent_element_id: parent.id
+          [element_1, element_2, element_3].each do |element|
+            expect(element.reload.parent_element_id).to eq parent.id
+          end
+        end
+      end
+
       context "untrashing" do
         let(:trashed_element) { create(:alchemy_element, public: false, position: nil, page_id: 58, cell_id: 32) }
 
