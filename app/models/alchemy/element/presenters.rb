@@ -80,8 +80,15 @@ module Alchemy
       "#{name}_#{id}"
     end
 
+    # The content that's used for element's preview text.
+    #
+    # It tries to find one of element's contents that is defined +as_element_title+.
+    # Takes element's first content if no content is defined +as_element_title+.
+    #
+    # @return (Alchemy::Content)
+    #
     def preview_content
-      @_preview_content ||= contents.detect(&:preview_content?)
+      @_preview_content ||= contents.detect(&:preview_content?) || contents.first
     end
 
     private
@@ -92,7 +99,7 @@ module Alchemy
     end
 
     def preview_text_from_preview_content(maxlength)
-      (preview_content || contents.first).try(:preview_text, maxlength)
+      preview_content.try!(:preview_text, maxlength)
     end
   end
 end
