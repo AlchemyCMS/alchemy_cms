@@ -57,7 +57,9 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    has_many :contents, -> { order(:position) }, dependent: :destroy
+    # Content positions are scoped by their essence_type, so positions can be the same for different contents.
+    # In order to get contents in creation order we also order them by id.
+    has_many :contents, -> { order(:position, :id) }, dependent: :destroy
 
     # Elements can have other elements nested inside
     has_many :nested_elements,
