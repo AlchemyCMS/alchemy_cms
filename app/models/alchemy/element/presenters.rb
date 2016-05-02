@@ -39,10 +39,10 @@ module Alchemy
     #
     # You can flag a Content as +as_element_title+ to take this as preview.
     #
-    # @param maxlength [Fixnum] (30)
+    # @param maxlength [Fixnum] (60)
     #   Length of characters after the text will be cut off.
     #
-    def preview_text(maxlength = 30)
+    def preview_text(maxlength = 60)
       preview_text_from_preview_content(maxlength) || preview_text_from_nested_elements(maxlength)
     end
 

@@ -32,12 +32,12 @@
 .element-title {
   overflow: hidden;
   white-space: nowrap;
-  max-width: 322px;
+  max-width: 85%;
   margin-left: $default-margin;
+  text-overflow: ellipsis;
 
   .preview_text_quote {
     font-size: 10px;
-    font-style: italic;
     line-height: 15px;
   }
 }

@@ -426,7 +426,7 @@ module Alchemy
         let(:contents) { [content, content_2] }
 
         it "returns the preview text of first content found" do
-          expect(content).to receive(:preview_text).with(30)
+          expect(content).to receive(:preview_text).with(60)
           element.preview_text
         end
       end
@@ -435,7 +435,7 @@ module Alchemy
         let(:contents) { [content, preview_content] }
 
         it "should return the preview_text of this content" do
-          expect(preview_content).to receive(:preview_text).with(30)
+          expect(preview_content).to receive(:preview_text).with(60)
           element.preview_text
         end
       end
