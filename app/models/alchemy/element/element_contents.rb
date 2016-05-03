@@ -137,13 +137,8 @@ module Alchemy
 
     # creates the contents for this element as described in the elements.yml
     def create_contents
-      contents = []
-      if definition["contents"].blank?
-        log_warning "Could not find any content definitions for element: #{name}"
-      else
-        definition["contents"].each do |content_hash|
-          contents << Content.create_from_scratch(self, content_hash.symbolize_keys)
-        end
+      definition.fetch("contents", []).each do |content_hash|
+        Content.create_from_scratch(self, content_hash.symbolize_keys)
       end
     end
   end

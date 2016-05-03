@@ -412,16 +412,18 @@ module Alchemy
         mock_model(Content, preview_text: 'Content 2', preview_content?: false)
       end
 
+      let(:contents) { [] }
+
       let(:preview_content) do
         mock_model(Content, preview_text: 'Preview Content', preview_content?: true)
       end
 
+      before do
+        allow(element).to receive(:contents).and_return(contents)
+      end
+
       context "without a content marked as preview" do
         let(:contents) { [content, content_2] }
-
-        before do
-          allow(element).to receive(:contents).and_return(contents)
-        end
 
         it "returns the preview text of first content found" do
           expect(content).to receive(:preview_text).with(30)
@@ -432,10 +434,6 @@ module Alchemy
       context "with a content marked as preview" do
         let(:contents) { [content, preview_content] }
 
-        before do
-          allow(element).to receive(:contents).and_return(contents)
-        end
-
         it "should return the preview_text of this content" do
           expect(preview_content).to receive(:preview_text).with(30)
           element.preview_text
@@ -443,10 +441,6 @@ module Alchemy
       end
 
       context "without any contents present" do
-        before do
-          allow(element).to receive(:contents).and_return([])
-        end
-
         it "should return nil" do
           expect(element.preview_text).to be_nil
         end
