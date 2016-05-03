@@ -103,6 +103,9 @@
   contents:
     - name: picture
       type: EssencePicture
+    - name: caption
+      type: EssenceText
+      as_element_title: true
 
 - name: slider
   nestable_elements:
