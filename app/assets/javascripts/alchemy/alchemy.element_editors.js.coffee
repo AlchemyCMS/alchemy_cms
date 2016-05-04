@@ -148,11 +148,16 @@ Alchemy.ElementEditors =
         callback.call()
       return
 
-  # Updates the title quote
+  # Updates the title quote if one of the several conditions are met
   updateTitle: (element, title, event) ->
     return true if not @_shouldUpdateTitle(element, event)
+    @setTitle(element, title)
+    return
+
+  # Sets the title quote without checking that the conditions are met
+  setTitle: (element, title) ->
     $quote = element.find('> .element-header .preview_text_quote')
-    $quote.text(title);
+    $quote.text(title)
     return
 
   # Sets the element to saved state
@@ -221,6 +226,8 @@ Alchemy.ElementEditors =
     querystring = link.search.replace(/\?/, '')
     $.post(url, querystring)
     false
+
+  # private
 
   _shouldUpdateTitle: (element, event) ->
     editors = element.find('> .element-content .element-content-editors').children()
