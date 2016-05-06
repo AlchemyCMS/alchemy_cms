@@ -14,10 +14,8 @@
   <% end %>
 <% end %>
 
-<% file_types = (
-  local_assigns.fetch(:file_types, []).presence ||
-    configuration(:uploader)['allowed_filetypes'][model_class.model_name.collection]
-) %>
+<% file_types = local_assigns[:file_types].presence ||
+  configuration(:uploader)['allowed_filetypes'][model_class.model_name.collection] || ['*'] %>
 
 <script type='text/javascript'>
   $(function() {
