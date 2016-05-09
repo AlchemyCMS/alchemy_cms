@@ -1,8 +1,6 @@
 (function() {
   var $page;
 
-  Alchemy.growl("<%= j @notice %>");
-
 <% if @old_page_layout != @page.page_layout -%>
   Alchemy.ElementsWindow.reload();
   Alchemy.growl('<%= j Alchemy.t(:page_layout_changed_notice) %>');
@@ -15,7 +13,11 @@
 
 <% else -%>
 
-  $('#page_<%= @page.id %>').replaceWith('<%= j render("page", page: @page) %>');
+  var page_html = "<%= j render('page', page: @page) %>";
+  var compiler = Handlebars.compile(page_html);
+  var tree = JSON.parse('<%== @tree.to_json %>');
+  var html = compiler(tree.pages[0]);
+  $('#page_<%= @page.id %>').replaceWith(html);
   $page = $('#page_<%= @page.id %>');
   Alchemy.watchForDialogs($page);
 
@@ -33,5 +35,6 @@
 
 <% end -%>
 
+  Alchemy.growl("<%= j @notice %>");
   Alchemy.closeCurrentDialog();
 })()

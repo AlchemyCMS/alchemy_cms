@@ -36,9 +36,7 @@ module Alchemy
       def tree
         authorize! :tree, :alchemy_admin_pages
 
-        render json: PageTreeSerializer.new(@page, ability: current_ability,
-                                            user: current_alchemy_user,
-                                            full: params[:full] == 'true')
+        render json: serialized_page_tree
       end
 
       # Used by page preview iframe in Page#edit view.
@@ -103,6 +101,10 @@ module Alchemy
         if @page.update_attributes(page_params)
           @notice = Alchemy.t("Page saved", name: @page.name)
           @while_page_edit = request.referer.include?('edit')
+
+          unless @while_page_edit
+            @tree = serialized_page_tree
+          end
         else
           configure
         end
@@ -371,6 +373,12 @@ module Alchemy
 
       def set_root_page
         @page_root = Language.current_root_page
+      end
+
+      def serialized_page_tree
+        PageTreeSerializer.new(@page, ability: current_ability,
+                                      user: current_alchemy_user,
+                                      full: params[:full] == 'true')
       end
     end
   end
