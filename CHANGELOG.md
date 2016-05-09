@@ -15,9 +15,10 @@ __New Features__
 * Resource forms can now have Tinymce enabled by adding `.tinymce` class
 * `Alchemy::EssenceFile` now has a `link_text` attribute, so the editor is able to change the linked text of the download link.
 * Enable to pass multiple page layout names to `on_page_layout` callbacks
-* Client side rendering of the pages admin _(not merged yet)_
-* Deprecate `redirect_index` configuration _(not merged yet)_
+* Client side rendering of the pages admin
+* Deprecate `redirect_index` configuration
 * Add Nestable elements feature
+* Default site in seeder is now configurable
 
 __Notable Changes__
 
