@@ -1,21 +1,21 @@
-# -*- encoding: utf-8 -*-
-$:.push File.expand_path('../lib', __FILE__)
+# coding: utf-8
+lib = File.expand_path('../lib', __FILE__)
+$LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'alchemy/version'
 
 Gem::Specification.new do |gem|
   gem.name                  = 'alchemy_cms'
   gem.version               = Alchemy::VERSION
   gem.platform              = Gem::Platform::RUBY
-  gem.authors               = ['Thomas von Deyen', 'Robin Boening', 'Marc Schettke', 'Hendrik Mans', 'Carsten Fregin']
+  gem.authors               = ['Thomas von Deyen', 'Robin Boening', 'Marc Schettke', 'Hendrik Mans', 'Carsten Fregin', 'Martin Meyerhoff']
   gem.email                 = ['alchemy@magiclabs.de']
-  gem.homepage              = 'http://alchemy-cms.com'
+  gem.homepage              = 'https://alchemy-cms.com'
   gem.summary               = 'A powerful, userfriendly and flexible CMS for Rails 4'
   gem.description           = 'Alchemy is a powerful, userfriendly and flexible Rails 4 CMS.'
   gem.requirements << 'ImageMagick (libmagick), v6.6 or greater.'
   gem.required_ruby_version = '>= 2.0.0'
   gem.license               = 'BSD New'
-  gem.files                 = `git ls-files`.split("\n")
-  gem.test_files            = `git ls-files -- {test,spec,features}/*`.split("\n")
+  gem.files                 = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^spec/}) }
   gem.executables           = 'alchemy'
   gem.require_paths         = ['lib']
 
