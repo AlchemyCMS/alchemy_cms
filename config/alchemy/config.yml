@@ -77,7 +77,12 @@ output_image_jpg_quality: 85
 preprocess_image_resize:
 image_output_format: jpg
 
-# This is the default language for new sites.
+# This is used by the seeder to create the default site.
+default_site:
+  name: Default Site
+  host: '*'
+
+# This is the default language when a new site gets created.
 default_language:
   code: en
   name: English

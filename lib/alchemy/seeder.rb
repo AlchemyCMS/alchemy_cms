@@ -7,7 +7,7 @@ module Alchemy
     class << self
       # This seed builds the necessary page structure for Alchemy in your database.
       #
-      # Call this from your db/seeds.rb file with the rake db:seed task.
+      # Call this from your +db/seeds.rb+ file with the `rake db:seed task'.
       #
       def seed!
         create_default_site
@@ -20,8 +20,8 @@ module Alchemy
         desc "Creating default Alchemy site"
         if Alchemy::Site.count == 0
           site = Alchemy::Site.new(
-            name: 'Default Site',
-            host: '*'
+            name: site_config['name'],
+            host: site_config['host']
           )
           if Alchemy::Language.any?
             site.languages = Alchemy::Language.all
@@ -44,6 +44,12 @@ module Alchemy
         else
           log "Alchemy root page was already present.", :skip
         end
+      end
+
+      private
+
+      def site_config
+        @_site_config ||= Alchemy::Config.get(:default_site)
       end
     end
   end
