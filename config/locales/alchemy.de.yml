@@ -141,6 +141,7 @@ de:
       image/gif: 'GIF-Bild'
       image/jpeg: 'JPG-Bild'
       image/png: 'PNG-Bild'
+      image/svg+xml: SVG-Grafik
       video/x-msvideo: 'AVI-Video'
       video/x-ms-wmv: 'Windows Media Video'
       image/tiff: 'TIFF-Bild'
