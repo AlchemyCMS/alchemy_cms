@@ -13,15 +13,18 @@
   <% end %>
   <%= render 'alchemy/admin/partials/remote_search_form' %>
 </div>
+
 <div id="assign_file_list" class="with_padding<%= params[:tagged_with].present? ? ' filtered' : '' %>">
-  <% if any_tags = Alchemy::Attachment.tag_counts.any? %>
   <div id="library_sidebar">
-    <div class="tag-list">
-      <%= render 'tag_list' %>
-    </div>
+    <%= render 'filter_bar' %>
+
+    <% if Alchemy::Attachment.tag_counts.any? %>
+      <div id="tag_list">
+        <%= render 'tag_list' %>
+      </div>
+    <% end %>
   </div>
-  <% end %>
-  <div id="overlay_file_list" class="<%= any_tags ? 'with_tag_list' : nil %>">
+  <div id="overlay_file_list" class="with_tag_list">
     <%= render 'overlay_file_list' %>
   </div>
 </div>

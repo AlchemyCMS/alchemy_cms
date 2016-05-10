@@ -1,5 +1,3 @@
-<% any_tags = Alchemy::Attachment.tag_counts.any? %>
-
 <% content_for(:toolbar) do %>
   <div class="toolbar_buttons">
     <% if can? :create, Alchemy::Attachment %>
@@ -12,14 +10,17 @@
   <%= render 'alchemy/admin/partials/search_form' %>
 <% end %>
 
-<div id="archive_all" class="<%= any_tags ? 'with_tag_filter ' : nil %>resources-table-wrapper">
+<div id="archive_all" class="with_tag_filter resources-table-wrapper">
   <%= resources_header %>
-  <%= render partial: 'files_list' %>
-  <% if any_tags %>
+  <%= render 'files_list' %>
+
   <div id="library_sidebar">
-    <div class="<%= params[:tagged_with].present? ? 'tag-list filtered' : 'tag-list' %>">
-      <%= render partial: 'tag_list' %>
-    </div>
+    <%= render 'filter_bar' %>
+
+    <% if Alchemy::Attachment.tag_counts.any? %>
+      <div id="tag_list" class="<%= params[:tagged_with].present? ? 'filtered' : '' %>">
+        <%= render 'tag_list' %>
+      </div>
+    <% end %>
   </div>
-  <% end %>
 </div>

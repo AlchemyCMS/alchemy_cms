@@ -41,23 +41,19 @@ module Alchemy
         end
       end
 
-      describe 'only and expect options' do
+      describe 'file_type filter' do
         let!(:png) { create(:alchemy_attachment) }
-        let!(:jpg) { create(:alchemy_attachment, file: File.new(File.expand_path('../../../../fixtures/image3.jpeg', __FILE__))) }
 
-        context 'with params[:only]' do
-          it 'only loads attachments with matching content type' do
-            alchemy_get :index, only: 'jpeg'
-            expect(assigns(:attachments).to_a).to eq([jpg])
-            expect(assigns(:attachments).to_a).to_not eq([png])
-          end
+        let!(:jpg) do
+          create :alchemy_attachment,
+            file: File.new(File.expand_path('../../../../fixtures/image3.jpeg', __FILE__))
         end
 
-        context 'with params[:except]' do
-          it 'does not load attachments with matching content type' do
-            alchemy_get :index, except: 'jpeg'
-            expect(assigns(:attachments).to_a).to eq([png])
-            expect(assigns(:attachments).to_a).to_not eq([jpg])
+        context 'with params[:file_type]' do
+          it 'loads only attachments with matching content type' do
+            alchemy_get :index, file_type: 'image/jpeg'
+            expect(assigns(:attachments).to_a).to eq([jpg])
+            expect(assigns(:attachments).to_a).to_not eq([png])
           end
         end
       end

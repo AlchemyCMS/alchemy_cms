@@ -10,6 +10,7 @@ when it is defined.
   `public_on` and `public_until`
 * Send page expiration cache headers
 * Adds an +EssencePictureView+ class responsible for rendering the `essence_picture_view` partial
+* Adds a file type filter to file archive
 
 __Notable Changes__
 

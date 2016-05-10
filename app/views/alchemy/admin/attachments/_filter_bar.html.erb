@@ -1,0 +1,32 @@
+<% params_to_keep = [:tagged_with, :q, :content_id, :options] %>
+
+<div id="filter_bar">
+  <h2><%= Alchemy.t('Filter') %></h2>
+  <%= select_tag(
+    'file_type_filter',
+    options_for_select(
+      Alchemy::Attachment.file_types_for_select,
+      params[:file_type]
+    ),
+    include_blank: Alchemy.t('Show all files'),
+    data: { remote: !!request.xhr? },
+    class: 'alchemy_selectbox'
+  ) %>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $('#file_type_filter').on('change', function(e) {
+      var $this = $(this);
+      var url = '<%= alchemy.admin_attachments_path(merge_params_only(params_to_keep)).html_safe %>';
+      if ($this.data('remote') === true) {
+        $.get(url, {file_type: $this.val()}, null, 'script');
+      } else {
+        Alchemy.pleaseWaitOverlay();
+        delimiter = url.match(/\?/) ? '&' : '?';
+        window.location = url + delimiter + 'file_type=' + encodeURIComponent($this.val());
+      }
+      return false;
+    });
+  });
+</script>
