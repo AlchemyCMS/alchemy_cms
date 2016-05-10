@@ -248,19 +248,19 @@ window.Alchemy.openDialog = (url, options) ->
 #
 # See Alchemy.Dialog for further options you can add to the data attribute
 #
-window.Alchemy.watchForDialogs = (scope) ->
-  $('a[data-alchemy-dialog]', scope).click (e) ->
+window.Alchemy.watchForDialogs = (scope = '#alchemy') ->
+  $(scope).on 'click', '[data-alchemy-dialog]', (e) ->
     $this = $(this)
     url = $this.attr('href')
     options = $this.data('alchemy-dialog')
     Alchemy.openDialog(url, options)
     false
-  $('a[data-alchemy-confirm-delete]', scope).click (event) ->
+  $(scope).on 'click', '[data-alchemy-confirm-delete]', (event) ->
     $this = $(this)
     options = $this.data('alchemy-confirm-delete')
     Alchemy.confirmToDeleteDialog($this.attr('href'), options)
     false
-  $('input[data-alchemy-confirm], button[data-alchemy-confirm]', scope).click (event) ->
+  $(scope).on 'click', '[data-alchemy-confirm]', (event) ->
     options = $(this).data('alchemy-confirm')
     Alchemy.openConfirmDialog options.message, $.extend options,
       ok_label: options.ok_label

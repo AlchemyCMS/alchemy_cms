@@ -19,7 +19,6 @@
   var html = compiler(tree.pages[0]);
   $('#page_<%= @page.id %>').replaceWith(html);
   $page = $('#page_<%= @page.id %>');
-  Alchemy.watchForDialogs($page);
 
   <% if @page.locked? && @page.locker == current_alchemy_user -%>
     $('#locked_page_<%= @page.id %> > a').html('<%= @page.name %>');
