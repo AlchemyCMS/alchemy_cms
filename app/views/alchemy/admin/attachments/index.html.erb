@@ -1,4 +1,5 @@
 <% any_tags = Alchemy::Attachment.tag_counts.any? %>
+
 <% content_for(:toolbar) do %>
   <div class="toolbar_buttons">
     <% if can? :create, Alchemy::Attachment %>
@@ -8,7 +9,9 @@
         file_attribute: 'file' %>
     <% end %>
   </div>
+  <%= render 'alchemy/admin/partials/search_form' %>
 <% end %>
+
 <div id="archive_all" class="<%= any_tags ? 'with_tag_filter ' : nil %>resources-table-wrapper">
   <%= resources_header %>
   <%= render partial: 'files_list' %>
