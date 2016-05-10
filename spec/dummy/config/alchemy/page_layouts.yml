@@ -28,5 +28,8 @@
   unique: false
   redirects_to_external: true
 
+- name: footer
+  layoutpage: true
+
 - name: <%= 'erb_' + 'layout' %>
   unique: true
