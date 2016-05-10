@@ -18,7 +18,7 @@ class AlchemyInstaller < Thor
   end
 
   desc "new PROJECT", "Creates a new Alchemy CMS project."
-  method_option :database, type: :string, aliases: "-d", desc: "Type of database to use for this project. Default sqlite."
+  method_option :database, type: :string, aliases: "-d", desc: "Preconfigure for selected database (options: mysql/postgresql/sqlite3). Default: sqlite3"
   def new(project)
     @application = project.downcase.strip.tr(' ', '_')
     say welcome_message, :yellow
