@@ -1,15 +1,17 @@
 <li class="assign_file_file <%= cycle('even', 'odd') %>">
-  <%= link_to(
-    render_icon(file_to_assign.icon_css_class) + file_to_assign.name,
-    {
-      controller: 'essence_files',
-      action: 'assign',
+  <%= link_to alchemy.assign_admin_essence_files_path(
       attachment_id: file_to_assign.id,
       content_id: @content.id,
       options: @options.to_json
-    },
+    ),
     remote: true,
-    method: 'put',
-    title: file_to_assign.name
-  ) %>
+    method: 'put' do %>
+    <span class="list-primary">
+      <%= render_icon(file_to_assign.icon_css_class) %>
+      <%= file_to_assign.name %>
+    </span>
+    <span class="list-secondary">
+      <%= mime_to_human(file_to_assign.file_mime_type) %>
+    </span>
+  <% end %>
 </li>

@@ -1,0 +1,61 @@
+ul.list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+
+  &#layoutpages {
+    margin-top: 16px;
+
+    li {
+      margin-left: 8px;
+    }
+  }
+
+  &#sitemap {
+    padding: 0 0 104px 0;
+  }
+
+  li {
+    list-style-type: none;
+    display: block;
+    overflow: hidden;
+
+    &.legend, &.list-header {
+      background-color: transparent;
+      font-weight: bold;
+      padding: $default-padding;
+
+      .list-secondary {
+        color: $text-color;
+      }
+    }
+
+    &.even {
+      background-color: #fff;
+    }
+
+    &.odd {
+      background-color: #eaf3f9;
+    }
+  }
+
+  .list-primary,
+  .list-secondary {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: middle;
+  }
+
+  .list-primary {
+    float: left;
+    max-width: 65%;
+  }
+
+  .list-secondary, .right {
+    float: right;
+    text-align: left;
+    width: 30%;
+    color: $dark-gray;
+  }
+}

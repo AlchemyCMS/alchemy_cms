@@ -256,48 +256,6 @@ div#page_editing_menu {
   margin-top: 1em;
 }
 
-li.even {
-  background-color: #fff;
-}
-
-li.odd {
-  background-color: #eaf3f9;
-}
-
-ul.list {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-ul#layoutpages.list {
-  margin-top: 16px;
-}
-
-ul#layoutpages.list li {
-  margin-left: 8px;
-}
-
-ul#sitemap.list {
-  padding: 0 0 104px 0;
-}
-
-ul.list li {
-  list-style-type: none;
-  border-width: 0;
-  border-style: none;
-  display: block;
-}
-
-ul.list li.legend {
-  background-color: transparent;
-  font-weight: bold;
-}
-
-ul.list span.right {
-  float: right;
-}
-
 .handle {
   cursor: move;
 }
