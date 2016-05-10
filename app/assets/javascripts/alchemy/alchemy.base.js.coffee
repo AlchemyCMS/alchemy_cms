@@ -69,13 +69,6 @@ $.extend Alchemy,
       Alchemy.setElementDirty $element
     false
 
-  # Sets the element to saved state
-  setElementSaved: (selector) ->
-    $element = $(selector)
-    Alchemy.setElementClean selector
-    Alchemy.Buttons.enable $element
-    true
-
   # Initializes all select tag with .alchemy_selectbox class as selectBoxIt instance
   # Pass a jQuery scope to only init a subset of selectboxes.
   SelectBox: (scope) ->

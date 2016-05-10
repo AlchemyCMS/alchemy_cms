@@ -9,7 +9,9 @@
   </span>
   <span class="element-title">
     <span class="preview_text_element_name"><%= element.display_name %></span>
-    <span class="preview_text_quote"><%= sanitize(element.preview_text) %></span>
+    <span class="preview_text_quote">
+      <%= sanitize(element.preview_text.presence || '&nbsp;') %>
+    </span>
   </span>
   <%= render_hint_for(element) unless element.trashed? %>
   <span class="ajax-folder" <%= element.trashed? ? 'style="display: none"'.html_safe : '' %>>

@@ -14,15 +14,12 @@ Alchemy.ElementEditors =
   #
   init: ->
     @element_area = $("#element_area")
-    # Binds the custom FocusElementEditor event
-    @element_area.on "FocusElementEditor.Alchemy", '.element-editor', (e) =>
-      @onFocusElement(e)
-    @bindClickEvents()
+    @bindEvents()
     return
 
   # Binds click events on several DOM elements from element editors
   # Uses event delegation, so it is not necessary to rebind these events.
-  bindClickEvents: ->
+  bindEvents: ->
     @element_area.on "click", ".element-header", (e) =>
       @onClickElement(e)
     @element_area.on "dblclick", ".element-header", (e) =>
@@ -31,6 +28,12 @@ Alchemy.ElementEditors =
       @onClickToggle(e)
     @element_area.on "click", '[data-create-missing-content]', (e) =>
       @onClickMissingContent(e)
+    # Binds the custom FocusElementEditor event
+    @element_area.on "FocusElementEditor.Alchemy", '.element-editor', (e) =>
+      @onFocusElement(e)
+    # Binds the custom SaveElement event
+    @element_area.on "SaveElement.Alchemy", '.element-editor', (e, data) =>
+      @onSaveElement(e, data)
     return
 
   # Selects and scrolls to element with given id in the preview window.
@@ -145,6 +148,29 @@ Alchemy.ElementEditors =
         callback.call()
       return
 
+  # Updates the title quote if one of the several conditions are met
+  updateTitle: (element, title, event) ->
+    return true if not @_shouldUpdateTitle(element, event)
+    @setTitle(element, title)
+    return
+
+  # Sets the title quote without checking that the conditions are met
+  setTitle: (element, title) ->
+    $quote = element.find('> .element-header .preview_text_quote')
+    $quote.text(title)
+    return
+
+  # Sets the element to saved state
+  onSaveElement: (event, data) ->
+    $element = $(event.currentTarget)
+    # JS event bubbling will also update the parents element quote.
+    @updateTitle($element, data.previewText, event)
+    # Prevent this event from beeing called twice on the same element
+    if event.currentTarget == event.target
+      Alchemy.setElementClean($element)
+      Alchemy.Buttons.enable($element)
+    true
+
   # Event handlers
 
   # Click event handler for element head.
@@ -200,3 +226,23 @@ Alchemy.ElementEditors =
     querystring = link.search.replace(/\?/, '')
     $.post(url, querystring)
     false
+
+  # private
+
+  _shouldUpdateTitle: (element, event) ->
+    editors = element.find('> .element-content .element-content-editors').children()
+    if @_hasParents(element)
+      editors.length != 0
+    else if @_isParent(element) && @_isFirstChild $(event.target)
+      editors.length == 0
+    else
+      not @_isParent(element)
+
+  _hasParents: (element) ->
+    element.parents('.element-editor').length != 0
+
+  _isParent: (element) ->
+    element.find('.nestable-elements').length != 0
+
+  _isFirstChild: (element) ->
+    element.closest('.nestable-elements').find(':first-child').is(element)

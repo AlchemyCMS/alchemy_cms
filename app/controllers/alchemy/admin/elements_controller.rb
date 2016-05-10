@@ -90,7 +90,7 @@ module Alchemy
 
       def order
         @trashed_element_ids = Element.trashed.where(id: params[:element_ids]).pluck(:id)
-        parent_element = Element.find_by(id: params[:parent_element_id])
+        @parent_element = Element.find_by(id: params[:parent_element_id])
         Element.transaction do
           params.fetch(:element_ids, []).each_with_index do |element_id, idx|
             # Ensure to set page_id, cell_id and parent_element_id to the current page and
@@ -102,7 +102,7 @@ module Alchemy
               position: idx + 1
             )
           end
-          parent_element.try!(:touch)
+          @parent_element.try!(:touch)
         end
       end
 
