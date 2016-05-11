@@ -1,6 +1,6 @@
 <div id="library_sidebar">
   <%= render :partial => 'filter_bar' %>
-  <div id="tag_list" class="with_filter_bar<%= params[:tagged_with].present? ? ' filtered' : '' %>">
+  <div class="tag-list with_filter_bar<%= params[:tagged_with].present? ? ' filtered' : '' %>">
     <%= render :partial => 'tag_list' %>
   </div>
 </div>

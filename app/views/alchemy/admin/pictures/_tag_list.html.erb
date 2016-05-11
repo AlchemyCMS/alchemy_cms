@@ -1,7 +1,7 @@
 <% p = params.dup %>
 <% if Alchemy::Picture.tag_counts.any? %>
   <h2><%= Alchemy.t("Filter by tag") %></h2>
-  <%= js_filter_field '#tag_list li' %>
+  <%= js_filter_field '.tag-list li' %>
   <ul>
     <%= render_tag_list('Alchemy::Picture', p) %>
   </ul>

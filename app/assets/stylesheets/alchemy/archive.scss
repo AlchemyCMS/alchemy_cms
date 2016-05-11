@@ -198,7 +198,7 @@ div#filter_bar {
   }
 }
 
-#tag_list {
+.tag-list {
   @include box-sizing(border-box);
   height: 100%;
   padding-bottom: 138px;
@@ -281,22 +281,22 @@ div#filter_bar {
 #assign_image_list {
   padding-right: 244px;
 
-  #tag_list ul {
+  .tag-list ul {
     height: 316px;
   }
 
-  &.filtered #tag_list ul {
+  &.filtered .tag-list ul {
     height: 292px;
   }
 }
 
 #assign_file_list {
 
-  #tag_list ul {
+  .tag-list ul {
     height: 396px;
   }
 
-  &.filtered #tag_list ul {
+  &.filtered .tag-list ul {
     height: 372px;
   }
 }
@@ -374,6 +374,6 @@ div#filter_bar {
   }
 }
 
-table.list#tag_list .tag {
+.tags .list .tag {
   padding: 0;
 }

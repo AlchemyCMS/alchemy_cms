@@ -16,7 +16,7 @@
 <div id="assign_file_list" class="with_padding<%= params[:tagged_with].present? ? ' filtered' : '' %>">
   <% if any_tags = Alchemy::Attachment.tag_counts.any? %>
   <div id="library_sidebar">
-    <div id="tag_list">
+    <div class="tag-list">
       <%= render 'tag_list' %>
     </div>
   </div>
