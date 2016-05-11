@@ -56,7 +56,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   attachTreeEvents: ->
     # The select page and show elements links.
     $('a.sitemap_pagename_link, a.show_elements_to_link', @dialog_body).click (e) =>
-      $this = $(e.target)
+      $this = $(e.currentTarget)
       page_id = $this.data('page-id')
       url = $this.data('url')
       # Select page in page tree

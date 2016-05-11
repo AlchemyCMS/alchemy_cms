@@ -33,7 +33,7 @@
   background-color: #fff;
   color: black;
   display: block;
-  padding-left: 4px;
+  padding-left: $default-padding;
   text-decoration: none;
   @include transition(background-color, 400ms);
 
@@ -49,23 +49,23 @@
       width: 16px;
       height: 16px;
       float: left;
-      margin-right: 4px;
+      margin-right: $default-margin;
       background: image-url('alchemy/icons.png') -160px -168px;
-      margin-top: 4px;
+      margin-top: $default-margin;
     }
   }
 }
 
 .redirect_url {
   position: absolute;
-  top: 4px;
+  top: $default-padding;
   right: 199px;
   text-align: right;
   background-color: #fff0c4;
-  line-height: 22px;
-  padding-right: 4px;
+  line-height: $sitemap-line-height;
+  padding-right: $default-padding;
   font-size: 10px;
-  padding-left: 4px;
+  padding-left: $default-padding;
   max-width: 45%;
   white-space: nowrap;
   overflow: hidden;
@@ -85,14 +85,10 @@
   height: 28px;
 }
 
-#layoutpages li {
-  padding: 0;
-}
-
 .sitemap_page {
-  height: 22px;
-  padding-bottom: 4px;
-  padding-top: 4px;
+  height: $sitemap-line-height;
+  padding-bottom: $default-padding;
+  padding-top: $default-padding;
   position: relative;
 
   &.highlight .sitemap_pagename_link {
@@ -117,7 +113,7 @@ div.sitemap_left_images {
 }
 
 .sitemap_right_tools {
-  height: 22px;
+  height: $sitemap-line-height;
   background-color: $light-gray;
   padding-left: 8px;
   float: right;
@@ -188,43 +184,36 @@ ul#sitemap {
     }
 
     li {
-      padding-left: 22px;
+      padding-left: $sitemap-line-height;
       padding-right: 0;
     }
   }
-}
-
-ul#sitemap li,
-ul#layoutpages li {
-  list-style-type: none;
-  display: block;
-  margin-left: 0;
-  margin-bottom: 0;
-  line-height: 22px;
 }
 
 ul#sitemap li .sitemap_toolrow,
 ul.list li .sitemap_toolrow {
   margin: 0;
   overflow: auto;
-  padding: 4px 0;
+  padding: $default-padding 0;
 }
 
 ul#sitemap .sitemap_sitename,
 ul.list .sitemap_sitename {
-  height: 22px;
-  line-height: 22px;
+  height: $sitemap-line-height;
+  line-height: $sitemap-line-height;
   overflow: hidden;
 }
 
-div.page_infos {
+.page_infos {
   @extend .right-rounded-border;
   background-color: #fff;
   border-left: 1px solid $light-gray;
   float: right;
-  height: 20px;
-  padding: 1px;
-  width: 68px;
+  height: $sitemap-line-height;
+
+  .page_status {
+    margin: $default-margin;
+  }
 }
 
 #sub_navigation .page_status_and_name .page_status {
@@ -268,14 +257,6 @@ div.page_infos {
   }
 }
 
-#sitemap .page_status {
-  margin: 2px 2px 0 4px;
-}
-
-.alchemy-dialog .page_status {
-  margin: 2px 4px 0 0;
-}
-
 #sitemap {
 
   &.sorting {
@@ -295,7 +276,7 @@ div.page_infos {
 
 .sitemap_sitestatus {
   float: right;
-  margin-top: 4px;
+  margin-top: $default-margin;
 }
 
 a.folder_link {
@@ -313,18 +294,19 @@ a.folder_link {
   @extend %rounded-border;
 }
 
-h2#sitemap_heading {
+#sitemap_heading {
   padding: 0;
 
-  span.page_infos {
+  .page_infos {
     margin-right: 144px;
     width: 40px;
     text-align: center;
     float: right;
     line-height: 28px;
+    background: transparent;
   }
 
-  span.page_name {
+  .page_name {
     line-height: 28px;
     margin-left: 24px;
   }
@@ -352,7 +334,7 @@ h2#sitemap_heading {
 
   .close_elements_from_page_selector {
     position: absolute;
-    right: 4px;
+    right: $default-padding;
     top: 12px;
     font-size: 16px;
     width: 16px;
@@ -360,11 +342,6 @@ h2#sitemap_heading {
     cursor: pointer;
     @extend .icon-cross;
   }
-}
-
-.show_elements_to_link {
-  @extend .icon;
-  @extend .element_window;
 }
 
 .elements_from_page_selector {
@@ -387,7 +364,7 @@ h2#sitemap_heading {
   .spinner {
     top: 17px !important;
     left: 50% !important;
-    margin-left: 4px;
+    margin-left: $default-margin;
   }
 
   .alchemy_selectbox {
