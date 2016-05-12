@@ -110,21 +110,26 @@ module Alchemy
         end
       end
 
+      # Fetches page via before filter, destroys it and redirects to page tree
       def destroy
-        # fetching page via before filter
-        name = @page.name
-        @page_id = @page.id
-        @layoutpage = @page.layoutpage?
         if @page.destroy
-          set_root_page
-          @message = Alchemy.t("Page deleted", name: name)
-          flash[:notice] = @message
-          respond_to do |format|
-            format.js
+          flash[:notice] = Alchemy.t("Page deleted", name: @page.name)
+
+          # Remove page from clipboard
+          clipboard = get_clipboard('pages')
+          clipboard.delete_if { |item| item['id'] == @page.id.to_s }
+        end
+
+        respond_to do |format|
+          format.js do
+            @redirect_url = if @page.layoutpage?
+                              alchemy.admin_layoutpages_path
+                            else
+                              alchemy.admin_pages_path
+                            end
+
+            render :redirect
           end
-          # remove from clipboard
-          @clipboard = get_clipboard('pages')
-          @clipboard.delete_if { |item| item['id'] == @page_id.to_s }
         end
       end
 

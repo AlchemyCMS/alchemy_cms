@@ -37,6 +37,12 @@ FactoryGirl.define do
       language nil
     end
 
+    trait :layoutpage do
+      name "Footer"
+      parent_id { Alchemy::Page.find_or_create_layout_root_for(Alchemy::Language.current.id).id }
+      page_layout "footer"
+    end
+
     trait :restricted do
       name "Restricted page"
       restricted true
