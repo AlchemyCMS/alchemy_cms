@@ -1,6 +1,6 @@
 <% p = params.dup %>
 <h2><%= Alchemy.t("Filter by tag") %></h2>
-<%= js_filter_field '#tag_list li' %>
+<%= js_filter_field '.tag-list li' %>
 <ul>
   <%= render_tag_list('Alchemy::Attachment', p) %>
 </ul>
