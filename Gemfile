@@ -35,6 +35,7 @@ group :development, :test do
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'rails-controller-testing', '~> 0.1'
 end
 
 # We need this if we want to start the dummy app in development mode
