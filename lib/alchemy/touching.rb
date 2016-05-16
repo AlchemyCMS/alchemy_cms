@@ -2,7 +2,7 @@ module Alchemy
   module Touching
     # Touches the timestamps and userstamps
     #
-    def touch
+    def touch(*names, time: nil)
       # Using update here, because we want the touch call to bubble up to the page.
       update(touchable_attributes)
     end
