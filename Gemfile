@@ -6,6 +6,9 @@ gem 'sqlite3' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
 gem 'mysql2', '~> 0.3.18' if ENV['DB'] == 'mysql'
 gem 'pg'      if ENV['DB'] == 'postgresql'
 
+# Rails 5 compatibility
+gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
+
 group :development, :test do
   gem 'jasmine-rails',        github: 'searls/jasmine-rails'
   gem 'jasmine-jquery-rails', github: 'travisjeffery/jasmine-jquery-rails'
