@@ -7,13 +7,6 @@ module Alchemy
   module PageRedirects
     extend ActiveSupport::Concern
 
-    included do
-      # We need a +@page+ to work with
-      before_action :page_not_found!,
-        if: -> { @page.blank? },
-        only: [:show]
-    end
-
     private
 
     # Returns an URL to redirect the request to.

@@ -9,8 +9,13 @@ module Alchemy
     before_action :load_index_page, only: [:index]
     before_action :load_page, only: [:show]
 
-    # Page redirects need to run after the page was loaded. Order is important here!
+    # Legacy page redirects need to run after the page was loaded and before we render 404.
     include LegacyPageRedirects
+
+    # From here on, we need a +@page+ to work with!
+    before_action :page_not_found!, if: -> { @page.blank? }, only: [:index, :show]
+
+    # Page redirects need to run after the page was loaded and we're sure to have a +@page+ set.
     include PageRedirects
 
     # We only need to set the +@root_page+ if we are sure that no more redirects happen.
@@ -35,8 +40,6 @@ module Alchemy
     # If no public page can be found it renders a 404 error.
     #
     def index
-      @page || page_not_found!
-
       if Alchemy::Config.get(:redirect_index)
         ActiveSupport::Deprecation.warn("The configuration option `redirect_index` is deprecated and will be removed with the release of Alchemy v4.0")
         raise "Remove deprecated `redirect_index` configuration!" if Alchemy.version == "4.0.0.rc1"
