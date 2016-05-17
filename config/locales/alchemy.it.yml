@@ -537,7 +537,7 @@ it:
     save: "Salva"
     "save order": "Salva ordine"
     saved_link: "Link salvato."
-    search: "cercat"
+    search: "cerca"
     search_engines: "Motori di ricerca"
     select_element: "Seleziona elemento"
     seperate_tags_with_comma: "Separa i tag con una virgola"
