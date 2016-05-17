@@ -66,6 +66,21 @@ module Alchemy
                 alchemy_get :index
               }.to raise_error(ActionController::RoutingError)
             end
+
+            context "when a page layout callback is set" do
+              before do
+                ApplicationController.send(:extend, Alchemy::OnPageLayout)
+                ApplicationController.class_eval do
+                  on_page_layout('index') { "do something" }
+                end
+              end
+
+              it 'raises routing error (404) and no "undefined method for nil" error' do
+                expect {
+                  alchemy_get :index
+                }.to raise_error(ActionController::RoutingError)
+              end
+            end
           end
 
           context 'and redirect_to_public_child is set to true' do
