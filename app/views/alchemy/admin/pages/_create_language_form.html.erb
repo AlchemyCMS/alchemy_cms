@@ -21,22 +21,26 @@
   <%- end -%>
 
   <%- if params[:action] == "index" -%>
-
-  <%= form_for([:admin, Alchemy::Page.new]) do |form| %>
-    <h3><%= Alchemy.t(:create_language_tree_heading) %></h3>
-    <p><%= Alchemy.t(:want_to_create_new_language) %></p>
-    <%= form.hidden_field :name, value: @language.frontpage_name %>
-    <%= form.hidden_field :language_id, value: @language.id %>
-    <%= form.hidden_field :language_code, value: @language.code %>
-    <%= form.hidden_field :page_layout, value: @language.page_layout %>
-    <%= form.hidden_field :language_root, value: true %>
-    <%= form.hidden_field :parent_id, value: root.id %>
-    <%= form.hidden_field :public, value: Alchemy::Language.all.size == 1 %>
-    <div class="submit">
-      <%= form.button Alchemy.t("create_tree_as_new_language", language: @language.name), autofocus: true %>
-    </div>
-  <% end %>
-
+    <%= alchemy_form_for([:admin, Alchemy::Page.new], id: 'create_language_tree') do |form| %>
+      <% if @languages_with_page_tree.size >= 1 %>
+        <h3><%= Alchemy.t(:create_language_tree_heading) %></h3>
+        <p><%= Alchemy.t(:want_to_create_new_language) %></p>
+      <% end %>
+      <%= form.input :name, input_html: {value: @language.frontpage_name} %>
+      <%= form.input :page_layout,
+        collection: @page_layouts,
+        selected: @language.page_layout,
+        label: Alchemy.t(:page_type),
+        include_blank: false,
+        required: true,
+        input_html: {class: 'alchemy_selectbox'} %>
+      <%= form.hidden_field :language_id, value: @language.id %>
+      <%= form.hidden_field :language_code, value: @language.code %>
+      <%= form.hidden_field :language_root, value: true %>
+      <%= form.hidden_field :parent_id, value: root.id %>
+      <%= form.hidden_field :public, value: Alchemy::Language.all.size == 1 %>
+      <%= form.submit Alchemy.t("create_tree_as_new_language", language: @language.name), autofocus: true %>
+    <% end %>
   <%- end -%>
 
 <%- else -%>

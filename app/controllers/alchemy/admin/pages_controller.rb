@@ -28,6 +28,7 @@ module Alchemy
         if !@page_root
           @language = Language.current
           @languages_with_page_tree = Language.with_root_page
+          @page_layouts = PageLayout.layouts_for_select(@language.id)
         end
       end
 
