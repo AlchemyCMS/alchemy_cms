@@ -13,7 +13,7 @@
 
 Alchemy is a powerful, flexible and user centric Rails CMS.
 
-Read more about Alchemy on the [website](http://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com).
+Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com/stable/).
 
 
 ## Features
@@ -81,7 +81,7 @@ Put this into your `Gemfile`:
 gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
 ```
 
-**NOTE:** You normally want to use a stable branch, like `3.0-stable`.
+**NOTE:** You normally want to use a stable branch, like `3.3-stable`.
 
 If you want to use Russian translation and have better i18n support, you should put:
 
@@ -110,7 +110,7 @@ If you don't have your own user class, you can use the Alchemy user model. Just 
 gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
 ```
 
-**NOTE:** You normally want to use a stable branch, like `2.0-stable`.
+**NOTE:** You normally want to use a stable branch, like `3.3-stable`.
 
 Then run:
 
@@ -303,7 +303,7 @@ Alchemy specs are written **in RSpec 3**. Please **do not use deprecated RSpec 2
 
 ## License
 
-* BSD: <https://raw.github.com/magiclabs/alchemy_cms/master/LICENSE>
+* BSD: <https://raw.githubusercontent.com/AlchemyCMS/alchemy_cms/master/LICENSE>
 
 
 ## Spread the love
