@@ -1,6 +1,6 @@
 # Change Log
 
-## 3.3.0 (unreleased)
+## 3.3.0 (2016-05-18)
 
 __New Features__
 
@@ -60,7 +60,20 @@ __Fixed Bugs__
 * Use the site_id parameter and the session only in the Admin area
 * Render 404 if accessing an unpublished index page that has "on page layout" callbacks
 
-[Full Change Log](https://github.com/AlchemyCMS/alchemy_cms/compare/v3.2.0...HEAD)
+[Full Change Log](https://github.com/AlchemyCMS/alchemy_cms/compare/v3.2.1...v3.3.0)
+
+## 3.2.1 (2016-03-31)
+
+__Fixed Bugs__
+
+* Fix constant lookup issues with registered abilites
+* Fix: `EssenceSelect` grouped `select_values`
+* Respect `:reverse` option when sorting elements
+* Directly updates position in database while sorting contents
+* Don't show trashed elements when using a fallback
+* Fixes wrong week number in datepicker
+
+[Full Change Log](https://github.com/AlchemyCMS/alchemy_cms/compare/v3.2.0...v3.2.1)
 
 ## 3.2.0 (2015-07-31)
 
