@@ -87,7 +87,7 @@ it:
     contactform:
       labels:
         salutation: 'Salve'
-        choose: 'Prego scelga'
+        choose: 'Scegli'
         mr: 'Sig.'
         mrs: 'Sig.ra'
         firstname: 'Nome'
@@ -155,11 +155,11 @@ it:
 
     resource_help_texts:
       site:
-        aliases: Prego separa i domini aggiuntivi con uno spazio od un ritorno a capo.
+        aliases: Separa i domini aggiuntivi con uno spazio od un ritorno a capo.
 
     anchor: 'Collegamento'
     back: 'indietro'
-    create_tree_as_new_language: "Crea un nuovo albero della lingua per %{language}"
+    create_tree_as_new_language: "Crea una nuova struttura della lingua per %{language}"
     locked_pages: "Pagine attive"
     "Add global page": "Aggiungi pagina globale"
     "Add page link": "Aggiungi un collegamento alla pagina"
@@ -207,7 +207,7 @@ it:
     "Language successfully created": "Lingua creata con successo."
     "Language successfully removed": "Lingua rimossa con successo."
     "Language successfully updated": "Lingua aggiornata con successo."
-    "Language tree": "Albero delle lingue"
+    "Language tree": "Struttura delle lingue"
     "Layout default": "Layout di default"
     "Library shortcuts": "Scorciatoie della libreria"
     "Logged in as": "Autenticato come"
@@ -241,12 +241,12 @@ it:
     "Picture deleted successfully": "Immagine %{name} eliminata con successo"
     "Pictures updated successfully": "Immagini caricate con successo"
     "Picture cache flushed": "Cache delle immagini svuotata"
-    "Please Signup": "Prego registrati per modificare il tuo sito web."
-    "Please choose": "Prego scegli"
-    "Please enter a new password": "Prego inserisci una nuova password."
-    "Please enter your email address": "Prego inserisci il tuo indirizzo email."
-    "Please log in": "Prego autenticati."
-    "Please seperate the tags with commata": "* Prego separa i tag con delle virgole."
+    "Please Signup": "Registrati per modificare il tuo sito web."
+    "Please choose": "Scegli"
+    "Please enter a new password": "Inserisci una nuova password."
+    "Please enter your email address": "Inserisci il tuo indirizzo email."
+    "Please log in": "Autenticati."
+    "Please seperate the tags with commata": "* Separa i tag con delle virgole."
     "Properties": "Proprietà"
     "Publish page": "Pubblica pagina"
     "Read the License": "Leggi la Licenza"
@@ -288,9 +288,9 @@ it:
     "View File": "Mostra File"
     "Visit page": "Visita pagina"
     "Warning!": "Attenzione!"
-    content_definition_missing: "Attenzione: Manca la definizione del contenuto. Prego controlla il file elements.yml"
-    element_definition_missing: "ATTENZIONE! Manca la definizione dell'elemento. Prego controlla il file elements.yml."
-    page_definition_missing: "ATTENZIONE! Manca la definizione del layout della pagina. Prego controlla il file page_layouts.yml."
+    content_definition_missing: "Attenzione: Manca la definizione del contenuto. Controlla il file elements.yml"
+    element_definition_missing: "ATTENZIONE! Manca la definizione dell'elemento. Controlla il file elements.yml."
+    page_definition_missing: "ATTENZIONE! Manca la definizione del layout della pagina. Controlla il file page_layouts.yml."
     "Welcome to Alchemy": "Benvenuto su Alchemy"
     "Who else is online": "Altre persone online"
     "Yes": "Sì"
@@ -313,15 +313,15 @@ it:
     assign_file: "Assegna un file"
     assign_file_from_archive: "assegna un file dal tuo archivio"
     assign_image: "Assegna un'immagine"
-    attachment_filename_notice: "* Prego non utilizzare alcun carattere speciale per il nome del file."
+    attachment_filename_notice: "* Non utilizzare alcun carattere speciale per il nome del file."
     auto_play: "Riproduci il video dopo il caricamento"
     big_thumbnails: "Miniature grandi"
     browse: "sfoglia"
     cancel: "annulla"
     cannot_delete_picture_notice: "Impossibile eliminare l'Immagine %{name} poiché è ancora in uso."
-    choose_element_as_target: "Prego scegli un elemento come destinatario"
-    choose_element_to_link: "Prego scegli un elemento"
-    choose_file_to_link: "Prego scegli un file da linkare"
+    choose_element_as_target: "Scegli un elemento come destinatario"
+    choose_element_to_link: "Scegli un elemento"
+    choose_file_to_link: "Scegli un file da linkare"
     "clear clipboard": "svuota appunti"
     "clear trash": "svuota cestino"
     click_to_show_all: "Clicca per tornare a mostrare tutto."
@@ -332,18 +332,18 @@ it:
     confirm_to_delete_page: "Vuoi eliminare veramente questa pagina? I suoi elementi andranno persi!"
     content_essence_not_found: "Essenza del contenuto non trovata"
     content_not_found: "Campo per il contenuto non trovato."
-    content_validations_headline: "Prego controlla i campi segnati qui sotto"
+    content_validations_headline: "Controlla i campi segnati qui sotto"
     copy: "copia"
     copy_element: "Copia questo elemento"
     copy_page: "Copia pagina"
     "Could not delete Pictures": "Impossibile eliminare le Immagini"
-    copy_language_tree_heading: "Copia albero delle pagine"
+    copy_language_tree_heading: "Copia struttura delle pagine"
     country_code_placeholder: 'ad es. US (opzionale)'
     country_code_foot_note: "È necessario configurare un codice nazione solo se vuoi supportare diverse nazioni con la stessa lingua."
     create: "crea"
     "Create language": "Crea una nuova lingua"
     "Create site": "Crea un nuovo sito"
-    create_language_tree_heading: "Crea un albero delle lingue vuoto"
+    create_language_tree_heading: "Crea una struttura delle lingue vuoto"
     create_page: "Crea una nuova sottopagina"
     currently_edited_by: "Questa pagina è bloccata da"
     cut_element: "Taglia questo elemento."
@@ -368,7 +368,7 @@ it:
     element_editor_not_found: "Errore in questo Elemento"
     element_of_type: "Elemento"
     element_saved: "Elemento salvato."
-    enter_external_link: "Prego inserisci l'URL con il quale vuoi creare il link"
+    enter_external_link: "Inserisci l'URL con il quale vuoi creare il link"
     explain_cropping: "<p>Muovi la cornice e cambia la sua dimensione per configurare la sezione dell'immagine.</p><p>Clicca su applica quando sei soddisfatto.</p>"
     explain_publishing: "Pubblica la pagina e rimuovi la versione in cache dal server."
     explain_sitemap_dragndrop_sorting: "Suggerimento: Trascina le immagini dall'icona per riordinarle."
@@ -380,7 +380,7 @@ it:
       step2: "Seleziona tutti gli oggetti %{name} di cui vuoi fare l'upload"
       step3: "Clicca il bottone 'apri'. L'upload parte!"
       dragndrop: "Puoi anche trascinare dei file dal tuo computer sull'area sottostante."
-    external_link_notice_1: "Prego inserisci l'url completo con http:// o un protocollo simile."
+    external_link_notice_1: "Inserisci l'url completo con http:// o un protocollo simile."
     external_link_notice_2: "Per fare riferimento ad un indirizzo interno al tuo sito, comincia il link con /."
     female: "Femmina"
     file: "File"
@@ -416,10 +416,10 @@ it:
     "item moved to clipboard": "%{name} spostato alla clipboard"
     "item removed from clipboard": "%{name} eliminato dalla clipboard"
     javascript_disabled_headline: "Javascript disabilitato!"
-    javascript_disabled_text: "Javascript è richiesto per far funzionare Alchemy al meglio. Prego abilitalo nelle configurazioni del tuo browser."
+    javascript_disabled_text: "Javascript è richiesto per far funzionare Alchemy al meglio. Abilitalo nelle configurazioni del tuo browser."
     language_code_placeholder: 'i.e. it'
-    language_does_not_exist: "Questo albero della lingua non esiste"
-    language_pages_copied: "Albero della lingua copiato con successo."
+    language_does_not_exist: "Questa struttura della lingua non esiste"
+    language_pages_copied: "Struttura della lingua copiata con successo."
     last_upload_only: "Solo ultimo upload"
     left: "sinistra"
     legacy_url_info_text: "Un link è un redirect da una vecchia URL alla nuova URL di questa pagina. Questo redirect viene gestito tramite uno <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>status code 301</a>."
@@ -453,7 +453,7 @@ it:
     name: "Nome"
     names: "Nomi"
     navigation_name: "Nome di navigazione"
-    no_image_for_cropper_found: "Nessuna immagine trovata. Prego salva prima l'elemento."
+    no_image_for_cropper_found: "Nessuna immagine trovata. Salva prima l'elemento."
     no: "No"
     "no pages": "nessuna pagina"
     "no users": "nessun utente"
@@ -508,8 +508,8 @@ it:
     pictures_in_page: "%{page} in %{pictures}"
     place_link: "Testo del link"
     player_version: "Versione Flash Player"
-    "please enter subject and mail address": "Prego inserisci destinatario ed oggetto."
-    please_confirm: "Prego conferma"
+    "please enter subject and mail address": "Inserisci destinatario ed oggetto."
+    please_confirm: "Conferma"
     please_wait: "Attendi prego"
     position_in_text: "Posizione nel testo"
     preview_size: "Dimensione preview"
@@ -569,12 +569,12 @@ it:
     upload_image: "Upload (uno/più) immagini"
     url_name: "URL-Name"
     visible: "visibile"
-    want_to_create_new_language: "Vuoi creare un nuovo albero della lingua vuoto?"
-    want_to_make_copy_of_existing_language: "Vuoi copiare un albero della lingua esistente?"
+    want_to_create_new_language: "Vuoi creare una nuova struttura vuota della lingua?"
+    want_to_make_copy_of_existing_language: "Vuoi copiare una struttura esistente della lingua?"
     "We need at least one default.": "Deve esistere almeno una lingua di default."
     welcome_note: "Benvenuto %{name}"
     welcome_back_note: "Bentornato %{name}"
-    welcome_please_identify_notice: "Benvenuto! Prego identificati."
+    welcome_please_identify_notice: "Benvenuto! Per favore identificati."
     width: "Larghezza"
     without_tag: "Senza tag"
     you_can_rename_this_tag: "Puoi rinominare questo tag"
@@ -749,18 +749,18 @@ it:
       alchemy/element:
         attributes:
           name:
-            blank: "^Prego scegli un elemento."
+            blank: "^Scegli un elemento."
       alchemy/language:
         attributes:
           language_code:
-            invalid: '^Il formato del codice della lingua è errato. Prego usa esattamente 2 lettere minuscole.'
+            invalid: '^Il formato del codice della lingua è errato. Usa esattamente 2 lettere minuscole.'
             taken: 'è già preso per questo codice nazione.'
       alchemy/page:
         attributes:
           name:
-            blank: "^Prego inserisci un nome."
+            blank: "^Inserisci un nome."
           page_layout:
-            blank: "^Prego scegli un layout per la pagina."
+            blank: "^Scegli un layout per la pagina."
           urlname:
             too_short: "^L'url della pagina è troppo corto (minimo 3 caratteri)."
             taken: "^URL-Name è già preso."
@@ -768,7 +768,7 @@ it:
       alchemy/picture:
         attributes:
           image_file:
-            blank: "Prego carica un'immagine."
+            blank: "Carica un'immagine."
 
   activemodel:
     models:
