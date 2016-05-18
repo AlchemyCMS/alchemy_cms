@@ -23,10 +23,16 @@ describe 'Language tree feature', type: :feature, js: true do
   context "with no language root page" do
     before { klingon }
 
-    it "it should display the form for creating language root" do
+    it "displays a form for creating language root with preselected page layout and front page name" do
       visit('/admin/pages')
       page.select 'Klingon', from: 'language_id'
       expect(page).to have_content('This language tree does not exist')
+
+      within('form#create_language_tree') do
+        expect(page).to \
+          have_selector('input[type="text"][value="' + klingon.frontpage_name + '"]')
+        expect(page).to have_selector('option[selected="selected"][value="' + klingon.page_layout + '"]')
+      end
     end
   end
 end

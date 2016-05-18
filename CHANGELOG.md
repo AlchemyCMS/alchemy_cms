@@ -19,6 +19,7 @@ __New Features__
 * Deprecate `redirect_index` configuration
 * Add Nestable elements feature
 * Default site in seeder is now configurable
+* Frontpage name and page layout are now editable when creating new language trees
 
 __Notable Changes__
 
