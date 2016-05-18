@@ -13,36 +13,34 @@ require_ssl: false
 #
 # The amount of time of inactivity in minutes after which the user is kicked out of his current session.
 #
-# INFO: This is only active in production environments
+# NOTE: This is only active in production environments
 #
 auto_logout_time: 30
 
 # === Redirect Options
 #
-#   redirect_index            [Boolean]   # You can disable the redirect to first child page for not public pages.
 #   redirect_to_public_child  [Boolean]   # Alchemy redirects to the first public child page found, if a page is not visible.
 #
-redirect_index: true
 redirect_to_public_child: true
 
 # === Page caching
 #
-# Enable/Disable pagecaching globally.
+# Enable/Disable page caching globally.
 #
-# Hint: You can enable/disable page caching for single Alchemy::PageLayouts in the page_layout.yml file.
+# NOTE: You can enable/disable page caching for single Alchemy::PageLayouts in the page_layout.yml file.
 #
 cache_pages: true
 
 # === Sitemap
 #
-# Alchemy renders a nice HTML (<ul><li> style) and XML (Google conform!) Sitemap for you.
+# Alchemy creates a XML, Google compatible, sitemap for you.
 #
-# Just place a sitemap element for a page layout in your page_layouts.yml file. Alchemy does the rest.
+# The url is: http://your-domain.tld/sitemap.xml
 #
-# ==== Options:
+# ==== Config Options:
 #
 #   show_root [Boolean] # Show language root page in sitemap?
-#   show_flag [Boolean] # Enables the Checkbox in Page#update overlay. So your customer can set the visibilit of pages in the sitemap.
+#   show_flag [Boolean] # Enables the Checkbox in Page#update overlay. So your customer can set the visibility of pages in the sitemap.
 #
 sitemap:
   show_root: true
@@ -50,11 +48,11 @@ sitemap:
 
 # === URL nesting
 #
-# Since Alchemy 2.6.0 page urls are nested, respectivley to their tree position.
+# Since Alchemy 2.6.0, page urls are nested, respectively to their tree position.
 #
 # Disable +url_nesting+ to get slug only urls.
 #
-# NOTE: After changing the url_nesting, you should run one of these convert rake task:
+# NOTE: After changing the url_nesting, you should run one of these convert rake tasks:
 #
 #   rake alchemy:convert:urlnames:to_nested
 #   rake alchemy:convert:urlnames:to_slug
@@ -73,13 +71,18 @@ url_nesting: true
 #   preprocess_image_resize   [String]        # Use this option to resize images to that value. Downsizing example: '1000x1000>' (Default nil)
 #   image_output_format       [String]        # The global image output format setting.
 #
-# TIP: You can always override the output format in the options of your Essence. I.E. {:format => :gif}
+# NOTE: You can always override the output format in the options of your Essence. I.E. {:format => :gif}
 #
 output_image_jpg_quality: 85
 preprocess_image_resize:
 image_output_format: jpg
 
-# This is the default language for the seeder.
+# This is used by the seeder to create the default site.
+default_site:
+  name: Default Site
+  host: '*'
+
+# This is the default language when a new site gets created.
 default_language:
   code: de
   name: Deutsch
@@ -88,11 +91,11 @@ default_language:
 
 # === Mailer Settings:
 #
-# To send Mails via contact forms you can create your form fields here and set which fields are to be validated.
+# To send emails via contact forms, you can create your form fields here and set which fields are to be validated.
 #
 # === Validating fields:
 #
-# Pass the field name as symbol and a message_id (will be translated) to :validate_fields:
+# Pass the field name as a symbol and a message_id (will be translated) to :validate_fields:
 #
 # ==== Options:
 #
@@ -151,12 +154,13 @@ uploader:
   upload_limit: 50
   file_size_limit: 100
   allowed_filetypes:
-    pictures:
-    - :jpg
-    - :jpeg
-    - :gif
-    - :png
-    attachments: ['*']
+    alchemy/attachments:
+    - '*'
+    alchemy/pictures:
+    - jpg
+    - jpeg
+    - gif
+    - png
 
 # === Link Target Options
 #
@@ -174,4 +178,16 @@ link_target_options: [blank]
 # Should pages that redirect to an external url open the link in a new tab/window?
 open_external_links_in_new_tab: true
 
-email_regexp: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
+# === Format matchers
+#
+# Named aliases for regular expressions that can be used in various places.
+# The most common use case is the format validation of essences, or attribute validations of your individual models.
+#
+# == Example:
+#
+#   validates_format_of :url, with: Alchemy::Config.get('format_matchers')['url']
+#
+format_matchers:
+  email: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
+  url: !ruby/regexp '/\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix'
+  link_url: !ruby/regexp '/^(mailto:|\/|[a-z]+:\/\/)/'

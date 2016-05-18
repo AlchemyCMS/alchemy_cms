@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160322214809) do
+ActiveRecord::Schema.define(version: 20160518190427) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
@@ -192,6 +192,7 @@ ActiveRecord::Schema.define(version: 20160322214809) do
     t.boolean  "default",        default: false
     t.string   "country_code",   default: "",      null: false
     t.integer  "site_id"
+    t.string   "locale"
   end
 
   add_index "alchemy_languages", ["language_code", "country_code"], name: "index_alchemy_languages_on_language_code_and_country_code"
