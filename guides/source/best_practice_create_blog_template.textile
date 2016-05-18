@@ -98,9 +98,8 @@ h4. Categories Block
 The 'categories block' has a headline and a list of available categories.
 
 The <code>categories_headline</code> is represented by an <code>EssenceText</code>.
-In the backend the user should be able to add categories easily and dynamically. Thats the reason why we choose the <code>available_contents</code> option.
-
-Its important to copy the definition of <code>category</code> below <code>contents</code> to <code>available_contents</code>. Besides this, we also make the <code>EssenceText</code> <code>deletable</code> and <code>linkable</code> via <code>settings</code>.
+In the backend the user should be able to add categories easily and dynamically.
+Thats the reason why we choose the <code>nestable_elements</code> feature.
 
 <yaml>
 - name: categories_block
@@ -108,16 +107,14 @@ Its important to copy the definition of <code>category</code> below <code>conten
   - name: categories_headline
     type: EssenceText
     default: Categories
-  - name: category
+  nestable_elements:
+  - category
+
+- name: category
+  contents:
+  - name: name
     type: EssenceText
     settings:
-      deleteable: true
-      linkable: true
-  available_contents:
-  - name: category
-    type: EssenceText
-    settings:
-      deletable: true
       linkable: true
 </yaml>
 
@@ -244,7 +241,7 @@ h4. _blog_title_view.html.erb
 <erb>
 <%- cache(element) do -%>
   <%= element_view_for(element, tag: 'h1') do |el| -%>
-  <%= el.render :title %> <small><%= el.render :text %></small>
+    <%= el.render :title %> <small><%= el.render :text %></small>
   <%- end -%>
 <%- end -%>
 </erb>
@@ -254,14 +251,20 @@ h4. _categories_block_view.html.erb
 <erb>
 <%- cache(element) do -%>
   <%= element_view_for(element) do |el| -%>
-  <h5>
-    <%= el.render :categories_headline %>
-  </h5>
-    <% element.all_contents_by_name('category').each do |content| %>
-    <p>
-      <%= render_essence_view(content) %>
-    </p>
+    <h5><%= el.render :categories_headline %></h5>
+    <% element.nested_elements.each do |nested_element| %>
+      <%= render_element(nested_element) %>
     <%- end -%>
+  <%- end -%>
+<%- end -%>
+</erb>
+
+h4. _category_view.html.erb
+
+<erb>
+<%- cache(element) do -%>
+  <%= element_view_for(element, tag: 'p') do |el| -%>
+    <%= el.render :name %>
   <%- end -%>
 <%- end -%>
 </erb>
