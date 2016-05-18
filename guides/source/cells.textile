@@ -1,6 +1,10 @@
 h2. Cells
 
-Cells are sections on a page and are acting as containers for elements.
+Cells are fixed areas on a page and act as element containers.
+
+Often you have fixed sections on a page like a sidebar or the popular hero. These are perfect candidates for cells.
+
+If you want to be able to change the position of element containers, you probably want to use "nestable elements":elements.html#element-with-nestable-elements instead.
 
 endprologue.
 
@@ -31,12 +35,16 @@ page_layouts.yml
   elements: [image, text]
 </yaml>
 
+h3. Render cells
+
 Normally cells are rendered on page_layouts. They can be called with this helper method:
 
 <erb>
 <%= render_cell(:cellname) %>
 </erb>
 
-If you render cells like this, an additional view-partial is rendered, naming scheme is <code>/app/views/alchemy/cells/_left_column.html.erb</code>
+NOTE: If you render cells like this, an additional view-partial is rendered, naming scheme is <code>/app/views/alchemy/cells/_left_column.html.erb</code>
 
-In this partial use <code><%= render_elements :from_cell => 'left_column' %></code> to render cell-related elements only.
+h4. Render elements from cell
+
+In this partial use <code><%= render_elements from_cell: 'left_column' %></code> to render cell-related elements only.
