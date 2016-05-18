@@ -1,12 +1,16 @@
 h2. Elements
 
-An element is mostly a set of contents that belong together, visually and contextually.
+Elements are reusable sets of contents that belong together, visually and contextually.
 
-Imagine you bundle a headline, a text block and a picture - that is a typical article element.
+Imagine you bundle a headline, a text block and a picture - this is a typical element, maybe you want to call it an "article".
 
-The element's contents are also called "essences":essences.html and belong to certain essence types. Each essence type represents a data type that can be stored in a database.
+Some people speak of widgets, blocks or components. All these are elements in Alchemy. Elements can be nested into each other and are the key of Alchemy's flexible content architecture.
 
-Each element has two related view partials. One which renders the essences on your website, the other which renders form fields in the admin frontend for the editor. "These partials can be generated automatically":#generating-the-partials.
+They give you a powerful tool to build the CMS you need.
+
+The contents of an element are of a specific "essence":essences.html. Each essence represents a data type that get stored into the database.
+
+Elements have two view partials. One which represents the element on your website, the other which renders form fields in the admin for the editors.
 
 endprologue.
 
@@ -14,7 +18,7 @@ h3. Defining elements
 
 Elements get defined in the <code>config/alchemy/elements.yml</code> file.
 
-If this file does not exist yet, use the following scaffold generator to do that now:
+If this file does not exist yet, use the scaffold generator to do that now:
 
 <shell>
 rails g alchemy:scaffold
@@ -22,27 +26,31 @@ rails g alchemy:scaffold
 
 INFO: The generator also creates all the other basic folders and files for setting up your website with Alchemy.
 
-NOTE: <strong>The element definitions are being cached. Please restart the server after editing the elements.yml.</strong>
+NOTE: <strong>The element definitions get cached. Please restart the server after editing the elements.yml.</strong>
 
 h4. Example of an element definition
 
 <yaml>
 # config/alchemy/elements.yml
 - name: article
-    unique: true
-    contents:
-    - name: image
-      type: EssencePicture
-    - name: headline
-      type: EssenceText
-      as_element_title: true
-    - name: copy
-      type: EssenceRichtext
+  unique: true
+  contents:
+  - name: image
+    type: EssencePicture
+  - name: headline
+    type: EssenceText
+    as_element_title: true
+  - name: copy
+    type: EssenceRichtext
 </yaml>
 
-The element in this example is named <em>article</em> and can be placed only once per page. It has three contents of the following types: <code>EssencePicture</code>, <code>EssenceText</code> and <code>EssenceRichtext</code>.
+The element in this example is named <strong>"article"</strong> and can be placed only once per page. It has three contents of the following types:
 
-You can select which content will be used for the preview text in the element's title bar in the admin frontend by adding <code>as_element_title: true</code> to the desired content. In the example above, the "headline" content would be used.
+* "EssencePicture":essences.html#essencepicture
+* "EssenceText":essences.html#essencetext
+* "EssenceRichtext":essences.html#essencerichtext
+
+You can select which content will be used for the preview text in the element's title bar in the admin frontend by adding <code>as_element_title: true</code> to the desired content. In the example above, the <strong>"headline"</strong> content would be used.
 
 h4. Element settings
 
@@ -54,8 +62,8 @@ The following settings can be used to define elements in the <code>elements.yml<
   (Default: <code>false</code>) Passing <code>true</code> means this element can be placed only once on a page.
 * <strong>hint</strong> <code>String</code><br>
   A hint for the user in the admin frontend that describes what the element is used for. The hint is "translatable":#translations if you provide an I18n translation key instead of a complete sentence.
-* <strong>available_contents</strong> <code>Array</code><br>
-  A collection of contents that can be added to the element dynamically by the user in the admin frontend.
+* <strong>nestable_elements</strong> <code>Array</code><br>
+  A collection of element names that can be nested into the element.
 * <strong>taggable</strong> <code>Boolean</code><br>
   Enables the element to be taggable by the user in the admin frontend.
 * <strong>picture_gallery</strong> <code>Boolean</code><br>
@@ -63,7 +71,9 @@ The following settings can be used to define elements in the <code>elements.yml<
 * <strong>contents</strong> <code>Array</code><br>
   A collection of contents the element contains. A content has to have a <code>name</code> (unique per element) and a <code>type</code>. Take a look at the "essences guide":essences.html to get more informations about the available essence types.
 
-In the following examples you will see how to use these settings. In the code examples of the partials we use the "slim template engine":http://slim-lang.com instead of "ERB":http://en.wikipedia.org/wiki/ERuby to keep the markup short and easy to understand.
+In the following examples you will see how to use these settings.
+
+In the code examples of the partials we use the "slim template engine":http://slim-lang.com instead of "ERB":http://en.wikipedia.org/wiki/ERuby to keep the markup short and easy to understand.
 
 h4. Element with picture gallery
 
@@ -116,45 +126,45 @@ Alternatively, if you want to customize the way the gallery pictures are rendere
 <%= image_tag show_alchemy_picture_url(image.essence.picture, :size => "102x73", :format => "png") %>
 </erb>
 
-h4. Element with addable contents
+h4. Element with nestable elements
 
-You are able to allow your users to add contents dynamically to the element.
+You are able to nest elements into other elements.
 
-You just need to define available contents in the <code>elements.yml</code>.
-If you also want to allow the users to delete these contents you can also define that.
+Just define nestable elements in your <code>elements.yml</code> file.
 
-h5. Example of element definition with available contents
+h5. Example
 
 <yaml>
 - name: article
   contents:
   - name: headline
     type: EssenceText
-  available_contents:
+  nestable_elements:
+  - text
+
+- name: text
+  contents:
   - name: text
     type: EssenceRichtext
-    settings:
-      deletable: true
 </yaml>
 
-Additionally you need to alter the editor partial of that element for rendering the dynamically created contents. You just need to iterate through them and use the following helper methods.
+NOTE: Nested elements can also have nestable elements. Don't get too crazy with it, though.
 
-h5. Example of editor partial using the available contents feature
+h5. Rendering nested elements
+
+Use the <code>render_element</code> helper to render each nested element.
 
 <erb>
-- element.all_contents_by_name('text').each do |content|
-  = label_and_remove_link(content)
-  = render_essence_editor(content)
-p = render_create_content_link(element, 'text', :label => _t('add_text'))
+<%= element_view_for(element) do |el| %>
+  <h3><%= el.render :headline %></h3>
+
+  <div class="text-blocks">
+    <% element.nested_elements.each do |nested_element| %>
+      <%= render_element nested_element %>
+    <% end %>
+  </div>
+<% end %>
 </erb>
-
-As shown in the example, we used the <code>label_and_remove_link</code> helper. It renders a label with the content's name and a small button to delete it.
-
-We also used the <code>render_create_content_link</code> helper. It renders a button to create certain contents instantly.
-
-Now an Alchemy user can add the content <code>text</code> from the element as much as desired and is able to delete them again.
-
-INFO: If you have more than one available content, you can use the <code>render_new_content_link</code> helper instead. It will provide a button that opens an overlay with a selectbox holding all available contents.
 
 h4. Element with tags
 
@@ -164,13 +174,13 @@ Elements are taggable. To enable it, add <code>taggable: true</code> to the elem
 - name: article
   taggable: true
   contents:
-    - name: image
-      type: EssencePicture
-    - name: headline
-      type: EssenceText
-      as_element_title: true
-    - name: copy
-      type: EssenceRichtext
+  - name: image
+    type: EssencePicture
+  - name: headline
+    type: EssenceText
+    as_element_title: true
+  - name: copy
+    type: EssenceRichtext
 </yaml>
 
 Tags are a collection on the <code>element</code> object. <code>element.tag_list</code> returns an array of tag names.
@@ -187,8 +197,10 @@ You can enable validations for your contents. They behave like the Rails model v
 
 INFO: Supported validations are: <code>presence</code>, <code>uniqueness</code>, <code>format</code>
 
-format needs to come with a "regular expression":http://rubular.com or a predefined matcher string as its value.
+The <code>format</code> validator needs to have a "regular expression":http://rubular.com or a predefined matcher string as its value.
+
 There are already predefined format matchers listed in the <code>config/alchemy/config.yml</code> file.
+
 It is also possible to add own format matchers there.
 
 h5. Example of format matchers
@@ -207,32 +219,45 @@ h5. Example of an element definition with essence validations:
   contents:
   - name: name
     type: EssenceText
-    validate: [presence]
+    validate:
+    - presence: true
   - name: email
     type: EssenceText
-    validate: [format: 'email']
+    validate:
+    - format: email
   - name: homepage
     type: EssenceText
-    validate: [format: !ruby/regexp '/^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/']
+    validate:
+    - format: !ruby/regexp '/^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/']
 </yaml>
 
-The email content is being validated against the predefined 'email' matcher in the config.yml. The homepage content is matched against the given regexp.
+The <strong>"email"</strong> content gets validated against the predefined 'email' matcher in the config.yml.
+
+The <strong>"homepage"</strong> content is matched against the given regexp.
 
 h5. Example of an element definition with chained validations.
+
+Contents can have multiple validations.
 
 <yaml>
 - name: person
   contents:
   - name: name
     type: EssenceText
-    validate: [presence, uniqueness, format: 'name']
+    validate:
+    - presence: true
+    - uniqueness: true
+    - format: name
 </yaml>
 
-The validations are evaluated in the order as they are defined in the list. At first the name content will be validated for presence, then for uniqueness and at least against its format.
+The validations are evaluated in the order as they are defined in the list.
+
+At first the name content will be validated for <code>presence</code>, then for <code>uniqueness</code> and at least against its <code>format</code>.
 
 h3. Assign elements to page layouts
 
 Before you can use elements on pages, you need to define on which page layouts your element can be placed.
+
 So open <code>config/alchemy/page_layouts.yml</code> in your text editor and put the name of your new element into the list of available elements for a specific page layout.
 
 <yaml>
@@ -241,8 +266,9 @@ So open <code>config/alchemy/page_layouts.yml</code> in your text editor and put
   autogenerate: [article]
 </yaml>
 
-You can now place the article element on each page with page layout `standard`.
-All future created pages with page layout `standard` will automatically create the article element for you.
+You can now place the article element on each page with page layout <code>standard</code>.
+
+All future created pages with page layout <code>standard</code> will automatically create the article element for you.
 
 h3. Generating the partials
 
@@ -264,23 +290,53 @@ According to the first example, the article element, the generator will create t
 
 The generator does not only create these files, it also generates the necessary code for you. Mostly you can take use of the that code and make it nifty by adding some CSS stylings.
 
-h3. Render elements on a page layout
+h3. Render elements in your layout
 
 Now that the above 'article' element example is associated with the 'standard' page layout, the element can be rendered on that layout <code>app/views/alchemy/page_layouts/_standard.html.erb</code>.
 
 <erb>
 ...
-
-<!-- Main Page Content -->
 <div class="row">
-
-  <!-- Main article Content -->
-  <div class="large-9 columns" role="content">
-    <%= render_elements only: 'article' %>
-  </div>
-
+  <%= render_elements %>
+</div>
 ...
 </erb>
+
+This renders all elements from current page.
+
+h4. Render only specific elements
+
+Sometimes you only want to render specific elements on your page and maybe some elements not.
+
+<erb>
+  <body>
+    <header><%= render_elements only: 'header' %></header>
+
+    <main>
+      <%= render_elements except: %w(header footer) %>
+    </main>
+
+    <footer><%= render_elements only: 'footer' %></footer>
+  </body>
+</erb>
+
+h4. Render elements from other pages
+
+A common use case is to have global pages for header and footer parts.
+
+<erb>
+  <body>
+    <header><%= render_elements from_page: 'header' %></header>
+
+    <main>
+      <%= render_elements %>
+    </main>
+
+    <footer><%= render_elements from_page: 'footer' %></footer>
+  </body>
+</erb>
+
+NOTE: Given global pages with <code>page_layout</code> "header" and "footer".
 
 h3. Customizing the view partial
 
@@ -308,30 +364,11 @@ This is the newer notation for rendering the element's partial:
 <% end %>
 </erb>
 
-In some cases you want to use the older style. You can also or mix both. Take a look at this example, its the same html output as the above example:
-
-<erb>
-<div class="article" id="<%= element_dom_id(element) %>"<%= element_preview_code(element) -%>>
-  <h3><%= render_essence_view_by_name(element, 'headline') %></h3>
-  <div class="row">
-    <div class="large-6 columns">
-      <p>
-        <%= render_essence_view_by_name(element, 'image') %>
-      </p>
-    </div>
-    <div class="large-6 columns">
-      <p>
-        <%= render_essence_view_by_name(element, 'text') %>
-      </p>
-    </div>
-  </div>
-</div>
-</erb>
-
-
 The <code>element_view_for</code> helper wraps the inner html code into a <code>div</code> element by default. You can pass arguments to the helper to change its rendering behavior:
 
 The second argument <code>tag</code> is used for the wrapping html tag. Passing <code>false</code> to it means no wrapping at all. Passing the name of any html element to it means the inner html gets wrapped within the given html tag instead of the default <code>div</code>.
+
+h4. Pass options to the element wrapper
 
 You can pass additional arguments to add or change any html attributes of the wrapper.
 
@@ -343,13 +380,30 @@ You can pass additional arguments to add or change any html attributes of the wr
 
 NOTE: If you want to learn more about the helper methods used in these partials, please have a look at the "Documentation":http://rubydoc.info/search/github/magiclabs/alchemy_cms?q=helper.
 
-INFO: The view partial of an element is used for all elements of that kind.
-If you want to have different HTML for one element, define a new one and place it on a specific page layout.
-It is common to have lots of elements defined that are grouped on several page layouts.
+h4. Pass options to the essence view
 
-h3. Translations
+You can pass options to the essence view.
 
-Element and content names are passed through the I18n library.
+<erb>
+<%= element_view_for(element) do |el| %>
+  <%= el.render :image, {image_size: '200x300'}, class: 'image-large' %>
+<% end %>
+</erb>
+
+INFO: The first hash is the <code>options</code> the second one the <code>html_options</code> passed to the wrapper of the content.
+If you only want to pass <code>html_options</code> you need to pass an empty hash as second argument.
+
+<erb>
+<%= element_view_for(element) do |el| %>
+  <%= el.render :image, {}, class: 'image-large' %>
+<% end %>
+</erb>
+
+NOTE: Not all essences have wrapper tags. A list of all essence views are "here":https://github.com/AlchemyCMS/alchemy_cms/tree/master/app/views/alchemy/essences.
+
+h3. Translating elements
+
+Element and content names are passed through Rails' "I18n":http://guides.rubyonrails.org/i18n.html library.
 You can translate them in your <code>config/locales</code> language yml file.
 
 <yaml>
