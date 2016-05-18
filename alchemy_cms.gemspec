@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
   gem.require_paths         = ['lib']
 
   gem.add_runtime_dependency 'actionpack-page_caching',          ['~> 1.0.0']
-  gem.add_runtime_dependency 'active_model_serializers',         ['~> 0.9']
+  gem.add_runtime_dependency 'active_model_serializers',         ['~> 0.9.0']
   gem.add_runtime_dependency 'acts_as_list',                     ['~> 0.3']
   gem.add_runtime_dependency 'acts-as-taggable-on',              ['~> 3.1']
   gem.add_runtime_dependency 'awesome_nested_set',               ['~> 3.0.0']
