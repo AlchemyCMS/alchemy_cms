@@ -68,7 +68,7 @@ module Alchemy
       @page = @element.page
       @root_page = @page.get_language_root
       if @message.valid?
-        Messages.contact_form_mail(@message, mail_to, mail_from, subject).deliver
+        MessagesMailer.contact_form_mail(@message, mail_to, mail_from, subject).deliver
         redirect_to_success_page
       else
         render template: 'alchemy/pages/show'
