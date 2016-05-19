@@ -9,7 +9,7 @@ The guides are created with the [guides](https://github.com/wycats/guides) gem a
 
 ## File locations
 
-The top level namespace includes the top leven static welcome page of http://guides.alchemy-cms.com.
+The top level namespace includes the top level static welcome page of http://guides.alchemy-cms.com.
 
 The actual guides live in the `/guides` folder.
 
