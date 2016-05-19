@@ -7,23 +7,53 @@ Please check out the other branches for guides for the latest stable or older ve
 
 The guides are created with the [guides](https://github.com/wycats/guides) gem and are written in [textile](http://redcloth.org/textile) markup.
 
-## Previewing the guides locally
+## File locations
 
-Run `bundle install` to install [guides](https://github.com/wycats/guides).
+The top level namespace includes the top leven static welcome page of http://guides.alchemy-cms.com.
 
-To run a local guides server, run `guides preview`. The server will be available at [0.0.0.0:9292](http://0.0.0.0:9292).
+The actual guides live in the `/guides` folder.
 
-## Building and deployment
+## Preview the guides
+
+**In the `/guides` folder:**
+
+Run
+
+```sh
+bundle install
+```
+
+to install [guides](https://github.com/wycats/guides).
+
+To run a local guides server, run
+
+```sh
+bundle exec guides preview
+```
+
+The server will be available at [0.0.0.0:9292](http://0.0.0.0:9292).
+
+## Building
 
 Build the guides html files with:
 
-    bundle exec guides build --production
+```sh
+bundle exec guides build --production
+```
 
-If you are building the `master` branch, please use the `--edge` flag
+**If you are building the `master` branch, please use the `--edge` flag**
+
+## Deployment
 
 Deploy the files via:
 
-    bundle exec cap deploy
+```sh
+bundle exec cap deploy
+```
+
+**Deployment takes care of the version deployed.** So, if you want to deploy the 3.3 guides you need to checkout the `3.3` branch first.
+
+The `master` branch deploys the edge version.
 
 ## Contributing
 
