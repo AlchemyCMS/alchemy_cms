@@ -141,6 +141,7 @@ it:
       image/x-psd: 'File-Photoshop'
       image/gif: 'Immagine-GIF'
       image/png: 'Immagine-PNG'
+      image/svg+xml: 'Immagine-SVG'
       image/jpeg: 'Immagine-JPG'
       video/x-msvideo: 'Video-AVI'
       video/x-ms-wmv: 'Windows Media Video'
@@ -190,9 +191,7 @@ it:
     "Element trashed": "Elemento cestinato"
     "Error with the Flash® Uploader!": "Errore dell'Uploader Flash®!"
     "Excerpt": "Estratto"
-    "File uploaded succesfully": "File %{name} caricato con successo"
     "File successfully updated": "File aggiornato con successo"
-    "File upload error": "Errore di caricamento del file: %{error}"
     "File deleted successfully": "%{name} è stato eliminato"
     "Filter by tag": "Filtra per tag"
     "Flush page cache": "Svuota la cache delle pagine"
@@ -201,7 +200,6 @@ it:
     "Hide childpages": "Nascondi le pagine figlie"
     hide_elements: nascondi_elementi
     hide_element: "Nascondi elemento"
-    "If you have any problems using the Flash uploader you can switch to": "Se hai problemi nel caricare i file con il Plugin Flash puoi passare a %{link}"
     "Image missing": "Immagine mancante"
     "Image size": "Dimensione immagine"
     "Language successfully created": "Lingua creata con successo."
@@ -235,8 +233,6 @@ it:
     "Password reset": "Reset della password"
     "Paste from clipboard": "Incolla dagli appunti"
     "Picture infos": "Informazioni sull'immagine"
-    "Picture uploaded succesfully": "Immagine %{name} caricata con successo"
-    "Picture validation error": "Errore nel caricare %{name}"
     "Picture renamed successfully": "Immagine rinominata con successo da %{from} a %{to}"
     "Picture deleted successfully": "Immagine %{name} eliminata con successo"
     "Pictures updated successfully": "Immagini caricate con successo"
@@ -297,8 +293,6 @@ it:
     "You are not authorized": "Non sei autorizzato"
     "You are about to edit many pictures at once": "Stai per modificare %{length} immagini contemporaneamente"
     element_dirty_close_window_notice: "Hai degli elementi non salvati. Vuoi veramente chiudere la finestra degli elementi?"
-    "You may upload files with following extensions": "Puoi caricare %{file_types_description} con le seguenti estensioni: %{file_types}"
-    "You may upload any file": "Puoi caricare qualsiasi file"
     "Your last login was on": "Il tuo ultimo login è stato alle %{time}."
     "Your last updated pages": "Le tue pagine modificate di recente"
     "Your trash is empty": "Il cestino è vuoto"
@@ -316,7 +310,6 @@ it:
     attachment_filename_notice: "* Non utilizzare alcun carattere speciale per il nome del file."
     auto_play: "Riproduci il video dopo il caricamento"
     big_thumbnails: "Miniature grandi"
-    browse: "sfoglia"
     cancel: "annulla"
     cannot_delete_picture_notice: "Impossibile eliminare l'Immagine %{name} poiché è ancora in uso."
     choose_element_as_target: "Scegli un elemento come destinatario"
@@ -353,7 +346,6 @@ it:
     delete_page: "Elimina questa pagina"
     delete_tag: 'Elimina tag'
     document: "File"
-    documents: "File"
     download_csv: "Scarica CSV"
     download_file: "Scarica file '%{filename}'"
     do_you_really_want_to_delete_this_tag?: "Vuoi veramente eliminare questo tag?"
@@ -373,19 +365,11 @@ it:
     explain_publishing: "Pubblica la pagina e rimuovi la versione in cache dal server."
     explain_sitemap_dragndrop_sorting: "Suggerimento: Trascina le immagini dall'icona per riordinarle."
     explain_unlocking: "Lascia la pagina e sbloccala per l'utilizzo da parte di altri utenti."
-    explain_upload:
-      footnote: "SUGGERIMENTO! Tieni premuto CTRL (CMD su un Mac) mentre fai click su %{name} con il mouse per fare un upload multiplo di %{name}."
-      intro: "Questo è come l'upload di %{name} funziona"
-      step1: "Clicca il bottone 'esplora' e naviga alla tua cartella %{name}"
-      step2: "Seleziona tutti gli oggetti %{name} di cui vuoi fare l'upload"
-      step3: "Clicca il bottone 'apri'. L'upload parte!"
-      dragndrop: "Puoi anche trascinare dei file dal tuo computer sull'area sottostante."
     external_link_notice_1: "Inserisci l'url completo con http:// o un protocollo simile."
     external_link_notice_2: "Per fare riferimento ad un indirizzo interno al tuo sito, comincia il link con /."
     female: "Femmina"
     file: "File"
     file_rename_error: "Errore nel modificare il nome del file."
-    files: "File"
     from_at: "da %{by} a %{at}"
     height: "Altezza"
     help:
@@ -408,7 +392,6 @@ it:
     image_caption: "Caption"
     image_name: "Name"
     image_title: "Title-tag"
-    images: "Immagini"
     internal_link_headline: "Scegli una pagina a cui linkare."
     internal_link_page_elements_explanation: "In aggiunta puoi cliccare appena sotto una pagina su 'Mostra Elementi' per linkare ad un anchor di un elemento da quella pagina."
     internal_link_page_anchors_explanation: "Alternativamente puoi linkare ad un anchor della pagina stessa."
@@ -505,6 +488,7 @@ it:
         last_upload: "dall'ultimo upload"
         recent: "che sono state aggiunte di recente"
         without_tag: "senza tag"
+    picture_not_in_use_yet: "Questa immagine non è ancora in uso"
     pictures_in_page: "%{page} in %{pictures}"
     place_link: "Testo del link"
     player_version: "Versione Flash Player"
@@ -565,8 +549,15 @@ it:
     unlink: "Rimuovi link da questa immagine."
     unlock_page: "Lascia la pagina"
     unlocked_page: "Pagina %{name} sbloccata."
-    upload_file: "Upload (uno/più) file"
-    upload_image: "Upload (uno/più) immagini"
+    uploader:
+      alchemy/attachment:
+        button_label: "Carica uno(/più) file"
+        upload_success: "File %{name} caricato con successo"
+        upload_failure: "Errore nel caricare il file %{name}: %{error}"
+      alchemy/picture:
+        button_label: "Carica una(/più) immagini"
+        upload_success: "Immagine %{name} caricata con successo"
+        upload_failure: "Errore nel caricare %{name}: %{error}"
     url_name: "URL-Name"
     visible: "visibile"
     want_to_create_new_language: "Vuoi creare una nuova struttura vuota della lingua?"
@@ -593,7 +584,6 @@ it:
     "Succesfully updated": "Aggiornato con successo"
     "Succesfully removed": "Rimosso con successo"
     "Nothing found": "Non è stato trovato nulla."
-    "Or drag files over here": "Oppure trascina i file qui sopra"
     complete: 'Completato'
     "Update available": 'Aggiornamento disponibile'
     "Update status unavailable": 'Stato dell''update non disponibile'
@@ -626,11 +616,14 @@ it:
       page_status: "%d.%m.%Y %H:%M"
       date: "%Y-%m-%d"
       datepicker: "%Y-%m-%d"
+      time: "%H:%M"
     am: "am"
     pm: "pm"
   support:
     array:
-      sentence_connector: "e"
+      words_connector: ", "
+      two_words_connector: " e "
+      last_word_connector: " e "
 
   number:
     # Used in number_with_delimiter()
@@ -659,16 +652,8 @@ it:
       format:
         # These three are to override number.format and are optional
         # separator:
-        delimiter: ""
-        # precision:
-
-    # Used in number_to_precision()
-    precision:
-      format:
-        # These three are to override number.format and are optional
-        # separator:
-        delimiter: ""
-        # precision:
+        delimiter: "."
+        precision: 2
 
     # Used in number_to_human_size()
     human:
@@ -677,41 +662,62 @@ it:
         # separator:
         delimiter: ""
         precision: 1
+      storage_units:
+        # Storage units output formatting.
+        # %u is the storage unit, %n is the number (default: 2 MB)
+        format: "%n %u"
+        units:
+          byte:
+            one:   "Byte"
+            other: "Bytes"
+          kb: "KB"
+          mb: "MB"
+          gb: "GB"
+          tb: "TB"
 
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
       half_a_minute: "mezzo minuto"
       less_than_x_seconds:
+        zero: "meno di un secondo"
         one: "meno di un secondo"
         other: "meno di %{count} secondi"
       x_seconds:
         one:  "1 secondo"
-        many: "%{count} secondi"
+        other: "%{count} secondi"
       less_than_x_minutes:
+        zero: "meno di un minuto"
         one: "meno di un minuto"
         other: "meno di %{count} minuti"
       x_minutes:
         one:  "1 minuto"
-        many: "%{count} minuti"
+        other: "%{count} minuti"
       about_x_hours:
         one:  "circa un'ora"
-        many: "circa %{count} ore"
+        other: "circa %{count} ore"
       x_days:
         one:  "1 giorno"
-        many: "%{count} giorni"
+        other: "%{count} giorni"
       about_x_months:
         one:  "circa un mese"
-        many: "circa %{count} mesi"
+        other: "circa %{count} mesi"
       x_months:
         one:  "1 mese"
-        many: "%{count} mesi"
+        other: "%{count} mesi"
       about_x_years:
         one:  "circa un anno"
-        many: "circa %{count} anni"
+        other: "circa %{count} anni"
       over_x_years:
         one:  "oltre un anno"
-        many: "oltre %{count} anni"
+        other: "oltre %{count} anni"
+      prompts:
+        second: "Secondo"
+        minute: "Minuto"
+        hour: "Ora"
+        day: "Giorno"
+        month: "Mese"
+        year: "Anno"
 
   errors: &errors
     template:
@@ -755,6 +761,8 @@ it:
           language_code:
             invalid: '^Il formato del codice della lingua è errato. Usa esattamente 2 lettere minuscole.'
             taken: 'è già preso per questo codice nazione.'
+          locale:
+            missing_file: "Localizzazione non trovata per il codice lingua fornito. Scegline uno esistente."
       alchemy/page:
         attributes:
           name:
@@ -849,6 +857,8 @@ it:
 
       alchemy/essence_file:
         css_class: Stile
+        link_text: Link-Text
+        title: Titolo
 
       alchemy/essence_picture:
         caption: "Didascalia"
@@ -872,7 +882,8 @@ it:
         name: "Nome"
         page_layout: "Tipo della prima pagiona"
         public: "Pubblica"
-
+        locale: Localizzazione
+        code: Codice-ISO
       alchemy/legacy_page_url:
         urlname: "Percorso URL"
 
