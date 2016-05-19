@@ -38,7 +38,7 @@ The server will be available at [0.0.0.0:9292](http://0.0.0.0:9292).
 Build the guides html files with:
 
 ```sh
-bundle exec guides build --production
+bundle exec guides build --clean
 ```
 
 **If you are building the `master` branch, please use the `--edge` flag**
