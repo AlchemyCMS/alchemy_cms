@@ -109,6 +109,7 @@ de:
       en: 'EN'
       nl: 'NL'
       fr: 'FR'
+      it: 'IT'
 
     # == User roles translations
     user_roles:
