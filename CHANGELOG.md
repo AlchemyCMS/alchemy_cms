@@ -1,5 +1,16 @@
 # Change Log
 
+## 3.4.0 (unreleased)
+
+__New Features__
+
+* `MessagesMailer` (formerly known as `Messages`) now inherits from `ApplicationMailer`
+when it is defined.
+
+__Notable Changes__
+
+* `Messages` mailer class has been renamed to `MessagesMailer`
+
 ## 3.3.0 (2016-05-18)
 
 __New Features__

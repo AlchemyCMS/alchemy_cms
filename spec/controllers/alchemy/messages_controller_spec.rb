@@ -57,11 +57,11 @@ module Alchemy
         context "succeeded" do
           before do
             allow_any_instance_of(Message).to receive(:valid?).and_return(true)
-            allow(Messages).to receive(:contact_form_mail).and_return double(deliver: true)
+            allow(MessagesMailer).to receive(:contact_form_mail).and_return double(deliver: true)
           end
 
           it "Messages should call Messages#contact_form_mail to send the email" do
-            expect(Messages).to receive(:contact_form_mail)
+            expect(MessagesMailer).to receive(:contact_form_mail)
             alchemy_post :create
           end
 
@@ -74,7 +74,7 @@ module Alchemy
               end
 
               it "returns the ingredient" do
-                expect(Messages).to receive(:contact_form_mail).with(message, 'peter@schroeder.de', '', '')
+                expect(MessagesMailer).to receive(:contact_form_mail).with(message, 'peter@schroeder.de', '', '')
                 alchemy_post :create
               end
             end
@@ -87,7 +87,7 @@ module Alchemy
               end
 
               it "returns the config value" do
-                expect(Messages).to receive(:contact_form_mail).with(message, 'your.mail@your-domain.com', '', '')
+                expect(MessagesMailer).to receive(:contact_form_mail).with(message, 'your.mail@your-domain.com', '', '')
                 alchemy_post :create
               end
             end
@@ -102,7 +102,7 @@ module Alchemy
               end
 
               it "returns the ingredient" do
-                expect(Messages).to receive(:contact_form_mail).with(message, '', 'peter@schroeder.de', '')
+                expect(MessagesMailer).to receive(:contact_form_mail).with(message, '', 'peter@schroeder.de', '')
                 alchemy_post :create
               end
             end
@@ -115,7 +115,7 @@ module Alchemy
               end
 
               it "returns the config value" do
-                expect(Messages).to receive(:contact_form_mail).with(message, '', 'your.mail@your-domain.com', '')
+                expect(MessagesMailer).to receive(:contact_form_mail).with(message, '', 'your.mail@your-domain.com', '')
                 alchemy_post :create
               end
             end
@@ -130,7 +130,7 @@ module Alchemy
               end
 
               it "returns the ingredient" do
-                expect(Messages).to receive(:contact_form_mail).with(message, '', '', 'A new message')
+                expect(MessagesMailer).to receive(:contact_form_mail).with(message, '', '', 'A new message')
                 alchemy_post :create
               end
             end
@@ -143,7 +143,7 @@ module Alchemy
               end
 
               it "returns the config value" do
-                expect(Messages).to receive(:contact_form_mail).with(message, '', '', 'A new contact form message')
+                expect(MessagesMailer).to receive(:contact_form_mail).with(message, '', '', 'A new contact form message')
                 alchemy_post :create
               end
             end

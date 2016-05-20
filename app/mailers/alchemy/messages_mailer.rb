@@ -1,5 +1,5 @@
 module Alchemy
-  class Messages < ActionMailer::Base
+  class MessagesMailer < BaseMailer
     def contact_form_mail(message, mail_to, mail_from, subject)
       @message = message
       mail(
