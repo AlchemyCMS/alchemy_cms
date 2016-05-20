@@ -24,6 +24,11 @@ Alchemy.translations =
     'File type not allowed': 'Dateityp nicht erlaubt.'
     'Maximum number of files exceeded': 'Maximale Anzahl gleichzeitig erlaubter Datei-Uploads erreicht.'
     'Uploaded bytes exceed file size': 'Maximale Größe der erlaubten Dateigröße erreicht.'
+    formats:
+      datetime: "d.m.Y H:i"
+      date: "d.m.Y"
+      time: "H:i"
+      start_of_week: 1
 
   # English
   en:
@@ -45,6 +50,11 @@ Alchemy.translations =
     'File type not allowed': 'File type not allowed'
     'Maximum number of files exceeded': 'Maximum number of files exceeded.'
     'Uploaded bytes exceed file size': 'Uploaded bytes exceed file size'
+    formats:
+      datetime: "Y-m-d H:i"
+      date: "Y-m-d"
+      time: "H:i"
+      start_of_week: 0
 
   # Dutch
   nl:
@@ -66,7 +76,11 @@ Alchemy.translations =
     'File type not allowed': 'File type not allowed'
     'Maximum number of files exceeded': 'Uploadlimiet bereikt.'
     'Uploaded bytes exceed file size': 'Uploaded bytes exceed file size'
-
+    formats:
+      datetime: "Y-m-d H:i"
+      date: "Y-m-d"
+      time: "H:i"
+      start_of_week: 1
 
   # French
   fr:
@@ -88,6 +102,11 @@ Alchemy.translations =
     'File type not allowed': 'Type de document non autorisé.'
     'Maximum number of files exceeded': 'Le nombre maximum de fichiers est atteint.'
     'Uploaded bytes exceed file size': 'Taille de fichier maximale autorisée atteint.'
+    formats:
+      datetime: "d.m.Y H:i"
+      date: "d.m.Y"
+      time: "H:i"
+      start_of_week: 1
 
   # Russian
   ru:
@@ -109,6 +128,11 @@ Alchemy.translations =
     'File type not allowed': 'Этот тип файла не разрешен'
     'Maximum number of files exceeded': 'Исчерпано максимальное количество файлов.'
     'Uploaded bytes exceed file size': 'Превышен максимальный размер файла'
+    formats:
+      datetime: "d.m.Y H:i"
+      date: "d.m.Y"
+      time: "H:i"
+      start_of_week: 1
 
   # Spanish
   es:
@@ -130,6 +154,11 @@ Alchemy.translations =
     'File type not allowed': 'El tipo de archivo no está permitido'
     'Maximum number of files exceeded': 'Número máximo de archivos excedido.'
     'Uploaded bytes exceed file size': 'Los bytes subidos exceden el tamaño del archivo'
+    formats:
+      datetime: "d/m/Y H:i"
+      date: "d/m/Y"
+      time: "H:i"
+      start_of_week: 1
 
   # Italian
   it:
@@ -151,3 +180,8 @@ Alchemy.translations =
     'File type not allowed': 'Tipo di file non consentito'
     'Maximum number of files exceeded': 'Numero massimo di file raggiunto.'
     'Uploaded bytes exceed file size': 'Il numero di byte caricati eccede la dimensione del file'
+    formats:
+      datetime: "Y-m-d H:i"
+      date: "Y-m-d"
+      time: "H:i"
+      start_of_week: 1

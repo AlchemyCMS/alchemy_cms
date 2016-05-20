@@ -4,17 +4,12 @@ $.extend Alchemy,
 
   Datepicker: (scope) ->
     options =
-      format: "Y/m/d H:i"
-      formatDate: "Y/m/d"
-      formatTime: "H:i"
+      format: Alchemy.t('formats.datetime')
+      formatDate: Alchemy.t('formats.date')
+      formatTime: Alchemy.t('formats.time')
+      dayOfWeekStart: Alchemy.t('formats.start_of_week')
       onSelectDate: ->
         Alchemy.setElementDirty $(this).closest(".element-editor")
-
-    if Alchemy.locale is "de"
-      $.extend options,
-        format: "d.m.Y H:i"
-        formatDate: "d.m.Y"
-        dayOfWeekStart: 1
 
     datepicker_options = $.extend {}, options,
       format: options.formatDate
