@@ -6,6 +6,9 @@ gem 'sqlite3' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
 gem 'mysql2', '~> 0.3.18' if ENV['DB'] == 'mysql'
 gem 'pg'      if ENV['DB'] == 'postgresql'
 
+# Rails 5 compatibility
+gem 'acts-as-taggable-on', github: 'mbleigh/acts-as-taggable-on'
+
 group :development, :test do
   gem 'jasmine-rails',        github: 'searls/jasmine-rails'
   gem 'jasmine-jquery-rails', github: 'travisjeffery/jasmine-jquery-rails'
@@ -32,6 +35,7 @@ group :development, :test do
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers', '~> 3.1'
+  gem 'rails-controller-testing', '~> 0.1'
 end
 
 # We need this if we want to start the dummy app in development mode

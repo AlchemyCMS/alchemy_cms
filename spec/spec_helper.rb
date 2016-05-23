@@ -94,4 +94,11 @@ RSpec.configure do |config|
       Alchemy::Seeder.seed!
     end
   end
+
+  # Rails 5 testing support
+  [:controller, :view, :request].each do |type|
+    config.include ::Rails::Controller::Testing::TestProcess, :type => type
+    config.include ::Rails::Controller::Testing::TemplateAssertions, :type => type
+    config.include ::Rails::Controller::Testing::Integration, :type => type
+  end
 end
