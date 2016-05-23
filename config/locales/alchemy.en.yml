@@ -614,6 +614,8 @@ en:
       page_status: "%m.%d.%Y %H:%M"
       date: "%Y-%m-%d"
       datepicker: "%Y-%m-%d"
+      timepicker: "%H:%M"
+      datetimepicker: "%Y-%m-%d %H:%M"
     am: "am"
     pm: "pm"
   support:

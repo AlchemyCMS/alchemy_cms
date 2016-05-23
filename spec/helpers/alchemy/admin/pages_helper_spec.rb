@@ -9,7 +9,7 @@ describe Alchemy::Admin::PagesHelper do
   end
 
   describe '#combined_page_status' do
-    let(:page) { build_stubbed(:alchemy_page, restricted: true, visible: true, public: true, locked: true) }
+    let(:page) { build_stubbed(:alchemy_page, :public, :restricted, visible: true, locked: true) }
     subject { helper.combined_page_status(page) }
 
     context 'when page is locked' do

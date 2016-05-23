@@ -61,7 +61,7 @@ module Alchemy
       end
 
       it "should render visible unpublished pages" do
-        unpublished_visible_page = create(:alchemy_page, visible: true, public: false)
+        unpublished_visible_page = create(:alchemy_page, visible: true)
         expect(helper.render_navigation).to match(/#{unpublished_visible_page.name}/)
       end
 
@@ -268,7 +268,7 @@ module Alchemy
       end
 
       it "should render a breadcrumb of visible and unpublished pages" do
-        page.update_attributes!(public: false, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
+        page.update_attributes!(public_on: nil, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
         expect(helper.render_breadcrumb(page: page)).to match(/A Unpublic Page/)
       end
 

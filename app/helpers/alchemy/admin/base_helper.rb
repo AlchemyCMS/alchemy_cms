@@ -332,38 +332,41 @@ module Alchemy
 
       # Renders a textfield ready to display a datepicker
       #
-      # Uses a HTML5 <tt><input type="date"></tt> field.
+      # Uses a HTML5 +<input type="date">+ field.
+      # A Javascript observer converts this into a fancy Datepicker.
+      # If you pass +'datetime'+ as +:type+ the datepicker will also have a Time select.
       #
-      # === Example
+      # The date value gets localized via +I18n.l+. The format on Time and Date is +datepicker+
+      # or +datetimepicker+, if you pass another +type+.
+      #
+      # === Date Example
       #
       #   <%= alchemy_datepicker(@person, :birthday) %>
+      #
+      # === Datetime Example
+      #
+      #   <%= alchemy_datepicker(@page, :public_on, type: 'datetime') %>
       #
       # @param [ActiveModel::Base] object
       #   An instance of a model
       # @param [String or Symbol] method
       #   The attribute method to be called for the date value
       #
-      # @option html_options [String] :type ('date')
+      # @option html_options [String] :type (date)
       #   The type of text field
-      # @option html_options [String] :class ('thin_border date')
+      # @option html_options [String] :class (type)
       #   CSS classes of the input field
-      # @option html_options [String] :value (object.send(method.to_sym).nil? ? nil : l(object.send(method.to_sym), :format => :datepicker))
-      #   The value the input displays
+      # @option html_options [String] :value (value of method on object)
+      #   The value the input displays. If you pass a String its parsed with +Time.parse+
       #
       def alchemy_datepicker(object, method, html_options = {})
-        value = nil
-        if object.send(method.to_sym).present?
-          value = l(object.send(method.to_sym), format: :datepicker)
-        elsif html_options[:value].present?
-          date = html_options.delete(:value)
-          date = Time.parse(date) if date.is_a?(String)
-          value = l(date, format: :datepicker)
-        end
-        text_field object.class.name.underscore.to_sym, method.to_sym, html_options.merge({
-          type: 'date',
-          class: 'date',
-          value: value
-        })
+        type = html_options.delete(:type) || 'date'
+        date = html_options.delete(:value) || object.send(method.to_sym).presence
+        date = Time.zone.parse(date) if date.is_a?(String)
+        value = date ? l(date, format: "#{type}picker".to_sym) : nil
+
+        text_field object.class.name.demodulize.underscore.to_sym,
+          method.to_sym, {type: type, class: type, value: value}.merge(html_options)
       end
 
       # Merges the params-hash with the given hash

@@ -81,6 +81,7 @@ class window.Alchemy.Dialog
     @dialog_body.hide()
     @dialog_body.html(data)
     @init()
+    @dialog.trigger('DialogReady.Alchemy', @dialog_body)
     if @options.ready?
       @options.ready(@dialog_body)
     @dialog_body.show('fade', 200)

@@ -87,7 +87,7 @@ module Alchemy
       context "if requested page is unpublished" do
         before do
           public_page.update_attributes(
-            public: false,
+            public_on: nil,
             visible: false,
             name: 'Not Public',
             urlname: ''
@@ -102,7 +102,7 @@ module Alchemy
 
         context "with only unpublished pages in page tree" do
           before do
-            public_child.update_attributes(public: false)
+            public_child.update_attributes(public_on: nil)
           end
 
           it "should raise not found error" do
@@ -303,8 +303,8 @@ module Alchemy
       context "redirects to public child" do
         before do
           public_page.update_attributes(
-            public: false,
             visible: false,
+            public_on: nil,
             name: 'Not Public',
             urlname: ''
           )

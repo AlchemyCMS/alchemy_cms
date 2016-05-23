@@ -23,15 +23,20 @@ module Alchemy
         end
 
         context "", js: true do
+          let(:root_page) { Alchemy::Page.last }
+
           before do
             visit admin_pages_path
-            page.first(:link, 'Create a new subpage').click
+
+            within("#page_#{root_page.id}") do
+              page.first(:link, 'Create a new subpage').click
+            end
           end
 
           it "the create page tab is visible by default" do
             within('#overlay_tabs') do
               expect(page).to have_selector('#create_page_tab', visible: true)
-              expect(page).to have_selector('#paste_page_tab')
+              expect(page).to have_selector('#paste_page_tab', visible: false)
             end
           end
 

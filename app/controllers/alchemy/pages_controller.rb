@@ -26,6 +26,8 @@ module Alchemy
       if: :run_on_page_layout_callbacks?,
       only: [:index, :show]
 
+    before_action :set_expiration_headers, only: [:index, :show], if: -> { @page }
+
     rescue_from ActionController::UnknownFormat, with: :page_not_found!
 
     # == The index action gets invoked if one requests '/' or '/:locale'
@@ -170,6 +172,14 @@ module Alchemy
       end
     end
 
+    def set_expiration_headers
+      if @page.cache_page?
+        expires_in @page.expiration_time, public: !@page.restricted
+      else
+        expires_now
+      end
+    end
+
     def set_root_page
       @root_page ||= Language.current_root_page
     end
@@ -200,7 +210,8 @@ module Alchemy
     def render_fresh_page?
       !@page.cache_page? || stale?(etag: page_etag,
         last_modified: @page.published_at,
-        public: !@page.restricted)
+        public: !@page.restricted,
+        template: 'pages/show')
     end
 
     def page_not_found!

@@ -6,11 +6,15 @@ __New Features__
 
 * `MessagesMailer` (formerly known as `Messages`) now inherits from `ApplicationMailer`
 when it is defined.
+* Adds time based published pages: The public status of a page is now made of two time stamps:
+  `public_on` and `public_until`
+* Send page expiration cache headers
 
 __Notable Changes__
 
 * `Messages` mailer class has been renamed to `MessagesMailer`
 * Removed the auto-magically merge of Ability classes (#1022)
+* Replace jQueryUI datepicker with $.datetimepicker
 
 ## 3.3.0 (2016-05-18)
 

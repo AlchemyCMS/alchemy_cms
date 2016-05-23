@@ -20,13 +20,13 @@ FactoryGirl.define do
       name 'Startseite'
       page_layout { language.page_layout }
       language_root true
-      public true
+      public_on { Time.current }
       parent_id { Alchemy::Page.root.id }
     end
 
     trait :public do
       sequence(:name) { |n| "A Public Page #{n}" }
-      public true
+      public_on { Time.current }
     end
 
     trait :system do

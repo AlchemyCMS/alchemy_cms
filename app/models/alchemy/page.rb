@@ -3,12 +3,12 @@
 # Table name: alchemy_pages
 #
 #  id               :integer          not null, primary key
-#  name             :string(255)
-#  urlname          :string(255)
-#  title            :string(255)
-#  language_code    :string(255)
+#  name             :string
+#  urlname          :string
+#  title            :string
+#  language_code    :string
 #  language_root    :boolean
-#  page_layout      :string(255)
+#  page_layout      :string
 #  meta_keywords    :text
 #  meta_description :text
 #  lft              :integer
@@ -31,6 +31,8 @@
 #  language_id      :integer
 #  cached_tag_list  :text
 #  published_at     :datetime
+#  public_on        :datetime
+#  public_until     :datetime
 #
 
 module Alchemy
@@ -43,17 +45,32 @@ module Alchemy
       do_not_autogenerate: true,
       do_not_sweep: true,
       visible: false,
-      public: false,
+      public_on: nil,
+      public_until: nil,
       locked: false,
       locked_by: nil
     }
-    SKIPPED_ATTRIBUTES_ON_COPY = %w(id updated_at created_at creator_id updater_id lft rgt depth urlname cached_tag_list)
+
+    SKIPPED_ATTRIBUTES_ON_COPY = %w(
+      id
+      updated_at
+      created_at
+      creator_id
+      updater_id
+      lft
+      rgt
+      depth
+      urlname
+      cached_tag_list
+    )
+
     PERMITTED_ATTRIBUTES = [
       :meta_description,
       :meta_keywords,
       :name,
       :page_layout,
-      :public,
+      :public_on,
+      :public_until,
       :restricted,
       :robot_index,
       :robot_follow,
@@ -84,12 +101,29 @@ module Alchemy
     attr_accessor :do_not_sweep
     attr_accessor :do_not_validate_language
 
-    before_save :set_language_code, if: -> { language.present? }, unless: :systempage?
-    before_save :set_restrictions_to_child_pages, if: :restricted_changed?, unless: :systempage?
-    before_save :inherit_restricted_status, if: -> { parent && parent.restricted? }, unless: :systempage?
-    before_save :update_published_at, if: -> { public && read_attribute(:published_at).nil? }, unless: :systempage?
-    before_create :set_language_from_parent_or_default, if: -> { language_id.blank? }, unless: :systempage?
-    after_update :create_legacy_url, if: :urlname_changed?, unless: :redirects_to_external?
+    before_save :set_language_code,
+      if: -> { language.present? },
+      unless: :systempage?
+
+    before_save :set_restrictions_to_child_pages,
+      if: :restricted_changed?,
+      unless: :systempage?
+
+    before_save :inherit_restricted_status,
+      if: -> { parent && parent.restricted? },
+      unless: :systempage?
+
+    before_save :set_published_at,
+      if: -> { public? && published_at.nil? },
+      unless: :systempage?
+
+    before_create :set_language_from_parent_or_default,
+      if: -> { language_id.blank? },
+      unless: :systempage?
+
+    after_update :create_legacy_url,
+      if: :urlname_changed?,
+      unless: :redirects_to_external?
 
     # Concerns
     include Alchemy::Page::PageScopes
@@ -335,12 +369,18 @@ module Alchemy
 
     # Publishes the page.
     #
-    # Sets +public+ to true and the +published_at+ value to current time.
+    # Sets +public_on+ and the +published_at+ value to current time
+    # and resets +public_until+ to nil
     #
     # The +published_at+ attribute is used as +cache_key+.
     #
     def publish!
-      update_columns(published_at: Time.current, public: true)
+      current_time = Time.current
+      update_columns(
+        published_at: current_time,
+        public_on: current_time,
+        public_until: nil
+      )
     end
 
     # Updates an Alchemy::Page based on a new ordering to be applied to it
@@ -380,10 +420,9 @@ module Alchemy
         public: true
       }.update(options)
 
-      self_and_siblings
-        .where(["#{self.class.table_name}.lft #{dir} ?", lft])
-        .where(public: options[:public])
-        .where(restricted: options[:restricted])
+      pages = self_and_siblings.where(["#{Page.table_name}.lft #{dir} ?", lft])
+      pages = options[:public] ? pages.published : pages.not_public
+      pages.where(restricted: options[:restricted])
         .reorder(dir == '>' ? 'lft' : 'lft DESC')
         .limit(1).first
     end
@@ -402,7 +441,7 @@ module Alchemy
       legacy_urls.find_or_create_by(urlname: urlname_was)
     end
 
-    def update_published_at
+    def set_published_at
       self.published_at = Time.current
     end
   end

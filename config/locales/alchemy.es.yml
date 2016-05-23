@@ -618,6 +618,8 @@ es:
       page_status: "%d/%m/%Y %H:%M"
       date: "%d/%m/%Y"
       datepicker: "%d/%m/%Y"
+      timepicker: "%H:%M"
+      datetimepicker: "%d/%m/%Y %H:%M"
       time: "%H:%M"
   support:
     array:

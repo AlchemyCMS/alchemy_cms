@@ -118,22 +118,46 @@ module Alchemy
       end
 
       describe "#flush" do
-        let(:content_page_1) { create(:alchemy_page, :public, name: "content page 1", published_at: Time.current - 5.days) }
-        let(:content_page_2) { create(:alchemy_page, :public, name: "content page 2", published_at: Time.current - 8.days) }
-        let(:layout_page_1)  { create(:alchemy_page, layoutpage: true, name: "layout_page 1", published_at: Time.current - 5.days) }
-        let(:layout_page_2)  { create(:alchemy_page, layoutpage: true, name: "layout_page 2", published_at: Time.current - 8.days) }
-        let(:content_pages)  { [content_page_1, content_page_2] }
-        let(:layout_pages)   { [layout_page_1, layout_page_2] }
-
-        before do
-          content_pages
-          layout_pages
+        let(:content_page_1) do
+          time = Time.current - 5.days
+          create :alchemy_page,
+            public_on: time,
+            name: "content page 1",
+            published_at: time
         end
 
+        let(:content_page_2) do
+          time = Time.current - 8.days
+          create :alchemy_page,
+            public_on: time,
+            name: "content page 2",
+            published_at: time
+        end
+
+        let(:layout_page_1) do
+          create :alchemy_page,
+            layoutpage: true,
+            name: "layout_page 1",
+            published_at: Time.current - 5.days
+        end
+
+        let(:layout_page_2) do
+          create :alchemy_page,
+            layoutpage: true,
+            name: "layout_page 2",
+            published_at: Time.current - 8.days
+        end
+
+        let(:content_pages) { [content_page_1, content_page_2] }
+        let(:layout_pages) { [layout_page_1, layout_page_2] }
+
         it "should update the published_at field of content pages" do
+          content_pages
+
           travel_to(Time.current) do
             alchemy_xhr :post, :flush
-            content_pages.map(&:reload) # Reloading because published_at was directly updated in the database.
+            # Reloading because published_at was directly updated in the database.
+            content_pages.map(&:reload)
             content_pages.each do |page|
               expect(page.published_at).to eq(Time.current)
             end
@@ -141,9 +165,12 @@ module Alchemy
         end
 
         it "should update the published_at field of layout pages" do
+          layout_pages
+
           travel_to(Time.current) do
             alchemy_xhr :post, :flush
-            layout_pages.map(&:reload) # Reloading because published_at was directly updated in the database.
+            # Reloading because published_at was directly updated in the database.
+            layout_pages.map(&:reload)
             layout_pages.each do |page|
               expect(page.published_at).to eq(Time.current)
             end
@@ -517,7 +544,16 @@ module Alchemy
       end
 
       describe '#publish' do
-        let(:page) { stub_model(Page, published_at: nil, public: false, name: "page", parent_id: 1, urlname: "page", language: stub_model(Language), page_layout: "bla") }
+        let(:page) do
+          stub_model Page,
+            published_at: nil,
+            public_on: nil,
+            name: "page",
+            parent_id: 1,
+            urlname: "page",
+            language: stub_model(Language),
+            page_layout: "bla"
+        end
 
         before do
           allow(@controller).to receive(:load_page).and_return(page)

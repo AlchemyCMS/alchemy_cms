@@ -6,10 +6,7 @@ module Alchemy
     let(:default_language) { Language.default }
 
     let(:default_language_root) do
-      create :alchemy_page, :language_root,
-        language: default_language,
-        name: 'Home',
-        public: true
+      create(:alchemy_page, :language_root, language: default_language, name: 'Home')
     end
 
     let(:page) do
@@ -51,7 +48,7 @@ module Alchemy
 
         context 'and the root page is not public' do
           before do
-            default_language_root.update!(public: false)
+            default_language_root.update!(public_on: nil)
           end
 
           context 'and redirect_to_public_child is set to false' do
@@ -140,7 +137,8 @@ module Alchemy
 
         let!(:startseite) do
           create :alchemy_page, :language_root,
-            language: deutsch, public: true, name: 'Startseite'
+            language: deutsch,
+            name: 'Startseite'
         end
 
         before do
@@ -159,15 +157,60 @@ module Alchemy
       end
     end
 
-    context 'an author' do
-      let(:unpublic) { create(:alchemy_page, parent: default_language_root) }
+    describe 'requesting a not yet public page' do
+      let(:not_yet_public) do
+        create :alchemy_page,
+          parent: default_language_root,
+          public_on: 1.day.from_now
+      end
 
-      before { authorize_user(:as_author) }
-
-      it "should not be able to visit a unpublic page" do
+      it "renders 404" do
         expect {
-          alchemy_get :show, urlname: unpublic.urlname
+          alchemy_get :show, urlname: not_yet_public.urlname
         }.to raise_error(ActionController::RoutingError)
+      end
+    end
+
+    describe 'requesting a no longer public page' do
+      let(:no_longer_public) do
+        create :alchemy_page,
+          parent: default_language_root,
+          public_on: 2.days.ago,
+          public_until: 1.day.ago
+      end
+
+      it "renders 404" do
+        expect {
+          alchemy_get :show, urlname: no_longer_public.urlname
+        }.to raise_error(ActionController::RoutingError)
+      end
+    end
+
+    describe 'requesting a still public page' do
+      let(:still_public_page) do
+        create :alchemy_page,
+          parent: default_language_root,
+          public_on: 2.days.ago,
+          public_until: 1.day.from_now
+      end
+
+      it "renders page" do
+        alchemy_get :show, urlname: still_public_page.urlname
+        expect(response).to be_success
+      end
+    end
+
+    describe 'requesting a page without time limit' do
+      let(:still_public_page) do
+        create :alchemy_page,
+          parent: default_language_root,
+          public_on: 2.days.ago,
+          public_until: nil
+      end
+
+      it "renders page" do
+        alchemy_get :show, urlname: still_public_page.urlname
+        expect(response).to be_success
       end
     end
 
