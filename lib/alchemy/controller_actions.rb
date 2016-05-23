@@ -51,12 +51,11 @@ module Alchemy
 
     # Ensures usage of Alchemy's permissions class.
     #
-    # Merges existing CanCan abilities from host Rails app with Alchemy's own CanCan abilities.
+    # == Register custom Abilities
     #
-    # == Register Abilities
-    #
-    # If your app's CanCan ability class is not named +Ability+ you have to register it.
-    # Or if you have a engine with own CanCan abilities you want to add to Alchemy you must register them first.
+    # If your app has a CanCan Ability class with rules you want to be aviable in an Alchemy context
+    # you need to register it. Or if you have an engine with it's own CanCan abilities you want to
+    # add to Alchemy you must register them first.
     #
     #     Alchemy.register_ability MyCustom::Permisson
     #
@@ -67,9 +66,6 @@ module Alchemy
           # Ensure to avoid issues with Rails constant lookup.
           klass = "::#{klass}".constantize
           alchemy_permissions.merge(klass.new(current_alchemy_user))
-        end
-        if host_app_ability_present?
-          alchemy_permissions.merge(::Ability.new(current_alchemy_user))
         end
         alchemy_permissions
       end
@@ -126,12 +122,6 @@ module Alchemy
         session[:alchemy_language_id] = language.id
         Language.current = language
       end
-    end
-
-    def host_app_ability_present?
-      Object.const_get('::Ability')
-    rescue
-      false
     end
   end
 end

@@ -10,6 +10,7 @@ when it is defined.
 __Notable Changes__
 
 * `Messages` mailer class has been renamed to `MessagesMailer`
+* Removed the auto-magically merge of Ability classes (#1022)
 
 ## 3.3.0 (2016-05-18)
 
