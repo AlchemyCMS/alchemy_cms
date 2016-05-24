@@ -30,4 +30,21 @@ RSpec.describe Alchemy::Admin::UsersController, type: :request do
       end
     end
   end
+
+  context 'with Alchemy.admin_path customised' do
+    before(:all) do
+      Alchemy.admin_path = '/backend'
+      Rails.application.reload_routes!
+    end
+
+    it 'uses the custom admin path' do
+      expect(admin_users_path).to eq('/backend/users')
+    end
+
+
+    after(:all) do
+      Alchemy.admin_path = '/admin'
+      Rails.application.reload_routes!
+    end
+  end
 end

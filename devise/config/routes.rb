@@ -6,28 +6,30 @@ Alchemy::Engine.routes.draw do
     },
     skip: [:sessions, :passwords]
 
-  devise_scope :user do
-    get '/admin/dashboard' => 'admin/dashboard#index',
-      :as => :user_root
-    get '/admin/signup' => 'admin/users#signup',
-      :as => :admin_signup
-    get '/admin/login' => 'user_sessions#new',
-      :as => :login
-    post '/admin/login' => 'user_sessions#create'
-    delete '/admin/logout' => 'user_sessions#destroy',
-      :as => :logout
+  scope Alchemy.admin_path, {constraints: Alchemy.admin_constraints} do
+    devise_scope :user do
+      get '/dashboard' => 'admin/dashboard#index',
+        :as => :user_root
+      get '/signup' => 'admin/users#signup',
+        :as => :admin_signup
+      get '/login' => 'user_sessions#new',
+        :as => :login
+      post '/login' => 'user_sessions#create'
+      delete '/logout' => 'user_sessions#destroy',
+        :as => :logout
 
-    get '/admin/passwords' => 'passwords#new',
-      :as => :new_password
-    get '/admin/passwords/:id/edit/:reset_password_token' => 'passwords#edit',
-      :as => :edit_password
-    post '/admin/passwords' => 'passwords#create',
-      :as => :reset_password
-    patch '/admin/passwords' => 'passwords#update',
-      :as => :update_password
+      get '/passwords' => 'passwords#new',
+        :as => :new_password
+      get '/passwords/:id/edit/:reset_password_token' => 'passwords#edit',
+        :as => :edit_password
+      post '/passwords' => 'passwords#create',
+        :as => :reset_password
+      patch '/passwords' => 'passwords#update',
+        :as => :update_password
+    end
   end
 
-  namespace :admin do
+  namespace :admin, {path: Alchemy.admin_path, constraints: Alchemy.admin_constraints} do
     resources :users
   end
 end
