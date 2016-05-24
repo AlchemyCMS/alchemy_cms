@@ -15,6 +15,9 @@ __Notable Changes__
 * `Messages` mailer class has been renamed to `MessagesMailer`
 * Removed the auto-magically merge of Ability classes (#1022)
 * Replace jQueryUI datepicker with $.datetimepicker
+* Thumbnails now render in original file format, but GIFs will always be flattened
+* Pictures will be rendered in original file format by default
+* Allow SVG files to be rendered as EssencePicture
 
 ## 3.3.0 (2016-05-18)
 

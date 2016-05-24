@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160108174834) do
+ActiveRecord::Schema.define(version: 20160422195310) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
@@ -258,6 +258,7 @@ ActiveRecord::Schema.define(version: 20160108174834) do
     t.text     "cached_tag_list"
     t.string   "image_file_uid"
     t.integer  "image_file_size"
+    t.string   "image_file_format"
   end
 
   create_table "alchemy_sites", force: :cascade do |t|

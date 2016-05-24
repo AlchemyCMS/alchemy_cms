@@ -1,0 +1,1 @@
+../../../../db/migrate/20160422195310_add_image_file_format_to_alchemy_pictures.rb

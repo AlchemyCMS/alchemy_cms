@@ -414,5 +414,57 @@ module Alchemy
         end
       end
     end
+
+    describe '#default_render_format' do
+      let(:picture) do
+        Picture.new(image_file_format: 'png')
+      end
+
+      subject { picture.default_render_format }
+
+      context "when `image_output_format` is configured to `original`" do
+        before do
+          allow(Alchemy::Config).to receive(:get) do |args|
+            if args == :image_output_format
+              'original'
+            else
+              Alchemy::Config.show[args]
+            end
+          end
+        end
+
+        it "returns the image file format" do
+          is_expected.to eq('png')
+        end
+      end
+
+      context "when `image_output_format` is configured to an image format" do
+        before do
+          allow(Alchemy::Config).to receive(:get) do |args|
+            if args == :image_output_format
+              'jpg'
+            else
+              Alchemy::Config.show[args]
+            end
+          end
+        end
+
+        context "and the format is a convertible format" do
+          it "returns the configured file format." do
+            is_expected.to eq('jpg')
+          end
+        end
+
+        context "but the format is not a convertible format" do
+          before do
+            allow(picture).to receive(:image_file_format) { 'svg' }
+          end
+
+          it "returns the original file format." do
+            is_expected.to eq('svg')
+          end
+        end
+      end
+    end
   end
 end

@@ -5,7 +5,8 @@
       alchemy.thumbnail_path(
         id: picture_to_assign,
         size: size,
-        sh: picture_to_assign.security_token(size: size)
+        sh: picture_to_assign.security_token(size: size),
+        format: picture_to_assign.image_file_format
       ),
       alt: picture_to_assign.name
     ),

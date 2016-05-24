@@ -1,6 +1,6 @@
 module Alchemy
   class PicturesController < Alchemy::BaseController
-    ALLOWED_IMAGE_TYPES = %w(png jpeg gif)
+    ALLOWED_IMAGE_TYPES = %w(png jpeg gif svg)
 
     caches_page :show, :thumbnail, :zoom
 
@@ -25,7 +25,7 @@ module Alchemy
         @size = params[:size]
       end
 
-      respond_to { |format| send_image(processed_image, format) }
+      respond_to { |format| send_image(processed_image, format, flatten: true) }
     end
 
     def zoom
@@ -45,20 +45,29 @@ module Alchemy
       false
     end
 
-    def send_image(image, format)
+    def send_image(image, format, opts = {})
       request.session_options[:skip] = true
       ALLOWED_IMAGE_TYPES.each do |type|
+        # Flatten animated gifs, only if converting to a different format.
+        # Can be overwritten via +options[:flatten]+.
+        options = {
+          flatten: type != "gif" && image.ext == 'gif'
+        }.merge(opts)
+
         format.send(type) do
-          options = []
+          encoding_options = []
           if type == 'jpeg'
             quality = params[:quality] || Config.get(:output_image_jpg_quality)
-            options << "-quality #{quality}"
+            encoding_options << "-quality #{quality}"
           end
-          # Flatten animated gifs, only if converting to a different format.
-          if type != "gif" && image.ext == 'gif'
-            options << "-flatten"
+          if options[:flatten]
+            encoding_options << "-flatten"
           end
-          render text: image.encode(type, options.join(' ')).data
+          if @picture.has_convertible_format?
+            render text: image.encode(type, encoding_options.join(' ')).data
+          else
+            render text: image.data
+          end
         end
       end
     end
@@ -70,7 +79,7 @@ module Alchemy
       if @image.nil?
         raise MissingImageFileError, "Missing image file for #{@picture.inspect}"
       end
-      if @size.present?
+      if resizable?
         if params[:crop_size].present? && params[:crop_from].present? || params[:crop].present?
           @picture.crop(@size, params[:crop_from], params[:crop_size], @upsample)
         else
@@ -79,6 +88,10 @@ module Alchemy
       else
         @image
       end
+    end
+
+    def resizable?
+      @size.present? && @picture.has_convertible_format?
     end
   end
 end

@@ -3,22 +3,25 @@
 # Table name: alchemy_pictures
 #
 #  id                :integer          not null, primary key
-#  name              :string(255)
-#  image_file_name   :string(255)
+#  name              :string
+#  image_file_name   :string
 #  image_file_width  :integer
 #  image_file_height :integer
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  creator_id        :integer
 #  updater_id        :integer
-#  upload_hash       :string(255)
+#  upload_hash       :string
 #  cached_tag_list   :text
-#  image_file_uid    :string(255)
+#  image_file_uid    :string
 #  image_file_size   :integer
+#  image_file_format :string
 #
 
 module Alchemy
   class Picture < ActiveRecord::Base
+    CONVERTIBLE_FILE_FORMATS = %w(gif jpg jpeg png).freeze
+
     include Alchemy::NameConversions
     include Alchemy::Touching
     include Alchemy::Picture::Sweeping
@@ -181,6 +184,36 @@ module Alchemy
     def humanized_name
       return "" if image_file_name.blank?
       convert_to_humanized_name(image_file_name, suffix)
+    end
+
+    # Returns the format the image should be rendered with
+    #
+    # Only returns a format differing from original if an +image_output_format+
+    # is set in config and the image has a convertible file format.
+    #
+    def default_render_format
+      if convertible?
+        Config.get(:image_output_format)
+      else
+        image_file_format
+      end
+    end
+
+    # Returns true if the image can be converted
+    #
+    # If the +image_output_format+ is set to +nil+ or +original+ or the
+    # image has not a convertible file format (i.e. SVG) this returns +false+
+    #
+    def convertible?
+      Config.get(:image_output_format) &&
+        Config.get(:image_output_format) != 'original' &&
+        has_convertible_format?
+    end
+
+    # Returns true if the image can be converted into other formats
+    #
+    def has_convertible_format?
+      image_file_format.in?(CONVERTIBLE_FILE_FORMATS)
     end
 
     # Checks if the picture is restricted.

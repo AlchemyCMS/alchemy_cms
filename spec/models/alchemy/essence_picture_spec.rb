@@ -38,10 +38,6 @@ module Alchemy
       let(:picture) { build_stubbed(:alchemy_picture) }
       let(:essence) { build_stubbed(:alchemy_essence_picture, picture: picture) }
 
-      it "returns the show picture url." do
-        is_expected.to match(/\/pictures\/#{picture.id}\/show\/#{picture.urlname}\.#{Config.get(:image_output_format)}/)
-      end
-
       it "includes the secure hash." do
         is_expected.to match(/\?sh=\S+\z/)
       end
@@ -55,8 +51,8 @@ module Alchemy
       end
 
       context 'with no format in the options' do
-        it "includes the default image output format." do
-          is_expected.to match(/#{Config.get(:image_output_format)}/)
+        it "includes the image's default render format." do
+          is_expected.to match(/#{picture.default_render_format}/)
         end
       end
 
@@ -187,9 +183,21 @@ module Alchemy
     end
 
     describe '#serialized_ingredient' do
-      let(:content) { Content.new }
-      let(:picture) { mock_model(Picture, name: 'Cute Cat Kittens', urlname: 'cute-cat-kittens', security_token: 'kljhgfd') }
-      let(:essence) { EssencePicture.new(content: content, picture: picture) }
+      let(:content) do
+        Content.new
+      end
+
+      let(:picture) do
+        mock_model Picture,
+          name: 'Cute Cat Kittens',
+          urlname: 'cute-cat-kittens',
+          security_token: 'kljhgfd',
+          default_render_format: 'jpg'
+      end
+
+      let(:essence) do
+        EssencePicture.new(content: content, picture: picture)
+      end
 
       it "returns the url to render the picture" do
         expect(essence.serialized_ingredient).to eq("/pictures/#{picture.id}/show/#{picture.urlname}.jpg?sh=#{picture.security_token}")

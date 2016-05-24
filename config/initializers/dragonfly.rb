@@ -1,8 +1,11 @@
+require 'dragonfly_svg'
+
 # Alchemy CMS Dragonfly configuration.
 
 # Pictures
 Dragonfly.app(:alchemy_pictures).configure do
   plugin :imagemagick
+  plugin :svg
   datastore :file,
     root_path:  Rails.root.join('uploads/pictures').to_s,
     store_meta: false
