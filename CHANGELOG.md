@@ -9,6 +9,7 @@ when it is defined.
 * Adds time based published pages: The public status of a page is now made of two time stamps:
   `public_on` and `public_until`
 * Send page expiration cache headers
+* Adds an +EssencePictureView+ class responsible for rendering the `essence_picture_view` partial
 
 __Notable Changes__
 

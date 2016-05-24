@@ -1,5 +1,7 @@
 <% cache(content) do %>
-<%= render_essence_picture_view content,
-  local_assigns.fetch(:options, {}),
-  local_assigns.fetch(:html_options, {}) %>
+<%= Alchemy::EssencePictureView.new(
+  content,
+  local_assigns[:options],
+  local_assigns[:html_options]
+).render %>
 <% end %>
