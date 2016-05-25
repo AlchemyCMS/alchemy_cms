@@ -1,10 +1,22 @@
 <% if @attachments.empty? %>
   <div class="info">
     <%= render_icon('info') %>
-    <%= Alchemy.t(:no_files_in_archive) %>
+    <% if params[:q].present? %>
+      <%= Alchemy.t(:no_search_results) %>
+    <% else %>
+      <%= Alchemy.t(:no_files_in_archive) %>
+    <% end %>
   </div>
 <% else %>
-  <ul>
+  <ul class="list">
+    <li class="list-header">
+      <span class="list-primary">
+        <%= Alchemy::Attachment.human_attribute_name('name') %>
+      </span>
+      <span class="list-secondary">
+        <%= Alchemy::Attachment.human_attribute_name('file_mime_type') %>
+      </span>
+    </li>
     <%= render partial: 'file_to_assign', collection: @attachments %>
   </ul>
   <%= paginate @attachments, theme: 'alchemy', remote: true %>

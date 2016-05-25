@@ -5,14 +5,14 @@
     </div>
     <div class="sitemap_right_tools">
       {{#unless redirects_to_external}}
-        <%= link_to '',
+        <%= link_to render_icon(:element_window),
           alchemy.list_admin_elements_path(page_id: '__ID__').gsub('__ID__', '{{id}}'),
           remote: true,
           data: {
             'page-id' => '{{id}}',
             url: @url_prefix + '{{urlname}}'
           },
-          class: "show_elements_to_link",
+          class: "show_elements_to_link sitemap_tool",
           title: Alchemy.t(:show_elements_from_page)
         %>
       {{/unless}}

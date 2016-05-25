@@ -39,6 +39,13 @@ module Alchemy
       def allowed_filetypes
         Config.get(:uploader).fetch('allowed_filetypes', {}).fetch('alchemy/attachments', [])
       end
+
+      def file_types_for_select
+        file_types = Alchemy::Attachment.pluck(:file_mime_type).uniq.map do |type|
+          [Alchemy.t(type, scope: 'mime_types'), type]
+        end
+        file_types.sort_by(&:first)
+      end
     end
 
     validates_presence_of :file
@@ -55,6 +62,8 @@ module Alchemy
     end
 
     after_update :touch_contents
+
+    scope :with_file_type, ->(file_type) { where(file_mime_type: file_type) }
 
     # Instance methods
 
