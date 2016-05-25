@@ -171,9 +171,10 @@ module Alchemy
 
       def visit
         @page.unlock!
-        redirect_to show_page_path(
+        redirect_to show_page_url(
           urlname: @page.urlname,
-          locale: prefix_locale? ? @page.language_code : nil
+          locale: prefix_locale? ? @page.language_code : nil,
+          host: @page.site.host == "*" ? request.host : @page.site.host
         )
       end
 
