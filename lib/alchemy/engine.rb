@@ -23,6 +23,7 @@ require 'turbolinks'
 require 'userstamp'
 
 # Require globally used Alchemy mixins
+require_relative './ability_helper'
 require_relative './auth_accessors'
 require_relative './cache_digests/template_tracker'
 require_relative './config'
