@@ -4,37 +4,29 @@ class AddTimebasedPublishingColumnsToPages < ActiveRecord::Migration
     add_column :alchemy_pages, :public_until, :datetime
     add_index :alchemy_pages, [:public_on, :public_until]
 
-    Alchemy::Page.each do |page|
-      next unless page.published_at
-      page.update_column(public_on: page.published_at)
-      say "Updated #{page.name} public state"
-    end
+    update <<-SQL.strip_heredoc
+      UPDATE alchemy_pages
+      SET public_on = published_at
+      WHERE published_at IS NOT NULL AND public=#{ActiveRecord::Base.connection.quoted_true}
+    SQL
 
     remove_column :alchemy_pages, :public
   end
 
   def down
     add_column :alchemy_pages, :public, :boolean, default: false
+    current_time = ActiveRecord::Base.connection.quoted_date(Time.current)
 
-    Alchemy::Page.each do |page|
-      next unless page_public?(page)
-      page.update_column(public: true)
-      say "Updated #{page.name} public state"
-    end
+    update <<-SQL.strip_heredoc
+      UPDATE alchemy_pages
+      SET public = (
+        public_on IS NOT NULL AND public_on < '#{current_time}'
+        AND (public_until > '#{current_time}' OR public_until IS NULL)
+      )
+    SQL
 
+    remove_index :alchemy_pages, [:public_on, :public_until]
     remove_column :alchemy_pages, :public_on
     remove_column :alchemy_pages, :public_until
-    remove_index :alchemy_pages, [:public_on, :public_until]
-  end
-
-  private
-
-  def page_public?(page)
-    page.public_on && page.public_on < current_time &&
-      page.public_until && page.public_until > current_time
-  end
-
-  def current_time
-    @_current_time ||= Time.current
   end
 end
