@@ -20,6 +20,9 @@ __Notable Changes__
 * Thumbnails now render in original file format, but GIFs will always be flattened
 * Pictures will be rendered in original file format by default
 * Allow SVG files to be rendered as EssencePicture
+* When using Alchemy content outside of Alchemy, `current_ability` is no longer
+  included with `Alchemy::ControllerActions` to prevent method clashes. If you
+  need access to `current_ability` you also need to include `Alchemy::AbilityHelper`
 
 ## 3.3.1 (unreleased)
 

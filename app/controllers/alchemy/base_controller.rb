@@ -3,6 +3,7 @@
 module Alchemy
   class BaseController < ApplicationController
     include Alchemy::ConfigurationMethods
+    include Alchemy::AbilityHelper
     include Alchemy::ControllerActions
     include Alchemy::Modules
     include Alchemy::SSLProtection
