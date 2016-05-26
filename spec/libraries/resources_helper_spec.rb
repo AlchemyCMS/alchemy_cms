@@ -79,7 +79,7 @@ describe Alchemy::ResourcesHelper do
 
     describe "#new_resource_path" do
       it "invokes new_polymorphic_path with correct scope and resource_name" do
-        expect(controller).to receive(:new_polymorphic_path).with(["main_app_proxy", "admin", "my_resource"], {})
+        expect(controller).to receive(:new_polymorphic_path).with(["main_app_proxy", "admin", "namespace_my_resource"], {})
         controller.new_resource_path
       end
     end
