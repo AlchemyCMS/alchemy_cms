@@ -117,10 +117,15 @@ module Alchemy
     end
 
     def namespaced_resource_name
-      return @_namespaced_resource_name unless @_namespaced_resource_name.nil?
-      resource_name_array = resource_array
-      resource_name_array.delete(engine_name) if in_engine?
-      @_namespaced_resource_name = resource_name_array.join('_').singularize
+      @_namespaced_resource_name ||= namespaced_resources_name.singularize
+    end
+
+    def namespaced_resources_name
+      @_namespaced_resources_name ||= begin
+        resource_name_array = resource_array.dup
+        resource_name_array.delete(engine_name) if in_engine?
+        resource_name_array.join('_')
+      end
     end
 
     def namespace_for_scope
