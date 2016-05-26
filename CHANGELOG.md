@@ -21,6 +21,10 @@ __Notable Changes__
 * Pictures will be rendered in original file format by default
 * Allow SVG files to be rendered as EssencePicture
 
+## 3.3.1 (unreleased)
+
+* Fix use of Alchemy::Resource with namespaced models (#729)
+
 ## 3.3.0 (2016-05-18)
 
 __New Features__

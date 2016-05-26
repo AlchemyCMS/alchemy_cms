@@ -31,11 +31,11 @@ module Alchemy
       @_resource_scope ||= [resource_url_proxy].concat(resource_handler.namespace_for_scope)
     end
 
-    def resources_path(resource_or_name = resource_handler.resources_name, options = {})
+    def resources_path(resource_or_name = resource_handler.namespaced_resources_name, options = {})
       polymorphic_path (resource_scope + [resource_or_name]), options
     end
 
-    def resource_path(resource = resource_handler.resource_name, options = {})
+    def resource_path(resource = resource_handler.namespaced_resource_name, options = {})
       resources_path(resource, options)
     end
 
