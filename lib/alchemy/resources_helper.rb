@@ -40,7 +40,7 @@ module Alchemy
     end
 
     def new_resource_path(options = {})
-      new_polymorphic_path (resource_scope + [resource_handler.resource_name]), options
+      new_polymorphic_path (resource_scope + [resource_handler.namespaced_resource_name]), options
     end
 
     def edit_resource_path(resource = nil, options = {})
