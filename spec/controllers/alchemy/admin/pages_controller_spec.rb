@@ -567,7 +567,7 @@ module Alchemy
       end
 
       describe '#visit' do
-        let(:page) { mock_model(Alchemy::Page, urlname: 'home') }
+        let(:page) { mock_model(Alchemy::Page, urlname: 'home', site: site) }
 
         before do
           allow(Page).to receive(:find).with(page.id.to_s).and_return(page)
@@ -575,8 +575,44 @@ module Alchemy
           allow(@controller).to receive(:multi_language?).and_return(false)
         end
 
-        it "should redirect to the page path" do
-          expect(alchemy_post(:visit, id: page.id)).to redirect_to(show_page_path(urlname: 'home'))
+        context "when the pages site is a catch-all" do
+          let(:site) { build_stubbed(:alchemy_site, host: "*") }
+
+          it "should redirect to the page path" do
+            expect(alchemy_post(:visit, id: page.id)).to redirect_to("/home")
+          end
+        end
+
+        context "when pages site is a concrete host" do
+          let(:site) { build_stubbed(:alchemy_site, host: "reallygoodsite.com") }
+
+          it "should redirect to the page path on the right site" do
+            expect(alchemy_post(:visit, id: page.id)).to redirect_to("http://reallygoodsite.com/home")
+          end
+        end
+
+        context "when running in a dev env with a different port" do
+          let(:site) { build_stubbed(:alchemy_site, host: "*") }
+
+          before do
+            allow(request).to receive(:port).and_return(3000)
+          end
+
+          it "should redirect to the page path on the right site" do
+            expect(alchemy_post(:visit, id: page.id)).to redirect_to("http://test.host:3000/home")
+          end
+        end
+
+        context "when running in a dev env with a different port" do
+          let(:site) { build_stubbed(:alchemy_site, host: "reallygoodsite.com") }
+
+          before do
+            allow(request).to receive(:port).and_return(3000)
+          end
+
+          it "should redirect to the page path on the right site" do
+            expect(alchemy_post(:visit, id: page.id)).to redirect_to("http://reallygoodsite.com:3000/home")
+          end
         end
       end
 
