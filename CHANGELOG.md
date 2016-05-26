@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.3.1 (unreleased)
+
+* Fix use of Alchemy::Resource with namespaced models (#729)
+
 ## 3.3.0 (2016-05-18)
 
 __New Features__
