@@ -77,6 +77,7 @@ $.extend Alchemy.Tinymce,
   # Remove all tinymce instances for given selector
   removeFrom: (selector) ->
     $(selector).each ->
-      tinymce.get(this.id).remove()
+      elem = tinymce.get(this.id)
+      elem.remove() if elem
       return
     return
