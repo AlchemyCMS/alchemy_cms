@@ -11,6 +11,7 @@ when it is defined.
 * Send page expiration cache headers
 * Adds an +EssencePictureView+ class responsible for rendering the `essence_picture_view` partial
 * Adds a file type filter to file archive
+* Allow setting the type of EssenceText input fields in the elements.yml via `settings[:input_type]`
 
 __Notable Changes__
 
