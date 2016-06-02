@@ -3,6 +3,7 @@
 ## 3.3.1 (unreleased)
 
 * Fix use of Alchemy::Resource with namespaced models (#729)
+* Allow setting the type of EssenceText input fields in the elements.yml via `settings[:input_type]`
 
 ## 3.3.0 (2016-05-18)
 
