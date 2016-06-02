@@ -7,7 +7,7 @@ rvm:
 - 2.3.0
 branches:
   only:
-    - master
+    - 3.3-stable
 before_install:
   - gem install bundler
 before_script: bundle exec rake alchemy:spec:prepare
