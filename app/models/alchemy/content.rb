@@ -241,7 +241,7 @@ module Alchemy
     # Returns true if there is a tinymce setting defined on the content definiton
     # or if the +essence.has_tinymce?+ returns true.
     def has_tinymce?
-      settings[:tinymce].present? || essence.has_tinymce?
+      settings[:tinymce].present? || (essence.present? && essence.has_tinymce?)
     end
 
     # Returns true if there is a tinymce setting defined that contains settings.

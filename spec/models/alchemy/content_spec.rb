@@ -322,6 +322,14 @@ module Alchemy
 
         it { is_expected.to eq(true) }
       end
+
+      context 'having nil essence' do
+        before do
+          content.essence = nil
+        end
+
+        it { is_expected.to eq(false) }
+      end
     end
 
     describe '#has_custom_tinymce_config?' do
