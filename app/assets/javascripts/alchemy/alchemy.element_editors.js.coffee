@@ -72,7 +72,7 @@ Alchemy.ElementEditors =
   selectCellForElement: ($element) ->
     $cells = $("#cells .sortable_cell")
     if $cells.size() > 0
-      $cell = $element.parent(".sortable_cell")
+      $cell = $element.closest(".sortable_cell")
       $("#cells").tabs("option", "active", $cells.index($cell))
 
   # Marks an element as selected in the element window and scrolls to it.
