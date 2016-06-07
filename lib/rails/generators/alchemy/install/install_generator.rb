@@ -12,12 +12,6 @@ module Alchemy
 
       source_root File.expand_path('files', File.dirname(__FILE__))
 
-      def create_view_dirs
-        %w(elements page_layouts).each do |dir|
-          empty_directory Rails.root.join("app/views/alchemy/#{dir}")
-        end
-      end
-
       def copy_config
         copy_file "#{config_path}/config.yml",
           Rails.root.join("config/alchemy/config.yml")

@@ -25,6 +25,10 @@ __Notable Changes__
   included with `Alchemy::ControllerActions` to prevent method clashes. If you
   need access to `current_ability` you also need to include `Alchemy::AbilityHelper`
 
+__Fixed Bugs__
+
+* Generators don't delete directories any more (#850)
+
 ## 3.3.1 (unreleased)
 
 * Fix use of Alchemy::Resource with namespaced models (#729)

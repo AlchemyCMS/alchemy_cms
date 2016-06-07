@@ -9,19 +9,15 @@ module Alchemy
 
       def init
         @essence_name = essence_name.underscore
-        @essence_view_path = Rails.root.join('app/views/alchemy/essences')
+        @essence_view_path = 'app/views/alchemy/essences'
       end
 
       def create_model
         invoke("model", [@essence_name])
       end
 
-      def create_directory
-        empty_directory @essence_view_path
-      end
-
       def act_as_essence
-        essence_class_file = Rails.root.join('app/models', "#{@essence_name}.rb")
+        essence_class_file = "app/models/#{@essence_name}.rb"
         essence_class = @essence_name.classify
         inject_into_class essence_class_file, essence_class, <<-CLASSMETHOD
   acts_as_essence(

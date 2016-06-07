@@ -6,11 +6,6 @@ module Alchemy
       desc "This generator generates your elements view partials."
       source_root File.expand_path('templates', File.dirname(__FILE__))
 
-      def create_directory
-        @elements_dir = "#{Rails.root}/app/views/alchemy/elements"
-        empty_directory @elements_dir
-      end
-
       def create_partials
         @elements = load_alchemy_yaml('elements.yml')
         @elements.each do |element|
@@ -22,9 +17,15 @@ module Alchemy
             raise "Element name '#{element['name']}' has wrong format. Only lowercase and non whitespace characters allowed."
           end
 
-          conditional_template "editor.html.#{template_engine}", "#{@elements_dir}/_#{@element_name}_editor.html.#{template_engine}"
-          conditional_template "view.html.#{template_engine}", "#{@elements_dir}/_#{@element_name}_view.html.#{template_engine}"
+          conditional_template "editor.html.#{template_engine}", "#{elements_dir}/_#{@element_name}_editor.html.#{template_engine}"
+          conditional_template "view.html.#{template_engine}", "#{elements_dir}/_#{@element_name}_view.html.#{template_engine}"
         end if @elements
+      end
+
+      private
+
+      def elements_dir
+        @_elements_dir ||= "app/views/alchemy/elements"
       end
     end
   end
