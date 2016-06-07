@@ -13,14 +13,12 @@ module Alchemy
       source_root File.expand_path('files', File.dirname(__FILE__))
 
       def copy_config
-        copy_file "#{config_path}/config.yml",
-          Rails.root.join("config/alchemy/config.yml")
+        copy_file "#{config_path}/config.yml", "config/alchemy/config.yml"
       end
 
       def copy_yml_files
         %w(elements page_layouts).each do |file|
-          template "#{current_path}/templates/#{file}.yml.tt",
-            Rails.root.join("config/alchemy/#{file}.yml")
+          template "#{current_path}/templates/#{file}.yml.tt", "config/alchemy/#{file}.yml"
         end
       end
 
