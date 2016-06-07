@@ -24,6 +24,11 @@ module Alchemy
         end
       end
 
+      def install_assets
+        copy_file "all.js", "vendor/assets/javascripts/alchemy/admin/all.js"
+        copy_file "all.css", "vendor/assets/stylesheets/alchemy/admin/all.css"
+      end
+
       def copy_demo_views
         return if @options[:skip_demo_files]
 

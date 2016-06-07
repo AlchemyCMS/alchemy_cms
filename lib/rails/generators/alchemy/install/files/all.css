@@ -1,0 +1,11 @@
+/*
+ * This is the AlchemyCMS stylesheet manifest that'll be compiled into alchemy/admin/all.css
+ *
+ * In order to override existing styles or add custom styles to Alchemy's admin interface just
+ * require the files here.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ *= require alchemy/admin
+ */

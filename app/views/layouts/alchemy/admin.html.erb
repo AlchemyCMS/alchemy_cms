@@ -6,8 +6,8 @@
     <link rel="shortcut icon" href="<%= asset_path('alchemy/favicon.ico') %>">
     <%= csrf_meta_tag %>
     <meta name="robots" content="noindex">
-    <%= stylesheet_link_tag('alchemy/admin', :media => 'screen', "data-turbolinks-track" => true) %>
-    <%= stylesheet_link_tag('alchemy/print', :media => 'print', "data-turbolinks-track" => true) %>
+    <%= stylesheet_link_tag('alchemy/admin/all', media: 'screen', 'data-turbolinks-track' => true) %>
+    <%= stylesheet_link_tag('alchemy/print', media: 'print', 'data-turbolinks-track' => true) %>
     <%= yield :stylesheets %>
     <script>
       // Global Alchemy JavaScript object.
@@ -34,7 +34,7 @@
       };
     </script>
     <%= render 'alchemy/admin/partials/routes' %>
-    <%= javascript_include_tag('alchemy/alchemy', "data-turbolinks-track" => true) %>
+    <%= javascript_include_tag('alchemy/admin/all', 'data-turbolinks-track' => true) %>
     <%= yield :javascript_includes %>
   </head>
   <body id="alchemy" class="<%= alchemy_body_class %>">

@@ -24,6 +24,8 @@ __Notable Changes__
 * When using Alchemy content outside of Alchemy, `current_ability` is no longer
   included with `Alchemy::ControllerActions` to prevent method clashes. If you
   need access to `current_ability` you also need to include `Alchemy::AbilityHelper`
+* Asset manifests are now installed into `vendor/assets` folder in order to provide easy customization
+  Please don't use alchemy/custom files any more. Instead require your customizations in the manifests.
 
 __Fixed Bugs__
 

@@ -1,0 +1,1 @@
+../../../../../../../lib/rails/generators/alchemy/install/files/all.js
