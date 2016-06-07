@@ -32,24 +32,28 @@ module Alchemy
       def copy_demo_views
         return if @options[:skip_demo_files]
 
-        copy_file "application.html.erb",
-          Rails.root.join("app/views/layouts/application.html.erb")
-        copy_file "alchemy.elements.css.scss",
-          Rails.root.join("app/assets/stylesheets/alchemy.elements.css.scss")
+        copy_file "application.html.erb", "app/views/layouts/application.html.erb"
+        copy_file "article.scss", "app/assets/stylesheets/alchemy/elements/article.scss"
+
+        stylesheet_require = " *= require_tree ./alchemy/elements\n"
+        if File.exist?("app/assets/stylesheets/application.css")
+          insert_into_file "app/assets/stylesheets/application.css", stylesheet_require,
+            before: " */"
+        else
+          create_file "app/assets/stylesheets/application.css", "/*\n#{stylesheet_require} */\n"
+        end
 
         [
           "_article_editor.html.erb",
           "_article_view.html.erb"
         ].each do |file|
-          copy_file file, Rails.root.join("app/views/alchemy/elements/#{file}")
+          copy_file file, "app/views/alchemy/elements/#{file}"
         end
 
-        copy_file "_standard.html.erb",
-          Rails.root.join("app/views/alchemy/page_layouts/_standard.html.erb")
+        copy_file "_standard.html.erb", "app/views/alchemy/page_layouts/_standard.html.erb"
 
         %w(de en es).each do |locale|
-          copy_file "alchemy.#{locale}.yml",
-            Rails.root.join("config/locales/alchemy.#{locale}.yml")
+          copy_file "alchemy.#{locale}.yml", "config/locales/alchemy.#{locale}.yml"
         end
       end
 
