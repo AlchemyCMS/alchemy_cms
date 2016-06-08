@@ -10,9 +10,17 @@
 }
 
 @mixin button-defaults {
-  @include sassy-button('simple', $sb-border-radius, $sb-font-size, $sb-base-color, $sb-second-color, $sb-text-color, $sb-text-style, $sb-pseudo-states, $sb-ie-support);
-  border-color: $button-border-color;
+  border-radius: $default-border-radius;
+  font-size: $default-font-size;
+  color: $text-color;
+  background-color: $light-gray;
+  border: 1px solid $button-border-color;
   margin: $default-form-field-margin;
+  padding: 6px 18px 6px 18px;
+  cursor: pointer;
+  &:hover {
+    background-color: $medium-gray;
+  }
 }
 
 @mixin default-label-style {
