@@ -1,5 +1,5 @@
 .pagination {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   background: $light_gray;
   color: $text-color;
   position: fixed;

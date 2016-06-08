@@ -1,5 +1,5 @@
 #alchemy_elements_window {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   position: absolute;
   right: 0;
   top: 73px;
@@ -10,7 +10,7 @@
 }
 
 #element_area {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
 

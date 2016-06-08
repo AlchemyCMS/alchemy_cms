@@ -177,7 +177,7 @@ div.assign_image_list_image {
 }
 
 div#library_sidebar {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   position: fixed;
   border-left: 1px solid $default-border-color;
   top: 0;
@@ -206,7 +206,7 @@ div#filter_bar {
 }
 
 .tag-list {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   height: 100%;
   padding-bottom: 138px;
 
@@ -242,7 +242,7 @@ div#filter_bar {
   }
 
   ul {
-    @include box-sizing(border-box);
+    box-sizing: border-box;
     list-style-type: none;
     padding: 0;
     margin: 40px 0 4px 0;
@@ -344,7 +344,7 @@ div#filter_bar {
 }
 
 .picture_tags {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   width: 50%;
   max-height: 100%;
   position: absolute;
