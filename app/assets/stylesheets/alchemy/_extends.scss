@@ -15,7 +15,7 @@
   display: none;
   background: $light_yellow;
   @extend %rounded-border;
-  @include box-shadow(0 4px 24px $dark-gray);
+  box-shadow: 0 4px 24px $dark-gray;
   position: absolute;
   right: -25px;
   top: 26px;
@@ -51,7 +51,7 @@
   border-color: $error_border_color;
   color: $error_text_color;
   background-color: lighten($error_background_color, 8%);
-  @include box-shadow(inset 1px 1px 4px rgba($error_border_color, 0.5));
+  box-shadow: inset 1px 1px 4px rgba($error_border_color, 0.5);
 }
 
 %blue-focus-style {
@@ -62,7 +62,7 @@
   @include box-sizing(border-box);
   $border-inset-color: lighten($default-border-color, 20%);
   @extend %rounded-border;
-  @include box-shadow(inset 0px 1px 1px $medium-gray);
+  box-shadow: inset 0px 1px 1px $medium-gray;
   font: $default-font-style;
   padding: 1px 2*$default-padding;
   margin: $default-form-field-margin;

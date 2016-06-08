@@ -87,7 +87,7 @@ $image-overlay-transition-easing: ease-in;
   position: absolute;
   top: 0;
   background-color: $medium-gray;
-  @include box-shadow(-2px 0 $default-padding -2px $text-color);
+  box-shadow: -2px 0 $default-padding -2px $text-color;
   @include transition(right $image-overlay-transition-duration $image-overlay-transition-easing);
 }
 
@@ -176,7 +176,7 @@ $image-overlay-transition-easing: ease-in;
     height: auto;
     max-width: 100%;
     max-height: 100%;
-    @include box-shadow(0 0 2*$default-margin $text-color);
+    box-shadow: 0 0 2*$default-margin $text-color;
     background-color: $dark-gray;
     vertical-align: middle;
     cursor: default;

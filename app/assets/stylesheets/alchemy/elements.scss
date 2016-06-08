@@ -154,7 +154,7 @@
 
   &.selected {
     border-color: $blue;
-    @include box-shadow(0 0 4px $blue);
+    box-shadow: 0 0 4px $blue;
   }
 
   &.folded {
@@ -812,7 +812,7 @@ a.hint {
 }
 
 .nestable-elements {
-  @include box-shadow(inset 0 4px 8px -2px darken($medium-gray, 15%));
+  box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
   background-color: $medium-gray;
 
   .expanded.element-editor > & {

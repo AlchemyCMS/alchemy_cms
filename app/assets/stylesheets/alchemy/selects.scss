@@ -117,7 +117,7 @@ select {
         padding: 4px 24px 4px 8px;
         background-image: none;
         border: 0 none;
-        @include box-shadow(none);
+        box-shadow: none;
       }
 
       .select2-search-choice-close {
