@@ -1,5 +1,5 @@
 %rounded-border {
-  @include border-radius($default-border-radius);
+  border-radius: $default-border-radius;
 }
 
 %text-overflow {

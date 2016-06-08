@@ -210,7 +210,7 @@ $image-overlay-transition-easing: ease-in;
 
     li {
       padding: 2*$default-padding;
-      @include border-radius($default-border-radius);
+      border-radius: $default-border-radius;
       white-space: normal;
 
       &.even { background: #F7F7F7 }

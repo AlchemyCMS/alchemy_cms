@@ -324,7 +324,7 @@
     position: absolute;
     bottom: 3px;
     right: 28px;
-    @include border-radius(0);
+    border-radius: 0;
 
     &.link-essence,
     &.unlink-essence {
@@ -374,7 +374,7 @@
   border: 1px dotted $button-border-color;
   background-color: $medium-gray;
   margin-bottom: 2*$default-margin;
-  @include border-radius($default-border-radius);
+  border-radius: $default-border-radius;
 }
 
 .edit_images_bottom {

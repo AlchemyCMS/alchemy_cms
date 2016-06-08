@@ -1131,7 +1131,7 @@
 .ui-tabs .ui-tabs-nav {
   padding: 4px 8px 0;
   background: transparent;
-  @include border-radius(0);
+  border-radius: 0;
   border-bottom: $default-border;
   margin: 0;
 }

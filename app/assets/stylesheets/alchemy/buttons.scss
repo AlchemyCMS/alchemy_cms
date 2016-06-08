@@ -28,7 +28,7 @@ button, input[type="submit"], a.button, input.button {
     border: 0 none;
     @include box-shadow(none);
     @include background(none);
-    @include border-radius(0);
+    border-radius: 0;
 
     .icon {
       margin: 0;
@@ -112,7 +112,7 @@ button, input[type="submit"], a.button, input.button {
 
     &:hover {
       border: $default-border-width $default-border-style $button-hover-border-color;
-      @include border-radius($default-border-radius);
+      border-radius: $default-border-radius;
       background: $button-hover-bg-color;
     }
   }
@@ -154,7 +154,7 @@ button, input[type="submit"], a.button, input.button {
 button.icon_button {
   background: transparent;
   border: 0 none;
-  @include border-radius(0);
+  border-radius: 0;
   @include box-shadow(none);
 
   &:disabled, &.disabled {
