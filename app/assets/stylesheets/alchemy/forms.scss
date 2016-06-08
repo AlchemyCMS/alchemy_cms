@@ -26,7 +26,14 @@ form {
 
   .input {
     padding: $default-padding 0;
-    @include pie-clearfix;
+    &:after {
+      content    : "\0020";
+      display    : block;
+      height     : 0;
+      clear      : both;
+      overflow   : hidden;
+      visibility : hidden;
+    }
 
     > input[type="url"],
     > input[type="text"],
@@ -116,8 +123,8 @@ form {
 
     &.language_locale small.error {
       @include form-hint(
-        $background-color: $error_background_color,
-        $border-color: $error_border_color
+      $background-color: $error_background_color,
+      $border-color: $error_border_color
       );
       text-align: left;
     }
