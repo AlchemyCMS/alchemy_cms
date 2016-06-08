@@ -1,5 +1,6 @@
 .upload-button {
-  @include inline-block(top);
+  display: inline-block;
+  vertical-align: top;
 }
 
 .fileupload {

@@ -133,7 +133,8 @@
 
 .button_group {
   position: relative;
-  @include inline-block(top);
+  display: inline-block;
+  vertical-align: top;
   margin: 0 2*$default-margin;
 
   &:hover label {
