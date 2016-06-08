@@ -358,7 +358,7 @@ a.folder_link {
   height: 33px;
   padding: $default-padding;
   border: $default-border;
-  @include box-shadow(#9ea09f 0px 0px 4px);
+  box-shadow: #9ea09f 0px 0px 4px;
   @extend %rounded-border;
 
   .spinner {

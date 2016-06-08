@@ -65,11 +65,11 @@
   margin: 2*$default-margin;
   border-top-left-radius: $default-border-radius;
   border-top-right-radius: $default-border-radius;
-  @include box-shadow(0 0 2px rgba(#000,0.8));
+  box-shadow: 0 0 2px rgba(#000,0.8);
   @include transition(min-height 200ms ease-in-out);
 
   &.modal {
-    @include box-shadow(0 0 4px #666);
+    box-shadow: 0 0 4px #666;
   }
 
   div#jscropper {

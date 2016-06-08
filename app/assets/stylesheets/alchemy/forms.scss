@@ -97,7 +97,7 @@ form {
         margin-bottom: 4px;
 
         input[type="text"] {
-          @include box-shadow(none);
+          box-shadow: none;
         }
       }
 

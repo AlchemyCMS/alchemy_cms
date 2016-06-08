@@ -26,7 +26,7 @@ button, input[type="submit"], a.button, input.button {
     margin: 0;
     padding: 0;
     border: 0 none;
-    @include box-shadow(none);
+    box-shadow: none;
     @include background(none);
     border-radius: 0;
 
@@ -93,7 +93,7 @@ button, input[type="submit"], a.button, input.button {
     top: 0px;
     background: none;
     border: none;
-    @include box-shadow(none);
+    box-shadow: none;
 
     .icon {
       position: absolute;
@@ -155,7 +155,7 @@ button.icon_button {
   background: transparent;
   border: 0 none;
   border-radius: 0;
-  @include box-shadow(none);
+  box-shadow: none;
 
   &:disabled, &.disabled {
     background: transparent;
@@ -235,7 +235,7 @@ button.icon_button {
     padding: $default-padding 2*$default-padding;
     @extend %rounded-border;
     line-height: 1;
-    @include box-shadow(0 0 4px $default-border-color);
+    box-shadow: 0 0 4px $default-border-color;
     white-space: nowrap;
     pointer-events: none;
 
