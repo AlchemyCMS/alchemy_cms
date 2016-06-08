@@ -58,7 +58,7 @@ th {
     position: absolute;
     right: 2px;
     top: 4px;
-    @include text-shadow(1px 1px 1px #fff);
+    text-shadow: 1px 1px 1px #fff;
   }
 
   a {
@@ -67,7 +67,7 @@ th {
       display: block;
       margin: -4px -8px;
       padding: 4px 18px 4px 8px;
-      @include text-shadow(1px 1px 1px #fff);
+      text-shadow: 1px 1px 1px #fff;
     }
 
     &.sorted {
