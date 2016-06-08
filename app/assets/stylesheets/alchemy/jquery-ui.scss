@@ -249,7 +249,7 @@
 }
 
 .ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
-  @include opacity(.35);
+  opacity: .35;
   background-image: none;
 }
 

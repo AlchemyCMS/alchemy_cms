@@ -237,7 +237,7 @@ ul.list .sitemap_sitename {
 
   &.not_restricted {
     background-position: -288px -39px;
-    @include opacity(0.3);
+    opacity: 0.3;
   }
 
   &.visible {
@@ -246,7 +246,7 @@ ul.list .sitemap_sitename {
 
   &.not_visible {
     background-position: -160px -39px;
-    @include opacity(0.3);
+    opacity: 0.3;
   }
 
   &.public {
@@ -255,7 +255,7 @@ ul.list .sitemap_sitename {
 
   &.not_public {
     background-position: -224px -39px;
-    @include opacity(0.3);
+    opacity: 0.3;
   }
 }
 

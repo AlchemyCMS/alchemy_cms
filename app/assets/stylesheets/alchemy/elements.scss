@@ -141,7 +141,7 @@
   margin-bottom: 2*$default-margin;
 
   &.not-draggable {
-    @include opacity(0.5);
+    opacity: 0.5;
   }
 
   &.dirty {
@@ -239,7 +239,7 @@
     margin: 0 0 4*$default-margin 0;
     border: 0 none;
     border-top: 1px solid $medium-gray;
-    @include opacity(1);
+    opacity: 1;
   }
 }
 
@@ -411,7 +411,7 @@
   }
 
   a.disabled, > span.icon {
-    @include opacity(0.3);
+    opacity: 0.3;
     cursor: default;
   }
 }
