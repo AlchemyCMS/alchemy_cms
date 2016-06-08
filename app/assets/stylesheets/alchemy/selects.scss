@@ -14,10 +14,19 @@ select {
     .select2-choice {
       height: 27px;
       line-height: 27px;
-      @include sassy-button-gradient('simple', $sb-base-color, $sb-second-color, $sb-text-color, $sb-text-style, $sb-pseudo-states);
+      border-radius: $default-border-radius;
+      font-size: $default-font-size;
+      color: $text-color;
+      background-color: $light-gray;
+      background-image: none !important;
+      border: 1px solid $button-border-color;
+      margin: $default-form-field-margin;
+      cursor: pointer;
       border-color: $button-border-color;
       text-align: left;
-      border-radius: $default-border-radius;
+      &:hover {
+        background-color: $medium-gray;
+      }
 
       .select2-arrow {
         top: 2px;
