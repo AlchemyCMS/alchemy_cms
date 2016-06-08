@@ -123,17 +123,12 @@
 }
 
 @mixin linked-button($border-radius: $default-border-radius) {
-  @include sassy-button(
-    'matte',
-    $border-radius,
-    $sb-font-size,
-    $linked-button-color,
-    $sb-second-color,
-    $sb-text-color,
-    $sb-text-style,
-    $sb-pseudo-states,
-    $sb-ie-support
-  );
   padding: 3px;
   border-color: $default-border-color;
+  border-radius: $border-radius;
+  border: 1px solid #c0c0c0;
+  background-color: rgba(255, 191, 0, 0.5);
+  &:hover {
+    background-color: rgba(255, 191, 0, 0.7);
+  }
 }
