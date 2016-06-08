@@ -176,7 +176,7 @@ button.icon_button {
   &.active, &:active {
 
     .icon_button {
-      background-color: darken($sb-base-color, 10%);
+      background-color: darken($white, 10%);
       border: $default-border;
       padding: 2px;
       @extend %rounded-border;
