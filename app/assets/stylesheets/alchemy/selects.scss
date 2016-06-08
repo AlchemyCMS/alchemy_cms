@@ -163,7 +163,8 @@ select {
   }
 
   &.select2-with-searchbox .select2-results > .select2-result:first-child {
-    @include border-top-radius(0);
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
   }
 
   .select2-results {
@@ -171,11 +172,13 @@ select {
     margin: 0;
 
     > .select2-result:first-child {
-      @include border-top-radius($default-border-radius);
+      border-top-left-radius: $default-border-radius;
+      border-top-right-radius: $default-border-radius;
     }
 
     &:last-child {
-      @include border-bottom-radius($default-border-radius);
+      border-bottom-left-radius: $default-border-radius;
+      border-bottom-right-radius: $default-border-radius;
     }
 
     .select2-result {
