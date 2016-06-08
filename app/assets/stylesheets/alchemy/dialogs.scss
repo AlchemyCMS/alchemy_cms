@@ -9,7 +9,7 @@
   height: 100%;
   text-align: center;
   white-space: nowrap;
-  @include opacity(0);
+  opacity: 0;
   @include transition(opacity 200ms linear);
 
   // vertical aligment
@@ -23,7 +23,7 @@
   }
 
   &.open {
-    @include opacity(1);
+    opacity: 1;
   }
 }
 

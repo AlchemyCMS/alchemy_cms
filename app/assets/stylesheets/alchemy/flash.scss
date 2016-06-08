@@ -22,7 +22,7 @@ div#flash_notices {
 
 div.flash {
   @extend %rounded-border;
-  @include opacity(0.95);
+  opacity: 0.95;
   padding: 8px 8px 8px 30px;
   font-weight: bold;
   border-width: 1px;

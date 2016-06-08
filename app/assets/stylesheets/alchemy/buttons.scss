@@ -134,7 +134,7 @@ button, input[type="submit"], a.button, input.button {
 
     span {
       position: relative;
-      @include opacity(0.3);
+      opacity: 0.3;
       cursor: default;
     }
 
@@ -215,7 +215,7 @@ button.icon_button {
   }
 
   &.disabled {
-    @include opacity(0.5);
+    opacity: 0.5;
     cursor: default;
   }
 }

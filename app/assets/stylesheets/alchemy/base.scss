@@ -115,7 +115,7 @@ ul {
 hr {
   border: 0 none;
   border-bottom: 1px solid;
-  @include opacity(0.5);
+  opacity: 0.5;
 }
 
 .float_right { float: right }
