@@ -196,7 +196,6 @@ module Alchemy
 
     def set_action_aliases
       alias_action :configure,
-        :fold,
         :info,
         :link,
         :read,
