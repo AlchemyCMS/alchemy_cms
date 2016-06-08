@@ -55,9 +55,6 @@ Alchemy.Initializer = ->
     scrollingTop: 122,
     zIndex: 1
 
-# Enabling the Turbolinks Progress Bar
-Turbolinks.enableProgressBar()
-
 # Turbolinks DOM Ready
 $(document).on 'page:change', ->
   Alchemy.Initializer()
