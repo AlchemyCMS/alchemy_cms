@@ -3,8 +3,8 @@
   padding: 4 * $default-padding;
   width: 100%;
   position: relative;
-  @include box-sizing(border-box);
-  * { @include box-sizing(border-box) }
+  box-sizing: border-box;
+  * { box-sizing: border-box }
 
   h1 {
     font-size: 2em;

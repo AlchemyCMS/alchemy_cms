@@ -17,7 +17,7 @@
   @include animate-left;
   @include bottom-right-rounded-border;
   @include drop-shadow;
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   border-right: $default-border;
   border-bottom: $default-border;
   height: 44px;
@@ -26,7 +26,7 @@
   font: $default-font-style;
 
   * {
-    @include box-sizing(border-box);
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
   }

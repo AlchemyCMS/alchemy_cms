@@ -170,7 +170,7 @@ kbd {
 }
 
 .border-box-sizing {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
 }
 
 span.updated_at {
@@ -519,7 +519,7 @@ div.browse {
 }
 
 #alchemy_preview_window {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   position: absolute;
   left: 66px;
   top: 73px;

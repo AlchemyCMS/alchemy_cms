@@ -59,7 +59,7 @@
 }
 
 %default-input-style {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   $border-inset-color: lighten($default-border-color, 20%);
   @extend %rounded-border;
   box-shadow: inset 0px 1px 1px $medium-gray;

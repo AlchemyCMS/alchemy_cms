@@ -92,7 +92,7 @@ $image-overlay-transition-easing: ease-in;
 }
 
 .picture-details-overlay {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   right: 0;
   width: $image-overlay-form-width;
   height: 100%;
@@ -142,7 +142,7 @@ $image-overlay-transition-easing: ease-in;
 }
 
 .zoomed-picture-background {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   padding-top: 2*$default-padding;
@@ -188,7 +188,7 @@ $image-overlay-transition-easing: ease-in;
   padding: 2*$default-padding 0;
 
   .message {
-    @include box-sizing(border-box);
+    box-sizing: border-box;
     margin: 2*$default-padding 0;
   }
 }

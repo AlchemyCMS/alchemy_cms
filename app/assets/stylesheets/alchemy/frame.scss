@@ -1,5 +1,5 @@
 #top_menu {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   margin-left: 65px;
@@ -140,7 +140,7 @@ div#overlay_text_box {
 }
 
 #main_content {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   background-color: $light-gray;
   padding: 75px 8px 8px 74px;
   z-index: 0;
@@ -149,7 +149,7 @@ div#overlay_text_box {
 }
 
 #archive_all {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   height: 100%;
   padding-bottom: 60px;
 

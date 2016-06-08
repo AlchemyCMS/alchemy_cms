@@ -48,7 +48,7 @@ button, input[type="submit"], a.button, input.button {
 }
 
 .icon_button {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   width: 27px;
   height: 27px;
   line-height: 21px;
