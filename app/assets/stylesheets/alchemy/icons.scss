@@ -1,5 +1,6 @@
 .icon {
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
   background: image-url('alchemy/icons.png') no-repeat;
   width: 16px;
   height: 16px;

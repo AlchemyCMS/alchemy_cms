@@ -63,7 +63,8 @@ button, input[type="submit"], a.button, input.button {
   }
 
   .icon {
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     margin-top: -2px;
   }
 
@@ -72,7 +73,8 @@ button, input[type="submit"], a.button, input.button {
     background-repeat: no-repeat;
     width: 22px;
     height: 20px;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     top: -1px;
     left: -1px;
   }
@@ -88,7 +90,8 @@ button, input[type="submit"], a.button, input.button {
     height: 15px;
     padding: 0;
     float: none;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     position: relative;
     top: 0px;
     background: none;
@@ -205,7 +208,8 @@ button.icon_button {
     float: none;
     margin-right: auto;
     margin-left: auto;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     position: relative;
   }
 
