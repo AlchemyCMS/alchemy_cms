@@ -171,7 +171,8 @@ button.icon_button {
 
 .button_with_label {
   position: relative;
-  @include inline-block(top);
+  display: inline-block;
+  vertical-align: top;
   text-align: center;
   margin: 0 2*$default-margin;
   line-height: 0;
