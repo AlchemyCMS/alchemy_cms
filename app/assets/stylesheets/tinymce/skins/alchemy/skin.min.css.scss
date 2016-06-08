@@ -617,11 +617,11 @@ body .mce-abs-layout-item,.mce-abs-end {
   *display: inline;
   *zoom: 1;
   @include box-shadow(inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05));
-  @include background(linear-gradient(color-stops($sb-base-color, darken($sb-base-color, 10%))));
+  @include background(linear-gradient(color-stops($white, darken($white, 10%))));
 
   &:hover, &:focus {
     color: #333;
-    @include background(linear-gradient(color-stops(darken($sb-base-color, 10%), darken($sb-base-color, 20%))));
+    @include background(linear-gradient(color-stops(darken($white, 10%), darken($white, 20%))));
 
     button {
       @include background(inherit);
@@ -665,7 +665,7 @@ body .mce-abs-layout-item,.mce-abs-end {
   }
 
   &.mce-active, &.mce-active:hover {
-    @include background(linear-gradient(color-stops(darken($sb-base-color, 15%), darken($sb-base-color, 25%))));
+    @include background(linear-gradient(color-stops(darken($white, 15%), darken($white, 25%))));
     @include box-shadow(inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05));
 
     button i { color: #000; }
