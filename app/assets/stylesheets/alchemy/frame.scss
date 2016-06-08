@@ -73,7 +73,8 @@
       border-style: none;
       height: 24px;
       width: 24px;
-      @include inline-block;
+      display: inline-block;
+      vertical-align: middle;
       margin-bottom: 4px;
       margin-top: 2px;
     }
@@ -190,7 +191,8 @@ div#user_info {
   position: relative;
 
   a {
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
 
     &:hover {
       text-decoration: none;
@@ -217,7 +219,8 @@ div#user_info {
 
   .page_language {
     float: none;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     color: #3265b1;
     margin-right: 2px;
     font-size: 10px;

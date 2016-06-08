@@ -360,7 +360,8 @@ div#filter_bar {
 }
 
 .tag {
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
   @extend %rounded-border;
   padding: $default-padding 2*$default-padding $default-padding 4*$default-padding;
   margin: $default-margin/2 0;

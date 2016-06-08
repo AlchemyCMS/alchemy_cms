@@ -46,7 +46,8 @@
   color: #666;
   text-align: center;
   line-height: 1;
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .icon-angle-double-right:before { content: "\f101" }

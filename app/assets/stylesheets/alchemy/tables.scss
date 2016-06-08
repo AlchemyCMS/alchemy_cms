@@ -121,7 +121,8 @@ td.heading {
 }
 
 .list .tools .icon, .list td.icon .icon {
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
   width: 16px;
   height: 16px;
   @extend .disable-user-select;
@@ -211,7 +212,8 @@ td#user_roles {
   padding: 9px 0;
 
   label {
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     white-space: nowrap;
     min-width: 40%;
   }

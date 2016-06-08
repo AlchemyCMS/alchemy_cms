@@ -224,18 +224,13 @@ select {
 
 .select_with_label {
   margin: 0 3*$default-margin;
-  @include inline-block(top);
-
-  label, form {
-    @include inline-block;
-  }
-
-  select { margin: 0; }
+  display: inline-block;
+  vertical-align: middle;
 
   label {
-    margin-right: $default-margin;
-
-    &:after { content: ':'; }
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 2*$default-margin;
   }
 }
 

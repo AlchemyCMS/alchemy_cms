@@ -153,7 +153,8 @@ ul#sitemap {
       margin-right: 52px;
 
       span.page_move {
-        @include inline-block;
+        display: inline-block;
+        vertical-align: middle;
         width: 74px;
         text-align: center;
       }

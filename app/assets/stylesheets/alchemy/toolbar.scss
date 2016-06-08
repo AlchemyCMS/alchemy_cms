@@ -11,7 +11,8 @@
 
     form {
       margin: 0;
-      @include inline-block;
+      display: inline-block;
+      vertical-align: middle;
       line-height: 5px;
     }
   }
@@ -85,7 +86,8 @@
 }
 
 .toolbar_spacer {
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
   width: 0px;
   height: 29px;
   border-right-style: solid;

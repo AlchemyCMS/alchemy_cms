@@ -418,7 +418,8 @@
 
 .content_editor.essence_date {
   float: none;
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
   vertical-align: top;
 
   input.date {
@@ -618,7 +619,8 @@ select.long {
   }
 
   &.display_inline {
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     margin-right: 4px;
     vertical-align: top;
 
@@ -650,7 +652,8 @@ select.long {
     }
 
     &.inline {
-      @include inline-block;
+      display: inline-block;
+      vertical-align: middle;
       min-width: 90px;
       margin-right: 4px;
     }
@@ -688,7 +691,8 @@ select.long {
   }
 
   &:hover label a.icon_button.small {
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
   }
 
   select.essence_editor_select {
@@ -720,7 +724,8 @@ select.long {
 
   &.essence_date {
     float: none;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     vertical-align: top;
 
     input.date {
@@ -731,7 +736,8 @@ select.long {
   &.essence_picture_editor {
     float: none;
     height: auto;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 

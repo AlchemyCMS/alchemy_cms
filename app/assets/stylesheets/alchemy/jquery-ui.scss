@@ -41,7 +41,8 @@
 }
 
 .ui-helper-clearfix {
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /* required comment for clearfix to work in Opera \*/
