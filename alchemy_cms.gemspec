@@ -24,6 +24,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'acts_as_list',                     ['~> 0.3']
   gem.add_runtime_dependency 'acts-as-taggable-on',              ['~> 3.1']
   gem.add_runtime_dependency 'awesome_nested_set',               ['~> 3.0.0']
+  gem.add_runtime_dependency 'bourbon',                          ['~> 4.2']
   gem.add_runtime_dependency 'cancancan',                        ['~> 1.9']
   gem.add_runtime_dependency 'coffee-rails',                     ['~> 4.0']
   gem.add_runtime_dependency 'compass-rails',                    ['>= 2.0.4', '< 4.0']

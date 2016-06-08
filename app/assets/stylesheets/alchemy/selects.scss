@@ -207,7 +207,7 @@ select {
   }
 
   &.select2-drop-active {
-    @include border-radius($default-border-radius);
+    border-radius: $default-border-radius;
     border: 1px solid $blue;
   }
 }

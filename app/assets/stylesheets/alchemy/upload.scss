@@ -58,7 +58,7 @@
     text-indent: 2*$default-padding;
     overflow: visible;
     white-space: nowrap;
-    @include border-radius($default-border-radius);
+    border-radius: $default-border-radius;
   }
 }
 

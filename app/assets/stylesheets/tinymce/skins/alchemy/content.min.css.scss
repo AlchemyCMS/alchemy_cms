@@ -6,7 +6,7 @@
 
 html {
   @include box-shadow(inset 0px 1px 1px $medium-gray);
-  @include border-radius($default-border-radius);
+  border-radius: $default-border-radius;
 }
 
 body {
