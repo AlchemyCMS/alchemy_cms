@@ -326,6 +326,15 @@
     right: 28px;
     @include border-radius(0);
 
+    &.link-essence,
+    &.unlink-essence {
+      background-color: #eaeaea;
+      border: 1px solid #c0c0c0;
+      &:hover {
+        background-color: #d6d6d6;
+      }
+    }
+
     &.linked.link-essence {
       @include linked-button($border-radius: 0 0 0 0);
     }
