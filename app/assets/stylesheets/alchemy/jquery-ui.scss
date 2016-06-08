@@ -1144,7 +1144,8 @@
   margin: 0 .2em 1px 0;
   border-color: $default-border-color;
   border-bottom: 0 !important;
-  @include border-bottom-radius(0);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   padding: 0;
   white-space: nowrap;
   background-color: $medium-gray;

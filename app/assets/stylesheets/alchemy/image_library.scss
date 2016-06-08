@@ -258,12 +258,14 @@ $image-overlay-transition-easing: ease-in;
 
   .previous-picture {
     left: 0;
-    @include border-right-radius($default-border-radius);
+    border-top-right-radius: $default-border-radius;
+    border-bottom-right-radius: $default-border-radius;
   }
 
   .next-picture {
     right: $image-overlay-form-width + $picture-overlay-handle-width;
-    @include border-left-radius($default-border-radius);
+    border-bottom-left-radius: $default-border-radius;
+    border-top-left-radius: $default-border-radius;
     @include transition(right $image-overlay-transition-duration $image-overlay-transition-easing);
   }
 }
