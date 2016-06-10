@@ -31,6 +31,7 @@ group :development, :test do
   gem 'poltergeist', '~> 1.5'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'rspec-rails', '~> 3.0'
+  gem 'sassc-rails'
   gem 'shoulda-matchers', '~> 3.1'
 end
 
