@@ -14,19 +14,11 @@ select {
     .select2-choice {
       height: 27px;
       line-height: 27px;
-      border-radius: $default-border-radius;
-      font-size: $default-font-size;
-      color: $text-color;
-      background-color: $light-gray;
-      background-image: none !important;
-      border: 1px solid $button-border-color;
-      margin: $default-form-field-margin;
-      cursor: pointer;
+      @include button($base-color: $white, $padding: 0 5px);
+      display: block;
+      font-weight: normal;
       border-color: $button-border-color;
       text-align: left;
-      &:hover {
-        background-color: $medium-gray;
-      }
 
       .select2-arrow {
         top: 2px;
@@ -56,6 +48,7 @@ select {
     }
 
     &.tiny {
+      padding-top: 6px;
 
       .select2-choice {
         height: 18px;
@@ -163,8 +156,7 @@ select {
   }
 
   &.select2-with-searchbox .select2-results > .select2-result:first-child {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-top-radius: 0;
   }
 
   .select2-results {
@@ -172,13 +164,11 @@ select {
     margin: 0;
 
     > .select2-result:first-child {
-      border-top-left-radius: $default-border-radius;
-      border-top-right-radius: $default-border-radius;
+      border-top-radius: $default-border-radius;
     }
 
     &:last-child {
-      border-bottom-left-radius: $default-border-radius;
-      border-bottom-right-radius: $default-border-radius;
+      border-bottom-radius: $default-border-radius;
     }
 
     .select2-result {

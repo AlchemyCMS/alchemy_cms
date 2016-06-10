@@ -26,14 +26,7 @@ form {
 
   .input {
     padding: $default-padding 0;
-    &:after {
-      content    : "\0020";
-      display    : block;
-      height     : 0;
-      clear      : both;
-      overflow   : hidden;
-      visibility : hidden;
-    }
+    @include clearfix;
 
     > input[type="url"],
     > input[type="text"],

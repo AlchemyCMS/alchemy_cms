@@ -10,16 +10,15 @@
 }
 
 @mixin button-defaults {
-  border-radius: $default-border-radius;
-  font-size: $default-font-size;
-  color: $text-color;
-  background-color: $light-gray;
-  border: 1px solid $button-border-color;
-  margin: $default-form-field-margin;
-  padding: 6px 18px 6px 18px;
-  cursor: pointer;
+  @include button($base-color: $white);
+  background-color: $button-bg-color;
+  border-color: $button-border-color;
+  font-weight: normal;
+  text-color: $text-color;
+  text-shadow: $button-text-shadow;
   &:hover {
-    background-color: $medium-gray;
+    background-color: $button-hover-bg-color;
+    border-color: $button-hover-border-color;
   }
 }
 
@@ -131,12 +130,7 @@
 }
 
 @mixin linked-button($border-radius: $default-border-radius) {
+  @include button($base-color: $linked-color);
   padding: 3px;
   border-color: $default-border-color;
-  border-radius: $border-radius;
-  border: 1px solid #c0c0c0;
-  background-color: rgba(255, 191, 0, 0.5);
-  &:hover {
-    background-color: rgba(255, 191, 0, 0.7);
-  }
 }
