@@ -8,6 +8,9 @@ Basicly there are two ways to set up a module:
 endprologue.
 
 
+INFO: Alchemy provides a rails generator for custom modules, that can be invoked like this:
+<code>rails generate alchemy:module your_module_name</code>
+
 
 h3. Using Alchemy as your Rails admin backend
 
@@ -35,18 +38,18 @@ After you setting up your routes you have to take care for control access:
 
 h3. Authorization
 
-Rights and roles are set in <code>app/models/ability.rb</code>.
-Just create the file if it doesn't exist already.
+Rights and roles are set in a CanCan Ability model.
+Create the file if it doesn't exist already. It has to be registered manually, by invoking <code>Alchemy.register_ability MyModuleAbility</code> in the module initializer.
 
 <ruby>
-# app/models/ability.rb
-class Ability
+# app/models/my_module_ability.rb
+class MyModuleAbility
   include CanCan::Ability
 
   def initialize(user)
     if !user.blank? && user.is_admin?
       can :manage, YourResource
-      can :manage, :admin_your_resource
+      can :manage, :admin_your_resources
     end
   end
 
@@ -116,6 +119,9 @@ Alchemy::Modules.register_module({
     ]
   }
 })
+
+# Register the module ability
+Alchemy.register_ability MyModuleAbility
 </ruby>
 
 NOTE: As an alternative to the module icon you can pass: <br><code>image: '/alchemy/icon_of_your_module.png'</code>
@@ -166,8 +172,8 @@ Alchemy::Modules.register_module({
   }
 })
 
-# Loading authorization rules and register them to auth engine instance
-Alchemy::Auth::Engine.get_instance.load(File.join(File.dirname(__FILE__), 'authorization_rules.rb'))
+# Register the module ability
+Alchemy.register_ability MyModuleAbility
 </ruby>
 
 h3. Get Ready!
