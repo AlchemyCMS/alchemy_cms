@@ -125,4 +125,39 @@ describe "Resources" do
       expect(page).to have_content("Succesfully removed")
     end
   end
+
+  context "with event that acts_as_taggable" do
+    around do |example|
+      Event.class_eval { acts_as_taggable }
+      example.run
+      # Unload the monkey patch
+      Object.send(:remove_const, :Event)
+      load "spec/dummy/app/models/event.rb"
+    end
+
+    it "shows an autocomplete tag list in the form" do
+      visit "/admin/events/new"
+      expect(page).to have_selector('input#event_tag_list[type="text"][data-autocomplete="/admin/tags/autocomplete"]')
+    end
+
+    context "with tagged events in the index view" do
+      let!(:event)        { create(:event, name: "Casablanca", tag_list: "Matinee") }
+      let!(:second_event) { create(:event, name: "Die Hard IX", tag_list: "Late Show") }
+
+      before { visit "/admin/events" }
+
+      it "shows the tag filter sidebar" do
+        within "#library_sidebar" do
+          expect(page).to have_content("Matinee")
+          expect(page).to have_content("Late Show")
+        end
+      end
+
+      it "filters the events when clicking a tag" do
+        click_link "Matinee"
+        expect(page).to have_content("Casablanca")
+        expect(page).to_not have_content("Die Hard IX")
+      end
+    end
+  end
 end

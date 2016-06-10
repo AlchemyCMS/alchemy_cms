@@ -7,7 +7,7 @@ module Alchemy
     class ResourcesController < Alchemy::Admin::BaseController
       include Alchemy::ResourcesHelper
 
-      helper Alchemy::ResourcesHelper
+      helper Alchemy::ResourcesHelper, TagsHelper
       helper_method :resource_handler
 
       before_filter :load_resource,
@@ -20,9 +20,15 @@ module Alchemy
       def index
         @query = resource_handler.model.ransack(params[:q])
         items = @query.result
+
         if contains_relations?
           items = items.includes(*resource_relations_names)
         end
+
+        if params[:tagged_with].present?
+          items = items.tagged_with(params[:tagged_with])
+        end
+
         respond_to do |format|
           format.html {
             items = items.page(params[:page] || 1).per(per_page_value_for_screen_size)
