@@ -142,23 +142,19 @@ kbd {
 }
 
 .top-rounded-border {
-  border-top-left-radius: $default-border-radius;
-  border-top-right-radius: $default-border-radius;
+  border-top-radius: $default-border-radius;
 }
 
 .left-rounded-border {
-  border-bottom-left-radius: $default-border-radius;
-  border-top-left-radius: $default-border-radius;
+  border-left-radius: $default-border-radius;
 }
 
 .right-rounded-border {
-  border-top-right-radius: $default-border-radius;
-  border-bottom-right-radius: $default-border-radius;
+  border-right-radius: $default-border-radius;
 }
 
 .bottom-rounded-border {
-  border-bottom-left-radius: $default-border-radius;
-  border-bottom-right-radius: $default-border-radius;
+  border-bottom-radius: $default-border-radius;
 }
 
 .bottom-left-rounded-border {
