@@ -42,7 +42,7 @@ module Alchemy
       [
         double(:column, {name: 'name', type: :string, array: false}),
         double(:column, {name: 'hidden_value', type: :string, array: false}),
-        double(:column, {name: 'description', type: :string, array: false}),
+        double(:column, {name: 'description', type: :text, array: false}),
         double(:column, {name: 'id', type: :integer, array: false}),
         double(:column, {name: 'starts_at', type: :datetime, array: false}),
         double(:column, {name: 'location_id', type: :integer, array: false}),
@@ -176,7 +176,7 @@ module Alchemy
         expect(subject).to eq([
           {name: "name", type: :string},
           {name: "hidden_value", type: :string},
-          {name: "description", type: :string},
+          {name: "description", type: :text},
           {name: "starts_at", type: :datetime},
           {name: "location_id", type: :integer},
           {name: "organizer_id", type: :integer}
@@ -232,11 +232,11 @@ module Alchemy
     describe "#searchable_attributes" do
       subject { resource.searchable_attributes }
 
-      it "returns all attributes of type string" do
+      it "returns all attributes of type string and text" do
         is_expected.to eq([
           {name: "name", type: :string},
           {name: "hidden_value", type: :string},
-          {name: "description", type: :string}
+          {name: "description", type: :text}
         ])
       end
 

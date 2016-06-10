@@ -90,6 +90,7 @@ module Alchemy
 
     DEFAULT_SKIPPED_ATTRIBUTES = %w(id updated_at created_at creator_id updater_id)
     DEFAULT_SKIPPED_ASSOCIATIONS = %w(creator updater)
+    SEARCHABLE_COLUMN_TYPES = [:string, :text]
 
     def initialize(controller_path, module_definition = nil, custom_model = nil)
       @controller_path = controller_path
@@ -160,10 +161,9 @@ module Alchemy
 
     # Returns all columns that are searchable
     #
-    # For now it only uses string type columns
-    #
     def searchable_attributes
-      attributes.select { |a| string_attribute?(a) } + searchable_relation_attributes?(attributes)
+      attributes.select { |a| searchable_attribute?(a) }
+        .concat(searchable_relation_attributes?(attributes))
     end
 
     # Search field input name
@@ -220,16 +220,17 @@ module Alchemy
 
     private
 
-    def string_attribute?(a)
-      a[:type].to_sym == :string && !a.key?(:relation)
+    def searchable_attribute?(a)
+      SEARCHABLE_COLUMN_TYPES.include?(a[:type].to_sym) && !a.key?(:relation)
     end
 
-    def string_attribute_on_relation?(a)
-      a.key?(:relation) && a[:relation][:attr_type].to_sym == :string
+    def searchable_attribute_on_relation?(a)
+      a.key?(:relation) &&
+        SEARCHABLE_COLUMN_TYPES.include?(a[:relation][:attr_type].to_sym)
     end
 
     def searchable_relation_attributes?(attrs)
-      attrs.select { |a| string_attribute_on_relation?(a) }.map { |a| searchable_relation_attribute(a) }
+      attrs.select { |a| searchable_attribute_on_relation?(a) }.map { |a| searchable_relation_attribute(a) }
     end
 
     def searchable_relation_attribute(a)
