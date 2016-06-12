@@ -44,6 +44,17 @@ module Alchemy
   #       %w(synced_at remote_record_id)
   #     end
   #
+  # == Searchable attributes
+  #
+  # By default all :text and :string based attributes are searchable in the admin interface.
+  # You can overwrite this behaviour by providing a set of attribute names that should be searchable instead.
+  #
+  # === Example
+  #
+  #    def self.searchable_alchemy_resource_attributes
+  #      %w(remote_record_id firstname lastname age)
+  #    end
+  #
   # == Resource relations
   #
   # Alchemy::Resource can take care of ActiveRecord relations.
@@ -159,19 +170,24 @@ module Alchemy
       attributes.reject { |h| restricted_attributes.map(&:to_s).include?(h[:name].to_s) }
     end
 
-    # Returns all columns that are searchable
+    # Returns all attribute names that are searchable in the admin interface
     #
-    def searchable_attributes
-      attributes.select { |a| searchable_attribute?(a) }
-        .concat(searchable_relation_attributes?(attributes))
+    def searchable_attribute_names
+      if model.respond_to?(:searchable_alchemy_resource_attributes)
+        model.searchable_alchemy_resource_attributes
+      else
+        attributes.select { |a| searchable_attribute?(a) }
+          .concat(searchable_relation_attributes?(attributes))
+          .collect { |h| h[:name] }
+      end
     end
 
     # Search field input name
     #
-    # Joins all searchable attributes into a Ransack compatible search query
+    # Joins all searchable attribute names into a Ransack compatible search query
     #
     def search_field_name
-      searchable_attributes.collect { |a| a[:name] }.join("_or_") + "_cont"
+      searchable_attribute_names.join("_or_") + "_cont"
     end
 
     def in_engine?

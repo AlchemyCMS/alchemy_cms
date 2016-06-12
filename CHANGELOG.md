@@ -12,6 +12,7 @@ when it is defined.
 * Adds an +EssencePictureView+ class responsible for rendering the `essence_picture_view` partial
 * Adds a file type filter to file archive
 * Allow setting the type of EssenceText input fields in the elements.yml via `settings[:input_type]`
+* Adds support for defining custom searchable attributes in resources
 
 __Notable Changes__
 

@@ -229,15 +229,23 @@ module Alchemy
       end
     end
 
-    describe "#searchable_attributes" do
-      subject { resource.searchable_attributes }
+    describe "#searchable_attribute_names" do
+      subject { resource.searchable_attribute_names }
 
-      it "returns all attributes of type string and text" do
-        is_expected.to eq([
-          {name: "name", type: :string},
-          {name: "hidden_value", type: :string},
-          {name: "description", type: :text}
-        ])
+      it "returns all attribute names of type string and text" do
+        is_expected.to eq(["name", "hidden_value", "description"])
+      end
+
+      context "when model provides custom defined searchable attribute names" do
+        before do
+          allow(Party).to receive(:searchable_alchemy_resource_attributes) do
+            %w(date venue age)
+          end
+        end
+
+        it "returns the custom defined attribute names from the model" do
+          is_expected.to eq(["date", "venue", "age"])
+        end
       end
 
       context "with an array attribute" do
@@ -249,7 +257,7 @@ module Alchemy
         end
 
         it "does not include this column" do
-          is_expected.to eq([{name: "name", type: :string}])
+          is_expected.to eq(["name"])
         end
       end
     end
