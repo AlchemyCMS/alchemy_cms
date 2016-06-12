@@ -254,6 +254,14 @@ module Alchemy
       end
     end
 
+    describe "#search_field_name" do
+      subject { resource.search_field_name }
+
+      it "returns a ransack compatible search query" do
+        is_expected.to eq("name_or_hidden_value_or_description_cont")
+      end
+    end
+
     describe "#editable_attributes" do
       subject { resource.editable_attributes }
 
