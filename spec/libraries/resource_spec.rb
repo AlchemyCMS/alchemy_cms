@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-class Party
+class Party < ActiveRecord::Base
+  belongs_to :location
 end
 
 module Namespace1
@@ -245,6 +246,20 @@ module Alchemy
 
         it "returns the custom defined attribute names from the model" do
           is_expected.to eq(["date", "venue", "age"])
+        end
+      end
+
+      context "when model has a relation defined" do
+        before do
+          allow(Party).to receive(:alchemy_resource_relations) do
+            {
+              location: {attr_method: "name", attr_type: :string}
+            }
+          end
+        end
+
+        it "also includes the searchable attributes of the relation" do
+          is_expected.to eq(["name", "hidden_value", "description", "location_name"])
         end
       end
 
