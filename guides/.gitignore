@@ -3,3 +3,4 @@ output
 staging
 Gemfile.lock
 .rvmrc
+.bundle
