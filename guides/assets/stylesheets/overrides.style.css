@@ -546,3 +546,19 @@ dl dt em {
 @media screen and (max-width: 620px) {
 	div.code_container { font-size: 20px }
 }
+
+.edit-guide-link {
+  position: relative;
+  padding-left: 24px;
+  cursor: pointer;
+}
+
+.edit-guide-link:before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 3px;
+  background: url(../images/pencil.png) no-repeat center;
+  width: 16px;
+  height: 16px;
+}

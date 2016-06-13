@@ -62,16 +62,21 @@
     <hr class="hide" />
 
     <div id="main">
-
       <div id="feature" class="holder">
+        <% if assigns[:guide_name] %>
+          <aside class="edit-guide-link">
+            <a href="https://github.com/AlchemyCMS/alchemy-guides/edit/master/guides/source/<%= assigns[:guide_name] %>" target="_blank" title="Edit this guide">
+              Edit this guide
+            </a>
+          </aside>
+        <% end %>
         <% if header_section = yield(:header_section).presence %>
           <%= header_section %>
         <% else %>
-        <h2><%= Guides.meta["title"] %></h2>
-        <p>
-          These guides are designed to help you become familiar with the open source Content Management System Alchemy CMS v<%= Guides.meta["version"] %>
-        </p>
-
+          <h2><%= Guides.meta["title"] %></h2>
+          <p>
+            These guides are designed to help you become familiar with the open source Content Management System Alchemy CMS v<%= Guides.meta["version"] %>
+          </p>
         <% end %>
         <%= yield(:index_section) %>
       </div>
