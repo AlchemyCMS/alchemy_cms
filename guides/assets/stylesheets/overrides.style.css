@@ -307,41 +307,42 @@ div.addthis_toolbox {
   float: left;
 }
 
-#subCol ol.chapters li {
-  line-height: 1.75em;
+#subCol ol.chapters li,
+#markdown-toc ol li {
   list-style-image: none;
   background-image: none;
   border-bottom: 1px solid #D6E2EA;
   list-style-position: outside;
   margin: 0;
+  font-size: 12px;
 }
 
-#subCol ol.chapters a {
+#subCol ol.chapters a,
+#markdown-toc a {
   padding-bottom: 8px;
   padding-top: 8px;
   display: block;
 }
 
-#subCol ol.chapters a:hover {
+#subCol ol.chapters a:hover,
+#markdown-toc a:hover {
   text-decoration: underline;
 }
 
-#subCol ol.chapters {
+#subCol ol.chapters,
+#markdown-toc {
   margin: 0 0 13px 12px;
   padding-left: 0;
 }
 
-#subCol ol.chapters li ul {
-  margin: 0;
-  padding: 0;
-}
-
-#subCol ol.chapters li ul li {
+#subCol ol.chapters li ul li,
+#markdown-toc li ul li {
   list-style-image: none;
   border: 0 none;
 }
 
-#subCol ol.chapters li ul li a {
+#subCol ol.chapters li ul li a,
+#markdown-toc li ul li a {
   padding-bottom: 8px;
   padding-top: 0;
 }
@@ -470,7 +471,7 @@ dl dt em {
   margin: 0;
   padding: 0;
   line-height: inherit;
-  font-size: 12px;
+  font-size: inherit;
 }
 
 #guides hr {
@@ -504,11 +505,15 @@ dl dt em {
 
   #subCol.active h3 { text-indent: 0 }
 
-  #subCol ol.chapters { display: none; margin-left: 23px }
+  #subCol ol.chapters,
+  #markdown-toc {
+    display: none;
+    margin-left: 23px;
+  }
 
   #subCol.active ol { display: block }
 
-  #subCol ol.chapters li a p { font-size: 18px }
+  #subCol ol.chapters li { font-size: 18px }
 
   #main_navigation.open, #main_navigation.open ul, #main_navigation.open li.index { position: static }
 
