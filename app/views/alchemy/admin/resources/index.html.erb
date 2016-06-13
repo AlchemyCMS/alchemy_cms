@@ -26,7 +26,15 @@
   ]
 ) %>
 
-<div id="archive_all" class="resources-table-wrapper">
+<% resource_has_tags = resource_model.respond_to?(:tag_counts) && resource_model.tag_counts.any? %>
+
+<div id="archive_all" class="resources-table-wrapper<%= ' with_tag_filter' if resource_has_tags %>">
   <%= resources_header %>
   <%= render 'table' %>
+
+  <% if resource_has_tags %>
+    <div id="library_sidebar">
+      <%= render 'tag_list' %>
+    </div>
+  <% end %>
 </div>

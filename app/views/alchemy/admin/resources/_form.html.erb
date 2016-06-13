@@ -9,5 +9,11 @@
       <%= f.input attribute[:name], resource_attribute_field_options(attribute) %>
     <% end %>
   <% end %>
+  <% if f.object.respond_to?(:tag_list) %>
+    <div class="input string">
+      <%= f.label :tag_list %>
+      <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
+    </div>
+  <% end %>
   <%= f.submit Alchemy.t(:save) %>
 <% end %>
