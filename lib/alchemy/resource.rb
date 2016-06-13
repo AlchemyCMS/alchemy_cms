@@ -177,7 +177,7 @@ module Alchemy
         model.searchable_alchemy_resource_attributes
       else
         attributes.select { |a| searchable_attribute?(a) }
-          .concat(searchable_relation_attributes?(attributes))
+          .concat(searchable_relation_attributes(attributes))
           .collect { |h| h[:name] }
       end
     end
@@ -245,7 +245,7 @@ module Alchemy
         SEARCHABLE_COLUMN_TYPES.include?(a[:relation][:attr_type].to_sym)
     end
 
-    def searchable_relation_attributes?(attrs)
+    def searchable_relation_attributes(attrs)
       attrs.select { |a| searchable_attribute_on_relation?(a) }.map { |a| searchable_relation_attribute(a) }
     end
 
