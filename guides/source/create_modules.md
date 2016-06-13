@@ -8,8 +8,7 @@ Basicly there are two ways to set up a module:
 endprologue.
 
 
-INFO: Alchemy provides a rails generator for custom modules, that can be invoked like this:
-`rails generate alchemy:module your_module_name`
+INFO: Alchemy provides a rails generator for custom modules, that can be invoked like this: `rails generate alchemy:module your_module_name`
 
 
 ### Using Alchemy as your Rails admin backend
