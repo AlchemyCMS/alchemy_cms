@@ -54,10 +54,6 @@ index:
       url: best_practice_create_form
       text: Best practice in creating (contact) form.
 
-    - title: How to create an image slider
-      url: best_practice_create_image_slider
-      text: Best Practice in creating image slider.
-
     - title: Render images
       url: render_images
       text: How to work with images and use the powerful Fleximage templates.
