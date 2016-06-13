@@ -1,5 +1,10 @@
 require 'spec_helper'
 
+def reload_event_class
+  Object.send(:remove_const, :Event)
+  load "spec/dummy/app/models/event.rb"
+end
+
 describe "Resources" do
   let(:event)        { create(:event) }
   let(:second_event) { create(:event, name: 'My second Event', entrance_fee: 12.32) }
@@ -130,9 +135,7 @@ describe "Resources" do
     around do |example|
       Event.class_eval { acts_as_taggable }
       example.run
-      # Unload the monkey patch
-      Object.send(:remove_const, :Event)
-      load "spec/dummy/app/models/event.rb"
+      reload_event_class
     end
 
     it "shows an autocomplete tag list in the form" do
@@ -158,6 +161,51 @@ describe "Resources" do
         expect(page).to have_content("Casablanca")
         expect(page).to_not have_content("Die Hard IX")
       end
+    end
+  end
+
+  context "with event that has filters defined" do
+    around do |example|
+      Event.class_eval do
+        def self.alchemy_resource_filters
+          %w(starting_today future)
+        end
+
+        scope :starting_today, -> { where(starts_at: DateTime.current.at_midnight..DateTime.tomorrow.at_midnight) }
+        scope :future, -> { where("starts_at > ?", DateTime.tomorrow.at_midnight) }
+      end
+      example.run
+      reload_event_class
+    end
+
+    let!(:past_event) { create(:event, name: "Horse Expo", starts_at: DateTime.current - 100.years) }
+    let!(:today_event) { create(:event, name: "Car Expo", starts_at: DateTime.current.at_noon) }
+    let!(:future_event) { create(:event, name: "Hovercar Expo", starts_at: DateTime.current + 30.years) }
+
+    it "lets the user filter by the defined scopes", aggregate_failures: true do
+      visit "/admin/events"
+      within "#library_sidebar" do
+        expect(page).to have_content("Starting today")
+        expect(page).to have_content("Future")
+      end
+
+      # Here we visit the pages manually, as we don't want to test the JS here.
+      visit "/admin/events?filter=starting_today"
+      expect(page).to     have_content("Car Expo")
+      expect(page).to_not have_content("Hovercar Expo")
+      expect(page).to_not have_content("Horse Expo")
+
+      visit "/admin/events?filter=future"
+      expect(page).to     have_content("Hovercar Expo")
+      expect(page).to_not have_content("Car Expo")
+      expect(page).to_not have_content("Horse Expo")
+    end
+
+    it "does not work with undefined scopes" do
+      visit "/admin/events?filter=undefined_scope"
+      expect(page).to have_content("Car Expo")
+      expect(page).to have_content("Hovercar Expo")
+      expect(page).to have_content("Horse Expo")
     end
   end
 end
