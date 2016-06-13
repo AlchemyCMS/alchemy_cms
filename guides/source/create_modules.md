@@ -24,12 +24,12 @@ By using Alchemy's backend interface you get a whole bunch of things:
 
 And it's easy as this:
 
-```ruby
+~~~ ruby
 module Admin
   class YourResourcesController < Alchemy::Admin::ResourcesController
   end
 end
-```
+~~~
 
 You can overwrite the default controller actions and views as you like.
 An instance-variable named after the resource (i.e. `@your_resource` for `YourResource`) is defined for use in your views.
@@ -41,7 +41,7 @@ After you setting up your routes you have to take care for control access:
 Rights and roles are set in a CanCan Ability model.
 Create the file if it doesn't exist already. It has to be registered manually, by invoking `Alchemy.register_ability MyModuleAbility` in the module initializer.
 
-```ruby
+~~~ ruby
 # app/models/my_module_ability.rb
 class MyModuleAbility
   include CanCan::Ability
@@ -54,7 +54,7 @@ class MyModuleAbility
   end
 
 end
-```
+~~~
 
 More information about authorization can be found in the docs of the [`cancancan` gem](https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities)
 
@@ -62,18 +62,18 @@ More information about authorization can be found in the docs of the [`cancancan
 
 #### For an engine:
 
-```ruby
+~~~ ruby
 # config/routes.rb
 YourApp::Application.routes.draw do
   ...
   mount YourAlchemyModule::Engine => '/'
   mount Alchemy::Engine => '/'
 end
-```
+~~~
 
 #### For your apps resources:
 
-```ruby
+~~~ ruby
 # config/routes.rb
 YourApp::Application.routes.draw do
 
@@ -85,7 +85,7 @@ YourApp::Application.routes.draw do
 
   mount Alchemy::Engine => '/'
 end
-```
+~~~
 
 INFO: Due to Alchemy's strong routes it is **strongly recommended** to mount your engine before Alchemy.
 
@@ -95,7 +95,7 @@ Last but not least the module needs to be registered to Alchemy CMS.
 
 #### When using your host app:
 
-```ruby
+~~~ ruby
 # my_host_app/config/initializers/alchemy_modules.rb
 Alchemy::Modules.register_module({
   name: 'name_of_your_module',
@@ -122,7 +122,7 @@ Alchemy::Modules.register_module({
 
 # Register the module ability
 Alchemy.register_ability MyModuleAbility
-```
+~~~
 
 NOTE: As an alternative to the module icon you can pass: `image: '/alchemy/icon_of_your_module.png'`
 
@@ -136,17 +136,17 @@ You should namespace your module name (with i.e. `modules`), to prevent conflict
 
 Given a module name `modules.products` your translation has to be:
 
-```yaml
+~~~ yaml
 # config/locales/de.yml
 de:
   alchemy:
     modules:
       products: Produkte
-```
+~~~
 
 #### Using a Rails engine:
 
-```ruby
+~~~ ruby
 # my_engine/config/initializers/alchemy.rb
 Alchemy::Modules.register_module({
   name: 'name_of_your_module',
@@ -174,7 +174,7 @@ Alchemy::Modules.register_module({
 
 # Register the module ability
 Alchemy.register_ability MyModuleAbility
-```
+~~~
 
 ### Get Ready!
 
