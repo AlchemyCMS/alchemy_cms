@@ -1,6 +1,7 @@
 require 'spec_helper'
 
-class Party
+class Party < ActiveRecord::Base
+  belongs_to :location
 end
 
 module Namespace1
@@ -229,15 +230,37 @@ module Alchemy
       end
     end
 
-    describe "#searchable_attributes" do
-      subject { resource.searchable_attributes }
+    describe "#searchable_attribute_names" do
+      subject { resource.searchable_attribute_names }
 
-      it "returns all attributes of type string and text" do
-        is_expected.to eq([
-          {name: "name", type: :string},
-          {name: "hidden_value", type: :string},
-          {name: "description", type: :text}
-        ])
+      it "returns all attribute names of type string and text" do
+        is_expected.to eq(["name", "hidden_value", "description"])
+      end
+
+      context "when model provides custom defined searchable attribute names" do
+        before do
+          allow(Party).to receive(:searchable_alchemy_resource_attributes) do
+            %w(date venue age)
+          end
+        end
+
+        it "returns the custom defined attribute names from the model" do
+          is_expected.to eq(["date", "venue", "age"])
+        end
+      end
+
+      context "when model has a relation defined" do
+        before do
+          allow(Party).to receive(:alchemy_resource_relations) do
+            {
+              location: {attr_method: "name", attr_type: :string}
+            }
+          end
+        end
+
+        it "also includes the searchable attributes of the relation" do
+          is_expected.to eq(["name", "hidden_value", "description", "location_name"])
+        end
       end
 
       context "with an array attribute" do
@@ -249,8 +272,16 @@ module Alchemy
         end
 
         it "does not include this column" do
-          is_expected.to eq([{name: "name", type: :string}])
+          is_expected.to eq(["name"])
         end
+      end
+    end
+
+    describe "#search_field_name" do
+      subject { resource.search_field_name }
+
+      it "returns a ransack compatible search query" do
+        is_expected.to eq("name_or_hidden_value_or_description_cont")
       end
     end
 
