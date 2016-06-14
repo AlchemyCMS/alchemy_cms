@@ -8,4 +8,5 @@
  * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
  *
  *= require alchemy/admin
+ *= require alchemy/admin/alchemy-devise
  */
