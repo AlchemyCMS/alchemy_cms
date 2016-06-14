@@ -78,18 +78,8 @@ module Alchemy
     end
 
     describe '.current' do
-      context 'when set to a site' do
-        before { Site.current = site }
-        specify "Language should be scoped to that site" do
-          expect(Language.all.to_sql).to match(/alchemy_languages.+site_id.+#{site.id}/)
-        end
-      end
-
       context 'when set to nil' do
         before { Site.current = nil }
-        specify "Language should not be scoped to a site" do
-          expect(Language.all.to_sql).not_to match(/alchemy_languages.+site_id.+#{site.id}/)
-        end
 
         it "should return default site" do
           expect(Site.current).not_to be_nil

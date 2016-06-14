@@ -31,6 +31,7 @@ __Notable Changes__
   need access to `current_ability` you also need to include `Alchemy::AbilityHelper`
 * Asset manifests are now installed into `vendor/assets` folder in order to provide easy customization
   Please don't use alchemy/custom files any more. Instead require your customizations in the manifests.
+* Removes the default_scope from Language on_site current
 
 __Fixed Bugs__
 

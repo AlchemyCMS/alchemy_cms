@@ -52,8 +52,6 @@ module Alchemy
     before_destroy :check_for_default
     after_destroy :delete_language_root_page
 
-    default_scope { on_site(Site.current) }
-
     scope :published,      -> { where(public: true) }
     scope :with_root_page, -> { joins(:pages).where(Page.table_name => {language_root: true}) }
     scope :on_site,        ->(s) { s.present? ? where(site_id: s.id) : all }
