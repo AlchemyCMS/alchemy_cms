@@ -9,6 +9,10 @@ module Alchemy::Upgrader::Tasks
     no_tasks do
       def convert_available_contents
         config = read_config
+        unless config
+          puts "\nNo elements config found. Skipping."
+          return
+        end
 
         elements_with_available_contents, new_elements = config.partition do |e|
           e['available_contents']
@@ -39,7 +43,9 @@ module Alchemy::Upgrader::Tasks
       old_config_file = Rails.root.join('config', 'alchemy', 'elements.yml')
       config = YAML.load_file(old_config_file)
 
-      puts "done.\n"
+      if config
+        puts "done.\n"
+      end
 
       config
     end
