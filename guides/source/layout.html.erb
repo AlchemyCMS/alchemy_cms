@@ -1,38 +1,36 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-  <meta name="viewport" content="width=610"/>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport" content="width=610">
   <title><%= yield(:page_title) %></title>
 
-  <link rel="stylesheet" type="text/css" href="stylesheets/style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/overrides.style.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/overrides.print.css" media="print" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css" />
-  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css" />
+  <link rel="stylesheet" type="text/css" href="stylesheets/style.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
+  <link rel="stylesheet" type="text/css" href="stylesheets/overrides.style.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/overrides.print.css" media="print">
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shCore.css">
+  <link rel="stylesheet" type="text/css" href="stylesheets/syntaxhighlighter/shThemeRailsGuides.css">
 </head>
 <body class="guide">
-<%- if @edge %>
+<% if @edge %>
   <div>
-    <img src="images/edge_badge.png" alt="edge-badge" id="edge-badge" />
+    <img src="images/edge_badge.png" alt="edge-badge" id="edge-badge">
   </div>
 <% end %>
-  <div id="page">
+  <header>
     <div id="bordure"></div>
     <div id="header">
-
       <div class="holder">
-        <a href="/"><img src="/images/alchemy_logo.png" id="logo" alt="Alchemy CMS Logo"></a>
+        <a href="/"><img src="/images/alchemy_logo.svg" id="logo" alt="Alchemy CMS Logo"></a>
         <div id="main_navigation" class="navigation">
           <p class="hide"><a href="#mainCol">Skip navigation</a>.</p>
           <ul class="navigation_list">
             <li><a href="index.html">Home</a></li>
             <li class="index"><a href="index.html" onclick="guideMenu(); return false;" id="guidesMenu">Guides Index <span id="guidesArrow">&#9656;</span></a>
               <div id="guides" class="clearfix" style="display: none;">
-                <hr />
+                <hr>
                 <%= clickable_index %>
               </div>
             </li>
@@ -48,18 +46,20 @@
               gcse.type = 'text/javascript';
               gcse.async = true;
               gcse.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') +
-                  '//www.google.com/cse/cse.js?cx=' + cx;
+              '//www.google.com/cse/cse.js?cx=' + cx;
               var s = document.getElementsByTagName('script')[0];
               s.parentNode.insertBefore(gcse, s);
             })();
           </script>
           <gcse:search></gcse:search>
         </div>
+        <%= yield(:index_section) %>
       </div>
-
     </div>
+  </header>
 
-    <hr class="hide" />
+  <div id="page">
+    <hr class="hide">
 
     <div id="main">
       <div id="feature" class="holder">
@@ -78,7 +78,6 @@
             These guides are designed to help you become familiar with the open source Content Management System Alchemy CMS v<%= Guides.meta["version"] %>
           </p>
         <% end %>
-        <%= yield(:index_section) %>
       </div>
 
       <div id="content">
@@ -89,7 +88,7 @@
 
     </div>
 
-    <hr class="hide" />
+    <hr class="hide">
   </div>
 
   <div id="footer">

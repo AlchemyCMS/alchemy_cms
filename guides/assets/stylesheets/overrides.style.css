@@ -99,11 +99,8 @@ code {
 
 #page {
   position: relative;
-  top: 0;
-  left: 0;
-  width: 100%;
-  overflow: hidden;
   background-color: #fff;
+  padding-top: 170px;
 }
 
 #bordure {
@@ -112,6 +109,19 @@ code {
   background: -moz-linear-gradient(top,  #4D585E,  #33393F);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#4D585E', endColorstr='#33393F');
   height: 30px;
+}
+
+header {
+  position: fixed;
+  width: 100%;
+  z-index: 2;
+}
+
+:target:before {
+  content: "";
+  display: block;
+  height: 200px; /* fixed header height*/
+  margin: -200px 0 0; /* negative fixed header height */
 }
 
 #header {
@@ -135,7 +145,7 @@ code {
   position: absolute;
   width: 470px;
   height: 40px;
-  left: -10px;
+  left: -8px;
   top: 70px;
 }
 
@@ -222,6 +232,7 @@ div.holder {
   top: 0;
   left: 0;
   width: 920px;
+  height: 100%;
   margin: 0 auto;
 }
 
@@ -416,8 +427,8 @@ a, a:link, a:visited {
 }
 
 #main .holder {
-  width: 570px;
-  padding-right: 350px;
+  width: 660px;
+  padding-right: 260px;
 }
 
 #feature ul li {
@@ -431,20 +442,10 @@ a, a:link, a:visited {
 }
 
 #subCol {
-  background-color: #F3F8FA;
-  border-radius: 20px;
-  -webkit-border-radius: 20px;
-  -moz-border-radius: 20px;
-  -o-border-radius: 20px;
-  -ms-border-radius: 20px;
-  -webkit-box-shadow: inset 1px 1px 20px #aac3d1;
-  -moz-box-shadow: inset 1px 1px 20px #aac3d1;
-  -o-box-shadow: inset 1px 1px 20px #aac3d1;
-  -box-shadow: inset 1px 1px 20px #aac3d1;
-  padding: 30px;
-  opacity: 0.8;
-  z-index: 10;
-  top: 21px;
+  padding: 0 10px 10px;
+  top: 170px;
+  text-align: left;
+  color: #333;
 }
 
 #subCol h3.chapter img {
@@ -490,7 +491,6 @@ dl dt em {
     height: 30px;
     width: 30px;
     padding: 20px;
-    top: 20px;
     opacity: 1;
     font-size: 18px
   }
@@ -529,7 +529,7 @@ dl dt em {
     top: -14px;
   }
 
-  div.holder { width: 570px }
+  div.holder { width: 640px }
 
   #main .holder { padding-right: 0 }
 
@@ -557,6 +557,10 @@ dl dt em {
     top: 90px;
     left: -8px;
   }
+}
+
+@media screen and (max-width: 720px) {
+  div.holder { width: 80% }
 }
 
 @media screen and (max-width: 620px) {
