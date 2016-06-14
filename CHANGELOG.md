@@ -13,7 +13,10 @@ when it is defined.
 * Adds a file type filter to file archive
 * Allow setting the type of EssenceText input fields in the elements.yml via `settings[:input_type]`
 * Adds support for defining custom searchable attributes in resources
-* Automatically add tag management to admin module views when the resource model has been set to `acts_as_taggable`.
+* Automatically add tag management to admin module views, when the resource model
+  has been set to `acts_as_taggable`.
+* Automatically add scope filters to admin module views, when the resource model
+  has the class method `alchemy_resource_filters` defined.
 
 __Notable Changes__
 

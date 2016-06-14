@@ -29,6 +29,10 @@ module Alchemy
           items = items.tagged_with(params[:tagged_with])
         end
 
+        if params[:filter].present?
+          items = items.public_send(sanitized_filter_params)
+        end
+
         respond_to do |format|
           format.html {
             items = items.page(params[:page] || 1).per(per_page_value_for_screen_size)
@@ -118,6 +122,12 @@ module Alchemy
       #
       def resource_params
         params.require(resource_handler.namespaced_resource_name).permit!
+      end
+
+      def sanitized_filter_params
+        resource_model.alchemy_resource_filters.detect do |filter|
+          filter == params[:filter]
+        end || :all
       end
     end
   end

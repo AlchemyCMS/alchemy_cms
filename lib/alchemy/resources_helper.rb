@@ -168,5 +168,22 @@ module Alchemy
         page: params[:page]
       }
     end
+
+    def resource_has_tags
+      resource_model.respond_to?(:tag_counts) && resource_model.tag_counts.any?
+    end
+
+    def resource_has_filters
+      resource_model.respond_to?(:alchemy_resource_filters)
+    end
+
+    def resource_filter_select
+      resource_model.alchemy_resource_filters.map do |filter_scope|
+        [
+          Alchemy.t(filter_scope.to_sym, scope: ['resources', resource_name, 'filters']),
+          filter_scope
+        ]
+      end
+    end
   end
 end
