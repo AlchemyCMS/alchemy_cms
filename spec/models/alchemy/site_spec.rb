@@ -154,5 +154,25 @@ module Alchemy
         expect(site.definition).to eq(definitions.first)
       end
     end
+
+    describe '#default_language' do
+      let(:default_language) do
+        site.default_language
+      end
+
+      let!(:other_language) do
+        create(:alchemy_language, site: site)
+      end
+
+      subject do
+        site.default_language
+      end
+
+      it 'returns the default language of site' do
+        expect(site.languages.count).to eq(2)
+        is_expected.to eq(default_language)
+        is_expected.to_not eq(other_language)
+      end
+    end
   end
 end

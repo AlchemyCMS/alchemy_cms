@@ -44,6 +44,14 @@ module Alchemy
       "alchemy/site_layouts/#{partial_name}"
     end
 
+    # The default language for this site
+    #
+    # There can only be one default language per site.
+    #
+    def default_language
+      languages.find_by(default: true)
+    end
+
     class << self
       def current=(v)
         RequestStore.store[:alchemy_current_site] = v
