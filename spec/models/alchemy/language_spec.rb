@@ -96,10 +96,67 @@ module Alchemy
       end
     end
 
+    describe '.default' do
+      let!(:site_1) do
+        create(:alchemy_site, host: 'site-one.com')
+      end
+
+      let!(:site_2) do
+        create(:alchemy_site, host: 'site-two.com')
+      end
+
+      let!(:default_language) do
+        site_2.default_language
+      end
+
+      subject do
+        Language.default
+      end
+
+      it 'returns the default language of current site' do
+        expect(Site).to receive(:current) { site_2 }
+        is_expected.to eq(default_language)
+      end
+    end
+
     describe '.find_by_code' do
-      context "with only the language code given" do
+      subject do
+        Language.find_by_code(code)
+      end
+
+      let(:code) do
+        language.language_code
+      end
+
+      it "should find the language by language code" do
+        is_expected.to eq(language)
+      end
+
+      context "with language code and country code given" do
+        let(:code) do
+          "#{language.language_code}-#{language.country_code}"
+        end
+
         it "should find the language" do
-          expect(Language.find_by_code(language.code)).to eq(language)
+          is_expected.to eq(language)
+        end
+      end
+
+      context "with multiple sites having languages with same code" do
+        let!(:current_site) do
+          create(:alchemy_site, host: 'other.com')
+        end
+
+        let!(:other_language) do
+          create(:alchemy_language, site: current_site, code: language.code)
+        end
+
+        before do
+          expect(Site).to receive(:current) { current_site }
+        end
+
+        it "loads the language from current site" do
+          is_expected.to eq(other_language)
         end
       end
     end

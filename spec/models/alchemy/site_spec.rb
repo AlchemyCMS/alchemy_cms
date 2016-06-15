@@ -78,18 +78,8 @@ module Alchemy
     end
 
     describe '.current' do
-      context 'when set to a site' do
-        before { Site.current = site }
-        specify "Language should be scoped to that site" do
-          expect(Language.all.to_sql).to match(/alchemy_languages.+site_id.+#{site.id}/)
-        end
-      end
-
       context 'when set to nil' do
         before { Site.current = nil }
-        specify "Language should not be scoped to a site" do
-          expect(Language.all.to_sql).not_to match(/alchemy_languages.+site_id.+#{site.id}/)
-        end
 
         it "should return default site" do
           expect(Site.current).not_to be_nil
@@ -162,6 +152,26 @@ module Alchemy
       it "returns layout definition from site_layouts.yml file" do
         allow(Site).to receive(:definitions).and_return(definitions)
         expect(site.definition).to eq(definitions.first)
+      end
+    end
+
+    describe '#default_language' do
+      let(:default_language) do
+        site.default_language
+      end
+
+      let!(:other_language) do
+        create(:alchemy_language, site: site)
+      end
+
+      subject do
+        site.default_language
+      end
+
+      it 'returns the default language of site' do
+        expect(site.languages.count).to eq(2)
+        is_expected.to eq(default_language)
+        is_expected.to_not eq(other_language)
       end
     end
   end

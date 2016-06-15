@@ -42,14 +42,12 @@ module Alchemy
         context 'without language root page' do
           before do
             expect(Language).to receive(:current_root_page).and_return(nil)
-            expect(Language).to receive(:find_by).and_return(language)
-            expect(Language).to receive(:all).and_return([language])
-            expect(Language).to receive(:with_root_page).and_return([language])
+            allow(Language).to receive(:current).and_return(language)
           end
 
           it "it assigns current language" do
             alchemy_get :index
-            expect(assigns(:language)).to be(language)
+            expect(assigns(:language)).to eq(language)
           end
         end
       end
