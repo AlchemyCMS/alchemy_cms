@@ -19,6 +19,7 @@ ul.list {
     list-style-type: none;
     display: block;
     overflow: hidden;
+    margin-bottom: 0;
 
     &.legend, &.list-header {
       background-color: transparent;
