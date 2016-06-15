@@ -6,7 +6,7 @@ module Alchemy
 
     helper 'Alchemy::Admin::Base'
 
-    layout 'alchemy/login'
+    layout 'alchemy/admin'
 
     private
 

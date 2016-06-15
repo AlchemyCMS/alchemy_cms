@@ -16,6 +16,12 @@ module Alchemy
         def run_migrations
           run 'bundle exec rake db:migrate'
         end
+
+        def append_assets
+          insert_into_file "vendor/assets/stylesheets/alchemy/admin/all.css",
+            "\n *= require alchemy/admin/alchemy-devise",
+            after: " *= require alchemy/admin"
+        end
       end
     end
   end
