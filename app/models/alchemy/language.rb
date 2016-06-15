@@ -52,9 +52,10 @@ module Alchemy
     before_destroy :check_for_default
     after_destroy :delete_language_root_page
 
-    scope :published,      -> { where(public: true) }
-    scope :with_root_page, -> { joins(:pages).where(Page.table_name => {language_root: true}) }
-    scope :on_site,        ->(s) { s.present? ? where(site_id: s.id) : all }
+    scope :published,       -> { where(public: true) }
+    scope :with_root_page,  -> { joins(:pages).where(Page.table_name => {language_root: true}) }
+    scope :on_site,         ->(s) { s ? where(site_id: s.id) : all }
+    scope :on_current_site, -> { on_site(Site.current) }
 
     class << self
       # Store the current language in the current thread.
@@ -72,11 +73,10 @@ module Alchemy
         current.pages.language_roots.first
       end
 
-      # Default language
+      # Default language for current site
       def default
-        find_by(default: true)
+        on_current_site.find_by(default: true)
       end
-      alias_method :get_default, :default
     end
 
     def label(attrib)
