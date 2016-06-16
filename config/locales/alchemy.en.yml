@@ -107,9 +107,11 @@ en:
     translations:
       de: 'DE'
       en: 'EN'
-      nl: 'NL'
-      fr: 'FR'
+      en: 'ES'
       it: 'IT'
+      fr: 'FR'
+      nl: 'NL'
+      ru: 'RU'
 
     # == User roles translations
     user_roles:
