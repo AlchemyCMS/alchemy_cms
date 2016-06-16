@@ -97,13 +97,35 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
     context "with language in the session" do
       before do
         allow(controller).to receive(:session).and_return(alchemy_language_id: klingon.id)
-        allow(Alchemy::Language).to receive(:current).and_return(klingon)
       end
 
       it "should use the language from the session" do
         controller.send :set_alchemy_language
         expect(assigns(:language)).to eq(klingon)
         expect(Alchemy::Language.current).to eq(klingon)
+      end
+
+      context "if the language is not on the current site" do
+        let(:french_site) do
+          create(:alchemy_site, host: 'french.fr')
+        end
+
+        let(:french_language) do
+          french_site.default_language
+        end
+
+        before do
+          expect(controller).to receive(:session).at_least(:once) do
+            Hash[alchemy_language_id: french_language.id]
+          end
+        end
+
+        it "should set the default language" do
+          controller.send :set_alchemy_language
+
+          expect(assigns(:language)).to eq(default_language)
+          expect(Alchemy::Language.current).to eq(default_language)
+        end
       end
     end
 
