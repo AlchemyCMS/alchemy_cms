@@ -21,6 +21,28 @@ RSpec.feature "Admin::LanguagesFeatures", type: :feature do
         expect(page).to have_selector('.language_locale.field_with_errors .error')
       end
     end
+
+    context "with multiple sites" do
+      let!(:site_2) do
+        create(:alchemy_site, host: 'another-site.com')
+      end
+
+      let(:language) do
+        Alchemy::Language.last
+      end
+
+      it 'creates language for current site' do
+        visit alchemy.new_admin_language_path
+
+        fill_in "language_name", with: 'Klingon'
+        fill_in "language_language_code", with: 'kl'
+        fill_in "language_frontpage_name", with: 'Tuq'
+        click_button 'Save'
+
+        expect(language.site_id).to eq(Alchemy::Site.pluck(:id).first)
+        expect(language.site_id).to_not eq(site_2.id)
+      end
+    end
   end
 
   describe 'editing an language' do

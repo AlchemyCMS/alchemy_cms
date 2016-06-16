@@ -5,6 +5,39 @@ describe Alchemy::Admin::LanguagesController do
     authorize_user(:as_admin)
   end
 
+  describe "#index" do
+    context "with multiple sites" do
+      let!(:site_2) do
+        create(:alchemy_site, host: 'another-site.com')
+      end
+
+      let(:language_2) do
+        site_2.default_language
+      end
+
+      let(:language) do
+        create(:alchemy_language)
+      end
+
+      it 'only shows languages from current site' do
+        alchemy_get :index
+        expect(assigns(:languages)).to include(language)
+        expect(assigns(:languages)).to_not include(language_2)
+      end
+    end
+
+    context "editor users" do
+      before do
+        authorize_user(:as_editor)
+      end
+
+      it "should be able to index language" do
+        alchemy_get :index
+        expect(response).to render_template(:index)
+      end
+    end
+  end
+
   describe "#new" do
     context "when default_language.page_layout is set" do
       before do
@@ -54,19 +87,6 @@ describe Alchemy::Admin::LanguagesController do
       it "falls back to default database value." do
         alchemy_get :new
         expect(assigns(:language).page_layout).to eq("intro")
-      end
-    end
-  end
-
-  describe "#index" do
-    context "editor users" do
-      before do
-        authorize_user(:as_editor)
-      end
-
-      it "should be able to index language" do
-        alchemy_get :index
-        expect(response).to render_template(:index)
       end
     end
   end

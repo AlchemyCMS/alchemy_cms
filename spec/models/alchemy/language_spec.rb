@@ -13,7 +13,8 @@ module Alchemy
         language_code: 'de',
         name: 'Österreich',
         frontpage_name: 'Start',
-        page_layout: 'index'
+        page_layout: 'index',
+        site: build(:alchemy_site)
       )
       expect(language).to be_valid
     end
