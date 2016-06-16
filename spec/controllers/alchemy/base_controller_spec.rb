@@ -32,17 +32,31 @@ module Alchemy
     end
 
     describe "#multi_language?" do
-      context "if more than one published language exists" do
-        it "returns true" do
-          allow(Alchemy::Language).to receive(:published).and_return double(count: 2)
-          expect(controller.multi_language?).to eq(true)
-        end
-      end
+      subject { controller.multi_language? }
 
       context "if less than two published languages exists" do
-        it "returns false" do
-          allow(Alchemy::Language).to receive(:published).and_return double(count: 1)
-          expect(controller.multi_language?).to eq(false)
+        it { is_expected.to be(false) }
+      end
+
+      context "if more than one published language exists" do
+        let!(:language_2) do
+          create(:alchemy_language, :klingon)
+        end
+
+        it { is_expected.to be(true) }
+      end
+
+      context "for multiple sites" do
+        let!(:site_2) do
+          create(:alchemy_site, host: 'another-host.com')
+        end
+
+        let!(:site_2_language_2) do
+          create(:alchemy_language, :klingon, site: site_2)
+        end
+
+        it 'only is true for current site' do
+          is_expected.to be(false)
         end
       end
     end
