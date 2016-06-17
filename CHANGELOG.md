@@ -38,6 +38,7 @@ __Notable Changes__
 __Fixed Bugs__
 
 * Generators don't delete directories any more (#850)
+* Admin locale swtiching does not switch language tree any more (#1064)
 
 ## 3.3.1 (unreleased)
 

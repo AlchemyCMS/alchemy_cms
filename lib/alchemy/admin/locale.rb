@@ -26,19 +26,19 @@ module Alchemy
 
       # Checks if we need to change to locale or not.
       def locale_change_needed?
-        params[:locale].present? || session[:alchemy_locale].blank?
+        params[:admin_locale].present? || session[:alchemy_locale].blank?
       end
 
       # Returns either the most preferred locale that is within the list of available locales or nil
       #
       # The availability of the locales is checked in the exact order of either
       #
-      #  * the passed parameter: +params[:locale]+
+      #  * the passed parameter: +params[:admin_locale]+
       #  * the user's locale
       #  * the locale of the browser
       #
       def available_locale
-        locales = [params[:locale], locale_from_user, locale_from_browser].compact
+        locales = [params[:admin_locale], locale_from_user, locale_from_browser].compact
         locales.detect { |locale| ::I18n.available_locales.include?(locale.to_sym) }
       end
 
