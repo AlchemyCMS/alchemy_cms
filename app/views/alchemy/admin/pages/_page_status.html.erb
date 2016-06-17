@@ -1,12 +1,24 @@
-<div class="page_status_and_name" id="page_<%= page.id %>_status">
-  <% if page.definition.blank? %>
-    <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
+<% if page.definition.blank? %>
+  <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
+<% end %>
+<span class="page_name" title="<%= page.name %>">
+  <% if local_assigns[:truncate] %>
+    <%= truncate page.name, length: 15 %>
+  <% else %>
+    <%= page.name %>
   <% end %>
-  <span class="page_name"><%= page.name %></span>
-  <%- if multi_language? -%>
-    <span class="page_language" title="<%= page.language.name %>">
-      <%= page.language_code %>
-    </span>
-  <%- end -%>
-  <%= render 'alchemy/admin/pages/page_infos', page: page %>
-</div>
+</span>
+<%- if multi_site? -%>
+  <span class="page_site" title="<%= page.site_name %>">
+    <% if local_assigns[:truncate] %>
+      <%= truncate page.site_name, length: 15 %>
+    <% else %>
+      <%= page.site_name %>
+    <% end %>
+  </span>
+<%- end -%>
+<%- if page.site_languages.many? -%>
+  <span class="page_language" title="<%= page.language.name %>">
+    <%= page.language_code %>
+  </span>
+<%- end -%>

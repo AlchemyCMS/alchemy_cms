@@ -219,10 +219,17 @@ div#user_info {
     float: none;
     @include inline-block;
     color: #3265b1;
-    @extend %rounded-border;
     margin-right: 2px;
     font-size: 10px;
     text-transform: uppercase;
+  }
+
+  .page_site {
+    float: none;
+    @include inline-block;
+    color: #847474;
+    margin-right: $default-margin;
+    font-size: 10px;
   }
 
   .subnavi_tab {
@@ -290,6 +297,10 @@ div#user_info {
 
   img {
     float: left;
+  }
+
+  .subnavi_tab > a {
+    padding-right: 0;
   }
 }
 
