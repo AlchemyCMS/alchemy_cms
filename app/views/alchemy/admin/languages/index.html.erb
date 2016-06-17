@@ -1,9 +1,9 @@
 <% label_title = Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')) %>
 
-<% toolbar(
-  buttons: [
-    {
-      icon: 'create',
+<% content_for :toolbar do %>
+  <div class="toolbar_buttons">
+    <%= render 'alchemy/admin/partials/site_select' %>
+    <%= toolbar_button icon: 'create',
       label: label_title,
       url: new_resource_path,
       title: label_title,
@@ -12,10 +12,9 @@
         title: label_title,
         size: "430x415"
       },
-      if_permitted_to: [:create, resource_model]
-    }
-  ]
-) %>
+      if_permitted_to: [:create, Alchemy::Language] %>
+  </div>
+<% end %>
 
 <div id="archive_all" class="resources-table-wrapper">
   <%= resources_header %>

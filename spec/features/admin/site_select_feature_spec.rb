@@ -5,25 +5,40 @@ describe 'Site select' do
     authorize_user(:as_admin)
   end
 
-  it "does not display the site change" do
-    visit admin_dashboard_path
-    expect(page).not_to have_select('change_site')
+  context "without multiple sites" do
+    it "does not display the site select" do
+      visit admin_pages_path
+      expect(page).not_to have_select('change_site')
+    end
   end
 
-  context "multiple sites" do
+  context "with multiple sites" do
     let!(:a_site) { create(:alchemy_site) }
 
-    it "contains all sites in a selectbox" do
-      visit admin_dashboard_path
-      expect(page).to have_select('change_site', options: [Alchemy::Site.default.name, a_site.name], selected: Alchemy::Site.default.name)
+    context "not on pages or languages module" do
+      it "does not display the site select" do
+        visit admin_dashboard_path
+        expect(page).not_to have_select('change_site')
+      end
     end
 
-    context 'when requesting non-default site' do
-      it "provides the correct site" do
+    context "on pages and languages module" do
+      it "contains all sites in a selectbox" do
+        %w(admin_pages_path admin_layoutpages_path admin_languages_path).each do |module_path|
+          visit send(module_path)
+          expect(page).to have_select('change_site',
+            options: [Alchemy::Site.default.name, a_site.name],
+            selected: Alchemy::Site.default.name)
+        end
+      end
+    end
+
+    context 'when switching site' do
+      it "stores the site in session" do
         visit admin_pages_path(site_id: a_site.id)
         expect(page).to have_select('change_site', selected: a_site.name)
 
-        visit admin_dashboard_path
+        visit admin_languages_path
         expect(page).to have_select('change_site', selected: a_site.name)
       end
     end
