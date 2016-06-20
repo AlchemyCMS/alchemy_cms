@@ -7,26 +7,26 @@ describe "Translation integration" do
     before { authorize_user(dummy_user) }
 
     it "should be possible to set the locale of the admin backend via params" do
-      visit admin_dashboard_path(locale: 'nl')
+      visit admin_dashboard_path(admin_locale: 'nl')
       expect(page).to have_content('Welkom')
     end
 
     it "should store the current locale in the session" do
-      visit admin_dashboard_path(locale: 'nl')
+      visit admin_dashboard_path(admin_locale: 'nl')
       visit admin_dashboard_path
       expect(page).to have_content('Welkom')
     end
 
     it "should be possible to change the current locale in the session" do
-      visit admin_dashboard_path(locale: 'de')
+      visit admin_dashboard_path(admin_locale: 'de')
       expect(page).to have_content('Willkommen')
-      visit admin_dashboard_path(locale: 'en')
+      visit admin_dashboard_path(admin_locale: 'en')
       expect(page).to have_content('Welcome')
     end
 
     context 'with unknown locale' do
       it "it uses the users default language" do
-        visit admin_dashboard_path(locale: 'ko')
+        visit admin_dashboard_path(admin_locale: 'ko')
         expect(page).to have_content('Willkommen')
       end
     end

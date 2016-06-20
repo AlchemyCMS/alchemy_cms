@@ -28,7 +28,7 @@ Alchemy.Initializer = ->
   $('select#change_locale').on 'change', (e) ->
     url = window.location.pathname
     delimiter = if url.match(/\?/) then '&' else '?'
-    window.location.href = "#{url}#{delimiter}locale=#{$(this).val()}"
+    window.location.href = "#{url}#{delimiter}admin_locale=#{$(this).val()}"
 
   # Site select handler
   $('select#change_site').on 'change', (e) ->

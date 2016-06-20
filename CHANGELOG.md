@@ -4,6 +4,7 @@
 
 * Fix use of Alchemy::Resource with namespaced models (#729)
 * Allow setting the type of EssenceText input fields in the elements.yml via `settings[:input_type]`
+* Admin locale swtiching does not switch language tree any more (#1065)
 
 ## 3.3.0 (2016-05-18)
 
