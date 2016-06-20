@@ -107,9 +107,11 @@ en:
     translations:
       de: 'DE'
       en: 'EN'
-      nl: 'NL'
-      fr: 'FR'
+      en: 'ES'
       it: 'IT'
+      fr: 'FR'
+      nl: 'NL'
+      ru: 'RU'
 
     # == User roles translations
     user_roles:
@@ -163,7 +165,6 @@ en:
     locked_pages: "Active pages"
     "Add global page": "Add global page"
     "Add page link": "Add page link"
-    "Adobe Website": "Adobe Website"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software and itself uses open software and free resources:"
     "Alchemy is up to date": 'Alchemy is up to date'
     'An error happened': 'An error happened'

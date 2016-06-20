@@ -107,10 +107,11 @@ es:
     translations:
       de: 'DE'
       en: 'EN'
-      nl: 'NL'
-      fr: 'FR'
-      es: 'ES'
+      en: 'ES'
       it: 'IT'
+      fr: 'FR'
+      nl: 'NL'
+      ru: 'RU'
 
     # == User roles translations
     user_roles:
@@ -164,7 +165,6 @@ es:
     locked_pages: "Páginas activas"
     "Add global page": "Añadir página global"
     "Add page link": "Añadir redirección"
-    "Adobe Website": "Sitio web de Adobe"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy es un software abierto que utiliza software abierto y recursos libres:"
     "Alchemy is up to date": 'Alchemy está actualizado'
     'An error happened': 'Ha ocurrido un error'
