@@ -42,9 +42,15 @@ __Fixed Bugs__
 * Generators don't delete directories any more (#850)
 * Admin locale swtiching does not switch language tree any more (#1064)
 
-## 3.3.1 (unreleased)
+## 3.3.1 (2016-06-20)
 
 * Fix use of Alchemy::Resource with namespaced models (#729)
+* Allow setting the type of EssenceText input fields in the elements.yml via `settings[:input_type]`
+* Admin locale switching does not switch language tree any more (#1065)
+* Fixes bug where old site session causes not found errors (#1047)
+* Fix inability to add nested elements on pages with cells (#1039)
+* Skip upgrader if no element definitions are found (#1060)
+* Fix selecting the active cell for elements with nested elements (#1041)
 
 ## 3.3.0 (2016-05-18)
 
