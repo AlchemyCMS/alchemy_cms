@@ -2,7 +2,7 @@ module Alchemy
   module Admin
     class BaseController < Alchemy::BaseController
       include Userstamp
-      include Alchemy::Locale
+      include Locale
 
       before_action { enforce_ssl if ssl_required? && !request.ssl? }
       before_action :load_locked_pages
