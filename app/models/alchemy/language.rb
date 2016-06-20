@@ -19,7 +19,7 @@
 
 module Alchemy
   class Language < ActiveRecord::Base
-    belongs_to :site
+    belongs_to :site, required: true
     has_many :pages
 
     before_validation :set_locale, if: -> { locale.blank? }

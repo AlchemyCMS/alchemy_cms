@@ -25,17 +25,14 @@ module Alchemy
       before { authorize_user(user) }
 
       describe '#index' do
-        let(:language)      { build_stubbed(:alchemy_language) }
-        let(:language_root) { build_stubbed(:alchemy_page, :language_root) }
+        let!(:language) { create(:alchemy_language) }
 
         context 'with existing language root page' do
-          before do
-            expect(Language).to receive(:current_root_page).and_return(language_root)
-          end
+          let!(:language_root) { create(:alchemy_page, :language_root) }
 
           it "assigns @page_root variable" do
             alchemy_get :index
-            expect(assigns(:page_root)).to be(language_root)
+            expect(assigns(:page_root)).to eq(language_root)
           end
         end
 
@@ -48,6 +45,47 @@ module Alchemy
           it "it assigns current language" do
             alchemy_get :index
             expect(assigns(:language)).to eq(language)
+          end
+
+          context "with multiple sites" do
+            let!(:site_1_language_2) do
+              create(:alchemy_language, code: 'fr')
+            end
+
+            let!(:site_2) do
+              create(:alchemy_site, host: 'another-one.com')
+            end
+
+            let(:site_2_language) do
+              site_2.default_language
+            end
+
+            before do
+              create(:alchemy_page, :language_root, language: site_2_language)
+              create(:alchemy_page, :language_root, language: site_1_language_2)
+            end
+
+            it "loads languages with pages from current site only" do
+              alchemy_get :index
+              expect(assigns(:languages_with_page_tree)).to include(site_1_language_2)
+              expect(assigns(:languages_with_page_tree)).to_not include(site_2_language)
+            end
+          end
+        end
+
+        context "with multiple sites" do
+          let!(:site_2) do
+            create(:alchemy_site, host: 'another-one.com')
+          end
+
+          let(:language_2) do
+            site_2.default_language
+          end
+
+          it "loads languages from current site only" do
+            alchemy_get :index
+            expect(assigns(:languages)).to include(language)
+            expect(assigns(:languages)).to_not include(language_2)
           end
         end
       end

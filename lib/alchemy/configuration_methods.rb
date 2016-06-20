@@ -17,7 +17,7 @@ module Alchemy
     # Returns true if more than one language is published.
     #
     def multi_language?
-      Language.published.count > 1
+      Language.on_current_site.published.count > 1
     end
 
     # Decides if the locale should be prefixed to urls

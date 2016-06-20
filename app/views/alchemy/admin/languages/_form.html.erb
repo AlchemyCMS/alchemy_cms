@@ -19,5 +19,6 @@
     input_html: {class: 'alchemy_selectbox'} %>
   <%= f.input :public %>
   <%= f.input :default %>
+  <%= f.hidden_field :site_id, value: Alchemy::Site.current.id %>
   <%= f.submit Alchemy.t(:save) %>
 <% end %>
