@@ -53,7 +53,7 @@
     &.small {
       background: none;
       @extend .icon-cross;
-      line-height: 0;
+      line-height: 1;
     }
   }
 

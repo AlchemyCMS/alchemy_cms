@@ -34,6 +34,8 @@ __Notable Changes__
 * Removes the default_scope from Language on_site current while ensuring to load languages by code
   from current site only.
 * Removes the `Language.get_default` method alias for `Language.default`
+* Move site select into pages and languages module to avoid confusion about curent site (#1067)
+* List pages from all sites in currently locked pages tabs and Dashboard widget (#1067)
 
 __Fixed Bugs__
 

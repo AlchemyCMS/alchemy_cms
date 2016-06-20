@@ -90,6 +90,7 @@ module Alchemy
     belongs_to :language
 
     has_one :site, through: :language
+    has_many :site_languages, through: :site, source: :languages
     has_many :folded_pages
     has_many :legacy_urls, class_name: 'Alchemy::LegacyPageUrl'
 
@@ -132,6 +133,9 @@ module Alchemy
     include Alchemy::Page::PageUsers
     include Alchemy::Page::PageCells
     include Alchemy::Page::PageElements
+
+    # site_name accessor
+    delegate :name, to: :site, prefix: true, allow_nil: true
 
     # Class methods
     #

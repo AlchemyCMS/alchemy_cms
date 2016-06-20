@@ -14,7 +14,7 @@ module Alchemy
       Config.get(name)
     end
 
-    # Returns true if more than one language is published.
+    # Returns true if more than one language is published on current site.
     #
     def multi_language?
       Language.on_current_site.published.count > 1

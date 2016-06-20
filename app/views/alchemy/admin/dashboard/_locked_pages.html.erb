@@ -8,28 +8,39 @@
   <% else %>
     <% @all_locked_pages.each do |page| %>
     <tr class="<%= cycle('even', 'odd', :name => 'locked_pages') %>">
-      <% if current_alchemy_user.id == page.locked_by %>
       <td>
+        <% if current_alchemy_user.id == page.locked_by %>
         <%= link_to(page.name, alchemy.edit_admin_page_path(page)) %>
+        <% else %>
+        <%= page.name %>
+        <% end %>
+      </td>
+      <% if multi_site? %>
+      <td>
+        <small><%= page.site_name %></small>
+      </td>
+      <% end %>
+      <td>
+        <% if page.site_languages.many? %>
+        <small><%= page.language.code.upcase %></small>
+        <% end %>
       </td>
       <td>
+        <% if current_alchemy_user.id == page.locked_by %>
         <small><%= Alchemy.t(:me) %></small>
+        <% else %>
+        <small><%= page.locker_name %></small>
+        <% end %>
       </td>
       <td>
+        <% if current_alchemy_user.id == page.locked_by %>
         <%= form_tag(alchemy.unlock_admin_page_path(page, :redirect_to => alchemy.admin_dashboard_url)) do %>
           <button class="icon_button small" title="<%= Alchemy.t(:explain_unlocking) %>">
             <%= render_icon('close small') %>
           </button>
         <% end %>
+        <% end %>
       </td>
-      <% else %>
-      <td>
-        <%= page.name %>
-      </td>
-      <td colspan="2">
-        <small><%= page.locker_name %></small>
-      </td>
-    <% end %>
     </tr>
     <% end %>
   <% end %>
