@@ -418,7 +418,7 @@ module Alchemy
 
     describe '.locked' do
       it "should return 1 page that is blocked by a user at the moment" do
-        create(:alchemy_page, :public, locked: true, name: 'First Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, :locked, name: 'First Public Child', parent_id: language_root.id, language: language)
         expect(Page.locked.size).to eq(1)
       end
     end
@@ -427,14 +427,14 @@ module Alchemy
       let(:user) { double(:user, id: 1, class: DummyUser) }
 
       before do
-        create(:alchemy_page, :public, locked: true, locked_by: 53) # This page must not be part of the collection
+        create(:alchemy_page, :public, :locked, locked_by: 53) # This page must not be part of the collection
         allow(user.class)
           .to receive(:primary_key)
           .and_return('id')
       end
 
       it "should return the correct page collection blocked by a certain user" do
-        page = create(:alchemy_page, :public, locked: true, locked_by: 1)
+        page = create(:alchemy_page, :public, :locked, locked_by: 1)
         expect(Page.locked_by(user).pluck(:id)).to eq([page.id])
       end
 
@@ -448,7 +448,7 @@ module Alchemy
         end
 
         it "should return the correct page collection blocked by a certain user" do
-          page = create(:alchemy_page, :public, locked: true, locked_by: 123)
+          page = create(:alchemy_page, :public, :locked, locked_by: 123)
           expect(Page.locked_by(user).pluck(:id)).to eq([page.id])
         end
       end
@@ -551,11 +551,11 @@ module Alchemy
 
       context 'a locked page' do
         let(:page) do
-          create(:alchemy_page, :public, name: 'Source', locked: true, locked_by: 1)
+          create(:alchemy_page, :public, :locked, name: 'Source')
         end
 
         it "the copy should not be locked" do
-          expect(subject.locked).to be(false)
+          expect(subject.locked?).to be(false)
           expect(subject.locked_by).to be(nil)
         end
       end
@@ -727,7 +727,7 @@ module Alchemy
 
     describe '.not_locked' do
       it "should return pages that are not blocked by a user at the moment" do
-        create(:alchemy_page, :public, locked: true, name: 'First Public Child', parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, :locked, name: 'First Public Child', parent_id: language_root.id, language: language)
         create(:alchemy_page, :public, name: 'Second Public Child', parent_id: language_root.id, language: language)
         expect(Page.not_locked.size).to eq(3)
       end
@@ -1373,17 +1373,18 @@ module Alchemy
       let(:page) { create(:alchemy_page) }
       let(:user) { mock_model('DummyUser') }
 
-      it "should set locked to true" do
+      it "sets locked_at timestamp" do
         page.lock_to!(user)
         page.reload
-        expect(page.locked).to eq(true)
+        expect(page.locked_at?).to be(true)
+        expect(page.locked_at).to be_a(Time)
       end
 
-      it "should not update the timestamps " do
-        expect { page.lock!(user) }.to_not change(page, :updated_at)
+      it "does not update the updated_at " do
+        expect { page.lock_to!(user) }.to_not change(page, :updated_at)
       end
 
-      it "should set locked_by to the users id" do
+      it "sets locked_by to the users id" do
         page.lock_to!(user)
         page.reload
         expect(page.locked_by).to eq(user.id)
@@ -1635,7 +1636,7 @@ module Alchemy
     end
 
     describe '#unlock!' do
-      let(:page) { create(:alchemy_page, locked: true, locked_by: 1) }
+      let(:page) { create(:alchemy_page, :locked) }
 
       before do
         allow(page).to receive(:save).and_return(true)
@@ -1644,7 +1645,7 @@ module Alchemy
       it "should set the locked status to false" do
         page.unlock!
         page.reload
-        expect(page.locked).to eq(false)
+        expect(page.locked?).to eq(false)
       end
 
       it "should not update the timestamps " do
@@ -1968,7 +1969,7 @@ module Alchemy
 
     context 'page status methods' do
       let(:page) do
-        build(:alchemy_page, :public, visible: true, restricted: false, locked: false)
+        build(:alchemy_page, :public, visible: true, restricted: false)
       end
 
       describe '#status' do

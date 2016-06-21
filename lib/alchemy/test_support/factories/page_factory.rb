@@ -47,5 +47,10 @@ FactoryGirl.define do
       name "Restricted page"
       restricted true
     end
+
+    trait :locked do
+      locked_at { Time.current }
+      locked_by { SecureRandom.random_number(1_000_000_000) }
+    end
   end
 end
