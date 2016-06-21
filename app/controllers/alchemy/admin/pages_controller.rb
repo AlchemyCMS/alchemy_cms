@@ -75,12 +75,15 @@ module Alchemy
       end
 
       # Edit the content of the page and all its elements and contents.
+      #
+      # Locks the page to current user to prevent other users from editing it meanwhile.
+      #
       def edit
         # fetching page via before filter
         if page_is_locked?
           flash[:notice] = Alchemy.t('This page is locked', name: @page.locker_name)
           redirect_to admin_pages_path
-        else
+        elsif page_needs_lock?
           @page.lock_to!(current_alchemy_user)
         end
         @layoutpage = @page.layoutpage?
@@ -368,6 +371,11 @@ module Alchemy
         return false if !@page.locker.try(:logged_in?)
         return false if !current_alchemy_user.respond_to?(:id)
         @page.locked? && @page.locker.id != current_alchemy_user.id
+      end
+
+      def page_needs_lock?
+        return true unless @page.locker
+        @page.locker.try!(:id) != current_alchemy_user.try!(:id)
       end
 
       def paste_from_clipboard
