@@ -41,6 +41,13 @@ describe 'Site select' do
         visit admin_languages_path
         expect(page).to have_select('change_site', selected: a_site.name)
       end
+
+      context 'when site id is not found' do
+        it "stores the default site in session" do
+          visit admin_pages_path(site_id: '')
+          expect(page).to have_select('change_site', selected: Alchemy::Site.default.name)
+        end
+      end
     end
   end
 end

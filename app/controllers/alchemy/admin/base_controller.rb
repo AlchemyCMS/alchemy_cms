@@ -173,12 +173,9 @@ module Alchemy
       def current_alchemy_site
         @current_alchemy_site ||= begin
           site_id = params[:site_id] || session[:alchemy_site_id]
-          if site_id.nil?
-            Site.find_for_host(request.host)
-          else
-            session[:alchemy_site_id] = site_id
-            Site.find(site_id)
-          end
+          site = Site.find_by(id: site_id) || super
+          session[:alchemy_site_id] = site.id
+          site
         end
       end
     end
