@@ -71,17 +71,22 @@ describe Alchemy::Admin::BaseController do
   end
 
   context 'when current_alchemy_user is present' do
-    let!(:page) { create(:alchemy_page) }
-    let!(:user) { create(:alchemy_dummy_user, :as_admin) }
+    let!(:page_1) { create(:alchemy_page, name: 'Page 1') }
+    let!(:page_2) { create(:alchemy_page, name: 'Page 2') }
+    let(:user)    { create(:alchemy_dummy_user, :as_admin) }
 
-    before do
-      allow(controller).to receive(:current_alchemy_user) { user }
-      page.lock_to!(user)
-    end
+    context 'and she has locked pages' do
+      before do
+        allow(controller).to receive(:current_alchemy_user) { user }
+        [page_1, page_2].each_with_index do |p, i|
+          p.update_columns(locked_at: i.months.ago, locked_by: user.id)
+        end
+      end
 
-    it 'loads locked pages' do
-      controller.send(:load_locked_pages)
-      expect(assigns(:locked_pages)).to include(page)
+      it 'loads locked pages ordered by locked_at date' do
+        controller.send(:load_locked_pages)
+        expect(assigns(:locked_pages).pluck(:name)).to eq(['Page 2', 'Page 1'])
+      end
     end
   end
 end

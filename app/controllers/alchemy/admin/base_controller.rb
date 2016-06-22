@@ -165,7 +165,7 @@ module Alchemy
       end
 
       def load_locked_pages
-        @locked_pages = Page.locked_by(current_alchemy_user)
+        @locked_pages = Page.locked_by(current_alchemy_user).order(:locked_at)
       end
 
       # Returns the current site for admin controllers.

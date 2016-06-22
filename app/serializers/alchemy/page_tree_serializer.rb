@@ -57,7 +57,7 @@ module Alchemy
         page_layout: page.page_layout,
         slug: page.slug,
         redirects_to_external: page.redirects_to_external?,
-        locked: page.locked,
+        locked: page.locked?,
         definition_missing: page.definition.blank?,
         urlname: page.urlname,
         external_urlname: page.external_urlname,

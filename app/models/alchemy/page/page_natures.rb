@@ -42,6 +42,11 @@ module Alchemy
       !PageLayout.get(page_layout).nil? && !PageLayout.get(page_layout)["controller"].blank?
     end
 
+    # True if page locked_at timestamp and locked_by id are set
+    def locked?
+      locked_by? && locked_at?
+    end
+
     def controller_and_action
       if has_controller?
         {

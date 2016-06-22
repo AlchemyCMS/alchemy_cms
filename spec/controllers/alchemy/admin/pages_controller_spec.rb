@@ -540,7 +540,7 @@ module Alchemy
 
         context 'if page is locked by myself' do
           before do
-            expect_any_instance_of(Page).to receive(:locker).and_return(user)
+            expect_any_instance_of(Page).to receive(:locker).at_least(:once) { user }
             expect(user).to receive(:logged_in?).and_return(true)
           end
 
@@ -548,11 +548,16 @@ module Alchemy
             alchemy_get :edit, id: page.id
             expect(response).to render_template(:edit)
           end
+
+          it 'does not lock the page again' do
+            expect_any_instance_of(Alchemy::Page).to_not receive(:lock_to!)
+            alchemy_get :edit, id: page.id
+          end
         end
 
         context 'if page is not locked' do
           before do
-            expect_any_instance_of(Page).to receive(:locker).and_return(nil)
+            expect_any_instance_of(Page).to receive(:locker).at_least(:once) { nil }
           end
 
           it 'renders the edit view' do

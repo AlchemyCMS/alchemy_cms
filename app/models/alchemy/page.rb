@@ -17,7 +17,7 @@
 #  depth            :integer
 #  visible          :boolean          default(FALSE)
 #  public           :boolean          default(FALSE)
-#  locked           :boolean          default(FALSE)
+#  locked_at        :datetime
 #  locked_by        :integer
 #  restricted       :boolean          default(FALSE)
 #  robot_index      :boolean          default(TRUE)
@@ -47,7 +47,7 @@ module Alchemy
       visible: false,
       public_on: nil,
       public_until: nil,
-      locked: false,
+      locked_at: nil,
       locked_by: nil
     }
 
@@ -319,16 +319,16 @@ module Alchemy
     end
     alias_method :next_page, :next
 
-    # Locks the page to given user without updating the timestamps
+    # Locks the page to given user
     #
     def lock_to!(user)
-      update_columns(locked: true, locked_by: user.id)
+      update_columns(locked_at: Time.current, locked_by: user.id)
     end
 
     # Unlocks the page without updating the timestamps
     #
     def unlock!
-      if update_columns(locked: false, locked_by: nil)
+      if update_columns(locked_at: nil, locked_by: nil)
         Page.current_preview = nil
       end
     end
