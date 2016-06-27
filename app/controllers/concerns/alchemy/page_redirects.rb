@@ -36,10 +36,14 @@ module Alchemy
     end
 
     def public_child_redirect_url
-      return unless redirect_to_public_child?
+      return if @page.public?
 
-      @page = @page.self_and_descendants.published.not_restricted.first
-      @page ? page_redirect_url : page_not_found!
+      if configuration(:redirect_to_public_child)
+        @page = @page.descendants.published.not_restricted.first
+        @page ? page_redirect_url : page_not_found!
+      else
+        page_not_found!
+      end
     end
 
     def controller_and_action_url
@@ -64,10 +68,6 @@ module Alchemy
 
     def locale_prefix_missing?
       multi_language? && params[:locale].blank? && !default_locale?
-    end
-
-    def redirect_to_public_child?
-      configuration(:redirect_to_public_child) && !@page.public?
     end
   end
 end
