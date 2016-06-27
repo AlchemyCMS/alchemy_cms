@@ -124,7 +124,7 @@ module Alchemy
     # A page gets locked, if the user requests to edit the page.
     #
     def pages_locked_by_me
-      Page.where(:locked => true).where(:locked_by => self.id).order(:updated_at)
+      Page.locked_by(self).order(:updated_at)
     end
     alias_method :locked_pages, :pages_locked_by_me
 
