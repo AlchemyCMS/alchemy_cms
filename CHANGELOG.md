@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.3.2 (unreleased)
+
+* Use relative url for page preview frame in order to prevent cross origin errors (#1076)
+
 ## 3.3.1 (2016-06-20)
 
 * Fix use of Alchemy::Resource with namespaced models (#729)
