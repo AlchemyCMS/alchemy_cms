@@ -37,7 +37,7 @@ module Alchemy
     # Loads the current language root page. The current language is either loaded via :locale
     # parameter or, if that's missing, the default language is used.
     #
-    # If this page is not published then it loads the first published descendant it finds.
+    # If this page is not published then it redirects to the first published descendant it finds.
     #
     # If no public page can be found it renders a 404 error.
     #
@@ -47,8 +47,7 @@ module Alchemy
         raise "Remove deprecated `redirect_index` configuration!" if Alchemy.version == "4.0.0.rc1"
         redirect_permanently_to page_redirect_url
       else
-        authorize! :index, @page
-        render_page if render_fresh_page?
+        show
       end
     end
 
@@ -86,13 +85,13 @@ module Alchemy
     #
     # Loads the current public language root page.
     #
-    # If the root page is not public it loads the first published child.
+    # If the root page is not public it redirects to the first published child.
     # This can be configured via +redirect_to_public_child+ [default: true]
     #
     # If no index page and no admin users are present we show the "Welcome to Alchemy" page.
     #
     def load_index_page
-      @page ||= public_root_page || first_public_child
+      @page ||= Language.current_root_page
       render template: 'alchemy/welcome', layout: false if signup_required?
     end
 
@@ -110,26 +109,6 @@ module Alchemy
         urlname: params[:urlname],
         language_code: params[:locale] || Language.current.code
       )
-    end
-
-    # Returns the current language root page, if it's published.
-    #
-    # Otherwise it returns nil.
-    #
-    def public_root_page
-      @root_page ||= Language.current_root_page
-      @root_page if @root_page && @root_page.public?
-    end
-
-    # Returns the first public child of the current language root page.
-    #
-    # If +redirect_to_public_child+ is configured to +false+ it returns +nil+.
-    #
-    def first_public_child
-      if Alchemy::Config.get(:redirect_to_public_child)
-        return unless @root_page
-        @root_page.descendants.published.first
-      end
     end
 
     # Redirects to given url with 301 status

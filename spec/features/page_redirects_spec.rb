@@ -182,6 +182,47 @@ module Alchemy
             expect(page.current_path).to eq('/')
           end
         end
+
+        context 'and redirect_to_public_child is enabled' do
+          before do
+            allow(Config).to receive(:get) do |arg|
+              arg == :redirect_to_public_child ? true : Config.parameter(arg)
+            end
+          end
+
+          context "if index page is unpublished" do
+            let!(:public_child) do
+              create(:alchemy_page, :public, name: 'Public Child', parent_id: default_language_root.id)
+            end
+
+            before do
+              default_language_root.update(
+                public_on: nil,
+                visible: false,
+                name: 'Not Public',
+                urlname: ''
+              )
+            end
+
+            context "and index page locale is default locale" do
+              it 'redirects to public child without prefixed locale' do
+                visit '/'
+                expect(page.current_path).to eq('/public-child')
+              end
+            end
+
+            context "and page locale is not default locale" do
+              before do
+                allow(::I18n).to receive(:default_locale).and_return(:de)
+              end
+
+              it 'redirects to public child with prefixed locale' do
+                visit '/'
+                expect(page.current_path).to eq('/en/public-child')
+              end
+            end
+          end
+        end
       end
 
       context "if requested url is only the language code" do
