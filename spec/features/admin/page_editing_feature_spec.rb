@@ -10,6 +10,13 @@ describe 'Page editing feature' do
       visit alchemy.edit_admin_page_path(a_page)
       expect(page).to_not have_selector('#publish_page_form')
     end
+
+    describe "the preview frame", :js do
+      it "has relative url" do
+        visit alchemy.edit_admin_page_path(a_page)
+        expect(page).to have_selector("iframe[src='#{admin_page_path(a_page)}']")
+      end
+    end
   end
 
   context 'as editor' do

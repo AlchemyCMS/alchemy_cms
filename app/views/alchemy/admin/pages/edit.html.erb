@@ -116,7 +116,7 @@
       return not_dirty;
     });
     Alchemy.PageLeaveObserver();
-    Alchemy.PreviewWindow.init('<%= admin_page_url(@page) %>');
+    Alchemy.PreviewWindow.init('<%= admin_page_path(@page) %>');
     Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_id: @page.id) %>', {
       texts: {
         title: '<%= Alchemy.t("Elements") %>',
