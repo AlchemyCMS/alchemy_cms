@@ -37,6 +37,7 @@ __Notable Changes__
 * Move site select into pages and languages module to avoid confusion about curent site (#1067)
 * List pages from all sites in currently locked pages tabs and Dashboard widget (#1067)
 * The locked value on page is now a timestamp (`locked_at`), so we can order locked pages by (#1070)
+* Persist user in dummy app
 
 __Fixed Bugs__
 

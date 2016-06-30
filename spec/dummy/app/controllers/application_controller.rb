@@ -6,10 +6,7 @@ class ApplicationController < ActionController::Base
   private
 
   def current_user
-    if Rails.env.test?
-      nil
-    else
-      DummyUser.new(email: "dummy@alchemy.com")
-    end
+    return if Rails.env.test?
+    @_dummy_user ||= DummyUser.find_or_create_by(email: "dummy@alchemy.com")
   end
 end
