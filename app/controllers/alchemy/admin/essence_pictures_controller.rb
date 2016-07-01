@@ -3,9 +3,9 @@ module Alchemy
     class EssencePicturesController < Alchemy::Admin::BaseController
       authorize_resource class: Alchemy::EssencePicture
 
-      before_filter :load_essence_picture, only: [:edit, :crop, :update]
-      before_filter :load_content, only: [:edit, :update, :assign]
-      before_filter :load_options
+      before_action :load_essence_picture, only: [:edit, :crop, :update]
+      before_action :load_content, only: [:edit, :update, :assign]
+      before_action :load_options
 
       helper 'alchemy/admin/contents'
       helper 'alchemy/admin/essences'

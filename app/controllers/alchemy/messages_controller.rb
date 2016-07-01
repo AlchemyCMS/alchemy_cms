@@ -42,7 +42,7 @@ module Alchemy
   # Please have a look at the +alchemy/config/config.yml+ file for further Message settings.
   #
   class MessagesController < Alchemy::BaseController
-    before_filter :get_page, except: :create
+    before_action :get_page, except: :create
 
     helper 'alchemy/pages'
 
