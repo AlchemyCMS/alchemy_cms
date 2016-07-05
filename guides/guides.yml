@@ -1,14 +1,14 @@
-title: Alchemy CMS Guides
-description: "Alchemy is the most powerful, user friendly and flexible Rails CMS."
+title: AlchemyCMS Guides
+description: "Alchemy is a powerful, user friendly and flexible Rails CMS."
 version: "3.3.0"
 
 index:
   1.) First steps:
     - title: Getting Started
       url: getting_started
-      text: Everything you need to know to install and create your first Alchemy CMS project.
+      text: Everything you need to know to install and create your first AlchemyCMS project.
     - title: Alchemy´s Architecture
-      text: How Alchemy CMS is working.
+      text: How AlchemyCMS is working.
       url: architecture
     - title: The Alchemy approach
       url: alchemy_approach
