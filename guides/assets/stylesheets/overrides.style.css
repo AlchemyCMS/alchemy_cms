@@ -128,7 +128,7 @@ header {
   height: 140px;
   background: #C7E4F5;
   color: #FFF;
-  font: 14px normal "SansusWebissimoRegular", Helvetica, Arial, sans-serif;
+  font: 14px "SansusWebissimoRegular", Helvetica, Arial, sans-serif;
   background-image: -moz-radial-gradient(50% 50%, circle cover, #deeff9, #c7e4f5 60%);
   background-image: -webkit-radial-gradient(50% 50%, circle cover, #deeff9, #c7e4f5 60%);
   background-image: -o-radial-gradient(50% 50%, circle cover, #deeff9, #c7e4f5 60%);
@@ -368,8 +368,10 @@ a, a:link, a:visited {
 
 #subCol a,
 #subCol li {
-  color: #33393f;
+  color: #444;
   text-decoration: none;
+  font-weight: normal;
+  font-size: 15px;
 }
 
 #header .index a {
@@ -445,7 +447,7 @@ a, a:link, a:visited {
   padding: 0 10px 10px;
   top: 170px;
   text-align: left;
-  color: #333;
+  color: #444;
 }
 
 #subCol h3.chapter img {
@@ -456,6 +458,7 @@ a, a:link, a:visited {
   background: url(../images/chapters.png) no-repeat 0 0;
   padding: 4px 4px 4px 40px;
   margin-bottom: 6px;
+  font-weight: normal;
 }
 
 #guides dl.L,
