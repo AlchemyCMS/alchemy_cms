@@ -79,6 +79,9 @@ h2 {
 
 h3 {
   font-size: 16px;
+  font-weight: normal;
+  margin-top: 50px;
+  margin-bottom: 10px;
 }
 
 h4 {
@@ -211,11 +214,6 @@ header {
   min-height: 300px;
   text-align: left;
   padding-top: 0;
-}
-
-h3 {
-  margin-top: 50px;
-  margin-bottom: 10px;
 }
 
 #feature h2 {
@@ -360,6 +358,7 @@ div.addthis_toolbox {
 
 a, a:link, a:visited {
   color: #33393f;
+  font-weight: normal;
 }
 
 #mainCol a {
