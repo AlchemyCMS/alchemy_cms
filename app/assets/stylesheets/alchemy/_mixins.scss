@@ -10,7 +10,7 @@
 }
 
 @mixin button-defaults {
-  @include button($base-color: $white);
+  @include button($base-color: $white, $padding: 0.5em 1.5em);
   background-color: $button-bg-color;
   border-color: $button-border-color;
   font-weight: normal;
