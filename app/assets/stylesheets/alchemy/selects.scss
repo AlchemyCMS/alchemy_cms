@@ -156,7 +156,7 @@ select {
   }
 
   &.select2-with-searchbox .select2-results > .select2-result:first-child {
-    border-top-radius: 0;
+    @include border-top-radius(0);
   }
 
   .select2-results {
@@ -164,11 +164,11 @@ select {
     margin: 0;
 
     > .select2-result:first-child {
-      border-top-radius: $default-border-radius;
+      @include border-top-radius($default-border-radius);
     }
 
     &:last-child {
-      border-bottom-radius: $default-border-radius;
+      @include border-bottom-radius($default-border-radius);
     }
 
     .select2-result {
