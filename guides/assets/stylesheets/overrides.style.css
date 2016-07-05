@@ -1,37 +1,32 @@
-/* @override
-  http://0.0.0.0:9292/stylesheets/overrides.style.css
-  http://localhost:9292/stylesheets/overrides.style.css
-*/
-
 @font-face {
   font-family: 'AngelinaRegular';
-  src: url('/fonts/angelina-webfont.eot');
-  src: url('/fonts/angelina-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/angelina-webfont.woff') format('woff'),
-       url('/fonts/angelina-webfont.ttf') format('truetype'),
-       url('/fonts/angelina-webfont.svg#AngelinaRegular') format('svg');
+  src: url('../fonts/angelina-webfont.eot');
+  src: url('../fonts/angelina-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/angelina-webfont.woff') format('woff'),
+       url('../fonts/angelina-webfont.ttf') format('truetype'),
+       url('../fonts/angelina-webfont.svg#AngelinaRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'JunctionRegular';
-  src: url('/fonts/junction_02-webfont.eot');
-  src: url('/fonts/junction_02-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/junction_02-webfont.woff') format('woff'),
-       url('/fonts/junction_02-webfont.ttf') format('truetype'),
-       url('/fonts/junction_02-webfont.svg#JunctionRegular') format('svg');
+  src: url('../fonts/junction_02-webfont.eot');
+  src: url('../fonts/junction_02-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/junction_02-webfont.woff') format('woff'),
+       url('../fonts/junction_02-webfont.ttf') format('truetype'),
+       url('../fonts/junction_02-webfont.svg#JunctionRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'SansusWebissimoRegular';
-  src: url('/fonts/sansus_webissimo-regular-webfont.eot');
-  src: url('/fonts/sansus_webissimo-regular-webfont.eot?#iefix') format('embedded-opentype'),
-       url('/fonts/sansus_webissimo-regular-webfont.woff') format('woff'),
-       url('/fonts/sansus_webissimo-regular-webfont.ttf') format('truetype'),
-       url('/fonts/sansus_webissimo-regular-webfont.svg#SansusWebissimoRegular') format('svg');
+  src: url('../fonts/sansus_webissimo-regular-webfont.eot');
+  src: url('../fonts/sansus_webissimo-regular-webfont.eot?#iefix') format('embedded-opentype'),
+       url('../fonts/sansus_webissimo-regular-webfont.woff') format('woff'),
+       url('../fonts/sansus_webissimo-regular-webfont.ttf') format('truetype'),
+       url('../fonts/sansus_webissimo-regular-webfont.svg#SansusWebissimoRegular') format('svg');
   font-weight: normal;
   font-style: normal;
 }
