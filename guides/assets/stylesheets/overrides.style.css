@@ -318,7 +318,7 @@ div.addthis_toolbox {
   border-bottom: 1px solid #D6E2EA;
   list-style-position: outside;
   margin: 0;
-  font-size: 12px;
+  font-size: 15px;
 }
 
 #subCol ol.chapters a,
@@ -326,6 +326,7 @@ div.addthis_toolbox {
   padding-bottom: 8px;
   padding-top: 8px;
   display: block;
+  font-weight: normal;
 }
 
 #subCol ol.chapters a:hover,
@@ -365,7 +366,6 @@ a, a:link, a:visited {
   color: #444;
   text-decoration: none;
   font-weight: normal;
-  font-size: 15px;
 }
 
 #header .index a {
@@ -451,7 +451,8 @@ a, a:link, a:visited {
 #subCol h3.chapter {
   background: url(../images/chapters.png) no-repeat 0 0;
   padding: 4px 4px 4px 40px;
-  margin-bottom: 6px;
+  margin-bottom: 20px;
+  margin-left: -10px;
   font-weight: normal;
 }
 
