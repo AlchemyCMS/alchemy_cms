@@ -315,7 +315,6 @@ div.addthis_toolbox {
   border-bottom: 1px solid #D6E2EA;
   list-style-position: outside;
   margin: 0;
-  font-size: 15px;
 }
 
 #subCol ol.chapters a,
@@ -335,6 +334,7 @@ div.addthis_toolbox {
 #markdown-toc {
   margin: 0 0 13px 12px;
   padding-left: 0;
+  font-size: 15px;
 }
 
 #subCol ol.chapters li ul li,
