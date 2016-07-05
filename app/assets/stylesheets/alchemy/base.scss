@@ -142,19 +142,19 @@ kbd {
 }
 
 .top-rounded-border {
-  border-top-radius: $default-border-radius;
+  @include border-top-radius($default-border-radius);
 }
 
 .left-rounded-border {
-  border-left-radius: $default-border-radius;
+  @include border-left-radius($default-border-radius);
 }
 
 .right-rounded-border {
-  border-right-radius: $default-border-radius;
+  @include border-right-radius($default-border-radius);
 }
 
 .bottom-rounded-border {
-  border-bottom-radius: $default-border-radius;
+  @include border-bottom-radius($default-border-radius);
 }
 
 .bottom-left-rounded-border {

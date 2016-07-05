@@ -63,7 +63,7 @@
   white-space: normal;
   background-color: $light-gray;
   margin: 2*$default-margin;
-  border-top-radius: $default-border-radius;
+  @include border-top-radius($default-border-radius);
   box-shadow: 0 0 2px rgba(#000,0.8);
   @include transition(min-height 200ms ease-in-out);
 
@@ -130,7 +130,7 @@
   color: $header-text-color;
   font-weight: normal;
   font-size: $header-font-size;
-  border-top-radius: $default-border-radius;
+  @include border-top-radius($default-border-radius);
 
   .ui-draggable & {
     cursor: move;
