@@ -26,29 +26,23 @@ button, input[type="submit"], a.button, input.button {
     margin: 0;
     padding: 0;
     border: 0 none;
-    @include box-shadow(none);
+    box-shadow: none;
     @include background(none);
-    @include border-radius(0);
+    border-radius: 0;
 
     .icon {
       margin: 0;
     }
   }
 
-  &:focus {
-    @extend %blue-focus-style;
-  }
-
   &.disabled {
     line-height: 13px;
     height: 29px;
-    padding-top: 5px;
-    padding-bottom: 4px;
   }
 }
 
 .icon_button {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   width: 27px;
   height: 27px;
   line-height: 21px;
@@ -63,7 +57,8 @@ button, input[type="submit"], a.button, input.button {
   }
 
   .icon {
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     margin-top: -2px;
   }
 
@@ -72,7 +67,8 @@ button, input[type="submit"], a.button, input.button {
     background-repeat: no-repeat;
     width: 22px;
     height: 20px;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     top: -1px;
     left: -1px;
   }
@@ -88,12 +84,13 @@ button, input[type="submit"], a.button, input.button {
     height: 15px;
     padding: 0;
     float: none;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     position: relative;
     top: 0px;
     background: none;
     border: none;
-    @include box-shadow(none);
+    box-shadow: none;
 
     .icon {
       position: absolute;
@@ -112,7 +109,7 @@ button, input[type="submit"], a.button, input.button {
 
     &:hover {
       border: $default-border-width $default-border-style $button-hover-border-color;
-      @include border-radius($default-border-radius);
+      border-radius: $default-border-radius;
       background: $button-hover-bg-color;
     }
   }
@@ -130,15 +127,12 @@ button, input[type="submit"], a.button, input.button {
   &.disabled {
 
     span {
-      position: relative;
-      @include opacity(0.3);
-      cursor: default;
+      opacity: 0.3;
+      cursor: not-allowed;
     }
 
     &:hover {
-      background-color: #d3d3d3;
-      border: 1px solid $button-border-color;
-      cursor: default;
+      cursor: not-allowed;
     }
   }
 
@@ -154,8 +148,8 @@ button, input[type="submit"], a.button, input.button {
 button.icon_button {
   background: transparent;
   border: 0 none;
-  @include border-radius(0);
-  @include box-shadow(none);
+  border-radius: 0;
+  box-shadow: none;
 
   &:disabled, &.disabled {
     background: transparent;
@@ -168,7 +162,8 @@ button.icon_button {
 
 .button_with_label {
   position: relative;
-  @include inline-block(top);
+  display: inline-block;
+  vertical-align: top;
   text-align: center;
   margin: 0 2*$default-margin;
   line-height: 0;
@@ -176,7 +171,7 @@ button.icon_button {
   &.active, &:active {
 
     .icon_button {
-      background-color: darken($sb-base-color, 10%);
+      background-color: darken($white, 10%);
       border: $default-border;
       padding: 2px;
       @extend %rounded-border;
@@ -205,12 +200,13 @@ button.icon_button {
     float: none;
     margin-right: auto;
     margin-left: auto;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     position: relative;
   }
 
   &.disabled {
-    @include opacity(0.5);
+    opacity: 0.5;
     cursor: default;
   }
 }
@@ -235,7 +231,7 @@ button.icon_button {
     padding: $default-padding 2*$default-padding;
     @extend %rounded-border;
     line-height: 1;
-    @include box-shadow(0 0 4px $default-border-color);
+    box-shadow: 0 0 4px $default-border-color;
     white-space: nowrap;
     pointer-events: none;
 

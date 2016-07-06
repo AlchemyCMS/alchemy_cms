@@ -11,7 +11,8 @@
 
     form {
       margin: 0;
-      @include inline-block;
+      display: inline-block;
+      vertical-align: middle;
       line-height: 5px;
     }
   }
@@ -41,7 +42,7 @@
   }
 
   .js_filter_field {
-    @include border-radius(15px);
+    border-radius: 15px;
   }
 
   .js_filter_field_box {
@@ -85,7 +86,8 @@
 }
 
 .toolbar_spacer {
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
   width: 0px;
   height: 29px;
   border-right-style: solid;
@@ -131,7 +133,8 @@
 
 .button_group {
   position: relative;
-  @include inline-block(top);
+  display: inline-block;
+  vertical-align: top;
   margin: 0 2*$default-margin;
 
   &:hover label {

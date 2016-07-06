@@ -9,7 +9,7 @@
   height: 100%;
   text-align: center;
   white-space: nowrap;
-  @include opacity(0);
+  opacity: 0;
   @include transition(opacity 200ms linear);
 
   // vertical aligment
@@ -23,7 +23,7 @@
   }
 
   &.open {
-    @include opacity(1);
+    opacity: 1;
   }
 }
 
@@ -64,11 +64,11 @@
   background-color: $light-gray;
   margin: 2*$default-margin;
   @include border-top-radius($default-border-radius);
-  @include box-shadow(0 0 2px rgba(#000,0.8));
+  box-shadow: 0 0 2px rgba(#000,0.8);
   @include transition(min-height 200ms ease-in-out);
 
   &.modal {
-    @include box-shadow(0 0 4px #666);
+    box-shadow: 0 0 4px #666;
   }
 
   div#jscropper {
@@ -121,7 +121,7 @@
 }
 
 .alchemy-dialog-header {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   position: relative;
   height: $dialog-header-height;
   padding: 0 2*$default-padding;
@@ -170,7 +170,7 @@
 }
 
 .alchemy-dialog-body {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   position: relative;
   color: $text-color;
 
@@ -209,7 +209,7 @@
 }
 
 .alchemy-dialog-buttons {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   float: left;
   clear: both;
   width: 100%;

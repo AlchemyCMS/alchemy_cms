@@ -87,12 +87,12 @@ $image-overlay-transition-easing: ease-in;
   position: absolute;
   top: 0;
   background-color: $medium-gray;
-  @include box-shadow(-2px 0 $default-padding -2px $text-color);
+  box-shadow: -2px 0 $default-padding -2px $text-color;
   @include transition(right $image-overlay-transition-duration $image-overlay-transition-easing);
 }
 
 .picture-details-overlay {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   right: 0;
   width: $image-overlay-form-width;
   height: 100%;
@@ -142,7 +142,7 @@ $image-overlay-transition-easing: ease-in;
 }
 
 .zoomed-picture-background {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   width: 100%;
   height: 100%;
   padding-top: 2*$default-padding;
@@ -176,7 +176,7 @@ $image-overlay-transition-easing: ease-in;
     height: auto;
     max-width: 100%;
     max-height: 100%;
-    @include box-shadow(0 0 2*$default-margin $text-color);
+    box-shadow: 0 0 2*$default-margin $text-color;
     background-color: $dark-gray;
     vertical-align: middle;
     cursor: default;
@@ -188,7 +188,7 @@ $image-overlay-transition-easing: ease-in;
   padding: 2*$default-padding 0;
 
   .message {
-    @include box-sizing(border-box);
+    box-sizing: border-box;
     margin: 2*$default-padding 0;
   }
 }
@@ -210,7 +210,7 @@ $image-overlay-transition-easing: ease-in;
 
     li {
       padding: 2*$default-padding;
-      @include border-radius($default-border-radius);
+      border-radius: $default-border-radius;
       white-space: normal;
 
       &.even { background: #F7F7F7 }
