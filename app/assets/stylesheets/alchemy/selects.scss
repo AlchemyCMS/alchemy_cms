@@ -14,10 +14,11 @@ select {
     .select2-choice {
       height: 27px;
       line-height: 27px;
-      @include sassy-button-gradient('simple', $sb-base-color, $sb-second-color, $sb-text-color, $sb-text-style, $sb-pseudo-states);
+      @include button($base-color: $white, $padding: 0 5px);
+      display: block;
+      font-weight: normal;
       border-color: $button-border-color;
       text-align: left;
-      border-radius: $default-border-radius;
 
       .select2-arrow {
         top: 2px;
@@ -47,6 +48,7 @@ select {
     }
 
     &.tiny {
+      padding-top: 6px;
 
       .select2-choice {
         height: 18px;
@@ -108,7 +110,7 @@ select {
         padding: 4px 24px 4px 8px;
         background-image: none;
         border: 0 none;
-        @include box-shadow(none);
+        box-shadow: none;
       }
 
       .select2-search-choice-close {
@@ -198,7 +200,7 @@ select {
   }
 
   &.select2-drop-active {
-    @include border-radius($default-border-radius);
+    border-radius: $default-border-radius;
     border: 1px solid $blue;
   }
 }
@@ -212,18 +214,13 @@ select {
 
 .select_with_label {
   margin: 0 3*$default-margin;
-  @include inline-block(top);
-
-  label, form {
-    @include inline-block;
-  }
-
-  select { margin: 0; }
+  display: inline-block;
+  vertical-align: middle;
 
   label {
-    margin-right: $default-margin;
-
-    &:after { content: ':'; }
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 2*$default-margin;
   }
 }
 

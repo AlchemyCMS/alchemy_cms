@@ -153,7 +153,8 @@ ul#sitemap {
       margin-right: 52px;
 
       span.page_move {
-        @include inline-block;
+        display: inline-block;
+        vertical-align: middle;
         width: 74px;
         text-align: center;
       }
@@ -218,7 +219,8 @@ ul.list .sitemap_sitename {
 
 #sub_navigation .page_status_and_name .page_status {
   float: none;
-  @include inline-block(-3px);
+  display: inline-block;
+  vertical-align: -3px;
   margin-left: 2px;
 }
 
@@ -235,7 +237,7 @@ ul.list .sitemap_sitename {
 
   &.not_restricted {
     background-position: -288px -39px;
-    @include opacity(0.3);
+    opacity: 0.3;
   }
 
   &.visible {
@@ -244,7 +246,7 @@ ul.list .sitemap_sitename {
 
   &.not_visible {
     background-position: -160px -39px;
-    @include opacity(0.3);
+    opacity: 0.3;
   }
 
   &.public {
@@ -253,7 +255,7 @@ ul.list .sitemap_sitename {
 
   &.not_public {
     background-position: -224px -39px;
-    @include opacity(0.3);
+    opacity: 0.3;
   }
 }
 
@@ -358,7 +360,7 @@ a.folder_link {
   height: 33px;
   padding: $default-padding;
   border: $default-border;
-  @include box-shadow(#9ea09f 0px 0px 4px);
+  box-shadow: #9ea09f 0px 0px 4px;
   @extend %rounded-border;
 
   .spinner {

@@ -1,5 +1,5 @@
 #alchemy_elements_window {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   position: absolute;
   right: 0;
   top: 73px;
@@ -10,7 +10,7 @@
 }
 
 #element_area {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
 
@@ -141,7 +141,7 @@
   margin-bottom: 2*$default-margin;
 
   &.not-draggable {
-    @include opacity(0.5);
+    opacity: 0.5;
   }
 
   &.dirty {
@@ -154,7 +154,7 @@
 
   &.selected {
     border-color: $blue;
-    @include box-shadow(0 0 4px $blue);
+    box-shadow: 0 0 4px $blue;
   }
 
   &.folded {
@@ -239,7 +239,7 @@
     margin: 0 0 4*$default-margin 0;
     border: 0 none;
     border-top: 1px solid $medium-gray;
-    @include opacity(1);
+    opacity: 1;
   }
 }
 
@@ -324,7 +324,16 @@
     position: absolute;
     bottom: 3px;
     right: 28px;
-    @include border-radius(0);
+    border-radius: 0;
+
+    &.link-essence,
+    &.unlink-essence {
+      background-color: #eaeaea;
+      border: 1px solid #c0c0c0;
+      &:hover {
+        background-color: #d6d6d6;
+      }
+    }
 
     &.linked.link-essence {
       @include linked-button($border-radius: 0 0 0 0);
@@ -365,7 +374,7 @@
   border: 1px dotted $button-border-color;
   background-color: $medium-gray;
   margin-bottom: 2*$default-margin;
-  @include border-radius($default-border-radius);
+  border-radius: $default-border-radius;
 }
 
 .edit_images_bottom {
@@ -402,14 +411,15 @@
   }
 
   a.disabled, > span.icon {
-    @include opacity(0.3);
+    opacity: 0.3;
     cursor: default;
   }
 }
 
 .content_editor.essence_date {
   float: none;
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
   vertical-align: top;
 
   input.date {
@@ -609,7 +619,8 @@ select.long {
   }
 
   &.display_inline {
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     margin-right: 4px;
     vertical-align: top;
 
@@ -641,7 +652,8 @@ select.long {
     }
 
     &.inline {
-      @include inline-block;
+      display: inline-block;
+      vertical-align: middle;
       min-width: 90px;
       margin-right: 4px;
     }
@@ -679,7 +691,8 @@ select.long {
   }
 
   &:hover label a.icon_button.small {
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
   }
 
   select.essence_editor_select {
@@ -711,7 +724,8 @@ select.long {
 
   &.essence_date {
     float: none;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     vertical-align: top;
 
     input.date {
@@ -722,7 +736,8 @@ select.long {
   &.essence_picture_editor {
     float: none;
     height: auto;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
   }
 }
 
@@ -803,7 +818,7 @@ a.hint {
 }
 
 .nestable-elements {
-  @include box-shadow(inset 0 4px 8px -2px darken($medium-gray, 15%));
+  box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
   background-color: $medium-gray;
 
   .expanded.element-editor > & {

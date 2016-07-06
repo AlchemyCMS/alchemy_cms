@@ -33,7 +33,7 @@ textarea {
 input#search_input_field {
   width: 204px;
   text-align: left;
-  @include border-radius(21px);
+  border-radius: 21px;
   padding: 3px 16px 3px 28px;
   margin: 0;
   height: 29px;
@@ -53,7 +53,7 @@ div.search_field span.icon, div.js_filter_field_box span.icon {
   .js_filter_field {
     width: 220px;
     text-align: left;
-    @include border-radius($default-border-radius);
+    border-radius: $default-border-radius;
     padding: 3px 24px 3px 28px;
     height: 29px;
     margin: 0;

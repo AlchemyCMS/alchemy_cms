@@ -41,7 +41,8 @@
 }
 
 .ui-helper-clearfix {
-  @include inline-block;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 /* required comment for clearfix to work in Opera \*/
@@ -248,7 +249,7 @@
 }
 
 .ui-state-disabled, .ui-widget-content .ui-state-disabled, .ui-widget-header .ui-state-disabled {
-  @include opacity(.35);
+  opacity: .35;
   background-image: none;
 }
 
@@ -1131,7 +1132,7 @@
 .ui-tabs .ui-tabs-nav {
   padding: 4px 8px 0;
   background: transparent;
-  @include border-radius(0);
+  border-radius: 0;
   border-bottom: $default-border;
   margin: 0;
 }
@@ -1144,7 +1145,8 @@
   margin: 0 .2em 1px 0;
   border-color: $default-border-color;
   border-bottom: 0 !important;
-  @include border-bottom-radius(0);
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
   padding: 0;
   white-space: nowrap;
   background-color: $medium-gray;

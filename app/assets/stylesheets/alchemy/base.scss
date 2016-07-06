@@ -115,7 +115,7 @@ ul {
 hr {
   border: 0 none;
   border-bottom: 1px solid;
-  @include opacity(0.5);
+  opacity: 0.5;
 }
 
 .float_right { float: right }
@@ -158,7 +158,7 @@ kbd {
 }
 
 .bottom-left-rounded-border {
-  @include border-bottom-left-radius($default-border-radius);
+  border-bottom-left-radius: $default-border-radius;
 }
 
 .disable-user-select {
@@ -166,7 +166,7 @@ kbd {
 }
 
 .border-box-sizing {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
 }
 
 span.updated_at {
@@ -515,7 +515,7 @@ div.browse {
 }
 
 #alchemy_preview_window {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   position: absolute;
   left: 66px;
   top: 73px;

@@ -1,6 +1,6 @@
 @mixin default-focus-style {
   border-color: $blue;
-  @include box-shadow(0 0 1px 2px $blue);
+  box-shadow: 0 0 1px 2px $blue;
   outline: none;
 
   &::-moz-focus-inner {
@@ -10,9 +10,16 @@
 }
 
 @mixin button-defaults {
-  @include sassy-button('simple', $sb-border-radius, $sb-font-size, $sb-base-color, $sb-second-color, $sb-text-color, $sb-text-style, $sb-pseudo-states, $sb-ie-support);
+  @include button($base-color: $white, $padding: 0.5em 1.5em);
+  background-color: $button-bg-color;
   border-color: $button-border-color;
-  margin: $default-form-field-margin;
+  font-weight: normal;
+  text-color: $text-color;
+  text-shadow: $button-text-shadow;
+  &:hover {
+    background-color: $button-hover-bg-color;
+    border-color: $button-hover-border-color;
+  }
 }
 
 @mixin default-label-style {
@@ -123,17 +130,7 @@
 }
 
 @mixin linked-button($border-radius: $default-border-radius) {
-  @include sassy-button(
-    'matte',
-    $border-radius,
-    $sb-font-size,
-    $linked-button-color,
-    $sb-second-color,
-    $sb-text-color,
-    $sb-text-style,
-    $sb-pseudo-states,
-    $sb-ie-support
-  );
+  @include button($base-color: $linked-color);
   padding: 3px;
   border-color: $default-border-color;
 }

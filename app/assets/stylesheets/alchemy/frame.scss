@@ -1,5 +1,5 @@
 #top_menu {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   margin-left: 65px;
@@ -73,7 +73,8 @@
       border-style: none;
       height: 24px;
       width: 24px;
-      @include inline-block;
+      display: inline-block;
+      vertical-align: middle;
       margin-bottom: 4px;
       margin-top: 2px;
     }
@@ -140,7 +141,7 @@ div#overlay_text_box {
 }
 
 #main_content {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   background-color: $light-gray;
   padding: 75px 8px 8px 74px;
   z-index: 0;
@@ -149,7 +150,7 @@ div#overlay_text_box {
 }
 
 #archive_all {
-  @include box-sizing(border-box);
+  box-sizing: border-box;
   height: 100%;
   padding-bottom: 60px;
 
@@ -166,7 +167,6 @@ div#user_info {
   position: absolute;
   top: 0;
   right: 65px;
-  line-height: 28px;
   font-size: 11px;
   padding: 0 8px;
   background-color: $light-blue;
@@ -190,7 +190,8 @@ div#user_info {
   position: relative;
 
   a {
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
 
     &:hover {
       text-decoration: none;
@@ -217,7 +218,8 @@ div#user_info {
 
   .page_language {
     float: none;
-    @include inline-block;
+    display: inline-block;
+    vertical-align: middle;
     color: #3265b1;
     margin-right: 2px;
     font-size: 10px;
