@@ -1,6 +1,6 @@
 @mixin default-focus-style {
   border-color: $blue;
-  box-shadow: 0 0 1px 2px $blue;
+  box-shadow: 0 0 1px 1px $blue;
   outline: none;
 
   &::-moz-focus-inner {
