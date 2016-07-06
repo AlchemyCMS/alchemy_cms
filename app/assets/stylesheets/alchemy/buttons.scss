@@ -127,15 +127,12 @@ button, input[type="submit"], a.button, input.button {
   &.disabled {
 
     span {
-      position: relative;
       opacity: 0.3;
-      cursor: default;
+      cursor: not-allowed;
     }
 
     &:hover {
-      background-color: #d3d3d3;
-      border: 1px solid $button-border-color;
-      cursor: default;
+      cursor: not-allowed;
     }
   }
 
