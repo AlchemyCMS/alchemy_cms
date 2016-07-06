@@ -9,16 +9,52 @@
   }
 }
 
-@mixin button-defaults {
-  @include button($base-color: $white, $padding: 0.5em 1.5em);
+@mixin button-defaults($padding: $button-padding, $margin: $button-margin) {
+  display: inline-block;
+  font-size: 12px;
+  padding: $padding;
+  cursor: pointer;
+  border-radius: $default-border-radius;
   background-color: $button-bg-color;
-  border-color: $button-border-color;
-  font-weight: normal;
-  text-color: $text-color;
+  background-image: linear-gradient($button-gradient-first-color, $button-gradient-second-color);
+  box-shadow: white 0 1px 0 inset;
+  border: 1px solid $button-border-color;
+  color: $text-color;
   text-shadow: $button-text-shadow;
+  margin: $margin;
+  @include appearance(none);
+
   &:hover {
+    text-decoration: none;
     background-color: $button-hover-bg-color;
+    background-image: linear-gradient(
+      darken($button-gradient-first-color, 5%),
+      darken($button-gradient-second-color, 5%)
+    );
     border-color: $button-hover-border-color;
+  }
+
+  &:active, &:active:focus {
+    box-shadow: #c4c4c4 0 1px 2px inset;
+    border-color: $button-border-color;
+  }
+
+  &:focus {
+    @include default-focus-style;
+  }
+
+  &.disabled, &[disabled],
+  &.disabled:active, &[disabled]:active,
+  &.disabled:hover, &[disabled]:hover {
+    opacity: 0.6;
+    background: $button-gradient-second-color;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  &::-moz-focus-inner {
+    padding: 0 !important;
+    margin: -1px !important;
   }
 }
 

@@ -3,6 +3,7 @@ select {
   height: 29px;
   padding: 0.4em 0.6em;
   max-width: 100%;
+  width: auto;
 }
 
 .select2-container {
@@ -14,10 +15,9 @@ select {
     .select2-choice {
       height: 27px;
       line-height: 27px;
-      @include button($base-color: $white, $padding: 0 5px);
+      @include button-defaults($padding: 0 2*$default-padding, $margin: 0);
       display: block;
       font-weight: normal;
-      border-color: $button-border-color;
       text-align: left;
 
       .select2-arrow {
@@ -53,6 +53,7 @@ select {
       .select2-choice {
         height: 18px;
         line-height: 18px;
+        padding-right: 0;
 
         .select2-arrow {
           width: 14px;

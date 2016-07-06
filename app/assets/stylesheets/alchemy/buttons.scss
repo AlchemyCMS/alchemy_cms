@@ -35,15 +35,9 @@ button, input[type="submit"], a.button, input.button {
     }
   }
 
-  &:focus {
-    @extend %blue-focus-style;
-  }
-
   &.disabled {
     line-height: 13px;
     height: 29px;
-    padding-top: 5px;
-    padding-bottom: 4px;
   }
 }
 

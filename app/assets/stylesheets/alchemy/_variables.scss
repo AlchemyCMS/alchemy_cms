@@ -27,15 +27,18 @@ $default-border-width: 1px;
 $default-border-style: solid;
 $default-border: $default-border-width $default-border-style $default-border-color;
 $default-border-radius: 3px;
+$default-form-field-margin: $default-margin 0;
 
 $button-bg-color: #f7f7f7;
 $button-hover-bg-color: #e6f0f5;
 $button-border-color: #9a9a9a;
 $button-hover-border-color: #888888;
 $button-text-shadow: $white 1px 1px 0;
+$button-gradient-first-color: $white !default;
+$button-gradient-second-color: darken($button-gradient-first-color, 10%) !default;
+$button-padding: 0.5em 1.5em !default;
+$button-margin: $default-form-field-margin !default;
 $linked-button-color: #ffd77a;
-
-$default-form-field-margin: $default-padding 0;
 
 $success_border_color: #9cc4a1;
 $success_text_color: #2e5934;
