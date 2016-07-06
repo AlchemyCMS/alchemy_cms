@@ -28,7 +28,6 @@
 
 .mce-widget button {
   box-sizing: border-box;
-  @include button($base-color: $white, $padding: none);
 }
 
 .mce-container *[unselectable] {
@@ -619,11 +618,15 @@ body .mce-abs-layout-item,.mce-abs-end {
   *display: inline;
   *zoom: 1;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
-  @include background(linear-gradient(color-stops($white, darken($white, 10%))));
+  @include background(linear-gradient($button-gradient-first-color, $button-gradient-second-color));
 
   &:hover, &:focus {
     color: #333;
-    @include background(linear-gradient(color-stops(darken($white, 10%), darken($white, 20%))));
+
+    @include background(linear-gradient(
+      darken($button-gradient-first-color, 5%),
+      darken($button-gradient-second-color, 5%)
+    ));
 
     button {
       @include background(inherit);
@@ -646,6 +649,10 @@ body .mce-abs-layout-item,.mce-abs-end {
       box-shadow: none;
       border: 0 none;
       background: none;
+    }
+
+    &:active {
+      border: 0 none;
     }
 
     &::-moz-focus-inner {
