@@ -22,7 +22,10 @@ module Alchemy
     #
     #   <%= image_tag show_alchemy_picture_path(picture, size: '320x200', format: :png) %>
     #
+    # @deprecated Use Alchemy::Picture#url instead
+    #
     def show_alchemy_picture_path(picture, optional_params = {})
+      ActiveSupport::Deprecation.warn("`show_alchemy_picture_path` helper is deprecated and will be removed in Alchemy 4.0. Please use the `picture.url` method instead.")
       picture.url(optional_params)
     end
 
@@ -34,7 +37,10 @@ module Alchemy
     #
     #   <%= image_tag show_alchemy_picture_url(picture, size: '320x200', format: :png) %>
     #
+    # @deprecated Use Alchemy::Picture#url instead
+    #
     def show_alchemy_picture_url(picture, optional_params = {})
+      ActiveSupport::Deprecation.warn("`show_alchemy_picture_url` helper is deprecated and will be removed in Alchemy 4.0. Please use the `picture.url` method instead.")
       picture.url(optional_params)
     end
 

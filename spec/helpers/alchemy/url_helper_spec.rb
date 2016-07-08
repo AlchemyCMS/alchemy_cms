@@ -128,52 +128,6 @@ module Alchemy
       end
     end
 
-    context 'picture path helpers' do
-      let(:picture) do
-        stub_model(Picture, urlname: 'cute_kitten', id: 42, image_file_format: 'jpg')
-      end
-
-      describe '#show_alchemy_picture_path' do
-        it "should return the correct relative path string" do
-          expect(helper.show_alchemy_picture_path(picture)).to \
-            match(Regexp.new("/pictures/42/show/cute_kitten.jpg"))
-        end
-      end
-
-      describe '#show_alchemy_picture_url' do
-        it "should return the correct url string" do
-          expect(helper.show_alchemy_picture_url(picture)).to \
-            match(Regexp.new("http://#{helper.request.host}/pictures/42/show/cute_kitten.jpg"))
-        end
-      end
-
-      describe '#show_picture_path_params' do
-        it "should return the correct params for rendering a picture" do
-          expect(helper.show_picture_path_params(picture)).to \
-            include(name: 'cute_kitten', format: 'jpg')
-        end
-
-        it "should include the secure hash parameter" do
-          expect(helper.show_picture_path_params(picture).keys).to include(:sh)
-          expect(helper.show_picture_path_params(picture)[:sh]).not_to be_empty
-        end
-
-        context "with additional params" do
-          it "should include these params" do
-            expect(helper.show_picture_path_params(picture, {format: 'png'})).to \
-              include(name: 'cute_kitten', format: 'png')
-          end
-        end
-
-        context "with additional params crop set to true" do
-          it "should include crop as parameter" do
-            expect(helper.show_picture_path_params(picture, {crop: true})).to \
-              include(name: 'cute_kitten', crop: 'crop')
-          end
-        end
-      end
-    end
-
     context 'attachment path helpers' do
       let(:attachment) { mock_model(Attachment, urlname: 'test-attachment.pdf') }
 
