@@ -22,12 +22,7 @@
   </span>
   <% end %>
   <% image = image_tag(
-    alchemy.thumbnail_path(
-      id: picture,
-      size: @size,
-      sh: picture.security_token(size: @size),
-      format: picture.image_file_format
-    ),
+    picture.url(size: preview_size(@size), flatten: true),
     alt: picture.name,
     title: Alchemy.t(:zoom_image)
   ) %>

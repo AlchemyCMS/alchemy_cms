@@ -41,8 +41,15 @@ module Alchemy
     end
   end
 
-  class MissingImageFileError < StandardError
-    # Raised if calling +image_file+ on a Picture object returns nil.
+  # Raised if calling +image_file+ on a Picture object returns nil.
+  class MissingImageFileError < StandardError; end
+
+  # Raised if calling +image_file+ on a Picture object returns nil.
+  class WrongImageFormatError < StandardError
+    def message
+      allowed_filetypes = Alchemy::Picture.allowed_filetypes.map(&:upcase).to_sentence
+      "Requested image format is not one of allowed filetypes (#{allowed_filetypes})."
+    end
   end
 
   class NotMountedError < StandardError

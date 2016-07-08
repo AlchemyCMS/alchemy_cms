@@ -1,10 +1,5 @@
 <div class="zoomed-picture-background">
-  <%= image_tag alchemy.zoom_picture_path(
-    id: @picture.id,
-    name: @picture.urlname,
-    format: @picture.image_file_format,
-    sh: @picture.security_token
-  ) %>
+  <%= image_tag @picture.url(format: @picture.image_file_format) %>
 </div>
 
 <div class="picture-overlay-navigation">

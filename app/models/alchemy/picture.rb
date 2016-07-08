@@ -26,6 +26,7 @@ module Alchemy
     include Alchemy::Touching
     include Alchemy::Picture::Sweeping
     include Alchemy::Picture::Transformations
+    include Alchemy::Picture::Url
 
     has_many :essence_pictures, class_name: 'Alchemy::EssencePicture', foreign_key: 'picture_id'
     has_many :contents, through: :essence_pictures

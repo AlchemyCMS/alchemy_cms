@@ -56,7 +56,37 @@ module Alchemy
     #
     def picture_url(options = {})
       return if picture.nil?
-      routes.show_picture_path(picture_params(options))
+
+      options = {
+        format: picture.default_render_format,
+        crop_from: crop_from,
+        crop_size: crop_size
+      }.merge(options)
+
+      picture.url(options)
+    end
+
+    # Renders a thumbnail representation of the assigned image
+    #
+    # It takes cropping values into account, so it always represents the current
+    # image displayed in the frontend.
+    #
+    def thumbnail_url(options = {})
+      return if picture.nil?
+
+      crop = crop_values_present? || content.settings_value(:crop, options)
+      size = render_size || content.settings_value(:size, options)
+
+      options = {
+        size: thumbnail_size(size, crop),
+        crop: !!crop,
+        crop_from: crop_from.presence,
+        crop_size: crop_size.presence,
+        flatten: true,
+        format: picture.image_file_format
+      }
+
+      picture.url(options)
     end
 
     # The name of the picture used as preview text in element editor views.
@@ -93,6 +123,10 @@ module Alchemy
         )
     end
 
+    def crop_values_present?
+      crop_from.present? && crop_size.present?
+    end
+
     private
 
     def fix_crop_values
@@ -113,50 +147,6 @@ module Alchemy
     def replace_newlines
       return nil if caption.nil?
       caption.gsub!(/(\r\n|\r|\n)/, "<br/>")
-    end
-
-    # Returns Alchemy's url helpers.
-    def routes
-      @routes ||= Engine.routes.url_helpers
-    end
-
-    # Params for picture_path and picture_url methods
-    #
-    # @see +picture_url+ for options
-    #
-    def picture_params(options = {})
-      return {} if picture.nil?
-
-      params = {
-        id: picture.id,
-        name: picture.urlname,
-        format: picture.default_render_format
-      }.merge(options)
-
-      if options[:crop] && crop_from.present? && crop_size.present?
-        params = {
-          crop: true,
-          crop_from: crop_from,
-          crop_size: crop_size
-        }.merge(params)
-      end
-
-      params = clean_picture_params(params)
-      params.merge(sh: picture.security_token(params))
-    end
-
-    # Ensures correct and clean params for show picture path.
-    #
-    def clean_picture_params(params)
-      if params[:crop] == true
-        params[:crop] = 'crop'
-      end
-      if params[:image_size]
-        params[:size] = params.delete(:image_size)
-      end
-      secure_attributes = PictureAttributes::SECURE_ATTRIBUTES.dup
-      secure_attributes += %w(name format sh)
-      params.delete_if { |k, v| !secure_attributes.include?(k.to_s) || v.blank? }
     end
   end
 end
