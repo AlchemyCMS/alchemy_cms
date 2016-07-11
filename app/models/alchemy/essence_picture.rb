@@ -118,7 +118,7 @@ module Alchemy
     def allow_image_cropping?(options = {})
       content && content.settings_value(:crop, options) && picture &&
         picture.can_be_cropped_to(
-          content.settings_value(:image_size, options),
+          content.settings_value(:size, options),
           content.settings_value(:upsample, options)
         )
     end

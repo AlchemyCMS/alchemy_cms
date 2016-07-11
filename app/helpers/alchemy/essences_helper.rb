@@ -78,7 +78,7 @@ module Alchemy
     #
     # == Options:
     #
-    #   :image_size => "111x93"                        # Used by EssencePicture to render the image via RMagick to that size. [Default nil]
+    #   :size => "111x93"                              # Used by EssencePicture to resize the image to that size. [Default nil]
     #   :date_format => "Am %d. %m. %Y, um %H:%Mh"     # Especially for EssenceDate. See Rubys Date.strftime for date formatting options. [Default nil]
     #   :show_caption => false                         # Pass Boolean to show/hide the caption of an EssencePicture. [Default true]
     #   :disable_link => true                          # You can surpress the link of an EssencePicture. Default false

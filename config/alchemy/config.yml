@@ -61,7 +61,7 @@ url_nesting: true
 
 # === Picture rendering settings
 #
-# Alchemy uses Dragonfly to render images. Use {:image_size => "XXXxYYY", :crop => BOOLEAN [true]} to resize images.
+# Alchemy uses Dragonfly to render images. Use {size: "XXXxYYY", crop: BOOLEAN [true]} to resize images.
 #
 # See http://markevans.github.com/dragonfly for further infos.
 #
