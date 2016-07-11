@@ -228,7 +228,7 @@ div#user_info {
 
   .page_site {
     float: none;
-    @include inline-block;
+    display: inline-block;
     color: #847474;
     margin-right: $default-margin;
     font-size: 10px;

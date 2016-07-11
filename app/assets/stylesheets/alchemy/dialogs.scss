@@ -88,7 +88,9 @@
       padding: 0 8px 0 32px;
     }
 
-    .jcrop-holder { @include inline-block }
+    .jcrop-holder {
+      display: inline-block;
+    }
 
     img {
       width: auto;
