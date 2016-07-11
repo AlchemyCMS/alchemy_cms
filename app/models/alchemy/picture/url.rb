@@ -1,8 +1,23 @@
 module Alchemy
   module Picture::Url
-    # Picture url for the dragonfly endpoint
+    TRANSFORMATION_OPTIONS = [
+      :crop,
+      :crop_from,
+      :crop_size,
+      :flatten,
+      :format,
+      :quality,
+      :size,
+      :upsample
+    ]
+
+    # Returns a path to picture for use inside a image_tag helper.
     #
-    # TODO: Describe options
+    # Any additional options are passed to the url_helper, so you can add arguments to your url.
+    #
+    # Example:
+    #
+    #   <%= image_tag picture.url(size: '320x200', format: 'png') %>
     #
     def url(options = {})
       image = image_file
@@ -11,7 +26,8 @@ module Alchemy
 
       image = processed_image(image, options)
       image = encoded_image(image, options)
-      image.url
+
+      image.url(options.except(*TRANSFORMATION_OPTIONS))
     end
 
     private
@@ -30,6 +46,11 @@ module Alchemy
       end
     end
 
+    # Returns the encoded image
+    #
+    # Flatten animated gifs, only if converting to a different format.
+    # Can be overwritten via +options[:flatten]+.
+    #
     def encoded_image(image, options = {})
       target_format = options[:format] || default_render_format
       raise WrongImageFormatError if !target_format.in?(Alchemy::Picture.allowed_filetypes)
@@ -45,8 +66,6 @@ module Alchemy
         encoding_options << "-quality #{quality}"
       end
 
-      # Flatten animated gifs, only if converting to a different format.
-      # Can be overwritten via +options[:flatten]+.
       if options[:flatten]
         encoding_options << '-flatten'
       end

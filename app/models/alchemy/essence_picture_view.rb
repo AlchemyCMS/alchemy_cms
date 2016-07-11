@@ -56,7 +56,7 @@ module Alchemy
 
     def img_tag
       @_img_tag ||= image_tag(
-        essence.picture_url(options), {
+        essence.picture_url(options.except(*DEFAULT_OPTIONS.keys)), {
           alt: essence.alt_tag.presence,
           title: essence.title.presence,
           class: caption ? nil : essence.css_class.presence

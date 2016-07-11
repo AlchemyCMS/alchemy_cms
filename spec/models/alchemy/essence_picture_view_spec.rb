@@ -3,9 +3,19 @@ require 'spec_helper'
 describe Alchemy::EssencePictureView, type: :model do
   include Capybara::RSpecMatchers
 
+  let(:image) do
+    File.new(File.expand_path('../../../fixtures/image.png', __FILE__))
+  end
+
+  let(:picture) do
+    stub_model Alchemy::Picture,
+      image_file_format: 'png',
+      image_file: image
+  end
+
   let(:essence_picture) do
     stub_model Alchemy::EssencePicture,
-      picture: stub_model(Alchemy::Picture, image_file_format: 'jpg'),
+      picture: picture,
       caption: 'This is a cute cat'
   end
 
@@ -25,17 +35,22 @@ describe Alchemy::EssencePictureView, type: :model do
       {}
     end
 
-    subject do
+    subject(:view) do
       Alchemy::EssencePictureView.new(content, options, html_options).render
     end
 
     it "should enclose the image in a <figure> element" do
-      is_expected.to have_selector('figure img')
+      expect(view).to have_selector('figure img')
     end
 
-    it "should shows the caption" do
-      should have_selector('figure figcaption')
-      should have_content('This is a cute cat')
+    it "should show the caption" do
+      expect(view).to have_selector('figure figcaption')
+      expect(view).to have_content('This is a cute cat')
+    end
+
+    it "does not pass default options to picture url" do
+      expect(essence_picture).to receive(:picture_url).with({})
+      view
     end
 
     context "but disabled in the options" do
@@ -44,12 +59,12 @@ describe Alchemy::EssencePictureView, type: :model do
       end
 
       it "should not enclose the image in a <figure> element" do
-        should_not have_selector('figure img')
+        expect(view).to_not have_selector('figure img')
       end
 
       it "should not show the caption" do
-        should_not have_selector('figure figcaption')
-        should_not have_content('This is a cute cat')
+        expect(view).to_not have_selector('figure figcaption')
+        expect(view).to_not have_content('This is a cute cat')
       end
     end
 
@@ -59,24 +74,24 @@ describe Alchemy::EssencePictureView, type: :model do
       end
 
       it "should not enclose the image in a <figure> element" do
-        should_not have_selector('figure img')
+        expect(view).to_not have_selector('figure img')
       end
 
       it "should not show the caption" do
-        should_not have_selector('figure figcaption')
-        should_not have_content('This is a cute cat')
+        expect(view).to_not have_selector('figure figcaption')
+        expect(view).to_not have_content('This is a cute cat')
       end
 
       context 'but enabled in the options hash' do
         let(:options) { {show_caption: true} }
 
         it "should enclose the image in a <figure> element" do
-          should have_selector('figure img')
+          expect(view).to have_selector('figure img')
         end
 
         it "should show the caption" do
-          should have_selector('figure figcaption')
-          should have_content('This is a cute cat')
+          expect(view).to have_selector('figure figcaption')
+          expect(view).to have_content('This is a cute cat')
         end
       end
     end
@@ -87,11 +102,11 @@ describe Alchemy::EssencePictureView, type: :model do
       end
 
       it "should have the class on the <figure> element" do
-        is_expected.to have_selector('figure.left img')
+        expect(view).to have_selector('figure.left img')
       end
 
       it "should not have the class on the <img> element" do
-        is_expected.not_to have_selector('figure img.left')
+        expect(view).not_to have_selector('figure img.left')
       end
     end
 
@@ -101,15 +116,15 @@ describe Alchemy::EssencePictureView, type: :model do
       end
 
       it "should have the class from the html_options on the <figure> element" do
-        is_expected.to have_selector('figure.right img')
+        expect(view).to have_selector('figure.right img')
       end
 
       it "should not have the class from the essence on the <figure> element" do
-        is_expected.not_to have_selector('figure.left img')
+        expect(view).not_to have_selector('figure.left img')
       end
 
       it "should not have the class from the html_options on the <img> element" do
-        is_expected.not_to have_selector('figure img.right')
+        expect(view).not_to have_selector('figure img.right')
       end
     end
   end
@@ -119,13 +134,13 @@ describe Alchemy::EssencePictureView, type: :model do
       {}
     end
 
-    subject do
+    subject(:view) do
       essence_picture.link = '/home'
       Alchemy::EssencePictureView.new(content, options).render
     end
 
     it "should enclose the image in a link tag" do
-      is_expected.to have_selector('a[href="/home"] img')
+      expect(view).to have_selector('a[href="/home"] img')
     end
 
     context "but disabled link option" do
@@ -134,7 +149,7 @@ describe Alchemy::EssencePictureView, type: :model do
       end
 
       it "should not enclose the image in a link tag" do
-        is_expected.not_to have_selector('a img')
+        expect(view).not_to have_selector('a img')
       end
     end
   end
