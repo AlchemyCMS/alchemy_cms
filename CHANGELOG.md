@@ -38,6 +38,9 @@ __Notable Changes__
 * List pages from all sites in currently locked pages tabs and Dashboard widget (#1067)
 * The locked value on page is now a timestamp (`locked_at`), so we can order locked pages by (#1070)
 * Persist user in dummy app
+* When publishing a page with the publish button, `Page#public_on` does not get
+  reset to the current time when it is already set and in the past, and
+  `Page#public_until` does not get nilled when it is in the future.
 
 __Fixed Bugs__
 

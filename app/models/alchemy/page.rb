@@ -115,7 +115,7 @@ module Alchemy
       unless: :systempage?
 
     before_save :set_published_at,
-      if: -> { public? && published_at.nil? },
+      if: -> { public_on.present? && published_at.nil? },
       unless: :systempage?
 
     before_create :set_language_from_parent_or_default,
@@ -382,8 +382,8 @@ module Alchemy
       current_time = Time.current
       update_columns(
         published_at: current_time,
-        public_on: current_time,
-        public_until: nil
+        public_on: already_public_for?(current_time) ? public_on : current_time,
+        public_until: still_public_for?(current_time) ? public_until : nil
       )
     end
 
