@@ -113,7 +113,7 @@ EOF
       <<-GITIGNORE
 
 # Ignore Alchemy uploads folder
-uploads/*
+/uploads
 
 # Ignore sensitive data
 config/database.yml
@@ -123,7 +123,6 @@ GITIGNORE
     `
       cd #{@application}
       mkdir -p ./uploads
-      touch ./uploads/.gitkeep
     `
   end
 
