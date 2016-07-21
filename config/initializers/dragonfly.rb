@@ -14,6 +14,16 @@ Dragonfly.app(:alchemy_pictures).configure do
     root_path:  Rails.root.join('uploads/pictures').to_s,
     server_root: Rails.root.join('public'),
     store_meta: false
+
+  # If caching is enabled in host app, we store the rendered
+  # image into `public/pictures`, so the webserver can pick it up
+  # and serve it directly to the client.
+  before_serve do |job, env|
+    if Rails.application.config.action_controller.perform_caching
+      path = env['PATH_INFO'].sub(/^\//, '')
+      job.to_file(Rails.root.join('public', Alchemy::MountPoint.get, path))
+    end
+  end
 end
 
 # Attachments
