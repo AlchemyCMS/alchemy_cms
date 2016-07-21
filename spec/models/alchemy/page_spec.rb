@@ -182,45 +182,44 @@ module Alchemy
           end
         end
 
-        context "page is public" do
+        context "set_published_at hook" do
+          let(:current_time) { Time.current.change(usec: 0) }
+          let(:page) do
+            create(:alchemy_page, public_on: public_on, published_at: published_at)
+          end
+
           before do
-            expect(page).to receive(:public?) { true }
+            allow(Time).to receive(:current).and_return(current_time)
+            page.save!
           end
 
-          context "and published_at is nil" do
-            before do
-              expect(page).to receive(:published_at) { nil }
+          context "page is scheduled for publication" do
+            let(:public_on) { current_time + 3.hours }
+
+            context "and published_at is nil" do
+              let(:published_at) { nil }
+
+              it "should set published_at to current time" do
+                expect(page.published_at).to eq(current_time)
+              end
             end
 
-            it "should set published_at" do
-              expect {
-                page.save!
-              }.to change { page.read_attribute(:published_at) }
-            end
-          end
+            context "and published_at is already set" do
+              let(:published_at) { public_on }
 
-          context "and published_at is already set" do
-            before do
-              expect(page).to receive(:published_at) { 2.weeks.ago }
-            end
-
-            it "should not set published_at" do
-              expect {
-                page.save!
-              }.not_to change { page.read_attribute(:published_at) }
+              it "should not set published_at" do
+                expect(page.published_at).to eq(public_on)
+              end
             end
           end
-        end
 
-        context "page is not public" do
-          before do
-            expect(page).to receive(:public?) { false }
-          end
+          context "page is not public and not scheduled for publication" do
+            let(:public_on) { nil }
+            let(:published_at) { nil }
 
-          it "should not update published_at" do
-            expect {
-              page.save!
-            }.not_to change { page.read_attribute(:published_at) }
+            it "should not update published_at" do
+              expect(page.read_attribute(:published_at)).to eq(nil)
+            end
           end
         end
       end
@@ -1541,34 +1540,72 @@ module Alchemy
     end
 
     describe '#publish!' do
-      let(:current_time) { Time.current }
-      let(:page) { create(:alchemy_page) }
-
-      subject(:publish!) { page.publish! }
+      let(:current_time) { Time.current.change(usec: 0) }
+      let(:page) do
+        create(:alchemy_page,
+          public_on: public_on,
+          public_until: public_until,
+          published_at: published_at
+        )
+      end
+      let(:published_at) { nil }
+      let(:public_on)    { nil }
+      let(:public_until) { nil }
 
       before do
         allow(Time).to receive(:current).and_return(current_time)
+        page.publish!
       end
 
-      it "sets public_on attribute to current time" do
-        expect {
-          publish!
-        }.to change(page, :public_on).to(current_time)
+      context "with unpublished page" do
+        it "sets public_on and published_at", aggregate_failures: true do
+          expect(page.published_at).to eq(current_time)
+          expect(page.public_on).to    eq(current_time)
+          expect(page.public_until).to eq(nil)
+        end
       end
 
-      it "sets published_at attribute to current time" do
-        expect {
-          publish!
-        }.to change(page, :published_at).to(current_time)
+      context "with already published page" do
+        let(:past_time)    { current_time - 3.weeks }
+        let(:published_at) { past_time }
+        let(:public_on)    { past_time }
+
+        it "only sets published_at", aggregate_failures: true do
+          expect(page.published_at).to eq(current_time)
+          expect(page.public_on).to    eq(public_on)
+          expect(page.public_until).to eq(nil)
+        end
+
+        context "that is scheduled for unpublishing" do
+          let(:public_until) { current_time + 2.weeks }
+
+          it "does not change public_until" do
+            expect(page.public_until).to eq(public_until)
+          end
+        end
       end
 
-      context "when page public state expired" do
-        let(:page) { create(:alchemy_page, public_until: 2.days.ago) }
+      context "with page scheduled for publishing" do
+        let(:public_on) { current_time + 3.hours }
 
-        it "sets public_until attribute to nil" do
-          expect {
-            publish!
-          }.to change(page, :public_until).to(nil)
+        it "resets public_on and sets published_at", aggregate_failures: true do
+          expect(page.published_at).to eq(current_time)
+          expect(page.public_on).to    eq(current_time)
+          expect(page.public_until).to eq(nil)
+        end
+      end
+
+      context "with not anymore published page" do
+        let(:past_time)    { current_time - 3.weeks }
+        let(:published_at) { past_time }
+        let(:public_on)    { past_time }
+        let(:public_until) { past_time + 1.week }
+
+        it "resets public_on and published_at and sets public_until to nil",
+          aggregate_failures: true do
+          expect(page.published_at).to eq(current_time)
+          expect(page.public_on).to    eq(public_on)
+          expect(page.public_until).to eq(nil)
         end
       end
     end
