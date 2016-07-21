@@ -364,10 +364,7 @@ div#images {
 }
 
 #all_files td.name a {
-  cursor: -webkit-zoom-in;
-  cursor: -moz-zoom-in;
-  cursor: -o-zoom-in;
-  cursor: zoom-in;
+  @include zoom-in;
 }
 
 #sitemap .placeholder {

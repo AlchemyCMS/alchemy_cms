@@ -113,11 +113,7 @@ div#image_assign_filter_and_image_sizing {
     float: none;
 
     .thumbnail_background {
-      cursor: -webkit-zoom-in;
-      cursor: -moz-zoom-in;
-      cursor: -ms-zoom-in;
-      cursor: -o-zoom-in;
-      cursor: image-url('alchemy/lupe.cur'), zoom-in, pointer;
+      @include zoom-in;
     }
   }
 }
