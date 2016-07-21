@@ -179,3 +179,11 @@
     $margin: 0
   );
 }
+
+@mixin zoom-in {
+  cursor: pointer;
+  cursor: image-url('alchemy/lupe.cur');
+  cursor: -webkit-zoom-in;
+  cursor: -moz-zoom-in;
+  cursor: zoom-in;
+}
