@@ -23,6 +23,8 @@ ratings:
   - "**.erb"
   - "**.rb"
 exclude_paths:
-- config/
-- db/
-- spec/
+- "config/"
+- "db/"
+- "spec/"
+- "lib/alchemy/upgrader/"
+- "lib/rails/"
