@@ -12,6 +12,17 @@ module Alchemy
       respond_with @pages
     end
 
+    # Returns all pages as nested json object for tree views
+    #
+    def nested
+      @page = Language.current_root_page
+
+      render json: PageTreeSerializer.new(@page,
+        ability: current_ability,
+        user: current_alchemy_user,
+        full: true)
+    end
+
     # Returns a json object for page
     #
     # You can either load the page via id or its urlname
