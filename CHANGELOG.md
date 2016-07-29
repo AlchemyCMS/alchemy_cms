@@ -44,6 +44,7 @@ __Notable Changes__
 
 __Fixed Bugs__
 
+* Fix table width for attachments and resources on small window sizes.
 * Generators don't delete directories any more (#850)
 
 ## 3.3.2 (unreleased)
