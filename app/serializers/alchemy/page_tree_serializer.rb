@@ -46,27 +46,34 @@ module Alchemy
     protected
 
     def page_hash(page, has_children, level, folded)
-      {
+      p_hash = {
         id: page.id,
         name: page.name,
-        permissions: page_permissions(page, opts[:ability]),
         public: page.public?,
         visible: page.visible?,
         restricted: page.restricted?,
-        status_titles: page_status_titles(page),
         page_layout: page.page_layout,
         slug: page.slug,
         redirects_to_external: page.redirects_to_external?,
-        locked: page.locked?,
-        definition_missing: page.definition.blank?,
         urlname: page.urlname,
-        external_urlname: page.external_urlname,
+        external_urlname: page.redirects_to_external? ? page.external_urlname : nil,
         level: level,
         root: level == 1,
-        folded: folded,
         root_or_leaf: level == 1 || !has_children,
         children: []
       }
+
+      if opts[:ability].can?(:index, :alchemy_admin_pages)
+        p_hash.merge({
+          definition_missing: page.definition.blank?,
+          folded: folded,
+          locked: page.locked?,
+          permissions: page_permissions(page, opts[:ability]),
+          status_titles: page_status_titles(page)
+        })
+      else
+        p_hash
+      end
     end
 
     def page_permissions(page, ability)

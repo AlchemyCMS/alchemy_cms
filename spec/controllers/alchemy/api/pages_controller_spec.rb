@@ -48,6 +48,62 @@ module Alchemy
       end
     end
 
+    describe '#nested' do
+      let!(:page) { create(:alchemy_page, :public) }
+
+      it "returns all pages as nested json tree without admin related infos", :aggregate_failures do
+        alchemy_get :nested, format: :json
+
+        expect(response.status).to eq(200)
+        expect(response.content_type).to eq('application/json')
+
+        result = JSON.parse(response.body)
+
+        expect(result).to have_key('pages')
+        expect(result['pages'].size).to eq(1)
+        expect(result['pages'][0]).to have_key('children')
+        expect(result['pages'][0]['children'].size).to eq(1)
+
+        child = result['pages'][0]['children'][0]
+
+        expect(child['name']).to eq(page.name)
+        expect(child).to_not have_key('definition_missing')
+        expect(child).to_not have_key('folded')
+        expect(child).to_not have_key('locked')
+        expect(child).to_not have_key('permissions')
+        expect(child).to_not have_key('status_titles')
+      end
+
+      context "as author" do
+        before do
+          authorize_user(build(:alchemy_dummy_user, :as_author))
+        end
+
+        it "returns all pages as nested json tree with admin related infos", :aggregate_failures do
+          alchemy_get :nested, format: :json
+
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+
+          result = JSON.parse(response.body)
+
+          expect(result).to have_key('pages')
+          expect(result['pages'].size).to eq(1)
+          expect(result['pages'][0]).to have_key('children')
+          expect(result['pages'][0]['children'].size).to eq(1)
+
+          child = result['pages'][0]['children'][0]
+
+          expect(child['name']).to eq(page.name)
+          expect(child).to have_key('definition_missing')
+          expect(child).to have_key('folded')
+          expect(child).to have_key('locked')
+          expect(child).to have_key('permissions')
+          expect(child).to have_key('status_titles')
+        end
+      end
+    end
+
     describe '#show' do
       context 'for existing page' do
         let(:page) { build_stubbed(:alchemy_page, :public, urlname: 'a-page') }
