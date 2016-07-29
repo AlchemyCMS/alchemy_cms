@@ -44,7 +44,7 @@ Rails.application.configure do
   # config.force_ssl = true
 
   # Decrease the log volume.
-  # config.log_level = :info
+  config.log_level = :info
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
