@@ -64,7 +64,7 @@ module Alchemy
       }
 
       if opts[:elements]
-        p_hash.update(elements: ActiveModel::ArraySerializer.new(page.elements))
+        p_hash.update(elements: ActiveModel::ArraySerializer.new(page_elements(page)))
       end
 
       if opts[:ability].can?(:index, :alchemy_admin_pages)
@@ -77,6 +77,14 @@ module Alchemy
         })
       else
         p_hash
+      end
+    end
+
+    def page_elements(page)
+      if opts[:elements] == 'true'
+        page.elements
+      else
+        page.elements.named(opts[:elements].split(',') || [])
       end
     end
 

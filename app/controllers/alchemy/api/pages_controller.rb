@@ -24,7 +24,7 @@ module Alchemy
       render json: PageTreeSerializer.new(@page,
         ability: current_ability,
         user: current_alchemy_user,
-        elements: params[:elements] == 'true',
+        elements: params[:elements],
         full: true)
     end
 

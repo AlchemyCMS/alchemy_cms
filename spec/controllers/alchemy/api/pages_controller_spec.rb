@@ -49,7 +49,7 @@ module Alchemy
     end
 
     describe '#nested' do
-      let!(:page) { create(:alchemy_page, :public) }
+      let!(:page) { create(:alchemy_page, :public, page_layout: 'contact') }
 
       it "returns all pages as nested json tree without admin related infos", :aggregate_failures do
         alchemy_get :nested, format: :json
@@ -117,7 +117,7 @@ module Alchemy
         end
       end
 
-      context "when `elements` is passed" do
+      context "when `elements=true` is passed" do
         it 'returns all pages as nested json tree with elements included' do
           alchemy_get :nested, elements: 'true', format: :json
 
@@ -128,6 +128,23 @@ module Alchemy
 
           expect(result).to have_key('pages')
           expect(result['pages'][0]).to have_key('elements')
+        end
+
+        context "and elements is a comma separated list of element names" do
+          before do
+            page.send(:autogenerate_elements)
+          end
+
+          it 'returns all pages as nested json tree with only these elements included' do
+            alchemy_get :nested, elements: 'headline,text', format: :json
+
+            result = JSON.parse(response.body)
+
+            elements = result['pages'][0]['children'][0]['elements']
+            element_names = elements.collect { |element| element['name'] }
+            expect(element_names).to include('headline', 'text')
+            expect(element_names).to_not include('contactform')
+          end
         end
       end
     end
