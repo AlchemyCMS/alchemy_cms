@@ -116,6 +116,20 @@ module Alchemy
           expect(result['pages'][0]['name']).to eq(page.name)
         end
       end
+
+      context "when `elements` is passed" do
+        it 'returns all pages as nested json tree with elements included' do
+          alchemy_get :nested, elements: 'true', format: :json
+
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+
+          result = JSON.parse(response.body)
+
+          expect(result).to have_key('pages')
+          expect(result['pages'][0]).to have_key('elements')
+        end
+      end
     end
 
     describe '#show' do

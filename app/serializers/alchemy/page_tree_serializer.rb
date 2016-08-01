@@ -63,6 +63,10 @@ module Alchemy
         children: []
       }
 
+      if opts[:elements]
+        p_hash.update(elements: ActiveModel::ArraySerializer.new(page.elements))
+      end
+
       if opts[:ability].can?(:index, :alchemy_admin_pages)
         p_hash.merge({
           definition_missing: page.definition.blank?,

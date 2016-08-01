@@ -16,12 +16,15 @@ module Alchemy
     #
     # Pass a page_id param to only load tree for this page
     #
+    # Pass elements=true param to include elements for pages
+    #
     def nested
       @page = Page.find_by(id: params[:page_id]) || Language.current_root_page
 
       render json: PageTreeSerializer.new(@page,
         ability: current_ability,
         user: current_alchemy_user,
+        elements: params[:elements] == 'true',
         full: true)
     end
 
