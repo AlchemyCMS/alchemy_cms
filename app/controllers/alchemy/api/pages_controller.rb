@@ -14,8 +14,10 @@ module Alchemy
 
     # Returns all pages as nested json object for tree views
     #
+    # Pass a page_id param to only load tree for this page
+    #
     def nested
-      @page = Language.current_root_page
+      @page = Page.find_by(id: params[:page_id]) || Language.current_root_page
 
       render json: PageTreeSerializer.new(@page,
         ability: current_ability,

@@ -102,6 +102,20 @@ module Alchemy
           expect(child).to have_key('status_titles')
         end
       end
+
+      context "when a page_id is passed" do
+        it 'returns all pages as nested json from this page only' do
+          alchemy_get :nested, page_id: page.id, format: :json
+
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+
+          result = JSON.parse(response.body)
+
+          expect(result).to have_key('pages')
+          expect(result['pages'][0]['name']).to eq(page.name)
+        end
+      end
     end
 
     describe '#show' do
