@@ -176,14 +176,24 @@ describe Alchemy::ResourcesHelper do
   end
 
   describe '#current_location_params' do
-    let(:params) { {q: "some_query", page: 6, action: "some_action"} }
+    let(:params) do
+      {
+        q: "some_query",
+        page: 6,
+        action: "some_action",
+        filter: "some_filter",
+        tagged_with: "some_tag"
+      }
+    end
 
     before do
       allow(controller).to receive(:params) { params }
     end
 
     it 'returns the current location params' do
-      expect(controller.current_location_params).to eq({q: "some_query", page: 6})
+      expect(controller.current_location_params).to eq(
+        {q: "some_query", page: 6, filter: "some_filter", tagged_with: "some_tag"}
+      )
     end
 
     it 'only includes the q and page parameters' do

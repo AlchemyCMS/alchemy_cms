@@ -156,8 +156,14 @@ describe "Resources" do
         end
       end
 
-      it "filters the events when clicking a tag" do
+      it "filters the events when clicking a tag", aggregate_failures: true do
         click_link "Matinee"
+        expect(page).to have_content("Casablanca")
+        expect(page).to_not have_content("Die Hard IX")
+
+        # Keep the tags when editing an event
+        click_link "Edit"
+        click_button "Save"
         expect(page).to have_content("Casablanca")
         expect(page).to_not have_content("Die Hard IX")
       end
@@ -196,6 +202,13 @@ describe "Resources" do
       expect(page).to_not have_content("Horse Expo")
 
       visit "/admin/events?filter=future"
+      expect(page).to     have_content("Hovercar Expo")
+      expect(page).to_not have_content("Car Expo")
+      expect(page).to_not have_content("Horse Expo")
+
+      # Keep the filter when editing an event
+      click_link "Edit"
+      click_button "Save"
       expect(page).to     have_content("Hovercar Expo")
       expect(page).to_not have_content("Car Expo")
       expect(page).to_not have_content("Horse Expo")
