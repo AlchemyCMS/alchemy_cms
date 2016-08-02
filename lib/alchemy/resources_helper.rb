@@ -165,7 +165,9 @@ module Alchemy
     def current_location_params
       {
         q: params[:q],
-        page: params[:page]
+        page: params[:page],
+        tagged_with: params[:tagged_with],
+        filter: params[:filter]
       }
     end
 
