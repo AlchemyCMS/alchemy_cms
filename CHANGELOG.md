@@ -42,6 +42,7 @@ __Notable Changes__
 __Fixed Bugs__
 
 * Generators don't delete directories any more (#850)
+* Some elements crashed the backend's JS when being saved (#1091)
 
 ## 3.3.2 (unreleased)
 
