@@ -1,6 +1,6 @@
 # Change Log
 
-## 3.4.0 (unreleased)
+## 3.4.0 (2016-08-02)
 
 __New Features__
 

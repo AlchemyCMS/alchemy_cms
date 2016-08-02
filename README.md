@@ -56,7 +56,7 @@ For a Ruby 1.8.7 compatible version use the [`2.3-stable` branch](https://github
 Use the installer:
 
 ```shell
-$ gem install alchemy_cms --pre
+$ gem install alchemy_cms
 $ alchemy new my_magicpage
 ```
 
@@ -77,8 +77,6 @@ Put this into your `Gemfile`:
 ```ruby
 gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: '3.4-stable'
 ```
-
-**NOTE:** You normally want to use a stable branch, like `3.3-stable`.
 
 If you want to use Russian translation and have better i18n support, you should put:
 
