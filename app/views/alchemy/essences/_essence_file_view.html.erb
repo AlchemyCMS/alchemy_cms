@@ -1,4 +1,3 @@
-<%- cache(content) do -%>
 <%- if attachment = content.ingredient -%>
 <%= link_to(
   content.essence.link_text.presence ||
@@ -12,5 +11,4 @@
   class: content.essence.css_class.presence,
   title: content.essence.title.presence
 ) -%>
-<%- end -%>
 <%- end -%>

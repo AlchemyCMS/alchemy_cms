@@ -1,4 +1,3 @@
-<%- cache(content) do -%>
 <%- options = local_assigns.fetch(:options, {}) -%>
 <%- html_options = local_assigns.fetch(:html_options, {}) -%>
 <%- if content.essence.link.blank? ||
@@ -14,5 +13,4 @@
     'data-link-target' => content.essence.link_target
   }.merge(html_options)
 ) -%>
-<%- end -%>
 <%- end -%>
