@@ -1,6 +1,6 @@
 # Change Log
 
-## 3.3.2 (unreleased)
+## 3.3.2 (2016-08-02)
 
 * Use relative url for page preview frame in order to prevent cross origin errors (#1076)
 
