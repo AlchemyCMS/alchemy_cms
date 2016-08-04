@@ -46,6 +46,28 @@ describe "Translation integration" do
           expect(page).to have_content('Bienvenido')
         end
       end
+
+      context "if user language is an instance of a model" do
+        let(:language) { create(:alchemy_language) }
+        let(:dummy_user) { mock_model(Alchemy.user_class, alchemy_roles: %w(admin), language: language) }
+
+        context "if language doesn't return a valid locale symbol" do
+          it "should use the browsers language setting" do
+            page.driver.header 'ACCEPT-LANGUAGE', 'es-ES'
+            visit admin_dashboard_path
+            expect(page).to have_content('Bienvenido')
+          end
+        end
+
+        context "if language returns a valid locale symbol" do
+          before { allow(language).to receive(:to_sym).and_return(:nl) }
+
+          it "should use the locale of the user language" do
+            visit admin_dashboard_path
+            expect(page).to have_content('Welkom')
+          end
+        end
+      end
     end
   end
 end
