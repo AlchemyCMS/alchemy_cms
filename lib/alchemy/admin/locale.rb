@@ -54,7 +54,8 @@ module Alchemy
       def user_has_preferred_language?
         return if !current_alchemy_user
         current_alchemy_user.respond_to?(:language) &&
-          current_alchemy_user.language.present?
+          current_alchemy_user.language.present? &&
+          [String, Symbol].include?(current_alchemy_user.language.class)
       end
 
       # Try to get the locale from browser headers.
