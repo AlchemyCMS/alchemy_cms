@@ -1,4 +1,3 @@
-<%- cache(content) do -%>
 <%- if content.ingredient.present? -%>
 <%- html_options = {
   target: content.essence.link_target == "blank" ? "_blank" : nil
@@ -6,6 +5,5 @@
 <%= link_to(content.ingredient, html_options) do -%>
 <%= content.settings_value(:text, local_assigns.fetch(:options, {})) ||
   content.ingredient -%>
-<%- end -%>
 <%- end -%>
 <%- end -%>

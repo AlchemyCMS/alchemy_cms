@@ -2,6 +2,10 @@
 
 ## 3.5.0 (unreleased)
 
+__Notable Changes__
+
+* The essence view partials don't get cached anymore (#1099)
+
 ## 3.4.0 (2016-08-02)
 
 __New Features__
