@@ -11,7 +11,7 @@
   Alchemy.PreviewWindow.refresh(function() {
     Alchemy.ElementEditors.selectElementInPreview(<%= @element.id %>);
   });
-  <%= update_essence_select_elements(@page, @element) -%>
+  <%== update_essence_select_elements(@element) -%>
 
 <%- else -%>
 
