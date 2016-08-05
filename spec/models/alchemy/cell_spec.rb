@@ -97,5 +97,21 @@ module Alchemy
         cell.name_for_label
       end
     end
+
+    describe "#elements" do
+      context 'with nestable elements' do
+        let(:nestable_element) { create(:alchemy_element, :with_nestable_elements) }
+
+        before do
+          nestable_element.nested_elements << create(:alchemy_element, name: 'test_element')
+          cell.elements << nestable_element
+        end
+
+        it 'does not contain nested elements of an element' do
+          expect(nestable_element.nested_elements).to_not be_empty
+          expect(cell.elements).to_not include(nestable_element.nested_elements.first)
+        end
+      end
+    end
   end
 end
