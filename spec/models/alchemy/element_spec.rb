@@ -102,9 +102,9 @@ module Alchemy
             Element.copy(element, {cell_id: new_cell.id})
           end
 
-          it "should set cell id to new cell's id" do
+          it "should not set cell id to parent's cell id" do
             new_element.nested_elements.each do |nested_element|
-              expect(nested_element.cell_id).to eq(new_cell.id)
+              expect(nested_element.cell_id).to eq(nil)
             end
           end
         end

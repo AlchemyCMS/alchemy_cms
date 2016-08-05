@@ -302,8 +302,7 @@ module Alchemy
       nested_elements.map do |nested_element|
         Element.copy(nested_element, {
           parent_element_id: target_element.id,
-          page_id: target_element.page_id,
-          cell_id: target_element.cell_id
+          page_id: target_element.page_id
         })
       end
     end
