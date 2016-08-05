@@ -6,6 +6,10 @@ __Notable Changes__
 
 * The essence view partials don't get cached anymore (#1099)
 
+__Fixed Bugs__
+
+* Fix setting of locale when `current_alchemy_user.language` doesn't return a Symbol (#1097)
+
 ## 3.4.0 (2016-08-02)
 
 __New Features__
