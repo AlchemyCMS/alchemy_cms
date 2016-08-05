@@ -9,6 +9,7 @@ __Notable Changes__
 __Fixed Bugs__
 
 * Fix setting of locale when `current_alchemy_user.language` doesn't return a Symbol (#1097)
+* Only update elements with essence selects that are expanded (#1101)
 
 ## 3.4.0 (2016-08-02)
 

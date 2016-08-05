@@ -310,5 +310,60 @@ module Alchemy
         end
       end
     end
+
+    describe "#update_essence_select_elements" do
+      let!(:element) do
+        create(:alchemy_element, page: create(:alchemy_page))
+      end
+
+      let!(:folded_element) do
+        create(:alchemy_element,
+          name: 'contactform',
+          folded: true,
+          page: element.page,
+          create_contents_after_create: true)
+      end
+
+      let!(:trashed_element) do
+        el = create(:alchemy_element,
+          name: 'contactform',
+          page: element.page,
+          create_contents_after_create: true)
+        el.trash!
+        el
+      end
+
+      let!(:select_element) do
+        create(:alchemy_element,
+          name: 'contactform',
+          page: element.page,
+          create_contents_after_create: true)
+      end
+
+      let!(:element_from_another_page) do
+        create(:alchemy_element,
+          name: 'contactform',
+          create_contents_after_create: true)
+      end
+
+      let!(:non_select_element) do
+        create(:alchemy_element,
+          name: 'article',
+          page: element.page,
+          create_contents_after_create: true)
+      end
+
+      it 'updates all other elements on the same page that are' \
+         'not folded, not trashed and have essence selects', :aggregate_failures do
+        result = update_essence_select_elements(element)
+
+        expect(result).to have_content("$('#element_#{select_element.id}_content');")
+        expect(result).to_not have_content("$('#element_#{element.id}_content');")
+        expect(result).to_not have_content("$('#element_#{folded_element.id}_content');")
+        expect(result).to_not have_content("$('#element_#{trashed_element.id}_content');")
+        expect(result).to_not have_content("$('#element_#{non_select_element.id}_content');")
+        expect(result).to_not have_content("$('#element_#{element_from_another_page.id}_content');")
+      end
+    end
   end
 end

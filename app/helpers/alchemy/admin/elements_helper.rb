@@ -103,14 +103,17 @@ module Alchemy
       #
       # In cases like this one wants Ember.js databinding!
       #
-      def update_essence_select_elements(page, element)
-        elements = page.elements.not_trashed.joins(:contents)
-          .where(["#{Content.table_name}.element_id != ?", element.id])
-          .where(Content.table_name => {essence_type: "Alchemy::EssenceSelect"})
+      def update_essence_select_elements(element)
+        elements = Element.not_trashed.expanded.joins(:contents)
+          .where(page_id: element.page_id)
+          .where.not(Content.table_name => {element_id: element.id})
+          .merge(Content.essence_selects).distinct
+
         return if elements.blank?
+
         elements.collect do |el|
           render 'alchemy/admin/elements/refresh_editor', element: el
-        end.join.html_safe
+        end.join
       end
 
       # CSS classes for the element editor partial.
