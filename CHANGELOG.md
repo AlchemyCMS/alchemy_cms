@@ -5,6 +5,7 @@
 __Notable Changes__
 
 * The essence view partials don't get cached anymore (#1099)
+* Removes update_essence_select_elements (#1103)
 
 __Fixed Bugs__
 
