@@ -94,25 +94,6 @@ module Alchemy
         end
       end
 
-      # This helper loads all elements from page that have EssenceSelects in them.
-      #
-      # It returns a javascript function that replaces all editor partials of this elements.
-      #
-      # We need this while updating, creating or trashing an element,
-      # because another element on the same page could have a element selector in it.
-      #
-      # In cases like this one wants Ember.js databinding!
-      #
-      def update_essence_select_elements(page, element)
-        elements = page.elements.not_trashed.joins(:contents)
-          .where(["#{Content.table_name}.element_id != ?", element.id])
-          .where(Content.table_name => {essence_type: "Alchemy::EssenceSelect"})
-        return if elements.blank?
-        elements.collect do |el|
-          render 'alchemy/admin/elements/refresh_editor', element: el
-        end.join.html_safe
-      end
-
       # CSS classes for the element editor partial.
       def element_editor_classes(element, local_assigns)
         [
