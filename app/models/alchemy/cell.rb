@@ -28,7 +28,7 @@ module Alchemy
     belongs_to :page
     validates_uniqueness_of :name, scope: 'page_id'
     validates_format_of :name, with: /\A[a-z0-9_-]+\z/
-    has_many :elements, -> { order(:position) }, dependent: :destroy
+    has_many :elements, -> { where(parent_element_id: nil).order(:position) }, dependent: :destroy
 
     class << self
       def definitions
