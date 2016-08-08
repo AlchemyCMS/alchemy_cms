@@ -10,6 +10,7 @@ __Notable Changes__
 __Fixed Bugs__
 
 * Fix setting of locale when `current_alchemy_user.language` doesn't return a Symbol (#1097)
+* Fix bug that rendered duplicate nested elements within a cell after copying a parent element.
 
 ## 3.4.0 (2016-08-02)
 
