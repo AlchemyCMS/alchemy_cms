@@ -37,7 +37,7 @@ describe "Resources" do
     it "renders an input field according to the attribute's type" do
       visit '/admin/events/new'
       expect(page).to have_selector('input#event_name[type="text"]')
-      expect(page).to have_selector('input#event_starts_at[type="date"]')
+      expect(page).to have_selector('input#event_starts_at[type="datetime"]')
       expect(page).to have_selector('textarea#event_description')
       expect(page).to have_selector('input#event_published[type="checkbox"]')
       expect(page).to have_selector('input#event_lunch_starts_at_1i[type="hidden"]')
