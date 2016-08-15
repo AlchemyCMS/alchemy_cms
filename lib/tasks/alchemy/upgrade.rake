@@ -22,5 +22,11 @@ namespace :alchemy do
         puts "No upgrades available."
       end
     end
+
+    task fix_picture_format: [:environment] do
+      Alchemy::Picture.find_each do |picture|
+        picture.update_column(:image_file_format, picture.image_file_format.to_s.chomp)
+      end
+    end
   end
 end
