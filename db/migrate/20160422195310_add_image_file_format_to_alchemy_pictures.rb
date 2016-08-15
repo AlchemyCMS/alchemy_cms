@@ -6,7 +6,7 @@ class AddImageFileFormatToAlchemyPictures < ActiveRecord::Migration
       Alchemy::Picture.all.each do |pic|
         begin
           format = pic.image_file.identify('-ping -format "%m"')
-          pic.update_column('image_file_format', format.to_s.downcase)
+          pic.update_column('image_file_format', format.to_s.chomp.downcase)
         rescue Dragonfly::Job::Fetch::NotFound => e
           say(e.message, true)
         end
