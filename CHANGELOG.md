@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.3.3 (2016-09-11)
+
+* Fix bug that rendered duplicate nested elements within a cell after copying a parent element.
+
 ## 3.3.2 (2016-08-02)
 
 * Use relative url for page preview frame in order to prevent cross origin errors (#1076)
