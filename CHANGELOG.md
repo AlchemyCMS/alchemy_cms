@@ -7,6 +7,7 @@ __Notable Changes__
 * The essence view partials don't get cached anymore (#1099)
 * Removes update_essence_select_elements (#1103)
 * The admin resource form now uses the datetime-picker instead of the date-picker for datetime fields.
+* `require_ssl` setting is now ignored in development mode
 
 __Fixed Bugs__
 
