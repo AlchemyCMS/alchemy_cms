@@ -2,6 +2,7 @@ module Alchemy
   module PagesHelper
     include Alchemy::BaseHelper
     include Alchemy::ElementsHelper
+    include Alchemy::DeprecatedPagesHelper
 
     def picture_essence_caption(content)
       content.try(:essence).try(:caption)
@@ -411,14 +412,6 @@ module Alchemy
       cell = @page.cells.find_by_name(name)
       return true if cell.blank?
       cell.elements.not_trashed.empty?
-    end
-
-    # Include this in your layout file to have element selection magic in the page edit preview window.
-    def alchemy_preview_mode_code
-      if @preview_mode
-        javascript_tag("Alchemy = { locale: '#{session[:alchemy_locale]}' };") +
-          javascript_include_tag("alchemy/preview")
-      end
     end
   end
 end
