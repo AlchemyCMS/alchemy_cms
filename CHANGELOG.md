@@ -2,6 +2,10 @@
 
 ## 3.4.1 (unreleased)
 
+__Notable Changes__
+
+* `require_ssl` setting is now ignored in development mode
+
 __Fixed Bugs__
 
 * Remove trailing new lines in the AddImageFileFormatToAlchemyPictures migration. If you migrated already,
