@@ -267,12 +267,7 @@ module Alchemy
     #   prefix: ""                 # Prefix
     #   separator: ""              # Separating prefix and title
     #
-    # === Webdevelopers
-    #
-    # Please use the render_meta_data() helper instead. There all important meta information gets rendered in one helper.
-    # So you dont have to worry about anything.
-    #
-    def render_page_title(options = {})
+    def page_title(options = {})
       return "" if @page.title.blank?
       options = {
         prefix: "",
@@ -287,105 +282,16 @@ module Alchemy
       title_parts.join(options[:separator]).html_safe
     end
 
-    # Returns a complete html <title> tag for the <head> part of the html document.
-    #
-    # === Webdevelopers:
-    #
-    # Please use the render_meta_data() helper. There all important meta information gets rendered in one helper.
-    # So you dont have to worry about anything.
-    #
-    def render_title_tag(options = {})
-      default_options = {
-        prefix: "",
-        separator: ""
-      }
-      options = default_options.merge(options)
-      content_tag(:title, render_page_title(options))
+    def meta_description
+      @page.meta_description.presence || Language.current_root_page.try(:meta_description)
     end
 
-    # Renders a html <meta> tag for name: "" and content: ""
-    #
-    # === Webdevelopers:
-    #
-    # Please use the render_meta_data() helper. There all important meta information gets rendered in one helper.
-    # So you dont have to worry about anything.
-    #
-    def render_meta_tag(options = {})
-      default_options = {
-        name: "",
-        default_language: "de",
-        content: ""
-      }
-      options = default_options.merge(options)
-      lang = (@page.language.blank? ? options[:default_language] : @page.language.code)
-      tag(:meta, name: options[:name], content: options[:content], lang: lang)
+    def meta_keywords
+      @page.meta_keywords.presence || Language.current_root_page.try(:meta_keywords)
     end
 
-    # This helper takes care of all important meta tags for your page.
-    #
-    # The meta data is been taken from the @page.title, @page.meta_description, @page.meta_keywords, @page.updated_at and @page.language database entries managed by the Alchemy user via the Alchemy cockpit.
-    #
-    # Assume that the user has entered following data into the Alchemy cockpit of the Page "home" and that the user wants that the searchengine (aka. google) robot should index the page and should follow all links on this page:
-    #
-    # Title = Homepage
-    # Description = Your page description
-    # Keywords: cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax
-    #
-    # Then placing +render_meta_data(title_prefix: "Company", title_separator: "-")+ into the <head> part of the +pages.html.erb+ layout produces:
-    #
-    #   <meta charset="utf-8">
-    #   <title>Company - #{@page.title}</title>
-    #   <meta name="description" content="Your page description">
-    #   <meta name="keywords" content="cms, ruby, rubyonrails, rails, software, development, html, javascript, ajax">
-    #   <meta name="created" content="Tue Dec 16 10:21:26 +0100 2008">
-    #   <meta name="robots" content="index, follow">
-    #
-    def render_meta_data(options = {})
-      if @page.blank?
-        warning("No Page found!")
-        return nil
-      end
-      default_options = {
-        title_prefix: "",
-        title_separator: "",
-        default_lang: "de"
-      }
-      options = default_options.merge(options)
-      # render meta description of the root page from language if the current meta description is empty
-      if @page.meta_description.blank?
-        description = Language.current_root_page.try(:meta_description)
-      else
-        description = @page.meta_description
-      end
-      # render meta keywords of the root page from language if the current meta keywords is empty
-      if @page.meta_keywords.blank?
-        keywords = Language.current_root_page.try(:meta_keywords)
-      else
-        keywords = @page.meta_keywords
-      end
-      robot = "#{@page.robot_index? ? '' : 'no'}index, #{@page.robot_follow? ? '' : 'no'}follow"
-      meta_string = %(
-        #{tag(:meta, charset: 'utf-8')}
-        #{render_title_tag(prefix: options[:title_prefix], separator: options[:title_separator])}
-        #{render_meta_tag(name: 'created', content: @page.updated_at)}
-        #{render_meta_tag(name: 'robots', content: robot)}
-      )
-      if description.present?
-        meta_string += %(
-          #{render_meta_tag(name: 'description', content: description.html_safe)}
-        )
-      end
-      if keywords.present?
-        meta_string += %(
-          #{render_meta_tag(name: 'keywords', content: keywords.html_safe)}
-        )
-      end
-      if @page.contains_feed?
-        meta_string += %(
-          #{auto_discovery_link_tag(:rss, show_alchemy_page_url(@page, format: :rss))}
-        )
-      end
-      meta_string.html_safe
+    def meta_robots
+      "#{@page.robot_index? ? '' : 'no'}index, #{@page.robot_follow? ? '' : 'no'}follow"
     end
 
     # Renders the partial for the cell with the given name of the current page.

@@ -1,0 +1,9 @@
+<% if @page %>
+  <meta charset="utf8">
+  <title><%= page_title prefix: local_assigns.fetch(:title_prefix, nil), separator: local_assigns.fetch(:title_separator, nil) %></title>
+  <%= tag(:meta, name: 'created', content: @page.updated_at) %>
+  <%= tag(:meta, name: 'robots', content: meta_robots) %>
+  <%= tag(:meta, name: 'description', content: meta_description, lang: @page.language_code) if meta_description.present? %>
+  <%= tag(:meta, name: 'keywords', content: meta_keywords, lang: @page.language_code) if meta_keywords.present? %>
+  <%= auto_discovery_link_tag(:rss, show_alchemy_page_url(@page, format: :rss)) if @page.contains_feed? %>
+<% end %>
