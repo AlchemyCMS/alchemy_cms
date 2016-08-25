@@ -138,4 +138,19 @@ describe Alchemy::EssencePictureView, type: :model do
       end
     end
   end
+
+  context "with multiple instances" do
+    let(:options) do
+      {}
+    end
+
+    subject(:picture_view) do
+      Alchemy::EssencePictureView.new(content, options)
+    end
+
+    it "does not overwrite DEFAULT_OPTIONS" do
+      Alchemy::EssencePictureView.new(content, {my_custom_option: true})
+      expect(picture_view.options).to_not have_key(:my_custom_option)
+    end
+  end
 end
