@@ -7,6 +7,9 @@ __Notable Changes__
 * The essence view partials don't get cached anymore (#1099)
 * Removes update_essence_select_elements (#1103)
 * The admin resource form now uses the datetime-picker instead of the date-picker for datetime fields.
+* The `preview_mode_code` helper is moved to a partial in `alchemy/preview_mode_code`. (#1110)
+* The `render_meta_data` helper is moved to a partial in `alchemy/pages/meta_data` and can be rendered with the same options as before but now passed in as locals. (#1110)
+* The view helpers `preview_mode_code`, `render_meta_data`, `render_meta_tag`, `render_page_title`, `render_title_tag` are now deprecated. (#1110)
 
 __Fixed Bugs__
 
