@@ -13,6 +13,7 @@ __Fixed Bugs__
 * Fix setting of locale when `current_alchemy_user.language` doesn't return a Symbol (#1097)
 * Remove trailing new lines in the AddImageFileFormatToAlchemyPictures migration. If you migrated already,
   use the `alchemy:upgrade:fix_picture_format` rake task.
+* Don't overwrite the fallback options when rendering a picture
 
 ## 3.4.0 (2016-08-02)
 

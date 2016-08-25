@@ -14,7 +14,7 @@ module Alchemy
 
     def initialize(content, options = {}, html_options = {})
       @content = content
-      @options = DEFAULT_OPTIONS.update(content.settings).update(options)
+      @options = DEFAULT_OPTIONS.merge(content.settings).merge(options)
       @html_options = html_options
       @essence = content.essence
       @picture = essence.picture
