@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%= render_meta_data %>
+  <%= render "alchemy/pages/meta_data" %>
   <%= stylesheet_link_tag 'application' %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
@@ -11,7 +11,7 @@
   <div id="navigation">
     <%= render_navigation(:all_sub_menues => true) %>
   </div>
-  <%= alchemy_preview_mode_code %>
+  <%= render "alchemy/preview_mode_code" %>
   <%= render "alchemy/menubar" %>
 </body>
 </html>

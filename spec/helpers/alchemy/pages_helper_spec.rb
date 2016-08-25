@@ -287,91 +287,6 @@ module Alchemy
       end
     end
 
-    describe "#render_meta_data" do
-      let(:page) do
-        mock_model('Page',
-          language: language,
-          title: 'A Public Page',
-          meta_keywords: '',
-          meta_description: '',
-          robot_index?: false,
-          robot_follow?: false,
-          contains_feed?: false,
-          updated_at: '2011-11-29-23:00:00'
-        )
-      end
-
-      let(:root_page) { Page.new }
-
-      before { helper.instance_variable_set('@page', page) }
-
-      subject { helper.render_meta_data }
-
-      context "@page is not set" do
-        before { helper.instance_variable_set('@page', nil) }
-
-        it "should return nil" do
-          expect(helper.render_meta_data).to eq(nil)
-        end
-      end
-
-      context "when the current page's meta keywords are set" do
-        before { allow(page).to receive_messages(meta_keywords: 'keyword1, keyword2') }
-
-        it "should render them" do
-          is_expected.to match /meta name="keywords" content="keyword1, keyword2"/
-        end
-      end
-
-      context "when the current page's meta description is set" do
-        before { allow(page).to receive_messages(meta_description: 'blah blah') }
-
-        it "should render it" do
-          is_expected.to match /meta name="description" content="blah blah"/
-        end
-      end
-
-      context 'when the current page is missing its meta description' do
-        before { allow(Language).to receive(:current_root_page).and_return(root_page) }
-
-        it "should use the the one from the language root's page" do
-          root_page.meta_description = "root page's description"
-          is_expected.to match /meta name="description" content="root page's description"/
-        end
-
-        it "should not be set when language root's page is also missing one" do
-          is_expected.not_to match /meta name="description"/
-        end
-      end
-
-      context 'when the current page is missing its meta keywords' do
-        before { allow(Language).to receive(:current_root_page).and_return(root_page) }
-
-        it "should use the the one from the language root's page" do
-          root_page.meta_keywords = "root page's keywords"
-          is_expected.to match /meta name="keywords" content="root page's keywords"/
-        end
-
-        it "should not be set when language root's page is also missing one" do
-          is_expected.not_to match /meta name="keywords"/
-        end
-      end
-    end
-
-    describe "#render_title_tag" do
-      let(:page) { mock_model('Page', title: 'A Public Page') }
-
-      before { helper.instance_variable_set('@page', page) }
-
-      it "should render a title tag for current page" do
-        expect(helper.render_title_tag).to match /<title>A Public Page<\/title>/
-      end
-
-      it "should render a title tag for current page with a prefix and a separator" do
-        expect(helper.render_title_tag(prefix: 'Peters Petshop', separator: ' ### ')).to match /<title>Peters Petshop ### A Public Page<\/title>/
-      end
-    end
-
     describe "#language_links" do
       context "with two public languages" do
         # Always create second language
@@ -483,6 +398,119 @@ module Alchemy
 
         it "should return true" do
           expect(helper.cell_empty?('test_cell')).to eq(true)
+        end
+      end
+    end
+
+    describe "meta data" do
+      before { @page = public_page }
+
+      describe "#meta_description" do
+        subject { helper.meta_description }
+
+        context "when current page has a meta description set" do
+          before { public_page.meta_description = "description of my public page" }
+          it { is_expected.to eq "description of my public page" }
+        end
+
+        context "when current page has no meta description set" do
+          before do
+            language_root.meta_description = "description from language root"
+            allow(Language).to receive_messages(current_root_page: language_root)
+          end
+
+          context "when #meta_description is an empty string" do
+            before { public_page.meta_description = "" }
+
+            it "returns the meta description of its language root page" do
+              is_expected.to eq "description from language root"
+            end
+          end
+
+          context "when #meta_description is nil" do
+            before { public_page.meta_description = nil }
+
+            it "returns the meta description of its language root page" do
+              is_expected.to eq "description from language root"
+            end
+          end
+        end
+      end
+
+      describe "#meta_keywords" do
+        subject { helper.meta_keywords }
+
+        context "when current page has meta keywords set" do
+          before { public_page.meta_keywords = "keywords, from public page" }
+          it { is_expected.to eq "keywords, from public page" }
+        end
+
+        context "when current page has no meta keywords set" do
+          before do
+            language_root.meta_keywords = "keywords, from language root"
+            allow(Language).to receive_messages(current_root_page: language_root)
+          end
+
+          context "when #meta_keywords is an empty string" do
+            before { public_page.meta_keywords = "" }
+
+            it "returns the keywords of its language root page" do
+              is_expected.to eq "keywords, from language root"
+            end
+          end
+
+          context "when #meta_keywords is nil" do
+            before { public_page.meta_keywords = nil }
+
+            it "returns the keywords of its language root page" do
+              is_expected.to eq "keywords, from language root"
+            end
+          end
+        end
+      end
+
+      describe "#meta_robots" do
+        subject { helper.meta_robots }
+
+        context "when robots may index" do
+          it "contains 'index'" do
+            is_expected.to match /index/
+          end
+
+          context "and robots may follow the links" do
+            it "contains 'follow'" do
+              is_expected.to match /index, follow/
+            end
+          end
+
+          context "and robots are not allowed to follow links" do
+            before { allow(public_page).to receive_messages(robot_follow?: false) }
+
+            it "contains 'nofollow'" do
+              is_expected.to match /index, nofollow/
+            end
+          end
+        end
+
+        context "when robots are not allowed to index" do
+          before { allow(public_page).to receive_messages(robot_index?: false) }
+
+          it "contains 'noindex'" do
+            is_expected.to match /noindex/
+          end
+
+          context "and robots may follow the links" do
+            it "contains 'follow'" do
+              is_expected.to match /noindex, follow/
+            end
+          end
+          context "and robots are not allowed to follow links" do
+            before { allow(public_page).to receive_messages(robot_follow?: false) }
+
+            it "contains 'nofollow'" do
+              is_expected.to match /noindex, nofollow/
+            end
+          end
         end
       end
     end

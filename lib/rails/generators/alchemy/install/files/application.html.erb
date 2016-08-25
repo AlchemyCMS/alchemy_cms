@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="<%= @page.language_code %>">
 <head>
-  <%= render_meta_data %>
+  <%= render "alchemy/pages/meta_data" %>
   <%= stylesheet_link_tag 'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
 </head>
 <body>
   <%= yield %>
-  <%= alchemy_preview_mode_code %>
+  <%= render "alchemy/preview_mode_code" %>
   <%= render "alchemy/menubar" %>
 </body>
 </html>
