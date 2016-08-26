@@ -62,6 +62,13 @@ describe 'alchemy/essences/_essence_file_view' do
         expect(rendered).to have_selector("a:contains('Download this file')")
       end
     end
+
+    context 'with html_options given' do
+      it "renders the linked ingredient with these options" do
+        render content, content: content, html_options: {title: 'Bar', class: 'blue'}
+        expect(rendered).to have_selector('a.blue[title="Bar"]')
+      end
+    end
   end
 
   context "with css_class set" do
