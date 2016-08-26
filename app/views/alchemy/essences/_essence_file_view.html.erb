@@ -1,4 +1,5 @@
 <%- if attachment = content.ingredient -%>
+<%- html_options = local_assigns.fetch(:html_options, {}) -%>
 <%= link_to(
   content.essence.link_text.presence ||
     content.settings_value(:link_text, local_assigns.fetch(:options, {})) ||
@@ -8,7 +9,9 @@
     name: attachment.urlname,
     format: attachment.suffix
   ),
-  class: content.essence.css_class.presence,
-  title: content.essence.title.presence
+  {
+    class: content.essence.css_class.presence,
+    title: content.essence.title.presence
+  }.merge(html_options)
 ) -%>
 <%- end -%>
