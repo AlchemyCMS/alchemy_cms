@@ -1,17 +1,12 @@
 # Change Log
 
-## 3.4.1 (unreleased)
+## 3.4.1 (2016-08-31)
 
 __Fixed Bugs__
 
-* Remove trailing new lines in the AddImageFileFormatToAlchemyPictures migration. If you migrated already,
-  use the `alchemy:upgrade:fix_picture_format` rake task.
-* Don't overwrite the fallback options when rendering a picture
-
-## 3.4.1 (unreleased)
-
-__Fixed Bugs__
-
+* Remove trailing new lines in the AddImageFileFormatToAlchemyPictures migration. (#1107)
+  If you migrated already, use the `alchemy:upgrade:fix_picture_format` rake task.
+* Don't overwrite the fallback options when rendering a picture (#1113)
 * Fixes the messages mailer views generator (#1118)
 
 ## 3.4.0 (2016-08-02)
