@@ -10,6 +10,8 @@ __Notable Changes__
 * The `preview_mode_code` helper is moved to a partial in `alchemy/preview_mode_code`. (#1110)
 * The `render_meta_data` helper is moved to a partial in `alchemy/pages/meta_data` and can be rendered with the same options as before but now passed in as locals. (#1110)
 * The view helpers `preview_mode_code`, `render_meta_data`, `render_meta_tag`, `render_page_title`, `render_title_tag` are now deprecated. (#1110)
+* An easy way to include several edit mode related partials is now available (#1120):
+  `render 'alchemy/edit_mode'` loads `menubar` and `preview_mode_code` at once
 
 __Fixed Bugs__
 
