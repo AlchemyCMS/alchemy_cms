@@ -52,9 +52,10 @@ __Fixed Bugs__
 * Generators don't delete directories any more (#850)
 * Some elements crashed the backend's JS when being saved (#1091)
 
-## 3.3.3 (2016-09-11)
+## 3.3.3 (2016-08-31)
 
-* Fix bug that rendered duplicate nested elements within a cell after copying a parent element.
+* Fix bug that rendered duplicate nested elements within a cell (#1100)
+* Merge `html_options` in EssenceFile view (#1115)
 
 ## 3.3.2 (2016-08-02)
 
