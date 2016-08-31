@@ -1,4 +1,4 @@
-<% if !@preview_mode && can?(:edit_content, @page) %>
+<% if !@preview_mode && @page && can?(:edit_content, @page) %>
   <div id="alchemy_menubar" style="display: none">
     <ul>
       <li><%= link_to Alchemy.t(:to_alchemy), alchemy.admin_dashboard_url %></li>
