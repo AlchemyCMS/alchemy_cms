@@ -18,6 +18,12 @@ __Fixed Bugs__
   use the `alchemy:upgrade:fix_picture_format` rake task.
 * Don't overwrite the fallback options when rendering a picture
 
+## 3.4.1 (unreleased)
+
+__Fixed Bugs__
+
+* Fixes the messages mailer views generator (#1118)
+
 ## 3.4.0 (2016-08-02)
 
 __New Features__
