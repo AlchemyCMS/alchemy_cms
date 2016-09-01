@@ -8,6 +8,8 @@ engines:
     enabled: false
   duplication:
     enabled: true
+    exclude_paths:
+    - "lib/alchemy/permissions.rb"
     config:
       languages:
       - ruby
