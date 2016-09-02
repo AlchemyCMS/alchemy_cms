@@ -25,7 +25,7 @@ Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [gu
 - User Access Control
 - Build in contact form mailer
 - Attachments and downloads
-- Powerful image rendering
+- On-the-fly image rendering
 - Extendable via Rails engines
 - Integrates into existing Rails Apps
 - Flexible caching
@@ -190,6 +190,21 @@ Alchemy.admin_constraints = {subdomain: 'hidden'}
 
 will move the dashboard to <http://hidden.example.com/backend>.
 
+### Picture caching
+
+Alchemy uses the Dragonfly gem to render pictures on-the-fly.
+
+To make this as performant as possible the rendered picture gets stored into `public/pictures`
+so the web server can pick up the file and serve it without hitting the Rails process at all.
+
+This may or may not what you want. Especially for multi server setups you eventually want to use
+something like S3.
+
+Please follow the guidelines about picture caching on the Dragonfly homepage for further instructions:
+
+http://markevans.github.io/dragonfly/cache/
+
+
 ## Upgrading
 
 The Alchemy team takes upgrades very seriously and tries to make them as smooth as we can. Therefore we have build in upgrade tasks, that try to automate as much as possible.
@@ -205,7 +220,7 @@ Alchemy will print out useful information after running the automated tasks that
 
 Always be sure to keep an eye on the `config/alchemy/config.yml.defaults` file and update your `config/alchemy/config.yml` accordingly.
 
-Also, `git diff` is your friend. You are using git to track changes of your projects, right?
+Also, `git diff` is your friend.
 
 
 ## Deployment
