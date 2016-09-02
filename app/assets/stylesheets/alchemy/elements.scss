@@ -503,6 +503,11 @@ div.file {
   background-color: #f3f3f3;
   @extend %rounded-border;
   height: 24px;
+
+  .validation_failed & {
+    color: $error_text_color;
+    border-color: $error_border_color;
+  }
 }
 
 div.file_icon {

@@ -16,6 +16,7 @@ __Notable Changes__
 __Fixed Bugs__
 
 * Fix setting of locale when `current_alchemy_user.language` doesn't return a Symbol (#1097)
+* Presence validation of EssenceFile is not working (#1096)
 
 ## 3.4.1 (2016-08-31)
 
