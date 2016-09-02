@@ -13,6 +13,9 @@ __Notable Changes__
 * An easy way to include several edit mode related partials is now available (#1120):
   `render 'alchemy/edit_mode'` loads `menubar` and `preview_mode_code` at once
 * Add support for Turbolinks 5.0 (#1095)
+* Use Dragonfly middleware to render pictures and remove our custom solution (#1084)
+* `image_size` option is now deprecated. Please use just `size` (#1084)
+* `show_alchemy_picture_path` helper is now deprecated. Please use `picture.url` instead (#1084)
 
 __Fixed Bugs__
 
