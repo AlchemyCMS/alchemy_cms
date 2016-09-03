@@ -60,6 +60,60 @@ div#overlay_text_box {
   }
 }
 
+#header {
+  height: 24px;
+  line-height: 23px;
+  background: $light-blue;
+  border-bottom: $default-border;
+  padding-top: 4px;
+  position: relative;
+
+  a {
+    display: inline-block;
+    vertical-align: middle;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .page_status_and_name {
+    padding: 0 8px;
+    background-color: $medium-gray;
+    text-shadow: 0px 1px 1px #FFFFFF;
+    @extend .disable-user-select;
+    cursor: default;
+    float: left;
+    @extend .top-rounded-border;
+    border: $default-border;
+    border-bottom-style: none;
+    height: 24px;
+    margin-right: 1px;
+  }
+
+  .page_name {
+    margin-right: $default-margin;
+  }
+
+  .page_language {
+    float: none;
+    display: inline-block;
+    vertical-align: middle;
+    color: #3265b1;
+    margin-right: 2px;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+
+  .page_site {
+    float: none;
+    display: inline-block;
+    color: #847474;
+    margin-right: $default-margin;
+    font-size: 10px;
+  }
+}
+
 #main_content {
   box-sizing: border-box;
   background-color: $light-gray;

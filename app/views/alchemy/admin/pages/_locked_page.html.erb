@@ -1,7 +1,7 @@
 <% if @page == locked_page %>
   <%= render 'alchemy/admin/pages/current_page', current_page: @page %>
 <% else %>
-  <div class="subnavi_tab wide" id="locked_page_<%= locked_page.id %>">
+  <div class="locked_page wide" id="locked_page_<%= locked_page.id %>">
     <%= link_to alchemy.edit_admin_page_path(locked_page) do %>
       <%= render 'alchemy/admin/pages/page_status', page: locked_page, truncate: true %>
     <% end %>
