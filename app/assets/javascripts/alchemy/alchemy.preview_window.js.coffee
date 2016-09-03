@@ -1,6 +1,10 @@
 window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 Alchemy.PreviewWindow =
+  MIN_WIDTH: 240
+  MINIMIZED_WIDTH: 149 # Main menu width - border
+  MAXIMIZED_WIDTH: 549 # Main menu width - border + element window width
+  HEIGHT: 75 # Top menu height
 
   init: (url) ->
     $iframe = $("<iframe name=\"alchemy_preview_window\" src=\"#{url}\" id=\"alchemy_preview_window\" frameborder=\"0\"/>")
@@ -16,11 +20,11 @@ Alchemy.PreviewWindow =
   resize: ->
     $window = $(window)
     if Alchemy.ElementsWindow.hidden
-      width = $window.width() - 64
+      width = $window.width() - @MINIMIZED_WIDTH
     else
-      width = $window.width() - 466
-    height = $window.height() - 73
-    width = 240 if width < 240
+      width = $window.width() - @MAXIMIZED_WIDTH
+    height = $window.height() - @HEIGHT
+    width = @MIN_WIDTH if width < @MIN_WIDTH
     @currentWidth = width
     @currentWindow.css
       width: width

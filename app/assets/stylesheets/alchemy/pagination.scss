@@ -8,8 +8,8 @@
   width: 100%;
   left: 0px;
   height: 50px;
-  padding: 2*$default-padding $default-padding;
-  padding-left: 76px;
+  padding: 2*$default-padding;
+  padding-left: $main-menu-width + 10px;
   text-align: left;
   border-top: $default-border;
   z-index: 10;

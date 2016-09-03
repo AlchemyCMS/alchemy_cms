@@ -53,7 +53,7 @@ h1 {
     position: fixed;
     width: 100%;
     top: 75px;
-    left: 74px;
+    left: $main-menu-width + 9px;
     z-index: 2;
     margin: 0 -8px;
     padding: 16px;
@@ -515,12 +515,13 @@ div.browse {
 #alchemy_preview_window {
   box-sizing: border-box;
   position: absolute;
-  left: 66px;
-  top: 73px;
+  left: $main-menu-width;
+  top: 75px;
   width: auto;
   height: auto;
   border: 0 none;
   background: #fff;
+  border-right: $default-border;
   @include transition(200ms ease-in-out);
 }
 
