@@ -107,6 +107,11 @@
 <% if Alchemy::Tinymce.custom_config_contents(@page).present? %>
   <%= render 'tinymce_custom_config' %>
 <% end %>
+
+<% content_for :javascript_includes do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>
+
 <script type="text/javascript" charset="utf-8">
 
   $(function() {
