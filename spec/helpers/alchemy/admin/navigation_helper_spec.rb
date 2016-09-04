@@ -65,7 +65,7 @@ describe Alchemy::Admin::NavigationHelper do
       end
 
       it "renders the main navigation entry partial" do
-        expect(helper.alchemy_main_navigation_entry(alchemy_module)).to match /<a.+class="main_navi_entry/
+        expect(helper.alchemy_main_navigation_entry(alchemy_module)).to match /<div.+class="main_navi_entry/
       end
     end
 

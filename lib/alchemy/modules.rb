@@ -36,7 +36,9 @@ module Alchemy
         alchemy_modules.detect { |p| p['name'] == name }
       when Hash
         alchemy_modules.detect do |alchemy_module|
-          definition_from_subnavi(alchemy_module, name.symbolize_keys)
+          module_navi = alchemy_module_navigation(alchemy_module)
+          definition_from_mainnavi(module_navi, name.symbolize_keys) ||
+            definition_from_subnavi(module_navi, name.symbolize_keys)
         end
       else
         raise ArgumentError, "Could not find module definition for #{name}"
@@ -50,12 +52,15 @@ module Alchemy
       alchemy_module.fetch('navigation', {}).stringify_keys
     end
 
-    def definition_from_subnavi(alchemy_module, name)
-      module_navi = alchemy_module_navigation(alchemy_module)
+    def definition_from_mainnavi(module_navi, name)
+      controller_matches?(module_navi, name) && action_matches?(module_navi, name)
+    end
+
+    def definition_from_subnavi(module_navi, name)
       subnavi = module_navi['sub_navigation']
       return if subnavi.nil?
 
-      subnavi.map(&:stringify_keys).detect do |sn|
+      subnavi.map(&:stringify_keys).any? do |sn|
         controller_matches?(sn, name) && action_matches?(sn, name)
       end
     end
