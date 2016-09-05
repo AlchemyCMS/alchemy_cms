@@ -47,38 +47,6 @@ select {
       }
     }
 
-    &.tiny {
-      padding-top: 6px;
-
-      .select2-choice {
-        height: 18px;
-        line-height: 18px;
-        padding-right: 0;
-
-        .select2-arrow {
-          width: 14px;
-          height: 14px;
-
-          b {
-            line-height: 4px;
-            width: 12px;
-            font-size: 10px;
-
-            &:before {
-              top: 0px;
-              left: 0px;
-            }
-          }
-        }
-      }
-
-      &.select2-dropdown-open {
-        .select2-choice .select2-arrow b {
-          background-position: -20px -5px;
-        }
-      }
-    }
-
     &.medium {
       width: 90px;
     }

@@ -15,6 +15,7 @@
 }
 
 #left_menu {
+  box-sizing: border-box;
   z-index: 20;
   height: 100%;
   position: fixed;
@@ -43,8 +44,8 @@
         box-sizing: border-box;
         position: absolute;
         top: 0;
-        left: $collapsed-main-menu-width;
-        width: $main-menu-width;
+        left: $collapsed-main-menu-width - 1;
+        width: $main-menu-width + 1;
         padding-left: 4*$default-padding;
       }
     }
@@ -56,7 +57,7 @@
   }
 
   a {
-    text-shadow: #fff 0 0px 4px;
+    text-shadow: $text-shadow-light;
   }
 
   img, .module.icon {
@@ -71,12 +72,12 @@
 }
 
 #main_navi {
-  padding-top: 28px;
+  padding-top: 30px;
   padding-bottom: 80px;
 }
 
 .main_navi_entry {
-  color: #444;
+  color: $main-menu-text-color;
   position: relative;
   display: block;
   line-height: 46px;
@@ -135,13 +136,13 @@ body:not(.collapsed-menu) .main_navi_entry.active {
 
 .sub_navigation {
   position: absolute;
-  width: $main-menu-width;
-  left: $main-menu-width;
+  width: $main-menu-width + 1;
+  left: $main-menu-width - 1;
   top: 0;
   display: none;
 
   .collapsed-menu & {
-    left: $collapsed-main-menu-width;
+    left: $collapsed-main-menu-width - 1;
   }
 }
 
@@ -161,43 +162,24 @@ body:not(.collapsed-menu) .main_navi_entry.active {
 }
 
 .locked_page {
+  position: relative;
   float: left;
-  line-height: 21px;
-  height: 23px;
-  text-shadow: #fff 0 0px 4px;
-  background: #d6e0e6;
+  line-height: $header-height - 1;
   color: #444;
-  @extend .top-rounded-border;
-  border: $default-border;
-  border-bottom-style: none;
-  margin-right: 1px;
+  border-right: $default-border;
+  border-bottom: $default-border;
+  padding-right: 24px;
+
+  form {
+    position: absolute;
+    right: $default-padding;
+    top: 7px;
+    line-height: 1;
+  }
 
   &:hover {
     color: $text-color;
     text-decoration: none;
-  }
-
-  &.active {
-    position: relative;
-    height: 24px;
-    color: $text-color;
-    background-color: $medium-gray;
-    text-shadow: #fff 0 1px 2px;
-    @extend .disable-user-select;
-    cursor: default;
-    z-index: 10;
-  }
-
-  &.wide {
-    position: relative;
-    padding-right: 24px;
-
-    form {
-      position: absolute;
-      right: $default-padding;
-      top: $default-padding;
-      line-height: 1;
-    }
   }
 
   > a {
@@ -205,28 +187,27 @@ body:not(.collapsed-menu) .main_navi_entry.active {
     padding: 0px 8px;
   }
 
-  .inline.icon {
+  .icon.close {
     vertical-align: text-bottom;
+    text-shadow: $text-shadow-light;
   }
 
   .page_name {
     margin-right: $default-margin;
+    text-shadow: $text-shadow-light;
   }
 
   .page_language {
-    float: none;
     display: inline-block;
-    vertical-align: middle;
-    color: #3265b1;
+    color: $muted-text-color;
     margin-right: 2px;
     font-size: 10px;
     text-transform: uppercase;
   }
 
   .page_site {
-    float: none;
     display: inline-block;
-    color: #847474;
+    color: $muted-text-color;
     margin-right: $default-margin;
     font-size: 10px;
   }
