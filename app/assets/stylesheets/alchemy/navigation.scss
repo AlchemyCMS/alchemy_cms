@@ -22,7 +22,7 @@
   left: 0;
   width: $main-menu-width;
   border-right: $default-border;
-  background: $light-blue;
+  background-color: $main-menu-bg-color;
   @extend .disable-user-select;
 
   .collapsed-menu & {
@@ -30,6 +30,23 @@
 
     label {
       display: none;
+      background-color: $main-menu-active-bg-color;
+    }
+
+    .main_navi_entry:not(.has_sub_navigation) {
+
+      &:hover label {
+        display: block;
+      }
+
+      label {
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: $collapsed-main-menu-width;
+        width: $main-menu-width;
+        padding-left: 4*$default-padding;
+      }
     }
   }
 

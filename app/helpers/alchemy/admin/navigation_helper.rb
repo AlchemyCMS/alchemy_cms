@@ -58,8 +58,9 @@ module Alchemy
       def main_navigation_css_classes(navigation)
         [
           'main_navi_entry',
-          admin_mainnavi_active?(navigation) ? 'active' : nil
-        ].compact.join(' ')
+          admin_mainnavi_active?(navigation) ? 'active' : nil,
+          navigation.key?('sub_navigation') ? 'has_sub_navigation' : nil
+        ].compact
       end
 
       # Returns true if given navi entry is in params controller and action
