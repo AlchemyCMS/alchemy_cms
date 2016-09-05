@@ -406,7 +406,11 @@ module Alchemy
 
       # Appends the current controller and action to body as css class.
       def alchemy_body_class
-        "#{controller_name} #{action_name}"
+        [
+          controller_name,
+          action_name,
+          content_for(:main_menu_style)
+        ]
       end
 
       # (internal) Returns options for the clipboard select tag

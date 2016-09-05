@@ -523,6 +523,10 @@ div.browse {
   background: #fff;
   border-right: $default-border;
   @include transition(200ms ease-in-out);
+
+  .collapsed-menu & {
+    left: $collapsed-main-menu-width;
+  }
 }
 
 #error_trace {

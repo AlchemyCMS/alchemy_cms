@@ -7,6 +7,11 @@
   z-index: 30;
   width: 100%;
   @extend .disable-user-select;
+
+  .collapsed-menu & {
+    margin-left: $collapsed-main-menu-width;
+    padding-right: $collapsed-main-menu-width;
+  }
 }
 
 #left_menu {
@@ -19,6 +24,14 @@
   border-right: $default-border;
   background: $light-blue;
   @extend .disable-user-select;
+
+  .collapsed-menu & {
+    width: $collapsed-main-menu-width;
+
+    label {
+      display: none;
+    }
+  }
 
   label {
     padding-left: $default-padding;
@@ -54,9 +67,13 @@
   &:hover {
     background-color: $main-menu-active-bg-color;
 
-    &:not(.active) .sub_navigation {
-      display: block;
-      background-color: $main-menu-active-bg-color;
+    &:not(.active),
+    .collapsed-menu & {
+
+      .sub_navigation {
+        display: block;
+        background-color: $main-menu-active-bg-color;
+      }
     }
   }
 
@@ -64,12 +81,6 @@
     background-color: $main-menu-active-bg-color;
     color: $text-color;
     cursor: default;
-
-    .sub_navigation {
-      position: static;
-      display: block;
-      width: auto;
-    }
   }
 
   a {
@@ -84,17 +95,15 @@
   }
 }
 
-.sub_navigation {
-  position: absolute;
-  width: $main-menu-width;
-  left: $main-menu-width;
-  top: 0;
-  display: none;
-}
+body:not(.collapsed-menu) .main_navi_entry.active {
 
-.subnavi_tab {
+  .sub_navigation {
+    position: static;
+    display: block;
+    width: auto;
+  }
 
-  .active.main_navi_entry & {
+  .subnavi_tab {
     line-height: 24px;
 
     &:last-of-type {
@@ -105,6 +114,21 @@
       padding: 8px 4px 8px 44px;
     }
   }
+}
+
+.sub_navigation {
+  position: absolute;
+  width: $main-menu-width;
+  left: $main-menu-width;
+  top: 0;
+  display: none;
+
+  .collapsed-menu & {
+    left: $collapsed-main-menu-width;
+  }
+}
+
+.subnavi_tab {
 
   a {
     padding-left: 4*$default-padding;

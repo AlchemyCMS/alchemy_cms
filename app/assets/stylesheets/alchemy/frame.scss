@@ -41,6 +41,10 @@ div#overlay_text_box {
   width: $main-menu-width;
   background: $light-blue;
 
+  .collapsed-menu & {
+    width: $collapsed-main-menu-width;
+  }
+
   a {
     display: block;
     padding-left: 3 * $default-padding;
@@ -155,6 +159,10 @@ div#user_info {
   font-size: 11px;
   padding: 0 8px;
   background-color: $light-blue;
+
+  .collapsed-menu & {
+    right: $collapsed-main-menu-width;
+  }
 
   .select2-container {
     margin-top: -2px;

@@ -37,7 +37,7 @@
     <%= javascript_include_tag('alchemy/admin/all', 'data-turbolinks-track' => true) %>
     <%= yield :javascript_includes %>
   </head>
-  <body id="alchemy" class="<%= alchemy_body_class %>">
+  <%= content_tag :body, id: 'alchemy', class: alchemy_body_class do %>
     <noscript>
       <h1><%= Alchemy.t(:javascript_disabled_headline) %></h1>
       <p><%= Alchemy.t(:javascript_disabled_text) %></p>
@@ -102,5 +102,5 @@
     </script>
     <%= render 'alchemy/admin/uploader/setup' %>
     <%= yield(:javascripts) %>
-  </body>
+  <% end %>
 </html>

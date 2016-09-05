@@ -2,8 +2,6 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 Alchemy.PreviewWindow =
   MIN_WIDTH: 240
-  MINIMIZED_WIDTH: 149 # Main menu width - border
-  MAXIMIZED_WIDTH: 549 # Main menu width - border + element window width
   HEIGHT: 75 # Top menu height
 
   init: (url) ->
@@ -18,12 +16,8 @@ Alchemy.PreviewWindow =
     @resize()
 
   resize: ->
-    $window = $(window)
-    if Alchemy.ElementsWindow.hidden
-      width = $window.width() - @MINIMIZED_WIDTH
-    else
-      width = $window.width() - @MAXIMIZED_WIDTH
-    height = $window.height() - @HEIGHT
+    width = @_calculateWidth()
+    height = $(window).height() - @HEIGHT
     width = @MIN_WIDTH if width < @MIN_WIDTH
     @currentWidth = width
     @currentWindow.css
@@ -57,6 +51,12 @@ Alchemy.PreviewWindow =
       @refresh()
     $reload.click =>
       @refresh()
+
+  _calculateWidth: ->
+    width = $(window).width() - $('#left_menu').width()
+    unless Alchemy.ElementsWindow.hidden
+      width -= $('#alchemy_elements_window').width()
+    return width
 
 Alchemy.reloadPreview = ->
   Alchemy.PreviewWindow.refresh()
