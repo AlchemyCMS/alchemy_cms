@@ -13,7 +13,7 @@ Alchemy.Hotkeys = (scope) ->
       key.unbind(hotkey)
 
   # Binds keyboard shortcuts to search fields.
-  $search_fields = $('#search_field, #search_input_field', scope)
+  $search_fields = $('.search_input_field', scope)
   $search_fields_clear = $('.search_field_clear, .js_filter_field_clear', scope)
 
   key 'alt+f', ->

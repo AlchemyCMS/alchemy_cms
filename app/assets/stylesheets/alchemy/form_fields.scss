@@ -30,43 +30,6 @@ textarea {
   line-height: 19px;
 }
 
-input#search_input_field {
-  width: 204px;
-  text-align: left;
-  border-radius: 21px;
-  padding: 3px 16px 3px 28px;
-  margin: 0;
-  height: 29px;
-}
-
-div.search_field span.icon, div.js_filter_field_box span.icon {
-  position: absolute;
-  left: 8px;
-  top: 8px;
-}
-
-.js_filter_field_box {
-  position: absolute;
-  right: 4px;
-  top: 8px;
-
-  .js_filter_field {
-    width: 220px;
-    text-align: left;
-    border-radius: $default-border-radius;
-    padding: 3px 24px 3px 28px;
-    height: 29px;
-    margin: 0;
-  }
-
-  label {
-    font-size: 10px;
-    display: block;
-    text-align: center;
-    padding-top: 3px;
-  }
-}
-
 .alchemy-char-counter {
   display: block;
   clear: both;

@@ -38,25 +38,6 @@
       background-position: 0 -21px;
     }
   }
-
-  .js_filter_field {
-    border-radius: 15px;
-  }
-
-  .js_filter_field_box {
-    margin-right: 2*$default-margin;
-
-    label {
-      margin: 0;
-    }
-  }
-
-  .search_form {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    text-align: center;
-  }
 }
 
 .toolbar_buttons {
@@ -114,17 +95,6 @@
     &:active {
       text-decoration: none;
       background-position: 0 -21px;
-    }
-  }
-
-  .remote-search-form {
-    float: right;
-    margin-right: 8px;
-
-    .button {
-      position: absolute;
-      top: 4px;
-      right: 8px;
     }
   }
 }

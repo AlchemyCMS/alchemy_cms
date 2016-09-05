@@ -2,14 +2,15 @@
     action: 'index',
     options: @options.to_json,
     size: @size
-  ), remote: true, html: {class: 'remote-search-form', id: nil} do |f| %>
+  ), remote: true, html: {class: 'search_form', id: nil} do |f| %>
   <%= hidden_field_tag("element_id", @element.blank? ? "" : @element.id) %>
   <%= hidden_field_tag("content_id", @content.blank? ? "" : @content.id) %>
   <div class="search_field">
     <%= render_icon('search') %>
     <%= f.search_field resource_handler.search_field_name,
-      id: 'search_input_field',
-      placeholder: Alchemy.t(:search) %>
+      placeholder: Alchemy.t(:search),
+      class: 'search_input_field',
+      id: nil %>
     <%= link_to '', url_for(
         action: 'index',
         element_id: @element.blank? ? '' : @element.id,
@@ -20,7 +21,6 @@
       ),
       remote: true,
       class: 'search_field_clear',
-      id: 'search_field_clear',
       title: Alchemy.t(:click_to_show_all),
       style: params[:q].blank? ? 'display: none' : 'display: block' %>
   </div>
