@@ -4,7 +4,7 @@
   top: 0;
   margin-left: $main-menu-width;
   padding-right: $main-menu-width;
-  z-index: 30;
+  z-index: 20;
   width: 100%;
   @extend .disable-user-select;
 
@@ -16,7 +16,7 @@
 
 #left_menu {
   box-sizing: border-box;
-  z-index: 20;
+  z-index: 30;
   height: 100%;
   position: fixed;
   top: 0;
@@ -29,15 +29,23 @@
   .collapsed-menu & {
     width: $collapsed-main-menu-width;
 
-    label {
+    .main_navi_entry.has_sub_navigation label {
       display: none;
-      background-color: $main-menu-active-bg-color;
     }
 
-    .main_navi_entry:not(.has_sub_navigation) {
+    label {
+      visibility: hidden;
+      opacity: 0;
+      background-color: $main-menu-active-bg-color;
+      transition: opacity $transition-duration $transition-easing;
+    }
+
+    .main_navi_entry:not(.has_sub_navigation),
+    #logout {
 
       &:hover label {
-        display: block;
+        visibility: visible;
+        opacity: 1;
       }
 
       label {
@@ -81,6 +89,9 @@
   position: relative;
   display: block;
   line-height: 46px;
+  margin-bottom: 3*$default-padding;
+  background-color: transparent;
+  transition: background-color $transition-duration $transition-easing;
 
   &:hover {
     background-color: $main-menu-active-bg-color;
@@ -89,7 +100,8 @@
     .collapsed-menu & {
 
       .sub_navigation {
-        display: block;
+        visibility: visible;
+        opacity: 1;
         background-color: $main-menu-active-bg-color;
       }
     }
@@ -104,11 +116,12 @@
   a {
     display: block;
     padding-left: 3 * $default-padding;
+    transition: color $transition-duration $transition-easing;
 
     &:hover {
-      cursor: pointer;
       text-decoration: none;
-      color: $text-color;
+      color: #000;
+      text-shadow: none;
     }
   }
 }
@@ -117,16 +130,13 @@ body:not(.collapsed-menu) .main_navi_entry.active {
 
   .sub_navigation {
     position: static;
-    display: block;
+    visibility: visible;
+    opacity: 1;
     width: auto;
   }
 
   .subnavi_tab {
     line-height: 24px;
-
-    &:last-of-type {
-      padding-bottom: $default-padding;
-    }
 
     a {
       padding: 8px 4px 8px 44px;
@@ -136,28 +146,38 @@ body:not(.collapsed-menu) .main_navi_entry.active {
 
 .sub_navigation {
   position: absolute;
-  width: $main-menu-width + 1;
-  left: $main-menu-width - 1;
+  width: $main-menu-width;
+  left: $main-menu-width;
   top: 0;
-  display: none;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity $transition-duration $transition-easing;
 
   .collapsed-menu & {
-    left: $collapsed-main-menu-width - 1;
+    left: $collapsed-main-menu-width;
   }
 }
 
 .subnavi_tab {
 
+  &:first-of-type {
+    border-left: 1px solid $main-menu-active-bg-color;
+    margin-left: -1px;
+  }
+
   a {
     padding-left: 4*$default-padding;
+    background-color: transparent;
+    transition: background-color $transition-duration $transition-easing;
 
     &:hover {
-      text-decoration: underline;
+      background-color: rgba(255,255,255,0.2);
     }
   }
 
-  &.active {
-    text-decoration: underline;
+  &.active a {
+    font-weight: bold;
+    color: $main-menu-text-color;
   }
 }
 

@@ -40,8 +40,13 @@ div#overlay_text_box {
   bottom: 0;
   left: 0;
   width: $main-menu-width;
-  background: $main-menu-bg-color;
+  background-color: $main-menu-bg-color;
   border-right: $default-border;
+  transition: background-color $transition-duration $transition-easing;
+
+  &:hover {
+    background-color: $main-menu-active-bg-color;
+  }
 
   .collapsed-menu & {
     width: $collapsed-main-menu-width;
