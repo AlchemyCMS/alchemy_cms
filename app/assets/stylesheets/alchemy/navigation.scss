@@ -16,14 +16,12 @@
   top: 0;
   left: 0;
   width: $main-menu-width;
-  overflow: hidden;
   border-right: $default-border;
   background: $light-blue;
   @extend .disable-user-select;
 
   label {
     padding-left: $default-padding;
-    vertical-align: middle;
     cursor: pointer;
   }
 
@@ -31,12 +29,14 @@
     text-shadow: #fff 0 0px 4px;
   }
 
-  img, .icon {
+  img, .module.icon {
+    position: relative;
+    top: 2*$default-padding;
     border-style: none;
     height: 24px;
     width: 24px;
     display: inline-block;
-    vertical-align: middle;
+    vertical-align: baseline;
   }
 }
 
@@ -48,18 +48,28 @@
 .main_navi_entry {
   color: #444;
   position: relative;
-  overflow: hidden;
   display: block;
   line-height: 46px;
 
   &:hover {
     background-color: $main-menu-active-bg-color;
+
+    &:not(.active) .sub_navigation {
+      display: block;
+      background-color: $main-menu-active-bg-color;
+    }
   }
 
   &.active {
     background-color: $main-menu-active-bg-color;
     color: $text-color;
     cursor: default;
+
+    .sub_navigation {
+      position: static;
+      display: block;
+      width: auto;
+    }
   }
 
   a {
@@ -74,25 +84,38 @@
   }
 }
 
-.subnavi_tab {
-  line-height: 24px;
-  padding: 8px 4px 8px 32px;
+.sub_navigation {
+  position: absolute;
+  width: $main-menu-width;
+  left: $main-menu-width;
+  top: 0;
+  display: none;
+}
 
-  a:hover {
-    text-decoration: underline;
+.subnavi_tab {
+
+  .active.main_navi_entry & {
+    line-height: 24px;
+
+    &:last-of-type {
+      padding-bottom: $default-padding;
+    }
+
+    a {
+      padding: 8px 4px 8px 44px;
+    }
+  }
+
+  a {
+    padding-left: 4*$default-padding;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 
   &.active {
-    position: relative;
-    color: $text-color;
-    text-shadow: #fff 0 1px 2px;
-    @extend .disable-user-select;
-    cursor: default;
-    z-index: 10;
-  }
-
-  &:last-of-type {
-    padding-bottom: $default-padding;
+    text-decoration: underline;
   }
 }
 

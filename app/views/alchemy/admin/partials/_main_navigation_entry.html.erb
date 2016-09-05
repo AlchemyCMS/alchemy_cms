@@ -10,8 +10,7 @@
       <% end %>
       <label><%= truncate Alchemy.t(navigation["name"]), length: 10 %></label>
     <% end %>
-    <% if admin_mainnavi_active?(navigation) %>
-      <%= admin_subnavigation %>
-    <% end %>
+    <%= render 'alchemy/admin/partials/sub_navigation',
+      entries: module_sub_navigation(alchemy_module['navigation']) %>
   <% end %>
 <% end %>

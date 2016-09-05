@@ -1,3 +1,4 @@
+<div class="sub_navigation">
 <% entries.each do |entry| %>
   <% entry.stringify_keys! %>
   <% if can? *navigate_module(entry) %>
@@ -6,3 +7,4 @@
   </div>
   <% end %>
 <% end %>
+</div>
