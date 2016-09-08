@@ -156,22 +156,22 @@ module Alchemy
     end
 
     describe '#default_language' do
-      let(:default_language) do
-        site.default_language
+      let!(:default_language) do
+        Alchemy::Language.find_by(default: true, site: site)
       end
 
       let!(:other_language) do
-        create(:alchemy_language, site: site)
+        create(:alchemy_language, default: false, site: site)
       end
 
-      subject do
+      subject(:site_default_language) do
         site.default_language
       end
 
-      it 'returns the default language of site' do
+      it 'returns the default language of site', :aggregate_failures do
         expect(site.languages.count).to eq(2)
-        is_expected.to eq(default_language)
-        is_expected.to_not eq(other_language)
+        expect(site_default_language).to eq(default_language)
+        expect(site_default_language).to_not eq(other_language)
       end
     end
   end
