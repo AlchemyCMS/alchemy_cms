@@ -1,10 +1,11 @@
-<div class="sub_navigation">
-<% entries.each do |entry| %>
-  <% entry.stringify_keys! %>
-  <% if can? *navigate_module(entry) %>
-  <div class="subnavi_tab<%= entry_active?(entry) ? ' active' : nil %>">
-    <%= link_to Alchemy.t(entry['name']), url_for_module_sub_navigation(entry) %>
+<% if entries.present? %>
+  <div class="sub_navigation">
+    <% entries.each do |entry| %>
+      <% if can? *navigate_module(entry) %>
+        <div class="subnavi_tab<%= entry_active?(entry) ? ' active' : nil %>">
+          <%= link_to Alchemy.t(entry['name']), url_for_module_sub_navigation(entry) %>
+        </div>
+      <% end %>
+    <% end %>
   </div>
-  <% end %>
 <% end %>
-</div>

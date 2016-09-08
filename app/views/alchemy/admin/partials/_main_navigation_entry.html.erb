@@ -11,6 +11,6 @@
       <label><%= truncate Alchemy.t(navigation["name"]), length: 10 %></label>
     <% end %>
     <%= render 'alchemy/admin/partials/sub_navigation',
-      entries: module_sub_navigation(alchemy_module['navigation']) %>
+      entries: navigation['sub_navigation'] %>
   <% end %>
 <% end %>
