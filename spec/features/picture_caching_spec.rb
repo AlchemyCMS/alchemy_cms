@@ -1,7 +1,9 @@
 require 'spec_helper'
 
 RSpec.feature 'Picture caching feature', :js do
-  let!(:essence) { create(:alchemy_essence_picture) }
+  let!(:picture) { create(:alchemy_picture, name: 'Katzen sind süß') }
+
+  let!(:essence) { create(:alchemy_essence_picture, picture: picture) }
 
   let!(:content) do
     create :alchemy_content,
@@ -30,9 +32,18 @@ RSpec.feature 'Picture caching feature', :js do
       Rails.application.config.action_controller.perform_caching = true
     end
 
-    it 'stores pictures' do
+    it 'stores pictures with id and url-unenscaped name' do
       visit_page
-      expect(File.exist?(picture_cache_folder)).to be(true)
+      expect(
+        Dir.glob(
+          File.join(
+            picture_cache_folder,
+            picture.id.to_s,
+            '*',
+            "#{picture.name}.#{picture.default_render_format}"
+          )
+        )
+      ).to be_present
     end
 
     after do

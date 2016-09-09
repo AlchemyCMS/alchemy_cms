@@ -6,7 +6,7 @@ module Alchemy
 
     # Helper to dedoce a hashed dragonfly job
     def decode_dragon_fly_job(url)
-      job = url.split('/')[2]
+      job = url.split('/')[3]
       Dragonfly::Serializer.json_b64_decode(job)
     end
 
@@ -25,6 +25,14 @@ module Alchemy
       subject(:url) { picture.url(options) }
 
       let(:options) { Hash.new }
+
+      it 'includes the id' do
+        expect(url).to match /\/#{picture.id}\//
+      end
+
+      it 'includes the name and render format' do
+        expect(url).to match /\/#{picture.name}\.#{picture.default_render_format}/
+      end
 
       context "when no image is present" do
         before do

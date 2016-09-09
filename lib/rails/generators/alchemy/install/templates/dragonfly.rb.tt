@@ -10,7 +10,7 @@ Dragonfly.app(:alchemy_pictures).configure do
   plugin :imagemagick
   plugin :svg
   secret '<%= SecureRandom.hex(32) %>'
-  url_format '/pictures/:job/:sha/:basename.:ext'
+  url_format '/pictures/:id/:job/:name.:ext'
 
   datastore :file,
     root_path: Rails.root.join('uploads/pictures').to_s,
@@ -27,7 +27,7 @@ Dragonfly.app(:alchemy_pictures).configure do
   before_serve do |job, env|
     if Rails.application.config.action_controller.perform_caching
       path = env['PATH_INFO'].sub(/^\//, '')
-      job.to_file(Rails.root.join('public', Alchemy::MountPoint.get, path))
+      job.to_file(Rails.root.join('public', Alchemy::MountPoint.get, Rack::Utils.unescape(path)))
     end
   end
 end
