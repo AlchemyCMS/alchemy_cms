@@ -12,6 +12,7 @@ __Notable Changes__
 * The view helpers `preview_mode_code`, `render_meta_data`, `render_meta_tag`, `render_page_title`, `render_title_tag` are now deprecated. (#1110)
 * An easy way to include several edit mode related partials is now available (#1120):
   `render 'alchemy/edit_mode'` loads `menubar` and `preview_mode_code` at once
+* Add support for Turbolinks 5.0 (#1095)
 
 __Fixed Bugs__
 
