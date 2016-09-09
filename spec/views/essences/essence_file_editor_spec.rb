@@ -52,8 +52,8 @@ describe 'alchemy/essences/_essence_editor_view' do
       allow(content).to receive(:ingredient).and_return(nil)
     end
 
-    it "does not render a hidden field with attachment id" do
-      is_expected.to_not have_selector("input[type='hidden']")
+    it "renders a hidden field for attachment_id" do
+      is_expected.to have_selector("input[type='hidden'][name='contents[#{content.id}][attachment_id]']")
     end
   end
 end

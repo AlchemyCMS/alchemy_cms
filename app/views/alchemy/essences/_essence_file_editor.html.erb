@@ -46,10 +46,8 @@
         class: 'edit_file',
         title: Alchemy.t(:edit_file_properties) %>
     </div>
-    <% if content.ingredient %>
-      <%= hidden_field_tag content.form_field_name(:attachment_id),
-        content.ingredient.id %>
-    <% end %>
+    <%= hidden_field_tag content.form_field_name(:attachment_id),
+      content.ingredient && content.ingredient.id %>
   </div>
 </div>
 <% end %>
