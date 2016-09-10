@@ -1,7 +1,8 @@
 html {
   height: 100%;
 
-  &.turbolinks-progress-bar::before {
+  &.turbolinks-progress-bar::before,
+  .turbolinks-progress-bar {
     background-color: $blue !important;
     height: 3px !important;
     z-index: 400001;

@@ -55,16 +55,18 @@ Alchemy.Initializer = ->
     scrollingTop: 122,
     zIndex: 1
 
-# Enabling the Turbolinks Progress Bar
-Turbolinks.enableProgressBar()
+# Enabling the Turbolinks Progress Bar for v2.5
+Turbolinks.enableProgressBar() if Turbolinks.enableProgressBar
 
-# Turbolinks DOM Ready
-$(document).on 'page:change', ->
+# Turbolinks DOM Ready.
+# Handle both v2.5(page:change), and v.5.0 (turbolinks:load)
+$(document).on 'page:change turbolinks:load', ->
   Alchemy.Initializer()
   return
 
 # Turbolinks before parsing a new page
-$(document).on 'page:receive', ->
+# Handle both v2.5(page:receive), and v.5.0 (turbolinks:request-end)
+$(document).on 'page:receive turbolinks:request-end', ->
   # Ensure that all tinymce editors get removed before parsing a new page
   Alchemy.Tinymce.removeFrom $('.has_tinymce')
   return
