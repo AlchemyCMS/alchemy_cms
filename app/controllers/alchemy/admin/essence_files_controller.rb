@@ -3,7 +3,7 @@ module Alchemy
     class EssenceFilesController < Alchemy::Admin::BaseController
       authorize_resource class: Alchemy::EssenceFile
 
-      before_filter :load_essence_file, only: [:edit, :update]
+      before_action :load_essence_file, only: [:edit, :update]
 
       helper "Alchemy::Admin::Contents"
 

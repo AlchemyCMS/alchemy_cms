@@ -2,7 +2,7 @@ module Alchemy
   module Admin
     class ClipboardController < Alchemy::Admin::BaseController
       authorize_resource class: :alchemy_admin_clipboard
-      before_filter :set_clipboard
+      before_action :set_clipboard
 
       def index
         @clipboard_items = model_class.all_from_clipboard(@clipboard)

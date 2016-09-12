@@ -1,7 +1,7 @@
 module Alchemy
   module Admin
     class TagsController < ResourcesController
-      before_filter :load_tag, only: [:edit, :update, :destroy]
+      before_action :load_tag, only: [:edit, :update, :destroy]
 
       def index
         @query = ActsAsTaggableOn::Tag.ransack(params[:q])

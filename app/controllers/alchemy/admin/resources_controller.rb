@@ -10,10 +10,10 @@ module Alchemy
       helper Alchemy::ResourcesHelper, TagsHelper
       helper_method :resource_handler
 
-      before_filter :load_resource,
+      before_action :load_resource,
         only: [:show, :edit, :update, :destroy]
 
-      before_filter do
+      before_action do
         authorize!(action_name.to_sym, resource_instance_variable || resource_handler.model)
       end
 

@@ -4,7 +4,7 @@ module Alchemy
 
     caches_page :show, :thumbnail, :zoom
 
-    before_filter :ensure_secure_params
+    before_action :ensure_secure_params
 
     load_and_authorize_resource
 
