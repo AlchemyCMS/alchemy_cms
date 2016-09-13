@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160912194431) do
+ActiveRecord::Schema.define(version: 20160912223112) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string   "name"
@@ -244,6 +244,7 @@ ActiveRecord::Schema.define(version: 20160912194431) do
   add_index "alchemy_pages", ["locked_at", "locked_by"], name: "index_alchemy_pages_on_locked_at_and_locked_by"
   add_index "alchemy_pages", ["parent_id", "lft"], name: "index_pages_on_parent_id_and_lft"
   add_index "alchemy_pages", ["public_on", "public_until"], name: "index_alchemy_pages_on_public_on_and_public_until"
+  add_index "alchemy_pages", ["rgt"], name: "index_alchemy_pages_on_rgt"
   add_index "alchemy_pages", ["urlname"], name: "index_pages_on_urlname"
 
   create_table "alchemy_pictures", force: :cascade do |t|
