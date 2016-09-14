@@ -15,7 +15,7 @@
 # Elements are displayed in tabs inside the elements window in page edit view.
 # Every cell is a list of elements with the position scoped to +cell_id+ and +page_id+.
 #
-# Define cells inside a +cells.yml+ file located in the +config/alchermy+ folder of your project.
+# Define cells inside a +cells.yml+ file located in the +config/alchemy+ folder of your project.
 #
 # Render cells with the +render_cell+ helper
 #
