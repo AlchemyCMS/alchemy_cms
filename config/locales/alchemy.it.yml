@@ -417,7 +417,7 @@ it:
     login: "login"
     logout: "logout"
     mail_to: "Destinatario"
-    main_content: "Contanuto principale"
+    main_content: "Contenuto principale"
     male: "Maschio"
     me: "Me"
     medium_thumbnails: "Thumbnail di meda dimensione"
