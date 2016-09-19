@@ -166,10 +166,13 @@ module Alchemy
     end
 
     describe '.not_in_cell' do
-      it "should return all elements that are not in a cell" do
+      before do
         Element.delete_all
-        create(:alchemy_element, cell_id: 6)
-        create(:alchemy_element, cell_id: nil)
+        create(:alchemy_element, cell: create(:alchemy_cell))
+        create(:alchemy_element)
+      end
+
+      it "should return all elements that are not in a cell" do
         expect(Element.not_in_cell.size).to eq(1)
       end
     end
