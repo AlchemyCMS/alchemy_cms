@@ -36,7 +36,7 @@ INFO: You can only add elements that are both defined in your `cells.yml` and `p
 
 ~~~ yaml
 - name: standard
-  cells: left_column
+  cells: [left_column]
   elements: [image, text]
 ~~~
 
