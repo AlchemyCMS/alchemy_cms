@@ -263,6 +263,7 @@ de:
     "Show all files": Alle Dateien anzeigen
     "Show childpages": "Unterseiten anzeigen"
     "Show clipboard": "Zwischenablage anzeigen"
+    "Copied to clipboard": "In die Zwischenablage kopiert"
     "Show picture infos": "Bild Informationen anzeigen"
     "Show trash": "Papierkorb anzeigen"
     "Site successfully created": "Website wurde erfolgreich erstellt."
@@ -284,6 +285,7 @@ de:
     "Validation failed": "Einige Pflichtfelder wurden nicht richtig ausgefüllt."
     "Version": "Version"
     "View File": "Datei anzeigen"
+    "Attachment Preview": "Dateivorschau"
     "Visit page": "zur Seite gehen"
     "Warning!": "Achtung!"
     content_definition_missing: "Warnung: Für diesen Content konnte die Vorlage nicht gefunden werden. Bitte überprüfen Sie die elements.yml Datei."
@@ -838,6 +840,8 @@ de:
         name: "Name"
         file_size: "Dateigröße"
         tag_list: Tags
+        url: "URL"
+        download_url: "Download-URL"
 
       alchemy/element:
         display_name: "Name"

@@ -262,6 +262,7 @@ es:
     show_element: "Mostrar elemento"
     "Show childpages": "Mostrar páginas hijas"
     "Show clipboard": "Mostrar portapapeles"
+    "Copied to clipboard": "Copiado al portapapeles"
     "Show picture infos": "Mostrar información de la imagen"
     "Show trash": "Mostrar papelera"
     "Site successfully created": "Sitio web creado correctamente."
@@ -283,6 +284,7 @@ es:
     "Validation failed": "Fallo de validación"
     "Version": "Versión"
     "View File": "Ver archivo"
+    "Attachment Preview": "Vista previa"
     "Visit page": "Visitar página"
     "Warning!": "¡Atención!"
     content_definition_missing: "Atención: Falta la descripción del contenido. Por favor comprueba el archivo elements.yml"
@@ -870,6 +872,8 @@ es:
         name: Nombre
         file_size: Tamaño del archivo
         tag_list: Etiquetas
+        url: "URL"
+        download_url: "URL de descarga"
 
       alchemy/element:
         display_name: "Nombre"

@@ -74,7 +74,7 @@
   width: 100%;
   font-size: 12px;
   line-height: 12px;
-  height: 29px;
+  height: $default-form-field-height;
   @include transition(
     box-shadow 0.25s ease-in-out,
     background-color 0.25s ease-in-out,
@@ -89,5 +89,5 @@
 %gradiated-toolbar {
   background: $toolbar-bg-color;
   padding: 8px 4px;
-  height: 29px;
+  height: $default-form-field-height;
 }

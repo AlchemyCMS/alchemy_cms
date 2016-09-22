@@ -1,3 +1,66 @@
-<iframe src="<%= alchemy.show_attachment_path(@attachment) %>" frameborder=0 class="full-iframe">
-  Your browser does not support frames.
-</iframe>
+<div class="resource_info">
+  <div class="value">
+    <label>
+      <%= render_icon @attachment.icon_css_class %>
+    </label>
+    <p><%= @attachment.file_name %></p>
+  </div>
+  <div class="value">
+    <label>
+    <%= Alchemy::Attachment.human_attribute_name(:url) %></label>
+    <p><%= alchemy.show_attachment_url(@attachment) %>
+      <span class="icon-box">
+        <a href="#" id="" onclick="copyToClipboard('<%= alchemy.show_attachment_url(@attachment) %>'); return false">
+          <span class="icon clipboard full"></span>
+        </a>
+      </span>
+    </p>
+  </div>
+  <div class="value">
+    <label>
+    <%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
+    <p><%= alchemy.download_attachment_url(@attachment) %>
+      <span class="icon-box">
+        <a href="#" onclick="copyToClipboard('<%= alchemy.download_attachment_url(@attachment) %>'); return false">
+          <span class="icon clipboard full"></span>
+        </a>
+      </span>
+    </p>
+  </div>
+</div>
+<br />
+<div class="attachment_preview_container">
+  <% case @attachment.icon_css_class %>
+    <% when "image" %>
+      <%= image_tag(alchemy.show_attachment_path(@attachment), class: "full_width") %>
+    <% when "audio" %>
+      <%= audio_tag(alchemy.show_attachment_path(@attachment), preload: "none", controls: true, class: "full_width") %>
+    <% when "video" %>
+      <%= video_tag(alchemy.show_attachment_path(@attachment), preload: "metadata", controls: true, class: "full_width") %>
+    <% when "archive" %>
+    <% when "file" %>
+    <% else %>
+      <iframe src="<%= alchemy.show_attachment_path(@attachment) %>" frameborder=0 class="full-iframe">
+        Your browser does not support frames.
+      </iframe>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+  function copyToClipboard(text) {
+    // Create a "hidden" input
+    var aux = document.createElement("input");
+
+    aux.setAttribute("value", text);
+    // Append it to the body
+    document.body.appendChild(aux);
+    // Highlight its content
+    aux.select();
+    // Copy the highlighted text
+    document.execCommand("copy");
+    // Remove it from the body
+    document.body.removeChild(aux);
+
+    Alchemy.growl('<%= Alchemy.t("Copied to clipboard") %>');
+  }
+</script>

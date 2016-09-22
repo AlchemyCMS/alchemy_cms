@@ -261,6 +261,7 @@ en:
     show_element: "Show element"
     "Show childpages": "Show childpages"
     "Show clipboard": "Show clipboard"
+    "Copied to clipboard": "Copied to clipboard"
     "Show picture infos": "Show picture infos"
     "Show trash": "Show trash"
     "Site successfully created": "Website successfully created."
@@ -282,6 +283,7 @@ en:
     "Validation failed": "Validation failed"
     "Version": "Version"
     "View File": "View File"
+    "Attachment Preview": "Attachment Preview"
     "Visit page": "Visit page"
     "Warning!": "Warning!"
     content_definition_missing: "Warning: Content is missing its definition. Please check the elements.yml"
@@ -833,6 +835,8 @@ en:
         name: Name
         file_size: Filesize
         tag_list: Tags
+        url: "URL"
+        download_url: "Download-URL"
 
       alchemy/element:
         display_name: "Name"
