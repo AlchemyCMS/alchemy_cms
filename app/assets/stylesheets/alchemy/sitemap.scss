@@ -9,12 +9,11 @@
   border-bottom: $default-border;
 
   div.info {
-    margin: 8px 8px 8px 78px;
-    width: 720px;
+    margin: 16px 12px 8px 163px;
   }
 
   .buttons {
-    margin-left: 78px;
+    margin-left: 163px;
   }
 }
 
@@ -217,7 +216,7 @@ ul.list .sitemap_sitename {
   }
 }
 
-#sub_navigation .page_status_and_name .page_status {
+#header .page_status_and_name .page_status {
   float: none;
   display: inline-block;
   vertical-align: -3px;

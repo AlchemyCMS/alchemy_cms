@@ -37,7 +37,7 @@
     <%= javascript_include_tag('alchemy/admin/all', 'data-turbolinks-track' => true) %>
     <%= yield :javascript_includes %>
   </head>
-  <body id="alchemy" class="<%= alchemy_body_class %>">
+  <%= content_tag :body, id: 'alchemy', class: alchemy_body_class do %>
     <noscript>
       <h1><%= Alchemy.t(:javascript_disabled_headline) %></h1>
       <p><%= Alchemy.t(:javascript_disabled_text) %></p>
@@ -72,23 +72,21 @@
     </div>
     <% if current_alchemy_user %>
     <div id="top_menu">
-      <div id="sub_navigation">
-        <%= admin_subnavigation %>
+      <div id="header">
         <% if @locked_pages.present? %>
           <div id="locked_pages">
-            <label><%= Alchemy.t(:locked_pages) %> &raquo;</label>
             <%= render partial: 'alchemy/admin/pages/locked_page', collection: @locked_pages %>
           </div>
         <% end %>
+        <div id="user_info">
+          <%= current_alchemy_user_name %>
+          <%= select_tag 'change_locale',
+            options_for_select(translations_for_select, ::I18n.locale),
+            class: 'alchemy_selectbox tiny' %>
+        </div>
       </div>
       <div id="toolbar">
         <%= yield(:toolbar) %>
-      </div>
-      <div id="user_info">
-        <%= current_alchemy_user_name %>
-        <%= select_tag 'change_locale',
-          options_for_select(translations_for_select, ::I18n.locale),
-          class: 'alchemy_selectbox tiny' %>
       </div>
     </div>
     <% end %>
@@ -104,5 +102,5 @@
     </script>
     <%= render 'alchemy/admin/uploader/setup' %>
     <%= yield(:javascripts) %>
-  </body>
+  <% end %>
 </html>

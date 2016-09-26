@@ -187,3 +187,10 @@
   cursor: -moz-zoom-in;
   cursor: zoom-in;
 }
+
+@mixin truncate($max-width, $display: inline-block) {
+  display: $display;
+  max-width: $max-width;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

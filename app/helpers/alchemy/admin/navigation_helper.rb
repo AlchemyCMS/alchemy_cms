@@ -11,22 +11,9 @@ module Alchemy
       def alchemy_main_navigation_entry(alchemy_module)
         render(
           'alchemy/admin/partials/main_navigation_entry',
-          alchemy_module: alchemy_module.stringify_keys,
-          navigation: module_main_navigation(alchemy_module)
+          alchemy_module: alchemy_module,
+          navigation: alchemy_module['navigation']
         )
-      end
-
-      # Renders the subnavigation from current module
-      #
-      # We find the module from current controller and index action.
-      #
-      def admin_subnavigation
-        if current_alchemy_module.present?
-          render(
-            'alchemy/admin/partials/sub_navigation',
-            entries: current_sub_navigation
-          )
-        end
       end
 
       # Used for checking the main navi permissions
@@ -46,7 +33,6 @@ module Alchemy
       #   can :index, :my_admin_posts
       #
       def navigate_module(navigation)
-        navigation.stringify_keys!
         [
           navigation['action'].to_sym,
           navigation['controller'].to_s.gsub(/\A\//, '').gsub(/\//, '_').to_sym
@@ -58,8 +44,9 @@ module Alchemy
       def main_navigation_css_classes(navigation)
         [
           'main_navi_entry',
-          admin_mainnavi_active?(navigation) ? 'active' : nil
-        ].compact.join(' ')
+          admin_mainnavi_active?(navigation) ? 'active' : nil,
+          navigation.key?('sub_navigation') ? 'has_sub_navigation' : nil
+        ].compact
       end
 
       # Returns true if given navi entry is in params controller and action
@@ -148,7 +135,7 @@ module Alchemy
       #   A Alchemy module definition
       #
       def url_options_for_module(alchemy_module)
-        url_options_for_navigation_entry(module_main_navigation(alchemy_module))
+        url_options_for_navigation_entry(alchemy_module['navigation'] || {})
       end
 
       # Returns a url options hash for given navigation entry.
@@ -157,7 +144,6 @@ module Alchemy
       #   A Alchemy module navigation entry
       #
       def url_options_for_navigation_entry(entry)
-        entry.stringify_keys!
         {
           controller: entry['controller'],
           action: entry['action'],
@@ -172,40 +158,15 @@ module Alchemy
         module_definition_for(controller: params[:controller], action: 'index')
       end
 
-      # Returns the sub navigation for current Alchemy module.
-      #
-      def current_sub_navigation
-        module_sub_navigation(module_main_navigation(current_alchemy_module))
-      end
-
-      # Returns navigation entries from given module.
-      #
-      def module_main_navigation(alchemy_module)
-        alchemy_module.fetch('navigation', {}).stringify_keys
-      end
-
-      # Returns sub navigation entries from given module.
-      #
-      def module_sub_navigation(alchemy_module)
-        alchemy_module.fetch('sub_navigation', []).map(&:stringify_keys)
-      end
-
-      # Returns nested navigation entries for given module.
-      #
-      def module_nested_navigation(alchemy_module)
-        alchemy_module.fetch('nested', []).map(&:stringify_keys)
-      end
-
       # Returns true if the current controller and action is in a modules navigation definition.
       #
-      def admin_mainnavi_active?(main_navigation)
-        main_navigation.stringify_keys!
+      def admin_mainnavi_active?(navigation)
         # Has the given navigation entry a active sub navigation?
-        has_active_entry?(module_sub_navigation(main_navigation)) ||
+        has_active_entry?(navigation['sub_navigation'] || []) ||
           # Has the given navigation entry a active nested navigation?
-          has_active_entry?(module_nested_navigation(main_navigation)) ||
+          has_active_entry?(navigation['nested'] || []) ||
           # Is the navigation entry active?
-          entry_active?(main_navigation)
+          entry_active?(navigation || {})
       end
 
       # Returns true if the given entry's controller is current controller
@@ -219,7 +180,8 @@ module Alchemy
       # Also checks if given entry has a +nested_actions+ key, if so it checks if one of them is current controller's action
       #
       def is_entry_action_active?(entry)
-        entry['action'] == params[:action] || entry['nested_actions'].to_a.include?(params[:action])
+        entry['action'] == params[:action] ||
+          entry.fetch('nested_actions', []).include?(params[:action])
       end
 
       # Returns true if an entry of given entries is active.
@@ -228,7 +190,7 @@ module Alchemy
       #   Alchemy module navigation entries.
       #
       def has_active_entry?(entries)
-        !entries.detect { |entry| entry_active?(entry) }.nil?
+        entries.any? { |entry| entry_active?(entry) }
       end
     end
   end

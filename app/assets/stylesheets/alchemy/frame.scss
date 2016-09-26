@@ -1,86 +1,3 @@
-#top_menu {
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  margin-left: 65px;
-  padding-right: 65px;
-  z-index: 30;
-  width: 100%;
-  @extend .disable-user-select;
-}
-
-#left_menu {
-  white-space: nowrap;
-  z-index: 20;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 65px;
-  overflow: hidden;
-  border-right: $default-border;
-  background: $light-blue;
-  font-size: 10px;
-  @extend .disable-user-select;
-
-  label {
-    display: block;
-  }
-
-  a {
-    text-shadow: #fff 0 0px 4px;
-  }
-}
-
-#main_navi {
-  padding-top: 20px;
-  padding-left: 4px;
-  padding-bottom: 80px;
-
-  .main_navi_entry {
-    color: #444;
-    position: relative;
-    text-align: center;
-    overflow: hidden;
-    display: block;
-    padding-top: 7px;
-    @extend .left-rounded-border;
-    border: 1px none #afafaf;
-    border-right-style: none;
-    padding-bottom: 6px;
-    padding-left: 1px;
-    width: 60px;
-
-    &:hover {
-      cursor: pointer;
-      text-decoration: none;
-      color: $text-color;
-    }
-
-    &.active {
-      background: #baced9;
-      color: $text-color;
-      cursor: default;
-      text-shadow: #fff 0 1px 2px;
-      border: $default-border;
-      padding-left: 0;
-      border-right-style: none;
-      padding-top: 6px;
-      padding-bottom: 5px;
-    }
-
-    img {
-      border-style: none;
-      height: 24px;
-      width: 24px;
-      display: inline-block;
-      vertical-align: middle;
-      margin-bottom: 4px;
-      margin-top: 2px;
-    }
-  }
-}
-
 div#overlay {
   display: none;
   position: fixed;
@@ -117,21 +34,35 @@ div#overlay_text_box {
 }
 
 #logout {
+  box-sizing: border-box;
   position: absolute;
   z-index: 1;
   bottom: 0;
   left: 0;
-  text-align: center;
-  width: 65px;
-  background: $light-blue;
+  width: $main-menu-width;
+  background-color: $main-menu-bg-color;
+  border-right: $default-border;
+  transition: background-color $transition-duration $transition-easing;
+
+  &:hover {
+    background-color: $main-menu-active-bg-color;
+  }
+
+  .collapsed-menu & {
+    width: $collapsed-main-menu-width;
+  }
 
   a {
     display: block;
-    padding-top: 4px;
-    padding-bottom: 8px;
+    padding-left: 3 * $default-padding;
+    line-height: 45px;
 
     &:hover {
       text-decoration: none;
+    }
+
+    label {
+      padding-left: 2 * $default-padding;
     }
   }
 
@@ -140,10 +71,42 @@ div#overlay_text_box {
   }
 }
 
+#header {
+  height: $header-height;
+  line-height: $header-height;
+  background: $light-blue;
+  border-bottom: $default-border;
+  position: relative;
+
+  a {
+    display: inline-block;
+    vertical-align: middle;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+  .page_status_and_name {
+    padding: 0 8px;
+    background-color: $medium-gray;
+    text-shadow: $text-shadow-light;
+    @extend .disable-user-select;
+    @extend .locked_page;
+    cursor: default;
+    border-bottom-color: $toolbar-bg-color;
+  }
+
+  .page_name {
+    margin-right: $default-margin;
+    line-height: $header-height;
+  }
+}
+
 #main_content {
   box-sizing: border-box;
   background-color: $light-gray;
-  padding: 75px 8px 8px 74px;
+  padding: 84px 8px 8px $main-menu-width + 10px;
   z-index: 0;
   width: 100%;
   height: 100%;
@@ -174,129 +137,62 @@ div#overlay_text_box {
   }
 }
 
-div#user_info {
+#user_info {
   position: absolute;
   top: 0;
-  right: 65px;
+  right: 0;
+  height: $header-height;
   font-size: 11px;
-  padding: 0 8px;
+  padding-left: 2*$default-padding;
   background-color: $light-blue;
+  border-bottom: $default-border;
 
   .select2-container {
-    margin-top: -2px;
-    margin-right: $default-margin;
+    margin-top: -3px;
+    padding-right: 2*$default-padding;
+  }
+
+  .select2-choice {
+    padding-right: 0;
+    background: transparent;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    border-left: $default-border;
+    height: $header-height + 1;
+    line-height: $header-height;
+    text-shadow: $text-shadow-light;
+
+    .select2-arrow {
+      width: 14px;
+      border-left: none;
+
+      b {
+        color: $muted-text-color;
+
+        &:before {
+          position: absolute;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }
+
+  .select2-dropdown-open {
+    background-color: $main-menu-bg-color;
+
+    .select2-choice .select2-arrow b {
+      background-position: -20px -5px;
+    }
   }
 
   .current-user-name {
-    padding-right: $default-padding;
-  }
-}
-
-#sub_navigation {
-  height: 24px;
-  line-height: 23px;
-  background: $light-blue;
-  border-bottom: $default-border;
-  padding-top: 4px;
-  position: relative;
-
-  a {
-    display: inline-block;
-    vertical-align: middle;
-
-    &:hover {
-      text-decoration: none;
-    }
-  }
-
-  .page_status_and_name {
-    padding: 0 8px;
-    background-color: $medium-gray;
-    text-shadow: 0px 1px 1px #FFFFFF;
-    @extend .disable-user-select;
-    cursor: default;
-    float: left;
-    @extend .top-rounded-border;
-    border: $default-border;
-    border-bottom-style: none;
-    height: 24px;
-    margin-right: 1px;
-  }
-
-  .page_name {
-    margin-right: $default-margin;
-  }
-
-  .page_language {
-    float: none;
-    display: inline-block;
-    vertical-align: middle;
-    color: #3265b1;
-    margin-right: 2px;
-    font-size: 10px;
-    text-transform: uppercase;
-  }
-
-  .page_site {
-    float: none;
-    display: inline-block;
-    color: #847474;
-    margin-right: $default-margin;
-    font-size: 10px;
-  }
-
-  .subnavi_tab {
-    float: left;
-    line-height: 21px;
-    height: 23px;
-    text-shadow: #fff 0 0px 4px;
-    background: #d6e0e6;
-    color: #444;
-    @extend .top-rounded-border;
-    border: $default-border;
-    border-bottom-style: none;
-    margin-right: 1px;
-
-    &.wide {
-      position: relative;
-      padding-right: 24px;
-
-      form {
-        position: absolute;
-        right: $default-padding;
-        top: $default-padding;
-        line-height: 1;
-      }
-    }
-
-    &:hover {
-      color: $text-color;
-      text-decoration: none;
-    }
-
-    &.active {
-      position: relative;
-      height: 24px;
-      color: $text-color;
-      background-color: $medium-gray;
-      text-shadow: #fff 0 1px 2px;
-      @extend .disable-user-select;
-      cursor: default;
-      z-index: 10;
-    }
-
-    > a {
-      padding: 0px 8px;
-    }
-
-    .inline.icon {
-      vertical-align: text-bottom;
-    }
+    padding-right: 2*$default-padding;
   }
 }
 
 #locked_pages {
-  height: 25px;
   overflow: hidden;
 
   label {

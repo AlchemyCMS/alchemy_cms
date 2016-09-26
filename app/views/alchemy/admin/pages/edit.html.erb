@@ -1,5 +1,7 @@
 <% content_for(:title) { @page.name } %>
 
+<% content_for(:main_menu_style) { 'collapsed-menu' } %>
+
 <% content_for(:toolbar) do %>
 <div class="toolbar_buttons">
   <div class="button_with_label">
@@ -122,7 +124,6 @@
     });
     Alchemy.Sitemap.watchPagePublicationState();
     Alchemy.PageLeaveObserver();
-    Alchemy.PreviewWindow.init('<%= admin_page_path(@page) %>');
     Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_id: @page.id) %>', {
       texts: {
         title: '<%= Alchemy.t("Elements") %>',
@@ -180,6 +181,8 @@
         $(window.location.hash).trigger('FocusElementEditor.Alchemy');
       }
     });
+
+    Alchemy.PreviewWindow.init('<%= admin_page_path(@page) %>');
 
     $('#preview_size').bind('open.selectBoxIt', function (e) {
       $('#top_menu').css('z-index', 5000);

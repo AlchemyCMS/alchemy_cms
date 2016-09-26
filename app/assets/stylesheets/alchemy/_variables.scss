@@ -1,4 +1,5 @@
 $text-color: #333333;
+$muted-text-color: rgba(0, 0, 0, 0.5);
 $light-blue: #cddce5; // #c6dbe7
 $blue: darken($light-blue, 15%);
 $very-light-blue: lighten($light-blue, 12%);
@@ -59,3 +60,15 @@ $error_background_color: #efd3d3;
 $form-left-width: 35%;
 $form-right-width: 65%;
 $sitemap-line-height: 24px;
+
+$main-menu-width: 150px !default;
+$collapsed-main-menu-width: 48px !default;
+$main-menu-bg-color: #baced9 !default;
+$main-menu-active-bg-color: $light-blue !default;
+$main-menu-text-color: #222 !default;
+$main-menu-entry-max-width: 100px !default;
+$toolbar-bg-color: $medium-gray !default;
+$header-height: 29px !default;
+$text-shadow-light: rgba($white, 0.5) 0 0 4px !default;
+$transition-duration: 200ms !default;
+$transition-easing: linear !default;

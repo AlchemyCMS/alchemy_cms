@@ -1,0 +1,242 @@
+#top_menu {
+  box-sizing: border-box;
+  position: fixed;
+  top: 0;
+  margin-left: $main-menu-width;
+  padding-right: $main-menu-width;
+  z-index: 20;
+  width: 100%;
+  @extend .disable-user-select;
+
+  .collapsed-menu & {
+    margin-left: $collapsed-main-menu-width;
+    padding-right: $collapsed-main-menu-width;
+  }
+}
+
+#left_menu {
+  box-sizing: border-box;
+  z-index: 30;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: $main-menu-width;
+  border-right: $default-border;
+  background-color: $main-menu-bg-color;
+  @extend .disable-user-select;
+
+  .collapsed-menu & {
+    width: $collapsed-main-menu-width;
+
+    .main_navi_entry.has_sub_navigation label {
+      display: none;
+    }
+
+    label {
+      visibility: hidden;
+      opacity: 0;
+      background-color: $main-menu-active-bg-color;
+      transition: opacity $transition-duration $transition-easing;
+    }
+
+    .main_navi_entry:not(.has_sub_navigation),
+    #logout {
+
+      &:hover label {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      label {
+        box-sizing: border-box;
+        position: absolute;
+        top: 0;
+        left: $collapsed-main-menu-width - 1;
+        width: $main-menu-width + 1;
+        padding-left: 4*$default-padding;
+      }
+    }
+  }
+
+  label {
+    vertical-align: middle;
+    padding-left: $default-padding;
+    cursor: pointer;
+    @include truncate($main-menu-entry-max-width);
+  }
+
+  a {
+    text-shadow: $text-shadow-light;
+  }
+
+  img, .module.icon {
+    border-style: none;
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+#main_navi {
+  padding-top: 30px;
+  padding-bottom: 80px;
+}
+
+.main_navi_entry {
+  color: $main-menu-text-color;
+  position: relative;
+  display: block;
+  line-height: 46px;
+  margin-bottom: 3*$default-padding;
+  background-color: transparent;
+  transition: background-color $transition-duration $transition-easing;
+
+  &:hover {
+    background-color: $main-menu-active-bg-color;
+
+    &:not(.active),
+    .collapsed-menu & {
+
+      .sub_navigation {
+        visibility: visible;
+        opacity: 1;
+        background-color: $main-menu-active-bg-color;
+      }
+    }
+  }
+
+  &.active {
+    background-color: $main-menu-active-bg-color;
+    color: $text-color;
+    cursor: default;
+  }
+
+  a {
+    display: block;
+    padding-left: 3 * $default-padding;
+    transition: color $transition-duration $transition-easing;
+
+    &:hover {
+      text-decoration: none;
+      color: #000;
+      text-shadow: none;
+    }
+  }
+}
+
+body:not(.collapsed-menu) {
+
+  .subnavi_tab a {
+    padding-top: 1px;
+  }
+
+  .main_navi_entry.active {
+
+    .sub_navigation {
+      position: static;
+      visibility: visible;
+      opacity: 1;
+      width: auto;
+    }
+
+    .subnavi_tab {
+      line-height: 24px;
+
+      a {
+        padding: 8px 4px 8px 44px;
+      }
+    }
+  }
+}
+
+.sub_navigation {
+  position: absolute;
+  width: $main-menu-width;
+  left: $main-menu-width;
+  top: 0;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity $transition-duration $transition-easing;
+
+  .collapsed-menu & {
+    left: $collapsed-main-menu-width;
+  }
+}
+
+.subnavi_tab {
+
+  &:first-of-type {
+    border-left: 1px solid $main-menu-active-bg-color;
+    margin-left: -1px;
+  }
+
+  a {
+    padding-left: 4*$default-padding;
+    background-color: transparent;
+    transition: background-color $transition-duration $transition-easing;
+    @include truncate($main-menu-width, $display: block);
+
+    &:hover {
+      background-color: rgba(255,255,255,0.2);
+    }
+  }
+
+  &.active a {
+    font-weight: bold;
+    color: $main-menu-text-color;
+  }
+}
+
+.locked_page {
+  position: relative;
+  float: left;
+  line-height: $header-height - 1;
+  color: #444;
+  border-right: $default-border;
+  border-bottom: $default-border;
+  padding-right: 24px;
+
+  form {
+    position: absolute;
+    right: $default-padding;
+    top: 7px;
+    line-height: 1;
+  }
+
+  &:hover {
+    color: $text-color;
+    text-decoration: none;
+  }
+
+  > a {
+    cursor: pointer;
+    padding: 0px 8px;
+  }
+
+  .icon.close {
+    vertical-align: text-bottom;
+    text-shadow: $text-shadow-light;
+  }
+
+  .page_name {
+    margin-right: $default-margin;
+    text-shadow: $text-shadow-light;
+  }
+
+  .page_language {
+    display: inline-block;
+    color: $muted-text-color;
+    margin-right: 2px;
+    font-size: 10px;
+    text-transform: uppercase;
+  }
+
+  .page_site {
+    display: inline-block;
+    color: $muted-text-color;
+    margin-right: $default-margin;
+    font-size: 10px;
+  }
+}

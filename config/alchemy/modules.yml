@@ -8,10 +8,6 @@
     controller: 'alchemy/admin/dashboard'
     action: index
     image: 'alchemy/icon.svg'
-    sub_navigation:
-      - name: 'modules.dashboard'
-        controller: 'alchemy/admin/dashboard'
-        action: index
 
 - name: pages
   engine_name: alchemy
@@ -40,10 +36,6 @@
     controller: 'alchemy/admin/languages'
     action: index
     icon: languages
-    sub_navigation:
-      - name: 'modules.languages'
-        controller: 'alchemy/admin/languages'
-        action: index
 
 - name: sites
   engine_name: alchemy
@@ -53,10 +45,6 @@
     controller: 'alchemy/admin/sites'
     action: index
     icon: sites
-    sub_navigation:
-    - name: 'modules.sites'
-      controller: 'alchemy/admin/sites'
-      action: index
 
 - name: tags
   engine_name: alchemy
@@ -66,10 +54,6 @@
     controller: 'alchemy/admin/tags'
     action: index
     icon: tags
-    sub_navigation:
-    - name: 'modules.tags'
-      controller: 'alchemy/admin/tags'
-      action: index
 
 - name: archive
   engine_name: alchemy

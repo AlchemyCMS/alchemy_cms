@@ -1,12 +1,16 @@
 <% if can? *navigate_module(navigation) %>
-  <%= link_to url_for_module(alchemy_module), class: main_navigation_css_classes(navigation) do %>
-    <% if navigation["image"] %>
-    <%= image_tag(navigation["image"]) %>
-    <% elsif navigation["icon"] %>
-    <span class="module icon <%= navigation["icon"] %>"></span>
-    <% else %>
-    <span class="module icon"></span>
+  <%= content_tag :div, class: main_navigation_css_classes(navigation) do %>
+    <%= link_to url_for_module(alchemy_module) do %>
+      <% if navigation["image"] %>
+        <%= image_tag(navigation["image"]) %>
+      <% elsif navigation["icon"] %>
+        <span class="module icon <%= navigation["icon"] %>"></span>
+      <% else %>
+        <span class="module icon"></span>
+      <% end %>
+      <label><%= Alchemy.t(navigation['name']) %></label>
     <% end %>
-    <label><%= truncate Alchemy.t(navigation["name"]), length: 10 %></label>
+    <%= render 'alchemy/admin/partials/sub_navigation',
+      entries: navigation['sub_navigation'] %>
   <% end %>
 <% end %>
