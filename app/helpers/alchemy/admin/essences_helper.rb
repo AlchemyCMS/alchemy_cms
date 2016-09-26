@@ -56,41 +56,18 @@ module Alchemy
         render 'alchemy/admin/contents/missing', {element: element, name: name, options: options}
       end
 
-      def essence_picture_thumbnail(content, options)
-        ingredient = content.ingredient
+      # Renders a thumbnail for given EssencePicture content with correct cropping and size
+      def essence_picture_thumbnail(content, options = {})
+        picture = content.ingredient
         essence = content.essence
-        return if ingredient.blank?
 
-        crop = !(essence.crop_size.blank? && essence.crop_from.blank?) ||
-               (
-                 content.settings_value(:crop, options) == true ||
-                 content.settings_value(:crop, options) == "true"
-               )
-
-        size = if essence.render_size.blank?
-                 content.settings_value(:size, options)
-               else
-                 essence.render_size
-               end
-
-        image_options = {
-          size: essence.thumbnail_size(size, crop),
-          crop_from: essence.crop_from.blank? ? nil : essence.crop_from,
-          crop_size: essence.crop_size.blank? ? nil : essence.crop_size,
-          crop: crop ? 'crop' : nil,
-          upsample: content.settings_value(:upsample, options)
-        }
+        return if picture.nil?
 
         image_tag(
-          alchemy.thumbnail_path({
-            id: ingredient.id,
-            name: ingredient.urlname,
-            sh: ingredient.security_token(image_options),
-            format: ingredient.image_file_format
-          }.merge(image_options)),
-          alt: ingredient.name,
+          essence.thumbnail_url(options),
+          alt: picture.name,
           class: 'img_paddingtop',
-          title: Alchemy.t(:image_name) + ": #{ingredient.name}"
+          title: Alchemy.t(:image_name) + ": #{picture.name}"
         )
       end
 

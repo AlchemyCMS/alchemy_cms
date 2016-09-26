@@ -22,8 +22,11 @@ module Alchemy
     #
     #   <%= image_tag show_alchemy_picture_path(picture, size: '320x200', format: :png) %>
     #
+    # @deprecated Use Alchemy::Picture#url instead
+    #
     def show_alchemy_picture_path(picture, optional_params = {})
-      alchemy.show_picture_path(show_picture_path_params(picture, optional_params))
+      ActiveSupport::Deprecation.warn("`show_alchemy_picture_path` helper is deprecated and will be removed in Alchemy 4.0. Please use the `picture.url` method instead.")
+      picture.url(optional_params)
     end
 
     # This helper returns an url to picture for use inside a image_tag helper.
@@ -34,19 +37,11 @@ module Alchemy
     #
     #   <%= image_tag show_alchemy_picture_url(picture, size: '320x200', format: :png) %>
     #
+    # @deprecated Use Alchemy::Picture#url instead
+    #
     def show_alchemy_picture_url(picture, optional_params = {})
-      alchemy.show_picture_url(show_picture_path_params(picture, optional_params))
-    end
-
-    # Returns the correct params hash for passing to show_picture_path
-    def show_picture_path_params(picture, optional_params = {})
-      url_params = {
-        id: picture.id,
-        name: picture.urlname,
-        format: picture.default_render_format,
-        sh: picture.security_token(optional_params)
-      }
-      url_params.update(optional_params.update(crop: optional_params[:crop] ? 'crop' : nil))
+      ActiveSupport::Deprecation.warn("`show_alchemy_picture_url` helper is deprecated and will be removed in Alchemy 4.0. Please use the `picture.url` method instead.")
+      picture.url(optional_params)
     end
 
     # Returns the correct params-hash for passing to show_page_path

@@ -6,7 +6,7 @@
   <%= f.input :alt_tag %>
   <%- if @options[:sizes].present? -%>
     <%= f.input :render_size,
-      collection: [[Alchemy.t('Layout default'), @options[:image_size]]] + @options[:sizes].to_a,
+      collection: [[Alchemy.t('Layout default'), @options[:size]]] + @options[:sizes].to_a,
       include_blank: false,
       input_html: {class: 'alchemy_selectbox'} %>
   <%- end -%>

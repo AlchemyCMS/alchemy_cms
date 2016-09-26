@@ -98,47 +98,29 @@ describe Alchemy::Admin::EssencesHelper do
   end
 
   describe '#essence_picture_thumbnail' do
-    let(:content) { build_stubbed(:alchemy_content, essence: build_stubbed(:alchemy_essence_picture)) }
+    let(:essence) do
+      build_stubbed(:alchemy_essence_picture)
+    end
 
-    it "should return an image tag" do
-      expect(helper.essence_picture_thumbnail(content, {})).to have_selector('img[src]')
+    let(:content) do
+      build_stubbed(:alchemy_content, essence: essence)
+    end
+
+    before do
+      allow(essence).to receive(:content) { content }
+    end
+
+    it "should return an image tag with thumbnail url from essence" do
+      expect(essence).to receive(:thumbnail_url).and_call_original
+      expect(helper.essence_picture_thumbnail(content)).to \
+        have_selector("img[src].img_paddingtop")
     end
 
     context 'when given content has no ingredient' do
       before { allow(content).to receive(:ingredient).and_return(nil) }
 
       it "should return nil" do
-        expect(helper.essence_picture_thumbnail(content, {})).to eq(nil)
-      end
-    end
-
-    context 'when the picture given has a size of 140x169 and it should be cropped to 250x250' do
-      before do
-        allow(content.essence).to receive(:image_file_width).and_return(140)
-        allow(content.essence).to receive(:image_file_height).and_return(169)
-      end
-
-      it 'the thumbnail url should contain 77 and 93 as thumbnail width and height' do
-        expect(helper.essence_picture_thumbnail(content, {image_size: "250x250", crop: true})).to match(/77x93/)
-      end
-
-      it 'the thumbnail url should contain 77 and 93 as thumbnail width and height' do
-        expect(helper.essence_picture_thumbnail(content, {image_size: "250x250"})).to match(/77x93/)
-      end
-    end
-
-    context 'when the picture given has a size of 300x50 and it should be cropped/resized to 225x175' do
-      before do
-        allow(content.essence).to receive(:image_file_width).and_return(300)
-        allow(content.essence).to receive(:image_file_height).and_return(50)
-      end
-
-      it 'the thumbnail url should contain 111x25 as thumbnail width and height' do
-        expect(helper.essence_picture_thumbnail(content, { size: "225x175", crop: true})).to match(/111x25/)
-      end
-
-      it 'the thumbnail url should contain 111x19 as thumbnail width and height' do
-        expect(helper.essence_picture_thumbnail(content, { size: "225x175"})).to match(/111x19/)
+        expect(helper.essence_picture_thumbnail(content)).to eq(nil)
       end
     end
   end

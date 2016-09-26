@@ -4,7 +4,7 @@
     <div class="<%= @element_name %>_images">
       <%%- element.contents.gallery_pictures.each do |image| -%>
       <div class="<%= @element_name %>_image <%%= image.essence.css_class %>">
-        <%%= render_essence_view(image, image_size: '160x120') %>
+        <%%= render_essence_view(image, size: '160x120') %>
       </div>
       <%%- end -%>
     </div>

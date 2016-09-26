@@ -74,14 +74,15 @@ module Alchemy
         @content = Content.find(params[:content_id])
       end
 
-      # Gets the minimum size of the image to be rendered. the database render_size
-      # has preference over the image_size parameter.
+      # Gets the minimum size of the image to be rendered.
+      #
+      # The +render_size+ attribute has preference over the +size+ parameter.
       #
       def sizes_from_essence_or_params
-        if @essence_picture.render_size? && !@essence_picture.render_size.blank?
+        if @essence_picture.render_size?
           @essence_picture.sizes_from_string(@essence_picture.render_size)
-        elsif @options[:image_size]
-          @essence_picture.sizes_from_string(@options[:image_size])
+        elsif @options[:size]
+          @essence_picture.sizes_from_string(@options[:size])
         else
           { width: 0, height: 0 }
         end

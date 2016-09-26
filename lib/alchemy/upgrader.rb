@@ -4,6 +4,7 @@ module Alchemy
   class Upgrader < Alchemy::Seeder
     Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].each { |f| require f }
 
+    extend Alchemy::Upgrader::ThreePointFive
     extend Alchemy::Upgrader::ThreePointFour
     extend Alchemy::Upgrader::ThreePointThree
     extend Alchemy::Upgrader::ThreePointTwo

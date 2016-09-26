@@ -15,6 +15,13 @@ module Alchemy
     def initialize(content, options = {}, html_options = {})
       @content = content
       @options = DEFAULT_OPTIONS.merge(content.settings).merge(options)
+      if @options[:image_size].present?
+        ActiveSupport::Deprecation.warn(
+          "Passing `image_size` to EssencePicture is deprecated. Please use `size` instead.",
+          caller.unshift
+        )
+        @options[:size] = @options.delete(:image_size)
+      end
       @html_options = html_options
       @essence = content.essence
       @picture = essence.picture
@@ -49,7 +56,7 @@ module Alchemy
 
     def img_tag
       @_img_tag ||= image_tag(
-        essence.picture_url(options), {
+        essence.picture_url(options.except(*DEFAULT_OPTIONS.keys)), {
           alt: essence.alt_tag.presence,
           title: essence.title.presence,
           class: caption ? nil : essence.css_class.presence

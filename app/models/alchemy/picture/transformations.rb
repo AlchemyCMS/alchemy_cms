@@ -120,7 +120,7 @@ module Alchemy
     # Returns true if the class we're included in has a meaningful render_size attribute
     #
     def render_size?
-      respond_to?(:render_size) && !render_size.nil? && !render_size.empty?
+      respond_to?(:render_size) && render_size.present?
     end
 
     # Returns true if the class we're included in has a meaningful crop_size attribute

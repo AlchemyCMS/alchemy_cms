@@ -124,14 +124,6 @@ Alchemy::Engine.routes.draw do
   get '/attachment/:id/show' => 'attachments#show',
       as: :show_attachment
 
-  # Picture urls
-  get "/pictures/:id/show(/:size)(/:crop)(/:crop_from/:crop_size)(/:quality)/:name.:format" => 'pictures#show',
-      as: :show_picture
-  get '/pictures/:id/zoom/:name.:format' => 'pictures#zoom',
-      as: :zoom_picture
-  get "/pictures/:id/thumbnails(/:size)(/:crop)(/:crop_from/:crop_size)/:name.:format" => 'pictures#thumbnail',
-      as: :thumbnail, :defaults => {format: 'png', name: "thumbnail"}
-
   resources :messages, only: [:index, :new, :create]
   resources :elements, only: :show
   resources :contents, only: :show

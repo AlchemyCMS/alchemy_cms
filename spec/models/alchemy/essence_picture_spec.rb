@@ -32,112 +32,139 @@ module Alchemy
     end
 
     describe '#picture_url' do
-      subject { essence.picture_url(options) }
+      subject(:picture_url) { essence.picture_url(options) }
 
       let(:options) { {} }
-      let(:picture) { build_stubbed(:alchemy_picture) }
-      let(:essence) { build_stubbed(:alchemy_essence_picture, picture: picture) }
-
-      it "includes the secure hash." do
-        is_expected.to match(/\?sh=\S+\z/)
-      end
-
-      context 'with size in the options' do
-        let(:options) { {size: '200x300'} }
-
-        it "includes the size in the url." do
-          is_expected.to match(/200x300/)
-        end
-      end
+      let(:picture) { create(:alchemy_picture) }
+      let(:essence) { create(:alchemy_essence_picture, picture: picture) }
 
       context 'with no format in the options' do
         it "includes the image's default render format." do
-          is_expected.to match(/#{picture.default_render_format}/)
+          expect(picture_url).to match(/\.png/)
         end
       end
 
       context 'with format in the options' do
-        let(:options) { {format: 'png'} }
+        let(:options) { {format: 'gif'} }
 
         it "takes this as format." do
-          is_expected.to match(/png/)
+          expect(picture_url).to match(/\.gif/)
         end
       end
 
-      context 'when cropping is allowed' do
-        let(:options) { {crop: true} }
-
-        it 'converts the value `true` of the `crop` option into `crop` as part of the url' do
-          is_expected.to match /crop/
-          is_expected.not_to match /true/
-        end
-
-        context 'and crop sizes are set' do
-          before do
-            expect(essence).to receive(:crop_size).at_least(:once).and_return('200x200')
-            expect(essence).to receive(:crop_from).at_least(:once).and_return('10x10')
-          end
-
-          it "includes the crop sizes in the url." do
-            is_expected.to match(/200x200/)
-            is_expected.to match(/10x10/)
-          end
-
-          context 'but with crop sizes in the options' do
-            before do
-              options.update({crop_from: '30x30', crop_size: '75x75'})
-            end
-
-            it "includes these crop sizes instead." do
-              is_expected.to match(/30x30/)
-              is_expected.to match(/75x75/)
-            end
-          end
-        end
-      end
-
-      context 'when cropping is prohibited' do
+      context 'when crop sizes are present' do
         before do
-          expect(essence).not_to receive(:crop_size)
-          expect(essence).not_to receive(:crop_from)
+          expect(essence).to receive(:crop_size).and_return('200x200')
+          expect(essence).to receive(:crop_from).and_return('10x10')
         end
 
-        context 'without setting `crop` in the options' do
-          it "does not include `crop` in the url" do
-            is_expected.not_to match(/crop/)
+        it "passes these crop sizes to the picture's url method." do
+          expect(picture).to receive(:url).with(
+            hash_including(crop_from: '10x10', crop_size: '200x200')
+          )
+          picture_url
+        end
+
+        context 'but with crop sizes in the options' do
+          let(:options) do
+            {crop_from: '30x30', crop_size: '75x75'}
           end
-        end
 
-        context 'when `crop` is explicitly set to `false`' do
-          let(:options) { {crop: false} }
-
-          it "does not include `crop` in the url" do
-            is_expected.not_to match(/crop/)
+          it "passes these crop sizes instead." do
+            expect(picture).to receive(:url).with(
+              hash_including(crop_from: '30x30', crop_size: '75x75')
+            )
+            picture_url
           end
-        end
-
-        context 'even when crop sizes are set' do
-          it "does not include any cropping information in the url" do
-            is_expected.not_to match(/crop/)
-            is_expected.not_to match(/200x200/)
-            is_expected.not_to match(/10x10/)
-          end
-        end
-      end
-
-      context 'with `image_size` in the options' do
-        let(:options) { {image_size: '100x100'} }
-
-        it 'converts the key into `size`' do
-          is_expected.to match /100x100/
         end
       end
 
       context 'with other options' do
         let(:options) { {foo: 'baz'} }
 
-        it 'it removes them from params' do
-          is_expected.not_to match /foo/
+        it 'adds them to the url' do
+          expect(picture_url).to match /\?foo=baz/
+        end
+      end
+
+      context 'without picture assigned' do
+        let(:picture) { nil }
+
+        it { is_expected.to be_nil }
+      end
+    end
+
+    describe '#thumbnail_url' do
+      subject(:thumbnail_url) { essence.thumbnail_url(options) }
+
+      let(:options) { {} }
+
+      let(:picture) do
+        build_stubbed(:alchemy_picture)
+      end
+
+      let(:essence) do
+        build_stubbed(:alchemy_essence_picture, picture: picture)
+      end
+
+      let(:content) do
+        build_stubbed(:alchemy_content, essence: essence)
+      end
+
+      before do
+        allow(essence).to receive(:content) { content }
+      end
+
+      it "includes the image's original file format." do
+        expect(thumbnail_url).to match(/\.png/)
+      end
+
+      it "flattens the image." do
+        expect(picture).to receive(:url).with(hash_including(flatten: true))
+        thumbnail_url
+      end
+
+      context 'when crop sizes are present' do
+        before do
+          allow(essence).to receive(:crop_size).and_return('200x200')
+          allow(essence).to receive(:crop_from).and_return('10x10')
+        end
+
+        it "passes these crop sizes to the picture's url method." do
+          expect(picture).to receive(:url).with(
+            hash_including(crop_from: '10x10', crop_size: '200x200', crop: true)
+          )
+          thumbnail_url
+        end
+      end
+
+      context 'when no crop sizes are present' do
+        it "it does not pass crop sizes to the picture's url method and disables cropping." do
+          expect(picture).to receive(:url).with(
+            hash_including(crop_from: nil, crop_size: nil, crop: false)
+          )
+          thumbnail_url
+        end
+
+        context 'when crop is explicitely enabled in the options' do
+          let(:options) do
+            {crop: true}
+          end
+
+          it "it enables cropping." do
+            expect(picture).to receive(:url).with(
+              hash_including(crop: true)
+            )
+            thumbnail_url
+          end
+        end
+      end
+
+      context 'with other options' do
+        let(:options) { {foo: 'baz'} }
+
+        it 'drops them' do
+          expect(thumbnail_url).to_not match /\?foo=baz/
         end
       end
 
@@ -200,20 +227,25 @@ module Alchemy
       end
 
       it "returns the url to render the picture" do
-        expect(essence.serialized_ingredient).to eq("/pictures/#{picture.id}/show/#{picture.urlname}.jpg?sh=#{picture.security_token}")
+        expect(essence).to receive(:picture_url).with(content.settings)
+        essence.serialized_ingredient
       end
 
-      context 'with image settings given at content' do
+      context 'with image settings set as content settings' do
+        let(:settings) do
+          {
+            size: '150x150',
+            format: 'png'
+          }
+        end
+
         before do
-          expect(content).to receive(:settings).and_return({size: '150x150', format: 'png', select_values: [1, 2, 3]})
+          expect(content).to receive(:settings) { settings }
         end
 
         it "returns the url with cropping and resizing options" do
-          expect(essence.serialized_ingredient).to eq("/pictures/#{picture.id}/show/150x150/#{picture.urlname}.png?sh=#{picture.security_token}")
-        end
-
-        it "rejects options that are not cropping and resizing options" do
-          expect(essence.serialized_ingredient).to_not match("select_values")
+          expect(essence).to receive(:picture_url).with(settings)
+          essence.serialized_ingredient
         end
       end
     end

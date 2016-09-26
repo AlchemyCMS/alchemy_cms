@@ -2,12 +2,7 @@
   <% action_url = create_or_assign_url(picture_to_assign, @options.to_json) %>
   <%= link_to(
     image_tag(
-      alchemy.thumbnail_path(
-        id: picture_to_assign,
-        size: size,
-        sh: picture_to_assign.security_token(size: size),
-        format: picture_to_assign.image_file_format
-      ),
+      picture_to_assign.url(size: preview_size(size), flatten: true),
       alt: picture_to_assign.name
     ),
     action_url,

@@ -8,10 +8,7 @@
     <%= simple_format Alchemy.t(:explain_cropping) %>
   <% end %>
   <div class="thumbnail_background">
-    <%= image_tag(
-      show_alchemy_picture_path(@picture, size: '800x600', format: 'png'),
-      id: 'imageToCrop'
-    ) %>
+    <%= image_tag @picture.url(size: '800x600', flatten: true), id: 'imageToCrop' %>
   </div>
   <%= form_for(
     @essence_picture,

@@ -55,6 +55,10 @@ module Alchemy
         end
       end
 
+      def copy_dragonfly_config
+        template "#{current_path}/templates/dragonfly.rb.tt", "config/initializers/dragonfly.rb"
+      end
+
       private
 
       def config_path

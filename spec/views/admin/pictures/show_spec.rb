@@ -9,7 +9,7 @@ describe "alchemy/admin/pictures/show.html.erb" do
   end
 
   let(:picture) do
-    build_stubbed(:alchemy_picture, {
+    create(:alchemy_picture, {
       image_file: image,
       name: 'animated',
       image_file_name: 'animated.gif'
