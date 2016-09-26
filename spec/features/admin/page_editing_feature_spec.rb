@@ -31,9 +31,9 @@ describe 'Page editing feature' do
     context 'while editing a global page' do
       let(:a_page) { create(:alchemy_page, layoutpage: true) }
 
-      it 'cannot publish page.' do
+      it 'can publish page.' do
         visit alchemy.edit_admin_page_path(a_page)
-        expect(page).to_not have_selector('#publish_page_form')
+        expect(page).to have_selector('#publish_page_form')
       end
     end
   end
