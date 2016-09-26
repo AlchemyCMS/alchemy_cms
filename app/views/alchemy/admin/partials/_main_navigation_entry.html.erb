@@ -8,7 +8,7 @@
       <% else %>
         <span class="module icon"></span>
       <% end %>
-      <label><%= truncate Alchemy.t(navigation["name"]), length: 10 %></label>
+      <label><%= Alchemy.t(navigation['name']) %></label>
     <% end %>
     <%= render 'alchemy/admin/partials/sub_navigation',
       entries: navigation['sub_navigation'] %>

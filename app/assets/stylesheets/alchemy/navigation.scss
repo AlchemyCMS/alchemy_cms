@@ -60,8 +60,10 @@
   }
 
   label {
+    vertical-align: middle;
     padding-left: $default-padding;
     cursor: pointer;
+    @include truncate($main-menu-entry-max-width);
   }
 
   a {
@@ -69,13 +71,11 @@
   }
 
   img, .module.icon {
-    position: relative;
-    top: 2*$default-padding;
     border-style: none;
     height: 24px;
     width: 24px;
     display: inline-block;
-    vertical-align: baseline;
+    vertical-align: middle;
   }
 }
 
@@ -126,20 +126,27 @@
   }
 }
 
-body:not(.collapsed-menu) .main_navi_entry.active {
+body:not(.collapsed-menu) {
 
-  .sub_navigation {
-    position: static;
-    visibility: visible;
-    opacity: 1;
-    width: auto;
+  .subnavi_tab a {
+    padding-top: 1px;
   }
 
-  .subnavi_tab {
-    line-height: 24px;
+  .main_navi_entry.active {
 
-    a {
-      padding: 8px 4px 8px 44px;
+    .sub_navigation {
+      position: static;
+      visibility: visible;
+      opacity: 1;
+      width: auto;
+    }
+
+    .subnavi_tab {
+      line-height: 24px;
+
+      a {
+        padding: 8px 4px 8px 44px;
+      }
     }
   }
 }
@@ -169,6 +176,7 @@ body:not(.collapsed-menu) .main_navi_entry.active {
     padding-left: 4*$default-padding;
     background-color: transparent;
     transition: background-color $transition-duration $transition-easing;
+    @include truncate($main-menu-width, $display: block);
 
     &:hover {
       background-color: rgba(255,255,255,0.2);
