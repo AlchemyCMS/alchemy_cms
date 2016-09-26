@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.4.2 (unreleased)
+
+__Notable Changes__
+
+* Allow users to manually publish changes on global pages
+
 ## 3.4.1 (2016-08-31)
 
 __Fixed Bugs__
