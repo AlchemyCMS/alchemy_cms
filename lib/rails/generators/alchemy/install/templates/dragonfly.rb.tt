@@ -1,5 +1,11 @@
 # AlchemyCMS Dragonfly configuration.
 #
+# Consider using some kind of caching solution for image processing.
+# For small projects, we have good experience with Rack::Cache.
+#
+# Larger installations should consider using a CDN, start reading
+# http://markevans.github.io/dragonfly/cache/
+#
 # A complete reference can be found at
 # http://markevans.github.io/dragonfly/configuration/
 #
@@ -10,26 +16,12 @@ Dragonfly.app(:alchemy_pictures).configure do
   plugin :imagemagick
   plugin :svg
   secret '<%= SecureRandom.hex(32) %>'
-  url_format '/pictures/:id/:job/:name.:ext'
+  url_format '/pictures/:job/:name.:ext'
 
   datastore :file,
     root_path: Rails.root.join('uploads/pictures').to_s,
     server_root: Rails.root.join('public'),
     store_meta: false
-
-  # If caching is enabled in host app, we store the rendered
-  # image into `public/pictures`, so the webserver can pick it up
-  # and serve it directly to the client.
-  #
-  # Please feel free to change this to fit your needs:
-  # http://markevans.github.io/dragonfly/cache/
-  #
-  before_serve do |job, env|
-    if Rails.application.config.action_controller.perform_caching
-      path = env['PATH_INFO'].sub(/^\//, '')
-      job.to_file(Rails.root.join('public', Alchemy::MountPoint.get, Rack::Utils.unescape(path)))
-    end
-  end
 end
 
 # Mount as middleware
