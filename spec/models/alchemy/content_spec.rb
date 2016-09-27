@@ -108,15 +108,16 @@ module Alchemy
       it "should create a new record with all attributes of source except given differences" do
         copy = Content.copy(content, {name: 'foobar', element_id: new_element.id})
         expect(copy.name).to eq('foobar')
+        expect(copy.element_id).to eq(new_element.id)
       end
 
       it "should make a new record for essence of source" do
-        copy = Content.copy(content, {element_id: new_element.id})
+        copy = Content.copy(content)
         expect(copy.essence_id).not_to eq(content.essence_id)
       end
 
       it "should copy source essence attributes" do
-        copy = Content.copy(content, {element_id: new_element.id})
+        copy = Content.copy(content)
         copy.essence.body == content.essence.body
       end
     end

@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(version: 20160927205604) do
 
   create_table "alchemy_contents", force: :cascade do |t|
     t.string   "name"
-    t.string   "essence_type"
-    t.integer  "essence_id"
+    t.string   "essence_type", null: false
+    t.integer  "essence_id",   null: false
     t.integer  "element_id",   null: false
     t.integer  "position"
     t.datetime "created_at",   null: false
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 20160927205604) do
   end
 
   add_index "alchemy_contents", ["element_id", "position"], name: "index_contents_on_element_id_and_position"
+  add_index "alchemy_contents", ["essence_id", "essence_type"], name: "index_alchemy_contents_on_essence_id_and_essence_type", unique: true
 
   create_table "alchemy_elements", force: :cascade do |t|
     t.string   "name"

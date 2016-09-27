@@ -23,7 +23,7 @@ module Alchemy
     # Concerns
     include Alchemy::Content::Factory
 
-    belongs_to :essence, polymorphic: true, dependent: :destroy
+    belongs_to :essence, required: true, polymorphic: true, dependent: :destroy
     belongs_to :element, required: true, touch: true
     has_one :page, through: :element
 
