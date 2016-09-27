@@ -4,7 +4,37 @@
   height: 29px;
 }
 
-.search_field_clear, .js_filter_field_clear {
+.search_field .icon,
+.js_filter_field_box .icon {
+  position: absolute;
+  left: 8px;
+  top: 8px;
+}
+
+.js_filter_field_box {
+  position: absolute;
+  right: 4px;
+  top: 8px;
+
+  .js_filter_field {
+    width: 220px;
+    text-align: left;
+    border-radius: $default-border-radius;
+    padding: 3px 24px 3px 28px;
+    height: 29px;
+    margin: 0;
+  }
+
+  label {
+    font-size: 10px;
+    display: block;
+    text-align: center;
+    padding-top: 3px;
+  }
+}
+
+.search_field_clear,
+.js_filter_field_clear {
   display: none;
   width: 16px;
   height: 16px;
@@ -69,5 +99,46 @@
 
   .js_filter_field_clear {
     right: 4px;
+  }
+}
+
+#toolbar,
+#overlay_toolbar {
+
+  .search_form,
+  .js_filter_field_box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 45px;
+  }
+
+  .search_field {
+    height: inherit;
+  }
+
+  .search_input_field {
+    width: 150px;
+    height: inherit;
+    border: none;
+    background-color: rgba(255, 255, 255, 0.5);
+    transition: width $transition-duration ease-in-out;
+    border-radius: 0;
+    padding: 8px 16px 8px 32px;
+    margin: 0;
+    text-align: left;
+    box-shadow: none;
+    -webkit-appearance: none;
+
+    &:focus {
+      width: 250px;
+    }
+  }
+
+  .search_field .icon,
+  .js_filter_field_box .icon,
+  .search_field_clear,
+  .js_filter_field_clear {
+    top: 16px;
   }
 }

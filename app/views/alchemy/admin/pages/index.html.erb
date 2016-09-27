@@ -45,9 +45,9 @@
 </div>
 <div class="js_filter_field_box">
   <%= text_field_tag 'filter', '',
-    class: 'thin_border js_filter_field',
-    id: 'search_field',
-    placeholder: Alchemy.t(:search) %>
+    class: 'thin_border js_filter_field search_input_field',
+    placeholder: Alchemy.t(:search),
+    id: nil %>
   <%= render_icon :search %>
   <%= link_to('', '#', {
     class: "js_filter_field_clear",
