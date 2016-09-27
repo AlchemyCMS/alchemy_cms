@@ -68,7 +68,7 @@ module Alchemy
       foreign_key: :parent_element_id,
       dependent: :destroy
 
-    belongs_to :cell
+    belongs_to :cell, required: false
     belongs_to :page
 
     # A nested element belongs to a parent element.

@@ -68,6 +68,7 @@ ActiveRecord::Schema.define(version: 20160927205604) do
     t.integer  "parent_element_id"
   end
 
+  add_index "alchemy_elements", ["cell_id"], name: "index_alchemy_elements_on_cell_id"
   add_index "alchemy_elements", ["page_id", "parent_element_id"], name: "index_alchemy_elements_on_page_id_and_parent_element_id"
   add_index "alchemy_elements", ["page_id", "position"], name: "index_elements_on_page_id_and_position"
 
