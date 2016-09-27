@@ -24,7 +24,7 @@ module Alchemy
     include Alchemy::Content::Factory
 
     belongs_to :essence, polymorphic: true, dependent: :destroy
-    belongs_to :element, touch: true
+    belongs_to :element, required: true, touch: true
     has_one :page, through: :element
 
     stampable stamper_class_name: Alchemy.user_class_name

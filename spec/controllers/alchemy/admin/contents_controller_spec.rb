@@ -29,8 +29,18 @@ module Alchemy
       end
 
       context 'inside a picture gallery' do
+        let(:element) { create(:alchemy_element) }
+
         let(:attributes) do
-          {content: {element_id: element.id, essence_type: 'Alchemy::EssencePicture'}, options: {grouped: 'true'}}
+          {
+            content: {
+              element_id: element.id,
+              essence_type: 'Alchemy::EssencePicture'
+            },
+            options: {
+              grouped: 'true'
+            }
+          }
         end
 
         it "adds it into the gallery editor" do

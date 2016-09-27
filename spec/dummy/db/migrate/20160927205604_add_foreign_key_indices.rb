@@ -1,0 +1,1 @@
+../../../../db/migrate/20160927205604_add_foreign_key_indices.rb
