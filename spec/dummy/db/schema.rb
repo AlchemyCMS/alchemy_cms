@@ -201,7 +201,7 @@ ActiveRecord::Schema.define(version: 20160927205604) do
     t.integer  "updater_id"
     t.boolean  "default",        default: false
     t.string   "country_code",   default: "",      null: false
-    t.integer  "site_id"
+    t.integer  "site_id",                          null: false
     t.string   "locale"
   end
 
