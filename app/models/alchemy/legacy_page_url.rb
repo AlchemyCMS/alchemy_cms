@@ -10,10 +10,10 @@
 #
 
 class Alchemy::LegacyPageUrl < ActiveRecord::Base
-  belongs_to :page, class_name: 'Alchemy::Page'
+  belongs_to :page,
+    class_name: 'Alchemy::Page',
+    required: true
 
-  validates :page_id,
-    presence: true
   validates :urlname,
     presence: true,
     format: {with: /\A[:\.\w\-+_\/\?&%;=]*\z/}

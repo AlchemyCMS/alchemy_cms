@@ -15,5 +15,6 @@ class AddForeignKeyIndicesAndNullConstraints < ActiveRecord::Migration
     add_index :alchemy_essence_files, :attachment_id
     add_index :alchemy_essence_pictures, :picture_id
     add_index :alchemy_folded_pages, [:page_id, :user_id], unique: true
+    add_index :alchemy_legacy_page_urls, :page_id
   end
 end

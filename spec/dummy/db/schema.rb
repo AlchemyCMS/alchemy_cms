@@ -216,6 +216,7 @@ ActiveRecord::Schema.define(version: 20160927205604) do
     t.datetime "updated_at", null: false
   end
 
+  add_index "alchemy_legacy_page_urls", ["page_id"], name: "index_alchemy_legacy_page_urls_on_page_id"
   add_index "alchemy_legacy_page_urls", ["urlname"], name: "index_alchemy_legacy_page_urls_on_urlname"
 
   create_table "alchemy_pages", force: :cascade do |t|
