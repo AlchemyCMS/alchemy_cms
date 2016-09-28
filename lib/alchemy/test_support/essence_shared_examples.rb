@@ -6,6 +6,8 @@ shared_examples_for "an essence" do
   let(:content_definition) { {'name' => 'foo'} }
 
   it "touches the content after update" do
+    element = create(:alchemy_element)
+    content = create(:alchemy_content, element: element)
     essence.save
     content.update(essence: essence, essence_type: essence.class.name)
     date = content.updated_at

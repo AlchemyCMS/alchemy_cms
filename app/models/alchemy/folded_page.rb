@@ -10,7 +10,8 @@
 
 module Alchemy
   class FoldedPage < ActiveRecord::Base
-    belongs_to :page
-    belongs_to :user, class_name: Alchemy.user_class_name
+    belongs_to :page, required: true
+    belongs_to :user, required: true,
+      class_name: Alchemy.user_class_name
   end
 end

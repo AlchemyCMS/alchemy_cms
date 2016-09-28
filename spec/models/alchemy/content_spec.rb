@@ -91,24 +91,34 @@ module Alchemy
     end
 
     describe '.copy' do
-      before(:each) do
-        @element = create(:alchemy_element, name: 'text', create_contents_after_create: true)
-        @content = @element.contents.first
+      let(:element) do
+        create :alchemy_element,
+          name: 'text',
+          create_contents_after_create: true
+      end
+
+      let(:new_element) do
+        create(:alchemy_element, name: 'text')
+      end
+
+      let(:content) do
+        element.contents.first
       end
 
       it "should create a new record with all attributes of source except given differences" do
-        copy = Content.copy(@content, {name: 'foobar', element_id: @element.id + 1})
+        copy = Content.copy(content, {name: 'foobar', element_id: new_element.id})
         expect(copy.name).to eq('foobar')
+        expect(copy.element_id).to eq(new_element.id)
       end
 
       it "should make a new record for essence of source" do
-        copy = Content.copy(@content, {element_id: @element.id + 1})
-        expect(copy.essence_id).not_to eq(@content.essence_id)
+        copy = Content.copy(content)
+        expect(copy.essence_id).not_to eq(content.essence_id)
       end
 
       it "should copy source essence attributes" do
-        copy = Content.copy(@content, {element_id: @element.id + 1})
-        copy.essence.body == @content.essence.body
+        copy = Content.copy(content)
+        copy.essence.body == content.essence.body
       end
     end
 

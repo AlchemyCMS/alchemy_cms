@@ -87,7 +87,7 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    belongs_to :language
+    belongs_to :language, required: false
 
     has_one :site, through: :language
     has_many :site_languages, through: :site, source: :languages
@@ -336,7 +336,7 @@ module Alchemy
     def fold!(user_id, status)
       folded_page = folded_pages.find_or_create_by(user_id: user_id)
       folded_page.folded = status
-      folded_page.save
+      folded_page.save!
     end
 
     def set_restrictions_to_child_pages

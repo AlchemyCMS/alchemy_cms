@@ -38,23 +38,26 @@ module Alchemy
         content
       end
 
-      # Makes a copy of source and also copies the associated essence.
+      # Creates a copy of source and also copies the associated essence.
       #
       # You can pass a differences hash to update the attributes of the copy.
       #
       # === Example
       #
-      #   @copy = Alchemy::Content.copy(@content, {:element_id => 3})
+      #   @copy = Alchemy::Content.copy(@content, {element_id: 3})
       #   @copy.element_id # => 3
       #
       def copy(source, differences = {})
-        attributes = source.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY).merge(differences.stringify_keys)
-        content = create!(attributes)
-        new_essence = content.essence.class.new(content.essence.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY))
-        new_essence.save!
-        raise "Essence not cloned" if new_essence.id == content.essence_id
-        content.update_attributes(essence_id: new_essence.id)
-        content
+        new_content = Content.new(
+          source.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY).merge(differences.stringify_keys)
+        )
+
+        new_essence = new_content.essence.class.create!(
+          new_content.essence.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY)
+        )
+
+        new_content.update!(essence_id: new_essence.id)
+        new_content
       end
 
       # Returns the content definition for building a content.

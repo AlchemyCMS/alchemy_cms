@@ -6,5 +6,6 @@ FactoryGirl.define do
     name "text"
     essence_type "Alchemy::EssenceText"
     association :essence, factory: :alchemy_essence_text
+    association :element, factory: :alchemy_element
   end
 end

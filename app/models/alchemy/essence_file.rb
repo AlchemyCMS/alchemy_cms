@@ -15,7 +15,7 @@
 
 module Alchemy
   class EssenceFile < ActiveRecord::Base
-    belongs_to :attachment
+    belongs_to :attachment, required: false
     acts_as_essence ingredient_column: 'attachment'
 
     def attachment_url

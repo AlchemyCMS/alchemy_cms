@@ -91,6 +91,7 @@ module Alchemy
       end
 
       describe '#tree' do
+        let(:user)   { create(:alchemy_dummy_user, :as_editor) }
         let(:page_1) { create(:alchemy_page, visible: true, name: 'one') }
         let(:page_2) { create(:alchemy_page, visible: true, name: 'two', parent_id: page_1.id) }
         let(:page_3) { create(:alchemy_page, visible: true, name: 'three', parent_id: page_2.id) }
