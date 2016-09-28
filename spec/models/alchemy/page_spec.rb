@@ -1299,7 +1299,7 @@ module Alchemy
     end
 
     context 'folding' do
-      let(:user) { mock_model('DummyUser') }
+      let(:user) { create(:alchemy_dummy_user) }
 
       describe '#fold!' do
         context "with folded status set to true" do
@@ -1315,7 +1315,7 @@ module Alchemy
 
         context 'with user is a active record model' do
           before do
-            expect(Alchemy.user_class).to receive(:'<').and_return(true)
+            allow(Alchemy.user_class).to receive(:'<').and_return(true)
           end
 
           context 'if page is folded' do

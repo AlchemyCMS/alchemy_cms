@@ -182,10 +182,12 @@ ActiveRecord::Schema.define(version: 20160927205604) do
   end
 
   create_table "alchemy_folded_pages", force: :cascade do |t|
-    t.integer "page_id"
-    t.integer "user_id"
+    t.integer "page_id",                 null: false
+    t.integer "user_id",                 null: false
     t.boolean "folded",  default: false
   end
+
+  add_index "alchemy_folded_pages", ["page_id", "user_id"], name: "index_alchemy_folded_pages_on_page_id_and_user_id", unique: true
 
   create_table "alchemy_languages", force: :cascade do |t|
     t.string   "name"
