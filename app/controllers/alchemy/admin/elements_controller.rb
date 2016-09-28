@@ -20,6 +20,11 @@ module Alchemy
           @page_id = Language.current.pages.find_by(urlname: params[:page_urlname]).id
         end
         @elements = Element.published.where(page_id: @page_id)
+
+        respond_to do |format|
+          format.html {}
+          format.json { render json: @elements, each_serializer: Alchemy::ElementSerializer }
+        end
       end
 
       def new

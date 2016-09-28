@@ -226,13 +226,42 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   # Populates the internal anchors select
   initInternalAnchors: ->
     frame = document.getElementById('alchemy_preview_window')
-    elements = frame.contentDocument.getElementsByTagName('*')
-    if elements.length > 0
-      for element in elements
-        if element.id
-          @$internal_anchor.append("<option value='#{element.id}'>##{element.id}</option>")
-    else
-      @$internal_anchor.html("<option>#{Alchemy.t('No anchors found')}</option>")
+    pagePathname = frame.src.match(/pages\/(\d{1,})\/?/)
+    self = @
+    if pagePathname != null
+      pageId = pagePathname.slice(-1)[0]
+      $.ajax({
+        url: '/admin/elements/list.json?page_id=' + pageId
+      }).done (elements) ->
+          if $('iframe#alchemy_preview_window').contents().find("[id]").size() > 0
+            $elementsGroup = $('<optgroup label="Page Elements"></optgroup')
+            $anchorsGroup = $('<optgroup label="Page Anchors"></optgroup')
+
+            elements_ids = $('iframe#alchemy_preview_window').contents().find("[data-alchemy-element]").map( (_, element) ->
+              alchemyElement = $.grep elements.elements, (_alchemyElement) ->
+                _alchemyElement.id == parseInt(element.dataset.alchemyElement)
+
+              if alchemyElement.length > 0
+                $elementsGroup.append("<option value='#{element.id}'>#{alchemyElement[0].name} ##{element.id}</option>")
+                return element.id
+            ).toArray()
+
+            self.$internal_anchor.append($elementsGroup)
+
+            $('iframe#alchemy_preview_window').contents().find("[id]").map (_, element) ->
+              if !elements_ids.includes(element.id)
+                $anchorsGroup.append("<option value='#{element.id}'>##{element.id}</option>")
+
+            self.$internal_anchor.append($anchorsGroup)
+            self.$internal_anchor.select2('val', '')
+          else
+            self.$internal_anchor.html("<option>#{Alchemy.t('No anchors found')}</option>")
+
+        .fail () ->
+          $('iframe#alchemy_preview_window').contents().find("[id]").map (_, element) ->
+            $self.$internal_anchor.append()
+
+
     @$internal_anchor.change (e) =>
       # deselect any selected page from page tree
       @deselectPage()
