@@ -8,6 +8,7 @@ class AddForeignKeyIndices < ActiveRecord::Migration
     change_column_null :alchemy_contents, :essence_type, false, 'Alchemy::EssenceText'
     add_index :alchemy_contents, [:essence_id, :essence_type], unique: true
 
+    change_column_null :alchemy_elements, :page_id, false, 0
     add_index :alchemy_elements, :cell_id
   end
 end

@@ -55,7 +55,7 @@ ActiveRecord::Schema.define(version: 20160927205604) do
   create_table "alchemy_elements", force: :cascade do |t|
     t.string   "name"
     t.integer  "position"
-    t.integer  "page_id"
+    t.integer  "page_id",                           null: false
     t.boolean  "public",            default: true
     t.boolean  "folded",            default: false
     t.boolean  "unique",            default: false

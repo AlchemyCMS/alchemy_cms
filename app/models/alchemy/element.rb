@@ -69,7 +69,7 @@ module Alchemy
       dependent: :destroy
 
     belongs_to :cell, required: false
-    belongs_to :page
+    belongs_to :page, required: true
 
     # A nested element belongs to a parent element.
     belongs_to :parent_element, class_name: 'Alchemy::Element', touch: true

@@ -971,15 +971,15 @@ module Alchemy
       end
 
       let!(:element_1) do
-        create(:alchemy_element, page_id: page.id)
+        create(:alchemy_element, page: page)
       end
 
       let!(:element_2) do
-        create(:alchemy_element, :with_nestable_elements, page_id: page.id, parent_element_id: element_1.id)
+        create(:alchemy_element, :with_nestable_elements, page: page, parent_element_id: element_1.id)
       end
 
       let!(:element_3) do
-        create(:alchemy_element, page_id: page.id)
+        create(:alchemy_element, page: page)
       end
 
       it 'returns an active record collection of all elements including nested elements on that page' do
@@ -993,20 +993,25 @@ module Alchemy
       end
 
       let!(:element_1) do
-        create(:alchemy_element, :with_nestable_elements, :with_contents, name: 'slider', page_id: page.id)
+        create :alchemy_element,
+          :with_nestable_elements,
+          :with_contents, {
+            name: 'slider',
+            page: page
+          }
       end
 
       let!(:element_2) do
         create :alchemy_element,
           :with_contents, {
             name: 'slide',
-            page_id: page.id,
+            page: page,
             parent_element_id: element_1.id
           }
       end
 
       let!(:element_3) do
-        create(:alchemy_element, :with_contents, name: 'slide', page_id: page.id)
+        create(:alchemy_element, :with_contents, name: 'slide', page: page)
       end
 
       it 'returns an active record collection of all content including nested elements on that page' do

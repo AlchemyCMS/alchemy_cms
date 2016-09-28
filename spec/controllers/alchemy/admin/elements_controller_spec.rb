@@ -3,8 +3,8 @@ require 'spec_helper'
 module Alchemy
   describe Admin::ElementsController do
     let(:alchemy_page)         { create(:alchemy_page) }
-    let(:element)              { create(:alchemy_element, page_id: alchemy_page.id) }
-    let(:element_in_clipboard) { create(:alchemy_element, page_id: alchemy_page.id) }
+    let(:element)              { create(:alchemy_element, page: alchemy_page) }
+    let(:element_in_clipboard) { create(:alchemy_element, page: alchemy_page) }
     let(:clipboard)            { session[:alchemy_clipboard] = {} }
 
     before { authorize_user(:as_author) }
@@ -70,19 +70,20 @@ module Alchemy
 
     describe '#order' do
       let(:element_1)   { create(:alchemy_element) }
-      let(:element_2)   { create(:alchemy_element) }
-      let(:element_3)   { create(:alchemy_element) }
+      let(:element_2)   { create(:alchemy_element, page: page) }
+      let(:element_3)   { create(:alchemy_element, page: page) }
       let(:element_ids) { [element_1.id, element_3.id, element_2.id] }
+      let(:page)        { element_1.page }
 
       it "sets new position for given element ids" do
-        alchemy_xhr :post, :order, element_ids: element_ids
+        alchemy_xhr :post, :order, page_id: page.id, element_ids: element_ids
         expect(Element.all.pluck(:id)).to eq(element_ids)
       end
 
       context 'with missing [:element_ids] param' do
         it 'does not raise any error and silently rejects to order' do
           expect {
-            alchemy_xhr :post, :order
+            alchemy_xhr :post, :order, page_id: page.id
           }.to_not raise_error
         end
       end
@@ -93,11 +94,17 @@ module Alchemy
         it 'touches the cache key of parent element' do
           expect(Element).to receive(:find_by) { parent }
           expect(parent).to receive(:touch) { true }
-          alchemy_xhr :post, :order, element_ids: element_ids, parent_element_id: parent.id
+          alchemy_xhr :post, :order,
+            page_id: page.id,
+            element_ids: element_ids,
+            parent_element_id: parent.id
         end
 
         it 'assigns parent element id to each element' do
-          alchemy_xhr :post, :order, element_ids: element_ids, parent_element_id: parent.id
+          alchemy_xhr :post, :order,
+            page_id: page.id,
+            element_ids: element_ids,
+            parent_element_id: parent.id
           [element_1, element_2, element_3].each do |element|
             expect(element.reload.parent_element_id).to eq parent.id
           end
@@ -105,20 +112,21 @@ module Alchemy
       end
 
       context "untrashing" do
-        let(:trashed_element) { create(:alchemy_element, public: false, position: nil, page_id: 58, cell_id: 32) }
+        let(:trashed_element) { create(:alchemy_element) }
 
         before do
-          # Because of a before_create filter it can not be created with a nil position and needs to be trashed here
+          # Because of a before_create filter it can not be created with a nil position
+          # and needs to be trashed here
           trashed_element.trash!
         end
 
         it "sets a list of trashed element ids" do
-          alchemy_xhr :post, :order, element_ids: [trashed_element.id]
+          alchemy_xhr :post, :order, page_id: page.id, element_ids: [trashed_element.id]
           expect(assigns(:trashed_element_ids).to_a).to eq [trashed_element.id]
         end
 
         it "sets a new position to the element" do
-          alchemy_xhr :post, :order, element_ids: [trashed_element.id]
+          alchemy_xhr :post, :order, page_id: page.id, element_ids: [trashed_element.id]
           trashed_element.reload
           expect(trashed_element.position).to_not be_nil
         end
@@ -150,6 +158,7 @@ module Alchemy
       end
 
       context "with elements in clipboard" do
+        let(:element) { build_stubbed(:alchemy_element) }
         let(:clipboard_items) { [{'id' => element.id.to_s, 'action' => 'copy'}] }
 
         before { clipboard['elements'] = clipboard_items }

@@ -11,7 +11,8 @@ module Alchemy
     describe '.new_from_scratch' do
       it "should initialize an element by name from scratch" do
         el = Element.new_from_scratch(name: 'article')
-        expect(el).to be_valid
+        expect(el).to be_an(Alchemy::Element)
+        expect(el.name).to eq('article')
       end
 
       it "should raise an error if the given name is not defined in the elements.yml" do
@@ -204,7 +205,7 @@ module Alchemy
     end
 
     context 'trash' do
-      let(:element) { create(:alchemy_element, page_id: 1) }
+      let(:element) { create(:alchemy_element) }
 
       describe '.not_trashed' do
         before { element }
@@ -688,22 +689,30 @@ module Alchemy
     end
 
     describe '#trash!' do
-      let(:element)         { create(:alchemy_element, page_id: 1, cell_id: 1) }
-      let(:trashed_element) { element.trash!; element }
-      subject               { trashed_element }
+      let(:element) { create(:alchemy_element) }
 
-      it             { is_expected.not_to be_public }
-      it             { is_expected.to be_folded }
+      let(:trashed_element) do
+        element.trash!
+        element
+      end
+
+      subject { trashed_element }
+
+      it { is_expected.not_to be_public }
+      it { is_expected.to be_folded }
 
       describe '#position' do
         subject { super().position }
         it { is_expected.to be_nil }
       end
-      specify        { expect { element.trash! }.to_not change(element, :page_id) }
-      specify        { expect { element.trash! }.to_not change(element, :cell_id) }
+
+      specify { expect { element.trash! }.to_not change(element, :page_id) }
+      specify { expect { element.trash! }.to_not change(element, :cell_id) }
 
       context "with already one trashed element on the same page" do
-        let(:element_2) { create(:alchemy_element, page_id: 1) }
+        let(:element_2) do
+          create(:alchemy_element, page: trashed_element.page)
+        end
 
         before do
           trashed_element
