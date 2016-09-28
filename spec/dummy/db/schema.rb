@@ -146,6 +146,8 @@ ActiveRecord::Schema.define(version: 20160927205604) do
     t.string   "render_size"
   end
 
+  add_index "alchemy_essence_pictures", ["picture_id"], name: "index_alchemy_essence_pictures_on_picture_id"
+
   create_table "alchemy_essence_richtexts", force: :cascade do |t|
     t.text     "body"
     t.text     "stripped_body"

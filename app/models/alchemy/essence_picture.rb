@@ -25,7 +25,7 @@ module Alchemy
   class EssencePicture < ActiveRecord::Base
     acts_as_essence ingredient_column: 'picture'
 
-    belongs_to :picture
+    belongs_to :picture, required: false
     delegate :image_file_width, :image_file_height, :image_file, to: :picture
     before_save :fix_crop_values
     before_save :replace_newlines
