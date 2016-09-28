@@ -106,6 +106,8 @@ ActiveRecord::Schema.define(version: 20160927205604) do
     t.string   "link_text"
   end
 
+  add_index "alchemy_essence_files", ["attachment_id"], name: "index_alchemy_essence_files_on_attachment_id"
+
   create_table "alchemy_essence_htmls", force: :cascade do |t|
     t.text     "source"
     t.integer  "creator_id"

@@ -10,5 +10,7 @@ class AddForeignKeyIndices < ActiveRecord::Migration
 
     change_column_null :alchemy_elements, :page_id, false, 0
     add_index :alchemy_elements, :cell_id
+
+    add_index :alchemy_essence_files, :attachment_id
   end
 end
