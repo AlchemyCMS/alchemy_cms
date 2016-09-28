@@ -40,7 +40,7 @@ namespace :alchemy do
   namespace :spec do
     desc "Prepares database for testing Alchemy"
     task :prepare do
-      system 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:setup && cd -'
+      system 'cd spec/dummy && RAILS_ENV=test bundle exec rake db:drop db:create db:migrate:reset && cd -'
     end
   end
 end
