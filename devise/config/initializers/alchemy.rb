@@ -10,12 +10,7 @@ Alchemy::Modules.register_module({
     name: 'modules.users',
     controller: 'alchemy/admin/users',
     action: 'index',
-    icon: 'users',
-    sub_navigation: [{
-      name: 'modules.users',
-      controller: 'alchemy/admin/users',
-      action: 'index'
-    }]
+    icon: 'users'
   }
 })
 
