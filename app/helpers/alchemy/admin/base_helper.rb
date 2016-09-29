@@ -58,7 +58,7 @@ module Alchemy
 
       # Used for translations selector in Alchemy cockpit user settings.
       def translations_for_select
-        Alchemy::I18n.available_locales.map do |locale|
+        Alchemy::I18n.available_locales.sort.map do |locale|
           [Alchemy.t(locale, scope: :translations), locale]
         end
       end
