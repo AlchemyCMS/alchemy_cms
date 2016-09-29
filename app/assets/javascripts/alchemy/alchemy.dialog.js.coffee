@@ -47,6 +47,7 @@ class window.Alchemy.Dialog
 
   # Closes the Dialog and removes it from the DOM
   close: ->
+    @dialog.trigger 'DialogClose.Alchemy'
     @$document.off 'keydown'
     @dialog_container.removeClass('open')
     @overlay.removeClass('open') if @overlay?
