@@ -1,0 +1,45 @@
+.resource_info {
+
+  h2 {
+    @include form-heading;
+  }
+
+  .value {
+    overflow: hidden;
+    position: relative;
+
+    > label {
+      @include form-label;
+    }
+
+    > p {
+      @include form-value-display;
+      @include truncate($form-right-width);
+    }
+
+    &.with-icon {
+      > p {
+        white-space: nowrap;
+        padding-right: 40px;
+      }
+    }
+  }
+
+  .icon_button--right {
+    position: absolute;
+    right: 2*$default-padding;
+    top: 2*$default-padding;
+    height: $default-form-field-height;
+    line-height: 25px;
+    background-color: $medium-gray;
+    margin: -$default-margin -2 * $default-margin;
+    padding: 0 2*$default-padding;
+    transition: background-color 0.3s;
+    @extend .right-rounded-border;
+
+    &:hover {
+      cursor: pointer;
+      background-color: darken($medium-gray, 10%);
+    }
+  }
+}

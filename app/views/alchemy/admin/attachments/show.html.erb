@@ -5,27 +5,19 @@
     </label>
     <p><%= @attachment.file_name %></p>
   </div>
-  <div class="value">
-    <label>
-    <%= Alchemy::Attachment.human_attribute_name(:url) %></label>
-    <p><%= alchemy.show_attachment_url(@attachment) %>
-      <span class="icon-box">
-        <a href="#" id="" onclick="copyToClipboard('<%= alchemy.show_attachment_url(@attachment) %>'); return false">
-          <span class="icon clipboard full"></span>
-        </a>
-      </span>
-    </p>
+  <div class="value with-icon">
+    <label><%= Alchemy::Attachment.human_attribute_name(:url) %></label>
+    <p><%= alchemy.show_attachment_url(@attachment) %></p>
+    <a data-clipboard-text="<%= alchemy.show_attachment_url(@attachment) %>" class="icon_button--right">
+      <%= render_icon('clipboard full') %>
+    </a>
   </div>
-  <div class="value">
-    <label>
-    <%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
-    <p><%= alchemy.download_attachment_url(@attachment) %>
-      <span class="icon-box">
-        <a href="#" onclick="copyToClipboard('<%= alchemy.download_attachment_url(@attachment) %>'); return false">
-          <span class="icon clipboard full"></span>
-        </a>
-      </span>
-    </p>
+  <div class="value with-icon">
+    <label><%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
+    <p><%= alchemy.download_attachment_url(@attachment) %></p>
+    <a data-clipboard-text="<%= alchemy.download_attachment_url(@attachment) %>" class="icon_button--right">
+      <%= render_icon('clipboard full') %>
+    </a>
   </div>
 </div>
 
@@ -50,20 +42,14 @@
 <% end %>
 
 <script type="text/javascript">
-  function copyToClipboard(text) {
-    // Create a "hidden" input
-    var aux = document.createElement("input");
-
-    aux.setAttribute("value", text);
-    // Append it to the body
-    document.body.appendChild(aux);
-    // Highlight its content
-    aux.select();
-    // Copy the highlighted text
-    document.execCommand("copy");
-    // Remove it from the body
-    document.body.removeChild(aux);
-
-    Alchemy.growl('<%= Alchemy.t("Copied to clipboard") %>');
-  }
+  $(function() {
+    var clipboard = new Clipboard('.icon_button--right');
+    clipboard.on('success', function(e) {
+      Alchemy.growl('<%= Alchemy.t("Copied to clipboard") %>');
+      e.clearSelection();
+    });
+    Alchemy.currentDialog().dialog.on('DialogClose.Alchemy', function() {
+      clipboard.destroy();
+    });
+  });
 </script>
