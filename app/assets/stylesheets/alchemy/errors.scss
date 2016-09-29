@@ -37,3 +37,10 @@ div#errors, div.errors {
     margin-bottom: 0.5em;
   }
 }
+
+body.error {
+  .error.message {
+    max-height: 95%;
+    overflow-y: scroll;
+  }
+}
