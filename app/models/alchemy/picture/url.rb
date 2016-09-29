@@ -27,7 +27,7 @@ module Alchemy
       image = processed_image(image, options)
       image = encoded_image(image, options)
 
-      image.url(options.except(*TRANSFORMATION_OPTIONS).merge(id: id, name: name))
+      image.url(options.except(*TRANSFORMATION_OPTIONS).merge(name: name))
     end
 
     private
