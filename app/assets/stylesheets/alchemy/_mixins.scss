@@ -102,7 +102,7 @@
   margin: $default-form-field-margin;
   padding: $default-padding 2*$default-padding;
   line-height: 21px;
-  min-height: 29px;
+  min-height: $default-form-field-height;
   background: white;
   @extend %rounded-border;
   @extend .border-box-sizing;

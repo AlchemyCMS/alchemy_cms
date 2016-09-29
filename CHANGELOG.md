@@ -16,6 +16,7 @@ __Notable Changes__
 * Use Dragonfly middleware to render pictures and remove our custom solution (#1084)
 * `image_size` option is now deprecated. Please use just `size` (#1084)
 * `show_alchemy_picture_path` helper is now deprecated. Please use `picture.url` instead (#1084)
+* Display download information on the Attachment Modal Dialog (#1137)
 
 __Fixed Bugs__
 

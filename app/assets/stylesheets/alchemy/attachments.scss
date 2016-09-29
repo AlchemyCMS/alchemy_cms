@@ -1,0 +1,9 @@
+.alchemy-dialog-body {
+  .icon-box {
+    float: right;
+    height: $default-form-field-height;
+    padding: 0px 2*$default-padding;
+    background-color: $medium-gray;
+    margin: -$default-margin -2 * $default-margin;
+  }
+}
