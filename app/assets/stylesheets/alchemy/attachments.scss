@@ -1,9 +1,39 @@
-.alchemy-dialog-body {
-  .icon-box {
-    float: right;
-    height: $default-form-field-height;
-    padding: 0px 2*$default-padding;
-    background-color: $medium-gray;
-    margin: -$default-margin -2 * $default-margin;
+.attachment_preview_container {
+  background-color: $medium-gray;
+  margin-top: 12px;
+
+  audio, video {
+    display: block;
   }
+
+  &.image-preview {
+    height: 300px;
+    text-align: center;
+    padding: 2*$default-padding;
+    white-space: nowrap;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle;
+      margin-right: -0.25em;
+    }
+
+    img.full_width {
+      display: inline-block;
+      width: auto;
+      height: auto;
+      max-width: 100%;
+      max-height: 100%;
+      vertical-align: middle;
+    }
+  }
+}
+
+.full-iframe {
+  width: 100%;
+  background-color: white;
+  min-height: 335px;
+  margin-top: 12px;
 }
