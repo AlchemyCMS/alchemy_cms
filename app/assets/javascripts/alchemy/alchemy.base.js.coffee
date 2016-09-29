@@ -7,6 +7,19 @@ $.fx.speeds._default = 400
 # All other modules uses this global Alchemy object as namespace.
 $.extend Alchemy,
 
+  # Get current screen size
+  screenSize: ->
+    width: $(window).width()
+    height: $(window).height()
+
+  resizeMenu: ->
+    $body = $('body')
+    if Alchemy.screenSize().width <= 1024
+      $body.addClass('collapsed-menu')
+    else
+      $body.removeClass('collapsed-menu') unless $body.hasClass('permanent-collapsed-menu')
+    return
+
   # Multiple picture select handler for the picture archive.
   pictureSelector: ->
     $selected_item_tools = $(".selected_item_tools")
