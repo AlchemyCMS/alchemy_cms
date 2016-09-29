@@ -9,10 +9,14 @@
   left: 0px;
   height: 50px;
   padding: 2*$default-padding;
-  padding-left: $main-menu-width + 10px;
+  padding-left: $main-menu-width + $main-content-padding;
   text-align: left;
   border-top: $default-border;
   z-index: 10;
+
+  .collapsed-menu & {
+    padding-left: $collapsed-main-menu-width + $main-content-padding;
+  }
 
   a, span, em {
     font-size: $default-font-size;

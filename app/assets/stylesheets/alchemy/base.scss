@@ -45,7 +45,7 @@ body {
 
 h1 {
   padding: 0;
-  margin: 8px;
+  margin: 2*$default-margin 0;
   font-weight: bold;
   font-size: $default-font-size;
 
@@ -53,11 +53,15 @@ h1 {
     position: fixed;
     width: 100%;
     top: 75px;
-    left: $main-menu-width + 9px;
+    left: $main-menu-width + $main-content-padding;
     z-index: 2;
-    margin: 0 -8px;
-    padding: 16px;
+    margin: 0;
+    padding: 16px 0;
     background-color: $light-gray;
+
+    .collapsed-menu & {
+      left: $collapsed-main-menu-width + $main-content-padding;
+    }
   }
 }
 
