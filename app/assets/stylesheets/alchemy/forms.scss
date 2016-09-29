@@ -195,25 +195,6 @@ textarea#essence_picture_caption {
   height: 61px;
 }
 
-.resource_info {
-
-  h2 {
-    @include form-heading;
-  }
-
-  .value {
-    overflow: hidden;
-
-    label {
-      @include form-label;
-    }
-
-    p {
-      @include form-value-display;
-    }
-  }
-}
-
 // styles for link overlay selects
 .window_form {
 
