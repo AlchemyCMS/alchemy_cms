@@ -7,6 +7,9 @@ Alchemy.Initializer = ->
   # We obviously have javascript enabled.
   $('html').removeClass('no-js')
 
+  # Add some responsiveness to the menu
+  Alchemy.resizeMenu()
+
   # Initialize the GUI.
   Alchemy.GUI.init()
 
@@ -70,3 +73,6 @@ $(document).on 'page:receive turbolinks:request-end', ->
   # Ensure that all tinymce editors get removed before parsing a new page
   Alchemy.Tinymce.removeFrom $('.has_tinymce')
   return
+
+# Resize the menu if window gets resized
+$(window).on('resize', Alchemy.resizeMenu)
