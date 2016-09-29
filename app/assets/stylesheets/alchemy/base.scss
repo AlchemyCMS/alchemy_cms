@@ -231,7 +231,7 @@ div#page {
 }
 
 div#new_page_from_clipboard {
-  display: none;
+  @extend .hidden;
 }
 
 div#new_page_from_clipboard input.button {
@@ -339,11 +339,11 @@ div.all_rights {
 }
 
 .date_select_without_time #date_date_4i {
-  display: none;
+  @extend .hidden;
 }
 
 .date_select_without_time #date_date_5i {
-  display: none;
+  @extend .hidden;
 }
 
 .with_padding {
@@ -539,6 +539,10 @@ div.browse {
 
 .full_width {
   width: 100%;
+}
+
+.hidden {
+  display: none;
 }
 
 @-moz-keyframes spin {
