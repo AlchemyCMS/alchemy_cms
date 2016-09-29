@@ -409,8 +409,9 @@ module Alchemy
         [
           controller_name,
           action_name,
-          content_for(:main_menu_style)
-        ]
+          content_for(:main_menu_style),
+          content_for(:alchemy_body_class)
+        ].compact
       end
 
       # (internal) Returns options for the clipboard select tag
