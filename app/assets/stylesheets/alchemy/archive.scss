@@ -15,110 +15,116 @@ div#image_assign_filter_and_image_sizing {
 }
 
 .picture_thumbnail {
-  padding: $default-padding;
-  margin: 2px 1px 2px 2px;
+  box-sizing: border-box;
+  margin: $default-margin;
+  padding-bottom: 26px;
   background-color: #fff;
-  float: none;
-  display: inline-block;
-  border: 1px solid #c0c0c0;
+  border: 1px solid rgba($default-border-color, .5);
+  border-radius: $default-border-radius;
+  overflow: hidden;
+  float: left;
   position: relative;
-  @extend %rounded-border;
+
+  &:hover {
+    .picture_tool {
+      display: block;
+    }
+  }
+
+  &.small {
+    width: calc(33.333% - #{2*$default-margin});
+
+    @include on-medium-viewport {
+      width: calc(12.5% - #{2*$default-margin});
+    }
+
+    @include on-large-viewport {
+      width: calc(10% - #{2*$default-margin});
+    }
+
+    @include on-xlarge-viewport {
+      width: calc(6.666% - #{2*$default-margin});
+    }
+
+    .thumbnail_background { height: 60px }
+  }
+
+  &.medium {
+    width: calc(50% - #{2*$default-margin});
+
+    @include on-medium-viewport {
+      width: calc(25% - #{2*$default-margin});
+    }
+
+    @include on-large-viewport {
+      width: calc(20% - #{2*$default-margin});
+    }
+
+    @include on-xlarge-viewport {
+      width: calc(12.5% - #{2*$default-margin});
+    }
+  }
+
+  &.large {
+    width: calc(100% - #{2*$default-margin});
+
+    @include on-medium-viewport {
+      width: calc(33.333% - #{2*$default-margin});
+    }
+
+    @include on-large-viewport {
+      width: calc(25% - #{2*$default-margin});
+    }
+
+    @include on-xlarge-viewport {
+      width: calc(16.666% - #{2*$default-margin});
+    }
+
+    .thumbnail_background { height: 180px }
+  }
+
+  .picture_name {
+    box-sizing: border-box;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    white-space: nowrap;
+    background-color: white;
+    line-height: 18px;
+    padding: $default-padding;
+    @include truncate(100%);
+  }
+}
+
+.thumbnail_background {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 120px;
+  background-color: $medium-gray;
 
   img {
+    @include vertical-centered;
     width: auto;
     height: auto;
     max-width: 100%;
     max-height: 100%;
   }
-
-  .thumbnail_background {
-    @extend %thumbnail-background;
-    width: 160px;
-    height: 120px;
-  }
-
-  .picture_name {
-    height: 14px;
-    display: block;
-    text-align: center;
-    white-space: nowrap;
-    overflow: hidden;
-    position: absolute;
-    bottom: 1px;
-    left: 0;
-    font-family: "Courier New", Courier, mono;
-    line-height: 11px;
-    padding: 2px 0;
-    margin-right: 4px;
-    margin-left: 4px;
-  }
-
-  &.small {
-    width: 80px;
-    height: 80px;
-
-    .picture_name {
-      width: 80px;
-    }
-
-    .thumbnail_background {
-      width: 80px;
-      height: 60px;
-    }
-  }
-
-  &.medium {
-    width: 160px;
-    height: 140px;
-
-    .picture_name {
-      width: 160px;
-    }
-
-    .thumbnail_background {
-      width: 160px;
-      height: 120px;
-    }
-  }
-
-  &.large {
-    width: 240px;
-    height: 200px;
-
-    .picture_name {
-      width: 240px;
-    }
-
-    .thumbnail_background {
-      width: 240px;
-      height: 180px;
-    }
-  }
-
-  &:hover {
-
-    .picture_tool {
-      display: block;
-    }
-  }
 }
 
 #pictures {
-  margin-right: $library-sidebar-width;
   padding-bottom: 60px;
+  overflow: hidden;
+  margin: 0 $library-sidebar-width - $default-margin 0 -1*$default-margin;
 
   @include on-small-viewport {
-    margin-right: 0;
+    margin: 0 -1*$default-margin;
   }
 
-  .picture_thumbnail {
-    margin: 0 8px 8px 0;
-    display: inline-block;
-    float: none;
-
-    .thumbnail_background {
-      @include zoom-in;
-    }
+  .thumbnail_background {
+    @include zoom-in;
   }
 }
 
@@ -136,9 +142,9 @@ div.assign_image_list_image {
   width: 16px;
   height: 16px;
   position: absolute;
-  background-color: white;
-  top: 3px;
-  padding: 1px;
+  background-color: rgba($light-gray, 0.85);
+  top: 0;
+  padding: $default-padding;
   z-index: 10;
   display: none;
 
@@ -151,7 +157,7 @@ div.assign_image_list_image {
   }
 
   &.select {
-    left: 4px;
+    left: 0;
 
     input {
       margin: 0;
@@ -160,7 +166,7 @@ div.assign_image_list_image {
   }
 
   &.delete {
-    right: 4px;
+    right: 0;
 
     a {
       background: image-url('alchemy/icons.png') no-repeat -63px -72px;
@@ -389,12 +395,13 @@ div#filter_bar {
 
 .picture_tags {
   box-sizing: border-box;
-  width: 50%;
-  max-height: 100%;
   position: absolute;
-  top: 16px;
+  width: 50%;
+  max-height: 70%;
+  overflow: hidden;
+  top: 24px;
   left: 0;
-  padding: $default-padding;
+  padding: $default-padding 0;
   pointer-events: none;
   display: none;
 }
@@ -406,10 +413,10 @@ div#filter_bar {
 .tag {
   display: inline-block;
   vertical-align: middle;
-  @extend %rounded-border;
+  @extend .right-rounded-border;
   padding: $default-padding 2*$default-padding $default-padding 4*$default-padding;
   margin: $default-margin/2 0;
-  background-color: rgba($medium-gray, 0.85);
+  background-color: rgba($light-gray, 0.85);
   color: $text-color;
   overflow: hidden;
   position: relative;

@@ -112,8 +112,7 @@ describe Alchemy::Admin::EssencesHelper do
 
     it "should return an image tag with thumbnail url from essence" do
       expect(essence).to receive(:thumbnail_url).and_call_original
-      expect(helper.essence_picture_thumbnail(content)).to \
-        have_selector("img[src].img_paddingtop")
+      expect(helper.essence_picture_thumbnail(content)).to have_selector("img[src]")
     end
 
     context 'when given content has no ingredient' do

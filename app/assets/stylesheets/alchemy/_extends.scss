@@ -38,15 +38,6 @@
   }
 }
 
-%thumbnail-background {
-  display: table-cell;
-  background-color: $dark-gray;
-  text-align: center;
-  vertical-align: middle;
-  padding: 0;
-  line-height: 0;
-}
-
 %field-with-error {
   border-color: $error_border_color;
   color: $error_text_color;

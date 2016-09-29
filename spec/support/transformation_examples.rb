@@ -8,7 +8,7 @@ module Alchemy
           allow(picture).to receive(:image_file_width) { 400 }
           allow(picture).to receive(:image_file_height) { 300 }
 
-          expect(picture.thumbnail_size).to eq('111x83')
+          expect(picture.thumbnail_size).to eq('122x83')
         end
       end
 
@@ -17,21 +17,21 @@ module Alchemy
           allow(picture).to receive(:image_file_width) { 300 }
           allow(picture).to receive(:image_file_height) { 400 }
 
-          expect(picture.thumbnail_size).to eq('70x93')
+          expect(picture.thumbnail_size).to eq('70x100')
         end
       end
 
       context "picture has crop_size of 400x300" do
         it "scales to 400x300 if that is the size of the cropped image" do
           allow(picture).to receive(:crop_size) { "400x300" }
-          expect(picture.thumbnail_size).to eq('111x83')
+          expect(picture.thumbnail_size).to eq('122x83')
         end
       end
 
       context "picture has crop_size of 0x0" do
         it "returns default thumbnail size" do
           allow(picture).to receive(:crop_size) { "0x0" }
-          expect(picture.thumbnail_size).to eq('111x93')
+          expect(picture.thumbnail_size).to eq('122x100')
         end
       end
     end

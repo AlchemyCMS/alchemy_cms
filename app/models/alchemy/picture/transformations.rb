@@ -35,7 +35,7 @@ module Alchemy
         size = get_base_dimensions
       end
 
-      size = size_when_fitting({width: 111, height: 93}, size)
+      size = size_when_fitting({width: 122, height: 100}, size)
       "#{size[:width]}x#{size[:height]}"
     end
 

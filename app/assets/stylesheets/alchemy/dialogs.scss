@@ -75,10 +75,8 @@
     padding: 2 * $default-padding;
 
     .thumbnail_background {
-      @extend %thumbnail-background;
       width: 800px;
       height: 600px;
-      position: relative;
     }
 
     .info.message {

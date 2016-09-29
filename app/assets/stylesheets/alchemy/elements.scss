@@ -98,38 +98,32 @@
 }
 
 .add_picture {
-  float: left;
-  margin: 1px;
-  width: 119px;
-  border: 1px solid #c0c0c0;
-  @extend %rounded-border;
-  height: 123px;
+  box-sizing: border-box;
+  height: 134px;
+  padding: $default-padding 0;
 
   a {
     display: block;
     height: 100%;
-    width: 100%;
     position: relative;
     text-decoration: none;
     overflow: hidden;
     text-align: center;
-    font-weight: bold;
-    line-height: 104px;
-    @extend %rounded-border;
-    font-size: 40px;
-    background-color: $light-gray;
+    line-height: 122px;
+    border: 1px solid rgba($default-border-color, .25);
+    border-radius: $default-border-radius;
+    overflow: hidden;
+    transition: background-color $transition-duration;
 
     &:hover {
       background-color: $medium-gray;
     }
 
     .icon {
-      font-size: 30px;
-      width: 30px;
-      height: 30px;
-      position: absolute;
-      top: 48px;
-      left: 44px;
+      font-size: 36px;
+      width: 36px;
+      height: 36px;
+      color: rgba($dark-gray, .5);
     }
   }
 }
@@ -282,28 +276,25 @@
 
 .picture_gallery_images {
   overflow: hidden;
-  margin: $default-margin 0;
-  border: 1px solid $default-border-color;
-  @extend %rounded-border;
+  margin: $default-margin -2 * $default-margin;
   background-color: $medium-gray;
-  padding: 1px;
+  padding: $default-padding;
 
-  .essence_picture_editor {
-    margin: 1px;
-    float: left;
-    height: 126px;
-
-    .picture_thumbnail { margin: 0 }
+  .picture_thumbnail {
+    box-shadow: 0px 0px 8px -4px $dark-gray;
   }
 }
 
-.picture_thumbnail .picture_image {
-  height: 93px;
-  overflow: hidden;
+.picture_gallery_images .essence_picture_editor,
+.add_picture {
+  width: calc(33.333% - #{$default-margin});
+  margin: $default-margin/2;
+  float: left;
+}
 
-  img.img_paddingtop {
-    @extend .disable-user-select;
-  }
+.picture_gallery_images .thumbnail_background,
+.add_picture a {
+  background-color: $light-gray;
 }
 
 #cells {
@@ -374,17 +365,18 @@
 }
 
 .edit_images_bottom {
-  height: 19px;
   position: absolute;
+  left: 0;
+  bottom: 0;
   z-index: 0;
-  left: 5px;
-  bottom: 2px;
-  width: 111px;
+  width: 100%;
+  height: 18px;
+  padding: $default-padding 0;
+  text-align: center;
+  white-space: nowrap;
 
   > a, > span.icon {
-    float: left;
-    margin-left: 2px;
-    margin-right: 2px;
+    display: inline-block;
     width: 18px;
     height: 18px;
   }
@@ -424,41 +416,24 @@
 }
 
 .essence_picture_editor {
+  width: 33.333%;
   position: relative;
-
-  .picture_tool_delete {
-    position: absolute;
-    right: $default-margin;
-    top: $default-margin;
-    padding: 2px 2px 0;
-    z-index: 2;
-  }
-
-  .picture_thumbnail:hover .picture_tool_delete {
-    display: block;
-  }
-
-  .picture_thumbnail {
-    width: 111px;
-    height: 115px;
-    margin: $default-margin 0;
-
-    .thumbnail_background {
-      width: 111px;
-      height: 93px;
-    }
-  }
 
   &.validation_failed .picture_thumbnail {
     border-color: $error_border_color
   }
 
-  .thumbnail_background.missing:before {
-    font-family: 'Alchemy Icons';
-    @extend .icon-pictures:before;
-    font-size: 48px;
-    color: $medium-gray;
-    vertical-align: top;
+  .picture_thumbnail {
+    float: none;
+    margin: $default-margin 0;
+
+    &:hover .picture_tool_delete {
+      display: block;
+    }
+
+    .thumbnail_background {
+      height: $essence_picture_thumbnail_height;
+    }
   }
 
   .essence_picture_css_class {
@@ -476,23 +451,20 @@
   }
 }
 
+.thumbnail_background.missing .icon-pictures {
+  width: 48px;
+  height: 48px;
+  font-size: 48px;
+  color: rgba($dark-gray, .5);
+  @include vertical-centered;
+}
+
 .dragable_picture {
   float: left;
 
   .picture_handle {
     cursor: move;
   }
-}
-
-.picture_thumbnail .picture_handle {
-  position: absolute;
-  z-index: 1;
-  width: 110px;
-  height: 93px;
-  top: 4px;
-  left: 4px;
-  background-color: transparent;
-  @extend .disable-user-select;
 }
 
 div.file {
@@ -735,8 +707,6 @@ select.long {
   }
 
   &.essence_picture_editor {
-    float: none;
-    height: auto;
     display: inline-block;
     vertical-align: middle;
   }
