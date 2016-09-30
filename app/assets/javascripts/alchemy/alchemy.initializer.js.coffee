@@ -64,6 +64,13 @@ Alchemy.Initializer = ->
     $(this).find('.search_input_field').focus()
     return false
 
+  # For touch based devices we need to trigger the subnavigation on touch
+  $('.main_navi_entry.has_sub_navigation').on 'touchstart', '> a', ->
+    $subnavigation = $(this).siblings('.sub_navigation')
+    $('.sub_navigation').not($subnavigation).removeClass('open').parent().removeClass('hover')
+    $subnavigation.toggleClass('open').parent().toggleClass('hover')
+    return false
+
 # Enabling the Turbolinks Progress Bar for v2.5
 Turbolinks.enableProgressBar() if Turbolinks.enableProgressBar
 
