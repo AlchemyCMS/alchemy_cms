@@ -1,5 +1,4 @@
 # Require globally used external libraries
-require 'actionpack/page_caching'
 require 'acts_as_list'
 require 'acts-as-taggable-on'
 require 'action_view/dependency_tracker'

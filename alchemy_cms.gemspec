@@ -19,7 +19,6 @@ Gem::Specification.new do |gem|
   gem.executables           = 'alchemy'
   gem.require_paths         = ['lib']
 
-  gem.add_runtime_dependency 'actionpack-page_caching',          ['~> 1.0.0']
   gem.add_runtime_dependency 'active_model_serializers',         ['~> 0.9.0']
   gem.add_runtime_dependency 'acts_as_list',                     ['~> 0.3']
   gem.add_runtime_dependency 'acts-as-taggable-on',              ['~> 4.0']
