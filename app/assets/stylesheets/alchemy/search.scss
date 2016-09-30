@@ -133,6 +133,11 @@
     &:focus {
       width: 250px;
     }
+
+    @include on-small-viewport {
+      width: 0;
+      padding-left: 41px;
+    }
   }
 
   .search_field .icon,

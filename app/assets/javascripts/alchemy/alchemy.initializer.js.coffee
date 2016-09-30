@@ -58,6 +58,12 @@ Alchemy.Initializer = ->
     scrollingTop: 122,
     zIndex: 1
 
+  # Focus the search input field if search was clicked
+  # Useful for small viewports where the search field is hidden
+  $('.search_field, .js_filter_field_box').click ->
+    $(this).find('.search_input_field').focus()
+    return false
+
 # Enabling the Turbolinks Progress Bar for v2.5
 Turbolinks.enableProgressBar() if Turbolinks.enableProgressBar
 
