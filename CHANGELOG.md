@@ -17,6 +17,7 @@ __Notable Changes__
 * `image_size` option is now deprecated. Please use just `size` (#1084)
 * `show_alchemy_picture_path` helper is now deprecated. Please use `picture.url` instead (#1084)
 * Display download information on the Attachment Modal Dialog (#1137)
+* Added foreign keys to important associations (#1149)
 
 __Fixed Bugs__
 
