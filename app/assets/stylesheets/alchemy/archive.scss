@@ -104,8 +104,12 @@ div#image_assign_filter_and_image_sizing {
 }
 
 #pictures {
-  margin-right: 232px;
+  margin-right: $library-sidebar-width;
   padding-bottom: 60px;
+
+  @include on-small-viewport {
+    margin-right: 0;
+  }
 
   .picture_thumbnail {
     margin: 0 8px 8px 0;
@@ -177,12 +181,16 @@ div#library_sidebar {
   border-left: 1px solid $default-border-color;
   top: 0;
   right: 0;
-  width: 232px;
+  width: $library-sidebar-width;
   padding-top: 96px;
   padding: 84px 4*$default-padding 0 4*$default-padding;
   height: 100%;
   z-index: 3;
   background-color: $light-gray;
+
+  @include on-small-viewport {
+    right: -$library-sidebar-width;
+  }
 
   h2 {
     margin-top: 4*$default-margin;

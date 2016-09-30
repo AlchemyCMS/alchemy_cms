@@ -127,11 +127,19 @@ div#overlay_text_box {
   &.with_tag_filter {
 
     table {
-      padding-right: 230px;
+      padding-right: $library-sidebar-width;
+
+      @include on-small-viewport {
+        padding-right: 0;
+      }
     }
 
     > .info {
-      margin-right: 230px;
+      margin-right: $library-sidebar-width;
+
+      @include on-small-viewport {
+        margin-right: 0;
+      }
     }
   }
 
