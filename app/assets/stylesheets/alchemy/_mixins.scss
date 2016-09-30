@@ -194,3 +194,27 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+@mixin on-small-viewport {
+  @media screen and (max-width: $small-viewport) {
+    @content;
+  }
+}
+
+@mixin on-medium-viewport {
+  @media screen and (min-width: $small-viewport) {
+    @content;
+  }
+}
+
+@mixin on-large-viewport {
+  @media screen and (min-width: $medium-viewport + 1) {
+    @content;
+  }
+}
+
+@mixin on-xlarge-viewport {
+  @media screen and (min-width: $large-viewport + 1) {
+    @content;
+  }
+}
