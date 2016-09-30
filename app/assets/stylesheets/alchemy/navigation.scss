@@ -93,18 +93,8 @@
   background-color: transparent;
   transition: background-color $transition-duration $transition-easing;
 
-  &:hover {
+  &:hover, &.hover {
     background-color: $main-menu-active-bg-color;
-
-    &:not(.active),
-    .collapsed-menu & {
-
-      .sub_navigation {
-        visibility: visible;
-        opacity: 1;
-        background-color: $main-menu-active-bg-color;
-      }
-    }
   }
 
   &.active {
@@ -124,6 +114,14 @@
       text-shadow: none;
     }
   }
+}
+
+.main_navi_entry:hover:not(.active) .sub_navigation,
+.collapsed-menu .main_navi_entry:hover .sub_navigation,
+.sub_navigation.open {
+  visibility: visible;
+  opacity: 1;
+  background-color: $main-menu-active-bg-color;
 }
 
 body:not(.collapsed-menu) {
