@@ -71,6 +71,10 @@ Alchemy.Initializer = ->
     $subnavigation.toggleClass('open').parent().toggleClass('hover')
     return false
 
+  $('.library_sidebar--toggle').on 'click touchstart', ->
+    $('#library_sidebar').toggleClass('open')
+    return false
+
 # Enabling the Turbolinks Progress Bar for v2.5
 Turbolinks.enableProgressBar() if Turbolinks.enableProgressBar
 

@@ -15,6 +15,7 @@
   <%= render 'files_list' %>
 
   <div id="library_sidebar">
+    <%= render 'alchemy/admin/shared/sidebar_toggle' %>
     <%= render 'filter_bar' %>
 
     <% if Alchemy::Attachment.tag_counts.any? %>

@@ -32,6 +32,7 @@
 
   <% if resource_has_tags || resource_has_filters %>
     <div id="library_sidebar">
+      <%= render 'alchemy/admin/shared/sidebar_toggle' %>
       <% if resource_has_filters %>
         <%= render 'filter_bar' %>
       <% end %>
