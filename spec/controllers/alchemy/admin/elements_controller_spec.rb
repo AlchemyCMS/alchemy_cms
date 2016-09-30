@@ -131,16 +131,28 @@ module Alchemy
           expect(trashed_element.position).to_not be_nil
         end
 
-        it "should assign the (new) page_id to the element" do
-          alchemy_xhr :post, :order, element_ids: [trashed_element.id], page_id: 1, cell_id: nil
-          trashed_element.reload
-          expect(trashed_element.page_id).to be 1
+        context "with new page_id present" do
+          let(:page) { create(:alchemy_page) }
+
+          it "should assign the (new) page_id to the element" do
+            alchemy_xhr :post, :order, element_ids: [trashed_element.id], page_id: page.id
+            trashed_element.reload
+            expect(trashed_element.page_id).to be page.id
+          end
         end
 
-        it "should assign the (new) cell_id to the element" do
-          alchemy_xhr :post, :order, element_ids: [trashed_element.id], page_id: 1, cell_id: 5
-          trashed_element.reload
-          expect(trashed_element.cell_id).to be 5
+        context "with cell_id present" do
+          let(:cell) { create(:alchemy_cell) }
+
+          it "should assign the (new) cell_id to the element" do
+            alchemy_xhr :post, :order,
+              element_ids: [trashed_element.id],
+              page_id: trashed_element.page_id,
+              cell_id: cell.id
+
+            trashed_element.reload
+            expect(trashed_element.cell_id).to be cell.id
+          end
         end
       end
     end
