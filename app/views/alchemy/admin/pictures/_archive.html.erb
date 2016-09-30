@@ -1,9 +1,11 @@
 <div id="library_sidebar">
-  <%= render :partial => 'filter_bar' %>
+  <%= render 'alchemy/admin/shared/sidebar_toggle' %>
+  <%= render 'filter_bar' %>
   <div class="tag-list with_filter_bar<%= params[:tagged_with].present? ? ' filtered' : '' %>">
-    <%= render :partial => 'tag_list' %>
+    <%= render 'tag_list' %>
   </div>
 </div>
+
 <%= form_tag delete_multiple_admin_pictures_path, :method => :delete do %>
   <div class="selected_item_tools">
     <h2><%= Alchemy.t(:edit_selected_pictures) %></h2>

@@ -175,7 +175,7 @@ div.assign_image_list_image {
   }
 }
 
-div#library_sidebar {
+#library_sidebar {
   box-sizing: border-box;
   position: fixed;
   border-left: 1px solid $default-border-color;
@@ -187,13 +187,54 @@ div#library_sidebar {
   height: 100%;
   z-index: 3;
   background-color: $light-gray;
+  transition: right 0.3s;
 
   @include on-small-viewport {
     right: -$library-sidebar-width;
+
+    &.open {
+      right: 0;
+    }
   }
 
   h2 {
     margin-top: 4*$default-margin;
+  }
+}
+
+.library_sidebar--toggle {
+  display: none;
+  position: absolute;
+  width: 24px;
+  height: 100%;
+  top: 0;
+  left: -25px;
+  background-color: rgba($light-gray, 0.5);
+  text-align: center;
+  border-left: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s;
+
+  @include on-small-viewport {
+    display: block;
+  }
+
+  .icon-angle-double-right {
+    position: absolute;
+    top: 50%;
+    left: 4px;
+    transform: translateY(-50%) rotate(180deg);
+    font-size: 16px;
+    transition: transform 0.3s;
+  }
+
+  .open & {
+    border-left: $default-border;
+    background-color: $medium-gray;
+
+    .icon-angle-double-right {
+      transform: translateY(-50%) rotate(0deg);
+    }
   }
 }
 
