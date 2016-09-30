@@ -24,13 +24,6 @@ module Alchemy
       after_create :autogenerate_elements, unless: -> { systempage? || do_not_autogenerate }
       after_update :trash_not_allowed_elements!, if: :page_layout_changed?
       after_update :autogenerate_elements, if: :page_layout_changed?
-
-      after_destroy do
-        elements.each do |element|
-          next if element.trashed?
-          element.destroy
-        end
-      end
     end
 
     module ClassMethods

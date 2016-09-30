@@ -326,7 +326,7 @@ de:
     confirm_to_delete_image: "Wollen Sie dieses Bild wirklich löschen?"
     confirm_to_delete_image_from_server: "Wollen Sie dieses Bild wirklich vom Server löschen?"
     confirm_to_delete_images_from_server: "Wollen Sie diese Bilder wirklich vom Server löschen?"
-    confirm_to_delete_page: "Wollen Sie diese Seite wirklich löschen? Alle Inhalte gehen dabei unwiderruflich verloren!"
+    confirm_to_delete_page: "Wollen Sie diese Seite wirklich löschen? Alle Inhalte (auch die aus dem Papierkorb) gehen dabei unwiderruflich verloren!"
     content_essence_not_found: "Essenz wurde nicht gefunden"
     content_not_found: "Das Feld für diesen Inhalt ist nicht vorhanden."
     content_validations_headline: "Bitte überprüfen Sie die markierten Felder."

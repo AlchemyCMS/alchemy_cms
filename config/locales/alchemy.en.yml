@@ -324,7 +324,7 @@ en:
     confirm_to_delete_image: "Do you really want to delete this image from server?"
     confirm_to_delete_image_from_server: "Do you really want to delete this image from the server?"
     confirm_to_delete_images_from_server: "Do you really want to delete these images from the server?"
-    confirm_to_delete_page: "Do you really want to delete this page? All its elements will get lost!"
+    confirm_to_delete_page: "Do you really want to delete this page? All its elements (even trashed ones) will get lost!"
     content_essence_not_found: "Content essence not found"
     content_not_found: "Field for content not present."
     content_validations_headline: "Please check marked fields below"
