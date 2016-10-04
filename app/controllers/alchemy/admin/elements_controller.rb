@@ -23,7 +23,7 @@ module Alchemy
 
         respond_to do |format|
           format.html {}
-          format.json { render json: @elements, each_serializer: Alchemy::ElementSerializer }
+          format.json { render json: @elements, each_serializer: Alchemy::AdminElementSerializer }
         end
       end
 
