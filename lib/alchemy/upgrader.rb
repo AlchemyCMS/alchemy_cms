@@ -1,7 +1,9 @@
-require 'alchemy/seeder'
+require 'alchemy/shell'
 
 module Alchemy
-  class Upgrader < Alchemy::Seeder
+  class Upgrader
+    extend Alchemy::Shell
+
     Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].each { |f| require f }
 
     extend Alchemy::Upgrader::ThreePointFive
