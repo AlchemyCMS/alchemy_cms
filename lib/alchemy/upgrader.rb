@@ -11,7 +11,6 @@ module Alchemy
     extend Alchemy::Upgrader::ThreePointThree
     extend Alchemy::Upgrader::ThreePointTwo
     extend Alchemy::Upgrader::ThreePointOne
-    extend Alchemy::Upgrader::ThreePointZero
 
     class << self
       # Runs ugrades

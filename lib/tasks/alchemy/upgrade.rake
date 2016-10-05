@@ -13,7 +13,7 @@ namespace :alchemy do
 
   namespace :upgrade do
     desc "Alchemy Upgrader: Run only the upgrader tasks without preparation"
-    task run: [:environment] do
+    task run: ['alchemy:upgrade:3.0'] do
       Alchemy::Upgrader.run!
     end
 
@@ -40,6 +40,33 @@ namespace :alchemy do
     task fix_picture_format: [:environment] do
       Alchemy::Picture.find_each do |picture|
         picture.update_column(:image_file_format, picture.image_file_format.to_s.chomp)
+      end
+    end
+
+    desc 'Upgrade Alchemy to v3.0'
+    task '3.0': ['alchemy:upgrade:3.0:run']
+
+    namespace '3.0' do
+      task run: [
+        'alchemy:upgrade:3.0:rename_registered_role_ro_member',
+        'alchemy:upgrade:3.0:publish_unpublished_public_pages',
+        'alchemy:upgrade:3.0:todo'
+      ] do
+        Alchemy::Upgrader.display_todos
+      end
+
+      desc 'Rename the `registered` user role to `member`'
+      task rename_registered_role_ro_member: [:environment] do |t|
+        Alchemy::Upgrader::ThreePointZero.rename_registered_role_ro_member
+      end
+
+      desc 'Sets `published_at` of public pages without a `published_at` date set to their `updated_at` value'
+      task publish_unpublished_public_pages: [:environment] do |t|
+        Alchemy::Upgrader::ThreePointZero.publish_unpublished_public_pages
+      end
+
+      task :todo do |t|
+        Alchemy::Upgrader::ThreePointZero.alchemy_3_0_todos
       end
     end
   end
