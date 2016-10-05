@@ -1,9 +1,15 @@
 require 'shellwords'
+require 'alchemy/seeder'
 require 'alchemy/tasks/helpers'
 include Alchemy::Tasks::Helpers
 
 namespace :alchemy do
   namespace :db do
+    desc "Seeds the database with Alchemy defaults"
+    task seed: [:environment] do
+      Alchemy::Seeder.seed!
+    end
+
     desc "Dumps the database to STDOUT (Pass DUMP_FILENAME to store the dump into a file)."
     task dump: :environment do
       dump_store = ENV['DUMP_FILENAME'] ? " > #{ENV['DUMP_FILENAME']}" : ""

@@ -50,15 +50,6 @@ module Alchemy
         private_methods - Object.private_methods - superclass.private_methods
       end
 
-      private
-
-      # Setup task
-      def setup
-        Rake::Task['alchemy:install:migrations'].invoke
-        Rake::Task['db:migrate'].invoke
-        Seeder.seed!
-      end
-
       def copy_new_config_file
         desc "Copy configuration file."
         config_file = Rails.root.join('config/alchemy/config.yml')

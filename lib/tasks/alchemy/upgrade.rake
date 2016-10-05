@@ -2,13 +2,27 @@ require 'alchemy/upgrader'
 require 'alchemy/version'
 
 namespace :alchemy do
-  desc "Upgrades database content to Alchemy CMS v#{Alchemy::VERSION} (Set UPGRADE env variable to only run a specific task)."
-  task upgrade: :environment do
-    Alchemy::Upgrader.run!
-  end
+  desc "Upgrades your app to Alchemy CMS v#{Alchemy::VERSION} (Set UPGRADE env variable to only run a specific task)."
+  task upgrade: [
+    'alchemy:install:migrations',
+    'db:migrate',
+    'alchemy:db:seed',
+    'alchemy:upgrade:config',
+    'alchemy:upgrade:run'
+  ]
 
   namespace :upgrade do
-    desc "List all available upgrade tasks."
+    desc "Alchemy Upgrader: Run only the upgrader tasks without preparation"
+    task run: [:environment] do
+      Alchemy::Upgrader.run!
+    end
+
+    desc "Alchemy Upgrader: Copy configuration file."
+    task config: [:environment] do |t|
+      Alchemy::Upgrader.copy_new_config_file
+    end
+
+    desc "Alchemy Upgrader: List all upgrade tasks."
     task list: [:environment] do
       puts "\nAvailable upgrade tasks"
       puts "-----------------------\n"

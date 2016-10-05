@@ -19,6 +19,7 @@ __Notable Changes__
 * Display download information on the Attachment Modal Dialog (#1137)
 * Added foreign keys to important associations (#1149)
 * Also destroy trashed elements when page gets destroyed (#1149)
+* Upgrade tasks can now be run separately (#1152)
 
 __Fixed Bugs__
 
