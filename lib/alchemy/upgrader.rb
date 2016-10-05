@@ -8,7 +8,6 @@ module Alchemy
 
     extend Alchemy::Upgrader::ThreePointFive
     extend Alchemy::Upgrader::ThreePointFour
-    extend Alchemy::Upgrader::ThreePointThree
 
     class << self
       # Runs ugrades

@@ -16,7 +16,8 @@ namespace :alchemy do
     task run: [
       'alchemy:upgrade:3.0',
       'alchemy:upgrade:3.1',
-      'alchemy:upgrade:3.2'
+      'alchemy:upgrade:3.2',
+      'alchemy:upgrade:3.3'
     ] do
       Alchemy::Upgrader.run!
     end
@@ -104,6 +105,33 @@ namespace :alchemy do
 
       task :todo do |t|
         Alchemy::Upgrader::ThreePointTwo.alchemy_3_2_todos
+      end
+    end
+
+    desc 'Upgrade Alchemy to v3.3'
+    task '3.3': ['alchemy:upgrade:3.3:run']
+
+    namespace '3.3' do
+      task run: [
+        'alchemy:upgrade:3.3:convert_available_contents',
+        'alchemy:upgrade:3.3:migrate_existing_elements',
+        'alchemy:upgrade:3.3:todo'
+      ] do
+        Alchemy::Upgrader.display_todos
+      end
+
+      desc 'Convert `available_contents` config to `nestable_elements`.'
+      task convert_available_contents: [:environment] do |t|
+        Alchemy::Upgrader::ThreePointThree.convert_available_contents
+      end
+
+      desc 'Migrate existing elements to `nestable_elements`.'
+      task migrate_existing_elements: [:environment] do |t|
+        Alchemy::Upgrader::ThreePointThree.migrate_existing_elements
+      end
+
+      task :todo do |t|
+        Alchemy::Upgrader::ThreePointThree.alchemy_3_3_todos
       end
     end
   end
