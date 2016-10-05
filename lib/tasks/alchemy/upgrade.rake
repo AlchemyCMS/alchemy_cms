@@ -15,7 +15,8 @@ namespace :alchemy do
     desc "Alchemy Upgrader: Run only the upgrader tasks without preparation"
     task run: [
       'alchemy:upgrade:3.0',
-      'alchemy:upgrade:3.1'
+      'alchemy:upgrade:3.1',
+      'alchemy:upgrade:3.2'
     ] do
       Alchemy::Upgrader.run!
     end
@@ -77,6 +78,33 @@ namespace :alchemy do
     task '3.1' do
       Alchemy::Upgrader::ThreePointOne.alchemy_3_1_todos
       Alchemy::Upgrader.display_todos
+    end
+
+    desc 'Upgrade Alchemy to v3.2'
+    task '3.2': ['alchemy:upgrade:3.2:run']
+
+    namespace '3.2' do
+      task run: [
+        'alchemy:upgrade:3.2:upgrade_acts_as_taggable_on_migrations',
+        'alchemy:upgrade:3.2:inject_seeder',
+        'alchemy:upgrade:3.2:todo'
+      ] do
+        Alchemy::Upgrader.display_todos
+      end
+
+      desc 'Install and patch acts_as_taggable_on migrations.'
+      task upgrade_acts_as_taggable_on_migrations: [:environment] do |t|
+        Alchemy::Upgrader::ThreePointTwo.upgrade_acts_as_taggable_on_migrations
+      end
+
+      desc 'Add Alchemy seeder to `db/seeds.rb` file.'
+      task inject_seeder: [:environment] do |t|
+        Alchemy::Upgrader::ThreePointTwo.inject_seeder
+      end
+
+      task :todo do |t|
+        Alchemy::Upgrader::ThreePointTwo.alchemy_3_2_todos
+      end
     end
   end
 end
