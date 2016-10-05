@@ -17,7 +17,8 @@ namespace :alchemy do
       'alchemy:upgrade:3.0',
       'alchemy:upgrade:3.1',
       'alchemy:upgrade:3.2',
-      'alchemy:upgrade:3.3'
+      'alchemy:upgrade:3.3',
+      'alchemy:upgrade:3.4'
     ] do
       Alchemy::Upgrader.run!
     end
@@ -132,6 +133,16 @@ namespace :alchemy do
 
       task :todo do |t|
         Alchemy::Upgrader::ThreePointThree.alchemy_3_3_todos
+      end
+    end
+
+    desc 'Upgrade Alchemy to v3.4'
+    task '3.4': ['alchemy:upgrade:3.4:install_asset_manifests']
+
+    namespace '3.4' do
+      desc 'Install asset manifests into `vendor/assets`'
+      task install_asset_manifests: [:environment] do |t|
+        Alchemy::Upgrader::ThreePointFour.install_asset_manifests
       end
     end
   end
