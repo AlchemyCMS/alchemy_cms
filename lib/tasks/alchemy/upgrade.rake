@@ -18,7 +18,8 @@ namespace :alchemy do
       'alchemy:upgrade:3.1',
       'alchemy:upgrade:3.2',
       'alchemy:upgrade:3.3',
-      'alchemy:upgrade:3.4'
+      'alchemy:upgrade:3.4',
+      'alchemy:upgrade:3.5'
     ] do
       Alchemy::Upgrader.run!
     end
@@ -143,6 +144,27 @@ namespace :alchemy do
       desc 'Install asset manifests into `vendor/assets`'
       task install_asset_manifests: [:environment] do |t|
         Alchemy::Upgrader::ThreePointFour.install_asset_manifests
+      end
+    end
+
+    desc 'Upgrade Alchemy to v3.5'
+    task '3.5': ['alchemy:upgrade:3.5:run']
+
+    namespace '3.5' do
+      task run: [
+        'alchemy:upgrade:3.5:install_dragonfly_config',
+        'alchemy:upgrade:3.5:todo'
+      ] do
+        Alchemy::Upgrader.display_todos
+      end
+
+      desc 'Install dragonfly config into `config/initializers`'
+      task install_dragonfly_config: [:environment] do |t|
+        Alchemy::Upgrader::ThreePointFive.install_dragonfly_config
+      end
+
+      task :todo do |t|
+        Alchemy::Upgrader::ThreePointFive.alchemy_3_5_todos
       end
     end
   end
