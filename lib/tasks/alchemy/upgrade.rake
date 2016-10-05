@@ -13,7 +13,10 @@ namespace :alchemy do
 
   namespace :upgrade do
     desc "Alchemy Upgrader: Run only the upgrader tasks without preparation"
-    task run: ['alchemy:upgrade:3.0'] do
+    task run: [
+      'alchemy:upgrade:3.0',
+      'alchemy:upgrade:3.1'
+    ] do
       Alchemy::Upgrader.run!
     end
 
@@ -68,6 +71,12 @@ namespace :alchemy do
       task :todo do |t|
         Alchemy::Upgrader::ThreePointZero.alchemy_3_0_todos
       end
+    end
+
+    desc 'Display Alchemy v3.1 upgrade todos'
+    task '3.1' do
+      Alchemy::Upgrader::ThreePointOne.alchemy_3_1_todos
+      Alchemy::Upgrader.display_todos
     end
   end
 end
