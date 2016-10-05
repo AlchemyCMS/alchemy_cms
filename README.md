@@ -207,7 +207,8 @@ http://markevans.github.io/dragonfly/cache/
 
 ## Upgrading
 
-The Alchemy team takes upgrades very seriously and tries to make them as smooth as we can. Therefore we have build in upgrade tasks, that try to automate as much as possible.
+The Alchemy team takes upgrades very seriously and tries to make them as smooth as we can.
+Therefore we have build in upgrade tasks, that try to automate as much as possible.
 
 That's why after updating the Alchemy gem you should **always run the upgrader**:
 
@@ -216,12 +217,29 @@ $ bundle update alchemy_cms
 $ bin/rake alchemy:upgrade
 ```
 
-Alchemy will print out useful information after running the automated tasks that help a smooth upgrade path. So please **take your time and read them**.
+Alchemy will print out useful information after running the automated tasks that help a smooth upgrade path.
+So please **take your time and read them**.
 
 Always be sure to keep an eye on the `config/alchemy/config.yml.defaults` file and update your `config/alchemy/config.yml` accordingly.
 
 Also, `git diff` is your friend.
 
+### Customize the upgrade process
+
+Alchemy upgrader runs several rake tasks in a specific order. This is sometimes not what you want or could even break upgrades.
+In order to customize the upgrade process you can instead run each of the tasks on their own.
+
+```shell
+$ bin/rake alchemy:install:migrations
+$ bin/rake db:migrate
+$ bin/rake alchemy:db:seed
+$ bin/rake alchemy:upgrade:config
+$ bin/rake alchemy:upgrade:run
+```
+
+**WARNING:** This is only recommended, if you have problems with the default `rake alchemy:upgrade` task and need to
+repair your data in between. The upgrader depends on these upgrade tasks running in this specific order, otherwise
+we can't ensure smooth upgrades for you.
 
 ## Deployment
 
