@@ -15,17 +15,13 @@ module Alchemy
 Picture rendering switched to Dragonfly middleware
 --------------------------------------------------
 
-Alchemy now uses the Dragonfly middleware to render the pictures.
+Alchemy now uses the Dragonfly middleware to render the pictures and
+REMOVED THE LOCAL PICTURE CACHING!
 
-To maintain compatibility we installed a Dragonfly configuration into your host app,
-that provides the default picture caching strategy of Alchemy.
+This has effect on your production setup and NEEDS FURTHER ACTION in order to
+provide a caching option that works for your setup.
 
-For most installations nothing have changed. The rendered picture still gets stored into `public/pictures`
-so the web server can pick up the file and serve it without hitting the Rails process at all.
-
-This may or may not what you want. Especially for multi server setups you eventually want to use
-something like S3. This is now possible. Please follow the guidelines about picture caching on the
-Dragonfly homepage:
+Please follow the guidelines about picture caching on the Dragonfly homepage:
 
 http://markevans.github.io/dragonfly/cache/
 
