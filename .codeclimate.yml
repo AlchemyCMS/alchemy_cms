@@ -11,6 +11,7 @@ engines:
     exclude_paths:
     - "lib/alchemy/permissions.rb"
     - "lib/tasks/alchemy/tidy.rake"
+    - "lib/tasks/alchemy/upgrade.rake"
     config:
       languages:
       - ruby

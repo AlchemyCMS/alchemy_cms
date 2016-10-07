@@ -224,10 +224,11 @@ Always be sure to keep an eye on the `config/alchemy/config.yml.defaults` file a
 
 Also, `git diff` is your friend.
 
-### Customize the upgrade process
+### Customize the upgrade preparation
 
-Alchemy upgrader runs several rake tasks in a specific order. This is sometimes not what you want or could even break upgrades.
-In order to customize the upgrade process you can instead run each of the tasks on their own.
+The Alchemy upgrader comes prepared with with several rake tasks in a specific order.
+This is sometimes not what you want or could even break upgrades.
+In order to customize the upgrade preparation process you can instead run each of the tasks on their own.
 
 ```shell
 $ bin/rake alchemy:install:migrations
@@ -240,6 +241,24 @@ $ bin/rake alchemy:upgrade:run
 **WARNING:** This is only recommended, if you have problems with the default `rake alchemy:upgrade` task and need to
 repair your data in between. The upgrader depends on these upgrade tasks running in this specific order, otherwise
 we can't ensure smooth upgrades for you.
+
+### Run an individual upgrade
+
+You can also run an individual upgrade on its own:
+
+```shell
+$ bin/rake -T alchemy:upgrade
+```
+
+provides you with a list of each upgrade you can run individually.
+
+#### Example
+
+```shell
+$ bin/rake alchemy:upgrade:3.2
+```
+
+runs only the Alchemy 3.2 upgrade
 
 ## Deployment
 
