@@ -673,8 +673,9 @@ body .mce-abs-layout-item,.mce-abs-end {
   }
 
   &.mce-active, &.mce-active:hover {
-    @include background(linear-gradient(color-stops(darken($white, 15%), darken($white, 25%))));
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    background-color: #e6f0f5;
+    background-image: linear-gradient(#e5e5e5, #cccccc);
+    box-shadow: #c4c4c4 0 1px 2px inset;
 
     button i { color: #000; }
   }
@@ -693,48 +694,6 @@ body .mce-abs-layout-item,.mce-abs-end {
     -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
   }
-}
-
-.mce-primary {
-  // min-width: 50px;
-  // color: #fff;
-  // border: 1px solid #b1b1b1;
-  // border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25) rgba(0,0,0,0.25);
-  // @include background(linear-gradient(color-stops(#0c0, darken(#0c0, 10%))));
-
-  // &:hover, &:focus {
-  //   @include background(linear-gradient(color-stops(darken(#0c0, 10%), darken(#0c0, 20%))));
-  // }
-
-  // &.mce-disabled button, &.mce-disabled:hover button {
-  //   cursor: default;
-  //   -webkit-box-shadow: none;
-  //   -moz-box-shadow: none;
-  //   box-shadow: none;
-  //   opacity: .4;
-  //   filter: alpha(opacity=40);
-  //   zoom: 1;
-  // }
-
-  // &.mce-active, &.mce-active:hover, &:not(.mce-disabled):active {
-  //   background-color: #005299;
-  //   background-image: -moz-linear-gradient(top,#069,#039);
-  //   background-image: -webkit-gradient(linear,0 0,0 100%,from(#069),to(#039));
-  //   background-image: -webkit-linear-gradient(top,#069,#039);
-  //   background-image: -o-linear-gradient(top,#069,#039);
-  //   background-image: linear-gradient(to bottom,#069,#039);
-  //   background-repeat: repeat-x;
-  //   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ff006699',endColorstr='#ff003399',GradientType=0);
-  //   zoom: 1;
-  //   -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
-  //   -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
-  //   box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
-  // }
-
-  // button, button i {
-  //   color: #fff;
-  //   text-shadow: 1px 1px #333;
-  // }
 }
 
 .mce-btn-large button {
