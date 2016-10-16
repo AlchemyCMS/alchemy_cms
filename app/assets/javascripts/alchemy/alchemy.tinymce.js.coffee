@@ -63,7 +63,7 @@ $.extend Alchemy.Tinymce,
     $this = $("##{inst.id}")
     parent = $this.closest('.element-editor')
     parent.find('.spinner').remove()
-    inst.on 'change', (e) ->
+    inst.on 'dirty', (e) ->
       Alchemy.setElementDirty(parent)
 
   # Removes the TinyMCE editor from given dom ids.

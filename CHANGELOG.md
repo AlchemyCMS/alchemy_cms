@@ -20,6 +20,7 @@ __Notable Changes__
 * Added foreign keys to important associations (#1149)
 * Also destroy trashed elements when page gets destroyed (#1149)
 * Upgrade tasks can now be run separately (#1152)
+* Update to Tinymce 4.4.3
 
 __Fixed Bugs__
 

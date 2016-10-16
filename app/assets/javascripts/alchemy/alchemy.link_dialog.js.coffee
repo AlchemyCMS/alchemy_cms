@@ -157,6 +157,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Handles actions for internal link tab.
   selectInternalLinkTab: ->
+    return unless @$link
     url = @$link.attr('href').split('#')
     urlname = url[0]
     anchor = url[1]
