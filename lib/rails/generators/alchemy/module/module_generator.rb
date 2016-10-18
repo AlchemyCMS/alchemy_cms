@@ -20,7 +20,7 @@ module Alchemy
 
       def copy_templates
         template "controller.rb.tt", "app/controllers/admin/#{@controller_name}_controller.rb"
-        template "ability.rb.tt", 'app/models', "alchemy_#{@module_name}_ability.rb"
+        template "ability.rb.tt", "app/models/alchemy_#{@module_name}_ability.rb"
         template "module_config.rb.tt", "config/initializers/alchemy_#{@module_name}.rb"
       end
     end
