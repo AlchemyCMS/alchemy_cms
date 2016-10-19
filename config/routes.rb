@@ -139,6 +139,9 @@ Alchemy::Engine.routes.draw do
     resources :pages, only: [:index] do
       get 'elements' => 'elements#index', as: 'elements'
       get 'elements/:named' => 'elements#index', as: 'named_elements'
+      collection do
+        get :nested
+      end
     end
 
     get '/pages/*urlname(.:format)' => 'pages#show', as: 'page'

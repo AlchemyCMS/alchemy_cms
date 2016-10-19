@@ -2,6 +2,11 @@
 
 ## 3.5.0 (unreleased)
 
+__New Features__
+
+* New API endpoint for retrieving a nested page tree (#1155)
+  `api/pages/nested` returns a nested JSON tree of all pages.
+
 __Notable Changes__
 
 * The essence view partials don't get cached anymore (#1099)
