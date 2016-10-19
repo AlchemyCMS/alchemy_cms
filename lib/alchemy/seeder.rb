@@ -12,7 +12,10 @@ module Alchemy
       def seed!
         create_default_site
         create_root_page
-        seed_pages if page_seeds_file.file?
+        if page_seeds_file.file?
+          seed_pages if contentpages.present?
+          seed_layoutpages if layoutpages.present?
+        end
         seed_users if user_seeds_file.file?
       end
 
@@ -49,16 +52,28 @@ module Alchemy
       end
 
       def seed_pages
-        desc "Seeding Alchemy pages from #{page_seeds_file}"
-        pages = YAML.load_file(page_seeds_file)
-        if pages.length > 1
-          abort "The pages seed file must only contain one root page! You have #{pages.length}."
+        desc "Seeding Alchemy content pages from #{page_seeds_file}"
+        if contentpages.length > 1
+          abort "The pages seed file must only contain one root page! You have #{contentpages.length}."
         end
-        pages.each do |page|
+
+        contentpages.each do |page|
           create_page(page, {
             parent: Alchemy::Page.root,
             language: Alchemy::Language.default,
             language_root: true
+          })
+        end
+      end
+
+      def seed_layoutpages
+        desc "Seeding Alchemy layout pages from #{page_seeds_file}"
+        language = Alchemy::Language.default
+        layout_root = Alchemy::Page.find_or_create_layout_root_for(language.id)
+        layoutpages.each do |page|
+          create_page(page, {
+            parent: layout_root,
+            language: language
           })
         end
       end
@@ -80,6 +95,18 @@ module Alchemy
 
       def page_seeds_file
         @_page_seeds_file ||= Rails.root.join('db', 'seeds', 'alchemy', 'pages.yml')
+      end
+
+      def page_yml
+        @_page_yml ||= YAML.load_file(page_seeds_file)
+      end
+
+      def contentpages
+        page_yml.select { |p| !p['layoutpage'] }
+      end
+
+      def layoutpages
+        page_yml.select { |p| p['layoutpage'] }
       end
 
       def user_seeds_file

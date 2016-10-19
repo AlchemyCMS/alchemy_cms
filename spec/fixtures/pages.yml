@@ -9,3 +9,7 @@
       page_layout: about
     - name: Contact
       page_layout: contact
+
+- name: Footer
+  layoutpage: true
+  page_layout: footer
