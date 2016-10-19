@@ -12,6 +12,7 @@ module Alchemy
       def seed!
         create_default_site
         create_root_page
+        seed_pages if page_seeds_file.file?
       end
 
       protected
@@ -46,10 +47,38 @@ module Alchemy
         end
       end
 
+      def seed_pages
+        desc "Seeding Alchemy pages from #{page_seeds_file}"
+        pages = YAML.load_file(page_seeds_file)
+        if pages.length > 1
+          abort "The pages seed file must only contain one root page! You have #{pages.length}."
+        end
+        pages.each do |page|
+          create_page(page, {
+            parent: Alchemy::Page.root,
+            language: Alchemy::Language.default,
+            language_root: true
+          })
+        end
+      end
+
       private
 
       def site_config
         @_site_config ||= Alchemy::Config.get(:default_site)
+      end
+
+      def page_seeds_file
+        @_page_seeds_file ||= Rails.root.join('db', 'seeds', 'alchemy', 'pages.yml')
+      end
+
+      def create_page(draft, attributes = {})
+        children = draft.delete('children') || []
+        page = Alchemy::Page.create!(draft.merge(attributes))
+        log "Created page: #{page.name}"
+        children.each do |child|
+          create_page(child, parent: page)
+        end
       end
     end
   end
