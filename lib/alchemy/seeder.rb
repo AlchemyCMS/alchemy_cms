@@ -13,6 +13,7 @@ module Alchemy
         create_default_site
         create_root_page
         seed_pages if page_seeds_file.file?
+        seed_users if user_seeds_file.file?
       end
 
       protected
@@ -62,6 +63,15 @@ module Alchemy
         end
       end
 
+      def seed_users
+        desc "Seeding Alchemy users from #{user_seeds_file}"
+        users = YAML.load_file(user_seeds_file)
+        users.each do |draft|
+          user = Alchemy.user_class.create!(draft)
+          log "Created user: #{user.try(:email) || user.try(:login) || user.id}"
+        end
+      end
+
       private
 
       def site_config
@@ -70,6 +80,10 @@ module Alchemy
 
       def page_seeds_file
         @_page_seeds_file ||= Rails.root.join('db', 'seeds', 'alchemy', 'pages.yml')
+      end
+
+      def user_seeds_file
+        @_user_seeds_file ||= Rails.root.join('db', 'seeds', 'alchemy', 'users.yml')
       end
 
       def create_page(draft, attributes = {})
