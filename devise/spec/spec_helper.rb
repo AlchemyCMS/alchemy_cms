@@ -19,7 +19,6 @@ require 'factory_girl'
 require 'alchemy/seeder'
 require 'alchemy/test_support/controller_requests'
 require 'alchemy/test_support/integration_helpers'
-require 'alchemy/test_support/factories'
 require 'alchemy/devise/test_support/factories'
 
 ActionMailer::Base.delivery_method = :test
