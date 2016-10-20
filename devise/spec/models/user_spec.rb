@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'alchemy/test_support/factories/page_factory'
 
 module Alchemy
   describe User do
