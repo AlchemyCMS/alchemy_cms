@@ -12,24 +12,39 @@ RSpec.describe 'Page seeding' do
       Alchemy::Seeder.instance_variable_set(:@_page_yml, nil)
     end
 
-    it 'seeds pages' do
-      Alchemy::Seeder.seed!
-      expect(Alchemy::Page.find_by(name: 'Index')).to be_present
-      expect(Alchemy::Page.find_by(name: 'Home')).to be_present
-      expect(Alchemy::Page.find_by(name: 'About')).to be_present
-      expect(Alchemy::Page.find_by(name: 'Contact')).to be_present
-      expect(Alchemy::Page.find_by(name: 'Footer')).to be_present
-    end
+    subject(:seed) { Alchemy::Seeder.seed! }
 
-    context 'when more then one content root page is present' do
-      let(:seeds_file) do
-        'spec/fixtures/pages_with_two_roots.yml'
+    context 'when no pages are present yet' do
+      before do
+        Alchemy::Page.delete_all
       end
 
-      it 'aborts' do
-        expect {
-          expect { Alchemy::Seeder.seed! }.to output.to_stderr
-        }.to raise_error(SystemExit)
+      it 'seeds pages', :aggregate_failures do
+        seed
+        expect(Alchemy::Page.find_by(name: 'Index')).to be_present
+        expect(Alchemy::Page.find_by(name: 'Home')).to be_present
+        expect(Alchemy::Page.find_by(name: 'About')).to be_present
+        expect(Alchemy::Page.find_by(name: 'Contact')).to be_present
+        expect(Alchemy::Page.find_by(name: 'Footer')).to be_present
+      end
+
+      context 'when more then one content root page is present' do
+        let(:seeds_file) do
+          'spec/fixtures/pages_with_two_roots.yml'
+        end
+
+        it 'aborts' do
+          expect {
+            expect { seed }.to output.to_stderr
+          }.to raise_error(SystemExit)
+        end
+      end
+    end
+
+    context "when pages are already present" do
+      it 'does not seed' do
+        seed
+        expect(Alchemy::Page.find_by(name: 'Home')).to_not be_present
       end
     end
 

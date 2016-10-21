@@ -11,10 +11,12 @@ module Alchemy
       #
       def seed!
         create_default_site
-        create_root_page
-        if page_seeds_file.file?
-          seed_pages if contentpages.present?
-          seed_layoutpages if layoutpages.present?
+        if create_root_page
+          try_seed_pages
+        elsif page_seeds_file.file?
+          desc "Seeding Alchemy pages"
+          log "There are already pages present in your database. " \
+              "Please use `rake db:reset' if you want to rebuild your database.", :skip
         end
         seed_users if user_seeds_file.file?
       end
@@ -45,9 +47,18 @@ module Alchemy
         if root.new_record?
           if root.save!
             log "Created Alchemy root page."
+            return true
           end
         else
           log "Alchemy root page was already present.", :skip
+          return false
+        end
+      end
+
+      def try_seed_pages
+        if page_seeds_file.file?
+          seed_pages if contentpages.present?
+          seed_layoutpages if layoutpages.present?
         end
       end
 
@@ -80,10 +91,17 @@ module Alchemy
 
       def seed_users
         desc "Seeding Alchemy users from #{user_seeds_file}"
-        users = YAML.load_file(user_seeds_file)
-        users.each do |draft|
-          user = Alchemy.user_class.create!(draft)
-          log "Created user: #{user.try(:email) || user.try(:login) || user.id}"
+
+        if Alchemy.user_class.exists?
+          log "There are already users present in your database. " \
+              "Please use `rake db:reset' if you want to rebuild your database.", :skip
+          return false
+        else
+          users = YAML.load_file(user_seeds_file)
+          users.each do |draft|
+            user = Alchemy.user_class.create!(draft)
+            log "Created user: #{user.try(:email) || user.try(:login) || user.id}"
+          end
         end
       end
 
