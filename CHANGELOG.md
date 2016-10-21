@@ -10,6 +10,7 @@ __New Features__
 * Files of attachments are replaceable now (#1167)
 * Add fixed page attributes (#1168)
   Page attributes can be defined as fixed_attributes to prevent changes by the user.
+* Allow to declare which user role can edit page content on the page layout level.
 
 __Notable Changes__
 

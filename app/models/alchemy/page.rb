@@ -419,6 +419,16 @@ module Alchemy
       fixed_attributes.fixed?(name)
     end
 
+    # Checks the current page's list of editors, if defined.
+    #
+    # This allows us to pass in a user and see if any of their roles are enable
+    # them to make edits
+    #
+    def editable_by?(user)
+      return true unless has_limited_editors?
+      (editor_roles & user.alchemy_roles).any?
+    end
+
     private
 
     def set_fixed_attributes

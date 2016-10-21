@@ -95,7 +95,8 @@ module Alchemy
         configure: ability.can?(:configure, page),
         copy: ability.can?(:copy, page),
         destroy: ability.can?(:destroy, page),
-        create: ability.can?(:create, Alchemy::Page)
+        create: ability.can?(:create, Alchemy::Page),
+        edit_content: ability.can?(:edit_content, page)
       }
     end
 

@@ -113,9 +113,9 @@ module Alchemy
         can :manage,                Alchemy::EssenceFile
         can :manage,                Alchemy::EssencePicture
         can :manage,                Alchemy::LegacyPageUrl
-        can :edit_content,          Alchemy::Page
         can :read,                  Alchemy::Picture
         can [:read, :autocomplete], Alchemy::Tag
+        can(:edit_content,          Alchemy::Page) { |p| p.editable_by?(@user) }
       end
     end
 
@@ -142,14 +142,25 @@ module Alchemy
         can [
           :copy,
           :copy_language_tree,
-          :create,
-          :destroy,
           :flush,
           :order,
-          :publish,
           :sort,
           :switch_language
         ], Alchemy::Page
+
+        # Resources which may be locked via template permissions
+        #
+        #     # config/alchemy/page_layouts.yml
+        #     - name: contact
+        #       editable_by:
+        #         - freelancer
+        #         - admin
+        #
+        can([
+          :create,
+          :destroy,
+          :publish
+        ], Alchemy::Page) { |p| p.editable_by?(@user) }
 
         can :manage, Alchemy::Picture
         can :manage, Alchemy::Attachment

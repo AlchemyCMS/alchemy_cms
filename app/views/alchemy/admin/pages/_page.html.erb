@@ -18,13 +18,20 @@
       {{#if definition_missing}}
         <%= page_layout_missing_warning %>
       {{else}}
-        <div class="page icon<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>{{#if locked}} with-hint{{/if}}">
-        {{#if locked}}
-          <span class="hint-bubble">
-            {{locked_notice}}
-          </span>
+        {{#if permissions.edit_content}}
+          <div class="page icon<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>{{#if locked}} with-hint{{/if}}">
+            {{#if locked}}
+              <span class="hint-bubble">
+                {{locked_notice}}
+              </span>
+            {{/if}}
+          </div>
+        {{else}}
+          <%= hint_with_tooltip(
+                'Your user role does not allow you to edit this page.',
+                class: 'inline warning icon'
+          ) %>
         {{/if}}
-        </div>
       {{/if}}
     </div>
     <div class="sitemap_right_tools">
@@ -113,13 +120,17 @@
         {{ external_urlname }}
       </span>
       {{else}}
-        <%= link_to_unless(
-          @sorting,
-          '{{name}}',
-          alchemy.edit_admin_page_path(page),
-          title: Alchemy.t(:edit_page),
-          class: "sitemap_pagename_link"
-        ) { content_tag('span', '{{name}}', class: "sitemap_pagename_link") } -%>
+        {{#if permissions.edit_content}}
+          <%= link_to_unless(
+            @sorting,
+            '{{name}}',
+            alchemy.edit_admin_page_path(page),
+            title: Alchemy.t(:edit_page),
+            class: "sitemap_pagename_link"
+          ) { content_tag('span', '{{name}}', class: "sitemap_pagename_link") } -%>
+        {{else}}
+          <%= content_tag('span', '{{name}}', class: "sitemap_pagename_link") %>
+        {{/if}}
       {{/if}}
     </div>
   </div>
