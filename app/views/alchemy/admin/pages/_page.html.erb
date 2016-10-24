@@ -16,9 +16,15 @@
         {{/unless}}
       <% end %>
       {{#if definition_missing}}
-        <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
+        <%= page_layout_missing_warning %>
       {{else}}
-        <div class="page icon<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>"></div>
+        <div class="page icon<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>{{#if locked}} with-hint{{/if}}">
+        {{#if locked}}
+          <span class="hint-bubble">
+            <%= Alchemy.t('This page is locked', name: page.locker_name) %>
+          </span>
+        {{/if}}
+        </div>
       {{/if}}
     </div>
     <div class="sitemap_right_tools">

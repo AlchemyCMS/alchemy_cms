@@ -13,14 +13,21 @@ module Alchemy
         if content.blank?
           warning('Content is nil')
           return
-        else
-          content_name = content.name_for_label
         end
+
+        content_name = content.name_for_label
+
         if content.definition.blank?
           warning("Content #{content.name} is missing its definition")
-          title = Alchemy.t(:content_definition_missing)
-          content_name = %(<span class="warning icon" title="#{title}"></span>&nbsp;#{content_name}).html_safe
+
+          icon = hint_with_tooltip(
+            Alchemy.t(:content_definition_missing),
+            class: 'inline warning icon'
+          )
+
+          content_name = "#{icon} #{content_name}".html_safe
         end
+
         if content.has_validations?
           "#{content_name}<span class='validation_indicator'>*</span>".html_safe
         else

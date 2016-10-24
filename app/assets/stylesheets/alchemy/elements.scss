@@ -808,7 +808,7 @@ textarea.has_tinymce {
 .element-handle .warning {
   margin-left: 0;
 
-  .hint-bubble {
+  > .hint-bubble {
     left: -7px;
     transform: none;
 

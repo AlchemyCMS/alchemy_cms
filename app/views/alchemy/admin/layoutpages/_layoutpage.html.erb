@@ -2,7 +2,7 @@
   <div class="sitemap_page<%= layoutpage.locked? ? ' locked' : '' %>">
     <div class="sitemap_left_images">
     <% if layoutpage.definition.blank? %>
-      <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
+      <%= page_layout_missing_warning %>
     <% else %>
       <%= render_icon(:page) %>
     <% end %>

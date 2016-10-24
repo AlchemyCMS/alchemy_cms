@@ -434,6 +434,22 @@ module Alchemy
         Alchemy::Config.get(:format_matchers)['link_url'] || /^(mailto:|\/|[a-z]+:\/\/)/
       end
 
+      # Renders a hint with tooltip
+      #
+      # == Example
+      #
+      #   <%= hint_with_tooltip('Page layout is missing', class: 'warning icon') %>
+      #
+      # @param text [String] - The text displayed in the tooltip
+      # @param html_options [Hash] - Options passed to the wrapper `content_tag`
+      #
+      def hint_with_tooltip(text, html_options = {})
+        css_class = "#{html_options[:class]} with-hint"
+        content_tag :span, html_options.merge(class: css_class) do
+          content_tag(:span, text, class: 'hint-bubble')
+        end
+      end
+
       private
 
       def permission_from_options(options)

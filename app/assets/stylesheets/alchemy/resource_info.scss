@@ -5,7 +5,7 @@
   }
 
   .value {
-    overflow: hidden;
+    @include clearfix;
     position: relative;
 
     > label {
