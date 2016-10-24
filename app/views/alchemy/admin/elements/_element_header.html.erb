@@ -2,9 +2,12 @@
   <span class="element-handle">
     <%= render_icon(:element) %>
     <% if element.definition.blank? %>
-    <span class="warning icon" title="<%= Alchemy.t(:element_definition_missing) %>"></span>
+      <%= hint_with_tooltip(
+        Alchemy.t(:element_definition_missing),
+        class: 'warning icon'
+      ) %>
     <% else %>
-    <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
+      <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
     <% end %>
   </span>
   <span class="element-title">
