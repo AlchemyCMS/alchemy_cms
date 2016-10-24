@@ -57,6 +57,12 @@
   &:focus {
     @extend %blue-focus-style;
   }
+
+  &[disabled], .disabled {
+    color: #888;
+    background-color: rgba(#fff, 0.5);
+    cursor: not-allowed;
+  }
 }
 
 %gradiated-toolbar {
