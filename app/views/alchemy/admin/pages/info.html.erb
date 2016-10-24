@@ -7,7 +7,7 @@
   <div class="value">
     <label>
       <% if @page.definition.blank? %>
-        <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
+        <%= page_layout_missing_warning %>
       <% end %>
       <%= Alchemy::Page.human_attribute_name(:page_layout) %>
     </label>

@@ -1,5 +1,5 @@
 <% if page.definition.blank? %>
-  <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
+  <%= page_layout_missing_warning %>
 <% end %>
 <span class="page_name" title="<%= page.name %>">
   <% if local_assigns[:truncate] %>

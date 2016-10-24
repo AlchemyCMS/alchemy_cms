@@ -16,7 +16,7 @@
         {{/unless}}
       <% end %>
       {{#if definition_missing}}
-        <span class="inline warning icon" title="<%= Alchemy.t(:page_definition_missing) %>"></span>
+        <%= page_layout_missing_warning %>
       {{else}}
         <div class="page icon<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>"></div>
       {{/if}}

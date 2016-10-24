@@ -2,6 +2,7 @@ module Alchemy
   module Admin
     class LayoutpagesController < Alchemy::Admin::BaseController
       authorize_resource class: :alchemy_admin_layoutpages
+      helper Alchemy::Admin::PagesHelper
 
       def index
         @layout_root = Page.find_or_create_layout_root_for(Language.current.id)

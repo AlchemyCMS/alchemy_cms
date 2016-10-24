@@ -54,8 +54,8 @@ describe Alchemy::Admin::PagesHelper do
           expect(page).to receive(:definition).and_return([])
         end
 
-        it 'displays icon with warning' do
-          is_expected.to match /warning icon/
+        it 'displays icon with warning and tooltip' do
+          is_expected.to have_selector '.warning.icon.with-hint .hint-bubble'
         end
       end
     end
