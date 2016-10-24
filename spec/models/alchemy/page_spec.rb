@@ -2289,5 +2289,22 @@ module Alchemy
         end
       end
     end
+
+    describe '#fixed_attributes' do
+      let(:page) { Alchemy::Page.new }
+
+      it 'holds an instance of FixedAttributes' do
+        expect(page.fixed_attributes).to be_a(Alchemy::Page::FixedAttributes)
+      end
+    end
+
+    describe '#attribute_fixed?' do
+      let(:page) { Alchemy::Page.new }
+
+      it 'delegates to instance of FixedAttributes' do
+        expect_any_instance_of(Alchemy::Page::FixedAttributes).to receive(:fixed?).with('yolo')
+        page.attribute_fixed?('yolo')
+      end
+    end
   end
 end

@@ -406,6 +406,16 @@ module Alchemy
       update_columns(hash)
     end
 
+    # Holds an instance of +FixedAttributes+
+    def fixed_attributes
+      @_fixed_attributes ||= Alchemy::Page::FixedAttributes.new(self)
+    end
+
+    # True if given attribute name is defined as fixed
+    def attribute_fixed?(name)
+      fixed_attributes.fixed?(name)
+    end
+
     private
 
     # Returns the next or previous page on the same level or nil.

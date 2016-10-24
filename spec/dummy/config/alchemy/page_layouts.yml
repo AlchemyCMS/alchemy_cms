@@ -1,5 +1,13 @@
 - name: index
   unique: true
+  fixed_attributes:
+    name: Index
+    urlname: index
+    public_on: nil
+    public_until: nil
+    visible: true
+    robot_index: true
+    meta_keywords: nil
 
 - name: standard
   elements: [article, header, slider]

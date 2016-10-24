@@ -1,0 +1,72 @@
+require 'spec_helper'
+
+RSpec.describe Alchemy::Page::FixedAttributes do
+  let(:page) { Alchemy::Page.new }
+
+  let(:definition_with_fixed_attributes) do
+    {
+      'name' => 'foo',
+      'fixed_attributes' => {
+        name: 'Home'
+      }
+    }
+  end
+
+  describe '#all' do
+    it 'is an alias to attributes' do
+      described_class.new(page).attributes == described_class.new(page).all
+    end
+  end
+
+  describe '#attributes' do
+    subject(:attributes) do
+      described_class.new(page).attributes
+    end
+
+    it 'returns empty hash' do
+      expect(attributes).to eq({})
+    end
+
+    context 'with page having fixed_attributes defined' do
+      before do
+        allow(page).to receive(:definition) do
+          definition_with_fixed_attributes
+        end
+      end
+
+      it 'returns fixed attributes from page definition' do
+        expect(attributes).to eq({name: 'Home'})
+      end
+    end
+  end
+
+  describe '#fixed?' do
+    subject(:fixed?) do
+      described_class.new(page).fixed?(name)
+    end
+
+    context 'with nil given as name' do
+      let(:name) { nil }
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with name not defined as fixed attribute' do
+      let(:name) { 'lol' }
+
+      it { is_expected.to eq(false) }
+    end
+
+    context 'with name defined as fixed attribute' do
+      let(:name) { :name }
+
+      before do
+        allow(page).to receive(:definition) do
+          definition_with_fixed_attributes
+        end
+      end
+
+      it { is_expected.to eq(true) }
+    end
+  end
+end
