@@ -1,11 +1,11 @@
 <%= element_editor_for(element) do |el| -%>
+  <%= el.edit :essence_text %>
+  <%= el.edit :essence_picture %>
+  <%= el.edit :essence_richtext %>
+  <%= el.edit :essence_select %>
   <%= el.edit :essence_boolean %>
   <%= el.edit :essence_date %>
   <%= el.edit :essence_file %>
   <%= el.edit :essence_html %>
   <%= el.edit :essence_link %>
-  <%= el.edit :essence_picture %>
-  <%= el.edit :essence_richtext %>
-  <%= el.edit :essence_select %>
-  <%= el.edit :essence_text %>
 <%- end -%>
