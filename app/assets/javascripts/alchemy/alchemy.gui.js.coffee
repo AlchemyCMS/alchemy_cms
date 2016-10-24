@@ -7,6 +7,7 @@ Alchemy.GUI =
   init: (scope) ->
     Alchemy.SelectBox(scope)
     Alchemy.Datepicker(scope)
+    Alchemy.Tooltips(scope)
     Alchemy.Buttons.observe(scope)
     Alchemy.watchForDialogs(scope)
     Alchemy.Hotkeys(scope)

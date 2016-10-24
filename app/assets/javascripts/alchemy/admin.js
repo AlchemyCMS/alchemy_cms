@@ -50,5 +50,6 @@
 //= require alchemy/alchemy.sitemap
 //= require alchemy/alchemy.spinner
 //= require alchemy/alchemy.tinymce
+//= require alchemy/alchemy.tooltips
 //= require alchemy/alchemy.translations
 //= require alchemy/alchemy.trash_window
