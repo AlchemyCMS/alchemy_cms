@@ -1,5 +1,17 @@
 <%- cache(element) do -%>
   <%= element_view_for(element) do |el| -%>
+    <div class="essence_text">
+      <%= el.render :essence_text %>
+    </div>
+    <div class="essence_picture">
+      <%= el.render :essence_picture %>
+    </div>
+    <div class="essence_richtext">
+      <%= el.render :essence_richtext %>
+    </div>
+    <div class="essence_select">
+      <%= el.render :essence_select %>
+    </div>
     <div class="essence_boolean">
       <%= el.render :essence_boolean %>
     </div>
@@ -14,18 +26,6 @@
     </div>
     <div class="essence_link">
       <%= el.render :essence_link %>
-    </div>
-    <div class="essence_picture">
-      <%= el.render :essence_picture %>
-    </div>
-    <div class="essence_richtext">
-      <%= el.render :essence_richtext %>
-    </div>
-    <div class="essence_select">
-      <%= el.render :essence_select %>
-    </div>
-    <div class="essence_text">
-      <%= el.render :essence_text %>
     </div>
   <%- end -%>
 <%- end -%>

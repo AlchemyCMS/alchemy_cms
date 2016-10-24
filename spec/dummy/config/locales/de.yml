@@ -1,0 +1,24 @@
+de:
+  alchemy:
+    content_names:
+      essence_boolean: EssenceBoolean
+      essence_date: EssenceDate
+      essence_file: EssenceFile
+      essence_html: EssenceHtml
+      essence_link: EssenceLink
+      essence_picture: EssencePicture
+      essence_richtext: EssenceRichtext
+      essence_select: EssenceSelect
+      essence_text: EssenceText
+    element_hints:
+      all_you_can_eat: Dieses Element zeigt alle Inhaltstypen (Essenzen) und Funktionen eines Elements mit denen Alchemy ausgeliefert wird.
+    content_hints:
+      essence_boolean: Dieser Inhaltstyp (Essenz) stellt einenen simplen ja/nein Wert da
+      essence_date: Dieser Inhaltstyp (Essenz) stellt einen Datumswert dar
+      essence_file: Dieser Inhaltstyp (Essenz) stellt eine herunterladbare Datei dar
+      essence_html: Dieser Inhaltstyp (Essenz) stellt reine HTML Ausgabe dar
+      essence_link: Dieser Inhaltstyp (Essenz) stellt einen Link dar
+      essence_picture: Dieser Inhaltstyp (Essenz) stellt ein Bild dar
+      essence_richtext: Dieser Inhaltstyp (Essenz) stellt formatierbaren Text dar
+      essence_select: Dieser Inhaltstyp (Essenz) stellt Werte dar aus denen der Redakteur wählen kann
+      essence_text: Dieser Inhaltstyp (Essenz) stellt eine einfache Zeile Text dar
