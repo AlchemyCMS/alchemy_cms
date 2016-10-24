@@ -397,10 +397,13 @@ module Alchemy
         current_params.merge(p).delete_if { |_k, v| v.blank? }
       end
 
+      # Render a hint icon with tooltip for given object.
+      # The model class needs to include the hints module
       def render_hint_for(element)
         return unless element.has_hint?
-        link_to '#', class: 'hint' do
-          render_icon(:hint) + content_tag(:span, element.hint.html_safe, class: 'bubble')
+        content_tag :span, class: 'hint-with-icon' do
+          render_icon(:questionmark) +
+            content_tag(:span, element.hint.html_safe, class: 'hint-bubble')
         end
       end
 
