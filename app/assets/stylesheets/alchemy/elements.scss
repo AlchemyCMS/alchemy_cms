@@ -255,6 +255,24 @@
     top: 9px;
     right: 9px;
   }
+
+  > .hint-with-icon {
+    position: absolute;
+    right: 32px;
+    top: 8px;
+
+    .hint-bubble {
+      left: auto;
+      right: -24px;
+      transform: none;
+
+      &:before {
+        left: auto;
+        right: 24px;
+        transform: none;
+      }
+    }
+  }
 }
 
 .element-toolbar {
@@ -785,35 +803,17 @@ textarea.has_tinymce {
   }
 }
 
-a.hint {
-  position: absolute;
-  right: 32px;
-  top: 8px;
-  width: 16px;
-  height: 16px;
-  cursor: help !important;
+.content_editor .hint-with-icon,
+.content_editor .with-hint,
+.element-handle .warning {
+  margin-left: 0;
 
-  &:hover span.bubble { display: block }
-  span.bubble { @extend %tooltip }
-}
-
-.content_editor .hint {
-  position: relative;
-  top: auto;
-  right: auto;
-  display: inline-block;
-  margin-right: 4px;
-  margin-top: -2px;
-  margin-left: -1px;
-
-  .bubble {
-    right: auto;
-    left: -4px;
-    top: 24px;
+  .hint-bubble {
+    left: -7px;
+    transform: none;
 
     &:before {
-      right: auto;
-      left: 5px;
+      left: 16px;
     }
   }
 }

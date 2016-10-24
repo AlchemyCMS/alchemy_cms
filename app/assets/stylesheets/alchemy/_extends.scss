@@ -11,33 +11,6 @@
   -moz-text-overflow: ellipsis;
 }
 
-%tooltip {
-  display: none;
-  background: $light_yellow;
-  @extend %rounded-border;
-  box-shadow: 0 4px 24px $dark-gray;
-  position: absolute;
-  right: -25px;
-  top: 26px;
-  z-index: 100;
-  padding: 8px;
-  line-height: 1.5em;
-  min-width: 180px;
-  font-size: 12px;
-
-  &:before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    right: 24px;
-    width: 0px;
-    height: 0px;
-    border-style: solid;
-    border-width: 0 8px 8px 8px;
-    border-color: transparent transparent $light_yellow transparent;
-  }
-}
-
 %thumbnail-background {
   display: table-cell;
   background-color: $dark-gray;
