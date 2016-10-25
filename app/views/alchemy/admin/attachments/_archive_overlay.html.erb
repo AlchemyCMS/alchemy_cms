@@ -1,7 +1,7 @@
 <div id="overlay_toolbar">
   <% if can? :create, Alchemy::Attachment %>
     <%= render 'alchemy/admin/uploader/button',
-      model_class: Alchemy::Attachment,
+      object: Alchemy::Attachment.new,
       dropzone: '#assign_file_list',
       file_attribute: 'file',
       in_dialog: true,

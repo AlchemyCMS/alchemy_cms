@@ -1,4 +1,4 @@
-<%= form_for [:admin, model_class.new], html: {multipart: true, class: 'upload-button'} do |f| %>
+<%= form_for [:admin, object], html: {multipart: true, class: 'upload-button'} do |f| %>
   <%= f.file_field file_attribute,
     class: 'fileupload', multiple: true,
     name: "#{f.object_name}[#{file_attribute}]" %>
@@ -8,14 +8,14 @@
       <span class="icon_button"><%= render_icon :upload %></span>
       <label>
         <%= local_assigns[:label] ||
-          Alchemy.t(:button_label, scope: [:uploader, model_class.model_name.i18n_key]) %>
+          Alchemy.t(:button_label, scope: [:uploader, object.class.model_name.i18n_key]) %>
       </label>
     </div>
   <% end %>
 <% end %>
 
 <% file_types = local_assigns[:file_types].presence ||
-  configuration(:uploader)['allowed_filetypes'][model_class.model_name.collection] || ['*'] %>
+  configuration(:uploader)['allowed_filetypes'][object.class.model_name.collection] || ['*'] %>
 
 <script type='text/javascript'>
   $(function() {
