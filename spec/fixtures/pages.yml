@@ -1,0 +1,15 @@
+---
+
+- name: Index
+  page_layout: index
+  children:
+    - name: Home
+      page_layout: standard
+    - name: About
+      page_layout: about
+    - name: Contact
+      page_layout: contact
+
+- name: Footer
+  layoutpage: true
+  page_layout: footer

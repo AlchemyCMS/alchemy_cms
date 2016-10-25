@@ -1,0 +1,9 @@
+- email: admin@example.com
+  password: test123
+  alchemy_roles:
+    - admin
+
+- email: member@example.com
+  password: test123
+  alchemy_roles:
+    - member

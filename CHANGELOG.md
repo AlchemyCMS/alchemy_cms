@@ -6,6 +6,7 @@ __New Features__
 
 * New API endpoint for retrieving a nested page tree (#1155)
   `api/pages/nested` returns a nested JSON tree of all pages.
+* Add page and user seeding support (#1160)
 
 __Notable Changes__
 
