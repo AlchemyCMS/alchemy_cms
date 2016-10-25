@@ -529,6 +529,7 @@ fr:
     rename_file: "Renommer un fichier"
     rename: rebaptiser
     replace: remplacer
+    replace_file: Remplacer le fichier
     'Replaced Tag %{old_tag} with %{new_tag}': "Le Tag '%{old_tag}' á été rmplacé par le Tag '%{new_tag}'"
     resources:
       relation_select:

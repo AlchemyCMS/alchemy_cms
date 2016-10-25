@@ -49,7 +49,6 @@ module Alchemy
     end
 
     validates_presence_of :file
-    validates_format_of :file_name, with: /\A[A-Za-z0-9\. \-_äÄöÖüÜß]+\z/, on: :update
     validates_size_of :file, maximum: Config.get(:uploader)['file_size_limit'].megabytes
     validates_property :ext, of: :file,
       in: allowed_filetypes,
@@ -57,9 +56,7 @@ module Alchemy
       message: Alchemy.t("not a valid file"),
       unless: -> { self.class.allowed_filetypes.include?('*') }
 
-    before_create do
-      write_attribute(:name, convert_to_humanized_name(file_name, file.ext))
-    end
+    before_save :set_name, if: :file_name_changed?
 
     after_update :touch_contents
 
@@ -122,6 +119,12 @@ module Alchemy
       else
         "file"
       end
+    end
+
+    private
+
+    def set_name
+      self.name = convert_to_humanized_name(file_name, file.ext)
     end
   end
 end

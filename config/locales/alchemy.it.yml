@@ -511,6 +511,7 @@ it:
     rename_file: "Rinomina questo file."
     rename: "Rinomina"
     replace: sostituisci
+    replace_file: Sostituire il file
     'Replaced Tag': "Il tag '%{old_tag}' è stato sostiuito con '%{new_tag}'"
     resources:
       relation_select:

@@ -511,6 +511,7 @@ en:
     rename_file: "Rename this file."
     rename: "Rename"
     replace: replace
+    replace_file: Replace file
     'Replaced Tag': "Tag '%{old_tag}' was replaced with '%{new_tag}'"
     resources:
       relation_select:

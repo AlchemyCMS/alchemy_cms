@@ -516,6 +516,7 @@ de:
     rename_file: "Datei umbenennen"
     rename: umbenennen
     replace: ersetzen
+    replace_file: Datei ersetzen
     'Replaced Tag': "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
     resources:
       relation_select:

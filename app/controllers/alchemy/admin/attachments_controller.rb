@@ -33,25 +33,25 @@ module Alchemy
       end
 
       def create
-        @attachment = Attachment.new(attachment_attributes)
-        if @attachment.save
-          render succesful_uploader_response(file: @attachment)
-        else
-          render failed_uploader_response(file: @attachment)
-        end
+        @attachment = Attachment.create(attachment_attributes)
+        handle_uploader_response(status: :created)
       end
 
       def update
-        @attachment.update_attributes(attachment_attributes)
-        render_errors_or_redirect(
-          @attachment,
-          admin_attachments_path(
-            per_page: params[:per_page],
-            page: params[:page],
-            q: params[:q]
-          ),
-          Alchemy.t("File successfully updated")
-        )
+        @attachment.update(attachment_attributes)
+        if attachment_attributes['file'].present?
+          handle_uploader_response(status: :accepted)
+        else
+          render_errors_or_redirect(
+            @attachment,
+            admin_attachments_path(
+              per_page: params[:per_page],
+              page: params[:page],
+              q: params[:q]
+            ),
+            Alchemy.t("File successfully updated")
+          )
+        end
       end
 
       def destroy
@@ -74,6 +74,14 @@ module Alchemy
       end
 
       private
+
+      def handle_uploader_response(status:)
+        if @attachment.valid?
+          render succesful_uploader_response(file: @attachment, status: status)
+        else
+          render failed_uploader_response(file: @attachment)
+        end
+      end
 
       def in_overlay?
         params[:content_id].present?

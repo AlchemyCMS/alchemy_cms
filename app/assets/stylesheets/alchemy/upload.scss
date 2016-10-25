@@ -1,6 +1,14 @@
 .upload-button {
   display: inline-block;
-  vertical-align: top;
+
+  #toolbar &,
+  #overlay_toolbar & {
+    vertical-align: top;
+  }
+
+  label {
+    cursor: pointer;
+  }
 }
 
 .fileupload--field {

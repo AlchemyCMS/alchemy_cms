@@ -93,12 +93,6 @@ tr.even td {
   white-space: nowrap;
   @extend .disable-user-select;
 
-  a {
-    width: 19px;
-    height: 19px;
-    margin-right: 2px;
-  }
-
   &.long {
     width: 60px;
   }
