@@ -1,6 +1,6 @@
 <%= form_for [:admin, object], html: {multipart: true, class: 'upload-button'} do |f| %>
   <%= f.file_field file_attribute,
-    class: 'fileupload', multiple: true,
+    class: 'fileupload fileupload--field', multiple: true,
     name: "#{f.object_name}[#{file_attribute}]" %>
   <%= hidden_field_tag "#{f.object_name}[upload_hash]", Time.current.hash %>
   <%= f.label file_attribute, data: {alchemy_hotkey: 'alt+n'} do %>
