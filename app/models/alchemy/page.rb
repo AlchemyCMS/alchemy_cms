@@ -118,6 +118,9 @@ module Alchemy
       if: -> { public_on.present? && published_at.nil? },
       unless: :systempage?
 
+    before_save :set_fixed_attributes,
+      if: -> { fixed_attributes.any? }
+
     before_create :set_language_from_parent_or_default,
       if: -> { language_id.blank? },
       unless: :systempage?
@@ -417,6 +420,12 @@ module Alchemy
     end
 
     private
+
+    def set_fixed_attributes
+      fixed_attributes.all.each do |attribute, value|
+        send("#{attribute}=", value)
+      end
+    end
 
     # Returns the next or previous page on the same level or nil.
     #

@@ -12,6 +12,12 @@ RSpec.describe Alchemy::Page::FixedAttributes do
     }
   end
 
+  let(:definition_without_fixed_attributes) do
+    {
+      'name' => 'foo'
+    }
+  end
+
   describe '#all' do
     it 'is an alias to attributes' do
       described_class.new(page).attributes == described_class.new(page).all
@@ -37,6 +43,36 @@ RSpec.describe Alchemy::Page::FixedAttributes do
       it 'returns fixed attributes from page definition' do
         expect(attributes).to eq({name: 'Home'})
       end
+    end
+  end
+
+  describe '#any?' do
+    subject(:any?) do
+      described_class.new(page).any?
+    end
+
+    context 'when fixed attributes are defined' do
+      before do
+        allow(page).to receive(:definition) do
+          definition_with_fixed_attributes
+        end
+      end
+
+      it { is_expected.to eq(true) }
+    end
+
+    context 'when fixed attributes are not defined' do
+      before do
+        allow(page).to receive(:definition) do
+          definition_without_fixed_attributes
+        end
+      end
+
+      it { is_expected.to eq(false) }
+    end
+
+    it 'has a `present?` alias' do
+      described_class.new(page).any? == described_class.new(page).present?
     end
   end
 

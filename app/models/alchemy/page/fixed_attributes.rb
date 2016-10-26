@@ -33,6 +33,17 @@ module Alchemy
     end
     alias_method :all, :attributes
 
+    # True if fixed attributes are defined on page
+    #
+    # Aliased as +#present?+
+    #
+    # @return Boolean
+    #
+    def any?
+      attributes.present?
+    end
+    alias_method :present?, :any?
+
     # True if given attribute name is defined on page
     #
     # @return Boolean
