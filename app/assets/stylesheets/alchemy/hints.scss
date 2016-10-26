@@ -18,10 +18,7 @@
     cursor: help;
 
     > .hint-bubble {
-      visibility: visible;
-      top: 26px;
-      opacity: 1;
-      transition-delay: .2s;
+      @include hint-hover-style;
     }
   }
 

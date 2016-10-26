@@ -5,6 +5,14 @@ module Alchemy
       #
       def input(attribute_name, options = {}, &block)
         options[:wrapper] = :alchemy
+
+        if object.respond_to?(:attribute_fixed?) && object.attribute_fixed?(attribute_name)
+          options[:disabled] = true
+          options[:input_html] = options.fetch(:input_html, {}).merge(
+            'data-alchemy-tooltip' => Alchemy.t(:attribute_fixed, attribute_name)
+          )
+        end
+
         super
       end
 

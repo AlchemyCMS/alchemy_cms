@@ -160,6 +160,7 @@ es:
         aliases: Por favor separa con espacios o en una nueva línea los dominios adicionales.
 
     anchor: 'Ancla'
+    attribute_fixed: Este atributo no se puede cambiar
     back: 'Atras'
     create_tree_as_new_language: "Crear %{language} como nuevo árbol de idioma"
     locked_pages: "Páginas activas"

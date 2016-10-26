@@ -24,6 +24,7 @@ $default-padding: 4px;
 $default-margin: $default-padding;
 
 $default-border-color: #afafaf;
+$border-inset-color: lighten($default-border-color, 20%);
 $default-border-width: 1px;
 $default-border-style: solid;
 $default-border: $default-border-width $default-border-style $default-border-color;

@@ -1,13 +1,20 @@
 - name: index
   unique: true
+
+- name: readonly
   fixed_attributes:
-    name: Index
-    urlname: index
+    page_layout: readonly
     public_on: nil
     public_until: nil
-    visible: true
-    robot_index: true
+    visible: false
+    restricted: false
+    name: false
+    urlname: false
+    title: false
+    robot_index: false
+    robot_follow: false
     meta_keywords: nil
+    meta_description: nil
 
 - name: standard
   elements: [article, header, slider]

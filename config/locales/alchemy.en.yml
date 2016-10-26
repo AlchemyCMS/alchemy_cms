@@ -160,6 +160,7 @@ en:
         aliases: Please separate additional domains with spaces or new lines.
 
     anchor: 'Anchor'
+    attribute_fixed: Value can't be changed for this page type
     back: 'back'
     create_tree_as_new_language: "Create %{language} as a new language tree"
     locked_pages: "Active pages"

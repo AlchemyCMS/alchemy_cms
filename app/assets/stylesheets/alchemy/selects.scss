@@ -57,6 +57,34 @@ select {
         @extend %blue-focus-style;
       }
     }
+
+    &.select2-container-disabled {
+
+      &:hover {
+        + .with-hint > .hint-bubble {
+          @include hint-hover-style;
+          top: 10px;
+        }
+      }
+
+      + .with-hint > .hint-bubble {
+        top: 0;
+      }
+
+      .select2-choice, .select2-choice:hover {
+        background-image: none;
+        background-color: $light-gray;
+        box-shadow: none;
+        border-color: $border-inset-color;
+        cursor: not-allowed;
+
+        .select2-arrow {
+          border-color: $border-inset-color;
+
+          b { color: $border-inset-color; }
+        }
+      }
+    }
   }
 
   &.select2-container-multi {

@@ -175,6 +175,7 @@ fr:
         aliases: "S'il vous plaît indiquer Autres domaines séparés par des espaces ou ligne blanche."
 
     anchor: 'ancre'
+    attribute_fixed: La valeur ne peut être modifiée
     back: 'arrière'
     create_tree_as_new_language: "%{language} Création d'un nouvel arbre de la langue"
     "<a href=\"http://get.adobe.com/flashplayer\" target=\"_blank\">%{value}</a>": ""

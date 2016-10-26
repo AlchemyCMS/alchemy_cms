@@ -1,0 +1,35 @@
+<% checkbox = check_box_tag :page_public, nil, @page.public?, name: nil,
+  data: {date_format: I18n.t(:datetimepicker, scope: 'time.formats')},
+  disabled: @page.attribute_fixed?(:public_on) %>
+
+<label class="checkbox">
+<% if @page.attribute_fixed?(:public_on) || @page.attribute_fixed?(:public_until) %>
+  <span class="with-hint">
+    <%= checkbox %>
+    <%= Alchemy::Page.human_attribute_name :public %>
+    <span class="hint-bubble">
+      <%= Alchemy.t(:attribute_fixed) %>
+    </span>
+  </span>
+<% else %>
+  <%= checkbox %>
+  <%= Alchemy::Page.human_attribute_name :public %>
+<% end %>
+</label>
+
+<%= content_tag :div, class: [
+  @page.public_on.present? || @page.public_until.present? ? nil : 'hidden',
+  'page-publication-date-fields',
+  'input-row'
+] do %>
+  <div class="input-column">
+    <label><%= Alchemy.t(:from) %></label>
+    <%= alchemy_datepicker @page, :public_on, type: :datetime,
+      disabled: @page.attribute_fixed?(:public_on) %>
+  </div>
+  <div class="input-column">
+    <label><%= Alchemy.t(:until) %></label>
+    <%= alchemy_datepicker @page, :public_until, type: :datetime,
+      disabled: @page.attribute_fixed?(:public_until) %>
+  </div>
+<% end %>

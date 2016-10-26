@@ -161,6 +161,7 @@ de:
         aliases: Weitere Domains bitte mit Leerzeichen oder Leerzeile getrennt angeben.
 
     anchor: 'Sprungmarke'
+    attribute_fixed: Dieser Wert ist für diesen Seitentyp nicht veränderbar
     back: 'zurück'
     create_tree_as_new_language: "%{language} als neuen Sprachbaum anlegen"
     locked_pages: "Aktive Seiten"

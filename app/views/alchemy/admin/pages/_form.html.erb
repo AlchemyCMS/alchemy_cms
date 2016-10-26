@@ -4,74 +4,47 @@
     label: page_layout_label(@page),
     include_blank: false,
     input_html: {class: 'alchemy_selectbox'} %>
+
   <div class="input check_boxes">
     <label class="control-label"><%= Alchemy.t(:page_status) %></label>
     <div class="control_group">
-      <label class="checkbox">
-        <%= check_box_tag :page_public, nil, @page.public?, name: nil,
-          data: {date_format: I18n.t(:datetimepicker, scope: 'time.formats')} %>
-        <%= f.object.class.human_attribute_name :public %>
-      </label>
-      <%= content_tag :div, class: [
-        @page.public_on.present? || @page.public_until.present? ? nil : 'hidden',
-        'page-publication-date-fields',
-        'input-row'
-      ] do %>
-        <div class="input-column">
-          <label><%= Alchemy.t(:from) %></label>
-          <%= alchemy_datepicker @page, :public_on, type: :datetime %>
-        </div>
-        <div class="input-column">
-          <label><%= Alchemy.t(:until) %></label>
-          <%= alchemy_datepicker @page, :public_until, type: :datetime %>
-        </div>
+      <%= render 'alchemy/admin/pages/publication_fields' %>
+      <%= page_status_checkbox(@page, :visible) %>
+      <%= page_status_checkbox(@page, :restricted) %>
+      <% if configuration(:sitemap)['show_flag'] %>
+        <%= page_status_checkbox(@page, :sitemap) %>
       <% end %>
-      <label class="checkbox">
-        <%= f.check_box :visible %>
-        <%= f.object.class.human_attribute_name :visible %>
-      </label>
-      <label class="checkbox">
-        <%= f.check_box :restricted %>
-        <%= f.object.class.human_attribute_name :restricted %>
-      </label>
-    <% if configuration(:sitemap)['show_flag'] %>
-      <label class="checkbox">
-        <%= f.check_box :sitemap %>
-        <%= f.object.class.human_attribute_name :sitemap %>
-      </label>
-    <% end %>
     </div>
   </div>
+
   <h2><%= Alchemy.t(:names) %></h2>
   <%= f.input :name, autofocus: true %>
   <%= f.input :urlname, as: 'string', input_html: {value: @page.slug} %>
   <%= f.input :title,
     input_html: {'data-alchemy-char-counter' => 60} %>
+
   <h2><%= Alchemy.t(:meta_data) %></h2>
   <div class="input check_boxes">
     <label class="control-label"><%= Alchemy.t(:search_engines) %></label>
     <div class="control_group">
-      <label class="checkbox">
-        <%= f.check_box :robot_index %>
-        <%= f.object.class.human_attribute_name :robot_index %>
-      </label>
-      <label class="checkbox">
-        <%= f.check_box :robot_follow %>
-        <%= f.object.class.human_attribute_name :robot_follow %>
-      </label>
+      <%= page_status_checkbox(@page, :robot_index) %>
+      <%= page_status_checkbox(@page, :robot_follow) %>
     </div>
   </div>
+
   <%= f.input :meta_description,
     as: 'text',
     input_html: {'data-alchemy-char-counter' => 160} %>
   <%= f.input :meta_keywords,
     as: 'text',
     hint: Alchemy.t('pages.update.comma_seperated') %>
+
   <% if @page.taggable? %>
     <div class="input string">
       <%= f.label :tag_list %>
       <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
     </div>
   <% end %>
+
   <%= f.submit Alchemy.t(:save) %>
 <% end %>
