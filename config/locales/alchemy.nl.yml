@@ -505,6 +505,7 @@ nl:
     rename_file: "Dit bestand hernoemen."
     rename: hernoemen
     replace: vervangen
+    replace_file: Vervang file
     'Replaced Tag': "De tag '%{old_tag}' wordt door de tag '%{new_tag}' vervangen"
     resources:
       relation_select:

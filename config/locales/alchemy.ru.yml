@@ -507,6 +507,7 @@ ru:
     rename_file: "Свойства файла"
     rename: "Переименовать"
     replace: "Заменить"
+    replace_file: "Заменить файл"
     'Replaced Tag': "Метка '%{old_tag}' заменена на '%{new_tag}'"
     resources:
       relation_select:

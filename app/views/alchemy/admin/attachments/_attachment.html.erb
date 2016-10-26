@@ -46,6 +46,12 @@
       target: "_blank"
     ) %>
   <% end %>
+  <% if can?(:edit, attachment) %>
+    <%= render 'alchemy/admin/attachments/replace_button',
+      redirect_url: alchemy.admin_attachments_path,
+      object: attachment,
+      file_attribute: 'file' %>
+  <% end %>
   <% if can?(:destroy, attachment) %>
     <%= link_to_confirm_dialog(
       "",

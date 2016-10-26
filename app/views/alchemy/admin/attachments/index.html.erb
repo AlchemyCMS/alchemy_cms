@@ -3,7 +3,7 @@
     <% if can? :create, Alchemy::Attachment %>
       <%= render 'alchemy/admin/uploader/button',
         redirect_url: alchemy.admin_attachments_path,
-        model_class: Alchemy::Attachment,
+        object: Alchemy::Attachment.new,
         file_attribute: 'file' %>
     <% end %>
   </div>

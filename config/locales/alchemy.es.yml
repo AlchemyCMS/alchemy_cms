@@ -512,6 +512,7 @@ es:
     rename_file: "Renombrar este archivo."
     rename: "Renombrar"
     replace: Reemplazar
+    replace_file: Reemplazar el archivo
     'Replaced Tag': "La etiqueta '%{old_tag}' fue reemplazada por '%{new_tag}'"
     resources:
       relation_select:

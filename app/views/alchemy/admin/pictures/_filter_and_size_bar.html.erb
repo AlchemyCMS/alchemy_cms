@@ -1,7 +1,7 @@
 <div id="image_assign_filter_and_image_sizing">
   <% if can? :create, Alchemy::Picture %>
     <%= render 'alchemy/admin/uploader/button',
-      model_class: Alchemy::Picture,
+      object: Alchemy::Picture.new,
       dropzone: '#assign_image_list',
       file_attribute: 'image_file',
       in_dialog: true,

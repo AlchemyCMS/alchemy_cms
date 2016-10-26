@@ -1,0 +1,26 @@
+<%= form_for [:admin, object], html: {multipart: true, class: 'upload-button'} do |f| %>
+  <%= f.file_field file_attribute,
+    class: 'fileupload--field',
+    name: "#{f.object_name}[#{file_attribute}]",
+    id: "replace_#{dom_id(object)}" %>
+  <%= label_tag "replace_#{dom_id(object)}", title: Alchemy.t(:replace_file) do %>
+    <%= render_icon :file_change %>
+  <% end %>
+<% end %>
+
+<% file_types = local_assigns[:file_types].presence ||
+  configuration(:uploader)['allowed_filetypes'][object.class.model_name.collection] || ['*'] %>
+
+<script type='text/javascript'>
+  $(function() {
+    var options = {
+      selector: '#replace_<%= dom_id(object) %>',
+      file_types: '<%= file_types.join("|") %>',
+      complete: function() {
+        Alchemy.pleaseWaitOverlay();
+        window.location.href = '<%= redirect_url.html_safe %>';
+      }
+    };
+    Alchemy.Uploader(options);
+  });
+</script>

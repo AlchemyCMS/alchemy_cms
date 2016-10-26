@@ -4,6 +4,13 @@ module Alchemy
   describe Admin::AttachmentsController do
     let(:attachment) { build_stubbed(:alchemy_attachment) }
 
+    let(:file) do
+      fixture_file_upload(
+        File.expand_path('../../../../fixtures/500x500.png', __FILE__),
+        'image/png'
+      )
+    end
+
     before do
       authorize_user(:as_admin)
     end
@@ -73,14 +80,8 @@ module Alchemy
     describe '#create' do
       subject { alchemy_post :create, params }
 
-      let(:attachment) { mock_model('Attachment', name: 'contract.pdf', to_jq_upload: {}) }
-      let(:params)     { {attachment: {name: ''}} }
-
       context 'with passing validations' do
-        before do
-          expect(Attachment).to receive(:new).and_return(attachment)
-          expect(attachment).to receive(:save).and_return(true)
-        end
+        let(:params) { {attachment: {file: file}} }
 
         it "renders json response with success message" do
           subject
@@ -93,6 +94,8 @@ module Alchemy
       end
 
       context 'without passing validations' do
+        let(:params) { {attachment: {file: nil}} }
+
         it "renders json response with error message" do
           subject
           expect(response.content_type).to eq('application/json')
@@ -105,19 +108,49 @@ module Alchemy
     end
 
     describe '#update' do
-      subject { alchemy_put :update, {id: 1, attachment: {name: ''}} }
+      let(:params) do
+        {
+          id: attachment.id, attachment: {name: ''}
+        }
+      end
 
-      let(:attachment) { build_stubbed(:alchemy_attachment) }
+      subject do
+        alchemy_put :update, params
+      end
 
-      before do
-        expect(Attachment).to receive(:find).and_return(attachment)
+      let(:attachment) { create(:alchemy_attachment) }
+
+      context "when file is passed" do
+        let(:file) do
+          fixture_file_upload(
+            File.expand_path('../../../../fixtures/image2.PNG', __FILE__),
+            'image/png'
+          )
+        end
+
+        context 'with passing validations' do
+          let(:params) do
+            {
+              id: attachment.id, attachment: {file: file}
+            }
+          end
+
+          it "renders json response with success message" do
+            subject
+            expect(response.content_type).to eq('application/json')
+            expect(response.status).to eq(202)
+            json = JSON.parse(response.body)
+            expect(json).to have_key('growl_message')
+            expect(json).to have_key('files')
+          end
+
+          it "replaces the file" do
+            expect { subject }.to change { attachment.reload.file_uid }
+          end
+        end
       end
 
       context 'with passing validations' do
-        before do
-          expect(attachment).to receive(:update_attributes).and_return(true)
-        end
-
         it "redirects to index path" do
           is_expected.to redirect_to admin_attachments_path
         end
@@ -132,7 +165,9 @@ module Alchemy
           end
 
           subject do
-            alchemy_put :update, {id: 1, attachment: {name: ''}}.merge(search_params)
+            alchemy_put :update, {
+              id: attachment.id, attachment: {name: ''}
+            }.merge(search_params)
           end
 
           it "passes them along" do
@@ -142,9 +177,10 @@ module Alchemy
       end
 
       context 'with failing validations' do
-        before do
-          expect(attachment).to receive(:update_attributes).and_return(false)
-          expect(attachment).to receive(:errors).and_return double(empty?: false)
+        let(:params) do
+          {
+            id: attachment.id, attachment: {file: nil}
+          }
         end
 
         it "renders edit form" do
@@ -154,8 +190,6 @@ module Alchemy
     end
 
     describe '#destroy' do
-      let(:attachment) { build_stubbed(:alchemy_attachment) }
-
       before do
         expect(Attachment).to receive(:find).and_return(attachment)
       end

@@ -1,5 +1,5 @@
 /*
- * jQuery File Upload Validation Plugin 1.1.3
+ * jQuery File Upload Validation Plugin
  * https://github.com/blueimp/jQuery-File-Upload
  *
  * Copyright 2013, Sebastian Tschan
@@ -11,7 +11,7 @@
 
 /* global define, require, window */
 
-(function (factory) {
+;(function (factory) {
     'use strict';
     if (typeof define === 'function' && define.amd) {
         // Register as an anonymous AMD module:

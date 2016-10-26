@@ -13,14 +13,23 @@ module Alchemy
       end
     end
 
-    describe 'after create' do
-      before { attachment.save! }
+    describe 'after save' do
+      subject(:save) { attachment.save! }
 
       it "should have a humanized name" do
+        save
         expect(attachment.name).to eq("image with spaces")
       end
 
-      after { attachment.destroy }
+      context "when file_name has not changed" do
+        before do
+          attachment.update(name: 'image with spaces')
+        end
+
+        it "should not change name" do
+          expect { save }.to_not change { attachment.name }
+        end
+      end
     end
 
     describe 'urlname sanitizing' do
@@ -78,17 +87,6 @@ module Alchemy
 
         it "should be valid" do
           expect(attachment).to be_valid
-        end
-      end
-
-      context "having a filename with unallowed character" do
-        before do
-          attachment.file_name = 'my FileNämü?!.pdf'
-          attachment.save
-        end
-
-        it "should not be valid" do
-          expect(attachment).not_to be_valid
         end
       end
     end

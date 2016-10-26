@@ -2,7 +2,7 @@
   <div class="toolbar_buttons">
     <% if can? :create, Alchemy::Picture %>
       <%= render 'alchemy/admin/uploader/button',
-        model_class: Alchemy::Picture,
+        object: Alchemy::Picture.new,
         file_attribute: 'image_file',
         redirect_url: alchemy.admin_pictures_path(
           size: params[:size],
