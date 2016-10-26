@@ -95,14 +95,14 @@ module Alchemy
         let(:page_1) { create(:alchemy_page, visible: true, name: 'one') }
         let(:page_2) { create(:alchemy_page, visible: true, name: 'two', parent_id: page_1.id) }
         let(:page_3) { create(:alchemy_page, visible: true, name: 'three', parent_id: page_2.id) }
-        let(:pages)  { [page_1, page_2, page_3] }
+        let!(:pages) { [page_1, page_2, page_3] }
 
-        before do
-          pages
+        subject :get_tree do
+          alchemy_get :tree, id: page_1.id, full: 'true'
         end
 
         it 'returns a tree as JSON' do
-          alchemy_get :tree, id: page_1.id, full: 'true'
+          get_tree
 
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
@@ -140,17 +140,44 @@ module Alchemy
           expect(page['children'].count).to eq(0)
         end
 
-        it 'does not return a branch that is folded' do
-          alchemy_xhr :post, :fold, id: page_2.id
-          alchemy_get :tree, id: page_1.id, full: 'false'
+        context "when branch is folded" do
+          before do
+            page_2.fold!(user.id, true)
+          end
 
-          expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          it 'does not return a branch that is folded' do
+            alchemy_get :tree, id: page_1.id, full: 'false'
 
-          result = JSON.parse(response.body)
-          page = result['pages'].first['children'].first
+            expect(response.status).to eq(200)
+            expect(response.content_type).to eq('application/json')
 
-          expect(page['children'].count).to eq(0)
+            result = JSON.parse(response.body)
+            page = result['pages'].first['children'].first
+
+            expect(page['children'].count).to eq(0)
+          end
+        end
+
+        context "when page is locked" do
+          before do
+            page_1.lock_to!(user)
+          end
+
+          it 'includes locked_notice if page is locked' do
+            get_tree
+
+            expect(response.status).to eq(200)
+            expect(response.content_type).to eq('application/json')
+
+            result = JSON.parse(response.body)
+
+            expect(result).to have_key('pages')
+            expect(result['pages'].count).to eq(1)
+
+            page = result['pages'].first
+            expect(page).to have_key('locked_notice')
+            expect(page['locked_notice']).to match(/#{user.name}/)
+          end
         end
       end
 
