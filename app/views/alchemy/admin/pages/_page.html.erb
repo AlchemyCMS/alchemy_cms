@@ -21,7 +21,7 @@
         <div class="page icon<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>{{#if locked}} with-hint{{/if}}">
         {{#if locked}}
           <span class="hint-bubble">
-            <%= Alchemy.t('This page is locked', name: page.locker_name) %>
+            {{locked_notice}}
           </span>
         {{/if}}
         </div>

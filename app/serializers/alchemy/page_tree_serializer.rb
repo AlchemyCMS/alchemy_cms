@@ -72,6 +72,7 @@ module Alchemy
           definition_missing: page.definition.blank?,
           folded: folded,
           locked: page.locked?,
+          locked_notice: page.locked? ? Alchemy.t('This page is locked', name: page.locker_name) : nil,
           permissions: page_permissions(page, opts[:ability]),
           status_titles: page_status_titles(page)
         })
