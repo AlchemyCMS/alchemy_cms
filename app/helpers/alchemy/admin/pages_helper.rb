@@ -42,15 +42,6 @@ module Alchemy
           Alchemy.t(:page_type)
         end
       end
-
-      # Renders a warning icon with a hint
-      # that explains the user that the page layout is missing
-      def page_layout_missing_warning
-        hint_with_tooltip(
-          Alchemy.t(:page_definition_missing),
-          class: 'inline warning icon'
-        )
-      end
     end
   end
 end
