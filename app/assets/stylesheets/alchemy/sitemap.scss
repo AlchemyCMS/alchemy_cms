@@ -258,9 +258,10 @@ ul.list .sitemap_sitename {
   }
 }
 
-#sitemap {
+#sitemap.list {
 
   &.sorting {
+    padding-top: 100px;
 
     .page.icon { cursor: move }
   }
