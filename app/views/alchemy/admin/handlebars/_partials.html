@@ -1,0 +1,17 @@
+<script data-handlebars-partial="linkToDialog" type="text/x-handlebars-template">
+  <a data-alchemy-dialog="{{json options}}" href="{{url}}">
+    <span class="icon {{icon}}"></span>
+  </a>
+</script>
+
+<script data-handlebars-partial="linkToConfirmDialog" type="text/x-handlebars-template">
+  <a data-alchemy-confirm-delete="{{json options}}" href="{{url}}">
+    <span class="icon {{icon}}"></span>
+  </a>
+</script>
+
+<script data-handlebars-partial="linkToRemote" type="text/x-handlebars-template">
+  <a data-remote="true" rel="nofollow" data-method="{{method}}" href="{{url}}">
+    <span class="icon {{icon}}"></span>
+  </a>
+</script>

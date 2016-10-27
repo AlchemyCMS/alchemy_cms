@@ -101,6 +101,7 @@
       $.extend($.fn.select2.defaults, $.fn.select2.locales['<%= ::I18n.locale %>']);
     </script>
     <%= render 'alchemy/admin/uploader/setup' %>
+    <%= render 'alchemy/admin/handlebars/partials' %>
     <%= yield(:javascripts) %>
   <% end %>
 </html>

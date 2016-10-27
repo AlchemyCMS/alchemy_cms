@@ -7,6 +7,9 @@ Alchemy.Initializer = ->
   # We obviously have javascript enabled.
   $('html').removeClass('no-js')
 
+  # Register Handlebars templates
+  Alchemy.Handlebars()
+
   # Initialize the GUI.
   Alchemy.GUI.init()
 

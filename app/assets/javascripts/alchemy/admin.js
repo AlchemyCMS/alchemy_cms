@@ -36,6 +36,7 @@
 //= require alchemy/alchemy.elements_window
 //= require alchemy/alchemy.growler
 //= require alchemy/alchemy.gui
+//= require alchemy/alchemy.handlebars
 //= require alchemy/alchemy.hotkeys
 //= require alchemy/alchemy.i18n
 //= require alchemy/alchemy.image_cropper
