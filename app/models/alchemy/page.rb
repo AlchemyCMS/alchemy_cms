@@ -118,6 +118,9 @@ module Alchemy
       if: -> { public_on.present? && published_at.nil? },
       unless: :systempage?
 
+    before_save :set_fixed_attributes,
+      if: -> { fixed_attributes.any? }
+
     before_create :set_language_from_parent_or_default,
       if: -> { language_id.blank? },
       unless: :systempage?
@@ -406,7 +409,23 @@ module Alchemy
       update_columns(hash)
     end
 
+    # Holds an instance of +FixedAttributes+
+    def fixed_attributes
+      @_fixed_attributes ||= Alchemy::Page::FixedAttributes.new(self)
+    end
+
+    # True if given attribute name is defined as fixed
+    def attribute_fixed?(name)
+      fixed_attributes.fixed?(name)
+    end
+
     private
+
+    def set_fixed_attributes
+      fixed_attributes.all.each do |attribute, value|
+        send("#{attribute}=", value)
+      end
+    end
 
     # Returns the next or previous page on the same level or nil.
     #

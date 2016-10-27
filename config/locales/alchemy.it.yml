@@ -161,6 +161,7 @@ it:
         aliases: Separa i domini aggiuntivi con uno spazio od un ritorno a capo.
 
     anchor: 'Collegamento'
+    attribute_fixed: Il valore non può essere modificato
     back: 'indietro'
     create_tree_as_new_language: "Crea una nuova struttura della lingua per %{language}"
     locked_pages: "Pagine attive"

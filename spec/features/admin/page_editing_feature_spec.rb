@@ -139,4 +139,21 @@ describe 'Page editing feature' do
       end
     end
   end
+
+  describe "fixed attributes" do
+    before { authorize_user(:as_author) }
+
+    context "when page has fixed attributes" do
+      let!(:readonly_page) do
+        create(:alchemy_page, page_layout: 'readonly')
+      end
+
+      it 'is not possible to edit the attribute', :aggregate_failures do
+        visit alchemy.configure_admin_page_path(readonly_page)
+        readonly_page.fixed_attributes.all.each do |attribute, _v|
+          expect(page).to have_selector("#page_#{attribute}[disabled=\"disabled\"]")
+        end
+      end
+    end
+  end
 end

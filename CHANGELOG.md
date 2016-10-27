@@ -8,6 +8,8 @@ __New Features__
   `api/pages/nested` returns a nested JSON tree of all pages.
 * Add page and user seeding support (#1160)
 * Files of attachments are replaceable now (#1167)
+* Add fixed page attributes (#1168)
+  Page attributes can be defined as fixed_attributes to prevent changes by the user.
 
 __Notable Changes__
 

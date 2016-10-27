@@ -160,6 +160,7 @@ nl:
         aliases: Specificeer andere domeinen gescheiden met witte ruimte of lege regel
 
     anchor: 'Anchor'
+    attribute_fixed: Waarde kan niet worden gewijzigd
     back: 'back'
     create_tree_as_new_language: "%{language} aanmaken als nieuwe boomstructuur"
     locked_pages: "Actieve pagina's"

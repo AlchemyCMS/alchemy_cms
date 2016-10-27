@@ -35,7 +35,8 @@ form {
     > textarea,
     > .select2-container,
     > .autocomplete_tag_list,
-    > .mce-tinymce {
+    > .mce-tinymce,
+    > .with-hint {
       width: $form-right-width;
       float: right;
     }
@@ -120,6 +121,15 @@ form {
       $border-color: $error_border_color
       );
       text-align: left;
+    }
+  }
+
+  .input > .with-hint,
+  .checkbox > .with-hint {
+    cursor: default;
+
+    input, textarea {
+      cursor: not-allowed;
     }
   }
 
