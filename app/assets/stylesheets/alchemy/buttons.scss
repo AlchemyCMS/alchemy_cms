@@ -220,20 +220,22 @@ button.icon_button {
   }
 
   label {
-    display: none;
+    @extend %rounded-border;
     position: absolute;
-    top: -25px;
+    visibility: hidden;
+    top: -20px;
     left: 50%;
     margin-left: -13px;
     z-index: 30;
     background: $dark-gray;
     color: #fff;
     padding: $default-padding 2*$default-padding;
-    @extend %rounded-border;
     line-height: 1;
     box-shadow: 0 0 4px $default-border-color;
     white-space: nowrap;
     pointer-events: none;
+    opacity: 0;
+    transition: .3s;
 
     &:before {
       content: '';
@@ -282,5 +284,10 @@ button.icon_button {
     }
   }
 
-  &:hover label { display: block }
+  &:hover label {
+    visibility: visible;
+    opacity: 1;
+    top: -25px;
+    transition-delay: .2s;
+  }
 }
