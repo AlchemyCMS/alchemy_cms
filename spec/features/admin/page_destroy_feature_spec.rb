@@ -10,9 +10,7 @@ module Alchemy
       it "deletes page and redirects to page tree" do
         visit admin_pages_path
 
-        within("#page_#{content_page.id}") do
-          click_link Alchemy.t(:delete_page)
-        end
+        page.find("a[href='#{admin_page_path(content_page.id)}']").click
 
         within '.alchemy-dialog-buttons' do
           click_button 'Yes'
@@ -29,9 +27,7 @@ module Alchemy
       it "deletes page and redirects to page tree" do
         visit admin_layoutpages_path
 
-        within("#page_#{layout_page.id}") do
-          click_link Alchemy.t(:delete_page)
-        end
+        page.find("a[href='#{admin_page_path(layout_page.id)}']").click
 
         within '.alchemy-dialog-buttons' do
           click_button 'Yes'
