@@ -244,6 +244,31 @@ button.icon_button {
       border-top-color: $dark-gray;
     }
 
+    &.center {
+      left: auto;
+      right: 50%;
+      margin-left: 0;
+      transform: translateX(50%);
+
+      &:before {
+        left: auto;
+        right: 50%;
+        transform: translateX(50%);
+      }
+    }
+
+    &.left {
+      left: auto;
+      right: 50%;
+      margin-left: 0;
+      margin-right: -13px;
+
+      &:before {
+        left: auto;
+        right: 8px;
+      }
+    }
+
     &.right-aligned {
       left: auto;
       margin-left: auto;
