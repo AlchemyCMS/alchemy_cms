@@ -1,33 +1,31 @@
-<% cache(content) do %>
-  <% select_values = content.settings_value(:select_values, local_assigns.fetch(:options, {})) %>
-  <% inline = content.settings_value(:display_inline, local_assigns.fetch(:options, {})) %>
+<% select_values = content.settings_value(:select_values, local_assigns.fetch(:options, {})) %>
+<% inline = content.settings_value(:display_inline, local_assigns.fetch(:options, {})) %>
 
-  <%= content_tag :div,
-    id: content.dom_id,
-    class: [
-      "content_editor",
-      "essence_select",
-      inline ? 'display_inline' : nil
-    ].compact, data: {content_id: content.id} do %>
-    <%= content_label(content) %>
+<%= content_tag :div,
+  id: content.dom_id,
+  class: [
+    "content_editor",
+    "essence_select",
+    inline ? 'display_inline' : nil
+  ].compact, data: {content_id: content.id} do %>
+  <%= content_label(content) %>
 
-    <% if select_values.nil? %>
-      <%== warning(':select_values is nil',
-      "<strong>No select values given.</strong>
-      <br>Please provide :<code>select_values</code> either as argument to
-      <code>render_essence_editor</code> helper or as setting on the content definition in
-      <code>elements.yml</code>.") %>
-    <% else %>
-      <%
-      if select_values.is_a?(Hash)
-        options_tags = grouped_options_for_select(select_values, content.ingredient)
-      else
-        options_tags = options_for_select(select_values, content.ingredient)
-      end %>
-      <%= select_tag content.form_field_name, options_tags, {
-        class: ["alchemy_selectbox", "essence_editor_select", html_options[:class]].compact,
-        style: html_options[:style]
-      } %>
-    <% end %>
+  <% if select_values.nil? %>
+    <%== warning(':select_values is nil',
+    "<strong>No select values given.</strong>
+    <br>Please provide :<code>select_values</code> either as argument to
+    <code>render_essence_editor</code> helper or as setting on the content definition in
+    <code>elements.yml</code>.") %>
+  <% else %>
+    <%
+    if select_values.is_a?(Hash)
+      options_tags = grouped_options_for_select(select_values, content.ingredient)
+    else
+      options_tags = options_for_select(select_values, content.ingredient)
+    end %>
+    <%= select_tag content.form_field_name, options_tags, {
+      class: ["alchemy_selectbox", "essence_editor_select", html_options[:class]].compact,
+      style: html_options[:style]
+    } %>
   <% end %>
 <% end %>

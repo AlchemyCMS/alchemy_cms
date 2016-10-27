@@ -1,19 +1,17 @@
-<% cache(content) do %>
-  <div class="essence_text content_editor<%= options[:display_inline].to_s == 'true' ? ' display_inline' : '' %>" id="<%= content.dom_id %>">
-    <%= content_label(content) %>
-    <%= text_field_tag(
-      content.form_field_name,
-      content.ingredient,
-      class: ["thin_border #{content.settings[:linkable] ? ' text_with_icon' : ''}", html_options[:class]].join(' '),
-      style: html_options[:style],
-      type: content.settings_value(:input_type) || "text"
-    ) %>
-    <% if content.settings[:linkable] %>
-      <%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
-      <%= hidden_field_tag content.form_field_name(:link_title), content.essence.link_title %>
-      <%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
-      <%= hidden_field_tag content.form_field_name(:link_target), content.essence.link_target %>
-      <%= render 'alchemy/essences/shared/linkable_essence_tools', content: content %>
-    <% end %>
-  </div>
-<% end %>
+<div class="essence_text content_editor<%= options[:display_inline].to_s == 'true' ? ' display_inline' : '' %>" id="<%= content.dom_id %>">
+  <%= content_label(content) %>
+  <%= text_field_tag(
+    content.form_field_name,
+    content.ingredient,
+    class: ["thin_border #{content.settings[:linkable] ? ' text_with_icon' : ''}", html_options[:class]].join(' '),
+    style: html_options[:style],
+    type: content.settings_value(:input_type) || "text"
+  ) %>
+  <% if content.settings[:linkable] %>
+    <%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
+    <%= hidden_field_tag content.form_field_name(:link_title), content.essence.link_title %>
+    <%= hidden_field_tag content.form_field_name(:link_class_name), content.essence.link_class_name %>
+    <%= hidden_field_tag content.form_field_name(:link_target), content.essence.link_target %>
+    <%= render 'alchemy/essences/shared/linkable_essence_tools', content: content %>
+  <% end %>
+</div>

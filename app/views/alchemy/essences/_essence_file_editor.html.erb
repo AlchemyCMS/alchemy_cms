@@ -1,5 +1,3 @@
-<% cache(content) do %>
-
 <% dialog_link = link_to_dialog('',
   alchemy.admin_attachments_path(
     content_id: content.id,
@@ -50,4 +48,3 @@
       content.ingredient && content.ingredient.id %>
   </div>
 </div>
-<% end %>
