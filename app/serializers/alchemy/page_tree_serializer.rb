@@ -73,8 +73,8 @@ module Alchemy
           folded: folded,
           locked: page.locked?,
           locked_notice: page.locked? ? Alchemy.t('This page is locked', name: page.locker_name) : nil,
-          permissions: page_permissions(page, opts[:ability]),
-          status_titles: page_status_titles(page)
+          status_titles: page_status_titles(page),
+          links: page_links(page)
         })
       else
         p_hash
@@ -89,22 +89,94 @@ module Alchemy
       end
     end
 
-    def page_permissions(page, ability)
-      {
-        info: ability.can?(:info, page),
-        configure: ability.can?(:configure, page),
-        copy: ability.can?(:copy, page),
-        destroy: ability.can?(:destroy, page),
-        create: ability.can?(:create, Alchemy::Page)
-      }
-    end
-
     def page_status_titles(page)
       {
         public: page.status_title(:public),
         visible: page.status_title(:visible),
         restricted: page.status_title(:restricted)
       }
+    end
+
+    def routes
+      Alchemy::Engine.routes.url_helpers
+    end
+
+    def page_links(page)
+      [
+        {
+          label: Alchemy.t(:page_infos),
+          label_position: 'center',
+          permitted: opts[:ability].can?(:info, page),
+          template_name: 'linkToDialog',
+          template_locals: {
+            icon: 'info',
+            url: routes.info_admin_page_path(page),
+            options: {
+              title: Alchemy.t(:page_infos),
+              size: '520x290'
+            }
+          }
+        },
+        {
+          label: Alchemy.t(:edit_page_properties),
+          label_position: 'center',
+          permitted: opts[:ability].can?(:configure, page),
+          template_name: 'linkToDialog',
+          template_locals: {
+            icon: 'configure_page',
+            url: routes.configure_admin_page_path(page),
+            options: {
+              title: Alchemy.t(:edit_page_properties),
+              size: page.redirects_to_external? ? '450x330' : '450x680'
+            }
+          }
+        },
+        {
+          label: Alchemy.t(:copy_page),
+          label_position: 'center',
+          permitted: opts[:ability].can?(:copy, page),
+          template_name: 'linkToRemote',
+          template_locals: {
+            icon: 'copy_page',
+            url: routes.insert_admin_clipboard_path(
+              remarkable_type: page.class.name.demodulize.underscore.pluralize,
+              remarkable_id: page.id,
+            ),
+            method: 'POST'
+          }
+        },
+        {
+          label: Alchemy.t(:delete_page),
+          label_position: 'center',
+          permitted: opts[:ability].can?(:destroy, page),
+          template_name: 'linkToConfirmDialog',
+          template_locals: {
+            icon: 'delete_page',
+            url: routes.admin_page_path(page),
+            options: {
+              title: Alchemy.t(:please_confirm),
+              message: Alchemy.t(:confirm_to_delete_page),
+              ok_label: Alchemy.t('Yes'),
+              cancel_label: Alchemy.t('No')
+            }
+          }
+        },
+        {
+          label: Alchemy.t(:create_page),
+          label_position: 'left',
+          permitted: opts[:ability].can?(:create, page),
+          template_name: 'linkToDialog',
+          template_locals: {
+            icon: 'add_page',
+            url: routes.new_admin_page_path(parent_id: page.id),
+            options: {
+              title: Alchemy.t(:create_page),
+              size: '340x165',
+              overflow: true
+            }
+          }
+        }
+      ]
     end
   end
 end
