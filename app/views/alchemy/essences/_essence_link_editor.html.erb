@@ -1,4 +1,3 @@
-<% cache(content) do %>
 <div class="content_editor essence_link" id="<%= content.dom_id %>" data-content-id="<%= content.id %>">
   <%= content_label(content) %>
   <%= text_field_tag '', content.ingredient,
@@ -22,4 +21,3 @@
     $('#<%= content.dom_id %> input.text_with_icon').val($(this).val());
   });
 </script>
-<% end %>

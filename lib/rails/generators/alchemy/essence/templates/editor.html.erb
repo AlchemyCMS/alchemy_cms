@@ -5,13 +5,11 @@
 
   Please consult Alchemy::Content.rb docs for further methods on the content object
 %>
-<%% cache(content) do %>
 <div class="content_editor <%= @essence_name.classify.demodulize.underscore %>" id="<%%= content.dom_id %>" data-content-id="<%%= content.id %>">
   <%%= content_label(content) %>
   <%%= text_field_tag(
     content.form_field_name,
     content.ingredient,
-    :id => content.form_field_id
+    id: content.form_field_id
   ) %>
 </div>
-<%% end %>
