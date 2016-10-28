@@ -14,6 +14,7 @@ __New Features__
 __Notable Changes__
 
 * The essence view partials don't get cached anymore (#1099)
+* The essence editor partials don't get cached anymore (#1171)
 * Removes update_essence_select_elements (#1103)
 * The admin resource form now uses the datetime-picker instead of the date-picker for datetime fields.
 * The `preview_mode_code` helper is moved to a partial in `alchemy/preview_mode_code`. (#1110)
