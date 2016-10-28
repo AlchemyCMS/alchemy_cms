@@ -33,6 +33,25 @@ module Alchemy
       definition["feed"]
     end
 
+    # Returns an Array of Alchemy roles which are able to edit this template
+    #
+    #     # config/alchemy/page_layouts.yml
+    #     - name: contact
+    #       editable_by:
+    #         - freelancer
+    #         - admin
+    #
+    # @returns Array
+    #
+    def has_limited_editors?
+      definition["editable_by"].present?
+    end
+
+    def editor_roles
+      return unless has_limited_editors?
+      definition["editable_by"]
+    end
+
     # Returns true or false if the pages definition for config/alchemy/page_layouts.yml contains redirects_to_external: true
     def redirects_to_external?
       !!definition["redirects_to_external"]

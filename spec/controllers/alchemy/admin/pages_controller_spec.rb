@@ -472,6 +472,19 @@ module Alchemy
               expect(response).to redirect_to(admin_pages_path)
             end
           end
+
+          context 'if page is scoped' do
+            context 'user role does not match' do
+              before do
+                allow_any_instance_of(Page).to receive(:editable_by?).with(user).and_return(false)
+              end
+
+              it 'redirects to admin pages path' do
+                alchemy_post :create, page: page_params
+                expect(response).to redirect_to(admin_pages_path)
+              end
+            end
+          end
         end
 
         context "with paste_from_clipboard in parameters" do
@@ -480,6 +493,7 @@ module Alchemy
           before do
             allow(Page).to receive(:find_by).with(id: parent.id.to_s).and_return(parent)
             allow(Page).to receive(:find).with(page_in_clipboard.id.to_s).and_return(page_in_clipboard)
+            allow(@controller).to receive(:redirect_path_after_create_page).and_return(page_in_clipboard)
           end
 
           it "should call Page#copy_and_paste" do
@@ -598,6 +612,32 @@ module Alchemy
             alchemy_get :edit, id: page.id
           end
         end
+
+        context 'if page is scoped' do
+          context 'to a single role' do
+            context 'user role matches' do
+              before do
+                expect_any_instance_of(Page).to receive(:editable_by?).at_least(:once) { true }
+              end
+
+              it 'renders the edit view' do
+                alchemy_get :edit, id: page.id
+                expect(response).to render_template(:edit)
+              end
+            end
+
+            context 'user role does not match' do
+              before do
+                expect_any_instance_of(Page).to receive(:editable_by?).at_least(:once) { false }
+              end
+
+              it 'redirects to admin dashboard' do
+                alchemy_get :edit, id: page.id
+                expect(response).to redirect_to(admin_dashboard_path)
+              end
+            end
+          end
+        end
       end
 
       describe '#destroy' do
@@ -640,6 +680,7 @@ module Alchemy
 
         before do
           allow(Page).to receive(:find).with(page.id.to_s).and_return(page)
+          allow(page).to receive(:editable_by?).with(user).and_return(true)
           allow(page).to receive(:unlock!).and_return(true)
           allow(@controller).to receive(:multi_language?).and_return(false)
         end
@@ -687,7 +728,10 @@ module Alchemy
 
       describe '#fold' do
         let(:page) { mock_model(Alchemy::Page) }
-        before { allow(Page).to receive(:find).and_return(page) }
+        before do
+          allow(Page).to receive(:find).and_return(page)
+          allow(page).to receive(:editable_by?).with(user).and_return(true)
+        end
 
         context "if page is currently not folded" do
           before { allow(page).to receive(:folded?).and_return(false) }
@@ -722,6 +766,7 @@ module Alchemy
 
         before do
           allow(Page).to receive(:find).with(page.id.to_s).and_return(page)
+          allow(page).to receive(:editable_by?).with(user).and_return(true)
           allow(Page).to receive(:from_current_site).and_return(double(locked_by: nil))
           expect(page).to receive(:unlock!).and_return(true)
         end

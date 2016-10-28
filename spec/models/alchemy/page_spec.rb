@@ -1485,6 +1485,69 @@ module Alchemy
       end
     end
 
+    describe '#editable_by?' do
+      subject { page.editable_by?(user) }
+
+      let(:user) { mock_model('DummyUser') }
+      let(:page) { create(:alchemy_page) }
+
+      context "template defines one alchemy role" do
+        before do
+          allow(page).to receive(:definition).and_return({"editable_by" => ["freelancer"]})
+        end
+
+        context 'user has matching alchemy role' do
+          before do
+            allow(user).to receive(:alchemy_roles).at_least(:once) { ["freelancer"] }
+          end
+
+          it { is_expected.to be(true) }
+        end
+        context 'user has a different alchemy role' do
+          before do
+            allow(user).to receive(:alchemy_roles).at_least(:once) { ["editor"] }
+          end
+
+          it { is_expected.to be(false) }
+        end
+      end
+
+      context "template defines multiple alchemy roles" do
+        before do
+          allow(page).to receive(:definition).and_return({"editable_by" => ["freelancer", "admin"]})
+        end
+
+        context 'user has matching alchemy role' do
+          before do
+            allow(user).to receive(:alchemy_roles).at_least(:once) { ["freelancer", "member"] }
+          end
+
+          it { is_expected.to be(true) }
+        end
+        context 'user has a different alchemy role' do
+          before do
+            allow(user).to receive(:alchemy_roles).at_least(:once) { ["editor", "leader"] }
+          end
+
+          it { is_expected.to be(false) }
+        end
+      end
+
+      context "template has no alchemy role defined" do
+        before do
+          allow(page).to receive(:definition).and_return({})
+        end
+
+        context 'user has matching alchemy role' do
+          before do
+            allow(user).to receive(:alchemy_roles).at_least(:once) { ["freelancer", "member"] }
+          end
+
+          it { is_expected.to be(true) }
+        end
+      end
+    end
+
     describe '#public?' do
       subject { page.public? }
 

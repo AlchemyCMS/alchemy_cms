@@ -81,7 +81,7 @@ module Alchemy
       def edit
         # fetching page via before filter
         if page_is_locked?
-          flash[:notice] = Alchemy.t('This page is locked', name: @page.locker_name)
+          flash[:warning] = Alchemy.t('This page is locked', name: @page.locker_name)
           redirect_to admin_pages_path
         elsif page_needs_lock?
           @page.lock_to!(current_alchemy_user)
@@ -348,7 +348,7 @@ module Alchemy
       end
 
       def redirect_path_after_create_page
-        if @page.redirects_to_external?
+        if @page.redirects_to_external? || !@page.editable_by?(current_alchemy_user)
           admin_pages_path
         else
           params[:redirect_to] || edit_admin_page_path(@page)
