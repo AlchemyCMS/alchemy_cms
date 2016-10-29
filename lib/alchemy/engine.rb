@@ -18,6 +18,7 @@ require 'simple_form'
 require 'select2-rails'
 require 'turbolinks'
 require 'userstamp'
+require 'paper_trail'
 
 # Require globally used Alchemy mixins
 require_relative './ability_helper'

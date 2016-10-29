@@ -33,6 +33,8 @@ module Alchemy #:nodoc:
           attr_writer :validation_errors
           include Alchemy::Essence::InstanceMethods
           stampable stamper_class_name: Alchemy.user_class_name
+          has_paper_trail
+
           validate :validate_ingredient, :on => :update, :if => 'validations.any?'
 
           has_one :content, :as => :essence, class_name: "Alchemy::Content"

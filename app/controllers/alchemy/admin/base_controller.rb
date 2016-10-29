@@ -6,6 +6,7 @@ module Alchemy
 
       before_action { enforce_ssl if ssl_required? && !request.ssl? }
       before_action :load_locked_pages
+      before_action :set_paper_trail_whodunnit
 
       helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
 
