@@ -181,6 +181,19 @@ ActiveRecord::Schema.define(version: 20161029195751) do
     t.datetime "updated_at",                      null: false
   end
 
+  create_table "alchemy_essence_versions", force: :cascade do |t|
+    t.string   "item_type",                     null: false
+    t.integer  "item_id",                       null: false
+    t.string   "event",                         null: false
+    t.integer  "element_id"
+    t.integer  "page_id"
+    t.string   "whodunnit"
+    t.text     "object",     limit: 1073741823
+    t.datetime "created_at"
+  end
+
+  add_index "alchemy_essence_versions", ["item_type", "item_id"], name: "index_alchemy_essence_versions_on_item_type_and_item_id"
+
   create_table "alchemy_folded_pages", force: :cascade do |t|
     t.integer "page_id",                 null: false
     t.integer "user_id",                 null: false
@@ -345,18 +358,5 @@ ActiveRecord::Schema.define(version: 20161029195751) do
   end
 
   add_index "tags", ["name"], name: "index_tags_on_name", unique: true
-
-  create_table "versions", force: :cascade do |t|
-    t.string   "item_type",                     null: false
-    t.integer  "item_id",                       null: false
-    t.string   "event",                         null: false
-    t.integer  "element_id"
-    t.integer  "page_id"
-    t.string   "whodunnit"
-    t.text     "object",     limit: 1073741823
-    t.datetime "created_at"
-  end
-
-  add_index "versions", ["item_type", "item_id"], name: "index_versions_on_item_type_and_item_id"
 
 end

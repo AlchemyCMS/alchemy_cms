@@ -33,7 +33,7 @@ module Alchemy #:nodoc:
           attr_writer :validation_errors
           include Alchemy::Essence::InstanceMethods
           stampable stamper_class_name: Alchemy.user_class_name
-          has_paper_trail on: [:update], meta: { element_id: Proc.new {|e| e.element.id }, page_id: Proc.new {|e| e.page.id } }
+          has_paper_trail class_name: "Alchemy::EssenceVersion", on: [:update], meta: { element_id: Proc.new {|e| e.element.id }, page_id: Proc.new {|e| e.page.id } }
 
           validate :validate_ingredient, :on => :update, :if => 'validations.any?'
 

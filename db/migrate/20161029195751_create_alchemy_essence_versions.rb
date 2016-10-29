@@ -1,6 +1,6 @@
 # This migration creates the `versions` table, the only schema PT requires.
 # All other migrations PT provides are optional.
-class CreateVersions < ActiveRecord::Migration
+class CreateAlchemyEssenceVersions < ActiveRecord::Migration
   # Class names of MySQL adapters.
   # - `MysqlAdapter` - Used by gems: `mysql`, `activerecord-jdbcmysql-adapter`.
   # - `Mysql2Adapter` - Used by `mysql2` gem.
@@ -16,7 +16,7 @@ class CreateVersions < ActiveRecord::Migration
   TEXT_BYTES = 1_073_741_823
 
   def change
-    create_table :versions, versions_table_options do |t|
+    create_table :alchemy_essence_versions, versions_table_options do |t|
       t.string   :item_type, item_type_options
       t.integer  :item_id,   null: false
       t.string   :event,     null: false
@@ -24,23 +24,9 @@ class CreateVersions < ActiveRecord::Migration
       t.integer  :page_id
       t.string   :whodunnit
       t.text     :object, limit: TEXT_BYTES
-
-      # Known issue in MySQL: fractional second precision
-      # -------------------------------------------------
-      #
-      # MySQL timestamp columns do not support fractional seconds unless
-      # defined with "fractional seconds precision". MySQL users should manually
-      # add fractional seconds precision to this migration, specifically, to
-      # the `created_at` column.
-      # (https://dev.mysql.com/doc/refman/5.6/en/fractional-seconds.html)
-      #
-      # MySQL users should also upgrade to rails 4.2, which is the first
-      # version of ActiveRecord with support for fractional seconds in MySQL.
-      # (https://github.com/rails/rails/pull/14359)
-      #
       t.datetime :created_at
     end
-    add_index :versions, [:item_type, :item_id]
+    add_index :alchemy_essence_versions, [:item_type, :item_id]
   end
 
   private
