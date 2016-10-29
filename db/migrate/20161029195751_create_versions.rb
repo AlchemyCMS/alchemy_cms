@@ -20,6 +20,8 @@ class CreateVersions < ActiveRecord::Migration
       t.string   :item_type, item_type_options
       t.integer  :item_id,   null: false
       t.string   :event,     null: false
+      t.integer  :element_id
+      t.integer  :page_id
       t.string   :whodunnit
       t.text     :object, limit: TEXT_BYTES
 

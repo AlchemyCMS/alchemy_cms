@@ -350,6 +350,8 @@ ActiveRecord::Schema.define(version: 20161029195751) do
     t.string   "item_type",                     null: false
     t.integer  "item_id",                       null: false
     t.string   "event",                         null: false
+    t.integer  "element_id"
+    t.integer  "page_id"
     t.string   "whodunnit"
     t.text     "object",     limit: 1073741823
     t.datetime "created_at"
