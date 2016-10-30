@@ -25,7 +25,7 @@ module Alchemy
       def new
         @page = Page.find(params[:page_id])
         @parent_element = Element.find_by(id: params[:parent_element_id])
-        @elements = @page.available_element_definitions(@parent_element.try(:name))
+        @elements = @page.available_elements_within_current_scope(@parent_element)
         @element = @page.elements.build
         @clipboard = get_clipboard('elements')
         @clipboard_items = Element.all_from_clipboard_for_page(@clipboard, @page)

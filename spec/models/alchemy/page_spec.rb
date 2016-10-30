@@ -875,6 +875,29 @@ module Alchemy
       end
     end
 
+    describe '#available_elements_within_current_scope' do
+      let(:page) { build_stubbed(:alchemy_page, page_layout: 'columns') }
+      let(:nestable_element) { create(:alchemy_element, :with_nestable_elements) }
+      let(:currently_available_elements) { page.available_elements_within_current_scope(nestable_element) }
+
+      context "When unique element is already nested" do
+        before do
+          nestable_element.nested_elements << create(:alchemy_element, name: 'slide', unique: true)
+          page.elements << nestable_element
+        end
+
+        it "returns no available elements" do
+          expect(currently_available_elements).to eq([])
+        end
+      end
+
+      context "When unique element has not be nested" do
+        it "returns available elements" do
+          expect(currently_available_elements.collect { |e| e['name'] }).to include('slide')
+        end
+      end
+    end
+
     describe '#available_element_names' do
       let(:page) { build_stubbed(:alchemy_page) }
 
