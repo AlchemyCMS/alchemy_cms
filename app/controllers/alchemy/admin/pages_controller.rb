@@ -28,7 +28,7 @@ module Alchemy
         if !@page_root
           @language = Language.current
           @languages_with_page_tree = Language.on_current_site.with_root_page
-          @page_layouts = PageLayout.layouts_for_select(@language.id)
+          @page_layouts = PageLayout.layouts_for_select(@language.id, current_alchemy_user)
         end
       end
 
@@ -56,7 +56,7 @@ module Alchemy
 
       def new
         @page = Page.new(layoutpage: params[:layoutpage] == 'true', parent_id: params[:parent_id])
-        @page_layouts = PageLayout.layouts_for_select(Language.current.id, @page.layoutpage?)
+        @page_layouts = PageLayout.layouts_for_select(Language.current.id, current_alchemy_user, @page.layoutpage?)
         @clipboard = get_clipboard('pages')
         @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, Language.current.id, @page.layoutpage?)
       end
@@ -67,7 +67,7 @@ module Alchemy
           flash[:notice] = Alchemy.t("Page created", name: @page.name)
           do_redirect_to(redirect_path_after_create_page)
         else
-          @page_layouts = PageLayout.layouts_for_select(Language.current.id, @page.layoutpage?)
+          @page_layouts = PageLayout.layouts_for_select(Language.current.id, current_alchemy_user, @page.layoutpage?)
           @clipboard = get_clipboard('pages')
           @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, Language.current.id, @page.layoutpage?)
           render :new

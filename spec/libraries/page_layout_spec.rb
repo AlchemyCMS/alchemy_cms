@@ -146,5 +146,38 @@ module Alchemy
         end
       end
     end
+
+    describe ".layouts_for_select" do
+      let(:user) { build(:alchemy_dummy_user, :as_editor) }
+
+      context "without scoped templates" do
+        it "returns all templates" do
+          expect(PageLayout.layouts_for_select(1, user).size).to eq(PageLayout.all.size)
+        end
+      end
+
+      context "with scoped templates" do
+        let(:scoped_layout){ PageLayout.get("news") }
+        let(:available_layouts){ PageLayout.layouts_for_select(1, user) }
+
+        context "excluding current user role" do
+          before { scoped_layout["editable_by"] = ["freelancer"] }
+
+          it "templates are excluded" do
+            expect(available_layouts.size).to eq(PageLayout.all.size - 1)
+            expect(available_layouts.select { |l| l[1] == "news" }.length).to eq(0)
+          end
+        end
+
+        context "including current user role" do
+          before { scoped_layout["editable_by"] = ["editor"] }
+
+          it "templates are included" do
+            expect(available_layouts.size).to eq(PageLayout.all.size)
+            expect(available_layouts.select { |l| l[1] == "news" }.length).to eq(1)
+          end
+        end
+      end
+    end
   end
 end
