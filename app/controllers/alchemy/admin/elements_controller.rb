@@ -79,16 +79,19 @@ module Alchemy
       end
 
       def publish
+        @element.paper_trail_event = @element.public? ? "hide" : "show"
         @element.update(public: !@element.public?)
       end
 
       # Trashes the Element instead of deleting it.
       def trash
+        @element.paper_trail_event = "trash"
         @page = @element.page
         @element.trash!
       end
 
       def order
+        @element.paper_trail_event = "order"
         @trashed_element_ids = Element.trashed.where(id: params[:element_ids]).pluck(:id)
         @parent_element = Element.find_by(id: params[:parent_element_id])
         Element.transaction do
@@ -157,6 +160,7 @@ module Alchemy
       end
 
       def cut_element
+        @source_element.paper_trail_event = "cut"
         @cutted_element_id = @source_element.id
         @clipboard.delete_if { |item| item['id'] == @source_element.id.to_s }
         @source_element.destroy

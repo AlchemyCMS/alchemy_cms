@@ -13,3 +13,9 @@ module Alchemy
     self.table_name = :alchemy_essence_versions
   end
 end
+
+module Alchemy
+  class ElementVersion < Version
+    self.table_name = :alchemy_element_versions
+  end
+end

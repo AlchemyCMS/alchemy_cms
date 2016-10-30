@@ -57,6 +57,8 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
+    has_paper_trail on: [:update, :destroy], ignore: [:folded, :updater_id, :updated_at], class_name: "Alchemy::ElementVersion", meta: { name: :name, cell_id: :cell_id, element_id: :element_id, page_id: :page_id }
+
     # Content positions are scoped by their essence_type, so positions can be the same for different contents.
     # In order to get contents in creation order we also order them by id.
     has_many :contents, -> { order(:position, :id) }, dependent: :destroy
@@ -163,7 +165,9 @@ module Alchemy
                          tag_list: source_element.tag_list
                        })
 
-        new_element = create!(attributes)
+        new_element = new(attributes)
+        new_element.paper_trail_event = "paste"
+        new_element.save!
 
         if source_element.contents.any?
           source_element.copy_contents_to(new_element)
