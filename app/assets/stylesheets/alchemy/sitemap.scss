@@ -124,6 +124,11 @@
     text-align: center;
     margin: 0;
 
+    &.disabled .icon {
+      opacity: 0.25;
+      filter: grayscale(100%);
+    }
+
     a {
       display: block;
     }
