@@ -27,10 +27,7 @@ module Alchemy
 
           before do
             visit admin_pages_path
-
-            within("#page_#{root_page.id}") do
-              page.first(:link, 'Create a new subpage').click
-            end
+            page.find("a[href='#{new_admin_page_path(parent_id: root_page.id)}']").click
           end
 
           it "the create page tab is visible by default" do

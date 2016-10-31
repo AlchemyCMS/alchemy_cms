@@ -32,7 +32,7 @@
   background-color: #fff;
   color: black;
   display: block;
-  padding-left: $default-padding;
+  padding: 0 3*$default-padding;
   text-decoration: none;
   @include transition(background-color, 400ms);
 
@@ -56,18 +56,16 @@
 }
 
 .redirect_url {
-  position: absolute;
-  top: $default-padding;
-  right: 199px;
+  float: right;
   text-align: right;
   background-color: #fff0c4;
   line-height: $sitemap-line-height;
-  padding-right: $default-padding;
   font-size: 10px;
-  padding-left: $default-padding;
+  padding: 0 2*$default-padding;
   max-width: 45%;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #page_selector_container .sitemap_pagename_link:hover {
@@ -86,8 +84,7 @@
 
 .sitemap_page {
   height: $sitemap-line-height;
-  padding-bottom: $default-padding;
-  padding-top: $default-padding;
+  margin: 3*$default-margin 0;
   position: relative;
 
   &.highlight .sitemap_pagename_link {
@@ -103,27 +100,33 @@
   }
 }
 
-div.sitemap_left_images {
+.sitemap_left_images {
+  @extend .left-rounded-border;
+  position: relative;
   width: 16px;
-  margin-top: 3px;
+  height: $sitemap-line-height;
+  line-height: $sitemap-line-height - 2px;
   float: left;
-  margin-right: 8px;
-  background-color: $light-gray;
+  padding: 0 2*$default-padding;
+  background-color: rgba(#fff, .75);
 }
 
 .sitemap_right_tools {
   height: $sitemap-line-height;
-  background-color: $light-gray;
-  padding-left: 8px;
+  padding: 0 2*$default-padding;
   float: right;
-  width: 120px;
 
   .sitemap_tool {
     float: left;
-    width: 24px;
-    height: 24px;
-    line-height: 24px;
+    width: $sitemap-line-height;
+    height: $sitemap-line-height;
+    line-height: $sitemap-line-height;
     text-align: center;
+    margin: 0;
+
+    a {
+      display: block;
+    }
   }
 
   .icon.blank {
@@ -134,13 +137,7 @@ div.sitemap_left_images {
   }
 }
 
-.sitemap_sitetools {
-  padding: 0;
-  float: left;
-  width: 72px;
-}
-
-div#page_selector_container div.sitemap_right_tools {
+#page_selector_container .sitemap_right_tools {
   width: 24px;
 }
 
@@ -162,9 +159,9 @@ ul#sitemap {
 
   .page_folder {
     @extend .icon;
-    float: left;
-    margin-left: -21px;
-    margin-top: 1px;
+    position: absolute;
+    left: -23px;
+    top: 8px;
 
     &.collapsed { @extend .icon.expand.small }
     &.folded { @extend .icon.collapse.small }
@@ -206,13 +203,15 @@ ul.list .sitemap_sitename {
 
 .page_infos {
   @extend .right-rounded-border;
-  background-color: #fff;
+  background-color: rgba(#fff, .75);
   border-left: 1px solid $light-gray;
   float: right;
   height: $sitemap-line-height;
+  line-height: $sitemap-line-height - 2px;
+  padding: 0 $default-padding;
 
   .page_status {
-    margin: $default-margin;
+    margin: 0 $default-margin;
   }
 }
 
@@ -224,11 +223,12 @@ ul.list .sitemap_sitename {
 }
 
 .page_status {
+  display: inline-block;
   width: 16px;
   height: 16px;
   background-image: image-url('alchemy/icons.png');
   background-repeat: no-repeat;
-  float: left;
+  vertical-align: middle;
 
   &.restricted {
     background-position: -256px -39px;
@@ -258,16 +258,12 @@ ul.list .sitemap_sitename {
   }
 }
 
-#sitemap {
+#sitemap.list {
 
   &.sorting {
+    padding-top: 100px;
 
     .page.icon { cursor: move }
-  }
-
-  .page.icon {
-    float: left;
-    position: relative;
   }
 
   .locked .page.icon {
@@ -299,9 +295,8 @@ a.folder_link {
   padding: 0;
 
   .page_infos {
-    margin-right: 144px;
-    width: 40px;
-    text-align: center;
+    margin-right: 210px;
+    text-align: left;
     float: right;
     line-height: 28px;
     background: transparent;
@@ -309,16 +304,16 @@ a.folder_link {
 
   .page_name {
     line-height: 28px;
-    margin-left: 24px;
+    margin-left: 43px;
   }
 }
 
 #page_filter_result {
   display: none;
-  padding-left: 4*$default-padding;
+  margin-left: 2*$default-margin;
 }
 
-.alchemy-dialog ul#sitemap {
+.alchemy-dialog ul.list#sitemap {
   margin: 0;
   padding: 0 8px 8px 0;
 

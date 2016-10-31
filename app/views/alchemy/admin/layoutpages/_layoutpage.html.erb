@@ -8,20 +8,21 @@
     <% end %>
     </div>
     <div class="sitemap_right_tools">
-      <%- if can?(:configure, layoutpage) -%>
-      <%= link_to_dialog(
-        render_icon('configure_page'),
-        alchemy.edit_admin_layoutpage_path(layoutpage),
-        {
-          title: Alchemy.t(:edit_page_properties),
-          size: '410x170'
-        },
-        class: 'sitemap_tool',
-        title: Alchemy.t(:edit_page_properties)
-      ) -%>
-      <%- end -%>
-      <span class="sitemap_sitetools">
-      <%- if can?(:copy, layoutpage) -%>
+    <%- if can?(:configure, layoutpage) -%>
+      <div class="button_with_label sitemap_tool">
+        <%= link_to_dialog(
+          render_icon('configure_page'),
+          alchemy.edit_admin_layoutpage_path(layoutpage),
+          {
+            title: Alchemy.t(:edit_page_properties),
+            size: '410x170'
+          }
+        ) -%>
+        <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
+      </div>
+    <%- end -%>
+    <%- if can?(:copy, layoutpage) -%>
+      <div class="button_with_label sitemap_tool">
         <%= link_to(
           render_icon("copy_page"),
           alchemy.insert_admin_clipboard_path(
@@ -29,12 +30,13 @@
             remarkable_id: layoutpage.id
           ),
           remote: true,
-          method: 'post',
-          class: "sitemap_tool",
-          title: Alchemy.t(:copy_page)
+          method: 'post'
         ) %>
-      <%- end -%>
-      <%- if can?(:destroy, layoutpage) -%>
+        <label class="center"><%= Alchemy.t(:copy_page) %></label>
+      </div>
+    <%- end -%>
+    <%- if can?(:destroy, layoutpage) -%>
+      <div class="button_with_label sitemap_tool">
         <%= link_to_confirm_dialog(
           render_icon('delete_page'),
           Alchemy.t(:confirm_to_delete_page),
@@ -42,14 +44,11 @@
             controller: 'pages',
             action: 'destroy',
             id: layoutpage.id
-          ),
-          {
-            class: "sitemap_tool",
-            title: Alchemy.t(:delete_page)
-          }
+          )
         ) -%>
-      <%- end -%>
-      </span>
+        <label class="left"><%= Alchemy.t(:delete_page) %></label>
+      </div>
+    <%- end -%>
     </div>
     <div class="sitemap_sitename">
       <%= link_to(
