@@ -39,7 +39,7 @@
         {{#if permissions.info}}
         <div class="button_with_label sitemap_tool">
           <%= link_to_dialog(
-            render_icon('info'),
+            render_icon(:info),
             alchemy.info_admin_page_path(page),
             {
               title: Alchemy.t(:page_infos),
@@ -52,7 +52,7 @@
         {{#if permissions.configure}}
         <div class="button_with_label sitemap_tool">
           <%= link_to_dialog(
-            render_icon('configure_page'),
+            render_icon(:configure_page),
             alchemy.configure_admin_page_path(page),
             {
               title: Alchemy.t(:edit_page_properties),
@@ -65,7 +65,7 @@
         {{#if permissions.copy}}
         <div class="button_with_label sitemap_tool">
           <%= link_to(
-            render_icon("copy_page"),
+            render_icon(:copy_page),
             alchemy.insert_admin_clipboard_path(
               remarkable_type: page.class.name.demodulize.underscore.pluralize,
               remarkable_id: '__ID__',
@@ -79,7 +79,7 @@
         {{#if permissions.destroy}}
         <div class="button_with_label sitemap_tool">
           <%= link_to_confirm_dialog(
-            render_icon('delete_page'),
+            render_icon(:delete_page),
             Alchemy.t(:confirm_to_delete_page),
             url_for(
               controller: 'pages',
@@ -93,7 +93,7 @@
         {{#if permissions.create}}
         <div class="button_with_label sitemap_tool">
           <%= link_to_dialog(
-            render_icon('add_page'),
+            render_icon(:add_page),
             alchemy.new_admin_page_path(parent_id: '__ID__').gsub('__ID__', '{{id}}'),
             {
               title: Alchemy.t(:create_page),
