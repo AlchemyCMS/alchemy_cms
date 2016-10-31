@@ -27,10 +27,11 @@
             {{/if}}
           </div>
         {{else}}
-          <%= hint_with_tooltip(
-                'Your user role does not allow you to edit this page.',
-                class: 'inline warning icon'
-          ) %>
+          <div class="page icon with-hint not-allowed">
+            <span class="hint-bubble">
+              <%= Alchemy.t('Your user role does not allow you to edit this page') %>
+            </span>
+          </div>
         {{/if}}
       {{/if}}
     </div>
