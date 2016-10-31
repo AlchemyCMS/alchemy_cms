@@ -36,6 +36,15 @@ describe 'Page editing feature' do
         expect(page).to have_selector('#publish_page_form')
       end
     end
+
+    context 'when publication columns are fixed attributes' do
+      let(:a_page) { create(:alchemy_page, page_layout: 'readonly') }
+
+      it 'cannot publish page' do
+        visit alchemy.edit_admin_page_path(a_page)
+        expect(page).to_not have_selector('#publish_page_form')
+      end
+    end
   end
 
   context 'as admin' do
