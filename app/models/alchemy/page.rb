@@ -419,11 +419,6 @@ module Alchemy
       fixed_attributes.fixed?(name)
     end
 
-    # True if given attribute name is not defined as fixed
-    def attribute_editable?(name)
-      !attribute_fixed?(name)
-    end
-
     # Checks the current page's list of editors, if defined.
     #
     # This allows us to pass in a user and see if any of their roles are enable

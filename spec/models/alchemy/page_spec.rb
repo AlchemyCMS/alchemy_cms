@@ -2370,15 +2370,6 @@ module Alchemy
       end
     end
 
-    describe '#attribute_editable?' do
-      let(:page) { Alchemy::Page.new }
-
-      it 'is the opposite of Page#attribute_fixed?' do
-        expect_any_instance_of(Alchemy::Page).to receive(:attribute_fixed?).with('yolo') { true }
-        expect(page.attribute_editable?('yolo')).to be(false)
-      end
-    end
-
     describe '#set_fixed_attributes' do
       context 'when fixed attributes are defined' do
         let(:page) { create(:alchemy_page, page_layout: 'readonly') }
