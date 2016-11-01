@@ -124,6 +124,11 @@
     text-align: center;
     margin: 0;
 
+    &.disabled .icon {
+      opacity: 0.25;
+      filter: grayscale(100%);
+    }
+
     a {
       display: block;
     }
@@ -268,6 +273,18 @@ ul.list .sitemap_sitename {
 
   .locked .page.icon {
     background-position: -32px -40px;
+  }
+
+  .page.icon.not-allowed {
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      right: -1px;
+      width: 8px;
+      height: 8px;
+      background: image-url('alchemy/icons.png') -5px -77px;
+    }
   }
 }
 
