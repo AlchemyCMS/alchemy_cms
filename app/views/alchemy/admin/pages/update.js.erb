@@ -9,7 +9,7 @@
 <% if @while_page_edit -%>
 
   Alchemy.reloadPreview();
-  $('#page_<%= @page.id %>_status').replaceWith('<%= j render("page_status", page: @page) %>');
+  $('#page_<%= @page.id %>_status').replaceWith('<%= j render("current_page", current_page: @page) %>');
 
 <% else -%>
 
@@ -18,19 +18,6 @@
   var tree = JSON.parse('<%== @tree.to_json %>');
   var html = compiler(tree.pages[0]);
   $('#page_<%= @page.id %>').replaceWith(html);
-  $page = $('#page_<%= @page.id %>');
-
-  <% if @page.locked? && @page.locker == current_alchemy_user -%>
-    $('#locked_page_<%= @page.id %> > a').html('<%= @page.name %>');
-  <% end -%>
-
-  <% if @page.restricted? -%>
-    $('.page_status:nth-child(3)', $page).addClass('restricted', 'not_restricted').removeClass('not_restricted');
-  <% elsif @page.redirects_to_external? -%>
-    $('span.redirect_url', $page).html('&raquo; <%= Alchemy.t("Redirects to") %>: <%= h @page.external_urlname %>');
-  <% else -%>
-    $('.page_status:nth-child(3)', $page).addClass('not_restricted').removeClass('restricted');
-  <% end -%>
 
 <% end -%>
 
