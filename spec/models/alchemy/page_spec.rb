@@ -1548,6 +1548,54 @@ module Alchemy
       end
     end
 
+    describe '#public_on' do
+      subject(:public_on) { page.public_on }
+
+      context 'when is fixed attribute' do
+        let(:page) do
+          create(:alchemy_page, page_layout: 'readonly')
+        end
+
+        it 'returns the fixed value' do
+          is_expected.to eq(nil)
+        end
+      end
+
+      context 'when is not fixed attribute' do
+        let(:page) do
+          create(:alchemy_page, page_layout: 'standard', public_on: '2016-11-01')
+        end
+
+        it 'returns value' do
+          is_expected.to eq('2016-11-01'.to_time(:utc))
+        end
+      end
+    end
+
+    describe '#public_until' do
+      subject(:public_until) { page.public_until }
+
+      context 'when is fixed attribute' do
+        let(:page) do
+          create(:alchemy_page, page_layout: 'readonly')
+        end
+
+        it 'returns the fixed value' do
+          is_expected.to eq(nil)
+        end
+      end
+
+      context 'when is not fixed attribute' do
+        let(:page) do
+          create(:alchemy_page, page_layout: 'standard', public_until: '2016-11-01')
+        end
+
+        it 'returns value' do
+          is_expected.to eq('2016-11-01'.to_time(:utc))
+        end
+      end
+    end
+
     describe '#public?' do
       subject { page.public? }
 

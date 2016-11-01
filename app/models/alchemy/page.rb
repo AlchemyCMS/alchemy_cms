@@ -429,6 +429,22 @@ module Alchemy
       (editor_roles & user.alchemy_roles).any?
     end
 
+    # Returns the value of +public_on+ attribute
+    #
+    # If it's a fixed attribute then the fixed value is returned instead
+    #
+    def public_on
+      attribute_fixed?(:public_on) ? fixed_attributes[:public_on] : self[:public_on]
+    end
+
+    # Returns the value of +public_until+ attribute
+    #
+    # If it's a fixed attribute then the fixed value is returned instead
+    #
+    def public_until
+      attribute_fixed?(:public_until) ? fixed_attributes[:public_until] : self[:public_until]
+    end
+
     private
 
     def set_fixed_attributes
