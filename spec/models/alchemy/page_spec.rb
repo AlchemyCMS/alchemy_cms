@@ -1548,6 +1548,54 @@ module Alchemy
       end
     end
 
+    describe '#public_on' do
+      subject(:public_on) { page.public_on }
+
+      context 'when is fixed attribute' do
+        let(:page) do
+          create(:alchemy_page, page_layout: 'readonly')
+        end
+
+        it 'returns the fixed value' do
+          is_expected.to eq(nil)
+        end
+      end
+
+      context 'when is not fixed attribute' do
+        let(:page) do
+          create(:alchemy_page, page_layout: 'standard', public_on: '2016-11-01')
+        end
+
+        it 'returns value' do
+          is_expected.to eq('2016-11-01'.to_time(:utc))
+        end
+      end
+    end
+
+    describe '#public_until' do
+      subject(:public_until) { page.public_until }
+
+      context 'when is fixed attribute' do
+        let(:page) do
+          create(:alchemy_page, page_layout: 'readonly')
+        end
+
+        it 'returns the fixed value' do
+          is_expected.to eq(nil)
+        end
+      end
+
+      context 'when is not fixed attribute' do
+        let(:page) do
+          create(:alchemy_page, page_layout: 'standard', public_until: '2016-11-01')
+        end
+
+        it 'returns value' do
+          is_expected.to eq('2016-11-01'.to_time(:utc))
+        end
+      end
+    end
+
     describe '#public?' do
       subject { page.public? }
 
@@ -2367,15 +2415,6 @@ module Alchemy
       it 'delegates to instance of FixedAttributes' do
         expect_any_instance_of(Alchemy::Page::FixedAttributes).to receive(:fixed?).with('yolo')
         page.attribute_fixed?('yolo')
-      end
-    end
-
-    describe '#attribute_editable?' do
-      let(:page) { Alchemy::Page.new }
-
-      it 'is the opposite of Page#attribute_fixed?' do
-        expect_any_instance_of(Alchemy::Page).to receive(:attribute_fixed?).with('yolo') { true }
-        expect(page.attribute_editable?('yolo')).to be(false)
       end
     end
 

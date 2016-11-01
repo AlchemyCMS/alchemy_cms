@@ -4,8 +4,8 @@
 - name: readonly
   fixed_attributes:
     page_layout: readonly
-    public_on: nil
-    public_until: nil
+    public_on: ~
+    public_until: ~
     visible: false
     restricted: false
     name: false
@@ -13,8 +13,8 @@
     title: false
     robot_index: false
     robot_follow: false
-    meta_keywords: nil
-    meta_description: nil
+    meta_keywords: ~
+    meta_description: ~
 
 - name: standard
   elements: [article, header, slider]

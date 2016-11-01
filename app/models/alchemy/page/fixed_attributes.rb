@@ -52,5 +52,12 @@ module Alchemy
       return false if name.nil?
       attributes.key?(name.to_sym)
     end
+
+    # Returns the attribute by key
+    #
+    def [](name)
+      return nil if name.nil?
+      attributes[name.to_sym]
+    end
   end
 end

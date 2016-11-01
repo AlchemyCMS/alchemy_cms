@@ -105,4 +105,36 @@ RSpec.describe Alchemy::Page::FixedAttributes do
       it { is_expected.to eq(true) }
     end
   end
+
+  describe '#[]' do
+    subject(:fetch) do
+      described_class.new(page)[name]
+    end
+
+    context 'with nil given as name' do
+      let(:name) { nil }
+
+      it { is_expected.to be(nil) }
+    end
+
+    context 'with name not defined as fixed attribute' do
+      let(:name) { 'lol' }
+
+      it { is_expected.to be(nil) }
+    end
+
+    context 'with name defined as fixed attribute' do
+      let(:name) { :name }
+
+      before do
+        allow(page).to receive(:definition) do
+          definition_with_fixed_attributes
+        end
+      end
+
+      it 'returns the value' do
+        is_expected.to eq('Home')
+      end
+    end
+  end
 end

@@ -419,11 +419,6 @@ module Alchemy
       fixed_attributes.fixed?(name)
     end
 
-    # True if given attribute name is not defined as fixed
-    def attribute_editable?(name)
-      !attribute_fixed?(name)
-    end
-
     # Checks the current page's list of editors, if defined.
     #
     # This allows us to pass in a user and see if any of their roles are enable
@@ -432,6 +427,22 @@ module Alchemy
     def editable_by?(user)
       return true unless has_limited_editors?
       (editor_roles & user.alchemy_roles).any?
+    end
+
+    # Returns the value of +public_on+ attribute
+    #
+    # If it's a fixed attribute then the fixed value is returned instead
+    #
+    def public_on
+      attribute_fixed?(:public_on) ? fixed_attributes[:public_on] : self[:public_on]
+    end
+
+    # Returns the value of +public_until+ attribute
+    #
+    # If it's a fixed attribute then the fixed value is returned instead
+    #
+    def public_until
+      attribute_fixed?(:public_until) ? fixed_attributes[:public_until] : self[:public_until]
     end
 
     private
