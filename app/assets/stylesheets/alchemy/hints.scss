@@ -3,8 +3,11 @@
   display: inline-block;
   width: 16px;
   height: 16px;
-  top: -1px;
   margin: 0 $default-margin;
+
+  .toolbar_buttons & {
+    margin: 0 2*$default-margin;
+  }
 
   > .icon {
     text-indent: 0;
@@ -35,6 +38,9 @@
     padding: 8px;
     line-height: 1.5em;
     min-width: 180px;
+    max-width: 300px;
+    white-space: normal;
+    text-align: left;
     font-size: 12px;
     opacity: 0;
     transition: .3s;

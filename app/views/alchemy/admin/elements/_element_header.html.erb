@@ -1,4 +1,4 @@
-<div class="element-header">
+<div class="element-header<%= ' has-hint' if element.has_hint? %>">
   <span class="element-handle">
     <%= render_icon(:element) %>
     <% if element.definition.blank? %>

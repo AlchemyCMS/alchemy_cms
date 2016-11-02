@@ -33,7 +33,6 @@
       },
       {
         class: 'icon_button',
-        title: Alchemy.t(:page_infos),
         'data-alchemy-hotkey' => 'alt+i'
       }
     ) %>
@@ -76,6 +75,10 @@
         <label><%= Alchemy.t("Publish page") %></label>
       <% end %>
     </div>
+  <% end %>
+  <% if @page.has_hint? %>
+    <div class="toolbar_spacer"></div>
+    <%= render_hint_for(@page) %>
   <% end %>
   <div class="toolbar_spacer"></div>
   <div class="select_with_label">
