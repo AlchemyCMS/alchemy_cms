@@ -36,6 +36,10 @@
   margin-left: $default-margin;
   text-overflow: ellipsis;
 
+  .has-hint & {
+    max-width: 80%;
+  }
+
   .preview_text_quote {
     font-size: 10px;
     line-height: 15px;
@@ -816,6 +820,10 @@ textarea.has_tinymce {
       left: 16px;
     }
   }
+}
+
+.content_editor .hint-with-icon {
+  top: -1px;
 }
 
 .nestable-elements {
