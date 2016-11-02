@@ -33,7 +33,7 @@ module Alchemy
       end
 
       def custom_config_contents(page)
-        content_definitions_from_elements(page.element_definitions)
+        content_definitions_from_elements(page.descendent_element_definitions)
       end
 
       private

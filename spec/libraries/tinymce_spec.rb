@@ -39,14 +39,16 @@ module Alchemy
       end
 
       describe '.custom_config_contents' do
-        let(:page) { mock_model('Page') }
+        let(:page) { build_stubbed(:alchemy_page) }
+
+        let(:element_definitions) do
+          [element_definition]
+        end
 
         subject { Tinymce.custom_config_contents(page) }
 
         before do
-          expect(page).to receive(:element_definitions).and_return([element_definition])
-          # Preventing memoization
-          Tinymce.class_variable_set('@@custom_config_contents', nil)
+          expect(page).to receive(:descendent_element_definitions) { element_definitions }
         end
 
         it "returns an array of content definitions that contain custom tinymce config
@@ -93,6 +95,24 @@ module Alchemy
 
           it "returns empty array" do
             is_expected.to eq([])
+          end
+        end
+
+        context 'with nestable_elements defined' do
+          let(:element_definitions) do
+            [
+              element_definition,
+              {
+                'name' => 'nested_element',
+                'contents' => [content_definition]
+              }
+            ]
+          end
+
+          it 'includes these configs' do
+            is_expected.to include({
+              'element' => element_definition['name']
+            }.merge(content_definition))
           end
         end
       end
