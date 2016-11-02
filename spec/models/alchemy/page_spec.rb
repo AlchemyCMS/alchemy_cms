@@ -1019,6 +1019,37 @@ module Alchemy
       end
     end
 
+    describe '#descendent_element_definitions' do
+      let(:page) { build_stubbed(:alchemy_page, page_layout: 'standard') }
+
+      subject(:descendent_element_definitions) { page.descendent_element_definitions }
+
+      it "returns all element definitions including the nestable element definitions" do
+        is_expected.to include(Alchemy::Element.definition_by_name('slider'))
+        is_expected.to include(Alchemy::Element.definition_by_name('slide'))
+      end
+
+      context 'with nestable element being defined on multiple elements' do
+        before do
+          expect(page).to receive(:element_definition_names) do
+            %w(slider gallery)
+          end
+          expect(Element).to receive(:definitions).at_least(:once) do
+            [
+              {'name' => 'slider', 'nestable_elements' => %w(slide)},
+              {'name' => 'gallery', 'nestable_elements' => %w(slide)},
+              {'name' => 'slide'}
+            ]
+          end
+        end
+
+        it 'only includes the definition once' do
+          slide_definitions = descendent_element_definitions.select { |d| d['name'] == 'slide' }
+          expect(slide_definitions.length).to eq(1)
+        end
+      end
+    end
+
     describe '#element_definitions_by_name' do
       let(:page) { build_stubbed(:alchemy_page, :public) }
 

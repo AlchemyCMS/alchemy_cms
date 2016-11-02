@@ -143,6 +143,16 @@ module Alchemy
       @_element_definitions ||= element_definitions_by_name(element_definition_names)
     end
 
+    # All element definitions defined for page's page layout including nestable element definitions
+    #
+    def descendent_element_definitions
+      definitions = element_definitions_by_name(element_definition_names)
+      definitions.select { |d| d.key?('nestable_elements') }.each do |d|
+        definitions += element_definitions_by_name(d['nestable_elements'])
+      end
+      definitions.uniq { |d| d['name'] }
+    end
+
     # All names of elements that are defined in the corresponding
     # page and cell definition.
     #
