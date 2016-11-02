@@ -39,10 +39,12 @@ module Alchemy
       end
 
       describe '.custom_config_contents' do
-        subject { Tinymce.custom_config_contents }
+        let(:page) { mock_model('Page') }
+
+        subject { Tinymce.custom_config_contents(page) }
 
         before do
-          allow(Element).to receive(:definitions).and_return([element_definition])
+          expect(page).to receive(:element_definitions).and_return([element_definition])
           # Preventing memoization
           Tinymce.class_variable_set('@@custom_config_contents', nil)
         end
@@ -91,18 +93,6 @@ module Alchemy
 
           it "returns empty array" do
             is_expected.to eq([])
-          end
-        end
-
-        context 'with a page given' do
-          let(:page) { mock_model('Page') }
-          subject { Tinymce.custom_config_contents(page) }
-
-          it "only returns custom tinymce config for elements of that page" do
-            expect(page).to receive(:element_definitions).and_return([element_definition])
-            is_expected.to include(
-              {'element' => element_definition['name']
-            }.merge(content_definition))
           end
         end
       end
