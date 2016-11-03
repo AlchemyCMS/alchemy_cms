@@ -4,8 +4,6 @@ module Alchemy
   # Utilities for Alchemy's mount point in the host rails app.
   #
   class MountPoint
-    MOUNT_POINT_REGEXP = /mount\sAlchemy::Engine\s=>\s['|"](\/\w*)['|"]/
-
     class << self
       # Returns the path of Alchemy's mount point in current rails app.
       #
@@ -23,22 +21,10 @@ module Alchemy
       # Returns the mount point path from the Rails app routes.
       #
       def path
-        match = File.read(routes_file_path).match(MOUNT_POINT_REGEXP)
-        if match.nil?
-          raise NotMountedError
-        else
-          match[1]
-        end
-      end
-
-      private
-
-      def routes_file_path
-        if Rails.root
-          Rails.root.join('config/routes.rb')
-        else
-          'config/routes.rb'
-        end
+        all_routes = Rails.application.routes.routes
+        alchemy_route = all_routes.find { |r| r.name == Alchemy::Engine.engine_name }
+        raise NotMountedError if alchemy_route.nil?
+        alchemy_route.path.spec.to_s
       end
     end
   end
