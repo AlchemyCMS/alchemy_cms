@@ -45,7 +45,11 @@ $.extend Alchemy.Tinymce,
   #   - Editor id that should be initialized.
   #
   initEditor: (id) ->
-    textarea = $("#tinymce_#{id}")
+    editor_id = "tinymce_#{id}"
+    textarea = $("##{editor_id}")
+    editor = tinymce.get(editor_id)
+    # remove editor instance, if already initialized
+    editor.remove() if editor
     if textarea.length == 0
       Alchemy.log_error "Could not initialize TinyMCE for textarea#tinymce_#{id}!"
       return

@@ -32,12 +32,8 @@ module Alchemy
         @@init
       end
 
-      def custom_config_contents(page = nil)
-        if page
-          content_definitions_from_elements(page.element_definitions)
-        else
-          content_definitions_from_elements(Element.definitions)
-        end
+      def custom_config_contents(page)
+        content_definitions_from_elements(page.descendent_element_definitions)
       end
 
       private
