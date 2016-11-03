@@ -138,9 +138,18 @@
       <%- end -%>
     </div>
     <div class="page_infos" id="page_<%= page.id %>_infos">
-      <span class="page_status {{#unless public}}not_{{/unless}}public" title="{{status_titles.public}}"></span>
-      <span class="page_status {{#unless visible}}not_{{/unless}}visible" title="{{status_titles.visible}}"></span>
-      <span class="page_status {{#unless restricted}}not_{{/unless}}restricted" title="{{status_titles.restricted}}"></span>
+      <span class="page_status with-hint">
+        <span class="icon {{#unless public}}not_{{/unless}}public"></span>
+        <span class="hint-bubble">{{status_titles.public}}</span>
+      </span>
+      <span class="page_status with-hint">
+        <span class="icon {{#unless visible}}not_{{/unless}}visible"></span>
+        <span class="hint-bubble">{{status_titles.visible}}</span>
+      </span>
+      <span class="page_status with-hint">
+        <span class="icon {{#unless restricted}}not_{{/unless}}restricted"></span>
+        <span class="hint-bubble">{{status_titles.restricted}}</span>
+      </span>
     </div>
     {{#if redirects_to_external}}
       <div class="redirect_url" title="{{urlname}}">

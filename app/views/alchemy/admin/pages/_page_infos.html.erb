@@ -1,12 +1,12 @@
-<%= content_tag 'span', '', class: [
-  'page_status',
-  page.public? ? 'public' : 'not_public'
-], title: page.status_title(:public) %>
-<%= content_tag 'span', '', class: [
-  'page_status',
-  page.visible? ? 'visible' : 'not_visible'
-], title: page.status_title(:visible) %>
-<%= content_tag 'span', '', class: [
-  'page_status',
-  page.restricted? ? 'restricted' : 'not_restricted'
-], title: page.status_title(:restricted) %>
+<span class="page_status with-hint">
+  <%= render_icon page.public? ? :public : :not_public %>
+  <span class="hint-bubble"><%= page.status_title(:public) %></span>
+</span>
+<span class="page_status with-hint">
+  <%= render_icon page.visible? ? :visible : :not_visible %>
+  <span class="hint-bubble"><%= page.status_title(:visible) %></span>
+</span>
+<span class="page_status with-hint">
+  <%= render_icon page.restricted? ? :restricted : :not_restricted %>
+  <span class="hint-bubble"><%= page.status_title(:restricted) %></span>
+</span>

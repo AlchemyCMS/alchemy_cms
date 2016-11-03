@@ -24,7 +24,20 @@
   </div>
   <div class="value">
     <label><%= Alchemy.t(:page_status) %></label>
-    <p><%= combined_page_status(@page) %></p>
+    <p>
+      <span class="page_status">
+        <%= render_icon @page.public? ? :public : :not_public %>
+        <%= @page.status_title(:public) %>
+      </span>
+      <span class="page_status">
+        <%= render_icon @page.visible? ? :visible : :not_visible %>
+        <%= @page.status_title(:visible) %>
+      </span>
+      <span class="page_status">
+        <%= render_icon @page.restricted? ? :restricted : :not_restricted %>
+        <%= @page.status_title(:restricted) %>
+      </span>
+    </p>
   </div>
   <div class="value">
     <label><%= Alchemy.t(:page_was_created) %></label>

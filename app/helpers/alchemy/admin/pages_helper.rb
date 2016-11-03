@@ -17,17 +17,6 @@ module Alchemy
         ])
       end
 
-      # Returns the translated explanation of the page status.
-      #
-      def combined_page_status(page)
-        page.status.map do |state, _value|
-          next if state == :locked
-          css_class = page.send("#{state}?") ? "page_status #{state}" : "page_status not_#{state}"
-          val = content_tag(:span, '', class: css_class)
-          val + page.status_title(state)
-        end.delete_if(&:blank?).join("<br>").html_safe
-      end
-
       # Renders a label for page's page layout
       #
       # If the page layout definition of the page is missing, it displays a warning.
