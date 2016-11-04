@@ -38,19 +38,39 @@ describe Alchemy::MountPoint do
   end
 
   describe '.path' do
-    subject(:mount_path) { Alchemy::MountPoint.path }
-
-    it 'returns the mount point for the dummy app' do
-      expect(mount_path).to eq('/')
+    before do
+      allow(File)
+        .to receive(:read)
+        .and_return("mount Alchemy::Engine => '/cms'")
     end
 
-    context 'not mounted' do
+    it 'returns the mount point path from routes.' do
+      expect(Alchemy::MountPoint.path).to eq('/cms')
+    end
+
+    context "Alchemy mount point could not be found" do
       before do
-        allow(Rails.application.routes.routes).to receive(:find) { nil }
+        allow(File)
+        .to receive(:read)
+        .and_return("")
       end
 
-      it 'raises an error' do
-        expect { mount_path }.to raise_error(Alchemy::NotMountedError)
+      it "raises an exception" do
+        expect {
+          Alchemy::MountPoint.path
+        }.to raise_error(Alchemy::NotMountedError)
+      end
+    end
+
+    context 'Mount point using double quotes string' do
+      before do
+        allow(File)
+          .to receive(:read)
+          .and_return('mount Alchemy::Engine => "/cms"')
+      end
+
+      it 'returns the mount point path from routes.' do
+        expect(Alchemy::MountPoint.path).to eq('/cms')
       end
     end
   end
