@@ -31,6 +31,3 @@ notifications:
     on_success: always
     on_failure: always
     on_start: never
-addons:
-  code_climate:
-    secure: qmOMqc4FUBRP25XqaYIKuxZQ/GrGLKjIc3vUqZa+XfkQKh6xLXvOF7YUM/XJZ5u6D6hk0Ly8UxjctvDY+tQxEAK49lFwK51i7bODfkQjfVBrFzfht7QhxY5HJKx7F0HHmpyNJet4n8mR0gGlhwVyXv+Tz7Rm6O3Hq3+TEbY9+pk=
