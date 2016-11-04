@@ -236,7 +236,6 @@ nl:
     "Picture renamed successfully": "Afbeelding hernoemd van %{from} naar %{to}"
     "Picture deleted successfully": "Afbeelding %{name} verwijderd"
     "Pictures updated successfully": "De afbeelding is geüpdatet"
-    "Picture cache flushed": "Afbeeldingscache is geleegd"
     "Please Signup": "Om de homepagina te kunnen bewerken moet er eerst een Admin account gemaakt worden."
     "Please choose": "Maak een keuze"
     "Please enter a new password": "Geef een nieuw wachtwoord op"

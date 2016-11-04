@@ -237,7 +237,6 @@ en:
     "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
     "Picture deleted successfully": "Picture %{name} successfully deleted"
     "Pictures updated successfully": "Pictures updated successfully"
-    "Picture cache flushed": "Picture cache flushed"
     "Please Signup": "Please signup to edit your Website."
     "Please choose": "Please choose"
     "Please enter a new password": "Please enter a new password."

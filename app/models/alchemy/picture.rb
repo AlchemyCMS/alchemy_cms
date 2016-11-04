@@ -24,7 +24,6 @@ module Alchemy
 
     include Alchemy::NameConversions
     include Alchemy::Touching
-    include Alchemy::Picture::Sweeping
     include Alchemy::Picture::Transformations
     include Alchemy::Picture::Url
 

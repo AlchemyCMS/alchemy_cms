@@ -237,7 +237,6 @@ ru:
     "Picture renamed successfully": "Изображение успешно переименовано из %{from} в %{to}"
     "Picture deleted successfully": "Изображение %{name} успешно удалено"
     "Pictures updated successfully": "Изображение  успешно обновлено"
-    "Picture cache flushed": "Кэш изображения очищен"
     "Please Signup": "Пожалуйста, войдите, чтобы редактировать Ваш сайт."
     "Please choose": "Пожалуйста, выберите"
     "Please enter a new password": "Пожалуйста, введите новый пароль."
