@@ -238,7 +238,6 @@ de:
     "Picture renamed successfully": "Bild wurde erfolgreich von %{from} nach %{to} umbenannt"
     "Picture deleted successfully": "%{name} wurde gelöscht"
     "Pictures updated successfully": "Die Bilder wurden gespeichert"
-    "Picture cache flushed": "Bildercache wurde geleert"
     "Please Signup": "Um Ihre Homepage bearbeiten zu können, müssen Sie als erstes einen Admin Benutzer einrichten."
     "Please choose": "Bitte wählen"
     "Please enter a new password": "Bitte geben Sie Ihr neues Passwort ein."

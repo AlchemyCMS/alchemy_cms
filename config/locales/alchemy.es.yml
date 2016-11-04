@@ -238,7 +238,6 @@ es:
     "Picture renamed successfully": "Imagen renombrada correctamente de %{from} a %{to}"
     "Picture deleted successfully": "Imagen %{name} eliminada correctamente"
     "Pictures updated successfully": "Imágenes actualizadas correctamente"
-    "Picture cache flushed": "Cache de imágenes vaciada"
     "Please Signup": "Por favor inicia sesión para editar tu web."
     "Please choose": "Por favor selecciona"
     "Please enter a new password": "Por favor introduce una nueva contraseña."

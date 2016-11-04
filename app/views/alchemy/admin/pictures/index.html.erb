@@ -38,22 +38,6 @@
       <label><%= Alchemy.t('Image size') %></label>
       <%= hidden_field_tag('size', @size, id: 'overlay_thumbnails_size') %>
     </div>
-    <% if can?(:flush, Alchemy::Picture) %>
-      <div class="toolbar_spacer"></div>
-      <%= toolbar_button(
-        icon: 'flush',
-        url: alchemy.flush_admin_pictures_path,
-        dialog: false,
-        link_options: {
-          remote: true,
-          method: :post
-        },
-        label: Alchemy.t('Flush picture cache'),
-        class: 'icon_button please_wait',
-        title: Alchemy.t('Flush picture cache'),
-        skip_permission_check: true
-      ) %>
-    <% end %>
     <div class="toolbar_spacer"></div>
     <div class="button_with_label">
       <%= link_to(

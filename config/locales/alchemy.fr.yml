@@ -256,7 +256,6 @@ fr:
     "Picture deleted successfully": "%{name} A été effacé"
     "Pictures deleted successfully": "Les images %{names} ont été effacées"
     "Pictures updated successfully": "Les images ont été enregistrées"
-    "Picture cache flushed": "Le cache de l'image a été vidé"
     "Please Signup": "Pour être en mesure de modifier votre site Web, vous devez d'abord configurer un utilisateur Admin."
     "Please choose": "S'il vous plaît Choisir"
     "Please enter a new password": "S'il vous plaît, entrez votre nouveau mot de passe."
