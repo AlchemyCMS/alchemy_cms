@@ -33,6 +33,7 @@ __Notable Changes__
 * Upgrade tasks can now be run separately (#1152)
 * Update to Tinymce 4.4.3
 * New sitemap UI (#1172)
+* Removed picture cache flushing (#1185)
 
 __Fixed Bugs__
 
