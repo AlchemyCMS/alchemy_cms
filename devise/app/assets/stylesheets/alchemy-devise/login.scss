@@ -1,48 +1,21 @@
-div#alchemy_greeting {
-  width: 424px;
-  margin: -4em auto 0 auto;
-
-  img {
-    margin-left: 158px;
-  }
-}
-
 #logo {
   width: 240px;
   height: 70px;
+  margin: 0 0 1em 187px;
 }
 
-div.login_signup_box {
-  width: 390px;
-  padding: 4*$default-padding;
-  border: $default-border;
-  background-color: $medium-gray;
-  @extend %rounded-border;
-  margin: 2em auto;
-}
-
-html.no-js {
-
-  div.login_signup_box, div#alchemy_greeting h1 {
-    display: none;
-  }
-}
-
-#login_box {
-  height: 310px;
-  width: 394px;
-  margin-top: -200px;
-  margin-left: -197px;
+.login_signup_box {
   position: absolute;
+  width: 450px;
   top: 50%;
   left: 50%;
-}
+  transform: translate(-50%, -50%);
 
-#login table tbody tr td.label {
-  width: 155px;
-  text-align: right;
-}
+  .no-js & {
+    display: none;
+  }
 
-form#login.new_user_session {
-  text-align: right;
+  .message {
+    margin-left: 157px;
+  }
 }
