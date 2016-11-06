@@ -1,5 +1,5 @@
 <% if !@preview_mode && @page && can?(:edit_content, @page) %>
-  <div id="alchemy_menubar" style="display: none">
+  <div id="alchemy_menubar" style="display: none" data-turbolinks="false">
     <ul>
       <li><%= link_to Alchemy.t(:to_alchemy), alchemy.admin_dashboard_url %></li>
       <li><%= link_to Alchemy.t(:edit_page), alchemy.edit_admin_page_url(@page) %></li>
