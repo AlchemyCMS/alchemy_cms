@@ -288,7 +288,20 @@ module Alchemy
     end
 
     describe "#language_links" do
-      context "with two public languages" do
+      context "with another site, root page and language present" do
+        let!(:second_site) { create(:alchemy_site, name: "Other", host: "example.com") }
+        let!(:language_root_2) { create(:alchemy_page, :language_root, name: "Intro", language: klingon_2) }
+        let!(:public_page_2) { create(:alchemy_page, :public, language: klingon_2) }
+        let!(:klingon_2) { create(:alchemy_language, :klingon, site: second_site) }
+
+        before { klingon_language_root }
+
+        it 'should still only render two links' do
+          expect(helper.language_links).to have_selector('a', count: 2)
+        end
+      end
+
+      context "with two public languages on the same site" do
         # Always create second language
         before { klingon }
 
