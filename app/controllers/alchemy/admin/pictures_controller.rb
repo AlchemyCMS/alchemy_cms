@@ -106,11 +106,6 @@ module Alchemy
         redirect_to_index
       end
 
-      def flush
-        FileUtils.rm_rf Rails.root.join('public', Alchemy::MountPoint.get, 'pictures')
-        @notice = Alchemy.t('Picture cache flushed')
-      end
-
       private
 
       def pictures_per_page_for_size(size)

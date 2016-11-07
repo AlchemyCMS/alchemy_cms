@@ -350,13 +350,6 @@ module Alchemy
       end
     end
 
-    describe '#flush' do
-      it "removes the complete pictures cache" do
-        expect(FileUtils).to receive(:rm_rf).with(Rails.root.join('public', '', 'pictures'))
-        alchemy_xhr :post, :flush
-      end
-    end
-
     describe '#pictures_per_page_for_size' do
       subject { controller.send(:pictures_per_page_for_size, size) }
 

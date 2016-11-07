@@ -238,7 +238,6 @@ it:
     "Picture renamed successfully": "Immagine rinominata con successo da %{from} a %{to}"
     "Picture deleted successfully": "Immagine %{name} eliminata con successo"
     "Pictures updated successfully": "Immagini caricate con successo"
-    "Picture cache flushed": "Cache delle immagini svuotata"
     "Please Signup": "Registrati per modificare il tuo sito web."
     "Please choose": "Scegli"
     "Please enter a new password": "Inserisci una nuova password."
