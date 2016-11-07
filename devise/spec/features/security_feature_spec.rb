@@ -6,7 +6,7 @@ describe "Security: " do
 
     it "a visitor should not be able to signup" do
       visit '/admin/signup'
-      within('#alchemy_greeting') { expect(page).not_to have_content('have to signup') }
+      within('.login_signup_box') { expect(page).not_to have_content('have to signup') }
     end
 
     context "that is not logged in" do

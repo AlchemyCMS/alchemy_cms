@@ -1,20 +1,16 @@
-<div id="login_box">
-  <div id="alchemy_greeting">
-    <%= image_tag 'alchemy/alchemy-logo.svg', id: 'logo' %>
-  </div>
-  <div class="login_signup_box">
-    <%= alchemy_form_for :user, url: {action: 'create'}, id: 'login' do |f| %>
-      <%= f.input Devise.authentication_keys.first, autofocus: true %>
-      <%= f.input :password %>
-      <p class="foot_note">
-        <%= link_to Alchemy.t('Forgot your password?'), new_password_path %>
-      </p>
-      <div class="submit">
-        <%= hidden_field_tag 'user_screensize' %>
-        <button><%= Alchemy.t(:login) %></button>
-      </div>
-    <% end %>
-  </div>
+<div class="login_signup_box">
+  <%= image_tag 'alchemy/alchemy-logo.svg', id: 'logo' %>
+  <%= alchemy_form_for :user, url: {action: 'create'}, id: 'login' do |f| %>
+    <%= f.input Devise.authentication_keys.first, autofocus: true %>
+    <%= f.input :password %>
+    <p class="foot_note">
+      <%= link_to Alchemy.t('Forgot your password?'), new_password_path %>
+    </p>
+    <div class="submit">
+      <%= hidden_field_tag 'user_screensize' %>
+      <button><%= Alchemy.t(:login) %></button>
+    </div>
+  <% end %>
 </div>
 
 <%- content_for :javascripts do -%>

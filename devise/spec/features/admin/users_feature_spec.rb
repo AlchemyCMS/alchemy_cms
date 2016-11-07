@@ -7,7 +7,7 @@ describe "Admin users feature." do
       visit admin_signup_path
 
       expect(page).to have_content('Please signup to edit your Website.')
-      expect(page).to have_selector('#user_signup')
+      expect(page).to have_selector('.login_signup_box')
     end
 
     it "does not render tag list input" do
