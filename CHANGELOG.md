@@ -46,6 +46,10 @@ __Notable Changes__
 
 * Allow users to manually publish changes on global pages
 
+__Fixed Bugs__
+
+* The `language_links` helper now only renders languages from the current site
+
 ## 3.4.1 (2016-08-31)
 
 __Fixed Bugs__
