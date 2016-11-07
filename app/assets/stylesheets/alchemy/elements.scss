@@ -434,17 +434,6 @@
   }
 }
 
-.content_editor.essence_date {
-  float: none;
-  display: inline-block;
-  vertical-align: middle;
-  vertical-align: top;
-
-  input.date {
-    width: 154px;
-  }
-}
-
 .essence_picture_editor {
   position: relative;
 
@@ -745,17 +734,6 @@ select.long {
     }
   }
 
-  &.essence_date {
-    float: none;
-    display: inline-block;
-    vertical-align: middle;
-    vertical-align: top;
-
-    input.date {
-      width: 154px;
-    }
-  }
-
   &.essence_picture_editor {
     float: none;
     height: auto;
@@ -849,4 +827,10 @@ textarea.has_tinymce {
 
 .add-nestable-element-button {
   margin-top: 0;
+}
+
+.essence_date--label {
+  position: absolute;
+  right: 5px;
+  top: 31px;
 }
