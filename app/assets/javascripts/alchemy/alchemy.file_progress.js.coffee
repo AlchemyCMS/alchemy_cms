@@ -58,6 +58,9 @@ Alchemy.FileProgress::setCancelled = ->
   @$fileProgressCancel.hide()
   @$fileProgressWrapper.delay(1500).fadeOut ->
     $(this).remove()
+    if $('.upload-progress-container').is(':empty')
+      $('.overall-upload').removeClass('visible')
+    return
 
 Alchemy.FileProgress::setStatus = (status) ->
   @$fileProgressStatus.text Alchemy.t(status)
