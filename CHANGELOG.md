@@ -35,6 +35,7 @@ __Notable Changes__
 * Update to Tinymce 4.4.3
 * New sitemap UI (#1172)
 * Removed picture cache flushing (#1185)
+* Removed Mountpoint class (#1186)
 
 __Fixed Bugs__
 
