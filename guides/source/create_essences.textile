@@ -30,7 +30,7 @@ end
 
 Alchemy makes some consumptions about your essence. First of all it looks for a <code>body</code> column that it uses as <code>ingredient</code> column.
 
-If you want to store the value in another column, please use one of "the various options":http://rubydoc.info/github/magiclabs/alchemy_cms/Alchemy/Essence/ClassMethods:acts_as_essence the <code>acts_as_essence</code> class method provides.
+If you want to store the value in another column, please use one of "the various options":http://rubydoc.info/github/AlchemyCMS/alchemy_cms/Alchemy/Essence/ClassMethods:acts_as_essence the <code>acts_as_essence</code> class method provides.
 
 h3. The essence views
 

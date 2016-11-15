@@ -8,7 +8,7 @@ endprologue.
 
 h3. The configuration file
 
-Please "have a look into the source code":https://raw.github.com/magiclabs/alchemy_cms/master/config/alchemy/config.yml
+Please "have a look into the source code":https://raw.github.com/AlchemyCMS/alchemy_cms/master/config/alchemy/config.yml
 The file is pretty well documentated and much more up to date then this guide.
 
 h3. Environment related configurations

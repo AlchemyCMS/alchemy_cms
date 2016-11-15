@@ -378,7 +378,7 @@ You can pass additional arguments to add or change any html attributes of the wr
 <% end %>
 </erb>
 
-NOTE: If you want to learn more about the helper methods used in these partials, please have a look at the "Documentation":http://rubydoc.info/search/github/magiclabs/alchemy_cms?q=helper.
+NOTE: If you want to learn more about the helper methods used in these partials, please have a look at the "Documentation":http://rubydoc.info/search/github/AlchemyCMS/alchemy_cms?q=helper.
 
 h4. Pass options to the essence view
 

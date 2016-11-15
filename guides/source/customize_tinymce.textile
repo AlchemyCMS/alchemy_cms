@@ -15,7 +15,7 @@ h3. Override the default settings
 
 To override the default settings you have to create a <code>tinymce.rb</code> initializer file into <code>config/initializers</code>.
 
-INFO: Alchemys default settings for TinyMCE can be found in the "documentation":http://rubydoc.info/github/magiclabs/alchemy_cms/Alchemy/Tinymce
+INFO: Alchemys default settings for TinyMCE can be found in the "documentation":http://rubydoc.info/github/AlchemyCMS/alchemy_cms/Alchemy/Tinymce
 
 h4. A Minimal Editor
 

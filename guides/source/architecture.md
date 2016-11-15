@@ -60,7 +60,7 @@ NOTE: Since Alchemy v2.4 you can use Slim and HAML views as well.
 
 INFO: Alchemy comes with tons of useful helpers that render these
 partials for you. For further information please [have a look into the
-PagesHelper documentation](http://rdoc.info/github/magiclabs/alchemy_cms/Alchemy/PagesHelper.html)
+PagesHelper documentation](http://rdoc.info/github/AlchemyCMS/alchemy_cms/Alchemy/PagesHelper.html)
 
 ### Processing images
 

@@ -30,7 +30,7 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'coffee-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
 
-gem 'alchemy_cms',    github: 'magiclabs/alchemy_cms',    branch: '3.0-stable'
+gem 'alchemy_cms',    github: 'AlchemyCMS/alchemy_cms',    branch: '3.0-stable'
 gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: '2.0-stable'
 ...
 </ruby>
@@ -144,7 +144,7 @@ The TinyMCE configuration syntax has changed.
 If you have custom TinyMCE confugurations, like a customized toolbar then you have to upgrade the syntax to a TinyMCE 4 compatible one.
 Please have a look in the default TinyMCE configuration from Alchemy and also read the official TinyMCE documentation in how to upgrade.
 
-* Alchemy default TinyMCE config: <a href="https://github.com/magiclabs/alchemy_cms/blob/master/lib/alchemy/tinymce.rb#L5-L19" target="_blank">https://github.com/magiclabs/.../tinymce.rb#L5-L19</a>
+* Alchemy default TinyMCE config: <a href="https://github.com/AlchemyCMS/alchemy_cms/blob/master/lib/alchemy/tinymce.rb#L5-L19" target="_blank">https://github.com/magiclabs/.../tinymce.rb#L5-L19</a>
 
 * Offical TinyMCE documentation: <a href="http://www.tinymce.com/wiki.php/Configuration" target="_blank">http://www.tinymce.com/wiki.php/Configuration</a>
 

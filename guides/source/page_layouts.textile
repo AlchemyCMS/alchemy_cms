@@ -131,7 +131,7 @@ So:
 is all you will see. Feel free to customize the HTML so it fits your needs.
 
 INFO: Alchemy comes with tons of view helpers that you can use to render elements.<br>
-Please have a look into the "ElementsHelper documentation":http://rdoc.info/github/magiclabs/alchemy_cms/Alchemy/ElementsHelper#render_elements-instance_method
+Please have a look into the "ElementsHelper documentation":http://rdoc.info/github/AlchemyCMS/alchemy_cms/Alchemy/ElementsHelper#render_elements-instance_method
 
 h4. Translate page layout names
 

@@ -46,7 +46,7 @@ h4. Rendering Options
 
 h4. Advanced rendering
 
-If you want to render an image on your own, please have a look at the <code>show_alchemy_picture_url</code> helper in the "Alchemy documentation":http://rubydoc.info/github/magiclabs/alchemy_cms/Alchemy/UrlHelper#show_alchemy_picture_path-instance_method.
+If you want to render an image on your own, please have a look at the <code>show_alchemy_picture_url</code> helper in the "Alchemy documentation":http://rubydoc.info/github/AlchemyCMS/alchemy_cms/Alchemy/UrlHelper#show_alchemy_picture_path-instance_method.
 
 h3. Caching
 

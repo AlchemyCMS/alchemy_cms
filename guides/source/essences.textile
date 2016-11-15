@@ -113,7 +113,7 @@ Renders a select box in the editor partial and stores the value as <code>String<
 
 Useful for letting your user select from a limited set of choices.
 
-NOTE: Pretty handy together with the <code>page_selector</code> "helper":http://rubydoc.info/github/magiclabs/alchemy_cms/Alchemy/Admin/EssencesHelper#page_selector-instance_method.
+NOTE: Pretty handy together with the <code>page_selector</code> "helper":http://rubydoc.info/github/AlchemyCMS/alchemy_cms/Alchemy/Admin/EssencesHelper#page_selector-instance_method.
 
 h4. Example
 
