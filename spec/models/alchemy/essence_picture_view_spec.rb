@@ -168,4 +168,99 @@ describe Alchemy::EssencePictureView, type: :model do
       expect(picture_view.options).to_not have_key(:my_custom_option)
     end
   end
+
+  context "with srcset content setting" do
+    before do
+      allow(content).to receive(:settings) do
+        {srcset: srcset}
+      end
+    end
+
+    subject(:view) do
+      Alchemy::EssencePictureView.new(content).render
+    end
+
+    let(:srcset) do
+      []
+    end
+
+    it 'does not pass srcset option to picture_url' do
+      expect(essence_picture).to receive(:picture_url).with({})
+      view
+    end
+
+    context "when only width or width and height are set" do
+      let(:srcset) do
+        %w(1024x768 800x)
+      end
+
+      it 'adds srcset attribute including image url and width for each size' do
+        url1 = essence_picture.picture_url(size: '1024x768')
+        url2 = essence_picture.picture_url(size: '800x')
+
+        expect(view).to have_selector("img[srcset=\"#{url1} 1024w, #{url2} 800w\"]")
+      end
+    end
+
+    context "when only height is set" do
+      let(:srcset) do
+        %w(x768 x600)
+      end
+
+      it 'adds srcset attribute including image url and height for each size' do
+        url1 = essence_picture.picture_url(size: 'x768')
+        url2 = essence_picture.picture_url(size: 'x600')
+
+        expect(view).to have_selector("img[srcset=\"#{url1} 768h, #{url2} 600h\"]")
+      end
+    end
+  end
+
+  context "with no srcset content setting" do
+    subject(:view) do
+      Alchemy::EssencePictureView.new(content).render
+    end
+
+    it 'image tag has no srcset attribute' do
+      expect(view).not_to have_selector('img[srcset]')
+    end
+  end
+
+  context "with sizes content setting" do
+    before do
+      allow(content).to receive(:settings) do
+        {sizes: sizes}
+      end
+    end
+
+    subject(:view) do
+      Alchemy::EssencePictureView.new(content).render
+    end
+
+    let(:sizes) do
+      [
+        '(max-width: 1023px) 100vh',
+        '(min-width: 1024px) 33.333vh'
+      ]
+    end
+
+    it 'does not pass sizes option to picture_url' do
+      expect(essence_picture).to receive(:picture_url).with({})
+      view
+    end
+
+    it 'adds sizes attribute for each size' do
+      expect(view).to have_selector("img[sizes=\"#{sizes[0]}, #{sizes[1]}\"]")
+    end
+  end
+
+  context "with no sizes content setting" do
+    subject(:view) do
+      Alchemy::EssencePictureView.new(content).render
+    end
+
+    it 'image tag has no sizes attribute' do
+      expect(view).not_to have_selector('img[sizes]')
+    end
+  end
 end
