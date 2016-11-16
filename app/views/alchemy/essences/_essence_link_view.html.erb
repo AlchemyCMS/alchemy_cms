@@ -4,6 +4,6 @@
 }.merge(local_assigns.fetch(:html_options, {})) -%>
 <%= link_to(content.ingredient, html_options) do -%>
 <%= content.settings_value(:text, local_assigns.fetch(:options, {})) ||
-  content.ingredient -%>
+  content.essence.link_title || content.ingredient -%>
 <%- end -%>
 <%- end -%>
