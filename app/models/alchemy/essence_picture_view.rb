@@ -9,7 +9,9 @@ module Alchemy
 
     DEFAULT_OPTIONS = {
       show_caption: true,
-      disable_link: false
+      disable_link: false,
+      srcset: [],
+      sizes: []
     }
 
     def initialize(content, options = {}, html_options = {})
@@ -59,7 +61,9 @@ module Alchemy
         essence.picture_url(options.except(*DEFAULT_OPTIONS.keys)), {
           alt: essence.alt_tag.presence,
           title: essence.title.presence,
-          class: caption ? nil : essence.css_class.presence
+          class: caption ? nil : essence.css_class.presence,
+          srcset: srcset.join(', ').presence,
+          sizes: options[:sizes].join(', ').presence
         }.merge(caption ? {} : html_options)
       )
     end
@@ -70,6 +74,14 @@ module Alchemy
 
     def is_linked?
       !options[:disable_link] && essence.link.present?
+    end
+
+    def srcset
+      options[:srcset].map do |size|
+        url = essence.picture_url(size: size)
+        width, height = size.split('x')
+        width.present? ? "#{url} #{width}w" : "#{url} #{height}h"
+      end
     end
   end
 end
