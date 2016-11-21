@@ -2,7 +2,7 @@
   <%= f.input :page_layout,
     collection: @page_layouts,
     label: page_layout_label(@page),
-    include_blank: false,
+    include_blank: Alchemy.t('Please choose'),
     input_html: {class: 'alchemy_selectbox'} %>
   <%= f.input :name, autofocus: true %>
   <% if @page.taggable? %>
