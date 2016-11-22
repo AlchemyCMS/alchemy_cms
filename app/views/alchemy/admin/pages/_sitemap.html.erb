@@ -22,7 +22,7 @@
      full: <%= full %>
      <% if @sorting  %>
      ,ready: function () {
-       Alchemy.PageSorter.init();
+       Alchemy.PageSorter();
      }
      <% elsif action_name == 'link' %>
      ,spinner: Alchemy.Spinner.small(),
