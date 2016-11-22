@@ -3,8 +3,7 @@ html {
 
   &.turbolinks-progress-bar::before,
   .turbolinks-progress-bar {
-    background-color: $blue !important;
-    height: 3px !important;
+    background-color: #fff !important;
     z-index: 400001;
   }
 }
