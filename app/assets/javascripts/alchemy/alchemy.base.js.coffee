@@ -77,10 +77,6 @@ $.extend Alchemy,
       dropdownAutoWidth: true
     return
 
-  Buttons: (options) ->
-    $("button, input:submit, a.button").button options
-    return
-
   # Selects cell tab for given name.
   # Creates it if it's not present yet.
   selectOrCreateCellTab: (cell_name, label) ->
