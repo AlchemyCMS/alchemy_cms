@@ -134,6 +134,19 @@ module Alchemy
       @_available_element_names ||= available_element_definitions.map { |e| e['name'] }
     end
 
+    # Available element definitions excluding nested unique elements.
+    #
+    def available_elements_within_current_scope(parent)
+      @_available_elements = if parent
+        parents_unique_nested_elements = parent.nested_elements.where(unique: true).pluck(:name)
+        available_element_definitions(parent.name).reject do |e|
+          parents_unique_nested_elements.include? e['name']
+        end
+      else
+        available_element_definitions
+      end
+    end
+
     # All element definitions defined for page's page layout
     #
     # Warning: Since elements can be unique or limited in number,
