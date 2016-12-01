@@ -38,10 +38,6 @@ $image-overlay-transition-easing: ease-in;
       right: $picture-overlay-handle-width;
     }
 
-    .spinner {
-      margin-left: 0;
-    }
-
     .picture-overlay-handle {
       right: 0;
 
@@ -160,15 +156,6 @@ $image-overlay-transition-easing: ease-in;
     display: inline-block;
     height: 100%;
     margin-left: -4px;
-  }
-
-  .spinner {
-    position: absolute !important;
-    left: 50% !important;
-    top: 50% !important;
-    @include transform(translateY(-50%));
-    margin-left: -$image-overlay-form-width/2 + $picture-overlay-handle-width;
-    @include transition(margin-left $image-overlay-transition-duration $image-overlay-transition-easing);
   }
 
   img {

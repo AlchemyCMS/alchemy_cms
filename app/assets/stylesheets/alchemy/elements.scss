@@ -87,6 +87,8 @@
 
 .ajax-folder {
   position: absolute;
+  width: 16px;
+  height: 16px;
   right: 8px;
   top: 8px;
 
@@ -254,11 +256,6 @@
   background-color: $medium-gray;
   @extend .disable-user-select;
   cursor: pointer;
-
-  .spinner {
-    top: 9px;
-    right: 9px;
-  }
 
   > .hint-with-icon {
     position: absolute;
@@ -582,7 +579,6 @@ div.tinymce_container {
 
   .spinner {
     top: 70px;
-    left: 50%;
   }
 }
 

@@ -20,12 +20,6 @@
 #sitemap-wrapper {
   position: relative;
   min-height: 100%;
-
-  .loading .spinner {
-    position: absolute !important;
-    top: 50% !important;
-    left: 50% !important;
-  }
 }
 
 .sitemap_pagename_link {
@@ -356,28 +350,4 @@ a.folder_link {
 
 .elements_from_page_selector {
   width: 100%;
-}
-
-.elements_for_page {
-  position: absolute;
-  right: 32px;
-  top: -7px;
-  z-index: 15;
-  background-color: white;
-  width: 280px;
-  height: 33px;
-  padding: $default-padding;
-  border: $default-border;
-  box-shadow: #9ea09f 0px 0px 4px;
-  @extend %rounded-border;
-
-  .spinner {
-    top: 17px !important;
-    left: 50% !important;
-    margin-left: $default-margin;
-  }
-
-  .alchemy_selectbox {
-    width: 252px;
-  }
 }

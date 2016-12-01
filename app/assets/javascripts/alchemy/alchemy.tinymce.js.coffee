@@ -55,7 +55,7 @@ $.extend Alchemy.Tinymce,
       return
     config = @getConfig(id, textarea[0].classList[1])
     if config
-      spinner = Alchemy.Spinner.small()
+      spinner = new Alchemy.Spinner('small')
       textarea.closest('.tinymce_container').prepend spinner.spin().el
       tinymce.init(config)
     else

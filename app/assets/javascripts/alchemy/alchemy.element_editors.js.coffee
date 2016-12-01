@@ -136,16 +136,11 @@ Alchemy.ElementEditors =
   # Folds or expands the element editor with the given id.
   #
   toggleFold: (id, callback) ->
-    $el = $("#element_#{id}")
-    spinner = Alchemy.Spinner.small()
-    $toggler = $('> .element-header .ajax-folder', $el)
+    spinner = new Alchemy.Spinner('small')
+    spinner.spin("#element_#{id} > .element-header .ajax-folder")
     $("#element_#{id}_folder").hide()
-    $toggler.prepend(spinner.spin().el)
     $.post Alchemy.routes.fold_admin_element_path(id), =>
-      $("#element_#{id}_folder").show()
-      spinner.stop()
-      if callback?
-        callback.call()
+      callback.call() if callback?
       return
 
   # Updates the title quote if one of the several conditions are met

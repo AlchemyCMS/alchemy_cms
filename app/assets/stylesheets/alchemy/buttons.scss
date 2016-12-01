@@ -51,11 +51,6 @@ button, input[type="submit"], a.button, input.button {
   overflow: hidden;
   text-align: center;
 
-  .spinner {
-    left: 50% !important; // the spin.js lib calculates false!
-    top: 50% !important;
-  }
-
   .icon {
     display: inline-block;
     vertical-align: middle;
