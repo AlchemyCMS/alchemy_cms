@@ -1,5 +1,5 @@
 <ul id="sitemap" class="list<%= @sorting ? ' sorting' : nil %>">
-  <%= render :partial => 'page', :object => @page_root %>
+  <%= render partial: 'pages', locals: {root: @page_root} %>
 </ul>
 <script type="text/javascript">
   $(function() {

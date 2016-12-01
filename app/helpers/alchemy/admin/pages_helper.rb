@@ -1,3 +1,4 @@
+# coding: utf-8
 module Alchemy
   module Admin
     module PagesHelper
@@ -64,6 +65,19 @@ module Alchemy
         else
           _t(:page_type)
         end
+      end
+
+      # Returns a flat tree structure of all the pages, with level a indication,
+      # starting from root. Format: [[page, level], [page, level], ...]
+      #
+      def pages_tree_from(root)
+        tree = []
+
+        Alchemy::Page.each_with_level(root.self_and_descendants) do |page, level|
+          tree << [page, level]
+        end
+
+        tree
       end
     end
   end

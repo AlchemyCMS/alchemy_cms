@@ -103,6 +103,12 @@ module Alchemy
 
       alias_method :rootpage, :root
 
+      # Make sure Page.root does not hit the database all the time.
+      #
+      def root
+        RequestStore.store[:alchemy_page_root] ||= super
+      end
+
       # Used to store the current page previewed in the edit page template.
       #
       def current_preview=(page)
