@@ -22,6 +22,7 @@
 //= require select2_locale_ru
 //= require select2_locale_it
 //= require handlebars
+//= require alchemy/templates
 //= require alchemy/alchemy.base
 //= require alchemy/alchemy.autocomplete
 //= require alchemy/alchemy.browser
