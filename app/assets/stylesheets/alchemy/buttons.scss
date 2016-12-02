@@ -1,5 +1,6 @@
 button, input[type="submit"], a.button, input.button {
   @include button-defaults;
+  position: relative;
 
   &.small {
     padding: $default-padding 3*$default-padding;

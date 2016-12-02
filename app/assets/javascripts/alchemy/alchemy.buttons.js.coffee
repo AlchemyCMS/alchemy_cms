@@ -27,7 +27,7 @@ Alchemy.Buttons =
     $button.css
       width: $button.outerWidth()
     $button.empty()
-    spinner.spin($button[0])
+    spinner.spin($button)
     return true
 
   enable: (scope) ->
