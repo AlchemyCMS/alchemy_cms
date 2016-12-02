@@ -12,7 +12,6 @@ Alchemy.GUI =
     Alchemy.watchForDialogs(scope)
     Alchemy.Hotkeys(scope)
     Alchemy.ListFilter(scope)
-    Alchemy.watchForSpinners(scope)
     Alchemy.Autocomplete.tags(scope)
     $('[data-alchemy-char-counter]', scope).each ->
       new Alchemy.CharCounter(this)

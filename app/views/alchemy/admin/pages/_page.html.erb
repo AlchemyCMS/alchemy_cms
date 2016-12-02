@@ -8,7 +8,7 @@
           alchemy.fold_admin_page_path(page),
           remote: true,
           method: :post,
-          class: "page_folder {{#if folded}}folded{{else}}collapsed{{/if}} spinner",
+          class: "page_folder {{#if folded}}folded{{else}}collapsed{{/if}}",
           title: "{{#if folded}}#{Alchemy.t('Show childpages')}{{else}}#{Alchemy.t('Hide childpages')}{{/if}}",
           id: "fold_button_{{id}}"
         )

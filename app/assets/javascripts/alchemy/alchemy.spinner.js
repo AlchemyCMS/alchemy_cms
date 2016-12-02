@@ -5,8 +5,6 @@ Alchemy.Spinner = function Spinner(size, styles) {
       className;
 
   switch (size) {
-    case 'tiny': className = 'spinner--tiny';
-      break;
     case 'small': className = 'spinner--small';
       break;
     case 'large': className = 'spinner--large';
@@ -31,12 +29,4 @@ Alchemy.Spinner = function Spinner(size, styles) {
   this.stop = function stop() {
     $spinner.remove();
   };
-};
-
-Alchemy.watchForSpinners = function watchForSpinners(scope) {
-  $('a.spinner', scope).click(function() {
-    var spinner = new Alchemy.Spinner('tiny');
-    spinner.spin(this);
-    $(this).css('background', 'none').off('click');
-  });
 };
