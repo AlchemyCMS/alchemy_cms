@@ -1,8 +1,8 @@
 #sort_panel {
-  background: $medium-gray;
-  padding: 45px 0 8px 0;
+  background: $light-gray;
+  padding: 47px 0 8px 0;
   position: fixed;
-  top: 27px;
+  top: 29px;
   left: 0;
   z-index: 1;
   width: 100%;
@@ -13,7 +13,8 @@
   }
 
   .buttons {
-    margin-left: 163px;
+    margin: 0 12px 0 163px;
+    text-align: right;
   }
 }
 

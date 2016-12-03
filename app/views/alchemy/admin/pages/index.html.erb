@@ -16,15 +16,13 @@
   </div>
   <% end %>
   <% if can?(:sort, Alchemy::Page) %>
-  <div class="button_with_label" id="page_sorting_button">
+  <div class="button_with_label">
     <%= link_to(
-      render_icon('sort'),
+      render_icon(:sort),
       alchemy.sort_admin_pages_path,
-      :complete => '',
-      :method => :get,
-      :remote => true,
-      :class => 'icon_button please_wait',
-      :title => Alchemy.t('Sort pages')
+      method: :get,
+      class: 'icon_button please_wait',
+      title: Alchemy.t('Sort pages')
     ) %>
     <label><%= Alchemy.t('Sort pages') %></label>
   </div>
