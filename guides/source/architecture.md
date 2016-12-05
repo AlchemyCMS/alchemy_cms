@@ -67,7 +67,7 @@ PagesHelper documentation](http://rdoc.info/github/AlchemyCMS/alchemy_cms/Alchem
 Alchemy uses RMagick (the Ruby ImageMagick library) and Dragonfly (a
 powerful image processing gem) to render images.
 
-Images are stored as master images in the pictury library. The editor
+Images are stored as master images in the picture library. The editor
 just assigns these master images to elements you provide. You also set
 the image rendering bounderies. The max width and heigth values, or even
 the size an image should be cropped to. Alchemy even comes with a fancy
