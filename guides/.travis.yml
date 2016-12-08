@@ -5,9 +5,10 @@ cache:
 branches:
   only:
     - master
-before_script:
+script: cd guides && guides build --clean
+after_success:
   - eval "$(ssh-agent -s)"
   - openssl aes-256-cbc -K $encrypted_c2bb46872099_key -iv $encrypted_c2bb46872099_iv -in travis.pem.enc -out travis.pem -d
   - chmod 600 travis.pem
   - ssh-add travis.pem
-script: bundle exec cap deploy
+  - bundle exec deploy
