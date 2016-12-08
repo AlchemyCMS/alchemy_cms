@@ -1,0 +1,11 @@
+language: ruby
+sudo: false
+cache:
+  bundler: true
+branches:
+  only:
+    - master
+before_script:
+  - openssl aes-256-cbc -K $encrypted_c2bb46872099_key -iv $encrypted_c2bb46872099_iv -in travis.pem.enc -out ~/.ssh/id_rsa -d
+  - ssh-add
+script: bundle exec cap deploy
