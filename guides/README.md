@@ -1,4 +1,4 @@
-The Alchemy CMS Guidelines
+The Alchemy CMS Guidelines [![Build Status](https://travis-ci.org/AlchemyCMS/alchemy-guides.svg?branch=master)](https://travis-ci.org/AlchemyCMS/alchemy-guides)
 ==========================
 
 The master branch covers the Alchemy CMS edge version.
