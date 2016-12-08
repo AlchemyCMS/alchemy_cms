@@ -14,13 +14,6 @@ set :user, 'web1'
 role :app, "109.234.107.117"
 set :use_sudo, false
 
-before 'deploy:update_code', :build_guides
-
-task :build_guides do
-  edge = fetch(:guide_version) == 'edge' ? true : false
-  run_locally "cd guides && bundle exec guides build #{edge ? '--edge --clean' : '--clean'}"
-end
-
 # Override default tasks which are not relevant to a non-rails app.
 namespace :deploy do
   task :migrate do
