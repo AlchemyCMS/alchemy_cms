@@ -143,7 +143,7 @@ h4. Example
   - name: headline
     type: EssenceText
     settings:
-    - linkable: true
+      linkable: true
 </yaml>
 
 &nbsp;
