@@ -41,7 +41,7 @@ module Alchemy #:nodoc:
           has_one :page,    :through => :element, class_name: "Alchemy::Page"
 
           scope :available,    -> { joins(:element).merge(Alchemy::Element.available) }
-          scope :from_element, ->(name) { joins(:element).where(alchemy_elements: { name: name }) }
+          scope :from_element, ->(name) { joins(:element).where(Element.table_name => { name: name }) }
 
           delegate :restricted?, to: :page,    allow_nil: true
           delegate :trashed?,    to: :element, allow_nil: true
