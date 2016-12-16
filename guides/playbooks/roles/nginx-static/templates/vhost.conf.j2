@@ -4,7 +4,11 @@ server {
 
 	root {{app_root}};
 
-	location ~ ^/(stylesheets|javascripts)/	{
+	location / {
+		index index.html;
+	}
+
+	location ~ ^(stylesheets|javascripts|fonts|images)/ {
 		gzip on;
 		gzip_disable "msie6";
 

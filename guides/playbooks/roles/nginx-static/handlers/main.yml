@@ -1,11 +1,7 @@
 ---
 
-- name: reload nginx
-  command: systemctl reload nginx
-
 - name: enable vhost
   file:
     src: "/etc/nginx/sites-available/{{hostname}}"
     dest: "/etc/nginx/sites-enabled/{{hostname}}"
     state: link
-  notify: reload nginx

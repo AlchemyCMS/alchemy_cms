@@ -11,3 +11,6 @@
     src: vhost.conf.j2
     dest: "/etc/nginx/sites-available/{{hostname}}"
   notify: enable vhost
+
+- name: reload nginx
+  command: systemctl reload nginx
