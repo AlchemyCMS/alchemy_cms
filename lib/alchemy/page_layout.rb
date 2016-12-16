@@ -55,9 +55,9 @@ module Alchemy
 
       # Returns page layouts ready for Rails' select form helper.
       #
-      def layouts_for_select(language_id, only_layoutpages = false)
+      def layouts_for_select(language_id, user, only_layoutpages = false)
         @map_array = [[Alchemy.t('Please choose'), '']]
-        mapped_layouts_for_select(selectable_layouts(language_id, only_layoutpages))
+        mapped_layouts_for_select(selectable_layouts(language_id, only_layoutpages), user)
       end
 
       # Returns page layouts including given layout ready for Rails' select form helper.
@@ -171,8 +171,9 @@ module Alchemy
 
       # Maps given layouts for Rails select form helper.
       #
-      def mapped_layouts_for_select(layouts)
+      def mapped_layouts_for_select(layouts, user = false)
         layouts.each do |layout|
+          next if user && layout["editable_by"] && (layout["editable_by"] & user.alchemy_roles).empty?
           @map_array << [human_layout_name(layout['name']), layout["name"]]
         end
         @map_array
