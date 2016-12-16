@@ -1,0 +1,22 @@
+server {
+	server_name {{hostname}};
+	listen 80;
+
+	root {{app_root}};
+
+	location ~ ^/(stylesheets|javascripts)/	{
+		gzip on;
+		gzip_disable "msie6";
+
+		gzip_vary on;
+		gzip_proxied any;
+		gzip_comp_level 6;
+		gzip_buffers 16 8k;
+		gzip_http_version 1.1;
+		gzip_min_length 256;
+		gzip_types text/css application/x-javascript text/javascript application/vnd.ms-fontobject application/x-font-ttf font/opentype image/svg+xml image/x-icon;
+
+		expires max;
+		add_header Cache-Control public;
+	}
+}

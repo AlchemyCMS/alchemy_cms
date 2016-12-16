@@ -1,0 +1,13 @@
+---
+
+- name: Install NGINX
+  apt:
+    name: nginx-extras
+    state: latest
+    update_cache: yes
+
+- name: Install vhost config
+  template:
+    src: vhost.conf.j2
+    dest: "/etc/nginx/sites-available/{{hostname}}"
+  notify: enable vhost
