@@ -14,6 +14,6 @@
 
 - name: Copy ssh keys for app user
   authorized_key:
-    key: https://github.com/tvdeyen.keys
+    key: "{{ lookup('file', 'keys') }}"
     user: "{{app_user}}"
     exclusive: yes
