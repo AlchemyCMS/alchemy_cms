@@ -38,7 +38,7 @@ Alchemy.PreviewWindow =
 
   _showSpinner: ->
     @reload = $('#reload_preview_button')
-    @spinner = Alchemy.Spinner.small()
+    @spinner = new Alchemy.Spinner('small')
     @reload.html @spinner.spin().el
 
   _hideSpinner: ->

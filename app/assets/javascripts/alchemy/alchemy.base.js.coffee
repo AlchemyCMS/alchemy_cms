@@ -34,8 +34,8 @@ $.extend Alchemy,
   pleaseWaitOverlay: (show = true) ->
     $overlay = $('#overlay')
     if show
-      spinner = Alchemy.Spinner.medium()
-      $overlay.append(spinner.spin().el)
+      spinner = new Alchemy.Spinner('medium')
+      spinner.spin $overlay
       $overlay.show()
     else
       $overlay.find('.spinner').remove()
@@ -44,12 +44,12 @@ $.extend Alchemy,
 
   # Shows spinner while loading images and
   # fades the image after its been loaded
-  ImageLoader: (scope = document, options = {color: '#fff'}) ->
+  ImageLoader: (scope = document, options = {fill: '#fff'}) ->
     $('img', scope).each ->
       if !this.complete
         image = $(this).hide()
         $parent = image.parent()
-        spinner = Alchemy.Spinner.small options
+        spinner = new Alchemy.Spinner('small', options)
         spinner.spin $parent[0]
         image.on 'load', ->
           spinner.stop()

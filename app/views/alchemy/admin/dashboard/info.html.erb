@@ -46,7 +46,7 @@
 <script type="text/javascript">
   (function() {
     var el = $('#update_check');
-    var spinner = Alchemy.Spinner.small();
+    var spinner = new Alchemy.Spinner('small');
     spinner.spin(el[0]);
     $.get('<%= alchemy.update_check_path %>', function(data, textStatus, jqXHR) {
       if (data == 'true') {

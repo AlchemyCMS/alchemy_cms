@@ -34,7 +34,7 @@ Alchemy.ElementsWindow =
       false
     height = @resize()
     window.requestAnimationFrame =>
-      spinner = Alchemy.Spinner.medium()
+      spinner = new Alchemy.Spinner('medium')
       spinner.spin @element_area[0]
     $('#main_content').append(@element_window)
     @reload()
