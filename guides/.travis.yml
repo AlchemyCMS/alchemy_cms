@@ -7,7 +7,7 @@ cache:
 branches:
   only:
     - master
-script: cd guides; bundle exec guides build --clean; cd -
+script: ./build.sh
 after_success:
   - eval "$(ssh-agent -s)"
   - openssl aes-256-cbc -K $encrypted_c2bb46872099_key -iv $encrypted_c2bb46872099_iv -in travis.pem.enc -out travis.pem -d
