@@ -5,7 +5,7 @@ The master branch covers the Alchemy CMS edge version.
 
 Please check out the other branches for guides for the latest stable or older versions of Alchemy CMS.
 
-The guides are created with the [guides](https://github.com/wycats/guides) gem and are written in [textile](http://redcloth.org/textile) markup.
+The guides are created with the [guides](https://github.com/AlchemyCMS/guides) gem and are written in [textile](http://redcloth.org/textile) or [markdown](http://daringfireball.net/projects/markdown/syntax) markup.
 
 ## File locations
 
@@ -23,7 +23,7 @@ Run
 bundle install
 ```
 
-to install [guides](https://github.com/wycats/guides).
+to install [guides](https://github.com/AlchemyCMS/guides).
 
 To run a local guides server, run
 
@@ -38,10 +38,8 @@ The server will be available at [0.0.0.0:9292](http://0.0.0.0:9292).
 Build the guides html files with:
 
 ```sh
-bundle exec guides build --clean
+./build.sh
 ```
-
-**If you are building the `master` branch, please use the `--edge` flag**
 
 ## Deployment
 
