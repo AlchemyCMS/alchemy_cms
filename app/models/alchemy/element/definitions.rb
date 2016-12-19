@@ -11,7 +11,7 @@ module Alchemy
       # your own set of elements
       #
       def definitions
-        @definitions ||= read_definitions_file
+        @definitions ||= loader.load_all
       end
 
       # Returns one element definition by given name.
@@ -22,21 +22,10 @@ module Alchemy
 
       private
 
-      # Reads the element definitions file named +elements.yml+ from +config/alchemy/+ folder.
-      #
-      def read_definitions_file
-        if ::File.exist?(definitions_file_path)
-          ::YAML.load(ERB.new(File.read(definitions_file_path)).result) || []
-        else
-          raise LoadError, "Could not find elements.yml file! Please run `rails generate alchemy:scaffold`"
-        end
+      def loader
+        @loader ||= ConfigLoader.new('elements')
       end
 
-      # Returns the +elements.yml+ file path
-      #
-      def definitions_file_path
-        Rails.root.join 'config/alchemy/elements.yml'
-      end
     end
 
     # The definition of this element.

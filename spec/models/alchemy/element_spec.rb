@@ -118,7 +118,7 @@ module Alchemy
       end
 
       context "without existing yml files" do
-        before { allow(File).to receive(:exist?).and_return(false) }
+        before { allow_any_instance_of(Pathname).to receive(:exist?).and_return(false) }
 
         it "should raise an error" do
           expect { Element.definitions }.to raise_error(LoadError)
