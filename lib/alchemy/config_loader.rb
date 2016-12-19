@@ -13,7 +13,7 @@ module Alchemy
         raise LoadError, "Could not find #{which}.yml file! Please run `rails generate alchemy:scaffold`"
       else
         # OPTIMIZE: remove duplicates?
-        paths.map(&method(:load_file)).inject(&:+)
+        paths.map(&method(:load_file)).inject(&method(:merge))
       end
     end
 
@@ -38,7 +38,23 @@ module Alchemy
     private
 
     def load_file(file_path)
-      ::YAML.load(ERB.new(File.read(file_path)).result) || []
+      ::YAML.load(ERB.new(File.read(file_path)).result) || default
+    end
+
+    def merge(a, b)
+      if which.ends_with?('s')
+        a + b
+      else
+        a.merge(b)
+      end
+    end
+
+    def default
+      if which.ends_with?('s')
+        []
+      else
+        {}
+      end
     end
 
     def candidates
