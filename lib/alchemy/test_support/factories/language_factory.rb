@@ -11,6 +11,11 @@ FactoryGirl.define do
     public true
     site { Alchemy::Site.first || FactoryGirl.create(:alchemy_site) }
 
+    sequence(:country_code) do |i|
+      codes = TZInfo::Country.all_codes
+      codes[i % codes.length]
+    end
+
     trait :klingon do
       name 'Klingon'
       code 'kl'
