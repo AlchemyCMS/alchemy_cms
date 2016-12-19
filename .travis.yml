@@ -22,7 +22,9 @@ before_install:
   - "phantomjs --version"
   - gem install bundler
 before_script: bundle exec rake alchemy:spec:prepare
-script: bundle exec rspec
+script:
+  - bundle exec rake app:factory_girl:lint
+  - bundle exec rspec
 after_success: bundle exec codeclimate-test-reporter
 env:
 - DB=mysql
