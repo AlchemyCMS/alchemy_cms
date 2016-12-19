@@ -1,4 +1,4 @@
-$text-color: #333333;
+$text-color: #505c73;
 $muted-text-color: rgba(0, 0, 0, 0.5);
 $light-blue: #cddce5; // #c6dbe7
 $blue: darken($light-blue, 15%);
@@ -31,7 +31,7 @@ $header-font-size: $default-font-size;
 $default-padding: 4px;
 $default-margin: $default-padding;
 
-$default-border-color: #afafaf;
+$default-border-color: $dark-gray;
 $border-inset-color: lighten($default-border-color, 20%);
 $default-border-width: 1px;
 $default-border-style: solid;
@@ -73,11 +73,11 @@ $sitemap-line-height: 32px;
 
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
-$main-menu-bg-color: #baced9 !default;
-$main-menu-active-bg-color: $light-blue !default;
+$main-menu-bg-color: #e6e7eb !default;
+$main-menu-active-bg-color: $very-light-gray !default;
 $main-menu-text-color: #222 !default;
 $main-menu-entry-max-width: 100px !default;
-$toolbar-bg-color: $medium-gray !default;
+$toolbar-bg-color: $very-light-gray !default;
 $header-height: 29px !default;
 $text-shadow-light: rgba($white, 0.5) 0 0 4px !default;
 $transition-duration: 200ms !default;
