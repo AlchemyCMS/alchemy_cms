@@ -3,7 +3,7 @@ module Alchemy
     attr_reader :which
 
     def initialize(which)
-      @which = which
+      @which = which.sub(/\.yml$/, '')
     end
 
     # Reads the config file named +<which>.yml+ from +config/alchemy/+ folder.

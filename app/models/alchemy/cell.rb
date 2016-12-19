@@ -56,11 +56,7 @@ module Alchemy
       private
 
       def read_yml_file
-        ::YAML.load(ERB.new(File.read(yml_file_path)).result) || []
-      end
-
-      def yml_file_path
-        Rails.root.join('config', 'alchemy', 'cells.yml')
+        ConfigLoader.new('cells').load_all
       end
     end
 

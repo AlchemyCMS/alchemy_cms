@@ -23,6 +23,13 @@ module Alchemy
         end
       end
 
+      describe '#file_name' do
+        it "handle superfluous given extension" do
+          extra = described_class.new('elements.yml')
+          expect(extra.file_name).to eq(subject.file_name)
+        end
+      end
+
       describe '#load_all' do
         it "contains the elements for the app" do
           el_names = subject.load_all.map { |e| e['name'] }
