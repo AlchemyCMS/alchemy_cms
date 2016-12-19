@@ -32,12 +32,11 @@ namespace :alchemy do
   task :install do
     install_helper = Alchemy::InstallTask.new
 
-    unless ENV['from_binary']
-      puts "\nAlchemy Installer"
-      puts "-----------------"
-    end
+    puts "\nAlchemy Installer"
+    puts "-----------------"
+
     Rake::Task["alchemy:mount"].invoke
-    system("rails g alchemy:install#{ENV['from_binary'] ? ' --force' : ''}") || exit!(1)
+    system("rails g alchemy:install") || exit!(1)
     install_helper.set_primary_language
     Rake::Task["db:create"].invoke
     # We can't invoke this rake task, because Rails will use wrong engine names otherwise
@@ -45,12 +44,11 @@ namespace :alchemy do
     Rake::Task["db:migrate"].invoke
     install_helper.inject_seeder
     Rake::Task["db:seed"].invoke
-    unless ENV['from_binary']
-      puts "\nAlchemy successfully installed."
-      puts "\nNow start the server with:"
-      puts "\n$ bin/rails server"
-      puts "\nand point your browser to http://localhost:3000/admin and follow the onscreen instructions to finalize the installation."
-    end
+
+    puts "\nAlchemy successfully installed."
+    puts "\nNow start the server with:"
+    puts "\n$ bin/rails server"
+    puts "\nand point your browser to http://localhost:3000/admin and follow the onscreen instructions to finalize the installation."
   end
 
   desc "Mounts Alchemy into your routes."
