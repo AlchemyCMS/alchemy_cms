@@ -2,7 +2,7 @@ require 'spec_helper'
 
 module Alchemy
   describe EssenceFile do
-    let(:attachment) { build_stubbed(:alchemy_attachment) }
+    let(:attachment) { create(:alchemy_attachment) }
     let(:essence)    { EssenceFile.new(attachment: attachment) }
 
     it_behaves_like "an essence" do
