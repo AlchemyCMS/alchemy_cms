@@ -17,7 +17,10 @@ FactoryGirl.define do
     do_not_autogenerate true
 
     trait :root do
+      name "Root"
       parent_id nil
+
+      initialize_with { Alchemy::Page.root || Alchemy::Page.new }
     end
 
     trait :language_root do
