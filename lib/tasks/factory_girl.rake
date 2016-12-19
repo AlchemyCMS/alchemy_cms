@@ -7,7 +7,7 @@ namespace :factory_girl do
         names = FactoryGirl.factories.map(&:name)
         $stderr.puts "Linting #{names.length} factories"
         DatabaseCleaner.start
-        FactoryGirl.lint
+        FactoryGirl.lint traits: true
       ensure
         DatabaseCleaner.clean
       end
