@@ -23,7 +23,7 @@ module Alchemy
       private
 
       def loader
-        @loader ||= ConfigLoader.new('elements')
+        ConfigLoader.new('elements')
       end
 
     end
