@@ -13,7 +13,7 @@ module Alchemy
         raise LoadError, "Could not find #{which}.yml file! Please run `rails generate alchemy:scaffold`"
       else
         # OPTIMIZE: remove duplicates?
-        paths.map(&method(:load_file)).inject(&method(:merge))
+        paths.map(&method(:load_file)).reduce(&method(:merge))
       end
     end
 
