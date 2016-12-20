@@ -63,17 +63,7 @@ module Alchemy
 
     # TODO: the order here determines precedence. Should we sort the list?
     def loaded_engine_instances
-      # The Rails::Application is abstract and has no instance
-      Rails::Engine.descendants.
-        reject(&:abstract_railtie?).
-        map do |engine|
-          begin
-            engine.instance
-          rescue TypeError
-            nil # some engines are singletons
-          end
-        end.
-        compact
+      Rails::Engine.subclasses.map(&:instance) << Rails.application
     end
   end
 end
