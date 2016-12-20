@@ -17,12 +17,6 @@ module Alchemy
       end
     end
 
-    # Returns the path to +<which>.yml+ file
-    #
-    def file_path
-      Rails.root.join relative_path
-    end
-
     def file_name
       "#{which}.yml"
     end
