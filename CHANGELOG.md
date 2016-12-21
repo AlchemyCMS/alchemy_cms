@@ -14,6 +14,7 @@ __New Features__
 
 __Notable Changes__
 
+* Removed the standalone installer (#1206)
 * The essence date input field is now 100% width (#1191)
 * The essence view partials don't get cached anymore (#1099)
 * The essence editor partials don't get cached anymore (#1171)
