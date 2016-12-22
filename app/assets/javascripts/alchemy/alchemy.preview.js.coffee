@@ -23,18 +23,18 @@ Alchemy.initAlchemyPreviewMode = ($) ->
           "outline-offset": ""
           "-moz-outline-radius": ""
         default_hover:
-          outline: "3px solid #F0B437"
+          outline: "3px solid #c8c9cc"
           "outline-offset": "4px"
           cursor: "pointer"
         webkit_hover:
-          outline: "4px auto #F0B437"
+          outline: "4px auto #c8c9cc"
         moz_hover:
           "-moz-outline-radius": "3px"
         default_selected:
-          outline: "3px solid #90B9D0"
+          outline: "3px solid #7c8497"
           "outline-offset": "4px"
         webkit_selected:
-          outline: "4px auto #90B9D0"
+          outline: "4px auto #7c8497"
         moz_selected:
           "-moz-outline-radius": "3px"
 

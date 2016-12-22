@@ -151,16 +151,16 @@
   }
 
   &.dirty {
-    border-color: #d0c83d;
+    border-color: lighten($slate, 30%);
 
     > .element-header {
-      background-color: #fff8df;
+      background-color: lighten($slate, 40%);
     }
   }
 
   &.selected {
-    border-color: $blue;
-    box-shadow: 0 0 4px $blue;
+    border-color: lighten($slate, 20%);
+    box-shadow: 0 0 4px lighten($slate, 30%);
   }
 
   &.folded {
