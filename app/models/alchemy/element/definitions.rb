@@ -14,7 +14,7 @@ module Alchemy
         @definitions ||= loader.load_all
       end
 
-      # Returns one element definition by given name.
+      # Returns the first element definition matching the given name.
       #
       def definition_by_name(name)
         definitions.detect { |d| d['name'] == name }

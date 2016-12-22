@@ -37,7 +37,9 @@ module Alchemy
 
     def merge(a, b)
       if which.ends_with?('s')
-        a + b
+        # Element::Definitions#definition_by_name will return the first match,
+        # but our #paths is ordered by increasing precedence
+        b + a
       else
         a.merge(b)
       end
