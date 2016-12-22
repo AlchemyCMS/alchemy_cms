@@ -1,4 +1,4 @@
 # this file pretends to be provided by an engine in specs for ConfigLoader
 default_site:
   name: A site using our awesome Engine
-  host: '*'
+  # please don't add the "host" key here, we use it's absense to test sparse configs

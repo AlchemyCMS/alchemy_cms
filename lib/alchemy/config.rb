@@ -15,6 +15,7 @@ module Alchemy
       # Returns a merged configuration of the following files
       #
       # Alchemys default config: +gems/../alchemy_cms/config/alchemy/config.yml+
+      # Other engine's default config: +gems/../ENGINE/config/alychemy/config.yml+
       # Your apps default config: +your_app/config/alchemy/config.yml+
       # Environment specific config: +your_app/config/alchemy/development.config.yml+
       #
@@ -22,41 +23,27 @@ module Alchemy
       # while your apps default config has precedence over Alchemys default config.
       #
       def show
-        @config ||= merge_configs!(alchemy_config, main_app_config, env_specific_config)
+        @config ||= loader.load_all
       end
 
       private
 
-      # Alchemy default configuration
-      def alchemy_config
-        read_file(File.join(File.dirname(__FILE__), '..', '..', 'config/alchemy/config.yml'))
+      def loader
+        ConfigLoader.new(
+          'config',
+          before: alchemy_config_path,
+          after: env_specific_config_path
+        )
       end
 
-      # Application specific configuration
-      def main_app_config
-        read_file("#{Rails.root}/config/alchemy/config.yml")
+      # Alchemy default configuration
+      def alchemy_config_path
+        Pathname.new File.join(File.dirname(__FILE__), '..', '..', 'config/alchemy/config.yml')
       end
 
       # Rails Environment specific configuration
-      def env_specific_config
-        read_file("#{Rails.root}/config/alchemy/#{Rails.env}.config.yml")
-      end
-
-      # Tries to load yaml file from given path.
-      # If it does not exist, or its empty, it returns an empty Hash.
-      #
-      def read_file(file)
-        return YAML.load_file(file) || {} if File.exist?(file) # YAML.load_file returns false if file is empty.
-        {}
-      end
-
-      # Merges all given configs together
-      #
-      def merge_configs!(*config_files)
-        raise LoadError, 'No Alchemy config file found!' if config_files.map(&:blank?).all?
-        config = {}
-        config_files.each { |h| config.merge!(h.stringify_keys!) }
-        config
+      def env_specific_config_path
+        Rails.root.join("config/alchemy/#{Rails.env}.config.yml")
       end
     end
   end

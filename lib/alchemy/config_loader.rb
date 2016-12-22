@@ -2,8 +2,13 @@ module Alchemy
   class ConfigLoader
     attr_reader :which
 
-    def initialize(which)
+    # Options:
+    #   before: path(s) to configs with lowest precedence
+    #   after: path(s) to configs with highest precedence
+    def initialize(which, opts = {})
       @which = which.sub(/\.yml$/, '')
+      @before = Array( opts.fetch(:before) { [] } )
+      @after = Array( opts.fetch(:after) { [] } )
     end
 
     # Reads the config file named +<which>.yml+ from +config/alchemy/+ folder.
@@ -12,7 +17,6 @@ module Alchemy
       if paths.empty?
         raise LoadError, "Could not find #{which}.yml file! Please run `rails generate alchemy:scaffold`"
       else
-        # OPTIMIZE: remove duplicates?
         paths.map(&method(:load_file)).reduce(&method(:merge))
       end
     end
@@ -26,7 +30,7 @@ module Alchemy
     end
 
     def paths
-      @paths ||= candidates.select(&:exist?)
+      @paths ||= ( @before + candidates + @after).select(&:exist?)
     end
 
     private
@@ -41,7 +45,7 @@ module Alchemy
         # but our #paths is ordered by increasing precedence
         b + a
       else
-        a.merge(b)
+        a.stringify_keys.deep_merge(b.stringify_keys)
       end
     end
 

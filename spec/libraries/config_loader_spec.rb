@@ -94,11 +94,16 @@ module Alchemy
             allow(subject).to receive(:paths).and_return(paths)
           end
           let(:paths) {[
+            alchemy_gem_config_path,
             other_config_path,
           ]}
 
           it "uses the engine's config as a fallback" do
             expect(config['default_site']['name']).to eq("A site using our awesome Engine")
+          end
+
+          it "allows sparse config" do
+            expect(config['default_site']).to have_key('host')
           end
         end
 
@@ -111,13 +116,14 @@ module Alchemy
             app_config_path,     # app is always mentioned last, see above
           ]}
 
-          it "allows app to override configuation initially set by angine" do
+          it "allows app to override configuation initially set by engine" do
             # Hashes are just merged with app's last
             expect(config['default_site']['name']).to eq("A dummy app using Alchemy CMS")
           end
         end
       end
 
+      let(:alchemy_gem_config_path) { Pathname.new File.expand_path('../../..//config/alchemy/config.yml', File.expand_path(__FILE__)) }
       let(:app_config_path) { Pathname.new File.expand_path('../../dummy/config/alchemy/config.yml', File.expand_path(__FILE__)) }
       let(:other_config_path) { Pathname.new File.expand_path('../../fixtures/config/alchemy/config.yml', File.expand_path(__FILE__)) }
     end
