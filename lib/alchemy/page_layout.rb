@@ -156,8 +156,9 @@ module Alchemy
       # Reads the layout definitions from +config/alchemy/page_layouts.yml+.
       #
       def read_definitions_file
-        if File.exist?(layouts_file_path)
-          YAML.load(ERB.new(File.read(layouts_file_path)).result) || []
+        loader = ConfigLoader.new('page_layouts', after: layouts_file_path)
+        if loader.paths.include?(layouts_file_path)
+          loader.load_all
         else
           raise LoadError, "Could not find page_layouts.yml file! Please run `rails generate alchemy:scaffold`"
         end

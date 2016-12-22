@@ -30,7 +30,7 @@ module Alchemy
     end
 
     def paths
-      @paths ||= ( @before + candidates + @after).select(&:exist?)
+      @paths ||= ( @before + candidates + @after).uniq.select(&:exist?)
     end
 
     private

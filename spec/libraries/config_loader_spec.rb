@@ -116,9 +116,19 @@ module Alchemy
             app_config_path,     # app is always mentioned last, see above
           ]}
 
-          it "allows app to override configuation initially set by engine" do
+          it "allows app to override deeply nested configuation initially set by engine" do
             # Hashes are just merged with app's last
             expect(config['default_site']['name']).to eq("A dummy app using Alchemy CMS")
+          end
+        end
+
+        describe "when all configs are empty" do
+          before do
+            allow(subject).to receive(:load_file).and_return({})
+
+            it "raises an error" do
+              expect { subject.load_all }.to raise_error(LoadError)
+            end
           end
         end
       end
