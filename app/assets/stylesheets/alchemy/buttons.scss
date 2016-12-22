@@ -1,5 +1,55 @@
+.btn-default {
+  @include button-base;
+  color: $text-color;
+  background: $very-light-gray;
+
+  &:hover {
+    background: $light-gray;
+  }
+
+  &:active, &:active:focus {
+    background: $gray;
+  }
+
+  &.disabled, &[disabled],
+  &.disabled:active, &[disabled]:active,
+  &.disabled:hover, &[disabled]:hover {
+    background: $button-gradient-second-color;
+  }
+}
+
+.btn-primary{
+  @include button-base;
+  color: white;
+  background: $slate;
+  background-image: linear-gradient($light-slate, $slate);
+  border: 1px solid $slate;
+  margin: $button-margin;
+  padding: 2*$default-padding 3*$default-padding;
+
+  &:hover {
+    background-image: linear-gradient($slate, $dark-slate);
+  }
+
+  &:active, &:active:focus {
+    background-image: linear-gradient($slate, darken($dark-slate, 5%));
+  }
+
+  &.disabled, &[disabled],
+  &.disabled:active, &[disabled]:active,
+  &.disabled:hover, &[disabled]:hover {
+    background: $dark-gray;
+    color: darken($dark-gray, 15%);
+    border: $dark-gray;
+  }
+}
+
+.btn-secondary{
+
+}
+
 button, input[type="submit"], a.button, input.button {
-  @include button-defaults;
+
 
   &.small {
     padding: $default-padding 3*$default-padding;

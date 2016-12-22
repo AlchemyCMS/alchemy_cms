@@ -22,10 +22,8 @@
   border-radius: $border-radius;
   background-color: $button-bg-color;
   background-image: linear-gradient($first-color, $second-color);
-  box-shadow: white 0 1px 0 inset;
   border: 1px solid $button-border-color;
   color: $text-color;
-  text-shadow: $button-text-shadow;
   margin: $margin;
   @include appearance(none);
 
@@ -53,6 +51,36 @@
   &.disabled:hover, &[disabled]:hover {
     opacity: 0.6;
     background: $second-color;
+    cursor: not-allowed;
+    box-shadow: none;
+  }
+
+  &::-moz-focus-inner {
+    padding: 0 !important;
+    margin: -1px !important;
+  }
+}
+
+@mixin button-base {
+  display: inline-block;
+  cursor: pointer;
+  background-color: transparent;
+  border-radius: $default-border-radius;
+  font-size: 12px;
+  @include appearance(none);
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:focus {
+    @include default-focus-style;
+  }
+
+  &.disabled, &[disabled],
+  &.disabled:active, &[disabled]:active,
+  &.disabled:hover, &[disabled]:hover {
+    opacity: 0.6;
     cursor: not-allowed;
     box-shadow: none;
   }

@@ -14,7 +14,7 @@ $very-light-gray: #f0f2f5;
 $light-gray: #e6e7eb;
 $gray: #dcdde0;
 $dark-gray: #c8c9cc;
-$light-slate: #62708c;
+$light-slate: #7c8497;
 $slate: #62708c;
 $dark-slate: #505c73;
 
@@ -42,10 +42,10 @@ $default-form-field-height: 29px;
 
 $button-bg-color: #f7f7f7;
 $button-hover-bg-color: #e6f0f5;
-$button-border-color: #9a9a9a;
+$button-border-color: #slate;
 $button-hover-border-color: #888888;
 $button-text-shadow: $white 1px 1px 0;
-$button-gradient-first-color: $white !default;
+$button-gradient-first-color: $light-slate !default;
 $button-gradient-second-color: darken($button-gradient-first-color, 10%) !default;
 $button-padding: 0.5em 1.5em !default;
 $button-margin: $default-form-field-margin !default;

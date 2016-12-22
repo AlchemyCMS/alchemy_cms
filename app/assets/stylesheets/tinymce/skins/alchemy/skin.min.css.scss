@@ -1,4 +1,5 @@
 @import "alchemy/defaults";
+@import "alchemy/buttons";
 
 .mce-container,
 .mce-container *,
@@ -89,7 +90,6 @@ div.mce-fullscreen {
   visibility: visible!important;
   position: relative;
   display: block;
-  border-radius: $default-border-radius;
 }
 
 .mce-wordcount {
@@ -200,6 +200,10 @@ div.mce-tinymce-inline {
   overflow: hidden;
 }
 
+.mce-stack-layout-item.mce-first{
+  border-bottom: 1px solid $default-border-color;
+}
+
 .mce-scrollbar {
   position: absolute;
   width: 7px;
@@ -254,12 +258,7 @@ div.mce-tinymce-inline {
 
 .mce-panel {
   border: 0 solid $default-border-color;
-  background-color: $medium-gray;
   box-sizing: border-box;
-}
-
-.mce-toolbar-grp {
-  border-bottom: 1px solid $default-border-color;
 }
 
 .mce-floatpanel {
@@ -506,13 +505,12 @@ body .mce-abs-layout-item {
 
 .mce-tooltip-inner {
   font-size: 11px;
-  background-color: $dark-gray;
+  background-color: $slate;
   color: #fff;
   max-width: 200px;
   padding: $default-padding 2*$default-padding;
   text-align: center;
   white-space: normal;
-  box-shadow: 0 0 4px $default-border-color;
   @extend %rounded-border;
 }
 
@@ -521,23 +519,23 @@ body .mce-abs-layout-item {
   width: 0;
   height: 0;
   line-height: 0;
-  border: 5px solid $dark-gray;
+  border: 5px solid $slate;
 }
 
 .mce-tooltip-arrow-n {
-  border-bottom-color: $dark-gray;
+  border-bottom-color: $slate;
 }
 
 .mce-tooltip-arrow-s {
-  border-top-color: $dark-gray;
+  border-top-color: $slate;
 }
 
 .mce-tooltip-arrow-e {
-  border-left-color: $dark-gray;
+  border-left-color: $slate;
 }
 
 .mce-tooltip-arrow-w {
-  border-right-color: $dark-gray;
+  border-right-color: $slate;
 }
 
 .mce-tooltip-nw,
@@ -622,21 +620,14 @@ body .mce-abs-layout-item {
 }
 
 .mce-btn {
-  border: 1px solid #b1b1b1;
-  border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25) rgba(0,0,0,0.25);
+  @extend .btn-default;
   position: relative;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.75);
   display: inline-block;
   *display: inline;
   *zoom: 1;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
-  @include background(linear-gradient($button-gradient-first-color, $button-gradient-second-color));
 
   &:focus,
   &:hover {
-    color: #333;
-    @include background(linear-gradient( darken($button-gradient-first-color, 5%), darken($button-gradient-second-color, 5%) ));
-
     button {
       @include background(inherit);
     }
@@ -648,7 +639,6 @@ body .mce-abs-layout-item {
     line-height: 20px;
     *line-height: 16px;
     cursor: pointer;
-    color: #333;
     text-align: center;
     overflow: visible;
     -webkit-appearance: none;
@@ -670,10 +660,6 @@ body .mce-abs-layout-item {
     }
   }
 
-  i {
-    text-shadow: 1px 1px #fff;
-  }
-
   &.mce-disabled button,
   &.mce-disabled:hover button {
     cursor: default;
@@ -685,28 +671,19 @@ body .mce-abs-layout-item {
 
   &.mce-active,
   &.mce-active:hover {
-    background-color: #e6f0f5;
-    background-image: linear-gradient(#e5e5e5, #cccccc);
-    box-shadow: #c4c4c4 0 1px 2px inset;
+    background-color: $gray;
 
     button i {
-      color: #000;
+      color: darken($text-color, 10%);
     }
   }
 
   &:not(.mce-disabled):active {
-    background-color: #d6d6d6;
-    background-image: -moz-linear-gradient(top,#e6e6e6,#c0c0c0);
-    background-image: -webkit-gradient(linear,0 0,0 100%,from(#e6e6e6),to(#c0c0c0));
-    background-image: -webkit-linear-gradient(top,#e6e6e6,#c0c0c0);
-    background-image: -o-linear-gradient(top,#e6e6e6,#c0c0c0);
-    background-image: linear-gradient(to bottom,#e6e6e6,#c0c0c0);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#ffe6e6e6',endColorstr='#ffc0c0c0',GradientType=0);
+    background-color: $gray;
     zoom: 1;
-    -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
-    -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
   }
 }
 
@@ -775,16 +752,14 @@ body .mce-abs-layout-item {
   border-radius: 0;
 }
 
+.mce-btn-group {
+  border-right: 1px solid $default-border-color;
+}
+
 .mce-btn-group .mce-first {
-  border-left: 1px solid #b1b1b1;
-  border-left: 1px solid rgba(0,0,0,0.25);
-  @include border-left-radius($default-border-radius);
 }
 
 .mce-btn-group .mce-last {
-  border-right: 1px solid #b1b1b1;
-  border-right: 1px solid rgba(0,0,0,0.1);
-  @include border-right-radius($default-border-radius);
 }
 
 .mce-btn-group .mce-first.mce-last {
@@ -1042,7 +1017,6 @@ i.mce-i-checkbox {
 }
 
 .mce-flow-layout-item {
-  margin: 2px 0 2px 2px;
 }
 
 .mce-flow-layout-item.mce-last {
@@ -1581,7 +1555,6 @@ i.mce-i-resize {
   background: transparent center center;
   width: 16px;
   height: 16px;
-  color: #333;
   text-align: center;
 }
 
