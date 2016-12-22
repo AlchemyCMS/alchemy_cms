@@ -1,10 +1,12 @@
+require 'simplecov'
 if ENV['TRAVIS']
-  require "codeclimate-test-reporter"
-  CodeClimate::TestReporter.start
-else
-  require 'simplecov'
-  SimpleCov.formatter = SimpleCov::Formatter::HTMLFormatter
-  SimpleCov.start 'rails'
+  require 'codeclimate-test-reporter'
+end
+SimpleCov.start 'rails' do
+  add_filter "/lib/alchemy/sass_support"
+  add_filter "/lib/alchemy/upgrader"
+  add_filter "/lib/alchemy/version"
+  add_filter "/lib/rails"
 end
 
 # Configure Rails Environment
