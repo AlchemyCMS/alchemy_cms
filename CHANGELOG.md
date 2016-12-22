@@ -1,10 +1,14 @@
 # Change Log
 
-## 3.4.2 (unreleased)
+## 3.4.2 (2016-12-22)
 
 __Notable Changes__
 
 * Allow users to manually publish changes on global pages
+
+__Fixed Bugs__
+
+* Fixes alchemy module generator (#1159)
 
 ## 3.4.1 (2016-08-31)
 
