@@ -8,6 +8,7 @@ __Notable Changes__
 
 __Fixed Bugs__
 
+* The `language_links` helper now only renders languages from the current site
 * Fixes alchemy module generator (#1159)
 
 ## 3.4.1 (2016-08-31)
