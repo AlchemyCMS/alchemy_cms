@@ -33,7 +33,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'kaminari',                         ['~> 0.15']
   gem.add_runtime_dependency 'magiclabs-userstamp',              ['~> 3.0']
   gem.add_runtime_dependency 'non-stupid-digest-assets',         ['~> 1.0.8']
-  gem.add_runtime_dependency 'rails',                            ['>= 4.2.0', '< 5.0']
+  gem.add_runtime_dependency 'rails',                            ['~> 5.0.0']
   gem.add_runtime_dependency 'ransack',                          ['~> 1.4']
   gem.add_runtime_dependency 'request_store',                    ['~> 1.2']
   gem.add_runtime_dependency 'responders',                       ['~> 2.0']
