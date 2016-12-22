@@ -1,6 +1,6 @@
 # Change Log
 
-## 3.5.0 (unreleased)
+## 3.5.0 (2016-12-22)
 
 __New Features__
 
@@ -44,7 +44,7 @@ __Fixed Bugs__
 * Presence validation of EssenceFile is not working (#1096)
 * Allow to define unique nestable elements (#852)
 
-## 3.4.2 (unreleased)
+## 3.4.2 (2016-12-22)
 
 __Notable Changes__
 
@@ -53,6 +53,7 @@ __Notable Changes__
 __Fixed Bugs__
 
 * The `language_links` helper now only renders languages from the current site
+* Fixes alchemy module generator (#1159)
 
 ## 3.4.1 (2016-08-31)
 
