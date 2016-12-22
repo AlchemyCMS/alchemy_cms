@@ -1,0 +1,3 @@
+# this file pretends to be provided by an engine in specs for ConfigLoader
+- name: fake
+  contents: []

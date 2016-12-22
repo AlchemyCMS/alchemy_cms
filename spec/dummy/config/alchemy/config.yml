@@ -1,0 +1,3 @@
+default_site:
+  name: A dummy app using Alchemy CMS
+  host: '*'

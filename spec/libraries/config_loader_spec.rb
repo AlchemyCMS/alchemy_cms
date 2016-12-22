@@ -2,18 +2,36 @@ require 'spec_helper'
 
 module Alchemy
   describe ConfigLoader do
-    context 'for elements' do
+    shared_examples :paths_mentioning_app_last do
+      it "is not empty" do
+        expect(paths).to_not be_empty
+      end
+
+      it "contains at least one option" do
+        expect(paths.length).to be > 0
+      end
+
+      describe "with all loaded engines providing a yml" do
+        before do
+          allow_any_instance_of(Pathname).to receive(:exist?).and_return(true)
+        end
+
+        it "contains more options" do
+          # just a confirmation we faked existence the right way
+          expect(paths.length).to be > 5
+        end
+
+        it "contains app's config path after any others" do
+          # we have to choose one order and stick with it, #merge will take care of precedence
+          expect(paths.last).to eq(app_config_path)
+        end
+      end
+    end
+
+    context 'for elements (Array)' do
       subject { described_class.new('elements') }
       describe '#paths' do
         let(:paths) { subject.paths }
-
-        it "is not empty" do
-          expect(paths).to_not be_empty
-        end
-
-        it "contains at least one option" do
-          expect(paths.length).to be > 0
-        end
 
         it "points only to existing files" do
           paths.each do |path|
@@ -22,22 +40,7 @@ module Alchemy
           end
         end
 
-        describe "with all loaded engines providing a yml" do
-          before do
-            allow_any_instance_of(Pathname).to receive(:exist?).and_return(true)
-          end
-
-          it "contains more options" do
-            # just a confirmation we faked existence the right way
-            expect(paths.length).to be > 5
-          end
-
-          it "contains app's config path after any others" do
-            # we have to choose one order and stick with it, #merge will take care of precedence
-            expect(paths.last).to eq(app_config_path)
-          end
-        end
-
+        it_behaves_like :paths_mentioning_app_last
       end
 
       describe '#file_name' do
@@ -75,5 +78,49 @@ module Alchemy
       let(:app_config_path) { Pathname.new File.expand_path('../../dummy/config/alchemy/elements.yml', File.expand_path(__FILE__)) }
       let(:other_config_path) { Pathname.new File.expand_path('../../fixtures/config/alchemy/elements.yml', File.expand_path(__FILE__)) }
     end
+
+    context 'for config.yml (Hash)' do
+      subject { described_class.new('config') }
+      let(:config) { subject.load_all }
+
+      describe '#paths' do
+        let(:paths) { subject.paths }
+        it_behaves_like :paths_mentioning_app_last
+      end
+
+      describe '#load_all' do
+        describe "with only engine providing a yml" do
+          before do
+            allow(subject).to receive(:paths).and_return(paths)
+          end
+          let(:paths) {[
+            other_config_path,
+          ]}
+
+          it "uses the engine's config as a fallback" do
+            expect(config['default_site']['name']).to eq("A site using our awesome Engine")
+          end
+        end
+
+        describe "with app and engine providing a yml" do
+          before do
+            allow(subject).to receive(:paths).and_return(paths)
+          end
+          let(:paths) {[
+            other_config_path,
+            app_config_path,     # app is always mentioned last, see above
+          ]}
+
+          it "allows app to override configuation initially set by angine" do
+            # Hashes are just merged with app's last
+            expect(config['default_site']['name']).to eq("A dummy app using Alchemy CMS")
+          end
+        end
+      end
+
+      let(:app_config_path) { Pathname.new File.expand_path('../../dummy/config/alchemy/config.yml', File.expand_path(__FILE__)) }
+      let(:other_config_path) { Pathname.new File.expand_path('../../fixtures/config/alchemy/config.yml', File.expand_path(__FILE__)) }
+    end
+
   end
 end

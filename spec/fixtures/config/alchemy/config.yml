@@ -1,0 +1,4 @@
+# this file pretends to be provided by an engine in specs for ConfigLoader
+default_site:
+  name: A site using our awesome Engine
+  host: '*'
