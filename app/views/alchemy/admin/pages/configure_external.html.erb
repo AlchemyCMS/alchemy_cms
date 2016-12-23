@@ -2,7 +2,7 @@
   <%= f.input :page_layout,
     collection: @page_layouts,
     label: Alchemy.t(:page_type),
-    include_blank: false,
+    include_blank: Alchemy.t('Please choose'),
     input_html: {class: 'alchemy_selectbox'} %>
   <div class="input check_boxes">
     <label class="control-label"><%= Alchemy.t(:page_status) %></label>
