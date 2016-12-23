@@ -130,11 +130,12 @@ module Alchemy
             if Alchemy.version == "4.0.0.rc1"
               raise "Remove deprecated `redirect_index` configuration!"
             end
+            @silenced = ActiveSupport::Deprecation.silenced
             ActiveSupport::Deprecation.silenced = true
           end
 
           after do
-            ActiveSupport::Deprecation.silenced = false
+            ActiveSupport::Deprecation.silenced = @silenced
           end
 
           context "and if page locale is the default locale" do
@@ -234,11 +235,12 @@ module Alchemy
             if Alchemy.version == "4.0.0.rc1"
               raise "Remove deprecated `redirect_index` configuration!"
             end
+            @silenced = ActiveSupport::Deprecation.silenced
             ActiveSupport::Deprecation.silenced = true
           end
 
           after do
-            ActiveSupport::Deprecation.silenced = false
+            ActiveSupport::Deprecation.silenced = @silenced
           end
 
           context "if page locale is the default locale" do
