@@ -39,11 +39,11 @@ describe 'Locked pages feature' do
       create(:alchemy_site, host: 'another-site.com')
     end
 
-    it 'displays information for site' do
+    it 'displays information for site (abbreviated name)' do
       visit alchemy.admin_pages_path
 
       within "#locked_page_#{a_page.id}" do
-        expect(page).to have_content a_page.site.name
+        expect(page).to have_content a_page.site.name.first
       end
     end
   end

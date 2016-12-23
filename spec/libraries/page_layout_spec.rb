@@ -18,7 +18,7 @@ module Alchemy
       end
 
       context "with empty layouts file" do
-        before { expect(YAML).to receive(:load).and_return(false) }
+        before { expect(YAML).to receive(:load).at_least(:once).and_return(false) }
 
         it "returns empty array" do
           is_expected.to eq([])
@@ -26,7 +26,7 @@ module Alchemy
       end
 
       context "with missing layouts file" do
-        before { expect(File).to receive(:exist?).and_return(false) }
+        before { allow_any_instance_of(Pathname).to receive(:exist?).and_return(false) }
 
         it "raises error empty array" do
           expect { subject }.to raise_error(LoadError)
@@ -57,7 +57,7 @@ module Alchemy
     describe ".get_all_by_attributes" do
       subject { PageLayout.get_all_by_attributes(unique: true) }
 
-      it "should return all page layout with the given attribute" do
+      it "should return all page layouts with the given attribute" do
         expect(subject.map { |page_layout| page_layout['name'] }.to_a).to eq(['index', 'news', 'contact', 'erb_layout'])
       end
     end
@@ -94,7 +94,7 @@ module Alchemy
         let(:site) { Site.new }
 
         let(:definitions) do
-          [{'name' => 'default_site', 'page_layouts' => %w(index)}]
+          [{'name' => 'a_dummy_app_using_alchemy_cms', 'page_layouts' => %w(index)}]
         end
 
         before do

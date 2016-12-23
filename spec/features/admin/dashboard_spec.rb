@@ -47,13 +47,14 @@ describe 'Dashboard feature' do
     context 'with multiple sites' do
       before do
         Alchemy::Site.create!(name: 'Site', host: 'site.com')
+        Alchemy::Site.create!(name: 'Another Site', host: 'other.site.com')
       end
 
       it "lists all sites" do
         visit admin_dashboard_path
         sites_widget = all('div[@class="widget sites"]').first
         expect(sites_widget).to have_content "Websites:"
-        expect(sites_widget).to have_content "Default Site"
+        expect(sites_widget).to have_content "Another Site"
         expect(sites_widget).to have_content "Site"
       end
 
