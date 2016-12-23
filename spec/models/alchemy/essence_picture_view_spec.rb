@@ -26,6 +26,12 @@ describe Alchemy::EssencePictureView, type: :model do
       essence: essence_picture
   end
 
+  let(:picture_url) { '/pictures/1/image.png' }
+
+  before do
+    allow(picture).to receive(:url) { picture_url }
+  end
+
   context "with caption" do
     let(:options) do
       {}
@@ -49,7 +55,7 @@ describe Alchemy::EssencePictureView, type: :model do
     end
 
     it "does not pass default options to picture url" do
-      expect(essence_picture).to receive(:picture_url).with({})
+      expect(essence_picture).to receive(:picture_url).with({}) { picture_url }
       view
     end
 
@@ -185,7 +191,7 @@ describe Alchemy::EssencePictureView, type: :model do
     end
 
     it 'does not pass srcset option to picture_url' do
-      expect(essence_picture).to receive(:picture_url).with({})
+      expect(essence_picture).to receive(:picture_url).with({}) { picture_url }
       view
     end
 
@@ -245,7 +251,7 @@ describe Alchemy::EssencePictureView, type: :model do
     end
 
     it 'does not pass sizes option to picture_url' do
-      expect(essence_picture).to receive(:picture_url).with({})
+      expect(essence_picture).to receive(:picture_url).with({}) { picture_url }
       view
     end
 
