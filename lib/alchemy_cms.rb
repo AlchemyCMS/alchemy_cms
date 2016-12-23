@@ -54,7 +54,7 @@ require_relative 'alchemy/tinymce'
 require_relative 'alchemy/touching'
 
 # Require hacks
-require_relative 'alchemy/kaminari/scoped_pagination_url_helper'
+require_relative 'kaminari/scoped_pagination_url_helper'
 
 # Finally require Alchemy itself
 require_relative 'alchemy/engine'
