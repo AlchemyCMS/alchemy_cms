@@ -1,14 +1,13 @@
-<% p = params.dup %>
 <% if Alchemy::Picture.tag_counts.any? %>
   <h2><%= Alchemy.t("Filter by tag") %></h2>
   <%= js_filter_field '.tag-list li' %>
   <ul>
-    <%= render_tag_list('Alchemy::Picture', p) %>
+    <%= render_tag_list('Alchemy::Picture') %>
   </ul>
-  <% if p[:tagged_with].present? %>
+  <% if params[:tagged_with].present? %>
     <%= link_to(
       render_icon('delete-small') + Alchemy.t('Remove tag filter'),
-      url_for(p.delete_if { |k, v| k == "tagged_with" }.merge(action: 'index')),
+      url_for(tag_list_params.delete_if { |k, v| k == "tagged_with" }.merge(action: 'index')),
       remote: request.xhr?,
       class: 'button small with_icon please_wait'
     ) %>
