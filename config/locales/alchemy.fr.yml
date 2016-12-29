@@ -114,7 +114,7 @@ fr:
         message: 'Message'
         send: 'envoyer'
         mandatory_fields: "*Obligatoire. S'il vous plaît remplir ces champs."
-      # The flash message shown after succesfully sending the message.
+      # The flash message shown after successfully sending the message.
       messages:
         success: 'Votre message a été envoyé avec succès.'
 
@@ -602,9 +602,9 @@ fr:
     "Create": "ajouter"
     "Edit": "Modifier"
     "Delete": "supprimer"
-    "Succesfully created": "créé avec succès"
-    "Succesfully updated": "correctement mis à jour"
-    "Succesfully removed": "supprimé avec succès"
+    "Successfully created": "créé avec succès"
+    "Successfully updated": "correctement mis à jour"
+    "Successfully removed": "supprimé avec succès"
     "Nothing found": "Aucun article trouvé."
     "Now drop the files": "Lacher les fichiers maintenant"
     "Queued x files": "x Fichiers dans la file d'attente."

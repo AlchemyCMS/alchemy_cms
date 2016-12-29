@@ -31,7 +31,7 @@ module Alchemy
         @picture = Picture.new(picture_params)
         @picture.name = @picture.humanized_name
         if @picture.save
-          render succesful_uploader_response(file: @picture)
+          render successful_uploader_response(file: @picture)
         else
           render failed_uploader_response(file: @picture)
         end
