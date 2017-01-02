@@ -578,9 +578,9 @@ ru:
     "Create": "Создать"
     "Edit": "Редактировать"
     "Delete": "Удалить"
-    "Succesfully created": "Успешно создано"
-    "Succesfully updated": "Успешно обновлено"
-    "Succesfully removed": "Успешно удалено"
+    "Successfully created": "Успешно создано"
+    "Successfully updated": "Успешно обновлено"
+    "Successfully removed": "Успешно удалено"
     "Nothing found": "Ничег не найдено."
     complete: 'Завершить'
     "Update available": 'Доступно обновление'

@@ -99,7 +99,7 @@ de:
         message: 'Nachricht'
         send: 'absenden'
         mandatory_fields: '*Pflichtfelder. Bitte füllen Sie diese Felder aus.'
-      # The flash message shown after succesfully sending the message.
+      # The flash message shown after successfully sending the message.
       messages:
         success: 'Ihre Nachricht wurde erfolgreich übermittelt.'
 
@@ -589,9 +589,9 @@ de:
     "Edit": "Bearbeiten"
     "Delete": "Löschen"
     "Show error details": Fehlerdetails anzeigen
-    "Succesfully created": "Erfolgreich erstellt"
-    "Succesfully updated": "Erfolgreich aktualisiert"
-    "Succesfully removed": "Erfolgreich gelöscht"
+    "Successfully created": "Erfolgreich erstellt"
+    "Successfully updated": "Erfolgreich aktualisiert"
+    "Successfully removed": "Erfolgreich gelöscht"
     "Nothing found": "Keine Einträge gefunden."
     complete: 'Abgeschlossen'
     "Update available": 'Es ist ein Update verfügbar'

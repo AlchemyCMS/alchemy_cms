@@ -99,7 +99,7 @@ nl:
         message: 'Bericht'
         send: 'Verzenden'
         mandatory_fields: '*Verplichte velden.'
-      # The flash message shown after succesfully sending the message.
+      # The flash message shown after successfully sending the message.
       messages:
         success: 'Het bericht is verzonden.'
 
@@ -576,9 +576,9 @@ nl:
     "Create": "Aanmaken"
     "Edit": "Aanpassen"
     "Delete": "Verwijderen"
-    "Succesfully created": "Aangemaakt"
-    "Succesfully updated": "Aangepast"
-    "Succesfully removed": "Verwijderd"
+    "Successfully created": "Aangemaakt"
+    "Successfully updated": "Aangepast"
+    "Successfully removed": "Verwijderd"
     "Nothing found": "Niets gevonden"
     complete: 'Compleet'
     "Update available": "Er is een update verkrijgbaar"

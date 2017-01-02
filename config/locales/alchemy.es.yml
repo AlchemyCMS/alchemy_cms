@@ -583,9 +583,9 @@ es:
     "Create": "Crear"
     "Edit": "Editar"
     "Delete": "Eliminar"
-    "Succesfully created": "Creado correctamente"
-    "Succesfully updated": "Actualizado correctamente"
-    "Succesfully removed": "Eliminado correctamente"
+    "Successfully created": "Creado correctamente"
+    "Successfully updated": "Actualizado correctamente"
+    "Successfully removed": "Eliminado correctamente"
     "Nothing found": "No se encontró nada."
     complete: 'Completado'
     "Update available": 'Actualización disponible'

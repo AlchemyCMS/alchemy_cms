@@ -77,7 +77,7 @@ module Alchemy
 
       def handle_uploader_response(status:)
         if @attachment.valid?
-          render succesful_uploader_response(file: @attachment, status: status)
+          render successful_uploader_response(file: @attachment, status: status)
         else
           render failed_uploader_response(file: @attachment)
         end
