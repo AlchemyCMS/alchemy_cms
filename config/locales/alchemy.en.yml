@@ -554,7 +554,7 @@ en:
     uploader:
       alchemy/attachment:
         button_label: Upload file(s)
-        upload_success: "File %{name} succesfully uploaded"
+        upload_success: "File %{name} successfully uploaded"
         upload_failure: "File %{name} upload error: %{error}"
       alchemy/picture:
         button_label: Upload image(s)
@@ -582,9 +582,9 @@ en:
     "Create": "Create"
     "Edit": "Edit"
     "Delete": "Delete"
-    "Succesfully created": "Succesfully created"
-    "Succesfully updated": "Succesfully updated"
-    "Succesfully removed": "Succesfully removed"
+    "Successfully created": "Successfully created"
+    "Successfully updated": "Successfully updated"
+    "Successfully removed": "Successfully removed"
     "Nothing found": "Nothing found."
     complete: 'Abgeschlossen'
     "Update available": 'Update available'

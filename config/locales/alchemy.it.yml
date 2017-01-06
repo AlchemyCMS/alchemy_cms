@@ -582,9 +582,9 @@ it:
     "Create": "Crea"
     "Edit": "Modifica"
     "Delete": "Elimina"
-    "Succesfully created": "Creato con successo"
-    "Succesfully updated": "Aggiornato con successo"
-    "Succesfully removed": "Rimosso con successo"
+    "Successfully created": "Creato con successo"
+    "Successfully updated": "Aggiornato con successo"
+    "Successfully removed": "Rimosso con successo"
     "Nothing found": "Non è stato trovato nulla."
     complete: 'Completato'
     "Update available": 'Aggiornamento disponibile'

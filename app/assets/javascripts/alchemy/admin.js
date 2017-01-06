@@ -11,7 +11,6 @@
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require clipboard.min
-//= require spin.min
 //= require keymaster
 //= require requestAnimationFrame
 //= require select2

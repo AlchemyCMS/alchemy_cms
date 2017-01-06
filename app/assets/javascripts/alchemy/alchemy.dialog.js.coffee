@@ -90,7 +90,7 @@ class window.Alchemy.Dialog
 
   # Adds a spinner into Dialog body
   show_spinner: ->
-    @spinner = Alchemy.Spinner.medium()
+    @spinner = new Alchemy.Spinner('medium')
     @spinner.spin(@dialog_body[0])
 
   # Removes the spinner from Dialog body

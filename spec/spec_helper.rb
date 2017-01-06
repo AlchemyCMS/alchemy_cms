@@ -25,6 +25,8 @@ require 'alchemy/test_support/controller_requests'
 require 'alchemy/test_support/essence_shared_examples'
 require 'alchemy/test_support/integration_helpers'
 require 'alchemy/test_support/factories'
+require 'alchemy/test_support/shared_contexts'
+require 'alchemy/test_support/shared_uploader_examples'
 
 require_relative 'factories'
 require_relative "support/hint_examples.rb"

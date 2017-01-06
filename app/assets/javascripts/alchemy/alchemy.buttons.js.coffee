@@ -20,14 +20,14 @@ Alchemy.Buttons =
 
   disable: (button) ->
     $button = $(button)
-    spinner = Alchemy.Spinner.small()
+    spinner = new Alchemy.Spinner('small')
     $button.data('content', $button.html())
     $button.attr('disabled', true)
     $button.addClass('disabled')
     $button.css
       width: $button.outerWidth()
     $button.empty()
-    spinner.spin($button[0])
+    spinner.spin($button)
     return true
 
   enable: (scope) ->

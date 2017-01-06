@@ -4,7 +4,7 @@
   <%= f.input :page_layout,
     collection: @page_layouts,
     label: Alchemy.t(:page_type),
-    include_blank: false,
+    include_blank: Alchemy.t('Please choose'),
     required: true,
     input_html: {class: 'alchemy_selectbox'} %>
   <%= f.input :name %>

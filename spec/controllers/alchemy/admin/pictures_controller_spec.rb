@@ -119,15 +119,8 @@ module Alchemy
         end
       end
 
-      context 'without passing validations' do
-        it "renders json response with error message" do
-          subject
-          expect(response.content_type).to eq('application/json')
-          expect(response.status).to eq(422)
-          json = JSON.parse(response.body)
-          expect(json).to have_key('growl_message')
-          expect(json).to have_key('files')
-        end
+      context 'with failing validations' do
+        it_behaves_like 'having a json uploader error message'
       end
     end
 

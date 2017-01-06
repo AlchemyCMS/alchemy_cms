@@ -9,7 +9,7 @@
 
 ## About
 
-![Alchemy CMS](http://alchemy-cms.com/assets/alchemy_logo.svg)
+![Alchemy CMS](app/assets/images/alchemy/alchemy-logo.svg)
 
 Alchemy is a powerful, flexible and user centric Rails CMS.
 
@@ -53,25 +53,6 @@ For a Ruby 1.8.7 compatible version use the [`2.3-stable` branch](https://github
 
 
 ## Installation
-
-### Install as a standalone project
-
-Use the installer:
-
-```shell
-$ gem install alchemy_cms --pre
-$ alchemy new my_magicpage
-```
-
-and follow the instructions to finish the installation.
-
-The installer has some options (like choosing the database). See them with:
-
-```shell
-$ alchemy --help
-```
-
-### Install into an existing Rails project
 
 #### 1. Add the Alchemy gem:
 

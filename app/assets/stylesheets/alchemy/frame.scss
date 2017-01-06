@@ -8,11 +8,6 @@ div#overlay {
   z-index: 400000;
   background-color: rgba(229, 229, 229, 0.4);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = #40E5E5E5, endColorstr = #40E5E5E5);
-
-  .spinner {
-    top: 50%;
-    left: 50%;
-  }
 }
 
 div#overlay_text_box {

@@ -70,7 +70,7 @@ describe "Resources" do
       end
 
       it "shows a success message" do
-        expect(page).to have_content("Succesfully created")
+        expect(page).to have_content("Successfully created")
       end
     end
 
@@ -107,7 +107,7 @@ describe "Resources" do
     end
 
     it "shows a success message" do
-      expect(page).to have_content("Succesfully updated")
+      expect(page).to have_content("Successfully updated")
     end
   end
 
@@ -127,7 +127,7 @@ describe "Resources" do
     end
 
     it "should display success message" do
-      expect(page).to have_content("Succesfully removed")
+      expect(page).to have_content("Successfully removed")
     end
   end
 

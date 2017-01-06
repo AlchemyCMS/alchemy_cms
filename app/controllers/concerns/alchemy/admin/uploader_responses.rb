@@ -3,7 +3,7 @@ module Alchemy
     module UploaderResponses
       extend ActiveSupport::Concern
 
-      def succesful_uploader_response(file:, status: :created)
+      def successful_uploader_response(file:, status: :created)
         message = Alchemy.t(:upload_success,
           scope: [:uploader, file.class.model_name.i18n_key],
           name: file.name

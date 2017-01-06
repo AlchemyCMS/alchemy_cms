@@ -16,7 +16,6 @@ Gem::Specification.new do |gem|
   gem.required_ruby_version = '>= 2.0.0'
   gem.license               = 'BSD New'
   gem.files                 = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^spec/}) }
-  gem.executables           = 'alchemy'
   gem.require_paths         = ['lib']
 
   gem.add_runtime_dependency 'active_model_serializers',         ['~> 0.9.0']

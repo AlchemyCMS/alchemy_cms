@@ -26,6 +26,7 @@
 
 button, input[type="submit"], a.button, input.button {
   @extend .btn-primary;
+  position: relative;
 
   &.small {
     padding: $default-padding 3*$default-padding;
@@ -76,11 +77,6 @@ button, input[type="submit"], a.button, input.button {
   padding: 3px;
   overflow: hidden;
   text-align: center;
-
-  .spinner {
-    left: 50% !important; // the spin.js lib calculates false!
-    top: 50% !important;
-  }
 
   .icon {
     display: inline-block;
