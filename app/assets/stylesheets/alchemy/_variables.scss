@@ -1,22 +1,19 @@
-$text-color: #505c73;
-$muted-text-color: rgba(0, 0, 0, 0.5);
 $light-blue: #cddce5; // #c6dbe7
 $blue: darken($light-blue, 15%);
 $very-light-blue: lighten($light-blue, 12%);
-$light-gray: #ededed;
-$medium-gray: #e3e3e3;
-$dark-gray: #666666;
 $light_yellow: #ffffdc;
 $linked-color: #ffd77a;
 $white: #f2f2f2;
-
 $very-light-gray: #f0f2f5;
 $light-gray: #e6e7eb;
-$gray: #dcdde0;
+$medium-gray: #dcdde0;
 $dark-gray: #c8c9cc;
 $light-slate: #7c8497;
 $slate: #62708c;
 $dark-slate: #505c73;
+
+$text-color: $slate;
+$muted-text-color: rgba(0, 0, 0, 0.5);
 
 $default-font-face: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
 $mono-font-face: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
