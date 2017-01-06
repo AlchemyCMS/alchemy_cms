@@ -24,7 +24,7 @@ $default-font-size: 12px;
 $default-font-style: $default-font-size $default-font-face;
 
 $dialog-header-height: 36px;
-$header-color: $light-blue;
+$header-color: lighten($slate, 40%);
 $header-text-color: $text-color;
 $header-font-size: $default-font-size;
 

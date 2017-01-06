@@ -72,9 +72,9 @@ select {
 
       .select2-choice, .select2-choice:hover {
         background-image: none;
-        background-color: $light-gray;
+        background-color: none;
         box-shadow: none;
-        border-color: $border-inset-color;
+        border-color: none;
         cursor: not-allowed;
 
         .select2-arrow {
