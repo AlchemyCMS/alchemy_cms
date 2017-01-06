@@ -200,7 +200,7 @@ div.mce-tinymce-inline {
   overflow: hidden;
 }
 
-.mce-stack-layout-item.mce-first{
+.mce-stack-layout-item.mce-first {
   border-bottom: 1px solid $default-border-color;
 }
 
@@ -755,12 +755,6 @@ body .mce-abs-layout-item {
   border-right: 1px solid $default-border-color;
 }
 
-.mce-btn-group .mce-first {
-}
-
-.mce-btn-group .mce-last {
-}
-
 .mce-btn-group .mce-first.mce-last {
   border-radius: $default-border-radius;
 }
@@ -1013,9 +1007,6 @@ i.mce-i-checkbox {
   display: inline-block;
   *display: inline;
   *zoom: 1;
-}
-
-.mce-flow-layout-item {
 }
 
 .mce-flow-layout-item.mce-last {
