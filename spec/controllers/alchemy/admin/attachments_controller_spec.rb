@@ -93,17 +93,12 @@ module Alchemy
         end
       end
 
-      context 'without passing validations' do
-        let(:params) { {attachment: {file: nil}} }
+      context 'with failing validations' do
+        include_context 'with invalid file'
 
-        it "renders json response with error message" do
-          subject
-          expect(response.content_type).to eq('application/json')
-          expect(response.status).to eq(422)
-          json = JSON.parse(response.body)
-          expect(json).to have_key('growl_message')
-          expect(json).to have_key('files')
-        end
+        let(:params) { {attachment: {file: invalid_file}} }
+
+        it_behaves_like 'having a json uploader error message'
       end
     end
 
@@ -118,7 +113,7 @@ module Alchemy
         alchemy_put :update, params
       end
 
-      let(:attachment) { create(:alchemy_attachment) }
+      let!(:attachment) { create(:alchemy_attachment) }
 
       context "when file is passed" do
         let(:file) do
@@ -177,11 +172,7 @@ module Alchemy
       end
 
       context 'with failing validations' do
-        let(:params) do
-          {
-            id: attachment.id, attachment: {file: nil}
-          }
-        end
+        include_context 'with invalid file'
 
         it "renders edit form" do
           is_expected.to render_template(:edit)
