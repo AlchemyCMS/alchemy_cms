@@ -246,15 +246,12 @@ module Alchemy
       end
 
       if options.delete(:reverse)
-        pages.to_a.reverse!
+        pages = pages.reorder('lft DESC')
       end
 
       if options[:without].present?
-        if options[:without].class == Array
-          pages = pages.to_a - options[:without]
-        else
-          pages.to_a.delete(options[:without])
-        end
+        without = options.delete(:without)
+        pages = pages.where.not(id: without.try(:collect, &:id) || without.id)
       end
 
       render 'alchemy/breadcrumb/wrapper', pages: pages, options: options
