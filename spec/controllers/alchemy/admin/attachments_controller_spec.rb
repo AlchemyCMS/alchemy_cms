@@ -196,18 +196,12 @@ module Alchemy
 
     describe "#download" do
       before do
-        expect(Attachment).to receive(:find).with(attachment.id.to_s).and_return(attachment)
-        allow(controller).to receive(:render).and_return(nil)
+        expect(Attachment).to receive(:find).and_return(attachment)
       end
 
-      it "should assign @attachment with Attachment found by id" do
+      it "sends the file as download" do
         alchemy_get :download, id: attachment.id
-        expect(assigns(:attachment)).to eq(attachment)
-      end
-
-      it "should send the data to the browser" do
-        expect(controller).to receive(:send_file)
-        alchemy_get :download, id: attachment.id
+        expect(response.headers['Content-Disposition']).to match(/attachment/)
       end
     end
   end
