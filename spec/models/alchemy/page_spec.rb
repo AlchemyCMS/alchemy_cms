@@ -1405,7 +1405,7 @@ module Alchemy
     end
 
     describe '#publish!' do
-      let(:page) { build_stubbed(:alchemy_page, public: false) }
+      let(:page) { create(:alchemy_page, public: false) }
       let(:current_time) { Time.current }
 
       before do
