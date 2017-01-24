@@ -718,6 +718,7 @@ module Alchemy
 
           before do
             allow(request).to receive(:port).and_return(3000)
+            allow(@controller).to receive(:request).and_return(request)
           end
 
           it "should redirect to the page path on the right site" do
