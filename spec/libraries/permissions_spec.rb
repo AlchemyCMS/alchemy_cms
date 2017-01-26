@@ -144,7 +144,6 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:info, Alchemy::Page)
       is_expected.to be_able_to(:configure, Alchemy::Page)
       is_expected.to be_able_to(:update, Alchemy::Page)
-      is_expected.to be_able_to(:fold, Alchemy::Page)
       is_expected.to be_able_to(:link, Alchemy::Page)
       is_expected.to be_able_to(:visit, Alchemy::Page)
       is_expected.to be_able_to(:unlock, Alchemy::Page)

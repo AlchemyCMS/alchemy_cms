@@ -15,7 +15,7 @@ module Alchemy
       before_action :set_root_page,
         only: [:index, :show, :sort, :order]
 
-      authorize_resource class: Alchemy::Page, except: [:index, :tree]
+      authorize_resource class: Alchemy::Page, except: [:index, :tree, :fold]
 
       before_action :run_on_page_layout_callbacks,
         if: :run_on_page_layout_callbacks?,
@@ -148,6 +148,8 @@ module Alchemy
       end
 
       def fold
+        authorize! :tree, :alchemy_admin_pages
+
         # @page is fetched via before filter
         @page.fold!(current_alchemy_user.id, !@page.folded?(current_alchemy_user.id))
         respond_to do |format|
