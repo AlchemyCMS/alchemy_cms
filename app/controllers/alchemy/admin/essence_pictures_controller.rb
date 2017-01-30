@@ -1,6 +1,7 @@
 module Alchemy
   module Admin
     class EssencePicturesController < Alchemy::Admin::BaseController
+      FLOAT_REGEX = /\A\d+(\.\d+)?\z/
       authorize_resource class: Alchemy::EssencePicture
 
       before_action :load_essence_picture, only: [:edit, :crop, :update]
@@ -92,7 +93,7 @@ module Alchemy
       # aspect ratio, don't specify a size or only width or height.
       #
       def ratio_from_size_or_params
-        if @min_size.value?(0) && @options[:fixed_ratio]
+        if @min_size.value?(0) && @options[:fixed_ratio].to_s =~ FLOAT_REGEX
           @options[:fixed_ratio].to_f
         elsif !@min_size[:width].zero? && !@min_size[:height].zero?
           @min_size[:width].to_f / @min_size[:height].to_f
