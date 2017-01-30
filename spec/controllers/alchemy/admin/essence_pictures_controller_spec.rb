@@ -150,6 +150,13 @@ module Alchemy
           end
         end
 
+        context 'with fixed_ratio set to a non float string' do
+          it "doesn't set a fixed ratio" do
+            alchemy_get :crop, id: 1, options: {fixed_ratio: '123,45'}
+            expect(assigns(:ratio)).to eq(false)
+          end
+        end
+
         context 'with no fixed_ratio set in params' do
           it "sets a fixed ratio from sizes" do
             alchemy_get :crop, id: 1, options: {size: '80x60'}
