@@ -36,6 +36,10 @@ module Alchemy
 
     # We need to define this method here to have it available in the validations below.
     class << self
+      def searchable_alchemy_resource_attributes
+        %w(name file_name)
+      end
+
       def allowed_filetypes
         Config.get(:uploader).fetch('allowed_filetypes', {}).fetch('alchemy/attachments', [])
       end
