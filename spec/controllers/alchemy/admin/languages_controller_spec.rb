@@ -39,37 +39,10 @@ describe Alchemy::Admin::LanguagesController do
   end
 
   describe "#new" do
-    context "when default_language.page_layout is set" do
-      before do
-        stub_alchemy_config(:default_language, {'page_layout' => "new_standard"})
-      end
-
-      it "uses it as page_layout-default for the new language" do
-        alchemy_get :new
-        expect(assigns(:language).page_layout).to eq("new_standard")
-      end
-    end
-
-    context "when default_language is not configured" do
-      before do
-        stub_alchemy_config(:default_language, nil)
-      end
-
-      it "falls back to default database value." do
-        alchemy_get :new
-        expect(assigns(:language).page_layout).to eq("intro")
-      end
-    end
-
-    context "when default language page_layout is not configured" do
-      before do
-        stub_alchemy_config(:default_language, {})
-      end
-
-      it "falls back to default database value." do
-        alchemy_get :new
-        expect(assigns(:language).page_layout).to eq("intro")
-      end
+    it "has default language's page_layout set" do
+      alchemy_get :new
+      expect(assigns(:language).page_layout).
+        to eq(Alchemy::Config.get(:default_language)['page_layout'])
     end
   end
 end
