@@ -424,13 +424,7 @@ module Alchemy
 
       context "when `image_output_format` is configured to `original`" do
         before do
-          allow(Alchemy::Config).to receive(:get) do |args|
-            if args == :image_output_format
-              'original'
-            else
-              Alchemy::Config.show[args]
-            end
-          end
+          stub_alchemy_config(:image_output_format, 'original')
         end
 
         it "returns the image file format" do
@@ -440,13 +434,7 @@ module Alchemy
 
       context "when `image_output_format` is configured to an image format" do
         before do
-          allow(Alchemy::Config).to receive(:get) do |args|
-            if args == :image_output_format
-              'jpg'
-            else
-              Alchemy::Config.show[args]
-            end
-          end
+          stub_alchemy_config(:image_output_format, 'jpg')
         end
 
         context "and the format is a convertible format" do

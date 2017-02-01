@@ -1956,7 +1956,9 @@ module Alchemy
       let(:node) { TreeNode.new(10, 11, 12, 13, "another-url", true) }
 
       context "when nesting is enabled" do
-        before { allow(Alchemy::Config).to receive(:get).with(:url_nesting) { true } }
+        before do
+          stub_alchemy_config(:url_nesting, true)
+        end
 
         context "when page is not external" do
           before do
@@ -2021,7 +2023,7 @@ module Alchemy
 
       context "when nesting is disabled" do
         before do
-          allow(Alchemy::Config).to receive(:get).with(:url_nesting) { false }
+          stub_alchemy_config(:url_nesting, false)
         end
 
         context "when page is not external" do
@@ -2049,7 +2051,6 @@ module Alchemy
 
         context "when page is external" do
           before do
-            expect(Alchemy::Config).to receive(:get).and_return(true)
             allow(page).to receive(:redirects_to_external?).and_return(true)
           end
 
@@ -2090,7 +2091,7 @@ module Alchemy
       end
 
       it 'returns false when caching is deactivated in the Alchemy config' do
-        allow(Alchemy::Config).to receive(:get).with(:cache_pages).and_return(false)
+        stub_alchemy_config(:cache_pages, false)
         expect(subject).to be false
       end
 

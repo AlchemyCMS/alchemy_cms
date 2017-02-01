@@ -304,7 +304,7 @@ module Alchemy
 
         context 'with url nesting enabled' do
           before do
-            expect(Alchemy::Config).to receive(:get).with(:url_nesting).at_least(:once).and_return(true)
+            stub_alchemy_config(:url_nesting, true)
           end
 
           it "updates the pages urlnames" do
