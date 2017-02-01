@@ -16,6 +16,14 @@ module Alchemy
     end
   end
 
+  class DefaultSiteNotFoundError < StandardError
+    # Raised if no default site configuration can be found.
+    def message
+      "No default site configuration found!" \
+        " Please ensure that you have a 'default_site' defined in Alchemy configuration file."
+    end
+  end
+
   class DefaultLanguageNotDeletable < StandardError
     # Raised if one tries to delete the default language.
     def message

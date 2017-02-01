@@ -62,7 +62,7 @@ module Alchemy
       end
 
       def default
-        Site.first
+        Site.first || create_default_site!
       end
 
       def find_for_host(host)
@@ -77,6 +77,17 @@ module Alchemy
 
         all.find do |site|
           site.aliases.split.include?(host) if site.aliases.present?
+        end
+      end
+
+      private
+
+      def create_default_site!
+        default_site = Alchemy::Config.get(:default_site)
+        if default_site
+          create!(name: default_site['name'], host: default_site['host'])
+        else
+          raise DefaultSiteNotFoundError
         end
       end
     end

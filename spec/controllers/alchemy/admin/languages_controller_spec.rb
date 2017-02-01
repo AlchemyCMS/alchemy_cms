@@ -7,22 +7,22 @@ describe Alchemy::Admin::LanguagesController do
 
   describe "#index" do
     context "with multiple sites" do
+      let!(:default_site_language) do
+        create(:alchemy_language)
+      end
+
       let!(:site_2) do
         create(:alchemy_site, host: 'another-site.com')
       end
 
-      let(:language_2) do
+      let!(:site_2_language) do
         site_2.default_language
-      end
-
-      let(:language) do
-        create(:alchemy_language)
       end
 
       it 'only shows languages from current site' do
         alchemy_get :index
-        expect(assigns(:languages)).to include(language)
-        expect(assigns(:languages)).to_not include(language_2)
+        expect(assigns(:languages)).to include(default_site_language)
+        expect(assigns(:languages)).to_not include(site_2_language)
       end
     end
 

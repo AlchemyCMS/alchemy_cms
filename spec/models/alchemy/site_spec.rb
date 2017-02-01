@@ -8,8 +8,6 @@ module Alchemy
     describe 'new instances' do
       subject { build(:alchemy_site, host: 'bla.com') }
 
-      before { Site.current = subject }
-
       it 'should start out with no languages' do
         expect(subject.languages).to be_empty
       end
@@ -33,6 +31,38 @@ module Alchemy
             expect { subject.save! }.
               to_not change(subject, "languages")
           end
+        end
+      end
+    end
+
+    describe '.default' do
+      subject { Site.default }
+
+      context 'when no default site is present' do
+        before do
+          Site.delete_all
+        end
+
+        it 'creates it' do
+          expect { subject }.to change { Site.count }.by(1)
+        end
+
+        context 'when default site configuration is missing' do
+          before do
+            stub_alchemy_config(:default_site, nil)
+          end
+
+          it 'raises error' do
+            expect {
+              subject.save!
+            }.to raise_error(DefaultSiteNotFoundError)
+          end
+        end
+      end
+
+      context 'when default site is present' do
+        it 'returns it' do
+          is_expected.to eq(Site.default)
         end
       end
     end
@@ -111,6 +141,8 @@ module Alchemy
     end
 
     describe '#current?' do
+      let!(:site) { create(:alchemy_site) }
+
       subject { site.current? }
 
       context 'when Site.current is set to the same site' do
