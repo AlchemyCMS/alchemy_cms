@@ -22,6 +22,7 @@ require 'rspec-activemodel-mocks'
 
 require 'alchemy/seeder'
 require 'alchemy/test_support/controller_requests'
+require 'alchemy/test_support/config_stubbing'
 require 'alchemy/test_support/essence_shared_examples'
 require 'alchemy/test_support/integration_helpers'
 require 'alchemy/test_support/factories'
@@ -64,6 +65,7 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Alchemy::Engine.routes.url_helpers
   config.include Alchemy::TestSupport::ControllerRequests, type: :controller
+  config.include Alchemy::TestSupport::ConfigStubbing
   [:controller, :feature, :request].each do |type|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type
   end
