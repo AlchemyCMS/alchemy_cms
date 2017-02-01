@@ -784,9 +784,25 @@ module Alchemy
       end
     end
 
-    describe '.rootpage' do
-      it "should contain one rootpage" do
-        expect(Page.rootpage).to be_instance_of(Page)
+    describe '.root' do
+      context 'when root page is present' do
+        let!(:root_page) { Page.root }
+
+        it 'returns root page' do
+          expect(Page.root).to eq(root_page)
+        end
+      end
+
+      context 'when no root page is present yet' do
+        before do
+          Page.delete_all
+        end
+
+        it "creates and returns root page" do
+          expect {
+            Page.root
+          }.to change { Page.count }.by(1)
+        end
       end
     end
 

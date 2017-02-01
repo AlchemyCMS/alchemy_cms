@@ -20,7 +20,7 @@ module Alchemy
     end
 
     def systempage?
-      return true if Page.root.nil?
+      return true if Page.count.zero?
       rootpage? || (parent_id == Page.root.id && !language_root?)
     end
 
