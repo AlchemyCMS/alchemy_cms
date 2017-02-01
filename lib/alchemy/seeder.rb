@@ -43,7 +43,6 @@ module Alchemy
       def create_root_page
         desc "Creating Alchemy root page"
         root = Alchemy::Page.find_or_initialize_by(name: 'Root')
-        root.do_not_sweep = true
         if root.new_record?
           if root.save!
             log "Created Alchemy root page."
