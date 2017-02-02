@@ -45,9 +45,8 @@ describe 'Dashboard feature' do
 
   describe 'Sites widget' do
     context 'with multiple sites' do
-      before do
-        Alchemy::Site.create!(name: 'Site', host: 'site.com')
-      end
+      let!(:default_site) { create(:alchemy_site, :default) }
+      let!(:another_site) { create(:alchemy_site, name: 'Site', host: 'site.com') }
 
       it "lists all sites" do
         visit admin_dashboard_path

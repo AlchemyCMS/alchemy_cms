@@ -9,7 +9,7 @@ FactoryGirl.define do
     frontpage_name 'Intro'
     page_layout { Alchemy::Config.get(:default_language)['page_layout'] }
     public true
-    site { Alchemy::Site.first || FactoryGirl.create(:alchemy_site) }
+    site { Alchemy::Site.default }
 
     trait :klingon do
       name 'Klingon'

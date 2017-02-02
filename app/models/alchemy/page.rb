@@ -139,6 +139,15 @@ module Alchemy
     # Class methods
     #
     class << self
+      # The root page of the page tree
+      #
+      # Internal use only. You wouldn't use this page ever.
+      #
+      # Automatically created when accessed the first time.
+      #
+      def root
+        super || create!(name: 'Root')
+      end
       alias_method :rootpage, :root
 
       # Used to store the current page previewed in the edit page template.

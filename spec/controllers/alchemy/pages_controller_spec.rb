@@ -26,9 +26,7 @@ module Alchemy
     describe "#index" do
       before do
         default_language_root
-        allow(Config).to receive(:get) do |arg|
-          arg == :redirect_index ? false : Config.parameter(arg)
-        end
+        stub_alchemy_config(:redirect_index, false)
       end
 
       it 'renders :show template' do
@@ -53,9 +51,7 @@ module Alchemy
 
           context 'and redirect_to_public_child is set to false' do
             before do
-              allow(Config).to receive(:get) do |arg|
-                arg == :redirect_to_public_child ? false : Config.parameter(arg)
-              end
+              stub_alchemy_config(:redirect_to_public_child, false)
             end
 
             it 'raises routing error (404)' do
@@ -82,9 +78,7 @@ module Alchemy
 
           context 'and redirect_to_public_child is set to true' do
             before do
-              allow(Config).to receive(:get) do |arg|
-                arg == :redirect_to_public_child ? true : Config.parameter(arg)
-              end
+              stub_alchemy_config(:redirect_to_public_child, true)
             end
 
             context 'that has a public child' do
@@ -255,7 +249,7 @@ module Alchemy
 
       before do
         allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
-        allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : false }
+        stub_alchemy_config(:url_nesting, true)
         product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       end
 

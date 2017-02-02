@@ -7,22 +7,22 @@ describe Alchemy::Admin::LanguagesController do
 
   describe "#index" do
     context "with multiple sites" do
+      let!(:default_site_language) do
+        create(:alchemy_language)
+      end
+
       let!(:site_2) do
         create(:alchemy_site, host: 'another-site.com')
       end
 
-      let(:language_2) do
+      let!(:site_2_language) do
         site_2.default_language
-      end
-
-      let(:language) do
-        create(:alchemy_language)
       end
 
       it 'only shows languages from current site' do
         alchemy_get :index
-        expect(assigns(:languages)).to include(language)
-        expect(assigns(:languages)).to_not include(language_2)
+        expect(assigns(:languages)).to include(default_site_language)
+        expect(assigns(:languages)).to_not include(site_2_language)
       end
     end
 
@@ -39,37 +39,10 @@ describe Alchemy::Admin::LanguagesController do
   end
 
   describe "#new" do
-    context "when default_language.page_layout is set" do
-      before do
-        stub_alchemy_config(:default_language, {'page_layout' => "new_standard"})
-      end
-
-      it "uses it as page_layout-default for the new language" do
-        alchemy_get :new
-        expect(assigns(:language).page_layout).to eq("new_standard")
-      end
-    end
-
-    context "when default_language is not configured" do
-      before do
-        stub_alchemy_config(:default_language, nil)
-      end
-
-      it "falls back to default database value." do
-        alchemy_get :new
-        expect(assigns(:language).page_layout).to eq("intro")
-      end
-    end
-
-    context "when default language page_layout is not configured" do
-      before do
-        stub_alchemy_config(:default_language, {})
-      end
-
-      it "falls back to default database value." do
-        alchemy_get :new
-        expect(assigns(:language).page_layout).to eq("intro")
-      end
+    it "has default language's page_layout set" do
+      alchemy_get :new
+      expect(assigns(:language).page_layout).
+        to eq(Alchemy::Config.get(:default_language)['page_layout'])
     end
   end
 end

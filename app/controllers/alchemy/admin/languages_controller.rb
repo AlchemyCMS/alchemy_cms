@@ -7,14 +7,9 @@ module Alchemy
       end
 
       def new
-        @language = Language.new
-        @language.page_layout = configured_page_layout || @language.page_layout
-      end
-
-      private
-
-      def configured_page_layout
-        Config.get(:default_language).try('[]', 'page_layout')
+        @language = Language.new(
+          page_layout: Config.get(:default_language)['page_layout']
+        )
       end
     end
   end

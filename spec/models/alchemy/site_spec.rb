@@ -3,12 +3,9 @@ require 'spec_helper'
 module Alchemy
   describe Site do
     let(:site) { create(:alchemy_site) }
-    let(:another_site) { create(:alchemy_site, name: 'Another Site', host: 'another.com') }
 
     describe 'new instances' do
       subject { build(:alchemy_site, host: 'bla.com') }
-
-      before { Site.current = subject }
 
       it 'should start out with no languages' do
         expect(subject.languages).to be_empty
@@ -20,6 +17,18 @@ module Alchemy
             subject.save!
             expect(subject.languages.count).to eq(1)
             expect(subject.languages.first).to be_default
+          end
+
+          context 'when default language configuration is missing' do
+            before do
+              stub_alchemy_config(:default_language, nil)
+            end
+
+            it 'raises error' do
+              expect {
+                subject.save!
+              }.to raise_error(DefaultLanguageNotFoundError)
+            end
           end
         end
 
@@ -33,6 +42,38 @@ module Alchemy
             expect { subject.save! }.
               to_not change(subject, "languages")
           end
+        end
+      end
+    end
+
+    describe '.default' do
+      subject { Site.default }
+
+      context 'when no default site is present' do
+        before do
+          Site.delete_all
+        end
+
+        it 'creates it' do
+          expect { subject }.to change { Site.count }.by(1)
+        end
+
+        context 'when default site configuration is missing' do
+          before do
+            stub_alchemy_config(:default_site, nil)
+          end
+
+          it 'raises error' do
+            expect {
+              subject.save!
+            }.to raise_error(DefaultSiteNotFoundError)
+          end
+        end
+      end
+
+      context 'when default site is present' do
+        it 'returns it' do
+          is_expected.to eq(Site.default)
         end
       end
     end
@@ -111,21 +152,27 @@ module Alchemy
     end
 
     describe '#current?' do
-      subject { site.current? }
+      let!(:default_site) { create(:alchemy_site, :default) }
+
+      let!(:another_site) do
+        create(:alchemy_site, name: 'Another Site', host: 'another.com')
+      end
+
+      subject { default_site.current? }
 
       context 'when Site.current is set to the same site' do
-        before { Site.current = site }
-        it { is_expected.to be_truthy }
+        before { Site.current = default_site }
+        it { is_expected.to be(true) }
       end
 
       context 'when Site.current is set to nil' do
         before { Site.current = nil }
-        it { is_expected.to be_falsey }
+        it { is_expected.to be(true) }
       end
 
       context 'when Site.current is set to a different site' do
         before { Site.current = another_site }
-        it { is_expected.to be_falsey }
+        it { is_expected.to be(false) }
       end
     end
 
