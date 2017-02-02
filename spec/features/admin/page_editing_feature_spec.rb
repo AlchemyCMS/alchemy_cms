@@ -55,9 +55,7 @@ describe 'Page editing feature' do
 
         context "with sitemaps show_flag config option set to true" do
           before do
-            allow(Alchemy::Config).to receive(:get) do |arg|
-              arg == :sitemap ? {'show_flag' => true} : Alchemy::Config.show[arg.to_s]
-            end
+            stub_alchemy_config(:sitemap, {'show_flag' => true})
           end
 
           it "should show sitemap checkbox" do
@@ -68,9 +66,7 @@ describe 'Page editing feature' do
 
         context "with sitemaps show_flag config option set to false" do
           before do
-            allow(Alchemy::Config).to receive(:get) do |arg|
-              arg == :sitemap ? {'show_flag' => false} : Alchemy::Config.show[arg.to_s]
-            end
+            stub_alchemy_config(:sitemap, {'show_flag' => false})
           end
 
           it "should not show sitemap checkbox" do
