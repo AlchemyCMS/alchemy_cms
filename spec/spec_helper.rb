@@ -76,7 +76,6 @@ RSpec.configure do |config|
   config.before(:suite) do
     DatabaseCleaner.clean_with(:truncation)
     Alchemy::Shell.silence!
-    Alchemy::Seeder.seed!
   end
 
   # All specs are running in transactions, but feature specs not.
@@ -92,12 +91,7 @@ RSpec.configure do |config|
   end
 
   # After each spec the database gets cleaned. (via rollback or truncate for feature specs)
-  # After every feature spec the database gets seeded so the next spec can rely on that data.
   config.append_after(:each) do
     DatabaseCleaner.clean
-    if RSpec.current_example.metadata[:type] == :feature
-      allow(Alchemy::Seeder).to receive(:puts)
-      Alchemy::Seeder.seed!
-    end
   end
 end

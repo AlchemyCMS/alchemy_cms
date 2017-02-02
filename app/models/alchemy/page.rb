@@ -96,7 +96,7 @@ module Alchemy
     validates_presence_of :language, on: :create, unless: :root
     validates_presence_of :page_layout, unless: :systempage?
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { systempage? || page_layout.blank? }
-    validates_presence_of :parent_id, if: proc { Page.count > 1 }
+    validates_presence_of :parent_id, if: proc { |x| Page.roots.where.not(id: x.id).count > 1 }
 
     before_save :set_language_code,
       if: -> { language.present? },

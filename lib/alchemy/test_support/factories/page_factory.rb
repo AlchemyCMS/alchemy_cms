@@ -16,12 +16,23 @@ FactoryGirl.define do
     # Pass do_not_autogenerate: false to generate elements
     do_not_autogenerate true
 
+    trait :root do
+      name "Root"
+      parent_id nil
+
+      initialize_with { Alchemy::Page.root || Alchemy::Page.new }
+    end
+
     trait :language_root do
       name 'Startseite'
       page_layout { language.page_layout }
       language_root true
       public_on { Time.current }
-      parent_id { Alchemy::Page.root.id }
+      parent_id do
+        (Alchemy::Page.root ||
+         FactoryGirl.create(:alchemy_page, :root)
+        ).id
+      end
     end
 
     trait :public do
@@ -31,7 +42,11 @@ FactoryGirl.define do
 
     trait :system do
       name "Systempage"
-      parent_id { Alchemy::Page.root.id }
+      parent_id do
+        (Alchemy::Page.root ||
+         FactoryGirl.create(:alchemy_page, :root)
+        ).id
+      end
       language_root false
       page_layout nil
       language nil
