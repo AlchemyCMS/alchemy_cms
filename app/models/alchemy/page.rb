@@ -43,7 +43,6 @@ module Alchemy
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       do_not_autogenerate: true,
-      do_not_sweep: true,
       visible: false,
       public_on: nil,
       public_until: nil,
@@ -98,9 +97,6 @@ module Alchemy
     validates_presence_of :page_layout, unless: :systempage?
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { systempage? || page_layout.blank? }
     validates_presence_of :parent_id, if: proc { Page.count > 1 }
-
-    attr_accessor :do_not_sweep
-    attr_accessor :do_not_validate_language
 
     before_save :set_language_code,
       if: -> { language.present? },
