@@ -3,7 +3,6 @@ require 'spec_helper'
 module Alchemy
   describe Site do
     let(:site) { create(:alchemy_site) }
-    let(:another_site) { create(:alchemy_site, name: 'Another Site', host: 'another.com') }
 
     describe 'new instances' do
       subject { build(:alchemy_site, host: 'bla.com') }
@@ -153,23 +152,27 @@ module Alchemy
     end
 
     describe '#current?' do
-      let!(:site) { create(:alchemy_site) }
+      let!(:default_site) { create(:alchemy_site, :default) }
 
-      subject { site.current? }
+      let!(:another_site) do
+        create(:alchemy_site, name: 'Another Site', host: 'another.com')
+      end
+
+      subject { default_site.current? }
 
       context 'when Site.current is set to the same site' do
-        before { Site.current = site }
-        it { is_expected.to be_truthy }
+        before { Site.current = default_site }
+        it { is_expected.to be(true) }
       end
 
       context 'when Site.current is set to nil' do
         before { Site.current = nil }
-        it { is_expected.to be_falsey }
+        it { is_expected.to be(true) }
       end
 
       context 'when Site.current is set to a different site' do
         before { Site.current = another_site }
-        it { is_expected.to be_falsey }
+        it { is_expected.to be(false) }
       end
     end
 

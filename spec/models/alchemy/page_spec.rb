@@ -58,7 +58,7 @@ module Alchemy
           let(:other_parent) { create(:alchemy_page, parent_id: Page.root.id, visible: true) }
 
           before do
-            allow(Config).to receive(:get).and_return(true)
+            stub_alchemy_config(:url_nesting, true)
             with_same_urlname
           end
 
@@ -680,28 +680,25 @@ module Alchemy
     end
 
     describe '.find_or_create_layout_root_for' do
-      subject { Page.find_or_create_layout_root_for(language_id) }
+      subject { Page.find_or_create_layout_root_for(language.id) }
 
-      let(:language)    { mock_model('Language', name: 'English') }
-      let(:language_id) { language.id }
+      let!(:root_page) { create(:alchemy_page, :root) }
+      let(:language)   { create(:alchemy_language, name: 'English') }
 
-      before { allow(Language).to receive(:find).and_return(language) }
-
-      context 'if no layout root page for given language id could be found' do
-        before do
-          expect(Page).to receive(:create!).and_return(page)
-        end
-
+      context 'if no layout root page for given language id is present' do
         it "creates one" do
-          is_expected.to eq(page)
+          expect {
+            subject
+          }.to change { Page.count }.by(1)
         end
       end
 
-      context 'if layout root page for given language id could be found' do
-        let(:page) { mock_model('Page') }
-
-        before do
-          expect(Page).to receive(:layout_root_for).and_return(page)
+      context 'if layout root page for given language id is present' do
+        let!(:page) do
+          create :alchemy_page,
+            layoutpage: true,
+            parent_id: root_page.id,
+            language_id: language.id
         end
 
         it "returns layout root page" do
@@ -1887,7 +1884,9 @@ module Alchemy
       let(:language_root) { parentparent.parent }
 
       context "with activated url_nesting" do
-        before { allow(Config).to receive(:get).and_return(true) }
+        before do
+          stub_alchemy_config(:url_nesting, true)
+        end
 
         it "should store all parents urlnames delimited by slash" do
           expect(page.urlname).to eq('parentparent/parent/page')
@@ -1958,7 +1957,9 @@ module Alchemy
       end
 
       context "with disabled url_nesting" do
-        before { allow(Config).to receive(:get).and_return(false) }
+        before do
+          stub_alchemy_config(:url_nesting, false)
+        end
 
         it "should only store my urlname" do
           expect(page.urlname).to eq('page')

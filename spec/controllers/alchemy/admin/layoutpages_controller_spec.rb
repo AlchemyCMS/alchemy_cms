@@ -18,16 +18,16 @@ module Alchemy
       end
 
       context "with multiple sites" do
+        let!(:language) do
+          create(:alchemy_language)
+        end
+
         let!(:site_2) do
           create(:alchemy_site, host: 'another-site.com')
         end
 
         let(:language_2) do
           site_2.default_language
-        end
-
-        let(:language) do
-          create(:alchemy_language)
         end
 
         it 'only shows languages from current site' do
