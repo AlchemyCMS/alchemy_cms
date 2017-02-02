@@ -136,12 +136,16 @@ module Alchemy
       end
 
       def redirect_to_index
-        do_redirect_to admin_pictures_path(
-          filter: params[:filter].presence,
-          page: params[:page].presence,
-          q: params[:q].presence,
-          size: params[:size].presence,
-          tagged_with: params[:tagged_with].presence
+        do_redirect_to admin_pictures_path(search_params)
+      end
+
+      def search_params
+        params.except(:id, :picture_ids).permit(
+          :filter,
+          :page,
+          {q: resource_handler.search_field_name},
+          :size,
+          :tagged_with
         )
       end
 

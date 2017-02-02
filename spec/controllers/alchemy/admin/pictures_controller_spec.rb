@@ -5,7 +5,7 @@ RSpec.shared_examples :redirecting_to_picture_library do
     {
       filter: 'latest',
       page: 2,
-      q: {name_cont: 'kitten'},
+      q: {name_or_image_file_name_cont: 'kitten'},
       size: 'small',
       tagged_with: 'cat'
     }
@@ -28,7 +28,7 @@ module Alchemy
         let!(:picture_2) { create(:alchemy_picture, name: 'nice beach') }
 
         it 'assigns @pictures with filtered pictures' do
-          alchemy_get :index, q: {name_cont: 'kitten'}
+          alchemy_get :index, q: {name_or_image_file_name_cont: 'kitten'}
           expect(assigns(:pictures)).to include(picture_1)
           expect(assigns(:pictures)).to_not include(picture_2)
         end

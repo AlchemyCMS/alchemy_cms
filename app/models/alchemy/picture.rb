@@ -92,6 +92,10 @@ module Alchemy
     # Class methods
 
     class << self
+      def searchable_alchemy_resource_attributes
+        %w(name image_file_name)
+      end
+
       def last_upload
         last_picture = Picture.last
         return Picture.all unless last_picture
