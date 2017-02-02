@@ -253,8 +253,8 @@ partials with the following code snippets:
 ~~~ erb
 <% cache(element) do %>
   <%= element_view_for(element, tag: 'h1') do |el| %>
-    <%= el.render :title>
-    <small><%= el.render:text></small>
+    <%= el.render :title %>
+    <small><%= el.render :text %></small>
   <% end %>
 <% end %>
 ~~~
