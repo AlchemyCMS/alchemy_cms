@@ -62,7 +62,7 @@ gem install alchemy_cms
 Alchemy is a Rails engine, so at first you to generate a fresh Rails application, by running this command
 
 <shell>
-rails new YOUR_APP_NAME
+rails _4.2.7.1_ new YOUR_APP_NAME
 </shell>
 
 INFO: The command takes lots of parameters like choosing the database you want to work with. Please follow the official Rails guides for further informations. http://guides.rubyonrails.org/getting_started.html
@@ -110,7 +110,7 @@ Just add it to your apps Gemfile
 
 <ruby>
 # Gemfile
-gem 'alchemy-devise', github: 'magiclabs/alchemy-devise', branch: '2.0-stable'
+gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: '3.5-stable'
 </ruby>
 
 <shell>
@@ -120,7 +120,7 @@ bundle install
 and run the installer
 
 <shell>
-bin/rake alchemy_devise:install:migrations db:migrate
+bundle exec rails alchemy:devise:install
 </shell>
 
 h3. Running Alchemy CMS!
