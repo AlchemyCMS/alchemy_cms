@@ -752,15 +752,6 @@ module Alchemy
         end
       end
 
-      describe '#sort' do
-        before { allow(Page).to receive(:language_root_for).and_return(mock_model(Alchemy::Page)) }
-
-        it "should assign @sorting with true" do
-          alchemy_xhr :get, :sort
-          expect(assigns(:sorting)).to eq(true)
-        end
-      end
-
       describe '#unlock' do
         let(:page) { mock_model(Alchemy::Page, name: 'Best practices') }
 
