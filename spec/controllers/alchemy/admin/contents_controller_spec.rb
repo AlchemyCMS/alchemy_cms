@@ -2,29 +2,28 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::ContentsController do
-    let(:element) { build_stubbed(:alchemy_element) }
-    let(:content) { build_stubbed(:alchemy_content, element: element) }
-
     before do
       authorize_user(:as_admin)
     end
 
     context 'with element_id parameter' do
-      before do
-        expect(Element).to receive(:find).and_return(element)
-      end
-
       describe '#create' do
-        let(:element) { build_stubbed(:alchemy_element, name: 'headline') }
+        let(:element) { create(:alchemy_element, name: 'headline') }
 
         it "creates a content from name" do
-          expect(Content).to receive(:create_from_scratch).and_return(content)
-          alchemy_xhr :post, :create, {content: {element_id: element.id, name: 'headline'}}
+          expect {
+            alchemy_xhr :post, :create, {content: {element_id: element.id, name: 'headline'}}
+          }.to change { Alchemy::Content.count }.by(1)
         end
 
         it "creates a content from essence_type" do
-          expect(Content).to receive(:create_from_scratch).and_return(content)
-          alchemy_xhr :post, :create, {content: {element_id: element.id, essence_type: 'EssencePicture'}}
+          expect {
+            alchemy_xhr :post, :create, {
+              content: {
+                element_id: element.id, essence_type: 'EssencePicture'
+              }
+            }
+          }.to change { Alchemy::Content.count }.by(1)
         end
       end
 
@@ -49,22 +48,25 @@ module Alchemy
         end
 
         context 'with picture_id given' do
-          it "assigns the picture" do
-            expect_any_instance_of(Content).to receive(:update_essence).with(picture_id: '1')
+          it "assigns the picture to the essence" do
             alchemy_xhr :post, :create, attributes.merge(picture_id: '1')
+            expect(Alchemy::Content.last.essence.picture_id).to eq(1)
           end
         end
       end
     end
 
     describe '#update' do
+      let(:content) { create(:alchemy_content) }
+
       before do
         expect(Content).to receive(:find).and_return(content)
       end
 
       it "should update a content via ajax" do
-        expect(content.essence).to receive(:update).with('ingredient' => 'Peters Petshop')
-        alchemy_xhr :post, :update, {id: content.id, content: {ingredient: 'Peters Petshop'}}
+        expect {
+          alchemy_xhr :post, :update, {id: content.id, content: {ingredient: 'Peters Petshop'}}
+        }.to change { content.ingredient }.to 'Peters Petshop'
       end
     end
 
