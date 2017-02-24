@@ -5,7 +5,7 @@ module Alchemy
   describe Admin::PagesController do
     context 'a guest' do
       it 'can not access page tree' do
-        alchemy_get :index
+        get admin_pages_path
         expect(request).to redirect_to(Alchemy.login_path)
       end
     end
@@ -14,7 +14,7 @@ module Alchemy
       before { authorize_user(build(:alchemy_dummy_user)) }
 
       it 'can not access page tree' do
-        alchemy_get :index
+        get admin_pages_path
         expect(request).to redirect_to(root_path)
       end
     end
@@ -31,7 +31,7 @@ module Alchemy
           let!(:language_root) { create(:alchemy_page, :language_root) }
 
           it "assigns @page_root variable" do
-            alchemy_get :index
+            get admin_pages_path
             expect(assigns(:page_root)).to eq(language_root)
           end
         end
@@ -43,7 +43,7 @@ module Alchemy
           end
 
           it "it assigns current language" do
-            alchemy_get :index
+            get admin_pages_path
             expect(assigns(:language)).to eq(language)
           end
 
@@ -66,7 +66,7 @@ module Alchemy
             end
 
             it "loads languages with pages from current site only" do
-              alchemy_get :index
+              get admin_pages_path
               expect(assigns(:languages_with_page_tree)).to include(site_1_language_2)
               expect(assigns(:languages_with_page_tree)).to_not include(site_2_language)
             end
@@ -83,7 +83,7 @@ module Alchemy
           end
 
           it "loads languages from current site only" do
-            alchemy_get :index
+            get admin_pages_path
             expect(assigns(:languages)).to include(language)
             expect(assigns(:languages)).to_not include(language_2)
           end
@@ -98,7 +98,7 @@ module Alchemy
         let!(:pages) { [page_1, page_2, page_3] }
 
         subject :get_tree do
-          alchemy_get :tree, id: page_1.id, full: 'true'
+          get tree_admin_pages_path(id: page_1.id, full: 'true')
         end
 
         it 'returns a tree as JSON' do
@@ -146,7 +146,7 @@ module Alchemy
           end
 
           it 'does not return a branch that is folded' do
-            alchemy_get :tree, id: page_1.id, full: 'false'
+            get tree_admin_pages_path(id: page_1.id, full: 'false')
 
             expect(response.status).to eq(200)
             expect(response.content_type).to eq('application/json')
@@ -219,7 +219,7 @@ module Alchemy
           content_pages
 
           travel_to(Time.current) do
-            alchemy_xhr :post, :flush
+            xhr :post, flush_admin_pages_path
             # Reloading because published_at was directly updated in the database.
             content_pages.map(&:reload)
             content_pages.each do |page|
@@ -232,7 +232,7 @@ module Alchemy
           layout_pages
 
           travel_to(Time.current) do
-            alchemy_xhr :post, :flush
+            xhr :post, flush_admin_pages_path
             # Reloading because published_at was directly updated in the database.
             layout_pages.map(&:reload)
             layout_pages.each do |page|
@@ -244,13 +244,16 @@ module Alchemy
 
       describe '#new' do
         context "pages in clipboard" do
-          let(:clipboard) { session[:alchemy_clipboard] = {} }
           let(:page) { mock_model(Alchemy::Page, name: 'Foobar') }
 
-          before { clipboard['pages'] = [{'id' => page.id.to_s, 'action' => 'copy'}] }
+          before do
+            allow_any_instance_of(described_class).to receive(:get_clipboard).with('pages') do
+              [{'id' => page.id.to_s, 'action' => 'copy'}]
+            end
+          end
 
           it "should load all pages from clipboard" do
-            alchemy_xhr :get, :new, {page_id: page.id}
+            xhr :get, new_admin_page_path(page_id: page.id)
             expect(assigns(:clipboard_items)).to be_kind_of(Array)
           end
         end
@@ -266,23 +269,22 @@ module Alchemy
         end
 
         it "should assign @preview_mode with true" do
-          alchemy_get :show, id: page.id
+          get admin_page_path(page)
           expect(assigns(:preview_mode)).to eq(true)
         end
 
         it "should store page as current preview" do
-          Page.current_preview = nil
-          alchemy_get :show, id: page.id
-          expect(Page.current_preview).to eq(page)
+          expect(Page).to receive(:current_preview=).with(page)
+          get admin_page_path(page)
         end
 
         it "should set the I18n locale to the pages language code" do
-          alchemy_get :show, id: page.id
+          get admin_page_path(page)
           expect(::I18n.locale).to eq(:nl)
         end
 
         it "renders the application layout" do
-          alchemy_get :show, id: page.id
+          get admin_page_path(page)
           expect(response).to render_template(layout: 'application')
         end
       end
@@ -297,7 +299,7 @@ module Alchemy
         let(:set_of_pages) { [page_item_1] }
 
         it "stores the new order" do
-          alchemy_xhr :post, :order, set: set_of_pages.to_json
+          xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
           page_1.reload
           expect(page_1.descendants).to eq([page_2, page_3])
         end
@@ -308,7 +310,7 @@ module Alchemy
           end
 
           it "updates the pages urlnames" do
-            alchemy_xhr :post, :order, set: set_of_pages.to_json
+            xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
             [page_1, page_2, page_3].map(&:reload)
             expect(page_1.urlname).to eq(page_1.slug.to_s)
             expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
@@ -326,7 +328,7 @@ module Alchemy
             end
 
             it "does not use this pages slug in urlnames of descendants" do
-              alchemy_xhr :post, :order, set: set_of_pages.to_json
+              xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
               [page_1, page_2, page_3].map(&:reload)
               expect(page_1.urlname).to eq(page_1.slug.to_s)
               expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
@@ -345,7 +347,7 @@ module Alchemy
             end
 
             it "does not use this pages slug in urlnames of descendants" do
-              alchemy_xhr :post, :order, set: set_of_pages.to_json
+              xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
               [page_1, page_2, page_3].map(&:reload)
               expect(page_3.urlname).to eq("#{page_1.slug}/#{page_3.slug}")
             end
@@ -363,7 +365,7 @@ module Alchemy
             end
 
             it "updates restricted status of descendants" do
-              alchemy_xhr :post, :order, set: set_of_pages.to_json
+              xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
               page_3.reload
               expect(page_3.restricted).to be_truthy
             end
@@ -380,19 +382,19 @@ module Alchemy
 
             it "does not raise error" do
               expect {
-                alchemy_xhr :post, :order, set: set_of_pages.to_json
+                xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
               }.not_to raise_error
             end
 
             it "still generates the correct urlname on page_3" do
-              alchemy_xhr :post, :order, set: set_of_pages.to_json
+              xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
               [page_1, page_2, page_3].map(&:reload)
               expect(page_3.urlname).to eq("#{page_1.slug}/#{page_2.slug}/#{page_3.slug}")
             end
           end
 
           it "creates legacy urls" do
-            alchemy_xhr :post, :order, set: set_of_pages.to_json
+            xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
             [page_2, page_3].map(&:reload)
             expect(page_2.legacy_urls.size).to eq(1)
             expect(page_3.legacy_urls.size).to eq(1)
@@ -401,75 +403,86 @@ module Alchemy
       end
 
       describe "#configure" do
-        render_views
-
         context "with page having nested urlname" do
           let(:page) { create(:alchemy_page, name: 'Foobar', urlname: 'foobar') }
 
           it "should always show the slug" do
-            alchemy_xhr :get, :configure, {id: page.id}
+            xhr :get, configure_admin_page_path(page)
             expect(response.body).to match /value="foobar"/
           end
         end
       end
 
       describe '#create' do
-        let(:language)    { mock_model('Language', code: 'kl') }
-        let(:parent)      { mock_model('Page', language: language) }
-        let(:page_params) { {parent_id: parent.id, name: 'new Page'} }
+        subject { post admin_pages_path(page: page_params) }
+
+        let(:parent) { create(:alchemy_page) }
+
+        let(:page_params) do
+          {
+            parent_id: parent.id,
+            name: 'new Page',
+            page_layout: 'standard'
+          }
+        end
 
         context "a new page" do
-          before do
-            allow_any_instance_of(Page).to receive(:set_language_from_parent_or_default)
-            allow_any_instance_of(Page).to receive(:save).and_return(true)
-          end
-
           it "is nested under given parent" do
-            allow(controller).to receive(:edit_admin_page_path).and_return('bla')
-            alchemy_xhr :post, :create, {page: page_params}
-            expect(assigns(:page).parent_id).to eq(parent.id)
+            subject
+            expect(Alchemy::Page.last.parent_id).to eq(parent.id)
           end
 
           it "redirects to edit page template" do
-            expect(controller).to receive(:edit_admin_page_path).and_return('bla')
-            alchemy_post :create, page: page_params
-            expect(response).to redirect_to('bla')
+            expect(subject).to redirect_to(edit_admin_page_path(Alchemy::Page.last))
           end
 
           context "if new page can not be saved" do
+            let(:page_params) do
+              {
+                parent_id: parent.id,
+                name: 'new Page'
+              }
+            end
+
             it "renders the create form" do
-              allow_any_instance_of(Page).to receive(:save).and_return(false)
-              alchemy_post :create, page: {name: 'page'}
-              expect(response).to render_template('new')
+              expect(subject).to render_template(:new)
             end
           end
 
           context "with redirect_to in params" do
-            let(:page_params) do
-              {name: "Foobar", page_layout: 'standard', parent_id: parent.id}
+            subject do
+              post admin_pages_path(page: page_params, redirect_to: admin_pictures_path)
             end
 
             it "should redirect to given url" do
-              alchemy_post :create, page: page_params, redirect_to: admin_pictures_path
-              expect(response).to redirect_to(admin_pictures_path)
+              expect(subject).to redirect_to(admin_pictures_path)
             end
 
-            context "but new page can not be saved" do
-              render_views
+            context "when a new page cannot be created" do
+              let(:page_params) do
+                {
+                  parent_id: parent.id,
+                  name: 'new Page'
+                }
+              end
 
               it "should render the `new` template" do
-                allow_any_instance_of(Page).to receive(:save).and_return(false)
-                alchemy_xhr :post, :create, page: {name: 'page'}, redirect_to: admin_pictures_path
-                expect(response.body).to match /form.+action=\"\/admin\/pages\"/
+                expect(subject).to render_template(:new)
               end
             end
           end
 
           context 'with page redirecting to external' do
+            let(:page_params) do
+              {
+                parent_id: parent.id,
+                name: 'Google',
+                page_layout: 'external'
+              }
+            end
+
             it "redirects to sitemap" do
-              expect_any_instance_of(Page).to receive(:redirects_to_external?).and_return(true)
-              alchemy_post :create, page: page_params
-              expect(response).to redirect_to(admin_pages_path)
+              expect(subject).to redirect_to(admin_pages_path)
             end
           end
 
@@ -480,7 +493,7 @@ module Alchemy
               end
 
               it 'redirects to admin pages path' do
-                alchemy_post :create, page: page_params
+                post admin_pages_path(page: page_params)
                 expect(response).to redirect_to(admin_pages_path)
               end
             end
@@ -488,23 +501,15 @@ module Alchemy
         end
 
         context "with paste_from_clipboard in parameters" do
-          let(:page_in_clipboard) { mock_model(Alchemy::Page) }
-
-          before do
-            allow(Page).to receive(:find_by).with(id: parent.id.to_s).and_return(parent)
-            allow(Page).to receive(:find).with(page_in_clipboard.id.to_s).and_return(page_in_clipboard)
-            allow(@controller).to receive(:redirect_path_after_create_page).and_return(page_in_clipboard)
-          end
+          let(:page_in_clipboard) { create(:alchemy_page) }
 
           it "should call Page#copy_and_paste" do
-            expect(Page).to receive(:copy_and_paste).with(
-              page_in_clipboard,
-              parent,
-              'pasted Page'
-            ).and_return(
-              mock_model('Page', save: true, name: 'pasted Page', redirects_to_external?: false)
+            expect(Page).to receive(:copy_and_paste).
+              with(page_in_clipboard, parent, page_params[:name])
+            xhr :post, admin_pages_path(
+              page: page_params,
+              paste_from_clipboard: page_in_clipboard.id
             )
-            alchemy_xhr :post, :create, {paste_from_clipboard: page_in_clipboard.id, page: {parent_id: parent.id, name: 'pasted Page'}}
           end
         end
       end
@@ -521,31 +526,32 @@ module Alchemy
           allow(Page).to receive(:language_root_for).and_return(language_root_to_copy_from)
           allow_any_instance_of(Page).to receive(:move_to_child_of)
           allow_any_instance_of(Page).to receive(:copy_children_to)
-          allow(controller).to receive(:store_current_language)
           allow(Language).to receive(:current).and_return(mock_model('Language', locale: 'de', code: 'de'))
         end
 
         it "should copy the language root page over to the other language" do
           expect(Page).to receive(:copy).with(language_root_to_copy_from, {language_id: '2', language_code: 'de'})
-          alchemy_post :copy_language_tree, params
+          post copy_language_tree_admin_pages_path(params)
         end
 
         it "should move the newly created language-root-page below the absolute root page" do
           expect(copy_of_language_root).to receive(:move_to_child_of).with(root_page)
-          alchemy_post :copy_language_tree, params
+          post copy_language_tree_admin_pages_path(params)
         end
 
         it "should copy all childs of the original page over to the new created one" do
-          expect(controller).to receive(:language_root_to_copy_from).and_return(language_root_to_copy_from)
-          expect(controller).to receive(:copy_of_language_root).and_return(copy_of_language_root)
+          expect_any_instance_of(described_class).
+            to receive(:language_root_to_copy_from) { language_root_to_copy_from }
+          expect_any_instance_of(described_class).
+            to receive(:copy_of_language_root) { copy_of_language_root }
           expect(language_root_to_copy_from).to receive(:copy_children_to).with(copy_of_language_root)
-          alchemy_post :copy_language_tree, params
+          post copy_language_tree_admin_pages_path(params)
         end
 
         it "should redirect to admin_pages_path" do
-          allow(controller).to receive(:copy_of_language_root)
-          allow(controller).to receive(:language_root_to_copy_from).and_return(double(copy_children_to: nil))
-          alchemy_post :copy_language_tree, params
+          allow_any_instance_of(described_class).to receive(:copy_of_language_root)
+          allow_any_instance_of(described_class).to receive(:language_root_to_copy_from).and_return(double(copy_children_to: nil))
+          post copy_language_tree_admin_pages_path(params)
           expect(response).to redirect_to(admin_pages_path)
         end
       end
@@ -563,7 +569,7 @@ module Alchemy
             end
 
             it 'redirects to sitemap' do
-              alchemy_get :edit, id: page.id
+              get edit_admin_page_path(page)
               expect(response).to redirect_to(admin_pages_path)
             end
           end
@@ -574,7 +580,7 @@ module Alchemy
             end
 
             it 'renders the edit view' do
-              alchemy_get :edit, id: page.id
+              get edit_admin_page_path(page)
               expect(response).to render_template(:edit)
             end
           end
@@ -587,13 +593,13 @@ module Alchemy
           end
 
           it 'renders the edit view' do
-            alchemy_get :edit, id: page.id
+            get edit_admin_page_path(page)
             expect(response).to render_template(:edit)
           end
 
           it 'does not lock the page again' do
             expect_any_instance_of(Alchemy::Page).to_not receive(:lock_to!)
-            alchemy_get :edit, id: page.id
+            get edit_admin_page_path(page)
           end
         end
 
@@ -603,13 +609,13 @@ module Alchemy
           end
 
           it 'renders the edit view' do
-            alchemy_get :edit, id: page.id
+            get edit_admin_page_path(page)
             expect(response).to render_template(:edit)
           end
 
           it "lockes the page to myself" do
             expect_any_instance_of(Page).to receive(:lock_to!)
-            alchemy_get :edit, id: page.id
+            get edit_admin_page_path(page)
           end
         end
 
@@ -621,7 +627,7 @@ module Alchemy
               end
 
               it 'renders the edit view' do
-                alchemy_get :edit, id: page.id
+                get edit_admin_page_path(page)
                 expect(response).to render_template(:edit)
               end
             end
@@ -632,7 +638,7 @@ module Alchemy
               end
 
               it 'redirects to admin dashboard' do
-                alchemy_get :edit, id: page.id
+                get edit_admin_page_path(page)
                 expect(response).to redirect_to(admin_dashboard_path)
               end
             end
@@ -641,93 +647,58 @@ module Alchemy
       end
 
       describe '#destroy' do
-        let(:clipboard) { session[:alchemy_clipboard] = {} }
+        let(:clipboard) { [{'id' => page.id.to_s}] }
         let(:page) { create(:alchemy_page, :public) }
 
-        before { clipboard['pages'] = [{'id' => page.id.to_s}] }
+        before do
+          allow_any_instance_of(described_class).to receive(:get_clipboard).with('pages') do
+            clipboard
+          end
+        end
 
         it "should also remove the page from clipboard" do
-          alchemy_xhr :post, :destroy, {id: page.id, _method: :delete}
-          expect(clipboard['pages']).to be_empty
+          xhr :delete, admin_page_path(page)
+          expect(clipboard).to be_empty
         end
       end
 
       describe '#publish' do
-        let(:page) do
-          stub_model Page,
-            published_at: nil,
-            public_on: nil,
-            name: "page",
-            parent_id: 1,
-            urlname: "page",
-            language: stub_model(Language),
-            page_layout: "bla"
-        end
-
-        before do
-          allow(@controller).to receive(:load_page).and_return(page)
-          @controller.instance_variable_set("@page", page)
-        end
+        let(:page) { create(:alchemy_page) }
 
         it "should publish the page" do
-          expect(page).to receive(:publish!)
-          alchemy_post :publish, { id: page.id }
+          expect {
+            post publish_admin_page_path(page)
+          }.to change { page.reload.published_at }
         end
       end
 
       describe '#visit' do
-        let(:page) { mock_model(Alchemy::Page, urlname: 'home', site: site) }
-
-        before do
-          allow(Page).to receive(:find).with(page.id.to_s).and_return(page)
-          allow(page).to receive(:editable_by?).with(user).and_return(true)
-          allow(page).to receive(:unlock!).and_return(true)
-          allow(@controller).to receive(:multi_language?).and_return(false)
+        subject do
+          post visit_admin_page_path(page)
         end
+
+        let(:page) { create(:alchemy_page, urlname: 'home', site: site) }
 
         context "when the pages site is a catch-all" do
-          let(:site) { build_stubbed(:alchemy_site, host: "*") }
+          let(:site) { create(:alchemy_site, host: "*") }
 
           it "should redirect to the page path" do
-            expect(alchemy_post(:visit, id: page.id)).to redirect_to("/home")
+            is_expected.to redirect_to("/home")
           end
         end
 
-        context "when pages site is a concrete host" do
-          let(:site) { build_stubbed(:alchemy_site, host: "reallygoodsite.com") }
+        context "when pages site is a real host" do
+          let(:site) { create(:alchemy_site, host: "reallygoodsite.com") }
 
-          it "should redirect to the page path on the right site" do
-            expect(alchemy_post(:visit, id: page.id)).to redirect_to("http://reallygoodsite.com/home")
-          end
-        end
-
-        context "when running in a dev env with a different port" do
-          let(:site) { build_stubbed(:alchemy_site, host: "*") }
-
-          before do
-            allow(request).to receive(:port).and_return(3000)
-          end
-
-          it "should redirect to the page path on the right site" do
-            expect(alchemy_post(:visit, id: page.id)).to redirect_to("http://test.host:3000/home")
-          end
-        end
-
-        context "when running in a dev env with a different port" do
-          let(:site) { build_stubbed(:alchemy_site, host: "reallygoodsite.com") }
-
-          before do
-            allow(request).to receive(:port).and_return(3000)
-          end
-
-          it "should redirect to the page path on the right site" do
-            expect(alchemy_post(:visit, id: page.id)).to redirect_to("http://reallygoodsite.com:3000/home")
+          it "should redirect to the page path on that host" do
+            is_expected.to redirect_to("http://reallygoodsite.com/home")
           end
         end
       end
 
       describe '#fold' do
         let(:page) { mock_model(Alchemy::Page) }
+
         before do
           allow(Page).to receive(:find).and_return(page)
           allow(page).to receive(:editable_by?).with(user).and_return(true)
@@ -738,7 +709,7 @@ module Alchemy
 
           it "should fold the page" do
             expect(page).to receive(:fold!).with(user.id, true).and_return(true)
-            alchemy_xhr :post, :fold, id: page.id
+            xhr :post, fold_admin_page_path(page)
           end
         end
 
@@ -747,41 +718,49 @@ module Alchemy
 
           it "should unfold the page" do
             expect(page).to receive(:fold!).with(user.id, false).and_return(true)
-            alchemy_xhr :post, :fold, id: page.id
+            xhr :post, fold_admin_page_path(page)
           end
         end
       end
 
       describe '#unlock' do
+        subject { xhr :post, unlock_admin_page_path(page) }
+
         let(:page) { mock_model(Alchemy::Page, name: 'Best practices') }
 
         before do
           allow(Page).to receive(:find).with(page.id.to_s).and_return(page)
           allow(page).to receive(:editable_by?).with(user).and_return(true)
           allow(Page).to receive(:from_current_site).and_return(double(locked_by: nil))
-          expect(page).to receive(:unlock!).and_return(true)
+          expect(page).to receive(:unlock!) { true }
         end
 
         it "should unlock the page" do
-          alchemy_xhr :post, :unlock, id: page.id.to_s
+          is_expected.to eq(200)
         end
 
         context 'requesting for html format' do
+          subject { post unlock_admin_page_path(page) }
+
           it "should redirect to admin_pages_path" do
-            expect(alchemy_post(:unlock, id: page.id)).to redirect_to(admin_pages_path)
+            is_expected.to redirect_to(admin_pages_path)
           end
 
           context 'if passing :redirect_to through params' do
+            subject { post unlock_admin_page_path(page, redirect_to: 'this/path') }
+
             it "should redirect to the given path" do
-              expect(
-                alchemy_post(:unlock, id: page.id, redirect_to: 'this/path')
-              ).to redirect_to('this/path')
+              is_expected.to redirect_to('this/path')
             end
           end
         end
       end
 
       describe "#switch_language" do
+        subject(:switch_language) do
+          get switch_language_admin_pages_path(language_id: language.id)
+        end
+
         let(:language) { build_stubbed(:alchemy_language, :klingon) }
 
         before do
@@ -789,25 +768,23 @@ module Alchemy
         end
 
         it "should store the current language in session" do
-          alchemy_get :switch_language, {language_id: language.id}
+          switch_language
           expect(session[:alchemy_language_id]).to eq(language.id)
         end
 
         it "should redirect to sitemap" do
-          expect(
-            alchemy_get(:switch_language, language_id: language.id)
-          ).to redirect_to(admin_pages_path)
+          is_expected.to redirect_to(admin_pages_path)
         end
 
         context "coming from layoutpages" do
-          before {
-            allow(request).to receive(:referer).and_return('admin/layoutpages')
-          }
+          before do
+            allow_any_instance_of(ActionDispatch::Request).to receive(:referer) do
+              'admin/layoutpages'
+            end
+          end
 
           it "should redirect to layoutpages" do
-            expect(
-              alchemy_get(:switch_language, language_id: language.id)
-            ).to redirect_to(admin_layoutpages_path)
+            is_expected.to redirect_to(admin_layoutpages_path)
           end
         end
       end
