@@ -153,8 +153,9 @@ module Alchemy
         context 'with search params' do
           let(:search_params) do
             {
-              q: {name_cont: 'kitten'},
-              per_page: 20,
+              q: {name_or_file_name_cont: 'kitten'},
+              tagged_with: 'cute',
+              file_type: 'pdf',
               page: 2
             }
           end
@@ -185,29 +186,40 @@ module Alchemy
         expect(Attachment).to receive(:find).and_return(attachment)
       end
 
-      it "destroys the attachment and sets and success message" do
+      it "destroys the attachment and sets a success message" do
         expect(attachment).to receive(:destroy)
         alchemy_xhr :delete, :destroy, id: 1
         expect(assigns(:attachment)).to eq(attachment)
         expect(assigns(:url)).not_to be_blank
         expect(flash[:notice]).not_to be_blank
       end
+
+      context 'with search params' do
+        let(:search_params) do
+          {
+            q: {name_or_file_name_cont: 'kitten'},
+            tagged_with: 'cute',
+            file_type: 'pdf',
+            page: 2
+          }
+        end
+
+        it "passes them along" do
+          expect(attachment).to receive(:destroy) { true }
+          alchemy_xhr :delete, :destroy, {id: 1}.merge(search_params)
+          expect(assigns(:url)).to eq admin_attachments_url(search_params.merge(host: 'test.host'))
+        end
+      end
     end
 
     describe "#download" do
       before do
-        expect(Attachment).to receive(:find).with(attachment.id.to_s).and_return(attachment)
-        allow(controller).to receive(:render).and_return(nil)
+        expect(Attachment).to receive(:find).and_return(attachment)
       end
 
-      it "should assign @attachment with Attachment found by id" do
+      it "sends the file as download" do
         alchemy_get :download, id: attachment.id
-        expect(assigns(:attachment)).to eq(attachment)
-      end
-
-      it "should send the data to the browser" do
-        expect(controller).to receive(:send_file)
-        alchemy_get :download, id: attachment.id
+        expect(response.headers['Content-Disposition']).to match(/attachment/)
       end
     end
   end

@@ -138,17 +138,13 @@ module Alchemy
       #
       def options_from_params
         case params[:options]
-        when ''
+        when '', nil
           {}
         when String
           JSON.parse(params[:options])
-        when Hash
-          params[:options]
-        when Array
-          params[:options]
         else
-          {}
-        end.symbolize_keys
+          params[:options].permit!.to_h
+        end.deep_symbolize_keys
       end
 
       # This method decides if we want to raise an exception or not.

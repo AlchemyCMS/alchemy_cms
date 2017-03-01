@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.6.0 (unreleased)
+
+__Notable Changes__
+
+* The seeder does not generate default site and root page anymore.
+  Alchemy handles this auto-magically now. No need to run `Alchemy::Seeder.seed!` any more |o/
+
 ## 3.5.0 (unreleased)
 
 __New Features__

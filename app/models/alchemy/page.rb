@@ -43,7 +43,6 @@ module Alchemy
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       do_not_autogenerate: true,
-      do_not_sweep: true,
       visible: false,
       public_on: nil,
       public_until: nil,
@@ -99,9 +98,6 @@ module Alchemy
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { systempage? || page_layout.blank? }
     validates_presence_of :parent_id, if: proc { Page.count > 1 }
 
-    attr_accessor :do_not_sweep
-    attr_accessor :do_not_validate_language
-
     before_save :set_language_code,
       if: -> { language.present? },
       unless: :systempage?
@@ -143,6 +139,15 @@ module Alchemy
     # Class methods
     #
     class << self
+      # The root page of the page tree
+      #
+      # Internal use only. You wouldn't use this page ever.
+      #
+      # Automatically created when accessed the first time.
+      #
+      def root
+        super || create!(name: 'Root')
+      end
       alias_method :rootpage, :root
 
       # Used to store the current page previewed in the edit page template.

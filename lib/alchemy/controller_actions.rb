@@ -65,7 +65,7 @@ module Alchemy
         # find the best language and remember it for later
         @language = load_alchemy_language_from_params ||
                     load_alchemy_language_from_session ||
-                    load_default_alchemy_language
+                    Language.default
       end
       store_current_alchemy_language(@language)
     end
@@ -87,11 +87,6 @@ module Alchemy
     def load_alchemy_language_from_id_or_code(id_or_code)
       Language.find_by(id: id_or_code) ||
         Language.find_by_code(id_or_code)
-    end
-
-    # Load the default language from current site.
-    def load_default_alchemy_language
-      Language.default || raise(DefaultLanguageNotFoundError)
     end
 
     # Stores language's id in the session.

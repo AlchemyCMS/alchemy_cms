@@ -16,6 +16,13 @@ FactoryGirl.define do
     # Pass do_not_autogenerate: false to generate elements
     do_not_autogenerate true
 
+    trait :root do
+      name 'Root'
+      language nil
+      parent_id nil
+      page_layout nil
+    end
+
     trait :language_root do
       name 'Startseite'
       page_layout { language.page_layout }

@@ -12,7 +12,10 @@ RSpec.describe 'Page seeding' do
       Alchemy::Seeder.instance_variable_set(:@_page_yml, nil)
     end
 
-    subject(:seed) { Alchemy::Seeder.seed! }
+    subject(:seed) do
+      Alchemy::Shell.silence!
+      Alchemy::Seeder.seed!
+    end
 
     context 'when no pages are present yet' do
       before do
@@ -42,6 +45,8 @@ RSpec.describe 'Page seeding' do
     end
 
     context "when pages are already present" do
+      let!(:page) { create(:alchemy_page) }
+
       it 'does not seed' do
         seed
         expect(Alchemy::Page.find_by(name: 'Home')).to_not be_present

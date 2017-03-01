@@ -289,7 +289,7 @@ module Alchemy
 
       context 'if the expression from config is nil' do
         before do
-          expect(Alchemy::Config).to receive(:get).and_return({link_url: nil})
+          stub_alchemy_config(:format_matchers, {link_url: nil})
         end
 
         it "returns the default expression" do

@@ -24,6 +24,18 @@ module Alchemy
         expect(response.status).to eq(200)
         expect(response.headers['Content-Disposition']).to match(/inline/)
       end
+
+      context "adds Content-Length to header" do
+        it "when downloading attachment" do
+          alchemy_get :download, id: attachment.id
+          expect(response.headers['Content-Length']).to eq(attachment.file_size.to_s)
+        end
+
+        it "when showing attachment" do
+          alchemy_get :show, id: attachment.id
+          expect(response.headers['Content-Length']).to eq(attachment.file_size.to_s)
+        end
+      end
     end
 
     context 'with restricted attachment' do

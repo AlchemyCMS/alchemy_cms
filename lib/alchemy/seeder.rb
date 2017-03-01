@@ -1,62 +1,33 @@
 require "alchemy/shell"
 
 module Alchemy
+  # This seeder builds Alchemy pages in your database.
+  #
+  # Create a +db/seeds/alchemy/pages.yml+ and +db/seeds/alchemy/users.yml+ files
+  # and put +Alchemy::Seeder.seed!+ into your +db/seeds.rb+ file.
+  #
+  # Then run +rake db:seed+
+  #
   class Seeder
     extend Alchemy::Shell
 
     class << self
-      # This seed builds the necessary page structure for Alchemy in your database.
-      #
-      # Call this from your +db/seeds.rb+ file with the `rake db:seed task'.
+      # Put +Alchemy::Seeder.seed!+ into your +db/seeds.rb+ file and run +rake db:seed+.
       #
       def seed!
-        create_default_site
-        if create_root_page
-          try_seed_pages
-        elsif page_seeds_file.file?
-          desc "Seeding Alchemy pages"
-          log "There are already pages present in your database. " \
-              "Please use `rake db:reset' if you want to rebuild your database.", :skip
-        end
+        try_seed_pages
         seed_users if user_seeds_file.file?
       end
 
       protected
 
-      def create_default_site
-        desc "Creating default Alchemy site"
-        if Alchemy::Site.count == 0
-          site = Alchemy::Site.new(
-            name: site_config['name'],
-            host: site_config['host']
-          )
-          if Alchemy::Language.any?
-            site.languages = Alchemy::Language.all
-          end
-          site.save!
-          log "Created default Alchemy site with default language."
-        else
-          log "Default Alchemy site was already present.", :skip
-        end
-      end
-
-      def create_root_page
-        desc "Creating Alchemy root page"
-        root = Alchemy::Page.find_or_initialize_by(name: 'Root')
-        root.do_not_sweep = true
-        if root.new_record?
-          if root.save!
-            log "Created Alchemy root page."
-            return true
-          end
-        else
-          log "Alchemy root page was already present.", :skip
-          return false
-        end
-      end
-
       def try_seed_pages
-        if page_seeds_file.file?
+        return unless page_seeds_file.file?
+        if Alchemy::Page.exists?
+          desc "Seeding Alchemy pages"
+          log "There are already pages present in your database. " \
+              "Please use `rake db:reset' if you want to rebuild your database.", :skip
+        else
           seed_pages if contentpages.present?
           seed_layoutpages if layoutpages.present?
         end
@@ -106,10 +77,6 @@ module Alchemy
       end
 
       private
-
-      def site_config
-        @_site_config ||= Alchemy::Config.get(:default_site)
-      end
 
       def page_seeds_file
         @_page_seeds_file ||= Rails.root.join('db', 'seeds', 'alchemy', 'pages.yml')

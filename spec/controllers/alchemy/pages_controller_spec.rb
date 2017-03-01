@@ -26,9 +26,7 @@ module Alchemy
     describe "#index" do
       before do
         default_language_root
-        allow(Config).to receive(:get) do |arg|
-          arg == :redirect_index ? false : Config.parameter(arg)
-        end
+        stub_alchemy_config(:redirect_index, false)
       end
 
       it 'renders :show template' do
@@ -53,9 +51,7 @@ module Alchemy
 
           context 'and redirect_to_public_child is set to false' do
             before do
-              allow(Config).to receive(:get) do |arg|
-                arg == :redirect_to_public_child ? false : Config.parameter(arg)
-              end
+              stub_alchemy_config(:redirect_to_public_child, false)
             end
 
             it 'raises routing error (404)' do
@@ -82,9 +78,7 @@ module Alchemy
 
           context 'and redirect_to_public_child is set to true' do
             before do
-              allow(Config).to receive(:get) do |arg|
-                arg == :redirect_to_public_child ? true : Config.parameter(arg)
-              end
+              stub_alchemy_config(:redirect_to_public_child, true)
             end
 
             context 'that has a public child' do
@@ -255,7 +249,7 @@ module Alchemy
 
       before do
         allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
-        allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : false }
+        stub_alchemy_config(:url_nesting, true)
         product.elements.find_by_name('article').contents.essence_texts.first.essence.update_column(:body, 'screwdriver')
       end
 
@@ -281,56 +275,6 @@ module Alchemy
         expect {
           alchemy_get :show, {urlname: 'doesntexist'}
         }.to raise_error(ActionController::RoutingError)
-      end
-    end
-
-    describe 'Redirecting to legacy page urls' do
-      context 'Request a page with legacy url' do
-        let(:page)        { create(:alchemy_page, :public, name: 'New page name') }
-        let(:second_page) { create(:alchemy_page, :public, name: 'Second Page') }
-        let(:legacy_page) { create(:alchemy_page, :public, name: 'Legacy Url') }
-        let!(:legacy_url) { LegacyPageUrl.create(urlname: 'legacy-url', page: page) }
-        let(:legacy_url2) { LegacyPageUrl.create(urlname: 'legacy-url', page: second_page) }
-        let(:legacy_url3) { LegacyPageUrl.create(urlname: 'index.php?id=2', page: second_page) }
-        let(:legacy_url4) { LegacyPageUrl.create(urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69', page: second_page) }
-        let(:legacy_url5) { LegacyPageUrl.create(urlname: 'nested/legacy/url', page: second_page) }
-
-        it "should redirect permanently to page that belongs to legacy page url even if url has an unknown format & get parameters" do
-          expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url4.urlname)
-          alchemy_get :show, urlname: legacy_url4.urlname
-          expect(response.status).to eq(301)
-          expect(response).to redirect_to("/#{second_page.urlname}")
-        end
-
-        it "should not pass query string for legacy routes" do
-          expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url3.urlname)
-          alchemy_get :show, urlname: legacy_url4.urlname
-          expect(URI.parse(response["Location"]).query).to be_nil
-        end
-
-        it "should only redirect to legacy url if no page was found for urlname" do
-          alchemy_get :show, urlname: legacy_page.urlname
-          expect(response.status).to eq(200)
-          expect(response).not_to redirect_to("/#{page.urlname}")
-        end
-
-        it "should redirect to last page that has that legacy url" do
-          expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url2.urlname)
-          alchemy_get :show, urlname: legacy_url2.urlname
-          expect(response).to redirect_to("/#{second_page.urlname}")
-        end
-
-        it "should redirect even if the url has get parameters" do
-          expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url3.urlname)
-          alchemy_get :show, urlname: legacy_url3.urlname
-          expect(response).to redirect_to("/#{second_page.urlname}")
-        end
-
-        it "should redirect even if the url has nested urlname" do
-          expect(request).to receive(:fullpath).at_least(:once).and_return(legacy_url5.urlname)
-          alchemy_get :show, urlname: legacy_url5.urlname
-          expect(response).to redirect_to("/#{second_page.urlname}")
-        end
       end
     end
 
