@@ -1,8 +1,7 @@
 <% if pages.present? %>
 <%= content_tag(
   'ul',
-  :class => html_options[:class] || "navigation level_#{pages.first.level - 1}",
-  :id => html_options[:id]
+  html_options.reverse_merge(class: "navigation level_#{pages.first.level - 1}")
 ) do %>
   <% pages.each do |page| %>
     <% position = 'first' if page == pages.first %>
