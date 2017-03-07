@@ -80,15 +80,19 @@ module Alchemy
       # your own set of elements
       #
       def descriptions
-        if ::File.exists? "#{::Rails.root}/config/alchemy/elements.yml"
-          ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml") || []
-        else
-          raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
+        unless @elements_config
+          if ::File.exists? "#{::Rails.root}/config/alchemy/elements.yml"
+            @elements_config = ::YAML.load_file("#{::Rails.root}/config/alchemy/elements.yml") || []
+          else
+            raise LoadError, "Could not find elements.yml file! Please run: rails generate alchemy:scaffold"
+          end
         end
+        @elements_config
       rescue TypeError => e
         warn "Your elements.yml is empty."
         []
       end
+
       alias_method :definitions, :descriptions
 
       # pastes a element from the clipboard in the session to page
