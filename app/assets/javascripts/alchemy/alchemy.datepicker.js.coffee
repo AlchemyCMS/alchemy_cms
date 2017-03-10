@@ -3,33 +3,24 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 $.extend Alchemy,
 
   Datepicker: (scope) ->
-    options =
-      format: Alchemy.t('formats.datetime')
-      formatDate: Alchemy.t('formats.date')
-      formatTime: Alchemy.t('formats.time')
-      dayOfWeekStart: Alchemy.t('formats.start_of_week')
-      onSelectDate: ->
-        Alchemy.setElementDirty $(this).closest(".element-editor")
-
-    datepicker_options = $.extend {}, options,
-      format: options.formatDate
-      timepicker: false
-
-    timepicker_options = $.extend {}, options,
-      format: options.formatTime
-      datepicker: false
-
     $.datetimepicker.setLocale(Alchemy.locale);
+    $datepicker_inputs = $('input[data-datepicker-type]', scope)
 
-    # Initializes the datepickers and disables the browsers default Datepicker
-    # unless the browser is iOS.
-    $('input[type="date"], input.date', scope)
-      .datetimepicker(datepicker_options).prop "type", "text" unless Alchemy.isiOS
-
-    $('input[type="time"], input.time', scope)
-      .datetimepicker(timepicker_options).prop "type", "text" unless Alchemy.isiOS
-
-    $('input[type="datetime"], input.datetime', scope)
-      .datetimepicker(options).prop "type", "text" unless Alchemy.isiOS
+    # Initializes the datepickers on the text inputs and sets the proper type
+    # to enable browsers default datepicker if the current OS is iOS.
+    if Alchemy.isiOS
+      $datepicker_inputs.prop "type", ->
+        return $(this).data('datepicker-type')
+    else
+      $datepicker_inputs.each ->
+        type = $(this).data('datepicker-type')
+        options =
+          format: Alchemy.t("formats.#{type}")
+          timepicker: /time/.test(type)
+          datepicker: /date/.test(type)
+          dayOfWeekStart: Alchemy.t('formats.start_of_week')
+          onSelectDate: ->
+            Alchemy.setElementDirty $(this).closest(".element-editor")
+        $(this).datetimepicker(options)
 
     return

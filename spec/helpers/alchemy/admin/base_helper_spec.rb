@@ -221,23 +221,23 @@ module Alchemy
       let(:value) { nil }
       let(:type) { nil }
 
-      it "renders a date field" do
-        is_expected.to have_selector("input[type='date']")
+      it "renders a text field with data attribute for 'date'" do
+        is_expected.to have_selector("input[type='text'][data-datepicker-type='date']")
       end
 
       context "when datetime given as type" do
         let(:type) { :datetime }
 
-        it "renders a datetime field" do
-          is_expected.to have_selector("input[type='datetime']")
+        it "renders a text field with data attribute for 'datetime'" do
+          is_expected.to have_selector("input[type='text'][data-datepicker-type='datetime']")
         end
       end
 
       context "when time given as type" do
         let(:type) { :time }
 
-        it "renders a time field" do
-          is_expected.to have_selector("input[type='time']")
+        it "renders a text field with data attribute for 'time'" do
+          is_expected.to have_selector("input[type='text'][data-datepicker-type='time']")
         end
       end
 
