@@ -53,10 +53,11 @@ h4. Set environment variables
 Run the following commands on your command shell to set some environment variables on your heroku account to provide the S3 key and bucket names. Make sure to replace <code>my-project</code> and <code>your-key</code> with the correct information.
 
 <shell>
+$ heroku config:set AWS_REGION=bucket-region
 $ heroku config:set AWS_ACCESS_KEY_ID=your-key-id
 $ heroku config:set AWS_SECRET_ACCESS_KEY=your-key
-$ heroku config:set AWS_PICTURES_DIRECTORY=my-project-pictures
-$ heroku config:set AWS_ATTACHMENTS_DIRECTORY=my-project-attachments
+$ heroku config:set AWS_PICTURES_BUCKET=my-project-alchemy-pictures
+$ heroku config:set AWS_ATTACHMENTS_BUCKET=my-project-alchemy-attachments
 </shell>
 
 h3. Code adjustments
@@ -108,7 +109,7 @@ if Rails.env.production?
   aws_defaults = {
     access_key_id: Rails.configuration.aws_access_key_id,
     secret_access_key: Rails.configuration.aws_secret_access_key,
-    region: 'eu-west-1',
+    region: Rails.configuration.aws_region,
     storage_headers: {'x-amz-acl' => 'public-read'},
     url_scheme: 'https'
   }
@@ -116,12 +117,12 @@ if Rails.env.production?
   Dragonfly.app(:alchemy_pictures).configure do
     plugin :imagemagick
     datastore :s3,
-      { bucket_name: Rails.configuration.aws_pictures_directory }.merge(aws_defaults)
+      { bucket_name: Rails.configuration.aws_pictures_bucket }.merge(aws_defaults)
   end
 
   Dragonfly.app(:alchemy_attachments).configure do
     datastore :s3,
-      { bucket_name: Rails.configuration.aws_attachments_directory }.merge(aws_defaults)
+      { bucket_name: Rails.configuration.aws_attachments_bucket }.merge(aws_defaults)
   end
 end
 </ruby>
@@ -155,10 +156,11 @@ h4. Make S3 informations accessible to Rails configuration
 Paste the following lines to your <code>config/environments/production.rb</code> inside the configure block. The Rails application gets access to the S3 information provided via environment variables.
 
 <ruby>
+config.aws_region = ENV['AWS_REGION']
 config.aws_access_key_id = ENV['AWS_ACCESS_KEY_ID']
 config.aws_secret_access_key = ENV['AWS_SECRET_ACCESS_KEY']
-config.aws_pictures_directory = ENV['AWS_PICTURES_DIRECTORY']
-config.aws_attachments_directory = ENV['AWS_ATTACHMENTS_DIRECTORY']
+config.aws_pictures_bucket = ENV['AWS_PICTURES_BUCKET']
+config.aws_attachments_bucket = ENV['AWS_ATTACHMENTS_BUCKET']
 </ruby>
 
 h4. Prepare your seeds.rb
