@@ -663,7 +663,11 @@ module Alchemy
       end
 
       describe '#publish' do
-        let(:page) { create(:alchemy_page) }
+        let(:page) do
+          Timecop.travel(5.minutes.ago) do
+            create(:alchemy_page)
+          end
+        end
 
         it "should publish the page" do
           expect {

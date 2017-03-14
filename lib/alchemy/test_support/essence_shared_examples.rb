@@ -11,9 +11,11 @@ shared_examples_for "an essence" do
     essence.save
     content.update(essence: essence, essence_type: essence.class.name)
     date = content.updated_at
-    content.essence.update(essence.ingredient_column.to_sym => ingredient_value)
-    content.reload
-    expect(content.updated_at).not_to eq(date)
+    Timecop.travel(5.minutes.from_now) do
+      content.essence.update(essence.ingredient_column.to_sym => ingredient_value)
+      content.reload
+      expect(content.updated_at).not_to eq(date)
+    end
   end
 
   it "should have correct partial path" do

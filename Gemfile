@@ -36,6 +36,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing', '~> 1.0'
+  gem 'timecop', '~> 0.8'
 end
 
 # We need this if we want to start the dummy app in production, ie on Teatro.io
