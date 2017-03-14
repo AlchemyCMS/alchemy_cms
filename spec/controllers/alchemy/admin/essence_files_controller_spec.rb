@@ -48,7 +48,11 @@ module Alchemy
     end
 
     describe '#assign' do
-      let(:content) { create(:alchemy_content) }
+      let(:content) do
+        Timecop.travel(5.minutes.ago) do
+          create(:alchemy_content)
+        end
+      end
 
       before do
         expect(Content).to receive(:find_by).and_return(content)
