@@ -67,6 +67,7 @@ module Alchemy
       end
 
       it "updates the @content.updated_at column" do
+        content.update_column(:updated_at, 3.days.ago)
         expect {
           alchemy_xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
         }.to change(content, :updated_at)

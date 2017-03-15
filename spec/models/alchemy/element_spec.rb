@@ -861,6 +861,7 @@ module Alchemy
       let!(:element)        { create(:alchemy_element, name: 'slide', parent_element: parent_element) }
 
       it "touches parent after update" do
+        parent_element.update_column(:updated_at, 3.days.ago)
         expect { element.update!(public: false) }.to change(parent_element, :updated_at)
       end
     end
