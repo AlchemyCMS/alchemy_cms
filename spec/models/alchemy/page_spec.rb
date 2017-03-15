@@ -2394,8 +2394,8 @@ module Alchemy
 
     describe '#published_at' do
       context 'with published_at date set' do
-        let(:page)         { build_stubbed(:alchemy_page, published_at: Time.current) }
-        let(:published_at) { page.published_at }
+        let(:published_at) { Time.current }
+        let(:page)         { build_stubbed(:alchemy_page, published_at: published_at) }
 
         it "returns the published_at value from database" do
           expect(page.published_at).to eq(published_at)
@@ -2403,8 +2403,8 @@ module Alchemy
       end
 
       context 'with published_at is nil' do
-        let(:page)       { build_stubbed(:alchemy_page, published_at: nil, updated_at: Time.current) }
-        let(:updated_at) { page.updated_at }
+        let(:updated_at) { Time.current }
+        let(:page)       { build_stubbed(:alchemy_page, published_at: nil, updated_at: updated_at) }
 
         it "returns the updated_at value" do
           expect(page.published_at).to eq(updated_at)

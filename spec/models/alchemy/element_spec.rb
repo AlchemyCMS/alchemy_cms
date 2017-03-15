@@ -857,17 +857,8 @@ module Alchemy
     end
 
     context 'with parent element' do
-      let!(:parent_element) do
-        Timecop.travel(10.minutes.ago) do
-          create(:alchemy_element, :with_nestable_elements)
-        end
-      end
-
-      let!(:element) do
-        Timecop.travel(5.minutes.ago) do
-          create(:alchemy_element, name: 'slide', parent_element: parent_element)
-        end
-      end
+      let!(:parent_element) { create(:alchemy_element, :with_nestable_elements) }
+      let!(:element)        { create(:alchemy_element, name: 'slide', parent_element: parent_element) }
 
       it "touches parent after update" do
         expect { element.update!(public: false) }.to change(parent_element, :updated_at)
