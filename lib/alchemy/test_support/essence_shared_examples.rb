@@ -7,13 +7,13 @@ shared_examples_for "an essence" do
 
   it "touches the content after update" do
     element = create(:alchemy_element)
-    content = create(:alchemy_content, element: element)
-    essence.save
-    content.update(essence: essence, essence_type: essence.class.name)
-    date = content.updated_at
-    content.essence.update(essence.ingredient_column.to_sym => ingredient_value)
+    content = create(:alchemy_content, element: element, essence: essence, essence_type: essence.class.name)
+
+    content.update_column(:updated_at, 3.days.ago)
+    content.essence.update_attributes(essence.ingredient_column.to_sym => ingredient_value)
+
     content.reload
-    expect(content.updated_at).not_to eq(date)
+    expect(content.updated_at).to be_within(3.seconds).of(Time.current)
   end
 
   it "should have correct partial path" do
