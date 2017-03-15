@@ -6,7 +6,7 @@ module Alchemy
 
     it_behaves_like "an essence" do
       let(:essence)          { EssenceDate.new }
-      let(:ingredient_value) { DateTime.current }
+      let(:ingredient_value) { DateTime.current.iso8601 }
     end
 
     describe '#preview_text' do
