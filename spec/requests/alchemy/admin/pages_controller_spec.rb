@@ -663,7 +663,7 @@ module Alchemy
       end
 
       describe '#publish' do
-        let(:page) { create(:alchemy_page) }
+        let(:page) { create(:alchemy_page, published_at: 3.days.ago) }
 
         it "should publish the page" do
           expect {
