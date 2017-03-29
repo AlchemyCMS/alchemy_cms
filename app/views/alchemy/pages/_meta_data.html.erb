@@ -1,5 +1,5 @@
 <% if @page %>
-  <meta charset="utf8">
+  <meta charset="utf-8">
   <title><%= page_title prefix: local_assigns.fetch(:title_prefix, nil), separator: local_assigns.fetch(:title_separator, nil) %></title>
   <%= tag(:meta, name: 'created', content: @page.updated_at) %>
   <%= tag(:meta, name: 'robots', content: meta_robots) %>
