@@ -6,6 +6,10 @@ __Notable Changes__
 
 * Allow users to manually publish changes on global pages
 
+__Notable Changes__
+
+* `require_ssl` setting is now ignored in development mode
+
 __Fixed Bugs__
 
 * The `language_links` helper now only renders languages from the current site
