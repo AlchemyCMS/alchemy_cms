@@ -12,7 +12,7 @@ module Alchemy
 
       def index
         @size = params[:size].present? ? params[:size] : 'medium'
-        @query = Picture.ransack(params[:q])
+        @query = Picture.ransack(name_or_image_file_name_cont: params[:query])
         @pictures = Picture.search_by(params, @query, pictures_per_page_for_size(@size))
 
         if in_overlay?
