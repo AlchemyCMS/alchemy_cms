@@ -474,10 +474,12 @@ module Alchemy
         public: true
       }.update(options)
 
-      pages = self_and_siblings.where(["#{Page.table_name}.lft #{dir} ?", lft])
+      dir = dir == '>' ? '>' : '<'
+      order = dir == '>' ? 'lft' : 'lft DESC'
+      pages = self_and_siblings.where("#{Page.table_name}.lft #{dir} ?", lft)
       pages = options[:public] ? pages.published : pages.not_public
       pages.where(restricted: options[:restricted])
-        .reorder(dir == '>' ? 'lft' : 'lft DESC')
+        .reorder(order)
         .limit(1).first
     end
 
