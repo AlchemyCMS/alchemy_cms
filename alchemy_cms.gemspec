@@ -46,10 +46,6 @@ Gem::Specification.new do |gem|
             Thank you for installing Alchemy CMS
 -------------------------------------------------------------
 
-- Create a new standalone Alchemy project:
-
-  $ alchemy new my_project_name
-
 - Complete the installation in an existing Rails application:
 
   $ bin/rake alchemy:install
