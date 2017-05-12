@@ -1,17 +1,11 @@
 <li class="page_level_<%= layoutpage.level %>" id="page_<%= layoutpage.id %>">
   <div class="sitemap_page<%= layoutpage.locked? ? ' locked' : '' %>">
-    <div class="sitemap_left_images">
-    <% if layoutpage.definition.blank? %>
-      <%= page_layout_missing_warning %>
-    <% else %>
-      <%= render_icon(:page) %>
-    <% end %>
-    </div>
+    <div class="sitemap_left_images"></div>
     <div class="sitemap_right_tools">
     <%- if can?(:configure, layoutpage) -%>
       <div class="button_with_label sitemap_tool">
         <%= link_to_dialog(
-          render_icon('configure_page'),
+          render_icon('edit'),
           alchemy.edit_admin_layoutpage_path(layoutpage),
           {
             title: Alchemy.t(:edit_page_properties),
@@ -24,7 +18,7 @@
     <%- if can?(:copy, layoutpage) -%>
       <div class="button_with_label sitemap_tool">
         <%= link_to(
-          render_icon("copy_page"),
+          render_icon("duplicate"),
           alchemy.insert_admin_clipboard_path(
             remarkable_type: layoutpage.class.name.demodulize.underscore.pluralize,
             remarkable_id: layoutpage.id
@@ -38,7 +32,7 @@
     <%- if can?(:destroy, layoutpage) -%>
       <div class="button_with_label sitemap_tool">
         <%= link_to_confirm_dialog(
-          render_icon('delete_page'),
+          render_icon('trash'),
           Alchemy.t(:confirm_to_delete_page),
           url_for(
             controller: 'pages',

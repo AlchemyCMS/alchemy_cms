@@ -36,7 +36,7 @@
         <% if current_alchemy_user.id == page.locked_by %>
         <%= form_tag(alchemy.unlock_admin_page_path(page, :redirect_to => alchemy.admin_dashboard_url)) do %>
           <button class="icon_button small" title="<%= Alchemy.t(:explain_unlocking) %>">
-            <%= render_icon('close small') %>
+            <%= render_icon('close tiny') %>
           </button>
         <% end %>
         <% end %>

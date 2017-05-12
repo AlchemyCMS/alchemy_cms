@@ -1,5 +1,5 @@
 <tr class="<%= cycle('even', 'odd') %>">
-  <td class="icon"><%= render_icon :tag %></td>
+  <td class="list-icon"><%= render_icon("tag small") %></td>
   <td class="name"><%= tag.name %></td>
   <td class="count">
     <%= tag.taggings.collect(&:taggable).collect { |t| t.class.model_name.human }.uniq.join(', ') %>
@@ -9,7 +9,7 @@
     <% if can?(:destroy, Alchemy::Tag) %>
     <%= delete_button admin_tag_path(tag), {
       message: Alchemy.t(:do_you_really_want_to_delete_this_tag?),
-      icon: 'tag_delete',
+      icon: 'destroy',
       title: Alchemy.t(:delete_tag)
     } %>
     <% end %>
@@ -22,7 +22,7 @@
       },
       {
         title: Alchemy.t(:edit_tag),
-        class: 'icon tag_edit'
+        class: 'icon-edit'
       }
     %>
     <% end %>

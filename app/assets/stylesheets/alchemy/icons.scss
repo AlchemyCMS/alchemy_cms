@@ -1,13 +1,8 @@
 .icon {
-  display: inline-block;
-  vertical-align: middle;
   background: image-url('alchemy/icons.png') no-repeat;
-  width: 16px;
-  height: 16px;
-
   &.add {
     background: none;
-    @extend .icon-plus-2;
+    @extend .icon-add;
     line-height: 1em;
     font-size: 19px;
   }

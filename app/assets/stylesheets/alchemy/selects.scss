@@ -115,7 +115,7 @@ select {
         right: 4px;
         top: 6px;
         background: none;
-        @extend .icon-cross;
+        @extend .icon-close;
 
         &:hover {
           color: $text-color;

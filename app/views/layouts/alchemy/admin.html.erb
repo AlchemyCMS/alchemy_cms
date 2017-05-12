@@ -57,14 +57,14 @@
       <div id="logout">
         <% if current_alchemy_user %>
           <%= link_to_dialog(
-            "#{render_icon('exit module')}<label>#{Alchemy.t(:leave)}</label>".html_safe,
+            "#{render_icon('exit large module')}<label>#{Alchemy.t(:leave)}</label>".html_safe,
             alchemy.leave_admin_path, {
               size: "300x155",
               title: Alchemy.t("Leave Alchemy")
           }, {'data-alchemy-hotkey' => 'alt+q'}) %>
         <% else %>
           <%= link_to(alchemy.root_path) do %>
-            <span class="module icon exit"></span>
+            <span class="module icon-exit large"></span>
             <label><%= Alchemy.t(:leave) %></label>
           <% end %>
         <% end %>

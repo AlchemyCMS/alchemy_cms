@@ -12,7 +12,7 @@ Alchemy.ToolbarButton = (options) ->
     e.preventDefault()
     options.onClick(e)
     false
-  $lnk.append "<span class='icon #{options.iconClass}' />"
+  $lnk.append "<span class='#{options.iconClass}' />"
   $btn.append $lnk
   $btn.append "<br><label>#{options.label}</label>"
   $btn

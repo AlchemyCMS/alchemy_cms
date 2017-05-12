@@ -1,13 +1,13 @@
 <div class="element-header<%= ' has-hint' if element.has_hint? %>">
   <span class="element-handle">
-    <%= render_icon(:element) %>
+    <span class="icon element"></span>
     <% if element.definition.blank? %>
       <%= hint_with_tooltip(
         Alchemy.t(:element_definition_missing),
-        class: 'warning icon'
+        class: 'icon-warning'
       ) %>
     <% else %>
-      <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
+      <%= render_icon("#{element.public? ? 'visible' : 'not-visible'} small") %>
     <% end %>
   </span>
   <span class="element-title">
@@ -20,7 +20,7 @@
   <span class="ajax-folder" <%= element.trashed? ? 'style="display: none"'.html_safe : '' %>>
     <%= link_to '', '#', {
       'data-element-toggle' => element.id,
-      class: element.folded? ? 'expand_element' : 'fold_element',
+      class: element.folded? ? 'expand_element icon-plus' : 'fold_element icon-minus',
       title: element.folded? ? Alchemy.t(:show_element_content) : Alchemy.t(:hide_element_content),
       id: "element_#{element.id}_folder"
     } %>

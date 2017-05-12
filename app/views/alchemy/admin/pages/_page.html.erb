@@ -59,7 +59,7 @@
         {{#if permissions.configure}}
         <div class="button_with_label sitemap_tool">
           <%= link_to_dialog(
-            render_icon(:configure_page),
+            render_icon(:settings),
             alchemy.configure_admin_page_path(page),
             {
               title: Alchemy.t(:edit_page_properties),
@@ -69,7 +69,7 @@
           <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
         {{else}}
         <div class="sitemap_tool disabled with-hint">
-          <%= render_icon(:configure_page) %>
+          <%= render_icon(:settings) %>
           <span class="hint-bubble">
             <%= Alchemy.t('Your user role does not allow you to edit this page') %>
           </span>
@@ -78,7 +78,7 @@
         {{#if permissions.copy}}
         <div class="button_with_label sitemap_tool">
           <%= link_to(
-            render_icon(:copy_page),
+            render_icon(:duplicate),
             alchemy.insert_admin_clipboard_path(
               remarkable_type: page.class.name.demodulize.underscore.pluralize,
               remarkable_id: '__ID__',
@@ -89,7 +89,7 @@
           <label class="center"><%= Alchemy.t(:copy_page) %></label>
         {{else}}
         <div class="sitemap_tool disabled with-hint">
-          <%= render_icon(:copy_page) %>
+          <%= render_icon(:duplicate) %>
           <span class="hint-bubble">
             <%= Alchemy.t('Your user role does not allow you to edit this page') %>
           </span>
@@ -98,7 +98,7 @@
         {{#if permissions.destroy}}
         <div class="button_with_label sitemap_tool">
           <%= link_to_confirm_dialog(
-            render_icon(:delete_page),
+            render_icon(:trash),
             Alchemy.t(:confirm_to_delete_page),
             url_for(
               controller: 'pages',
@@ -109,7 +109,7 @@
           <label class="center"><%= Alchemy.t(:delete_page) %></label>
         {{else}}
         <div class="sitemap_tool disabled with-hint">
-          <%= render_icon(:delete_page) %>
+          <%= render_icon(:trash) %>
           <span class="hint-bubble">
             <%= Alchemy.t('Your user role does not allow you to edit this page') %>
           </span>
@@ -118,7 +118,7 @@
         {{#if permissions.create}}
         <div class="button_with_label sitemap_tool">
           <%= link_to_dialog(
-            render_icon(:add_page),
+            render_icon(:add),
             alchemy.new_admin_page_path(parent_id: '__ID__').gsub('__ID__', '{{id}}'),
             {
               title: Alchemy.t(:create_page),
@@ -129,7 +129,7 @@
           <label class="left"><%= Alchemy.t(:create_page) %></label>
         {{else}}
         <div class="sitemap_tool disabled with-hint">
-          <%= render_icon(:add_page) %>
+          <%= render_icon(:add) %>
           <span class="hint-bubble">
             <%= Alchemy.t('Your user role does not allow you to edit this page') %>
           </span>

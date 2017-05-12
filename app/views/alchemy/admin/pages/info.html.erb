@@ -26,15 +26,15 @@
     <label><%= Alchemy.t(:page_status) %></label>
     <p>
       <span class="page_status">
-        <%= render_icon @page.public? ? :public : :not_public %>
+        <%= render_icon @page.public? ? "public" : "not-public" %>
         <%= @page.status_title(:public) %>
       </span>
       <span class="page_status">
-        <%= render_icon @page.visible? ? :visible : :not_visible %>
+        <%= render_icon @page.visible? ? "visible" : "not-visible" %>
         <%= @page.status_title(:visible) %>
       </span>
       <span class="page_status">
-        <%= render_icon @page.restricted? ? :restricted : :not_restricted %>
+        <%= render_icon @page.restricted? ? "restricted" : "not-restricted" %>
         <%= @page.status_title(:restricted) %>
       </span>
     </p>

@@ -11,10 +11,10 @@
           alchemy.admin_essence_picture_path(
             id: content,
             options: options
-          ), {title: Alchemy.t(:delete_image)} %>
+          ), {title: Alchemy.t(:delete_image)}, class: "icon-trash small" %>
       <% else %>
         <%= link_to '', '#',
-          onclick: "return Alchemy.removePicture('##{content.form_field_id(:picture_id)}');" %>
+          onclick: "return Alchemy.removePicture('##{content.form_field_id(:picture_id)}');", class: "icon-trash small" %>
       <% end %>
     </span>
     <%- if content.ingredient -%>

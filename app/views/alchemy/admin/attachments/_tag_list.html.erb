@@ -6,7 +6,7 @@
   </ul>
   <% if params[:tagged_with].present? %>
     <%= link_to(
-      render_icon('delete-small') + Alchemy.t('Remove tag filter'),
+      render_icon('destroy small') + Alchemy.t('Remove tag filter'),
       url_for(tag_list_params.delete_if { |k, v| k == "tagged_with" }.merge(action: 'index')),
       remote: request.xhr?,
       class: 'button small with_icon please_wait'

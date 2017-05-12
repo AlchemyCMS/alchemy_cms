@@ -1,7 +1,7 @@
 <% linkable = content.settings_value(:linkable, options) != false %>
 
 <% if content.essence && content.essence.allow_image_cropping?(options) %>
-  <%= link_to_dialog render_icon('crop'),
+  <%= link_to_dialog render_icon('crop small'),
     alchemy.crop_admin_essence_picture_path(
       content.essence,
       options: content.settings.update(options).to_json
@@ -12,10 +12,10 @@
       padding: false
     }, {title: Alchemy.t('Edit Picturemask')} %>
 <%- else -%>
-  <a href="#" class="disabled"><%= render_icon('crop') %></a>
+  <a href="#" class="disabled"><%= render_icon('crop small') %></a>
 <%- end -%>
 
-<%= link_to_dialog render_icon('swap_picture'),
+<%= link_to_dialog render_icon('pictures small'),
   alchemy.admin_pictures_path(
     element_id: content.element,
     content_id: content.id,
@@ -29,7 +29,7 @@
   },
   title: (content.ingredient ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)) %>
 
-<%= link_to_if linkable, render_icon(:link), '', {
+<%= link_to_if linkable, render_icon('link small'), '', {
   onclick: 'new Alchemy.LinkDialog(this).open(); return false;',
   class: content.linked? ? 'linked' : nil,
   title: Alchemy.t(:link_image),
@@ -37,13 +37,13 @@
   id: "edit_link_#{content.id}"
 } %>
 
-<%= link_to_if linkable, render_icon('unlink'), '', {
+<%= link_to_if linkable, render_icon('unlink small'), '', {
   onclick: "return Alchemy.LinkDialog.removeLink(this, #{content.id})",
   class: content.linked? ? 'linked' : 'disabled',
   title: Alchemy.t(:unlink)
 } %>
 
-<%= link_to_dialog render_icon('edit'),
+<%= link_to_dialog render_icon('edit small'),
   alchemy.edit_admin_essence_picture_path(
     id: content.essence.id,
     content_id: content.id,

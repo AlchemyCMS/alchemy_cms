@@ -26,7 +26,7 @@
   <td class="tools long">
   <% if can?(:show, attachment) %>
     <%= link_to_dialog(
-      render_icon(:info),
+      render_icon("visible small"),
       alchemy.admin_attachment_path(attachment),
       {
         title: attachment.name,
@@ -42,7 +42,7 @@
       "",
       alchemy.download_admin_attachment_path(attachment),
       title: Alchemy.t("download_file", filename: attachment.file_name),
-      class: "icon file_download",
+      class: "icon-download small",
       target: "_blank"
     ) %>
   <% end %>
@@ -63,7 +63,7 @@
         per_page: params[:per_page]
       ),
       {
-        class: 'icon file_delete',
+        class: 'icon-trash small',
         title: Alchemy.t(:delete_file)
       }
     ) %>
@@ -75,7 +75,7 @@
         title: Alchemy.t(:rename_file),
         size: '500x250'
       },
-      class: 'icon file_edit',
+      class: 'icon-edit small',
       title: Alchemy.t(:rename_file)
     ) %>
   <% end %>
