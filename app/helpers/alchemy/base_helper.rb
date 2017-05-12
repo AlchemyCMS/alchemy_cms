@@ -25,7 +25,7 @@ module Alchemy
 
     # Returns an icon
     def render_icon(icon_class)
-      content_tag('span', '', class: "icon #{icon_class}")
+      content_tag('span', '', class: "icon-#{icon_class}")
     end
 
     # Returns a div with an icon and the passed content
