@@ -44,6 +44,11 @@
       </div>
     <%- end -%>
     </div>
+    <% if layoutpage.definition.blank? %>
+      <div class="page_infos">
+        <%= page_layout_missing_warning %>
+      </div>
+    <% end %>
     <div class="sitemap_sitename">
       <%= link_to(
         layoutpage.name,

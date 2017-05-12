@@ -8,32 +8,13 @@
           alchemy.fold_admin_page_path(page),
           remote: true,
           method: :post,
-          class: "page_folder {{#if folded}}folded{{else}}collapsed{{/if}}",
+          class: "icon-{{#if folded}}plus{{else}}minus{{/if}}",
           title: "{{#if folded}}#{Alchemy.t('Show childpages')}{{else}}#{Alchemy.t('Hide childpages')}{{/if}}",
           id: "fold_button_{{id}}"
         )
         %>
         {{/unless}}
       <% end %>
-      {{#if definition_missing}}
-        <%= page_layout_missing_warning %>
-      {{else}}
-        {{#if permissions.edit_content}}
-          <div class="page icon{{#if locked}} with-hint{{/if}}">
-            {{#if locked}}
-              <span class="hint-bubble">
-                {{locked_notice}}
-              </span>
-            {{/if}}
-          </div>
-        {{else}}
-          <div class="page icon with-hint not-allowed">
-            <span class="hint-bubble">
-              <%= Alchemy.t('Your user role does not allow you to edit this page') %>
-            </span>
-          </div>
-        {{/if}}
-      {{/if}}
     </div>
     <div class="sitemap_right_tools">
       <%- unless @sorting -%>
@@ -138,16 +119,35 @@
       <%- end -%>
     </div>
     <div class="page_infos" id="page_<%= page.id %>_infos">
+      {{#if definition_missing}}
+        <%= page_layout_missing_warning %>
+      {{else}}
+        {{#if permissions.edit_content}}
+          <span class="page small {{#if locked}}icon-user with-hint{{/if}}">
+            {{#if locked}}
+              <span class="hint-bubble">
+                {{locked_notice}}
+              </span>
+            {{/if}}
+          </span>
+        {{else}}
+          <div class="page icon with-hint not-allowed">
+            <span class="hint-bubble">
+              <%= Alchemy.t('Your user role does not allow you to edit this page') %>
+            </span>
+          </div>
+        {{/if}}
+      {{/if}}
       <span class="page_status with-hint">
-        <span class="icon {{#unless public}}not_{{/unless}}public"></span>
+        <span class="icon-{{#unless public}}not-{{/unless}}public small {{#unless public}}icon-muted{{/unless}}"></span>
         <span class="hint-bubble">{{status_titles.public}}</span>
       </span>
       <span class="page_status with-hint">
-        <span class="icon {{#unless visible}}not_{{/unless}}visible"></span>
+        <span class="icon-{{#unless visible}}not-{{/unless}}visible small {{#unless visible}}icon-muted{{/unless}}"></span>
         <span class="hint-bubble">{{status_titles.visible}}</span>
       </span>
       <span class="page_status with-hint">
-        <span class="icon {{#unless restricted}}not_{{/unless}}restricted"></span>
+        <span class="icon-{{#unless restricted}}not-{{/unless}}restricted small {{#unless restricted}}icon-muted{{/unless}}"></span>
         <span class="hint-bubble">{{status_titles.restricted}}</span>
       </span>
     </div>
