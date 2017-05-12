@@ -114,6 +114,16 @@ td.heading {
   display: table-cell; // reset the .icon display: inline-block
 }
 
+.list td.list-icon, .list th.icon {
+  background-image: none;
+  border-left: 0 none;
+  padding: 0;
+  border-right: 1px solid $medium-gray;
+  text-align: center;
+  vertical-align: middle;
+  width: 40px;
+}
+
 .list .tools .icon, .list td.icon .icon {
   display: inline-block;
   vertical-align: middle;
