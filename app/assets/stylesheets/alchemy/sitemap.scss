@@ -96,20 +96,20 @@
 }
 
 .sitemap_left_images {
-  @extend .left-rounded-border;
   position: relative;
   width: 16px;
   height: $sitemap-line-height;
   line-height: $sitemap-line-height - 2px;
   float: left;
-  padding: 0 2*$default-padding;
-  background-color: rgba(#fff, .75);
+  padding: 0 4*$default-padding;
 }
 
 .sitemap_right_tools {
   height: $sitemap-line-height;
   padding: 0 2*$default-padding;
   float: right;
+
+  a:hover { @include link-hover-bg; }
 
   .sitemap_tool {
     float: left;
@@ -119,8 +119,8 @@
     text-align: center;
     margin: 0;
 
-    &.disabled .icon {
-      opacity: 0.25;
+    &.disabled a {
+      opacity: 0.4;
       filter: grayscale(100%);
     }
 

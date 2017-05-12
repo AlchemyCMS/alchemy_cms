@@ -21,21 +21,17 @@ select {
       text-align: left;
 
       .select2-arrow {
-        top: 2px;
-        width: 20px;
-        height: 23px;
-        line-height: 23px;
+        width: 24px;
         background: transparent;
         border-left: 1px solid #CACACA;
 
         b {
-          @extend .icon-menu;
+          @extend .icon-dropdown;
           background-image: none;
 
           &:before {
+            @include icon;
             position: relative;
-            top: 5px;
-            left: 1px;
           }
         }
       }

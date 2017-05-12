@@ -44,13 +44,18 @@ button, input[type="submit"], a.button, input.button {
 
 .icon_button {
   box-sizing: border-box;
-  width: 27px;
-  height: 27px;
+  min-width: 27px;
+  min-height: 27px;
   line-height: 21px;
   margin: 0;
   padding: 3px;
   overflow: hidden;
   text-align: center;
+
+  &:hover {
+    border-radius: $default-border-radius;
+    background: $button-hover-bg-color;
+  }
 
   .icon {
     display: inline-block;
@@ -76,8 +81,8 @@ button, input[type="submit"], a.button, input.button {
   }
 
   &.small {
-    width: 15px;
-    height: 15px;
+    min-width: 15px;
+    min-height: 15px;
     padding: 0;
     float: none;
     display: inline-block;
@@ -101,12 +106,6 @@ button, input[type="submit"], a.button, input.button {
       &.delete-small {
         background-position: -4px -76px;
       }
-    }
-
-    &:hover {
-      border: $default-border-width $default-border-style $button-hover-border-color;
-      border-radius: $default-border-radius;
-      background: $button-hover-bg-color;
     }
   }
 
@@ -161,8 +160,10 @@ button.icon_button {
   display: inline-block;
   vertical-align: top;
   text-align: center;
-  margin: 0 2*$default-margin;
+  margin: 0 $default-margin;
   line-height: 0;
+
+  &:last-of-type { margin-right: 2*$default-margin }
 
   &.active, &:active {
 
@@ -171,18 +172,6 @@ button.icon_button {
       border: $default-border;
       padding: 2px;
       @extend %rounded-border;
-    }
-  }
-
-  &:hover .icon_button {
-    border: $default-border;
-    padding: 2px;
-    @extend %rounded-border;
-    cursor: pointer;
-
-    &:focus {
-      border: 0;
-      padding: 3px;
     }
   }
 
@@ -208,12 +197,6 @@ button.icon_button {
 }
 
 .button_with_label, .button_group {
-
-  .icon_button {
-    width: 29px;
-    height: 29px;
-    line-height: 23px;
-  }
 
   label {
     @extend %rounded-border;

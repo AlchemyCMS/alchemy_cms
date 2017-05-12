@@ -49,7 +49,7 @@ div#overlay_text_box {
 
   a {
     display: block;
-    padding-left: 3 * $default-padding;
+    padding-left: $default-padding;
     line-height: 45px;
 
     &:hover {
@@ -159,7 +159,6 @@ div#overlay_text_box {
     text-shadow: $text-shadow-light;
 
     .select2-arrow {
-      width: 14px;
       border-left: none;
 
       b {

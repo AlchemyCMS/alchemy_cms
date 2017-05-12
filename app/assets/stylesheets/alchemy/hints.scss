@@ -1,9 +1,7 @@
 .hint-with-icon {
   @extend .with-hint;
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin: 0 $default-margin;
+  margin-left: -$default-margin;
 
   .toolbar_buttons & {
     margin: 0 2*$default-margin;

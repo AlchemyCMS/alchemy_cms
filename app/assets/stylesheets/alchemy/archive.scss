@@ -129,12 +129,8 @@ div.assign_image_list_image {
 }
 
 .picture_tool {
-  width: 16px;
-  height: 16px;
   position: absolute;
   background-color: white;
-  top: 3px;
-  padding: 1px;
   z-index: 10;
   display: none;
 
@@ -147,7 +143,8 @@ div.assign_image_list_image {
   }
 
   &.select {
-    left: 4px;
+    padding: 0 4px 2px 0;
+    border-bottom-right-radius: $default-border-radius;
 
     input {
       margin: 0;
@@ -156,17 +153,15 @@ div.assign_image_list_image {
   }
 
   &.delete {
-    right: 4px;
-
-    a {
-      background: image-url('alchemy/icons.png') no-repeat -63px -72px;
-    }
+    right: 0;
+    border-bottom-left-radius: $default-border-radius;
   }
 
   a {
     display: block;
-    width: 16px;
-    height: 16px;
+    min-width: 16px;
+    min-height: 16px;
+    padding: 1px 2px 6px 2px;
     cursor: pointer;
   }
 }

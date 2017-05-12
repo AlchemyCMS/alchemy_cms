@@ -233,12 +233,6 @@
     background-position: -320px -136px;
   }
 
-  &.search {
-    background: none;
-    padding-top: 2px;
-    @extend .icon-magnifying-glass;
-  }
-
   &.select_all {
     background-position: -256px -168px;
   }

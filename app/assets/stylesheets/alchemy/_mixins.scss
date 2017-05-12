@@ -201,3 +201,8 @@
   opacity: 1;
   transition-delay: .2s;
 }
+
+@mixin link-hover-bg {
+  background-color: rgba(0,0,0,0.05);
+  border-radius: $default-border-radius;
+}

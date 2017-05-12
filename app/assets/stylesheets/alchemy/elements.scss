@@ -69,16 +69,6 @@
     top: 0;
     left: 0;
   }
-
-  .icon {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-    &.element_dirty {
-      background-position: -160px -166px;
-    }
-  }
 }
 
 .draggable .element-handle {
@@ -87,10 +77,7 @@
 
 .ajax-folder {
   position: absolute;
-  width: 16px;
-  height: 16px;
   right: 8px;
-  top: 8px;
 
   .error_icon {
     float: left;
@@ -199,6 +186,11 @@
 
   .message {
     margin: 2*$default-margin;
+
+    > span {
+      float: left;
+      margin-right: $default-margin;
+    }
   }
 
   .foot_note {
@@ -277,7 +269,7 @@
 }
 
 .element-toolbar {
-  padding: 6px 0;
+  padding: 6px;
   height: 6*$default-padding;
   background-color: #f0f0f0;
 
@@ -367,13 +359,9 @@
 
 .expand_element,
 .fold_element {
-  background-image: image-url('alchemy/icons.png');
-  background-repeat: no-repeat;
   height: 16px;
-  width: 16px;
   text-decoration: none;
   display: block;
-  margin: 1px;
 }
 
 .expand_element {
@@ -610,7 +598,7 @@ select.long {
 
     p {
       float: left;
-      width: 70%;
+      width: 68%;
     }
 
     .icon.warning {
@@ -784,7 +772,6 @@ textarea.has_tinymce {
 .content_editor .hint-with-icon,
 .content_editor .with-hint,
 .element-handle .warning {
-  margin-left: 0;
 
   > .hint-bubble {
     left: -7px;
