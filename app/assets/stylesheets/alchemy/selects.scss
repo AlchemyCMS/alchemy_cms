@@ -15,7 +15,6 @@ select {
     .select2-choice {
       height: 27px;
       line-height: 27px;
-      @include button-defaults($padding: 0 2*$default-padding, $margin: 0);
       display: block;
       font-weight: normal;
       text-align: left;
@@ -73,9 +72,9 @@ select {
 
       .select2-choice, .select2-choice:hover {
         background-image: none;
-        background-color: $light-gray;
+        background-color: none;
         box-shadow: none;
-        border-color: $border-inset-color;
+        border-color: none;
         cursor: not-allowed;
 
         .select2-arrow {

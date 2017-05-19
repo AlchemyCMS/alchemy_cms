@@ -1,14 +1,19 @@
-$text-color: #333333;
-$muted-text-color: rgba(0, 0, 0, 0.5);
 $light-blue: #cddce5; // #c6dbe7
 $blue: darken($light-blue, 15%);
 $very-light-blue: lighten($light-blue, 12%);
-$light-gray: #ededed;
-$medium-gray: #e3e3e3;
-$dark-gray: #666666;
 $light_yellow: #ffffdc;
 $linked-color: #ffd77a;
 $white: #f2f2f2;
+$very-light-gray: #f0f2f5;
+$light-gray: #e6e7eb;
+$medium-gray: #dcdde0;
+$dark-gray: #c8c9cc;
+$light-slate: #7c8497;
+$slate: #62708c;
+$dark-slate: #505c73;
+
+$text-color: $slate;
+$muted-text-color: rgba(0, 0, 0, 0.5);
 
 $default-font-face: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
 $mono-font-face: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
@@ -16,14 +21,14 @@ $default-font-size: 12px;
 $default-font-style: $default-font-size $default-font-face;
 
 $dialog-header-height: 36px;
-$header-color: $light-blue;
+$header-color: lighten($slate, 40%);
 $header-text-color: $text-color;
 $header-font-size: $default-font-size;
 
 $default-padding: 4px;
 $default-margin: $default-padding;
 
-$default-border-color: #afafaf;
+$default-border-color: $dark-gray;
 $border-inset-color: lighten($default-border-color, 20%);
 $default-border-width: 1px;
 $default-border-style: solid;
@@ -34,10 +39,10 @@ $default-form-field-height: 29px;
 
 $button-bg-color: #f7f7f7;
 $button-hover-bg-color: #e6f0f5;
-$button-border-color: #9a9a9a;
+$button-border-color: #slate;
 $button-hover-border-color: #888888;
 $button-text-shadow: $white 1px 1px 0;
-$button-gradient-first-color: $white !default;
+$button-gradient-first-color: $light-slate !default;
 $button-gradient-second-color: darken($button-gradient-first-color, 10%) !default;
 $button-padding: 0.5em 1.5em !default;
 $button-margin: $default-form-field-margin !default;
@@ -65,11 +70,11 @@ $sitemap-line-height: 32px;
 
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
-$main-menu-bg-color: #baced9 !default;
-$main-menu-active-bg-color: $light-blue !default;
+$main-menu-bg-color: #e6e7eb !default;
+$main-menu-active-bg-color: $very-light-gray !default;
 $main-menu-text-color: #222 !default;
 $main-menu-entry-max-width: 100px !default;
-$toolbar-bg-color: $medium-gray !default;
+$toolbar-bg-color: $very-light-gray !default;
 $header-height: 29px !default;
 $text-shadow-light: rgba($white, 0.5) 0 0 4px !default;
 $transition-duration: 200ms !default;

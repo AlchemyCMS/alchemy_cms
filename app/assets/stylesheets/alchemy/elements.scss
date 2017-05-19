@@ -13,6 +13,7 @@
   box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
+  background: $medium-gray;
 
   .sortable_cell {
     min-height: 100px;
@@ -143,24 +144,25 @@
 .element-editor {
   border: 1px solid $default-border-color;
   @extend %rounded-border;
-  background-color: $light-gray;
+  background-color: $very-light-gray;
   margin-bottom: 2*$default-margin;
+  overflow: hidden; //prevent children clipping the border
 
   &.not-draggable {
     opacity: 0.5;
   }
 
   &.dirty {
-    border-color: #d0c83d;
+    border-color: lighten($slate, 30%);
 
     > .element-header {
-      background-color: #fff8df;
+      background-color: lighten($slate, 40%);
     }
   }
 
   &.selected {
-    border-color: $blue;
-    box-shadow: 0 0 4px $blue;
+    border-color: lighten($slate, 20%);
+    box-shadow: 0 0 4px lighten($slate, 30%);
   }
 
   &.folded {
@@ -253,7 +255,7 @@
   position: relative;
   height: 20px;
   padding: 2*$default-padding;
-  background-color: $medium-gray;
+  background-color: $very-light-gray;
   @extend .disable-user-select;
   cursor: pointer;
 
@@ -279,7 +281,6 @@
 .element-toolbar {
   padding: 6px 0;
   height: 6*$default-padding;
-  background-color: #f0f0f0;
 
   .element_tools {
     float: left;
