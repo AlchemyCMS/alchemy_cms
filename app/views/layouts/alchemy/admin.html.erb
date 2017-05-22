@@ -15,9 +15,9 @@
       // Setting TinyMCE path.
       var tinyMCEPreInit = {
         <% if ActionController::Base.config.asset_host_set? %>
-        base: '<%= asset_url(assets_prefix + '/tinymce') %>',
+        base: '<%= asset_url('tinymce') %>',
         <% else %>
-        base: '<%= asset_path(assets_prefix + '/tinymce') %>',
+        base: '<%= asset_path('tinymce') %>',
         <% end %>
         suffix: '.min'
       };
