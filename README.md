@@ -9,7 +9,7 @@
 
 ## About
 
-![Alchemy CMS](app/assets/images/alchemy/alchemy-logo.svg)
+![Alchemy CMS](app/assets/images/alchemy/alchemy-logo.png)
 
 Alchemy is a powerful, flexible and user centric Rails CMS.
 
