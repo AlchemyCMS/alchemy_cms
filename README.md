@@ -4,12 +4,12 @@
 [![Test Coverage](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/badges/coverage.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms)
 [![Slack Status](http://slack.alchemy-cms.com/badge.svg)](http://slack.alchemy-cms.com)
 
-**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (3.4-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/3.4-stable).**
+**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (3.5-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/3.5-stable).**
 
 
 ## About
 
-![Alchemy CMS](app/assets/images/alchemy/alchemy-logo.svg)
+![Alchemy CMS](app/assets/images/alchemy/alchemy-logo.png)
 
 Alchemy is a powerful, flexible and user centric Rails CMS.
 
@@ -62,7 +62,7 @@ Put this into your `Gemfile`:
 gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
 ```
 
-**NOTE:** You normally want to use a stable branch, like `3.4-stable`.
+**NOTE:** You normally want to use a stable branch, like `3.5-stable`.
 
 If you want to use Russian translation and have better i18n support, you should put:
 
@@ -91,7 +91,7 @@ If you don't have your own user class, you can use the Alchemy user model. Just 
 gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
 ```
 
-**NOTE:** You normally want to use a stable branch, like `3.4-stable`.
+**NOTE:** You normally want to use a stable branch, like `3.5-stable`.
 
 Then run:
 
