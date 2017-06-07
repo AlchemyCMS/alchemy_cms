@@ -31,11 +31,8 @@
 
   &:hover {
     text-decoration: none;
+    background-image: none;
     background-color: $button-hover-bg-color;
-    background-image: linear-gradient(
-      darken($first-color, 5%),
-      darken($second-color, 5%)
-    );
     border-color: $button-hover-border-color;
   }
 
