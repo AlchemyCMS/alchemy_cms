@@ -87,6 +87,7 @@ div#overlay_text_box {
     text-shadow: $text-shadow-light;
     @extend .disable-user-select;
     @extend .locked_page;
+    box-shadow: none;
     cursor: default;
     border-bottom-color: $toolbar-bg-color;
   }
@@ -100,7 +101,7 @@ div#overlay_text_box {
 #main_content {
   box-sizing: border-box;
   background-color: $light-gray;
-  padding: 84px 8px 8px $main-menu-width + 10px;
+  padding: 84px 20px 8px $main-menu-width + 20px;
   z-index: 0;
   width: 100%;
   height: 100%;
