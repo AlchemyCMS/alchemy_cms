@@ -150,3 +150,18 @@ a:hover, button:hover {
 .icon-muted:before {
   color: $muted-text-color;
 }
+
+// Custom icon styles
+
+.icon-online,
+.icon-offline {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.icon-online {
+  background-color: $green;
+}
+.icon-offline { background-color: $medium-dark-gray; }
