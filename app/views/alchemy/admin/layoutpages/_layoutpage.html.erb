@@ -32,7 +32,7 @@
     <%- if can?(:destroy, layoutpage) -%>
       <div class="button_with_label sitemap_tool">
         <%= link_to_confirm_dialog(
-          render_icon('trash'),
+          render_icon('destroy'),
           Alchemy.t(:confirm_to_delete_page),
           url_for(
             controller: 'pages',

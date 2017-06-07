@@ -52,6 +52,17 @@
       object: attachment,
       file_attribute: 'file' %>
   <% end %>
+  <% if can?(:edit, attachment) %>
+    <%= link_to_dialog("",
+      alchemy.edit_admin_attachment_path(attachment, q: params[:q], page: params[:page]),
+      {
+        title: Alchemy.t(:rename_file),
+        size: '500x250'
+      },
+      class: 'icon-edit small',
+      title: Alchemy.t(:rename_file)
+    ) %>
+  <% end %>
   <% if can?(:destroy, attachment) %>
     <%= link_to_confirm_dialog(
       "",
@@ -63,20 +74,9 @@
         per_page: params[:per_page]
       ),
       {
-        class: 'icon-trash small',
+        class: 'icon-destroy small',
         title: Alchemy.t(:delete_file)
       }
-    ) %>
-  <% end %>
-  <% if can?(:edit, attachment) %>
-    <%= link_to_dialog("",
-      alchemy.edit_admin_attachment_path(attachment, q: params[:q], page: params[:page]),
-      {
-        title: Alchemy.t(:rename_file),
-        size: '500x250'
-      },
-      class: 'icon-edit small',
-      title: Alchemy.t(:rename_file)
     ) %>
   <% end %>
   </td>
