@@ -102,14 +102,13 @@
       .sub_navigation {
         visibility: visible;
         opacity: 1;
-        background-color: $main-menu-active-bg-color;
+        background-color: scale-color($main-menu-active-bg-color, $lightness: 20%);
       }
     }
   }
 
   &.active {
     background-color: $main-menu-active-bg-color;
-    color: $text-color;
     cursor: default;
   }
 
@@ -120,8 +119,6 @@
 
     &:hover {
       text-decoration: none;
-      color: #000;
-      text-shadow: none;
     }
   }
 }
@@ -133,6 +130,8 @@ body:not(.collapsed-menu) {
   }
 
   .main_navi_entry.active {
+
+    label { color: #fff; }
 
     .sub_navigation {
       position: static;
@@ -179,13 +178,12 @@ body:not(.collapsed-menu) {
     @include truncate($main-menu-width, $display: block);
 
     &:hover {
-      background-color: rgba(255,255,255,0.2);
+      background-color: rgba(255,255,255,0.1);
     }
   }
 
   &.active a {
-    font-weight: bold;
-    color: $main-menu-text-color;
+    color: #fff;
   }
 }
 

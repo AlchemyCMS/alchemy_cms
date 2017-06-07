@@ -116,10 +116,8 @@ form {
     }
 
     &.language_locale small.error {
-      @include form-hint(
-      $background-color: $error_background_color,
-      $border-color: $error_border_color
-      );
+      @include form-hint;
+      @include hint-colors($red);
       text-align: left;
     }
   }

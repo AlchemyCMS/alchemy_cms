@@ -30,7 +30,7 @@ table {
 }
 
 .floatThead-container {
-  background: $light-gray;
+  background: $medium-gray;
   overflow: visible !important; // the javascript author thought that, but ....
 
   &:after {
@@ -48,7 +48,7 @@ th {
   white-space: nowrap;
   text-align: left;
   vertical-align: top;
-  background: $light-gray;
+  background: $medium-gray;
   border-bottom: 1px solid $medium-gray;
   font-weight: normal;
   text-transform: uppercase;
@@ -77,17 +77,17 @@ th {
   }
 }
 
+
 tr.odd td {
-  background-color: #eaf3f9;
+  background-color: white;
 }
 
 tr.even td {
-  background-color: white;
+  background-color: $white;
 }
 
 .list tr .tools {
   width: 40px;
-  background: $light-gray;
   border-top: 0 none;
   border-right: 0 none;
   white-space: nowrap;
@@ -105,7 +105,6 @@ td.heading {
 }
 
 .list td.icon, .list th.icon {
-  background-color: $light-gray;
   background-image: none;
   border-left: 0 none;
   padding: 0;
@@ -140,7 +139,7 @@ td.heading {
 }
 
 .list tr:hover td {
-  background-color: $light_yellow;
+  background-color: $light-yellow;
 }
 
 td, th {

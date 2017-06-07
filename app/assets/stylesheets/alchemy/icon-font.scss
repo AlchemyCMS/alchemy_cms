@@ -69,7 +69,10 @@ a:hover, button:hover {
 .icon-cut:before { content: "\e908"; }
 .icon-dashboard:before { content: "\e909"; }
 .icon-deselect:before { content: "\e90a"; }
-.icon-destroy:before { content: "\e90b"; }
+.icon-destroy:before {
+  content: "\e90b";
+  color: $red;
+}
 .icon-download:before { content: "\e90c"; }
 .icon-dropdown:before { content: "\e90d"; }
 .icon-duplicate:before { content: "\e90e"; }
@@ -94,10 +97,16 @@ a:hover, button:hover {
 .icon-pages:before { content: "\e920"; }
 .icon-pictures:before { content: "\e921"; }
 .icon-plus:before { content: "\e922"; }
-.icon-public:before { content: "\e923"; }
+.icon-public:before {
+  content: "\e923";
+  color: $green;
+}
 .icon-publish:before { content: "\e924"; }
 .icon-refresh:before { content: "\e925"; }
-.icon-restricted:before { content: "\e926"; }
+.icon-restricted:before {
+  content: "\e926";
+  color: $orange;
+}
 .icon-search:before { content: "\e927"; }
 .icon-select-all:before { content: "\e928"; }
 .icon-settings:before { content: "\e929"; }
@@ -109,15 +118,28 @@ a:hover, button:hover {
 .icon-toggle-sidebar:before { content: "\e92f"; }
 .icon-trash-full:before { content: "\e930"; }
 .icon-trash:before { content: "\e931"; }
+.icon-true:before {
+  content: "\e903";
+  color: $green;
+}
 .icon-unlink:before { content: "\e932"; }
 .icon-unlocked:before { content: "\e933"; }
 .icon-upload:before { content: "\e934"; }
-.icon-user-new:before, .icon-user_add:before { content: "\e935"; }
+.icon-user-new:before, .icon-user_add:before {
+  content: "\e935";
+  color: $blue;
+}
 .icon-user:before { content: "\e936"; }
 .icon-users:before { content: "\e937"; }
-.icon-visible:before { content: "\e938"; }
+.icon-visible:before {
+  content: "\e938";
+  .page_status & { color: $yellow; }
+}
 .icon-visit-page:before { content: "\e939"; width: 2em; }
-.icon-warning:before { content: "\e93a"; }
+.icon-warning:before {
+  content: "\e93a";
+  color: $red;
+}
 .icon-zoom-equal:before { content: "\e93b"; }
 .icon-zoom-in:before { content: "\e93c"; }
 .icon-zoom-out:before { content: "\e93d"; }

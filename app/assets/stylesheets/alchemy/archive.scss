@@ -252,7 +252,7 @@ div#filter_bar {
         display: block;
       }
 
-      &:hover { background-color: $very-light-blue }
+      &:hover { background-color: $light-blue }
 
       &.active {
         background-color: $dark-gray;
@@ -310,7 +310,7 @@ div#filter_bar {
     word-break: break-all;
 
     &:hover {
-      background-color: $light_yellow;
+      background-color: $light-yellow;
     }
   }
 

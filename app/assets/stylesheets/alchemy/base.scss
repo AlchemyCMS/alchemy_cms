@@ -356,6 +356,7 @@ div#images {
 
 .foot_note, form .input .hint {
   @include form-hint;
+  @include hint-colors($yellow);
 }
 
 #all_files td.name a {

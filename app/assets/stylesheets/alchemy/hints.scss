@@ -43,6 +43,7 @@
     opacity: 0;
     transition: .3s;
     pointer-events: none;
+    @include hint-colors();
 
     &:before {
       content: '';
@@ -54,7 +55,10 @@
       height: 0px;
       border-style: solid;
       border-width: 0 8px 8px 8px;
-      border-color: transparent transparent $light_yellow transparent;
     }
   }
+}
+
+.icon-warning > .hint-bubble {
+  @include hint-colors($red);
 }

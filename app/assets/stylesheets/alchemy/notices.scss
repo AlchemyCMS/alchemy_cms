@@ -44,21 +44,17 @@ div.message, p.message {
   }
 }
 
-div.info {
+div.info, div.notice {
   @extend div.message;
-  color: $text-color;
-  background-color: #eaf4f9;
-  border-color: #0b5c84;
+  @include hint-colors($blue);
 }
 
 div.error {
   @extend div.message;
-  background-color: #f1c9ca;
-  color: #931f23;
+  @include hint-colors($red);
 }
 
 div.warning, div.warn {
   @extend div.message;
-  background-color: #f7efb8;
-  color: #756f47;
+  @include hint-colors($yellow);
 }

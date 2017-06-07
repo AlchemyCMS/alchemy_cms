@@ -7,6 +7,7 @@
   height: auto;
   border-left: $default-border;
   @include transition(200ms ease-in-out);
+  background-color: $medium-dark-gray;
 }
 
 #element_area {
@@ -133,15 +134,19 @@
   background-color: $light-gray;
   margin-bottom: 2*$default-margin;
 
+  .icon-visible:before
+
   &.not-draggable {
     opacity: 0.5;
   }
 
   &.dirty {
-    border-color: #d0c83d;
+    border-color: scale-color($yellow, $lightness: 40%, $saturation: -40%);
 
     > .element-header {
-      background-color: #fff8df;
+      background-color: scale-color($yellow, $lightness: 90%);
+
+      .icon-edit:before { color: $yellow; }
     }
   }
 
@@ -245,9 +250,10 @@
   position: relative;
   height: 20px;
   padding: 2*$default-padding;
-  background-color: $medium-gray;
   @extend .disable-user-select;
   cursor: pointer;
+
+  .icon-visible:before { color: $green; }
 
   > .hint-with-icon {
     position: absolute;
@@ -271,7 +277,9 @@
 .element-toolbar {
   padding: 6px;
   height: 6*$default-padding;
-  background-color: #f0f0f0;
+  background-color: $light-gray;
+  border-top: 1px solid $medium-gray;
+  border-bottom: 1px solid $medium-gray;
 
   .element_tools {
     float: left;

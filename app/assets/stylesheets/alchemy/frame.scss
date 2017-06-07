@@ -69,7 +69,7 @@ div#overlay_text_box {
 #header {
   height: $header-height;
   line-height: $header-height;
-  background: $light-blue;
+  background: $medium-dark-gray;
   border-bottom: $default-border;
   position: relative;
 
@@ -139,8 +139,9 @@ div#overlay_text_box {
   height: $header-height;
   font-size: 11px;
   padding-left: 2*$default-padding;
-  background-color: $light-blue;
+  background-color: $medium-dark-gray;
   border-bottom: $default-border;
+  box-shadow: -30px 0 30px $medium-dark-gray;
 
   .select2-container {
     margin-top: -3px;

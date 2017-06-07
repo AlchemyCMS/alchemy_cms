@@ -91,7 +91,7 @@
   }
 
   &:hover .sitemap_pagename_link {
-    background-color: $light_yellow;
+    background-color: $light-yellow;
   }
 }
 
@@ -199,16 +199,18 @@ ul.list .sitemap_sitename {
   height: $sitemap-line-height;
   line-height: $sitemap-line-height;
   overflow: hidden;
+  box-shadow: 0 1px 20px rgba(0,0,0,0.05);
 }
 
 .page_infos {
   @extend .right-rounded-border;
-  background-color: rgba(#fff, .75);
-  border-left: 1px solid $light-gray;
+  background-color: white;
+  border-left: 1px solid $medium-gray;
   float: right;
   height: $sitemap-line-height;
   line-height: $sitemap-line-height;
   padding: 0 $default-padding;
+  box-shadow: 0 1px 20px rgba(0,0,0,0.05);
 
   .page_status {
     padding: 0 $default-padding;

@@ -206,3 +206,32 @@
   background-color: rgba(0,0,0,0.05);
   border-radius: $default-border-radius;
 }
+
+@mixin hint-colors($color: null) {
+  @if $color {
+    background-color: scale-color($color, $lightness: 92%);
+    border-color: scale-color($color, $lightness: 40%, $saturation: -40%);
+    color: scale-color($color, $lightness: -20%);
+
+    [class^="icon-"]:before,
+    [class*=" icon-"]:before {
+      color: $color;
+    }
+
+    &:before { border-color: transparent transparent scale-color($color, $lightness: 90%) transparent; }
+
+  } @else {
+
+    background-color: white;
+    border-color: $medium-gray;
+    color: $dark-gray;
+
+    [class^="icon-"]:before,
+    [class*=" icon-"]:before {
+      color: $dark-gray;
+    }
+
+    &:before { border-color: transparent transparent white transparent; }
+  }
+}
+
