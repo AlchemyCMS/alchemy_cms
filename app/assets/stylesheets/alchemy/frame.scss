@@ -36,7 +36,6 @@ div#overlay_text_box {
   left: 0;
   width: $main-menu-width;
   background-color: $main-menu-bg-color;
-  border-right: $default-border;
   transition: background-color $transition-duration $transition-easing;
 
   &:hover {
@@ -49,7 +48,7 @@ div#overlay_text_box {
 
   a {
     display: block;
-    padding-left: $default-padding;
+    padding-left: 2 * $default-padding;
     line-height: 45px;
 
     &:hover {

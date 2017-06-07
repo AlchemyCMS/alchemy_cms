@@ -54,14 +54,17 @@ a:hover, button:hover {
 
 .icon-add:before,
 .icon-create:before,
-.icon-tag_add:before { content: "\e900"; }
+.icon-tag_add:before {
+  content: "\e900";
+  color: $blue;
+}
+.icon-create:before { margin: -1px 0.6em 0 0.2em; }
 .icon-arrow-doubled:before,
 .icon-angle-double-right:before { content: "\e901"; }
 .icon-arrow:before { content: "\e902"; }
 .icon-angle-right:before { content: "\e902"; }
 .icon-angle-left:before { content: "\e902"; transform: scaleX(-1); }
 .icon-checkmark:before,
-.icon-true:before { content: "\e903"; }
 .icon-clipboard:before { content: "\e904"; }
 .icon-close:before { content: "\e905"; }
 .icon-crop:before { content: "\e906"; }
@@ -85,7 +88,7 @@ a:hover, button:hover {
 .icon-goto:before { content: "\e914"; }
 .icon-hint:before { content: "\e915"; }
 .icon-info:before { content: "\e916"; }
-.icon-language:before { content: "\e917"; }
+.icon-languages:before { content: "\e917"; }
 .icon-leave:before { content: "\e918"; }
 .icon-library:before { content: "\e919"; }
 .icon-link:before { content: "\e91a"; }
