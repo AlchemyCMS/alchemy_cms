@@ -1,29 +1,61 @@
-$text-color: #333333;
-$muted-text-color: rgba(0, 0, 0, 0.5);
-$light-blue: #cddce5; // #c6dbe7
-$blue: darken($light-blue, 15%);
-$very-light-blue: lighten($light-blue, 12%);
-$light-gray: #ededed;
-$medium-gray: #e3e3e3;
-$dark-gray: #666666;
-$light_yellow: #ffffdc;
-$linked-color: #ffd77a;
-$white: #f2f2f2;
+// Colors
+
+$blue: #0077CC;
+$green: #6EA600;
+$yellow: #E6AC00;
+$red: #E63956;
+$orange: #D96C00;
+$dark-gray: #475266;
+
+$light-blue: scale-color($blue, $lightness: 90%);
+$light-green: scale-color($green, $lightness: 90%);
+$light-yellow: scale-color($yellow, $lightness: 90%);
+$light-red: scale-color($red, $lightness: 92%);
+
+$white: scale-color($blue, $lightness: 98%, $saturation: -80%);
+$light-gray: scale-color($blue, $lightness: 94%, $saturation: -80%);
+$medium-gray: scale-color($blue, $lightness: 86%, $saturation: -85%);
+$medium-dark-gray: scale-color($blue, $lightness: 70%, $saturation: -85%);
+
+$text-color: $dark-gray;
+$icon-color: $dark-gray;
+$muted-text-color: rgba(0, 0, 0, 0.4);
+$linked-color: $light-yellow;
+
+$success_border_color: scale-color($green, $lightness: 40%, $saturation: -40%);
+$success_text_color: scale-color($green, $lightness: -20%);
+$success_background_color: $light-green;
+
+$info_border_color: scale-color($blue, $lightness: 40%, $saturation: -40%);
+$info_text_color: scale-color($blue, $lightness: -20%);
+$info_background_color: #cadbf3;
+
+$warning_border_color: scale-color($yellow, $lightness: 40%, $saturation: -40%);
+$warning_text_color: scale-color($yellow, $lightness: -20%);
+$warning_background_color: $light-yellow;
+
+$error_border_color: scale-color($red, $lightness: 40%, $saturation: -40%);
+$error_text_color: scale-color($red, $lightness: -20%);
+$error_background_color: $light-red;
+
+$header-color: $medium-dark-gray;
+$header-text-color: $text-color;
+
+// Typography
 
 $default-font-face: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
 $mono-font-face: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
 $default-font-size: 12px;
 $default-font-style: $default-font-size $default-font-face;
 
-$dialog-header-height: 36px;
-$header-color: $light-blue;
-$header-text-color: $text-color;
-$header-font-size: $default-font-size;
+// layout
 
 $default-padding: 4px;
 $default-margin: $default-padding;
 
-$default-border-color: #afafaf;
+// Borders
+
+$default-border-color: scale-color($blue, $lightness: 55%, $saturation: -85%);;
 $border-inset-color: lighten($default-border-color, 20%);
 $default-border-width: 1px;
 $default-border-style: solid;
@@ -32,45 +64,37 @@ $default-border-radius: 3px;
 $default-form-field-margin: $default-margin 0;
 $default-form-field-height: 29px;
 
+// Buttons
+
 $button-bg-color: #f7f7f7;
-$button-hover-bg-color: rgba(0,0,0,0.05);
-$button-border-color: #9a9a9a;
-$button-hover-border-color: #888888;
-$button-text-shadow: $white 1px 1px 0;
-$button-gradient-first-color: $white !default;
-$button-gradient-second-color: darken($button-gradient-first-color, 10%) !default;
+$button-hover-bg-color: white;
+$button-border-color: $default-border-color;
+$button-hover-border-color: scale-color($default-border-color, $lightness: -30%);
+$button-text-shadow: rgbs(255,255,255,.2) 1px 1px 0;
+$button-gradient-first-color: white !default;
+$button-gradient-second-color: $white !default;
 $button-padding: 0.5em 1.5em !default;
 $button-margin: $default-form-field-margin !default;
 $linked-button-color: #ffd77a;
 
-$success_border_color: #9cc4a1;
-$success_text_color: #2e5934;
-$success_background_color: #e2efd3;
+// Effects
 
-$info_border_color: #8392b5;
-$info_text_color: #233772;
-$info_background_color: #cadbf3;
+$text-shadow-light: rgba(white, 0.2) 0 0 4px !default;
+$transition-duration: 200ms !default;
+$transition-easing: linear !default;
 
-$warning_border_color: #c4c19c;
-$warning_text_color: #726d23;
-$warning_background_color: #f3f0c1;
+// Certain elements
 
-$error_border_color: #c49c9c;
-$error_text_color: #a23434;
-$error_background_color: #efd3d3;
-
+$dialog-header-height: 36px;
+$header-font-size: $default-font-size;
 $form-left-width: 35%;
 $form-right-width: 65%;
 $sitemap-line-height: 32px;
-
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
-$main-menu-bg-color: #baced9 !default;
-$main-menu-active-bg-color: $light-blue !default;
-$main-menu-text-color: #222 !default;
+$main-menu-bg-color: $dark-gray !default;
+$main-menu-active-bg-color: scale-color($dark-gray, $lightness: -15%) !default;
+$main-menu-text-color: $light-blue !default;
 $main-menu-entry-max-width: 100px !default;
 $toolbar-bg-color: $medium-gray !default;
 $header-height: 29px !default;
-$text-shadow-light: rgba($white, 0.5) 0 0 4px !default;
-$transition-duration: 200ms !default;
-$transition-easing: linear !default;
