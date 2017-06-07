@@ -17,7 +17,7 @@
 
   .sortable_cell {
     min-height: 100px;
-    padding: 2*$default-padding $default-padding 2px;
+    padding: 2*$default-padding 2*$default-padding 2px;
   }
 
   textarea {
@@ -172,8 +172,7 @@
   &.with-contents, &.without-contents.not-nestable {
 
     .element-content {
-      padding: 2*$default-padding 2*$default-padding 0;
-      border-top: 1px solid $medium-gray;
+      padding: 0 2*$default-padding 0;
     }
   }
 
@@ -286,6 +285,10 @@
     margin-top: -3px;
     margin-left: -4px;
   }
+}
+
+.element-content-editors > div:first-child {
+  padding-top: 2*$default-padding;
 }
 
 .element-footer {
@@ -777,24 +780,6 @@ textarea.has_tinymce {
   }
 }
 
-.content_editor .hint-with-icon,
-.content_editor .with-hint,
-.element-handle .warning {
-
-  > .hint-bubble {
-    left: -7px;
-    transform: none;
-
-    &:before {
-      left: 16px;
-    }
-  }
-}
-
-.content_editor .hint-with-icon {
-  top: -1px;
-}
-
 .nestable-elements {
   box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
   background-color: $medium-gray;
@@ -812,7 +797,6 @@ textarea.has_tinymce {
 
   .element-toolbar {
     background-color: transparent;
-    border-top: 1px solid $medium-gray;
   }
 }
 
