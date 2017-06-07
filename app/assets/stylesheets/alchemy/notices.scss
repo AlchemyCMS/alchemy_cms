@@ -1,6 +1,7 @@
 // leave this as div, bcz some table columns also have .message
+
 div.message, p.message {
-  padding: 8px;
+  padding: 8px 8px 8px 32px;
   line-height: 17px;
   border-width: 1px;
   border-style: solid;
@@ -9,18 +10,17 @@ div.message, p.message {
   margin-bottom: 8px;
   text-align: left;
 
+  > span {  //icon
+    position: absolute;
+    left: 8px;
+  }
+
   h1 {
     font-size: 14px;
     margin: 8px 0;
   }
 
   h1, h2 { margin-top: 0 }
-
-  span.icon {
-    position: absolute;
-    left: 8px;
-    top: 8px;
-  }
 
   &.footnote {
     font-size: 10px;
