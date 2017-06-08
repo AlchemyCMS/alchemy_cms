@@ -52,64 +52,71 @@ a:hover, button:hover {
   }
 }
 
-.icon-add:before,
-.icon-create:before,
-.icon-tag_add:before {
-  content: "\e900";
-  color: $blue;
-}
-.icon-create:before { margin: -1px 0.6em 0 0.2em; }
-.icon-arrow-doubled:before,
+// Icon codes
+
+.icon-add:before { content: "\e900"; }
+.icon-alert:before { content: "\e93a"; }
+.icon-archive:before { content: "\e941"; }
 .icon-angle-double-right:before { content: "\e901"; }
-.icon-arrow:before { content: "\e902"; }
+.icon-angle-left:before { content: "\e902"; }
 .icon-angle-right:before { content: "\e902"; }
-.icon-angle-left:before { content: "\e902"; transform: scaleX(-1); }
-.icon-checkmark:before,
+.icon-arrow:before { content: "\e902"; }
+.icon-arrow-doubled:before { content: "\e901"; }
+.icon-audio:before { content: "\e93e"; }
+.icon-checkmark:before { content: "\e903"; }
 .icon-clipboard:before { content: "\e904"; }
+.icon-clipboard.full:before { content: "\e94a"; }
 .icon-close:before { content: "\e905"; }
+.icon-create:before { content: "\e900"; }
 .icon-crop:before { content: "\e906"; }
 .icon-cross:before { content: "\e907"; }
 .icon-cut:before { content: "\e908"; }
 .icon-dashboard:before { content: "\e909"; }
 .icon-deselect:before { content: "\e90a"; }
-.icon-destroy:before {
-  content: "\e90b";
-  color: $red;
-}
+.icon-destroy:before { content: "\e90b"; }
 .icon-download:before { content: "\e90c"; }
+.icon-drag:before { content: "\e94b"; }
 .icon-dropdown:before { content: "\e90d"; }
 .icon-duplicate:before { content: "\e90e"; }
-.icon-edit:before,
+.icon-edit:before { content: "\e90f"; }
 .dirty .icon-edit:before { content: "\e90f"; }
+.icon-error:before { content: "\e93a"; }
+.icon-excel:before { content: "\e945"; }
 .icon-exit:before { content: "\e910"; }
-.icon-fullscreen-exit:before { content: "\e911"; }
+.icon-file:before { content: "\e943"; }
+.icon-flash:before { content: "\e913"; }
 .icon-fullscreen:before { content: "\e912"; }
+.icon-fullscreen-exit:before { content: "\e911"; }
 .icon-globalElements:before { content: "\e913"; }
 .icon-goto:before { content: "\e914"; }
 .icon-hint:before { content: "\e915"; }
+.icon-image:before { content: "\e946"; }
 .icon-info:before { content: "\e916"; }
 .icon-languages:before { content: "\e917"; }
 .icon-leave:before { content: "\e918"; }
 .icon-library:before { content: "\e919"; }
 .icon-link:before { content: "\e91a"; }
 .icon-mainmenu_dashboard:before { content: "\e91b"; }
+.icon-menu:before { content: "\e949"; }
 .icon-minus:before { content: "\e91c"; }
+.icon-no-menu:before { content: "\e948"; }
 .icon-not-public:before { content: "\e91d"; }
 .icon-not-restricted:before { content: "\e91e"; }
 .icon-not-visible:before { content: "\e91f"; }
+.page_infos .icon-not-visible:before { content: "\e948"; }
+.page_status .icon-not-visible:before { content: "\e948"; }
+.icon-notice:before { content: "\e903"; }
+.icon-ok:before { content: "\e903"; }
 .icon-pages:before { content: "\e920"; }
+.icon-pdf:before { content: "\e947"; }
 .icon-pictures:before { content: "\e921"; }
 .icon-plus:before { content: "\e922"; }
-.icon-public:before {
-  content: "\e923";
-  color: $green;
-}
+.icon-public:before { content: "\e923"; }
+.icon-psd:before { content: "\e940"; }
 .icon-publish:before { content: "\e924"; }
 .icon-refresh:before { content: "\e925"; }
-.icon-restricted:before {
-  content: "\e926";
-  color: $orange;
-}
+.icon-restricted:before { content: "\e926"; }
+.icon-rtf:before { content: "\e942"; }
 .icon-search:before { content: "\e927"; }
 .icon-select-all:before { content: "\e928"; }
 .icon-settings:before { content: "\e929"; }
@@ -117,32 +124,29 @@ a:hover, button:hover {
 .icon-size:before { content: "\e92b"; }
 .icon-sort:before { content: "\e92c"; }
 .icon-tag:before { content: "\e92d"; }
+.icon-tag_add:before { content: "\e900"; }
 .icon-tags:before { content: "\e92e"; }
+.icon-text:before { content: "\e943"; }
 .icon-toggle-sidebar:before { content: "\e92f"; }
-.icon-trash-full:before { content: "\e930"; }
+.icon-trash.full:before { content: "\e930"; }
 .icon-trash:before { content: "\e931"; }
-.icon-true:before {
-  content: "\e903";
-  color: $green;
-}
+.icon-true:before { content: "\e903"; }
+.icon-tick:before { content: "\e903"; }
 .icon-unlink:before { content: "\e932"; }
 .icon-unlocked:before { content: "\e933"; }
 .icon-upload:before { content: "\e934"; }
-.icon-user-new:before, .icon-user_add:before {
-  content: "\e935";
-  color: $blue;
-}
 .icon-user:before { content: "\e936"; }
+.icon-user_add:before { content: "\e935"; }
+.icon-user-new:before { content: "\e935"; }
 .icon-users:before { content: "\e937"; }
-.icon-visible:before {
-  content: "\e938";
-  .page_status & { color: $yellow; }
-}
-.icon-visit-page:before { content: "\e939"; width: 2em; }
-.icon-warning:before {
-  content: "\e93a";
-  color: $red;
-}
+.icon-video:before { content: "\e93f"; }
+.icon-visible:before { content: "\e938"; }
+.page_infos .icon-visible:before { content: "\e949"; }
+.page_status .icon-visible:before { content: "\e949"; }
+.icon-visit-page:before { content: "\e939"; }
+.icon-warning:before { content: "\e93a"; }
+.icon-warn:before { content: "\e93a"; }
+.icon-word:before { content: "\e944"; }
 .icon-zoom-equal:before { content: "\e93b"; }
 .icon-zoom-in:before { content: "\e93c"; }
 .icon-zoom-out:before { content: "\e93d"; }
@@ -150,6 +154,87 @@ a:hover, button:hover {
 .icon-muted:before {
   color: $muted-text-color;
 }
+
+// Color Modifications
+
+.icon-public:before,
+.icon-word:before {
+  color: $blue;
+}
+
+.icon-destroy:before,
+.icon-warning:before,
+.icon-warn:before,
+.icon-error:before,
+.element-header .icon-not-visible:before {
+  color: $red;
+  opacity: 1;
+}
+
+.icon-true:before,
+.icon-checkmark:before,
+.icon-notice:before,
+.icon-tick:before,
+.icon-ok:before,
+.icon-add:before,
+.icon-create:before,
+.icon-tag_add:before,
+.icon-user-new:before,
+.icon-user_add:before,
+.icon-excel:before {
+  color: $green;
+  opacity: 1;
+}
+
+.icon-restricted:before,
+.dirty .element-header .icon-edit:before {
+  color: $orange;
+  opacity: 1;
+}
+
+.page_status .icon-visible:before,
+.icon-image:before {
+  color: $yellow;
+  opacity: 1;
+}
+
+.icon-pdf:before {
+  color: $warm-red;
+  opacity: 1;
+}
+
+.icon-video:before {
+  color: $violet;
+  opacity: 1;
+}
+
+.icon-audio:before,
+.icon-psd:before {
+  color: $cold-blue;
+  opacity: 1;
+}
+
+.icon-archive:before {
+  color: $brown;
+  opacity: 1;
+}
+
+.icon-text:before,
+.icon-file:before {
+  color: $warm-gray;
+}
+
+.icon-drag:before {
+  opacity: .45;
+}
+
+
+// Other modifications
+
+.icon-create:before { margin: -1px 0.6em 0 0.2em; }
+.icon-angle-left:before { transform: scaleX(-1); }
+.icon-visit-page:before { width: 2em; }
+
 
 // Custom icon styles
 
