@@ -1,4 +1,4 @@
-// Colors
+// Status colors
 
 $blue: #0077CC;
 $green: #6EA600;
@@ -6,6 +6,16 @@ $yellow: #E6AC00;
 $red: #E63956;
 $orange: #D96C00;
 $dark-gray: #475266;
+
+// Colors for file type icons
+
+$brown: #734533;
+$violet: #5A41D9;
+$cold-blue: #3956E6;
+$warm-red: #D93A2B;
+$warm-gray: #595350;
+
+// Interface colors
 
 $light-blue: scale-color($blue, $lightness: 90%);
 $light-green: scale-color($green, $lightness: 90%);
@@ -22,6 +32,11 @@ $icon-color: $dark-gray;
 $muted-text-color: rgba(0, 0, 0, 0.4);
 $linked-color: $light-yellow;
 
+$header-color: $medium-dark-gray;
+$header-text-color: $text-color;
+
+// flash messages, hints and notices
+
 $success_border_color: scale-color($green, $lightness: 40%, $saturation: -40%);
 $success_text_color: scale-color($green, $lightness: -20%);
 $success_background_color: $light-green;
@@ -37,9 +52,6 @@ $warning_background_color: $light-yellow;
 $error_border_color: scale-color($red, $lightness: 40%, $saturation: -40%);
 $error_text_color: scale-color($red, $lightness: -20%);
 $error_background_color: $light-red;
-
-$header-color: $medium-dark-gray;
-$header-text-color: $text-color;
 
 // Typography
 
