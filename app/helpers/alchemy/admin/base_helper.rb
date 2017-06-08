@@ -410,8 +410,8 @@ module Alchemy
       # The model class needs to include the hints module
       def render_hint_for(element)
         return unless element.has_hint?
-        content_tag :span, class: 'hint-with-icon icon-hint small' do
-          render_icon(:questionmark) +
+        content_tag :span, class: 'hint-with-icon' do
+          render_icon("hint") +
             content_tag(:span, element.hint.html_safe, class: 'hint-bubble')
         end
       end
