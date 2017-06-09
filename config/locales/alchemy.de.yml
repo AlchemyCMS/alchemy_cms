@@ -875,10 +875,10 @@ de:
         country_code: "Länderkürzel"
         language_code: "Sprachkürzel"
         default: "Standardsprache"
-        frontpage_name: "Name der Startseite"
+        frontpage_name: "Name Startseite"
         name: "Name"
-        page_layout: "Seitentyp der Startseite"
-        public: "Sprache veröffentlichen"
+        page_layout: "Seitentyp Startseite"
+        public: "Veröffentlicht"
         locale: Lokalisierung
         code: ISO-Code
 
