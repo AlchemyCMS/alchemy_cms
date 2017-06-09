@@ -162,9 +162,6 @@ ul#sitemap {
     position: absolute;
     left: -23px;
     top: 8px;
-
-    &.collapsed { @extend .icon.expand.small }
-    &.folded { @extend .icon.collapse.small }
   }
 
   ul {
