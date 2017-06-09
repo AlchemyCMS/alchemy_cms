@@ -122,7 +122,8 @@
     height: inherit;
     border: none;
     background-color: rgba(255, 255, 255, 0.5);
-    transition: width $transition-duration ease-in-out;
+    transition-property: width, background-color;
+    transition-duration: $transition-duration;
     border-radius: 0;
     padding: 8px 16px 8px 40px;
     margin: 0;
@@ -132,6 +133,7 @@
 
     &:focus {
       width: 250px;
+      background-color: white;
     }
   }
 
