@@ -37,6 +37,8 @@
     -moz-osx-font-smoothing: grayscale;
     font-smoothing: antialiased;
     font-weight: bold;
+
+    &:first-letter { text-transform: uppercase; }
   }
 
   a { opacity: .7; }

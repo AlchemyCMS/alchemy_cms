@@ -179,8 +179,6 @@ a:hover, button:hover {
 .icon-add:before,
 .icon-create:before,
 .icon-tag_add:before,
-.icon-user-new:before,
-.icon-user_add:before,
 .icon-excel:before {
   color: $green;
   opacity: 1;
@@ -231,7 +229,11 @@ a:hover, button:hover {
 
 // Other modifications
 
-.icon-create:before { margin: -1px 0.6em 0 0.2em; }
+[class^="icon-"] + span,
+[class*=" icon-"] + span {
+  margin: 0 .6em -1px .3em;
+}
+
 .icon-angle-left:before { transform: scaleX(-1); }
 .icon-visit-page:before { width: 2em; }
 

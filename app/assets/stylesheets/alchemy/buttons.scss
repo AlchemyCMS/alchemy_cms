@@ -51,27 +51,12 @@ button, input[type="submit"], a.button, input.button {
   padding: 3px;
   overflow: hidden;
   text-align: center;
+  border-radius: $default-border-radius;
+  font-family: $default-font-face;
 
   &:hover {
-    border-radius: $default-border-radius;
     background: $button-hover-bg-color;
-  }
-
-  .icon {
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: -2px;
-  }
-
-  .old_icon {
-    position: relative;
-    background-repeat: no-repeat;
-    width: 22px;
-    height: 20px;
-    display: inline-block;
-    vertical-align: middle;
-    top: -1px;
-    left: -1px;
+    text-decoration: none;
   }
 
   img {

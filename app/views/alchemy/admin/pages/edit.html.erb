@@ -71,8 +71,8 @@
       <%= form_tag alchemy.publish_admin_page_path(@page), id: 'publish_page_form' do %>
         <%= button_tag class: 'icon_button', title: Alchemy.t(:explain_publishing) do %>
           <%= render_icon('publish') %>
+          <span><%= Alchemy.t("Publish page") %></span>
         <% end %>
-        <label><%= Alchemy.t("Publish page") %></label>
       <% end %>
     </div>
   <% end %>

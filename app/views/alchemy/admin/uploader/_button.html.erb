@@ -5,11 +5,13 @@
   <%= hidden_field_tag "#{f.object_name}[upload_hash]", Time.current.hash %>
   <%= f.label file_attribute, data: {alchemy_hotkey: 'alt+n'} do %>
     <div class="button_with_label">
-      <span class="icon_button"><%= render_icon :upload %></span>
-      <label>
-        <%= local_assigns[:label] ||
-          Alchemy.t(:button_label, scope: [:uploader, object.class.model_name.i18n_key]) %>
-      </label>
+      <span class="icon_button">
+        <%= render_icon :upload %>
+        <span>
+          <%= local_assigns[:label] ||
+            Alchemy.t(:button_label, scope: [:uploader, object.class.model_name.i18n_key]) %>
+        </span>
+      </span>
     </div>
   <% end %>
 <% end %>
