@@ -9,9 +9,8 @@
     <%- @clipboard_items.each do |item| -%>
     <% item_class = item.class.name.demodulize.underscore.pluralize %>
     <li id="clipboard_item_<%= item.id -%>" class="<%= item_class -%>">
-      <%= render_icon("clipboard_#{item_class}") %>
       <%= item.class.to_s == 'Alchemy::Element' ? item.display_name_with_preview_text(60) : item.name %>
-      <span class="float_right"><%= link_to(render_icon('delete-small'), alchemy.remove_admin_clipboard_path(remarkable_type: item_class, remarkable_id: item.id), remote: true, method: 'delete', title: Alchemy.t('Remove item from clipboard')) %></span>
+      <span class="float_right"><%= link_to(render_icon('destroy small'), alchemy.remove_admin_clipboard_path(remarkable_type: item_class, remarkable_id: item.id), remote: true, method: 'delete', title: Alchemy.t('Remove item from clipboard')) %></span>
     </li>
     <%- end -%>
   </ul>

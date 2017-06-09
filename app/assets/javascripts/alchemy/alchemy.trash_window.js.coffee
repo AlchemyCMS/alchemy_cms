@@ -21,7 +21,7 @@ $.extend Alchemy,
     # Update the trash window icon
     updateIcon: ->
       return unless @current?
-      $icon = $("#element_trash_button .icon")
+      $icon = $("#element_trash_button .icon-trash")
       # Is the trash window open?
       if $("#trash_items div.element-editor").not(".dragged").length is 0
         $icon.removeClass("full")
