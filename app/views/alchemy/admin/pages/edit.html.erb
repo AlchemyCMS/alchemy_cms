@@ -13,31 +13,6 @@
     <% end %>
   </div>
   <div class="toolbar_spacer"></div>
-  <% unless @page.layoutpage? %>
-  <div class="button_with_label">
-    <%= form_tag alchemy.visit_admin_page_path(@page), id: 'visit_page_form' do %>
-      <button class="icon_button" title="<%= Alchemy.t('Visit page') %>">
-        <%= render_icon('visit-page') %>
-      </button>
-      <label><%= Alchemy.t("Visit page") %></label>
-    <% end %>
-  </div>
-  <% end %>
-  <div class="button_with_label">
-    <%= link_to_dialog(
-      render_icon('info'),
-      alchemy.info_admin_page_path(@page),
-      {
-        title: Alchemy.t(:page_infos),
-        size: '520x320'
-      },
-      {
-        class: 'icon_button',
-        'data-alchemy-hotkey' => 'alt+i'
-      }
-    ) %>
-    <label><%= Alchemy.t(:page_infos) %></label>
-  </div>
   <div class="button_with_label">
     <% if @page.layoutpage? %>
       <%= link_to_dialog(
@@ -66,13 +41,36 @@
     <% end %>
     <label><%= Alchemy.t(:page_properties) %></label>
   </div>
-  <% if can?(:publish, @page) %>
+  <div class="button_with_label">
+    <%= link_to_dialog(
+      render_icon('info'),
+      alchemy.info_admin_page_path(@page),
+      {
+        title: Alchemy.t(:page_infos),
+        size: '520x320'
+      },
+      {
+        class: 'icon_button',
+        'data-alchemy-hotkey' => 'alt+i'
+      }
+    ) %>
+    <label><%= Alchemy.t(:page_infos) %></label>
+  </div>
+  <div class="button_with_label">
+    <%= link_to render_icon(:refresh), '#', {
+      title: Alchemy.t('Reload Preview'),
+      class: 'icon_button',
+      id: 'reload_preview_button'
+    } %>
+    <label><%= Alchemy.t('Reload Preview') %></label>
+  </div>
+  <% unless @page.layoutpage? %>
     <div class="button_with_label">
-      <%= form_tag alchemy.publish_admin_page_path(@page), id: 'publish_page_form' do %>
-        <%= button_tag class: 'icon_button', title: Alchemy.t(:explain_publishing) do %>
-          <%= render_icon('publish') %>
-          <span><%= Alchemy.t("Publish page") %></span>
-        <% end %>
+      <%= form_tag alchemy.visit_admin_page_path(@page), id: 'visit_page_form' do %>
+        <button class="icon_button" title="<%= Alchemy.t('Visit page') %>">
+          <%= render_icon('visit-page') %>
+        </button>
+        <label><%= Alchemy.t("Visit page") %></label>
       <% end %>
     </div>
   <% end %>
@@ -88,14 +86,16 @@
       class: 'alchemy_selectbox medium' %>
   </div>
   <div class="toolbar_spacer"></div>
-  <div class="button_with_label">
-    <%= link_to render_icon(:refresh), '#', {
-      title: Alchemy.t('Reload Preview'),
-      class: 'icon_button',
-      id: 'reload_preview_button'
-    } %>
-    <label><%= Alchemy.t('Reload Preview') %></label>
-  </div>
+  <% if can?(:publish, @page) %>
+    <div class="button_with_label">
+      <%= form_tag alchemy.publish_admin_page_path(@page), id: 'publish_page_form' do %>
+        <%= button_tag class: 'icon_button', title: Alchemy.t(:explain_publishing) do %>
+          <%= render_icon('publish') %>
+          <span><%= Alchemy.t("Publish page") %></span>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
 </div>
 <div class="toolbar_buttons right">
   <div class="button_with_label" id="element_window_button">

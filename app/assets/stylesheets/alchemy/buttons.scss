@@ -128,7 +128,6 @@ button, input[type="submit"], a.button, input.button {
 button.icon_button {
   background: transparent;
   border: 0 none;
-  border-radius: 0;
   box-shadow: none;
 
   &:disabled, &.disabled {
