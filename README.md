@@ -45,7 +45,9 @@ Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [gu
 
 ## Ruby Version
 
-Alchemy runs with Ruby >= 2.0.0.
+Alchemy runs with Ruby >= 2.1.0.
+
+For a Ruby 2.0.0 compatible version use the [`3.2-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.2-stable).
 
 For a Ruby 1.9.3 compatible version use the [`3.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.1-stable).
 
