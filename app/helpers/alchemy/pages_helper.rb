@@ -166,7 +166,7 @@ module Alchemy
       pages = page.children.accessible_by(current_ability, :see)
       pages = pages.restricted if options.delete(:restricted_only)
       if depth = options[:deepness]
-        pages = pages.where("#{Page.table_name}.depth <= #{depth}")
+        pages = pages.where('depth <= ?', depth)
       end
       if options[:reverse]
         pages.reverse!

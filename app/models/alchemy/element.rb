@@ -211,7 +211,8 @@ module Alchemy
     # Pass an element name to get next of this kind.
     #
     def next(name = nil)
-      previous_or_next('>', name)
+      elements = page.elements.published.where('position > ?', position)
+      select_element(elements, name, :asc)
     end
 
     # Returns previous public element from same page.
@@ -219,7 +220,8 @@ module Alchemy
     # Pass an element name to get previous of this kind.
     #
     def prev(name = nil)
-      previous_or_next('<', name)
+      elements = page.elements.published.where('position < ?', position)
+      select_element(elements, name, :desc)
     end
 
     # Stores the page into +touchable_pages+ (Pages that have to be touched after updating the element).
@@ -313,17 +315,9 @@ module Alchemy
 
     private
 
-    # Returns previous or next public element from same page.
-    #
-    # @param [String]
-    #   Pass '>' or '<' to find next or previous public element.
-    # @param [String]
-    #   Pass an element name to get previous of this kind.
-    #
-    def previous_or_next(dir, name = nil)
-      elements = page.elements.published.where("#{self.class.table_name}.position #{dir} #{position}")
+    def select_element(elements, name, order)
       elements = elements.named(name) if name.present?
-      elements.reorder("position #{dir == '>' ? 'ASC' : 'DESC'}").limit(1).first
+      elements.reorder(position: order).limit(1).first
     end
 
     # Returns all cells from given page this element could be placed in.

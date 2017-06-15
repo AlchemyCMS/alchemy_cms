@@ -311,19 +311,27 @@ module Alchemy
 
     # Returns the previous page on the same level or nil.
     #
-    # For options @see #next_or_previous
+    # @option options [Boolean] :restricted (false)
+    #   only restricted pages (true), skip restricted pages (false)
+    # @option options [Boolean] :public (true)
+    #   only public pages (true), skip public pages (false)
     #
     def previous(options = {})
-      next_or_previous('<', options)
+      pages = self_and_siblings.where('lft < ?', lft)
+      select_page(pages, options.merge(order: :desc))
     end
     alias_method :previous_page, :previous
 
     # Returns the next page on the same level or nil.
     #
-    # For options @see #next_or_previous
+    # @option options [Boolean] :restricted (false)
+    #   only restricted pages (true), skip restricted pages (false)
+    # @option options [Boolean] :public (true)
+    #   only public pages (true), skip public pages (false)
     #
     def next(options = {})
-      next_or_previous('>', options)
+      pages = self_and_siblings.where('lft > ?', lft)
+      select_page(pages, options.merge(order: :asc))
     end
     alias_method :next_page, :next
 
@@ -458,26 +466,10 @@ module Alchemy
       end
     end
 
-    # Returns the next or previous page on the same level or nil.
-    #
-    # @param [String]
-    #   Pass '>' for next and '<' for previous page.
-    #
-    # @option options [Boolean] :restricted (nil)
-    #   only restricted pages (true), skip restricted pages (false)
-    # @option options [Boolean] :public (true)
-    #   only public pages (true), skip public pages (false)
-    #
-    def next_or_previous(dir = '>', options = {})
-      options = {
-        restricted: false,
-        public: true
-      }.update(options)
-
-      pages = self_and_siblings.where(["#{Page.table_name}.lft #{dir} ?", lft])
-      pages = options[:public] ? pages.published : pages.not_public
-      pages.where(restricted: options[:restricted])
-        .reorder(dir == '>' ? 'lft' : 'lft DESC')
+    def select_page(pages, options = {})
+      pages = options.fetch(:public, true) ? pages.published : pages.not_public
+      pages.where(restricted: options.fetch(:restricted, false))
+        .reorder(lft: options.fetch(:order))
         .limit(1).first
     end
 

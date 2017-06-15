@@ -6,6 +6,8 @@ __Notable Changes__
 
 * The seeder does not generate default site and root page anymore.
   Alchemy handles this auto-magically now. No need to run `Alchemy::Seeder.seed!` any more |o/
+* Security: Sanitize ActiveRecord queries in `Alchemy::Element`, `Alchemy::Page` and
+  `Alchemy::PagesHelper`.
 * Remove post install message reference to the `alchemy` standalone installer.
 
 ## 3.5.0 (unreleased)
