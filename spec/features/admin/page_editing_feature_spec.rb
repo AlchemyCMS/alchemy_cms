@@ -136,6 +136,25 @@ describe 'Page editing feature' do
     end
   end
 
+  describe "configure properties", js: true do
+    before { authorize_user(:as_admin) }
+    let!(:a_page) { create(:alchemy_page) }
+
+    context "when updating the name" do
+      it "saves the name" do
+        visit alchemy.admin_pages_path
+        find(".sitemap_page[name='#{a_page.name}'] .icon.configure_page").click
+        expect(page).to have_selector(".alchemy-dialog-overlay.open")
+        within(".alchemy-dialog.modal") do
+          find("input#page_name").set("name with some %!x^)'([@!{}]|/?\:# characters")
+          find(".submit button").click
+        end
+        expect(page).to_not have_selector(".alchemy-dialog-overlay.open")
+        expect(page).to have_selector("#sitemap a.sitemap_pagename_link", text: "name with some %!x^)'([@!{}]|/?\:# characters")
+      end
+    end
+  end
+
   describe "fixed attributes" do
     before { authorize_user(:as_author) }
 

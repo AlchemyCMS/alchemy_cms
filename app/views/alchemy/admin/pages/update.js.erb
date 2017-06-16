@@ -15,7 +15,7 @@
 
   var page_html = "<%= j render('page', page: @page) %>";
   var compiler = Handlebars.compile(page_html);
-  var tree = JSON.parse('<%== @tree.to_json %>');
+  var tree = <%== @tree.to_json %>;
   var html = compiler(tree.pages[0]);
   $('#page_<%= @page.id %>').replaceWith(html);
 
