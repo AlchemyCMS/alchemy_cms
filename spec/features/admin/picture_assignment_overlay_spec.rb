@@ -13,8 +13,6 @@ RSpec.feature "Picture assignment overlay" do
     let!(:pic2) { create(:alchemy_picture, name: "Skyscraper", tag_list: "city") }
 
     scenario "shows only the pictures tagged with the selected tag" do
-      pending("Buggy at the moment. Fix is not implemented yet")
-
       visit alchemy.edit_admin_page_path(a_page)
 
       within "#element_area div[data-element-name='article']" do

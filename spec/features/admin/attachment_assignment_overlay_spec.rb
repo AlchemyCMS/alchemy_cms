@@ -12,8 +12,6 @@ RSpec.feature "Attachment assignment overlay" do
     let!(:file2) { create(:alchemy_attachment, file_name: "keynote.png", tag_list: "presentations") }
 
     scenario "shows only the attachments tagged with the selected tag" do
-      pending("Buggy at the moment. Fix is not implemented yet")
-
       visit alchemy.edit_admin_page_path(a_page)
 
       within "#element_area div[data-element-name='download'] .file_icon" do
