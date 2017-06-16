@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.feature "Picture overlay" do
+RSpec.feature "Picture assignment overlay" do
   before do
     authorize_user(:as_admin)
   end
