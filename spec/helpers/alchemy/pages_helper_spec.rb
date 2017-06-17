@@ -104,13 +104,15 @@ module Alchemy
         end
       end
 
-      context "with id and class in the html options" do
-        it "should append id to the generated ul tag" do
-          expect(helper.render_navigation({}, {id: 'foobar_id'})).to have_selector("ul[id='foobar_id']")
+      context "when passing html options" do
+        it "should append all given attributes to the generated ul tag" do
+          expect(helper.render_navigation({}, {id: 'foo', data: {navigation: 'main'} })).to have_selector("ul[id='foo'][data-navigation='main']")
         end
 
-        it "should replace the default css class from the generated ul tag" do
-          expect(helper.render_navigation({}, {class: 'foobar_class'})).to have_selector("ul[class='foobar_class']")
+        context "when overriding the `class` attribute" do
+          it "should replace the default css classes from the generated ul tag" do
+            expect(helper.render_navigation({}, {class: 'foo'})).to have_selector("ul[class='foo']")
+          end
         end
       end
 
