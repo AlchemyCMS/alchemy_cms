@@ -16,7 +16,7 @@ module Alchemy
         when /^alchemy\/page_layouts\/_(.+)/
           page_layout = page_layout($1)
           element_templates(page_layout) +
-                 page_layout.fetch('cells', []).map { |name| "alchemy/cells/_#{name}" }
+            page_layout.fetch('cells', []).map { |name| "alchemy/cells/_#{name}" }
         when /^alchemy\/cells\/_(.+)/
           element_templates cell_definition($1)
         when /alchemy\/elements\/_(.+)_view/
