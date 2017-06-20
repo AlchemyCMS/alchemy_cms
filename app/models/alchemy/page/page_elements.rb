@@ -310,7 +310,7 @@ module Alchemy
       if cell = cells.find_by_name(name)
         cell.elements
       else
-        Alchemy::Logger.warn("Cell with name `#{name}` could not be found!", caller.first)
+        Alchemy::Logger.warn("Cell with name `#{name}` could not be found!", caller(0..0))
         Element.none
       end
     end
