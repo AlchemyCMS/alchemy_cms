@@ -1,37 +1,37 @@
 <div id="library_sidebar">
-  <%= render :partial => 'filter_bar' %>
+  <%= render 'filter_bar' %>
   <div class="tag-list with_filter_bar<%= params[:tagged_with].present? ? ' filtered' : '' %>">
-    <%= render :partial => 'tag_list' %>
+    <%= render 'tag_list' %>
   </div>
 </div>
-<%= form_tag delete_multiple_admin_pictures_path, :method => :delete do %>
+<%= form_tag delete_multiple_admin_pictures_path, method: :delete do %>
   <div class="selected_item_tools">
     <h2><%= Alchemy.t(:edit_selected_pictures) %></h2>
     <%= link_to(
       render_icon('edit') + Alchemy.t("Edit"),
       edit_multiple_admin_pictures_path,
-      :class => 'button with_icon',
-      :title => Alchemy.t('Edit multiple pictures'),
-      :id => 'edit_multiple_pictures',
-      :style => 'float: none'
+      class: 'button with_icon',
+      title: Alchemy.t('Edit multiple pictures'),
+      id: 'edit_multiple_pictures',
+      style: 'float: none'
     ) %>
     <%= button_tag render_icon('destroy') + Alchemy.t("Delete"), 'data-alchemy-confirm' => {
-      :title => Alchemy.t(:please_confirm),
-      :message => Alchemy.t(:confirm_to_delete_images_from_server),
-      :ok_label => Alchemy.t("Yes"),
-      :cancel_label => Alchemy.t("No")
-    }.to_json, :class => 'button with_icon' %>
+      title: Alchemy.t(:please_confirm),
+      message: Alchemy.t(:confirm_to_delete_images_from_server),
+      ok_label: Alchemy.t("Yes"),
+      cancel_label: Alchemy.t("No")
+    }.to_json, class: 'button with_icon' %>
     &nbsp;<%= Alchemy.t(:or) %>&nbsp;
     <%= link_to(
       render_icon('delete-small') + Alchemy.t("Clear selection"),
       admin_pictures_path(
-        :q => params[:q],
-        :tagged_with => params[:tagged_with],
-        :size => params[:size],
-        :filter => params[:filter]
+        q: params[:q],
+        tagged_with: params[:tagged_with],
+        size: params[:size],
+        filter: params[:filter]
       ),
-      :class => 'button with_icon',
-      :style => 'float: none'
+      class: 'button with_icon',
+      style: 'float: none'
     ) %>
   </div>
   <div id="pictures">
@@ -46,7 +46,7 @@
       <%= Alchemy.t(:no_search_results) %>
     </div>
   <% else %>
-    <%= render :partial => 'picture', :collection => @pictures %>
+    <%= render partial: 'picture', collection: @pictures %>
     <%= paginate @pictures, theme: 'alchemy' %>
   <% end %>
   </div>

@@ -99,6 +99,10 @@ module Alchemy
       def tag_list_params
         params.permit(
           :controller,
+          :content_id,
+          :element_id,
+          :options,
+          :swap,
           :use_route,
           :tagged_with,
           :filter,

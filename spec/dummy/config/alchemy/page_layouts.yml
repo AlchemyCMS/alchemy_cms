@@ -17,8 +17,8 @@
     meta_description: ~
 
 - name: standard
-  elements: [article, header, slider]
-  autogenerate: [header, article]
+  elements: [article, header, slider, download]
+  autogenerate: [header, article, download]
 
 - name: everything
   cells: [right_column]
