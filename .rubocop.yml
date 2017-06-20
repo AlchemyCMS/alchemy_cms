@@ -33,6 +33,10 @@ Style/ClassAndModuleChildren:
 Style/GuardClause:
   Enabled: false
 
+# We support older versions of Ruby (2.1) that do not have the %i syntax
+Style/SymbolArray:
+  Enabled: false
+
 Style/WordArray:
   Enabled: false
 
