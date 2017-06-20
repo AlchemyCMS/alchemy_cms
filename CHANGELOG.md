@@ -4,11 +4,24 @@
 
 __Notable Changes__
 
-* The seeder does not generate default site and root page anymore.
+* The seeder does not generate default site and root page anymore (#1239) by tvdeyen
   Alchemy handles this auto-magically now. No need to run `Alchemy::Seeder.seed!` any more |o/
 * Security: Sanitize ActiveRecord queries in `Alchemy::Element`, `Alchemy::Page` and
-  `Alchemy::PagesHelper`.
-* Remove post install message reference to the `alchemy` standalone installer.
+  `Alchemy::PagesHelper` (#1257) by jessedoyle
+* Remove post install message reference to the `alchemy` standalone installer (#1256) by jessedoyle
+* Fixes tag filtering for pictures and attachments in overlay (#1266) by robinboening
+* Fix js error on page#update with single quote in page name (#1263) by robinboening
+* Change meta charset from 'utf8' to 'utf-8' (#1253) by rbjoern84
+* Render "text" as type for datepicker input fields (#1246) by robinboening
+* Remove unused Page attr_accessors (#1240) by tvdeyen
+* Permit search params while redirecting in library (#1236) by tvdeyen
+* Only allow floats and ints as fixed ratio for crop (#1234) by tvdeyen
+* Use at least dragonfly 1.0.7 (#1225) by tvdeyen
+* Add handlebars-assets gem (#1203) by tvdeyen
+* Add a new spinner animation (#1202) by tvdeyen
+* Re-color the Turbolinks progressbar (#1199) by tvdeyen
+* Use normal view for pages sort action (#1197) by tvdeyen
+* Add srcset and sizes support for EssencePicture (#1193) by tvdeyen
 
 ## 3.5.0 (unreleased)
 
