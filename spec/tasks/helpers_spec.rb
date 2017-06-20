@@ -20,13 +20,13 @@ module Alchemy
     before do
       allow(File).to receive(:exist?) { true }
       allow(File).to receive(:read) do
-<<-END
-test:
-  adapter: mysql2
-  username: testuser
-  password: "123456"
-  host: localhost
-END
+        <<-END.strip_heredoc
+          test:
+            adapter: mysql2
+            username: testuser
+            password: "123456"
+            host: localhost
+        END
       end
     end
 

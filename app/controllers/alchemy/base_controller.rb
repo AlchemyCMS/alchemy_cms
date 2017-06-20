@@ -51,11 +51,10 @@ module Alchemy
 
     def permission_denied(exception = nil)
       if exception
-        Rails.logger.debug <<-WARN
-
-/!\\ Failed to permit #{exception.action} on #{exception.subject.inspect} for:
-#{current_alchemy_user.inspect}
-WARN
+        Rails.logger.debug <<-WARN.strip_heredoc
+          /!\\ Failed to permit #{exception.action} on #{exception.subject.inspect} for:
+          #{current_alchemy_user.inspect}
+        WARN
       end
       if current_alchemy_user
         handle_redirect_for_user

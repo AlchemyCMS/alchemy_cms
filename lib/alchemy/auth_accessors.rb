@@ -71,15 +71,15 @@ module Alchemy
     end
   rescue NameError => e
     if e.message =~ /#{Regexp.escape(@@user_class_name)}/
-      abort <<-MSG
+      abort <<-MSG.strip_heredoc
 
-AlchemyCMS cannot find any user class!
+        AlchemyCMS cannot find any user class!
 
-Please add a user class and tell Alchemy about it or, if you don't want
-to create your own class, add the `alchemy-devise` gem to your Gemfile.
+        Please add a user class and tell Alchemy about it or, if you don't want
+        to create your own class, add the `alchemy-devise` gem to your Gemfile.
 
-gem 'alchemy-devise', '~> 2.1.0'
-MSG
+        gem 'alchemy-devise', '~> 2.1.0'
+      MSG
     else
       raise e
     end

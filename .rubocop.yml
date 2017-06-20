@@ -77,6 +77,9 @@ Layout/IndentArray:
 Layout/IndentHash:
   Enabled: false
 
+Layout/IndentHeredoc:
+  EnforcedStyle: active_support
+
 Layout/IndentationWidth:
   Enabled: false
 
