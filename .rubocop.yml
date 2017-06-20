@@ -62,6 +62,9 @@ Layout/DotPosition:
 Layout/ElseAlignment:
   Enabled: false
 
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
 Layout/IndentArray:
   Enabled: false
 
