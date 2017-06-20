@@ -1,6 +1,6 @@
 # Change Log
 
-## 3.6.0 (unreleased)
+## 3.6.0 (2017-06-20)
 
 __Notable Changes__
 
@@ -23,7 +23,7 @@ __Notable Changes__
 * Use normal view for pages sort action (#1197) by tvdeyen
 * Add srcset and sizes support for EssencePicture (#1193) by tvdeyen
 
-## 3.5.0 (unreleased)
+## 3.5.0 (2016-12-22)
 
 __New Features__
 
@@ -67,7 +67,7 @@ __Fixed Bugs__
 * Presence validation of EssenceFile is not working (#1096)
 * Allow to define unique nestable elements (#852)
 
-## 3.4.2 (unreleased)
+## 3.4.2 (2016-12-22)
 
 __Notable Changes__
 
