@@ -84,11 +84,10 @@ module Alchemy
       #   ** :remove (ActsAsTaggableOn::Tag) - The tag that should be removed from the tag-filter
       #
       def tag_filter(options = {})
-        case
-        when options[:add]
-          taglist = add_to_tag_filter(options[:add]) if options[:add]
-        when options[:remove]
-          taglist = remove_from_tag_filter(options[:remove]) if options[:remove]
+        if options[:add]
+          taglist = add_to_tag_filter(options[:add])
+        elsif options[:remove]
+          taglist = remove_from_tag_filter(options[:remove])
         else
           return tag_list_params[:tagged_with]
         end
