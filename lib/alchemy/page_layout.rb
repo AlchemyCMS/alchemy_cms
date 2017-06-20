@@ -35,7 +35,7 @@ module Alchemy
       #
       def get(name)
         return {} if name.blank?
-        all.detect { |a| a['name'].casecmp(name) == 0 }
+        all.detect { |a| a['name'].casecmp(name).zero? }
       end
 
       def get_all_by_attributes(attributes)
@@ -44,7 +44,7 @@ module Alchemy
         if attributes.is_a? Hash
           layouts = []
           attributes.stringify_keys.each do |key, value|
-            result = all.select { |l| l.key?(key) && l[key].to_s.casecmp(value.to_s) == 0 }
+            result = all.select { |l| l.key?(key) && l[key].to_s.casecmp(value.to_s).zero? }
             layouts += result unless result.empty?
           end
           layouts
