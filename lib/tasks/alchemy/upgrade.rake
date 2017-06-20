@@ -23,7 +23,7 @@ namespace :alchemy do
     ]
 
     desc "Alchemy Upgrader: Prepares the database."
-    task :database => [
+    task database: [
       'alchemy:install:migrations',
       'db:migrate',
       'alchemy:db:seed'
