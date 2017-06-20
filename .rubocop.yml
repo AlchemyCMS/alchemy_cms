@@ -123,6 +123,9 @@ Style/DoubleNegation:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#styledoublenegation
 
+Style/EmptyMethod:
+  Enabled: false
+
 Style/EndBlock:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#styleendblock
