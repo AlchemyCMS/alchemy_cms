@@ -7,6 +7,10 @@ AllCops:
     - 'spec/dummy/**/*'
   TargetRubyVersion: 2.1
 
+# Really, rubocop?
+Bundler/OrderedGems:
+  Enabled: false
+
 # Sometimes I believe this reads better
 # This also causes spacing issues on multi-line fixes
 Style/BracesAroundHashParameters:
