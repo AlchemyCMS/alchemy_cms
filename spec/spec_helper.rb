@@ -36,7 +36,7 @@ ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.default_url_options[:host] = "test.com"
 
-ActiveSupport::Deprecation.silenced = true
+ActiveSupport::Deprecation.silenced = false
 
 Rails.backtrace_cleaner.remove_silencers!
 # Disable rails loggin for faster IO. Remove this if you want to have a test.log
