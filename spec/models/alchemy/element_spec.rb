@@ -126,8 +126,7 @@ module Alchemy
       end
 
       context "without any definitions in elements.yml" do
-        # Yes, YAML.load returns false if an empty file exists.
-        before { allow(YAML).to receive(:load).and_return(false) }
+        before { expect(YAML).to receive(:safe_load).and_return(false) }
 
         it "should return an empty array" do
           expect(Element.definitions).to eq([])
