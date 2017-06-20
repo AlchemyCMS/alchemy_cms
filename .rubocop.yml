@@ -5,11 +5,20 @@ AllCops:
     - 'bin/rspec'
     - 'vendor/**/*'
     - 'spec/dummy/**/*'
+    - 'alchemy_cms.gemspec'
+
   TargetRubyVersion: 2.1
+
+# Really, rubocop?
+Bundler/OrderedGems:
+  Enabled: false
 
 # Sometimes I believe this reads better
 # This also causes spacing issues on multi-line fixes
 Style/BracesAroundHashParameters:
+  Enabled: false
+
+Style/EmptyLiteral:
   Enabled: false
 
 # We use class vars and will have to continue doing so for compatability
@@ -30,6 +39,10 @@ Style/ClassAndModuleChildren:
 Style/GuardClause:
   Enabled: false
 
+# We support older versions of Ruby (2.1) that do not have the %i syntax
+Style/SymbolArray:
+  Enabled: false
+
 Style/WordArray:
   Enabled: false
 
@@ -39,34 +52,69 @@ Style/ConditionalAssignment:
 Performance/Count:
   Enabled: false
 
+Layout/AlignHash:
+  Enabled: false
+
+Layout/AlignParameters:
+  Enabled: false
+
+Layout/ClosingParenthesisIndentation:
+  Enabled: false
+
+Layout/DotPosition:
+  Enabled: false
+  StyleGuide: http://relaxed.ruby.style/#styledotposition
+
+Layout/ElseAlignment:
+  Enabled: false
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: false
+
+Layout/IndentArray:
+  Enabled: false
+
+Layout/IndentHash:
+  Enabled: false
+
+Layout/IndentHeredoc:
+  EnforcedStyle: active_support
+
+Layout/IndentationWidth:
+  Enabled: false
+
+Layout/MultilineHashBraceLayout:
+  Enabled: false
+
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: false
+
+Layout/MultilineMethodCallIndentation:
+  Enabled: false
+
+Layout/SpaceBeforeBlockBraces:
+  Enabled: false
+  StyleGuide: http://relaxed.ruby.style/#stylespacebeforeblockbraces
+
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: false
+
+Layout/SpaceInsideParens:
+  Enabled: false
+  StyleGuide: http://relaxed.ruby.style/#stylespaceinsideparens
+
 Lint/EndAlignment:
   Enabled: false
 
-Style/ElseAlignment:
-  Enabled: false
+Lint/HandleExceptions:
+  Exclude:
+    - 'config/initializers/mini_profiler.rb'
 
-Style/IndentationWidth:
-  Enabled: false
-
-Style/AlignParameters:
-  Enabled: false
-
-Style/ClosingParenthesisIndentation:
-  Enabled: false
+Lint/ShadowedException:
+  Exclude:
+    - 'lib/alchemy/sass_support.rb'
 
 Style/CollectionMethods:
-  Enabled: false
-
-Style/MultilineMethodCallIndentation:
-  Enabled: false
-
-Style/IndentArray:
-  Enabled: false
-
-Style/IndentHash:
-  Enabled: false
-
-Style/AlignHash:
   Enabled: false
 
 Style/AccessorMethodName:
@@ -88,13 +136,12 @@ Style/Documentation:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#styledocumentation
 
-Style/DotPosition:
-  Enabled: false
-  StyleGuide: http://relaxed.ruby.style/#styledotposition
-
 Style/DoubleNegation:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#styledoublenegation
+
+Style/EmptyMethod:
+  Enabled: false
 
 Style/EndBlock:
   Enabled: false
@@ -128,6 +175,9 @@ Style/NegatedWhile:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylenegatedwhile
 
+Style/NumericLiteralPrefix:
+  Enabled: false
+
 Style/ParallelAssignment:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#styleparallelassignment
@@ -159,17 +209,6 @@ Style/SingleLineMethods:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylesinglelinemethods
 
-Style/SpaceBeforeBlockBraces:
-  Enabled: false
-  StyleGuide: http://relaxed.ruby.style/#stylespacebeforeblockbraces
-
-Style/SpaceInsideHashLiteralBraces:
-  Enabled: false
-
-Style/SpaceInsideParens:
-  Enabled: false
-  StyleGuide: http://relaxed.ruby.style/#stylespaceinsideparens
-
 Style/SpecialGlobalVars:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylespecialglobalvars
@@ -178,9 +217,23 @@ Style/StringLiterals:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylestringliterals
 
+Style/VariableNumber:
+  Enabled: false
+
 Style/WhileUntilModifier:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylewhileuntilmodifier
+
+# We use a lot of
+#
+#     expect {
+#       something
+#     }.to { happen }
+#
+# syntax in the specs files.
+Lint/AmbiguousBlockAssociation:
+  Exclude:
+    - 'spec/**/*'
 
 Lint/AmbiguousRegexpLiteral:
   Enabled: false
@@ -193,12 +246,15 @@ Lint/AssignmentInCondition:
 # We use eval to get the correct url proxy object of engines in:
 # - app/helpers/alchemy/admin/navigation_helper.rb:139
 # - lib/alchemy/resources_helper.rb:24
-Lint/Eval:
+Security/Eval:
   Exclude:
     - app/helpers/alchemy/admin/navigation_helper.rb
     - lib/alchemy/resources_helper.rb
 
 Metrics/AbcSize:
+  Enabled: false
+
+Metrics/BlockLength:
   Enabled: false
 
 Metrics/BlockNesting:

@@ -312,9 +312,9 @@ module Alchemy
         }
         options = defaults.merge(options)
         content_for(:toolbar) do
-          content = <<-CONTENT
-#{options[:buttons].map { |button_options| toolbar_button(button_options) }.join}
-          #{render('alchemy/admin/partials/search_form', url: options[:search_url]) if options[:search]}
+          content = <<-CONTENT.strip_heredoc
+            #{options[:buttons].map { |button_options| toolbar_button(button_options) }.join}
+            #{render('alchemy/admin/partials/search_form', url: options[:search_url]) if options[:search]}
           CONTENT
           content.html_safe
         end

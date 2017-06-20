@@ -235,7 +235,7 @@ module Alchemy
     # Returns true if picture is not assigned to any EssencePicture.
     #
     def deletable?
-      !essence_pictures.any?
+      essence_pictures.empty?
     end
 
     # A size String from original image file values.

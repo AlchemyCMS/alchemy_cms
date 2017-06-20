@@ -7,12 +7,12 @@ describe 'TinyMCE Editor' do
 
   it 'base path should be set to tinymce asset folder' do
     visit admin_dashboard_path
-    expect(page).to have_content <<-TINYMCE
-var tinyMCEPreInit = {
-  base: '/assets/tinymce',
-  suffix: '.min'
-};
-TINYMCE
+    expect(page).to have_content <<-TINYMCE.strip_heredoc
+      var tinyMCEPreInit = {
+        base: '/assets/tinymce',
+        suffix: '.min'
+      };
+    TINYMCE
   end
 
   context 'with asset host' do
@@ -22,12 +22,12 @@ TINYMCE
 
     it 'base path should be set to tinymce asset folder' do
       visit admin_dashboard_path
-      expect(page).to have_content <<-TINYMCE
-var tinyMCEPreInit = {
-  base: 'http://www.example.com/assets/tinymce',
-  suffix: '.min'
-};
-TINYMCE
+      expect(page).to have_content <<-TINYMCE.strip_heredoc
+        var tinyMCEPreInit = {
+          base: 'http://www.example.com/assets/tinymce',
+          suffix: '.min'
+        };
+      TINYMCE
     end
   end
 end

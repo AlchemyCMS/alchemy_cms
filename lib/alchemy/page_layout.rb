@@ -35,7 +35,7 @@ module Alchemy
       #
       def get(name)
         return {} if name.blank?
-        all.detect { |a| a['name'].casecmp(name) == 0 }
+        all.detect { |a| a['name'].casecmp(name).zero? }
       end
 
       def get_all_by_attributes(attributes)
@@ -44,7 +44,7 @@ module Alchemy
         if attributes.is_a? Hash
           layouts = []
           attributes.stringify_keys.each do |key, value|
-            result = all.select { |l| l.key?(key) && l[key].to_s.casecmp(value.to_s) == 0 }
+            result = all.select { |l| l.key?(key) && l[key].to_s.casecmp(value.to_s).zero? }
             layouts += result unless result.empty?
           end
           layouts
@@ -99,7 +99,7 @@ module Alchemy
           definition.fetch('elements', [])
         else
           Rails.logger.warn "\n+++ Warning: No layout definition for #{page_layout} found! in page_layouts.yml\n"
-          return []
+          []
         end
       end
 
@@ -157,7 +157,7 @@ module Alchemy
       #
       def read_definitions_file
         if File.exist?(layouts_file_path)
-          YAML.load(ERB.new(File.read(layouts_file_path)).result) || []
+          YAML.safe_load(ERB.new(File.read(layouts_file_path)).result, [Date], [], true) || []
         else
           raise LoadError, "Could not find page_layouts.yml file! Please run `rails generate alchemy:scaffold`"
         end

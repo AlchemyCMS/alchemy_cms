@@ -82,7 +82,7 @@ module Alchemy
         default_scope = ['alchemy']
         case options[:scope]
         when Array
-          default_scope += options[:scope]
+          default_scope + options[:scope]
         when String
           default_scope << options[:scope]
         when Symbol

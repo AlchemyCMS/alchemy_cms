@@ -56,7 +56,7 @@ module Alchemy
       private
 
       def read_yml_file
-        ::YAML.load(ERB.new(File.read(yml_file_path)).result) || []
+        ::YAML.safe_load(ERB.new(File.read(yml_file_path)).result, [], [], true) || []
       end
 
       def yml_file_path

@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 describe Alchemy::Admin::PagesHelper do
-
   describe '#preview_sizes_for_select' do
     it "returns a options string of preview screen sizes for select tag" do
       expect(helper.preview_sizes_for_select).to include('option', 'auto', '240', '320', '480', '768', '1024', '1280')

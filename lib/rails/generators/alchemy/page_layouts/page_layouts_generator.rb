@@ -8,11 +8,12 @@ module Alchemy
 
       def create_partials
         @page_layouts = load_alchemy_yaml('page_layouts.yml')
+        return unless @page_layouts
         @page_layouts.each do |page_layout|
           next if page_layout['redirects_to_external']
           @page_layout_name = page_layout["name"].underscore
           conditional_template "layout.html.#{template_engine}", "#{page_layouts_dir}/_#{@page_layout_name}.html.#{template_engine}"
-        end if @page_layouts
+        end
       end
 
       private
