@@ -200,6 +200,7 @@ module Alchemy
       end
 
       it "updates the content timestamp" do
+        content.update_column(:updated_at, 3.days.ago)
         expect {
           alchemy_xhr :put, :assign, content_id: '1', picture_id: '1'
         }.to change(content, :updated_at)
