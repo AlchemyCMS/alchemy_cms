@@ -78,7 +78,7 @@ module Alchemy
       required: false,
       touch: true
 
-    has_and_belongs_to_many :touchable_pages, -> { uniq },
+    has_and_belongs_to_many :touchable_pages, -> { distinct },
       class_name: 'Alchemy::Page',
       join_table: ElementToPage.table_name
 
