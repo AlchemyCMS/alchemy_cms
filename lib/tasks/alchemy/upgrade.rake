@@ -30,7 +30,7 @@ namespace :alchemy do
     ]
 
     desc "Alchemy Upgrader: Copy configuration file."
-    task config: [:environment] do |t|
+    task config: [:environment] do
       Alchemy::Upgrader.copy_new_config_file
     end
 
@@ -56,16 +56,16 @@ namespace :alchemy do
       ]
 
       desc 'Rename the `registered` user role to `member`'
-      task rename_registered_role_ro_member: [:environment] do |t|
+      task rename_registered_role_ro_member: [:environment] do
         Alchemy::Upgrader::ThreePointZero.rename_registered_role_ro_member
       end
 
       desc 'Sets `published_at` of public pages without a `published_at` date set to their `updated_at` value'
-      task publish_unpublished_public_pages: [:environment] do |t|
+      task publish_unpublished_public_pages: [:environment] do
         Alchemy::Upgrader::ThreePointZero.publish_unpublished_public_pages
       end
 
-      task :todo do |t|
+      task :todo do
         Alchemy::Upgrader::ThreePointZero.alchemy_3_0_todos
       end
     end
@@ -79,7 +79,7 @@ namespace :alchemy do
     end
 
     namespace '3.1' do
-      task :todo do |t|
+      task :todo do
         Alchemy::Upgrader::ThreePointOne.alchemy_3_1_todos
       end
     end
@@ -100,16 +100,16 @@ namespace :alchemy do
       ]
 
       desc 'Install and patch acts_as_taggable_on migrations.'
-      task upgrade_acts_as_taggable_on_migrations: [:environment] do |t|
+      task upgrade_acts_as_taggable_on_migrations: [:environment] do
         Alchemy::Upgrader::ThreePointTwo.upgrade_acts_as_taggable_on_migrations
       end
 
       desc 'Add Alchemy seeder to `db/seeds.rb` file.'
-      task inject_seeder: [:environment] do |t|
+      task inject_seeder: [:environment] do
         Alchemy::Upgrader::ThreePointTwo.inject_seeder
       end
 
-      task :todo do |t|
+      task :todo do
         Alchemy::Upgrader::ThreePointTwo.alchemy_3_2_todos
       end
     end
@@ -130,16 +130,16 @@ namespace :alchemy do
       ]
 
       desc 'Convert `available_contents` config to `nestable_elements`.'
-      task convert_available_contents: [:environment] do |t|
+      task convert_available_contents: [:environment] do
         Alchemy::Upgrader::ThreePointThree.convert_available_contents
       end
 
       desc 'Migrate existing elements to `nestable_elements`.'
-      task migrate_existing_elements: [:environment] do |t|
+      task migrate_existing_elements: [:environment] do
         Alchemy::Upgrader::ThreePointThree.migrate_existing_elements
       end
 
-      task :todo do |t|
+      task :todo do
         Alchemy::Upgrader::ThreePointThree.alchemy_3_3_todos
       end
     end
@@ -151,7 +151,7 @@ namespace :alchemy do
       task run: ['alchemy:upgrade:3.4:install_asset_manifests']
 
       desc 'Install asset manifests into `vendor/assets`'
-      task install_asset_manifests: [:environment] do |t|
+      task install_asset_manifests: [:environment] do
         Alchemy::Upgrader::ThreePointFour.install_asset_manifests
       end
     end
@@ -169,11 +169,11 @@ namespace :alchemy do
       task run: ['alchemy:upgrade:3.5:install_dragonfly_config']
 
       desc 'Install dragonfly config into `config/initializers`'
-      task install_dragonfly_config: [:environment] do |t|
+      task install_dragonfly_config: [:environment] do
         Alchemy::Upgrader::ThreePointFive.install_dragonfly_config
       end
 
-      task :todo do |t|
+      task :todo do
         Alchemy::Upgrader::ThreePointFive.alchemy_3_5_todos
       end
     end
