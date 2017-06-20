@@ -8,6 +8,7 @@ module Alchemy
 
       def create_partials
         @elements = load_alchemy_yaml('elements.yml')
+        return unless @elements
         @elements.each do |element|
           @element = element
           @contents = element["contents"] || []
@@ -19,7 +20,7 @@ module Alchemy
 
           conditional_template "editor.html.#{template_engine}", "#{elements_dir}/_#{@element_name}_editor.html.#{template_engine}"
           conditional_template "view.html.#{template_engine}", "#{elements_dir}/_#{@element_name}_view.html.#{template_engine}"
-        end if @elements
+        end
       end
 
       private
