@@ -87,7 +87,7 @@ module Alchemy
       end
 
       def contentpages
-        page_yml.select { |p| !p['layoutpage'] }
+        page_yml.reject { |p| p['layoutpage'] }
       end
 
       def layoutpages
