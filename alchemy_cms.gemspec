@@ -13,7 +13,7 @@ Gem::Specification.new do |gem|
   gem.summary               = 'A powerful, userfriendly and flexible CMS for Rails 4'
   gem.description           = 'Alchemy is a powerful, userfriendly and flexible Rails 4 CMS.'
   gem.requirements << 'ImageMagick (libmagick), v6.6 or greater.'
-  gem.required_ruby_version = '>= 2.0.0'
+  gem.required_ruby_version = '>= 2.2.2'
   gem.license               = 'BSD New'
   gem.files                 = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^spec/}) }
   gem.require_paths         = ['lib']
@@ -33,7 +33,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'kaminari',                         ['~> 0.15']
   gem.add_runtime_dependency 'magiclabs-userstamp',              ['~> 3.0']
   gem.add_runtime_dependency 'non-stupid-digest-assets',         ['~> 1.0.8']
-  gem.add_runtime_dependency 'rails',                            ['>= 4.2.0', '< 5.0']
+  gem.add_runtime_dependency 'rails',                            ['~> 5.0.0']
   gem.add_runtime_dependency 'ransack',                          ['~> 1.4']
   gem.add_runtime_dependency 'request_store',                    ['~> 1.2']
   gem.add_runtime_dependency 'responders',                       ['~> 2.0']
