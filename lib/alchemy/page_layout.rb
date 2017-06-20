@@ -99,7 +99,7 @@ module Alchemy
           definition.fetch('elements', [])
         else
           Rails.logger.warn "\n+++ Warning: No layout definition for #{page_layout} found! in page_layouts.yml\n"
-          return []
+          []
         end
       end
 

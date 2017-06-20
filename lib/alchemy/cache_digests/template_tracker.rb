@@ -12,20 +12,20 @@ module Alchemy
       def dependencies
         case @name.to_s
         when /^alchemy\/pages\/show/
-          return PageLayout.all.collect { |p| "alchemy/page_layouts/_#{p['name']}" }
+          PageLayout.all.collect { |p| "alchemy/page_layouts/_#{p['name']}" }
         when /^alchemy\/page_layouts\/_(.+)/
           page_layout = page_layout($1)
-          return element_templates(page_layout) +
+          element_templates(page_layout) +
                  page_layout.fetch('cells', []).map { |name| "alchemy/cells/_#{name}" }
         when /^alchemy\/cells\/_(.+)/
-          return element_templates cell_definition($1)
+          element_templates cell_definition($1)
         when /alchemy\/elements\/_(.+)_view/
           essences = essence_types($1)
           element = element_definition($1)
           if element && element['picture_gallery']
             essences += ['EssencePicture']
           end
-          return essences.map { |name| "alchemy/essences/_#{name.underscore}_view" }.uniq
+          essences.map { |name| "alchemy/essences/_#{name.underscore}_view" }.uniq
         else
           ActionView::DependencyTracker::ERBTracker.call(@name, @template)
         end

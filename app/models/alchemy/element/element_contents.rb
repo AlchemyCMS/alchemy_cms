@@ -95,7 +95,7 @@ module Alchemy
     def content_definition_for(content_name)
       if content_definitions.blank?
         log_warning "Element #{name} is missing the content definition for #{content_name}"
-        return nil
+        nil
       else
         content_definitions.detect { |d| d['name'] == content_name }
       end
