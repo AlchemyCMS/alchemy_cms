@@ -1,5 +1,5 @@
 class LoginController < ApplicationController
   def new
-    render text: 'Please login'
+    render plain: 'Please login'
   end
 end
