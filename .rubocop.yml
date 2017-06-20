@@ -158,6 +158,9 @@ Style/NegatedWhile:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylenegatedwhile
 
+Style/NumericLiteralPrefix:
+  Enabled: false
+
 Style/ParallelAssignment:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#styleparallelassignment
