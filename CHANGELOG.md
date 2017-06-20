@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.0.0.beta (2017-06-20)
+
+* Rails 5
+
 ## 3.6.0 (2017-06-20)
 
 __Notable Changes__
