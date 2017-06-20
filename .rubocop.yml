@@ -80,6 +80,9 @@ Layout/IndentHash:
 Layout/IndentationWidth:
   Enabled: false
 
+Layout/MultilineMethodCallBraceLayout:
+  Enabled: false
+
 Layout/MultilineMethodCallIndentation:
   Enabled: false
 
