@@ -22,3 +22,6 @@ ActiveSupport.halt_callback_chains_on_return_false = false
 
 # Configure SSL options to enable HSTS with subdomains. Previous versions had false.
 Rails.application.config.ssl_options = { hsts: { subdomains: true } }
+
+# The Event model of the dummy app has a time column. Time columns will become time zone aware in Rails 5.1
+ActiveRecord::Base.time_zone_aware_types = [:datetime, :time]
