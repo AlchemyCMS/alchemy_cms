@@ -1,3 +1,38 @@
+/* Thats how you update the icon font:
+======================================
+
+1. Export your icons as seperate SVGs
+----------------------------------------------------------------
+2. Visit https://icomoon.io/app
+----------------------------------------------------------------
+3. Import the current Alchemy icon set by dragging
+   the following file into IcoMoon:
+   app/assets/fonts/alchemy/selection.json
+----------------------------------------------------------------
+4. Add or replace your new icons in IcoMoon and select them all.
+----------------------------------------------------------------
+5. Go to tab "Font" at the bottom of the page
+   and press the DOWNLOAD button.
+----------------------------------------------------------------
+6. Copy and paste the new font files and the selection.json
+   from the downloaded package into the following directory:
+   app/assets/fonts/alchemy/
+   (The JSON is not used by the app but needed to load the
+   current set in IcoMoon for editing.)
+----------------------------------------------------------------
+7. Update the font-url suffixes (?...) and
+   add the icon codes from the style.css (downloaded font package)
+   to the codes below in alphabetical order.
+   Now you can use the icon classes in your Markup.
+
+   **************************************************************
+   |                                                            |
+   |  !!! BE CAREFUL: Don't just replace all the codes.         |
+   |  Some selectors were customly added and use the same code. |
+   |                                                            |
+   **************************************************************
+*/
+
 @font-face {
   font-family: 'Alchemy Icons';
   src: font-url('alchemy-icons.eot?tylr92');
