@@ -41,6 +41,11 @@
   }
 }
 
+.element-header .spinner {
+  position: static;
+  transform: none;
+}
+
 @keyframes spinner {
   0%, 100% {
     opacity: 1;

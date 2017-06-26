@@ -4,10 +4,10 @@ var label = el.find('> .element-toolbar .publish-element-button label');
 
 <%- if @element.public? -%>
   icon.removeClass('icon-not-visible');
-  icon.addClass('icon-visible');
+  icon.addClass('icon-drag');
   label.text('<%= Alchemy.t(:hide_element) %>');
 <%- else -%>
-  icon.removeClass('icon-visible');
+  icon.removeClass('icon-drag');
   icon.addClass('icon-not-visible');
   label.text('<%= Alchemy.t(:show_element) %>');
 <%- end -%>
