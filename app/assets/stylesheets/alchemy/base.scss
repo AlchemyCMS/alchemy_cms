@@ -376,9 +376,9 @@ div#images {
 
 #page_selector_container {
   height: 230px;
-  background-color: $light-gray;
+  background-color: $medium-gray;
   margin-bottom: 4px;
-  border: 1px inset #e8e8e8;
+  border: 1px solid $medium-dark-gray;
   overflow: auto;
   padding: 4px 0 0 4px;
   @extend %rounded-border;
@@ -516,7 +516,6 @@ div.browse {
   height: auto;
   border: 0 none;
   background: #fff;
-  border-right: $default-border;
   @include transition(200ms ease-in-out);
 
   .collapsed-menu & {

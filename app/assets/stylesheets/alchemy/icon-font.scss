@@ -192,12 +192,13 @@ a:hover, button:hover {
 
 // Color Modifications
 
-.icon-public:before,
+.icon-add:before,
+.icon-create:before,
+.icon-tag_add:before,
 .icon-word:before {
   color: $blue;
 }
 
-.icon-destroy:before,
 .icon-warning:before,
 .icon-warn:before,
 .icon-error:before,
@@ -206,14 +207,12 @@ a:hover, button:hover {
   opacity: 1;
 }
 
+.icon-public:before,
 .icon-true:before,
 .icon-checkmark:before,
 .icon-notice:before,
 .icon-tick:before,
 .icon-ok:before,
-.icon-add:before,
-.icon-create:before,
-.icon-tag_add:before,
 .icon-excel:before {
   color: $green;
   opacity: 1;
@@ -259,6 +258,12 @@ a:hover, button:hover {
 
 .icon-drag:before {
   opacity: .45;
+}
+
+.icon-not-visible:before,
+.icon-not-public:before,
+.icon-not-restricted:before {
+  color: $muted-text-color;
 }
 
 

@@ -1,6 +1,6 @@
 // Status colors
 
-$blue: #0077CC;
+$blue: #196AFF;
 $green: #6EA600;
 $yellow: #E6AC00;
 $red: #E63956;
@@ -22,10 +22,10 @@ $light-green: scale-color($green, $lightness: 90%);
 $light-yellow: scale-color($yellow, $lightness: 90%);
 $light-red: scale-color($red, $lightness: 92%);
 
-$white: scale-color($blue, $lightness: 98%, $saturation: -80%);
-$light-gray: scale-color($blue, $lightness: 94%, $saturation: -80%);
-$medium-gray: scale-color($blue, $lightness: 86%, $saturation: -85%);
-$medium-dark-gray: scale-color($blue, $lightness: 70%, $saturation: -85%);
+$white: scale-color($blue, $lightness: 96%, $saturation: -85%);
+$light-gray: scale-color($blue, $lightness: 92%, $saturation: -88%);
+$medium-gray: scale-color($blue, $lightness: 83%, $saturation: -85%);
+$medium-dark-gray: scale-color($blue, $lightness: 67%, $saturation: -89%);
 
 $text-color: $dark-gray;
 $icon-color: $dark-gray;
@@ -67,7 +67,7 @@ $default-margin: $default-padding;
 
 // Borders
 
-$default-border-color: scale-color($blue, $lightness: 55%, $saturation: -85%);;
+$default-border-color: scale-color($blue, $lightness: 55%, $saturation: -85%);
 $border-inset-color: lighten($default-border-color, 20%);
 $default-border-width: 1px;
 $default-border-style: solid;

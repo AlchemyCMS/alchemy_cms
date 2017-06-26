@@ -196,18 +196,18 @@ ul.list .sitemap_sitename {
   height: $sitemap-line-height;
   line-height: $sitemap-line-height;
   overflow: hidden;
-  box-shadow: 0 1px 20px rgba(0,0,0,0.05);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0,0,0,0.1);
 }
 
 .page_infos {
   @extend .right-rounded-border;
   background-color: white;
-  border-left: 1px solid $medium-gray;
+  border-left: 1px solid $light-gray;
   float: right;
   height: $sitemap-line-height;
   line-height: $sitemap-line-height;
   padding: 0 $default-padding;
-  box-shadow: 0 1px 20px rgba(0,0,0,0.05);
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0,0,0,0.1);
 
   .page_status {
     padding: 0 $default-padding;
