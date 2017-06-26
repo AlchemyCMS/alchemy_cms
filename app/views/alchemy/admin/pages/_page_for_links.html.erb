@@ -21,13 +21,13 @@
     </div>
     <div class="page_infos">
       <span class="page_status">
-        <span class="icon {{#unless public}}not_{{/unless}}public"></span>
+        <span class="small icon-{{#unless public}}not-{{/unless}}public"></span>
       </span>
       <span class="page_status">
-        <span class="icon {{#unless visible}}not_{{/unless}}visible"></span>
+        <span class="small icon-{{#unless visible}}not-{{/unless}}visible"></span>
       </span>
       <span class="page_status">
-        <span class="icon {{#unless restricted}}not_{{/unless}}restricted"></span>
+        <span class="small icon-{{#unless restricted}}not-{{/unless}}restricted"></span>
       </span>
     </div>
     <div class="sitemap_sitename" id="sitemap_sitename_{{id}}" name="/<%= "#{Alchemy::Language.current.code}/" if multi_language? %>{{urlname}}">

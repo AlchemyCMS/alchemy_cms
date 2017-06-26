@@ -126,11 +126,11 @@
 
 .ui-widget-content {
   border: $default-border;
-  background-color: $light-gray;
+  background-color: $medium-gray;
   color: $text-color;
 }
 
-.ui-widget-content a {
+.ui-widget-content a:not(.button) {
   color: $text-color;
 
   &:hover { color: #000 }
