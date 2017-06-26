@@ -282,6 +282,13 @@ ul.list .sitemap_sitename {
   .page_status .icon {
     vertical-align: middle;
   }
+
+  .ui-sortable-handle {
+    display: block;
+    float: left;
+    width: 30px;
+    text-align: center;
+  }
 }
 
 a.folder_link {

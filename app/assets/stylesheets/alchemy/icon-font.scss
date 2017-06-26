@@ -274,6 +274,12 @@ a:hover, button:hover {
   margin: 0 .6em -1px .3em;
 }
 
+span + span.page_status,
+span + span.sitemap_pagename_link {
+  margin-left: 0;
+  margin-right: 0;
+}
+
 .icon-angle-left:before { transform: scaleX(-1); }
 .icon-visit-page:before { width: 2em; }
 .icon-search:before { margin-left: .4em; }

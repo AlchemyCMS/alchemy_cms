@@ -1,6 +1,6 @@
 <li id="page_{{id}}" class="page_level_{{level}} {{page_layout}}" data-slug="{{slug}}" data-restricted="{{restricted}}" data-visible="{{visible}}" data-external="{{redirects_to_external}}">
   <div class="sitemap_page{{#if locked}} locked{{/if}}" name="{{name}}">
-    <div class="sitemap_left_images<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>">
+    <div class="sitemap_left_images">
       <% unless @sorting %>
         {{#unless root_or_leaf}}
         <%= link_to(
@@ -162,6 +162,7 @@
         <span class="sitemap_pagename_link inactive">{{ name }}</span>
       {{else}}
         {{#if permissions.edit_content}}
+          <span class="<% if @sorting %>{{#unless root}} handle icon-drag{{/unless}}<% end %>"></span>
           <%= link_to_unless(
             @sorting,
             '{{name}}',
