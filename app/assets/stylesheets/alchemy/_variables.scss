@@ -78,16 +78,20 @@ $default-form-field-height: 29px;
 
 // Buttons
 
-$button-bg-color: #f7f7f7;
 $button-hover-bg-color: white;
 $button-border-color: $default-border-color;
-$button-hover-border-color: scale-color($default-border-color, $lightness: -30%);
-$button-text-shadow: rgbs(255,255,255,.2) 1px 1px 0;
 $button-gradient-first-color: white !default;
 $button-gradient-second-color: $white !default;
 $button-padding: 0.5em 1.5em !default;
 $button-margin: $default-form-field-margin !default;
-$linked-button-color: #ffd77a;
+$button-primary-bg: linear-gradient(rgba($blue, 0.85), scale-color(rgba($blue, 0.85), $lightness: -5%));
+$button-primary-bg-hover: $blue;
+$button-primary-border-color: scale-color($blue, $lightness: 0%);
+$button-primary-border-color-hover: scale-color($blue, $lightness: -10%);
+$button-secondary-bg: linear-gradient(white, $white);
+$button-secondary-bg-hover: linear-gradient($white, white);
+$button-secondary-border-color: $default-border-color;
+$button-secondary-border-color-hover: scale-color($default-border-color, $lightness: -30%);
 
 // Effects
 

@@ -161,7 +161,6 @@
   background-color: #ededed;
   font-weight: normal;
   color: $text-color;
-  text-shadow: $button-text-shadow;
 }
 
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
@@ -1186,7 +1185,7 @@
 .ui-tabs .ui-tabs-panel {
   display: block;
   border-width: 0;
-  background: none;
+  background: $light-gray;
 }
 
 .ui-tabs .ui-tabs-hide {

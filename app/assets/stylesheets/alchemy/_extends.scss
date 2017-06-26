@@ -35,15 +35,12 @@
 %default-input-style {
   box-sizing: border-box;
   @extend %rounded-border;
-  box-shadow: inset 0px 1px 1px $medium-gray;
+  box-shadow: inset 0px 1px 5px $medium-gray;
   font: $default-font-style;
   padding: 1px 2*$default-padding;
   margin: $default-form-field-margin;
-  background: rgba(#fff, 0.9);
-  border-top: 1px solid $default-border-color;
-  border-left: 1px solid $default-border-color;
-  border-bottom: 1px solid $border-inset-color;
-  border-right: 1px solid $border-inset-color;
+  background: white;
+  border: 1px solid $default-border-color;
   width: 100%;
   font-size: 12px;
   line-height: 12px;

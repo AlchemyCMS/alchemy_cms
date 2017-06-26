@@ -1,6 +1,6 @@
 @mixin default-focus-style {
   border-color: $blue;
-  box-shadow: 0 0 1px 1px $blue;
+  box-shadow: 0 0 1px 1px rgba($blue, .5);
   outline: none;
 
   &::-moz-focus-inner {
@@ -9,35 +9,41 @@
   }
 }
 
-@mixin button-defaults(
-  $first-color: $button-gradient-first-color,
-  $second-color: $button-gradient-second-color,
-  $border-radius: $default-border-radius,
-  $padding: $button-padding,
-  $margin: $button-margin) {
+@mixin button-defaults($color: null, $padding: $button-padding, $margin: $button-margin) {
+
+  @if $color == "primary" {
+    background: $button-primary-bg;
+    color: $white;
+    border: 1px solid $button-primary-border-color;
+
+    &:hover {
+      background: $button-primary-bg-hover;
+      border-color: $button-primary-border-color-hover;
+    }
+
+  } @else {
+
+    background-image: $button-secondary-bg;
+    color: $text-color;
+    border: 1px solid $button-secondary-border-color;
+
+    &:hover {
+      background-image: $button-secondary-bg-hover;
+      border-color: $button-secondary-border-color-hover;
+    }
+  }
+
   display: inline-block;
   font-size: 12px;
   padding: $padding;
-  cursor: pointer;
-  border-radius: $border-radius;
-  background-color: $button-bg-color;
-  background-image: linear-gradient($first-color, $second-color);
-  box-shadow: white 0 1px 0 inset;
-  border: 1px solid $button-border-color;
-  color: $text-color;
-  text-shadow: $button-text-shadow;
   margin: $margin;
+  cursor: pointer;
+  border-radius: $default-border-radius;
   @include appearance(none);
 
-  &:hover {
-    text-decoration: none;
-    background-image: none;
-    background-color: $button-hover-bg-color;
-    border-color: $button-hover-border-color;
-  }
+  &:hover { text-decoration: none; }
 
   &:active, &:active:focus {
-    box-shadow: #c4c4c4 0 1px 2px inset;
     border-color: $button-border-color;
   }
 
@@ -48,8 +54,7 @@
   &.disabled, &[disabled],
   &.disabled:active, &[disabled]:active,
   &.disabled:hover, &[disabled]:hover {
-    opacity: 0.6;
-    background: $second-color;
+    opacity: 0.5;
     cursor: not-allowed;
     box-shadow: none;
   }
@@ -166,11 +171,7 @@
 
 @mixin linked-button($border-radius: $default-border-radius) {
   @include button-defaults(
-    $first-color: $linked-color,
-    $second-color: darken($linked-color, 10%),
-    $border-radius: $border-radius,
-    $padding: 3px,
-    $margin: 0
+    $padding: 3px
   );
 }
 
@@ -205,7 +206,7 @@
   @if $color {
     background-color: scale-color($color, $lightness: 92%);
     border-color: scale-color($color, $lightness: 40%, $saturation: -40%);
-    color: scale-color($color, $lightness: -20%);
+    color: scale-color($color, $lightness: -20%, $saturation: -20%);
 
     [class^="icon-"]:before,
     [class*=" icon-"]:before {

@@ -337,33 +337,31 @@
   right: 0;
 
   .icon_button {
-    @include button-defaults;
     width: 29px;
-    height: 28px;
-    margin: 0 0 0 4px;
+    height: 27px;
+    margin: 0;
     padding: 2px;
     position: absolute;
     bottom: 3px;
     right: 28px;
     border-radius: 0;
+    border: $default-border;
+    border-bottom: none;
+    border-top: none;
+    background: $medium-gray;
 
-    &.link-essence,
-    &.unlink-essence {
-      border: 1px solid #c0c0c0;
+    &:hover {
+      border-color: $button-secondary-border-color;
     }
 
-    &.linked.link-essence {
-      @include linked-button($border-radius: 0 0 0 0);
-    }
-
-    &.linked.unlink-essence {
-      @include linked-button($border-radius: 0 $default-border-radius $default-border-radius 0);
-    }
+    &.disabled { opacity: 1; }
 
     &.unlink-essence {
+      border-radius: 0 $default-border-radius $default-border-radius 0;
       right: 0;
-      @extend .right-rounded-border;
     }
+
+    &.linked { background: $light-green; }
   }
 }
 

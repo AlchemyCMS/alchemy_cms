@@ -2,6 +2,10 @@ button, input[type="submit"], a.button, input.button {
   @include button-defaults;
   position: relative;
 
+  &.primary {
+    @include button-defaults("primary");
+  }
+
   &.small {
     padding: $default-padding 3*$default-padding;
     vertical-align: inherit;
@@ -40,6 +44,10 @@ button, input[type="submit"], a.button, input.button {
     line-height: 13px;
     height: 29px;
   }
+}
+
+.submit button {
+  @include button-defaults("primary");
 }
 
 .icon_button {
