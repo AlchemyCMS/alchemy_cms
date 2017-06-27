@@ -2,6 +2,8 @@
 
 ## 4.0.0 (unreleased)
 
+* Removed `redirect_back_or_to_default` from `Alchemy::Admin::BaseController`
+  Use Rails' `redirect_back` with a `fallback_location` instead
 * Deprecated controller requests test helpers [#1284](https://github.com/AlchemyCMS/alchemy_cms/pull/1284) by [tvdeyen](https://github.com/tvdeyen)
 
 ## 4.0.0.beta (2017-06-20)

@@ -57,14 +57,6 @@ module Alchemy
         end
       end
 
-      def redirect_back_or_to_default(default_path = admin_dashboard_path)
-        if request.referer.present?
-          redirect_to :back
-        else
-          redirect_to default_path
-        end
-      end
-
       # Returns clipboard items for given category
       def get_clipboard(category)
         session[:alchemy_clipboard] ||= {}
