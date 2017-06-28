@@ -107,7 +107,7 @@ module Alchemy
     # Settings from the elements.yml definition
     def settings
       return {} if definition.blank?
-      @settings ||= definition.fetch('settings', {}).symbolize_keys
+      @settings ||= definition.fetch(:settings, {})
     end
 
     # Fetches value from settings
