@@ -20,7 +20,7 @@ Gem::Specification.new do |gem|
 
   gem.add_runtime_dependency 'active_model_serializers',         ['~> 0.9.0']
   gem.add_runtime_dependency 'acts_as_list',                     ['~> 0.3']
-  gem.add_runtime_dependency 'acts-as-taggable-on',              ['~> 4.0']
+  gem.add_runtime_dependency 'acts-as-taggable-on',              ['~> 5.0']
   gem.add_runtime_dependency 'awesome_nested_set',               ['~> 3.1']
   gem.add_runtime_dependency 'bourbon',                          ['~> 4.2']
   gem.add_runtime_dependency 'cancancan',                        ['~> 1.9']
