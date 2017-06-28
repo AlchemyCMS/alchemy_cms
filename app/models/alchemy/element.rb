@@ -153,10 +153,7 @@ module Alchemy
       #   @copy.public? # => false
       #
       def copy(source_element, differences = {})
-        source_element.attributes.stringify_keys!
-        differences.stringify_keys!
-
-        attributes = source_element.attributes
+        attributes = source_element.attributes.with_indifferent_access
                        .except(*SKIPPED_ATTRIBUTES_ON_COPY)
                        .merge(differences)
                        .merge({
