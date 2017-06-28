@@ -13,7 +13,7 @@ module Alchemy
       # your own set of elements
       #
       def definitions
-        @definitions ||= read_definitions_file
+        @definitions ||= read_definitions_file.map(&:with_indifferent_access)
       end
 
       # Returns one element definition by given name.
