@@ -33,9 +33,8 @@ module Alchemy
       # @return [Alchemy::Content]
       #
       def create_from_scratch(element, essence_hash)
-        essence_hash.stringify_keys!
         if content = build(element, essence_hash)
-          content.create_essence!(essence_hash['essence_type'])
+          content.create_essence!(essence_hash[:essence_type])
         end
         content
       end
@@ -51,7 +50,7 @@ module Alchemy
       #
       def copy(source, differences = {})
         new_content = Content.new(
-          source.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY).merge(differences.stringify_keys)
+          source.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY).merge(differences)
         )
 
         new_essence = new_content.essence.class.create!(
@@ -68,12 +67,11 @@ module Alchemy
       # 2. It builds a definition hash from essence type, if the the name key is not present
       #
       def content_definition(element, essence_hash)
-        essence_hash.stringify_keys!
         # No name given. We build the content from essence type.
-        if essence_hash['name'].blank? && essence_hash['essence_type'].present?
-          content_definition_from_essence_type(element, essence_hash['essence_type'])
+        if essence_hash[:name].blank? && essence_hash[:essence_type].present?
+          content_definition_from_essence_type(element, essence_hash[:essence_type])
         else
-          element.content_definition_for(essence_hash['name'])
+          element.content_definition_for(essence_hash[:name])
         end
       end
 

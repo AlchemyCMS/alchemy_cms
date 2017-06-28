@@ -140,7 +140,7 @@ module Alchemy
     # creates the contents for this element as described in the elements.yml
     def create_contents
       definition.fetch("contents", []).each do |content_hash|
-        Content.create_from_scratch(self, content_hash.symbolize_keys)
+        Content.create_from_scratch(self, content_hash)
       end
     end
   end
