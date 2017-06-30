@@ -9,7 +9,7 @@ namespace :alchemy do
     'alchemy:upgrade:3.1:todo',
     'alchemy:upgrade:3.2:run', 'alchemy:upgrade:3.2:todo',
     'alchemy:upgrade:3.3:run', 'alchemy:upgrade:3.3:todo',
-    'alchemy:upgrade:3.4:run',
+    'alchemy:upgrade:3.4:run', 'alchemy:upgrade:3.4:todo',
     'alchemy:upgrade:3.5:run', 'alchemy:upgrade:3.5:todo'
   ] do
     Alchemy::Upgrader.display_todos
@@ -153,6 +153,10 @@ namespace :alchemy do
       desc 'Install asset manifests into `vendor/assets`'
       task install_asset_manifests: [:environment] do
         Alchemy::Upgrader::ThreePointFour.install_asset_manifests
+      end
+
+      task :todo do
+        Alchemy::Upgrader::ThreePointFour.alchemy_3_4_todos
       end
     end
 
