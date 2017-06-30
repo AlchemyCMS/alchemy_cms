@@ -29,7 +29,7 @@ describe 'alchemy/essences/_essence_editor_view' do
     end
 
     it "renders a link to edit the essence" do
-      is_expected.to have_selector("a.edit_file[href='/admin/essence_files/#{essence.id}/edit?options=%7B%7D']")
+      is_expected.to have_selector("a.icon-edit[href='/admin/essence_files/#{essence.id}/edit?options=%7B%7D']")
     end
 
     context 'with content settings `only`' do

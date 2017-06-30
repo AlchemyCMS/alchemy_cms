@@ -348,13 +348,14 @@
     border: $default-border;
     border-bottom: none;
     border-top: none;
-    background: $medium-gray;
+    background-image: $button-secondary-bg;
+    border-left: 1px solid $button-secondary-border-color;
 
     &:hover {
       border-color: $button-secondary-border-color;
     }
 
-    &.disabled { opacity: 1; }
+    &.disabled { background: $medium-gray; }
 
     &.unlink-essence {
       border-radius: 0 $default-border-radius $default-border-radius 0;
@@ -520,16 +521,9 @@ div.file_icon {
   height: 24px;
   width: 24px;
 
-  span.icon {
-    margin: $default-margin;
-  }
-
-  a.assign_file {
-    display: block;
-    height: 16px;
-    background: image-url('alchemy/icons.png') no-repeat -480px -40px;
-    width: 16px;
-    margin: $default-margin;
+  > span,
+  > a {
+    line-height: 22px;
   }
 }
 
@@ -550,22 +544,15 @@ div.file_icon {
   height: 24px;
   float: right;
   background-color: white;
-  width: 48px;
 
   a {
-    text-decoration: none;
-    width: 16px;
-    height: 16px;
-    margin: $default-margin;
     float: left;
-
-    &.assign_file {
-      background: image-url('alchemy/icons.png') -512px -40px;
-    }
-
-    &.edit_file {
-      background: image-url('alchemy/icons.png') -160px -167px;
-    }
+    background-image: $button-secondary-bg;
+    border-left: 1px solid $button-secondary-border-color;
+    height: 24px;
+    width: 24px;
+    text-align: center;
+    line-height: 22px;
   }
 }
 
