@@ -117,6 +117,19 @@ module Alchemy
         expect(Element.definitions.collect { |el| el['name'] }).to include('erb_element')
       end
 
+      context "with the generated, default template" do
+        let(:template_path) { 'lib/rails/generators/alchemy/install/templates/elements.yml.tt' }
+        let(:template) { File.read(template_path).gsub(/<%.+%>/, '') }
+        before do
+          expect(File).to receive(:exist?).and_return(true)
+          expect(File).to receive(:read).and_return(template)
+        end
+
+        it "returns without error" do
+          expect { Element.definitions }.to_not raise_error
+        end
+      end
+
       context "without existing yml files" do
         before { allow(File).to receive(:exist?).and_return(false) }
 
