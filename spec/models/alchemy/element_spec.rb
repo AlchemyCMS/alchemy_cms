@@ -117,15 +117,14 @@ module Alchemy
         expect(Element.definitions.collect { |el| el['name'] }).to include('erb_element')
       end
 
-      context "with the generated, default template" do
-        let(:template_path) { 'lib/rails/generators/alchemy/install/templates/elements.yml.tt' }
-        let(:template) { File.read(template_path).gsub(/<%.+%>/, '') }
+      context "with a YAML file including a symbol" do
+        let(:yaml) { 'name: :symbol' }
         before do
           expect(File).to receive(:exist?).and_return(true)
-          expect(File).to receive(:read).and_return(template)
+          expect(File).to receive(:read).and_return(yaml)
         end
 
-        it "returns without error" do
+        it "returns the definition without error" do
           expect { Element.definitions }.to_not raise_error
         end
       end
