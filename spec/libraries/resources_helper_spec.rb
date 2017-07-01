@@ -125,20 +125,32 @@ describe Alchemy::ResourcesHelper do
 
     context "resource having a relation" do
       let(:associated_object) { double("location", title: 'Title of related object') }
-      let(:associated_klass) { double("klass", find: associated_object) }
       let(:relation) do
         {
           attr_method: 'title',
-          model_association: OpenStruct.new(klass: associated_klass)
+          name: 'location'
         }
       end
       let(:attributes) do
-        {name: 'name', relation: relation}
+        {
+          name: 'name',
+          relation: relation
+        }
+      end
+
+      before do
+        allow(resource_item).to receive(:name).and_return('my-name')
+        expect(resource_item).to receive(:location).and_return(associated_object)
       end
 
       it "should return the value from the related object attribute" do
-        allow(resource_item).to receive(:name).and_return('my-name')
         is_expected.to eq('Title of related object')
+      end
+
+      context 'if the relation is empty' do
+        let(:associated_object) { nil }
+
+        it { is_expected.to eq("Not found") }
       end
     end
 
