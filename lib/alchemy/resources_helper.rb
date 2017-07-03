@@ -70,21 +70,21 @@ module Alchemy
     # @return [String]
     #
     def render_attribute(resource, attribute, options = {})
+      if attribute[:relation]
+        record = resource.send(attribute[:relation][:name])
+        value = record.present? ? record.send(attribute[:relation][:attr_method]) : Alchemy.t(:not_found)
+      elsif attribute[:type] == :datetime
+        value = l(resource.send(attribute[:name]))
+      else
+        value = resource.send(attribute[:name])
+      end
+
       options.reverse_merge!(truncate: 50)
-      value = resource.send(attribute[:name])
-      if (relation = attribute[:relation]) && value.present?
-        record = relation[:model_association].klass.find(value)
-        value = record.send(relation[:attr_method])
-      elsif attribute[:type] == :datetime && value.present?
-        value = l(value)
-      end
       if options[:truncate]
-        value = value.to_s.truncate(options[:truncate])
+        value.to_s.truncate(options.fetch(:truncate, 50))
+      else
+        value
       end
-      value
-    rescue ActiveRecord::RecordNotFound => e
-      warning e
-      Alchemy.t(:not_found)
     end
 
     # Returns a options hash for simple_form input fields.
