@@ -188,7 +188,7 @@ something like S3.
 
 Please follow the guidelines about picture caching on the Dragonfly homepage for further instructions:
 
-http://markevans.github.io/dragonfly/cache/
+http://markevans.github.io/dragonfly/cache
 
 
 ## Upgrading
