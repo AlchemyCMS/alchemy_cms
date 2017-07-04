@@ -42,7 +42,7 @@ th {
   text-transform: uppercase;
   letter-spacing: .075em;
   font-size: 10px;
-  color: $dark-gray;
+  color: $xdark-gray;
 
   i {
     font-style: normal;
@@ -69,13 +69,10 @@ th {
 }
 
 
-tr.odd td {
+td {
   background-color: white;
 }
 
-tr.even td {
-  background-color: $white;
-}
 
 .list tr .tools {
   width: 40px;

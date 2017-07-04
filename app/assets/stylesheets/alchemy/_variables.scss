@@ -1,116 +1,149 @@
-// Status colors
+// These variables can be adjusted to customize the user interface
+// ===============================================================
 
-$blue: #196AFF;
-$green: #6EA600;
-$yellow: #E6AC00;
-$red: #E63956;
-$orange: #D96C00;
-$dark-gray: #3E4859;
 
-// Colors for file type icons
+// Accent colors
 
-$brown: #734533;
-$violet: #5A41D9;
-$cold-blue: #3956E6;
-$warm-red: #D93A2B;
-$warm-gray: #595350;
+$blue: #3388FF !default;
+$green: #6EA600 !default;
+$yellow: #E6AC00 !default;
+$red: #E63956 !default;
+$orange: #D96C00 !default;
 
-// Interface colors
+$light-blue: scale-color($blue, $lightness: 90%) !default;
+$light-green: scale-color($green, $lightness: 90%) !default;
+$light-yellow: scale-color($yellow, $lightness: 90%) !default;
+$light-red: scale-color($red, $lightness: 92%) !default;
 
-$light-blue: scale-color($blue, $lightness: 90%);
-$light-green: scale-color($green, $lightness: 90%);
-$light-yellow: scale-color($yellow, $lightness: 90%);
-$light-red: scale-color($red, $lightness: 92%);
 
-$white: scale-color($blue, $lightness: 96%, $saturation: -85%);
-$light-gray: scale-color($blue, $lightness: 92%, $saturation: -88%);
-$medium-gray: scale-color($blue, $lightness: 83%, $saturation: -85%);
-$medium-dark-gray: scale-color($blue, $lightness: 67%, $saturation: -89%);
+// Base colors
 
-$text-color: $dark-gray;
-$icon-color: $dark-gray;
-$muted-text-color: rgba(0, 0, 0, 0.4);
-$linked-color: $light-yellow;
+$interface-base-color: $orange !default;
 
-$header-color: $medium-dark-gray;
-$header-text-color: $text-color;
+$light-gray: scale-color($interface-base-color, $lightness: 95%, $saturation: -97%) !default;
+$medium-gray: scale-color($interface-base-color, $lightness: 85%, $saturation: -95%) !default;
+$medium-dark-gray: scale-color($interface-base-color, $lightness: 72%, $saturation: -97%) !default;
+$dark-gray: scale-color($interface-base-color, $lightness: 55%, $saturation: -98%) !default;
+$xdark-gray: scale-color($interface-base-color, $lightness: -40%, $saturation: -98%) !default;
 
-// flash messages, hints and notices
 
-$success_border_color: scale-color($green, $lightness: 40%, $saturation: -40%);
-$success_text_color: scale-color($green, $lightness: -20%);
-$success_background_color: $light-green;
+// Colors used for file type icons
 
-$info_border_color: scale-color($blue, $lightness: 40%, $saturation: -40%);
-$info_text_color: scale-color($blue, $lightness: -20%);
-$info_background_color: #cadbf3;
+$brown: #734533 !default;
+$violet: #5A41D9 !default;
+$cold-blue: #3956E6 !default;
+$warm-red: #D93A2B !default;
 
-$warning_border_color: scale-color($yellow, $lightness: 40%, $saturation: -40%);
-$warning_text_color: scale-color($yellow, $lightness: -20%);
-$warning_background_color: $light-yellow;
 
-$error_border_color: scale-color($red, $lightness: 40%, $saturation: -40%);
-$error_text_color: scale-color($red, $lightness: -20%);
-$error_background_color: $light-red;
+// Text and icons colors
+
+$text-color: $xdark-gray !default;
+$muted-text-color: rgba(0, 0, 0, 0.4) !default;
+$icon-color: $xdark-gray !default;
+$linked-color: $light-green !default;
+
+
+// Frame colors
+
+$main-menu-bg-color: #353F4C !default;
+$main-menu-active-bg-color: scale-color($main-menu-bg-color, $lightness: -40%) !default;
+$header-bg-color: $medium-gray !default;
+$header-text-color: $text-color !default;
+$toolbar-bg-color: $light-gray !default;
+$dialog-header-bg-color: $medium-dark-gray !default;
+$elements-bg-color: $medium-gray !default;
+$element-toolbar-bg-color: $light-gray !default;
+$element-panel-bg-color: $light-gray !default;
+
+
+// Colors for flash messages, hints and notices
+
+$success_border_color: scale-color($green, $lightness: 40%, $saturation: -40%) !default;
+$success_text_color: scale-color($green, $lightness: -20%) !default;
+$success_background_color: $light-green !default;
+
+$info_border_color: scale-color($blue, $lightness: 40%, $saturation: -40%) !default;
+$info_text_color: scale-color($blue, $lightness: -20%) !default;
+$info_background_color: $light-blue !default;
+
+$warning_border_color: scale-color($yellow, $lightness: 40%, $saturation: -40%) !default;
+$warning_text_color: scale-color($yellow, $lightness: -20%) !default;
+$warning_background_color: $light-yellow !default;
+
+$error_border_color: scale-color($red, $lightness: 40%, $saturation: -40%) !default;
+$error_text_color: scale-color($red, $lightness: -20%) !default;
+$error_background_color: $light-red !default;
+
 
 // Typography
 
-$default-font-face: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
-$mono-font-face: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-$default-font-size: 12px;
-$default-font-style: $default-font-size $default-font-face;
+$default-font-face: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", sans-serif !default;
+$mono-font-face: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace !default;
+$default-font-size: 12px !default;
 
-// layout
-
-$default-padding: 4px;
-$default-margin: $default-padding;
 
 // Borders
 
-$default-border-color: scale-color($blue, $lightness: 55%, $saturation: -85%);
-$border-inset-color: lighten($default-border-color, 20%);
-$default-border-width: 1px;
-$default-border-style: solid;
-$default-border: $default-border-width $default-border-style $default-border-color;
-$default-border-radius: 3px;
-$default-form-field-margin: $default-margin 0;
-$default-form-field-height: 29px;
+$default-border-color: $medium-dark-gray !default;
+$border-inset-color: lighten($default-border-color, 20%) !default;
+$default-border-width: 1px !default;
+$default-border-style: solid !default;
+$default-border: $default-border-width $default-border-style $default-border-color !default;
+$default-border-radius: 3px !default;
+
 
 // Buttons
 
-$button-hover-bg-color: white;
-$button-border-color: $default-border-color;
-$button-gradient-first-color: white !default;
-$button-gradient-second-color: $white !default;
+$input-border-color: $dark-gray !default;
 $button-padding: 0.5em 1.5em !default;
-$button-margin: $default-form-field-margin !default;
-$button-primary-bg: linear-gradient(rgba($blue, 0.85), scale-color(rgba($blue, 0.85), $lightness: -5%));
-$button-primary-bg-hover: $blue;
-$button-primary-border-color: scale-color($blue, $lightness: 0%);
-$button-primary-border-color-hover: scale-color($blue, $lightness: -10%);
-$button-secondary-bg: linear-gradient(white, $white);
-$button-secondary-bg-hover: linear-gradient($white, white);
-$button-secondary-border-color: $default-border-color;
-$button-secondary-border-color-hover: scale-color($default-border-color, $lightness: -30%);
+
+$primary-button-base-color: $blue !default;
+$button-primary-bg: linear-gradient(rgba($primary-button-base-color, 0.85), scale-color(rgba($primary-button-base-color, 0.85), $lightness: -5%)) !default;
+$button-primary-bg-hover: $primary-button-base-color !default;
+$button-primary-border-color: scale-color($primary-button-base-color, $lightness: 0%) !default;
+$button-primary-border-color-hover: scale-color($button-primary-border-color, $lightness: -10%) !default;
+
+$button-secondary-bg: linear-gradient(white, $light-gray) !default;
+$button-secondary-bg-hover: linear-gradient($light-gray, white) !default;
+$button-secondary-border-color: $dark-gray !default;
+$button-secondary-border-color-hover: scale-color($button-secondary-border-color, $lightness: -30%) !default;
+$action-icons-hover-bg-color: rgba($xdark-gray, 0.1) !default;
+$select-entry-active-bg-color: rgba($xdark-gray, 0.1) !default;
+
 
 // Effects
 
-$text-shadow-light: rgba(white, 0.2) 0 0 4px !default;
+$text-shadow-light: rgba(white, 0.2) 0 0 2px !default;
 $transition-duration: 200ms !default;
 $transition-easing: linear !default;
+$input-box-shadow: inset 0px 1px 3px rgba($medium-gray, .5) !default;
 
-// Certain elements
+
+// Main menu dimensions
+
+$main-menu-width: 250px !default;
+$collapsed-main-menu-width: 48px !default;
+$main-menu-entry-max-width: 100px !default;
+
+
+
+// These variables should not be changed to avoid braeking the layout
+// ==================================================================
+
+
+$default-font-style: $default-font-size $default-font-face;
+$default-padding: 4px;
+$default-margin: $default-padding;
+
+$default-form-field-margin: $default-margin 0;
+$default-form-field-height: 29px;
+$button-margin: $default-form-field-margin;
+
+// Certain element dimensions
 
 $dialog-header-height: 36px;
 $header-font-size: $default-font-size;
 $form-left-width: 35%;
 $form-right-width: 65%;
 $sitemap-line-height: 32px;
-$main-menu-width: 150px !default;
-$collapsed-main-menu-width: 48px !default;
-$main-menu-bg-color: $dark-gray !default;
-$main-menu-active-bg-color: scale-color($dark-gray, $lightness: -15%) !default;
-$main-menu-text-color: $light-blue !default;
-$main-menu-entry-max-width: 100px !default;
-$toolbar-bg-color: $medium-gray !default;
-$header-height: 29px !default;
+$header-height: 29px;

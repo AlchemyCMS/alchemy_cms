@@ -157,7 +157,7 @@
 ----------------------------------*/
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-  border: 1px solid $button-border-color;
+  border: 1px solid $default-border-color;
   background-color: #ededed;
   font-weight: normal;
   color: $text-color;
@@ -169,7 +169,7 @@
 }
 
 .ui-state-hover a, .ui-state-hover a:hover {
-  color: $dark-gray;
+  color: $xdark-gray;
   text-decoration: none;
 }
 
@@ -177,7 +177,7 @@
   color: $text-color;
   text-decoration: none;
   text-shadow: none;
-  background-color: $button-hover-bg-color;
+  background-color: $action-icons-hover-bg-color;
 }
 
 .ui-state-active.stNav.stNext {
@@ -216,7 +216,7 @@
 ----------------------------------*/
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
-  border: 1px solid $dark-gray;
+  border: 1px solid $xdark-gray;
   background: $light-blue;
   color: $text-color;
 }

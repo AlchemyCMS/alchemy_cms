@@ -68,7 +68,7 @@ div#overlay_text_box {
 #header {
   height: $header-height;
   line-height: $header-height;
-  background: $medium-dark-gray;
+  background: $header-bg-color;
   border-bottom: $default-border;
   position: relative;
 
@@ -83,7 +83,7 @@ div#overlay_text_box {
 
   .page_status_and_name {
     padding: 0 8px;
-    background-color: $medium-gray;
+    background-color: $toolbar-bg-color;
     text-shadow: $text-shadow-light;
     @extend .disable-user-select;
     @extend .locked_page;
@@ -139,9 +139,9 @@ div#overlay_text_box {
   height: $header-height;
   font-size: 11px;
   padding-left: 2*$default-padding;
-  background-color: $medium-dark-gray;
+  background-color: $header-bg-color;
   border-bottom: $default-border;
-  box-shadow: -30px 0 30px $medium-dark-gray;
+  box-shadow: -30px 0 30px $header-bg-color;
 
   .select2-container {
     margin-top: -3px;
@@ -175,7 +175,7 @@ div#overlay_text_box {
   }
 
   .select2-dropdown-open {
-    background-color: $main-menu-bg-color;
+    background-color: $select-entry-active-bg-color;
 
     .select2-choice .select2-arrow b {
       background-position: -20px -5px;

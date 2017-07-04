@@ -253,7 +253,7 @@ div.mce-tinymce-inline {
 }
 
 .mce-panel {
-  border: 0 solid $default-border-color;
+  border: 0 solid $input-border-color;
   background-color: $medium-gray;
   box-sizing: border-box;
 }
@@ -395,7 +395,7 @@ div.mce-fullscreen {
 
 .mce-window-head {
   padding: 8px 12px;
-  background-color: $light-blue;
+  background-color: $dialog-header-bg-color;
   position: relative;
   @include border-top-radius($default-border-radius);
 
@@ -451,6 +451,8 @@ div.mce-fullscreen {
 
     button {
       padding: 0.5em 1.5em;
+      border: 1px solid $button-secondary-border-color;
+      line-height: inherit;
     }
   }
 }
@@ -622,20 +624,15 @@ body .mce-abs-layout-item {
 }
 
 .mce-btn {
-  border: 1px solid #b1b1b1;
-  border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25) rgba(0,0,0,0.25);
   position: relative;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.75);
   display: inline-block;
   *display: inline;
   *zoom: 1;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
-  @include background(linear-gradient($button-gradient-first-color, $button-gradient-second-color));
+  @include background(linear-gradient(white, $light-gray));
 
   &:focus,
   &:hover {
-    color: #333;
-    @include background(linear-gradient( darken($button-gradient-first-color, 5%), darken($button-gradient-second-color, 5%) ));
+    background: $medium-dark-gray;
 
     button {
       @include background(inherit);
@@ -1280,7 +1277,7 @@ i.mce-i-checkbox {
 }
 
 .mce-menu-item-normal.mce-active {
-  background-color: $button-hover-bg-color;
+  background-color: $action-icons-hover-bg-color;
 }
 
 .mce-menu-item-preview.mce-active {
@@ -1301,7 +1298,7 @@ i.mce-i-checkbox {
 .mce-menu-item:hover {
   text-decoration: none;
   color: #fff;
-  background: $button-hover-bg-color;
+  background: $action-icons-hover-bg-color;
 }
 
 .mce-menu-item-sep:hover,
@@ -1517,9 +1514,9 @@ i.mce-i-resize {
 .mce-textbox.mce-focus,
 .mce-textbox:focus {
   border-color: rgba(82,168,236,0.8);
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.65);
-  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.65);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.65);
+  -webkit-box-shadow: $input-box-shadow;
+  -moz-box-shadow: $input-box-shadow;
+  box-shadow: $input-box-shadow;
 }
 
 .mce-placeholder .mce-textbox {

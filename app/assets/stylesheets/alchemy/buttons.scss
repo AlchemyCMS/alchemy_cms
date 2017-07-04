@@ -63,7 +63,7 @@ button, input[type="submit"], a.button, input.button {
   font-family: $default-font-face;
 
   &:hover {
-    background: $button-hover-bg-color;
+    background: $action-icons-hover-bg-color;
     text-decoration: none;
   }
 
@@ -160,7 +160,7 @@ button.icon_button {
   &.active, &:active {
 
     .icon_button {
-      background-color: darken($white, 10%);
+      background-color: darken($light-gray, 10%);
       border: $default-border;
       padding: 2px;
       @extend %rounded-border;
@@ -198,7 +198,7 @@ button.icon_button {
     left: 50%;
     margin-left: -13px;
     z-index: 30;
-    background: $dark-gray;
+    background: $xdark-gray;
     color: #fff;
     padding: $default-padding 2*$default-padding;
     line-height: 1;
@@ -214,7 +214,7 @@ button.icon_button {
       bottom: -10px;
       left: 8px;
       border: 5px transparent solid;
-      border-top-color: $dark-gray;
+      border-top-color: $xdark-gray;
     }
 
     &.center {

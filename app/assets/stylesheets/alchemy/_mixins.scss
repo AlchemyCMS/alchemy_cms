@@ -13,12 +13,16 @@
 
   @if $color == "primary" {
     background: $button-primary-bg;
-    color: $white;
+    color: white;
     border: 1px solid $button-primary-border-color;
 
     &:hover {
       background: $button-primary-bg-hover;
       border-color: $button-primary-border-color-hover;
+    }
+
+    &:active, &:focus {
+      border-color: scale-color($button-primary-border-color-hover, $lightness: -30%);
     }
 
   } @else {
@@ -31,6 +35,10 @@
       background-image: $button-secondary-bg-hover;
       border-color: $button-secondary-border-color-hover;
     }
+
+    &:active, &:focus {
+      border-color: scale-color($button-secondary-border-color-hover, $lightness: -30%);
+    }
   }
 
   display: inline-block;
@@ -42,14 +50,7 @@
   @include appearance(none);
 
   &:hover { text-decoration: none; }
-
-  &:active, &:active:focus {
-    border-color: $button-border-color;
-  }
-
-  &:focus {
-    @include default-focus-style;
-  }
+  &:focus { @include default-focus-style; }
 
   &.disabled, &[disabled],
   &.disabled:active, &[disabled]:active,
@@ -67,7 +68,7 @@
 
 @mixin default-label-style {
   font-size: 10px;
-  text-shadow: #fff 0 1px 2px;
+  text-shadow: $text-shadow-light;
   margin-top: $default-margin;
   display: block;
   line-height: 100%;
@@ -137,7 +138,7 @@
 }
 
 @mixin drop-shadow {
-  $shadow: 0px 0px 4px $dark-gray;
+  $shadow: 0px 0px 4px $xdark-gray;
   -webkit-box-shadow: $shadow;
   -moz-box-shadow: $shadow;
   -ms-box-shadow: $shadow;
@@ -219,11 +220,11 @@
 
     background-color: white;
     border-color: $medium-gray;
-    color: $dark-gray;
+    color: $xdark-gray;
 
     [class^="icon-"]:before,
     [class*=" icon-"]:before {
-      color: $dark-gray;
+      color: $xdark-gray;
     }
 
     &:before { border-color: transparent transparent white transparent; }

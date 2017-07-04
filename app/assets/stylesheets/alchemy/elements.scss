@@ -7,7 +7,7 @@
   height: auto;
   border-left: $default-border;
   @include transition(200ms ease-in-out);
-  background-color: $medium-dark-gray;
+  background-color: $elements-bg-color;
 }
 
 #element_area {
@@ -132,7 +132,7 @@
 .element-editor {
   border: 1px solid $default-border-color;
   @extend %rounded-border;
-  background-color: $light-gray;
+  background-color: $element-panel-bg-color;
   margin-bottom: 2*$default-margin;
 
   .icon-visible:before
@@ -275,7 +275,7 @@
 .element-toolbar {
   padding: 6px;
   height: 6*$default-padding;
-  background-color: $light-gray;
+  background-color: $element-toolbar-bg-color;
   border-top: 1px solid $medium-gray;
   border-bottom: 1px solid $medium-gray;
 
@@ -362,7 +362,7 @@
       right: 0;
     }
 
-    &.linked { background: $light-green; }
+    &.linked { background: $linked-color; }
   }
 }
 
@@ -383,8 +383,7 @@
 
 .droppable_element_placeholder {
   height: 36px;
-  border: 1px dotted $button-border-color;
-  background-color: $medium-gray;
+  background-color: rgba(black, .05);
   margin-bottom: 2*$default-margin;
   border-radius: $default-border-radius;
 }
@@ -411,7 +410,7 @@
       position: relative;
       @extend %rounded-border;
       background-color: $linked-color;
-      border: 1px solid $button-border-color;
+      border: 1px solid $default-border-color;
       bottom: 1px;
       margin-right: 2px;
       width: 18px;
@@ -504,8 +503,8 @@ div.file {
   padding: 0;
   margin-top: 8px;
   margin-bottom: 4px;
-  border: 1px solid #c0c0c0;
-  background-color: #f3f3f3;
+  border: 1px solid $medium-dark-gray;
+  background-color: white;
   @extend %rounded-border;
   height: 24px;
 
@@ -689,7 +688,7 @@ select.long {
   select.essence_editor_select {
     @extend %rounded-border;
     background: white;
-    border: 1px solid $button-border-color;
+    border: 1px solid $button-secondary-border-color;
     font-size: 11px;
     height: 21px;
     line-height: 21px;

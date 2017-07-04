@@ -23,7 +23,7 @@ select {
       .select2-arrow {
         width: 24px;
         background: transparent;
-        border-left: 1px solid #CACACA;
+        border-left: 1px solid $button-secondary-border-color;
 
         b {
           @extend .icon-dropdown;
@@ -169,7 +169,7 @@ select {
       padding: 4px 0;
 
       &.select2-highlighted {
-        background: $button-hover-bg-color;
+        background: $action-icons-hover-bg-color;
         color: $text-color;
       }
 

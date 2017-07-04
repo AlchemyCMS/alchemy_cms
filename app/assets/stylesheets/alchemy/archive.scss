@@ -254,7 +254,7 @@ div#filter_bar {
       &:hover { background-color: $light-blue }
 
       &.active {
-        background-color: $dark-gray;
+        background-color: $xdark-gray;
 
         a, &:before { color: $light-gray }
       }
