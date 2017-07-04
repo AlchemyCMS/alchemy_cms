@@ -80,6 +80,24 @@ module Alchemy
     describe '#create' do
       subject { alchemy_post :create, params }
 
+      context 'with an upload hash included in params' do
+        let(:params) { {attachment: {file: file, upload_hash: Time.current.hash}} }
+
+        it 'filters :upload_hash' do
+          expect(Attachment).to receive(:create) do |params|
+            expect(params[:upload_hash]).to be_nil
+            Attachment.new(file: file)
+          end
+
+          subject
+        end
+
+        it 'does not raise an error when Action Controller is configured to raise on unpermitted params' do
+          expect(ActionController::Parameters).to receive(:action_on_unpermitted_parameters).and_return(:raise)
+          expect { subject }.to_not raise_error(ActionController::UnpermittedParameters)
+        end
+      end
+
       context 'with passing validations' do
         let(:params) { {attachment: {file: file}} }
 
