@@ -98,7 +98,7 @@ module Alchemy
       end
 
       def attachment_attributes
-        params.require(:attachment).except(:upload_hash).permit(:file, :file_name, :name, :tag_list)
+        params.require(:attachment).permit(:file, :name, :file_name, :tag_list)
       end
     end
   end
