@@ -127,19 +127,15 @@ module Alchemy
         end
       end
 
-      # Extracts options from params.
+      # Extracts options from params and permits all keys
       #
-      # Helps to parse JSONified options into Hash or Array
+      # If no options are present it returns an empty parameters hash.
       #
+      # @returns [ActionController::Parameters]
       def options_from_params
-        case params[:options]
-        when '', nil
-          {}
-        when String
-          JSON.parse(params[:options])
-        else
-          params[:options].permit!.to_h
-        end.deep_symbolize_keys
+        @_options_from_params ||= begin
+          (params[:options] || ActionController::Parameters.new).permit!
+        end
       end
 
       # This method decides if we want to raise an exception or not.
