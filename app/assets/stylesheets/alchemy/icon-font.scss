@@ -9,45 +9,47 @@
   font-style: normal;
 }
 
-.icon-angle-double-right,
-.icon-angle-left,
-.icon-angle-right,
-.icon-plus,
-.icon-minus,
-.icon-cross,
-.icon-plus-2,
-.icon-minus-2,
-.icon-pencil,
-.icon-tag,
-.icon-info,
-.icon-warning,
-.icon-checkmark,
-.icon-ccw,
-.icon-trash,
-.icon-cross-2,
-.icon-pictures,
-.icon-menu,
-.icon-magnifying-glass,
-.icon-fullscreen-exit,
-.icon-help,
-.icon-fullscreen,
-.icon-cog {
-  font-family: 'Alchemy Icons';
-  speak: none;
-  font-size: 12px;
+@mixin icon {
+  font-family: 'Alchemy Icons' !important; // use !important to prevent issues with browser extensions that change fonts
   font-style: normal;
   font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  margin-left: .2em;
+  text-align: center;
+  vertical-align: middle;
+  opacity: .85;
   font-variant: normal;
   text-transform: none;
-  text-decoration: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 16px;
-  color: #666;
-  text-align: center;
-  line-height: 1;
-  display: inline-block;
-  vertical-align: middle;
+  font-size: 16px;
+  color: #333;
+}
+
+[class^="icon-"],
+[class*=" icon-"] {
+  &:before { @include icon; }
+
+  &.tiny:before { font-size: 12px; }
+  &.small:before { font-size: 14px; }
+  &.large:before { font-size: 24px; }
+}
+
+a:hover, button:hover {
+  [class^="icon-"]:before,
+  [class*=" icon-"]:before,
+  &[class^="icon-"]:before,
+  &[class*=" icon-"]:before {
+    opacity: 1;
+  }
+  &[class^="icon-"],
+  &[class*=" icon-"] {
+    text-decoration: none;
+  }
 }
 
 .icon-angle-double-right:before { content: "\f101" }
