@@ -121,3 +121,7 @@ a:hover, button:hover {
 .icon-zoom-equal:before { content: "\e93b"; }
 .icon-zoom-in:before { content: "\e93c"; }
 .icon-zoom-out:before { content: "\e93d"; }
+
+.icon-muted:before {
+  color: $muted-text-color;
+}
