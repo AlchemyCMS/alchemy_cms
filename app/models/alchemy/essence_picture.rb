@@ -4,21 +4,21 @@
 #
 #  id              :integer          not null, primary key
 #  picture_id      :integer
-#  caption         :string(255)
-#  title           :string(255)
-#  alt_tag         :string(255)
-#  link            :string(255)
-#  link_class_name :string(255)
-#  link_title      :string(255)
-#  css_class       :string(255)
-#  link_target     :string(255)
+#  caption         :string
+#  title           :string
+#  alt_tag         :string
+#  link            :string
+#  link_class_name :string
+#  link_title      :string
+#  css_class       :string
+#  link_target     :string
 #  creator_id      :integer
 #  updater_id      :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
-#  crop_from       :string(255)
-#  crop_size       :string(255)
-#  render_size     :string(255)
+#  crop_from       :string
+#  crop_size       :string
+#  render_size     :string
 #
 
 module Alchemy

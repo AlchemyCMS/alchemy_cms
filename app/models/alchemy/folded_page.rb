@@ -3,8 +3,8 @@
 # Table name: alchemy_folded_pages
 #
 #  id      :integer          not null, primary key
-#  page_id :integer
-#  user_id :integer
+#  page_id :integer          not null
+#  user_id :integer          not null
 #  folded  :boolean          default(FALSE)
 #
 

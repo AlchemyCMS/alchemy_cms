@@ -3,10 +3,10 @@
 # Table name: alchemy_contents
 #
 #  id           :integer          not null, primary key
-#  name         :string(255)
-#  essence_type :string(255)
-#  essence_id   :integer
-#  element_id   :integer
+#  name         :string
+#  essence_type :string           not null
+#  essence_id   :integer          not null
+#  element_id   :integer          not null
 #  position     :integer
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
