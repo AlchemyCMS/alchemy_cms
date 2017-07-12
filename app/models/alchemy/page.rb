@@ -16,8 +16,6 @@
 #  parent_id        :integer
 #  depth            :integer
 #  visible          :boolean          default(FALSE)
-#  public           :boolean          default(FALSE)
-#  locked_at        :datetime
 #  locked_by        :integer
 #  restricted       :boolean          default(FALSE)
 #  robot_index      :boolean          default(TRUE)
@@ -33,6 +31,7 @@
 #  published_at     :datetime
 #  public_on        :datetime
 #  public_until     :datetime
+#  locked_at        :datetime
 #
 
 module Alchemy

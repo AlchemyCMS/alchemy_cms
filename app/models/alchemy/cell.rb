@@ -3,8 +3,8 @@
 # Table name: alchemy_cells
 #
 #  id         :integer          not null, primary key
-#  page_id    :integer
-#  name       :string(255)
+#  page_id    :integer          not null
+#  name       :string
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #

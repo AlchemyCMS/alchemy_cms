@@ -3,8 +3,8 @@
 # Table name: alchemy_sites
 #
 #  id                       :integer          not null, primary key
-#  host                     :string(255)
-#  name                     :string(255)
+#  host                     :string
+#  name                     :string
 #  created_at               :datetime         not null
 #  updated_at               :datetime         not null
 #  public                   :boolean          default(FALSE)
