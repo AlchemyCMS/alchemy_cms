@@ -19,4 +19,5 @@ group :test do
   if ENV['TRAVIS']
     gem "codeclimate-test-reporter", '~> 1.0', require: false
   end
+  gem 'rails-controller-testing'
 end
