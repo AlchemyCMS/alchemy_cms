@@ -42,6 +42,11 @@ Rails.backtrace_cleaner.remove_silencers!
 # Disable rails loggin for faster IO. Remove this if you want to have a test.log
 Rails.logger.level = 4
 
+# Fix for MySQL with ActsAsTaggableOn 5
+if ENV['DB'] == 'mysql'
+  ActsAsTaggableOn.force_binary_collation = true
+end
+
 # Configure capybara for integration testing
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
