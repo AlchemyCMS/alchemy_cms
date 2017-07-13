@@ -50,6 +50,10 @@ module Alchemy
     describe '#create' do
       before { ActionMailer::Base.deliveries.clear }
 
+      around do |example|
+        perform_enqueued_jobs { example.run }
+      end
+
       it "creates an user record" do
         alchemy_post :create, user: attributes_for(:alchemy_user)
         expect(Alchemy::User.count).to eq(1)
@@ -101,8 +105,10 @@ module Alchemy
     end
 
     describe '#update' do
-      before do
-        ActionMailer::Base.deliveries.clear
+      before { ActionMailer::Base.deliveries.clear }
+
+      around do |example|
+        perform_enqueued_jobs { example.run }
       end
 
       context "with empty password passed" do
