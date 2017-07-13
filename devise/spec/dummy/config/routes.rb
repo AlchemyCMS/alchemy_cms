@@ -1,3 +1,3 @@
-Dummy::Application.routes.draw do
+Rails.application.routes.draw do
   mount Alchemy::Engine => '/'
 end
