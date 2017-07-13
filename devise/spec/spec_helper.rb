@@ -28,6 +28,8 @@ Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
 
+ActiveSupport::Deprecation.silenced = true
+
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.raise_errors_for_deprecations!
