@@ -214,6 +214,8 @@ module Alchemy
     end
 
     describe '#logged_in?' do
+      let(:user) { build(:alchemy_user) }
+
       before { allow(Config).to receive(:get).and_return 60 }
 
       it "should return logged in status" do
@@ -224,6 +226,8 @@ module Alchemy
     end
 
     describe '#logged_out?' do
+      let(:user) { build(:alchemy_user) }
+
       before { allow(Config).to receive(:get).and_return 60 }
 
       it "should return logged in status" do
@@ -247,8 +251,10 @@ module Alchemy
     end
 
     describe '#unlock_pages' do
+      let(:user) { create(:alchemy_user) }
+      let(:page) { create(:alchemy_page) }
+
       before do
-        user.save!
         page.lock_to!(user)
       end
 
