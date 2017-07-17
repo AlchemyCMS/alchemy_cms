@@ -11,6 +11,23 @@ module Alchemy
       session[:alchemy_clipboard] = {}
     end
 
+    describe '#index' do
+      context 'with `remarkable_type` being an allowed type' do
+        it 'is successful' do
+          alchemy_get :index, {remarkable_type: 'elements'}
+          expect(response).to be_success
+        end
+      end
+
+      context 'with `remarkable_type` not an allowed type' do
+        it 'raises 400 Bad Request' do
+          expect {
+            alchemy_get :index, {remarkable_type: 'evil'}
+          }.to raise_error(ActionController::BadRequest)
+        end
+      end
+    end
+
     context 'for elements' do
       before do
         expect(Element).to receive(:find).and_return(element)
