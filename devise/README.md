@@ -1,4 +1,4 @@
-## Devise based authentication for Alchemy 3.5
+## Devise based authentication for Alchemy 4.0
 
 [![Build Status](https://secure.travis-ci.org/AlchemyCMS/alchemy-devise.svg?branch=master)](http://travis-ci.org/AlchemyCMS/alchemy-devise)
 
