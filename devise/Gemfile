@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gemspec
 
-gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: '3.6-stable'
+gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
 gem 'sassc-rails'
 
 unless ENV['CI']
@@ -19,4 +19,5 @@ group :test do
   if ENV['TRAVIS']
     gem "codeclimate-test-reporter", '~> 1.0', require: false
   end
+  gem 'rails-controller-testing'
 end

@@ -27,6 +27,9 @@ ActionMailer::Base.default_url_options[:host] = "test.com"
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
+ActiveJob::Base.queue_adapter = :test
+
+ActiveSupport::Deprecation.silenced = true
 
 RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
@@ -36,6 +39,7 @@ RSpec.configure do |config|
   config.include Alchemy::TestSupport::ControllerRequests, :type => :controller
   config.include Alchemy::Engine.routes.url_helpers
   config.include FactoryGirl::Syntax::Methods
+  config.include ActiveJob::TestHelper
   [:controller, :feature, :request].each do |type|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type
   end

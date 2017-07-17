@@ -82,9 +82,9 @@ describe Alchemy::UserSessionsController do
 
       context 'comming from admin area' do
         before do
-          allow(controller.request)
-            .to receive(:referer)
-            .and_return('/admin_users')
+          allow_any_instance_of(ActionController::TestRequest).to receive(:referer) do
+            '/admin_users'
+          end
         end
 
         it "redirects to root" do
@@ -95,9 +95,9 @@ describe Alchemy::UserSessionsController do
 
       context 'no referer present' do
         before do
-          allow(controller.request)
-            .to receive(:referer)
-            .and_return(nil)
+          allow_any_instance_of(ActionController::TestRequest).to receive(:referer) do
+            nil
+          end
         end
 
         it "redirects to root" do
@@ -108,9 +108,9 @@ describe Alchemy::UserSessionsController do
 
       context 'referer not from admin area' do
         before do
-          allow(controller.request)
-            .to receive(:referer)
-            .and_return('/imprint')
+          allow_any_instance_of(ActionController::TestRequest).to receive(:referer) do
+            '/imprint'
+          end
         end
 
         it "redirects to root" do
