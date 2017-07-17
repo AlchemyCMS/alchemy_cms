@@ -36,6 +36,34 @@ $ bundle update alchemy-devise
 $ bin/rails g alchemy:devise:install
 ```
 
+## Devise modules
+
+Default Devise modules included in `Alchemy::User` model
+
+- `:database_authenticatable`
+- `:trackable`
+- `:validatable`
+- `:timeoutable`
+- `:recoverable`
+
+If you want to add additional modules into the Alchemy user class append them to `Alchemy.devise_modules` in an initializer in your app.
+
+### Register additional modules example
+
+```ruby
+# config/initializers/alchemy.rb
+Alchemy.devise_modules << :registerable
+```
+
+### Using old encryption
+
+If your app uses an old encryption that needs the +devise-encryptable+ gem you also need to load the devise module.
+
+```ruby
+# config/initializers/alchemy.rb
+Alchemy.devise_modules << :encryptable
+```
+
 ## Testing
 
 If you want to contribute (and you should ^_^), you need to run the tests locally on your machine.
