@@ -2,7 +2,7 @@
   <%= f.file_field file_attribute,
     class: 'fileupload fileupload--field', multiple: true,
     name: "#{f.object_name}[#{file_attribute}]" %>
-  <%= hidden_field_tag "#{f.object_name}[upload_hash]", Time.current.hash %>
+  <%= hidden_field_tag("#{f.object_name}[upload_hash]", Time.current.hash) if object.respond_to?(:upload_hash) %>
   <%= f.label file_attribute, data: {alchemy_hotkey: 'alt+n'} do %>
     <div class="button_with_label">
       <span class="icon_button"><%= render_icon :upload %></span>
