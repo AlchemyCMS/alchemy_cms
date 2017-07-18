@@ -11,8 +11,9 @@ branches:
     - master
 before_install:
   - gem install bundler
-before_script: 'bundle exec rake alchemy:spec:prepare'
-script: 'bundle exec rspec'
+before_script: bundle exec rake alchemy:spec:prepare
+script: bundle exec rspec
+after_success: bundle exec codeclimate-test-reporter
 env:
   - DB=mysql
   - DB=postgresql
