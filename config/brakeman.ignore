@@ -1,0 +1,46 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "1dd8f69d9b1bdd4017212f38098f03d2ecb2db06269fb940090f209eee7570c6",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/alchemy/admin/resources_controller.rb",
+      "line": 124,
+      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.require(resource_handler.namespaced_resource_name).permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Alchemy::Admin::ResourcesController",
+        "method": "resource_params"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": "Because we actually can't know all attributes each inheriting controller supports, we permit all resource model params. It is adviced that all inheriting controllers implement this method and provide its own set of permitted attributes. As this all happens inside the password protected /admin namespace this can be considered a false positive."
+    },
+    {
+      "warning_type": "Mass Assignment",
+      "warning_code": 70,
+      "fingerprint": "4b4dc24a6f5251bc1a6851597dfcee39608a2932eb7f81a4a241c00fca8a3043",
+      "check_name": "MassAssignment",
+      "message": "Parameters should be whitelisted for mass assignment",
+      "file": "app/controllers/alchemy/admin/elements_controller.rb",
+      "line": 166,
+      "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
+      "code": "params.fetch(:contents, {}).permit!",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Alchemy::Admin::ElementsController",
+        "method": "contents_params"
+      },
+      "user_input": null,
+      "confidence": "Medium",
+      "note": "`Alchemy::Content` is a polymorphic association of any kind of model extending `Alchemy::Essence`. Since we can't know the attributes of all potential essences we need to permit all attributes. As this all happens inside the password protected /admin namespace this can be considered a false positive."
+    }
+  ],
+  "updated": "2017-07-17 11:09:19 +0200",
+  "brakeman_version": "3.7.0"
+}
