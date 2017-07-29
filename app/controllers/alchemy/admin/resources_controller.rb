@@ -13,9 +13,7 @@ module Alchemy
       before_action :load_resource,
         only: [:show, :edit, :update, :destroy]
 
-      before_action do
-        authorize!(action_name.to_sym, resource_instance_variable || resource_handler.model)
-      end
+      before_action :authorize_resource
 
       def index
         @query = resource_handler.model.ransack(params[:q])
@@ -110,6 +108,10 @@ module Alchemy
 
       def load_resource
         instance_variable_set("@#{resource_handler.resource_name}", resource_handler.model.find(params[:id]))
+      end
+
+      def authorize_resource
+        authorize!(action_name.to_sym, resource_instance_variable || resource_handler.model)
       end
 
       # Permits all parameters as default!
