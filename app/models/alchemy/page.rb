@@ -146,9 +146,24 @@ module Alchemy
       # Automatically created when accessed the first time.
       #
       def root
-        super || create!(name: 'Root')
+        # We can't cache this in tests because all tests are transactional.
+        return (super || create!(name: 'Root')) if Rails.env.test?
+
+        RequestStore.store[:alchemy_page_root] ||=
+          (super || create!(name: 'Root'))
       end
       alias_method :rootpage, :root
+
+      # The page count
+      #
+      # Defined as a method for cache
+      #
+      def count
+        # We can't cache this in tests because all tests are transactional.
+        return super if Rails.env.test?
+
+        RequestStore.store[:alchemy_page_count] ||= super
+      end
 
       # Used to store the current page previewed in the edit page template.
       #
