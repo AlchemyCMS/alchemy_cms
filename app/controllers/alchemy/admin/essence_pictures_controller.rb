@@ -35,7 +35,7 @@ module Alchemy
         @essence_picture.update(essence_picture_params)
       end
 
-      # Assigns picture, but does not saves it.
+      # Assigns picture, but does not save it.
       #
       # When the user saves the element the content gets updated as well.
       #
@@ -43,7 +43,6 @@ module Alchemy
         @picture = Picture.find_by(id: params[:picture_id])
         @content.essence.picture = @picture
         @element = @content.element
-        @options = @options.merge(sortable: @options[:grouped])
 
         # We need to update timestamp here because we don't save yet,
         # but the cache needs to be get invalid.
