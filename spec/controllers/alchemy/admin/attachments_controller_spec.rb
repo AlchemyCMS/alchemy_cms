@@ -2,6 +2,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::AttachmentsController do
+    routes { Alchemy::Engine.routes }
+
     let(:attachment) { build_stubbed(:alchemy_attachment) }
 
     let(:file) do
@@ -18,13 +20,13 @@ module Alchemy
     describe "#index" do
       it "should always paginate the records" do
         expect_any_instance_of(ActiveRecord::Relation).to receive(:page).and_call_original
-        alchemy_get :index
+        get :index
       end
 
       context "when params[:tagged_with] is set" do
         it "should filter the records by tags" do
           expect(Attachment).to receive(:tagged_with).and_return(Attachment.all)
-          alchemy_get :index, tagged_with: "pdf"
+          get :index, params: {tagged_with: "pdf"}
         end
       end
 
@@ -34,7 +36,7 @@ module Alchemy
         context "is set" do
           it "it renders the archive_overlay partial" do
             expect(Content).to receive(:find_by).and_return(content)
-            alchemy_get :index, {content_id: content.id}
+            get :index, params: {content_id: content.id}
             expect(response).to render_template(partial: '_archive_overlay')
             expect(assigns(:content)).to eq(content)
           end
@@ -42,7 +44,7 @@ module Alchemy
 
         context "is not set" do
           it "should render the default index view" do
-            alchemy_get :index
+            get :index
             expect(response).to render_template(:index)
           end
         end
@@ -58,7 +60,7 @@ module Alchemy
 
         context 'with params[:file_type]' do
           it 'loads only attachments with matching content type' do
-            alchemy_get :index, file_type: 'image/jpeg'
+            get :index, params: {file_type: 'image/jpeg'}
             expect(assigns(:attachments).to_a).to eq([jpg])
             expect(assigns(:attachments).to_a).to_not eq([png])
           end
@@ -72,13 +74,13 @@ module Alchemy
       end
 
       it "renders the show template" do
-        alchemy_get :show, id: attachment.id
+        get :show, params: {id: attachment.id}
         expect(response).to render_template(:show)
       end
     end
 
     describe '#create' do
-      subject { alchemy_post :create, params }
+      subject { post :create, params: params }
 
       context 'with passing validations' do
         let(:params) { {attachment: {file: file}} }
@@ -110,7 +112,7 @@ module Alchemy
       end
 
       subject do
-        alchemy_put :update, params
+        put :update, params: params
       end
 
       let!(:attachment) { create(:alchemy_attachment) }
@@ -161,7 +163,7 @@ module Alchemy
           end
 
           subject do
-            alchemy_put :update, {
+            put :update, params: {
               id: attachment.id, attachment: {name: ''}
             }.merge(search_params)
           end
@@ -188,7 +190,7 @@ module Alchemy
 
       it "destroys the attachment and sets a success message" do
         expect(attachment).to receive(:destroy)
-        alchemy_xhr :delete, :destroy, id: 1
+        delete :destroy, params: {id: 1}, xhr: true
         expect(assigns(:attachment)).to eq(attachment)
         expect(assigns(:url)).not_to be_blank
         expect(flash[:notice]).not_to be_blank
@@ -206,7 +208,7 @@ module Alchemy
 
         it "passes them along" do
           expect(attachment).to receive(:destroy) { true }
-          alchemy_xhr :delete, :destroy, {id: 1}.merge(search_params)
+          delete :destroy, params: {id: 1}.merge(search_params), xhr: true
           expect(assigns(:url)).to eq admin_attachments_url(search_params.merge(host: 'test.host'))
         end
       end
@@ -218,7 +220,7 @@ module Alchemy
       end
 
       it "sends the file as download" do
-        alchemy_get :download, id: attachment.id
+        get :download, params: {id: attachment.id}
         expect(response.headers['Content-Disposition']).to match(/attachment/)
       end
     end

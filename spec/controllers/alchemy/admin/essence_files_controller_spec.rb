@@ -2,6 +2,8 @@ require "spec_helper"
 
 module Alchemy
   describe Admin::EssenceFilesController do
+    routes { Alchemy::Engine.routes }
+
     before do
       authorize_user(:as_admin)
     end
@@ -18,12 +20,12 @@ module Alchemy
       end
 
       it "assigns @essence_file with the EssenceFile found by id" do
-        alchemy_get :edit, id: essence_file.id
+        get :edit, params: {id: essence_file.id}
         expect(assigns(:essence_file)).to eq(essence_file)
       end
 
       it "should assign @content with essence_file's content" do
-        alchemy_get :edit, id: essence_file.id
+        get :edit, params: {id: essence_file.id}
         expect(assigns(:content)).to eq(content)
       end
     end
@@ -36,11 +38,14 @@ module Alchemy
       end
 
       it "should update the attributes of essence_file" do
-        alchemy_xhr :put, :update, id: essence_file.id, essence_file: {
-          title: 'new title',
-          css_class: 'left',
-          link_text: 'Download this file'
-        }
+        put :update, params: {
+          id: essence_file.id,
+          essence_file: {
+            title: 'new title',
+            css_class: 'left',
+            link_text: 'Download this file'
+          }
+        }, xhr: true
         expect(essence_file.title).to eq 'new title'
         expect(essence_file.css_class).to eq 'left'
         expect(essence_file.link_text).to eq 'Download this file'
@@ -57,19 +62,19 @@ module Alchemy
       end
 
       it "should assign @attachment with the Attachment found by attachment_id" do
-        alchemy_xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
+        put :assign, params: {content_id: content.id, attachment_id: attachment.id}, xhr: true
         expect(assigns(:attachment)).to eq(attachment)
       end
 
       it "should assign @content.essence.attachment with the attachment found by id" do
         expect(content.essence).to receive(:attachment=).with(attachment)
-        alchemy_xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
+        put :assign, params: {content_id: content.id, attachment_id: attachment.id}, xhr: true
       end
 
       it "updates the @content.updated_at column" do
         content.update_column(:updated_at, 3.days.ago)
         expect {
-          alchemy_xhr :put, :assign, content_id: content.id, attachment_id: attachment.id
+          put :assign, params: {content_id: content.id, attachment_id: attachment.id}, xhr: true
         }.to change(content, :updated_at)
       end
     end

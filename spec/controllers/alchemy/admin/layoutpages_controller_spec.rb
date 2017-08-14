@@ -2,18 +2,20 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::LayoutpagesController do
+    routes { Alchemy::Engine.routes }
+
     before(:each) do
       authorize_user(:as_admin)
     end
 
     describe "#index" do
       it "should assign @layout_root" do
-        alchemy_get :index
+        get :index
         expect(assigns(:layout_root)).to be_a(Page)
       end
 
       it "should assign @languages" do
-        alchemy_get :index
+        get :index
         expect(assigns(:languages).first).to be_a(Language)
       end
 
@@ -31,7 +33,7 @@ module Alchemy
         end
 
         it 'only shows languages from current site' do
-          alchemy_get :index
+          get :index
           expect(assigns(:languages)).to include(language)
           expect(assigns(:languages)).to_not include(language_2)
         end

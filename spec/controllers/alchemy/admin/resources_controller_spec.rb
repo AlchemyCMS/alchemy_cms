@@ -18,7 +18,7 @@ describe Admin::EventsController do
     end
 
     it "returns all records" do
-      get :index, params
+      get :index, params: params
       expect(assigns(:events)).to include(peter)
       expect(assigns(:events)).to include(lustig)
     end
@@ -27,7 +27,7 @@ describe Admin::EventsController do
       let(:params) { {q: {name_or_hidden_name_or_location_name_cont: "PeTer"}} }
 
       it "returns only matching records" do
-        get :index, params
+        get :index, params: params
         expect(assigns(:events)).to include(peter)
         expect(assigns(:events)).not_to include(lustig)
       end
@@ -42,7 +42,7 @@ describe Admin::EventsController do
         end
 
         it "returns only matching records" do
-          get :index, params
+          get :index, params: params
           expect(assigns(:events)).to include(peter)
           expect(assigns(:events)).not_to include(lustig)
         end
@@ -55,7 +55,7 @@ describe Admin::EventsController do
     let!(:peter)  { Event.create(name: 'Peter') }
 
     it 'redirects to index, keeping the current location parameters' do
-      post :update, {id: peter.id, event: {name: "Hans"}}.merge(params)
+      post :update, params: {id: peter.id, event: {name: "Hans"}}.merge(params)
       expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q=some_query")
     end
   end
@@ -64,7 +64,7 @@ describe Admin::EventsController do
     let(:params) { {q: 'some_query', page: 6} }
 
     it 'redirects to index, keeping the current location parameters' do
-      post :create, {event: {name: "Hans"}}.merge(params)
+      post :create, params: {event: {name: "Hans"}}.merge(params)
       expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q=some_query")
     end
   end
@@ -74,7 +74,7 @@ describe Admin::EventsController do
     let!(:peter)  { Event.create(name: 'Peter') }
 
     it 'redirects to index, keeping the current location parameters' do
-      delete :destroy, {id: peter.id}.merge(params)
+      delete :destroy, params: {id: peter.id}.merge(params)
       expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q=some_query")
     end
   end

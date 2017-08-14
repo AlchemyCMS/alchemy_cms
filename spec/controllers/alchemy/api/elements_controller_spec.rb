@@ -2,6 +2,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Api::ElementsController do
+    routes { Alchemy::Engine.routes }
+
     describe '#index' do
       let(:page) { create(:alchemy_page, :public) }
 
@@ -10,7 +12,7 @@ module Alchemy
       end
 
       it "returns all public elements as json objects" do
-        alchemy_get :index, format: :json
+        get :index, params: {format: :json}
 
         expect(response.status).to eq(200)
         expect(response.content_type).to eq('application/json')
@@ -26,7 +28,7 @@ module Alchemy
         let!(:other_element) { create(:alchemy_element, page: other_page) }
 
         it "returns only elements from this page" do
-          alchemy_get :index, page_id: other_page.id, format: :json
+          get :index, params: {page_id: other_page.id, format: :json}
 
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
@@ -41,7 +43,7 @@ module Alchemy
 
       context 'with empty page_id param' do
         it "returns all elements" do
-          alchemy_get :index, page_id: '', format: :json
+          get :index, params: {page_id: '', format: :json}
 
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
@@ -57,7 +59,7 @@ module Alchemy
         let!(:other_element) { create(:alchemy_element, page: page, name: 'news') }
 
         it "returns only elements named like this." do
-          alchemy_get :index, named: 'news', format: :json
+          get :index, params: {named: 'news', format: :json}
 
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
@@ -72,7 +74,7 @@ module Alchemy
 
       context 'with empty named param' do
         it "returns all elements" do
-          alchemy_get :index, named: '', format: :json
+          get :index, params: {named: '', format: :json}
 
           expect(response.status).to eq(200)
           expect(response.content_type).to eq('application/json')
@@ -94,7 +96,7 @@ module Alchemy
       end
 
       it "returns element as json" do
-        alchemy_get :show, id: element.id, format: :json
+        get :show, params: {id: element.id, format: :json}
 
         expect(response.status).to eq(200)
         expect(response.content_type).to eq('application/json')
@@ -108,7 +110,7 @@ module Alchemy
         let(:page) { build_stubbed(:alchemy_page, restricted: true) }
 
         it "responds with 403" do
-          alchemy_get :show, id: element.id, format: :json
+          get :show, params: {id: element.id, format: :json}
 
           expect(response.status).to eq(403)
           expect(response.content_type).to eq('application/json')

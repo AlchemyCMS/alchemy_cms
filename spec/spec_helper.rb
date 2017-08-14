@@ -70,7 +70,6 @@ RSpec.configure do |config|
   config.filter_run :focus
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Alchemy::Engine.routes.url_helpers
-  config.include Alchemy::TestSupport::ControllerRequests, type: :controller
   config.include Alchemy::TestSupport::ConfigStubbing
   [:controller, :feature, :request].each do |type|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type

@@ -2,6 +2,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::ContentsController do
+    routes { Alchemy::Engine.routes }
+
     before do
       authorize_user(:as_admin)
     end
@@ -12,17 +14,17 @@ module Alchemy
 
         it "creates a content from name" do
           expect {
-            alchemy_xhr :post, :create, {content: {element_id: element.id, name: 'headline'}}
+            post :create, params: {content: {element_id: element.id, name: 'headline'}}, xhr: true
           }.to change { Alchemy::Content.count }.by(1)
         end
 
         it "creates a content from essence_type" do
           expect {
-            alchemy_xhr :post, :create, {
+            post :create, params: {
               content: {
                 element_id: element.id, essence_type: 'EssencePicture'
               }
-            }
+            }, xhr: true
           }.to change { Alchemy::Content.count }.by(1)
         end
       end
@@ -43,13 +45,13 @@ module Alchemy
         end
 
         it "adds it into the gallery editor" do
-          alchemy_xhr :post, :create, attributes
+          post :create, params: attributes, xhr: true
           expect(assigns(:content_dom_id)).to eq("#add_picture_#{element.id}")
         end
 
         context 'with picture_id given' do
           it "assigns the picture to the essence" do
-            alchemy_xhr :post, :create, attributes.merge(picture_id: '1')
+            post :create, params: attributes.merge(picture_id: '1'), xhr: true
             expect(Alchemy::Content.last.essence.picture_id).to eq(1)
           end
         end
@@ -65,7 +67,7 @@ module Alchemy
 
       it "should update a content via ajax" do
         expect {
-          alchemy_xhr :post, :update, {id: content.id, content: {ingredient: 'Peters Petshop'}}
+          post :update, params: {id: content.id, content: {ingredient: 'Peters Petshop'}}, xhr: true
         }.to change { content.ingredient }.to 'Peters Petshop'
       end
     end
@@ -79,7 +81,7 @@ module Alchemy
         let(:content_ids) { element.contents.pluck(:id).shuffle }
 
         it "should reorder the contents" do
-          alchemy_xhr :post, :order, {content_ids: content_ids}
+          post :order, params: {content_ids: content_ids}, xhr: true
 
           expect(response.status).to eq(200)
           expect(element.contents(true).pluck(:id)).to eq(content_ids)

@@ -2,6 +2,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::DashboardController do
+    routes { Alchemy::Engine.routes }
+
     let(:user) { build_stubbed(:alchemy_dummy_user, :as_admin) }
 
     before { authorize_user(user) }
@@ -18,12 +20,12 @@ module Alchemy
       end
 
       it "assigns @last_edited_pages" do
-        alchemy_get :index
+        get :index
         expect(assigns(:last_edited_pages)).to eq([])
       end
 
       it "assigns @all_locked_pages" do
-        alchemy_get :index
+        get :index
         expect(assigns(:all_locked_pages)).to eq([])
       end
 
@@ -36,14 +38,14 @@ module Alchemy
           end
 
           it "assigns @online_users" do
-            alchemy_get :index
+            get :index
             expect(assigns(:online_users)).to eq([another_user])
           end
         end
 
         context 'without other users online' do
           it "does not assign @online_users" do
-            alchemy_get :index
+            get :index
             expect(assigns(:online_users)).to eq([])
           end
         end
@@ -56,20 +58,20 @@ module Alchemy
         end
 
         it "assigns @first_time" do
-          alchemy_get :index
+          get :index
           expect(assigns(:first_time)).to eq(false)
         end
       end
 
       it "assigns @sites" do
-        alchemy_get :index
+        get :index
         expect(assigns(:sites)).to eq(Site.all)
       end
     end
 
     describe '#info' do
       it "assigns @alchemy_version with the current Alchemy version" do
-        alchemy_get :info
+        get :info
         expect(assigns(:alchemy_version)).to eq(Alchemy.version)
       end
     end
@@ -82,7 +84,7 @@ module Alchemy
         }
 
         it "should render 'false'" do
-          alchemy_get :update_check
+          get :update_check
           expect(response.body).to eq('false')
         end
       end
@@ -94,7 +96,7 @@ module Alchemy
         }
 
         it "should render 'true'" do
-          alchemy_get :update_check
+          get :update_check
           expect(response.body).to eq('true')
         end
       end
@@ -108,7 +110,7 @@ module Alchemy
         }
 
         it "should have response code of 200" do
-          alchemy_get :update_check
+          get :update_check
           expect(response.code).to eq('200')
         end
       end
@@ -122,7 +124,7 @@ module Alchemy
         }
 
         it "should have response code of 200" do
-          alchemy_get :update_check
+          get :update_check
           expect(response.code).to eq('200')
         end
       end
@@ -135,7 +137,7 @@ module Alchemy
         }
 
         it "should have status code 503" do
-          alchemy_get :update_check
+          get :update_check
           expect(response.code).to eq('503')
         end
       end
