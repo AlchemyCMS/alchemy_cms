@@ -123,3 +123,6 @@
 - name: slider
   nestable_elements:
     - slide
+
+- name: gallery
+  picture_gallery: true

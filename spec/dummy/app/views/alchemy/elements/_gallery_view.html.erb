@@ -1,0 +1,11 @@
+<%- cache(element) do -%>
+  <%= element_view_for(element) do |el| -%>
+    <div class="gallery_images">
+      <%- element.contents.gallery_pictures.each do |image| -%>
+      <div class="gallery_image <%= image.essence.css_class %>">
+        <%= render_essence_view(image, size: '160x120') %>
+      </div>
+      <%- end -%>
+    </div>
+  <%- end -%>
+<%- end -%>
