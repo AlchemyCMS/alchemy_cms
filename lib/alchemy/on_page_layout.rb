@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   # = Provides a DSL to define callbacks run in a before filter on pages show action
   #

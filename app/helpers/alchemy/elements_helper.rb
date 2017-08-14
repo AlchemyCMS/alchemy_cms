@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   # This helpers are useful to render elements from pages.
   #

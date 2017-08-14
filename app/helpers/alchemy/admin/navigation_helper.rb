@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   module Admin
     # This module contains helper methods for rendering the admin navigation.

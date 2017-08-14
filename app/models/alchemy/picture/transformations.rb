@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   # This concern can extend classes that expose image_file, image_file_width and image_file_height.
   # It provides methods for cropping and resizing.

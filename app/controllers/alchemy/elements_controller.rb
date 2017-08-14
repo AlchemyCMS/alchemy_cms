@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class ElementsController < Alchemy::BaseController
     load_and_authorize_resource

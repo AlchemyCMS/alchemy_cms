@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class PagesController < Alchemy::BaseController
     include OnPageLayout::CallbacksRunner

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class Admin::LegacyPageUrlsController < Alchemy::Admin::ResourcesController
     before_action :load_page

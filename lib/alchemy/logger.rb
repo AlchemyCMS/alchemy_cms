@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   module Logger
     # Logs a debug message to the Rails standard logger and adds some nicer formatting

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   module Filetypes
     ARCHIVE_FILE_TYPES = ["application/zip", "application/x-rar"]

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Provides admin interface routing configuration accessors.
 #
 # Alchemy has some defaults for admin path and admin constraints:

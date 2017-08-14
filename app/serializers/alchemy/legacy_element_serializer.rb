@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class LegacyElementSerializer < ActiveModel::Serializer
     self.root = false

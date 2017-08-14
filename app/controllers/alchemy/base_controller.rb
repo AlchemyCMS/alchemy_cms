@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This is the main Alchemy controller all other controllers inherit from.
 #
 module Alchemy

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   # Methods used for presenting an Alchemy Element.
   #

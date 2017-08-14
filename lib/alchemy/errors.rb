@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Custom error classes.
 #
 module Alchemy

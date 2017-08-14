@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class Api::ContentsController < Api::BaseController
     # Returns all contents as json object

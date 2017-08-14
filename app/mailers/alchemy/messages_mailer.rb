@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class MessagesMailer < BaseMailer
     def contact_form_mail(message, mail_to, mail_from, subject)

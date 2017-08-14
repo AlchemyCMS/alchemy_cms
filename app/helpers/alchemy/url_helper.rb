@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Alchemy url helpers
 #
 # This helper is included within alchemy/pages_helper

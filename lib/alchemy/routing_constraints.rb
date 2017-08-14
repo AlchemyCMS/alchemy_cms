@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   # Routing constraints for Alchemy's strong catch all route.
   #
