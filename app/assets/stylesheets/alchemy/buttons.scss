@@ -28,7 +28,7 @@ button, input[type="submit"], a.button, input.button {
     padding: 0;
     border: 0 none;
     box-shadow: none;
-    @include background(none);
+    background: none;
     border-radius: 0;
 
     .icon {
@@ -92,7 +92,7 @@ button, input[type="submit"], a.button, input.button {
       position: absolute;
       top: 50%;
       height: 8px;
-      @include transform(translateX(-50%) translateY(-50%));
+      transform: translateX(-50%) translateY(-50%);
 
       &:before {
         line-height: 10px;

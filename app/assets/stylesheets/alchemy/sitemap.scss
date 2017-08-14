@@ -29,7 +29,7 @@
   display: block;
   padding: 0 3*$default-padding;
   text-decoration: none;
-  @include transition(background-color, 400ms);
+  transition: background-color, 400ms;
 
   &.inactive {
     color: #656565;

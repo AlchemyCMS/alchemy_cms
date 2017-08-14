@@ -42,7 +42,7 @@ $image-overlay-transition-easing: ease-in;
       right: 0;
 
       .icon-angle-double-right {
-        @include transform(rotate(180deg) translate(50%, 50%));
+        transform: rotate(180deg) translate(50%, 50%);
       }
     }
   }
@@ -64,13 +64,13 @@ $image-overlay-transition-easing: ease-in;
   top: 2*$default-padding;
   right: 2*$default-padding + $picture-overlay-handle-width + $image-overlay-form-width;
   cursor: pointer;
-  @include transition(right $image-overlay-transition-duration $image-overlay-transition-easing);
+  transition: right $image-overlay-transition-duration $image-overlay-transition-easing;
 
   .icon.close.small {
     font-size: 32px;
     color: $medium-gray;
     text-shadow: 0 0 $default-padding $text-color;
-    @include transition(color $image-overlay-transition-duration linear);
+    transition: color $image-overlay-transition-duration linear;
 
     &:hover {
       color: $white;
@@ -84,7 +84,7 @@ $image-overlay-transition-easing: ease-in;
   top: 0;
   background-color: $medium-gray;
   box-shadow: -2px 0 $default-padding -2px $text-color;
-  @include transition(right $image-overlay-transition-duration $image-overlay-transition-easing);
+  transition: right $image-overlay-transition-duration $image-overlay-transition-easing;
 }
 
 .picture-details-overlay {
@@ -126,10 +126,10 @@ $image-overlay-transition-easing: ease-in;
     position: absolute;
     top: 50%;
     left: 50%;
-    @include transform(translate(-50%, -50%));
+    transform: translate(-50%, -50%);
     font-size: 14px;
     color: $text-color;
-    @include transition(transform $image-overlay-transition-duration $image-overlay-transition-easing);
+    transition: transform $image-overlay-transition-duration $image-overlay-transition-easing;
   }
 
   &:hover {
@@ -148,7 +148,7 @@ $image-overlay-transition-easing: ease-in;
   margin: 0 auto;
   text-align: center;
   cursor: pointer;
-  @include transition(padding-right $image-overlay-transition-duration $image-overlay-transition-easing);
+  transition: padding-right $image-overlay-transition-duration $image-overlay-transition-easing;
 
   &:before {
     content: '';
@@ -222,7 +222,7 @@ $image-overlay-transition-easing: ease-in;
     cursor: pointer;
     text-align: center;
     text-decoration: none;
-    @include transition(background-color $image-overlay-transition-duration linear);
+    transition: background-color $image-overlay-transition-duration linear;
 
     &:hover {
       background-color: rgba(0,0,0, 0.3);
@@ -240,7 +240,7 @@ $image-overlay-transition-easing: ease-in;
     font-size: 48px;
     color: $medium-gray;
     text-shadow: 0 0 $default-padding $text-color;
-    @include transition(all $image-overlay-transition-duration linear);
+    transition: all $image-overlay-transition-duration linear;
   }
 
   .previous-picture {
@@ -251,6 +251,6 @@ $image-overlay-transition-easing: ease-in;
   .next-picture {
     right: $image-overlay-form-width + $picture-overlay-handle-width;
     @include border-left-radius($default-border-radius);
-    @include transition(right $image-overlay-transition-duration $image-overlay-transition-easing);
+    transition: right $image-overlay-transition-duration $image-overlay-transition-easing;
   }
 }

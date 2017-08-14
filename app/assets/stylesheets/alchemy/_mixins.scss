@@ -27,7 +27,7 @@
   color: $text-color;
   text-shadow: $button-text-shadow;
   margin: $margin;
-  @include appearance(none);
+  -webkit-appearance: none;
 
   &:hover {
     text-decoration: none;
