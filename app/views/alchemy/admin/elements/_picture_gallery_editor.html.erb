@@ -4,7 +4,7 @@
   <label><%= Alchemy.t("picture_gallery_editor.#{element.name}", default: Alchemy.t(:picture_gallery_editor)) %></label>
   <div class="picture_gallery_images" id="element_<%= element.id %>_contents">
     <%- pictures.each do |picture| -%>
-      <%= render_essence_editor(picture, {draggable: sortable}.merge(options)) %>
+      <%= render_essence_editor(picture, {sortable: sortable}.merge(options)) %>
     <%- end -%>
     <%- if max_image_count.blank? || pictures.length < max_image_count.to_i -%>
       <%= render(
