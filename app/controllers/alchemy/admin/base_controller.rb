@@ -9,7 +9,8 @@ module Alchemy
       before_action { enforce_ssl if ssl_required? && !request.ssl? }
       before_action :load_locked_pages
 
-      helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
+      helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?,
+        :options_from_params
 
       check_authorization
 
