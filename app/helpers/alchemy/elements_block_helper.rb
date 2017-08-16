@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   # Provides a collection of block-level helpers, allowing for a much more
   # concise way of writing element view/editor partials.

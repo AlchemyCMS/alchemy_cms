@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   # Provides methods to secure your picture attributes against DOS attacks.
   #

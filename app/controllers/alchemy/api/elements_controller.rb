@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class Api::ElementsController < Api::BaseController
     # Returns all elements as json object

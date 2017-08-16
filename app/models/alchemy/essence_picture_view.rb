@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   # Renders an essence picture view
   class EssencePictureView

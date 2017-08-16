@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Adds the model stamper ability to the provided user class
 #
 # It only adds it, if the user model is a active_record model.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   # This helper contains methods to render the +essence+ from an +Element+ +Content+.
   #

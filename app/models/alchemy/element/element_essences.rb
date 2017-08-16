@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   module Element::ElementEssences
     # Returns the contents essence value (aka. ingredient) for passed content name.

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   module BaseHelper
     def _t(key, *args)

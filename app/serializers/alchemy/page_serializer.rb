@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class PageSerializer < ActiveModel::Serializer
     self.root = false

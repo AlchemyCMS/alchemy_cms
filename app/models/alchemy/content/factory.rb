@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   # Holds everything concerning the building and creating of contents and the related essence object.
   #

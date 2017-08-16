@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   module Page::PageCells
     extend ActiveSupport::Concern

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy::AbilityHelper
   # Ensures usage of Alchemy's permissions class.
   #

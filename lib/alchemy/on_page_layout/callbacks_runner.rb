@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   module OnPageLayout
     # Runs OnPageLayout callbacks

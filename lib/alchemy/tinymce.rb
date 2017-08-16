@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   module Tinymce
     mattr_accessor :languages, :plugins

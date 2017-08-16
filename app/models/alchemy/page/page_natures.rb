@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   module Page::PageNatures
     extend ActiveSupport::Concern

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   begin
     base_class = Object.const_get('::ApplicationMailer')

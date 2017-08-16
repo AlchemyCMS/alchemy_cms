@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class AttachmentsController < BaseController
     before_action :load_attachment

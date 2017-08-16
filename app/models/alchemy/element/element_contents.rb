@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Methods concerning contents for elements
 #
 module Alchemy

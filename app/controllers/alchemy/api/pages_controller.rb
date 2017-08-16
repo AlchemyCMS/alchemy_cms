@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class Api::PagesController < Api::BaseController
     before_action :load_page, only: [:show]

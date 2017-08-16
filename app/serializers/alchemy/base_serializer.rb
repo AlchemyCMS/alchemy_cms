@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class BaseSerializer
     include ActiveModel::Serializers::JSON

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Provides authentication accessors.
 #
 # Alchemy has some defaults for user model name and login logout path names:

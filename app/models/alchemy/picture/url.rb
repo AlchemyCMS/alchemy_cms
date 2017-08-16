@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   module Picture::Url
     TRANSFORMATION_OPTIONS = [
