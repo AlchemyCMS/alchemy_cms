@@ -96,7 +96,6 @@ module Alchemy
 
     # Returns the self#page_layout definition from config/alchemy/page_layouts.yml file.
     def definition
-      return {} if systempage?
       definition = PageLayout.get(page_layout)
       if definition.nil?
         log_warning "Page definition for `#{page_layout}` not found. Please check `page_layouts.yml` file."
