@@ -7,10 +7,12 @@ require 'alchemy/resources_helper'
 module Alchemy
   module Admin
     class ResourcesController < Alchemy::Admin::BaseController
+      COMMON_SEARCH_FILTER_EXCLUDES = [:id, :utf8, :_method, :_].freeze
+
       include Alchemy::ResourcesHelper
 
       helper Alchemy::ResourcesHelper, TagsHelper
-      helper_method :resource_handler
+      helper_method :resource_handler, :search_filter_params
 
       before_action :load_resource,
         only: [:show, :edit, :update, :destroy]
@@ -132,6 +134,21 @@ module Alchemy
         resource_model.alchemy_resource_filters.detect do |filter|
           filter == params[:filter]
         end || :all
+      end
+
+      def search_filter_params
+        params.except(*COMMON_SEARCH_FILTER_EXCLUDES).permit(*common_search_filter_includes)
+      end
+
+      def common_search_filter_includes
+        [
+          # contrary to Rails' documentation passing an empty hash to permit all keys does not work
+          {options: options_from_params.keys},
+          {q: resource_handler.search_field_name},
+          :tagged_with,
+          :filter,
+          :page
+        ].freeze
       end
     end
   end

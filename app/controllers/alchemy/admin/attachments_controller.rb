@@ -45,7 +45,7 @@ module Alchemy
         else
           render_errors_or_redirect(
             @attachment,
-            admin_attachments_path(search_params),
+            admin_attachments_path(search_filter_params),
             Alchemy.t("File successfully updated")
           )
         end
@@ -54,7 +54,7 @@ module Alchemy
       def destroy
         name = @attachment.name
         @attachment.destroy
-        @url = admin_attachments_url(search_params)
+        @url = admin_attachments_url(search_filter_params)
         flash[:notice] = Alchemy.t('File deleted successfully', name: name)
       end
 
@@ -68,12 +68,12 @@ module Alchemy
 
       private
 
-      def search_params
-        params.except(:attachment, :id).permit(
-          :file_type,
-          :page,
-          {q: resource_handler.search_field_name},
-          :tagged_with
+      def search_filter_params
+        params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
+          *common_search_filter_includes + [
+            :file_type,
+            :content_id
+          ]
         )
       end
 

@@ -153,7 +153,7 @@ module Alchemy
         end
 
         context 'with search params' do
-          let(:search_params) do
+          let(:search_filter_params) do
             {
               q: {name_or_file_name_cont: 'kitten'},
               tagged_with: 'cute',
@@ -165,11 +165,11 @@ module Alchemy
           subject do
             put :update, params: {
               id: attachment.id, attachment: {name: ''}
-            }.merge(search_params)
+            }.merge(search_filter_params)
           end
 
           it "passes them along" do
-            is_expected.to redirect_to admin_attachments_path(search_params)
+            is_expected.to redirect_to admin_attachments_path(search_filter_params)
           end
         end
       end
@@ -197,7 +197,7 @@ module Alchemy
       end
 
       context 'with search params' do
-        let(:search_params) do
+        let(:search_filter_params) do
           {
             q: {name_or_file_name_cont: 'kitten'},
             tagged_with: 'cute',
@@ -208,8 +208,8 @@ module Alchemy
 
         it "passes them along" do
           expect(attachment).to receive(:destroy) { true }
-          delete :destroy, params: {id: 1}.merge(search_params), xhr: true
-          expect(assigns(:url)).to eq admin_attachments_url(search_params.merge(host: 'test.host'))
+          delete :destroy, params: {id: 1}.merge(search_filter_params), xhr: true
+          expect(assigns(:url)).to eq admin_attachments_url(search_filter_params.merge(host: 'test.host'))
         end
       end
     end
