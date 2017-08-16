@@ -26,7 +26,6 @@ module Alchemy
         else
           @content_dom_id = "#add_content_for_element_#{@element.id}"
         end
-        @locals = essence_editor_locals
       end
 
       def update
@@ -58,14 +57,6 @@ module Alchemy
 
       def picture_gallery_editor?
         params[:content][:essence_type] == 'Alchemy::EssencePicture' && @options[:grouped] == 'true'
-      end
-
-      def essence_editor_locals
-        {
-          content: @content,
-          options: @options.symbolize_keys,
-          html_options: @html_options.symbolize_keys
-        }
       end
     end
   end
