@@ -20,7 +20,8 @@ ul.list {
     display: block;
     margin-bottom: 0;
 
-    &.legend, &.list-header {
+    &.list-header {
+      overflow: hidden;
       background-color: transparent;
       font-weight: bold;
       padding: $default-padding;

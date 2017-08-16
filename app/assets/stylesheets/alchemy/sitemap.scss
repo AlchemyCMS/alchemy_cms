@@ -142,21 +142,6 @@
 }
 
 ul#sitemap {
-
-  li.legend {
-
-    span.right {
-      margin-right: 52px;
-
-      span.page_move {
-        display: inline-block;
-        vertical-align: middle;
-        width: 74px;
-        text-align: center;
-      }
-    }
-  }
-
   .page_folder {
     @extend .icon;
     position: absolute;
