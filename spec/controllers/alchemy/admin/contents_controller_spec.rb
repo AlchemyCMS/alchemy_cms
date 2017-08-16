@@ -84,7 +84,7 @@ module Alchemy
           post :order, params: {content_ids: content_ids}, xhr: true
 
           expect(response.status).to eq(200)
-          expect(element.contents(true).pluck(:id)).to eq(content_ids)
+          expect(element.contents.reload.pluck(:id)).to eq(content_ids)
         end
       end
     end
