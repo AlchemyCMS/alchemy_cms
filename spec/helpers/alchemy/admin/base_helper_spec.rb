@@ -32,16 +32,6 @@ module Alchemy
       end
     end
 
-    describe "#merge_params" do
-      before do
-        allow(controller).to receive(:params).and_return({first: '1', second: '2'})
-      end
-
-      it "returns a hash that contains the current params and additional params given as attributes" do
-        expect(helper.merge_params(third: '3', fourth: '4')).to eq({first: '1', second: '2', third: '3', fourth: '4'})
-      end
-    end
-
     describe '#toolbar_button' do
       context "with permission" do
         before { allow(helper).to receive(:can?).and_return(true) }

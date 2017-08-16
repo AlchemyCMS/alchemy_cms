@@ -2,6 +2,8 @@
 
 ## 4.0.0 (unreleased)
 
+* Removed `merge_params` from `Alchemy::Admin::BaseHelper`
+  Use `ActionController::Parameters#merge` instead
 * Removed `merge_params_only` from `Alchemy::Admin::BaseHelper`
   Use methods from `ActionController::Parameters` instead
 * Removed `merge_params_without` from `Alchemy::Admin::BaseHelper`

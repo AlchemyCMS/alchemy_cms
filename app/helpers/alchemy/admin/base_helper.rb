@@ -380,11 +380,6 @@ module Alchemy
           method.to_sym, {type: "text", class: type, "data-datepicker-type" => type, value: value}.merge(html_options)
       end
 
-      # Merges the params-hash with the given hash
-      def merge_params(p = {})
-        params.merge(p).delete_if { |_k, v| v.blank? }
-      end
-
       # Render a hint icon with tooltip for given object.
       # The model class needs to include the hints module
       def render_hint_for(element)
