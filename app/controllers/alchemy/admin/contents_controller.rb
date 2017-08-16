@@ -9,23 +9,21 @@ module Alchemy
 
       def new
         @element = Element.find(params[:element_id])
-        @options = options_from_params
         @content = @element.contents.build
       end
 
       def create
         @element = Element.find(params[:content][:element_id])
         @content = Content.create_from_scratch(@element, content_params)
-        @options = options_from_params
         @html_options = params[:html_options] || {}
         if picture_gallery_editor?
           @content.update_essence(picture_id: params[:picture_id])
-          @options = options_for_picture_gallery
+          @gallery_pictures = @element.contents.gallery_pictures
+          options_from_params[:sortable] = @gallery_pictures.size > 1
           @content_dom_id = "#add_picture_#{@element.id}"
         else
           @content_dom_id = "#add_content_for_element_#{@element.id}"
         end
-        @locals = essence_editor_locals
       end
 
       def update
@@ -56,20 +54,7 @@ module Alchemy
       end
 
       def picture_gallery_editor?
-        params[:content][:essence_type] == 'Alchemy::EssencePicture' && @options[:grouped] == 'true'
-      end
-
-      def options_for_picture_gallery
-        @gallery_pictures = @element.contents.gallery_pictures
-        @options.merge(sortable: @gallery_pictures.size > 1)
-      end
-
-      def essence_editor_locals
-        {
-          content: @content,
-          options: @options.symbolize_keys,
-          html_options: @html_options.symbolize_keys
-        }
+        params[:content][:essence_type] == 'Alchemy::EssencePicture' && options_from_params[:grouped] == 'true'
       end
     end
   end

@@ -23,7 +23,6 @@ module Alchemy
           .page(params[:page] || 1)
           .per(15)
 
-        @options = options_from_params
         if in_overlay?
           archive_overlay
         end
@@ -92,7 +91,6 @@ module Alchemy
 
       def archive_overlay
         @content = Content.find_by(id: params[:content_id])
-        @options = options_from_params
         respond_to do |format|
           format.html { render partial: 'archive_overlay' }
           format.js   { render action:  'archive_overlay' }

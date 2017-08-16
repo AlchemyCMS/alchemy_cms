@@ -2,7 +2,7 @@ $('#<%= @content.dom_id %>').replaceWith('<%= j(
   render "alchemy/essences/essence_file_editor",
     formats: [:html],
     content: @content,
-    options: @options
+    options: options_from_params
 ) %>');
 Alchemy.closeCurrentDialog();
 Alchemy.setElementDirty($('#element_<%= @content.element.id %>'));

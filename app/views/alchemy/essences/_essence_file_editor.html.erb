@@ -3,7 +3,7 @@
     content_id: content.id,
     only: content.settings_value(:only, local_assigns.fetch(:options, {})),
     except: content.settings_value(:except, local_assigns.fetch(:options, {})),
-    options: local_assigns.fetch(:options, {}).to_json
+    options: local_assigns.fetch(:options, {})
   ),
   {
     title: Alchemy.t(:assign_file),
@@ -35,7 +35,7 @@
       <%= link_to_dialog '',
         alchemy.edit_admin_essence_file_path(
           id: content.essence.id,
-          options: local_assigns.fetch(:options, {}).to_json
+          options: local_assigns.fetch(:options, {})
         ),
         {
           title: Alchemy.t(:edit_file_properties),

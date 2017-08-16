@@ -11,7 +11,6 @@ module Alchemy
 
       def edit
         @content = @essence_file.content
-        @options = options_from_params
       end
 
       def update
@@ -26,7 +25,6 @@ module Alchemy
         @content = Content.find_by(id: params[:content_id])
         @attachment = Attachment.find_by(id: params[:attachment_id])
         @content.essence.attachment = @attachment
-        @options = options_from_params
 
         # We need to update timestamp here because we don't save yet,
         # but the cache needs to be get invalid.

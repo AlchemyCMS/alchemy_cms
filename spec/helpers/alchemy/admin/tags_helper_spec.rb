@@ -16,6 +16,9 @@ module Alchemy
 
     before do
       allow(helper).to receive(:params) { params }
+      allow(helper).to receive(:options_from_params) do
+        ActionController::Parameters.new.permit!
+      end
     end
 
     describe '#render_tag_list' do
@@ -70,13 +73,13 @@ module Alchemy
 
       context "without any tagged objects" do
         it "returns empty string" do
-          expect(render_tag_list('Alchemy::Attachment')).to be_empty
+          expect(helper.render_tag_list('Alchemy::Attachment')).to be_empty
         end
       end
 
       context "with nil given as class_name parameter" do
         it "raises argument error" do
-          expect { render_tag_list(nil) }.to raise_error(ArgumentError)
+          expect { helper.render_tag_list(nil) }.to raise_error(ArgumentError)
         end
       end
     end
@@ -84,7 +87,7 @@ module Alchemy
     describe '#tag_list_tag_active?' do
       context "the tag is in params" do
         it "returns true" do
-          expect(tag_list_tag_active?(tag)).to be_truthy
+          expect(helper.tag_list_tag_active?(tag)).to be_truthy
         end
       end
 
@@ -98,7 +101,7 @@ module Alchemy
         end
 
         it "returns false" do
-          expect(tag_list_tag_active?(tag)).to be_falsey
+          expect(helper.tag_list_tag_active?(tag)).to be_falsey
         end
       end
     end

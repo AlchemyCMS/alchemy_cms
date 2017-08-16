@@ -7,7 +7,7 @@
       "check_name": "MassAssignment",
       "message": "Parameters should be whitelisted for mass assignment",
       "file": "app/controllers/alchemy/admin/resources_controller.rb",
-      "line": 124,
+      "line": 128,
       "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(resource_handler.namespaced_resource_name).permit!",
       "render_path": null,
@@ -21,13 +21,32 @@
       "note": "Because we actually can't know all attributes each inheriting controller supports, we permit all resource model params. It is adviced that all inheriting controllers implement this method and provide its own set of permitted attributes. As this all happens inside the password protected /admin namespace this can be considered a false positive."
     },
     {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "26461414e9f6be7b68dd8c7dda1c69b09c92a8e9997c0ac204e1756cae7f3d68",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/alchemy/admin/contents/create.js.erb",
+      "line": 1,
+      "link": "http://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => \"alchemy/essences/#{Content.create_from_scratch(Element.find(params[:content][:element_id]), content_params).essence_partial_name}_editor\", { :content => Content.create_from_scratch(Element.find(params[:content][:element_id]), content_params), :options => options_from_params.symbolize_keys, :html_options => (params[:html_options] or {}).symbolize_keys })",
+      "render_path": [{"type":"controller","class":"Alchemy::Admin::ContentsController","method":"create","line":21,"file":"app/controllers/alchemy/admin/contents_controller.rb"}],
+      "location": {
+        "type": "template",
+        "template": "alchemy/admin/contents/create"
+      },
+      "user_input": "params[:content][:element_id]",
+      "confidence": "Weak",
+      "note": "This dynamic render path comes from the Contents essence not from any params or user mutated string. This can safely be ignored."
+    },
+    {
       "warning_type": "Mass Assignment",
       "warning_code": 70,
       "fingerprint": "4b4dc24a6f5251bc1a6851597dfcee39608a2932eb7f81a4a241c00fca8a3043",
       "check_name": "MassAssignment",
       "message": "Parameters should be whitelisted for mass assignment",
       "file": "app/controllers/alchemy/admin/elements_controller.rb",
-      "line": 166,
+      "line": 168,
       "link": "http://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.fetch(:contents, {}).permit!",
       "render_path": null,
@@ -41,6 +60,6 @@
       "note": "`Alchemy::Content` is a polymorphic association of any kind of model extending `Alchemy::Essence`. Since we can't know the attributes of all potential essences we need to permit all attributes. As this all happens inside the password protected /admin namespace this can be considered a false positive."
     }
   ],
-  "updated": "2017-07-17 11:09:19 +0200",
+  "updated": "2017-08-16 15:07:26 +0200",
   "brakeman_version": "3.7.0"
 }

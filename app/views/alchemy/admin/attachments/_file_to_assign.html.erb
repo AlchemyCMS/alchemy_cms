@@ -2,7 +2,7 @@
   <%= link_to alchemy.assign_admin_essence_files_path(
       attachment_id: file_to_assign.id,
       content_id: @content.id,
-      options: @options.to_json
+      options: options_from_params
     ),
     remote: true,
     method: 'put' do %>

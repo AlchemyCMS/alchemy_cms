@@ -1,20 +1,16 @@
+var editor_html = '<%= j(render "alchemy/essences/#{@content.essence_partial_name}_editor", {
+  content: @content,
+  options: options_from_params.symbolize_keys,
+  html_options: @html_options.symbolize_keys
+}) %>';
+
 <% if params[:was_missing] %>
 
-$("[data-element-<%= @element.id %>-missing-content=\"<%= @content.name %>\"]").replaceWith('<%= j(
-  render(
-    partial: "alchemy/essences/#{@content.essence_partial_name}_editor",
-    locals: @locals
-  )
-) %>');
+$("[data-element-<%= @element.id %>-missing-content=\"<%= @content.name %>\"]").replaceWith(editor_html);
 
 <% else %>
 
-$("<%= @content_dom_id %>").before('<%= j(
-  render(
-    partial: "alchemy/essences/#{@content.essence_partial_name}_editor",
-    locals: @locals
-  )
-) %>');
+$("<%= @content_dom_id %>").before(editor_html);
 Alchemy.Buttons.enable();
 Alchemy.growl('<%= j Alchemy.t("Successfully added content") % {content: @content.name_for_label} %>')
 
