@@ -102,7 +102,7 @@ module Alchemy
           :controller,
           :content_id,
           :element_id,
-          :options,
+          {options: options_from_params.keys},
           :swap,
           :use_route,
           :tagged_with,
