@@ -2,6 +2,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::ClipboardController do
+    routes { Alchemy::Engine.routes }
+
     let(:public_page)     { build_stubbed(:alchemy_page, :public) }
     let(:element)         { build_stubbed(:alchemy_element, page: public_page) }
     let(:another_element) { build_stubbed(:alchemy_element, page: public_page) }
@@ -14,7 +16,7 @@ module Alchemy
     describe '#index' do
       context 'with `remarkable_type` being an allowed type' do
         it 'is successful' do
-          alchemy_get :index, {remarkable_type: 'elements'}
+          get :index, params: {remarkable_type: 'elements'}
           expect(response).to be_success
         end
       end
@@ -22,7 +24,7 @@ module Alchemy
       context 'with `remarkable_type` not an allowed type' do
         it 'raises 400 Bad Request' do
           expect {
-            alchemy_get :index, {remarkable_type: 'evil'}
+            get :index, params: {remarkable_type: 'evil'}
           }.to raise_error(ActionController::BadRequest)
         end
       end
@@ -35,13 +37,13 @@ module Alchemy
 
       describe "#insert" do
         it "should hold element ids" do
-          alchemy_xhr :post, :insert, {remarkable_type: 'elements', remarkable_id: element.id}
+          post :insert, params: {remarkable_type: 'elements', remarkable_id: element.id}, xhr: true
           expect(session[:alchemy_clipboard]['elements']).to eq([{'id' => element.id.to_s, 'action' => 'copy'}])
         end
 
         it "should not have the same element twice" do
           session[:alchemy_clipboard]['elements'] = [{'id' => element.id.to_s, 'action' => 'copy'}]
-          alchemy_xhr :post, :insert, {remarkable_type: 'elements', remarkable_id: element.id}
+          post :insert, params: {remarkable_type: 'elements', remarkable_id: element.id}, xhr: true
           expect(session[:alchemy_clipboard]['elements'].collect { |e| e['id'] }).not_to eq([element.id, element.id])
         end
       end
@@ -50,7 +52,7 @@ module Alchemy
         it "should remove element ids from clipboard" do
           session[:alchemy_clipboard]['elements'] = [{'id' => element.id.to_s, 'action' => 'copy'}]
           session[:alchemy_clipboard]['elements'] << {'id' => another_element.id.to_s, 'action' => 'copy'}
-          alchemy_xhr :delete, :remove, {remarkable_type: 'elements', remarkable_id: another_element.id}
+          delete :remove, params: {remarkable_type: 'elements', remarkable_id: another_element.id}, xhr: true
           expect(session[:alchemy_clipboard]['elements']).to eq([{'id' => element.id.to_s, 'action' => 'copy'}])
         end
       end
@@ -60,7 +62,7 @@ module Alchemy
       context "with elements as remarkable_type" do
         it "should clear the elements clipboard" do
           session[:alchemy_clipboard]['elements'] = [{'id' => element.id.to_s}]
-          alchemy_xhr :delete, :clear, {remarkable_type: 'elements'}
+          delete :clear, params: {remarkable_type: 'elements'}, xhr: true
           expect(session[:alchemy_clipboard]['elements']).to be_empty
         end
       end
@@ -68,7 +70,7 @@ module Alchemy
       context "with pages as remarkable_type" do
         it "should clear the pages clipboard" do
           session[:alchemy_clipboard]['pages'] = [{'id' => public_page.id.to_s}]
-          alchemy_xhr :delete, :clear, {remarkable_type: 'pages'}
+          delete :clear, params: {remarkable_type: 'pages'}, xhr: true
           expect(session[:alchemy_clipboard]['pages']).to be_empty
         end
       end

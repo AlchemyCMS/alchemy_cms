@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.0.0 (unreleased)
+
+* Deprecated controller requests test helpers [#1284](https://github.com/AlchemyCMS/alchemy_cms/pull/1284) by [tvdeyen](https://github.com/tvdeyen)
+
 ## 4.0.0.beta (2017-06-20)
 
 * Rails 5

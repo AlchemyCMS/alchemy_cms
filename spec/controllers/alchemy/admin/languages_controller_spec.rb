@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Alchemy::Admin::LanguagesController do
+  routes { Alchemy::Engine.routes }
+
   before do
     authorize_user(:as_admin)
   end
@@ -20,7 +22,7 @@ describe Alchemy::Admin::LanguagesController do
       end
 
       it 'only shows languages from current site' do
-        alchemy_get :index
+        get :index
         expect(assigns(:languages)).to include(default_site_language)
         expect(assigns(:languages)).to_not include(site_2_language)
       end
@@ -32,7 +34,7 @@ describe Alchemy::Admin::LanguagesController do
       end
 
       it "should be able to index language" do
-        alchemy_get :index
+        get :index
         expect(response).to render_template(:index)
       end
     end
@@ -40,7 +42,7 @@ describe Alchemy::Admin::LanguagesController do
 
   describe "#new" do
     it "has default language's page_layout set" do
-      alchemy_get :new
+      get :new
       expect(assigns(:language).page_layout).
         to eq(Alchemy::Config.get(:default_language)['page_layout'])
     end

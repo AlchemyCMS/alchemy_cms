@@ -219,7 +219,7 @@ module Alchemy
           content_pages
 
           travel_to(Time.current) do
-            xhr :post, flush_admin_pages_path
+            post flush_admin_pages_path, xhr: true
             # Reloading because published_at was directly updated in the database.
             content_pages.map(&:reload)
             content_pages.each do |page|
@@ -232,7 +232,7 @@ module Alchemy
           layout_pages
 
           travel_to(Time.current) do
-            xhr :post, flush_admin_pages_path
+            post flush_admin_pages_path, xhr: true
             # Reloading because published_at was directly updated in the database.
             layout_pages.map(&:reload)
             layout_pages.each do |page|
@@ -253,7 +253,7 @@ module Alchemy
           end
 
           it "should load all pages from clipboard" do
-            xhr :get, new_admin_page_path(page_id: page.id)
+            get new_admin_page_path(page_id: page.id), xhr: true
             expect(assigns(:clipboard_items)).to be_kind_of(Array)
           end
         end
@@ -299,7 +299,7 @@ module Alchemy
         let(:set_of_pages) { [page_item_1] }
 
         it "stores the new order" do
-          xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
+          post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
           page_1.reload
           expect(page_1.descendants).to eq([page_2, page_3])
         end
@@ -310,7 +310,7 @@ module Alchemy
           end
 
           it "updates the pages urlnames" do
-            xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
+            post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
             [page_1, page_2, page_3].map(&:reload)
             expect(page_1.urlname).to eq(page_1.slug.to_s)
             expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
@@ -328,7 +328,7 @@ module Alchemy
             end
 
             it "does not use this pages slug in urlnames of descendants" do
-              xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
+              post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
               [page_1, page_2, page_3].map(&:reload)
               expect(page_1.urlname).to eq(page_1.slug.to_s)
               expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
@@ -347,7 +347,7 @@ module Alchemy
             end
 
             it "does not use this pages slug in urlnames of descendants" do
-              xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
+              post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
               [page_1, page_2, page_3].map(&:reload)
               expect(page_3.urlname).to eq("#{page_1.slug}/#{page_3.slug}")
             end
@@ -365,7 +365,7 @@ module Alchemy
             end
 
             it "updates restricted status of descendants" do
-              xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
+              post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
               page_3.reload
               expect(page_3.restricted).to be_truthy
             end
@@ -382,19 +382,19 @@ module Alchemy
 
             it "does not raise error" do
               expect {
-                xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
+                post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
               }.not_to raise_error
             end
 
             it "still generates the correct urlname on page_3" do
-              xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
+              post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
               [page_1, page_2, page_3].map(&:reload)
               expect(page_3.urlname).to eq("#{page_1.slug}/#{page_2.slug}/#{page_3.slug}")
             end
           end
 
           it "creates legacy urls" do
-            xhr :post, order_admin_pages_path(set: set_of_pages.to_json)
+            post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
             [page_2, page_3].map(&:reload)
             expect(page_2.legacy_urls.size).to eq(1)
             expect(page_3.legacy_urls.size).to eq(1)
@@ -407,7 +407,7 @@ module Alchemy
           let(:page) { create(:alchemy_page, name: 'Foobar', urlname: 'foobar') }
 
           it "should always show the slug" do
-            xhr :get, configure_admin_page_path(page)
+            get configure_admin_page_path(page), xhr: true
             expect(response.body).to match /value="foobar"/
           end
         end
@@ -506,10 +506,10 @@ module Alchemy
           it "should call Page#copy_and_paste" do
             expect(Page).to receive(:copy_and_paste).
               with(page_in_clipboard, parent, page_params[:name])
-            xhr :post, admin_pages_path(
+            post admin_pages_path(
               page: page_params,
               paste_from_clipboard: page_in_clipboard.id
-            )
+            ), xhr: true
           end
         end
       end
@@ -657,7 +657,7 @@ module Alchemy
         end
 
         it "should also remove the page from clipboard" do
-          xhr :delete, admin_page_path(page)
+          delete admin_page_path(page), xhr: true
           expect(clipboard).to be_empty
         end
       end
@@ -709,7 +709,7 @@ module Alchemy
 
           it "should fold the page" do
             expect(page).to receive(:fold!).with(user.id, true).and_return(true)
-            xhr :post, fold_admin_page_path(page)
+            post fold_admin_page_path(page), xhr: true
           end
         end
 
@@ -718,13 +718,13 @@ module Alchemy
 
           it "should unfold the page" do
             expect(page).to receive(:fold!).with(user.id, false).and_return(true)
-            xhr :post, fold_admin_page_path(page)
+            post fold_admin_page_path(page), xhr: true
           end
         end
       end
 
       describe '#unlock' do
-        subject { xhr :post, unlock_admin_page_path(page) }
+        subject { post unlock_admin_page_path(page), xhr: true }
 
         let(:page) { mock_model(Alchemy::Page, name: 'Best practices') }
 

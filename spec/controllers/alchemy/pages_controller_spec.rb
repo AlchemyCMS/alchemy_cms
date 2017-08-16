@@ -3,6 +3,8 @@ require 'spec_helper'
 
 module Alchemy
   describe PagesController do
+    routes { Alchemy::Engine.routes }
+
     let(:default_language) { Language.default }
 
     let(:default_language_root) do
@@ -30,17 +32,17 @@ module Alchemy
       end
 
       it 'renders :show template' do
-        expect(alchemy_get(:index)).to render_template(:show)
+        expect(get(:index)).to render_template(:show)
       end
 
       context 'requesting nothing' do
         it 'loads default language root page' do
-          alchemy_get :index
+          get :index
           expect(assigns(:page)).to eq(default_language_root)
         end
 
         it 'sets @root_page to default language root' do
-          alchemy_get(:index)
+          get :index
           expect(assigns(:root_page)).to eq(default_language_root)
         end
 
@@ -56,7 +58,7 @@ module Alchemy
 
             it 'raises routing error (404)' do
               expect {
-                alchemy_get :index
+                get :index
               }.to raise_error(ActionController::RoutingError)
             end
 
@@ -70,7 +72,7 @@ module Alchemy
 
               it 'raises routing error (404) and no "undefined method for nil" error' do
                 expect {
-                  alchemy_get :index
+                  get :index
                 }.to raise_error(ActionController::RoutingError)
               end
             end
@@ -87,7 +89,7 @@ module Alchemy
               end
 
               it 'loads this page' do
-                alchemy_get :index
+                get :index
                 expect(assigns(:page)).to eq(public_child)
               end
             end
@@ -103,7 +105,7 @@ module Alchemy
                 end
 
                 it 'loads this page' do
-                  alchemy_get :index
+                  get :index
                   expect(assigns(:page)).to eq(public_child)
                 end
               end
@@ -115,7 +117,7 @@ module Alchemy
 
                 it 'raises routing error (404)' do
                   expect {
-                    alchemy_get :index
+                    get :index
                   }.to raise_error(ActionController::RoutingError)
                 end
               end
@@ -140,12 +142,12 @@ module Alchemy
         end
 
         it 'loads the root page of that language' do
-          alchemy_get :index, locale: 'de'
+          get :index, params: {locale: 'de'}
           expect(assigns(:page)).to eq(startseite)
         end
 
         it 'sets @root_page to root page of that language' do
-          alchemy_get :index, locale: 'de'
+          get :index, params: {locale: 'de'}
           expect(assigns(:root_page)).to eq(startseite)
         end
       end
@@ -160,7 +162,7 @@ module Alchemy
 
       it "renders 404" do
         expect {
-          alchemy_get :show, urlname: not_yet_public.urlname
+          get :show, params: {urlname: not_yet_public.urlname}
         }.to raise_error(ActionController::RoutingError)
       end
     end
@@ -175,7 +177,7 @@ module Alchemy
 
       it "renders 404" do
         expect {
-          alchemy_get :show, urlname: no_longer_public.urlname
+          get :show, params: {urlname: no_longer_public.urlname}
         }.to raise_error(ActionController::RoutingError)
       end
     end
@@ -189,7 +191,7 @@ module Alchemy
       end
 
       it "renders page" do
-        alchemy_get :show, urlname: still_public_page.urlname
+        get :show, params: {urlname: still_public_page.urlname}
         expect(response).to be_success
       end
     end
@@ -203,7 +205,7 @@ module Alchemy
       end
 
       it "renders page" do
-        alchemy_get :show, urlname: still_public_page.urlname
+        get :show, params: {urlname: still_public_page.urlname}
         expect(response).to be_success
       end
     end
@@ -212,20 +214,20 @@ module Alchemy
       render_views
 
       it "should render a rss feed" do
-        alchemy_get :show, urlname: page.urlname, format: :rss
+        get :show, params: {urlname: page.urlname, format: :rss}
         expect(response.content_type).to eq('application/rss+xml')
       end
 
       it "should include content" do
         page.elements.first.content_by_name('news_headline').essence.update_attributes({body: 'Peters Petshop'})
-        alchemy_get :show, urlname: 'news', format: :rss
+        get :show, params: {urlname: 'news', format: :rss}
         expect(response.body).to match /Peters Petshop/
       end
     end
 
     context "requested for a page that does not contain a feed" do
       it "should render xml 404 error" do
-        alchemy_get :show, urlname: default_language_root.urlname, format: :rss
+        get :show, params: {urlname: default_language_root.urlname, format: :rss}
         expect(response.status).to eq(404)
       end
     end
@@ -233,7 +235,7 @@ module Alchemy
     describe "Layout rendering" do
       context "with ajax request" do
         it "should not render a layout" do
-          alchemy_xhr :get, :show, urlname: page.urlname
+          get :show, params: {urlname: page.urlname}, xhr: true
           expect(response).to render_template(:show)
           expect(response).not_to render_template(layout: 'application')
         end
@@ -255,7 +257,7 @@ module Alchemy
 
       context "with correct levelnames in params" do
         it "should show the requested page" do
-          alchemy_get :show, {urlname: 'catalog/products/screwdriver'}
+          get :show, params: {urlname: 'catalog/products/screwdriver'}
           expect(response.status).to eq(200)
           expect(response.body).to have_content("screwdriver")
         end
@@ -264,7 +266,7 @@ module Alchemy
       context "with incorrect levelnames in params" do
         it "should render a 404 page" do
           expect {
-            alchemy_get :show, {urlname: 'catalog/faqs/screwdriver'}
+            get :show, params: {urlname: 'catalog/faqs/screwdriver'}
           }.to raise_error(ActionController::RoutingError)
         end
       end
@@ -273,7 +275,7 @@ module Alchemy
     context "when a non-existent page is requested" do
       it "should rescue a RoutingError with rendering a 404 page." do
         expect {
-          alchemy_get :show, {urlname: 'doesntexist'}
+          get :show, params: {urlname: 'doesntexist'}
         }.to raise_error(ActionController::RoutingError)
       end
     end
@@ -286,12 +288,12 @@ module Alchemy
 
         context "with no lang parameter present" do
           it "should store defaults language id in the session." do
-            alchemy_get :show, urlname: page.urlname
+            get :show, params: {urlname: page.urlname}
             expect(controller.session[:alchemy_language_id]).to eq(Language.default.id)
           end
 
           it "should store default language as class var." do
-            alchemy_get :show, urlname: page.urlname
+            get :show, params: {urlname: page.urlname}
             expect(Language.current).to eq(Language.default)
           end
         end
@@ -313,7 +315,7 @@ module Alchemy
         end
 
         it 'renders the page related to its language' do
-          alchemy_get :show, {urlname: "same-name", locale: klingon_page.language_code}
+          get :show, params: {urlname: "same-name", locale: klingon_page.language_code}
           expect(response.body).to have_content("klingon page")
         end
       end
