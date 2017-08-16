@@ -9,7 +9,7 @@
       $picture_editor.append('<%= j(
         render "alchemy/admin/elements/add_picture",
           element: @element,
-          options: @options
+          options: options_from_params
       ) %>');
     }
 

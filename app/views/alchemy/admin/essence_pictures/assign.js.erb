@@ -3,7 +3,7 @@ $('#<%= @content.dom_id -%>').replaceWith('<%= j(
   render(
     "alchemy/essences/essence_picture_editor",
     content: @content,
-    options: @options
+    options: options_from_params
   )
 ) %>');
 

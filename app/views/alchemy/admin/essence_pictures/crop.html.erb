@@ -12,7 +12,7 @@
   </div>
   <%= form_for(
     @essence_picture,
-    url: alchemy.admin_essence_picture_path(@essence_picture, options: @options.to_json),
+    url: alchemy.admin_essence_picture_path(@essence_picture, options: options_from_params),
     id: 'image_cropper_form',
     remote: true
   ) do |f| %>

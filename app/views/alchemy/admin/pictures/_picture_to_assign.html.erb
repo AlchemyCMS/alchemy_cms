@@ -1,5 +1,5 @@
 <div class="picture_thumbnail assign_image_list_detail <%= size.blank? ? 'medium' : size %>" name="<%= picture_to_assign.name %>" id="picture_to_assign_<%= picture_to_assign.id %>">
-  <% action_url = create_or_assign_url(picture_to_assign, @options.to_json) %>
+  <% action_url = create_or_assign_url(picture_to_assign, options) %>
   <%= link_to(
     image_tag(
       picture_to_assign.url(size: preview_size(size), flatten: true),

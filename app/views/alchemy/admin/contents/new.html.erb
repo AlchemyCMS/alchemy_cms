@@ -1,6 +1,6 @@
 <%= alchemy_form_for [:admin, @content] do |f| %>
   <%= f.hidden_field :element_id %>
-  <%= hidden_field_tag('options', @options.to_json) %>
+  <%= hidden_field_tag('options', options_from_params) %>
   <%= f.input :name, collection: @contents.map { |content|
       [
         Alchemy.t(content['name'], scope: 'content_names', default: content['name'].humanize),

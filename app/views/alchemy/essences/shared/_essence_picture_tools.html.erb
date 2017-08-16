@@ -4,7 +4,7 @@
   <%= link_to_dialog render_icon('crop'),
     alchemy.crop_admin_essence_picture_path(
       content.essence,
-      options: content.settings.update(options).to_json
+      options: content.settings.update(options)
     ), {
       size: "1000x615",
       title: Alchemy.t('Edit Picturemask'),
@@ -20,7 +20,7 @@
     element_id: content.element,
     content_id: content.id,
     swap: true,
-    options: options.to_json
+    options: options
   ),
   {
     title: (content.ingredient ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)),
@@ -47,7 +47,7 @@
   alchemy.edit_admin_essence_picture_path(
     id: content.essence.id,
     content_id: content.id,
-    options: options.to_json
+    options: options
   ), {
     title: Alchemy.t(:edit_image_properties),
     size: edit_picture_dialog_size(content, options)

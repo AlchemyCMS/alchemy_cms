@@ -6,6 +6,6 @@
 <% else %>
   <%= render partial: 'picture_to_assign',
     collection: @pictures,
-    locals: {options: @options, size: @size} %>
+    locals: {options: options_from_params, size: @size} %>
   <%= paginate @pictures, theme: 'alchemy', remote: true %>
 <% end %>

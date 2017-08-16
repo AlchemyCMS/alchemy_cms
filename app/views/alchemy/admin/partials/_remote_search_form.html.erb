@@ -1,6 +1,6 @@
 <%= search_form_for @query, url: url_for(
     action: 'index',
-    options: @options.to_json,
+    options: options_from_params,
     size: @size
   ), remote: true, html: {class: 'search_form', id: nil} do |f| %>
   <%= hidden_field_tag("element_id", @element.blank? ? "" : @element.id) %>
@@ -15,7 +15,7 @@
         action: 'index',
         element_id: @element.blank? ? '' : @element.id,
         content_id: @content.blank? ? '' : @content.id,
-        options: @options.to_json,
+        options: options_from_params,
         size: @size,
         overlay: true
       ),

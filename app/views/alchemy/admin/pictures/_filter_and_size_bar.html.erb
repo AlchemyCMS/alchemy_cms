@@ -10,7 +10,7 @@
         filter: 'last_upload',
         content_id: @content.try(:id),
         element_id: @element.try(:id),
-        options: @options
+        options: options_from_params
       ) %>
     <div class="toolbar_spacer"></div>
   <% end %>
@@ -23,7 +23,7 @@
           content_id: @content,
           element_id: @element,
           q: params[:q],
-          options: @options.to_json,
+          options: options_from_params,
           filter: params[:filter],
           tagged_with: params[:tagged_with]
         }),
@@ -40,7 +40,7 @@
           content_id: @content,
           element_id: @element,
           q: params[:q],
-          options: @options.to_json,
+          options: options_from_params,
           filter: params[:filter],
           tagged_with: params[:tagged_with]
         }),
@@ -57,7 +57,7 @@
           content_id: @content,
           element_id: @element,
           q: params[:q],
-          options: @options.to_json,
+          options: options_from_params,
           filter: params[:filter],
           tagged_with: params[:tagged_with]
         }),

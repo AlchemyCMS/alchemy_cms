@@ -25,24 +25,24 @@ describe 'alchemy/essences/_essence_editor_view' do
     end
 
     it "renders a link to open the attachment library overlay" do
-      is_expected.to have_selector("a.assign_file[href='/admin/attachments?content_id=#{content.id}&options=%7B%7D']")
+      is_expected.to have_selector("a.assign_file[href='/admin/attachments?content_id=#{content.id}']")
     end
 
     it "renders a link to edit the essence" do
-      is_expected.to have_selector("a.edit_file[href='/admin/essence_files/#{essence.id}/edit?options=%7B%7D']")
+      is_expected.to have_selector("a.edit_file[href='/admin/essence_files/#{essence.id}/edit']")
     end
 
     context 'with content settings `only`' do
       it "renders a link to open the attachment library overlay with only pdfs" do
         expect(content).to receive(:settings).at_least(:once).and_return({only: 'pdf'})
-        is_expected.to have_selector("a.assign_file[href='/admin/attachments?content_id=#{content.id}&only=pdf&options=%7B%7D']")
+        is_expected.to have_selector("a.assign_file[href='/admin/attachments?content_id=#{content.id}&only=pdf']")
       end
     end
 
     context 'with content settings `except`' do
       it "renders a link to open the attachment library overlay without pdfs" do
         expect(content).to receive(:settings).at_least(:once).and_return({except: 'pdf'})
-        is_expected.to have_selector("a.assign_file[href='/admin/attachments?content_id=#{content.id}&except=pdf&options=%7B%7D']")
+        is_expected.to have_selector("a.assign_file[href='/admin/attachments?content_id=#{content.id}&except=pdf']")
       end
     end
   end
