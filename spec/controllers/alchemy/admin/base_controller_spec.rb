@@ -12,19 +12,21 @@ describe Alchemy::Admin::BaseController do
 
     context "params[:options] are Rails parameters" do
       let(:options) do
-        ActionController::Parameters.new('hallo' => {'great' => 'World'})
+        ActionController::Parameters.new('hello' => 'world')
       end
 
       it "returns the options as permitted parameters with indifferent access" do
         expect(subject).to be_permitted
-        expect(subject).to eq({hallo: {great: 'World'}})
+        expect(subject[:hello]).to eq('world')
       end
     end
 
     context "params[:options] is nil" do
       let(:options) { nil }
 
-      it { is_expected.to eq({}) }
+      it "returns an empty permitted parameters hash" do
+        is_expected.to eq(ActionController::Parameters.new.permit!)
+      end
     end
   end
 

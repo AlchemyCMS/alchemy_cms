@@ -118,7 +118,7 @@ module Alchemy
       end
 
       context "with a YAML file including a symbol" do
-        let(:yaml) { 'name: :symbol' }
+        let(:yaml) { '- name: :symbol' }
         before do
           expect(File).to receive(:exist?).and_return(true)
           expect(File).to receive(:read).and_return(yaml)

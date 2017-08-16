@@ -2,6 +2,13 @@
 
 module Alchemy
   class PagesController < Alchemy::BaseController
+    SHOW_PAGE_PARAMS_KEYS = [
+      'action',
+      'controller',
+      'urlname',
+      'locale'
+    ]
+
     include OnPageLayout::CallbacksRunner
 
     # Redirecting concerns. Order is important here!
@@ -126,8 +133,8 @@ module Alchemy
     # * locale
     #
     def additional_params
-      params.symbolize_keys.delete_if do |key, _|
-        [:action, :controller, :urlname, :locale].include?(key)
+      params.to_unsafe_hash.delete_if do |key, _|
+        SHOW_PAGE_PARAMS_KEYS.include?(key)
       end
     end
 
