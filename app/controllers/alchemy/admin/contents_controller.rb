@@ -20,7 +20,8 @@ module Alchemy
         @html_options = params[:html_options] || {}
         if picture_gallery_editor?
           @content.update_essence(picture_id: params[:picture_id])
-          @options = options_for_picture_gallery
+          @gallery_pictures = @element.contents.gallery_pictures
+          @options[:sortable] = @gallery_pictures.size > 1
           @content_dom_id = "#add_picture_#{@element.id}"
         else
           @content_dom_id = "#add_content_for_element_#{@element.id}"
@@ -57,11 +58,6 @@ module Alchemy
 
       def picture_gallery_editor?
         params[:content][:essence_type] == 'Alchemy::EssencePicture' && @options[:grouped] == 'true'
-      end
-
-      def options_for_picture_gallery
-        @gallery_pictures = @element.contents.gallery_pictures
-        @options.merge(sortable: @gallery_pictures.size > 1)
       end
 
       def essence_editor_locals
