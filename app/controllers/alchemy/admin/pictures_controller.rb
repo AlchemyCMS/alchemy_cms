@@ -129,7 +129,6 @@ module Alchemy
       def archive_overlay
         @content = Content.select('id').find_by(id: params[:content_id])
         @element = Element.select('id').find_by(id: params[:element_id])
-        @options = options_from_params
 
         respond_to do |format|
           format.html { render partial: 'archive_overlay' }
