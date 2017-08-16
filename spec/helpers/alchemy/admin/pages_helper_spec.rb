@@ -33,7 +33,7 @@ describe Alchemy::Admin::PagesHelper do
         end
 
         it 'displays icon with warning and tooltip' do
-          is_expected.to have_selector '.warning.icon.with-hint .hint-bubble'
+          is_expected.to have_selector '.icon-warning.with-hint .hint-bubble'
         end
       end
     end

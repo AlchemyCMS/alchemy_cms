@@ -14,7 +14,7 @@
 %thumbnail-background {
   position: relative;
   display: table-cell;
-  background-color: $dark-gray;
+  background-color: scale-color($xdark-gray, $lightness: 40%, $saturation: -40%);
   text-align: center;
   vertical-align: middle;
   padding: 0;
@@ -35,15 +35,12 @@
 %default-input-style {
   box-sizing: border-box;
   @extend %rounded-border;
-  box-shadow: inset 0px 1px 1px $medium-gray;
+  box-shadow: $input-box-shadow;
   font: $default-font-style;
   padding: 1px 2*$default-padding;
   margin: $default-form-field-margin;
-  background: rgba(#fff, 0.9);
-  border-top: 1px solid $default-border-color;
-  border-left: 1px solid $default-border-color;
-  border-bottom: 1px solid $border-inset-color;
-  border-right: 1px solid $border-inset-color;
+  background: white;
+  border: 1px solid $input-border-color;
   width: 100%;
   font-size: 12px;
   line-height: 12px;
@@ -66,7 +63,7 @@
 }
 
 %gradiated-toolbar {
-  background: $toolbar-bg-color;
+  background-color: $toolbar-bg-color;
   padding: 8px 4px;
   height: $default-form-field-height;
 }

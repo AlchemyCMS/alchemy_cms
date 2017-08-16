@@ -4,7 +4,7 @@
       <% if navigation["image"] %>
         <%= image_tag(navigation["image"]) %>
       <% elsif navigation["icon"] %>
-        <span class="module icon <%= navigation["icon"] %>"></span>
+        <span class="module large text-negative icon-<%= navigation["icon"] %>"></span>
       <% else %>
         <span class="module icon"></span>
       <% end %>

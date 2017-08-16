@@ -13,7 +13,7 @@ div#flash_notices {
       position: absolute;
       right: 2*$default-padding;
       top: 2*$default-padding;
-      @extend .icon-cross:before;
+      @extend .icon-close:before;
       font-size: 14px;
       font-family: 'Alchemy Icons';
     }
@@ -23,7 +23,7 @@ div#flash_notices {
 div.flash {
   @extend %rounded-border;
   opacity: 0.95;
-  padding: 8px 8px 8px 30px;
+  padding: 8px;
   font-weight: bold;
   border-width: 1px;
   border-style: solid;
@@ -40,26 +40,18 @@ div.flash {
   }
 
   &.notice {
-    border-color: $success_border_color;
-    color: $success_text_color;
-    background-color: $success_background_color;
+    @include hint-colors($green);
   }
 
   &.error {
-    border-color: $error_border_color;
-    color: $error_text_color;
-    background-color: $error_background_color;
+    @include hint-colors($red);
   }
 
   &.info {
-    border-color: $info_border_color;
-    color: $info_text_color;
-    background-color: $info_background_color;
+    @include hint-colors($blue);
   }
 
   &.warn, &.warning, &.alert {
-    border-color: $warning_border_color;
-    color: $warning_text_color;
-    background-color: $warning_background_color;
+    @include hint-colors($yellow);
   }
 }

@@ -102,7 +102,7 @@ module Alchemy
         }.merge(options)
         content_tag(:div, class: 'js_filter_field_box') do
           concat text_field_tag(nil, nil, options)
-          concat render_icon(:search)
+          concat render_icon("search small")
           concat link_to('', '', class: 'js_filter_field_clear', title: Alchemy.t(:click_to_show_all))
           concat content_tag(:label, Alchemy.t(:search), for: options[:id])
         end
@@ -411,7 +411,7 @@ module Alchemy
       def render_hint_for(element)
         return unless element.has_hint?
         content_tag :span, class: 'hint-with-icon' do
-          render_icon(:questionmark) +
+          render_icon("hint") +
             content_tag(:span, element.hint.html_safe, class: 'hint-bubble')
         end
       end
@@ -464,7 +464,7 @@ module Alchemy
       def page_layout_missing_warning
         hint_with_tooltip(
           Alchemy.t(:page_definition_missing),
-          class: 'inline warning icon'
+          class: 'icon-warning small'
         )
       end
 

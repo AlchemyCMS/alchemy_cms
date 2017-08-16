@@ -7,7 +7,7 @@
   line-height: 1;
 
   path {
-    fill: $dark-gray;
+    fill: $xdark-gray;
     opacity: 1;
     animation: spinner 1s infinite ease-in-out both;
   }
@@ -39,6 +39,11 @@
   .hex3 {
     animation-delay: 0.3s;
   }
+}
+
+.element-header .spinner {
+  position: static;
+  transform: none;
 }
 
 @keyframes spinner {

@@ -171,7 +171,7 @@ class window.Alchemy.Dialog
     @dialog_body = $('<div class="alchemy-dialog-body" />')
     @dialog_header = $('<div class="alchemy-dialog-header" />')
     @dialog_title = $('<div class="alchemy-dialog-title" />')
-    @close_button = $('<a class="alchemy-dialog-close"><span class="icon close small"></span></a>')
+    @close_button = $('<a class="alchemy-dialog-close"><span class="icon-close small"></span></a>')
     @dialog_title.text(@options.title)
     @dialog_header.append(@dialog_title)
     @dialog_header.append(@close_button)

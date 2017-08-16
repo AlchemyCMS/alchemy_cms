@@ -126,11 +126,11 @@
 
 .ui-widget-content {
   border: $default-border;
-  background-color: $light-gray;
+  background-color: $medium-gray;
   color: $text-color;
 }
 
-.ui-widget-content a {
+.ui-widget-content a:not(.button) {
   color: $text-color;
 
   &:hover { color: #000 }
@@ -157,11 +157,10 @@
 ----------------------------------*/
 
 .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default {
-  border: 1px solid $button-border-color;
+  border: 1px solid $default-border-color;
   background-color: #ededed;
   font-weight: normal;
   color: $text-color;
-  text-shadow: $button-text-shadow;
 }
 
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
@@ -170,7 +169,7 @@
 }
 
 .ui-state-hover a, .ui-state-hover a:hover {
-  color: $dark-gray;
+  color: $xdark-gray;
   text-decoration: none;
 }
 
@@ -178,7 +177,7 @@
   color: $text-color;
   text-decoration: none;
   text-shadow: none;
-  background-color: $button-hover-bg-color;
+  background-color: $action-icons-hover-bg-color;
 }
 
 .ui-state-active.stNav.stNext {
@@ -217,7 +216,7 @@
 ----------------------------------*/
 
 .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
-  border: 1px solid $dark-gray;
+  border: 1px solid $xdark-gray;
   background: $light-blue;
   color: $text-color;
 }
@@ -568,7 +567,7 @@
 
 .ui-icon-refresh {
   background: none !important;
-  @extend .icon-ccw;
+  @extend .icon-refresh;
 
   &:before {
     text-indent: 0;
@@ -1186,7 +1185,7 @@
 .ui-tabs .ui-tabs-panel {
   display: block;
   border-width: 0;
-  background: none;
+  background: $light-gray;
 }
 
 .ui-tabs .ui-tabs-hide {

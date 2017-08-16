@@ -3,7 +3,7 @@
   <span class="element_tools">
     <div class="button_with_label">
       <%= link_to(
-        render_icon(:element_copy),
+        render_icon(:duplicate),
         alchemy.insert_admin_clipboard_path(remarkable_type: remarkable_type, remarkable_id: element.id),
         remote: true,
         method: :post,
@@ -23,7 +23,7 @@
     </div>
     <div class="button_with_label">
       <%= link_to(
-        render_icon(:remove),
+        render_icon(:trash),
         alchemy.trash_admin_element_path(element),
         method: :delete,
         class: "icon_button",
@@ -33,7 +33,7 @@
     </div>
     <div class="button_with_label publish-element-button">
       <%= link_to(
-        render_icon('element-hide'),
+        render_icon('visible'),
         alchemy.publish_admin_element_path(id: element.id),
         remote: true,
         method: :patch,

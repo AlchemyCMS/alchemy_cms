@@ -1,75 +1,306 @@
+/* Thats how you update the icon font:
+======================================
+
+1. Export your icons as seperate SVGs
+----------------------------------------------------------------
+2. Visit https://icomoon.io/app
+----------------------------------------------------------------
+3. Import the current Alchemy icon set by dragging
+   the following file into IcoMoon:
+   app/assets/fonts/alchemy/selection.json
+----------------------------------------------------------------
+4. Add or replace your new icons in IcoMoon and select them all.
+----------------------------------------------------------------
+5. Go to tab "Font" at the bottom of the page
+   and press the DOWNLOAD button.
+----------------------------------------------------------------
+6. Copy and paste the new font files and the selection.json
+   from the downloaded package into the following directory:
+   app/assets/fonts/alchemy/
+   (The JSON is not used by the app but needed to load the
+   current set in IcoMoon for editing.)
+----------------------------------------------------------------
+7. Update the font-url suffixes (?...) and
+   add the icon codes from the style.css (downloaded font package)
+   to the codes below in alphabetical order.
+   Now you can use the icon classes in your Markup.
+
+   **************************************************************
+   |                                                            |
+   |  !!! BE CAREFUL: Don't just replace all the codes.         |
+   |  Some selectors were customly added and use the same code. |
+   |                                                            |
+   **************************************************************
+*/
+
 @font-face {
   font-family: 'Alchemy Icons';
-  src: font-url('alchemy/icons.eot?sgh5oh');
-  src: font-url('alchemy/icons.eot?#iefixsgh5oh') format('embedded-opentype'),
-       font-url('alchemy/icons.ttf?sgh5oh') format('truetype'),
-       font-url('alchemy/icons.woff?sgh5oh') format('woff'),
-       font-url('alchemy/icons.svg?sgh5oh#Alchemy-Icons') format('svg');
+  src: font-url('alchemy-icons.eot?tylr92');
+  src: font-url('alchemy/alchemy-icons.eot?tylr92#iefix') format('embedded-opentype'),
+    font-url('alchemy/alchemy-icons.ttf?tylr92') format('truetype'),
+    font-url('alchemy/alchemy-icons.woff?tylr92') format('woff'),
+    font-url('alchemy/alchemy-icons.svg?tylr92#alchemy-icons') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
-.icon-angle-double-right,
-.icon-angle-left,
-.icon-angle-right,
-.icon-plus,
-.icon-minus,
-.icon-cross,
-.icon-plus-2,
-.icon-minus-2,
-.icon-pencil,
-.icon-tag,
-.icon-info,
-.icon-warning,
-.icon-checkmark,
-.icon-ccw,
-.icon-trash,
-.icon-cross-2,
-.icon-pictures,
-.icon-menu,
-.icon-magnifying-glass,
-.icon-fullscreen-exit,
-.icon-help,
-.icon-fullscreen,
-.icon-cog {
-  font-family: 'Alchemy Icons';
-  speak: none;
-  font-size: 12px;
+@mixin icon {
+  font-family: 'Alchemy Icons' !important; // use !important to prevent issues with browser extensions that change fonts
   font-style: normal;
   font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  width: 1em;
+  margin-right: .2em;
+  margin-left: .2em;
+  text-align: center;
+  vertical-align: middle;
+  opacity: .85;
   font-variant: normal;
   text-transform: none;
-  text-decoration: none;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 16px;
-  color: #666;
-  text-align: center;
-  line-height: 1;
-  display: inline-block;
-  vertical-align: middle;
+  font-size: 16px;
+  color: $icon-color;
 }
 
-.icon-angle-double-right:before { content: "\f101" }
-.icon-angle-left:before { content: "\f104" }
-.icon-angle-right:before { content: "\f105" }
-.icon-plus:before { content: "\e000" }
-.icon-minus:before { content: "\e001" }
-.icon-cross:before { content: "\e004" }
-.icon-plus-2:before { content: "\e005" }
-.icon-minus-2:before { content: "\e006" }
-.icon-pencil:before { content: "\e007" }
-.icon-tag:before { content: "\e034" }
-.icon-info:before { content: "\e008" }
-.icon-warning:before { content: "\e009" }
-.icon-checkmark:before { content: "\e00a" }
-.icon-ccw:before { content: "\e00b" }
-.icon-trash:before { content: "\f014" }
-.icon-cross-2:before { content: "\e00e" }
-.icon-pictures:before { content: "\e00f" }
-.icon-menu:before { content: "\e010" }
-.icon-magnifying-glass:before { content: "\e011" }
-.icon-fullscreen-exit:before { content: "\e01e" }
-.icon-help:before { content: "\e00c" }
-.icon-fullscreen:before { content: "\e01d" }
-.icon-cog:before { content: "\f013" }
+[class^="icon-"],
+[class*=" icon-"] {
+  &:before { @include icon; }
+
+  &.tiny:before { font-size: 12px; }
+  &.small:before { font-size: 14px; }
+  &.large:before { font-size: 24px; }
+}
+
+a:hover, button:hover {
+  [class^="icon-"]:before,
+  [class*=" icon-"]:before,
+  &[class^="icon-"]:before,
+  &[class*=" icon-"]:before {
+    opacity: 1;
+  }
+  &[class^="icon-"],
+  &[class*=" icon-"] {
+    text-decoration: none;
+  }
+}
+
+// Icon codes
+
+.icon-add:before { content: "\e900"; }
+.icon-alert:before { content: "\e93b"; }
+.icon-angle-double-right:before { content: "\e901"; }
+.icon-angle-left:before { content: "\e902"; }
+.icon-angle-right:before { content: "\e902"; }
+.icon-archive:before { content: "\e941"; }
+.icon-arrow-doubled:before { content: "\e901"; }
+.icon-arrow:before { content: "\e902"; }
+.icon-assign-file:before { content: "\e94e"; }
+.icon-audio:before { content: "\e93e"; }
+.icon-checkmark:before { content: "\e903"; }
+.icon-clipboard:before { content: "\e904"; }
+.icon-clipboard.full:before { content: "\e94a"; }
+.icon-close:before { content: "\e905"; }
+.icon-create:before { content: "\e900"; }
+.icon-crop:before { content: "\e906"; }
+.icon-cross:before { content: "\e907"; }
+.icon-cut:before { content: "\e908"; }
+.icon-dashboard:before { content: "\e909"; }
+.icon-deselect:before { content: "\e91c"; }
+.icon-deselect-all:before { content: "\e90a"; }
+.icon-destroy:before { content: "\e90b"; }
+.icon-download:before { content: "\e90c"; }
+.icon-drag:before { content: "\e94b"; }
+.icon-dropdown:before { content: "\e90d"; }
+.icon-duplicate:before { content: "\e90e"; }
+.icon-edit:before { content: "\e90f"; }
+.dirty .icon-edit:before { content: "\e90f"; }
+.icon-error:before { content: "\e93b"; }
+.icon-excel:before { content: "\e945"; }
+.icon-exit:before { content: "\e910"; }
+.icon-file:before { content: "\e94c"; }
+.icon-flash:before { content: "\e913"; }
+.icon-fullscreen:before { content: "\e912"; }
+.icon-fullscreen-exit:before { content: "\e911"; }
+.icon-globalElements:before { content: "\e914"; }
+.icon-goto:before { content: "\e915"; }
+.icon-hint:before { content: "\e916"; }
+.icon-image:before { content: "\e946"; }
+.icon-info:before { content: "\e917"; }
+.icon-languages:before { content: "\e918"; }
+.icon-leave:before { content: "\e919"; }
+.icon-library:before { content: "\e91a"; }
+.icon-link:before { content: "\e91b"; }
+.icon-mainmenu_dashboard:before { content: "\e909"; }
+.icon-menu:before { content: "\e949"; }
+.icon-minus:before { content: "\e91d"; }
+.icon-no-menu:before { content: "\e948"; }
+.icon-notice:before { content: "\e903"; }
+.icon-not-public:before { content: "\e91e"; }
+.icon-not-restricted:before { content: "\e91f"; }
+.icon-not-visible:before { content: "\e920"; }
+.icon-ok:before { content: "\e903"; }
+.icon-pages:before { content: "\e921"; }
+.page_infos .icon-not-visible:before { content: "\e948"; }
+.page_status .icon-not-visible:before { content: "\e948"; }
+.icon-pdf:before { content: "\e947"; }
+.icon-pictures:before { content: "\e922"; }
+.icon-plus:before { content: "\e923"; }
+.icon-psd:before { content: "\e940"; }
+.icon-public:before { content: "\e924"; }
+.icon-publish:before { content: "\e925"; }
+.icon-refresh:before { content: "\e926"; }
+.icon-restricted:before { content: "\e927"; }
+.icon-rtf:before { content: "\e942"; }
+.icon-search:before { content: "\e928"; }
+.icon-select-all:before { content: "\e929"; }
+.icon-settings:before { content: "\e92a"; }
+.icon-sites:before { content: "\e92b"; }
+.icon-size:before { content: "\e92c"; }
+.icon-sort:before { content: "\e92d"; }
+.icon-tag:before { content: "\e92e"; }
+.icon-tag_add:before { content: "\e900"; }
+.icon-tags:before { content: "\e92f"; }
+.icon-text:before { content: "\e943"; }
+.icon-toggle-sidebar:before { content: "\e930"; }
+.icon-trash:before { content: "\e932"; }
+.icon-trash.full:before { content: "\e931"; }
+.icon-true:before { content: "\e903"; }
+.icon-tick:before { content: "\e903"; }
+.icon-unlink:before { content: "\e933"; }
+.icon-upload:before { content: "\e935"; }
+.icon-unlocked:before { content: "\e934"; }
+.icon-user:before { content: "\e937"; }
+.icon-user_add:before { content: "\e900"; }
+.icon-user-new:before { content: "\e900"; }
+.icon-users:before { content: "\e938"; }
+.icon-video:before { content: "\e93f"; }
+.icon-visible:before { content: "\e939"; }
+.page_infos .icon-visible:before { content: "\e949"; }
+.page_status .icon-visible:before { content: "\e949"; }
+.icon-visit-page:before { content: "\e93a"; }
+.icon-warning:before { content: "\e93b"; }
+.icon-warn:before { content: "\e93b"; }
+.icon-word:before { content: "\e944"; }
+.icon-zoom-equal:before { content: "\e93c"; }
+.icon-zoom-in:before { content: "\e93d"; }
+.icon-zoom-out:before { content: "\e94d"; }
+
+.icon-muted:before {
+  color: $muted-text-color;
+}
+
+// Color Modifications
+
+.icon-add:before,
+.icon-create:before,
+.icon-tag_add:before,
+.icon-word:before {
+  color: $blue;
+}
+
+.icon-warning:before,
+.icon-warn:before,
+.icon-error:before,
+.element-header .icon-not-visible:before {
+  color: $red;
+  opacity: 1;
+}
+
+.icon-public:before,
+.icon-true:before,
+.icon-checkmark:before,
+.icon-notice:before,
+.icon-tick:before,
+.icon-ok:before,
+.icon-excel:before {
+  color: $green;
+  opacity: 1;
+}
+
+.icon-restricted:before,
+.dirty .element-header .icon-edit:before {
+  color: $orange;
+  opacity: 1;
+}
+
+.page_status .icon-visible:before,
+.icon-image:before {
+  color: $yellow;
+  opacity: 1;
+}
+
+.icon-pdf:before {
+  color: $warm-red;
+  opacity: 1;
+}
+
+.icon-video:before {
+  color: $violet;
+  opacity: 1;
+}
+
+.icon-audio:before,
+.icon-psd:before {
+  color: $cold-blue;
+  opacity: 1;
+}
+
+.icon-archive:before {
+  color: $brown;
+  opacity: 1;
+}
+
+.icon-drag:before {
+  opacity: .45;
+}
+
+.icon-not-visible:before,
+.icon-not-public:before,
+.icon-not-restricted:before {
+  color: $muted-text-color;
+}
+
+
+// Other modifications
+
+[class^="icon-"] + span,
+[class*=" icon-"] + span {
+  margin: 0 .6em -1px .3em;
+}
+
+span + span.page_status,
+span + span.sitemap_pagename_link {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.icon-angle-left:before { transform: scaleX(-1); }
+.icon-visit-page:before { width: 2em; }
+.icon-search:before { margin-left: .4em; }
+#clipboard_items .icon-destroy:before { vertical-align: top; }
+
+.icon-search {
+  position: absolute;
+  top: 50%;
+  left: 0.4em;
+  transform: translateY(-50%);
+}
+
+
+// Custom icon styles
+
+.icon-online,
+.icon-offline {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.icon-online {
+  background-color: $green;
+}
+.icon-offline { background-color: $medium-dark-gray; }

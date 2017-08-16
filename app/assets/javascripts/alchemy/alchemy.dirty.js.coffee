@@ -13,8 +13,8 @@ $.extend Alchemy,
     $element = $(element)
     $element.addClass('dirty')
     $element
-      .find('> .element-header .icon[class*="element_"]')
-      .addClass('element_dirty')
+      .find('> .element-header .element-handle [class*="icon-"]')
+      .addClass('icon-edit')
     window.onbeforeunload = @pageUnload
 
   pageUnload: ->
@@ -24,7 +24,7 @@ $.extend Alchemy,
   setElementClean: (element) ->
     $element = $(element)
     $element.removeClass('dirty')
-    $element.find('> .element-header .icon').removeClass('element_dirty')
+    $element.find('> .element-header .icon').removeClass('icon-edit')
     $element.find('> .element-content .dirty').removeClass('dirty')
     window.onbeforeunload = undefined
 

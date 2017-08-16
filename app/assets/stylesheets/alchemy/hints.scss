@@ -1,9 +1,7 @@
 .hint-with-icon {
   @extend .with-hint;
   display: inline-block;
-  width: 16px;
-  height: 16px;
-  margin: 0 $default-margin;
+  margin-left: -$default-margin;
 
   .toolbar_buttons & {
     margin: 0 2*$default-margin;
@@ -27,12 +25,10 @@
 
   > .hint-bubble {
     visibility: hidden;
-    background: $light_yellow;
     @extend %rounded-border;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, .3);
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, .2), 0px 5px 15px rgba(0, 0, 0, .2);
     position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
+    left: -3*$default-padding;
     top: 20px;
     z-index: 100;
     padding: 8px;
@@ -45,18 +41,24 @@
     opacity: 0;
     transition: .3s;
     pointer-events: none;
+    @include hint-colors();
 
     &:before {
       content: '';
       position: absolute;
       top: -8px;
-      left: 50%;
+      left: 23px;
       transform: translateX(-50%);
       width: 0px;
       height: 0px;
       border-style: solid;
       border-width: 0 8px 8px 8px;
-      border-color: transparent transparent $light_yellow transparent;
     }
+
+    &:before { border-width: 0 8px 8px 8px; }
   }
+}
+
+.icon-warning > .hint-bubble {
+  @include hint-colors($red);
 }

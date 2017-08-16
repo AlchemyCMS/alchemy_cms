@@ -1,7 +1,7 @@
 <div class="button_with_label<%= options[:active] ? ' active' : '' %>">
-<% if options[:dialog] %>
+<% if options[:dialog] ||  %>
   <%= link_to_dialog(
-    render_icon(options[:icon]),
+    render_icon(options[:icon]) + content_tag('span', options[:label]),
     options[:url],
     options[:dialog_options],
     {

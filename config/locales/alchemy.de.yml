@@ -245,7 +245,7 @@ de:
     "Please log in": "Bitte melden Sie sich an."
     "Please seperate the tags with commata": "* Die Tags bitte mit Komma getrennt eingeben."
     "Properties": "Eigenschaften"
-    "Publish page": "veröffentlichen"
+    "Publish page": "Veröffentlichen"
     "Read the License": "Lizenz lesen"
     "Redirects to": "Leitet weiter auf"
     "Reload Preview": "Vorschau neuladen"
@@ -875,10 +875,10 @@ de:
         country_code: "Länderkürzel"
         language_code: "Sprachkürzel"
         default: "Standardsprache"
-        frontpage_name: "Name der Startseite"
+        frontpage_name: "Name Startseite"
         name: "Name"
-        page_layout: "Seitentyp der Startseite"
-        public: "Sprache veröffentlichen"
+        page_layout: "Seitentyp Startseite"
+        public: "Veröffentlicht"
         locale: Lokalisierung
         code: ISO-Code
 

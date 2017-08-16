@@ -91,25 +91,25 @@
   }
 
   &:hover .sitemap_pagename_link {
-    background-color: $light_yellow;
+    background-color: $light-yellow;
   }
 }
 
 .sitemap_left_images {
-  @extend .left-rounded-border;
   position: relative;
   width: 16px;
   height: $sitemap-line-height;
   line-height: $sitemap-line-height - 2px;
   float: left;
-  padding: 0 2*$default-padding;
-  background-color: rgba(#fff, .75);
+  padding: 0 4*$default-padding;
 }
 
 .sitemap_right_tools {
   height: $sitemap-line-height;
   padding: 0 2*$default-padding;
   float: right;
+
+  a:hover { @include link-hover-bg; }
 
   .sitemap_tool {
     float: left;
@@ -119,8 +119,8 @@
     text-align: center;
     margin: 0;
 
-    &.disabled .icon {
-      opacity: 0.25;
+    &.disabled a {
+      opacity: 0.4;
       filter: grayscale(100%);
     }
 
@@ -162,9 +162,6 @@ ul#sitemap {
     position: absolute;
     left: -23px;
     top: 8px;
-
-    &.collapsed { @extend .icon.expand.small }
-    &.folded { @extend .icon.collapse.small }
   }
 
   ul {
@@ -177,7 +174,7 @@ ul#sitemap {
 
     .selected_page a {
       background-color: $linked-color;
-      color: $dark-gray;
+      color: $xdark-gray;
     }
 
     li {
@@ -199,16 +196,18 @@ ul.list .sitemap_sitename {
   height: $sitemap-line-height;
   line-height: $sitemap-line-height;
   overflow: hidden;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0,0,0,0.2);
 }
 
 .page_infos {
   @extend .right-rounded-border;
-  background-color: rgba(#fff, .75);
+  background-color: white;
   border-left: 1px solid $light-gray;
   float: right;
   height: $sitemap-line-height;
   line-height: $sitemap-line-height;
   padding: 0 $default-padding;
+  box-shadow: 3px 5px 10px rgba(0, 0, 0, 0.04), 0 0 1px rgba(0,0,0,0.2);
 
   .page_status {
     padding: 0 $default-padding;
@@ -283,6 +282,13 @@ ul.list .sitemap_sitename {
   .page_status .icon {
     vertical-align: middle;
   }
+
+  .ui-sortable-handle {
+    display: block;
+    float: left;
+    width: 30px;
+    text-align: center;
+  }
 }
 
 a.folder_link {
@@ -345,7 +351,7 @@ a.folder_link {
     width: 16px;
     height: 16px;
     cursor: pointer;
-    @extend .icon-cross;
+    @extend .icon-close;
   }
 }
 

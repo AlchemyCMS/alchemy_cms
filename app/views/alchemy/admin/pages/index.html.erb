@@ -5,7 +5,7 @@
   <% if can?(:flush, Alchemy::Page) %>
   <div class="button_with_label">
     <%= link_to(
-      render_icon('flush'),
+      render_icon('publish'),
       alchemy.flush_admin_pages_path,
       :remote => true,
       :method => :post,
@@ -46,7 +46,7 @@
     class: 'thin_border js_filter_field search_input_field',
     placeholder: Alchemy.t(:search),
     id: nil %>
-  <%= render_icon :search %>
+  <%= render_icon "search" %>
   <%= link_to('', '#', {
     class: "js_filter_field_clear",
     title: Alchemy.t(:click_to_show_all)

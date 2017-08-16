@@ -1,30 +1,30 @@
 <tr class="<%= cycle('even', 'odd') %>">
-  <td class="icon"><%= render_icon :tag %></td>
+  <td class="list-icon"><%= render_icon("tag small") %></td>
   <td class="name"><%= tag.name %></td>
   <td class="count">
     <%= tag.taggings.collect(&:taggable).collect { |t| t.class.model_name.human }.uniq.join(', ') %>
   </td>
   <td class="count"><%= tag.taggings.count %></td>
   <td class="tools">
-    <% if can?(:destroy, Alchemy::Tag) %>
-    <%= delete_button admin_tag_path(tag), {
-      message: Alchemy.t(:do_you_really_want_to_delete_this_tag?),
-      icon: 'tag_delete',
-      title: Alchemy.t(:delete_tag)
-    } %>
-    <% end %>
     <% if can?(:edit, Alchemy::Tag) %>
-    <%= link_to_dialog '',
-      edit_admin_tag_path(tag),
-      {
-        title: Alchemy.t(:edit_tag),
-        size: '360x410'
-      },
-      {
-        title: Alchemy.t(:edit_tag),
-        class: 'icon tag_edit'
-      }
-    %>
+      <%= link_to_dialog '',
+        edit_admin_tag_path(tag),
+        {
+          title: Alchemy.t(:edit_tag),
+          size: '360x410'
+        },
+        {
+          title: Alchemy.t(:edit_tag),
+          class: 'icon-edit'
+        }
+      %>
+    <% end %>
+    <% if can?(:destroy, Alchemy::Tag) %>
+      <%= delete_button admin_tag_path(tag), {
+        message: Alchemy.t(:do_you_really_want_to_delete_this_tag?),
+        icon: 'destroy',
+        title: Alchemy.t(:delete_tag)
+      } %>
     <% end %>
   </td>
 </tr>

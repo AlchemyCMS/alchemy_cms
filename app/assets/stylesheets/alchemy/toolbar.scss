@@ -2,7 +2,7 @@
   z-index: 10;
   @extend %gradiated-toolbar;
   margin-right: 0px;
-  border-bottom: $default-border;
+  border-bottom: 1px solid $medium-dark-gray;
   position: relative;
 
   .button_with_label {
@@ -79,6 +79,7 @@
 #overlay_toolbar {
   @extend %gradiated-toolbar;
   border-bottom: $default-border;
+  border-left: 1px solid $medium-dark-gray;
 
   .button {
     width: 25px;

@@ -1,24 +1,23 @@
 table {
   border-style: none;
-  border-spacing: 0 $default-padding;
+  border-spacing: 0;
   padding: 0;
   font-size: inherit;
   width: 100%;
 }
 
+thead { background: $medium-gray; }
+
+td, th { border-bottom: 1px solid $medium-gray; }
+
 .list td, .list th {
-  padding: $default-padding 2*$default-padding;
+  padding: 1.5*$default-padding 2*$default-padding;
   vertical-align: top;
   line-height: 18px;
-  border-right: 1px solid $medium-gray;
 
   &.wrap-text {
     white-space: normal !important;
   }
-}
-
-.list td:first-child, .list th:first-child {
-  border-left: 1px solid $medium-gray
 }
 
 .list th {
@@ -30,28 +29,20 @@ table {
 }
 
 .floatThead-container {
-  background: $light-gray;
   overflow: visible !important; // the javascript author thought that, but ....
-
-  &:after {
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    @include background(linear-gradient(top, $light-gray 0%, rgba($light-gray, .0) 100%));
-    content: '';
-  }
 }
 
 th {
   white-space: nowrap;
   text-align: left;
   vertical-align: top;
-  background: $light-gray;
+  background: $medium-gray;
   border-bottom: 1px solid $medium-gray;
   font-weight: normal;
   text-transform: uppercase;
+  letter-spacing: .075em;
+  font-size: 10px;
+  color: $xdark-gray;
 
   i {
     font-style: normal;
@@ -77,17 +68,14 @@ th {
   }
 }
 
-tr.odd td {
-  background-color: #eaf3f9;
-}
 
-tr.even td {
+td {
   background-color: white;
 }
 
+
 .list tr .tools {
   width: 40px;
-  background: $light-gray;
   border-top: 0 none;
   border-right: 0 none;
   white-space: nowrap;
@@ -105,13 +93,21 @@ td.heading {
 }
 
 .list td.icon, .list th.icon {
-  background-color: $light-gray;
   background-image: none;
   border-left: 0 none;
-  padding: 0;
   border-right: 1px solid $medium-gray;
   text-align: center;
   display: table-cell; // reset the .icon display: inline-block
+}
+
+.list td.list-icon, .list th.icon {
+  background-image: none;
+  border-left: 0 none;
+  padding: 0;
+  // border-right: 1px solid $medium-gray;
+  text-align: center;
+  vertical-align: middle;
+  width: 40px;
 }
 
 .list .tools .icon, .list td.icon .icon {
@@ -130,7 +126,7 @@ td.heading {
 }
 
 .list tr:hover td {
-  background-color: $light_yellow;
+  background-color: $light-yellow;
 }
 
 td, th {
