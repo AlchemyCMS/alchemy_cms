@@ -498,10 +498,10 @@ $datepicker_day_color: $text-color !default;
   position: relative;
   padding: 4px 17px 4px 33px;
   border: 1px solid #d7d8da;
-  @include background(linear-gradient(top, #fff 0%, #f4f8fa 73%));
+  background: linear-gradient(#fff, #f4f8fa 73%);
 }
 
 .xdsoft_datetimepicker .blue-gradient-button:hover, .xdsoft_datetimepicker .blue-gradient-button:focus, .xdsoft_datetimepicker .blue-gradient-button:hover span, .xdsoft_datetimepicker .blue-gradient-button:focus span {
   color: #454551;
-  @include background(linear-gradient(top, #f4f8fa 0%, #FFF 73%));
+  background: linear-gradient(#f4f8fa, #fff 73%);
 }

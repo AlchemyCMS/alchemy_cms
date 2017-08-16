@@ -157,7 +157,7 @@ kbd {
 }
 
 .disable-user-select {
-  @include user-select(none);
+  user-select: none;
 }
 
 .border-box-sizing {
@@ -516,7 +516,7 @@ div.browse {
   border: 0 none;
   background: #fff;
   border-right: $default-border;
-  @include transition(200ms ease-in-out);
+  transition: 200ms ease-in-out;
 
   .collapsed-menu & {
     left: $collapsed-main-menu-width;

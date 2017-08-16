@@ -48,11 +48,9 @@
   font-size: 12px;
   line-height: 12px;
   height: $default-form-field-height;
-  @include transition(
-    box-shadow 0.25s ease-in-out,
-    background-color 0.25s ease-in-out,
-    border 0.25s ease-in-out
-  );
+  transition-property: box-shadow, background-color, border;
+  transition-duration: 0.25s;
+  transition-timing-function: ease-in-out;
 
   &:focus {
     @extend %blue-focus-style;

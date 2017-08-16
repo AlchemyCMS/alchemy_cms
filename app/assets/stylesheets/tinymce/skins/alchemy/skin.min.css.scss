@@ -33,7 +33,7 @@
 }
 
 .mce-container *[unselectable] {
-  @include user-select(none);
+  user-select: none;
 }
 
 .mce-container::-webkit-scrollbar {
@@ -630,15 +630,15 @@ body .mce-abs-layout-item {
   *display: inline;
   *zoom: 1;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
-  @include background(linear-gradient($button-gradient-first-color, $button-gradient-second-color));
+  background: linear-gradient($button-gradient-first-color, $button-gradient-second-color);
 
   &:focus,
   &:hover {
     color: #333;
-    @include background(linear-gradient( darken($button-gradient-first-color, 5%), darken($button-gradient-second-color, 5%) ));
+    background: linear-gradient(darken($button-gradient-first-color, 5%), darken($button-gradient-second-color, 5%));
 
     button {
-      @include background(inherit);
+      background: inherit;
     }
   }
 

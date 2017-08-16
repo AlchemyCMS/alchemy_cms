@@ -6,7 +6,7 @@
   width: 400px;
   height: auto;
   border-left: $default-border;
-  @include transition(200ms ease-in-out);
+  transition: 200ms ease-in-out;
 }
 
 #element_area {
