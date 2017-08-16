@@ -10,7 +10,7 @@ rvm:
 - 2.3.0
 branches:
   only:
-    - master
+    - 3.6-stable
 
 before_install:
   - "phantomjs --version"
