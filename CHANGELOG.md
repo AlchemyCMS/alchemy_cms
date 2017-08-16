@@ -2,6 +2,16 @@
 
 ## 4.0.0 (unreleased)
 
+* Removed `merge_params` from `Alchemy::Admin::BaseHelper`
+  Use `ActionController::Parameters#merge` instead
+* Removed `merge_params_only` from `Alchemy::Admin::BaseHelper`
+  Use methods from `ActionController::Parameters` instead
+* Removed `merge_params_without` from `Alchemy::Admin::BaseHelper`
+  Use `ActionController::Parameters#delete_if` instead
+* Removed `tag_list_tag_active?` from `Alchemy::Admin::TagsHelper`
+  Use `filtered_by_tag?` instead
+* Removed `add_to_tag_filter` and `remove_from_tag_filter` from `Alchemy::Admin::TagsHelper`
+  Use `tags_for_filter` and pass the `current` tag instead
 * Removes the possibility to pass options param as JSON string. [#1291](https://github.com/AlchemyCMS/alchemy_cms/pull/1291) by [tvdeyen](https://github.com/tvdeyen)
   Pass normal params instead.
 * Removed `redirect_back_or_to_default` from `Alchemy::Admin::BaseController`

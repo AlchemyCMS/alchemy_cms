@@ -32,62 +32,6 @@ module Alchemy
       end
     end
 
-    describe "#merge_params" do
-      before do
-        allow(controller).to receive(:params).and_return({first: '1', second: '2'})
-      end
-
-      it "returns a hash that contains the current params and additional params given as attributes" do
-        expect(helper.merge_params(third: '3', fourth: '4')).to eq({first: '1', second: '2', third: '3', fourth: '4'})
-      end
-    end
-
-    describe "#merge_params_without" do
-      before do
-        allow(controller).to receive(:params).and_return({first: '1', second: '2'})
-      end
-
-      it "can delete a single param" do
-        expect(helper.merge_params_without(:second)).to eq({first: '1'})
-      end
-
-      it "can delete several params" do
-        expect(helper.merge_params_without([:first, :second])).to eq({})
-      end
-
-      it "can delete a param and add new params at the same time" do
-        expect(helper.merge_params_without([:first], {third: '3'})).to eq({second: '2', third: '3'})
-      end
-
-      it "should not change params" do
-        helper.merge_params_without([:first])
-        expect(controller.params).to eq({first: '1', second: '2'})
-      end
-    end
-
-    describe "#merge_params_only" do
-      before do
-        allow(controller).to receive(:params).and_return({first: '1', second: '2', third: '3'})
-      end
-
-      it "can keep a single param" do
-        expect(helper.merge_params_only(:second)).to eq({second: '2'})
-      end
-
-      it "can keep several params" do
-        expect(helper.merge_params_only([:first, :second])).to eq({first: '1', second: '2'})
-      end
-
-      it "can keep a param and add new params at the same time" do
-        expect(helper.merge_params_only([:first], {third: '3'})).to eq({first: '1', third: '3'})
-      end
-
-      it "should not change params" do
-        helper.merge_params_only([:first])
-        expect(controller.params).to eq({first: '1', second: '2', third: '3'})
-      end
-    end
-
     describe '#toolbar_button' do
       context "with permission" do
         before { allow(helper).to receive(:can?).and_return(true) }

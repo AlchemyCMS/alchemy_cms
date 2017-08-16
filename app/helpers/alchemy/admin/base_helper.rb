@@ -380,34 +380,6 @@ module Alchemy
           method.to_sym, {type: "text", class: type, "data-datepicker-type" => type, value: value}.merge(html_options)
       end
 
-      # Merges the params-hash with the given hash
-      def merge_params(p = {})
-        params.merge(p).delete_if { |_k, v| v.blank? }
-      end
-
-      # Deletes one or several params from the params-hash and merges some new params in
-      def merge_params_without(excludes, p = {})
-        current_params = params.clone.symbolize_keys
-        if excludes.is_a?(Array)
-          excludes.map { |i| current_params.delete(i.to_sym) }
-        else
-          current_params.delete(excludes.to_sym)
-        end
-        current_params.merge(p).delete_if { |_k, v| v.blank? }
-      end
-
-      # Deletes all params from the params-hash except the given ones and merges some new params in
-      def merge_params_only(includes, p = {})
-        current_params = params.clone.symbolize_keys
-        if includes.is_a?(Array)
-          symbolized_includes = includes.map(&:to_sym)
-          current_params.delete_if { |k, _v| !symbolized_includes.include?(k) }
-        else
-          current_params.delete_if { |k, _v| k != includes.to_sym }
-        end
-        current_params.merge(p).delete_if { |_k, v| v.blank? }
-      end
-
       # Render a hint icon with tooltip for given object.
       # The model class needs to include the hints module
       def render_hint_for(element)

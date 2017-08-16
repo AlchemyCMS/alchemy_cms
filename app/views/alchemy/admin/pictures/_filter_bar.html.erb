@@ -1,5 +1,3 @@
-<% params_to_keep = [:size, :tagged_with, :query, :element_id, :options, :content_id, :_] %>
-
 <div id="filter_bar">
   <h2><%= Alchemy.t('Filter') %></h2>
   <%= select_tag(
@@ -19,7 +17,7 @@
   $(function() {
     $('#picture_filter').on('change', function(e) {
       var $this = $(this);
-      var url = '<%= alchemy.admin_pictures_path(merge_params_only(params_to_keep)).html_safe %>';
+      var url = '<%= alchemy.admin_pictures_path(search_filter_params.except(:filter).to_h) %>';
       if ($this.data('remote') === true) {
         $.get(url, {filter: $this.val()}, null, 'script');
       } else {
