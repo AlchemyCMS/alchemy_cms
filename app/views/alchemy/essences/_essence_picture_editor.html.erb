@@ -1,6 +1,6 @@
 <%= content_tag :div, id: content.dom_id, data: {"content-id" => content.id}, class: [
     "essence_picture_editor",
-    options[:dragable] ? "dragable_picture" : nil,
+    options[:sortable] ? "draggable_picture" : nil,
     options[:grouped] ? nil : "content_editor"
   ].compact.join(" ") do %>
   <% unless options[:grouped] %><%= content_label(content) %><% end %>
@@ -18,7 +18,7 @@
       <% end %>
     </span>
     <%- if content.ingredient -%>
-      <div class="picture_handle" title="<%= Alchemy.t(:drag_to_sort) if options[:dragable] %>"></div>
+      <div class="picture_handle" title="<%= Alchemy.t(:drag_to_sort) if options[:sortable] %>"></div>
     <%- end -%>
     <div class="picture_image">
       <div class="thumbnail_background<%= ' missing' if content.ingredient.nil? %>">

@@ -61,8 +61,7 @@ module Alchemy
 
       def options_for_picture_gallery
         @gallery_pictures = @element.contents.gallery_pictures
-        @dragable = @gallery_pictures.size > 1
-        @options.merge(dragable: @dragable)
+        @options.merge(sortable: @gallery_pictures.size > 1)
       end
 
       def essence_editor_locals

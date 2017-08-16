@@ -1,14 +1,12 @@
 (function() {
-  var $picture_editor;
+  var $picture_editor = $('#element_<%= @element.id %>_contents');
 
   $('#essence_picture_<%= @content_id %>').remove();
 
-  <% if max_image_count.present? && @essence_pictures.count < max_image_count.to_i -%>
-
-    $picture_editor = $('#element_<%= @element.id %>_contents');
+  <% if max_image_count.present? && @essence_pictures.size < max_image_count.to_i -%>
 
     if ($('div.add_picture', $picture_editor).length === 0) {
-      $('#element_<%= @element.id %>_contents').append('<%= j(
+      $picture_editor.append('<%= j(
         render "alchemy/admin/elements/add_picture",
           element: @element,
           options: @options
@@ -17,7 +15,12 @@
 
   <% end -%>
 
-  Alchemy.SortableContents('#element_<%= @element.id %>_contents', '<%= form_authenticity_token %>');
+  <% if @essence_pictures.size > 1 %>
+    Alchemy.SortableContents($picture_editor.selector, '<%= form_authenticity_token %>');
+  <% else %>
+    $picture_editor.find('.draggable_picture').removeClass('draggable_picture');
+    $picture_editor.sortable('destroy');
+  <% end %>
   Alchemy.reloadPreview();
   Alchemy.pleaseWaitOverlay(false);
 

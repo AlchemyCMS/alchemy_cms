@@ -79,14 +79,14 @@ $.extend Alchemy,
 
   SortableContents: (selector, token) ->
     $(selector).sortable
-      items: "div.dragable_picture"
+      items: "div.draggable_picture"
       handle: "div.picture_handle"
       opacity: 0.5
       cursor: "move"
       tolerance: "pointer"
       containment: "parent"
       update: (event, ui) ->
-        ids = $.map $(this).children("div.dragable_picture"), (child) ->
+        ids = $.map $(this).children("div.draggable_picture"), (child) ->
           child.id.replace /essence_picture_/, ""
         $(event.originalTarget).css "cursor", "progress"
         $.ajax
