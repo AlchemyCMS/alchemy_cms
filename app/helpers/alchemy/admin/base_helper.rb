@@ -385,18 +385,6 @@ module Alchemy
         params.merge(p).delete_if { |_k, v| v.blank? }
       end
 
-      # Deletes all params from the params-hash except the given ones and merges some new params in
-      def merge_params_only(includes, p = {})
-        current_params = params.clone.symbolize_keys
-        if includes.is_a?(Array)
-          symbolized_includes = includes.map(&:to_sym)
-          current_params.delete_if { |k, _v| !symbolized_includes.include?(k) }
-        else
-          current_params.delete_if { |k, _v| k != includes.to_sym }
-        end
-        current_params.merge(p).delete_if { |_k, v| v.blank? }
-      end
-
       # Render a hint icon with tooltip for given object.
       # The model class needs to include the hints module
       def render_hint_for(element)
