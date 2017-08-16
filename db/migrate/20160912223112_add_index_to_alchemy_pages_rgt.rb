@@ -1,4 +1,4 @@
-class AddIndexToAlchemyPagesRgt < ActiveRecord::Migration
+class AddIndexToAlchemyPagesRgt < ActiveRecord::Migration[4.2]
   def up
     add_index :alchemy_pages, :rgt
   end

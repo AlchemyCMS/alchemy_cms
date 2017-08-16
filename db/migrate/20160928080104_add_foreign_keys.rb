@@ -1,4 +1,4 @@
-class AddForeignKeys < ActiveRecord::Migration
+class AddForeignKeys < ActiveRecord::Migration[4.2]
   def change
     add_foreign_key :alchemy_cells, :alchemy_pages,
       column: :page_id,

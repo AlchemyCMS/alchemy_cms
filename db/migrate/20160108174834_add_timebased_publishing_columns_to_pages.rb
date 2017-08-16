@@ -1,4 +1,4 @@
-class AddTimebasedPublishingColumnsToPages < ActiveRecord::Migration
+class AddTimebasedPublishingColumnsToPages < ActiveRecord::Migration[4.2]
   def up
     add_column :alchemy_pages, :public_on, :datetime
     add_column :alchemy_pages, :public_until, :datetime

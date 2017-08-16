@@ -1,4 +1,4 @@
-class CreateDummyUsers < ActiveRecord::Migration
+class CreateDummyUsers < ActiveRecord::Migration[4.2]
   def change
     create_table :dummy_users do |t|
       t.string :email

@@ -1,4 +1,4 @@
-class AddLocaleToAlchemyLanguages < ActiveRecord::Migration
+class AddLocaleToAlchemyLanguages < ActiveRecord::Migration[4.2]
   def change
     add_column :alchemy_languages, :locale, :string
     execute \
