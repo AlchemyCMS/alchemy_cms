@@ -2,6 +2,8 @@
 
 ## 4.0.0 (unreleased)
 
+* Removed `merge_params_without` from `Alchemy::Admin::BaseHelper`
+  Use `ActionController::Parameters#delete_if` instead
 * Removed `tag_list_tag_active?` from `Alchemy::Admin::TagsHelper`
   Use `filtered_by_tag?` instead
 * Removed `add_to_tag_filter` and `remove_from_tag_filter` from `Alchemy::Admin::TagsHelper`

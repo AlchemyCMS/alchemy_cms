@@ -385,17 +385,6 @@ module Alchemy
         params.merge(p).delete_if { |_k, v| v.blank? }
       end
 
-      # Deletes one or several params from the params-hash and merges some new params in
-      def merge_params_without(excludes, p = {})
-        current_params = params.clone.symbolize_keys
-        if excludes.is_a?(Array)
-          excludes.map { |i| current_params.delete(i.to_sym) }
-        else
-          current_params.delete(excludes.to_sym)
-        end
-        current_params.merge(p).delete_if { |_k, v| v.blank? }
-      end
-
       # Deletes all params from the params-hash except the given ones and merges some new params in
       def merge_params_only(includes, p = {})
         current_params = params.clone.symbolize_keys
