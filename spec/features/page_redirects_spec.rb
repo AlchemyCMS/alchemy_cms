@@ -122,68 +122,6 @@ module Alchemy
       end
 
       context "if requested url is the index url" do
-        context 'and redirect_index is set to true' do
-          before do
-            allow(Config).to receive(:get) do |arg|
-              arg == :redirect_index ? true : Config.parameter(arg)
-            end
-            if Alchemy.version == "4.0.0.rc1"
-              raise "Remove deprecated `redirect_index` configuration!"
-            end
-            @silenced = ActiveSupport::Deprecation.silenced
-            ActiveSupport::Deprecation.silenced = true
-          end
-
-          after do
-            ActiveSupport::Deprecation.silenced = @silenced
-          end
-
-          context "and if page locale is the default locale" do
-            it "redirects to the default language root page without prefixed locale" do
-              visit '/'
-              expect(page.current_path).to eq('/home')
-            end
-
-            context "having additional parameter" do
-              it "redirects to the default language root page with prefixed locale while keeping the additional params" do
-                visit '/?search=kitten'
-                expect(page.current_url).to eq('http://www.example.com/home?search=kitten')
-              end
-            end
-          end
-
-          context "and if page locale is not the default locale" do
-            before do
-              allow(::I18n).to receive(:default_locale).and_return(:de)
-            end
-
-            it "redirects to the default language root page with prefixed locale" do
-              visit '/'
-              expect(page.current_path).to eq('/en/home')
-            end
-
-            context "having additional parameter" do
-              it "redirects to the default language root page with prefixed locale while keeping the additional params" do
-                visit '/?search=kitten'
-                expect(page.current_url).to eq('http://www.example.com/en/home?search=kitten')
-              end
-            end
-          end
-        end
-
-        context 'and redirect_index is set to false' do
-          before do
-            allow(Config).to receive(:get) do |arg|
-              arg == :redirect_index ? false : Config.parameter(arg)
-            end
-          end
-
-          it "does not redirect" do
-            visit '/'
-            expect(page.current_path).to eq('/')
-          end
-        end
-
         context 'and redirect_to_public_child is enabled' do
           before do
             allow(Config).to receive(:get) do |arg|
@@ -227,65 +165,25 @@ module Alchemy
       end
 
       context "if requested url is only the language code" do
-        context 'and redirect_index is set to true' do
+        context "if requested locale is the default locale" do
           before do
-            allow(Config).to receive(:get) do |arg|
-              arg == :redirect_index ? true : Config.parameter(arg)
-            end
-            if Alchemy.version == "4.0.0.rc1"
-              raise "Remove deprecated `redirect_index` configuration!"
-            end
-            @silenced = ActiveSupport::Deprecation.silenced
-            ActiveSupport::Deprecation.silenced = true
+            allow(::I18n).to receive(:default_locale) { default_language.code }
           end
 
-          after do
-            ActiveSupport::Deprecation.silenced = @silenced
-          end
-
-          context "if page locale is the default locale" do
-            it "redirects to pages url without locale prefixed" do
-              visit "/#{default_language.code}"
-              expect(page.current_path).to eq("/home")
-            end
-          end
-
-          context "if page locale is not the default locale" do
-            it "redirects to the default language root url with prefixed locale" do
-              allow(::I18n).to receive(:default_locale).and_return(:de)
-              visit "/#{default_language.code}"
-              expect(page.current_path).to eq('/en/home')
-            end
+          it "redirects to '/'" do
+            visit "/#{default_language.code}"
+            expect(page.current_path).to eq('/')
           end
         end
 
-        context 'and redirect_index is set to false' do
+        context "if page locale is not the default locale" do
           before do
-            allow(Config).to receive(:get) do |arg|
-              arg == :redirect_index ? false : Config.parameter(arg)
-            end
+            allow(::I18n).to receive(:default_locale) { :de }
           end
 
-          context "if requested locale is the default locale" do
-            before do
-              allow(::I18n).to receive(:default_locale) { default_language.code }
-            end
-
-            it "redirects to '/'" do
-              visit "/#{default_language.code}"
-              expect(page.current_path).to eq('/')
-            end
-          end
-
-          context "if page locale is not the default locale" do
-            before do
-              allow(::I18n).to receive(:default_locale) { :de }
-            end
-
-            it "does not redirect" do
-              visit "/#{default_language.code}"
-              expect(page.current_path).to eq("/#{default_language.code}")
-            end
+          it "does not redirect" do
+            visit "/#{default_language.code}"
+            expect(page.current_path).to eq("/#{default_language.code}")
           end
         end
       end
@@ -370,24 +268,6 @@ module Alchemy
           it "redirects to normal url" do
             visit "/en"
             expect(page.current_path).to eq("/")
-          end
-        end
-
-        context "when redirect_index is enabled" do
-          before do
-            allow(Config).to receive(:get) do |arg|
-              arg == :redirect_index ? true : Config.parameter(arg)
-            end
-            if Alchemy.version == "4.0.0.rc1"
-              raise "Remove deprecated `redirect_index` configuration!"
-            end
-          end
-
-          it "redirects to pages url" do
-            ActiveSupport::Deprecation.silence do
-              visit '/'
-              expect(page.current_path).to eq('/home')
-            end
           end
         end
       end

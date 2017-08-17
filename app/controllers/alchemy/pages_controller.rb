@@ -51,13 +51,7 @@ module Alchemy
     # If no public page can be found it renders a 404 error.
     #
     def index
-      if Alchemy::Config.get(:redirect_index)
-        ActiveSupport::Deprecation.warn("The configuration option `redirect_index` is deprecated and will be removed with the release of Alchemy v4.0")
-        raise "Remove deprecated `redirect_index` configuration!" if Alchemy.version == "4.0.0.rc1"
-        redirect_permanently_to page_redirect_url
-      else
-        show
-      end
+      show
     end
 
     # == The show action gets invoked if one requests '/:urlname' or '/:locale/:urlname'
