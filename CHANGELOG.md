@@ -2,6 +2,8 @@
 
 ## 4.0.0.rc2 (2017-08-17)
 
+* Removed deprecated picture url helpers `show_alchemy_picture_path` and `show_alchemy_picture_url`
+  Use `picture.url` instead.
 * Removed deprecated pages helper module.
 * Removed deprecated translation methods `_t` and `Alchemy::I18n.t`.
   Use `Alchemy.t` instead.
