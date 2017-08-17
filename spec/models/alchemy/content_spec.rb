@@ -265,26 +265,7 @@ module Alchemy
         end
       end
 
-      context 'defined as preview content via take_me_for_preview' do
-        before do
-          expect(content).to receive(:definition).at_least(:once).and_return({
-            'take_me_for_preview' => true
-          })
-        end
-
-        it "returns true" do
-          ActiveSupport::Deprecation.silence do
-            expect(content.preview_content?).to be true
-          end
-        end
-
-        it "display deprecation warning" do
-          expect(ActiveSupport::Deprecation).to receive(:warn)
-          content.preview_content?
-        end
-      end
-
-      context 'defined as preview content via as_element_title' do
+      context 'defined as preview content' do
         before do
           expect(content).to receive(:definition).at_least(:once).and_return({
             'as_element_title' => true

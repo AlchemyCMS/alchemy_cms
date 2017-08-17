@@ -2,6 +2,8 @@
 
 ## 4.0.0.rc2 (2017-08-17)
 
+* Remove deprecated `take_me_for_preview` content definition option
+  Use `as_element_title` instead.
 * Removed deprecated picture url helpers `show_alchemy_picture_path` and `show_alchemy_picture_url`
   Use `picture.url` instead.
 * Removed deprecated pages helper module.
