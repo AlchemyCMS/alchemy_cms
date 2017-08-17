@@ -5,7 +5,7 @@
 * Removed deprecated `redirect_index` configuration
   Use `redirect_to_public_child` configuration instead.
 
-## 4.0.0.rc1 (2017-0817)
+## 4.0.0.rc1 (2017-08-17)
 
 * Removed `merge_params` from `Alchemy::Admin::BaseHelper`
   Use `ActionController::Parameters#merge` instead
