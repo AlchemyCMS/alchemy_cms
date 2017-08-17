@@ -22,6 +22,11 @@
 
 * Rails 5
 
+## 3.6.1 (2017-08-16)
+
+* Do not ask `systempage?` everytime we load the page definition [#1239](https://github.com/AlchemyCMS/alchemy_cms/pull/1283) by [tvdeyen](https://github.com/tvdeyen)
+  This speeds up rendering large sitemaps by about 6 times.
+
 ## 3.6.0 (2017-06-20)
 
 __Notable Changes__
