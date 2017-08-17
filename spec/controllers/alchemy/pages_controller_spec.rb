@@ -28,7 +28,6 @@ module Alchemy
     describe "#index" do
       before do
         default_language_root
-        stub_alchemy_config(:redirect_index, false)
       end
 
       it 'renders :show template' do
