@@ -2,6 +2,7 @@
 
 ## 4.0.0.rc2 (2017-08-17)
 
+* Removed deprecated pages helper module.
 * Removed deprecated translation methods `_t` and `Alchemy::I18n.t`.
   Use `Alchemy.t` instead.
 * Removed deprecated `redirect_index` configuration
