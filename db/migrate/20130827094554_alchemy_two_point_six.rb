@@ -5,7 +5,7 @@
 # In order to upgrade from an old version of Alchemy, you have to run all migrations from
 # each version you missed up to the version you want to upgrade to, before running this migration.
 #
-class AlchemyTwoPointSix < ActiveRecord::Migration
+class AlchemyTwoPointSix < ActiveRecord::Migration[4.2]
   def up
     unless table_exists?('alchemy_attachments')
       create_table "alchemy_attachments" do |t|
