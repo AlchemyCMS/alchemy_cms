@@ -19,11 +19,6 @@ module Alchemy
 
   module I18n
     class << self
-      def t(msg, *args)
-        ActiveSupport::Deprecation.warn('`Alchemy::I18n.t` is deprecated! Use `Alchemy.t` instead.', caller.unshift)
-        Alchemy::I18n.translate(msg, *args)
-      end
-
       # Alchemy translation methods
       #
       # Instead of having to translate strings and defining a default value:

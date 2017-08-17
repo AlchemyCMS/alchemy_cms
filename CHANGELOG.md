@@ -2,6 +2,8 @@
 
 ## 4.0.0.rc2 (2017-08-17)
 
+* Removed deprecated translation methods `_t` and `Alchemy::I18n.t`.
+  Use `Alchemy.t` instead.
 * Removed deprecated `redirect_index` configuration
   Use `redirect_to_public_child` configuration instead.
 
