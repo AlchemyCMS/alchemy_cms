@@ -171,7 +171,13 @@ module Alchemy
 
               context "but mailer_config['forward_to_page'] is true and mailer_config['mail_success_page'] is set" do
                 before do
-                  allow(controller).to receive(:mailer_config).and_return({'forward_to_page' => true, 'mail_success_page' => 'mailer-config-success-page'})
+                  allow(controller).to receive(:mailer_config) do
+                    {
+                      'fields' => %w(email),
+                      'forward_to_page' => true,
+                      'mail_success_page' => 'mailer-config-success-page'
+                    }
+                  end
                   allow(Page).to receive(:find_by).and_return double(urlname: 'mailer-config-success-page')
                 end
 
@@ -186,7 +192,7 @@ module Alchemy
                 let(:language) { mock_model('Language', code: 'en', locale: 'en', pages: double(find_by: build_stubbed(:alchemy_page))) }
 
                 before do
-                  allow(controller).to receive(:mailer_config).and_return({})
+                  allow(controller).to receive(:mailer_config).and_return({'fields' => %w(email)})
                   allow(Language).to receive(:current_root_page).and_return double(urlname: 'lang-root')
                 end
 
