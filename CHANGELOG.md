@@ -1,6 +1,6 @@
 # Change Log
 
-## 4.0.0.rc2 (2017-08-17)
+## 4.0.0.rc2 (2017-08-18)
 
 * Removed deprecated `:image_size` option from `EssencePicture`
   Use `:size` instead.
