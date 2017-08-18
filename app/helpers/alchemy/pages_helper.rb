@@ -4,7 +4,6 @@ module Alchemy
   module PagesHelper
     include Alchemy::BaseHelper
     include Alchemy::ElementsHelper
-    include Alchemy::DeprecatedPagesHelper
 
     def picture_essence_caption(content)
       content.try(:essence).try(:caption)

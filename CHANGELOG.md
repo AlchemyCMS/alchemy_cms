@@ -2,6 +2,15 @@
 
 ## 4.0.0.rc2 (2017-08-17)
 
+* Removed deprecated `:image_size` option from `EssencePicture`
+  Use `:size` instead.
+* Remove deprecated `take_me_for_preview` content definition option
+  Use `as_element_title` instead.
+* Removed deprecated picture url helpers `show_alchemy_picture_path` and `show_alchemy_picture_url`
+  Use `picture.url` instead.
+* Removed deprecated pages helper module.
+* Removed deprecated translation methods `_t` and `Alchemy::I18n.t`.
+  Use `Alchemy.t` instead.
 * Removed deprecated `redirect_index` configuration
   Use `redirect_to_public_child` configuration instead.
 

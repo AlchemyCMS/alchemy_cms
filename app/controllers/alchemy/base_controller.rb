@@ -33,12 +33,6 @@ module Alchemy
       raise ActionController::RoutingError, msg
     end
 
-    # Shortcut for Alchemy::I18n.translate method
-    def _t(key, *args)
-      ActiveSupport::Deprecation.warn("Alchemys `_t` method is deprecated! Use `Alchemy.t` instead.", caller.unshift)
-      Alchemy.t(key, *args)
-    end
-
     # Store current request path into session,
     # so we can later redirect to it.
     def store_location
