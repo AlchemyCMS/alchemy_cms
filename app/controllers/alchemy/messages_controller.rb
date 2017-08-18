@@ -61,7 +61,7 @@ module Alchemy
     end
 
     def create #:nodoc:
-      @message = Message.new(params[:message])
+      @message = Message.new(message_params)
       @message.ip = request.remote_ip
       @element = Element.find_by(id: @message.contact_form_id)
       if @element.nil?
@@ -116,6 +116,10 @@ module Alchemy
         raise "Page for page_layout #{mailer_config['page_layout_name']} not found"
       end
       @root_page = @page.get_language_root
+    end
+
+    def message_params
+      params.require(:message).permit(*mailer_config['fields'])
     end
   end
 end
