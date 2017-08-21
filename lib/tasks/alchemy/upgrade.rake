@@ -148,11 +148,19 @@ namespace :alchemy do
     task '3.4' => ['alchemy:upgrade:prepare', 'alchemy:upgrade:3.4:run']
 
     namespace '3.4' do
-      task run: ['alchemy:upgrade:3.4:install_asset_manifests']
+      task run: [
+        'alchemy:upgrade:3.4:install_asset_manifests',
+        'alchemy:upgrade:3.4:store_image_file_format'
+      ]
 
       desc 'Install asset manifests into `vendor/assets`'
       task install_asset_manifests: [:environment] do
         Alchemy::Upgrader::ThreePointFour.install_asset_manifests
+      end
+
+      desc 'Store image file format on Alchemy pictures.'
+      task store_image_file_format: [:environment] do
+        Alchemy::Upgrader::ThreePointFour.store_image_file_format
       end
 
       task :todo do
