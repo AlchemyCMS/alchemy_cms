@@ -5,6 +5,18 @@
       return '<%= alchemy.admin_picture_path(id: 1) %>'.replace(/1/, id);
     },
 
+    new_admin_element_path: function(page_id) {
+      var url = '<%= alchemy.new_admin_element_path %>';
+      if (page_id) url += '?page_id=' + page_id;
+      return url;
+    },
+
+    admin_clipboard_path: function(remarkable_type) {
+      var url = '<%= alchemy.admin_clipboard_path %>';
+      if (remarkable_type) url += '?remarkable_type=' + remarkable_type;
+      return url;
+    },
+
     fold_admin_element_path: function(id) {
       return '<%= alchemy.fold_admin_element_path(id: 1) %>'.replace(/1/, id);
     },
