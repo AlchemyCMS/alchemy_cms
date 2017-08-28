@@ -9,7 +9,12 @@ module Alchemy
     # If you want to only load a specific type of element pass ?named=an_element_name
     #
     def index
-      @elements = Element.accessible_by(current_ability, :index)
+      # Fix for cancancan not able to merge multiple AR scopes for logged in users
+      if can? :manage, Alchemy::Element
+        @elements = Element.all
+      else
+        @elements = Element.accessible_by(current_ability, :index)
+      end
       if params[:page_id].present?
         @elements = @elements.where(page_id: params[:page_id])
       end

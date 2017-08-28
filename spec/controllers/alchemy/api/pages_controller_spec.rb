@@ -48,6 +48,24 @@ module Alchemy
           expect(result['pages'].size).to eq(2)
         end
       end
+
+      context 'as author' do
+        before do
+          authorize_user(build(:alchemy_dummy_user, :as_author))
+        end
+
+        it "returns all pages" do
+          get :index, params: {format: :json}
+
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+
+          result = JSON.parse(response.body)
+
+          expect(result).to have_key('pages')
+          expect(result['pages'].size).to eq(Alchemy::Page.count)
+        end
+      end
     end
 
     describe '#nested' do
