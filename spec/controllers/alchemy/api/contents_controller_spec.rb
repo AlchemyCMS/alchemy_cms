@@ -80,8 +80,8 @@ module Alchemy
         let(:element) { create(:alchemy_element, page: page) }
         let(:content) { create(:alchemy_content, element: element) }
 
-        it "returns content as json" do
-          get :show, params: {id: content.id, format: :json}
+        it "returns content as json without admin relevant attributes" do
+          get :show, params: { id: content.id, format: :json }
 
           expect(response.status).to eq(200)
           expect(response.media_type).to eq("application/json")
@@ -89,6 +89,27 @@ module Alchemy
           result = JSON.parse(response.body)
 
           expect(result["id"]).to eq(content.id)
+          expect(result).to_not have_key("label")
+          expect(result).to_not have_key("component_name")
+        end
+
+        context "as author" do
+          before do
+            authorize_user(build(:alchemy_dummy_user, :as_author))
+          end
+
+          it "returns content as json including admin relevant attributes" do
+            get :show, params: { id: content.id, format: :json }
+
+            expect(response.status).to eq(200)
+            expect(response.content_type).to eq("application/json")
+
+            result = JSON.parse(response.body)
+
+            expect(result).to have_key("component_name")
+            expect(result).to have_key("label")
+            expect(result["label"]).to eq(content.name_for_label)
+          end
         end
 
         context "requesting an restricted content" do
