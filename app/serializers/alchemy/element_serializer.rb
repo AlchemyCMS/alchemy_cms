@@ -10,10 +10,13 @@ module Alchemy
       :tag_list,
       :created_at,
       :updated_at,
-      :ingredients,
-      :content_ids,
       :dom_id,
       :display_name
+
+    with_options unless: :can_manage? do
+      attribute :ingredients
+      attribute :content_ids
+    end
 
     with_options if: :can_manage? do
       attribute :folded
@@ -23,6 +26,7 @@ module Alchemy
     end
 
     has_many :nested_elements
+    has_many :contents, if: :can_manage?
 
     def ingredients
       object.contents.collect(&:serialize)

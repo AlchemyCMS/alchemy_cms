@@ -35,6 +35,9 @@ RSpec.describe Alchemy::ElementSerializer do
       is_expected.to_not have_key("public")
       is_expected.to_not have_key("display_name")
       is_expected.to_not have_key("preview_text")
+      is_expected.to_not have_key("contents")
+      is_expected.to have_key("ingredients")
+      is_expected.to have_key("content_ids")
     end
   end
 
@@ -46,6 +49,9 @@ RSpec.describe Alchemy::ElementSerializer do
       is_expected.to have_key("public")
       is_expected.to have_key("display_name")
       is_expected.to have_key("preview_text")
+      is_expected.to have_key("contents")
+      is_expected.to_not have_key("ingredients")
+      is_expected.to_not have_key("content_ids")
     end
   end
 end
