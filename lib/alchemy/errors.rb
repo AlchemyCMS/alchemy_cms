@@ -55,9 +55,14 @@ module Alchemy
 
   # Raised if calling +image_file+ on a Picture object returns nil.
   class WrongImageFormatError < StandardError
+    def initialize(image, requested_format)
+      @image = image
+      @requested_format = requested_format
+    end
+
     def message
       allowed_filetypes = Alchemy::Picture.allowed_filetypes.map(&:upcase).to_sentence
-      "Requested image format is not one of allowed filetypes (#{allowed_filetypes})."
+      "Requested image format (#{@requested_format.inspect}) for #{@image.inspect} is not one of allowed filetypes (#{allowed_filetypes})."
     end
   end
 
