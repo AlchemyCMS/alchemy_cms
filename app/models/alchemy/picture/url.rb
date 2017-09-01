@@ -1,5 +1,7 @@
 module Alchemy
   module Picture::Url
+    include Alchemy::Logger
+
     TRANSFORMATION_OPTIONS = [
       :crop,
       :crop_from,
@@ -28,6 +30,9 @@ module Alchemy
       image = encoded_image(image, options)
 
       image.url(options.except(*TRANSFORMATION_OPTIONS).merge(name: name))
+    rescue MissingImageFileError, WrongImageFormatError => e
+      log_warning e.message
+      nil
     end
 
     private
@@ -53,7 +58,10 @@ module Alchemy
     #
     def encoded_image(image, options = {})
       target_format = options[:format] || default_render_format
-      raise WrongImageFormatError if !target_format.in?(Alchemy::Picture.allowed_filetypes)
+
+      unless target_format.in?(Alchemy::Picture.allowed_filetypes)
+        raise WrongImageFormatError.new(self, target_format)
+      end
 
       options = {
         flatten: target_format != 'gif' && image_file_format == 'gif'

@@ -7,7 +7,7 @@ module Alchemy
     end
 
     def log_warning(message)
-      Alchemy::Logger.warn(message, caller(0..0))
+      Alchemy::Logger.warn(message, caller(1..1))
     end
   end
 end

@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.6.2 (unreleased)
+
+* Handle custom errors in `Alchemy::Picture#url` [#1305](https://github.com/AlchemyCMS/alchemy_cms/pull/1305) by [tvdeyen](https://github.com/tvdeyen)
+
 ## 3.6.1 (2017-08-16)
 
 * Do not ask `systempage?` everytime we load the page definition [#1239](https://github.com/AlchemyCMS/alchemy_cms/pull/1283) by [tvdeyen](https://github.com/tvdeyen)
