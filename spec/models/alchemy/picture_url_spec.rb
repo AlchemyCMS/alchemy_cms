@@ -35,8 +35,13 @@ module Alchemy
           expect(picture).to receive(:image_file) { nil }
         end
 
-        it 'raises error' do
-          expect { url }.to raise_error(Alchemy::MissingImageFileError)
+        it 'returns nil' do
+          expect(url).to be_nil
+        end
+
+        it "logs warning" do
+          expect(Alchemy::Logger).to receive(:warn)
+          url
         end
       end
 
@@ -171,8 +176,13 @@ module Alchemy
           {format: 'zip'}
         end
 
-        it "raises error" do
-          expect { url }.to raise_error(Alchemy::WrongImageFormatError)
+        it "returns nil" do
+          expect(url).to be_nil
+        end
+
+        it "logs warning" do
+          expect(Alchemy::Logger).to receive(:warn)
+          url
         end
       end
 
