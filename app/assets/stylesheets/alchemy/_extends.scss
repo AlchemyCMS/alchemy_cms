@@ -33,7 +33,6 @@
 }
 
 %default-input-style {
-  box-sizing: border-box;
   @extend %rounded-border;
   box-shadow: inset 0px 1px 1px $medium-gray;
   font: $default-font-style;
@@ -66,5 +65,5 @@
 %gradiated-toolbar {
   background: $toolbar-bg-color;
   padding: 8px 4px;
-  height: $default-form-field-height;
+  height: $toolbar-height;
 }

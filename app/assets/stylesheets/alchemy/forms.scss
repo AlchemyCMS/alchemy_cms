@@ -136,11 +136,9 @@ form {
   .inline-input {
     @include clearfix;
     margin: 0 -1*$default-margin;
-    box-sizing: border-box;
 
     .left-column, .right-column {
       padding: 0 $default-padding;
-      box-sizing: border-box;
     }
 
     .left-column {
@@ -180,7 +178,6 @@ form {
   }
 
   .input-column {
-    box-sizing: border-box;
     float: left;
     padding: 0 $default-padding;
     width: 50%;

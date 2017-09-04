@@ -13,8 +13,8 @@ select {
     text-shadow: #FFF 0px 1px 0px;
 
     .select2-choice {
-      height: 27px;
-      line-height: 27px;
+      height: $default-form-field-height;
+      line-height: $default-form-field-height - 2;
       @include button-defaults($padding: 0 2*$default-padding, $margin: 0);
       display: block;
       font-weight: normal;

@@ -1,5 +1,4 @@
 #top_menu {
-  box-sizing: border-box;
   position: fixed;
   top: 0;
   margin-left: $main-menu-width;
@@ -15,7 +14,6 @@
 }
 
 #left_menu {
-  box-sizing: border-box;
   z-index: 30;
   height: 100%;
   position: fixed;
@@ -49,7 +47,6 @@
       }
 
       label {
-        box-sizing: border-box;
         position: absolute;
         top: 0;
         left: $collapsed-main-menu-width - 1;

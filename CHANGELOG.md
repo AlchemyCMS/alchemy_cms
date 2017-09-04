@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.0.0 (unreleased)
+
+* Always use `border-box` box model for all CSS components in the admin
+
 ## 4.0.0.rc2 (2017-08-18)
 
 * Removed deprecated `:image_size` option from `EssencePicture`

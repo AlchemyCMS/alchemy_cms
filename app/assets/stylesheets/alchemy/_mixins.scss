@@ -74,7 +74,6 @@
 }
 
 @mixin form-label {
-  @extend .border-box-sizing;
   width: $form-left-width;
   padding-right: 2*$default-padding;
   padding-top: $default-padding + 1;
@@ -105,7 +104,6 @@
   min-height: $default-form-field-height;
   background: white;
   @extend %rounded-border;
-  @extend .border-box-sizing;
 }
 
 @mixin form-hint($background-color: $light_yellow, $border-color: $medium-gray) {
@@ -144,12 +142,6 @@
   -ms-box-shadow: $shadow;
   -o-box-shadow: $shadow;
   box-shadow: $shadow;
-}
-
-@mixin box-sizing($box-sizing-type: content-box) {
-  -webkit-box-sizing: $box-sizing-type;
-  -moz-box-sizing: $box-sizing-type;
-  box-sizing: $box-sizing-type;
 }
 
 @mixin tag-base($margin: 2*$default-margin 0, $padding: $default-padding 4*$default-padding $default-padding 6*$default-padding) {

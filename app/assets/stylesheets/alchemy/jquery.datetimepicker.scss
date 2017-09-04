@@ -24,7 +24,6 @@ $datepicker_day_color: $text-color !default;
   padding-top: 2px;
   position: absolute;
   z-index: 9999;
-  box-sizing: border-box;
   display: none;
 }
 
@@ -61,7 +60,6 @@ $datepicker_day_color: $text-color !default;
 }
 
 .xdsoft_datetimepicker * {
-  box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
