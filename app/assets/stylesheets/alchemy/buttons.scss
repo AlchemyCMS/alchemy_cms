@@ -17,9 +17,9 @@ button, input[type="submit"], a.button, input.button {
     padding: 6px 18px 6px 6px;
 
     span.icon {
-      margin-top: -5px;
-      padding-right: 0.25em;
-      height: 15px;
+      margin-top: -$default-margin;
+      margin-right: $default-margin;
+      height: 14px;
     }
   }
 
@@ -43,7 +43,6 @@ button, input[type="submit"], a.button, input.button {
 }
 
 .icon_button {
-  box-sizing: border-box;
   width: 27px;
   height: 27px;
   line-height: 21px;

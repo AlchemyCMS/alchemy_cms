@@ -1,5 +1,4 @@
 #alchemy_elements_window {
-  box-sizing: border-box;
   position: absolute;
   right: 0;
   top: 73px;
@@ -10,7 +9,6 @@
 }
 
 #element_area {
-  box-sizing: border-box;
   overflow-x: hidden;
   overflow-y: auto;
 
@@ -251,7 +249,6 @@
 
 .element-header {
   position: relative;
-  height: 20px;
   padding: 2*$default-padding;
   background-color: $medium-gray;
   @extend .disable-user-select;
@@ -277,14 +274,13 @@
 }
 
 .element-toolbar {
-  padding: 6px 0;
-  height: 6*$default-padding;
+  padding: $default-padding 0;
+  height: $element-toolbar-height;
   background-color: #f0f0f0;
 
   .element_tools {
     float: left;
-    margin-top: -3px;
-    margin-left: -4px;
+    margin-left: -$default-margin;
   }
 }
 
@@ -393,17 +389,16 @@
 }
 
 .edit_images_bottom {
-  height: 19px;
   position: absolute;
+  left: 0;
+  bottom: 0;
   z-index: 0;
-  left: 5px;
-  bottom: 2px;
-  width: 111px;
+  width: inherit;
+  padding: $default-padding;
 
   > a, > span.icon {
     float: left;
-    margin-left: 2px;
-    margin-right: 2px;
+    margin: 0 $default-margin/2;
     width: 18px;
     height: 18px;
   }
@@ -447,8 +442,8 @@
   }
 
   .picture_thumbnail {
-    width: 111px;
-    height: 115px;
+    width: 121px;
+    height: 125px;
     margin: $default-margin 0;
 
     .thumbnail_background {
@@ -495,72 +490,67 @@
 .picture_thumbnail .picture_handle {
   position: absolute;
   z-index: 1;
-  width: 110px;
-  height: 93px;
-  top: 4px;
-  left: 4px;
+  width: 100%;
+  height: 97px;
+  top: 0;
+  left: 0;
   background-color: transparent;
   @extend .disable-user-select;
 }
 
-div.file {
-  padding: 0;
-  margin-top: 8px;
-  margin-bottom: 4px;
-  border: 1px solid #c0c0c0;
-  background-color: #f3f3f3;
-  @extend %rounded-border;
-  height: 24px;
-
-  .validation_failed & {
-    color: $error_text_color;
-    border-color: $error_border_color;
-  }
-}
-
-div.file_icon {
-  text-align: center;
-  float: left;
-  height: 24px;
-  width: 24px;
-
-  span.icon {
-    margin: $default-margin;
-  }
-
-  a.assign_file {
-    display: block;
-    height: 16px;
-    background: image-url('alchemy/icons.png') no-repeat -480px -40px;
-    width: 16px;
-    margin: $default-margin;
-  }
-}
-
 .content_editor.essence_file {
+
+  .file {
+    margin: 6px 0 $default-margin;
+    border: $default-border;
+    background-color: $white;
+    @extend %rounded-border;
+    height: $default-form-field-height;
+
+    .validation_failed & {
+      color: $error_text_color;
+      border-color: $error_border_color;
+    }
+  }
+
+  .file_icon {
+    text-align: center;
+    float: left;
+    line-height: 25px;
+    width: 24px;
+
+    .icon {
+      margin: $default-margin;
+    }
+
+    .assign_file {
+      background-position: -480px -40px;
+    }
+  }
 
   .file_name {
     white-space: nowrap;
     overflow: hidden;
     float: left;
     max-width: 80%;
-    line-height: 25px;
+    line-height: $default-form-field-height;
     font-size: 10px;
     text-overflow: ellipsis;
   }
 }
 
 .essence_file_tools {
-  height: 24px;
+  height: 27px;
   float: right;
   background-color: white;
   width: 48px;
+  border-radius: 0 $default-border-radius $default-border-radius 0;
 
   a {
     text-decoration: none;
     width: 16px;
     height: 16px;
-    margin: $default-margin;
+    margin: 5px $default-margin;
     float: left;
 
     &.assign_file {

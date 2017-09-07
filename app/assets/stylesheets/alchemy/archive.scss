@@ -23,6 +23,7 @@ div#image_assign_filter_and_image_sizing {
   border: 1px solid #c0c0c0;
   position: relative;
   @extend %rounded-border;
+  width: 170px;
 
   img {
     width: auto;
@@ -38,28 +39,20 @@ div#image_assign_filter_and_image_sizing {
   }
 
   .picture_name {
-    height: 14px;
     display: block;
+    width: 100%;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
-    position: absolute;
-    bottom: 1px;
+    bottom: 0;
     left: 0;
     font-family: "Courier New", Courier, mono;
-    line-height: 11px;
-    padding: 2px 0;
-    margin-right: 4px;
-    margin-left: 4px;
+    line-height: 16px;
+    padding: $default-padding 0 0;
   }
 
   &.small {
-    width: 80px;
-    height: 80px;
-
-    .picture_name {
-      width: 80px;
-    }
+    width: 90px;
 
     .thumbnail_background {
       width: 80px;
@@ -67,27 +60,8 @@ div#image_assign_filter_and_image_sizing {
     }
   }
 
-  &.medium {
-    width: 160px;
-    height: 140px;
-
-    .picture_name {
-      width: 160px;
-    }
-
-    .thumbnail_background {
-      width: 160px;
-      height: 120px;
-    }
-  }
-
   &.large {
-    width: 240px;
-    height: 200px;
-
-    .picture_name {
-      width: 240px;
-    }
+    width: 250px;
 
     .thumbnail_background {
       width: 240px;
@@ -106,11 +80,11 @@ div#image_assign_filter_and_image_sizing {
 #pictures {
   margin-right: 232px;
   padding-bottom: 60px;
+  overflow: hidden;
 
   .picture_thumbnail {
-    margin: 0 8px 8px 0;
-    display: inline-block;
-    float: none;
+    margin: 0 2*$default-margin 2*$default-margin 0;
+    float: left;
 
     .thumbnail_background {
       @include zoom-in;
@@ -129,12 +103,12 @@ div.assign_image_list_image {
 }
 
 .picture_tool {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
   position: absolute;
   background-color: white;
-  top: 3px;
-  padding: 1px;
+  top: $default-padding;
+  padding: $default-padding/2;
   z-index: 10;
   display: none;
 
@@ -147,7 +121,7 @@ div.assign_image_list_image {
   }
 
   &.select {
-    left: 4px;
+    left: $default-padding;
 
     input {
       margin: 0;
@@ -156,7 +130,7 @@ div.assign_image_list_image {
   }
 
   &.delete {
-    right: 4px;
+    right: $default-padding;
 
     a {
       background: image-url('alchemy/icons.png') no-repeat -63px -72px;
@@ -172,7 +146,6 @@ div.assign_image_list_image {
 }
 
 div#library_sidebar {
-  box-sizing: border-box;
   position: fixed;
   border-left: 1px solid $default-border-color;
   top: 0;
@@ -201,7 +174,6 @@ div#filter_bar {
 }
 
 .tag-list {
-  box-sizing: border-box;
   height: 100%;
   padding-bottom: 138px;
 
@@ -237,7 +209,6 @@ div#filter_bar {
   }
 
   ul {
-    box-sizing: border-box;
     list-style-type: none;
     padding: 0;
     margin: 40px 0 4px 0;
@@ -277,7 +248,7 @@ div#filter_bar {
 
 #assign_image_list, #assign_file_list {
   position: relative;
-  height: 519px;
+  height: 535px;
 }
 
 #assign_image_list {
@@ -328,7 +299,7 @@ div#filter_bar {
       display: block;
       line-height: 25px;
       text-decoration: none;
-      padding: 0px 4px 2px 4px;
+      padding: 2px $default-padding;
     }
 
     .icon {
@@ -339,12 +310,12 @@ div#filter_bar {
 }
 
 .picture_tags {
-  box-sizing: border-box;
-  width: 50%;
-  max-height: 100%;
+  overflow: hidden;
   position: absolute;
-  top: 16px;
-  left: 0;
+  top: 22px;
+  left: $default-padding;
+  width: 50%;
+  max-height: 80%;
   padding: $default-padding;
   pointer-events: none;
   display: none;

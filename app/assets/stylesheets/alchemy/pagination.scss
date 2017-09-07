@@ -1,5 +1,4 @@
 .pagination {
-  box-sizing: border-box;
   background: $light_gray;
   color: $text-color;
   position: fixed;
@@ -7,7 +6,7 @@
   right: 0;
   width: 100%;
   left: 0px;
-  height: 50px;
+  height: 52px;
   padding: 2*$default-padding;
   padding-left: $main-menu-width + 10px;
   text-align: left;
@@ -16,7 +15,6 @@
 
   a, span, em {
     font-size: $default-font-size;
-    height: 25px;
     line-height: 25px;
     padding: $default-padding;
   }

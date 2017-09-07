@@ -29,7 +29,6 @@
 }
 
 .mce-widget button {
-  box-sizing: border-box;
 }
 
 .mce-container *[unselectable] {
@@ -255,7 +254,6 @@ div.mce-tinymce-inline {
 .mce-panel {
   border: 0 solid $default-border-color;
   background-color: $medium-gray;
-  box-sizing: border-box;
 }
 
 .mce-toolbar-grp {
