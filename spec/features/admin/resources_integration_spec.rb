@@ -57,10 +57,13 @@ describe "Resources" do
 
   describe "create resource item" do
     context "when form filled with valid data" do
+      let!(:location) { create(:location) }
+
       before do
         visit '/admin/events/new'
         fill_in 'event_name', with: 'My second event'
         fill_in 'event_starts_at', with: DateTime.new(2012, 03, 03, 20, 00)
+        select location.name, from: 'Location'
         click_on 'Save'
       end
 
