@@ -10,7 +10,7 @@ engines:
     enabled: true
     exclude_paths:
     - "lib/alchemy/permissions.rb"
-    - "lib/tasks/alchemy/tidy.rake"
+    - "lib/alchemy/tasks/tidy.rb"
     - "lib/tasks/alchemy/upgrade.rake"
     config:
       languages:
