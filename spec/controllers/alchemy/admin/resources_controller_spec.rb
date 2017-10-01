@@ -10,8 +10,8 @@ describe Admin::EventsController do
 
   describe '#index' do
     let(:params)  { Hash.new }
-    let!(:peter)  { Event.create(name: 'Peter') }
-    let!(:lustig) { Event.create(name: 'Lustig') }
+    let!(:peter)  { create(:event, name: 'Peter') }
+    let!(:lustig) { create(:event, name: 'Lustig') }
 
     before do
       authorize_user(:as_admin)
@@ -33,7 +33,7 @@ describe Admin::EventsController do
       end
 
       context "but searching for record with certain association" do
-        let(:bauwagen) { Location.create(name: 'Bauwagen') }
+        let(:bauwagen) { create(:location, name: 'Bauwagen') }
         let(:params)   { {q: {name_or_hidden_name_or_location_name_cont: "Bauwagen"}} }
 
         before do
@@ -52,7 +52,7 @@ describe Admin::EventsController do
 
   describe '#update' do
     let(:params) { {q: 'some_query', page: 6} }
-    let!(:peter)  { Event.create(name: 'Peter') }
+    let!(:peter)  { create(:event, name: 'Peter') }
 
     it 'redirects to index, keeping the current location parameters' do
       post :update, params: {id: peter.id, event: {name: "Hans"}}.merge(params)
@@ -62,16 +62,17 @@ describe Admin::EventsController do
 
   describe '#create' do
     let(:params) { {q: 'some_query', page: 6} }
+    let!(:location) { create(:location) }
 
     it 'redirects to index, keeping the current location parameters' do
-      post :create, params: {event: {name: "Hans"}}.merge(params)
+      post :create, params: {event: {name: "Hans", location_id: location.id}}.merge(params)
       expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q=some_query")
     end
   end
 
   describe '#destroy' do
     let(:params) { {q: 'some_query', page: 6} }
-    let!(:peter)  { Event.create(name: 'Peter') }
+    let!(:peter)  { create(:event, name: 'Peter') }
 
     it 'redirects to index, keeping the current location parameters' do
       delete :destroy, params: {id: peter.id}.merge(params)

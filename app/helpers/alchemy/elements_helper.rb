@@ -187,7 +187,12 @@ module Alchemy
 
     # Renders the HTML tag attributes required for preview mode.
     def element_preview_code(element)
-      tag_options(element_preview_code_attributes(element))
+      if respond_to?(:tag_options)
+        tag_options(element_preview_code_attributes(element))
+      else
+        # Rails 5.1 uses TagBuilder
+        tag_builder.tag_options(element_preview_code_attributes(element))
+      end
     end
 
     # Returns a hash containing the HTML tag attributes required for preview mode.
@@ -205,7 +210,12 @@ module Alchemy
     #   HTML tag attributes containing the element's tag information.
     #
     def element_tags(element, options = {})
-      tag_options(element_tags_attributes(element, options))
+      if respond_to?(:tag_options)
+        tag_options(element_tags_attributes(element, options))
+      else
+        # Rails 5.1 uses TagBuilder
+        tag_builder.tag_options(element_tags_attributes(element, options))
+      end
     end
 
     # Returns the element's tags information as an attribute hash.
