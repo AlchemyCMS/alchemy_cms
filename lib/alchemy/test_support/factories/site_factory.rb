@@ -1,6 +1,6 @@
-require 'factory_girl'
+require 'factory_bot'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :alchemy_site, class: 'Alchemy::Site' do
     name 'A Site'
     host 'domain.com'

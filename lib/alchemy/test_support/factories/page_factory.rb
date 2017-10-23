@@ -1,15 +1,15 @@
-require 'factory_girl'
+require 'factory_bot'
 require 'alchemy/test_support/factories/language_factory'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :alchemy_page, class: 'Alchemy::Page' do
-    language { Alchemy::Language.default || FactoryGirl.create(:alchemy_language) }
+    language { Alchemy::Language.default || FactoryBot.create(:alchemy_language) }
     sequence(:name) { |n| "A Page #{n}" }
     page_layout "standard"
 
     parent_id do
       (Alchemy::Page.find_by(language_root: true) ||
-        FactoryGirl.create(:alchemy_page, :language_root)).id
+        FactoryBot.create(:alchemy_page, :language_root)).id
     end
 
     # This speeds up creating of pages dramatically.

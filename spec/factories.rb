@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :event do
     name 'My Event'
     hidden_name 'not shown'

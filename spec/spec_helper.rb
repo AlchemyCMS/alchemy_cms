@@ -74,7 +74,7 @@ RSpec.configure do |config|
   [:controller, :feature, :request].each do |type|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type
   end
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
 
   config.use_transactional_fixtures = false
   # Make sure the database is clean and ready for test

@@ -1,6 +1,6 @@
-require 'factory_girl'
+require 'factory_bot'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :alchemy_element, class: 'Alchemy::Element' do
     name 'article'
     create_contents_after_create false
