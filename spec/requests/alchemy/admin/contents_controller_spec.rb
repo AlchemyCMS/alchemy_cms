@@ -11,14 +11,12 @@ module Alchemy
         let(:element) { create(:alchemy_element, name: 'headline') }
 
         it "creates a content from name" do
-          pending 'Rails 5.1 does not support to symbolize_keys of params anymore.'
           expect {
             post admin_contents_path(content: {element_id: element.id, name: 'headline'}, format: :js)
           }.to change { Alchemy::Content.count }.by(1)
         end
 
         it "creates a content from essence_type" do
-          pending 'Rails 5.1 does not support to symbolize_keys of params anymore.'
           expect {
             post admin_contents_path(
               content: {
@@ -47,14 +45,12 @@ module Alchemy
         end
 
         it "adds it into the gallery editor" do
-          pending 'Rails 5.1 does not support to symbolize_keys of params anymore.'
           post admin_contents_path(attributes)
           expect(assigns(:content_dom_id)).to eq("#add_picture_#{element.id}")
         end
 
         context 'with picture_id given' do
           it "assigns the picture to the essence" do
-            pending 'Rails 5.1 does not support to symbolize_keys of params anymore.'
             post admin_contents_path(attributes.merge(picture_id: '1'))
             expect(Alchemy::Content.last.essence.picture_id).to eq(1)
           end
