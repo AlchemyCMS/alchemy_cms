@@ -1,5 +1,5 @@
 # This migration comes from alchemy (originally 20140107192720)
-class AddMissingUniqueIndicesToTagsAndTaggings < ActiveRecord::Migration
+class AddMissingUniqueIndicesToTagsAndTaggings < ActiveRecord::Migration[4.2]
 
   def self.up
     add_index :tags, :name, unique: true

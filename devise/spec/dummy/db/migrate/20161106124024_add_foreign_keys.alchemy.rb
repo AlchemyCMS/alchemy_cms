@@ -1,5 +1,5 @@
 # This migration comes from alchemy (originally 20160928080104)
-class AddForeignKeys < ActiveRecord::Migration
+class AddForeignKeys < ActiveRecord::Migration[4.2]
   def change
     add_foreign_key :alchemy_cells, :alchemy_pages,
       column: :page_id,

@@ -1,5 +1,5 @@
 # This migration comes from alchemy (originally 20160422195310)
-class AddImageFileFormatToAlchemyPictures < ActiveRecord::Migration
+class AddImageFileFormatToAlchemyPictures < ActiveRecord::Migration[4.2]
   def up
     add_column :alchemy_pictures, :image_file_format, :string
 
