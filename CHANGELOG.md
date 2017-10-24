@@ -1,8 +1,10 @@
 # Change Log
 
-## 4.0.0 (unreleased)
+## 4.0.0 (2017-10-24)
 
-* Always use `border-box` box model for all CSS components in the admin
+* Allow Dragonfly 1.1 and above [#1314](https://github.com/AlchemyCMS/alchemy_cms/pull/1314) by [tvdeyen](https://github.com/tvdeyen)
+* Added Rails 5.1 support [#1310](https://github.com/AlchemyCMS/alchemy_cms/pull/1310) by [tvdeyen](https://github.com/tvdeyen)
+* Always use `border-box` box model for all CSS components in the admin [#1309](https://github.com/AlchemyCMS/alchemy_cms/pull/1309) by [tvdeyen](https://github.com/tvdeyen)
 
 ## 4.0.0.rc2 (2017-08-18)
 
