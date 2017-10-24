@@ -15,7 +15,7 @@ require "rails/test_help"
 require "rspec/rails"
 require 'rspec/active_model/mocks'
 require "capybara/rails"
-require 'factory_girl'
+require 'factory_bot'
 require 'alchemy/seeder'
 require 'alchemy/test_support/controller_requests'
 require 'alchemy/test_support/integration_helpers'
@@ -38,7 +38,7 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.include Alchemy::TestSupport::ControllerRequests, :type => :controller
   config.include Alchemy::Engine.routes.url_helpers
-  config.include FactoryGirl::Syntax::Methods
+  config.include FactoryBot::Syntax::Methods
   config.include ActiveJob::TestHelper
   [:controller, :feature, :request].each do |type|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type

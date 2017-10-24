@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :alchemy_user, class: 'Alchemy::User' do
     sequence(:login) { |n| "john_#{n}.doe" }
     sequence(:email) { |n| "john_#{n}@doe.com" }
