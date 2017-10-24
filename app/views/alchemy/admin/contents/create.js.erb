@@ -1,7 +1,5 @@
 var editor_html = '<%= j(render "alchemy/essences/#{@content.essence_partial_name}_editor", {
-  content: @content,
-  options: options_from_params.symbolize_keys,
-  html_options: @html_options.symbolize_keys
+  content: @content, options: options_from_params, html_options: @html_options
 }) %>';
 
 <% if params[:was_missing] %>
