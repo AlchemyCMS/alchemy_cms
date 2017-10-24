@@ -1,11 +1,8 @@
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.svg)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://travis-ci.org/AlchemyCMS/alchemy_cms.svg?branch=master)](https://travis-ci.org/AlchemyCMS/alchemy_cms)
+[![Build Status](https://travis-ci.org/AlchemyCMS/alchemy_cms.svg?branch=4.0-stable)](https://travis-ci.org/AlchemyCMS/alchemy_cms)
 [![Code Climate](https://codeclimate.com/github/AlchemyCMS/alchemy_cms.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms)
 [![Test Coverage](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/badges/coverage.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms)
 [![Slack Status](http://slack.alchemy-cms.com/badge.svg)](http://slack.alchemy-cms.com)
-
-**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (3.6-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/3.6-stable).**
-
 
 ## About
 
@@ -34,7 +31,7 @@ Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [gu
 
 ## Rails Version
 
-**This version of Alchemy CMS runs with Rails 5.0 only**
+**This version of Alchemy CMS runs with Rails 5 only**
 
 * For a Rails 4.2 compatible version use the [`3.6-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.6-stable).
 * For a Rails 4.0/4.1 compatible version use the [`3.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.1-stable).
@@ -64,10 +61,8 @@ For a Ruby 1.8.7 compatible version use the [`2.3-stable` branch](https://github
 Put this into your `Gemfile`:
 
 ```ruby
-gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
+gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: '4.0-stable'
 ```
-
-**NOTE:** You normally want to use a stable branch, like `3.6-stable`.
 
 If you want to use Russian translation and have better i18n support, you should put:
 
@@ -93,10 +88,8 @@ the Devise based user model that Alchemy provides and was extracted [into its ow
 If you don't have your own user class, you can use the Alchemy user model. Just add the following gem into your `Gemfile`:
 
 ```ruby
-gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
+gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: '4.0-stable'
 ```
-
-**NOTE:** You normally want to use a stable branch, like `3.6-stable`.
 
 Then run:
 
