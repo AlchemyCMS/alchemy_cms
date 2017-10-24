@@ -40,9 +40,15 @@
 
 * Rails 5
 
-## 3.6.2 (unreleased)
+## 3.6.3 (2017-10-24)
+
+* Remove `:display` cancan alias [#1318](https://github.com/AlchemyCMS/alchemy_cms/pull/1318) by [tvdeyen](https://github.com/tvdeyen)
+
+## 3.6.2 (2017-09-01)
 
 * Handle custom errors in `Alchemy::Picture#url` [#1305](https://github.com/AlchemyCMS/alchemy_cms/pull/1305) by [tvdeyen](https://github.com/tvdeyen)
+* Do not move elements in tidy cells task [#1303](https://github.com/AlchemyCMS/alchemy_cms/pull/1303) by [tvdeyen](https://github.com/tvdeyen)
+* Add a store image file format rake task [#1302](https://github.com/AlchemyCMS/alchemy_cms/pull/1302) by [tvdeyen](https://github.com/tvdeyen)
 
 ## 3.6.1 (2017-08-16)
 
