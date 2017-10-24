@@ -37,7 +37,6 @@ module Alchemy
       def alchemy_guest_user_rules
         can([:show, :download], Alchemy::Attachment) { |a| !a.restricted? }
         can :see,               Alchemy::Page,       restricted: false, visible: true
-        can(:display,           Alchemy::Picture)    { |p| !p.restricted? }
 
         can :read, Alchemy::Content, Alchemy::Content.available.not_restricted do |c|
           c.public? && !c.restricted? && !c.trashed?
@@ -67,7 +66,6 @@ module Alchemy
         can [:show, :download], Alchemy::Attachment
         can :read,              Alchemy::Page,      Alchemy::Page.published, &:public?
         can :see,               Alchemy::Page,      restricted: true, visible: true
-        can :display,           Alchemy::Picture
 
         can :read, Alchemy::Content, Alchemy::Content.available do |c|
           c.public? && !c.trashed?
@@ -217,11 +215,6 @@ module Alchemy
         :unlock,
         :visit,
         to: :edit_content
-
-      alias_action :show,
-        :thumbnail,
-        :zoom,
-        to: :display
     end
 
     # Include the role specific permissions.
