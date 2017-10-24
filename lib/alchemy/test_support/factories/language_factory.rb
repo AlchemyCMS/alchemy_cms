@@ -1,7 +1,7 @@
-require 'factory_girl'
+require 'factory_bot'
 require 'alchemy/test_support/factories/site_factory'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :alchemy_language, class: 'Alchemy::Language' do
     name 'Deutsch'
     code 'de'

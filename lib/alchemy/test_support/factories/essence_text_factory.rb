@@ -1,6 +1,6 @@
-require 'factory_girl'
+require 'factory_bot'
 
-FactoryGirl.define do
+FactoryBot.define do
   factory :alchemy_essence_text, class: 'Alchemy::EssenceText' do
     body 'This is a headline'
   end

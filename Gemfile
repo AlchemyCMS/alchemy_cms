@@ -31,7 +31,7 @@ group :development, :test do
   end
   gem 'capybara', '~> 2.4'
   gem 'database_cleaner', '~> 1.3'
-  gem 'factory_girl_rails', '~> 4.5'
+  gem 'factory_bot_rails', '~> 4.5'
   gem 'poltergeist', '~> 1.10'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'rspec-rails', '~> 3.0'
