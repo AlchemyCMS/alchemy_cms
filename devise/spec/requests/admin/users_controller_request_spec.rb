@@ -16,7 +16,7 @@ RSpec.describe Alchemy::Admin::UsersController, type: :request do
     context 'on create' do
       it 'does not raise DoubleRender error' do
         expect {
-          post admin_users_path, user: attributes_for(:alchemy_user).merge(send_credentials: '1')
+          post admin_users_path, params: {user: attributes_for(:alchemy_user).merge(send_credentials: '1')}
         }.to_not raise_error
       end
     end
@@ -25,7 +25,7 @@ RSpec.describe Alchemy::Admin::UsersController, type: :request do
       it 'does not raise DoubleRender error' do
         user =  create(:alchemy_member_user)
         expect {
-          patch admin_user_path(user), user: {send_credentials: '1'}
+          patch admin_user_path(user), params: {user: {send_credentials: '1'}}
         }.to_not raise_error
       end
     end
