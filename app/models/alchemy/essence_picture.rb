@@ -60,13 +60,23 @@ module Alchemy
     def picture_url(options = {})
       return if picture.nil?
 
-      options = {
+      picture.url picture_url_options.merge(options)
+    end
+
+    # Picture rendering options
+    #
+    # Returns the +default_render_format+ of the associated +Alchemy::Picture+
+    # together with the +crop_from+ and +crop_size+ values
+    #
+    # @return [HashWithIndifferentAccess]
+    def picture_url_options
+      return {} if picture.nil?
+
+      {
         format: picture.default_render_format,
         crop_from: crop_from,
         crop_size: crop_size
-      }.merge(options)
-
-      picture.url(options)
+      }.with_indifferent_access
     end
 
     # Returns an url for the thumbnail representation of the assigned picture

@@ -94,6 +94,38 @@ module Alchemy
       end
     end
 
+    describe '#picture_url_options' do
+      subject(:picture_url_options) { essence.picture_url_options }
+
+      let(:picture) { build_stubbed(:alchemy_picture) }
+      let(:essence) { build_stubbed(:alchemy_essence_picture, picture: picture) }
+
+      it { is_expected.to be_a(HashWithIndifferentAccess) }
+
+      it "includes the pictures default render format." do
+        expect(picture).to receive(:default_render_format) { 'img' }
+        expect(picture_url_options[:format]).to eq('img')
+      end
+
+      context 'with crop sizes present' do
+        before do
+          expect(essence).to receive(:crop_size) { '200x200' }
+          expect(essence).to receive(:crop_from) { '10x10' }
+        end
+
+        it "includes these crop sizes.", :aggregate_failures do
+          expect(picture_url_options[:crop_from]).to eq '10x10'
+          expect(picture_url_options[:crop_size]).to eq '200x200'
+        end
+      end
+
+      context 'without picture assigned' do
+        let(:picture) { nil }
+
+        it { is_expected.to be_a(Hash) }
+      end
+    end
+
     describe '#thumbnail_url' do
       subject(:thumbnail_url) { essence.thumbnail_url(options) }
 
