@@ -1,5 +1,5 @@
 # This migration comes from alchemy (originally 20160927205604)
-class AddForeignKeyIndicesAndNullConstraints < ActiveRecord::Migration
+class AddForeignKeyIndicesAndNullConstraints < ActiveRecord::Migration[4.2]
   def change
     change_column_null :alchemy_cells, :page_id, false, 0
     change_column_null :alchemy_contents, :element_id, false, 0

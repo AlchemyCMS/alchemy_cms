@@ -1,5 +1,5 @@
 # This migration comes from alchemy (originally 20160617224938)
-class ChangeAlchemyPagesLockedToLockedAt < ActiveRecord::Migration
+class ChangeAlchemyPagesLockedToLockedAt < ActiveRecord::Migration[4.2]
   def up
     add_column :alchemy_pages, :locked_at, :datetime
     update <<-SQL.strip_heredoc

@@ -1,6 +1,8 @@
 require 'spec_helper'
 
 describe Alchemy::UserSessionsController do
+  routes { Alchemy::Engine.routes }
+
   before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
@@ -8,7 +10,7 @@ describe Alchemy::UserSessionsController do
   context 'without users present' do
     describe '#new' do
       it "redirects to signup form" do
-        alchemy_get :new
+        get :new
         is_expected.to redirect_to(admin_signup_path)
       end
 
@@ -18,7 +20,7 @@ describe Alchemy::UserSessionsController do
         end
 
         it 'redirects to https' do
-          alchemy_get :new
+          get :new
           is_expected.to redirect_to(
             login_url(protocol: 'https', host: "test.host")
           )
@@ -39,7 +41,7 @@ describe Alchemy::UserSessionsController do
 
         context 'without redirect path in session' do
           it "redirects to dashboard" do
-            alchemy_post :create, user: user_params
+            post :create, params: {user: user_params}
             expect(response).to redirect_to(admin_dashboard_path)
           end
         end
@@ -47,19 +49,19 @@ describe Alchemy::UserSessionsController do
         context 'with redirect path in session' do
           it "redirects to these params" do
             session[:redirect_path] = admin_users_path
-            alchemy_post :create, user: user_params
+            post :create, params: {user: user_params}
             expect(response).to redirect_to(admin_users_path)
           end
         end
 
         it "stores users screen size" do
-          alchemy_post :create, user: user_params, user_screensize: screen_size
+          post :create, params: {user: user_params, user_screensize: screen_size}
           expect(session[:screen_size]).to eq(screen_size)
         end
 
         context 'without valid params' do
           it "renders login form" do
-            alchemy_post :create, user: {login: ''}
+            post :create, params: {user: {login: ''}}
             is_expected.to render_template(:new)
           end
         end
@@ -77,7 +79,7 @@ describe Alchemy::UserSessionsController do
 
       it "should unlock all pages" do
         expect(user).to receive(:unlock_pages!)
-        alchemy_delete :destroy
+        delete :destroy
       end
 
       context 'comming from admin area' do
@@ -88,7 +90,7 @@ describe Alchemy::UserSessionsController do
         end
 
         it "redirects to root" do
-          alchemy_delete :destroy
+          delete :destroy
           is_expected.to redirect_to(root_path)
         end
       end
@@ -101,7 +103,7 @@ describe Alchemy::UserSessionsController do
         end
 
         it "redirects to root" do
-          alchemy_delete :destroy
+          delete :destroy
           is_expected.to redirect_to(root_path)
         end
       end
@@ -114,7 +116,7 @@ describe Alchemy::UserSessionsController do
         end
 
         it "redirects to root" do
-          alchemy_delete :destroy
+          delete :destroy
           is_expected.to redirect_to('/imprint')
         end
       end
