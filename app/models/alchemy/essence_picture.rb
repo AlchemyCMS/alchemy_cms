@@ -56,6 +56,7 @@ module Alchemy
     # @option options crop [Boolean]
     #   If set to true the picture will be cropped to fit the size value.
     #
+    # @return [String]
     def picture_url(options = {})
       return if picture.nil?
 
@@ -68,11 +69,12 @@ module Alchemy
       picture.url(options)
     end
 
-    # Renders a thumbnail representation of the assigned image
+    # Returns an url for the thumbnail representation of the assigned picture
     #
     # It takes cropping values into account, so it always represents the current
     # image displayed in the frontend.
     #
+    # @return [String]
     def thumbnail_url(options = {})
       return if picture.nil?
 
@@ -96,6 +98,7 @@ module Alchemy
     # @param max [Integer]
     #   The maximum length of the text returned.
     #
+    # @return [String]
     def preview_text(max = 30)
       return "" if picture.nil?
       picture.name.to_s[0..max - 1]
@@ -103,6 +106,7 @@ module Alchemy
 
     # A Hash of coordinates suitable for the graphical image cropper.
     #
+    # @return [Hash]
     def cropping_mask
       return if crop_from.blank? || crop_size.blank?
       crop_from = point_from_string(read_attribute(:crop_from))
@@ -112,6 +116,8 @@ module Alchemy
     end
 
     # Returns a serialized ingredient value for json api
+    #
+    # @return [String]
     def serialized_ingredient
       picture_url(content.settings)
     end
