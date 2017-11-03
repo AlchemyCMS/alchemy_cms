@@ -74,8 +74,8 @@ module Alchemy
 
       {
         format: picture.default_render_format,
-        crop_from: crop_from,
-        crop_size: crop_size
+        crop_from: crop_from.presence,
+        crop_size: crop_size.presence
       }.with_indifferent_access
     end
 

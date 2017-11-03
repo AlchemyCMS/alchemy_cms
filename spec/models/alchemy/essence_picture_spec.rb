@@ -126,6 +126,19 @@ module Alchemy
         end
       end
 
+      # Regression spec for issue #1279
+      context 'with crop sizes being empty strings' do
+        before do
+          expect(essence).to receive(:crop_size) { '' }
+          expect(essence).to receive(:crop_from) { '' }
+        end
+
+        it "does not include these crop sizes.", :aggregate_failures do
+          expect(picture_url_options[:crop_from]).to be_nil
+          expect(picture_url_options[:crop_size]).to be_nil
+        end
+      end
+
       context 'without picture assigned' do
         let(:picture) { nil }
 
