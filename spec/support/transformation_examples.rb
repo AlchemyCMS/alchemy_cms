@@ -153,7 +153,7 @@ module Alchemy
           allow(picture).to receive(:image_file_width) { 400 }
           allow(picture).to receive(:image_file_height) { 300 }
 
-          expect(picture.can_be_cropped_to("200x100")).to be_truthy
+          expect(picture.can_be_cropped_to("200x100")).to be(true)
         end
       end
 
@@ -162,7 +162,7 @@ module Alchemy
           allow(picture).to receive(:image_file_width) { 400 }
           allow(picture).to receive(:image_file_height) { 300 }
 
-          expect(picture.can_be_cropped_to("600x500")).to be_falsey
+          expect(picture.can_be_cropped_to("600x500")).to be(false)
         end
       end
 
@@ -171,7 +171,7 @@ module Alchemy
           allow(picture).to receive(:image_file_width) { 400 }
           allow(picture).to receive(:image_file_height) { 300 }
 
-          expect(picture.can_be_cropped_to("600x500", true)).to be_truthy
+          expect(picture.can_be_cropped_to("600x500", true)).to be(true)
         end
       end
     end
