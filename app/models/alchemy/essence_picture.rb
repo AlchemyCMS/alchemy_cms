@@ -148,13 +148,15 @@ module Alchemy
     private
 
     def fix_crop_values
-      %w(crop_from crop_size).each do |crop_value|
-        write_attribute crop_value, normalize_crop_value(crop_value)
+      %i(crop_from crop_size).each do |crop_value|
+        if self[crop_value].is_a?(String)
+          write_attribute crop_value, normalize_crop_value(crop_value)
+        end
       end
     end
 
     def normalize_crop_value(crop_value)
-      send(crop_value).to_s.split('x').map { |n| normalize_number(n) }.join('x')
+      self[crop_value].split('x').map { |n| normalize_number(n) }.join('x')
     end
 
     def normalize_number(number)

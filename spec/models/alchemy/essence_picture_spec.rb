@@ -25,6 +25,13 @@ module Alchemy
       expect(essence.crop_size).to eq("100x203")
     end
 
+    it "should not store empty strings for nil crop values" do
+      essence = EssencePicture.new(crop_from: nil, crop_size: nil)
+      essence.save!
+      expect(essence.crop_from).to eq(nil)
+      expect(essence.crop_size).to eq(nil)
+    end
+
     it "should convert newlines in caption into <br/>s" do
       essence = EssencePicture.new(caption: "hello\nkitty")
       essence.save!
