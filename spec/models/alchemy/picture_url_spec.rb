@@ -69,21 +69,6 @@ module Alchemy
           end
         end
 
-        context "and crop_from and crop_size is passed in" do
-          let(:options) do
-            {
-              crop_size: '123x44',
-              crop_from: '0x0',
-              size: '160x120'
-            }
-          end
-
-          it "crops and resizes the picture" do
-            job = decode_dragon_fly_job(url)
-            expect(job[1]).to include("-crop 123x44+0+0 -resize 160x120>")
-          end
-        end
-
         context "and crop is set to true" do
           let(:options) do
             {
@@ -95,6 +80,52 @@ module Alchemy
           it "crops from center and resizes the picture" do
             job = decode_dragon_fly_job(url)
             expect(job[1]).to include("160x120#")
+          end
+
+          context "and crop_from and crop_size is passed in" do
+            let(:options) do
+              {
+                crop_size: '123x44',
+                crop_from: '0x0',
+                size: '160x120',
+                crop: true
+              }
+            end
+
+            it "crops and resizes the picture" do
+              job = decode_dragon_fly_job(url)
+              expect(job[1]).to include("-crop 123x44+0+0 -resize 160x120>")
+            end
+          end
+        end
+
+        context "and crop is set to false" do
+          let(:options) do
+            {
+              size: '160x120',
+              crop: false
+            }
+          end
+
+          it "does not crop the picture" do
+            job = decode_dragon_fly_job(url)
+            expect(job[1]).to_not include("160x120#")
+          end
+
+          context "and crop_from and crop_size is passed in" do
+            let(:options) do
+              {
+                crop_size: '123x44',
+                crop_from: '0x0',
+                size: '160x120',
+                crop: false
+              }
+            end
+
+            it "does not crop the picture" do
+              job = decode_dragon_fly_job(url)
+              expect(job[1]).to_not include("-crop 123x44+0+0")
+            end
           end
         end
 

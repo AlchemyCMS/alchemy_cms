@@ -46,7 +46,7 @@ module Alchemy
 
       return image unless size.present? && has_convertible_format?
 
-      if options[:crop_size].present? && options[:crop_from].present? || options[:crop].present?
+      if options[:crop]
         crop(size, options[:crop_from], options[:crop_size], upsample)
       else
         resize(size, upsample)
