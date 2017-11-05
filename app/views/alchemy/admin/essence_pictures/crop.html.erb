@@ -19,11 +19,12 @@
     <%= f.hidden_field :crop_from %>
     <%= f.hidden_field :crop_size %>
     <%= hidden_field_tag :content_id, @content.id %>
-    <%= f.button "#{render_icon(:true)} #{Alchemy.t(:apply)}".html_safe, class: 'with_icon' %>
-    <%= link_to Alchemy.t('Reset Imagemask'), '#', {
+    <%= button_tag Alchemy.t('Reset Imagemask'), {
       onclick: 'Alchemy.ImageCropper.reset(); return false',
-      class: 'reset_mask'
+      class: 'reset_mask',
+      type: 'reset'
     } %>
+    <%= f.button Alchemy.t(:apply) %>
   <% end %>
 </div>
 <% end %>

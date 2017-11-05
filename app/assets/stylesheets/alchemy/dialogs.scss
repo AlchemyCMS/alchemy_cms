@@ -81,9 +81,15 @@
       position: relative;
     }
 
+    form,
     .info.message {
-      float: right;
-      width: 134px;
+      position: absolute;
+      right: 2 * $default-padding;
+      width: 256px;
+    }
+
+    .info.message {
+      top: 2 * $default-padding;
       margin: 0 0 0 8px;
       padding: 0 8px 0 32px;
     }
@@ -99,21 +105,17 @@
 
     form {
       padding: 0;
-      position: absolute;
       bottom: 2 * $default-padding;
-      right: 2 * $default-padding;
-      width: 176px;
       margin-left: 8px;
 
-      .reset_mask, button {
-        display: block;
+      button {
         margin-bottom: 0;
-        text-align: center;
+        width: calc(50% - #{$default-padding});
       }
 
-      .reset_mask { padding-top: 4px }
-
-      button { width: 100% }
+      button[type="submit"] {
+        float: right;
+      }
     }
   }
 }
