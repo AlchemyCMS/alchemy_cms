@@ -14,7 +14,7 @@ module Alchemy
       disable_link: false,
       srcset: [],
       sizes: []
-    }
+    }.with_indifferent_access
 
     def initialize(content, options = {}, html_options = {})
       @content = content

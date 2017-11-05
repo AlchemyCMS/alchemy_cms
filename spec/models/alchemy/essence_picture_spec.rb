@@ -25,6 +25,13 @@ module Alchemy
       expect(essence.crop_size).to eq("100x203")
     end
 
+    it "should not store empty strings for nil crop values" do
+      essence = EssencePicture.new(crop_from: nil, crop_size: nil)
+      essence.save!
+      expect(essence.crop_from).to eq(nil)
+      expect(essence.crop_size).to eq(nil)
+    end
+
     it "should convert newlines in caption into <br/>s" do
       essence = EssencePicture.new(caption: "hello\nkitty")
       essence.save!
@@ -91,6 +98,51 @@ module Alchemy
         let(:picture) { nil }
 
         it { is_expected.to be_nil }
+      end
+    end
+
+    describe '#picture_url_options' do
+      subject(:picture_url_options) { essence.picture_url_options }
+
+      let(:picture) { build_stubbed(:alchemy_picture) }
+      let(:essence) { build_stubbed(:alchemy_essence_picture, picture: picture) }
+
+      it { is_expected.to be_a(HashWithIndifferentAccess) }
+
+      it "includes the pictures default render format." do
+        expect(picture).to receive(:default_render_format) { 'img' }
+        expect(picture_url_options[:format]).to eq('img')
+      end
+
+      context 'with crop sizes present' do
+        before do
+          expect(essence).to receive(:crop_size) { '200x200' }
+          expect(essence).to receive(:crop_from) { '10x10' }
+        end
+
+        it "includes these crop sizes.", :aggregate_failures do
+          expect(picture_url_options[:crop_from]).to eq '10x10'
+          expect(picture_url_options[:crop_size]).to eq '200x200'
+        end
+      end
+
+      # Regression spec for issue #1279
+      context 'with crop sizes being empty strings' do
+        before do
+          expect(essence).to receive(:crop_size) { '' }
+          expect(essence).to receive(:crop_from) { '' }
+        end
+
+        it "does not include these crop sizes.", :aggregate_failures do
+          expect(picture_url_options[:crop_from]).to be_nil
+          expect(picture_url_options[:crop_size]).to be_nil
+        end
+      end
+
+      context 'without picture assigned' do
+        let(:picture) { nil }
+
+        it { is_expected.to be_a(Hash) }
       end
     end
 
