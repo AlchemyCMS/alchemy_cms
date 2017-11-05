@@ -32,6 +32,13 @@ describe Alchemy::EssencePictureView, type: :model do
     allow(picture).to receive(:url) { picture_url }
   end
 
+  describe 'DEFAULT_OPTIONS' do
+    it do
+      expect(Alchemy::EssencePictureView::DEFAULT_OPTIONS).
+        to be_a(HashWithIndifferentAccess)
+    end
+  end
+
   context "with caption" do
     let(:options) do
       {}

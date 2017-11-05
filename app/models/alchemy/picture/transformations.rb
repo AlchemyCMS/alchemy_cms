@@ -111,12 +111,11 @@ module Alchemy
     end
 
     # An Image smaller than dimensions
-    # can not be cropped to string - unless upsample is true.
+    # can not be cropped to given size - unless upsample is true.
     #
     def can_be_cropped_to(string, upsample = false)
-      dimensions = sizes_from_string(string)
       return true if upsample
-      is_bigger_than(dimensions)
+      is_bigger_than sizes_from_string(string)
     end
 
     # Returns true if the class we're included in has a meaningful render_size attribute
