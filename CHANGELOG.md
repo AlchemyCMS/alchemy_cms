@@ -1,8 +1,12 @@
 # Change Log
 
-## 4.0.0 (unreleased)
+## 4.0.0 (2017-11-06)
 
-* Always use `border-box` box model for all CSS components in the admin
+* Fixes image cropping issues [#1320](https://github.com/AlchemyCMS/alchemy_cms/pull/1320) and [#1321](https://github.com/AlchemyCMS/alchemy_cms/pull/1321) by [tvdeyen](https://github.com/tvdeyen)
+  This includes the change that images will not be cropped anymore unless `crop: true` is explicitly given in either the contents settings or passed via options to `render_essence`. The former behavior of implicitly cropping only because crop values (`crop_from` or `crop_size`) were present on the `EssencePicture` database record was erroneous and confusing.
+* Allow Dragonfly 1.1 and above [#1314](https://github.com/AlchemyCMS/alchemy_cms/pull/1314) by [tvdeyen](https://github.com/tvdeyen)
+* Added Rails 5.1 support [#1310](https://github.com/AlchemyCMS/alchemy_cms/pull/1310) by [tvdeyen](https://github.com/tvdeyen)
+* Always use `border-box` box model for all CSS components in the admin [#1309](https://github.com/AlchemyCMS/alchemy_cms/pull/1309) by [tvdeyen](https://github.com/tvdeyen)
 
 ## 4.0.0.rc2 (2017-08-18)
 
