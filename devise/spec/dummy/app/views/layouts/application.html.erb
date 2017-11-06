@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <%= render_meta_data %>
+  <%= render 'alchemy/pages/meta_data' %>
   <%= stylesheet_link_tag 'application' %>
 </head>
 <body>
   <%= yield %>
-  <%= alchemy_preview_mode_code %>
+  <%= render 'alchemy/preview_mode_code' %>
   <%= render 'alchemy/menubar' %>
 </body>
 </html>
