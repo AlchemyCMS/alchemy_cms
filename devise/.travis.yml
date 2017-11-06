@@ -4,8 +4,8 @@ sudo: false
 cache: bundler
 rvm:
 - 2.2.7
-- 2.3.4
-- 2.4.1
+- 2.3.5
+- 2.4.2
 branches:
   only:
     - master
