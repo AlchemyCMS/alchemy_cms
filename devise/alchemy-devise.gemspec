@@ -8,10 +8,10 @@ Gem::Specification.new do |s|
   s.name        = "alchemy-devise"
   s.version     = Alchemy::Devise::VERSION
   s.authors     = ["Thomas von Deyen"]
-  s.email       = ["tvd@magiclabs.de"]
+  s.email       = ["thomas@vondeyen.com"]
   s.homepage    = "http://alchemy-cms.com"
-  s.summary     = "Devise based user authentication for Alchemy CMS."
-  s.description = "Devise based user authentication for Alchemy CMS."
+  s.summary     = "Devise based user authentication for AlchemyCMS."
+  s.description = "Devise based user authentication for AlchemyCMS."
 
   s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
   s.test_files = Dir["spec/**/*"]
@@ -29,8 +29,5 @@ In order to complete the installation or the upgrade of Alchemy::Devise run:
 
   $ bin/rails g alchemy:devise:install
 
-NOTE: If you are upgrading from Alchemy::Devise 2.0 or older and have overwritten the mailer views, you need to upgrade them!
-See: https://github.com/plataformatec/devise/blob/master/CHANGELOG.md#310---2013-09-05
-
-  MSG
+MSG
 end
