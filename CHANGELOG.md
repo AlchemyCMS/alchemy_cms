@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.0.5 (unreleased)
+
+- Skip folded deeper levels when rendering page tree [#1324](https://github.com/AlchemyCMS/alchemy_cms/pull/1324) ([pascalj](https://github.com/pascalj))
+
 ## 4.0.4 (2018-09-05)
 
 - Allow Kaminari 1.x [#1467](https://github.com/AlchemyCMS/alchemy_cms/pull/1467) ([tvdeyen](https://github.com/tvdeyen))
