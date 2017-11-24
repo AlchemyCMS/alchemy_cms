@@ -18,7 +18,7 @@ module Alchemy
         pictures.find_each(batch_size: 100).with_index do |pic, i|
           begin
             puts "   -> Reading file format of #{pic.image_file_name} (#{i + 1}/#{count})"
-            format = pic.image_file.identify('-ping -format "%m"')
+            format = pic.image_file.identify('-ping -format "%m"') if pic.image_file.file
             pic.update_column('image_file_format', format.to_s.chomp.downcase)
             converted_pics += 1
           rescue Dragonfly::Job::Fetch::NotFound => e
