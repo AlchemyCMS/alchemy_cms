@@ -15,5 +15,10 @@ module Alchemy
     belongs_to :page, required: true
     belongs_to :user, required: true,
       class_name: Alchemy.user_class_name
+
+    def self.folded_for_user(user)
+      return none unless Alchemy.user_class < ActiveRecord::Base
+      where(user: user, folded: true)
+    end
   end
 end
