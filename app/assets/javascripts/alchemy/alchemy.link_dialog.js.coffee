@@ -20,12 +20,19 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     # Store some jQuery objects for further reference
     @$page_anchor = $('#page_anchor', @dialog_body)
     @$internal_urlname = $('#internal_urlname', @dialog_body)
-    @$internal_anchor = $('#internal_anchor', @dialog_body)
     @$external_url = $('#external_url', @dialog_body)
     @$public_filename = $('#public_filename', @dialog_body)
     @$overlay_tabs = $('#overlay_tabs', @dialog_body)
     @$page_container = $('#page_selector_container')
-    @initInternalAnchors()
+    @$internal_links = new Alchemy.InternalLinksSelect
+      frame: $('iframe#alchemy_preview_window')
+      selectField: $('#internal_anchor', @dialog_body)
+      onChange: (e) =>
+        # deselect any selected page from page tree
+        @deselectPage()
+        # store the internal anchor as urlname
+        $("#internal_urlname").val("##{e.target.value}")
+
     # if we edit an existing link
     if @link_object
       # we select the correct tab
@@ -77,11 +84,12 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     # deselect any selected page from page tree
     @deselectPage()
     # reset the internal anchor select
-    @$internal_anchor.select2('val', '')
+    @$internal_links.resetSelectValue('')
+
     $('#sitemap_sitename_' + page_id).addClass('selected_page')
     @$page_container.scrollTo("#sitemap_sitename_#{page_id}", {duration: 400, offset: -10})
 
-  deselectPage: ->
+  deselectPage: =>
     $('#sitemap .selected_page', @dialog_body).removeClass('selected_page')
 
   # Creates a link if no validation errors are present.
@@ -170,7 +178,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
       if @$internal_urlname.val().match(/^#/)
         # we select the correct value from anchors select
         value = @$internal_urlname.val()
-        @$internal_anchor.select2 'val', value.replace(/^#/, '')
+        @$internal_links.resetSelectValue(value.replace(/^#/, ''))
     else
       @$internal_urlname.val(urlname)
     $sitemap_line = $('.sitemap_sitename').closest('[name="'+urlname+'"]')
@@ -224,21 +232,6 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     $('#errors ul', @dialog_body).html("<li>#{Alchemy.t('url_validation_failed')}</li>")
     $('#errors', @dialog_body).show()
 
-  # Populates the internal anchors select
-  initInternalAnchors: ->
-    frame = document.getElementById('alchemy_preview_window')
-    elements = frame.contentDocument.getElementsByTagName('*')
-    if elements.length > 0
-      for element in elements
-        if element.id
-          @$internal_anchor.append("<option value='#{element.id}'>##{element.id}</option>")
-    else
-      @$internal_anchor.html("<option>#{Alchemy.t('No anchors found')}</option>")
-    @$internal_anchor.change (e) =>
-      # deselect any selected page from page tree
-      @deselectPage()
-      # store the internal anchor as urlname
-      $("#internal_urlname").val("##{e.target.value}")
 
   # Public class methods
 
