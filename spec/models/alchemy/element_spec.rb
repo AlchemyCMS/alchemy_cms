@@ -118,6 +118,33 @@ module Alchemy
 
       context "with a YAML file including a symbol" do
         let(:yaml) { '- name: :symbol' }
+
+        before do
+          expect(File).to receive(:exist?).and_return(true)
+          expect(File).to receive(:read).and_return(yaml)
+        end
+
+        it "returns the definition without error" do
+          expect { Element.definitions }.to_not raise_error
+        end
+      end
+
+      context "with a YAML file including a Date" do
+        let(:yaml) { '- default: 2017-12-24' }
+
+        before do
+          expect(File).to receive(:exist?).and_return(true)
+          expect(File).to receive(:read).and_return(yaml)
+        end
+
+        it "returns the definition without error" do
+          expect { Element.definitions }.to_not raise_error
+        end
+      end
+
+      context "with a YAML file including a Regex" do
+        let(:yaml) { "- format: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'" }
+
         before do
           expect(File).to receive(:exist?).and_return(true)
           expect(File).to receive(:read).and_return(yaml)
