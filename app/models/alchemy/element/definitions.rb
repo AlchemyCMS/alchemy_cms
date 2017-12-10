@@ -26,7 +26,7 @@ module Alchemy
       #
       def read_definitions_file
         if ::File.exist?(definitions_file_path)
-          ::YAML.safe_load(ERB.new(File.read(definitions_file_path)).result, [Regexp, Date], [], true) || []
+          ::YAML.safe_load(ERB.new(File.read(definitions_file_path)).result, YAML_WHITELIST_CLASSES, [], true) || []
         else
           raise LoadError, "Could not find elements.yml file! Please run `rails generate alchemy:scaffold`"
         end

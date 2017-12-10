@@ -1,5 +1,6 @@
 # Instantiate the global Alchemy namespace
 module Alchemy
+  Alchemy::YAML_WHITELIST_CLASSES = %w(Symbol Date Regexp)
 end
 
 # Require globally used external libraries
