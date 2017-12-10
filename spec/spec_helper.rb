@@ -67,6 +67,7 @@ RSpec.configure do |config|
   config.infer_spec_type_from_file_location!
   config.raise_errors_for_deprecations!
   config.run_all_when_everything_filtered = true
+  config.example_status_persistence_file_path = "tmp/rspec_examples.txt"
   config.filter_run :focus
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Alchemy::Engine.routes.url_helpers
