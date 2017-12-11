@@ -18,6 +18,7 @@ require 'capybara/poltergeist'
 require 'capybara/rails'
 require 'database_cleaner'
 require 'rspec-activemodel-mocks'
+require 'ammeter/init'
 
 require 'alchemy/seeder'
 require 'alchemy/test_support/controller_requests'
@@ -27,6 +28,7 @@ require 'alchemy/test_support/integration_helpers'
 require 'alchemy/test_support/factories'
 require 'alchemy/test_support/shared_contexts'
 require 'alchemy/test_support/shared_uploader_examples'
+require 'alchemy/test_support/generators'
 
 require_relative 'factories'
 require_relative "support/hint_examples.rb"
@@ -75,6 +77,7 @@ RSpec.configure do |config|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type
   end
   config.include FactoryBot::Syntax::Methods
+  config.extend Alchemy::TestSupport::Generators, type: :generator
 
   config.use_transactional_fixtures = false
   # Make sure the database is clean and ready for test
