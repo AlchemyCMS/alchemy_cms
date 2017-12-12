@@ -643,7 +643,6 @@ zh-CN:
     array:
       sentence_connector: "和"
 
-
   number:
     # Used in number_with_delimiter()
     # These are also the defaults for 'currency', 'percentage', 'precision', and 'human'
@@ -655,6 +654,7 @@ zh-CN:
       # Number of decimals, behind the separator (1 with a precision of 2 gives: 1.00)
       precision: 3
 
+	  
     # Used in number_to_currency()
     currency:
       format:
@@ -693,249 +693,250 @@ zh-CN:
   # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
   datetime:
     distance_in_words:
-      half_a_minute: "half a minute"
+      half_a_minute: "半分钟"
       less_than_x_seconds:
-        one:  "less than 1 second"
-        many: "less than %{count} seconds"
+        one:  "小于 1 秒"
+        many: "小于 %{count} 秒"
       x_seconds:
-        one:  "1 second"
-        many: "%{count} seconds"
+        one:  "1 秒"
+        many: "%{count} 秒"
       less_than_x_minutes:
-        one:  "less than a minute"
-        many: "less than %{count} minutes"
+        one:  "小于1分钟"
+        many: "小于 %{count} 分钟"
       x_minutes:
-        one:  "1 minute"
-        many: "%{count} minutes"
+        one:  "1 分钟"
+        many: "%{count} 分钟"
       about_x_hours:
-        one:  "about 1 hour"
-        many: "about %{count} hours"
+        one:  "近 1 小时"
+        many: "近 %{count} 小时"
       x_days:
-        one:  "1 day"
-        many: "%{count} days"
+        one:  "1 天"
+        many: "%{count} 天"
       about_x_months:
-        one:  "about 1 month"
-        many: "about %{count} months"
+        one:  "近 1 月"
+        many: "近 %{count} 月"
       x_months:
-        one:  "1 month"
-        many: "%{count} months"
+        one:  "1 月"
+        many: "%{count} 月"
       about_x_years:
-        one:  "about 1 year"
-        many: "about %{count} years"
+        one:  "近 1 年"
+        many: "近 %{count} 年"
       over_x_years:
-        one:  "over 1 year"
-        many: "over %{count} years"
+        one:  "超过 1 年"
+        many: "超过 %{count} 年"
 
   errors: &errors
     template:
-      header: "Validation failed"
-      body: "Please review the form and check the errors."
+      header: "验证失败"
+      body: "请检查表单中的错误。"
 
     messages:
-      inclusion: "is not included in the list"
-      exclusion: "is reserved"
-      invalid: "is invalid"
-      record_invalid: 'Validation of %{errors} failed'
-      confirmation: "doesn't match confirmation"
-      accepted: "must be accepted"
-      empty: "can't be empty"
-      blank: "can't be blank"
-      too_long: "is too long (maximum is %{count} characters)"
-      too_short: "is too short (minimum is %{count} characters)"
-      wrong_length: "is the wrong length (should be %{count} characters)"
-      taken: "has already been taken"
-      not_a_number: "is not a number"
-      greater_than: "must be greater than %{count}"
-      greater_than_or_equal_to: "must be greater than or equal to %{count}"
-      equal_to: "must be equal to %{count}"
-      less_than: "must be less than %{count}"
-      less_than_or_equal_to: "must be less than or equal to %{count}"
-      odd: "must be odd"
-      even: "must be even"
+      inclusion: "未被包含在列表中"
+      exclusion: "是保留的"
+      invalid: "非法"
+      record_invalid: '验证 %{errors} 失败'
+      confirmation: "和确认不匹配"
+      accepted: "必须被接受"
+      empty: "不能为空"
+      blank: "不能为空"
+      too_long: "太长了 (最多 %{count} 个字符)"
+      too_short: "太短了 (至少 %{count} 个字符)"
+      wrong_length: "长度错误 (应该是 %{count} 个字符)"
+      taken: "已被使用"
+      not_a_number: "不是数字"
+      greater_than: "必须大于 %{count}"
+      greater_than_or_equal_to: "必须大于或等于 %{count}"
+      equal_to: "必须等于 %{count}"
+      less_than: "必须小于 %{count}"
+      less_than_or_equal_to: "必须小于或等于 %{count}"
+      odd: "必须是奇数"
+      even: "必须是偶数"
     models:
       alchemy/content:
         attributes:
           name:
-            taken: 'is already taken in this element.'
+            taken: '在这个元素中已经被使用。'
           essence:
-            validation_failed: 'Validation failed.'
+            validation_failed: '验证失败。'
       alchemy/element:
         attributes:
           name:
-            blank: "^Please choose an element."
+            blank: "^请选择一个元素。"
       alchemy/language:
         attributes:
           language_code:
-            invalid: '^Format of languagecode is not valid. Please use exactly two lowercase characters.'
-            taken: 'is already taken for this country code.'
+            invalid: '^语言代码格式非法。请使用两位小写字母。'
+            taken: '针对现在的国家代码，它已经被使用。'
           locale:
-            missing_file: "Localization not found for given language code. Please choose an existing one."
+            missing_file: "针对选择的语言代码，本地化文件不存在。请选择一个现有的。"
       alchemy/page:
         attributes:
           name:
-            blank: "^Please enter a name."
+            blank: "^请输入一个名字。"
           page_layout:
-            blank: "^Please choose a page layout."
+            blank: "^请选择一个页面布局。"
           urlname:
-            too_short: "^The pages urlname is too short (minimum of 3 characters)."
-            taken: "^URL-Name already taken."
-            exclusion: "^URL-Name reserved."
+            too_short: "^页面的地址名太短 (最少需要三个字符)。"
+            taken: "^URL-Name 已被使用。"
+            exclusion: "^URL-Name为保留字。"
       alchemy/picture:
         attributes:
           image_file:
-            blank: "Please attach a picture."
+            blank: "请添加一个图片。"
 
   activemodel:
     models:
       alchemy/message:
-        one: Message
-        other: Messages
+        one: 消息
+        other: 消息
 
     attributes:
       alchemy/message:
-        salutation: 'Salutation'
-        firstname: 'Firstname'
-        lastname: 'Lastname'
-        address: 'Street / No.'
-        zip: 'Zipcode'
-        city: City
-        phone: 'Telephone'
-        email: 'Email'
-        message: 'Message'
+        salutation: '联系方式'
+        firstname: '名'
+        lastname: '姓'
+        address: '街名 / 门牌号'
+        zip: '邮编'
+        city: 城市
+        phone: '电话'
+        email: '电子邮件'
+        message: '消息'
 
     errors:
-      <<: *errors
+      <<: *错误
 
   # Translations for active record database models and error messages.
   activerecord:
 
     models:
       acts_as_taggable_on/tag:
-        one: Tag
-        other: Tags
+        one: 标签
+        other: 标签
 
       alchemy/attachment:
-        one: File
-        other: Files
+        one: 文件
+        other: 文件
 
       alchemy/element:
-        one: "Element"
-        other: "Elements"
+        one: "元素"
+        other: "元素"
 
       alchemy/legacy_page_url:
-        one: "Link"
-        other: "Links"
+        one: "链接"
+        other: "链接"
 
       alchemy/language:
-        one: "Language"
-        other: "Languages"
+        one: "语言"
+        other: "语言"
 
       alchemy/page:
-        one: "Page"
-        other: "Pages"
+        one: "页面"
+        other: "页面"
 
       alchemy/site:
-        one: Website
-        other: Websites
+        one: 站点
+        other: 站点
 
       alchemy/picture:
-        one: Picture
-        other: Pictures
+        one: 图片
+        other: 图片
 
     attributes:
 
       acts_as_taggable_on/tag:
-        taggings_types: Used for
-        taggings_count: Usage count
+        taggings_types: 用于
+        taggings_count: 使用统计
 
       alchemy/attachment:
-        file_mime_type: Filetype
-        created_at: "Created at"
-        file_name: Filename
-        name: Name
-        file_size: Filesize
-        tag_list: Tags
-        url: "URL"
-        download_url: "Download-URL"
+        file_mime_type: 文件类型
+        created_at: "创建于"
+        file_name: 文件名
+        name: 名字
+        file_size: 文件大小
+        tag_list: 标签
+        url: "网址"
+        download_url: "下载地址"
 
       alchemy/element:
-        display_name: "Name"
-        name: "Name"
-        public: "visible"
-        tag_list: Tags
+        display_name: "名字"
+        name: "名字"
+        public: "可见"
+        tag_list: 标签
 
       alchemy/essence_file:
-        css_class: Style
+        css_class: 样式
 
       alchemy/essence_picture:
-        caption: "Caption"
-        title: "Title"
-        alt_tag: "Alternative text"
-        link: Link
-        link_class_name: "Link CSS class"
-        link_title: Link title
-        css_class: Style
-        link_target: Link target
-        render_size: Render size
-        crop_from: Crop from
-        crop_size: Crop size
-        picture_id: Bild
+        caption: "标题"
+        title: "标题"
+        alt_tag: "替换文本"
+        link: 链接
+        link_class_name: "链接CSS类"
+        link_title: 连接标题
+        css_class: 样式
+        link_target: 链接目标
+        render_size: 渲染大小
+        crop_from: 剪切起点
+        crop_size: 剪切大小
+        picture_id: 图片编号
 
       alchemy/language:
-        country_code: "Country code"
-        language_code: "Language code"
-        default: "Default"
-        frontpage_name: "Name of frontpage"
-        name: "Name"
-        page_layout: "Pagetype of frontpage"
-        public: "Public"
-        locale: Localization
-        code: ISO Code
+        country_code: "国家代码"
+        language_code: "语言代码"
+        default: "默认"
+        frontpage_name: "首页名"
+        name: "名字"
+        page_layout: "首页页面类型"
+        public: "公共"
+        locale: 本地化
+        code: ISO代码
 
       alchemy/legacy_page_url:
-        urlname: "URL path"
+        urlname: "网址路径"
 
       alchemy/page:
-        created_at: "Created at"
-        language: "Language"
-        locked: "This page is locked by another user."
-        locked_by: "locked by"
-        meta_description: "Description"
-        meta_keywords: "Keywords"
-        name: "Name"
-        page_layout: "Page type"
-        public: "public"
-        restricted: "restricted"
-        robot_follow: "robot may follow links"
-        robot_index: "allow robot to index"
-        sitemap: "visible in sitemap"
-        tag_list: Tags
-        title: "Title"
-        updated_at: "Updated at"
-        urlname: "Urlname"
-        visible: "visible in navigation"
+        created_at: "创建时间"
+        language: "语言"
+        locked: "这个页面由其他用户锁定。"
+        locked_by: "锁定人"
+        meta_description: "详细信息"
+        meta_keywords: "关键字"
+        name: "名字"
+        page_layout: "页面类型"
+        public: "公共"
+        restricted: "受限"
+        robot_follow: "允许机器人追踪链接"
+        robot_index: "允许机器人索引"
+        sitemap: "在站点地图可见"
+        tag_list: 标签
+        title: "标题"
+        updated_at: "更新于"
+        urlname: "地址名"
+        visible: "在导航栏可见"
 
       alchemy/picture:
-        image_file_name: "Filename"
-        image_file_height: "Height"
-        image_file_width: "Width"
-        image_file_dimensions: "Dimensions"
-        image_file_size: "Filesize"
-        name: "Name"
-        tag_list: Tags
+        image_file_name: "文件名"
+        image_file_height: "高"
+        image_file_width: "宽"
+        image_file_dimensions: "尺寸"
+        image_file_size: "文件大小"
+        name: "名字"
+        tag_list: 标签
 
       alchemy/site:
-        name: "Name"
-        host: "Primary Host"
-        public: "Public"
-        aliases: "Domain-Aliases"
-        redirect_to_primary_host: "Redirect to primary Host"
+        name: "名字"
+        host: "主要服务器"
+        public: "公共"
+        aliases: "域名别名"
+        redirect_to_primary_host: "跳转到主要服务器"
 
     errors:
-      <<: *errors
+      <<: *错误
 
   views:
     pagination:
-      first: "First Page"
-      previous_page: "Previous Page"
-      next_page: "Next Page"
-      last: "Last Page"
+      first: "第一页"
+      previous_page: "前一页"
+      next_page: "下一页"
+      last: "最后一页"
+
