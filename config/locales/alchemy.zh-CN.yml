@@ -800,7 +800,7 @@ zh-CN:
         email: '电子邮件'
         message: '消息'
     errors:
-      <<: *错误
+      <<: *errors
 
   # Translations for active record database models and error messages.
   activerecord:
