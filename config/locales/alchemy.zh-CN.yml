@@ -928,7 +928,7 @@ zh-CN:
         redirect_to_primary_host: "跳转到主要服务器"
 
     errors:
-      <<: *错误
+      <<: *errors
 
   views:
     pagination:
