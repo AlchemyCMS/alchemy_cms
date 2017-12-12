@@ -799,7 +799,6 @@ zh-CN:
         phone: '电话'
         email: '电子邮件'
         message: '消息'
-
     errors:
       <<: *错误
 
