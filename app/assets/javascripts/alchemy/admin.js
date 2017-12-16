@@ -20,6 +20,7 @@
 //= require select2_locale_nl
 //= require select2_locale_ru
 //= require select2_locale_it
+//= require select2_locale_zh-CN
 //= require handlebars
 //= require alchemy/templates
 //= require alchemy/alchemy.base
