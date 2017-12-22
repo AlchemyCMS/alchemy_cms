@@ -4,10 +4,11 @@ module Alchemy
     let(:root_page)       { Page.new }
     let(:page)            { Page.new(language_code: "en", title: "Road Runner", urlname: "roadrunner") }
     let(:title_prefix)    { "" }
+    let(:title_suffix)    { "" }
     let(:title_separator) { "" }
 
     subject do
-      render "alchemy/pages/meta_data", title_prefix: title_prefix, title_separator: title_separator
+      render "alchemy/pages/meta_data", title_prefix: title_prefix, title_suffix: title_suffix, title_separator: title_separator
     end
 
     context "when current page is set" do
@@ -99,6 +100,25 @@ module Alchemy
 
           it "renders the prefixed title" do
             is_expected.to match /<title>C64 - Road Runner<\/title>/
+          end
+        end
+
+        context "with a given suffix and separator" do
+          let(:title_suffix)    { "C64" }
+          let(:title_separator) { " - " }
+
+          it "renders the suffixed title" do
+            is_expected.to match /<title>Road Runner - C64<\/title>/
+          end
+        end
+
+        context "with a given prefix, suffix and separator" do
+          let(:title_prefix)    { "C64" }
+          let(:title_suffix)    { "Platform game" }
+          let(:title_separator) { " - " }
+
+          it "renders the suffixed title" do
+            is_expected.to match /<title>C64 - Road Runner - Platform game<\/title>/
           end
         end
       end

@@ -269,6 +269,7 @@ module Alchemy
       return "" if @page.title.blank?
       options = {
         prefix: "",
+        suffix: "",
         separator: ""
       }.update(options)
       title_parts = [options[:prefix]]
@@ -277,7 +278,8 @@ module Alchemy
       else
         title_parts << response.status
       end
-      title_parts.join(options[:separator]).html_safe
+      title_parts << options[:suffix]
+      title_parts.reject(&:blank?).join(options[:separator]).html_safe
     end
 
     def meta_description
