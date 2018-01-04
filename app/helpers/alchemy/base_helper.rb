@@ -20,9 +20,24 @@ module Alchemy
       end
     end
 
-    # Returns an icon
-    def render_icon(icon_class)
-      content_tag('span', '', class: "icon #{icon_class}")
+    # Render a Fontawesome icon
+    #
+    # @param icon_class [String] Fontawesome icon name
+    # @param size: nil [String] Fontawesome icon size
+    # @param transform: nil [String] Fontawesome transform style
+    #
+    # @return [String]
+    def render_icon(icon_class, options = {})
+      options = {style: 'solid'}.merge(options)
+      classes = [
+        "icon fa-fw",
+        "fa-#{icon_class}",
+        "fa#{options[:style].first}",
+        options[:size] ? "fa-#{options[:size]}" : nil,
+        options[:transform] ? "fa-#{options[:transform]}" : nil,
+        options[:class]
+      ].compact
+      content_tag('i', nil, class: classes)
     end
 
     # Returns a div with an icon and the passed content

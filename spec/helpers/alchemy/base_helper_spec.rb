@@ -2,16 +2,58 @@ require 'spec_helper'
 
 module Alchemy
   describe BaseHelper do
+    describe "#render_icon" do
+      subject { helper.render_icon(:info, options) }
+
+      let(:options) { Hash.new }
+
+      it 'renders a solid fontawesome icon with fixed width' do
+        is_expected.to have_css 'i.icon.fa-info.fas.fa-fw'
+      end
+
+      context 'with style set to regular' do
+        let(:options) { {style: 'regular'} }
+
+        it 'renders a regular fontawesome icon' do
+          is_expected.to have_css 'i.far'
+        end
+      end
+
+      context 'with size set to xs' do
+        let(:options) { {size: 'xs'} }
+
+        it 'renders a extra small fontawesome icon' do
+          is_expected.to have_css 'i.fa-xs'
+        end
+      end
+
+      context 'with transform option given' do
+        let(:options) { {transform: 'flip-horizontal'} }
+
+        it 'renders a transformed fontawesome icon' do
+          is_expected.to have_css 'i.fa-flip-horizontal'
+        end
+      end
+
+      context 'with class option given' do
+        let(:options) { {class: 'disabled'} }
+
+        it 'renders a fontawesome icon with additional css class' do
+          is_expected.to have_css 'i.disabled'
+        end
+      end
+    end
+
     describe "#render_message" do
       context "if no argument is passed" do
         it "should render a div with an info icon and the given content" do
-          expect(helper.render_message{ content_tag(:p, "my notice") }).to match(/<div class="info message"><span class="icon info"><\/span><p>my notice/)
+          expect(helper.render_message{ content_tag(:p, "my notice") }).to match(/<div class="info message"><i class="icon fa-fw fa-info fas"><\/i><p>my notice/)
         end
       end
 
       context "if an argument is passed" do
         it "should render the passed argument as the css classname for the icon container" do
-          expect(helper.render_message(:error){ content_tag(:p, "my notice") }).to match(/<div class="error message"><span class="icon error">/)
+          expect(helper.render_message(:error){ content_tag(:p, "my notice") }).to match(/<div class="error message"><i class="icon fa-fw fa-error fas">/)
         end
       end
     end
