@@ -241,5 +241,23 @@ module Alchemy
         end
       end
     end
+
+    describe '#hint_with_tooltip' do
+      subject { helper.hint_with_tooltip('My hint') }
+
+      it 'renders a warning icon with hint text wrapped in tooltip', :aggregate_failures do
+        is_expected.to have_css 'span.hint-with-icon i.fa-exclamation-triangle'
+        is_expected.to have_css 'span.hint-with-icon span.hint-bubble'
+        is_expected.to have_content 'My hint'
+      end
+
+      context 'with icon set to info' do
+        subject { helper.hint_with_tooltip('My hint', icon: 'info') }
+
+        it 'renders an info icon instead' do
+          is_expected.to have_css 'i.fa-info'
+        end
+      end
+    end
   end
 end
