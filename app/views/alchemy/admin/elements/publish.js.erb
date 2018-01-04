@@ -1,14 +1,14 @@
 var el = $('.element-editor[data-element-id="<%= @element.id %>"]');
-var icon = el.find('> .element-header > .element-handle .icon:not(.element)');
+var icon = el.find('> .element-header > .element-handle > .icon');
 var label = el.find('> .element-toolbar .publish-element-button label');
 
 <%- if @element.public? -%>
-  icon.removeClass('element_draft');
-  icon.addClass('element_public');
+  icon.removeClass('fa-window-close fas');
+  icon.addClass('fa-window-maximize far');
   label.text('<%= Alchemy.t(:hide_element) %>');
 <%- else -%>
-  icon.removeClass('element_public');
-  icon.addClass('element_draft');
+  icon.removeClass('fa-window-maximize far');
+  icon.addClass('fa-window-close fas');
   label.text('<%= Alchemy.t(:show_element) %>');
 <%- end -%>
 

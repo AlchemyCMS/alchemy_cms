@@ -26,7 +26,7 @@
   <td class="tools long">
   <% if can?(:show, attachment) %>
     <%= link_to_dialog(
-      render_icon(:info),
+      render_icon('info-circle'),
       alchemy.admin_attachment_path(attachment),
       {
         title: attachment.name,
@@ -38,13 +38,10 @@
     ) %>
   <% end %>
   <% if can?(:download, attachment) %>
-    <%= link_to(
-      "",
+    <%= link_to render_icon(:download),
       alchemy.download_admin_attachment_path(attachment),
       title: Alchemy.t("download_file", filename: attachment.file_name),
-      class: "icon file_download",
-      target: "_blank"
-    ) %>
+      target: "_blank" %>
   <% end %>
   <% if can?(:edit, attachment) %>
     <%= render 'alchemy/admin/attachments/replace_button',
@@ -53,8 +50,7 @@
       file_attribute: 'file' %>
   <% end %>
   <% if can?(:destroy, attachment) %>
-    <%= link_to_confirm_dialog(
-      "",
+    <%= link_to_confirm_dialog render_icon(:minus),
       Alchemy.t(:confirm_to_delete_file),
       alchemy.admin_attachment_path(
         id: attachment,
@@ -62,22 +58,16 @@
         page: params[:page],
         per_page: params[:per_page]
       ),
-      {
-        class: 'icon file_delete',
-        title: Alchemy.t(:delete_file)
-      }
-    ) %>
+      title: Alchemy.t(:delete_file) %>
   <% end %>
   <% if can?(:edit, attachment) %>
-    <%= link_to_dialog("",
+    <%= link_to_dialog render_icon(:edit),
       alchemy.edit_admin_attachment_path(attachment, q: params[:q], page: params[:page]),
       {
         title: Alchemy.t(:rename_file),
         size: '500x250'
       },
-      class: 'icon file_edit',
-      title: Alchemy.t(:rename_file)
-    ) %>
+      title: Alchemy.t(:rename_file) %>
   <% end %>
   </td>
 </tr>

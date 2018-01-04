@@ -143,7 +143,7 @@ describe 'Page editing feature' do
     context "when updating the name" do
       it "saves the name" do
         visit alchemy.admin_pages_path
-        find(".sitemap_page[name='#{a_page.name}'] .icon.configure_page").click
+        find(".sitemap_page[name='#{a_page.name}'] .icon.fa-cog").click
         expect(page).to have_selector(".alchemy-dialog-overlay.open")
         within(".alchemy-dialog.modal") do
           find("input#page_name").set("name with some %!x^)'([@!{}]|/?\:# characters")

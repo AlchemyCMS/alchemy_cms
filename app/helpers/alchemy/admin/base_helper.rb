@@ -191,7 +191,7 @@ module Alchemy
         options = {
           title: Alchemy.t('Delete'),
           message: Alchemy.t('Are you sure?'),
-          icon: 'destroy'
+          icon: :minus
         }.merge(options)
         button_with_confirm(
           render_icon(options[:icon]),
@@ -227,7 +227,7 @@ module Alchemy
       # == Example
       #
       #   <%= toolbar_button(
-      #     icon: 'create',
+      #     icon: :plus,
       #     label: 'Create',
       #     url: new_resource_path,
       #     title: 'Create Resource',
@@ -288,7 +288,7 @@ module Alchemy
       #   <% toolbar(
       #     buttons: [
       #       {
-      #         icon: 'create',
+      #         icon: :plus,
       #         label: label_title,
       #         url: new_resource_path,
       #         title: label_title,
@@ -385,7 +385,7 @@ module Alchemy
       def render_hint_for(element)
         return unless element.has_hint?
         content_tag :span, class: 'hint-with-icon' do
-          render_icon(:questionmark) +
+          render_icon('question-circle') +
             content_tag(:span, element.hint.html_safe, class: 'hint-bubble')
         end
       end

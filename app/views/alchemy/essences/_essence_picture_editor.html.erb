@@ -7,13 +7,13 @@
   <div class="picture_thumbnail">
     <span class="picture_tool delete">
       <% if options[:grouped] %>
-        <%= link_to_confirm_dialog "", Alchemy.t(:confirm_to_delete_image),
+        <%= link_to_confirm_dialog render_icon(:minus), Alchemy.t(:confirm_to_delete_image),
           alchemy.admin_essence_picture_path(
             id: content,
             options: options
           ), {title: Alchemy.t(:delete_image)} %>
       <% else %>
-        <%= link_to '', '#',
+        <%= link_to render_icon(:times), '#',
           onclick: "return Alchemy.removePicture('##{content.form_field_id(:picture_id)}');" %>
       <% end %>
     </span>

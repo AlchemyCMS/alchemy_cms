@@ -1,12 +1,12 @@
 <li>
   <div class="sitemap_page ">
     <div class="sitemap_left_images">
-      <%= render_icon(:page) %>
+      <i class="icon far fa-file fa-lg"></i>
     </div>
     <div class="sitemap_right_tools">
       {{#unless redirects_to_external}}
       <div class="button_with_label sitemap_tool">
-        <%= link_to render_icon(:element_window),
+        <%= link_to render_icon('th-list'),
           alchemy.list_admin_elements_path(page_id: '__ID__').gsub('__ID__', '{{id}}'),
           remote: true,
           data: {
@@ -21,13 +21,13 @@
     </div>
     <div class="page_infos">
       <span class="page_status">
-        <span class="icon {{#unless public}}not_{{/unless}}public"></span>
+        <i class="icon fas fa-fw fa-compass {{#unless public}}disabled{{/unless}}" data-fa-transform="shrink-2"></i>
       </span>
       <span class="page_status">
-        <span class="icon {{#unless visible}}not_{{/unless}}visible"></span>
+        <i class="icon fas fa-fw fa-eye {{#unless visible}}disabled{{/unless}}" data-fa-transform="shrink-2"></i>
       </span>
       <span class="page_status">
-        <span class="icon {{#unless restricted}}not_{{/unless}}restricted"></span>
+        <i class="icon fas fa-fw fa-lock {{#unless restricted}}disabled{{/unless}}" data-fa-transform="shrink-2"></i>
       </span>
     </div>
     <div class="sitemap_sitename" id="sitemap_sitename_{{id}}" name="/<%= "#{Alchemy::Language.current.code}/" if multi_language? %>{{urlname}}">

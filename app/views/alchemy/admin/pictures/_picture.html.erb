@@ -5,7 +5,7 @@
   <% if picture.deletable? && can?(:destroy, picture) %>
   <span class="picture_tool delete">
     <%= link_to_confirm_dialog(
-      "",
+      render_icon(:minus),
       Alchemy.t(:confirm_to_delete_image_from_server),
       alchemy.admin_picture_path(
         id: picture,

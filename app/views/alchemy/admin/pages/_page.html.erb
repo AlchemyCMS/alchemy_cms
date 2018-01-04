@@ -4,34 +4,42 @@
       <% unless @sorting %>
         {{#unless root_or_leaf}}
         <%= link_to(
-          '',
           alchemy.fold_admin_page_path(page),
           remote: true,
           method: :post,
-          class: "page_folder {{#if folded}}folded{{else}}collapsed{{/if}}",
+          class: "page_folder",
           title: "{{#if folded}}#{Alchemy.t('Show childpages')}{{else}}#{Alchemy.t('Hide childpages')}{{/if}}",
           id: "fold_button_{{id}}"
-        )
-        %>
+        ) do %>
+          {{#if folded}}
+            <i class="far fa-plus-square fa-fw"></i>
+          {{else}}
+            <i class="far fa-minus-square fa-fw"></i>
+          {{/if}}
+        <% end %>
         {{/unless}}
       <% end %>
       {{#if definition_missing}}
         <%= page_layout_missing_warning %>
       {{else}}
         {{#if permissions.edit_content}}
-          <div class="page icon{{#if locked}} with-hint{{/if}}">
-            {{#if locked}}
+          {{#if locked}}
+            <span class="with-hint">
+              <i class="icon fas fa-edit fa-fw"></i>
               <span class="hint-bubble">
                 {{locked_notice}}
               </span>
-            {{/if}}
-          </div>
+            </span>
+          {{else}}
+            <i class="icon far fa-file fa-lg"></i>
+          {{/if}}
         {{else}}
-          <div class="page icon with-hint not-allowed">
+          <span class="with-hint">
+            <i class="icon fas fa-ban fa-fw"></i>
             <span class="hint-bubble">
               <%= Alchemy.t('Your user role does not allow you to edit this page') %>
             </span>
-          </div>
+          </span>
         {{/if}}
       {{/if}}
     </div>
@@ -40,7 +48,7 @@
         {{#if permissions.info}}
         <div class="button_with_label sitemap_tool">
           <%= link_to_dialog(
-            render_icon(:info),
+            render_icon('info-circle'),
             alchemy.info_admin_page_path(page),
             {
               title: Alchemy.t(:page_infos),
@@ -50,7 +58,7 @@
           <label class="center"><%= Alchemy.t(:page_infos) %></label>
         {{else}}
         <div class="sitemap_tool disabled with-hint">
-          <%= render_icon(:info) %>
+          <%= render_icon('info-circle') %>
           <span class="hint-bubble">
             <%= Alchemy.t('Your user role does not allow you to edit this page') %>
           </span>
@@ -59,7 +67,7 @@
         {{#if permissions.configure}}
         <div class="button_with_label sitemap_tool">
           <%= link_to_dialog(
-            render_icon(:configure_page),
+            render_icon(:cog),
             alchemy.configure_admin_page_path(page),
             {
               title: Alchemy.t(:edit_page_properties),
@@ -69,7 +77,7 @@
           <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
         {{else}}
         <div class="sitemap_tool disabled with-hint">
-          <%= render_icon(:configure_page) %>
+          <%= render_icon(:cog) %>
           <span class="hint-bubble">
             <%= Alchemy.t('Your user role does not allow you to edit this page') %>
           </span>
@@ -78,7 +86,7 @@
         {{#if permissions.copy}}
         <div class="button_with_label sitemap_tool">
           <%= link_to(
-            render_icon(:copy_page),
+            render_icon(:copy),
             alchemy.insert_admin_clipboard_path(
               remarkable_type: page.class.name.demodulize.underscore.pluralize,
               remarkable_id: '__ID__',
@@ -89,7 +97,7 @@
           <label class="center"><%= Alchemy.t(:copy_page) %></label>
         {{else}}
         <div class="sitemap_tool disabled with-hint">
-          <%= render_icon(:copy_page) %>
+          <%= render_icon(:copy) %>
           <span class="hint-bubble">
             <%= Alchemy.t('Your user role does not allow you to edit this page') %>
           </span>
@@ -98,7 +106,7 @@
         {{#if permissions.destroy}}
         <div class="button_with_label sitemap_tool">
           <%= link_to_confirm_dialog(
-            render_icon(:delete_page),
+            render_icon(:minus),
             Alchemy.t(:confirm_to_delete_page),
             url_for(
               controller: 'pages',
@@ -109,7 +117,7 @@
           <label class="center"><%= Alchemy.t(:delete_page) %></label>
         {{else}}
         <div class="sitemap_tool disabled with-hint">
-          <%= render_icon(:delete_page) %>
+          <%= render_icon(:minus) %>
           <span class="hint-bubble">
             <%= Alchemy.t('Your user role does not allow you to edit this page') %>
           </span>
@@ -118,7 +126,7 @@
         {{#if permissions.create}}
         <div class="button_with_label sitemap_tool">
           <%= link_to_dialog(
-            render_icon(:add_page),
+            render_icon(:plus),
             alchemy.new_admin_page_path(parent_id: '__ID__').gsub('__ID__', '{{id}}'),
             {
               title: Alchemy.t(:create_page),
@@ -129,7 +137,7 @@
           <label class="left"><%= Alchemy.t(:create_page) %></label>
         {{else}}
         <div class="sitemap_tool disabled with-hint">
-          <%= render_icon(:add_page) %>
+          <%= render_icon(:plus) %>
           <span class="hint-bubble">
             <%= Alchemy.t('Your user role does not allow you to edit this page') %>
           </span>
@@ -139,15 +147,15 @@
     </div>
     <div class="page_infos" id="page_<%= page.id %>_infos">
       <span class="page_status with-hint">
-        <span class="icon {{#unless public}}not_{{/unless}}public"></span>
+        <i class="icon fas fa-fw fa-compass {{#unless public}}disabled{{/unless}}" data-fa-transform="shrink-2"></i>
         <span class="hint-bubble">{{status_titles.public}}</span>
       </span>
       <span class="page_status with-hint">
-        <span class="icon {{#unless visible}}not_{{/unless}}visible"></span>
+        <i class="icon fas fa-fw fa-eye {{#unless visible}}disabled{{/unless}}" data-fa-transform="shrink-2"></i>
         <span class="hint-bubble">{{status_titles.visible}}</span>
       </span>
       <span class="page_status with-hint">
-        <span class="icon {{#unless restricted}}not_{{/unless}}restricted"></span>
+        <i class="icon fas fa-fw fa-lock {{#unless restricted}}disabled{{/unless}}" data-fa-transform="shrink-2"></i>
         <span class="hint-bubble">{{status_titles.restricted}}</span>
       </span>
     </div>

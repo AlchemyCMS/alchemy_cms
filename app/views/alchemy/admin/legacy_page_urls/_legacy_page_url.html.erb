@@ -5,7 +5,7 @@
       edit_admin_legacy_page_url_path(legacy_page_url, page_id: @page.id),
       {size: '400x125', title: Alchemy.t('Edit link')},
       {title: Alchemy.t(:edit)} %>
-    <%= link_to_confirm_dialog render_icon(:destroy),
+    <%= link_to_confirm_dialog render_icon(:minus),
       Alchemy.t('Are you sure?'),
       admin_legacy_page_url_path(legacy_page_url, page_id: @page.id),
       {title: Alchemy.t(:remove)} %>

@@ -3,7 +3,7 @@
   $("#clipboard_item_<%= @item.id -%>").remove();
   Alchemy.growl('<%= Alchemy.t("item removed from clipboard", :name => @item.class.to_s == "Element" ? @item.display_name_with_preview_text : @item.name) -%>');
 <%- if @clipboard.blank? -%>
-  $('#clipboard_button .icon.clipboard').removeClass('full');
+  $('#clipboard_button .icon').removeClass('fa-paste').addClass('fa-clipboard');
   $("#clipboard_items").replaceWith("<%= j render_message { Alchemy.t('No items in your clipboard') } %>");
 <%- end -%>
 

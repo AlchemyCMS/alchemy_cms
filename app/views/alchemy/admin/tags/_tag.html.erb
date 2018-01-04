@@ -6,25 +6,21 @@
   </td>
   <td class="count"><%= tag.taggings.count %></td>
   <td class="tools">
-    <% if can?(:destroy, Alchemy::Tag) %>
+  <% if can?(:destroy, Alchemy::Tag) %>
     <%= delete_button admin_tag_path(tag), {
       message: Alchemy.t(:do_you_really_want_to_delete_this_tag?),
-      icon: 'tag_delete',
+      icon: :minus,
       title: Alchemy.t(:delete_tag)
     } %>
-    <% end %>
-    <% if can?(:edit, Alchemy::Tag) %>
-    <%= link_to_dialog '',
+  <% end %>
+  <% if can?(:edit, Alchemy::Tag) %>
+    <%= link_to_dialog render_icon(:edit),
       edit_admin_tag_path(tag),
       {
         title: Alchemy.t(:edit_tag),
         size: '360x410'
       },
-      {
-        title: Alchemy.t(:edit_tag),
-        class: 'icon tag_edit'
-      }
-    %>
-    <% end %>
+      title: Alchemy.t(:edit_tag) %>
+  <% end %>
   </td>
 </tr>

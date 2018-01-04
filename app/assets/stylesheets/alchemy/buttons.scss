@@ -16,10 +16,9 @@ button, input[type="submit"], a.button, input.button {
   &.with_icon {
     padding: 6px 18px 6px 6px;
 
-    span.icon {
+    .icon {
       margin-top: -$default-margin;
       margin-right: $default-margin;
-      height: 14px;
     }
   }
 

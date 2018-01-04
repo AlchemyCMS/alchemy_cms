@@ -3,7 +3,7 @@
   <%= render 'alchemy/admin/partials/site_select' %>
   <%= render 'alchemy/admin/partials/language_tree_select' %>
   <%= toolbar_button(
-    icon: 'add_page',
+    icon: :plus,
     url: alchemy.new_admin_page_path(parent_id: @layout_root.id, layoutpage: true),
     hotkey: 'alt+n',
     dialog_options: {
@@ -16,15 +16,16 @@
     if_permitted_to: [:create, Alchemy::Page]
   ) %>
   <%= toolbar_button(
-    icon: "clipboard#{clipboard_empty?('pages') ? '' : ' full'}",
+    icon: clipboard_empty?('pages') ? 'clipboard' : 'paste',
     url: alchemy.admin_clipboard_path(remarkable_type: 'pages'),
     dialog_options: {
       title: Alchemy.t('Clipboard'),
       size: '380x270'
     },
     title: Alchemy.t('Show clipboard'),
-    id: "clipboard_button",
-    label: Alchemy.t('Show clipboard')
+    link_options: {id: "clipboard_button"},
+    label: Alchemy.t('Show clipboard'),
+    if_permitted_to: [:create, Alchemy::Page]
   ) %>
 </div>
 <% end %>

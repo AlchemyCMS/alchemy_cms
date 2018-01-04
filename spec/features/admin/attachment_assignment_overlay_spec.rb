@@ -14,7 +14,7 @@ RSpec.feature "Attachment assignment overlay" do
     scenario "shows only the attachments tagged with the selected tag" do
       visit alchemy.edit_admin_page_path(a_page)
 
-      within "#element_area div[data-element-name='download'] .file_icon" do
+      within "div[data-element-name='download'] .essence_file_tools" do
         click_on "Assign a file"
       end
 

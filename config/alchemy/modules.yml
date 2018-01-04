@@ -16,7 +16,7 @@
     name: 'modules.pages'
     controller: 'alchemy/admin/pages'
     action: index
-    icon: pages
+    icon: file-alt
     sub_navigation:
       - name: 'modules.pages'
         controller: 'alchemy/admin/pages'
@@ -35,7 +35,7 @@
     name: 'modules.languages'
     controller: 'alchemy/admin/languages'
     action: index
-    icon: languages
+    icon: flag
 
 - name: sites
   engine_name: alchemy
@@ -44,7 +44,7 @@
     name: 'modules.sites'
     controller: 'alchemy/admin/sites'
     action: index
-    icon: sites
+    icon: bullseye
 
 - name: tags
   engine_name: alchemy
@@ -62,7 +62,7 @@
     controller: 'alchemy/admin/pictures'
     action: index
     name: 'modules.library'
-    icon: library
+    icon: archive
     sub_navigation:
       - name: 'modules.pictures'
         controller: 'alchemy/admin/pictures'

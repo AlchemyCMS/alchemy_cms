@@ -9,14 +9,14 @@
     <label><%= Alchemy::Attachment.human_attribute_name(:url) %></label>
     <p><%= alchemy.show_attachment_url(@attachment) %></p>
     <a data-clipboard-text="<%= alchemy.show_attachment_url(@attachment) %>" class="icon_button--right">
-      <%= render_icon('clipboard full') %>
+      <%= render_icon(:clipboard, style: 'regular') %>
     </a>
   </div>
   <div class="value with-icon">
     <label><%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
     <p><%= alchemy.download_attachment_url(@attachment) %></p>
     <a data-clipboard-text="<%= alchemy.download_attachment_url(@attachment) %>" class="icon_button--right">
-      <%= render_icon('clipboard full') %>
+      <%= render_icon(:clipboard, style: 'regular') %>
     </a>
   </div>
 </div>
