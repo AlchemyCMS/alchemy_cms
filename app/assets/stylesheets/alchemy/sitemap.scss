@@ -34,20 +34,6 @@
   &.inactive {
     color: #656565;
   }
-
-  :hover {
-    text-decoration: underline;
-
-    &:after {
-      content: '';
-      width: 16px;
-      height: 16px;
-      float: left;
-      margin-right: $default-margin;
-      background: image-url('alchemy/icons.png') -160px -168px;
-      margin-top: $default-margin;
-    }
-  }
 }
 
 .redirect_url {
@@ -187,13 +173,9 @@
   }
 
   .page_folder {
-    @extend .icon;
     position: absolute;
     left: -23px;
     top: 8px;
-
-    &.collapsed { @extend .icon.expand.small }
-    &.folded { @extend .icon.collapse.small }
   }
 
   .placeholder {

@@ -131,10 +131,6 @@ div.assign_image_list_image {
 
   &.delete {
     right: $default-padding;
-
-    a {
-      background: image-url('alchemy/icons.png') no-repeat -63px -72px;
-    }
   }
 
   a {

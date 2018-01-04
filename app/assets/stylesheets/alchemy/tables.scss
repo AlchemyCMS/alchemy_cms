@@ -100,14 +100,8 @@ td.heading {
 }
 
 .list .tools .icon, .list td.icon .icon {
-  display: inline-block;
-  vertical-align: middle;
-  width: 16px;
-  height: 16px;
   @extend .disable-user-select;
-  background-repeat: no-repeat;
   margin: 0 $default-margin;
-  text-indent: -100px;
 }
 
 .list td.icon .icon {
@@ -122,15 +116,6 @@ td, th {
 
   &.center, &.boolean {
     text-align: center;
-
-    .icon.false {
-      @extend .false;
-    }
-
-    .icon.true {
-      @extend .icon;
-      @extend .true;
-    }
   }
 
   &.right {
