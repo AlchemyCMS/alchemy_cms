@@ -1,9 +1,15 @@
+$medium-select-box-width: 90px;
+
 select {
   @include button-defaults;
   height: 29px;
   padding: 0.4em 0.6em;
   max-width: 100%;
   width: auto;
+
+  &.alchemy_selectbox.medium {
+    width: $medium-select-box-width;
+  }
 }
 
 .select2-container {
@@ -48,7 +54,7 @@ select {
     }
 
     &.medium {
-      width: 90px;
+      width: $medium-select-box-width;
     }
 
     &.select2-container-active {
