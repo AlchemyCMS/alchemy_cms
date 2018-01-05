@@ -655,24 +655,6 @@ select.long {
       min-width: 90px;
       margin-right: 4px;
     }
-
-    a.icon_button.small {
-      width: 10px;
-      height: 10px;
-      display: none;
-
-      .icon {
-        top: 1px;
-        right: 1px;
-      }
-
-      &:hover {
-
-        .icon {
-          right: 2px;
-        }
-      }
-    }
   }
 
   &.essence_select {
@@ -686,11 +668,6 @@ select.long {
     &.display_inline .select2-container {
       width: 170px;
     }
-  }
-
-  &:hover label a.icon_button.small {
-    display: inline-block;
-    vertical-align: middle;
   }
 
   select.essence_editor_select {
