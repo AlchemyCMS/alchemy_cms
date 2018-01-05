@@ -51,10 +51,11 @@ module Alchemy
     #   <% end %>
     #
     def render_message(type = :info, msg = nil, &blk)
+      icon_class = message_icon_class(type)
       if block_given?
-        content_tag :div, render_icon(type) + capture(&blk), class: "#{type} message"
+        content_tag :div, render_icon(icon_class) + capture(&blk), class: "#{type} message"
       else
-        content_tag :div, render_icon(type) + msg, class: "#{type} message"
+        content_tag :div, render_icon(icon_class) + msg, class: "#{type} message"
       end
     end
 

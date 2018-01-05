@@ -28,14 +28,14 @@ div.flash {
   border-width: 1px;
   border-style: solid;
   z-index: 1000;
-  margin: $default-margin;
+  margin: $default-margin $default-margin 2*$default-margin;
   position: relative;
   min-height: 1.3em;
   word-break: break-all;
 
   .icon {
     position: absolute;
-    top: 8px;
+    top: 10px;
     left: 8px;
   }
 

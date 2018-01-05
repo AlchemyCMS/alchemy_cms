@@ -53,7 +53,7 @@ module Alchemy
 
       context "if an argument is passed" do
         it "should render the passed argument as the css classname for the icon container" do
-          expect(helper.render_message(:error){ content_tag(:p, "my notice") }).to match(/<div class="error message"><i class="icon fa-fw fa-error fas">/)
+          expect(helper.render_message(:error){ content_tag(:p, "my notice") }).to match(/<div class="error message"><i class="icon fa-fw fa-bug fas">/)
         end
       end
     end
