@@ -4,7 +4,7 @@ div.message, p.message {
   line-height: 17px;
   border-width: 1px;
   border-style: solid;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
   position: relative;
   margin-bottom: 8px;
   text-align: left;

@@ -282,7 +282,7 @@ a.folder_link {
   padding: 4*$default-padding;
   border: $default-border;
   background: $medium-gray;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
 }
 
 #sitemap_heading {

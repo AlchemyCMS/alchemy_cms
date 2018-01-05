@@ -511,7 +511,7 @@ body .mce-abs-layout-item {
   text-align: center;
   white-space: normal;
   box-shadow: 0 0 4px $default-border-color;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
 }
 
 .mce-tooltip-arrow {

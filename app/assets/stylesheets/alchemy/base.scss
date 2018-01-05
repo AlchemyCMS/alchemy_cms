@@ -140,7 +140,7 @@ kbd {
   padding: 0.25em 0.5em;
   vertical-align: top;
   margin-right: 1ex;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
 }
 
 .top-rounded-border {
@@ -383,7 +383,7 @@ div#images {
   border: 1px inset #e8e8e8;
   overflow: auto;
   padding: 4px 0 0 4px;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
 }
 
 #alchemyConfirmation .alchemy_window_buttons {
@@ -476,7 +476,7 @@ select#url_protocol.medium {
       padding: 2*$default-padding;
       border: $default-border;
       background-color: white;
-      @extend %rounded-border;
+      border-radius: $default-border-radius;
 
       &.elements {
         background-color: $medium-gray;
@@ -530,7 +530,7 @@ div.browse {
   width: 80%;
   padding: $default-padding;
   overflow: auto;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
 }
 
 .full_width {

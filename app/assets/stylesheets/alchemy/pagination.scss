@@ -34,7 +34,7 @@
     border: $default-border;
     text-shadow: 0px 1px 1px #fff;
     cursor: default;
-    @extend %rounded-border;
+    border-radius: $default-border-radius;
     padding: 5px 8px;
   }
 

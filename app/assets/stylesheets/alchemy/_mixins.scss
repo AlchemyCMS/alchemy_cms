@@ -103,7 +103,7 @@
   line-height: 21px;
   min-height: $default-form-field-height;
   background: white;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
 }
 
 @mixin form-hint($background-color: $light_yellow, $border-color: $medium-gray) {
@@ -114,7 +114,7 @@
   border: 1px solid $border-color;
   display: block;
   clear: both;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
 }
 
 @mixin animate-left {
@@ -150,7 +150,7 @@
   background-color: $medium-gray;
   overflow: hidden;
   position: relative;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
 
   &:before {
     position: absolute;
