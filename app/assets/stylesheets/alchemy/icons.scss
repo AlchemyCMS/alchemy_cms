@@ -1,4 +1,6 @@
 .icon {
+  color: $icon-color;
+
   &.disabled {
     opacity: 0.3;
   }
