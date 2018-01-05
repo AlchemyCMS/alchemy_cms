@@ -1,8 +1,7 @@
 <%- if @clipboard_items.blank? -%>
-<div class="info">
-  <%= render_icon('info') %>
+<%= render_message do %>
   <%= Alchemy.t('No items in your clipboard') %>
-</div>
+<% end %>
 <%- else -%>
 <div id="clipboard_items">
   <ul>

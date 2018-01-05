@@ -1,31 +1,28 @@
-<% if @attachments.blank? && params[:q].blank? %>
-<div class="info" id="no_files_notice">
-  <%= render_icon('info') %>
-  <%= Alchemy.t(:no_files_in_archive) %>
-</div>
-<% elsif @attachments.blank? %>
-<div class="info">
-  <%= render_icon('info') %>
-  <%= Alchemy.t(:no_search_results) %>
-</div>
-<% end %>
-<table id="all_files" class="list">
-  <% unless @attachments.blank? %>
-  <thead>
-    <tr>
-      <th class="icon"></th>
-      <th class="name"><%= sort_link(@query, :name, hide_indicator: true) %></th>
-      <th class="file_name"><%= sort_link(@query, :file_name, hide_indicator: true) %></th>
-      <th class="file_type"><%= Alchemy::Attachment.human_attribute_name('file_mime_type') %></th>
-      <th class="file_size"><%= sort_link(@query, :file_size, hide_indicator: true) %></th>
-      <th class="date"><%= sort_link(@query, :created_at, hide_indicator: true) %></th>
-      <th class="tools"></th>
-    </tr>
-  </thead>
+<% if @attachments.empty? %>
+  <%= render_message do %>
+    <% if params[:q].present? %>
+      <%= Alchemy.t(:no_search_results) %>
+    <% else %>
+      <%= Alchemy.t(:no_files_in_archive) %>
+    <% end %>
   <% end %>
-  <tbody>
-    <%= render partial: 'alchemy/admin/attachments/attachment', collection: @attachments %>
-  </tbody>
-</table>
+<% else %>
+  <table id="all_files" class="list">
+    <thead>
+      <tr>
+        <th class="icon"></th>
+        <th class="name"><%= sort_link(@query, :name, hide_indicator: true) %></th>
+        <th class="file_name"><%= sort_link(@query, :file_name, hide_indicator: true) %></th>
+        <th class="file_type"><%= Alchemy::Attachment.human_attribute_name('file_mime_type') %></th>
+        <th class="file_size"><%= sort_link(@query, :file_size, hide_indicator: true) %></th>
+        <th class="date"><%= sort_link(@query, :created_at, hide_indicator: true) %></th>
+        <th class="tools"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: 'alchemy/admin/attachments/attachment', collection: @attachments %>
+    </tbody>
+  </table>
 
-<%= paginate @attachments, theme: 'alchemy' %>
+  <%= paginate @attachments, theme: 'alchemy' %>
+<% end %>

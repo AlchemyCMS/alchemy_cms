@@ -18,8 +18,7 @@
   </span>
 </p>
 <% end %>
-<div class="info">
-  <%= render_icon('info') %>
+<%= render_message do %>
   <p><%= Alchemy.t('Alchemy is open software and itself uses open software and free resources:') %></p>
   <ul>
     <li>
@@ -41,7 +40,7 @@
       <a href="http://p.yusukekamiyamane.com" target="_blank">Fugue Icons by Yusuke Kamiyamane</a>
     </li>
   </ul>
-</div>
+<% end %>
 <% if can? :update_check, :alchemy_admin_dashboard %>
 <script type="text/javascript">
   (function() {

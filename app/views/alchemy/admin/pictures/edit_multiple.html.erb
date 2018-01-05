@@ -8,10 +8,9 @@
   <%= hidden_field_tag "picture_ids[]", id %>
   <% end %>
 
-  <div class="info">
-    <%= render_icon :info %>
-    <p><%= Alchemy.t('You are about to edit many pictures at once') % {length: @pictures.size} %></p>
-  </div>
+  <%= render_message do %>
+    <%= Alchemy.t('You are about to edit many pictures at once') % {length: @pictures.size} %>
+  <% end %>
 
   <div class="input text">
     <%= label_tag :pictures_name, Alchemy.t('Name'), class: 'control-label' %>

@@ -1,8 +1,7 @@
 <%- if @elements.blank? -%>
-<div id="trash_empty_notice" <%= @elements.blank? ? '' : 'style="display: none"' %> class="info">
-  <%= render_icon('info') %>
+<%= render_message do %>
   <%= Alchemy.t('Your trash is empty') %>
-</div>
+<% end %>
 <%- else -%>
 <%= render_message do %>
   <%= Alchemy.t('Drag an element over to the element window to restore it') %>

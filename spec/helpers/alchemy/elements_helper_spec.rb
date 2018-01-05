@@ -48,7 +48,7 @@ module Alchemy
           let(:element) { build_stubbed(:alchemy_element, name: 'not_present') }
 
           it "renders the editor not found partial" do
-            is_expected.to have_selector('div.error')
+            is_expected.to have_selector('div.warning')
             is_expected.to have_content('Element editor partial not found')
           end
         end

@@ -36,15 +36,13 @@
   </div>
   <div id="pictures">
   <% if @pictures.blank? and @recent_pictures.blank? and params[:q].blank? %>
-    <div class="info">
-      <%= render_icon('info') %>
+    <%= render_message do %>
       <%= Alchemy.t(:no_images_in_archive) %>
-    </div>
+    <% end %>
   <% elsif @pictures.blank? and @recent_pictures.blank? %>
-    <div class="info">
-      <%= render_icon('info') %>
+    <%= render_message do %>
       <%= Alchemy.t(:no_search_results) %>
-    </div>
+    <% end %>
   <% else %>
     <%= render partial: 'picture', collection: @pictures %>
     <%= paginate @pictures, theme: 'alchemy' %>
