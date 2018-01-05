@@ -96,7 +96,6 @@
 }
 
 .sitemap_sitename {
-  height: $sitemap-line-height;
   line-height: $sitemap-line-height;
   overflow: hidden;
 }
@@ -105,11 +104,11 @@
   @extend .left-rounded-border;
   position: relative;
   width: 32px;
-  height: $sitemap-line-height;
-  line-height: $sitemap-line-height - 2px;
+  line-height: $sitemap-line-height;
   float: left;
   padding: 0 2*$default-padding;
   background-color: rgba(#fff, .75);
+  text-align: center;
 }
 
 .sitemap_right_tools {
@@ -168,14 +167,10 @@
     }
   }
 
-  .page_status .icon {
-    vertical-align: middle;
-  }
-
   .page_folder {
     position: absolute;
     left: -23px;
-    top: 8px;
+    top: 0;
   }
 
   .placeholder {
@@ -218,18 +213,14 @@
   }
 }
 
-#header .page_status_and_name .page_status {
+.page_status_and_name .page_status {
   margin-left: 2px;
-  line-height: 1;
-  vertical-align: text-bottom;
 }
 
 .page_status {
   display: inline-block;
 
   .icon {
-    vertical-align: text-bottom;
-
     &.restricted {
       background-position: -256px -39px;
     }

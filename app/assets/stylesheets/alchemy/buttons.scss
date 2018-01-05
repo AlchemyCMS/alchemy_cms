@@ -7,19 +7,12 @@ button, input[type="submit"], a.button, input.button {
     vertical-align: inherit;
     line-height: 4*$default-padding;
     font-size: inherit;
-
-    &.with_icon {
-      padding: $default-padding 3*$default-padding $default-padding 6px;
-    }
   }
 
-  &.with_icon {
-    padding: 6px 18px 6px 6px;
-
-    .icon {
-      margin-top: -$default-margin;
-      margin-right: $default-margin;
-    }
+  &.with_icon .icon {
+    position: relative;
+    top: -1px;
+    margin-right: $default-margin;
   }
 
   &.icon_only {
@@ -53,7 +46,6 @@ button, input[type="submit"], a.button, input.button {
   .icon {
     display: inline-block;
     vertical-align: middle;
-    margin-top: -2px;
   }
 
   .old_icon {
@@ -89,7 +81,6 @@ button, input[type="submit"], a.button, input.button {
     .icon {
       position: absolute;
       top: 50%;
-      height: 8px;
       transform: translateX(-50%) translateY(-50%);
 
       &:before {

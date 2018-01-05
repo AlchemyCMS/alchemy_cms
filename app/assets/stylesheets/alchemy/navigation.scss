@@ -67,10 +67,18 @@
     text-shadow: $text-shadow-light;
   }
 
-  img, .module.icon {
+  img, .icon {
+    width: 24px;
+  }
+
+  img {
     border-style: none;
     height: 24px;
-    width: 24px;
+    vertical-align: -0.55em;
+  }
+
+  .icon {
+    vertical-align: -0.15em;
   }
 }
 

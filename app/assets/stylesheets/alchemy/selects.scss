@@ -119,7 +119,7 @@ select {
       .select2-search-choice-close {
         left: auto;
         right: 4px;
-        top: 6px;
+        top: 5px;
         background: none;
         @extend .icon-cross;
 
@@ -140,7 +140,7 @@ select {
   }
 }
 
-.tag_list {
+.tag_list, .autocomplete_tag_list {
   .select2-container.select2-container-multi {
     .select2-search-choice {
       @include tag-base($margin: 4px, $padding: 4px 24px);

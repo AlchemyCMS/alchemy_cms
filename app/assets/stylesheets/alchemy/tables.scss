@@ -15,10 +15,13 @@ table {
   &.wrap-text {
     white-space: normal !important;
   }
-}
 
-.list td:first-child, .list th:first-child {
-  border-left: 1px solid $medium-gray
+  &.icon {
+    width: 16px;
+    background-color: transparent;
+    padding: $default-padding;
+    text-align: center;
+  }
 }
 
 .list th {
@@ -89,23 +92,9 @@ td.heading {
   text-decoration: underline;
 }
 
-.list td.icon, .list th.icon {
-  background-color: $light-gray;
-  background-image: none;
-  border-left: 0 none;
-  padding: 0;
-  border-right: 1px solid $medium-gray;
-  text-align: center;
-  display: table-cell; // reset the .icon display: inline-block
-}
-
 .list .tools .icon, .list td.icon .icon {
   @extend .disable-user-select;
   margin: 0 $default-margin;
-}
-
-.list td.icon .icon {
-  margin: $default-margin 2*$default-margin 0;
 }
 
 .list tr:hover td {
