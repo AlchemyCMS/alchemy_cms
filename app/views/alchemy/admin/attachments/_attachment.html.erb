@@ -1,6 +1,6 @@
 <tr class="<%= cycle('even', 'odd') %>">
   <td class="icon">
-    <%= render_icon attachment.icon_css_class %>
+    <%= render_icon attachment.icon_css_class, style: 'regular', size: 'lg' %>
   </td>
   <td class="name">
   <% if can?(:show, attachment) %>

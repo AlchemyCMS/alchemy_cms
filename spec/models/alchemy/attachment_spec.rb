@@ -100,122 +100,91 @@ module Alchemy
       end
     end
 
-    describe 'css classes' do
-      context 'mp3 file' do
-        subject { stub_model(Attachment, file_mime_type: 'audio/mpeg') }
+    describe '#icon_css_class' do
+      subject { attachment.icon_css_class }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("audio") }
-        end
+      context 'mp3 file' do
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'audio/mpeg') }
+
+        it { is_expected.to eq("file-audio") }
       end
 
       context 'video file' do
-        subject { stub_model(Attachment, file_mime_type: 'video/mpeg') }
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'video/mpeg') }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("video") }
-        end
+        it { is_expected.to eq("file-video") }
       end
 
       context 'png file' do
-        subject { stub_model(Attachment, file_mime_type: 'image/png') }
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'image/png') }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("image") }
-        end
+        it { is_expected.to eq("file-image") }
       end
 
-      context 'vcf file' do
-        subject { stub_model(Attachment, file_mime_type: 'application/vcard') }
+      context 'vcard file' do
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/vcard') }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("vcard") }
-        end
+        it { is_expected.to eq("address-card") }
       end
 
       context 'zip file' do
-        subject { stub_model(Attachment, file_mime_type: 'application/zip') }
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/zip') }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("archive") }
-        end
-      end
-
-      context 'flash file' do
-        subject { stub_model(Attachment, file_mime_type: 'application/x-shockwave-flash') }
-
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("flash") }
-        end
+        it { is_expected.to eq("file-archive") }
       end
 
       context 'photoshop file' do
-        subject { stub_model(Attachment, file_mime_type: 'image/x-psd') }
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'image/x-psd') }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("psd") }
-        end
+        it { is_expected.to eq("file-image") }
       end
 
       context 'text file' do
-        subject { stub_model(Attachment, file_mime_type: 'text/plain') }
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'text/plain') }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("text") }
-        end
+        it { is_expected.to eq("file-alt") }
       end
 
       context 'rtf file' do
-        subject { stub_model(Attachment, file_mime_type: 'application/rtf') }
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/rtf') }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("rtf") }
-        end
+        it { is_expected.to eq("file-alt") }
       end
 
       context 'pdf file' do
-        subject { stub_model(Attachment, file_mime_type: 'application/pdf') }
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/pdf') }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("pdf") }
-        end
+        it { is_expected.to eq("file-pdf") }
       end
 
       context 'word file' do
-        subject { stub_model(Attachment, file_mime_type: 'application/msword') }
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/msword') }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("word") }
-        end
+        it { is_expected.to eq("file-word") }
       end
 
       context 'excel file' do
-        subject { stub_model(Attachment, file_mime_type: 'application/vnd.ms-excel') }
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/vnd.ms-excel') }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("excel") }
-        end
+        it { is_expected.to eq("file-excel") }
+      end
+
+      context 'xlsx file' do
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') }
+
+        it { is_expected.to eq("file-excel") }
+      end
+
+      context 'csv file' do
+        let(:attachment) { stub_model(Attachment, file_mime_type: 'text/csv') }
+
+        it { is_expected.to eq("file-excel") }
       end
 
       context 'unknown file' do
-        subject { stub_model(Attachment, file_mime_type: '') }
+        let(:attachment) { stub_model(Attachment, file_mime_type: '') }
 
-        describe '#icon_css_class' do
-          subject { super().icon_css_class }
-          it { is_expected.to eq("file") }
-        end
+        it { is_expected.to eq("file") }
       end
     end
 
