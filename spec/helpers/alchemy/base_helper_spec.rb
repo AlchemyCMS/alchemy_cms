@@ -82,5 +82,37 @@ module Alchemy
         end
       end
     end
+
+    describe '#message_icon_class' do
+      subject { helper.message_icon_class(message_type) }
+
+      context 'when `warning`, `warn` or `alert` message type is given' do
+        %w(warning warn alert).each do |type|
+          let(:message_type) { type }
+
+          it { is_expected.to eq 'exclamation' }
+        end
+      end
+
+      context 'when `notice` message type is given' do
+        let(:message_type) { 'notice' }
+
+        it { is_expected.to eq 'check' }
+      end
+
+      context 'when `error` message type is given' do
+        let(:message_type) { 'error' }
+
+        it { is_expected.to eq 'bug' }
+      end
+
+      context 'when unknown message type is given' do
+        let(:message_type) { 'info' }
+
+        it 'returns the given message type as icon name' do
+          is_expected.to eq 'info'
+        end
+      end
+    end
   end
 end

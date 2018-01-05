@@ -81,5 +81,19 @@ module Alchemy
         page
       end
     end
+
+    # Returns the FontAwesome icon name for given message type
+    #
+    # @param message_type [String] The message type. One of +warning+, +info+, +notice+, +error+
+    # @return [String] The FontAwesome icon name
+    def message_icon_class(message_type)
+      case message_type.to_s
+      when 'warning', 'warn', 'alert' then 'exclamation'
+      when 'notice' then 'check'
+      when 'error' then 'bug'
+      else
+        message_type
+      end
+    end
   end
 end
