@@ -462,67 +462,12 @@ select#url_protocol.medium {
   margin: 0;
 }
 
-#clipboard_items {
-
-  ul {
-    list-style-type: none;
-    margin: 0 0 8px;
-    padding: 0;
-    height: 220px;
-    overflow-y: auto;
-    overflow-x: hidden;
-
-    li {
-      padding: 2*$default-padding;
-      border: $default-border;
-      background-color: white;
-      border-radius: $default-border-radius;
-
-      &.elements {
-        background-color: $medium-gray;
-      }
-
-      .icon {
-        vertical-align: text-bottom;
-        margin-right: $default-padding;
-      }
-
-      .float_right .icon {
-        margin-right: 0;
-      }
-    }
-  }
-}
-
-#trash_items {
-  height: 310px;
-  overflow-x: hidden;
-  overflow-y: auto;
-  margin-bottom: 1em;
-}
-
 .mceEditor table {
   border-spacing: 0 !important;
 }
 
 div.browse {
   margin-bottom: 1em;
-}
-
-#alchemy_preview_window {
-  position: absolute;
-  left: $main-menu-width;
-  top: 75px;
-  width: auto;
-  height: auto;
-  border: 0 none;
-  background: #fff;
-  border-right: $default-border;
-  transition: 200ms ease-in-out;
-
-  .collapsed-menu & {
-    left: $collapsed-main-menu-width;
-  }
 }
 
 #error_trace {
