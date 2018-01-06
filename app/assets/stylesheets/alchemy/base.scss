@@ -357,33 +357,9 @@ div#images {
   overflow: visible;
 }
 
-.foot_note, form .input .hint {
-  @include form-hint;
-}
-
-#all_files td.name a {
-  @include zoom-in;
-}
-
-#sitemap .placeholder {
-  background-color: $medium-gray;
-  margin-bottom: 0px;
-  margin-left: 22px;
-}
-
 #page_selector_scroll_container {
   position: relative;
   width: 100%;
-}
-
-#page_selector_container {
-  height: 230px;
-  background-color: $light-gray;
-  margin-bottom: 4px;
-  border: 1px inset #e8e8e8;
-  overflow: auto;
-  padding: 4px 0 0 4px;
-  border-radius: $default-border-radius;
 }
 
 #alchemyConfirmation .alchemy_window_buttons {
@@ -452,10 +428,6 @@ input#link_to_text {
 
 #external_link_table .external_address_input {
   width: 195px;
-}
-
-table.window_form td.checkbox {
-  text-align: left;
 }
 
 select#url_protocol.medium {

@@ -168,7 +168,8 @@ form {
     float: right;
   }
 
-  .foot_note, .input .hint {
+  .input .hint {
+    @include form-hint;
     margin-left: $form-left-width;
   }
 
@@ -204,6 +205,10 @@ textarea#essence_picture_caption {
 
 // styles for link overlay selects
 .window_form {
+
+  td.checkbox {
+    text-align: left;
+  }
 
   .select2-container {
     width: 100%;

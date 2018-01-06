@@ -351,3 +351,7 @@ div#filter_bar {
 .tags .list .tag {
   padding: 0;
 }
+
+#all_files td.name a {
+  @include zoom-in;
+}
