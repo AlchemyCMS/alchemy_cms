@@ -242,6 +242,7 @@ ul.list .sitemap_sitename {
 }
 
 #sitemap.list {
+  padding: 0 0 104px 0;
 
   &.sorting {
     padding-top: 100px;
@@ -307,30 +308,16 @@ a.folder_link {
   margin-left: 2*$default-margin;
 }
 
-.alchemy-dialog ul.list#sitemap {
-  margin: 0;
-  padding: 0 8px 8px 0;
-
-  .page.icon { cursor: default }
-
-  li li.selectboxit-option {
-    padding-left: 8px;
-    padding-right: 8px;
+.alchemy-dialog {
+  #sitemap-wrapper {
+    min-height: 0;
   }
 
-  .selectboxit-options {
-    right: 0;
-  }
+  #sitemap {
+    margin: 0;
+    padding: 0 24px 8px 8px;
 
-  .close_elements_from_page_selector {
-    position: absolute;
-    right: $default-padding;
-    top: 12px;
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    @extend .icon-cross;
+    .page.icon { cursor: default }
   }
 }
 
