@@ -1,8 +1,6 @@
 (function($) {
   $('#locked_page_<%= @page.id -%>').remove();
-  $('#page_<%= @page.id -%> .sitemap_page').removeClass('locked');
-  <%- if @pages_locked_by_user.blank? -%>
-  $('#locked_pages label').hide();
-  <%- end -%>
+  $('#page_<%= @page.id -%> .sitemap_left_images .with-hint').remove();
+  $('#page_<%= @page.id -%> .sitemap_left_images').append('<%= j render_icon(:file, style: 'regular', size: 'lg') %>');
   Alchemy.growl('<%= flash[:notice] -%>');
 })(jQuery);
