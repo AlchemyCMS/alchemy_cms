@@ -222,13 +222,6 @@
   }
 }
 
-ul#sitemap li .sitemap_toolrow,
-ul.list li .sitemap_toolrow {
-  margin: 0;
-  overflow: auto;
-  padding: $default-padding 0;
-}
-
 .page_infos {
   @extend .right-rounded-border;
   background-color: rgba(#fff, .75);
@@ -282,11 +275,6 @@ ul.list li .sitemap_toolrow {
       opacity: 0.3;
     }
   }
-}
-
-a.folder_link {
-  text-decoration: none;
-  outline: none;
 }
 
 #create_language_tree_form {
