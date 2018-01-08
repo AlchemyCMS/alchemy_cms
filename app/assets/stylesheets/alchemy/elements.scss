@@ -348,25 +348,6 @@
   }
 }
 
-.expand_element,
-.fold_element {
-  background-image: image-url('alchemy/icons.png');
-  background-repeat: no-repeat;
-  height: 16px;
-  width: 16px;
-  text-decoration: none;
-  display: block;
-  margin: 1px;
-}
-
-.expand_element {
-  background-position: -160px -72px;
-}
-
-.fold_element {
-  background-position: -192px -72px;
-}
-
 .droppable_element_placeholder {
   height: 36px;
   border: 1px dotted $button-border-color;
@@ -506,10 +487,6 @@
     float: left;
     width: 24px;
     padding: 6px 4px;
-
-    .assign_file {
-      background-position: -480px -40px;
-    }
   }
 
   .file_name {
@@ -534,14 +511,6 @@
     text-decoration: none;
     padding: 6px $default-margin;
     float: left;
-
-    &.assign_file {
-      background: image-url('alchemy/icons.png') -512px -40px;
-    }
-
-    &.edit_file {
-      background: image-url('alchemy/icons.png') -160px -167px;
-    }
   }
 }
 

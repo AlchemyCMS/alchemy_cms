@@ -148,23 +148,7 @@
   &.sorting {
     padding-top: 100px;
 
-    .page.icon { cursor: move }
-  }
-
-  .locked .page.icon {
-    background-position: -32px -40px;
-  }
-
-  .page.icon.not-allowed {
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      right: -1px;
-      width: 8px;
-      height: 8px;
-      background: image-url('alchemy/icons.png') -5px -77px;
-    }
+    .page_icon { cursor: move }
   }
 
   .page_folder {
@@ -219,35 +203,6 @@
 
 .page_status {
   display: inline-block;
-
-  .icon {
-    &.restricted {
-      background-position: -256px -39px;
-    }
-
-    &.not_restricted {
-      background-position: -288px -39px;
-      opacity: 0.3;
-    }
-
-    &.visible {
-      background-position: -128px -39px;
-    }
-
-    &.not_visible {
-      background-position: -160px -39px;
-      opacity: 0.3;
-    }
-
-    &.public {
-      background-position: -192px -39px;
-    }
-
-    &.not_public {
-      background-position: -224px -39px;
-      opacity: 0.3;
-    }
-  }
 }
 
 #create_language_tree_form {
@@ -291,7 +246,7 @@
     margin: 0;
     padding: 0 24px 8px 8px;
 
-    .page.icon { cursor: default }
+    .page_icon { cursor: default }
   }
 }
 

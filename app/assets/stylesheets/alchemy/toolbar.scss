@@ -20,24 +20,6 @@
     margin: 3px $default-margin 0 0;
     padding: 0;
   }
-
-  .button {
-    width: 25px;
-    height: 21px;
-    text-decoration: none;
-    float: right;
-    border-width: 0;
-    border-style: none;
-    font-size: 0;
-    padding: 0;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-
-    &:active {
-      text-decoration: none;
-      background-position: 0 -21px;
-    }
-  }
 }
 
 .toolbar_buttons {
@@ -79,24 +61,6 @@
 #overlay_toolbar {
   @extend %gradiated-toolbar;
   border-bottom: $default-border;
-
-  .button {
-    width: 25px;
-    height: 21px;
-    text-decoration: none;
-    float: right;
-    border-width: 0;
-    border-style: none;
-    font-size: 0;
-    padding: 0;
-    background-repeat: no-repeat;
-    background-position: 0 0;
-
-    &:active {
-      text-decoration: none;
-      background-position: 0 -21px;
-    }
-  }
 }
 
 .button_group {

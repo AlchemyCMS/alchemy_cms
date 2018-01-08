@@ -47,12 +47,6 @@ select {
       }
     }
 
-    &.select2-dropdown-open {
-      .select2-choice .select2-arrow b {
-        background-position: -17px 0px;
-      }
-    }
-
     &.medium {
       width: $medium-select-box-width;
     }
