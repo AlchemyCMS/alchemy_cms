@@ -29,21 +29,6 @@ table {
   }
 }
 
-.floatThead-container {
-  background: $light-gray;
-  overflow: visible !important; // the javascript author thought that, but ....
-
-  &:after {
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 100%;
-    height: 4px;
-    background: linear-gradient($light-gray, rgba($light-gray, .0));
-    content: '';
-  }
-}
-
 th {
   white-space: nowrap;
   text-align: left;
