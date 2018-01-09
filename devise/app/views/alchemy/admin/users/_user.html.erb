@@ -2,7 +2,17 @@
   <td class="icon">
     <%= render_icon(:user, style: user.logged_in? ? 'solid' : 'regular') %>
   </td>
-  <td class="login"><%= user.login %></td>
+  <td class="login">
+  <% if can?(:edit, user) %>
+    <%= link_to_dialog user.login,
+      alchemy.edit_admin_user_path(user), {
+        title: Alchemy.t(:edit_user),
+        overflow: true,
+        size: '430x560'
+      },
+      title: Alchemy.t(:edit_user) %>
+  <% end %>
+  </td>
   <td class="name"><%= user.firstname %></td>
   <td><%= user.lastname %></td>
   <td class="email"><%= user.email %></td>
