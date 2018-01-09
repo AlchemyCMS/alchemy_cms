@@ -10,19 +10,29 @@
     <li id="clipboard_item_<%= item.id -%>" class="<%= item_class -%>">
       <% if item_class == 'pages' %>
         <%= render_icon(:file, style: 'regular') %>
+        <%= item.name %>
       <% else %>
-        <span class="fa-layers fa-fw icon">
-          <%= render_icon(:square, style: 'regular') %>
-          <%= render_icon(item.public? ? 'check' : 'times', transform: 'shrink-6') %>
-        </span>
+        <% if item.public? %>
+          <%= render_icon('window-maximize', style: 'regular', class: 'element') %>
+        <% else %>
+          <%= render_icon('window-close', class: 'element') %>
+        <% end %>
+        <%= item.display_name_with_preview_text(60) %>
       <% end %>
-      <%= item_class == 'elements' ? item.display_name_with_preview_text(60) : item.name %>
-      <span class="float_right"><%= link_to(render_icon(:times, size: 'xs'), alchemy.remove_admin_clipboard_path(remarkable_type: item_class, remarkable_id: item.id), remote: true, method: 'delete', title: Alchemy.t('Remove item from clipboard')) %></span>
+      <span class="float_right">
+        <%= link_to render_icon(:times, size: 'xs'),
+          alchemy.remove_admin_clipboard_path(remarkable_type: item_class, remarkable_id: item.id),
+          remote: true, method: 'delete',
+          title: Alchemy.t('Remove item from clipboard') %>
+      </span>
     </li>
     <%- end -%>
   </ul>
   <p>
-    <%= link_to_confirm_dialog(Alchemy.t('clear clipboard'), Alchemy.t('Do you really want to clear the clipboard?'), alchemy.clear_admin_clipboard_path(remarkable_type: params[:remarkable_type]), class: 'button') %>
+    <%= link_to_confirm_dialog Alchemy.t('clear clipboard'),
+      Alchemy.t('Do you really want to clear the clipboard?'),
+      alchemy.clear_admin_clipboard_path(remarkable_type: params[:remarkable_type]),
+      class: 'button' %>
   </p>
 </div>
 <%- end -%>
