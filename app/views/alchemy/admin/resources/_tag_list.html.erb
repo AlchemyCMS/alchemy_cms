@@ -1,4 +1,4 @@
-<div class="<%= params[:tagged_with].present? ? 'tag-list filtered' : 'tag-list' %>">
+<div class="tag-list<%= ' with_filter_bar' if resource_has_filters %><%= ' filtered' if params[:tagged_with].present? %>">
   <h2><%= Alchemy.t("Filter by tag") %></h2>
   <%= js_filter_field '.tag-list li' %>
   <ul>
