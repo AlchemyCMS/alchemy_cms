@@ -44,7 +44,7 @@ $.extend Alchemy,
         $form.submit()
     else if $(element).is("a")
       callback = ->
-        window.location.href = element.pathname
+        Turbolinks.visit(element.pathname)
     if Alchemy.isPageDirty()
       Alchemy.openConfirmDialog Alchemy.t('page_dirty_notice'),
         title: Alchemy.t('warning')

@@ -21,7 +21,7 @@
       } else {
         Alchemy.pleaseWaitOverlay();
         delimiter = url.match(/\?/) ? '&' : '?';
-        window.location = url + delimiter + 'filter=' + encodeURIComponent($this.val());
+        Turbolinks.visit(url + delimiter + 'filter=' + encodeURIComponent($this.val()));
       }
       return false;
     });

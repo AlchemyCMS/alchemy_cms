@@ -28,13 +28,13 @@ Alchemy.Initializer = ->
   $('select#change_locale').on 'change', (e) ->
     url = window.location.pathname
     delimiter = if url.match(/\?/) then '&' else '?'
-    window.location.href = "#{url}#{delimiter}admin_locale=#{$(this).val()}"
+    Turbolinks.visit "#{url}#{delimiter}admin_locale=#{$(this).val()}"
 
   # Site select handler
   $('select#change_site').on 'change', (e) ->
     url = window.location.pathname
     delimiter = if url.match(/\?/) then '&' else '?'
-    window.location.href = "#{url}#{delimiter}site_id=#{$(this).val()}"
+    Turbolinks.visit "#{url}#{delimiter}site_id=#{$(this).val()}"
 
   # Submit forms of selects with `data-autosubmit="true"`
   $('select[data-auto-submit="true"]').on 'change', (e) ->
