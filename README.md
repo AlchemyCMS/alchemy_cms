@@ -170,7 +170,7 @@ For example, these settings:
 ```ruby
 # config/initializers/alchemy.rb
 
-Alchemy.admin_path = '/backend'
+Alchemy.admin_path = 'backend'
 Alchemy.admin_constraints = {subdomain: 'hidden'}
 ```
 
