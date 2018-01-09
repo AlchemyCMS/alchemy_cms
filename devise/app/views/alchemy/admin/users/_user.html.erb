@@ -1,7 +1,6 @@
 <tr class="<%= cycle('even', 'odd') %>">
-  <td class="icon"><%= content_tag 'span', '', class: "icon user#{user.gender == 'female' ? ' female' : ' male'}" %></td>
-  <td>
-    <%= render_icon(user.logged_in? ? 'online' : 'offline') %>
+  <td class="icon">
+    <%= render_icon(:user, style: user.logged_in? ? 'solid' : 'regular') %>
   </td>
   <td class="login"><%= user.login %></td>
   <td class="name"><%= user.firstname %></td>
@@ -15,20 +14,17 @@
     <%= delete_button alchemy.admin_user_path(user), {
       message: Alchemy.t(:confirm_to_delete_user),
       title: Alchemy.t(:delete_user),
-      icon: "user_delete#{user.gender == 'female' ? ' female' : ' male'}"
+      icon: :minus
     } %>
   <% end %>
   <% if can?(:edit, user) %>
-    <%= link_to_dialog '',
+    <%= link_to_dialog render_icon(:edit),
       alchemy.edit_admin_user_path(user), {
         title: Alchemy.t(:edit_user),
         overflow: true,
         size: '430x560'
-      }, {
-        class: "icon user_edit#{user.gender == 'female' ? ' female' : ' male'}",
-        title: Alchemy.t(:edit_user)
-      }
-    %>
+      },
+      title: Alchemy.t(:edit_user) %>
   <% end %>
   </td>
 </tr>

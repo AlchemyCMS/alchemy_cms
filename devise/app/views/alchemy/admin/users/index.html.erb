@@ -1,7 +1,7 @@
 <%= toolbar(
   buttons: [
     {
-      icon: 'user_add',
+      icon: :plus,
       label: Alchemy.t(:create_user),
       url: alchemy.new_admin_user_path,
       title: Alchemy.t(:create_user),
@@ -23,7 +23,6 @@
     <thead>
       <tr>
         <th class="icon"></th>
-        <th class="login_status"></th>
         <th class="login">
           <%= sort_link @query, :login, hide_indicator: true %>
         </th>
