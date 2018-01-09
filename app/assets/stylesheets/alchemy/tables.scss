@@ -7,10 +7,15 @@ table {
 }
 
 .list td, .list th {
-  padding: $default-padding 2*$default-padding;
+  padding: 2*$default-padding;
   vertical-align: top;
   line-height: 18px;
   border-right: 1px solid $medium-gray;
+  transition: background-color 250ms;
+
+  &:last-child {
+    border-right: 0 none;
+  }
 
   &.wrap-text {
     white-space: normal !important;
@@ -18,8 +23,6 @@ table {
 
   &.icon {
     width: 16px;
-    background-color: transparent;
-    padding: $default-padding;
     text-align: center;
   }
 }
@@ -36,10 +39,8 @@ th {
   white-space: nowrap;
   text-align: left;
   vertical-align: top;
-  background: $light-gray;
   border-bottom: 1px solid $medium-gray;
-  font-weight: normal;
-  text-transform: uppercase;
+  font-weight: bold;
 
   i {
     font-style: normal;
@@ -65,19 +66,12 @@ th {
   }
 }
 
-tr.odd td {
-  background-color: #eaf3f9;
-}
-
 tr.even td {
-  background-color: white;
+  background-color: $table-row-background-color;
 }
 
 .list tr .tools {
   width: 40px;
-  background: $light-gray;
-  border-top: 0 none;
-  border-right: 0 none;
   white-space: nowrap;
   @extend .disable-user-select;
 
@@ -98,7 +92,7 @@ td.heading {
 }
 
 .list tr:hover td {
-  background-color: $light_yellow;
+  background-color: $table-row-hover-color;
 }
 
 td, th {
