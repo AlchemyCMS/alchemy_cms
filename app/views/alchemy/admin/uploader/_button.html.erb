@@ -27,7 +27,6 @@
       <% if local_assigns[:in_dialog] %>
         $.get(url, null, null, 'script');
       <% else %>
-        Alchemy.pleaseWaitOverlay();
         Turbolinks.visit(url);
       <% end %>
       }

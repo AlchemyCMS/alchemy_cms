@@ -17,7 +17,6 @@
       selector: '#replace_<%= dom_id(object) %>',
       file_types: '<%= file_types.join("|") %>',
       complete: function() {
-        Alchemy.pleaseWaitOverlay();
         Turbolinks.visit('<%= redirect_url.html_safe %>');
       }
     };

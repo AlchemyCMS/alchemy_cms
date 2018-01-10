@@ -267,7 +267,7 @@ module Alchemy
           active: false,
           link_options: {},
           dialog_options: {},
-          loading_indicator: true
+          loading_indicator: false
         }.merge(options.symbolize_keys)
         button = render(
           'alchemy/admin/partials/toolbar_button',

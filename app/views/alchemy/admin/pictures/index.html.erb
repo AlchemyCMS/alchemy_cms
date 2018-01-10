@@ -16,7 +16,7 @@
           render_icon('zoom-out'),
           alchemy.admin_pictures_path(size: "small", q: params[:q]),
           title: Alchemy.t(:small_thumbnails),
-          class: "icon_button please_wait"
+          class: "icon_button"
         ) %>
       </div>
       <div class="button_with_label">
@@ -24,7 +24,7 @@
           render_icon('zoom-equal'),
           alchemy.admin_pictures_path(size: "medium", q: params[:q]),
           title: Alchemy.t(:medium_thumbnails),
-          class: "icon_button please_wait"
+          class: "icon_button"
         ) %>
       </div>
       <div class="button_with_label">
@@ -32,7 +32,7 @@
           render_icon('zoom-in'),
           alchemy.admin_pictures_path(size: "large", q: params[:q]),
           title: Alchemy.t(:big_thumbnails),
-          class: "icon_button please_wait"
+          class: "icon_button"
         ) %>
       </div>
       <label><%= Alchemy.t('Image size') %></label>
