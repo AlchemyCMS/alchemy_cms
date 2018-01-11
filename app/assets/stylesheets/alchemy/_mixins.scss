@@ -144,7 +144,7 @@
   box-shadow: $shadow;
 }
 
-@mixin tag-base($margin: 2*$default-margin 0, $padding: $default-padding 4*$default-padding $default-padding 6*$default-padding) {
+@mixin tag-base($margin: 2*$default-margin 0, $padding: $default-padding 3*$default-padding) {
   padding: $padding;
   margin: $margin;
   background-color: $medium-gray;
@@ -153,12 +153,11 @@
   border-radius: $default-border-radius;
 
   &:before {
-    position: absolute;
-    left: 8px;
-    top: 8px;
-    font-family: 'Alchemy Icons';
-    @extend .icon-tag:before;
-    line-height: 6px;
+    content: fa-content($fa-var-tag);
+    font-family: 'Font Awesome 5 Free';
+    font-weight: 900;
+    font-size: 0.8em;
+    padding-right: 2*$default-padding;
   }
 }
 

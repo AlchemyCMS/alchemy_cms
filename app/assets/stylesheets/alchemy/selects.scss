@@ -108,14 +108,24 @@ select {
         background-image: none;
         border: 0 none;
         box-shadow: none;
+        color: $text-color;
       }
 
       .select2-search-choice-close {
+        @extend .fas;
+        @extend .fa-fw;
         left: auto;
-        right: 4px;
+        right: 5px;
         top: 5px;
         background: none;
-        @extend .icon-cross;
+        font-size: 11px;
+        text-decoration: none;
+
+        &:before {
+          @extend .fa-xs;
+          content: fa-content($fa-var-times);
+          opacity: $addon-icon-opacity;
+        }
 
         &:hover {
           color: $text-color;
@@ -137,7 +147,14 @@ select {
 .tag_list, .autocomplete_tag_list {
   .select2-container.select2-container-multi {
     .select2-search-choice {
-      @include tag-base($margin: 4px, $padding: 4px 24px);
+      padding: 0;
+
+      div {
+        @include tag-base(
+          $padding: $default-padding 6*$default-padding $default-padding 3*$default-padding,
+          $margin: 0
+        );
+      }
     }
   }
 }
