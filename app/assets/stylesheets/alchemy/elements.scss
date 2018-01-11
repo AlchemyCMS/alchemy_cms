@@ -424,9 +424,7 @@
     border-color: $error_border_color
   }
 
-  .thumbnail_background.missing:before {
-    font-family: 'Alchemy Icons';
-    @extend .icon-pictures:before;
+  .thumbnail_background .icon {
     font-size: 48px;
     color: $medium-gray;
     vertical-align: top;

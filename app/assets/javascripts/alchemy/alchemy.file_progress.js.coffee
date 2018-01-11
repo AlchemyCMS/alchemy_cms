@@ -9,7 +9,7 @@ Alchemy.FileProgress = (file) ->
     @$fileProgressElement = $('<div class="progress-container"/>')
 
     # Append Cancel Button
-    @$fileProgressCancel = $('<a href="javascript:void(0);" class="progress-cancel"/>')
+    @$fileProgressCancel = $('<a href="javascript:void(0);" class="progress-cancel"><i class="fas fa-times fa-fw"/></a>')
     @$fileProgressElement.append @$fileProgressCancel
 
     # Append Filename

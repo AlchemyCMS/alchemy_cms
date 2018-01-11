@@ -47,7 +47,7 @@
     placeholder: Alchemy.t(:search),
     id: nil %>
   <%= render_icon :search %>
-  <%= link_to('', '#', {
+  <%= link_to(render_icon(:times, size: 'xs'), '#', {
     class: "js_filter_field_clear",
     title: Alchemy.t(:click_to_show_all)
   }) %>

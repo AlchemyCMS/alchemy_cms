@@ -150,11 +150,6 @@
   position: absolute;
   z-index: 1;
   cursor: pointer;
-
-  .icon.close.small {
-    line-height: 1;
-    vertical-align: text-top;
-  }
 }
 
 .alchemy-dialog-close {
@@ -162,10 +157,6 @@
   right: 2*$default-padding;
   padding: 0 $default-padding;
   color: inherit;
-
-  .icon.close.small {
-    font-size: 16px;
-  }
 }
 
 .alchemy-dialog-body {

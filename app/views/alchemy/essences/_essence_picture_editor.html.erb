@@ -21,10 +21,12 @@
       <div class="picture_handle" title="<%= Alchemy.t(:drag_to_sort) if options[:sortable] %>"></div>
     <%- end -%>
     <div class="picture_image">
-      <div class="thumbnail_background<%= ' missing' if content.ingredient.nil? %>">
+      <div class="thumbnail_background">
         <%- if content.ingredient -%>
-        <%= essence_picture_thumbnail(content, options) %>
-        <%= hidden_field_tag content.form_field_name(:picture_id), content.ingredient.id %>
+          <%= essence_picture_thumbnail(content, options) %>
+          <%= hidden_field_tag content.form_field_name(:picture_id), content.ingredient.id %>
+        <% else %>
+          <%= render_icon(:image, style: 'regular') %>
         <% end %>
       </div>
     </div>

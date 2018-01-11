@@ -41,7 +41,7 @@ $image-overlay-transition-easing: ease-in;
     .picture-overlay-handle {
       right: 0;
 
-      .icon-angle-double-right {
+      .icon {
         transform: rotate(180deg) translate(50%, 50%);
       }
     }
@@ -66,8 +66,8 @@ $image-overlay-transition-easing: ease-in;
   cursor: pointer;
   transition: right $image-overlay-transition-duration $image-overlay-transition-easing;
 
-  .icon.close.small {
-    font-size: 32px;
+  .icon {
+    font-size: 24px;
     color: $medium-gray;
     text-shadow: 0 0 $default-padding $text-color;
     transition: color $image-overlay-transition-duration linear;
@@ -121,7 +121,7 @@ $image-overlay-transition-easing: ease-in;
   right: $image-overlay-form-width;
   cursor: pointer;
 
-  .icon-angle-double-right {
+  .icon {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -224,20 +224,19 @@ $image-overlay-transition-easing: ease-in;
     &:hover {
       background-color: rgba(0,0,0, 0.3);
 
-      .icon-angle-left,
-      .icon-angle-right {
+      .icon {
         color: $white;
         text-shadow: none;
       }
     }
   }
 
-  .icon-angle-left,
-  .icon-angle-right {
+  .icon {
     font-size: 48px;
     color: $medium-gray;
     text-shadow: 0 0 $default-padding $text-color;
     transition: all $image-overlay-transition-duration linear;
+    vertical-align: middle;
   }
 
   .previous-picture {
