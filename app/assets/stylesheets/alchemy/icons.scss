@@ -8,11 +8,4 @@
   &.blank {
     background: transparent;
   }
-
-  &.close {
-    &.small {
-      @extend .icon-cross;
-      line-height: 1;
-    }
-  }
 }
