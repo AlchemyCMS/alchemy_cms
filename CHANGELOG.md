@@ -3,6 +3,7 @@
 ## 4.1.0 (unreleased)
 
 * Removed fixed table headers from admin resource tables [#1339](https://github.com/AlchemyCMS/alchemy_cms/pull/1339) by [tvdeyen](https://github.com/tvdeyen)
+* Removed Bourbon Sass library [#1339](https://github.com/AlchemyCMS/alchemy_cms/pull/1339) by [tvdeyen](https://github.com/tvdeyen)
 
 ## 4.0.0 (2017-11-06)
 
