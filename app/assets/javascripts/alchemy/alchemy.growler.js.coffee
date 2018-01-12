@@ -4,12 +4,7 @@ Alchemy.Growler =
 
   build: (message, flash_type) ->
     $flash_container = $("<div class=\"flash #{flash_type}\" />")
-    icon_class = switch flash_type
-      when "warning", "warn", "alert" then "exclamation"
-      when "notice" then "check"
-      when "error" then "bug"
-      else flash_type
-    $flash_container.append "<i class=\"icon fas fa-#{icon_class} fa-fw\" />"
+    $flash_container.append Alchemy.messageIcon(flash_type)
     $flash_container.append message
     $("#flash_notices").append $flash_container
     $("#flash_notices").show()
