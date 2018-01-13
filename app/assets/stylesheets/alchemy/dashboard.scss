@@ -1,32 +1,26 @@
 #dashboard {
   overflow: auto;
-  padding: 4*$default-padding 2*$default-padding;
+  padding: 4*$default-padding 0;
   width: 100%;
   position: relative;
 
   h1 {
-    font-size: 2em;
-    margin: 0 0 8px 0;
+    font-size: 1.5em;
+    margin: 0 0 8px 8px;
   }
 
-  h2 {
-    padding: 0;
-    margin-bottom: 16px;
+  p {
+    margin: 0 0 16px 8px;
   }
 
-  div.column {
+  .column {
     width: 50%;
     float: left;
     padding-right: 16px;
   }
 
-  div.widget {
-    width: 100%;
+  .widget {
     margin-bottom: 16px;
-    background-color: $medium-gray;
-    border: $default-border;
-    @extend .top-rounded-border;
-    float: left;
 
     h2 {
       padding: 2 * $default-padding;
@@ -38,41 +32,14 @@
     }
 
     table {
-      width: 100%;
-      padding: 0;
-      border-spacing: 0;
-
       td {
-        padding: 2 * $default-padding;
-        margin-bottom: 0;
         position: relative;
-        color: #aaa;
 
         &:first-child { width: 40% }
         form { float: right }
-        span { color: #333 }
       }
     }
   }
-}
-
-div#sideboard {
-  right: 16px;
-  top: 82px;
-  position: absolute;
-  width: 240px;
-  padding: 16px;
-
-  div.sideboard_widget img {
-    margin-bottom: 16px;
-    float: none;
-  }
-}
-
-div#license {
-  overflow: auto;
-  height: 24em;
-  background-color: white;
 }
 
 #update_check {

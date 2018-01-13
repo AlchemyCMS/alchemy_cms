@@ -34,7 +34,7 @@
     <%= render 'recent_pages' %>
   </div>
   <div class="column right">
-    <% if @online_users %>
+    <% if @online_users.any? %>
       <%= render 'users' %>
     <% end %>
     <% if multi_site? %>
