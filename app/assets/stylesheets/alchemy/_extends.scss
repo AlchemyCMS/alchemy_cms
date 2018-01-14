@@ -1,7 +1,3 @@
-%rounded-border {
-  border-radius: $default-border-radius;
-}
-
 %text-overflow {
   white-space: nowrap;
   overflow: hidden;
@@ -33,7 +29,7 @@
 }
 
 %default-input-style {
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
   box-shadow: inset 0px 1px 1px $medium-gray;
   font: $default-font-style;
   padding: 1px 2*$default-padding;

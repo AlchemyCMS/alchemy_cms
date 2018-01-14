@@ -1,9 +1,13 @@
 <div id="library_sidebar">
   <%= render 'filter_bar' %>
-  <div class="tag-list with_filter_bar<%= params[:tagged_with].present? ? ' filtered' : '' %>">
-    <%= render 'tag_list' %>
-  </div>
+
+  <% if Alchemy::Picture.tag_counts.any? %>
+    <div class="tag-list with_filter_bar<%= ' filtered' if params[:tagged_with].present? %>">
+      <%= render 'tag_list' %>
+    </div>
+  <% end %>
 </div>
+
 <%= form_tag delete_multiple_admin_pictures_path, method: :delete do %>
   <div class="selected_item_tools">
     <h2><%= Alchemy.t(:edit_selected_pictures) %></h2>
@@ -36,15 +40,13 @@
   </div>
   <div id="pictures">
   <% if @pictures.blank? and @recent_pictures.blank? and params[:q].blank? %>
-    <div class="info">
-      <%= render_icon('info') %>
+    <%= render_message do %>
       <%= Alchemy.t(:no_images_in_archive) %>
-    </div>
+    <% end %>
   <% elsif @pictures.blank? and @recent_pictures.blank? %>
-    <div class="info">
-      <%= render_icon('info') %>
+    <%= render_message do %>
       <%= Alchemy.t(:no_search_results) %>
-    </div>
+    <% end %>
   <% else %>
     <%= render partial: 'picture', collection: @pictures %>
     <%= paginate @pictures, theme: 'alchemy' %>

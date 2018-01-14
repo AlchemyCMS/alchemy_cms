@@ -80,7 +80,7 @@
     background-color: $medium-gray;
     position: relative;
     margin-top: 8px;
-    @extend %rounded-border;
+    border-radius: $default-border-radius;
   }
 
   .progress-name,
@@ -98,7 +98,7 @@
 
   .progress-bar-container {
     background-color: #f9f9f9;
-    @extend %rounded-border;
+    border-radius: $default-border-radius;
     height: 16px;
     overflow: hidden;
     width: 100%;

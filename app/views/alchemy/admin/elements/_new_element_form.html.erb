@@ -1,8 +1,7 @@
 <%- if @elements.blank? -%>
-  <div class="info">
-    <%= render_icon('info') %>
+  <%= render_message do %>
     <%= Alchemy.t(:no_more_elements_to_add) %>
-  </div>
+  <% end %>
 <%- else -%>
   <%= alchemy_form_for [:admin, @element] do |form| %>
     <%= form.hidden_field :page_id %>

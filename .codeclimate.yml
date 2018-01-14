@@ -32,3 +32,4 @@ exclude_paths:
 - "spec/"
 - "lib/alchemy/upgrader/"
 - "lib/rails/"
+- "vendor/assets/"

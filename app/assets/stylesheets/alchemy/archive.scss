@@ -22,7 +22,7 @@ div#image_assign_filter_and_image_sizing {
   display: inline-block;
   border: 1px solid #c0c0c0;
   position: relative;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
   width: 170px;
 
   img {
@@ -328,7 +328,7 @@ div#filter_bar {
 .tag {
   display: inline-block;
   vertical-align: middle;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
   padding: $default-padding 2*$default-padding $default-padding 4*$default-padding;
   margin: $default-margin/2 0;
   background-color: rgba($medium-gray, 0.85);
@@ -350,4 +350,8 @@ div#filter_bar {
 
 .tags .list .tag {
   padding: 0;
+}
+
+#all_files td.name a {
+  @include zoom-in;
 }

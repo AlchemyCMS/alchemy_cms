@@ -169,14 +169,14 @@ button.icon_button {
       background-color: darken($white, 10%);
       border: $default-border;
       padding: 2px;
-      @extend %rounded-border;
+      border-radius: $default-border-radius;
     }
   }
 
   &:hover .icon_button {
     border: $default-border;
     padding: 2px;
-    @extend %rounded-border;
+    border-radius: $default-border-radius;
     cursor: pointer;
 
     &:focus {
@@ -215,7 +215,7 @@ button.icon_button {
   }
 
   label {
-    @extend %rounded-border;
+    border-radius: $default-border-radius;
     position: absolute;
     visibility: hidden;
     top: -20px;

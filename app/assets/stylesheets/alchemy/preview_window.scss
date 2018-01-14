@@ -1,0 +1,15 @@
+#alchemy_preview_window {
+  position: absolute;
+  left: $main-menu-width;
+  top: 75px;
+  width: auto;
+  height: auto;
+  border: 0 none;
+  background: #fff;
+  border-right: $default-border;
+  transition: 200ms ease-in-out;
+
+  .collapsed-menu & {
+    left: $collapsed-main-menu-width;
+  }
+}

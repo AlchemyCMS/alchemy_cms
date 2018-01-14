@@ -1,0 +1,31 @@
+#clipboard_items {
+
+  ul {
+    list-style-type: none;
+    margin: 0 0 8px;
+    padding: 0;
+    height: 220px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    li {
+      padding: 2*$default-padding;
+      border: $default-border;
+      background-color: white;
+      border-radius: $default-border-radius;
+
+      &.elements {
+        background-color: $medium-gray;
+      }
+
+      .icon {
+        vertical-align: text-bottom;
+        margin-right: $default-padding;
+      }
+
+      .float_right .icon {
+        margin-right: 0;
+      }
+    }
+  }
+}

@@ -5,7 +5,7 @@
   margin-bottom: 8px;
   border: 1px solid #d08f91;
   color: #690001;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
 
   h2 {
     font-size: 1.2em;
@@ -21,7 +21,7 @@ div#errors, div.errors {
   padding: 8px 8px 4px 28px;
   border-width: 1px;
   border-style: solid;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
   border-color: $error_border_color;
   color: $error_text_color;
   background-color: $error_background_color;

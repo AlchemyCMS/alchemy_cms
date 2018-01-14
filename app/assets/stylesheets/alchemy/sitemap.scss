@@ -63,12 +63,26 @@
   text-overflow: ellipsis;
 }
 
-#page_selector_container .sitemap_pagename_link:hover {
-  text-decoration: none;
-}
+#page_selector_container {
+  height: 230px;
+  background-color: $light-gray;
+  margin-bottom: 4px;
+  border: 1px inset #e8e8e8;
+  overflow: auto;
+  padding: 4px 0 0 4px;
+  border-radius: $default-border-radius;
 
-#page_selector_container .sitemap_pagename_link:hover:after {
-  display: none;
+  .sitemap_pagename_link:hover {
+    text-decoration: none;
+
+    &:after {
+      display: none;
+    }
+  }
+
+  .sitemap_right_tools {
+    width: 24px;
+  }
 }
 
 .sitemap_line_spacer {
@@ -93,6 +107,12 @@
   &:hover .sitemap_pagename_link {
     background-color: $light_yellow;
   }
+}
+
+.sitemap_sitename {
+  height: $sitemap-line-height;
+  line-height: $sitemap-line-height;
+  overflow: hidden;
 }
 
 .sitemap_left_images {
@@ -137,11 +157,35 @@
   }
 }
 
-#page_selector_container .sitemap_right_tools {
-  width: 24px;
-}
+#sitemap {
+  padding: 0 0 104px 0;
 
-ul#sitemap {
+  &.sorting {
+    padding-top: 100px;
+
+    .page.icon { cursor: move }
+  }
+
+  .locked .page.icon {
+    background-position: -32px -40px;
+  }
+
+  .page.icon.not-allowed {
+    &:after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      right: -1px;
+      width: 8px;
+      height: 8px;
+      background: image-url('alchemy/icons.png') -5px -77px;
+    }
+  }
+
+  .page_status .icon {
+    vertical-align: middle;
+  }
+
   .page_folder {
     @extend .icon;
     position: absolute;
@@ -150,6 +194,12 @@ ul#sitemap {
 
     &.collapsed { @extend .icon.expand.small }
     &.folded { @extend .icon.collapse.small }
+  }
+
+  .placeholder {
+    background-color: $medium-gray;
+    margin-bottom: 0px;
+    margin-left: 22px;
   }
 
   ul {
@@ -170,20 +220,6 @@ ul#sitemap {
       padding-right: 0;
     }
   }
-}
-
-ul#sitemap li .sitemap_toolrow,
-ul.list li .sitemap_toolrow {
-  margin: 0;
-  overflow: auto;
-  padding: $default-padding 0;
-}
-
-ul#sitemap .sitemap_sitename,
-ul.list .sitemap_sitename {
-  height: $sitemap-line-height;
-  line-height: $sitemap-line-height;
-  overflow: hidden;
 }
 
 .page_infos {
@@ -241,40 +277,6 @@ ul.list .sitemap_sitename {
   }
 }
 
-#sitemap.list {
-
-  &.sorting {
-    padding-top: 100px;
-
-    .page.icon { cursor: move }
-  }
-
-  .locked .page.icon {
-    background-position: -32px -40px;
-  }
-
-  .page.icon.not-allowed {
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      right: -1px;
-      width: 8px;
-      height: 8px;
-      background: image-url('alchemy/icons.png') -5px -77px;
-    }
-  }
-
-  .page_status .icon {
-    vertical-align: middle;
-  }
-}
-
-a.folder_link {
-  text-decoration: none;
-  outline: none;
-}
-
 #create_language_tree_form {
   width: 80%;
   max-width: 500px;
@@ -282,7 +284,7 @@ a.folder_link {
   padding: 4*$default-padding;
   border: $default-border;
   background: $medium-gray;
-  @extend %rounded-border;
+  border-radius: $default-border-radius;
 }
 
 #sitemap_heading {
@@ -307,30 +309,16 @@ a.folder_link {
   margin-left: 2*$default-margin;
 }
 
-.alchemy-dialog ul.list#sitemap {
-  margin: 0;
-  padding: 0 8px 8px 0;
-
-  .page.icon { cursor: default }
-
-  li li.selectboxit-option {
-    padding-left: 8px;
-    padding-right: 8px;
+.alchemy-dialog {
+  #sitemap-wrapper {
+    min-height: 0;
   }
 
-  .selectboxit-options {
-    right: 0;
-  }
+  #sitemap {
+    margin: 0;
+    padding: 0 24px 8px 8px;
 
-  .close_elements_from_page_selector {
-    position: absolute;
-    right: $default-padding;
-    top: 12px;
-    font-size: 16px;
-    width: 16px;
-    height: 16px;
-    cursor: pointer;
-    @extend .icon-cross;
+    .page.icon { cursor: default }
   }
 }
 
