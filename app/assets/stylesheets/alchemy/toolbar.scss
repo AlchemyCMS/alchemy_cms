@@ -44,6 +44,15 @@
       }
     }
   }
+
+  .icon_button {
+    line-height: 26px;
+
+    .icon {
+      font-size: 1.25em;
+      text-shadow: 0 0 1px rgba(#fff, 0.75);
+    }
+  }
 }
 
 .toolbar_spacer {

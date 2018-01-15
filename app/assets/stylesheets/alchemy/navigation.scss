@@ -63,10 +63,6 @@
     @include truncate($main-menu-entry-max-width);
   }
 
-  a {
-    text-shadow: $text-shadow-light;
-  }
-
   img, .icon {
     width: 24px;
   }
