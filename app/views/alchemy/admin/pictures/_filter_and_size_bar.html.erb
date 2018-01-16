@@ -17,7 +17,7 @@
   <div class="button_group">
     <div class="button_with_label">
       <%= link_to(
-        render_icon('zoom-out'),
+        render_icon('search-minus'),
         alchemy.admin_pictures_path({
           size: "small",
           content_id: @content,
@@ -34,7 +34,7 @@
     </div>
     <div class="button_with_label">
       <%= link_to(
-        render_icon('zoom-equal'),
+        render_icon('search'),
         alchemy.admin_pictures_path({
           size: "medium",
           content_id: @content,
@@ -51,7 +51,7 @@
     </div>
     <div class="button_with_label">
       <%= link_to(
-        render_icon('zoom-in'),
+        render_icon('search-plus'),
         alchemy.admin_pictures_path({
           size: "large",
           content_id: @content,

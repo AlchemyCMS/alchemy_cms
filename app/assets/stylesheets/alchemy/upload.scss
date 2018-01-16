@@ -129,11 +129,10 @@
   }
 
   .progress-cancel {
-    @extend .icon-cross;
-    width: 16px;
-    height: 16px;
     position: absolute;
     top: 8px;
     right: 4px;
+    width: 16px;
+    height: 16px;
   }
 }

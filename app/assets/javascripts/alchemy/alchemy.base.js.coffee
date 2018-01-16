@@ -62,10 +62,10 @@ $.extend Alchemy,
   removePicture: (selector) ->
     $form_field = $(selector)
     $element = $form_field.closest(".element-editor")
-    if $form_field
+    if $form_field[0]
       $form_field.val ""
       $form_field.prev().remove()
-      $form_field.parent().addClass "missing"
+      $form_field.parent().html '<i class="icon far fa-image fa-fw"/>'
       Alchemy.setElementDirty $element
     false
 

@@ -64,18 +64,8 @@
 
   .element.icon {
     position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .icon {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-
-    &.element_dirty {
-      background-position: -160px -166px;
-    }
+    top: 3px;
+    left: 1px;
   }
 }
 
@@ -88,7 +78,7 @@
   width: 16px;
   height: 16px;
   right: 8px;
-  top: 8px;
+  top: 10px;
 
   .error_icon {
     float: left;
@@ -117,10 +107,8 @@
     text-decoration: none;
     overflow: hidden;
     text-align: center;
-    font-weight: bold;
     line-height: 104px;
     border-radius: $default-border-radius;
-    font-size: 40px;
     background-color: $light-gray;
 
     &:hover {
@@ -128,12 +116,11 @@
     }
 
     .icon {
-      font-size: 30px;
-      width: 30px;
-      height: 30px;
+      font-size: 20px;
       position: absolute;
-      top: 48px;
-      left: 44px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 }
@@ -257,7 +244,7 @@
   > .hint-with-icon {
     position: absolute;
     right: 32px;
-    top: 8px;
+    top: 10px;
 
     .hint-bubble {
       left: auto;
@@ -361,25 +348,6 @@
   }
 }
 
-.expand_element,
-.fold_element {
-  background-image: image-url('alchemy/icons.png');
-  background-repeat: no-repeat;
-  height: 16px;
-  width: 16px;
-  text-decoration: none;
-  display: block;
-  margin: 1px;
-}
-
-.expand_element {
-  background-position: -160px -72px;
-}
-
-.fold_element {
-  background-position: -192px -72px;
-}
-
 .droppable_element_placeholder {
   height: 36px;
   border: 1px dotted $button-border-color;
@@ -398,7 +366,7 @@
 
   > a, > span.icon {
     float: left;
-    margin: 0 $default-margin/2;
+    margin: -1px $default-margin/2;
     width: 18px;
     height: 18px;
   }
@@ -412,7 +380,7 @@
       border: 1px solid $button-border-color;
       bottom: 1px;
       margin-right: 2px;
-      width: 18px;
+      width: 20px;
       height: 18px;
       margin-left: 0;
 
@@ -456,9 +424,7 @@
     border-color: $error_border_color
   }
 
-  .thumbnail_background.missing:before {
-    font-family: 'Alchemy Icons';
-    @extend .icon-pictures:before;
+  .thumbnail_background .icon {
     font-size: 48px;
     color: $medium-gray;
     vertical-align: top;
@@ -514,18 +480,11 @@
   }
 
   .file_icon {
+    display: inline-block;
     text-align: center;
     float: left;
-    line-height: 25px;
     width: 24px;
-
-    .icon {
-      margin: $default-margin;
-    }
-
-    .assign_file {
-      background-position: -480px -40px;
-    }
+    padding: 6px 4px;
   }
 
   .file_name {
@@ -533,8 +492,8 @@
     overflow: hidden;
     float: left;
     max-width: 80%;
-    line-height: $default-form-field-height;
-    font-size: 10px;
+    line-height: 28px;
+    font-size: 90%;
     text-overflow: ellipsis;
   }
 }
@@ -548,18 +507,8 @@
 
   a {
     text-decoration: none;
-    width: 16px;
-    height: 16px;
-    margin: 5px $default-margin;
+    padding: 6px $default-margin;
     float: left;
-
-    &.assign_file {
-      background: image-url('alchemy/icons.png') -512px -40px;
-    }
-
-    &.edit_file {
-      background: image-url('alchemy/icons.png') -160px -167px;
-    }
   }
 }
 
@@ -633,7 +582,7 @@ select.long {
   label {
     display: block;
     margin-bottom: 2px;
-    font-size: 10px;
+    font-size: 90%;
     text-shadow: #fff5e1 1px 1px 0;
     line-height: 15px;
     text-indent: 1px;
@@ -744,8 +693,8 @@ textarea.has_tinymce {
 
 .content_editor .hint-with-icon,
 .content_editor .with-hint,
-.element-handle .warning {
-  margin-left: 0;
+.element-handle .hint-with-icon {
+  margin: 0;
 
   > .hint-bubble {
     left: -7px;
@@ -757,7 +706,7 @@ textarea.has_tinymce {
   }
 }
 
-.content_editor .hint-with-icon {
+.element-handle .hint-with-icon {
   top: -1px;
 }
 

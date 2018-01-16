@@ -18,7 +18,7 @@ describe Alchemy::Admin::PagesHelper do
       end
     end
 
-    context 'when page is persited' do
+    context 'when page is persisted' do
       before { page.save! }
 
       context 'with page layout existing' do
@@ -33,7 +33,7 @@ describe Alchemy::Admin::PagesHelper do
         end
 
         it 'displays icon with warning and tooltip' do
-          is_expected.to have_selector '.warning.icon.with-hint .hint-bubble'
+          is_expected.to have_selector '.hint-with-icon .hint-bubble'
         end
       end
     end

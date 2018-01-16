@@ -108,7 +108,7 @@ div.assign_image_list_image {
   position: absolute;
   background-color: white;
   top: $default-padding;
-  padding: $default-padding/2;
+  padding: 2px 3px;
   z-index: 10;
   display: none;
 
@@ -131,10 +131,6 @@ div.assign_image_list_image {
 
   &.delete {
     right: $default-padding;
-
-    a {
-      background: image-url('alchemy/icons.png') no-repeat -63px -72px;
-    }
   }
 
   a {
@@ -218,12 +214,12 @@ div#filter_bar {
     overflow-y: auto;
 
     li {
-      @include tag-base;
       display: block;
 
       &:first-child { margin-top: 0 }
 
       a {
+        @include tag-base;
         text-decoration: none;
         display: block;
       }
@@ -231,9 +227,11 @@ div#filter_bar {
       &:hover { background-color: $very-light-blue }
 
       &.active {
-        background-color: $dark-gray;
 
-        a, &:before { color: $light-gray }
+        a {
+          background-color: $dark-gray;
+          color: $light-gray
+        }
       }
     }
   }
@@ -326,26 +324,15 @@ div#filter_bar {
 }
 
 .tag {
+  @include tag-base(
+    $margin: $default-margin/2 0,
+    $padding: $default-padding 2*$default-padding $default-padding
+  );
   display: inline-block;
   vertical-align: middle;
-  border-radius: $default-border-radius;
-  padding: $default-padding 2*$default-padding $default-padding 4*$default-padding;
-  margin: $default-margin/2 0;
-  background-color: rgba($medium-gray, 0.85);
   color: $text-color;
-  overflow: hidden;
-  position: relative;
   pointer-events: none;
   font-size: 10px;
-
-  &:before {
-    position: absolute;
-    left: $default-padding;
-    top: 2*$default-padding;
-    font-family: 'Alchemy Icons';
-    @extend .icon-tag:before;
-    line-height: 6px;
-  }
 }
 
 .tags .list .tag {

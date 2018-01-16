@@ -98,30 +98,24 @@ module Alchemy
     #
     def icon_css_class
       case file_mime_type
-      when "application/x-shockwave-flash"
-        then "flash"
-      when "image/x-psd"
-        then "psd"
-      when "text/plain"
-        then "text"
-      when "application/rtf"
-        then "rtf"
       when "application/pdf"
-        then "pdf"
+        then "file-pdf"
       when "application/msword"
-        then "word"
-      when "application/vnd.ms-excel"
-        then "excel"
+        then "file-word"
+      when *TEXT_FILE_TYPES
+        then "file-alt"
+      when *EXCEL_FILE_TYPES
+        then "file-excel"
       when *VCARD_FILE_TYPES
-        then "vcard"
+        then "address-card"
       when *ARCHIVE_FILE_TYPES
-        then "archive"
+        then "file-archive"
       when *AUDIO_FILE_TYPES
-        then "audio"
+        then "file-audio"
       when *IMAGE_FILE_TYPES
-        then "image"
+        then "file-image"
       when *VIDEO_FILE_TYPES
-        then "video"
+        then "file-video"
       else
         "file"
       end

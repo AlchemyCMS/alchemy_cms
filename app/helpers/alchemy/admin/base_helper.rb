@@ -105,7 +105,7 @@ module Alchemy
         content_tag(:div, class: 'js_filter_field_box') do
           concat text_field_tag(nil, nil, options)
           concat render_icon(:search)
-          concat link_to('', '', class: 'js_filter_field_clear', title: Alchemy.t(:click_to_show_all))
+          concat link_to(render_icon(:times, size: 'xs'), '', class: 'js_filter_field_clear', title: Alchemy.t(:click_to_show_all))
           concat content_tag(:label, Alchemy.t(:search), for: options[:id])
         end
       end
@@ -191,7 +191,7 @@ module Alchemy
         options = {
           title: Alchemy.t('Delete'),
           message: Alchemy.t('Are you sure?'),
-          icon: 'destroy'
+          icon: :minus
         }.merge(options)
         button_with_confirm(
           render_icon(options[:icon]),
@@ -227,7 +227,7 @@ module Alchemy
       # == Example
       #
       #   <%= toolbar_button(
-      #     icon: 'create',
+      #     icon: :plus,
       #     label: 'Create',
       #     url: new_resource_path,
       #     title: 'Create Resource',
@@ -288,7 +288,7 @@ module Alchemy
       #   <% toolbar(
       #     buttons: [
       #       {
-      #         icon: 'create',
+      #         icon: :plus,
       #         label: label_title,
       #         url: new_resource_path,
       #         title: label_title,
@@ -385,7 +385,7 @@ module Alchemy
       def render_hint_for(element)
         return unless element.has_hint?
         content_tag :span, class: 'hint-with-icon' do
-          render_icon(:questionmark) +
+          render_icon('question-circle') +
             content_tag(:span, element.hint.html_safe, class: 'hint-bubble')
         end
       end
@@ -421,15 +421,15 @@ module Alchemy
       #
       # == Example
       #
-      #   <%= hint_with_tooltip('Page layout is missing', class: 'warning icon') %>
+      #   <%= hint_with_tooltip('Page layout is missing', icon: 'info') %>
       #
       # @param text [String] - The text displayed in the tooltip
-      # @param html_options [Hash] - Options passed to the wrapper `content_tag`
+      # @param icon: 'exclamation-triangle' [String] - Icon name
       #
-      def hint_with_tooltip(text, html_options = {})
-        css_class = "#{html_options[:class]} with-hint"
-        content_tag :span, html_options.merge(class: css_class) do
-          content_tag(:span, text, class: 'hint-bubble')
+      # @return [String]
+      def hint_with_tooltip(text, icon: 'exclamation-triangle')
+        content_tag :span, class: 'hint-with-icon' do
+          render_icon(icon) + content_tag(:span, text, class: 'hint-bubble')
         end
       end
 
@@ -437,8 +437,7 @@ module Alchemy
       # that explains the user that the page layout is missing
       def page_layout_missing_warning
         hint_with_tooltip(
-          Alchemy.t(:page_definition_missing),
-          class: 'inline warning icon'
+          Alchemy.t(:page_definition_missing)
         )
       end
 

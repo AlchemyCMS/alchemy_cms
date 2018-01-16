@@ -10,12 +10,12 @@ div#flash_notices {
     padding-right: 24px;
 
     &:before {
+      content: fa-content($fa-var-times);
       position: absolute;
       right: 2*$default-padding;
-      top: 2*$default-padding;
-      @extend .icon-cross:before;
-      font-size: 14px;
-      font-family: 'Alchemy Icons';
+      top: 11px;
+      font-size: 10px;
+      font-family: 'Font Awesome 5 Free';
     }
   }
 }
@@ -28,14 +28,14 @@ div.flash {
   border-width: 1px;
   border-style: solid;
   z-index: 1000;
-  margin: $default-margin;
+  margin: $default-margin $default-margin 2*$default-margin;
   position: relative;
   min-height: 1.3em;
   word-break: break-all;
 
-  span.icon {
+  .icon {
     position: absolute;
-    top: 8px;
+    top: 10px;
     left: 8px;
   }
 

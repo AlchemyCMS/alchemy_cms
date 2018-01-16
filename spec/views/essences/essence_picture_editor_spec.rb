@@ -37,8 +37,8 @@ describe "essences/_essence_picture_editor" do
 
   context "with settings[:deletable] being nil" do
     it 'should not render a button to link and unlink the picture' do
-      is_expected.to have_selector("a .icon.link")
-      is_expected.to have_selector("a .icon.unlink")
+      is_expected.to have_selector("a .icon.fa-link")
+      is_expected.to have_selector("a .icon.fa-unlink")
     end
   end
 
@@ -48,13 +48,13 @@ describe "essences/_essence_picture_editor" do
     end
 
     it 'should not render a button to link and unlink the picture' do
-      is_expected.to_not have_selector("a .icon.link")
-      is_expected.to_not have_selector("a .icon.unlink")
+      is_expected.to_not have_selector("a .icon.fa-link")
+      is_expected.to_not have_selector("a .icon.fa-unlink")
     end
 
     it 'but renders the disabled link and unlink icons' do
-      is_expected.to have_selector(".icon.link")
-      is_expected.to have_selector(".icon.unlink")
+      is_expected.to have_selector(".icon.fa-link")
+      is_expected.to have_selector(".icon.fa-unlink")
     end
   end
 
@@ -74,7 +74,7 @@ describe "essences/_essence_picture_editor" do
     end
 
     it 'shows disabled cropping link' do
-      is_expected.to have_selector('a.disabled .icon.crop')
+      is_expected.to have_selector('a.disabled .icon.fa-crop')
     end
   end
 end

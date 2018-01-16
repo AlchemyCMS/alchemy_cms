@@ -39,7 +39,7 @@
       <% end %>
 
       <% if element.expanded? %>
-        <%= link_to_dialog render_icon(:create) + Alchemy.t("New Element"),
+        <%= link_to_dialog render_icon(:plus, size: 'xs') + Alchemy.t("New Element"),
           alchemy.new_admin_element_path(
             parent_element_id: element.id,
             page_id: element.page.id

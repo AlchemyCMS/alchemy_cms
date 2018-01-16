@@ -4,11 +4,13 @@
   height: 29px;
 }
 
-.search_field .icon,
-.js_filter_field_box .icon {
-  position: absolute;
-  left: 8px;
-  top: 8px;
+.search_field,
+.js_filter_field_box {
+  .fa-search {
+    position: absolute;
+    left: 8px;
+    top: 9px;
+  }
 }
 
 .js_filter_field_box {
@@ -36,14 +38,13 @@
 .search_field_clear,
 .js_filter_field_clear {
   display: none;
+  position: absolute;
+  top: 7px;
+  right: 8px;
   width: 16px;
   height: 16px;
-  line-height: 16px;
-  @extend .icon-cross;
-  position: absolute;
-  right: 8px;
-  top: 7px;
-  text-decoration: none !important;
+  line-height: 14px;
+  text-align: center;
 }
 
 #tags_tag_list {

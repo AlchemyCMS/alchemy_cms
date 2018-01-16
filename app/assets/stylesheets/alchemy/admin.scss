@@ -4,6 +4,9 @@
  *= require_self
  */
 
+@import "fontawesome/fontawesome";
+@import "fontawesome/fa-regular";
+@import "fontawesome/fa-solid";
 @import "alchemy/defaults";
 @import "alchemy/archive";
 @import "alchemy/navigation";
@@ -23,7 +26,6 @@
 @import "alchemy/hints";
 @import "alchemy/icons";
 @import "alchemy/image_library";
-@import "alchemy/modules";
 @import "alchemy/notices";
 @import "alchemy/pagination";
 @import "alchemy/preview_window";

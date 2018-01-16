@@ -1,13 +1,13 @@
 <div class="element-header<%= ' has-hint' if element.has_hint? %>">
   <span class="element-handle">
-    <%= render_icon(:element) %>
     <% if element.definition.blank? %>
-      <%= hint_with_tooltip(
-        Alchemy.t(:element_definition_missing),
-        class: 'warning icon'
-      ) %>
+      <%= hint_with_tooltip Alchemy.t(:element_definition_missing) %>
     <% else %>
-      <%= render_icon("element_#{element.public? ? 'public' : 'draft'}") %>
+      <% if element.public? %>
+        <%= render_icon('window-maximize', style: 'regular', class: 'element') %>
+      <% else %>
+        <%= render_icon('window-close', class: 'element') %>
+      <% end %>
     <% end %>
   </span>
   <span class="element-title">
@@ -17,12 +17,12 @@
     </span>
   </span>
   <%= render_hint_for(element) unless element.trashed? %>
-  <span class="ajax-folder" <%= element.trashed? ? 'style="display: none"'.html_safe : '' %>>
-    <%= link_to '', '#', {
-      'data-element-toggle' => element.id,
-      class: element.folded? ? 'expand_element' : 'fold_element',
-      title: element.folded? ? Alchemy.t(:show_element_content) : Alchemy.t(:hide_element_content),
-      id: "element_#{element.id}_folder"
-    } %>
-  </span>
+  <%= link_to '#', {
+    'data-element-toggle' => element.id,
+    title: Alchemy.t(element.folded? ? :show_element_content : :hide_element_content),
+    id: "element_#{element.id}_folder",
+    class: "ajax-folder"
+  } do %>
+    <%= render_icon element.folded? ? 'plus-square' : 'minus-square' %>
+  <% end %>
 </div>

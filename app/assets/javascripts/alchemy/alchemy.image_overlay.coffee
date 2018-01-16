@@ -44,7 +44,7 @@ class window.Alchemy.ImageOverlay extends Alchemy.Dialog
     @dialog = $('<div class="alchemy-image-overlay-dialog" />')
     @dialog_body = $('<div class="alchemy-image-overlay-body" />')
     @close_button = $('<a class="alchemy-image-overlay-close">
-      <span class="icon close small"></span>
+      <i class="icon fas fa-times fa-fw"></i>
     </a>')
     @dialog.append(@close_button)
     @dialog.append(@dialog_body)

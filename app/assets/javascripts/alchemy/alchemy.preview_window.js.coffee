@@ -43,7 +43,7 @@ Alchemy.PreviewWindow =
 
   _hideSpinner: ->
     @spinner.stop()
-    @reload.html('<span class="icon reload"></span>')
+    @reload.html('<i class="icon fas fa-redo fa-fw"></i>')
 
   _bindReloadButton: ->
     $reload = $('#reload_preview_button')

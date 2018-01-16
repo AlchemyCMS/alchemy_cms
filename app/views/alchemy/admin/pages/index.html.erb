@@ -5,7 +5,7 @@
   <% if can?(:flush, Alchemy::Page) %>
   <div class="button_with_label">
     <%= link_to(
-      render_icon('flush'),
+      render_icon(:eraser),
       alchemy.flush_admin_pages_path,
       :remote => true,
       :method => :post,
@@ -18,7 +18,7 @@
   <% if can?(:sort, Alchemy::Page) %>
   <div class="button_with_label">
     <%= link_to(
-      render_icon(:sort),
+      render_icon(:random),
       alchemy.sort_admin_pages_path,
       method: :get,
       class: 'icon_button',
@@ -29,7 +29,7 @@
   <% end %>
   <div class="button_with_label" id="clipboard_button">
     <%= link_to_dialog(
-      render_icon("clipboard#{clipboard_empty?('pages') ? '' : ' full'}"),
+      render_icon(clipboard_empty?('pages') ? :clipboard : :paste),
       alchemy.admin_clipboard_path(:remarkable_type => 'pages'),
       {
         :title => Alchemy.t('Clipboard'),
@@ -47,7 +47,7 @@
     placeholder: Alchemy.t(:search),
     id: nil %>
   <%= render_icon :search %>
-  <%= link_to('', '#', {
+  <%= link_to(render_icon(:times, size: 'xs'), '#', {
     class: "js_filter_field_clear",
     title: Alchemy.t(:click_to_show_all)
   }) %>

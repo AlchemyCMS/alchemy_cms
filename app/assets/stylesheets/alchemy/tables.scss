@@ -15,10 +15,13 @@ table {
   &.wrap-text {
     white-space: normal !important;
   }
-}
 
-.list td:first-child, .list th:first-child {
-  border-left: 1px solid $medium-gray
+  &.icon {
+    width: 16px;
+    background-color: transparent;
+    padding: $default-padding;
+    text-align: center;
+  }
 }
 
 .list th {
@@ -89,29 +92,9 @@ td.heading {
   text-decoration: underline;
 }
 
-.list td.icon, .list th.icon {
-  background-color: $light-gray;
-  background-image: none;
-  border-left: 0 none;
-  padding: 0;
-  border-right: 1px solid $medium-gray;
-  text-align: center;
-  display: table-cell; // reset the .icon display: inline-block
-}
-
 .list .tools .icon, .list td.icon .icon {
-  display: inline-block;
-  vertical-align: middle;
-  width: 16px;
-  height: 16px;
   @extend .disable-user-select;
-  background-repeat: no-repeat;
   margin: 0 $default-margin;
-  text-indent: -100px;
-}
-
-.list td.icon .icon {
-  margin: $default-margin 2*$default-margin 0;
 }
 
 .list tr:hover td {
@@ -122,15 +105,6 @@ td, th {
 
   &.center, &.boolean {
     text-align: center;
-
-    .icon.false {
-      @extend .false;
-    }
-
-    .icon.true {
-      @extend .icon;
-      @extend .true;
-    }
   }
 
   &.right {

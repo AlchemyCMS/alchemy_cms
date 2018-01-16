@@ -11,7 +11,7 @@
       placeholder: Alchemy.t(:search),
       class: 'search_input_field',
       id: nil %>
-    <%= link_to '', url_for(
+    <%= link_to render_icon(:times, size: 'xs'), url_for(
         action: 'index',
         element_id: @element.blank? ? '' : @element.id,
         content_id: @content.blank? ? '' : @content.id,

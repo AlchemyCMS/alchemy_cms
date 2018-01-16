@@ -9,7 +9,7 @@
     <% local_assigns.fetch(:additional_query_fields, []).each do |field| %>
       <%= f.hidden_field field %>
     <% end %>
-    <%= link_to '', url,
+    <%= link_to render_icon(:times, size: 'xs'), url,
         class: 'search_field_clear',
         id: 'search_field_clear',
         title: Alchemy.t(:click_to_show_all),

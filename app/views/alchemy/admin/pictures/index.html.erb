@@ -13,7 +13,7 @@
     <div class="button_group">
       <div class="button_with_label">
         <%= link_to(
-          render_icon('zoom-out'),
+          render_icon('search-minus'),
           alchemy.admin_pictures_path(size: "small", q: params[:q]),
           title: Alchemy.t(:small_thumbnails),
           class: "icon_button"
@@ -21,7 +21,7 @@
       </div>
       <div class="button_with_label">
         <%= link_to(
-          render_icon('zoom-equal'),
+          render_icon('search'),
           alchemy.admin_pictures_path(size: "medium", q: params[:q]),
           title: Alchemy.t(:medium_thumbnails),
           class: "icon_button"
@@ -29,7 +29,7 @@
       </div>
       <div class="button_with_label">
         <%= link_to(
-          render_icon('zoom-in'),
+          render_icon('search-plus'),
           alchemy.admin_pictures_path(size: "large", q: params[:q]),
           title: Alchemy.t(:big_thumbnails),
           class: "icon_button"
@@ -41,8 +41,8 @@
     <div class="toolbar_spacer"></div>
     <div class="button_with_label">
       <%= link_to(
-        render_icon('select_all'),
-        '',
+        render_icon('check-square', style: 'regular'),
+        nil,
         id: 'select_all_pictures',
         class: 'icon_button',
         'data-alchemy-hotkey' => 'alt+a'

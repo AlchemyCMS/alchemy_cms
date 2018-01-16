@@ -63,16 +63,18 @@
     @include truncate($main-menu-entry-max-width);
   }
 
-  a {
-    text-shadow: $text-shadow-light;
+  img, .icon {
+    width: 24px;
   }
 
-  img, .module.icon {
+  img {
     border-style: none;
     height: 24px;
-    width: 24px;
-    display: inline-block;
-    vertical-align: middle;
+    vertical-align: -0.6em;
+  }
+
+  .icon {
+    vertical-align: -0.15em;
   }
 }
 

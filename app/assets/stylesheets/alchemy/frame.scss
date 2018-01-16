@@ -74,7 +74,6 @@ div#overlay_text_box {
 
   a {
     display: inline-block;
-    vertical-align: middle;
 
     &:hover {
       text-decoration: none;
@@ -139,6 +138,7 @@ div#overlay_text_box {
   border-bottom: $default-border;
 
   .select2-container {
+    height: $default-form-field-height;
     margin-top: -3px;
     padding-right: 2*$default-padding;
   }
@@ -157,25 +157,11 @@ div#overlay_text_box {
     .select2-arrow {
       width: 14px;
       border-left: none;
-
-      b {
-        color: $muted-text-color;
-
-        &:before {
-          position: absolute;
-          top: 50%;
-          transform: translateY(-50%);
-        }
-      }
     }
   }
 
   .select2-dropdown-open {
     background-color: $main-menu-bg-color;
-
-    .select2-choice .select2-arrow b {
-      background-position: -20px -5px;
-    }
   }
 
   .current-user-name {

@@ -1,7 +1,7 @@
 <div class="resource_info">
   <div class="value">
     <label>
-      <%= render_icon @attachment.icon_css_class %>
+      <%= render_icon @attachment.icon_css_class, style: 'regular', size: 'lg' %>
     </label>
     <p><%= @attachment.file_name %></p>
   </div>
@@ -9,33 +9,32 @@
     <label><%= Alchemy::Attachment.human_attribute_name(:url) %></label>
     <p><%= alchemy.show_attachment_url(@attachment) %></p>
     <a data-clipboard-text="<%= alchemy.show_attachment_url(@attachment) %>" class="icon_button--right">
-      <%= render_icon('clipboard full') %>
+      <%= render_icon(:clipboard, style: 'regular') %>
     </a>
   </div>
   <div class="value with-icon">
     <label><%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
     <p><%= alchemy.download_attachment_url(@attachment) %></p>
     <a data-clipboard-text="<%= alchemy.download_attachment_url(@attachment) %>" class="icon_button--right">
-      <%= render_icon('clipboard full') %>
+      <%= render_icon(:clipboard, style: 'regular') %>
     </a>
   </div>
 </div>
 
 <% case @attachment.icon_css_class %>
-<% when "image" %>
+<% when "file-image" %>
 <div class="attachment_preview_container image-preview">
   <%= image_tag(alchemy.show_attachment_path(@attachment), class: "full_width") %>
 </div>
-<% when "audio" %>
+<% when "file-audio" %>
 <div class="attachment_preview_container player-preview">
   <%= audio_tag(alchemy.show_attachment_path(@attachment), preload: "none", controls: true, class: "full_width") %>
 </div>
-<% when "video" %>
+<% when "file-video" %>
 <div class="attachment_preview_container player-preview">
   <%= video_tag(alchemy.show_attachment_path(@attachment), preload: "metadata", controls: true, class: "full_width") %>
 </div>
-<% when "archive", "file" %>
-<% else %>
+<% when "file-pdf" %>
 <iframe src="<%= alchemy.show_attachment_path(@attachment) %>" frameborder=0 class="full-iframe">
   Your browser does not support frames.
 </iframe>

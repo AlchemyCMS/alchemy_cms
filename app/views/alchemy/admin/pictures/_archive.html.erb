@@ -12,14 +12,14 @@
   <div class="selected_item_tools">
     <h2><%= Alchemy.t(:edit_selected_pictures) %></h2>
     <%= link_to(
-      render_icon('edit') + Alchemy.t("Edit"),
+      render_icon(:edit, size: 'xs') + Alchemy.t("Edit"),
       edit_multiple_admin_pictures_path,
       class: 'button with_icon',
       title: Alchemy.t('Edit multiple pictures'),
       id: 'edit_multiple_pictures',
       style: 'float: none'
     ) %>
-    <%= button_tag render_icon('destroy') + Alchemy.t("Delete"), 'data-alchemy-confirm' => {
+    <%= button_tag render_icon(:minus, size: 'xs') + Alchemy.t("Delete"), 'data-alchemy-confirm' => {
       title: Alchemy.t(:please_confirm),
       message: Alchemy.t(:confirm_to_delete_images_from_server),
       ok_label: Alchemy.t("Yes"),
@@ -27,7 +27,7 @@
     }.to_json, class: 'button with_icon' %>
     &nbsp;<%= Alchemy.t(:or) %>&nbsp;
     <%= link_to(
-      render_icon('delete-small') + Alchemy.t("Clear selection"),
+      render_icon(:times, size: 'xs') + Alchemy.t("Clear selection"),
       admin_pictures_path(
         q: params[:q],
         tagged_with: params[:tagged_with],

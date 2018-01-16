@@ -7,20 +7,12 @@ button, input[type="submit"], a.button, input.button {
     vertical-align: inherit;
     line-height: 4*$default-padding;
     font-size: inherit;
-
-    &.with_icon {
-      padding: $default-padding 3*$default-padding $default-padding 6px;
-    }
   }
 
-  &.with_icon {
-    padding: 6px 18px 6px 6px;
-
-    span.icon {
-      margin-top: -$default-margin;
-      margin-right: $default-margin;
-      height: 14px;
-    }
+  &.with_icon .icon {
+    position: relative;
+    top: -1px;
+    margin-right: $default-margin;
   }
 
   &.icon_only {
@@ -50,23 +42,7 @@ button, input[type="submit"], a.button, input.button {
   padding: 3px;
   overflow: hidden;
   text-align: center;
-
-  .icon {
-    display: inline-block;
-    vertical-align: middle;
-    margin-top: -2px;
-  }
-
-  .old_icon {
-    position: relative;
-    background-repeat: no-repeat;
-    width: 22px;
-    height: 20px;
-    display: inline-block;
-    vertical-align: middle;
-    top: -1px;
-    left: -1px;
-  }
+  text-shadow: none;
 
   img {
     position: absolute;
@@ -90,32 +66,13 @@ button, input[type="submit"], a.button, input.button {
     .icon {
       position: absolute;
       top: 50%;
-      height: 8px;
       transform: translateX(-50%) translateY(-50%);
-
-      &:before {
-        line-height: 10px;
-      }
-
-      &.delete-small {
-        background-position: -4px -76px;
-      }
     }
 
     &:hover {
       border: $default-border-width $default-border-style $button-hover-border-color;
       border-radius: $default-border-radius;
       background: $button-hover-bg-color;
-    }
-  }
-
-  &.old_icon {
-    width: 20px;
-    height: 19px;
-
-    img {
-      top: 0;
-      left: 1px;
     }
   }
 

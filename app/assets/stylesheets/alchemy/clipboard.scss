@@ -18,13 +18,8 @@
         background-color: $medium-gray;
       }
 
-      .icon {
-        vertical-align: text-bottom;
+      > .icon {
         margin-right: $default-padding;
-      }
-
-      .float_right .icon {
-        margin-right: 0;
       }
     }
   }

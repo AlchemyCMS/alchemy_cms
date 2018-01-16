@@ -34,20 +34,6 @@
   &.inactive {
     color: #656565;
   }
-
-  :hover {
-    text-decoration: underline;
-
-    &:after {
-      content: '';
-      width: 16px;
-      height: 16px;
-      float: left;
-      margin-right: $default-margin;
-      background: image-url('alchemy/icons.png') -160px -168px;
-      margin-top: $default-margin;
-    }
-  }
 }
 
 .redirect_url {
@@ -110,7 +96,6 @@
 }
 
 .sitemap_sitename {
-  height: $sitemap-line-height;
   line-height: $sitemap-line-height;
   overflow: hidden;
 }
@@ -119,11 +104,11 @@
   @extend .left-rounded-border;
   position: relative;
   width: 32px;
-  height: $sitemap-line-height;
-  line-height: $sitemap-line-height - 2px;
+  line-height: $sitemap-line-height;
   float: left;
   padding: 0 2*$default-padding;
   background-color: rgba(#fff, .75);
+  text-align: center;
 }
 
 .sitemap_right_tools {
@@ -163,37 +148,13 @@
   &.sorting {
     padding-top: 100px;
 
-    .page.icon { cursor: move }
-  }
-
-  .locked .page.icon {
-    background-position: -32px -40px;
-  }
-
-  .page.icon.not-allowed {
-    &:after {
-      content: '';
-      position: absolute;
-      bottom: -2px;
-      right: -1px;
-      width: 8px;
-      height: 8px;
-      background: image-url('alchemy/icons.png') -5px -77px;
-    }
-  }
-
-  .page_status .icon {
-    vertical-align: middle;
+    .page_icon { cursor: move }
   }
 
   .page_folder {
-    @extend .icon;
     position: absolute;
     left: -23px;
-    top: 8px;
-
-    &.collapsed { @extend .icon.expand.small }
-    &.folded { @extend .icon.collapse.small }
+    top: 0;
   }
 
   .placeholder {
@@ -236,45 +197,12 @@
   }
 }
 
-#header .page_status_and_name .page_status {
+.page_status_and_name .page_status {
   margin-left: 2px;
-  line-height: 1;
-  vertical-align: text-bottom;
 }
 
 .page_status {
   display: inline-block;
-
-  .icon {
-    vertical-align: text-bottom;
-
-    &.restricted {
-      background-position: -256px -39px;
-    }
-
-    &.not_restricted {
-      background-position: -288px -39px;
-      opacity: 0.3;
-    }
-
-    &.visible {
-      background-position: -128px -39px;
-    }
-
-    &.not_visible {
-      background-position: -160px -39px;
-      opacity: 0.3;
-    }
-
-    &.public {
-      background-position: -192px -39px;
-    }
-
-    &.not_public {
-      background-position: -224px -39px;
-      opacity: 0.3;
-    }
-  }
 }
 
 #create_language_tree_form {
@@ -318,7 +246,7 @@
     margin: 0;
     padding: 0 24px 8px 8px;
 
-    .page.icon { cursor: default }
+    .page_icon { cursor: default }
   }
 }
 

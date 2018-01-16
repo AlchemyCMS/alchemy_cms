@@ -21,28 +21,23 @@
     <%= Alchemy::PageLayout.human_layout_name(language.page_layout) %>
   </td>
   <td class="center">
-    <%= language.public? ? render_icon('true') : '' %>
+    <%= language.public? ? render_icon(:check) : nil %>
   </td>
   <td class="center">
-    <%= language.default? ? render_icon('true') : '' %>
+    <%= language.default? ? render_icon(:check) : nil %>
   </td>
   <td class="tools">
   <%- if can?(:destroy, language) -%>
     <%= delete_button resource_path(language) %>
   <%- end -%>
   <%- if can?(:edit, language) -%>
-    <%= link_to_dialog(
-      '',
+    <%= link_to_dialog render_icon(:edit),
       alchemy.edit_admin_language_path(language),
       {
         title: Alchemy.t("Edit"),
         size: "430x415"
       },
-      {
-        class: "icon edit",
-        title: Alchemy.t("Edit")
-      }
-    ) -%>
+      title: Alchemy.t("Edit") %>
   <%- end -%>
   </td>
 </tr>

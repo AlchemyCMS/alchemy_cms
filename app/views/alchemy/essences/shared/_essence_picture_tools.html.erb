@@ -15,7 +15,7 @@
   <a href="#" class="disabled"><%= render_icon('crop') %></a>
 <%- end -%>
 
-<%= link_to_dialog render_icon('swap_picture'),
+<%= link_to_dialog render_icon('file-image', style: 'regular'),
   alchemy.admin_pictures_path(
     element_id: content.element,
     content_id: content.id,

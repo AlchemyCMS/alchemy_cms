@@ -30,7 +30,7 @@ describe Alchemy::Admin::ContentsHelper do
       before { expect(content).to receive(:definition).and_return({}) }
 
       it "renders a warning with tooltip" do
-        is_expected.to have_selector('span.warning.with-hint .hint-bubble')
+        is_expected.to have_selector('.hint-with-icon .hint-bubble')
         is_expected.to have_content('Intro')
       end
     end
