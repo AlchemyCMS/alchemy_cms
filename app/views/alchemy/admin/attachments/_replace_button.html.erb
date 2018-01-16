@@ -17,8 +17,7 @@
       selector: '#replace_<%= dom_id(object) %>',
       file_types: '<%= file_types.join("|") %>',
       complete: function() {
-        Alchemy.pleaseWaitOverlay();
-        window.location.href = '<%= redirect_url.html_safe %>';
+        Turbolinks.visit('<%= redirect_url.html_safe %>');
       }
     };
     Alchemy.Uploader(options);

@@ -18,7 +18,6 @@ $.extend Alchemy,
     window.onbeforeunload = @pageUnload
 
   pageUnload: ->
-    Alchemy.pleaseWaitOverlay(false)
     Alchemy.t('page_dirty_notice')
 
   setElementClean: (element) ->
@@ -41,10 +40,11 @@ $.extend Alchemy,
         $form = $("<form action=\"#{element.action}\" method=\"POST\" style=\"display: none\" />")
         $form.append $(element).find("input")
         $form.appendTo "body"
+        Alchemy.pleaseWaitOverlay()
         $form.submit()
     else if $(element).is("a")
       callback = ->
-        window.location.href = element.pathname
+        Turbolinks.visit(element.pathname)
     if Alchemy.isPageDirty()
       Alchemy.openConfirmDialog Alchemy.t('page_dirty_notice'),
         title: Alchemy.t('warning')
@@ -52,7 +52,6 @@ $.extend Alchemy,
         cancel_label: Alchemy.t('cancel')
         on_ok: ->
           window.onbeforeunload = undefined
-          Alchemy.pleaseWaitOverlay()
           callback()
       false
     else

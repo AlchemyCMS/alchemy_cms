@@ -22,8 +22,7 @@ module Alchemy
                   tagged_with: tags_for_filter(current: tag).presence
                 )
               ),
-              remote: request.xhr?,
-              class: 'please_wait'
+              remote: request.xhr?
             )
           end
         end.join.html_safe

@@ -58,20 +58,6 @@ module Alchemy
       end
     end
 
-    describe '#update' do
-      let(:content) { create(:alchemy_content) }
-
-      before do
-        expect(Content).to receive(:find).and_return(content)
-      end
-
-      it "should update a content via ajax" do
-        expect {
-          patch admin_content_path(id: content.id, content: {ingredient: 'Peters Petshop'}, format: :js)
-        }.to change { content.ingredient }.to 'Peters Petshop'
-      end
-    end
-
     describe "#order" do
       context "with content_ids in params" do
         let(:element) do

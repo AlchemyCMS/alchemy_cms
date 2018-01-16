@@ -2,6 +2,7 @@
 
 ## 4.1.0 (unreleased)
 
+* Remove pleaseWait overlay from links with GET requests [#1343](https://github.com/AlchemyCMS/alchemy_cms/pull/1343) by [tvdeyen](https://github.com/tvdeyen)
 * Removed fixed table headers from admin resource tables [#1339](https://github.com/AlchemyCMS/alchemy_cms/pull/1339) by [tvdeyen](https://github.com/tvdeyen)
 * Removed Bourbon Sass library [#1339](https://github.com/AlchemyCMS/alchemy_cms/pull/1339) by [tvdeyen](https://github.com/tvdeyen)
 

@@ -19,9 +19,8 @@
       if ($this.data('remote') === true) {
         $.get(url, {filter: $this.val()}, null, 'script');
       } else {
-        Alchemy.pleaseWaitOverlay();
         delimiter = url.match(/\?/) ? '&' : '?';
-        window.location = url + delimiter + 'filter=' + encodeURIComponent($this.val());
+        Turbolinks.visit(url + delimiter + 'filter=' + encodeURIComponent($this.val()));
       }
       return false;
     });

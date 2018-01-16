@@ -15,11 +15,9 @@ Alchemy.Initializer = ->
     Alchemy.Growler.fade()
 
   # Add observer for please wait overlay.
-  $('.please_wait, #main_navi a, .button_with_label form :submit, .locked_page a, .pagination a')
-    .not('*[data-alchemy-confirm], .locked_page button')
-    .click ->
-      unless Alchemy.isPageDirty()
-        Alchemy.pleaseWaitOverlay()
+  $('.please_wait, .button_with_label form :submit')
+    .not('*[data-alchemy-confirm]')
+    .click Alchemy.pleaseWaitOverlay
 
   # Hack for enabling tab focus for <a>'s styled as button.
   $('a.button').attr({tabindex: 0})
@@ -28,17 +26,16 @@ Alchemy.Initializer = ->
   $('select#change_locale').on 'change', (e) ->
     url = window.location.pathname
     delimiter = if url.match(/\?/) then '&' else '?'
-    window.location.href = "#{url}#{delimiter}admin_locale=#{$(this).val()}"
+    Turbolinks.visit "#{url}#{delimiter}admin_locale=#{$(this).val()}"
 
   # Site select handler
   $('select#change_site').on 'change', (e) ->
     url = window.location.pathname
     delimiter = if url.match(/\?/) then '&' else '?'
-    window.location.href = "#{url}#{delimiter}site_id=#{$(this).val()}"
+    Turbolinks.visit "#{url}#{delimiter}site_id=#{$(this).val()}"
 
   # Submit forms of selects with `data-autosubmit="true"`
   $('select[data-auto-submit="true"]').on 'change', (e) ->
-    Alchemy.pleaseWaitOverlay()
     $(this.form).submit()
 
   # Attaches the image loader on all images

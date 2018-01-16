@@ -20,9 +20,8 @@
       if ($this.data('remote') === true) {
         $.get(url, {file_type: $this.val()}, null, 'script');
       } else {
-        Alchemy.pleaseWaitOverlay();
         delimiter = url.match(/\?/) ? '&' : '?';
-        window.location = url + delimiter + 'file_type=' + encodeURIComponent($this.val());
+        Turbolinks.visit(url + delimiter + 'file_type=' + encodeURIComponent($this.val()));
       }
       return false;
     });
