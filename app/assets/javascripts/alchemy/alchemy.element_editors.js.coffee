@@ -39,12 +39,15 @@ Alchemy.ElementEditors =
   # Selects and scrolls to element with given id in the preview window.
   #
   selectElementInPreview: (element_id) ->
-    $frame_elements = document
-                        .getElementById("alchemy_preview_window")
-                        .contentWindow
-                        .jQuery("[data-alchemy-element]")
-    $selected_element = $frame_elements.closest("[data-alchemy-element='#{element_id}']")
-    $selected_element.trigger("SelectPreviewElement.Alchemy")
+    previewElements = document
+                        .getElementById('alchemy_preview_window')
+                        .contentDocument
+                        .querySelectorAll('[data-alchemy-element]')
+    previewElement = Array.from(previewElements).find (element) ->
+      element.getAttribute('data-alchemy-element') == element_id
+    if previewElement
+      event = new Event('SelectPreviewElement.Alchemy')
+      previewElement.dispatchEvent(event)
     return
 
   # Selects element
