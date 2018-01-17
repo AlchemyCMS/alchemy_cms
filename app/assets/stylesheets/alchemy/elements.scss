@@ -138,6 +138,7 @@
   border-radius: $default-border-radius;
   background-color: $light-gray;
   margin-bottom: 2*$default-margin;
+  transition: box-shadow 250ms;
 
   &.not-draggable {
     opacity: 0.5;
@@ -152,8 +153,8 @@
   }
 
   &.selected {
-    border-color: $blue;
-    box-shadow: 0 0 4px $blue;
+    border-color: #c3c3c3;
+    box-shadow: 0 2px 8px rgba(#9b9b9b, 0.75);
   }
 
   &.folded {
@@ -245,9 +246,10 @@
 .element-header {
   position: relative;
   padding: 2*$default-padding;
-  background-color: $medium-gray;
+  background-color: $element-header-bg-color;
   @extend .disable-user-select;
   cursor: pointer;
+  @include border-top-radius($default-border-radius);
 
   > .hint-with-icon {
     position: absolute;
@@ -271,7 +273,7 @@
 .element-toolbar {
   padding: $default-padding 0;
   height: $element-toolbar-height;
-  background-color: #f0f0f0;
+  // background-color: #f0f0f0;
 
   .element_tools {
     float: left;
@@ -576,10 +578,9 @@ select.long {
   }
 
   label {
-    display: block;
+    display: inline-block;
     margin-bottom: 2px;
     font-size: 90%;
-    text-shadow: #fff5e1 1px 1px 0;
     line-height: 15px;
     text-indent: 1px;
 

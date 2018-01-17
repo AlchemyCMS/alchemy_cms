@@ -21,7 +21,8 @@ select {
     .select2-choice {
       height: $default-form-field-height;
       line-height: $default-form-field-height - 2;
-      @include button-defaults($padding: 0 2*$default-padding, $margin: 0);
+      @include button-defaults($background-color: transparent, $padding: 0 2*$default-padding, $margin: 0);
+      background-image: none;
       display: block;
       font-weight: normal;
       text-align: left;
@@ -32,7 +33,7 @@ select {
         height: 23px;
         line-height: 23px;
         background: transparent;
-        border-left: 1px solid #CACACA;
+        border-left: 0 none;
 
         b {
           @extend .fas;

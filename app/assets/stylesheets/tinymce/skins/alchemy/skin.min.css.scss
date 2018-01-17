@@ -628,20 +628,19 @@ body .mce-abs-layout-item {
 }
 
 .mce-btn {
-  border: 1px solid #b1b1b1;
-  border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25) rgba(0,0,0,0.25);
+  border: 1px solid $button-border-color;
   position: relative;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+  text-shadow: $button-text-shadow;
   display: inline-block;
   *display: inline;
   *zoom: 1;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
-  background: linear-gradient($button-gradient-first-color, $button-gradient-second-color);
+  box-shadow: $button-box-shadow;
+  background-color: $button-bg-color;
 
   &:focus,
   &:hover {
     color: #333;
-    background: linear-gradient(darken($button-gradient-first-color, 5%), darken($button-gradient-second-color, 5%));
+    background-color: $button-hover-bg-color;
 
     button {
       background: inherit;

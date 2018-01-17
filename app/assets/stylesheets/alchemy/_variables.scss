@@ -4,12 +4,14 @@ $muted-text-color: rgba(0, 0, 0, 0.5);
 $light-blue: #cddce5; // #c6dbe7
 $blue: darken($light-blue, 15%);
 $very-light-blue: lighten($light-blue, 12%);
-$light-gray: #ededed;
-$medium-gray: #e3e3e3;
+$light-gray: #f6f6f6;
+$medium-gray: #efefef;
 $dark-gray: #666666;
 $light_yellow: #fbfbd8;
 $linked-color: #ffd77a;
-$white: #f2f2f2;
+$white: #fff;
+
+$body-background-color: $light-gray;
 
 $default-font-face: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
 $mono-font-face: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
@@ -24,8 +26,8 @@ $header-font-size: $default-font-size;
 $default-padding: 4px;
 $default-margin: $default-padding;
 
-$default-border-color: #afafaf;
-$border-inset-color: lighten($default-border-color, 20%);
+$default-border-color: rgba(#afafaf, 0.5);
+$border-inset-color: lighten($default-border-color, 10%);
 $default-border-width: 1px;
 $default-border-style: solid;
 $default-border: $default-border-width $default-border-style $default-border-color;
@@ -33,13 +35,12 @@ $default-border-radius: 3px;
 $default-form-field-margin: $default-margin 0;
 $default-form-field-height: 29px;
 
-$button-bg-color: #f7f7f7;
-$button-hover-bg-color: #e6f0f5;
-$button-border-color: #9a9a9a;
+$button-bg-color: $medium-gray;
+$button-hover-bg-color: darken($medium-gray, 5%);
+$button-border-color: $default-border-color;
 $button-hover-border-color: #888888;
 $button-text-shadow: $white 1px 1px 0;
-$button-gradient-first-color: $white !default;
-$button-gradient-second-color: darken($button-gradient-first-color, 10%) !default;
+$button-box-shadow: $white 0 1px 0 inset;
 $button-padding: 0.5em 1.5em !default;
 $button-margin: $default-form-field-margin !default;
 $linked-button-color: #ffd77a;
@@ -64,14 +65,14 @@ $form-left-width: 35%;
 $form-right-width: 65%;
 
 $sitemap-line-height: 32px;
-$sitemap-page-background-color: rgba(#fff, 0.5);
+$sitemap-page-background-color: rgba($white, 0.5);
 $sitemap-page-hover-color: rgba($light_yellow, 0.5);
 $sitemap-info-background-color: rgba($linked-color, 0.5);
 $sitemap-highlight-color: rgba(#fffba5, 0.5);
 
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
-$main-menu-bg-color: #baced9 !default;
+$main-menu-bg-color: rgba(#c7deec, 0.75) !default;
 $main-menu-active-bg-color: $light-blue !default;
 $main-menu-text-color: #222 !default;
 $main-menu-entry-max-width: 100px !default;
@@ -85,9 +86,12 @@ $transition-easing: linear !default;
 
 $addon-icon-opacity: 0.85;
 
-$table-row-background-color: rgba(#fff, 0.25);
+$table-row-background-color: rgba($white, 0.25);
 $table-row-hover-color: rgba($light_yellow, 0.5);
+
 $elements-window-width: 400px !default;
+$element-header-bg-color: rgba($white, 0.5) !default;
 $top-menu-height: 75px !default;
 
 $tabs-height: 31px !default;
+

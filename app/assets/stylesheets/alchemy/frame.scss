@@ -34,7 +34,7 @@ div#overlay_text_box {
   bottom: 0;
   left: 0;
   width: $main-menu-width;
-  background-color: $main-menu-bg-color;
+  // background-color: $main-menu-bg-color;
   border-right: $default-border;
   transition: background-color $transition-duration $transition-easing;
 
@@ -68,7 +68,7 @@ div#overlay_text_box {
 #header {
   height: $header-height;
   line-height: $header-height;
-  background: $light-blue;
+  background: $main-menu-bg-color;
   border-bottom: $default-border;
   position: relative;
 
@@ -143,7 +143,6 @@ div#overlay_text_box {
   height: $header-height;
   font-size: 11px;
   padding-left: 2*$default-padding;
-  background-color: $light-blue;
   border-bottom: $default-border;
 
   .select2-container {

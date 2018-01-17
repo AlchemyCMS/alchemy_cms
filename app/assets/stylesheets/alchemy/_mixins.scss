@@ -10,8 +10,8 @@
 }
 
 @mixin button-defaults(
-  $first-color: $button-gradient-first-color,
-  $second-color: $button-gradient-second-color,
+  $background-color: $button-bg-color,
+  $hover-color: $button-hover-bg-color,
   $border-radius: $default-border-radius,
   $padding: $button-padding,
   $margin: $button-margin) {
@@ -20,27 +20,21 @@
   padding: $padding;
   cursor: pointer;
   border-radius: $border-radius;
-  background-color: $button-bg-color;
-  background-image: linear-gradient($first-color, $second-color);
-  box-shadow: white 0 1px 0 inset;
+  background-color: $background-color;
+  box-shadow: $button-box-shadow;
   border: 1px solid $button-border-color;
   color: $text-color;
-  text-shadow: $button-text-shadow;
   margin: $margin;
   -webkit-appearance: none;
+  transition: background-color 250ms;
 
   &:hover {
     text-decoration: none;
-    background-color: $button-hover-bg-color;
-    background-image: linear-gradient(
-      darken($first-color, 5%),
-      darken($second-color, 5%)
-    );
+    background-color: $hover-color;
     border-color: $button-hover-border-color;
   }
 
   &:active, &:active:focus {
-    box-shadow: #c4c4c4 0 1px 2px inset;
     border-color: $button-border-color;
   }
 
@@ -52,7 +46,7 @@
   &.disabled:active, &[disabled]:active,
   &.disabled:hover, &[disabled]:hover {
     opacity: 0.6;
-    background: $second-color;
+    background: transparent;
     cursor: not-allowed;
     box-shadow: none;
   }
@@ -65,9 +59,8 @@
 
 @mixin default-label-style {
   font-size: 10px;
-  text-shadow: #fff 0 1px 2px;
   margin-top: $default-margin;
-  display: block;
+  display: inline-block;
   line-height: 100%;
   @extend .disable-user-select;
   clear: both;
@@ -163,8 +156,8 @@
 
 @mixin linked-button($border-radius: $default-border-radius) {
   @include button-defaults(
-    $first-color: $linked-color,
-    $second-color: darken($linked-color, 10%),
+    $background-color: $linked-color,
+    $hover-color: darken($linked-color, 10%),
     $border-radius: $border-radius,
     $padding: 3px,
     $margin: 0
