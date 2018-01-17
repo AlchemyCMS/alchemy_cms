@@ -20,7 +20,7 @@ Alchemy.ElementEditors =
   # Binds click events on several DOM elements from element editors
   # Uses event delegation, so it is not necessary to rebind these events.
   bindEvents: ->
-    @element_area.on "click", ".element-header", (e) =>
+    @element_area.on "click", ".element-editor", (e) =>
       @onClickElement(e)
     @element_area.on "dblclick", ".element-header", (e) =>
       @onDoubleClickElement(e)
@@ -81,8 +81,7 @@ Alchemy.ElementEditors =
   # Marks an element as selected in the element window and scrolls to it.
   #
   selectElement: ($element) ->
-    $elements = $("#element_area .element-editor")
-    $elements.removeClass("selected")
+    $("#element_area .element-editor").not($element[0]).removeClass("selected")
     $element.addClass("selected")
     @scrollToElement($element)
     return
@@ -179,8 +178,6 @@ Alchemy.ElementEditors =
   onClickElement: (e) ->
     $element = $(e.target).closest(".element-editor")
     element_id = $element.attr("id").replace(/\D/g, "")
-    $("#element_area .element-editor").removeClass("selected")
-    $element.addClass("selected")
     @selectElement($element)
     @selectElementInPreview(element_id)
     e.preventDefault()

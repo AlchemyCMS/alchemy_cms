@@ -63,12 +63,18 @@ $.extend Alchemy.Tinymce,
 
   # Gets called after an editor instance gets intialized
   #
-  initInstanceCallback: (inst) ->
-    $this = $("##{inst.id}")
-    parent = $this.closest('.element-editor')
-    parent.find('.spinner').remove()
-    inst.on 'dirty', (e) ->
-      Alchemy.setElementDirty(parent)
+  initInstanceCallback: (editor) ->
+    $this = $("##{editor.id}")
+    element = $this.closest('.element-editor')
+    element.find('.spinner').remove()
+    editor.on 'dirty', ->
+      Alchemy.setElementDirty(element)
+      return
+    editor.on 'click', (event) ->
+      event.target = element[0]
+      Alchemy.ElementEditors.onClickElement(event)
+      return
+    return
 
   # Removes the TinyMCE editor from given dom ids.
   #
