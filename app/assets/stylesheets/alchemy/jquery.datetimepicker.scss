@@ -170,12 +170,14 @@ $datepicker_day_color: $text-color !default;
 .xdsoft_datetimepicker .xdsoft_today_button {
   float: left;
   margin: 0 5px;
+  font-family: 'Font Awesome 5 Free';
+  font-style: normal;
+  font-weight: 400;
 
   &:before {
-    font-family: 'Alchemy Icons';
+    content: fa-content($fa-var-calendar-check);
     font-size: 16px;
     line-height: 18px;
-    content: "\e00a";
   }
 }
 
