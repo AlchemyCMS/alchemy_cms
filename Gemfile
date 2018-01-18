@@ -33,7 +33,7 @@ group :development, :test do
   gem 'capybara-screenshot', '>= 1.0.18'
   gem 'database_cleaner', '~> 1.3'
   gem 'factory_bot_rails', '~> 4.5'
-  gem 'poltergeist', '~> 1.10'
+  gem 'selenium-webdriver', '~> 3.8'
   gem 'rspec-activemodel-mocks', '~> 1.0'
   gem 'rspec-rails', '~> 3.0'
   gem 'shoulda-matchers', '~> 3.1'
