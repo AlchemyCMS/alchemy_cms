@@ -1,13 +1,16 @@
+<% colspan = multi_site? ? 5 : 4 %>
 <div class="widget">
-  <h2><%= Alchemy.t('Currently locked pages') %>:</h2>
-  <table>
+  <table class="list">
+    <tr>
+      <th colspan="<%= colspan %>"><%= Alchemy.t('Currently locked pages') %></th>
+    </tr>
   <% if @all_locked_pages.blank? %>
-    <tr class="even">
-      <td><%= Alchemy.t('no pages') %></td>
+    <tr>
+      <td colspan="<%= colspan %>"><%= Alchemy.t('no pages') %></td>
     </tr>
   <% else %>
     <% @all_locked_pages.each do |page| %>
-    <tr class="<%= cycle('even', 'odd', :name => 'locked_pages') %>">
+    <tr class="<%= cycle('even', 'odd', name: 'locked_pages') %>">
       <td>
         <% if current_alchemy_user.id == page.locked_by %>
         <%= link_to(page.name, alchemy.edit_admin_page_path(page)) %>

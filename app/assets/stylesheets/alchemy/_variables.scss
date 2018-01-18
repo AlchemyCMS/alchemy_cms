@@ -7,7 +7,7 @@ $very-light-blue: lighten($light-blue, 12%);
 $light-gray: #ededed;
 $medium-gray: #e3e3e3;
 $dark-gray: #666666;
-$light_yellow: #ffffdc;
+$light_yellow: #fbfbd8;
 $linked-color: #ffd77a;
 $white: #f2f2f2;
 
@@ -62,7 +62,12 @@ $error_background_color: #efd3d3;
 
 $form-left-width: 35%;
 $form-right-width: 65%;
+
 $sitemap-line-height: 32px;
+$sitemap-page-background-color: rgba(#fff, 0.5);
+$sitemap-page-hover-color: rgba($light_yellow, 0.5);
+$sitemap-info-background-color: rgba($linked-color, 0.5);
+$sitemap-highlight-color: rgba(#fffba5, 0.5);
 
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
@@ -79,3 +84,6 @@ $transition-duration: 200ms !default;
 $transition-easing: linear !default;
 
 $addon-icon-opacity: 0.85;
+
+$table-row-background-color: rgba(#fff, 0.25);
+$table-row-hover-color: rgba($light_yellow, 0.5);

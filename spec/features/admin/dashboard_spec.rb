@@ -13,7 +13,7 @@ describe 'Dashboard feature' do
     it "should initially show no pages are locked" do
       visit admin_dashboard_path
       locked_pages_widget = all('div[@class="widget"]').first
-      expect(locked_pages_widget).to have_content "Currently locked pages:"
+      expect(locked_pages_widget).to have_content "Currently locked pages"
       expect(locked_pages_widget).to have_content "no pages"
     end
 
@@ -22,7 +22,7 @@ describe 'Dashboard feature' do
         a_page.lock_to!(user)
         visit admin_dashboard_path
         locked_pages_widget = all('div[@class="widget"]').first
-        expect(locked_pages_widget).to have_content "Currently locked pages:"
+        expect(locked_pages_widget).to have_content "Currently locked pages"
         expect(locked_pages_widget).to have_content a_page.name
         expect(locked_pages_widget).to have_content "Me"
       end
@@ -36,7 +36,7 @@ describe 'Dashboard feature' do
         allow(user.class).to receive(:find_by).and_return(other_user)
         visit admin_dashboard_path
         locked_pages_widget = all('div[@class="widget"]').first
-        expect(locked_pages_widget).to have_content "Currently locked pages:"
+        expect(locked_pages_widget).to have_content "Currently locked pages"
         expect(locked_pages_widget).to have_content a_page.name
         expect(locked_pages_widget).to have_content "Sue Smith"
       end
@@ -51,7 +51,7 @@ describe 'Dashboard feature' do
       it "lists all sites" do
         visit admin_dashboard_path
         sites_widget = all('div[@class="widget sites"]').first
-        expect(sites_widget).to have_content "Websites:"
+        expect(sites_widget).to have_content "Websites"
         expect(sites_widget).to have_content "Default Site"
         expect(sites_widget).to have_content "Site"
       end

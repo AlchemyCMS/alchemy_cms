@@ -24,12 +24,9 @@
 }
 
 .sitemap_pagename_link {
-  background-color: #fff;
-  color: black;
   display: block;
   padding: 0 3*$default-padding;
   text-decoration: none;
-  transition: background-color, 400ms;
 
   &.inactive {
     color: #656565;
@@ -39,7 +36,7 @@
 .redirect_url {
   float: right;
   text-align: right;
-  background-color: #fff0c4;
+  background-color: $sitemap-info-background-color;
   line-height: $sitemap-line-height;
   font-size: 10px;
   padding: 0 2*$default-padding;
@@ -81,33 +78,39 @@
   height: $sitemap-line-height;
   margin: 3*$default-margin 0;
   position: relative;
+  transition: background-color 250ms;
 
   &.highlight .sitemap_pagename_link {
-    background-color: #FFFBA5;
+    background-color: $sitemap-highlight-color;
   }
 
   &.no-match .sitemap_pagename_link {
     color: $medium-gray;
   }
 
-  &:hover .sitemap_pagename_link {
-    background-color: $light_yellow;
+  &:hover {
+    background-color: $sitemap-page-hover-color;
+    border-radius: $default-border-radius;
   }
 }
 
 .sitemap_sitename {
+  @include border-left-radius($default-border-radius);
   line-height: $sitemap-line-height;
   overflow: hidden;
+  background-color: $sitemap-page-background-color;
+
+  &.without-status {
+    @include border-right-radius($default-border-radius);
+  }
 }
 
 .sitemap_left_images {
-  @extend .left-rounded-border;
   position: relative;
   width: 32px;
   line-height: $sitemap-line-height;
   float: left;
   padding: 0 2*$default-padding;
-  background-color: rgba(#fff, .75);
   text-align: center;
 }
 
@@ -185,7 +188,7 @@
 
 .page_infos {
   @extend .right-rounded-border;
-  background-color: rgba(#fff, .75);
+  background-color: $sitemap-page-background-color;
   border-left: 1px solid $light-gray;
   float: right;
   height: $sitemap-line-height;

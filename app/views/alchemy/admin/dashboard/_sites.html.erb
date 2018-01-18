@@ -1,6 +1,8 @@
 <div class="widget sites">
-  <h2><%= Alchemy::Site.model_name.human(count: 2) %>:</h2>
-  <table>
+  <table class="list">
+    <tr>
+      <th colspan="2"><%= Alchemy::Site.model_name.human(count: 2) %></th>
+    </tr>
     <% @sites.each do |site| %>
     <tr class="<%= cycle('even', 'odd', name: 'sites') %>">
       <td>
