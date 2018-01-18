@@ -14,8 +14,9 @@ ENV["RAILS_ENV"] = "test"
 
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
 require 'rspec/rails'
-require 'capybara/poltergeist'
+require 'selenium/webdriver'
 require 'capybara/rails'
+require 'capybara-screenshot/rspec'
 require 'database_cleaner'
 require 'rspec-activemodel-mocks'
 
@@ -31,6 +32,7 @@ require 'alchemy/test_support/shared_uploader_examples'
 require_relative 'factories'
 require_relative "support/hint_examples.rb"
 require_relative "support/transformation_examples.rb"
+require_relative "support/capybara_select2.rb"
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
@@ -48,12 +50,18 @@ if ENV['DB'] == 'mysql'
 end
 
 # Configure capybara for integration testing
+Capybara.register_driver :selenium_chrome_headless do |app|
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new
+  browser_options.args << '--headless'
+  browser_options.args << '--no-sandbox'
+  browser_options.args << '--disable-gpu'
+  browser_options.args << '--window-size=1440,1080'
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+end
+
+Capybara.javascript_driver = :selenium_chrome_headless
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app)
-end
-Capybara.javascript_driver = :poltergeist
 Capybara.ignore_hidden_elements = false
 
 Shoulda::Matchers.configure do |config|
@@ -75,6 +83,7 @@ RSpec.configure do |config|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type
   end
   config.include FactoryBot::Syntax::Methods
+  config.include CapybaraSelect2, type: :feature
 
   config.use_transactional_fixtures = false
   # Make sure the database is clean and ready for test
