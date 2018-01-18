@@ -9,7 +9,10 @@ Alchemy.GUI =
     Alchemy.Datepicker(scope)
     Alchemy.Tooltips(scope)
     Alchemy.Buttons.observe(scope)
-    Alchemy.watchForDialogs(scope)
+    # Dialog links use event delegation and therefore do not
+    # need to be re-initialized after dom elements get replaced
+    unless scope
+      Alchemy.watchForDialogs()
     Alchemy.Hotkeys(scope)
     Alchemy.ListFilter(scope)
     Alchemy.Autocomplete.tags(scope)

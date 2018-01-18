@@ -11,7 +11,7 @@ Alchemy.ToolbarButton = (options) ->
   $lnk.click (e) ->
     e.preventDefault()
     options.onClick(e)
-    false
+    return
   $lnk.append "<i class='icon fas fa-#{options.iconClass} fa-fw' />"
   $btn.append $lnk
   $btn.append "<br><label>#{options.label}</label>"

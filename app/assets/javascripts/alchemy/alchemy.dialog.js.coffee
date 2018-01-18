@@ -251,17 +251,19 @@ window.Alchemy.openDialog = (url, options) ->
 # See Alchemy.Dialog for further options you can add to the data attribute
 #
 window.Alchemy.watchForDialogs = (scope = '#alchemy') ->
-  $(scope).on 'click', '[data-alchemy-dialog]', (e) ->
+  $(scope).on 'click', '[data-alchemy-dialog]', (event) ->
     $this = $(this)
     url = $this.attr('href')
     options = $this.data('alchemy-dialog')
     Alchemy.openDialog(url, options)
-    false
+    event.preventDefault()
+    return
   $(scope).on 'click', '[data-alchemy-confirm-delete]', (event) ->
     $this = $(this)
     options = $this.data('alchemy-confirm-delete')
     Alchemy.confirmToDeleteDialog($this.attr('href'), options)
-    false
+    event.preventDefault()
+    return
   $(scope).on 'click', '[data-alchemy-confirm]', (event) ->
     options = $(this).data('alchemy-confirm')
     Alchemy.openConfirmDialog options.message, $.extend options,
@@ -271,7 +273,8 @@ window.Alchemy.watchForDialogs = (scope = '#alchemy') ->
         Alchemy.pleaseWaitOverlay()
         @form.submit()
         return
-    false
+    event.preventDefault()
+    return
 
 # Returns a FontAwesome icon for given message type
 #

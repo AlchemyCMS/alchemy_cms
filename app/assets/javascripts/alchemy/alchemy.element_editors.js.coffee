@@ -20,7 +20,9 @@ Alchemy.ElementEditors =
   # Binds click events on several DOM elements from element editors
   # Uses event delegation, so it is not necessary to rebind these events.
   bindEvents: ->
-    @element_area.on "click", ".element-header", (e) =>
+    $('body').on 'click', (e) =>
+      @onClickBody(e)
+    @element_area.on "click", ".element-editor", (e) =>
       @onClickElement(e)
     @element_area.on "dblclick", ".element-header", (e) =>
       @onDoubleClickElement(e)
@@ -39,12 +41,15 @@ Alchemy.ElementEditors =
   # Selects and scrolls to element with given id in the preview window.
   #
   selectElementInPreview: (element_id) ->
-    $frame_elements = document
-                        .getElementById("alchemy_preview_window")
-                        .contentWindow
-                        .jQuery("[data-alchemy-element]")
-    $selected_element = $frame_elements.closest("[data-alchemy-element='#{element_id}']")
-    $selected_element.trigger("SelectPreviewElement.Alchemy")
+    previewElements = document
+                        .getElementById('alchemy_preview_window')
+                        .contentDocument
+                        .querySelectorAll('[data-alchemy-element]')
+    previewElement = Array.from(previewElements).find (element) ->
+      element.getAttribute('data-alchemy-element') == element_id
+    if previewElement
+      event = new Event('SelectPreviewElement.Alchemy')
+      previewElement.dispatchEvent(event)
     return
 
   # Selects element
@@ -78,8 +83,7 @@ Alchemy.ElementEditors =
   # Marks an element as selected in the element window and scrolls to it.
   #
   selectElement: ($element) ->
-    $elements = $("#element_area .element-editor")
-    $elements.removeClass("selected")
+    $("#element_area .element-editor").not($element[0]).removeClass("selected")
     $element.addClass("selected")
     @scrollToElement($element)
     return
@@ -168,7 +172,15 @@ Alchemy.ElementEditors =
 
   # Event handlers
 
-  # Click event handler for element head.
+  onClickBody: (e) ->
+    frameWindow = $('#alchemy_preview_window')[0].contentWindow
+    element = $(e.target).parents('.element-editor')[0]
+    $('#element_area .element-editor').not(element).removeClass('selected')
+    unless element
+      frameWindow.postMessage('blurAlchemyElements', window.location.origin)
+    return
+
+  # Click event handler for element body.
   #
   # - Focuses the element
   # - Triggers custom 'SelectPreviewElement.Alchemy' event on target element in preview frame.
@@ -176,29 +188,24 @@ Alchemy.ElementEditors =
   onClickElement: (e) ->
     $element = $(e.target).closest(".element-editor")
     element_id = $element.attr("id").replace(/\D/g, "")
-    $("#element_area .element-editor").removeClass("selected")
-    $element.addClass("selected")
     @selectElement($element)
     @selectElementInPreview(element_id)
     e.preventDefault()
-    e.stopPropagation()
-    false
+    return
 
   # Double click event handler for element head.
   onDoubleClickElement: (e) ->
     id = $(e.target).closest('.element-editor').attr('id').replace(/\D/g, '')
     @toggle(id)
     e.preventDefault()
-    e.stopPropagation()
-    false
+    return
 
   # Click event handler for element toggle icon.
   onClickToggle: (e) ->
     id = $(e.currentTarget).data('element-toggle')
     @toggle(id)
     e.preventDefault()
-    e.stopPropagation()
-    false
+    return
 
   # Handles the custom 'FocusElementEditor.Alchemy' event.
   #
