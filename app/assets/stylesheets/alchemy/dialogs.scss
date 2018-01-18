@@ -1,3 +1,5 @@
+$dialog-transition-duration: 150ms;
+
 .alchemy-image-overlay-container,
 .alchemy-dialog-container {
   position: fixed;
@@ -10,7 +12,10 @@
   text-align: center;
   white-space: nowrap;
   opacity: 0;
-  transition: opacity 200ms linear;
+  transform: scale(0.98);
+  transition-property: transform, opacity;
+  transition-duration: $dialog-transition-duration;
+  transition-timing-function: ease-in;
 
   // vertical aligment
   &:before {
@@ -24,6 +29,7 @@
 
   &.open {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -36,7 +42,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.0);
-  transition: background-color 200ms linear;
+  transition: background-color $dialog-transition-duration linear;
 
   &.closable {
     cursor: pointer;
@@ -65,11 +71,11 @@
   margin: 2*$default-margin;
   @include border-top-radius($default-border-radius);
   box-shadow: 0 0 2px rgba(#000,0.8);
-  transition: min-height 200ms ease-in-out;
 
   &.modal {
     box-shadow: 0 0 4px #666;
   }
+  transition: min-height $dialog-transition-duration ease-in-out;
 
   div#jscropper {
     padding: 2 * $default-padding;
