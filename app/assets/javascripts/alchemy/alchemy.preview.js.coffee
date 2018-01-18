@@ -1,4 +1,3 @@
-#= require alchemy/alchemy.browser
 #= require alchemy/alchemy.i18n
 
 window.Alchemy = Alchemy || {}
@@ -10,29 +9,18 @@ Alchemy.initAlchemyPreviewMode = ->
 
     ElementSelector:
 
-      # defaults
-      scrollOffset: 20
-
       styles:
         reset:
           outline: ""
           "outline-offset": ""
-          "-moz-outline-radius": ""
-        default_hover:
+          cursor: ""
+        hover:
           outline: "3px solid #F0B437"
           "outline-offset": "4px"
           cursor: "pointer"
-        webkit_hover:
-          outline: "4px auto #F0B437"
-        moz_hover:
-          "-moz-outline-radius": "3px"
-        default_selected:
+        selected:
           outline: "3px solid #90B9D0"
           "outline-offset": "4px"
-        webkit_selected:
-          outline: "4px auto #90B9D0"
-        moz_selected:
-          "-moz-outline-radius": "3px"
 
       init: ->
         @elements = document.querySelectorAll("[data-alchemy-element]")
@@ -92,13 +80,7 @@ Alchemy.initAlchemyPreviewMode = ->
         if state == "reset"
           @styles["reset"]
         else
-          default_state_style = @styles["default_#{state}"]
-          browser = "webkit" if Alchemy.Browser.isWebKit
-          browser = "moz" if Alchemy.Browser.isFirefox
-          if browser
-            Object.assign(default_state_style, @styles["#{browser}_#{state}"])
-          else
-            default_state_style
+          @styles[state]
 
   Alchemy.ElementSelector.init()
 
