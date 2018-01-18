@@ -16,6 +16,7 @@ require File.expand_path("../dummy/config/environment.rb", __FILE__)
 require 'rspec/rails'
 require 'capybara/poltergeist'
 require 'capybara/rails'
+require 'capybara-screenshot/rspec'
 require 'database_cleaner'
 require 'rspec-activemodel-mocks'
 
