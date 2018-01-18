@@ -52,7 +52,7 @@ $dialog-transition-duration: 150ms;
 .alchemy-dialog-overlay {
 
   &.open {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba(100, 100, 100, 0.4);
   }
 }
 
@@ -70,11 +70,7 @@ $dialog-transition-duration: 150ms;
   background-color: $light-gray;
   margin: 2*$default-margin;
   @include border-top-radius($default-border-radius);
-  box-shadow: 0 0 2px rgba(#000,0.8);
-
-  &.modal {
-    box-shadow: 0 0 4px #666;
-  }
+  box-shadow: 0 8px 16px rgba(35, 35, 35, 0.5);
   transition: min-height $dialog-transition-duration ease-in-out;
 
   div#jscropper {
