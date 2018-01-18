@@ -15,11 +15,11 @@ Alchemy.initAlchemyPreviewMode = ->
           "outline-offset": ""
           cursor: ""
         hover:
-          outline: "3px solid #F0B437"
+          outline: "2px dashed #f0b437"
           "outline-offset": "4px"
           cursor: "pointer"
         selected:
-          outline: "3px solid #90B9D0"
+          outline: "2px dashed #90b9d0"
           "outline-offset": "4px"
 
       init: ->
