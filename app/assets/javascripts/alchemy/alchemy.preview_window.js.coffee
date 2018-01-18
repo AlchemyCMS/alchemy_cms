@@ -49,7 +49,8 @@ Alchemy.PreviewWindow =
     $reload = $('#reload_preview_button')
     key 'alt+r', =>
       @refresh()
-    $reload.click =>
+    $reload.click (e) =>
+      e.preventDefault()
       @refresh()
 
   _calculateWidth: ->
