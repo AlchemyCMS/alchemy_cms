@@ -32,6 +32,7 @@ require 'alchemy/test_support/shared_uploader_examples'
 require_relative 'factories'
 require_relative "support/hint_examples.rb"
 require_relative "support/transformation_examples.rb"
+require_relative "support/capybara_select2.rb"
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
@@ -76,6 +77,7 @@ RSpec.configure do |config|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type
   end
   config.include FactoryBot::Syntax::Methods
+  config.include CapybaraSelect2, type: :feature
 
   config.use_transactional_fixtures = false
   # Make sure the database is clean and ready for test
