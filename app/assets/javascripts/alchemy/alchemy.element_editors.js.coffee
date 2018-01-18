@@ -191,24 +191,21 @@ Alchemy.ElementEditors =
     @selectElement($element)
     @selectElementInPreview(element_id)
     e.preventDefault()
-    e.stopPropagation()
-    false
+    return
 
   # Double click event handler for element head.
   onDoubleClickElement: (e) ->
     id = $(e.target).closest('.element-editor').attr('id').replace(/\D/g, '')
     @toggle(id)
     e.preventDefault()
-    e.stopPropagation()
-    false
+    return
 
   # Click event handler for element toggle icon.
   onClickToggle: (e) ->
     id = $(e.currentTarget).data('element-toggle')
     @toggle(id)
     e.preventDefault()
-    e.stopPropagation()
-    false
+    return
 
   # Handles the custom 'FocusElementEditor.Alchemy' event.
   #
