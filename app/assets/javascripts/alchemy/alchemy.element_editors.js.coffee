@@ -20,6 +20,8 @@ Alchemy.ElementEditors =
   # Binds click events on several DOM elements from element editors
   # Uses event delegation, so it is not necessary to rebind these events.
   bindEvents: ->
+    $('body').on 'click', (e) =>
+      @onClickBody(e)
     @element_area.on "click", ".element-editor", (e) =>
       @onClickElement(e)
     @element_area.on "dblclick", ".element-header", (e) =>
@@ -170,7 +172,15 @@ Alchemy.ElementEditors =
 
   # Event handlers
 
-  # Click event handler for element head.
+  onClickBody: (e) ->
+    frameWindow = $('#alchemy_preview_window')[0].contentWindow
+    element = $(e.target).parents('.element-editor')[0]
+    $('#element_area .element-editor').not(element).removeClass('selected')
+    unless element
+      frameWindow.postMessage('blurAlchemyElements', window.location.origin)
+    return
+
+  # Click event handler for element body.
   #
   # - Focuses the element
   # - Triggers custom 'SelectPreviewElement.Alchemy' event on target element in preview frame.

@@ -23,6 +23,10 @@ Alchemy.initAlchemyPreviewMode = ->
           "outline-offset": "4px"
 
       init: ->
+        window.addEventListener "message", (message) =>
+          if message.data == "blurAlchemyElements"
+            @blurElements()
+        , false
         @elements = document.querySelectorAll("[data-alchemy-element]")
         @elements.forEach (element) =>
           element.addEventListener 'mouseover', =>
