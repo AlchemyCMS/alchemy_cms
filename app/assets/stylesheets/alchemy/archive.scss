@@ -191,10 +191,15 @@ div#filter_bar {
     top: auto;
     width: 200px;
     z-index: 1100;
+    transition: background-color 200ms;
 
     input {
       width: 200px;
-      background-color: #f8f8f8;
+      background-color: transparentize($white, 0.25);
+
+      &:focus {
+        background-color: $white;
+      }
     }
 
     label { display: none }
