@@ -34,7 +34,7 @@
   font: $default-font-style;
   padding: 1px 2*$default-padding;
   margin: $default-form-field-margin;
-  background: rgba(#fff, 0.9);
+  background: $input-background-color;
   border-top: 1px solid $default-border-color;
   border-left: 1px solid $default-border-color;
   border-bottom: 1px solid $border-inset-color;
