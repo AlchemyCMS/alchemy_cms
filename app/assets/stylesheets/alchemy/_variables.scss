@@ -36,9 +36,9 @@ $default-form-field-margin: $default-margin 0;
 $default-form-field-height: 29px;
 
 $button-bg-color: $medium-gray;
-$button-hover-bg-color: darken($medium-gray, 5%);
+$button-hover-bg-color: darken($medium-gray, 3%);
 $button-border-color: $default-border-color;
-$button-hover-border-color: #888888;
+$button-hover-border-color: darken($button-border-color, 3%);
 $button-text-color: $text-color;
 $button-text-shadow: $white 1px 1px 0;
 $button-box-shadow: $white 0 1px 0 inset;
