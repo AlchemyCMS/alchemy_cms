@@ -67,7 +67,11 @@ th {
 }
 
 tr.even td {
-  background-color: $table-row-background-color;
+  background-color: $table-row-even-background-color;
+}
+
+tr.odd td {
+  background-color: $table-row-odd-background-color;
 }
 
 .list tr .tools {

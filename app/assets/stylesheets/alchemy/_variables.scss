@@ -88,7 +88,8 @@ $transition-easing: linear !default;
 
 $addon-icon-opacity: 0.85;
 
-$table-row-background-color: rgba($white, 0.25);
+$table-row-even-background-color: $white;
+$table-row-odd-background-color: rgba($white, 0.5);
 $table-row-hover-color: rgba($light_yellow, 0.5);
 
 $elements-window-width: 400px !default;
