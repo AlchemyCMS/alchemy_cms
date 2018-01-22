@@ -302,7 +302,7 @@ div#filter_bar {
       display: block;
       line-height: 25px;
       text-decoration: none;
-      padding: 2px $default-padding;
+      padding: $default-padding 2*$default-padding;
     }
 
     .icon {

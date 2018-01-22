@@ -20,8 +20,8 @@ ul.list {
       overflow: hidden;
       background-color: transparent;
       font-weight: bold;
-      padding: $default-padding;
-      margin-bottom: $default-margin;
+      padding: $default-padding 2*$default-padding;
+      margin-bottom: 2*$default-margin;
 
       .list-secondary {
         color: $text-color;
@@ -29,11 +29,11 @@ ul.list {
     }
 
     &.even {
-      background-color: #fff;
+      background-color: $table-row-even-background-color;
     }
 
     &.odd {
-      background-color: #eaf3f9;
+      background-color: $table-row-odd-background-color;
     }
   }
 
