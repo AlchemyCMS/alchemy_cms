@@ -127,10 +127,10 @@ $dialog-transition-duration: 150ms;
   height: $dialog-header-height;
   padding: 0 2*$default-padding;
   line-height: $dialog-header-height;
-  background: $header-color;
-  color: $header-text-color;
+  background: $dialog-header-color;
+  color: $dialog-header-text-color;
   font-weight: normal;
-  font-size: $header-font-size;
+  font-size: $dialog-header-font-size;
   @include border-top-radius($default-border-radius);
 
   .ui-draggable & {
@@ -145,6 +145,7 @@ $dialog-transition-duration: 150ms;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  @include antialiased-font-smoothing;
 }
 
 .alchemy-image-overlay-close,
@@ -159,6 +160,10 @@ $dialog-transition-duration: 150ms;
   right: 2*$default-padding;
   padding: 0 $default-padding;
   color: inherit;
+
+  .icon {
+    color: inherit;
+  }
 }
 
 .alchemy-dialog-body {
