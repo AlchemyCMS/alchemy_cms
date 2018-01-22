@@ -36,6 +36,8 @@ $default-form-field-margin: $default-margin 0;
 $default-form-field-height: 29px;
 $input-background-color: $white;
 
+$focus-color: rgba(#eca96e, 0.75) !default;
+
 $button-bg-color: $blue;
 $button-hover-bg-color: lighten($button-bg-color, 5%);
 $button-border-color: darken($button-bg-color, 5%);

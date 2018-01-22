@@ -24,8 +24,9 @@
 }
 
 .sitemap_pagename_link {
-  display: block;
-  padding: 0 3*$default-padding;
+  display: inline-block;
+  padding: 0 10px;
+  margin: 2px;
   text-decoration: none;
 
   &.inactive {
@@ -98,7 +99,7 @@
 
 .sitemap_sitename {
   @include border-left-radius($default-border-radius);
-  line-height: $sitemap-line-height;
+  line-height: $sitemap-line-height - 4;
   overflow: hidden;
   background-color: $sitemap-page-background-color;
 
