@@ -186,11 +186,13 @@ Alchemy.ElementEditors =
   # - Triggers custom 'SelectPreviewElement.Alchemy' event on target element in preview frame.
   #
   onClickElement: (e) ->
-    $element = $(e.target).closest(".element-editor")
+    $target = $(e.target)
+    $element = $target.closest(".element-editor")
     element_id = $element.attr("id").replace(/\D/g, "")
     @selectElement($element)
     @selectElementInPreview(element_id)
-    e.preventDefault()
+    # Element submit button needs to keep it's default event
+    e.preventDefault() unless $target.is(':submit')
     return
 
   # Double click event handler for element head.
