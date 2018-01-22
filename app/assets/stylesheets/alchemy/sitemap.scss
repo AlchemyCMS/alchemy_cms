@@ -83,7 +83,7 @@
   position: relative;
   transition: background-color 250ms;
 
-  &.highlight .sitemap_pagename_link {
+  &.highlight {
     background-color: $sitemap-highlight-color;
   }
 
@@ -177,7 +177,7 @@
   li {
     padding-left: 0;
 
-    .selected_page a {
+    .selected_page {
       background-color: $linked-color;
       color: $dark-gray;
     }

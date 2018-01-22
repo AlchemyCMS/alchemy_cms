@@ -96,6 +96,7 @@ Alchemy.Sitemap =
     @filter_field_clear.click =>
       @search_field.val('')
       filter('')
+      false
 
   # Handles the page publication date fields
   watchPagePublicationState: ->

@@ -182,18 +182,6 @@ $dialog-transition-duration: 150ms;
     }
   }
 
-  ul#sitemap ul li span.sitemap_sitename {
-
-    &.selected_page a {
-      font-weight: bold;
-      padding-left: 4px;
-    }
-
-    a:hover {
-      font-weight: bold;
-    }
-  }
-
   .buttons {
     text-align: right;
 
