@@ -32,13 +32,13 @@
   border-radius: $default-border-radius;
   box-shadow: inset 0px 0 1px $medium-gray;
   font: $default-font-style;
+  color: $text-color;
   padding: 1px 2*$default-padding;
   margin: $default-form-field-margin;
   background: $input-background-color;
-  border-top: 1px solid $default-border-color;
-  border-left: 1px solid $default-border-color;
-  border-bottom: 1px solid $border-inset-color;
-  border-right: 1px solid $border-inset-color;
+  border-width: $default-border-width;
+  border-style: $default-border-style;
+  border-color: $default-border-color $default-border-color $border-inset-color $border-inset-color;
   width: 100%;
   font-size: 12px;
   line-height: 12px;

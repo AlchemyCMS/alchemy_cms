@@ -50,7 +50,9 @@
   height: 230px;
   background-color: $light-gray;
   margin-bottom: 4px;
-  border: 1px inset #e8e8e8;
+  border-width: $default-border-width;
+  border-style: $default-border-style;
+  border-color: $default-border-color $default-border-color $border-inset-color $border-inset-color;
   overflow: auto;
   padding: 4px 0 0 4px;
   border-radius: $default-border-radius;
