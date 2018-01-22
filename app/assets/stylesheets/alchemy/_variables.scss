@@ -45,6 +45,11 @@ $button-text-shadow: none;
 $button-box-shadow: none;
 $button-padding: 0.5em 1.5em !default;
 $button-margin: $default-form-field-margin !default;
+
+$secondary-button-bg-color: transparent;
+$secondary-button-text-color: $blue;
+$secondary-button-border-color: $blue;
+
 $linked-button-color: #ffd77a;
 
 $success_border_color: #9cc4a1;
