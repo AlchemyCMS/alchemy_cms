@@ -2,6 +2,12 @@ button, input[type="submit"], a.button, input.button {
   @include button-defaults;
   position: relative;
 
+  &.secondary {
+    background-color: $secondary-button-bg-color;
+    color: $secondary-button-text-color;
+    border-color: $secondary-button-border-color;
+  }
+
   &.small {
     padding: $default-padding 3*$default-padding;
     vertical-align: inherit;
@@ -13,6 +19,7 @@ button, input[type="submit"], a.button, input.button {
     position: relative;
     top: -1px;
     margin-right: $default-margin;
+    color: inherit;
   }
 
   &.icon_only {
@@ -43,6 +50,7 @@ button, input[type="submit"], a.button, input.button {
   overflow: hidden;
   text-align: center;
   text-shadow: none;
+  border-radius: $default-border-radius;
 
   img {
     position: absolute;
@@ -67,12 +75,14 @@ button, input[type="submit"], a.button, input.button {
       position: absolute;
       top: 50%;
       transform: translateX(-50%) translateY(-50%);
+      transition: color 250ms;
     }
 
     &:hover {
-      border: $default-border-width $default-border-style $button-hover-border-color;
-      border-radius: $default-border-radius;
-      background: $button-hover-bg-color;
+      border: $default-border-width $default-border-style $icon-color;
+      color: $icon-color;
+
+      .icon { color: inherit }
     }
   }
 
@@ -100,7 +110,6 @@ button, input[type="submit"], a.button, input.button {
 button.icon_button {
   background: transparent;
   border: 0 none;
-  border-radius: 0;
   box-shadow: none;
 
   &:disabled, &.disabled {

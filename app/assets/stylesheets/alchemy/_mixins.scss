@@ -12,26 +12,31 @@
 @mixin button-defaults(
   $background-color: $button-bg-color,
   $hover-color: $button-hover-bg-color,
+  $hover-border-color: $button-hover-border-color,
   $border-radius: $default-border-radius,
+  $border: 1px solid $button-border-color,
   $padding: $button-padding,
-  $margin: $button-margin) {
+  $margin: $button-margin,
+  $color: $button-text-color) {
   display: inline-block;
   font-size: 12px;
+  font-weight: bold;
   padding: $padding;
   cursor: pointer;
   border-radius: $border-radius;
   background-color: $background-color;
   box-shadow: $button-box-shadow;
-  border: 1px solid $button-border-color;
-  color: $button-text-color;
+  border: $border;
+  color: $color;
   margin: $margin;
   -webkit-appearance: none;
   transition: background-color 250ms;
+  @include antialiased-font-smoothing;
 
   &:hover {
     text-decoration: none;
     background-color: $hover-color;
-    border-color: $button-hover-border-color;
+    border-color: $hover-border-color;
   }
 
   &:active, &:active:focus {
@@ -212,4 +217,9 @@
 @mixin border-right-radius($radius) {
   border-bottom-right-radius: $radius;
   border-top-right-radius: $radius;
+}
+
+@mixin antialiased-font-smoothing {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
