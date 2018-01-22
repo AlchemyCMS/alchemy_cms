@@ -118,12 +118,6 @@
   color: $text-color;
 }
 
-.ui-widget-content a {
-  color: $text-color;
-
-  &:hover { color: #000 }
-}
-
 .ui-widget-header {
   border: 1px none #afafaf;
   background: $light-blue;
@@ -135,10 +129,6 @@
   -webkit-border-bottom-right-radius: 0 !important;
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
-}
-
-.ui-widget-header a {
-  color: $text-color;
 }
 
 /* Interaction states
