@@ -328,15 +328,22 @@
   right: 0;
 
   .icon_button {
-    @include button-defaults;
-    width: 29px;
-    height: 28px;
+    @include button-defaults(
+      $background-color: $medium-gray,
+      $hover-color: darken($medium-gray, 5%),
+      $border: $default-border);
+    width: $default-form-field-height;
+    height: $default-form-field-height;
     margin: 0 0 0 4px;
     padding: 2px;
     position: absolute;
-    bottom: 3px;
+    bottom: 2px;
     right: 28px;
     border-radius: 0;
+
+    &.disabled, &.disabled:hover {
+      background-color: $disabled-form-field-bg-color;
+    }
 
     &.link-essence,
     &.unlink-essence {

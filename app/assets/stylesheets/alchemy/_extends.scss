@@ -53,7 +53,7 @@
 
   &[disabled], .disabled {
     color: #888;
-    background-color: rgba(#fff, 0.5);
+    background-color: $disabled-form-field-bg-color;
     cursor: not-allowed;
   }
 }

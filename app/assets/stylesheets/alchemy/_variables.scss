@@ -35,6 +35,7 @@ $default-border-radius: 3px;
 $default-form-field-margin: $default-margin 0;
 $default-form-field-height: 29px;
 $input-background-color: $white;
+$disabled-form-field-bg-color: rgba(#fff, 0.5);
 
 $focus-color: rgba(#eca96e, 0.75) !default;
 
@@ -52,7 +53,8 @@ $secondary-button-bg-color: transparent;
 $secondary-button-text-color: $blue;
 $secondary-button-border-color: $blue;
 
-$linked-button-color: #ffd77a;
+$linked-button-color: rgba($linked-color, 0.75);
+$linked-border-color: darken($linked-color, 10%);
 
 $success_border_color: #9cc4a1;
 $success_text_color: #2e5934;
