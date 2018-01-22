@@ -64,7 +64,6 @@ Alchemy.ElementEditors =
     # If we have folded parents we need to unfold each of them
     # and then finally scroll to or unfold ourself
     $folded_parents = $element.parents('.element-editor.folded')
-    @selectElement($element)
     if $folded_parents.length > 0
       @unfoldParents $folded_parents, =>
         @scrollToOrUnfold(element_id)
@@ -82,10 +81,10 @@ Alchemy.ElementEditors =
 
   # Marks an element as selected in the element window and scrolls to it.
   #
-  selectElement: ($element) ->
+  selectElement: ($element, scroll = false) ->
     $("#element_area .element-editor").not($element[0]).removeClass("selected")
     $element.addClass("selected")
-    @scrollToElement($element)
+    @scrollToElement($element) if scroll
     return
 
   # Unfolds given parents until the last one is reached, then calls callback
@@ -108,9 +107,10 @@ Alchemy.ElementEditors =
   #
   scrollToOrUnfold: (element_id, callback) ->
     $el = $("#element_#{element_id}")
-    @selectElement($el)
     if $el.hasClass("folded")
       @toggleFold(element_id, callback)
+    else
+      @selectElement($el, true)
     return
 
   # Scrolls the element window to given element editor dom element.
@@ -118,7 +118,7 @@ Alchemy.ElementEditors =
   scrollToElement: (el) ->
     $("#element_area").scrollTo el,
       duration: 400
-      offset: -10
+      offset: -6
 
   # Expands or folds a element editor
   #
@@ -205,6 +205,7 @@ Alchemy.ElementEditors =
     id = $(e.currentTarget).data('element-toggle')
     @toggle(id)
     e.preventDefault()
+    e.stopPropagation()
     return
 
   # Handles the custom 'FocusElementEditor.Alchemy' event.
