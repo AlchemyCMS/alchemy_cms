@@ -4,7 +4,7 @@ html {
 
   &.turbolinks-progress-bar::before,
   .turbolinks-progress-bar {
-    background-color: #fff !important;
+    background-color: $blue !important;
     z-index: 400001;
   }
 }
