@@ -20,7 +20,6 @@
   top: 0;
   left: 0;
   width: $main-menu-width;
-  border-right: $default-border;
   background-color: $main-menu-bg-color;
   @extend .disable-user-select;
 
@@ -63,6 +62,12 @@
     @include truncate($main-menu-entry-max-width);
   }
 
+  a {
+    color: $main-menu-text-color;
+    font-weight: bold;
+    @include antialiased-font-smoothing;
+  }
+
   img, .icon {
     width: 24px;
   }
@@ -75,6 +80,7 @@
 
   .icon {
     vertical-align: -0.15em;
+    color: $main-menu-icon-color;
   }
 }
 
@@ -119,7 +125,6 @@
 
     &:hover {
       text-decoration: none;
-      color: #000;
       text-shadow: none;
     }
   }

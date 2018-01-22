@@ -34,8 +34,7 @@ div#overlay_text_box {
   bottom: 0;
   left: 0;
   width: $main-menu-width;
-  // background-color: $main-menu-bg-color;
-  border-right: $default-border;
+  background-color: $main-menu-bg-color;
   transition: background-color $transition-duration $transition-easing;
 
   &:hover {
@@ -68,7 +67,7 @@ div#overlay_text_box {
 #header {
   height: $header-height;
   line-height: $header-height;
-  background: $main-menu-bg-color;
+  background: $body-background-color;
   border-bottom: $default-border;
   position: relative;
 
@@ -144,6 +143,7 @@ div#overlay_text_box {
   font-size: 11px;
   padding-left: 2*$default-padding;
   border-bottom: $default-border;
+  background-color: $body-background-color;
 
   .select2-container, select {
     height: $default-form-field-height;

@@ -81,9 +81,10 @@ $sitemap-highlight-color: rgba(#fffba5, 0.5);
 
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
-$main-menu-bg-color: rgba(#c7deec, 0.75) !default;
-$main-menu-active-bg-color: $light-blue !default;
-$main-menu-text-color: #222 !default;
+$main-menu-bg-color: darken($blue, 10%) !default;
+$main-menu-active-bg-color: $blue !default;
+$main-menu-text-color: $white !default;
+$main-menu-icon-color: $white !default;
 $main-menu-entry-max-width: 100px !default;
 $toolbar-bg-color: $medium-gray !default;
 $toolbar-height: 46px !default;
