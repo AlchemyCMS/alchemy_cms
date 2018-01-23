@@ -22,7 +22,8 @@ module Alchemy
       convert_urls: false,
       entity_encoding: 'raw',
       paste_as_text: true,
-      element_format: 'html'
+      element_format: 'html',
+      branding: false
     }
 
     class << self
