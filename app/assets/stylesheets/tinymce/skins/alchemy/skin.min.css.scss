@@ -446,9 +446,17 @@ div.mce-fullscreen {
 
   .mce-btn {
     border-radius: $default-border-radius;
+    border: 0 none;
 
     button {
-      padding: 0.5em 1.5em;
+      padding: 0.3em 1.5em;
+      width: auto !important;
+      height: auto !important;
+      border: 1px solid $button-border-color;
+    }
+
+    .mce-txt {
+      vertical-align: middle;
     }
   }
 }
