@@ -122,7 +122,7 @@
     width: 150px;
     height: inherit;
     border: none;
-    background-color: transparentize($input-background-color, 0.25);
+    background-color: transparentize($form-field-background-color, 0.25);
     transition:
       width $transition-duration ease-in-out,
       background-color $transition-duration linear;
@@ -135,7 +135,7 @@
 
     &:focus {
       width: 250px;
-      background-color: $input-background-color;
+      background-color: $form-field-background-color;
     }
   }
 

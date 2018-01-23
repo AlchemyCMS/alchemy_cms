@@ -332,8 +332,8 @@
       $background-color: $medium-gray,
       $hover-color: darken($medium-gray, 5%),
       $border: $default-border);
-    width: $default-form-field-height;
-    height: $default-form-field-height;
+    width: $form-field-height;
+    height: $form-field-height;
     margin: 0 0 0 4px;
     padding: 2px;
     position: absolute;
@@ -342,7 +342,7 @@
     border-radius: 0;
 
     &.disabled, &.disabled:hover {
-      background-color: $disabled-form-field-bg-color;
+      background-color: $form-field-disabled-bg-color;
     }
 
     &.link-essence,
@@ -476,7 +476,7 @@
     border: $default-border;
     background-color: $white;
     border-radius: $default-border-radius;
-    height: $default-form-field-height;
+    height: $form-field-height;
 
     .validation_failed & {
       color: $error_text_color;

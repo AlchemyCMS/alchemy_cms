@@ -96,10 +96,10 @@
 @mixin form-value-display {
   float: right;
   width: $form-right-width;
-  margin: $default-form-field-margin;
+  margin: $form-field-margin;
   padding: $default-padding 2*$default-padding;
   line-height: 21px;
-  min-height: $default-form-field-height;
+  min-height: $form-field-height;
   background: white;
   border-radius: $default-border-radius;
 }

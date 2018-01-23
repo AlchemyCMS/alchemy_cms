@@ -146,7 +146,7 @@ div#overlay_text_box {
   background-color: $body-background-color;
 
   .select2-container, select {
-    height: $default-form-field-height;
+    height: $form-field-height;
     margin-top: -3px;
     padding-right: 2*$default-padding;
   }

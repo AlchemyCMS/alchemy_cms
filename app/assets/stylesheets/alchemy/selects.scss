@@ -2,14 +2,14 @@ $medium-select-box-width: 90px;
 
 select {
   @include button-defaults(
-    $background-color: $input-background-color,
-    $hover-color: $input-background-color,
+    $background-color: $form-field-background-color,
+    $hover-color: $form-field-background-color,
     $hover-border-color: darken($default-border-color, 10%),
     $padding: 0 2*$default-padding,
     $border: 1px solid $default-border-color,
     $color: $text-color,
     $margin: 0);
-  height: $default-form-field-height;
+  height: $form-field-height;
   padding: 0.4em 0.6em;
   max-width: 100%;
   width: auto;
@@ -24,11 +24,11 @@ select {
 .select2-container {
   &.alchemy_selectbox {
     .select2-choice {
-      height: $default-form-field-height;
-      line-height: $default-form-field-height - 2;
+      height: $form-field-height;
+      line-height: $form-field-height - 2;
       @include button-defaults(
-        $background-color: $input-background-color,
-        $hover-color: $input-background-color,
+        $background-color: $form-field-background-color,
+        $hover-color: $form-field-background-color,
         $hover-border-color: darken($default-border-color, 10%),
         $padding: 0 2*$default-padding,
         $border: 1px solid $default-border-color,
