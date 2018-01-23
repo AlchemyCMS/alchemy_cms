@@ -52,7 +52,7 @@ $dialog-transition-duration: 150ms;
 .alchemy-dialog-overlay {
 
   &.open {
-    background-color: rgba(100, 100, 100, 0.4);
+    background-color: rgba($dialog-overlay-color, $dialog-overlay-opacity);
   }
 }
 
@@ -67,10 +67,9 @@ $dialog-transition-duration: 150ms;
 
 .alchemy-dialog {
   white-space: normal;
-  background-color: $light-gray;
   margin: 2*$default-margin;
   @include border-top-radius($default-border-radius);
-  box-shadow: 0 8px 16px rgba(35, 35, 35, 0.5);
+  box-shadow: $dialog-box-shadow;
   transition: min-height $dialog-transition-duration ease-in-out;
 
   div#jscropper {
@@ -168,6 +167,7 @@ $dialog-transition-duration: 150ms;
 
 .alchemy-dialog-body {
   position: relative;
+  background-color: $dialog-background-color;
   color: $text-color;
 
   .message {
@@ -209,5 +209,9 @@ $dialog-transition-duration: 150ms;
 
   .ui-tabs-panel {
     padding: 4*$default-padding;
+  }
+
+  .ui-tabs.ui-corner-all {
+    border-radius: 0;
   }
 }
