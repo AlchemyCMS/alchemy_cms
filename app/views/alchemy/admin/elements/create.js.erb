@@ -27,7 +27,7 @@
 <%- end -%>
 
   if ($element_area.find('.element-editor').length > 0) {
-    Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>', $element_area);
+    Alchemy.SortableElements(<%= @page.id %>, $element_area);
   } else {
     $element_area.sortable('refresh');
   }

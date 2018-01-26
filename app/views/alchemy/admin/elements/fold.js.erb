@@ -23,7 +23,6 @@
   Alchemy.GUI.initElement($el);
   Alchemy.SortableElements(
     <%= @page.id %>,
-    '<%= form_authenticity_token %>',
     $('> .nestable-elements .nested-elements', $el)
   );
 

@@ -185,7 +185,7 @@
       ]
     }, function() {
       Alchemy.ImageLoader('#element_area');
-      Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
+      Alchemy.SortableElements(<%= @page.id %>);
       Alchemy.ElementEditors.init();
       Alchemy.SelectBox('.element-editor');
       Alchemy.Tinymce.init(<%= @page.richtext_contents_ids.to_json %>);

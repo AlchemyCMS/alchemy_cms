@@ -5,9 +5,10 @@ window.Alchemy = {} if typeof (window.Alchemy) is "undefined"
 
 $.extend Alchemy,
 
-  SortableElements: (page_id, form_token, selector = '#element_area .sortable-elements') ->
+  SortableElements: (page_id, selector = '#element_area .sortable-elements') ->
     Alchemy.initializedSortableElements = false
     $sortable_area = $(selector)
+    form_token = $('meta[name="csrf-token"]').attr('content')
 
     getTinymceIDs = (ui) ->
       ids = []
