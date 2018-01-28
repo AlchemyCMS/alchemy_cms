@@ -23,8 +23,10 @@ module Alchemy
             "action" => params[:remove] ? "cut" : "copy",
           }
         end
-        respond_to do |format|
-          format.js
+        if params[:remarkable_type] == 'elements'
+          render json: @clipboard.to_json
+        else
+          render
         end
       end
 

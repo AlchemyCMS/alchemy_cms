@@ -1,16 +1,6 @@
+$('#clipboard_button .icon').removeClass('fa-clipboard').addClass('fa-paste');
 <% if params[:remove] -%>
-  $(".element-editor[data-element-id='<%= @item.id %>']").remove();
-
-  <% if @item.class.name == 'Alchemy::Element' -%>
-    $('#element_area .sortable-elements').sortable('refresh');
-
-    <% if @item.fixed? -%>
-      Alchemy.FixedElements.removeTab(<%= @item.id %>);
-    <% end -%>
-  <% end -%>
-
   Alchemy.growl('<%= j Alchemy.t("item moved to clipboard", name: @item.class.name == "Alchemy::Element" ? @item.display_name_with_preview_text : @item.name) %>');
 <% else -%>
   Alchemy.growl('<%= j Alchemy.t("item copied to clipboard", name: @item.class.name == "Alchemy::Element" ? @item.display_name_with_preview_text : @item.name) %>')
 <% end -%>
-$('#clipboard_button .icon').removeClass('fa-clipboard').addClass('fa-paste');
