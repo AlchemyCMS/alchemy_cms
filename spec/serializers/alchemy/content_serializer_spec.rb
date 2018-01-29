@@ -39,6 +39,16 @@ RSpec.describe Alchemy::ContentSerializer do
       is_expected.to have_key("label")
       expect(subject["label"]).to eq "Text"
     end
+
+    it "has form_field_id key" do
+      is_expected.to have_key("form_field_id")
+      expect(subject["form_field_id"]).to eq "contents_#{content.id}_ingredient"
+    end
+
+    it "has form_field_name key" do
+      is_expected.to have_key("form_field_name")
+      expect(subject["form_field_name"]).to eq "contents[#{content.id}][ingredient]"
+    end
   end
 
   context "for normal users" do

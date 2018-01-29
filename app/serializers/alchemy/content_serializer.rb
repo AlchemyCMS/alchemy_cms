@@ -11,6 +11,8 @@ module Alchemy
     with_options if: :can_manage? do
       attribute :label
       attribute :component_name
+      attribute :form_field_id
+      attribute :form_field_name
     end
 
     has_one :essence, polymorphic: true
@@ -25,6 +27,14 @@ module Alchemy
 
     def label
       object.name_for_label
+    end
+
+    def form_field_id
+      Alchemy::ContentEditor.new(object).form_field_id
+    end
+
+    def form_field_name
+      Alchemy::ContentEditor.new(object).form_field_name
     end
 
     def can_manage?
