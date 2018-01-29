@@ -153,12 +153,13 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   # Sets a link on an Essence (e.g. EssencePicture).
   setEssenceLink: (url, title, target) ->
     content_id = @$link_object.data('content-id')
+    # Need to manually trigger .change() events as we watch these changes from the
+    # Vue component and hidden fields do not trigger change events usually.
     $("#contents_#{content_id}_link").val(url).change()
-    $("#contents_#{content_id}_link_title").val(title)
-    $("#contents_#{content_id}_link_class_name").val(@link_type)
-    $("#contents_#{content_id}_link_target").val(target)
-    @$link_object.addClass('linked')
-    @$link_object.next().addClass('linked').removeClass('disabled').removeAttr('tabindex')
+    $("#contents_#{content_id}_link_title").val(title).change()
+    $("#contents_#{content_id}_link_class_name").val(@link_type).change()
+    $("#contents_#{content_id}_link_target").val(target).change()
+    return
 
   # Selects the correct tab for link type and fills all fields.
   selectTab: ->
@@ -236,19 +237,3 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     else
       @$anchor_link.html("<option>#{Alchemy.t('No anchors found')}</option>")
     return
-
-  # Public class methods
-
-  # Removes link from Essence.
-  @removeLink = (link, content_id) ->
-    $link = $(link)
-    $("#contents_#{content_id}_link").val('').change()
-    $("#contents_#{content_id}_link_title").val('')
-    $("#contents_#{content_id}_link_class_name").val('')
-    $("#contents_#{content_id}_link_target").val('')
-    if $link.hasClass('linked')
-      Alchemy.setElementDirty $(link).closest('.element-editor')
-      $link.removeClass('linked').addClass('disabled').attr('tabindex', '-1')
-      $link.blur()
-    $('#edit_link_' + content_id).removeClass('linked')
-    false
