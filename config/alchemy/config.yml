@@ -185,7 +185,7 @@ uploader:
 #
 #   jQuery(a[data-link-target="overlay"]).dialog();
 #
-link_target_options: [blank]
+link_target_options: [_blank]
 
 # === Format matchers
 #
