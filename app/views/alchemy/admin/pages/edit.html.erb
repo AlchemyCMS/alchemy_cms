@@ -163,10 +163,6 @@
 </div>
 
 <% content_for :javascripts do %>
-<% if Alchemy::Tinymce.custom_config_contents(@page).present? %>
-  <%= render 'tinymce_custom_config' %>
-<% end %>
-
 <script type="text/javascript" charset="utf-8">
   $(function() {
     $('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
