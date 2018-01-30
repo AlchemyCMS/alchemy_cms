@@ -296,7 +296,7 @@
   background-color: $medium-gray;
   padding: 1px;
 
-  .essence_picture_editor {
+  .essence_picture {
     margin: 1px;
     float: left;
     height: 126px;
@@ -400,7 +400,7 @@
   }
 }
 
-.essence_picture_editor {
+.essence_picture {
   position: relative;
 
   .picture_tool_delete {
@@ -646,7 +646,7 @@ select.long {
     }
   }
 
-  &.essence_picture_editor {
+  &.essence_picture {
     float: none;
     height: auto;
     display: inline-block;

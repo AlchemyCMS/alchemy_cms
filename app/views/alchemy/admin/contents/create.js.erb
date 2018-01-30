@@ -23,7 +23,7 @@ $('#picture_to_assign_<%= @content.ingredient.id %> a').attr('href', '#').off('c
 <% if @gallery_pictures %>
 
 <% if @gallery_pictures.size > 1 %>
-$('#element_<%= @element.id %>_contents .essence_picture_editor').addClass('draggable_picture');
+$('#element_<%= @element.id %>_contents .essence_picture').addClass('draggable_picture');
 <% end %>
 
 <% if !max_image_count.blank? && @gallery_pictures.size >= max_image_count %>

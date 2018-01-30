@@ -128,7 +128,7 @@ describe 'Page editing feature' do
         expect(page).to have_selector('div.content_editor.essence_file')
         expect(page).to have_selector('div.content_editor.essence_html_editor')
         expect(page).to have_selector('div.content_editor.essence_link')
-        expect(page).to have_selector('div.content_editor.essence_picture_editor')
+        expect(page).to have_selector('div.content_editor.essence_picture')
         expect(page).to have_selector('div.content_editor.essence_richtext')
         expect(page).to have_selector('div.content_editor.essence_select')
         expect(page).to have_selector('div.content_editor.essence_text')
