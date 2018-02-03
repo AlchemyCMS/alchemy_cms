@@ -15,7 +15,6 @@ module Alchemy
     describe "#edit" do
       before do
         expect(EssencePicture).to receive(:find).and_return(essence)
-        expect(Content).to receive(:find).and_return(content)
       end
 
       it "should assign @essence_picture and @content instance variables" do
