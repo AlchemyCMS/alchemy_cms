@@ -1,9 +1,8 @@
-(function($) {
-  Alchemy.ImageCropper.destroy();
-  Alchemy.closeCurrentDialog();
-  Alchemy.setElementDirty('#element_<%= @content.element.id %>');
+Alchemy.ImageCropper.destroy();
+Alchemy.closeCurrentDialog();
 <% if @content.ingredient %>
-  $('.thumbnail_background img', '#<%= @content.dom_id %>').replaceWith('<%= essence_picture_thumbnail(@content) %>');
-  Alchemy.ImageLoader('#<%= @content.dom_id %> .thumbnail_background');
+Alchemy.ImageLoader('[data-content-id="<%= @content.id -%>"] .thumbnail_background');
+$('[data-content-id="<%= @content.id -%>"] .picture_image img').attr(
+  'src', '<%= j(@content.essence.thumbnail_url) %>'
+);
 <% end %>
-})(jQuery);

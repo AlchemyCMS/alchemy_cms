@@ -20,7 +20,7 @@ export default {
           </div>
         </div>
         <div class="edit_images_bottom">
-          <a title="Bildmaske bearbeiten">
+          <a @click="cropPicture" :title="'Edit Picturemask' | translate">
             <i class="icon fas faw fa-crop"></i>
           </a>
           <a @click="assignPicture" :title="assignPictureTitle | translate">
@@ -74,6 +74,16 @@ export default {
       const $element = $(this.$el).closest(".element-editor")
       this.picture_id = null
       Alchemy.setElementDirty($element)
+    },
+
+    cropPicture() {
+      let url = Alchemy.routes.crop_admin_essence_picture_path(this.essence.id);
+      Alchemy.openDialog(url, {
+        size: "1080x615",
+        title: Alchemy.t('Edit Picturemask'),
+        image_loader: false,
+        padding: false
+      });
     },
 
     assignPicture() {
