@@ -12,6 +12,8 @@ module Alchemy
       :link,
     )
 
+    attribute :thumbnail_url, if: -> { scope.can?(:manage, object) }
+
     has_one :picture
 
     def link
@@ -23,6 +25,10 @@ module Alchemy
         title: object.link_title,
         target: object.link_target,
       }
+    end
+
+    def thumbnail_url
+      object.thumbnail_url
     end
   end
 end
