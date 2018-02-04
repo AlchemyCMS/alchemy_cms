@@ -17,9 +17,12 @@
       return '<%= alchemy.admin_picture_path(id: 1) %>'.replace(/1/, id);
     },
 
-    new_admin_element_path: function(page_id) {
+    new_admin_element_path: function(page_id, parent_element_id) {
       var url = '<%= alchemy.new_admin_element_path %>';
-      if (page_id) url += '?page_id=' + page_id;
+      if (page_id) {
+        url += '?page_id=' + page_id;
+        if (parent_element_id) url += '&parent_element_id=' + parent_element_id;
+      }
       return url;
     },
 

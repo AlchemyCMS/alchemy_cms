@@ -13,12 +13,24 @@ export default {
       <alchemy-element-header :element="element"></alchemy-element-header>
       <template v-if="!element.folded">
         <alchemy-element-toolbar :element="element"></alchemy-element-toolbar>
-        <form class="element-content" :id="formId">
-          <alchemy-content-editor v-for="content in contents"
-            :key="content.id"
-            :content="content"></alchemy-content-editor>
-        </form>
-        <alchemy-element-footer :element="element"></alchemy-element-footer>
+        <template v-if="contents.length">
+          <form class="element-content" :id="formId">
+            <alchemy-content-editor v-for="content in contents"
+              :key="content.id"
+              :content="content"></alchemy-content-editor>
+          </form>
+          <alchemy-element-footer :element="element"></alchemy-element-footer>
+        </template>
+        <div class="nestable-elements" v-if="nestedElements.length">
+          <div class="nested-elements">
+            <alchemy-element-editor v-for="element in nestedElements"
+              :key="element.id"
+              :element="element"></alchemy-element-editor>
+          </div>
+          <a @click.prevent="newElement" class="button with_icon add-nestable-element-button">
+            {{ 'New Element' | translate }}
+          </a>
+        </div>
       </template>
     </div>
   `,
@@ -27,7 +39,8 @@ export default {
     AlchemyContentEditor,
     AlchemyElementHeader,
     AlchemyElementToolbar,
-    AlchemyElementFooter
+    AlchemyElementFooter,
+    AlchemyElementEditor: () => import("./element_editor.js")
   },
 
   data() {
@@ -35,7 +48,8 @@ export default {
     return {
       elementId: `element_${element.id}`,
       formId: `element_${element.id}_form`,
-      contents: element.contents
+      contents: element.contents,
+      nestedElements: element.nested_elements
     }
   },
 
@@ -57,6 +71,19 @@ export default {
       classes.push(this.element.public ? "visible" : "hidden")
 
       return classes.join(" ")
+    }
+  },
+
+  methods: {
+    newElement() {
+      const url = Alchemy.routes.new_admin_element_path(
+        this.element.page_id,
+        this.element.id
+      )
+      Alchemy.openDialog(url, {
+        size: "320x125",
+        title: Alchemy.t("New Element")
+      })
     }
   }
 }
