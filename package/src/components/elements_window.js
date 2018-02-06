@@ -58,8 +58,10 @@ export default {
       // Not passing an element id here actually unselects all elements
       this.$store.commit("selectElement")
       if (!element) {
-        let frameWindow = $("#alchemy_preview_window")[0].contentWindow
-        frameWindow.postMessage("blurAlchemyElements", window.location.origin)
+        Alchemy.PreviewWindow.postMessage(
+          { message: "Alchemy.blurElements" },
+          window.location.origin
+        )
       }
     })
     this.show()

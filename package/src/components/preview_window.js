@@ -31,11 +31,10 @@ export default {
 
   created() {
     Alchemy.eventBus.$on("refresh-preview", (element_id) => {
-      this.refresh(() => {
-        Alchemy.ElementEditors.focusElementPreview(element_id)
-      })
+      this.refresh(() => this.selectElementInPreview(element_id))
     })
     Alchemy.eventBus.$on("resize-preview", this.resize)
+    Alchemy.eventBus.$on("SelectElementInPreview", this.selectElementInPreview)
   },
 
   mounted() {
@@ -67,6 +66,16 @@ export default {
       this._showSpinner()
       this.$el.src = this.url
       return true
+    },
+
+    selectElementInPreview(element_id) {
+      Alchemy.PreviewWindow.postMessage(
+        {
+          message: "Alchemy.focusElement",
+          element_id: element_id
+        },
+        window.location.origin
+      )
     },
 
     // private
