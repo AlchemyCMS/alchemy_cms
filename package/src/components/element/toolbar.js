@@ -82,14 +82,14 @@ export default {
 
     afterDeleteElement() {
       $(`#element_${this.element.id}`).hide(200, function () {
-        $(this).remove()
+        this.$store.commit("removeElement", {
+          parent_id: this.element.parent_element_id,
+          element_id: element.id
+        })
         Alchemy.growl(Alchemy.t("Element trashed"))
         // TODO: Refresh sortable elements after delete element
         // $('#element_area .sortable-elements').sortable('refresh');
         Alchemy.PreviewWindow.reload()
-        this.element.richtext_contents_ids.forEach(function () {
-          tinymce.get(`tinymce_${id}`).remove()
-        })
         if (this.element.fixed) {
           Alchemy.FixedElements.removeTab(this.element.id)
         }
