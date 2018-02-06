@@ -7,6 +7,7 @@ module Alchemy
       :position,
       :page_id,
       :page_version_id,
+      :parent_element_id,
       :tag_list,
       :created_at,
       :updated_at,
