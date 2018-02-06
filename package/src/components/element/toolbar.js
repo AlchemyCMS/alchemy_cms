@@ -70,7 +70,7 @@ export default {
         this.element.display_name
       )
       Alchemy.growl(notice)
-      $(`.element-editor[data-element-id="${this.element.id}"]`).remove()
+      this._removeElement()
       $("#clipboard_button .icon")
         .removeClass("fa-clipboard")
         .addClass("fa-paste")
@@ -78,11 +78,8 @@ export default {
 
     afterDeleteElement() {
       $(`#element_${this.element.id}`).hide(200, function () {
-        this.$store.commit("removeElement", {
-          parent_id: this.element.parent_element_id,
-          element_id: element.id
-        })
         Alchemy.growl(Alchemy.t("Element trashed"))
+        this._removeElement()
         Alchemy.PreviewWindow.reload()
         if (this.element.fixed) {
           Alchemy.FixedElements.removeTab(this.element.id)
@@ -93,6 +90,13 @@ export default {
     afterHideElement(responseData) {
       this.element.public = responseData.public
       Alchemy.PreviewWindow.reload()
+    },
+
+    _removeElement() {
+      this.$store.commit("removeElement", {
+        parent_id: this.element.parent_element_id,
+        element_id: element.id
+      })
     }
   }
 }
