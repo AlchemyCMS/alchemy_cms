@@ -15,11 +15,17 @@ export default {
 
   mutations: {
     addElement(state, payload) {
+      let elements
       if (payload.parent_id) {
-        let parent = this.getters.elementById(payload.parent_id)
-        parent.nested_elements.push(payload.element)
+        const parent = this.getters.elementById(payload.parent_id)
+        elements = parent.nested_elements
       } else {
-        state.elements.push(payload.element)
+        elements = state.elements
+      }
+      if (payload.insert_at_top) {
+        elements.unshift(payload.element)
+      } else {
+        elements.push(payload.element)
       }
     },
 

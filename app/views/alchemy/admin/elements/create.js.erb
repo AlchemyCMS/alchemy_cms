@@ -1,46 +1,44 @@
 (function() {
-  var $el;
-  var $element_area;
-  var element_html = '<%= j render(Alchemy::ElementEditor.new(@element)) %>';
+  var payload,
+      element = <%== Alchemy::ElementSerializer.new(@element, scope: current_ability).to_json %>;
 
 <%- if @cut_element_id -%>
-  $('.element-editor[data-element-id="<%= @cut_element_id %>"]').remove();
+  // $('.element-editor[data-element-id="<%= @cut_element_id %>"]').remove();
 <%- end -%>
 
 <% if @element.fixed? %>
-  if ($('#fixed-elements').length == 0) {
-    Alchemy.FixedElements.buildTabs('<%= Alchemy.t(:main_content) %>');
-  }
-  Alchemy.FixedElements.createTab('<%= @element.id %>', '<%= @element.display_name %>');
-  $element_area = $('#fixed-element-<%= @element.id %>');
+  // if ($('#fixed-elements').length == 0) {
+  //   Alchemy.FixedElements.buildTabs('<%= Alchemy.t(:main_content) %>');
+  // }
+  // Alchemy.FixedElements.createTab('<%= @element.id %>', '<%= @element.display_name %>');
+  // $element_area = $('#fixed-element-<%= @element.id %>');
 <% elsif @element.parent_element %>
-  $element_area = $('#element_<%= @element.parent_element_id %> > .nestable-elements > .nested-elements');
-  Alchemy.Buttons.enable('.nestable-elements');
-<% else %>
-  $element_area = $('#main-content-elements');
-<% end %>
-
-<%- if @insert_at_top -%>
-  $element_area.prepend(element_html);
+  payload = {
+    parent_id: <%= @element.parent_element_id %>,
+    element: element
+  };
 <%- else -%>
-  $element_area.append(element_html);
+  payload = { element: element };
 <%- end -%>
 
-  if ($element_area.find('.element-editor').length > 0) {
-    Alchemy.SortableElements(<%= @page.id %>, $element_area);
-  } else {
-    $element_area.sortable('refresh');
-  }
+<%- if @insert_at_top -%>
+  payload.insert_at_top = true;
+<%- end -%>
 
+  // if ($element_area.find('.element-editor').length > 0) {
+  //   Alchemy.SortableElements(<%= @page.id %>, $element_area);
+  // } else {
+  //   $element_area.sortable('refresh');
+  // }
+
+  Alchemy.vuexStore.commit('addElement', payload);
   Alchemy.growl('<%= Alchemy.t(:successfully_added_element) %>');
   Alchemy.closeCurrentDialog();
-  Alchemy.Tinymce.init(<%= @element.richtext_contents_ids.to_json %>);
   Alchemy.PreviewWindow.reload(<%= @element.id %>);
   $el = $('#element_<%= @element.id %>');
   $el.trigger('FocusElementEditor.Alchemy');
-  Alchemy.GUI.initElement($el);
 
 <%- if @clipboard.blank? -%>
-  $('#clipboard_button .icon.clipboard').removeClass('full');
+  // $('#clipboard_button .icon.clipboard').removeClass('full');
 <%- end -%>
 })();
