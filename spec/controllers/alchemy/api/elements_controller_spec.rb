@@ -14,7 +14,7 @@ module Alchemy
         create(:alchemy_element, :nested, page_version: page_version)
       end
 
-      it "returns all not nested elements from published versions as json objects" do
+      it "returns all not nested elements from published versions as json objects ordered by position" do
         get :index, params: {format: :json}
 
         expect(response.status).to eq(200)
@@ -24,6 +24,8 @@ module Alchemy
         expect(result).to have_key("elements")
         expect(result["elements"].last["nested_elements"]).to_not be_empty
         expect(result["elements"].size).to eq(3)
+        expect(result["elements"][0]["position"]).to eq(1)
+        expect(result["elements"][1]["position"]).to eq(2)
       end
 
       context "with page_id param" do
