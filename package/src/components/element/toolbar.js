@@ -58,8 +58,6 @@ export default {
         "item copied to clipboard",
         this.element.display_name
       )
-      // TODO: Refresh sortable elements after copy element
-      // $('#element_area .sortable_cell').sortable('refresh');
       Alchemy.growl(notice)
       $("#clipboard_button .icon")
         .removeClass("fa-clipboard")
@@ -71,8 +69,6 @@ export default {
         "item moved to clipboard",
         this.element.display_name
       )
-      // TODO: Refresh sortable elements after copy element
-      // $('#element_area .sortable_cell').sortable('refresh');
       Alchemy.growl(notice)
       $(`.element-editor[data-element-id="${this.element.id}"]`).remove()
       $("#clipboard_button .icon")
@@ -87,8 +83,6 @@ export default {
           element_id: element.id
         })
         Alchemy.growl(Alchemy.t("Element trashed"))
-        // TODO: Refresh sortable elements after delete element
-        // $('#element_area .sortable-elements').sortable('refresh');
         Alchemy.PreviewWindow.reload()
         if (this.element.fixed) {
           Alchemy.FixedElements.removeTab(this.element.id)

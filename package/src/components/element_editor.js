@@ -43,6 +43,13 @@ export default {
     AlchemyElementEditor: () => import("./element_editor.js")
   },
 
+  mounted() {
+    Alchemy.SortableElements(
+      this.element.page_id,
+      `#${this.elementId} .nested-elements`
+    )
+  },
+
   computed: {
     contents() {
       return this.element.contents || []

@@ -81,7 +81,7 @@ export default {
         //   prevButton: '<i class="fas fa-angle-double-left"></i>',
         //   nextButton: '<i class="fas fa-angle-double-right"></i>'
         // })
-        // Alchemy.SortableElements(this.pageId)
+        Alchemy.SortableElements(this.pageId)
       })
         .fail((xhr, status, error) => {
           Alchemy.AjaxErrorHandler(

@@ -25,12 +25,6 @@
   payload.insert_at_top = true;
 <%- end -%>
 
-  // if ($element_area.find('.element-editor').length > 0) {
-  //   Alchemy.SortableElements(<%= @page.id %>, $element_area);
-  // } else {
-  //   $element_area.sortable('refresh');
-  // }
-
   Alchemy.vuexStore.commit('addElement', payload);
   Alchemy.growl('<%= Alchemy.t(:successfully_added_element) %>');
   Alchemy.closeCurrentDialog();
