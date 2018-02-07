@@ -1,6 +1,10 @@
 <script>
   Alchemy.routes = {
 
+    edit_admin_essence_file_path: function(id) {
+      return '<%= alchemy.edit_admin_essence_file_path(id: 'eid') %>'.replace(/eid/, id);
+    },
+
     edit_admin_essence_picture_path: function(id) {
       return '<%= alchemy.edit_admin_essence_picture_path(id: 'eid') %>'.replace(/eid/, id);
     },

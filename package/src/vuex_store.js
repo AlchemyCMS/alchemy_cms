@@ -57,5 +57,15 @@ export default {
       }
       toggleElements(state.elements)
     }
+  },
+
+  assignFile(_state, payload) {
+    let element = this.getters.elementById(payload.element_id)
+    let content = element.contents.find(
+      (content) => content.id === payload.content_id
+    )
+    let essence = content.essence.essence_file
+    essence.attachment = payload.attachment
+    essence.attachment_id = payload.attachment.id
   }
 }

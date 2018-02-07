@@ -1,3 +1,7 @@
-$('#<%= @content.dom_id %>').replaceWith('<%= j render(Alchemy::ContentEditor.new(@content)) %>');
+attachment = <%== Alchemy::AttachmentSerializer.new(@attachment, scope: current_ability).to_json %>;
+Alchemy.vuexStore.commit('assignFile', {
+  attachment: attachment,
+  content_id: <%= @content.id %>,
+  element_id: <%= @content.element_id %>
+});
 Alchemy.closeCurrentDialog();
-Alchemy.setElementDirty($('#element_<%= @content.element.id %>'));

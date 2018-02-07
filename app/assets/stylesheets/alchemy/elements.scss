@@ -603,6 +603,8 @@
     padding: 6px 4px;
   }
 
+  a.file_icon { cursor: pointer }
+
   .file_name {
     white-space: nowrap;
     overflow: hidden;
@@ -625,6 +627,7 @@
     text-decoration: none;
     padding: 6px $default-margin;
     float: left;
+    cursor: pointer;
   }
 }
 

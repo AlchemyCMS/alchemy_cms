@@ -18,6 +18,11 @@ module Alchemy
     belongs_to :attachment, optional: true
     acts_as_essence ingredient_column: "attachment"
 
+    # We send picture ids via POST requests and not picture objects
+    def ingredient_setter_method
+      :attachment_id=
+    end
+
     def attachment_url
       return if attachment.nil?
 

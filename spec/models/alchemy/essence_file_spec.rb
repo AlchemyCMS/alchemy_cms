@@ -10,6 +10,7 @@ module Alchemy
     it_behaves_like "an essence" do
       let(:essence)          { EssenceFile.new }
       let(:ingredient_value) { attachment }
+      let(:ingredient_setter_value) { attachment.id }
     end
 
     describe "#attachment_url" do
