@@ -6,6 +6,7 @@ module Alchemy
       :id,
       :title,
       :css_class,
+      :attachment_id
     )
 
     has_one :attachment

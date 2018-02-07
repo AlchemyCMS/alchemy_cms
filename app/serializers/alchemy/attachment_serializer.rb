@@ -10,5 +10,7 @@ module Alchemy
       :tag_list,
       :created_at,
       :updated_at
+
+    attribute :icon_css_class, if: -> { scope.can?(:manage, object) }
   end
 end
