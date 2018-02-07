@@ -9,6 +9,10 @@
       return '<%= alchemy.crop_admin_essence_picture_path(id: 'eid') %>'.replace(/eid/, id);
     },
 
+    admin_attachments_path: function(id) {
+      return '<%= alchemy.admin_attachments_path(content_id: 'cid') %>'.replace(/cid/, id);
+    },
+
     admin_pictures_path: function(id) {
       return '<%= alchemy.admin_pictures_path(content_id: 'cid') %>'.replace(/cid/, id);
     },
