@@ -23,6 +23,7 @@ module Alchemy
       attribute :public
       attribute :preview_text
       attribute :display_name
+      attribute :has_validations
     end
 
     has_many :nested_elements
@@ -38,6 +39,10 @@ module Alchemy
 
     def page_id
       object.page.id
+    end
+
+    def has_validations
+      object.has_validations?
     end
 
     def can_manage?

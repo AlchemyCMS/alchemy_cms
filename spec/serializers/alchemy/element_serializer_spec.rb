@@ -38,6 +38,7 @@ RSpec.describe Alchemy::ElementSerializer do
       is_expected.to_not have_key("contents")
       is_expected.to have_key("ingredients")
       is_expected.to have_key("content_ids")
+      is_expected.not_to have_key("has_validations")
     end
   end
 
@@ -52,6 +53,7 @@ RSpec.describe Alchemy::ElementSerializer do
       is_expected.to have_key("contents")
       is_expected.to_not have_key("ingredients")
       is_expected.to_not have_key("content_ids")
+      is_expected.to have_key("has_validations")
     end
   end
 end
