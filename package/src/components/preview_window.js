@@ -20,12 +20,16 @@ export default {
     }
   },
 
-  template: '<iframe :src="url" id="alchemy_preview_window" />',
+  template: `
+  <transition name="fade">
+    <iframe :src="url" id="alchemy_preview_window" v-show="visible" />
+  </transition>`,
 
   data() {
     return {
       url: this._getCurrentPreviewUrl() || this.previewUrl[1],
-      minWidth: 240
+      minWidth: 240,
+      visible: false
     }
   },
 
@@ -47,6 +51,7 @@ export default {
     }
     this.$el.onload = this._onLoad
     this._showSpinner()
+    this.visible = true
   },
 
   methods: {

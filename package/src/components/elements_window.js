@@ -10,20 +10,24 @@ export default {
   },
 
   template: `
-  <div id="alchemy_elements_window">
-    <div id="elements_toolbar">
-      <slot />
-    </div>
-    <div id="element_area">
-      <div id="main-content-elements" class="sortable-elements">
-        <alchemy-element-editor
-          v-for="element in elements"
-          :key="element.id"
-          :element="element"
-        ></alchemy-element-editor>
+  <transition name="slide" v-on:enter="show">
+    <div id="alchemy_elements_window" v-show="visible">
+      <div id="elements_toolbar">
+        <slot />
       </div>
+      <transition name="fade">
+        <div id="element_area" v-show="loaded">
+          <div id="main-content-elements" class="sortable-elements">
+            <alchemy-element-editor
+              v-for="element in elements"
+              :key="element.id"
+              :element="element"
+            ></alchemy-element-editor>
+          </div>
+        </div>
+      </transition>
     </div>
-  </div>`,
+  </transition>`,
 
   components: {
     AlchemyDialogButton,
@@ -34,12 +38,10 @@ export default {
     const alchemy = Alchemy.routes
     return {
       newElementUrl: alchemy.new_admin_element_path(this.pageId),
-      clipboardUrl: alchemy.admin_clipboard_path("elements")
+      clipboardUrl: alchemy.admin_clipboard_path("elements"),
+      visible: false,
+      loaded: false
     }
-  },
-
-  created() {
-    this.hidden = false
   },
 
   mounted() {
@@ -102,6 +104,7 @@ export default {
         //   nextButton: '<i class="fas fa-angle-double-right"></i>'
         // })
         Alchemy.SortableElements(this.pageId)
+        this.loaded = true
       })
         .fail((xhr, status, error) => {
           Alchemy.AjaxErrorHandler(
@@ -115,29 +118,29 @@ export default {
     },
 
     toggle() {
-      if (this.hidden) {
-        this.show()
-      } else {
+      if (this.visible) {
         this.hide()
+      } else {
+        this.show()
       }
       this.toggleButton()
     },
 
     hide() {
       this.$body.removeClass("elements-window-visible")
-      this.hidden = true
+      this.visible = false
     },
 
     show() {
       this.$body.addClass("elements-window-visible")
-      this.hidden = false
+      this.visible = true
     },
 
     toggleButton() {
-      if (this.hidden) {
-        this.$button.find("label").text("Show elements")
-      } else {
+      if (this.visible) {
         this.$button.find("label").text("Hide elements")
+      } else {
+        this.$button.find("label").text("Show elements")
       }
     }
   }

@@ -7,7 +7,7 @@
   border: 0 none;
   background: #fff;
   border-right: $default-border;
-  transition: $transition-duration ease-in-out;
+  transition: width $transition-duration ease-in-out;
 
   .collapsed-menu & {
     left: $collapsed-main-menu-width;
@@ -20,5 +20,13 @@
     @media screen and (min-width: $large-screen-break-point) {
       max-width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-min-width});
     }
+  }
+
+  &.fade-enter-active, &.fade-leave-active {
+    transition: opacity $transition-duration ease-in;
+  }
+
+  &.fade-enter, &.fade-leave-to {
+    opacity: 0;
   }
 }
