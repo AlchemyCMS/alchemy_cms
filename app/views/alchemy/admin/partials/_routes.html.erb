@@ -51,6 +51,10 @@
       },
     },
 
+    admin_element_path: function(id) {
+      return '<%= alchemy.admin_element_path(id: 'eid') %>'.replace(/eid/, id);
+    },
+
     order_admin_elements_path: '<%= alchemy.order_admin_elements_path %>',
     order_admin_pages_path: '<%= alchemy.order_admin_pages_path %>',
     link_admin_pages_path: '<%= alchemy.link_admin_pages_path %>',

@@ -1,4 +1,5 @@
 import AlchemyDialogButton from "./dialog_button"
+import AlchemyElementEditor from "./element_editor"
 
 export default {
   props: {
@@ -13,19 +14,33 @@ export default {
     <div id="elements_toolbar">
       <slot />
     </div>
-    <div id="element_area" />
+    <div id="element_area">
+      <div id="main-content-elements" class="sortable-elements">
+        <alchemy-element-editor
+          v-for="element in elements"
+          :key="element.id"
+          :element="element"
+        ></alchemy-element-editor>
+      </div>
+    </div>
   </div>`,
 
   components: {
-    AlchemyDialogButton
+    AlchemyDialogButton,
+    AlchemyElementEditor
   },
 
   data() {
     const alchemy = Alchemy.routes
-    return {
+    const data = {
       newElementUrl: alchemy.new_admin_element_path(this.pageId),
-      clipboardUrl: alchemy.admin_clipboard_path("elements")
+      clipboardUrl: alchemy.admin_clipboard_path("elements"),
+      elements: []
     }
+    if (element) {
+      data.elements = [element]
+    }
+    return data
   },
 
   created() {
@@ -43,7 +58,7 @@ export default {
       this.toggle()
     })
     this.show()
-    this.reload()
+    // this.reload()
   },
 
   methods: {
@@ -60,7 +75,7 @@ export default {
       $.get(this.url, (data) => {
         this.$element_area.html(data)
         Alchemy.GUI.init(this.$element_area)
-        Alchemy.ElementEditors.init()
+        // Alchemy.ElementEditors.init()
         Alchemy.ImageLoader(this.$element_area)
         Alchemy.ElementDirtyObserver(this.$element_area)
         Alchemy.Tinymce.init(this.richtextContentIds)

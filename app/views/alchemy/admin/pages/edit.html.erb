@@ -168,6 +168,28 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
+  <% element = @page.elements.first %>;
+  <% if element %>
+  element = {
+    id: <%= element.id %>,
+    name: '<%= element.name %>',
+    display_name: '<%= element.display_name %>',
+    preview_text: '<%= element.preview_text %>',
+    public: <%= element.public? %>,
+    folded: <%= element.folded? %>,
+    taggable: <%= element.taggable? %>,
+    fixed: false,
+    contents: [{
+      id: 1,
+      type: 'EssenceText',
+      name: 'Headline',
+      ingredient: 'Some nice headline'
+    }],
+    nestable_elements: [],
+    richtext_contents_ids: []
+  };
+  <% end %>
+
   $(function() {
     $('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
       var not_dirty = Alchemy.checkPageDirtyness(this);
