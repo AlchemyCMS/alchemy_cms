@@ -43,23 +43,27 @@ export default {
     AlchemyElementEditor: () => import("./element_editor.js")
   },
 
-  data() {
-    const element = this.element
-    return {
-      elementId: `element_${element.id}`,
-      formId: `element_${element.id}_form`,
-      contents: element.contents,
-      nestedElements: element.nested_elements
-    }
-  },
-
   computed: {
+    contents() {
+      return this.element.contents || []
+    },
+
+    nestedElements() {
+      return this.element.nested_elements || []
+    },
+
+    elementId() {
+      return `element_${this.element.id}`
+    },
+
+    formId() {
+      return `element_${this.elementId}_form`
+    },
+
     cssClasses() {
       let classes = ["element-editor"]
 
-      classes.push(
-        this.element.contents.length ? "with-contents" : "without-contents"
-      )
+      classes.push(this.contents.length ? "with-contents" : "without-contents")
       classes.push(
         this.element.nestable_elements.length ? "nestable" : "not-nestable"
       )

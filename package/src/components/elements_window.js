@@ -34,8 +34,7 @@ export default {
     const alchemy = Alchemy.routes
     return {
       newElementUrl: alchemy.new_admin_element_path(this.pageId),
-      clipboardUrl: alchemy.admin_clipboard_path("elements"),
-      elements: []
+      clipboardUrl: alchemy.admin_clipboard_path("elements")
     }
   },
 
@@ -57,6 +56,12 @@ export default {
     this.load()
   },
 
+  computed: {
+    elements() {
+      return this.$store.state.elements
+    }
+  },
+
   methods: {
     resize() {
       let height = $(window).height() - this.topMenuHeight
@@ -69,13 +74,7 @@ export default {
       const spinner = new Alchemy.Spinner("medium")
       spinner.spin(this.$element_area[0])
       $.getJSON(this.url, (responseData) => {
-        this.$data.elements = responseData.elements
-        // this.$element_area.html(data)
-        // Alchemy.GUI.init(this.$element_area)
-        // // Alchemy.ElementEditors.init()
-        // Alchemy.ImageLoader(this.$element_area)
-        // Alchemy.ElementDirtyObserver(this.$element_area)
-        // Alchemy.Tinymce.init(this.richtextContentIds)
+        this.$store.replaceState({ elements: responseData.elements })
         // $("#fixed-elements").tabs().tabs("paging", {
         //   follow: true,
         //   followOnSelect: true,
