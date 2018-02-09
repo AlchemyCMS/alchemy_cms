@@ -25,6 +25,11 @@
   }
 }
 
+#elements_toolbar {
+  @extend %gradiated-toolbar;
+  border-bottom: $default-border;
+}
+
 #element_area {
   height: calc(100vh - #{$top-menu-height + $toolbar-height});
   overflow-x: hidden;

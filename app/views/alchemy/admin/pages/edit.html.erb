@@ -134,6 +134,32 @@
 
 <div id="edit_page">
   <alchemy-preview-window :preview-url="<%= @preview_urls.first %>"></alchemy-preview-window>
+  <alchemy-elements-window
+    url="<%= alchemy.admin_elements_path(page_id: @page.id) %>"
+    :page-id="<%= @page.id %>"
+    :richtext-content-ids="<%= @page.richtext_contents_ids.to_json %>"
+    title="<%= Alchemy.t("Elements") %>"
+    dirty-title="<%= Alchemy.t("Warning!") %>"
+    dirty-message="<%= Alchemy.t(:element_dirty_close_window_notice) %>"
+    ok-label="<%= Alchemy.t("Yes") %>"
+    cancel-label="<%= Alchemy.t("No") %>"
+    hide-elements-title="<%= Alchemy.t(:hide_elements) %>"
+    show-elements-title="<%= Alchemy.t(:show_elements) %>">
+    <alchemy-dialog-button
+      url="<%= alchemy.new_admin_element_path(page_version_id: @page_version.id) %>"
+      label="<%= Alchemy.t('New Element') %>"
+      title="<%= Alchemy.t('New Element') %>"
+      icon-class="plus"
+      hotkey="alt+n"
+      size="320x125"></alchemy-dialog-button>
+    <alchemy-dialog-button
+      url="<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>"
+      label="<%= Alchemy.t('Show clipboard') %>"
+      title="<%= Alchemy.t('Clipboard') %>"
+      icon-class="clipboard"
+      hotkey="alt+v"
+      id="clipboard_button"></alchemy-dialog-button>
+  </alchemy-elements-window>
 </div>
 
 <% content_for :javascripts do %>
@@ -150,59 +176,6 @@
     });
     Alchemy.Sitemap.watchPagePublicationState();
     Alchemy.PageLeaveObserver();
-    Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_version_id: @page_version.id) %>', {
-      texts: {
-        title: '<%= Alchemy.t("Elements") %>',
-        dirtyTitle: '<%= Alchemy.t("Warning!") %>',
-        dirtyMessage: '<%= Alchemy.t(:element_dirty_close_window_notice) %>',
-        ok_label: '<%= Alchemy.t("Yes") %>',
-        cancel_label: '<%= Alchemy.t("No") %>',
-        hideElements: '<%= Alchemy.t(:hide_elements) %>',
-        showElements: '<%= Alchemy.t(:show_elements) %>'
-      },
-      toolbarButtons: [
-        {
-          title: '<%= Alchemy.t("New Element") %>',
-          label: '<%= Alchemy.t("New Element") %>',
-          hotkey: 'alt+n',
-          iconClass: 'plus',
-          onClick: function() {
-            Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_version_id: @page_version.id) %>', {
-              title: '<%= Alchemy.t("New Element") %>',
-              size: '320x125'
-            });
-          }
-        },
-        {
-          title: '<%= Alchemy.t("Clipboard") %>',
-          label: '<%= Alchemy.t("Show clipboard") %>',
-          iconClass: '<%= clipboard_empty?("elements") ? "clipboard" : "paste" %>',
-          buttonId: 'clipboard_button',
-          onClick: function() {
-            Alchemy.openDialog('<%= alchemy.admin_clipboard_path(remarkable_type: "elements") %>', {
-              title :'<%= Alchemy.t("Clipboard") %>',
-              size: '400x305'
-            });
-          }
-        }
-      ]
-    }, function() {
-      Alchemy.ImageLoader('#element_area');
-      Alchemy.SortableElements(<%= @page.id %>);
-      Alchemy.ElementEditors.init();
-      Alchemy.SelectBox('.element-editor');
-      Alchemy.Tinymce.init(<%= @page.richtext_contents_ids.to_json %>);
-      $('#fixed-elements').tabs().tabs('paging', {
-        follow: true,
-        followOnSelect: true,
-        prevButton: '<i class="fas fa-angle-double-left"></i>',
-        nextButton: '<i class="fas fa-angle-double-right"></i>'
-      });
-      Alchemy.ElementDirtyObserver('#element_area');
-      if (window.location.hash) {
-        $(window.location.hash).trigger('FocusElementEditor.Alchemy');
-      }
-    });
 
     $('#preview_size').bind('open.selectBoxIt', function (e) {
       $('#top_menu').css('z-index', 5000);
