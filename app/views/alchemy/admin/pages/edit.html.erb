@@ -128,17 +128,20 @@
 </div>
 <% end %>
 
+<% content_for :javascript_includes do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>
+
+<div id="edit_page">
+  <alchemy-preview-window :preview-url="<%= @preview_urls.first %>"></alchemy-preview-window>
+</div>
+
 <% content_for :javascripts do %>
 <% if Alchemy::Tinymce.custom_config_contents(@page).present? %>
   <%= render 'tinymce_custom_config' %>
 <% end %>
 
-<% content_for :javascript_includes do %>
-  <meta name="turbolinks-cache-control" content="no-cache">
-<% end %>
-
 <script type="text/javascript" charset="utf-8">
-
   $(function() {
     $('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
       var not_dirty = Alchemy.checkPageDirtyness(this);
@@ -201,8 +204,6 @@
       }
     });
 
-    Alchemy.PreviewWindow.init(<%== @preview_urls.first %>);
-
     $('#preview_size').bind('open.selectBoxIt', function (e) {
       $('#top_menu').css('z-index', 5000);
     });
@@ -213,13 +214,12 @@
 
     $('select#preview_size').on('change', function() {
       var width = this.value;
-      if (width === 'auto') {
-        Alchemy.PreviewWindow.currentWindow.css('width', '');
+      if (this.value === 'auto') {
+        $('#alchemy_preview_window').css('width', '');
       } else {
         Alchemy.PreviewWindow.resize(width);
       }
     });
   });
-
 </script>
 <% end %>

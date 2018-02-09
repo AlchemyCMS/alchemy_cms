@@ -16,6 +16,6 @@ Alchemy.Tinymce.initEditor(<%= @content.id %>);
 
 <% end %>
 
-Alchemy.reloadPreview();
+Alchemy.PreviewWindow.reload();
 Alchemy.closeCurrentDialog();
 Alchemy.SelectBox("#element_<%= @content.element_id %>");

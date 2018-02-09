@@ -29,8 +29,8 @@
         remarkable_id: 'eid', remove: true) %>'.replace(/eid/, id);
     },
 
-    trash_admin_element_path(id) {
-      return '<%= alchemy.trash_admin_element_path(id: 'eid') %>'.replace(/eid/, id);
+    destroy_admin_element_path(id) {
+      return '<%= alchemy.admin_element_path(id: 'eid') %>'.replace(/eid/, id);
     },
 
     publish_admin_element_path(id) {

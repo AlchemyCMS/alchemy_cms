@@ -2,7 +2,7 @@ $('#element_<%= @element.id %>').hide(200, function() {
   $(this).remove();
   Alchemy.growl('<%= j @notice %>');
   $('#element_area .sortable-elements').sortable('refresh');
-  Alchemy.PreviewWindow.refresh();
+  Alchemy.PreviewWindow.reload();
   <% @element.richtext_contents_ids.each do |id| %>
   tinymce.get('tinymce_<%= id %>').remove();
   <% end %>

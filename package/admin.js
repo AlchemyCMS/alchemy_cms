@@ -1,5 +1,6 @@
 import translate from "./src/i18n"
 import NodeTree from "./src/node_tree"
+require("./src/edit_page")
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {

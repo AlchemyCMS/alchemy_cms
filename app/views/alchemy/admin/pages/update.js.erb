@@ -8,7 +8,7 @@
 
 <% if @while_page_edit -%>
 
-  Alchemy.reloadPreview();
+  Alchemy.PreviewWindow.reload();
   document.querySelector('#page_<%= @page.id %>_status').outerHTML = '<%= j render("current_page", current_page: @page) %>';
   Alchemy.growl("<%= j @notice %>");
   Alchemy.closeCurrentDialog();
