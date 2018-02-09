@@ -32,15 +32,11 @@ export default {
 
   data() {
     const alchemy = Alchemy.routes
-    const data = {
+    return {
       newElementUrl: alchemy.new_admin_element_path(this.pageId),
       clipboardUrl: alchemy.admin_clipboard_path("elements"),
       elements: []
     }
-    if (element) {
-      data.elements = [element]
-    }
-    return data
   },
 
   created() {
@@ -58,7 +54,7 @@ export default {
       this.toggle()
     })
     this.show()
-    // this.reload()
+    this.load()
   },
 
   methods: {
@@ -69,23 +65,24 @@ export default {
       })
     },
 
-    reload() {
-      let spinner = new Alchemy.Spinner("medium")
+    load() {
+      const spinner = new Alchemy.Spinner("medium")
       spinner.spin(this.$element_area[0])
-      $.get(this.url, (data) => {
-        this.$element_area.html(data)
-        Alchemy.GUI.init(this.$element_area)
-        // Alchemy.ElementEditors.init()
-        Alchemy.ImageLoader(this.$element_area)
-        Alchemy.ElementDirtyObserver(this.$element_area)
-        Alchemy.Tinymce.init(this.richtextContentIds)
-        $("#fixed-elements").tabs().tabs("paging", {
-          follow: true,
-          followOnSelect: true,
-          prevButton: '<i class="fas fa-angle-double-left"></i>',
-          nextButton: '<i class="fas fa-angle-double-right"></i>'
-        })
-        Alchemy.SortableElements(this.pageId)
+      $.getJSON(this.url, (responseData) => {
+        this.$data.elements = responseData.elements
+        // this.$element_area.html(data)
+        // Alchemy.GUI.init(this.$element_area)
+        // // Alchemy.ElementEditors.init()
+        // Alchemy.ImageLoader(this.$element_area)
+        // Alchemy.ElementDirtyObserver(this.$element_area)
+        // Alchemy.Tinymce.init(this.richtextContentIds)
+        // $("#fixed-elements").tabs().tabs("paging", {
+        //   follow: true,
+        //   followOnSelect: true,
+        //   prevButton: '<i class="fas fa-angle-double-left"></i>',
+        //   nextButton: '<i class="fas fa-angle-double-right"></i>'
+        // })
+        // Alchemy.SortableElements(this.pageId)
       })
         .fail((xhr, status, error) => {
           Alchemy.AjaxErrorHandler(

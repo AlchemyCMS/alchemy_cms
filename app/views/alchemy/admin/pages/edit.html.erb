@@ -135,7 +135,7 @@
 <div id="edit_page">
   <alchemy-preview-window :preview-url="<%= @preview_urls.first %>"></alchemy-preview-window>
   <alchemy-elements-window
-    url="<%= alchemy.admin_elements_path(page_id: @page.id) %>"
+    url="<%= alchemy.api_elements_path(page_id: @page.id) %>"
     :page-id="<%= @page.id %>"
     :richtext-content-ids="<%= @page.richtext_contents_ids.to_json %>"
     title="<%= Alchemy.t("Elements") %>"
@@ -168,28 +168,6 @@
 <% end %>
 
 <script type="text/javascript" charset="utf-8">
-  <% element = @page.elements.first %>;
-  <% if element %>
-  element = {
-    id: <%= element.id %>,
-    name: '<%= element.name %>',
-    display_name: '<%= element.display_name %>',
-    preview_text: '<%= element.preview_text %>',
-    public: <%= element.public? %>,
-    folded: <%= element.folded? %>,
-    taggable: <%= element.taggable? %>,
-    fixed: false,
-    contents: [{
-      id: 1,
-      type: 'EssenceText',
-      name: 'Headline',
-      ingredient: 'Some nice headline'
-    }],
-    nestable_elements: [],
-    richtext_contents_ids: []
-  };
-  <% end %>
-
   $(function() {
     $('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
       var not_dirty = Alchemy.checkPageDirtyness(this);
