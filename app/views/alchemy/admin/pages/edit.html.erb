@@ -195,17 +195,13 @@
       $('#top_menu').css('z-index', 30);
     });
 
-    $('select#preview_size').on('change', function(e) {
+    $('select#preview_size').on('change', function() {
       var width = this.value;
-      if (this.value === 'auto') {
-        width = Alchemy.PreviewWindow.currentWidth;
+      if (width === 'auto') {
+        Alchemy.PreviewWindow.currentWindow.css('width', '');
+      } else {
+        Alchemy.PreviewWindow.resize(width);
       }
-      Alchemy.PreviewWindow.currentWindow.css('width', width);
-    });
-
-    $(window).resize(function() {
-      Alchemy.PreviewWindow.resize();
-      Alchemy.ElementsWindow.resize();
     });
   });
 

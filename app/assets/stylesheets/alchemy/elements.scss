@@ -1,14 +1,20 @@
 #alchemy_elements_window {
   position: absolute;
   right: 0;
-  top: 73px;
-  width: 400px;
-  height: auto;
+  top: $top-menu-height;
+  width: $elements-window-width;
+  height: calc(100vh - #{$top-menu-height});
   border-left: $default-border;
   transition: 200ms ease-in-out;
+  transform: translate3d($elements-window-width - $default-border-width, 0, 0);
+
+  .elements-window-visible & {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 #element_area {
+  height: calc(100vh - #{$top-menu-height + $toolbar-height});
   overflow-x: hidden;
   overflow-y: auto;
 

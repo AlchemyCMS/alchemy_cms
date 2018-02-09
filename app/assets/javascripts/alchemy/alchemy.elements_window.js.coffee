@@ -21,6 +21,7 @@ Alchemy.ElementsWindow =
 
   init: (url, options, callback) ->
     @hidden = false
+    @$body = $('body')
     @element_window = $('<div id="alchemy_elements_window"/>')
     @element_area = $('<div id="element_area"/>')
     @url = url
@@ -32,11 +33,11 @@ Alchemy.ElementsWindow =
     @button.click =>
       @hide()
       false
-    height = @resize()
     window.requestAnimationFrame =>
       spinner = new Alchemy.Spinner('medium')
       spinner.spin @element_area[0]
     $('#main_content').append(@element_window)
+    @show()
     @reload()
 
   createToolbar: (buttons) ->
@@ -44,14 +45,6 @@ Alchemy.ElementsWindow =
     for btn in buttons
       @toolbar.append Alchemy.ToolbarButton(btn)
     @toolbar
-
-  resize: ->
-    height = $(window).height() - 73
-    @element_window.css
-      height: height
-    @element_area.css
-      height: height - 46
-    height
 
   reload: ->
     $.get @url, (data) =>
@@ -63,16 +56,14 @@ Alchemy.ElementsWindow =
       Alchemy.AjaxErrorHandler @element_area, xhr.status, status, error
 
   hide: ->
-    @element_window.css(right: -400)
+    @$body.removeClass('elements-window-visible');
     @hidden = true
     @toggleButton()
-    Alchemy.PreviewWindow.resize()
 
   show: ->
-    @element_window.css(right: 0)
+    @$body.addClass('elements-window-visible');
     @hidden = false
     @toggleButton()
-    Alchemy.PreviewWindow.resize()
 
   toggleButton: ->
     if @hidden
