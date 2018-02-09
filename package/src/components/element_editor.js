@@ -9,7 +9,7 @@ export default {
   },
 
   template: `
-    <div :id="elementId" :data-element-id="element.id" :data-element-name="element.name" :class="cssClasses">
+    <div :id="elementId" :data-element-id="element.id" :data-element-name="element.name" :class="cssClasses" @click.stop="focusElement">
       <alchemy-element-header :element="element"></alchemy-element-header>
       <template v-if="!element.folded">
         <alchemy-element-toolbar :element="element"></alchemy-element-toolbar>
@@ -80,6 +80,7 @@ export default {
       if (this.element.deprecated) classes.push("deprecated")
       classes.push(this.element.fixed ? "fixed" : "not-fixed")
       classes.push(this.element.public ? "visible" : "hidden")
+      classes.push(this.element.selected ? "selected" : "")
 
       return classes.join(" ")
     }
@@ -95,6 +96,10 @@ export default {
         size: "320x125",
         title: Alchemy.t("New Element")
       })
+    },
+
+    focusElement(e) {
+      this.$store.commit("selectElement", this.element.id)
     }
   }
 }

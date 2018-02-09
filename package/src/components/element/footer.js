@@ -10,7 +10,7 @@ export default {
         {{ 'Mandatory' | translate }}
       </p>
 
-      <button :form="elementForm" @click.prevent.stop="save" type="submit" class="button" data-alchemy-button>
+      <button :form="elementForm" @click.prevent="save" type="submit" class="button" data-alchemy-button>
         {{ 'save' | translate }}
       </button>
     </div>
