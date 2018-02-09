@@ -5,6 +5,7 @@
   width: $elements-window-width;
   height: calc(100vh - #{$top-menu-height});
   border-left: $default-border;
+  background-color: $light-gray;
   transition: 200ms ease-in-out;
   transform: translate3d($elements-window-width - $default-border-width, 0, 0);
 
