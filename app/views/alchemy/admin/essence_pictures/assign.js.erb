@@ -6,12 +6,5 @@ $('#<%= @content.dom_id -%>').replaceWith('<%= j(
     options: options_from_params
   )
 ) %>');
-
-<% if @content.siblings.essence_pictures.count > 1 %>
-
-Alchemy.SortableContents('#<%= @content.element.id -%>_contents', '<%= form_authenticity_token %>');
-
-<% end %>
-
 Alchemy.closeCurrentDialog();
 Alchemy.setElementDirty('#element_<%= @content.element.id %>');

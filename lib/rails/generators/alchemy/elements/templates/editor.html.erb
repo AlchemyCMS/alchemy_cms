@@ -1,8 +1,5 @@
 <%- if @contents.any? || @element['picture_gallery'] -%>
 <%%= element_editor_for(element) do |el| -%>
-<%- if @element['picture_gallery'] -%>
-  <%%= render_picture_gallery_editor(element, max_images: nil, crop: true) %>
-<%- end -%>
 <%- @contents.each do |content| -%>
   <%%= el.edit :<%= content["name"] %> %>
 <%- end -%>

@@ -12,10 +12,6 @@ module Alchemy
         expect(helper).to receive(:render_element).with(element, :editor)
         helper.render_editor(element)
       end
-
-      it "should render a picture gallery editor partial" do
-        expect(render_picture_gallery_editor(element)).to match(/class=".+picture_gallery_editor"/)
-      end
     end
 
     describe "#grouped_elements_for_select" do

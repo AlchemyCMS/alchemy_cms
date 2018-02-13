@@ -1,5 +1,7 @@
 ## 4.2.0 (unreleased)
 
+- Removes the element `picture_gallery` feature [#1358](https://github.com/AlchemyCMS/alchemy_cms/pull/1358) by [tvdeyen](https://github.com/tvdeyen)
+  Use nestable elements instead. An upgrader is available.
 - Add a compact nested element style [#1357](https://github.com/AlchemyCMS/alchemy_cms/pull/1357) by [tvdeyen](https://github.com/tvdeyen)
 - Migrating to active_model_serializers ~> 0.10.0 [#1478](https://github.com/AlchemyCMS/alchemy_cms/pull/1478) ([pmashchak](https://github.com/pmashchak))
 
