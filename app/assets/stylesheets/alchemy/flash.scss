@@ -2,7 +2,7 @@ div#flash_notices {
   position: fixed;
   right: 0;
   z-index: 400000;
-  width: 348px;
+  width: 400px;
   top: 0;
 
   .flash.error {
@@ -30,13 +30,21 @@ div.flash {
   z-index: 1000;
   margin: $default-margin $default-margin 2*$default-margin;
   position: relative;
-  min-height: 1.3em;
+  min-height: 2.6em;
   word-break: break-all;
+  transition-property: opacity, transform;
+  transition-duration: 0.4s;
 
   .icon {
     position: absolute;
     top: 10px;
     left: 8px;
+  }
+
+  &.dismissed {
+    display: block;
+    opacity: 0;
+    transform: translate3d(0, -100%, 0);
   }
 
   &.notice {
