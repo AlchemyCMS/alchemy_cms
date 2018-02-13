@@ -171,6 +171,76 @@ module Alchemy
       definition["validate"].present?
     end
 
+    # Essence validation errors
+    #
+    # == Error messages are translated via I18n
+    #
+    # Inside your translation file add translations like:
+    #
+    #   alchemy:
+    #     content_validations:
+    #       name_of_the_element:
+    #         name_of_the_content:
+    #           validation_error_type: Error Message
+    #
+    # NOTE: +validation_error_type+ has to be one of:
+    #
+    #   * blank
+    #   * taken
+    #   * invalid
+    #
+    # === Example:
+    #
+    #   de:
+    #     alchemy:
+    #       content_validations:
+    #         contactform:
+    #           email:
+    #             invalid: 'Die Email hat nicht das richtige Format'
+    #
+    #
+    # == Error message translation fallbacks
+    #
+    # In order to not translate every single content for every element
+    # you can provide default error messages per content name:
+    #
+    # === Example
+    #
+    #   en:
+    #     alchemy:
+    #       content_validations:
+    #         fields:
+    #           email:
+    #             invalid: E-Mail has wrong format
+    #             blank: E-Mail can't be blank
+    #
+    # And even further you can provide general field agnostic error messages:
+    #
+    # === Example
+    #
+    #   en:
+    #     alchemy:
+    #       content_validations:
+    #         errors:
+    #           invalid: %{field} has wrong format
+    #           blank: %{field} can't be blank
+    #
+    def essence_validation_error_messages
+      essence.errors.details.map do |_, errors|
+        errors.map do |error|
+          Alchemy.t(
+            "#{element.name}.#{name}.#{error[:error]}".to_sym,
+            scope: "content_validations",
+            field: nil,
+            default: [
+              "fields.#{name}.#{error[:error]}".to_sym,
+              "errors.#{error[:error]}".to_sym,
+            ],
+          ).strip
+        end
+      end.flatten
+    end
+
     # Returns a string used as dom id on html elements.
     def dom_id
       return "" if essence.nil?

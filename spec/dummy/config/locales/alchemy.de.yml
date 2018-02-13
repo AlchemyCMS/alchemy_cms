@@ -22,3 +22,7 @@ de:
       essence_richtext: Dieser Inhaltstyp (Essenz) stellt formatierbaren Text dar
       essence_select: Dieser Inhaltstyp (Essenz) stellt Werte dar aus denen der Redakteur wählen kann
       essence_text: Dieser Inhaltstyp (Essenz) stellt eine einfache Zeile Text dar
+    content_validations:
+      all_you_can_eat:
+        essence_text:
+          invalid: 'muss mit einem Großbuchstaben beginnen'

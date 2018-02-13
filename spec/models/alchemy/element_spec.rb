@@ -426,46 +426,6 @@ module Alchemy
       end
     end
 
-    describe "#essence_errors" do
-      let(:element) { Element.new(name: "article") }
-      let(:content) { Content.new(name: "headline") }
-      let(:essence) { EssenceText.new(body: "") }
-
-      before do
-        allow(element).to receive(:contents) { [content] }
-        allow(content).to receive(:essence) { essence }
-        allow(content).to receive(:essence_validation_failed?) { true }
-        allow(essence).to receive(:validation_errors) { "Cannot be blank" }
-      end
-
-      it "returns hash with essence errors" do
-        expect(element.essence_errors).to eq({ "headline" => "Cannot be blank" })
-      end
-    end
-
-    describe "#essence_error_messages" do
-      let(:element) { Element.new(name: "article") }
-
-      it "should return the translation with the translated content label" do
-        expect(Alchemy).to receive(:t)
-                             .with("content_names.content", default: "Content")
-                             .and_return("Content")
-        expect(Alchemy).to receive(:t)
-                             .with("content", scope: "content_names.article", default: "Content")
-                             .and_return("Contenido")
-        expect(Alchemy).to receive(:t)
-                             .with("article.content.invalid", {
-                               scope: "content_validations",
-                               default: [:"fields.content.invalid", :"errors.invalid"],
-                               field: "Contenido",
-                             })
-        expect(element).to receive(:essence_errors)
-                             .and_return({ "content" => [:invalid] })
-
-        element.essence_error_messages
-      end
-    end
-
     describe "#display_name_with_preview_text" do
       let(:element) { build_stubbed(:alchemy_element, name: "Foo") }
 

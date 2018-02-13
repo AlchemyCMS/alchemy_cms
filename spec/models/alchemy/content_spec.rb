@@ -517,5 +517,17 @@ module Alchemy
         expect(content.public?).to be false
       end
     end
+
+    describe "#essence_validation_error_messages" do
+      subject { content.essence_validation_error_messages }
+
+      let(:element) { create(:alchemy_element, name: "all_you_can_eat") }
+      let(:content) { create(:alchemy_content, element: element, name: "essence_text") }
+
+      it "returns essence validation error messages" do
+        content.update_essence({ body: "" })
+        is_expected.to eq(["can't be blank", "has to begin with capital letter"])
+      end
+    end
   end
 end

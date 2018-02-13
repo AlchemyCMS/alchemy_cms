@@ -40,16 +40,6 @@ RSpec.describe Alchemy::ContentSerializer do
       expect(subject["label"]).to eq "Text"
     end
 
-    it "has form_field_id key" do
-      is_expected.to have_key("form_field_id")
-      expect(subject["form_field_id"]).to eq "contents_#{content.id}_ingredient"
-    end
-
-    it "has form_field_name key" do
-      is_expected.to have_key("form_field_name")
-      expect(subject["form_field_name"]).to eq "contents[#{content.id}][ingredient]"
-    end
-
     it "has validations key" do
       is_expected.to have_key("validations")
     end
@@ -61,12 +51,12 @@ RSpec.describe Alchemy::ContentSerializer do
     context "with essence validation errors" do
       before do
         expect(content.essence).to receive(:errors) do
-          double(full_messages: ["something bad"])
+          double(details: { body: [{ error: :invalid }] })
         end
       end
 
       it "lists validations errors" do
-        expect(subject["validation_errors"]).to eq(["something bad"])
+        expect(subject["validation_errors"]).to eq(["has wrong format"])
       end
     end
   end

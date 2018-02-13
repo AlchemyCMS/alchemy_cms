@@ -44,7 +44,7 @@ module Alchemy
     end
 
     def validation_errors
-      object.essence.errors.full_messages
+      object.essence_validation_error_messages
     end
 
     def can_manage?

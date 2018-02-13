@@ -24,6 +24,10 @@ en:
       essence_richtext: This content type (Essence) represents richtext
       essence_select: This content type (Essence) represents values the editor can choose from
       essence_text: This content type (Essence) represents a simple line of text
+    content_validations:
+      all_you_can_eat:
+        essence_text:
+          invalid: has to begin with capital letter
     default_content_texts:
       welcome: Welcome to my site
     resource_help_texts:

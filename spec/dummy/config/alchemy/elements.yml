@@ -84,6 +84,9 @@
     - name: essence_text
       type: EssenceText
       hint: true
+      validate:
+        - presence
+        - format: !ruby/regexp '/^[A-Z]/'
     - name: essence_picture
       type: EssencePicture
       hint: true
