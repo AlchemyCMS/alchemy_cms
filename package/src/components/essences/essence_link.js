@@ -1,9 +1,11 @@
 import AddLink from "./add_link"
+import AlchemyContentLabel from "./content_label"
 import RemoveLink from "./remove_link"
 
 export default {
   components: {
     AddLink,
+    AlchemyContentLabel,
     RemoveLink
   },
 
@@ -13,7 +15,7 @@ export default {
 
   template: `
     <div class="essence_link">
-      <label>{{ content.label }}</label>
+      <alchemy-content-label :content="content"></alchemy-content-label>
       <input type="text" :value="essence.link" class="text_with_icon disabled" disabled>
       <span class="linkable_essence_tools">
         <alchemy-add-essence-link

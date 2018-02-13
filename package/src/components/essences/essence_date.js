@@ -1,7 +1,11 @@
 import AlchemyDatePicker from "../datepicker"
+import AlchemyContentLabel from "./content_label"
 
 export default {
-  components: { AlchemyDatePicker },
+  components: {
+    AlchemyContentLabel,
+    AlchemyDatePicker
+  },
 
   props: {
     content: { type: Object, required: true }
@@ -9,7 +13,7 @@ export default {
 
   template: `
     <div class="essence_date">
-      <label>{{ content.label }}</label>
+      <alchemy-content-label :content="content"></alchemy-content-label>
       <alchemy-datepicker
         :current="ingredient"
         :name="content.form_field_name"

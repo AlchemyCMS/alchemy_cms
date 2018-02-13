@@ -1,11 +1,17 @@
+import AlchemyContentLabel from "./content_label"
+
 export default {
+  components: {
+    AlchemyContentLabel
+  },
+
   props: {
     content: { type: Object, required: true }
   },
 
   template: `
     <div class="essence_richtext">
-      <label :for="domId">{{ content.label }}</label>
+      <alchemy-content-label :content="content"></alchemy-content-label>
       <div class="tinymce_container">
         <textarea
           v-model="ingredient"

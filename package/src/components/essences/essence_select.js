@@ -1,11 +1,17 @@
+import AlchemyContentLabel from "./content_label"
+
 export default {
+  components: {
+    AlchemyContentLabel
+  },
+
   props: {
     content: { type: Object, required: true }
   },
 
   template: `
     <div class="essence_select">
-      <label :for="content.form_field_id">{{ content.label }}</label>
+      <alchemy-content-label :content="content"></alchemy-content-label>
       <select class="alchemy_selectbox full_width" v-model="selected" :name="content.form_field_name" :id="content.form_field_id">
         <option v-for="option in options" :value="option.value">
           {{ option.text }}

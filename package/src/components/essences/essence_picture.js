@@ -1,11 +1,17 @@
+import AlchemyContentLabel from "./content_label"
+
 export default {
+  components: {
+    AlchemyContentLabel
+  },
+
   props: {
     content: { type: Object, required: true }
   },
 
   template: `
     <div class="essence_picture">
-      <label>{{ content.label }}</label>
+      <alchemy-content-label :content="content"></alchemy-content-label>
       <div class="picture_thumbnail">
         <span class="picture_tool delete" v-show="picture_id">
           <a @click="removePicture">
@@ -77,21 +83,21 @@ export default {
     },
 
     cropPicture() {
-      let url = Alchemy.routes.crop_admin_essence_picture_path(this.essence.id);
+      let url = Alchemy.routes.crop_admin_essence_picture_path(this.essence.id)
       Alchemy.openDialog(url, {
         size: "1080x615",
-        title: Alchemy.t('Edit Picturemask'),
+        title: Alchemy.t("Edit Picturemask"),
         image_loader: false,
         padding: false
-      });
+      })
     },
 
     editPicture() {
-      let url = Alchemy.routes.edit_admin_essence_picture_path(this.essence.id);
+      let url = Alchemy.routes.edit_admin_essence_picture_path(this.essence.id)
       Alchemy.openDialog(url, {
         size: "380x255",
-        title: Alchemy.t('edit_image_properties')
-      });
+        title: Alchemy.t("edit_image_properties")
+      })
     },
 
     assignPicture() {
