@@ -13,6 +13,8 @@ module Alchemy
       attribute :component_name
       attribute :form_field_id
       attribute :form_field_name
+      attribute :validations
+      attribute :validation_errors
     end
 
     has_one :essence, polymorphic: true
@@ -35,6 +37,14 @@ module Alchemy
 
     def form_field_name
       Alchemy::ContentEditor.new(object).form_field_name
+    end
+
+    def validations
+      object.definition["validate"] || []
+    end
+
+    def validation_errors
+      object.essence.errors.full_messages
     end
 
     def can_manage?

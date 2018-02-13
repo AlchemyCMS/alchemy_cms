@@ -21,9 +21,9 @@ RSpec.describe Alchemy::ContentSerializer do
       "alchemy/essence_text" => {
         "body" => "This is a headline",
         "id" => content.essence_id,
-        "link" => nil
+        "link" => nil,
       },
-      "type" => "alchemy/essence_text"
+      "type" => "alchemy/essence_text",
     })
   end
 
@@ -49,6 +49,26 @@ RSpec.describe Alchemy::ContentSerializer do
       is_expected.to have_key("form_field_name")
       expect(subject["form_field_name"]).to eq "contents[#{content.id}][ingredient]"
     end
+
+    it "has validations key" do
+      is_expected.to have_key("validations")
+    end
+
+    it "has validation_errors key" do
+      is_expected.to have_key("validation_errors")
+    end
+
+    context "with essence validation errors" do
+      before do
+        expect(content.essence).to receive(:errors) do
+          double(full_messages: ["something bad"])
+        end
+      end
+
+      it "lists validations errors" do
+        expect(subject["validation_errors"]).to eq(["something bad"])
+      end
+    end
   end
 
   context "for normal users" do
@@ -60,6 +80,14 @@ RSpec.describe Alchemy::ContentSerializer do
 
     it "has no label key" do
       is_expected.not_to have_key("label")
+    end
+
+    it "has no validations key" do
+      is_expected.not_to have_key("validations")
+    end
+
+    it "has no validation_errors key" do
+      is_expected.not_to have_key("validation_errors")
     end
   end
 end
