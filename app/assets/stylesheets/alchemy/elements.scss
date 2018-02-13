@@ -364,39 +364,27 @@
 
 .edit_images_bottom {
   position: absolute;
+  display: flex;
+  justify-content: space-between;
   left: 0;
   bottom: 0;
   z-index: 0;
-  width: inherit;
-  padding: $default-padding;
-
-  > a, > span.icon {
-    float: left;
-    margin: -1px $default-margin/2;
-    width: 18px;
-    height: 18px;
-  }
+  padding: $default-padding $default-padding/2;
 
   a {
+    margin: 0 $default-padding/2;
+    padding: $default-padding/2;
+    cursor: pointer;
 
     &.linked {
-      position: relative;
       border-radius: $default-border-radius;
       background-color: $linked-color;
-      border: 1px solid $button-border-color;
-      bottom: 1px;
-      margin-right: 2px;
-      width: 20px;
-      height: 18px;
-      margin-left: 0;
-
-      .icon { margin-left: 1px }
     }
-  }
 
-  a.disabled, > span.icon {
-    opacity: 0.3;
-    cursor: default;
+    &.disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
   }
 }
 
