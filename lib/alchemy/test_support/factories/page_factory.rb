@@ -47,6 +47,7 @@ FactoryBot.define do
     trait :layoutpage do
       name { "Footer" }
       parent_id { Alchemy::Page.find_or_create_layout_root_for(Alchemy::Language.current.id).id }
+      layoutpage { true }
       page_layout { "footer" }
     end
 

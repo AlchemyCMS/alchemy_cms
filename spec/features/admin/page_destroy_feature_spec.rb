@@ -26,7 +26,7 @@ module Alchemy
     context 'destroying a layout page' do
       let!(:layout_page) { create(:alchemy_page, :layoutpage) }
 
-      it "deletes page and redirects to page tree" do
+      it "deletes page and redirects to layoutpages list" do
         visit admin_layoutpages_path
 
         page.find("a[href='#{admin_page_path(layout_page.id)}']").click
