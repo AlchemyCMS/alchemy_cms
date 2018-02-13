@@ -1,7 +1,9 @@
+import AlchemyContentError from "./content_error"
 import AlchemyContentLabel from "./content_label"
 
 export default {
   components: {
+    AlchemyContentError,
     AlchemyContentLabel
   },
 
@@ -42,6 +44,7 @@ export default {
           </a>
         </div>
       </div>
+      <alchemy-content-error :content="content"></alchemy-content-error>
     </div>
   `,
 

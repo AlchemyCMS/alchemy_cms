@@ -1,10 +1,12 @@
 import AddLink from "./add_link"
+import AlchemyContentError from "./content_error"
 import AlchemyContentLabel from "./content_label"
 import RemoveLink from "./remove_link"
 
 export default {
   components: {
     AddLink,
+    AlchemyContentError,
     AlchemyContentLabel,
     RemoveLink
   },
@@ -17,6 +19,7 @@ export default {
     <div class="essence_link">
       <alchemy-content-label :content="content"></alchemy-content-label>
       <input type="text" :value="essence.link" class="text_with_icon disabled" disabled>
+      <alchemy-content-error :content="content"></alchemy-content-error>
       <span class="linkable_essence_tools">
         <alchemy-add-essence-link
           :essence="essence"

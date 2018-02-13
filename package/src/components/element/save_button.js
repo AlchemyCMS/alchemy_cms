@@ -30,6 +30,15 @@ export default {
           Alchemy.setElementClean(`#element_${this.element.id}`)
           this.$store.commit("updateElement", responseData.element)
         })
+        .fail((response) => {
+          if (response.status === 422) {
+            const error = response.responseJSON
+            Alchemy.growl(error.message, "warn")
+            this.$store.commit("updateElement", error.element)
+          } else {
+            throw response.statusText
+          }
+        })
         .always(() => {
           Alchemy.Buttons.enable(this.$el.parentElement)
         })

@@ -59,7 +59,10 @@ module Alchemy
           @element.update!(element_params)
           render json: { element: ElementSerializer.new(@element, scope: current_ability) }.to_json
         else
-          render json: { error: Alchemy.t("Validation failed") }.to_json, status: :unprocessable_entity
+          render json: {
+            message: Alchemy.t("Validation failed"),
+            element: ElementSerializer.new(@element, scope: current_ability),
+          }.to_json, status: :unprocessable_entity
         end
       end
 

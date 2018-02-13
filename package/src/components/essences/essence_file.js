@@ -1,4 +1,10 @@
+import AlchemyContentError from "./content_error"
+
 export default {
+  components: {
+    AlchemyContentError
+  },
+
   props: {
     content: { type: Object, required: true }
   },
@@ -27,6 +33,7 @@ export default {
         </div>
         <input type="hidden" :name="content.form_field_name" v-model="attachment_id">
       </div>
+      <alchemy-content-error :content="content"></alchemy-content-error>
     </div>
   `,
 

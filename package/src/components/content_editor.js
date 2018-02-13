@@ -36,6 +36,8 @@ export default {
     cssClasses() {
       let classes = ["content_editor"]
       if (this.content.deprecated) classes.push("deprecated")
+      if (this.content.validation_errors.length)
+        classes.push("validation_failed")
       return classes
     }
   }

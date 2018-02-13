@@ -1,10 +1,12 @@
 import AddLink from "./add_link"
+import AlchemyContentError from "./content_error"
 import AlchemyContentLabel from "./content_label"
 import RemoveLink from "./remove_link"
 
 export default {
   components: {
     AddLink,
+    AlchemyContentError,
     AlchemyContentLabel,
     RemoveLink
   },
@@ -17,6 +19,7 @@ export default {
     <div class="essence_text">
       <alchemy-content-label :content="content"></alchemy-content-label>
       <input type="text" v-model="ingredient" :name="content.form_field_name" :id="content.form_field_id">
+      <alchemy-content-error :content="content"></alchemy-content-error>
       <span class="linkable_essence_tools" v-if="content.settings.linkable">
         <alchemy-add-essence-link
           :essence="essence"

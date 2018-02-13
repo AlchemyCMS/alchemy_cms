@@ -1,7 +1,9 @@
+import AlchemyContentError from "./content_error"
 import AlchemyContentLabel from "./content_label"
 
 export default {
   components: {
+    AlchemyContentError,
     AlchemyContentLabel
   },
 
@@ -19,6 +21,7 @@ export default {
           :id="domId"
           :name="content.form_field_name"></textarea>
       </div>
+      <alchemy-content-error :content="content"></alchemy-content-error>
     </div>
   `,
 

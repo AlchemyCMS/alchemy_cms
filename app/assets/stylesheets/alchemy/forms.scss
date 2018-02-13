@@ -104,12 +104,8 @@ form {
     }
 
     small.error {
-      color: $error_text_color;
-      display: block;
-      margin-left: $form-left-width;
-      line-height: 1.5em;
       clear: both;
-      text-align: right;
+      margin-left: $form-left-width;
       margin-bottom: 0.25em;
     }
 
@@ -178,6 +174,14 @@ form {
       color: $very-dark-gray;
       text-decoration: underline;
     }
+  }
+
+  small.error {
+    color: $error_text_color;
+    display: block;
+    line-height: 1.5em;
+    text-align: right;
+    word-wrap: break-word;
   }
 
   .submit {

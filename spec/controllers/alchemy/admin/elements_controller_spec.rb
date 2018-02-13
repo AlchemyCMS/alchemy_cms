@@ -77,9 +77,9 @@ module Alchemy
 
         it "assigns parent element id to each element" do
           post :order, params: {
-            element_ids: element_ids,
-            parent_element_id: parent.id,
-          }, xhr: true
+                    element_ids: element_ids,
+                    parent_element_id: parent.id,
+                  }, xhr: true
           [element_1, element_2, element_3].each do |element|
             expect(element.reload.parent_element_id).to eq parent.id
           end
@@ -151,7 +151,7 @@ module Alchemy
         render_views
 
         before do
-          clipboard["elements"] = [{"id" => element_in_clipboard.id.to_s, "action" => "cut"}]
+          clipboard["elements"] = [{ "id" => element_in_clipboard.id.to_s, "action" => "cut" }]
         end
 
         it "should create an element from clipboard" do
@@ -203,7 +203,7 @@ module Alchemy
 
       it "updates all contents in element" do
         expect(element).to receive(:update_contents).with(contents_parameters)
-        put :update, params: {id: element.id}, xhr: true
+        put :update, params: { id: element.id }, xhr: true
       end
 
       it "updates the element and responses with json" do
@@ -224,8 +224,9 @@ module Alchemy
           expect(response.media_type).to eq("application/json")
           expect(response.status).to eq(422)
           json = JSON.parse(response.body)
-          expect(json).to have_key("error")
-          expect(json["error"]).to have_content("Validation failed")
+          expect(json).to have_key("message")
+          expect(json["message"]).to have_content("Validation failed")
+          expect(json).to have_key("element")
         end
       end
     end
@@ -243,7 +244,7 @@ module Alchemy
 
     describe "params security" do
       context "contents params" do
-        let(:parameters) { ActionController::Parameters.new(contents: {1 => {ingredient: "Title"}}) }
+        let(:parameters) { ActionController::Parameters.new(contents: { 1 => { ingredient: "Title" } }) }
 
         specify ":contents is required" do
           expect(controller.params).to receive(:fetch).and_return(parameters)
@@ -259,7 +260,7 @@ module Alchemy
       end
 
       context "element params" do
-        let(:parameters) { ActionController::Parameters.new(element: {public: true}) }
+        let(:parameters) { ActionController::Parameters.new(element: { public: true }) }
 
         before do
           expect(controller).to receive(:params).and_return(parameters)
