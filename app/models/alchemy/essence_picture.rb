@@ -36,6 +36,11 @@ module Alchemy
 
     include Alchemy::Picture::Transformations
 
+    # We send picture ids via POST requests and not picture objects
+    def ingredient_setter_method
+      :picture_id=
+    end
+
     # The url to show the picture.
     #
     # Takes all values like +name+ and crop sizes (+crop_from+, +crop_size+ from the build in graphical image cropper)

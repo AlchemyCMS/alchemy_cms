@@ -41,8 +41,6 @@ module Alchemy
       def assign
         @picture = Picture.find_by(id: params[:picture_id])
         @content.essence.picture = @picture
-        @element = @content.element
-
         # We need to update timestamp here because we don't save yet,
         # but the cache needs to be get invalid.
         @content.touch

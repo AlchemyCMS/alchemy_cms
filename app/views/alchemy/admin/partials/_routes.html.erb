@@ -1,6 +1,10 @@
 <script>
   Alchemy.routes = {
 
+    admin_pictures_path: function(id) {
+      return '<%= alchemy.admin_pictures_path(content_id: 'cid') %>'.replace(/cid/, id);
+    },
+
     admin_picture_path: function(id) {
       return '<%= alchemy.admin_picture_path(id: 1) %>'.replace(/1/, id);
     },

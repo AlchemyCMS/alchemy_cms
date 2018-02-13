@@ -1,4 +1,6 @@
 $('#picture_to_assign_<%= @picture.id %> a').attr('href', '#').off('click');
-$('#<%= @content.dom_id -%>').replaceWith('<%= j render(Alchemy::ContentEditor.new(@content)) %>');
+$('[data-content-id="<%= @content.id -%>"] .picture_image img').attr(
+  'src', '<%= j(@content.essence.thumbnail_url) %>'
+);
+$('#<%= @content.form_field_id -%>').val(<%= @picture.id %>).change();
 Alchemy.closeCurrentDialog();
-Alchemy.setElementDirty('#element_<%= @content.element.id %>');
