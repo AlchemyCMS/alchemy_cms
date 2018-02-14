@@ -5,7 +5,8 @@ namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
     'alchemy:upgrade:prepare',
-    'alchemy:upgrade:4.1:run', 'alchemy:upgrade:4.1:todo'
+    'alchemy:upgrade:4.1:run', 'alchemy:upgrade:4.1:todo',
+    'alchemy:upgrade:4.2:run', 'alchemy:upgrade:4.2:todo'
   ] do
     Alchemy::Upgrader.display_todos
   end
@@ -54,6 +55,36 @@ namespace :alchemy do
 
       task :todo do
         Alchemy::Upgrader::FourPointOne.alchemy_4_1_todos
+      end
+    end
+
+    desc 'Upgrade Alchemy to v4.2'
+    task '4.2' => [
+      'alchemy:upgrade:prepare',
+      'alchemy:upgrade:4.2:run',
+      'alchemy:upgrade:4.2:todo'
+    ] do
+      Alchemy::Upgrader.display_todos
+    end
+
+    namespace '4.2' do
+      task run: [
+        'alchemy:upgrade:4.2:convert_picture_galleries',
+        'alchemy:upgrade:4.2:migrate_picture_galleries'
+      ]
+
+      desc 'Convert `picture_gallery` element definitions to `nestable_elements`.'
+      task convert_picture_galleries: [:environment] do
+        Alchemy::Upgrader::FourPointTwo.convert_picture_galleries
+      end
+
+      desc 'Migrate `picture_gallery` elements to `nestable_elements`.'
+      task migrate_picture_galleries: [:environment] do
+        Alchemy::Upgrader::FourPointTwo.migrate_picture_galleries
+      end
+
+      task :todo do
+        Alchemy::Upgrader::FourPointTwo.alchemy_4_2_todos
       end
     end
   end
