@@ -7,6 +7,9 @@ module Alchemy
   module Picture::Transformations
     extend ActiveSupport::Concern
 
+    THUMBNAIL_WIDTH = 160
+    THUMBNAIL_HEIGHT = 120
+
     # Returns the default centered image mask for a given size.
     # If the mask is bigger than the image, the mask is scaled down
     # so the largest possible part of the image is visible.
@@ -37,7 +40,7 @@ module Alchemy
         size = get_base_dimensions
       end
 
-      size = size_when_fitting({width: 111, height: 93}, size)
+      size = size_when_fitting({width: THUMBNAIL_WIDTH, height: THUMBNAIL_HEIGHT}, size)
       "#{size[:width]}x#{size[:height]}"
     end
 

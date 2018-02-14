@@ -148,3 +148,5 @@ $datepicker_header_color: $text-color !default;
 $datepicker_day_bg: $light-gray !default;
 $datepicker_day_border: 1px solid $medium-gray !default;
 $datepicker_day_color: $text-color !default;
+
+$thumbnail-background-color: opacify($default-border-color, 1) !default;

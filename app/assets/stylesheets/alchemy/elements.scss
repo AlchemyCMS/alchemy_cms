@@ -310,7 +310,6 @@
 }
 
 .picture_thumbnail .picture_image {
-  height: 93px;
   overflow: hidden;
 
   img.img_paddingtop {
@@ -391,6 +390,7 @@
   left: 0;
   bottom: 0;
   z-index: 0;
+  width: 100%;
   padding: $default-padding $default-padding/2;
 
   a {
@@ -426,14 +426,9 @@
   }
 
   .picture_thumbnail {
-    width: 121px;
-    height: 125px;
+    width: 160px;
     margin: $default-margin 0;
-
-    .thumbnail_background {
-      width: 111px;
-      height: 93px;
-    }
+    padding-bottom: 28px;
   }
 
   &.validation_failed .picture_thumbnail {
