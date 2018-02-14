@@ -732,6 +732,31 @@ module Alchemy
       end
     end
 
+    describe '#compact?' do
+      subject { element.compact? }
+
+      let(:element) { build(:alchemy_element) }
+
+      before do
+        expect(element).to receive(:definition) { definition }
+      end
+
+      context "definition has 'compact' key with true value" do
+        let(:definition) { {'compact' => true} }
+        it { is_expected.to be(true) }
+      end
+
+      context "definition has 'compact' key with foo value" do
+        let(:definition) { {'compact' => 'foo'} }
+        it { is_expected.to be(false) }
+      end
+
+      context "definition has no 'compact' key" do
+        let(:definition) { {'name' => 'article'} }
+        it { is_expected.to be(false) }
+      end
+    end
+
     describe '#trash!' do
       let(:element) { create(:alchemy_element) }
 

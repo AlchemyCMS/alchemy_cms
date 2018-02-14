@@ -166,9 +166,12 @@
 
   &.dragged {
     border-style: dotted;
-    height: 36px;
+    overflow: hidden;
 
-    * { display: none }
+    &:not(.compact) {
+      height: 36px !important;
+      transition: height 0.2s;
+    }
   }
 
   &.with-contents, &.without-contents.not-nestable {
@@ -736,24 +739,121 @@ textarea.has_tinymce {
   background-color: $medium-gray;
 
   .expanded.element-editor > & {
-    padding: 16px 8px 8px;
+    padding: 8px 4px 4px;
+  }
+
+  .add-nestable-element-button {
+    width: calc(50% - 8px);
+    margin: 4px;
+    text-align: center;
   }
 }
 
 .nested-elements {
+  display: flex;
+  flex-wrap: wrap;
+
+  .element-editor,
+  .droppable_element_placeholder {
+    width: calc(100% - 8px);
+    margin: 4px;
+
+    &.compact {
+      width: calc(50% - 8px);
+    }
+  }
+
+  .element-editor {
+    position: relative;
+
+    &.compact {
+      .element-toolbar {
+        visibility: hidden;
+        position: absolute;
+        height: 35px;
+        padding: 2px 0;
+        opacity: 0;
+        z-index: 1;
+        border-bottom: $default-border;
+        background-color: $light-gray;
+        transition: all $transition-duration;
+      }
+
+      .element-header:hover + .element-toolbar,
+      .element-toolbar:hover {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .element-footer {
+        margin-top: 0;
+        padding-top: 0;
+        border-top: 0;
+
+        .button {
+          padding: $small-button-padding;
+        }
+      }
+
+      .element-title {
+        max-width: 80%;
+      }
+
+      &:not(.folded) .ajax-folder {
+        pointer-events: none;
+
+        i:before {
+          content: fa-content($fa-var-ellipsis-v);
+        }
+      }
+
+      .element_tools {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        margin-left: 0;
+      }
+
+      .element-content {
+        padding: 4px 8px;
+      }
+
+      .button_with_label {
+        margin: 0 4px;
+      }
+
+      .content_editor,
+      .picture_thumbnail {
+        width: 100%;
+      }
+
+      .picture_thumbnail {
+        margin: 0;
+      }
+
+      .thumbnail_background {
+        height: 115px;
+      }
+
+      textarea,
+      input[type="url"],
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        padding: 0.5em;
+        height: auto;
+      }
+    }
+  }
 
   .element-header {
     background-color: transparent;
   }
 
   .element-toolbar {
-    background-color: transparent;
+    width: 100%;
     border-top: 1px solid $medium-gray;
   }
-}
-
-.add-nestable-element-button {
-  margin-top: 0;
 }
 
 .essence_date--label {

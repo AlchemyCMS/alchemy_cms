@@ -21,7 +21,7 @@ button, input[type="submit"], a.button, input.button {
   }
 
   &.small {
-    padding: $default-padding 3*$default-padding;
+    padding: $small-button-padding;
     vertical-align: inherit;
     line-height: 4*$default-padding;
     font-size: inherit;

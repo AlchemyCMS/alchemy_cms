@@ -32,7 +32,8 @@ module Alchemy
       "contents",
       "hint",
       "picture_gallery",
-      "taggable"
+      "taggable",
+      "compact"
     ].freeze
 
     SKIPPED_ATTRIBUTES_ON_COPY = [
@@ -254,6 +255,11 @@ module Alchemy
     # The opposite of folded?
     def expanded?
       !folded?
+    end
+
+    # Defined as compact element?
+    def compact?
+      definition['compact'] == true
     end
 
     # The element's view partial is dependent from its name

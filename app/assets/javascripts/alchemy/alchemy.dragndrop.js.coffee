@@ -25,7 +25,7 @@ $.extend Alchemy,
       opacity: 0.5
       cursor: "move"
       containment: $('#element_area')
-      tolerance: "intersect"
+      tolerance: "pointer"
       update: (event, ui) ->
         # This callback is called twice for both elements, the source and the receiving
         # but, we only want to call ajax callback once on the receiving element.
@@ -63,6 +63,10 @@ $.extend Alchemy,
         $this.sortable('option', 'connectWith', $dropzone)
         $this.sortable('refresh')
         $dropzone.css('minHeight', 36)
+        ui.item.addClass('dragged')
+        if ui.item.hasClass('compact')
+          ui.placeholder.addClass('compact').css
+            height: ui.item.outerHeight()
         Alchemy.Tinymce.remove(ids)
         return
       stop: (event, ui) ->
@@ -70,6 +74,7 @@ $.extend Alchemy,
         name = ui.item.data('element-name')
         $dropzone = $("[data-droppable-elements~='#{name}']")
         $dropzone.css('minHeight', '')
+        ui.item.removeClass('dragged')
         Alchemy.Tinymce.init(ids)
         return
 
