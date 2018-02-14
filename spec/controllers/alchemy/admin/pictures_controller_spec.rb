@@ -365,7 +365,7 @@ module Alchemy
       end
 
       context 'in overlay' do
-        let(:params) { {element_id: :id, size: size} }
+        let(:params) { {content_id: :id, size: size} }
 
         context 'with params[:size] set to medium' do
           let(:size) { 'medium' }

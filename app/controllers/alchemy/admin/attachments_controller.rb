@@ -4,6 +4,7 @@ module Alchemy
   module Admin
     class AttachmentsController < ResourcesController
       include UploaderResponses
+      include ArchiveOverlay
 
       helper 'alchemy/admin/tags'
 
@@ -82,18 +83,6 @@ module Alchemy
           render successful_uploader_response(file: @attachment, status: status)
         else
           render failed_uploader_response(file: @attachment)
-        end
-      end
-
-      def in_overlay?
-        params[:content_id].present?
-      end
-
-      def archive_overlay
-        @content = Content.find_by(id: params[:content_id])
-        respond_to do |format|
-          format.html { render partial: 'archive_overlay' }
-          format.js   { render action:  'archive_overlay' }
         end
       end
 
