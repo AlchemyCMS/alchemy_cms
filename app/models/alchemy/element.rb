@@ -9,6 +9,7 @@
 #  position          :integer
 #  page_id           :integer          not null
 #  public            :boolean          default(TRUE)
+#  fixed             :boolean          default(FALSE)
 #  folded            :boolean          default(FALSE)
 #  unique            :boolean          default(FALSE)
 #  created_at        :datetime         not null
@@ -47,15 +48,15 @@ module Alchemy
       "updater_id"
     ].freeze
 
-    # All Elements that share the same page id, cell id and parent element id are considered a list.
+    # All Elements that share the same page id and parent element id and are fixed or not are considered a list.
     #
-    # If cell id and parent element id are nil (typical case for a simple page),
+    # If parent element id is nil (typical case for a simple page),
     # then all elements on that page are still in one list,
     # because acts_as_list correctly creates this statement:
     #
-    #   WHERE page_id = 1 and cell_id = NULL AND parent_element_id = NULL
+    #   WHERE page_id = 1 and fixed = FALSE AND parent_element_id = NULL
     #
-    acts_as_list scope: [:page_id, :cell_id, :parent_element_id]
+    acts_as_list scope: [:page_id, :fixed, :parent_element_id]
 
     stampable stamper_class_name: Alchemy.user_class_name
 
