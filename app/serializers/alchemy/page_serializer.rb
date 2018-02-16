@@ -16,14 +16,9 @@ module Alchemy
       :status
 
     has_many :elements
-    has_many :cells
 
     def elements
-      if object.has_cells?
-        object.elements.not_in_cell.published
-      else
-        object.elements.published
-      end
+      object.elements.published
     end
   end
 end

@@ -89,15 +89,6 @@ module Alchemy
           allow(element).to receive(:display_name_with_preview_text).and_return('Name with Preview text')
           expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector('option', text: 'Name with Preview text')
         end
-
-        context "when @page can have cells" do
-          before { allow(page).to receive(:can_have_cells?).and_return(true) }
-
-          it "should group the elements in the clipboard by cell" do
-            expect(helper).to receive(:grouped_elements_for_select).and_return({})
-            helper.clipboard_select_tag_options(clipboard_items)
-          end
-        end
       end
 
       context 'with page items' do

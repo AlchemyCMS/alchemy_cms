@@ -395,14 +395,15 @@ module Alchemy
 
       # (internal) Returns options for the clipboard select tag
       def clipboard_select_tag_options(items)
-        if @page.persisted? && @page.can_have_cells?
-          grouped_options_for_select(grouped_elements_for_select(items, :id))
-        else
-          options = items.map do |item|
-            [item.respond_to?(:display_name_with_preview_text) ? item.display_name_with_preview_text : item.name, item.id]
+        options = items.map do |item|
+          if item.respond_to?(:display_name_with_preview_text)
+            name = item.display_name_with_preview_text
+          else
+            name = item.name
           end
-          options_for_select(options)
+          [name, item.id]
         end
+        options_for_select(options)
       end
 
       # Returns the regular expression used for external url validation in link dialog.

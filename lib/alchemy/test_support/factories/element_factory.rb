@@ -6,6 +6,11 @@ FactoryBot.define do
     autogenerate_contents { false }
     association :page, factory: :alchemy_page
 
+    trait :fixed do
+      fixed { true }
+      name { 'right_column' }
+    end
+
     trait :unique do
       unique { true }
       name { 'header' }

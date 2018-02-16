@@ -4,7 +4,7 @@ $(".element-editor[data-element-id='<%= @item.id %>']").remove();
 
 <% if @item.class.to_s == 'Element' -%>
 
-$('#element_area .sortable_cell').sortable('refresh');
+$('#element_area .sortable-elements').sortable('refresh');
 
 <% end -%>
 
