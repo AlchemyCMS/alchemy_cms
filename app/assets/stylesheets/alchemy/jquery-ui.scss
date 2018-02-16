@@ -149,7 +149,6 @@
   background-color: #ededed;
   font-weight: normal;
   color: $text-color;
-  text-shadow: $button-text-shadow;
 }
 
 .ui-state-default a, .ui-state-default a:link, .ui-state-default a:visited {
@@ -335,41 +334,41 @@
 
 .ui-tabs .ui-tabs-nav {
   padding: 4px 8px 0;
-  background: transparent;
+  background: $toolbar-bg-color;
   border-radius: 0;
   border-bottom: $default-border;
   margin: 0;
+  padding: 0;
+  height: $tabs-height;
 }
 
 .ui-tabs .ui-tabs-nav li {
   list-style: none;
   float: left;
   position: relative;
-  height: 28px;
-  top: 1px;
-  margin: 0 .2em 1px 0;
+  height: $tabs-height - $default-border-width;
+  margin: 0;
   border-color: $default-border-color;
-  border-bottom: 0 !important;
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
+  border-width: 0;
+  border-right-width: $default-border-width;
+  border-radius: 0;
   padding: 0;
   white-space: nowrap;
-  background-color: $medium-gray;
+  background-color: transparent;
   font-weight: normal;
 
   &.ui-tabs-active {
     background-color: $light-gray;
-    margin-bottom: 0px;
-    height: $default-form-field-height;
+    height: $tabs-height;
 
     a { cursor: default }
   }
 }
 
 .ui-tabs .ui-tabs-nav li a {
-  float: left;
+  display: block;
   text-decoration: none;
-  padding: 6px 12px 5px;
+  padding: 8px 12px 7px;
 }
 
 .ui-tabs .ui-tabs-nav li.ui-tabs-selected {
@@ -400,41 +399,29 @@
 
 /* UI Tabs Paging */
 
+.ui-tabs li.ui-tabs-paging-prev {
+  border-right-width: 1px;
+}
+
 .ui-tabs li.ui-tabs-paging-next {
   float: right !important;
   padding: 0 !important;
-}
-
-.ui-tabs .ui-tabs-nav .ui-tabs-paging-prev,
-.ui-tabs .ui-tabs-nav .ui-tabs-paging-next {
-  height: 26px;
+  border-right-width: 0;
 }
 
 .ui-tabs .ui-tabs-nav .ui-tabs-paging-prev a,
 .ui-tabs .ui-tabs-nav .ui-tabs-paging-next a {
   display: block;
-  position: relative;
-  top: 1px;
   border: 0;
   z-index: 2;
-  padding: 5px;
-  color: #444;
+  padding: 8px;
+  color: $icon-color;
   text-decoration: none;
-  background: #eee;
   cursor: pointer;
 }
 
-.ui-tabs .ui-tabs-paging-next a:hover,
-.ui-tabs .ui-tabs-paging-next a:focus,
-.ui-tabs .ui-tabs-paging-next a:active,
-.ui-tabs .ui-tabs-paging-prev a:hover,
-.ui-tabs .ui-tabs-paging-prev a:focus,
-.ui-tabs .ui-tabs-paging-prev a:active {
-  background: #eee;
-}
-
 .ui-tabs .ui-tabs-nav .ui-tabs-paging-disabled {
-  visibility: hidden;
+  display: none;
 }
 
 /*
