@@ -14,6 +14,10 @@ module Alchemy
       NonStupidDigestAssets.whitelist += [/^tinymce\//]
     end
 
+    initializer 'alchemy.yaml_whitelist_classes' do
+      Alchemy::YAML_WHITELIST_CLASSES = %w(Symbol Date Regexp)
+    end
+
     # We need to reload each essence class in development mode on every request,
     # so it can register itself as essence relation on Page and Element models
     #
