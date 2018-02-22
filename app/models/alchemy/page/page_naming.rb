@@ -14,15 +14,18 @@ module Alchemy
       validates :name,
         presence: true
       validates :urlname,
-        uniqueness: {scope: [:language_id, :layoutpage], if: 'urlname.present?'},
+        uniqueness: {scope: [:language_id, :layoutpage], if: -> { urlname.present? }},
         exclusion:  {in: RESERVED_URLNAMES},
-        length:     {minimum: 3, if: 'urlname.present?'},
+        length:     {minimum: 3, if: -> { urlname.present? }},
         format:     {with: /\A[:\.\w\-+_\/\?&%;=]*\z/, if: :redirects_to_external?}
       validates :urlname,
         on: :update,
         presence: {if: :redirects_to_external?}
 
-      before_save :set_title, if: 'title.blank?', unless: proc { systempage? || redirects_to_external? }
+      before_save :set_title,
+        unless: -> { systempage? || redirects_to_external? },
+        if: -> { title.blank? }
+
       after_update :update_descendants_urlnames,
         if: :should_update_descendants_urlnames?
 
