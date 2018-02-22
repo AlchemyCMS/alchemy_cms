@@ -18,7 +18,7 @@
 #
 
 module Alchemy
-  class EssenceText < ActiveRecord::Base
+  class EssenceText < BaseRecord
     acts_as_essence
   end
 end

@@ -21,7 +21,7 @@
 #
 
 module Alchemy
-  class Element < ActiveRecord::Base
+  class Element < BaseRecord
     include Alchemy::Logger
     include Alchemy::Touching
     include Alchemy::Hints

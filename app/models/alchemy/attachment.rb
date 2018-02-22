@@ -18,7 +18,7 @@
 #
 
 module Alchemy
-  class Attachment < ActiveRecord::Base
+  class Attachment < BaseRecord
     include Alchemy::Filetypes
     include Alchemy::NameConversions
     include Alchemy::Touching

@@ -37,7 +37,7 @@
 #
 
 module Alchemy
-  class Page < ActiveRecord::Base
+  class Page < BaseRecord
     include Alchemy::Hints
     include Alchemy::Logger
     include Alchemy::Touching

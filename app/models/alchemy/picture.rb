@@ -21,7 +21,7 @@
 #
 
 module Alchemy
-  class Picture < ActiveRecord::Base
+  class Picture < BaseRecord
     CONVERTIBLE_FILE_FORMATS = %w(gif jpg jpeg png).freeze
 
     include Alchemy::NameConversions

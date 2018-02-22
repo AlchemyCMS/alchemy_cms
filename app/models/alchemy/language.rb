@@ -21,7 +21,7 @@
 #
 
 module Alchemy
-  class Language < ActiveRecord::Base
+  class Language < BaseRecord
     belongs_to :site, required: true
     has_many :pages
 
