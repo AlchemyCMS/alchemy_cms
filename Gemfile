@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rails', '~> 5.1.6'
+gem 'rails', '~> 5.2.0'
 
 # Profiling
 gem 'rack-mini-profiler', group: :development, require: false
