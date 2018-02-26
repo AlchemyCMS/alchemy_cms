@@ -1,4 +1,3 @@
-# encoding: utf-8
 require 'thor/shell/color'
 
 module Alchemy

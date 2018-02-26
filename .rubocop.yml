@@ -25,10 +25,6 @@ Style/EmptyLiteral:
 Style/ClassVars:
   Enabled: false
 
-# We need these names for backwards compatability
-Style/PredicateName:
-  Enabled: false
-
 # This has been used for customization
 Style/MutableConstant:
   Enabled: false
@@ -115,9 +111,6 @@ Lint/ShadowedException:
     - 'lib/alchemy/sass_support.rb'
 
 Style/CollectionMethods:
-  Enabled: false
-
-Style/AccessorMethodName:
   Enabled: false
 
 Style/Alias:
@@ -217,9 +210,6 @@ Style/StringLiterals:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylestringliterals
 
-Style/VariableNumber:
-  Enabled: false
-
 Style/WhileUntilModifier:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylewhileuntilmodifier
@@ -279,4 +269,14 @@ Metrics/ParameterLists:
   Enabled: false
 
 Metrics/PerceivedComplexity:
+  Enabled: false
+
+Naming/AccessorMethodName:
+  Enabled: false
+
+# We need these names for backwards compatability
+Naming/PredicateName:
+  Enabled: false
+
+Naming/VariableNumber:
   Enabled: false
