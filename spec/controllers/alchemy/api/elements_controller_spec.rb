@@ -85,6 +85,24 @@ module Alchemy
           expect(result['elements'].size).to eq(Alchemy::Element.count)
         end
       end
+
+      context 'as author' do
+        before do
+          authorize_user(build(:alchemy_dummy_user, :as_author))
+        end
+
+        it "returns all elements" do
+          get :index, params: {format: :json}
+
+          expect(response.status).to eq(200)
+          expect(response.content_type).to eq('application/json')
+
+          result = JSON.parse(response.body)
+
+          expect(result).to have_key('elements')
+          expect(result['elements'].size).to eq(Alchemy::Element.count)
+        end
+      end
     end
 
     describe '#show' do
