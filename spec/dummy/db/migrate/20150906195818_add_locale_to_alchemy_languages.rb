@@ -1,1 +1,0 @@
-../../../../db/migrate/20150906195818_add_locale_to_alchemy_languages.rb
