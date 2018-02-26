@@ -136,7 +136,7 @@ describe "Resources" do
 
   context "with event that acts_as_taggable" do
     around do |example|
-      Event.class_eval { acts_as_taggable }
+      Event.class_eval { include Alchemy::Taggable }
       example.run
       reload_event_class
     end

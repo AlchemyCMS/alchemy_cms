@@ -40,6 +40,7 @@ module Alchemy
   class Page < BaseRecord
     include Alchemy::Hints
     include Alchemy::Logger
+    include Alchemy::Taggable
     include Alchemy::Touching
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
@@ -82,7 +83,6 @@ module Alchemy
       :layoutpage
     ]
 
-    acts_as_taggable
     acts_as_nested_set(dependent: :destroy)
 
     stampable stamper_class_name: Alchemy.user_class_name

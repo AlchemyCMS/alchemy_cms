@@ -21,9 +21,8 @@ module Alchemy
   class Attachment < BaseRecord
     include Alchemy::Filetypes
     include Alchemy::NameConversions
+    include Alchemy::Taggable
     include Alchemy::Touching
-
-    acts_as_taggable
 
     dragonfly_accessor :file, app: :alchemy_attachments do
       after_assign { |f| write_attribute(:file_mime_type, f.mime_type) }
