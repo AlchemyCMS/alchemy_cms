@@ -129,7 +129,7 @@ module Alchemy
       rescue NameError
         false
       end
-    end # end class methods
+    end
 
     # Instance Methods
 
