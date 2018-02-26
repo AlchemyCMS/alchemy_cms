@@ -37,7 +37,7 @@
 #
 
 module Alchemy
-  class Page < ActiveRecord::Base
+  class Page < BaseRecord
     include Alchemy::Hints
     include Alchemy::Logger
     include Alchemy::Touching
@@ -123,7 +123,7 @@ module Alchemy
       unless: :systempage?
 
     after_update :create_legacy_url,
-      if: :urlname_changed?,
+      if: :should_create_legacy_url?,
       unless: :redirects_to_external?
 
     # Concerns
@@ -483,9 +483,22 @@ module Alchemy
       self.language_code = language.code
     end
 
+    def should_create_legacy_url?
+      if active_record_5_1?
+        saved_change_to_urlname?
+      else
+        urlname_changed?
+      end
+    end
+
     # Stores the old urlname in a LegacyPageUrl
     def create_legacy_url
-      legacy_urls.find_or_create_by(urlname: urlname_was)
+      if active_record_5_1?
+        former_urlname = urlname_before_last_save
+      else
+        former_urlname = urlname_was
+      end
+      legacy_urls.find_or_create_by(urlname: former_urlname)
     end
 
     def set_published_at

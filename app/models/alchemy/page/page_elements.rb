@@ -24,8 +24,12 @@ module Alchemy
         join_table: ElementToPage.table_name
 
       after_create :autogenerate_elements, unless: -> { systempage? || do_not_autogenerate }
-      after_update :trash_not_allowed_elements!, if: :page_layout_changed?
-      after_update :autogenerate_elements, if: :page_layout_changed?
+
+      after_update :trash_not_allowed_elements!,
+        if: :has_page_layout_changed?
+
+      after_update :autogenerate_elements,
+        if: :has_page_layout_changed?
     end
 
     module ClassMethods
@@ -274,6 +278,14 @@ module Alchemy
         element_names_from_definition
       ])
       not_allowed_elements.to_a.map(&:trash!)
+    end
+
+    def has_page_layout_changed?
+      if active_record_5_1?
+        saved_change_to_page_layout?
+      else
+        page_layout_changed?
+      end
     end
 
     # Deletes unique and already present definitions from @_element_definitions.

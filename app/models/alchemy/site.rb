@@ -15,7 +15,7 @@
 #
 
 module Alchemy
-  class Site < ActiveRecord::Base
+  class Site < BaseRecord
     # validations
     validates_presence_of :host
     validates_uniqueness_of :host

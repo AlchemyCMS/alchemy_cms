@@ -24,7 +24,7 @@
 # Views for cells are inside the +app/views/cells+ folder in your project.
 #
 module Alchemy
-  class Cell < ActiveRecord::Base
+  class Cell < BaseRecord
     include Alchemy::Logger
 
     belongs_to :page, required: true

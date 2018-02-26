@@ -24,7 +24,7 @@
 #
 
 module Alchemy
-  class EssencePicture < ActiveRecord::Base
+  class EssencePicture < BaseRecord
     acts_as_essence ingredient_column: 'picture'
 
     belongs_to :picture, required: false

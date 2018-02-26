@@ -17,7 +17,7 @@
 #
 
 module Alchemy
-  class Content < ActiveRecord::Base
+  class Content < BaseRecord
     include Alchemy::Logger
     include Alchemy::Touching
     include Alchemy::Hints

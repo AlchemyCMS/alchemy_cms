@@ -13,7 +13,7 @@
 #
 
 module Alchemy
-  class EssenceDate < ActiveRecord::Base
+  class EssenceDate < BaseRecord
     acts_as_essence ingredient_column: 'date'
 
     # Returns self.date for the Element#preview_text method.
