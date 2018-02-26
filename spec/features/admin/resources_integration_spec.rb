@@ -62,7 +62,7 @@ describe "Resources" do
       before do
         visit '/admin/events/new'
         fill_in 'event_name', with: 'My second event'
-        fill_in 'event_starts_at', with: DateTime.new(2012, 03, 03, 20, 00)
+        fill_in 'event_starts_at', with: Time.local(2012, 03, 03, 20, 00)
         select location.name, from: 'Location'
         click_on 'Save'
       end
@@ -180,16 +180,16 @@ describe "Resources" do
           %w(starting_today future)
         end
 
-        scope :starting_today, -> { where(starts_at: DateTime.current.at_midnight..DateTime.tomorrow.at_midnight) }
-        scope :future, -> { where("starts_at > ?", DateTime.tomorrow.at_midnight) }
+        scope :starting_today, -> { where(starts_at: Time.current.at_midnight..Date.tomorrow.at_midnight) }
+        scope :future, -> { where("starts_at > ?", Date.tomorrow.at_midnight) }
       end
       example.run
       reload_event_class
     end
 
-    let!(:past_event) { create(:event, name: "Horse Expo", starts_at: DateTime.current - 100.years) }
-    let!(:today_event) { create(:event, name: "Car Expo", starts_at: DateTime.current.at_noon) }
-    let!(:future_event) { create(:event, name: "Hovercar Expo", starts_at: DateTime.current + 30.years) }
+    let!(:past_event) { create(:event, name: "Horse Expo", starts_at: Time.current - 100.years) }
+    let!(:today_event) { create(:event, name: "Car Expo", starts_at: Time.current.at_noon) }
+    let!(:future_event) { create(:event, name: "Hovercar Expo", starts_at: Time.current + 30.years) }
 
     it "lets the user filter by the defined scopes", aggregate_failures: true do
       visit "/admin/events"
