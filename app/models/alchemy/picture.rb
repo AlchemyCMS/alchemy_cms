@@ -85,7 +85,7 @@ module Alchemy
     }
 
     scope :without_tag, -> {
-      where("#{table_name}.cached_tag_list IS NULL OR #{table_name}.cached_tag_list = ''")
+      left_outer_joins(:taggings).where(gutentag_taggings: {id: nil})
     }
 
     after_update :touch_contents

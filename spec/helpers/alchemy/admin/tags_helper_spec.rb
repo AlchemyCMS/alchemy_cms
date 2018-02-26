@@ -2,8 +2,8 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::TagsHelper do
-    let(:tag)  { mock_model(ActsAsTaggableOn::Tag, name: 'foo', count: 1) }
-    let(:tag2) { mock_model(ActsAsTaggableOn::Tag, name: 'abc', count: 1) }
+    let(:tag)  { mock_model(Gutentag::Tag, name: 'foo', count: 1) }
+    let(:tag2) { mock_model(Gutentag::Tag, name: 'abc', count: 1) }
 
     let(:params) do
       ActionController::Parameters.new(tagged_with: 'foo')
@@ -38,7 +38,7 @@ module Alchemy
         end
 
         context "with lowercase and uppercase tag names mixed" do
-          let(:tag) { mock_model(ActsAsTaggableOn::Tag, name: 'Foo', count: 1) }
+          let(:tag) { mock_model(Gutentag::Tag, name: 'Foo', count: 1) }
 
           it "tags are sorted alphabetically correctly" do
             is_expected.to match(/li.+name="#{tag2.name}.+li.+name="#{tag.name}/)

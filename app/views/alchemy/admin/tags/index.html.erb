@@ -18,7 +18,7 @@
 <div id="archive_all" class="resources-table-wrapper">
   <h1 class="resources-header">
     <%= @tags.total_count %>
-    <%= ActsAsTaggableOn::Tag.model_name.human(count: @tags.total_count) %>
+    <%= Gutentag::Tag.model_name.human(count: @tags.total_count) %>
   </h1>
   <% if @tags.any? %>
 
@@ -27,7 +27,7 @@
       <tr>
         <th class="icon"></th>
         <th class="name"><%= sort_link(@query, :name, hide_indicator: true) %></th>
-        <th class="count"><%= ActsAsTaggableOn::Tag.human_attribute_name(:taggings_types) %></th>
+        <th class="count"><%= Gutentag::Tag.human_attribute_name(:taggings_types) %></th>
         <th class="count"><%= sort_link(@query, :taggings_count, hide_indicator: true) %></th>
         <th class="tools"></th>
       </tr>

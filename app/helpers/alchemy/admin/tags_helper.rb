@@ -16,7 +16,7 @@ module Alchemy
         sorted_tags_from(class_name: class_name).map do |tag|
           content_tag('li', name: tag.name, class: filtered_by_tag?(tag) ? 'active' : nil) do
             link_to(
-              "#{tag.name} (#{tag.count})",
+              "#{tag.name} (#{tag.taggings_count})",
               url_for(
                 search_filter_params.except(:page, :tagged_with).merge(
                   tagged_with: tags_for_filter(current: tag).presence
@@ -36,7 +36,7 @@ module Alchemy
 
       # Returns the tags from params suitable for the tags filter.
       #
-      # @param current [ActsAsTaggableOn::Tag] - The current tag that will be added or removed if already present
+      # @param current [Gutentag::Tag] - The current tag that will be added or removed if already present
       # @returns [String]
       def tags_for_filter(current:)
         if filtered_by_tag?(current)

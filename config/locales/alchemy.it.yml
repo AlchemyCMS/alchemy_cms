@@ -807,7 +807,7 @@ it:
   activerecord:
 
     models:
-      acts_as_taggable_on/tag:
+      gutentag/tag:
         one: Tag
         other: Tag
 
@@ -841,7 +841,7 @@ it:
 
     attributes:
 
-      acts_as_taggable_on/tag:
+      gutentag/tag:
         taggings_types: Usato per
         taggings_count: Numero utilizzi
 
