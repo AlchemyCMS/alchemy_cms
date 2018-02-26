@@ -92,7 +92,7 @@ module Alchemy
         else
           flash[:warn] = Alchemy.t("Could not delete Pictures")
         end
-      rescue => e
+      rescue StandardError => e
         flash[:error] = e.message
       ensure
         redirect_to_index
@@ -102,7 +102,7 @@ module Alchemy
         name = @picture.name
         @picture.destroy
         flash[:notice] = Alchemy.t("Picture deleted successfully", name: name)
-      rescue => e
+      rescue StandardError => e
         flash[:error] = e.message
       ensure
         redirect_to_index
