@@ -1,1 +1,0 @@
-../../../../db/migrate/20130828121054_remove_do_not_index_from_alchemy_essence_texts.rb
