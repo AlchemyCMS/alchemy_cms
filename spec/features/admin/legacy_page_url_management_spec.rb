@@ -1,4 +1,3 @@
-# encoding: utf-8
 require 'spec_helper'
 
 describe 'Legacy page url management', type: :feature, js: true do
