@@ -20,6 +20,7 @@
   $margin: $button-margin,
   $color: $button-text-color) {
   display: inline-block;
+  font-family: $default-font-family;
   font-size: 12px;
   font-weight: bold;
   padding: $padding;
