@@ -116,7 +116,7 @@
   height: 20px;
   vertical-align: middle;
   font-family: 'Font Awesome 5 Free';
-  font-size: 12px;
+  font-size: $default-font-size;
   font-style: normal;
   font-weight: 900;
   color: $icon-color;
@@ -130,7 +130,7 @@
 
 .xdsoft_datetimepicker .xdsoft_prev,
 .xdsoft_datetimepicker .xdsoft_next {
-  font-size: 16px;
+  font-size: 1.5em;
   font-weight: 900;
 }
 
@@ -150,7 +150,7 @@
 
   &:before {
     content: fa-content($fa-var-calendar-check);
-    font-size: 16px;
+    font-size: 1.25em;
   }
 }
 
@@ -230,7 +230,7 @@
   background: #f5f5f5;
   border-top: 1px solid #ddd;
   color: #666;
-  font-size: 12px;
+  font-size: $default-font-size;
   text-align: center;
   border-collapse: collapse;
   cursor: pointer;
@@ -256,7 +256,7 @@
   z-index: 9999;
   margin: 0;
   padding: 5px 3px;
-  font-size: 14px;
+  font-size: $default-font-size;
   line-height: 20px;
   font-weight: bold;
   background-color: #fff;
@@ -330,7 +330,7 @@
   background: $datepicker_day_bg;
   border: $datepicker_day_border;
   color: $datepicker_day_color;
-  font-size: 12px;
+  font-size: $default-font-size;
   text-align: right;
   vertical-align: middle;
   padding: 0;
@@ -415,7 +415,7 @@
 
 .xdsoft_datetimepicker .xdsoft_copyright {
   color: #ccc !important;
-  font-size: 10px;
+  font-size: $small-font-size;
   clear: both;
   float: none;
   margin-left: 8px;
@@ -459,12 +459,12 @@
   margin-top: 5px;
   width: 100%;
   color: #454551;
-  font-size: 13px;
+  font-size: $default-font-size;
 }
 
 .xdsoft_datetimepicker .blue-gradient-button {
   font-family: "museo-sans", "Book Antiqua", sans-serif;
-  font-size: 12px;
+  font-size: $default-font-size;
   font-weight: 300;
   color: #82878c;
   height: 28px;

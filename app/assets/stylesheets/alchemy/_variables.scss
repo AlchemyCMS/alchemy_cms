@@ -20,7 +20,9 @@ $body-background-color: $light-gray !default;
 
 $default-font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif !default;
 $mono-font-family: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace !default;
-$default-font-size: 12px !default;
+$base-font-size: 12px !default;
+$default-font-size: 1em !default;
+$small-font-size: 0.9em !default;
 $default-font-style: $default-font-size $default-font-family !default;
 
 $dialog-header-height: 36px !default;
@@ -49,9 +51,9 @@ $form-field-border-width: $default-border-width !default;
 $form-field-border-style: $default-border-style !default;
 $form-field-border-color: $default-border-color $default-border-color $border-inset-color $border-inset-color !default;
 $form-field-box-shadow: inset 0px 0 1px $medium-gray !default;
-$form-field-padding: 1px 2*$default-padding !default;
+$form-field-padding: 0.5em 0.75em !default;
 $form-field-font-size: $default-font-size !default;
-$form-field-line-height: $default-font-size !default;
+$form-field-line-height: 1.25 !default;
 $form-field-text-color: $text-color !default;
 $form-field-disabled-text-color: #888 !default;
 $form-field-disabled-bg-color: rgba($white, 0.5) !default;

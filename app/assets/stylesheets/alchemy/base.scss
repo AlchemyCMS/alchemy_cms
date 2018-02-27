@@ -1,6 +1,7 @@
 html {
   box-sizing: border-box;
   height: 100%;
+  font-size: $base-font-size;
 
   &.turbolinks-progress-bar::before,
   .turbolinks-progress-bar {

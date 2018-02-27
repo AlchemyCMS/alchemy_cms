@@ -337,7 +337,7 @@ div#filter_bar {
   vertical-align: middle;
   color: $text-color;
   pointer-events: none;
-  font-size: 10px;
+  font-size: $small-font-size;
 }
 
 .tags .list .tag {
