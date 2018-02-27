@@ -18,10 +18,10 @@ $linked-color: $orange !default;
 
 $body-background-color: $light-gray !default;
 
-$default-font-face: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif !default;
-$mono-font-face: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace !default;
+$default-font-family: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif !default;
+$mono-font-family: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace !default;
 $default-font-size: 12px !default;
-$default-font-style: $default-font-size $default-font-face !default;
+$default-font-style: $default-font-size $default-font-family !default;
 
 $dialog-header-height: 36px !default;
 $dialog-header-color: $blue !default;
