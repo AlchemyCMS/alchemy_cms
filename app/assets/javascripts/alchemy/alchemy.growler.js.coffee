@@ -11,16 +11,14 @@ Alchemy.Growler =
     Alchemy.Growler.fade()
 
   fade: ->
-    $(".flash.notice, .flash.warning, .flash.warn, .flash.alert", "#flash_notices").delay(5000).hide "drop",
-      direction: "up"
-    , 400, ->
-      $(this).remove()
+    $(".flash:not(.error)", "#flash_notices").delay(5000).queue(-> Alchemy.Growler.dismiss(this))
+    $(".flash", "#flash_notices").click((e) => @dismiss(e.currentTarget))
+    return
 
-    $(".flash.error", "#flash_notices").click ->
-      $(this).hide "drop",
-        direction: "up"
-      , 400, ->
-        $(this).remove()
+  dismiss: (element) ->
+    $(element).on 'transitionend', => $(element).remove()
+    $(element).addClass('dismissed')
+    return
 
 Alchemy.growl = (message, style = "notice") ->
   Alchemy.Growler.build message, style

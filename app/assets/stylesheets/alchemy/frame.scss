@@ -88,6 +88,15 @@ div#overlay_text_box {
     @extend .locked_page;
     cursor: default;
     border-bottom-color: $toolbar-bg-color;
+
+    .hint-bubble {
+      left: -40px;
+      transform: none;
+
+      &:before {
+        left: 47px;
+      }
+    }
   }
 
   .page_name {

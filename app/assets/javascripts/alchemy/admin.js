@@ -4,7 +4,6 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery-ui/draggable
-//= require jquery-ui/effect-drop
 //= require jquery-ui/effect-fade
 //= require jquery-ui/sortable
 //= require jquery-ui/tabs

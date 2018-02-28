@@ -1,14 +1,22 @@
 #alchemy_elements_window {
   position: absolute;
   right: 0;
-  top: 73px;
-  width: 400px;
-  height: auto;
+  top: $top-menu-height;
+  z-index: 20;
+  width: $elements-window-width;
+  height: calc(100vh - #{$top-menu-height});
   border-left: $default-border;
+  background-color: $light-gray;
   transition: 200ms ease-in-out;
+  transform: translate3d($elements-window-width - $default-border-width, 0, 0);
+
+  .elements-window-visible & {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 #element_area {
+  height: calc(100vh - #{$top-menu-height + $toolbar-height});
   overflow-x: hidden;
   overflow-y: auto;
 
@@ -290,7 +298,7 @@
   background-color: $medium-gray;
   padding: 1px;
 
-  .essence_picture_editor {
+  .essence_picture {
     margin: 1px;
     float: left;
     height: 126px;
@@ -358,43 +366,31 @@
 
 .edit_images_bottom {
   position: absolute;
+  display: flex;
+  justify-content: space-between;
   left: 0;
   bottom: 0;
   z-index: 0;
-  width: inherit;
-  padding: $default-padding;
-
-  > a, > span.icon {
-    float: left;
-    margin: -1px $default-margin/2;
-    width: 18px;
-    height: 18px;
-  }
+  padding: $default-padding $default-padding/2;
 
   a {
+    margin: 0 $default-padding/2;
+    padding: $default-padding/2;
+    cursor: pointer;
 
     &.linked {
-      position: relative;
       border-radius: $default-border-radius;
       background-color: $linked-color;
-      border: 1px solid $button-border-color;
-      bottom: 1px;
-      margin-right: 2px;
-      width: 20px;
-      height: 18px;
-      margin-left: 0;
-
-      .icon { margin-left: 1px }
     }
-  }
 
-  a.disabled, > span.icon {
-    opacity: 0.3;
-    cursor: default;
+    &.disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
   }
 }
 
-.essence_picture_editor {
+.essence_picture {
   position: relative;
 
   .picture_tool_delete {
@@ -640,7 +636,7 @@ select.long {
     }
   }
 
-  &.essence_picture_editor {
+  &.essence_picture {
     float: none;
     height: auto;
     display: inline-block;

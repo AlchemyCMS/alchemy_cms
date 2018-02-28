@@ -15,6 +15,7 @@ $.extend Alchemy,
       $datepicker_inputs.each ->
         type = $(this).data('datepicker-type')
         options =
+          scrollInput: false
           format: Alchemy.t("formats.#{type}")
           timepicker: /time/.test(type)
           datepicker: /date/.test(type)

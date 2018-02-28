@@ -13,16 +13,12 @@ Alchemy.PreviewWindow =
     $('body').append($iframe)
     @currentWindow = $iframe
     @_bindReloadButton()
-    @resize()
 
-  resize: ->
-    width = @_calculateWidth()
-    height = $(window).height() - @HEIGHT
+  resize: (width) ->
     width = @MIN_WIDTH if width < @MIN_WIDTH
     @currentWidth = width
     @currentWindow.css
       width: width
-      height: height
 
   refresh: (callback) ->
     $iframe = $('#alchemy_preview_window')
@@ -52,12 +48,6 @@ Alchemy.PreviewWindow =
     $reload.click (e) =>
       e.preventDefault()
       @refresh()
-
-  _calculateWidth: ->
-    width = $(window).width() - $('#left_menu').width()
-    unless Alchemy.ElementsWindow.hidden
-      width -= $('#alchemy_elements_window').width()
-    return width
 
 Alchemy.reloadPreview = ->
   Alchemy.PreviewWindow.refresh()

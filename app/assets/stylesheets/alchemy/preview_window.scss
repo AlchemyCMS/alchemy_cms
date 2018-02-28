@@ -2,8 +2,8 @@
   position: absolute;
   left: $main-menu-width;
   top: 75px;
-  width: auto;
-  height: auto;
+  width: calc(100vw - #{$main-menu-width - $default-border-width});
+  height: calc(100vh - #{$top-menu-height});
   border: 0 none;
   background: #fff;
   border-right: $default-border;
@@ -11,5 +11,10 @@
 
   .collapsed-menu & {
     left: $collapsed-main-menu-width;
+    width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width});
+  }
+
+  .collapsed-menu.elements-window-visible & {
+    width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-width});
   }
 }

@@ -178,7 +178,12 @@
       Alchemy.ElementEditors.init();
       Alchemy.SelectBox('.element-editor');
       Alchemy.Tinymce.init(<%= @page.richtext_contents_ids.to_json %>);
-      $('#cells').tabs().tabs('paging', { follow: true, followOnSelect: true } );
+      $('#cells').tabs().tabs('paging', {
+        follow: true,
+        followOnSelect: true,
+        prevButton: '<i class="fas fa-angle-double-left"></i>',
+        nextButton: '<i class="fas fa-angle-double-right"></i>'
+      });
       Alchemy.ElementDirtyObserver('#element_area');
       if (window.location.hash) {
         $(window.location.hash).trigger('FocusElementEditor.Alchemy');
@@ -195,17 +200,13 @@
       $('#top_menu').css('z-index', 30);
     });
 
-    $('select#preview_size').on('change', function(e) {
+    $('select#preview_size').on('change', function() {
       var width = this.value;
-      if (this.value === 'auto') {
-        width = Alchemy.PreviewWindow.currentWidth;
+      if (width === 'auto') {
+        Alchemy.PreviewWindow.currentWindow.css('width', '');
+      } else {
+        Alchemy.PreviewWindow.resize(width);
       }
-      Alchemy.PreviewWindow.currentWindow.css('width', width);
-    });
-
-    $(window).resize(function() {
-      Alchemy.PreviewWindow.resize();
-      Alchemy.ElementsWindow.resize();
     });
   });
 
