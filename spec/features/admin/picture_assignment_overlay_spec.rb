@@ -21,7 +21,7 @@ RSpec.feature "Picture assignment overlay" do
 
       within ".alchemy-dialog.modal" do
         # We expect to see both pictures
-        expect(page).to have_selector("#overlay_picture_list a img", count: 2)
+        expect(page).to have_selector("#overlay_picture_list a img", count: 2, wait: 10)
 
         # Click on a tag to filter the pictures
         within ".tag-list" do
