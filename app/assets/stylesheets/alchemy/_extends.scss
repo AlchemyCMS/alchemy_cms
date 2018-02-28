@@ -30,19 +30,19 @@
 
 %default-input-style {
   border-radius: $default-border-radius;
-  box-shadow: inset 0px 1px 1px $medium-gray;
+  box-shadow: $form-field-box-shadow;
   font: $default-font-style;
-  padding: 1px 2*$default-padding;
-  margin: $default-form-field-margin;
-  background: rgba(#fff, 0.9);
-  border-top: 1px solid $default-border-color;
-  border-left: 1px solid $default-border-color;
-  border-bottom: 1px solid $border-inset-color;
-  border-right: 1px solid $border-inset-color;
+  color: $form-field-text-color;
+  padding: $form-field-padding;
+  margin: $form-field-margin;
+  background: $form-field-background-color;
+  border-width: $form-field-border-width;
+  border-style: $form-field-border-style;
+  border-color: $form-field-border-color;
   width: 100%;
-  font-size: 12px;
-  line-height: 12px;
-  height: $default-form-field-height;
+  font-size: $form-field-font-size;
+  line-height: $form-field-line-height;
+  height: $form-field-height;
   transition-property: box-shadow, background-color, border;
   transition-duration: 0.25s;
   transition-timing-function: ease-in-out;
@@ -52,8 +52,8 @@
   }
 
   &[disabled], .disabled {
-    color: #888;
-    background-color: rgba(#fff, 0.5);
+    color: $form-field-disabled-text-color;
+    background-color: $form-field-disabled-bg-color;
     cursor: not-allowed;
   }
 }

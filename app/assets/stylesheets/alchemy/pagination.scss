@@ -1,12 +1,12 @@
 .pagination {
   background: $light_gray;
-  color: $text-color;
   position: fixed;
   bottom: 0;
   right: 0;
   width: 100%;
   left: 0px;
   height: 52px;
+  line-height: 35px;
   padding: 2*$default-padding;
   padding-left: $main-menu-width + 10px;
   text-align: left;
@@ -15,8 +15,9 @@
 
   a, span, em {
     font-size: $default-font-size;
-    line-height: 25px;
-    padding: $default-padding;
+    font-weight: bold;
+    color: $icon-color;
+    padding: $default-padding 2*$default-padding;
   }
 
   a:hover {
@@ -27,11 +28,11 @@
 
   span a { padding: 0 }
 
-  .button { padding: 0px 8px }
+  .page { padding: 0px 8px }
 
   .current {
-    color: $text-color;
-    border: $default-border;
+    color: $blue;
+    border: 1px solid $blue;
     text-shadow: 0px 1px 1px #fff;
     cursor: default;
     border-radius: $default-border-radius;
@@ -54,6 +55,10 @@
     border: none;
     background: transparent;
     cursor: default;
+  }
+
+  .icon {
+    color: inherit;
   }
 }
 

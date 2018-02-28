@@ -10,5 +10,5 @@
 <% if page.current? -%>
 <span class="page current"><%= page -%></span>
 <% else -%>
-<%= link_to page, url, opts = {remote: remote, rel: page.next? ? 'next' : page.prev? ? 'prev' : nil, class: 'button'} -%>
+<%= link_to page, url, opts = {remote: remote, rel: page.next? ? 'next' : page.prev? ? 'prev' : nil, class: 'page'} -%>
 <% end -%>

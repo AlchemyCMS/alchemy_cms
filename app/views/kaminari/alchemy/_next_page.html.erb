@@ -7,7 +7,9 @@
     remote:        data-remote
 -%>
 <% if current_page.last? -%>
-<span class="next_page disabled">&rsaquo;</span>
+  <span class="next_page disabled"><i class="icon fas fa-angle-right"></i></span>
 <% else -%>
-<%= link_to '&rsaquo;'.html_safe, url, rel: 'next', remote: remote, title: t('views.pagination.next_page'), class: 'next_page button' -%>
+  <%= link_to url, rel: 'next', remote: remote, title: t('views.pagination.next_page'), class: 'next_page' do %>
+    <i class="icon fas fa-angle-right"></i>
+  <% end %>
 <% end -%>

@@ -1,93 +1,141 @@
-$text-color: rgba(39, 47, 69, 0.8);
-$icon-color: rgba(51, 59, 81, 0.75);
-$muted-text-color: rgba(0, 0, 0, 0.5);
-$light-blue: #cddce5; // #c6dbe7
-$blue: darken($light-blue, 15%);
+$light-blue: #cddce5;
 $very-light-blue: lighten($light-blue, 12%);
-$light-gray: #ededed;
-$medium-gray: #e3e3e3;
+$blue: #2d5a8d;
+$light-gray: #f7f7f7;
+$medium-gray: #efefef;
 $dark-gray: #666666;
+$dark-gray-blue: rgb(51, 59, 81);
 $light_yellow: #fbfbd8;
-$linked-color: #ffd77a;
-$white: #f2f2f2;
+$orange: #ffd77a;
+$white: #fff;
 
-$default-font-face: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif;
-$mono-font-face: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace;
-$default-font-size: 12px;
-$default-font-style: $default-font-size $default-font-face;
+$text-color: rgba($dark-gray-blue, 0.8) !default;
+$muted-text-color: rgba($dark-gray-blue, 0.5) !default;
+$icon-color: rgba($dark-gray-blue, 0.75) !default;
+$linked-color: $orange !default;
 
-$dialog-header-height: 36px;
-$header-color: $light-blue;
-$header-text-color: $text-color;
-$header-font-size: $default-font-size;
+$body-background-color: $light-gray !default
 
-$default-padding: 4px;
-$default-margin: $default-padding;
+$default-font-face: "Lucida Grande", "Lucida Sans Unicode", "Lucida Sans", Verdana, Tahoma, sans-serif !default;
+$mono-font-face: Menlo, Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal, monospace !default;
+$default-font-size: 12px !default;
+$default-font-style: $default-font-size $default-font-face !default;
 
-$default-border-color: #afafaf;
-$border-inset-color: lighten($default-border-color, 20%);
-$default-border-width: 1px;
-$default-border-style: solid;
-$default-border: $default-border-width $default-border-style $default-border-color;
-$default-border-radius: 3px;
-$default-form-field-margin: $default-margin 0;
-$default-form-field-height: 29px;
+$dialog-header-height: 36px !default;
+$dialog-header-color: $blue !default;
+$dialog-header-text-color: $white !default;
+$dialog-header-font-size: $default-font-size !default;
+$dialog-box-shadow: 0 8px 16px rgba(35, 35, 35, 0.5) !default;
+$dialog-overlay-color: rgb(100, 100, 100) !default;
+$dialog-overlay-opacity: 0.4 !default;
+$dialog-background-color: $light-gray !default;
 
-$button-bg-color: #f7f7f7;
-$button-hover-bg-color: #e6f0f5;
-$button-border-color: #9a9a9a;
-$button-hover-border-color: #888888;
-$button-text-shadow: $white 1px 1px 0;
-$button-gradient-first-color: $white !default;
-$button-gradient-second-color: darken($button-gradient-first-color, 10%) !default;
+$default-padding: 4px !default;
+$default-margin: $default-padding !default;
+
+$default-border-color: rgba(#afafaf, 0.5) !default;
+$border-inset-color: lighten($default-border-color, 10%) !default;
+$default-border-width: 1px !default;
+$default-border-style: solid !default;
+$default-border: $default-border-width $default-border-style $default-border-color !default;
+$default-border-radius: 3px !default;
+
+$form-field-margin: $default-margin 0 !default;
+$form-field-height: 29px !default;
+$form-field-background-color: $white !default;
+$form-field-border-width: $default-border-width !default;
+$form-field-border-style: $default-border-style !default;
+$form-field-border-color: $default-border-color $default-border-color $border-inset-color $border-inset-color !default;
+$form-field-box-shadow: inset 0px 0 1px $medium-gray !default;
+$form-field-padding: 1px 2*$default-padding !default;
+$form-field-font-size: $default-font-size !default;
+$form-field-line-height: $default-font-size !default;
+$form-field-text-color: $text-color !default;
+$form-field-disabled-text-color: #888 !default;
+$form-field-disabled-bg-color: rgba($white, 0.5) !default;
+
+$focus-color: rgba(#eca96e, 0.75) !default;
+
+$button-bg-color: $blue !default;
+$button-hover-bg-color: lighten($button-bg-color, 5%) !default;
+$button-border-color: darken($button-bg-color, 5%) !default;
+$button-hover-border-color: lighten($button-border-color, 5%) !default;
+$button-text-color: $white !default;
+$button-text-shadow: none !default;
+$button-box-shadow: none !default;
 $button-padding: 0.5em 1.5em !default;
-$button-margin: $default-form-field-margin !default;
-$linked-button-color: #ffd77a;
+$button-margin: $form-field-margin !default;
 
-$success_border_color: #9cc4a1;
-$success_text_color: #2e5934;
-$success_background_color: #e2efd3;
+$secondary-button-bg-color: transparent !default;
+$secondary-button-text-color: $blue !default;
+$secondary-button-border-color: $blue !default;
 
-$info_border_color: #8392b5;
-$info_text_color: #233772;
-$info_background_color: #cadbf3;
+$linked-button-color: rgba($linked-color, 0.75) !default;
+$linked-border-color: darken($linked-color, 10%) !default;
 
-$warning_border_color: #c4c19c;
-$warning_text_color: #726d23;
-$warning_background_color: #f3f0c1;
+$success_border_color: #9cc4a1 !default;
+$success_text_color: #2e5934 !default;
+$success_background_color: #e2efd3 !default;
 
-$error_border_color: #c49c9c;
-$error_text_color: #a23434;
-$error_background_color: #efd3d3;
+$info_border_color: #8392b5 !default;
+$info_text_color: #233772 !default;
+$info_background_color: #cadbf3 !default;
 
-$form-left-width: 35%;
-$form-right-width: 65%;
+$warning_border_color: #c4c19c !default;
+$warning_text_color: #726d23 !default;
+$warning_background_color: #f3f0c1 !default;
 
-$sitemap-line-height: 32px;
-$sitemap-page-background-color: rgba(#fff, 0.5);
-$sitemap-page-hover-color: rgba($light_yellow, 0.5);
-$sitemap-info-background-color: rgba($linked-color, 0.5);
-$sitemap-highlight-color: rgba(#fffba5, 0.5);
+$error_border_color: #c49c9c !default;
+$error_text_color: #a23434 !default;
+$error_background_color: #efd3d3 !default;
+
+$form-left-width: 35% !default;
+$form-right-width: 65% !default;
+
+$sitemap-line-height: 32px !default;
+$sitemap-page-background-color: rgba($white, 0.75) !default;
+$sitemap-page-hover-color: rgba($light_yellow, 0.5) !default;
+$sitemap-info-background-color: rgba($linked-color, 0.5) !default;
+$sitemap-highlight-color: rgba(#fffba5, 0.5) !default;
 
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
-$main-menu-bg-color: #baced9 !default;
-$main-menu-active-bg-color: $light-blue !default;
-$main-menu-text-color: #222 !default;
+$main-menu-bg-color: darken($blue, 10%) !default;
+$main-menu-active-bg-color: $blue !default;
+$main-menu-text-color: $white !default;
+$main-menu-icon-color: $white !default;
 $main-menu-entry-max-width: 100px !default;
 $toolbar-bg-color: $medium-gray !default;
 $toolbar-height: 46px !default;
 $element-toolbar-height: 37px !default;
 $header-height: 29px !default;
+$header-background: #d8d8d8 !default;
 $text-shadow-light: rgba($white, 0.5) 0 0 4px !default;
 $transition-duration: 200ms !default;
 $transition-easing: linear !default;
 
-$addon-icon-opacity: 0.85;
+$tooltip-background-color: lighten($dark-gray-blue, 15%) !default;
 
-$table-row-background-color: rgba(#fff, 0.25);
-$table-row-hover-color: rgba($light_yellow, 0.5);
+$addon-icon-opacity: 0.85 !default;
+
+$table-row-even-background-color: $white !default;
+$table-row-odd-background-color: rgba($white, 0.5) !default;
+$table-row-hover-color: rgba($light_yellow, 0.5) !default;
+
 $elements-window-width: 400px !default;
+$element-header-bg-color: $medium-gray !default;
 $top-menu-height: 75px !default;
 
 $tabs-height: 31px !default;
+
+$datepicker_current_bg: $blue !default;
+$datepicker_current_color: $white !default;
+$datepicker_current_box_shadow: none !default;
+$datepicker_hover_bg: $light_yellow !default;
+$datepicker_hover_color: $text-color !default;
+$datepicker_today_bg: $medium-gray !default;
+$datepicker_today_color: $blue !default;
+$datepicker_header_color: $text-color !default;
+$datepicker_day_bg: $light-gray !default;
+$datepicker_day_border: 1px solid $medium-gray !default;
+$datepicker_day_color: $text-color !default;

@@ -1,11 +1,20 @@
 $medium-select-box-width: 90px;
 
 select {
-  @include button-defaults;
-  height: 29px;
+  @include button-defaults(
+    $background-color: $form-field-background-color,
+    $hover-color: $form-field-background-color,
+    $hover-border-color: darken($default-border-color, 10%),
+    $padding: 0 2*$default-padding,
+    $border: 1px solid $default-border-color,
+    $color: $text-color,
+    $margin: 0);
+  height: $form-field-height;
   padding: 0.4em 0.6em;
   max-width: 100%;
   width: auto;
+  font-weight: normal;
+  vertical-align: middle;
 
   &.alchemy_selectbox.medium {
     width: $medium-select-box-width;
@@ -13,15 +22,19 @@ select {
 }
 
 .select2-container {
-
   &.alchemy_selectbox {
-
-    text-shadow: #FFF 0px 1px 0px;
-
     .select2-choice {
-      height: $default-form-field-height;
-      line-height: $default-form-field-height - 2;
-      @include button-defaults($padding: 0 2*$default-padding, $margin: 0);
+      height: $form-field-height;
+      line-height: $form-field-height - 2;
+      @include button-defaults(
+        $background-color: $form-field-background-color,
+        $hover-color: $form-field-background-color,
+        $hover-border-color: darken($default-border-color, 10%),
+        $padding: 0 2*$default-padding,
+        $border: 1px solid $default-border-color,
+        $color: $text-color,
+        $margin: 0);
+      background-image: none;
       display: block;
       font-weight: normal;
       text-align: left;
@@ -32,7 +45,7 @@ select {
         height: 23px;
         line-height: 23px;
         background: transparent;
-        border-left: 1px solid #CACACA;
+        border-left: 0 none;
 
         b {
           @extend .fas;
@@ -195,7 +208,7 @@ select {
 
       &.select2-highlighted {
         background: $button-hover-bg-color;
-        color: $text-color;
+        color: $white;
       }
 
       &.select2-result-with-children {
@@ -219,7 +232,7 @@ select {
 
   &.select2-drop-active {
     border-radius: $default-border-radius;
-    border: 1px solid $blue;
+    border: $default-border;
   }
 }
 

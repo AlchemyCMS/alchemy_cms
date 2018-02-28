@@ -138,6 +138,7 @@
   border-radius: $default-border-radius;
   background-color: $light-gray;
   margin-bottom: 2*$default-margin;
+  transition: box-shadow 250ms;
 
   &.not-draggable {
     opacity: 0.5;
@@ -152,8 +153,8 @@
   }
 
   &.selected {
-    border-color: $blue;
-    box-shadow: 0 0 4px $blue;
+    border-color: #c3c3c3;
+    box-shadow: 0 2px 8px rgba(#9b9b9b, 0.75);
   }
 
   &.folded {
@@ -245,9 +246,10 @@
 .element-header {
   position: relative;
   padding: 2*$default-padding;
-  background-color: $medium-gray;
+  background-color: $element-header-bg-color;
   @extend .disable-user-select;
   cursor: pointer;
+  @include border-top-radius($default-border-radius);
 
   > .hint-with-icon {
     position: absolute;
@@ -271,7 +273,7 @@
 .element-toolbar {
   padding: $default-padding 0;
   height: $element-toolbar-height;
-  background-color: #f0f0f0;
+  // background-color: #f0f0f0;
 
   .element_tools {
     float: left;
@@ -326,15 +328,22 @@
   right: 0;
 
   .icon_button {
-    @include button-defaults;
-    width: 29px;
-    height: 28px;
+    @include button-defaults(
+      $background-color: $medium-gray,
+      $hover-color: darken($medium-gray, 5%),
+      $border: $default-border);
+    width: $form-field-height;
+    height: $form-field-height;
     margin: 0 0 0 4px;
     padding: 2px;
     position: absolute;
-    bottom: 3px;
+    bottom: 2px;
     right: 28px;
     border-radius: 0;
+
+    &.disabled, &.disabled:hover {
+      background-color: $form-field-disabled-bg-color;
+    }
 
     &.link-essence,
     &.unlink-essence {
@@ -467,7 +476,7 @@
     border: $default-border;
     background-color: $white;
     border-radius: $default-border-radius;
-    height: $default-form-field-height;
+    height: $form-field-height;
 
     .validation_failed & {
       color: $error_text_color;
@@ -576,10 +585,9 @@ select.long {
   }
 
   label {
-    display: block;
+    display: inline-block;
     margin-bottom: 2px;
     font-size: 90%;
-    text-shadow: #fff5e1 1px 1px 0;
     line-height: 15px;
     text-indent: 1px;
 
@@ -734,5 +742,5 @@ textarea.has_tinymce {
 .essence_date--label {
   position: absolute;
   right: 5px;
-  top: 33px;
+  top: 35px;
 }

@@ -3,7 +3,7 @@
     options[:sortable] ? "draggable_picture" : nil,
     options[:grouped] ? nil : "content_editor"
   ].compact.join(" ") do %>
-  <% unless options[:grouped] %><%= content_label(content) %><% end %>
+  <% unless options[:grouped] %><%= content_label(content) %><br/><% end %>
   <div class="picture_thumbnail">
     <span class="picture_tool delete">
       <% if options[:grouped] %>

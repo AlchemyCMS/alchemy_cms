@@ -24,8 +24,9 @@
 }
 
 .sitemap_pagename_link {
-  display: block;
-  padding: 0 3*$default-padding;
+  display: inline-block;
+  padding: 0 10px;
+  margin: 2px;
   text-decoration: none;
 
   &.inactive {
@@ -50,7 +51,9 @@
   height: 230px;
   background-color: $light-gray;
   margin-bottom: 4px;
-  border: 1px inset #e8e8e8;
+  border-width: $form-field-border-width;
+  border-style: $form-field-border-style;
+  border-color: $form-field-border-color;
   overflow: auto;
   padding: 4px 0 0 4px;
   border-radius: $default-border-radius;
@@ -80,7 +83,7 @@
   position: relative;
   transition: background-color 250ms;
 
-  &.highlight .sitemap_pagename_link {
+  &.highlight {
     background-color: $sitemap-highlight-color;
   }
 
@@ -96,7 +99,7 @@
 
 .sitemap_sitename {
   @include border-left-radius($default-border-radius);
-  line-height: $sitemap-line-height;
+  line-height: $sitemap-line-height - 4;
   overflow: hidden;
   background-color: $sitemap-page-background-color;
 
@@ -174,7 +177,7 @@
   li {
     padding-left: 0;
 
-    .selected_page a {
+    .selected_page {
       background-color: $linked-color;
       color: $dark-gray;
     }

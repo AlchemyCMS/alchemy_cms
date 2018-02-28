@@ -1,3 +1,5 @@
+$dialog-transition-duration: 150ms;
+
 .alchemy-image-overlay-container,
 .alchemy-dialog-container {
   position: fixed;
@@ -10,7 +12,10 @@
   text-align: center;
   white-space: nowrap;
   opacity: 0;
-  transition: opacity 200ms linear;
+  transform: scale(0.98);
+  transition-property: transform, opacity;
+  transition-duration: $dialog-transition-duration;
+  transition-timing-function: ease-in;
 
   // vertical aligment
   &:before {
@@ -24,6 +29,7 @@
 
   &.open {
     opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -36,7 +42,7 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.0);
-  transition: background-color 200ms linear;
+  transition: background-color $dialog-transition-duration linear;
 
   &.closable {
     cursor: pointer;
@@ -46,7 +52,7 @@
 .alchemy-dialog-overlay {
 
   &.open {
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: rgba($dialog-overlay-color, $dialog-overlay-opacity);
   }
 }
 
@@ -61,15 +67,10 @@
 
 .alchemy-dialog {
   white-space: normal;
-  background-color: $light-gray;
   margin: 2*$default-margin;
   @include border-top-radius($default-border-radius);
-  box-shadow: 0 0 2px rgba(#000,0.8);
-  transition: min-height 200ms ease-in-out;
-
-  &.modal {
-    box-shadow: 0 0 4px #666;
-  }
+  box-shadow: $dialog-box-shadow;
+  transition: min-height $dialog-transition-duration ease-in-out;
 
   div#jscropper {
     padding: 2 * $default-padding;
@@ -125,10 +126,10 @@
   height: $dialog-header-height;
   padding: 0 2*$default-padding;
   line-height: $dialog-header-height;
-  background: $header-color;
-  color: $header-text-color;
+  background: $dialog-header-color;
+  color: $dialog-header-text-color;
   font-weight: normal;
-  font-size: $header-font-size;
+  font-size: $dialog-header-font-size;
   @include border-top-radius($default-border-radius);
 
   .ui-draggable & {
@@ -143,6 +144,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  @include antialiased-font-smoothing;
 }
 
 .alchemy-image-overlay-close,
@@ -157,10 +159,15 @@
   right: 2*$default-padding;
   padding: 0 $default-padding;
   color: inherit;
+
+  .icon {
+    color: inherit;
+  }
 }
 
 .alchemy-dialog-body {
   position: relative;
+  background-color: $dialog-background-color;
   color: $text-color;
 
   .message {
@@ -175,18 +182,6 @@
     }
   }
 
-  ul#sitemap ul li span.sitemap_sitename {
-
-    &.selected_page a {
-      font-weight: bold;
-      padding-left: 4px;
-    }
-
-    a:hover {
-      font-weight: bold;
-    }
-  }
-
   .buttons {
     text-align: right;
 
@@ -198,10 +193,7 @@
 }
 
 .alchemy-dialog-buttons {
-  float: left;
-  clear: both;
-  width: 100%;
-  padding: 4*$default-padding 0;
+  padding-top: 4*$default-padding;
   text-align: right;
 
   button:first-child {
@@ -214,5 +206,9 @@
 
   .ui-tabs-panel {
     padding: 4*$default-padding;
+  }
+
+  .ui-tabs.ui-corner-all {
+    border-radius: 0;
   }
 }

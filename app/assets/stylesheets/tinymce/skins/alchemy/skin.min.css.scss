@@ -253,7 +253,7 @@ div.mce-tinymce-inline {
 
 .mce-panel {
   border: 0 solid $default-border-color;
-  background-color: $medium-gray;
+  background-color: $light-gray;
 }
 
 .mce-toolbar-grp {
@@ -354,20 +354,16 @@ div.mce-fullscreen {
 
 #mce-modal-block {
   opacity: 0;
-  filter: alpha(opacity=0);
-  zoom: 1;
   position: fixed;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: rgb(229, 229, 229);
+  background-color: $dialog-overlay-color;
 }
 
 #mce-modal-block.mce-in {
-  opacity: 0.4;
-  filter: alpha(opacity=40);
-  zoom: 1;
+  opacity: $dialog-overlay-opacity;
 }
 
 .mce-window-move {
@@ -375,9 +371,8 @@ div.mce-fullscreen {
 }
 
 .mce-window {
-  border-radius: $default-border-radius;
-  border: $default-border;
-  background-color: $light-gray;
+  @include border-top-radius($default-border-radius);
+  border: 0 none;
   color: $text-color;
   position: fixed;
   top: 0;
@@ -385,15 +380,28 @@ div.mce-fullscreen {
   opacity: 0;
   -webkit-transition: opacity 150ms ease-in;
   transition: opacity 150ms ease-in;
+  box-shadow: $dialog-box-shadow;
 
   &.mce-in {
     opacity: 1;
   }
+
+  &.mce-panel {
+    background-color: transparent;
+  }
+
+  .mce-container-body.mce-abs-layout {
+    overflow: visible;
+  }
+}
+
+.mce-window-body {
+  background-color: $dialog-background-color;
 }
 
 .mce-window-head {
   padding: 8px 12px;
-  background-color: $light-blue;
+  background-color: $dialog-header-color;
   position: relative;
   @include border-top-radius($default-border-radius);
 
@@ -402,6 +410,8 @@ div.mce-fullscreen {
     font-weight: bold;
     text-rendering: optimizelegibility;
     padding-right: 10px;
+    color: $dialog-header-text-color;
+    @include antialiased-font-smoothing;
   }
 
   .mce-dragh {
@@ -420,7 +430,7 @@ div.mce-fullscreen {
     font-size: 14px;
     font-weight: bold;
     line-height: 14px;
-    color: $text-color;
+    color: $white;
     cursor: pointer;
     height: 18px;
     overflow: hidden;
@@ -428,8 +438,11 @@ div.mce-fullscreen {
     box-shadow: none;
 
     &:hover {
-      color: #000;
       background: transparent;
+    }
+
+    .mce-ico {
+      color: inherit;
     }
   }
 }
@@ -440,23 +453,32 @@ div.mce-fullscreen {
 
 .mce-foot {
   display: block;
-  background-color: transparent;
+  background-color: $dialog-background-color;
   border-top: 0 none;
-  @include border-bottom-radius($default-border-radius);
 
   .mce-btn {
     border-radius: $default-border-radius;
     border: 0 none;
+
+    &:hover, &:focus, &:active {
+      width: auto !important;
+      background: $button-hover-bg-color !important;
+      border-color: $button-hover-border-color;
+    }
 
     button {
       padding: 0.3em 1.5em;
       width: auto !important;
       height: auto !important;
       border: 1px solid $button-border-color;
+      background-color: $button-bg-color;
     }
 
     .mce-txt {
       vertical-align: middle;
+      color: $button-text-color;
+      font-weight: bold;
+      @include antialiased-font-smoothing;
     }
   }
 }
@@ -512,8 +534,8 @@ body .mce-abs-layout-item {
 
 .mce-tooltip-inner {
   font-size: 11px;
-  background-color: $dark-gray;
-  color: #fff;
+  background-color: $tooltip-background-color;
+  color: $white;
   max-width: 200px;
   padding: $default-padding 2*$default-padding;
   text-align: center;
@@ -527,7 +549,7 @@ body .mce-abs-layout-item {
   width: 0;
   height: 0;
   line-height: 0;
-  border: 5px solid $dark-gray;
+  border: 5px solid $tooltip-background-color;
 }
 
 .mce-tooltip-arrow-n {
@@ -628,20 +650,19 @@ body .mce-abs-layout-item {
 }
 
 .mce-btn {
-  border: 1px solid #b1b1b1;
-  border-color: rgba(0,0,0,0.1) rgba(0,0,0,0.1) rgba(0,0,0,0.25) rgba(0,0,0,0.25);
+  border: 1px solid $default-border-color;
   position: relative;
-  text-shadow: 0 1px 1px rgba(255,255,255,0.75);
+  text-shadow: $button-text-shadow;
   display: inline-block;
   *display: inline;
   *zoom: 1;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.2),0 1px 2px rgba(0,0,0,0.05);
-  background: linear-gradient($button-gradient-first-color, $button-gradient-second-color);
+  box-shadow: $button-box-shadow;
+  background-color: $light-gray;
 
   &:focus,
   &:hover {
-    color: #333;
-    background: linear-gradient(darken($button-gradient-first-color, 5%), darken($button-gradient-second-color, 5%));
+    color: $text-color;
+    background-color: darken($medium-gray, 3%);
 
     button {
       background: inherit;
@@ -654,7 +675,7 @@ body .mce-abs-layout-item {
     line-height: 20px;
     *line-height: 16px;
     cursor: pointer;
-    color: #333;
+    color: $text-color;
     text-align: center;
     overflow: visible;
     -webkit-appearance: none;
@@ -835,8 +856,7 @@ i.mce-i-checkbox {
 
 .mce-checkbox.mce-focus i.mce-i-checkbox,
 .mce-checkbox:focus i.mce-i-checkbox {
-  border: 1px solid rgba(82,168,236,0.8);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.65);
+  @include default-focus-style;
 }
 
 .mce-checkbox.mce-disabled .mce-label,
@@ -1505,27 +1525,32 @@ i.mce-i-resize {
 }
 
 .mce-textbox {
-  background: #fff;
-  border: 1px solid #c5c5c5;
+  &:not(.mce-multiline) {
+    box-sizing: border-box;
+    width: auto !important;
+    height: $form-field-height !important;
+    padding: $form-field-padding;
+  }
+
+  background: $form-field-background-color;
+  border-width: $form-field-border-width;
+  border-style: $form-field-border-style;
+  border-color: $form-field-border-color;
   border-radius: $default-border-radius;
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075);
+  box-shadow: $form-field-box-shadow;
   display: inline-block;
-  -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
   transition: border linear 0.2s, box-shadow linear 0.2s;
-  height: 28px;
   resize: none;
-  padding: 0 4px;
   white-space: pre-wrap;
-  *white-space: pre;
-  color: #333;
+  color: $form-field-text-color;
+  cursor: text;
+  font-size: $form-field-font-size;
+  line-height: $form-field-line-height;
 }
 
 .mce-textbox.mce-focus,
 .mce-textbox:focus {
-  border-color: rgba(82,168,236,0.8);
-  -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.65);
-  -moz-box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.65);
-  box-shadow: inset 0 1px 1px rgba(0,0,0,0.075),0 0 8px rgba(82,168,236,0.65);
+  @include default-focus-style;
 }
 
 .mce-placeholder .mce-textbox {
@@ -1534,10 +1559,12 @@ i.mce-i-resize {
 
 .mce-textbox.mce-multiline {
   padding: 4px;
+  height: inherit;
 }
 
 .mce-textbox.mce-disabled {
-  color: #adadad;
+  background: $form-field-disabled-bg-color;
+  color: $form-field-disabled-text-color;
 }
 
 .mce-rtl .mce-textbox {
