@@ -193,10 +193,7 @@ $dialog-transition-duration: 150ms;
 }
 
 .alchemy-dialog-buttons {
-  float: left;
-  clear: both;
-  width: 100%;
-  padding: 4*$default-padding 0;
+  padding-top: 4*$default-padding;
   text-align: right;
 
   button:first-child {
