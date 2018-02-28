@@ -23,6 +23,7 @@
 module Alchemy
   class Element < BaseRecord
     include Alchemy::Logger
+    include Alchemy::Taggable
     include Alchemy::Touching
     include Alchemy::Hints
 
@@ -45,8 +46,6 @@ module Alchemy
       "updated_at",
       "updater_id"
     ].freeze
-
-    acts_as_taggable
 
     # All Elements that share the same page id, cell id and parent element id are considered a list.
     #

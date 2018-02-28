@@ -14,6 +14,13 @@ module Alchemy
       NonStupidDigestAssets.whitelist += [/^tinymce\//]
     end
 
+    # Gutentag downcases all tgas before save.
+    # We support having tags with uppercase characters.
+    # The Gutentag search is case insensitive.
+    initializer 'alchemy.gutentag_normalizer' do
+      Gutentag.normaliser = ->(value) { value.to_s }
+    end
+
     # We need to reload each essence class in development mode on every request,
     # so it can register itself as essence relation on Page and Element models
     #

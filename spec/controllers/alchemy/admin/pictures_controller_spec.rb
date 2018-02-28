@@ -50,11 +50,24 @@ module Alchemy
       context 'with tag params' do
         let!(:picture_1) { create(:alchemy_picture, tag_list: %w(water)) }
         let!(:picture_2) { create(:alchemy_picture, tag_list: %w(kitten)) }
+        let!(:picture_3) { create(:alchemy_picture, tag_list: %w(water nature)) }
 
         it 'assigns @pictures with filtered pictures' do
           get :index, params: {tagged_with: 'water'}
           expect(assigns(:pictures)).to include(picture_1)
           expect(assigns(:pictures)).to_not include(picture_2)
+          expect(assigns(:pictures)).to include(picture_3)
+        end
+      end
+
+      context 'with multiple tag params' do
+        let!(:picture_1) { create(:alchemy_picture, tag_list: %w(water)) }
+        let!(:picture_2) { create(:alchemy_picture, tag_list: %w(water nature)) }
+
+        it 'assigns @pictures with filtered pictures' do
+          get :index, params: {tagged_with: 'water,nature'}
+          expect(assigns(:pictures)).to_not include(picture_1)
+          expect(assigns(:pictures)).to include(picture_2)
         end
       end
 

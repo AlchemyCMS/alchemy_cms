@@ -4,12 +4,12 @@ end
 
 # Require globally used external libraries
 require 'acts_as_list'
-require 'acts-as-taggable-on'
 require 'action_view/dependency_tracker'
 require 'active_model_serializers'
 require 'awesome_nested_set'
 require 'cancan'
 require 'dragonfly'
+require 'gutentag'
 require 'handlebars_assets'
 require 'jquery-rails'
 require 'jquery-ui-rails'
@@ -51,6 +51,7 @@ require_relative 'alchemy/sass_support'
 require_relative 'alchemy/ssl_protection'
 require_relative 'alchemy/resource'
 require_relative 'alchemy/tinymce'
+require_relative 'alchemy/taggable'
 require_relative 'alchemy/touching'
 
 # Require hacks

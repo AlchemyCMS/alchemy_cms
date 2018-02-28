@@ -95,7 +95,7 @@ module Alchemy
   # If you don't want to stick with these conventions you can separate model and controller by providing
   # a model class (for example used by Alchemy's Tags admin interface):
   #
-  #     resource = Resource.new('/admin/tags', {"engine_name"=>"alchemy"}, ActsAsTaggableOn::Tag)
+  #     resource = Resource.new('/admin/tags', {"engine_name"=>"alchemy"}, Gutentag::Tag)
   #
   class Resource
     attr_accessor :resource_relations, :model_associations

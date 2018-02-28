@@ -683,7 +683,7 @@ ru:
   activerecord:
 
     models:
-      acts_as_taggable_on/tag:
+      gutentag/tag:
         one: "Метка"
         few: "Метки"
         many: "Меток"
@@ -733,7 +733,7 @@ ru:
 
     attributes:
 
-      acts_as_taggable_on/tag:
+      gutentag/tag:
         name: "Название"
         taggings_types: Используется для
         taggings_count: Количество использований

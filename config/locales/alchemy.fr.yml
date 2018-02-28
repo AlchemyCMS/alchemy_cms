@@ -812,7 +812,7 @@ fr:
   activerecord:
 
     models:
-      acts_as_taggable_on/tag:
+      gutentag/tag:
         one: Tag
         other: Tags
 
@@ -845,7 +845,7 @@ fr:
 
     attributes:
 
-      acts_as_taggable_on/tag:
+      gutentag/tag:
         taggings_types: Posté le
         taggings_count: Nombres d´utilisations
 
