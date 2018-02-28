@@ -114,6 +114,8 @@ $text-shadow-light: rgba($white, 0.5) 0 0 4px !default;
 $transition-duration: 200ms !default;
 $transition-easing: linear !default;
 
+$tooltip-background-color: lighten($dark-gray-blue, 15%) !default;
+
 $addon-icon-opacity: 0.85;
 
 $table-row-even-background-color: $white;

@@ -534,8 +534,8 @@ body .mce-abs-layout-item {
 
 .mce-tooltip-inner {
   font-size: 11px;
-  background-color: $dark-gray;
-  color: #fff;
+  background-color: $tooltip-background-color;
+  color: $white;
   max-width: 200px;
   padding: $default-padding 2*$default-padding;
   text-align: center;
@@ -549,7 +549,7 @@ body .mce-abs-layout-item {
   width: 0;
   height: 0;
   line-height: 0;
-  border: 5px solid $dark-gray;
+  border: 5px solid $tooltip-background-color;
 }
 
 .mce-tooltip-arrow-n {

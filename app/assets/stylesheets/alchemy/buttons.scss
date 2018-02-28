@@ -185,8 +185,8 @@ button.icon_button {
     left: 50%;
     margin-left: -13px;
     z-index: 30;
-    background: $dark-gray;
-    color: #fff;
+    background-color: $tooltip-background-color;
+    color: $white;
     padding: $default-padding 2*$default-padding;
     line-height: 1;
     box-shadow: 0 0 4px $default-border-color;
@@ -201,7 +201,7 @@ button.icon_button {
       bottom: -10px;
       left: 8px;
       border: 5px transparent solid;
-      border-top-color: $dark-gray;
+      border-top-color: $tooltip-background-color;
     }
 
     &.center {
