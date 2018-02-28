@@ -2,6 +2,7 @@
   position: absolute;
   right: 0;
   top: $top-menu-height;
+  z-index: 20;
   width: $elements-window-width;
   height: calc(100vh - #{$top-menu-height});
   border-left: $default-border;
