@@ -1,15 +1,18 @@
-$text-color: rgba(39, 47, 69, 0.8);
-$icon-color: rgba(51, 59, 81, 0.75);
-$muted-text-color: rgba(0, 0, 0, 0.5);
-$light-blue: #cddce5; // #c6dbe7
-$blue: #2d5a8d;
+$light-blue: #cddce5;
 $very-light-blue: lighten($light-blue, 12%);
+$blue: #2d5a8d;
 $light-gray: #f7f7f7;
 $medium-gray: #efefef;
 $dark-gray: #666666;
+$dark-gray-blue: rgb(51, 59, 81);
 $light_yellow: #fbfbd8;
-$linked-color: #ffd77a;
+$orange: #ffd77a;
 $white: #fff;
+
+$text-color: rgba($dark-gray-blue, 0.8) !default;
+$muted-text-color: rgba($dark-gray-blue, 0.5) !default;
+$icon-color: rgba($dark-gray-blue, 0.75) !default;
+$linked-color: $orange !default;
 
 $body-background-color: $light-gray;
 
