@@ -4,7 +4,7 @@ $muted-text-color: rgba(0, 0, 0, 0.5);
 $light-blue: #cddce5; // #c6dbe7
 $blue: #2d5a8d;
 $very-light-blue: lighten($light-blue, 12%);
-$light-gray: #f6f6f6;
+$light-gray: #f7f7f7;
 $medium-gray: #efefef;
 $dark-gray: #666666;
 $light_yellow: #fbfbd8;
@@ -106,6 +106,7 @@ $toolbar-bg-color: $medium-gray !default;
 $toolbar-height: 46px !default;
 $element-toolbar-height: 37px !default;
 $header-height: 29px !default;
+$header-background: #d8d8d8 !default;
 $text-shadow-light: rgba($white, 0.5) 0 0 4px !default;
 $transition-duration: 200ms !default;
 $transition-easing: linear !default;
