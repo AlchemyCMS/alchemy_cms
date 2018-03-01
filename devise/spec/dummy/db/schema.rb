@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161106124026) do
+ActiveRecord::Schema.define(version: 20180301103350) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -21,7 +21,6 @@ ActiveRecord::Schema.define(version: 20161106124026) do
     t.integer "updater_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "cached_tag_list"
     t.string "file_uid"
     t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
   end
@@ -60,7 +59,6 @@ ActiveRecord::Schema.define(version: 20161106124026) do
     t.integer "creator_id"
     t.integer "updater_id"
     t.integer "cell_id"
-    t.text "cached_tag_list"
     t.integer "parent_element_id"
     t.index ["cell_id"], name: "index_alchemy_elements_on_cell_id"
     t.index ["page_id", "parent_element_id"], name: "index_alchemy_elements_on_page_id_and_parent_element_id"
@@ -232,7 +230,6 @@ ActiveRecord::Schema.define(version: 20161106124026) do
     t.integer "creator_id"
     t.integer "updater_id"
     t.integer "language_id"
-    t.text "cached_tag_list"
     t.datetime "published_at"
     t.datetime "public_on"
     t.datetime "public_until"
@@ -255,7 +252,6 @@ ActiveRecord::Schema.define(version: 20161106124026) do
     t.integer "creator_id"
     t.integer "updater_id"
     t.string "upload_hash"
-    t.text "cached_tag_list"
     t.string "image_file_uid"
     t.integer "image_file_size"
     t.string "image_file_format"
@@ -293,7 +289,6 @@ ActiveRecord::Schema.define(version: 20161106124026) do
     t.datetime "updated_at", null: false
     t.integer "creator_id"
     t.integer "updater_id"
-    t.text "cached_tag_list"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.string "alchemy_roles", default: "member"
@@ -318,35 +313,28 @@ ActiveRecord::Schema.define(version: 20161106124026) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "gutentag_taggings", force: :cascade do |t|
+    t.integer "tag_id", null: false
+    t.integer "taggable_id", null: false
+    t.string "taggable_type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["tag_id", "taggable_id", "taggable_type"], name: "unique_taggings", unique: true
+    t.index ["tag_id"], name: "index_gutentag_taggings_on_tag_id"
+    t.index ["taggable_id", "taggable_type"], name: "index_gutentag_taggings_on_taggable_id_and_taggable_type"
+  end
+
+  create_table "gutentag_tags", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "taggings_count", default: 0
+    t.index ["name"], name: "index_gutentag_tags_on_name", unique: true
+    t.index ["taggings_count"], name: "index_gutentag_tags_on_taggings_count"
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "taggings", force: :cascade do |t|
-    t.integer "tag_id"
-    t.integer "taggable_id"
-    t.string "taggable_type"
-    t.integer "tagger_id"
-    t.string "tagger_type"
-    t.string "context"
-    t.datetime "created_at"
-    t.index ["context"], name: "index_taggings_on_context"
-    t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
-    t.index ["tag_id"], name: "index_taggings_on_tag_id"
-    t.index ["taggable_id", "taggable_type", "context"], name: "index_taggings_on_taggable_id_and_taggable_type_and_context"
-    t.index ["taggable_id", "taggable_type", "tagger_id", "context"], name: "taggings_idy"
-    t.index ["taggable_id"], name: "index_taggings_on_taggable_id"
-    t.index ["taggable_type"], name: "index_taggings_on_taggable_type"
-    t.index ["tagger_id", "tagger_type"], name: "index_taggings_on_tagger_id_and_tagger_type"
-    t.index ["tagger_id"], name: "index_taggings_on_tagger_id"
-  end
-
-  create_table "tags", force: :cascade do |t|
-    t.string "name"
-    t.integer "taggings_count", default: 0
-    t.index ["name"], name: "index_tags_on_name", unique: true
   end
 
 end
