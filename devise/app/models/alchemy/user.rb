@@ -1,5 +1,4 @@
 require 'devise/orm/active_record'
-require 'acts-as-taggable-on'
 require 'userstamp'
 
 module Alchemy
@@ -19,8 +18,7 @@ module Alchemy
 
     devise *Alchemy.devise_modules
 
-    acts_as_taggable
-    acts_as_tagger
+    include Alchemy::Taggable
 
     attr_accessor :send_credentials
 
