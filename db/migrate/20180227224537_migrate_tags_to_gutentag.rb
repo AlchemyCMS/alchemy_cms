@@ -1,5 +1,7 @@
 class MigrateTagsToGutentag < ActiveRecord::Migration[5.0]
-  def change
+  def up
+    return if table_exists?(:gutentag_tags)
+
     remove_index :taggings, :taggable_id
     remove_column :taggings, :tagger_id, :integer
     remove_index :taggings, :taggable_type
