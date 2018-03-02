@@ -54,7 +54,7 @@
         <% end %>
         <%= yield(:alchemy_main_navigation) %>
       </div>
-      <div id="logout">
+      <div id="logout" class="main_navi_entry">
         <% if current_alchemy_user %>
           <%= link_to_dialog(
             "#{render_icon('sign-out-alt', size: 'lg', class: 'module')}<label>#{Alchemy.t(:leave)}</label>".html_safe,

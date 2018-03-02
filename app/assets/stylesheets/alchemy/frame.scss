@@ -33,34 +33,11 @@ div#overlay_text_box {
   z-index: 1;
   bottom: 0;
   left: 0;
-  width: $main-menu-width;
-  background-color: $main-menu-bg-color;
-  transition: background-color $transition-duration $transition-easing;
+  width: 100%;
+  margin-bottom: 0;
 
-  &:hover {
-    background-color: $main-menu-active-bg-color;
-  }
-
-  .collapsed-menu & {
-    width: $collapsed-main-menu-width;
-  }
-
-  a {
-    display: block;
-    padding-left: 3 * $default-padding;
-    line-height: 45px;
-
-    &:hover {
-      text-decoration: none;
-    }
-
-    label {
-      padding-left: 2 * $default-padding;
-    }
-  }
-
-  img {
-    margin-bottom: 4px;
+  &:not(:hover) {
+    background-color: $main-menu-bg-color;
   }
 }
 
