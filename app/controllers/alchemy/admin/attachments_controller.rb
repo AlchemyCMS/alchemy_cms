@@ -69,7 +69,7 @@ module Alchemy
       private
 
       def search_filter_params
-        params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
+        @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
           *common_search_filter_includes + [
             :file_type,
             :content_id

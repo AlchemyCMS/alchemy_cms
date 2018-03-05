@@ -137,7 +137,7 @@ module Alchemy
       end
 
       def search_filter_params
-        params.except(*COMMON_SEARCH_FILTER_EXCLUDES).permit(*common_search_filter_includes)
+        @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES).permit(*common_search_filter_includes)
       end
 
       def common_search_filter_includes
