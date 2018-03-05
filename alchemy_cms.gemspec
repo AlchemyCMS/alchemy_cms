@@ -25,7 +25,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'coffee-rails',                     ['~> 4.0']
   gem.add_runtime_dependency 'dragonfly',                        ['~> 1.0', '>= 1.0.7']
   gem.add_runtime_dependency 'dragonfly_svg',                    ['~> 0.0.4']
-  gem.add_runtime_dependency 'gutentag',                         ['~> 2.1.0']
+  gem.add_runtime_dependency 'gutentag',                         ['~> 2.2.1']
   gem.add_runtime_dependency 'handlebars_assets',                ['~> 0.23']
   gem.add_runtime_dependency 'jquery-rails',                     ['~> 4.0', '>= 4.0.4']
   gem.add_runtime_dependency 'jquery-ui-rails',                  ['~> 5.0.0']
