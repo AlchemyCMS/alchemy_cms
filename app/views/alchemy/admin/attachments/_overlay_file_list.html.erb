@@ -1,6 +1,6 @@
 <% if @attachments.empty? %>
   <%= render_message do %>
-    <% if params[:q].present? %>
+    <% if search_filter_params[:q].present? %>
       <%= Alchemy.t(:no_search_results) %>
     <% else %>
       <%= Alchemy.t(:no_files_in_archive) %>

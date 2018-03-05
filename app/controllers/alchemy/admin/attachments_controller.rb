@@ -8,15 +8,15 @@ module Alchemy
       helper 'alchemy/admin/tags'
 
       def index
-        @query = Attachment.ransack(params[:q])
+        @query = Attachment.ransack(search_filter_params[:q])
         @attachments = @query.result
 
-        if params[:tagged_with].present?
-          @attachments = @attachments.tagged_with(params[:tagged_with])
+        if search_filter_params[:tagged_with].present?
+          @attachments = @attachments.tagged_with(search_filter_params[:tagged_with])
         end
 
-        if params[:file_type].present?
-          @attachments = @attachments.with_file_type(params[:file_type])
+        if search_filter_params[:file_type].present?
+          @attachments = @attachments.with_file_type(search_filter_params[:file_type])
         end
 
         @attachments = @attachments

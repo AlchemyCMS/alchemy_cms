@@ -6,11 +6,11 @@
   <% if @previous %>
     <%= link_to alchemy.admin_picture_path(
         id: @previous,
-        q: params[:q],
+        q: search_filter_params[:q],
         page: params[:page],
-        tagged_with: params[:tagged_with],
+        tagged_with: search_filter_params[:tagged_with],
         size: params[:size],
-        filter: params[:filter]
+        filter: search_filter_params[:filter]
       ),
       class: "previous-picture",
       remote: true do %>
@@ -20,11 +20,11 @@
   <% if @next %>
     <%= link_to alchemy.admin_picture_path(
         id: @next,
-        q: params[:q],
+        q: search_filter_params[:q],
         page: params[:page],
-        tagged_with: params[:tagged_with],
+        tagged_with: search_filter_params[:tagged_with],
         size: params[:size],
-        filter: params[:filter]
+        filter: search_filter_params[:filter]
       ),
       class: "next-picture",
       remote: true do %>

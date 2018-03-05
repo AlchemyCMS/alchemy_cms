@@ -13,9 +13,9 @@
         class: 'search_field_clear',
         id: 'search_field_clear',
         title: Alchemy.t(:click_to_show_all),
-        style: params.fetch(:q, {}).fetch(resource_handler.search_field_name, '').present? ? 'display: block' : 'display: none' %>
+        style: search_filter_params.fetch(:q, {}).fetch(resource_handler.search_field_name, '').present? ? 'display: block' : 'display: none' %>
     <% local_assigns.fetch(:additional_params, []).each do |additional_param| %>
-      <%= hidden_field_tag additional_param, params[additional_param] %>
+      <%= hidden_field_tag additional_param, search_filter_params[additional_param] %>
     <% end %>
   </div>
 <% end %>

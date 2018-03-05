@@ -7,7 +7,7 @@ require 'alchemy/resources_helper'
 module Alchemy
   module Admin
     class ResourcesController < Alchemy::Admin::BaseController
-      COMMON_SEARCH_FILTER_EXCLUDES = [:id, :utf8, :_method, :_].freeze
+      COMMON_SEARCH_FILTER_EXCLUDES = [:id, :utf8, :_method, :_, :format].freeze
 
       include Alchemy::ResourcesHelper
 
@@ -20,18 +20,18 @@ module Alchemy
       before_action :authorize_resource
 
       def index
-        @query = resource_handler.model.ransack(params[:q])
+        @query = resource_handler.model.ransack(search_filter_params[:q])
         items = @query.result
 
         if contains_relations?
           items = items.includes(*resource_relations_names)
         end
 
-        if params[:tagged_with].present?
-          items = items.tagged_with(params[:tagged_with])
+        if search_filter_params[:tagged_with].present?
+          items = items.tagged_with(search_filter_params[:tagged_with])
         end
 
-        if params[:filter].present?
+        if search_filter_params[:filter].present?
           items = items.public_send(sanitized_filter_params)
         end
 
@@ -132,7 +132,7 @@ module Alchemy
 
       def sanitized_filter_params
         resource_model.alchemy_resource_filters.detect do |filter|
-          filter == params[:filter]
+          filter == search_filter_params[:filter]
         end || :all
       end
 

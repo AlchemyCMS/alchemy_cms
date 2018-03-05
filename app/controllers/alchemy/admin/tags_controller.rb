@@ -6,7 +6,7 @@ module Alchemy
       before_action :load_tag, only: [:edit, :update, :destroy]
 
       def index
-        @query = Gutentag::Tag.ransack(params[:q])
+        @query = Gutentag::Tag.ransack(search_filter_params[:q])
         @tags = @query
                   .result
                   .page(params[:page] || 1)

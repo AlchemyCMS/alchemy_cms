@@ -43,7 +43,7 @@
 
   <%= render_message do %>
     <h2><%= Alchemy.t('No Tags found') %></h2>
-    <% if params[:q].blank? %>
+    <% if search_filter_params[:q].blank? %>
       <p><%= Alchemy.t(:tags_get_created_if_used_the_first_time) %></p>
     <% end %>
   <% end %>

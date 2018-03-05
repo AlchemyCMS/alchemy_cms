@@ -200,6 +200,7 @@ describe Alchemy::ResourcesHelper do
 
     before do
       allow(controller).to receive(:params) { params }
+      allow(controller).to receive(:search_filter_params) { params }
     end
 
     it 'returns the current location params' do

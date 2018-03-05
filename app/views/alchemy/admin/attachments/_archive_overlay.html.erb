@@ -14,7 +14,7 @@
   <%= render 'alchemy/admin/partials/remote_search_form' %>
 </div>
 
-<div id="assign_file_list" class="with_padding<%= params[:tagged_with].present? ? ' filtered' : '' %>">
+<div id="assign_file_list" class="with_padding<%= search_filter_params[:tagged_with].present? ? ' filtered' : '' %>">
   <div id="library_sidebar">
     <%= render 'filter_bar' %>
 

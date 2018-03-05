@@ -22,6 +22,6 @@
       remote: true,
       class: 'search_field_clear',
       title: Alchemy.t(:click_to_show_all),
-      style: params[:q].blank? ? 'display: none' : 'display: block' %>
+      style: search_filter_params[:q].blank? ? 'display: none' : 'display: block' %>
   </div>
 <% end %>

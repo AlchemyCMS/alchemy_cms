@@ -18,7 +18,7 @@
     <%= render 'filter_bar' %>
 
     <% if Alchemy::Attachment.tag_counts.any? %>
-      <div class="tag-list with_filter_bar<%= ' filtered' if params[:tagged_with].present? %>">
+      <div class="tag-list with_filter_bar<%= ' filtered' if search_filter_params[:tagged_with].present? %>">
         <%= render 'tag_list' %>
       </div>
     <% end %>

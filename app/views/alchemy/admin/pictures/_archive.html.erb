@@ -2,7 +2,7 @@
   <%= render 'filter_bar' %>
 
   <% if Alchemy::Picture.tag_counts.any? %>
-    <div class="tag-list with_filter_bar<%= ' filtered' if params[:tagged_with].present? %>">
+    <div class="tag-list with_filter_bar<%= ' filtered' if search_filter_params[:tagged_with].present? %>">
       <%= render 'tag_list' %>
     </div>
   <% end %>
@@ -29,17 +29,17 @@
     <%= link_to(
       render_icon(:times, size: 'xs') + Alchemy.t("Clear selection"),
       admin_pictures_path(
-        q: params[:q],
-        tagged_with: params[:tagged_with],
+        q: search_filter_params[:q],
+        tagged_with: search_filter_params[:tagged_with],
         size: params[:size],
-        filter: params[:filter]
+        filter: search_filter_params[:filter]
       ),
       class: 'secondary button with_icon',
       style: 'float: none'
     ) %>
   </div>
   <div id="pictures">
-  <% if @pictures.blank? and @recent_pictures.blank? and params[:q].blank? %>
+  <% if @pictures.blank? and @recent_pictures.blank? and search_filter_params[:q].blank? %>
     <%= render_message do %>
       <%= Alchemy.t(:no_images_in_archive) %>
     <% end %>
