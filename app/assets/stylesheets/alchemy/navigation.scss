@@ -62,12 +62,6 @@
     @include truncate($main-menu-entry-max-width);
   }
 
-  a {
-    color: $main-menu-text-color;
-    font-weight: bold;
-    @include antialiased-font-smoothing;
-  }
-
   img, .icon {
     width: 24px;
   }
@@ -76,11 +70,12 @@
     border-style: none;
     height: 24px;
     vertical-align: -0.6em;
+    transition: filter $transition-duration $transition-easing;
   }
 
   .icon {
     vertical-align: -0.15em;
-    color: $main-menu-icon-color;
+    color: inherit;
   }
 }
 
@@ -90,7 +85,6 @@
 }
 
 .main_navi_entry {
-  color: $main-menu-text-color;
   position: relative;
   display: block;
   line-height: 46px;
@@ -112,21 +106,28 @@
     }
   }
 
-  &.active {
+  &.active, &:hover {
     background-color: $main-menu-active-bg-color;
-    color: $text-color;
     cursor: default;
+
+    a, .icon {
+      color: $main-menu-active-text-color;
+      text-decoration: none;
+      text-shadow: none;
+    }
+
+    img {
+      filter: invert(80%);
+    }
   }
 
   a {
     display: block;
     padding-left: 3 * $default-padding;
+    font-weight: bold;
+    color: $main-menu-text-color;
     transition: color $transition-duration $transition-easing;
-
-    &:hover {
-      text-decoration: none;
-      text-shadow: none;
-    }
+    @include antialiased-font-smoothing;
   }
 }
 
@@ -181,15 +182,10 @@ body:not(.collapsed-menu) {
     background-color: transparent;
     transition: background-color $transition-duration $transition-easing;
     @include truncate($main-menu-width, $display: block);
-
-    &:hover {
-      background-color: rgba(255,255,255,0.2);
-    }
   }
 
-  &.active a {
-    font-weight: bold;
-    color: $main-menu-text-color;
+  &.active a, a:hover {
+    background-color: darken($dark-orange, 5%);
   }
 }
 
