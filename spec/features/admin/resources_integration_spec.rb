@@ -1,10 +1,5 @@
 require 'spec_helper'
 
-def reload_event_class
-  Object.send(:remove_const, :Event)
-  load "spec/dummy/app/models/event.rb"
-end
-
 describe "Resources" do
   let(:event)        { create(:event) }
   let(:second_event) { create(:event, name: 'My second Event', entrance_fee: 12.32) }
@@ -135,12 +130,6 @@ describe "Resources" do
   end
 
   context "with event that acts_as_taggable" do
-    around do |example|
-      Event.class_eval { include Alchemy::Taggable }
-      example.run
-      reload_event_class
-    end
-
     it "shows an autocomplete tag list in the form" do
       visit "/admin/events/new"
       expect(page).to have_selector('input#event_tag_list[type="text"][data-autocomplete="/admin/tags/autocomplete"]')
@@ -174,19 +163,6 @@ describe "Resources" do
   end
 
   context "with event that has filters defined" do
-    around do |example|
-      Event.class_eval do
-        def self.alchemy_resource_filters
-          %w(starting_today future)
-        end
-
-        scope :starting_today, -> { where(starts_at: Time.current.at_midnight..Date.tomorrow.at_midnight) }
-        scope :future, -> { where("starts_at > ?", Date.tomorrow.at_midnight) }
-      end
-      example.run
-      reload_event_class
-    end
-
     let!(:past_event) { create(:event, name: "Horse Expo", starts_at: Time.current - 100.years) }
     let!(:today_event) { create(:event, name: "Car Expo", starts_at: Time.current.at_noon) }
     let!(:future_event) { create(:event, name: "Hovercar Expo", starts_at: Time.current + 30.years) }

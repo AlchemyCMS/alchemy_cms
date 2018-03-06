@@ -4,6 +4,7 @@ class Ability
   def initialize(user)
     can :manage, Event
     can :index, :admin_events
+    can :manage, Location
+    can :index, :admin_locations
   end
-
 end

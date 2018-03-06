@@ -5,19 +5,13 @@ describe "Modules" do
     before { authorize_user(:as_admin) }
 
     it "should have a button in main_navigation, pointing to the configured controller" do
-      Alchemy::Modules.register_module(
-        {
-          name: 'events',
-          navigation: {
-            icon: 'icon events',
-            name: 'Events',
-            controller: '/admin/events',
-            action: 'index'
-          }
-        })
       visit '/admin'
-      click_on 'Events'
-      expect(page).not_to have_content('Upps!')
+      within '#main_navi' do
+        first('a', text: 'Events').click
+      end
+      within '#main_content' do
+        expect(page).to have_content('0 Events')
+      end
     end
   end
 end
