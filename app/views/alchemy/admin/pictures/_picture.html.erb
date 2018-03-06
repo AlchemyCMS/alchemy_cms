@@ -9,11 +9,11 @@
       Alchemy.t(:confirm_to_delete_image_from_server),
       alchemy.admin_picture_path(
         id: picture,
-        q: params[:q],
+        q: search_filter_params[:q],
         page: params[:page],
-        tagged_with: params[:tagged_with],
+        tagged_with: search_filter_params[:tagged_with],
         size: params[:size],
-        filter: params[:filter]
+        filter: search_filter_params[:filter]
       ),
       {
         title: Alchemy.t('Delete image')
@@ -31,11 +31,11 @@
       image,
       alchemy.admin_picture_path(
         id: picture,
-        q: params[:q],
+        q: search_filter_params[:q],
         page: params[:page],
-        tagged_with: params[:tagged_with],
+        tagged_with: search_filter_params[:tagged_with],
         size: params[:size],
-        filter: params[:filter]
+        filter: search_filter_params[:filter]
       ),
       class: 'thumbnail_background'
     ) %>

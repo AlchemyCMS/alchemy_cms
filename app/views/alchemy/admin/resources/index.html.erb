@@ -16,7 +16,7 @@
     },
     {
       icon: 'download',
-      url: resource_url_proxy.url_for(action: 'index', format: 'csv', q: params[:q], sort: params[:sort]),
+      url: resource_url_proxy.url_for(action: 'index', format: 'csv', q: search_filter_params[:q], sort: params[:sort]),
       label: Alchemy.t(:download_csv),
       title: Alchemy.t(:download_csv),
       dialog: false,

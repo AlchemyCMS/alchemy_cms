@@ -7,7 +7,7 @@ require 'alchemy/resources_helper'
 module Alchemy
   module Admin
     class ResourcesController < Alchemy::Admin::BaseController
-      COMMON_SEARCH_FILTER_EXCLUDES = [:id, :utf8, :_method, :_].freeze
+      COMMON_SEARCH_FILTER_EXCLUDES = [:id, :utf8, :_method, :_, :format].freeze
 
       include Alchemy::ResourcesHelper
 
@@ -20,18 +20,18 @@ module Alchemy
       before_action :authorize_resource
 
       def index
-        @query = resource_handler.model.ransack(params[:q])
+        @query = resource_handler.model.ransack(search_filter_params[:q])
         items = @query.result
 
         if contains_relations?
           items = items.includes(*resource_relations_names)
         end
 
-        if params[:tagged_with].present?
-          items = items.tagged_with(params[:tagged_with])
+        if search_filter_params[:tagged_with].present?
+          items = items.tagged_with(search_filter_params[:tagged_with])
         end
 
-        if params[:filter].present?
+        if search_filter_params[:filter].present?
           items = items.public_send(sanitized_filter_params)
         end
 
@@ -61,7 +61,7 @@ module Alchemy
         resource_instance_variable.save
         render_errors_or_redirect(
           resource_instance_variable,
-          resources_path(resource_handler.namespaced_resources_name, current_location_params),
+          resources_path(resource_handler.namespaced_resources_name, search_filter_params),
           flash_notice_for_resource_action
         )
       end
@@ -70,7 +70,7 @@ module Alchemy
         resource_instance_variable.update_attributes(resource_params)
         render_errors_or_redirect(
           resource_instance_variable,
-          resources_path(resource_handler.namespaced_resources_name, current_location_params),
+          resources_path(resource_handler.namespaced_resources_name, search_filter_params),
           flash_notice_for_resource_action
         )
       end
@@ -78,7 +78,7 @@ module Alchemy
       def destroy
         resource_instance_variable.destroy
         flash_notice_for_resource_action
-        do_redirect_to resource_url_proxy.url_for(current_location_params.merge(action: 'index'))
+        do_redirect_to resource_url_proxy.url_for(search_filter_params.merge(action: 'index'))
       end
 
       def resource_handler
@@ -132,12 +132,12 @@ module Alchemy
 
       def sanitized_filter_params
         resource_model.alchemy_resource_filters.detect do |filter|
-          filter == params[:filter]
+          filter == search_filter_params[:filter]
         end || :all
       end
 
       def search_filter_params
-        params.except(*COMMON_SEARCH_FILTER_EXCLUDES).permit(*common_search_filter_includes)
+        @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES).permit(*common_search_filter_includes).to_h
       end
 
       def common_search_filter_includes

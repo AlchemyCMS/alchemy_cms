@@ -1,8 +1,5 @@
 require "spec_helper"
 
-class Admin::EventsController < Alchemy::Admin::ResourcesController
-end
-
 describe Admin::EventsController do
   it "should include ResourcesHelper" do
     expect(controller.respond_to?(:resource_window_size)).to be_truthy
@@ -24,7 +21,7 @@ describe Admin::EventsController do
     end
 
     context 'with search query given' do
-      let(:params) { {q: {name_or_hidden_name_or_location_name_cont: "PeTer"}} }
+      let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: "PeTer"}} }
 
       it "returns only matching records" do
         get :index, params: params
@@ -34,7 +31,7 @@ describe Admin::EventsController do
 
       context "but searching for record with certain association" do
         let(:bauwagen) { create(:location, name: 'Bauwagen') }
-        let(:params)   { {q: {name_or_hidden_name_or_location_name_cont: "Bauwagen"}} }
+        let(:params)   { {q: {name_or_hidden_name_or_description_or_location_name_cont: "Bauwagen"}} }
 
         before do
           peter.location = bauwagen
@@ -51,32 +48,32 @@ describe Admin::EventsController do
   end
 
   describe '#update' do
-    let(:params) { {q: 'some_query', page: 6} }
+    let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: 'some_query'}, page: 6} }
     let!(:peter)  { create(:event, name: 'Peter') }
 
     it 'redirects to index, keeping the current location parameters' do
       post :update, params: {id: peter.id, event: {name: "Hans"}}.merge(params)
-      expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q=some_query")
+      expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bname_or_hidden_name_or_description_or_location_name_cont%5D=some_query")
     end
   end
 
   describe '#create' do
-    let(:params) { {q: 'some_query', page: 6} }
+    let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: 'some_query'}, page: 6} }
     let!(:location) { create(:location) }
 
     it 'redirects to index, keeping the current location parameters' do
       post :create, params: {event: {name: "Hans", location_id: location.id}}.merge(params)
-      expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q=some_query")
+      expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bname_or_hidden_name_or_description_or_location_name_cont%5D=some_query")
     end
   end
 
   describe '#destroy' do
-    let(:params) { {q: 'some_query', page: 6} }
+    let(:params) { {q: {name_or_hidden_name_or_description_or_location_name_cont: 'some_query'}, page: 6} }
     let!(:peter)  { create(:event, name: 'Peter') }
 
     it 'redirects to index, keeping the current location parameters' do
       delete :destroy, params: {id: peter.id}.merge(params)
-      expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q=some_query")
+      expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bname_or_hidden_name_or_description_or_location_name_cont%5D=some_query")
     end
   end
 end

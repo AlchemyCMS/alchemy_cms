@@ -4,7 +4,7 @@
   <ul>
     <%= render_tag_list('Alchemy::Picture') %>
   </ul>
-  <% if params[:tagged_with].present? %>
+  <% if search_filter_params[:tagged_with].present? %>
     <%= link_to(
       render_icon(:times, size: 'xs') + Alchemy.t('Remove tag filter'),
       url_for(search_filter_params.except(:tagged_with)),

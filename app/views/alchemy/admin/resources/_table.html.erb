@@ -17,7 +17,7 @@
     <%= render_resources %>
   </tbody>
 </table>
-<% elsif params[:q].present? %>
+<% elsif search_filter_params[:q].present? %>
 <p><%= Alchemy.t('Nothing found') %></p>
 <% end %>
 

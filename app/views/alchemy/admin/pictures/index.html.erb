@@ -14,7 +14,7 @@
       <div class="button_with_label">
         <%= link_to(
           render_icon('search-minus'),
-          alchemy.admin_pictures_path(size: "small", q: params[:q]),
+          alchemy.admin_pictures_path(size: "small", q: search_filter_params[:q]),
           title: Alchemy.t(:small_thumbnails),
           class: "icon_button"
         ) %>
@@ -22,7 +22,7 @@
       <div class="button_with_label">
         <%= link_to(
           render_icon('search'),
-          alchemy.admin_pictures_path(size: "medium", q: params[:q]),
+          alchemy.admin_pictures_path(size: "medium", q: search_filter_params[:q]),
           title: Alchemy.t(:medium_thumbnails),
           class: "icon_button"
         ) %>
@@ -30,7 +30,7 @@
       <div class="button_with_label">
         <%= link_to(
           render_icon('search-plus'),
-          alchemy.admin_pictures_path(size: "large", q: params[:q]),
+          alchemy.admin_pictures_path(size: "large", q: search_filter_params[:q]),
           title: Alchemy.t(:big_thumbnails),
           class: "icon_button"
         ) %>
@@ -59,7 +59,7 @@
   <h1>
     <%= @pictures.total_count %>
     <%= Alchemy::Picture.model_name.human(count: @pictures.total_count) %>
-    <%= Alchemy.t("picture_library.filter.#{params[:filter]}") if params[:filter].present? %>
+    <%= Alchemy.t("picture_library.filter.#{search_filter_params[:filter]}") if search_filter_params[:filter].present? %>
   </h1>
   <%= render 'archive' %>
 </div>

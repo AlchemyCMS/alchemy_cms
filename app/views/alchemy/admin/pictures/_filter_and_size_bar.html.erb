@@ -6,7 +6,7 @@
       file_attribute: 'image_file',
       in_dialog: true,
       redirect_url: alchemy.admin_pictures_path(
-        size: params[:size],
+        size: search_filter_params[:size],
         filter: 'last_upload',
         content_id: @content.try(:id),
         element_id: @element.try(:id),
@@ -22,10 +22,10 @@
           size: "small",
           content_id: @content,
           element_id: @element,
-          q: params[:q],
+          q: search_filter_params[:q],
           options: options_from_params,
-          filter: params[:filter],
-          tagged_with: params[:tagged_with]
+          filter: search_filter_params[:filter],
+          tagged_with: search_filter_params[:tagged_with]
         }),
         remote: true,
         title: Alchemy.t(:small_thumbnails),
@@ -39,10 +39,10 @@
           size: "medium",
           content_id: @content,
           element_id: @element,
-          q: params[:q],
+          q: search_filter_params[:q],
           options: options_from_params,
-          filter: params[:filter],
-          tagged_with: params[:tagged_with]
+          filter: search_filter_params[:filter],
+          tagged_with: search_filter_params[:tagged_with]
         }),
         remote: true,
         title: Alchemy.t(:medium_thumbnails),
@@ -56,10 +56,10 @@
           size: "large",
           content_id: @content,
           element_id: @element,
-          q: params[:q],
+          q: search_filter_params[:q],
           options: options_from_params,
-          filter: params[:filter],
-          tagged_with: params[:tagged_with]
+          filter: search_filter_params[:filter],
+          tagged_with: search_filter_params[:tagged_with]
         }),
         remote: true,
         title: Alchemy.t(:big_thumbnails),

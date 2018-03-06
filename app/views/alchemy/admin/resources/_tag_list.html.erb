@@ -1,10 +1,10 @@
-<div class="tag-list<%= ' with_filter_bar' if resource_has_filters %><%= ' filtered' if params[:tagged_with].present? %>">
+<div class="tag-list<%= ' with_filter_bar' if resource_has_filters %><%= ' filtered' if search_filter_params[:tagged_with].present? %>">
   <h2><%= Alchemy.t("Filter by tag") %></h2>
   <%= js_filter_field '.tag-list li' %>
   <ul>
     <%= render_tag_list(resource_model.name) %>
   </ul>
-  <% if params[:tagged_with].present? %>
+  <% if search_filter_params[:tagged_with].present? %>
     <%= link_to(
       render_icon(:times, size: 'xs') + Alchemy.t('Remove tag filter'),
       url_for(search_filter_params.except(:tagged_with)),

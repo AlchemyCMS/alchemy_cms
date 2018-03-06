@@ -10,11 +10,11 @@
 <% end %>
   <td class="tools">
   <% if can?(:destroy, resource) %>
-    <%= delete_button resource_path(resource, current_location_params) %>
+    <%= delete_button resource_path(resource, search_filter_params) %>
   <% end %>
   <% if can?(:edit, resource) %>
     <%= link_to_dialog render_icon(:edit),
-      edit_resource_path(resource, current_location_params),
+      edit_resource_path(resource, search_filter_params),
       {
         title: Alchemy.t('Edit'),
         size: resource_window_size

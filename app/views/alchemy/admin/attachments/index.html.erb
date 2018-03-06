@@ -7,7 +7,8 @@
         file_attribute: 'file' %>
     <% end %>
   </div>
-  <%= render 'alchemy/admin/partials/search_form' %>
+  <%= render 'alchemy/admin/partials/search_form',
+    additional_params: [:file_type, :tagged_with] %>
 <% end %>
 
 <div id="archive_all" class="with_tag_filter resources-table-wrapper">
@@ -18,7 +19,7 @@
     <%= render 'filter_bar' %>
 
     <% if Alchemy::Attachment.tag_counts.any? %>
-      <div class="tag-list with_filter_bar<%= ' filtered' if params[:tagged_with].present? %>">
+      <div class="tag-list with_filter_bar<%= ' filtered' if search_filter_params[:tagged_with].present? %>">
         <%= render 'tag_list' %>
       </div>
     <% end %>
