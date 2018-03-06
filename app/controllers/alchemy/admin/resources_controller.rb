@@ -61,7 +61,7 @@ module Alchemy
         resource_instance_variable.save
         render_errors_or_redirect(
           resource_instance_variable,
-          resources_path(resource_handler.namespaced_resources_name, current_location_params),
+          resources_path(resource_handler.namespaced_resources_name, search_filter_params),
           flash_notice_for_resource_action
         )
       end
@@ -70,7 +70,7 @@ module Alchemy
         resource_instance_variable.update_attributes(resource_params)
         render_errors_or_redirect(
           resource_instance_variable,
-          resources_path(resource_handler.namespaced_resources_name, current_location_params),
+          resources_path(resource_handler.namespaced_resources_name, search_filter_params),
           flash_notice_for_resource_action
         )
       end
@@ -78,7 +78,7 @@ module Alchemy
       def destroy
         resource_instance_variable.destroy
         flash_notice_for_resource_action
-        do_redirect_to resource_url_proxy.url_for(current_location_params.merge(action: 'index'))
+        do_redirect_to resource_url_proxy.url_for(search_filter_params.merge(action: 'index'))
       end
 
       def resource_handler
@@ -137,7 +137,7 @@ module Alchemy
       end
 
       def search_filter_params
-        @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES).permit(*common_search_filter_includes)
+        @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES).permit(*common_search_filter_includes).to_h
       end
 
       def common_search_filter_includes

@@ -163,18 +163,6 @@ module Alchemy
       render partial: 'resource', collection: resources_instance_variable
     end
 
-    # Returns all the params necessary to get you back from where you where
-    # before: the Ransack query and the current page.
-    #
-    def current_location_params
-      {
-        q: search_filter_params[:q],
-        page: params[:page],
-        tagged_with: params[:tagged_with],
-        filter: search_filter_params[:filter]
-      }
-    end
-
     def resource_has_tags
       resource_model.respond_to?(:tag_counts) && resource_model.tag_counts.any?
     end
