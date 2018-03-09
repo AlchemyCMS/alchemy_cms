@@ -22,7 +22,7 @@ module Alchemy
     include Alchemy::Filetypes
     include Alchemy::NameConversions
     include Alchemy::Taggable
-    include Alchemy::Touching
+    include Alchemy::ContentTouching
 
     dragonfly_accessor :file, app: :alchemy_attachments do
       after_assign { |f| write_attribute(:file_mime_type, f.mime_type) }
@@ -62,8 +62,6 @@ module Alchemy
       unless: -> { self.class.allowed_filetypes.include?('*') }
 
     before_save :set_name, if: :file_name_changed?
-
-    after_update :touch_contents
 
     scope :with_file_type, ->(file_type) { where(file_mime_type: file_type) }
 

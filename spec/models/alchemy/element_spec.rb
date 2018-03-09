@@ -619,51 +619,42 @@ module Alchemy
     end
 
     describe '.after_update' do
-      let(:page)    { create(:alchemy_page) }
       let(:element) { create(:alchemy_element, page: page) }
-      let(:now)     { Time.current }
 
-      before do
-        allow(Time).to receive(:now).and_return(now)
+      let(:page) do
+        create(:alchemy_page).tap do |page|
+          page.update_column(:updated_at, 3.hours.ago)
+        end
+      end
+
+      it "touches the page" do
+        expect { element.save }.to change { page.updated_at }
       end
 
       context 'with touchable pages' do
-        let(:locker)  { mock_model('DummyUser') }
-        let(:pages)   { [page] }
-
-        before do
-          expect(Alchemy.user_class).to receive(:stamper).at_least(:once).and_return(locker.id)
+        let(:touchable_page) do
+          create(:alchemy_page).tap do |page|
+            page.update_column(:updated_at, 3.hours.ago)
+          end
         end
 
-        it "updates page timestamps" do
-          expect(element).to receive(:touchable_pages).and_return(pages)
-          expect(pages).to receive(:update_all).with({updated_at: now, updater_id: locker.id})
-          element.save
-        end
-
-        it "updates page userstamps" do
-          element.save
-          page.reload
-          expect(page.updater_id).to eq(locker.id)
+        it "updates their timestamps" do
+          expect(element).to receive(:touchable_pages) { [touchable_page] }
+          expect { element.save }.to change { touchable_page.updated_at }
         end
       end
 
       context 'with cell associated' do
-        let(:cell) { mock_model('Cell') }
+        let(:element) { create(:alchemy_element, page: page, cell: cell) }
 
-        before do
-          expect(element).to receive(:cell).at_least(:once).and_return(cell)
+        let(:cell) do
+          create(:alchemy_cell).tap do |cell|
+            cell.update_column(:updated_at, 3.hours.ago)
+          end
         end
 
         it "updates timestamp of cell" do
-          expect(element.cell).to receive(:touch)
-          element.save
-        end
-      end
-
-      context 'without cell associated' do
-        it "does not update timestamp of cell" do
-          expect { element.save }.to_not raise_error
+          expect { element.save }.to change { cell.updated_at }
         end
       end
     end

@@ -41,7 +41,6 @@ module Alchemy
     include Alchemy::Hints
     include Alchemy::Logger
     include Alchemy::Taggable
-    include Alchemy::Touching
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       do_not_autogenerate: true,

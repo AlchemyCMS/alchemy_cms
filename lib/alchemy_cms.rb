@@ -52,7 +52,6 @@ require_relative 'alchemy/ssl_protection'
 require_relative 'alchemy/resource'
 require_relative 'alchemy/tinymce'
 require_relative 'alchemy/taggable'
-require_relative 'alchemy/touching'
 
 # Require hacks
 require_relative 'kaminari/scoped_pagination_url_helper'

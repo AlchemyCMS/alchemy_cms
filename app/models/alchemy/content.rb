@@ -19,7 +19,6 @@
 module Alchemy
   class Content < BaseRecord
     include Alchemy::Logger
-    include Alchemy::Touching
     include Alchemy::Hints
 
     # Concerns
