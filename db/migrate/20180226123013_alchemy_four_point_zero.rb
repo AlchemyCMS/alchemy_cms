@@ -8,8 +8,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.integer "file_size"
         t.integer "creator_id"
         t.integer "updater_id"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.text "cached_tag_list"
         t.string "file_uid"
         t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
@@ -20,8 +20,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
       create_table :alchemy_cells do |t|
         t.integer "page_id", null: false
         t.string "name"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.index ["page_id"], name: "index_alchemy_cells_on_page_id"
       end
     end
@@ -33,8 +33,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.integer "essence_id", null: false
         t.integer "element_id", null: false
         t.integer "position"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.integer "creator_id"
         t.integer "updater_id"
         t.index ["element_id", "position"], name: "index_contents_on_element_id_and_position"
@@ -50,8 +50,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.boolean "public", default: true
         t.boolean "folded", default: false
         t.boolean "unique", default: false
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.integer "creator_id"
         t.integer "updater_id"
         t.integer "cell_id"
@@ -73,8 +73,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
     unless table_exists?(:alchemy_essence_booleans)
       create_table :alchemy_essence_booleans do |t|
         t.boolean "value"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.integer "creator_id"
         t.integer "updater_id"
         t.index ["value"], name: "index_alchemy_essence_booleans_on_value"
@@ -86,8 +86,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.datetime "date"
         t.integer "creator_id"
         t.integer "updater_id"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
       end
     end
 
@@ -98,8 +98,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.string "css_class"
         t.integer "creator_id"
         t.integer "updater_id"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.string "link_text"
         t.index ["attachment_id"], name: "index_alchemy_essence_files_on_attachment_id"
       end
@@ -110,8 +110,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.text "source"
         t.integer "creator_id"
         t.integer "updater_id"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
       end
     end
 
@@ -121,8 +121,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.string "link_title"
         t.string "link_target"
         t.string "link_class_name"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.integer "creator_id"
         t.integer "updater_id"
       end
@@ -141,8 +141,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.string "link_target"
         t.integer "creator_id"
         t.integer "updater_id"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.string "crop_from"
         t.string "crop_size"
         t.string "render_size"
@@ -157,16 +157,16 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.boolean "public"
         t.integer "creator_id"
         t.integer "updater_id"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
       end
     end
 
     unless table_exists?(:alchemy_essence_selects)
       create_table :alchemy_essence_selects do |t|
         t.string "value"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.integer "creator_id"
         t.integer "updater_id"
         t.index ["value"], name: "index_alchemy_essence_selects_on_value"
@@ -183,8 +183,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.string "link_target"
         t.integer "creator_id"
         t.integer "updater_id"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
       end
     end
 
@@ -204,8 +204,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.string "frontpage_name"
         t.string "page_layout", default: "intro"
         t.boolean "public", default: false
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.integer "creator_id"
         t.integer "updater_id"
         t.boolean "default", default: false
@@ -222,8 +222,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
       create_table :alchemy_legacy_page_urls do |t|
         t.string "urlname", null: false
         t.integer "page_id", null: false
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.index ["page_id"], name: "index_alchemy_legacy_page_urls_on_page_id"
         t.index ["urlname"], name: "index_alchemy_legacy_page_urls_on_urlname"
       end
@@ -250,8 +250,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.boolean "robot_follow", default: true
         t.boolean "sitemap", default: true
         t.boolean "layoutpage", default: false
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.integer "creator_id"
         t.integer "updater_id"
         t.integer "language_id"
@@ -275,8 +275,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.string "image_file_name"
         t.integer "image_file_width"
         t.integer "image_file_height"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.integer "creator_id"
         t.integer "updater_id"
         t.string "upload_hash"
@@ -291,8 +291,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
       create_table :alchemy_sites do |t|
         t.string "host"
         t.string "name"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.datetime "created_at", null: false, precision: 6
+        t.datetime "updated_at", null: false, precision: 6
         t.boolean "public", default: false
         t.text "aliases"
         t.boolean "redirect_to_primary_host"
@@ -309,7 +309,7 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.string "tagger_type"
         t.integer "tagger_id"
         t.string "context", limit: 128
-        t.datetime "created_at"
+        t.datetime "created_at", precision: 6
         t.index ["context"], name: "index_taggings_on_context"
         t.index ["tag_id", "taggable_id", "taggable_type", "context", "tagger_id", "tagger_type"], name: "taggings_idx", unique: true
         t.index ["tag_id"], name: "index_taggings_on_tag_id"
