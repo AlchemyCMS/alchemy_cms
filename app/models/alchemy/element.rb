@@ -24,7 +24,6 @@ module Alchemy
   class Element < BaseRecord
     include Alchemy::Logger
     include Alchemy::Taggable
-    include Alchemy::Touching
     include Alchemy::Hints
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = [
@@ -70,8 +69,8 @@ module Alchemy
       foreign_key: :parent_element_id,
       dependent: :destroy
 
-    belongs_to :cell, required: false
-    belongs_to :page, required: true
+    belongs_to :cell, required: false, touch: true
+    belongs_to :page, required: true, touch: true
 
     # A nested element belongs to a parent element.
     belongs_to :parent_element,
@@ -89,8 +88,7 @@ module Alchemy
     attr_accessor :create_contents_after_create
 
     after_create :create_contents, unless: proc { |e| e.create_contents_after_create == false }
-    after_update :touch_pages
-    after_update :touch_cell, unless: -> { cell.nil? }
+    after_update :touch_touchable_pages
 
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
     scope :not_trashed,       -> { where(Element.arel_table[:position].not_eq(nil)) }
@@ -326,13 +324,13 @@ module Alchemy
       available_page_cells(page).collect(&:name).uniq
     end
 
-    # If element has a +cell+ associated,
-    # it updates it's timestamp.
+    # Updates all +touchable_pages+
     #
     # Called after_update
     #
-    def touch_cell
-      cell.touch
+    def touch_touchable_pages
+      return unless respond_to?(:touchable_pages)
+      touchable_pages.each(&:touch)
     end
   end
 end

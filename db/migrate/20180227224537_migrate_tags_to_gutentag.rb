@@ -18,7 +18,7 @@ class MigrateTagsToGutentag < ActiveRecord::Migration[5.0]
     else
       add_index :taggings, [:taggable_type, :taggable_id]
     end
-    add_column :taggings, :updated_at, :datetime
+    add_column :taggings, :updated_at, :datetime, precision: 6
     change_column_null :taggings, :tag_id, false
     change_column_null :taggings, :taggable_id, false
     change_column_null :taggings, :taggable_type, false

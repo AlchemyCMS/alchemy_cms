@@ -453,5 +453,25 @@ module Alchemy
         end
       end
     end
+
+    describe 'after update' do
+      context 'assigned to contents' do
+        let(:picture) { create(:alchemy_picture) }
+
+        let(:content) do
+          create(:alchemy_content, :essence_picture).tap do |content|
+            content.update_column(:updated_at, 3.hours.ago)
+          end
+        end
+
+        before do
+          content.essence.update(picture: picture)
+        end
+
+        it 'touches contents' do
+          expect { picture.save }.to change { content.reload.updated_at }
+        end
+      end
+    end
   end
 end

@@ -26,7 +26,7 @@ module Alchemy
 
     include Alchemy::NameConversions
     include Alchemy::Taggable
-    include Alchemy::Touching
+    include Alchemy::ContentTouching
     include Alchemy::Picture::Transformations
     include Alchemy::Picture::Url
 
@@ -87,8 +87,6 @@ module Alchemy
     scope :without_tag, -> {
       left_outer_joins(:taggings).where(gutentag_taggings: {id: nil})
     }
-
-    after_update :touch_contents
 
     # Class methods
 
