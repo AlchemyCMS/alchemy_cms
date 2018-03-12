@@ -16,7 +16,7 @@ module Alchemy
         Changed tagging provider to Gutentag
         ------------------------------------
 
-        The automatic updater that just run updated all existing `acts_as_taggable_on_migrations`,
+        The automatic updater that just ran updated all existing `acts_as_taggable_on_migrations`,
         so that they don't blow up if the `acts_as_taggable_on` gem is no longer available.
 
         All your existing tags have been migrated to `Gutentag::Tag`s.
