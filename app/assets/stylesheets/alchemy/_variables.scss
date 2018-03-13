@@ -27,7 +27,7 @@ $small-font-size: 0.9em !default;
 $default-font-style: $default-font-size $default-font-family !default;
 
 $dialog-header-height: 36px !default;
-$dialog-header-color: $dark-blue !default;
+$dialog-header-color: $dark-gray-blue !default;
 $dialog-header-text-color: $white !default;
 $dialog-header-font-size: $default-font-size !default;
 $dialog-box-shadow: 0 8px 16px rgba(35, 35, 35, 0.5) !default;
@@ -105,9 +105,9 @@ $sitemap-highlight-color: rgba(#fffba5, 0.5) !default;
 
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
-$main-menu-bg-color: $dark-blue !default;
+$main-menu-bg-color: $dark-gray-blue !default;
 $main-menu-active-bg-color: $dark-orange !default;
-$main-menu-active-text-color: $very-dark-gray !default;
+$main-menu-active-text-color: $dark-gray-blue !default;
 $main-menu-text-color: $white !default;
 $main-menu-icon-color: $white !default;
 $main-menu-entry-max-width: 100px !default;
