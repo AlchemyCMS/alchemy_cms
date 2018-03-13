@@ -1,7 +1,7 @@
-@mixin default-focus-style {
-  border-color: $focus-color;
+@mixin default-focus-style($color: $focus-color, $box-shadow: 0 0 0 1px $color) {
+  border-color: $color;
   border-radius: $default-border-radius;
-  box-shadow: 0 0 0 1px $focus-color;
+  box-shadow: $box-shadow;
   outline: none;
 
   &::-moz-focus-inner {
@@ -15,14 +15,14 @@
   $hover-color: $button-hover-bg-color,
   $hover-border-color: $button-hover-border-color,
   $border-radius: $default-border-radius,
-  $border: 1px solid $button-border-color,
+  $border: $button-border-width solid $button-border-color,
   $padding: $button-padding,
   $margin: $button-margin,
   $color: $button-text-color) {
   display: inline-block;
   font-family: $default-font-family;
   font-size: $default-font-size;
-  font-weight: bold;
+  font-weight: $button-font-weight;
   line-height: $form-field-line-height;
   padding: $padding;
   cursor: pointer;
@@ -33,7 +33,7 @@
   color: $color;
   margin: $margin;
   -webkit-appearance: none;
-  transition: background-color 250ms;
+  transition: all 250ms;
   @include antialiased-font-smoothing;
 
   &:hover {
@@ -47,7 +47,7 @@
   }
 
   &:focus {
-    @include default-focus-style;
+    @include default-focus-style($color: $color, $box-shadow: 0 0 2px $color);
   }
 
   &.disabled, &[disabled],
