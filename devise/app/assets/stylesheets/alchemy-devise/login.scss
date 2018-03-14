@@ -1,7 +1,26 @@
+body.user_sessions,
+body.passwords {
+  background-color: $main-menu-bg-color;
+  color: $white;
+
+  a {
+    color: $white;
+  }
+
+  #errors,
+  .message.info {
+    border-color: transparent;
+  }
+
+  #errors {
+    margin-left: 157px;
+  }
+}
+
 #logo {
-  width: 240px;
-  height: 70px;
-  margin: 0 0 1em 187px;
+  width: 275px;
+  height: auto;
+  margin: 0 0 1em 164px;
 }
 
 .login_signup_box {
@@ -9,7 +28,7 @@
   width: 450px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  transform: translate(-60%, -50%);
 
   .no-js & {
     display: none;
@@ -17,5 +36,14 @@
 
   .message {
     margin-left: 157px;
+  }
+
+  .link {
+    text-align: right;
+  }
+
+  button.secondary {
+    color: $white;
+    border-color: $white;
   }
 }

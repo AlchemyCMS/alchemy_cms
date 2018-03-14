@@ -14,6 +14,11 @@
     <%= f.hidden_field :reset_password_token %>
     <%= f.input :password, autofocus: true, label: Alchemy.t("New password") %>
     <%= f.input :password_confirmation, label: Alchemy.t("Confirm new password") %>
+    <div class="input link">
+      <small>
+        <%= link_to Alchemy.t(:back), alchemy.login_path %>
+      </small>
+    </div>
     <%= f.submit Alchemy.t("Change password") %>
   <% end %>
 </div>
