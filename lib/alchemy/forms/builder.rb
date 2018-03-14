@@ -21,9 +21,11 @@ module Alchemy
       # Renders a button tag wrapped in a div with 'submit' class.
       #
       def submit(label, options = {})
-        options = {class: 'submit'}.update(options[:wrapper_html] || {})
-        template.content_tag('div', options) do
-          template.content_tag('button', label, options[:input_html])
+        options = {
+          wrapper_html: {class: 'submit'}
+        }.update(options)
+        template.content_tag('div', options.delete(:wrapper_html)) do
+          template.content_tag('button', label, options.delete(:input_html))
         end
       end
     end
