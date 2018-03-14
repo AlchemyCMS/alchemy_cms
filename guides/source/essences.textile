@@ -35,7 +35,7 @@ When defining elements, you can assign hints and default values to every essence
 
 h3. EssenceText
 
-Stores a <code>String</code> (max. 255 Chars.).
+Stores <code>Text</code> as type text.
 
 Use this for a headline, or a product name. The editor is renderd as a single lined input field. The view output will be sanitized and HTML escaped. So it's XSS save.
 
