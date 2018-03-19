@@ -54,17 +54,10 @@ module Alchemy
 
     describe '.read_file' do
       context 'when given path to yml file exists' do
-        before { allow(File).to receive(:exist?).and_return(true) }
-
-        it 'should call YAML.load_file with the given config path' do
-          expect(YAML).to receive(:load_file).once.with('path/to/config.yml').and_return({})
-          Config.send(:read_file, 'path/to/config.yml')
-        end
-
-        context 'but its empty' do
+        context 'and file is empty' do
           before do
-            allow(File).to receive(:exist?).with('empty_file.yml').and_return(true)
-            allow(YAML).to receive(:load_file).and_return(false) # YAML.load_file returns false if file is empty.
+            # YAML.safe_load returns nil if file is empty.
+            allow(YAML).to receive(:safe_load) { nil }
           end
 
           it "should return an empty Hash" do
