@@ -102,6 +102,7 @@ module Alchemy
     scope :from_current_site, -> { where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: 'language') }
     scope :folded,            -> { where(folded: true) }
     scope :expanded,          -> { where(folded: false) }
+    scope :not_nested,        -> { where(parent_element_id: nil) }
 
     delegate :restricted?, to: :page, allow_nil: true
 
