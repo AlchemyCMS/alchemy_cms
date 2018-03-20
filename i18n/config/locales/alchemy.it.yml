@@ -1,0 +1,772 @@
+# encoding: UTF-8
+
+it:
+
+  # = Alchemy Translations
+  # All translations used in Alchemy CMS are inside this alchemy namespace.
+  alchemy:
+
+    # == Translations for page_layout names
+    # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     page_layout_names:
+    #       contact: Contact
+    #       search: Search
+    #
+    page_layout_names:
+
+    # == Translations for element names
+    # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     element_names:
+    #       article: Article
+    #       contactform: Contact form
+    #
+    element_names:
+
+    # == Translated names for contents in elements.
+    # Used for the content editor label inside the element editor view (The elements window)
+    #
+    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
+    # To do so, just place the content_name under the element name
+    #
+    # Example:
+    #
+    # en:
+    #  alchemy:
+    #    content_names:
+    #      headline: Headline
+    #      news_article:
+    #        headline: News Headline
+    #      image_caption: Caption
+    #      show_caption: Show Caption
+    #
+    content_names:
+
+    # === Translations for content validations
+    # Used when a user did not enter (correct) values to the content field.
+    #
+    # Tip: You can define the validation messages translations different for each element and content
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     content_validations:
+    #       contactform:
+    #         success_page:
+    #           blank: 'Please choose a follow up page.'
+    #         mail_to:
+    #           blank: 'Please provide an email address where the contact inquiries will be delivered to.'
+    #
+    content_validations:
+      errors:
+        blank: "%{field} non può essere vuoto"
+        invalid: '%{field} ha un formato errato'
+        taken: '%{field} è già stato preso'
+
+    default_content_texts:
+      lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
+
+    essence_pictures:
+      css_classes:
+        left: 'Alla sinistra del testo'
+        right: 'Alla destra del testo'
+        no_float: 'Sopra al testo'
+
+    # == Contactform translations
+    contactform:
+      labels:
+        salutation: 'Salve'
+        choose: 'Scegli'
+        mr: 'Sig.'
+        mrs: 'Sig.ra'
+        firstname: 'Nome'
+        lastname: 'Cognome'
+        address: 'Via / N.'
+        zip: 'CAP / Città'
+        phone: 'Telefono'
+        email: 'Email'
+        message: 'Messaggio'
+        send: 'Invia'
+        mandatory_fields: '*Campi obbligatori.'
+      # The flash message shown after successfully sending the message.
+      messages:
+        success: 'Il suo messaggio è stato consegnato con successo.'
+
+    # == Translated language names for translation select
+    translations:
+      de: 'DE'
+      en: 'EN'
+      es: 'ES'
+      it: 'IT'
+      fr: 'FR'
+      nl: 'NL'
+      ru: 'RU'
+
+    # == User roles translations
+    user_roles:
+      registered: "Registrato"
+      member: "Membro"
+      author: "Autore"
+      editor: "Editore"
+      admin: "Amministratore"
+
+    # == Mime Types translations
+    # These are human readable mime types used for the document-type row in archive files.
+    mime_types:
+      audio/mp4: 'Audio-MP4'
+      application/msword: 'Documento-Word'
+      application/rtf: 'Documento-RTF'
+      audio/mpeg: 'Audio-MP3'
+      text/plain: 'Documento-di-Testo'
+      video/mp4: 'Video-MP4'
+      video/mpeg: 'Video-MPEG'
+      application/pdf: 'Documento-PDF'
+      application/x-flash-video: 'Video-Flash'
+      video/x-flv: 'Video-Flash'
+      application/x-shockwave-flash: 'Video-Flash'
+      application/zip: 'Archivio-ZIP'
+      application/x-rar: 'Archivio-RAR'
+      application/vnd:
+        ms-excel: 'Documento-Excel'
+      video/quicktime: 'Video-Quicktime'
+      image/x-psd: 'File-Photoshop'
+      image/gif: 'Immagine-GIF'
+      image/png: 'Immagine-PNG'
+      image/svg+xml: 'Immagine-SVG'
+      image/jpeg: 'Immagine-JPG'
+      video/x-msvideo: 'Video-AVI'
+      video/x-ms-wmv: 'Windows Media Video'
+      image/tiff: 'Immagine-TIFF'
+      'text/x-vcard': 'vCard'
+      application/vcard: 'vCard'
+
+    link_target_options:
+      default: Stessa Finestra
+      blank: Nuova Finestra/Tab
+      overlay: Sovrapposta
+
+    resource_help_texts:
+      site:
+        aliases: Separa i domini aggiuntivi con uno spazio od un ritorno a capo.
+
+    anchor: 'Collegamento'
+    attribute_fixed: Il valore non può essere modificato
+    back: 'indietro'
+    create_tree_as_new_language: "Crea una nuova struttura della lingua per %{language}"
+    locked_pages: "Pagine attive"
+    "Add global page": "Aggiungi pagina globale"
+    "Add page link": "Aggiungi un collegamento alla pagina"
+    "Alchemy is open software and itself uses open software and free resources:": "Alchemy è software open ed usa software open e risorse liberamente disponibili:"
+    "Alchemy is up to date": 'Alchemy è aggiornato'
+    'An error happened': 'Si è verificato un errore'
+    "Change password": "Modifica password"
+    "Choose page": "Scegli pagina"
+    "Cleared trash": "Cestino svuotato"
+    "Clear selection": "Annulla selezione"
+    "Forgot your password?": "Hai dimenticato la password?"
+    "Clipboard": "Appunti"
+    "Confirm new password": "Conferma la nuova passowrd"
+    "Copy": "Copia"
+    "Could not load Adobe Flash® Plugin!": "È stato impossibile caricare il Plugin Adobe Flash®!"
+    "Currently locked pages": "Pagine attualmente bloccate"
+    "Default language has to be public": "La lingua di default deve essere pubblica"
+    "Delete image": "Elimina immagine"
+    "Do you really want to clear the clipboard?": "Vuoi veramente eliminare gli appunti?"
+    "Do you really want to clear the trash?": "Vuoi veramente svuotare il cestino?"
+    "Do you really want to delete this content?": "Vuoi veramente eliminare questo contenuto?"
+    "Drag an element over to the element window to restore it": "Trascina un elemento sulla finestra degli elementi per ripristinarlo"
+    "Edit Picturemask": "Modifica maschera delle immagini"
+    "Edit image": "Modifica immagine"
+    "Edit multiple pictures": "Modifica diverse immagini insieme"
+    "Elements": "Elementi"
+    "Element trashed": "Elemento cestinato"
+    "Error with the Flash® Uploader!": "Errore dell'Uploader Flash®!"
+    "Excerpt": "Estratto"
+    "File successfully updated": "File aggiornato con successo"
+    "File deleted successfully": "%{name} è stato eliminato"
+    "Filter by tag": "Filtra per tag"
+    "Flush page cache": "Svuota la cache delle pagine"
+    "Flush picture cache": "Svuota la cache delle immagini"
+    "Global shortcuts": "Shortcuts globali"
+    "Hide childpages": "Nascondi le pagine figlie"
+    hide_elements: nascondi_elementi
+    hide_element: "Nascondi elemento"
+    "Image missing": "Immagine mancante"
+    "Image size": "Dimensione immagine"
+    "Language successfully created": "Lingua creata con successo."
+    "Language successfully removed": "Lingua rimossa con successo."
+    "Language successfully updated": "Lingua aggiornata con successo."
+    "Language tree": "Struttura delle lingue"
+    "Layout default": "Layout di default"
+    "Library shortcuts": "Scorciatoie della libreria"
+    "Logged in as": "Autenticato come"
+    "Mandatory": "Campi obbligatori"
+    "Name": "Nome"
+    "New": "Nuovo"
+    "New Element": "Nuovo elemento"
+    "New page": "Nuova pagina"
+    "No page links for this page found": "Nessun link trovato per questa pagina"
+    "New password": "Nuova password"
+    "New Tag": "Nuovo tag"
+    "New Tag Created": "Nuovo Tag Creato"
+    "No": "No"
+    "No items in your clipboard": "Nessun elemento nei tuoi appunti"
+    "No Tags found": "Nessun Tag trovato"
+    "None": "Nessuno"
+    "Open Link in": "Apri Link in"
+    "Page": "Pagina"
+    "Page edit shortcuts": "Scorciatoie per modificare la pagina"
+    "Page deleted": "%{name} eliminata"
+    "Page saved": "%{name} salvata"
+    "Page cache flushed": "Cache delle pagine svuotata"
+    "Pages order saved": "Ordine delle pagine salvato"
+    "Password": "Password"
+    "Password reset": "Reset della password"
+    "Paste from clipboard": "Incolla dagli appunti"
+    "Picture infos": "Informazioni sull'immagine"
+    "Picture renamed successfully": "Immagine rinominata con successo da %{from} a %{to}"
+    "Picture deleted successfully": "Immagine %{name} eliminata con successo"
+    "Pictures updated successfully": "Immagini caricate con successo"
+    "Please Signup": "Registrati per modificare il tuo sito web."
+    "Please choose": "Scegli"
+    "Please enter a new password": "Inserisci una nuova password."
+    "Please enter your email address": "Inserisci il tuo indirizzo email."
+    "Please log in": "Autenticati."
+    "Please seperate the tags with commata": "* Separa i tag con delle virgole."
+    "Properties": "Proprietà"
+    "Publish page": "Pubblica pagina"
+    "Read the License": "Leggi la Licenza"
+    "Redirects to": "Effettua un redirect a"
+    "Reload Preview": "Ricarica anteprima"
+    "Remove item from clipboard": "Rimuovi elemento dagli appunti"
+    "Remove tag filter": "Rimuovi filtro tag"
+    "Remove this content": "Rimuovi questo contenuto"
+    "Reset Imagemask": "Ripristina"
+    "Reset password instructions": "Ripristina le istruzioni per la password"
+    "Select all": "Seleziona tutto"
+    "Select an content": "Seleziona un contenuto"
+    "Select style": "Seleziona lo stile"
+    "Send reset instructions": "Invia istruzioni per il ripristino"
+    show_elements: "Mostra Elementi"
+    show_element: "Mostra elemento"
+    "Show childpages": "Mostra pagine figlie"
+    "Show clipboard": "Mostra appunti"
+    "Show picture infos": "Mostra informazioni immagine"
+    "Show trash": "Mostra cestino"
+    "Site successfully created": "Sito web creato con successo."
+    "Site successfully removed": "Sito web rimosso con successo."
+    "Site successfully updated": "Sito web aggiornato con sucesso."
+    "Size": "Dimensioni"
+    "Sort pages": "Riordina pagine"
+    "Successfully added content": "%{content} aggiunto con successo"
+    "Successfully deleted content": "%{content} eliminato con successo"
+    "Successfully saved content position": "Posizione del contenuto salvata con sucesso"
+    "Tags": "Tag"
+    "These pictures could not be deleted, because they were in use": "Queste immagini non possono essere eliminate poiché erano in uso: %{names}"
+    "This page is locked": "Questa pagina è attualmente bloccata da %{name}"
+    "Title": "Titolo"
+    "Trash": "Cestino"
+    "User created": "Utente %{name} creato"
+    "User deleted": "Utente %{name} eliminato"
+    "User updated": "Utente %{name} aggiornato"
+    "Validation failed": "Validazione fallita"
+    "Version": "Versione"
+    "View File": "Mostra File"
+    "Visit page": "Visita pagina"
+    "Warning!": "Attenzione!"
+    content_definition_missing: "Attenzione: Manca la definizione del contenuto. Controlla il file elements.yml"
+    element_definition_missing: "ATTENZIONE! Manca la definizione dell'elemento. Controlla il file elements.yml."
+    page_definition_missing: "ATTENZIONE! Manca la definizione del layout della pagina. Controlla il file page_layouts.yml."
+    "Welcome to Alchemy": "Benvenuto su Alchemy"
+    "Who else is online": "Altre persone online"
+    "Yes": "Sì"
+    "You are not authorized": "Non sei autorizzato"
+    "You are about to edit many pictures at once": "Stai per modificare %{length} immagini contemporaneamente"
+    element_dirty_close_window_notice: "Hai degli elementi non salvati. Vuoi veramente chiudere la finestra degli elementi?"
+    "Your last login was on": "Il tuo ultimo login è stato alle %{time}."
+    "Your last updated pages": "Le tue pagine modificate di recente"
+    "Your trash is empty": "Il cestino è vuoto"
+    above: "sopra"
+    add: "Aggiungi"
+    "add new content": "Aggiungi nuovo contenuto"
+    add_image_to_element: "Aggiungi un immagine"
+    align_in_text: "Allineamento nel testo"
+    all: "tutto"
+    all_pictures: "Tutte le immagini"
+    apply: "applica"
+    assign_file: "Assegna un file"
+    assign_file_from_archive: "assegna un file dal tuo archivio"
+    assign_image: "Assegna un'immagine"
+    attachment_filename_notice: "* Non utilizzare alcun carattere speciale per il nome del file."
+    auto_play: "Riproduci il video dopo il caricamento"
+    big_thumbnails: "Miniature grandi"
+    cancel: "annulla"
+    cannot_delete_picture_notice: "Impossibile eliminare l'Immagine %{name} poiché è ancora in uso."
+    choose_element_as_target: "Scegli un elemento come destinatario"
+    choose_element_to_link: "Scegli un elemento"
+    choose_file_to_link: "Scegli un file da linkare"
+    "clear clipboard": "svuota appunti"
+    "clear trash": "svuota cestino"
+    click_to_show_all: "Clicca per tornare a mostrare tutto."
+    confirm_to_delete_file: "Vuoi veramente eliminare questo file dal server?"
+    confirm_to_delete_image: "Vuoi veramente eliminare questa immagine dal server?"
+    confirm_to_delete_image_from_server: "Vuoi veramente eliminare questa immagine dal server?"
+    confirm_to_delete_images_from_server: "Vuoi veramente eliminare queste immagini dal server?"
+    confirm_to_delete_page: "Vuoi eliminare veramente questa pagina? I suoi elementi andranno persi!"
+    content_essence_not_found: "Essenza del contenuto non trovata"
+    content_not_found: "Campo per il contenuto non trovato."
+    content_validations_headline: "Controlla i campi segnati qui sotto"
+    copy: "copia"
+    copy_element: "Copia questo elemento"
+    copy_page: "Copia pagina"
+    "Could not delete Pictures": "Impossibile eliminare le Immagini"
+    copy_language_tree_heading: "Copia struttura delle pagine"
+    country_code_placeholder: 'ad es. US (opzionale)'
+    country_code_foot_note: "È necessario configurare un codice nazione solo se vuoi supportare diverse nazioni con la stessa lingua."
+    create: "crea"
+    "Create language": "Crea una nuova lingua"
+    "Create site": "Crea un nuovo sito"
+    create_language_tree_heading: "Crea una struttura delle lingue vuoto"
+    create_page: "Crea una nuova sottopagina"
+    currently_edited_by: "Questa pagina è bloccata da"
+    cut_element: "Taglia questo elemento."
+    delete_file: "Elimina questo file dal server."
+    delete_image: "Elimina quest'immagine"
+    delete_language: "Elimina questa lingua"
+    delete_page: "Elimina questa pagina"
+    delete_tag: 'Elimina tag'
+    document: "File"
+    download_csv: "Scarica CSV"
+    download_file: "Scarica file '%{filename}'"
+    do_you_really_want_to_delete_this_tag?: "Vuoi veramente eliminare questo tag?"
+    drag_to_sort: "Clicca e trascina per riordinare le immagini"
+    edit_file_properties: "Modifica le proprietà del file."
+    edit_image_properties: "Modifica le proprietà dell'immagine."
+    edit_language: "Modifica lingua"
+    edit_page: "Modifica questa pagina"
+    edit_page_properties: "Modifica proprietà pagina"
+    edit_tag: 'Modifica tag'
+    edit_selected_pictures: "Modifica le immagini selezionate"
+    element_editor_not_found: "Errore in questo Elemento"
+    element_of_type: "Elemento"
+    element_saved: "Elemento salvato."
+    enter_external_link: "Inserisci l'URL con il quale vuoi creare il link"
+    explain_cropping: "<p>Muovi la cornice e cambia la sua dimensione per configurare la sezione dell'immagine.</p><p>Clicca su applica quando sei soddisfatto.</p>"
+    explain_publishing: "Pubblica la pagina e rimuovi la versione in cache dal server."
+    explain_sitemap_dragndrop_sorting: "Suggerimento: Trascina le immagini dall'icona per riordinarle."
+    explain_unlocking: "Lascia la pagina e sbloccala per l'utilizzo da parte di altri utenti."
+    external_link_notice_1: "Inserisci l'url completo con http:// o un protocollo simile."
+    external_link_notice_2: "Per fare riferimento ad un indirizzo interno al tuo sito, comincia il link con /."
+    female: "Femmina"
+    file: "File"
+    file_rename_error: "Errore nel modificare il nome del file."
+    from_at: "da %{by} a %{at}"
+    height: "Altezza"
+    help:
+      shortcuts:
+        "Open help window": "Apri finestra di aiuto"
+        "Close current dialog": "Chiudi finestra attiva"
+        "Open logout dialog": "Apri finestra di logout"
+        "Focus search field": "Attiva il campo di ricerca"
+        "Create a new record": "Crea un nuovo record"
+        "Show page infos": "Mostra informazioni pagina"
+        "Create new element": "Crea nuovo elemento"
+        "Edit page properties": "Modifica proprietà pagina"
+        "Reload the preview": "Ricarica la preview"
+        "Leave the page": "Lascia la pagina"
+        "Open upload form": "Apri form di upload"
+        "Select all pictures": "Seleziona tutte le immagini"
+    hide_element_content: "Nascondi il contenuto di questi elementi."
+    dashboard: "Dashboard"
+    image_alt_tag: "Alt-tag"
+    image_caption: "Caption"
+    image_name: "Name"
+    image_title: "Title-tag"
+    internal_link_headline: "Scegli una pagina a cui linkare."
+    internal_link_page_elements_explanation: "In aggiunta puoi cliccare appena sotto una pagina su 'Mostra Elementi' per linkare ad un anchor di un elemento da quella pagina."
+    internal_link_page_anchors_explanation: "Alternativamente puoi linkare ad un anchor della pagina stessa."
+    "item copied to clipboard": "%{name} copiato nella clipboard"
+    "item moved to clipboard": "%{name} spostato alla clipboard"
+    "item removed from clipboard": "%{name} eliminato dalla clipboard"
+    javascript_disabled_headline: "Javascript disabilitato!"
+    javascript_disabled_text: "Javascript è richiesto per far funzionare Alchemy al meglio. Abilitalo nelle configurazioni del tuo browser."
+    language_code_placeholder: 'i.e. it'
+    language_does_not_exist: "Questa struttura della lingua non esiste"
+    language_pages_copied: "Struttura della lingua copiata con successo."
+    last_upload_only: "Solo ultimo upload"
+    left: "sinistra"
+    legacy_url_info_text: "Un link è un redirect da una vecchia URL alla nuova URL di questa pagina. Questo redirect viene gestito tramite uno <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>status code 301</a>."
+    link_image: "Crea collegamento a questa immagine."
+    link_overlay_tab_label:
+      contactform: "Form dei contatti"
+      external: "Esterno"
+      file: "File"
+      internal: "Interno"
+    link_title: "Titolo link"
+    login: "login"
+    logout: "logout"
+    mail_to: "Destinatario"
+    main_content: "Contenuto principale"
+    male: "Maschio"
+    me: "Me"
+    medium_thumbnails: "Thumbnail di meda dimensione"
+    meta_data: "Meta-Data"
+    meta_description: "Meta-Description"
+    meta_keywords: "Meta-Keywords"
+    modules:
+      attachments: "File"
+      dashboard: "Dashboard"
+      pictures: "Immagini"
+      languages: "Lingue"
+      layoutpages: "Pagine Globali"
+      library: "Libreria"
+      pages: "Pagine"
+      tags: "Tags"
+      sites: "Siti"
+    name: "Nome"
+    names: "Nomi"
+    navigation_name: "Nome di navigazione"
+    no_image_for_cropper_found: "Nessuna immagine trovata. Salva prima l'elemento."
+    no: "No"
+    "no pages": "nessuna pagina"
+    "no users": "nessun utente"
+    no_default_language_found: "Nessuna lingua di default trovata."
+    no_element_given: "Nessun elemento selezionato."
+    no_files_in_archive: "Non hai nessun file nel tuo archivio."
+    no_images_in_archive: "Non hai nessuna immagine nel tuo archivio."
+    no_more_elements_to_add: "Nessun elemento disponibile."
+    no_search_results: "La tua ricerca non ha prodotto alcun risultato."
+    "not a valid image": "Questa non è un'immagine valida."
+    "or": 'oppure'
+    or_replace_it_with_an_existing_tag: 'Oppure sostituiscilo con un tag esistente'
+    "Page created": "Pagina: '%{name}' creata."
+    page_for_links:
+      choose_page: "Sceglio %{name}"
+    page_infos: 'Informazioni pagina'
+    page_layout_changed_notice: "Il tipo di pagina è stato cambiato. Gli elementi che non erano più disponibili sono stati spostati nel cestino."
+    page_properties: "Proprietà della pagina"
+    page_public: "pubblicata"
+    page_published: "Pagina pubblicata"
+    page_restricted: "riservata"
+    page_states:
+      visible:
+        "true": "Pagina visibile in navigazione."
+        "false": "Pagina non visibile in navigazione."
+      public:
+        "true": "Pagina pubblicata."
+        "false": "Pagina non pubblicata."
+      locked:
+        "true": "Qualcun altro sta modificando la pagina."
+        "false": ""
+      restricted:
+        "true": "Pagina riservata."
+        "false": "Pagina non riservata."
+    page_status: "Stato"
+    page_title: "Titolo"
+    page_type: "Tipologia"
+    page_visible_in_navigation: "visibile in navigazione"
+    page_was_created: "È stata creata"
+    page_was_updated: "È stata aggiornata"
+    pages:
+      update:
+        comma_seperated: "Separate da virgola"
+    password: "Password"
+    paste: "incolla"
+    picture_gallery_editor: 'Immagini'
+    picture_library:
+      filter:
+        last_upload: "dall'ultimo upload"
+        recent: "che sono state aggiunte di recente"
+        without_tag: "senza tag"
+    picture_not_in_use_yet: "Questa immagine non è ancora in uso"
+    pictures_in_page: "%{page} in %{pictures}"
+    place_link: "Testo del link"
+    player_version: "Versione Flash Player"
+    "please enter subject and mail address": "Inserisci destinatario ed oggetto."
+    please_confirm: "Conferma"
+    please_wait: "Attendi prego"
+    position_in_text: "Posizione nel testo"
+    preview_size: "Dimensione preview"
+    preview_sizes:
+      '240': '240px (telefono piccolo)'
+      '320': '320px (iPhone)'
+      '480': '480px (Tablet piccolo)'
+      '768': '768px (iPad - Portrait)'
+      '1024': '1024px (iPad - Landscape)'
+      '1280': '1280px (Desktop)'
+    recently_uploaded_only: 'Solo caricate recentemente'
+    "regular method": "Metodo normale"
+    remove: "Rimuovi"
+    rename_file: "Rinomina questo file."
+    rename: "Rinomina"
+    replace: sostituisci
+    replace_file: Sostituire il file
+    'Replaced Tag': "Il tag '%{old_tag}' è stato sostiuito con '%{new_tag}'"
+    resources:
+      relation_select:
+        blank: '- vuoto -'
+    right: "destra"
+    robot_follow: "i robot possono seguire i link."
+    robot_index: "permetti ai robot di indicizzare."
+    save: "Salva"
+    "save order": "Salva ordine"
+    saved_link: "Link salvato."
+    search: "cerca"
+    search_engines: "Motori di ricerca"
+    select_element: "Seleziona elemento"
+    seperate_tags_with_comma: "Separa i tag con una virgola"
+    show_element_content: "Mostra contenuto di questo elemento."
+    show_elements_from_page: "Mostra tutti gli elementi di questa pagina"
+    show_eq: "Mostra EQ"
+    show_navigation: "Mostra in navigazione"
+    show_page_in_sitemap: "Mostra la pagina nella sitemap."
+    signup_mail_delivery_error: 'Non è stato possibile consegnare la mail di signup. Ricontrolla le impostazioni dell''email.'
+    small_thumbnails: "Thumbnail piccoli"
+    subject: "Soggetto"
+    successfully_added_element: "Aggiunto nuovo elemento con successo."
+    successfully_deleted_tag: "Tag eliminato con successo"
+    successfully_restored_element: "Elemento ripristinato con successo."
+    successfully_saved_element_position: "Posizione dell'elemento aggiornata con successo."
+    successfully_updated_tag: "Tag aggiornato con successo"
+    swap_image: "Modifica immagine"
+    insert_image: "Inserisci immagine"
+    tag_list: Tag
+    tags_get_created_if_used_the_first_time: 'I tag vengono creati se usati per la prima volta.'
+    this_picture_is_used_on_these_pages: "L'immagine è usata nelle seguenti pagine"
+    title: "Titolo"
+    to_alchemy: "Torna ad Alchemy"
+    "trash element": "Metti l'elemento nel cestino"
+    unknown: "sconosciuto"
+    unlink: "Rimuovi link da questa immagine."
+    unlock_page: "Lascia la pagina"
+    unlocked_page: "Pagina %{name} sbloccata."
+    uploader:
+      alchemy/attachment:
+        button_label: "Carica uno(/più) file"
+        upload_success: "File %{name} caricato con successo"
+        upload_failure: "Errore nel caricare il file %{name}: %{error}"
+      alchemy/picture:
+        button_label: "Carica una(/più) immagini"
+        upload_success: "Immagine %{name} caricata con successo"
+        upload_failure: "Errore nel caricare %{name}: %{error}"
+    url_name: "URL-Name"
+    visible: "visibile"
+    want_to_create_new_language: "Vuoi creare una nuova struttura vuota della lingua?"
+    want_to_make_copy_of_existing_language: "Vuoi copiare una struttura esistente della lingua?"
+    "We need at least one default.": "Deve esistere almeno una lingua di default."
+    welcome_note: "Benvenuto %{name}"
+    welcome_back_note: "Bentornato %{name}"
+    welcome_please_identify_notice: "Benvenuto! Per favore identificati."
+    width: "Larghezza"
+    without_tag: "Senza tag"
+    you_can_rename_this_tag: "Puoi rinominare questo tag"
+    zoom_image: "Effettua lo zoom di questa immagine"
+    "Leave Alchemy": "Esci da Alchemy"
+    leave: "esci da"
+    "You are about to leave Alchemy": "Stai per uscire da Alchemy"
+    "Do you want to": "Vuoi veramente"
+    "stay logged in": "rimani connesso"
+    "or to completely": "oppure vuoi completamente"
+    "Are you sure?": "Sei sicuro?"
+    "Create": "Crea"
+    "Edit": "Modifica"
+    "Delete": "Elimina"
+    "Successfully created": "Creato con successo"
+    "Successfully updated": "Aggiornato con successo"
+    "Successfully removed": "Rimosso con successo"
+    "Nothing found": "Non è stato trovato nulla."
+    complete: 'Completato'
+    "Update available": 'Aggiornamento disponibile'
+    "Update status unavailable": 'Stato dell''update non disponibile'
+    "Uploading": "Caricamento in corso"
+
+  # Alchemy time formats
+  time:
+    formats:
+      alchemy:
+        datepicker: "%Y-%m-%d"
+        datetimepicker: "%Y-%m-%d %H:%M"
+        default: "%a, %d %b %Y %H:%M:%S %z"
+        essence_date: "%Y-%m-%d"
+        page_status: "%d.%m.%Y %H:%M"
+        short_datetime: "%d %b %H:%M"
+        time: "%H:%M"
+        timepicker: "%H:%M"
+
+  # Translations for error messages.
+  errors:
+    models:
+      alchemy/content:
+        attributes:
+          name:
+            taken: 'è stato già preso in questo elemento.'
+          essence:
+            validation_failed: 'Validazione fallita.'
+      alchemy/element:
+        attributes:
+          name:
+            blank: "^Scegli un elemento."
+      alchemy/language:
+        attributes:
+          language_code:
+            invalid: '^Il formato del codice della lingua è errato. Usa esattamente 2 lettere minuscole.'
+            taken: 'è già preso per questo codice nazione.'
+          locale:
+            missing_file: "Localizzazione non trovata per il codice lingua fornito. Scegline uno esistente."
+      alchemy/page:
+        attributes:
+          name:
+            blank: "^Inserisci un nome."
+          page_layout:
+            blank: "^Scegli un layout per la pagina."
+          urlname:
+            too_short: "^L'url della pagina è troppo corto (minimo 3 caratteri)."
+            taken: "^URL-Name è già preso."
+            exclusion: "^URL-Name è riservato."
+      alchemy/picture:
+        attributes:
+          image_file:
+            blank: "Carica un'immagine."
+
+  # Translations for Alchemy models
+  activemodel:
+    models:
+      alchemy/message:
+        one: Messaggio
+        other: Messaggi
+    attributes:
+      alchemy/message:
+        salutation: 'Salve'
+        firstname: 'Nome'
+        lastname: 'Cognome'
+        address: 'Via / N.'
+        zip: 'CAP'
+        city: Città
+        phone: 'Telefono'
+        email: 'Email'
+        message: 'Messaggio'
+
+  # Translations for Alchemy database models
+  activerecord:
+    models:
+      gutentag/tag:
+        one: Tag
+        other: Tag
+      alchemy/attachment:
+        one: File
+        other: File
+      alchemy/element:
+        one: "Elemento"
+        other: "Elementi"
+      alchemy/legacy_page_url:
+        one: "Collegamento"
+        other: "Collegamenti"
+      alchemy/language:
+        one: "Lingua"
+        other: "Lingue"
+      alchemy/page:
+        one: "Pagina"
+        other: "Pagine"
+      alchemy/site:
+        one: Sito web
+        other: Siti web
+      alchemy/picture:
+        one: Immagine
+        other: Immagini
+    attributes:
+      gutentag/tag:
+        taggings_types: Usato per
+        taggings_count: Numero utilizzi
+      alchemy/attachment:
+        file_mime_type: Tipo file
+        created_at: "Creato il"
+        file_name: Nome file
+        name: Nome
+        file_size: Dimensione file
+        tag_list: Tag
+      alchemy/element:
+        display_name: "Nome"
+        name: "Nome"
+        public: "visibile"
+        tag_list: Tag
+      alchemy/essence_file:
+        css_class: Stile
+        link_text: Link-Text
+        title: Titolo
+      alchemy/essence_picture:
+        caption: "Didascalia"
+        title: "Titolo"
+        alt_tag: "Testo alternativo"
+        link: Link
+        link_class_name: "Classe link CSS"
+        link_title: Titolo link
+        css_class: Stile
+        link_target: Destinazione link
+        render_size: Dimensione render
+        crop_from: Taglia da
+        crop_size: Dimensione taglio
+        picture_id: Immagine
+      alchemy/language:
+        country_code: "Codice nazione"
+        language_code: "Codice lingua"
+        default: "Default"
+        frontpage_name: "Nome della prima pagina"
+        name: "Nome"
+        page_layout: "Tipo della prima pagiona"
+        public: "Pubblica"
+        locale: Localizzazione
+        code: Codice-ISO
+      alchemy/legacy_page_url:
+        urlname: "Percorso URL"
+      alchemy/page:
+        created_at: "Creato il"
+        language: "Lingua"
+        locked: "Questa pagina è bloccata da un altro utente."
+        locked_by: "bloccata da"
+        meta_description: "Descrizione"
+        meta_keywords: "Parole chiave"
+        name: "Nome"
+        page_layout: "Tipo pagina"
+        public: "pubblica"
+        restricted: "riservata"
+        robot_follow: "i robot possono seguire i link"
+        robot_index: "consenti ai robot di indizzare la pagina"
+        sitemap: "visibile nella sitemap"
+        tag_list: Tag
+        title: "Titolo"
+        updated_at: "Aggiornata il"
+        urlname: "Nome url"
+        visible: "Visibile nella navigazione"
+      alchemy/picture:
+        image_file_name: "Nome del file"
+        image_file_height: "Altezza"
+        image_file_width: "Larghezza"
+        image_file_dimensions: "Dimensioni"
+        image_file_size: "Dimensione del file"
+        name: "Nome"
+        tag_list: Tag
+      alchemy/site:
+        name: "Nome"
+        host: "Host Primario"
+        public: "Publico"
+        aliases: "Alias di Dominio"
+        redirect_to_primary_host: "Redirect all'Host Primario"
+
+  # Kaminari pagination translations
+  views:
+    pagination:
+      first: "Prima Pagina"
+      previous_page: "Pagina Precedente"
+      next_page: "Prossima Pagina"
+      last: "Ultima Pagina"

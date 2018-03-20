@@ -1,0 +1,764 @@
+# encoding: UTF-8
+
+nl:
+
+  # = Alchemy Translations
+  # All translations used in Alchemy CMS are inside this alchemy namespace.
+  alchemy:
+
+    # == Translations for page_layout names
+    # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
+    #
+    # Example:
+    #
+    # nl:
+    #   alchemy:
+    #     page_layout_names:
+    #       contact: Contact
+    #       search: Zoeken
+    #
+    page_layout_names:
+
+    # == Translations for element names
+    # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
+    #
+    # Example:
+    #
+    # nl:
+    #   alchemy:
+    #     element_names:
+    #       article: Artikel
+    #       intro_image_text: Intro Artikel
+    #
+    element_names:
+
+    # == Translated names for contents in elements.
+    # Used for the content editor label inside the element editor view (The elements window)
+    #
+    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
+    # To do so, just place the content_name under the element name
+    #
+    # Example:
+    #
+    # nl:
+    #  alchemy:
+    #    content_names:
+    #      headline: Koptekst
+    #      news_article:
+    #        headline: Nieuws Koptekst
+    #      image_caption: Onderschrift
+    #      show_caption: Onderschrift weergeven
+    #
+    content_names:
+
+     # === Translations for content validations
+    # Used when a user did not enter (correct) values to the content field.
+    #
+    # Tip: You can define the validation messages translations different for each element and content
+    #
+    # Example:
+    #
+    # nl:
+    #   alchemy:
+    #     content_validations:
+    #       contactform:
+    #         success_page:
+    #           blank: 'Kies een Opvolgpagina.'
+    #         mail_to:
+    #           blank: 'Kies een Emailadres.'
+    #
+    content_validations:
+      errors:
+        blank: '%{field} mag niet leeg zijn'
+        invalid: '%{field} heeft een verkeerd formaat'
+        taken: '%{field} is al in gebruik'
+
+    default_content_texts:
+      lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
+
+    essence_pictures:
+      css_classes:
+        left: 'Links van de tekst'
+        right: 'Rechts van de tekst'
+        no_float: 'Boven de tekst'
+
+    # == Contactform translations
+    contactform:
+      labels:
+        salutation: 'Aanhef'
+        choose: 'Maak een keuze'
+        mr: 'Dhr.'
+        mrs: 'Mw.'
+        firstname: 'Voornaam'
+        lastname: 'Achternaam'
+        address: 'Adres'
+        zip: 'Postcode / Plaats'
+        phone: 'Telefoonnr.'
+        email: 'Emailadres'
+        message: 'Bericht'
+        send: 'Verzenden'
+        mandatory_fields: '*Verplichte velden.'
+      # The flash message shown after successfully sending the message.
+      messages:
+        success: 'Het bericht is verzonden.'
+
+    # == Translated language names for translation select
+    translations:
+      de: 'DE'
+      en: 'EN'
+      es: 'ES'
+      it: 'IT'
+      fr: 'FR'
+      nl: 'NL'
+      ru: 'RU'
+
+    # == User roles translations
+    user_roles:
+      registered: "Geregistreerd"
+      member: "Lid"
+      author: "Auteur"
+      editor: "Editor"
+      admin: "Administrator"
+
+    # == Mime Types translations
+    # These are human readable mime types used for the document-type row in archive files.
+    mime_types:
+      audio/mp4: 'MP4-Audio'
+      application/msword: 'Word-Document'
+      application/rtf: 'RTF-Document'
+      audio/mpeg: 'MP3-Audio'
+      text/plain: 'Tekst-Document'
+      video/mp4: 'MP4-Video'
+      video/mpeg: 'MPEG-Video'
+      application/pdf: 'PDF-Document'
+      application/x-flash-video: 'Flash-Video'
+      video/x-flv: 'Flash-Video'
+      application/x-shockwave-flash: 'Flash-Movie'
+      application/zip: 'ZIP-Archive'
+      application/x-rar: 'RAR-Archive'
+      application/vnd:
+        ms-excel: 'Excel-Document'
+      video/quicktime: 'Quicktime-Video'
+      image/x-psd: 'Photoshop-File'
+      image/gif: 'GIF-Afbeelding'
+      image/jpeg: 'JPG-Afbeelding'
+      image/png: 'PNG-Afbeelding'
+      video/x-msvideo: 'AVI-Video'
+      video/x-ms-wmv: 'Windows Media Video'
+      image/tiff: 'TIFF-Afbeelding'
+      'text/x-vcard': 'vCard'
+      application/vcard: 'vCard'
+
+    link_target_options:
+      default: Zelfde venster
+      blank: Nieuw venster/tab
+      overlay: Overlay
+
+    resource_help_texts:
+      site:
+        aliases: Specificeer andere domeinen gescheiden met witte ruimte of lege regel
+
+    anchor: 'Anchor'
+    attribute_fixed: Waarde kan niet worden gewijzigd
+    back: 'back'
+    create_tree_as_new_language: "%{language} aanmaken als nieuwe boomstructuur"
+    locked_pages: "Actieve pagina's"
+    "Add global page": "Nieuwe globale pagina"
+    "Add page link": "Voeg pagina link toe"
+    "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software en maakt zelf ook gebruik van open software en gratis bronnen"
+    "Alchemy is up to date": "Alchemy is up to date"
+    "An error happened": "Er is een fout opgetreden!"
+    "Change password": "Wachtwoord veranderen"
+    "Choose page": "Pagina kiezen"
+    "Cleared trash": "De prullenbak wordt geleegd"
+    "Clear selection": "Selectie leegmaken"
+    "Forgot your password?": "Wachtwoord vergeten?"
+    "Clipboard": "Klembord"
+    "Confirm new password": "Nieuw wachtwoord bevestigen"
+    "Copy": "Kopie"
+    "Could not load Adobe Flash® Plugin!": "Adobe Flash® Plugin kon niet geladen worden!"
+    "Currently locked pages": "Vergrendelde pagina's"
+    "Default language has to be public": "De standaardpagina moet publiek zijn."
+    "Delete image": "Afbeelding verwijderen"
+    "Do you really want to clear the clipboard?": "Klembord echt leeg maken?"
+    "Do you really want to clear the trash?": "Prullenbak echt leeg maken?"
+    "Do you really want to delete this content?": "Inhoud echt verwijderen?"
+    "Drag an element over to the element window to restore it": "Sleep een element over het elementenvenster om deze te herstellen"
+    "Edit Picturemask": "Afbeeldingsmasker bewerken"
+    "Edit image": "Afbeelding bewerken"
+    "Edit multiple pictures": "Meerdere afbeeldingen bewerken"
+    "Elements": "Elementen"
+    "Element trashed": "Element verwijderd"
+    "Error with the Flash® Uploader!": "Fout in de Flash® Uploader!"
+    "Excerpt": "fragment"
+    "File successfully updated": "Bestand is succesvol geüpdatet"
+    "File deleted successfully": "%{name} verwijderd"
+    "Filter by tag": "Op tag filteren"
+    "Flush page cache": "Paginacache leegmaken"
+    "Flush picture cache": "Afbeeldingscache leegmaken"
+    "Global shortcuts": "Globale snelkoppelingen"
+    "Hide childpages": "Onderliggende pagina's verbergen"
+    hide_elements: "Elementen verbergen"
+    "Image missing": "Afbeelding mist"
+    "Image size": "Afbeeldingsgrootte"
+    "Language successfully created": "Taal is aangemaakt."
+    "Language successfully removed": "Taal is verwijderd."
+    "Language successfully updated": "Taal is aangepast."
+    "Language tree": "Taalboom"
+    "Layout default": "Standaard layout"
+    "Library shortcuts": "Bibliotheek snelkoppelingen"
+    "Logged in as": "Aangemeld als"
+    "Mandatory": "Verplichte velden"
+    "Name": "Naam"
+    "New": "Nieuw"
+    "New Element": "Nieuw element"
+    "New page": "Nieuwe pagina"
+    "No page links for this page found": "Geen pagina links voor deze pagina gevonden"
+    "New password": "Nieuw wachtwoord"
+    "New Tag": "Nieuwe tag"
+    "New Tag Created": "Nieuwe tag is gemaakt"
+    "No": "Nee"
+    "No items in your clipboard": "Het klembord is leeg"
+    "No Tags found": "Geen tags gevonden"
+    "None": "geen"
+    "Open Link in": "Link openen in"
+    "Page": "Pagina"
+    "Page edit shortcuts": "Page edit shortcuts" # ToDo: translate this
+    "Page deleted": "%{name} verwijderd"
+    "Page saved": "%{name} opgeslagen"
+    "Page cache flushed": "Paginacache is geleegd"
+    "Pages order saved": "Paginasortering is opgeslagen"
+    "Password": "Wachtwoord"
+    "Password reset": "Wachtwoord resetten"
+    "Paste from clipboard": "Uit klembord kopiëren"
+    "Picture infos": "Afbeeldingsinformatie"
+    "Picture renamed successfully": "Afbeelding hernoemd van %{from} naar %{to}"
+    "Picture deleted successfully": "Afbeelding %{name} verwijderd"
+    "Pictures updated successfully": "De afbeelding is geüpdatet"
+    "Please Signup": "Om de homepagina te kunnen bewerken moet er eerst een Admin account gemaakt worden."
+    "Please choose": "Maak een keuze"
+    "Please enter a new password": "Geef een nieuw wachtwoord op"
+    "Please enter your email address": "Geef een email adres op"
+    "Please log in": "Meld u zich aan alstublieft."
+    "Please seperate the tags with commata": "* Tags met komma scheiden."
+    "Properties": "Properties"
+    "Publish page": "Publiceren"
+    "Read the License": "Licentie lezen"
+    "Redirects to": "Stuurt door naar"
+    "Reload Preview": "Preview herladen"
+    "Remove item from clipboard": "Item van klembord verwijderen"
+    "Remove tag filter": "Filter verwijderen"
+    "Remove this content": "Inhoud verwijderen"
+    "Reset Imagemask": "resetten"
+    "Reset password instructions": "Instructies om het wachtwoord te resetten."
+    "Select all": "Alles selecteren"
+    "Select an content": "Selecteer de inhoud"
+    "Select style": "Stijl selecteren"
+    "Send reset instructions": "Instructies verzenden"
+    show_elements: "Elementen weergeven"
+    "Show childpages": "Onderliggende pagina's weergeven"
+    "Show clipboard": "Klembord weergeven"
+    "Show picture infos": "Afbeeldingsinformatie weergeven"
+    "Show trash": "Prullenbak weergeven"
+    "Site successfully created": "Website is aangemaakt."
+    "Site successfully removed": "Website is verwijderd."
+    "Site successfully updated": "Website is aangepast."
+    "Size": "Grootte"
+    "Sort pages": "Pagina's sorteren"
+    "Successfully added content": "%{content} is toegevoegd"
+    "Successfully deleted content": "%{content} is verwijderd"
+    "Successfully saved content position": "Positie is opgeslagen"
+    "Tags": "Tags"
+    "These pictures could not be deleted, because they were in use": "Deze afbeeldingen konden niet verwijderd worden, omdat ze in gebruik zijn: %{names}"
+    "This page is locked": Deze pagina is vergrendeld door %{name}
+    "Title": "Titel"
+    "Trash": "Prullenbak"
+    "User created": "Gebruiker is aangemaakt"
+    "User deleted": "Gebruiker is verwijderd"
+    "User updated": "%{name} is aangepast"
+    "Validation failed": "Een aantal verplichte velden zijn niet goed ingevuld."
+    "Version": "Versie"
+    "View File": "Bestand weergeven"
+    "Visit page": "Pagina bezoeken"
+    "Warning!": "Waarschuwing!"
+    content_definition_missing: "Waarschuwing: content mist een beschrijving. Controleer elements.yml"
+    element_definition_missing: "Waarschuwing: Er is geen beschijving gevonden voor dit element. Controleer elements.yml"
+    "Welcome to Alchemy": "Welkom bij Alchemy"
+    "Who else is online": "Wie is ook online"
+    "Yes": "Ja"
+    "You are not authorized": "U bent niet geautoriseerd."
+    "You are about to edit many pictures at once": "%{length} afbeeldingen worden in een keer aangepast"
+    element_dirty_close_window_notice: "Elementen zijn nog niet opgeslagen. Dit venster toch sluiten?"
+    "Your last login was on": "Uw laatste aanmelding was op %{time}."
+    "Your last updated pages": "Your last updated pages"
+    "Your trash is empty": "De prullenbak is leeg"
+    above: "er boven"
+    add: "Toevoegen"
+    "add new content": "Element toevoegen"
+    add_image_to_element: "Afbeelding toevoegen"
+    align_in_text: "Tekstuitlijning"
+    all: "alle"
+    all_pictures: "Alle afbeeldingen weergeven"
+    apply: "toepassen"
+    assign_file: "Bestand toewijzen"
+    assign_file_from_archive: "wijs een bestand toe uit het archief"
+    assign_image: "Afbeelding toewijzen"
+    attachment_filename_notice: "* Gebruik geen speciale leestekens voor de bestandsnaam"
+    auto_play: "Video afspelen na laden"
+    big_thumbnails: "Grote thumbnails"
+    cancel: "afbreken"
+    cannot_delete_picture_notice: "Kan Afbeelding %{name} niet verwijderen, omdat deze nog in gebruik is"
+    choose_element_as_target: "Kies een doelelement"
+    choose_element_to_link: "Kies een element"
+    choose_file_to_link: "Kies een bestand om te koppelen"
+    "clear clipboard": "Klembord leegmaken"
+    "clear trash": "Prullenbak leegmaken"
+    click_to_show_all: "Klik om alles nogmaals weer te geven."
+    confirm_to_delete_file: "Bestand van de server verwijderen?"
+    confirm_to_delete_image: "Afbeelding van de server verwijderen?"
+    confirm_to_delete_image_from_server: "Afbeelding van de server verwijderen?"
+    confirm_to_delete_images_from_server: "Afbeeldingen van de server verwijderen?"
+    confirm_to_delete_page: "Deze pagina verwijderen? Alle inhoud gaat verloren."
+    content_essence_not_found: "Content essence is niet gevonden"
+    content_not_found: "Veld voor content is niet aanwezig"
+    content_validations_headline: "Controleer de gemarkeerde velden"
+    copy: "kopiëren"
+    copy_element: "Dit element kopiëren"
+    copy_page: "Pagina kopiëren"
+    "Could not delete Pictures": "Kan de afbeeldingen niet verwijderen"
+    copy_language_tree_heading: "Paginastructuur kopiëren"
+    country_code_placeholder: 'bijv. US (optioneel)'
+    country_code_foot_note: "Een landcode is alleen nodig voor het toewijzen van een aparte taal aan elk land."
+    create: "maken"
+    "Create language": "Nieuwe taal maken"
+    "Create site": "Nieuwe site maken"
+    create_language_tree_heading: "Nieuwe lege boomstructuur voor taal maken"
+    create_page: "Nieuwe subpagina maken"
+    currently_edited_by: "Deze pagina is vergrendeld door"
+    cut_element: "Element knippen"
+    delete_file: "Bestand van de server verwijderen"
+    delete_image: "Deze afbeelding verwijderen"
+    delete_language: "Deze taal verwijderen"
+    delete_page: "Deze pagina verwijderen"
+    delete_tag: 'Tag wissen'
+    document: "Bestand"
+    download_csv: "CSV downloaden"
+    download_file: "Bestand '%{filename}' downloaden"
+    do_you_really_want_to_delete_this_tag?: "Wilt u deze tag echt verwijderen?"
+    drag_to_sort: "slepen om afbeeldingen te sorteren"
+    edit_file_properties: "Eigenschappen van het bestand aanpassen"
+    edit_image_properties: "Eigenschappen van de afbeelding aanpassen"
+    edit_language: "Taal aanpassen"
+    edit_page: "Pagina aanpassen"
+    edit_page_properties: "Eigenschappen van de pagina aanpassen"
+    edit_tag: 'Tag bewerken'
+    edit_selected_pictures: "Geselecteerde afbeeldingen aanpassen"
+    element_editor_not_found: "Foutmelding in het element"
+    element_of_type: "Element"
+    element_saved: "Opgeslagen element."
+    enter_external_link: "Voer de URL van de snelkoppeling in"
+    explain_cropping: "<p>Verplaats het frame en verander de grootte om de uitsnede aan te passen.</p><p>Klik op 'toepassen' als het goed is.</p>"
+    explain_publishing: "Pagina publiceren en gecachede versie van de server verwijderen."
+    explain_sitemap_dragndrop_sorting: "Tip: Versleep de pagina's met het icoon om ze te sorteren."
+    explain_unlocking: "Pagina verlaten en ontgrendelen voor andere gebruikers."
+    external_link_notice_1: "Voer de complete URL in (inclusief bijvoorbeeld http://)"
+    external_link_notice_2: "Om te refereren naar een link van deze website, start met /"
+    female: "Vrouw"
+    file: "Bestand"
+    file_rename_error: "Fout bij hernoemen van het bestand."
+    from_at: "door %{by} op %{at}"
+    height: "Hoogte"
+    help:
+      shortcuts:
+        "Open help window": "Open help venster"
+        "Close current dialog": "Sluit huidig venster"
+        "Open logout dialog": "Open afmeld venster"
+        "Focus search field": "Selecteer zoekveld"
+        "Create a new record": "Maak een nieuwe regel"
+        "Show page infos": "Laat pagina info zien"
+        "Create new element": "Creëer nieuw element"
+        "Edit page properties": "Pas pagina eigenschappen aan"
+        "Reload the preview": "Herlaad de voorvertoning"
+        "Leave the page": "Verlaat de pagina"
+        "Open upload form": "Open upload venster"
+        "Select all pictures": "Selecteer alle foto's"
+    hide_element_content: "Content van dit element verbergen."
+    dashboard: "Dashboard"
+    image_alt_tag: "Alt-tag"
+    image_caption: "Caption"
+    image_name: "Naam"
+    image_title: "Titel-tag"
+    internal_link_headline: "Kies een pagina om een snelkoppeling naar te maken."
+    internal_link_page_elements_explanation: "Ook kunt u rechts klikken op een pagina in 'Toon Elementen' om naar een interne verwijzing (anchor) van deze pagina te verwijzen."
+    internal_link_page_anchors_explanation: "Ook kunt u naar de pagina zelf verwijzen."
+    "item copied to clipboard": "%{name} naar het klembord gekopiëerd"
+    "item moved to clipboard": "%{name} naar het klembord verplaatst"
+    "item removed from clipboard": "%{name} van het klembord verwijderd"
+    javascript_disabled_headline: "Javascript is uitgeschakeld!"
+    javascript_disabled_text: "Javascript is nodig voor een juiste werking van Alchemy. Gebruik de browserinstellingen om Javascript in te schakelen."
+    language_code_placeholder: 'bijv. en'
+    language_does_not_exist: "Deze boomstructuur bestaat niet."
+    language_pages_copied: "Boomstructuur gekopieerd."
+    last_upload_only: "Alleen de laatste upload"
+    left: "links"
+    legacy_url_info_text: "Een link is een omleiding van een historische URL naar de huidige URL van deze pagina. Deze omleiding gebeurt met een <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
+    link_image: "Snelkoppeling naar deze afbeelding maken."
+    link_overlay_tab_label:
+      contactform: "Contactformulier"
+      external: "Extern"
+      file: "Bestand"
+      internal: "Intern"
+    link_title: "Linktitel"
+    login: "log in"
+    logout: "afmelden"
+    mail_to: "ontvanger"
+    main_content: "inhoud"
+    male: "Meneer"
+    me: 'Ik'
+    medium_thumbnails: "Medium thumbnails"
+    meta_data: "Meta-Data"
+    meta_description: "Meta-Description"
+    meta_keywords: "Meta-Keywords"
+    modules:
+      attachments: "Bestanden"
+      dashboard: "Dashboard"
+      pictures: "Afbeeldingen"
+      languages: "Talen"
+      layoutpages: "Globale Pagina's"
+      library: "Bibliotheek"
+      pages: "Pagina's"
+      tags: "Tags"
+      sites: "Sites"
+    name: "Naam"
+    names: "Namen"
+    navigation_name: "Navigatiename"
+    no_image_for_cropper_found: "Geen afbeelding gevonden. Sla eerst het element op."
+    no: "Nee"
+    "no pages": "Geen pagina's"
+    "no users": "Geen gebruikers"
+    no_default_language_found: "Geen standaardtaal gevonden"
+    no_element_given: "Geen element geselecteerd"
+    no_files_in_archive: "Er staan geen bestanden in het archief"
+    no_images_in_archive: "Er staan geen afbeeldingen in het archief"
+    no_more_elements_to_add: "Geen elementen meer om toe te voegen"
+    no_search_results: "Geen zoekresultaten."
+    "not a valid image": "Geen valide afbeelding"
+    "or": 'of'
+    or_replace_it_with_an_existing_tag: 'Of vervang het door een bestaande tag'
+    "Page created": "Pagina '%{name}' aangemaakt."
+    page_for_links:
+      choose_page: "%{name} kiezen"
+    page_infos: 'Pagina-info'
+    page_layout_changed_notice: "Paginatype is aangepast. Elementen die niet meer kunnen worden gebruikt zijn naar de prullenbak verplaatst."
+    page_properties: "Pagina eigenschappen"
+    page_public: "Gepubliceerd"
+    page_published: "Gepubliceerde pagina"
+    page_restricted: "afgeschermd"
+    page_states:
+      visible:
+        "true": "Pagina is zichtbaar in navigatie."
+        "false": "Pagina is niet zichtbaar in navigatie."
+      public:
+        "true": "Pagina is gepubliceerd."
+        "false": "Pagina is niet gepubliceerd."
+      locked:
+        "true": "Pagina wordt nu aangepast"
+        "false": ""
+      restricted:
+        "true": "Pagina is afgeschermd."
+        "false": "Pagina is niet afgeschermd."
+    page_status: "Status"
+    page_title: "Titel"
+    page_type: "Type"
+    page_visible_in_navigation: "Zichtbaar in navigatie"
+    page_was_created: "Is aangemaakt"
+    page_was_updated: "Is geüpdatet"
+    pages:
+      update:
+        comma_seperated: "Komma gescheiden"
+    password: "Wachtwoord"
+    paste: "plakken"
+    picture_gallery_editor: 'Afbeeldingen'
+    picture_library:
+      filter:
+        last_upload: "uit laatste upload"
+        recent: "die recentelijk zijn geüpload"
+        without_tag: "zonder tag"
+    place_link: "Link tekst"
+    player_version: "Flashplayer Versie"
+    "please enter subject and mail address": "Ontvanger en onderwerp invoeren."
+    please_confirm: "Graag bevestigen"
+    please_wait: "Even geduld"
+    position_in_text: "tekstpositie"
+    preview_size: "Voorvertoning grootte"
+    preview_sizes:
+      '240': '240px (kleine telefoon)'
+      '320': '320px (iPhone)'
+      '480': '480px (kleine Tablet)'
+      '768': '768px (iPad - Portrait)'
+      '1024': '1024px (iPad - Landscape)'
+      '1280': '1280px (Desktop)'
+    recently_uploaded_only: 'recent geüpload'
+    "regular method": "normale Methode"
+    remove: "Verwijderen"
+    rename_file: "Dit bestand hernoemen."
+    rename: hernoemen
+    replace: vervangen
+    replace_file: Vervang file
+    'Replaced Tag': "De tag '%{old_tag}' wordt door de tag '%{new_tag}' vervangen"
+    resources:
+      relation_select:
+        blank: '- geen -'
+    right: "rechts"
+    robot_follow: "robot mag links volgen."
+    robot_index: "robot mag index volgen."
+    save: "Opslaan"
+    "save order": "Sortering opslaan"
+    saved_link: "Link opgeslagen."
+    search: "zoeken"
+    search_engines: "Zoekmachines"
+    select_element: "Selecteer element"
+    seperate_tags_with_comma: "Markeer verschillende tags met komma's ertussen"
+    show_element_content: "Content van dit element weergeven."
+    show_elements_from_page: "Alle elementen van deze pagina weergeven"
+    show_eq: "EQ weergeven"
+    show_navigation: "In navigatie weergeven"
+    show_page_in_sitemap: "Pagina in sitemap weergeven."
+    signup_mail_delivery_error: "Registratiemail kan niet worden bezorgd. Controleer de e-mailinstellingen."
+    small_thumbnails: "Kleine thumbnails"
+    subject: "Onderwerp"
+    successfully_added_element: "Nieuw element is toegevoegd."
+    successfully_deleted_tag: "De tag wordt verwijderd"
+    successfully_restored_element: "Element is hersteld."
+    successfully_saved_element_position: "Positie van het Element is aangepast."
+    successfully_updated_tag: "De tag is geüpdatet"
+    swap_image: "Afbeelding wijzigen"
+    insert_image: "Afbeelding toevoegen"
+    tag_list: Tags
+    tags_get_created_if_used_the_first_time: 'Tags worden aangemaakt als ze de eerste keer worden gebruikt'
+    this_picture_is_used_on_these_pages: "Deze afbeelding wordt op de volgende pagina's gebruikt"
+    title: "Titel"
+    to_alchemy: "Naar Alchemy"
+    "trash element": "Element naar de prullenbak verplaatsen"
+    unknown: "onbekend"
+    unlink: "Snelkoppeling van deze afbeelding verwijderen."
+    unlock_page: "Pagina verlaten"
+    unlocked_page: "pagina %{name} is ontgrendeld."
+    uploader:
+      alchemy/attachment:
+        button_label: Geüploade bestand(en)
+        upload_success: "Bestand %{name} geüpload"
+        upload_failure: "Bestand %{name} kon niet worden geüpload: %{error}"
+      alchemy/picture:
+        button_label: Geüploade afbeelding(en)
+        upload_success: "Afbeelding %{name} is geüpload"
+        upload_failure: "Fout bij het uploaden van afbeelding %{name}: %{error}"
+    url_name: "URL-Naam"
+    visible: "zichtbaar"
+    want_to_create_new_language: "Nieuwe boomstructuur aanmaken?"
+    want_to_make_copy_of_existing_language: "Een boomstructuur kopiëren?"
+    "We need at least one default.": "Er moet minimaal één standaard taal zijn."
+    welcome_note: "Welkom %{name}"
+    welcome_back_note: "Welkom terug %{name}"
+    welcome_please_identify_notice: "Welkom! voer uw gegevens in."
+    width: "Breedte"
+    without_tag: "Geen tag"
+    you_can_rename_this_tag: "U kunt deze tag hernoemen"
+    zoom_image: "Afbeelding vergroten"
+    "Leave Alchemy": "Alchemy verlaten"
+    leave: "Afmelden"
+    "You are about to leave Alchemy": "U staat op het punt Alchemy te verlaten"
+    "Do you want to": "Wilt u"
+    "stay logged in": "ingelogd blijven"
+    "or to completely": "of compleet"
+    "Are you sure?": "Weet u het zeker?"
+    "Create": "Aanmaken"
+    "Edit": "Aanpassen"
+    "Delete": "Verwijderen"
+    "Successfully created": "Aangemaakt"
+    "Successfully updated": "Aangepast"
+    "Successfully removed": "Verwijderd"
+    "Nothing found": "Niets gevonden"
+    complete: 'Compleet'
+    "Update available": "Er is een update verkrijgbaar"
+    "Update status unavailable": "Updatestatus is niet beschikbaar"
+    "Uploading": "Uploaden"
+
+  # Alchemy time formats
+  time:
+    formats:
+      alchemy:
+        datepicker: "%Y-%m-%d"
+        datetimepicker: "%Y-%m-%d %H:%M"
+        default: "%a, %d %b %Y %H:%M:%S %z"
+        essence_date: "%Y-%m-%d"
+        page_status: "%m.%d.%Y %H:%M"
+        short_datetime: "%d %b %H:%M"
+        time: "%H:%M"
+        timepicker: "%H:%M"
+
+  # Translations for error messages.
+  errors:
+    models:
+      alchemy/content:
+        attributes:
+          name:
+            taken: 'is al in gebruik in dit element.'
+          essence:
+            validation_failed: 'Validatie mislukt.'
+      alchemy/element:
+        attributes:
+          name:
+            blank: "^Kies een element."
+      alchemy/language:
+        attributes:
+          code:
+            invalid: '^Formaat van de taalcode is niet juist. Gebruik exact twee kleine letters.'
+            taken: 'Is al in gebruik.'
+          locale:
+            missing_file: "Localization not found for given language code. Please choose an existing one."
+      alchemy/page:
+        attributes:
+          name:
+            blank: "^Voer een naam in."
+          page_layout:
+            blank: "^Kies een paginalayout."
+          urlname:
+            too_short: "^De URL-naam van de pagina is te kort (minimaal 3 karaters)."
+            taken: "^URL-Naam is al gebruikt"
+            exclusion: "^URL-Naam is gereserveerd"
+      alchemy/picture:
+        attributes:
+          image_file:
+            blank: "Voeg een afbeelding toe."
+
+  # Translations for Alchemy models
+  activemodel:
+    models:
+      alchemy/message:
+        one: Message
+        other: Messages
+    attributes:
+      alchemy/message:
+        salutation: 'Aanhef'
+        firstname: 'Voornaam'
+        lastname: 'Achternaam'
+        address: 'Straatnaam / huisnummer'
+        zip: 'Postcode / Plaats'
+        city: 'Stad'
+        phone: 'Telefoonnummer'
+        email: 'Email'
+        message: 'Bericht'
+
+  # Translations for Alchemy database models
+  activerecord:
+    models:
+      gutentag/tag:
+        one: Tag
+        other: Tags
+      alchemy/attachment:
+        one: Bestand
+        other: Bestanden
+      alchemy/element:
+        one: "Element"
+        other: "Elementen"
+      alchemy/legacy_page_url:
+        one: "Link"
+        other: "Links"
+      alchemy/language:
+        one: "Taal"
+        other: "Talen"
+      alchemy/page:
+        one: "Pagina"
+        other: "Pagina's"
+      alchemy/site:
+        one: Website
+        other: Websites
+      alchemy/picture:
+        one: Afbeelding
+        other: Afbeeldingen
+    attributes:
+      gutentag/tag:
+        taggings_types: Gebruikt voor
+        taggings_count: Aantal in gebruik
+      alchemy/attachment:
+        file_mime_type: "Bestandstype"
+        created_at: "Aangemaakt op"
+        file_name: Bestandsnaam
+        name: Naam
+        file_size: "Bestandsgrootte"
+        tag_list: Tags
+      alchemy/element:
+        display_name: "Naam"
+        name: "Naam"
+        public: "zichtbaar"
+        tag_list: Tags
+      alchemy/essence_file:
+        css_class: Stijl
+      alchemy/essence_picture:
+        caption: "Ondertitel"
+        title: "Titel"
+        alt_tag: "Alternatieve Tekst"
+        link: Link
+        link_class_name: "Link CSS-class"
+        link_title: Link-Titel
+        css_class: Stijl
+        link_target: Link-Doel
+        render_size: Weergavegrootte
+        crop_from: Uitsnede uit
+        crop_size: Grootte van uitsnede
+        picture_id: Afbeelding
+      alchemy/language:
+        country_code: "Landcode"
+        language_code: "Taalcode"
+        default: "Standaard"
+        frontpage_name: "Naam van voorpagina"
+        name: "Naam"
+        page_layout: "Paginatype van voorpagina"
+        public: "Publiek"
+        locale: Localization
+        code: ISO Code
+      alchemy/legacy_page_url:
+        urlname: "URL pad"
+      alchemy/page:
+        created_at: "Aangemaakt op"
+        language: "Taal"
+        locked: "Deze pagina is geblokkeerd door een andere gebruiker."
+        locked_by: "geblokkeerd door"
+        meta_description: "Omschrijving"
+        meta_keywords: "Sleutelwoorden"
+        name: "Naam"
+        page_layout: "Paginatype"
+        public: "publiek"
+        restricted: "afgeschermd"
+        robot_follow: "robot mag URL's volgen"
+        robot_index: "robot mag index volgen"
+        sitemap: "zichtbaar in sitemap"
+        tag_list: Tags
+        title: "Titel"
+        updated_at: "Bijgewerkt op"
+        urlname: "URL-naam"
+        visible: "zichtbaar in navigatie"
+      alchemy/picture:
+        image_file_name: "Bestandsnaam"
+        image_file_height: "Hoogte"
+        image_file_width: "Breedte"
+        image_file_dimensions: "Maten"
+        image_file_size: "Bestandsgrootte"
+        name: "Naam"
+        tag_list: Tags
+      alchemy/site:
+        name: "Omschrijving"
+        host: Primaire Host
+        public: "Publiek"
+        aliases: "Domain-Aliases"
+        redirect_to_primary_host: "Redirect naar primaire host"
+
+  # Kaminari pagination translations
+  views:
+    pagination:
+      first: "Eerste pagina"
+      previous_page: "Vorige pagina"
+      next_page: "Volgende pagina"
+      last: "Laatste pagina"

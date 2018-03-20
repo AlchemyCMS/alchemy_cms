@@ -1,0 +1,788 @@
+# encoding: UTF-8
+
+ru:
+
+  # = Alchemy Translations
+  # All translations used in Alchemy CMS are inside this alchemy namespace.
+  alchemy:
+
+    # == Translations for page_layout names
+    # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     page_layout_names:
+    #       contact: Contact
+    #       search: Search
+    #
+    page_layout_names:
+
+    # == Translations for element names
+    # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     element_names:
+    #       article: Article
+    #       contactform: Contact form
+    #
+    element_names:
+
+    # == Translated names for contents in elements.
+    # Used for the content editor label inside the element editor view (The elements window)
+    #
+    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
+    # To do so, just place the content_name under the element name
+    #
+    # Example:
+    #
+    # en:
+    #  alchemy:
+    #    content_names:
+    #      headline: Headline
+    #      news_article:
+    #        headline: News Headline
+    #      image_caption: Caption
+    #      show_caption: Show Caption
+    #
+    content_names:
+
+    # === Translations for content validations
+    # Used when a user did not enter (correct) values to the content field.
+    #
+    # Tip: You can define the validation messages translations different for each element and content
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     content_validations:
+    #       contactform:
+    #         success_page:
+    #           blank: 'Please choose a follow up page.'
+    #         mail_to:
+    #           blank: 'Please provide an email address where the contact inquiries will be delivered to.'
+    #
+    content_validations:
+      errors:
+        blank: "%{field} не может быть пустым"
+        invalid: '%{field} имеет неверный формат'
+        taken: '%{field} уже занят'
+
+    default_content_texts:
+      lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
+
+    essence_pictures:
+      css_classes:
+        left: 'Слева от текста'
+        right: 'Справа от текста'
+        no_float: 'Над текстом'
+
+    # == Contactform translations
+    contactform:
+      labels:
+        salutation: 'Приветствие'
+        choose: 'Выберите'
+        mr: 'Mr.'
+        mrs: 'Mrs.'
+        firstname: 'Имя'
+        lastname: 'Фамилия'
+        address: 'Адрес'
+        zip: 'Почтовый индекс'
+        phone: 'Телефон'
+        email: 'Email'
+        message: 'Сообщение'
+        send: 'Отправить'
+        mandatory_fields: '*Обязательные поля.'
+      # The flash message shown after successfully sending the message.
+      messages:
+        success: 'Ваше сообщение успешно доставлено.'
+
+    # == Translated language names for translation select
+    translations:
+      de: 'DE'
+      en: 'EN'
+      es: 'ES'
+      it: 'IT'
+      fr: 'FR'
+      nl: 'NL'
+      ru: 'RU'
+
+    # == User roles translations
+    user_roles:
+      registered: "Зарегистрирован"
+      member: "Участник"
+      author: "Автор"
+      editor: "Редактор"
+      admin: "Администратор"
+
+    # == Mime Types translations
+    # These are human readable mime types used for the document-type row in archive files.
+    mime_types:
+      audio/mp4: 'MP4-Audio'
+      application/msword: 'Word-Document'
+      application/rtf: 'RTF-Document'
+      audio/mpeg: 'MP3-Audio'
+      text/plain: 'Text-Document'
+      video/mp4: 'MP4-Video'
+      video/mpeg: 'MPEG-Video'
+      application/pdf: 'PDF-Document'
+      application/x-flash-video: 'Flash-Video'
+      video/x-flv: 'Flash-Video'
+      application/x-shockwave-flash: 'Flash-Movie'
+      application/zip: 'ZIP-Archive'
+      application/x-rar: 'RAR-Archive'
+      application/vnd:
+        ms-excel: 'Excel-Document'
+      video/quicktime: 'Quicktime-Video'
+      image/x-psd: 'Photoshop-File'
+      image/gif: 'GIF-Image'
+      image/png: 'PNG-Image'
+      image/jpeg: 'JPG-Image'
+      video/x-msvideo: 'AVI-Video'
+      video/x-ms-wmv: 'Windows Media Video'
+      image/tiff: 'TIFF-Image'
+      'text/x-vcard': 'vCard'
+      application/vcard: 'vCard'
+
+    link_target_options:
+      default: том же окне
+      blank: новом окне
+      overlay: Оверлей
+
+    resource_help_texts:
+      site:
+        aliases: Разделяйте дополнительные домены с помощью пробелов или переходом на новую строку.
+
+    anchor: 'Анкор'
+    attribute_fixed: Значение не может быть изменен
+    back: 'назад'
+    create_tree_as_new_language: "Создать дерево языка %{language}"
+    locked_pages: "Активные страницы"
+    "Add global page": "Добавить часть макета"
+    "Add page link": "Добавить ссылку на страницу"
+    "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software and itself uses open software and free resources:"
+    "Alchemy is up to date": 'Alchemy последней версии'
+    'An error happened': 'Произошла ошибка'
+    "Change password": "Сменить пароль"
+    "Choose page": "Выбрать страницу"
+    "Cleared trash": "Корзина очищена"
+    "Clear selection": "Очистить секцию"
+    "Forgot your password?": "Забыли пароль?"
+    "Clipboard": "Буфер обмена"
+    "Confirm new password": "Подтвердите новый пароль"
+    "Copy": "Копировать"
+    "Could not load Adobe Flash® Plugin!": "Невозможно загрузить Adobe Flash® Plugin!"
+    "Currently locked pages": "Заблокированные страницы"
+    "Default language has to be public": "Язык по умолчанию должен быть публичным"
+    "Delete image": "Удалить изображение"
+    "Do you really want to clear the clipboard?": "Вы действительно хотите очистить буфер обмена?"
+    "Do you really want to clear the trash?": "Вы действительно хотите очистить корзину?"
+    "Do you really want to delete this content?": "Вы действительно хотите удалить этот контент?"
+    "Drag an element over to the element window to restore it": "Перетащите элемент на панель элементов, чтобы восстановить его"
+    "Edit Picturemask": "Редактировать маску для изображений"
+    "Edit image": "Редактировать изображение"
+    "Edit multiple pictures": "Редактировать несколько изображений"
+    "Elements": "Элементы"
+    "Element trashed": "Элемент удален"
+    "Error with the Flash® Uploader!": "Ошибка Flash® Uploader!"
+    "Excerpt": "Отрывок"
+    "File successfully updated": "Файл успешно обновлен"
+    "File deleted successfully": "%{name} файл удален"
+    "Filter": "Фильтровать"
+    "Filter by tag": "Фильтровать по меткам"
+    "Flush page cache": "Очистить кэш страниц"
+    "Flush picture cache": "Очистить кэш изображений"
+    "Global shortcuts": "Глобальные ярлыки"
+    "Hide childpages": "Спрятать дочерние страницы"
+    hide_elements: "Спрятать элементы"
+    "Image missing": "Отсутствует изображение"
+    "Image size": "Размер изображений"
+    "Language successfully created": "Язык успешно создан."
+    "Language successfully removed": "Язык удален."
+    "Language successfully updated": "Язык успешно обновлен."
+    "Language tree": "Дерево языка"
+    "Layout default": "Шаблон по умполчанию"
+    "Library shortcuts": "Ярлыки библиотеки"
+    "Logged in as": "Вы вошли как"
+    "Mandatory": "Обязательные поля"
+    "Name": "Название страницы"
+    "New": "Новый"
+    "New Element": "Новый элемент"
+    "New page": "Новая страница"
+    "No page links for this page found": "Не найдено ссылок для этой страницы"
+    "New password": "Новый пароль"
+    "New Tag": "Новая метка"
+    "New Tag Created": "Новая метка создана"
+    "No": "Нет"
+    "No items in your clipboard": "В буфере обмена ничего нет"
+    "No Tags found": "Тегов не найдено"
+    "None": "Ничего"
+    "Open Link in": "Ссылка будет открыта в"
+    "Page": "Страница"
+    "Page edit shortcuts": "Ярлыки редактирования страницы"
+    "Page deleted": "%{name} удалена"
+    "Page saved": "%{name} сохранена"
+    "Page cache flushed": "Кэш страницы очищен"
+    "Pages order saved": "Порядок страниц сохранен"
+    "Password": "Пароль"
+    "Password reset": "Сброс пароля"
+    "Paste from clipboard": "Вставить из буфера обмена"
+    "Picture infos": "Информация об изображении"
+    "Picture renamed successfully": "Изображение успешно переименовано из %{from} в %{to}"
+    "Picture deleted successfully": "Изображение %{name} успешно удалено"
+    "Pictures updated successfully": "Изображение  успешно обновлено"
+    "Please Signup": "Пожалуйста, войдите, чтобы редактировать Ваш сайт."
+    "Please choose": "Пожалуйста, выберите"
+    "Please enter a new password": "Пожалуйста, введите новый пароль."
+    "Please enter your email address": "Пожалуйста, введите ваш email."
+    "Please log in": "Пожалуйста войдите."
+    "Please seperate the tags with commata": "* Пожалуйста, разделяйте метки с помощью запятых."
+    "Properties": "Свойства"
+    "Publish page": "Опубликовать страницу"
+    "Read the License": "Лицензия"
+    "Redirects to": "Перенаправлять на"
+    "Reload Preview": "Обновить предпросмотр"
+    "Remove item from clipboard": "Удалить элемент из буфера обмена"
+    "Remove tag filter": "Удалить фильтр меток"
+    "Remove this content": "Удалить этот контент"
+    "Reset Imagemask": "Сбросить"
+    "Reset password instructions": "Инструкция по сбросу пароля"
+    "Select all": "Выбрать все"
+    "Select an content": "Выбрать контент"
+    "Select style": "Выбрать стиль"
+    "Send reset instructions": "Отправить инструкции по сбросу пароля"
+    show_elements: "Показать элементы"
+    "Show childpages": "Показать дочерние страницы"
+    "Show clipboard": "Показать буфер обмена"
+    "Show picture infos": "Информация об изображении"
+    "Show trash": "Показать корзину"
+    "Site successfully created": "Сайт успешно создан."
+    "Site successfully removed": "Сайт успешно удален."
+    "Site successfully updated": "Сайт успешно обновлен."
+    "Size": "Размер"
+    "Sort pages": "Сортировать страницы"
+    "Status": "Статус"
+    "Successfully added content": "Успешно добавлен %{content}"
+    "Successfully deleted content": "Успешно удален %{content}"
+    "Successfully saved content position": "Успешно изменено положение контента"
+    "Tags": "Метки"
+    "These pictures could not be deleted, because they were in use": "Эти изображения не могут быть удалены, поскольку они используются: %{names}"
+    "This page is locked": "В данный момент страница заблокирована %{name}"
+    "Title": "Название"
+    "Trash": "Корзина"
+    "User created": "%{name} пользователь создан"
+    "User deleted": "%{name} пользователь удален"
+    "User updated": "%{name} пользователь обновлен"
+    "Validation failed": "Валидация не прошла"
+    "Version": "Версия"
+    "View File": "Просмотр файла"
+    "Visit page": "Перейти на страницу"
+    "Warning!": "Внимание!"
+    content_definition_missing: "Внимание: Отсутствует описание для контента. Проверьте elements.yml."
+    element_definition_missing: "Внимание! Отсутствует описание для элемента. Проверьте elements.yml."
+    "Welcome to Alchemy": "Добро пожаловать в Alchemy"
+    "Who else is online": "Кто еще онлайн"
+    "Yes": "Да"
+    "You are not authorized": "Вы не авторизованы"
+    "You are about to edit many pictures at once": "Вы собираетесь отредактировать %{length} изображений одновременно"
+    element_dirty_close_window_notice: "Есть несохраненные элементы. Вы действительно хотите закрыть панель элементов?"
+    "Your last login was on": "Последний раз Вы заходили в %{time}."
+    "Your last updated pages": "Страницы, отредактированные Вами"
+    "Your trash is empty": "Ваша корзина пуста"
+    above: "над"
+    add: "Добавить"
+    "add new content": "Добавить новый контент"
+    add_image_to_element: "Добавить изображение"
+    align_in_text: "Выравнивание в тексте"
+    all: "все"
+    all_pictures: "Все изображения"
+    apply: "применить"
+    assign_file: "Назначить файл"
+    assign_file_from_archive: "назначить файл из Вашего архива"
+    assign_image: "Назначить изображение"
+    attachment_filename_notice: "* Пожалуйста, не используйте спецсимволы для имен файлов."
+    auto_play: "Проиграть видеоролик после загрузки"
+    big_thumbnails: "Большие миниатюры"
+    cancel: "отмена"
+    cannot_delete_picture_notice: "Невозможно удалить изображение %{name}, поскольку оно все еще используется."
+    choose_element_as_target: "Пожалуйста, выберите целевой элемент"
+    choose_element_to_link: "Пожалуйста, выберите эелемент"
+    choose_file_to_link: "Пожалуйста, выберите файл"
+    "clear clipboard": "очистить буфер обмена"
+    "clear trash": "очистить корзину"
+    click_to_show_all: "Нажмите, чтобы показать все."
+    confirm_to_delete_file: "Вы действительно хотите навсегда удалить этот файл?"
+    confirm_to_delete_image: "Вы действительно хотите навсегда удалить это изображение?"
+    confirm_to_delete_image_from_server: "Вы действительно хотите навсегда удалить это изображение?"
+    confirm_to_delete_images_from_server: "Вы действительно хотите навсегда удалить эти изображения?"
+    confirm_to_delete_page: "Вы действительно хотите удалить эту страницу? Все её элементы будут безвозвратно потеряны!"
+    content_essence_not_found: "Эссенция контента не найдена"
+    content_not_found: "Поле неактуально для контента."
+    content_validations_headline: "Пожалуйста, проверьте отмеченные ниже поля"
+    copy: "копировать"
+    copy_element: "Копировать этот элемент"
+    copy_page: "Копировать страницу"
+    "Could not delete Pictures": "Невозможно удалить изображения"
+    copy_language_tree_heading: "Копировать дерево страниц"
+    country_code_placeholder: 'например, RU (необязательно)'
+    country_code_foot_note: "Вам нужно установать код страны, если Вы хотите использовать индивидуальный перевод для каждой страны."
+    create: "создать"
+    "Create language": "Создать новый язык"
+    "Create site": "Создать новый сайт"
+    create_language_tree_heading: "Создать пустое дерево языка"
+    create_page: "Создать новую дочернюю страницу"
+    currently_edited_by: "Эта страница заблокирована"
+    cut_element: "Вырезать этот эелемент"
+    delete_file: "Удалить файл навсегда"
+    delete_image: "Убрать изображение"
+    delete_language: "Удалить язык"
+    delete_page: "Удалить страницу"
+    delete_tag: 'Удалить метку'
+    document: "Файл"
+    download_csv: "Скачать CSV"
+    download_file: "Скачать файл '%{filename}'"
+    do_you_really_want_to_delete_this_tag?: "Вы действительно хотите удалть эту метку?"
+    drag_to_sort: "Используйте Drag'n'Drop для сортировки изображений"
+    edit_file_properties: "Редактировать свойства файла"
+    edit_image_properties: "Редактировать свойства изображения"
+    edit_language: "Редактировать язык"
+    edit_page: "Редактировать эту страницу"
+    edit_page_properties: "Редактировать свойства страницы"
+    edit_tag: 'Редактировать метку'
+    edit_selected_pictures: "Редактировать выбранные изображения"
+    element_editor_not_found: "Ошабка внутри этого элемента"
+    element_of_type: "Элемент"
+    element_saved: "Элемент сохранен"
+    enter_external_link: "Пожалуйста, введите адрес (URL) внешней ссылки"
+    explain_cropping: "<p>Выберите область изображения, перемещая рамку и изменяя её размер.</p><p>Нажмите применить, когда закончите.</p>"
+    explain_publishing: "Опубликовать страницу и удалить кэшированную версию с сервера."
+    explain_sitemap_dragndrop_sorting: "Подсказка: для сортировки перетаскивайте страницы за иконку."
+    explain_unlocking: "Покинуть страницу и разблокировать её для других пользователей."
+    external_link_notice_1: "Вводите полный адрес, содержащий http:// или другой протокол."
+    external_link_notice_2: "Чтобы указать путь с вашего сайта, начните ввод с /."
+    female: "Женщина"
+    file: "Файл"
+    file_rename_error: "Ошибка при переименовывании файла."
+    from_at: "%{by} %{at}"
+    height: "Высота"
+    help:
+      shortcuts:
+        "Open help window": "Открыть окно помощи"
+        "Close current dialog": "Закрыть текущее диалоговое окно"
+        "Open logout dialog": "Открыть окно завершения сессии"
+        "Focus search field": "Выделить строку поиска"
+        "Create a new record": "Создать новую запись"
+        "Show page infos": "Показать информацию о странице"
+        "Create new element": "Создать новый элемент"
+        "Edit page properties": "Редактировать свойства страницы"
+        "Reload the preview": "Обновить предпросмотр"
+        "Leave the page": "Покинуть страницу"
+        "Open upload form": "Открыть форму загрузки"
+        "Select all pictures": "Выделить все изображения"
+    hide_element_content: "Скрыть контент этого эелемента."
+    dashboard: "Обзор"
+    image_alt_tag: "Альтернативный текст"
+    image_caption: "Подпись"
+    image_name: "Название"
+    image_title: "Атрибут title"
+    internal_link_headline: "Выберите страницу, на которую будет вести ссылка."
+    internal_link_page_elements_explanation: "Кроме того, вы можете нажать на 'Показать элементы страницы' и выбрать элемент, который будет покзан при переходе по ссылке."
+    internal_link_page_anchors_explanation: "В качестве альтернативы вы можете указать анкор самостоятельно."
+    "item copied to clipboard": "%{name} скопировано в буфер обмена"
+    "item moved to clipboard": "%{name} перемещено в буфер обмена"
+    "item removed from clipboard": "%{name} удалено из буфера обмена"
+    javascript_disabled_headline: "JavaScript отключен!"
+    javascript_disabled_text: "Для работы Alchemy необходимо включить JavaScript."
+    language_code_placeholder: 'например, ru'
+    language_does_not_exist: "Дерево языка не существует"
+    language_pages_copied: "Дерево языка успешно скопировано."
+    last_upload_only: "Из последней загрузки"
+    left: "слева"
+    legacy_url_info_text: "Ссылка является перенаправлением со старого URL на новый URL этой страницы. Это перенаправление происходит с <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 кодом</a>."
+    link_image: "Добавить ссылку на изображение"
+    link_overlay_tab_label:
+      contactform: "Форма обратной связи"
+      external: "Внешний"
+      file: "Файл"
+      internal: "Внутренний"
+    link_title: "Название ссылки"
+    login: "войти"
+    logout: "завершить сессию"
+    mail_to: "Получатель"
+    main_content: "Основной контент"
+    male: "Мужчина"
+    me: "Я"
+    medium_thumbnails: "Средние миниатюры"
+    meta_data: "Meta-данные"
+    meta_description: "Meta-Description"
+    meta_keywords: "Meta-Keywords"
+    modules:
+      attachments: "Файлы"
+      dashboard: "Обзор"
+      pictures: "Изображения"
+      languages: "Языки"
+      layoutpages: "Части макета"
+      library: "Медиа"
+      pages: "Страницы"
+      tags: "Метки"
+      sites: "Сайты"
+    name: "Название"
+    names: "Названия"
+    navigation_name: "Название для навигации"
+    no_image_for_cropper_found: "Изображение не найдено. Сохраните эелемент сначала."
+    no: "Нет"
+    "no pages": "нет страниц"
+    "no users": "нет пользователей"
+    no_default_language_found: "Не найден язык по умолчанию."
+    no_element_given: "Не выбран элемент."
+    no_files_in_archive: "В вашей медиа-библиотеке нет файлов."
+    no_images_in_archive: "В вашей медиа-библиотеке нет изображений."
+    no_more_elements_to_add: "Нет доступных элементов."
+    no_search_results: "Ваш поиск не дал результатов."
+    "not a valid image": "Изображение не является валидным."
+    "or": 'или'
+    or_replace_it_with_an_existing_tag: 'или заменить существующей меткой'
+    "Page created": "Страница: '%{name}' создана."
+    page_for_links:
+      choose_page: "Выбрать %{name}"
+    page_infos: 'Информация о странице'
+    page_layout_changed_notice: "Тип страницы изменился. Элементы, которые стало не возможно использовать, перемещены в корзину."
+    page_properties: "Свойства страницы"
+    page_public: "опубликована"
+    page_published: "Опубликованная страница"
+    page_restricted: "ограничена"
+    page_states:
+      visible:
+        "true": "Страница отображается в навигации"
+        "false": "Страница не отображается в навигации"
+      public:
+        "true": "Страница опубликована"
+        "false": "Страница не опубликована"
+      locked:
+        "true": "В данный момент страницу редактирует другой пользователь"
+        "false": ""
+      restricted:
+        "true": "Страница ограничена"
+        "false": "Страница не ограничена"
+    page_status: "Статус"
+    page_title: "Название"
+    page_type: "Тип"
+    page_visible_in_navigation: "отображается в навигации"
+    page_was_created: "Создана"
+    page_was_updated: "Редактировалась"
+    pages:
+      update:
+        comma_seperated: "Разделённые запятой"
+    password: "Пароль"
+    paste: "вставить"
+    picture_gallery_editor: 'Изображения'
+    picture_library:
+      filter:
+        last_upload: "из последней загрузки"
+        recent: "недавно загруженные"
+        without_tag: "без меток"
+    place_link: "Текст ссылки"
+    player_version: "Версия Flash Player"
+    "please enter subject and mail address": "Пожалуйста, заполните поля 'тема' и 'получатель'."
+    please_confirm: "Пожалуйста, подтвердите"
+    please_wait: "Подождите..."
+    position_in_text: "Положение в тексте"
+    preview_size: "Размер предпросмотра"
+    preview_sizes:
+      '240': '240px (обычный телефон)'
+      '320': '320px (iPhone)'
+      '480': '480px (обычный планшет)'
+      '768': '768px (iPad - портретный)'
+      '1024': '1024px (iPad - ландшафтный)'
+      '1280': '1280px (Стационарный ПК)'
+    recently_uploaded_only: 'Недавно загруженные'
+    "regular method": "Регулярный метод"
+    remove: "Удалить"
+    rename_file: "Свойства файла"
+    rename: "Переименовать"
+    replace: "Заменить"
+    replace_file: "Заменить файл"
+    'Replaced Tag': "Метка '%{old_tag}' заменена на '%{new_tag}'"
+    resources:
+      relation_select:
+        blank: '- нет -'
+    right: "справа"
+    robot_follow: "робот может посещать ссылки."
+    robot_index: "робот может индексировать."
+    save: "Сохранить"
+    "save order": "Сохранить порядок"
+    saved_link: "Ссылка сохранена."
+    search: "поиск"
+    search_engines: "Поисковые системы"
+    select_element: "Выберите элемент"
+    seperate_tags_with_comma: "Разделяйте метки с помощью запятой."
+    show_element_content: "Показать контент этого элемента."
+    show_elements_from_page: "Показать эелементы страницы"
+    show_eq: "Показать EQ"
+    show_navigation: "Отображать в навигации"
+    show_page_in_sitemap: "Отображать страницу в sitemap."
+    signup_mail_delivery_error: 'Почта не может быть доставлена новому пользователю. Проверьте настройки почты.'
+    small_thumbnails: "Маленькие миниатюры"
+    subject: "Тема"
+    successfully_added_element: "Добавлен новый элемент."
+    successfully_deleted_tag: "Метка удалена."
+    successfully_restored_element: "Элемент восстановлен."
+    successfully_saved_element_position: "Позиция элемента обновлена."
+    successfully_updated_tag: "Метка обновлена"
+    swap_image: "Сменить изображение"
+    insert_image: "Вставить изображение"
+    tag_list: Метки
+    tags_get_created_if_used_the_first_time: 'Метки создаются автоматически, если используются в первый раз.'
+    this_picture_is_used_on_these_pages: "Это изображение используется на следующих страницах"
+    title: "Название"
+    to_alchemy: "В панель управления"
+    "trash element": "Переместить элемент в корзину"
+    unknown: "неизвестно"
+    unlink: "Убрать ссылку с изображения"
+    unlock_page: "Покинуть страницу"
+    unlocked_page: "Страница %{name} разблокирована."
+    uploader:
+      alchemy/attachment:
+        button_label: Загрузить файлы
+        upload_success: "Файл %{name} успешно загружен"
+        upload_failure: "Ошибка загрузки файла: %{error}"
+      alchemy/picture:
+        button_label: Загрузить изображения
+        upload_success: "Изображение %{name} успешно загружено"
+        upload_failure: "Ошибка при загрузке изображения %{name}: %{error}"
+    url_name: "Название URL"
+    visible: "видимый"
+    want_to_create_new_language: "Вы хотите создать новое пустое языковое дерево?"
+    want_to_make_copy_of_existing_language: "Вы хотите скопировать существующее языковое дерево?"
+    "We need at least one default.": "Язык, выбранный по умолчанию, должен существовать."
+    welcome_note: "Добро пожаловать, %{name}"
+    welcome_back_note: "Добро пожаловать, %{name}"
+    welcome_please_identify_notice: "Добро пожаловать! Пожалуйста войдите."
+    width: "Ширина"
+    without_tag: "Без метки"
+    you_can_rename_this_tag: "Вы можете переименовать эту метку"
+    zoom_image: "Увеличить изображение"
+    "Leave Alchemy": "Покинуть Alchemy"
+    leave: "Выйти"
+    "You are about to leave Alchemy": "Вы собираетесь покинуть Alchemy"
+    "Do you want to": "Вы хотите"
+    "stay logged in": "временно выйти"
+    "or to completely": "или полностью"
+    "Are you sure?": "Вы уверены?"
+    "Create": "Создать"
+    "Edit": "Редактировать"
+    "Delete": "Удалить"
+    "Successfully created": "Успешно создано"
+    "Successfully updated": "Успешно обновлено"
+    "Successfully removed": "Успешно удалено"
+    "Nothing found": "Ничег не найдено."
+    complete: 'Завершить'
+    "Update available": 'Доступно обновление'
+    "Update status unavailable": 'Статус обновлений недоступен'
+    "Uploading": "Загрузка..."
+
+  ### Add Russian rails translations(and better i18n support) using 'russian' gem
+  # You should put this to your Gemfile
+  # gem 'russian', '~> 0.6.0'
+
+  # Alchemy time formats
+  time:
+    formats:
+      alchemy:
+        datepicker: "%d.%m.%Y"
+        datetimepicker: "%d.%m.%Y %H:%M"
+        default: "%d.%m.%Y %H:%M"
+        essence_date: "%d.%m.%Y"
+        page_status: "%d.%m.%Y %H:%M"
+        short_datetime: "%d.%m.%Y %H:%M"
+        time: "%H:%M"
+        timepicker: "%H:%M"
+
+  # Translations for error messages.
+  errors:
+    models:
+      alchemy/content:
+        attributes:
+          name:
+            taken: 'уже занято для этого элемента.'
+          essence:
+            validation_failed: 'Валидация не пройдена.'
+      alchemy/element:
+        attributes:
+          name:
+            blank: "Пожалуйста, выберите элемент."
+      alchemy/language:
+        attributes:
+          language_code:
+            invalid: 'Неверный формат кода языка. Используйте две латинские строчные буквы.'
+            taken: 'уже занят для кода этой страны.'
+          locale:
+            missing_file: "Localization not found for given language code. Please choose an existing one."
+      alchemy/page:
+        attributes:
+          name:
+            blank: "Введите название."
+          page_layout:
+            blank: "Выберите шаблон страницы."
+          urlname:
+            too_short: "URL слишком короткий (минимум 3 символа)."
+            taken: "URL занят."
+            exclusion: "URL зарезервирован."
+      alchemy/picture:
+        attributes:
+          image_file:
+            blank: "Приложите изображение."
+
+  # Translations for Alchemy models
+  activemodel:
+    models:
+      alchemy/message:
+        one: 'Сообщение'
+        other: 'Сообщения'
+        zero: 'Нет сообщений'
+    attributes:
+      alchemy/message:
+        salutation: 'Приветствие'
+        firstname: 'Имя'
+        lastname: 'Фамилия'
+        address: 'Адрес'
+        zip: 'Почтовый индекс'
+        city: 'Город'
+        phone: 'Телефон'
+        email: 'Email'
+        message: 'Сообщение'
+
+  # Translations for Alchemy database models
+  activerecord:
+    models:
+      gutentag/tag:
+        one: "Метка"
+        few: "Метки"
+        many: "Меток"
+        zero: "Меток"
+      alchemy/attachment:
+        one: "Файл"
+        few: "Файла"
+        many: "Файлов"
+        zero: "Файлов"
+      alchemy/element:
+        one: "Элемент"
+        few: "Элемента"
+        many: "Элементов"
+        zero: "Элементов"
+      alchemy/legacy_page_url:
+        one: "Ссылка"
+        few: "Ссылки"
+        many: "Ссылок"
+        zero: "Ссылок"
+      alchemy/language:
+        one: "Язык"
+        few: "Языка"
+        many: "Языков"
+        zero: "Языков"
+      alchemy/page:
+        one: "Страница"
+        few: "Страницы"
+        many: "Страниц"
+        zero: "Страниц"
+      alchemy/site:
+        one: "Сайт"
+        few: "Сайта"
+        many: "Сайтов"
+        zero: "Сайтов"
+      alchemy/picture:
+        one: "Изображение"
+        few: "Изображения"
+        many: "Изображений"
+        zero: "Изображений"
+    attributes:
+      gutentag/tag:
+        name: "Название"
+        taggings_types: Используется для
+        taggings_count: Количество использований
+      alchemy/attachment:
+        file_mime_type: "Тип файла"
+        created_at: "Cоздано"
+        file_name: "Имя файла"
+        name: "Название"
+        file_size: "Размер файла"
+        tag_list: "Метки"
+      alchemy/element:
+        display_name: "Название"
+        name: "Название"
+        public: "видимый"
+        tag_list: "Метки"
+      alchemy/essence_file:
+        css_class: Style
+      alchemy/essence_picture:
+        caption: "Подпись"
+        title: "Заголовок"
+        alt_tag: "ALT тект"
+        link: Link
+        link_class_name: "CSS класс ссылки"
+        link_title: Link title
+        css_class: Style
+        link_target: Link target
+        render_size: Render size
+        crop_from: Crop from
+        crop_size: Crop size
+        picture_id: Bild
+      alchemy/language:
+        country_code: "Код страны"
+        language_code: "Код языка"
+        default: "По-умолчанию"
+        frontpage_name: "Название главной страницы"
+        name: "Название"
+        page_layout: "Тип главной страницы"
+        public: "Публичный"
+        locale: Localization
+        code: ISO Code
+      alchemy/legacy_page_url:
+        urlname: "Путь URL"
+      alchemy/page:
+        created_at: "Создана"
+        language: "Язык"
+        locked: "Эта страница заблокирована другим пользователем."
+        locked_by: "заблокирована"
+        meta_description: "Description"
+        meta_keywords: "Keywords"
+        name: "Название"
+        page_layout: "Тип страницы"
+        public: "опубликована"
+        restricted: "ограничена"
+        robot_follow: "робот может посещать ссылки на странице"
+        robot_index: "робот может индексировать стрницу"
+        sitemap: "отображается в sitemap"
+        tag_list: "Метки"
+        title: "Заголовок"
+        updated_at: "Обновлена"
+        urlname: "URL-имя"
+        visible: "отображается в навигации"
+      alchemy/picture:
+        image_file_name: "Имя файла"
+        image_file_height: "Высота"
+        image_file_width: "Ширина"
+        image_file_dimensions: "Размеры изображения"
+        image_file_size: "Размер файла"
+        name: "Назание"
+        tag_list: "Метки"
+      alchemy/site:
+        name: "Название"
+        host: "Основной хост"
+        public: "Публичный"
+        aliases: "Дополнительные домены"
+        redirect_to_primary_host: "Перенаправлять на основной хост"
+
+  # Kaminari pagination translations
+  views:
+    pagination:
+      first: "Первая"
+      previous_page: "Передыдущая"
+      next_page: "Следующая"
+      last: "Последняя"
