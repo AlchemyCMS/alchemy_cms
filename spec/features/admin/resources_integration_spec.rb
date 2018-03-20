@@ -32,14 +32,12 @@ describe "Resources" do
     it "renders an input field according to the attribute's type" do
       visit '/admin/events/new'
       expect(page).to have_selector('input#event_name[type="text"]')
-      expect(page).to have_selector('input#event_starts_at[type="datetime"]')
+      expect(page).to have_selector('input#event_starts_at[data-datepicker-type="datetime"]')
+      expect(page).to have_selector('input#event_ends_at[data-datepicker-type="datetime"]')
       expect(page).to have_selector('textarea#event_description')
       expect(page).to have_selector('input#event_published[type="checkbox"]')
-      expect(page).to have_selector('input#event_lunch_starts_at_1i[type="hidden"]')
-      expect(page).to have_selector('input#event_lunch_starts_at_2i[type="hidden"]')
-      expect(page).to have_selector('input#event_lunch_starts_at_3i[type="hidden"]')
-      expect(page).to have_selector('select#event_lunch_starts_at_4i')
-      expect(page).to have_selector('select#event_lunch_starts_at_5i')
+      expect(page).to have_selector('input#event_lunch_starts_at[data-datepicker-type="time"]')
+      expect(page).to have_selector('input#event_lunch_ends_at[data-datepicker-type="time"]')
     end
 
     it "should have a select box for associated models" do
