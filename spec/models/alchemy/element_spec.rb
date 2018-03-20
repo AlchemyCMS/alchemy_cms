@@ -244,6 +244,17 @@ module Alchemy
       end
     end
 
+    describe '.not_nested' do
+      subject { Element.not_nested }
+
+      let!(:element_1) { create(:alchemy_element) }
+      let!(:element_2) { create(:alchemy_element, :nested) }
+
+      it "returns all not nested elements" do
+        is_expected.to match_array([element_1, element_2.parent_element])
+      end
+    end
+
     context 'trash' do
       let(:element) { create(:alchemy_element) }
 
