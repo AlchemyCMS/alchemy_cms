@@ -591,28 +591,9 @@ en:
     "Update status unavailable": 'Update status unavailable'
     "Uploading": "Uploading"
 
-  # END of Alchemy translation
-
-  # == Rails translations
-  # Below are Rails specific translations for date, time, number, currency, error messages and so on.
-  date:
-    formats:
-      default: "%Y-%m-%d"
-      short: "%b %d"
-      long: "%B %d, %Y"
-      only_day: "%e"
-    day_names: [Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday]
-    abbr_day_names: [Sun, Mon, Tue, Wed, Thu, Fri, Sat]
-    month_names: [~, January, February, March, April, May, June, July, August, September, October, November, December]
-    abbr_month_names: [~, Jan, Feb, Mar, Apr, May, Jun, Jul, Aug, Sep, Oct, Nov, Dec]
-    order:
-      - :year
-      - :month
-      - :day
+  # Alchemy time formats
   time:
     formats:
-      default: "%a, %d %b %Y %H:%M:%S %z"
-      short: "%d %b %H:%M"
       alchemy:
         datepicker: "%Y-%m-%d"
         datetimepicker: "%Y-%m-%d %H:%M"
@@ -622,106 +603,9 @@ en:
         short_datetime: "%d %b %H:%M"
         time: "%H:%M"
         timepicker: "%H:%M"
-      long: "%B %d, %Y %H:%M"
-      date: "%Y-%m-%d"
-    am: "am"
-    pm: "pm"
-  support:
-    array:
-      sentence_connector: "and"
 
-  number:
-    # Used in number_with_delimiter()
-    # These are also the defaults for 'currency', 'percentage', 'precision', and 'human'
-    format:
-      # Sets the separator between the units, for more precision (e.g. 1.0 / 2.0 == 0.5)
-      separator: "."
-      # Delimets thousands (e.g. 1,000,000 is a million) (always in groups of three)
-      delimiter: ","
-      # Number of decimals, behind the separator (1 with a precision of 2 gives: 1.00)
-      precision: 3
-
-    # Used in number_to_currency()
-    currency:
-      format:
-        # Where is the currency sign? %u is the currency unit, %n the number (default: $5.00)
-        format: "%u%n"
-        unit: "$"
-        # These three are to override number.format and are optional
-        separator: "."
-        delimiter: ","
-        precision: 2
-
-    # Used in number_to_percentage()
-    percentage:
-      format:
-        # These three are to override number.format and are optional
-        # separator:
-        delimiter: ""
-        # precision:
-
-    # Used in number_to_precision()
-    precision:
-      format:
-        # These three are to override number.format and are optional
-        # separator:
-        delimiter: ""
-        # precision:
-
-    # Used in number_to_human_size()
-    human:
-      format:
-        # These three are to override number.format and are optional
-        # separator:
-        delimiter: ""
-        precision: 1
-
-  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
-  datetime:
-    distance_in_words:
-      half_a_minute: "half a minute"
-      less_than_x_seconds:
-        one:  "less than 1 second"
-        many: "less than %{count} seconds"
-      x_seconds:
-        one:  "1 second"
-        many: "%{count} seconds"
-      less_than_x_minutes:
-        one:  "less than a minute"
-        many: "less than %{count} minutes"
-      x_minutes:
-        one:  "1 minute"
-        many: "%{count} minutes"
-      about_x_hours:
-        one:  "about 1 hour"
-        many: "about %{count} hours"
-      x_days:
-        one:  "1 day"
-        many: "%{count} days"
-      about_x_months:
-        one:  "about 1 month"
-        many: "about %{count} months"
-      x_months:
-        one:  "1 month"
-        many: "%{count} months"
-      about_x_years:
-        one:  "about 1 year"
-        many: "about %{count} years"
-      over_x_years:
-        one:  "over 1 year"
-        many: "over %{count} years"
-
-  errors: &errors
-    template:
-      header: "Validation failed"
-      body: "Please review the form and check the errors."
-
-    messages:
-      record_invalid: 'Validation of %{errors} failed'
-      too_long: "is too long (maximum is %{count} characters)"
-      too_short: "is too short (minimum is %{count} characters)"
-      wrong_length: "is the wrong length (should be %{count} characters)"
-      taken: "has already been taken"
+  # Translations for error messages.
+  errors:
     models:
       alchemy/content:
         attributes:
@@ -755,12 +639,12 @@ en:
           image_file:
             blank: "Please attach a picture."
 
+  # Translations for Alchemy models
   activemodel:
     models:
       alchemy/message:
         one: Message
         other: Messages
-
     attributes:
       alchemy/message:
         salutation: 'Salutation'
@@ -773,51 +657,37 @@ en:
         email: 'Email'
         message: 'Message'
 
-    errors:
-      <<: *errors
-
-  # Translations for active record database models and error messages.
+  # Translations for Alchemy database models
   activerecord:
-
     models:
       gutentag/tag:
         one: Tag
         other: Tags
-
       alchemy/attachment:
         one: File
         other: Files
-
       alchemy/element:
         one: "Element"
         other: "Elements"
-
       alchemy/legacy_page_url:
         one: "Link"
         other: "Links"
-
       alchemy/language:
         one: "Language"
         other: "Languages"
-
       alchemy/page:
         one: "Page"
         other: "Pages"
-
       alchemy/site:
         one: Website
         other: Websites
-
       alchemy/picture:
         one: Picture
         other: Pictures
-
     attributes:
-
       gutentag/tag:
         taggings_types: Used for
         taggings_count: Usage count
-
       alchemy/attachment:
         file_mime_type: Filetype
         created_at: "Created at"
@@ -827,16 +697,13 @@ en:
         tag_list: Tags
         url: "URL"
         download_url: "Download-URL"
-
       alchemy/element:
         display_name: "Name"
         name: "Name"
         public: "visible"
         tag_list: Tags
-
       alchemy/essence_file:
         css_class: Style
-
       alchemy/essence_picture:
         caption: "Caption"
         title: "Title"
@@ -850,7 +717,6 @@ en:
         crop_from: Crop from
         crop_size: Crop size
         picture_id: Bild
-
       alchemy/language:
         country_code: "Country code"
         language_code: "Language code"
@@ -861,10 +727,8 @@ en:
         public: "Public"
         locale: Localization
         code: ISO Code
-
       alchemy/legacy_page_url:
         urlname: "URL path"
-
       alchemy/page:
         created_at: "Created at"
         language: "Language"
@@ -884,7 +748,6 @@ en:
         updated_at: "Updated at"
         urlname: "Urlname"
         visible: "visible in navigation"
-
       alchemy/picture:
         image_file_name: "Filename"
         image_file_height: "Height"
@@ -893,7 +756,6 @@ en:
         image_file_size: "Filesize"
         name: "Name"
         tag_list: Tags
-
       alchemy/site:
         name: "Name"
         host: "Primary Host"
@@ -901,9 +763,7 @@ en:
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirect to primary Host"
 
-    errors:
-      <<: *errors
-
+  # Kaminari pagination translations
   views:
     pagination:
       first: "First Page"

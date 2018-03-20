@@ -599,28 +599,9 @@ de:
     "Uploading": "Hochladen"
     "Your user role does not allow you to edit this page": Ihre Benutzerrolle erlaubt es Ihnen nicht diese Seite zu bearbeiten
 
-  # END of Alchemy translation
-
-  # == Rails translations
-  # Below are Rails specific translations for date, time, number, currency, error messages and so on.
-  date:
-    formats:
-      default: "%d.%m.%Y"
-      short: "%e. %b"
-      long: "%e. %B %Y"
-      only_day: "%e"
-    day_names: [Sonntag, Montag, Dienstag, Mittwoch, Donnerstag, Freitag, Samstag]
-    abbr_day_names: [So, Mo, Di, Mi, Do, Fr, Sa]
-    month_names: [~, Januar, Februar, März, April, Mai, Juni, Juli, August, September, Oktober, November, Dezember]
-    abbr_month_names: [~, Jan, Feb, Mär, Apr, Mai, Jun, Jul, Aug, Sep, Okt, Nov, Dez]
-    order:
-      - :day
-      - :month
-      - :year
+  # Alchemy time formats
   time:
     formats:
-      default: "%d. %b. %Y, %H:%M Uhr"
-      short: "%d. %B, %H:%Mh"
       alchemy:
         datepicker: "%d.%m.%Y"
         datetimepicker: "%d.%m.%Y %H:%M"
@@ -630,119 +611,9 @@ de:
         short_datetime: "%d. %B, %H:%Mh"
         time: "%H:%M Uhr"
         timepicker: "%H:%M"
-      long: "%A, %d. %B %Y um %H:%M Uhr"
-      date: "%d.%m.%Y"
-      time: "%H:%M"
-    am: "vormittags"
-    pm: "nachmittags"
-  datetime:
-    distance_in_words:
-      half_a_minute: 'eine halbe Minute'
-      less_than_x_seconds:
-        zero: 'weniger als 1 Sekunde'
-        one: 'weniger als 1 Sekunde'
-        other: 'weniger als %{count} Sekunden'
-      x_seconds:
-        one: '1 Sekunde'
-        other: '%{count} Sekunden'
-      less_than_x_minutes:
-        zero: 'weniger als 1 Minute'
-        one: 'weniger als eine Minute'
-        other: 'weniger als %{count} Minuten'
-      x_minutes:
-        one: '1 Minute'
-        other: '%{count} Minuten'
-      about_x_hours:
-        one: 'etwa 1 Stunde'
-        other: 'etwa %{count} Stunden'
-      x_days:
-        one: '1 Tag'
-        other: '%{count} Tage'
-      about_x_months:
-        one: 'etwa 1 Monat'
-        other: 'etwa %{count} Monate'
-      x_months:
-        one: '1 Monat'
-        other: '%{count} Monate'
-      about_x_years:
-        one: 'etwa 1 Jahr'
-        other: 'etwa %{count} Jahre'
-      over_x_years:
-        one: 'mehr als 1 Jahr'
-        other: 'mehr als %{count} Jahre'
-      prompts:
-        second: "Sekunden"
-        minute: "Minuten"
-        hour: "Stunden"
-        day: "Tag"
-        month: "Monat"
-        year: "Jahr"
-  number:
-    format:
-      precision: 2
-      separator: ','
-      delimiter: '.'
-    currency:
-      format:
-        unit: '€'
-        format: '%n %u'
-        separator: ','
-        delimiter: '.'
-        precision: 2
-    percentage:
-      format:
-        delimiter: "."
-        precision: 2
-    human:
-      format:
-        delimiter: "."
-        precision: 1
-      storage_units:
-        # Storage units output formatting.
-        # %u is the storage unit, %n is the number (default: 2 MB)
-        format: "%n %u"
-        units:
-          byte:
-            one:   "Byte"
-            other: "Bytes"
-          kb: "KB"
-          mb: "MB"
-          gb: "GB"
-          tb: "TB"
-  support:
-    array:
-      words_connector: ", "
-      two_words_connector: " und "
-      last_word_connector: " und "
 
-  errors: &errors
-    template:
-
-      header: "Formular-Prüfung fehlgeschlagen"
-      body: "Bitte überprüfen Sie Ihre Angaben an Hand der aufgelisteten Fehler"
-
-    messages:
-      inclusion: "ist kein gültiger Wert"
-      exclusion: "ist nicht verfügbar"
-      invalid: "ist nicht gültig"
-      record_invalid: 'Validierung von %{errors} ist fehlgeschlagen'
-      confirmation: "stimmt nicht mit der Bestätigung überein"
-      accepted: "muss akzeptiert werden"
-      empty: "muss ausgefüllt werden"
-      blank: "muss ausgefüllt werden"
-      too_long: "ist zu lang (nicht mehr als %{count} Zeichen)"
-      too_short: "ist zu kurz (nicht weniger als %{count} Zeichen)"
-      wrong_length: "hat die falsche Länge (muss genau %{count} Zeichen haben)"
-      taken: "ist bereits vergeben"
-      not_a_number: "ist keine Zahl"
-      greater_than: "muss größer als %{count} sein"
-      greater_than_or_equal_to: "muss größer oder gleich %{count} sein"
-      equal_to: "muss genau %{count} sein"
-      less_than: "muss kleiner als %{count} sein"
-      less_than_or_equal_to: "muss kleiner oder gleich %{count} sein"
-      odd: "muss ungerade sein"
-      even: "muss gerade sein"
-
+  # Translations for error messages.
+  errors:
     models:
       alchemy/content:
         attributes:
@@ -776,13 +647,12 @@ de:
           image_file:
             blank: "Bitte fügen Sie ein Bild an."
 
+  # Translations for Alchemy models
   activemodel:
-
     models:
       alchemy/message:
         one: "Nachricht"
         other: "Nachrichten"
-
     attributes:
       alchemy/message:
         salutation: Anrede
@@ -795,51 +665,37 @@ de:
         email: E-Mail
         message: Nachricht
 
-    errors:
-      <<: *errors
-
-  # Translations for active record database models and error messages.
+  # Translations for Alchemy database models
   activerecord:
-
     models:
       gutentag/tag:
         one: Tag
         other: Tags
-
       alchemy/attachment:
         one: "Datei"
         other: "Dateien"
-
       alchemy/element:
         one: "Element"
         other: "Elemente"
-
       alchemy/legacy_page_url:
         one: "Verweis"
         other: "Verweise"
-
       alchemy/language:
         one: "Sprache"
         other: "Sprachen"
-
       alchemy/page:
         one: "Seite"
         other: "Seiten"
-
       alchemy/site:
         one: Website
         other: Websites
-
       alchemy/picture:
         one: Bild
         other: Bilder
-
     attributes:
-
       gutentag/tag:
         taggings_types: Verwendet an
         taggings_count: Anzahl Verwendung
-
       alchemy/attachment:
         file_mime_type: "Dateityp"
         created_at: "Erstellt Am"
@@ -849,18 +705,15 @@ de:
         tag_list: Tags
         url: "URL"
         download_url: "Download-URL"
-
       alchemy/element:
         display_name: "Name"
         name: "Name"
         public: "sichtbar"
         tag_list: Tags
-
       alchemy/essence_file:
         css_class: Stil
         link_text: Link-Text
         title: Titel
-
       alchemy/essence_picture:
         caption: "Untertitel"
         title: "Titel"
@@ -874,7 +727,6 @@ de:
         crop_from: Bildmaskenursprung
         crop_size: Bildmaskenausmaß
         picture_id: Bild
-
       alchemy/language:
         country_code: "Länderkürzel"
         language_code: "Sprachkürzel"
@@ -885,10 +737,8 @@ de:
         public: "Sprache veröffentlichen"
         locale: Lokalisierung
         code: ISO-Code
-
       alchemy/legacy_page_url:
         urlname: "URL-Pfad"
-
       alchemy/page:
         created_at: "Erstellt am"
         language: "Sprache"
@@ -908,7 +758,6 @@ de:
         updated_at: "Aktualisiert am"
         urlname: "URL-Name"
         visible: "in der Navigation sichtbar"
-
       alchemy/picture:
         image_file_name: "Dateiname"
         image_file_height: "Höhe"
@@ -917,7 +766,6 @@ de:
         image_file_size: "Dateigröße"
         name: "Name"
         tag_list: Tags
-
       alchemy/site:
         name: "Bezeichnung"
         host: "primäre Domain"
@@ -925,9 +773,7 @@ de:
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Auf primäre Domain weiterleiten"
 
-    errors:
-      <<: *errors
-
+  # Kaminari pagination translations
   views:
     pagination:
       first: "erste Seite"

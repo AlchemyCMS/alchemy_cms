@@ -585,28 +585,9 @@ nl:
     "Update status unavailable": "Updatestatus is niet beschikbaar"
     "Uploading": "Uploaden"
 
-  # END of Alchemy translation
-
-  # == Rails translations
-  # Below are Rails specific translations for date, time, number, currency, error messages and so on.
-  date:
-    formats:
-      default: "%Y-%m-%d"
-      short: "%b %d"
-      long: "%B %d, %Y"
-      only_day: "%e"
-    day_names: [Zondag, Maandag, Dinsdag, Woensdag, Donderdag, Vrijdag, Zaterdag]
-    abbr_day_names: [Zon, Maa, Din, Woe, Don, Vri, Zat]
-    month_names: [~, Januari, Februari, Maart, April, Mei, Juni, Juli, Augustus, September, Oktober, November, December]
-    abbr_month_names: [~, Jan, Feb, Mar, Apr, Mei, Jun, Jul, Aug, Sep, Okt, Nov, Dec]
-    order:
-      - :year
-      - :month
-      - :day
+  # Alchemy time formats
   time:
     formats:
-      default: "%a, %d %b %Y %H:%M:%S %z"
-      short: "%d %b %H:%M"
       alchemy:
         datepicker: "%Y-%m-%d"
         datetimepicker: "%Y-%m-%d %H:%M"
@@ -616,123 +597,9 @@ nl:
         short_datetime: "%d %b %H:%M"
         time: "%H:%M"
         timepicker: "%H:%M"
-      long: "%B %d, %Y %H:%M"
-      date: "%Y-%m-%d"
-      time: "%H:%M"
-    am: "am"
-    pm: "pm"
 
-
-  # Used in distance_of_time_in_words(), distance_of_time_in_words_to_now(), time_ago_in_words()
-  datetime:
-    distance_in_words:
-      half_a_minute: "halve minuut"
-      less_than_x_seconds:
-        zero: 'minder dan nul seconden'
-        one:  "minder dan 1 seconde"
-        many: "minder dan %{count} seconden"
-      x_seconds:
-        one:  "1 seconde"
-        many: "%{count} seconden"
-      less_than_x_minutes:
-        zero: 'minder dan nul minuten'
-        one:  "minder dan één minuut"
-        many: "minder dan %{count} minuten"
-      x_minutes:
-        one:  "1 minuut"
-        many: "%{count} minuten"
-      about_x_hours:
-        one:  "ongeveer 1 uur"
-        many: "ongeveer %{count} uur"
-      x_days:
-        one:  "1 dag"
-        many: "%{count} dagen"
-      about_x_months:
-        one:  "ongeveer 1 maand"
-        many: "ongeveer %{count} maanden"
-      x_months:
-        one:  "1 maand"
-        many: "%{count} maand"
-      about_x_years:
-        one:  "ongeveer 1 jaar"
-        many: "ongeveer %{count} jaar"
-      over_x_years:
-        one:  "meer dan 1 jaar"
-        many: "meer dan %{count} jaar"
-        other: 'meer dan %{count} jaar'
-      prompts:
-        second: "Seconden"
-        minute: "Minuten"
-        hour: "Uur"
-        day: "Dag"
-        month: "Maand"
-        year: "Jaar"
-  number:
-    format:
-      precision: 2
-      separator: ','
-      delimiter: '.'
-    currency:
-      format:
-        unit: '€'
-        format: '%n %u'
-        separator: ','
-        delimiter: '.'
-        precision: 2
-    percentage:
-      format:
-        delimiter: "."
-        precision: 2
-    human:
-      format:
-        delimiter: "."
-        precision: 1
-      storage_units:
-        # Storage units output formatting.
-        # %u is the storage unit, %n is the number (default: 2 MB)
-        format: "%n %u"
-        units:
-          byte:
-            one:   "Byte"
-            other: "Bytes"
-          kb: "KB"
-          mb: "MB"
-          gb: "GB"
-          tb: "TB"
-  support:
-    array:
-      words_connector: ", "
-      two_words_connector: " en "
-      last_word_connector: " en "
-      sentence_connector: " en "
-
-  errors: &errors
-    template:
-      header: "Validatie mislukt"
-      body: "Controleer het formulier en verbeter de fouten."
-
-    messages:
-      inclusion: "staat niet in de lijst"
-      exclusion: "is gereserveerd"
-      invalid: "is niet juist"
-      record_invalid: 'Validatie van %{errors} is mislukt'
-      confirmation: "komt niet overeen met de bevestiging"
-      accepted: "moet worden geaccepteerd"
-      empty: "mag niet leeg zijn"
-      blank: "mag niet leeg zijn"
-      too_long: "is te lang (maximum is %{count} characters)"
-      too_short: "is te kort (minimum is %{count} characters)"
-      wrong_length: "is de verkeerde lengte(zou %{count} characters moeten zijn)"
-      taken: "is al in gebruik"
-      not_a_number: "is geen nummer"
-      greater_than: "moet groter zijn dan %{count}"
-      greater_than_or_equal_to: "moet groter zijn dan of gelijk zijn aan %{count}"
-      equal_to: "moet gelijk zijn aan %{count}"
-      less_than: "moet minder zijn dan %{count}"
-      less_than_or_equal_to: "moet minder zijn dan of gelijk zijn aan %{count}"
-      odd: "moet oneven zijn"
-      even: "moet even zijn"
-
+  # Translations for error messages.
+  errors:
     models:
       alchemy/content:
         attributes:
@@ -766,13 +633,12 @@ nl:
           image_file:
             blank: "Voeg een afbeelding toe."
 
+  # Translations for Alchemy models
   activemodel:
-
     models:
       alchemy/message:
         one: Message
         other: Messages
-
     attributes:
       alchemy/message:
         salutation: 'Aanhef'
@@ -785,51 +651,37 @@ nl:
         email: 'Email'
         message: 'Bericht'
 
-    errors:
-      <<: *errors
-
-  # Translations for active record database models and error messages.
+  # Translations for Alchemy database models
   activerecord:
-
     models:
       gutentag/tag:
         one: Tag
         other: Tags
-
       alchemy/attachment:
         one: Bestand
         other: Bestanden
-
       alchemy/element:
         one: "Element"
         other: "Elementen"
-
       alchemy/legacy_page_url:
         one: "Link"
         other: "Links"
-
       alchemy/language:
         one: "Taal"
         other: "Talen"
-
       alchemy/page:
         one: "Pagina"
         other: "Pagina's"
-
       alchemy/site:
         one: Website
         other: Websites
-
       alchemy/picture:
         one: Afbeelding
         other: Afbeeldingen
-
     attributes:
-
       gutentag/tag:
         taggings_types: Gebruikt voor
         taggings_count: Aantal in gebruik
-
       alchemy/attachment:
         file_mime_type: "Bestandstype"
         created_at: "Aangemaakt op"
@@ -837,16 +689,13 @@ nl:
         name: Naam
         file_size: "Bestandsgrootte"
         tag_list: Tags
-
       alchemy/element:
         display_name: "Naam"
         name: "Naam"
         public: "zichtbaar"
         tag_list: Tags
-
       alchemy/essence_file:
         css_class: Stijl
-
       alchemy/essence_picture:
         caption: "Ondertitel"
         title: "Titel"
@@ -860,7 +709,6 @@ nl:
         crop_from: Uitsnede uit
         crop_size: Grootte van uitsnede
         picture_id: Afbeelding
-
       alchemy/language:
         country_code: "Landcode"
         language_code: "Taalcode"
@@ -871,10 +719,8 @@ nl:
         public: "Publiek"
         locale: Localization
         code: ISO Code
-
       alchemy/legacy_page_url:
         urlname: "URL pad"
-
       alchemy/page:
         created_at: "Aangemaakt op"
         language: "Taal"
@@ -894,7 +740,6 @@ nl:
         updated_at: "Bijgewerkt op"
         urlname: "URL-naam"
         visible: "zichtbaar in navigatie"
-
       alchemy/picture:
         image_file_name: "Bestandsnaam"
         image_file_height: "Hoogte"
@@ -903,7 +748,6 @@ nl:
         image_file_size: "Bestandsgrootte"
         name: "Naam"
         tag_list: Tags
-
       alchemy/site:
         name: "Omschrijving"
         host: Primaire Host
@@ -911,9 +755,7 @@ nl:
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirect naar primaire host"
 
-    errors:
-      <<: *errors
-
+  # Kaminari pagination translations
   views:
     pagination:
       first: "Eerste pagina"

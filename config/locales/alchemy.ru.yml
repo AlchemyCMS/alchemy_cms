@@ -587,13 +587,11 @@ ru:
     "Update status unavailable": 'Статус обновлений недоступен'
     "Uploading": "Загрузка..."
 
-  # END of Alchemy translation
-
-  ### As Russian rails translations(and better i18n support) using 'russian' gem
+  ### Add Russian rails translations(and better i18n support) using 'russian' gem
   # You should put this to your Gemfile
   # gem 'russian', '~> 0.6.0'
 
-  # Special Alchemy rails translations:
+  # Alchemy time formats
   time:
     formats:
       alchemy:
@@ -606,32 +604,8 @@ ru:
         time: "%H:%M"
         timepicker: "%H:%M"
 
-  errors: &errors
-    template:
-      header: "Валидация не прошла"
-      body: "Пожалуйста, исправьте ошибки."
-
-    messages:
-      inclusion: "не предоставлено в списке"
-      exclusion: "зарезервировано"
-      invalid: "не валидно"
-      record_invalid: 'Валидация %{errors} не прошла'
-      confirmation: "не совпадает с подтверждением"
-      accepted: "должно быть принято"
-      empty: "не может быть пустым"
-      blank: "не может быть пустым"
-      too_long: "имеет слишком большую длину (максимум %{count} символов)"
-      too_short: "имеет слишком маленькую длину (минимум %{count} символов)"
-      wrong_length: "имеет неверную длину (должно быть %{count} символов)"
-      taken: "уже занято"
-      not_a_number: "не число"
-      greater_than: "должно быть больше %{count}"
-      greater_than_or_equal_to: "должно быть больше или равно %{count}"
-      equal_to: "должно быть рарвно %{count}"
-      less_than: "должно быть меньше %{count}"
-      less_than_or_equal_to: "должно быть меньше или равно %{count}"
-      odd: "должно быть не чётным"
-      even: "должно быть чётным"
+  # Translations for error messages.
+  errors:
     models:
       alchemy/content:
         attributes:
@@ -665,13 +639,13 @@ ru:
           image_file:
             blank: "Приложите изображение."
 
+  # Translations for Alchemy models
   activemodel:
     models:
       alchemy/message:
         one: 'Сообщение'
         other: 'Сообщения'
         zero: 'Нет сообщений'
-
     attributes:
       alchemy/message:
         salutation: 'Приветствие'
@@ -684,68 +658,54 @@ ru:
         email: 'Email'
         message: 'Сообщение'
 
-    errors:
-      <<: *errors
-
-  # Translations for active record database models and error messages.
+  # Translations for Alchemy database models
   activerecord:
-
     models:
       gutentag/tag:
         one: "Метка"
         few: "Метки"
         many: "Меток"
         zero: "Меток"
-
       alchemy/attachment:
         one: "Файл"
         few: "Файла"
         many: "Файлов"
         zero: "Файлов"
-
       alchemy/element:
         one: "Элемент"
         few: "Элемента"
         many: "Элементов"
         zero: "Элементов"
-
       alchemy/legacy_page_url:
         one: "Ссылка"
         few: "Ссылки"
         many: "Ссылок"
         zero: "Ссылок"
-
       alchemy/language:
         one: "Язык"
         few: "Языка"
         many: "Языков"
         zero: "Языков"
-
       alchemy/page:
         one: "Страница"
         few: "Страницы"
         many: "Страниц"
         zero: "Страниц"
-
       alchemy/site:
         one: "Сайт"
         few: "Сайта"
         many: "Сайтов"
         zero: "Сайтов"
-
       alchemy/picture:
         one: "Изображение"
         few: "Изображения"
         many: "Изображений"
         zero: "Изображений"
-
     attributes:
-
       gutentag/tag:
         name: "Название"
         taggings_types: Используется для
         taggings_count: Количество использований
-
       alchemy/attachment:
         file_mime_type: "Тип файла"
         created_at: "Cоздано"
@@ -753,16 +713,13 @@ ru:
         name: "Название"
         file_size: "Размер файла"
         tag_list: "Метки"
-
       alchemy/element:
         display_name: "Название"
         name: "Название"
         public: "видимый"
         tag_list: "Метки"
-
       alchemy/essence_file:
         css_class: Style
-
       alchemy/essence_picture:
         caption: "Подпись"
         title: "Заголовок"
@@ -776,7 +733,6 @@ ru:
         crop_from: Crop from
         crop_size: Crop size
         picture_id: Bild
-
       alchemy/language:
         country_code: "Код страны"
         language_code: "Код языка"
@@ -787,10 +743,8 @@ ru:
         public: "Публичный"
         locale: Localization
         code: ISO Code
-
       alchemy/legacy_page_url:
         urlname: "Путь URL"
-
       alchemy/page:
         created_at: "Создана"
         language: "Язык"
@@ -810,7 +764,6 @@ ru:
         updated_at: "Обновлена"
         urlname: "URL-имя"
         visible: "отображается в навигации"
-
       alchemy/picture:
         image_file_name: "Имя файла"
         image_file_height: "Высота"
@@ -819,7 +772,6 @@ ru:
         image_file_size: "Размер файла"
         name: "Назание"
         tag_list: "Метки"
-
       alchemy/site:
         name: "Название"
         host: "Основной хост"
@@ -827,9 +779,7 @@ ru:
         aliases: "Дополнительные домены"
         redirect_to_primary_host: "Перенаправлять на основной хост"
 
-    errors:
-      <<: *errors
-
+  # Kaminari pagination translations
   views:
     pagination:
       first: "Первая"
