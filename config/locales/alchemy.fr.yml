@@ -639,6 +639,7 @@ fr:
       long: "%A, %d. %B %Y um %H:%M Heure"
       page_status: "%d.%m.%Y um %H:%M Heure"
       date: "%d.%m.%Y"
+      essence_date: "%d.%m.%Y"
       datepicker: "%d.%m.%Y"
       timepicker: "%H:%M"
       datetimepicker: "%d.%m.%Y %H:%M"

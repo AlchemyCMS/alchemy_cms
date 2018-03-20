@@ -620,6 +620,7 @@ es:
       long: '%A, %d de %B de %Y %H:%M:%S %z'
       page_status: "%d/%m/%Y %H:%M"
       date: "%d/%m/%Y"
+      essence_date: "%d/%m/%Y"
       datepicker: "%d/%m/%Y"
       timepicker: "%H:%M"
       datetimepicker: "%d/%m/%Y %H:%M"
