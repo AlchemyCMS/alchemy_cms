@@ -620,7 +620,6 @@ fr:
   date:
     formats:
       default: "%d.%m.%Y"
-      datepicker: "%d.%m.%Y"
       short: "%e. %b"
       long: "%e. %B %Y"
       only_day: "%e"
@@ -637,16 +636,16 @@ fr:
       default: "%d. %b. %Y, %H:%M Heure"
       short: "%d. %B, %H:%Mh"
       alchemy:
+        datepicker: "%d.%m.%Y"
+        datetimepicker: "%d.%m.%Y %H:%M"
         default: "%d. %b. %Y, %H:%M Heure"
         essence_date: "%d.%m.%Y"
         page_status: "%d.%m.%Y um %H:%M Heure"
         short_datetime: "%d. %B, %H:%Mh"
         time: "%H:%Mh"
+        timepicker: "%H:%M"
       long: "%A, %d. %B %Y um %H:%M Heure"
       date: "%d.%m.%Y"
-      datepicker: "%d.%m.%Y"
-      timepicker: "%H:%M"
-      datetimepicker: "%d.%m.%Y %H:%M"
       time: "%H:%M"
     am: "le matin"
     pm: "l'après-midi"

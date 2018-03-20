@@ -189,7 +189,7 @@ module Alchemy
         let(:value) { Time.now }
 
         it "sets given date as value" do
-          is_expected.to have_selector("input[value='#{::I18n.l(value, format: :datepicker)}']")
+          is_expected.to have_selector("input[value='#{::I18n.l(value, format: :'alchemy.datepicker')}']")
         end
       end
 
@@ -198,7 +198,7 @@ module Alchemy
         let(:essence) { EssenceDate.new(date: date) }
 
         it "sets this date as value" do
-          is_expected.to have_selector("input[value='#{::I18n.l(date, format: :datepicker)}']")
+          is_expected.to have_selector("input[value='#{::I18n.l(date, format: :'alchemy.datepicker')}']")
         end
       end
     end

@@ -597,11 +597,14 @@ ru:
   time:
     formats:
       alchemy:
+        datepicker: "%d.%m.%Y"
+        datetimepicker: "%d.%m.%Y %H:%M"
         default: "%d.%m.%Y %H:%M"
         essence_date: "%d.%m.%Y"
         page_status: "%d.%m.%Y %H:%M"
         short_datetime: "%d.%m.%Y %H:%M"
         time: "%H:%M"
+        timepicker: "%H:%M"
 
   errors: &errors
     template:

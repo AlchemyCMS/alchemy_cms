@@ -374,7 +374,7 @@ module Alchemy
         type = html_options.delete(:type) || 'date'
         date = html_options.delete(:value) || object.send(method.to_sym).presence
         date = Time.zone.parse(date) if date.is_a?(String)
-        value = date ? l(date, format: "#{type}picker".to_sym) : nil
+        value = date ? l(date, format: "alchemy.#{type}picker".to_sym) : nil
 
         text_field object.class.name.demodulize.underscore.to_sym,
           method.to_sym, {type: "text", class: type, "data-datepicker-type" => type, value: value}.merge(html_options)
