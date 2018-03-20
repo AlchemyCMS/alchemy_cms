@@ -21,7 +21,7 @@ module Alchemy
       context "if date set" do
         it "should format the date by i18n" do
           essence.date = Time.current
-          expect(::I18n).to receive(:l).with(essence.date, format: :essence_date)
+          expect(::I18n).to receive(:l).with(essence.date, format: :'alchemy.essence_date')
           subject
         end
       end

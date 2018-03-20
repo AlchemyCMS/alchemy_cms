@@ -617,10 +617,13 @@ es:
     formats:
       default: '%d de %B de %Y %H:%M'
       short: '%d de %b %H:%M'
+      alchemy:
+        default: '%d de %B de %Y %H:%M'
+        essence_date: "%d/%m/%Y"
+        page_status: "%d/%m/%Y %H:%M"
+        short_datetime: '%d de %b %H:%M'
       long: '%A, %d de %B de %Y %H:%M:%S %z'
-      page_status: "%d/%m/%Y %H:%M"
       date: "%d/%m/%Y"
-      essence_date: "%d/%m/%Y"
       datepicker: "%d/%m/%Y"
       timepicker: "%H:%M"
       datetimepicker: "%d/%m/%Y %H:%M"

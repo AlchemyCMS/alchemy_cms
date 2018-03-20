@@ -596,8 +596,11 @@ ru:
   # Special Alchemy rails translations:
   time:
     formats:
-      essence_date: "%d.%m.%Y"
-      page_status: "%d.%m.%Y %H:%M"
+      alchemy:
+        default: "%d.%m.%Y %H:%M"
+        essence_date: "%d.%m.%Y"
+        page_status: "%d.%m.%Y %H:%M"
+        short_datetime: "%d.%m.%Y %H:%M"
 
   errors: &errors
     template:

@@ -636,10 +636,13 @@ fr:
     formats:
       default: "%d. %b. %Y, %H:%M Heure"
       short: "%d. %B, %H:%Mh"
+      alchemy:
+        default: "%d. %b. %Y, %H:%M Heure"
+        essence_date: "%d.%m.%Y"
+        page_status: "%d.%m.%Y um %H:%M Heure"
+        short_datetime: "%d. %B, %H:%Mh"
       long: "%A, %d. %B %Y um %H:%M Heure"
-      page_status: "%d.%m.%Y um %H:%M Heure"
       date: "%d.%m.%Y"
-      essence_date: "%d.%m.%Y"
       datepicker: "%d.%m.%Y"
       timepicker: "%H:%M"
       datetimepicker: "%d.%m.%Y %H:%M"
