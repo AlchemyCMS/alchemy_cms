@@ -601,6 +601,7 @@ ru:
         essence_date: "%d.%m.%Y"
         page_status: "%d.%m.%Y %H:%M"
         short_datetime: "%d.%m.%Y %H:%M"
+        time: "%H:%M"
 
   errors: &errors
     template:

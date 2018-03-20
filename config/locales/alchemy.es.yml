@@ -622,6 +622,7 @@ es:
         essence_date: "%d/%m/%Y"
         page_status: "%d/%m/%Y %H:%M"
         short_datetime: '%d de %b %H:%M'
+        time: '%H:%M'
       long: '%A, %d de %B de %Y %H:%M:%S %z'
       date: "%d/%m/%Y"
       datepicker: "%d/%m/%Y"

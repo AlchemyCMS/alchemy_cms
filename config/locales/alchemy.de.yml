@@ -627,6 +627,7 @@ de:
         essence_date: "%d.%m.%Y"
         page_status: "%d.%m.%Y um %H:%M Uhr"
         short_datetime: "%d. %B, %H:%Mh"
+        time: "%H:%M Uhr"
       long: "%A, %d. %B %Y um %H:%M Uhr"
       date: "%d.%m.%Y"
       datepicker: "%d.%m.%Y"

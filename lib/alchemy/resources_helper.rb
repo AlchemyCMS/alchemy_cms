@@ -68,17 +68,25 @@ module Alchemy
     # @param [Alchemy::Resource] resource
     # @param [Hash] attribute
     # @option options [Hash] :truncate (50) The length of the value returned.
+    # @option options [Hash] :datetime_format (alchemy.default) The format of timestamps.
+    # @option options [Hash] :time_format (alchemy.time) The format of time values.
     #
     # @return [String]
     #
     def render_attribute(resource, attribute, options = {})
+      attribute_value = resource.send(attribute[:name])
       if attribute[:relation]
         record = resource.send(attribute[:relation][:name])
         value = record.present? ? record.send(attribute[:relation][:attr_method]) : Alchemy.t(:not_found)
-      elsif attribute[:type] == :datetime
-        value = l(resource.send(attribute[:name]))
+      elsif attribute_value && (attribute[:type] == :datetime || attribute[:type] == :time)
+        localization_format = if attribute[:type] == :datetime
+          options[:datetime_format] || :'alchemy.default'
+        else
+          options[:time_format] || :'alchemy.time'
+        end
+        value = l(attribute_value, format: localization_format)
       else
-        value = resource.send(attribute[:name])
+        value = attribute_value
       end
 
       options.reverse_merge!(truncate: 50)
