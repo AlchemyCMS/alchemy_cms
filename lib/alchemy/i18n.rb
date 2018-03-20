@@ -64,11 +64,11 @@ module Alchemy
         @@available_locales = nil if @@available_locales.empty?
       end
 
-      def translation_files
-        Dir.glob(File.join(File.dirname(__FILE__), '../../config/locales/alchemy.*.yml'))
-      end
-
       private
+
+      def translation_files
+        ::I18n.load_path.select { |path| path.match /alchemy\.\S{2,}\.yml/ }
+      end
 
       def humanize_default_string!(msg, options)
         return if options[:default].present?

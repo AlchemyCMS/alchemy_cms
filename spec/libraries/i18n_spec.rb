@@ -9,21 +9,25 @@ module Alchemy
   end
 
   describe I18n do
-    describe '.translation_files' do
-      subject { I18n.translation_files }
-      it      { is_expected.to be_a Array }
-      it      { is_expected.to be_any { |f| f =~ /alchemy.*.yml/ } }
-    end
-
     describe '.available_locales' do
       subject { I18n.available_locales }
-      before  { allow(I18n).to receive(:translation_files).and_return(['alchemy.kl.yml']) }
       it      { is_expected.to be_a Array }
-      it      { is_expected.to include :kl }
+      it      { is_expected.to include(:en) }
 
       context 'when locales are already set in @@available_locales' do
         before { I18n.class_variable_set(:@@available_locales, [:kl, :jp]) }
-        it     { is_expected.to eq([:kl, :jp]) }
+        it     { is_expected.to match_array([:kl, :jp]) }
+        after  { I18n.class_variable_set(:@@available_locales, nil) }
+      end
+
+      context 'when locales are present in other gems' do
+        before do
+          expect(::I18n).to receive(:load_path) do
+            ['/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.de.yml']
+          end
+        end
+
+        it { is_expected.to include(:de) }
       end
     end
 
