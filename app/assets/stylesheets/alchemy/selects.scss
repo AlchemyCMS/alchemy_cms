@@ -25,12 +25,11 @@ select {
   &.alchemy_selectbox {
     .select2-choice {
       height: $form-field-height;
-      line-height: $form-field-height - 2;
       @include button-defaults(
         $background-color: $form-field-background-color,
         $hover-color: $form-field-background-color,
         $hover-border-color: darken($default-border-color, 10%),
-        $padding: 0 2*$default-padding,
+        $padding: $form-field-padding,
         $border: 1px solid $default-border-color,
         $color: $text-color,
         $margin: 0);
@@ -40,16 +39,14 @@ select {
       text-align: left;
 
       .select2-arrow {
-        top: 2px;
-        width: 20px;
-        height: 23px;
-        line-height: 23px;
+        top: 0;
+        width: $form-field-height;
+        height: $form-field-height;
         background: transparent;
         border-left: 0 none;
 
         b {
           @extend .fas;
-          @extend .fa-fw;
           background-image: none;
           opacity: $addon-icon-opacity;
 
@@ -135,7 +132,7 @@ select {
         right: 5px;
         top: 5px;
         background: none;
-        font-size: 11px;
+        font-size: $small-font-size;
         text-decoration: none;
 
         &:before {

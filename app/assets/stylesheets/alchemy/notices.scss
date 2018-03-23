@@ -10,7 +10,7 @@ div.message {
   text-align: left;
 
   h1 {
-    font-size: 14px;
+    font-size: 1.2em;
     margin: 8px 0;
   }
 
@@ -24,7 +24,7 @@ div.message {
   }
 
   &.footnote {
-    font-size: 10px;
+    font-size: $small-font-size;
     margin: 16px;
   }
 

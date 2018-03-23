@@ -12,7 +12,7 @@ div#overlay {
 
 div#overlay_text_box {
   color: #333333;
-  font-size: 18px;
+  font-size: 1.5em;
   left: 50%;
   line-height: 120px;
   margin-left: -100px;
@@ -116,7 +116,7 @@ div#overlay_text_box {
   top: 0;
   right: 0;
   height: $header-height;
-  font-size: 11px;
+  font-size: $small-font-size;
   padding-left: 2*$default-padding;
   border-bottom: $default-border;
   background-color: $header-background;
@@ -124,25 +124,18 @@ div#overlay_text_box {
   .select2-container, select {
     height: $form-field-height;
     margin-top: -3px;
-    padding-right: 2*$default-padding;
   }
 
   .select2-choice, select {
-    padding-right: 0;
     background: transparent;
     border: none;
     border-radius: 0;
     border-left: $default-border;
-    height: $header-height + 1;
+    height: $header-height;
   }
 
  .select2-choice {
-    line-height: $header-height;
-
-    .select2-arrow {
-      width: 14px;
-      border-left: none;
-    }
+    line-height: 2;
   }
 
   .current-user-name {
@@ -154,7 +147,7 @@ div#overlay_text_box {
 
   label {
     float: left;
-    font-size: 10px;
+    font-size: $small-font-size;
     line-height: 27px;
     height: 27px;
     margin-left: 8px;

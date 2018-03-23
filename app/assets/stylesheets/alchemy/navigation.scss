@@ -229,7 +229,7 @@ body:not(.collapsed-menu) {
     display: inline-block;
     color: $muted-text-color;
     margin-right: 2px;
-    font-size: 10px;
+    font-size: $small-font-size;
     text-transform: uppercase;
   }
 
@@ -237,6 +237,6 @@ body:not(.collapsed-menu) {
     display: inline-block;
     color: $muted-text-color;
     margin-right: $default-margin;
-    font-size: 10px;
+    font-size: $small-font-size;
   }
 }

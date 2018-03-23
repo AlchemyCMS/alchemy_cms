@@ -67,7 +67,7 @@ $image-overlay-transition-easing: ease-in;
   transition: right $image-overlay-transition-duration $image-overlay-transition-easing;
 
   .icon {
-    font-size: 24px;
+    font-size: 2em;
     color: $medium-gray;
     text-shadow: 0 0 $default-padding $text-color;
     transition: color $image-overlay-transition-duration linear;
@@ -126,7 +126,7 @@ $image-overlay-transition-easing: ease-in;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 14px;
+    font-size: 1.2em;
     color: $text-color;
     transition: transform $image-overlay-transition-duration $image-overlay-transition-easing;
   }
@@ -232,7 +232,7 @@ $image-overlay-transition-easing: ease-in;
   }
 
   .icon {
-    font-size: 48px;
+    font-size: 4em;
     color: $medium-gray;
     text-shadow: 0 0 $default-padding $text-color;
     transition: all $image-overlay-transition-duration linear;

@@ -20,8 +20,10 @@
   $margin: $button-margin,
   $color: $button-text-color) {
   display: inline-block;
-  font-size: 12px;
+  font-family: $default-font-family;
+  font-size: $default-font-size;
   font-weight: bold;
+  line-height: $form-field-line-height;
   padding: $padding;
   cursor: pointer;
   border-radius: $border-radius;
@@ -62,15 +64,6 @@
   }
 }
 
-@mixin default-label-style {
-  font-size: 10px;
-  margin-top: $default-margin;
-  display: inline-block;
-  line-height: 100%;
-  @extend .disable-user-select;
-  clear: both;
-}
-
 @mixin form-label {
   width: $form-left-width;
   padding-right: 2*$default-padding;
@@ -81,6 +74,7 @@
   word-break: normal;
   float: left;
   text-align: right;
+  font-size: $default-font-size;
 }
 
 @mixin form-heading {
@@ -105,7 +99,7 @@
 }
 
 @mixin form-hint($background-color: $light_yellow, $border-color: $medium-gray) {
-  font-size: 10px;
+  font-size: $small-font-size;
   line-height: 1.5em;
   padding: $default-padding;
   background-color: $background-color;

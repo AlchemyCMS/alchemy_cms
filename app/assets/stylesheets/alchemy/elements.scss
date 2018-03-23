@@ -47,13 +47,13 @@
   }
 
   .preview_text_quote {
-    font-size: 10px;
+    font-size: $small-font-size;
     line-height: 15px;
   }
 }
 
 .preview_text_element_name {
-  font-size: 10px;
+  font-size: $small-font-size;
   text-shadow: #efefef 1px 1px 1px;
   font-weight: bold;
   line-height: 15px;
@@ -124,7 +124,7 @@
     }
 
     .icon {
-      font-size: 20px;
+      font-size: 1.5em;
       position: absolute;
       top: 50%;
       left: 50%;
@@ -187,7 +187,7 @@
     float: left;
     margin-top: 8px;
     margin-bottom: 4px;
-    font-size: 10px;
+    font-size: $small-font-size;
     text-align: left;
   }
 
@@ -219,7 +219,7 @@
     padding: $default-padding 0;
 
     label {
-      font-size: 10px;
+      font-size: $small-font-size;
     }
 
     .select2-container {
@@ -430,7 +430,7 @@
   }
 
   .thumbnail_background .icon {
-    font-size: 48px;
+    font-size: 4em;
     color: $medium-gray;
     vertical-align: top;
   }
@@ -443,7 +443,7 @@
     background-color: white;
     background-color: rgba(255, 254, 255, 0.7);
     padding: 4px 8px;
-    font-size: 10px;
+    font-size: $small-font-size;
     text-align: right;
     height: 12px;
     overflow: hidden;
@@ -498,7 +498,7 @@
     float: left;
     max-width: 80%;
     line-height: 28px;
-    font-size: 90%;
+    font-size: $small-font-size;
     text-overflow: ellipsis;
   }
 }
@@ -587,7 +587,7 @@ select.long {
   label {
     display: inline-block;
     margin-bottom: 2px;
-    font-size: 90%;
+    font-size: $small-font-size;
     line-height: 15px;
     text-indent: 1px;
 
@@ -621,7 +621,7 @@ select.long {
     border-radius: $default-border-radius;
     background: white;
     border: 1px solid $button-border-color;
-    font-size: 11px;
+    font-size: $default-font-size;
     height: 21px;
     line-height: 21px;
     padding: 2px;
@@ -666,9 +666,9 @@ textarea.has_tinymce {
 }
 
 .essence_html_editor textarea {
-  font-family: $mono-font-face;
+  font-family: $mono-font-family;
   resize: vertical;
-  font-size: 11px;
+  font-size: $form-field-font-size;
 }
 
 .text_short_float_left {
