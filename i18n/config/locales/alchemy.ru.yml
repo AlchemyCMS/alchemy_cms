@@ -779,8 +779,7 @@ ru:
         aliases: "Дополнительные домены"
         redirect_to_primary_host: "Перенаправлять на основной хост"
 
-  # Kaminari pagination translations
-  views:
+    # Kaminari pagination translations
     pagination:
       first: "Первая"
       previous_page: "Передыдущая"
