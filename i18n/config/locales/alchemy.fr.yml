@@ -782,8 +782,7 @@ fr:
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirection vers domaine principal"
 
-  # Kaminari pagination translations
-  views:
+    # Kaminari pagination translations
     pagination:
       first: "première page"
       previous_page: "page précédente"

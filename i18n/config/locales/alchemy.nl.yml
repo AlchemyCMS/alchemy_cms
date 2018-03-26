@@ -755,8 +755,7 @@ nl:
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirect naar primaire host"
 
-  # Kaminari pagination translations
-  views:
+    # Kaminari pagination translations
     pagination:
       first: "Eerste pagina"
       previous_page: "Vorige pagina"
