@@ -21,17 +21,6 @@ module Alchemy
       Gutentag.normaliser = ->(value) { value.to_s }
     end
 
-    # We need to reload each essence class in development mode on every request,
-    # so it can register itself as essence relation on Page and Element models
-    #
-    # @see lib/alchemy/essence.rb:71
-    config.to_prepare do
-      unless Rails.configuration.cache_classes
-        essences = File.join(File.dirname(__FILE__), '../../app/models/alchemy/essence_*.rb')
-        Dir.glob(essences).each { |essence| load(essence) }
-      end
-    end
-
     config.after_initialize do
       require_relative './userstamp'
     end
