@@ -1,6 +1,7 @@
 es:
-  simple_form:
-    labels:
-      user:
-        login: Usuario
-        password: Contraseña
+  alchemy:
+    forms:
+      labels:
+        user:
+          login: Usuario
+          password: Contraseña
