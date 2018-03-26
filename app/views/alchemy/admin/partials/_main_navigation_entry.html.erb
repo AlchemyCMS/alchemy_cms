@@ -3,6 +3,10 @@
     <%= link_to url_for_module(alchemy_module) do %>
       <% if navigation["image"] %>
         <%= image_tag(navigation["image"]) %>
+      <% elsif navigation["inline_image"] %>
+        <span class="icon fa-fw">
+          <%== navigation["inline_image"] %>
+        </span>
       <% elsif navigation["icon"] %>
         <i class="module icon fas fa-<%= navigation["icon"] %> fa-lg fa-fw"></i>
       <% else %>
