@@ -1,49 +1,50 @@
 require 'spec_helper'
 
-describe "Translation integration" do
+describe Alchemy::Admin::DashboardController do
+  routes { Alchemy::Engine.routes }
+
   context "in admin backend" do
     let(:dummy_user) { mock_model(Alchemy.user_class, alchemy_roles: %w(admin), language: 'de') }
 
     before { authorize_user(dummy_user) }
 
     it "should be possible to set the locale of the admin backend via params" do
-      visit admin_dashboard_path(admin_locale: 'nl')
-      expect(page).to have_content('Welkom')
+      get :index, params: {admin_locale: 'nl'}
+      expect(::I18n.locale).to eq(:nl)
     end
 
     it "should store the current locale in the session" do
-      visit admin_dashboard_path(admin_locale: 'nl')
-      visit admin_dashboard_path
-      expect(page).to have_content('Welkom')
+      get :index, params: {admin_locale: 'nl'}
+      expect(session[:alchemy_locale]).to eq(:nl)
     end
 
     it "should be possible to change the current locale in the session" do
-      visit admin_dashboard_path(admin_locale: 'de')
-      expect(page).to have_content('Willkommen')
-      visit admin_dashboard_path(admin_locale: 'en')
-      expect(page).to have_content('Welcome')
+      get :index, params: {admin_locale: 'de'}
+      expect(session[:alchemy_locale]).to eq(:de)
+      get :index, params: {admin_locale: 'en'}
+      expect(session[:alchemy_locale]).to eq(:en)
     end
 
     context 'with unknown locale' do
       it "it uses the users default language" do
-        visit admin_dashboard_path(admin_locale: 'ko')
-        expect(page).to have_content('Willkommen')
+        get :index, params: {admin_locale: 'ko'}
+        expect(::I18n.locale).to eq(:de)
       end
     end
 
     context "if no other parameter is given" do
       it "should use the current users language setting" do
-        visit admin_dashboard_path
-        expect(page).to have_content('Willkommen')
+        get :index
+        expect(::I18n.locale).to eq(:de)
       end
 
       context "if user has no preferred locale" do
         let(:dummy_user) { mock_model(Alchemy.user_class, alchemy_roles: %w(admin), language: nil) }
 
         it "should use the browsers language setting" do
-          page.driver.header 'ACCEPT-LANGUAGE', 'es-ES'
-          visit admin_dashboard_path
-          expect(page).to have_content('Bienvenido')
+          request.headers['ACCEPT-LANGUAGE'] = 'es-ES'
+          get :index
+          expect(::I18n.locale).to eq(:es)
         end
       end
 
@@ -53,9 +54,9 @@ describe "Translation integration" do
 
         context "if language doesn't return a valid locale symbol" do
           it "should use the browsers language setting" do
-            page.driver.header 'ACCEPT-LANGUAGE', 'es-ES'
-            visit admin_dashboard_path
-            expect(page).to have_content('Bienvenido')
+            request.headers['ACCEPT-LANGUAGE'] = 'es-ES'
+            get :index
+            expect(::I18n.locale).to eq(:es)
           end
         end
 
@@ -63,8 +64,8 @@ describe "Translation integration" do
           before { allow(language).to receive(:to_sym).and_return(:nl) }
 
           it "should use the locale of the user language" do
-            visit admin_dashboard_path
-            expect(page).to have_content('Welkom')
+            get :index
+            expect(::I18n.locale).to eq(:nl)
           end
         end
       end
