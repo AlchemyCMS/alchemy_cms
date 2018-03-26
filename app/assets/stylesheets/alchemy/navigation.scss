@@ -70,7 +70,6 @@
     border-style: none;
     height: 24px;
     vertical-align: -0.6em;
-    transition: filter $transition-duration $transition-easing;
   }
 
   .icon {
@@ -114,10 +113,6 @@
       color: $main-menu-active-text-color;
       text-decoration: none;
       text-shadow: none;
-    }
-
-    img {
-      filter: invert(80%);
     }
   }
 
