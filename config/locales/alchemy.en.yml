@@ -769,3 +769,13 @@ en:
       previous_page: "Previous Page"
       next_page: "Next Page"
       last: "Last Page"
+
+    # Simple form translations
+    forms:
+      "yes": 'Yes'
+      "no": 'No'
+      required:
+        text: 'required'
+        mark: '*'
+      error_notification:
+        default_message: "Please review the problems below:"

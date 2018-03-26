@@ -1,7 +1,0 @@
-es:
-  alchemy:
-    forms:
-      labels:
-        user:
-          login: Usuario
-          password: Contraseña
