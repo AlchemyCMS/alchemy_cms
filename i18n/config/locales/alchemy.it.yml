@@ -723,7 +723,7 @@ it:
         default: "Default"
         frontpage_name: "Nome della prima pagina"
         name: "Nome"
-        page_layout: "Tipo della prima pagiona"
+        page_layout: "Tipo della prima pagina"
         public: "Pubblica"
         locale: Localizzazione
         code: Codice-ISO
