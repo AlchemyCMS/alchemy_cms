@@ -769,3 +769,13 @@ it:
       previous_page: "Pagina Precedente"
       next_page: "Prossima Pagina"
       last: "Ultima Pagina"
+
+    # Simple form translations
+    forms:
+      "yes": 'Sì'
+      "no": 'No'
+      required:
+        text: 'obbligatorio'
+        mark: '*'
+      error_notification:
+        default_message: "Correggi gli errori sottostanti:"

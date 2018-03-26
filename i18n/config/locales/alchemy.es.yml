@@ -771,3 +771,10 @@ es:
       previous_page: "Página anterior"
       next_page: "Pagina siguiente"
       last: "Última página"
+
+    # Simple form translations
+    forms:
+      labels:
+        user:
+          login: Usuario
+          password: Contraseña

@@ -761,3 +761,13 @@ nl:
       previous_page: "Vorige pagina"
       next_page: "Volgende pagina"
       last: "Laatste pagina"
+
+    # Simple form translations
+    forms:
+      "yes": 'Ja'
+      "no": 'Nee'
+      required:
+        text: 'Verplicht'
+        mark: '*'
+      error_notification:
+        default_message: "Controleer de volgende problemen:"
