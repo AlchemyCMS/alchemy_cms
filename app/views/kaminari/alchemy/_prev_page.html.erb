@@ -9,7 +9,7 @@
 <% if current_page.first? -%>
   <span class="previous_page disabled"><i class="icon fas fa-angle-left"></i></span>
 <% else -%>
-  <%= link_to url, rel: 'prev', remote: remote, class: 'previous_page', title: t('views.pagination.previous_page') do %>
+  <%= link_to url, rel: 'prev', remote: remote, class: 'previous_page', title: Alchemy.t(:previous_page, scope: 'pagination') do %>
     <i class="icon fas fa-angle-left"></i>
   <% end %>
 <% end -%>
