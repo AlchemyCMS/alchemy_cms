@@ -788,3 +788,13 @@ fr:
       previous_page: "page précédente"
       next_page: "page suivante"
       last: "dernère page"
+
+    # Simple form translations
+    forms:
+      "yes": 'oui'
+      "no": 'non'
+      required:
+        text: 'champ obligatoire'
+        mark: '*'
+      error_notification:
+        default_message: "Il ya des erreurs:"

@@ -779,3 +779,13 @@ de:
       previous_page: "vorherige Seite"
       next_page: "nächste Seite"
       last: "letzte Seite"
+
+    # Simple form translations
+    forms:
+      "yes": 'Ja'
+      "no": 'Nein'
+      required:
+        text: 'Pflichtfeld'
+        mark: '*'
+      error_notification:
+        default_message: "Es sind Fehler aufgetreten:"

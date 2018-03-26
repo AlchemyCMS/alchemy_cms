@@ -785,3 +785,13 @@ ru:
       previous_page: "Передыдущая"
       next_page: "Следующая"
       last: "Последняя"
+
+    # Simple form translations
+    forms:
+      "yes": 'Да'
+      "no": 'Нет'
+      required:
+        text: 'обязательные поля'
+        mark: '*'
+      error_notification:
+        default_message: "Пожалуйста, исправьте эти ошибки:"
