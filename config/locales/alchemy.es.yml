@@ -112,6 +112,7 @@ es:
       fr: 'FR'
       nl: 'NL'
       ru: 'RU'
+      zh-CN: 'zh-CN'
 
     # == User roles translations
     user_roles:
