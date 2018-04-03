@@ -5,7 +5,6 @@ module Alchemy
     mattr_accessor :languages, :plugins
 
     @@plugins = %w(alchemy_link anchor autoresize charmap code directionality fullscreen hr link paste tabfocus table)
-    @@languages = ['en', 'de']
     @@init = {
       skin: 'alchemy',
       width: '100%',
