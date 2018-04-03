@@ -1,0 +1,798 @@
+# encoding: UTF-8
+
+zh-CN:
+
+  # = Alchemy Translations
+  # All translations used in Alchemy CMS are inside this alchemy namespace.
+  alchemy:
+
+    # == Translations for page_layout names
+    # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     page_layout_names:
+    #       contact: Contact
+    #       search: Search
+    #
+    page_layout_names:
+       contact: 联系
+       search: 搜索
+
+    # == Translations for element names
+    # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     element_names:
+    #       article: Article
+    #       contactform: Contact form
+    #
+    element_names:
+       article: 文章
+       contactform: 联系表单
+
+    # == Translated names for contents in elements.
+    # Used for the content editor label inside the element editor view (The elements window)
+    #
+    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
+    # To do so, just place the content_name under the element name
+    #
+    # Example:
+    #
+    # en:
+    #  alchemy:
+    #    content_names:
+    #      headline: Headline
+    #      news_article:
+    #        headline: News Headline
+    #      image_caption: Caption
+    #      show_caption: Show Caption
+    #
+    content_names:
+      headline: 标题
+      news_article:
+        headline: 新标题
+      image_caption: 标题
+      show_caption: 显示标题
+
+    # === Translations for content validations
+    # Used when a user did not enter (correct) values to the content field.
+    #
+    # Tip: You can define the validation messages translations different for each element and content
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     content_validations:
+    #       contactform:
+    #         success_page:
+    #           blank: 'Please choose a follow up page.'
+    #         mail_to:
+    #           blank: 'Please provide an email address where the contact inquiries will be delivered to.'
+    #
+    content_validations:
+      content_validations:
+        contactform:
+         success_page:
+           blank: '请选择一个跳转页面。'
+         mail_to:
+           blank: '请选择一个电子邮件地址已便所有咨询转发到这个地址。'
+
+      errors:
+        blank: "%{field} 不能为空"
+        invalid: '%{field} 格式出错'
+        taken: '%{field} 已经被使用'
+
+    default_content_texts:
+      lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
+
+    essence_pictures:
+      css_classes:
+        left: '文字左边'
+        right: '文字右边'
+        no_float: '文字上边'
+
+    # == Contactform translations
+    contactform:
+      labels:
+        salutation: '联系方式'
+        choose: '请选择'
+        mr: '先生'
+        mrs: '女士'
+        firstname: '名'
+        lastname: '姓'
+        address: '街道 / 门牌号'
+        zip: '邮编 / 城市'
+        phone: '电话'
+        email: '电子邮件'
+        message: '信息'
+        send: '发送'
+        mandatory_fields: '*必填字段。'
+      # The flash message shown after successfully sending the message.
+      messages:
+        success: '你的信息已成功发送。'
+
+    # == Translated language names for translation select
+    translations:
+      de: '德语'
+      en: '英语'
+      es: '西班牙语'
+      it: '意大利语'
+      fr: '法语'
+      nl: '荷兰语'
+      ru: '俄语'
+
+    # == User roles translations
+    user_roles:
+      registered: "已注册"
+      member: "成员"
+      author: "作者"
+      editor: "编辑"
+      admin: "管理员"
+
+    # == Mime Types translations
+    # These are human readable mime types used for the document-type row in archive files.
+    mime_types:
+      audio/mp4: 'MP4音频'
+      application/msword: 'Word文档'
+      application/rtf: 'RTF文档'
+      audio/mpeg: 'MP3音频'
+      text/plain: 'Text文档'
+      video/mp4: 'MP4视频'
+      video/mpeg: 'MPEG视频'
+      application/pdf: 'PDF文档'
+      application/x-flash-video: 'Flash视频'
+      video/x-flv: 'Flash视频'
+      application/x-shockwave-flash: 'Flash视频'
+      application/zip: 'ZIP压缩文档'
+      application/x-rar: 'RAR压缩文档'
+      application/vnd:
+        ms-excel: 'Excel文档'
+      video/quicktime: 'Quicktime视频'
+      image/x-psd: 'Photoshop文件'
+      image/gif: 'GIF图片'
+      image/png: 'PNG图片'
+      image/jpeg: 'JPG图片'
+      video/x-msvideo: 'AVI视频'
+      video/x-ms-wmv: 'Windows Media视频'
+      image/tiff: 'TIFF图片'
+      'text/x-vcard': 'vCard'
+      application/vcard: 'vCard'
+
+    link_target_options:
+      default: 同一个窗口
+      blank: 新窗口/选项卡
+      overlay: 覆盖
+
+    resource_help_texts:
+      site:
+        aliases: 请用空格或换行符分隔额外域名。
+
+    anchor: '锚点'
+    attribute_fixed: 针对这种页面类型，不能改变值
+    back: '返回'
+    create_tree_as_new_language: "添加 %{language} 到语言树"
+    locked_pages: "激活页面"
+    "Add global page": "添加通用页面"
+    "Add page link": "添加页面链接"
+    "Alchemy is open software and itself uses open software and free resources:": "Alchemy是开源软件并且它自身也使用开源软件和免费资源"
+    "Alchemy is up to date": 'Alchemy是目前最新版本'
+    'An error happened': '发生错误'
+    "Change password": "改变密码"
+    "Choose page": "选择页面"
+    "Cleared trash": "已清空垃圾箱"
+    "Clear selection": "清除选择"
+    "Forgot your password?": "忘记密码？"
+    "Clipboard": "剪贴板"
+    "Confirm new password": "确认你的密码"
+    "Copy": "复制"
+    "Could not load Adobe Flash® Plugin!": "无法装载 Adobe Flash® 插件！"
+    "Currently locked pages": "现在已经锁定页面"
+    "Default language has to be public": "默认语言需要公开"
+    "Delete image": "删除图片"
+    "你确认要 clear the clipboard?": "你确认要清空剪贴板？"
+    "你确认要 clear the trash?": "你确认要清空垃圾箱？"
+    "你确认要 delete this content?": "你确认要删除这个内容？"
+    "Drag an element over to the element window to restore it": "拖拽一个元素到元素窗口来恢复它"
+    "Edit Picturemask": "编辑图片掩码"
+    "Edit image": "编辑图片"
+    "Edit multiple pictures": "编辑多个图片"
+    "Elements": "元素"
+    "Element trashed": "元素已放入垃圾箱"
+    "Error with the Flash® Uploader!": "使用 Flash® Uploader时出错！"
+    "Excerpt": "摘抄"
+    "File successfully updated": "文件已成功更新"
+    "File deleted successfully": "%{name} 已经被删除"
+    "Filter by tag": "按标签过滤"
+    "Flush page cache": "清空页面缓存"
+    "Flush picture cache": "清空图片缓存"
+    "Global shortcuts": "全局快捷键"
+    "Hide childpages": "隐藏子页面"
+    hide_elements: hide_elements
+    hide_element: "隐藏元素"
+    "Image missing": "缺少图片"
+    "Image size": "图片大小"
+    "Language successfully created": "语言已经被成功创建。"
+    "Language successfully removed": "语言已经被成功删除。"
+    "Language successfully updated": "语言已经被成功更新。"
+    "Language tree": "语言树"
+    "Layout default": "默认布局"
+    "Library shortcuts": "库快捷键"
+    "Logged in as": "以如下用户登录"
+    "Mandatory": "必填字段"
+    "Name": "名字"
+    "New": "新建"
+    "New Element": "新元素"
+    "New page": "新页面"
+    "No page links for this page found": "无法找到这个页面的链接"
+    "New password": "新密码"
+    "New Tag": "新标签"
+    "New Tag Created": "已创建新标签"
+    "No": "没有"
+    "No items in your clipboard": "剪贴板中没有元素"
+    "No Tags found": "未找到标签"
+    "None": "无"
+    "Open Link in": "打开链接"
+    "Page": "页面"
+    "Page edit shortcuts": "页面编辑快捷键"
+    "Page deleted": "已删除 %{name}"
+    "Page saved": "已保存 %{name}"
+    "Page cache flushed": "页面缓存已刷新"
+    "Pages order saved": "页面排序已保存"
+    "Password": "密码"
+    "Password reset": "重置密码"
+    "Paste from clipboard": "从剪贴板粘贴"
+    "Picture infos": "图片信息"
+    "Picture renamed successfully": "图片已从 %{from} 命名为 %{to}"
+    "Picture deleted successfully": "图片 %{name} 已成功删除"
+    "Pictures updated successfully": "图片已成功更新"
+    "Please Signup": "请注册以编辑站点。"
+    "Please choose": "请选择"
+    "Please enter a new password": "请输入新密码"
+    "Please enter your email address": "请输入电子邮件地址"
+    "Please log in": "请登录。"
+    "Please seperate the tags with commata": "* 请用逗号分隔标签"
+    "Properties": "属性"
+    "Publish page": "发布页面"
+    "Read the License": "阅读授权协议"
+    "Redirects to": "跳转到"
+    "Reload Preview": "重新加载预览"
+    "Remove item from clipboard": "从剪贴板中删除元素"
+    "Remove tag filter": "删除标签过滤器"
+    "Remove this content": "删除这个内容"
+    "Reset Imagemask": "重置掩码"
+    "Reset password instructions": "重置密码指南"
+    "Select all": "选择所有"
+    "Select an content": "选择一个内容"
+    "Select style": "选择样式"
+    "Send reset instructions": "发送重置指南"
+    show_elements: "显示元素"
+    show_element: "显示元素"
+    "Show childpages": "显示子页面"
+    "Show clipboard": "显示剪贴板"
+    "Copied to clipboard": "复制到剪贴板"
+    "Show picture infos": "显示图片信息"
+    "Show trash": "显示垃圾箱"
+    "Site successfully created": "成功创建站点。"
+    "Site successfully removed": "成功删除站点。"
+    "Site successfully updated": "成功更新站点。"
+    "Size": "大小"
+    "Sort pages": "重新排序页面"
+    "Successfully added content": "成功添加 %{content}"
+    "Successfully deleted content": "成功删除 %{content}"
+    "Successfully saved content position": "成功保存内容位置"
+    "Tags": "标签"
+    "These pictures could not be deleted, because they were in use": "这些图片由于正在被使用，因此不能删除： %{names}"
+    "This page is locked": "这个页面已经被锁定 %{name}"
+    "Title": "标题"
+    "Trash": "垃圾箱"
+    "User created": "用户 %{name} 已创建"
+    "User deleted": "用户 %{name} 已删除"
+    "User updated": "用户 %{name} 已更新"
+    "Validation failed": "验证错误"
+    "Version": "版本"
+    "View File": "查看文件"
+    "Attachment Preview": "预览附件"
+    "Visit page": "访问页面"
+    "Warning!": "警告！"
+    content_definition_missing: "警告： 在定义中没有内容。 请检查 elements.yml"
+    element_definition_missing: "警告! 没有元素定义。 请检查 elements.yml。"
+    page_definition_missing: "警告! 没有页面布局定义。 请检查 page_layouts.yml 文件。"
+    "Welcome to Alchemy": "欢迎来到Alchemy"
+    "Who else is online": "还有谁在线"
+    "Yes": "是"
+    "You are not authorized": "你未被授权"
+    "You are about to edit many pictures at once": "你将要对 %{length} 个图片进行批量编辑"
+    element_dirty_close_window_notice: "你有未保存的元素。 你确认要关闭元素窗口？"
+    "Your last login was on": "你的最后一次登录是在 %{time}."
+    "Your last updated pages": "你最后更新的页面"
+    "Your trash is empty": "你的垃圾箱为空"
+    above: "上面"
+    add: "添加"
+    "add new content": "添加新内容"
+    add_image_to_element: "添加一个图片"
+    align_in_text: "在文本中对齐"
+    all: "所有"
+    all_pictures: "所有图片"
+    apply: "应用"
+    assign_file: "添加一个文件"
+    assign_file_from_archive: "从你的库中添加文件"
+    assign_image: "添加一个图片"
+    attachment_filename_notice: "* 请不要在文件名中使用任何特殊字符。"
+    auto_play: "装载后播放视频"
+    big_thumbnails: "大缩率图"
+    cancel: "取消"
+
+    cannot_delete_picture_notice: "由于正在被使用，无法删除图片 %{name}。"
+    choose_element_as_target: "请选择一个元素作为目标"
+    choose_element_to_link: "请选择一个元素"
+    choose_file_to_link: "请选择一个文件以便链接"
+    "clear clipboard": "清空剪贴板"
+    "clear trash": "清空垃圾箱"
+    click_to_show_all: "单击再次显示所有的"
+    confirm_to_delete_file: "你确认要从服务器上删除这些文件？"
+    confirm_to_delete_image: "你确认要从服务器上删除这些图片？"
+    confirm_to_delete_image_from_server: "你确认要从服务器上删除这些图片？"
+    confirm_to_delete_images_from_server: "你确认要从服务器上删除这些图片？"
+    confirm_to_delete_page: "你确认要删除这个页面? 其中的所有元素 (甚至垃圾桶中的) 都回丢失！"
+    content_essence_not_found: "无法找到内容"
+    content_not_found: "针对内容的字段不存在"
+    content_validations_headline: "请检查如下字段"
+    copy: "复制"
+    copy_element: "复制这个元素"
+    copy_page: "复制页面"
+    "Could not delete Pictures": "无法删除图片"
+    copy_language_tree_heading: "复制页面树"
+    country_code_placeholder: '例如 US (可选)'
+    country_code_foot_note: "只有你要用同一种语言支持多个国家时才需要设置国家代码。"
+    create: "创建"
+    "Create language": "创建一个新语言"
+    "Create site": "创建一个新站点"
+    create_language_tree_heading: "创建空语言树"
+    create_page: "创建子页面"
+    currently_edited_by: "这个页面被此用户锁定"
+    cut_element: "剪切这个元素"
+    delete_file: "在服务器上删除这个文件。"
+    delete_image: "删除这个图片"
+    delete_language: "删除这个语言"
+    delete_page: "删除这个页面"
+    delete_tag: '删除标签'
+    document: "文件"
+    download_csv: "下载 CSV"
+    download_file: "下载文件 '%{filename}'"
+    do_you_really_want_to_delete_this_tag?: "你确认要删除这个标签？"
+    drag_to_sort: "拖动来排序图片"
+    edit_file_properties: "编辑文件属性。"
+    edit_image_properties: "编辑图片属性。"
+    edit_language: "编辑语言"
+    edit_page: "编辑这个页面"
+    edit_page_properties: "编辑页面属性"
+    edit_tag: '编辑标签'
+    edit_selected_pictures: "编辑选中的图片"
+    element_editor_not_found: "元素内出错"
+    element_of_type: "元素"
+    element_saved: "已保存元素。"
+    enter_external_link: "请输入你想要链接的网址"
+    explain_cropping: "<p>移动框架并通过鼠标或键盘来调整尺寸来更改图片掩码。当对你的选择满意时单击 \"应用\"。</p><p>如果你想恢复系统默认的图片掩码居中显示，请单击 \"复位\" 和 \"应用\" 。</p>"
+    explain_publishing: "发布页面并删除服务器端的缓存版本。"
+    explain_sitemap_dragndrop_sorting: "小窍门: 拖动页面图标来进行排序。"
+    explain_unlocking: "离开页面并为其他用户解锁。"
+    external_link_notice_1: "请输入包含http://或其他类似的协议的完整网址。"
+    external_link_notice_2: "要想引用你网站的一个路径，请用 / 开始。"
+    female: "女"
+    file: "文件"
+    file_rename_error: "重新命名文件出错。"
+    from_at: "来自： %{by} 时间： %{at}"
+    height: "高"
+    help:
+      shortcuts:
+        "Open help window": "打开帮助窗口"
+        "Close current dialog": "关闭当前对话框"
+        "Open logout dialog": "打开注销对话框"
+        "Focus search field": "聚焦到搜索字段"
+        "Create a new record": "添加新纪录"
+        "Show page infos": "显示页面信息"
+        "Create new element": "创建新元素"
+        "Edit page properties": "编辑页面属性"
+        "Reload the preview": "重新装载预览"
+        "Leave the page": "离开页面"
+        "Open upload form": "打开上传表单"
+        "Select all pictures": "选择所有图片"
+    hide_element_content: "隐藏这个元素的内容。"
+    dashboard: "面板"
+    image_alt_tag: "Alt-标签"
+    image_caption: "标题"
+    image_name: "名字"
+    image_title: "标题-标签"
+    internal_link_headline: "创建页面并链接过去。"
+    internal_link_page_elements_explanation: "另外你可以单击页面中'Show Elements'右边来链接到该页面的锚点。"
+    internal_link_page_anchors_explanation: "或者你可以链接到页面中的锚点。"
+    "item copied to clipboard": "已将 %{name} 复制到剪贴板"
+    "item moved to clipboard": "将 %{name} 移动到剪贴板"
+    "item removed from clipboard": "已经从剪贴板中删除 %{name}"
+    javascript_disabled_headline: "Javascript被禁用！"
+    javascript_disabled_text: "Alchemy 需要 Javascript 才能正常运行。请在你的浏览器设置中激活它。"
+    language_code_placeholder: '例如：en'
+    language_does_not_exist: "这个语言树不存在。"
+    language_pages_copied: "成功复制语言树。"
+    last_upload_only: "只要最近上传得"
+    left: "左"
+    legacy_url_info_text: "链接就是一个从旧网址跳转到页面现在网址的跳转。这个跳转会有一个 <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301状态码</a>。"
+    link_image: "链接这个图片"
+    link_overlay_tab_label:
+      contactform: "联系表单"
+      external: "外部"
+      file: "文件"
+      internal: "内部"
+    link_title: "链接标题"
+    login: "登录"
+    logout: "注销"
+    mail_to: "收件人"
+    main_content: "主要内容"
+    male: "男"
+    me: "我"
+    medium_thumbnails: "中缩略图"
+    meta_data: "元数据"
+    meta_description: "元数据描述"
+    meta_keywords: "元数据关键字"
+    modules:
+      attachments: "文件"
+      dashboard: "面板"
+      pictures: "图片"
+      languages: "语言"
+      layoutpages: "全局页面"
+      library: "库"
+      pages: "页面"
+      tags: "标签"
+      sites: "站点"
+    name: "名字"
+    names: "名字"
+    navigation_name: "导航名"
+    no_image_for_cropper_found: "没有找到图片。请先保存元素。"
+    no: "无"
+    "no pages": "没有页面"
+    "no users": "没有用户"
+    no_default_language_found: "没有找到默认语言。"
+    no_element_given: "没有元素被提供。"
+    no_files_in_archive: "在你的库中没有任何文件。"
+    no_images_in_archive: "在你的库中没有任何图片。"
+    no_more_elements_to_add: "没有元素可用。"
+    no_search_results: "你的搜索没有返回任何结果。"
+    "not a valid image": "这个不是合法的图片。"
+    "or": '或'
+    or_replace_it_with_an_existing_tag: '或者使用已经存在的标签替代它。'
+    "Page created": "页面: '%{name}' 已经被创建。"
+    page_for_links:
+      choose_page: "选择 %{name}"
+    page_infos: '页面信息'
+    page_layout_changed_notice: "页面类型已被更改。不可用的元素已被移进垃圾箱。"
+    page_properties: "页面属性"
+    page_public: "已发布"
+    page_published: "已发布页面"
+    page_restricted: "已被限制"
+    page_states:
+      visible:
+        "true": "页面在导航可见。"
+        "false": "页面在导航不可见。"
+      public:
+        "true": "页面已发布。"
+        "false": "页面未发布。"
+      locked:
+        "true": "页面正在被编辑。"
+        "false": ""
+      restricted:
+        "true": "页面有限制。"
+        "false": "页面没有限制。"
+    page_status: "状态"
+    page_title: "标题"
+    page_type: "类别"
+    page_visible_in_navigation: "在导航栏可见"
+    page_was_created: "已被创建"
+    page_was_updated: "已被更新"
+    pages:
+      update:
+        comma_seperated: "用逗号分隔"
+    password: "密码"
+    paste: "粘贴"
+    picture_gallery_editor: '图片'
+    picture_library:
+      filter:
+        last_upload: "自从上次上传"
+        recent: "最近上传的"
+        without_tag: "不含标签"
+    pictures_in_page: "%{page} 在 %{pictures} 里"
+    place_link: "链接文本"
+    player_version: "Flash Player版本"
+    "please enter subject and mail address": "请输入主题和收件人"
+    please_confirm: "请确认"
+    please_wait: "请等待"
+    position_in_text: "文本中位置"
+    preview_size: "预览大小"
+    preview_sizes:
+      '240': '240px (小屏幕手机)'
+      '320': '320px (iPhone)'
+      '480': '480px (小平板电脑)'
+      '768': '768px (iPad - 竖放)'
+      '1024': '1024px (iPad - 横放)'
+      '1280': '1280px (桌面电脑)'
+    recently_uploaded_only: '只是最近上传的'
+    "regular method": "正常方法"
+    remove: "删除"
+    rename_file: "重命名这个文件。"
+    rename: "重命名"
+    replace: 替代
+    replace_file: 替代文件
+    'Replaced Tag': "标签 '%{old_tag}' 已经被 '%{new_tag}'所替代"
+    resources:
+      relation_select:
+        blank: '- 无 -'
+    right: "右"
+    robot_follow: "机器人可以追踪链接。"
+    robot_index: "允许机器人索引。"
+    save: "保存"
+    "save order": "保存排序"
+    saved_link: "已保存链接。"
+    search: "搜索"
+    search_engines: "搜索引擎"
+    select_element: "选择元素"
+    seperate_tags_with_comma: "用逗号分隔标签"
+    show_element_content: "显示这个元素内容"
+    show_elements_from_page: "在这个页面显示所有元素"
+    show_eq: "显示EQ"
+    show_navigation: "在导航中显示"
+    show_page_in_sitemap: "在站点地图中显示页面。"
+    signup_mail_delivery_error: '无法发送注册邮件。请检查你的邮件设置。'
+    small_thumbnails: "小缩略图"
+    subject: "主题"
+    successfully_added_element: "成功添加元素。"
+    successfully_deleted_tag: "成功删除标签"
+    successfully_restored_element: "成功恢复元素。"
+    successfully_saved_element_position: "成功更新元素位置。"
+    successfully_updated_tag: "成功更新标签"
+    swap_image: "更改图片"
+    insert_image: "插入图片"
+    tag_list: 标签
+    tags_get_created_if_used_the_first_time: '在第一次使用标签的同时会创建它。'
+    this_picture_is_used_on_these_pages: "这个图片用于如下页面"
+    title: "标题"
+    to_alchemy: "给Alchemy"
+    "trash element": "把元素放入垃圾箱"
+    unknown: "未知"
+    unlink: "从图片中移出链接"
+    unlock_page: "离开页面"
+    unlocked_page: "解锁页面 %{name}。"
+    uploader:
+      alchemy/attachment:
+        button_label: 上传文件
+        upload_success: "文件 %{name} 成功上传"
+        upload_failure: "文件 %{name} 上传错误: %{error}"
+      alchemy/picture:
+        button_label: 上传图片
+        upload_success: "图片 %{name} 已成功上传"
+        upload_failure: "上传出错 %{name}: %{error}"
+    url_name: "URL-名字"
+    visible: "可见"
+    want_to_create_new_language: "你想要创建一个新的的空语言树吗？"
+    want_to_make_copy_of_existing_language: "你想要复制一个存在的语言树吗？"
+    "We need at least one default.": "默认语言必须存在。"
+    welcome_note: "欢迎 %{name}"
+    welcome_back_note: "欢迎回来 %{name}"
+    welcome_please_identify_notice: "欢迎！请验证。"
+    width: "宽"
+    without_tag: "不含标签"
+    you_can_rename_this_tag: "你能重新命名这个标签"
+    zoom_image: "放大这个图片"
+    "Leave Alchemy": "离开Alchemy"
+    leave: "离开"
+    "You are about to leave Alchemy": "你将要离开Alchemy"
+    "Do you want to": "你想要"
+    "stay logged in": "保持登录状态"
+    "or to completely": "或者到完成？"
+    "Are you sure?": "你确定？"
+    "Create": "创建"
+    "Edit": "编辑"
+    "Delete": "删除"
+    "Successfully created": "创建成功"
+    "Successfully updated": "更新成功"
+    "Successfully removed": "删除成功"
+    "Nothing found": "没找到。"
+    complete: '完成'
+    "Update available": '有最新更新'
+    "Update status unavailable": '没有最新更新'
+    "Uploading": "正在上传"
+
+  # Alchemy time formats
+  time:
+    formats:
+      alchemy:
+        datepicker: "%Y-%m-%d"
+        datetimepicker: "%Y-%m-%d %H:%M"
+        default: "%Y-%m-%d %H:%M"
+        essence_dat: "%Y-%m-%d"
+        page_status: "%m.%d.%Y %H:%M"
+        short_datetime: "%d %b %H:%M"
+        time: "%H:%M"
+        timepicker: "%H:%M"
+
+  # Translations for error messages.
+  errors:
+    models:
+      alchemy/content:
+        attributes:
+          name:
+            taken: '在这个元素中已经被使用。'
+          essence:
+            validation_failed: '验证失败。'
+      alchemy/element:
+        attributes:
+          name:
+            blank: "^请选择一个元素。"
+      alchemy/language:
+        attributes:
+          language_code:
+            invalid: '^语言代码格式非法。请使用两位小写字母。'
+            taken: '针对现在的国家代码，它已经被使用。'
+          locale:
+            missing_file: "针对选择的语言代码，本地化文件不存在。请选择一个现有的。"
+      alchemy/page:
+        attributes:
+          name:
+            blank: "^请输入一个名字。"
+          page_layout:
+            blank: "^请选择一个页面布局。"
+          urlname:
+            too_short: "^页面的地址名太短 (最少需要三个字符)。"
+            taken: "^URL-Name 已被使用。"
+            exclusion: "^URL-Name为保留字。"
+      alchemy/picture:
+        attributes:
+          image_file:
+            blank: "请添加一个图片。"
+
+  # Translations for Alchemy models
+  activemodel:
+    models:
+      alchemy/message:
+        one: 消息
+        other: 消息
+    attributes:
+      alchemy/message:
+        salutation: '联系方式'
+        firstname: '名'
+        lastname: '姓'
+        address: '街名 / 门牌号'
+        zip: '邮编'
+        city: 城市
+        phone: '电话'
+        email: '电子邮件'
+        message: '消息'
+
+  # Translations for Alchemy database models
+  activerecord:
+    models:
+      gutentag/tag:
+        one: 标签
+        other: 标签
+      alchemy/attachment:
+        one: 文件
+        other: 文件
+      alchemy/element:
+        one: "元素"
+        other: "元素"
+      alchemy/legacy_page_url:
+        one: "链接"
+        other: "链接"
+      alchemy/language:
+        one: "语言"
+        other: "语言"
+      alchemy/page:
+        one: "页面"
+        other: "页面"
+      alchemy/site:
+        one: 站点
+        other: 站点
+      alchemy/picture:
+        one: 图片
+        other: 图片
+    attributes:
+      acts_as_taggable_on/tag:
+        taggings_types: 用于
+        taggings_count: 使用统计
+      alchemy/attachment:
+        file_mime_type: 文件类型
+        created_at: "创建于"
+        file_name: 文件名
+        name: 名字
+        file_size: 文件大小
+        tag_list: 标签
+        url: "网址"
+        download_url: "下载地址"
+      alchemy/element:
+        display_name: "名字"
+        name: "名字"
+        public: "可见"
+        tag_list: 标签
+      alchemy/essence_file:
+        css_class: 样式
+      alchemy/essence_picture:
+        caption: "标题"
+        title: "标题"
+        alt_tag: "替换文本"
+        link: 链接
+        link_class_name: "链接CSS类"
+        link_title: 连接标题
+        css_class: 样式
+        link_target: 链接目标
+        render_size: 渲染大小
+        crop_from: 剪切起点
+        crop_size: 剪切大小
+        picture_id: 图片编号
+      alchemy/language:
+        country_code: "国家代码"
+        language_code: "语言代码"
+        default: "默认"
+        frontpage_name: "首页名"
+        name: "名字"
+        page_layout: "首页页面类型"
+        public: "公共"
+        locale: 本地化
+        code: ISO代码
+      alchemy/legacy_page_url:
+        urlname: "网址路径"
+      alchemy/page:
+        created_at: "创建时间"
+        language: "语言"
+        locked: "这个页面由其他用户锁定。"
+        locked_by: "锁定人"
+        meta_description: "详细信息"
+        meta_keywords: "关键字"
+        name: "名字"
+        page_layout: "页面类型"
+        public: "公共"
+        restricted: "受限"
+        robot_follow: "允许机器人追踪链接"
+        robot_index: "允许机器人索引"
+        sitemap: "在站点地图可见"
+        tag_list: 标签
+        title: "标题"
+        updated_at: "更新于"
+        urlname: "地址名"
+        visible: "在导航栏可见"
+      alchemy/picture:
+        image_file_name: "文件名"
+        image_file_height: "高"
+        image_file_width: "宽"
+        image_file_dimensions: "尺寸"
+        image_file_size: "文件大小"
+        name: "名字"
+        tag_list: 标签
+      alchemy/site:
+        name: "名字"
+        host: "主要服务器"
+        public: "公共"
+        aliases: "域名别名"
+        redirect_to_primary_host: "跳转到主要服务器"
+
+    # Kaminari pagination translations
+    pagination:
+      first: "第一页"
+      previous_page: "前一页"
+      next_page: "下一页"
+      last: "最后一页"
+
+    # Simple form translations
+    forms:
+      "yes": '是'
+      "no": '否'
+      required:
+        text: '必填'
+        mark: '*'
+      error_notification:
+        default_message: "请检查如下错误："
