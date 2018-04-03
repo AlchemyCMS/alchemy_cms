@@ -99,7 +99,7 @@ Layout/SpaceInsideParens:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylespaceinsideparens
 
-Lint/EndAlignment:
+Layout/EndAlignment:
   Enabled: false
 
 Lint/HandleExceptions:
