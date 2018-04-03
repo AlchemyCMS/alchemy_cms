@@ -10,6 +10,21 @@ and save them into your apps `config/locales` folder.
 Alternatively you could add this gem into your apps `Gemfile`, but then you will add all supported translations into the `I18n.load_path`
 which will raise the consumed runtime memory and increase the app start up time.
 
+### Backend javascript translations
+
+Require each js locale you need to your `vendor/assets/javascripts/alchemy/admin/all.js` file
+
+```js
+//= require alchemy_i18n/de
+//= require alchemy_i18n/fr
+```
+
+Or require all js translations at once by adding (**not recommended**)
+
+```js
+//= require alchemy_i18n
+```
+
 ### Rails translations
 
 This gem only provides translations for Alchemy itself. If you also need translations for ActiveSupport features (like `to_sentence` or `number_with_currency`, etc.)
