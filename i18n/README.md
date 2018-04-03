@@ -17,6 +17,8 @@ Require each js locale you need to your `vendor/assets/javascripts/alchemy/admin
 ```js
 //= require alchemy_i18n/de
 //= require alchemy_i18n/fr
+//= require select2_locale_de
+//= require select2_locale_fr
 ```
 
 Or require all js translations at once by adding (**not recommended**)
