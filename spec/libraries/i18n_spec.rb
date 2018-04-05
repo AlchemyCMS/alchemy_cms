@@ -27,7 +27,51 @@ module Alchemy
           end
         end
 
-        it { is_expected.to include(:de) }
+        it 'includes them' do
+          is_expected.to eq([:de])
+        end
+      end
+
+      context 'when same locales are present in multiple gems' do
+        before do
+          expect(::I18n).to receive(:load_path) do
+            [
+              '/Users/tvd/gems/alchemy-devise/config/locales/alchemy.de.yml',
+              '/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.de.yml'
+            ]
+          end
+        end
+
+        it 'includes them only once' do
+          is_expected.to eq([:de])
+        end
+      end
+
+      context 'when locales have long iso format' do
+        before do
+          expect(::I18n).to receive(:load_path) do
+            ['/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.zh-CN.yml']
+          end
+        end
+
+        it 'includes them in long format' do
+          is_expected.to eq([:'zh-CN'])
+        end
+      end
+
+      context 'multiple locales' do
+        before do
+          expect(::I18n).to receive(:load_path) do
+            [
+              '/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.zh-CN.yml',
+              '/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.de.yml'
+            ]
+          end
+        end
+
+        it 'are sorted' do
+          is_expected.to eq([:de, :'zh-CN'])
+        end
       end
     end
 
