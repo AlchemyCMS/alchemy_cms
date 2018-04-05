@@ -795,3 +795,8 @@ ru:
         mark: '*'
       error_notification:
         default_message: "Пожалуйста, исправьте эти ошибки:"
+      labels:
+        user:
+          email: Email
+          login: войти
+          password: Пароль

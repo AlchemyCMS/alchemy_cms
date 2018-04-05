@@ -789,3 +789,8 @@ de:
         mark: '*'
       error_notification:
         default_message: "Es sind Fehler aufgetreten:"
+      labels:
+        user:
+          email: E-Mail
+          login: Benutzername
+          password: Passwort

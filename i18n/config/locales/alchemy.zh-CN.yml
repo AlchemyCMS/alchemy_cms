@@ -796,3 +796,8 @@ zh-CN:
         mark: '*'
       error_notification:
         default_message: "请检查如下错误："
+      labels:
+        user:
+          email: 电子邮件
+          login: 登录
+          password: 密码

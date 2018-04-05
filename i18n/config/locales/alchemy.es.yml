@@ -776,5 +776,6 @@ es:
     forms:
       labels:
         user:
+          email: Correo
           login: Usuario
           password: Contraseña

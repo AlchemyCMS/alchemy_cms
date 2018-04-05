@@ -771,3 +771,8 @@ nl:
         mark: '*'
       error_notification:
         default_message: "Controleer de volgende problemen:"
+      labels:
+        user:
+          email: Emailadres
+          login: Gebruikersnaam
+          password: Wachtwoord

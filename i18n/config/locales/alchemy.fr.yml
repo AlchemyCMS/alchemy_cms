@@ -798,3 +798,8 @@ fr:
         mark: '*'
       error_notification:
         default_message: "Il ya des erreurs:"
+      labels:
+        user:
+          email: E-Mail
+          login: Nom d'utilisateur
+          password: Mot de passe

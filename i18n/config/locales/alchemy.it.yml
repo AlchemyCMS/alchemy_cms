@@ -779,3 +779,8 @@ it:
         mark: '*'
       error_notification:
         default_message: "Correggi gli errori sottostanti:"
+      labels:
+        user:
+          email: Email
+          login: Login
+          password: Password

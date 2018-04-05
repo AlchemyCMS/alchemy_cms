@@ -779,3 +779,8 @@ en:
         mark: '*'
       error_notification:
         default_message: "Please review the problems below:"
+      labels:
+        user:
+          email: Emalia
+          login: Login
+          password: Hasło
