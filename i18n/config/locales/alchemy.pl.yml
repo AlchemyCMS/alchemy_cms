@@ -591,6 +591,28 @@ en:
     "Update status unavailable": 'Update status unavailable'
     "Uploading": "Uploading"
 
+    # Kaminari pagination translations
+    pagination:
+      first: "First Page"
+      previous_page: "Previous Page"
+      next_page: "Next Page"
+      last: "Last Page"
+
+    # Simple form translations
+    forms:
+      "yes": 'Yes'
+      "no": 'No'
+      required:
+        text: 'required'
+        mark: '*'
+      error_notification:
+        default_message: "Please review the problems below:"
+      labels:
+        user:
+          email: Emalia
+          login: Login
+          password: Hasło
+
   # Alchemy time formats
   time:
     formats:
@@ -762,25 +784,3 @@ en:
         public: "Public"
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirect to primary Host"
-
-    # Kaminari pagination translations
-    pagination:
-      first: "First Page"
-      previous_page: "Previous Page"
-      next_page: "Next Page"
-      last: "Last Page"
-
-    # Simple form translations
-    forms:
-      "yes": 'Yes'
-      "no": 'No'
-      required:
-        text: 'required'
-        mark: '*'
-      error_notification:
-        default_message: "Please review the problems below:"
-      labels:
-        user:
-          email: Emalia
-          login: Login
-          password: Hasło

@@ -585,6 +585,28 @@ nl:
     "Update status unavailable": "Updatestatus is niet beschikbaar"
     "Uploading": "Uploaden"
 
+    # Kaminari pagination translations
+    pagination:
+      first: "Eerste pagina"
+      previous_page: "Vorige pagina"
+      next_page: "Volgende pagina"
+      last: "Laatste pagina"
+
+    # Simple form translations
+    forms:
+      "yes": 'Ja'
+      "no": 'Nee'
+      required:
+        text: 'Verplicht'
+        mark: '*'
+      error_notification:
+        default_message: "Controleer de volgende problemen:"
+      labels:
+        user:
+          email: Emailadres
+          login: Gebruikersnaam
+          password: Wachtwoord
+
   # Alchemy time formats
   time:
     formats:
@@ -754,25 +776,3 @@ nl:
         public: "Publiek"
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirect naar primaire host"
-
-    # Kaminari pagination translations
-    pagination:
-      first: "Eerste pagina"
-      previous_page: "Vorige pagina"
-      next_page: "Volgende pagina"
-      last: "Laatste pagina"
-
-    # Simple form translations
-    forms:
-      "yes": 'Ja'
-      "no": 'Nee'
-      required:
-        text: 'Verplicht'
-        mark: '*'
-      error_notification:
-        default_message: "Controleer de volgende problemen:"
-      labels:
-        user:
-          email: Emailadres
-          login: Gebruikersnaam
-          password: Wachtwoord

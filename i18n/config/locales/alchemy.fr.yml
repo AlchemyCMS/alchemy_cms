@@ -614,6 +614,28 @@ fr:
     "Uploading": "Télécharger"
     "Uploaded x files": "x fichiers téléchargés."
 
+    # Kaminari pagination translations
+    pagination:
+      first: "première page"
+      previous_page: "page précédente"
+      next_page: "page suivante"
+      last: "dernère page"
+
+    # Simple form translations
+    forms:
+      "yes": 'oui'
+      "no": 'non'
+      required:
+        text: 'champ obligatoire'
+        mark: '*'
+      error_notification:
+        default_message: "Il ya des erreurs:"
+      labels:
+        user:
+          email: E-Mail
+          login: Nom d'utilisateur
+          password: Mot de passe
+
   # Alchemy time formats
   time:
     formats:
@@ -781,25 +803,3 @@ fr:
         public: "publié"
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirection vers domaine principal"
-
-    # Kaminari pagination translations
-    pagination:
-      first: "première page"
-      previous_page: "page précédente"
-      next_page: "page suivante"
-      last: "dernère page"
-
-    # Simple form translations
-    forms:
-      "yes": 'oui'
-      "no": 'non'
-      required:
-        text: 'champ obligatoire'
-        mark: '*'
-      error_notification:
-        default_message: "Il ya des erreurs:"
-      labels:
-        user:
-          email: E-Mail
-          login: Nom d'utilisateur
-          password: Mot de passe

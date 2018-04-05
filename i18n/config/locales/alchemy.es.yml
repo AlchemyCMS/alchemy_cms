@@ -592,6 +592,21 @@ es:
     "Update status unavailable": 'Estado de actualización no disponible'
     "Uploading": "Subiendo"
 
+    # Kaminari pagination translations
+    pagination:
+      first: "Primera página"
+      previous_page: "Página anterior"
+      next_page: "Pagina siguiente"
+      last: "Última página"
+
+    # Simple form translations
+    forms:
+      labels:
+        user:
+          email: Correo
+          login: Usuario
+          password: Contraseña
+
   # Alchemy time formats
   time:
     formats:
@@ -764,18 +779,3 @@ es:
         public: "Público"
         aliases: "Alias de dominio"
         redirect_to_primary_host: "Redirigir al dominio primario"
-
-    # Kaminari pagination translations
-    pagination:
-      first: "Primera página"
-      previous_page: "Página anterior"
-      next_page: "Pagina siguiente"
-      last: "Última página"
-
-    # Simple form translations
-    forms:
-      labels:
-        user:
-          email: Correo
-          login: Usuario
-          password: Contraseña

@@ -587,6 +587,28 @@ ru:
     "Update status unavailable": 'Статус обновлений недоступен'
     "Uploading": "Загрузка..."
 
+    # Kaminari pagination translations
+    pagination:
+      first: "Первая"
+      previous_page: "Передыдущая"
+      next_page: "Следующая"
+      last: "Последняя"
+
+    # Simple form translations
+    forms:
+      "yes": 'Да'
+      "no": 'Нет'
+      required:
+        text: 'обязательные поля'
+        mark: '*'
+      error_notification:
+        default_message: "Пожалуйста, исправьте эти ошибки:"
+      labels:
+        user:
+          email: Email
+          login: войти
+          password: Пароль
+
   ### Add Russian rails translations(and better i18n support) using 'russian' gem
   # You should put this to your Gemfile
   # gem 'russian', '~> 0.6.0'
@@ -778,25 +800,3 @@ ru:
         public: "Публичный"
         aliases: "Дополнительные домены"
         redirect_to_primary_host: "Перенаправлять на основной хост"
-
-    # Kaminari pagination translations
-    pagination:
-      first: "Первая"
-      previous_page: "Передыдущая"
-      next_page: "Следующая"
-      last: "Последняя"
-
-    # Simple form translations
-    forms:
-      "yes": 'Да'
-      "no": 'Нет'
-      required:
-        text: 'обязательные поля'
-        mark: '*'
-      error_notification:
-        default_message: "Пожалуйста, исправьте эти ошибки:"
-      labels:
-        user:
-          email: Email
-          login: войти
-          password: Пароль

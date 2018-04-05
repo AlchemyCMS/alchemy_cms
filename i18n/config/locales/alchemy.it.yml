@@ -591,6 +591,28 @@ it:
     "Update status unavailable": 'Stato dell''update non disponibile'
     "Uploading": "Caricamento in corso"
 
+    # Kaminari pagination translations
+    pagination:
+      first: "Prima Pagina"
+      previous_page: "Pagina Precedente"
+      next_page: "Prossima Pagina"
+      last: "Ultima Pagina"
+
+    # Simple form translations
+    forms:
+      "yes": 'Sì'
+      "no": 'No'
+      required:
+        text: 'obbligatorio'
+        mark: '*'
+      error_notification:
+        default_message: "Correggi gli errori sottostanti:"
+      labels:
+        user:
+          email: Email
+          login: Login
+          password: Password
+
   # Alchemy time formats
   time:
     formats:
@@ -762,25 +784,3 @@ it:
         public: "Publico"
         aliases: "Alias di Dominio"
         redirect_to_primary_host: "Redirect all'Host Primario"
-
-    # Kaminari pagination translations
-    pagination:
-      first: "Prima Pagina"
-      previous_page: "Pagina Precedente"
-      next_page: "Prossima Pagina"
-      last: "Ultima Pagina"
-
-    # Simple form translations
-    forms:
-      "yes": 'Sì'
-      "no": 'No'
-      required:
-        text: 'obbligatorio'
-        mark: '*'
-      error_notification:
-        default_message: "Correggi gli errori sottostanti:"
-      labels:
-        user:
-          email: Email
-          login: Login
-          password: Password

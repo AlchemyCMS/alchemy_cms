@@ -599,6 +599,28 @@ de:
     "Uploading": "Hochladen"
     "Your user role does not allow you to edit this page": Ihre Benutzerrolle erlaubt es Ihnen nicht diese Seite zu bearbeiten
 
+    # Kaminari pagination translations
+    pagination:
+      first: "erste Seite"
+      previous_page: "vorherige Seite"
+      next_page: "nächste Seite"
+      last: "letzte Seite"
+
+    # Simple form translations
+    forms:
+      "yes": 'Ja'
+      "no": 'Nein'
+      required:
+        text: 'Pflichtfeld'
+        mark: '*'
+      error_notification:
+        default_message: "Es sind Fehler aufgetreten:"
+      labels:
+        user:
+          email: E-Mail
+          login: Benutzername
+          password: Passwort
+
   # Alchemy time formats
   time:
     formats:
@@ -772,25 +794,3 @@ de:
         public: "veröffentlicht"
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Auf primäre Domain weiterleiten"
-
-    # Kaminari pagination translations
-    pagination:
-      first: "erste Seite"
-      previous_page: "vorherige Seite"
-      next_page: "nächste Seite"
-      last: "letzte Seite"
-
-    # Simple form translations
-    forms:
-      "yes": 'Ja'
-      "no": 'Nein'
-      required:
-        text: 'Pflichtfeld'
-        mark: '*'
-      error_notification:
-        default_message: "Es sind Fehler aufgetreten:"
-      labels:
-        user:
-          email: E-Mail
-          login: Benutzername
-          password: Passwort
