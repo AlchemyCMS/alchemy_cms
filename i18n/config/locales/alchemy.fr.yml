@@ -454,6 +454,8 @@ fr:
       pages: "Pages"
       tags: "Tags"
       sites: "Websites"
+      user_sessions: "Enregistrement"
+      users: "Utilisateur"
     name: "Nom"
     names: "Prénom"
     navigation_name: "Nom de navigation"
@@ -613,6 +615,15 @@ fr:
     "Update status unavailable": "L'état de mise à jour n'a pas pu être déterminée"
     "Uploading": "Télécharger"
     "Uploaded x files": "x fichiers téléchargés."
+    cannot_signup_more_then_once: "You can't signup more then once."
+    confirm_to_delete_user: "Voulez-vous vraiment supprimer cet utilisateur?"
+    create_user: "Création d'un utilisateur"
+    delete_user: "Supprimer utilisateurs"
+    edit_user: "Modifier l´utilisateur"
+    "No users found": "Aucun utilisateur trouvé."
+    "Successfully signup admin user": "Utilisateur Admin a été mis en place avec succès."
+    "Your user credentials": "vos dates d´accès "
+    "Your Alchemy Login": "vos dates d´accès Alchemy"
 
     # Kaminari pagination translations
     pagination:
@@ -683,6 +694,12 @@ fr:
         attributes:
           image_file:
             blank: "S'il vous plaît ajouter une photo."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "ne correspond pas au format d'une adresse e-mail"
+          alchemy_roles:
+            blank: "au moins un rôle doit être précisé"
 
  # Translations for Alchemy models
   activemodel:
@@ -729,6 +746,9 @@ fr:
       alchemy/site:
         one: Website
         other: Websites
+      alchemy/user:
+        one: Utilisateur
+        other: Utilisateur
     attributes:
       gutentag/tag:
         taggings_types: Posté le
@@ -803,3 +823,17 @@ fr:
         public: "publié"
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirection vers domaine principal"
+      alchemy/user:
+        email: "E-Mail"
+        firstname: "Prénom"
+        gender: "Titre"
+        language: "Langage"
+        lastname: "Nom"
+        last_sign_in_at: "dernier login le"
+        login: "Nom d'utilisateur"
+        name: "Nom"
+        password: "Mot de passe"
+        password_confirmation: "Confirmation mot de passe"
+        alchemy_roles: "Rôles de l'utilisateur"
+        tag_list: Tags
+        send_credentials: "Transmet nom d´utilisateur par e-mail"

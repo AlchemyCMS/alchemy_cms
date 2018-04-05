@@ -435,6 +435,8 @@ en:
       pages: "Pages"
       tags: "Tags"
       sites: "Sites"
+      user_sessions: "Login"
+      users: "Użytkownicy"
     name: "Name"
     names: "Names"
     navigation_name: "Navigation name"
@@ -590,6 +592,12 @@ en:
     "Update available": 'Update available'
     "Update status unavailable": 'Update status unavailable'
     "Uploading": "Uploading"
+    cannot_signup_more_then_once: "Nie możesz się zarejestrować więcej niż raz."
+    confirm_to_delete_user: "Czy jesteś pewien, że chcesz usunąć tego użytkownika?"
+    create_user: "Utwórz nowego użytkownika"
+    delete_user: "Usuń tego użytkownika"
+    edit_user: "Edytuj ustawienia tego użytkownika."
+    "No users found": "Nie znaleziono użytkowników."
 
     # Kaminari pagination translations
     pagination:
@@ -660,6 +668,12 @@ en:
         attributes:
           image_file:
             blank: "Please attach a picture."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "nie jest poprawnym adresem E-Mail"
+          alchemy_roles:
+            blank: "przynajmniej jedna rola musi być dodana"
 
   # Translations for Alchemy models
   activemodel:
@@ -706,6 +720,9 @@ en:
       alchemy/picture:
         one: Picture
         other: Pictures
+      alchemy/user:
+        one: Użytkownik
+        other: Użytkownik
     attributes:
       gutentag/tag:
         taggings_types: Used for
@@ -784,3 +801,17 @@ en:
         public: "Public"
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirect to primary Host"
+      alchemy/user:
+        email: "Email"
+        firstname: "Imię"
+        gender: "Płeć"
+        language: "Język"
+        lastname: "Nazwisko"
+        last_sign_in_at: "Ostatnie logowanie o"
+        login: "Nazwa użytkownika"
+        name: "Nazwa"
+        password: "Hasło"
+        password_confirmation: "Potwierdzenie hasła"
+        alchemy_roles: "Role użytkownika"
+        send_credentials: "Wyślij email z dostępami"
+        tag_list: Tagi

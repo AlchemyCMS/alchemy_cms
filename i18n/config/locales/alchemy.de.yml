@@ -438,6 +438,8 @@ de:
       pages: "Seiten"
       tags: "Tags"
       sites: "Websites"
+      user_sessions: "Anmeldung"
+      users: "Benutzer"
     name: "Name"
     names: "Namen"
     navigation_name: "Navigationsname"
@@ -598,6 +600,15 @@ de:
     "Update status unavailable": 'Update Status konnte nicht ermittelt werden'
     "Uploading": "Hochladen"
     "Your user role does not allow you to edit this page": Ihre Benutzerrolle erlaubt es Ihnen nicht diese Seite zu bearbeiten
+    cannot_signup_more_then_once: "Sie können nur einmal einen Admin Benutzer registrieren."
+    confirm_to_delete_user: "Wollen Sie diesen Benutzer wirklich löschen?"
+    create_user: "Einen Benutzer anlegen"
+    delete_user: "Benutzer löschen"
+    edit_user: "Benutzer bearbeiten"
+    "No users found": "Keine Benutzer gefunden."
+    "Successfully signup admin user": "Admin Benutzer wurde erfolgreich eingerichtet."
+    "Your user credentials": "Ihre Zugangsdaten"
+    "Your Alchemy Login": "Ihre Alchemy Zugangsdaten"
 
     # Kaminari pagination translations
     pagination:
@@ -668,6 +679,12 @@ de:
         attributes:
           image_file:
             blank: "Bitte fügen Sie ein Bild an."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "entspricht nicht dem Format einer E-Mail-Adresse"
+          alchemy_roles:
+            blank: "mindestens eine Rolle muss angegeben sein"
 
   # Translations for Alchemy models
   activemodel:
@@ -714,6 +731,9 @@ de:
       alchemy/picture:
         one: Bild
         other: Bilder
+      alchemy/user:
+        one: Benutzer
+        other: Benutzer
     attributes:
       gutentag/tag:
         taggings_types: Verwendet an
@@ -794,3 +814,17 @@ de:
         public: "veröffentlicht"
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Auf primäre Domain weiterleiten"
+      alchemy/user:
+        email: "E-Mail"
+        firstname: "Vorname"
+        gender: "Anrede"
+        language: "Sprache"
+        lastname: "Nachname"
+        last_sign_in_at: "letzter Login am"
+        login: "Benutzername"
+        name: "Name"
+        password: "Passwort"
+        password_confirmation: "Passwort Bestätigung"
+        alchemy_roles: "Benutzerrollen"
+        tag_list: Tags
+        send_credentials: "Sende Benutzerdaten per E-Mail"

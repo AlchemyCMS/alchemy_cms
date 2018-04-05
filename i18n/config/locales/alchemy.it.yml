@@ -660,6 +660,12 @@ it:
         attributes:
           image_file:
             blank: "Carica un'immagine."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "is not a valid email address"
+          alchemy_roles:
+            blank: "at least one role must be given"
 
   # Translations for Alchemy models
   activemodel:
@@ -706,6 +712,9 @@ it:
       alchemy/picture:
         one: Immagine
         other: Immagini
+      alchemy/user:
+        one: User
+        other: User
     attributes:
       gutentag/tag:
         taggings_types: Usato per
@@ -784,3 +793,17 @@ it:
         public: "Publico"
         aliases: "Alias di Dominio"
         redirect_to_primary_host: "Redirect all'Host Primario"
+      alchemy/user:
+        email: "Email"
+        firstname: "Firstname"
+        gender: "Gender"
+        language: "Language"
+        lastname: "Lastname"
+        last_sign_in_at: "Last Login At"
+        login: "Username"
+        name: "Name"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        alchemy_roles: "User roles"
+        send_credentials: "Send email with credentials"
+        tag_list: Tags

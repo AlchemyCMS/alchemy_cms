@@ -677,6 +677,12 @@ zh-CN:
         attributes:
           image_file:
             blank: "请添加一个图片。"
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "is not a valid email address"
+          alchemy_roles:
+            blank: "at least one role must be given"
 
   # Translations for Alchemy models
   activemodel:
@@ -723,6 +729,9 @@ zh-CN:
       alchemy/picture:
         one: 图片
         other: 图片
+      alchemy/user:
+        one: User
+        other: User
     attributes:
       acts_as_taggable_on/tag:
         taggings_types: 用于
@@ -801,3 +810,17 @@ zh-CN:
         public: "公共"
         aliases: "域名别名"
         redirect_to_primary_host: "跳转到主要服务器"
+      alchemy/user:
+        email: "Email"
+        firstname: "Firstname"
+        gender: "Gender"
+        language: "Language"
+        lastname: "Lastname"
+        last_sign_in_at: "Last Login At"
+        login: "Username"
+        name: "Name"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        alchemy_roles: "User roles"
+        send_credentials: "Send email with credentials"
+        tag_list: Tags
