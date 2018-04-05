@@ -3,14 +3,14 @@
   <%= alchemy_form_for :user, url: {action: 'create'}, id: 'login' do |f| %>
     <%= f.input Devise.authentication_keys.first, autofocus: true %>
     <%= f.input :password %>
-    <div class="input">
-      <small class="hint">
+    <div class="input link">
+      <small>
         <%= link_to Alchemy.t('Forgot your password?'), new_password_path %>
       </small>
     </div>
     <div class="submit">
       <%= hidden_field_tag 'user_screensize' %>
-      <button><%= Alchemy.t(:login) %></button>
+      <button class="secondary"><%= Alchemy.t(:login) %></button>
     </div>
   <% end %>
 </div>
