@@ -430,6 +430,8 @@ nl:
       pages: "Pagina's"
       tags: "Tags"
       sites: "Sites"
+      user_sessions: "Aanmelden"
+      users: "Gebruikers"
     name: "Naam"
     names: "Namen"
     navigation_name: "Navigatiename"
@@ -584,6 +586,34 @@ nl:
     "Update available": "Er is een update verkrijgbaar"
     "Update status unavailable": "Updatestatus is niet beschikbaar"
     "Uploading": "Uploaden"
+    cannot_signup_more_then_once: "You can't signup more then once."
+    confirm_to_delete_user: "Wilt u deze gebruiker zeker verwijderen?"
+    create_user: "Nieuwe gebruiker aanmaken"
+    delete_user: "Deze gebruiker verwijderen"
+    edit_user: "Eigenschappen van de gebruiker aanpassen"
+    "No users found": "Geen gebruikers gevonden"
+
+    # Kaminari pagination translations
+    pagination:
+      first: "Eerste pagina"
+      previous_page: "Vorige pagina"
+      next_page: "Volgende pagina"
+      last: "Laatste pagina"
+
+    # Simple form translations
+    forms:
+      "yes": 'Ja'
+      "no": 'Nee'
+      required:
+        text: 'Verplicht'
+        mark: '*'
+      error_notification:
+        default_message: "Controleer de volgende problemen:"
+      labels:
+        user:
+          email: Emailadres
+          login: Gebruikersnaam
+          password: Wachtwoord
 
   # Alchemy time formats
   time:
@@ -632,6 +662,12 @@ nl:
         attributes:
           image_file:
             blank: "Voeg een afbeelding toe."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "Is geen valide e-mailadres"
+          alchemy_roles:
+            blank: "Er moet tenminste één rol worden geselecteerd."
 
   # Translations for Alchemy models
   activemodel:
@@ -678,6 +714,9 @@ nl:
       alchemy/picture:
         one: Afbeelding
         other: Afbeeldingen
+      alchemy/user:
+        one: Gebruiker
+        other: Gebruikers
     attributes:
       gutentag/tag:
         taggings_types: Gebruikt voor
@@ -754,20 +793,17 @@ nl:
         public: "Publiek"
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirect naar primaire host"
-
-    # Kaminari pagination translations
-    pagination:
-      first: "Eerste pagina"
-      previous_page: "Vorige pagina"
-      next_page: "Volgende pagina"
-      last: "Laatste pagina"
-
-    # Simple form translations
-    forms:
-      "yes": 'Ja'
-      "no": 'Nee'
-      required:
-        text: 'Verplicht'
-        mark: '*'
-      error_notification:
-        default_message: "Controleer de volgende problemen:"
+      alchemy/user:
+        email: "Email"
+        firstname: "Voornaam"
+        gender: "Geslacht"
+        language: "Taal"
+        lastname: "Achternaam"
+        last_sign_in_at: "Laatst aangemeld op"
+        login: "Gebruikersnaam"
+        name: "Naam"
+        password: "Wachtwoord"
+        password_confirmation: "Bevestiging wachtwoord"
+        alchemy_roles: "Gebruikersrollen"
+        send_credentials: "Email met gegevens versturen"
+        tag_list: Tags

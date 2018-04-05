@@ -608,6 +608,28 @@ zh-CN:
     "Update status unavailable": '没有最新更新'
     "Uploading": "正在上传"
 
+    # Kaminari pagination translations
+    pagination:
+      first: "第一页"
+      previous_page: "前一页"
+      next_page: "下一页"
+      last: "最后一页"
+
+    # Simple form translations
+    forms:
+      "yes": '是'
+      "no": '否'
+      required:
+        text: '必填'
+        mark: '*'
+      error_notification:
+        default_message: "请检查如下错误："
+      labels:
+        user:
+          email: 电子邮件
+          login: 登录
+          password: 密码
+
   # Alchemy time formats
   time:
     formats:
@@ -655,6 +677,12 @@ zh-CN:
         attributes:
           image_file:
             blank: "请添加一个图片。"
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "is not a valid email address"
+          alchemy_roles:
+            blank: "at least one role must be given"
 
   # Translations for Alchemy models
   activemodel:
@@ -701,6 +729,9 @@ zh-CN:
       alchemy/picture:
         one: 图片
         other: 图片
+      alchemy/user:
+        one: User
+        other: User
     attributes:
       acts_as_taggable_on/tag:
         taggings_types: 用于
@@ -779,20 +810,17 @@ zh-CN:
         public: "公共"
         aliases: "域名别名"
         redirect_to_primary_host: "跳转到主要服务器"
-
-    # Kaminari pagination translations
-    pagination:
-      first: "第一页"
-      previous_page: "前一页"
-      next_page: "下一页"
-      last: "最后一页"
-
-    # Simple form translations
-    forms:
-      "yes": '是'
-      "no": '否'
-      required:
-        text: '必填'
-        mark: '*'
-      error_notification:
-        default_message: "请检查如下错误："
+      alchemy/user:
+        email: "Email"
+        firstname: "Firstname"
+        gender: "Gender"
+        language: "Language"
+        lastname: "Lastname"
+        last_sign_in_at: "Last Login At"
+        login: "Username"
+        name: "Name"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        alchemy_roles: "User roles"
+        send_credentials: "Send email with credentials"
+        tag_list: Tags

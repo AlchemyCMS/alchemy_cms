@@ -436,6 +436,8 @@ es:
       tags: "Etiquetas"
       sites: "Sitios"
       user_sessions: "Login"
+      user_sessions: "Login"
+      users: "Usuarios"
     name: "Nombre"
     names: "Nombres"
     navigation_name: "Nombre de navegación"
@@ -591,6 +593,27 @@ es:
     "Update available": 'Actualización disponible'
     "Update status unavailable": 'Estado de actualización no disponible'
     "Uploading": "Subiendo"
+    cannot_signup_more_then_once: "You can't signup more then once."
+    confirm_to_delete_user: "¿Deseas realmente borrar este usuario?"
+    create_user: "Crear un nuevo usuario"
+    delete_user: "Borrar este usuario"
+    edit_user: "Editar las propiedades del usuario"
+    "No users found": "No se han encontrado usuarios"
+
+    # Kaminari pagination translations
+    pagination:
+      first: "Primera página"
+      previous_page: "Página anterior"
+      next_page: "Pagina siguiente"
+      last: "Última página"
+
+    # Simple form translations
+    forms:
+      labels:
+        user:
+          email: Correo
+          login: Usuario
+          password: Contraseña
 
   # Alchemy time formats
   time:
@@ -639,6 +662,12 @@ es:
         attributes:
           image_file:
             blank: "Por favor adjunta una imagen."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "no es una dirección de correo válida"
+            alchemy_roles:
+              blank: "se debe asignar al menos un rol"
 
   # Translations for Alchemy models
   activemodel:
@@ -685,6 +714,9 @@ es:
       alchemy/picture:
         one: Imagen
         other: Imágenes
+      alchemy/user:
+        one: Usuario
+        other: Usuarios
     attributes:
       gutentag/tag:
         taggings_types: Usado por
@@ -764,17 +796,17 @@ es:
         public: "Público"
         aliases: "Alias de dominio"
         redirect_to_primary_host: "Redirigir al dominio primario"
-
-    # Kaminari pagination translations
-    pagination:
-      first: "Primera página"
-      previous_page: "Página anterior"
-      next_page: "Pagina siguiente"
-      last: "Última página"
-
-    # Simple form translations
-    forms:
-      labels:
-        user:
-          login: Usuario
-          password: Contraseña
+      alchemy/user:
+        email: "Correo"
+        firstname: "Nombre"
+        gender: "Género"
+        language: "Idioma"
+        lastname: "Apellidos"
+        last_sign_in_at: "Última conexión"
+        login: "Usuario"
+        name: "Nombre"
+        password: "Contraseña"
+        password_confirmation: "Confirmar contraseña"
+        alchemy_roles: "Roles"
+        send_credentials: "Enviar correo con las credenciales"
+        tag_list: Etiquetas

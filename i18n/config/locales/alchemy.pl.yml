@@ -1,0 +1,817 @@
+# encoding: UTF-8
+
+en:
+
+  # = Alchemy Translations
+  # All translations used in Alchemy CMS are inside this alchemy namespace.
+  alchemy:
+
+    # == Translations for page_layout names
+    # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     page_layout_names:
+    #       contact: Contact
+    #       search: Search
+    #
+    page_layout_names:
+
+    # == Translations for element names
+    # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     element_names:
+    #       article: Article
+    #       contactform: Contact form
+    #
+    element_names:
+
+    # == Translated names for contents in elements.
+    # Used for the content editor label inside the element editor view (The elements window)
+    #
+    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
+    # To do so, just place the content_name under the element name
+    #
+    # Example:
+    #
+    # en:
+    #  alchemy:
+    #    content_names:
+    #      headline: Headline
+    #      news_article:
+    #        headline: News Headline
+    #      image_caption: Caption
+    #      show_caption: Show Caption
+    #
+    content_names:
+
+    # === Translations for content validations
+    # Used when a user did not enter (correct) values to the content field.
+    #
+    # Tip: You can define the validation messages translations different for each element and content
+    #
+    # Example:
+    #
+    # en:
+    #   alchemy:
+    #     content_validations:
+    #       contactform:
+    #         success_page:
+    #           blank: 'Please choose a follow up page.'
+    #         mail_to:
+    #           blank: 'Please provide an email address where the contact inquiries will be delivered to.'
+    #
+    content_validations:
+      errors:
+        blank: "%{field} can't be blank"
+        invalid: '%{field} has wrong format'
+        taken: '%{field} has already been taken'
+
+    default_content_texts:
+      lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+      corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
+
+    essence_pictures:
+      css_classes:
+        left: 'Left from text'
+        right: 'Right from text'
+        no_float: 'Above the text'
+
+    # == Contactform translations
+    contactform:
+      labels:
+        salutation: 'Salutation'
+        choose: 'Please choose'
+        mr: 'Mr.'
+        mrs: 'Mrs.'
+        firstname: 'Firstname'
+        lastname: 'Lastname'
+        address: 'Street / No.'
+        zip: 'Zipcode / City'
+        phone: 'Telephone'
+        email: 'Email'
+        message: 'Message'
+        send: 'Send'
+        mandatory_fields: '*Mandatory fields.'
+      # The flash message shown after successfully sending the message.
+      messages:
+        success: 'Your message was delivered successfully.'
+
+    # == Translated language names for translation select
+    translations:
+      de: 'DE'
+      en: 'EN'
+      es: 'ES'
+      it: 'IT'
+      fr: 'FR'
+      nl: 'NL'
+      ru: 'RU'
+
+    # == User roles translations
+    user_roles:
+      registered: "Registered"
+      member: "Member"
+      author: "Author"
+      editor: "Editor"
+      admin: "Administrator"
+
+    # == Mime Types translations
+    # These are human readable mime types used for the document-type row in archive files.
+    mime_types:
+      audio/mp4: 'MP4-Audio'
+      application/msword: 'Word-Document'
+      application/rtf: 'RTF-Document'
+      audio/mpeg: 'MP3-Audio'
+      text/plain: 'Text-Document'
+      video/mp4: 'MP4-Video'
+      video/mpeg: 'MPEG-Video'
+      application/pdf: 'PDF-Document'
+      application/x-flash-video: 'Flash-Video'
+      video/x-flv: 'Flash-Video'
+      application/x-shockwave-flash: 'Flash-Movie'
+      application/zip: 'ZIP-Archive'
+      application/x-rar: 'RAR-Archive'
+      application/vnd:
+        ms-excel: 'Excel-Document'
+      video/quicktime: 'Quicktime-Video'
+      image/x-psd: 'Photoshop-File'
+      image/gif: 'GIF-Image'
+      image/png: 'PNG-Image'
+      image/jpeg: 'JPG-Image'
+      video/x-msvideo: 'AVI-Video'
+      video/x-ms-wmv: 'Windows Media Video'
+      image/tiff: 'TIFF-Image'
+      'text/x-vcard': 'vCard'
+      application/vcard: 'vCard'
+
+    link_target_options:
+      default: Same Window
+      blank: New Window/Tab
+      overlay: Overlay
+
+    resource_help_texts:
+      site:
+        aliases: Please separate additional domains with spaces or new lines.
+
+    anchor: 'Anchor'
+    attribute_fixed: Value can't be changed for this page type
+    back: 'back'
+    create_tree_as_new_language: "Create %{language} as a new language tree"
+    locked_pages: "Active pages"
+    "Add global page": "Add global page"
+    "Add page link": "Add page link"
+    "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software and itself uses open software and free resources:"
+    "Alchemy is up to date": 'Alchemy is up to date'
+    'An error happened': 'An error happened'
+    "Change password": "Change password"
+    "Choose page": "Choose page"
+    "Cleared trash": "Cleared trash"
+    "Clear selection": "Clear selection"
+    "Forgot your password?": "Forgot your password?"
+    "Clipboard": "Clipboard"
+    "Confirm new password": "Confirm new password"
+    "Copy": "Copy"
+    "Could not load Adobe Flash® Plugin!": "Could not load Adobe Flash® Plugin!"
+    "Currently locked pages": "Currently locked pages"
+    "Default language has to be public": "Default language has to be public"
+    "Delete image": "Delete image"
+    "Do you really want to clear the clipboard?": "Do you really want to clear the clipboard?"
+    "Do you really want to clear the trash?": "Do you really want to clear the trash?"
+    "Do you really want to delete this content?": "Do you really want to delete this content?"
+    "Drag an element over to the element window to restore it": "Drag an element over to the element window to restore it"
+    "Edit Picturemask": "Edit picturemask"
+    "Edit image": "Edit image"
+    "Edit multiple pictures": "Edit multiple pictures"
+    "Elements": "Elements"
+    "Element trashed": "Element trashed"
+    "Error with the Flash® Uploader!": "Error with the Flash® Uploader!"
+    "Excerpt": "Excerpt"
+    "File successfully updated": "File successfully updated"
+    "File deleted successfully": "%{name} has been deleted"
+    "Filter by tag": "Filter by tag"
+    "Flush page cache": "Flush page cache"
+    "Flush picture cache": "Flush picture cache"
+    "Global shortcuts": "Global shortcuts"
+    "Hide childpages": "Hide childpages"
+    hide_elements: Hide Elements
+    hide_element: "Hide element"
+    "Image missing": "Image missing"
+    "Image size": "Image size"
+    "Language successfully created": "Language successfully created."
+    "Language successfully removed": "Language successfully removed."
+    "Language successfully updated": "Language successfully updated."
+    "Language tree": "Language tree"
+    "Layout default": "Layout default"
+    "Library shortcuts": "Library shortcuts"
+    "Logged in as": "Logged in as"
+    "Mandatory": "Mandatory fields"
+    "Name": "Name"
+    "New": "New"
+    "New Element": "New element"
+    "New page": "New page"
+    "No page links for this page found": "No page links for this page found"
+    "New password": "New password"
+    "New Tag": "New tag"
+    "New Tag Created": "New Tag Created"
+    "No": "No"
+    "No items in your clipboard": "No items in your clipboard"
+    "No Tags found": "No Tags found"
+    "None": "None"
+    "Open Link in": "Open Link in"
+    "Page": "Page"
+    "Page edit shortcuts": "Page edit shortcuts"
+    "Page deleted": "%{name} deleted"
+    "Page saved": "%{name} saved"
+    "Page cache flushed": "Page cache flushed"
+    "Pages order saved": "Pages order saved"
+    "Password": "Password"
+    "Password reset": "Password reset"
+    "Paste from clipboard": "Paste from clipboard"
+    "Picture infos": "Picture infos"
+    "Picture renamed successfully": "Picture renamed successfully from %{from} to %{to}"
+    "Picture deleted successfully": "Picture %{name} successfully deleted"
+    "Pictures updated successfully": "Pictures updated successfully"
+    "Please Signup": "Please signup to edit your Website."
+    "Please choose": "Please choose"
+    "Please enter a new password": "Please enter a new password."
+    "Please enter your email address": "Please enter your email address."
+    "Please log in": "Please log in."
+    "Please seperate the tags with commata": "* Please seperate the tags with commas."
+    "Properties": "Properties"
+    "Publish page": "Publish page"
+    "Read the License": "Read the License"
+    "Redirects to": "Redirects to"
+    "Reload Preview": "Reload Preview"
+    "Remove item from clipboard": "Remove item from clipboard"
+    "Remove tag filter": "Remove tag filter"
+    "Remove this content": "Remove this content"
+    "Reset Imagemask": "Reset mask"
+    "Reset password instructions": "Reset password instructions"
+    "Select all": "Select all"
+    "Select an content": "Select a content"
+    "Select style": "Select style"
+    "Send reset instructions": "Send reset instructions"
+    show_elements: "Show Elements"
+    show_element: "Show element"
+    "Show childpages": "Show childpages"
+    "Show clipboard": "Show clipboard"
+    "Copied to clipboard": "Copied to clipboard"
+    "Show picture infos": "Show picture infos"
+    "Show trash": "Show trash"
+    "Site successfully created": "Website successfully created."
+    "Site successfully removed": "Website successfully removed."
+    "Site successfully updated": "Website successfully updated."
+    "Size": "Size"
+    "Sort pages": "Reorder pages"
+    "Successfully added content": "Successfully added %{content}"
+    "Successfully deleted content": "Successfully deleted %{content}"
+    "Successfully saved content position": "Successfully saved content position"
+    "Tags": "Tags"
+    "These pictures could not be deleted, because they were in use": "These pictures could not be deleted, because they were in use: %{names}"
+    "This page is locked": "This page is currently locked by %{name}"
+    "Title": "Title"
+    "Trash": "Trash"
+    "User created": "%{name} User created"
+    "User deleted": "%{name} User deleted"
+    "User updated": "%{name} User updated"
+    "Validation failed": "Validation failed"
+    "Version": "Version"
+    "View File": "View File"
+    "Attachment Preview": "Attachment Preview"
+    "Visit page": "Visit page"
+    "Warning!": "Warning!"
+    content_definition_missing: "Warning: Content is missing its definition. Please check the elements.yml"
+    element_definition_missing: "WARNING! Missing element definition. Please check your elements.yml file."
+    page_definition_missing: "WARNING! Missing page layout definition. Please check your page_layouts.yml file."
+    "Welcome to Alchemy": "Welcome to Alchemy"
+    "Who else is online": "Who else is online"
+    "Yes": "Yes"
+    "You are not authorized": "You are not authorized"
+    "You are about to edit many pictures at once": "You are about to edit %{length} pictures at once"
+    element_dirty_close_window_notice: "You have unsaved elements. Do you really want to close the elements window?"
+    "Your last login was on": "Your last login was on %{time}."
+    "Your last updated pages": "Your last updated pages"
+    "Your trash is empty": "Your trash is empty"
+    above: "above"
+    add: "Add"
+    "add new content": "Add new content"
+    add_image_to_element: "Add an image"
+    align_in_text: "Alignment in text"
+    all: "all"
+    all_pictures: "All pictures"
+    apply: "apply"
+    assign_file: "Assign a file"
+    assign_file_from_archive: "assign a file from your archive"
+    assign_image: "Assign an image"
+    attachment_filename_notice: "* Please do not use any special characters for the filename."
+    auto_play: "Play movie after load"
+    big_thumbnails: "Big thumbnails"
+    cancel: "cancel"
+    cannot_delete_picture_notice: "Cannot delete Picture %{name}, because it's still in use."
+    choose_element_as_target: "Please choose an element as target"
+    choose_element_to_link: "Please choose an element"
+    choose_file_to_link: "Please choose a file to link"
+    "clear clipboard": "clear clipboard"
+    "clear trash": "clear trash"
+    click_to_show_all: "Click to show all again."
+    confirm_to_delete_file: "Do you really want to delete this file from the server?"
+    confirm_to_delete_image: "Do you really want to delete this image from server?"
+    confirm_to_delete_image_from_server: "Do you really want to delete this image from the server?"
+    confirm_to_delete_images_from_server: "Do you really want to delete these images from the server?"
+    confirm_to_delete_page: "Do you really want to delete this page? All its elements (even trashed ones) will get lost!"
+    content_essence_not_found: "Content essence not found"
+    content_not_found: "Field for content not present."
+    content_validations_headline: "Please check marked fields below"
+    copy: "copy"
+    copy_element: "Copy this element"
+    copy_page: "Copy page"
+    "Could not delete Pictures": "Could not delete Pictures"
+    copy_language_tree_heading: "Copy page tree"
+    country_code_placeholder: 'i.e. US (optional)'
+    country_code_foot_note: "You only need to set a country code if you want to support multiple countries with the same language."
+    create: "create"
+    "Create language": "Create a new language"
+    "Create site": "Create a new site"
+    create_language_tree_heading: "Create empty language tree"
+    create_page: "Create a new subpage"
+    currently_edited_by: "This page is locked by"
+    cut_element: "Cut this element."
+    delete_file: "Delete this file from server."
+    delete_image: "Remove this image"
+    delete_language: "Delete this language"
+    delete_page: "Delete this page"
+    delete_tag: 'Delete tag'
+    document: "File"
+    download_csv: "Download CSV"
+    download_file: "Download file '%{filename}'"
+    do_you_really_want_to_delete_this_tag?: "Do you really want to delete this tag?"
+    drag_to_sort: "Drag'n'Drop to sort images"
+    edit_file_properties: "Edit file properties."
+    edit_image_properties: "Edit image properties."
+    edit_language: "Edit language"
+    edit_page: "Edit this page"
+    edit_page_properties: "Edit page properties"
+    edit_tag: 'Edit tag'
+    edit_selected_pictures: "Edit selected pictures"
+    element_editor_not_found: "Error within this Element"
+    element_of_type: "Element"
+    element_saved: "Saved element."
+    enter_external_link: "Please enter the URL you want to link with"
+    explain_cropping: "<p>Move the frame and change its size with the mouse or arrow keys to adjust the image mask. Click on \"apply\" when you are satisfied with your selection.</p><p>If you want to return to the original centered image mask like it was defined in the layout, click \"reset\" and \"apply\" afterwards.</p>"
+    explain_publishing: "Publish the page and remove the cached version from the server."
+    explain_sitemap_dragndrop_sorting: "Tip: Drag the pages at the icon in order to sort them."
+    explain_unlocking: "Leave page and unlock it for other users."
+    external_link_notice_1: "Please enter the complete url with http:// or a similar protocol."
+    external_link_notice_2: "To refer a path from your website url, start with a /."
+    female: "Female"
+    file: "File"
+    file_rename_error: "Error renaming file."
+    from_at: "from %{by} at %{at}"
+    height: "Height"
+    help:
+      shortcuts:
+        "Open help window": "Open help window"
+        "Close current dialog": "Close current dialog"
+        "Open logout dialog": "Open logout dialog"
+        "Focus search field": "Focus search field"
+        "Create a new record": "Create a new record"
+        "Show page infos": "Show page info"
+        "Create new element": "Create new element"
+        "Edit page properties": "Edit page properties"
+        "Reload the preview": "Reload the preview"
+        "Leave the page": "Leave the page"
+        "Open upload form": "Open upload form"
+        "Select all pictures": "Select all pictures"
+    hide_element_content: "Hide this elements content."
+    dashboard: "Dashboard"
+    image_alt_tag: "Alt-tag"
+    image_caption: "Caption"
+    image_name: "Name"
+    image_title: "Title-tag"
+    internal_link_headline: "Choose a page to link to."
+    internal_link_page_elements_explanation: "Additionally you can click right beside a page on 'Show Elements' to link to an anchor of an element from that page."
+    internal_link_page_anchors_explanation: "Alternatively you can link to an anchor of the actual page."
+    "item copied to clipboard": "Copied %{name} to clipboard"
+    "item moved to clipboard": "Moved %{name} to clipboard"
+    "item removed from clipboard": "Removed %{name} from clipboard"
+    javascript_disabled_headline: "Javascript is disabled!"
+    javascript_disabled_text: "Alchemy needs Javascript to run smoothly. Please enable it in your browser settings."
+    language_code_placeholder: 'i.e. en'
+    language_does_not_exist: "This language tree does not exist"
+    language_pages_copied: "Language tree successfully copied."
+    last_upload_only: "Last upload only"
+    left: "left"
+    legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
+    link_image: "Link this image."
+    link_overlay_tab_label:
+      contactform: "Contact form"
+      external: "External"
+      file: "File"
+      internal: "Internal"
+    link_title: "Link title"
+    login: "login"
+    logout: "logout"
+    mail_to: "Recipient"
+    main_content: "Main content"
+    male: "Male"
+    me: "Me"
+    medium_thumbnails: "Medium thumbnails"
+    meta_data: "Meta-Data"
+    meta_description: "Meta-Description"
+    meta_keywords: "Meta-Keywords"
+    modules:
+      attachments: "Files"
+      dashboard: "Dashboard"
+      pictures: "Images"
+      languages: "Languages"
+      layoutpages: "Global Pages"
+      library: "Library"
+      pages: "Pages"
+      tags: "Tags"
+      sites: "Sites"
+      user_sessions: "Login"
+      users: "Użytkownicy"
+    name: "Name"
+    names: "Names"
+    navigation_name: "Navigation name"
+    no_image_for_cropper_found: "No image found. Please save the element first."
+    no: "No"
+    "no pages": "no pages"
+    "no users": "no users"
+    no_default_language_found: "No default language found."
+    no_element_given: "No element given."
+    no_files_in_archive: "You do not have any files in your archive."
+    no_images_in_archive: "You don't have any images in your archive."
+    no_more_elements_to_add: "No more elements available."
+    no_search_results: "Your search did not return any results."
+    "not a valid image": "This is not an valid image."
+    "or": 'or'
+    or_replace_it_with_an_existing_tag: 'Or replace it with an existing tag'
+    "Page created": "Page: '%{name}' created."
+    page_for_links:
+      choose_page: "Choose %{name}"
+    page_infos: 'Page info'
+    page_layout_changed_notice: "Page type was changed. Elements not usable anymore have been moved into the trash."
+    page_properties: "Page properties"
+    page_public: "published"
+    page_published: "Published page"
+    page_restricted: "restricted"
+    page_states:
+      visible:
+        "true": "Page is visible in navigation."
+        "false": "Page is not visible in navigation."
+      public:
+        "true": "Page is published."
+        "false": "Page is unpublished."
+      locked:
+        "true": "Page is being edited at the moment."
+        "false": ""
+      restricted:
+        "true": "Page is restricted."
+        "false": "Page is not restricted."
+    page_status: "Status"
+    page_title: "Title"
+    page_type: "Type"
+    page_visible_in_navigation: "visible in the navigation"
+    page_was_created: "Was created"
+    page_was_updated: "Was updated"
+    pages:
+      update:
+        comma_seperated: "Separate by comma"
+    password: "Password"
+    paste: "paste"
+    picture_gallery_editor: 'Pictures'
+    picture_library:
+      filter:
+        last_upload: "from last upload"
+        recent: "that where recently uploaded"
+        without_tag: "without tag"
+    pictures_in_page: "%{page} in %{pictures}"
+    place_link: "Link text"
+    player_version: "Flash Player version"
+    "please enter subject and mail address": "Please enter recipient and subject."
+    please_confirm: "Please confirm"
+    please_wait: "Please wait"
+    position_in_text: "Position in text"
+    preview_size: "Preview size"
+    preview_sizes:
+      '240': '240px (small phone)'
+      '320': '320px (iPhone)'
+      '480': '480px (small Tablet)'
+      '768': '768px (iPad - Portrait)'
+      '1024': '1024px (iPad - Landscape)'
+      '1280': '1280px (Desktop)'
+    recently_uploaded_only: 'Recently uploaded only'
+    "regular method": "Regular method"
+    remove: "Remove"
+    rename_file: "Rename this file."
+    rename: "Rename"
+    replace: replace
+    replace_file: Replace file
+    'Replaced Tag': "Tag '%{old_tag}' was replaced with '%{new_tag}'"
+    resources:
+      relation_select:
+        blank: '- none -'
+    right: "right"
+    robot_follow: "robot may follow links."
+    robot_index: "allow robot to index."
+    save: "Save"
+    "save order": "Save order"
+    saved_link: "Link saved."
+    search: "search"
+    search_engines: "Search engines"
+    select_element: "Select element"
+    seperate_tags_with_comma: "Seperate tags with comma"
+    show_element_content: "Show content of this element."
+    show_elements_from_page: "Show all elements from this page"
+    show_eq: "Show EQ"
+    show_navigation: "Show in navigation"
+    show_page_in_sitemap: "Show page in sitemap."
+    signup_mail_delivery_error: 'Signup mail could not be delivered. Please check your mail settings.'
+    small_thumbnails: "Small thumbnails"
+    subject: "Subject"
+    successfully_added_element: "Successfully added new element."
+    successfully_deleted_tag: "Successfully deleted tag"
+    successfully_restored_element: "Element restored successfully."
+    successfully_saved_element_position: "Element position updated successfully."
+    successfully_updated_tag: "Successfully updated tag"
+    swap_image: "Change image"
+    insert_image: "Insert image"
+    tag_list: Tags
+    tags_get_created_if_used_the_first_time: 'Tags get created if used the first time.'
+    this_picture_is_used_on_these_pages: "This picture is used on following pages"
+    title: "Title"
+    to_alchemy: "To Alchemy"
+    "trash element": "Put element into trash"
+    unknown: "unknown"
+    unlink: "Remove link from this image."
+    unlock_page: "Leave page"
+    unlocked_page: "Unlocked page %{name}."
+    uploader:
+      alchemy/attachment:
+        button_label: Upload file(s)
+        upload_success: "File %{name} successfully uploaded"
+        upload_failure: "File %{name} upload error: %{error}"
+      alchemy/picture:
+        button_label: Upload image(s)
+        upload_success: "Picture %{name} uploaded successfully"
+        upload_failure: "Error while uploading %{name}: %{error}"
+    url_name: "URL-Name"
+    visible: "visible"
+    want_to_create_new_language: "Do you want to create a new empty language tree?"
+    want_to_make_copy_of_existing_language: "Do you want to copy an existing language tree?"
+    "We need at least one default.": "A default language must exist."
+    welcome_note: "Welcome %{name}"
+    welcome_back_note: "Welcome back %{name}"
+    welcome_please_identify_notice: "Welcome! Please identify."
+    width: "Width"
+    without_tag: "Without tag"
+    you_can_rename_this_tag: "You can rename this tag"
+    zoom_image: "Zoom this image"
+    "Leave Alchemy": "Leave Alchemy"
+    leave: "leave"
+    "You are about to leave Alchemy": "You are about to leave Alchemy"
+    "Do you want to": "Do you want to"
+    "stay logged in": "stay logged in"
+    "or to completely": "or to completely"
+    "Are you sure?": "Are you sure?"
+    "Create": "Create"
+    "Edit": "Edit"
+    "Delete": "Delete"
+    "Successfully created": "Successfully created"
+    "Successfully updated": "Successfully updated"
+    "Successfully removed": "Successfully removed"
+    "Nothing found": "Nothing found."
+    complete: 'Abgeschlossen'
+    "Update available": 'Update available'
+    "Update status unavailable": 'Update status unavailable'
+    "Uploading": "Uploading"
+    cannot_signup_more_then_once: "Nie możesz się zarejestrować więcej niż raz."
+    confirm_to_delete_user: "Czy jesteś pewien, że chcesz usunąć tego użytkownika?"
+    create_user: "Utwórz nowego użytkownika"
+    delete_user: "Usuń tego użytkownika"
+    edit_user: "Edytuj ustawienia tego użytkownika."
+    "No users found": "Nie znaleziono użytkowników."
+
+    # Kaminari pagination translations
+    pagination:
+      first: "First Page"
+      previous_page: "Previous Page"
+      next_page: "Next Page"
+      last: "Last Page"
+
+    # Simple form translations
+    forms:
+      "yes": 'Yes'
+      "no": 'No'
+      required:
+        text: 'required'
+        mark: '*'
+      error_notification:
+        default_message: "Please review the problems below:"
+      labels:
+        user:
+          email: Emalia
+          login: Login
+          password: Hasło
+
+  # Alchemy time formats
+  time:
+    formats:
+      alchemy:
+        datepicker: "%Y-%m-%d"
+        datetimepicker: "%Y-%m-%d %H:%M"
+        default: "%a, %d %b %Y %H:%M:%S %z"
+        essence_date: "%Y-%m-%d"
+        page_status: "%m.%d.%Y %H:%M"
+        short_datetime: "%d %b %H:%M"
+        time: "%H:%M"
+        timepicker: "%H:%M"
+
+  # Translations for error messages.
+  errors:
+    models:
+      alchemy/content:
+        attributes:
+          name:
+            taken: 'is already taken in this element.'
+          essence:
+            validation_failed: 'Validation failed.'
+      alchemy/element:
+        attributes:
+          name:
+            blank: "^Please choose an element."
+      alchemy/language:
+        attributes:
+          language_code:
+            invalid: '^Format of languagecode is not valid. Please use exactly two lowercase characters.'
+            taken: 'is already taken for this country code.'
+          locale:
+            missing_file: "Localization not found for given language code. Please choose an existing one."
+      alchemy/page:
+        attributes:
+          name:
+            blank: "^Please enter a name."
+          page_layout:
+            blank: "^Please choose a page layout."
+          urlname:
+            too_short: "^The pages urlname is too short (minimum of 3 characters)."
+            taken: "^URL-Name already taken."
+            exclusion: "^URL-Name reserved."
+      alchemy/picture:
+        attributes:
+          image_file:
+            blank: "Please attach a picture."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "nie jest poprawnym adresem E-Mail"
+          alchemy_roles:
+            blank: "przynajmniej jedna rola musi być dodana"
+
+  # Translations for Alchemy models
+  activemodel:
+    models:
+      alchemy/message:
+        one: Message
+        other: Messages
+    attributes:
+      alchemy/message:
+        salutation: 'Salutation'
+        firstname: 'Firstname'
+        lastname: 'Lastname'
+        address: 'Street / No.'
+        zip: 'Zipcode'
+        city: City
+        phone: 'Telephone'
+        email: 'Email'
+        message: 'Message'
+
+  # Translations for Alchemy database models
+  activerecord:
+    models:
+      gutentag/tag:
+        one: Tag
+        other: Tags
+      alchemy/attachment:
+        one: File
+        other: Files
+      alchemy/element:
+        one: "Element"
+        other: "Elements"
+      alchemy/legacy_page_url:
+        one: "Link"
+        other: "Links"
+      alchemy/language:
+        one: "Language"
+        other: "Languages"
+      alchemy/page:
+        one: "Page"
+        other: "Pages"
+      alchemy/site:
+        one: Website
+        other: Websites
+      alchemy/picture:
+        one: Picture
+        other: Pictures
+      alchemy/user:
+        one: Użytkownik
+        other: Użytkownik
+    attributes:
+      gutentag/tag:
+        taggings_types: Used for
+        taggings_count: Usage count
+      alchemy/attachment:
+        file_mime_type: Filetype
+        created_at: "Created at"
+        file_name: Filename
+        name: Name
+        file_size: Filesize
+        tag_list: Tags
+        url: "URL"
+        download_url: "Download-URL"
+      alchemy/element:
+        display_name: "Name"
+        name: "Name"
+        public: "visible"
+        tag_list: Tags
+      alchemy/essence_file:
+        css_class: Style
+      alchemy/essence_picture:
+        caption: "Caption"
+        title: "Title"
+        alt_tag: "Alternative text"
+        link: Link
+        link_class_name: "Link CSS class"
+        link_title: Link title
+        css_class: Style
+        link_target: Link target
+        render_size: Render size
+        crop_from: Crop from
+        crop_size: Crop size
+        picture_id: Bild
+      alchemy/language:
+        country_code: "Country code"
+        language_code: "Language code"
+        default: "Default"
+        frontpage_name: "Name of frontpage"
+        name: "Name"
+        page_layout: "Pagetype of frontpage"
+        public: "Public"
+        locale: Localization
+        code: ISO Code
+      alchemy/legacy_page_url:
+        urlname: "URL path"
+      alchemy/page:
+        created_at: "Created at"
+        language: "Language"
+        locked: "This page is locked by another user."
+        locked_by: "locked by"
+        meta_description: "Description"
+        meta_keywords: "Keywords"
+        name: "Name"
+        page_layout: "Page type"
+        public: "public"
+        restricted: "restricted"
+        robot_follow: "robot may follow links"
+        robot_index: "allow robot to index"
+        sitemap: "visible in sitemap"
+        tag_list: Tags
+        title: "Title"
+        updated_at: "Updated at"
+        urlname: "Urlname"
+        visible: "visible in navigation"
+      alchemy/picture:
+        image_file_name: "Filename"
+        image_file_height: "Height"
+        image_file_width: "Width"
+        image_file_dimensions: "Dimensions"
+        image_file_size: "Filesize"
+        name: "Name"
+        tag_list: Tags
+      alchemy/site:
+        name: "Name"
+        host: "Primary Host"
+        public: "Public"
+        aliases: "Domain-Aliases"
+        redirect_to_primary_host: "Redirect to primary Host"
+      alchemy/user:
+        email: "Email"
+        firstname: "Imię"
+        gender: "Płeć"
+        language: "Język"
+        lastname: "Nazwisko"
+        last_sign_in_at: "Ostatnie logowanie o"
+        login: "Nazwa użytkownika"
+        name: "Nazwa"
+        password: "Hasło"
+        password_confirmation: "Potwierdzenie hasła"
+        alchemy_roles: "Role użytkownika"
+        send_credentials: "Wyślij email z dostępami"
+        tag_list: Tagi
