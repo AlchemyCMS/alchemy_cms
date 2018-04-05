@@ -28,6 +28,8 @@ group :development, :test do
     gem 'spring-commands-rspec'
     gem 'rubocop', require: false
     gem 'listen'
+    gem 'localeapp', '~> 3.0'
+    gem 'dotenv', '~> 2.2'
   end
   gem 'capybara', '~> 2.4'
   gem 'capybara-screenshot', '>= 1.0.18'
