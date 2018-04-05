@@ -1,7 +1,0 @@
-es:
-  simple_form:
-    labels:
-      user:
-        email: "Correo"
-        login: Usuario
-        password: Contraseña

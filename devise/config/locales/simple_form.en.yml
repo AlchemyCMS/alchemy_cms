@@ -1,6 +1,0 @@
-en:
-  simple_form:
-    labels:
-      user:
-        login: Login
-        password: Password
