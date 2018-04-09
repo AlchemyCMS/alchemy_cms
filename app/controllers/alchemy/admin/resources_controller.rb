@@ -61,7 +61,7 @@ module Alchemy
         resource_instance_variable.save
         render_errors_or_redirect(
           resource_instance_variable,
-          resources_path(resource_handler.namespaced_resources_name, search_filter_params),
+          resources_path(resource_instance_variable.class, search_filter_params),
           flash_notice_for_resource_action
         )
       end
@@ -70,7 +70,7 @@ module Alchemy
         resource_instance_variable.update_attributes(resource_params)
         render_errors_or_redirect(
           resource_instance_variable,
-          resources_path(resource_handler.namespaced_resources_name, search_filter_params),
+          resources_path(resource_instance_variable.class, search_filter_params),
           flash_notice_for_resource_action
         )
       end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   namespace :admin do
     resources :events
     resources :locations
+    resources :series
   end
 
   mount Alchemy::Engine => "/"
