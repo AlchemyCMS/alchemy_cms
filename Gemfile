@@ -29,8 +29,8 @@ group :development, :test do
     gem 'rubocop', require: false
     gem 'listen'
   end
-  gem 'capybara', '~> 2.4'
-  gem 'capybara-screenshot', '>= 1.0.18'
+  gem 'capybara', '~> 3.0'
+  gem 'capybara-screenshot', '~> 1.0'
   gem 'database_cleaner', '~> 1.3'
   gem 'factory_bot_rails', '~> 4.5'
   gem 'selenium-webdriver', '~> 3.8'
