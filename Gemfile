@@ -28,7 +28,7 @@ group :development, :test do
     gem 'spring-commands-rspec'
     gem 'rubocop', require: false
     gem 'listen'
-    gem 'localeapp', '~> 3.0'
+    gem 'localeapp', '~> 3.0', require: false
     gem 'dotenv', '~> 2.2'
   end
   gem 'capybara', '~> 3.0'
