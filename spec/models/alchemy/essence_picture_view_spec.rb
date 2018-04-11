@@ -4,7 +4,7 @@ describe Alchemy::EssencePictureView, type: :model do
   include Capybara::RSpecMatchers
 
   let(:image) do
-    File.new(File.expand_path('../../../fixtures/image.png', __FILE__))
+    File.new(File.expand_path('../../fixtures/image.png', __dir__))
   end
 
   let(:picture) do

@@ -3,7 +3,7 @@ require "spec_helper"
 describe "alchemy/admin/pictures/show.html.erb" do
   let(:image) do
     fixture_file_upload(
-      File.expand_path('../../../../fixtures/animated.gif', __FILE__),
+      File.expand_path('../../../fixtures/animated.gif', __dir__),
       'image/gif'
     )
   end

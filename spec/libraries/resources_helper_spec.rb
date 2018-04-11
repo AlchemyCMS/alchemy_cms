@@ -1,6 +1,6 @@
-require File.dirname(__FILE__) + "/../../lib/alchemy/i18n"
-require File.dirname(__FILE__) + "/../../lib/alchemy/resource"
-require File.dirname(__FILE__) + "/../../lib/alchemy/resources_helper"
+require_relative '../../lib/alchemy/i18n'
+require_relative '../../lib/alchemy/resource'
+require_relative '../../lib/alchemy/resources_helper'
 
 module Namespace
   class MyResource

@@ -1,10 +1,10 @@
-require File.join(__FILE__, '../../base')
+require_relative '../base'
 
 module Alchemy
   module Generators
     class ElementsGenerator < Base
       desc "This generator generates your elements view partials."
-      source_root File.expand_path('templates', File.dirname(__FILE__))
+      source_root File.expand_path('templates', __dir__)
 
       def create_partials
         @elements = load_alchemy_yaml('elements.yml')
