@@ -31,15 +31,15 @@ module Alchemy #:nodoc:
           ingredient_column: 'body'
         }.update(options)
 
-        class_eval <<-EOV
+        class_eval <<-RUBY, __FILE__, __LINE__ + 1
           attr_writer :validation_errors
           include Alchemy::Essence::InstanceMethods
           stampable stamper_class_name: Alchemy.user_class_name
           validate :validate_ingredient, on: :update, if: -> { validations.any? }
 
-          has_one :content, :as => :essence, class_name: "Alchemy::Content"
-          has_one :element, :through => :content, class_name: "Alchemy::Element"
-          has_one :page,    :through => :element, class_name: "Alchemy::Page"
+          has_one :content, as: :essence, class_name: "Alchemy::Content"
+          has_one :element, through: :content, class_name: "Alchemy::Element"
+          has_one :page,    through: :element, class_name: "Alchemy::Page"
 
           scope :available,    -> { joins(:element).merge(Alchemy::Element.available) }
           scope :from_element, ->(name) { joins(:element).where(Element.table_name => { name: name }) }
@@ -65,7 +65,7 @@ module Alchemy #:nodoc:
           def preview_text_column
             '#{configuration[:preview_text_column] || configuration[:ingredient_column]}'
           end
-        EOV
+        RUBY
       end
 
       # Register the current class as has_many association on +Alchemy::Page+ and +Alchemy::Element+ models
