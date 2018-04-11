@@ -275,6 +275,10 @@ Metrics/PerceivedComplexity:
 Naming/AccessorMethodName:
   Enabled: false
 
+# This cop is great but has no config option to support the style `@_method_name` we are using.
+Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
 # We need these names for backwards compatability
 Naming/PredicateName:
   Enabled: false
