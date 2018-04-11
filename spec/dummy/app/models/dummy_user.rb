@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class DummyUser < ActiveRecord::Base
   attr_accessor :alchemy_roles, :name
 
