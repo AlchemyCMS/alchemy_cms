@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CapybaraSelect2
   # Select2 capybara helper
   def select2(value, options)

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require_relative '../../lib/alchemy/i18n'
 require_relative '../../lib/alchemy/resource'
 require_relative '../../lib/alchemy/resources_helper'
