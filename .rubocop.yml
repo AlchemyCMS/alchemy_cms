@@ -4,7 +4,8 @@ AllCops:
   Exclude:
     - 'bin/rspec'
     - 'vendor/**/*'
-    - 'spec/dummy/**/*'
+    - 'spec/dummy/db/**/*'
+    - 'spec/dummy/config/**/*'
     - 'alchemy_cms.gemspec'
     - 'Rakefile'
 
