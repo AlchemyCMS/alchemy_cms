@@ -58,6 +58,7 @@ Capybara.javascript_driver = :selenium_chrome_headless
 Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
+Capybara.server = :webrick
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
