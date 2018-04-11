@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DummyUser < ActiveRecord::Base
-  attr_accessor :alchemy_roles, :name
+  attr_writer :alchemy_roles, :name
 
   def self.logged_in
     []
