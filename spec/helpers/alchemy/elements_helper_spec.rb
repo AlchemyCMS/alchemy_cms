@@ -217,7 +217,7 @@ module Alchemy
         before { assign(:preview_mode, true) }
 
         it "should return the data-alchemy-element HTML attribute for element" do
-          is_expected.to eq({:'data-alchemy-element' => element.id})
+          is_expected.to eq({'data-alchemy-element' => element.id})
         end
       end
 

@@ -198,7 +198,7 @@ module Alchemy
     # Returns a hash containing the HTML tag attributes required for preview mode.
     def element_preview_code_attributes(element)
       return {} unless element.present? && @preview_mode && element.page == @page
-      { :'data-alchemy-element' => element.id }
+      { 'data-alchemy-element' => element.id }
     end
 
     # Returns the element's tags information as a string. Parameters and options
@@ -235,7 +235,7 @@ module Alchemy
       }.merge(options)
 
       return {} if !element.taggable? || element.tag_list.blank?
-      { :'data-element-tags' => options[:formatter].call(element.tag_list) }
+      { 'data-element-tags' => options[:formatter].call(element.tag_list) }
     end
 
     # Sort given elements by content.
