@@ -275,6 +275,9 @@ Metrics/PerceivedComplexity:
 Naming/AccessorMethodName:
   Enabled: false
 
+Naming/HeredocDelimiterNaming:
+    Enabled: false
+
 # This cop is great but has no config option to support the style `@_method_name` we are using.
 Naming/MemoizedInstanceVariableName:
   Enabled: false
