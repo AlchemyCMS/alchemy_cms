@@ -6,6 +6,7 @@ AllCops:
     - 'vendor/**/*'
     - 'spec/dummy/**/*'
     - 'alchemy_cms.gemspec'
+    - 'Rakefile'
 
   TargetRubyVersion: 2.2
 
