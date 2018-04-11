@@ -7,7 +7,7 @@ AllCops:
     - 'spec/dummy/**/*'
     - 'alchemy_cms.gemspec'
 
-  TargetRubyVersion: 2.1
+  TargetRubyVersion: 2.2
 
 # Really, rubocop?
 Bundler/OrderedGems:
