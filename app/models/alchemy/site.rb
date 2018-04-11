@@ -55,8 +55,8 @@ module Alchemy
     end
 
     class << self
-      def current=(v)
-        RequestStore.store[:alchemy_current_site] = v
+      def current=(site)
+        RequestStore.store[:alchemy_current_site] = site
       end
 
       def current

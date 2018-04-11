@@ -39,8 +39,8 @@ module Alchemy
     end
 
     # Handle invalid byte sequence in UTF-8 errors with 400 status.
-    def handle_invalid_byte_sequence(e)
-      if e.message =~ /invalid byte sequence/
+    def handle_invalid_byte_sequence(error)
+      if error.message =~ /invalid byte sequence/
         raise ActionController::BadRequest
       else
         raise
