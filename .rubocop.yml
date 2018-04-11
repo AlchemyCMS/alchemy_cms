@@ -46,6 +46,10 @@ Style/WordArray:
 Style/ConditionalAssignment:
   Enabled: false
 
+Style/MixinUsage:
+  Exclude:
+    - spec/**/*
+
 Performance/Count:
   Enabled: false
 

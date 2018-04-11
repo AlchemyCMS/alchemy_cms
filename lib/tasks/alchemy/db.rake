@@ -1,10 +1,11 @@
 require 'shellwords'
 require 'alchemy/seeder'
 require 'alchemy/tasks/helpers'
-include Alchemy::Tasks::Helpers
 
 namespace :alchemy do
   namespace :db do
+    include Alchemy::Tasks::Helpers
+
     desc "Seeds the database with Alchemy defaults"
     task seed: [:environment] do
       Alchemy::Seeder.seed!
