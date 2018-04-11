@@ -20,3 +20,4 @@ spec/dummy/public/assets
 .rbenv-version
 .ruby-gemset
 .ruby-version
+.env

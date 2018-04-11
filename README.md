@@ -69,14 +69,6 @@ gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
 
 **NOTE:** You normally want to use a stable branch, like `4.0-stable`.
 
-If you want to use Russian translation and have better i18n support, you should put:
-
-```ruby
-gem 'russian', '~> 0.6.0'
-```
-
-or gem with similar functionality into your Gemfile.
-
 #### 2. Update your bundle:
 
 ```shell
@@ -190,6 +182,9 @@ Please follow the guidelines about picture caching on the Dragonfly homepage for
 
 http://markevans.github.io/dragonfly/cache
 
+### Localization
+
+Alchemy ships with one default English translation for the admin interface. If you want to use the admin interface in other languages please have a look at the [`alchemy_i18n` project](https://github.com/AlchemyCMS/alchemy_cms).
 
 ## Upgrading
 

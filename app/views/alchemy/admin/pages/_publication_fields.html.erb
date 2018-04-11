@@ -1,5 +1,5 @@
 <% checkbox = check_box_tag :page_public, nil, @page.public?, name: nil,
-  data: {date_format: I18n.t(:datetimepicker, scope: 'time.formats')},
+  data: {date_format: I18n.t(:datetimepicker, scope: 'time.formats.alchemy')},
   disabled: @page.attribute_fixed?(:public_on) %>
 
 <label class="checkbox">

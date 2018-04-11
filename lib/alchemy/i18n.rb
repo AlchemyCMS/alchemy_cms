@@ -18,6 +18,8 @@ module Alchemy
   end
 
   module I18n
+    LOCALE_FILE_PATTERN = /alchemy\.(\S{2,5})\.yml/
+
     class << self
       # Alchemy translation methods
       #
@@ -54,9 +56,9 @@ module Alchemy
 
       def available_locales
         @@available_locales ||= nil
-        @@available_locales || translation_files.collect do |f|
-          f.match(/.{2}\.yml$/).to_s.gsub(/\.yml/, '').to_sym
-        end
+        @@available_locales || translation_files.collect { |f|
+          f.match(LOCALE_FILE_PATTERN)[1].to_sym
+        }.uniq.sort
       end
 
       def available_locales=(locales)
@@ -64,11 +66,11 @@ module Alchemy
         @@available_locales = nil if @@available_locales.empty?
       end
 
-      def translation_files
-        Dir.glob(File.join(File.dirname(__FILE__), '../../config/locales/alchemy.*.yml'))
-      end
-
       private
+
+      def translation_files
+        ::I18n.load_path.select { |path| path.match(LOCALE_FILE_PATTERN) }
+      end
 
       def humanize_default_string!(msg, options)
         return if options[:default].present?

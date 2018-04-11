@@ -9,7 +9,7 @@
 <% if current_page.last? %>
   <span class="last-page disabled"><i class="icon fas fa-angle-double-right"></i></span>
 <% else %>
-  <%= link_to url, remote: remote, title: t('views.pagination.last'), class: 'last-page' do %>
+  <%= link_to url, remote: remote, title: Alchemy.t(:last, scope: 'pagination'), class: 'last-page' do %>
     <i class="icon fas fa-angle-double-right"></i>
   <% end %>
 <% end %>

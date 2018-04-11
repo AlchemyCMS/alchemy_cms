@@ -1,3 +1,4 @@
+require File.dirname(__FILE__) + "/../../lib/alchemy/i18n"
 require File.dirname(__FILE__) + "/../../lib/alchemy/resource"
 require File.dirname(__FILE__) + "/../../lib/alchemy/resources_helper"
 
@@ -176,6 +177,64 @@ describe Alchemy::ResourcesHelper do
 
         it 'does not truncate the values' do
           expect(subject.length).to eq(51)
+        end
+      end
+    end
+
+    context 'format of timestamps' do
+      let(:attributes) do
+        {
+          name: :created_at,
+          type: :datetime
+        }
+      end
+
+      let(:now) { Time.current.to_datetime }
+
+      before do
+        allow(resource_item).to receive(:created_at) { now }
+      end
+
+      it 'formats the time with alchemy default format' do
+        expect(controller).to receive(:l).with(now, format: :'alchemy.default')
+        subject
+      end
+
+      context 'with options[:datetime_format] set to other format' do
+        let(:options) { {datetime_format: 'OTHR'} }
+
+        it 'uses this format' do
+          expect(controller).to receive(:l).with(now, format: 'OTHR')
+          subject
+        end
+      end
+    end
+
+    context 'format of time values' do
+      let(:attributes) do
+        {
+          name: :created_at,
+          type: :time
+        }
+      end
+
+      let(:now) { Time.current }
+
+      before do
+        allow(resource_item).to receive(:created_at) { now }
+      end
+
+      it 'formats the time with alchemy datetime format' do
+        expect(controller).to receive(:l).with(now, format: :'alchemy.time')
+        subject
+      end
+
+      context 'with options[:time_format] set to other format' do
+        let(:options) { {time_format: 'OTHR'} }
+
+        it 'uses this format' do
+          expect(controller).to receive(:l).with(now, format: 'OTHR')
+          subject
         end
       end
     end
