@@ -83,8 +83,7 @@ module Alchemy
 
     describe ".human_rolename" do
       it "return a translated role name" do
-        ::I18n.locale = :de
-        expect(User.human_rolename('member')).to eq("Mitglied")
+        expect(User.human_rolename('member')).to eq("Member")
       end
     end
 
@@ -126,9 +125,8 @@ module Alchemy
 
     describe "#human_roles_string" do
       it "should return a humanized roles string." do
-        ::I18n.locale = :de
         user.alchemy_roles = ['member', 'admin']
-        expect(user.human_roles_string).to eq("Mitglied und Administrator")
+        expect(user.human_roles_string).to eq("Member and Administrator")
       end
     end
 
