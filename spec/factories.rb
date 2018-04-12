@@ -17,4 +17,8 @@ FactoryBot.define do
   factory :location do
     name 'Awesome Lodge'
   end
+
+  factory :series do
+    name 'My Series'
+  end
 end

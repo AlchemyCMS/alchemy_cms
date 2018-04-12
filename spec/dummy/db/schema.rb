@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180227224537) do
+ActiveRecord::Schema.define(version: 20180409171801) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -316,6 +316,10 @@ ActiveRecord::Schema.define(version: 20180227224537) do
     t.string "name"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "series", force: :cascade do |t|
+    t.string "name"
   end
 
 end

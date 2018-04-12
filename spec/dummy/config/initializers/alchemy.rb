@@ -18,6 +18,10 @@ Alchemy::Modules.register_module(
       name: 'Locations',
       controller: '/admin/locations',
       action: 'index'
+    }, {
+      name: 'Series',
+      controller: '/admin/series',
+      action: 'index'  
     }]
   }
 )
