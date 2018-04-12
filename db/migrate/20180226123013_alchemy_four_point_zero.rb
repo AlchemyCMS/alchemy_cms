@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
   def up
     unless table_exists?(:alchemy_attachments)

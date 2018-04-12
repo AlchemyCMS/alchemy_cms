@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module Alchemy
   describe Attachment do
-    let(:file)       { File.new(File.expand_path('../../../fixtures/image with spaces.png', __FILE__)) }
+    let(:file)       { File.new(File.expand_path('../../fixtures/image with spaces.png', __dir__)) }
     let(:attachment) { Attachment.new(file: file) }
 
     describe 'after assign' do

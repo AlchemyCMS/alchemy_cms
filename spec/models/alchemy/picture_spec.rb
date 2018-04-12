@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module Alchemy
@@ -7,7 +9,7 @@ module Alchemy
     end
 
     let :image_file do
-      File.new(File.expand_path('../../../fixtures/image.png', __FILE__))
+      File.new(File.expand_path('../../fixtures/image.png', __dir__))
     end
 
     let(:picture) { Picture.new }
@@ -23,20 +25,20 @@ module Alchemy
     end
 
     it "is valid with capitalized image file extension" do
-      image_file = File.new(File.expand_path('../../../fixtures/image2.PNG', __FILE__))
+      image_file = File.new(File.expand_path('../../fixtures/image2.PNG', __dir__))
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
     end
 
     it "is valid with jpeg image file extension" do
-      image_file = File.new(File.expand_path('../../../fixtures/image3.jpeg', __FILE__))
+      image_file = File.new(File.expand_path('../../fixtures/image3.jpeg', __dir__))
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
     end
 
     context 'with enabled preprocess_image_resize config option' do
       let(:image_file) do
-        File.new(File.expand_path('../../../fixtures/80x60.png', __FILE__))
+        File.new(File.expand_path('../../fixtures/80x60.png', __dir__))
       end
 
       context 'with > geometry string' do

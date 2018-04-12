@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class MigrateTagsToGutentag < ActiveRecord::Migration[5.0]
   def up
     return if table_exists?(:gutentag_tags)

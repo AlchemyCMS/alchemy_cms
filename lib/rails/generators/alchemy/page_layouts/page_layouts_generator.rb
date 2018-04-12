@@ -1,10 +1,10 @@
-require File.join(__FILE__, '../../base')
+require_relative '../base'
 
 module Alchemy
   module Generators
     class PageLayoutsGenerator < Base
       desc "This generator generates your page_layouts view partials."
-      source_root File.expand_path('templates', File.dirname(__FILE__))
+      source_root File.expand_path('templates', __dir__)
 
       def create_partials
         @page_layouts = load_alchemy_yaml('page_layouts.yml')

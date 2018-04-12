@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'simplecov'
 if ENV['TRAVIS']
   require 'codeclimate-test-reporter'
@@ -12,7 +14,8 @@ end
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
-require File.expand_path("../dummy/config/environment.rb", __FILE__)
+require_relative('dummy/config/environment.rb')
+
 require 'rspec/rails'
 require 'selenium/webdriver'
 require 'capybara/rails'

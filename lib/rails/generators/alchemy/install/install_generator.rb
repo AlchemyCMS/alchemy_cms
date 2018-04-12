@@ -10,7 +10,7 @@ module Alchemy
         default: false,
         desc: "Skip creation of demo element, page and application layout."
 
-      source_root File.expand_path('files', File.dirname(__FILE__))
+      source_root File.expand_path('files', __dir__)
 
       def copy_config
         copy_file "#{config_path}/config.yml", "config/alchemy/config.yml"
@@ -18,7 +18,7 @@ module Alchemy
 
       def copy_yml_files
         %w(elements page_layouts).each do |file|
-          template "#{current_path}/templates/#{file}.yml.tt", "config/alchemy/#{file}.yml"
+          template "#{__dir__}/templates/#{file}.yml.tt", "config/alchemy/#{file}.yml"
         end
       end
 
@@ -56,17 +56,13 @@ module Alchemy
       end
 
       def copy_dragonfly_config
-        template "#{current_path}/templates/dragonfly.rb.tt", "config/initializers/dragonfly.rb"
+        template "#{__dir__}/templates/dragonfly.rb.tt", "config/initializers/dragonfly.rb"
       end
 
       private
 
       def config_path
-        @_config_path ||= File.expand_path('../../../../../config/alchemy', current_path)
-      end
-
-      def current_path
-        @_current_path ||= File.dirname(__FILE__)
+        @_config_path ||= File.expand_path('../../../../../config/alchemy', __dir__)
       end
     end
   end

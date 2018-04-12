@@ -4,10 +4,12 @@ AllCops:
   Exclude:
     - 'bin/rspec'
     - 'vendor/**/*'
-    - 'spec/dummy/**/*'
+    - 'spec/dummy/db/**/*'
+    - 'spec/dummy/config/**/*'
     - 'alchemy_cms.gemspec'
+    - 'Rakefile'
 
-  TargetRubyVersion: 2.1
+  TargetRubyVersion: 2.2
 
 # Really, rubocop?
 Bundler/OrderedGems:
@@ -44,6 +46,10 @@ Style/WordArray:
 
 Style/ConditionalAssignment:
   Enabled: false
+
+Style/MixinUsage:
+  Exclude:
+    - spec/**/*
 
 Performance/Count:
   Enabled: false
@@ -272,6 +278,13 @@ Metrics/PerceivedComplexity:
   Enabled: false
 
 Naming/AccessorMethodName:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+    Enabled: false
+
+# This cop is great but has no config option to support the style `@_method_name` we are using.
+Naming/MemoizedInstanceVariableName:
   Enabled: false
 
 # We need these names for backwards compatability

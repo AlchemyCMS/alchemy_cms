@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module Alchemy
@@ -12,7 +14,7 @@ module Alchemy
 
     let(:image) do
       fixture_file_upload(
-        File.expand_path('../../../fixtures/500x500.png', __FILE__),
+        File.expand_path('../../fixtures/500x500.png', __dir__),
         'image/png'
       )
     end
@@ -172,7 +174,7 @@ module Alchemy
         context "but image has not a convertible format (svg)" do
           let(:image) do
             fixture_file_upload(
-              File.expand_path('../../../fixtures/icon.svg', __FILE__),
+              File.expand_path('../../fixtures/icon.svg', __dir__),
               'image/svg+xml'
             )
           end
@@ -190,7 +192,7 @@ module Alchemy
 
           let(:image) do
             fixture_file_upload(
-              File.expand_path('../../../fixtures/animated.gif', __FILE__),
+              File.expand_path('../../fixtures/animated.gif', __dir__),
               'image/gif'
             )
           end

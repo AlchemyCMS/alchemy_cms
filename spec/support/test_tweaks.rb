@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # https://gist.github.com/mperham/3049152
 # Fixes Capybara database connection issues
 class ActiveRecord::Base

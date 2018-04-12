@@ -4,7 +4,7 @@ module Alchemy
   module Modules
     mattr_accessor :alchemy_modules
 
-    @@alchemy_modules = YAML.load_file(File.expand_path('../../../config/alchemy/modules.yml', __FILE__))
+    @@alchemy_modules = YAML.load_file(File.expand_path('../../config/alchemy/modules.yml', __dir__))
 
     def self.included(base)
       base.send :helper_method, :alchemy_modules, :module_definition_for

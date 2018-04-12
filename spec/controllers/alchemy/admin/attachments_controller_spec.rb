@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 module Alchemy
@@ -8,7 +10,7 @@ module Alchemy
 
     let(:file) do
       fixture_file_upload(
-        File.expand_path('../../../../fixtures/500x500.png', __FILE__),
+        File.expand_path('../../../fixtures/500x500.png', __dir__),
         'image/png'
       )
     end
@@ -55,7 +57,7 @@ module Alchemy
 
         let!(:jpg) do
           create :alchemy_attachment,
-            file: File.new(File.expand_path('../../../../fixtures/image3.jpeg', __FILE__))
+            file: File.new(File.expand_path('../../../fixtures/image3.jpeg', __dir__))
         end
 
         context 'with params[:file_type]' do
@@ -120,7 +122,7 @@ module Alchemy
       context "when file is passed" do
         let(:file) do
           fixture_file_upload(
-            File.expand_path('../../../../fixtures/image2.PNG', __FILE__),
+            File.expand_path('../../../fixtures/image2.PNG', __dir__),
             'image/png'
           )
         end

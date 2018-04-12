@@ -39,20 +39,20 @@ module Alchemy
       end
 
       # Handles exceptions
-      def exception_handler(e)
-        exception_logger(e)
-        show_error_notice(e)
+      def exception_handler(error)
+        exception_logger(error)
+        show_error_notice(error)
         if defined?(Airbrake)
-          notify_airbrake(e) unless Rails.env.development? || Rails.env.test?
+          notify_airbrake(error) unless Rails.env.development? || Rails.env.test?
         end
       end
 
       # Displays an error notice in the Alchemy backend.
-      def show_error_notice(e)
-        @error = e
+      def show_error_notice(error)
+        @error = error
         # truncate the message, because very long error messages (i.e from mysql2) causes cookie overflow errors
-        @notice = e.message[0..255]
-        @trace = e.backtrace[0..50]
+        @notice = error.message[0..255]
+        @trace = error.backtrace[0..50]
         if request.xhr?
           render action: "error_notice"
         else

@@ -138,7 +138,7 @@ module Alchemy
       # Returns true if one page already has the given layout
       #
       def page_with_layout_existing?(layout)
-        Page.where(page_layout: layout, language_id: @language_id).pluck(:id).any?
+        Alchemy::Page.where(page_layout: layout, language_id: @language_id).pluck(:id).any?
       end
 
       # Returns true if given layout is available for current site.
@@ -152,7 +152,8 @@ module Alchemy
       #     page_layouts: [default_intro]
       #
       def available_on_site?(layout)
-        Site.current.definition.blank? || Site.current.definition.fetch('page_layouts', []).include?(layout['name'])
+        Alchemy::Site.current.definition.blank? ||
+          Alchemy::Site.current.definition.fetch('page_layouts', []).include?(layout['name'])
       end
 
       # Reads the layout definitions from +config/alchemy/page_layouts.yml+.

@@ -69,7 +69,7 @@ module Alchemy
       render current_alchemy_site
     rescue ActionView::MissingTemplate
       warning("Site layout for #{current_alchemy_site.try(:name)} not found. Please run `rails g alchemy:site_layouts`")
-      return ""
+      ""
     end
 
     # Renders the navigation.

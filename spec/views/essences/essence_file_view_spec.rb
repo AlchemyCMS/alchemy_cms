@@ -1,12 +1,16 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 describe 'alchemy/essences/_essence_file_view' do
   let(:file) do
-    File.new(File.expand_path('../../../fixtures/image with spaces.png', __FILE__))
+    File.new(File.expand_path('../../fixtures/image with spaces.png', __dir__))
   end
+
   let(:attachment) do
     build_stubbed(:alchemy_attachment, file: file, name: 'an image', file_name: 'image with spaces.png')
   end
+
   let(:essence)    { Alchemy::EssenceFile.new(attachment: attachment) }
   let(:content)    { Alchemy::Content.new(essence: essence) }
 
