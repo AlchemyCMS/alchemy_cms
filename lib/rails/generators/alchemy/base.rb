@@ -32,9 +32,9 @@ module Alchemy
       end
 
       def load_alchemy_yaml(name)
-        YAML.safe_load(ERB.new(File.read("#{Rails.root}/config/alchemy/#{name}")).result, [Regexp], [], true)
+        YAML.safe_load(ERB.new(File.read("#{Rails.root}/config/alchemy/#{name}")).result, YAML_WHITELIST_CLASSES, [], true)
       rescue Errno::ENOENT
-        puts "\nERROR: Could not read config/alchemy/#{name} file. Please run: rails generate alchemy:scaffold"
+        puts "\nERROR: Could not read config/alchemy/#{name} file. Please run: `rails generate alchemy:install`"
       end
     end
   end

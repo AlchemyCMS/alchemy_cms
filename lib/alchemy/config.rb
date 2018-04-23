@@ -48,7 +48,8 @@ module Alchemy
       # If it does not exist, or its empty, it returns an empty Hash.
       #
       def read_file(file)
-        return YAML.load_file(file) || {} if File.exist?(file) # YAML.load_file returns false if file is empty.
+        YAML.safe_load(ERB.new(File.read(file)).result, YAML_WHITELIST_CLASSES, [], true) || {}
+      rescue Errno::ENOENT
         {}
       end
 
