@@ -31,6 +31,16 @@ Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [gu
 - Flexible caching
 - Hostable on any Server that supports Ruby on Rails, a SQL Database and ImageMagick
 
+## Demo
+
+Deploy your own free demo on Heroku
+
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/AlchemyCMS/alchemy-demo)
+
+or visit the existing demo at https://alchemy-demo.herokuapp.com
+
+- Login: `demo`
+- Password: `demo123`
 
 ## Rails Version
 
