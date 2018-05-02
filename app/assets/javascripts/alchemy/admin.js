@@ -3,10 +3,10 @@
 //= require jquery2
 //= require jquery_ujs
 //= require turbolinks
-//= require jquery-ui/draggable
-//= require jquery-ui/effect-fade
-//= require jquery-ui/sortable
-//= require jquery-ui/tabs
+//= require jquery-ui/effects/effect-fade
+//= require jquery-ui/widgets/draggable
+//= require jquery-ui/widgets/sortable
+//= require jquery-ui/widgets/tabs
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
 //= require clipboard.min
