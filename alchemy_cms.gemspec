@@ -23,7 +23,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'acts-as-taggable-on',              ['~> 5.0']
   gem.add_runtime_dependency 'awesome_nested_set',               ['~> 3.1']
   gem.add_runtime_dependency 'bourbon',                          ['~> 4.2']
-  gem.add_runtime_dependency 'cancancan',                        ['~> 1.9']
+  gem.add_runtime_dependency 'cancancan',                        ['>= 1.9', '< 3.0']
   gem.add_runtime_dependency 'coffee-rails',                     ['~> 4.0']
   gem.add_runtime_dependency 'dragonfly',                        ['~> 1.0', '>= 1.0.7']
   gem.add_runtime_dependency 'dragonfly_svg',                    ['~> 0.0.4']
