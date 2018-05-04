@@ -158,21 +158,6 @@ select {
   }
 }
 
-.tag_list, .autocomplete_tag_list {
-  .select2-container.select2-container-multi {
-    .select2-search-choice {
-      padding: 0;
-
-      div {
-        @include tag-base(
-          $padding: $default-padding 6*$default-padding $default-padding 3*$default-padding,
-          $margin: 0
-        );
-      }
-    }
-  }
-}
-
 .select2-drop {
 
   .select2-search {

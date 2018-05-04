@@ -1,0 +1,199 @@
+.tag-list {
+  height: 100%;
+  padding-bottom: 138px;
+
+  &.filtered {
+    padding-bottom: 164px;
+  }
+
+  &.with_filter_bar {
+    padding-bottom: 218px;
+
+    &.filtered {
+      padding-bottom: 244px;
+    }
+  }
+
+  .js_filter_field_box {
+    position: absolute;
+    right: auto;
+    top: auto;
+    width: 200px;
+    z-index: 1100;
+    transition: background-color 200ms;
+
+    input {
+      width: 200px;
+      background-color: transparentize($white, 0.25);
+
+      &:focus {
+        background-color: $white;
+      }
+    }
+
+    label { display: none }
+  }
+
+  .js_filter_field_clear {
+    right: 4px;
+  }
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 40px 0 4px 0;
+    height: 100%;
+    width: 200px;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    li {
+      display: block;
+
+      &:first-child { margin-top: 0 }
+
+      a {
+        @include tag-base;
+        text-decoration: none;
+        display: block;
+      }
+
+      &:hover { background-color: $very-light-blue }
+
+      &.active {
+
+        a {
+          background-color: $dark-gray;
+          color: $light-gray
+        }
+      }
+    }
+  }
+}
+
+.picture_tags {
+  overflow: hidden;
+  position: absolute;
+  top: 22px;
+  left: $default-padding;
+  width: 50%;
+  max-height: 80%;
+  padding: $default-padding;
+  pointer-events: none;
+  display: none;
+}
+
+.picture_thumbnail:hover .picture_tags {
+  display: block;
+}
+
+.tag {
+  @include tag-base(
+    $margin: $default-margin/2 0,
+    $padding: $default-padding 2*$default-padding $default-padding
+  );
+  display: inline-block;
+  vertical-align: middle;
+  color: $text-color;
+  pointer-events: none;
+  font-size: $small-font-size;
+}
+
+.tags .list .tag {
+  padding: 0;
+}
+
+#assign_image_list {
+  .tag-list ul {
+    height: 316px;
+  }
+
+  &.filtered .tag-list ul {
+    height: 292px;
+  }
+}
+
+#assign_file_list {
+  .tag-list ul {
+    height: 396px;
+  }
+
+  &.filtered .tag-list ul {
+    height: 372px;
+  }
+}
+
+#overlay_file_list.with_tag_list {
+  padding-right: 234px;
+}
+
+#tags_tag_list {
+  text-align: left;
+  padding-top: 5px;
+
+  ul.tags {
+    max-height: 10em;
+    padding: 1px;
+    margin: 0;
+    margin-top: 2px;
+    overflow: auto;
+    text-align: left;
+    list-style-type: none;
+
+    li {
+      background-color: $medium-gray;
+      padding: 4px;
+      margin: 0 0 4px 0;
+      position: relative;
+      border-radius: $default-border-radius;
+
+      &.odd { background-color: #eaf3f9 }
+
+      input {
+        position: absolute;
+        top: 3px;
+        left: 4px;
+      }
+
+      label {
+        display: inline-block;
+        margin-left: 2em;
+        line-height: 1.6em;
+      }
+    }
+  }
+
+  .js_filter_field_box {
+    position: relative;
+    top: 0;
+    right: 0;
+    margin: 0;
+
+    .js_filter_field {
+      width: 100%;
+    }
+
+    label {
+      display: none
+    }
+  }
+
+  .js_filter_field_clear {
+    right: 4px;
+  }
+}
+
+.tag_list, .autocomplete_tag_list {
+  .select2-container.select2-container-multi {
+    .select2-search-choice {
+      padding: 0;
+
+      div {
+        @include tag-base(
+          $padding: $default-padding 6*$default-padding $default-padding 3*$default-padding,
+          $margin: 0
+        );
+      }
+    }
+  }
+}
