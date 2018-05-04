@@ -1,15 +1,16 @@
+@import "alchemy/variables"
+@import "alchemy/fonts"
+
 body
-  background: #f2f2f2
-  color: #7f8c8d
-  font-family: 'Open Sans', Helvetica, Arial, sans-serif
+  background-color: $main-menu-bg-color
+  color: $white
+  font-family: $default-font-family
   font-weight: normal
   font-size: 15px
   line-height: 22px
 
 h3
-  color: #34495e
-  font-family: 'Bitter', serif
-  font-weight: normal
+  font-weight: bold
   font-size: 25px
   line-height: 1.2
   margin-bottom: 20px
@@ -32,18 +33,17 @@ ul
   list-style-position: outside
 
 li
-  color: #2980b9
-  font-weight: 600
+  color: $white
   margin-bottom: 12px
   background-color: none
   border-bottom: 0 none
   line-height: 22px
 
 a
-  color: #87ab5a
+  color: $white
   text-decoration: underline
   transition: all 0.1s ease-in-out
 
   &:hover
-    color: #2980b9
-    text-decoration: underline
+    color: $white
+    text-decoration: none
