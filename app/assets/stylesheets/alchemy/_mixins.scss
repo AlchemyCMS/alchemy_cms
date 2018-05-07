@@ -75,11 +75,10 @@
 
 @mixin form-label {
   width: $form-left-width;
-  padding-right: 2*$default-padding;
-  padding-top: $default-padding + 1;
-  margin-top: 4px;
+  padding-right: 2 * $default-padding;
+  padding-top: 0.6em;
+  margin-top: $default-margin;
   vertical-align: top;
-  line-height: 19px;
   word-break: normal;
   float: left;
   text-align: right;
