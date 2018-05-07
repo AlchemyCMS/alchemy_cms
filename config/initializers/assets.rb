@@ -9,5 +9,6 @@ Rails.application.config.assets.precompile += [
   'alchemy/menubar.js',
   'alchemy/print.css',
   'alchemy/welcome.css',
+  'Jcrop.gif',
   'tinymce/*'
 ]
