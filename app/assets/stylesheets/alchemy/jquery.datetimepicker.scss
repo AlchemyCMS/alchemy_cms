@@ -92,11 +92,6 @@
   margin-left: 0;
 }
 
-.xdsoft_datetimepicker .xdsoft_datepicker.active+.xdsoft_timepicker {
-  margin-top: 8px;
-  margin-bottom: 3px;
-}
-
 .xdsoft_datetimepicker .xdsoft_mounthpicker {
   position: relative;
   text-align: center;
@@ -143,6 +138,10 @@
   }
 }
 
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_prev:before {
+  content: fa-content($fa-var-caret-up);
+}
+
 .xdsoft_datetimepicker .xdsoft_today_button {
   float: left;
   margin: 0 5px;
@@ -161,6 +160,10 @@
   &:before {
     content: fa-content($fa-var-caret-right);
   }
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_next:before {
+  content: fa-content($fa-var-caret-down);
 }
 
 .xdsoft_datetimepicker .xdsoft_next,
@@ -187,12 +190,8 @@
 
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_prev,
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_next {
-  float: none;
-  height: 15px;
-  width: 30px;
-  display: block;
-  margin-left: 14px;
-  margin-top: 7px;
+  width: 100%;
+  text-align: center;
 }
 
 .xdsoft_datetimepicker.xdsoft_rtl .xdsoft_timepicker .xdsoft_prev,
@@ -203,8 +202,6 @@
 }
 
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_prev {
-  margin-bottom: 8px;
-  margin-top: 0;
 
   &:before {
     border-width: 0 8px 8px 8px;
