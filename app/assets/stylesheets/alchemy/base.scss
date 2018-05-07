@@ -96,13 +96,13 @@ a {
     text-decoration: underline;
   }
 
-  &:focus {
-    @extend %blue-focus-style;
-  }
-
   img {
     border: none;
   }
+}
+
+a:focus, [tabindex]:focus {
+  @include default-focus-style;
 }
 
 form {

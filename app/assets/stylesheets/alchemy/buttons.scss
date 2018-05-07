@@ -8,7 +8,10 @@ button, input[type="submit"], a.button, input.button {
     border-color: $secondary-button-border-color;
 
     &:focus {
-      @include default-focus-style($color: $secondary-button-text-color, $box-shadow: 0 0 2px $button-text-color);
+      @include default-focus-style(
+        $border-color: $secondary-button-text-color,
+        $box-shadow: 0 0 2px $button-text-color
+      );
     }
   }
 
@@ -99,7 +102,7 @@ button, input[type="submit"], a.button, input.button {
   }
 
   &:focus {
-    @extend %blue-focus-style;
+    @include default-focus-style;
   }
 }
 

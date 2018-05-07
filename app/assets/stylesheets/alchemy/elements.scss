@@ -332,7 +332,9 @@
       $background-color: $medium-gray,
       $hover-color: darken($medium-gray, 5%),
       $border: $default-border,
-      $line-height: auto);
+      $line-height: auto,
+      $focus-border-color: $focus-color,
+      $focus-box-shadow: 0 0 0 2px $focus-color);
     width: $form-field-height;
     height: $form-field-height;
     margin: 0 0 0 4px;

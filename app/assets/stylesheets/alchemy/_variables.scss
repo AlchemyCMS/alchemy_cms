@@ -59,14 +59,15 @@ $form-field-text-color: $text-color !default;
 $form-field-disabled-text-color: #888 !default;
 $form-field-disabled-bg-color: rgba($white, 0.5) !default;
 
-$focus-color: rgba(#eca96e, 0.75) !default;
+$focus-color: rgba($dark-orange, 0.75) !default;
 
 $button-bg-color: rgba($dark-orange, 0.75) !default;
 $button-hover-bg-color: $dark-orange !default;
 $button-border-color: transparent !default;
 $button-border-width: 2px !default;
-$button-hover-border-color: transparent !default;
 $button-text-color: $text-color !default;
+$button-hover-border-color: transparent !default;
+$button-focus-border-color: $button-text-color !default;
 $button-font-weight: bold !default;
 $button-text-shadow: none !default;
 $button-box-shadow: none !default;

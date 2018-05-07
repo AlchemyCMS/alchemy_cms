@@ -80,6 +80,11 @@
     &:focus {
       width: 250px;
       background-color: $form-field-background-color;
+
+      @include default-focus-style(
+        $box-shadow: inset 0 0 0 2px $focus-color,
+        $border-radius: 0
+      );
     }
   }
 

@@ -68,7 +68,7 @@ select {
     &.select2-container-active {
 
       .select2-choice, .select2-choices {
-        @extend %blue-focus-style;
+        @include default-focus-style($box-shadow: 0 0 0 1px $focus-color);
       }
     }
 
@@ -107,7 +107,7 @@ select {
     &.select2-container-active {
 
       .select2-choices {
-        @extend %blue-focus-style;
+        @include default-focus-style($box-shadow: 0 0 0 1px $focus-color);
       }
     }
 

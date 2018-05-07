@@ -662,11 +662,18 @@ body .mce-abs-layout-item {
   &:focus,
   &:hover {
     color: $text-color;
-    background-color: darken($medium-gray, 3%);
 
     button {
       background: inherit;
     }
+  }
+
+  &:hover {
+    background-color: darken($medium-gray, 3%);
+  }
+
+  &:focus {
+    background-color: $focus-color;
   }
 
   button {
@@ -1021,8 +1028,7 @@ i.mce-i-checkbox {
 }
 
 .mce-path-item:focus {
-  background: #666;
-  color: #fff;
+  @include default-focus-style;
 }
 
 .mce-path .mce-divider {
