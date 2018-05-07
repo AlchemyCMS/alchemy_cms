@@ -331,7 +331,8 @@
     @include button-defaults(
       $background-color: $medium-gray,
       $hover-color: darken($medium-gray, 5%),
-      $border: $default-border);
+      $border: $default-border,
+      $line-height: auto);
     width: $form-field-height;
     height: $form-field-height;
     margin: 0 0 0 4px;

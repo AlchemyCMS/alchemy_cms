@@ -18,12 +18,13 @@
   $border: $button-border-width solid $button-border-color,
   $padding: $button-padding,
   $margin: $button-margin,
-  $color: $button-text-color) {
+  $color: $button-text-color,
+  $line-height: $form-field-line-height) {
   display: inline-block;
   font-family: $default-font-family;
   font-size: $default-font-size;
   font-weight: $button-font-weight;
-  line-height: $form-field-line-height;
+  line-height: $line-height;
   padding: $padding;
   cursor: pointer;
   border-radius: $border-radius;
