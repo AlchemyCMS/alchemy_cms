@@ -28,17 +28,6 @@ button, input[type="submit"], a.button, input.button {
     margin-right: 2 * $default-margin;
     color: inherit;
   }
-
-  &.icon_only {
-    margin: 0;
-    padding: 0;
-    border: 0 none;
-    background: none;
-
-    .icon {
-      margin: 0;
-    }
-  }
 }
 
 .icon_button {
