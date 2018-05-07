@@ -42,9 +42,7 @@
   width: 100%;
   font-size: $form-field-font-size;
   line-height: $form-field-line-height;
-  transition-property: box-shadow, background-color, border;
-  transition-duration: 0.25s;
-  transition-timing-function: ease-in-out;
+  transition: $transition-duration;
 
   &:focus {
     @extend %blue-focus-style;

@@ -11,7 +11,7 @@ table {
   vertical-align: top;
   line-height: 18px;
   border-right: 1px solid $medium-gray;
-  transition: background-color 250ms;
+  transition: background-color $transition-duration;
 
   &:last-child {
     border-right: 0 none;

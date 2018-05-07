@@ -33,7 +33,7 @@
   color: $color;
   margin: $margin;
   -webkit-appearance: none;
-  transition: all 250ms;
+  transition: all $transition-duration;
   @include antialiased-font-smoothing;
 
   &:hover {
