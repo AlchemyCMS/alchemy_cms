@@ -200,7 +200,7 @@ module Alchemy
           }, {
             method: 'delete',
             title: options[:title],
-            class: "icon_only #{html_options.delete(:class)}".strip
+            class: "icon_button #{html_options.delete(:class)}".strip
           }.merge(html_options)
         )
       end

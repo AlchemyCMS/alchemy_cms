@@ -27,7 +27,7 @@ $small-font-size: 0.9em !default;
 $default-font-style: $default-font-size $default-font-family !default;
 
 $dialog-header-height: 36px !default;
-$dialog-header-color: $dark-blue !default;
+$dialog-header-color: $dark-gray-blue !default;
 $dialog-header-text-color: $white !default;
 $dialog-header-font-size: $default-font-size !default;
 $dialog-box-shadow: 0 8px 16px rgba(35, 35, 35, 0.5) !default;
@@ -52,27 +52,30 @@ $form-field-border-width: $default-border-width !default;
 $form-field-border-style: $default-border-style !default;
 $form-field-border-color: $default-border-color $default-border-color $border-inset-color $border-inset-color !default;
 $form-field-box-shadow: inset 0px 0 1px $medium-gray !default;
-$form-field-padding: 0.5em 0.75em !default;
+$form-field-padding: 0.6em 0.75em !default;
 $form-field-font-size: $default-font-size !default;
 $form-field-line-height: 1.25 !default;
 $form-field-text-color: $text-color !default;
 $form-field-disabled-text-color: #888 !default;
 $form-field-disabled-bg-color: rgba($white, 0.5) !default;
 
-$focus-color: rgba(#eca96e, 0.75) !default;
+$focus-color: rgba($dark-orange, 0.75) !default;
 
-$button-bg-color: $dark-blue !default;
-$button-hover-bg-color: lighten($button-bg-color, 5%) !default;
-$button-border-color: darken($button-bg-color, 5%) !default;
-$button-hover-border-color: lighten($button-border-color, 5%) !default;
-$button-text-color: $white !default;
+$button-bg-color: rgba($dark-orange, 0.75) !default;
+$button-hover-bg-color: $dark-orange !default;
+$button-border-color: transparent !default;
+$button-border-width: 2px !default;
+$button-text-color: $text-color !default;
+$button-hover-border-color: transparent !default;
+$button-focus-border-color: $button-text-color !default;
+$button-font-weight: bold !default;
 $button-text-shadow: none !default;
 $button-box-shadow: none !default;
-$button-padding: 0.5em 1.5em !default;
+$button-padding: 0.5em 2em !default;
 $button-margin: $form-field-margin !default;
 
 $secondary-button-bg-color: transparent !default;
-$secondary-button-text-color: $button-bg-color !default;
+$secondary-button-text-color: $button-text-color !default;
 $secondary-button-border-color: $button-bg-color !default;
 
 $linked-button-color: rgba($linked-color, 0.75) !default;
@@ -105,9 +108,9 @@ $sitemap-highlight-color: rgba(#fffba5, 0.5) !default;
 
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
-$main-menu-bg-color: $dark-blue !default;
+$main-menu-bg-color: $dark-gray-blue !default;
 $main-menu-active-bg-color: $dark-orange !default;
-$main-menu-active-text-color: $very-dark-gray !default;
+$main-menu-active-text-color: $dark-gray-blue !default;
 $main-menu-text-color: $white !default;
 $main-menu-icon-color: $white !default;
 $main-menu-entry-max-width: 100px !default;
@@ -117,7 +120,7 @@ $element-toolbar-height: 37px !default;
 $header-height: 29px !default;
 $header-background: #d8d8d8 !default;
 $text-shadow-light: rgba($white, 0.5) 0 0 4px !default;
-$transition-duration: 200ms !default;
+$transition-duration: 250ms !default;
 $transition-easing: linear !default;
 
 $tooltip-background-color: lighten($dark-gray-blue, 15%) !default;

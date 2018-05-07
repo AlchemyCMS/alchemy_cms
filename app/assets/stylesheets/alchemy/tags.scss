@@ -20,7 +20,7 @@
     top: auto;
     width: 200px;
     z-index: 1100;
-    transition: background-color 200ms;
+    transition: background-color $transition-duration;
 
     input {
       width: 200px;

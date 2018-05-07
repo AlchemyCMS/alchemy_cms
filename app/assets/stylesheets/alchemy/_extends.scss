@@ -24,10 +24,6 @@
   box-shadow: inset 1px 1px 4px rgba($error_border_color, 0.5);
 }
 
-%blue-focus-style {
-  @include default-focus-style;
-}
-
 %default-input-style {
   border-radius: $default-border-radius;
   box-shadow: $form-field-box-shadow;
@@ -42,12 +38,10 @@
   width: 100%;
   font-size: $form-field-font-size;
   line-height: $form-field-line-height;
-  transition-property: box-shadow, background-color, border;
-  transition-duration: 0.25s;
-  transition-timing-function: ease-in-out;
+  transition: $transition-duration;
 
   &:focus {
-    @extend %blue-focus-style;
+    @include default-focus-style($box-shadow: 0 0 0 1px $focus-color);
   }
 
   &[disabled], .disabled {

@@ -20,12 +20,13 @@ Alchemy.Buttons =
 
   disable: (button) ->
     $button = $(button)
-    spinner = new Alchemy.Spinner('small', {fill: '#fff'})
+    spinner = new Alchemy.Spinner('small')
     $button.data('content', $button.html())
     $button.attr('disabled', true)
     $button.addClass('disabled')
     $button.css
       width: $button.outerWidth()
+      height: $button.outerHeight()
     $button.empty()
     spinner.spin($button)
     return true
@@ -37,5 +38,6 @@ Alchemy.Buttons =
       $button.removeClass('disabled')
       $button.removeAttr('disabled')
       $button.css("width", "")
+      $button.css("height", "")
       $button.html($button.data('content'))
     return true

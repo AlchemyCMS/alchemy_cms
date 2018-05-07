@@ -13,6 +13,17 @@ input[type="search"],
   }
 }
 
+input[type="checkbox"] {
+  transition: $transition-duration;
+
+  &:focus {
+    @include default-focus-style($box-shadow: (
+      inset 0 0 0 1px $focus-color,
+      0 0 0 1px $focus-color
+    ));
+  }
+}
+
 input[type="search"] {
   -webkit-appearance: textfield;
 }
@@ -26,8 +37,6 @@ input[type="search"]::-webkit-search-results-decoration  {
 
 textarea {
   height: auto;
-  padding: 4px 8px;
-  line-height: 19px;
 }
 
 .alchemy-char-counter {

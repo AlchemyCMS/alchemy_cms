@@ -4,6 +4,22 @@ table {
   padding: 0;
   font-size: inherit;
   width: 100%;
+
+  &.list .tools {
+    button, a {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      padding: 0;
+      margin: 0 $default-margin;
+      line-height: inherit;
+      text-align: center;
+
+      > .icon {
+        margin: 0;
+      }
+    }
+  }
 }
 
 .list td, .list th {
@@ -11,7 +27,7 @@ table {
   vertical-align: top;
   line-height: 18px;
   border-right: 1px solid $medium-gray;
-  transition: background-color 250ms;
+  transition: background-color $transition-duration;
 
   &:last-child {
     border-right: 0 none;
@@ -90,7 +106,8 @@ td.heading {
   text-decoration: underline;
 }
 
-.list .tools .icon, .list td.icon .icon {
+.list .tools .icon,
+.list td.icon .icon {
   @extend .disable-user-select;
   margin: 0 $default-margin;
 }

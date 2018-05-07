@@ -81,7 +81,7 @@
   height: $sitemap-line-height;
   margin: 3*$default-margin 0;
   position: relative;
-  transition: background-color 250ms;
+  transition: background-color $transition-duration;
 
   &.highlight {
     background-color: $sitemap-highlight-color;

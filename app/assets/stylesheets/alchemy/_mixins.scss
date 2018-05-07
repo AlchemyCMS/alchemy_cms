@@ -1,7 +1,10 @@
-@mixin default-focus-style {
-  border-color: $focus-color;
-  border-radius: $default-border-radius;
-  box-shadow: 0 0 0 1px $focus-color;
+@mixin default-focus-style(
+  $border-color: $focus-color,
+  $box-shadow: 0 0 0 2px $focus-color,
+  $border-radius: $default-border-radius) {
+  border-color: $border-color;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
   outline: none;
 
   &::-moz-focus-inner {
@@ -15,15 +18,18 @@
   $hover-color: $button-hover-bg-color,
   $hover-border-color: $button-hover-border-color,
   $border-radius: $default-border-radius,
-  $border: 1px solid $button-border-color,
+  $border: $button-border-width solid $button-border-color,
   $padding: $button-padding,
   $margin: $button-margin,
-  $color: $button-text-color) {
+  $color: $button-text-color,
+  $line-height: $form-field-line-height,
+  $focus-border-color: $button-focus-border-color,
+  $focus-box-shadow: 0 0 2px $focus-border-color) {
   display: inline-block;
   font-family: $default-font-family;
   font-size: $default-font-size;
-  font-weight: bold;
-  line-height: $form-field-line-height;
+  font-weight: $button-font-weight;
+  line-height: $line-height;
   padding: $padding;
   cursor: pointer;
   border-radius: $border-radius;
@@ -33,7 +39,7 @@
   color: $color;
   margin: $margin;
   -webkit-appearance: none;
-  transition: background-color 250ms;
+  transition: all $transition-duration;
   @include antialiased-font-smoothing;
 
   &:hover {
@@ -47,7 +53,10 @@
   }
 
   &:focus {
-    @include default-focus-style;
+    @include default-focus-style(
+      $border-color: $focus-border-color,
+      $box-shadow: $focus-box-shadow
+    );
   }
 
   &.disabled, &[disabled],
@@ -66,11 +75,10 @@
 
 @mixin form-label {
   width: $form-left-width;
-  padding-right: 2*$default-padding;
-  padding-top: $default-padding + 1;
-  margin-top: 4px;
+  padding-right: 2 * $default-padding;
+  padding-top: 0.6em;
+  margin-top: $default-margin;
   vertical-align: top;
-  line-height: 19px;
   word-break: normal;
   float: left;
   text-align: right;
@@ -150,6 +158,10 @@
     font-weight: 900;
     font-size: 0.8em;
     padding-right: 2*$default-padding;
+  }
+
+  &:focus {
+    @include default-focus-style($box-shadow: inset 0 0 0 2px $focus-color);
   }
 }
 

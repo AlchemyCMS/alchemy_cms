@@ -51,7 +51,7 @@
   padding: 8px;
   overflow: hidden;
   background-color: rgba($dark-gray, 0.6);
-  transition: all 250ms ease-in-out;
+  transition: all $transition-duration ease-in-out;
 
   &.visible {
     bottom: 0;

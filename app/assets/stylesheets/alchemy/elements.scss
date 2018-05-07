@@ -7,7 +7,7 @@
   height: calc(100vh - #{$top-menu-height});
   border-left: $default-border;
   background-color: $light-gray;
-  transition: 200ms ease-in-out;
+  transition: $transition-duration ease-in-out;
   transform: translate3d($elements-window-width - $default-border-width, 0, 0);
 
   .elements-window-visible & {
@@ -138,7 +138,7 @@
   border-radius: $default-border-radius;
   background-color: $light-gray;
   margin-bottom: 2*$default-margin;
-  transition: box-shadow 250ms;
+  transition: box-shadow $transition-duration;
 
   &.not-draggable {
     opacity: 0.5;
@@ -331,7 +331,10 @@
     @include button-defaults(
       $background-color: $medium-gray,
       $hover-color: darken($medium-gray, 5%),
-      $border: $default-border);
+      $border: $default-border,
+      $line-height: auto,
+      $focus-border-color: $focus-color,
+      $focus-box-shadow: 0 0 0 2px $focus-color);
     width: $form-field-height;
     height: $form-field-height;
     margin: 0 0 0 4px;

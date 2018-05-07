@@ -6,6 +6,13 @@ button, input[type="submit"], a.button, input.button {
     background-color: $secondary-button-bg-color;
     color: $secondary-button-text-color;
     border-color: $secondary-button-border-color;
+
+    &:focus {
+      @include default-focus-style(
+        $border-color: $secondary-button-text-color,
+        $box-shadow: 0 0 2px $button-text-color
+      );
+    }
   }
 
   &.small {
@@ -18,24 +25,8 @@ button, input[type="submit"], a.button, input.button {
   &.with_icon .icon {
     position: relative;
     top: -1px;
-    margin-right: $default-margin;
+    margin-right: 2 * $default-margin;
     color: inherit;
-  }
-
-  &.icon_only {
-    margin: 0;
-    padding: 0;
-    border: 0 none;
-    background: none;
-
-    .icon {
-      margin: 0;
-    }
-  }
-
-  &.disabled {
-    line-height: 13px;
-    height: 29px;
   }
 }
 
@@ -100,7 +91,7 @@ button, input[type="submit"], a.button, input.button {
   }
 
   &:focus {
-    @extend %blue-focus-style;
+    @include default-focus-style;
   }
 }
 
