@@ -10,7 +10,9 @@
         </li>
       <% end %>
     </ul>
-    <div id="cell_for_other_elements" class="sortable_cell for_other_elements_cell">
+    <div id="cell_for_other_elements"
+      class="sortable_cell for_other_elements_cell"
+      data-droppable-elements="<%= @page.element_names_from_definition.join(' ') %>">
       <%= render partial: 'alchemy/admin/elements/element',
         collection: @page.elements.not_trashed.not_in_cell %>
     </div>
@@ -18,7 +20,7 @@
       <%= content_tag :div,
         id: "cell_#{cell.name}",
         class: ["sortable_cell", "#{cell.name}_cell"].join(' '),
-        data: {'cell-id' => cell.id, 'data-droppable-elements' => cell.element_definitions.join(' ')} do %>
+        data: {'cell-id' => cell.id, 'droppable-elements' => cell.element_definitions.join(' ')} do %>
         <%= render partial: 'alchemy/admin/elements/element', collection: elements %>
       <% end %>
     <% end %>
