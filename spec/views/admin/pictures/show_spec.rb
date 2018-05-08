@@ -27,7 +27,7 @@ describe "alchemy/admin/pictures/show.html.erb" do
 
   it "displays picture in original format" do
     assign(:picture, picture)
-    assign(:pages, [])
+    assign(:assignments, [])
 
     render
 
@@ -37,7 +37,7 @@ describe "alchemy/admin/pictures/show.html.erb" do
   it "separates the tags with a comma" do
     allow(picture).to receive(:tag_list).and_return(["one", "two", "three"])
     assign(:picture, picture)
-    assign(:pages, [])
+    assign(:assignments, [])
 
     render
 
