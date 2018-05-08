@@ -1,4 +1,4 @@
-$picture-overlay-handle-width: 18px;
+$picture-overlay-handle-width: 24px;
 $image-overlay-form-width: 350px - $picture-overlay-handle-width;
 $image-overlay-transition-duration: $transition-duration;
 $image-overlay-transition-easing: ease-in;
@@ -96,12 +96,7 @@ $image-overlay-transition-easing: ease-in;
 
   form .control-label,
   .resource_info .value label {
-    width: 100%;
     text-align: left;
-    float: none;
-    display: block;
-    padding: 0;
-    margin: $default-margin 0 0;
   }
 
   form .input .hint {
@@ -178,27 +173,38 @@ $image-overlay-transition-easing: ease-in;
 }
 
 #pictures_page_list {
-
   h3 {
-    padding: $default-padding 0 0;
+    display: flex;
+    padding: 4px 8px 0;
     margin: 0;
   }
 
-  ol {
+  ul {
     padding-left: 0;
-    list-style-position: inside;
+    list-style-type: none;
   }
 
   .list {
     margin: 2*$default-margin 0;
 
     li {
+      display: flex;
       padding: 2*$default-padding;
       border-radius: $default-border-radius;
       white-space: normal;
-
-      &.even { background: #F7F7F7 }
+      margin-bottom: 1em;
     }
+  }
+
+  .icon {
+    padding-top: 3px;
+    text-align: left;
+    width: 7%;
+  }
+
+  p {
+    width: 93%;
+    margin: 0;
   }
 }
 

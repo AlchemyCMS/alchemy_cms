@@ -734,6 +734,7 @@ en:
         name: "Name"
         public: "visible"
         tag_list: Tags
+        trashed: Trashed
       alchemy/essence_file:
         css_class: Style
       alchemy/essence_picture:

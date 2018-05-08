@@ -25,7 +25,7 @@ module Alchemy
       def show
         @previous = @picture.previous(params)
         @next = @picture.next(params)
-        @pages = @picture.essence_pictures.group_by(&:page)
+        @assignments = @picture.essence_pictures.joins(content: {element: :page})
         render action: 'show'
       end
 
