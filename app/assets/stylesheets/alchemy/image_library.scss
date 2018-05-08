@@ -1,4 +1,4 @@
-$picture-overlay-handle-width: 18px;
+$picture-overlay-handle-width: 24px;
 $image-overlay-form-width: 350px - $picture-overlay-handle-width;
 $image-overlay-transition-duration: $transition-duration;
 $image-overlay-transition-easing: ease-in;
@@ -96,12 +96,7 @@ $image-overlay-transition-easing: ease-in;
 
   form .control-label,
   .resource_info .value label {
-    width: 100%;
     text-align: left;
-    float: none;
-    display: block;
-    padding: 0;
-    margin: $default-margin 0 0;
   }
 
   form .input .hint {
