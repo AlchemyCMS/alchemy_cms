@@ -155,9 +155,9 @@ module Alchemy
         let!(:content) { create(:alchemy_content, element: element) }
         let!(:essence) { create(:alchemy_essence_picture, content: content, picture: picture) }
 
-        it 'assigns @pages to assignments grouped by page' do
+        it 'assigns all essence pictures having an assignment to @assignments' do
           get :show, params: {id: picture.id}
-          expect(assigns(:pages)).to eq({page => [essence]})
+          expect(assigns(:assignments)).to eq([essence])
         end
       end
 

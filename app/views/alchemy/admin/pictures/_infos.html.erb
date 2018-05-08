@@ -19,9 +19,9 @@
 <div class="picture-usage-info resource_info">
   <h2><%= Alchemy.t(:this_picture_is_used_on_these_pages) %></h2>
   <div id="pictures_page_list">
-    <% if @pages.any? %>
+    <% if @assignments.any? %>
       <ol>
-        <% @pages.each do |page, essence_pictures| %>
+        <% @assignments.group_by(&:page).each do |page, essence_pictures| %>
           <% if page %>
             <li>
               <h3><%= link_to page.name, edit_admin_page_path(page) %></h3>
