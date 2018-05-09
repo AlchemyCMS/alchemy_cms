@@ -292,6 +292,11 @@
   }
 }
 
+.element-content-editors {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .picture_gallery_images {
   overflow: hidden;
   margin: $default-margin 0;
@@ -544,6 +549,7 @@ select.long {
 }
 
 .content_editor {
+  width: 100%;
   padding: $default-padding 0;
   position: relative;
 
@@ -651,10 +657,14 @@ select.long {
   }
 
   &.essence_picture {
-    float: none;
-    height: auto;
-    display: inline-block;
-    vertical-align: middle;
+    width: 50%;
+    padding-left: 1px; // Compensate the box shadow
+    padding-right: $default-padding;
+
+    + .essence_picture {
+      padding-left: $default-padding;
+      padding-right: 1px; // Compensate the box shadow
+    }
   }
 }
 
