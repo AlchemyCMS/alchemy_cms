@@ -7,7 +7,7 @@ module Alchemy
     @@plugins = %w(alchemy_link anchor autoresize charmap code directionality fullscreen hr link paste tabfocus table)
     @@init = {
       skin: 'alchemy',
-      width: '100%',
+      width: 'auto',
       resize: true,
       autoresize_min_height: '105',
       autoresize_max_height: '480',
