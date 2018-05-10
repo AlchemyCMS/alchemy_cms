@@ -38,7 +38,7 @@ RSpec.describe 'Page request caching' do
           it "sets public cache control header" do
             get "/#{page.urlname}"
             expect(response.headers).to have_key('Cache-Control')
-            expect(response.headers['Cache-Control']).to eq('public')
+            expect(response.headers['Cache-Control']).to eq('public, must-revalidate')
           end
         end
 
@@ -56,7 +56,7 @@ RSpec.describe 'Page request caching' do
             get "/#{page.urlname}"
             expect(response.headers).to have_key('Cache-Control')
             expect(response.headers['Cache-Control']).to \
-              eq("max-age=#{expiration_time.to_i}, public")
+              eq("max-age=#{expiration_time.to_i}, public, must-revalidate")
           end
         end
       end
@@ -69,7 +69,7 @@ RSpec.describe 'Page request caching' do
         it "sets private cache control header" do
           get "/#{page.urlname}"
           expect(response.headers).to have_key('Cache-Control')
-          expect(response.headers['Cache-Control']).to eq('private')
+          expect(response.headers['Cache-Control']).to eq('private, must-revalidate')
         end
       end
 

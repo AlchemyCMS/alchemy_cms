@@ -156,7 +156,7 @@ module Alchemy
 
     def set_expiration_headers
       if @page.cache_page?
-        expires_in @page.expiration_time, public: !@page.restricted
+        expires_in @page.expiration_time, public: !@page.restricted, must_revalidate: true
       else
         expires_now
       end
