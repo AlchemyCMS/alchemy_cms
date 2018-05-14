@@ -193,7 +193,7 @@ module Alchemy
 
       it "renders page" do
         get :show, params: {urlname: still_public_page.urlname}
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
@@ -207,7 +207,7 @@ module Alchemy
 
       it "renders page" do
         get :show, params: {urlname: still_public_page.urlname}
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
