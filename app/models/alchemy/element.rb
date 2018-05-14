@@ -69,13 +69,13 @@ module Alchemy
       foreign_key: :parent_element_id,
       dependent: :destroy
 
-    belongs_to :cell, required: false, touch: true
-    belongs_to :page, required: true, touch: true
+    belongs_to :cell, optional: true, touch: true
+    belongs_to :page, touch: true, inverse_of: :descendent_elements
 
     # A nested element belongs to a parent element.
     belongs_to :parent_element,
       class_name: 'Alchemy::Element',
-      required: false,
+      optional: true,
       touch: true
 
     has_and_belongs_to_many :touchable_pages, -> { distinct },

@@ -19,7 +19,7 @@ module Alchemy
       context 'with `remarkable_type` being an allowed type' do
         it 'is successful' do
           get :index, params: {remarkable_type: 'elements'}
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
 
