@@ -27,7 +27,7 @@ module Alchemy
   class Cell < BaseRecord
     include Alchemy::Logger
 
-    belongs_to :page, required: true
+    belongs_to :page
     validates_uniqueness_of :name, scope: 'page_id'
     validates_format_of :name, with: /\A[a-z0-9_-]+\z/
     has_many :elements, -> { where(parent_element_id: nil).order(:position) }, dependent: :destroy

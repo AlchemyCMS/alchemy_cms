@@ -22,7 +22,7 @@
 
 module Alchemy
   class Language < BaseRecord
-    belongs_to :site, required: true
+    belongs_to :site
     has_many :pages
 
     before_validation :set_locale, if: -> { locale.blank? }
