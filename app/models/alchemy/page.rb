@@ -86,7 +86,7 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    belongs_to :language, required: false
+    belongs_to :language, optional: true
 
     has_one :site, through: :language
     has_many :site_languages, through: :site, source: :languages
