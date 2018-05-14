@@ -11,7 +11,8 @@
   </div>
   <div id="paste_element_tab">
     <%= alchemy_form_for([:admin, @element]) do |f| %>
-      <%= f.hidden_field(:page_id) %>
+      <%= f.hidden_field :page_id %>
+      <%= f.hidden_field :parent_element_id, value: @parent_element.try(:id) %>
       <div class="input select">
         <label for="paste_from_clipboard" class="control-label"><%= Alchemy.t("Element") %></label>
         <%= select_tag 'paste_from_clipboard',

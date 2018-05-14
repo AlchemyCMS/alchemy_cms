@@ -336,6 +336,16 @@ module Alchemy
             expect(session[:alchemy_clipboard]['elements'].detect { |item| item['id'] == element_in_clipboard.id.to_s }).to be_nil
           end
         end
+
+        context "with parent_element_id given" do
+          let(:element_in_clipboard) { create(:alchemy_element, name: 'slide', parent_element: create(:alchemy_element, name: 'slider', page: alchemy_page), page: alchemy_page) }
+          let(:parent_element) { create(:alchemy_element, :with_nestable_elements, page: alchemy_page) }
+
+          it "moves the element to new parent" do
+            alchemy_xhr :post, :create, {paste_from_clipboard: element_in_clipboard.id, element: {page_id: alchemy_page.id, parent_element_id: parent_element.id}}
+            expect(Alchemy::Element.last.parent_element_id).to eq(parent_element.id)
+          end
+        end
       end
 
       context 'if element could not be saved' do

@@ -145,7 +145,10 @@ module Alchemy
 
       def paste_element_from_clipboard
         @source_element = Element.find(element_from_clipboard['id'])
-        new_attributes = {page_id: @page.id}
+        new_attributes = {
+          parent_element_id: params[:element][:parent_element_id],
+          page_id: @page.id
+        }
         if @page.can_have_cells?
           new_attributes = new_attributes.merge({cell_id: find_or_create_cell.try(:id)})
         end
