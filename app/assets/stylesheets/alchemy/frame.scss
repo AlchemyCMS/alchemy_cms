@@ -89,16 +89,17 @@ div#overlay_text_box {
 }
 
 #archive_all {
+  height: calc(100% - 4px);
   padding-bottom: 60px;
 
   &.with_tag_filter {
 
     table {
-      padding-right: 230px;
+      padding-right: 242px;
     }
 
     > .info {
-      margin-right: 230px;
+      margin-right: 242px;
     }
   }
 
