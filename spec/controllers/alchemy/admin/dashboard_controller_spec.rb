@@ -92,10 +92,12 @@ module Alchemy
       end
 
       context "if current Alchemy version is older than latest released version" do
-        before {
-          allow(controller).to receive(:latest_alchemy_version).and_return('2.6')
+        before do
+          allow_any_instance_of(Net::HTTP).to receive(:request) do
+            OpenStruct.new({code: '200', body: '[{"number": "2.6"}, {"number": "2.5"}]'})
+          end
           allow(Alchemy).to receive(:version).and_return("2.5")
-        }
+        end
 
         it "should render 'true'" do
           get :update_check
