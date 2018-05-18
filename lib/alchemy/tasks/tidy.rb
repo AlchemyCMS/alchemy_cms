@@ -117,12 +117,20 @@ module Alchemy
         end
       end
 
+      def remove_duplicate_folded_pages
+        Alchemy::FoldedPage.select(:page_id, :user_id).group(:page_id, :user_id).having("count(*) > 1").each do |duplicate_page|
+          duplicate_page_ids = Alchemy::FoldedPage.where(duplicate_page.attributes.except("id")).pluck(:id)
+          duplicate_page_ids_except_oldest = duplicate_page_ids.reject { |i| i == duplicate_page_ids.min }
+          Alchemy::FoldedPage.where(id: duplicate_page_ids_except_oldest).delete_all
+        end
+      end
+
       private
 
       def destroy_orphaned_records(records, class_name)
         records.each do |record|
           log "Destroy orphaned #{class_name}: #{record.inspect}"
-          record.destroy
+          record.reload.try(:destroy)
         end
       end
     end
