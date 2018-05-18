@@ -130,7 +130,7 @@ module Alchemy
       def destroy_orphaned_records(records, class_name)
         records.each do |record|
           log "Destroy orphaned #{class_name}: #{record.inspect}"
-          record.destroy
+          record.reload.try(:destroy)
         end
       end
     end
