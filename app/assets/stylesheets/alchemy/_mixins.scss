@@ -165,14 +165,18 @@
   }
 }
 
-@mixin linked-button($border-radius: $default-border-radius) {
+@mixin linked-button(
+  $border-radius: $default-border-radius,
+  $line-height: $form-field-line-height,
+  $padding: 3px) {
   @include button-defaults(
+    $line-height: $line-height,
     $background-color: $linked-button-color,
     $hover-color: darken($linked-button-color, 10%),
     $border: 1px solid $linked-border-color,
     $hover-border-color: darken($linked-border-color, 10%),
     $border-radius: $border-radius,
-    $padding: 3px,
+    $padding: $padding,
     $margin: 0
   );
 }

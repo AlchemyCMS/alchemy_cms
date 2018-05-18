@@ -1,7 +1,7 @@
 <% linkable = content.settings_value(:linkable, options) != false %>
 
 <% if content.essence && content.essence.allow_image_cropping?(options) %>
-  <%= link_to_dialog render_icon('crop'),
+  <%= link_to_dialog render_icon(:crop),
     alchemy.crop_admin_essence_picture_path(
       content.essence,
       options: content.settings.update(options)
@@ -12,7 +12,7 @@
       padding: false
     }, {title: Alchemy.t('Edit Picturemask')} %>
 <%- else -%>
-  <a href="#" class="disabled"><%= render_icon('crop') %></a>
+  <a href="#" class="disabled" tabindex="-1"><%= render_icon(:crop) %></a>
 <%- end -%>
 
 <%= link_to_dialog render_icon('file-image', style: 'regular'),
@@ -35,15 +35,20 @@
   title: Alchemy.t(:link_image),
   'data-content-id' => content.id,
   id: "edit_link_#{content.id}"
-} %>
+} do %>
+  <span class="disabled" tabindex="-1"><%= render_icon(:link) %></span>
+<% end %>
 
-<%= link_to_if linkable, render_icon('unlink'), '', {
+<%= link_to_if linkable, render_icon(:unlink), '', {
   onclick: "return Alchemy.LinkDialog.removeLink(this, #{content.id})",
   class: content.linked? ? 'linked' : 'disabled',
+  tabindex: content.linked? ? nil : '-1',
   title: Alchemy.t(:unlink)
-} %>
+} do %>
+  <span class="disabled" tabindex="-1"><%= render_icon(:unlink) %></span>
+<% end %>
 
-<%= link_to_dialog render_icon('edit'),
+<%= link_to_dialog render_icon(:edit),
   alchemy.edit_admin_essence_picture_path(
     id: content.essence.id,
     content_id: content.id,

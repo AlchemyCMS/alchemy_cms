@@ -112,30 +112,13 @@ button.icon_button {
 .button_with_label {
   position: relative;
   display: inline-block;
-  vertical-align: top;
   text-align: center;
   margin: 0 2*$default-margin;
-  line-height: 0;
 
-  &.active, &:active {
-
-    .icon_button {
-      background-color: darken($white, 10%);
-      border: $default-border;
-      padding: 2px;
-      border-radius: $default-border-radius;
-    }
-  }
-
-  &:hover .icon_button {
-    border: $default-border;
-    padding: 2px;
-    border-radius: $default-border-radius;
-    cursor: pointer;
-
-    &:focus {
-      border: 0;
-      padding: 3px;
+  &.active, &:active, &:hover {
+   .icon_button {
+      background-color: $default-border-color;
+      cursor: pointer;
     }
   }
 
@@ -165,7 +148,7 @@ button.icon_button {
   .icon_button {
     width: 29px;
     height: 29px;
-    line-height: 23px;
+    line-height: 27px;
   }
 
   label {

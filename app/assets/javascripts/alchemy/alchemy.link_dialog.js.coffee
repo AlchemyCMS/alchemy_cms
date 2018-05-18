@@ -124,7 +124,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     $("#contents_#{content_id}_link_class_name").val(@link_type)
     $("#contents_#{content_id}_link_target").val(target)
     @$link_object.addClass('linked')
-    @$link_object.next().addClass('linked').removeClass('disabled')
+    @$link_object.next().addClass('linked').removeClass('disabled').removeAttr('tabindex')
 
   # Selects the correct tab for link type and fills all fields.
   selectTab: ->
@@ -251,6 +251,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     $("#contents_#{content_id}_link_target").val('')
     if $link.hasClass('linked')
       Alchemy.setElementDirty $(link).closest('.element-editor')
-      $link.removeClass('linked').addClass('disabled')
+      $link.removeClass('linked').addClass('disabled').attr('tabindex', '-1')
+      $link.blur()
     $('#edit_link_' + content_id).removeClass('linked')
     false

@@ -13,6 +13,7 @@
     '#',
     onclick: "return Alchemy.LinkDialog.removeLink(this, #{content.id})",
     class: "icon_button unlink-essence #{content.linked? ? 'linked' : 'disabled'}",
+    tabindex: content.linked? ? nil : '-1',
     'data-content-id' => content.id,
     title: Alchemy.t(:unlink)
   ) %>

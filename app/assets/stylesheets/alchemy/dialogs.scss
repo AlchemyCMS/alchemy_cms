@@ -70,6 +70,7 @@ $dialog-transition-duration: 150ms;
   margin: 2*$default-margin;
   @include border-top-radius($default-border-radius);
   box-shadow: $dialog-box-shadow;
+  background-color: $dialog-background-color;
   transition: min-height $dialog-transition-duration ease-in-out;
 
   div#jscropper {
@@ -167,7 +168,6 @@ $dialog-transition-duration: 150ms;
 
 .alchemy-dialog-body {
   position: relative;
-  background-color: $dialog-background-color;
   color: $text-color;
 
   .message {
