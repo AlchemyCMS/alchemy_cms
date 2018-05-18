@@ -8,6 +8,7 @@ namespace :alchemy do
       Rake::Task['alchemy:tidy:element_positions'].invoke
       Rake::Task['alchemy:tidy:content_positions'].invoke
       Rake::Task['alchemy:tidy:remove_orphaned_records'].invoke
+      Rake::Task['alchemy:tidy:remove_duplicate_folded_pages'].invoke
     end
 
     desc "Creates missing cells for pages."
@@ -55,6 +56,11 @@ namespace :alchemy do
     desc "Remove orphaned contents."
     task remove_orphaned_contents: [:environment] do
       Alchemy::Tidy.remove_orphaned_contents
+    end
+
+    desc "Remove duplicate folded pages."
+    task remove_duplicate_folded_pages: [:environment] do
+      Alchemy::Tidy.remove_duplicate_folded_pages
     end
   end
 end
