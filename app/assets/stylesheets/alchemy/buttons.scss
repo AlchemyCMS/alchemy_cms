@@ -117,25 +117,10 @@ button.icon_button {
   margin: 0 2*$default-margin;
   line-height: 0;
 
-  &.active, &:active {
-
-    .icon_button {
-      background-color: darken($white, 10%);
-      border: $default-border;
-      padding: 2px;
-      border-radius: $default-border-radius;
-    }
-  }
-
-  &:hover .icon_button {
-    border: $default-border;
-    padding: 2px;
-    border-radius: $default-border-radius;
-    cursor: pointer;
-
-    &:focus {
-      border: 0;
-      padding: 3px;
+  &.active, &:active, &:hover {
+   .icon_button {
+      background-color: $default-border-color;
+      cursor: pointer;
     }
   }
 
