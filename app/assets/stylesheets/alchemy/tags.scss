@@ -71,22 +71,6 @@
   }
 }
 
-.picture_tags {
-  overflow: hidden;
-  position: absolute;
-  top: 22px;
-  left: $default-padding;
-  width: 50%;
-  max-height: 80%;
-  padding: $default-padding;
-  pointer-events: none;
-  display: none;
-}
-
-.picture_thumbnail:hover .picture_tags {
-  display: block;
-}
-
 .tag {
   @include tag-base(
     $margin: $default-margin/2 0,
