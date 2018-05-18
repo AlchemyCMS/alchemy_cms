@@ -64,6 +64,14 @@
 
 - Rails 5
 
+## 3.6.5 (2018-05-08)
+
+- Fix draggable trash item feature [#1430](https://github.com/AlchemyCMS/alchemy_cms/pull/1430) ([tvdeyen](https://github.com/tvdeyen))
+
+## 3.6.4 (2018-04-23)
+
+- Add more classes to YAML.safe_load [#1396](https://github.com/AlchemyCMS/alchemy_cms/pull/1396) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 3.6.3 (2017-10-24)
 
 - Remove `:display` cancan alias [#1318](https://github.com/AlchemyCMS/alchemy_cms/pull/1318) by [tvdeyen](https://github.com/tvdeyen)
