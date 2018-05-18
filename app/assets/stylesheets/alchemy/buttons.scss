@@ -112,10 +112,8 @@ button.icon_button {
 .button_with_label {
   position: relative;
   display: inline-block;
-  vertical-align: top;
   text-align: center;
   margin: 0 2*$default-margin;
-  line-height: 0;
 
   &.active, &:active, &:hover {
    .icon_button {
@@ -150,7 +148,7 @@ button.icon_button {
   .icon_button {
     width: 29px;
     height: 29px;
-    line-height: 23px;
+    line-height: 27px;
   }
 
   label {
