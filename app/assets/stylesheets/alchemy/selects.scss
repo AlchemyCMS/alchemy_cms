@@ -150,8 +150,9 @@ select {
         height: 29px;
 
         input {
-          color: $text-color;
-          padding: 7px 6px;
+          color: $form-field-text-color;
+          padding: 3px 6px;
+          margin: 0;
         }
       }
     }
