@@ -89,9 +89,12 @@
   }
 
   .search_field .icon,
-  .js_filter_field_box .icon,
+  .js_filter_field_box .icon {
+    top: 18px;
+  }
+
   .search_field_clear,
   .js_filter_field_clear {
-    top: 18px;
+    top: 16px;
   }
 }
