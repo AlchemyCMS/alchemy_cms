@@ -201,13 +201,9 @@ Alchemy ships with one default English translation for the admin interface. If y
 We, the Alchemy team, take upgrades very seriously and we try to make them as smooth as possible.
 Therefore we have build an upgrade task, that tries to automate the upgrade procedure as much as possible.
 
-That's why after Alchemy gem has been updated, with explicit call to:
+That's why after the Alchemy gem has been updated, with explicit call to:
 ```shell
 $ bundle update alchemy_cms
-```
-or with a general call:
-```shell
-$ bundle update
 ```
 you should **always run the upgrader**:
 ```shell
