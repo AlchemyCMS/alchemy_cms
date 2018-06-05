@@ -318,7 +318,7 @@ Alchemy specs are written **in RSpec 3**. Please **do not use deprecated RSpec 2
 * Read the guidelines: http://guides.alchemy-cms.com.
 * Read the documentation: http://rubydoc.info/github/AlchemyCMS/alchemy_cms
 * If you found a bug please use the [issue tracker on Github](https://github.com/AlchemyCMS/alchemy_cms/issues).
-* For questions about general usage please use [Slack](https://alchemy-cms.slack.com), [Stack Overflow](http://stackoverflow.com/questions/tagged/alchemy-cms), [the User Group](http://groups.google.com/group/alchemy-cms) or the [IRC channel](irc://irc.freenode.net#alchemy_cms).
+* For questions about general usage please use [Stack Overflow](http://stackoverflow.com/questions/tagged/alchemy-cms), [the User Group](http://groups.google.com/group/alchemy-cms) or the [IRC channel](https://alchemy-cms.slack.com).
 * New features should be discussed on our [Trello Board](https://trello.com/alchemycms).
 
 **PLEASE** don't use the Github issues for feature requests. If you want to contribute to Alchemy please [read the contribution guidelines](https://github.com/AlchemyCMS/alchemy_cms/blob/master/CONTRIBUTING.md) before doing so.
@@ -331,9 +331,8 @@ Alchemy specs are written **in RSpec 3**. Please **do not use deprecated RSpec 2
 * API Documentation: <http://rubydoc.info/github/AlchemyCMS/alchemy_cms>
 * Issue-Tracker: <https://github.com/AlchemyCMS/alchemy_cms/issues>
 * Sourcecode: <https://github.com/AlchemyCMS/alchemy_cms>
-* Slack: <https://alchemy-cms.slack.com>
 * User Group: <http://groups.google.com/group/alchemy-cms>
-* IRC Channel: <irc://irc.freenode.net#alchemy_cms>
+* IRC Channel: <https://alchemy-cms.slack.com>
 * Discussion Board: <https://trello.com/alchemycms>
 * Twitter: <https://twitter.com/alchemy_cms>
 
