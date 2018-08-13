@@ -24,7 +24,6 @@
       <div class="thumbnail_background">
         <%- if content.ingredient -%>
           <%= essence_picture_thumbnail(content, options) %>
-          <%= hidden_field_tag content.form_field_name(:picture_id), content.ingredient.id %>
         <% else %>
           <%= render_icon(:image, style: 'regular') %>
         <% end %>
@@ -43,6 +42,8 @@
       } %>
     </div>
   </div>
+  <%= hidden_field_tag content.form_field_name(:picture_id),
+    content.ingredient.try!(:id) %>
   <%= hidden_field_tag content.form_field_name(:link),
     content.essence.link %>
   <%= hidden_field_tag content.form_field_name(:link_title),
