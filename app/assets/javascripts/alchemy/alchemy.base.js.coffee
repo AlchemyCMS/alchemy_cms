@@ -64,8 +64,7 @@ $.extend Alchemy,
     $element = $form_field.closest(".element-editor")
     if $form_field[0]
       $form_field.val ""
-      $form_field.prev().remove()
-      $form_field.parent().html '<i class="icon far fa-image fa-fw"/>'
+      $element.find(".thumbnail_background").html('<i class="icon far fa-image fa-fw"/>')
       Alchemy.setElementDirty $element
     false
 
