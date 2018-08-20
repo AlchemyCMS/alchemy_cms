@@ -49,7 +49,7 @@ Alchemy.Sitemap =
 
     request.done (data) ->
       # This will also remove the spinner
-      renderTarget.replaceWith(renderTemplate({children: data.pages}))
+      renderTarget.replaceWith(renderTemplate({children: data}))
       self.items = $(".sitemap_page", '#sitemap')
       self._observe()
 
