@@ -46,6 +46,15 @@ describe Admin::EventsController do
           expect(assigns(:events)).not_to include(lustig)
         end
       end
+
+      context 'with sort parameter given' do
+        let(:params) { {q: {s: "name asc"}} }
+
+        it "returns records in the right order" do
+          get :index, params: params
+          expect(assigns(:events)).to eq([lustig, peter])
+        end
+      end
     end
   end
 
