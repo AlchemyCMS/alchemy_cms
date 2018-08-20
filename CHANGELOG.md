@@ -2,6 +2,7 @@
 
 ## 4.0.5 (unreleased)
 
+- Do not cache sitemap in Turbolinks [#1463](https://github.com/AlchemyCMS/alchemy_cms/pull/1463) ([tvdeyen](https://github.com/tvdeyen))
 - Skip folded deeper levels when rendering page tree [#1324](https://github.com/AlchemyCMS/alchemy_cms/pull/1324) ([pascalj](https://github.com/pascalj))
 
 ## 4.0.4 (2018-09-05)
