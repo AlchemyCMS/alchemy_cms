@@ -175,7 +175,7 @@
   }
 
   li {
-    padding-left: 0;
+    padding-left: calc(32px * var(--level));
 
     .selected_page {
       background-color: $linked-color;
@@ -183,7 +183,6 @@
     }
 
     li {
-      padding-left: $sitemap-line-height;
       padding-right: 0;
     }
   }
