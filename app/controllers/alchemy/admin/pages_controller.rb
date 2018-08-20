@@ -39,7 +39,7 @@ module Alchemy
       def tree
         authorize! :tree, :alchemy_admin_pages
 
-        render json: serialized_page_tree
+        render json: serialized_page_tree.to_json
       end
 
       # Used by page preview iframe in Page#edit view.
@@ -393,9 +393,14 @@ module Alchemy
       end
 
       def serialized_page_tree
-        PageTreeSerializer.new(@page, ability: current_ability,
-                                      user: current_alchemy_user,
-                                      full: params[:full] == 'true')
+        Panko::ArraySerializer.new(@page.self_and_descendants,
+          each_serializer: Alchemy::PageTreeSerializer,
+          context: {
+            ability: current_ability,
+            user: current_alchemy_user,
+            full: params[:full] == 'true'
+          }
+        )
       end
     end
   end
