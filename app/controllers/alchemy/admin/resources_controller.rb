@@ -144,7 +144,10 @@ module Alchemy
         [
           # contrary to Rails' documentation passing an empty hash to permit all keys does not work
           {options: options_from_params.keys},
-          {q: resource_handler.search_field_name},
+          {q: [
+            resource_handler.search_field_name,
+            :s
+          ]},
           :tagged_with,
           :filter,
           :page
