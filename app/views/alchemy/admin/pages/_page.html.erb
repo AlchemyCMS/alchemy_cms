@@ -2,7 +2,8 @@
   <div class="sitemap_page{{#if locked}} locked{{/if}}" name="{{name}}">
     <div class="sitemap_left_images<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>">
       <% unless @sorting %>
-        {{#unless root_or_leaf}}
+        {{#unless root}}
+        {{#if has_children}}
         <%= link_to(
           alchemy.fold_admin_page_path(page),
           remote: true,
@@ -17,6 +18,7 @@
             <i class="far fa-minus-square fa-fw"></i>
           {{/if}}
         <% end %>
+        {{/if}}
         {{/unless}}
       <% end %>
       {{#if definition_missing}}

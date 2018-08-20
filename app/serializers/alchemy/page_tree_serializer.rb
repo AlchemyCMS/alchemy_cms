@@ -11,21 +11,50 @@ module Alchemy
       :locked,
       :restricted,
       :page_layout,
-      :slug,
       :redirects_to_external,
       :urlname,
       :level,
       :external_urlname,
       :root,
-      :root_or_leaf,
       :definition_missing,
       :locked_notice,
       :permissions,
-      :status_titles
+      :status_titles,
+      :has_children
     )
 
+    private
+
+    def has_children
+      object.children.any?
+    end
+
+    def public
+      object.public?
+    end
+
+    def visible
+      object.visible?
+    end
+
+    def folded
+      object.folded_pages.any? { |p| p.user_id == scope[:user].id }
+    end
+
+    def locked
+      object.locked?
+    end
+
+    def restricted
+      object.restricted?
+    end
+
+    def redirects_to_external
+      object.redirects_to_external?
+    end
+
     def level
-      object.depth
+      object.depth - 1
     end
 
     def external_urlname
@@ -33,11 +62,7 @@ module Alchemy
     end
 
     def root
-      level == 1
-    end
-
-    def root_or_leaf
-      root || object.children.none?
+      level == 0
     end
 
     def definition_missing
@@ -49,14 +74,12 @@ module Alchemy
     end
 
     def permissions
-      page_permissions(object, context[:ability])
+      page_permissions(object, scope[:ability])
     end
 
     def status_titles
       page_status_titles(object)
     end
-
-    private
 
   #   def initialize(object, opts = {})
   #     tree = []

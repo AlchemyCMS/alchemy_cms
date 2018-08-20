@@ -393,9 +393,9 @@ module Alchemy
       end
 
       def serialized_page_tree
-        Panko::ArraySerializer.new(@page.self_and_descendants,
+        Panko::ArraySerializer.new(@page.self_and_descendants.includes(:folded_pages, :children),
           each_serializer: Alchemy::PageTreeSerializer,
-          context: {
+          scope: {
             ability: current_ability,
             user: current_alchemy_user,
             full: params[:full] == 'true'
