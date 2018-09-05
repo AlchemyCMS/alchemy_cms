@@ -1,5 +1,18 @@
 # Change Log
 
+## 4.0.3 (2018-05-14)
+
+- Add must_revalidate to cache-control header [#1340](https://github.com/AlchemyCMS/alchemy_cms/pull/1340) ([afdev82](https://github.com/afdev82))
+
+## 4.0.2 (2018-05-08)
+
+- Fix draggable trash item feature [#1429](https://github.com/AlchemyCMS/alchemy_cms/pull/1429) ([tvdeyen](https://github.com/tvdeyen))
+- Allow CanCanCan 2.x [#1418](https://github.com/AlchemyCMS/alchemy_cms/pull/1418) ([tvdeyen](https://github.com/tvdeyen))
+
+## 4.0.1 (2018-04-23)
+
+- Add more classes to YAML.safe_load [#1414](https://github.com/AlchemyCMS/alchemy_cms/pull/1414) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.0.0 (2017-11-06)
 
 * Fixes image cropping issues [#1320](https://github.com/AlchemyCMS/alchemy_cms/pull/1320) and [#1321](https://github.com/AlchemyCMS/alchemy_cms/pull/1321) by [tvdeyen](https://github.com/tvdeyen)
