@@ -1,5 +1,9 @@
 # Change Log
 
+## 4.0.4 (2018-09-05)
+
+- Allow Kaminari 1.x [#1467](https://github.com/AlchemyCMS/alchemy_cms/pull/1467) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.0.3 (2018-05-14)
 
 - Add must_revalidate to cache-control header [#1340](https://github.com/AlchemyCMS/alchemy_cms/pull/1340) ([afdev82](https://github.com/afdev82))
