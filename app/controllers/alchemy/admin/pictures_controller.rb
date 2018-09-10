@@ -113,11 +113,11 @@ module Alchemy
       def pictures_per_page_for_size(size)
         case size
         when 'small'
-          per_page = in_overlay? ? 25 : (per_page_value_for_screen_size * 2.9).floor
+          per_page = in_overlay? ? 25 : (items_per_page * 2.9).floor
         when 'large'
-          per_page = in_overlay? ? 4 : (per_page_value_for_screen_size / 1.7).floor + 1
+          per_page = in_overlay? ? 4 : (items_per_page / 1.7).floor + 1
         else
-          per_page = in_overlay? ? 9 : (per_page_value_for_screen_size / 1.0).ceil + 4
+          per_page = in_overlay? ? 9 : (items_per_page / 1.0).ceil + 4
         end
         per_page
       end

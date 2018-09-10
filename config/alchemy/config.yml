@@ -57,6 +57,11 @@ sitemap:
 #
 url_nesting: true
 
+# === Default items per page in admin views
+#
+# In Alchemy's Admin, change how many items you would get shown per page by Kaminari
+items_per_page: 10
+
 # === Picture rendering settings
 #
 # Alchemy uses Dragonfly to render images. Use {size: "XXXxYYY", crop: BOOLEAN [true]} to resize images.
