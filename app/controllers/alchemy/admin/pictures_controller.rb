@@ -12,6 +12,8 @@ module Alchemy
 
       authorize_resource class: Alchemy::Picture
 
+      helper_method :pictures_per_page_for_size
+
       def index
         @size = params[:size].present? ? params[:size] : 'medium'
         @query = Picture.ransack(search_filter_params[:q])

@@ -53,4 +53,4 @@
   </div>
 <% end %>
 
-<%= paginate @pictures, theme: 'alchemy' %>
+<%= paginate @pictures, theme: 'alchemy', per_page: pictures_per_page_for_size(params[:size]) %>
