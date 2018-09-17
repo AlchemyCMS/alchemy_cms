@@ -1,0 +1,24 @@
+<%= form_tag url_for, method: :get, class: 'per-page-select-form' do |f| %>
+  <% search_filter_params.reject { |k, _| k == 'page' || k == 'per_page' }.each do |key, value| %>
+    <% if value.is_a? Hash %>
+      <% value.each do |k, v| %>
+        <%= hidden_field_tag "#{key}[#{k}]", v %>
+      <% end %>
+    <% else %>
+      <%= hidden_field_tag key, value %>
+    <% end %>
+  <% end %>
+  <label>
+    <%= Alchemy.t('Items per page') %>
+    <%= select_tag :per_page,
+      options_for_select(
+        [
+          per_page,
+          per_page * 2,
+          per_page * 4
+        ],
+        params[:per_page]
+      ),
+      onchange: 'this.form.submit()' %>
+  </label>
+<% end %>

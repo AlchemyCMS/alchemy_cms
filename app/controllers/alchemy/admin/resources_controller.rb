@@ -147,7 +147,8 @@ module Alchemy
           {q: resource_handler.search_field_name},
           :tagged_with,
           :filter,
-          :page
+          :page,
+          :per_page
         ].freeze
       end
     end
