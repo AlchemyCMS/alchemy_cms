@@ -15,7 +15,11 @@ module Alchemy
       def index
         @size = params[:size].present? ? params[:size] : 'medium'
         @query = Picture.ransack(search_filter_params[:q])
-        @pictures = Picture.search_by(search_filter_params, @query, pictures_per_page_for_size(@size))
+        @pictures = Picture.search_by(
+          search_filter_params,
+          @query,
+          items_per_page
+        )
 
         if in_overlay?
           archive_overlay
@@ -108,18 +112,26 @@ module Alchemy
         redirect_to_index
       end
 
+      def items_per_page
+        cookies[:alchemy_pictures_per_page] = params[:per_page] || cookies[:alchemy_pictures_per_page] || pictures_per_page_for_size(@size)
+      end
+
+      def items_per_page_options
+        per_page = pictures_per_page_for_size(@size)
+        [per_page, per_page * 2, per_page * 4]
+      end
+
       private
 
       def pictures_per_page_for_size(size)
         case size
         when 'small'
-          per_page = in_overlay? ? 25 : (per_page_value_for_screen_size * 2.9).floor
+          in_overlay? ? 25 : 60
         when 'large'
-          per_page = in_overlay? ? 4 : (per_page_value_for_screen_size / 1.7).floor + 1
+          in_overlay? ? 4 : 12
         else
-          per_page = in_overlay? ? 9 : (per_page_value_for_screen_size / 1.0).ceil + 4
+          in_overlay? ? 9 : 20
         end
-        per_page
       end
 
       def in_overlay?

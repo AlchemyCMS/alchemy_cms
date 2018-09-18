@@ -28,6 +28,9 @@ en:
       event:
         one: Event
         other: Events
+      location:
+        one: Location
+        other: Locations
     attributes:
       event:
         tag_names: Tags

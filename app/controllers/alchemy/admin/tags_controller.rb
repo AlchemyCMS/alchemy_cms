@@ -10,7 +10,7 @@ module Alchemy
         @tags = @query
                   .result
                   .page(params[:page] || 1)
-                  .per(per_page_value_for_screen_size)
+                  .per(items_per_page)
                   .order("name ASC")
       end
 

@@ -5,7 +5,7 @@ module Alchemy
     class LanguagesController < ResourcesController
       def index
         @query = Language.on_current_site.ransack(search_filter_params[:q])
-        @languages = @query.result.page(params[:page] || 1).per(per_page_value_for_screen_size)
+        @languages = @query.result.page(params[:page] || 1).per(items_per_page)
       end
 
       def new

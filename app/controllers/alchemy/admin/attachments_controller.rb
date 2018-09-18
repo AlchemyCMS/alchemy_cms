@@ -21,7 +21,7 @@ module Alchemy
 
         @attachments = @attachments
           .page(params[:page] || 1)
-          .per(15)
+          .per(items_per_page)
 
         if in_overlay?
           archive_overlay
