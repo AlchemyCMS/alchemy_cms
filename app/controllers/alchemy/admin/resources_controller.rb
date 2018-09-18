@@ -12,7 +12,8 @@ module Alchemy
       include Alchemy::ResourcesHelper
 
       helper Alchemy::ResourcesHelper, TagsHelper
-      helper_method :resource_handler, :search_filter_params
+      helper_method :resource_handler, :search_filter_params,
+        :items_per_page, :items_per_page_options
 
       before_action :load_resource,
         only: [:show, :edit, :update, :destroy]
@@ -150,6 +151,15 @@ module Alchemy
           :page,
           :per_page
         ].freeze
+      end
+
+      def items_per_page
+        cookies[:alchemy_items_per_page] = params[:per_page] || cookies[:alchemy_items_per_page] || Alchemy::Config.get(:items_per_page)
+      end
+
+      def items_per_page_options
+        per_page = Alchemy::Config.get(:items_per_page)
+        [per_page, per_page * 2, per_page * 4]
       end
     end
   end

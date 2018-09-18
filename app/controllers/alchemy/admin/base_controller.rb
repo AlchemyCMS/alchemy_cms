@@ -10,7 +10,7 @@ module Alchemy
       before_action :load_locked_pages
 
       helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?,
-        :options_from_params, :items_per_page, :items_per_page_options
+        :options_from_params
 
       check_authorization
 
@@ -107,15 +107,6 @@ module Alchemy
         else
           render action: (params[:action] == 'update' ? 'edit' : 'new')
         end
-      end
-
-      def items_per_page
-        cookies[:alchemy_items_per_page] = params[:per_page] || cookies[:alchemy_items_per_page] || Alchemy::Config.get(:items_per_page)
-      end
-
-      def items_per_page_options
-        per_page = Alchemy::Config.get(:items_per_page)
-        [per_page, per_page * 2, per_page * 4]
       end
 
       def per_page_value_for_screen_size
