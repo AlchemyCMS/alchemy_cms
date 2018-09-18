@@ -79,4 +79,39 @@ describe 'Dashboard feature' do
       end
     end
   end
+
+  describe 'Online users' do
+    context 'with alchemy users' do
+      let(:other_user) { build_stubbed(:alchemy_dummy_user) }
+
+      before do
+        expect(Alchemy.user_class).to receive(:logged_in) { [other_user] }
+      end
+
+      it "lists all online users besides current user" do
+        visit admin_dashboard_path
+        users_widget = all('div[@class="widget users"]').first
+        expect(users_widget).to have_content other_user.name
+        expect(users_widget).to have_content "Member"
+        expect(users_widget).not_to have_content user.name
+      end
+    end
+
+    context 'with non alchemy user class' do
+      class SomeUser; end
+      before do
+        Alchemy.user_class_name = 'SomeUser'
+      end
+
+      it "does not list online users" do
+        visit admin_dashboard_path
+        users_widget = all('div[@class="widget users"]').first
+        expect(users_widget).to be_nil
+      end
+
+      after do
+        Alchemy.user_class_name = 'DummyUser'
+      end
+    end
+  end
 end
