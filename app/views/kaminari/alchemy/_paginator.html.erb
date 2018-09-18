@@ -20,6 +20,8 @@
     <%= next_page_tag -%>
     <%= last_page_tag %>
   <% end -%>
-  <%= render 'alchemy/admin/resources/per_page_select',
-    per_page: per_page || Alchemy::Config.get(:items_per_page) %>
+  <% unless local_assigns[:hide_per_page_select] %>
+    <%= render 'alchemy/admin/resources/per_page_select',
+      per_page: per_page || Alchemy::Config.get(:items_per_page) %>
+  <% end %>
 </div>
