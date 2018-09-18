@@ -31,8 +31,8 @@
   span a { padding: 0 }
 
   .current {
-    color: $blue;
-    border: 1px solid $blue;
+    color: $text-color;
+    border: 1px solid $text-color;
     text-shadow: 0px 1px 1px #fff;
     cursor: default;
     border-radius: $default-border-radius;
