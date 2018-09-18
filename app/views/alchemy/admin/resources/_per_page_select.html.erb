@@ -9,7 +9,7 @@
     <% end %>
   <% end %>
   <label>
-    <%= Alchemy.t('Items per page') %>
+    <%= Alchemy.t(:items_per_page, model_name: resource_model.model_name.human(count: 2)) %>
     <%= select_tag :per_page,
       options_for_select(
         items_per_page_options,

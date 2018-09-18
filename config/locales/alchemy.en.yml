@@ -199,6 +199,7 @@ en:
     "Hide childpages": "Hide childpages"
     hide_elements: Hide Elements
     hide_element: "Hide element"
+    items_per_page: "%{model_name} per page"
     "Image missing": "Image missing"
     "Image size": "Image size"
     "Language successfully created": "Language successfully created."
