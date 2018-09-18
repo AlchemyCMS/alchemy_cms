@@ -19,4 +19,8 @@ class DummyUser < ActiveRecord::Base
   def name
     @name || email
   end
+
+  def human_roles_string
+    alchemy_roles.map(&:humanize)
+  end
 end
