@@ -9,9 +9,14 @@ button, input[type="submit"], a.button, input.button {
 
     &:focus {
       @include default-focus-style(
-        $border-color: $secondary-button-text-color,
-        $box-shadow: 0 0 2px $button-text-color
+        $border-color: $button-focus-border-color,
+        $box-shadow: $button-focus-box-shadow
       );
+    }
+
+    &:active, &:active:focus {
+      border-color: $button-hover-border-color;
+      box-shadow: none;
     }
   }
 

@@ -7,6 +7,7 @@ select {
     $hover-border-color: darken($default-border-color, 10%),
     $padding: 0 2*$default-padding,
     $border: 1px solid $default-border-color,
+    $box-shadow: none,
     $color: $text-color,
     $margin: 0);
   height: $form-field-height;
@@ -31,6 +32,7 @@ select {
         $hover-border-color: darken($default-border-color, 10%),
         $padding: $form-field-padding,
         $border: 1px solid $default-border-color,
+        $box-shadow: none,
         $color: $text-color,
         $margin: 0);
       background-image: none;
@@ -190,8 +192,8 @@ select {
       padding: 4px 0;
 
       &.select2-highlighted {
-        background: $button-hover-bg-color;
-        color: $button-text-color;
+        background: $select-hover-bg-color;
+        color: $select-hover-text-color;
       }
 
       &.select2-result-with-children {
