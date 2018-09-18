@@ -12,12 +12,8 @@
     <%= Alchemy.t('Items per page') %>
     <%= select_tag :per_page,
       options_for_select(
-        [
-          per_page,
-          per_page * 2,
-          per_page * 4
-        ],
-        params[:per_page]
+        items_per_page_options,
+        items_per_page
       ),
       onchange: 'this.form.submit()' %>
   </label>

@@ -12,15 +12,13 @@ module Alchemy
 
       authorize_resource class: Alchemy::Picture
 
-      helper_method :pictures_per_page_for_size
-
       def index
         @size = params[:size].present? ? params[:size] : 'medium'
         @query = Picture.ransack(search_filter_params[:q])
         @pictures = Picture.search_by(
           search_filter_params,
           @query,
-          params[:per_page].presence || pictures_per_page_for_size(@size)
+          items_per_page
         )
 
         if in_overlay?
@@ -112,6 +110,15 @@ module Alchemy
         flash[:error] = e.message
       ensure
         redirect_to_index
+      end
+
+      def items_per_page
+        cookies[:alchemy_pictures_per_page] = params[:per_page] || cookies[:alchemy_pictures_per_page] || pictures_per_page_for_size(@size)
+      end
+
+      def items_per_page_options
+        per_page = pictures_per_page_for_size(@size)
+        [per_page, per_page * 2, per_page * 4]
       end
 
       private
