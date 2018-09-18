@@ -89,8 +89,7 @@ div#overlay_text_box {
 }
 
 #archive_all {
-  height: calc(100% - 4px);
-  padding-bottom: 60px;
+  height: 100%;
 
   &.with_tag_filter {
 
@@ -104,11 +103,7 @@ div#overlay_text_box {
   }
 
   &.resources-table-wrapper {
-    padding-top: 47px;
-
-    > table {
-      padding-bottom: 60px;
-    }
+    padding-top: 6*$default-padding;
   }
 }
 
