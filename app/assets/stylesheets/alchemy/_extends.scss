@@ -11,7 +11,7 @@
   border-color: $error_border_color;
   color: $error_text_color;
   background-color: lighten($error_background_color, 8%);
-  box-shadow: inset 1px 1px 4px rgba($error_border_color, 0.5);
+  box-shadow: inset 0px 0 1px rgba($error_border_color, 0.5);
 }
 
 %default-input-style {
