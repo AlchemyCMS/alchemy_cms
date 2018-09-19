@@ -166,7 +166,7 @@ button.icon_button {
     z-index: 30;
     background-color: $tooltip-background-color;
     color: $white;
-    padding: $default-padding 2*$default-padding;
+    padding: $default-padding 2*$default-padding 1.5*$default-padding;
     line-height: 1;
     box-shadow: 0 0 4px $default-border-color;
     white-space: nowrap;

@@ -532,10 +532,10 @@ body .mce-abs-layout-item {
 .mce-tooltip {
   position: absolute;
   padding: 5px;
+  transition-delay: .3s;
 }
 
 .mce-tooltip-inner {
-  font-size: 11px;
   background-color: $tooltip-background-color;
   color: $white;
   max-width: 200px;
