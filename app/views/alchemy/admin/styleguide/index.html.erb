@@ -2,6 +2,10 @@
   <%= "Styleguide" %>
 <% end %>
 
+<% content_for :javascript_includes do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>
+
 <% content_for(:toolbar) do %>
   <%= toolbar_button(
     icon: :info,
