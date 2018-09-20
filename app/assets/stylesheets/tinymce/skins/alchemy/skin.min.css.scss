@@ -467,11 +467,13 @@ div.mce-fullscreen {
     }
 
     button {
-      padding: 0.3em 1.5em;
+      padding: $button-padding;
       width: auto !important;
       height: auto !important;
+      line-height: 1;
       border: 1px solid $button-border-color;
       background-color: $button-bg-color;
+      box-shadow: $button-box-shadow;
     }
 
     .mce-txt {
@@ -530,10 +532,10 @@ body .mce-abs-layout-item {
 .mce-tooltip {
   position: absolute;
   padding: 5px;
+  transition-delay: .3s;
 }
 
 .mce-tooltip-inner {
-  font-size: 11px;
   background-color: $tooltip-background-color;
   color: $white;
   max-width: 200px;
@@ -656,7 +658,7 @@ body .mce-abs-layout-item {
   display: inline-block;
   *display: inline;
   *zoom: 1;
-  box-shadow: $button-box-shadow;
+  box-shadow: none;
   background-color: $light-gray;
 
   &:focus,
@@ -687,6 +689,7 @@ body .mce-abs-layout-item {
     overflow: visible;
     -webkit-appearance: none;
     border-radius: inherit;
+    box-shadow: none;
 
     &:focus {
       box-shadow: none;

@@ -180,7 +180,7 @@ module Alchemy
         alchemy_editor_rules
 
         # Navigation
-        can :index,                 [:alchemy_admin_sites]
+        can :index,                 [:alchemy_admin_sites, :alchemy_admin_styleguide]
 
         # Controller actions
         can [:info, :update_check], :alchemy_admin_dashboard

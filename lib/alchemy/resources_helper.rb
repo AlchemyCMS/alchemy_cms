@@ -122,7 +122,8 @@ module Alchemy
 
     # Renders the human model name with a count as h1 header
     def resources_header
-      content_tag :h1, "#{resources_instance_variable.total_count} #{resource_model.model_name.human(count: resources_instance_variable.total_count)}", class: 'resources-header'
+      Alchemy::Deprecation.warn "resources_header is deprecated. Render 'alchemy/admin/resources/table_header' partial instead."
+      render 'alchemy/admin/resources/table_header'
     end
 
     # Returns true if the resource contains any relations

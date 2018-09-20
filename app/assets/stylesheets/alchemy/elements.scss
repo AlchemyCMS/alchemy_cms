@@ -192,7 +192,7 @@
   }
 
   .message {
-    margin: 2*$default-margin;
+    margin: 2*$default-margin 0;
   }
 
   .foot_note {
@@ -337,6 +337,7 @@
       $background-color: $medium-gray,
       $hover-color: darken($medium-gray, 5%),
       $border: 1px solid #c0c0c0,
+      $box-shadow: none,
       $hover-border-color: #c0c0c0,
       $line-height: 30px,
       $padding: 0,

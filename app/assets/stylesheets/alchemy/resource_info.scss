@@ -1,9 +1,5 @@
 .resource_info {
 
-  h2 {
-    @include form-heading;
-  }
-
   .value {
     @include clearfix;
     position: relative;

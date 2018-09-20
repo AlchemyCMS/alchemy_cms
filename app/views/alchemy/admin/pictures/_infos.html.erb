@@ -1,6 +1,5 @@
 <div class="resource_info">
   <div class="picture-file-infos">
-    <h2><%= Alchemy.t('Picture infos') %></h2>
     <div class="value">
       <label><%= Alchemy::Picture.human_attribute_name(:image_file_name) %></label>
       <p><%= @picture.image_file_name %></p>
@@ -17,7 +16,9 @@
 </div>
 
 <div class="picture-usage-info resource_info">
-  <h2><%= Alchemy.t(:this_picture_is_used_on_these_pages) %></h2>
+  <h3>
+    <%= Alchemy.t(:this_picture_is_used_on_these_pages) %>
+  </h3>
   <div id="pictures_page_list">
     <% if @assignments.any? %>
       <ul>

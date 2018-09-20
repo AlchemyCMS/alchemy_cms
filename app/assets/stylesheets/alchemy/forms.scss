@@ -16,10 +16,6 @@ form {
     height: 67px;
   }
 
-  > h2 {
-    @include form-heading;
-  }
-
   .control-label {
     @include form-label;
   }

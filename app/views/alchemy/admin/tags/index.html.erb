@@ -16,10 +16,7 @@
 ) %>
 
 <div id="archive_all" class="resources-table-wrapper">
-  <h1 class="resources-header">
-    <%= @tags.total_count %>
-    <%= Gutentag::Tag.model_name.human(count: @tags.total_count) %>
-  </h1>
+  <%= render 'alchemy/admin/resources/table_header' %>
   <% if @tags.any? %>
 
   <table class="list">

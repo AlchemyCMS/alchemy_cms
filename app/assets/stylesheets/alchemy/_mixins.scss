@@ -17,14 +17,15 @@
   $background-color: $button-bg-color,
   $hover-color: $button-hover-bg-color,
   $hover-border-color: $button-hover-border-color,
-  $border-radius: $default-border-radius,
+  $border-radius: $button-border-radius,
   $border: $button-border-width solid $button-border-color,
+  $box-shadow: $button-box-shadow,
   $padding: $button-padding,
   $margin: $button-margin,
   $color: $button-text-color,
   $line-height: $form-field-line-height,
   $focus-border-color: $button-focus-border-color,
-  $focus-box-shadow: 0 0 2px $focus-border-color) {
+  $focus-box-shadow: $button-focus-box-shadow) {
   display: inline-block;
   font-family: $default-font-family;
   font-size: $default-font-size;
@@ -34,7 +35,7 @@
   cursor: pointer;
   border-radius: $border-radius;
   background-color: $background-color;
-  box-shadow: $button-box-shadow;
+  box-shadow: $box-shadow;
   border: $border;
   color: $color;
   margin: $margin;
@@ -49,7 +50,8 @@
   }
 
   &:active, &:active:focus {
-    border-color: $button-border-color;
+    border-color: $hover-border-color;
+    box-shadow: none;
   }
 
   &:focus {
@@ -62,7 +64,7 @@
   &.disabled, &[disabled],
   &.disabled:active, &[disabled]:active,
   &.disabled:hover, &[disabled]:hover {
-    background-color: transparentize($button-bg-color, 0.25);
+    background-color: transparentize($button-bg-color, 0.5);
     cursor: not-allowed;
     box-shadow: none;
   }
@@ -83,16 +85,6 @@
   float: left;
   text-align: right;
   font-size: $default-font-size;
-}
-
-@mixin form-heading {
-  border-bottom: 1px solid #CECECE;
-  padding-right: 8px;
-  margin-top: 8px;
-  text-align: right;
-  font-weight: normal;
-  color: #585858;
-  text-transform: uppercase;
 }
 
 @mixin form-value-display {
@@ -176,6 +168,7 @@
     $border: 1px solid $linked-border-color,
     $hover-border-color: darken($linked-border-color, 10%),
     $border-radius: $border-radius,
+    $box-shadow: none,
     $padding: $padding,
     $margin: 0
   );

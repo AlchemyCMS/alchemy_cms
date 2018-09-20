@@ -10,12 +10,14 @@ $dark-gray-blue: rgb(51, 59, 81);
 $light_yellow: #fbfbd8;
 $orange: #ffd77a;
 $dark-orange: #eca96e;
+$very-dark-orange: darken($dark-orange, 20%);
 $white: #fff;
 
 $text-color: rgba($dark-gray-blue, 0.8) !default;
 $muted-text-color: rgba($dark-gray-blue, 0.5) !default;
 $icon-color: rgba($dark-gray-blue, 0.75) !default;
 $linked-color: $orange !default;
+$anchor-color: $very-dark-orange !default;
 
 $body-background-color: $light-gray !default;
 
@@ -27,7 +29,7 @@ $small-font-size: 0.9em !default;
 $default-font-style: $default-font-size $default-font-family !default;
 
 $dialog-header-height: 36px !default;
-$dialog-header-color: $dark-gray-blue !default;
+$dialog-header-color: $dark-blue !default;
 $dialog-header-text-color: $white !default;
 $dialog-header-font-size: $default-font-size !default;
 $dialog-box-shadow: 0 8px 16px rgba(35, 35, 35, 0.5) !default;
@@ -61,22 +63,24 @@ $form-field-disabled-bg-color: rgba($white, 0.5) !default;
 
 $focus-color: rgba($dark-orange, 0.75) !default;
 
-$button-bg-color: rgba($dark-orange, 0.75) !default;
-$button-hover-bg-color: $dark-orange !default;
-$button-border-color: transparent !default;
-$button-border-width: 2px !default;
+$button-bg-color: $white !default;
+$button-hover-bg-color: transparent !default;
+$button-border-color: $default-border-color !default;
+$button-border-width: 1px !default;
+$button-border-radius: $default-border-radius !default;
 $button-text-color: $text-color !default;
-$button-hover-border-color: transparent !default;
-$button-focus-border-color: $button-text-color !default;
-$button-font-weight: bold !default;
+$button-hover-border-color: $default-border-color !default;
+$button-focus-border-color: $dark-orange !default;
+$button-font-weight: 700 !default;
 $button-text-shadow: none !default;
-$button-box-shadow: none !default;
-$button-padding: 0.5em 2em !default;
+$button-box-shadow: 0px 1px 1px -1px #333 !default;
+$button-focus-box-shadow: 0px 1px 1px 0px $button-focus-border-color !default;
+$button-padding: 0.55em 2em !default;
 $button-margin: $form-field-margin !default;
 
 $secondary-button-bg-color: transparent !default;
-$secondary-button-text-color: $button-text-color !default;
-$secondary-button-border-color: $button-bg-color !default;
+$secondary-button-text-color: $text-color !default;
+$secondary-button-border-color: $default-border-color !default;
 
 $linked-button-color: rgba($linked-color, 0.75) !default;
 $linked-border-color: darken($linked-color, 10%) !default;
@@ -108,9 +112,9 @@ $sitemap-highlight-color: rgba(#fffba5, 0.5) !default;
 
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
-$main-menu-bg-color: $dark-gray-blue !default;
+$main-menu-bg-color: $dark-blue !default;
 $main-menu-active-bg-color: $dark-orange !default;
-$main-menu-active-text-color: $dark-gray-blue !default;
+$main-menu-active-text-color: $dark-blue !default;
 $main-menu-text-color: $white !default;
 $main-menu-icon-color: $white !default;
 $main-menu-entry-max-width: 100px !default;
@@ -123,7 +127,7 @@ $text-shadow-light: rgba($white, 0.5) 0 0 4px !default;
 $transition-duration: 250ms !default;
 $transition-easing: linear !default;
 
-$tooltip-background-color: lighten($dark-gray-blue, 15%) !default;
+$tooltip-background-color: $dark-blue !default;
 
 $addon-icon-opacity: 0.85 !default;
 
@@ -148,5 +152,8 @@ $datepicker_header_color: $text-color !default;
 $datepicker_day_bg: $light-gray !default;
 $datepicker_day_border: 1px solid $medium-gray !default;
 $datepicker_day_color: $text-color !default;
+
+$select-hover-bg-color: $dark-blue !default;
+$select-hover-text-color: $white !default;
 
 $thumbnail-background-color: opacify($default-border-color, 1) !default;
