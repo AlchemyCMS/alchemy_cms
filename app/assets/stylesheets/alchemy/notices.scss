@@ -26,7 +26,10 @@ div.message {
   a {
     text-decoration: underline;
 
-    &:hover { color: #000 }
+    &:hover {
+      color: inherit;
+      text-decoration: none;
+    }
   }
 
   ol {

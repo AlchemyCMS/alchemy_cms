@@ -51,8 +51,9 @@ body {
 }
 
 a {
-  color: $text-color;
+  color: inherit;
   text-decoration: none;
+  transition: $transition-duration;
 
   &:hover {
     text-decoration: underline;

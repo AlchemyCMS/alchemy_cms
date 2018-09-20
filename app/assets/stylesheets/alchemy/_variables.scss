@@ -10,12 +10,14 @@ $dark-gray-blue: rgb(51, 59, 81);
 $light_yellow: #fbfbd8;
 $orange: #ffd77a;
 $dark-orange: #eca96e;
+$very-dark-orange: darken($dark-orange, 20%);
 $white: #fff;
 
 $text-color: rgba($dark-gray-blue, 0.8) !default;
 $muted-text-color: rgba($dark-gray-blue, 0.5) !default;
 $icon-color: rgba($dark-gray-blue, 0.75) !default;
 $linked-color: $orange !default;
+$anchor-color: $very-dark-orange !default;
 
 $body-background-color: $light-gray !default;
 

@@ -38,6 +38,10 @@ h5, .h5 {
 p {
   margin: 0 0 2*$default-margin 0;
   white-space: normal;
+
+  a {
+    color: $anchor-color;
+  }
 }
 
 kbd {
