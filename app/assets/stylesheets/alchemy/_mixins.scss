@@ -87,16 +87,6 @@
   font-size: $default-font-size;
 }
 
-@mixin form-heading {
-  border-bottom: 1px solid #CECECE;
-  padding-right: 8px;
-  margin-top: 8px;
-  text-align: right;
-  font-weight: normal;
-  color: #585858;
-  text-transform: uppercase;
-}
-
 @mixin form-value-display {
   float: right;
   width: $form-right-width;
