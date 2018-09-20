@@ -103,8 +103,7 @@ $.extend Alchemy,
   # Logs exception to js console, if present.
   debug: (e) ->
     if window["console"]
-      console.debug e
-      console.trace()
+      console.warn(e)
     return
 
   # Logs errors to js console, if present.
