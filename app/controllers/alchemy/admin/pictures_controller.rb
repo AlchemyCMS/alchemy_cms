@@ -113,7 +113,18 @@ module Alchemy
       end
 
       def items_per_page
-        cookies[:alchemy_pictures_per_page] = params[:per_page] || cookies[:alchemy_pictures_per_page] || pictures_per_page_for_size(@size)
+        if in_overlay?
+          case params[:size]
+          when 'small' then 25
+          when 'large' then 4
+          else
+            9
+          end
+        else
+          cookies[:alchemy_pictures_per_page] = params[:per_page] ||
+                                                cookies[:alchemy_pictures_per_page] ||
+                                                pictures_per_page_for_size(params[:size])
+        end
       end
 
       def items_per_page_options
@@ -125,12 +136,10 @@ module Alchemy
 
       def pictures_per_page_for_size(size)
         case size
-        when 'small'
-          in_overlay? ? 25 : 60
-        when 'large'
-          in_overlay? ? 4 : 12
+        when 'small' then 60
+        when 'large' then 12
         else
-          in_overlay? ? 9 : 20
+          20
         end
       end
 

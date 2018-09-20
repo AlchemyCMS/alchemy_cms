@@ -362,26 +362,69 @@ module Alchemy
       end
     end
 
-    describe '#pictures_per_page_for_size' do
-      subject { controller.send(:pictures_per_page_for_size, size) }
+    describe '#items_per_page' do
+      subject { controller.send(:items_per_page) }
 
       before do
-        expect(controller).to receive(:in_overlay?).and_return(true)
+        expect(controller).to receive(:params).at_least(:once) { params }
       end
 
-      context 'with params[:size] set to medium' do
-        let(:size) { 'medium' }
-        it { is_expected.to eq(9) }
+      context 'in overlay' do
+        let(:params) { {element_id: :id, size: size} }
+
+        context 'with params[:size] set to medium' do
+          let(:size) { 'medium' }
+
+          it { is_expected.to eq(9) }
+        end
+
+        context 'with params[:size] set to small' do
+          let(:size) { 'small' }
+
+          it { is_expected.to eq(25) }
+        end
+
+        context 'with params[:size] set to large' do
+          let(:size) { 'large' }
+
+          it { is_expected.to eq(4) }
+        end
       end
 
-      context 'with params[:size] set to small' do
-        let(:size) { 'small' }
-        it { is_expected.to eq(25) }
-      end
+      context 'in archive' do
+        let(:params) { {size: size} }
 
-      context 'with params[:size] set to large' do
-        let(:size) { 'large' }
-        it { is_expected.to eq(4) }
+        context 'with params[:size] set to medium' do
+          let(:size) { 'medium' }
+
+          it { is_expected.to eq(20) }
+
+          context 'with cookie set' do
+            before do
+              @request.cookies[:alchemy_pictures_per_page] = 2
+            end
+
+            it { is_expected.to eq(2) }
+
+            context 'with params[:per_page] given' do
+              let(:params) { {per_page: 8, size: size} }
+
+              it { is_expected.to eq(8) }
+            end
+          end
+        end
+
+        context 'with params[:size] set to small' do
+          let(:size) { 'small' }
+
+          it { is_expected.to eq(60) }
+        end
+
+        context 'with params[:size] set to large' do
+          let(:size) { 'large' }
+
+          it { is_expected.to eq(12) }
+        end
       end
     end
   end
