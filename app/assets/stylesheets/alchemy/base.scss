@@ -50,44 +50,6 @@ body {
   }
 }
 
-h1 {
-  padding: 0;
-  margin: 2*$default-margin;
-  font-weight: bold;
-  font-size: $default-font-size;
-
-  &.resources-header {
-    position: fixed;
-    width: 100%;
-    top: 75px;
-    left: $main-menu-width + 9px;
-    z-index: 2;
-    margin: 0 -8px;
-    padding: 16px;
-    background-color: $light-gray;
-  }
-}
-
-h2 {
-  margin: $default-margin 0;
-  padding-bottom: $default-padding;
-  clear: both;
-  font-weight: bold;
-  font-size: $default-font-size;
-}
-
-h3 {
-  margin: $default-margin 0;
-  padding-bottom: $default-padding;
-  font-size: $default-font-size;
-  font-weight: bold;
-}
-
-p {
-  margin: 0 0 2*$default-margin 0;
-  white-space: normal;
-}
-
 a {
   color: $text-color;
   text-decoration: none;
@@ -131,16 +93,6 @@ hr {
 
 .center {
   text-align: center;
-}
-
-kbd {
-  font-family: Courier, monospaced;
-  background: $medium-gray;
-  border: $default-border;
-  padding: 0.25em 0.5em;
-  vertical-align: top;
-  margin-right: 1ex;
-  border-radius: $default-border-radius;
 }
 
 .top-rounded-border {
