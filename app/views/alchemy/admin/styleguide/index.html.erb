@@ -1,3 +1,7 @@
+<% content_for :title do %>
+  <%= "Styleguide" %>
+<% end %>
+
 <% content_for(:toolbar) do %>
   <%= toolbar_button(
     icon: :info,
@@ -127,6 +131,11 @@
       <small class="hint">With hint</small>
     </div>
 
+    <div class="input text tinymce_container">
+      <label class="text control-label" for="tinymce_1">Richtext editor</label>
+      <textarea class="text" id="tinymce_1"></textarea>
+    </div>
+
     <div class="submit">
       <button class="secondary">Secondary</button>
       <button data-alchemy-button>Primary Submit</button>
@@ -217,3 +226,9 @@
   <li>List item</li>
   <li>List item</li>
 </ol>
+
+<%= content_for :javascripts do %>
+  <script>
+    Alchemy.Tinymce.init([1])
+  </script>
+<% end %>
