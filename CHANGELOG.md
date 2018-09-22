@@ -94,6 +94,11 @@
 - Check if file exists on disk before calling identify [#1327](https://github.com/AlchemyCMS/alchemy_cms/pull/1327) ([chalmagean](https://github.com/chalmagean))
 - Skip folded deeper levels when rendering page tree [#1324](https://github.com/AlchemyCMS/alchemy_cms/pull/1324) ([pascalj](https://github.com/pascalj))
 
+## 4.0.5 (2018-09-17)
+
+- Do not cache sitemap in Turbolinks [#1463](https://github.com/AlchemyCMS/alchemy_cms/pull/1463) ([tvdeyen](https://github.com/tvdeyen))
+- Skip folded deeper levels when rendering page tree [#1324](https://github.com/AlchemyCMS/alchemy_cms/pull/1324) ([pascalj](https://github.com/pascalj))
+
 ## 4.0.4 (2018-09-05)
 
 - Allow Kaminari 1.x [#1467](https://github.com/AlchemyCMS/alchemy_cms/pull/1467) ([tvdeyen](https://github.com/tvdeyen))
