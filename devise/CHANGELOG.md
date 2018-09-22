@@ -1,5 +1,7 @@
-## 4.1.0 (unreleased)
+## 4.1.0 (2018-09-22)
 
+- Only allow Alchemy > 4.1 [#72](https://github.com/AlchemyCMS/alchemy-devise/pull/72) ([tvdeyen](https://github.com/tvdeyen))
+- Upgrade dummy app rails version to 5.2.1 [#71](https://github.com/AlchemyCMS/alchemy-devise/pull/71) ([depfu](https://github.com/marketplace/depfu))
 - Build for Rails 5.1 [#70](https://github.com/AlchemyCMS/alchemy-devise/pull/70) ([tvdeyen](https://github.com/tvdeyen))
 - Fixes localization specs [#69](https://github.com/AlchemyCMS/alchemy-devise/pull/69) ([tvdeyen](https://github.com/tvdeyen))
 - Removes translations [#68](https://github.com/AlchemyCMS/alchemy-devise/pull/68) ([tvdeyen](https://github.com/tvdeyen))
