@@ -4,30 +4,32 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/test_coverage)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/test_coverage)
 [![Slack Status](http://slackin.alchemy-cms.com/badge.svg)](http://slackin.alchemy-cms.com)
 
-**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (4.0-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/4.0-stable).**
+**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (4.1-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/4.1-stable).**
 
 
 ## About
 
 ![Alchemy CMS](app/assets/images/alchemy/alchemy-logo.png)
 
-Alchemy is a powerful, flexible and user centric Rails CMS.
+Alchemy is a headless Rails CMS.
 
-Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [guidelines](http://guides.alchemy-cms.com/stable/).
+Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [guidelines](https://guides.alchemy-cms.com/stable/).
 
 
 ## Features
 
-- Highly flexible templating that completely separates content from markup
-- End-User centric graphical user interface
+- Flexible templating that separates content from markup
+- A rich RESTful API
+- Intuitive admin interface with live preview
 - Multi language and multi domain
 - SEO friendly urls
 - User Access Control
 - Build in contact form mailer
 - Attachments and downloads
-- On-the-fly image rendering
+- On-the-fly image cropping and resizing
 - Extendable via Rails engines
 - Integrates into existing Rails Apps
+- Resourceful Rails admin
 - Flexible caching
 - Hostable on any Server that supports Ruby on Rails, a SQL Database and ImageMagick
 
@@ -77,7 +79,7 @@ Put this into your `Gemfile`:
 gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
 ```
 
-**NOTE:** You normally want to use a stable branch, like `4.0-stable`.
+**NOTE:** You normally want to use a stable branch, like `4.1-stable`.
 
 #### 2. Update your bundle:
 
@@ -98,7 +100,7 @@ If you don't have your own user class, you can use the Alchemy user model. Just 
 gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
 ```
 
-**NOTE:** You normally want to use a stable branch, like `4.0-stable`.
+**NOTE:** You normally want to use a stable branch, like `4.1-stable`.
 
 Then run:
 
