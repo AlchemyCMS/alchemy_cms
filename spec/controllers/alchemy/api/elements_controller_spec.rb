@@ -21,7 +21,6 @@ module Alchemy
         expect(response.content_type).to eq('application/json')
 
         result = JSON.parse(response.body)
-
         expect(result).to have_key('elements')
         expect(result['elements'].last['nested_elements']).to_not be_empty
         expect(result['elements'].size).to eq(Alchemy::Element.not_nested.count)

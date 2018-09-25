@@ -16,7 +16,7 @@ module Alchemy
       if params[:element_id].present?
         @contents = @contents.where(element_id: params[:element_id])
       end
-      respond_with @contents
+      render json: @contents, adapter: :json, root: :contents
     end
 
     # Returns a json object for content

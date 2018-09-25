@@ -2,8 +2,6 @@
 
 module Alchemy
   class PageSerializer < ActiveModel::Serializer
-    self.root = false
-
     attributes :id,
       :name,
       :urlname,
@@ -17,7 +15,8 @@ module Alchemy
       :updated_at,
       :status
 
-    has_many :elements, :cells
+    has_many :elements
+    has_many :cells
 
     def elements
       if object.has_cells?

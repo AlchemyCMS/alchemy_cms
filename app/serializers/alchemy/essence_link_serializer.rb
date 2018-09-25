@@ -2,8 +2,6 @@
 
 module Alchemy
   class EssenceLinkSerializer < ActiveModel::Serializer
-    self.root = false
-
     attributes :id,
       :link,
       :link_title,
