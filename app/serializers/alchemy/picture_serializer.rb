@@ -2,8 +2,6 @@
 
 module Alchemy
   class PictureSerializer < ActiveModel::Serializer
-    self.root = false
-
     attributes :id,
       :name,
       :image_file_name,
