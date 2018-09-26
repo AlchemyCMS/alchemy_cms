@@ -1,3 +1,7 @@
+## 4.2.0 (unreleased)
+
+- Migrating to active_model_serializers ~> 0.10.0 [#1478](https://github.com/AlchemyCMS/alchemy_cms/pull/1478) ([pmashchak](https://github.com/pmashchak))
+
 ## 4.1.0 (2018-09-22)
 
 - Use console.warn for Alchemy.debug [#1476](https://github.com/AlchemyCMS/alchemy_cms/pull/1476) ([tvdeyen](https://github.com/tvdeyen))
