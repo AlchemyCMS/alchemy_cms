@@ -113,6 +113,7 @@
     type: EssenceRichtext
 
 - name: slide
+  compact: true
   contents:
     - name: picture
       type: EssencePicture

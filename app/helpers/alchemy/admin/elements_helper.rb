@@ -105,6 +105,7 @@ module Alchemy
           element.nestable_elements.any? ? 'nestable' : 'not-nestable',
           element.taggable? ? 'taggable' : 'not-taggable',
           element.folded ? 'folded' : 'expanded',
+          element.compact? ? 'compact' : nil,
           local_assigns[:draggable] == false ? 'not-draggable' : 'draggable'
         ].join(' ')
       end
