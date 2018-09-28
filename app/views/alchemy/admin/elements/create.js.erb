@@ -16,6 +16,7 @@
 
 <%- if @element.parent_element -%>
   $element_area = $('#element_<%= @element.parent_element_id %> > .nestable-elements > .nested-elements');
+  Alchemy.Buttons.enable('.nestable-elements');
 <%- else -%>
   $element_area = $('#cell_<%= @cell_name %>');
 <%- end -%>

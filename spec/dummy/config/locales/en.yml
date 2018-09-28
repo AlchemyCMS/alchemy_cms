@@ -1,5 +1,7 @@
 en:
   alchemy:
+    element_names:
+      gallery_picture: Gallery picture
     content_names:
       essence_boolean: EssenceBoolean
       essence_date: EssenceDate

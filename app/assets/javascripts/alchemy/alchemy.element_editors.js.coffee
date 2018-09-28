@@ -117,6 +117,7 @@ Alchemy.ElementEditors =
   #
   scrollToElement: (el) ->
     $("#element_area").scrollTo el,
+      axis: 'y',
       duration: 400
       offset: -6
 
