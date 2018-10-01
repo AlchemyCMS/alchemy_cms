@@ -5,7 +5,7 @@ FactoryBot.define do
   factory :alchemy_page, class: 'Alchemy::Page' do
     language { Alchemy::Language.default || FactoryBot.create(:alchemy_language) }
     sequence(:name) { |n| "A Page #{n}" }
-    page_layout "standard"
+    page_layout { "standard" }
 
     parent_id do
       (Alchemy::Page.find_by(language_root: true) ||
@@ -14,19 +14,19 @@ FactoryBot.define do
 
     # This speeds up creating of pages dramatically.
     # Pass do_not_autogenerate: false to generate elements
-    do_not_autogenerate true
+    do_not_autogenerate { true }
 
     trait :root do
-      name 'Root'
-      language nil
-      parent_id nil
-      page_layout nil
+      name { 'Root' }
+      language { nil }
+      parent_id { nil }
+      page_layout { nil }
     end
 
     trait :language_root do
-      name 'Startseite'
+      name { 'Startseite' }
       page_layout { language.page_layout }
-      language_root true
+      language_root { true }
       public_on { Time.current }
       parent_id { Alchemy::Page.root.id }
     end
@@ -37,22 +37,22 @@ FactoryBot.define do
     end
 
     trait :system do
-      name "Systempage"
+      name { "Systempage" }
       parent_id { Alchemy::Page.root.id }
-      language_root false
-      page_layout nil
-      language nil
+      language_root { false }
+      page_layout { nil }
+      language { nil }
     end
 
     trait :layoutpage do
-      name "Footer"
+      name { "Footer" }
       parent_id { Alchemy::Page.find_or_create_layout_root_for(Alchemy::Language.current.id).id }
-      page_layout "footer"
+      page_layout { "footer" }
     end
 
     trait :restricted do
-      name "Restricted page"
-      restricted true
+      name { "Restricted page" }
+      restricted { true }
     end
 
     trait :locked do
