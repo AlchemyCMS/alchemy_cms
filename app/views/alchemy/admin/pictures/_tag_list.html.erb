@@ -2,12 +2,12 @@
   <h3><%= Alchemy.t("Filter by tag") %></h3>
   <%= js_filter_field '.tag-list li' %>
   <ul>
-    <%= render_tag_list('Alchemy::Picture') %>
+    <%= render_tag_list('Alchemy::Picture', options_from_params) %>
   </ul>
   <% if search_filter_params[:tagged_with].present? %>
     <%= link_to(
       render_icon(:times, size: 'xs') + Alchemy.t('Remove tag filter'),
-      url_for(search_filter_params.except(:tagged_with)),
+      url_for(search_filter_params.except(:tagged_with).merge(options: options_from_params)),
       remote: request.xhr?,
       class: 'secondary button small with_icon'
     ) %>

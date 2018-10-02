@@ -144,7 +144,7 @@ module Alchemy
       end
 
       def in_overlay?
-        params[:element_id].present?
+        params[:element_id].present? || options_from_params[:overlay].present?
       end
 
       def archive_overlay

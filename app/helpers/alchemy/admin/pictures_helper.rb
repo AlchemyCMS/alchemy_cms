@@ -4,7 +4,12 @@ module Alchemy
   module Admin
     module PicturesHelper
       def create_or_assign_url(picture_to_assign, options)
-        if @content.nil?
+        if options[:action_url].present?
+          main_app.url_for(options[:action_url].merge({
+            picture_id: picture_to_assign.id,
+            options: options.except(:action_url)
+          }))
+        elsif @content.nil?
           {
             controller: :contents,
             action: :create,

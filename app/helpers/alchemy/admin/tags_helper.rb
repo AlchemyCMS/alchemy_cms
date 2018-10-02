@@ -11,7 +11,7 @@ module Alchemy
       # @return [String]
       #   A HTML string containing <tt><li></tt> tags
       #
-      def render_tag_list(class_name)
+      def render_tag_list(class_name, options = nil)
         raise ArgumentError, 'Please provide a String as class_name' if class_name.nil?
         sorted_tags_from(class_name: class_name).map do |tag|
           content_tag('li', name: tag.name, class: filtered_by_tag?(tag) ? 'active' : nil) do
@@ -19,7 +19,8 @@ module Alchemy
               "#{tag.name} (#{tag.taggings_count})",
               url_for(
                 search_filter_params.except(:page, :tagged_with).merge(
-                  tagged_with: tags_for_filter(current: tag).presence
+                  tagged_with: tags_for_filter(current: tag).presence,
+                  options: options
                 )
               ),
               remote: request.xhr?
