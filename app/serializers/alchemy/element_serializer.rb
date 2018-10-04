@@ -15,6 +15,13 @@ module Alchemy
       :dom_id,
       :display_name
 
+    with_options if: :can_manage? do
+      attribute :folded
+      attribute :public
+      attribute :preview_text
+      attribute :display_name
+    end
+
     has_many :nested_elements
 
     def ingredients
@@ -27,6 +34,10 @@ module Alchemy
 
     def page_id
       object.page.id
+    end
+
+    def can_manage?
+      scope.can?(:manage, object)
     end
   end
 end

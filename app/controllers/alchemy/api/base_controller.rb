@@ -8,6 +8,8 @@ module Alchemy
     rescue_from CanCan::AccessDenied,         with: :render_not_authorized
     rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
 
+    serialization_scope :current_ability
+
     private
 
     def render_not_authorized
