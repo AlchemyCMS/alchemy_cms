@@ -126,4 +126,11 @@
     - slide
 
 - name: gallery
-  picture_gallery: true
+  nestable_elements:
+    - gallery_picture
+
+- name: gallery_picture
+  compact: true
+  contents:
+    - name: picture
+      type: EssencePicture

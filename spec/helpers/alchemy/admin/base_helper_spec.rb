@@ -4,36 +4,6 @@ require 'spec_helper'
 
 module Alchemy
   describe Admin::BaseHelper do
-    context "maximum amount of images option" do
-      subject { helper.max_image_count }
-
-      before { helper.instance_variable_set('@options', options) }
-
-      context "with max_images option set to emtpy string" do
-        let(:options) { {max_images: ""} }
-
-        it { is_expected.to eq(nil) }
-      end
-
-      context "with max_images option set to '1'" do
-        let(:options) { {max_images: "1"} }
-
-        it { is_expected.to eq(1) }
-      end
-
-      context "with maximum_amount_of_images option set to emtpy string" do
-        let(:options) { {maximum_amount_of_images: ""} }
-
-        it { is_expected.to eq(nil) }
-      end
-
-      context "with maximum_amount_of_images option set to '1'" do
-        let(:options) { {maximum_amount_of_images: "1"} }
-
-        it { is_expected.to eq(1) }
-      end
-    end
-
     describe '#toolbar_button' do
       context "with permission" do
         before { allow(helper).to receive(:can?).and_return(true) }

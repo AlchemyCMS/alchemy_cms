@@ -1,11 +1,5 @@
 - cache(element) do
   = element_view_for(element) do |el|
-  <%- if @element["picture_gallery"] -%>
-    .<%= @element_name %>_images
-      - element.contents.gallery_pictures.each do |image|
-        .<%= @element_name %>_image{class: image.essence.css_class}
-          = render_essence_view(image, size: "160x120")
-  <%- end -%>
   <%- @contents.each do |content| -%>
     <%- if @contents.length > 1 -%>
     .<%= content["name"] %>

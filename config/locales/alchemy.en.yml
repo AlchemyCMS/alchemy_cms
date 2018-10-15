@@ -157,6 +157,7 @@ en:
       site:
         aliases: Please separate additional domains with spaces or new lines.
 
+    add_nested_element: "Add %{name}"
     anchor: 'Anchor'
     attribute_fixed: Value can't be changed for this page type
     back: 'back'
@@ -270,7 +271,6 @@ en:
     "Sort pages": "Reorder pages"
     "Successfully added content": "Successfully added %{content}"
     "Successfully deleted content": "Successfully deleted %{content}"
-    "Successfully saved content position": "Successfully saved content position"
     "Tags": "Tags"
     "These pictures could not be deleted, because they were in use": "These pictures could not be deleted, because they were in use: %{names}"
     "This page is locked": "This page is currently locked by %{name}"
@@ -299,8 +299,6 @@ en:
     "Your trash is empty": "Your trash is empty"
     above: "above"
     add: "Add"
-    "add new content": "Add new content"
-    add_image_to_element: "Add an image"
     align_in_text: "Alignment in text"
     all: "all"
     all_pictures: "All pictures"
@@ -485,7 +483,6 @@ en:
         comma_seperated: "Separate by comma"
     password: "Password"
     paste: "paste"
-    picture_gallery_editor: 'Pictures'
     picture_library:
       filter:
         last_upload: "from last upload"

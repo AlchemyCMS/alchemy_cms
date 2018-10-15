@@ -15,11 +15,7 @@ Alchemy::Engine.routes.draw do
   end
 
   namespace :admin, {path: Alchemy.admin_path, constraints: Alchemy.admin_constraints} do
-    resources :contents, only: [:create] do
-      collection do
-        post :order
-      end
-    end
+    resources :contents, only: [:create]
 
     resources :pages do
       resources :elements

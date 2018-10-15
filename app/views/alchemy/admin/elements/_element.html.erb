@@ -39,14 +39,27 @@
       <% end %>
 
       <% if element.expanded? %>
-        <%= link_to_dialog render_icon(:plus, size: 'xs') + Alchemy.t("New Element"),
-          alchemy.new_admin_element_path(
-            parent_element_id: element.id,
-            page_id: element.page.id
-          ), {
-            size: "320x125",
-            title: Alchemy.t("New Element")
-          }, class: "button with_icon add-nestable-element-button" %>
+        <% if element.nestable_elements.length == 1 %>
+          <% nestable_element = element.nestable_elements.first %>
+          <%= form_for [:admin, Alchemy::Element.new(name: nestable_element)],
+            remote: true, html: { class: 'add-nested-element-form', id: nil } do |f| %>
+            <%= f.hidden_field :name %>
+            <%= f.hidden_field :page_id, value: element.page_id %>
+            <%= f.hidden_field :parent_element_id, value: element.id %>
+            <button class="button add-nestable-element-button" data-alchemy-button>
+              <%= Alchemy.t(:add_nested_element) % { name: Alchemy.t(nestable_element, scope: 'element_names') } %>
+            </button>
+          <% end %>
+        <% else %>
+          <%= link_to_dialog Alchemy.t("New Element"),
+            alchemy.new_admin_element_path(
+              parent_element_id: element.id,
+              page_id: element.page.id
+            ), {
+              size: "320x125",
+              title: Alchemy.t("New Element")
+            }, class: "button add-nestable-element-button" %>
+        <% end %>
       <% end %>
     </div>
   <% end %>

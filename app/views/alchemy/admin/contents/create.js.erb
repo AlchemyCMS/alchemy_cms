@@ -2,37 +2,11 @@ var editor_html = '<%= j(render "alchemy/essences/#{@content.essence_partial_nam
   content: @content, options: options_from_params, html_options: @html_options
 }) %>';
 
-<% if params[:was_missing] %>
-
 $("[data-element-<%= @element.id %>-missing-content=\"<%= @content.name %>\"]").replaceWith(editor_html);
 
-<% else %>
+<% if @content.essence_type == "Alchemy::EssencePicture" && @content.ingredient %>
 
-$("<%= @content_dom_id %>").before(editor_html);
-Alchemy.Buttons.enable();
-Alchemy.growl('<%= j Alchemy.t("Successfully added content") % {content: @content.name_for_label} %>')
-
-<% end %>
-
-<% if @content.essence_type == "Alchemy::EssencePicture" %>
-
-<% if @content.ingredient %>
 $('#picture_to_assign_<%= @content.ingredient.id %> a').attr('href', '#').off('click');
-<% end %>
-
-<% if @gallery_pictures %>
-
-<% if @gallery_pictures.size > 1 %>
-$('#element_<%= @element.id %>_contents .essence_picture').addClass('draggable_picture');
-<% end %>
-
-<% if !max_image_count.blank? && @gallery_pictures.size >= max_image_count %>
-$("#add_picture_<%= @element.id %>").remove();
-<% end %>
-
-Alchemy.SortableContents('#element_<%= @element.id %>_contents', '<%= form_authenticity_token %>');
-
-<% end %>
 
 <% elsif @content.essence_type == "Alchemy::EssenceDate" %>
 

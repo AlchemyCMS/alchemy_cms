@@ -82,25 +82,6 @@ $.extend Alchemy,
     $sortable_area.find('.nested-elements').sortable(sortable_options)
     return
 
-  SortableContents: (selector, token) ->
-    $(selector).sortable
-      items: "div.draggable_picture"
-      handle: "div.picture_handle"
-      opacity: 0.5
-      cursor: "move"
-      tolerance: "pointer"
-      containment: "parent"
-      update: (event, ui) ->
-        ids = $.map $(this).children("div.draggable_picture"), (child) ->
-          child.id.replace /essence_picture_/, ""
-        $(event.originalTarget).css "cursor", "progress"
-        $.ajax
-          url: Alchemy.routes.order_admin_contents_path
-          type: "POST"
-          data: "authenticity_token=" + encodeURIComponent(token) + "&" + $.param(content_ids: ids)
-          complete: ->
-            $(event.originalTarget).css "cursor", "move"
-
   DraggableTrashItems: ->
     $("#trash_items div.draggable").each ->
       $this = $(this)

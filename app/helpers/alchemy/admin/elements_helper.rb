@@ -14,32 +14,6 @@ module Alchemy
         render_element(element, :editor)
       end
 
-      # Renders a drag'n'drop picture gallery editor for all EssencePictures.
-      #
-      # It brings full functionality for adding images, deleting images and sorting them via drag'n'drop.
-      # Just place this helper inside your element editor view, pass the element as parameter and that's it.
-      #
-      # === Options:
-      #
-      #   :maximum_amount_of_images    [Integer]   # This option let you handle the amount of images your customer can add to this element.
-      #
-      def render_picture_gallery_editor(element, options = {})
-        default_options = {
-          maximum_amount_of_images: nil,
-          grouped: true
-        }
-        options = default_options.merge(options)
-        render(
-          partial: "alchemy/admin/elements/picture_gallery_editor",
-          locals: {
-            pictures: element.contents.gallery_pictures,
-            element: element,
-            options: options
-          }
-        )
-      end
-      alias_method :render_picture_editor, :render_picture_gallery_editor
-
       # Returns an elements array for select helper.
       #
       # @param [Array] elements definitions
