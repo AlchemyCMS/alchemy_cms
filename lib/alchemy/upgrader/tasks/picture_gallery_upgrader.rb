@@ -56,9 +56,14 @@ module Alchemy::Upgrader::Tasks
       print '2. Converting picture gallery elements into `nestable_elements` ... '
 
       elements_with_picture_gallery.inject(all_other_elements) do |elements, old_element|
-        elements << modify_old_element(old_element.dup)
-        elements << add_picture_gallery_for(old_element["name"])
-        elements << build_new_picture_element_for(old_element["name"])
+        if old_element.fetch('nestable_elements', []).any?
+          elements << modify_old_element(old_element.dup, gallery_element: true)
+          elements << add_picture_gallery_for(old_element["name"])
+          elements << build_new_picture_element_for(old_element["name"], 'picture_gallery')
+        else
+          elements << modify_old_element(old_element.dup, gallery_element: false)
+          elements << build_new_picture_element_for(old_element["name"])
+        end
       end
 
       puts 'done.'
@@ -133,8 +138,12 @@ HAMLSLIM
       end
     end
 
-    def modify_old_element(element)
-      nestable_element = "#{element['name']}_picture_gallery"
+    def modify_old_element(element, gallery_element:)
+      if gallery_element
+        nestable_element = "#{element['name']}_picture_gallery"
+      else
+        nestable_element = "#{element['name']}_picture"
+      end
       element.delete('picture_gallery')
       element['nestable_elements'] ||= []
       element['nestable_elements'] << nestable_element
@@ -148,7 +157,7 @@ HAMLSLIM
       }
     end
 
-    def build_new_picture_element_for(element_name)
+    def build_new_picture_element_for(element_name, gallery_element_name = nil)
       image_options = parse_image_options_from_editor_view(element_name)
       settings = {}
       if image_options[0]
@@ -156,7 +165,7 @@ HAMLSLIM
       end
       settings["size"] = image_options[1] if image_options[1]
       element = {
-        'name' => "#{element_name}_picture_gallery_picture",
+        'name' => [element_name, gallery_element_name, 'picture'].compact.join('_'),
         'contents' => [{
           'name' => 'picture',
           'type' => 'EssencePicture'

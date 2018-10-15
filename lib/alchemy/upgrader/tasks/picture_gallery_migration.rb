@@ -20,12 +20,16 @@ module Alchemy
       gallery_contents = element.contents.where("#{Content.table_name}.name LIKE 'essence_picture_%'").order("#{Content.table_name}.position ASC")
 
       if gallery_contents.any?
-        gallery_element = create_gallery_element(element)
+        if element.nestable_elements.any?
+          parent = create_gallery_element(element)
+        else
+          parent = element
+        end
         gallery_contents.each do |content|
-          create_element_for_content(content, gallery_element)
+          create_element_for_content(content, parent)
         end
       else
-        puts "No orphaned contents found for #{element.dom_id}. Skip"
+        puts "No gallery contents found for #{element.dom_id}. Skip"
       end
     end
 
