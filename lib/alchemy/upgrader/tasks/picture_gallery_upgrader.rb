@@ -166,6 +166,7 @@ HAMLSLIM
       settings["size"] = image_options[1] if image_options[1]
       element = {
         'name' => [element_name, gallery_element_name, 'picture'].compact.join('_'),
+        'compact' => true,
         'contents' => [{
           'name' => 'picture',
           'type' => 'EssencePicture'
