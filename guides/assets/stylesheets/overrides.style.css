@@ -120,7 +120,7 @@ header {
 }
 
 #header {
-  height: 140px;
+  height: 100px;
   background: #C7E4F5;
   color: #FFF;
   font: 14px "SansusWebissimoRegular", Helvetica, Arial, sans-serif;
@@ -141,7 +141,7 @@ header {
   width: 470px;
   height: 40px;
   left: -8px;
-  top: 70px;
+  top: 50px;
 }
 
 .site-search .gsc-control-cse {
@@ -189,7 +189,7 @@ header {
 #logo {
   position: absolute;
   right: -15px;
-  top: -14px;
+  top: 3px;
 }
 
 #main {
@@ -229,9 +229,9 @@ div.holder {
 #main_navigation {
   position: absolute;
   width: auto;
-  height: 30px;
+  height: 20px;
   z-index: 1;
-  top: 36px;
+  top: 20px;
   left: 0;
 }
 
@@ -438,7 +438,7 @@ a, a:link, a:visited {
 
 #subCol {
   padding: 0 10px 10px;
-  top: 170px;
+  top: 130px;
   text-align: left;
   color: #444;
 }
@@ -548,11 +548,6 @@ dl dt em {
 
   #guides dt {
     font-size: 21px;
-  }
-
-  #header .site-search {
-    top: 90px;
-    left: -8px;
   }
 }
 
