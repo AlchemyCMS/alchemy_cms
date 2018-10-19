@@ -59,10 +59,10 @@ The installation of Alchemy CMS is very easy. You just need to run Ruby's <code>
 gem install alchemy_cms
 </shell>
 
-Alchemy is a Rails 4 engine, so at first you need to generate a fresh Rails 4 application, by running this command
+Alchemy is a Rails engine, so at first you need to generate a fresh Rails application, by running this command
 
 <shell>
-rails _4.2.7.1_ new YOUR_APP_NAME
+rails new YOUR_APP_NAME
 </shell>
 
 INFO: The command takes lots of parameters like choosing the database you want to work with. Please follow the official Rails guides for further informations. http://guides.rubyonrails.org/getting_started.html
@@ -74,7 +74,7 @@ In your existing Rails application, you can need to require the Alchemy CMS gem.
 Just add this line to your <code>Gemfile</code>.
 
 <ruby>
-gem 'alchemy_cms', '~> 3.5'
+gem 'alchemy_cms'
 </ruby>
 
 Since Alchemy CMS is a mountable engine, you need to define the mountpoint in your <code>config/routes.rb</code> file.
@@ -110,7 +110,7 @@ Just add it to your apps Gemfile
 
 <ruby>
 # Gemfile
-gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: '3.5-stable'
+gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise'
 </ruby>
 
 <shell>
