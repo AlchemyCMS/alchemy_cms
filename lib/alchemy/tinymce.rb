@@ -4,7 +4,7 @@ module Alchemy
   module Tinymce
     mattr_accessor :languages, :plugins
 
-    @@plugins = %w(alchemy_link anchor autoresize charmap code directionality fullscreen hr link paste tabfocus table)
+    @@plugins = %w(alchemy_link anchor autoresize charmap code directionality fullscreen hr link lists paste tabfocus table)
     @@init = {
       skin: 'alchemy',
       width: 'auto',
