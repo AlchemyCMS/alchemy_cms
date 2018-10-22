@@ -4,6 +4,7 @@
 [![Test Coverage](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/test_coverage)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/test_coverage)
 [![Slack Status](http://slackin.alchemy-cms.com/badge.svg)](http://slackin.alchemy-cms.com)
 [![Backers](https://opencollective.com/alchemy_cms/tiers/backer/badge.svg?label=backer&color=blue)](https://opencollective.com/alchemy_cms)
+[![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
 
 **CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (4.1-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/4.1-stable).**
 
