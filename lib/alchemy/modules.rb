@@ -24,7 +24,25 @@ module Alchemy
     #     }
     #
     def self.register_module(module_definition)
-      @@alchemy_modules << module_definition.deep_stringify_keys
+      definition_hash = module_definition.deep_stringify_keys
+
+      defined_controllers = [definition_hash['navigation']['controller']]
+
+      if definition_hash['sub_navigation']
+        defined_controllers.concat(definition_hash['sub_navigation'].map{|x| x['controller']})
+      end
+
+      defined_controllers.each do |controller_val|
+        controller_name = "#{controller_val.camelize.sub(/Controller$/, '')}Controller"
+        
+        begin
+          controller_name.constantize
+        rescue
+          raise "AlchemyCMS module '#{definition_hash['name']}' could not find the specified controller '#{controller_val}' (#{controller_name.sub(/^::/,'')})"
+        end
+      end
+
+      @@alchemy_modules << definition_hash
     end
 
     # Get the module definition for given module name
