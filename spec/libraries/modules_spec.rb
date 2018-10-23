@@ -57,15 +57,51 @@ module Alchemy
         {
           'name' => 'module',
           'navigation' => {
-            'controller' => 'admin/controller_name',
+            'controller' => 'register_module_dummy',
             'action' => 'index'
           }
         }
       end
 
+      let(:bad_alchemy_module_a) do
+        {
+          'name' => 'bad_module_a',
+          'navigation' => {
+            'controller' => 'bad_module',
+            'action' => 'index'
+          }
+        }
+      end
+
+      let(:bad_alchemy_module_b) do
+        {
+          'name' => 'bad_module_b',
+          'navigation' => {
+            'controller' => 'register_module_dummy',
+            'action' => 'index',
+            'sub_navigation' => [{
+              'controller' => 'bad_module',
+              'action' => 'index'
+            }]
+          }
+        }
+      end
+
       it "registers a module definition into global list of modules" do
+        class ::RegisterModuleDummyController
+          ### mock the existence of the controller
+        end
+
         Modules.register_module(alchemy_module)
         expect(Modules.alchemy_modules).to include(alchemy_module)
+      end
+
+      it "fails to register a module when a matching navigation controller cannot be found" do
+        expect { Modules.register_module(bad_alchemy_module_a) }.to raise_error(NameError)
+      end
+
+      it "fails to register a module when a matching sub_navigation controller cannot be found" do
+        expect { Modules.register_module(bad_alchemy_module_b) }.to raise_error(NameError)
       end
     end
   end

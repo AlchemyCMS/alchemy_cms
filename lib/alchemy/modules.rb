@@ -6,25 +6,56 @@ module Alchemy
 
     @@alchemy_modules = YAML.load_file(File.expand_path('../../config/alchemy/modules.yml', __dir__))
 
-    def self.included(base)
-      base.send :helper_method, :alchemy_modules, :module_definition_for
-    end
+    class << self
+      def included(base)
+        base.send :helper_method, :alchemy_modules, :module_definition_for
+      end
 
-    # Register a Alchemy module.
-    #
-    # A module is a Hash that must have at least a name and a navigation key
-    # that has a controller and action name.
-    #
-    # == Example:
-    #
-    #     name: 'module',
-    #     navigation: {
-    #       controller: 'admin/controller_name',
-    #       action: 'index'
-    #     }
-    #
-    def self.register_module(module_definition)
-      @@alchemy_modules << module_definition.deep_stringify_keys
+      # Register a Alchemy module.
+      #
+      # A module is a Hash that must have at least a name and a navigation key
+      # that has a controller and action name.
+      #
+      # == Example:
+      #
+      #     name: 'module',
+      #     navigation: {
+      #       controller: 'admin/controller_name',
+      #       action: 'index'
+      #     }
+      #
+      def register_module(module_definition)
+        definition_hash = module_definition.deep_stringify_keys
+
+        ### Validate controller(s) existence
+        if definition_hash['navigation'].is_a?(Hash)
+          defined_controllers = [definition_hash['navigation']['controller']]
+
+          if definition_hash['navigation']['sub_navigation'].is_a?(Array)
+            defined_controllers.concat(definition_hash['navigation']['sub_navigation'].map{ |x| x['controller'] })
+          end
+
+          validate_controllers_existence(defined_controllers)
+        end
+
+        @@alchemy_modules << definition_hash
+      end
+
+      private
+
+      def validate_controllers_existence(controllers)
+        controllers.each do |controller_val|
+          next if controller_val.blank?
+
+          controller_name = "#{controller_val.camelize}Controller"
+
+          begin
+            controller_name.constantize
+          rescue NameError
+            raise "Error in AlchemyCMS module definition: '#{definition_hash['name']}'. Could not find the matching controller class #{controller_name.sub(/^::/, '')} for the specified controller: '#{controller_val}'"
+          end
+        end
+      end
     end
 
     # Get the module definition for given module name
