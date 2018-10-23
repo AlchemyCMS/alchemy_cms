@@ -29,16 +29,16 @@ module Alchemy
       defined_controllers = [definition_hash['navigation']['controller']]
 
       if definition_hash['sub_navigation']
-        defined_controllers.concat(definition_hash['sub_navigation'].map{|x| x['controller']})
+        defined_controllers.concat(definition_hash['sub_navigation'].map{ |x| x['controller'] })
       end
 
       defined_controllers.each do |controller_val|
         controller_name = "#{controller_val.camelize.sub(/Controller$/, '')}Controller"
-        
+
         begin
           controller_name.constantize
-        rescue
-          raise "AlchemyCMS module '#{definition_hash['name']}' could not find the specified controller '#{controller_val}' (#{controller_name.sub(/^::/,'')})"
+        rescue RuntimeError
+          raise "AlchemyCMS module '#{definition_hash['name']}' could not find the specified controller '#{controller_val}' (#{controller_name.sub(/^::/, '')})"
         end
       end
 
