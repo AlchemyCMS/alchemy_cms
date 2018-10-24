@@ -33,6 +33,14 @@ button, input[type="submit"], a.button, input.button {
     margin-right: 2 * $default-margin;
     color: inherit;
   }
+
+  &[disabled] {
+    cursor: not-allowed;
+
+    & + label {
+      display: none;
+    }
+  }
 }
 
 .icon_button {
@@ -79,11 +87,16 @@ button, input[type="submit"], a.button, input.button {
     }
   }
 
-  &.disabled {
+  &.disabled,
+  &[disabled] {
 
     span {
       opacity: 0.3;
       cursor: not-allowed;
+    }
+
+    i {
+      opacity: 0.3;
     }
 
     &:hover {
@@ -121,7 +134,7 @@ button.icon_button {
   margin: 0 2*$default-margin;
 
   &.active, &:active, &:hover {
-   .icon_button {
+   .icon_button:not([disabled]) {
       background-color: $default-border-color;
       cursor: pointer;
     }
