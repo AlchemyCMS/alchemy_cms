@@ -289,6 +289,19 @@ module Alchemy
           get admin_page_path(page)
           expect(response).to render_template(layout: 'application')
         end
+
+        context 'when layout is set to custom' do
+          before do
+            allow(Alchemy::Config).to receive(:get) do |arg|
+              arg == :admin_page_preview_layout ? 'custom' : Alchemy::Config.parameter(arg)
+            end
+          end
+
+          it "it renders custom layout instead" do
+            get admin_page_path(page)
+            expect(response).to render_template(layout: 'custom')
+          end
+        end
       end
 
       describe '#order' do
