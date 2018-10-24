@@ -14,8 +14,8 @@ module Alchemy
       menubar: false,
       statusbar: true,
       toolbar: [
-        'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen',
-        'pastetext charmap hr | undo redo | alchemy_link unlink anchor | code'
+        'undo redo pastetext | alchemy_link unlink anchor hr subscript superscript charmap | code | fullscreen',
+        'styleselect bold italic underline strikethrough | alignleft aligncenter alignright alignjustify | numlist bullist indent outdent'
       ],
       fix_list_elements: true,
       convert_urls: false,
