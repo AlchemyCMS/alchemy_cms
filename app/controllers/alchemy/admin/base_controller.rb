@@ -17,10 +17,8 @@ module Alchemy
       rescue_from Exception do |exception|
         if exception.is_a? CanCan::AccessDenied
           permission_denied(exception)
-        elsif raise_exception?
-          raise
         else
-          exception_handler(exception)
+          Alchemy::ExceptionHandler.call(exception, self)
         end
       end
 
@@ -36,28 +34,6 @@ module Alchemy
       # Disable layout rendering for xhr requests.
       def set_layout
         request.xhr? ? false : 'alchemy/admin'
-      end
-
-      # Handles exceptions
-      def exception_handler(error)
-        exception_logger(error)
-        show_error_notice(error)
-        if defined?(Airbrake)
-          notify_airbrake(error) unless Rails.env.development? || Rails.env.test?
-        end
-      end
-
-      # Displays an error notice in the Alchemy backend.
-      def show_error_notice(error)
-        @error = error
-        # truncate the message, because very long error messages (i.e from mysql2) causes cookie overflow errors
-        @notice = error.message[0..255]
-        @trace = error.backtrace[0..50]
-        if request.xhr?
-          render action: "error_notice"
-        else
-          render '500', status: 500
-        end
       end
 
       # Returns clipboard items for given category
@@ -137,19 +113,6 @@ module Alchemy
         @_options_from_params ||= begin
           (params[:options] || ActionController::Parameters.new).permit!
         end
-      end
-
-      # This method decides if we want to raise an exception or not.
-      #
-      # I.e. in test environment.
-      #
-      def raise_exception?
-        Rails.env.test? || is_page_preview?
-      end
-
-      # Are we currently in the page edit mode page preview.
-      def is_page_preview?
-        controller_path == 'alchemy/admin/pages' && action_name == 'show'
       end
 
       def load_locked_pages

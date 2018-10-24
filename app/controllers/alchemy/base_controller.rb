@@ -93,13 +93,5 @@ module Alchemy
         redirect_to Alchemy.login_path
       end
     end
-
-    # Logs the current exception to the error log.
-    def exception_logger(error)
-      Rails.logger.error("\n#{error.class} #{error.message} in #{error.backtrace.first}")
-      Rails.logger.error(error.backtrace[1..50].each { |line|
-        line.gsub(/#{Rails.root.to_s}/, '')
-      }.join("\n"))
-    end
   end
 end
