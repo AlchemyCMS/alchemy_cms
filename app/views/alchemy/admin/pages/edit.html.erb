@@ -13,16 +13,6 @@
     <% end %>
   </div>
   <div class="toolbar_spacer"></div>
-  <% unless @page.layoutpage? %>
-    <div class="button_with_label">
-      <%= form_tag alchemy.visit_admin_page_path(@page), id: 'visit_page_form' do %>
-        <%= button_tag class: 'icon_button', disabled: !@page.public? do %>
-          <%= render_icon('external-link-alt') %>
-        <% end %>
-        <label><%= Alchemy.t("Visit page") %></label>
-      <% end %>
-    </div>
-  <% end %>
   <div class="button_with_label">
     <%= link_to_dialog(
       render_icon('info-circle'),
@@ -73,6 +63,16 @@
           <%= render_icon('cloud-upload-alt') %>
         <% end %>
         <label><%= Alchemy.t("Publish page") %></label>
+      <% end %>
+    </div>
+  <% end %>
+  <% unless @page.layoutpage? %>
+    <div class="button_with_label">
+      <%= form_tag alchemy.visit_admin_page_path(@page), id: 'visit_page_form' do %>
+        <%= button_tag class: 'icon_button', disabled: !@page.public? do %>
+          <%= render_icon('external-link-alt') %>
+        <% end %>
+        <label><%= Alchemy.t("Visit page") %></label>
       <% end %>
     </div>
   <% end %>
