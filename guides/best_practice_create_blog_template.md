@@ -1,31 +1,21 @@
-Best Practice: Create a blog template
--------------------------------------
+# Best Practice: Create a blog template
 
-A blog is an appropriate way to present information about formal and
-informal events or extraordinary experiences.
+A blog is an appropriate way to present information about formal and informal events or extraordinary experiences.
 
 In this guide you will learn how to:
 
 -   Define blog layout and elements
 -   Integration in your existing application
 
-### Conceptual page and content structuring
+## Conceptual page and content structuring
 
-Imagine you like to have a simple blog template on your website. First
-of all as mentioned in [The Alchemy approach](alchemy_approach.html) you
-should identify required components in your blog layout. Common
-components are a **headline**, a **blog post** itself and **sidebar blocks**
-for category overview and featured posts.
+Imagine you like to have a simple blog template on your website. First of all as mentioned in [The Alchemy approach](alchemy_approach.html) you should identify required components in your blog layout. Common components are a **headline**, a **blog post** itself and **sidebar blocks** for category overview and featured posts.
 
-Following the steps you will create blog template according to
-[Foundation Zurb](http://foundation.zurb.com/).
-(© ZURB, Inc)
+Following the steps you will create blog template according to [Foundation Zurb](http://foundation.zurb.com/). (© ZURB, Inc)
 
 *We will build this template using the [Blog sample](http://foundation.zurb.com/page-templates/blog.html)*
 
-endprologue.
-
-### Concept and structure
+## Concept and structure
 
 Visit the Blog sample page and have a deep look at the layout.
 
@@ -35,101 +25,90 @@ Let us start to divide the template. We can identify the following page elements
 -   **categories block** contains list of categories
 -   **featured block** contains text block with link to favorite blog post
 
-#### Prerequisites
+## Prerequisites
 
 At the beginning some preparation is required.
 First of all, follow these instruction provided by Zurb to [Add Foundation to your Rails app](http://foundation.zurb.com/docs/applications.html).
 
 Hence the necessary preparations are completed.
 
-### Define elements
+## Define elements
 
-First of all we define the elements we need in `config/alchemy/elements.yml`.
-The individual page elements(see **1. Concept and structure**) could be
-considered as an element.
+First of all we define the elements we need in `config/alchemy/elements.yml`. The individual page elements (see [Concept and structure](#concept-and-structure)) could be considered as an element.
 
-#### Blog title
+### Blog title
 
-The blog should have a unique title. The title element contains a
-`title` and a `text` which represents a description or motto. In both cases we choose an
-`EssenceText`, due to the fact that the `title` and the `text` will contain simple text.
+The blog should have a unique title. The title element contains a `title` and a `text` which represents a description or motto. In both cases we choose an `EssenceText`, due to the fact that the `title` and the `text` will contain simple text.
 
-The `default` attribute provides the preset value, if the user
-didn't specify a motto or description (in Alchemy's backend).
+The `default` attribute provides the preset value, if the user didn't specify a motto or description (in Alchemy's backend).
 
 ~~~ yaml
 - name: blog_title
   unique: true
   contents:
-  - name: title
-    type: EssenceText
-    default: Blog
-  - name: text
-    type: EssenceText
-    default: This is my blog. It's awesome.
+    - name: title
+      type: EssenceText
+      default: Blog
+    - name: text
+      type: EssenceText
+      default: This is my blog. It's awesome.
 ~~~
 
-#### Blog post
+### Blog post
 
 A `blog_post` element has a title, date, author, image and text.
 
-The title is represented by `blog_post_title`. Its just a
-text, so we took `EssenceText` as type. Below
-`settings` we use `linkable: true`, because the
-user should be able to choose a link for the title of the blog post.
+The title is represented by `blog_post_title`. It's just a text, so we took `EssenceText` as type. Below `settings` we use `linkable: true`, because the user should be able to choose a link for the title of the blog post.
 
 The meta data like author and creation date corresponds to `blog_post_meta`.
 
-The `blog_post_intro_text` text as well as the main
-content `blog_post_content` get the type `EssenceRichtext`, since the user likes to add multiline paragraphs.
+The `blog_post_intro_text` text as well as the main content `blog_post_content` get the type `EssenceRichtext`, since the user likes to add multiline paragraphs.
 
 The `blog_post_image` is of type `EssencePicture`. This will empower the user to add an image.
 
 ~~~ yaml
 - name: blog_post
   contents:
-  - name: blog_post_title
-    type: EssenceText
-    default: Blog Post Title
-    settings:
-      linkable: true
-  - name: blog_post_meta
-    type: EssenceText
-    default: "Written by John Smith on August 12, 2012"
-  - name: blog_post_intro_text
-    type: EssenceRichtext
-  - name: blog_post_image
-    type: EssencePicture
-  - name: blog_post_content
-    type: EssenceRichtext
+    - name: blog_post_title
+      type: EssenceText
+      default: Blog Post Title
+      settings:
+        linkable: true
+    - name: blog_post_meta
+      type: EssenceText
+      default: "Written by John Smith on August 12, 2012"
+    - name: blog_post_intro_text
+      type: EssenceRichtext
+    - name: blog_post_image
+      type: EssencePicture
+    - name: blog_post_content
+      type: EssenceRichtext
 ~~~
 
-#### Categories Block
+### Categories Block
 
 The 'categories block' has a headline and a list of available categories.
 
-The `categories_headline` is represented by an `EssenceText`.
-In the backend the user should be able to add categories easily and dynamically.
-Thats the reason why we choose the `nestable_elements` feature.
+The `categories_headline` is represented by an `EssenceText`. In the backend the user should be able to add categories easily and dynamically. That's the reason why we chose the `nestable_elements` feature.
 
 ~~~ yaml
 - name: categories_block
   contents:
-  - name: categories_headline
-    type: EssenceText
-    default: Categories
-    nestable_elements:
-    - category
+    - name: categories_headline
+      type: EssenceText
+      default: Categories
+      nestable_elements:
+        - category
 
 - name: category
   contents:
-  - name: name
-    type: EssenceText
-    settings:
-      linkable: true
+    - name: name
+      type: EssenceText
+      settings:
+        linkable: true
 ~~~
 
-#### Featured block
+### Featured block
 
 The 'featured block' with a headline, text and a link.
 
@@ -137,23 +116,24 @@ The 'featured block' with a headline, text and a link.
 - name: featured
   unique: true
   contents:
-  - name: featured_headline
-    type: EssenceText
-    default: "Featured"
-  - name: featured_text
-    type: EssenceRichtext
-  - name: featured_link
-    type: EssenceText
-    settings:
-      linkable: true
+    - name: featured_headline
+      type: EssenceText
+      default: "Featured"
+    - name: featured_text
+      type: EssenceRichtext
+    - name: featured_link
+      type: EssenceText
+      settings:
+        linkable: true
 ~~~
 
-NOTE: Instead of `EssenceText` you could alternatively use `EssenceLink` for 'featured_link'.
+::: tip
+Instead of `EssenceText` you could alternatively use `EssenceLink` for 'featured_link'.
+:::
 
-### Define blog page layout
+## Define blog page layout
 
-After the definition of the elements, you we will continue with the defintion of an appropriate
-page layout. Page layout are specified in `config/alchemy/page_layouts.yml`.
+After the definition of the elements, you we will continue with the defintion of an appropriate page layout. Page layout are specified in `config/alchemy/page_layouts.yml`.
 
 Add a new page layout for your blog template:
 
@@ -163,11 +143,9 @@ Add a new page layout for your blog template:
   autogenerate: [blog_title]
 ~~~
 
-The `autogenerate` attribute allows to define elements which
-will be generated automatically, when the user creates a new page in
-backend.
+The `autogenerate` attribute allows to define elements which will be generated automatically, when the user creates a new page in backend.
 
-### Generate and customize the partials
+## Generate and customize the partials
 
 The command
 
@@ -175,18 +153,15 @@ The command
 rails g alchemy:elements --skip
 ~~~
 
-creates the view and editor partial according to the element definition
-in the `elements.yml`.
+creates the view and editor partial according to the element definition in the `elements.yml`.
 
 The partials are stored in `app/views/alchemy/elements/`.
 
-e.g. the view partial for 'blog_post'- element: `_blog_post_view.html.erb`
-and editor partial: `_blog_post_editor.html.erb`
+e.g. the view partial for 'blog_post'- element: `_blog_post_view.html.erb` and editor partial: `_blog_post_editor.html.erb`
 
-#### Customize the partials
+### Customize the partials
 
-In order to adapt the output of the elements you have to change the view partial.
-The command above generates default partials. The `_blog_post_view.html.erb` might look like this:
+In order to adapt the output of the elements you have to change the view partial. The command above generates default partials. The `_blog_post_view.html.erb` might look like this:
 
 ~~~ erb
 <% cache(element) do %>
@@ -210,8 +185,7 @@ The command above generates default partials. The `_blog_post_view.html.erb` mig
 <% end %>
 ~~~
 
-The blog post should match with the layout of the blog page in general,
-therefore we edit the view partial:
+The blog post should match with the layout of the blog page in general, therefore we edit the view partial:
 
 ~~~ erb
 <% cache(element) do %>
@@ -242,11 +216,9 @@ therefore we edit the view partial:
 <% end %>
 ~~~
 
-The editor partial is used for the backend, so we keep this file untouched.
-Feel feel to edit this partial if you like.
+The editor partial is used for the backend, so we keep this file untouched. Feel feel to edit this partial if you like.
 
-For the remaining elements replace the content of the correspondig view
-partials with the following code snippets:
+For the remaining elements replace the content of the correspondig view partials with the following code snippets:
 
 **`_blog_title_view.html.erb`**
 
@@ -300,16 +272,15 @@ partials with the following code snippets:
 <% end %>
 ~~~
 
-### Embed the elements into your page layout
+## Embed the elements into your page layout
 
 Finally you have to integrate your elements into the page layout.
 
-#### Create new page layout view
+### Create new page layout view
 
-Create a new file called `_blog.html.erb` in `app/views/alchemy/page_layouts`
-and copy the plain html code from [Foundation Zurb Blog Template Raw](https://gist.githubusercontent.com/ghaida/5054379/raw/f080e139a4e25c4548b265e7229cd6dbe09bff92/gistfile1.html).
+Create a new file called `_blog.html.erb` in `app/views/alchemy/page_layouts` and copy the plain html code from [Foundation Zurb Blog Template Raw](https://gist.githubusercontent.com/ghaida/5054379/raw/f080e139a4e25c4548b265e7229cd6dbe09bff92/gistfile1.html).
 
-#### Edit blog page layout view
+### Edit blog page layout view
 
 In `app/views/alchemy/page_layouts/_blog.html` search for
 (inside 'Nav Bar' comment)
@@ -328,8 +299,7 @@ and replace with:
 
 The **blog_title** set in the backend is now visible in the blog page layout context.
 
-Inside the commented 'Main Blog Content' replace the whole content of
-`<div class="large-9 columns" role="content">` with
+Inside the commented 'Main Blog Content' replace the whole content of `<div class="large-9 columns" role="content">` with
 
 ~~~ erb
 <%= render_elements only: 'blog_post' %>

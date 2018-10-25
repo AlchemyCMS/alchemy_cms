@@ -1,17 +1,19 @@
-## Creating custom Modules
+# Creating custom Modules
 
 Basicly there are two ways to set up a module:
 
 * Use Alchemy as your Rails admin backend
 * Create a new Engine
 
-endprologue.
+## Generator
 
+Alchemy provides a rails generator for custom modules, that can be invoked like this
 
-INFO: Alchemy provides a rails generator for custom modules, that can be invoked like this: `rails generate alchemy:module your_module_name`
+~~~ bash
+bin/rails generate alchemy:module your_module_name
+~~~
 
-
-### Using Alchemy as your Rails admin backend
+## Using Alchemy as your Rails admin backend
 
 Hence every module is a subsection of a Rails application or a gem you can roll out your own admin backend if you like.
 
@@ -35,7 +37,7 @@ An instance-variable named after the resource (i.e. `@your_resource` for `YourRe
 
 After you setting up your routes you have to take care for control access:
 
-### Authorization
+## Authorization
 
 Rights and roles are set in a CanCan Ability model.
 Create the file if it doesn't exist already. It has to be registered manually, by invoking `Alchemy.register_ability MyModuleAbility` in the module initializer.
@@ -57,9 +59,9 @@ end
 
 More information about authorization can be found in the docs of the [`cancancan` gem](https://github.com/CanCanCommunity/cancancan/wiki/Defining-Abilities)
 
-### Mounting
+## Routing
 
-#### For an engine:
+### In an engine
 
 ~~~ ruby
 # config/routes.rb
@@ -70,7 +72,7 @@ YourApp::Application.routes.draw do
 end
 ~~~
 
-#### For your apps resources:
+### In your app
 
 ~~~ ruby
 # config/routes.rb
@@ -86,13 +88,15 @@ YourApp::Application.routes.draw do
 end
 ~~~
 
-INFO: Due to Alchemy's strong routes it is **strongly recommended** to mount your engine before Alchemy.
+::: tip
+Due to Alchemy's strong routes it is **strongly recommended** to mount your engine before Alchemy.
+:::
 
-### Registering the module
+## Registering the module
 
-Last but not least the module needs to be registered to Alchemy CMS.
+Last but not least the module needs to be registered to AlchemyCMS.
 
-#### When using your host app:
+### When using your host app
 
 ~~~ ruby
 # my_host_app/config/initializers/alchemy_modules.rb
@@ -125,25 +129,7 @@ Alchemy.register_ability MyModuleAbility
 
 NOTE: As an alternative to the module icon you can pass: `image: '/alchemy/icon_of_your_module.png'`
 
-### Translate your module names:
-
-All module names are passed through I18n within a `alchemy` namespace.
-The name will be used as translation key.
-You should namespace your module name (with i.e. `modules`), to prevent conflicts.
-
-#### Example:
-
-Given a module name `modules.products` your translation has to be:
-
-~~~ yaml
-# config/locales/de.yml
-de:
-  alchemy:
-    modules:
-      products: Produkte
-~~~
-
-#### Using a Rails engine:
+### Using a Rails engine
 
 ~~~ ruby
 # my_engine/config/initializers/alchemy.rb
@@ -175,6 +161,20 @@ Alchemy::Modules.register_module({
 Alchemy.register_ability MyModuleAbility
 ~~~
 
-### Get Ready!
+## Translate your module names
 
-Restart, point your browser to <code>localhost:3000/admin/your_resources</code>!
+All module names are passed through I18n within a `alchemy` namespace.
+The name will be used as translation key.
+You should namespace your module name (with i.e. `modules`), to prevent conflicts.
+
+### Example
+
+Given a module name `modules.products` your translation has to be:
+
+~~~ yaml
+# config/locales/de.yml
+de:
+  alchemy:
+    modules:
+      products: Produkte
+~~~

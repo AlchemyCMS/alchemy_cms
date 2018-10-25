@@ -18,8 +18,7 @@ to generate it.
 
 ## The configuration file
 
-Please [have a look into the source code](https://github.com/AlchemyCMS/alchemy_cms/blob/master/config/alchemy/config.yml)
-The file is pretty well documentated and much more up to date then this guide.
+Please [have a look into the source code](https://github.com/AlchemyCMS/alchemy_cms/blob/master/config/alchemy/config.yml). The file is pretty well documentated and much more up to date then this guide.
 
 ## Environment related configurations
 
