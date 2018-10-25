@@ -1,11 +1,20 @@
 module.exports = {
   title: 'AlchemyCMS Guides',
   description: 'Developer Guides for AlchemyCMS',
+  head: [
+    [
+      'link', {
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Source+Sans+Pro:900'
+      }
+    ]
+  ],
   themeConfig: {
     repo: 'AlchemyCMS/alchemy-guides',
     editLinks: true,
     docsDir: 'guides',
     home: true,
+    lastUpdated: 'Last Updated',
     nav: [
       {
         text: "Getting Started",

@@ -1,0 +1,106 @@
+@require '~vuepress/lib/default-theme/styles/config.styl'
+@require './alchemy-colors'
+
+#app {
+  background-color: $alchemy-light-gray;
+  font-family: "Open Sans", sans-serif;
+
+  h1, h2, h3 {
+    font-family: "Source Sans Pro", sans-serif;
+    font-weight: 900;
+  }
+
+  .sidebar-button {
+    color: white
+  }
+
+  .navbar {
+    background-color: $alchemy-blue;
+
+    .links {
+      background-color: transparent;
+    }
+  }
+
+  .site-name,
+  .nav-links,
+  .nav-links a:hover,
+  .nav-links .router-link-active,
+  .nav-links .router-link-active:hover {
+    color: white;
+  }
+
+  .custom-block.tip {
+    background-color: $alchemy-medium-gray;
+  }
+}
+
+.page {
+  .content code {
+    color: $alchemy-dark-gray;
+  }
+}
+
+@media (max-width: $MQMobile) {
+  #app {
+    .dropdown-item {
+      h4, > a {
+        line-height: 1.5rem;
+        padding: 0.25rem 1.5rem 0.25rem 1.25rem;
+      }
+    }
+  }
+}
+
+@media (min-width: $MQMobile) {
+  #app {
+    .nav-item > a,
+    .repo-link > a {
+      margin: 0 0.75rem;
+    }
+
+    .nav-links .nav-item {
+      margin: 0;
+    }
+
+    .nav-links .repo-link {
+      margin-left: 0.75rem;
+    }
+
+    .dropdown-wrapper {
+      height: 2.4rem;
+      padding: 0 0.75rem;
+
+      &:hover, &.open {
+        position: relative;
+        height: 3.6rem;
+        top: -1.2rem;
+        background-color: $alchemy-orange;
+
+        .dropdown-title {
+          position: relative;
+          top: 1.2rem;
+        }
+      }
+    }
+
+    .dropdown-title .arrow {
+      border-top-color: white
+    }
+
+    .nav-dropdown {
+      background-color: $alchemy-orange;
+      border-radius: 0;
+      border: 0 none;
+
+      .dropdown-item a:hover,
+      .dropdown-item a.router-link-active {
+        color: $alchemy-dark-gray;
+      }
+
+      .dropdown-item a.router-link-active {
+        font-weight: 700;
+      }
+    }
+  }
+}
