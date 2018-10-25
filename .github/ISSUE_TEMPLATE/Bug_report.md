@@ -20,8 +20,3 @@ Tell us what happens instead
 
 - Alchemy Version:
 - Rails Version:
-- Contents of your `Gemfile.lock`
-
-```ruby
-# Replace with Gemfile.lock content
-```
