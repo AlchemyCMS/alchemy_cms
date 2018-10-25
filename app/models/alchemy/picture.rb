@@ -88,6 +88,10 @@ module Alchemy
       left_outer_joins(:taggings).where(gutentag_taggings: {id: nil})
     }
 
+    scope :not_used, -> {
+      left_outer_joins(:essence_pictures).where(essence_pictures: {id: nil})
+    }
+
     # Class methods
 
     class << self

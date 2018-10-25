@@ -227,6 +227,13 @@ module Alchemy
         end
       end
 
+      context "with 'not_used' as argument" do
+        it 'should call the .not_used scope' do
+          expect(Picture).to receive(:not_used).and_return(picture)
+          expect(Picture.filtered_by('not_used')).to eq(picture)
+        end
+      end
+
       context "with no argument" do
         it 'should return the scoped collection' do
           expect(Picture).to receive(:all).and_return(picture)
