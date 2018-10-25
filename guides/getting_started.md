@@ -144,5 +144,5 @@ Congratulations, you can now access the backend.
 As next you should to read about:
 
 * [Alchemy's architecture](architecture.html)
-* Customizing [page layouts](create_page_layouts.html)
+* Customizing [page layouts](page_layouts.html)
 * Customizing [elements](elements.html)
