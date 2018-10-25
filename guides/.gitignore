@@ -4,3 +4,5 @@ staging
 Gemfile.lock
 .rvmrc
 .bundle
+/node_modules
+guides/.vuepress/dist
