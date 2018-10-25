@@ -49,7 +49,8 @@
         position: absolute;
         top: 0;
         left: $collapsed-main-menu-width - 1;
-        width: $main-menu-width + 1;
+        min-width: $main-menu-width + 1;
+        max-width: 350px;
         padding-left: 4*$default-padding;
       }
     }
