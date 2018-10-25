@@ -15,8 +15,6 @@ The actual guides live in the `/guides` folder.
 
 ## Preview the guides
 
-**In the `/guides` folder:**
-
 Run
 
 ```sh
@@ -28,6 +26,7 @@ to install [guides](https://github.com/AlchemyCMS/guides).
 To run a local guides server, run
 
 ```sh
+cd guides
 bundle exec guides preview
 ```
 
