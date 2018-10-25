@@ -110,7 +110,7 @@ Just add it to your apps Gemfile
 
 <ruby>
 # Gemfile
-gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise'
+gem 'alchemy-devise'
 </ruby>
 
 <shell>
