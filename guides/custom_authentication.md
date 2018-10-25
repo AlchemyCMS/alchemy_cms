@@ -1,6 +1,6 @@
-h2. Custom Authentication
+# Custom Authentication
 
-Alchemy 3.0 has removed its build in authentication into a separate gem called "alchemy-devise":https://github.com/magiclabs/alchemy-devise.
+Alchemy 3.0 has removed its build in authentication into a separate gem called [alchemy-devise](https://github.com/AlchemyCMS/alchemy-devise).
 
 Now, that this is not in the core anymore it gives you the possibility to add your own custom authentification. You only have to tell Alchemy about your user class.
 
@@ -9,45 +9,43 @@ In this guide you will learn to:
 * add just enough code to make your User class work with Alchemy
 * add additionally methods to enhance the integration
 
-endprologue.
-
-h3. Activating your model
+## Activating your model
 
 Alchemy has some defaults for user model name and login logout path names:
 
-h4. Defaults
+### Defaults
 
-* <code>Alchemy.user_class_name</code> defaults to <code>'User'</code>
-* <code>Alchemy.login_path</code> defaults to <code>'/login'</code>
-* <code>Alchemy.logout_path</code> defaults to <code>'/logout'</code>
+* `Alchemy.user_class_name` defaults to `'User'`
+* `Alchemy.login_path` defaults to `'/login'`
+* `Alchemy.logout_path` defaults to `'/logout'`
 
 Anyway, you can tell Alchemy about your authentication model configuration.
 
-h5. Example
+### Example
 
-<ruby>
+~~~ ruby
 # config/initializers/alchemy.rb
 Alchemy.user_class_name = 'Admin'
 Alchemy.login_path = '/auth/login'
 Alchemy.logout_path = '/auth/logout'
-</ruby>
+~~~
 
-h3. Mandatory methods
+## Mandatory methods
 
-h4. Setting roles
+### Setting roles
 
-The only method that Alchemy CMS needs from your user class is <code>alchemy_roles</code>.
+The only method that AlchemyCMS needs from your user class is `alchemy_roles`.
 
 This method has to return an array of strings containing at least one of these roles:
 
-* <code>member</code>
-* <code>author</code>
-* <code>editor</code>
-* <code>admin</code>
+* `member`
+* `author`
+* `editor`
+* `admin`
 
-h5. Example
+### Example
 
-<ruby>
+~~~ ruby
 # app/models/user.rb
 
 def alchemy_roles
@@ -57,99 +55,105 @@ def alchemy_roles
     []
   end
 end
-</ruby>
+~~~
 
-TIP: You can use your own authorization system to set the role. You only need to ensure that it returns an Array with at least one of the roles.
+::: tip
+You can use your own authorization system to set the role. You only need to ensure that it returns an Array with at least one of the roles.
+:::
 
 That's it. Alchemy has everything it needs to use your user class as authentication model.
 
-h3. Optional methods
+## Optional methods
 
 Although Alchemy does not need much to know about your user class, there are some few other attributes that are good to have in your user class which are:
 
-h4. Name
+### Name
 
-This would be used to say "Welcome back <code>#{@user.name}</code>" in the Alchemy dashboard.
+This would be used to say "Welcome back `#{@user.name}`" in the Alchemy dashboard.
 
-h5. Example
+### Example
 
-<ruby>
+~~~ ruby
 # app/models/user.rb
 
 def name
   # If you don't have a name, you could use the user's email
   read_attribute(:email)
 end
-</ruby>
+~~~
 
-h4. Display name
+### Display name
 
 This is used in the "logged in as" note on the top right corner of the admin interface.
 
-h5. Example
+### Example
 
-<ruby>
+~~~ ruby
 # app/models/user.rb
 
 def alchemy_display_name
   # If you don't have a name, you could use the user's email
   "#{firstname} #{lastname}".strip
 end
-</ruby>
+~~~
 
-h4. Language
+## Preferred Language
 
 A locale String to set the users preferred translation of the Alchemy GUI.
 Anyway, the user has always the option to switch the language, but it is good
 to give your user its preferred language.
 
-h5. Example
+### Example
 
-<ruby>
+~~~ ruby
 # app/models/user.rb
 
 def language
   # Always use dutch as translation
   'nl'
 end
-</ruby>
+~~~
 
-TIP: In a real world application you maybe want to store this as <code>alchemy_language</code> in the users table.
+::: tip
+In a real world application you maybe want to store this as `alchemy_language` in the users table.
+:::
 
-h4. User stamp columns
+## User stamp columns
 
 Alchemy stores updater and creator ids (if the columns are present).
 If you want to track which user updated a record you need to add:
 
-<code>creator_id</code> and <code>updater_id</code>
+`creator_id` and `updater_id`
 
 to your users table.
 
-h5. Example
+### Example
 
-<shell>
-$ bin/rails g migration add_creator_id_and_updater_id_to_users creator_id:integer:index updater_id:integer:index
-$ bin/rake db:migrate
-</shell>
+~~~ bash
+bin/rails g migration add_creator_id_and_updater_id_to_users creator_id:integer:index updater_id:integer:index
+bin/rake db:migrate
+~~~
 
-h4. Tagging
+## Tagging
 
-If you want your users to be taggable you need to add the <code>acts_as_taggable</code> and <code>acts_as_tagger</code> class methods.
+If you want your users to be taggable you need to add the `acts_as_taggable` and `acts_as_tagger` class methods.
 
-h5. Example
+### Example
 
-<ruby>
+~~~ ruby
 class User < ActiveRecord::Base
   acts_as_taggable
   acts_as_tagger
   ...
 end
-</ruby>
+~~~
 
-NOTE: You also should add a <code>cached_tag_list</code> text column into your users table for better performance.
+::: tip
+You also should add a `cached_tag_list` text column into your users table for better performance.
+:::
 
-<shell>
-$ bin/rails g migration add_cached_tag_list_to_users cached_tag_list:text
-</shell>
+~~~ bash
+bin/rails g migration add_cached_tag_list_to_users cached_tag_list:text
+~~~
 
 This is it! Now your user class should be a first class citizen of the Alchemy admin backend.

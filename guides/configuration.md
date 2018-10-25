@@ -1,17 +1,27 @@
-h2. Configuration of Alchemy CMS
+# Configuration of AlchemyCMS
 
-Alchemy configuration is done in the <code>config/alchemy/config.yml</code> file.
+Alchemy configuration is done in the `config/alchemy/config.yml` file.
 
-Use <code>rake alchemy:install</code> or <code>rails g alchemy:scaffold</code> to generate it.
+Use
 
-endprologue.
+~~~ bash
+bin/rake alchemy:install
+~~~
 
-h3. The configuration file
+or
 
-Please "have a look into the source code":https://raw.github.com/AlchemyCMS/alchemy_cms/master/config/alchemy/config.yml
+~~~ bash
+bin/rails g alchemy:install
+~~~
+
+to generate it.
+
+## The configuration file
+
+Please [have a look into the source code](https://github.com/AlchemyCMS/alchemy_cms/blob/master/config/alchemy/config.yml)
 The file is pretty well documentated and much more up to date then this guide.
 
-h3. Environment related configurations
+## Environment related configurations
 
 Beside using that one configuration file you also can seperate certain config settings for specific environments.
 
@@ -20,9 +30,17 @@ For example: You want to enforce SSL in production, while in your development en
 Its easy to achieve by setting up a second configuration file for development which contains nothing but the ssl enforcing setting.
 
 Your apps default config:
-<code>your_app/config/alchemy/config.yml</code>
+
+~~~
+your_app/config/alchemy/config.yml
+~~~
 
 Environment specific config:
-<code>your_app/config/alchemy/development.config.yml</code>
 
+~~~
+your_app/config/alchemy/development.config.yml
+~~~
+
+::: tip NOTE
 When running your application in development mode both config files get merged, while the environment specific config takes precedence over the default config.
+:::

@@ -1,4 +1,4 @@
-h2. Creating own Essences
+# Creating own Essences
 
 Alchemys powerful content storage technology is build around Essences. They are ActiveRecord models that have an editor and a presentation view partial.
 
@@ -7,56 +7,56 @@ Alchemy has lots of build in essences. But you can create your own essence and e
 * Use the generator to create a new essence
 * Associate an essence to your model
 
-endprologue.
+## Using The Essence Generator
 
-h3. Using The Essence Generator
+The essence generator is a wrapper around the rails model generator. It generates the essence model for you and injects the `acts_as_essence` class method.
 
-The essence generator is a wrapper around the rails model generator. It generates the essence model for you and injects the <code>acts_as_essence</code> class method.
+~~~ bash
+bin/rails g alchemy:essence Alchemy::EssenceHeadline
+~~~
 
-<shell>
-  rails g alchemy:essence Alchemy::EssenceHeadline
-</shell>
-
-INFO: Essences are typically created under the Alchemy namespace. The naming convention is EssenceYourName.
+::: tip INFO
+Essences are typically created under the Alchemy namespace. The naming convention is EssenceYourName
+:::
 
 This is what the generated model looks like:
 
-<ruby>
+~~~ ruby
 # app/models/alchemy/essence_headline.rb
 class Alchemy::EssenceHeadline < ActiveRecord::Base
   acts_as_essence
 end
-</ruby>
+~~~
 
-Alchemy makes some assumptions about your essence. First of all it looks for a <code>body</code> column that it uses as <code>ingredient</code> column.
+Alchemy makes some assumptions about your essence. First of all it looks for a `body` column that it uses as `ingredient` column.
 
-If you want to store the value in another column, please use one of "the various options":http://rubydoc.info/github/AlchemyCMS/alchemy_cms/Alchemy/Essence/ClassMethods:acts_as_essence the <code>acts_as_essence</code> class method provides.
+If you want to store the value in another column, please use one of [the various options](http://rubydoc.info/github/AlchemyCMS/alchemy_cms/Alchemy/Essence/ClassMethods:acts_as_essence) the `acts_as_essence` class method provides.
 
-h3. The essence views
+## The essence views
 
 Every essence has to have two views:
 
 * One for presenting
 * One for editing
 
-h4. The view partial
+### The view partial
 
-The view partial is used by the <code>render_elements</code> helper to present the essence to the user.
+The view partial is used by the `render_elements` helper to present the essence to the user.
 
-It is yours. Adjust it to your needs. You can access the value with the <code>ingredient</code> method of the <code>content</code> object instance.
+It is yours. Adjust it to your needs. You can access the value with the `ingredient` method of the `content` object instance.
 
-<erb>
+~~~ erb
 <!-- app/views/alchemy/essences/_essence_headline_view.html.erb -->
 <h1><%= content.ingredient %></h1>
-</erb>
+~~~
 
-h4. The editor partial
+### The editor partial
 
 The editor partial is basically a set of form fields holding values of your essence. It is rendered inside the element editor view form object.
 
 This is just what the generator creates for you:
 
-<erb>
+~~~ erb
 <!-- app/views/alchemy/essences/_essence_headline_editor.html.erb -->
 <% cache(content) do %>
   <div class="essence_headline content_editor" id="<%= content.dom_id %>">
@@ -68,34 +68,33 @@ This is just what the generator creates for you:
     ) %>
   </div>
 <% end %>
-</erb>
+~~~
 
 But this is yours. Feel free to adjust it to your needs.
 Just make shure that you provide form fields that Alchemy can use to update your object in the database.
 
-h3. Associations
+## Associations
 
-You can associate every ActiveRecord based model with an essence. In this example we want to connect an existing <code>Person</code> model to an element, so we can associate it with an Alchemy page.
+You can associate every ActiveRecord based model with an essence. In this example we want to connect an existing `Person` model to an element, so we can associate it with an Alchemy page.
 
 Just use the ingredient_column option to tell Alchemy the foreign key to use for the association.
 
-h4. Set the foreign key
+### Set the foreign key
 
-<ruby>
+~~~ ruby
 # app/models/alchemy/essence_person.rb
 class Alchemy::EssencePerson < ActiveRecord::Base
   acts_as_essence ingredient_column: 'person_id'
 end
-</ruby>
+~~~
 
-h4. Accessing your model instance
+## Accessing your model instance
 
-That's it. Everything else is handled by Alchemy. You can now access the associated <code>Person</code> model with the <code>ingredient</code> method on an instance of the <code>Alchemy::Content</code>.
+That's it. Everything else is handled by Alchemy. You can now access the associated `Person` model with the `ingredient` method on an instance of the `Alchemy::Content`.
 
-<erb>
+~~~ erb
 <!-- app/views/alchemy/essences/_essence_person_view.html.erb -->
 <%= content.ingredient.firstname %>
-</erb>
+~~~
 
-Now you can use your new essence in any element you want. Connect it like shown in the "Elements guide":elements.html.
-&nbsp;
+Now you can use your new essence in any element you want. Connect it like shown in the [Elements guide](elements.html).
