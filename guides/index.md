@@ -1,17 +1,14 @@
 ---
 home: true
+heroImage: /alchemy-logo.svg
 actionText: Get Started →
 actionLink: /getting_started
+features:
+- title: Not a common CMS
+  details: Alchemy is a CMS framework. It enables you to build your own CMS.
+- title: Highly customizable
+  details: Build even complex websites in a shorter time frame.
+- title: Easy to use
+  details: The user interface is powerful, easy to use and intuitive to learn.
+footer: BSD-3 Licensed • Copyright © 2010 - present Thomas von Deyen & Friends
 ---
-
-## Alchemy is not a common CMS
-
-Alchemy is a CMS framework. It enables you to build your own CMS.
-
-The name speaks for itself: Alchemy is a kind of chemical construction kit for developers who want to build professional web-applications in a short time frame.
-
-Content managers are enthusiastic about AlchemyCMS because of its clear and powerful user interface, which is easy to use and intuitive to learn.
-
-## Learn to work with AlchemyCMS
-
-We **highly recommend** reading the following ["getting started" guide](getting_started.html) to learn about Ruby, Rails and the [architecture of Alchemy's powerful content storage system](architecture.html).

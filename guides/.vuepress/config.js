@@ -1,6 +1,6 @@
 module.exports = {
   title: 'AlchemyCMS Guides',
-  description: 'Developer Guides for AlchemyCMS',
+  description: 'Developer Guidelines for AlchemyCMS',
   head: [
     [
       'link', {
