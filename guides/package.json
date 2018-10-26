@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "guides:preview": "vuepress dev guides",
+    "guides:build": "vuepress build guides"
+  },
+  "devDependencies": {
+    "vuepress": "^0.14.4"
+  }
+}
