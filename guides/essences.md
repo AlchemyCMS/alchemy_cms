@@ -3,9 +3,9 @@
 Essences store the actual content of your site.
 
 Alchemy comes with a lot of predefined essences for the regular needs of a website project.
-Combine them like a chemestry kit into "elements":elements.html.
+Combine them like a chemestry kit into [elements](/elements.html).
 
-Essences are normal Rails models, so it is pretty easy to "add your own":create_essences.html.
+Essences are normal Rails models, so it is pretty easy to [add your own essence class](/create_essences.html).
 
 ## Definition
 
@@ -26,7 +26,7 @@ When defining elements, you can assign hints and default values to every essence
 
 * **hint** `String`
 
-  A hint for the user in the admin frontend that describes what the essence is used for. The hint is "translatable":#translations if you provide an I18n translation key instead of a complete sentence. You may also set it to true to default to the I18n key `alchemy.content_hints.your-content-name`.
+  A hint for the user in the admin frontend that describes what the essence is used for. The hint is translatable if you provide an I18n translation key instead of a complete sentence. You may also set it to `true` to default to the I18n key `alchemy.content_hints.your-content-name`.
 
 * **default** `String`
 

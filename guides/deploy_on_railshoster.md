@@ -1,6 +1,6 @@
 # Railshoster deployment
 
-[RailsHoster](http://www.railshoster.com) offers durable rails hosting for good money. In this guide you will learn how to deploy your Alchemy Site on your RailsHoster server. Please be sure that you have read the "Getting Started Guide":/getting_started to be familar with the Alchemy installation steps. After finishing this guide you will know:
+[RailsHoster](http://www.railshoster.com) offers durable rails hosting for good money. In this guide you will learn how to deploy your Alchemy Site on your RailsHoster server. Please be sure that you have read the [Getting Started Guide](/getting_started.html) to be familar with the Alchemy installation steps. After finishing this guide you will know:
 
 * How to initialize your local Alchemy installation so it is ready to be deployed on RailsHoster
 * How to deploy changes you've made to your server

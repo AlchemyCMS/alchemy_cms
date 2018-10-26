@@ -46,9 +46,9 @@ The element definitions get cached. Please restart the server after editing the 
 
 The element in this example is named **"article"** and can be placed only once per page. It has three contents of the following types:
 
-* "EssencePicture":essences.html#essencepicture
-* "EssenceText":essences.html#essencetext
-* "EssenceRichtext":essences.html#essencerichtext
+* [EssencePicture](essences.html#essencepicture)
+* [EssenceText](essences.html#essencetext)
+* [EssenceRichtext](essences.html#essencerichtext)
 
 You can select which content will be used for the preview text in the element's title bar in the admin frontend by adding `as_element_title: true` to the desired content. In the example above, the **"headline"** content would be used.
 
@@ -58,14 +58,14 @@ The following settings can be used to define elements in the `elements.yml`.
 
 * **name** `String` (_required_)
 
-  A lowercased unique name of the element. Separated words needs to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also part of the `app/views/alchemy/elements` view partials file names. The name is "translatable":#translations for the user in the admin frontend.
+  A lowercased unique name of the element. Separated words needs to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also part of the `app/views/alchemy/elements` view partials file names. The name is [translatable](#translating-elements) for the user in the admin frontend.
 
 * **unique** `Boolean`
 
   (Default: `false`) Passing `true` means this element can be placed only once on a page.
 * **hint** `String`
 
-  A hint for the user in the admin frontend that describes what the element is used for. The hint is "translatable":#translations if you provide an I18n translation key instead of a complete sentence.
+  A hint for the user in the admin frontend that describes what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence.
 
 * **nestable_elements** `Array`
 
@@ -79,7 +79,7 @@ The following settings can be used to define elements in the `elements.yml`.
 
   A collection of contents the element contains. A content has to have a `name` (unique per element) and a `type`.
 
-Take a look at the "essences guide":essences.html to get more informations about the available essence types.
+Take a look at the [essences guide](/essences.html) to get more informations about the available essence types.
 
 In the following examples you will see how to use these settings.
 
@@ -96,7 +96,7 @@ In order to use it, you just need to enable the setting in the `elements.yml` fi
   picture_gallery: true
 ~~~
 
-After "generating the elements view partials":#generating-the-partials you will receive the view and the editor partial.
+After [generating the elements view partials](#generating-the-partials) you will have a view and editor partial.
 
 #### The editor partial for the element
 
