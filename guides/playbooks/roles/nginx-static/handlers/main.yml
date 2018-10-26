@@ -1,7 +1,0 @@
----
-
-- name: enable vhost
-  file:
-    src: "/etc/nginx/sites-available/{{hostname}}"
-    dest: "/etc/nginx/sites-enabled/{{hostname}}"
-    state: link
