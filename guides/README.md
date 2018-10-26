@@ -1,56 +1,40 @@
-The Alchemy CMS Guidelines [![Build Status](https://travis-ci.org/AlchemyCMS/alchemy-guides.svg?branch=master)](https://travis-ci.org/AlchemyCMS/alchemy-guides)
-==========================
+# The AlchemyCMS Guides
 
-The master branch covers the Alchemy CMS edge version.
-
-Please check out the other branches for guides for the latest stable or older versions of Alchemy CMS.
-
-The guides are created with the [guides](https://github.com/AlchemyCMS/guides) gem and are written in [textile](http://redcloth.org/textile) or [markdown](http://daringfireball.net/projects/markdown/syntax) markup.
+The guides are created with [VuePress](https://vuepress.vuejs.org) and are written in [Markdown](https://daringfireball.net/projects/markdown/syntax).
 
 ## File locations
 
-The top level namespace includes the top level static welcome page of http://guides.alchemy-cms.com.
-
-The actual guides live in the `/guides` folder.
+The actual guides sourcefiles live in the `/guides` folder.
 
 ## Preview the guides
 
 Run
 
-```sh
-bundle install
+```bash
+yarn install
 ```
 
-to install [guides](https://github.com/AlchemyCMS/guides).
+to install [VuePress](https://vuepress.vuejs.org).
 
-To run a local guides server, run
+To run a local preview server, run
 
-```sh
-cd guides
-bundle exec guides preview
+```bash
+yarn guides:preview
 ```
 
-The server will be available at [0.0.0.0:9292](http://0.0.0.0:9292).
+The server will be available at [http://localhost:8080](http://localhost:8080).
 
 ## Building
 
 Build the guides html files with:
 
-```sh
-./build.sh
+```bash
+yarn guides:build
 ```
 
 ## Deployment
 
-Deploy the files via:
-
-```sh
-bundle exec cap deploy
-```
-
-**Deployment takes care of the version deployed.** So, if you want to deploy the 3.3 guides you need to checkout the `3.3` branch first.
-
-The `master` branch deploys the edge version.
+Deployment is done automatically via [netlify](https://www.netlify.com) whenever a change is merged into the master branch.
 
 ## Contributing
 
