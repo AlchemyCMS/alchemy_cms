@@ -36,10 +36,6 @@ module.exports = {
             link: 'pages'
           },
           {
-            text: "Page layouts",
-            link: 'page_layouts'
-          },
-          {
             text: "Cells",
             link: 'cells'
           },

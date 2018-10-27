@@ -1,2 +1,5 @@
 # Redirect default Netlify subdomain to primary domain
 https://alchemy-guides.netlify.com/* https://guides.alchemy-cms.com/:splat 301!
+
+# Renamed/combined pages
+/page_layouts.html /pages.html 301​

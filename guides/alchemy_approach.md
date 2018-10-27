@@ -5,7 +5,7 @@
 When working with AlchemyCMS the very first thing the webdeveloper
 conceptually does is splitting the website´s layout into different types (called page layouts).
 
-Every page which is structurally different to other, should get its own page-layout. A page-layout is a html template with specified properties. [More about PageLayouts »](page_layouts.html)
+Every page which is structurally different to other, should get its own page-layout. A page-layout is a html template with specified properties. [More about pages and their layouts »](pages.html#defining-page-layouts)
 
 After that the developer will look deeper to the content and will
 perhaps split the pages into cells. Cells can be rendered on page-layouts and are acting as containers for elements. [More about Cells »](cells.html)
