@@ -1,3 +1,8 @@
+---
+prev: /getting_started.html
+next: /pages.html
+---
+
 # About AlchemyCMS
 
 Alchemy is a user friendly and flexible Rails based CMS. In

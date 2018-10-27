@@ -1,10 +1,15 @@
+---
+prev: /pages.html
+next: /elements.html
+---
+
 # Cells
 
 Cells are fixed areas on a page and act as element containers.
 
 Often you have fixed sections on a page like a sidebar or the popular hero. These are perfect candidates for cells.
 
-If you want to be able to change the position of element containers, you probably want to use [nestable elements](elements.html#element-with-nestable-elements) instead.
+If you want to be able to change the position of element containers, you probably want to use [nestable elements](/elements.html#nestable-elements) instead.
 
 ## Defining cells
 
@@ -20,18 +25,16 @@ You also have to define the cells to use in your `config/alchemy/page_layouts.ym
 You can only add elements that are both defined in your `cells.yml` and `page_layouts.yml`!
 :::
 
-## Examples
-
-### cells.yml
+### Examples
 
 ~~~ yaml
+# cells.yml
 - name: left_column
   elements: [image, text]
 ~~~
 
-### page_layouts.yml
-
 ~~~ yaml
+# page_layouts.yml
 - name: standard
   cells: [left_column]
   elements: [image, text]

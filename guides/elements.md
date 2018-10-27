@@ -1,3 +1,8 @@
+---
+prev: /cells.html
+next: /essences.html
+---
+
 # Elements
 
 ## Overview

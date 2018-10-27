@@ -1,3 +1,8 @@
+---
+prev: /about.html
+next: /cells.html
+---
+
 # Pages
 
 ## Overview

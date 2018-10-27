@@ -1,3 +1,8 @@
+---
+prev: /configuration.html
+next: false
+---
+
 # Upgrading AlchemyCMS
 
 This guide describes how to upgrade AlchemyCMS to version 3.0.0 and assumes that your current Alchemy version is v2.8.x.

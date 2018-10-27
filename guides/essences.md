@@ -1,3 +1,8 @@
+---
+prev: /elements.html
+next: /render_images.html
+---
+
 # Essences
 
 ## Overview
