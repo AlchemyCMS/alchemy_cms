@@ -24,20 +24,12 @@ module.exports = {
         text: 'Basics',
         items: [
           {
-            text: "Alchemy´s Architecture",
-            link: 'architecture.html'
-          },
-          {
-            text: "The Alchemy approach",
-            link: 'alchemy_approach.html'
+            text: "About AlchemyCMS",
+            link: 'about'
           },
           {
             text: "Pages",
             link: 'pages'
-          },
-          {
-            text: "Page layouts",
-            link: 'page_layouts'
           },
           {
             text: "Cells",

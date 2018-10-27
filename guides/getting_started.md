@@ -1,3 +1,8 @@
+---
+prev: false
+next: /about.html
+---
+
 # Getting Started
 
 This guide covers getting up and running with AlchemyCMS. After reading it, you should be familiar with:
@@ -57,7 +62,9 @@ Alchemy is a Rails 4 engine, so at first you need to generate a fresh Rails 4 ap
 rails new YOUR_APP_NAME
 ~~~
 
-INFO: The command takes lots of parameters like choosing the database you want to work with. Please follow the official Rails guides for further informations. http://guides.rubyonrails.org/getting_started.html
+::: tip INFO
+The `rails` command has lots of parameters like choosing the database you want to work with. Please follow [the official Rails guides](https://guides.rubyonrails.org/getting_started.html) for further information.
+:::
 
 ### Install Alchemy into the Rails application
 
@@ -138,11 +145,3 @@ Open a browser window and navigate to [http://localhost:3000](http://localhost:3
 You will be greeted with a screen that is prompting you to create the first user.
 
 Congratulations, you can now access the backend.
-
-## Next steps
-
-As next you should to read about:
-
-* [Alchemy's architecture](architecture.html)
-* Customizing [page layouts](page_layouts.html)
-* Customizing [elements](elements.html)

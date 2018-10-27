@@ -1,4 +1,11 @@
+---
+prev: /cells.html
+next: /essences.html
+---
+
 # Elements
+
+## Overview
 
 Elements are reusable sets of contents that belong together, visually and contextually.
 
@@ -8,13 +15,24 @@ Some people speak of widgets, blocks or components. All these are elements in Al
 
 They give you a powerful tool to build the CMS you need.
 
-The contents of an element are of a specific [essence](essences.html). Each essence represents a data type that get stored into the database.
+The contents of an element are of a specific [essence](essences.html). Each essence represents a data type that store values in the database.
 
-Elements have two view partials. One which represents the element on your website, the other which renders form fields in the admin for the editors.
+## Templates
+
+Elements have two templates (they are called [partials in Rails](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials)).
+
+1. The `<element_name>_view` represents the element on your website
+2. The `<element_name>_editor` renders form fields in the admin for the editors
+
+They live in `app/views/alchemy/elements/`.
+
+::: tip NOTE
+You don't need to create the files yourself. Use [the built in generator](#generating-the-partials) to let Alchemy generate them for you.
+:::
 
 ## Defining elements
 
-Elements get defined in the `config/alchemy/elements.yml` file.
+Elements are defined in the `config/alchemy/elements.yml` file. Element definitions are written in [YAML (YAML Ain't Markup Language)](http://yaml.org)
 
 If this file does not exist yet, use the scaffold generator to do that now:
 
@@ -25,10 +43,10 @@ bin/rails g alchemy:install
 The generator also creates all the other basic folders and files for setting up your website with Alchemy.
 
 ::: warning NOTE
-The element definitions get cached. Please restart the server after editing the `elements.yml`.
+The element definitions are cached. Please restart the server after editing the `elements.yml`.
 :::
 
-### Example of an element definition
+### Example element definition
 
 ~~~ yaml
 # config/alchemy/elements.yml
@@ -50,19 +68,21 @@ The element in this example is named **"article"** and can be placed only once p
 * [EssenceText](essences.html#essencetext)
 * [EssenceRichtext](essences.html#essencerichtext)
 
+::: tip
 You can select which content will be used for the preview text in the element's title bar in the admin frontend by adding `as_element_title: true` to the desired content. In the example above, the **"headline"** content would be used.
+:::
 
 ### Element settings
 
 The following settings can be used to define elements in the `elements.yml`.
 
-* **name** `String` (_required_)
+* **name** `String` _required_
 
-  A lowercased unique name of the element. Separated words needs to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also part of the `app/views/alchemy/elements` view partials file names. The name is [translatable](#translating-elements) for the user in the admin frontend.
+  A lowercased **unique** name of the element. Separated words needs to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also part of the `app/views/alchemy/elements` view partials file names. The name is [translatable](#translating-elements) for the user in the admin frontend.
 
-* **unique** `Boolean`
+* **unique** `Boolean` (Default: `false`)
 
-  (Default: `false`) Passing `true` means this element can be placed only once on a page.
+  Passing `true` means this element can be placed only once on a page.
 * **hint** `String`
 
   A hint for the user in the admin frontend that describes what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence.
@@ -71,7 +91,7 @@ The following settings can be used to define elements in the `elements.yml`.
 
   A collection of element names that can be nested into the element.
 
-* **taggable** `Boolean`
+* **taggable** `Boolean` (Default: `false`)
 
   Enables the element to be taggable by the user in the admin frontend.
 
@@ -79,70 +99,21 @@ The following settings can be used to define elements in the `elements.yml`.
 
   A collection of contents the element contains. A content has to have a `name` (unique per element) and a `type`.
 
-Take a look at the [essences guide](/essences.html) to get more informations about the available essence types.
+::: tip
+Have a look at the [essences guide](/essences.html) to get more informations about available essence types.
+:::
 
 In the following examples you will see how to use these settings.
 
 In the code examples of the partials we use the [slim template engine](http://slim-lang.com) instead of [ERB](http://en.wikipedia.org/wiki/ERuby) to keep the markup short and easy to understand.
 
-### Element with picture gallery
-
-Alchemy provides a nice picture gallery editor. It allows to manage large picture galleries very easy by dragging the pictures around.
-
-In order to use it, you just need to enable the setting in the `elements.yml` file.
-
-~~~ yaml
-- name: picture_gallery
-  picture_gallery: true
-~~~
-
-After [generating the elements view partials](#generating-the-partials) you will have a view and editor partial.
-
-#### The editor partial for the element
-
-This partial holds the code for rendering the gallery editor in the admin frontend.
-
-~~~ erb
-# app/views/alchemy/elements/_picture_gallery_editor.html.slim
-= element_editor_for(element) do |el|
-  = render_picture_gallery_editor(element, max_images: nil, crop: true)
-~~~
-
-You can pass optional settings to the `render_picture_gallery_editor` helper:
-
-~~~ ruby
-max_images: 10
-image_size: "346x246"
-crop: true
-fixed_ratio: true
-format: 'png'
-~~~
-
-`max_images` option limits the amount of pictures a user can add to the gallery.`crop` enables the image cropping feature for the user.
-
-#### The view partial for the element
-
-The view partial gets rendered on your website.
-
-~~~ erb
-= element_view_for(element, :id => 'gallery') do |el|
-  - element.contents.gallery_pictures.each do |image|
-    = render_essence_view(image, :image_size => "346x246", :crop => true)
-~~~
-
-Alternatively, if you want to customize the way the gallery pictures are rendered, you can create the plain image tag by yourself and use the `Alchemy::Picture` url helper:
-
-~~~ erb
-<%= image_tag show_alchemy_picture_url(image.essence.picture, :size => "102x73", :format => "png") %>
-~~~
-
-### Element with nestable elements
+## Nestable elements
 
 You are able to nest elements into other elements.
 
 Just define nestable elements in your `elements.yml` file.
 
-#### Example
+### Example
 
 ~~~ yaml
 - name: article
@@ -158,11 +129,11 @@ Just define nestable elements in your `elements.yml` file.
     type: EssenceRichtext
 ~~~
 
-::: tip
-Nested elements can also have nestable elements. Don't get too crazy with it, though.
+::: warning NOTE
+Nested elements can also have `nestable_elements`. Just don't get too crazy with it, though.
 :::
 
-#### Rendering nested elements
+## Rendering nested elements
 
 Use the `render_element` helper to render each nested element.
 
@@ -178,7 +149,7 @@ Use the `render_element` helper to render each nested element.
 <% end %>
 ~~~
 
-### Element with tags
+## Element with tags
 
 Elements are taggable. To enable it, add `taggable: true` to the element's definition.
 
@@ -201,9 +172,9 @@ Tags are a collection on the `element` object. `element.tag_list` returns an arr
 = element.tag_list.join(', ')
 ~~~
 
-Alchemy uses the [acts-as-taggable-on](https://github.com/mbleigh/acts-as-taggable-on) gem, so please refer to the github [readme](https://github.com/mbleigh/acts-as-taggable-on/blob/master/README.md) or the [wiki](https://github.com/mbleigh/acts-as-taggable-on/wiki) for further informations.
+Alchemy uses the [gutentag](https://github.com/pat/gutentag) gem, so please refer to the github [README](https://github.com/pat/gutentag/blob/master/README.md) or the [Wiki](https://github.com/pat/gutentag/wiki) for further informations.
 
-### Element with content validations
+## Element with content validations
 
 You can enable validations for your contents. They behave like the Rails model validations.
 
@@ -219,7 +190,7 @@ There are already predefined format matchers listed in the `config/alchemy/confi
 
 It is also possible to add own format matchers there.
 
-#### Example of format matchers
+### Format matchers
 
 ~~~ yaml
 # config/alchemy/config.yml
@@ -228,7 +199,7 @@ format_matchers:
   url:   !ruby/regexp '/\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix'
 ~~~
 
-#### Example of an element definition with essence validations:
+### Example
 
 ~~~ yaml
 - name: person
@@ -251,7 +222,7 @@ The `email` content gets validated against the predefined `email` matcher in the
 
 The `homepage` content is matched against the given regexp.
 
-#### Example of an element definition with chained validations.
+### Multiple validations.
 
 Contents can have multiple validations.
 
@@ -410,8 +381,9 @@ You can pass options to the essence view.
 <% end %>
 ~~~
 
-INFO: The first hash is the `options` the second one the `html_options` passed to the wrapper of the content.
+::: tip The first hash is the `options` the second one the `html_options` passed to the wrapper of the content.
 If you only want to pass `html_options` you need to pass an empty hash as second argument.
+:::
 
 ~~~ erb
 <%= element_view_for(element) do |el| %>

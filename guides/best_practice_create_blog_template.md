@@ -9,7 +9,7 @@ In this guide you will learn how to:
 
 ## Conceptual page and content structuring
 
-Imagine you like to have a simple blog template on your website. First of all as mentioned in [The Alchemy approach](alchemy_approach.html) you should identify required components in your blog layout. Common components are a **headline**, a **blog post** itself and **sidebar blocks** for category overview and featured posts.
+Imagine you like to have a simple blog template on your website. First of all as mentioned in [about AlchemyCMS](about.html) you should identify required components in your blog layout. Common components are a **headline**, a **blog post** itself and **sidebar blocks** for category overview and featured posts.
 
 Following the steps you will create blog template according to [Foundation Zurb](http://foundation.zurb.com/). (© ZURB, Inc)
 

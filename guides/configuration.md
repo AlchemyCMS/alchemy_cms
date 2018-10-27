@@ -1,3 +1,8 @@
+---
+prev: /render_images.html
+next: /upgrading.html
+---
+
 # Configuration of AlchemyCMS
 
 Alchemy configuration is done in the `config/alchemy/config.yml` file.

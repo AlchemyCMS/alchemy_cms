@@ -1,15 +1,25 @@
+---
+prev: /elements.html
+next: /render_images.html
+---
+
 # Essences
 
-Essences store the actual content of your site.
+## Overview
 
-Alchemy comes with a lot of predefined essences for the regular needs of a website project.
-Combine them like a chemestry kit into [elements](/elements.html).
+Essences store the actual content of your site. They are stored as instances of `Alchemy::Content` on each `Alchemy::Element` instance.
 
-Essences are normal Rails models, so it is pretty easy to [add your own essence class](/create_essences.html).
+Alchemy comes with a lot of predefined essences for the regular needs of a website project. Combine them like a chemestry kit into [elements](/elements.html).
+
+Essences are Rails models. It is pretty easy to [add your own essence class](/create_essences.html) as well.
 
 ## Definition
 
-When defining elements, you can assign hints and default values to every essence like this:
+Essences are defined as `contents` on an [element definition](/elements.html#defining-elements).
+
+### Global content settings
+
+When defining contents, you need to provide a `name` and essence `type`. You can set hints and default values as well.
 
 ~~~ yaml
 # config/alchemy/elements.yml
@@ -17,16 +27,24 @@ When defining elements, you can assign hints and default values to every essence
   contents:
     - name: headline
       type: EssenceText
-      hint: "This is the headline."
+      hint: This is the headline
     - name: copy
       type: EssenceRichtext
-      default: "Lorem ipsum"
+      default: Lorem ipsum dolor
       as_element_title: true
 ~~~
 
-* **hint** `String`
+* **name** `String` _required_
 
-  A hint for the user in the admin frontend that describes what the essence is used for. The hint is translatable if you provide an I18n translation key instead of a complete sentence. You may also set it to `true` to default to the I18n key `alchemy.content_hints.your-content-name`.
+  A lowercased **unique** (per element) name of the content. Separated words needs to be underscored.
+
+* **type** `String` _required_
+
+  An essence type this content is from. Alchemy has lots of built in essences for [simple text](#essencetext), [rich text](#essencerichtext), [images](#essencepicture), [booleans](#essenceboolean) and more.
+
+* **hint** `String|Symbol|Boolean`
+
+  A hint for the user in the admin frontend that describes what the essence is used for. The hint is translatable if you provide an I18n translation `Symbol` instead of a `String`. You may also set it to `true` to default to the I18n key `alchemy.content_hints.your-content-name`.
 
 * **default** `String`
 
@@ -36,11 +54,26 @@ When defining elements, you can assign hints and default values to every essence
 
   For the displayed element title, the first content essence is used. Use this setting to override this behaviour and show other content as element title.
 
+### Individual essence settings
+
+Each essence type can have its own type of settings.
+
+To configure these settings you have to pass them into its `settings` key in the `elements.yml`.
+
+~~~ yaml {5-6}
+- name: my_element
+  contents:
+    - name: headline
+      type: EssenceText
+      settings:
+        linkable: true
+~~~
+
 ## EssenceText
 
 Stores plain text of 255 chars max.
 
-Use this for a headline, or a product name. The editor is renderd as a single lined input field. The view output will be sanitized and HTML escaped. So it's XSS save.
+Use this for a headline, or a product name. The editor is renderd as a single lined input field. The view output will be sanitized and HTML escaped.
 
 ### Settings
 
@@ -62,11 +95,11 @@ Use this for a headline, or a product name. The editor is renderd as a single li
 
 Used to store paragraphs of formatted text.
 
-The editor is rendered as a textarea with embedded TinyMCE Editor.
+The editor is rendered as a textarea with embedded Tinymce Editor.
 
 ### Settings
 
-You can customize the TinyMCE editor of a single element instance.
+You can customize the Tinymce editor of a single element instance.
 
 * **tinymce** `Hash`
 
@@ -82,19 +115,19 @@ You can customize the TinyMCE editor of a single element instance.
           block: 'h3'
 ~~~
 
-::: tip
-See the [TinyMCE customization guide](customize_tinymce.html) for all available options
+::: tip INFO
+See the [Tinymce customization guide](customize_tinymce.html) for all available options
 :::
 
 ## EssencePicture
 
-Used to store references to pictures the user assigned through the library.
+Store references to pictures the editor assigns from the library.
 
-The editor is rendered as a picture editor with a lot of options (i.e. image cropper).
+The editor partial is rendered as a picture editor with a lot of options (i.e. image cropper).
 
-The view renders the assigned picture, resizes it, crops it and caches the result.
+The view partial renders the assigned picture, resizes it and crops it if needed.
 
-::: tip
+::: tip INFO
 See the [rendering images](render_images.html) guide for further information on the powerful image rendering engine of Alchemy.
 :::
 
@@ -136,19 +169,8 @@ Useful for letting your user select from a limited set of choices.
 
 ## EssenceLink
 
-Stores a url in the database. Useful for linking things, where the user should not set the linked value itself. (Like in the EssenceText with `linkable: true` option)
+Stores a url in the database. Useful for linking things, where the editor should not set the linked text itself.
 
-## Configure essences
-
-To configure the settings of an essence you have to pass it into its settings in the `elements.yml`
-
-### Example
-
-~~~ yaml
-- name: my_element
-  contents:
-    - name: headline
-      type: EssenceText
-      settings:
-        linkable: true
-~~~
+::: tip
+If you want that the linked text is editable by the editor use the [**EssenceText**](#essencetext) with `linkable: true` option instead.
+:::

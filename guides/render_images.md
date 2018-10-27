@@ -1,3 +1,8 @@
+---
+prev: /essences.html
+next: /configuration.html
+---
+
 # Render Images
 
 Alchemy uses [Dragonfly](http://markevans.github.com/dragonfly) to render images.
