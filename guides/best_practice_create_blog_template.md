@@ -149,7 +149,7 @@ The `autogenerate` attribute allows to define elements which will be generated a
 
 The command
 
-~~~ shell
+~~~ bash
 rails g alchemy:elements --skip
 ~~~
 
@@ -345,7 +345,7 @@ and replace the content of `<div class="panel">` with
 
 Now you can run
 
-~~~ shell
+~~~ bash
 rails server
 ~~~
 
