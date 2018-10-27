@@ -3,3 +3,5 @@ https://alchemy-guides.netlify.com/* https://guides.alchemy-cms.com/:splat 301!
 
 # Renamed/combined pages
 /page_layouts.html /pages.html 301​
+/alchemy_approach.html /about.html 301
+/architecture.html /about.html 301
