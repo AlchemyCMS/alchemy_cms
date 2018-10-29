@@ -1,0 +1,7 @@
+<%- cache(element) do -%>
+  <%= element_view_for(element) do |el| -%>
+    <% element.nested_elements.available.each do |nested_element| %>
+      <%= render_element(nested_element) %>
+    <% end %>
+  <%- end -%>
+<%- end -%>

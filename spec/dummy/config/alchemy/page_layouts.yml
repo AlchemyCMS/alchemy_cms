@@ -21,8 +21,8 @@
   autogenerate: [header, article, download]
 
 - name: everything
-  elements: [text, all_you_can_eat, gallery, right_column]
-  autogenerate: [all_you_can_eat, right_column]
+  elements: [text, all_you_can_eat, gallery, right_column, left_column]
+  autogenerate: [all_you_can_eat, right_column, left_column]
 
 - name: news
   feed: true
