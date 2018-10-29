@@ -99,6 +99,10 @@ module.exports = {
         ]
       }
     ],
-    sidebar: 'auto'
+    sidebar: 'auto',
+    algolia: {
+      apiKey: '5f50a085ecc6f17f5ba1bc8911c3cc90',
+      indexName: 'alchemy-cms'
+    }
   }
 };
