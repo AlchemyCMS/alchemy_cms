@@ -9,6 +9,7 @@ module.exports = {
       }
     ]
   ],
+  ga: 'UA-22277258-1',
   themeConfig: {
     repo: 'AlchemyCMS/alchemy-guides',
     editLinks: true,
