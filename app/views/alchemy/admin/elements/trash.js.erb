@@ -8,4 +8,7 @@ $('#element_<%= @element.id %>').hide(200, function() {
   <% @element.richtext_contents_ids.each do |id| %>
   tinymce.get('tinymce_<%= id %>').remove();
   <% end %>
+  <% if @element.fixed? %>
+  Alchemy.FixedElements.removeTab(<%= @element.id %>);
+  <% end %>
 });

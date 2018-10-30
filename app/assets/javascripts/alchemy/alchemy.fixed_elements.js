@@ -26,5 +26,13 @@ Alchemy.FixedElements = {
     $fixed_elements.append($tab);
     $fixed_elements.tabs().tabs('refresh');
     $fixed_elements.tabs('option', 'active', $('#fixed-elements > div').index($tab));
+  },
+
+  removeTab: function(element_id) {
+    var $fixed_elements = $('#fixed-elements');
+
+    $fixed_elements.find('a[href="#fixed-element-' + element_id + '"]').parent().remove();
+    $fixed_elements.find('div#fixed-element-' + element_id).remove();
+    $fixed_elements.tabs().tabs('refresh');
   }
 };
