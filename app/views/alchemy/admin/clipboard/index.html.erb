@@ -10,14 +10,14 @@
     <li id="clipboard_item_<%= item.id -%>" class="<%= item_class -%>">
       <% if item_class == 'pages' %>
         <%= render_icon(:file, style: 'regular') %>
-        <%= item.name %>
+        <%= truncate(item.name, length: 50) %>
       <% else %>
         <% if item.public? %>
           <%= render_icon('window-maximize', style: 'regular', class: 'element') %>
         <% else %>
           <%= render_icon('window-close', class: 'element') %>
         <% end %>
-        <%= item.display_name_with_preview_text(60) %>
+        <%= truncate(item.display_name_with_preview_text(50), length: 50) %>
       <% end %>
       <span class="float_right">
         <%= link_to render_icon(:times, size: 'xs'),
