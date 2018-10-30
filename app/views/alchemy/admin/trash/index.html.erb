@@ -8,13 +8,12 @@
 <% end %>
 <div id="trash_items">
 <%- @elements.each do |element| -%>
-  <%= render partial: 'alchemy/admin/elements/element',
-    object: element,
-    locals: {
-      draggable: @allowed_elements.any? do |e|
-        e['name'] == element.name || e.fetch('nestable_elements', []).include?(element.name)
-      end
-    } %>
+  <% draggable = @allowed_elements.any? { |e| e['name'] == element.name || element.name.in?(e.fetch('nestable_elements', [])) } %>
+  <%= content_tag :div,
+    data: {'element-id' => element.id, 'element-name' => element.name},
+    class: ['element-editor', draggable ? 'draggable' : 'not-draggable'] do %>
+    <%= render 'alchemy/admin/elements/element_header', element: element %>
+  <% end %>
 <%- end -%>
 </div>
 <p>
