@@ -122,6 +122,38 @@ module Alchemy
       end
     end
 
+    describe ".definitions" do
+      context "without any definitions in elements.yml file" do
+        before { expect(Element).to receive(:definitions).and_return([]) }
+
+        it "should return an empty array" do
+          expect(Content.definitions).to eq([])
+        end
+      end
+
+      context "with some element definitions having no contents defined" do
+        before do
+          expect(Element).to receive(:definitions) do
+            [
+              {
+                'name' => 'foo',
+                'contents' => [{'name' => 'title'}]
+              },
+              {
+                'name' => 'bar'
+              }
+            ]
+          end
+        end
+
+        it "returns only content definitions" do
+          expect(Content.definitions).to match_array(
+            [{'name' => 'title'}]
+          )
+        end
+      end
+    end
+
     describe '.build' do
       let(:element) { build_stubbed(:alchemy_element) }
 
@@ -167,16 +199,6 @@ module Alchemy
         it "should raise error" do
           content = Content.create(element_id: element.id, name: 'headline')
           expect { content.ingredient = "Welcome" }.to raise_error(EssenceMissingError)
-        end
-      end
-    end
-
-    describe "#definitions" do
-      context "without any definitions in elements.yml file" do
-        before { allow(Element).to receive(:definitions).and_return([]) }
-
-        it "should return an empty array" do
-          expect(Content.definitions).to eq([])
         end
       end
     end

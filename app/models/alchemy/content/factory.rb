@@ -64,7 +64,9 @@ module Alchemy
       # Returns all content definitions from elements.yml
       #
       def definitions
-        Element.definitions.collect { |e| e['contents'] }.flatten.compact
+        definitions = Element.definitions.flat_map { |e| e['contents'] }
+        definitions.compact!
+        definitions
       end
 
       # Returns a normalized Essence type
