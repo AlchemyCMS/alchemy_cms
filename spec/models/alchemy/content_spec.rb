@@ -130,44 +130,6 @@ module Alchemy
       end
     end
 
-    describe '.content_definition' do
-      let(:element) { build_stubbed(:alchemy_element) }
-
-      context "with blank name key" do
-        it "returns a essence hash build from essence type" do
-          expect(Content).to receive(:content_definition_from_essence_type).with(element, 'EssenceText')
-          Content.content_definition(element, essence_type: 'EssenceText')
-        end
-      end
-
-      context "with name key present" do
-        it "returns a essence hash from element" do
-          expect(element).to receive(:content_definition_for).with('headline')
-          Content.content_definition(element, name: 'headline')
-        end
-      end
-    end
-
-    describe '.content_definition_from_essence_type' do
-      let(:element) { build_stubbed(:alchemy_element) }
-
-      it "returns the definition hash from element" do
-        expect(Content).to receive(:content_name_from_element_and_essence_type).with(element, 'EssenceText').and_return('Foo')
-        expect(Content.content_definition_from_essence_type(element, 'EssenceText')).to eq({
-          'type' => 'EssenceText',
-          'name' => 'Foo'
-        })
-      end
-    end
-
-    describe '.content_name_from_element_and_essence_type' do
-      let(:element) { build_stubbed(:alchemy_element) }
-
-      it "returns a name from essence type and count of essences in element" do
-        expect(Content.content_name_from_element_and_essence_type(element, 'EssenceText')).to eq("essence_text_1")
-      end
-    end
-
     describe '.create_from_scratch' do
       let(:element) { create(:alchemy_element, name: 'article') }
 
@@ -175,12 +137,8 @@ module Alchemy
         expect(Content.create_from_scratch(element, name: 'headline')).to be_instance_of(Alchemy::Content)
       end
 
-      it "creates the essence from name" do
+      it "creates the essence" do
         expect(Content.create_from_scratch(element, name: 'headline').essence).to_not be_nil
-      end
-
-      it "creates the essence from essence_type" do
-        expect(Content.create_from_scratch(element, essence_type: 'EssenceText').essence).to_not be_nil
       end
 
       context "with default value present" do

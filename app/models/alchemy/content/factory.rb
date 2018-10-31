@@ -17,7 +17,7 @@ module Alchemy
       #   The content definition used for finding the content in +elements.yml+ file
       #
       def build(element, essence_hash)
-        definition = content_definition(element, essence_hash)
+        definition = element.content_definition_for(essence_hash[:name])
         if definition.blank?
           raise ContentDefinitionError, "No definition found in elements.yml for #{essence_hash.inspect} and #{element.inspect}"
         else
@@ -59,45 +59,6 @@ module Alchemy
 
         new_content.update!(essence_id: new_essence.id)
         new_content
-      end
-
-      # Returns the content definition for building a content.
-      #
-      # 1. It looks in the element's contents definition
-      # 2. It builds a definition hash from essence type, if the the name key is not present
-      #
-      def content_definition(element, essence_hash)
-        # No name given. We build the content from essence type.
-        if essence_hash[:name].blank? && essence_hash[:essence_type].present?
-          content_definition_from_essence_type(element, essence_hash[:essence_type])
-        else
-          element.content_definition_for(essence_hash[:name])
-        end
-      end
-
-      # Returns a hash for building a content from essence type.
-      #
-      # @param [Alchemy::Element]
-      #   The element the content is for.
-      # @param [String]
-      #   The essence type the content is from
-      #
-      def content_definition_from_essence_type(element, essence_type)
-        {
-          'type' => essence_type,
-          'name' => content_name_from_element_and_essence_type(element, essence_type)
-        }
-      end
-
-      # A name for content from its essence type and amount of same essences in element.
-      #
-      # Example:
-      #
-      #   essence_picture_1
-      #
-      def content_name_from_element_and_essence_type(element, essence_type)
-        essences_of_same_type = element.contents.where(essence_type: normalize_essence_type(essence_type))
-        "#{essence_type.classify.demodulize.underscore}_#{essences_of_same_type.count + 1}"
       end
 
       # Returns all content definitions from elements.yml
