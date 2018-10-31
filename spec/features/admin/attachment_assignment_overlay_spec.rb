@@ -8,7 +8,7 @@ RSpec.feature "Attachment assignment overlay" do
   end
 
   describe "filter by tags", js: true do
-    let(:a_page) { create(:alchemy_page, do_not_autogenerate: false) }
+    let(:a_page) { create(:alchemy_page, autogenerate_elements: true) }
     let(:element) { create(:alchemy_element, page: a_page, name: 'download') }
     let!(:file1) { create(:alchemy_attachment, file_name: "job_alert.png", tag_list: "jobs") }
     let!(:file2) { create(:alchemy_attachment, file_name: "keynote.png", tag_list: "presentations") }

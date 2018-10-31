@@ -13,8 +13,8 @@ FactoryBot.define do
     end
 
     # This speeds up creating of pages dramatically.
-    # Pass do_not_autogenerate: false to generate elements
-    do_not_autogenerate { true }
+    # Pass autogenerate_elements: true to generate elements
+    autogenerate_elements { false }
 
     trait :root do
       name { 'Root' }

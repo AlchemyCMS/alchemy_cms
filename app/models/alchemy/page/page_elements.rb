@@ -5,7 +5,7 @@ module Alchemy
     extend ActiveSupport::Concern
 
     included do
-      attr_accessor :do_not_autogenerate
+      attr_accessor :autogenerate_elements
 
       has_many :elements, -> { where(parent_element_id: nil).not_trashed.order(:position) }
       has_many :trashed_elements,
@@ -23,12 +23,13 @@ module Alchemy
         class_name: 'Alchemy::Element',
         join_table: ElementToPage.table_name
 
-      after_create :autogenerate_elements, unless: -> { systempage? || do_not_autogenerate }
+      after_create :generate_elements,
+        unless: -> { systempage? || autogenerate_elements == false }
 
       after_update :trash_not_allowed_elements!,
         if: :has_page_layout_changed?
 
-      after_update :autogenerate_elements,
+      after_update :generate_elements,
         if: :has_page_layout_changed?
     end
 
@@ -249,7 +250,7 @@ module Alchemy
     #
     # If the page has cells, it looks if there are elements to generate.
     #
-    def autogenerate_elements
+    def generate_elements
       elements_already_on_page = elements.available.pluck(:name)
       elements = definition["autogenerate"]
       if elements.present?

@@ -154,7 +154,7 @@ module Alchemy
 
         context "and elements is a comma separated list of element names" do
           before do
-            page.send(:autogenerate_elements)
+            page.send(:generate_elements)
           end
 
           it 'returns all pages as nested json tree with only these elements included' do

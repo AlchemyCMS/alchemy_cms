@@ -36,7 +36,7 @@ module Alchemy
     end
 
     context 'rendered' do
-      let(:public_page) { create(:alchemy_page, :public, do_not_autogenerate: false) }
+      let(:public_page) { create(:alchemy_page, :public, autogenerate_elements: true) }
       let(:article) { public_page.elements.find_by_name('article') }
       let(:essence) { article.content_by_name('intro').essence }
 

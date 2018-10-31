@@ -10,7 +10,7 @@ module Alchemy
     let(:language_root) { create(:alchemy_page, :language_root) }
     let(:page)          { mock_model(Page, page_layout: 'foo') }
     let(:public_page)   { create(:alchemy_page, :public) }
-    let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', do_not_autogenerate: false) }
+    let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', autogenerate_elements: true) }
 
     it { is_expected.to have_one(:site) }
 
@@ -247,7 +247,7 @@ module Alchemy
 
       context "Saving a normal page" do
         let(:page) do
-          build(:alchemy_page, language_code: nil, language: klingon, do_not_autogenerate: false)
+          build(:alchemy_page, language_code: nil, language: klingon, autogenerate_elements: true)
         end
 
         it "sets the language code" do
@@ -335,9 +335,9 @@ module Alchemy
           end
         end
 
-        context "with do_not_autogenerate set to true" do
+        context "with autogenerate_elements set to false" do
           before do
-            page.do_not_autogenerate = true
+            page.autogenerate_elements = false
           end
 
           it "should not autogenerate the elements" do
@@ -1182,7 +1182,7 @@ module Alchemy
     end
 
     describe '#elements_grouped_by_cells' do
-      let(:page) { create(:alchemy_page, :public, do_not_autogenerate: false) }
+      let(:page) { create(:alchemy_page, :public, autogenerate_elements: true) }
 
       before do
         allow(PageLayout).to receive(:get).and_return({

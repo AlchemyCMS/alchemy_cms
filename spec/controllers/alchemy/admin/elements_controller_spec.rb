@@ -218,7 +218,7 @@ module Alchemy
       end
 
       context "if page has cells" do
-        let(:page) { create(:alchemy_page, :public, do_not_autogenerate: false) }
+        let(:page) { create(:alchemy_page, :public, autogenerate_elements: true) }
         let(:cell) { page.cells.first }
 
         context "not pasting from clipboard" do
