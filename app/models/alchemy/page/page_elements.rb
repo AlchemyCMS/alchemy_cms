@@ -256,7 +256,7 @@ module Alchemy
       if elements.present?
         elements.each do |element|
           next if elements_already_on_page.include?(element)
-          Element.create_from_scratch(attributes_for_element_name(element))
+          Element.create(attributes_for_element_name(element))
         end
       end
     end

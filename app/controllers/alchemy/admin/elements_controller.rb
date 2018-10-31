@@ -41,7 +41,7 @@ module Alchemy
             @element = paste_element_from_clipboard
             @cell = @element.cell
           else
-            @element = Element.new_from_scratch(create_element_params)
+            @element = Element.new(create_element_params)
             if @page.can_have_cells?
               @cell = find_or_create_cell
               @element.cell = @cell

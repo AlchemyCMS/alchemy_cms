@@ -122,23 +122,21 @@ module Alchemy
       # - Raises Alchemy::ElementDefinitionError if no definition for given attributes[:name]
       #   could be found
       #
-      def new_from_scratch(attributes = {})
-        return new if attributes[:name].blank?
-        new_element_from_definition_by(attributes) || raise(ElementDefinitionError, attributes)
-      end
+      def new(attributes = {})
+        return super if attributes[:name].blank?
+        element_attributes = attributes.to_h.merge(name: attributes[:name].split('#').first)
+        element_definition = Element.definition_by_name(element_attributes[:name])
+        if element_definition.nil?
+          raise(ElementDefinitionError, attributes)
+        end
 
-      # Creates a new element as described in +/config/alchemy/elements.yml+
-      #
-      # - Returns a new Alchemy::Element object if no name is given in attributes,
-      #   because the definition can not be found w/o name
-      # - Raises Alchemy::ElementDefinitionError if no definition for given attributes[:name]
-      #   could be found
-      #
-      def create_from_scratch(attributes)
-        element = new_from_scratch(attributes)
-        element.save if element
-        element
+        super(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
+      alias_method :new_from_scratch, :new
+      deprecate new_from_scratch: :new, deprecator: Alchemy::Deprecation
+
+      alias_method :create_from_scratch, :create
+      deprecate create_from_scratch: :create, deprecator: Alchemy::Deprecation
 
       # This methods does a copy of source and all depending contents and all of their depending essences.
       #
@@ -185,16 +183,6 @@ module Alchemy
         all_from_clipboard(clipboard).select { |ce|
           page.available_element_names.include?(ce.name)
         }
-      end
-
-      private
-
-      def new_element_from_definition_by(attributes)
-        element_attributes = attributes.to_h.merge(name: attributes[:name].split('#').first)
-        element_definition = Element.definition_by_name(element_attributes[:name])
-        return if element_definition.nil?
-
-        new(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
     end
 

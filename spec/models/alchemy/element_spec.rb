@@ -9,31 +9,31 @@ module Alchemy
 
     # ClassMethods
 
-    describe '.new_from_scratch' do
+    describe '.new' do
       it "should initialize an element by name from scratch" do
-        el = Element.new_from_scratch(name: 'article')
+        el = Element.new(name: 'article')
         expect(el).to be_an(Alchemy::Element)
         expect(el.name).to eq('article')
       end
 
       it "should raise an error if the given name is not defined in the elements.yml" do
         expect {
-          Element.new_from_scratch(name: 'foobar')
+          Element.new(name: 'foobar')
         }.to raise_error(ElementDefinitionError)
       end
 
       it "should take the first part of an given name containing a hash (#)" do
-        el = Element.new_from_scratch(name: 'article#header')
+        el = Element.new(name: 'article#header')
         expect(el.name).to eq("article")
       end
 
       it "should merge given attributes into defined ones" do
-        el = Element.new_from_scratch(name: 'article', page_id: 1)
+        el = Element.new(name: 'article', page_id: 1)
         expect(el.page_id).to eq(1)
       end
 
       it "should not have forbidden attributes from definition" do
-        el = Element.new_from_scratch(name: 'article')
+        el = Element.new(name: 'article')
         expect(el.contents).to eq([])
       end
     end
@@ -79,10 +79,10 @@ module Alchemy
       end
 
       context 'with differences' do
-        subject(:copy) { Element.copy(element, {name: 'foobar'}) }
+        subject(:copy) { Element.copy(element, {name: 'headline'}) }
 
         it "should create a new record with all attributes of source except given differences" do
-          expect(copy.name).to eq('foobar')
+          expect(copy.name).to eq('headline')
         end
       end
 
@@ -825,7 +825,7 @@ module Alchemy
 
     describe "#to_partial_path" do
       it "should return a String in the format of 'alchemy/elements/#{name}_view'" do
-        expect(Element.new(name: 'mock').to_partial_path).to eq('alchemy/elements/mock_view')
+        expect(Element.new(name: 'article').to_partial_path).to eq('alchemy/elements/article_view')
       end
     end
 
