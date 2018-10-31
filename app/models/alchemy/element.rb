@@ -86,9 +86,9 @@ module Alchemy
     validates_presence_of :name, on: :create
     validates_format_of :name, on: :create, with: /\A[a-z0-9_-]+\z/
 
-    attr_accessor :create_contents_after_create
+    attr_accessor :autogenerate_contents
 
-    after_create :create_contents, unless: proc { |e| e.create_contents_after_create == false }
+    after_create :create_contents, unless: -> { autogenerate_contents == false }
     after_update :touch_touchable_pages
 
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
@@ -156,7 +156,7 @@ module Alchemy
                        .except(*SKIPPED_ATTRIBUTES_ON_COPY)
                        .merge(differences)
                        .merge({
-                         create_contents_after_create: false,
+                         autogenerate_contents: false,
                          tag_list: source_element.tag_list
                        })
 

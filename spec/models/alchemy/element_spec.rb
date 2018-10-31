@@ -38,11 +38,40 @@ module Alchemy
       end
     end
 
+    describe '.create' do
+      let(:page) { build(:alchemy_page) }
+
+      subject(:element) { described_class.create(page: page, name: 'article') }
+
+      it 'creates contents' do
+        expect(element.contents).to match_array([
+          an_instance_of(Alchemy::Content),
+          an_instance_of(Alchemy::Content),
+          an_instance_of(Alchemy::Content),
+          an_instance_of(Alchemy::Content)
+        ])
+      end
+
+      context 'if autogenerate_contents set to false' do
+        subject(:element) do
+          described_class.create(
+            page: page,
+            name: 'article',
+            autogenerate_contents: false
+          )
+        end
+
+        it 'creates contents' do
+          expect(element.contents).to be_empty
+        end
+      end
+    end
+
     describe '.copy' do
       subject { Element.copy(element) }
 
       let(:element) do
-        create(:alchemy_element, create_contents_after_create: true, tag_list: 'red, yellow')
+        create(:alchemy_element, :with_contents, tag_list: 'red, yellow')
       end
 
       it "should not create contents from scratch" do
@@ -68,8 +97,7 @@ module Alchemy
 
       context 'with nested elements' do
         let(:element) do
-          create(:alchemy_element, :with_nestable_elements, {
-            create_contents_after_create: true,
+          create(:alchemy_element, :with_contents, :with_nestable_elements, {
             tag_list: 'red, yellow',
             page: create(:alchemy_page)
           })
@@ -309,7 +337,7 @@ module Alchemy
     # InstanceMethods
 
     describe '#all_contents_by_type' do
-      let(:element) { create(:alchemy_element, create_contents_after_create: true) }
+      let(:element) { create(:alchemy_element, :with_contents) }
       let(:expected_contents) { element.contents.essence_texts }
 
       context "with namespaced essence type" do
@@ -574,7 +602,7 @@ module Alchemy
     end
 
     context 'retrieving contents, essences and ingredients' do
-      let(:element) { create(:alchemy_element, name: 'news', create_contents_after_create: true) }
+      let(:element) { create(:alchemy_element, :with_contents, name: 'news') }
 
       it "should return an ingredient by name" do
         expect(element.ingredient('news_headline')).to eq(EssenceText.first.ingredient)

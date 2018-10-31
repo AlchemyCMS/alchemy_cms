@@ -41,7 +41,7 @@ module Alchemy
         creator: parent.creator,
         updater: parent.updater,
         page: parent.page,
-        create_contents_after_create: false
+        autogenerate_contents: false
       )
       puts "Created new `#{new_element.name}` for `#{parent.name}`"
       new_element
@@ -55,7 +55,7 @@ module Alchemy
         creator: parent.creator,
         updater: parent.updater,
         page: parent.page,
-        create_contents_after_create: false
+        autogenerate_contents: false
       )
 
       content.update_columns(element_id: new_element.id, name: 'picture')

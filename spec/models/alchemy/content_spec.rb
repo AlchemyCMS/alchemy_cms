@@ -4,7 +4,7 @@ require 'spec_helper'
 
 module Alchemy
   describe Content do
-    let(:element) { create(:alchemy_element, name: 'headline', create_contents_after_create: true) }
+    let(:element) { create(:alchemy_element, :with_contents, name: 'headline') }
     let(:content) { element.contents.find_by(essence_type: 'Alchemy::EssenceText') }
 
     it "should return the ingredient from its essence" do
@@ -49,7 +49,7 @@ module Alchemy
     describe '#update_essence' do
       subject { content.update_essence(params) }
 
-      let(:element) { create(:alchemy_element, name: 'text', create_contents_after_create: true) }
+      let(:element) { create(:alchemy_element, :with_contents, name: 'text') }
       let(:content) { element.contents.first }
       let(:params)  { {} }
 
@@ -73,7 +73,7 @@ module Alchemy
       end
 
       context 'with validations and without params given' do
-        let(:element) { create(:alchemy_element, name: 'contactform', create_contents_after_create: true) }
+        let(:element) { create(:alchemy_element, :with_contents, name: 'contactform') }
 
         it "should add error messages if save fails and return false" do
           is_expected.to be_falsey
@@ -94,9 +94,7 @@ module Alchemy
 
     describe '.copy' do
       let(:element) do
-        create :alchemy_element,
-          name: 'text',
-          create_contents_after_create: true
+        create(:alchemy_element, :with_contents, name: 'text')
       end
 
       let(:new_element) do

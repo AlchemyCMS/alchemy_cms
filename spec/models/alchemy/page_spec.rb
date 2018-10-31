@@ -2416,19 +2416,17 @@ module Alchemy
       let!(:page) { create(:alchemy_page) }
 
       let!(:expanded_element) do
-        create :alchemy_element,
+        create :alchemy_element, :with_contents,
           name: 'article',
           page: page,
-          folded: false,
-          create_contents_after_create: true
+          folded: false
       end
 
       let!(:folded_element) do
-        create :alchemy_element,
+        create :alchemy_element, :with_contents,
           name: 'article',
           page: page,
-          folded: true,
-          create_contents_after_create: true
+          folded: true
       end
 
       subject(:richtext_contents_ids) { page.richtext_contents_ids }
@@ -2442,21 +2440,19 @@ module Alchemy
 
       context 'with nested elements' do
         let!(:nested_expanded_element) do
-          create :alchemy_element,
+          create :alchemy_element, :with_contents,
             name: 'article',
             page: page,
             parent_element: expanded_element,
-            folded: false,
-            create_contents_after_create: true
+            folded: false
         end
 
         let!(:nested_folded_element) do
-          create :alchemy_element,
+          create :alchemy_element, :with_contents,
             name: 'article',
             page: page,
             parent_element: folded_element,
-            folded: true,
-            create_contents_after_create: true
+            folded: true
         end
 
         it 'returns content ids for all expanded nested elements that have tinymce enabled' do

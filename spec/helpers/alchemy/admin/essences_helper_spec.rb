@@ -6,7 +6,7 @@ describe Alchemy::Admin::EssencesHelper do
   include Alchemy::Admin::ElementsHelper
 
   let(:element) do
-    create(:alchemy_element, name: 'article', create_contents_after_create: true)
+    create(:alchemy_element, :with_contents, name: 'article')
   end
 
   describe 'essence rendering' do
@@ -54,7 +54,7 @@ describe Alchemy::Admin::EssencesHelper do
 
   describe '#pages_for_select' do
     let(:contact_form) do
-      create(:alchemy_element, name: 'contactform', create_contents_after_create: true)
+      create(:alchemy_element, :with_contents, name: 'contactform')
     end
 
     let(:page_a) { create(:alchemy_page, :public, name: 'Page A') }
