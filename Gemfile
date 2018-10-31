@@ -24,8 +24,6 @@ group :development, :test do
     gem 'yard'
     gem 'redcarpet'
     gem 'pry-byebug'
-    gem 'spring'
-    gem 'spring-commands-rspec'
     gem 'rubocop', require: false
     gem 'listen'
     gem 'localeapp', '~> 3.0', require: false
