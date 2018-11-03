@@ -20,7 +20,7 @@ RSpec.feature "Attachment assignment overlay" do
         click_on "Assign a file"
       end
 
-      within ".alchemy-dialog.modal" do
+      within ".alchemy-dialog.modal", wait: 15 do
         # We expect to see both attachments
         expect(page).to have_selector("#assign_file_list .list a", count: 2)
 
