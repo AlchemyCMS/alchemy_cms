@@ -79,10 +79,11 @@ module Alchemy
       end
 
       context 'with differences' do
-        subject(:copy) { Element.copy(element, {name: 'headline'}) }
+        let(:new_page) { create(:alchemy_page) }
+        subject(:copy) { Element.copy(element, {page_id: new_page.id}) }
 
         it "should create a new record with all attributes of source except given differences" do
-          expect(copy.name).to eq('headline')
+          expect(copy.page_id).to eq(new_page.id)
         end
       end
 

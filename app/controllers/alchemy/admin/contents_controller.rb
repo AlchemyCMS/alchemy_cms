@@ -8,8 +8,7 @@ module Alchemy
       authorize_resource class: Alchemy::Content
 
       def create
-        @element = Element.find(params[:content][:element_id])
-        @content = Content.create_from_scratch(@element, content_params)
+        @content = Content.create(content_params)
         @html_options = params[:html_options] || {}
       end
 

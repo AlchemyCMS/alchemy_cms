@@ -106,8 +106,7 @@ module Alchemy
       end
 
       it "should create a new record with all attributes of source except given differences" do
-        copy = Content.copy(content, {name: 'foobar', element_id: new_element.id})
-        expect(copy.name).to eq('foobar')
+        copy = Content.copy(content, {element_id: new_element.id})
         expect(copy.element_id).to eq(new_element.id)
       end
 
@@ -117,6 +116,7 @@ module Alchemy
       end
 
       it "should copy source essence attributes" do
+        content.essence.update_column(:body, 'Lorem ipsum')
         copy = Content.copy(content)
         copy.essence.body == content.essence.body
       end
@@ -154,23 +154,23 @@ module Alchemy
       end
     end
 
-    describe '.build' do
+    describe '.new' do
       let(:element) { build_stubbed(:alchemy_element) }
 
       it "builds a new instance from elements.yml definition" do
-        expect(Content.build(element, {name: 'headline'})).to be_instance_of(Content)
+        expect(Content.new({element: element, name: 'headline'})).to be_instance_of(Content)
       end
     end
 
-    describe '.create_from_scratch' do
+    describe '.create' do
       let(:element) { create(:alchemy_element, name: 'article') }
 
       it "builds the content" do
-        expect(Content.create_from_scratch(element, name: 'headline')).to be_instance_of(Alchemy::Content)
+        expect(Content.create(element: element, name: 'headline')).to be_instance_of(Alchemy::Content)
       end
 
       it "creates the essence" do
-        expect(Content.create_from_scratch(element, name: 'headline').essence).to_not be_nil
+        expect(Content.create(element: element, name: 'headline').essence).to_not be_nil
       end
 
       context "with default value present" do
@@ -178,7 +178,7 @@ module Alchemy
           allow_any_instance_of(Element).to receive(:content_definition_for) do
             {'name' => 'headline', 'type' => 'EssenceText', 'default' => 'Welcome'}
           end
-          content = Content.create_from_scratch(element, name: 'headline')
+          content = Content.create(element: element, name: 'headline')
           expect(content.ingredient).to eq("Welcome")
         end
       end
@@ -188,16 +188,16 @@ module Alchemy
       let(:element) { create(:alchemy_element, name: 'headline') }
 
       it "should set the given value to the ingredient column of essence" do
-        c = Content.create_from_scratch(element, name: 'headline')
+        c = Content.create(element: element, name: 'headline')
         c.ingredient = "Welcome"
         expect(c.ingredient).to eq("Welcome")
       end
 
       context "no essence associated" do
         let(:element) { create(:alchemy_element, name: 'headline') }
+        let(:content) { Alchemy::Content.new(element: element, name: 'headline').tap(&:save) }
 
         it "should raise error" do
-          content = Content.create(element_id: element.id, name: 'headline')
           expect { content.ingredient = "Welcome" }.to raise_error(EssenceMissingError)
         end
       end
