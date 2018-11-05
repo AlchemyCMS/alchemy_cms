@@ -65,6 +65,59 @@ module Alchemy
           expect(element.contents).to be_empty
         end
       end
+
+      context 'if autogenerate is given in definition' do
+        subject(:element) do
+          described_class.create(page: page, name: 'slider')
+        end
+
+        it 'creates nested elements' do
+          expect(element.nested_elements).to match_array([
+            an_instance_of(Alchemy::Element)
+          ])
+        end
+
+        context 'if element name is not a nestable element' do
+          subject(:element) do
+            described_class.create(
+              page: page,
+              name: 'slider'
+            )
+          end
+
+          before do
+            expect(Alchemy::Element).to receive(:definitions).at_least(:once) do
+              [
+                {'name' => 'slider', 'nestable_elements' => ['foo'], 'autogenerate' => ['bar']}
+              ]
+            end
+          end
+
+          it 'logs error warning' do
+            expect_any_instance_of(Alchemy::Logger).to \
+              receive(:log_warning).with("Element 'bar' not a nestable element for 'slider'. Skipping!")
+            element
+          end
+
+          it 'skips element' do
+            expect(element.nested_elements).to be_empty
+          end
+        end
+
+        context 'if autogenerate_nested_elements set to false' do
+          subject(:element) do
+            described_class.create(
+              page: page,
+              name: 'slider',
+              autogenerate_nested_elements: false
+            )
+          end
+
+          it 'creates contents' do
+            expect(element.contents).to be_empty
+          end
+        end
+      end
     end
 
     describe '.copy' do
@@ -894,10 +947,6 @@ module Alchemy
 
       context 'with nestable_elements defined' do
         let(:element) { create(:alchemy_element, :with_nestable_elements) }
-
-        before do
-          element.nested_elements << create(:alchemy_element, name: 'slide')
-        end
 
         it 'returns an AR scope containing nested elements' do
           expect(subject.count).to eq(1)

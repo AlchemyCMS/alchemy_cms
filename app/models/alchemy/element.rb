@@ -28,10 +28,10 @@ module Alchemy
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = [
       "amount",
+      "autogenerate",
       "nestable_elements",
       "contents",
       "hint",
-      "picture_gallery",
       "taggable",
       "compact"
     ].freeze
@@ -87,8 +87,10 @@ module Alchemy
     validates_format_of :name, on: :create, with: /\A[a-z0-9_-]+\z/
 
     attr_accessor :autogenerate_contents
-
+    attr_accessor :autogenerate_nested_elements
     after_create :create_contents, unless: -> { autogenerate_contents == false }
+    after_create :generate_nested_elements, unless: -> { autogenerate_nested_elements == false }
+
     after_update :touch_touchable_pages
 
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
@@ -155,6 +157,7 @@ module Alchemy
                        .merge(differences)
                        .merge({
                          autogenerate_contents: false,
+                         autogenerate_nested_elements: false,
                          tag_list: source_element.tag_list
                        })
 
@@ -299,6 +302,16 @@ module Alchemy
     end
 
     private
+
+    def generate_nested_elements
+      definition.fetch('autogenerate', []).each do |nestable_element|
+        if nestable_elements.include?(nestable_element)
+          Element.create(page: page, parent_element_id: id, name: nestable_element)
+        else
+          log_warning("Element '#{nestable_element}' not a nestable element for '#{name}'. Skipping!")
+        end
+      end
+    end
 
     def select_element(elements, name, order)
       elements = elements.named(name) if name.present?

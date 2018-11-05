@@ -1008,7 +1008,7 @@ module Alchemy
       end
 
       it 'returns an active record collection of all elements including nested elements on that page' do
-        expect(page.descendent_elements.count).to eq(3)
+        expect(page.descendent_elements.count).to eq(4)
       end
     end
 
@@ -1040,7 +1040,7 @@ module Alchemy
       end
 
       it 'returns an active record collection of all content including nested elements on that page' do
-        expect(page.descendent_contents.count).to eq(4)
+        expect(page.descendent_contents.count).to eq(6)
       end
     end
 
