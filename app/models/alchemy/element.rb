@@ -28,10 +28,10 @@ module Alchemy
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = [
       "amount",
+      "autogenerate",
       "nestable_elements",
       "contents",
       "hint",
-      "picture_gallery",
       "taggable",
       "compact"
     ].freeze
@@ -86,9 +86,11 @@ module Alchemy
     validates_presence_of :name, on: :create
     validates_format_of :name, on: :create, with: /\A[a-z0-9_-]+\z/
 
-    attr_accessor :create_contents_after_create
+    attr_accessor :autogenerate_contents
+    attr_accessor :autogenerate_nested_elements
+    after_create :create_contents, unless: -> { autogenerate_contents == false }
+    after_create :generate_nested_elements, unless: -> { autogenerate_nested_elements == false }
 
-    after_create :create_contents, unless: proc { |e| e.create_contents_after_create == false }
     after_update :touch_touchable_pages
 
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
@@ -122,23 +124,21 @@ module Alchemy
       # - Raises Alchemy::ElementDefinitionError if no definition for given attributes[:name]
       #   could be found
       #
-      def new_from_scratch(attributes = {})
-        return new if attributes[:name].blank?
-        new_element_from_definition_by(attributes) || raise(ElementDefinitionError, attributes)
-      end
+      def new(attributes = {})
+        return super if attributes[:name].blank?
+        element_attributes = attributes.to_h.merge(name: attributes[:name].split('#').first)
+        element_definition = Element.definition_by_name(element_attributes[:name])
+        if element_definition.nil?
+          raise(ElementDefinitionError, attributes)
+        end
 
-      # Creates a new element as described in +/config/alchemy/elements.yml+
-      #
-      # - Returns a new Alchemy::Element object if no name is given in attributes,
-      #   because the definition can not be found w/o name
-      # - Raises Alchemy::ElementDefinitionError if no definition for given attributes[:name]
-      #   could be found
-      #
-      def create_from_scratch(attributes)
-        element = new_from_scratch(attributes)
-        element.save if element
-        element
+        super(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
+      alias_method :new_from_scratch, :new
+      deprecate new_from_scratch: :new, deprecator: Alchemy::Deprecation
+
+      alias_method :create_from_scratch, :create
+      deprecate create_from_scratch: :create, deprecator: Alchemy::Deprecation
 
       # This methods does a copy of source and all depending contents and all of their depending essences.
       #
@@ -156,7 +156,8 @@ module Alchemy
                        .except(*SKIPPED_ATTRIBUTES_ON_COPY)
                        .merge(differences)
                        .merge({
-                         create_contents_after_create: false,
+                         autogenerate_contents: false,
+                         autogenerate_nested_elements: false,
                          tag_list: source_element.tag_list
                        })
 
@@ -185,16 +186,6 @@ module Alchemy
         all_from_clipboard(clipboard).select { |ce|
           page.available_element_names.include?(ce.name)
         }
-      end
-
-      private
-
-      def new_element_from_definition_by(attributes)
-        element_attributes = attributes.to_h.merge(name: attributes[:name].split('#').first)
-        element_definition = Element.definition_by_name(element_attributes[:name])
-        return if element_definition.nil?
-
-        new(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
     end
 
@@ -311,6 +302,16 @@ module Alchemy
     end
 
     private
+
+    def generate_nested_elements
+      definition.fetch('autogenerate', []).each do |nestable_element|
+        if nestable_elements.include?(nestable_element)
+          Element.create(page: page, parent_element_id: id, name: nestable_element)
+        else
+          log_warning("Element '#{nestable_element}' not a nestable element for '#{name}'. Skipping!")
+        end
+      end
+    end
 
     def select_element(elements, name, order)
       elements = elements.named(name) if name.present?

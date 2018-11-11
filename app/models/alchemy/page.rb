@@ -43,7 +43,7 @@ module Alchemy
     include Alchemy::Taggable
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
-      do_not_autogenerate: true,
+      autogenerate_elements: false,
       visible: false,
       public_on: nil,
       public_until: nil,
@@ -206,7 +206,7 @@ module Alchemy
           name: "Layoutroot for #{language.name}",
           layoutpage: true,
           language: language,
-          do_not_autogenerate: true,
+          autogenerate_elements: false,
           parent_id: Page.root.id
         )
       end

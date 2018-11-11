@@ -8,7 +8,7 @@ RSpec.feature "Picture assignment overlay" do
   end
 
   describe "filter by tags", js: true do
-    let!(:a_page) { create(:alchemy_page, do_not_autogenerate: false) }
+    let!(:a_page) { create(:alchemy_page, autogenerate_elements: true) }
     let!(:pic1) { create(:alchemy_picture, name: "Hill", tag_list: "landscape") }
     let!(:pic2) { create(:alchemy_picture, name: "Skyscraper", tag_list: "city") }
 

@@ -10,7 +10,7 @@ module Alchemy
     let(:language_root) { create(:alchemy_page, :language_root) }
     let(:page)          { mock_model(Page, page_layout: 'foo') }
     let(:public_page)   { create(:alchemy_page, :public) }
-    let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', do_not_autogenerate: false) }
+    let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', autogenerate_elements: true) }
 
     it { is_expected.to have_one(:site) }
 
@@ -247,7 +247,7 @@ module Alchemy
 
       context "Saving a normal page" do
         let(:page) do
-          build(:alchemy_page, language_code: nil, language: klingon, do_not_autogenerate: false)
+          build(:alchemy_page, language_code: nil, language: klingon, autogenerate_elements: true)
         end
 
         it "sets the language code" do
@@ -335,9 +335,9 @@ module Alchemy
           end
         end
 
-        context "with do_not_autogenerate set to true" do
+        context "with autogenerate_elements set to false" do
           before do
-            page.do_not_autogenerate = true
+            page.autogenerate_elements = false
           end
 
           it "should not autogenerate the elements" do
@@ -1008,7 +1008,7 @@ module Alchemy
       end
 
       it 'returns an active record collection of all elements including nested elements on that page' do
-        expect(page.descendent_elements.count).to eq(3)
+        expect(page.descendent_elements.count).to eq(4)
       end
     end
 
@@ -1040,7 +1040,7 @@ module Alchemy
       end
 
       it 'returns an active record collection of all content including nested elements on that page' do
-        expect(page.descendent_contents.count).to eq(4)
+        expect(page.descendent_contents.count).to eq(6)
       end
     end
 
@@ -1182,7 +1182,7 @@ module Alchemy
     end
 
     describe '#elements_grouped_by_cells' do
-      let(:page) { create(:alchemy_page, :public, do_not_autogenerate: false) }
+      let(:page) { create(:alchemy_page, :public, autogenerate_elements: true) }
 
       before do
         allow(PageLayout).to receive(:get).and_return({
@@ -2416,19 +2416,17 @@ module Alchemy
       let!(:page) { create(:alchemy_page) }
 
       let!(:expanded_element) do
-        create :alchemy_element,
+        create :alchemy_element, :with_contents,
           name: 'article',
           page: page,
-          folded: false,
-          create_contents_after_create: true
+          folded: false
       end
 
       let!(:folded_element) do
-        create :alchemy_element,
+        create :alchemy_element, :with_contents,
           name: 'article',
           page: page,
-          folded: true,
-          create_contents_after_create: true
+          folded: true
       end
 
       subject(:richtext_contents_ids) { page.richtext_contents_ids }
@@ -2442,21 +2440,19 @@ module Alchemy
 
       context 'with nested elements' do
         let!(:nested_expanded_element) do
-          create :alchemy_element,
+          create :alchemy_element, :with_contents,
             name: 'article',
             page: page,
             parent_element: expanded_element,
-            folded: false,
-            create_contents_after_create: true
+            folded: false
         end
 
         let!(:nested_folded_element) do
-          create :alchemy_element,
+          create :alchemy_element, :with_contents,
             name: 'article',
             page: page,
             parent_element: folded_element,
-            folded: true,
-            create_contents_after_create: true
+            folded: true
         end
 
         it 'returns content ids for all expanded nested elements that have tinymce enabled' do

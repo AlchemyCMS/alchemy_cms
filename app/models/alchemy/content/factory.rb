@@ -11,19 +11,21 @@ module Alchemy
 
       # Builds a new content as descriped in the elements.yml file.
       #
-      # @param [Alchemy::Element]
-      #   The element the content is for
       # @param [Hash]
       #   The content definition used for finding the content in +elements.yml+ file
       #
-      def build(element, essence_hash)
-        definition = content_definition(element, essence_hash)
+      def new(attributes = {})
+        element = attributes[:element] || Element.find_by(id: attributes[:element_id])
+        return super if attributes.empty? || element.nil?
+
+        definition = element.content_definition_for(attributes[:name])
         if definition.blank?
-          raise ContentDefinitionError, "No definition found in elements.yml for #{essence_hash.inspect} and #{element.inspect}"
-        else
-          new(name: definition['name'], element_id: element.id)
+          raise ContentDefinitionError, "No definition found in elements.yml for #{attributes.inspect} and #{element.inspect}"
         end
+        super(name: definition['name'], element_id: element.id)
       end
+      alias_method :build, :new
+      deprecate build: :new, deprecator: Alchemy::Deprecation
 
       # Creates a new content from elements definition in the +elements.yml+ file.
       #
@@ -32,12 +34,20 @@ module Alchemy
       #
       # @return [Alchemy::Content]
       #
-      def create_from_scratch(element, essence_hash)
-        if content = build(element, essence_hash)
-          content.create_essence!(essence_hash[:essence_type])
+      def create(*args)
+        attributes = args.last || {}
+        if args.length > 1
+          Alchemy::Deprecation.warn 'Passing an element as first argument to Alchemy::Content.create is deprecated! Pass an attribute hash with element inside instead.'
+          element = args.first
+        else
+          element = attributes[:element]
         end
-        content
+        new(attributes.merge(element: element)).tap do |content|
+          content.create_essence!(attributes[:essence_type])
+        end
       end
+      alias_method :create_from_scratch, :create
+      deprecate create_from_scratch: :create, deprecator: Alchemy::Deprecation
 
       # Creates a copy of source and also copies the associated essence.
       #
@@ -50,60 +60,26 @@ module Alchemy
       #
       def copy(source, differences = {})
         new_content = Content.new(
-          source.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY).merge(differences)
+          source.attributes.
+            except(*SKIPPED_ATTRIBUTES_ON_COPY).
+            merge(differences.with_indifferent_access)
         )
-
-        new_essence = new_content.essence.class.create!(
-          new_content.essence.attributes.except(*SKIPPED_ATTRIBUTES_ON_COPY)
+        new_essence = source.essence.class.create!(
+          source.essence.attributes.
+            except(*SKIPPED_ATTRIBUTES_ON_COPY)
         )
-
-        new_content.update!(essence_id: new_essence.id)
-        new_content
-      end
-
-      # Returns the content definition for building a content.
-      #
-      # 1. It looks in the element's contents definition
-      # 2. It builds a definition hash from essence type, if the the name key is not present
-      #
-      def content_definition(element, essence_hash)
-        # No name given. We build the content from essence type.
-        if essence_hash[:name].blank? && essence_hash[:essence_type].present?
-          content_definition_from_essence_type(element, essence_hash[:essence_type])
-        else
-          element.content_definition_for(essence_hash[:name])
+        new_content.tap do |content|
+          content.essence = new_essence
+          content.save
         end
-      end
-
-      # Returns a hash for building a content from essence type.
-      #
-      # @param [Alchemy::Element]
-      #   The element the content is for.
-      # @param [String]
-      #   The essence type the content is from
-      #
-      def content_definition_from_essence_type(element, essence_type)
-        {
-          'type' => essence_type,
-          'name' => content_name_from_element_and_essence_type(element, essence_type)
-        }
-      end
-
-      # A name for content from its essence type and amount of same essences in element.
-      #
-      # Example:
-      #
-      #   essence_picture_1
-      #
-      def content_name_from_element_and_essence_type(element, essence_type)
-        essences_of_same_type = element.contents.where(essence_type: normalize_essence_type(essence_type))
-        "#{essence_type.classify.demodulize.underscore}_#{essences_of_same_type.count + 1}"
       end
 
       # Returns all content definitions from elements.yml
       #
       def definitions
-        Element.definitions.collect { |e| e['contents'] }.flatten.compact
+        definitions = Element.definitions.flat_map { |e| e['contents'] }
+        definitions.compact!
+        definitions
       end
 
       # Returns a normalized Essence type

@@ -9,32 +9,114 @@ module Alchemy
 
     # ClassMethods
 
-    describe '.new_from_scratch' do
+    describe '.new' do
       it "should initialize an element by name from scratch" do
-        el = Element.new_from_scratch(name: 'article')
+        el = Element.new(name: 'article')
         expect(el).to be_an(Alchemy::Element)
         expect(el.name).to eq('article')
       end
 
       it "should raise an error if the given name is not defined in the elements.yml" do
         expect {
-          Element.new_from_scratch(name: 'foobar')
+          Element.new(name: 'foobar')
         }.to raise_error(ElementDefinitionError)
       end
 
       it "should take the first part of an given name containing a hash (#)" do
-        el = Element.new_from_scratch(name: 'article#header')
+        el = Element.new(name: 'article#header')
         expect(el.name).to eq("article")
       end
 
       it "should merge given attributes into defined ones" do
-        el = Element.new_from_scratch(name: 'article', page_id: 1)
+        el = Element.new(name: 'article', page_id: 1)
         expect(el.page_id).to eq(1)
       end
 
       it "should not have forbidden attributes from definition" do
-        el = Element.new_from_scratch(name: 'article')
+        el = Element.new(name: 'article')
         expect(el.contents).to eq([])
+      end
+    end
+
+    describe '.create' do
+      let(:page) { build(:alchemy_page) }
+
+      subject(:element) { described_class.create(page: page, name: 'article') }
+
+      it 'creates contents' do
+        expect(element.contents).to match_array([
+          an_instance_of(Alchemy::Content),
+          an_instance_of(Alchemy::Content),
+          an_instance_of(Alchemy::Content),
+          an_instance_of(Alchemy::Content)
+        ])
+      end
+
+      context 'if autogenerate_contents set to false' do
+        subject(:element) do
+          described_class.create(
+            page: page,
+            name: 'article',
+            autogenerate_contents: false
+          )
+        end
+
+        it 'creates contents' do
+          expect(element.contents).to be_empty
+        end
+      end
+
+      context 'if autogenerate is given in definition' do
+        subject(:element) do
+          described_class.create(page: page, name: 'slider')
+        end
+
+        it 'creates nested elements' do
+          expect(element.nested_elements).to match_array([
+            an_instance_of(Alchemy::Element)
+          ])
+        end
+
+        context 'if element name is not a nestable element' do
+          subject(:element) do
+            described_class.create(
+              page: page,
+              name: 'slider'
+            )
+          end
+
+          before do
+            expect(Alchemy::Element).to receive(:definitions).at_least(:once) do
+              [
+                {'name' => 'slider', 'nestable_elements' => ['foo'], 'autogenerate' => ['bar']}
+              ]
+            end
+          end
+
+          it 'logs error warning' do
+            expect_any_instance_of(Alchemy::Logger).to \
+              receive(:log_warning).with("Element 'bar' not a nestable element for 'slider'. Skipping!")
+            element
+          end
+
+          it 'skips element' do
+            expect(element.nested_elements).to be_empty
+          end
+        end
+
+        context 'if autogenerate_nested_elements set to false' do
+          subject(:element) do
+            described_class.create(
+              page: page,
+              name: 'slider',
+              autogenerate_nested_elements: false
+            )
+          end
+
+          it 'creates contents' do
+            expect(element.contents).to be_empty
+          end
+        end
       end
     end
 
@@ -42,7 +124,7 @@ module Alchemy
       subject { Element.copy(element) }
 
       let(:element) do
-        create(:alchemy_element, create_contents_after_create: true, tag_list: 'red, yellow')
+        create(:alchemy_element, :with_contents, tag_list: 'red, yellow')
       end
 
       it "should not create contents from scratch" do
@@ -50,10 +132,11 @@ module Alchemy
       end
 
       context 'with differences' do
-        subject(:copy) { Element.copy(element, {name: 'foobar'}) }
+        let(:new_page) { create(:alchemy_page) }
+        subject(:copy) { Element.copy(element, {page_id: new_page.id}) }
 
         it "should create a new record with all attributes of source except given differences" do
-          expect(copy.name).to eq('foobar')
+          expect(copy.page_id).to eq(new_page.id)
         end
       end
 
@@ -68,8 +151,7 @@ module Alchemy
 
       context 'with nested elements' do
         let(:element) do
-          create(:alchemy_element, :with_nestable_elements, {
-            create_contents_after_create: true,
+          create(:alchemy_element, :with_contents, :with_nestable_elements, {
             tag_list: 'red, yellow',
             page: create(:alchemy_page)
           })
@@ -309,7 +391,7 @@ module Alchemy
     # InstanceMethods
 
     describe '#all_contents_by_type' do
-      let(:element) { create(:alchemy_element, create_contents_after_create: true) }
+      let(:element) { create(:alchemy_element, :with_contents) }
       let(:expected_contents) { element.contents.essence_texts }
 
       context "with namespaced essence type" do
@@ -574,7 +656,7 @@ module Alchemy
     end
 
     context 'retrieving contents, essences and ingredients' do
-      let(:element) { create(:alchemy_element, name: 'news', create_contents_after_create: true) }
+      let(:element) { create(:alchemy_element, :with_contents, name: 'news') }
 
       it "should return an ingredient by name" do
         expect(element.ingredient('news_headline')).to eq(EssenceText.first.ingredient)
@@ -797,7 +879,7 @@ module Alchemy
 
     describe "#to_partial_path" do
       it "should return a String in the format of 'alchemy/elements/#{name}_view'" do
-        expect(Element.new(name: 'mock').to_partial_path).to eq('alchemy/elements/mock_view')
+        expect(Element.new(name: 'article').to_partial_path).to eq('alchemy/elements/article_view')
       end
     end
 
@@ -865,10 +947,6 @@ module Alchemy
 
       context 'with nestable_elements defined' do
         let(:element) { create(:alchemy_element, :with_nestable_elements) }
-
-        before do
-          element.nested_elements << create(:alchemy_element, name: 'slide')
-        end
 
         it 'returns an AR scope containing nested elements' do
           expect(subject.count).to eq(1)

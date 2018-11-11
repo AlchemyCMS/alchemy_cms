@@ -218,7 +218,7 @@ module Alchemy
       end
 
       context "if page has cells" do
-        let(:page) { create(:alchemy_page, :public, do_not_autogenerate: false) }
+        let(:page) { create(:alchemy_page, :public, autogenerate_elements: true) }
         let(:cell) { page.cells.first }
 
         context "not pasting from clipboard" do
@@ -275,7 +275,7 @@ module Alchemy
 
               context "with elements already in cell" do
                 before do
-                  cell.elements.create(page_id: page.id, name: "article", create_contents_after_create: false)
+                  cell.elements.create(page_id: page.id, name: "article", autogenerate_contents: false)
                 end
 
                 it "should set the correct position for the element" do

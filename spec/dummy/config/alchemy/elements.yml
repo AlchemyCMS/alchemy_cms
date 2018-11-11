@@ -124,6 +124,8 @@
 - name: slider
   nestable_elements:
     - slide
+  autogenerate:
+    - slide
 
 - name: gallery
   nestable_elements:
