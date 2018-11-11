@@ -14,13 +14,10 @@ module Alchemy
       def dependencies
         case @name.to_s
         when /^alchemy\/pages\/show/
-          PageLayout.all.collect { |p| "alchemy/page_layouts/_#{p['name']}" }
+          PageLayout.all.map { |p| "alchemy/page_layouts/_#{p['name']}" }
         when /^alchemy\/page_layouts\/_(.+)/
-          page_layout = page_layout($1)
-          element_templates(page_layout) +
-            page_layout.fetch('cells', []).map { |name| "alchemy/cells/_#{name}" }
-        when /^alchemy\/cells\/_(.+)/
-          element_templates cell_definition($1)
+          page_layout = PageLayout.get($1)
+          page_layout.fetch('elements', []).map { |name| "alchemy/elements/_#{name}_view" }
         when /alchemy\/elements\/_(.+)_view/
           essences = essence_types($1)
           essences.map { |name| "alchemy/essences/_#{name.underscore}_view" }.uniq
@@ -31,24 +28,8 @@ module Alchemy
 
       private
 
-      def element_templates(collection)
-        collection.fetch('elements', []).map { |name| "alchemy/elements/_#{name}_view" }
-      end
-
-      def page_layout(name)
-        PageLayout.get(name)
-      end
-
-      def cell_definition(name)
-        Cell.definition_for(name)
-      end
-
-      def element_definition(name)
-        Element.definitions.detect { |e| e['name'] == name }
-      end
-
       def essence_types(name)
-        element = element_definition(name)
+        element = Element.definitions.detect { |e| e['name'] == name }
         return [] unless element
         element.fetch('contents', []).collect { |c| c['type'] }
       end
