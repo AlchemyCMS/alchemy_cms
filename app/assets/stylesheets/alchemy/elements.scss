@@ -536,8 +536,8 @@ select.long {
   }
 
   label {
-    display: inline-block;
-    margin-bottom: 2px;
+    display: block;
+    margin: $default-margin 0;
     font-size: $small-font-size;
     line-height: 15px;
     text-indent: 1px;
@@ -557,7 +557,7 @@ select.long {
 
   &.essence_select {
 
-    label { margin-bottom: 4px }
+    label { margin-bottom: 2*$default-margin }
 
     .select2-container {
       width: 100%;
