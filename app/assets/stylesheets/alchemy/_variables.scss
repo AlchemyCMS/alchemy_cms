@@ -136,7 +136,8 @@ $table-row-even-background-color: $white !default;
 $table-row-odd-background-color: rgba($white, 0.5) !default;
 $table-row-hover-color: rgba($light_yellow, 0.5) !default;
 
-$elements-window-width: 400px !default;
+$elements-window-width: 22.5vw !default;
+$elements-window-min-width: 400px !default;
 $element-header-bg-color: $medium-gray !default;
 $top-menu-height: 75px !default;
 
