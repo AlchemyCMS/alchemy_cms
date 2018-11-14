@@ -13,6 +13,11 @@
   .elements-window-visible & {
     transform: translate3d(0, 0, 0);
   }
+
+  // Fix for Tinymce fullscreen window positioning issues (GH#1511)
+  .mce-fullscreen & {
+    width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width});
+  }
 }
 
 #element_area {
