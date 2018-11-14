@@ -61,7 +61,7 @@
   }
 
   .search_input_field {
-    width: 150px;
+    width: 0;
     height: inherit;
     border: none;
     background-color: transparentize($form-field-background-color, 0.25);
@@ -74,6 +74,10 @@
     text-align: left;
     box-shadow: none;
     -webkit-appearance: none;
+
+    @media screen and (min-width: $medium-screen-break-point) {
+      width: 150px;
+    }
 
     &:focus {
       width: 250px;
