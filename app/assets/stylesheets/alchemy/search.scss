@@ -11,6 +11,11 @@
     left: 8px;
     top: 9px;
   }
+
+  label {
+    display: block;
+    height: inherit;
+  }
 }
 
 .js_filter_field_box {
