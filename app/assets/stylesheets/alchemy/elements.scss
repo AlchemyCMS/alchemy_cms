@@ -3,8 +3,7 @@
   right: 0;
   top: $top-menu-height;
   z-index: 20;
-  width: $elements-window-width;
-  min-width: $elements-window-min-width;
+  width: calc(100vw - #{$collapsed-main-menu-width});
   height: calc(100vh - #{$top-menu-height});
   border-left: $default-border;
   background-color: $light-gray;
@@ -18,6 +17,11 @@
   // Fix for Tinymce fullscreen window positioning issues (GH#1511)
   .mce-fullscreen & {
     width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width});
+  }
+
+  @media screen and (min-width: $medium-screen-break-point) {
+    width: $elements-window-width;
+    min-width: $elements-window-min-width;
   }
 }
 
