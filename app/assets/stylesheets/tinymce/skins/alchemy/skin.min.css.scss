@@ -67,6 +67,8 @@
   overflow: hidden;
   height: 100%;
   z-index: 100;
+  background: #fff;
+  border-radius: 0;
 
   .mce-resizehandle {
     display: none;
@@ -332,21 +334,6 @@ div.mce-tinymce-inline {
     right: 10px;
     left: auto;
   }
-}
-
-.mce-fullscreen {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  background: #fff;
-  height: 100%;
-}
-
-div.mce-fullscreen {
-  position: fixed;
-  top: 0;
-  left: 0;
 }
 
 #mce-modal-block {
