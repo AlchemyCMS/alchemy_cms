@@ -48,8 +48,7 @@
 #toolbar,
 #overlay_toolbar {
 
-  .search_form,
-  .js_filter_field_box {
+  .search_form {
     position: absolute;
     top: 0;
     right: 0;
@@ -90,13 +89,11 @@
     }
   }
 
-  .search_field .icon,
-  .js_filter_field_box .icon {
+  .search_field .icon {
     top: 18px;
   }
 
-  .search_field_clear,
-  .js_filter_field_clear {
+  .search_field_clear {
     top: 16px;
   }
 }

@@ -8,7 +8,7 @@ Alchemy.Sitemap =
   # Storing some objects.
   init: (options) ->
     @search_field = $(".search_input_field")
-    @filter_field_clear = $('.js_filter_field_clear')
+    @filter_field_clear = $('.search_field_clear')
     @display = $('#page_filter_result')
     @sitemap_wrapper = $('#sitemap-wrapper p.loading')
     @template = Handlebars.compile($('#sitemap-template').html())
