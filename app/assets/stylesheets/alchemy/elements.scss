@@ -29,6 +29,7 @@
   height: calc(100vh - #{$top-menu-height + $toolbar-height});
   overflow-x: hidden;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
   .sortable_cell {
     min-height: 100px;
