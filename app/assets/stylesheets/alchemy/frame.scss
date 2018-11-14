@@ -82,10 +82,17 @@ div#overlay_text_box {
 }
 
 #main_content {
-  padding: 84px 8px 8px $main-menu-width + 10px;
+  padding-top: 84px;
+  padding-right: 8px;
+  padding-bottom: 8px;
+  padding-left: $collapsed-main-menu-width + 8px;
   z-index: 0;
   width: 100%;
   height: 100%;
+
+  @media screen and (min-width: $large-screen-break-point) {
+    padding-left: $main-menu-width + 8px;
+  }
 }
 
 #archive_all {
