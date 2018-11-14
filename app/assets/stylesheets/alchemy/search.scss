@@ -4,8 +4,7 @@
   height: 29px;
 }
 
-.search_field,
-.js_filter_field_box {
+.search_field {
   .fa-search {
     position: absolute;
     left: 8px;
@@ -18,23 +17,7 @@
   }
 }
 
-.js_filter_field_box {
-  position: absolute;
-  right: 4px;
-  top: 8px;
-
-  .js_filter_field {
-    width: 220px;
-    text-align: left;
-    border-radius: $default-border-radius;
-    padding: 3px 24px 3px 28px;
-    height: 29px;
-    margin: 0;
-  }
-}
-
-.search_field_clear,
-.js_filter_field_clear {
+.search_field_clear {
   display: none;
   position: absolute;
   top: 7px;

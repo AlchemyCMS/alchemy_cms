@@ -1,0 +1,30 @@
+.js_filter_field_box {
+  position: relative;
+  margin: $form-field-margin;
+
+  > .icon {
+    position: absolute;
+    left: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .js_filter_field {
+    width: 100%;
+    padding-left: 28px;
+    padding-right: 24px;
+    margin: 0;
+  }
+
+  .js_filter_field_clear {
+    display: none;
+    position: absolute;
+    right: 4px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 16px;
+    height: 16px;
+    line-height: 14px;
+    text-align: center;
+  }
+}
