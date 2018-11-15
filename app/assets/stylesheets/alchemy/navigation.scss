@@ -33,8 +33,15 @@
 }
 
 #main_navi {
+  max-height: 100vh;
   padding-top: 28px;
   padding-bottom: 80px;
+
+  @media screen and (max-width: $medium-screen-break-point) {
+    overflow-x: hidden;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 .main_navi_entry {
