@@ -19,7 +19,7 @@
     width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width});
   }
 
-  @media screen and (min-width: $medium-screen-break-point) {
+  @media screen and (min-width: $large-screen-break-point) {
     width: $elements-window-width;
     min-width: $elements-window-min-width;
   }
