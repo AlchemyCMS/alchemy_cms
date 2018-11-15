@@ -395,6 +395,7 @@
   }
 
   .picture_thumbnail {
+    display: inline-block;
     width: 160px;
     margin: $default-margin 0;
     padding-bottom: 28px;

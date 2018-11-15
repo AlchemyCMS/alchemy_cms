@@ -39,7 +39,6 @@ div#image_assign_filter_and_image_sizing {
 .picture_thumbnail {
   margin: 2*$default-margin;
   background-color: #fff;
-  display: inline-block;
   position: relative;
   box-shadow: 0 0 0 1px $default-border-color;
   width: 160px;
@@ -89,7 +88,14 @@ div#image_assign_filter_and_image_sizing {
   }
 }
 
+#pictures,
+#overlay_picture_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 #pictures {
+
   .thumbnail_background {
     @include zoom-in;
   }
