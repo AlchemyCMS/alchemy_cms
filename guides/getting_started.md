@@ -124,7 +124,7 @@ bundle install
 and run the installer
 
 ~~~ bash
-bin/rails alchemy:devise:install
+bin/rails g alchemy:devise:install
 ~~~
 
 ## Starting AlchemyCMS
