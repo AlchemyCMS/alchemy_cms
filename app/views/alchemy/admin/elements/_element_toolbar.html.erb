@@ -33,7 +33,7 @@
     </div>
     <div class="button_with_label publish-element-button">
       <%= link_to(
-        render_icon('eye-slash'),
+        render_icon(element.public? ? 'eye-slash' : 'eye'),
         alchemy.publish_admin_element_path(id: element.id),
         remote: true,
         method: :patch,
