@@ -12,6 +12,9 @@ gem 'mysql2', '~> 0.5.1' if ENV['DB'] == 'mysql'
 gem 'pg',     '~> 1.0'   if ENV['DB'] == 'postgresql'
 gem 'sassc-rails'
 
+# Temporary fix until a new Ransack version gets released.
+gem 'ransack', github: 'activerecord-hackery/ransack', ref: '8daa87a0389d380f7c9fd7ea9cb5bda634d5dc7d'
+
 group :development, :test do
   gem 'simplecov', require: false
   gem 'bootsnap', require: false
