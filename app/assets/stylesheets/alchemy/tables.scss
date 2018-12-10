@@ -186,26 +186,3 @@ td#user_roles {
     min-width: 40%;
   }
 }
-
-.resources-table-wrapper {
-  padding-top: 50px;
-
-  table {
-    padding-bottom: 60px;
-  }
-}
-
-.resources-header {
-  position: fixed;
-  width: 100%;
-  top: $top-menu-height;
-  left: $main-menu-width + 9px;
-  z-index: 2;
-  margin: 0 -8px;
-  padding: 8px 16px;
-  background-color: $light-gray;
-
-  > h2, > h3 {
-    margin-bottom: 0;
-  }
-}

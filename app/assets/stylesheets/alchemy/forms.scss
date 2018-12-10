@@ -160,8 +160,12 @@ form {
 
   .control_group {
     width: $form-right-width;
-    padding-top: 0.6em;
+    padding-top: $default-margin;
     float: right;
+  }
+
+  .check_boxes .control_group {
+    padding-top: 0.6em;
   }
 
   .input .hint {

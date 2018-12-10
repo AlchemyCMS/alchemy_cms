@@ -59,7 +59,7 @@ $dialog-transition-duration: 150ms;
 .alchemy-dialog,
 .alchemy-image-overlay-dialog {
   position: relative;
-  max-width: 100%;
+  max-width: calc(100vw - 16px);
   display: inline-block;
   vertical-align: middle;
   text-align: left;

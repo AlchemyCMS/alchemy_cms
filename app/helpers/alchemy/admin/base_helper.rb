@@ -106,7 +106,6 @@ module Alchemy
           concat text_field_tag(nil, nil, options)
           concat render_icon(:search)
           concat link_to(render_icon(:times, size: 'xs'), '', class: 'js_filter_field_clear', title: Alchemy.t(:click_to_show_all))
-          concat content_tag(:label, Alchemy.t(:search), for: options[:id])
         end
       end
 
