@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 gemspec
 
-gem 'rails', '~> 5.2.1'
+gem 'rails', ['>= 5.2.1.1', '< 5.3']
 gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
 gem 'sassc-rails'
 
