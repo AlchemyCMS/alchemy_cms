@@ -54,14 +54,6 @@ module Alchemy
             it "returns all essence layout view partial names for that element" do
               is_expected.to include('alchemy/essences/_essence_text_view')
             end
-
-            context 'and element has picture_gallery enabled' do
-              let(:elements) { [{'name' => 'text', 'picture_gallery' => true}] }
-
-              it "has EssencePicture as template dependency" do
-                is_expected.to include('alchemy/essences/_essence_picture_view')
-              end
-            end
           end
 
           context 'that has no definition' do

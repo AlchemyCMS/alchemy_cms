@@ -19,13 +19,13 @@ module Alchemy
 
       it "should hold trashed elements" do
         get :index, params: {page_id: alchemy_page.id}
-        expect(response.body).to have_selector("#element_#{element.id}.element-editor")
+        expect(response.body).to have_selector("[data-element-id=\"#{element.id}\"].element-editor")
       end
 
       it "should not hold elements that are not trashed" do
         element = create(:alchemy_element, page: alchemy_page, public: false)
         get :index, params: {page_id: alchemy_page.id}
-        expect(response.body).not_to have_selector("#element_#{element.id}.element-editor")
+        expect(response.body).not_to have_selector("[data-element-id=\"#{element.id}\"].element-editor")
       end
 
       context "with unique elements inside the trash" do
@@ -39,7 +39,7 @@ module Alchemy
 
           it "unique elements should be draggable" do
             get :index, params: {page_id: alchemy_page.id}
-            expect(response.body).to have_selector("#element_#{trashed.id}.element-editor.draggable")
+            expect(response.body).to have_selector("[data-element-id=\"#{trashed.id}\"].element-editor.draggable")
           end
         end
 
@@ -54,7 +54,7 @@ module Alchemy
 
           it "unique elements should not be draggable" do
             get :index, params: {page_id: page.id}
-            expect(response.body).to have_selector("#element_#{trashed.id}.element-editor.not-draggable")
+            expect(response.body).to have_selector("[data-element-id=\"#{trashed.id}\"].element-editor.not-draggable")
           end
         end
       end

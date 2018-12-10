@@ -174,28 +174,12 @@ module Alchemy
     end
 
     describe '#element_editor_classes' do
-      subject { element_editor_classes(element, locals) }
+      subject { element_editor_classes(element) }
 
       let(:element) { build_stubbed(:alchemy_element) }
-      let(:locals) { Hash.new }
 
       it "returns css classes for element editor partial" do
         is_expected.to include('element-editor')
-      end
-
-      context 'with draggable in locals set to true' do
-        let(:locals) { {draggable: true} }
-        it { is_expected.to include('draggable') }
-      end
-
-      context 'with draggable in locals set to false' do
-        let(:locals) { {draggable: false} }
-        it { is_expected.to include('not-draggable') }
-      end
-
-      context 'with draggable in locals set to nil' do
-        let(:locals) { {draggable: nil} }
-        it { is_expected.to include('draggable') }
       end
 
       context 'with element is folded' do

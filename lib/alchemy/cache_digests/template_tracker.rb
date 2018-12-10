@@ -23,10 +23,6 @@ module Alchemy
           element_templates cell_definition($1)
         when /alchemy\/elements\/_(.+)_view/
           essences = essence_types($1)
-          element = element_definition($1)
-          if element && element['picture_gallery']
-            essences += ['EssencePicture']
-          end
           essences.map { |name| "alchemy/essences/_#{name.underscore}_view" }.uniq
         else
           ActionView::DependencyTracker::ERBTracker.call(@name, @template)

@@ -1,7 +1,7 @@
 <%= content_tag :div,
   id: "element_#{element.id}",
   data: {'element-id' => element.id, 'element-name' => element.name},
-  class: element_editor_classes(element, local_assigns) do %>
+  class: element_editor_classes(element) do %>
 
   <%= render 'alchemy/admin/elements/element_header', element: element %>
 
