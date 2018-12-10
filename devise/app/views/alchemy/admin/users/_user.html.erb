@@ -17,7 +17,7 @@
   <td><%= user.lastname %></td>
   <td class="email"><%= user.email %></td>
   <td><%= Alchemy.t(user.language, scope: 'translations', default: Alchemy.t(:unknown)) %></td>
-  <td><%= user.last_sign_in_at.present? ? l(user.last_sign_in_at, format: :default) : Alchemy.t(:unknown) %></td>
+  <td><%= user.last_sign_in_at.present? ? l(user.last_sign_in_at, format: 'alchemy.default'.to_sym) : Alchemy.t(:unknown) %></td>
   <td class="role"><%= user.human_roles_string %></td>
   <td class="tools">
   <% if can?(:destroy, user) %>
