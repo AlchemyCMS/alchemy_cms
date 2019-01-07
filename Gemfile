@@ -36,7 +36,7 @@ group :development, :test do
   gem 'factory_bot_rails', '~> 4.5'
   gem 'selenium-webdriver', '~> 3.8'
   gem 'rspec-activemodel-mocks', '~> 1.0'
-  gem 'rspec-rails', '~> 3.0'
+  gem 'rspec-rails', '~> 3.7'
   gem 'shoulda-matchers', '~> 3.1'
   gem 'rails-controller-testing', '~> 1.0'
 end
