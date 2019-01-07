@@ -11,7 +11,6 @@ require 'rspec/rails'
 require 'selenium/webdriver'
 require 'capybara/rails'
 require 'capybara-screenshot/rspec'
-require 'database_cleaner'
 require 'rspec-activemodel-mocks'
 
 require 'alchemy/seeder'
