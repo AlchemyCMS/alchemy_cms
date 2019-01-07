@@ -61,22 +61,12 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include CapybaraSelect2, type: :system
 
-  config.use_transactional_fixtures = false
-  # Make sure the database is clean and ready for test
-  config.before(:suite) do
-    DatabaseCleaner.clean_with(:truncation)
-  end
+  config.use_transactional_fixtures = true
 
   # All specs are running in transactions, but feature specs not.
-  config.before(:each) do |example|
+  config.before(:each) do
     Alchemy::Site.current = nil
     ::I18n.locale = :en
-    if example.metadata[:type] == :feature
-      DatabaseCleaner.strategy = :truncation
-    else
-      DatabaseCleaner.strategy = :transaction
-    end
-    DatabaseCleaner.start
   end
 
   config.before(:each, type: :system) do
@@ -85,11 +75,5 @@ RSpec.configure do |config|
 
   config.before(:each, type: :system, js: true) do
     driven_by :selenium_chrome_headless
-  end
-
-  # After each spec the database gets cleaned. (via rollback or truncate for feature specs)
-  # After every feature spec the database gets seeded so the next spec can rely on that data.
-  config.append_after(:each) do
-    DatabaseCleaner.clean
   end
 end
