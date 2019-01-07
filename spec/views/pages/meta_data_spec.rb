@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 module Alchemy
   describe 'alchemy/pages/_meta_data' do
     let(:root_page)       { Page.new }

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Page editing feature' do
   let(:a_page) { create(:alchemy_page) }

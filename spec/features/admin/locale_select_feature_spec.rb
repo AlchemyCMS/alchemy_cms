@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Locale select' do
   let(:a_page) { create(:alchemy_page, :public) }

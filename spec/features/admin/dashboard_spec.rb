@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'Dashboard feature' do
   let(:user) { create(:alchemy_dummy_user, :as_admin, name: "Joe User") }

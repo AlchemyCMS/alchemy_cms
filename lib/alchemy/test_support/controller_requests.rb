@@ -19,7 +19,7 @@
 #
 # Then, in your controller tests, you can access alchemy routes like this:
 #
-#   require 'spec_helper'
+#   require 'rails_helper'
 #
 #   describe Alchemy::Admin::PagesController do
 #     it "can see all the pages" do

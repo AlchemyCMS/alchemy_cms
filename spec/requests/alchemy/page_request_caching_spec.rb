@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe 'Page request caching' do
   let!(:page) { create(:alchemy_page, :public) }
