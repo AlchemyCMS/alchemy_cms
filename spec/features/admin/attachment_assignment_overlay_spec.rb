@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature "Attachment assignment overlay" do
+RSpec.describe "Attachment assignment overlay", type: :system do
   before do
     authorize_user(:as_admin)
   end

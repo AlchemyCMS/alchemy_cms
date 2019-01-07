@@ -39,17 +39,6 @@ Rails.backtrace_cleaner.remove_silencers!
 Rails.logger.level = 4
 
 # Configure capybara for integration testing
-Capybara.register_driver :selenium_chrome_headless do |app|
-  browser_options = ::Selenium::WebDriver::Chrome::Options.new
-  browser_options.args << '--headless'
-  browser_options.args << '--no-sandbox'
-  browser_options.args << '--disable-gpu'
-  browser_options.args << '--window-size=1440,1080'
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
-end
-
-Capybara.javascript_driver = :selenium_chrome_headless
-Capybara.default_driver = :rack_test
 Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
 Capybara.server = :webrick
@@ -66,11 +55,11 @@ RSpec.configure do |config|
   config.include ActiveSupport::Testing::TimeHelpers
   config.include Alchemy::Engine.routes.url_helpers
   config.include Alchemy::TestSupport::ConfigStubbing
-  [:controller, :feature, :request].each do |type|
+  [:controller, :system, :request].each do |type|
     config.include Alchemy::TestSupport::IntegrationHelpers, type: type
   end
   config.include FactoryBot::Syntax::Methods
-  config.include CapybaraSelect2, type: :feature
+  config.include CapybaraSelect2, type: :system
 
   config.use_transactional_fixtures = false
   # Make sure the database is clean and ready for test
@@ -88,6 +77,14 @@ RSpec.configure do |config|
       DatabaseCleaner.strategy = :transaction
     end
     DatabaseCleaner.start
+  end
+
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :selenium_chrome_headless
   end
 
   # After each spec the database gets cleaned. (via rollback or truncate for feature specs)

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe "Admin page sorting" do
+RSpec.describe "Admin page sorting", type: :system do
   let!(:alchemy_page) { create(:alchemy_page) }
 
   before do

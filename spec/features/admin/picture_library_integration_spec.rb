@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature "Picture Library" do
+RSpec.describe "Picture Library", type: :system do
   before do
     authorize_user(:as_admin)
   end

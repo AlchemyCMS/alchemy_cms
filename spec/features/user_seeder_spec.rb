@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'User seeding' do
+RSpec.describe 'User seeding', type: :system do
   context 'when db/seeds/alchemy/users.yml file is present' do
     let(:seeds_file) do
       'spec/fixtures/users.yml'

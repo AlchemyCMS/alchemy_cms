@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe "Dummy App" do
+RSpec.describe "Dummy App", type: :system do
   include Capybara::DSL
 
   it "should be a valid app" do

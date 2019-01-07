@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Admin navigation feature' do
+RSpec.describe 'Admin navigation feature', type: :system do
   context 'admin users' do
     before { authorize_user(:as_admin) }
 

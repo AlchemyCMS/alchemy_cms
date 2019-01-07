@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Site select' do
+RSpec.describe 'Site select', type: :system do
   before do
     authorize_user(:as_admin)
   end

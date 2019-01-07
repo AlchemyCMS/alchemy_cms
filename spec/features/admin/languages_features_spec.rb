@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.feature "Admin::LanguagesFeatures", type: :feature do
+RSpec.describe "Admin Languages Features", type: :system do
   before do
     authorize_user(:as_admin)
   end

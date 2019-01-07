@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe 'Locked pages feature' do
+RSpec.describe 'Locked pages feature', type: :system do
   let(:a_page) { create(:alchemy_page) }
 
   let(:user) do

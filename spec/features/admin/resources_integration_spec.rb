@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-describe "Resources" do
+RSpec.describe "Resources", type: :system do
   let(:event)        { create(:event) }
   let(:second_event) { create(:event, name: 'My second Event', entrance_fee: 12.32) }
 
