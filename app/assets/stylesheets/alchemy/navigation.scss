@@ -93,12 +93,13 @@
     transition: opacity $transition-duration $transition-easing;
     vertical-align: middle;
     cursor: pointer;
-    @include truncate($main-menu-entry-max-width, $wrap: nowrap);
+    @include truncate($collapsed-main-menu-entry-max-width, $wrap: nowrap);
 
     @media screen and (min-width: $large-screen-break-point) {
       body:not(.collapsed-menu) & {
         position: static;
         visibility: visible;
+        max-width: $main-menu-entry-max-width;
         opacity: 1;
         padding-left: $default-padding;
         background-color: transparent;
