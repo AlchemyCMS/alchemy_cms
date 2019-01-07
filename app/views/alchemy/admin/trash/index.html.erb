@@ -8,7 +8,9 @@
 <% end %>
 <div id="trash_items">
 <%- @elements.each do |element| -%>
-  <% draggable = @allowed_elements.any? { |e| e['name'] == element.name || element.name.in?(e.fetch('nestable_elements', [])) } %>
+  <% draggable = @allowed_elements.any? { |e|
+    !e['fixed'] && e['name'] == element.name || element.name.in?(e.fetch('nestable_elements', []))
+  } %>
   <%= content_tag :div,
     data: {'element-id' => element.id, 'element-name' => element.name},
     class: ['element-editor', draggable ? 'draggable' : 'not-draggable'] do %>

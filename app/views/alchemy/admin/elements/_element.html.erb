@@ -3,9 +3,11 @@
   data: {'element-id' => element.id, 'element-name' => element.name},
   class: element_editor_classes(element) do %>
 
-  <%= render 'alchemy/admin/elements/element_header', element: element %>
+  <% unless element.fixed? %>
+    <%= render 'alchemy/admin/elements/element_header', element: element %>
+  <% end %>
 
-  <% if element.expanded? %>
+  <% if element.expanded? || element.fixed? %>
     <%= render 'alchemy/admin/elements/element_toolbar', element: element %>
 
     <%= form_for [alchemy, :admin, element], remote: true,
@@ -38,7 +40,7 @@
         <%= render partial: 'alchemy/admin/elements/element', collection: element.nested_elements %>
       <% end %>
 
-      <% if element.expanded? %>
+      <% if element.expanded? || element.fixed? %>
         <% if element.nestable_elements.length == 1 %>
           <% nestable_element = element.nestable_elements.first %>
           <%= form_for [:admin, Alchemy::Element.new(name: nestable_element)],

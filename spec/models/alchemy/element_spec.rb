@@ -22,11 +22,6 @@ module Alchemy
         }.to raise_error(ElementDefinitionError)
       end
 
-      it "should take the first part of an given name containing a hash (#)" do
-        el = Element.new(name: 'article#header')
-        expect(el.name).to eq("article")
-      end
-
       it "should merge given attributes into defined ones" do
         el = Element.new(name: 'article', page_id: 1)
         expect(el.page_id).to eq(1)
@@ -178,20 +173,6 @@ module Alchemy
             end
           end
         end
-
-        context 'copy to new cell' do
-          let(:new_cell) { create(:alchemy_cell) }
-
-          subject(:new_element) do
-            Element.copy(element, {cell_id: new_cell.id})
-          end
-
-          it "should set cell id to new cell's id" do
-            new_element.nested_elements.each do |nested_element|
-              expect(nested_element.cell_id).to eq(new_cell.id)
-            end
-          end
-        end
       end
     end
 
@@ -286,15 +267,25 @@ module Alchemy
       end
     end
 
-    describe '.not_in_cell' do
-      before do
-        Element.delete_all
-        create(:alchemy_element, cell: create(:alchemy_cell))
-        create(:alchemy_element)
-      end
+    describe '.fixed' do
+      let!(:fixed_element) { create(:alchemy_element, :fixed) }
+      let!(:element) { create(:alchemy_element) }
 
-      it "should return all elements that are not in a cell" do
-        expect(Element.not_in_cell.size).to eq(1)
+      it "should return all elements that are fixed" do
+        expect(Element.fixed).to match_array([
+          fixed_element
+        ])
+      end
+    end
+
+    describe '.unfixed' do
+      let!(:fixed_element) { create(:alchemy_element, :fixed) }
+      let!(:element) { create(:alchemy_element) }
+
+      it "should return all elements that are not fixed" do
+        expect(Element.unfixed).to match_array([
+          element
+        ])
       end
     end
 
@@ -404,52 +395,6 @@ module Alchemy
         subject { element.all_contents_by_type('EssenceText') }
         it { is_expected.not_to be_empty }
         it('should return the correct list of essences') { is_expected.to eq(expected_contents) }
-      end
-    end
-
-    describe '#available_page_cell_names' do
-      let(:page)    { create(:alchemy_page, :public) }
-      let(:element) { create(:alchemy_element, page: page) }
-
-      context "with page having cells defining the correct elements" do
-        before do
-          allow(Cell).to receive(:definitions).and_return([
-            {'name' => 'header', 'elements' => ['article', 'headline']},
-            {'name' => 'footer', 'elements' => ['article', 'text']},
-            {'name' => 'sidebar', 'elements' => ['teaser']}
-          ])
-        end
-
-        it "should return a list of all cells from given page this element could be placed in" do
-          create(:alchemy_cell, name: 'header', page: page)
-          create(:alchemy_cell, name: 'footer', page: page)
-          create(:alchemy_cell, name: 'sidebar', page: page)
-          expect(element.available_page_cell_names(page)).to include('header')
-          expect(element.available_page_cell_names(page)).to include('footer')
-        end
-
-        context "but without any cells" do
-          it "should return the 'nil cell'" do
-            expect(element.available_page_cell_names(page)).to eq(['for_other_elements'])
-          end
-        end
-      end
-
-      context "with page having cells defining the wrong elements" do
-        before do
-          allow(Cell).to receive(:definitions).and_return([
-            {'name' => 'header', 'elements' => ['download', 'headline']},
-            {'name' => 'footer', 'elements' => ['contactform', 'text']},
-            {'name' => 'sidebar', 'elements' => ['teaser']}
-          ])
-        end
-
-        it "should return the 'nil cell'" do
-          create(:alchemy_cell, name: 'header', page: page)
-          create(:alchemy_cell, name: 'footer', page: page)
-          create(:alchemy_cell, name: 'sidebar', page: page)
-          expect(element.available_page_cell_names(page)).to eq(['for_other_elements'])
-        end
       end
     end
 
@@ -765,20 +710,6 @@ module Alchemy
           expect { element.save }.to change { touchable_page.updated_at }
         end
       end
-
-      context 'with cell associated' do
-        let(:element) { create(:alchemy_element, page: page, cell: cell) }
-
-        let(:cell) do
-          create(:alchemy_cell).tap do |cell|
-            cell.update_column(:updated_at, 3.hours.ago)
-          end
-        end
-
-        it "updates timestamp of cell" do
-          expect { element.save }.to change { cell.updated_at }
-        end
-      end
     end
 
     describe '#taggable?' do
@@ -858,7 +789,6 @@ module Alchemy
       end
 
       specify { expect { element.trash! }.to_not change(element, :page_id) }
-      specify { expect { element.trash! }.to_not change(element, :cell_id) }
 
       context "with already one trashed element on the same page" do
         let(:element_2) do

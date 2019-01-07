@@ -29,12 +29,6 @@ module Alchemy
     #     <%= render_elements from_page: 'footer' %>
     #   </footer>
     #
-    # === Render elements from cell:
-    #
-    #   <aside>
-    #     <%= render_elements from_cell: 'sidebar' %>
-    #   </aside>
-    #
     # === Fallback to elements from global page:
     #
     # You can use the fallback option as an override for elements that are stored on another page.
@@ -60,8 +54,6 @@ module Alchemy
     #   A list of element names not to be rendered.
     # @option options [Hash] :fallback
     #   Define elements that are rendered from another page.
-    # @option options [Alchemy::Cell or String] :from_cell
-    #   The cell the elements are rendered from. You can pass a {Alchemy::Cell} name String or a {Alchemy::Cell} object.
     # @option options [Alchemy::Page or String] :from_page (@page)
     #   The page the elements are rendered from. You can pass a page_layout String or a {Alchemy::Page} object.
     # @option options [Array or String] :only ([])

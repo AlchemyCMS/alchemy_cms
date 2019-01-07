@@ -49,7 +49,9 @@ module Alchemy
 
           before do
             allow(Page).to receive(:find).and_return(page)
-            allow(page).to receive(:elements).and_return double(not_trashed: double(pluck: [unique.name]))
+            allow(page).to receive(:elements_including_fixed) do
+              double(pluck: [unique.name])
+            end
           end
 
           it "unique elements should not be draggable" do

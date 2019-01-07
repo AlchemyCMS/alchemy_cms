@@ -5,29 +5,12 @@ module Alchemy
     extend Shell
 
     class << self
-      def create_missing_cells(page_layouts, cells)
-        page_layouts.each do |layout|
-          next if layout['cells'].blank?
-          cells_for_layout = cells.select { |cell| layout['cells'].include? cell['name'] }
-          Alchemy::Page.where(page_layout: layout['name']).each do |page|
-            cells_for_layout.each do |cell_for_layout|
-              cell = Alchemy::Cell.find_or_initialize_by(name: cell_for_layout['name'], page_id: page.id)
-              if cell.new_record?
-                log "Creating cell #{cell.name} for page #{page.name}"
-              else
-                log "Cell #{cell.name} for page #{page.name} already present", :skip
-              end
-            end
-          end
-        end
-      end
-
       def update_element_positions
         Alchemy::Page.all.each do |page|
           if page.elements.any?
             puts "\n## Updating element positions of page `#{page.name}`"
           end
-          page.elements.group_by(&:cell_id).each do |_cell_id, elements|
+          page.elements.group_by(&:parent_element_id).each do |_, elements|
             elements.each_with_index do |element, idx|
               position = idx + 1
               if element.position != position
@@ -46,8 +29,7 @@ module Alchemy
           if element.contents.any?
             puts "\n## Updating content positions of element `#{element.name}`"
           end
-          element.contents.group_by(&:essence_type).each do |essence_type, contents|
-            puts "-> Contents of type `#{essence_type}`"
+          element.contents.group_by(&:element_id).each do |_, contents|
             contents.each_with_index do |content, idx|
               position = idx + 1
               if content.position != position
@@ -61,31 +43,12 @@ module Alchemy
         end
       end
 
-      def remove_orphaned_cells
-        puts "\n## Removing orphaned cells"
-        cells = Alchemy::Cell.unscoped.all
-        if cells.any?
-          orphaned_cells = cells.select do |cell|
-            cell.page.nil? && cell.page_id.present?
-          end
-          if orphaned_cells.any?
-            log "Found #{orphaned_cells.size} orphaned cells"
-            destroy_orphaned_records(orphaned_cells, 'cell')
-          else
-            log "No orphaned cells found", :skip
-          end
-        else
-          log "No cells found", :skip
-        end
-      end
-
       def remove_orphaned_elements
         puts "\n## Removing orphaned elements"
         elements = Alchemy::Element.unscoped.all
         if elements.any?
           orphaned_elements = elements.select do |element|
-            element.page.nil? && element.page_id.present? ||
-              element.cell.nil? && element.cell_id.present?
+            element.page.nil? && element.page_id.present?
           end
           if orphaned_elements.any?
             log "Found #{orphaned_elements.size} orphaned elements"

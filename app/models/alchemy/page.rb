@@ -130,7 +130,6 @@ module Alchemy
     include Alchemy::Page::PageNatures
     include Alchemy::Page::PageNaming
     include Alchemy::Page::PageUsers
-    include Alchemy::Page::PageCells
     include Alchemy::Page::PageElements
 
     # site_name accessor
@@ -188,7 +187,6 @@ module Alchemy
         page = Alchemy::Page.new(attributes_from_source_for_copy(source, differences))
         page.tag_list = source.tag_list
         if page.save!
-          copy_cells(source, page)
           copy_elements(source, page)
           page
         end

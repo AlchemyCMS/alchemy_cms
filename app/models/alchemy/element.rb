@@ -9,13 +9,13 @@
 #  position          :integer
 #  page_id           :integer          not null
 #  public            :boolean          default(TRUE)
+#  fixed             :boolean          default(FALSE)
 #  folded            :boolean          default(FALSE)
 #  unique            :boolean          default(FALSE)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  creator_id        :integer
 #  updater_id        :integer
-#  cell_id           :integer
 #  cached_tag_list   :text
 #  parent_element_id :integer
 #
@@ -47,15 +47,15 @@ module Alchemy
       "updater_id"
     ].freeze
 
-    # All Elements that share the same page id, cell id and parent element id are considered a list.
+    # All Elements that share the same page id and parent element id and are fixed or not are considered a list.
     #
-    # If cell id and parent element id are nil (typical case for a simple page),
+    # If parent element id is nil (typical case for a simple page),
     # then all elements on that page are still in one list,
     # because acts_as_list correctly creates this statement:
     #
-    #   WHERE page_id = 1 and cell_id = NULL AND parent_element_id = NULL
+    #   WHERE page_id = 1 and fixed = FALSE AND parent_element_id = NULL
     #
-    acts_as_list scope: [:page_id, :cell_id, :parent_element_id]
+    acts_as_list scope: [:page_id, :fixed, :parent_element_id]
 
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -70,7 +70,6 @@ module Alchemy
       foreign_key: :parent_element_id,
       dependent: :destroy
 
-    belongs_to :cell, optional: true, touch: true
     belongs_to :page, touch: true, inverse_of: :descendent_elements
 
     # A nested element belongs to a parent element.
@@ -100,8 +99,8 @@ module Alchemy
     scope :available,         -> { published.not_trashed }
     scope :named,             ->(names) { where(name: names) }
     scope :excluded,          ->(names) { where(arel_table[:name].not_in(names)) }
-    scope :not_in_cell,       -> { where(cell_id: nil) }
-    scope :in_cell,           -> { where("#{table_name}.cell_id IS NOT NULL") }
+    scope :fixed,             -> { where(fixed: true) }
+    scope :unfixed,           -> { where(fixed: false) }
     scope :from_current_site, -> { where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: 'language') }
     scope :folded,            -> { where(folded: true) }
     scope :expanded,          -> { where(folded: false) }
@@ -227,17 +226,6 @@ module Alchemy
       position.nil?
     end
 
-    # The names of all cells from given page this element could be placed in.
-    #
-    def available_page_cell_names(page)
-      cellnames = unique_available_page_cell_names(page)
-      if cellnames.blank? || !page.has_cells?
-        ['for_other_elements']
-      else
-        cellnames
-      end
-    end
-
     # Returns true if the definition of this element has a taggable true value.
     def taggable?
       definition['taggable'] == true
@@ -295,8 +283,7 @@ module Alchemy
       nested_elements.map do |nested_element|
         Element.copy(nested_element, {
           parent_element_id: target_element.id,
-          page_id: target_element.page_id,
-          cell_id: target_element.cell_id
+          page_id: target_element.page_id
         })
       end
     end
@@ -316,20 +303,6 @@ module Alchemy
     def select_element(elements, name, order)
       elements = elements.named(name) if name.present?
       elements.reorder(position: order).limit(1).first
-    end
-
-    # Returns all cells from given page this element could be placed in.
-    #
-    def available_page_cells(page)
-      page.cells.select do |cell|
-        cell.available_elements.include?(name)
-      end
-    end
-
-    # Returns all uniq cell names from given page this element could be placed in.
-    #
-    def unique_available_page_cell_names(page)
-      available_page_cells(page).collect(&:name).uniq
     end
 
     # Updates all +touchable_pages+

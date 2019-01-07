@@ -5,7 +5,7 @@ window.Alchemy = {} if typeof (window.Alchemy) is "undefined"
 
 $.extend Alchemy,
 
-  SortableElements: (page_id, form_token, selector = '#element_area .sortable_cell') ->
+  SortableElements: (page_id, form_token, selector = '#element_area .sortable-elements') ->
     Alchemy.initializedSortableElements = false
     $sortable_area = $(selector)
 
@@ -35,14 +35,11 @@ $.extend Alchemy,
         Alchemy.initializedSortableElements = true
         element_ids = $.map $this.children(), (child) ->
           $(child).attr("data-element-id")
-        cell_id = $this.data("cell-id")
         parent_element_id = ui.item.parent().closest("[data-element-id]").data('element-id')
         params =
           page_id: page_id
           authenticity_token: encodeURIComponent(form_token)
           element_ids: element_ids
-        if cell_id?
-          params['cell_id'] = cell_id
         if parent_element_id?
           params['parent_element_id'] = parent_element_id
         $(event.target).css("cursor", "progress")

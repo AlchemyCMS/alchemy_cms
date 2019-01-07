@@ -1,11 +1,14 @@
 $('#element_<%= @element.id %>').hide(200, function() {
   $(this).remove();
   Alchemy.growl('<%= j Alchemy.t("Element trashed") %>');
-  $('#element_area .sortable_cell').sortable('refresh');
+  $('#element_area .sortable-elements').sortable('refresh');
   Alchemy.TrashWindow.refresh();
   $('#element_trash_button .icon').addClass('full');
   Alchemy.PreviewWindow.refresh();
   <% @element.richtext_contents_ids.each do |id| %>
   tinymce.get('tinymce_<%= id %>').remove();
+  <% end %>
+  <% if @element.fixed? %>
+  Alchemy.FixedElements.removeTab(<%= @element.id %>);
   <% end %>
 });
