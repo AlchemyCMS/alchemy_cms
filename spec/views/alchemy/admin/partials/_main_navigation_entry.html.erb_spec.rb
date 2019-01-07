@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require "spec_helper"
+require 'rails_helper'
 
 describe "alchemy/admin/partials/_main_navigation_entry.html.erb" do
   let(:alchemy_module) do

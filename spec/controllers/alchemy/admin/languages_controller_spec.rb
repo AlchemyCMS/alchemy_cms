@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe Alchemy::Admin::LanguagesController do
   routes { Alchemy::Engine.routes }

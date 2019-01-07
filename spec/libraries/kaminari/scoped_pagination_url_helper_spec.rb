@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe Kaminari::Helpers::Tag do
   subject { Kaminari::Helpers::Tag.new(template, options) }

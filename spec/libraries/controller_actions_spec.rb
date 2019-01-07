@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 # Here's a tiny custom matcher making it a bit easier to check the
 # current session for a language configuration.

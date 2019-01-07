@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'ostruct'
-require 'spec_helper'
+require 'rails_helper'
 
 module Alchemy
   describe Admin::PagesController do

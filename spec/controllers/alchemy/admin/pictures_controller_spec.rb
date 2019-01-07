@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.shared_examples :redirecting_to_picture_library do
   let(:params) do

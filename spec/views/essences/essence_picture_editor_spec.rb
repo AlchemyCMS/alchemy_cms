@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe "essences/_essence_picture_editor" do
   let(:picture) { stub_model(Alchemy::Picture) }

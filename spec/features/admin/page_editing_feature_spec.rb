@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
-describe 'Page editing feature' do
+RSpec.describe 'Page editing feature', type: :system do
   let(:a_page) { create(:alchemy_page) }
 
   context 'as author' do

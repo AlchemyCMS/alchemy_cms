@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
-RSpec.feature "Picture assignment overlay" do
+RSpec.describe "Picture assignment overlay", type: :system do
   before do
     authorize_user(:as_admin)
   end
