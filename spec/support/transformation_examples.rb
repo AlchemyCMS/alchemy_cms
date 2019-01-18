@@ -5,7 +5,7 @@ require 'rails_helper'
 module Alchemy
   shared_examples_for "has image transformations" do
     describe "#thumbnail_size" do
-      context "picture is 300x400 and has no crop size" do
+      context "picture is 400x300 and has no crop size" do
         it "should return the correct recalculated size value" do
           allow(picture).to receive(:image_file_width) { 400 }
           allow(picture).to receive(:image_file_height) { 300 }
@@ -25,15 +25,15 @@ module Alchemy
 
       context "picture has crop_size of 400x300" do
         it "scales to 400x300 if that is the size of the cropped image" do
-          allow(picture).to receive(:crop_size) { "400x300" }
-          expect(picture.thumbnail_size).to eq('160x120')
+          allow(picture).to receive(:crop_size) { '400x300' }
+          expect(picture.thumbnail_size(true)).to eq('160x120')
         end
       end
 
       context "picture has crop_size of 0x0" do
         it "returns default thumbnail size" do
-          allow(picture).to receive(:crop_size) { "0x0" }
-          expect(picture.thumbnail_size).to eq('160x120')
+          allow(picture).to receive(:crop_size) { '0x0' }
+          expect(picture.thumbnail_size(true)).to eq('160x120')
         end
       end
     end

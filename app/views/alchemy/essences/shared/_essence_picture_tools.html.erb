@@ -12,7 +12,7 @@
       padding: false
     }, {title: Alchemy.t('Edit Picturemask')} %>
 <%- else -%>
-  <a href="#" class="disabled" tabindex="-1"><%= render_icon(:crop) %></a>
+  <a href="#" class="disabled" onclick="javascript: return false;" tabindex="-1"><%= render_icon(:crop) %></a>
 <%- end -%>
 
 <%= link_to_dialog render_icon('file-image', style: 'regular'),

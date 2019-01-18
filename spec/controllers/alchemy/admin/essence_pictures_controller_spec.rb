@@ -167,6 +167,28 @@ module Alchemy
             expect(assigns(:ratio)).to eq(80.0 / 60.0)
           end
         end
+
+        context 'without configured output format' do
+          before do
+            picture.image_file_format = 'jpg'
+          end
+
+          it 'keeps the original image format' do
+            get :crop, params: {id: 1, options: {}}
+            expect(assigns(:_options_from_params)[:format]).to eq('jpg')
+          end
+        end
+
+        context 'with output format configured in essence' do
+          before do
+            picture.image_file_format = 'png'
+          end
+
+          it 'changes the output format' do
+            get :crop, params: {id: 1, options: { format: 'jpg' }}
+            expect(assigns(:_options_from_params)[:format]).to eq('jpg')
+          end
+        end
       end
     end
 

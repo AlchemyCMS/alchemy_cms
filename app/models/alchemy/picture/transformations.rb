@@ -16,8 +16,11 @@ module Alchemy
     #
     def default_mask(mask_arg)
       mask = mask_arg.dup
-      mask[:width] = image_file_width if mask[:width].zero?
-      mask[:height] = image_file_height if mask[:height].zero?
+
+      if mask[:width].zero? || mask[:height].zero?
+        mask[:width] = image_file_width
+        mask[:height] = image_file_height
+      end
 
       crop_size = size_when_fitting({width: image_file_width, height: image_file_height}, mask)
       top_left = get_top_left_crop_corner(crop_size)
@@ -27,19 +30,10 @@ module Alchemy
 
     # Returns a size value String for the thumbnail used in essence picture editors.
     #
-    def thumbnail_size(size_string = "0x0", crop = false)
-      size = sizes_from_string(size_string)
-
+    def thumbnail_size(crop = false)
       # only if crop is set do we need to actually parse the size string, otherwise
       # we take the base image size.
-      if crop
-        size[:width] = get_base_dimensions[:width] if size[:width].zero?
-        size[:height] = get_base_dimensions[:height] if size[:height].zero?
-        size = reduce_to_image(size)
-      else
-        size = get_base_dimensions
-      end
-
+      size = crop ? sizes_from_string(crop_size) : image_size
       size = size_when_fitting({width: THUMBNAIL_WIDTH, height: THUMBNAIL_HEIGHT}, size)
       "#{size[:width]}x#{size[:height]}"
     end
@@ -48,14 +42,12 @@ module Alchemy
     # parameters. When they can't be parsed, it just crops from the center.
     #
     def crop(size, crop_from = nil, crop_size = nil, upsample = false)
-      raise "No size given!" if size.empty?
-      render_to = sizes_from_string(size)
       if crop_from && crop_size
         top_left = point_from_string(crop_from)
         crop_dimensions = sizes_from_string(crop_size)
-        xy_crop_resize(render_to, top_left, crop_dimensions, upsample)
+        xy_crop_resize(size, top_left, crop_dimensions, upsample)
       else
-        center_crop(render_to, upsample)
+        center_crop(size, upsample)
       end
     end
 
@@ -127,10 +119,10 @@ module Alchemy
       respond_to?(:render_size) && render_size.present?
     end
 
-    # Returns true if the class we're included in has a meaningful crop_size attribute
+    # Returns true if the class we're included in has a meaningful crop_size attribute and cropping is activated
     #
     def crop_size?
-      respond_to?(:crop_size) && !crop_size.nil? && !crop_size.empty?
+      respond_to?(:crop_size) && crop_size.present?
     end
 
     private
@@ -162,24 +154,13 @@ module Alchemy
       }
     end
 
-    # Gets the base dimensions (the dimensions of the Picture before scaling).
-    # If anything is missing, it gets padded with zero (Integer 0).
-    # This is the order of precedence: crop_size > image_size
-    def get_base_dimensions
-      if crop_size?
-        sizes_from_string(crop_size)
-      else
-        image_size
-      end
-    end
-
     # This function takes a target and a base dimensions hash and returns
     # the dimensions of the image when the base dimensions hash fills
     # the target.
     #
     # Aspect ratio will be preserved.
     #
-    def size_when_fitting(target, dimensions = get_base_dimensions)
+    def size_when_fitting(target, dimensions = image_size)
       zoom = [
         dimensions[:width].to_f / target[:width],
         dimensions[:height].to_f / target[:height]
@@ -230,10 +211,10 @@ module Alchemy
     # Uses imagemagick to make a centercropped thumbnail. Does not scale the image up.
     #
     def center_crop(dimensions, upsample)
-      if is_smaller_than(dimensions) && upsample == false
+      if is_smaller_than(sizes_from_string(dimensions)) && upsample == false
         dimensions = reduce_to_image(dimensions)
       end
-      image_file.thumb("#{dimensions_to_string(dimensions)}#")
+      image_file.thumb("#{dimensions}#")
     end
 
     # Use imagemagick to custom crop an image. Uses -thumbnail for better performance when resizing.
@@ -242,7 +223,7 @@ module Alchemy
       crop_argument = "-crop #{dimensions_to_string(crop_dimensions)}"
       crop_argument += "+#{top_left[:x]}+#{top_left[:y]}"
 
-      resize_argument = "-resize #{dimensions_to_string(dimensions)}"
+      resize_argument = "-resize #{dimensions}"
       resize_argument += ">" unless upsample
       image_file.convert "#{crop_argument} #{resize_argument}"
     end
