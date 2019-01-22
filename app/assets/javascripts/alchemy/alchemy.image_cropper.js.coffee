@@ -34,8 +34,6 @@ Alchemy.ImageCropper =
 
   reset: ->
     Alchemy.ImageCropper.api.setSelect Alchemy.ImageCropper.default_box
-    Alchemy.ImageCropper.crop_from_field.val ""
-    Alchemy.ImageCropper.crop_size_field.val ""
 
   destroy: ->
     if Alchemy.ImageCropper.api
