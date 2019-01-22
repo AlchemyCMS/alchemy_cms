@@ -103,7 +103,7 @@ module Alchemy
               let(:options) do
                 {
                   size: '250x',
-                  crop: true,
+                  crop: true
                 }
               end
 
