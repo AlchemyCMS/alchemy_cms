@@ -19,7 +19,7 @@ module Alchemy
       def crop
         if @picture = @essence_picture.picture
           @content = @essence_picture.content
-          options_from_params[:format] ||= (configuration(:image_store_format) || 'png')
+          options_from_params[:format] ||= configuration(:image_store_format) || @picture.image_file_format || 'png'
 
           @min_size = sizes_from_essence_or_params
           @ratio = ratio_from_size_or_params
