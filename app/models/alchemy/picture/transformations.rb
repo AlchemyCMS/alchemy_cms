@@ -211,11 +211,9 @@ module Alchemy
     # Uses imagemagick to make a centercropped thumbnail. Does not scale the image up.
     #
     def center_crop(dimensions, upsample)
-      if is_smaller_than(sizes_from_string(dimensions)) && upsample == false
-        dimensions = sizes_from_string(dimensions)
-        dimensions = dimensions_to_string(reduce_to_image(dimensions))
-      end
-      image_file.thumb("#{dimensions}#")
+      dimensions = sizes_from_string(dimensions)
+      dimensions = reduce_to_image(dimensions) if is_smaller_than(dimensions) && upsample == false
+      image_file.thumb("#{dimensions_to_string(dimensions)}#")
     end
 
     # Use imagemagick to custom crop an image. Uses -thumbnail for better performance when resizing.

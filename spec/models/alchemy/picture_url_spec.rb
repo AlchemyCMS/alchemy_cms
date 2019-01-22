@@ -84,6 +84,36 @@ module Alchemy
             expect(job[1]).to include("160x120#")
           end
 
+          context 'and size has a variable dimension' do
+            context 'and is bigger than the source image' do
+              let(:options) do
+                {
+                  size: '1920x',
+                  crop: true
+                }
+              end
+
+              it 'applies the correct crop dimensions' do
+                job = decode_dragon_fly_job(url)
+                expect(job[1]).to include('500x0#')
+              end
+            end
+
+            context 'and is smaller than the source image' do
+              let(:options) do
+                {
+                  size: '250x',
+                  crop: true,
+                }
+              end
+
+              it 'applies the correct crop dimensions' do
+                job = decode_dragon_fly_job(url)
+                expect(job[1]).to include('250x0#')
+              end
+            end
+          end
+
           context "and crop_from and crop_size is passed in" do
             let(:options) do
               {
