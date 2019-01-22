@@ -40,11 +40,12 @@ module Alchemy
     private
 
     # Returns the processed image dependent of size and cropping parameters
+    #
     def processed_image(image, options = {})
+      return image unless is_processable(options)
+
       size = options[:size]
       upsample = !!options[:upsample]
-
-      return image unless (options[:crop] || size) && has_convertible_format?
 
       if options[:crop]
         size ||= options[:crop_size]
@@ -52,6 +53,12 @@ module Alchemy
       else
         resize(size, upsample)
       end
+    end
+
+    # Returns if an image can be cropped or resized
+    #
+    def is_processable(options)
+      (options[:crop] || options[:size]) && has_convertible_format?
     end
 
     # Returns the encoded image
