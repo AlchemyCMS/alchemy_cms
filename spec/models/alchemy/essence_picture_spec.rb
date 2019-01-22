@@ -178,8 +178,15 @@ module Alchemy
         thumbnail_url
       end
 
-      context 'when crop sizes are present' do
+      context 'when crop sizes are present and cropping is enabled' do
+        let(:settings) do
+          {
+            crop: true
+          }
+        end
+
         before do
+          allow(content).to receive(:settings) { settings }
           allow(essence).to receive(:crop_size).and_return('200x200')
           allow(essence).to receive(:crop_from).and_return('10x10')
         end
@@ -187,6 +194,20 @@ module Alchemy
         it "passes these crop sizes to the picture's url method." do
           expect(picture).to receive(:url).with(
             hash_including(crop_from: '10x10', crop_size: '200x200', crop: true)
+          )
+          thumbnail_url
+        end
+      end
+
+      context 'when crop sizes are present and cropping is disabled' do
+        before do
+          allow(essence).to receive(:crop_size).and_return('200x200')
+          allow(essence).to receive(:crop_from).and_return('10x10')
+        end
+
+        it "passes these crop sizes to the picture's url method." do
+          expect(picture).to receive(:url).with(
+            hash_including(crop_from: '10x10', crop_size: '200x200', crop: false)
           )
           thumbnail_url
         end
@@ -203,6 +224,11 @@ module Alchemy
         context 'when crop is explicitely enabled in the options' do
           let(:options) do
             {crop: true}
+          end
+
+          before do
+            allow(essence).to receive(:crop_size).and_return('200x200')
+            allow(essence).to receive(:crop_from).and_return('10x10')
           end
 
           it "it enables cropping." do
@@ -244,6 +270,14 @@ module Alchemy
         let(:essence) { build_stubbed(:alchemy_essence_picture) }
 
         it { is_expected.to be_nil }
+      end
+
+      context 'with crop values given' do
+        let(:essence) { build_stubbed(:alchemy_essence_picture, crop_from: '0x0', crop_size: '100x100') }
+
+        it "returns a hash containing cropping coordinates" do
+          is_expected.to eq({x1: 0, y1: 0, x2: 100, y2: 100})
+        end
       end
     end
 
