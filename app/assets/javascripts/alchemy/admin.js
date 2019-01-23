@@ -9,6 +9,7 @@
 //= require jquery-ui/widgets/tabs
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
+//= require flatpickr/flatpickr.min
 //= require clipboard.min
 //= require keymaster
 //= require requestAnimationFrame

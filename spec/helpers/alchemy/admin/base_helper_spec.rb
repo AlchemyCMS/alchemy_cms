@@ -149,10 +149,10 @@ module Alchemy
       end
 
       context "with date given as value" do
-        let(:value) { Time.now }
+        let(:value) { Time.new(2019, 10, 1, 11, 30, 0, "+09:00") }
 
         it "sets given date as value" do
-          is_expected.to have_selector("input[value='#{::I18n.l(value, format: :'alchemy.datepicker')}']")
+          is_expected.to have_selector("input[value='2019-10-01T11:30:00+09:00']")
         end
       end
 
@@ -161,7 +161,7 @@ module Alchemy
         let(:essence) { EssenceDate.new(date: date) }
 
         it "sets this date as value" do
-          is_expected.to have_selector("input[value='#{::I18n.l(date, format: :'alchemy.datepicker')}']")
+          is_expected.to have_selector("input[value='1976-10-07T00:00:00Z']")
         end
       end
     end

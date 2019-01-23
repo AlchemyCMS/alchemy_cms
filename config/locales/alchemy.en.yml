@@ -616,14 +616,11 @@ en:
   time:
     formats:
       alchemy:
-        datepicker: "%Y-%m-%d"
-        datetimepicker: "%Y-%m-%d %H:%M"
         default: "%a, %d %b %Y %H:%M:%S %z"
         essence_date: "%Y-%m-%d"
         page_status: "%m.%d.%Y %H:%M"
         short_datetime: "%d %b %H:%M"
         time: "%H:%M"
-        timepicker: "%H:%M"
 
   # Translations for error messages.
   errors:
