@@ -196,10 +196,10 @@ module Alchemy
       "#{dimensions[:width]}x#{dimensions[:height]}"
     end
 
-    # Returns true if both dimensions of the base image are bigger than the dimensions hash.
+    # Returns true if both dimensions of the base image are bigger or equal than the dimensions hash.
     #
     def is_bigger_than(dimensions)
-      image_file_width > dimensions[:width] && image_file_height > dimensions[:height]
+      image_file_width >= dimensions[:width] && image_file_height >= dimensions[:height]
     end
 
     # Returns true is one dimension of the base image is smaller than the dimensions hash.
