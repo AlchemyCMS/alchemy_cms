@@ -23,6 +23,6 @@ Alchemy.translations.it = {
     datetime: "Y-m-d H:i",
     date: "Y-m-d",
     time: "H:i",
-    start_of_week: 1
+    time_24hr: true
   }
 };

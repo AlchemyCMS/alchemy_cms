@@ -12,3 +12,10 @@
 //= require select2_locale_nl
 //= require select2_locale_ru
 //= require select2_locale_zh-CN
+//= require flatpickr/de
+//= require flatpickr/es
+//= require flatpickr/fr
+//= require flatpickr/it
+//= require flatpickr/nl
+//= require flatpickr/ru
+//= require flatpickr/zh
