@@ -20,7 +20,7 @@ module Alchemy
       gallery_contents = element.contents.where("#{Content.table_name}.name LIKE 'essence_picture_%'").order("#{Content.table_name}.position ASC")
 
       if gallery_contents.any?
-        if element.nestable_elements.any?
+        if element.nestable_elements.any? { |el| el != "#{element.name}_picture" }
           parent = create_gallery_element(element)
         else
           parent = element
