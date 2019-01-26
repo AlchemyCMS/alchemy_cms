@@ -24,6 +24,8 @@ module Alchemy::Upgrader::Tasks
     private
 
     def migrate_cell!(cell)
+      # bust element definitions insta cache
+      Alchemy::Element.instance_variable_set('@definitions', nil)
       fixed_element = Alchemy::Element.find_or_initialize_by(fixed: true, name: cell.name, page: cell.page)
       elements = Alchemy::Element.where(cell_id: cell.id)
 
