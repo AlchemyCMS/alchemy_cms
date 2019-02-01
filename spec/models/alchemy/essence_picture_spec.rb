@@ -220,32 +220,18 @@ module Alchemy
           )
           thumbnail_url
         end
-      end
 
-      context 'when crop is explicitly enabled in the options' do
-        let(:options) do
-          {crop: true}
-        end
-
-        context 'and crop size and crop from are present' do
-          before do
-            allow(essence).to receive(:crop_size).and_return('200x200')
-            allow(essence).to receive(:crop_from).and_return('10x10')
+        context 'when crop is explicitely enabled in the options' do
+          let(:options) do
+            {crop: true}
           end
 
-          it 'enables cropping' do
+          it "it enables cropping." do
             expect(picture).to receive(:url).with(
               hash_including(crop: true)
             )
             thumbnail_url
           end
-        end
-
-        it 'skips cropping if crop size and crop from are missing' do
-          expect(picture).to receive(:url).with(
-            hash_including(crop: false)
-          )
-          thumbnail_url
         end
       end
 

@@ -88,11 +88,12 @@ module Alchemy
     def thumbnail_url(options = {})
       return if picture.nil?
 
-      crop = crop_values_present? && content.settings_value(:crop, options).present?
+      crop = content.settings_value(:crop, options)
+      size = render_size || content.settings_value(:size, options)
 
       options = {
-        size: thumbnail_size(crop),
-        crop: crop,
+        size: thumbnail_size(size, crop),
+        crop: !!crop,
         crop_from: crop_from.presence,
         crop_size: crop_size.presence,
         flatten: true,

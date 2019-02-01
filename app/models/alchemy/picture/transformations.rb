@@ -30,10 +30,17 @@ module Alchemy
 
     # Returns a size value String for the thumbnail used in essence picture editors.
     #
-    def thumbnail_size(crop = false)
+    def thumbnail_size(size = nil, crop = false)
       # only if crop is set do we need to actually parse the size string, otherwise
       # we take the base image size.
-      size = crop ? sizes_from_string(crop_size) : image_size
+      size = if crop && crop_size
+               sizes_from_string(crop_size)
+             elsif crop
+               sizes_from_string(size)
+             else
+               image_size
+             end
+
       size = size_when_fitting({width: THUMBNAIL_WIDTH, height: THUMBNAIL_HEIGHT}, size)
       "#{size[:width]}x#{size[:height]}"
     end
