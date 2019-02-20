@@ -276,53 +276,5 @@ module Alchemy
         it { is_expected.to be_blank }
       end
     end
-
-    describe '#sort_elements_by_content' do
-      subject { sort_elements_by_content(elements, 'headline') }
-
-      let(:element_1)    { build_stubbed(:alchemy_element) }
-      let(:element_2)    { build_stubbed(:alchemy_element) }
-      let(:element_3)    { build_stubbed(:alchemy_element) }
-      let(:ingredient_a) { double(ingredient: 'a') }
-      let(:ingredient_b) { double(ingredient: 'b') }
-      let(:ingredient_c) { double(ingredient: 'c') }
-      let(:elements)     { [element_1, element_2, element_3] }
-
-      before do
-        expect(element_1).to receive(:content_by_name).and_return(ingredient_b)
-        expect(element_2).to receive(:content_by_name).and_return(ingredient_c)
-        expect(element_3).to receive(:content_by_name).and_return(ingredient_a)
-      end
-
-      it "sorts the elements by content" do
-        is_expected.to eq [element_3, element_1, element_2]
-      end
-
-      context 'with element not having this content' do
-        let(:element_4) { build_stubbed(:alchemy_element) }
-        let(:elements)  { [element_1, element_2, element_3, element_4] }
-
-        before do
-          expect(element_4).to receive(:content_by_name).and_return(nil)
-        end
-
-        it "puts it at first place" do
-          is_expected.to eq [element_4, element_3, element_1, element_2]
-        end
-      end
-
-      context 'with element having content with nil as ingredient' do
-        let(:element_4) { build_stubbed(:alchemy_element) }
-        let(:elements)  { [element_1, element_2, element_3, element_4] }
-
-        before do
-          expect(element_4).to receive(:content_by_name).and_return(double(ingredient: nil))
-        end
-
-        it "puts it at first place" do
-          is_expected.to eq [element_4, element_3, element_1, element_2]
-        end
-      end
-    end
   end
 end
