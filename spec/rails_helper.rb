@@ -26,6 +26,7 @@ require_relative 'factories'
 require_relative "support/hint_examples.rb"
 require_relative "support/transformation_examples.rb"
 require_relative "support/capybara_select2.rb"
+require_relative 'support/custom_news_elements_finder'
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true

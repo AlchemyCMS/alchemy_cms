@@ -289,6 +289,38 @@ module Alchemy
     # Instance methods
     #
 
+    # Returns elements from page.
+    #
+    # @option options [Array<String>|String] :only
+    #   Returns only elements with given names
+    # @option options [Array<String>|String] :except
+    #   Returns all elements except the ones with given names
+    # @option options [Integer] :count
+    #   Limit the count of returned elements
+    # @option options [Integer] :offset
+    #   Starts with an offset while returning elements
+    # @option options [Boolean] :include_hidden (false)
+    #   Return hidden elements as well
+    # @option options [Boolean] :random (false)
+    #   Return elements randomly shuffled
+    # @option options [Boolean] :reverse (false)
+    #   Reverse the load order
+    # @option options [Class] :finder (Alchemy::ElementsFinder)
+    #   A class that will return elements from page.
+    #   Use this for your custom element loading logic.
+    #
+    # @return [ActiveRecord::Relation]
+    def find_elements(options = {}, show_non_public = false)
+      if show_non_public
+        Alchemy::Deprecation.warn "Passing true as second argument to page#find_elements to include" /
+          " invisible elements has been removed. Please implement your own ElementsFinder" /
+          " and pass it with options[:finder]."
+      end
+
+      finder = options[:finder] || Alchemy::ElementsFinder.new(options)
+      finder.elements(page: self)
+    end
+
     # The page's view partial is dependent from its page layout
     #
     # == Define page layouts
