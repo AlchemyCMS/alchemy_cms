@@ -18,7 +18,7 @@ Gem::Specification.new do |gem|
   gem.files                 = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^spec/}) }
   gem.require_paths         = ['lib']
 
-  gem.add_runtime_dependency 'active_model_serializers',         ['~> 0.10.0']
+  gem.add_runtime_dependency 'active_model_serializers',         ['0.10.9']
   gem.add_runtime_dependency 'acts_as_list',                     ['~> 0.3']
   gem.add_runtime_dependency 'awesome_nested_set',               ['~> 3.1']
   gem.add_runtime_dependency 'cancancan',                        ['~> 2.1']
