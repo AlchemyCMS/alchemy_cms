@@ -9,7 +9,7 @@ AllCops:
     - 'alchemy_cms.gemspec'
     - 'Rakefile'
 
-  TargetRubyVersion: 2.2
+  TargetRubyVersion: 2.3
 
 # Really, rubocop?
 Bundler/OrderedGems:
