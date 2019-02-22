@@ -1103,52 +1103,25 @@ module Alchemy
     end
 
     describe '#find_elements' do
-      before do
-        create(:alchemy_element, public: false, page: public_page)
-        create(:alchemy_element, public: false, page: public_page)
+      subject { page.find_elements(options) }
+
+      let(:page) { build(:alchemy_page) }
+      let(:options) { {} }
+      let(:finder) { instance_double(Alchemy::ElementsFinder) }
+
+      it 'passes self and all options to elements finder' do
+        expect(Alchemy::ElementsFinder).to receive(:new).with(options) { finder }
+        expect(finder).to receive(:elements).with(page: page)
+        subject
       end
 
-      context "with show_non_public argument TRUE" do
-        it "should return all elements from empty options" do
-          expect(public_page.find_elements({}, true).to_a).to eq(public_page.elements.to_a)
+      context 'with a custom finder given in options' do
+        let(:options) do
+          { finder: CustomNewsElementsFinder.new }
         end
 
-        it "should only return the elements passed as options[:only]" do
-          expect(public_page.find_elements({only: ['article']}, true).to_a).to eq(public_page.elements.named('article').to_a)
-        end
-
-        it "should not return the elements passed as options[:except]" do
-          expect(public_page.find_elements({except: ['article']}, true).to_a).to eq(public_page.elements - public_page.elements.named('article').to_a)
-        end
-
-        it "should return elements offsetted" do
-          expect(public_page.find_elements({offset: 2}, true).to_a).to eq(public_page.elements.offset(2))
-        end
-
-        it "should return elements limitted in count" do
-          expect(public_page.find_elements({count: 1}, true).to_a).to eq(public_page.elements.limit(1))
-        end
-      end
-
-      context "with show_non_public argument FALSE" do
-        it "should return all elements from empty arguments" do
-          expect(public_page.find_elements.to_a).to eq(public_page.elements.published.to_a)
-        end
-
-        it "should only return the public elements passed as options[:only]" do
-          expect(public_page.find_elements(only: ['article']).to_a).to eq(public_page.elements.published.named('article').to_a)
-        end
-
-        it "should return all public elements except the ones passed as options[:except]" do
-          expect(public_page.find_elements(except: ['article']).to_a).to eq(public_page.elements.published.to_a - public_page.elements.published.named('article').to_a)
-        end
-
-        it "should return elements offsetted" do
-          expect(public_page.find_elements({offset: 2}).to_a).to eq(public_page.elements.published.offset(2))
-        end
-
-        it "should return elements limitted in count" do
-          expect(public_page.find_elements({count: 1}).to_a).to eq(public_page.elements.published.limit(1))
+        it 'uses that to load elements to render' do
+          expect(subject.map(&:name)).to eq(['news'])
         end
       end
     end

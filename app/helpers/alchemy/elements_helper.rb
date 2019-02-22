@@ -10,7 +10,7 @@ module Alchemy
     include Alchemy::UrlHelper
     include Alchemy::ElementsBlockHelper
 
-    # Renders all elements from current page
+    # Renders elements from given page
     #
     # == Examples:
     #
@@ -45,53 +45,69 @@ module Alchemy
     #     with: 'contact_teaser'
     #   }) %>
     #
-    # @param [Hash] options
-    #   Additional options.
+    # === Custom elements finder:
     #
+    # Having a custom element finder class:
+    #
+    #   class MyCustomNewsArchive
+    #     def elements(page:)
+    #       news_page.elements.available.named('news').order(created_at: :desc)
+    #     end
+    #
+    #     private
+    #
+    #     def news_page
+    #       Alchemy::Page.where(page_layout: 'news-archive')
+    #     end
+    #   end
+    #
+    # In your view:
+    #
+    #   <div class="news-archive">
+    #     <%= render_elements finder: MyCustomNewsArchive.new %>
+    #   </div>
+    #
+    # @option options [Alchemy::Page|String] :from_page (@page)
+    #   The page the elements are rendered from. You can pass a page_layout String or a {Alchemy::Page} object.
+    # @option options [Array<String>|String] :only
+    #   A list of element names only to be rendered.
+    # @option options [Array<String>|String] :except
+    #   A list of element names not to be rendered.
     # @option options [Number] :count
     #   The amount of elements to be rendered (begins with first element found)
-    # @option options [Array or String] :except ([])
-    #   A list of element names not to be rendered.
+    # @option options [Number] :offset
+    #   The offset to begin loading elements from
     # @option options [Hash] :fallback
     #   Define elements that are rendered from another page.
-    # @option options [Alchemy::Page or String] :from_page (@page)
-    #   The page the elements are rendered from. You can pass a page_layout String or a {Alchemy::Page} object.
-    # @option options [Array or String] :only ([])
-    #   A list of element names only to be rendered.
-    # @option options [Boolean] :random
+    # @option options [Boolean] :random (false)
     #   Randomize the output of elements
-    # @option options [Boolean] :reverse
+    # @option options [Boolean] :reverse (false)
     #   Reverse the rendering order
-    # @option options [String] :sort_by
-    #   The name of a {Alchemy::Content} to sort the elements by
     # @option options [String] :separator
-    #   A string that will be used to join the element partials. Default nil
+    #   A string that will be used to join the element partials.
+    # @option options [Class] :finder (Alchemy::ElementsFinder)
+    #   A class instance that will return elements that get rendered.
+    #   Use this for your custom element loading logic in views.
     #
     def render_elements(options = {})
       options = {
         from_page: @page,
-        render_format: 'html',
-        reverse: false
+        render_format: 'html'
       }.update(options)
 
-      pages = pages_holding_elements(options.delete(:from_page))
-
-      if pages.blank?
-        warning('No page to get elements from was found')
-        return
+      if options[:sort_by]
+        Alchemy::Deprecation.warn "options[:sort_by] has been removed without replacement. " /
+          "Please implement your own element sorting by passing a custom finder instance to options[:finder]."
       end
 
-      elements = collect_elements_from_pages(pages, options)
+      finder = options[:finder] || Alchemy::ElementsFinder.new(options)
+      elements = finder.elements(page: options[:from_page])
 
-      if options[:sort_by].present?
-        elements = sort_elements_by_content(
-          elements,
-          options.delete(:sort_by),
-          options[:reverse]
-        )
+      buff = []
+      elements.each_with_index do |element, i|
+        buff << render_element(element, :view, options, i + 1)
       end
-
-      render_element_view_partials(elements, options)
+      buff.join(options[:separator]).html_safe
     end
 
     # This helper renders a {Alchemy::Element} partial.
@@ -231,73 +247,20 @@ module Alchemy
     end
 
     # Sort given elements by content.
-    #
+    # @deprecated
     # @param [Array] elements - The elements you want to sort
     # @param [String] content_name - The name of the content you want to sort by
     # @param [Boolean] reverse - Reverse the sorted elements order
     #
     # @return [Array]
-    #
     def sort_elements_by_content(elements, content_name, reverse = false)
+      Alchemy::Deprecation.warn "options[:sort_by] is deprecated. Please implement your own element sorting."
       sorted_elements = elements.sort_by do |element|
         content = element.content_by_name(content_name)
         content ? content.ingredient.to_s : ''
       end
 
       reverse ? sorted_elements.reverse : sorted_elements
-    end
-
-    private
-
-    def pages_holding_elements(page)
-      case page
-      when String
-        Language.current.pages.where(
-          page_layout: page,
-          restricted: false
-        ).to_a
-      when Page
-        page
-      end
-    end
-
-    def collect_elements_from_pages(page, options)
-      if page.is_a? Array
-        elements = page.collect { |p| p.find_elements(options) }.flatten
-      else
-        elements = page.find_elements(options)
-      end
-      if fallback_required?(elements, options)
-        elements += fallback_elements(options)
-      end
-      elements
-    end
-
-    def fallback_required?(elements, options)
-      options[:fallback] && elements.detect { |e| e.name == options[:fallback][:for] }.nil?
-    end
-
-    def fallback_elements(options)
-      fallback_options = options.delete(:fallback)
-      case fallback_options[:from]
-      when String
-        page = Language.current.pages.find_by(
-          page_layout: fallback_options[:from],
-          restricted: false
-        )
-      when Page
-        page = fallback_options[:from]
-      end
-      return [] if page.blank?
-      page.elements.not_trashed.named(fallback_options[:with].presence || fallback_options[:for])
-    end
-
-    def render_element_view_partials(elements, options = {})
-      buff = []
-      elements.each_with_index do |element, i|
-        buff << render_element(element, :view, options, i + 1)
-      end
-      buff.join(options[:separator]).html_safe
     end
   end
 end

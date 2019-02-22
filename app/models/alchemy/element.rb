@@ -93,7 +93,7 @@ module Alchemy
     after_update :touch_touchable_pages
 
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
-    scope :not_trashed,       -> { where(Element.arel_table[:position].not_eq(nil)) }
+    scope :not_trashed,       -> { where.not(position: nil) }
     scope :published,         -> { where(public: true) }
     scope :not_restricted,    -> { joins(:page).merge(Page.not_restricted) }
     scope :available,         -> { published.not_trashed }

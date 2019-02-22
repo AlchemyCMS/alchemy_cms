@@ -61,43 +61,6 @@ module Alchemy
       end
     end
 
-    # Finds elements of page.
-    #
-    # @param [Hash]
-    #   options hash
-    # @param [Boolean] (false)
-    #   Pass true, if you want to also have not published elements.
-    #
-    # @option options [Array] only
-    #   Returns only elements with given names
-    # @option options [Array] except
-    #   Returns all elements except the ones with given names
-    # @option options [Fixnum] count
-    #   Limit the count of returned elements
-    # @option options [Fixnum] offset
-    #   Starts with an offset while returning elements
-    # @option options [Boolean] random (false)
-    #   Return elements randomly shuffled
-    #
-    # @return [ActiveRecord::Relation]
-    #
-    def find_elements(options = {}, show_non_public = false)
-      elements = self.elements
-      if options[:only].present?
-        elements = elements.named(options[:only])
-      elsif options[:except].present?
-        elements = elements.excluded(options[:except])
-      end
-      if options[:reverse_sort] || options[:reverse]
-        elements = elements.reverse_order
-      end
-      elements = elements.offset(options[:offset]).limit(options[:count])
-      if options[:random]
-        elements = elements.order("RAND()")
-      end
-      show_non_public ? elements : elements.published
-    end
-
     # All available element definitions that can actually be placed on current page.
     #
     # It extracts all definitions that are unique or limited and already on page.
