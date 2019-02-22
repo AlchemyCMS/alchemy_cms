@@ -82,7 +82,7 @@ module Alchemy::Upgrader::Tasks
       print '4. Writing new `config/alchemy/elements.yml` ... '
 
       File.open(Rails.root.join('config', 'alchemy', 'elements.yml'), "w") do |f|
-        f.write config.to_yaml
+        f.write config.to_yaml.sub("---\n", "").gsub("\n-", "\n\n-")
       end
 
       puts "done.\n"
@@ -99,7 +99,7 @@ ERB
       erb_views = erb_element_partials(:view).select do |view|
         next if File.read(view).match(GALLERY_PICTURES_ERB_REGEXP).nil?
         inject_into_file view,
-          "<%# TODO: Remove next block and render element.nested_elements instead %>\n",
+          "<%# TODO: Remove next block and render element.nested_elements.published instead %>\n",
           before: GALLERY_PICTURES_ERB_REGEXP
         true
       end
@@ -111,7 +111,7 @@ HAMLSLIM
       haml_views = haml_slim_element_partials(:view).select do |view|
         next if File.read(view).match(GALLERY_PICTURES_HAML_REGEXP).nil?
         inject_into_file view,
-          "-# TODO: Remove next block and render element.nested_elements instead\n",
+          "-# TODO: Remove next block and render element.nested_elements.published instead\n",
           before: GALLERY_PICTURES_HAML_REGEXP
         true
       end
