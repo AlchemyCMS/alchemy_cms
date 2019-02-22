@@ -100,6 +100,11 @@ module Alchemy
           "Please implement your own element sorting by passing a custom finder instance to options[:finder]."
       end
 
+      if options[:from_cell]
+        Alchemy::Deprecation.warn "options[:from_cell] has been removed without replacement. " /
+          "Please `render element.nested_elements.published` instead."
+      end
+
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
       elements = finder.elements(page: options[:from_page])
 
