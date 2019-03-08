@@ -19,7 +19,7 @@ Gem::Specification.new do |gem|
   gem.require_paths         = ['lib']
 
   gem.add_runtime_dependency 'active_model_serializers',         ['~> 0.10.0']
-  gem.add_runtime_dependency 'acts_as_list',                     ['~> 0.3']
+  gem.add_runtime_dependency 'acts_as_list',                     ['0.9.18']
   gem.add_runtime_dependency 'awesome_nested_set',               ['~> 3.1']
   gem.add_runtime_dependency 'cancancan',                        ['~> 2.1']
   gem.add_runtime_dependency 'coffee-rails',                     ['~> 4.0']
