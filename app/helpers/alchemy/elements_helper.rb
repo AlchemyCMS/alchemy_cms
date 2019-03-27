@@ -110,23 +110,20 @@ module Alchemy
 
       buff = []
       elements.each_with_index do |element, i|
-        buff << render_element(element, :view, options, i + 1)
+        buff << render_element(element, options, i + 1)
       end
       buff.join(options[:separator]).html_safe
     end
 
-    # This helper renders a {Alchemy::Element} partial.
+    # This helper renders a {Alchemy::Element} view partial.
     #
-    # A element has always two partials:
+    # A element view partial is the html snippet presented to the website visitor.
     #
-    # 1. A view partial (This is the view presented to the website visitor)
-    # 2. A editor partial (This is the form presented to the website editor while in page edit mode)
-    #
-    # The partials are located in <tt>app/views/alchemy/elements</tt>.
+    # The partial is located in <tt>app/views/alchemy/elements</tt>.
     #
     # == View partial naming
     #
-    # The partials have to be named after the name of the element as defined in the <tt>elements.yml</tt> file and has to be suffixed with the partial part.
+    # The partial has to be named after the name of the element as defined in the <tt>elements.yml</tt> file and has to be suffixed with <tt>_view</tt>.
     #
     # === Example
     #
@@ -138,10 +135,9 @@ module Alchemy
     #     - name: text
     #       type: EssenceText
     #
-    # Then your element view partials has to be named like:
+    # Then your element view partial has to be named like:
     #
-    #   app/views/alchemy/elements/_headline_editor.html.erb
-    #   app/views/alchemy/elements/_headline_view.html.erb
+    #   app/views/alchemy/elements/_headline_view.html.{erb|haml|slim}
     #
     # === Element partials generator
     #
@@ -155,43 +151,45 @@ module Alchemy
     #
     # @param [Alchemy::Element] element
     #   The element you want to render the view for
-    # @param [Symbol] part
-    #   The type of element partial (<tt>:editor</tt> or <tt>:view</tt>) you want to render
     # @param [Hash] options
     #   Additional options
     # @param [Number] counter
     #   a counter
     #
-    # @note If the view partial is not found <tt>alchemy/elements/_view_not_found.html.erb</tt>
-    #   or <tt>alchemy/elements/_editor_not_found.html.erb</tt> gets rendered.
+    # @note If the view partial is not found
+    #   <tt>alchemy/elements/_view_not_found.html.erb</tt> gets rendered.
     #
-    def render_element(element, part = :view, options = {}, counter = 1)
+    def render_element(*args)
+      if args.length == 4
+        element, _part, options, counter = *args
+        Alchemy::Deprecation.warn "passing a `part` parameter as second argument to `render_element` has been removed without replacement. " \
+          "You can safely remove it."
+      else
+        element, options, counter = *args
+      end
+
+      options ||= {}
+      counter ||= 1
+
       if element.nil?
         warning('Element is nil')
-        render "alchemy/elements/#{part}_not_found", {name: 'nil'}
+        render "alchemy/elements/view_not_found", {name: 'nil'}
         return
       end
 
-      element.store_page(@page) if part.to_sym == :view
+      element.store_page(@page)
 
-      render(
-        partial: "alchemy/elements/#{element.name}_#{part}",
-        object: element,
-        locals: {
-          element: element,
-          counter: counter,
-          options: options
-        }.merge(options.delete(:locals) || {})
-      )
+      render element, {
+        element: element,
+        counter: counter,
+        options: options
+      }.merge(options.delete(:locals) || {})
     rescue ActionView::MissingTemplate => e
       warning(%(
-        Element #{part} partial not found for #{element.name}.\n
+        Element view partial not found for #{element.name}.\n
         #{e}
       ))
-      render "alchemy/elements/#{part}_not_found", {
-        name: element.name,
-        error: "Element #{part} partial not found.<br>Use <code>rails generate alchemy:elements</code> to generate it."
-      }
+      render "alchemy/elements/view_not_found", name: element.name
     end
 
     # Returns a string for the id attribute of a html element for the given element
