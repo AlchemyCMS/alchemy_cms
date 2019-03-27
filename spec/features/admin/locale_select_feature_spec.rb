@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
-describe 'Locale select' do
+RSpec.describe 'Locale select', type: :system do
   let(:a_page) { create(:alchemy_page, :public) }
   before do
     allow(Alchemy::I18n).to receive(:translation_files).and_return ['alchemy.kl.yml', 'alchemy.jp.yml', 'alchemy.cz.yml']

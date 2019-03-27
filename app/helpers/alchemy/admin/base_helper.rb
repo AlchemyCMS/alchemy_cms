@@ -106,7 +106,6 @@ module Alchemy
           concat text_field_tag(nil, nil, options)
           concat render_icon(:search)
           concat link_to(render_icon(:times, size: 'xs'), '', class: 'js_filter_field_clear', title: Alchemy.t(:click_to_show_all))
-          concat content_tag(:label, Alchemy.t(:search), for: options[:id])
         end
       end
 
@@ -331,9 +330,6 @@ module Alchemy
       # If you pass +'datetime'+ as +:type+ the datepicker will also have a Time select.
       # If you pass +'time'+ as +:type+ the datepicker will only have a Time select.
       #
-      # The date value gets localized via +I18n.l+. The format on Time and Date is +datepicker+, +timepicker+
-      # or +datetimepicker+, if you pass another +type+.
-      #
       # This helper always renders "text" as input type because:
       # HTML5 supports input types like 'date' but Browsers are using the users OS settings
       # to validate the input format. Since Alchemy is localized in the backend the date formats
@@ -367,7 +363,7 @@ module Alchemy
         type = html_options.delete(:type) || 'date'
         date = html_options.delete(:value) || object.send(method.to_sym).presence
         date = Time.zone.parse(date) if date.is_a?(String)
-        value = date ? l(date, format: "alchemy.#{type}picker".to_sym) : nil
+        value = date ? date.iso8601 : nil
 
         text_field object.class.name.demodulize.underscore.to_sym,
           method.to_sym, {type: "text", class: type, "data-datepicker-type" => type, value: value}.merge(html_options)
@@ -395,14 +391,15 @@ module Alchemy
 
       # (internal) Returns options for the clipboard select tag
       def clipboard_select_tag_options(items)
-        if @page.persisted? && @page.can_have_cells?
-          grouped_options_for_select(grouped_elements_for_select(items, :id))
-        else
-          options = items.map do |item|
-            [item.respond_to?(:display_name_with_preview_text) ? item.display_name_with_preview_text : item.name, item.id]
+        options = items.map do |item|
+          if item.respond_to?(:display_name_with_preview_text)
+            name = item.display_name_with_preview_text
+          else
+            name = item.name
           end
-          options_for_select(options)
+          [name, item.id]
         end
+        options_for_select(options)
       end
 
       # Returns the regular expression used for external url validation in link dialog.

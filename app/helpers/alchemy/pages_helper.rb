@@ -294,30 +294,11 @@ module Alchemy
       "#{@page.robot_index? ? '' : 'no'}index, #{@page.robot_follow? ? '' : 'no'}follow"
     end
 
-    # Renders the partial for the cell with the given name of the current page.
-    # Cell partials are located in +app/views/cells/+ of your project.
-    #
-    # === Options are:
-    #
-    #   from_page: Alchemy::Page     # Alchemy::Page object from which the elements are rendered from.
-    #   locals: Hash                 # Hash of variables that will be available in the partial. Example: {user: var1, product: var2}
-    #
-    def render_cell(name, options = {})
-      default_options = {
-        from_page: @page,
-        locals: {}
-      }
-      options = default_options.merge(options)
-      cell = options[:from_page].cells.find_by_name(name)
-      return "" if cell.blank?
-      render partial: "alchemy/cells/#{name}", locals: {cell: cell}.merge(options[:locals])
+    # @deprecated
+    def render_cell(name, _options = {})
+      render_elements(only: name, fixed: true)
     end
-
-    # Returns true or false if no elements are in the cell found by name.
-    def cell_empty?(name)
-      cell = @page.cells.find_by_name(name)
-      return true if cell.blank?
-      cell.elements.not_trashed.empty?
-    end
+    deprecate render_cell: 'Use render_elements(only: <cell-name>, fixed: true) instead',
+      deprecator: Alchemy::Deprecation
   end
 end

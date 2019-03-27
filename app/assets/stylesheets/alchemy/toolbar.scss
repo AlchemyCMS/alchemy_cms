@@ -24,12 +24,22 @@
 .toolbar_buttons {
   margin-right: 8px;
   white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: visible;
+  max-width: calc(100vw - #{$collapsed-main-menu-width + 65px});
+  -webkit-overflow-scrolling: touch;
+
+  @media screen and (min-width: $medium-screen-break-point) {
+    overflow: visible;
+  }
 
   &.right {
     position: absolute;
-    right: 0;
-    top: 8px;
+    right: -8px;
+    top: 0;
     margin-left: 8px;
+    padding: 8px;
+    background-color: $toolbar-bg-color;
 
     label {
       left: auto;

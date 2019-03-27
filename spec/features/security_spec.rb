@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
-describe "Security." do
+RSpec.describe "Security.", type: :system do
   context "If user is not logged in" do
     it "should see login form" do
       visit '/admin/dashboard'
@@ -20,7 +20,7 @@ describe "Security." do
 
     it "redirects every request to https." do
       visit '/admin/dashboard'
-      expect(current_url).to eq('https://www.example.com/admin/dashboard')
+      expect(current_url).to eq('https://127.0.0.1/admin/dashboard')
     end
   end
 end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 module Alchemy
   Config.get(:mailer)['fields'].push('email_of_my_boss')

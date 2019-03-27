@@ -3,7 +3,6 @@ window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 $.extend Alchemy,
 
   Datepicker: (scope) ->
-    $.datetimepicker.setLocale(Alchemy.locale);
     $datepicker_inputs = $('input[data-datepicker-type]', scope)
 
     # Initializes the datepickers on the text inputs and sets the proper type
@@ -15,13 +14,16 @@ $.extend Alchemy,
       $datepicker_inputs.each ->
         type = $(this).data('datepicker-type')
         options =
-          scrollInput: false
-          format: Alchemy.t("formats.#{type}")
-          timepicker: /time/.test(type)
-          datepicker: /date/.test(type)
-          dayOfWeekStart: Alchemy.t('formats.start_of_week')
-          onSelectDate: ->
-            Alchemy.setElementDirty $(this).closest(".element-editor")
-        $(this).datetimepicker(options)
+          # alchemy_i18n supports `zh_CN` etc., but flatpickr only has two-letter codes (`zh`)
+          locale: Alchemy.locale.slice(0, 2)
+          altInput: true
+          altFormat: Alchemy.t("formats.#{type}")
+          altInputClass: ""
+          enableTime: /time/.test(type)
+          noCalendar: type == "time"
+          time_24hr: Alchemy.t("formats.time_24hr")
+          onValueUpdate: (_selectedDates, _dateStr, instance) ->
+            Alchemy.setElementDirty $(instance.element).closest(".element-editor")
+        $(this).flatpickr(options)
 
     return

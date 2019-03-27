@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
-RSpec.feature "Picture assignment overlay" do
+RSpec.describe "Picture assignment overlay", type: :system do
   before do
     authorize_user(:as_admin)
   end
 
   describe "filter by tags", js: true do
-    let!(:a_page) { create(:alchemy_page, do_not_autogenerate: false) }
+    let!(:a_page) { create(:alchemy_page, autogenerate_elements: true) }
     let!(:pic1) { create(:alchemy_picture, name: "Hill", tag_list: "landscape") }
     let!(:pic2) { create(:alchemy_picture, name: "Skyscraper", tag_list: "city") }
 

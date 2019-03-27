@@ -45,16 +45,20 @@
     <label><%= Alchemy.t('Show clipboard') %></label>
   </div>
 </div>
-<div class="js_filter_field_box">
-  <%= text_field_tag 'filter', '',
-    class: 'thin_border js_filter_field search_input_field',
-    placeholder: Alchemy.t(:search),
-    id: nil %>
-  <%= render_icon :search %>
-  <%= link_to(render_icon(:times, size: 'xs'), '#', {
-    class: "js_filter_field_clear",
-    title: Alchemy.t(:click_to_show_all)
-  }) %>
+<div class="search_form">
+  <div class="search_field">
+    <label>
+      <%= text_field_tag 'filter', '',
+        class: 'search_input_field',
+        placeholder: Alchemy.t(:search),
+        id: nil %>
+      <%= render_icon :search %>
+    </label>
+    <%= link_to(render_icon(:times, size: 'xs'), '#', {
+      class: "search_field_clear",
+      title: Alchemy.t(:click_to_show_all)
+    }) %>
+  </div>
 </div>
 <% end %>
 

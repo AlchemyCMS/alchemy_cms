@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 module Alchemy
   module CacheDigests
@@ -25,23 +25,6 @@ module Alchemy
           it "returns all element layout view partial names for that layout" do
             is_expected.to include('alchemy/elements/_text_view')
           end
-
-          context 'and page layout having cells' do
-            let(:page_layout) { {'name' => 'intro', 'elements' => ['text'], 'cells' => ['header']} }
-
-            it "returns all cell view partial names for that layout" do
-              is_expected.to include('alchemy/cells/_header')
-            end
-          end
-        end
-
-        context 'with a cell given as template name' do
-          let(:name) { 'alchemy/cells/_header' }
-          before { allow(Cell).to receive(:definition_for).and_return({'name' => 'header', 'elements' => ['text']}) }
-
-          it "returns all element layout view partial names for that cell" do
-            is_expected.to include('alchemy/elements/_text_view')
-          end
         end
 
         context 'with an element given as name' do
@@ -53,14 +36,6 @@ module Alchemy
 
             it "returns all essence layout view partial names for that element" do
               is_expected.to include('alchemy/essences/_essence_text_view')
-            end
-
-            context 'and element has picture_gallery enabled' do
-              let(:elements) { [{'name' => 'text', 'picture_gallery' => true}] }
-
-              it "has EssencePicture as template dependency" do
-                is_expected.to include('alchemy/essences/_essence_picture_view')
-              end
             end
           end
 

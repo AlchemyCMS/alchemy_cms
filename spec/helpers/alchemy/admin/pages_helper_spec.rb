@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe Alchemy::Admin::PagesHelper do
   describe '#preview_sizes_for_select' do

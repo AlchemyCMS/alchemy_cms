@@ -43,7 +43,7 @@ module Alchemy
     include Alchemy::Taggable
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
-      do_not_autogenerate: true,
+      autogenerate_elements: false,
       visible: false,
       public_on: nil,
       public_until: nil,
@@ -130,7 +130,6 @@ module Alchemy
     include Alchemy::Page::PageNatures
     include Alchemy::Page::PageNaming
     include Alchemy::Page::PageUsers
-    include Alchemy::Page::PageCells
     include Alchemy::Page::PageElements
 
     # site_name accessor
@@ -188,7 +187,6 @@ module Alchemy
         page = Alchemy::Page.new(attributes_from_source_for_copy(source, differences))
         page.tag_list = source.tag_list
         if page.save!
-          copy_cells(source, page)
           copy_elements(source, page)
           page
         end
@@ -206,7 +204,7 @@ module Alchemy
           name: "Layoutroot for #{language.name}",
           layoutpage: true,
           language: language,
-          do_not_autogenerate: true,
+          autogenerate_elements: false,
           parent_id: Page.root.id
         )
       end
@@ -290,6 +288,38 @@ module Alchemy
 
     # Instance methods
     #
+
+    # Returns elements from page.
+    #
+    # @option options [Array<String>|String] :only
+    #   Returns only elements with given names
+    # @option options [Array<String>|String] :except
+    #   Returns all elements except the ones with given names
+    # @option options [Integer] :count
+    #   Limit the count of returned elements
+    # @option options [Integer] :offset
+    #   Starts with an offset while returning elements
+    # @option options [Boolean] :include_hidden (false)
+    #   Return hidden elements as well
+    # @option options [Boolean] :random (false)
+    #   Return elements randomly shuffled
+    # @option options [Boolean] :reverse (false)
+    #   Reverse the load order
+    # @option options [Class] :finder (Alchemy::ElementsFinder)
+    #   A class that will return elements from page.
+    #   Use this for your custom element loading logic.
+    #
+    # @return [ActiveRecord::Relation]
+    def find_elements(options = {}, show_non_public = false)
+      if show_non_public
+        Alchemy::Deprecation.warn "Passing true as second argument to page#find_elements to include" /
+          " invisible elements has been removed. Please implement your own ElementsFinder" /
+          " and pass it with options[:finder]."
+      end
+
+      finder = options[:finder] || Alchemy::ElementsFinder.new(options)
+      finder.elements(page: self)
+    end
 
     # The page's view partial is dependent from its page layout
     #

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 module Alchemy
   describe Page do
@@ -10,7 +10,7 @@ module Alchemy
     let(:language_root) { create(:alchemy_page, :language_root) }
     let(:page)          { mock_model(Page, page_layout: 'foo') }
     let(:public_page)   { create(:alchemy_page, :public) }
-    let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', do_not_autogenerate: false) }
+    let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', autogenerate_elements: true) }
 
     it { is_expected.to have_one(:site) }
 
@@ -247,7 +247,7 @@ module Alchemy
 
       context "Saving a normal page" do
         let(:page) do
-          build(:alchemy_page, language_code: nil, language: klingon, do_not_autogenerate: false)
+          build(:alchemy_page, language_code: nil, language: klingon, autogenerate_elements: true)
         end
 
         it "sets the language code" do
@@ -268,43 +268,6 @@ module Alchemy
           it "does not autogenerate" do
             page.save!
             expect(page.elements.select { |e| e.name == 'header' }.length).to eq(1)
-          end
-        end
-
-        context "with cells" do
-          before do
-            allow(page).to receive(:definition) do
-              {
-                'cells' => %w(header main),
-                'autogenerate' => %w(article)
-              }
-            end
-          end
-
-          context 'with elements defined in cells' do
-            before do
-              allow(page).to receive(:cell_definitions) do
-                [{'name' => 'header', 'elements' => %w(article)}]
-              end
-            end
-
-            it "has the generated elements in their cells" do
-              page.save!
-              expect(page.cells.where(name: 'header').first.elements).not_to be_empty
-            end
-          end
-
-          context "and no elements in cell definitions" do
-            before do
-              allow(page).to receive(:cell_definitions) do
-                [{'name' => 'header', 'elements' => []}]
-              end
-            end
-
-            it "should have the elements in the nil cell" do
-              page.save!
-              expect(page.cells.collect(&:elements).flatten).to be_empty
-            end
           end
         end
 
@@ -335,9 +298,9 @@ module Alchemy
           end
         end
 
-        context "with do_not_autogenerate set to true" do
+        context "with autogenerate_elements set to false" do
           before do
-            page.do_not_autogenerate = true
+            page.autogenerate_elements = false
           end
 
           it "should not autogenerate the elements" do
@@ -591,12 +554,12 @@ module Alchemy
         end
       end
 
-      context "page with cells" do
-        before { page.cells << create(:alchemy_cell) }
+      context "page with fixed elements" do
+        before { page.elements << create(:alchemy_element, :fixed) }
 
-        it "the copy should have source cells" do
-          expect(subject.cells).not_to be_empty
-          expect(subject.cells.count).to eq(page.cells.length) # It must be length, because!
+        it "the copy should have source fixed elements" do
+          expect(subject.elements_including_fixed).not_to be_empty
+          expect(subject.elements_including_fixed.count).to eq(page.elements_including_fixed.count)
         end
       end
 
@@ -813,25 +776,27 @@ module Alchemy
     # InstanceMethods (a-z)
 
     describe '#available_element_definitions' do
+      subject { page.available_element_definitions }
+
       let(:page) { build_stubbed(:alchemy_page, :public) }
 
       it "returns all element definitions of available elements" do
-        expect(page.available_element_definitions).to be_an(Array)
-        expect(page.available_element_definitions.collect { |e| e['name'] }).to include('header')
+        expect(subject).to be_an(Array)
+        expect(subject.collect { |e| e['name'] }).to include('header')
       end
 
       context "with unique elements already on page" do
         let(:element) { build_stubbed(:alchemy_element, :unique) }
 
         before do
-          allow(page)
-            .to receive(:elements)
-            .and_return double(not_trashed: double(pluck: [element.name]))
+          allow(page).to receive(:elements_including_fixed) do
+            double(pluck: [element.name])
+          end
         end
 
         it "does not return unique element definitions" do
-          expect(page.available_element_definitions.collect { |e| e['name'] }).to include('article')
-          expect(page.available_element_definitions.collect { |e| e['name'] }).not_to include('header')
+          expect(subject.collect { |e| e['name'] }).to include('article')
+          expect(subject.collect { |e| e['name'] }).not_to include('header')
         end
       end
 
@@ -844,7 +809,7 @@ module Alchemy
         let(:element_2) { build_stubbed(:alchemy_element, name: 'column_headline') }
         let(:element_3) { build_stubbed(:alchemy_element, name: 'column_headline') }
 
-        before {
+        before do
           allow(Element).to receive(:definitions).and_return([
             {
               'name' => 'column_headline',
@@ -863,15 +828,15 @@ module Alchemy
             'elements' => ['column_headline', 'unique_headline'],
             'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
           })
-          allow(page).to receive(:elements).and_return double(
-            not_trashed: double(pluck: [
+          allow(page).to receive(:elements_including_fixed) do
+            double(pluck: [
               unique_element.name,
               element_1.name,
               element_2.name,
               element_3.name
             ])
-          )
-        }
+          end
+        end
 
         it "should be readable" do
           element = page.element_definitions_by_name('column_headline').first
@@ -879,11 +844,11 @@ module Alchemy
         end
 
         it "should limit elements" do
-          expect(page.available_element_definitions.collect { |e| e['name'] }).not_to include('column_headline')
+          expect(subject.collect { |e| e['name'] }).not_to include('column_headline')
         end
 
         it "should be ignored if unique" do
-          expect(page.available_element_definitions.collect { |e| e['name'] }).not_to include('unique_headline')
+          expect(subject.collect { |e| e['name'] }).not_to include('unique_headline')
         end
       end
     end
@@ -943,24 +908,6 @@ module Alchemy
       end
     end
 
-    describe '#cell_definitions' do
-      before do
-        @page = build(:alchemy_page, page_layout: 'foo')
-        allow(@page).to receive(:definition).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
-        @cell_definitions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
-        allow(Cell).to receive(:definitions).and_return(@cell_definitions)
-      end
-
-      it "should return all cell definitions for its page_layout" do
-        expect(@page.cell_definitions).to eq(@cell_definitions)
-      end
-
-      it "should return empty array if no cells defined in page layout" do
-        allow(@page).to receive(:definition).and_return({'name' => "foo"})
-        expect(@page.cell_definitions).to eq([])
-      end
-    end
-
     describe "#elements" do
       let(:page) { create(:alchemy_page) }
       let!(:element_1) { create(:alchemy_element, page: page) }
@@ -1008,7 +955,7 @@ module Alchemy
       end
 
       it 'returns an active record collection of all elements including nested elements on that page' do
-        expect(page.descendent_elements.count).to eq(3)
+        expect(page.descendent_elements.count).to eq(4)
       end
     end
 
@@ -1040,7 +987,7 @@ module Alchemy
       end
 
       it 'returns an active record collection of all content including nested elements on that page' do
-        expect(page.descendent_contents.count).to eq(4)
+        expect(page.descendent_contents.count).to eq(6)
       end
     end
 
@@ -1117,94 +1064,22 @@ module Alchemy
 
       before do
         allow(page).to receive(:definition) { page_definition }
-        allow(page).to receive(:cell_definitions) { cell_definitions }
       end
 
-      context "with elements only assigned in page definition" do
+      context "with elements assigned in page definition" do
         let(:page_definition) do
           {'elements' => %w(article)}
         end
-
-        let(:cell_definitions) { [] }
 
         it "returns an array of the page's element names" do
           is_expected.to eq %w(article)
         end
       end
 
-      context "with elements assigned only in cell definition" do
-        before do
-          allow(page).to receive(:definition).and_return({})
-          allow(page).to receive(:cell_definitions) do
-            [{'elements' => ['search']}]
-          end
-        end
-
-        it "returns an array of the cell's element names" do
-          is_expected.to eq(['search'])
-        end
-      end
-
-      context "with elements assigned in page and cell definition" do
-        let(:page_definition) do
-          {'elements' => %w(header article)}
-        end
-
-        let(:cell_definitions) do
-          [{'elements' => %w(search)}]
-        end
-
-        it "returns the combined element names" do
-          is_expected.to eq %w(header article search)
-        end
-
-        context "and cell definition contains same element name as page definition" do
-          let(:page_definition) do
-            {'elements' => %w(header article)}
-          end
-
-          let(:cell_definitions) do
-            [{'elements' => %w(header search)}]
-          end
-
-          it "includes no duplicates" do
-            is_expected.to eq %w(header article search)
-          end
-        end
-      end
-
-      context "without elements assigned in page definition or cell definition" do
+      context "without elements assigned in page definition" do
         let(:page_definition) { {} }
-        let(:cell_definitions) { [] }
 
         it { is_expected.to eq([]) }
-      end
-    end
-
-    describe '#elements_grouped_by_cells' do
-      let(:page) { create(:alchemy_page, :public, do_not_autogenerate: false) }
-
-      before do
-        allow(PageLayout).to receive(:get).and_return({
-          'name' => 'standard',
-          'cells' => ['header'],
-          'elements' => ['header', 'text'],
-          'autogenerate' => ['header', 'text']
-        })
-        allow(Cell).to receive(:definitions).and_return([{
-          'name' => "header",
-          'elements' => ["header"]
-        }])
-      end
-
-      it "should return elements grouped by cell" do
-        elements = page.elements_grouped_by_cells
-        expect(elements.keys.first).to be_instance_of(Cell)
-        expect(elements.values.first.first).to be_instance_of(Element)
-      end
-
-      it "should only include elements beeing in a cell " do
-        expect(page.elements_grouped_by_cells.keys).not_to include(nil)
       end
     end
 
@@ -1228,102 +1103,25 @@ module Alchemy
     end
 
     describe '#find_elements' do
-      before do
-        create(:alchemy_element, public: false, page: public_page)
-        create(:alchemy_element, public: false, page: public_page)
+      subject { page.find_elements(options) }
+
+      let(:page) { build(:alchemy_page) }
+      let(:options) { {} }
+      let(:finder) { instance_double(Alchemy::ElementsFinder) }
+
+      it 'passes self and all options to elements finder' do
+        expect(Alchemy::ElementsFinder).to receive(:new).with(options) { finder }
+        expect(finder).to receive(:elements).with(page: page)
+        subject
       end
 
-      context "with show_non_public argument TRUE" do
-        it "should return all elements from empty options" do
-          expect(public_page.find_elements({}, true).to_a).to eq(public_page.elements.to_a)
+      context 'with a custom finder given in options' do
+        let(:options) do
+          { finder: CustomNewsElementsFinder.new }
         end
 
-        it "should only return the elements passed as options[:only]" do
-          expect(public_page.find_elements({only: ['article']}, true).to_a).to eq(public_page.elements.named('article').to_a)
-        end
-
-        it "should not return the elements passed as options[:except]" do
-          expect(public_page.find_elements({except: ['article']}, true).to_a).to eq(public_page.elements - public_page.elements.named('article').to_a)
-        end
-
-        it "should return elements offsetted" do
-          expect(public_page.find_elements({offset: 2}, true).to_a).to eq(public_page.elements.offset(2))
-        end
-
-        it "should return elements limitted in count" do
-          expect(public_page.find_elements({count: 1}, true).to_a).to eq(public_page.elements.limit(1))
-        end
-      end
-
-      context "with options[:from_cell]" do
-        let(:element) { build_stubbed(:alchemy_element) }
-
-        context "given as String" do
-          context 'with elements present' do
-            before do
-              expect(public_page.cells)
-                .to receive(:find_by_name)
-                .and_return double(elements: double(offset: double(limit: double(published: [element]))))
-            end
-
-            it "returns only the elements from given cell" do
-              expect(public_page.find_elements(from_cell: 'A Cell').to_a).to eq([element])
-            end
-          end
-
-          context "that can not be found" do
-            let(:elements) { [] }
-
-            before do
-              allow(elements)
-                .to receive(:offset)
-                .and_return double(limit: double(published: elements))
-            end
-
-            it "returns empty set" do
-              expect(Element).to receive(:none).and_return(elements)
-              expect(public_page.find_elements(from_cell: 'Lolo').to_a).to eq([])
-            end
-
-            it "loggs a warning" do
-              expect(Rails.logger).to receive(:debug)
-              public_page.find_elements(from_cell: 'Lolo')
-            end
-          end
-        end
-
-        context "given as cell object" do
-          let(:cell) { build_stubbed(:alchemy_cell, page: public_page) }
-
-          it "returns only the elements from given cell" do
-            expect(cell)
-              .to receive(:elements)
-              .and_return double(offset: double(limit: double(published: [element])))
-
-            expect(public_page.find_elements(from_cell: cell).to_a).to eq([element])
-          end
-        end
-      end
-
-      context "with show_non_public argument FALSE" do
-        it "should return all elements from empty arguments" do
-          expect(public_page.find_elements.to_a).to eq(public_page.elements.published.to_a)
-        end
-
-        it "should only return the public elements passed as options[:only]" do
-          expect(public_page.find_elements(only: ['article']).to_a).to eq(public_page.elements.published.named('article').to_a)
-        end
-
-        it "should return all public elements except the ones passed as options[:except]" do
-          expect(public_page.find_elements(except: ['article']).to_a).to eq(public_page.elements.published.to_a - public_page.elements.published.named('article').to_a)
-        end
-
-        it "should return elements offsetted" do
-          expect(public_page.find_elements({offset: 2}).to_a).to eq(public_page.elements.published.offset(2))
-        end
-
-        it "should return elements limitted in count" do
-          expect(public_page.find_elements({count: 1}).to_a).to eq(public_page.elements.published.limit(1))
+        it 'uses that to load elements to render' do
+          expect(subject.map(&:name)).to eq(['news'])
         end
       end
     end
@@ -2416,19 +2214,17 @@ module Alchemy
       let!(:page) { create(:alchemy_page) }
 
       let!(:expanded_element) do
-        create :alchemy_element,
+        create :alchemy_element, :with_contents,
           name: 'article',
           page: page,
-          folded: false,
-          create_contents_after_create: true
+          folded: false
       end
 
       let!(:folded_element) do
-        create :alchemy_element,
+        create :alchemy_element, :with_contents,
           name: 'article',
           page: page,
-          folded: true,
-          create_contents_after_create: true
+          folded: true
       end
 
       subject(:richtext_contents_ids) { page.richtext_contents_ids }
@@ -2442,21 +2238,19 @@ module Alchemy
 
       context 'with nested elements' do
         let!(:nested_expanded_element) do
-          create :alchemy_element,
+          create :alchemy_element, :with_contents,
             name: 'article',
             page: page,
             parent_element: expanded_element,
-            folded: false,
-            create_contents_after_create: true
+            folded: false
         end
 
         let!(:nested_folded_element) do
-          create :alchemy_element,
+          create :alchemy_element, :with_contents,
             name: 'article',
             page: page,
             parent_element: folded_element,
-            folded: true,
-            create_contents_after_create: true
+            folded: true
         end
 
         it 'returns content ids for all expanded nested elements that have tinymce enabled' do

@@ -3,8 +3,13 @@ require 'factory_bot'
 FactoryBot.define do
   factory :alchemy_element, class: 'Alchemy::Element' do
     name { 'article' }
-    create_contents_after_create { false }
+    autogenerate_contents { false }
     association :page, factory: :alchemy_page
+
+    trait :fixed do
+      fixed { true }
+      name { 'right_column' }
+    end
 
     trait :unique do
       unique { true }
@@ -21,7 +26,7 @@ FactoryBot.define do
     end
 
     trait :with_contents do
-      create_contents_after_create { true }
+      autogenerate_contents { true }
     end
   end
 end

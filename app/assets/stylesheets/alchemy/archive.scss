@@ -1,3 +1,15 @@
+.resources-header {
+  padding: 2*$default-padding;
+}
+
+.resources-table-wrapper {
+  padding-bottom: 60px;
+
+  &.with_tag_filter {
+    padding-right: 242px;
+  }
+}
+
 div#image_assign_filter_and_image_sizing {
   width: 100%;
   height: 40px;
@@ -27,7 +39,6 @@ div#image_assign_filter_and_image_sizing {
 .picture_thumbnail {
   margin: 2*$default-margin;
   background-color: #fff;
-  display: inline-block;
   position: relative;
   box-shadow: 0 0 0 1px $default-border-color;
   width: 160px;
@@ -77,10 +88,13 @@ div#image_assign_filter_and_image_sizing {
   }
 }
 
+#pictures,
+#overlay_picture_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 #pictures {
-  margin-right: 232px;
-  padding-bottom: 60px;
-  overflow: hidden;
 
   .thumbnail_background {
     @include zoom-in;

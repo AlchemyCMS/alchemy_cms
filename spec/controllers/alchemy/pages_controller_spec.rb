@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require 'ostruct'
-require 'spec_helper'
+require 'rails_helper'
 
 module Alchemy
   describe PagesController do
@@ -20,7 +20,7 @@ module Alchemy
         name: 'News',
         urlname: 'news',
         language: default_language,
-        do_not_autogenerate: false
+        autogenerate_elements: true
     end
 
     before do
@@ -248,7 +248,7 @@ module Alchemy
 
       let(:catalog)  { create(:alchemy_page, :public, name: "Catalog", urlname: 'catalog', parent: default_language_root, language: default_language, visible: true) }
       let(:products) { create(:alchemy_page, :public, name: "Products", urlname: 'products', parent: catalog, language: default_language, visible: true) }
-      let(:product)  { create(:alchemy_page, :public, name: "Screwdriver", urlname: 'screwdriver', parent: products, language: default_language, do_not_autogenerate: false, visible: true) }
+      let(:product)  { create(:alchemy_page, :public, name: "Screwdriver", urlname: 'screwdriver', parent: products, language: default_language, autogenerate_elements: true, visible: true) }
 
       before do
         allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
@@ -307,7 +307,7 @@ module Alchemy
       context 'having two pages with the same url names in different languages' do
         render_views
 
-        let!(:klingon_page) { create(:alchemy_page, :public, language: klingon, name: "same-name", do_not_autogenerate: false) }
+        let!(:klingon_page) { create(:alchemy_page, :public, language: klingon, name: "same-name", autogenerate_elements: true) }
         let!(:english_page) { create(:alchemy_page, :public, language: default_language, name: "same-name") }
 
         before do

@@ -20,7 +20,7 @@ module Alchemy
       gallery_contents = element.contents.where("#{Content.table_name}.name LIKE 'essence_picture_%'").order("#{Content.table_name}.position ASC")
 
       if gallery_contents.any?
-        if element.nestable_elements.any?
+        if element.nestable_elements.any? { |el| el != "#{element.name}_picture" }
           parent = create_gallery_element(element)
         else
           parent = element
@@ -41,7 +41,7 @@ module Alchemy
         creator: parent.creator,
         updater: parent.updater,
         page: parent.page,
-        create_contents_after_create: false
+        autogenerate_contents: false
       )
       puts "Created new `#{new_element.name}` for `#{parent.name}`"
       new_element
@@ -55,7 +55,7 @@ module Alchemy
         creator: parent.creator,
         updater: parent.updater,
         page: parent.page,
-        create_contents_after_create: false
+        autogenerate_contents: false
       )
 
       content.update_columns(element_id: new_element.id, name: 'picture')

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
-describe 'TinyMCE Editor' do
+RSpec.describe 'TinyMCE Editor', type: :system do
   before do
     authorize_user(:as_admin)
   end
@@ -22,7 +22,7 @@ describe 'TinyMCE Editor' do
     it 'base path should be set to tinymce asset folder' do
       visit admin_dashboard_path
       expect(page).to have_content(
-        "var tinyMCEPreInit = { base: 'http://www.example.com/assets/tinymce', suffix: '.min' };"
+        "var tinyMCEPreInit = { base: 'http://127.0.0.1/assets/tinymce', suffix: '.min' };"
       )
     end
   end

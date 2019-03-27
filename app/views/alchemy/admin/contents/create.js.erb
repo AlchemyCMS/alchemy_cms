@@ -2,7 +2,7 @@ var editor_html = '<%= j(render "alchemy/essences/#{@content.essence_partial_nam
   content: @content, options: options_from_params, html_options: @html_options
 }) %>';
 
-$("[data-element-<%= @element.id %>-missing-content=\"<%= @content.name %>\"]").replaceWith(editor_html);
+$("[data-element-<%= @content.element_id %>-missing-content=\"<%= @content.name %>\"]").replaceWith(editor_html);
 
 <% if @content.essence_type == "Alchemy::EssencePicture" && @content.ingredient %>
 
@@ -10,7 +10,7 @@ $('#picture_to_assign_<%= @content.ingredient.id %> a').attr('href', '#').off('c
 
 <% elsif @content.essence_type == "Alchemy::EssenceDate" %>
 
-Alchemy.Datepicker('#element_<%= @element.id %>');
+Alchemy.Datepicker('#element_<%= @content.element_id %>');
 
 <% elsif @content.essence_type == "Alchemy::EssenceRichtext" %>
 
@@ -20,4 +20,4 @@ Alchemy.Tinymce.initEditor(<%= @content.id %>);
 
 Alchemy.reloadPreview();
 Alchemy.closeCurrentDialog();
-Alchemy.SelectBox("#element_<%= @element.id %>");
+Alchemy.SelectBox("#element_<%= @content.element_id %>");

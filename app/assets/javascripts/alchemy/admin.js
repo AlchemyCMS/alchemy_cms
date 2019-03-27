@@ -9,6 +9,7 @@
 //= require jquery-ui/widgets/tabs
 //= require tinymce/tinymce.min
 //= require_tree ../../../../vendor/assets/javascripts/jquery_plugins/
+//= require flatpickr/flatpickr.min
 //= require clipboard.min
 //= require keymaster
 //= require requestAnimationFrame
@@ -27,6 +28,7 @@
 //= require alchemy/alchemy.dragndrop
 //= require alchemy/alchemy.element_editors
 //= require alchemy/alchemy.elements_window
+//= require alchemy/alchemy.fixed_elements
 //= require alchemy/alchemy.growler
 //= require alchemy/alchemy.gui
 //= require alchemy/alchemy.hotkeys

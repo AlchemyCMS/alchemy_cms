@@ -55,12 +55,12 @@ Alchemy.ElementEditors =
   # Selects element
   # Scrolls to element
   # Unfold if folded
-  # Also chooses the right cell, if necessary.
+  # Also chooses the right fixed elements tab, if necessary.
   # Can be triggered through custom event 'FocusElementEditor.Alchemy'
   # Used by the elements on click events in the preview frame.
   focusElement: ($element) ->
     element_id = $element.attr('id').replace(/\D/g, "")
-    @selectCellForElement($element)
+    @selectTabForElement($element)
     # If we have folded parents we need to unfold each of them
     # and then finally scroll to or unfold ourself
     $folded_parents = $element.parents('.element-editor.folded')
@@ -72,12 +72,12 @@ Alchemy.ElementEditors =
       @scrollToOrUnfold(element_id)
     return
 
-  # Select cell for given element
-  selectCellForElement: ($element) ->
-    $cells = $("#cells .sortable_cell")
-    if $cells.size() > 0
-      $cell = $element.closest(".sortable_cell")
-      $("#cells").tabs("option", "active", $cells.index($cell))
+  # Selects tab for given element
+  selectTabForElement: ($element) ->
+    $tabs = $("#fixed-elements .sortable-elements")
+    if $tabs.size() > 0
+      $tab = $element.closest(".sortable-elements")
+      $("#fixed-elements").tabs("option", "active", $tabs.index($tab))
 
   # Marks an element as selected in the element window and scrolls to it.
   #

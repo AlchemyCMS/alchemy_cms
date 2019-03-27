@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller do
   routes { Alchemy::Engine.routes }

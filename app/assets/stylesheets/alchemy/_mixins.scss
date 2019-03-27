@@ -182,11 +182,12 @@
   cursor: zoom-in;
 }
 
-@mixin truncate($max-width, $display: inline-block) {
+@mixin truncate($max-width, $display: inline-block, $wrap: normal) {
   display: $display;
   max-width: $max-width;
   overflow: hidden;
   text-overflow: ellipsis;
+  white-space: $wrap;
 }
 
 @mixin hint-hover-style {

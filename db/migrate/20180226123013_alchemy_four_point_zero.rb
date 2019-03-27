@@ -18,16 +18,6 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
       end
     end
 
-    unless table_exists?(:alchemy_cells)
-      create_table :alchemy_cells do |t|
-        t.integer "page_id", null: false
-        t.string "name"
-        t.datetime "created_at", null: false, precision: 6
-        t.datetime "updated_at", null: false, precision: 6
-        t.index ["page_id"], name: "index_alchemy_cells_on_page_id"
-      end
-    end
-
     unless table_exists?(:alchemy_contents)
       create_table :alchemy_contents do |t|
         t.string "name"
@@ -56,10 +46,8 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         t.datetime "updated_at", null: false, precision: 6
         t.integer "creator_id"
         t.integer "updater_id"
-        t.integer "cell_id"
         t.text "cached_tag_list"
         t.integer "parent_element_id"
-        t.index ["cell_id"], name: "index_alchemy_elements_on_cell_id"
         t.index ["page_id", "parent_element_id"], name: "index_alchemy_elements_on_page_id_and_parent_element_id"
         t.index ["page_id", "position"], name: "index_elements_on_page_id_and_position"
       end
@@ -332,14 +320,6 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
       end
     end
 
-    unless foreign_key_exists?(:alchemy_cells, column: :page_id)
-      add_foreign_key :alchemy_cells, :alchemy_pages,
-        column: :page_id,
-        on_update: :cascade,
-        on_delete: :cascade,
-        name: :alchemy_cells_page_id_fkey
-    end
-
     unless foreign_key_exists?(:alchemy_contents, column: :element_id)
       add_foreign_key :alchemy_contents, :alchemy_elements,
         column: :element_id,
@@ -355,19 +335,10 @@ class AlchemyFourPointZero < ActiveRecord::Migration[5.0]
         on_delete: :cascade,
         name: :alchemy_elements_page_id_fkey
     end
-
-    unless foreign_key_exists?(:alchemy_elements, column: :cell_id)
-      add_foreign_key :alchemy_elements, :alchemy_cells,
-        column: :cell_id,
-        on_update: :cascade,
-        on_delete: :cascade,
-        name: :alchemy_elements_cell_id_fkey
-    end
   end
 
   def down
     drop_table(:alchemy_attachments) if table_exists?(:alchemy_attachments)
-    drop_table(:alchemy_cells) if table_exists?(:alchemy_cells)
     drop_table(:alchemy_contents) if table_exists?(:alchemy_contents)
     drop_table(:alchemy_elements) if table_exists?(:alchemy_elements)
     drop_table(:alchemy_elements_alchemy_pages) if table_exists?(:alchemy_elements_alchemy_pages)

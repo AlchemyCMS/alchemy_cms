@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
-RSpec.feature "Attachment assignment overlay" do
+RSpec.describe "Attachment assignment overlay", type: :system do
   before do
     authorize_user(:as_admin)
   end
 
   describe "filter by tags", js: true do
-    let(:a_page) { create(:alchemy_page, do_not_autogenerate: false) }
+    let(:a_page) { create(:alchemy_page, autogenerate_elements: true) }
     let(:element) { create(:alchemy_element, page: a_page, name: 'download') }
     let!(:file1) { create(:alchemy_attachment, file_name: "job_alert.png", tag_list: "jobs") }
     let!(:file2) { create(:alchemy_attachment, file_name: "keynote.png", tag_list: "presentations") }
@@ -20,7 +20,7 @@ RSpec.feature "Attachment assignment overlay" do
         click_on "Assign a file"
       end
 
-      within ".alchemy-dialog.modal" do
+      within ".alchemy-dialog.modal", wait: 15 do
         # We expect to see both attachments
         expect(page).to have_selector("#assign_file_list .list a", count: 2)
 

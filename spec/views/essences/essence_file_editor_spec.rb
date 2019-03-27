@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 describe 'alchemy/essences/_essence_file_editor' do
   let(:attachment) { build_stubbed(:alchemy_attachment) }

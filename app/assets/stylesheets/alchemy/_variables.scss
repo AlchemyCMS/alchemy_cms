@@ -113,12 +113,13 @@ $sitemap-highlight-color: rgba(#fffba5, 0.5) !default;
 
 $main-menu-width: 150px !default;
 $collapsed-main-menu-width: 48px !default;
+$collapsed-main-menu-entry-max-width: 300px !default;
 $main-menu-bg-color: $dark-blue !default;
 $main-menu-active-bg-color: $dark-orange !default;
 $main-menu-active-text-color: $dark-blue !default;
 $main-menu-text-color: $white !default;
 $main-menu-icon-color: $white !default;
-$main-menu-entry-max-width: 100px !default;
+$main-menu-entry-max-width: 110px !default;
 $toolbar-bg-color: $medium-gray !default;
 $toolbar-height: 46px !default;
 $element-toolbar-height: 37px !default;
@@ -136,7 +137,8 @@ $table-row-even-background-color: $white !default;
 $table-row-odd-background-color: rgba($white, 0.5) !default;
 $table-row-hover-color: rgba($light_yellow, 0.5) !default;
 
-$elements-window-width: 400px !default;
+$elements-window-width: 22.5vw !default;
+$elements-window-min-width: 400px !default;
 $element-header-bg-color: $medium-gray !default;
 $top-menu-height: 75px !default;
 
@@ -158,3 +160,5 @@ $select-hover-bg-color: $dark-blue !default;
 $select-hover-text-color: $white !default;
 
 $thumbnail-background-color: opacify($default-border-color, 1) !default;
+$medium-screen-break-point: 700px;
+$large-screen-break-point: 1000px;

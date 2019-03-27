@@ -3,23 +3,22 @@
   var $element_area;
   var element_html = '<%= j render("element", element: @element, draggable: true) %>';
 
-<%- if @cutted_element_id -%>
-  $('.element-editor[data-element-id="<%= @cutted_element_id %>"]').remove();
+<%- if @cut_element_id -%>
+  $('.element-editor[data-element-id="<%= @cut_element_id %>"]').remove();
 <%- end -%>
 
-<%- if @page.can_have_cells? -%>
-  if ($('#cells').length == 0) {
-    Alchemy.buildTabbedCells('<%= Alchemy.t(:main_content) %>');
+<% if @element.fixed? %>
+  if ($('#fixed-elements').length == 0) {
+    Alchemy.FixedElements.buildTabs('<%= Alchemy.t(:main_content) %>');
   }
-  Alchemy.selectOrCreateCellTab('<%= @cell_name %>', '<%= @cell.nil? ? Alchemy.t(:main_content) : @cell.name_for_label %>');
-<%- end -%>
-
-<%- if @element.parent_element -%>
+  Alchemy.FixedElements.createTab('<%= @element.id %>', '<%= @element.display_name %>');
+  $element_area = $('#fixed-element-<%= @element.id %>');
+<% elsif @element.parent_element %>
   $element_area = $('#element_<%= @element.parent_element_id %> > .nestable-elements > .nested-elements');
   Alchemy.Buttons.enable('.nestable-elements');
-<%- else -%>
-  $element_area = $('#cell_<%= @cell_name %>');
-<%- end -%>
+<% else %>
+  $element_area = $('#main-content-elements');
+<% end %>
 
 <%- if @insert_at_top -%>
   $element_area.prepend(element_html);

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
-describe 'Language tree feature', type: :feature, js: true do
+RSpec.describe 'Language tree feature', type: :system, js: true do
   let(:klingon) { create(:alchemy_language, :klingon) }
 
   before do

@@ -10,10 +10,10 @@ Gem::Specification.new do |gem|
   gem.authors               = ['Thomas von Deyen', 'Robin Boening', 'Marc Schettke', 'Hendrik Mans', 'Carsten Fregin', 'Martin Meyerhoff']
   gem.email                 = ['alchemy@magiclabs.de']
   gem.homepage              = 'https://alchemy-cms.com'
-  gem.summary               = 'A powerful, userfriendly and flexible CMS for Rails 4'
-  gem.description           = 'Alchemy is a powerful, userfriendly and flexible Rails 4 CMS.'
+  gem.summary               = 'A powerful, userfriendly and flexible CMS for Rails 5'
+  gem.description           = 'Alchemy is a powerful, userfriendly and flexible Rails 5 CMS.'
   gem.requirements << 'ImageMagick (libmagick), v6.6 or greater.'
-  gem.required_ruby_version = '>= 2.2.2'
+  gem.required_ruby_version = '>= 2.3.0'
   gem.license               = 'BSD New'
   gem.files                 = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^spec/}) }
   gem.require_paths         = ['lib']

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_04_09_171801) do
+ActiveRecord::Schema.define(version: 2018_05_19_204655) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -23,14 +23,6 @@ ActiveRecord::Schema.define(version: 2018_04_09_171801) do
     t.datetime "updated_at", precision: 6, null: false
     t.string "file_uid"
     t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
-  end
-
-  create_table "alchemy_cells", force: :cascade do |t|
-    t.integer "page_id", null: false
-    t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["page_id"], name: "index_alchemy_cells_on_page_id"
   end
 
   create_table "alchemy_contents", force: :cascade do |t|
@@ -58,9 +50,9 @@ ActiveRecord::Schema.define(version: 2018_04_09_171801) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "creator_id"
     t.integer "updater_id"
-    t.integer "cell_id"
     t.integer "parent_element_id"
-    t.index ["cell_id"], name: "index_alchemy_elements_on_cell_id"
+    t.boolean "fixed", default: false, null: false
+    t.index ["fixed"], name: "index_alchemy_elements_on_fixed"
     t.index ["page_id", "parent_element_id"], name: "index_alchemy_elements_on_page_id_and_parent_element_id"
     t.index ["page_id", "position"], name: "index_elements_on_page_id_and_position"
   end

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 module Alchemy
   describe Admin::BaseHelper do
@@ -89,15 +89,6 @@ module Alchemy
           allow(element).to receive(:display_name_with_preview_text).and_return('Name with Preview text')
           expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector('option', text: 'Name with Preview text')
         end
-
-        context "when @page can have cells" do
-          before { allow(page).to receive(:can_have_cells?).and_return(true) }
-
-          it "should group the elements in the clipboard by cell" do
-            expect(helper).to receive(:grouped_elements_for_select).and_return({})
-            helper.clipboard_select_tag_options(clipboard_items)
-          end
-        end
       end
 
       context 'with page items' do
@@ -158,10 +149,10 @@ module Alchemy
       end
 
       context "with date given as value" do
-        let(:value) { Time.now }
+        let(:value) { Time.new(2019, 10, 1, 11, 30, 0, "+09:00") }
 
         it "sets given date as value" do
-          is_expected.to have_selector("input[value='#{::I18n.l(value, format: :'alchemy.datepicker')}']")
+          is_expected.to have_selector("input[value='2019-10-01T11:30:00+09:00']")
         end
       end
 
@@ -170,7 +161,7 @@ module Alchemy
         let(:essence) { EssenceDate.new(date: date) }
 
         it "sets this date as value" do
-          is_expected.to have_selector("input[value='#{::I18n.l(date, format: :'alchemy.datepicker')}']")
+          is_expected.to have_selector("input[value='1976-10-07T00:00:00Z']")
         end
       end
     end

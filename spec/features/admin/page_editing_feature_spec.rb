@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
-describe 'Page editing feature' do
+RSpec.describe 'Page editing feature', type: :system do
   let(:a_page) { create(:alchemy_page) }
 
   context 'as author' do
@@ -119,7 +119,7 @@ describe 'Page editing feature' do
 
     context 'in element panel' do
       let!(:everything_page) do
-        create(:alchemy_page, page_layout: 'everything', do_not_autogenerate: false)
+        create(:alchemy_page, page_layout: 'everything', autogenerate_elements: true)
       end
 
       it "renders essence editors for all elements" do

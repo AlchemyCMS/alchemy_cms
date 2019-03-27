@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 module Alchemy
   module Admin
@@ -19,13 +19,13 @@ module Alchemy
 
       it "should hold trashed elements" do
         get :index, params: {page_id: alchemy_page.id}
-        expect(response.body).to have_selector("#element_#{element.id}.element-editor")
+        expect(response.body).to have_selector("[data-element-id=\"#{element.id}\"].element-editor")
       end
 
       it "should not hold elements that are not trashed" do
         element = create(:alchemy_element, page: alchemy_page, public: false)
         get :index, params: {page_id: alchemy_page.id}
-        expect(response.body).not_to have_selector("#element_#{element.id}.element-editor")
+        expect(response.body).not_to have_selector("[data-element-id=\"#{element.id}\"].element-editor")
       end
 
       context "with unique elements inside the trash" do
@@ -39,7 +39,7 @@ module Alchemy
 
           it "unique elements should be draggable" do
             get :index, params: {page_id: alchemy_page.id}
-            expect(response.body).to have_selector("#element_#{trashed.id}.element-editor.draggable")
+            expect(response.body).to have_selector("[data-element-id=\"#{trashed.id}\"].element-editor.draggable")
           end
         end
 
@@ -49,12 +49,14 @@ module Alchemy
 
           before do
             allow(Page).to receive(:find).and_return(page)
-            allow(page).to receive(:elements).and_return double(not_trashed: double(pluck: [unique.name]))
+            allow(page).to receive(:elements_including_fixed) do
+              double(pluck: [unique.name])
+            end
           end
 
           it "unique elements should not be draggable" do
             get :index, params: {page_id: page.id}
-            expect(response.body).to have_selector("#element_#{trashed.id}.element-editor.not-draggable")
+            expect(response.body).to have_selector("[data-element-id=\"#{trashed.id}\"].element-editor.not-draggable")
           end
         end
       end

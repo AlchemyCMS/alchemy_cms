@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
 module Alchemy
   describe Admin::ContentsController do
@@ -15,17 +15,6 @@ module Alchemy
         it "creates a content from name" do
           expect {
             post admin_contents_path(content: {element_id: element.id, name: 'headline'}, format: :js)
-          }.to change { Alchemy::Content.count }.by(1)
-        end
-
-        it "creates a content from essence_type" do
-          expect {
-            post admin_contents_path(
-              content: {
-                element_id: element.id, essence_type: 'EssencePicture'
-              },
-              format: :js
-            )
           }.to change { Alchemy::Content.count }.by(1)
         end
       end

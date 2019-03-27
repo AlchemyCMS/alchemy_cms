@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'spec_helper'
+require 'rails_helper'
 
-describe 'Legacy page url management', type: :feature, js: true do
+RSpec.describe 'Legacy page url management', type: :system, js: true do
   before do
     authorize_user(:as_admin)
   end

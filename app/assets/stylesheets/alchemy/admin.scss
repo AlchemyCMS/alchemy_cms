@@ -19,7 +19,9 @@
 @import "alchemy/dashboard";
 @import "alchemy/elements";
 @import "alchemy/errors";
+@import "alchemy/filter_field";
 @import "alchemy/flash";
+@import "alchemy/flatpickr";
 @import "alchemy/fonts";
 @import "alchemy/forms";
 @import "alchemy/form_fields";
@@ -43,4 +45,3 @@
 @import "alchemy/upload";
 @import "alchemy/jquery-ui";
 @import "jquery.Jcrop.min";
-@import "jquery.datetimepicker";

@@ -9,13 +9,13 @@
 #  position          :integer
 #  page_id           :integer          not null
 #  public            :boolean          default(TRUE)
+#  fixed             :boolean          default(FALSE)
 #  folded            :boolean          default(FALSE)
 #  unique            :boolean          default(FALSE)
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  creator_id        :integer
 #  updater_id        :integer
-#  cell_id           :integer
 #  cached_tag_list   :text
 #  parent_element_id :integer
 #
@@ -28,10 +28,10 @@ module Alchemy
 
     FORBIDDEN_DEFINITION_ATTRIBUTES = [
       "amount",
+      "autogenerate",
       "nestable_elements",
       "contents",
       "hint",
-      "picture_gallery",
       "taggable",
       "compact"
     ].freeze
@@ -47,15 +47,15 @@ module Alchemy
       "updater_id"
     ].freeze
 
-    # All Elements that share the same page id, cell id and parent element id are considered a list.
+    # All Elements that share the same page id and parent element id and are fixed or not are considered a list.
     #
-    # If cell id and parent element id are nil (typical case for a simple page),
+    # If parent element id is nil (typical case for a simple page),
     # then all elements on that page are still in one list,
     # because acts_as_list correctly creates this statement:
     #
-    #   WHERE page_id = 1 and cell_id = NULL AND parent_element_id = NULL
+    #   WHERE page_id = 1 and fixed = FALSE AND parent_element_id = NULL
     #
-    acts_as_list scope: [:page_id, :cell_id, :parent_element_id]
+    acts_as_list scope: [:page_id, :fixed, :parent_element_id]
 
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -70,7 +70,6 @@ module Alchemy
       foreign_key: :parent_element_id,
       dependent: :destroy
 
-    belongs_to :cell, optional: true, touch: true
     belongs_to :page, touch: true, inverse_of: :descendent_elements
 
     # A nested element belongs to a parent element.
@@ -86,20 +85,22 @@ module Alchemy
     validates_presence_of :name, on: :create
     validates_format_of :name, on: :create, with: /\A[a-z0-9_-]+\z/
 
-    attr_accessor :create_contents_after_create
+    attr_accessor :autogenerate_contents
+    attr_accessor :autogenerate_nested_elements
+    after_create :create_contents, unless: -> { autogenerate_contents == false }
+    after_create :generate_nested_elements, unless: -> { autogenerate_nested_elements == false }
 
-    after_create :create_contents, unless: proc { |e| e.create_contents_after_create == false }
     after_update :touch_touchable_pages
 
     scope :trashed,           -> { where(position: nil).order('updated_at DESC') }
-    scope :not_trashed,       -> { where(Element.arel_table[:position].not_eq(nil)) }
+    scope :not_trashed,       -> { where.not(position: nil) }
     scope :published,         -> { where(public: true) }
     scope :not_restricted,    -> { joins(:page).merge(Page.not_restricted) }
     scope :available,         -> { published.not_trashed }
     scope :named,             ->(names) { where(name: names) }
     scope :excluded,          ->(names) { where(arel_table[:name].not_in(names)) }
-    scope :not_in_cell,       -> { where(cell_id: nil) }
-    scope :in_cell,           -> { where("#{table_name}.cell_id IS NOT NULL") }
+    scope :fixed,             -> { where(fixed: true) }
+    scope :unfixed,           -> { where(fixed: false) }
     scope :from_current_site, -> { where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: 'language') }
     scope :folded,            -> { where(folded: true) }
     scope :expanded,          -> { where(folded: false) }
@@ -122,23 +123,21 @@ module Alchemy
       # - Raises Alchemy::ElementDefinitionError if no definition for given attributes[:name]
       #   could be found
       #
-      def new_from_scratch(attributes = {})
-        return new if attributes[:name].blank?
-        new_element_from_definition_by(attributes) || raise(ElementDefinitionError, attributes)
-      end
+      def new(attributes = {})
+        return super if attributes[:name].blank?
+        element_attributes = attributes.to_h.merge(name: attributes[:name].split('#').first)
+        element_definition = Element.definition_by_name(element_attributes[:name])
+        if element_definition.nil?
+          raise(ElementDefinitionError, attributes)
+        end
 
-      # Creates a new element as described in +/config/alchemy/elements.yml+
-      #
-      # - Returns a new Alchemy::Element object if no name is given in attributes,
-      #   because the definition can not be found w/o name
-      # - Raises Alchemy::ElementDefinitionError if no definition for given attributes[:name]
-      #   could be found
-      #
-      def create_from_scratch(attributes)
-        element = new_from_scratch(attributes)
-        element.save if element
-        element
+        super(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
+      alias_method :new_from_scratch, :new
+      deprecate new_from_scratch: :new, deprecator: Alchemy::Deprecation
+
+      alias_method :create_from_scratch, :create
+      deprecate create_from_scratch: :create, deprecator: Alchemy::Deprecation
 
       # This methods does a copy of source and all depending contents and all of their depending essences.
       #
@@ -156,7 +155,8 @@ module Alchemy
                        .except(*SKIPPED_ATTRIBUTES_ON_COPY)
                        .merge(differences)
                        .merge({
-                         create_contents_after_create: false,
+                         autogenerate_contents: false,
+                         autogenerate_nested_elements: false,
                          tag_list: source_element.tag_list
                        })
 
@@ -185,16 +185,6 @@ module Alchemy
         all_from_clipboard(clipboard).select { |ce|
           page.available_element_names.include?(ce.name)
         }
-      end
-
-      private
-
-      def new_element_from_definition_by(attributes)
-        element_attributes = attributes.to_h.merge(name: attributes[:name].split('#').first)
-        element_definition = Element.definition_by_name(element_attributes[:name])
-        return if element_definition.nil?
-
-        new(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
     end
 
@@ -234,17 +224,6 @@ module Alchemy
 
     def trashed?
       position.nil?
-    end
-
-    # The names of all cells from given page this element could be placed in.
-    #
-    def available_page_cell_names(page)
-      cellnames = unique_available_page_cell_names(page)
-      if cellnames.blank? || !page.has_cells?
-        ['for_other_elements']
-      else
-        cellnames
-      end
     end
 
     # Returns true if the definition of this element has a taggable true value.
@@ -304,31 +283,26 @@ module Alchemy
       nested_elements.map do |nested_element|
         Element.copy(nested_element, {
           parent_element_id: target_element.id,
-          page_id: target_element.page_id,
-          cell_id: target_element.cell_id
+          page_id: target_element.page_id
         })
       end
     end
 
     private
 
-    def select_element(elements, name, order)
-      elements = elements.named(name) if name.present?
-      elements.reorder(position: order).limit(1).first
-    end
-
-    # Returns all cells from given page this element could be placed in.
-    #
-    def available_page_cells(page)
-      page.cells.select do |cell|
-        cell.available_elements.include?(name)
+    def generate_nested_elements
+      definition.fetch('autogenerate', []).each do |nestable_element|
+        if nestable_elements.include?(nestable_element)
+          Element.create(page: page, parent_element_id: id, name: nestable_element)
+        else
+          log_warning("Element '#{nestable_element}' not a nestable element for '#{name}'. Skipping!")
+        end
       end
     end
 
-    # Returns all uniq cell names from given page this element could be placed in.
-    #
-    def unique_available_page_cell_names(page)
-      available_page_cells(page).collect(&:name).uniq
+    def select_element(elements, name, order)
+      elements = elements.named(name) if name.present?
+      elements.reorder(position: order).limit(1).first
     end
 
     # Updates all +touchable_pages+
