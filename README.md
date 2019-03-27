@@ -2,9 +2,12 @@
 [![Build Status](https://travis-ci.org/AlchemyCMS/alchemy_cms.svg?branch=master)](https://travis-ci.org/AlchemyCMS/alchemy_cms)
 [![Maintainability](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/maintainability)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/test_coverage)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/test_coverage)
+
 [![Slack Status](http://slackin.alchemy-cms.com/badge.svg)](http://slackin.alchemy-cms.com)
-[![Backers](https://opencollective.com/alchemy_cms/tiers/backer/badge.svg?label=backer&color=blue)](https://opencollective.com/alchemy_cms)
 [![Reviewed by Hound](https://img.shields.io/badge/Reviewed_by-Hound-8E64B0.svg)](https://houndci.com)
+
+[![Backers on Open Collective](https://opencollective.com/alchemy_cms/backers/badge.svg?color=blue)](#backers)
+[![Sponsors on Open Collective](https://opencollective.com/alchemy_cms/sponsors/badge.svg?color=blue)](#sponsors) 
 
 **CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (4.1-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/4.1-stable).**
 
@@ -348,6 +351,36 @@ Alchemy specs are written **in RSpec 3**. Please **do not use deprecated RSpec 2
 * Marc Schettke: <https://github.com/masche842>
 * Hendrik Mans: <https://github.com/hmans>
 * Carsten Fregin: <https://github.com/cfregin>
+
+
+## Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="https://github.com/undefined/undefinedgraphs/contributors"><img src="https://opencollective.com/alchemy_cms/contributors.svg?width=890&button=false" /></a>
+
+
+## Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/alchemy_cms#backer)]
+
+<a href="https://opencollective.com/alchemy_cms#backers" target="_blank"><img src="https://opencollective.com/alchemy_cms/backers.svg?width=890"></a>
+
+
+## Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/alchemy_cms#sponsor)]
+
+<a href="https://opencollective.com/alchemy_cms/sponsor/0/website" target="_blank"><img src="https://opencollective.com/alchemy_cms/sponsor/0/avatar.svg"></a>
+<a href="https://opencollective.com/alchemy_cms/sponsor/1/website" target="_blank"><img src="https://opencollective.com/alchemy_cms/sponsor/1/avatar.svg"></a>
+<a href="https://opencollective.com/alchemy_cms/sponsor/2/website" target="_blank"><img src="https://opencollective.com/alchemy_cms/sponsor/2/avatar.svg"></a>
+<a href="https://opencollective.com/alchemy_cms/sponsor/3/website" target="_blank"><img src="https://opencollective.com/alchemy_cms/sponsor/3/avatar.svg"></a>
+<a href="https://opencollective.com/alchemy_cms/sponsor/4/website" target="_blank"><img src="https://opencollective.com/alchemy_cms/sponsor/4/avatar.svg"></a>
+<a href="https://opencollective.com/alchemy_cms/sponsor/5/website" target="_blank"><img src="https://opencollective.com/alchemy_cms/sponsor/5/avatar.svg"></a>
+<a href="https://opencollective.com/alchemy_cms/sponsor/6/website" target="_blank"><img src="https://opencollective.com/alchemy_cms/sponsor/6/avatar.svg"></a>
+<a href="https://opencollective.com/alchemy_cms/sponsor/7/website" target="_blank"><img src="https://opencollective.com/alchemy_cms/sponsor/7/avatar.svg"></a>
+<a href="https://opencollective.com/alchemy_cms/sponsor/8/website" target="_blank"><img src="https://opencollective.com/alchemy_cms/sponsor/8/avatar.svg"></a>
+<a href="https://opencollective.com/alchemy_cms/sponsor/9/website" target="_blank"><img src="https://opencollective.com/alchemy_cms/sponsor/9/avatar.svg"></a>
+
 
 
 ## License
