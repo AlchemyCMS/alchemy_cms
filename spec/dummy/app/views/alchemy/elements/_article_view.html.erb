@@ -1,6 +1,6 @@
-<%- cache(element) do -%>
-  <%= element_view_for(element) do |el| -%>
-    <% if element.has_ingredient?(:intro) %>
+<%- cache(article_view) do -%>
+  <%= element_view_for(article_view) do |el| -%>
+    <% if article_view.has_ingredient?(:intro) %>
       <div class="intro"><%= el.render :intro %></div>
     <% end %>
     <h1 class="headline"><%= el.render :headline %></h1>
