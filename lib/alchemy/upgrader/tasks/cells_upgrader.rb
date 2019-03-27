@@ -1,4 +1,5 @@
 require 'alchemy/upgrader'
+require 'rails/generators'
 
 module Alchemy::Upgrader::Tasks
   class CellsUpgrader < Thor
@@ -18,8 +19,10 @@ module Alchemy::Upgrader::Tasks
         else
           puts "\nNo cells config found. Skipping."
         end
-        # move_cell_views
         update_cell_views
+        update_render_cell_calls
+        move_cell_views
+        generate_editor_partials
         puts 'Done ✔'
       end
     end
@@ -32,17 +35,17 @@ module Alchemy::Upgrader::Tasks
       FileUtils.copy Rails.root.join('config', 'alchemy', 'page_layouts.yml'),
                      Rails.root.join('config', 'alchemy', 'page_layouts.yml.old')
 
-      puts "done.\n"
+      puts "done ✔\n"
     end
 
     def write_config(config)
       print '-- Writing new `config/alchemy/page_layouts.yml` ... '
 
       File.open(Rails.root.join('config', 'alchemy', 'page_layouts.yml'), "w") do |f|
-        f.write config.to_yaml
+        f.write config.to_yaml.sub("---\n", "").gsub("\n-", "\n\n-")
       end
 
-      puts "done.\n"
+      puts "done ✔\n"
     end
 
     def convert_page_layouts_config
@@ -55,7 +58,7 @@ module Alchemy::Upgrader::Tasks
         page_layout['elements'] = (elements + cell_elements).uniq
         page_layout['autogenerate'] = (autogenerate_elements + cell_elements).uniq
       end
-      puts 'done.'
+      puts "done ✔\n"
       write_config(page_layouts)
     end
 
@@ -94,7 +97,7 @@ module Alchemy::Upgrader::Tasks
         Dir.glob("#{cells_view_folder}/*").each do |view|
           filename = File.basename(view).gsub(/(_\w+)\.(\w*\.)?(erb|haml|slim)/, '\1_view.\2\3')
           FileUtils.mv(view, "#{elements_view_folder}/#{filename}")
-          puts "Moved #{File.basename(view)} into `app/views/alchemy/elements/` folder"
+          puts "   Moved #{File.basename(view)} into `app/views/alchemy/elements/` folder"
         end
         FileUtils.rm_rf(cells_view_folder)
       else
@@ -102,14 +105,29 @@ module Alchemy::Upgrader::Tasks
       end
     end
 
+    def generate_editor_partials
+      puts "-- Generate editor partials"
+      Rails::Generators.invoke('alchemy:elements', ['--skip'])
+    end
+
     def update_cell_views
       if Dir.exist? cells_view_folder
         puts "-- Update cell views"
         Dir.glob("#{cells_view_folder}/*").each do |view|
-          gsub_file(view, /cell\.elements/, 'cell.nested_elements')
+          gsub_file(view, /cell\.elements/, 'element.nested_elements.published')
+          gsub_file(view, /render_elements\(?from_cell:\scell\)?/, 'render element.nested_elements.published')
+          gsub_file(view, /cell/, 'element')
         end
       else
         puts "No cell views found. Skip"
+      end
+    end
+
+    def update_render_cell_calls
+      puts "-- Update render_cell calls"
+      Dir.glob("#{alchemy_views_folder}/**/*").each do |view|
+        next if File.directory?(view)
+        gsub_file(view, /render_cell[\(\s]?([:'"]?[a-z_]+['"]?)\)?/, 'render_elements(only: \1, fixed: true)')
       end
     end
 
@@ -119,6 +137,10 @@ module Alchemy::Upgrader::Tasks
 
     def cells_view_folder
       Rails.root.join('app', 'views', 'alchemy', 'cells')
+    end
+
+    def alchemy_views_folder
+      Rails.root.join('app', 'views', 'alchemy')
     end
   end
 end
