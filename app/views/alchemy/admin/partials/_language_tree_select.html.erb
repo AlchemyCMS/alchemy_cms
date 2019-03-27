@@ -1,4 +1,4 @@
-<%- if multi_language? -%>
+<% if can?(:switch_language, Alchemy::Page) && @languages.many? %>
 <div class="button_with_label">
   <%= form_tag switch_language_admin_pages_path, method: 'get' do %>
     <%= select_tag(
