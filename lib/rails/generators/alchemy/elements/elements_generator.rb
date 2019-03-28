@@ -9,6 +9,7 @@ module Alchemy
       def create_partials
         @elements = load_alchemy_yaml('elements.yml')
         return unless @elements
+
         @elements.each do |element|
           @element = element
           @contents = element["contents"] || []

@@ -1,5 +1,5 @@
-<%- cache(element) do -%>
-  <%= element_view_for(element) do |el| -%>
+<%- cache(header_view) do -%>
+  <%= element_view_for(header_view) do |el| -%>
     <%= el.render :image %>
   <%- end -%>
 <%- end -%>

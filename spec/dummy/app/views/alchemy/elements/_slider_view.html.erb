@@ -1,5 +1,5 @@
-<%- cache(element) do -%>
-  <%= element_view_for(element) do |el| -%>
-    <%= render element.nested_elements %>
+<%- cache(slider_view) do -%>
+  <%= element_view_for(slider_view) do |el| -%>
+    <%= render slider_view.nested_elements.available %>
   <%- end -%>
 <%- end -%>
