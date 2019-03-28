@@ -17,8 +17,6 @@ module Alchemy
       @params = @request.params
 
       handable_format? && no_rails_route?
-    rescue ArgumentError => e
-      handle_invalid_byte_sequence(e)
     end
 
     private
@@ -35,16 +33,8 @@ module Alchemy
     # We don't want to handle the Rails info routes.
     def no_rails_route?
       return true if !%w(development test).include?(Rails.env)
-      (@params['urlname'] =~ /\Arails\//).nil?
-    end
 
-    # Handle invalid byte sequence in UTF-8 errors with 400 status.
-    def handle_invalid_byte_sequence(error)
-      if error.message =~ /invalid byte sequence/
-        raise ActionController::BadRequest
-      else
-        raise
-      end
+      (@params['urlname'] =~ /\Arails\//).nil?
     end
   end
 end

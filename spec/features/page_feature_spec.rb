@@ -73,12 +73,6 @@ RSpec.describe 'Show page feature:', type: :system do
     end
   end
 
-  context "with invalid byte code char in urlname parameter" do
-    it "should raise BadRequest (400) error" do
-      expect { visit '/%ed' }.to raise_error(ActionController::BadRequest)
-    end
-  end
-
   describe "menubar" do
     context "rendering for guest users" do
       it "is prohibited" do
