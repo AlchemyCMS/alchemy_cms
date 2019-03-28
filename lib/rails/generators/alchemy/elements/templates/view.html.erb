@@ -10,9 +10,7 @@
     <%- end -%>
   <%- end -%>
   <%- if @element['nestable_elements'].present? -%>
-    <%% <%= @element_name %>_view.nested_elements.available.each do |nested_element| %>
-      <%%= render_element(nested_element) %>
-    <%% end %>
+    <%%= render <%= @element_name %>_view.nested_elements.available %>
   <%- end -%>
   <%%- end -%>
 <%%- end -%>
