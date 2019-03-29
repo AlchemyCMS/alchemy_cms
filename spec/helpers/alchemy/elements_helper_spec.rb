@@ -14,16 +14,18 @@ module Alchemy
     end
 
     describe '#render_element' do
-      subject { render_element(element, part) }
+      subject { render_element(element) }
 
       context 'with nil element' do
         let(:element) { nil }
-        let(:part)    { :view }
+
         it { is_expected.to be_nil }
       end
 
-      context 'with view as part given' do
-        let(:part) { :view }
+      context 'with element record given' do
+        let(:element) do
+          create(:alchemy_element, :with_contents, name: 'headline')
+        end
 
         it "renders the element's view partial" do
           is_expected.to have_selector("##{element.name}_#{element.id}")
@@ -38,21 +40,40 @@ module Alchemy
         end
       end
 
-      context 'with editor as part given' do
-        let(:part) { :editor }
+      context 'with options given' do
+        subject { render_element(element, locals: { some: 'thing' }) }
 
-        it "renders the element's editor partial" do
-          expect(helper).to receive(:render_essence_editor_by_name)
-          subject
+        it 'passes them into the view' do
+          is_expected.to match(/thing/)
+        end
+      end
+
+      context 'with counter given' do
+        subject { render_element(element, {}, 2) }
+
+        it 'passes them into the view' do
+          is_expected.to match(/2\./)
+        end
+      end
+
+      context 'with 4 arguments given' do
+        subject { render_element(element, :view, {locals: {some: 'thing'}}, 2) }
+
+        it 'passes options into the view' do
+          Alchemy::Deprecation.silence do
+            is_expected.to match(/thing/)
+          end
         end
 
-        context 'with element editor partial not found' do
-          let(:element) { build_stubbed(:alchemy_element, name: 'not_present') }
-
-          it "renders the editor not found partial" do
-            is_expected.to have_selector('div.warning')
-            is_expected.to have_content('Element editor partial not found')
+        it 'passes counter into the view' do
+          Alchemy::Deprecation.silence do
+            is_expected.to match(/2\./)
           end
+        end
+
+        it 'warns about removal of second parameter' do
+          expect(Alchemy::Deprecation).to receive(:warn)
+          subject
         end
       end
     end
@@ -104,6 +125,28 @@ module Alchemy
           end
 
           it { is_expected.to be_empty }
+        end
+      end
+
+      context 'with sort_by option given' do
+        let(:options) do
+          { sort_by: :name }
+        end
+
+        it 'warns about removal of sort_by option' do
+          expect(Alchemy::Deprecation).to receive(:warn)
+          subject
+        end
+      end
+
+      context 'with from_cell option given' do
+        let(:options) do
+          { from_cell: :header }
+        end
+
+        it 'warns about removal of from_cell option' do
+          expect(Alchemy::Deprecation).to receive(:warn)
+          subject
         end
       end
 

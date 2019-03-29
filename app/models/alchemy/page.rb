@@ -312,8 +312,8 @@ module Alchemy
     # @return [ActiveRecord::Relation]
     def find_elements(options = {}, show_non_public = false)
       if show_non_public
-        Alchemy::Deprecation.warn "Passing true as second argument to page#find_elements to include" /
-          " invisible elements has been removed. Please implement your own ElementsFinder" /
+        Alchemy::Deprecation.warn "Passing true as second argument to page#find_elements to include" \
+          " invisible elements has been removed. Please implement your own ElementsFinder" \
           " and pass it with options[:finder]."
       end
 
