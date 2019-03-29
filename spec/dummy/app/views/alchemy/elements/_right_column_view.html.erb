@@ -1,7 +1,6 @@
-<%- cache(element) do -%>
-  <%= element_view_for(element) do |el| -%>
-    <% element.nested_elements.available.each do |nested_element| %>
-      <%= render_element(nested_element) %>
-    <% end %>
+<%- cache(right_column_view) do -%>
+  <%= element_view_for(right_column_view) do |el| -%>
+    <%= el.render :title %>
+    <%= render right_column_view.nested_elements.available %>
   <%- end -%>
 <%- end -%>

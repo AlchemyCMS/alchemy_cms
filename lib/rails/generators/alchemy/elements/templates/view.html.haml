@@ -1,5 +1,5 @@
-- cache(element) do
-  = element_view_for(element) do |el|
+- cache(<%= @element_name -%>_view) do
+  = element_view_for(<%= @element_name -%>_view) do |el|
   <%- @contents.each do |content| -%>
     <%- if @contents.length > 1 -%>
     .<%= content["name"] %>
@@ -9,6 +9,5 @@
     <%- end -%>
   <%- end -%>
   <%- if @element['nestable_elements'].present? -%>
-    - element.nested_elements.available.each do |nested_element|
-      = render_element(nested_element)
+    = render <%= @element_name -%>_view.nested_elements.available
   <%- end -%>
