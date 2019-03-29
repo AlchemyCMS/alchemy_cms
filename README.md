@@ -315,9 +315,21 @@ $ bin/rake db:setup
 $ bin/rails s
 ```
 
-**A note about RSpec version:**
 
-Alchemy specs are written **in RSpec 3**. Please **do not use deprecated RSpec 2.x syntax**. Thanks
+## Releasing
+
+### Update the changelog
+
+```bash
+$ export GITHUB_ACCESS_TOKEN=...
+$ PREVIOUS_VERSION=4.1.0 bundle exec rake alchemy:changelog:update
+```
+
+### Release a new version
+
+```bash
+$ bundle exec rake release
+```
 
 
 ## Getting Help
