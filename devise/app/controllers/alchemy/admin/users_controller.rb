@@ -17,7 +17,7 @@ module Alchemy
         @query.sorts = 'login asc' if @query.sorts.empty?
         @users = @query.result
           .page(params[:page] || 1)
-          .per(per_page_value_for_screen_size)
+          .per(items_per_page)
       end
 
       def new
