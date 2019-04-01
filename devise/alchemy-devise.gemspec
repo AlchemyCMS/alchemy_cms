@@ -17,7 +17,7 @@ Gem::Specification.new do |s|
   s.test_files = Dir["spec/**/*"]
 
   s.add_dependency "alchemy_cms", [">= 4.1.0.beta", "< 4.99"]
-  s.add_dependency "devise",      [">= 4.0", "< 4.99"]
+  s.add_dependency "devise",      [">= 4.6.0", "< 4.99"]
 
   s.add_development_dependency "capybara"
   s.add_development_dependency "factory_bot_rails"

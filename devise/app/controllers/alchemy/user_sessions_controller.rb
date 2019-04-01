@@ -20,7 +20,6 @@ module Alchemy
       authenticate_user!
 
       if user_signed_in?
-        store_screen_size
         if session[:redirect_path].blank?
           redirect_path = admin_dashboard_path
         else
@@ -47,10 +46,6 @@ module Alchemy
       if User.count == 0
         redirect_to admin_signup_path
       end
-    end
-
-    def store_screen_size
-      session[:screen_size] = params[:user_screensize]
     end
 
     # Overwriting the default of Devise

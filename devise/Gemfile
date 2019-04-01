@@ -10,6 +10,7 @@ unless ENV['CI']
   gem 'pry'
   gem 'spring-commands-rspec'
   gem 'launchy'
+  gem 'github_fast_changelog', require: false
 end
 
 group :test do

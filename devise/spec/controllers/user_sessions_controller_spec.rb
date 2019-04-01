@@ -54,11 +54,6 @@ describe Alchemy::UserSessionsController do
           end
         end
 
-        it "stores users screen size" do
-          post :create, params: {user: user_params, user_screensize: screen_size}
-          expect(session[:screen_size]).to eq(screen_size)
-        end
-
         context 'without valid params' do
           it "renders login form" do
             post :create, params: {user: {login: ''}}

@@ -1,3 +1,11 @@
+## 4.2.0 (unreleased)
+
+- Do not store screen size at login [#78](https://github.com/AlchemyCMS/alchemy-devise/pull/78) ([tvdeyen](https://github.com/tvdeyen))
+- Security: Use at least Devise 4.6 [#78](https://github.com/AlchemyCMS/alchemy-devise/pull/78) ([tvdeyen](https://github.com/tvdeyen))
+- Fix dummy app rails version [#76](https://github.com/AlchemyCMS/alchemy-devise/pull/76) ([tvdeyen](https://github.com/tvdeyen))
+- Fix translation key on user admin page [#75](https://github.com/AlchemyCMS/alchemy-devise/pull/75) ([mamhoff](https://github.com/mamhoff))
+
+
 ## 4.1.0 (2018-09-22)
 
 - Only allow Alchemy > 4.1 [#72](https://github.com/AlchemyCMS/alchemy-devise/pull/72) ([tvdeyen](https://github.com/tvdeyen))
