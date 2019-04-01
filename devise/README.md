@@ -1,10 +1,10 @@
-## Devise based authentication for Alchemy 4.1
+## Devise based authentication for AlchemyCMS 4.2
 
 [![Build Status](https://secure.travis-ci.org/AlchemyCMS/alchemy-devise.svg?branch=master)](http://travis-ci.org/AlchemyCMS/alchemy-devise)
 
 [![Gem Version](https://badge.fury.io/rb/alchemy-devise.svg)](http://badge.fury.io/rb/alchemy-devise) [![Test Coverage](https://codeclimate.com/github/AlchemyCMS/alchemy-devise/badges/coverage.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy-devise/coverage) [![Code Climate](https://codeclimate.com/github/AlchemyCMS/alchemy-devise/badges/gpa.svg)](https://codeclimate.com/github/AlchemyCMS/alchemy-devise) [![security](https://hakiri.io/github/AlchemyCMS/alchemy-devise/master.svg)](https://hakiri.io/github/AlchemyCMS/alchemy-devise/master)
 
-**CAUTION: This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy-devise/versions/4.1.0), or the [latest stable branch (4.1-stable)](https://github.com/AlchemyCMS/alchemy-devise/tree/4.1-stable).**
+**CAUTION: This master branch is a development branch that can contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy-devise/versions/4.1.0), or the [latest stable branch (4.2-stable)](https://github.com/AlchemyCMS/alchemy-devise/tree/4.2-stable).**
 
 AlchemyCMS has no authentication in its core. So it is possibly to bring your own authentication and use it to authorize users in AlchemyCMS. If you don't have your own authentication, you can use this gem.
 
@@ -17,7 +17,7 @@ Just put the gem into your projects `Gemfile`.
 gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
 ```
 
-**NOTE:** You normally want to use a stable branch, like `4.1-stable`.
+**NOTE:** You normally want to use a stable branch, like `4.2-stable`.
 
 and run `bundle install`.
 
