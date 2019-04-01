@@ -39,4 +39,24 @@ cd -
 BASH
     end
   end
+
+  namespace :changelog do
+    desc "Update changelog"
+    task :update do
+      original_file = './CHANGELOG.md'
+      new_file = original_file + '.new'
+      backup = original_file + '.old'
+      changes = `git rev-list #{ENV['PREVIOUS_VERSION']}...master | bundle exec github_fast_changelog AlchemyCMS/alchemy-devise`
+      File.open(new_file, 'w') do |fo|
+        fo.puts changes
+        File.foreach(original_file) do |li|
+          fo.puts li
+        end
+        fo.puts ""
+      end
+      File.rename(original_file, backup)
+      File.rename(new_file, original_file)
+      File.delete(backup)
+    end
+  end
 end
