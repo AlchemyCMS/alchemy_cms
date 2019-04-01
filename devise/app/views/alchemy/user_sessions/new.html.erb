@@ -9,7 +9,6 @@
       </small>
     </div>
     <div class="submit">
-      <%= hidden_field_tag 'user_screensize' %>
       <button class="secondary"><%= Alchemy.t(:login) %></button>
     </div>
   <% end %>
@@ -19,9 +18,6 @@
 <script type="text/javascript" charset="utf-8">
   jQuery(function($) {
     $('#user_login').focus();
-    $('#user_screensize').val(function() {
-      return screen.width+'x'+screen.height;
-    });
   });
 </script>
 <%- end -%>
