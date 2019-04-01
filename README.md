@@ -1,7 +1,7 @@
 # AlchemyCMS
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.svg)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://travis-ci.org/AlchemyCMS/alchemy_cms.svg?branch=master)](https://travis-ci.org/AlchemyCMS/alchemy_cms)
+[![Build Status](https://travis-ci.org/AlchemyCMS/alchemy_cms.svg?branch=4.2-stable)](https://travis-ci.org/AlchemyCMS/alchemy_cms)
 [![Maintainability](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/maintainability)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/test_coverage)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/test_coverage)
 [![Depfu](https://badges.depfu.com/badges/ebe56d2dd7b7044a8ae700cc81212a8e/overview.svg)](https://depfu.com/github/AlchemyCMS/alchemy_cms?project_id=4600)
@@ -17,9 +17,6 @@
 Alchemy is an open source CMS engine written in Ruby on Rails.
 
 Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [guidelines](https://guides.alchemy-cms.com).
-
-**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (4.1-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/4.1-stable).**
-
 
 ## ✅ Features
 
@@ -83,10 +80,8 @@ For a Ruby 1.8.7 compatible version use the [`2.3-stable` branch](https://github
 Put this into your `Gemfile`:
 
 ```ruby
-gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
+gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: '4.2-stable'
 ```
-
-**NOTE:** You normally want to use a stable branch, like `4.1-stable`.
 
 #### 2. Update your bundle:
 
@@ -104,10 +99,8 @@ the Devise based user model that Alchemy provides and was extracted [into its ow
 If you don't have your own user class, you can use the Alchemy user model. Just add the following gem into your `Gemfile`:
 
 ```ruby
-gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
+gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: '4.2-stable'
 ```
-
-**NOTE:** You normally want to use a stable branch, like `4.1-stable`.
 
 Then run:
 
