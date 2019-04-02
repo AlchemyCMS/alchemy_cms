@@ -2,6 +2,7 @@ require_relative 'tasks/picture_gallery_upgrader'
 require_relative 'tasks/picture_gallery_migration'
 require_relative 'tasks/cells_upgrader'
 require_relative 'tasks/cells_migration'
+require_relative 'tasks/element_partial_name_variable_updater'
 
 module Alchemy
   class Upgrader::FourPointTwo < Upgrader
@@ -26,10 +27,12 @@ module Alchemy
         Alchemy::Upgrader::Tasks::CellsMigration.new.migrate_cells
       end
 
-      def alchemy_4_2_todos
-        notice = <<-NOTE
+      def update_element_views_variable_name
+        desc 'Update element views to use element partial name variable.'
+        Alchemy::Upgrader::Tasks::ElementPartialNameVariableUpdater.new.update_element_views
+      end
 
-        Element's "picture_gallery" feature removed
+      def alchemy_4_2_todos
         ----------------------------------------------
 
         The `picture_gallery` feature of elements was removed and has been replaced by nestable elements.
