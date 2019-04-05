@@ -57,9 +57,8 @@ and follow the onscreen instructions.
 
 Need help? Try:
 
-* http://stackoverflow.com/questions/tagged/alchemy-cms
-* http://groups.google.com/group/alchemy-cms
-* irc://irc.freenode.net#alchemy_cms
+* https://stackoverflow.com/questions/tagged/alchemy-cms
+* https://slackin.alchemy-cms.com
 -------------------------------------------------------------
 
 MSG
