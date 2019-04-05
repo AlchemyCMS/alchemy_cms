@@ -21,7 +21,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'active_model_serializers',         ['~> 0.10.0']
   gem.add_runtime_dependency 'acts_as_list',                     ['~> 0.3']
   gem.add_runtime_dependency 'awesome_nested_set',               ['~> 3.1']
-  gem.add_runtime_dependency 'cancancan',                        ['~> 2.1']
+  gem.add_runtime_dependency 'cancancan',                        ['>= 2.1', '< 4.0']
   gem.add_runtime_dependency 'coffee-rails',                     ['~> 4.0']
   gem.add_runtime_dependency 'dragonfly',                        ['~> 1.0', '>= 1.0.7']
   gem.add_runtime_dependency 'dragonfly_svg',                    ['~> 0.0.4']
@@ -57,9 +57,8 @@ and follow the onscreen instructions.
 
 Need help? Try:
 
-* http://stackoverflow.com/questions/tagged/alchemy-cms
-* http://groups.google.com/group/alchemy-cms
-* irc://irc.freenode.net#alchemy_cms
+* https://stackoverflow.com/questions/tagged/alchemy-cms
+* https://slackin.alchemy-cms.com
 -------------------------------------------------------------
 
 MSG

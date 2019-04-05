@@ -91,39 +91,54 @@ module Alchemy::Upgrader::Tasks
     def find_gallery_pictures_rendering
       puts '5. Find element views that use gallery pictures:'
 
-      erb_snippet = <<-ERB
-    <%- element.nested_elements.available.each do |nested_element| -%>
-      <%= render_element(nested_element) %>
-    <%- end -%>
-ERB
+      erb_snippet = '   <%= render element.nested_elements.available %>'
       erb_views = erb_element_partials(:view).select do |view|
         next if File.read(view).match(GALLERY_PICTURES_ERB_REGEXP).nil?
+
         inject_into_file view,
-          "<%# TODO: Remove next block and render element.nested_elements.published instead %>\n",
+          "<%# TODO: Move the content of next block into its nestable element view and `render element.nested_elements.available` instead %>\n",
           before: GALLERY_PICTURES_ERB_REGEXP
         true
       end
 
-      haml_slim_snippet = <<-HAMLSLIM
-    - element.nested_elements.available.each do |nested_element|
-      = render_element(nested_element)
-HAMLSLIM
+      haml_slim_snippet = '   = element.nested_elements.available'
       haml_views = haml_slim_element_partials(:view).select do |view|
         next if File.read(view).match(GALLERY_PICTURES_HAML_REGEXP).nil?
+
         inject_into_file view,
-          "-# TODO: Remove next block and render element.nested_elements.published instead\n",
+          "-# TODO: Move the content of next block into its nestable element view and `render element.nested_elements.available` instead\n",
           before: GALLERY_PICTURES_HAML_REGEXP
         true
       end
 
-      if erb_views.any?
-        puts "- Found #{erb_views.length} ERB element views that render gallery pictures.\n"
-        puts "  Please replace `element.contents.gallery_pictures` with:"
-        puts erb_snippet
-      elsif haml_views.any?
-        puts "- Found #{haml_views.length} HAML/SLIM element views render gallery pictures.\n"
-        puts "  Please replace `element.contents.gallery_pictures` with:"
-        puts haml_slim_snippet
+      if erb_views.any? || haml_views.any?
+        puts ""
+        puts "⚠️  Found element views that render gallery pictures!\n"
+        puts ""
+        if erb_views.any?
+          puts "   Please replace `element.contents.gallery_pictures` with:"
+          puts ""
+          puts erb_snippet
+          puts ""
+          puts "   In these files:"
+          puts ""
+          erb_views.each_with_index do |view, index|
+            puts "   #{index + 1}. #{view}"
+          end
+          puts ""
+        end
+        if haml_views.any?
+          puts "   Please replace `element.contents.gallery_pictures` with:"
+          puts ""
+          puts haml_slim_snippet
+          puts ""
+          puts "   In these files:"
+          puts ""
+          haml_views.each_with_index do |view, index|
+            puts "   #{index + 1}. #{view}"
+          end
+          puts ""
+        end
       else
         puts "- No element views found that render gallery pictures.\n"
       end

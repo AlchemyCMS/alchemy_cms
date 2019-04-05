@@ -41,6 +41,10 @@ Style/GuardClause:
 Style/SymbolArray:
   Enabled: false
 
+Style/SymbolProc:
+  Exclude:
+    - 'lib/alchemy/permissions.rb'
+
 Style/WordArray:
   Enabled: false
 

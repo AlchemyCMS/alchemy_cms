@@ -72,7 +72,8 @@ namespace :alchemy do
         'alchemy:upgrade:4.2:convert_picture_galleries',
         'alchemy:upgrade:4.2:migrate_picture_galleries',
         'alchemy:upgrade:4.2:convert_cells',
-        'alchemy:upgrade:4.2:migrate_cells'
+        'alchemy:upgrade:4.2:migrate_cells',
+        'alchemy:upgrade:4.2:update_element_partial_name_variable'
       ]
 
       desc 'Convert `picture_gallery` element definitions to `nestable_elements`.'
@@ -93,6 +94,11 @@ namespace :alchemy do
       desc 'Migrate existing cells to fixed nestable elements.'
       task migrate_cells: ['alchemy:install:migrations', 'db:migrate'] do
         Alchemy::Upgrader::FourPointTwo.migrate_cells
+      end
+
+      desc 'Update element views to use element partial name variable.'
+      task :update_element_partial_name_variable do
+        Alchemy::Upgrader::FourPointTwo.update_element_views_variable_name
       end
 
       task :todo do

@@ -49,14 +49,22 @@ module Alchemy
     def display_todos
       return if todos.empty?
 
-      log "\nTODOs:", :message
-      log "------\n", :message
+      log "\n+---------+", :message
+      log "| 📝 TODO |", :message
+      log "+---------+\n", :message
+      puts "\nWe did most of the work for you, but there are still some things left for you to do."
       todos.each_with_index do |todo, i|
         title = "\n#{i + 1}. #{todo[0]}"
         log title, :message
-        puts '-' * title.length
+        puts '=' * title.length
+        puts ""
         log todo[1], :message
       end
+      puts ""
+      puts "============================================================"
+      puts "= ✨ Please take a minute and read the notes from above ✨ ="
+      puts "============================================================"
+      puts ""
     end
 
     # Prints out the given log message with the color due to its type
