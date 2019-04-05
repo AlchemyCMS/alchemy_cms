@@ -1,5 +1,10 @@
 ## 4.2.0 (unreleased)
 
+- Set spinner color to current text color [#1563](https://github.com/AlchemyCMS/alchemy_cms/pull/1563) ([tvdeyen](https://github.com/tvdeyen))
+- Update links in post install message [#1562](https://github.com/AlchemyCMS/alchemy_cms/pull/1562) ([tvdeyen](https://github.com/tvdeyen))
+- Allow cancancan 3 [#1561](https://github.com/AlchemyCMS/alchemy_cms/pull/1561) ([tvdeyen](https://github.com/tvdeyen))
+- Fix Member Page permissions syntax [#1560](https://github.com/AlchemyCMS/alchemy_cms/pull/1560) ([tvdeyen](https://github.com/tvdeyen))
+- Update upgrader [#1558](https://github.com/AlchemyCMS/alchemy_cms/pull/1558) ([tvdeyen](https://github.com/tvdeyen))
 - Use element name local in generators [#1556](https://github.com/AlchemyCMS/alchemy_cms/pull/1556) ([tvdeyen](https://github.com/tvdeyen))
 - Remove invalid bytecode handler [#1555](https://github.com/AlchemyCMS/alchemy_cms/pull/1555) ([tvdeyen](https://github.com/tvdeyen))
 - Separate render element calls [#1554](https://github.com/AlchemyCMS/alchemy_cms/pull/1554) ([tvdeyen](https://github.com/tvdeyen))
