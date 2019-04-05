@@ -64,8 +64,7 @@ module Alchemy
 
         # Resources
         can [:show, :download], Alchemy::Attachment
-        can :read,              Alchemy::Page,      Alchemy::Page.published, &:public?
-        can :see,               Alchemy::Page,      restricted: true, visible: true
+        can :see,               Alchemy::Page, restricted: true, visible: true
 
         can :read, Alchemy::Content, Alchemy::Content.available do |c|
           c.public? && !c.trashed?
@@ -73,6 +72,10 @@ module Alchemy
 
         can :read, Alchemy::Element, Alchemy::Element.available do |e|
           e.public? && !e.trashed?
+        end
+
+        can :read, Alchemy::Page, Alchemy::Page.published do |p|
+          p.public?
         end
       end
     end
