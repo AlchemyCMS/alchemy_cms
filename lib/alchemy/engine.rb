@@ -36,6 +36,14 @@ module Alchemy
       end
     end
 
+    initializer "alchemy.webpacker.proxy" do |app|
+      app.middleware.insert_before(
+        0, Webpacker::DevServerProxy,
+        ssl_verify_none: true,
+        webpacker: Alchemy.webpacker
+      )
+    end
+
     config.after_initialize do
       require_relative './userstamp'
     end

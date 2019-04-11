@@ -22,3 +22,9 @@ spec/dummy/public/assets
 .ruby-version
 .env
 .rspec
+node_modules
+yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+yarn.lock
+/public/

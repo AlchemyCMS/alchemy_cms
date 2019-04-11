@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 # Instantiate the global Alchemy namespace
 module Alchemy
-  Alchemy::YAML_WHITELIST_CLASSES = %w(Symbol Date Regexp)
+  YAML_WHITELIST_CLASSES = %w(Symbol Date Regexp)
+  ROOT_PATH = Pathname.new(File.join(__dir__, ".."))
 end
 
 # Require globally used external libraries
@@ -54,6 +55,7 @@ require_relative 'alchemy/ssl_protection'
 require_relative 'alchemy/resource'
 require_relative 'alchemy/tinymce'
 require_relative 'alchemy/taggable'
+require_relative 'alchemy/webpacker'
 
 # Require hacks
 require_relative 'kaminari/scoped_pagination_url_helper'

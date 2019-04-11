@@ -1,0 +1,34 @@
+{
+  "name": "@alchemy_cms/admin",
+  "version": "0.1.0",
+  "description": "AlchemyCMS",
+  "browser": "app/javascript/packs/alchemy/admin.js",
+  "files": [
+    "app/javascript/**/*"
+  ],
+  "directories": {
+    "lib": "app/javascript"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlchemyCMS/alchemy_cms.git"
+  },
+  "keywords": [],
+  "author": "Thomas von Deyen",
+  "license": "BSD-3-Clause",
+  "bugs": {
+    "url": "https://github.com/AlchemyCMS/alchemy_cms/issues"
+  },
+  "homepage": "https://github.com/AlchemyCMS/alchemy_cms#readme",
+  "devDependencies": {
+    "webpack": "^4.29.6",
+    "webpack-cli": "^3.3.0",
+    "webpack-dev-server": "^3.3.1"
+  },
+  "dependencies": {
+    "@rails/webpacker": "^4.0.2"
+  }
+}
