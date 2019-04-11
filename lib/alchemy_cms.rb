@@ -1,6 +1,18 @@
+# frozen_string_literal: true
+
 # Instantiate the global Alchemy namespace
 module Alchemy
-  Alchemy::YAML_WHITELIST_CLASSES = %w(Symbol Date Regexp)
+  YAML_WHITELIST_CLASSES = %w(Symbol Date Regexp)
+  ROOT_PATH = Pathname.new(File.join(__dir__, ".."))
+
+  class << self
+    def webpacker
+      @webpacker ||= ::Webpacker::Instance.new(
+        root_path: ROOT_PATH,
+        config_path: ROOT_PATH.join("config/webpacker.yml")
+      )
+    end
+  end
 end
 
 # Require globally used external libraries
@@ -23,6 +35,7 @@ require 'simple_form'
 require 'select2-rails'
 require 'turbolinks'
 require 'userstamp'
+require 'webpacker'
 
 # Require globally used Alchemy mixins
 require_relative 'alchemy/ability_helper'
