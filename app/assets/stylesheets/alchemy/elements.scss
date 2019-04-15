@@ -115,6 +115,7 @@
 }
 
 .element-editor {
+  position: relative;
   border: 1px solid $default-border-color;
   border-radius: $default-border-radius;
   background-color: $light-gray;
@@ -166,6 +167,85 @@
     .element-content {
       padding: 2*$default-padding 2*$default-padding 0;
       border-top: 1px solid $medium-gray;
+    }
+  }
+
+  &.compact {
+    .element-toolbar {
+      visibility: hidden;
+      position: absolute;
+      height: 35px;
+      padding: 2px 0;
+      opacity: 0;
+      z-index: 1;
+      border-bottom: $default-border;
+      background-color: $light-gray;
+      transition: all $transition-duration;
+    }
+
+    .element-header:hover+.element-toolbar,
+    .element-toolbar:hover {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .element-footer {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+
+      .button {
+        padding: $small-button-padding;
+      }
+    }
+
+    .element-title {
+      max-width: 75%;
+    }
+
+    &:not(.folded) .ajax-folder {
+      pointer-events: none;
+
+      i:before {
+        content: fa-content($fa-var-ellipsis-v);
+      }
+    }
+
+    .element_tools {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-left: 0;
+    }
+
+    .element-content {
+      padding: 4px 8px;
+    }
+
+    .button_with_label {
+      margin: 0 4px;
+    }
+
+    .content_editor,
+    .picture_thumbnail {
+      width: 100%;
+    }
+
+    .picture_thumbnail {
+      margin: 0;
+    }
+
+    .thumbnail_background {
+      height: 115px;
+    }
+
+    textarea,
+    input[type="url"],
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 0.5em;
+      height: auto;
     }
   }
 
@@ -722,101 +802,26 @@ textarea.has_tinymce {
   }
 }
 
-.not-fixed .nested-elements {
+.element-editor,
+.droppable_element_placeholder {
+  width: 100%;
+
+  .not-fixed & {
+    width: calc(100% - 8px);
+    margin: 4px;
+  }
+
+  &.compact {
+    width: calc(50% - 8px);
+  }
+}
+
+.nested-elements {
   display: flex;
   flex-wrap: wrap;
 
-  .element-editor,
-  .droppable_element_placeholder {
-    width: calc(100% - 8px);
-    margin: 4px;
-
-    &.compact {
-      width: calc(50% - 8px);
-    }
-  }
-
   .element-editor {
     position: relative;
-
-    &.compact {
-      .element-toolbar {
-        visibility: hidden;
-        position: absolute;
-        height: 35px;
-        padding: 2px 0;
-        opacity: 0;
-        z-index: 1;
-        border-bottom: $default-border;
-        background-color: $light-gray;
-        transition: all $transition-duration;
-      }
-
-      .element-header:hover+.element-toolbar,
-      .element-toolbar:hover {
-        visibility: visible;
-        opacity: 1;
-      }
-
-      .element-footer {
-        margin-top: 0;
-        padding-top: 0;
-        border-top: 0;
-
-        .button {
-          padding: $small-button-padding;
-        }
-      }
-
-      .element-title {
-        max-width: 75%;
-      }
-
-      &:not(.folded) .ajax-folder {
-        pointer-events: none;
-
-        i:before {
-          content: fa-content($fa-var-ellipsis-v);
-        }
-      }
-
-      .element_tools {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        margin-left: 0;
-      }
-
-      .element-content {
-        padding: 4px 8px;
-      }
-
-      .button_with_label {
-        margin: 0 4px;
-      }
-
-      .content_editor,
-      .picture_thumbnail {
-        width: 100%;
-      }
-
-      .picture_thumbnail {
-        margin: 0;
-      }
-
-      .thumbnail_background {
-        height: 115px;
-      }
-
-      textarea,
-      input[type="url"],
-      input[type="text"],
-      input[type="email"],
-      input[type="password"] {
-        padding: 0.5em;
-        height: auto;
-      }
-    }
   }
 
   .element-header {
