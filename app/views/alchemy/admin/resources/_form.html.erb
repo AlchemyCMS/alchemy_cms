@@ -5,7 +5,7 @@
         label_method: relation[:attr_method],
         include_blank: Alchemy.t(:blank, scope: 'resources.relation_select'),
         input_html: {class: 'alchemy_selectbox'} %>
-    <% elsif attribute[:type] == :datetime || attribute[:type] == :time %>
+    <% elsif attribute[:type].to_s =~ /(date|time)/ %>
       <div class="input <%= attribute[:type] %>">
         <label class="control-label">
           <%= f.object.class.human_attribute_name(attribute[:name]) %>

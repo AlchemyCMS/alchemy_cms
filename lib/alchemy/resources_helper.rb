@@ -78,9 +78,11 @@ module Alchemy
       if attribute[:relation]
         record = resource.send(attribute[:relation][:name])
         value = record.present? ? record.send(attribute[:relation][:attr_method]) : Alchemy.t(:not_found)
-      elsif attribute_value && (attribute[:type] == :datetime || attribute[:type] == :time)
+      elsif attribute_value && attribute[:type].to_s =~ /(date|time)/
         localization_format = if attribute[:type] == :datetime
           options[:datetime_format] || :'alchemy.default'
+        elsif attribute[:type] == :date
+          options[:date_format] || :'alchemy.default'
         else
           options[:time_format] || :'alchemy.time'
         end
