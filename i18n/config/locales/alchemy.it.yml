@@ -613,6 +613,12 @@ it:
           login: Login
           password: Password
 
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%Y-%m-%d"
+
   # Alchemy time formats
   time:
     formats:

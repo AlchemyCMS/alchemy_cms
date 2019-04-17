@@ -632,6 +632,12 @@ de:
           login: Benutzername
           password: Passwort
 
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%d.%m.%Y"
+
   # Alchemy time formats
   time:
     formats:

@@ -621,6 +621,12 @@ ru:
   # You should put this to your Gemfile
   # gem 'russian', '~> 0.6.0'
 
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%d.%m.%Y"
+
   # Alchemy time formats
   time:
     formats:
