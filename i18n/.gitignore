@@ -2,3 +2,4 @@
 log/*.log
 pkg/
 .env
+Gemfile.lock
