@@ -10,5 +10,7 @@ class Ability
     can :index, :admin_locations
     can :manage, Series
     can :index, :admin_series
+    can :manage, Booking
+    can :index, :admin_bookings
   end
 end

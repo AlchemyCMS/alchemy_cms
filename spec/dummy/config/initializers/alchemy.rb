@@ -21,7 +21,11 @@ Alchemy::Modules.register_module(
     }, {
       name: 'Series',
       controller: '/admin/series',
-      action: 'index'  
+      action: 'index'
+    }, {
+      name: 'Bookings',
+      controller: '/admin/bookings',
+      action: 'index'
     }]
   }
 )
