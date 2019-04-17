@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :events
     resources :locations
     resources :series
+    resources :bookings
   end
 
   mount Alchemy::Engine => "/"

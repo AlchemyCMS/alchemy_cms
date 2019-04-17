@@ -611,6 +611,12 @@ en:
       error_notification:
         default_message: "Please review the problems below:"
 
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%Y-%m-%d"
+
   # Alchemy time formats
   time:
     formats:
