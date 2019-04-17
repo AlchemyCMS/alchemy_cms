@@ -615,6 +615,12 @@ nl:
           login: Gebruikersnaam
           password: Wachtwoord
 
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%Y-%m-%d"
+
   # Alchemy time formats
   time:
     formats:

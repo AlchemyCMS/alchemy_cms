@@ -630,6 +630,12 @@ zh-CN:
           login: 登录
           password: 密码
 
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%Y-%m-%d"
+
   # Alchemy time formats
   time:
     formats:

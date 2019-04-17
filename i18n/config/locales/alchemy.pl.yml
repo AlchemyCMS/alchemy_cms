@@ -621,6 +621,12 @@ pl:
           login: Login
           password: Hasło
 
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%Y-%m-%d"
+
   # Alchemy time formats
   time:
     formats:
