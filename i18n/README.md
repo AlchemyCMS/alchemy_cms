@@ -12,6 +12,9 @@ which will raise the consumed runtime memory and increase the app start up time.
 
 ### Backend javascript translations
 
+[Download the Javascript translation files](https://github.com/AlchemyCMS/alchemy_i18n/tree/master/app/assets/javascripts/alchemy_i18n) you need
+and save them into your apps `vendor/assets/javascripts/alchemy_i18n` folder.
+
 Require each js locale you need to your `vendor/assets/javascripts/alchemy/admin/all.js` file
 
 ```js
