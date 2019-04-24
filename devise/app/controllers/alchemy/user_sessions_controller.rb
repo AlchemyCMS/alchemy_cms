@@ -2,6 +2,8 @@ module Alchemy
   class UserSessionsController < ::Devise::SessionsController
     include Alchemy::Admin::Locale
 
+    protect_from_forgery prepend: true
+
     before_action except: 'destroy' do
       enforce_ssl if ssl_required? && !request.ssl?
     end

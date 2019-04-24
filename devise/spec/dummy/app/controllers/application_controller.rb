@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  # @See https://github.com/AlchemyCMS/alchemy-devise/issues/80
+  before_action { current_user }
 end
