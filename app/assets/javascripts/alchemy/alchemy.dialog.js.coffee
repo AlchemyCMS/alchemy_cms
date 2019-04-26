@@ -135,7 +135,7 @@ class window.Alchemy.Dialog
         error_type = "error"
         if status_message
           error_header = status_message
-          console.error eval(xhr.responseText)
+          console.error(xhr.responseText)
         else
           error_header = "#{xhr.statusText} (#{xhr.status})"
         error_body = "Please check log and try again."
