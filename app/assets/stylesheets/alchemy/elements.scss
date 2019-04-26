@@ -43,6 +43,10 @@
       height: 140px !important;
     }
   }
+
+  > .message {
+    margin: 2*$default-margin
+  }
 }
 
 #main-content-elements,
