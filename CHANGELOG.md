@@ -1,5 +1,12 @@
 ## 4.2.0 (unreleased)
 
+- Use SimpleForm field for datepicker in resources form [#1572](https://github.com/AlchemyCMS/alchemy_cms/pull/1572) ([tvdeyen](https://github.com/tvdeyen))
+- Render warning message in warning helper [#1571](https://github.com/AlchemyCMS/alchemy_cms/pull/1571) ([tvdeyen](https://github.com/tvdeyen))
+- Prohibit coffee-rails 5.0 [#1570](https://github.com/AlchemyCMS/alchemy_cms/pull/1570) ([tvdeyen](https://github.com/tvdeyen))
+- Add Date column support to resources [#1567](https://github.com/AlchemyCMS/alchemy_cms/pull/1567) ([tvdeyen](https://github.com/tvdeyen))
+- Fix pluralization of resource table header [#1566](https://github.com/AlchemyCMS/alchemy_cms/pull/1566) ([tvdeyen](https://github.com/tvdeyen))
+- Fix compact elements style [#1565](https://github.com/AlchemyCMS/alchemy_cms/pull/1565) ([tvdeyen](https://github.com/tvdeyen))
+- Show Ruby and Rails versions in info dialog [#1564](https://github.com/AlchemyCMS/alchemy_cms/pull/1564) ([tvdeyen](https://github.com/tvdeyen))
 - Set spinner color to current text color [#1563](https://github.com/AlchemyCMS/alchemy_cms/pull/1563) ([tvdeyen](https://github.com/tvdeyen))
 - Update links in post install message [#1562](https://github.com/AlchemyCMS/alchemy_cms/pull/1562) ([tvdeyen](https://github.com/tvdeyen))
 - Allow cancancan 3 [#1561](https://github.com/AlchemyCMS/alchemy_cms/pull/1561) ([tvdeyen](https://github.com/tvdeyen))
