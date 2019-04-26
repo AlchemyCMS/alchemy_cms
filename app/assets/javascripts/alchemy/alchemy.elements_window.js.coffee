@@ -53,7 +53,7 @@ Alchemy.ElementsWindow =
       if @callback
         @callback.call()
     .fail (xhr, status, error) =>
-      Alchemy.AjaxErrorHandler @element_area, xhr.status, status, error
+      Alchemy.Dialog::show_error(xhr, error, @element_area)
 
   hide: ->
     @$body.removeClass('elements-window-visible');
