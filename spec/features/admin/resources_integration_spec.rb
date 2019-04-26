@@ -28,6 +28,21 @@ RSpec.describe "Resources", type: :system do
       visit '/admin/events'
       expect(page).to have_selector('div#archive_all table.list')
     end
+
+    describe "date fields" do
+      let(:yesterday) { Date.yesterday }
+      let(:tomorrow) { Date.tomorrow }
+
+      before do
+        Booking.create(from: yesterday, until: tomorrow)
+      end
+
+      it "displays date values" do
+        visit '/admin/bookings'
+        expect(page).to have_content(yesterday)
+        expect(page).to have_content(tomorrow)
+      end
+    end
   end
 
   describe "form for creating and updating items" do
@@ -46,6 +61,13 @@ RSpec.describe "Resources", type: :system do
       visit '/admin/events/new'
       within('form') do
         expect(page).to have_selector('select')
+      end
+    end
+
+    describe "date fields" do
+      it "have date picker" do
+        visit '/admin/bookings/new'
+        expect(page).to have_selector('input#booking_from[data-datepicker-type="date"]')
       end
     end
   end

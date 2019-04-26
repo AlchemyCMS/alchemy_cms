@@ -115,6 +115,7 @@
 }
 
 .element-editor {
+  position: relative;
   border: 1px solid $default-border-color;
   border-radius: $default-border-radius;
   background-color: $light-gray;
@@ -133,7 +134,7 @@
   &.dirty {
     border-color: #d0c83d;
 
-    > .element-header {
+    >.element-header {
       background-color: #fff8df;
     }
   }
@@ -160,11 +161,91 @@
     }
   }
 
-  &.with-contents, &.without-contents.not-nestable {
+  &.with-contents,
+  &.without-contents.not-nestable {
 
     .element-content {
       padding: 2*$default-padding 2*$default-padding 0;
       border-top: 1px solid $medium-gray;
+    }
+  }
+
+  &.compact {
+    .element-toolbar {
+      visibility: hidden;
+      position: absolute;
+      height: 35px;
+      padding: 2px 0;
+      opacity: 0;
+      z-index: 1;
+      border-bottom: $default-border;
+      background-color: $light-gray;
+      transition: all $transition-duration;
+    }
+
+    .element-header:hover+.element-toolbar,
+    .element-toolbar:hover {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .element-footer {
+      margin-top: 0;
+      padding-top: 0;
+      border-top: 0;
+
+      .button {
+        padding: $small-button-padding;
+      }
+    }
+
+    .element-title {
+      max-width: 75%;
+    }
+
+    &:not(.folded) .ajax-folder {
+      pointer-events: none;
+
+      i:before {
+        content: fa-content($fa-var-ellipsis-v);
+      }
+    }
+
+    .element_tools {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-left: 0;
+    }
+
+    .element-content {
+      padding: 4px 8px;
+    }
+
+    .button_with_label {
+      margin: 0 4px;
+    }
+
+    .content_editor,
+    .picture_thumbnail {
+      width: 100%;
+    }
+
+    .picture_thumbnail {
+      margin: 0;
+    }
+
+    .thumbnail_background {
+      height: 115px;
+    }
+
+    textarea,
+    input[type="url"],
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 0.5em;
+      height: auto;
     }
   }
 
@@ -186,22 +267,6 @@
 
   .foot_note {
     margin-bottom: 1em;
-  }
-
-  .content_editor_error {
-    border: 1px solid #f5b04e;
-    padding: 4px 8px;
-    line-height: 21px;
-    background-color: #f5dea9;
-    margin-top: 4px;
-    border-radius: $default-border-radius;
-
-    .icon.warning {
-      position: relative;
-      top: 2px;
-      margin-right: 8px;
-      vertical-align: top;
-    }
   }
 
   .autocomplete_tag_list {
@@ -240,7 +305,7 @@
   cursor: pointer;
   @include border-top-radius($default-border-radius);
 
-  > .hint-with-icon {
+  >.hint-with-icon {
     position: absolute;
     right: 32px;
     top: 10px;
@@ -304,8 +369,7 @@
   right: 0;
 
   .icon_button {
-    @include button-defaults(
-      $background-color: $medium-gray,
+    @include button-defaults($background-color: $medium-gray,
       $hover-color: darken($medium-gray, 5%),
       $border: 1px solid #c0c0c0,
       $box-shadow: none,
@@ -319,27 +383,26 @@
     width: 29px;
     height: $form-field-height;
 
-    &.disabled, &.disabled:hover {
+    &.disabled,
+    &.disabled:hover {
       background-color: $form-field-disabled-bg-color;
     }
 
     &.linked.link-essence {
-      @include linked-button(
-        $border-radius: 0,
+      @include linked-button($border-radius: 0,
         $line-height: 30px,
-        $padding: 0
-      );
+        $padding: 0);
+
       &:focus {
         border-radius: 0;
       }
     }
 
     &.linked.unlink-essence {
-      @include linked-button(
-        $border-radius: 0 $default-border-radius $default-border-radius 0,
+      @include linked-button($border-radius: 0 $default-border-radius $default-border-radius 0,
         $line-height: 30px,
-        $padding: 0
-      );
+        $padding: 0);
+
       &:focus {
         border-radius: 0 $default-border-radius $default-border-radius 0;
       }
@@ -507,7 +570,8 @@ select.long {
   padding: $default-padding 0;
   position: relative;
 
-  .thin_border, input[type="text"] {
+  .thin_border,
+  input[type="text"] {
     width: 100%;
   }
 
@@ -536,15 +600,22 @@ select.long {
     margin-right: 4px;
     vertical-align: top;
 
-    .thin_border, input[type="text"] {
+    .thin_border,
+    input[type="text"] {
       width: 170px;
     }
   }
 
   &.validation_failed {
 
-    label { color: $error_text_color }
-    input { @extend %field-with-error }
+    label {
+      color: $error_text_color
+    }
+
+    input {
+      @extend %field-with-error
+    }
+
     .tinymce_container {
       outline: 1px solid $error_border_color;
     }
@@ -572,7 +643,9 @@ select.long {
 
   &.essence_select {
 
-    label { margin-bottom: 2*$default-margin }
+    label {
+      margin-bottom: 2*$default-margin
+    }
 
     .select2-container {
       width: 100%;
@@ -615,7 +688,7 @@ select.long {
     padding-left: 1px; // Compensate the box shadow
     padding-right: $default-padding;
 
-    + .essence_picture {
+    +.essence_picture {
       padding-left: $default-padding;
       padding-right: 1px; // Compensate the box shadow
     }
@@ -670,7 +743,7 @@ textarea.has_tinymce {
 .element-handle .hint-with-icon {
   margin: 0;
 
-  > .hint-bubble {
+  >.hint-bubble {
     left: -7px;
     transform: none;
 
@@ -688,7 +761,7 @@ textarea.has_tinymce {
   box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
   background-color: $medium-gray;
 
-  .expanded.element-editor > & {
+  .expanded.element-editor>& {
     padding: 8px 4px 4px;
   }
 
@@ -701,113 +774,38 @@ textarea.has_tinymce {
 
 .is-fixed {
   &.with-contents {
-    > .element-footer {
+    >.element-footer {
       border-top: 0;
       border-bottom: 1px solid $medium-gray;
     }
   }
 
-  > .nestable-elements .add-nestable-element-button {
+  >.nestable-elements .add-nestable-element-button {
     width: 100%;
     text-align: center;
   }
 }
 
-.not-fixed .nested-elements {
+.element-editor,
+.droppable_element_placeholder {
+  width: 100%;
+
+  .not-fixed & {
+    width: calc(100% - 8px);
+    margin: 4px;
+  }
+
+  &.compact {
+    width: calc(50% - 8px);
+  }
+}
+
+.nested-elements {
   display: flex;
   flex-wrap: wrap;
 
-  .element-editor,
-  .droppable_element_placeholder {
-    width: calc(100% - 8px);
-    margin: 4px;
-
-    &.compact {
-      width: calc(50% - 8px);
-    }
-  }
-
   .element-editor {
     position: relative;
-
-    &.compact {
-      .element-toolbar {
-        visibility: hidden;
-        position: absolute;
-        height: 35px;
-        padding: 2px 0;
-        opacity: 0;
-        z-index: 1;
-        border-bottom: $default-border;
-        background-color: $light-gray;
-        transition: all $transition-duration;
-      }
-
-      .element-header:hover + .element-toolbar,
-      .element-toolbar:hover {
-        visibility: visible;
-        opacity: 1;
-      }
-
-      .element-footer {
-        margin-top: 0;
-        padding-top: 0;
-        border-top: 0;
-
-        .button {
-          padding: $small-button-padding;
-        }
-      }
-
-      .element-title {
-        max-width: 75%;
-      }
-
-      &:not(.folded) .ajax-folder {
-        pointer-events: none;
-
-        i:before {
-          content: fa-content($fa-var-ellipsis-v);
-        }
-      }
-
-      .element_tools {
-        display: flex;
-        width: 100%;
-        justify-content: space-between;
-        margin-left: 0;
-      }
-
-      .element-content {
-        padding: 4px 8px;
-      }
-
-      .button_with_label {
-        margin: 0 4px;
-      }
-
-      .content_editor,
-      .picture_thumbnail {
-        width: 100%;
-      }
-
-      .picture_thumbnail {
-        margin: 0;
-      }
-
-      .thumbnail_background {
-        height: 115px;
-      }
-
-      textarea,
-      input[type="url"],
-      input[type="text"],
-      input[type="email"],
-      input[type="password"] {
-        padding: 0.5em;
-        height: auto;
-      }
-    }
   }
 
   .element-header {

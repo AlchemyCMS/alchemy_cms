@@ -5,14 +5,6 @@
         label_method: relation[:attr_method],
         include_blank: Alchemy.t(:blank, scope: 'resources.relation_select'),
         input_html: {class: 'alchemy_selectbox'} %>
-    <% elsif attribute[:type] == :datetime || attribute[:type] == :time %>
-      <div class="input <%= attribute[:type] %>">
-        <label class="control-label">
-          <%= f.object.class.human_attribute_name(attribute[:name]) %>
-        </label>
-        <%= alchemy_datepicker resource_instance_variable, attribute[:name],
-          type: attribute[:type] %>
-      </div>
     <% else %>
       <%= f.input attribute[:name], resource_attribute_field_options(attribute) %>
     <% end %>

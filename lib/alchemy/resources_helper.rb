@@ -78,9 +78,11 @@ module Alchemy
       if attribute[:relation]
         record = resource.send(attribute[:relation][:name])
         value = record.present? ? record.send(attribute[:relation][:attr_method]) : Alchemy.t(:not_found)
-      elsif attribute_value && (attribute[:type] == :datetime || attribute[:type] == :time)
+      elsif attribute_value && attribute[:type].to_s =~ /(date|time)/
         localization_format = if attribute[:type] == :datetime
           options[:datetime_format] || :'alchemy.default'
+        elsif attribute[:type] == :date
+          options[:date_format] || :'alchemy.default'
         else
           options[:time_format] || :'alchemy.time'
         end
@@ -100,19 +102,19 @@ module Alchemy
     # Returns a options hash for simple_form input fields.
     def resource_attribute_field_options(attribute)
       options = {hint: resource_handler.help_text_for(attribute)}
-      case attribute[:type].to_s
+      input_type = attribute[:type].to_s
+      case input_type
       when 'boolean'
         options
-      when 'date', 'datetime'
-        options.merge as: 'string',
+      when 'date', 'time', 'datetime'
+        date = resource_instance_variable.send(attribute[:name]) || Time.current
+        options.merge(
+          as: 'string',
           input_html: {
-            type: attribute[:type].to_s,
-            value: l(resource_instance_variable.send(attribute[:name]) || Time.current,
-              format: "#{attribute[:type]}picker".to_sym
-            )
+            'data-datepicker-type' => input_type,
+            value: date ? date.iso8601 : nil
           }
-      when 'time'
-        options.merge(as: 'time')
+        )
       when 'text'
         options.merge(as: 'text', input_html: {rows: 4})
       else

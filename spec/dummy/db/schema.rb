@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_05_19_204655) do
+ActiveRecord::Schema.define(version: 2019_04_17_070726) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -259,6 +259,13 @@ ActiveRecord::Schema.define(version: 2018_05_19_204655) do
     t.boolean "redirect_to_primary_host"
     t.index ["host", "public"], name: "alchemy_sites_public_hosts_idx"
     t.index ["host"], name: "index_alchemy_sites_on_host"
+  end
+
+  create_table "bookings", force: :cascade do |t|
+    t.date "from"
+    t.date "until"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "dummy_models", force: :cascade do |t|
