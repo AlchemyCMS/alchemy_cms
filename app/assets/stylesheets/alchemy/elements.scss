@@ -269,22 +269,6 @@
     margin-bottom: 1em;
   }
 
-  .content_editor_error {
-    border: 1px solid #f5b04e;
-    padding: 4px 8px;
-    line-height: 21px;
-    background-color: #f5dea9;
-    margin-top: 4px;
-    border-radius: $default-border-radius;
-
-    .icon.warning {
-      position: relative;
-      top: 2px;
-      margin-right: 8px;
-      vertical-align: top;
-    }
-  }
-
   .autocomplete_tag_list {
     padding: $default-padding 0;
 

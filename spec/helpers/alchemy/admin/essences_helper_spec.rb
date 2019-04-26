@@ -37,7 +37,7 @@ describe Alchemy::Admin::EssencesHelper do
         let(:element) { nil }
 
         it "displays a warning" do
-          is_expected.to have_selector(".content_editor_error")
+          is_expected.to have_selector(".warning.message")
           is_expected.to have_content("No element given.")
         end
       end
