@@ -16,5 +16,9 @@
 
   .collapsed-menu.elements-window-visible & {
     width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-width});
+
+    @media screen and (min-width: $large-screen-break-point) {
+      max-width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-min-width});
+    }
   }
 }
