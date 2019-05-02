@@ -209,19 +209,42 @@
   }
 }
 
+#locked_pages {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: nowrap;
+  height: $header-height;
+
+  label {
+    float: left;
+    font-size: $small-font-size;
+    line-height: 27px;
+    height: 27px;
+    margin-left: 8px;
+    margin-right: 4px;
+  }
+
+  img {
+    float: left;
+  }
+
+  .subnavi_tab > a {
+    padding-right: 0;
+  }
+}
+
 .locked_page {
-  position: relative;
-  float: left;
+  display: flex;
+  flex-wrap: nowrap;
   line-height: $header-height - 1;
   color: #444;
   border-right: $default-border;
   border-bottom: $default-border;
-  padding-right: 24px;
 
   form {
-    position: absolute;
-    right: $default-padding;
-    top: 7px;
+    align-self: center;
+    justify-self: flex-end;
+    margin-right: $default-padding;
     line-height: 1;
   }
 
@@ -231,6 +254,7 @@
   }
 
   > a {
+    display: flex;
     cursor: pointer;
     padding: 0px 8px;
 
