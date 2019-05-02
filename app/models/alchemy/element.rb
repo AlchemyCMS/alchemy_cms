@@ -98,7 +98,7 @@ module Alchemy
     scope :not_restricted,    -> { joins(:page).merge(Page.not_restricted) }
     scope :available,         -> { published.not_trashed }
     scope :named,             ->(names) { where(name: names) }
-    scope :excluded,          ->(names) { where(arel_table[:name].not_in(names)) }
+    scope :excluded,          ->(names) { where.not(name: names) }
     scope :fixed,             -> { where(fixed: true) }
     scope :unfixed,           -> { where(fixed: false) }
     scope :from_current_site, -> { where(Language.table_name => {site_id: Site.current || Site.default}).joins(page: 'language') }

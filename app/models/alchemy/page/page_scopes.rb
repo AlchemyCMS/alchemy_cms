@@ -66,7 +66,7 @@ module Alchemy
       # Returns all content pages.
       #
       scope :contentpages, -> {
-        where(layoutpage: [false, nil]).where(Page.arel_table[:parent_id].not_eq(nil))
+        where(layoutpage: [false, nil]).where.not(parent_id: nil)
       }
 
       # Returns all public contentpages that are not locked.
