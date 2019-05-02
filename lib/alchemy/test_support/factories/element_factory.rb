@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 require 'factory_bot'
+require 'alchemy/test_support/factories/page_factory'
 
 FactoryBot.define do
   factory :alchemy_element, class: 'Alchemy::Element' do
