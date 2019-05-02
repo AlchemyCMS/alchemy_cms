@@ -42,18 +42,15 @@ div#overlay_text_box {
 }
 
 #header {
+  display: flex;
   height: $header-height;
   line-height: $header-height;
   background: $header-background;
   border-bottom: $default-border;
   position: relative;
 
-  a {
-    display: inline-block;
-
-    &:hover {
-      text-decoration: none;
-    }
+  a:hover {
+    text-decoration: none;
   }
 
   .page_status_and_name {
@@ -76,8 +73,13 @@ div#overlay_text_box {
   }
 
   .page_name {
+    display: inline-block;
+    max-width: 100px;
     margin-right: $default-margin;
     line-height: $header-height;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 }
 
@@ -96,12 +98,10 @@ div#overlay_text_box {
 }
 
 #user_info {
-  position: absolute;
-  top: 0;
-  right: 0;
   height: $header-height;
   font-size: $small-font-size;
   padding-left: 2*$default-padding;
+  margin-left: auto;
   border-bottom: $default-border;
   background-color: $header-background;
 
@@ -124,25 +124,5 @@ div#overlay_text_box {
 
   .current-user-name {
     padding-right: 2*$default-padding;
-  }
-}
-
-#locked_pages {
-
-  label {
-    float: left;
-    font-size: $small-font-size;
-    line-height: 27px;
-    height: 27px;
-    margin-left: 8px;
-    margin-right: 4px;
-  }
-
-  img {
-    float: left;
-  }
-
-  .subnavi_tab > a {
-    padding-right: 0;
   }
 }
