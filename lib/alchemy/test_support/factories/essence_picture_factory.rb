@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'factory_bot'
 require 'alchemy/test_support/factories/picture_factory'
 
