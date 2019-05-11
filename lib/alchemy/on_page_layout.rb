@@ -47,7 +47,7 @@ module Alchemy
     # Registers a callback for given page layout
     def self.register_callback(page_layout, callback)
       @callbacks ||= {}
-      @callbacks[page_layout] ||= []
+      @callbacks[page_layout] ||= Set.new
       @callbacks[page_layout] << callback
     end
 
