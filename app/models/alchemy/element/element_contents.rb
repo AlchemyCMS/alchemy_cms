@@ -16,13 +16,13 @@ module Alchemy
 
     # All contents from element by given name.
     def contents_by_name(name)
-      contents.where(name: name)
+      contents.select { |c| c.name == name }
     end
     alias_method :all_contents_by_name, :contents_by_name
 
     # All contents from element by given essence type.
     def contents_by_type(essence_type)
-      contents.where(essence_type: Content.normalize_essence_type(essence_type))
+      contents.select { |c| c.essence_type == Content.normalize_essence_type(essence_type) }
     end
     alias_method :all_contents_by_type, :contents_by_type
 
