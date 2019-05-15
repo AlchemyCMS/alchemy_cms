@@ -1,5 +1,7 @@
 ## 4.2.0 (unreleased)
 
+- Remove test files from built Ruby gem [#82](https://github.com/AlchemyCMS/alchemy-devise/pull/82) ([tvdeyen](https://github.com/tvdeyen))
+- Run CSRF protection before all other controller filters [#81](https://github.com/AlchemyCMS/alchemy-devise/pull/81) ([tvdeyen](https://github.com/tvdeyen))
 - Do not store screen size at login [#78](https://github.com/AlchemyCMS/alchemy-devise/pull/78) ([tvdeyen](https://github.com/tvdeyen))
 - Security: Use at least Devise 4.6 [#78](https://github.com/AlchemyCMS/alchemy-devise/pull/78) ([tvdeyen](https://github.com/tvdeyen))
 - Fix dummy app rails version [#76](https://github.com/AlchemyCMS/alchemy-devise/pull/76) ([tvdeyen](https://github.com/tvdeyen))
