@@ -18,7 +18,7 @@ Alchemy is an open source CMS engine written in Ruby on Rails.
 
 Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [guidelines](https://guides.alchemy-cms.com).
 
-**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (4.1-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/4.1-stable).**
+**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (4.2-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/4.2-stable).**
 
 
 ## ✅ Features
