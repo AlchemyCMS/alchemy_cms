@@ -1,5 +1,14 @@
-## 4.2.0 (unreleased)
+## 4.2.0 (2019-05-30)
 
+- remove unused .teatro.yml [#1585](https://github.com/AlchemyCMS/alchemy_cms/pull/1585) ([kirillshevch](https://github.com/kirillshevch))
+- Use Set to collect callbacks in OnPageLayout [#1583](https://github.com/AlchemyCMS/alchemy_cms/pull/1583) ([mamhoff](https://github.com/mamhoff))
+- Allow Ransack 1.x [#1580](https://github.com/AlchemyCMS/alchemy_cms/pull/1580) ([tvdeyen](https://github.com/tvdeyen))
+- Set a max-width to preview frame [#1578](https://github.com/AlchemyCMS/alchemy_cms/pull/1578) ([tvdeyen](https://github.com/tvdeyen))
+- Rebuild locked pages tabs in flexbox [#1577](https://github.com/AlchemyCMS/alchemy_cms/pull/1577) ([tvdeyen](https://github.com/tvdeyen))
+- Use where.not instead of Arel [#1576](https://github.com/AlchemyCMS/alchemy_cms/pull/1576) ([tvdeyen](https://github.com/tvdeyen))
+- Add missing requires to factories [#1575](https://github.com/AlchemyCMS/alchemy_cms/pull/1575) ([tvdeyen](https://github.com/tvdeyen))
+- Upgrade sqlite3 to version 1.4.1 [#1574](https://github.com/AlchemyCMS/alchemy_cms/pull/1574) ([depfu](https://github.com/apps/depfu))
+- Fix elements window ajax errors [#1573](https://github.com/AlchemyCMS/alchemy_cms/pull/1573) ([tvdeyen](https://github.com/tvdeyen))
 - Use SimpleForm field for datepicker in resources form [#1572](https://github.com/AlchemyCMS/alchemy_cms/pull/1572) ([tvdeyen](https://github.com/tvdeyen))
 - Render warning message in warning helper [#1571](https://github.com/AlchemyCMS/alchemy_cms/pull/1571) ([tvdeyen](https://github.com/tvdeyen))
 - Prohibit coffee-rails 5.0 [#1570](https://github.com/AlchemyCMS/alchemy_cms/pull/1570) ([tvdeyen](https://github.com/tvdeyen))
@@ -23,7 +32,7 @@
 - Upgrade shoulda-matchers to version 4.0.0 [#1542](https://github.com/AlchemyCMS/alchemy_cms/pull/1542) ([depfu](https://github.com/apps/depfu))
 - Upgrade factory_bot_rails to version 5.0.1 [#1540](https://github.com/AlchemyCMS/alchemy_cms/pull/1540) ([depfu](https://github.com/apps/depfu))
 - Use Flatpickr as Datepicker [#1533](https://github.com/AlchemyCMS/alchemy_cms/pull/1533) ([mamhoff](https://github.com/mamhoff))
--  Use system tests over feature specs [#1528](https://github.com/AlchemyCMS/alchemy_cms/pull/1528) ([tvdeyen](https://github.com/tvdeyen))
+- Use system tests over feature specs [#1528](https://github.com/AlchemyCMS/alchemy_cms/pull/1528) ([tvdeyen](https://github.com/tvdeyen))
 - Flexible width for admin navigation entry labels [#1527](https://github.com/AlchemyCMS/alchemy_cms/pull/1527) ([tvdeyen](https://github.com/tvdeyen))
 - Responsive elements window and sidebar [#1519](https://github.com/AlchemyCMS/alchemy_cms/pull/1519) ([tvdeyen](https://github.com/tvdeyen))
 - Change element eye icon on public state [#1517](https://github.com/AlchemyCMS/alchemy_cms/pull/1517) ([oniram88](https://github.com/oniram88))
@@ -491,3 +500,7 @@ No changes
 ## 3.0.0 (2014-07-03)
 
 [Release Notes](https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v3.0.0)
+
+
+
+
