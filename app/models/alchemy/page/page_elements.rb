@@ -22,14 +22,7 @@ module Alchemy
       has_many :fixed_elements,
         -> { order(:position).fixed.not_trashed },
         class_name: 'Alchemy::Element'
-      has_many :descendent_elements,
-        -> { order(:position).unfixed.not_trashed },
-        class_name: 'Alchemy::Element'
       has_many :contents, through: :elements
-      has_many :descendent_contents,
-        through: :descendent_elements,
-        class_name: 'Alchemy::Content',
-        source: :contents
       has_and_belongs_to_many :to_be_swept_elements, -> { distinct },
         class_name: 'Alchemy::Element',
         join_table: ElementToPage.table_name
@@ -186,8 +179,8 @@ module Alchemy
     # Returns an array of all EssenceRichtext contents ids from not folded elements
     #
     def richtext_contents_ids
-      descendent_contents
-        .where(Element.table_name => {folded: false})
+      Alchemy::Content.joins(:element)
+        .where(Element.table_name => {page_id: id, folded: false})
         .select(&:has_tinymce?)
         .collect(&:id)
     end

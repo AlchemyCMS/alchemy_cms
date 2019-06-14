@@ -990,60 +990,6 @@ module Alchemy
       end
     end
 
-    describe "#descendent_elements" do
-      let!(:page) do
-        create(:alchemy_page)
-      end
-
-      let!(:element_1) do
-        create(:alchemy_element, page: page)
-      end
-
-      let!(:element_2) do
-        create(:alchemy_element, :with_nestable_elements, page: page, parent_element_id: element_1.id)
-      end
-
-      let!(:element_3) do
-        create(:alchemy_element, page: page)
-      end
-
-      it 'returns an active record collection of all elements including nested elements on that page' do
-        expect(page.descendent_elements.count).to eq(4)
-      end
-    end
-
-    describe "#descendent_contents" do
-      let!(:page) do
-        create(:alchemy_page)
-      end
-
-      let!(:element_1) do
-        create :alchemy_element,
-          :with_nestable_elements,
-          :with_contents, {
-            name: 'slider',
-            page: page
-          }
-      end
-
-      let!(:element_2) do
-        create :alchemy_element,
-          :with_contents, {
-            name: 'slide',
-            page: page,
-            parent_element_id: element_1.id
-          }
-      end
-
-      let!(:element_3) do
-        create(:alchemy_element, :with_contents, name: 'slide', page: page)
-      end
-
-      it 'returns an active record collection of all content including nested elements on that page' do
-        expect(page.descendent_contents.count).to eq(6)
-      end
-    end
-
     describe '#element_definitions' do
       let(:page) { build_stubbed(:alchemy_page) }
       subject { page.element_definitions }
