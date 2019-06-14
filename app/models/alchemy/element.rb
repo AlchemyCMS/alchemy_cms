@@ -63,7 +63,12 @@ module Alchemy
     # In order to get contents in creation order we also order them by id.
     has_many :contents, -> { order(:position, :id) }, dependent: :destroy
 
-    # Elements can have other elements nested inside
+    has_many :all_nested_elements,
+      -> { order(:position) },
+      class_name: 'Alchemy::Element',
+      foreign_key: :parent_element_id,
+      dependent: :destroy
+
     has_many :nested_elements,
       -> { order(:position).not_trashed },
       class_name: 'Alchemy::Element',

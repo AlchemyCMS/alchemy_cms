@@ -37,7 +37,8 @@
             class: "nested-elements", data: {
               'droppable-elements' => element.nestable_elements.join(' ')
             } do %>
-        <%= render partial: 'alchemy/admin/elements/element', collection: element.nested_elements %>
+        <%= render partial: 'alchemy/admin/elements/element',
+           collection: element.all_nested_elements.not_trashed %>
       <% end %>
 
       <% if element.expanded? || element.fixed? %>
