@@ -102,7 +102,7 @@ module Alchemy
 
       if options[:from_cell]
         Alchemy::Deprecation.warn "options[:from_cell] has been removed without replacement. " \
-          "Please `render element.nested_elements.available` instead."
+          "Please `render element.nested_elements` instead."
       end
 
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)

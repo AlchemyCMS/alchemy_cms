@@ -70,7 +70,7 @@ module Alchemy
       dependent: :destroy
 
     has_many :nested_elements,
-      -> { order(:position).not_trashed },
+      -> { order(:position).available },
       class_name: 'Alchemy::Element',
       foreign_key: :parent_element_id,
       dependent: :destroy
