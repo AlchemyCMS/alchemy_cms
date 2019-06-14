@@ -908,6 +908,59 @@ module Alchemy
       end
     end
 
+    describe "#all_elements" do
+      let(:page) { create(:alchemy_page) }
+      let!(:element_1) { create(:alchemy_element, page: page) }
+      let!(:element_2) { create(:alchemy_element, page: page) }
+      let!(:element_3) { create(:alchemy_element, page: page) }
+
+      before do
+        element_3.move_to_top
+      end
+
+      it 'returns a ordered active record collection of elements on that page' do
+        expect(page.all_elements).to eq([element_3, element_1, element_2])
+      end
+
+      context 'with nestable elements' do
+        let!(:nestable_element) do
+          create(:alchemy_element, page: page)
+        end
+
+        let!(:nested_element) do
+          create(:alchemy_element, name: 'slide', parent_element: nestable_element, page: page)
+        end
+
+        it 'contains nested elements of an element' do
+          expect(page.all_elements).to include(nested_element)
+        end
+      end
+
+      context 'with trashed elements' do
+        let(:trashed_element) { create(:alchemy_element, page: page).tap(&:trash!) }
+
+        it 'contains trashed elements' do
+          expect(page.all_elements).to include(trashed_element)
+        end
+      end
+
+      context 'with hidden elements' do
+        let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
+
+        it 'contains hidden elements' do
+          expect(page.all_elements).to include(hidden_element)
+        end
+      end
+
+      context 'with fixed elements' do
+        let(:fixed_element) { create(:alchemy_element, page: page, fixed: true) }
+
+        it 'contains hidden elements' do
+          expect(page.all_elements).to include(fixed_element)
+        end
+      end
+    end
+
     describe "#elements" do
       let(:page) { create(:alchemy_page) }
       let!(:element_1) { create(:alchemy_element, page: page) }

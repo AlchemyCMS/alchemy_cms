@@ -7,6 +7,9 @@ module Alchemy
     included do
       attr_accessor :autogenerate_elements
 
+      has_many :all_elements,
+        -> { order(:position) },
+        class_name: 'Alchemy::Element'
       has_many :elements,
         -> { order(:position).not_nested.unfixed.not_trashed },
         class_name: 'Alchemy::Element'
