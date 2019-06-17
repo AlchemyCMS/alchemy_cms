@@ -51,7 +51,7 @@ module Alchemy
     #
     #   class MyCustomNewsArchive
     #     def elements(page:)
-    #       news_page.elements.available.named('news').order(created_at: :desc)
+    #       news_page.elements.named('news').order(created_at: :desc)
     #     end
     #
     #     private
