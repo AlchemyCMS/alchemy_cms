@@ -558,8 +558,8 @@ module Alchemy
         before { page.elements << create(:alchemy_element, :fixed) }
 
         it "the copy should have source fixed elements" do
-          expect(subject.elements_including_fixed).not_to be_empty
-          expect(subject.elements_including_fixed.count).to eq(page.elements_including_fixed.count)
+          expect(subject.fixed_elements).not_to be_empty
+          expect(subject.fixed_elements.count).to eq(page.fixed_elements.count)
         end
       end
 
@@ -778,7 +778,7 @@ module Alchemy
     describe '#available_element_definitions' do
       subject { page.available_element_definitions }
 
-      let(:page) { build_stubbed(:alchemy_page, :public) }
+      let(:page) { create(:alchemy_page, :public) }
 
       it "returns all element definitions of available elements" do
         expect(subject).to be_an(Array)
@@ -786,13 +786,7 @@ module Alchemy
       end
 
       context "with unique elements already on page" do
-        let(:element) { build_stubbed(:alchemy_element, :unique) }
-
-        before do
-          allow(page).to receive(:elements_including_fixed) do
-            double(pluck: [element.name])
-          end
-        end
+        let!(:element) { create(:alchemy_element, :unique, page: page) }
 
         it "does not return unique element definitions" do
           expect(subject.collect { |e| e['name'] }).to include('article')
@@ -801,13 +795,15 @@ module Alchemy
       end
 
       context 'limited amount' do
-        let(:page) { build_stubbed(:alchemy_page, page_layout: 'columns') }
-        let(:unique_element) do
-          build_stubbed(:alchemy_element, :unique, name: 'unique_headline')
+        let(:page) { create(:alchemy_page, page_layout: 'columns') }
+
+        let!(:unique_element) do
+          create(:alchemy_element, :unique, name: 'unique_headline', page: page)
         end
-        let(:element_1) { build_stubbed(:alchemy_element, name: 'column_headline') }
-        let(:element_2) { build_stubbed(:alchemy_element, name: 'column_headline') }
-        let(:element_3) { build_stubbed(:alchemy_element, name: 'column_headline') }
+
+        let!(:element_1) { create(:alchemy_element, name: 'column_headline', page: page) }
+        let!(:element_2) { create(:alchemy_element, name: 'column_headline', page: page) }
+        let!(:element_3) { create(:alchemy_element, name: 'column_headline', page: page) }
 
         before do
           allow(Element).to receive(:definitions).and_return([
@@ -828,14 +824,6 @@ module Alchemy
             'elements' => ['column_headline', 'unique_headline'],
             'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
           })
-          allow(page).to receive(:elements_including_fixed) do
-            double(pluck: [
-              unique_element.name,
-              element_1.name,
-              element_2.name,
-              element_3.name
-            ])
-          end
         end
 
         it "should be readable" do
