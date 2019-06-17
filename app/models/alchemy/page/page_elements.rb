@@ -11,13 +11,13 @@ module Alchemy
         -> { order(:position) },
         class_name: 'Alchemy::Element'
       has_many :elements,
-        -> { order(:position).not_nested.unfixed.not_trashed },
+        -> { order(:position).not_nested.unfixed.available },
         class_name: 'Alchemy::Element'
       has_many :trashed_elements,
         -> { Element.trashed.order(:position) },
         class_name: 'Alchemy::Element'
       has_many :fixed_elements,
-        -> { order(:position).fixed.not_trashed },
+        -> { order(:position).fixed.available },
         class_name: 'Alchemy::Element'
       has_many :contents, through: :elements
       has_and_belongs_to_many :to_be_swept_elements, -> { distinct },

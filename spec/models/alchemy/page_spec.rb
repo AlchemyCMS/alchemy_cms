@@ -976,6 +976,61 @@ module Alchemy
           expect(page.elements).to_not include(nestable_element.nested_elements.first)
         end
       end
+
+      context 'with trashed elements' do
+        let(:trashed_element) { create(:alchemy_element, page: page) }
+
+        before do
+          trashed_element.trash!
+        end
+
+        it 'does not contain trashed elements' do
+          expect(page.elements).to_not include(trashed_element)
+        end
+      end
+
+      context 'with hidden elements' do
+        let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
+
+        it 'does not contain hidden elements' do
+          expect(page.elements).to_not include(hidden_element)
+        end
+      end
+    end
+
+    describe "#fixed_elements" do
+      let(:page) { create(:alchemy_page) }
+      let!(:element_1) { create(:alchemy_element, fixed: true, page: page) }
+      let!(:element_2) { create(:alchemy_element, fixed: true, page: page) }
+      let!(:element_3) { create(:alchemy_element, fixed: true, page: page) }
+
+      before do
+        element_3.move_to_top
+      end
+
+      it 'returns a ordered active record collection of fixed elements on that page' do
+        expect(page.fixed_elements).to eq([element_3, element_1, element_2])
+      end
+
+      context 'with trashed fixed elements' do
+        let(:trashed_element) { create(:alchemy_element, page: page, fixed: true) }
+
+        before do
+          trashed_element.trash!
+        end
+
+        it 'does not contain trashed fixed elements' do
+          expect(page.fixed_elements).to_not include(trashed_element)
+        end
+      end
+
+      context 'with hidden fixed elements' do
+        let(:hidden_element) { create(:alchemy_element, page: page, fixed: true, public: false) }
+
+        it 'does not contain hidden fixed elements' do
+          expect(page.fixed_elements).to_not include(hidden_element)
+        end
+      end
     end
 
     describe '#element_definitions' do
