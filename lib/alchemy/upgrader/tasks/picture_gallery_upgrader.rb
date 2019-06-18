@@ -91,22 +91,22 @@ module Alchemy::Upgrader::Tasks
     def find_gallery_pictures_rendering
       puts '5. Find element views that use gallery pictures:'
 
-      erb_snippet = '   <%= render element.nested_elements.available %>'
+      erb_snippet = '   <%= render element.nested_elements %>'
       erb_views = erb_element_partials(:view).select do |view|
         next if File.read(view).match(GALLERY_PICTURES_ERB_REGEXP).nil?
 
         inject_into_file view,
-          "<%# TODO: Move the content of next block into its nestable element view and `render element.nested_elements.available` instead %>\n",
+          "<%# TODO: Move the content of next block into its nestable element view and `render element.nested_elements` instead %>\n",
           before: GALLERY_PICTURES_ERB_REGEXP
         true
       end
 
-      haml_slim_snippet = '   = element.nested_elements.available'
+      haml_slim_snippet = '   = element.nested_elements'
       haml_views = haml_slim_element_partials(:view).select do |view|
         next if File.read(view).match(GALLERY_PICTURES_HAML_REGEXP).nil?
 
         inject_into_file view,
-          "-# TODO: Move the content of next block into its nestable element view and `render element.nested_elements.available` instead\n",
+          "-# TODO: Move the content of next block into its nestable element view and `render element.nested_elements` instead\n",
           before: GALLERY_PICTURES_HAML_REGEXP
         true
       end

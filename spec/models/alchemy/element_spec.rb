@@ -872,14 +872,68 @@ module Alchemy
       end
     end
 
+    describe "#all_nested_elements" do
+      subject { element.all_nested_elements }
+
+      let!(:page) { create(:alchemy_page) }
+      let!(:element) { create(:alchemy_element, page: page) }
+      let!(:nested_element) { create(:alchemy_element, parent_element: element, page: page) }
+
+      it 'returns nested elements' do
+        expect(subject).to eq([nested_element])
+      end
+
+      context 'with hidden nested elements' do
+        let!(:hidden_nested_element) do
+          create(:alchemy_element, parent_element: element, page: page, public: false)
+        end
+
+        it 'includes them' do
+          expect(subject).to include(hidden_nested_element)
+        end
+      end
+
+      context 'with trashed nested elements' do
+        let!(:trashed_nested_element) do
+          create(:alchemy_element, parent_element: element, page: page).tap(&:trash!)
+        end
+
+        it 'includes them' do
+          expect(subject).to include(trashed_nested_element)
+        end
+      end
+    end
+
     describe "#nested_elements" do
       subject { element.nested_elements }
 
       context 'with nestable_elements defined' do
-        let(:element) { create(:alchemy_element, :with_nestable_elements) }
+        let!(:page) { create(:alchemy_page) }
+        let!(:element) { create(:alchemy_element, page: page) }
+        let!(:nested_element) { create(:alchemy_element, parent_element: element, page: page) }
 
-        it 'returns an AR scope containing nested elements' do
-          expect(subject.count).to eq(1)
+        it 'returns nested elements' do
+          expect(subject).to eq([nested_element])
+        end
+
+        context 'with hidden nested elements' do
+          let!(:hidden_nested_element) do
+            create(:alchemy_element, parent_element: element, page: page, public: false)
+          end
+
+          it 'does not include them' do
+            expect(subject).to eq([nested_element])
+          end
+        end
+
+        context 'with trashed nested elements' do
+          let!(:hidden_trashed_element) do
+            create(:alchemy_element, parent_element: element, page: page).tap(&:trash!)
+          end
+
+          it 'does not include them' do
+            expect(subject).to eq([nested_element])
+          end
         end
       end
     end

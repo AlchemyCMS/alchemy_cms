@@ -114,9 +114,9 @@ module Alchemy::Upgrader::Tasks
       if Dir.exist? cells_view_folder
         puts "-- Update cell views"
         Dir.glob("#{cells_view_folder}/*").each do |view|
-          gsub_file(view, /elements\.published/, 'elements.available')
+          gsub_file(view, /elements\.published/, 'elements')
           gsub_file(view, /cell\.elements(.+)/, 'element.nested_elements\1')
-          gsub_file(view, /render_elements[\(\s]?:?from_cell:?\s?(=>)?\s?cell\)?/, 'render element.nested_elements.available')
+          gsub_file(view, /render_elements[\(\s]?:?from_cell:?\s?(=>)?\s?cell\)?/, 'render element.nested_elements')
           gsub_file(view, /cell/, 'element')
         end
       else
