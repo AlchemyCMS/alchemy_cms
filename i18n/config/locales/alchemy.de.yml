@@ -160,6 +160,7 @@ de:
       site:
         aliases: Weitere Domains bitte mit Leerzeichen oder Leerzeile getrennt angeben.
 
+    add_nested_element: "%{name} hinzufügen"
     anchor: 'Sprungmarke'
     attribute_fixed: Dieser Wert ist für diesen Seitentyp nicht veränderbar
     back: 'zurück'

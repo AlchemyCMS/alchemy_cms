@@ -160,6 +160,7 @@ it:
       site:
         aliases: Separa i domini aggiuntivi con uno spazio od un ritorno a capo.
 
+    add_nested_element: "Add %{name}"
     anchor: 'Collegamento'
     attribute_fixed: Il valore non può essere modificato
     back: 'indietro'

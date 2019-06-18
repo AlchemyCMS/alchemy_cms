@@ -159,6 +159,7 @@ nl:
       site:
         aliases: Specificeer andere domeinen gescheiden met witte ruimte of lege regel
 
+    add_nested_element: "Add %{name}"
     anchor: 'Anchor'
     attribute_fixed: Waarde kan niet worden gewijzigd
     back: 'back'
