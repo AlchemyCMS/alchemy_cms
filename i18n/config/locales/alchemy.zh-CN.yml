@@ -175,6 +175,7 @@ zh-CN:
       site:
         aliases: 请用空格或换行符分隔额外域名。
 
+    add_nested_element: "Add %{name}"
     anchor: '锚点'
     attribute_fixed: 针对这种页面类型，不能改变值
     back: '返回'

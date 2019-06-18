@@ -159,6 +159,7 @@ pl:
       site:
         aliases: Please separate additional domains with spaces or new lines.
 
+    add_nested_element: "Add %{name}"
     anchor: 'Anchor'
     attribute_fixed: Value can't be changed for this page type
     back: 'back'

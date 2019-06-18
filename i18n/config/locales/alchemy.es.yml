@@ -159,6 +159,7 @@ es:
       site:
         aliases: Por favor separa con espacios o en una nueva línea los dominios adicionales.
 
+    add_nested_element: "Add %{name}"
     anchor: 'Ancla'
     attribute_fixed: Este atributo no se puede cambiar
     back: 'Atras'
