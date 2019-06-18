@@ -50,7 +50,7 @@ BASH
   end
 
   namespace :changelog do
-    desc "Update changelog"
+    desc "Update CHANGELOG from GitHub (Set GITHUB_ACCESS_TOKEN and PREVIOUS_VERSION to a version you want to write changelog changes for)"
     task :update do
       original_file = './CHANGELOG.md'
       new_file = original_file + '.new'
