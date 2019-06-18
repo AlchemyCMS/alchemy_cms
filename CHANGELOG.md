@@ -1,3 +1,8 @@
+# 4.3.0 (unreleased)
+
+- Only return visible elements from Pages elements relations [#1590](https://github.com/AlchemyCMS/alchemy_cms/pull/1590) ([tvdeyen](https://github.com/tvdeyen))
+- Only return visible elements from Elements nested_elements relation [#1589](https://github.com/AlchemyCMS/alchemy_cms/pull/1589) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.2.0 (2019-05-30)
 
 - remove unused .teatro.yml [#1585](https://github.com/AlchemyCMS/alchemy_cms/pull/1585) ([kirillshevch](https://github.com/kirillshevch))
