@@ -44,14 +44,11 @@ module Alchemy
         end
 
         context "and with an unique element on the page" do
-          let(:unique) { build_stubbed(:alchemy_element, :unique) }
-          let(:page) { build_stubbed(:alchemy_page, :public) }
+          let!(:page) { create(:alchemy_page, :public) }
+          let!(:unique) { create(:alchemy_element, :unique, page: page) }
 
           before do
             allow(Page).to receive(:find).and_return(page)
-            allow(page).to receive(:elements_including_fixed) do
-              double(pluck: [unique.name])
-            end
           end
 
           it "unique elements should not be draggable" do

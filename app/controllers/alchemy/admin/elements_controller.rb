@@ -8,8 +8,8 @@ module Alchemy
 
       def index
         @page = Page.find(params[:page_id])
-        @elements = @page.elements
-        @fixed_elements = @page.fixed_elements
+        @elements = @page.all_elements.not_nested.unfixed.not_trashed
+        @fixed_elements = @page.all_elements.fixed.not_trashed
       end
 
       def list

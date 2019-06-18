@@ -558,8 +558,8 @@ module Alchemy
         before { page.elements << create(:alchemy_element, :fixed) }
 
         it "the copy should have source fixed elements" do
-          expect(subject.elements_including_fixed).not_to be_empty
-          expect(subject.elements_including_fixed.count).to eq(page.elements_including_fixed.count)
+          expect(subject.fixed_elements).not_to be_empty
+          expect(subject.fixed_elements.count).to eq(page.fixed_elements.count)
         end
       end
 
@@ -778,7 +778,7 @@ module Alchemy
     describe '#available_element_definitions' do
       subject { page.available_element_definitions }
 
-      let(:page) { build_stubbed(:alchemy_page, :public) }
+      let(:page) { create(:alchemy_page, :public) }
 
       it "returns all element definitions of available elements" do
         expect(subject).to be_an(Array)
@@ -786,13 +786,7 @@ module Alchemy
       end
 
       context "with unique elements already on page" do
-        let(:element) { build_stubbed(:alchemy_element, :unique) }
-
-        before do
-          allow(page).to receive(:elements_including_fixed) do
-            double(pluck: [element.name])
-          end
-        end
+        let!(:element) { create(:alchemy_element, :unique, page: page) }
 
         it "does not return unique element definitions" do
           expect(subject.collect { |e| e['name'] }).to include('article')
@@ -801,13 +795,15 @@ module Alchemy
       end
 
       context 'limited amount' do
-        let(:page) { build_stubbed(:alchemy_page, page_layout: 'columns') }
-        let(:unique_element) do
-          build_stubbed(:alchemy_element, :unique, name: 'unique_headline')
+        let(:page) { create(:alchemy_page, page_layout: 'columns') }
+
+        let!(:unique_element) do
+          create(:alchemy_element, :unique, name: 'unique_headline', page: page)
         end
-        let(:element_1) { build_stubbed(:alchemy_element, name: 'column_headline') }
-        let(:element_2) { build_stubbed(:alchemy_element, name: 'column_headline') }
-        let(:element_3) { build_stubbed(:alchemy_element, name: 'column_headline') }
+
+        let!(:element_1) { create(:alchemy_element, name: 'column_headline', page: page) }
+        let!(:element_2) { create(:alchemy_element, name: 'column_headline', page: page) }
+        let!(:element_3) { create(:alchemy_element, name: 'column_headline', page: page) }
 
         before do
           allow(Element).to receive(:definitions).and_return([
@@ -828,14 +824,6 @@ module Alchemy
             'elements' => ['column_headline', 'unique_headline'],
             'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
           })
-          allow(page).to receive(:elements_including_fixed) do
-            double(pluck: [
-              unique_element.name,
-              element_1.name,
-              element_2.name,
-              element_3.name
-            ])
-          end
         end
 
         it "should be readable" do
@@ -908,6 +896,59 @@ module Alchemy
       end
     end
 
+    describe "#all_elements" do
+      let(:page) { create(:alchemy_page) }
+      let!(:element_1) { create(:alchemy_element, page: page) }
+      let!(:element_2) { create(:alchemy_element, page: page) }
+      let!(:element_3) { create(:alchemy_element, page: page) }
+
+      before do
+        element_3.move_to_top
+      end
+
+      it 'returns a ordered active record collection of elements on that page' do
+        expect(page.all_elements).to eq([element_3, element_1, element_2])
+      end
+
+      context 'with nestable elements' do
+        let!(:nestable_element) do
+          create(:alchemy_element, page: page)
+        end
+
+        let!(:nested_element) do
+          create(:alchemy_element, name: 'slide', parent_element: nestable_element, page: page)
+        end
+
+        it 'contains nested elements of an element' do
+          expect(page.all_elements).to include(nested_element)
+        end
+      end
+
+      context 'with trashed elements' do
+        let(:trashed_element) { create(:alchemy_element, page: page).tap(&:trash!) }
+
+        it 'contains trashed elements' do
+          expect(page.all_elements).to include(trashed_element)
+        end
+      end
+
+      context 'with hidden elements' do
+        let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
+
+        it 'contains hidden elements' do
+          expect(page.all_elements).to include(hidden_element)
+        end
+      end
+
+      context 'with fixed elements' do
+        let(:fixed_element) { create(:alchemy_element, page: page, fixed: true) }
+
+        it 'contains hidden elements' do
+          expect(page.all_elements).to include(fixed_element)
+        end
+      end
+    end
+
     describe "#elements" do
       let(:page) { create(:alchemy_page) }
       let!(:element_1) { create(:alchemy_element, page: page) }
@@ -935,59 +976,60 @@ module Alchemy
           expect(page.elements).to_not include(nestable_element.nested_elements.first)
         end
       end
-    end
 
-    describe "#descendent_elements" do
-      let!(:page) do
-        create(:alchemy_page)
+      context 'with trashed elements' do
+        let(:trashed_element) { create(:alchemy_element, page: page) }
+
+        before do
+          trashed_element.trash!
+        end
+
+        it 'does not contain trashed elements' do
+          expect(page.elements).to_not include(trashed_element)
+        end
       end
 
-      let!(:element_1) do
-        create(:alchemy_element, page: page)
-      end
+      context 'with hidden elements' do
+        let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
 
-      let!(:element_2) do
-        create(:alchemy_element, :with_nestable_elements, page: page, parent_element_id: element_1.id)
-      end
-
-      let!(:element_3) do
-        create(:alchemy_element, page: page)
-      end
-
-      it 'returns an active record collection of all elements including nested elements on that page' do
-        expect(page.descendent_elements.count).to eq(4)
+        it 'does not contain hidden elements' do
+          expect(page.elements).to_not include(hidden_element)
+        end
       end
     end
 
-    describe "#descendent_contents" do
-      let!(:page) do
-        create(:alchemy_page)
+    describe "#fixed_elements" do
+      let(:page) { create(:alchemy_page) }
+      let!(:element_1) { create(:alchemy_element, fixed: true, page: page) }
+      let!(:element_2) { create(:alchemy_element, fixed: true, page: page) }
+      let!(:element_3) { create(:alchemy_element, fixed: true, page: page) }
+
+      before do
+        element_3.move_to_top
       end
 
-      let!(:element_1) do
-        create :alchemy_element,
-          :with_nestable_elements,
-          :with_contents, {
-            name: 'slider',
-            page: page
-          }
+      it 'returns a ordered active record collection of fixed elements on that page' do
+        expect(page.fixed_elements).to eq([element_3, element_1, element_2])
       end
 
-      let!(:element_2) do
-        create :alchemy_element,
-          :with_contents, {
-            name: 'slide',
-            page: page,
-            parent_element_id: element_1.id
-          }
+      context 'with trashed fixed elements' do
+        let(:trashed_element) { create(:alchemy_element, page: page, fixed: true) }
+
+        before do
+          trashed_element.trash!
+        end
+
+        it 'does not contain trashed fixed elements' do
+          expect(page.fixed_elements).to_not include(trashed_element)
+        end
       end
 
-      let!(:element_3) do
-        create(:alchemy_element, :with_contents, name: 'slide', page: page)
-      end
+      context 'with hidden fixed elements' do
+        let(:hidden_element) { create(:alchemy_element, page: page, fixed: true, public: false) }
 
-      it 'returns an active record collection of all content including nested elements on that page' do
-        expect(page.descendent_contents.count).to eq(6)
+        it 'does not contain hidden fixed elements' do
+          expect(page.fixed_elements).to_not include(hidden_element)
+        end
       end
     end
 

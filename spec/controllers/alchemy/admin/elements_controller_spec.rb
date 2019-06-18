@@ -14,28 +14,39 @@ module Alchemy
     before { authorize_user(:as_author) }
 
     describe '#index' do
-      let(:alchemy_page) { build_stubbed(:alchemy_page) }
-
-      before do
-        expect(Page).to receive(:find).and_return alchemy_page
-      end
+      let!(:alchemy_page)    { create(:alchemy_page) }
+      let!(:element)         { create(:alchemy_element, page: alchemy_page) }
+      let!(:trashed_element) { create(:alchemy_element, page: alchemy_page).tap(&:trash!) }
+      let!(:nested_element)  { create(:alchemy_element, :nested, page: alchemy_page) }
+      let!(:hidden_element)  { create(:alchemy_element, page: alchemy_page, public: false) }
 
       context 'with fixed elements' do
-        let(:fixed_element) { build_stubbed(:alchemy_element, :fixed, page: alchemy_page) }
+        let!(:fixed_element) do
+          create(:alchemy_element, :fixed,
+            page: alchemy_page)
+        end
 
-        before do
-          expect(alchemy_page).to receive(:fixed_elements).and_return [fixed_element]
+        let!(:fixed_hidden_element) do
+          create(:alchemy_element, :fixed,
+            public: false,
+            page: alchemy_page)
+        end
+
+        let!(:fixed_trashed_element) do
+          create(:alchemy_element, :fixed,
+            public: false,
+            page: alchemy_page).tap(&:trash!)
         end
 
         it "assigns fixed elements" do
           get :index, params: {page_id: alchemy_page.id}
-          expect(assigns(:fixed_elements)).to eq([fixed_element])
+          expect(assigns(:fixed_elements)).to eq([fixed_element, fixed_hidden_element])
         end
       end
 
       it "assigns page elements" do
-        expect(alchemy_page).to receive(:elements).and_return(double(not_trashed: []))
         get :index, params: {page_id: alchemy_page.id}
+        expect(assigns(:elements)).to eq([element, hidden_element])
       end
     end
 
@@ -111,13 +122,7 @@ module Alchemy
       end
 
       context "untrashing" do
-        let(:trashed_element) { create(:alchemy_element) }
-
-        before do
-          # Because of a before_create filter it can not be created with a nil position
-          # and needs to be trashed here
-          trashed_element.trash!
-        end
+        let!(:trashed_element) { create(:alchemy_element).tap(&:trash!) }
 
         it "sets a list of trashed element ids" do
           post :order, params: {page_id: page.id, element_ids: [trashed_element.id]}, xhr: true

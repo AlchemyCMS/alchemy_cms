@@ -7,26 +7,19 @@ module Alchemy
     included do
       attr_accessor :autogenerate_elements
 
-      has_many :elements,
-        -> { order(:position).not_nested.unfixed.not_trashed },
+      has_many :all_elements,
+        -> { order(:position) },
         class_name: 'Alchemy::Element'
-      has_many :elements_including_fixed,
-        -> { order(:position).not_nested.not_trashed },
+      has_many :elements,
+        -> { order(:position).not_nested.unfixed.available },
         class_name: 'Alchemy::Element'
       has_many :trashed_elements,
         -> { Element.trashed.order(:position) },
         class_name: 'Alchemy::Element'
       has_many :fixed_elements,
-        -> { order(:position).fixed.not_trashed },
-        class_name: 'Alchemy::Element'
-      has_many :descendent_elements,
-        -> { order(:position).unfixed.not_trashed },
+        -> { order(:position).fixed.available },
         class_name: 'Alchemy::Element'
       has_many :contents, through: :elements
-      has_many :descendent_contents,
-        through: :descendent_elements,
-        class_name: 'Alchemy::Content',
-        source: :contents
       has_and_belongs_to_many :to_be_swept_elements, -> { distinct },
         class_name: 'Alchemy::Element',
         join_table: ElementToPage.table_name
@@ -49,15 +42,12 @@ module Alchemy
       # @return [Array]
       #
       def copy_elements(source, target)
-        new_elements = []
-        source.elements_including_fixed.each do |source_element|
-          new_element = Element.copy(source_element, {
+        source_elements = source.all_elements.not_nested.not_trashed
+        source_elements.order(:position).map do |source_element|
+          Element.copy(source_element, {
             page_id: target.id
-          })
-          new_element.move_to_bottom
-          new_elements << new_element
+          }).tap(&:move_to_bottom)
         end
-        new_elements
       end
     end
 
@@ -91,7 +81,8 @@ module Alchemy
 
       return [] if @_element_definitions.blank?
 
-      @_existing_element_names = elements_including_fixed.pluck(:name)
+      existing_elements = all_elements.not_nested.not_trashed
+      @_existing_element_names = existing_elements.pluck(:name)
       delete_unique_element_definitions!
       delete_outnumbered_element_definitions!
 
@@ -177,14 +168,14 @@ module Alchemy
     #     feed_elements: [element_name, element_2_name]
     #
     def feed_elements
-      elements.available.named(definition['feed_elements'])
+      elements.named(definition['feed_elements'])
     end
 
     # Returns an array of all EssenceRichtext contents ids from not folded elements
     #
     def richtext_contents_ids
-      descendent_contents
-        .where(Element.table_name => {folded: false})
+      Alchemy::Content.joins(:element)
+        .where(Element.table_name => {page_id: id, folded: false})
         .select(&:has_tinymce?)
         .collect(&:id)
     end
@@ -196,9 +187,10 @@ module Alchemy
     # And if so, it generates them.
     #
     def generate_elements
-      elements_already_on_page = elements_including_fixed.pluck(:name)
+      existing_elements = all_elements.not_nested.not_trashed
+      existing_element_names = existing_elements.pluck(:name).uniq
       definition.fetch('autogenerate', []).each do |element_name|
-        next if elements_already_on_page.include?(element_name)
+        next if existing_element_names.include?(element_name)
         Element.create(page: self, name: element_name)
       end
     end
