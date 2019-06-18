@@ -6,4 +6,8 @@ module Alchemy
   def self.version
     VERSION
   end
+
+  def self.gem_version
+    Gem::Version.new(VERSION)
+  end
 end
