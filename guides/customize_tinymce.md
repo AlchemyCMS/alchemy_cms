@@ -73,6 +73,38 @@ That's it. Now the editor can format a block of text as headline 2. Nice!
 Custom buttons always appear in all richtext editors in all elements in Alchemy.
 :::
 
+## Adding editor plugins
+It is possible to extend the tinymce editor with plugins.
+All you have to do is to download the tinymce plugin and copy the folder to
+`vendor/assets/javascripts/tinymce/plugins`
+
+and add the following content to `config/initializers/tinymce.rb`
+
+~~~ ruby
+Alchemy::Tinymce.init = {
+  plugins: Alchemy::Tinymce.plugins + ['colorpicker'],
+  toolbar: [
+    'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | alignleft aligncenter alignright | fullscreen', 
+    'pastetext charmap hr | undo redo | alchemy_link unlink anchor | code | colorpicker'
+  ]
+}
+~~~
+
+Another example configuration could be:
+
+~~~ ruby
+Alchemy::Tinymce.plugins += ['textcolor']
+Alchemy::Tinymce.init = {
+  toolbar: [
+    'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen',
+    'pastetext | charmap code | undo redo | alchemy_link unlink | help | forecolor backcolor'
+  ],
+}
+~~~
+
+This example adds the textcolor plugin and adds its button to the toolbar.
+
+
 ## Setting a custom stylesheet
 
 It is a good practice to set the stylesheet TinyMCE uses to display text in the editor area to the one you use to render the website.
