@@ -25,6 +25,7 @@ form {
     @include clearfix;
 
     > input[type="url"],
+    > input[type="number"],
     > input[type="text"],
     > input[type="email"],
     > input[type="password"],
