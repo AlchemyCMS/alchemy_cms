@@ -116,6 +116,9 @@ module Alchemy
 
     # Redirects to given url with 301 status
     def redirect_permanently_to(url)
+      # to avoid hitting browser cache on your local development machine
+      return redirect_to(url) if Rails.env.development?
+
       redirect_to url, status: :moved_permanently
     end
 
