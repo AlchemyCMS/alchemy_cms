@@ -16,7 +16,7 @@ module Alchemy
       if params[:page_layout].present?
         @pages = @pages.where(page_layout: params[:page_layout])
       end
-      render json: @pages, adapter: :json, root: :pages
+      render json: @pages, adapter: :json, root: 'pages'
     end
 
     # Returns all pages as nested json object for tree views
