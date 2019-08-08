@@ -115,6 +115,10 @@ module Alchemy
             value: date ? date.iso8601 : nil
           }
         )
+      when 'richtext'
+        options.merge(as: 'text', input_html: { rows: 4, class: 'tinymce' })
+      when 'number'
+        options.merge(as: 'string', input_html: { type: 'number' })
       when 'text'
         options.merge(as: 'text', input_html: {rows: 4})
       else
