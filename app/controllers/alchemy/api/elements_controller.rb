@@ -20,7 +20,7 @@ module Alchemy
       if params[:named].present?
         @elements = @elements.named(params[:named])
       end
-      render json: @elements, adapter: :json, root: :elements
+      render json: @elements, adapter: :json, root: 'elements'
     end
 
     # Returns a json object for element
