@@ -169,7 +169,26 @@ module Alchemy
     end
 
     def editable_attributes
-      attributes.reject { |h| restricted_attributes.map(&:to_s).include?(h[:name].to_s) }
+      restricted_attriute_names = restricted_attributes.map(&:to_s)
+      shown_attributes = attributes.deep_dup
+      shown_attributes.reject! { |h| restricted_attriute_names.include?(h[:name].to_s) }
+
+      if model.respond_to?(:alchemy_resource_attribute_types)
+        input_types = model.alchemy_resource_attribute_types.stringify_keys
+        shown_attributes.each do |attribute|
+          input_type = input_types[attribute[:name].to_s]
+          attribute[:input_type] = input_type if input_type
+        end
+      end
+
+      result = []
+
+      order = model.respond_to?(:attribute_order) ? model.attribute_order.map(&:to_s) : []
+      order.each do |attribute_name|
+        attribute = shown_attributes.find { |a| attribute_name == a[:name] }
+        result << shown_attributes.delete(attribute) if attribute
+      end
+      result.concat shown_attributes
     end
 
     # Returns all attribute names that are searchable in the admin interface

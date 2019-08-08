@@ -102,7 +102,7 @@ module Alchemy
     # Returns a options hash for simple_form input fields.
     def resource_attribute_field_options(attribute)
       options = {hint: resource_handler.help_text_for(attribute)}
-      input_type = attribute[:type].to_s
+      input_type = (attribute[:input_type] || attribute[:type]).to_s
       case input_type
       when 'boolean'
         options
