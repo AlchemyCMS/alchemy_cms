@@ -1,5 +1,7 @@
 # 4.3.0 (unreleased)
 
+- Upgrade responders to version 3.0.0 [#1593](https://github.com/AlchemyCMS/alchemy_cms/pull/1593) ([depfu](https://github.com/apps/depfu))
+- Update jquery fileupload plugin [#1592](https://github.com/AlchemyCMS/alchemy_cms/pull/1592) ([tvdeyen](https://github.com/tvdeyen))
 - Only return visible elements from Pages elements relations [#1590](https://github.com/AlchemyCMS/alchemy_cms/pull/1590) ([tvdeyen](https://github.com/tvdeyen))
 - Only return visible elements from Elements nested_elements relation [#1589](https://github.com/AlchemyCMS/alchemy_cms/pull/1589) ([tvdeyen](https://github.com/tvdeyen))
 
