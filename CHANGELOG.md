@@ -1,3 +1,7 @@
+## 4.2.1 (2019-08-08)
+
+- Use strings as JSON root keys in API controllers [#1602](https://github.com/AlchemyCMS/alchemy_cms/pull/1602) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.2.0 (2019-05-30)
 
 - remove unused .teatro.yml [#1585](https://github.com/AlchemyCMS/alchemy_cms/pull/1585) ([kirillshevch](https://github.com/kirillshevch))
@@ -500,7 +504,3 @@ No changes
 ## 3.0.0 (2014-07-03)
 
 [Release Notes](https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v3.0.0)
-
-
-
-
