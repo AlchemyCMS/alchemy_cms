@@ -9,7 +9,11 @@ module.exports = {
       }
     ]
   ],
-  ga: 'UA-22277258-1',
+  plugins: [
+    ['@vuepress/google-analytics', {
+      ga: 'UA-22277258-1'
+    }]
+  ],
   themeConfig: {
     repo: 'AlchemyCMS/alchemy-guides',
     editLinks: true,
