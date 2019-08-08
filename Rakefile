@@ -55,7 +55,7 @@ BASH
       original_file = './CHANGELOG.md'
       new_file = original_file + '.new'
       backup = original_file + '.old'
-      changes = `git rev-list v#{ENV['PREVIOUS_VERSION']}...master | bundle exec github_fast_changelog AlchemyCMS/alchemy_cms`
+      changes = `git rev-list v#{ENV['PREVIOUS_VERSION']}..HEAD | bundle exec github_fast_changelog AlchemyCMS/alchemy_cms`
       File.open(new_file, 'w') do |fo|
         fo.puts changes
         File.foreach(original_file) do |li|
