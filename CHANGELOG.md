@@ -1,7 +1,13 @@
 # 4.3.0 (unreleased)
 
+- Upgrade responders to version 3.0.0 [#1593](https://github.com/AlchemyCMS/alchemy_cms/pull/1593) ([depfu](https://github.com/apps/depfu))
+- Update jquery fileupload plugin [#1592](https://github.com/AlchemyCMS/alchemy_cms/pull/1592) ([tvdeyen](https://github.com/tvdeyen))
 - Only return visible elements from Pages elements relations [#1590](https://github.com/AlchemyCMS/alchemy_cms/pull/1590) ([tvdeyen](https://github.com/tvdeyen))
 - Only return visible elements from Elements nested_elements relation [#1589](https://github.com/AlchemyCMS/alchemy_cms/pull/1589) ([tvdeyen](https://github.com/tvdeyen))
+
+## 4.2.1 (2019-08-08)
+
+- Use strings as JSON root keys in API controllers [#1602](https://github.com/AlchemyCMS/alchemy_cms/pull/1602) ([tvdeyen](https://github.com/tvdeyen))
 
 ## 4.2.0 (2019-05-30)
 
@@ -505,7 +511,3 @@ No changes
 ## 3.0.0 (2014-07-03)
 
 [Release Notes](https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v3.0.0)
-
-
-
-
