@@ -1,3 +1,9 @@
+## 4.1.1 (2019-08-09)
+
+- Fix image gallery individual image CSS height [#1586](https://github.com/AlchemyCMS/alchemy_cms/pull/1586) ([mamhoff](https://github.com/mamhoff))
+- Remove invalid bytecode handler [#1581](https://github.com/AlchemyCMS/alchemy_cms/pull/1581) ([tvdeyen](https://github.com/tvdeyen))
+- Allow Ransack 1.x [#1579](https://github.com/AlchemyCMS/alchemy_cms/pull/1579) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.1.0 (2018-09-22)
 
 - Use console.warn for Alchemy.debug [#1476](https://github.com/AlchemyCMS/alchemy_cms/pull/1476) ([tvdeyen](https://github.com/tvdeyen))
@@ -449,3 +455,4 @@ No changes
 ## 3.0.0 (2014-07-03)
 
 [Release Notes](https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v3.0.0)
+
