@@ -48,4 +48,24 @@ cd -
 BASH
     end
   end
+
+  namespace :changelog do
+    desc "Update CHANGELOG from GitHub (Set GITHUB_ACCESS_TOKEN and PREVIOUS_VERSION to a version you want to write changelog changes for)"
+    task :update do
+      original_file = './CHANGELOG.md'
+      new_file = original_file + '.new'
+      backup = original_file + '.old'
+      changes = `git rev-list v#{ENV['PREVIOUS_VERSION']}..HEAD | bundle exec github_fast_changelog AlchemyCMS/alchemy_cms`
+      File.open(new_file, 'w') do |fo|
+        fo.puts changes
+        File.foreach(original_file) do |li|
+          fo.puts li
+        end
+        fo.puts ""
+      end
+      File.rename(original_file, backup)
+      File.rename(new_file, original_file)
+      File.delete(backup)
+    end
+  end
 end

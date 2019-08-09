@@ -30,6 +30,7 @@ group :development, :test do
     gem 'listen'
     gem 'localeapp', '~> 3.0', require: false
     gem 'dotenv', '~> 2.2'
+    gem 'github_fast_changelog', require: false
   end
   gem 'capybara', '~> 3.0'
   gem 'capybara-screenshot', '~> 1.0'
