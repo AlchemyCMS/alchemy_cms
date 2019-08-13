@@ -28,7 +28,7 @@ module Alchemy
 
       # Checks if we need to change to locale or not.
       def locale_change_needed?
-        params[:admin_locale].present? || session[:alchemy_locale].blank?
+        params[:admin_locale].present? || session[:alchemy_locale].blank? || available_locale.nil?
       end
 
       # Returns either the most preferred locale that is within the list of available locales or nil
