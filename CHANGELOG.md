@@ -1,3 +1,7 @@
+## 4.1.2 (2019-08-13)
+
+- Fallback to default locale if unavailable locale requested  [#1610](https://github.com/AlchemyCMS/alchemy_cms/pull/1610) ([mamhoff](https://github.com/mamhoff))
+
 ## 4.1.1 (2019-08-09)
 
 - Fix image gallery individual image CSS height [#1586](https://github.com/AlchemyCMS/alchemy_cms/pull/1586) ([mamhoff](https://github.com/mamhoff))
