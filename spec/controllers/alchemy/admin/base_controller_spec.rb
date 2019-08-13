@@ -56,6 +56,21 @@ describe Alchemy::Admin::BaseController do
     end
   end
 
+  describe '#set_translation' do
+    context 'with unavailable locale in the session' do
+      before do
+        allow(I18n).to receive(:default_locale) { :es }
+        allow(I18n).to receive(:available_locales) { [:es] }
+        allow(controller).to receive(:session) { { alchemy_locale: 'kl'} }
+      end
+
+      it "sets I18n.locale to the default locale" do
+        controller.send(:set_translation)
+        expect(::I18n.locale).to eq(:es)
+      end
+    end
+  end
+
   describe '#is_page_preview?' do
     subject { controller.send(:is_page_preview?) }
 
