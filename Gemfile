@@ -31,14 +31,6 @@ group :development, :test do
     gem 'dotenv', '~> 2.2'
     gem 'github_fast_changelog', require: false
   end
-  gem 'capybara', '~> 3.0'
-  gem 'capybara-screenshot', '~> 1.0'
-  gem 'factory_bot_rails', '~> 5.0'
-  gem 'selenium-webdriver', '~> 3.8'
-  gem 'rspec-activemodel-mocks', '~> 1.0'
-  gem 'rspec-rails', '~> 3.7'
-  gem 'shoulda-matchers', '~> 4.0'
-  gem 'rails-controller-testing', '~> 1.0'
 end
 
 # We need this if we want to start the dummy app in production, ie on Teatro.io

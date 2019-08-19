@@ -7,11 +7,13 @@ ENV["RAILS_ENV"] = "test"
 
 require_relative('dummy/config/environment.rb')
 
-require 'rspec/rails'
-require 'selenium/webdriver'
 require 'capybara/rails'
 require 'capybara-screenshot/rspec'
+require 'rails-controller-testing'
 require 'rspec-activemodel-mocks'
+require 'rspec/rails'
+require 'selenium/webdriver'
+require 'shoulda-matchers'
 
 require 'alchemy/seeder'
 require 'alchemy/test_support/controller_requests'

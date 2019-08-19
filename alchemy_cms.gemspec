@@ -40,6 +40,15 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'simple_form',                      ['~> 4.0']
   gem.add_runtime_dependency 'turbolinks',                       ['>= 2.5']
 
+  gem.add_development_dependency 'capybara',                     ['~> 3.0']
+  gem.add_development_dependency 'capybara-screenshot',          ['~> 1.0']
+  gem.add_development_dependency 'factory_bot_rails',            ['~> 5.0']
+  gem.add_development_dependency 'rails-controller-testing',     ['~> 1.0']
+  gem.add_development_dependency 'rspec-activemodel-mocks',      ['~> 1.0']
+  gem.add_development_dependency 'rspec-rails',                  ['>= 4.0.0.beta2']
+  gem.add_development_dependency 'selenium-webdriver',           ['~> 3.8']
+  gem.add_development_dependency 'shoulda-matchers',             ['~> 4.0']
+
   gem.post_install_message = <<-MSG
 -------------------------------------------------------------
             Thank you for installing Alchemy CMS
