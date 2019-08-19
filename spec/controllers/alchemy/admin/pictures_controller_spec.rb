@@ -123,7 +123,7 @@ module Alchemy
 
         it "renders json response with success message" do
           subject
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
           expect(response.status).to eq(201)
           json = JSON.parse(response.body)
           expect(json).to have_key('growl_message')

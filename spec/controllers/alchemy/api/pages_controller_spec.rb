@@ -13,7 +13,7 @@ module Alchemy
         get :index, params: {format: :json}
 
         expect(response.status).to eq(200)
-        expect(response.content_type).to eq('application/json')
+        expect(response.media_type).to eq('application/json')
 
         result = JSON.parse(response.body)
 
@@ -28,7 +28,7 @@ module Alchemy
           get :index, params: {page_layout: 'news', format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -42,7 +42,7 @@ module Alchemy
           get :index, params: {page_layout: '', format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -60,7 +60,7 @@ module Alchemy
           get :index, params: {format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -77,7 +77,7 @@ module Alchemy
         get :nested, params: {format: :json}
 
         expect(response.status).to eq(200)
-        expect(response.content_type).to eq('application/json')
+        expect(response.media_type).to eq('application/json')
 
         result = JSON.parse(response.body)
 
@@ -105,7 +105,7 @@ module Alchemy
           get :nested, params: {format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -130,7 +130,7 @@ module Alchemy
           get :nested, params: {page_id: page.id, format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -144,7 +144,7 @@ module Alchemy
           get :nested, params: {elements: 'true', format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -183,7 +183,7 @@ module Alchemy
           get :show, params: {urlname: page.urlname, format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -197,7 +197,7 @@ module Alchemy
             get :show, params: {urlname: page.urlname, format: :json}
 
             expect(response.status).to eq(403)
-            expect(response.content_type).to eq('application/json')
+            expect(response.media_type).to eq('application/json')
 
             result = JSON.parse(response.body)
 
@@ -213,7 +213,7 @@ module Alchemy
             get :show, params: {urlname: page.urlname, format: :json}
 
             expect(response.status).to eq(403)
-            expect(response.content_type).to eq('application/json')
+            expect(response.media_type).to eq('application/json')
 
             result = JSON.parse(response.body)
 
@@ -228,7 +228,7 @@ module Alchemy
           get :show, params: {urlname: 'not-existing', format: :json}
 
           expect(response.status).to eq(404)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -253,7 +253,7 @@ module Alchemy
           get :show, params: {id: page.id, format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
