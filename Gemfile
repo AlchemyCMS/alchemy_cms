@@ -2,7 +2,7 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 6.0.0'
 
 # Profiling
 gem 'rack-mini-profiler', group: :development, require: false
@@ -11,6 +11,8 @@ gem 'sqlite3', '~> 1.4.1' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
 gem 'mysql2', '~> 0.5.1' if ENV['DB'] == 'mysql'
 gem 'pg',     '~> 1.0'   if ENV['DB'] == 'postgresql'
 gem 'sassc-rails'
+
+gem 'awesome_nested_set', github: 'collectiveidea/awesome_nested_set'
 
 group :development, :test do
   gem 'simplecov', require: false
