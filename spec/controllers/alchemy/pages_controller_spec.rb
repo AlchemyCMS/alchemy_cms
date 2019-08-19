@@ -216,7 +216,7 @@ module Alchemy
 
       it "should render a rss feed" do
         get :show, params: {urlname: page.urlname, format: :rss}
-        expect(response.content_type).to eq('application/rss+xml')
+        expect(response.media_type).to eq('application/rss+xml')
       end
 
       it "should include content" do

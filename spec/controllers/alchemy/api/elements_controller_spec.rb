@@ -18,7 +18,7 @@ module Alchemy
         get :index, params: {format: :json}
 
         expect(response.status).to eq(200)
-        expect(response.content_type).to eq('application/json')
+        expect(response.media_type).to eq('application/json')
 
         result = JSON.parse(response.body)
         expect(result).to have_key('elements')
@@ -34,7 +34,7 @@ module Alchemy
           get :index, params: {page_id: other_page.id, format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -49,7 +49,7 @@ module Alchemy
           get :index, params: {page_id: '', format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -65,7 +65,7 @@ module Alchemy
           get :index, params: {named: 'news', format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -80,7 +80,7 @@ module Alchemy
           get :index, params: {named: '', format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -98,7 +98,7 @@ module Alchemy
           get :index, params: {format: :json}
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -120,7 +120,7 @@ module Alchemy
         get :show, params: {id: element.id, format: :json}
 
         expect(response.status).to eq(200)
-        expect(response.content_type).to eq('application/json')
+        expect(response.media_type).to eq('application/json')
 
         result = JSON.parse(response.body)
 
@@ -134,7 +134,7 @@ module Alchemy
           get :show, params: {id: element.id, format: :json}
 
           expect(response.status).to eq(403)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 

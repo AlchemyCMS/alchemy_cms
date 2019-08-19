@@ -107,7 +107,7 @@ module Alchemy
           get_tree
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -151,7 +151,7 @@ module Alchemy
             get tree_admin_pages_path(id: page_1.id, full: 'false')
 
             expect(response.status).to eq(200)
-            expect(response.content_type).to eq('application/json')
+            expect(response.media_type).to eq('application/json')
 
             result = JSON.parse(response.body)
             page = result['pages'].first['children'].first
@@ -169,7 +169,7 @@ module Alchemy
             get_tree
 
             expect(response.status).to eq(200)
-            expect(response.content_type).to eq('application/json')
+            expect(response.media_type).to eq('application/json')
 
             result = JSON.parse(response.body)
 
