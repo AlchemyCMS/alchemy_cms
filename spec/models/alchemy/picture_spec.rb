@@ -111,38 +111,6 @@ module Alchemy
       end
     end
 
-    describe '#security_token' do
-      before { @pic = stub_model(Picture, id: 1) }
-
-      it "should return a sha1 hash" do
-        expect(@pic.security_token).to match(/\b([a-f0-9]{16})\b/)
-      end
-
-      it "should return a 16 chars long hash" do
-        @pic.security_token.length == 16
-      end
-
-      it "should convert crop true value into string" do
-        digest = PictureAttributes.secure({id: @pic.id, crop: 'crop'})
-        expect(@pic.security_token(crop: true)).to eq(digest)
-      end
-
-      it "should always include picture id" do
-        digest = PictureAttributes.secure({id: @pic.id})
-        expect(@pic.security_token).to eq(digest)
-      end
-
-      it "should remove all not suitable options" do
-        digest = PictureAttributes.secure({id: @pic.id})
-        expect(@pic.security_token({foo: 'baz'})).to eq(digest)
-      end
-
-      it "should remove all option values that have nil values" do
-        digest = PictureAttributes.secure({id: @pic.id})
-        expect(@pic.security_token({crop: nil})).to eq(digest)
-      end
-    end
-
     describe ".search_by" do
       subject(:search_by) { Picture.search_by(params, query, per_page) }
 

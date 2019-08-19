@@ -246,26 +246,5 @@ module Alchemy
     def image_file_dimensions
       "#{image_file_width}x#{image_file_height}"
     end
-
-    # Returns a security token for signed picture rendering requests.
-    #
-    # Pass a params hash containing:
-    #
-    #   size       [String]  (Optional)
-    #   crop       [Boolean] (Optional)
-    #   crop_from  [String]  (Optional)
-    #   crop_size  [String]  (Optional)
-    #   quality    [Integer] (Optional)
-    #
-    # to sign them.
-    #
-    def security_token(params = {})
-      params = params.dup.stringify_keys
-      params.update({
-        'crop' => params['crop'] ? 'crop' : nil,
-        'id' => id
-      })
-      PictureAttributes.secure(params)
-    end
   end
 end
