@@ -2,6 +2,7 @@ language: ruby
 dist: trusty
 sudo: false
 addons:
+  postgresql: "9.4"
   apt:
     packages:
       - chromium-chromedriver
