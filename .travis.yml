@@ -1,6 +1,8 @@
 language: ruby
 dist: bionic
 sudo: false
+services:
+  - mysql
 addons:
   postgresql: "10"
   apt:
