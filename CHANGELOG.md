@@ -5,6 +5,10 @@
 - Only return visible elements from Pages elements relations [#1590](https://github.com/AlchemyCMS/alchemy_cms/pull/1590) ([tvdeyen](https://github.com/tvdeyen))
 - Only return visible elements from Elements nested_elements relation [#1589](https://github.com/AlchemyCMS/alchemy_cms/pull/1589) ([tvdeyen](https://github.com/tvdeyen))
 
+## 4.2.2 (2019-08-13)
+
+- Fallback to default locale if unavailable locale requested  [#1610](https://github.com/AlchemyCMS/alchemy_cms/pull/1610) ([mamhoff](https://github.com/mamhoff))
+
 ## 4.2.1 (2019-08-08)
 
 - Use strings as JSON root keys in API controllers [#1602](https://github.com/AlchemyCMS/alchemy_cms/pull/1602) ([tvdeyen](https://github.com/tvdeyen))
