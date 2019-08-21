@@ -51,7 +51,7 @@ or visit the existing demo at https://alchemy-demo.herokuapp.com
 
 ## 🚂 Rails Version
 
-**This version of Alchemy CMS runs with Rails 5 only**
+**This version of AlchemyCMS runs with all versions of Rails 5 and Rails 6**
 
 * For a Rails 4.2 compatible version use the [`3.6-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.6-stable).
 * For a Rails 4.0/4.1 compatible version use the [`3.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.1-stable).
