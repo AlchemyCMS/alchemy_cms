@@ -21,7 +21,7 @@ Gem::Specification.new do |s|
   s.add_development_dependency "capybara"
   s.add_development_dependency "factory_bot_rails"
   s.add_development_dependency "rspec-activemodel-mocks", "~> 1.0"
-  s.add_development_dependency "rspec-rails",             "~> 3.1"
+  s.add_development_dependency "rspec-rails",             "~> 4.0.0.beta2"
 
   s.post_install_message =<<-MSG
 In order to complete the installation or the upgrade of Alchemy::Devise run:
