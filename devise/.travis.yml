@@ -1,5 +1,9 @@
 language: ruby
-dist: trusty
+dist: bionic
+services:
+  - mysql
+addons:
+  postgresql: "10"
 sudo: false
 cache: bundler
 rvm:
