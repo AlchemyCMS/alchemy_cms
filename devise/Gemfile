@@ -5,6 +5,7 @@ gemspec
 gem 'rails', ['>= 5.2.1.1', '< 5.3']
 gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
 gem 'sassc-rails'
+gem 'awesome_nested_set', github: 'collectiveidea/awesome_nested_set'
 
 unless ENV['CI']
   gem 'pry'
