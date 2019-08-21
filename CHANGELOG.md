@@ -1,5 +1,11 @@
 # 4.3.0 (unreleased)
 
+- Add Rails 6 support [#1616](https://github.com/AlchemyCMS/alchemy_cms/pull/1616) ([tvdeyen](https://github.com/tvdeyen))
+- Use media_type over content_type in specs [#1615](https://github.com/AlchemyCMS/alchemy_cms/pull/1615) ([tvdeyen](https://github.com/tvdeyen))
+- Remove unused Picture#security_token method [#1614](https://github.com/AlchemyCMS/alchemy_cms/pull/1614) ([tvdeyen](https://github.com/tvdeyen))
+- rspec-rails 4 [#1613](https://github.com/AlchemyCMS/alchemy_cms/pull/1613) ([tvdeyen](https://github.com/tvdeyen))
+- Update Dummy test app to Rails 5.2 [#1612](https://github.com/AlchemyCMS/alchemy_cms/pull/1612) ([tvdeyen](https://github.com/tvdeyen))
+- add default styling for number inputs [#1598](https://github.com/AlchemyCMS/alchemy_cms/pull/1598) ([alexanderadam](https://github.com/alexanderadam))
 - Upgrade responders to version 3.0.0 [#1593](https://github.com/AlchemyCMS/alchemy_cms/pull/1593) ([depfu](https://github.com/apps/depfu))
 - Update jquery fileupload plugin [#1592](https://github.com/AlchemyCMS/alchemy_cms/pull/1592) ([tvdeyen](https://github.com/tvdeyen))
 - Only return visible elements from Pages elements relations [#1590](https://github.com/AlchemyCMS/alchemy_cms/pull/1590) ([tvdeyen](https://github.com/tvdeyen))
@@ -49,6 +55,7 @@
 - Use Flatpickr as Datepicker [#1533](https://github.com/AlchemyCMS/alchemy_cms/pull/1533) ([mamhoff](https://github.com/mamhoff))
 - Use system tests over feature specs [#1528](https://github.com/AlchemyCMS/alchemy_cms/pull/1528) ([tvdeyen](https://github.com/tvdeyen))
 - Flexible width for admin navigation entry labels [#1527](https://github.com/AlchemyCMS/alchemy_cms/pull/1527) ([tvdeyen](https://github.com/tvdeyen))
+- Render new page when there is a flash message [#1525](https://github.com/AlchemyCMS/alchemy_cms/pull/1525) ([jedrekdomanski](https://github.com/jedrekdomanski))
 - Responsive elements window and sidebar [#1519](https://github.com/AlchemyCMS/alchemy_cms/pull/1519) ([tvdeyen](https://github.com/tvdeyen))
 - Change element eye icon on public state [#1517](https://github.com/AlchemyCMS/alchemy_cms/pull/1517) ([oniram88](https://github.com/oniram88))
 - Maximize element window if Tinymce is fullscreen [#1515](https://github.com/AlchemyCMS/alchemy_cms/pull/1515) ([tvdeyen](https://github.com/tvdeyen))
@@ -56,6 +63,7 @@
 - Feature: Autogenerate nestable elements [#1513](https://github.com/AlchemyCMS/alchemy_cms/pull/1513) ([tvdeyen](https://github.com/tvdeyen))
 - Allow "data" key for module navigations [#1512](https://github.com/AlchemyCMS/alchemy_cms/pull/1512) ([mamhoff](https://github.com/mamhoff))
 - Allow to define layout for page previews [#1500](https://github.com/AlchemyCMS/alchemy_cms/pull/1500) ([westonganger](https://github.com/westonganger))
+- Disable page publish/view page buttons according to published_at [#1498](https://github.com/AlchemyCMS/alchemy_cms/pull/1498) ([westonganger](https://github.com/westonganger))
 - Fix capitalization for login/logout/leave [#1497](https://github.com/AlchemyCMS/alchemy_cms/pull/1497) ([westonganger](https://github.com/westonganger))
 - Verify controller keys within `register_module` [#1495](https://github.com/AlchemyCMS/alchemy_cms/pull/1495) ([westonganger](https://github.com/westonganger))
 - Update bundled Tinymce to 4.8.3 [#1491](https://github.com/AlchemyCMS/alchemy_cms/pull/1491) ([tvdeyen](https://github.com/tvdeyen))
@@ -515,3 +523,4 @@ No changes
 ## 3.0.0 (2014-07-03)
 
 [Release Notes](https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v3.0.0)
+
