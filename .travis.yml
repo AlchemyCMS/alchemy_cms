@@ -1,16 +1,18 @@
 language: ruby
-dist: trusty
+dist: bionic
 sudo: false
+services:
+  - mysql
 addons:
+  postgresql: "10"
   apt:
     packages:
       - chromium-chromedriver
 cache:
   bundler: true
 rvm:
-- 2.4.5
-- 2.5.3
-- 2.6.0
+  - 2.5.5
+  - 2.6.3
 before_install:
   - gem install bundler
 before_script:
@@ -19,8 +21,8 @@ before_script:
 script: bundle exec rspec
 after_success: bundle exec codeclimate-test-reporter
 env:
-- DB=mysql
-- DB=postgresql
+  - DB=mysql
+  - DB=postgresql
 notifications:
   slack:
     secure: QzOFw1Ph69pzwWBFgtIVkOnjbcRxB9HPRQ+RYjK+2tg+fsbiTJ+wYgHcZL49tPYcLAls4kymkFWzWBF3PCAXJMfKgUCqXzdQ2FuJC/JoVRTLll4wDnZFPG33jsm5tVznmycZ3ma4+ZWfJQ+C+elEBOba6v1kG9eGIy6sH2cvXfE=

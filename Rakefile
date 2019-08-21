@@ -42,6 +42,7 @@ namespace :alchemy do
       system <<-BASH
 cd spec/dummy
 export RAILS_ENV=test
+bin/rake db:create
 bin/rake db:environment:set
 bin/rake db:migrate:reset
 cd -

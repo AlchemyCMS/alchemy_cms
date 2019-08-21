@@ -4,6 +4,7 @@ sqlite: &sqlite
 
 mysql: &mysql
   adapter: mysql2
+  encoding: utf8mb4
   username: root
   password:
   database: alchemy_cms_dummy_<%= Rails.env %>
