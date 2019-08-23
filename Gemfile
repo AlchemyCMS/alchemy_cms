@@ -12,8 +12,6 @@ gem 'mysql2', '~> 0.5.1' if ENV['DB'] == 'mysql'
 gem 'pg',     '~> 1.0'   if ENV['DB'] == 'postgresql'
 gem 'sassc-rails'
 
-gem 'awesome_nested_set', github: 'collectiveidea/awesome_nested_set'
-
 group :development, :test do
   gem 'simplecov', require: false
   gem 'bootsnap', require: false
