@@ -1,4 +1,4 @@
-# 4.3.0 (unreleased)
+# 4.3.0 (2019-08-23)
 
 - Add Rails 6 support [#1616](https://github.com/AlchemyCMS/alchemy_cms/pull/1616) ([tvdeyen](https://github.com/tvdeyen))
 - Use media_type over content_type in specs [#1615](https://github.com/AlchemyCMS/alchemy_cms/pull/1615) ([tvdeyen](https://github.com/tvdeyen))
