@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "Password Routing" do
   routes { Alchemy::Engine.routes }

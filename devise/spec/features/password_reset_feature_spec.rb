@@ -1,4 +1,4 @@
-require 'spec_helper'
+require 'rails_helper'
 
 describe "Password reset feature." do
   let(:user) { create(:alchemy_admin_user) }
