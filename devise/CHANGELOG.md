@@ -1,3 +1,8 @@
+## 4.3.0 (2019-08-23)
+
+- Move test dependencies [#86](https://github.com/AlchemyCMS/alchemy-devise/pull/86) ([tvdeyen](https://github.com/tvdeyen))
+- Test with Rails 6 [#85](https://github.com/AlchemyCMS/alchemy-devise/pull/85) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.2.1 (2019-05-15)
 
 - Remove test files from built Ruby gem [#82](https://github.com/AlchemyCMS/alchemy-devise/pull/82) ([tvdeyen](https://github.com/tvdeyen))
@@ -31,3 +36,5 @@
 - Send code coverage results after successful build [#60](https://github.com/AlchemyCMS/alchemy-devise/pull/60) ([tvdeyen](https://github.com/tvdeyen))
 - Allow to configure devise modules [#59](https://github.com/AlchemyCMS/alchemy-devise/pull/59) ([tvdeyen](https://github.com/tvdeyen))
 - Rails 5, Alchemy 4, Devise 4 [#58](https://github.com/AlchemyCMS/alchemy-devise/pull/58) ([tvdeyen](https://github.com/tvdeyen))
+
+
