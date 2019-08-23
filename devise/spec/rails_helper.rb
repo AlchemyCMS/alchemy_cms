@@ -6,6 +6,7 @@ require_relative './spec_helper'
 ENV["RAILS_ENV"] ||= "test"
 
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
+require 'rails-controller-testing'
 require "rspec/rails"
 require 'rspec/active_model/mocks'
 require "capybara/rails"
