@@ -5,9 +5,8 @@ cache:
   directories:
     - "travis_phantomjs"
 rvm:
-- 2.1
-- 2.2
-- 2.3.0
+- 2.3
+- 2.4
 branches:
   only:
     - 3.6-stable
