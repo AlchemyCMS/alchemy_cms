@@ -5,7 +5,7 @@ gemspec
 # Profiling
 gem 'rack-mini-profiler', group: :development, require: false
 
-gem 'sqlite3' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
+gem 'sqlite3', '~> 1.3.6' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
 gem 'mysql2', '~> 0.3.18' if ENV['DB'] == 'mysql'
 gem 'pg',     '~> 0.21'   if ENV['DB'] == 'postgresql'
 gem 'sassc-rails'
