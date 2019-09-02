@@ -1,5 +1,8 @@
 language: ruby
 sudo: false
+services:
+  - mysql
+  - postgresql
 cache:
   bundler: true
   directories:
