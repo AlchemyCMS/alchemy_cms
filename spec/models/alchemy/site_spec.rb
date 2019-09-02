@@ -12,35 +12,21 @@ module Alchemy
       end
 
       context 'when being saved' do
-        context 'when it has no languages yet' do
-          it 'should automatically create a default language' do
-            subject.save!
-            expect(subject.languages.count).to eq(1)
-            expect(subject.languages.first).to be_default
-          end
-
-          context 'when default language configuration is missing' do
-            before do
-              stub_alchemy_config(:default_language, nil)
-            end
-
-            it 'raises error' do
-              expect {
-                subject.save!
-              }.to raise_error(DefaultLanguageNotFoundError)
-            end
-          end
+        it 'should automatically create a default language' do
+          subject.save!
+          expect(subject.languages.count).to eq(1)
+          expect(subject.languages.first).to be_default
         end
 
-        context 'when it already has a language' do
-          let(:language) { build(:alchemy_language, site: nil) }
-          before { subject.languages << language }
+        context 'when default language configuration is missing' do
+          before do
+            stub_alchemy_config(:default_language, nil)
+          end
 
-          it 'should not create any additional languages' do
-            expect(subject.languages).to eq([language])
-
-            expect { subject.save! }.
-              to_not change(subject, "languages")
+          it 'raises error' do
+            expect {
+              subject.save!
+            }.to raise_error(DefaultLanguageNotFoundError)
           end
         end
       end

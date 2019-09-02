@@ -24,7 +24,7 @@ module Alchemy
     scope :published, -> { where(public: true) }
 
     # Callbacks
-    before_create :create_default_language!, unless: -> { languages.any? }
+    before_create :create_default_language!
 
     # concerns
     include Alchemy::Site::Layout
