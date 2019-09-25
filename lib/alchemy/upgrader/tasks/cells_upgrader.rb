@@ -129,7 +129,7 @@ module Alchemy::Upgrader::Tasks
       Dir.glob("#{alchemy_views_folder}/**/*").each do |view|
         next if File.directory?(view)
         gsub_file(view, /render_cell[\(\s]?([:'"]?[a-z_]+['"]?)\)?/, 'render_elements(only: \1, fixed: true)')
-        gsub_file(view, /render_elements[\(\s](.*):?from_cell:?\s?(=>)?\s?['"]([a-z_]+)['"]\)?/, 'render_elements(\1only: \3, fixed: true)')
+        gsub_file(view, /render_elements[\(\s](.*):?from_cell:?\s?(=>)?\s?(['"][a-z_]+['"])\)?/, 'render_elements(\1only: \3, fixed: true)')
       end
     end
 
