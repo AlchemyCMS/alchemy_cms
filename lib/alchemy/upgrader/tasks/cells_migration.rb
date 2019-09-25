@@ -30,8 +30,10 @@ module Alchemy::Upgrader::Tasks
       elements = Alchemy::Element.where(cell_id: cell.id)
 
       if fixed_element.new_record?
-        fixed_element.nested_elements = elements
         fixed_element.save!
+        Alchemy::Element.acts_as_list_no_update do
+          elements.update_all(parent_element_id: fixed_element.id)
+        end
         puts "Created new fixed element '#{fixed_element.name}' for cell '#{cell.name}'."
       else
         puts "Element for cell '#{cell.name}' already present. Skip"
