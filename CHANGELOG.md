@@ -1,3 +1,10 @@
+## 4.3.1 (2019-09-27)
+
+- Fix Cell Migration to maintain positions [#1625](https://github.com/AlchemyCMS/alchemy_cms/pull/1625) ([mamhoff](https://github.com/mamhoff))
+- Cell Upgrader: Match quotation marks in cell name string [#1624](https://github.com/AlchemyCMS/alchemy_cms/pull/1624) ([mamhoff](https://github.com/mamhoff))
+- Cell Migrator: Maintain element order in fixed elements [#1623](https://github.com/AlchemyCMS/alchemy_cms/pull/1623) ([mamhoff](https://github.com/mamhoff))
+- Enhance cells upgrader to deal with render_elements from_page: x [#1622](https://github.com/AlchemyCMS/alchemy_cms/pull/1622) ([mamhoff](https://github.com/mamhoff))
+
 # 4.3.0 (2019-08-23)
 
 - Add Rails 6 support [#1616](https://github.com/AlchemyCMS/alchemy_cms/pull/1616) ([tvdeyen](https://github.com/tvdeyen))
@@ -10,6 +17,13 @@
 - Update jquery fileupload plugin [#1592](https://github.com/AlchemyCMS/alchemy_cms/pull/1592) ([tvdeyen](https://github.com/tvdeyen))
 - Only return visible elements from Pages elements relations [#1590](https://github.com/AlchemyCMS/alchemy_cms/pull/1590) ([tvdeyen](https://github.com/tvdeyen))
 - Only return visible elements from Elements nested_elements relation [#1589](https://github.com/AlchemyCMS/alchemy_cms/pull/1589) ([tvdeyen](https://github.com/tvdeyen))
+
+## 4.2.3 (2019-09-27)
+
+- Fix Cell Migration to maintain positions [#1625](https://github.com/AlchemyCMS/alchemy_cms/pull/1625) ([mamhoff](https://github.com/mamhoff))
+- Cell Upgrader: Match quotation marks in cell name string [#1624](https://github.com/AlchemyCMS/alchemy_cms/pull/1624) ([mamhoff](https://github.com/mamhoff))
+- Cell Migrator: Maintain element order in fixed elements [#1623](https://github.com/AlchemyCMS/alchemy_cms/pull/1623) ([mamhoff](https://github.com/mamhoff))
+- Enhance cells upgrader to deal with render_elements from_page: x [#1622](https://github.com/AlchemyCMS/alchemy_cms/pull/1622) ([mamhoff](https://github.com/mamhoff))
 
 ## 4.2.2 (2019-08-13)
 
