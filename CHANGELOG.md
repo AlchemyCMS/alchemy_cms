@@ -1,3 +1,7 @@
+## 4.2.4 (2019-09-27)
+
+- Allow Ransack 1.8 (again) [#1628](https://github.com/AlchemyCMS/alchemy_cms/pull/1628) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.2.3 (2019-09-27)
 
 - Fix Cell Migration to maintain positions [#1625](https://github.com/AlchemyCMS/alchemy_cms/pull/1625) ([mamhoff](https://github.com/mamhoff))
