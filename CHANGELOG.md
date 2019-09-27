@@ -1,3 +1,10 @@
+## 4.2.3 (2019-09-27)
+
+- Fix Cell Migration to maintain positions [#1625](https://github.com/AlchemyCMS/alchemy_cms/pull/1625) ([mamhoff](https://github.com/mamhoff))
+- Cell Upgrader: Match quotation marks in cell name string [#1624](https://github.com/AlchemyCMS/alchemy_cms/pull/1624) ([mamhoff](https://github.com/mamhoff))
+- Cell Migrator: Maintain element order in fixed elements [#1623](https://github.com/AlchemyCMS/alchemy_cms/pull/1623) ([mamhoff](https://github.com/mamhoff))
+- Enhance cells upgrader to deal with render_elements from_page: x [#1622](https://github.com/AlchemyCMS/alchemy_cms/pull/1622) ([mamhoff](https://github.com/mamhoff))
+
 ## 4.2.2 (2019-08-13)
 
 - Fallback to default locale if unavailable locale requested  [#1610](https://github.com/AlchemyCMS/alchemy_cms/pull/1610) ([mamhoff](https://github.com/mamhoff))
