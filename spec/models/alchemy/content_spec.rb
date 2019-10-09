@@ -155,31 +155,59 @@ module Alchemy
     end
 
     describe '.new' do
-      let(:element) { build_stubbed(:alchemy_element) }
+      let(:element) { build(:alchemy_element) }
 
-      it "builds a new instance from elements.yml definition" do
-        expect(Content.new({element: element, name: 'headline'})).to be_instance_of(Content)
+      subject { Content.new({element: element, name: 'headline'}) }
+
+      it "builds a new content instance from elements.yml definition" do
+        is_expected.to be_instance_of(Content)
+        is_expected.to_not be_persisted
+      end
+
+      it "builds a new essence instance from elements.yml definition" do
+        expect(subject.essence).to be_instance_of(EssenceText)
+        expect(subject.essence).to_not be_persisted
       end
     end
 
     describe '.create' do
       let(:element) { create(:alchemy_element, name: 'article') }
 
-      it "builds the content" do
-        expect(Content.create(element: element, name: 'headline')).to be_instance_of(Alchemy::Content)
+      subject(:content) { Content.create(element: element, name: 'headline') }
+
+      it "creates the content" do
+        is_expected.to be_instance_of(Alchemy::Content)
+        is_expected.to be_persisted
       end
 
       it "creates the essence" do
-        expect(Content.create(element: element, name: 'headline').essence).to_not be_nil
+        expect(subject.essence).to be_instance_of(Alchemy::EssenceText)
+        expect(subject.essence).to be_persisted
       end
 
       context "with default value present" do
         it "should have the ingredient column filled with default value." do
-          allow_any_instance_of(Element).to receive(:content_definition_for) do
-            {'name' => 'headline', 'type' => 'EssenceText', 'default' => 'Welcome'}
+          allow_any_instance_of(Content).to receive(:definition) do
+            {
+              'name' => 'headline',
+              'type' => 'EssenceText',
+              'default' => 'Welcome'
+            }.with_indifferent_access
           end
-          content = Content.create(element: element, name: 'headline')
           expect(content.ingredient).to eq("Welcome")
+        end
+
+        context 'with default value being a symbol' do
+          it "passes default value through I18n." do
+            allow_any_instance_of(Content).to receive(:definition) do
+              {
+                'name' => 'headline',
+                'type' => 'EssenceText',
+                'default' => :welcome
+              }.with_indifferent_access
+            end
+            expect(content.ingredient).to eq("Welcome to my site")
+          end
         end
       end
     end
@@ -196,6 +224,10 @@ module Alchemy
       context "no essence associated" do
         let(:element) { create(:alchemy_element, name: 'headline') }
         let(:content) { Alchemy::Content.new(element: element, name: 'headline').tap(&:save) }
+
+        before do
+          expect(content).to receive(:essence) { nil }
+        end
 
         it "should raise error" do
           expect { content.ingredient = "Welcome" }.to raise_error(EssenceMissingError)

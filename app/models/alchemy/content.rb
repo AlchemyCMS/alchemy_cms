@@ -255,7 +255,7 @@ module Alchemy
     #
     # If the value is a symbol it gets passed through i18n
     # inside the +alchemy.default_content_texts+ scope
-    def default_text(default)
+    def default_value(default = definition[:default])
       case default
       when Symbol
         Alchemy.t(default, scope: :default_content_texts)
