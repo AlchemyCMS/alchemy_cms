@@ -22,7 +22,11 @@ module Alchemy
         if definition.blank?
           raise ContentDefinitionError, "No definition found in elements.yml for #{attributes.inspect} and #{element.inspect}"
         end
-        super(name: definition['name'], element_id: element.id)
+        super(
+          name: definition[:name],
+          essence_type: normalize_essence_type(definition[:type]),
+          element_id: element.id
+        ).tap(&:build_essence)
       end
       alias_method :build, :new
       deprecate build: :new, deprecator: Alchemy::Deprecation
@@ -43,7 +47,7 @@ module Alchemy
           element = attributes[:element]
         end
         new(attributes.merge(element: element)).tap do |content|
-          content.create_essence!(attributes[:essence_type])
+          content.essence.save && content.save
         end
       end
       alias_method :create_from_scratch, :create
@@ -119,12 +123,22 @@ module Alchemy
       element.content_definition_for(name) || {}
     end
 
+    # Build essence from definition.
+    #
+    # If an optional type is passed, this type of essence gets created.
+    #
+    def build_essence(type = essence_type)
+      self.essence = essence_class(type).new({
+        ingredient: default_value
+      })
+    end
+
     # Creates essence from definition.
     #
     # If an optional type is passed, this type of essence gets created.
     #
     def create_essence!(type = nil)
-      self.essence = essence_class(type).create!(prepared_attributes_for_essence)
+      build_essence(type).save!
       save!
     end
 
@@ -136,17 +150,6 @@ module Alchemy
     #
     def essence_class(type = nil)
       Content.normalize_essence_type(type || definition['type']).constantize
-    end
-
-    # Prepares the attributes for creating the essence.
-    #
-    # 1. It sets a default text if given in +elements.yml+
-    #
-    def prepared_attributes_for_essence
-      attributes = {
-        ingredient: default_text(definition['default'])
-      }
-      attributes
     end
   end
 end
