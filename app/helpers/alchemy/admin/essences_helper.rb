@@ -76,14 +76,14 @@ module Alchemy
       deprecate :render_missing_content, deprecator: Alchemy::Deprecation
 
       # Renders a thumbnail for given EssencePicture content with correct cropping and size
-      def essence_picture_thumbnail(content, options = {})
+      def essence_picture_thumbnail(content)
         picture = content.ingredient
         essence = content.essence
 
         return if picture.nil?
 
         image_tag(
-          essence.thumbnail_url(options),
+          essence.thumbnail_url,
           alt: picture.name,
           class: 'img_paddingtop',
           title: Alchemy.t(:image_name) + ": #{picture.name}"
@@ -91,11 +91,11 @@ module Alchemy
       end
 
       # Size value for edit picture dialog
-      def edit_picture_dialog_size(content, options = {})
-        if content.settings_value(:caption_as_textarea, options)
-          content.settings_value(:sizes, options) ? '380x320' : '380x300'
+      def edit_picture_dialog_size(content)
+        if content.settings[:caption_as_textarea]
+          content.settings[:sizes] ? '380x320' : '380x300'
         else
-          content.settings_value(:sizes, options) ? '380x290' : '380x255'
+          content.settings[:sizes] ? '380x290' : '380x255'
         end
       end
 
