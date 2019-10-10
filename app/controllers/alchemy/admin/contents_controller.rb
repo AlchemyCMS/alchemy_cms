@@ -9,7 +9,6 @@ module Alchemy
 
       def create
         @content = Content.create(content_params)
-        @html_options = params[:html_options] || {}
       end
 
       private
