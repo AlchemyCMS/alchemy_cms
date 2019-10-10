@@ -8,7 +8,7 @@ module Alchemy
 
     before { authorize_user(:as_admin) }
 
-    let(:essence) { EssencePicture.new }
+    let(:essence) { EssencePicture.new(content: content, picture: picture) }
     let(:content) { Content.new }
     let(:picture) { Picture.new }
 
@@ -51,10 +51,13 @@ module Alchemy
           }
         end
 
+        let(:settings) { {} }
+
         before do
           picture.image_file_width = 300
           picture.image_file_height = 250
           expect(essence).to receive(:picture).at_least(:once).and_return(picture)
+          allow(content).to receive(:settings) { settings }
         end
 
         context 'with no render_size present in essence' do
@@ -62,14 +65,18 @@ module Alchemy
             expect(essence).to receive(:render_size).at_least(:once).and_return(nil)
           end
 
-          context 'with sizes in params' do
+          context 'with sizes in content settings' do
+            let(:settings) do
+              { size: '300x250' }
+            end
+
             it "sets sizes to given values" do
-              get :crop, params: {id: 1, options: {size: '300x250'}}
+              get :crop, params: {id: 1}
               expect(assigns(:min_size)).to eq({ width: 300, height: 250 })
             end
           end
 
-          context 'with no sizes in params' do
+          context 'with no sizes in content settngs' do
             it "sets sizes to zero" do
               get :crop, params: {id: 1}
               expect(assigns(:min_size)).to eq({ width: 0, height: 0 })
@@ -93,20 +100,32 @@ module Alchemy
               expect(assigns(:min_size)).to eq({ width: 30, height: 0})
             end
 
-            it 'does not infer the height from the image file preserving the aspect ratio' do
-              expect(essence).to receive(:render_size).at_least(:once).and_return('x25')
+            context "and aspect ratio set on the contents settings" do
+              let(:settings) do
+                { fixed_ratio: "2" }
+              end
 
-              get :crop, params: {id: 1, options: { fixed_ratio: "2"}}
-              expect(assigns(:min_size)).to eq({ width: 50, height: 25 })
+              it 'does not infer the height from the image file preserving the aspect ratio' do
+                expect(essence).to receive(:render_size).at_least(:once).and_return('x25')
+
+                get :crop, params: {id: 1}
+                expect(assigns(:min_size)).to eq({ width: 50, height: 25 })
+              end
             end
           end
 
           context 'when width or height is not fixed and an aspect ratio is given' do
-            it 'width is given, it infers the height from width and ratio' do
-              expect(essence).to receive(:render_size).at_least(:once).and_return('30x')
+            context "and aspect ratio set on the contents setting" do
+              let(:settings) do
+                { fixed_ratio: "0.5" }
+              end
 
-              get :crop, params: {id: 1, options: { fixed_ratio: "0.5" }}
-              expect(assigns(:min_size)).to eq({ width: 30, height: 60 })
+              it 'width is given, it infers the height from width and ratio' do
+                expect(essence).to receive(:render_size).at_least(:once).and_return('30x')
+
+                get :crop, params: {id: 1}
+                expect(assigns(:min_size)).to eq({ width: 30, height: 60 })
+              end
             end
 
             it 'infers the height from the image file preserving the aspect ratio' do
@@ -148,22 +167,34 @@ module Alchemy
         end
 
         context 'with fixed_ratio set to false' do
+          let(:settings) do
+            { fixed_ratio: false }
+          end
+
           it "sets ratio to false" do
-            get :crop, params: {id: 1, options: {fixed_ratio: false}}
+            get :crop, params: {id: 1}
             expect(assigns(:ratio)).to eq(false)
           end
         end
 
         context 'with fixed_ratio set to a non float string' do
+          let(:settings) do
+            { fixed_ratio: '123,45' }
+          end
+
           it "doesn't set a fixed ratio" do
-            get :crop, params: {id: 1, options: {fixed_ratio: '123,45'}}
+            get :crop, params: {id: 1}
             expect(assigns(:ratio)).to eq(false)
           end
         end
 
-        context 'with no fixed_ratio set in params' do
+        context 'with no fixed_ratio set' do
+          let(:settings) do
+            { size: '80x60' }
+          end
+
           it "sets a fixed ratio from sizes" do
-            get :crop, params: {id: 1, options: {size: '80x60'}}
+            get :crop, params: {id: 1}
             expect(assigns(:ratio)).to eq(80.0 / 60.0)
           end
         end
