@@ -22,7 +22,9 @@ module Alchemy
         end
 
         it "renders the element's editor partial" do
-          is_expected.to have_selector('div.content_editor > label', text: 'Headline')
+          element_editor_partial_name = "alchemy/elements/#{element.name}_editor"
+          expect(helper).to receive(:render).with(element_editor_partial_name, element: element) { '' }
+          subject
         end
 
         context 'with element editor partial not found' do

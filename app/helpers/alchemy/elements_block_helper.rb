@@ -56,11 +56,12 @@ module Alchemy
     end
 
     # Block-level helper class for element editors.
-    #
+    # @deprecated
     class ElementEditorHelper < BlockHelper
       def edit(name, *args)
         helpers.render_essence_editor_by_name(element, name.to_s, *args)
       end
+      deprecate :edit, deprecator: Alchemy::Deprecation
     end
 
     # Block-level helper for element views. Constructs a DOM element wrapping

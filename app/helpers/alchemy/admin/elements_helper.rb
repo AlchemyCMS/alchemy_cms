@@ -48,12 +48,18 @@ module Alchemy
       # @note If the partial is not found
       #   <tt>alchemy/elements/_editor_not_found.html.erb</tt> gets rendered.
       #
+      # @deprecated Using element editor partials is deprecated and will be removed in Alchemy 5.0
       def render_editor(element)
         if element.nil?
           warning('Element is nil')
           render "alchemy/elements/editor_not_found", {name: 'nil'}
           return
         end
+        Alchemy::Deprecation.warn <<~WARN
+          Using element editor partials is deprecated and will be removed in Alchemy 5.0.
+          You can delete the `app/views/alchemy/elements/_#{element.name}_editor` partial
+          and Alchemy will render the content editors for you.
+        WARN
 
         render "alchemy/elements/#{element.name}_editor", element: element
       rescue ActionView::MissingTemplate => e
