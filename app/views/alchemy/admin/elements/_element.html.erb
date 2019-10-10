@@ -16,6 +16,12 @@
       <div id="element_<%= element.id %>_errors" class="element_errors"></div>
 
       <div id="element_<%= element.id %>_content" class="element-content-editors">
+        <% element.definition[:message].tap do |message| %>
+          <%= render_message(:info, sanitize(message)) if message %>
+        <% end %>
+        <% element.definition[:warning].tap do |warning| %>
+          <%= render_message(:warning, sanitize(warning)) if warning %>
+        <% end %>
         <%== render_editor(element) %>
       </div>
 
