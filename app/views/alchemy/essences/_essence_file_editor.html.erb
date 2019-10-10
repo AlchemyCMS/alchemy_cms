@@ -1,9 +1,8 @@
 <% dialog_link = link_to_dialog render_icon(:file, style: 'regular'),
   alchemy.admin_attachments_path(
     content_id: content.id,
-    only: content.settings_value(:only, local_assigns.fetch(:options, {})),
-    except: content.settings_value(:except, local_assigns.fetch(:options, {})),
-    options: local_assigns.fetch(:options, {})
+    only: content.settings[:only],
+    except: content.settings[:except]
   ),
   {
     title: Alchemy.t(:assign_file),
@@ -30,10 +29,7 @@
     <div class="essence_file_tools">
       <%= dialog_link %>
       <%= link_to_dialog render_icon(:edit),
-        alchemy.edit_admin_essence_file_path(
-          id: content.essence.id,
-          options: local_assigns.fetch(:options, {})
-        ),
+        alchemy.edit_admin_essence_file_path(id: content.essence.id),
         {
           title: Alchemy.t(:edit_file_properties),
           size: '400x215'

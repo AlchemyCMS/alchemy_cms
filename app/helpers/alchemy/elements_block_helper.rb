@@ -65,8 +65,8 @@ module Alchemy
     # Block-level helper class for element editors.
     # @deprecated
     class ElementEditorHelper < BlockHelper
-      def edit(name, *args)
-        helpers.render_essence_editor_by_name(element, name.to_s, *args)
+      def edit(name)
+        helpers.render_essence_editor_by_name(element, name.to_s)
       end
       deprecate :edit, deprecator: Alchemy::Deprecation
     end

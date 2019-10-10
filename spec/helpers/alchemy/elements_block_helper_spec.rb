@@ -137,8 +137,8 @@ module Alchemy
 
       describe '#edit' do
         it "should delegate to the render_essence_editor_by_name helper" do
-          expect(scope).to receive(:render_essence_editor_by_name).with(element, "title", foo: 'bar')
-          subject.edit :title, foo: 'bar'
+          expect(scope).to receive(:render_essence_editor_by_name).with(element, "title")
+          subject.edit(:title)
         end
       end
     end
