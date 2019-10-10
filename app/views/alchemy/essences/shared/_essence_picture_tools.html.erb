@@ -1,11 +1,8 @@
-<% linkable = content.settings_value(:linkable, options) != false %>
+<% linkable = content.settings[:linkable] != false %>
 
-<% if content.essence && content.essence.allow_image_cropping?(options) %>
+<% if content.essence && content.essence.allow_image_cropping? %>
   <%= link_to_dialog render_icon(:crop),
-    alchemy.crop_admin_essence_picture_path(
-      content.essence,
-      options: content.settings.update(options)
-    ), {
+    alchemy.crop_admin_essence_picture_path(content.essence), {
       size: "1080x615",
       title: Alchemy.t('Edit Picturemask'),
       image_loader: false,
@@ -19,8 +16,7 @@
   alchemy.admin_pictures_path(
     element_id: content.element,
     content_id: content.id,
-    swap: true,
-    options: options
+    swap: true
   ),
   {
     title: (content.ingredient ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)),
@@ -51,9 +47,8 @@
 <%= link_to_dialog render_icon(:edit),
   alchemy.edit_admin_essence_picture_path(
     id: content.essence.id,
-    content_id: content.id,
-    options: options
+    content_id: content.id
   ), {
     title: Alchemy.t(:edit_image_properties),
-    size: edit_picture_dialog_size(content, options)
+    size: edit_picture_dialog_size(content)
   }, title: Alchemy.t(:edit_image_properties) %>

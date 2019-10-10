@@ -1,14 +1,10 @@
-<% options = local_assigns.fetch(:options, {}) %>
-<% html_options = local_assigns.fetch(:html_options, {}) %>
-
-<div class="essence_text content_editor<%= options[:display_inline].to_s == 'true' ? ' display_inline' : '' %>" id="<%= content.dom_id %>">
+<div class="essence_text content_editor<%= content.settings[:display_inline] ? ' display_inline' : '' %>" id="<%= content.dom_id %>">
   <%= content_label(content) %>
   <%= text_field_tag(
     content.form_field_name,
     content.ingredient,
-    class: ["thin_border #{content.settings[:linkable] ? ' text_with_icon' : ''}", html_options[:class]].join(' '),
-    style: html_options[:style],
-    type: content.settings_value(:input_type) || "text"
+    class: "thin_border #{content.settings[:linkable] ? ' text_with_icon' : ''}",
+    type: content.settings[:input_type] || "text"
   ) %>
   <% if content.settings[:linkable] %>
     <%= hidden_field_tag content.form_field_name(:link), content.essence.link %>
