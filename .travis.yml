@@ -5,9 +5,6 @@ services:
   - mysql
 addons:
   postgresql: "10"
-  apt:
-    packages:
-      - chromium-chromedriver
 cache:
   bundler: true
 rvm:
@@ -17,7 +14,6 @@ before_install:
   - gem install bundler
 before_script:
   - bundle exec rake alchemy:spec:prepare
-  - export PATH=$PATH:/usr/lib/chromium-browser/
 script: bundle exec rspec
 after_success: bundle exec codeclimate-test-reporter
 env:
