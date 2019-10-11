@@ -75,6 +75,15 @@ RSpec.configure do |config|
     driven_by :rack_test
   end
 
+  config.when_first_matching_example_defined(type: :system) do
+    config.before :suite do
+      # Preload assets
+      # This should avoid capybara timeouts, and avoid counting asset compilation
+      # towards the timing of the first feature spec.
+      Rails.application.precompiled_assets
+    end
+  end
+
   config.before(:each, type: :system, js: true) do
     driven_by :selenium_chrome_headless
   end
