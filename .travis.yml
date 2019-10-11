@@ -7,6 +7,8 @@ addons:
   postgresql: "10"
 cache:
   bundler: true
+  directories:
+    - /home/travis/.webdrivers/
 rvm:
   - 2.5.5
   - 2.6.3
