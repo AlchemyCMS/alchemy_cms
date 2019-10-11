@@ -1,13 +1,15 @@
 language: ruby
 sudo: false
+services:
+  - mysql
+  - postgresql
 cache:
   bundler: true
   directories:
     - "travis_phantomjs"
 rvm:
-- 2.1
-- 2.2
-- 2.3.0
+- 2.3
+- 2.4
 branches:
   only:
     - 3.6-stable
@@ -20,7 +22,7 @@ before_install:
   - "if [ $(phantomjs --version) != '2.1.1' ]; then wget https://assets.membergetmember.co/software/phantomjs-2.1.1-linux-x86_64.tar.bz2 -O $PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2; fi"
   - "if [ $(phantomjs --version) != '2.1.1' ]; then tar -xvf $PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64.tar.bz2 -C $PWD/travis_phantomjs; fi"
   - "phantomjs --version"
-  - gem install bundler
+  - gem install bundler -v "< 2"
 before_script: bundle exec rake alchemy:spec:prepare
 script: bundle exec rspec
 after_success: bundle exec codeclimate-test-reporter
