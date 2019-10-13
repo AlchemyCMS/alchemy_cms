@@ -40,7 +40,7 @@ RSpec.describe 'Show page feature:', type: :system do
     let(:essence) { article.content_by_name('intro').essence }
 
     before do
-      essence.update_attributes(body: 'Welcome to Peters Petshop', public: true)
+      essence.update_columns(body: 'Welcome to Peters Petshop', public: true)
     end
 
     it "should include all its elements and contents" do

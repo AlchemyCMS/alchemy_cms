@@ -272,7 +272,7 @@ module Alchemy
       it "updates the element" do
         expect(controller).to receive(:element_params).and_return(element_parameters)
         expect(element).to receive(:update_contents).and_return(true)
-        expect(element).to receive(:update_attributes!).with(element_parameters).and_return(true)
+        expect(element).to receive(:update).with(element_parameters).and_return(true)
         put :update, params: {id: element.id}, xhr: true
       end
 

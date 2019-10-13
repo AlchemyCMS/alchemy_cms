@@ -241,7 +241,7 @@ module Alchemy
         let(:picture) { create :alchemy_picture }
 
         before do
-          essence_picture.update_attributes(picture_id: picture.id)
+          essence_picture.update_columns(picture_id: picture.id)
         end
 
         it "should raise error message" do

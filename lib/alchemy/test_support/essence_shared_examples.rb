@@ -10,7 +10,7 @@ shared_examples_for "an essence" do
     content = create(:alchemy_content, element: element, essence: essence, essence_type: essence.class.name)
 
     content.update_column(:updated_at, 3.days.ago)
-    content.essence.update_attributes(essence.ingredient_column.to_sym => ingredient_value)
+    content.essence.update(essence.ingredient_column.to_sym => ingredient_value)
 
     content.reload
     expect(content.updated_at).to be_within(3.seconds).of(Time.current)

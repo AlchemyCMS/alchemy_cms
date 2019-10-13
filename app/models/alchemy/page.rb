@@ -387,7 +387,7 @@ module Alchemy
 
     def set_restrictions_to_child_pages
       descendants.each do |child|
-        child.update_attributes(restricted: restricted?)
+        child.update(restricted: restricted?)
       end
     end
 
