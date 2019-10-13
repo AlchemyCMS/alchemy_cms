@@ -87,7 +87,7 @@ RSpec.describe 'Requesting a page' do
 
     context "if requested page is unpublished" do
       before do
-        public_page.update_attributes(
+        public_page.update(
           public_on: nil,
           visible: false,
           name: 'Not Public',
@@ -103,7 +103,7 @@ RSpec.describe 'Requesting a page' do
 
       context "with only unpublished pages in page tree" do
         before do
-          public_child.update_attributes(public_on: nil)
+          public_child.update(public_on: nil)
         end
 
         it "should raise not found error" do
@@ -244,7 +244,7 @@ RSpec.describe 'Requesting a page' do
 
     context "redirects to public child" do
       before do
-        public_page.update_attributes(
+        public_page.update(
           visible: false,
           public_on: nil,
           name: 'Not Public',

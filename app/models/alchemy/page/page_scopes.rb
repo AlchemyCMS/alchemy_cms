@@ -17,7 +17,7 @@ module Alchemy
 
       # All locked pages
       #
-      scope :locked, -> { where.not(locked_at: nil, locked_by: nil) }
+      scope :locked, -> { where.not(locked_at: nil).where.not(locked_by: nil) }
 
       # All pages locked by given user
       #

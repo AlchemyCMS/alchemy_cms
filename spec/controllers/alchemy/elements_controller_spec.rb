@@ -25,7 +25,7 @@ module Alchemy
       end
 
       it "should raise ActiveRecord::RecordNotFound error for unpublished elements" do
-        element.update_attributes(public: false)
+        element.update_columns(public: false)
         expect {
           get :show, params: {id: element.id}
         }.to raise_error(ActiveRecord::RecordNotFound)

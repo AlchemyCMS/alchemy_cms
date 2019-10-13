@@ -34,8 +34,7 @@ module Alchemy
           operation_text = Alchemy.t('Replaced Tag') % {old_tag: @tag.name, new_tag: @new_tag.name}
           @tag.destroy
         else
-          @tag.update_attributes(tag_params)
-          @tag.save
+          @tag.update(tag_params)
           operation_text = Alchemy.t(:successfully_updated_tag)
         end
         render_errors_or_redirect @tag, admin_tags_path, operation_text

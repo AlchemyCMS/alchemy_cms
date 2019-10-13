@@ -57,10 +57,16 @@ module Alchemy
 
     scope :published,       -> { where(public: true) }
     scope :with_root_page,  -> { joins(:pages).where(Page.table_name => {language_root: true}) }
-    scope :on_site,         ->(s) { s ? where(site_id: s.id) : all }
-    scope :on_current_site, -> { on_site(Site.current) }
 
     class << self
+      def on_site(site)
+        site ? where(site_id: site.id) : all
+      end
+
+      def on_current_site
+        on_site(Site.current)
+      end
+
       # Store the current language in the current thread.
       def current=(language)
         RequestStore.store[:alchemy_current_language] = language

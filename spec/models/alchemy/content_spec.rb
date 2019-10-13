@@ -8,7 +8,7 @@ module Alchemy
     let(:content) { element.contents.find_by(essence_type: 'Alchemy::EssenceText') }
 
     it "should return the ingredient from its essence" do
-      content.essence.update_attributes(body: "Hello")
+      content.essence.update_columns(body: "Hello")
       expect(content.ingredient).to eq("Hello")
     end
 

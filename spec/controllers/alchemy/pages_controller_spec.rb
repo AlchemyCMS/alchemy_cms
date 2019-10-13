@@ -220,7 +220,7 @@ module Alchemy
       end
 
       it "should include content" do
-        page.elements.first.content_by_name('news_headline').essence.update_attributes({body: 'Peters Petshop'})
+        page.elements.first.content_by_name('news_headline').essence.update_columns(body: 'Peters Petshop')
         get :show, params: {urlname: 'news', format: :rss}
         expect(response.body).to match /Peters Petshop/
       end

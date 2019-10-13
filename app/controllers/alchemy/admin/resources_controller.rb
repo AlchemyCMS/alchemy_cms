@@ -68,7 +68,7 @@ module Alchemy
       end
 
       def update
-        resource_instance_variable.update_attributes(resource_params)
+        resource_instance_variable.update(resource_params)
         render_errors_or_redirect(
           resource_instance_variable,
           resources_path(resource_instance_variable.class, search_filter_params),

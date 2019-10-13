@@ -258,7 +258,7 @@ module Alchemy
         let(:user) { build(:alchemy_dummy_user) }
 
         it "should render a breadcrumb of restricted pages only" do
-          page.update_attributes!(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')
+          page.update_columns(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')
           result = helper.render_breadcrumb(page: page, restricted_only: true).strip
           expect(result).to have_selector("*[contains(\"#{page.name}\")]")
           expect(result).to_not have_selector("*[contains(\"#{parent.name}\")]")
@@ -266,25 +266,25 @@ module Alchemy
       end
 
       it "should render a breadcrumb of visible pages only" do
-        page.update_attributes!(visible: false, urlname: 'a-invisible-page', name: 'A Invisible Page', title: 'A Invisible Page')
+        page.update_columns(visible: false, urlname: 'a-invisible-page', name: 'A Invisible Page', title: 'A Invisible Page')
         expect(helper.render_breadcrumb(page: page)).not_to match(/A Invisible Page/)
       end
 
       it "should render a breadcrumb of visible and unpublished pages" do
-        page.update_attributes!(public_on: nil, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
+        page.update_columns(public_on: nil, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
         expect(helper.render_breadcrumb(page: page)).to match(/A Unpublic Page/)
       end
 
       context "with options[:without]" do
         it "should render a breadcrumb without this page" do
-          page.update_attributes!(urlname: 'not-me', name: 'Not Me', title: 'Not Me')
+          page.update_columns(urlname: 'not-me', name: 'Not Me', title: 'Not Me')
           expect(helper.render_breadcrumb(page: page, without: page)).not_to match(/Not Me/)
         end
       end
 
       context "with options[:without] as array" do
         it "should render a breadcrumb without these pages." do
-          page.update_attributes!(urlname: 'not-me', name: 'Not Me', title: 'Not Me')
+          page.update_columns(urlname: 'not-me', name: 'Not Me', title: 'Not Me')
           expect(helper.render_breadcrumb(page: page, without: [page])).not_to match(/Not Me/)
         end
       end
