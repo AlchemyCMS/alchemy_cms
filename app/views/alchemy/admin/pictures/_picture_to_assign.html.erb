@@ -6,8 +6,7 @@
     ),
     alchemy.assign_admin_essence_pictures_path(
       picture_id: picture_to_assign.id,
-      content_id: @content,
-      options: options
+      content_id: @content
     ),
     remote: true,
     onclick: '$(self).attr("href", "#").off("click"); return false',

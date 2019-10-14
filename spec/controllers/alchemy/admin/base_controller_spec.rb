@@ -3,35 +3,6 @@
 require 'rails_helper'
 
 describe Alchemy::Admin::BaseController do
-  describe '#options_from_params' do
-    subject { controller.send(:options_from_params) }
-
-    before do
-      expect(controller).to receive(:params).at_least(:once) do
-        ActionController::Parameters.new(options: options)
-      end
-    end
-
-    context "params[:options] are Rails parameters" do
-      let(:options) do
-        ActionController::Parameters.new('hello' => 'world')
-      end
-
-      it "returns the options as permitted parameters with indifferent access" do
-        expect(subject).to be_permitted
-        expect(subject[:hello]).to eq('world')
-      end
-    end
-
-    context "params[:options] is nil" do
-      let(:options) { nil }
-
-      it "returns an empty permitted parameters hash" do
-        is_expected.to eq(ActionController::Parameters.new.permit!)
-      end
-    end
-  end
-
   describe '#raise_exception?' do
     subject { controller.send(:raise_exception?) }
 
