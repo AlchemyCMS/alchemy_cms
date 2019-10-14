@@ -33,7 +33,8 @@ module Alchemy
       "contents",
       "hint",
       "taggable",
-      "compact"
+      "compact",
+      "message"
     ].freeze
 
     SKIPPED_ATTRIBUTES_ON_COPY = [
