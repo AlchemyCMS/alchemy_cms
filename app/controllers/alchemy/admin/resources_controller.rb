@@ -143,8 +143,6 @@ module Alchemy
 
       def common_search_filter_includes
         [
-          # contrary to Rails' documentation passing an empty hash to permit all keys does not work
-          {options: options_from_params.keys},
           {q: [
             resource_handler.search_field_name,
             :s

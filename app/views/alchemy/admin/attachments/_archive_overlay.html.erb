@@ -7,8 +7,7 @@
       in_dialog: true,
       redirect_url: admin_attachments_path(
         element_id: @element.try(:id),
-        content_id: @content.try(:id),
-        options: options_from_params
+        content_id: @content.try(:id)
       ) %>
   <% end %>
   <%= render 'alchemy/admin/partials/remote_search_form' %>
