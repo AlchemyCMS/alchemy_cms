@@ -111,7 +111,7 @@ module Alchemy
       #
       def page_name_attribute_for_select(page, indent = false)
         if indent
-          ("&nbsp;&nbsp;" * (page.level - 1) + page.name).html_safe
+          ("&nbsp;&nbsp;" * (page.depth - 1) + page.name).html_safe
         else
           page.name
         end

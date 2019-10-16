@@ -69,7 +69,7 @@
     validate:
       - presence
   - name: success_page
-    type: EssenceSelect
+    type: EssencePage
     validate:
       - presence
 
