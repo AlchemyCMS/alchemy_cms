@@ -1,0 +1,9 @@
+<div class="content_editor essence_page" id="<%= content.dom_id %>" data-content-id="<%= content.id %>">
+  <%= content_label(content) %>
+  <%= select_tag(
+    content.form_field_name,
+    pages_for_select,
+    id: content.form_field_id,
+    class: 'alchemy_selectbox full_width'
+  ) %>
+</div>
