@@ -174,3 +174,24 @@ Stores a url in the database. Useful for linking things, where the editor should
 ::: tip
 If you want that the linked text is editable by the editor use the [**EssenceText**](#essencetext) with `linkable: true` option instead.
 :::
+
+## EssencePage
+
+::: tip INFO
+Available since Alchemy 4.3
+:::
+
+References an [Alchemy::Page](pages.html).
+
+Renders a select box in the editor partial.
+
+Useful for contact form follow up pages or other use cases where you want to reference another page.
+
+### Example
+
+~~~ yaml
+- name: contact_form
+  contents:
+    - name: follow_up_page
+      type: EssencePage
+~~~

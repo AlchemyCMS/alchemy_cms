@@ -75,7 +75,7 @@ Describe a new Element with this options inside your `elements.yml` file:
       validate:
         - presence
     - name: success_page
-      type: EssenceSelect
+      type: EssencePage # Available since Alchemy 4.3
       validate:
         - presence
 ~~~
@@ -148,11 +148,9 @@ The `app/views/alchemy/elements/_contactform_editor.html.erb` file should have t
   <%= el.edit :mail_from %>
   <%= el.edit :mail_to %>
   <%= el.edit :subject %>
-  <%= el.edit :success_page, select_values: pages_for_select(nil, element.ingredient(:success_page), "Choose page", :urlname) %>
+  <%= el.edit :success_page %>
 <% end %>
 ~~~
-
-The `page_selector` helper is pretty handy for setting the success page. Note that the `:page_attribute` option is important. Leaving it the default `:id` value breaks the message controller.
 
 ## Translating validation messages
 
