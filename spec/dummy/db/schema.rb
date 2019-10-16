@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_04_17_070726) do
+ActiveRecord::Schema.define(version: 2019_10_16_073858) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -108,6 +108,13 @@ ActiveRecord::Schema.define(version: 2019_04_17_070726) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "creator_id"
     t.integer "updater_id"
+  end
+
+  create_table "alchemy_essence_pages", force: :cascade do |t|
+    t.integer "page_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_alchemy_essence_pages_on_page_id"
   end
 
   create_table "alchemy_essence_pictures", force: :cascade do |t|
@@ -323,4 +330,5 @@ ActiveRecord::Schema.define(version: 2019_04_17_070726) do
 
   add_foreign_key "alchemy_contents", "alchemy_elements", column: "element_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "alchemy_elements", "alchemy_pages", column: "page_id", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "alchemy_essence_pages", "alchemy_pages", column: "page_id"
 end
