@@ -13,7 +13,7 @@ RSpec.describe Alchemy::EssencePage, type: :model do
   describe 'ingredient=' do
     subject(:ingredient) { essence.page }
 
-    context 'when value is a String matching a number' do
+    context 'when String value is only a number' do
       let(:value) { '101' }
 
       before do
@@ -39,8 +39,8 @@ RSpec.describe Alchemy::EssencePage, type: :model do
       end
     end
 
-    context 'when value is something else' do
-      let(:value) { 'something' }
+    context 'when value is not only a number' do
+      let(:value) { 'page1' }
 
       it do
         expect {
