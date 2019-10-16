@@ -19,7 +19,7 @@ module Alchemy
   #     - name: mail_from
   #       type: EssenceText
   #     - name: success_page
-  #       type: EssenceSelect
+  #       type: EssencePage
   #
   # The fields +mail_to+, +mail_from+, +subject+ and +success_page+ are recommended.
   # The +Alchemy::MessagesController+ uses them to send your mails. So your customer has full controll of these values inside his contactform element.
@@ -32,14 +32,16 @@ module Alchemy
   #     elements: [pageheading, heading, contactform]
   #     autogenerate: [contactform]
   #
-  # Disabling the page caching is stronlgy recommended!
+  # Disabling the page caching is strongly recommended!
   #
   # The editor view for your element should have this layout:
   #
-  #   <%= render_essence_editor_by_name(element, 'mail_from') %>
-  #   <%= render_essence_editor_by_name(element, 'mail_to') %>
-  #   <%= render_essence_editor_by_name(element, 'subject') %>
-  #   <%= page_selector(element, 'success_page', page_attribute: :urlname) %>
+  #   <%= element_editor_for(element) do |el| %>
+  #     <%= el.edit :mail_from %>
+  #     <%= el.edit :mail_to %>
+  #     <%= el.edit :subject %>
+  #     <%= el.edit :success_page %>
+  #   <% end %>
   #
   # Please have a look at the +alchemy/config/config.yml+ file for further Message settings.
   #
@@ -97,8 +99,8 @@ module Alchemy
 
     def redirect_to_success_page
       flash[:notice] = Alchemy.t(:success, scope: 'contactform.messages')
-      if @element.ingredient(:success_page)
-        urlname = @element.ingredient(:success_page)
+      if success_page
+        urlname = success_page_urlname
       elsif mailer_config['forward_to_page'] && mailer_config['mail_success_page']
         urlname = Page.find_by(urlname: mailer_config['mail_success_page']).urlname
       else
@@ -108,6 +110,19 @@ module Alchemy
         urlname: urlname,
         locale: prefix_locale? ? Language.current.code : nil
       )
+    end
+
+    def success_page
+      @_success_page ||= @element.ingredient(:success_page)
+    end
+
+    def success_page_urlname
+      case success_page
+      when Alchemy::Page
+        success_page.urlname
+      when String
+        success_page
+      end
     end
 
     def get_page
