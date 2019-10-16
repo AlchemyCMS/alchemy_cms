@@ -20,6 +20,10 @@
       linkable: true
   - name: image
     type: EssencePicture
+    settings:
+      size: 450x300
+      crop: true
+      fixed_ratio: false
   - name: text
     type: EssenceRichtext
 
