@@ -85,7 +85,15 @@ The following settings can be used to define elements in the `elements.yml`.
   Passing `true` means this element can be placed only once on a page.
 * **hint** `String`
 
-  A hint for the user in the admin frontend that describes what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence.
+  A hint for the user in the admin that should be used to describe what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence. The hint itself will be displayed as a small question mark icon and will reveal a tooltip once hovered by the user.
+
+* **message** `String` _since Alchemy 4.4_
+
+  A prominent informational message displayed at the top of the element editor form in the admin that can be used to give your user additional information. You can even use simple html to add some emphasis to your message.
+
+* **warning** `String` _since Alchemy 4.4_
+
+  A prominent warning message displayed at the top of the element editor form in the admin that can be used to warn your user about something. You can use simple html to add even more emphasis to your warning.
 
 * **nestable_elements** `Array`
 
