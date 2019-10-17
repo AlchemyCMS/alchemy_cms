@@ -138,6 +138,7 @@ module Alchemy
           (params[:options] || ActionController::Parameters.new).permit!
         end
       end
+      deprecate :options_from_params, deprecator: Alchemy::Deprecation
 
       # This method decides if we want to raise an exception or not.
       #

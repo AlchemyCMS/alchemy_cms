@@ -9,6 +9,18 @@ module Alchemy
       # Renders the Content editor partial from the given Content.
       # For options see -> render_essence
       def render_essence_editor(content, options = {}, html_options = {})
+        if !options.empty?
+          Alchemy::Deprecation.warn <<~WARN
+            Passing options to `render_essence_editor` is deprecated and will be removed from Alchemy 5.0.
+            Add your static `#{options.keys}` options to the `#{content.name}` content definitions `settings` of `#{content.element&.name}` element.
+            For dynamic options consider adding your own essence class.
+          WARN
+        end
+        if !html_options.empty?
+          Alchemy::Deprecation.warn <<~WARN
+            Passing html_options to `render_essence_editor` is deprecated and will be removed in Alchemy 5.0 without replacement.
+          WARN
+        end
         render_essence(content, :editor, {for_editor: options}, html_options)
       end
 
