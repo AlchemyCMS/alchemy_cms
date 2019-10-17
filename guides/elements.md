@@ -390,7 +390,7 @@ You can pass options to the essence view.
 ~~~
 
 ::: tip
-Instead of passing the `size` of an image into the `EssencePicture` as shown above, you should consider to use static [content settings](https://guides.alchemy-cms.com/essences.html#individual-essence-settings) instead.
+Instead of passing the `size` of an image into the `EssencePicture` as shown above, you should consider to use static [content settings](essences.html#individual-essence-settings) instead.
 :::
 
 The first hash is the `options` the second one the `html_options` passed to the wrapper of the content.
