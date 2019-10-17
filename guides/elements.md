@@ -24,6 +24,10 @@ Elements have two templates (they are called [partials in Rails](https://guides.
 1. The `<element_name>_view` represents the element on your website
 2. The `<element_name>_editor` renders form fields in the admin for the editors _deprecated since Alchemy 4.4_
 
+### warning
+The element editor partials are deprecated and will be removed from Alchemy 5. As of Alchemy 4.4 the generator will not generate them for you anymore.
+###
+
 They live in `app/views/alchemy/elements/`.
 
 ::: tip NOTE
