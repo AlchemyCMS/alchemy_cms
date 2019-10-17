@@ -28,6 +28,10 @@ When defining contents, you need to provide a `name` and essence `type`. You can
     - name: headline
       type: EssenceText
       hint: This is the headline
+    - name: color
+      type: EssenceText
+      settings:
+        input_type: color
     - name: copy
       type: EssenceRichtext
       default: Lorem ipsum dolor
@@ -54,6 +58,10 @@ When defining contents, you need to provide a `name` and essence `type`. You can
 
   For the displayed element title, the first content essence is used. Use this setting to override this behaviour and show other content as element title.
 
+* **settings** `Hash`
+
+  A set of options to configure the essence. Each essence has its own set of options listed below.
+  
 ### Individual essence settings
 
 Each essence type can have its own type of settings.
@@ -81,6 +89,10 @@ Use this for a headline, or a product name. The editor is renderd as a single li
 * **linkable** `Boolean`
 
   If set to `true`, the user can add a link to the text.
+
+* **input_type** `String`
+
+  Change the [input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types) of the form field displayed to the content editors. 
 
 ### Example
 
@@ -131,11 +143,34 @@ The view partial renders the assigned picture, resizes it and crops it if needed
 See the [rendering images](render_images.html) guide for further information on the powerful image rendering engine of Alchemy.
 :::
 
+### Settings
+
+* **size** `String`
+
+  The size the image should be downsized to. I.e. 400x300
+
+* **crop** `Boolean` (default: false)
+
+  Crop the image to given size. This also enables the build in cropper tool.
+
+* **srcset** `Array<String>`
+
+  A list of sizes of this image uses as sources list. Best used with the `sizes` setting for implementing responsive images.
+
+* **sizes** `Array<String>`
+
+  A list of screen sizes the image sources should be used for. Best used with the `srcset` setting for implementing responsive images.
+
 ## EssenceDate
 
 Use this to store a `DateTime` value. Renders a datepicker in the editor partial.
 
 The view output is passed through Rails' I18n Library, so it is fully localizable.
+
+### Settings
+
+* **date_format** `String|Symbol`
+  Either a `String` with the format of [Rubys `strftime`](https://ruby-doc.org/stdlib-2.6.1/libdoc/date/rdoc/Date.html#method-i-strftime) or a `Symbol` of a [date/time format](https://guides.rubyonrails.org/i18n.html#adding-date-time-formats) defined in your locale files.
 
 ## EssenceHtml
 
@@ -156,7 +191,11 @@ Renders a select box in the editor partial and stores the value as `String`.
 
 Useful for letting your user select from a limited set of choices.
 
+### Settings
+
 * **select_values** `Array`
+  
+  A list of values your users can select from. Use [a two dimensional array](https://guides.rubyonrails.org/form_helpers.html#the-select-and-option-tags) for having value and text pairs.
 
 ### Example
 
