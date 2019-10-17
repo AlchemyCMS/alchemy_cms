@@ -22,7 +22,7 @@ The contents of an element are of a specific [essence](essences.html). Each esse
 Elements have two templates (they are called [partials in Rails](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials)).
 
 1. The `<element_name>_view` represents the element on your website
-2. The `<element_name>_editor` renders form fields in the admin for the editors
+2. The `<element_name>_editor` renders form fields in the admin for the editors _deprecated since Alchemy 4.4_
 
 They live in `app/views/alchemy/elements/`.
 
@@ -275,7 +275,11 @@ The generator will create two files for each element in your `app/views/alchemy/
 According to the first example, the article element, the generator will create the `_article_view.html.erb` and `_article_editor.html.erb` files.
 
 * The element's view file `_article_view.html.erb` gets rendered, when a user requests your webpage.
-* The element's editor file `_article_editor.html.erb` gets rendered, when you edit the page in the admin frontend.
+* The element's editor file `_article_editor.html.erb` gets rendered, when you edit the page in the admin frontend.  _deprecated since Alchemy 4.4_
+
+::: warning
+The element editor partials are deprecated and will be removed from Alchemy 5. As of Alchemy 4.4 the generator will not generate them for you anymore.
+:::
 
 The generator does not only create these files, it also generates the necessary code for you. Mostly you can take use of the that code and make it nifty by adding some CSS stylings.
 
@@ -377,13 +381,16 @@ You can pass options to the essence view.
 
 ~~~ erb
 <%= element_view_for(element) do |el| %>
-  <%= el.render :image, {image_size: '200x300'}, class: 'image-large' %>
+  <%= el.render :image, {size: '200x300'}, class: 'image-large' %>
 <% end %>
 ~~~
 
-::: tip The first hash is the `options` the second one the `html_options` passed to the wrapper of the content.
-If you only want to pass `html_options` you need to pass an empty hash as second argument.
+::: tip
+Instead of passing the `size` of an image into the `EssencePicture` as shown above, you should consider to use static [content settings](https://guides.alchemy-cms.com/essences.html#individual-essence-settings) instead.
 :::
+
+The first hash is the `options` the second one the `html_options` passed to the wrapper of the content.
+If you only want to pass `html_options` you need to pass an empty hash as second argument.
 
 ~~~ erb
 <%= element_view_for(element) do |el| %>
