@@ -214,11 +214,7 @@ Stores a url in the database. Useful for linking things, where the editor should
 If you want that the linked text is editable by the editor use the [**EssenceText**](#essencetext) with `linkable: true` option instead.
 :::
 
-## EssencePage
-
-::: tip INFO
-Available since Alchemy 4.3
-:::
+## EssencePage _available since Alchemy 4.4_
 
 References an [Alchemy::Page](pages.html).
 
