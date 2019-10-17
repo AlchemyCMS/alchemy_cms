@@ -2,6 +2,8 @@
 
 module Alchemy
   class EssencePage < BaseRecord
+    PAGE_ID = /\A\d+\z/
+
     acts_as_essence(
       ingredient_column: :page,
       preview_text_method: :name
@@ -11,7 +13,7 @@ module Alchemy
 
     def ingredient=(page)
       case page
-      when /\d/
+      when PAGE_ID
         self.page = Alchemy::Page.new(id: page)
       when Alchemy::Page
         self.page = page
