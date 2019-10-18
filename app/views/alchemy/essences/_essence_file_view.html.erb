@@ -1,3 +1,4 @@
+<% content = local_assigns[:content] || local_assigns[:essence_file_view] %>
 <%- if attachment = content.ingredient -%>
 <%- html_options = local_assigns.fetch(:html_options, {}) -%>
 <%= link_to(

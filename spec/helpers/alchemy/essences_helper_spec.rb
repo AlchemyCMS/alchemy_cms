@@ -28,7 +28,6 @@ describe Alchemy::EssencesHelper do
       end
 
       it "renders an essence editor partial" do
-        expect(content).to receive(:form_field_name)
         is_expected.to have_selector 'input[type="text"]'
       end
     end

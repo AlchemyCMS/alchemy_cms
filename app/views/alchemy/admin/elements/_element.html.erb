@@ -27,7 +27,9 @@
         <% else %>
           <%= element_editor_for(element) do %>
             <% element.contents.each do |content| %>
-              <%= render_essence(content, :editor) %>
+              <%= render "alchemy/essences/#{content.essence_partial_name}_editor", {
+                content: content
+              } %>
             <% end %>
           <% end %>
         <% end %>

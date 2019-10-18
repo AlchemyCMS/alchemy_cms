@@ -81,9 +81,18 @@ module Alchemy
       end
 
       describe '#render' do
-        it 'should delegate to the render_essence_view_by_name helper' do
-          expect(scope).to receive(:render_essence_view_by_name).with(element, "title", foo: 'bar')
-          subject.render :title, foo: 'bar'
+        let(:element) { create(:alchemy_element, :with_contents) }
+        let(:content) { element.content_by_name(:headline) }
+
+        it "delegates to Rails' render helper" do
+          expect(scope).to receive(:render).with(content, {
+            content: content,
+            options: {
+              foo: 'bar'
+            },
+            html_options: {}
+          })
+          subject.render(:headline, foo: 'bar')
         end
       end
 

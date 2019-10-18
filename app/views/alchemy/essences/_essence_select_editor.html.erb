@@ -1,5 +1,6 @@
 <% select_values = content.settings_value(:select_values, local_assigns.fetch(:options, {})) %>
 <% inline = content.settings_value(:display_inline, local_assigns.fetch(:options, {})) %>
+<% html_options = local_assigns.fetch(:html_options, {}) %>
 
 <%= content_tag :div,
   id: content.dom_id,

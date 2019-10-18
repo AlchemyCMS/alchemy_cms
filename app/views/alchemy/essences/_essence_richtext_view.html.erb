@@ -1,3 +1,4 @@
+<% content = local_assigns[:content] || local_assigns[:essence_richtext_view] %>
 <%- options = local_assigns.fetch(:options, {}) -%>
 <%- plain_text = !!content.settings_value(:plain_text, options) -%>
 <%= raw content.essence.public_send(plain_text ? :stripped_body : :body) -%>

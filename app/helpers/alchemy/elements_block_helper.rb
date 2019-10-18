@@ -26,8 +26,15 @@ module Alchemy
     class ElementViewHelper < BlockHelper
       # Renders one of the element's contents.
       #
-      def render(name, *args)
-        helpers.render_essence_view_by_name(element, name.to_s, *args)
+      def render(name, options = {}, html_options = {})
+        content = element.content_by_name(name)
+        return if content.nil?
+
+        helpers.render(content, {
+          content: content,
+          options: options,
+          html_options: html_options
+        })
       end
 
       # Returns one of the element's contents (ie. essence instances).
