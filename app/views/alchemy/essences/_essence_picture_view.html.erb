@@ -1,3 +1,4 @@
+<% content = local_assigns[:content] || local_assigns[:essence_picture_view] %>
 <%= Alchemy::EssencePictureView.new(
   content,
   local_assigns[:options],

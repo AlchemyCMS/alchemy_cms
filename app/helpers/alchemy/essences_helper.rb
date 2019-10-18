@@ -27,6 +27,7 @@ module Alchemy
   #
   # And the +render_essence_editor_by_name+ helper for Alchemy backend views.
   #
+  # @deprecated Use Rails' `render(content)` method directly instead
   module EssencesHelper
     # Renders the +Essence+ view partial from +Element+ by name.
     #
@@ -38,14 +39,22 @@ module Alchemy
     #
     #   <%= render_essence_view_by_name(element, "intro") %>
     #
+    # @deprecated Use Rails' `render(content)` method directly instead
     def render_essence_view_by_name(element, name, options = {}, html_options = {})
       if element.blank?
-        warning('Element is nil')
-        return ""
+        warning('Element is nil') && return
       end
       content = element.content_by_name(name)
-      render_essence_view(content, options, html_options)
+      return if content.nil?
+
+      render content, {
+        content: content,
+        options: options,
+        html_options: html_options
+      }
     end
+    deprecate render_essence_view_by_name: "Use Rails' `render(content)` method directly instead",
+      deprecator: Alchemy::Deprecation
 
     # Renders the +Esssence+ partial for given +Content+.
     #
@@ -62,6 +71,7 @@ module Alchemy
     #   for_view: {}
     #   for_editor: {}
     #
+    # @deprecated Use Rails' `render(content)` method directly instead
     def render_essence(content, part = :view, options = {}, html_options = {})
       options = {for_view: {}, for_editor: {}}.update(options)
       if content.nil?
@@ -69,12 +79,22 @@ module Alchemy
       elsif content.essence.nil?
         return part == :view ? "" : warning('Essence is nil', Alchemy.t(:content_essence_not_found))
       end
-      render partial: "alchemy/essences/#{content.essence_partial_name}_#{part}", locals: {
-        content: content,
-        options: options["for_#{part}".to_sym],
-        html_options: html_options
-      }
+      if part == :view
+        render content, {
+          content: content,
+          options: options[:for_view],
+          html_options: html_options
+        }
+      else
+        render "alchemy/essences/#{content.essence_partial_name}_editor", {
+          content: content,
+          options: options,
+          html_options: html_options
+        }
+      end
     end
+    deprecate render_essence: "Use Rails' `render(content)` method directly instead",
+      deprecator: Alchemy::Deprecation
 
     # Renders the +Esssence+ view partial for given +Content+.
     #
@@ -85,8 +105,15 @@ module Alchemy
     #   :show_caption => false                         # Pass Boolean to show/hide the caption of an EssencePicture. [Default true]
     #   :disable_link => true                          # You can surpress the link of an EssencePicture. Default false
     #
+    # @deprecated Use Rails' `render(content)` method directly instead
     def render_essence_view(content, options = {}, html_options = {})
-      render_essence(content, :view, {for_view: options}, html_options)
+      render content, {
+        content: content,
+        options: options,
+        html_options: html_options
+      }
     end
+    deprecate render_essence_view: "Use Rails' `render(content)` method directly instead",
+      deprecator: Alchemy::Deprecation
   end
 end

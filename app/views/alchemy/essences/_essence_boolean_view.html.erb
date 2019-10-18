@@ -1,1 +1,2 @@
+<% content = local_assigns[:content] || local_assigns[:essence_boolean_view] %>
 <%= Alchemy.t(content.ingredient) unless content.ingredient.nil? -%>

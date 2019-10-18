@@ -1,3 +1,4 @@
+<% content = local_assigns[:content] || local_assigns[:essence_link_view] %>
 <%- if content.ingredient.present? -%>
 <%- html_options = {
   target: content.essence.link_target == "blank" ? "_blank" : nil

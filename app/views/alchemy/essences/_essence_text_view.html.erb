@@ -1,3 +1,4 @@
+<% content = local_assigns[:content] || local_assigns[:essence_text_view] %>
 <%- options = local_assigns.fetch(:options, {}) -%>
 <%- html_options = local_assigns.fetch(:html_options, {}) -%>
 <%- if content.essence.link.blank? ||
