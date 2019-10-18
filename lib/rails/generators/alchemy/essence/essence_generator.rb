@@ -33,6 +33,7 @@ CLASSMETHOD
 
       def copy_templates
         essence_name = @essence_name.classify.demodulize.underscore
+        @essence_editor_local = "#{essence_name}_editor"
         template "view.html.erb", "#{@essence_view_path}/_#{essence_name}_view.html.erb"
         template "editor.html.erb", "#{@essence_view_path}/_#{essence_name}_editor.html.erb"
       end

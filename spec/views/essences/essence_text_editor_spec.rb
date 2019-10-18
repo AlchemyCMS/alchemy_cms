@@ -7,15 +7,13 @@ describe 'alchemy/essences/_essence_text_editor' do
   let(:content) { Alchemy::Content.new(essence: essence) }
   let(:settings) { {} }
 
-  subject do
-    render partial: "alchemy/essences/essence_text_editor", locals: { content: content }
-  end
-
   before do
     view.class.send :include, Alchemy::Admin::BaseHelper
     allow(view).to receive(:content_label).and_return("1e Zahl")
     allow(content).to receive(:settings) { settings }
-    subject
+    render partial: "alchemy/essences/essence_text_editor", locals: {
+      essence_text_editor: Alchemy::ContentEditor.new(content)
+    }
   end
 
   context 'with no input type set' do

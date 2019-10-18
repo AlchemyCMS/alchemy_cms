@@ -1,13 +1,13 @@
-<div class="content_editor essence_date" id="<%= content.dom_id %>" data-content-id="<%= content.id %>">
-  <%= content_label(content) %>
+<div class="content_editor essence_date" id="<%= essence_date_editor.dom_id %>" data-content-id="<%= essence_date_editor.id %>">
+  <%= content_label(essence_date_editor) %>
   <%= alchemy_datepicker(
-    content.essence, :date, {
-      name: content.form_field_name,
-      id: content.form_field_id,
-      value: content.ingredient
+    essence_date_editor.essence, :date, {
+      name: essence_date_editor.form_field_name,
+      id: essence_date_editor.form_field_id,
+      value: essence_date_editor.ingredient
     }
   ) %>
-  <label for="<%= content.form_field_id %>" class="essence_date--label">
+  <label for="<%= essence_date_editor.form_field_id %>" class="essence_date--label">
     <i class="icon far fa-calendar-alt fa-fw fa-lg"></i>
   </label>
 </div>

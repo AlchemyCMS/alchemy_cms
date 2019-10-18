@@ -1,8 +1,8 @@
 <% dialog_link = link_to_dialog render_icon(:file, style: 'regular'),
   alchemy.admin_attachments_path(
-    content_id: content.id,
-    only: content.settings[:only],
-    except: content.settings[:except]
+    content_id: essence_file_editor.id,
+    only: essence_file_editor.settings[:only],
+    except: essence_file_editor.settings[:except]
   ),
   {
     title: Alchemy.t(:assign_file),
@@ -12,31 +12,31 @@
   class: 'file_icon',
   title: Alchemy.t(:assign_file) %>
 
-<div class="content_editor essence_file" id="<%= content.dom_id %>" data-content-id="<%= content.id %>">
-  <%= content_label(content) %>
-  <div class="file" id="file_<%= content.id %>">
-    <% if content.ingredient %>
+<div class="content_editor essence_file" id="<%= essence_file_editor.dom_id %>" data-content-id="<%= essence_file_editor.id %>">
+  <%= content_label(essence_file_editor) %>
+  <div class="file" id="file_<%= essence_file_editor.id %>">
+    <% if essence_file_editor.ingredient %>
       <div class="file_icon">
-        <%= render_icon(content.ingredient.icon_css_class) %>
+        <%= render_icon(essence_file_editor.ingredient.icon_css_class) %>
       </div>
     <% else %>
       <%= dialog_link %>
     <% end %>
     <div class="file_name">
-      <%= content.ingredient.try(:name) ||
+      <%= essence_file_editor.ingredient.try(:name) ||
         ("&#x2190;" + Alchemy.t(:assign_file_from_archive)).html_safe %>
     </div>
     <div class="essence_file_tools">
       <%= dialog_link %>
       <%= link_to_dialog render_icon(:edit),
-        alchemy.edit_admin_essence_file_path(id: content.essence.id),
+        alchemy.edit_admin_essence_file_path(id: essence_file_editor.essence.id),
         {
           title: Alchemy.t(:edit_file_properties),
           size: '400x215'
         },
         title: Alchemy.t(:edit_file_properties) %>
     </div>
-    <%= hidden_field_tag content.form_field_name(:attachment_id),
-      content.ingredient && content.ingredient.id %>
+    <%= hidden_field_tag essence_file_editor.form_field_name(:attachment_id),
+      essence_file_editor.ingredient && essence_file_editor.ingredient.id %>
   </div>
 </div>
