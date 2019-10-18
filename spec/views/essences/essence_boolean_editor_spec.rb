@@ -20,9 +20,15 @@ describe 'alchemy/essences/_essence_boolean_editor' do
     allow(view).to receive(:render_hint_for).and_return('')
   end
 
-  it "renders an unchecked checkbox" do
-    render partial: "alchemy/essences/essence_boolean_editor", locals: {content: content}
-    expect(rendered).to have_selector('input[type="checkbox"]')
+  subject do
+    render partial: "alchemy/essences/essence_boolean_editor", locals: {
+      essence_boolean_editor: Alchemy::ContentEditor.new(content)
+    }
+    rendered
+  end
+
+  it "renders a checkbox" do
+    is_expected.to have_selector('input[type="checkbox"]')
   end
 
   context 'with default value given in content settings' do
@@ -35,8 +41,7 @@ describe 'alchemy/essences/_essence_boolean_editor' do
     end
 
     it "checks the checkbox" do
-      render partial: "alchemy/essences/essence_boolean_editor", locals: {content: content}
-      expect(rendered).to have_selector('input[type="checkbox"][checked="checked"]')
+      is_expected.to have_selector('input[type="checkbox"][checked="checked"]')
     end
   end
 end

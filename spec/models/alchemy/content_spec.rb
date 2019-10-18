@@ -373,34 +373,6 @@ module Alchemy
       end
     end
 
-    describe '#form_field_name' do
-      let(:content) { Content.new(id: 1) }
-
-      it "returns a name value for form fields with ingredient as default" do
-        expect(content.form_field_name).to eq('contents[1][ingredient]')
-      end
-
-      context 'with a essence column given' do
-        it "returns a name value for form fields for that column" do
-          expect(content.form_field_name(:link_title)).to eq('contents[1][link_title]')
-        end
-      end
-    end
-
-    describe '#form_field_id' do
-      let(:content) { Content.new(id: 1) }
-
-      it "returns a id value for form fields with ingredient as default" do
-        expect(content.form_field_id).to eq('contents_1_ingredient')
-      end
-
-      context 'with a essence column given' do
-        it "returns a id value for form fields for that column" do
-          expect(content.form_field_id(:link_title)).to eq('contents_1_link_title')
-        end
-      end
-    end
-
     it_behaves_like "having a hint" do
       let(:subject) { Content.new }
     end

@@ -12,7 +12,7 @@ RSpec.describe 'alchemy/essences/_essence_page_editor' do
   end
 
   it "renders a page select box" do
-    render 'alchemy/essences/essence_page_editor', content: content
+    render 'alchemy/essences/essence_page_editor', essence_page_editor: Alchemy::ContentEditor.new(content)
     expect(rendered).to have_css('select.alchemy_selectbox.full_width')
   end
 end
