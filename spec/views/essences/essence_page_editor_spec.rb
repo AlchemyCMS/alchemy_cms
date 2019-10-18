@@ -12,7 +12,7 @@ RSpec.describe 'alchemy/essences/_essence_page_editor' do
   end
 
   subject do
-    render 'alchemy/essences/essence_page_editor', content: content
+    render 'alchemy/essences/essence_page_editor', essence_page_editor: Alchemy::ContentEditor.new(content)
     rendered
   end
 

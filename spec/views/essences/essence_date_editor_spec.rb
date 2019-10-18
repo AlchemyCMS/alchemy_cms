@@ -12,7 +12,7 @@ RSpec.describe 'alchemy/essences/_essence_date_editor' do
   end
 
   it "renders a datepicker" do
-    render 'alchemy/essences/essence_date_editor', content: content
+    render 'alchemy/essences/essence_date_editor', essence_date_editor: Alchemy::ContentEditor.new(content)
     expect(rendered).to have_css('input[type="text"][data-datepicker-type="date"].date')
   end
 end

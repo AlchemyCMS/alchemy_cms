@@ -1,14 +1,14 @@
 <%%#
   Available locals:
-  * content (The object the essence is linked to the element)
+  * <%= @essence_editor_local %> - A Alchemy::ContentEditor instance
 
   Please consult Alchemy::Content.rb docs for further methods on the content object
 %>
-<div class="content_editor <%= @essence_name.classify.demodulize.underscore %>" id="<%%= content.dom_id %>" data-content-id="<%%= content.id %>">
-  <%%= content_label(content) %>
+<div class="content_editor <%= @essence_name.classify.demodulize.underscore %>" id="<%%= <%= @essence_editor_local %>.dom_id %>" data-content-id="<%%= <%= @essence_editor_local %>.id %>">
+  <%%= content_label(<%= @essence_editor_local %>) %>
   <%%= text_field_tag(
-    content.form_field_name,
-    content.ingredient,
-    id: content.form_field_id
+    <%= @essence_editor_local %>.form_field_name,
+    <%= @essence_editor_local %>.ingredient,
+    id: <%= @essence_editor_local %>.form_field_id
   ) %>
 </div>

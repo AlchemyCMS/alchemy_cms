@@ -34,7 +34,7 @@ describe "essences/_essence_picture_editor" do
   subject do
     allow(content).to receive(:settings) { settings }
     render partial: "alchemy/essences/essence_picture_editor",
-      locals: {content: content}
+      locals: {essence_picture_editor: Alchemy::ContentEditor.new(content)}
     rendered
   end
 
