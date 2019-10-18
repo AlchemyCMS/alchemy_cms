@@ -19,7 +19,6 @@ module Alchemy
             raise "Element name '#{element['name']}' has wrong format. Only lowercase and non whitespace characters allowed."
           end
 
-          conditional_template "editor.html.#{template_engine}", "#{elements_dir}/_#{@element_name}_editor.html.#{template_engine}"
           conditional_template "view.html.#{template_engine}", "#{elements_dir}/_#{@element_name}_view.html.#{template_engine}"
         end
       end

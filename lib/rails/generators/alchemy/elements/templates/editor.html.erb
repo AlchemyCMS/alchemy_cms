@@ -1,9 +1,0 @@
-<%- if @contents.any? || @element['picture_gallery'] -%>
-<%%= element_editor_for(element) do |el| -%>
-<%- @contents.each do |content| -%>
-  <%%= el.edit :<%= content["name"] %> %>
-<%- end -%>
-<%%- end -%>
-<%- else -%>
-<%%= element_editor_for(element) -%>
-<%- end -%>
