@@ -107,6 +107,10 @@ The following settings can be used to define elements in the `elements.yml`.
 
   Enables the element to be taggable by the user in the admin frontend.
 
+* **fixed** `Boolean` (Default: `false`)
+
+  Used to separate an element from the normal flow. When `true`, the element is rendered on the page only with the explicit call of the `fixed_elements` scope. See [fixed elements](/elements.html#render-a-group-of-elements-on-a-fixed-place-on-the-page) for more details.
+
 * **contents** `Array`
 
   A collection of contents the element contains. A content has to have a `name` (unique per element) and a `type`.
@@ -342,6 +346,40 @@ A common use case is to have global pages for header and footer parts.
 ~~~
 
 Given global pages with `page_layout` "header" and "footer".
+
+### Render a group of elements on a fixed place on the page
+
+Often you have a separate section on a page like a sidebar where you'd like to place a few different elements together. If you tag those elements as `fixed: true` in `elements.yml`, then they'll be easy to grab from the frontend, and the same will be cleanly separated in a new tab in the admin elements section.
+
+~~~ yaml {3}
+- name: your_element
+  unique: true
+  fixed: true
+  contents:
+    - name: name
+      type: EssenceText
+~~~
+
+~~~ erb
+<% @page.fixed_elements.each do |element| %>
+  <%= render_element(element) %>
+<% end %>
+~~~
+
+::: tip INFO
+Fixed elements replace the concept on [Cells](/cells.html) in Alchemy versions prior to 4.2.
+:::
+
+As `fixed_elements` is an a active record scope you can also filter by `where(name: 'your_element')` or use the `named('your_element')` scope. To gain some extra efficiency from Rails you could also use the collection rendering shortcut
+
+~~~ erb
+<%= render @page.fixed_elements.named('sidebar') %>
+~~~
+
+::: tip NOTE
+You need to use the elements view partial name instead of the element local variable then in your child element views. Ie. `sidebar_view` instead of `element`.
+:::
+
 
 ## Customizing the view partial
 

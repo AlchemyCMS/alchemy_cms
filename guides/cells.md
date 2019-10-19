@@ -5,6 +5,10 @@ next: /elements.html
 
 # Cells
 
+::: tip Deprecation note
+With Alchemy 4.2 cells have now been superseded by [fixed elements](/elements.html#render-a-group-of-elements-on-a-fixed-place-on-the-page).
+:::
+
 Cells are fixed areas on a page and act as element containers.
 
 Often you have fixed sections on a page like a sidebar or the popular hero. These are perfect candidates for cells.
