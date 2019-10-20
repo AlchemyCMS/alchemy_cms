@@ -808,8 +808,24 @@ module Alchemy
     end
 
     describe "#to_partial_path" do
-      it "should return a String in the format of 'alchemy/elements/#{name}_view'" do
-        expect(Element.new(name: 'article').to_partial_path).to eq('alchemy/elements/article_view')
+      context 'if element partial with _view suffix exists' do
+        before do
+          expect(Alchemy::LOOKUP_CONTEXT).to receive(:exists?) { true }
+        end
+
+        it do
+          expect(Element.new(name: 'article').to_partial_path).to eq('alchemy/elements/article_view')
+        end
+      end
+
+      context 'if element partial with _view suffix does not exist' do
+        before do
+          expect(Alchemy::LOOKUP_CONTEXT).to receive(:exists?) { false }
+        end
+
+        it do
+          expect(Element.new(name: 'article').to_partial_path).to eq('alchemy/elements/article')
+        end
       end
     end
 

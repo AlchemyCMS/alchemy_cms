@@ -1,0 +1,7 @@
+<%- cache(gallery) do -%>
+  <%= element_view_for(gallery) do |el| -%>
+    <div class="gallery_images">
+      <%= render gallery.nested_elements %>
+    </div>
+  <%- end -%>
+<%- end -%>

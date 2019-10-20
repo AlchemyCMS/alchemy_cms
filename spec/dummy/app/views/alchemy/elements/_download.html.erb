@@ -1,0 +1,5 @@
+<%- cache(download) do -%>
+  <%= element_view_for(download) do |el| -%>
+    <%= el.render :file %>
+  <%- end -%>
+<%- end -%>

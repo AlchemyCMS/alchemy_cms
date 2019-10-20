@@ -27,8 +27,38 @@ module Alchemy
           end
         end
 
-        context 'with an element given as name' do
+        context 'with an element view given as name' do
           let(:name) { 'alchemy/elements/_text_view' }
+          let(:elements) { [{'name' => 'text', 'contents' => [{'type' => 'EssenceText'}]}] }
+
+          context 'that is having a definition' do
+            before { allow(Element).to receive(:definitions).and_return(elements) }
+
+            it "returns all essence layout view partial names for that element" do
+              is_expected.to include('alchemy/essences/_essence_text_view')
+            end
+          end
+
+          context 'that has no definition' do
+            before { allow(Element).to receive(:definitions).and_return([]) }
+
+            it "returns empty array" do
+              is_expected.to be_empty
+            end
+          end
+        end
+
+        context 'with an element editor given as name' do
+          let(:name) { 'alchemy/elements/_text_editor' }
+          let(:elements) { [{'name' => 'text', 'contents' => [{'type' => 'EssenceText'}]}] }
+
+          it do
+            is_expected.to be_empty
+          end
+        end
+
+        context 'with an element given as name' do
+          let(:name) { 'alchemy/elements/_text' }
           let(:elements) { [{'name' => 'text', 'contents' => [{'type' => 'EssenceText'}]}] }
 
           context 'that is having a definition' do

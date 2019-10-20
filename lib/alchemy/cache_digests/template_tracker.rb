@@ -15,12 +15,15 @@ module Alchemy
         case @name.to_s
         when /^alchemy\/pages\/show/
           PageLayout.all.map { |p| "alchemy/page_layouts/_#{p['name']}" }
-        when /^alchemy\/page_layouts\/_(.+)/
+        when /^alchemy\/page_layouts\/_(\w+)/
           page_layout = PageLayout.get($1)
-          page_layout.fetch('elements', []).map { |name| "alchemy/elements/_#{name}_view" }
-        when /alchemy\/elements\/_(.+)_view/
-          essences = essence_types($1)
-          essences.map { |name| "alchemy/essences/_#{name.underscore}_view" }.uniq
+          layout_elements = page_layout.fetch('elements', [])
+          layout_elements.map { |name| "alchemy/elements/_#{name}_view" } +
+            layout_elements.map { |name| "alchemy/elements/_#{name}" }
+        when /^alchemy\/elements\/_(\w+)_view/, /^alchemy\/elements\/_(\w+)/
+          essence_types($1).map { |name|
+            "alchemy/essences/_#{name.underscore}_view"
+          }.uniq
         else
           ActionView::DependencyTracker::ERBTracker.call(@name, @template)
         end
