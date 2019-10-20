@@ -9,6 +9,7 @@
 # +Alchemy.signup_path defaults to +'/signup'+
 # +Alchemy.login_path defaults to +'/login'+
 # +Alchemy.logout_path defaults to +'/logout'+
+# +Alchemy.logout_method defaults to +'delete'+
 #
 # Anyway, you can tell Alchemy about your authentication model configuration:
 #
@@ -18,6 +19,7 @@
 #   3. The path to the signup form - @see: Alchemy.signup_path
 #   4. The path to the login form - @see: Alchemy.login_path
 #   5. The path to the logout method - @see: Alchemy.logout_path
+#   6. The http verb for the logout method - @see: Alchemy.logout_method
 #
 # == Example
 #
@@ -27,6 +29,7 @@
 #     Alchemy.signup_path = '/auth/signup'
 #     Alchemy.login_path = '/auth/login'
 #     Alchemy.logout_path = '/auth/logout'
+#     Alchemy.logout_method = 'get'
 #
 # If you don't have your own user model or don't want to provide one,
 # add the `alchemy-devise` gem into your App's Gemfile.
@@ -42,7 +45,8 @@ module Alchemy
     :current_user_method,
     :signup_path,
     :login_path,
-    :logout_path
+    :logout_path,
+    :logout_method
 
   # Defaults
   #
@@ -51,6 +55,7 @@ module Alchemy
   @@signup_path = '/signup'
   @@login_path = '/login'
   @@logout_path = '/logout'
+  @@logout_method = 'delete'
 
   # Returns the user class
   #

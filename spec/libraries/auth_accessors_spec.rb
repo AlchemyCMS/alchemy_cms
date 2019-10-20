@@ -37,6 +37,10 @@ module Alchemy
       it 'has default value for Alchemy.logout_path' do
         expect(Alchemy.logout_path).to eq('/logout')
       end
+
+      it 'has default value for Alchemy.logout_method' do
+        expect(Alchemy.logout_method).to eq('delete')
+      end
     end
   end
 end

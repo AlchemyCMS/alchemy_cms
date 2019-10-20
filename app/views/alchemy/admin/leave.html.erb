@@ -5,7 +5,7 @@
   <label><%= Alchemy.t("Do you want to") %></label>
   <%= link_to Alchemy.t('stay logged in'), alchemy.root_path, class: 'button secondary' %>
 </p>
-<%= form_tag Alchemy.logout_path, method: 'delete', class: 'buttons' do %>
+<%= form_tag Alchemy.logout_path, method: Alchemy.logout_method, class: 'buttons' do %>
   <label><%= Alchemy.t('or to completely') %></label>
   <%= button_tag Alchemy.t(:logout), autofocus: true %>
 <% end %>
