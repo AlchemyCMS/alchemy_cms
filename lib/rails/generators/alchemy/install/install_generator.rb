@@ -41,13 +41,7 @@ module Alchemy
           create_file "app/assets/stylesheets/application.css", "/*\n#{stylesheet_require} */\n"
         end
 
-        [
-          "_article_editor.html.erb",
-          "_article_view.html.erb"
-        ].each do |file|
-          copy_file file, "app/views/alchemy/elements/#{file}"
-        end
-
+        copy_file "_article.html.erb", "app/views/alchemy/elements/_article.html.erb"
         copy_file "_standard.html.erb", "app/views/alchemy/page_layouts/_standard.html.erb"
 
         %w(de en es).each do |locale|
