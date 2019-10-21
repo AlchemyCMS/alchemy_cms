@@ -4,6 +4,10 @@ module Alchemy
     engine_name 'alchemy'
     config.mount_at = '/'
 
+    initializer 'alchemy.lookup_context' do
+      Alchemy::LOOKUP_CONTEXT = ActionView::LookupContext.new(Rails.root.join('app', 'views', 'alchemy'))
+    end
+
     initializer 'alchemy.dependency_tracker' do
       [:erb, :slim, :haml].each do |handler|
         ActionView::DependencyTracker.register_tracker(handler, CacheDigests::TemplateTracker)

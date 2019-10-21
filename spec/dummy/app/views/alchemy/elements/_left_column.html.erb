@@ -1,0 +1,5 @@
+<%- cache(left_column) do -%>
+  <%= element_view_for(left_column) do |el| -%>
+    <%= render left_column.nested_elements %>
+  <%- end -%>
+<%- end -%>

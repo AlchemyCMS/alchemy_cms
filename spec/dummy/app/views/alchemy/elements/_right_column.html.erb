@@ -1,0 +1,6 @@
+<%- cache(right_column) do -%>
+  <%= element_view_for(right_column) do |el| -%>
+    <%= el.render :title %>
+    <%= render right_column.nested_elements %>
+  <%- end -%>
+<%- end -%>

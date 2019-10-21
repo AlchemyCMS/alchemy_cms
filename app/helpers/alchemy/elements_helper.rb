@@ -123,7 +123,7 @@ module Alchemy
     #
     # == View partial naming
     #
-    # The partial has to be named after the name of the element as defined in the <tt>elements.yml</tt> file and has to be suffixed with <tt>_view</tt>.
+    # The partial has to be named after the name of the element as defined in the <tt>elements.yml</tt> file.
     #
     # === Example
     #
@@ -137,7 +137,7 @@ module Alchemy
     #
     # Then your element view partial has to be named like:
     #
-    #   app/views/alchemy/elements/_headline_view.html.{erb|haml|slim}
+    #   app/views/alchemy/elements/_headline.html.{erb|haml|slim}
     #
     # === Element partials generator
     #
@@ -147,7 +147,7 @@ module Alchemy
     #
     # == Usage
     #
-    #   <%= render_element(Alchemy::Element.published.named(:headline).first) %>
+    #   <%= render_element(Alchemy::Element.available.named(:headline).first) %>
     #
     # @param [Alchemy::Element] element
     #   The element you want to render the view for
