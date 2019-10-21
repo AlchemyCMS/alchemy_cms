@@ -10,7 +10,7 @@
     <div class="picture_image">
       <div class="thumbnail_background">
         <%- if content.ingredient -%>
-          <%= essence_picture_thumbnail(content, options) %>
+          <%= essence_picture_thumbnail(content) %>
         <% else %>
           <%= render_icon(:image, style: 'regular') %>
         <% end %>
@@ -24,8 +24,7 @@
     <%- end -%>
     <div class="edit_images_bottom">
       <%= render 'alchemy/essences/shared/essence_picture_tools', {
-        content: content,
-        options: options
+        content: content
       } %>
     </div>
   </div>

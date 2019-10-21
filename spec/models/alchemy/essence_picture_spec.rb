@@ -149,9 +149,11 @@ module Alchemy
     end
 
     describe '#thumbnail_url' do
-      subject(:thumbnail_url) { essence.thumbnail_url(options) }
+      subject(:thumbnail_url) { essence.thumbnail_url }
 
-      let(:options) { {} }
+      let(:settings) do
+        {}
+      end
 
       let(:picture) do
         build_stubbed(:alchemy_picture)
@@ -166,6 +168,7 @@ module Alchemy
       end
 
       before do
+        allow(content).to receive(:settings) { settings }
         allow(essence).to receive(:content) { content }
       end
 
@@ -200,9 +203,9 @@ module Alchemy
           thumbnail_url
         end
 
-        context 'when crop is explicitely enabled in the options' do
-          let(:options) do
-            {crop: true}
+        context 'when crop is explicitely enabled in the settings' do
+          let(:settings) do
+            { crop: true }
           end
 
           it "it enables cropping." do
@@ -211,14 +214,6 @@ module Alchemy
             )
             thumbnail_url
           end
-        end
-      end
-
-      context 'with other options' do
-        let(:options) { {foo: 'baz'} }
-
-        it 'drops them' do
-          expect(thumbnail_url).to_not match /\?foo=baz/
         end
       end
 
@@ -336,7 +331,7 @@ module Alchemy
 
             context "with crop set to true" do
               before do
-                allow(content).to receive(:settings_value) { true }
+                allow(content).to receive(:settings) { {crop: true} }
               end
 
               it { is_expected.to be(true) }

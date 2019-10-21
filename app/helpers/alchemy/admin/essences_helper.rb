@@ -7,22 +7,8 @@ module Alchemy
       include Alchemy::Admin::ContentsHelper
 
       # Renders the Content editor partial from the given Content.
-      # For options see -> render_essence
-      # @deprecated
-      def render_essence_editor(content, options = {}, html_options = {})
-        if !options.empty?
-          Alchemy::Deprecation.warn <<~WARN
-            Passing options to `render_essence_editor` is deprecated and will be removed from Alchemy 5.0.
-            Add your static `#{options.keys}` options to the `#{content.name}` content definitions `settings` of `#{content.element&.name}` element.
-            For dynamic options consider adding your own essence class.
-          WARN
-        end
-        if !html_options.empty?
-          Alchemy::Deprecation.warn <<~WARN
-            Passing html_options to `render_essence_editor` is deprecated and will be removed in Alchemy 5.0 without replacement.
-          WARN
-        end
-        render_essence(content, :editor, {for_editor: options}, html_options)
+      def render_essence_editor(content)
+        render_essence(content, :editor)
       end
       deprecate :render_essence_editor, deprecator: Alchemy::Deprecation
 
@@ -32,16 +18,16 @@ module Alchemy
       # Content creation on the fly:
       #
       # If you update the elements.yml file after creating an element this helper displays a error message with an option to create the content.
-      # @deprecated
-      def render_essence_editor_by_name(element, name, options = {}, html_options = {})
+      #
+      def render_essence_editor_by_name(element, name)
         if element.blank?
           return warning('Element is nil', Alchemy.t(:no_element_given))
         end
         content = element.content_by_name(name)
         if content.nil?
-          render_missing_content(element, name, options)
+          render_missing_content(element, name)
         else
-          render_essence_editor(content, options, html_options)
+          render_essence_editor(content)
         end
       end
       deprecate :render_essence_editor_by_name, deprecator: Alchemy::Deprecation
@@ -68,21 +54,21 @@ module Alchemy
       end
 
       # Renders the missing content partial
-      # @deprecated
-      def render_missing_content(element, name, options)
-        render 'alchemy/admin/contents/missing', {element: element, name: name, options: options}
+      #
+      def render_missing_content(element, name)
+        render 'alchemy/admin/contents/missing', {element: element, name: name}
       end
       deprecate :render_missing_content, deprecator: Alchemy::Deprecation
 
       # Renders a thumbnail for given EssencePicture content with correct cropping and size
-      def essence_picture_thumbnail(content, options = {})
+      def essence_picture_thumbnail(content)
         picture = content.ingredient
         essence = content.essence
 
         return if picture.nil?
 
         image_tag(
-          essence.thumbnail_url(options),
+          essence.thumbnail_url,
           alt: picture.name,
           class: 'img_paddingtop',
           title: Alchemy.t(:image_name) + ": #{picture.name}"
@@ -90,11 +76,11 @@ module Alchemy
       end
 
       # Size value for edit picture dialog
-      def edit_picture_dialog_size(content, options = {})
-        if content.settings_value(:caption_as_textarea, options)
-          content.settings_value(:sizes, options) ? '380x320' : '380x300'
+      def edit_picture_dialog_size(content)
+        if content.settings[:caption_as_textarea]
+          content.settings[:sizes] ? '380x320' : '380x300'
         else
-          content.settings_value(:sizes, options) ? '380x290' : '380x255'
+          content.settings[:sizes] ? '380x290' : '380x255'
         end
       end
 

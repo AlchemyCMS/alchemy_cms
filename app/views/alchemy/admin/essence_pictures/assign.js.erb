@@ -2,8 +2,7 @@ $('#picture_to_assign_<%= @picture.id %> a').attr('href', '#').off('click');
 $('#<%= @content.dom_id -%>').replaceWith('<%= j(
   render(
     "alchemy/essences/essence_picture_editor",
-    content: @content,
-    options: options_from_params
+    content: @content
   )
 ) %>');
 Alchemy.closeCurrentDialog();
