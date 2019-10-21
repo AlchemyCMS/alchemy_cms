@@ -1,3 +1,9 @@
+## 4.3.1 (2019-10-21)
+
+- add config/manifest.js to dummy app [#93](https://github.com/AlchemyCMS/alchemy-devise/pull/93) ([rmparr](https://github.com/rmparr))
+- Use at least Devise 4.7.1 [#90](https://github.com/AlchemyCMS/alchemy-devise/pull/90) ([tvdeyen](https://github.com/tvdeyen))
+- Rename Alchemy::BaseController extension constant [#87](https://github.com/AlchemyCMS/alchemy-devise/pull/87) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.3.0 (2019-08-23)
 
 - Move test dependencies [#86](https://github.com/AlchemyCMS/alchemy-devise/pull/86) ([tvdeyen](https://github.com/tvdeyen))
