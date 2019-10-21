@@ -135,7 +135,11 @@ RSpec.describe 'Show page feature:', type: :system do
       it "a form and button to logout of alchemy" do
         within('#alchemy_menubar') do
           expect(page).to \
-            have_selector("li form[action='#{Alchemy.logout_path}'], li button[type='submit']")
+            have_selector("li form[action='#{Alchemy.logout_path}'][method='post']")
+          expect(page).to \
+            have_selector("li form[action='#{Alchemy.logout_path}'] > button[type='submit']")
+          expect(page).to \
+            have_selector("li form[action='#{Alchemy.logout_path}'] > input[type='hidden'][name='_method'][value='#{Alchemy.logout_method}']")
         end
       end
     end

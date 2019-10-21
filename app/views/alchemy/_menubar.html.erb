@@ -4,7 +4,7 @@
       <li><%= link_to Alchemy.t(:to_alchemy), alchemy.admin_dashboard_url %></li>
       <li><%= link_to Alchemy.t(:edit_page), alchemy.edit_admin_page_url(@page) %></li>
       <li>
-        <%= form_tag Alchemy.logout_path, method: 'delete' do %>
+        <%= form_tag Alchemy.logout_path, method: Alchemy.logout_method do %>
           <%= button_tag Alchemy.t(:logout) %>
         <% end %>
       </li>
