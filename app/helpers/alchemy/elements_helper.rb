@@ -6,7 +6,6 @@ module Alchemy
   # The most important helper for frontend developers is the {#render_elements} helper.
   #
   module ElementsHelper
-    include Alchemy::EssencesHelper
     include Alchemy::UrlHelper
     include Alchemy::ElementsBlockHelper
 
