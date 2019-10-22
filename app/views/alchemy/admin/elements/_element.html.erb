@@ -1,7 +1,7 @@
 <%= content_tag :div,
   id: "element_#{element.id}",
   data: {'element-id' => element.id, 'element-name' => element.name},
-  class: element_editor_classes(element) do %>
+  class: element.css_classes do %>
 
   <% unless element.fixed? %>
     <%= render 'alchemy/admin/elements/element_header', element: element %>
@@ -35,16 +35,17 @@
   <% end %>
 
   <% if element.nestable_elements.any? %>
-    <% if show_element_footer?(element, :with_nestable_elements) %>
+    <% if element.show_footer?(:with_nestable_elements) %>
       <%= render 'alchemy/admin/elements/element_footer', element: element %>
     <% end %>
     <div class="nestable-elements">
       <%= content_tag :div,
-            class: "nested-elements", data: {
-              'droppable-elements' => element.nestable_elements.join(' ')
-            } do %>
-        <%= render partial: 'alchemy/admin/elements/element',
-           collection: element.all_nested_elements %>
+        class: "nested-elements", data: {
+          'droppable-elements' => element.nestable_elements.join(' ')
+        } do %>
+        <%= render element.all_nested_elements.map { |element|
+          Alchemy::ElementEditor.new(element)
+        } %>
       <% end %>
 
       <% if element.expanded? || element.fixed? %>
@@ -73,7 +74,7 @@
     </div>
   <% end %>
 
-  <% if show_element_footer?(element) %>
+  <% if element.show_footer? %>
     <%= render 'alchemy/admin/elements/element_footer', element: element %>
   <% end %>
 <% end %>
