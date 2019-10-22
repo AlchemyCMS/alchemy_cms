@@ -4,40 +4,6 @@ require 'rails_helper'
 
 module Alchemy
   describe Admin::ElementsHelper do
-    let(:page)    { build_stubbed(:alchemy_page, :public) }
-    let(:element) { build_stubbed(:alchemy_element, page: page) }
-
-    describe "#render_editor" do
-      subject { render_editor(element) }
-
-      context 'with nil element' do
-        let(:element) { nil }
-
-        it { is_expected.to be_nil }
-      end
-
-      context 'with element record given' do
-        let(:element) do
-          create(:alchemy_element, :with_contents, name: 'headline')
-        end
-
-        it "renders the element's editor partial" do
-          element_editor_partial_name = "alchemy/elements/#{element.name}_editor"
-          expect(helper).to receive(:render).with(element_editor_partial_name, element: element) { '' }
-          subject
-        end
-
-        context 'with element editor partial not found' do
-          let(:element) { build_stubbed(:alchemy_element, name: 'not_present') }
-
-          it "renders the editor not found partial" do
-            is_expected.to have_selector('div.warning')
-            is_expected.to have_content('Element editor partial not found')
-          end
-        end
-      end
-    end
-
     describe "#elements_for_select" do
       context "passing element instances" do
         let(:element_objects) do
