@@ -1,0 +1,27 @@
+name: RSpec
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        ruby:
+          - '2.5.x'
+          - '2.6.x'
+    steps:
+    - uses: actions/checkout@v1
+    - name: Setup SQlite3
+      run: |
+        sudo apt-get install -y libsqlite3-dev
+    - name: Set up Ruby
+      uses: actions/setup-ruby@v1
+      with:
+        ruby-version: ${{ matrix.ruby }}
+    - name: Build and test with RSpec
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bundle exec rake alchemy:spec:prepare
+        bundle exec rspec
