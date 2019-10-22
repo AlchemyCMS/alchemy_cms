@@ -10,22 +10,41 @@ jobs:
         ruby:
           - '2.5.x'
           - '2.6.x'
+        database:
+          - mysql
+          - postgresql
+    env:
+      DB: ${{ matrix.database }}
+      MYSQL_PASSWORD: root
+      PGHOST: 127.0.0.1
+      PGUSER: postgres
+      RAILS_ENV: test
+    services:
+      postgres:
+        image: postgres:10
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
-    - uses: actions/checkout@v1
-    - name: Setup SQlite3
-      run: |
-        sudo apt-get install -y libsqlite3-dev
-    - name: Set up Ruby
-      uses: actions/setup-ruby@v1
-      with:
-        ruby-version: ${{ matrix.ruby }}
-    - name: Install bundle
-      run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 3
-    - name: Prepare database
-      run: |
-        bundle exec rake alchemy:spec:prepare
-    - name: Test with RSpec
-      run: |
-        bundle exec rspec
+      - uses: actions/checkout@v1
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Install Postgres headers
+        if: matrix.database == 'postgresql'
+        run: |
+          sudo apt-get install -yqq libpq-dev
+      - name: Install MySQL headers
+        if: matrix.database == 'mysql'
+        run: |
+          sudo apt-get install -yqq libmysqlclient-dev
+      - name: Install bundle
+        run: |
+          gem install bundler
+          bundle install --jobs 4 --retry 3
+      - name: Prepare database
+        run: |
+          bundle exec rake alchemy:spec:prepare
+      - name: Test with RSpec
+        run: |
+          bundle exec rspec
