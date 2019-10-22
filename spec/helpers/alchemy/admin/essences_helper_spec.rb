@@ -9,49 +9,6 @@ describe Alchemy::Admin::EssencesHelper do
     create(:alchemy_element, :with_contents, name: 'article')
   end
 
-  describe 'essence rendering' do
-    before do
-      if element
-        element.content_by_name('intro').essence.update(body: 'hello!')
-      end
-    end
-
-    describe '#render_essence_editor' do
-      it "should render an essence editor" do
-        content = element.content_by_name('intro')
-        expect(helper.render_essence_editor(content)).
-          to match(/input.+type="text".+value="hello!/)
-      end
-    end
-
-    describe '#render_essence_editor_by_name' do
-      subject { render_essence_editor_by_name(element, content) }
-
-      let(:content) { 'intro' }
-
-      it "renders an essence editor by given name" do
-        is_expected.to match(/input.+type="text".+value="hello!/)
-      end
-
-      context 'when element is nil' do
-        let(:element) { nil }
-
-        it "displays a warning" do
-          is_expected.to have_selector(".warning.message")
-          is_expected.to have_content("No element given.")
-        end
-      end
-
-      context 'when content is not found on element' do
-        let(:content) { 'sputz' }
-
-        it "displays a warning" do
-          is_expected.to have_selector(".content_editor.missing")
-        end
-      end
-    end
-  end
-
   describe '#pages_for_select' do
     let(:contact_form) do
       create(:alchemy_element, :with_contents, name: 'contactform')
