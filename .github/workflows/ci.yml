@@ -1,9 +1,9 @@
-name: RSpec
+name: CI
 
 on: [push, pull_request]
 
 jobs:
-  test:
+  RSpec:
     runs-on: ubuntu-latest
     strategy:
       matrix:
