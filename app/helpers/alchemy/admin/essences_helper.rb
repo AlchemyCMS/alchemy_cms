@@ -3,35 +3,6 @@
 module Alchemy
   module Admin
     module EssencesHelper
-      include Alchemy::EssencesHelper
-      include Alchemy::Admin::ContentsHelper
-
-      # Renders the Content editor partial from the given Content.
-      def render_essence_editor(content)
-        render_essence(content, :editor)
-      end
-      deprecate :render_essence_editor, deprecator: Alchemy::Deprecation
-
-      # Renders the Content editor partial found in views/contents/ for the content with name inside the passed Element.
-      # For options see -> render_essence
-      #
-      # Content creation on the fly:
-      #
-      # If you update the elements.yml file after creating an element this helper displays a error message with an option to create the content.
-      #
-      def render_essence_editor_by_name(element, name)
-        if element.blank?
-          return warning('Element is nil', Alchemy.t(:no_element_given))
-        end
-        content = element.content_by_name(name)
-        if content.nil?
-          render_missing_content(element, name)
-        else
-          render_essence_editor(content)
-        end
-      end
-      deprecate :render_essence_editor_by_name, deprecator: Alchemy::Deprecation
-
       # Returns all public pages from current language as an option tags string suitable or the Rails +select_tag+ helper.
       #
       # @param [Array]
@@ -53,13 +24,6 @@ module Alchemy
         options_for_select(values, selected.to_s)
       end
       deprecate :pages_for_select, deprecator: Alchemy::Deprecation
-
-      # Renders the missing content partial
-      #
-      def render_missing_content(element, name)
-        render 'alchemy/admin/contents/missing', {element: element, name: name}
-      end
-      deprecate :render_missing_content, deprecator: Alchemy::Deprecation
 
       # Renders a thumbnail for given EssencePicture content with correct cropping and size
       def essence_picture_thumbnail(content)
