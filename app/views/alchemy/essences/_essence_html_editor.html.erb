@@ -1,7 +1,7 @@
-<div class="content_editor essence_html_editor" data-content-id="<%= content.id %>">
-  <%= content_label(content) %>
+<div class="content_editor essence_html_editor" data-content-id="<%= essence_html_editor.id %>">
+  <%= content_label(essence_html_editor) %>
   <%= text_area_tag(
-    content.form_field_name,
-    content.ingredient
+    essence_html_editor.form_field_name,
+    essence_html_editor.ingredient
   ) %>
 </div>

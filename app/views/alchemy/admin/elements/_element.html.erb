@@ -25,13 +25,7 @@
         <% if lookup_context.exists?("#{element.name}_editor", ["alchemy/elements"], true) %>
           <%= render_editor(element) %>
         <% else %>
-          <%= element_editor_for(element) do %>
-            <% element.contents.each do |content| %>
-              <%= render "alchemy/essences/#{content.essence_partial_name}_editor", {
-                content: content
-              } %>
-            <% end %>
-          <% end %>
+          <%= render element.contents.map { |content| Alchemy::ContentEditor.new(content) } %>
         <% end %>
       </div>
 

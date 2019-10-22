@@ -1,41 +1,41 @@
 <% options = local_assigns.fetch(:options, {}) %>
 
-<%= content_tag :div, id: content.dom_id, data: {"content-id" => content.id}, class: "content_editor essence_picture" do %>
-  <%= content_label(content) %>
+<%= content_tag :div, id: essence_picture_editor.dom_id, data: {"content-id" => essence_picture_editor.id}, class: "content_editor essence_picture" do %>
+  <%= content_label(essence_picture_editor) %>
   <div class="picture_thumbnail">
     <span class="picture_tool delete">
       <%= link_to render_icon(:times), '#',
-        onclick: "return Alchemy.removePicture('##{content.form_field_id(:picture_id)}');" %>
+        onclick: "return Alchemy.removePicture('##{essence_picture_editor.form_field_id(:picture_id)}');" %>
     </span>
     <div class="picture_image">
       <div class="thumbnail_background">
-        <%- if content.ingredient -%>
-          <%= essence_picture_thumbnail(content) %>
+        <%- if essence_picture_editor.ingredient -%>
+          <%= essence_picture_thumbnail(essence_picture_editor) %>
         <% else %>
           <%= render_icon(:image, style: 'regular') %>
         <% end %>
       </div>
     </div>
-    <%- if content.essence.css_class.present? -%>
+    <%- if essence_picture_editor.essence.css_class.present? -%>
       <div class="essence_picture_css_class">
-        <%= Alchemy.t("alchemy.essence_pictures.css_classes.#{content.essence.css_class}",
-          default: content.essence.css_class.camelcase) %>
+        <%= Alchemy.t("alchemy.essence_pictures.css_classes.#{essence_picture_editor.essence.css_class}",
+          default: essence_picture_editor.essence.css_class.camelcase) %>
       </div>
     <%- end -%>
     <div class="edit_images_bottom">
       <%= render 'alchemy/essences/shared/essence_picture_tools', {
-        content: content
+        content: essence_picture_editor.content
       } %>
     </div>
   </div>
-  <%= hidden_field_tag content.form_field_name(:picture_id),
-    content.ingredient.try!(:id) %>
-  <%= hidden_field_tag content.form_field_name(:link),
-    content.essence.link %>
-  <%= hidden_field_tag content.form_field_name(:link_title),
-    content.essence.link_title %>
-  <%= hidden_field_tag content.form_field_name(:link_class_name),
-    content.essence.link_class_name %>
-  <%= hidden_field_tag content.form_field_name(:link_target),
-    content.essence.link_target %>
+  <%= hidden_field_tag essence_picture_editor.form_field_name(:picture_id),
+    essence_picture_editor.ingredient.try!(:id) %>
+  <%= hidden_field_tag essence_picture_editor.form_field_name(:link),
+    essence_picture_editor.essence.link %>
+  <%= hidden_field_tag essence_picture_editor.form_field_name(:link_title),
+    essence_picture_editor.essence.link_title %>
+  <%= hidden_field_tag essence_picture_editor.form_field_name(:link_class_name),
+    essence_picture_editor.essence.link_class_name %>
+  <%= hidden_field_tag essence_picture_editor.form_field_name(:link_target),
+    essence_picture_editor.essence.link_target %>
 <% end %>

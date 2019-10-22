@@ -86,9 +86,9 @@ module Alchemy
           html_options: html_options
         }
       else
-        render "alchemy/essences/#{content.essence_partial_name}_editor", {
+        render Alchemy::ContentEditor.new(content), {
           content: content,
-          options: options,
+          options: options[:for_editor],
           html_options: html_options
         }
       end
