@@ -34,15 +34,6 @@ module Alchemy
   #
   # Disabling the page caching is strongly recommended!
   #
-  # The editor view for your element should have this layout:
-  #
-  #   <%= element_editor_for(element) do |el| %>
-  #     <%= el.edit :mail_from %>
-  #     <%= el.edit :mail_to %>
-  #     <%= el.edit :subject %>
-  #     <%= el.edit :success_page %>
-  #   <% end %>
-  #
   # Please have a look at the +alchemy/config/config.yml+ file for further Message settings.
   #
   class MessagesController < Alchemy::BaseController
