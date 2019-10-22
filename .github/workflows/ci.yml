@@ -56,3 +56,8 @@ jobs:
         run: |
           bundle exec rspec
           ./cc-test-reporter after-build --exit-code $?
+      - uses: actions/upload-artifact@master
+        if: failure()
+        with:
+          name: Screenshots
+          path: spec/dummy/tmp/screenshots
