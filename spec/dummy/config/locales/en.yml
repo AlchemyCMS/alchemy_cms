@@ -1,30 +1,4 @@
 en:
-  alchemy:
-    element_names:
-      gallery_picture: Gallery picture
-    content_names:
-      essence_boolean: EssenceBoolean
-      essence_date: EssenceDate
-      essence_file: EssenceFile
-      essence_html: EssenceHtml
-      essence_link: EssenceLink
-      essence_picture: EssencePicture
-      essence_richtext: EssenceRichtext
-      essence_select: EssenceSelect
-      essence_text: EssenceText
-    element_hints:
-      all_you_can_eat: This element shows all content types (Essences) and settings of an Element Alchemy comes with in a default installation.
-    content_hints:
-      essence_boolean: This content type (Essence) represents a simple true/false value
-      essence_date: This content type (Essence) represents a date value
-      essence_file: This content type (Essence) represents a downloadable file
-      essence_html: This content type (Essence) represents raw HTML output
-      essence_link: This content type (Essence) represents a link
-      essence_picture: This content type (Essence) represents a picture
-      essence_richtext: This content type (Essence) represents richtext
-      essence_select: This content type (Essence) represents values the editor can choose from
-      essence_text: This content type (Essence) represents a simple line of text
-
   activerecord:
     models:
       event:
