@@ -15,19 +15,19 @@
       <% end %>
     </ul>
     <div id="main-content-elements" class="sortable-elements" data-droppable-elements="<%= @page.element_definition_names.join(' ') %>">
-      <%= render partial: 'alchemy/admin/elements/element', collection: @elements %>
+      <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
     </div>
     <% @fixed_elements.each do |element| %>
       <div
         id="fixed-element-<%= element.id %>"
         class="sortable-elements"
         data-droppable-elements="<%= element.nestable_elements.join(' ') %>">
-        <%= render 'alchemy/admin/elements/element', element: element %>
+        <%= render Alchemy::ElementEditor.new(element) %>
       </div>
     <% end %>
   </div>
 <% else %>
   <div id="main-content-elements" class="sortable-elements" data-droppable-elements="<%= @page.element_definition_names.join(' ') %>">
-    <%= render partial: 'alchemy/admin/elements/element', collection: @elements %>
+    <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
   </div>
 <% end %>
