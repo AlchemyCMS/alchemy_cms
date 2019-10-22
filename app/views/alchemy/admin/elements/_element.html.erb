@@ -22,11 +22,7 @@
         <% element.definition[:warning].tap do |warning| %>
           <%= render_message(:warning, sanitize(warning)) if warning %>
         <% end %>
-        <% if lookup_context.exists?("#{element.name}_editor", ["alchemy/elements"], true) %>
-          <%= render_editor(element) %>
-        <% else %>
-          <%= render element.contents.map { |content| Alchemy::ContentEditor.new(content) } %>
-        <% end %>
+        <%= render element.contents.map { |content| Alchemy::ContentEditor.new(content) } %>
       </div>
 
       <% if element.taggable? %>
