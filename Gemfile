@@ -15,9 +15,6 @@ gem 'sassc-rails'
 group :development, :test do
   gem 'simplecov', require: false
   gem 'bootsnap', require: false
-  if ENV['TRAVIS']
-    gem 'codeclimate-test-reporter', '~> 1.0', require: false
-  end
   unless ENV['CI']
     gem 'launchy'
     gem 'annotate'

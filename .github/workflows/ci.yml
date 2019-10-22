@@ -19,6 +19,7 @@ jobs:
       PGHOST: 127.0.0.1
       PGUSER: postgres
       RAILS_ENV: test
+      CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
     services:
       postgres:
         image: postgres:10
@@ -46,6 +47,12 @@ jobs:
       - name: Prepare database
         run: |
           bundle exec rake alchemy:spec:prepare
+      - name: Install code climate test reporter
+        run: |
+          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+          chmod +x ./cc-test-reporter
+          ./cc-test-reporter before-build
       - name: Test with RSpec
         run: |
           bundle exec rspec
+          ./cc-test-reporter after-build --exit-code $?
