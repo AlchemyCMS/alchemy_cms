@@ -39,6 +39,7 @@ jobs:
         run: |
           sudo apt-get install -yqq libmysqlclient-dev
       - name: Install bundle
+        timeout-minutes: 10
         run: |
           gem install bundler
           bundle install --jobs 4 --retry 3
