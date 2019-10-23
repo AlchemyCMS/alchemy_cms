@@ -55,27 +55,6 @@ module Alchemy
           is_expected.to match(/2\./)
         end
       end
-
-      context 'with 4 arguments given' do
-        subject { render_element(element, :view, {locals: {some: 'thing'}}, 2) }
-
-        it 'passes options into the view' do
-          Alchemy::Deprecation.silence do
-            is_expected.to match(/thing/)
-          end
-        end
-
-        it 'passes counter into the view' do
-          Alchemy::Deprecation.silence do
-            is_expected.to match(/2\./)
-          end
-        end
-
-        it 'warns about removal of second parameter' do
-          expect(Alchemy::Deprecation).to receive(:warn)
-          subject
-        end
-      end
     end
 
     describe '#element_dom_id' do
