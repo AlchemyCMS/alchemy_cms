@@ -322,12 +322,5 @@ module Alchemy
     def meta_robots
       "#{@page.robot_index? ? '' : 'no'}index, #{@page.robot_follow? ? '' : 'no'}follow"
     end
-
-    # @deprecated
-    def render_cell(name, _options = {})
-      render_elements(only: name, fixed: true)
-    end
-    deprecate render_cell: 'Use render_elements(only: <cell-name>, fixed: true) instead',
-      deprecator: Alchemy::Deprecation
   end
 end
