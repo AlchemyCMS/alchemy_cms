@@ -107,28 +107,6 @@ module Alchemy
         end
       end
 
-      context 'with sort_by option given' do
-        let(:options) do
-          { sort_by: :name }
-        end
-
-        it 'warns about removal of sort_by option' do
-          expect(Alchemy::Deprecation).to receive(:warn)
-          subject
-        end
-      end
-
-      context 'with from_cell option given' do
-        let(:options) do
-          { from_cell: :header }
-        end
-
-        it 'warns about removal of from_cell option' do
-          expect(Alchemy::Deprecation).to receive(:warn)
-          subject
-        end
-      end
-
       context 'with option separator given' do
         let(:options) { {separator: '<hr>'} }
 
