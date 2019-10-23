@@ -36,15 +36,8 @@ module Alchemy
       #
       # @return [Alchemy::Content]
       #
-      def create(*args)
-        attributes = args.last || {}
-        if args.length > 1
-          Alchemy::Deprecation.warn 'Passing an element as first argument to Alchemy::Content.create is deprecated! Pass an attribute hash with element inside instead.'
-          element = args.first
-        else
-          element = attributes[:element]
-        end
-        new(attributes.merge(element: element)).tap do |content|
+      def create(attributes = {})
+        new(attributes).tap do |content|
           content.essence.save && content.save
         end
       end
