@@ -108,13 +108,6 @@ module Alchemy
         end
       end
 
-      def per_page_value_for_screen_size
-        Alchemy::Deprecation.warn("#per_page_value_for_screen_size is deprecated, please use #items_per_page instead")
-        return items_per_page if session[:screen_size].blank?
-        screen_height = session[:screen_size].split('x').last.to_i
-        (screen_height / 50) - 12
-      end
-
       # Does redirects for html and js requests
       #
       def do_redirect_to(url_or_path)
