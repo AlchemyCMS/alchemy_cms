@@ -263,17 +263,7 @@ module Alchemy
     # Element partials live in +app/views/alchemy/elements+
     #
     def to_partial_path
-      if Alchemy::LOOKUP_CONTEXT.exists?("#{name}_view", ["elements"], true)
-        Alchemy::Deprecation.warn <<~WARN
-          Having the `_view` suffix on your element view partials is deprecated
-          and will not be supported in Alchemy 5.0 anymore. You can safely remove the suffix now.
-
-          Please also rename the local `element` or `#{name}_view` variable into `#{name}`.
-        WARN
-        "alchemy/elements/#{name}_view"
-      else
-        "alchemy/elements/#{name}"
-      end
+      "alchemy/elements/#{name}"
     end
 
     # Returns the key that's taken for cache path.
