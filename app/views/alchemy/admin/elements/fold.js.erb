@@ -8,7 +8,7 @@
 
 <% else -%>
 
-  $el.replaceWith('<%= j render(partial: "element", object: @element) %>');
+  $el.replaceWith('<%= j render(Alchemy::ElementEditor.new(@element)) %>');
   $el = $('#element_<%= @element.id %>');
   $('#element_area .sortable-elements').sortable('refresh');
 
