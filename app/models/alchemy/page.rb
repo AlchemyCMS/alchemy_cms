@@ -336,13 +336,7 @@ module Alchemy
     #   Use this for your custom element loading logic.
     #
     # @return [ActiveRecord::Relation]
-    def find_elements(options = {}, show_non_public = false)
-      if show_non_public
-        Alchemy::Deprecation.warn "Passing true as second argument to page#find_elements to include" \
-          " invisible elements has been removed. Please implement your own ElementsFinder" \
-          " and pass it with options[:finder]."
-      end
-
+    def find_elements(options = {})
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
       finder.elements(page: self)
     end
