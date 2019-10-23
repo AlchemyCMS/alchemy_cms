@@ -141,11 +141,6 @@ module Alchemy
 
         super(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
-      alias_method :new_from_scratch, :new
-      deprecate new_from_scratch: :new, deprecator: Alchemy::Deprecation
-
-      alias_method :create_from_scratch, :create
-      deprecate create_from_scratch: :create, deprecator: Alchemy::Deprecation
 
       # This methods does a copy of source and all depending contents and all of their depending essences.
       #
