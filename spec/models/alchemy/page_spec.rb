@@ -1174,15 +1174,6 @@ module Alchemy
           expect(subject.map(&:name)).to eq(['news'])
         end
       end
-
-      context 'with second argument set to true' do
-        subject { page.find_elements(options, true) }
-
-        it 'warns about removal of second argument' do
-          expect(Alchemy::Deprecation).to receive(:warn).at_least(:once)
-          subject
-        end
-      end
     end
 
     describe '#first_public_child' do
