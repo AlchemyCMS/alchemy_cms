@@ -238,22 +238,5 @@ module Alchemy
       return {} if !element.taggable? || element.tag_list.blank?
       { 'data-element-tags' => options[:formatter].call(element.tag_list) }
     end
-
-    # Sort given elements by content.
-    # @deprecated
-    # @param [Array] elements - The elements you want to sort
-    # @param [String] content_name - The name of the content you want to sort by
-    # @param [Boolean] reverse - Reverse the sorted elements order
-    #
-    # @return [Array]
-    def sort_elements_by_content(elements, content_name, reverse = false)
-      Alchemy::Deprecation.warn "options[:sort_by] is deprecated. Please implement your own element sorting."
-      sorted_elements = elements.sort_by do |element|
-        content = element.content_by_name(content_name)
-        content ? content.ingredient.to_s : ''
-      end
-
-      reverse ? sorted_elements.reverse : sorted_elements
-    end
   end
 end
