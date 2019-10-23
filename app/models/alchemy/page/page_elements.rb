@@ -147,8 +147,6 @@ module Alchemy
     def element_definition_names
       definition['elements'] || []
     end
-    alias_method :element_names_from_definition, :element_definition_names
-    deprecate element_names_from_definition: :element_definition_names, deprecator: Alchemy::Deprecation
 
     # Element definitions with given name(s)
     #
