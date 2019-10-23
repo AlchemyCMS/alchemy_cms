@@ -94,16 +94,6 @@ module Alchemy
         render_format: 'html'
       }.update(options)
 
-      if options[:sort_by]
-        Alchemy::Deprecation.warn "options[:sort_by] has been removed without replacement. " \
-          "Please implement your own element sorting by passing a custom finder instance to options[:finder]."
-      end
-
-      if options[:from_cell]
-        Alchemy::Deprecation.warn "options[:from_cell] has been removed without replacement. " \
-          "Please `render element.nested_elements` instead."
-      end
-
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
       elements = finder.elements(page: options[:from_page])
 
