@@ -16,7 +16,6 @@ require 'webdrivers/chromedriver'
 require 'shoulda-matchers'
 
 require 'alchemy/seeder'
-require 'alchemy/test_support/controller_requests'
 require 'alchemy/test_support/config_stubbing'
 require 'alchemy/test_support/essence_shared_examples'
 require 'alchemy/test_support/integration_helpers'
