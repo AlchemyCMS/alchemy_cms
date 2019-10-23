@@ -41,7 +41,7 @@ module Alchemy
       #
       def available_locale
         locales = [params[:admin_locale], locale_from_user, locale_from_browser].compact.map(&:to_sym)
-        locales.detect { |locale| ::I18n.available_locales.include?(locale) }
+        locales.detect { |locale| Alchemy::I18n.available_locales.include?(locale) }
       end
 
       # Try to get the locale from user settings.
