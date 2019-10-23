@@ -122,12 +122,6 @@ module Alchemy
       end
     end
 
-    # Renders the human model name with a count as h1 header
-    def resources_header
-      Alchemy::Deprecation.warn "resources_header is deprecated. Render 'alchemy/admin/resources/table_header' partial instead."
-      render 'alchemy/admin/resources/table_header'
-    end
-
     # Returns true if the resource contains any relations
     def contains_relations?
       resource_handler.resource_relations.present?
