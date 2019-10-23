@@ -28,8 +28,6 @@ module Alchemy
           element_id: element.id
         ).tap(&:build_essence)
       end
-      alias_method :build, :new
-      deprecate build: :new, deprecator: Alchemy::Deprecation
 
       # Creates a new content from elements definition in the +elements.yml+ file.
       #
@@ -50,8 +48,6 @@ module Alchemy
           content.essence.save && content.save
         end
       end
-      alias_method :create_from_scratch, :create
-      deprecate create_from_scratch: :create, deprecator: Alchemy::Deprecation
 
       # Creates a copy of source and also copies the associated essence.
       #
