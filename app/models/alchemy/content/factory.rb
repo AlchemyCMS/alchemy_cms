@@ -28,8 +28,6 @@ module Alchemy
           element_id: element.id
         ).tap(&:build_essence)
       end
-      alias_method :build, :new
-      deprecate build: :new, deprecator: Alchemy::Deprecation
 
       # Creates a new content from elements definition in the +elements.yml+ file.
       #
@@ -38,20 +36,11 @@ module Alchemy
       #
       # @return [Alchemy::Content]
       #
-      def create(*args)
-        attributes = args.last || {}
-        if args.length > 1
-          Alchemy::Deprecation.warn 'Passing an element as first argument to Alchemy::Content.create is deprecated! Pass an attribute hash with element inside instead.'
-          element = args.first
-        else
-          element = attributes[:element]
-        end
-        new(attributes.merge(element: element)).tap do |content|
+      def create(attributes = {})
+        new(attributes).tap do |content|
           content.essence.save && content.save
         end
       end
-      alias_method :create_from_scratch, :create
-      deprecate create_from_scratch: :create, deprecator: Alchemy::Deprecation
 
       # Creates a copy of source and also copies the associated essence.
       #
