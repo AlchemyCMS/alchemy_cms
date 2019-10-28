@@ -88,6 +88,24 @@ module Alchemy
 
     belongs_to :language, optional: true
 
+    belongs_to :creator,
+      primary_key: Alchemy.user_class.primary_key,
+      class_name: Alchemy.user_class_name,
+      foreign_key: :creator_id,
+      optional: true
+
+    belongs_to :updater,
+      primary_key: Alchemy.user_class.primary_key,
+      class_name: Alchemy.user_class_name,
+      foreign_key: :updater_id,
+      optional: true
+
+    belongs_to :locker,
+      primary_key: Alchemy.user_class.primary_key,
+      class_name: Alchemy.user_class_name,
+      foreign_key: :locked_by,
+      optional: true
+
     has_one :site, through: :language
     has_many :site_languages, through: :site, source: :languages
     has_many :folded_pages
@@ -129,7 +147,6 @@ module Alchemy
     include Alchemy::Page::PageScopes
     include Alchemy::Page::PageNatures
     include Alchemy::Page::PageNaming
-    include Alchemy::Page::PageUsers
     include Alchemy::Page::PageElements
 
     # site_name accessor
@@ -486,6 +503,33 @@ module Alchemy
     #
     def public_until
       attribute_fixed?(:public_until) ? fixed_attributes[:public_until] : self[:public_until]
+    end
+
+    # Returns the name of the creator of this page.
+    #
+    # If no creator could be found or associated user model
+    # does not respond to +#name+ it returns +'unknown'+
+    #
+    def creator_name
+      creator.try(:name) || Alchemy.t('unknown')
+    end
+
+    # Returns the name of the last updater of this page.
+    #
+    # If no updater could be found or associated user model
+    # does not respond to +#name+ it returns +'unknown'+
+    #
+    def updater_name
+      updater.try(:name) || Alchemy.t('unknown')
+    end
+
+    # Returns the name of the user currently editing this page.
+    #
+    # If no locker could be found or associated user model
+    # does not respond to +#name+ it returns +'unknown'+
+    #
+    def locker_name
+      locker.try(:name) || Alchemy.t('unknown')
     end
 
     private
