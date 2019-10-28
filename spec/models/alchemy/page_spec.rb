@@ -2060,109 +2060,56 @@ module Alchemy
       end
     end
 
-    context 'indicate page editors' do
-      let(:page) { Page.new }
+    describe 'page editor methods' do
       let(:user) { create(:alchemy_dummy_user, :as_editor) }
 
       describe '#creator' do
-        before { page.update(creator_id: user.id) }
+        let(:page) { Page.new(creator: user) }
+        subject(:creator) { page.creator }
 
         it "returns the user that created the page" do
-          expect(page.creator).to eq(user)
+          is_expected.to eq(user)
         end
 
-        context 'with user class having a different primary key' do
-          before do
-            allow(Alchemy.user_class)
-              .to receive(:primary_key)
-              .and_return('user_id')
-
-            allow(page)
-              .to receive(:creator_id)
-              .and_return(1)
-          end
-
-          it "returns the user that created the page" do
-            expect(Alchemy.user_class)
-              .to receive(:find_by)
-              .with({'user_id' => 1})
-
-            page.creator
-          end
+        it 'uses the primary key defined on user class' do
+          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { :id }
+          subject
         end
       end
 
       describe '#updater' do
-        before { page.update(updater_id: user.id) }
+        let(:page) { Page.new(updater: user) }
+        subject(:updater) { page.updater }
 
         it "returns the user that updated the page" do
-          expect(page.updater).to eq(user)
+          is_expected.to eq(user)
         end
 
-        context 'with user class having a different primary key' do
-          before do
-            allow(Alchemy.user_class)
-              .to receive(:primary_key)
-              .and_return('user_id')
-
-            allow(page)
-              .to receive(:updater_id)
-              .and_return(1)
-          end
-
-          it "returns the user that updated the page" do
-            expect(Alchemy.user_class)
-              .to receive(:find_by)
-              .with({'user_id' => 1})
-
-            page.updater
-          end
+        it 'uses the primary key defined on user class' do
+          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { :id }
+          subject
         end
       end
 
       describe '#locker' do
-        before { page.update(locked_by: user.id) }
+        let(:page) { Page.new(locker: user) }
+        subject(:locker) { page.locker }
 
-        it "returns the user that locked the page" do
-          expect(page.locker).to eq(user)
+        it "returns the user that updated the page" do
+          is_expected.to eq(user)
         end
 
-        context 'with user class having a different primary key' do
-          before do
-            allow(Alchemy.user_class)
-              .to receive(:primary_key)
-              .and_return('user_id')
-
-            allow(page)
-              .to receive(:locked_by)
-              .and_return(1)
-          end
-
-          it "returns the user that locked the page" do
-            expect(Alchemy.user_class)
-              .to receive(:find_by)
-              .with({'user_id' => 1})
-
-            page.locker
-          end
-        end
-      end
-
-      context 'with user that can not be found' do
-        it 'does not raise not found error' do
-          %w(creator updater locker).each do |user_type|
-            expect {
-              page.send(user_type)
-            }.to_not raise_error
-          end
+        it 'uses the primary key defined on user class' do
+          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { :id }
+          subject
         end
       end
 
       context 'with user class having a name accessor' do
-        let(:user) { double(name: 'Paul Page') }
+        let(:user) { build(:alchemy_dummy_user, name: 'Paul Page') }
 
         describe '#creator_name' do
-          before { allow(page).to receive(:creator).and_return(user) }
+          let(:page) { Page.new(creator: user) }
 
           it "returns the name of the creator" do
             expect(page.creator_name).to eq('Paul Page')
@@ -2170,7 +2117,7 @@ module Alchemy
         end
 
         describe '#updater_name' do
-          before { allow(page).to receive(:updater).and_return(user) }
+          let(:page) { Page.new(updater: user) }
 
           it "returns the name of the updater" do
             expect(page.updater_name).to eq('Paul Page')
@@ -2178,7 +2125,7 @@ module Alchemy
         end
 
         describe '#locker_name' do
-          before { allow(page).to receive(:locker).and_return(user) }
+          let(:page) { Page.new(locker: user) }
 
           it "returns the name of the current page editor" do
             expect(page.locker_name).to eq('Paul Page')
@@ -2186,11 +2133,11 @@ module Alchemy
         end
       end
 
-      context 'with user class not having a name accessor' do
+      context 'with user class returning nil for name' do
         let(:user) { Alchemy.user_class.new }
 
         describe '#creator_name' do
-          before { allow(page).to receive(:creator).and_return(user) }
+          let(:page) { Page.new(creator: user) }
 
           it "returns unknown" do
             expect(page.creator_name).to eq('unknown')
@@ -2198,7 +2145,7 @@ module Alchemy
         end
 
         describe '#updater_name' do
-          before { allow(page).to receive(:updater).and_return(user) }
+          let(:page) { Page.new(updater: user) }
 
           it "returns unknown" do
             expect(page.updater_name).to eq('unknown')
@@ -2206,7 +2153,39 @@ module Alchemy
         end
 
         describe '#locker_name' do
-          before { allow(page).to receive(:locker).and_return(user) }
+          let(:page) { Page.new(locker: user) }
+
+          it "returns unknown" do
+            expect(page.locker_name).to eq('unknown')
+          end
+        end
+      end
+
+      context 'with user class not responding to name' do
+        let(:user) { Alchemy.user_class.new }
+
+        before do
+          expect(user).to receive(:respond_to?).with(:name) { false }
+        end
+
+        describe '#creator_name' do
+          let(:page) { Page.new(creator: user) }
+
+          it "returns unknown" do
+            expect(page.creator_name).to eq('unknown')
+          end
+        end
+
+        describe '#updater_name' do
+          let(:page) { Page.new(updater: user) }
+
+          it "returns unknown" do
+            expect(page.updater_name).to eq('unknown')
+          end
+        end
+
+        describe '#locker_name' do
+          let(:page) { Page.new(locker: user) }
 
           it "returns unknown" do
             expect(page.locker_name).to eq('unknown')
