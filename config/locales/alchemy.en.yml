@@ -762,6 +762,13 @@ en:
         code: ISO Code
       alchemy/legacy_page_url:
         urlname: "URL path"
+      alchemy/node:
+        name: "Name"
+        title: "Title"
+        nofollow: "Search engine must not follow"
+        url: "URL"
+        page: "Page"
+        external: "Open link in new tab"
       alchemy/page:
         created_at: "Created at"
         language: "Language"
