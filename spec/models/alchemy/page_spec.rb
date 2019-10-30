@@ -1171,7 +1171,7 @@ module Alchemy
         subject { page.find_elements(options, true) }
 
         it 'warns about removal of second argument' do
-          expect(Alchemy::Deprecation).to receive(:warn)
+          expect(Alchemy::Deprecation).to receive(:warn).at_least(:once)
           subject
         end
       end
