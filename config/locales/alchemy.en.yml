@@ -305,6 +305,7 @@ en:
     assign_file: "Assign a file"
     assign_file_from_archive: "assign a file from your archive"
     assign_image: "Assign an image"
+    attached_to: "attached to"
     attachment_filename_notice: "* Please do not use any special characters for the filename."
     auto_play: "Play movie after load"
     big_thumbnails: "Big thumbnails"

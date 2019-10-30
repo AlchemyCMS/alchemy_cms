@@ -2325,5 +2325,67 @@ module Alchemy
         end
       end
     end
+
+    describe '#attach_to_menu!' do
+      let(:page) { create(:alchemy_page) }
+
+      context 'if menu_id is set' do
+        let(:root_node) { create(:alchemy_node) }
+
+        before do
+          page.menu_id = root_node.id
+        end
+
+        context 'and no nodes are present yet' do
+          it 'attaches to menu' do
+            expect { page.save }.to change { page.nodes.count }.from(0).to(1)
+          end
+        end
+
+        context 'and nodes are already present' do
+          let!(:page_node) { create(:alchemy_node, page: page) }
+
+          it 'does not attach to menu' do
+            expect { page.save }.not_to change { page.nodes.count }
+          end
+        end
+      end
+
+      context 'if menu_id is not set' do
+        it 'does not attach to menu' do
+          expect { page.save }.not_to change { page.nodes.count }
+        end
+      end
+    end
+
+    describe '#nodes' do
+      let(:page) { create(:alchemy_page) }
+      let(:node) { create(:alchemy_node, page: page, updated_at: 1.hour.ago) }
+
+      it 'returns all nodes the page is attached to' do
+        expect(page.nodes).to include(node)
+      end
+
+      describe 'after page updates' do
+        it 'touches all nodes' do
+          expect {
+            page.update(name: 'foo')
+          }.to change { node.reload.updated_at }
+        end
+      end
+    end
+
+    describe '#menus' do
+      let(:page) { create(:alchemy_page) }
+      let(:root_node) { create(:alchemy_node) }
+
+      let!(:child_node) do
+        create(:alchemy_node, page: page, parent: root_node)
+      end
+
+      it 'returns all root nodes the page is attached to' do
+        expect(page.menus).to include(root_node)
+      end
+    end
   end
 end

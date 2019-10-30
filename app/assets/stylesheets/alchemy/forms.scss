@@ -38,6 +38,10 @@ form {
       float: right;
     }
 
+    .input > .select2-container {
+      width: 100%;
+    }
+
     > .autocomplete_tag_list {
 
       .select2-container, .select2-choices {
