@@ -73,6 +73,7 @@ module Alchemy
     end
 
     # Renders the navigation.
+    # @deprecated
     #
     # It produces a html <ul><li></li></ul> structure with all necessary classes so you can produce every navigation the web uses today.
     # I.E. dropdown-navigations, simple mainnavigations or even complex nested ones.
@@ -177,6 +178,7 @@ module Alchemy
         pages: pages,
         html_options: html_options
     end
+    deprecate render_navigation: 'Create a menu and use render_menu instead', deprecator: Alchemy::Deprecation
 
     # Renders navigation the children and all siblings of the given page (standard is the current page).
     #
@@ -206,6 +208,7 @@ module Alchemy
         return nil
       end
     end
+    deprecate :render_subnavigation, deprecator: Alchemy::Deprecation
 
     # Returns true if page is in the active branch
     def page_active?(page)
