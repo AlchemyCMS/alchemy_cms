@@ -7,10 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <nav>
+    <%= render_menu('Main Navigation') %>
+  </nav>
   <%= yield %>
-  <div id="navigation">
-    <%= render_navigation(:all_sub_menues => true) %>
-  </div>
   <%= render "alchemy/edit_mode" %>
 </body>
 </html>
