@@ -42,7 +42,7 @@ jobs:
       - name: Install bundler
         run: |
           gem install bundler
-      - name: Cache Ruby Gems
+      - name: Restore Ruby Gems cache
         id: cache
         uses: actions/cache@preview
         with:
@@ -52,7 +52,6 @@ jobs:
             ${{ runner.os }}-bundle-
       - name: Install bundle
         timeout-minutes: 10
-        if: steps.cache.outputs.cache-hit != 'true'
         run: |
           bundle install --jobs 4 --retry 3 --path vendor/bundle
       - name: Prepare database
