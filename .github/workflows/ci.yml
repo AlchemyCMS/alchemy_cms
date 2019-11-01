@@ -39,11 +39,22 @@ jobs:
         if: matrix.database == 'mysql'
         run: |
           sudo apt-get install -yqq libmysqlclient-dev
-      - name: Install bundle
-        timeout-minutes: 10
+      - name: Install bundler
         run: |
           gem install bundler
-          bundle install --jobs 4 --retry 3
+      - name: Cache Ruby Gems
+        id: cache
+        uses: actions/cache@preview
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-bundle-${{ matrix.ruby }}-${{ matrix.database }}-${{ hashFiles('**/Gemfile') }}
+          restore-keys: |
+            ${{ runner.os }}-bundle-
+      - name: Install bundle
+        timeout-minutes: 10
+        if: steps.cache.outputs.cache-hit != 'true'
+        run: |
+          bundle install --jobs 4 --retry 3 --path vendor/bundle
       - name: Prepare database
         run: |
           bundle exec rake alchemy:spec:prepare
