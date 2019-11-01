@@ -26,7 +26,6 @@ module Alchemy
       def index
         authorize! :index, :alchemy_admin_pages
 
-        @languages = Language.on_current_site
         if !@page_root
           @language = Language.current
           @languages_with_page_tree = Language.on_current_site.with_root_page
@@ -219,11 +218,6 @@ module Alchemy
         do_redirect_to admin_pages_path
       end
 
-      def switch_language
-        set_alchemy_language(params[:language_id])
-        do_redirect_to redirect_path_for_switch_language
-      end
-
       def flush
         Language.current.pages.flushables.update_all(published_at: Time.current)
         # We need to ensure, that also all layoutpages get the +published_at+ timestamp set,
@@ -338,14 +332,6 @@ module Alchemy
           {
             parts[0].gsub(/[^0-9]/, '') => parts[1]
           }
-        end
-      end
-
-      def redirect_path_for_switch_language
-        if request.referer && request.referer.include?('admin/layoutpages')
-          admin_layoutpages_path
-        else
-          admin_pages_path
         end
       end
 
