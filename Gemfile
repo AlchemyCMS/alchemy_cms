@@ -32,9 +32,3 @@ group :development, :test do
     gem 'github_fast_changelog', require: false
   end
 end
-
-# We need this if we want to start the dummy app in production, ie on Teatro.io
-group :production do
-  gem 'uglifier', '>= 2.7.2'
-  gem 'therubyracer'
-end
