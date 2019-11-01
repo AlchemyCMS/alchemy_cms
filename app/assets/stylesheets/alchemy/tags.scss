@@ -71,9 +71,6 @@
     $margin: $default-margin/2 0,
     $padding: $default-padding 2*$default-padding $default-padding
   );
-  display: inline-block;
-  vertical-align: middle;
-  color: $text-color;
   pointer-events: none;
   font-size: $small-font-size;
 }
