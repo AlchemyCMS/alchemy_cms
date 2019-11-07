@@ -20,6 +20,8 @@
 #  locale         :string
 #
 
+require_dependency 'alchemy/site'
+
 module Alchemy
   class Language < BaseRecord
     belongs_to :site

@@ -1,13 +1,18 @@
-require 'rails_helper'
+# frozen_string_literal: true
 
-shared_examples_for "an essence" do
+require 'shoulda-matchers'
+require 'alchemy/test_support/factories/page_factory'
+require 'alchemy/test_support/factories/element_factory'
+require 'alchemy/test_support/factories/content_factory'
+
+RSpec.shared_examples_for "an essence" do
   let(:element) { Alchemy::Element.new }
   let(:content) { Alchemy::Content.new(name: 'foo') }
   let(:content_definition) { {'name' => 'foo'} }
 
   it "touches the content after update" do
-    element = create(:alchemy_element)
-    content = create(:alchemy_content, element: element, essence: essence, essence_type: essence.class.name)
+    element = FactoryBot.create(:alchemy_element)
+    content = FactoryBot.create(:alchemy_content, element: element, essence: essence, essence_type: essence.class.name)
 
     content.update_column(:updated_at, 3.days.ago)
     content.essence.update(essence.ingredient_column.to_sym => ingredient_value)
@@ -153,7 +158,7 @@ shared_examples_for "an essence" do
 
     describe 'uniqueness' do
       before do
-        allow(essence).to receive(:element).and_return(build_stubbed(:alchemy_element))
+        allow(essence).to receive(:element).and_return(FactoryBot.build_stubbed(:alchemy_element))
         essence.update(essence.ingredient_column.to_sym => ingredient_value)
       end
 
@@ -256,8 +261,8 @@ shared_examples_for "an essence" do
   end
 
   describe 'essence relations' do
-    let(:page)    { create(:alchemy_page, :restricted) }
-    let(:element) { create(:alchemy_element) }
+    let(:page)    { FactoryBot.create(:alchemy_page, :restricted) }
+    let(:element) { FactoryBot.create(:alchemy_element) }
 
     it "registers itself on page as essence relation" do
       expect(page.respond_to?(essence.class.model_name.route_key)).to be(true)
