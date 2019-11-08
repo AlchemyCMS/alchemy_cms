@@ -1,3 +1,7 @@
+## 4.3.2 (2019-11-08)
+
+- Allow SimpleForm 5 [#1660](https://github.com/AlchemyCMS/alchemy_cms/pull/1660) ([jkimmeyer](https://github.com/jkimmeyer))
+
 ## 4.3.1 (2019-09-27)
 
 - Fix Cell Migration to maintain positions [#1625](https://github.com/AlchemyCMS/alchemy_cms/pull/1625) ([mamhoff](https://github.com/mamhoff))
@@ -537,4 +541,3 @@ No changes
 ## 3.0.0 (2014-07-03)
 
 [Release Notes](https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v3.0.0)
-
