@@ -49,4 +49,35 @@ describe Alchemy::Admin::LanguagesController do
         to eq(Alchemy::Config.get(:default_language)['page_layout'])
     end
   end
+
+  describe "#switch" do
+    subject(:switch) do
+      get :switch, params: { language_id: language.id }
+    end
+
+    let(:language) { create(:alchemy_language, :klingon) }
+
+    it "should store the current language in session" do
+      switch
+      expect(session[:alchemy_language_id]).to eq(language.id)
+    end
+
+    context "having a referer" do
+      before do
+        expect_any_instance_of(ActionDispatch::Request).to receive(:referer) do
+          '/admin/pages'
+        end
+      end
+
+      it "should redirect to location" do
+        is_expected.to redirect_to(admin_pages_path)
+      end
+    end
+
+    context "having no referer" do
+      it "should redirect to layoutpages" do
+        is_expected.to redirect_to(admin_dashboard_path)
+      end
+    end
+  end
 end

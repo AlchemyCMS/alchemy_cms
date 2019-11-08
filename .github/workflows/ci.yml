@@ -6,6 +6,7 @@ jobs:
   RSpec:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         ruby:
           - '2.5.x'
@@ -39,11 +40,21 @@ jobs:
         if: matrix.database == 'mysql'
         run: |
           sudo apt-get install -yqq libmysqlclient-dev
+      - name: Install bundler
+        run: |
+          gem install bundler
+      - name: Restore Ruby Gems cache
+        id: cache
+        uses: actions/cache@preview
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-bundle-${{ matrix.ruby }}-${{ matrix.database }}-${{ hashFiles('**/Gemfile') }}
+          restore-keys: |
+            ${{ runner.os }}-bundle-
       - name: Install bundle
         timeout-minutes: 10
         run: |
-          gem install bundler
-          bundle install --jobs 4 --retry 3
+          bundle install --jobs 4 --retry 3 --path vendor/bundle
       - name: Prepare database
         run: |
           bundle exec rake alchemy:spec:prepare

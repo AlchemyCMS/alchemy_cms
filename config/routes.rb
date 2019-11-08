@@ -17,13 +17,18 @@ Alchemy::Engine.routes.draw do
   namespace :admin, {path: Alchemy.admin_path, constraints: Alchemy.admin_constraints} do
     resources :contents, only: [:create]
 
+    resources :nodes do
+      member do
+        patch :toggle
+      end
+    end
+
     resources :pages do
       resources :elements
       collection do
         post :order
         post :flush
         post :copy_language_tree
-        get :switch_language
         get :create_language
         get :link
         get :sort
@@ -88,7 +93,11 @@ Alchemy::Engine.routes.draw do
     end
 
     resources :legacy_page_urls
-    resources :languages
+    resources :languages do
+      collection do
+        get :switch
+      end
+    end
 
     resource :clipboard, only: :index, controller: 'clipboard' do
       collection do

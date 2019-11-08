@@ -79,7 +79,8 @@ module Alchemy
       :title,
       :urlname,
       :visible,
-      :layoutpage
+      :layoutpage,
+      :menu_id
     ]
 
     acts_as_nested_set(dependent: :destroy)
@@ -110,6 +111,7 @@ module Alchemy
     has_many :site_languages, through: :site, source: :languages
     has_many :folded_pages
     has_many :legacy_urls, class_name: 'Alchemy::LegacyPageUrl'
+    has_many :nodes, class_name: 'Alchemy::Node', inverse_of: :page
 
     validates_presence_of :language, on: :create, unless: :root
     validates_presence_of :page_layout, unless: :systempage?
@@ -143,6 +145,11 @@ module Alchemy
       if: :should_create_legacy_url?,
       unless: :redirects_to_external?
 
+    after_update :attach_to_menu!,
+      if: :should_attach_to_menu?
+
+    after_update -> { nodes.update_all(updated_at: Time.current) }
+
     # Concerns
     include Alchemy::Page::PageScopes
     include Alchemy::Page::PageNatures
@@ -151,6 +158,8 @@ module Alchemy
 
     # site_name accessor
     delegate :name, to: :site, prefix: true, allow_nil: true
+
+    attr_accessor :menu_id
 
     # Class methods
     #
@@ -526,6 +535,12 @@ module Alchemy
       locker.try(:name) || Alchemy.t('unknown')
     end
 
+    # Menus (aka. root nodes) this page is attached to
+    #
+    def menus
+      @_menus ||= nodes.map(&:root)
+    end
+
     private
 
     def set_fixed_attributes
@@ -570,6 +585,18 @@ module Alchemy
 
     def set_published_at
       self.published_at = Time.current
+    end
+
+    def attach_to_menu!
+      Alchemy::Node.find(menu_id).children.create!(
+        language_id: language_id,
+        page_id: id,
+        name: name
+      )
+    end
+
+    def should_attach_to_menu?
+      menu_id && nodes.none?
     end
   end
 end

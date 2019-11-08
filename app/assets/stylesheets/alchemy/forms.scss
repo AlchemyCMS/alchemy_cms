@@ -38,6 +38,10 @@ form {
       float: right;
     }
 
+    .input > .select2-container {
+      width: 100%;
+    }
+
     > .autocomplete_tag_list {
 
       .select2-container, .select2-choices {
@@ -49,11 +53,8 @@ form {
       line-height: 16px;
     }
 
-    &.select, &.grouped_select {
-
-      .select2-container {
-        margin: 4px 0;
-      }
+    .select2-container {
+      margin: 4px 0;
     }
 
     &.boolean {

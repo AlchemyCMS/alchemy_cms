@@ -51,15 +51,6 @@ RSpec.describe 'Show page feature:', type: :system do
     end
   end
 
-  it "should show the navigation with all visible pages" do
-    create(:alchemy_page, :public, visible: true, name: 'Page 1')
-    create(:alchemy_page, :public, visible: true, name: 'Page 2')
-    visit '/'
-    within('div#navigation ul') do
-      expect(page).to have_selector('li a[href="/page-1"], li a[href="/page-2"]')
-    end
-  end
-
   describe "Handling of non-existing pages" do
     before do
       # We need a admin user or the signup page will show up
@@ -121,14 +112,14 @@ RSpec.describe 'Show page feature:', type: :system do
 
       it "a link to the admin area" do
         within('#alchemy_menubar') do
-          expect(page).to have_selector("li a[href='#{alchemy.admin_dashboard_url}']")
+          expect(page).to have_selector("li a[href='#{alchemy.admin_dashboard_url(host: Capybara.current_host)}']")
         end
       end
 
       it "a link to edit the current page" do
         within('#alchemy_menubar') do
           expect(page).to \
-            have_selector("li a[href='#{alchemy.edit_admin_page_url(public_page)}']")
+            have_selector("li a[href='#{alchemy.edit_admin_page_url(public_page, host: Capybara.current_host)}']")
         end
       end
 
@@ -146,15 +137,17 @@ RSpec.describe 'Show page feature:', type: :system do
   end
 
   describe 'navigation rendering' do
-    context 'with page having an external url without protocol' do
-      let!(:external_page) do
-        create(:alchemy_page, urlname: 'google.com', page_layout: 'external', visible: true)
-      end
+    context 'with menu available' do
+      let(:menu) { create(:alchemy_node, name: 'Main Navigation') }
+      let(:page1) { create(:alchemy_page, :public, visible: true, name: 'Page 1') }
+      let(:page2) { create(:alchemy_page, :public, visible: true, name: 'Page 2') }
+      let!(:node1) { create(:alchemy_node, page: page1, parent: menu) }
+      let!(:node2) { create(:alchemy_node, page: page2, parent: menu) }
 
-      it "adds an prefix to url" do
-        visit "/#{public_page.urlname}"
-        within '#navigation' do
-          expect(page.body).to match('http://google.com')
+      it "should show the navigation with all visible pages" do
+        visit '/'
+        within('nav ul') do
+          expect(page).to have_selector('li a[href="/page-1"], li a[href="/page-2"]')
         end
       end
     end

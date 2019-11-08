@@ -3,7 +3,7 @@ require 'rails'
 module Alchemy
   module Generators
     class ViewsGenerator < ::Rails::Generators::Base
-      ALCHEMY_VIEWS = %w(breadcrumb language_links messages_mailer navigation)
+      ALCHEMY_VIEWS = %w(breadcrumb language_links messages_mailer)
 
       desc "Generates Alchemy views for #{ALCHEMY_VIEWS.to_sentence}."
 

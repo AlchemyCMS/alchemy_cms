@@ -48,6 +48,33 @@ module Alchemy
       end
     end
 
+    describe '#render_menu' do
+      subject { helper.render_menu(name) }
+
+      let(:name) { 'Main Navigation' }
+
+      context 'if menu exists' do
+        let(:menu) { create(:alchemy_node, name: name) }
+        let!(:node) { create(:alchemy_node, parent: menu, url: '/') }
+
+        context 'and the template exists' do
+          it 'renders the menu' do
+            is_expected.to have_selector('ul.nav > li.nav-item > a.nav-link')
+          end
+        end
+
+        context 'but the template does not exist' do
+          let(:name) { 'Unkown' }
+
+          it { is_expected.to be_nil }
+        end
+      end
+
+      context 'if menu does not exist' do
+        it { is_expected.to be_nil }
+      end
+    end
+
     describe "#render_navigation" do
       let(:user) { nil }
 

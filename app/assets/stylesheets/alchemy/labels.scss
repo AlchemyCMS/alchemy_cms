@@ -1,0 +1,6 @@
+.label {
+  @include label-base(
+    $margin: $default-margin/2 0,
+    $padding: $default-padding 2*$default-padding $default-padding
+  );
+}

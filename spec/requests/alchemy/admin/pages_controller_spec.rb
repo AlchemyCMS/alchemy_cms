@@ -74,22 +74,6 @@ module Alchemy
             end
           end
         end
-
-        context "with multiple sites" do
-          let!(:site_2) do
-            create(:alchemy_site, host: 'another-one.com')
-          end
-
-          let(:language_2) do
-            site_2.default_language
-          end
-
-          it "loads languages from current site only" do
-            get admin_pages_path
-            expect(assigns(:languages)).to include(language)
-            expect(assigns(:languages)).to_not include(language_2)
-          end
-        end
       end
 
       describe '#tree' do
@@ -767,39 +751,6 @@ module Alchemy
             it "should redirect to the given path" do
               is_expected.to redirect_to('this/path')
             end
-          end
-        end
-      end
-
-      describe "#switch_language" do
-        subject(:switch_language) do
-          get switch_language_admin_pages_path(language_id: language.id)
-        end
-
-        let(:language) { build_stubbed(:alchemy_language, :klingon) }
-
-        before do
-          allow(Language).to receive(:find_by).and_return(language)
-        end
-
-        it "should store the current language in session" do
-          switch_language
-          expect(session[:alchemy_language_id]).to eq(language.id)
-        end
-
-        it "should redirect to sitemap" do
-          is_expected.to redirect_to(admin_pages_path)
-        end
-
-        context "coming from layoutpages" do
-          before do
-            allow_any_instance_of(ActionDispatch::Request).to receive(:referer) do
-              'admin/layoutpages'
-            end
-          end
-
-          it "should redirect to layoutpages" do
-            is_expected.to redirect_to(admin_layoutpages_path)
           end
         end
       end
