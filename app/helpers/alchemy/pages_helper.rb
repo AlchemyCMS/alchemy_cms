@@ -73,6 +73,7 @@ module Alchemy
     end
 
     # Renders the navigation.
+    # @deprecated
     #
     # It produces a html <ul><li></li></ul> structure with all necessary classes so you can produce every navigation the web uses today.
     # I.E. dropdown-navigations, simple mainnavigations or even complex nested ones.
@@ -177,6 +178,33 @@ module Alchemy
         pages: pages,
         html_options: html_options
     end
+    deprecate render_navigation: 'Create a menu and use render_menu instead', deprecator: Alchemy::Deprecation
+
+    # Renders a menu partial
+    #
+    # Menu partials are placed in the `app/views/alchemy/menus` folder
+    # Use the `rails g alchemy:menus` generator to create the partials
+    #
+    # @param [String] - Name of the menu
+    # @param [Hash] - A set of options available in your menu partials
+    def render_menu(name, options = {})
+      root_node = Alchemy::Node.roots.find_by(name: name)
+      if root_node.nil?
+        warning("Menu with name #{name} not found!")
+        return
+      end
+
+      options = {
+        node_partial_name: "#{root_node.view_folder_name}/node"
+      }.merge(options)
+
+      render(root_node, node: root_node, options: options)
+    rescue ActionView::MissingTemplate => e
+      warning <<~WARN
+        Menu partial not found for #{name}.
+        #{e}
+      WARN
+    end
 
     # Renders navigation the children and all siblings of the given page (standard is the current page).
     #
@@ -206,6 +234,7 @@ module Alchemy
         return nil
       end
     end
+    deprecate :render_subnavigation, deprecator: Alchemy::Deprecation
 
     # Returns true if page is in the active branch
     def page_active?(page)

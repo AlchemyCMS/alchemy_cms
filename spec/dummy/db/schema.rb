@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_16_073858) do
+ActiveRecord::Schema.define(version: 2019_10_29_212236) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -204,6 +204,32 @@ ActiveRecord::Schema.define(version: 2019_10_16_073858) do
     t.index ["urlname"], name: "index_alchemy_legacy_page_urls_on_urlname"
   end
 
+  create_table "alchemy_nodes", force: :cascade do |t|
+    t.string "name"
+    t.string "title"
+    t.string "url"
+    t.boolean "nofollow", default: false, null: false
+    t.boolean "external", default: false, null: false
+    t.boolean "folded", default: false, null: false
+    t.integer "parent_id"
+    t.integer "lft", null: false
+    t.integer "rgt", null: false
+    t.integer "depth", default: 0, null: false
+    t.integer "page_id"
+    t.integer "language_id", null: false
+    t.integer "creator_id"
+    t.integer "updater_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["creator_id"], name: "index_alchemy_nodes_on_creator_id"
+    t.index ["language_id"], name: "index_alchemy_nodes_on_language_id"
+    t.index ["lft"], name: "index_alchemy_nodes_on_lft"
+    t.index ["page_id"], name: "index_alchemy_nodes_on_page_id"
+    t.index ["parent_id"], name: "index_alchemy_nodes_on_parent_id"
+    t.index ["rgt"], name: "index_alchemy_nodes_on_rgt"
+    t.index ["updater_id"], name: "index_alchemy_nodes_on_updater_id"
+  end
+
   create_table "alchemy_pages", force: :cascade do |t|
     t.string "name"
     t.string "urlname"
@@ -331,4 +357,6 @@ ActiveRecord::Schema.define(version: 2019_10_16_073858) do
   add_foreign_key "alchemy_contents", "alchemy_elements", column: "element_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "alchemy_elements", "alchemy_pages", column: "page_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "alchemy_essence_pages", "alchemy_pages", column: "page_id"
+  add_foreign_key "alchemy_nodes", "alchemy_languages", column: "language_id"
+  add_foreign_key "alchemy_nodes", "alchemy_pages", column: "page_id", on_delete: :cascade
 end

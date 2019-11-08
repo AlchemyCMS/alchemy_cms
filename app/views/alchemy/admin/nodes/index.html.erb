@@ -1,0 +1,58 @@
+<% content_for(:title) do %>
+  <%= Alchemy.t(:menus, scope: 'modules') %>
+<% end %>
+
+<% content_for(:toolbar) do %>
+  <div class="toolbar_buttons">
+    <%= render 'alchemy/admin/partials/site_select' %>
+    <%= render 'alchemy/admin/partials/language_tree_select' %>
+    <%= toolbar_button(
+      icon: 'plus',
+      label: Alchemy.t(:create_menu),
+      url: alchemy.new_admin_node_path,
+      hotkey: 'alt+n',
+      dialog_options: {
+        title: Alchemy.t(:create_menu),
+        size: '450x120'
+      },
+      if_permitted_to: [:create, Alchemy::Node]
+    ) %>
+  </div>
+<% end %>
+
+<div id="archive_all">
+  <h1 id="node_filter_result"></h1>
+  <% if @root_nodes.any? %>
+    <% @root_nodes.each do |root_node| %>
+      <ul class="nodes_tree list">
+        <%= render 'node', node: root_node %>
+      </ul>
+    <% end %>
+  <% else %>
+    <div class="panel no-resource-found">
+      <%= render_message do %>
+        <%= Alchemy.t(:no_resource_found) % { resource: Alchemy.t(:menu) } %>
+      <% end %>
+      <%= render 'form', node: Alchemy::Node.new(language: Alchemy::Language.current), button_label: Alchemy.t(:create) %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  $('.nodes_tree').on('click', '.node_folder', function() {
+    var $this = $(this)
+    var node_id = $this.data('node-id')
+    var url = '<%= alchemy.toggle_admin_node_path(id: ":id") %>'.replace(':id', node_id)
+    var $children = $this.closest('li').find('> .children')
+    $this.find('> i').
+      toggleClass('fa-plus-square').
+      toggleClass('fa-minus-square')
+    $children.toggleClass('hidden')
+    $.ajax(url, { method: 'PATCH' }).then(function (nodes) {
+      if ($children.children().length === 0) {
+        $children.append(nodes)
+      }
+    })
+    return false
+  })
+</script>

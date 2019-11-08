@@ -28,9 +28,18 @@
       - controller: 'alchemy/admin/pages'
         action: edit
 
-- name: languages
+- name: menus
   engine_name: alchemy
   position: 3
+  navigation:
+    name: 'modules.menus'
+    controller: 'alchemy/admin/nodes'
+    action: index
+    icon: list-ul
+
+- name: languages
+  engine_name: alchemy
+  position: 4
   navigation:
     name: 'modules.languages'
     controller: 'alchemy/admin/languages'
@@ -39,7 +48,7 @@
 
 - name: sites
   engine_name: alchemy
-  position: 4
+  position: 5
   navigation:
     name: 'modules.sites'
     controller: 'alchemy/admin/sites'
@@ -48,7 +57,7 @@
 
 - name: tags
   engine_name: alchemy
-  position: 5
+  position: 6
   navigation:
     name: 'modules.tags'
     controller: 'alchemy/admin/tags'
@@ -57,7 +66,7 @@
 
 - name: archive
   engine_name: alchemy
-  position: 6
+  position: 7
   navigation:
     controller: 'alchemy/admin/pictures'
     action: index

@@ -1,0 +1,41 @@
+<%= alchemy_form_for([:admin, node]) do |f| %>
+  <%= f.input :name, input_html: {
+    autofocus: true,
+    value: node.page && node.read_attribute(:name).blank? ? nil : node.name,
+    placeholder: node.page ? node.page.name : nil
+  } %>
+  <% unless node.root? %>
+    <%= f.input :page_id, label: Alchemy::Page.model_name.human, input_html: { class: 'alchemy_selectbox' } %>
+    <%= f.input :url, input_html: { disabled: node.page }, hint: Alchemy.t(:node_url_hint) %>
+    <%= f.input :title %>
+    <%= f.input :nofollow %>
+    <%= f.input :external %>
+    <%= f.hidden_field :parent_id %>
+  <% end %>
+  <%= f.hidden_field :language_id %>
+  <%= f.submit button_label %>
+<% end %>
+
+<script>
+  $('#node_page_id').select2({
+    data: <%== ([{
+      id: '',
+      text: Alchemy.t(:blank, scope: 'resources.relation_select')
+    }] + Alchemy::Language.current.pages.contentpages.map { |page|
+      {
+        id: page.id,
+        text: page.name,
+        url: "/#{page.urlname}",
+        selected: page.id == node.page_id
+      }
+    }).to_json %>
+  }).on('change', function(e) {
+    if (e.val === '') {
+      $('#node_name').removeAttr('placeholder')
+      $('#node_url').val('').prop('disabled', false)
+    } else {
+      $('#node_name').attr('placeholder', e.added.text)
+      $('#node_url').val(e.added.url).prop('disabled', true)
+    }
+  })
+</script>

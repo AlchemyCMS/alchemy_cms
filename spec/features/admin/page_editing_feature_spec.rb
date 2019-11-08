@@ -109,10 +109,15 @@ RSpec.describe 'Page editing feature', type: :system do
         expect(page).not_to have_selector('#alchemy_menubar')
       end
 
-      it "navigation links are not clickable" do
-        visit alchemy.admin_page_path(a_page)
-        within('#navigation') do
-          expect(page).to have_selector('a[href="javascript: void(0)"]')
+      context 'with menu available' do
+        let!(:menu) { create(:alchemy_node, name: 'Main Navigation') }
+        let!(:node) { create(:alchemy_node, url: '/page-1', parent: menu) }
+
+        it "navigation links are not clickable" do
+          visit alchemy.admin_page_path(a_page)
+          within('nav') do
+            expect(page).to have_selector('a[href="javascript: void(0)"]')
+          end
         end
       end
     end
