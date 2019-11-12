@@ -166,7 +166,6 @@ select {
 }
 
 .select2-drop {
-
   .select2-search {
     margin: $default-margin 0;
 
@@ -222,6 +221,12 @@ select {
   &.select2-drop-active {
     border-radius: $default-border-radius;
     border: $default-border;
+  }
+
+  .select2-more-results,
+  .select2-ajax-error {
+    padding: 2*$default-padding;
+    margin-bottom: 0;
   }
 }
 
