@@ -8,16 +8,19 @@ module Alchemy
 
     describe '#index' do
       let!(:page) { create(:alchemy_page, :public) }
+      let(:result) { JSON.parse(response.body) }
 
-      it "returns all public pages as json objects" do
+      it 'returns JSON' do
         get :index, params: {format: :json}
 
         expect(response.status).to eq(200)
         expect(response.media_type).to eq('application/json')
-
-        result = JSON.parse(response.body)
-
         expect(result).to have_key('pages')
+      end
+
+      it "returns all public pages" do
+        get :index, params: {format: :json}
+
         expect(result['pages'].size).to eq(2)
       end
 
@@ -27,12 +30,6 @@ module Alchemy
         it "returns only page with this page layout" do
           get :index, params: {page_layout: 'news', format: :json}
 
-          expect(response.status).to eq(200)
-          expect(response.media_type).to eq('application/json')
-
-          result = JSON.parse(response.body)
-
-          expect(result).to have_key('pages')
           expect(result['pages'].size).to eq(1)
         end
       end
@@ -41,12 +38,6 @@ module Alchemy
         it "returns all pages" do
           get :index, params: {page_layout: '', format: :json}
 
-          expect(response.status).to eq(200)
-          expect(response.media_type).to eq('application/json')
-
-          result = JSON.parse(response.body)
-
-          expect(result).to have_key('pages')
           expect(result['pages'].size).to eq(2)
         end
       end
@@ -59,13 +50,42 @@ module Alchemy
         it "returns all pages" do
           get :index, params: {format: :json}
 
-          expect(response.status).to eq(200)
-          expect(response.media_type).to eq('application/json')
-
-          result = JSON.parse(response.body)
-
-          expect(result).to have_key('pages')
           expect(result['pages'].size).to eq(Alchemy::Page.count)
+        end
+      end
+
+      it 'includes meta data' do
+        get :index, params: { format: :json }
+
+        expect(result['pages'].size).to eq(2)
+        expect(result['meta']['page']).to be_nil
+        expect(result['meta']['per_page']).to eq(2)
+        expect(result['meta']['total_count']).to eq(2)
+      end
+
+      context 'with page param given' do
+        let!(:page1) { create(:alchemy_page) }
+        let!(:page2) { create(:alchemy_page) }
+
+        before do
+          expect(Kaminari.config).to receive(:default_per_page).at_least(:once) { 1 }
+        end
+
+        it 'returns paginated result' do
+          get :index, params: { page: 2, format: :json }
+
+          expect(result['pages'].size).to eq(1)
+          expect(result['meta']['page']).to eq(2)
+          expect(result['meta']['per_page']).to eq(1)
+          expect(result['meta']['total_count']).to eq(2)
+        end
+      end
+
+      context 'with ransack query param given' do
+        it 'returns filtered result' do
+          get :index, params: { q: { name_eq: page.name }, format: :json }
+
+          expect(result['pages'].size).to eq(1)
         end
       end
     end

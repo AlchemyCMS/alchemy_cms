@@ -27,5 +27,6 @@ group :development, :test do
     gem 'localeapp', '~> 3.0', require: false
     gem 'dotenv', '~> 2.2'
     gem 'github_fast_changelog', require: false
+    gem 'active_record_query_trace', require: false
   end
 end

@@ -37,7 +37,7 @@ module Alchemy #:nodoc:
           stampable stamper_class_name: Alchemy.user_class_name
           validate :validate_ingredient, on: :update, if: -> { validations.any? }
 
-          has_one :content, as: :essence, class_name: "Alchemy::Content"
+          has_one :content, as: :essence, class_name: "Alchemy::Content", inverse_of: :essence
           has_one :element, through: :content, class_name: "Alchemy::Element"
           has_one :page,    through: :element, class_name: "Alchemy::Page"
 
