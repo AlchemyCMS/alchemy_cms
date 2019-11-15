@@ -16,9 +16,5 @@ module Alchemy
       :status
 
     has_many :elements
-
-    def elements
-      object.elements.published
-    end
   end
 end

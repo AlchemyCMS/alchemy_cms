@@ -13,6 +13,7 @@ module Alchemy
       else
         @pages = Page.accessible_by(current_ability, :index)
       end
+      @pages = @pages.includes(*page_includes)
       if params[:page_layout].present?
         Alchemy::Deprecation.warn <<~WARN
           Passing page_layout parameter to Alchemy::Api::PagesController#index is deprecated.
@@ -90,6 +91,28 @@ module Alchemy
 
     def page_value
       params[:page] ? params[:page].to_i : nil
+    end
+
+    def page_includes
+      [
+        :tags,
+        {
+          elements: [
+            {
+              nested_elements: [
+                {
+                  contents: :essence
+                },
+                :tags
+              ]
+            },
+            {
+              contents: :essence
+            },
+            :tags
+          ]
+        }
+      ]
     end
   end
 end
