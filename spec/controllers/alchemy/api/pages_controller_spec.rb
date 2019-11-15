@@ -8,16 +8,19 @@ module Alchemy
 
     describe '#index' do
       let!(:page) { create(:alchemy_page, :public) }
+      let(:result) { JSON.parse(response.body) }
 
-      it "returns all public pages as json objects" do
+      it 'returns JSON' do
         get :index, params: {format: :json}
 
         expect(response.status).to eq(200)
         expect(response.media_type).to eq('application/json')
-
-        result = JSON.parse(response.body)
-
         expect(result).to have_key('pages')
+      end
+
+      it "returns all public pages" do
+        get :index, params: {format: :json}
+
         expect(result['pages'].size).to eq(2)
       end
 
@@ -27,12 +30,6 @@ module Alchemy
         it "returns only page with this page layout" do
           get :index, params: {page_layout: 'news', format: :json}
 
-          expect(response.status).to eq(200)
-          expect(response.media_type).to eq('application/json')
-
-          result = JSON.parse(response.body)
-
-          expect(result).to have_key('pages')
           expect(result['pages'].size).to eq(1)
         end
       end
@@ -41,12 +38,6 @@ module Alchemy
         it "returns all pages" do
           get :index, params: {page_layout: '', format: :json}
 
-          expect(response.status).to eq(200)
-          expect(response.media_type).to eq('application/json')
-
-          result = JSON.parse(response.body)
-
-          expect(result).to have_key('pages')
           expect(result['pages'].size).to eq(2)
         end
       end
@@ -59,12 +50,6 @@ module Alchemy
         it "returns all pages" do
           get :index, params: {format: :json}
 
-          expect(response.status).to eq(200)
-          expect(response.media_type).to eq('application/json')
-
-          result = JSON.parse(response.body)
-
-          expect(result).to have_key('pages')
           expect(result['pages'].size).to eq(Alchemy::Page.count)
         end
       end
