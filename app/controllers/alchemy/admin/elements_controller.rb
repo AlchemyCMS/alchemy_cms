@@ -8,8 +8,8 @@ module Alchemy
 
       def index
         @page = Page.find(params[:page_id])
-        @elements = @page.all_elements.not_nested.unfixed.not_trashed
-        @fixed_elements = @page.all_elements.fixed.not_trashed
+        @elements = @page.all_elements.not_nested.unfixed.not_trashed.includes(*element_includes)
+        @fixed_elements = @page.all_elements.fixed.not_trashed.includes(*element_includes)
       end
 
       def list
@@ -103,6 +103,23 @@ module Alchemy
       end
 
       private
+
+      def element_includes
+        [
+          {
+            contents: :essence
+          },
+          :tags,
+          {
+            all_nested_elements: [
+              {
+                contents: :essence
+              },
+              :tags
+            ]
+          }
+        ]
+      end
 
       def load_element
         @element = Element.find(params[:id])

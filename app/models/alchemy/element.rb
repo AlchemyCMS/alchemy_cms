@@ -65,7 +65,7 @@ module Alchemy
     has_many :contents, -> { order(:position, :id) }, dependent: :destroy, inverse_of: :element
 
     has_many :all_nested_elements,
-      -> { order(:position) },
+      -> { order(:position).not_trashed },
       class_name: 'Alchemy::Element',
       foreign_key: :parent_element_id,
       dependent: :destroy
@@ -74,7 +74,8 @@ module Alchemy
       -> { order(:position).available },
       class_name: 'Alchemy::Element',
       foreign_key: :parent_element_id,
-      dependent: :destroy
+      dependent: :destroy,
+      inverse_of: :parent_element
 
     belongs_to :page, touch: true, inverse_of: :all_elements
 
@@ -82,7 +83,8 @@ module Alchemy
     belongs_to :parent_element,
       class_name: 'Alchemy::Element',
       optional: true,
-      touch: true
+      touch: true,
+      inverse_of: :nested_elements
 
     has_and_belongs_to_many :touchable_pages, -> { distinct },
       class_name: 'Alchemy::Page',
