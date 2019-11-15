@@ -80,10 +80,6 @@ module Alchemy
         let(:element) { create(:alchemy_element, page: page) }
         let(:content) { create(:alchemy_content, element: element) }
 
-        before do
-          expect(Content).to receive(:find).and_return(content)
-        end
-
         it "returns content as json" do
           get :show, params: {id: content.id, format: :json}
 

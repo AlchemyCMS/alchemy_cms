@@ -16,6 +16,8 @@ module Alchemy
       if params[:element_id].present?
         @contents = @contents.where(element_id: params[:element_id])
       end
+      @contents = @contents.includes(:essence)
+
       render json: @contents, adapter: :json, root: 'contents'
     end
 
@@ -30,9 +32,12 @@ module Alchemy
     #
     def show
       if params[:id]
-        @content = Content.find(params[:id])
+        @content = Content.where(id: params[:id]).includes(:essence).first
       elsif params[:element_id] && params[:name]
-        @content = Content.find_by!(element_id: params[:element_id], name: params[:name])
+        @content = Content.where(
+          element_id: params[:element_id],
+          name: params[:name]
+        ).includes(:essence).first || raise(ActiveRecord::RecordNotFound)
       end
       authorize! :show, @content
       respond_with @content
