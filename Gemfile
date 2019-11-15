@@ -2,12 +2,15 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'rails', '~> 6.0.0'
+rails_version = ENV.fetch('RAILS_VERSION', 6.0).to_f
+gem 'rails', "~> #{rails_version}.0"
 
 # Profiling
 gem 'rack-mini-profiler', group: :development, require: false
 
-gem 'sqlite3', '~> 1.4.1' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
+if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
+  gem 'sqlite3', rails_version > 5.0 ? '~> 1.4.1' : '~> 1.3.6'
+end
 gem 'mysql2', '~> 0.5.1' if ENV['DB'] == 'mysql'
 gem 'pg',     '~> 1.0'   if ENV['DB'] == 'postgresql'
 gem 'sassc-rails'

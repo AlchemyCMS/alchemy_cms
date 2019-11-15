@@ -22,7 +22,9 @@ require "alchemy_cms"
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    if config.respond_to?(:load_defaults)
+      config.load_defaults ENV['RAILS_VERSION'] || 6.0
+    end
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
