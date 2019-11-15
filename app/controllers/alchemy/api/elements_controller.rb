@@ -20,15 +20,36 @@ module Alchemy
       if params[:named].present?
         @elements = @elements.named(params[:named])
       end
+      @elements = @elements.includes(*element_includes)
+
       render json: @elements, adapter: :json, root: 'elements'
     end
 
     # Returns a json object for element
     #
     def show
-      @element = Element.find(params[:id])
+      @element = Element.where(id: params[:id]).includes(*element_includes).first
       authorize! :show, @element
       respond_with @element
+    end
+
+    private
+
+    def element_includes
+      [
+        {
+          nested_elements: [
+            {
+              contents: :essence
+            },
+            :tags
+          ]
+        },
+        {
+          contents: :essence
+        },
+        :tags
+      ]
     end
   end
 end
