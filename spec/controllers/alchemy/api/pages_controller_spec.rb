@@ -80,6 +80,14 @@ module Alchemy
           expect(result['meta']['total_count']).to eq(2)
         end
       end
+
+      context 'with ransack query param given' do
+        it 'returns filtered result' do
+          get :index, params: { q: { name_eq: page.name }, format: :json }
+
+          expect(result['pages'].size).to eq(1)
+        end
+      end
     end
 
     describe '#nested' do
