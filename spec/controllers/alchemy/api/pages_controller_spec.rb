@@ -53,6 +53,33 @@ module Alchemy
           expect(result['pages'].size).to eq(Alchemy::Page.count)
         end
       end
+
+      it 'includes meta data' do
+        get :index, params: { format: :json }
+
+        expect(result['pages'].size).to eq(2)
+        expect(result['meta']['page']).to be_nil
+        expect(result['meta']['per_page']).to eq(2)
+        expect(result['meta']['total_count']).to eq(2)
+      end
+
+      context 'with page param given' do
+        let!(:page1) { create(:alchemy_page) }
+        let!(:page2) { create(:alchemy_page) }
+
+        before do
+          expect(Kaminari.config).to receive(:default_per_page).at_least(:once) { 1 }
+        end
+
+        it 'returns paginated result' do
+          get :index, params: { page: 2, format: :json }
+
+          expect(result['pages'].size).to eq(1)
+          expect(result['meta']['page']).to eq(2)
+          expect(result['meta']['per_page']).to eq(1)
+          expect(result['meta']['total_count']).to eq(2)
+        end
+      end
     end
 
     describe '#nested' do

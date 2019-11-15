@@ -16,7 +16,12 @@ module Alchemy
       if params[:page_layout].present?
         @pages = @pages.where(page_layout: params[:page_layout])
       end
-      render json: @pages, adapter: :json, root: 'pages'
+
+      if params[:page]
+        @pages = @pages.page(params[:page]).per(params[:per_page])
+      end
+
+      render json: @pages, adapter: :json, root: 'pages', meta: meta_data
     end
 
     # Returns all pages as nested json object for tree views
@@ -53,6 +58,30 @@ module Alchemy
                 language_code: params[:locale] || Language.current.code
               ) ||
               raise(ActiveRecord::RecordNotFound)
+    end
+
+    def meta_data
+      {
+        total_count: total_count_value,
+        per_page: per_page_value,
+        page: page_value
+      }
+    end
+
+    def total_count_value
+      params[:page] ? @pages.total_count : @pages.size
+    end
+
+    def per_page_value
+      if params[:page]
+        (params[:per_page] || Kaminari.config.default_per_page).to_i
+      else
+        @pages.size
+      end
+    end
+
+    def page_value
+      params[:page] ? params[:page].to_i : nil
     end
   end
 end
