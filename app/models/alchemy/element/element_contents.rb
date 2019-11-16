@@ -16,13 +16,15 @@ module Alchemy
 
     # All contents from element by given name.
     def contents_by_name(name)
-      contents.where(name: name)
+      contents.select { |content| content.name == name.to_s }
     end
     alias_method :all_contents_by_name, :contents_by_name
 
     # All contents from element by given essence type.
     def contents_by_type(essence_type)
-      contents.where(essence_type: Content.normalize_essence_type(essence_type))
+      contents.select do |content|
+        content.essence_type == Content.normalize_essence_type(essence_type)
+      end
     end
     alias_method :all_contents_by_type, :contents_by_type
 
@@ -99,7 +101,7 @@ module Alchemy
         log_warning "Element #{name} is missing the content definition for #{content_name}"
         nil
       else
-        content_definitions.detect { |d| d['name'] == content_name }
+        content_definitions.detect { |d| d['name'] == content_name.to_s }
       end
     end
 
@@ -134,7 +136,7 @@ module Alchemy
     def content_for_rss_meta(type)
       definition = content_definitions.detect { |c| c["rss_#{type}"] }
       return if definition.blank?
-      contents.find_by(name: definition['name'])
+      contents.detect { |content| content.name == definition['name'] }
     end
 
     # creates the contents for this element as described in the elements.yml
