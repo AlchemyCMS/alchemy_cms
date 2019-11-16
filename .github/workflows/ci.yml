@@ -8,6 +8,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        rails:
+          - '5.2'
+          - '6.0'
         ruby:
           - '2.5.x'
           - '2.6.x'
@@ -20,6 +23,7 @@ jobs:
       PGHOST: 127.0.0.1
       PGUSER: postgres
       RAILS_ENV: test
+      RAILS_VERSION: ${{ matrix.rails }}
       CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
     services:
       postgres:
@@ -48,7 +52,7 @@ jobs:
         uses: actions/cache@preview
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-bundle-${{ matrix.ruby }}-${{ matrix.database }}-${{ hashFiles('**/Gemfile') }}
+          key: ${{ runner.os }}-bundle-${{ matrix.ruby }}-${{ matrix.rails }}-${{ matrix.database }}-${{ hashFiles('**/Gemfile') }}
           restore-keys: |
             ${{ runner.os }}-bundle-
       - name: Install bundle
