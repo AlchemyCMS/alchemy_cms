@@ -219,7 +219,6 @@ module Alchemy
       return true if page.nil?
       unless touchable_pages.include? page
         touchable_pages << page
-        save
       end
     end
 
