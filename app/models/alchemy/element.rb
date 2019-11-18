@@ -77,7 +77,7 @@ module Alchemy
       dependent: :destroy,
       inverse_of: :parent_element
 
-    belongs_to :page, touch: true, inverse_of: :all_elements
+    belongs_to :page, touch: true, inverse_of: :elements
 
     # A nested element belongs to a parent element.
     belongs_to :parent_element,
