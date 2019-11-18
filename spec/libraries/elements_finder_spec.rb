@@ -157,12 +157,16 @@ RSpec.describe Alchemy::ElementsFinder do
       let!(:visible_element) { create(:alchemy_element, public: true, page: page) }
       let!(:hidden_element) { create(:alchemy_element, public: false, page: page) }
 
-      let(:page_2) { create(:alchemy_page, :public, page_layout: 'standard') }
-      let!(:visible_element_2) { create(:alchemy_element, public: true, page: page_2) }
-      let!(:hidden_element_2) { create(:alchemy_element, public: false, page: page_2) }
+      it 'returns all public elements from page with given page layout' do
+        is_expected.to eq([visible_element])
+      end
 
-      it 'returns all public elements from all pages with given page layout' do
-        is_expected.to eq([visible_element, visible_element_2])
+      context 'that is not found' do
+        subject { finder.elements(page: 'foobaz') }
+
+        it 'returns empty active record relation' do
+          is_expected.to eq(Alchemy::Element.none)
+        end
       end
     end
 
