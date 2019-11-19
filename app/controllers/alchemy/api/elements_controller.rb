@@ -40,13 +40,17 @@ module Alchemy
         {
           nested_elements: [
             {
-              contents: :essence
+              contents: {
+                essence: :ingredient_association
+              }
             },
             :tags
           ]
         },
         {
-          contents: :essence
+          contents: {
+            essence: :ingredient_association
+          }
         },
         :tags
       ]

@@ -16,7 +16,7 @@ module Alchemy
       if params[:element_id].present?
         @contents = @contents.where(element_id: params[:element_id])
       end
-      @contents = @contents.includes(:essence)
+      @contents = @contents.includes(*content_includes)
 
       render json: @contents, adapter: :json, root: 'contents'
     end
@@ -37,10 +37,20 @@ module Alchemy
         @content = Content.where(
           element_id: params[:element_id],
           name: params[:name]
-        ).includes(:essence).first || raise(ActiveRecord::RecordNotFound)
+        ).includes(*content_includes).first || raise(ActiveRecord::RecordNotFound)
       end
       authorize! :show, @content
       respond_with @content
+    end
+
+    private
+
+    def content_includes
+      [
+        {
+          essence: :ingredient_association
+        }
+      ]
     end
   end
 end
