@@ -10,6 +10,18 @@ RSpec.shared_examples_for "an essence" do
   let(:content) { Alchemy::Content.new(name: 'foo') }
   let(:content_definition) { {'name' => 'foo'} }
 
+  describe 'eager loading' do
+    before do
+      2.times { described_class.create! }
+    end
+
+    it 'does not throw error if eager loaded' do
+      expect {
+        described_class.all.includes(:ingredient_association).to_a
+      }.to_not raise_error
+    end
+  end
+
   it "touches the content after update" do
     element = FactoryBot.create(:alchemy_element)
     content = FactoryBot.create(:alchemy_content, element: element, essence: essence, essence_type: essence.class.name)
