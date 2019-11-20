@@ -36,14 +36,22 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+      - name: Restore apt cache
+        id: apt-cache
+        uses: actions/cache@preview
+        with:
+          path: apt-cache
+          key: ${{ runner.os }}-apt-${{ matrix.database }}
+          restore-keys: |
+            ${{ runner.os }}-apt-
       - name: Install Postgres headers
         if: matrix.database == 'postgresql'
         run: |
-          sudo apt-get install -yqq libpq-dev
+          sudo apt-get update -qq && sudo apt-get install -yqq libpq-dev -o dir::cache::archives="apt-cache"
       - name: Install MySQL headers
         if: matrix.database == 'mysql'
         run: |
-          sudo apt-get install -yqq libmysqlclient-dev
+          sudo apt-get update -qq && sudo apt-get install -yqq libmysqlclient-dev -o dir::cache::archives="apt-cache"
       - name: Install bundler
         run: |
           gem install bundler
