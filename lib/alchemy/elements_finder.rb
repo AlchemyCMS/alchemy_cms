@@ -57,13 +57,15 @@ module Alchemy
 
     attr_reader :page, :options
 
-    def find_elements(page)
-      elements = Alchemy::Element
-        .where(page_id: page_ids(page))
-        .merge(Alchemy::Element.not_nested)
-        .where(fixed: !!options[:fixed])
-        .order(position: :asc)
-        .available
+    def find_elements(page_or_layout)
+      @page = get_page(page_or_layout)
+      return Alchemy::Element.none unless page
+
+      if options[:fixed]
+        elements = page.fixed_elements
+      else
+        elements = page.elements
+      end
 
       if options[:only]
         elements = elements.named(options[:only])
@@ -76,15 +78,16 @@ module Alchemy
       elements
     end
 
-    def page_ids(page)
-      case page
-      when String
-        Alchemy::Language.current.pages.where(
-          page_layout: page,
-          restricted: false
-        ).pluck("#{Alchemy::Page.table_name}.id")
+    def get_page(page_or_layout)
+      case page_or_layout
       when Alchemy::Page
-        page.id
+        page_or_layout
+      when String
+        Alchemy::Page.find_by(
+          language: Alchemy::Language.current,
+          page_layout: page_or_layout,
+          restricted: false
+        )
       end
     end
 

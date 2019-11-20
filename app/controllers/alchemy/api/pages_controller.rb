@@ -61,12 +61,19 @@ module Alchemy
     private
 
     def load_page
-      @page = Page.find_by(id: params[:id]) ||
-              Language.current.pages.find_by(
-                urlname: params[:urlname],
-                language_code: params[:locale] || Language.current.code
-              ) ||
-              raise(ActiveRecord::RecordNotFound)
+      @page = load_page_by_id || load_page_by_urlname || raise(ActiveRecord::RecordNotFound)
+    end
+
+    def load_page_by_id
+      # The route param is called :urlname although it might be an integer
+      Page.where(id: params[:urlname]).includes(page_includes).first
+    end
+
+    def load_page_by_urlname
+      Language.current.pages.where(
+        urlname: params[:urlname],
+        language_code: params[:locale] || Language.current.code
+      ).includes(page_includes).first
     end
 
     def meta_data
@@ -101,13 +108,17 @@ module Alchemy
             {
               nested_elements: [
                 {
-                  contents: :essence
+                  contents: {
+                    essence: :ingredient_association
+                  }
                 },
                 :tags
               ]
             },
             {
-              contents: :essence
+              contents: {
+                essence: :ingredient_association
+              }
             },
             :tags
           ]

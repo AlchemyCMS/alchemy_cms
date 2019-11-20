@@ -193,11 +193,7 @@ module Alchemy
 
     describe '#show' do
       context 'for existing page' do
-        let(:page) { build_stubbed(:alchemy_page, :public, urlname: 'a-page') }
-
-        before do
-          expect(Page).to receive(:find_by).and_return(page)
-        end
+        let(:page) { create(:alchemy_page, :public, urlname: 'a-page') }
 
         it "returns page as json" do
           get :show, params: {urlname: page.urlname, format: :json}
@@ -211,7 +207,7 @@ module Alchemy
         end
 
         context 'requesting an restricted page' do
-          let(:page) { build_stubbed(:alchemy_page, restricted: true, urlname: 'a-page') }
+          let(:page) { create(:alchemy_page, restricted: true, urlname: 'a-page') }
 
           it "responds with 403" do
             get :show, params: {urlname: page.urlname, format: :json}
@@ -227,7 +223,7 @@ module Alchemy
         end
 
         context 'requesting a not public page' do
-          let(:page) { build_stubbed(:alchemy_page, urlname: 'a-page') }
+          let(:page) { create(:alchemy_page, urlname: 'a-page') }
 
           it "responds with 403" do
             get :show, params: {urlname: page.urlname, format: :json}
@@ -270,7 +266,7 @@ module Alchemy
         let(:page) { create(:alchemy_page, :public) }
 
         it "responds with json" do
-          get :show, params: {id: page.id, format: :json}
+          get :show, params: {urlname: page.id, format: :json}
 
           expect(response.status).to eq(200)
           expect(response.media_type).to eq('application/json')
