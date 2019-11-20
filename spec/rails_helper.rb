@@ -12,7 +12,7 @@ require 'capybara-screenshot/rspec'
 require 'rails-controller-testing'
 require 'rspec-activemodel-mocks'
 require 'rspec/rails'
-require 'selenium/webdriver'
+require 'webdrivers/chromedriver'
 require 'shoulda-matchers'
 
 require 'alchemy/seeder'

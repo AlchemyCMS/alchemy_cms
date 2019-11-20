@@ -121,14 +121,14 @@ RSpec.describe 'Show page feature:', type: :system do
 
       it "a link to the admin area" do
         within('#alchemy_menubar') do
-          expect(page).to have_selector("li a[href='#{alchemy.admin_dashboard_url}']")
+          expect(page).to have_selector("li a[href='#{alchemy.admin_dashboard_url(host: Capybara.current_host)}']")
         end
       end
 
       it "a link to edit the current page" do
         within('#alchemy_menubar') do
           expect(page).to \
-            have_selector("li a[href='#{alchemy.edit_admin_page_url(public_page)}']")
+            have_selector("li a[href='#{alchemy.edit_admin_page_url(public_page, host: Capybara.current_host)}']")
         end
       end
 

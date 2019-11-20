@@ -46,7 +46,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rails-controller-testing',     ['~> 1.0']
   gem.add_development_dependency 'rspec-activemodel-mocks',      ['~> 1.0']
   gem.add_development_dependency 'rspec-rails',                  ['>= 4.0.0.beta2']
-  gem.add_development_dependency 'selenium-webdriver',           ['~> 3.8']
+  gem.add_development_dependency 'webdrivers',                   ['~> 4.0']
   gem.add_development_dependency 'shoulda-matchers',             ['~> 4.0']
 
   gem.post_install_message = <<-MSG
