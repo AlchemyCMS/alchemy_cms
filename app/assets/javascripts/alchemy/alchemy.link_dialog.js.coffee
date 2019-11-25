@@ -20,12 +20,12 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     # Store some jQuery objects for further reference
     @$page_anchor = $('#page_anchor', @dialog_body)
     @$internal_urlname = $('#internal_urlname', @dialog_body)
-    @$internal_anchor = $('#internal_anchor', @dialog_body)
+    @$anchor_link = $('#anchor_link', @dialog_body)
     @$external_url = $('#external_url', @dialog_body)
     @$public_filename = $('#public_filename', @dialog_body)
     @$overlay_tabs = $('#overlay_tabs', @dialog_body)
     @$page_container = $('#page_selector_container')
-    @initInternalAnchors()
+    @initAnchorLinks()
     # if we edit an existing link
     if @link_object
       # we select the correct tab
@@ -42,6 +42,8 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
           url = @$external_url.val()
         when 'file'
           url = @$public_filename.val()
+        when 'anchor'
+          url = @$anchor_link.val()
         else
           url = $("##{@link_type}_urlname").val()
       # Create the link
@@ -70,14 +72,12 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
         @$internal_urlname.val('/' + url)
       false
     # Select the current page in the tree
-    @selectInternalLinkTab()
+    @initInternalLinkTab()
 
   # Sets the page selected and scrolls it in the viewport.
   selectPage: (page_id) ->
     # deselect any selected page from page tree
     @deselectPage()
-    # reset the internal anchor select
-    @$internal_anchor.select2('val', '')
     $('#sitemap_sitename_' + page_id).addClass('selected_page')
     @$page_container.scrollTo("#sitemap_sitename_#{page_id}", {duration: 400, offset: -10})
 
@@ -149,6 +149,10 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
       # Handles a file link.
       tab = $('#overlay_tab_file_link')
       @$public_filename.select2('val', @$link[0].pathname + @$link[0].search)
+    else if @$link.attr('href').match(/^#/)
+      # Handles an anchor link.
+      tab = $('#overlay_tab_anchor_link')
+      @$anchor_link.select2('val', @$link.attr('href'))
     else
       # Handles an internal link.
       tab = $('#overlay_tab_internal_link')
@@ -156,7 +160,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     @$overlay_tabs.tabs('option', 'active', $('#overlay_tabs > div').index(tab))
 
   # Handles actions for internal link tab.
-  selectInternalLinkTab: ->
+  initInternalLinkTab: ->
     return unless @$link
     url = @$link.attr('href').split('#')
     urlname = url[0]
@@ -166,11 +170,6 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
       @$page_anchor.val("##{anchor}")
       # and update the url field
       @$internal_urlname.val("#{urlname}##{anchor}")
-      # if we linked an internal anchor
-      if @$internal_urlname.val().match(/^#/)
-        # we select the correct value from anchors select
-        value = @$internal_urlname.val()
-        @$internal_anchor.select2 'val', value.replace(/^#/, '')
     else
       @$internal_urlname.val(urlname)
     $sitemap_line = $('.sitemap_sitename').closest('[name="'+urlname+'"]')
@@ -225,20 +224,16 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     $('#errors', @dialog_body).show()
 
   # Populates the internal anchors select
-  initInternalAnchors: ->
+  initAnchorLinks: ->
     frame = document.getElementById('alchemy_preview_window')
     elements = frame.contentDocument.getElementsByTagName('*')
     if elements.length > 0
       for element in elements
         if element.id
-          @$internal_anchor.append("<option value='#{element.id}'>##{element.id}</option>")
+          @$anchor_link.append("<option value='##{element.id}'>##{element.id}</option>")
     else
-      @$internal_anchor.html("<option>#{Alchemy.t('No anchors found')}</option>")
-    @$internal_anchor.change (e) =>
-      # deselect any selected page from page tree
-      @deselectPage()
-      # store the internal anchor as urlname
-      $("#internal_urlname").val("##{e.target.value}")
+      @$anchor_link.html("<option>#{Alchemy.t('No anchors found')}</option>")
+    return
 
   # Public class methods
 
