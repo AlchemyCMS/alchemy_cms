@@ -338,6 +338,14 @@ module Alchemy
           expect(news_page.elements.pluck(:name)).to include('contactform')
         end
       end
+
+      context 'destruction' do
+        let!(:page) { create(:alchemy_page, autogenerate_elements: true) }
+
+        it 'destroys elements along with itself' do
+          expect { page.destroy! }.to change(Alchemy::Element, :count).from(3).to(0)
+        end
+      end
     end
 
     # ClassMethods (a-z)
