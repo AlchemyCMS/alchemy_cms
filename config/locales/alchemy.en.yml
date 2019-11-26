@@ -159,6 +159,7 @@ en:
 
     add_nested_element: "Add %{name}"
     anchor: 'Anchor'
+    anchor_link_headline: "You can link to an element anchor from the actual page."
     attribute_fixed: Value can't be changed for this page type
     back: 'back'
     create_tree_as_new_language: "Create %{language} as a new language tree"
@@ -401,7 +402,6 @@ en:
     image_title: "Title-tag"
     internal_link_headline: "Choose a page to link to."
     internal_link_page_elements_explanation: "Additionally you can click right beside a page on 'Show Elements' to link to an anchor of an element from that page."
-    internal_link_page_anchors_explanation: "Alternatively you can link to an anchor of the actual page."
     "item copied to clipboard": "Copied %{name} to clipboard"
     "item moved to clipboard": "Moved %{name} to clipboard"
     "item removed from clipboard": "Removed %{name} from clipboard"
@@ -415,6 +415,7 @@ en:
     legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
     link_image: "Link this image."
     link_overlay_tab_label:
+      anchor: "Anchor"
       contactform: "Contact form"
       external: "External"
       file: "File"
