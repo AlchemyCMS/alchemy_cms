@@ -23,6 +23,10 @@ module Alchemy
         -> { order(:position).fixed.available },
         class_name: 'Alchemy::Element',
         inverse_of: :page
+      has_many :dependent_destroyable_elements,
+        -> { not_nested },
+        class_name: 'Alchemy::Element',
+        dependent: :destroy
       has_many :contents, through: :elements
       has_and_belongs_to_many :to_be_swept_elements, -> { distinct },
         class_name: 'Alchemy::Element',
