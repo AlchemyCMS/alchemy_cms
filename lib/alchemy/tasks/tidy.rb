@@ -45,7 +45,7 @@ module Alchemy
 
       def remove_orphaned_elements
         puts "\n## Removing orphaned elements"
-        elements = Alchemy::Element.unscoped.all
+        elements = Alchemy::Element.unscoped.not_nested
         if elements.any?
           orphaned_elements = elements.select do |element|
             element.page.nil? && element.page_id.present?
