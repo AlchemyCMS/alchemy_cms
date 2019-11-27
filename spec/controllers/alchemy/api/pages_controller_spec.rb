@@ -24,24 +24,6 @@ module Alchemy
         expect(result['pages'].size).to eq(2)
       end
 
-      context 'with page_layout' do
-        let!(:other_page) { create(:alchemy_page, :public, page_layout: 'news') }
-
-        it "returns only page with this page layout" do
-          get :index, params: {page_layout: 'news', format: :json}
-
-          expect(result['pages'].size).to eq(1)
-        end
-      end
-
-      context 'with empty string as page_layout' do
-        it "returns all pages" do
-          get :index, params: {page_layout: '', format: :json}
-
-          expect(result['pages'].size).to eq(2)
-        end
-      end
-
       context 'as author' do
         before do
           authorize_user(build(:alchemy_dummy_user, :as_author))
