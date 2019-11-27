@@ -14,13 +14,8 @@
     <p><%= @page.layout_display_name %></p>
   </div>
   <div class="value">
-  <% if @page.redirects_to_external? %>
-    <label><%= Alchemy::Page.human_attribute_name(:urlname) %></label>
-    <p><%= @page.urlname %></p>
-  <% else %>
     <label><%= Alchemy::LegacyPageUrl.human_attribute_name(:urlname) %></label>
     <p><%= "/#{@page.urlname}" %></p>
-  <% end %>
   </div>
   <div class="value">
     <label><%= Alchemy.t(:page_status) %></label>

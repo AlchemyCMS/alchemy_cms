@@ -142,8 +142,7 @@ module Alchemy
       unless: :systempage?
 
     after_update :create_legacy_url,
-      if: :should_create_legacy_url?,
-      unless: :redirects_to_external?
+      if: :should_create_legacy_url?
 
     after_update :attach_to_menu!,
       if: :should_attach_to_menu?
@@ -456,7 +455,7 @@ module Alchemy
     # Updates an Alchemy::Page based on a new ordering to be applied to it
     #
     # Note: Page's urls should not be updated (and a legacy URL created) if nesting is OFF
-    # or if a page is external or if the URL is the same
+    # or if the URL is the same
     #
     # @param [TreeNode]
     #   A tree node with new lft, rgt, depth, url, parent_id and restricted indexes to be updated
@@ -464,7 +463,7 @@ module Alchemy
     def update_node!(node)
       hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted}
 
-      if Config.get(:url_nesting) && !redirects_to_external? && urlname != node.url
+      if Config.get(:url_nesting) && urlname != node.url
         LegacyPageUrl.create(page_id: id, urlname: urlname)
         hash[:urlname] = node.url
       end

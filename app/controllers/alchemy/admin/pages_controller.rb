@@ -93,7 +93,6 @@ module Alchemy
       # Set page configuration like page names, meta tags and states.
       def configure
         @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, Language.current.id, @page.layoutpage?)
-        render @page.redirects_to_external? ? 'configure_external' : 'configure'
       end
 
       # Updates page
@@ -296,7 +295,7 @@ module Alchemy
       # This function will add a node's own slug into their ancestor's path
       # in order to create the full URL of a node
       #
-      # NOTE: external and invisible pages are not part of the full path of their children
+      # NOTE: Invisible pages are not part of the full path of their children
       #
       # @param [String]
       #   The node's ancestors path
@@ -308,8 +307,8 @@ module Alchemy
 
         pair = {my_urlname: default_urlname, children_path: default_urlname}
 
-        if item['external'] == true || item['visible'] == false
-          # children ignore an ancestor in their path if external or invisible
+        if item['visible'] == false
+          # children ignore an ancestor in their path if invisible
           pair[:children_path] = ancestors_path
         end
 
@@ -330,10 +329,10 @@ module Alchemy
       end
 
       def redirect_path_after_create_page
-        if @page.redirects_to_external? || !@page.editable_by?(current_alchemy_user)
-          admin_pages_path
-        else
+        if @page.editable_by?(current_alchemy_user)
           params[:redirect_to] || edit_admin_page_path(@page)
+        else
+          admin_pages_path
         end
       end
 
