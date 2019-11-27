@@ -2048,20 +2048,6 @@ module Alchemy
       end
     end
 
-    describe '#controller_and_action' do
-      let(:page) { Page.new }
-
-      context 'if the page has a custom controller defined in its definition' do
-        before do
-          allow(page).to receive(:has_controller?).and_return(true)
-          allow(page).to receive(:definition).and_return({'controller' => 'comments', 'action' => 'index'})
-        end
-        it "should return a Hash with controller and action key-value pairs" do
-          expect(page.controller_and_action).to eq({controller: '/comments', action: 'index'})
-        end
-      end
-    end
-
     it_behaves_like "having a hint" do
       let(:subject) { Page.new }
     end
