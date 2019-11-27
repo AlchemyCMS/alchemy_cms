@@ -9,53 +9,6 @@ describe Alchemy::Admin::EssencesHelper do
     create(:alchemy_element, :with_contents, name: 'article')
   end
 
-  describe '#pages_for_select' do
-    let(:contact_form) do
-      create(:alchemy_element, :with_contents, name: 'contactform')
-    end
-
-    let(:page_a) { create(:alchemy_page, :public, name: 'Page A') }
-    let(:page_b) { create(:alchemy_page, :public, name: 'Page B') }
-    let(:page_c) { create(:alchemy_page, :public, name: 'Page C', parent_id: page_b.id) }
-
-    before do
-      # to be shure the ordering is alphabetic
-      page_b
-      page_a
-      helper.session[:alchemy_language_id] = 1
-    end
-
-    context "with no arguments given" do
-      it "should return options for select with all pages ordered by lft" do
-        expect(helper.pages_for_select).to match(/option.*Page B.*Page A/m)
-      end
-
-      it "should return options for select with nested page names" do
-        page_c
-        output = helper.pages_for_select
-        expect(output).to match(/option.*Startseite.*>&nbsp;&nbsp;Page B.*>&nbsp;&nbsp;&nbsp;&nbsp;Page C.*>&nbsp;&nbsp;Page A/m)
-      end
-    end
-
-    context "with pages passed in" do
-      before do
-        @pages = []
-        3.times { @pages << create(:alchemy_page, :public) }
-      end
-
-      it "should return options for select with only these pages" do
-        output = helper.pages_for_select(@pages)
-        expect(output).to match(/#{@pages.collect(&:name).join('.*')}/m)
-        expect(output).not_to match(/Page A/m)
-      end
-
-      it "should not nest the page names" do
-        output = helper.pages_for_select(@pages)
-        expect(output).not_to match(/option.*&nbsp;/m)
-      end
-    end
-  end
-
   describe '#essence_picture_thumbnail' do
     let(:essence) do
       build_stubbed(:alchemy_essence_picture)
