@@ -287,11 +287,10 @@
 
 				var restricted = $(item).data("restricted");
 				var slug = $(item).data("slug");
-				var external = $(item).data("external");
 				var visible = $(item).data("visible");
 
 				if (id) {
-					var currentItem = {"id" : id[2], "slug" : slug, "restricted" : restricted, "external" : external, "visible" : visible};
+					var currentItem = {"id" : id[2], "slug" : slug, "restricted" : restricted, "visible" : visible};
 					if ($(item).children(o.listType).children(o.items).length > 0) {
 						currentItem.children = [];
 						$(item).children(o.listType).children(o.items).each(function() {

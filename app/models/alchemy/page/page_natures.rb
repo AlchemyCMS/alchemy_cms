@@ -54,13 +54,6 @@ module Alchemy
       definition["editable_by"]
     end
 
-    # Returns true or false if the pages definition for config/alchemy/page_layouts.yml contains redirects_to_external: true
-    # @deprecated Please use a menu node with an external url instead.
-    def redirects_to_external?
-      !!definition["redirects_to_external"]
-    end
-    deprecate redirects_to_external?: 'Please use a menu node with an external url instead.', deprecator: Alchemy::Deprecation
-
     # @deprecated
     def has_controller?
       !PageLayout.get(page_layout).nil? && !PageLayout.get(page_layout)["controller"].blank?
