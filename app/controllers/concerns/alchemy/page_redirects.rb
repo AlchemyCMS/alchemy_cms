@@ -27,8 +27,7 @@ module Alchemy
     # @return NilClass
     #
     def redirect_url
-      @_redirect_url ||= public_child_redirect_url || controller_and_action_url ||
-                         locale_prefixed_url || nil
+      @_redirect_url ||= public_child_redirect_url || locale_prefixed_url || nil
     end
 
     def locale_prefixed_url
@@ -46,12 +45,6 @@ module Alchemy
       else
         page_not_found!
       end
-    end
-
-    def controller_and_action_url
-      return unless @page.has_controller?
-
-      main_app.url_for(@page.controller_and_action)
     end
 
     # Page url with or without locale while keeping all additional params

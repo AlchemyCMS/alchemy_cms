@@ -54,27 +54,10 @@ module Alchemy
       definition["editable_by"]
     end
 
-    # @deprecated
-    def has_controller?
-      !PageLayout.get(page_layout).nil? && !PageLayout.get(page_layout)["controller"].blank?
-    end
-    deprecate :has_controller?, deprecator: Alchemy::Deprecation
-
     # True if page locked_at timestamp and locked_by id are set
     def locked?
       locked_by? && locked_at?
     end
-
-    # @deprecated Please use a menu node with an url pointing to your controller path instead.
-    def controller_and_action
-      if has_controller?
-        {
-          controller: definition["controller"].gsub(/(^\b)/, "/#{$1}"),
-          action: definition["action"]
-        }
-      end
-    end
-    deprecate controller_and_action: 'Please use a menu node with an url pointing to your controller path instead.', deprecator: Alchemy::Deprecation
 
     # Returns a Hash describing the status of the Page.
     #
