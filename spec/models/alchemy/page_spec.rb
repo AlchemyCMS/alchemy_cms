@@ -338,6 +338,14 @@ module Alchemy
           expect(news_page.elements.pluck(:name)).to include('contactform')
         end
       end
+
+      context 'destruction' do
+        let!(:page) { create(:alchemy_page, autogenerate_elements: true) }
+
+        it 'destroys elements along with itself' do
+          expect { page.destroy! }.to change(Alchemy::Element, :count).from(3).to(0)
+        end
+      end
     end
 
     # ClassMethods (a-z)
@@ -842,13 +850,13 @@ module Alchemy
     end
 
     describe '#available_elements_within_current_scope' do
-      let(:page) { build_stubbed(:alchemy_page, page_layout: 'columns') }
+      let(:page) { create(:alchemy_page, page_layout: 'columns') }
       let(:nestable_element) { create(:alchemy_element, :with_nestable_elements) }
       let(:currently_available_elements) { page.available_elements_within_current_scope(nestable_element) }
 
       context "When unique element is already nested" do
         before do
-          nestable_element.nested_elements << create(:alchemy_element, name: 'slide', unique: true)
+          nestable_element.nested_elements << create(:alchemy_element, name: 'slide', unique: true, page: page)
           page.elements << nestable_element
         end
 

@@ -25,9 +25,13 @@
 
 module Alchemy
   class EssencePicture < BaseRecord
-    acts_as_essence ingredient_column: 'picture'
+    acts_as_essence ingredient_column: :picture, belongs_to: {
+      class_name: 'Alchemy::Picture',
+      foreign_key: :picture_id,
+      inverse_of: :essence_pictures,
+      optional: true
+    }
 
-    belongs_to :picture, optional: true
     delegate :image_file_width, :image_file_height, :image_file, to: :picture
     before_save :fix_crop_values
     before_save :replace_newlines

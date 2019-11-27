@@ -43,7 +43,7 @@
         class: "nested-elements", data: {
           'droppable-elements' => element.nestable_elements.join(' ')
         } do %>
-        <%= render element.all_nested_elements.not_trashed.map { |element|
+        <%= render element.all_nested_elements.map { |element|
           Alchemy::ElementEditor.new(element)
         } %>
       <% end %>

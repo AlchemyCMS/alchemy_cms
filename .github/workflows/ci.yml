@@ -8,6 +8,9 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
+        rails:
+          - '5.2'
+          - '6.0'
         ruby:
           - '2.5.x'
           - '2.6.x'
@@ -20,6 +23,7 @@ jobs:
       PGHOST: 127.0.0.1
       PGUSER: postgres
       RAILS_ENV: test
+      RAILS_VERSION: ${{ matrix.rails }}
       CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
     services:
       postgres:
@@ -32,14 +36,28 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+      - name: Restore apt cache
+        id: apt-cache
+        uses: actions/cache@preview
+        with:
+          path: /home/runner/apt/cache
+          key: ${{ runner.os }}-apt-${{ matrix.database }}
+          restore-keys: |
+            ${{ runner.os }}-apt-
       - name: Install Postgres headers
         if: matrix.database == 'postgresql'
         run: |
-          sudo apt-get install -yqq libpq-dev
+          mkdir -p /home/runner/apt/cache
+          sudo apt-get update -qq
+          sudo apt-get install -qq --fix-missing libpq-dev -o dir::cache::archives="/home/runner/apt/cache"
+          sudo chown -R runner /home/runner/apt/cache
       - name: Install MySQL headers
         if: matrix.database == 'mysql'
         run: |
-          sudo apt-get install -yqq libmysqlclient-dev
+          mkdir -p /home/runner/apt/cache
+          sudo apt-get update -qq
+          sudo apt-get install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
+          sudo chown -R runner /home/runner/apt/cache
       - name: Install bundler
         run: |
           gem install bundler
@@ -48,7 +66,7 @@ jobs:
         uses: actions/cache@preview
         with:
           path: vendor/bundle
-          key: ${{ runner.os }}-bundle-${{ matrix.ruby }}-${{ matrix.database }}-${{ hashFiles('**/Gemfile') }}
+          key: ${{ runner.os }}-bundle-${{ matrix.ruby }}-${{ matrix.rails }}-${{ matrix.database }}-${{ hashFiles('**/Gemfile') }}
           restore-keys: |
             ${{ runner.os }}-bundle-
       - name: Install bundle

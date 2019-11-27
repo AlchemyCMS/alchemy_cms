@@ -13,7 +13,7 @@ module Alchemy
       #   Used as prompt message in the select tag
       # @param [Symbol]
       #   Method that is called on the page object to get the value that is passed with the params of the form.
-      #
+      # @deprecated
       def pages_for_select(pages = nil, selected = nil, prompt = "Choose page", page_attribute = :id)
         values = [[Alchemy.t(prompt), ""]]
         pages ||= begin
@@ -23,6 +23,7 @@ module Alchemy
         values += pages_attributes_for_select(pages, page_attribute, nested)
         options_for_select(values, selected.to_s)
       end
+      deprecate :pages_for_select, deprecator: Alchemy::Deprecation
 
       # Renders a thumbnail for given EssencePicture content with correct cropping and size
       def essence_picture_thumbnail(content)
@@ -67,6 +68,7 @@ module Alchemy
           ]
         end
       end
+      deprecate :pages_attributes_for_select, deprecator: Alchemy::Deprecation
 
       # Returns the page name for pages_for_select helper
       #
@@ -82,6 +84,7 @@ module Alchemy
           page.name
         end
       end
+      deprecate :page_name_attribute_for_select, deprecator: Alchemy::Deprecation
     end
   end
 end

@@ -109,12 +109,8 @@ module Alchemy
     end
 
     describe '#show' do
-      let(:page)    { build_stubbed(:alchemy_page) }
-      let(:element) { build_stubbed(:alchemy_element, page: page, position: 1) }
-
-      before do
-        expect(Element).to receive(:find).and_return(element)
-      end
+      let(:page)    { create(:alchemy_page) }
+      let(:element) { create(:alchemy_element, page: page, position: 1) }
 
       it "returns element as json" do
         get :show, params: {id: element.id, format: :json}
@@ -128,7 +124,7 @@ module Alchemy
       end
 
       context 'requesting an restricted element' do
-        let(:page) { build_stubbed(:alchemy_page, restricted: true) }
+        let(:page) { create(:alchemy_page, restricted: true) }
 
         it "responds with 403" do
           get :show, params: {id: element.id, format: :json}

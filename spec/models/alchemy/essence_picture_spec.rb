@@ -9,6 +9,15 @@ module Alchemy
       let(:ingredient_value) { Picture.new }
     end
 
+    describe 'eager loading' do
+      let!(:essence_pictures) { create_list(:alchemy_essence_picture, 2) }
+
+      it 'eager loads pictures' do
+        essences = described_class.all.includes(:ingredient_association)
+        expect(essences[0].association(:ingredient_association)).to be_loaded
+      end
+    end
+
     it_behaves_like "has image transformations" do
       let(:picture) { build_stubbed(:alchemy_essence_picture) }
     end

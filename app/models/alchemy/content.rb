@@ -24,7 +24,7 @@ module Alchemy
     # Concerns
     include Alchemy::Content::Factory
 
-    belongs_to :essence, polymorphic: true, dependent: :destroy
+    belongs_to :essence, polymorphic: true, dependent: :destroy, inverse_of: :content
     belongs_to :element, touch: true, inverse_of: :contents
     has_one :page, through: :element
 

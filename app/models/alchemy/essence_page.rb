@@ -6,10 +6,14 @@ module Alchemy
 
     acts_as_essence(
       ingredient_column: :page,
-      preview_text_method: :name
+      preview_text_method: :name,
+      belongs_to: {
+        class_name: 'Alchemy::Page',
+        foreign_key: :page_id,
+        inverse_of: :essence_pages,
+        optional: true
+      }
     )
-
-    belongs_to :page, class_name: 'Alchemy::Page', optional: true
 
     def ingredient=(page)
       case page

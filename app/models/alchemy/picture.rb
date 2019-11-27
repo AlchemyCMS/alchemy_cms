@@ -30,7 +30,11 @@ module Alchemy
     include Alchemy::Picture::Transformations
     include Alchemy::Picture::Url
 
-    has_many :essence_pictures, class_name: 'Alchemy::EssencePicture', foreign_key: 'picture_id'
+    has_many :essence_pictures,
+      class_name: 'Alchemy::EssencePicture',
+      foreign_key: 'picture_id',
+      inverse_of: :ingredient_association
+
     has_many :contents, through: :essence_pictures
     has_many :elements, through: :contents
     has_many :pages, through: :elements

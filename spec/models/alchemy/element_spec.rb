@@ -538,7 +538,7 @@ module Alchemy
 
         before do
           allow(nested_element).to receive(:contents) { [content_2] }
-          allow(element).to receive(:nested_elements) { [nested_element] }
+          allow(element).to receive(:all_nested_elements) { [nested_element] }
         end
 
         context 'when parent element has contents' do
@@ -898,8 +898,8 @@ module Alchemy
           create(:alchemy_element, parent_element: element, page: page).tap(&:trash!)
         end
 
-        it 'includes them' do
-          expect(subject).to include(trashed_nested_element)
+        it 'does not include them' do
+          expect(subject).to_not include(trashed_nested_element)
         end
       end
     end

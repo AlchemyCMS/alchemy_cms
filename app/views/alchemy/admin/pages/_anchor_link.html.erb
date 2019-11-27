@@ -1,0 +1,22 @@
+<%= form_tag do %>
+  <%= render_message do %>
+    <p><%= Alchemy.t(:anchor_link_headline) %></p>
+  <% end %>
+  <div class="input select">
+    <label for="anchor_link" class="control-label">
+      <%= Alchemy.t(:anchor) %>
+    </label>
+    <%= select_tag(:anchor_link,
+      options_for_select([[Alchemy.t('Please choose'), '']]),
+      class: 'alchemy_selectbox') %>
+  </div>
+  <div class="input text">
+    <label for="anchor_link_title" class="control-label">
+      <%= Alchemy.t(:link_title) %>
+    </label>
+    <%= text_field_tag "anchor_link_title", '', class: 'link_title' %>
+  </div>
+  <div class="submit">
+    <%= link_to Alchemy.t(:apply), '', class: 'create-link button', 'data-link-type' => 'anchor' %>
+  </div>
+<% end %>

@@ -3,6 +3,18 @@
 require 'active_record'
 
 module Alchemy #:nodoc:
+  # A bogus association that skips eager loading for essences not having an ingredient association
+  class IngredientAssociation < ActiveRecord::Associations::BelongsToAssociation
+    # Skip eager loading if called by Rails' preloader
+    def klass
+      if caller.any? { |line| line =~ /preloader\.rb/ }
+        nil
+      else
+        super
+      end
+    end
+  end
+
   module Essence #:nodoc:
     def self.included(base)
       base.extend(ClassMethods)
@@ -31,13 +43,15 @@ module Alchemy #:nodoc:
           ingredient_column: 'body'
         }.update(options)
 
+        @_classes_with_ingredient_association ||= []
+
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
           attr_writer :validation_errors
           include Alchemy::Essence::InstanceMethods
           stampable stamper_class_name: Alchemy.user_class_name
           validate :validate_ingredient, on: :update, if: -> { validations.any? }
 
-          has_one :content, as: :essence, class_name: "Alchemy::Content"
+          has_one :content, as: :essence, class_name: "Alchemy::Content", inverse_of: :essence
           has_one :element, through: :content, class_name: "Alchemy::Element"
           has_one :page,    through: :element, class_name: "Alchemy::Page"
 
@@ -66,7 +80,30 @@ module Alchemy #:nodoc:
             '#{configuration[:preview_text_column] || configuration[:ingredient_column]}'
           end
         RUBY
+
+        if configuration[:belongs_to]
+          class_eval <<-RUBY, __FILE__, __LINE__ + 1
+            belongs_to :ingredient_association, #{configuration[:belongs_to]}
+
+            alias_method :#{configuration[:ingredient_column]}, :ingredient_association
+            alias_method :#{configuration[:ingredient_column]}=, :ingredient_association=
+          RUBY
+
+          @_classes_with_ingredient_association << self
+        end
       end
+
+      # Overwrite ActiveRecords method to return a bogus association class that skips eager loading
+      # for essence classes that do not have an ingredient association
+      def _reflect_on_association(name)
+        if name == :ingredient_association && !in?(@_classes_with_ingredient_association)
+          OpenStruct.new(association_class: Alchemy::IngredientAssociation)
+        else
+          super
+        end
+      end
+
+      private
 
       # Register the current class as has_many association on +Alchemy::Page+ and +Alchemy::Element+ models
       def register_as_essence_association!
@@ -231,4 +268,5 @@ module Alchemy #:nodoc:
     end
   end
 end
-ActiveRecord::Base.class_eval { include Alchemy::Essence } if defined?(Alchemy::Essence)
+
+ActiveRecord::Base.include(Alchemy::Essence)
