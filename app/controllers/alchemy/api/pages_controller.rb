@@ -14,16 +14,6 @@ module Alchemy
         @pages = Page.accessible_by(current_ability, :index)
       end
       @pages = @pages.includes(*page_includes)
-      if params[:page_layout].present?
-        Alchemy::Deprecation.warn <<~WARN
-          Passing page_layout parameter to Alchemy::Api::PagesController#index is deprecated.
-          Please pass a Ransack search query instead:
-              q: {
-                page_layout_eq: '#{params[:page_layout]}'
-              }
-        WARN
-        @pages = @pages.where(page_layout: params[:page_layout])
-      end
       @pages = @pages.ransack(params[:q]).result
 
       if params[:page]
