@@ -94,36 +94,6 @@ module Alchemy
           expect(systempage).to be_valid
         end
       end
-
-      context 'saving an external page' do
-        let(:external_page) { build(:alchemy_page, page_layout: 'external') }
-
-        it "does not pass with invalid url given" do
-          external_page.urlname = 'not, a valid page url'
-          expect(external_page).to_not be_valid
-        end
-
-        it "only be valid with correct url given" do
-          external_page.urlname = 'www.google.com&utf_src=alchemy;page_id=%20'
-          expect(external_page).to be_valid
-        end
-
-        context 'on create' do
-          it "is valid without urlname given" do
-            external_page.urlname = ''
-            expect(external_page).to be_valid
-          end
-        end
-
-        context 'on update' do
-          before { external_page.save! }
-
-          it "is not valid without urlname given" do
-            external_page.urlname = ''
-            expect(external_page).to_not be_valid
-          end
-        end
-      end
     end
 
     # Callbacks
@@ -149,18 +119,11 @@ module Alchemy
 
       context 'after_update' do
         context "urlname has changed" do
-          it "should store legacy url if page is not redirect to external page" do
+          it "should store legacy url" do
             page.urlname = 'new-urlname'
             page.save!
             expect(page.legacy_urls).not_to be_empty
             expect(page.legacy_urls.first.urlname).to eq('my-testpage')
-          end
-
-          it "should not store legacy url if page is redirect to external page" do
-            page.urlname = 'new-urlname'
-            page.page_layout = "external"
-            page.save!
-            expect(page.legacy_urls).to be_empty
           end
 
           it "should not store legacy url twice for same urlname" do
@@ -233,15 +196,6 @@ module Alchemy
           expect(page.urlname).to eq('parent-1/page')
           page.move_to_child_of parent_2
           expect(page.urlname).to eq('parent-2/page')
-        end
-
-        context 'of an external page' do
-          let(:external) { create(:alchemy_page, parent_id: parent_1.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
-
-          it "the urlname does not get updated" do
-            external.move_to_child_of parent_2
-            expect(external.urlname).to eq('http://google.com')
-          end
         end
       end
 
@@ -1728,7 +1682,6 @@ module Alchemy
       let(:page)          { create(:alchemy_page, parent_id: parent.id, name: 'page', visible: true) }
       let(:invisible)     { create(:alchemy_page, parent_id: page.id, name: 'invisible', visible: false) }
       let(:contact)       { create(:alchemy_page, parent_id: invisible.id, name: 'contact', visible: true) }
-      let(:external)      { create(:alchemy_page, parent_id: parent.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
       let(:language_root) { parentparent.parent }
 
       context "with activated url_nesting" do
@@ -1775,16 +1728,6 @@ module Alchemy
             expect(page.urlname).to eq('new-urlname/parent/page')
           end
 
-          context 'with descendants that are redirecting to external' do
-            it "it skips this page" do
-              external
-              parent.urlname = 'new-urlname'
-              parent.save!
-              external.reload
-              expect(external.urlname).to eq('http://google.com')
-            end
-          end
-
           it "should create a legacy url" do
             allow(page).to receive(:slug).and_return('foo')
             page.update_urlname!
@@ -1825,63 +1768,32 @@ module Alchemy
           stub_alchemy_config(:url_nesting, true)
         end
 
-        context "when page is not external" do
-          before do
-            expect(page).to receive(:redirects_to_external?).and_return(false)
-          end
-
-          it "should update all attributes" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(node.url)
-            expect(page.restricted).to eq(node.restricted)
-          end
-
-          context "when url is the same" do
-            let(:node) { TreeNode.new(10, 11, 12, 13, original_url, true) }
-
-            it "should not create a legacy url" do
-              page.update_node!(node)
-              page.reload
-              expect(page.legacy_urls.size).to eq(0)
-            end
-          end
-
-          context "when url is not the same" do
-            it "should create a legacy url" do
-              page.update_node!(node)
-              page.reload
-              expect(page.legacy_urls.size).to eq(1)
-            end
-          end
+        it "should update all attributes" do
+          page.update_node!(node)
+          page.reload
+          expect(page.lft).to eq(node.left)
+          expect(page.rgt).to eq(node.right)
+          expect(page.parent_id).to eq(node.parent)
+          expect(page.depth).to eq(node.depth)
+          expect(page.urlname).to eq(node.url)
+          expect(page.restricted).to eq(node.restricted)
         end
 
-        context "when page is external" do
-          before do
-            expect(page)
-              .to receive(:redirects_to_external?)
-              .and_return(true)
-          end
-
-          it "should update all attributes except url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(original_url)
-            expect(page.restricted).to eq(node.restricted)
-          end
+        context "when url is the same" do
+          let(:node) { TreeNode.new(10, 11, 12, 13, original_url, true) }
 
           it "should not create a legacy url" do
             page.update_node!(node)
             page.reload
             expect(page.legacy_urls.size).to eq(0)
+          end
+        end
+
+        context "when url is not the same" do
+          it "should create a legacy url" do
+            page.update_node!(node)
+            page.reload
+            expect(page.legacy_urls.size).to eq(1)
           end
         end
       end
@@ -1891,50 +1803,21 @@ module Alchemy
           stub_alchemy_config(:url_nesting, false)
         end
 
-        context "when page is not external" do
-          before do
-            allow(page).to receive(:redirects_to_external?).and_return(false)
-          end
-
-          it "should update all attributes except url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(original_url)
-            expect(page.restricted).to eq(node.restricted)
-          end
-
-          it "should not create a legacy url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.legacy_urls.size).to eq(0)
-          end
+        it "should update all attributes except url" do
+          page.update_node!(node)
+          page.reload
+          expect(page.lft).to eq(node.left)
+          expect(page.rgt).to eq(node.right)
+          expect(page.parent_id).to eq(node.parent)
+          expect(page.depth).to eq(node.depth)
+          expect(page.urlname).to eq(original_url)
+          expect(page.restricted).to eq(node.restricted)
         end
 
-        context "when page is external" do
-          before do
-            allow(page).to receive(:redirects_to_external?).and_return(true)
-          end
-
-          it "should update all attributes except url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(original_url)
-            expect(page.restricted).to eq(node.restricted)
-          end
-
-          it "should not create a legacy url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.legacy_urls.size).to eq(0)
-          end
+        it "should not create a legacy url" do
+          page.update_node!(node)
+          page.reload
+          expect(page.legacy_urls.size).to eq(0)
         end
       end
     end
@@ -1997,34 +1880,6 @@ module Alchemy
 
         it "should return nil" do
           expect(page.slug).to be_nil
-        end
-      end
-    end
-
-    describe '#external_urlname' do
-      let(:external_page) { build(:alchemy_page, page_layout: 'external') }
-
-      context 'with missing protocol' do
-        before { external_page.urlname = 'google.com' }
-
-        it "returns an urlname prefixed with http://" do
-          expect(external_page.external_urlname).to eq 'http://google.com'
-        end
-      end
-
-      context 'with protocol present' do
-        before { external_page.urlname = 'ftp://google.com' }
-
-        it "returns the urlname" do
-          expect(external_page.external_urlname).to eq 'ftp://google.com'
-        end
-      end
-
-      context 'beginngin with a slash' do
-        before { external_page.urlname = '/internal-url' }
-
-        it "returns the urlname" do
-          expect(external_page.external_urlname).to eq '/internal-url'
         end
       end
     end

@@ -179,9 +179,6 @@ uploader:
 #
 link_target_options: [blank]
 
-# Should pages that redirect to an external url open the link in a new tab/window?
-open_external_links_in_new_tab: true
-
 # === Format matchers
 #
 # Named aliases for regular expressions that can be used in various places.

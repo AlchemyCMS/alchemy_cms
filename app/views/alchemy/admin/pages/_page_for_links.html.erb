@@ -4,7 +4,6 @@
       <i class="icon far fa-file fa-lg"></i>
     </div>
     <div class="sitemap_right_tools">
-      {{#unless redirects_to_external}}
       <div class="button_with_label sitemap_tool">
         <%= link_to render_icon('th-list'),
           alchemy.list_admin_elements_path(page_id: '__ID__').gsub('__ID__', '{{id}}'),
@@ -17,7 +16,6 @@
         %>
         <label class="left"><%= Alchemy.t(:show_elements_from_page) %></label>
       </div>
-      {{/unless}}
     </div>
     <div class="page_infos">
       <span class="page_status">
@@ -31,18 +29,14 @@
       </span>
     </div>
     <div class="sitemap_sitename" id="sitemap_sitename_{{id}}" name="/<%= "#{Alchemy::Language.current.code}/" if multi_language? %>{{urlname}}">
-      {{#if redirects_to_external}}
-        <span class="sitemap_pagename_link inactive">{{ name }}</span>
-      {{else}}
-        <%= link_to('{{ name }}', '', {
-          data: {
-            'page-id' => '{{id}}',
-            url: @url_prefix + '{{urlname}}'
-          },
-          title: Alchemy.t('page_for_links.choose_page', name: '{{name}}'),
-          class: "sitemap_pagename_link"
-        }) %>
-      {{/if}}
+      <%= link_to('{{ name }}', '', {
+        data: {
+          'page-id' => '{{id}}',
+          url: @url_prefix + '{{urlname}}'
+        },
+        title: Alchemy.t('page_for_links.choose_page', name: '{{name}}'),
+        class: "sitemap_pagename_link"
+      }) %>
     </div>
   </div>
   {{#if children}}

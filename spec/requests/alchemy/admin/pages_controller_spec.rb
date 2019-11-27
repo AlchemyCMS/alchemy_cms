@@ -292,9 +292,9 @@ module Alchemy
         let(:page_1)       { create(:alchemy_page, visible: true) }
         let(:page_2)       { create(:alchemy_page, visible: true) }
         let(:page_3)       { create(:alchemy_page, visible: true) }
-        let(:page_item_1)  { {id: page_1.id, slug: page_1.slug, restricted: false, external: page_1.redirects_to_external?, visible: page_1.visible?, children: [page_item_2]} }
-        let(:page_item_2)  { {id: page_2.id, slug: page_2.slug, restricted: false, external: page_2.redirects_to_external?, visible: page_2.visible?, children: [page_item_3]} }
-        let(:page_item_3)  { {id: page_3.id, slug: page_3.slug, restricted: false, external: page_3.redirects_to_external?, visible: page_3.visible? } }
+        let(:page_item_1)  { {id: page_1.id, slug: page_1.slug, restricted: false, visible: page_1.visible?, children: [page_item_2]} }
+        let(:page_item_2)  { {id: page_2.id, slug: page_2.slug, restricted: false, visible: page_2.visible?, children: [page_item_3]} }
+        let(:page_item_3)  { {id: page_3.id, slug: page_3.slug, restricted: false, visible: page_3.visible? } }
         let(:set_of_pages) { [page_item_1] }
 
         it "stores the new order" do
@@ -331,23 +331,6 @@ module Alchemy
               [page_1, page_2, page_3].map(&:reload)
               expect(page_1.urlname).to eq(page_1.slug.to_s)
               expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
-              expect(page_3.urlname).to eq("#{page_1.slug}/#{page_3.slug}")
-            end
-          end
-
-          context 'with external page in tree' do
-            let(:page_item_2) do
-              {
-                id: page_2.id,
-                slug: page_2.slug,
-                children: [page_item_3],
-                external: true
-              }
-            end
-
-            it "does not use this pages slug in urlnames of descendants" do
-              post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
-              [page_1, page_2, page_3].map(&:reload)
               expect(page_3.urlname).to eq("#{page_1.slug}/#{page_3.slug}")
             end
           end
@@ -468,20 +451,6 @@ module Alchemy
               it "should render the `new` template" do
                 expect(subject).to render_template(:new)
               end
-            end
-          end
-
-          context 'with page redirecting to external' do
-            let(:page_params) do
-              {
-                parent_id: parent.id,
-                name: 'Google',
-                page_layout: 'external'
-              }
-            end
-
-            it "redirects to sitemap" do
-              expect(subject).to redirect_to(admin_pages_path)
             end
           end
 

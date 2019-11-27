@@ -1,4 +1,4 @@
-<li id="page_{{id}}" class="page_level_{{level}} {{page_layout}}" data-slug="{{slug}}" data-restricted="{{restricted}}" data-visible="{{visible}}" data-external="{{redirects_to_external}}">
+<li id="page_{{id}}" class="page_level_{{level}} {{page_layout}}" data-slug="{{slug}}" data-restricted="{{restricted}}" data-visible="{{visible}}">
   <div class="sitemap_page{{#if locked}} locked{{/if}}" name="{{name}}">
     <div class="sitemap_left_images<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>">
       <% unless @sorting %>
@@ -71,7 +71,7 @@
             alchemy.configure_admin_page_path(page),
             {
               title: Alchemy.t(:edit_page_properties),
-              size: page.redirects_to_external? ? '450x330' : '450x680'
+              size: '450x680'
             }
           ) -%>
           <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
@@ -159,27 +159,17 @@
         <span class="hint-bubble">{{status_titles.restricted}}</span>
       </span>
     </div>
-    {{#if redirects_to_external}}
-      <div class="redirect_url" title="{{urlname}}">
-        &raquo; <%= Alchemy.t('Redirects to') %>:
-        {{ external_urlname }}
-      </div>
-    {{/if}}
     <div class="sitemap_sitename">
-      {{#if redirects_to_external}}
-        <span class="sitemap_pagename_link inactive">{{ name }}</span>
+      {{#if permissions.edit_content}}
+        <%= link_to_unless(
+          @sorting,
+          '{{name}}',
+          alchemy.edit_admin_page_path(page),
+          title: Alchemy.t(:edit_page),
+          class: "sitemap_pagename_link"
+        ) { content_tag('span', '{{name}}', class: "sitemap_pagename_link") } -%>
       {{else}}
-        {{#if permissions.edit_content}}
-          <%= link_to_unless(
-            @sorting,
-            '{{name}}',
-            alchemy.edit_admin_page_path(page),
-            title: Alchemy.t(:edit_page),
-            class: "sitemap_pagename_link"
-          ) { content_tag('span', '{{name}}', class: "sitemap_pagename_link") } -%>
-        {{else}}
-          <%= content_tag('span', '{{name}}', class: "sitemap_pagename_link") %>
-        {{/if}}
+        <%= content_tag('span', '{{name}}', class: "sitemap_pagename_link") %>
       {{/if}}
     </div>
   </div>
