@@ -1,4 +1,4 @@
-## 4.3.1 (2019-10-21)
+## 4.3.1 (2019-11-28)
 
 - add config/manifest.js to dummy app [#93](https://github.com/AlchemyCMS/alchemy-devise/pull/93) ([rmparr](https://github.com/rmparr))
 - Use at least Devise 4.7.1 [#90](https://github.com/AlchemyCMS/alchemy-devise/pull/90) ([tvdeyen](https://github.com/tvdeyen))
