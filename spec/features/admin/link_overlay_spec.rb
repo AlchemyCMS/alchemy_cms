@@ -13,6 +13,11 @@ RSpec.describe "Link overlay", type: :system do
       within('#overlay_tabs') { expect(page).to have_content('Internal') }
     end
 
+    it "has a tab for adding anchor links" do
+      visit link_admin_pages_path
+      within('#overlay_tabs') { expect(page).to have_content('Anchor') }
+    end
+
     it "has a tab for linking external pages" do
       visit link_admin_pages_path
       within('#overlay_tabs') { expect(page).to have_content('External') }
@@ -24,32 +29,53 @@ RSpec.describe "Link overlay", type: :system do
     end
   end
 
-  context "linking internal pages", js: true do
+  context "linking pages", js: true do
     let(:lang_root) do
       create(:alchemy_page, :language_root)
     end
 
+    let!(:page1) do
+      create(:alchemy_page, :public, parent_id: lang_root.id)
+    end
+
+    let!(:page2) do
+      create(:alchemy_page, :public, parent_id: lang_root.id)
+    end
+
+    let(:article) { page1.elements.named(:article).first }
+
     before do
-      create(:alchemy_page, :public, parent_id: lang_root.id)
-      create(:alchemy_page, :public, parent_id: lang_root.id)
+      page1.elements.create!(name: 'article')
     end
 
-    it "should have code to load a tree of internal pages" do
-      visit link_admin_pages_path
-      # Doesn't work, because the parent page sets the `dialog` variable in window:
-      # expect(page).to have_selector('ul#sitemap li a')
-      expect(page).to have_selector('div#page_selector_container div#sitemap-wrapper')
-      expect(page).to have_selector('div#page_selector_container script')
-    end
+    it "should be possible to link a page" do
+      visit edit_admin_page_path(page1)
 
-    it "should not have a link for pages that redirect to external" do
-      create(:alchemy_page, parent_id: lang_root.id, name: 'Google', urlname: 'http://www.google.com')
-      allow_any_instance_of(Alchemy::Page).to receive(:definition) do
-        {'redirects_to_external' => true}
+      within "#element_#{article.id}" do
+        fill_in 'Headline', with: 'Link me'
+        click_link 'Link text'
       end
-      visit link_admin_pages_path
-      expect(page).not_to have_selector('ul#sitemap li div[name="/http-www-google-com"] a')
-      allow_any_instance_of(Alchemy::Page).to receive(:definition).and_call_original
+
+      begin
+        within "#overlay_tab_internal_link" do
+          expect(page).to have_selector('#s2id_page_urlname')
+          select2_search(page2.name, from: 'Page')
+          click_link 'apply'
+        end
+
+        within "#element_#{article.id}" do
+          click_button 'Save'
+        end
+
+        click_button_with_label 'Publish page'
+
+        visit "/#{page1.urlname}"
+
+        expect(page).to have_link("Link me", href: "/#{page2.urlname}")
+      rescue Capybara::ElementNotFound => error
+        pending error.message
+        raise error
+      end
     end
   end
 end

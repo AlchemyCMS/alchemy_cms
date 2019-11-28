@@ -48,7 +48,6 @@ Alchemy::Engine.routes.draw do
     resources :elements do
       resources :contents
       collection do
-        get :list
         post :order
       end
       member do

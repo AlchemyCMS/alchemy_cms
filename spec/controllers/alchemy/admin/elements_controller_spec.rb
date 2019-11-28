@@ -50,32 +50,6 @@ module Alchemy
       end
     end
 
-    describe '#list' do
-      context 'without page_id, but with page_urlname' do
-        it "loads page from urlname" do
-          expect {
-            get :list, params: {page_urlname: alchemy_page.urlname}, xhr: true
-          }.to_not raise_error
-        end
-
-        describe 'view' do
-          render_views
-
-          it "should return a select tag with elements" do
-            get :list, params: {page_urlname: alchemy_page.urlname}, xhr: true
-            expect(response.body).to match(/select(.*)elements_from_page_selector(.*)option/)
-          end
-        end
-      end
-
-      context 'with page_id' do
-        it "loads page from urlname" do
-          get :list, params: {page_id: alchemy_page.id}, xhr: true
-          expect(assigns(:page_id)).to eq(alchemy_page.id.to_s)
-        end
-      end
-    end
-
     describe '#order' do
       let(:element_1)   { create(:alchemy_element) }
       let(:element_2)   { create(:alchemy_element, page: page) }

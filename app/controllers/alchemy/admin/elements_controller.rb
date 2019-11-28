@@ -12,14 +12,6 @@ module Alchemy
         @fixed_elements = @page.all_elements.fixed.not_trashed.includes(*element_includes)
       end
 
-      def list
-        @page_id = params[:page_id]
-        if @page_id.blank? && !params[:page_urlname].blank?
-          @page_id = Language.current.pages.find_by(urlname: params[:page_urlname]).id
-        end
-        @elements = Element.published.where(page_id: @page_id)
-      end
-
       def new
         @page = Page.find(params[:page_id])
         @parent_element = Element.find_by(id: params[:parent_element_id])

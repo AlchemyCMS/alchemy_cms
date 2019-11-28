@@ -27,7 +27,7 @@ require 'alchemy/test_support/shared_uploader_examples'
 require_relative 'factories'
 require_relative "support/hint_examples.rb"
 require_relative "support/transformation_examples.rb"
-require_relative "support/capybara_select2.rb"
+require_relative "support/capybara_helpers.rb"
 require_relative 'support/custom_news_elements_finder'
 
 ActionMailer::Base.delivery_method = :test
@@ -43,7 +43,18 @@ Rails.logger.level = 4
 # Configure capybara for integration testing
 Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
-Capybara.server = :webrick
+
+Capybara.register_driver :selenium_chrome_headless do |app|
+  Capybara::Selenium::Driver.load_selenium
+  browser_options = ::Selenium::WebDriver::Chrome::Options.new.tap do |opts|
+    opts.args << '--headless'
+    opts.args << '--disable-gpu' if Gem.win_platform?
+    # Workaround https://bugs.chromium.org/p/chromedriver/issues/detail?id=2650&q=load&sort=-id&colspec=ID%20Status%20Pri%20Owner%20Summary
+    opts.args << '--disable-site-isolation-trials'
+    opts.args << '--window-size=1280,800'
+  end
+  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+end
 
 Shoulda::Matchers.configure do |config|
   config.integrate do |with|
@@ -80,7 +91,11 @@ RSpec.configure do |config|
       # Preload assets
       # This should avoid capybara timeouts, and avoid counting asset compilation
       # towards the timing of the first feature spec.
+      start = Time.now
+      puts "Preloading assets."
+      Rails.application.assets.cache.clear
       Rails.application.precompiled_assets
+      puts "Done in #{(Time.now - start).round(2)}s"
     end
   end
 
