@@ -10,12 +10,18 @@ module Alchemy
       :created_at,
       :updated_at,
       :ingredients,
-      :content_ids
+      :content_ids,
+      :dom_id,
+      :display_name
 
     has_many :nested_elements
 
     def ingredients
       object.contents.collect(&:serialize)
+    end
+
+    def display_name
+      object.display_name_with_preview_text
     end
   end
 end
