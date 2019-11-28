@@ -6,6 +6,16 @@ describe Alchemy::Admin::ContentsHelper do
   let(:element) { build_stubbed(:alchemy_element, name: 'article') }
   let(:content) { mock_model('Content', essence_partial_name: 'essence_text') }
 
+  describe 'content_label' do
+    let(:content) { build_stubbed(:alchemy_content, element: element) }
+
+    subject { helper.content_label(content) }
+
+    it 'has for attribute set to content form field id' do
+      is_expected.to have_selector("label[for=\"#{content.form_field_id}\"]")
+    end
+  end
+
   describe 'render_content_name' do
     let(:content) do
       mock_model 'Content',
