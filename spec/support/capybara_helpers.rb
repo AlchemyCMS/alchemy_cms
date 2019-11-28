@@ -34,6 +34,13 @@ module CapybaraSelect2
     end
   end
 
+  def click_button_with_label(label)
+    label = find('label', text: label)
+    within label.first(:xpath, ".//..") do
+      first('button').click
+    end
+  end
+
   private
 
   def within_entire_page(&block)
