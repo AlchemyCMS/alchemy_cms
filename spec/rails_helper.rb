@@ -91,7 +91,11 @@ RSpec.configure do |config|
       # Preload assets
       # This should avoid capybara timeouts, and avoid counting asset compilation
       # towards the timing of the first feature spec.
+      start = Time.now
+      puts "Preloading assets."
+      Rails.application.assets.cache.clear
       Rails.application.precompiled_assets
+      puts "Done in #{(Time.now - start).round(2)}s"
     end
   end
 
