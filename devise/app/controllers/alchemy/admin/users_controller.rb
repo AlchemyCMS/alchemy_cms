@@ -2,7 +2,7 @@ module Alchemy
   module Admin
     class UsersController < ResourcesController
 
-      before_action :set_roles_and_genders, except: [:index, :destroy]
+      before_action :set_roles, except: [:index, :destroy]
 
       load_and_authorize_resource class: Alchemy::User,
         only: [:edit, :update, :destroy]
@@ -67,13 +67,12 @@ module Alchemy
 
       private
 
-      def set_roles_and_genders
+      def set_roles
         if can_update_role?
           @user_roles = User::ROLES.map do |role|
             [User.human_rolename(role), role]
           end
         end
-        @user_genders = User.genders_for_select
       end
 
       def user_params

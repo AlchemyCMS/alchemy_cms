@@ -8,7 +8,6 @@ module Alchemy
       :lastname,
       :login,
       :email,
-      :gender,
       :language,
       :password,
       :password_confirmation,
@@ -39,13 +38,6 @@ module Alchemy
     class << self
       def human_rolename(role)
         Alchemy.t("user_roles.#{role}")
-      end
-
-      def genders_for_select
-        [
-          [Alchemy.t('male'), 'male'],
-          [Alchemy.t('female'), 'female']
-        ]
       end
 
       def logged_in_timeout
