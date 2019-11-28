@@ -1,4 +1,6 @@
 $.fn.alchemyPageSelect = function(options) {
+  var pageTemplate = HandlebarsTemplates.page
+
   this.select2({
     placeholder: options.placeholder,
     minimumInputLength: 3,
@@ -23,18 +25,16 @@ $.fn.alchemyPageSelect = function(options) {
         var meta = data.meta
 
         return {
-          results: data.pages.map(function (page) {
-            return {
-              id: page.id,
-              text: page.name
-            }
-          }),
+          results: data.pages,
           more: meta.page * meta.per_page < meta.total_count
         }
       }
     },
     formatSelection: function (page) {
       return page.text || page.name
+    },
+    formatResult: function(page) {
+      return pageTemplate({page: page})
     }
   })
 }

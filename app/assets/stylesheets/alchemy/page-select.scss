@@ -1,0 +1,30 @@
+.page-select--page,
+.page-select--page-urlname {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.page-select--page {
+  display: flex;
+  align-items: center;
+
+  .icon {
+    margin: 0 8px 0 4px;
+
+    .select2-highlighted & {
+      color: $white
+    }
+  }
+}
+
+.page-select--page-urlname {
+  margin-left: auto;
+  padding: $default-padding 2*$default-padding;
+  color: $dark-gray;
+  font-size: $small-font-size;
+
+  .select2-highlighted & {
+    color: $white
+  }
+}
