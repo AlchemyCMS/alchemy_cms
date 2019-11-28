@@ -47,30 +47,6 @@
   text-overflow: ellipsis;
 }
 
-#page_selector_container {
-  height: 230px;
-  background-color: $light-gray;
-  margin-bottom: 4px;
-  border-width: $form-field-border-width;
-  border-style: $form-field-border-style;
-  border-color: $form-field-border-color;
-  overflow: auto;
-  padding: 4px 0 0 4px;
-  border-radius: $default-border-radius;
-
-  .sitemap_pagename_link:hover {
-    text-decoration: none;
-
-    &:after {
-      display: none;
-    }
-  }
-
-  .sitemap_right_tools {
-    width: 24px;
-  }
-}
-
 .sitemap_line_spacer {
   float: left;
   width: 20px;
@@ -177,11 +153,6 @@
   li {
     padding-left: 0;
 
-    .selected_page {
-      background-color: $linked-color;
-      color: $dark-gray;
-    }
-
     li {
       padding-left: $sitemap-line-height;
       padding-right: 0;
@@ -244,8 +215,4 @@
 
     .page_icon { cursor: default }
   }
-}
-
-.elements_from_page_selector {
-  width: 100%;
 }

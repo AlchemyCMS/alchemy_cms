@@ -139,12 +139,6 @@ module Alchemy
       end
 
       def link
-        if configuration(:show_real_root)
-          @page_root = Page.root
-        else
-          set_root_page
-        end
-        @content_id = params[:content_id]
         @attachments = Attachment.all.collect { |f|
           [f.name, download_attachment_path(id: f.id, name: f.urlname)]
         }

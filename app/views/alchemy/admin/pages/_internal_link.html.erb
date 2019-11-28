@@ -3,10 +3,17 @@
     <h3><%= Alchemy.t(:internal_link_headline) %></h3>
     <p><%= Alchemy.t(:internal_link_page_elements_explanation) %></p>
   <% end %>
-  <div id="page_selector_container">
-    <% if @page_root %>
-      <%= render 'sitemap', page_partial: 'page_for_links', full: true %>
-    <% end %>
+  <div class="input select">
+    <label for="page_urlname" class="control-label">
+      <%= Alchemy.t(:page) %>
+    </label>
+    <input type="text" id="page_urlname" class="alchemy_selectbox full_width">
+  </div>
+  <div class="input select">
+    <label for="element_anchor" class="control-label">
+      <%= Alchemy.t(:anchor) %>
+    </label>
+    <input type="text" id="element_anchor" class="alchemy_selectbox full_width" disabled placeholder="Select a page first">
   </div>
   <div class="input text">
     <label for="internal_link_title" class="control-label">
@@ -23,8 +30,6 @@
       class: 'alchemy_selectbox link_target' %>
   </div>
   <div class="submit">
-    <%= hidden_field_tag(:internal_urlname) %>
-    <%= hidden_field_tag(:page_anchor) %>
     <%= link_to Alchemy.t(:apply), '', class: 'create-link button', 'data-link-type' => 'internal' %>
   </div>
 <% end %>

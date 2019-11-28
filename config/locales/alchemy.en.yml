@@ -312,8 +312,6 @@ en:
     big_thumbnails: "Big thumbnails"
     cancel: "cancel"
     cannot_delete_picture_notice: "Cannot delete Picture %{name}, because it's still in use."
-    choose_element_as_target: "Please choose an element as target"
-    choose_element_to_link: "Please choose an element"
     choose_file_to_link: "Please choose a file to link"
     "clear clipboard": "clear clipboard"
     "clear trash": "clear trash"
@@ -400,8 +398,8 @@ en:
     image_caption: "Caption"
     image_name: "Name"
     image_title: "Title-tag"
-    internal_link_headline: "Choose a page to link to."
-    internal_link_page_elements_explanation: "Additionally you can click right beside a page on 'Show Elements' to link to an anchor of an element from that page."
+    internal_link_headline: "Search for a page to link to by entering its name into the Page select."
+    internal_link_page_elements_explanation: "Additionally you can choose an anchor to an element from selected page."
     "item copied to clipboard": "Copied %{name} to clipboard"
     "item moved to clipboard": "Moved %{name} to clipboard"
     "item removed from clipboard": "Removed %{name} from clipboard"
@@ -463,8 +461,6 @@ en:
     "or": 'or'
     or_replace_it_with_an_existing_tag: 'Or replace it with an existing tag'
     "Page created": "Page: '%{name}' created."
-    page_for_links:
-      choose_page: "Choose %{name}"
     page_infos: 'Page info'
     page_layout_changed_notice: "Page type was changed. Elements not usable anymore have been moved into the trash."
     page_properties: "Page properties"
@@ -537,7 +533,6 @@ en:
     select_element: "Select element"
     seperate_tags_with_comma: "Seperate tags with comma"
     show_element_content: "Show content of this element."
-    show_elements_from_page: "Show all elements from this page"
     show_eq: "Show EQ"
     show_navigation: "Show in navigation"
     show_page_in_sitemap: "Show page in sitemap."
