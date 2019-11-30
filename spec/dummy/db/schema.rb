@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_29_212236) do
+ActiveRecord::Schema.define(version: 2019_11_29_235821) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -339,7 +339,7 @@ ActiveRecord::Schema.define(version: 2019_10_29_212236) do
 
   create_table "gutentag_tags", force: :cascade do |t|
     t.string "name", null: false
-    t.integer "taggings_count", default: 0
+    t.integer "taggings_count", default: 0, null: false
     t.index ["name"], name: "index_gutentag_tags_on_name", unique: true
     t.index ["taggings_count"], name: "index_gutentag_tags_on_taggings_count"
   end
