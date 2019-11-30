@@ -1,5 +1,7 @@
 ## 5.0.0 (unreleased)
 
+- Compress migrations [#1657](https://github.com/AlchemyCMS/alchemy_cms/pull/1657) ([tvdeyen](https://github.com/tvdeyen))
+- Install Gutentag migrations while installing Alchemy [#1688](https://github.com/AlchemyCMS/alchemy_cms/pull/1688) ([tvdeyen](https://github.com/tvdeyen))
 - Remove old upgrade tasks [#1687](https://github.com/AlchemyCMS/alchemy_cms/pull/1687) ([tvdeyen](https://github.com/tvdeyen))
 - Remove deprecated features [#1686](https://github.com/AlchemyCMS/alchemy_cms/pull/1686) ([tvdeyen](https://github.com/tvdeyen))
 - Remove deprecations [#1656](https://github.com/AlchemyCMS/alchemy_cms/pull/1656) ([tvdeyen](https://github.com/tvdeyen))
