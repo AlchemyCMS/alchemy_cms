@@ -1,1 +1,0 @@
-../../../../db/migrate/20180227224537_migrate_tags_to_gutentag.rb
