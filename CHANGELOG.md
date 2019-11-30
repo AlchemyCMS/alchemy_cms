@@ -1,6 +1,17 @@
+## 5.0.0 (unreleased)
+
+- Remove old upgrade tasks [#1687](https://github.com/AlchemyCMS/alchemy_cms/pull/1687) ([tvdeyen](https://github.com/tvdeyen))
+- Remove deprecated features [#1686](https://github.com/AlchemyCMS/alchemy_cms/pull/1686) ([tvdeyen](https://github.com/tvdeyen))
+- Remove deprecations [#1656](https://github.com/AlchemyCMS/alchemy_cms/pull/1656) ([tvdeyen](https://github.com/tvdeyen))
+- Add element editor decorator [#1653](https://github.com/AlchemyCMS/alchemy_cms/pull/1653) ([tvdeyen](https://github.com/tvdeyen))
+- Remove deprecated render_essence_* helpers [#1652](https://github.com/AlchemyCMS/alchemy_cms/pull/1652) ([tvdeyen](https://github.com/tvdeyen))
+- Remove deprecated render element editor helpers [#1651](https://github.com/AlchemyCMS/alchemy_cms/pull/1651) ([tvdeyen](https://github.com/tvdeyen))
+- Add ContentEditor decorator [#1645](https://github.com/AlchemyCMS/alchemy_cms/pull/1645) ([tvdeyen](https://github.com/tvdeyen))
+- Remove local options from essence editors [#1638](https://github.com/AlchemyCMS/alchemy_cms/pull/1638) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.4.0 (unreleased)
 
-
+https://github.com/AlchemyCMS/alchemy_cms/milestone/24?closed=1
 
 ## 4.3.1 (2019-09-27)
 
