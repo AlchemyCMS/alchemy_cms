@@ -85,7 +85,8 @@ module Alchemy
         Please add a user class and tell Alchemy about it or, if you don't want
         to create your own class, add the `alchemy-devise` gem to your Gemfile.
 
-        gem 'alchemy-devise', '~> 2.1.0'
+            bundle add alchemy-devise
+
       MSG
     else
       raise e
