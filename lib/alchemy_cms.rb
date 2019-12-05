@@ -3,16 +3,6 @@
 # Instantiate the global Alchemy namespace
 module Alchemy
   YAML_WHITELIST_CLASSES = %w(Symbol Date Regexp)
-  ROOT_PATH = Pathname.new(File.join(__dir__, ".."))
-
-  class << self
-    def webpacker
-      @webpacker ||= ::Webpacker::Instance.new(
-        root_path: ROOT_PATH,
-        config_path: ROOT_PATH.join("config/webpacker.yml")
-      )
-    end
-  end
 end
 
 # Require globally used external libraries
@@ -35,7 +25,6 @@ require 'simple_form'
 require 'select2-rails'
 require 'turbolinks'
 require 'userstamp'
-require 'webpacker'
 
 # Require globally used Alchemy mixins
 require_relative 'alchemy/ability_helper'
@@ -70,5 +59,8 @@ require_relative 'alchemy/taggable'
 # Require hacks
 require_relative 'kaminari/scoped_pagination_url_helper'
 
-# Finally require Alchemy itself
+# Require Alchemy Rails engine
 require_relative 'alchemy/engine'
+
+# Our Webpacker configuration
+require_relative 'alchemy/webpacker'

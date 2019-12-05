@@ -25,9 +25,9 @@ module Alchemy
       Gutentag.normaliser = ->(value) { value.to_s }
     end
 
-    initializer "alchemy.webpacker.proxy" do |app|
+    initializer "alchemy.webpacker.dev_server.proxy" do |app|
       app.middleware.insert_before(
-        0, Webpacker::DevServerProxy,
+        0, ::Webpacker::DevServerProxy,
         ssl_verify_none: true,
         webpacker: Alchemy.webpacker
       )
