@@ -19,6 +19,9 @@
     <code>elements.yml</code>.") %>
   <% else %>
     <%
+    if defined?(select_values.to_sym) == 'method'
+      select_values = eval(select_values)
+    end
     if select_values.is_a?(Hash)
       options_tags = grouped_options_for_select(select_values, content.ingredient)
     else
