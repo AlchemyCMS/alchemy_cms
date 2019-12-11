@@ -91,6 +91,8 @@ Alchemy::Engine.routes.draw do
       end
     end
 
+    resources :essence_models, only: :index
+
     resources :legacy_page_urls
     resources :languages do
       collection do
