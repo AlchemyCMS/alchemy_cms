@@ -12,3 +12,9 @@ features:
   details: The user interface is powerful, easy to use and intuitive to learn.
 footer: BSD-3 Licensed • Copyright © 2010 - present Thomas von Deyen & Friends
 ---
+
+<div style="text-align: center; margin: 2rem 0">
+  <a href="https://www.netlify.com">
+    <img src="https://www.netlify.com/img/global/badges/netlify-color-accent.svg"/>
+  </a>
+</div>
