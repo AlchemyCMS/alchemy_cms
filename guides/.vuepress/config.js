@@ -20,6 +20,7 @@ module.exports = {
     docsDir: 'guides',
     home: true,
     lastUpdated: 'Last Updated',
+    smoothScroll: true,
     nav: [
       {
         text: "Getting Started",
