@@ -78,7 +78,7 @@ module Alchemy
     end
   rescue NameError => e
     if e.message =~ /#{Regexp.escape(@@user_class_name)}/
-      abort <<-MSG.strip_heredoc
+      Rails.logger.warn <<-MSG.strip_heredoc
 
         AlchemyCMS cannot find any user class!
 
@@ -88,6 +88,7 @@ module Alchemy
             bundle add alchemy-devise
 
       MSG
+      nil
     else
       raise e
     end
