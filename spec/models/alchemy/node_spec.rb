@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module Alchemy
   describe Node do
-    it "is only valid with language given" do
+    it "is only valid with language and name given" do
       expect(Node.new).to be_invalid
       expect(build(:alchemy_node)).to be_valid
     end
@@ -97,14 +97,6 @@ module Alchemy
 
         it "returns the name from name attribute" do
           expect(node.name).to eq('Google')
-        end
-
-        context 'and without name set' do
-          let(:node) { build_stubbed(:alchemy_node) }
-
-          it do
-            expect(node.name).to be_nil
-          end
         end
       end
     end
