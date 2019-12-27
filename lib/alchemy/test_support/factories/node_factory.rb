@@ -7,13 +7,11 @@ require 'alchemy/test_support/factories/page_factory'
 FactoryBot.define do
   factory :alchemy_node, class: 'Alchemy::Node' do
     language { Alchemy::Language.default }
-
-    trait :with_name do
-      name { 'A Node' }
-    end
+    name { 'A Node' }
 
     trait :with_page do
       association :page, factory: :alchemy_page
+      name { nil }
     end
 
     trait :with_url do
