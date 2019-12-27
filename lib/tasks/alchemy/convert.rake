@@ -39,6 +39,22 @@ namespace :alchemy do
           abort "\n⨯ There are already menus present in your database. Aborting!"
         end
 
+        def name_for_node(page)
+          if page.visible? && page.public? && !page.redirects_to_external?
+            nil
+          else
+            page.name
+          end
+        end
+
+        def page_for_node(page)
+          if page.visible? && page.public? && !page.redirects_to_external?
+            page
+          elsif Alchemy::Config.get(:redirect_to_public_child) && page.visible? && !page.public? && page.children.published.any?
+            page.children.published.first
+          end
+        end
+
         def convert_to_nodes(children, node:)
           children.each do |page|
             has_children = page.children.any?
@@ -46,8 +62,8 @@ namespace :alchemy do
 
             Alchemy::Deprecation.silence do
               new_node = node.children.create!(
-                name: page.visible? && page.public? && !page.redirects_to_external? ? nil : page.name,
-                page: page.visible? && page.public? && !page.redirects_to_external? ? page : nil,
+                name: name_for_node(page),
+                page: page_for_node(page),
                 url: page.redirects_to_external? ? page.urlname : nil,
                 external: page.redirects_to_external? && Alchemy::Config.get(:open_external_links_in_new_tab),
                 language_id: page.language_id
