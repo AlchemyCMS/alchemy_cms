@@ -12,6 +12,7 @@ Alchemy.translations.de = {
   page_dirty_notice: 'Sie haben ungesicherte Änderungen auf der Seite. Diese gehen verloren, wenn Sie fortfahren.',
   page_found: 'Seite gefunden',
   pages_found: 'Seiten gefunden',
+  'Search page': 'Seite wählen',
   url_validation_failed: 'Die URL hat kein gültiges Format.',
   warning: 'Achtung!',
   'File is too large': 'Datei ist zu groß.',
