@@ -407,7 +407,7 @@ de:
     image_name: "Name"
     image_title: "Titel-Tag"
     internal_link_headline: "Wählen Sie eine Seite zum Verlinken aus."
-    internal_link_page_elements_explanation: "Zusätzlich können Sie rechts neben der jeweiligen Seite auf 'Elemente anzeigen' klicken, um eine Sprungmarke zu einem Element dieser Seite zu erstellen."
+    internal_link_page_elements_explanation: "Zusätzlich können Sie eine Sprungmarke zu einem Element der gewählten Seite setzen."
     internal_link_page_anchors_explanation: "Alternativ können Sie auch eine Sprungmarke innerhalb der aktuellen Seite erstellen."
     "item copied to clipboard": "%{name} wurde in die Zwischenablage kopiert."
     "item moved to clipboard": "%{name} wurde in die Zwischenablage bewegt."
@@ -422,6 +422,7 @@ de:
     legacy_url_info_text: "Ein Verweis ist eine Weiterleitung einer alten URL auf die aktuelle URL dieser Seite. Diese Weiterleitung findet mit einem <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301-Status-Code</a> statt."
     link_image: "Bild verlinken"
     link_overlay_tab_label:
+      anchor: Sprungmarke
       contactform: "Kontaktformular"
       external: "Extern"
       file: "Datei"
@@ -468,6 +469,7 @@ de:
     "not a valid image": "Keine valide Bilddatei."
     "or": 'oder'
     or_replace_it_with_an_existing_tag: 'Oder Sie ersetzen es durch ein vorhandenes Tag'
+    page: Seite
     "Page created": "Seite '%{name}' wurde erstellt."
     page_for_links:
       choose_page: "%{name} wählen"
@@ -543,6 +545,8 @@ de:
     saved_link: "Link wurde gespeichert."
     search: "suchen"
     search_engines: "Suchmaschinen"
+    search_page: Seite wählen
+    Select a page first: Zuerst eine Seite wählen
     select_element: "Element wählen"
     seperate_tags_with_comma: 'Mehrere Tags mit Komma trennen.'
     show_element_content: "Element ausklappen"
