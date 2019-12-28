@@ -327,6 +327,8 @@ de:
     confirm_to_delete_image: "Wollen Sie dieses Bild wirklich löschen?"
     confirm_to_delete_image_from_server: "Wollen Sie dieses Bild wirklich vom Server löschen?"
     confirm_to_delete_images_from_server: "Wollen Sie diese Bilder wirklich vom Server löschen?"
+    confirm_to_delete_menu: "Wollen Sie dieses Menü wirklich löschen?"
+    confirm_to_delete_node: "Wollen Sie diesen Menü-Eintrag wirklich entfernen?"
     confirm_to_delete_page: "Wollen Sie diese Seite wirklich löschen? Alle Inhalte (auch die aus dem Papierkorb) gehen dabei unwiderruflich verloren!"
     content_essence_not_found: "Essenz wurde nicht gefunden"
     content_not_found: "Das Feld für diesen Inhalt ist nicht vorhanden."
@@ -343,11 +345,15 @@ de:
     "Create site": "Eine neue Website erstellen"
     create_language_tree_heading: "Einen leeren Sprachbaum erstellen"
     create_page: "Eine Unterseite anlegen"
+    create_menu: "Ein Menü erstellen"
+    create_node: "Einen Menü-Eintrag hinzufügen"
     currently_edited_by: "Wird bearbeitet von"
     cut_element: "Element ausschneiden"
     delete_file: "Datei vom Server löschen"
     delete_image: "Bild löschen."
     delete_language: "Sprache löschen"
+    delete_menu: "Menü löschen"
+    delete_node: "Menü-Eintrag entfernen"
     delete_page: "Seite löschen"
     delete_tag: 'Tag löschen'
     document: "Dokument"
@@ -358,6 +364,8 @@ de:
     edit_file_properties: "Dateieigenschaften bearbeiten"
     edit_image_properties: "Bildeigenschaften bearbeiten"
     edit_language: "Sprache bearbeiten"
+    edit_menu: "Menü bearbeiten"
+    edit_node: "Menü-Eintrag ändern"
     edit_page: "Seite bearbeiten"
     edit_page_properties: "Seiteneigenschaften bearbeiten"
     edit_tag: 'Tag bearbeiten'
@@ -426,6 +434,7 @@ de:
     male: "Herr"
     me: 'Ich'
     medium_thumbnails: "mittlere Miniaturbilder"
+    menu: Menü
     meta_data: "Meta Daten"
     meta_description: "Meta Beschreibung"
     meta_keywords: "Meta Tags"
@@ -436,6 +445,7 @@ de:
       languages: "Sprachen"
       layoutpages: "Globale Seiten"
       library: "Bibliothek"
+      menus: "Menüs"
       pages: "Seiten"
       tags: "Tags"
       sites: "Websites"
@@ -444,6 +454,7 @@ de:
     name: "Name"
     names: "Namen"
     navigation_name: "Navigationsname"
+    node_url_hint: "Beginnen Sie die URL bitte mit einem Slash (/) oder verwenden Sie eine URL mit Protokoll (zB. https:)"
     no_image_for_cropper_found: "Es wurde kein Bild gefunden. Bitte speichern Sie zuerst das Element."
     no: "Nein"
     "no pages": "Keine Seiten"
@@ -729,6 +740,9 @@ de:
       alchemy/language:
         one: "Sprache"
         other: "Sprachen"
+      alchemy/node:
+        one: "Menü-Eintrag"
+        other: "Menü-Einträge"
       alchemy/page:
         one: "Seite"
         other: "Seiten"
@@ -788,6 +802,11 @@ de:
         code: ISO-Code
       alchemy/legacy_page_url:
         urlname: "URL-Pfad"
+      alchemy/node:
+        url: URL
+        title: Link-Titel
+        nofollow: Suchmaschinen den Link nicht folgen lassen
+        external: Link in neuem Tab/Fenster öffnen
       alchemy/page:
         created_at: "Erstellt am"
         language: "Sprache"
