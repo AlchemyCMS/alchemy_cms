@@ -3,6 +3,7 @@ $.fn.alchemyPageSelect = function(options) {
 
   return this.select2({
     placeholder: options.placeholder,
+    allowClear: true,
     minimumInputLength: 3,
     initSelection: function (_$el, callback) {
       if (options.initialSelection) {
