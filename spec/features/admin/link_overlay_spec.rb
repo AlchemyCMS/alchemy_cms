@@ -67,6 +67,10 @@ RSpec.describe "Link overlay", type: :system do
           click_button 'Save'
         end
 
+        within "#flash_notices" do
+          expect(page).to have_content 'Saved element.'
+        end
+
         click_button_with_label 'Publish page'
 
         visit "/#{page1.urlname}"
