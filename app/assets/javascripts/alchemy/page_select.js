@@ -1,7 +1,7 @@
 $.fn.alchemyPageSelect = function(options) {
   var pageTemplate = HandlebarsTemplates.page
 
-  this.select2({
+  return this.select2({
     placeholder: options.placeholder,
     minimumInputLength: 3,
     initSelection: function (_$el, callback) {
