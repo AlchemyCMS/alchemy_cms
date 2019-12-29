@@ -59,8 +59,10 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   # Initializes the select2 based Page select
   initPageSelect: ->
     pageTemplate = HandlebarsTemplates.page
+    element_anchor_placeholder = @$element_anchor.attr('placeholder')
     @$page_urlname.select2
       placeholder: Alchemy.t('Search page')
+      allowClear: true
       minimumInputLength: 3
       ajax:
         url: Alchemy.routes.api_pages_path
@@ -100,8 +102,12 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
       formatResult: (page) ->
         pageTemplate(page: page)
     .on 'change', (event) =>
-      @$element_anchor.val('')
-      @initElementSelect(event.added.page_id)
+      if event.val == ''
+        @$element_anchor.val(element_anchor_placeholder)
+        @$element_anchor.select2('destroy').prop('disabled', true)
+      else
+        @$element_anchor.val('')
+        @initElementSelect(event.added.page_id)
 
   # Initializes the select2 based elements select
   # reveals after a page has been selected

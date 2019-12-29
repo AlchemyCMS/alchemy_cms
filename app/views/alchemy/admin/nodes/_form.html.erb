@@ -17,25 +17,23 @@
 <% end %>
 
 <script>
-  $('#node_page_id').select2({
-    data: <%== ([{
-      id: '',
-      text: Alchemy.t(:blank, scope: 'resources.relation_select')
-    }] + Alchemy::Language.current.pages.contentpages.map { |page|
-      {
-        id: page.id,
-        text: page.name,
-        url: "/#{page.urlname}",
-        selected: page.id == node.page_id
-      }
-    }).to_json %>
+  $('#node_page_id').alchemyPageSelect({
+    placeholder: "<%= Alchemy.t(:search_page) %>",
+    url: "<%= alchemy.api_pages_path %>",
+    <% if node.page %>
+    initialSelection: {
+      id: <%= node.page_id %>,
+      text: "<%= node.page.name %>",
+      url: "/<%= node.page.urlname %>"
+    }
+    <% end %>
   }).on('change', function(e) {
     if (e.val === '') {
       $('#node_name').removeAttr('placeholder')
       $('#node_url').val('').prop('disabled', false)
     } else {
-      $('#node_name').attr('placeholder', e.added.text)
-      $('#node_url').val(e.added.url).prop('disabled', true)
+      $('#node_name').attr('placeholder', e.added.name)
+      $('#node_url').val('/' + e.added.urlname).prop('disabled', true)
     }
   })
 </script>
