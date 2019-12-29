@@ -43,10 +43,7 @@ module Alchemy
 
         copy_file "_article.html.erb", "app/views/alchemy/elements/_article.html.erb"
         copy_file "_standard.html.erb", "app/views/alchemy/page_layouts/_standard.html.erb"
-
-        %w(de en es).each do |locale|
-          copy_file "alchemy.#{locale}.yml", "config/locales/alchemy.#{locale}.yml"
-        end
+        copy_file "alchemy.en.yml", "config/locales/alchemy.en.yml"
       end
 
       def copy_dragonfly_config
