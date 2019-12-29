@@ -14,7 +14,8 @@ Gem::Specification.new do |s|
   s.description = "Translation files for AlchemyCMS"
   s.license     = "MIT"
 
-  s.files = Dir["{app,config,lib,vendor}/**/*", "LICENSE", "README.md"]
+  s.files = Dir["{app,locales,lib,vendor}/**/*", "LICENSE", "README.md"]
 
-  s.add_dependency "alchemy_cms", [">= 4.1.0.beta", "< 5.0"]
+  s.add_dependency "alchemy_cms", [">= 4.4.0.a", "< 5.0"]
+  s.add_dependency "rails-i18n"
 end
