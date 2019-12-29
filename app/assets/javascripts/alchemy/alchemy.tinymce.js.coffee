@@ -59,7 +59,7 @@ $.extend Alchemy.Tinymce,
       textarea.closest('.tinymce_container').prepend spinner.spin().el
       tinymce.init(config)
     else
-      Alchemy.debug('No tinymce configuration found for', id)
+      console.warn('No tinymce configuration found for', id)
 
   # Gets called after an editor instance gets intialized
   #
