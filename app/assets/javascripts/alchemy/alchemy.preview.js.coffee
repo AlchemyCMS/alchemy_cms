@@ -1,5 +1,3 @@
-#= require alchemy/alchemy.i18n
-
 window.Alchemy = Alchemy || {}
 
 Alchemy.initAlchemyPreviewMode = ->
@@ -30,12 +28,10 @@ Alchemy.initAlchemyPreviewMode = ->
         @elements = document.querySelectorAll("[data-alchemy-element]")
         @elements.forEach (element) =>
           element.addEventListener 'mouseover', =>
-            element.setAttribute('title', Alchemy.t('click_to_edit'))
             unless element.classList.contains('selected')
               Object.assign element.style, @getStyle('hover')
             return
           element.addEventListener 'mouseout', =>
-            element.removeAttribute('title')
             unless element.classList.contains('selected')
               Object.assign element.style, @getStyle('reset')
             return
