@@ -51,7 +51,7 @@ $.extend Alchemy.Tinymce,
     # remove editor instance, if already initialized
     editor.remove() if editor
     if textarea.length == 0
-      Alchemy.log_error "Could not initialize TinyMCE for textarea#tinymce_#{id}!"
+      console.warn "Could not initialize TinyMCE for textarea#tinymce_#{id}!"
       return
     config = @getConfig(id, textarea[0].classList[1])
     if config
@@ -59,7 +59,7 @@ $.extend Alchemy.Tinymce,
       textarea.closest('.tinymce_container').prepend spinner.spin().el
       tinymce.init(config)
     else
-      Alchemy.debug('No tinymce configuration found for', id)
+      console.warn('No tinymce configuration found for', id)
 
   # Gets called after an editor instance gets intialized
   #

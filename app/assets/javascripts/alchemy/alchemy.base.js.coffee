@@ -76,18 +76,6 @@ $.extend Alchemy,
       dropdownAutoWidth: true
     return
 
-  # Logs exception to js console, if present.
-  debug: (e) ->
-    if window["console"]
-      console.warn(e)
-    return
-
-  # Logs errors to js console, if present.
-  log_error: (e) ->
-    if window["console"]
-      console.error e
-    return
-
   getUrlParam: (name) ->
     results = new RegExp("[\\?&]" + name + "=([^&#]*)").exec(window.location.href)
     results[1] or 0  if results

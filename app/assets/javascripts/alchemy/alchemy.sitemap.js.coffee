@@ -55,7 +55,7 @@ Alchemy.Sitemap =
         self.options.ready()
 
     request.fail (jqXHR, status) ->
-      Alchemy.debug("Request failed: " + status)
+      console.warn("Request failed: " + status)
 
   # Filters the sitemap
   filter: (term) ->

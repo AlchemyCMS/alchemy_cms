@@ -23,7 +23,7 @@ Alchemy.I18n =
       else
         translation
     else
-      Alchemy.debug "Translations for locale #{Alchemy.locale} not found!"
+      console.warn "Translations for locale #{Alchemy.locale} not found!"
       key
 
 # Global utility method for translating a given string
