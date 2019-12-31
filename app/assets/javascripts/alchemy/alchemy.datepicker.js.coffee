@@ -22,6 +22,8 @@ $.extend Alchemy,
           enableTime: /time/.test(type)
           noCalendar: type == "time"
           time_24hr: Alchemy.t("formats.time_24hr")
+          onOpen: (_selectedDates, _dateStr, instance) ->
+            Alchemy.ElementEditors.selectElement $(instance.element).closest(".element-editor")
           onValueUpdate: (_selectedDates, _dateStr, instance) ->
             Alchemy.setElementDirty $(instance.element).closest(".element-editor")
         $(this).flatpickr(options)
