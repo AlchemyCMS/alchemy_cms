@@ -74,6 +74,8 @@ $.extend Alchemy,
     $("select.alchemy_selectbox", scope).select2
       minimumResultsForSearch: 7
       dropdownAutoWidth: true
+    .on "select2-open", (event) ->
+      Alchemy.ElementEditors.onClickElement(event)
     return
 
   getUrlParam: (name) ->
