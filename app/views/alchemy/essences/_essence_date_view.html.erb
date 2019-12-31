@@ -1,6 +1,6 @@
 <% content = local_assigns[:content] || local_assigns[:essence_date_view] %>
 <%- date_format = content.settings_value(:date_format,
-  local_assigns.fetch(:options, {})) -%>
+  local_assigns.fetch(:options, {})) || :'alchemy.essence_date' -%>
 <%- if content.ingredient.present? -%>
 <%- if date_format == 'rfc822' -%>
 <%= content.ingredient.to_s(:rfc822) %>
