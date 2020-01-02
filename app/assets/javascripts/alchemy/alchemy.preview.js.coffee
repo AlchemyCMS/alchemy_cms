@@ -71,12 +71,11 @@ Alchemy.initAlchemyPreviewMode = ->
 
       # Focus the element editor in the Alchemy element window.
       focusElementEditor: (element) ->
-        alchemy_window = window.parent
-        target_id = element.getAttribute('data-alchemy-element')
-        $element_editor = alchemy_window.$("#element_#{target_id}")
-        elements_window = alchemy_window.Alchemy.ElementsWindow
-        $element_editor.trigger("FocusElementEditor.Alchemy", target_id)
-        elements_window.show() if elements_window.hidden
+        element_id = element.getAttribute('data-alchemy-element')
+        window.parent.postMessage
+          message: 'Alchemy.focusElementEditor'
+          element_id: element_id
+        , window.location.origin
         return
 
       getStyle: (state) ->

@@ -36,6 +36,13 @@ Alchemy.ElementEditors =
     # Binds the custom SaveElement event
     @element_area.on "SaveElement.Alchemy", '.element-editor', (e, data) =>
       @onSaveElement(e, data)
+    # Listen to postMessage messages from the preview frame
+    window.addEventListener 'message', (e) =>
+      if e.origin == window.location.origin
+        @onMessage(e.data)
+      else
+        console.warn 'Unsafe message origin!', e.origin
+      true
     return
 
   # Selects and scrolls to element with given id in the preview window.
@@ -60,6 +67,7 @@ Alchemy.ElementEditors =
   # Used by the elements on click events in the preview frame.
   focusElement: ($element) ->
     element_id = $element.attr('id').replace(/\D/g, "")
+    Alchemy.ElementsWindow.show()
     @selectTabForElement($element)
     # If we have folded parents we need to unfold each of them
     # and then finally scroll to or unfold ourself
@@ -172,6 +180,13 @@ Alchemy.ElementEditors =
     true
 
   # Event handlers
+
+  onMessage: (data) ->
+    if data.message == 'Alchemy.focusElementEditor'
+      $element = $("#element_#{data.element_id}")
+      Alchemy.ElementEditors.focusElement($element)
+    else
+      console.warn 'Unknown message received!', data
 
   onClickBody: (e) ->
     element = $(e.target).parents('.element-editor')[0]
