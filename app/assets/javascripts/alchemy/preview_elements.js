@@ -21,28 +21,6 @@ Alchemy.PreviewElements = {
     if (selector == undefined) {
       selector = "[data-alchemy-element]"
     }
-
-    window.addEventListener("message", function(event) {
-      if (event.origin !== window.location.origin) {
-        console.warn("Unsafe message origin!", event.origin)
-        return
-      }
-      switch (event.data.message) {
-        case "Alchemy.blurElements":
-          this.blurElements()
-          break
-        case "Alchemy.focusElement":
-          this.focusElement(event.data)
-          break
-        case "Alchemy.updateElement":
-          this.updateElement(event.data)
-          break
-        default:
-          console.info("Received unknown message!", event.data)
-          break
-      }
-    }.bind(this))
-
     this.elements = document.querySelectorAll(selector)
     this.elements.forEach(function(element) {
       element.addEventListener('mouseover', function() {

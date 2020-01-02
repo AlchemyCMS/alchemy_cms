@@ -4,10 +4,6 @@ window.Alchemy = Alchemy || {}
 
 Alchemy.LivePreview = {
   init: function() {
-    window.addEventListener("message", this.onMessage.bind(this))
-    this.load()
-  },
-  load: function() {
     nodes = document.querySelectorAll('[data-alchemy-content-id]')
     this.contents = Array.from(nodes)
   },
@@ -15,18 +11,6 @@ Alchemy.LivePreview = {
     return this.contents.find(function(content) {
       return content.dataset.alchemyContentId === data.content_id.toString()
     })
-  },
-  onMessage: function(event) {
-    var data = event.data
-
-    if (event.origin !== window.location.origin) {
-      return
-    }
-
-    if (data.message == "Alchemy.updateContent") {
-      this.update(data)
-    }
-    return true
   },
   update: function(data) {
     var essence_type = data.essence_type
