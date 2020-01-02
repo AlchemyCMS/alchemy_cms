@@ -21,10 +21,13 @@ Alchemy.initAlchemyPreviewMode = ->
           "outline-offset": "4px"
 
       init: ->
-        window.addEventListener "message", (message) =>
-          if message.data == "blurAlchemyElements"
+        window.addEventListener "message", (event) =>
+          if event.origin != window.location.origin
+            console.warn 'Unsafe message origin!', event.origin
+            return
+          if event.data.message == "Alchemy.blurElements"
             @blurElements()
-        , false
+          return
         @elements = document.querySelectorAll("[data-alchemy-element]")
         @elements.forEach (element) =>
           element.addEventListener 'mouseover', =>
