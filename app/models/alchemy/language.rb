@@ -86,7 +86,7 @@ module Alchemy
 
       # Default language for current site
       def default
-        on_current_site.find_by(default: true)
+        unscoped.on_current_site.find_by(default: true)
       end
     end
 
