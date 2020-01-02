@@ -47,16 +47,10 @@ Alchemy.ElementEditors =
 
   # Selects and scrolls to element with given id in the preview window.
   #
-  selectElementInPreview: (element_id) ->
-    previewElements = document
-                        .getElementById('alchemy_preview_window')
-                        .contentDocument
-                        .querySelectorAll('[data-alchemy-element]')
-    previewElement = Array.from(previewElements).find (element) ->
-      element.getAttribute('data-alchemy-element') == element_id
-    if previewElement
-      event = new Event('SelectPreviewElement.Alchemy')
-      previewElement.dispatchEvent(event)
+  focusElementPreview: (element_id) ->
+    Alchemy.PreviewWindow.postMessage
+      message: 'Alchemy.focusElement'
+      element_id: element_id
     return
 
   # Selects element
@@ -198,14 +192,14 @@ Alchemy.ElementEditors =
   # Click event handler for element body.
   #
   # - Focuses the element
-  # - Triggers custom 'SelectPreviewElement.Alchemy' event on target element in preview frame.
+  # - Sends 'Alchemy.focusElement' message to preview frame.
   #
   onClickElement: (e) ->
     $target = $(e.target)
     $element = $target.closest(".element-editor")
     element_id = $element.attr("id").replace(/\D/g, "")
     @selectElement($element)
-    @selectElementInPreview(element_id)
+    @focusElementPreview(element_id)
     return
 
   # Double click event handler for element head.
