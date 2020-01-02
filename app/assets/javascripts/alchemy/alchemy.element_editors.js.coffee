@@ -174,11 +174,10 @@ Alchemy.ElementEditors =
   # Event handlers
 
   onClickBody: (e) ->
-    frameWindow = $('#alchemy_preview_window')[0].contentWindow
     element = $(e.target).parents('.element-editor')[0]
     $('#element_area .element-editor').not(element).removeClass('selected')
     unless element
-      frameWindow.postMessage('blurAlchemyElements', window.location.origin)
+      Alchemy.PreviewWindow.postMessage('blurAlchemyElements')
     return
 
   # Click event handler for element body.
