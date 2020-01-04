@@ -54,7 +54,7 @@ module Alchemy
 
       let(:options) { {} }
       let(:picture) { create(:alchemy_picture) }
-      let(:essence) { create(:alchemy_essence_picture, picture: picture) }
+      let(:essence) { create(:alchemy_essence_picture, :with_content, picture: picture) }
 
       context 'with no format in the options' do
         it "includes the image's default render format." do
@@ -116,7 +116,7 @@ module Alchemy
       subject(:picture_url_options) { essence.picture_url_options }
 
       let(:picture) { build_stubbed(:alchemy_picture) }
-      let(:essence) { build_stubbed(:alchemy_essence_picture, picture: picture) }
+      let(:essence) { build_stubbed(:alchemy_essence_picture, :with_content, picture: picture) }
 
       it { is_expected.to be_a(HashWithIndifferentAccess) }
 
@@ -147,6 +147,16 @@ module Alchemy
         it "does not include these crop sizes.", :aggregate_failures do
           expect(picture_url_options[:crop_from]).to be_nil
           expect(picture_url_options[:crop_size]).to be_nil
+        end
+      end
+
+      context 'with content having size setting' do
+        before do
+          expect(essence.content).to receive(:settings) { {size: '30x70'} }
+        end
+
+        it "includes this size." do
+          expect(picture_url_options[:size]).to eq '30x70'
         end
       end
 
