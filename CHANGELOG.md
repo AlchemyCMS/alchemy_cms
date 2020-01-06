@@ -1,3 +1,5 @@
+## 5.0.0 (unreleased)
+
 ## 4.4.0 (2020-01-06)
 
 - Use contents settings for size in EssencePicture#picture_url [#1703](https://github.com/AlchemyCMS/alchemy_cms/pull/1703) ([tvdeyen](https://github.com/tvdeyen))
