@@ -32,6 +32,10 @@ Alchemy.PreviewWindow =
     $iframe.attr 'src', $iframe.attr('src')
     true
 
+  postMessage: (data) ->
+    frameWindow = @currentWindow[0].contentWindow
+    frameWindow.postMessage(data, window.location.origin)
+
   _showSpinner: ->
     @reload = $('#reload_preview_button')
     @spinner = new Alchemy.Spinner('small')

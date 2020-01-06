@@ -36,20 +36,21 @@ Alchemy.ElementEditors =
     # Binds the custom SaveElement event
     @element_area.on "SaveElement.Alchemy", '.element-editor', (e, data) =>
       @onSaveElement(e, data)
+    # Listen to postMessage messages from the preview frame
+    window.addEventListener 'message', (e) =>
+      if e.origin == window.location.origin
+        @onMessage(e.data)
+      else
+        console.warn 'Unsafe message origin!', e.origin
+      true
     return
 
   # Selects and scrolls to element with given id in the preview window.
   #
-  selectElementInPreview: (element_id) ->
-    previewElements = document
-                        .getElementById('alchemy_preview_window')
-                        .contentDocument
-                        .querySelectorAll('[data-alchemy-element]')
-    previewElement = Array.from(previewElements).find (element) ->
-      element.getAttribute('data-alchemy-element') == element_id
-    if previewElement
-      event = new Event('SelectPreviewElement.Alchemy')
-      previewElement.dispatchEvent(event)
+  focusElementPreview: (element_id) ->
+    Alchemy.PreviewWindow.postMessage
+      message: 'Alchemy.focusElement'
+      element_id: element_id
     return
 
   # Selects element
@@ -60,6 +61,7 @@ Alchemy.ElementEditors =
   # Used by the elements on click events in the preview frame.
   focusElement: ($element) ->
     element_id = $element.attr('id').replace(/\D/g, "")
+    Alchemy.ElementsWindow.show()
     @selectTabForElement($element)
     # If we have folded parents we need to unfold each of them
     # and then finally scroll to or unfold ourself
@@ -173,25 +175,31 @@ Alchemy.ElementEditors =
 
   # Event handlers
 
+  onMessage: (data) ->
+    if data.message == 'Alchemy.focusElementEditor'
+      $element = $("#element_#{data.element_id}")
+      Alchemy.ElementEditors.focusElement($element)
+    else
+      console.warn 'Unknown message received!', data
+
   onClickBody: (e) ->
-    frameWindow = $('#alchemy_preview_window')[0].contentWindow
     element = $(e.target).parents('.element-editor')[0]
     $('#element_area .element-editor').not(element).removeClass('selected')
     unless element
-      frameWindow.postMessage('blurAlchemyElements', window.location.origin)
+      Alchemy.PreviewWindow.postMessage(message: 'Alchemy.blurElements')
     return
 
   # Click event handler for element body.
   #
   # - Focuses the element
-  # - Triggers custom 'SelectPreviewElement.Alchemy' event on target element in preview frame.
+  # - Sends 'Alchemy.focusElement' message to preview frame.
   #
   onClickElement: (e) ->
     $target = $(e.target)
     $element = $target.closest(".element-editor")
     element_id = $element.attr("id").replace(/\D/g, "")
     @selectElement($element)
-    @selectElementInPreview(element_id)
+    @focusElementPreview(element_id)
     return
 
   # Double click event handler for element head.
