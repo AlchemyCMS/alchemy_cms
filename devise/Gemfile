@@ -11,6 +11,7 @@ unless ENV['CI']
   gem 'spring-commands-rspec'
   gem 'launchy'
   gem 'github_fast_changelog', require: false
+  gem 'listen', require: false
 end
 
 group :test do
