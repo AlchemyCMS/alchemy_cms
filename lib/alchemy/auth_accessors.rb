@@ -5,6 +5,7 @@
 # Alchemy has some defaults for user model name and login logout path names:
 #
 # +Alchemy.user_class_name+ defaults to +'User'+
+# +Alchemy.user_class_primary_key+ defaults to +:id+
 # +Alchemy.current_user_method defaults to +'current_user'+
 # +Alchemy.signup_path defaults to +'/signup'+
 # +Alchemy.login_path defaults to +'/login'+
@@ -14,17 +15,19 @@
 # Anyway, you can tell Alchemy about your authentication model configuration:
 #
 #   1. Your user class name - @see: Alchemy.user_class
-#   2. A method on your ApplicationController to get current user -
+#   2. Your users table primary key - @see: Alchemy.user_class_primary_key
+#   3. A method on your ApplicationController to get current user -
 #      @see: Alchemy.current_user_method
-#   3. The path to the signup form - @see: Alchemy.signup_path
-#   4. The path to the login form - @see: Alchemy.login_path
-#   5. The path to the logout method - @see: Alchemy.logout_path
-#   6. The http verb for the logout method - @see: Alchemy.logout_method
+#   4. The path to the signup form - @see: Alchemy.signup_path
+#   5. The path to the login form - @see: Alchemy.login_path
+#   6. The path to the logout method - @see: Alchemy.logout_path
+#   7. The http verb for the logout method - @see: Alchemy.logout_method
 #
 # == Example
 #
 #     # config/initializers/alchemy.rb
 #     Alchemy.user_class_name = 'Admin'
+#     Alchemy.user_class_primary_key = :user_id
 #     Alchemy.current_user_method = 'current_admin'
 #     Alchemy.signup_path = '/auth/signup'
 #     Alchemy.login_path = '/auth/login'
@@ -42,6 +45,7 @@
 #
 module Alchemy
   mattr_accessor :user_class_name,
+    :user_class_primary_key,
     :current_user_method,
     :signup_path,
     :login_path,
@@ -51,6 +55,7 @@ module Alchemy
   # Defaults
   #
   @@user_class_name = 'User'
+  @@user_class_primary_key = :id
   @@current_user_method = 'current_user'
   @@signup_path = '/signup'
   @@login_path = '/login'
