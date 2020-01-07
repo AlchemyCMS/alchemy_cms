@@ -6,7 +6,8 @@ namespace :alchemy do
   task upgrade: [
     'alchemy:upgrade:prepare',
     'alchemy:upgrade:4.1:run', 'alchemy:upgrade:4.1:todo',
-    'alchemy:upgrade:4.2:run', 'alchemy:upgrade:4.2:todo'
+    'alchemy:upgrade:4.2:run', 'alchemy:upgrade:4.2:todo',
+    'alchemy:upgrade:4.4:run', 'alchemy:upgrade:4.4:todo'
   ] do
     Alchemy::Upgrader.display_todos
   end
@@ -103,6 +104,36 @@ namespace :alchemy do
 
       task :todo do
         Alchemy::Upgrader::FourPointTwo.alchemy_4_2_todos
+      end
+    end
+
+    desc 'Upgrade Alchemy to v4.4'
+    task '4.4' => [
+      'alchemy:upgrade:prepare',
+      'alchemy:upgrade:4.4:run',
+      'alchemy:upgrade:4.4:todo'
+    ] do
+      Alchemy::Upgrader.display_todos
+    end
+
+    namespace '4.4' do
+      task run: [
+        'alchemy:upgrade:4.4:rename_element_views',
+        'alchemy:upgrade:4.4:update_local_variable'
+      ]
+
+      desc "Remove '_view' suffix from element views."
+      task rename_element_views: [:environment] do
+        Alchemy::Upgrader::FourPointFour.rename_element_views
+      end
+
+      desc 'Update element views local variable to element name.'
+      task update_local_variable: [:environment] do
+        Alchemy::Upgrader::FourPointFour.update_local_variable
+      end
+
+      task :todo do
+        Alchemy::Upgrader::FourPointFour.alchemy_4_4_todos
       end
     end
   end
