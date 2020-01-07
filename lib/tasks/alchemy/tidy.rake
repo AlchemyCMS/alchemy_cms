@@ -34,5 +34,32 @@ namespace :alchemy do
     task remove_orphaned_contents: [:environment] do
       Alchemy::Tidy.remove_orphaned_contents
     end
+
+    desc "List Alchemy elements usage"
+    task elements_usage: :environment do
+      puts "\n"
+      removable_elements = []
+      names = Alchemy::Element.definitions.map { |e| e['name'] }
+      longest_name = names.max_by { |name| name.to_s.length }.length + 1
+      names.sort.each do |name|
+        names = Alchemy::Element.where(name: name)
+        count = names.count
+        page_count = Alchemy::Page.where(id: names.pluck(:page_id)).published.count
+        if count.zero?
+          removable_elements.push(name)
+        else
+          spacer = ' ' * (longest_name - name.length)
+          puts "#{name}#{spacer}is used\t#{count}\ttime(s) on\t#{page_count}\tpublic page(s)"
+        end
+      end
+      if removable_elements.many?
+        puts "\n"
+        puts "These elements can probably be removed. They are not used anywhere:"
+        puts "\n"
+        removable_elements.each do |name|
+          puts name
+        end
+      end
+    end
   end
 end
