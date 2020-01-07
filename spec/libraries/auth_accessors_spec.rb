@@ -26,6 +26,10 @@ module Alchemy
     end
 
     describe 'defaults' do
+      it 'has default value for Alchemy.user_class_primary_key' do
+        expect(Alchemy.user_class_primary_key).to eq(:id)
+      end
+
       it 'has default value for Alchemy.signup_path' do
         expect(Alchemy.signup_path).to eq('/signup')
       end
