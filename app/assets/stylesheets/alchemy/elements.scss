@@ -155,6 +155,22 @@
     }
   }
 
+  &.expanded {
+    &.not-fixed {
+      .nestable-elements {
+        box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
+        background-color: $medium-gray;
+        padding: 8px 4px 4px;
+
+        .add-nestable-element-button {
+          width: calc(50% - 8px);
+          margin: 4px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
   &.dragged {
     border-style: dotted;
     overflow: hidden;
@@ -760,21 +776,6 @@ textarea.has_tinymce {
 
 .element-handle .hint-with-icon {
   top: -1px;
-}
-
-.not-fixed .nestable-elements {
-  box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
-  background-color: $medium-gray;
-
-  .expanded.element-editor>& {
-    padding: 8px 4px 4px;
-  }
-
-  .add-nestable-element-button {
-    width: calc(50% - 8px);
-    margin: 4px;
-    text-align: center;
-  }
 }
 
 .is-fixed {
