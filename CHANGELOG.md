@@ -1,5 +1,13 @@
 ## 5.0.0 (unreleased)
 
+## 4.4.1 (2020-01-08)
+
+- Fix updating page preview after element create/save [#1710](https://github.com/AlchemyCMS/alchemy_cms/pull/1710) ([tvdeyen](https://github.com/tvdeyen))
+- Element editor layout changes [#1709](https://github.com/AlchemyCMS/alchemy_cms/pull/1709) ([tvdeyen](https://github.com/tvdeyen))
+- Add Alchemy.user_class_primary_key setting [#1708](https://github.com/AlchemyCMS/alchemy_cms/pull/1708) ([tvdeyen](https://github.com/tvdeyen))
+- Add Element views upgrade tasks [#1707](https://github.com/AlchemyCMS/alchemy_cms/pull/1707) ([tvdeyen](https://github.com/tvdeyen))
+- Use postMessage to send messages between preview and element windows [#1704](https://github.com/AlchemyCMS/alchemy_cms/pull/1704) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.4.0 (2020-01-06)
 
 - Use contents settings for size in EssencePicture#picture_url [#1703](https://github.com/AlchemyCMS/alchemy_cms/pull/1703) ([tvdeyen](https://github.com/tvdeyen))
