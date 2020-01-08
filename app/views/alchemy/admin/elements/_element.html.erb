@@ -44,10 +44,11 @@
     <% end %>
   <% end %>
 
+  <% if show_element_footer?(element) %>
+    <%= render 'alchemy/admin/elements/element_footer', element: element %>
+  <% end %>
+
   <% if element.nestable_elements.any? %>
-    <% if show_element_footer?(element, :with_nestable_elements) %>
-      <%= render 'alchemy/admin/elements/element_footer', element: element %>
-    <% end %>
     <div class="nestable-elements">
       <%= content_tag :div,
             class: "nested-elements", data: {
@@ -81,9 +82,5 @@
         <% end %>
       <% end %>
     </div>
-  <% end %>
-
-  <% if show_element_footer?(element) %>
-    <%= render 'alchemy/admin/elements/element_footer', element: element %>
   <% end %>
 <% end %>

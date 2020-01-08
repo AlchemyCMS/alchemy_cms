@@ -143,9 +143,8 @@ module Alchemy
     end
 
     describe "#show_element_footer?" do
-      subject { show_element_footer?(element, nestable_elements) }
+      subject { show_element_footer?(element) }
       let(:element) { build_stubbed(:alchemy_element) }
-      let(:nestable_elements) { nil }
 
       context "for folded element" do
         before { allow(element).to receive(:folded?) { true } }
@@ -155,39 +154,21 @@ module Alchemy
       context "for expanded element" do
         before { allow(element).to receive(:folded?) { false } }
 
-        context "with nestable_elements argument" do
-          let(:nestable_elements) { true }
-
-          context "and element having contents defined" do
-            before { allow(element).to receive(:content_definitions) { [1] } }
-            it { is_expected.to eq(true) }
-          end
-
-          context "and element having no contents defined" do
-            before { allow(element).to receive(:content_definitions) { [] } }
-
-            context "and element beeing taggable" do
-              before { allow(element).to receive(:taggable?) { true } }
-              it { is_expected.to eq(true) }
-            end
-
-            context "and element not beeing taggable" do
-              before { allow(element).to receive(:taggable?) { false } }
-              it { is_expected.to eq(false) }
-            end
-          end
+        context "and element having contents defined" do
+          before { allow(element).to receive(:content_definitions) { [1] } }
+          it { is_expected.to eq(true) }
         end
 
-        context "without nestable_elements argument" do
-          let(:nestable_elements) { nil }
+        context "and element having no contents defined" do
+          before { allow(element).to receive(:content_definitions) { [] } }
 
-          context "and element having no nestable elements defined" do
-            before { allow(element).to receive(:nestable_elements) { [] } }
+          context "and element beeing taggable" do
+            before { allow(element).to receive(:taggable?) { true } }
             it { is_expected.to eq(true) }
           end
 
-          context "and element having nestable elements defined" do
-            before { allow(element).to receive(:nestable_elements) { [1] } }
+          context "and element not beeing taggable" do
+            before { allow(element).to receive(:taggable?) { false } }
             it { is_expected.to eq(false) }
           end
         end
