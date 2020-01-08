@@ -181,15 +181,6 @@
     }
   }
 
-  &.with-contents,
-  &.without-contents.not-nestable {
-
-    .element-content {
-      padding: 2*$default-padding 2*$default-padding 0;
-      border-top: 1px solid $medium-gray;
-    }
-  }
-
   &.compact {
     .element-toolbar {
       visibility: hidden;
@@ -210,7 +201,6 @@
     }
 
     .element-footer {
-      margin-top: 0;
       padding-top: 0;
       border-top: 0;
 
@@ -239,7 +229,7 @@
     }
 
     .element-content {
-      padding: 4px 8px;
+      margin: 4px 8px;
     }
 
     .button_with_label {
@@ -269,8 +259,8 @@
     }
   }
 
-  form {
-    margin: 0;
+  .element-content {
+    margin: 2*$default-padding;
   }
 
   .validation_notice {
@@ -282,8 +272,7 @@
   }
 
   .message {
-    width: 100%;
-    margin: 2*$default-margin 0;
+    margin: 2*$default-margin;
   }
 
   .foot_note {
@@ -348,6 +337,7 @@
 .element-toolbar {
   padding: $default-padding 0;
   height: $element-toolbar-height;
+  border-bottom: 1px solid $medium-gray;
 
   .element_tools {
     float: left;
@@ -357,7 +347,6 @@
 
 .element-footer {
   border-top: 1px solid $medium-gray;
-  margin: 8px 0 0 0;
   padding: 2*$default-padding;
   text-align: right;
 

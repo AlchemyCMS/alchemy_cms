@@ -10,42 +10,44 @@
   <% if element.expanded? || element.fixed? %>
     <%= render 'alchemy/admin/elements/element_toolbar', element: element %>
 
-    <%= form_for [alchemy, :admin, element], remote: true,
-      html: {id: "element_#{element.id}_form".html_safe, class: 'element-content'} do |f| %>
+    <% element.definition[:message].tap do |message| %>
+      <%= render_message(:info, sanitize(message)) if message %>
+    <% end %>
 
-      <div id="element_<%= element.id %>_errors" class="element_errors"></div>
+    <% element.definition[:warning].tap do |warning| %>
+      <%= render_message(:warning, sanitize(warning)) if warning %>
+    <% end %>
 
-      <div id="element_<%= element.id %>_content" class="element-content-editors">
-        <% element.definition[:message].tap do |message| %>
-          <%= render_message(:info, sanitize(message)) if message %>
-        <% end %>
-        <% element.definition[:warning].tap do |warning| %>
-          <%= render_message(:warning, sanitize(warning)) if warning %>
-        <% end %>
-        <% if lookup_context.exists?("#{element.name}_editor", ["alchemy/elements"], true) %>
-          <%= render_editor(element) %>
-        <% else %>
-          <%= element_editor_for(element) do %>
-            <% element.contents.each do |content| %>
-              <%= render "alchemy/essences/#{content.essence_partial_name}_editor", {
-                content: content
-              } %>
+    <% if element_editable?(element) %>
+      <%= form_for [alchemy, :admin, element], remote: true,
+        html: {id: "element_#{element.id}_form".html_safe, class: 'element-content'} do |f| %>
+
+        <div id="element_<%= element.id %>_errors" class="element_errors"></div>
+
+        <div id="element_<%= element.id %>_content" class="element-content-editors">
+          <% if lookup_context.exists?("#{element.name}_editor", ["alchemy/elements"], true) %>
+            <%= render_editor(element) %>
+          <% else %>
+            <%= element_editor_for(element) do %>
+              <% element.contents.each do |content| %>
+                <%= render "alchemy/essences/#{content.essence_partial_name}_editor", {
+                  content: content
+                } %>
+              <% end %>
             <% end %>
           <% end %>
-        <% end %>
-      </div>
-
-      <% if element.taggable? %>
-        <div class="autocomplete_tag_list">
-          <%= f.label :tag_list %>
-          <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
         </div>
-      <% end %>
-    <% end %>
-  <% end %>
 
-  <% if show_element_footer?(element) %>
-    <%= render 'alchemy/admin/elements/element_footer', element: element %>
+        <% if element.taggable? %>
+          <div class="autocomplete_tag_list">
+            <%= f.label :tag_list %>
+            <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <%= render 'alchemy/admin/elements/element_footer', element: element %>
+    <% end %>
   <% end %>
 
   <% if element.nestable_elements.any? %>
