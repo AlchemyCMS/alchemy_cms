@@ -101,8 +101,8 @@ module Alchemy
         ].join(' ')
       end
 
-      # Tells us, if we should show the element footer.
-      def show_element_footer?(element)
+      # Tells us, if we should show the element footer and form inputs.
+      def element_editable?(element)
         return false if element.folded?
         element.content_definitions.present? || element.taggable?
       end

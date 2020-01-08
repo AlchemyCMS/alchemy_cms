@@ -142,8 +142,8 @@ module Alchemy
       end
     end
 
-    describe "#show_element_footer?" do
-      subject { show_element_footer?(element) }
+    describe "#element_editable?" do
+      subject { element_editable?(element) }
       let(:element) { build_stubbed(:alchemy_element) }
 
       context "for folded element" do
