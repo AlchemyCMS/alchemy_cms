@@ -155,6 +155,22 @@
     }
   }
 
+  &.expanded {
+    &.not-fixed {
+      .nestable-elements {
+        box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
+        background-color: $medium-gray;
+        padding: 8px 4px 4px;
+
+        .add-nestable-element-button {
+          width: calc(50% - 8px);
+          margin: 4px;
+          text-align: center;
+        }
+      }
+    }
+  }
+
   &.dragged {
     border-style: dotted;
     overflow: hidden;
@@ -162,15 +178,6 @@
     &:not(.compact) {
       height: 36px !important;
       transition: height 0.2s;
-    }
-  }
-
-  &.with-contents,
-  &.without-contents.not-nestable {
-
-    .element-content {
-      padding: 2*$default-padding 2*$default-padding 0;
-      border-top: 1px solid $medium-gray;
     }
   }
 
@@ -194,7 +201,6 @@
     }
 
     .element-footer {
-      margin-top: 0;
       padding-top: 0;
       border-top: 0;
 
@@ -223,7 +229,7 @@
     }
 
     .element-content {
-      padding: 4px 8px;
+      margin: 4px 8px;
     }
 
     .button_with_label {
@@ -253,8 +259,8 @@
     }
   }
 
-  form {
-    margin: 0;
+  .element-content {
+    margin: 2*$default-padding;
   }
 
   .validation_notice {
@@ -266,8 +272,7 @@
   }
 
   .message {
-    width: 100%;
-    margin: 2*$default-margin 0;
+    margin: 2*$default-margin;
   }
 
   .foot_note {
@@ -332,6 +337,7 @@
 .element-toolbar {
   padding: $default-padding 0;
   height: $element-toolbar-height;
+  border-bottom: 1px solid $medium-gray;
 
   .element_tools {
     float: left;
@@ -341,7 +347,6 @@
 
 .element-footer {
   border-top: 1px solid $medium-gray;
-  margin: 8px 0 0 0;
   padding: 2*$default-padding;
   text-align: right;
 
@@ -760,21 +765,6 @@ textarea.has_tinymce {
 
 .element-handle .hint-with-icon {
   top: -1px;
-}
-
-.not-fixed .nestable-elements {
-  box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
-  background-color: $medium-gray;
-
-  .expanded.element-editor>& {
-    padding: 8px 4px 4px;
-  }
-
-  .add-nestable-element-button {
-    width: calc(50% - 8px);
-    margin: 4px;
-    text-align: center;
-  }
 }
 
 .is-fixed {

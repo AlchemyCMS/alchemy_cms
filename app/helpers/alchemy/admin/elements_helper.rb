@@ -101,14 +101,10 @@ module Alchemy
         ].join(' ')
       end
 
-      # Tells us, if we should show the element footer.
-      def show_element_footer?(element, with_nestable_elements = nil)
+      # Tells us, if we should show the element footer and form inputs.
+      def element_editable?(element)
         return false if element.folded?
-        if with_nestable_elements
-          element.content_definitions.present? || element.taggable?
-        else
-          element.nestable_elements.empty?
-        end
+        element.content_definitions.present? || element.taggable?
       end
     end
   end
