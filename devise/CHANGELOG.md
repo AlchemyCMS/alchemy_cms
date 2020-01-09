@@ -1,3 +1,9 @@
+## 4.4.0 (2019-01-09)
+
+- Set Alchemy.logout_method to Devise.sign_out_via [#96](https://github.com/AlchemyCMS/alchemy-devise/pull/96) ([tvdeyen](https://github.com/tvdeyen))
+- Allow Alchemy 5.0 [#95](https://github.com/AlchemyCMS/alchemy-devise/pull/95) ([tvdeyen](https://github.com/tvdeyen))
+- Remove gender [#94](https://github.com/AlchemyCMS/alchemy-devise/pull/94) ([rmparr](https://github.com/rmparr))
+
 ## 4.3.1 (2019-11-28)
 
 - add config/manifest.js to dummy app [#93](https://github.com/AlchemyCMS/alchemy-devise/pull/93) ([rmparr](https://github.com/rmparr))
