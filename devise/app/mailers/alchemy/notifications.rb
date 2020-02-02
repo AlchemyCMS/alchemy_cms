@@ -5,7 +5,7 @@ module Alchemy
 
     def member_created(user)
       @user = user
-      @url = login_url
+
       mail(
         to: user.email,
         subject: Alchemy.t("Your user credentials")
