@@ -7,7 +7,7 @@ describe "Password Routing" do
     expect({
       get: "/admin/passwords"
     }).to route_to(
-      controller: "alchemy/passwords",
+      controller: "alchemy/admin/passwords",
       action: "new"
     )
   end
@@ -16,7 +16,7 @@ describe "Password Routing" do
     expect({
       post: "/admin/passwords"
     }).to route_to(
-      controller: "alchemy/passwords",
+      controller: "alchemy/admin/passwords",
       action: "create"
     )
   end
@@ -25,7 +25,7 @@ describe "Password Routing" do
     expect({
       get: "/admin/passwords/123/edit/12345"
     }).to route_to(
-      controller: "alchemy/passwords",
+      controller: "alchemy/admin/passwords",
       action: "edit",
       id: "123",
       reset_password_token: "12345"
@@ -36,7 +36,7 @@ describe "Password Routing" do
     expect({
       patch: "/admin/passwords"
     }).to route_to(
-      controller: "alchemy/passwords",
+      controller: "alchemy/admin/passwords",
       action: "update"
     )
   end

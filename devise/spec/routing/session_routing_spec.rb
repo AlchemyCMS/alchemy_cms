@@ -7,7 +7,7 @@ describe "Session Routing" do
     expect({
       get: "/admin/login"
     }).to route_to(
-      controller: "alchemy/user_sessions",
+      controller: "alchemy/admin/user_sessions",
       action: "new"
     )
   end
@@ -16,7 +16,7 @@ describe "Session Routing" do
     expect({
       post: "/admin/login"
     }).to route_to(
-      controller: "alchemy/user_sessions",
+      controller: "alchemy/admin/user_sessions",
       action: "create"
     )
   end
@@ -25,7 +25,7 @@ describe "Session Routing" do
     expect({
       delete: "/admin/logout"
     }).to route_to(
-      controller: "alchemy/user_sessions",
+      controller: "alchemy/admin/user_sessions",
       action: "destroy"
     )
   end
