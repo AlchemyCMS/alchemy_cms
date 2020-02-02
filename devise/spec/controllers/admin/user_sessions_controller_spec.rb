@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Alchemy::UserSessionsController do
+describe Alchemy::Admin::UserSessionsController do
   routes { Alchemy::Engine.routes }
 
   before do
@@ -22,7 +22,7 @@ describe Alchemy::UserSessionsController do
         it 'redirects to https' do
           get :new
           is_expected.to redirect_to(
-            login_url(protocol: 'https', host: "test.host")
+            admin_login_url(protocol: 'https', host: "test.host")
           )
         end
       end

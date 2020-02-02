@@ -1,22 +1,29 @@
 Alchemy::Engine.routes.draw do
-  devise_for :user,
-    class_name: 'Alchemy::User',
-    controllers: {
-      sessions: 'alchemy/user_sessions'
-    },
-    skip: [:sessions, :passwords]
+  namespace :admin, {
+    path: Alchemy.admin_path,
+    constraints: Alchemy.admin_constraints
+  } do
 
-  scope Alchemy.admin_path, {constraints: Alchemy.admin_constraints} do
+    devise_for :user,
+      class_name: 'Alchemy::User',
+      singular: :user,
+      skip: :all,
+      controllers: {
+        sessions: 'alchemy/admin/user_sessions',
+        passwords: 'alchemy/admin/passwords'
+      },
+      router_name: :alchemy
+
     devise_scope :user do
-      get '/dashboard' => 'admin/dashboard#index',
+      get '/dashboard' => 'dashboard#index',
         :as => :user_root
-      get '/signup' => 'admin/users#signup',
-        :as => :admin_signup
+      get '/signup' => 'users#signup',
+        :as => :signup
       get '/login' => 'user_sessions#new',
         :as => :login
       post '/login' => 'user_sessions#create'
-      delete '/logout' => 'user_sessions#destroy',
-        :as => :logout
+      match '/logout' => 'user_sessions#destroy',
+        :as => :logout, via: Devise.sign_out_via
 
       get '/passwords' => 'passwords#new',
         :as => :new_password
@@ -27,9 +34,7 @@ Alchemy::Engine.routes.draw do
       patch '/passwords' => 'passwords#update',
         :as => :update_password
     end
-  end
 
-  namespace :admin, {path: Alchemy.admin_path, constraints: Alchemy.admin_constraints} do
     resources :users
   end
 end

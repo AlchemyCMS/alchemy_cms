@@ -10,13 +10,13 @@
     <%= devise_error_messages! %>
   </div>
 <% end %>
-  <%= alchemy_form_for :user, url: reset_password_path, html: {method: 'post'} do |f| %>
+  <%= alchemy_form_for :user, url: admin_reset_password_path, html: {method: 'post'} do |f| %>
     <%= f.input :email,
       autofocus: true,
       input_html: {value: params[:email]} %>
     <div class="input link">
       <small>
-        <%= link_to Alchemy.t(:back), alchemy.login_path %>
+        <%= link_to Alchemy.t(:back), alchemy.admin_login_path %>
       </small>
     </div>
     <%= f.submit Alchemy.t("Send reset instructions"), input_html: {class: 'secondary'} %>
