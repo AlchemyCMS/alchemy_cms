@@ -99,7 +99,7 @@ module Alchemy
           :alchemy_admin_pages,
           :alchemy_admin_pictures,
           :alchemy_admin_tags,
-          :alchemy_admin_users
+          :alchemy_admin_users,
         ]
 
         # Controller actions
@@ -116,6 +116,7 @@ module Alchemy
         can :manage,                Alchemy::Element
         can :manage,                Alchemy::EssenceFile
         can :manage,                Alchemy::EssencePicture
+        can :manage,                Alchemy::EssenceModel
         can :manage,                Alchemy::LegacyPageUrl
         can :manage,                Alchemy::Node
         can :read,                  Alchemy::Picture

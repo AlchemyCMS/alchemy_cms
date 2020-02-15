@@ -6,6 +6,8 @@ module Alchemy
       before_action :load_element, only: [:update, :trash, :fold, :publish]
       authorize_resource class: Alchemy::Element
 
+      helper 'alchemy/admin/models'
+
       def index
         @page = Page.find(params[:page_id])
         @elements = @page.all_elements.not_nested.unfixed.not_trashed.includes(*element_includes)

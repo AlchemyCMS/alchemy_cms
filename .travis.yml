@@ -1,0 +1,24 @@
+language: ruby
+dist: bionic
+sudo: false
+services:
+  - mysql
+addons:
+  postgresql: "10"
+cache:
+  bundler: true
+rvm:
+  - 2.5.5
+  - 2.6.3
+before_install:
+  - gem install bundler
+before_script:
+  - bundle exec rake alchemy:spec:prepare
+script: bundle exec rspec
+after_success: bundle exec codeclimate-test-reporter
+env:
+  - DB=mysql
+  - DB=postgresql
+notifications:
+  slack:
+    secure: QzOFw1Ph69pzwWBFgtIVkOnjbcRxB9HPRQ+RYjK+2tg+fsbiTJ+wYgHcZL49tPYcLAls4kymkFWzWBF3PCAXJMfKgUCqXzdQ2FuJC/JoVRTLll4wDnZFPG33jsm5tVznmycZ3ma4+ZWfJQ+C+elEBOba6v1kG9eGIy6sH2cvXfE=

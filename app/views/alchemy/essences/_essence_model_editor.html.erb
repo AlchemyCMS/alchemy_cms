@@ -1,0 +1,56 @@
+<% settings = get_content_settings(content) %>
+
+<%= content_tag :div,
+  id: content.dom_id,
+  class: [
+    "content_editor",
+    "essence_select"
+  ].compact, data: {content_id: content.id} do %>
+  <%= content_label(content) %>
+
+  <% if settings[:model].nil? %>
+    <%= warning(':model is nil',
+    "<strong>No model class given.</strong>
+    <br>Please provide :<code>model</code> as as setting on the content
+    definition in <code>elements.yml</code>.") %>
+  <% elsif settings[:display_attributes].nil? %>
+    <%= warning(':display_attributes is nil',
+    "<strong>No display_attributes given.</strong>
+    <br>Please provide :<code>display_attributes</code> as as setting on the content
+    definition in <code>elements.yml</code>.") %>
+  <% else %>
+    <%= text_field_tag content.form_field_name(:model_id), {
+      class: ["alchemy_selectbox", "essence_model_select"], id: content.form_field_id
+    } %>
+    <%= hidden_field_tag content.form_field_name(:model_class),
+      settings[:model] %>
+
+    <script>
+      $('#<%= content.form_field_id(:model_id) %>').select2({
+        placeholder: "<%= Alchemy.t(:search) %>",
+        ajax: {
+          url: "<%= alchemy.admin_essence_models_path %>",
+          data: function (term, page) {
+            var query = {
+              term: term,
+              content_id: '<%= content.id %>',
+              page: page || 1
+            }
+            return query;
+          },
+          processResults: function (data) {
+            return data;
+          }
+        },
+        initSelection: function(element, callback) {
+          <% if content.essence.model %>
+            callback({
+              id: <%= content.essence.model[:id] %>,
+              text: '<%= raw get_display_text_for(content.essence.model, settings) %>'
+            });
+          <% end %>
+        }
+      });
+    </script>
+  <% end %>
+<% end %>
