@@ -9,9 +9,9 @@ module Alchemy
         return {
           model: content.settings_value(:model),
           scope: content.settings_value(:scope),
-          search_field_name: (content.settings_value(:search_attributes) || model.attribute_names).join('_or_') + '_cont',
+          search_field_name: (content.settings_value(:search_attributes) || model.attribute_names).join('_or_').gsub('.', '_') + '_cont',
           display_attributes: content.settings_value(:display_attributes) || [:id],
-          attribute_separator: content.settings_value(:attribute_separator) || ' > '
+          attribute_separator: content.settings_value(:attribute_separator) || ' ▸ '
         }
       end
 
