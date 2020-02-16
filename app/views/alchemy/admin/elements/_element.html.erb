@@ -29,7 +29,7 @@
             <%= render_editor(element) %>
           <% else %>
             <%= element_editor_for(element) do %>
-              <% element.contents.each do |content| %>
+              <% element.defined_contents.each do |content| %>
                 <%= render "alchemy/essences/#{content.essence_partial_name}_editor", {
                   content: content
                 } %>

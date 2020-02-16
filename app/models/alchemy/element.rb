@@ -305,6 +305,21 @@ module Alchemy
       end
     end
 
+    # List element contents by the definition in elements.yml
+    def defined_contents
+      existing_contents = contents
+      editable_contents = []
+      definition[:contents].each do |defined_content|
+        existing_content = existing_contents.find_by(name: defined_content[:name])
+        if existing_content
+          editable_contents << existing_content
+        else
+          editable_contents << Content.create({element_id: id}.merge(defined_content))
+        end
+      end
+      editable_contents
+    end
+
     private
 
     def generate_nested_elements
