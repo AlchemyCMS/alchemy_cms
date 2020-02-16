@@ -40,6 +40,7 @@
 //= require alchemy/alchemy.list_filter
 //= require alchemy/alchemy.initializer
 //= require alchemy/alchemy.page_sorter
+//= require alchemy/alchemy.node_sorter
 //= require alchemy/alchemy.uploader
 //= require alchemy/alchemy.preview_window
 //= require alchemy/alchemy.sitemap

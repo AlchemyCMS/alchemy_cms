@@ -21,6 +21,10 @@ Alchemy::Engine.routes.draw do
       member do
         patch :toggle
       end
+      collection do
+        post :order
+        get :sort
+      end
     end
 
     resources :pages do

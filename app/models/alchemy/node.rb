@@ -44,5 +44,10 @@ module Alchemy
     def view_folder_name
       "alchemy/menus/#{name.parameterize.underscore}"
     end
+
+    def update_node!(node)
+      hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth}
+      update_columns(hash)
+    end
   end
 end

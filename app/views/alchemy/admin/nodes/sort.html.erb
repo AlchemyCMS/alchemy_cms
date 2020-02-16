@@ -1,0 +1,33 @@
+<% content_for :toolbar do %>
+  <div class="button_with_label">
+    <%= link_to alchemy.admin_nodes_path, class: 'icon_button' do %>
+      <%= render_icon 'angle-double-left' %>
+    <% end %>
+    <label><%= Alchemy.t(:cancel) %></label>
+  </div>
+<% end %>
+
+<div id="sort_panel">
+  <%= render_message do %>
+    <%= Alchemy.t(:explain_sitemap_dragndrop_sorting) %>
+  <% end %>
+  <div class="buttons">
+    <%= button_tag Alchemy.t('save order'), id: 'save_node_order' %>
+  </div>
+</div>
+
+<div id="sitemap" class="sorting">
+  <% if @root_nodes.any? %>
+  <ul class="nodes_tree list">
+    <% @root_nodes.each do |root_node| %>
+      <%= render 'node', node: root_node %>
+    <% end %>
+    </ul>
+  <% end %>
+</div>
+
+<script type="text/javascript">
+ $(function() {
+   Alchemy.NodeSorter();
+ });
+</script>

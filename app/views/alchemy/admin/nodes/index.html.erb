@@ -17,6 +17,18 @@
       },
       if_permitted_to: [:create, Alchemy::Node]
     ) %>
+    <% if can?(:sort, Alchemy::Node) %>
+    <div class="button_with_label">
+      <%= link_to(
+        render_icon(:random),
+        alchemy.sort_admin_nodes_path,
+        method: :get,
+        class: 'icon_button',
+        title: Alchemy.t('Sort nodes')
+      ) %>
+      <label><%= Alchemy.t('Sort nodes') %></label>
+    </div>
+    <% end %>
   </div>
 <% end %>
 

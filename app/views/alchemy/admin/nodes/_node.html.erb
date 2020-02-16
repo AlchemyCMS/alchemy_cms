@@ -1,61 +1,67 @@
-<li>
+<li id="node_<%= node.id %>" class="node">
   <%= content_tag :div, class: [
     'sitemap_node',
     node.external? ? 'external' : 'internal',
     "sitemap_node-level_#{node.depth}"
   ] do %>
     <span class="nodes_tree-left_images">
-      <% if node.children.any? %>
-        <a class="node_folder" data-node-id="<%= node.id %>">
-          <% if node.folded? %>
-            <i class="far fa-plus-square fa-fw"></i>
-          <% else %>
-            <i class="far fa-minus-square fa-fw"></i>
-          <% end %>
-        </a>
+      <% if @sorting && node.parent_id != nil %>
+        <i class="icon far fa-file fa-lg handle"></i>
       <% else %>
-        &nbsp;
+        <% if node.children.any? %>
+          <a class="node_folder" data-node-id="<%= node.id %>">
+            <% if node.folded? %>
+              <i class="far fa-plus-square fa-fw"></i>
+            <% else %>
+              <i class="far fa-minus-square fa-fw"></i>
+            <% end %>
+          </a>
+        <% else %>
+          &nbsp;
+        <% end %>
       <% end %>
     </span>
-    <span class="nodes_tree-right_tools">
-      <% if can?(:edit, node) %>
-        <%= link_to_dialog(
-          render_icon(:edit),
-          alchemy.edit_admin_node_path(node),
-          {
-            title: node.root? ? Alchemy.t(:edit_menu) : Alchemy.t(:edit_node),
-            size: node.root? ? '450x120' : '450x360'
-          },
-          title: node.root? ? Alchemy.t(:edit_menu) : Alchemy.t(:edit_node)
-        ) %>
-      <% end %>
-      <% if can?(:destroy, node) %>
-        <%= link_to_confirm_dialog(
-          render_icon(:minus),
-          node.root? ? Alchemy.t(:confirm_to_delete_menu) : Alchemy.t(:confirm_to_delete_node),
-          url_for(
-            controller: 'nodes',
-            action: 'destroy',
-            id: node.id
-          ),
-          {
-            title: node.root? ? Alchemy.t(:delete_menu) : Alchemy.t(:delete_node)
-          }
-        ) %>
-      <% end %>
-      <% if can?(:create, Alchemy::Node) %>
-        <%= link_to_dialog(
-          render_icon(:plus),
-          alchemy.new_admin_node_path(parent_id: node.id),
-          {
-            title: Alchemy.t(:create_node),
-            size: '450x360',
-            overflow: true
-          },
-          title: Alchemy.t(:create_node)
-        ) %>
-      <% end %>
-    </span>
+    <% unless @sorting %>
+      <span class="nodes_tree-right_tools">
+        <% if can?(:edit, node) %>
+          <%= link_to_dialog(
+            render_icon(:edit),
+            alchemy.edit_admin_node_path(node),
+            {
+              title: node.root? ? Alchemy.t(:edit_menu) : Alchemy.t(:edit_node),
+              size: node.root? ? '450x120' : '450x360'
+            },
+            title: node.root? ? Alchemy.t(:edit_menu) : Alchemy.t(:edit_node)
+          ) %>
+        <% end %>
+        <% if can?(:destroy, node) %>
+          <%= link_to_confirm_dialog(
+            render_icon(:minus),
+            node.root? ? Alchemy.t(:confirm_to_delete_menu) : Alchemy.t(:confirm_to_delete_node),
+            url_for(
+              controller: 'nodes',
+              action: 'destroy',
+              id: node.id
+            ),
+            {
+              title: node.root? ? Alchemy.t(:delete_menu) : Alchemy.t(:delete_node)
+            }
+          ) %>
+        <% end %>
+        <% if can?(:create, Alchemy::Node) %>
+          <%= link_to_dialog(
+            render_icon(:plus),
+            alchemy.new_admin_node_path(parent_id: node.id),
+            {
+              title: Alchemy.t(:create_node),
+              size: '450x360',
+              overflow: true
+            },
+            title: Alchemy.t(:create_node)
+          ) %>
+        <% end %>
+      </span>
+    <% end %>
     <div class="node_name">
       <%= node.name || '&nbsp;'.html_safe %>
       <span class="node_page">
@@ -78,8 +84,8 @@
     </div>
   <% end %>
   <% if node.children.any? %>
-    <ul class="children<%= node.folded? ? ' hidden' : nil %>">
-      <% unless node.folded? %>
+    <ul id="children_<%= node.id %>" class="children<%= node.folded? && !@sorting ? ' hidden' : nil %>">
+      <% unless node.folded? && !@sorting %>
         <%= render partial: 'node', collection: node.children.includes(:page, :children) %>
       <% end %>
     </ul>
