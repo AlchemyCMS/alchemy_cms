@@ -58,7 +58,7 @@ module Alchemy
     #
     acts_as_list scope: [:page_id, :fixed, :parent_element_id]
 
-    stampable stamper_class_name: Alchemy.user_class_name
+    stampable stamper_class_name: "::#{Alchemy.user_class_name}"
 
     # Content positions are scoped by their essence_type, so positions can be the same for different contents.
     # In order to get contents in creation order we also order them by id.

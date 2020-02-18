@@ -13,7 +13,7 @@
 module Alchemy
   class FoldedPage < BaseRecord
     belongs_to :page, inverse_of: :folded_pages
-    belongs_to :user, inverse_of: :folded_pages, class_name: Alchemy.user_class_name
+    belongs_to :user, inverse_of: :folded_pages, class_name: "::#{Alchemy.user_class_name}"
 
     def self.folded_for_user(user)
       return none unless Alchemy.user_class < ActiveRecord::Base

@@ -28,7 +28,7 @@ module Alchemy
     belongs_to :element, touch: true, inverse_of: :contents
     has_one :page, through: :element
 
-    stampable stamper_class_name: Alchemy.user_class_name
+    stampable stamper_class_name: "::#{Alchemy.user_class_name}"
 
     acts_as_list
 
