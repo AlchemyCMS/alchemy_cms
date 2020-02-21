@@ -44,8 +44,7 @@
 #     Alchemy.register_ability MyCustom::Ability
 #
 module Alchemy
-  mattr_accessor :user_class_name,
-    :user_class_primary_key,
+  mattr_accessor :user_class_primary_key,
     :current_user_method,
     :signup_path,
     :login_path,
@@ -73,6 +72,16 @@ module Alchemy
   #     # config/initializers/alchemy.rb
   #     Alchemy.user_class_name = 'Admin'
   #
+
+  # Prefix with :: when getting to avoid constant name conflicts
+  def self.user_class_name
+    "::#{@@user_class_name}"
+  end
+
+  def self.user_class_name=(user_class_name)
+    @@user_class_name = user_class_name
+  end
+
   def self.user_class
     @@user_class ||= begin
       if @@user_class_name.is_a?(String)

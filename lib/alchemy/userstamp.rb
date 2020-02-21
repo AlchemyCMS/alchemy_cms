@@ -7,6 +7,6 @@
 if Alchemy.user_class < ActiveRecord::Base
   Alchemy.user_class.class_eval do
     model_stamper
-    stampable stamper_class_name: "::#{Alchemy.user_class_name}"
+    stampable stamper_class_name: Alchemy.user_class_name
   end
 end

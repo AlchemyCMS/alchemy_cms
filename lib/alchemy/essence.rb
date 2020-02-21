@@ -48,7 +48,7 @@ module Alchemy #:nodoc:
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
           attr_writer :validation_errors
           include Alchemy::Essence::InstanceMethods
-          stampable stamper_class_name: "::#{Alchemy.user_class_name}"
+          stampable stamper_class_name: Alchemy.user_class_name
           validate :validate_ingredient, on: :update, if: -> { validations.any? }
 
           has_one :content, as: :essence, class_name: "Alchemy::Content", inverse_of: :essence

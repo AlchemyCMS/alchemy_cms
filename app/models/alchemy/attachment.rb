@@ -28,7 +28,7 @@ module Alchemy
       after_assign { |f| write_attribute(:file_mime_type, f.mime_type) }
     end
 
-    stampable stamper_class_name: "::#{Alchemy.user_class_name}"
+    stampable stamper_class_name: Alchemy.user_class_name
 
     has_many :essence_files, class_name: 'Alchemy::EssenceFile', foreign_key: 'attachment_id'
     has_many :contents, through: :essence_files
