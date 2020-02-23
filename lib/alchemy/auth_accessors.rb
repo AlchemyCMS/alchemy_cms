@@ -86,7 +86,8 @@ module Alchemy
   end
 
   def self.user_class
-    @@user_class ||= @@user_class_name.constantize
+    @@user_class ||= begin
+      @@user_class_name.constantize
     rescue NameError => e
       if e.message =~ /#{Regexp.escape(@@user_class_name)}/
         abort <<-MSG.strip_heredoc
@@ -102,6 +103,7 @@ module Alchemy
       else
         raise e
       end
+    end
   end
 
   # Register a CanCan Ability class
