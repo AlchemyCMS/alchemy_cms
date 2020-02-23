@@ -75,7 +75,10 @@ module Alchemy
 
   # Prefix with :: when getting to avoid constant name conflicts
   def self.user_class_name
-    "::#{@@user_class_name}"
+    if !@@user_class_name.is_a?(String)
+      raise TypeError, 'Alchemy.user_class_name must be a String, not a Class.'
+    end
+    "::#{@@user_class_name}".freeze
   end
 
   def self.user_class_name=(user_class_name)
@@ -83,16 +86,10 @@ module Alchemy
   end
 
   def self.user_class
-    @@user_class ||= begin
-      if @@user_class_name.is_a?(String)
-        @@user_class_name.constantize
-      else
-        raise TypeError, 'Alchemy.user_class_name must be a String, not a Class.'
-      end
-    end
-  rescue NameError => e
-    if e.message =~ /#{Regexp.escape(@@user_class_name)}/
-      abort <<-MSG.strip_heredoc
+    @@user_class ||= @@user_class_name.constantize
+    rescue NameError => e
+      if e.message =~ /#{Regexp.escape(@@user_class_name)}/
+        abort <<-MSG.strip_heredoc
 
         AlchemyCMS cannot find any user class!
 
