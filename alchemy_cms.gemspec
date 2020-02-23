@@ -8,7 +8,7 @@ Gem::Specification.new do |gem|
   gem.version               = Alchemy::VERSION
   gem.platform              = Gem::Platform::RUBY
   gem.authors               = ['Thomas von Deyen', 'Robin Boening', 'Marc Schettke', 'Hendrik Mans', 'Carsten Fregin', 'Martin Meyerhoff']
-  gem.email                 = ['alchemy@magiclabs.de']
+  gem.email                 = ['hello@alchemy-cms.com']
   gem.homepage              = 'https://alchemy-cms.com'
   gem.summary               = 'A powerful, userfriendly and flexible CMS for Rails 5'
   gem.description           = 'Alchemy is a powerful, userfriendly and flexible Rails 5 CMS.'
