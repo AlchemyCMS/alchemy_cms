@@ -13,7 +13,6 @@ if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
 end
 gem 'mysql2', '~> 0.5.1' if ENV['DB'] == 'mysql'
 gem 'pg',     '~> 1.0'   if ENV['DB'] == 'postgresql'
-gem 'sassc-rails'
 
 group :development, :test do
   unless ENV['CI']
