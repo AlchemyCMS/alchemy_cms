@@ -5,9 +5,6 @@ gemspec
 rails_version = ENV.fetch('RAILS_VERSION', 6.0).to_f
 gem 'rails', "~> #{rails_version}.0"
 
-# Profiling
-gem 'rack-mini-profiler', group: :development, require: false
-
 if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
   gem 'sqlite3', rails_version > 5.0 ? '~> 1.4.1' : '~> 1.3.6'
 end
@@ -28,5 +25,6 @@ group :development, :test do
     gem 'dotenv', '~> 2.2'
     gem 'github_fast_changelog', require: false
     gem 'active_record_query_trace', require: false
+    gem 'rack-mini-profiler', require: false
   end
 end
