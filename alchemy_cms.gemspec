@@ -29,7 +29,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'handlebars_assets',                ['~> 0.23']
   gem.add_runtime_dependency 'jquery-rails',                     ['~> 4.0', '>= 4.0.4']
   gem.add_runtime_dependency 'jquery-ui-rails',                  ['~> 6.0']
-  gem.add_runtime_dependency 'kaminari',                         ['~> 1.1']
+  gem.add_runtime_dependency 'kaminari',                         ['1.2.0']
   gem.add_runtime_dependency 'originator',                       ['~> 3.1']
   gem.add_runtime_dependency 'non-stupid-digest-assets',         ['~> 1.0.8']
   gem.add_runtime_dependency 'rails',                            ['>= 5.0.0', '< 6.1']
