@@ -20,14 +20,18 @@ jobs:
     env:
       DB: ${{ matrix.database }}
       MYSQL_PASSWORD: root
-      PGHOST: 127.0.0.1
-      PGUSER: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
       RAILS_ENV: test
       RAILS_VERSION: ${{ matrix.rails }}
       CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
     services:
       postgres:
-        image: postgres:10
+        image: postgres:11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: alchemy_cms_dummy_test
         ports: ['5432:5432']
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
