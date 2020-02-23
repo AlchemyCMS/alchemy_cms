@@ -16,7 +16,6 @@ gem 'pg',     '~> 1.0'   if ENV['DB'] == 'postgresql'
 gem 'sassc-rails'
 
 group :development, :test do
-  gem 'bootsnap', require: false
   unless ENV['CI']
     gem 'launchy'
     gem 'annotate'
