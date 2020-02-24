@@ -30,13 +30,17 @@ Alchemy.login_path = '/auth/login'
 Alchemy.logout_path = '/auth/logout'
 ~~~
 
-## Mandatory methods
+## Mandatory configuration
+
+### Relationships
+- `has_many :folded_pages` -
+  This will allow alchemy to store page tree folding on a per user basis.
+
+
 
 ### Setting roles
 
-The only method that AlchemyCMS needs from your user class is `alchemy_roles`.
-
-This method has to return an array of strings containing at least one of these roles:
+The only method that AlchemyCMS needs from your user class is `alchemy_roles`. This method has to return an array of strings containing at least one of these roles:
 
 * `member`
 * `author`
