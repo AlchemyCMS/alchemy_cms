@@ -1835,10 +1835,6 @@ module Alchemy
         end
 
         context "when page is not external" do
-          before do
-            expect(page).to receive(:redirects_to_external?).and_return(false)
-          end
-
           it "should update all attributes" do
             page.update_node!(node)
             page.reload
@@ -1870,10 +1866,15 @@ module Alchemy
         end
 
         context "when page is external" do
-          before do
-            expect(page)
-              .to receive(:redirects_to_external?)
-              .and_return(true)
+          let(:page) do
+            create(
+              :alchemy_page,
+              language: language,
+              parent_id: language_root.id,
+              urlname: original_url,
+              restricted: false,
+              page_layout: 'external'
+            )
           end
 
           it "should update all attributes except url" do
@@ -1901,10 +1902,6 @@ module Alchemy
         end
 
         context "when page is not external" do
-          before do
-            allow(page).to receive(:redirects_to_external?).and_return(false)
-          end
-
           it "should update all attributes except url" do
             page.update_node!(node)
             page.reload
@@ -1924,8 +1921,15 @@ module Alchemy
         end
 
         context "when page is external" do
-          before do
-            allow(page).to receive(:redirects_to_external?).and_return(true)
+          let(:page) do
+            create(
+              :alchemy_page,
+              language: language,
+              parent_id: language_root.id,
+              urlname: original_url,
+              restricted: false,
+              page_layout: 'external'
+            )
           end
 
           it "should update all attributes except url" do

@@ -292,9 +292,9 @@ module Alchemy
         let(:page_1)       { create(:alchemy_page, visible: true) }
         let(:page_2)       { create(:alchemy_page, visible: true) }
         let(:page_3)       { create(:alchemy_page, visible: true) }
-        let(:page_item_1)  { {id: page_1.id, slug: page_1.slug, restricted: false, external: page_1.redirects_to_external?, visible: page_1.visible?, children: [page_item_2]} }
-        let(:page_item_2)  { {id: page_2.id, slug: page_2.slug, restricted: false, external: page_2.redirects_to_external?, visible: page_2.visible?, children: [page_item_3]} }
-        let(:page_item_3)  { {id: page_3.id, slug: page_3.slug, restricted: false, external: page_3.redirects_to_external?, visible: page_3.visible? } }
+        let(:page_item_1)  { {id: page_1.id, slug: page_1.slug, restricted: false, external: page_1.definition['redirects_to_external'], visible: page_1.visible?, children: [page_item_2]} }
+        let(:page_item_2)  { {id: page_2.id, slug: page_2.slug, restricted: false, external: page_2.definition['redirects_to_external'], visible: page_2.visible?, children: [page_item_3]} }
+        let(:page_item_3)  { {id: page_3.id, slug: page_3.slug, restricted: false, external: page_3.definition['redirects_to_external'], visible: page_3.visible? } }
         let(:set_of_pages) { [page_item_1] }
 
         it "stores the new order" do

@@ -1,4 +1,4 @@
-<% if page.redirects_to_external? %>
+<% if page.definition['redirects_to_external'] %>
   <%= link_to(
     h(page.name),
     page.external_urlname,

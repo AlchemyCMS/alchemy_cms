@@ -244,7 +244,7 @@ module Alchemy
 
     # Returns +'active'+ if the given external page is in the current url path or +nil+.
     def external_page_css_class(page)
-      return nil if !page.redirects_to_external?
+      return nil if !page.definition['redirects_to_external']
       request.path.split('/').delete_if(&:blank?).first == page.urlname.gsub(/^\//, '') ? 'active' : nil
     end
 

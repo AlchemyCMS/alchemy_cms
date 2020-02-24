@@ -93,7 +93,7 @@ module Alchemy
       # Set page configuration like page names, meta tags and states.
       def configure
         @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, Language.current.id, @page.layoutpage?)
-        render @page.redirects_to_external? ? 'configure_external' : 'configure'
+        render @page.definition['redirects_to_external'] ? 'configure_external' : 'configure'
       end
 
       # Updates page
@@ -330,7 +330,7 @@ module Alchemy
       end
 
       def redirect_path_after_create_page
-        if @page.redirects_to_external? || !@page.editable_by?(current_alchemy_user)
+        if @page.definition['redirects_to_external'] || !@page.editable_by?(current_alchemy_user)
           admin_pages_path
         else
           params[:redirect_to] || edit_admin_page_path(@page)
