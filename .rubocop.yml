@@ -119,10 +119,6 @@ Lint/HandleExceptions:
   Exclude:
     - 'config/initializers/mini_profiler.rb'
 
-Lint/ShadowedException:
-  Exclude:
-    - 'lib/alchemy/sass_support.rb'
-
 Style/CollectionMethods:
   Enabled: false
 

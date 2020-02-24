@@ -12,7 +12,9 @@ gem 'mysql2', '~> 0.5.1' if ENV['DB'] == 'mysql'
 gem 'pg',     '~> 1.0'   if ENV['DB'] == 'postgresql'
 
 group :development, :test do
-  unless ENV['CI']
+  if ENV['CI']
+    gem 'sprockets', '< 4.0' # Sprockets 4 has serious issues with libsass on Linux machines
+  else
     gem 'launchy'
     gem 'annotate'
     gem 'bumpy'
