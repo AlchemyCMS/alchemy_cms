@@ -602,7 +602,7 @@ module Alchemy
     end
 
     def should_attach_to_menu?
-      menu_id && nodes.none?
+      menu_id.present? && nodes.none?
     end
   end
 end

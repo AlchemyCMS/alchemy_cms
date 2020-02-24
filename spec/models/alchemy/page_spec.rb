@@ -2364,6 +2364,13 @@ module Alchemy
           expect { page.save }.not_to change { page.nodes.count }
         end
       end
+
+      context 'if menu_id is empty' do
+        it 'does not raise error' do
+          page.menu_id = ""
+          expect { page.save }.not_to raise_error
+        end
+      end
     end
 
     describe '#nodes' do
