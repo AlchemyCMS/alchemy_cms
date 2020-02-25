@@ -9,7 +9,7 @@ module Alchemy
     included do
       before_validation :set_urlname,
         if: :renamed?,
-        unless: -> { systempage? || redirects_to_external? || name.blank? }
+        unless: -> { systempage? || definition['redirects_to_external'] || name.blank? }
 
       validates :name,
         presence: true
@@ -17,13 +17,13 @@ module Alchemy
         uniqueness: {scope: [:language_id, :layoutpage], if: -> { urlname.present? }},
         exclusion:  {in: RESERVED_URLNAMES},
         length:     {minimum: 3, if: -> { urlname.present? }},
-        format:     {with: /\A[:\.\w\-+_\/\?&%;=]*\z/, if: :redirects_to_external?}
+        format:     {with: /\A[:\.\w\-+_\/\?&%;=]*\z/, if: -> { definition['redirects_to_external'] }}
       validates :urlname,
         on: :update,
-        presence: {if: :redirects_to_external?}
+        presence: {if: -> { definition['redirects_to_external'] }}
 
       before_save :set_title,
-        unless: -> { systempage? || redirects_to_external? },
+        unless: -> { systempage? || definition['redirects_to_external'] },
         if: -> { title.blank? }
 
       after_update :update_descendants_urlnames,
@@ -31,7 +31,7 @@ module Alchemy
 
       after_move :update_urlname!,
         if: -> { Config.get(:url_nesting) },
-        unless: :redirects_to_external?
+        unless: -> { definition['redirects_to_external'] }
     end
 
     # Returns true if name or urlname has changed.
@@ -86,7 +86,7 @@ module Alchemy
     def update_descendants_urlnames
       reload
       descendants.each do |descendant|
-        next if descendant.redirects_to_external?
+        next if descendant.definition['redirects_to_external']
         descendant.update_urlname!
       end
     end
