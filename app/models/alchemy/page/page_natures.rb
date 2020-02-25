@@ -74,7 +74,7 @@ module Alchemy
 
     # @deprecated Please use a menu node with an url pointing to your controller path instead.
     def controller_and_action
-      if has_controller?
+      if definition['controller']
         {
           controller: definition["controller"].gsub(/(^\b)/, "/#{$1}"),
           action: definition["action"]

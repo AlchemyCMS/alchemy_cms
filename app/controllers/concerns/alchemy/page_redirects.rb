@@ -49,7 +49,7 @@ module Alchemy
     end
 
     def controller_and_action_url
-      return unless @page.has_controller?
+      return unless @page.definition['controller']
 
       main_app.url_for(@page.controller_and_action)
     end

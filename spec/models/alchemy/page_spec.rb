@@ -2211,7 +2211,6 @@ module Alchemy
 
       context 'if the page has a custom controller defined in its definition' do
         before do
-          allow(page).to receive(:has_controller?).and_return(true)
           allow(page).to receive(:definition).and_return({'controller' => 'comments', 'action' => 'index'})
         end
         it "should return a Hash with controller and action key-value pairs" do
