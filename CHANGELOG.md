@@ -1,5 +1,18 @@
 ## 5.0.0 (unreleased)
 
+## 4.4.2 (2020-02-25)
+
+- Do not use deprecated methods [#1737](https://github.com/AlchemyCMS/alchemy_cms/pull/1737) ([tvdeyen](https://github.com/tvdeyen))
+- Order contents by their position in its element [#1733](https://github.com/AlchemyCMS/alchemy_cms/pull/1733) ([tvdeyen](https://github.com/tvdeyen))
+- Eager load relations in elements trash [#1732](https://github.com/AlchemyCMS/alchemy_cms/pull/1732) ([tvdeyen](https://github.com/tvdeyen))
+- Run CI builds with Sprockets 3.7.2 [#1731](https://github.com/AlchemyCMS/alchemy_cms/pull/1731) ([tvdeyen](https://github.com/tvdeyen))
+- Re-organize development dependencies [#1730](https://github.com/AlchemyCMS/alchemy_cms/pull/1730) ([tvdeyen](https://github.com/tvdeyen))
+- Update pr template [#1729](https://github.com/AlchemyCMS/alchemy_cms/pull/1729) ([tvdeyen](https://github.com/tvdeyen))
+- Generate views without _view in the filename [#1728](https://github.com/AlchemyCMS/alchemy_cms/pull/1728) ([tvdeyen](https://github.com/tvdeyen))
+- Fix CI Builds [#1727](https://github.com/AlchemyCMS/alchemy_cms/pull/1727) ([tvdeyen](https://github.com/tvdeyen))
+- Fix page tagging condition: should_attach_to_menu?  [#1725](https://github.com/AlchemyCMS/alchemy_cms/pull/1725) ([mickenorlen](https://github.com/mickenorlen))
+- Fix Alchemy.user_class_name constant conflict [#1724](https://github.com/AlchemyCMS/alchemy_cms/pull/1724) ([mickenorlen](https://github.com/mickenorlen))
+
 ## 4.4.1 (2020-01-08)
 
 - Fix updating page preview after element create/save [#1710](https://github.com/AlchemyCMS/alchemy_cms/pull/1710) ([tvdeyen](https://github.com/tvdeyen))
@@ -607,4 +620,3 @@ No changes
 ## 3.0.0 (2014-07-03)
 
 [Release Notes](https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v3.0.0)
-
