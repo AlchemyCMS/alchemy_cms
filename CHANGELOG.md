@@ -1,5 +1,9 @@
 ## 5.0.0 (unreleased)
 
+## 4.4.3 (2020-02-26)
+
+- Scope nodes to sites [#1738](https://github.com/AlchemyCMS/alchemy_cms/pull/1738) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.4.2 (2020-02-25)
 
 - Do not use deprecated methods [#1737](https://github.com/AlchemyCMS/alchemy_cms/pull/1737) ([tvdeyen](https://github.com/tvdeyen))
