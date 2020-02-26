@@ -7,21 +7,25 @@ module Alchemy
   end
 
   describe 'AuthAccessors' do
-    describe '.user_class' do
+    describe '.user_class_name' do
       before do
         # prevent memoization
-        Alchemy.class_variable_set('@@user_class', nil)
+        Alchemy.user_class_name = 'DummyClassName'
       end
 
       it "raises error if user_class_name is not a String" do
-        Alchemy.user_class_name = MyCustomUser
+        Alchemy.user_class_name = DummyUser
         expect {
-          Alchemy.user_class
+          Alchemy.user_class_name
         }.to raise_error(TypeError)
       end
 
+      it "returns user_class_name with :: prefix" do
+        expect(Alchemy.user_class_name).to eq("::DummyClassName")
+      end
+
       after do
-        Alchemy.user_class_name = 'DummyUser'
+        Alchemy.user_class_name = 'DummyClassName'
       end
     end
 

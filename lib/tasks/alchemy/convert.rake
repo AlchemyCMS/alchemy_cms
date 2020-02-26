@@ -40,7 +40,7 @@ namespace :alchemy do
         end
 
         def name_for_node(page)
-          if page.visible? && page.public? && !page.redirects_to_external?
+          if page.visible? && page.public? && !page.definition['redirects_to_external']
             nil
           else
             page.name
@@ -48,7 +48,7 @@ namespace :alchemy do
         end
 
         def page_for_node(page)
-          if page.visible? && page.public? && !page.redirects_to_external?
+          if page.visible? && page.public? && !page.definition['redirects_to_external']
             page
           elsif Alchemy::Config.get(:redirect_to_public_child) && page.visible? && !page.public? && page.children.published.any?
             page.children.published.first
@@ -64,8 +64,8 @@ namespace :alchemy do
               new_node = node.children.create!(
                 name: name_for_node(page),
                 page: page_for_node(page),
-                url: page.redirects_to_external? ? page.urlname : nil,
-                external: page.redirects_to_external? && Alchemy::Config.get(:open_external_links_in_new_tab),
+                url: page.definition['redirects_to_external'] ? page.urlname : nil,
+                external: page.definition['redirects_to_external'] && Alchemy::Config.get(:open_external_links_in_new_tab),
                 language_id: page.language_id
               )
               print "."

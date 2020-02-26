@@ -9,6 +9,7 @@ module Alchemy
 
       def new
         @node = Node.new(
+          site: Alchemy::Site.current,
           parent_id: params[:parent_id],
           language: Language.current
         )
@@ -28,6 +29,7 @@ module Alchemy
 
       def resource_params
         params.require(:node).permit(
+          :site_id,
           :parent_id,
           :language_id,
           :page_id,

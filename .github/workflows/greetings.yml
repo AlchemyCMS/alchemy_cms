@@ -1,0 +1,13 @@
+name: Greetings
+
+on: [pull_request, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: 'Hey. Thanks for reporting this issue and welcome to AlchemyCMS. The maintainer have been notified. Please be patient while waiting for an answer. Open Source is done by volunteers, so give them some time to react. Meanwhile please think about sending a PR that fixes this issue. It is way more likely that it will be accepted than this bug fixed for you. Remember OpenSource is done by all of us. Again, thanks for reporting.'
+        pr-message: 'Hey. Thanks for sending this PR. It is very much appreciated. Please be patient and give the maintainers some time to review your work. Meanwhile make sure that the PR meets our [contributing guidelines](https://github.com/AlchemyCMS/alchemy_cms/blob/master/CONTRIBUTING.md). This mostly means [great commit messages](https://chris.beams.io/posts/git-commit/) and adding tests. Thanks again for your contribution. Your help makes Alchemy better.'

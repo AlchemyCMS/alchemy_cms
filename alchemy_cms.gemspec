@@ -36,6 +36,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'ransack',                          ['>= 1.8', '< 3.0']
   gem.add_runtime_dependency 'request_store',                    ['~> 1.2']
   gem.add_runtime_dependency 'responders',                       ['>= 2.0', '< 4.0']
+  gem.add_runtime_dependency 'sassc-rails',                      ['~> 2.1']
   gem.add_runtime_dependency 'select2-rails',                    ['>= 3.5.9.1', '< 4.0']
   gem.add_runtime_dependency 'simple_form',                      ['>= 4.0', '< 6']
   gem.add_runtime_dependency 'sprockets',                        ['>= 3.0', '< 5']
@@ -48,6 +49,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rails-controller-testing',     ['~> 1.0']
   gem.add_development_dependency 'rspec-activemodel-mocks',      ['~> 1.0']
   gem.add_development_dependency 'rspec-rails',                  ['>= 4.0.0.beta2']
+  gem.add_development_dependency 'simplecov',                    ['~> 0.17.1']
   gem.add_development_dependency 'webdrivers',                   ['~> 4.0']
   gem.add_development_dependency 'shoulda-matchers',             ['~> 4.0']
 

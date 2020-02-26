@@ -398,6 +398,23 @@ module Alchemy
       end
     end
 
+    describe '#contents' do
+      let(:element) { create(:alchemy_element) }
+      let!(:content1) { create(:alchemy_content, element: element) }
+      let!(:content2) { create(:alchemy_content, element: element) }
+
+      subject { element.contents }
+
+      before do
+        content1.update_column(:position, 2)
+        content2.update_column(:position, 1)
+      end
+
+      it 'are ordered by position' do
+        is_expected.to eq([content2, content1])
+      end
+    end
+
     describe '#content_by_type' do
       before(:each) do
         @element = create(:alchemy_element, name: 'headline')

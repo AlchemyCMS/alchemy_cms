@@ -8,7 +8,7 @@ module Alchemy
       authorize_resource class: false
 
       def index
-        @elements = Element.trashed
+        @elements = Element.trashed.includes(*element_includes)
         @page = Page.find(params[:page_id])
         @allowed_elements = @page.available_element_definitions
       end
@@ -17,6 +17,25 @@ module Alchemy
         @page = Page.find(params[:page_id])
         @elements = Element.trashed
         @elements.map(&:destroy)
+      end
+
+      private
+
+      def element_includes
+        [
+          {
+            contents: {
+              essence: :ingredient_association
+            },
+            all_nested_elements: [
+              {
+                contents: {
+                  essence: :ingredient_association
+                }
+              }
+            ]
+          }
+        ]
       end
     end
   end

@@ -19,6 +19,12 @@ FactoryBot.define do
       name { 'header' }
     end
 
+    trait :trashed do
+      after(:create) do |element|
+        element.update_column(:position, :null)
+      end
+    end
+
     trait :with_nestable_elements do
       name { 'slider' }
     end

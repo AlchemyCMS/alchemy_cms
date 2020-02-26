@@ -143,7 +143,7 @@ module Alchemy
 
     after_update :create_legacy_url,
       if: :should_create_legacy_url?,
-      unless: :redirects_to_external?
+      unless: -> { definition['redirects_to_external'] }
 
     after_update :attach_to_menu!,
       if: :should_attach_to_menu?
@@ -470,7 +470,7 @@ module Alchemy
     def update_node!(node)
       hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted}
 
-      if Config.get(:url_nesting) && !redirects_to_external? && urlname != node.url
+      if Config.get(:url_nesting) && !definition['redirects_to_external'] && urlname != node.url
         LegacyPageUrl.create(page_id: id, urlname: urlname)
         hash[:urlname] = node.url
       end
@@ -594,7 +594,10 @@ module Alchemy
     end
 
     def attach_to_menu!
-      Alchemy::Node.find(menu_id).children.create!(
+      current_site_id = Alchemy::Site.current.id
+      node = Alchemy::Node.find_by!(id: menu_id, site_id: current_site_id)
+      node.children.create!(
+        site_id: current_site_id,
         language_id: language_id,
         page_id: id,
         name: name
@@ -602,7 +605,7 @@ module Alchemy
     end
 
     def should_attach_to_menu?
-      menu_id && nodes.none?
+      menu_id.present? && nodes.none?
     end
   end
 end

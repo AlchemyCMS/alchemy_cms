@@ -9,51 +9,44 @@ module Alchemy
 
       render_views
 
-      let(:alchemy_page) { create(:alchemy_page, :public) }
-      let(:element) { create(:alchemy_element, public: false, page: alchemy_page) }
+      let(:page) { create(:alchemy_page, :public) }
+      let!(:trashed) { create(:alchemy_element, :trashed, page: page) }
+      let!(:element) { create(:alchemy_element, page: page) }
 
-      before {
+      before do
         authorize_user(:as_admin)
-        element.trash!
-      }
-
-      it "should hold trashed elements" do
-        get :index, params: {page_id: alchemy_page.id}
-        expect(response.body).to have_selector("[data-element-id=\"#{element.id}\"].element-editor")
       end
 
-      it "should not hold elements that are not trashed" do
-        element = create(:alchemy_element, page: alchemy_page, public: false)
-        get :index, params: {page_id: alchemy_page.id}
+      it "lists trashed elements" do
+        get :index, params: {page_id: page.id}
+        expect(response.body).to have_selector("[data-element-id=\"#{trashed.id}\"].element-editor")
+      end
+
+      it "does not list elements that are not trashed" do
+        get :index, params: {page_id: page.id}
         expect(response.body).not_to have_selector("[data-element-id=\"#{element.id}\"].element-editor")
       end
 
       context "with unique elements inside the trash" do
-        let(:trashed) { build_stubbed(:alchemy_element, :unique, position: nil, public: false, folded: true, page: alchemy_page) }
-        before { allow(Element).to receive(:trashed).and_return([trashed]) }
+        let!(:unique_trashed) { create(:alchemy_element, :trashed, :unique, page: page) }
 
         context "and no unique elements on the page" do
-          before do
-            allow(alchemy_page).to receive(:elements).and_return double(not_trashed: double(pluck: []))
+          let!(:not_unique) do
+            create(:alchemy_element, page: page)
           end
 
           it "unique elements should be draggable" do
-            get :index, params: {page_id: alchemy_page.id}
-            expect(response.body).to have_selector("[data-element-id=\"#{trashed.id}\"].element-editor.draggable")
+            get :index, params: {page_id: page.id}
+            expect(response.body).to have_selector("[data-element-id=\"#{unique_trashed.id}\"].element-editor.draggable")
           end
         end
 
         context "and with an unique element on the page" do
-          let!(:page) { create(:alchemy_page, :public) }
           let!(:unique) { create(:alchemy_element, :unique, page: page) }
-
-          before do
-            allow(Page).to receive(:find).and_return(page)
-          end
 
           it "unique elements should not be draggable" do
             get :index, params: {page_id: page.id}
-            expect(response.body).to have_selector("[data-element-id=\"#{trashed.id}\"].element-editor.not-draggable")
+            expect(response.body).to have_selector("[data-element-id=\"#{unique_trashed.id}\"].element-editor.not-draggable")
           end
         end
       end
@@ -61,7 +54,7 @@ module Alchemy
       describe "#clear" do
         it "should destroy all containing elements" do
           expect(Element.trashed).not_to be_empty
-          post :clear, params: {page_id: alchemy_page.id}, xhr: true
+          post :clear, params: {page_id: page.id}, xhr: true
           expect(Element.trashed).to be_empty
         end
       end

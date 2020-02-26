@@ -1835,10 +1835,6 @@ module Alchemy
         end
 
         context "when page is not external" do
-          before do
-            expect(page).to receive(:redirects_to_external?).and_return(false)
-          end
-
           it "should update all attributes" do
             page.update_node!(node)
             page.reload
@@ -1870,10 +1866,15 @@ module Alchemy
         end
 
         context "when page is external" do
-          before do
-            expect(page)
-              .to receive(:redirects_to_external?)
-              .and_return(true)
+          let(:page) do
+            create(
+              :alchemy_page,
+              language: language,
+              parent_id: language_root.id,
+              urlname: original_url,
+              restricted: false,
+              page_layout: 'external'
+            )
           end
 
           it "should update all attributes except url" do
@@ -1901,10 +1902,6 @@ module Alchemy
         end
 
         context "when page is not external" do
-          before do
-            allow(page).to receive(:redirects_to_external?).and_return(false)
-          end
-
           it "should update all attributes except url" do
             page.update_node!(node)
             page.reload
@@ -1924,8 +1921,15 @@ module Alchemy
         end
 
         context "when page is external" do
-          before do
-            allow(page).to receive(:redirects_to_external?).and_return(true)
+          let(:page) do
+            create(
+              :alchemy_page,
+              language: language,
+              parent_id: language_root.id,
+              urlname: original_url,
+              restricted: false,
+              page_layout: 'external'
+            )
           end
 
           it "should update all attributes except url" do
@@ -2207,7 +2211,6 @@ module Alchemy
 
       context 'if the page has a custom controller defined in its definition' do
         before do
-          allow(page).to receive(:has_controller?).and_return(true)
           allow(page).to receive(:definition).and_return({'controller' => 'comments', 'action' => 'index'})
         end
         it "should return a Hash with controller and action key-value pairs" do
@@ -2362,6 +2365,13 @@ module Alchemy
       context 'if menu_id is not set' do
         it 'does not attach to menu' do
           expect { page.save }.not_to change { page.nodes.count }
+        end
+      end
+
+      context 'if menu_id is empty' do
+        it 'does not raise error' do
+          page.menu_id = ""
+          expect { page.save }.not_to raise_error
         end
       end
     end
