@@ -6,6 +6,7 @@ require 'alchemy/test_support/factories/page_factory'
 
 FactoryBot.define do
   factory :alchemy_node, class: 'Alchemy::Node' do
+    site { Alchemy::Site.default }
     language { Alchemy::Language.default }
     name { 'A Node' }
 
