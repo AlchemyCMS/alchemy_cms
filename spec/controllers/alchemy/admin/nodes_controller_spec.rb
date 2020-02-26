@@ -43,7 +43,7 @@ module Alchemy
 
         it "creates node and redirects to index" do
           expect {
-            post :create, params: { node: { name: 'Node', language_id: language.id } }
+            post :create, params: { node: { name: 'Node', language_id: language.id, site_id: language.site_id } }
           }.to change { Alchemy::Node.count }.by(1)
           expect(response).to redirect_to(admin_nodes_path)
         end
