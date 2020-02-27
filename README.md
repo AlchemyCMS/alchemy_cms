@@ -18,7 +18,7 @@ Alchemy is an open source CMS engine written in Ruby on Rails.
 
 Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [guidelines](https://guides.alchemy-cms.com).
 
-**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (4.2-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/4.2-stable).**
+**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (4.4-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/4.4-stable).**
 
 
 ## ✅ Features
@@ -78,23 +78,37 @@ For a Ruby 1.8.7 compatible version use the [`2.3-stable` branch](https://github
 
 ## ⌨️ Installation
 
-#### 1. Add the Alchemy gem:
+### Stand Alone Installation
 
-Put this into your `Gemfile`:
+If you do not have a Rails project yet or just want to check out Alchemy, then use this Rails template.
 
-```ruby
-gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
+Make sure you have Rails installed first:
+
+```
+$ gem install rails
 ```
 
-**NOTE:** You normally want to use a stable branch, like `4.1-stable`.
+Then create a new Rails project with:
 
-#### 2. Update your bundle:
-
-```bash
-$ bundle install
+```
+$ rails new -m https://raw.githubusercontent.com/AlchemyCMS/rails-templates/master/all.rb <MY-PROJECT-NAME>
 ```
 
-#### 3. Set the authentication user
+and follow the on screen instructions.
+
+### Manual Installation
+
+If you want to manually install Alchemy into your Rails project follow these steps.
+
+#### Add the Alchemy gem:
+
+Put Alchemy into your `Gemfile` with:
+
+```
+$ bundle add alchemy_cms
+```
+
+#### Set the authentication user
 
 Now you have to decide, if you want to use your own user model or if you want to use
 the Devise based user model that Alchemy provides and was extracted [into its own gem](https://github.com/AlchemyCMS/alchemy-devise).
@@ -103,17 +117,14 @@ the Devise based user model that Alchemy provides and was extracted [into its ow
 
 If you don't have your own user class, you can use the Alchemy user model. Just add the following gem into your `Gemfile`:
 
-```ruby
-gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: 'master'
+```
+$ bundle add alchemy-devise
 ```
 
-**NOTE:** You normally want to use a stable branch, like `4.1-stable`.
-
-Then run:
+Then run the `alchemy-devise` installer:
 
 ```bash
-$ bundle install
-$ bin/rake alchemy_devise:install:migrations
+$ bin/rails g alchemy_devise:install
 ```
 
 ##### Use your User model
@@ -172,7 +183,7 @@ Alchemy has very flexible ways to organize and manage content. Please be sure to
 
 ### Custom Controllers
 
-Beginning with Alchemy 3.1 we do not patch the `ApplicationController` anymore. If you have controllers that loads Alchemy content or uses Alchemy helpers in the views (i.e. `render_navigation` or `render_elements`) you can either inherit from `Alchemy::BaseController` or you `include Alchemy::ControllerActions` in your controller (**that's the recommended way**).
+Beginning with Alchemy 3.1 we do not patch the `ApplicationController` anymore. If you have controllers that loads Alchemy content or uses Alchemy helpers in the views (i.e. `render_menu` or `render_elements`) you can either inherit from `Alchemy::BaseController` or you `include Alchemy::ControllerActions` in your controller (**that's the recommended way**).
 
 ### Custom admin interface routing
 

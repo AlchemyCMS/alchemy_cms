@@ -55,27 +55,6 @@ module Alchemy
           is_expected.to match(/2\./)
         end
       end
-
-      context 'with 4 arguments given' do
-        subject { render_element(element, :view, {locals: {some: 'thing'}}, 2) }
-
-        it 'passes options into the view' do
-          Alchemy::Deprecation.silence do
-            is_expected.to match(/thing/)
-          end
-        end
-
-        it 'passes counter into the view' do
-          Alchemy::Deprecation.silence do
-            is_expected.to match(/2\./)
-          end
-        end
-
-        it 'warns about removal of second parameter' do
-          expect(Alchemy::Deprecation).to receive(:warn)
-          subject
-        end
-      end
     end
 
     describe '#element_dom_id' do
@@ -125,28 +104,6 @@ module Alchemy
           end
 
           it { is_expected.to be_empty }
-        end
-      end
-
-      context 'with sort_by option given' do
-        let(:options) do
-          { sort_by: :name }
-        end
-
-        it 'warns about removal of sort_by option' do
-          expect(Alchemy::Deprecation).to receive(:warn)
-          subject
-        end
-      end
-
-      context 'with from_cell option given' do
-        let(:options) do
-          { from_cell: :header }
-        end
-
-        it 'warns about removal of from_cell option' do
-          expect(Alchemy::Deprecation).to receive(:warn)
-          subject
         end
       end
 

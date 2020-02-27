@@ -16,7 +16,6 @@ require 'webdrivers/chromedriver'
 require 'shoulda-matchers'
 
 require 'alchemy/seeder'
-require 'alchemy/test_support/controller_requests'
 require 'alchemy/test_support/config_stubbing'
 require 'alchemy/test_support/essence_shared_examples'
 require 'alchemy/test_support/integration_helpers'
@@ -34,7 +33,7 @@ ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true
 ActionMailer::Base.default_url_options[:host] = "test.com"
 
-Alchemy::Deprecation.silenced = true
+Alchemy::Deprecation.silenced = false
 
 Rails.backtrace_cleaner.remove_silencers!
 # Disable rails loggin for faster IO. Remove this if you want to have a test.log

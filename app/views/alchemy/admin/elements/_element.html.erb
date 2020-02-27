@@ -1,7 +1,7 @@
 <%= content_tag :div,
   id: "element_#{element.id}",
   data: {'element-id' => element.id, 'element-name' => element.name},
-  class: element_editor_classes(element) do %>
+  class: element.css_classes do %>
 
   <% unless element.fixed? %>
     <%= render 'alchemy/admin/elements/element_header', element: element %>
@@ -18,24 +18,14 @@
       <%= render_message(:warning, sanitize(warning)) if warning %>
     <% end %>
 
-    <% if element_editable?(element) %>
+    <% if element.editable? %>
       <%= form_for [alchemy, :admin, element], remote: true,
         html: {id: "element_#{element.id}_form".html_safe, class: 'element-content'} do |f| %>
 
         <div id="element_<%= element.id %>_errors" class="element_errors"></div>
 
         <div id="element_<%= element.id %>_content" class="element-content-editors">
-          <% if lookup_context.exists?("#{element.name}_editor", ["alchemy/elements"], true) %>
-            <%= render_editor(element) %>
-          <% else %>
-            <%= element_editor_for(element) do %>
-              <% element.contents.each do |content| %>
-                <%= render "alchemy/essences/#{content.essence_partial_name}_editor", {
-                  content: content
-                } %>
-              <% end %>
-            <% end %>
-          <% end %>
+          <%= render element.contents.map { |content| Alchemy::ContentEditor.new(content) } %>
         </div>
 
         <% if element.taggable? %>
@@ -53,11 +43,12 @@
   <% if element.nestable_elements.any? %>
     <div class="nestable-elements">
       <%= content_tag :div,
-            class: "nested-elements", data: {
-              'droppable-elements' => element.nestable_elements.join(' ')
-            } do %>
-        <%= render partial: 'alchemy/admin/elements/element',
-           collection: element.all_nested_elements %>
+        class: "nested-elements", data: {
+          'droppable-elements' => element.nestable_elements.join(' ')
+        } do %>
+        <%= render element.all_nested_elements.map { |element|
+          Alchemy::ElementEditor.new(element)
+        } %>
       <% end %>
 
       <% if element.expanded? || element.fixed? %>

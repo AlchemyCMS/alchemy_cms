@@ -1,1 +1,0 @@
-../../../../db/migrate/20191029212236_create_alchemy_nodes.rb

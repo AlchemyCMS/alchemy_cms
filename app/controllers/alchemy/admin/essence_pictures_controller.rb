@@ -19,10 +19,8 @@ module Alchemy
       def crop
         if @picture = @essence_picture.picture
           @content = @essence_picture.content
-          options_from_params[:format] ||= (configuration(:image_store_format) || 'png')
-
           @min_size = sizes_from_essence_or_params
-          @ratio = ratio_from_size_or_params
+          @ratio = ratio_from_size_or_settings
           infer_width_or_height_from_ratio
 
           @default_box = @essence_picture.default_mask(@min_size)
@@ -70,24 +68,24 @@ module Alchemy
 
       # Gets the minimum size of the image to be rendered.
       #
-      # The +render_size+ attribute has preference over the +size+ parameter.
+      # The +render_size+ attribute has preference over the contents +size+ setting.
       #
       def sizes_from_essence_or_params
         if @essence_picture.render_size?
           @essence_picture.sizes_from_string(@essence_picture.render_size)
-        elsif options_from_params[:size]
-          @essence_picture.sizes_from_string(options_from_params[:size])
+        elsif @essence_picture.content.settings[:size]
+          @essence_picture.sizes_from_string(@essence_picture.content.settings[:size])
         else
           { width: 0, height: 0 }
         end
       end
 
-      # Infers the aspect ratio from size or parameters. If you don't want a fixed
+      # Infers the aspect ratio from size or contents settings. If you don't want a fixed
       # aspect ratio, don't specify a size or only width or height.
       #
-      def ratio_from_size_or_params
-        if @min_size.value?(0) && options_from_params[:fixed_ratio].to_s =~ FLOAT_REGEX
-          options_from_params[:fixed_ratio].to_f
+      def ratio_from_size_or_settings
+        if @min_size.value?(0) && @essence_picture.content.settings[:fixed_ratio].to_s =~ FLOAT_REGEX
+          @essence_picture.content.settings[:fixed_ratio].to_f
         elsif !@min_size[:width].zero? && !@min_size[:height].zero?
           @min_size[:width].to_f / @min_size[:height].to_f
         else

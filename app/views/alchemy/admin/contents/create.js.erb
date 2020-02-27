@@ -1,6 +1,4 @@
-var editor_html = '<%= j(render "alchemy/essences/#{@content.essence_partial_name}_editor", {
-  content: @content, options: options_from_params, html_options: @html_options
-}) %>';
+var editor_html = '<%= j render(Alchemy::ContentEditor.new(@content)) %>';
 
 $("[data-element-<%= @content.element_id %>-missing-content=\"<%= @content.name %>\"]").replaceWith(editor_html);
 

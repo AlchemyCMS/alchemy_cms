@@ -6,7 +6,6 @@ module Alchemy
   # The most important helper for frontend developers is the {#render_elements} helper.
   #
   module ElementsHelper
-    include Alchemy::EssencesHelper
     include Alchemy::UrlHelper
     include Alchemy::ElementsBlockHelper
 
@@ -95,16 +94,6 @@ module Alchemy
         render_format: 'html'
       }.update(options)
 
-      if options[:sort_by]
-        Alchemy::Deprecation.warn "options[:sort_by] has been removed without replacement. " \
-          "Please implement your own element sorting by passing a custom finder instance to options[:finder]."
-      end
-
-      if options[:from_cell]
-        Alchemy::Deprecation.warn "options[:from_cell] has been removed without replacement. " \
-          "Please `render element.nested_elements` instead."
-      end
-
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
       elements = finder.elements(page: options[:from_page])
 
@@ -159,18 +148,7 @@ module Alchemy
     # @note If the view partial is not found
     #   <tt>alchemy/elements/_view_not_found.html.erb</tt> gets rendered.
     #
-    def render_element(*args)
-      if args.length == 4
-        element, _part, options, counter = *args
-        Alchemy::Deprecation.warn "passing a `part` parameter as second argument to `render_element` has been removed without replacement. " \
-          "You can safely remove it."
-      else
-        element, options, counter = *args
-      end
-
-      options ||= {}
-      counter ||= 1
-
+    def render_element(element, options = {}, counter = 1)
       if element.nil?
         warning('Element is nil')
         render "alchemy/elements/view_not_found", {name: 'nil'}
@@ -249,23 +227,6 @@ module Alchemy
 
       return {} if !element.taggable? || element.tag_list.blank?
       { 'data-element-tags' => options[:formatter].call(element.tag_list) }
-    end
-
-    # Sort given elements by content.
-    # @deprecated
-    # @param [Array] elements - The elements you want to sort
-    # @param [String] content_name - The name of the content you want to sort by
-    # @param [Boolean] reverse - Reverse the sorted elements order
-    #
-    # @return [Array]
-    def sort_elements_by_content(elements, content_name, reverse = false)
-      Alchemy::Deprecation.warn "options[:sort_by] is deprecated. Please implement your own element sorting."
-      sorted_elements = elements.sort_by do |element|
-        content = element.content_by_name(content_name)
-        content ? content.ingredient.to_s : ''
-      end
-
-      reverse ? sorted_elements.reverse : sorted_elements
     end
   end
 end

@@ -139,11 +139,6 @@ module Alchemy
 
         super(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
-      alias_method :new_from_scratch, :new
-      deprecate new_from_scratch: :new, deprecator: Alchemy::Deprecation
-
-      alias_method :create_from_scratch, :create
-      deprecate create_from_scratch: :create, deprecator: Alchemy::Deprecation
 
       # This methods does a copy of source and all depending contents and all of their depending essences.
       #
@@ -261,17 +256,7 @@ module Alchemy
     # Element partials live in +app/views/alchemy/elements+
     #
     def to_partial_path
-      if Alchemy::LOOKUP_CONTEXT.exists?("#{name}_view", ["elements"], true)
-        Alchemy::Deprecation.warn <<~WARN
-          Having the `_view` suffix on your element view partials is deprecated
-          and will not be supported in Alchemy 5.0 anymore. You can safely remove the suffix now.
-
-          Please also rename the local `element` or `#{name}_view` variable into `#{name}`.
-        WARN
-        "alchemy/elements/#{name}_view"
-      else
-        "alchemy/elements/#{name}"
-      end
+      "alchemy/elements/#{name}"
     end
 
     # Returns the key that's taken for cache path.

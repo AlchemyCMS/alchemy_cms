@@ -1,7 +1,7 @@
 (function() {
   var $el;
   var $element_area;
-  var element_html = '<%= j render("element", element: @element, draggable: true) %>';
+  var element_html = '<%= j render(Alchemy::ElementEditor.new(@element)) %>';
 
 <%- if @cut_element_id -%>
   $('.element-editor[data-element-id="<%= @cut_element_id %>"]').remove();

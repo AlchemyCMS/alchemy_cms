@@ -142,8 +142,7 @@ module Alchemy
       unless: :systempage?
 
     after_update :create_legacy_url,
-      if: :should_create_legacy_url?,
-      unless: -> { definition['redirects_to_external'] }
+      if: :should_create_legacy_url?
 
     after_update :attach_to_menu!,
       if: :should_attach_to_menu?
@@ -336,13 +335,7 @@ module Alchemy
     #   Use this for your custom element loading logic.
     #
     # @return [ActiveRecord::Relation]
-    def find_elements(options = {}, show_non_public = false)
-      if show_non_public
-        Alchemy::Deprecation.warn "Passing true as second argument to page#find_elements to include" \
-          " invisible elements has been removed. Please implement your own ElementsFinder" \
-          " and pass it with options[:finder]."
-      end
-
+    def find_elements(options = {})
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
       finder.elements(page: self)
     end
@@ -462,7 +455,7 @@ module Alchemy
     # Updates an Alchemy::Page based on a new ordering to be applied to it
     #
     # Note: Page's urls should not be updated (and a legacy URL created) if nesting is OFF
-    # or if a page is external or if the URL is the same
+    # or if the URL is the same
     #
     # @param [TreeNode]
     #   A tree node with new lft, rgt, depth, url, parent_id and restricted indexes to be updated
@@ -470,7 +463,7 @@ module Alchemy
     def update_node!(node)
       hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted}
 
-      if Config.get(:url_nesting) && !definition['redirects_to_external'] && urlname != node.url
+      if Config.get(:url_nesting) && urlname != node.url
         LegacyPageUrl.create(page_id: id, urlname: urlname)
         hash[:urlname] = node.url
       end

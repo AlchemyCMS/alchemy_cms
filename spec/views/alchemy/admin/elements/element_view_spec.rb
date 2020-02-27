@@ -14,12 +14,16 @@ describe 'alchemy/admin/elements/_element' do
     }.with_indifferent_access
   end
 
+  subject do
+    render Alchemy::ElementEditor.new(element)
+    rendered
+  end
+
   context 'with message given in element definition' do
     let(:element) { create(:alchemy_element, name: 'with_message') }
 
     it "renders the message" do
-      render 'alchemy/admin/elements/element', element: element
-      expect(rendered).to have_css('.message:contains("One nice message")')
+      is_expected.to have_css('.message:contains("One nice message")')
     end
 
     context 'that contains HTML' do
@@ -31,8 +35,7 @@ describe 'alchemy/admin/elements/_element' do
       end
 
       it "renders the HTML message" do
-        render 'alchemy/admin/elements/element', element: element
-        expect(rendered).to have_css('.message h1:contains("One nice message")')
+        is_expected.to have_css('.message h1:contains("One nice message")')
       end
     end
   end
@@ -48,8 +51,7 @@ describe 'alchemy/admin/elements/_element' do
     end
 
     it "renders the warning" do
-      render 'alchemy/admin/elements/element', element: element
-      expect(rendered).to have_css('.warning:contains("One nice warning")')
+      is_expected.to have_css('.warning:contains("One nice warning")')
     end
 
     context 'that contains HTML' do
@@ -61,8 +63,7 @@ describe 'alchemy/admin/elements/_element' do
       end
 
       it "renders the HTML warning" do
-        render 'alchemy/admin/elements/element', element: element
-        expect(rendered).to have_css('.warning h1:contains("One nice warning")')
+        is_expected.to have_css('.warning h1:contains("One nice warning")')
       end
     end
   end

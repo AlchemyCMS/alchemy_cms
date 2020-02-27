@@ -7,7 +7,9 @@ describe Alchemy::Admin::ContentsHelper do
   let(:content) { mock_model('Content', essence_partial_name: 'essence_text') }
 
   describe 'content_label' do
-    let(:content) { build_stubbed(:alchemy_content, element: element) }
+    let(:content) do
+      Alchemy::ContentEditor.new(build_stubbed(:alchemy_content, element: element))
+    end
 
     subject { helper.content_label(content) }
 

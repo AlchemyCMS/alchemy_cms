@@ -9,8 +9,7 @@ module Alchemy
       before_action { enforce_ssl if ssl_required? && !request.ssl? }
       before_action :load_locked_pages
 
-      helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?,
-        :options_from_params
+      helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
 
       check_authorization
 
@@ -109,13 +108,6 @@ module Alchemy
         end
       end
 
-      def per_page_value_for_screen_size
-        Alchemy::Deprecation.warn("#per_page_value_for_screen_size is deprecated, please use #items_per_page instead")
-        return items_per_page if session[:screen_size].blank?
-        screen_height = session[:screen_size].split('x').last.to_i
-        (screen_height / 50) - 12
-      end
-
       # Does redirects for html and js requests
       #
       def do_redirect_to(url_or_path)
@@ -127,18 +119,6 @@ module Alchemy
           format.html { redirect_to url_or_path }
         end
       end
-
-      # Extracts options from params and permits all keys
-      #
-      # If no options are present it returns an empty parameters hash.
-      #
-      # @returns [ActionController::Parameters]
-      def options_from_params
-        @_options_from_params ||= begin
-          (params[:options] || ActionController::Parameters.new).permit!
-        end
-      end
-      deprecate :options_from_params, deprecator: Alchemy::Deprecation
 
       # This method decides if we want to raise an exception or not.
       #

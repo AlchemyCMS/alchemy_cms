@@ -90,11 +90,11 @@ module Alchemy
     # image displayed in the frontend.
     #
     # @return [String]
-    def thumbnail_url(options = {})
+    def thumbnail_url
       return if picture.nil?
 
-      crop = crop_values_present? || content.settings_value(:crop, options)
-      size = render_size || content.settings_value(:size, options)
+      crop = crop_values_present? || content.settings[:crop]
+      size = render_size || content.settings[:size]
 
       options = {
         size: thumbnail_size(size, crop),
@@ -137,12 +137,12 @@ module Alchemy
       picture_url(content.settings)
     end
 
-    # Show image cropping link for content and options?
-    def allow_image_cropping?(options = {})
-      content && content.settings_value(:crop, options) && picture &&
+    # Show image cropping link for content
+    def allow_image_cropping?
+      content && content.settings[:crop] && picture &&
         picture.can_be_cropped_to(
-          content.settings_value(:size, options),
-          content.settings_value(:upsample, options)
+          content.settings[:size],
+          content.settings[:upsample]
         )
     end
 

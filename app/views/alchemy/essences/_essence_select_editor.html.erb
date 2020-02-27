@@ -1,32 +1,29 @@
-<% select_values = content.settings_value(:select_values, local_assigns.fetch(:options, {})) %>
-<% inline = content.settings_value(:display_inline, local_assigns.fetch(:options, {})) %>
-<% html_options = local_assigns.fetch(:html_options, {}) %>
+<% select_values = essence_select_editor.settings[:select_values] %>
 
 <%= content_tag :div,
-  id: content.dom_id,
+  id: essence_select_editor.dom_id,
   class: [
     "content_editor",
     "essence_select",
-    inline ? 'display_inline' : nil
-  ].compact, data: {content_id: content.id} do %>
-  <%= content_label(content) %>
+    essence_select_editor.settings[:display_inline] ? 'display_inline' : nil
+  ].compact, data: {content_id: essence_select_editor.id} do %>
+  <%= content_label(essence_select_editor) %>
 
   <% if select_values.nil? %>
     <%= warning(':select_values is nil',
     "<strong>No select values given.</strong>
-    <br>Please provide :<code>select_values</code> either as argument to
-    <code>render_essence_editor</code> helper or as setting on the content definition in
+    <br>Please provide <code>select_values</code> on the
+    content definition <code>settings</code> in
     <code>elements.yml</code>.") %>
   <% else %>
     <%
     if select_values.is_a?(Hash)
-      options_tags = grouped_options_for_select(select_values, content.ingredient)
+      options_tags = grouped_options_for_select(select_values, essence_select_editor.ingredient)
     else
-      options_tags = options_for_select(select_values, content.ingredient)
+      options_tags = options_for_select(select_values, essence_select_editor.ingredient)
     end %>
-    <%= select_tag content.form_field_name, options_tags, {
-      class: ["alchemy_selectbox", "essence_editor_select", html_options[:class]].compact,
-      style: html_options[:style]
+    <%= select_tag essence_select_editor.form_field_name, options_tags, {
+      class: ["alchemy_selectbox", "essence_editor_select"]
     } %>
   <% end %>
 <% end %>

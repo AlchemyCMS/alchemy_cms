@@ -216,7 +216,7 @@ module Alchemy #:nodoc:
         end
       end
 
-      # Returns the value stored from the database column that is configured as ingredient column.
+      # Sets the value stored in the database column that is configured as ingredient column.
       def ingredient=(value)
         if respond_to?(ingredient_setter_method)
           send(ingredient_setter_method, value)

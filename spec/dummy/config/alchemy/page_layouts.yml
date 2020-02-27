@@ -38,10 +38,6 @@
   elements: [headline, text, contactform]
   autogenerate: [headline, text, contactform]
 
-- name: external
-  unique: false
-  redirects_to_external: true
-
 - name: footer
   layoutpage: true
 

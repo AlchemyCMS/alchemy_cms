@@ -50,6 +50,10 @@ module Alchemy
         template "#{__dir__}/templates/dragonfly.rb.tt", "config/initializers/dragonfly.rb"
       end
 
+      def install_gutentag_migrations
+        rake 'gutentag:install:migrations'
+      end
+
       private
 
       def config_path
