@@ -33,7 +33,11 @@
       <%= render_message do %>
         <%= Alchemy.t(:no_resource_found) % { resource: Alchemy.t(:menu) } %>
       <% end %>
-      <%= render 'form', node: Alchemy::Node.new(language: Alchemy::Language.current), button_label: Alchemy.t(:create) %>
+      <%= render 'form', node: Alchemy::Node.new(
+          site: Alchemy::Site.current,
+          language: Alchemy::Language.current
+        ),
+        button_label: Alchemy.t(:create) %>
     </div>
   <% end %>
 </div>
