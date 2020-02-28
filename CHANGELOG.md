@@ -1,5 +1,9 @@
 ## 5.0.0 (unreleased)
 
+## 4.4.4 (2020-02-28)
+
+- Fix new menu form [#1740](https://github.com/AlchemyCMS/alchemy_cms/pull/1740) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.4.3 (2020-02-26)
 
 - Scope nodes to sites [#1738](https://github.com/AlchemyCMS/alchemy_cms/pull/1738) ([tvdeyen](https://github.com/tvdeyen))
