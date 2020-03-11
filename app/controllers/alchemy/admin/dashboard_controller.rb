@@ -60,7 +60,7 @@ module Alchemy
           response = query_github
           if response.code == "200"
             alchemy_tags = JSON.parse(response.body)
-            alchemy_tags.collect { |h| h['name'] }.sort
+            alchemy_tags.collect { |h| h['name'].tr('v', '') }.sort
           else
             # no luck at all?
             raise UpdateServiceUnavailable
