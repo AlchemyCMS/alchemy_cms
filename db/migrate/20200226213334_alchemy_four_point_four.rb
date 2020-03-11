@@ -328,27 +328,27 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
       end
     end
 
-    unless foreign_key_exists?("alchemy_contents", "element_id")
+    unless foreign_key_exists?("alchemy_contents", column: "element_id")
       add_foreign_key "alchemy_contents", "alchemy_elements", column: "element_id", on_update: :cascade, on_delete: :cascade
     end
 
-    unless foreign_key_exists?("alchemy_elements", "page_id")
+    unless foreign_key_exists?("alchemy_elements", column: "page_id")
       add_foreign_key "alchemy_elements", "alchemy_pages", column: "page_id", on_update: :cascade, on_delete: :cascade
     end
 
-    unless foreign_key_exists?("alchemy_essence_pages", "page_id")
+    unless foreign_key_exists?("alchemy_essence_pages", column: "page_id")
       add_foreign_key "alchemy_essence_pages", "alchemy_pages", column: "page_id"
     end
 
-    unless foreign_key_exists?("alchemy_nodes", "language_id")
+    unless foreign_key_exists?("alchemy_nodes", column: "language_id")
       add_foreign_key "alchemy_nodes", "alchemy_languages", column: "language_id"
     end
 
-    unless foreign_key_exists?("alchemy_nodes", "page_id")
+    unless foreign_key_exists?("alchemy_nodes", column: "page_id")
       add_foreign_key "alchemy_nodes", "alchemy_pages", column: "page_id", on_delete: :cascade
     end
 
-    unless foreign_key_exists?("alchemy_nodes", "site_id")
+    unless foreign_key_exists?("alchemy_nodes", column: "site_id")
       add_foreign_key "alchemy_nodes", "alchemy_sites", column: "site_id", on_delete: :cascade
     end
   end
