@@ -79,71 +79,71 @@ module Alchemy
     end
 
     describe '#update_check' do
-      context "if current Alchemy version equals the latest released version or it is newer" do
-        before {
-          allow(controller).to receive(:latest_alchemy_version).and_return('2.6')
-          allow(Alchemy).to receive(:version).and_return("2.6")
-        }
+      before do
+        WebMock.enable!
+      end
 
-        it "should render 'false'" do
+      context "requesting rubygems.org" do
+        before do
+          stub_request(:get, 'https://rubygems.org/api/v1/versions/alchemy_cms.json').to_return(
+            status: 200, body: '[{"number": "3.0.0.alpha"}, {"number": "2.6.0"}, {"number": "2.5.1"}]'
+          )
+        end
+
+        context "if current Alchemy version equals the latest released version or it is newer" do
+          before do
+            allow(Alchemy).to receive(:version).and_return("2.6.2")
+          end
+
+          it "should render 'false'" do
+            get :update_check
+            expect(response.code).to eq('200')
+            expect(response.body).to eq('false')
+          end
+        end
+
+        context "if current Alchemy version is older than latest released version" do
+          before do
+            allow(Alchemy).to receive(:version).and_return("2.5.0")
+          end
+
+          it "should render 'true'" do
+            get :update_check
+            expect(response.code).to eq('200')
+            expect(response.body).to eq('true')
+          end
+        end
+      end
+
+      context "if rubygems.org is unavailable" do
+        before do
+          stub_request(:get, 'https://rubygems.org/api/v1/versions/alchemy_cms.json').to_return(status: 503)
+          stub_request(:get, 'https://api.github.com/repos/AlchemyCMS/alchemy_cms/tags').to_return(
+            status: 200, body: '[{"name": "v2.6.0"}, {"name": "v2.5.0"}]'
+          )
+          allow(Alchemy).to receive(:version).and_return("2.6.2")
+        end
+
+        it "should request github.com" do
           get :update_check
+          expect(response.code).to eq('200')
           expect(response.body).to eq('false')
         end
       end
 
-      context "if current Alchemy version is older than latest released version" do
-        before do
-          allow_any_instance_of(Net::HTTP).to receive(:request) do
-            OpenStruct.new({code: '200', body: '[{"number": "2.6"}, {"number": "2.5"}]'})
-          end
-          allow(Alchemy).to receive(:version).and_return("2.5")
-        end
-
-        it "should render 'true'" do
-          get :update_check
-          expect(response.body).to eq('true')
-        end
-      end
-
-      context "requesting rubygems.org" do
-        before {
-          allow_any_instance_of(Net::HTTP).to receive(:request).and_return(
-            OpenStruct.new({code: '200', body: '[{"number": "2.6"}, {"number": "2.5"}]'})
-          )
-          allow(Alchemy).to receive(:version).and_return("2.6")
-        }
-
-        it "should have response code of 200" do
-          get :update_check
-          expect(response.code).to eq('200')
-        end
-      end
-
-      context "requesting github.com" do
-        before {
-          allow(controller).to receive(:query_rubygems).and_return(OpenStruct.new({code: '503'}))
-          allow_any_instance_of(Net::HTTP).to receive(:request).and_return(
-            OpenStruct.new({code: '200', body: '[{"name": "2.6"}, {"name": "2.5"}]'})
-          )
-        }
-
-        it "should have response code of 200" do
-          get :update_check
-          expect(response.code).to eq('200')
-        end
-      end
-
       context "rubygems.org and github.com are unavailable" do
-        before {
-          allow_any_instance_of(Net::HTTP).to receive(:request).and_return(
-            OpenStruct.new({code: '503'})
-          )
-        }
+        before do
+          stub_request(:get, /rubygems|github/).to_return(status: 503)
+        end
 
         it "should have status code 503" do
           get :update_check
           expect(response.code).to eq('503')
         end
+      end
+
+      after do
+        WebMock.disable!
       end
     end
   end
