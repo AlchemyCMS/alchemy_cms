@@ -2,7 +2,7 @@
 <table class="list" id="<%= resource_handler.resources_name %>_list">
   <thead>
     <tr>
-    <% resource_handler.attributes.each do |attribute| %>
+    <% resource_handler.sorted_attributes.each do |attribute| %>
       <th class="<%= attribute[:type] %> <%= attribute[:name] %>">
         <%= sort_link [:resource_url_proxy, @query],
           sortable_resource_header_column(attribute),

@@ -310,6 +310,28 @@ module Alchemy
       end
     end
 
+    describe "#sorted_attributes" do
+      subject { resource.sorted_attributes }
+
+      let(:columns) do
+        [
+          double(:column, {name: 'title', type: :string}),
+          double(:column, {name: 'name', type: :string}),
+          double(:column, {name: 'updated_at', type: :datetime}),
+          double(:column, {name: 'public', type: :boolean})
+        ]
+      end
+
+      it "sorts by name, and updated_at" do
+        is_expected.to eq([
+          {name: "name", type: :string},
+          {name: "title", type: :string},
+          {name: "public", type: :boolean},
+          {name: "updated_at", type: :datetime}
+        ])
+      end
+    end
+
     context "when alchemy_resource_relations defined as class method in the model" do
       let(:resource) { Resource.new("admin/events") }
 
