@@ -86,7 +86,7 @@ RSpec.describe "Resources", type: :system do
 
       it "lists the new item" do
         expect(page).to have_content "My second event"
-        expect(page).to have_content "03 Mar 2012"
+        expect(page).to have_content "03.12.2020"
       end
 
       it "shows a success message" do
