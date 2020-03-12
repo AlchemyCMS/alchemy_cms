@@ -12,8 +12,8 @@ gem 'mysql2', '~> 0.5.1' if ENV['DB'] == 'mysql'
 gem 'pg',     '~> 1.0'   if ENV['DB'] == 'postgresql'
 
 group :development, :test do
-  if ENV['CI']
-    gem 'sprockets', '< 4.0' # Sprockets 4 has serious issues with libsass on Linux machines
+  if ENV['GITHUB_ACTIONS']
+    gem 'sassc', '~> 2.1.0' # https://github.com/sass/sassc-ruby/issues/146
   else
     gem 'launchy'
     gem 'annotate'
