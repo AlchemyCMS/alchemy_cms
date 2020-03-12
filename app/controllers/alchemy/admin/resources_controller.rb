@@ -22,6 +22,7 @@ module Alchemy
 
       def index
         @query = resource_handler.model.ransack(search_filter_params[:q])
+        @query.sorts = default_sort_order if @query.sorts.empty?
         items = @query.result
 
         if contains_relations?
@@ -161,6 +162,11 @@ module Alchemy
       def items_per_page_options
         per_page = Alchemy::Config.get(:items_per_page)
         [per_page, per_page * 2, per_page * 4]
+      end
+
+      def default_sort_order
+        name = resource_handler.attributes.detect { |attr| attr[:name] == 'name' }
+        name ? 'name asc' : "#{resource_handler.attributes.first[:name]} asc"
       end
     end
   end

@@ -101,8 +101,8 @@ module Alchemy
     attr_accessor :resource_relations, :model_associations
     attr_reader :model
 
-    DEFAULT_SKIPPED_ATTRIBUTES = %w(id updated_at created_at creator_id updater_id)
-    DEFAULT_SKIPPED_ASSOCIATIONS = %w(creator updater)
+    DEFAULT_SKIPPED_ATTRIBUTES = %w(id created_at creator_id)
+    DEFAULT_SKIPPED_ASSOCIATIONS = %w(creator)
     SEARCHABLE_COLUMN_TYPES = [:string, :text]
 
     def initialize(controller_path, module_definition = nil, custom_model = nil)
@@ -166,6 +166,13 @@ module Alchemy
           relation: resource_relation(col.name)
         }.delete_if { |_k, v| v.nil? }
       end.compact
+    end
+
+    def sorted_attributes
+      @_sorted_attributes ||= attributes.
+        sort_by  { |attr| attr[:name] == 'name' ? 0 : 1 }.
+        sort_by! { |attr| attr[:type] == :boolean ? 1 : 0 }.
+        sort_by! { |attr| attr[:name] == 'updated_at' ? 1 : 0 }
     end
 
     def editable_attributes

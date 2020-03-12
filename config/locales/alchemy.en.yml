@@ -629,7 +629,7 @@ en:
   time:
     formats:
       alchemy:
-        default: "%a, %d %b %Y %H:%M:%S %z"
+        default: "%m.%d.%Y %H:%M"
         essence_date: "%Y-%m-%d"
         page_status: "%m.%d.%Y %H:%M"
         short_datetime: "%d %b %H:%M"

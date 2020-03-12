@@ -57,29 +57,6 @@ th {
   vertical-align: top;
   border-bottom: 1px solid $medium-gray;
   font-weight: bold;
-
-  i {
-    font-style: normal;
-    position: absolute;
-    right: 2px;
-    top: 4px;
-    text-shadow: 1px 1px 1px #fff;
-  }
-
-  a {
-
-    &.sortable {
-      display: block;
-      margin: -4px -8px;
-      padding: 4px 18px 4px 8px;
-      text-shadow: 1px 1px 1px #fff;
-    }
-
-    &.sorted {
-      position: relative;
-      background: $medium-gray;
-    }
-  }
 }
 
 tr.even td {
@@ -141,7 +118,7 @@ td {
     width: 80px;
   }
 
-  &.date {
+  &.date, &.datetime {
     width: 150px;
   }
 

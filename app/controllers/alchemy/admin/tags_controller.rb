@@ -7,6 +7,7 @@ module Alchemy
 
       def index
         @query = Gutentag::Tag.ransack(search_filter_params[:q])
+        @query.sorts = default_sort_order if @query.sorts.empty?
         @tags = @query
                   .result
                   .page(params[:page] || 1)

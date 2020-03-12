@@ -5,6 +5,7 @@ module Alchemy
     class LanguagesController < ResourcesController
       def index
         @query = Language.on_current_site.ransack(search_filter_params[:q])
+        @query.sorts = default_sort_order if @query.sorts.empty?
         @languages = @query.result.page(params[:page] || 1).per(items_per_page)
       end
 

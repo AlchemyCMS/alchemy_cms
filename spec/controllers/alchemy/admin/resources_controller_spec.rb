@@ -48,11 +48,36 @@ describe Admin::EventsController do
       end
 
       context 'with sort parameter given' do
-        let(:params) { {q: {s: "name asc"}} }
+        let(:params) { {q: {s: "name desc"}} }
 
-        it "returns records in the right order" do
+        it "returns records in the defined order" do
           get :index, params: params
-          expect(assigns(:events)).to eq([lustig, peter])
+          expect(assigns(:events)).to eq([peter, lustig])
+        end
+      end
+
+      context 'without sort parameter given' do
+        context 'if resource has name attribute' do
+          it "returns records sorted by name" do
+            get :index
+            expect(assigns(:events)).to eq([lustig, peter])
+          end
+        end
+
+        context 'if resource has no name attribute' do
+          let!(:booking1) { Booking.create!(from: 2.week.from_now) }
+          let!(:booking2) { Booking.create!(from: 1.weeks.from_now) }
+
+          controller(::Alchemy::Admin::ResourcesController) do
+            def resource_handler
+              @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module, Booking)
+            end
+          end
+
+          it "returns records sorted by first attribute" do
+            get :index
+            expect(assigns(:resources)).to eq([booking2, booking1])
+          end
         end
       end
     end

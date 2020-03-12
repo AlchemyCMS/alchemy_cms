@@ -3,13 +3,13 @@
   <thead>
     <tr>
       <th>
-        <%= sort_link @query, :name, hide_indicator: true %>
+        <%= sort_link @query, :name %>
       </th>
       <th>
-        <%= sort_link @query, :language_code, hide_indicator: true %>
+        <%= sort_link @query, :language_code %>
       </th>
       <th>
-        <%= sort_link @query, :country_code, hide_indicator: true %>
+        <%= sort_link @query, :country_code %>
       </th>
       <th>
         <%= Alchemy::Language.human_attribute_name(:code) %>

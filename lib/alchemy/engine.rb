@@ -25,6 +25,16 @@ module Alchemy
       Gutentag.normaliser = ->(value) { value.to_s }
     end
 
+    # Custom Ransack sort arrows
+    initializer 'alchemy.ransack' do
+      Ransack.configure do |config|
+        config.custom_arrows = {
+          up_arrow: '<i class="fa fas fa-xs fa-arrow-up"></i>',
+          down_arrow: '<i class="fa fas fa-xs fa-arrow-down"></i>'
+        }
+      end
+    end
+
     config.after_initialize do
       require_relative './userstamp'
     end

@@ -10,6 +10,7 @@ module Alchemy
 
       def index
         @query = Attachment.ransack(search_filter_params[:q])
+        @query.sorts = 'name asc' if @query.sorts.empty?
         @attachments = @query.result
 
         if search_filter_params[:tagged_with].present?
