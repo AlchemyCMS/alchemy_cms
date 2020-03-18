@@ -9,6 +9,7 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return if Rails.env.test?
+
     @_dummy_user ||= DummyUser.find_or_create_by(email: "dummy@alchemy.com")
   end
 end

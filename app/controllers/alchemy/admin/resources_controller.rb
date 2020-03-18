@@ -93,6 +93,7 @@ module Alchemy
       # The key should look like "Modelname successfully created|updated|destroyed."
       def flash_notice_for_resource_action(action = params[:action])
         return if resource_instance_variable.errors.any?
+
         case action.to_sym
         when :create
           verb = "created"

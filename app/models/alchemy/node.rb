@@ -26,6 +26,7 @@ module Alchemy
       # Returns all root nodes for current language
       def language_root_nodes
         raise 'No language found' if Language.current.nil?
+
         roots.where(language_id: Language.current.id)
       end
     end

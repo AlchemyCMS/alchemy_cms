@@ -22,6 +22,7 @@ module Alchemy
 
     def attachment_url
       return if attachment.nil?
+
       routes.download_attachment_path(
         id: attachment.id,
         name: attachment.urlname,
@@ -31,6 +32,7 @@ module Alchemy
 
     def preview_text(max = 30)
       return "" if attachment.blank?
+
       attachment.name.to_s[0..max - 1]
     end
 

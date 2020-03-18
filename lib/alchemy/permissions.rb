@@ -200,6 +200,7 @@ module Alchemy
 
     def user_role_rules
       return alchemy_guest_user_rules if @user.alchemy_roles.blank?
+
       @user.alchemy_roles.each do |role|
         exec_role_rules(role)
       end

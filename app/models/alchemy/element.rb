@@ -131,6 +131,7 @@ module Alchemy
       #
       def new(attributes = {})
         return super if attributes[:name].blank?
+
         element_attributes = attributes.to_h.merge(name: attributes[:name].split('#').first)
         element_definition = Element.definition_by_name(element_attributes[:name])
         if element_definition.nil?
@@ -176,6 +177,7 @@ module Alchemy
 
       def all_from_clipboard(clipboard)
         return [] if clipboard.nil?
+
         where(id: clipboard.collect { |e| e['id'] })
       end
 
@@ -183,6 +185,7 @@ module Alchemy
       #
       def all_from_clipboard_for_page(clipboard, page)
         return [] if clipboard.nil? || page.nil?
+
         all_from_clipboard(clipboard).select { |ce|
           page.available_element_names.include?(ce.name)
         }
@@ -210,6 +213,7 @@ module Alchemy
     # Stores the page into +touchable_pages+ (Pages that have to be touched after updating the element).
     def store_page(page)
       return true if page.nil?
+
       unless touchable_pages.include? page
         touchable_pages << page
       end
@@ -311,6 +315,7 @@ module Alchemy
     #
     def touch_touchable_pages
       return unless respond_to?(:touchable_pages)
+
       touchable_pages.each(&:touch)
     end
   end

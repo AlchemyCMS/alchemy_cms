@@ -55,6 +55,7 @@ module Alchemy
       #
       def merge_configs!(*config_files)
         raise LoadError, 'No Alchemy config file found!' if config_files.map(&:blank?).all?
+
         config = {}
         config_files.each { |h| config.merge!(h.stringify_keys!) }
         config

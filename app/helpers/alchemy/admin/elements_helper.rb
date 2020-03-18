@@ -13,6 +13,7 @@ module Alchemy
       #
       def elements_for_select(elements)
         return [] if elements.nil?
+
         elements.collect do |e|
           [
             Element.display_name_for(e['name']),

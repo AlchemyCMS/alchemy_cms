@@ -187,6 +187,7 @@ module Alchemy #:nodoc:
 
       def validate_uniqueness(validate = true)
         return if !validate || !public?
+
         if duplicates.any?
           errors.add(ingredient_column, :taken)
           validation_errors << :taken
@@ -231,12 +232,14 @@ module Alchemy #:nodoc:
       # Essence definition from config/elements.yml
       def definition
         return {} if element.nil? || element.content_definitions.nil?
+
         element.content_definitions.detect { |c| c['name'] == content.name } || {}
       end
 
       # Touch content. Called after update.
       def touch_content
         return nil if content.nil?
+
         content.touch
       end
 

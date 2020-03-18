@@ -224,6 +224,7 @@ module Alchemy
       def find_or_create_layout_root_for(language_id)
         layoutroot = layout_root_for(language_id)
         return layoutroot if layoutroot
+
         language = Language.find(language_id)
         Page.create!(
           name: "Layoutroot for #{language.name}",
@@ -249,11 +250,13 @@ module Alchemy
 
       def all_from_clipboard(clipboard)
         return [] if clipboard.blank?
+
         where(id: clipboard.collect { |p| p['id'] })
       end
 
       def all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)
         return [] if clipboard.blank?
+
         clipboard_pages = all_from_clipboard(clipboard)
         allowed_page_layouts = Alchemy::PageLayout.selectable_layouts(language_id, layoutpage)
         allowed_page_layout_names = allowed_page_layouts.collect { |p| p['name'] }
@@ -274,6 +277,7 @@ module Alchemy
       # I.e. used to find the active page in navigation.
       def ancestors_for(current)
         return [] if current.nil?
+
         current.self_and_ancestors.contentpages
       end
 
@@ -307,6 +311,7 @@ module Alchemy
       #
       def new_name_for_copy(custom_name, source_name)
         return custom_name if custom_name.present?
+
         "#{source_name} (#{Alchemy.t('Copy')})"
       end
     end
@@ -427,6 +432,7 @@ module Alchemy
     def copy_children_to(new_parent)
       children.each do |child|
         next if child == new_parent
+
         new_child = Page.copy(child, {
           language_id: new_parent.language_id,
           language_code: new_parent.language_code
@@ -488,6 +494,7 @@ module Alchemy
     #
     def editable_by?(user)
       return true unless has_limited_editors?
+
       (editor_roles & user.alchemy_roles).any?
     end
 

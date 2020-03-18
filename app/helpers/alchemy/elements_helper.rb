@@ -173,6 +173,7 @@ module Alchemy
     # Returns a string for the id attribute of a html element for the given element
     def element_dom_id(element)
       return "" if element.nil?
+
       "#{element.name}_#{element.id}".html_safe
     end
 
@@ -189,6 +190,7 @@ module Alchemy
     # Returns a hash containing the HTML tag attributes required for preview mode.
     def element_preview_code_attributes(element)
       return {} unless element.present? && @preview_mode && element.page == @page
+
       { 'data-alchemy-element' => element.id }
     end
 
@@ -226,6 +228,7 @@ module Alchemy
       }.merge(options)
 
       return {} if !element.taggable? || element.tag_list.blank?
+
       { 'data-element-tags' => options[:formatter].call(element.tag_list) }
     end
   end

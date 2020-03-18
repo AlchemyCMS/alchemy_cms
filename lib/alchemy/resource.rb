@@ -113,6 +113,7 @@ module Alchemy
         if !model.respond_to?(:reflect_on_all_associations)
           raise MissingActiveRecordAssociation
         end
+
         store_model_associations
         map_relations
       end
@@ -152,6 +153,7 @@ module Alchemy
     #
     def model_association_names
       return unless model_associations
+
       model_associations.map do |assoc|
         assoc.name.to_sym
       end
@@ -160,6 +162,7 @@ module Alchemy
     def attributes
       @_attributes ||= model.columns.collect do |col|
         next if skipped_attributes.include?(col.name)
+
         {
           name: col.name,
           type: resource_column_type(col),

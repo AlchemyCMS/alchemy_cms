@@ -22,6 +22,7 @@ module Alchemy
         if definition.blank?
           raise ContentDefinitionError, "No definition found in elements.yml for #{attributes.inspect} and #{element.inspect}"
         end
+
         super(
           name: definition[:name],
           essence_type: normalize_essence_type(definition[:type]),

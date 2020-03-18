@@ -24,6 +24,7 @@ module Alchemy
 
       def try_seed_pages
         return unless page_seeds_file.file?
+
         if Alchemy::Page.exists?
           desc "Seeding Alchemy pages"
           log "There are already pages present in your database. " \

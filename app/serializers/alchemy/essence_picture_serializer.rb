@@ -16,6 +16,7 @@ module Alchemy
 
     def link
       return if object.link.blank?
+
       {
         url: object.link,
         css_class: object.link_class_name,

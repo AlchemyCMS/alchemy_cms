@@ -32,6 +32,7 @@ module Alchemy
       }.merge(options)
       languages = Language.on_current_site.published.with_root_page.order("name #{options[:reverse] ? 'DESC' : 'ASC'}")
       return nil if languages.count < 2
+
       render(
         partial: "alchemy/language_links/language",
         collection: languages,
@@ -152,6 +153,7 @@ module Alchemy
     #
     def page_title(options = {})
       return "" if @page.title.blank?
+
       options = {
         prefix: "",
         suffix: "",

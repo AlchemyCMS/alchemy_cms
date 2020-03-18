@@ -60,6 +60,7 @@ module Alchemy
       if @element.nil?
         raise ActiveRecord::RecordNotFound, "Contact form id not found. Please pass the :contact_form_id in a hidden field. Example: <%= f.hidden_field :contact_form_id, value: element.id %>"
       end
+
       @page = @element.page
       @root_page = @page.get_language_root
       if @message.valid?
@@ -121,6 +122,7 @@ module Alchemy
       if @page.blank?
         raise "Page for page_layout #{mailer_config['page_layout_name']} not found"
       end
+
       @root_page = @page.get_language_root
     end
 

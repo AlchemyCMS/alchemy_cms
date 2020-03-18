@@ -78,6 +78,7 @@ module Alchemy
     if !@@user_class_name.is_a?(String)
       raise TypeError, 'Alchemy.user_class_name must be a String, not a Class.'
     end
+
     "::#{@@user_class_name}"
   end
 
