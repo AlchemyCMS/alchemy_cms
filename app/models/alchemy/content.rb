@@ -162,10 +162,10 @@ module Alchemy
       raise EssenceMissingError if essence.nil?
 
       if essence.update(params)
-        return true
+        true
       else
         errors.add(:essence, :validation_failed)
-        return false
+        false
       end
     end
 

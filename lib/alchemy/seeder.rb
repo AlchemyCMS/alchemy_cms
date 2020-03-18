@@ -68,7 +68,7 @@ module Alchemy
         if Alchemy.user_class.exists?
           log "There are already users present in your database. " \
               "Please use `rake db:reset' if you want to rebuild your database.", :skip
-          return false
+          false
         else
           users = YAML.load_file(user_seeds_file)
           users.each do |draft|
