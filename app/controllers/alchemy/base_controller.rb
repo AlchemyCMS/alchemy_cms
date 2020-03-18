@@ -98,7 +98,7 @@ module Alchemy
     def exception_logger(error)
       Rails.logger.error("\n#{error.class} #{error.message} in #{error.backtrace.first}")
       Rails.logger.error(error.backtrace[1..50].each { |line|
-        line.gsub(/#{Rails.root.to_s}/, '')
+        line.gsub(/#{Rails.root}/, '')
       }.join("\n"))
     end
   end
