@@ -71,6 +71,10 @@ Layout/ElseAlignment:
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 
+Layout/EmptyLinesAroundAccessModifier:
+  Exclude:
+    - lib/alchemy/test_support/factories/*.rb
+
 Layout/FirstArrayElementIndentation:
   Enabled: false
 
