@@ -87,7 +87,7 @@ module Alchemy
         if @min_size.value?(0) && @essence_picture.content.settings[:fixed_ratio].to_s =~ FLOAT_REGEX
           @essence_picture.content.settings[:fixed_ratio].to_f
         elsif !@min_size[:width].zero? && !@min_size[:height].zero?
-          @min_size[:width].to_f / @min_size[:height].to_f
+          @min_size[:width].to_f / @min_size[:height]
         else
           false
         end

@@ -21,6 +21,9 @@ Style/EmptyLiteral:
 Style/ClassVars:
   Enabled: false
 
+Style/FloatDivision:
+  EnforcedStyle: left_coerce
+
 # This has been used for customization
 Style/MutableConstant:
   Enabled: false
