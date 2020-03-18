@@ -99,23 +99,14 @@ module Alchemy
 
     describe '.color' do
       context 'if given name is a constant of Thor::Shell::Color' do
-        before do
-          allow(Thor::Shell::Color).to receive(:const_defined?).and_return(true)
-        end
-
         it "should call the constant" do
-          expect_any_instance_of(String).to receive(:constantize).and_return('')
-          MyToDoList.send(:color, :red)
+          expect(MyToDoList.send(:color, :red)).to eq(Thor::Shell::Color::RED)
         end
       end
 
       context 'if given name is not a defined constant of Thor::Shell::Color' do
-        before do
-          allow(Thor::Shell::Color).to receive(:const_defined?).and_return(false)
-        end
-
-        it "should return en empty string" do
-          expect(MyToDoList.send(:color, :not_existing)).to eq('')
+        it "should return nil" do
+          expect(MyToDoList.send(:color, :not_existing)).to be_nil
         end
       end
     end
