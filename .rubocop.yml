@@ -116,6 +116,9 @@ Layout/SpaceInsideParens:
 Layout/EndAlignment:
   Enabled: false
 
+Layout/RescueEnsureAlignment:
+  Enabled: false
+
 Lint/SuppressedException:
   Exclude:
     - 'config/initializers/mini_profiler.rb'
