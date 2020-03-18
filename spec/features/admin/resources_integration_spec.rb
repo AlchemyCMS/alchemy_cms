@@ -75,18 +75,19 @@ RSpec.describe "Resources", type: :system do
   describe "create resource item" do
     context "when form filled with valid data" do
       let!(:location) { create(:location) }
+      let(:start_date) { 1.week.from_now }
 
       before do
         visit '/admin/events/new'
         fill_in 'event_name', with: 'My second event'
-        fill_in 'event_starts_at', with: Time.local(2012, 03, 03, 20, 00)
+        fill_in 'event_starts_at', with: start_date
         select location.name, from: 'Location'
         click_on 'Save'
       end
 
       it "lists the new item" do
         expect(page).to have_content "My second event"
-        expect(page).to have_content "03.12.2020"
+        expect(page).to have_content I18n.l(start_date, format: :'alchemy.default')
       end
 
       it "shows a success message" do
