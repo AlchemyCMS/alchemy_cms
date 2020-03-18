@@ -181,6 +181,13 @@ module Alchemy
           it { is_expected.to include("PGPASSWORD='123456'") }
         end
 
+        context "when a port is set in the config file" do
+          before do
+            allow(File).to receive(:read).and_return("test:\n  port: 5433")
+          end
+          it { is_expected.to include("--port=5433") }
+        end
+
         context "when a host is set in the config file" do
           context "and the host is localhost" do
             it { is_expected.not_to include("--host=") }
