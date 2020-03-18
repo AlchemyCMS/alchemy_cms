@@ -2127,7 +2127,7 @@ module Alchemy
           expanded_rtf_contents = expanded_element.contents.essence_richtexts
           nested_expanded_rtf_contents = nested_expanded_element.contents.essence_richtexts
           rtf_content_ids = expanded_rtf_contents.pluck(:id) +
-                            nested_expanded_rtf_contents.pluck(:id)
+            nested_expanded_rtf_contents.pluck(:id)
           expect(richtext_contents_ids.sort).to eq(rtf_content_ids)
 
           nested_folded_rtf_content = nested_folded_element.contents.essence_richtexts.first

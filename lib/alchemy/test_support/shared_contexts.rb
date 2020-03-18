@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_context 'with invalid file' do
   let(:invalid_file) do
     fixture_file_upload(

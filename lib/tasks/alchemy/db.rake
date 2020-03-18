@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'shellwords'
 require 'alchemy/seeder'
 require 'alchemy/tasks/helpers'

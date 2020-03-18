@@ -74,9 +74,7 @@ module Alchemy
 
     def update_descendants_urlnames
       reload
-      descendants.each do |descendant|
-        descendant.update_urlname!
-      end
+      descendants.each(&:update_urlname!)
     end
 
     # Sets the urlname to a url friendly slug.

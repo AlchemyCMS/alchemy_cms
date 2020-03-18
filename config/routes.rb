@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'alchemy/routing_constraints'
 
 Alchemy::Engine.routes.draw do

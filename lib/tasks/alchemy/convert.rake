@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :alchemy do
   namespace :convert do
     namespace :urlnames do

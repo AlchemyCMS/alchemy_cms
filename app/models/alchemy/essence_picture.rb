@@ -166,7 +166,7 @@ module Alchemy
 
     def normalize_number(number)
       number = number.to_f.round
-      number < 0 ? 0 : number
+      number.negative? ? 0 : number
     end
 
     def replace_newlines
