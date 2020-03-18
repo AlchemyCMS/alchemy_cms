@@ -19,9 +19,9 @@ jobs:
           - postgresql
     env:
       DB: ${{ matrix.database }}
-      MYSQL_PASSWORD: root
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: password
+      DB_USER: alchemy_user
+      DB_PASSWORD: password
+      DB_HOST: '127.0.0.1'
       RAILS_ENV: test
       RAILS_VERSION: ${{ matrix.rails }}
       CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
@@ -29,11 +29,20 @@ jobs:
       postgres:
         image: postgres:11
         env:
-          POSTGRES_USER: postgres
+          POSTGRES_USER: alchemy_user
           POSTGRES_PASSWORD: password
           POSTGRES_DB: alchemy_cms_dummy_test
         ports: ['5432:5432']
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+      mysql:
+        image: mysql:latest
+        ports: ['3306:3306']
+        env:
+          MYSQL_USER: alchemy_user
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: alchemy_cms_dummy_test
+          MYSQL_ROOT_PASSWORD: password
+        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
     steps:
       - uses: actions/checkout@v1
       - name: Set up Ruby
