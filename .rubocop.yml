@@ -81,9 +81,6 @@ Layout/FirstArrayElementIndentation:
 Layout/FirstHashElementIndentation:
   Enabled: false
 
-Layout/HeredocIndentation:
-  EnforcedStyle: active_support
-
 Layout/IndentationWidth:
   Enabled: false
 
