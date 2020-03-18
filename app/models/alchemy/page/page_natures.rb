@@ -23,11 +23,13 @@ module Alchemy
 
     def systempage?
       return true if Page.count.zero?
+
       rootpage? || (parent_id == Page.root.id && !language_root?)
     end
 
     def folded?(user_id)
       return unless Alchemy.user_class < ActiveRecord::Base
+
       folded_pages.where(user_id: user_id, folded: true).any?
     end
 
@@ -51,6 +53,7 @@ module Alchemy
 
     def editor_roles
       return unless has_limited_editors?
+
       definition["editable_by"]
     end
 
@@ -150,6 +153,7 @@ module Alchemy
     #
     def cache_page?
       return false unless caching_enabled?
+
       page_layout = PageLayout.get(self.page_layout)
       page_layout['cache'] != false && page_layout['searchresults'] != true
     end

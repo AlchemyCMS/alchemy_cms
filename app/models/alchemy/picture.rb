@@ -102,6 +102,7 @@ module Alchemy
       def last_upload
         last_picture = Picture.last
         return Picture.all unless last_picture
+
         Picture.where(upload_hash: last_picture.upload_hash)
       end
 
@@ -190,6 +191,7 @@ module Alchemy
     #
     def humanized_name
       return "" if image_file_name.blank?
+
       convert_to_humanized_name(image_file_name, suffix)
     end
 

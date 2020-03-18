@@ -123,8 +123,8 @@ module Alchemy
           end
         else
           cookies[:alchemy_pictures_per_page] = params[:per_page] ||
-                                                cookies[:alchemy_pictures_per_page] ||
-                                                pictures_per_page_for_size(params[:size])
+            cookies[:alchemy_pictures_per_page] ||
+            pictures_per_page_for_size(params[:size])
         end
       end
 

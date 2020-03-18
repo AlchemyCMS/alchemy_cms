@@ -65,7 +65,7 @@ module Alchemy
 
             context "when a page layout callback is set" do
               before do
-                ApplicationController.send(:extend, Alchemy::OnPageLayout)
+                ApplicationController.extend Alchemy::OnPageLayout
                 ApplicationController.class_eval do
                   on_page_layout('index') { "do something" }
                 end

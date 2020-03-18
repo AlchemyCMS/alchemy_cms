@@ -37,6 +37,7 @@ module Alchemy
       #
       def get(name)
         return {} if name.blank?
+
         all.detect { |a| a['name'].casecmp(name).zero? }
       end
 

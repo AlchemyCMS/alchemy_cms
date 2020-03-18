@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'thor/shell/color'
 
 module Alchemy
@@ -5,6 +6,13 @@ module Alchemy
   # in a list on the shell / log
   #
   module Shell
+    COLORS = {
+      clear: Thor::Shell::Color::CLEAR,
+      green: Thor::Shell::Color::GREEN,
+      red: Thor::Shell::Color::RED,
+      yellow: Thor::Shell::Color::YELLOW
+    }.freeze
+
     def self.silence!
       @silenced = true
     end
@@ -96,12 +104,7 @@ module Alchemy
     # @return [String]
     #
     def color(name)
-      color_const = name.to_s.upcase
-      if Thor::Shell::Color.const_defined?(color_const)
-        "Thor::Shell::Color::#{color_const}".constantize
-      else
-        ""
-      end
+      COLORS[name]
     end
   end
 end

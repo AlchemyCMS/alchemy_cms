@@ -10,6 +10,7 @@ module Alchemy
 
     def link
       return if object.link.blank?
+
       {
         url: object.link,
         title: object.link_title,

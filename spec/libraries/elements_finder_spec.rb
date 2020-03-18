@@ -136,7 +136,7 @@ RSpec.describe Alchemy::ElementsFinder do
         let(:random_function) do
           case ActiveRecord::Base.connection_config[:adapter]
           when 'postgresql', 'sqlite3'
-            then 'RANDOM()'
+            'RANDOM()'
           else
             'RAND()'
           end

@@ -76,7 +76,7 @@ module Alchemy
       end
       if page.blank?
         warning("No Page found for #{page.inspect}")
-        return
+        nil
       else
         page
       end

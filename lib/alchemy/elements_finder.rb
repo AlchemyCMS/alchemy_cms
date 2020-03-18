@@ -105,7 +105,7 @@ module Alchemy
     def random_function
       case ActiveRecord::Base.connection_config[:adapter]
       when 'postgresql', 'sqlite3'
-        then 'RANDOM()'
+        'RANDOM()'
       else
         'RAND()'
       end

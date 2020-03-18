@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require_relative '../base'
 
 module Alchemy
@@ -9,6 +10,7 @@ module Alchemy
       def create_partials
         @sites = Alchemy::Site.all
         return unless @sites
+
         @sites.each do |site|
           @site_name = site.name.parameterize.underscore
           conditional_template "layout.html.#{template_engine}", "#{site_layouts_dir}/_#{@site_name}.html.#{template_engine}"

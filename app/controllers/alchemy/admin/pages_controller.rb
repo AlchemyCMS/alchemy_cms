@@ -351,11 +351,13 @@ module Alchemy
       def page_is_locked?
         return false if !@page.locker.try(:logged_in?)
         return false if !current_alchemy_user.respond_to?(:id)
+
         @page.locked? && @page.locker.id != current_alchemy_user.id
       end
 
       def page_needs_lock?
         return true unless @page.locker
+
         @page.locker.try!(:id) != current_alchemy_user.try!(:id)
       end
 

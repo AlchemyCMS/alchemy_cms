@@ -1,10 +1,11 @@
+# frozen_string_literal: true
 require 'alchemy/shell'
 
 module Alchemy
   class Upgrader
     extend Alchemy::Shell
 
-    Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].each { |f| require f }
+    Dir["#{File.dirname(__FILE__)}/upgrader/*.rb"].sort.each { |f| require f }
 
     class << self
       def copy_new_config_file

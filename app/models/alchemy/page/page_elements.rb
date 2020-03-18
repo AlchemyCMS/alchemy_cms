@@ -197,6 +197,7 @@ module Alchemy
       existing_element_names = existing_elements.pluck(:name).uniq
       definition.fetch('autogenerate', []).each do |element_name|
         next if existing_element_names.include?(element_name)
+
         Element.create(page: self, name: element_name)
       end
     end

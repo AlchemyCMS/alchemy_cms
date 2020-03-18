@@ -76,9 +76,9 @@ RSpec.describe "Link overlay", type: :system do
         visit "/#{page1.urlname}"
 
         expect(page).to have_link("Link me", href: "/#{page2.urlname}")
-      rescue Capybara::ElementNotFound => error
-        pending error.message
-        raise error
+      rescue Capybara::ElementNotFound => e
+        pending e.message
+        raise e
       end
     end
   end

@@ -66,6 +66,7 @@ module Alchemy
 
       def tags_from_term(term)
         return [] if term.blank?
+
         Gutentag::Tag.where(['LOWER(name) LIKE ?', "#{term.downcase}%"])
       end
 

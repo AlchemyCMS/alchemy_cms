@@ -42,6 +42,7 @@ module Alchemy
       def latest_alchemy_version
         versions = get_alchemy_versions
         return '' if versions.blank?
+
         # reject any non release version
         versions.reject! { |v| v =~ /[a-z]/ }
         versions.max

@@ -47,6 +47,7 @@ module Alchemy
     #
     def update_contents(contents_attributes)
       return true if contents_attributes.nil?
+
       contents.each do |content|
         content_hash = contents_attributes[content.id.to_s] || next
         content.update_essence(content_hash) || errors.add(:base, :essence_validation_failed)
@@ -92,6 +93,7 @@ module Alchemy
     # Returns the array with the hashes for all element contents in the elements.yml file
     def content_definitions
       return nil if definition.blank?
+
       definition['contents']
     end
 
@@ -136,6 +138,7 @@ module Alchemy
     def content_for_rss_meta(type)
       definition = content_definitions.detect { |c| c["rss_#{type}"] }
       return if definition.blank?
+
       contents.detect { |content| content.name == definition['name'] }
     end
 

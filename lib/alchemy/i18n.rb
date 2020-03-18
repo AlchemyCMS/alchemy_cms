@@ -74,6 +74,7 @@ module Alchemy
 
       def humanize_default_string!(msg, options)
         return if options[:default].present?
+
         options[:default] = msg.is_a?(Symbol) ? msg.to_s.humanize : msg
       end
 

@@ -89,6 +89,7 @@ module Alchemy
       # Returns true if the current_alchemy_user (The logged-in Alchemy User) has the admin role.
       def is_admin?
         return false if !current_alchemy_user
+
         current_alchemy_user.admin?
       end
 

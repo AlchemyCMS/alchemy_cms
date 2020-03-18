@@ -91,6 +91,7 @@ module Alchemy
       def url_for_module_sub_navigation(navigation)
         alchemy_module = module_definition_for(navigation)
         return if alchemy_module.nil?
+
         route_from_engine_or_main_app(
           alchemy_module['engine_name'],
           url_options_for_navigation_entry(navigation)

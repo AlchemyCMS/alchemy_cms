@@ -34,6 +34,7 @@ module Alchemy
       def essence_types(name)
         element = Element.definitions.detect { |e| e['name'] == name }
         return [] unless element
+
         element.fetch('contents', []).collect { |c| c['type'] }
       end
     end

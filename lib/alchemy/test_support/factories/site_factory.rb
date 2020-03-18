@@ -9,6 +9,7 @@ FactoryBot.define do
 
     trait :default do
       public { true }
+
       name { Alchemy::Config.get(:default_site)['name'] }
       host { Alchemy::Config.get(:default_site)['host'] }
     end

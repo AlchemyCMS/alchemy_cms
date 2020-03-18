@@ -10,7 +10,9 @@ FactoryBot.define do
     default { true }
     frontpage_name { 'Intro' }
     page_layout { Alchemy::Config.get(:default_language)['page_layout'] }
+
     public { true }
+
     site { Alchemy::Site.default }
 
     trait :klingon do

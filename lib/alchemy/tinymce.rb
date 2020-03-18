@@ -43,10 +43,12 @@ module Alchemy
       def content_definitions_from_elements(definitions)
         definitions.collect do |el|
           next if el['contents'].blank?
+
           contents = el['contents'].select do |c|
             c['settings'] && c['settings']['tinymce'].is_a?(Hash)
           end
           next if contents.blank?
+
           contents.map { |c| c.merge('element' => el['name']) }
         end.flatten.compact
       end

@@ -52,6 +52,7 @@ module Alchemy
     # Returns an array of visible/non-language_root ancestors.
     def visible_ancestors
       return [] unless parent
+
       if new_record?
         parent.visible_ancestors.tap do |base|
           base.push(parent) if parent.visible?
@@ -65,6 +66,7 @@ module Alchemy
 
     def should_update_descendants_urlnames?
       return false if !Config.get(:url_nesting)
+
       if active_record_5_1?
         saved_change_to_urlname? || saved_change_to_visible?
       else
@@ -74,9 +76,7 @@ module Alchemy
 
     def update_descendants_urlnames
       reload
-      descendants.each do |descendant|
-        descendant.update_urlname!
-      end
+      descendants.each(&:update_urlname!)
     end
 
     # Sets the urlname to a url friendly slug.
@@ -118,6 +118,7 @@ module Alchemy
     # the root page itself, or url_nesting is off.
     def ancestor_slugs
       return [] if !Config.get(:url_nesting) || parent.nil? || parent.root?
+
       visible_ancestors.map(&:slug).compact
     end
   end

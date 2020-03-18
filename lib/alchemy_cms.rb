@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # Instantiate the global Alchemy namespace
 module Alchemy
   Alchemy::YAML_WHITELIST_CLASSES = %w(Symbol Date Regexp)

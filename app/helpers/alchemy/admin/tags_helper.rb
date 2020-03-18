@@ -13,6 +13,7 @@ module Alchemy
       #
       def render_tag_list(class_name)
         raise ArgumentError, 'Please provide a String as class_name' if class_name.nil?
+
         sorted_tags_from(class_name: class_name).map do |tag|
           content_tag('li', name: tag.name, class: filtered_by_tag?(tag) ? 'active' : nil) do
             link_to(

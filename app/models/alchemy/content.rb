@@ -99,6 +99,7 @@ module Alchemy
     # Settings from the elements.yml definition
     def settings
       return {} if definition.blank?
+
       @settings ||= definition.fetch(:settings, {})
     end
 
@@ -114,12 +115,14 @@ module Alchemy
 
     def siblings
       return [] if !element
+
       element.contents
     end
 
     # Gets the ingredient from essence
     def ingredient
       return nil if essence.nil?
+
       essence.ingredient
     end
 
@@ -145,6 +148,7 @@ module Alchemy
     # Sets the ingredient from essence
     def ingredient=(value)
       raise EssenceMissingError if essence.nil?
+
       essence.ingredient = value
     end
 
@@ -156,11 +160,12 @@ module Alchemy
     #
     def update_essence(params = {})
       raise EssenceMissingError if essence.nil?
+
       if essence.update(params)
-        return true
+        true
       else
         errors.add(:essence, :validation_failed)
-        return false
+        false
       end
     end
 
@@ -175,6 +180,7 @@ module Alchemy
     # Returns a string used as dom id on html elements.
     def dom_id
       return '' if essence.nil?
+
       "#{essence_partial_name}_#{id}"
     end
 
@@ -200,6 +206,7 @@ module Alchemy
 
     def essence_partial_name
       return '' if essence.nil?
+
       essence.partial_name
     end
 

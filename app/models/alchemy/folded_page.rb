@@ -17,6 +17,7 @@ module Alchemy
 
     def self.folded_for_user(user)
       return none unless Alchemy.user_class < ActiveRecord::Base
+
       where(user: user, folded: true)
     end
   end

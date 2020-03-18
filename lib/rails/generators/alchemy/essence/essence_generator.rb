@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'rails'
 
 module Alchemy
@@ -19,16 +20,16 @@ module Alchemy
       def act_as_essence
         essence_class_file = "app/models/#{@essence_name}.rb"
         essence_class = @essence_name.classify
-        inject_into_class essence_class_file, essence_class, <<-CLASSMETHOD
-  acts_as_essence(
-    # Your options:
-    #
-    # ingredient_column:   [String or Symbol] - Specifies the column name you use for storing the content in the database. (Default :body)
-    # validate_column:     [String or Symbol] - Which column should be validated. (Default: ingredient_column)
-    # preview_text_column: [String or Symbol] - Specifies the column for the preview_text method. (Default: ingredient_column)
-    # preview_text_method: [String or Symbol] - A method called on ingredient to get the preview text. (Default: ingredient_column)
-  )
-CLASSMETHOD
+        inject_into_class essence_class_file, essence_class, <<~CLASSMETHOD
+          acts_as_essence(
+            # Your options:
+            #
+            # ingredient_column:   [String or Symbol] - Specifies the column name you use for storing the content in the database. (Default :body)
+            # validate_column:     [String or Symbol] - Which column should be validated. (Default: ingredient_column)
+            # preview_text_column: [String or Symbol] - Specifies the column for the preview_text method. (Default: ingredient_column)
+            # preview_text_method: [String or Symbol] - A method called on ingredient to get the preview text. (Default: ingredient_column)
+          )
+        CLASSMETHOD
       end
 
       def copy_templates

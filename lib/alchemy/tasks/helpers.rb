@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Alchemy
   module Tasks
     module Helpers
@@ -11,6 +12,7 @@ module Alchemy
 
       def database_config
         raise "Could not find #{database_config_file}!" if !File.exist?(database_config_file)
+
         @database_config ||= begin
           config_file = YAML.safe_load(ERB.new(File.read(database_config_file)).result, [], [], true)
           config_file.fetch(environment)

@@ -24,6 +24,7 @@ module Alchemy
     # Tells us, if we should show the element footer and form inputs.
     def editable?
       return false if folded?
+
       content_definitions.present? || taggable?
     end
 

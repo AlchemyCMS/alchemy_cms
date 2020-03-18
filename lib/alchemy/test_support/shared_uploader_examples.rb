@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 RSpec.shared_examples_for "having a json uploader error message" do
   it "renders json response with error message" do
     subject

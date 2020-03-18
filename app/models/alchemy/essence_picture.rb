@@ -116,6 +116,7 @@ module Alchemy
     # @return [String]
     def preview_text(max = 30)
       return "" if picture.nil?
+
       picture.name.to_s[0..max - 1]
     end
 
@@ -124,6 +125,7 @@ module Alchemy
     # @return [Hash]
     def cropping_mask
       return if crop_from.blank? || crop_size.blank?
+
       crop_from = point_from_string(read_attribute(:crop_from))
       crop_size = sizes_from_string(read_attribute(:crop_size))
 
@@ -166,11 +168,12 @@ module Alchemy
 
     def normalize_number(number)
       number = number.to_f.round
-      number < 0 ? 0 : number
+      number.negative? ? 0 : number
     end
 
     def replace_newlines
       return nil if caption.nil?
+
       caption.gsub!(/(\r\n|\r|\n)/, "<br/>")
     end
   end

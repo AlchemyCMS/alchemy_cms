@@ -99,9 +99,9 @@ module Alchemy
             allow(Party).to receive(:respond_to?) do |arg|
               case arg
               when :reflect_on_all_associations
-                then false
+                false
               when :alchemy_resource_relations
-                then true
+                true
               end
             end
           end

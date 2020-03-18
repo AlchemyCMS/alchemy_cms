@@ -6,6 +6,7 @@ module Alchemy
     def ingredient(name)
       content = content_by_name(name)
       return nil if content.blank?
+
       content.ingredient
     end
 

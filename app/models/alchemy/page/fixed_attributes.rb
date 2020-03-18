@@ -52,6 +52,7 @@ module Alchemy
     #
     def fixed?(name)
       return false if name.nil?
+
       attributes.key?(name.to_sym)
     end
 
@@ -59,6 +60,7 @@ module Alchemy
     #
     def [](name)
       return nil if name.nil?
+
       attributes[name.to_sym]
     end
   end

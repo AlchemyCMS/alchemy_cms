@@ -97,6 +97,7 @@ module Alchemy
 
     def preview_text_from_nested_elements(maxlength)
       return if all_nested_elements.empty?
+
       all_nested_elements.first.preview_text(maxlength)
     end
 

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Alchemy
   # ActsAsTaggableOn to Gutentag interface compatibility module
   # Include this module to add tagging support to your model.
