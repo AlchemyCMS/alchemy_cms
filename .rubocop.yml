@@ -1,6 +1,7 @@
 # Relaxed.Ruby.Style
 
 AllCops:
+  TargetRubyVersion: 2.3
   Exclude:
     - 'bin/rspec'
     - 'vendor/**/*'
@@ -9,15 +10,8 @@ AllCops:
     - 'alchemy_cms.gemspec'
     - 'Rakefile'
 
-  TargetRubyVersion: 2.3
-
 # Really, rubocop?
 Bundler/OrderedGems:
-  Enabled: false
-
-# Sometimes I believe this reads better
-# This also causes spacing issues on multi-line fixes
-Style/BracesAroundHashParameters:
   Enabled: false
 
 Style/EmptyLiteral:
@@ -55,13 +49,13 @@ Style/MixinUsage:
   Exclude:
     - spec/**/*
 
-Performance/Count:
+Layout/ArgumentAlignment:
   Enabled: false
 
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
 
 Layout/ClosingParenthesisIndentation:
@@ -77,16 +71,19 @@ Layout/ElseAlignment:
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 
-Layout/IndentArray:
+Layout/FirstArrayElementIndentation:
   Enabled: false
 
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   Enabled: false
 
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   EnforcedStyle: active_support
 
 Layout/IndentationWidth:
+  Enabled: false
+
+Layout/LineLength:
   Enabled: false
 
 Layout/MultilineHashBraceLayout:
@@ -115,7 +112,7 @@ Layout/SpaceInsideParens:
 Layout/EndAlignment:
   Enabled: false
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Exclude:
     - 'config/initializers/mini_profiler.rb'
 
@@ -266,9 +263,6 @@ Metrics/ModuleLength:
   Enabled: false
 
 Metrics/CyclomaticComplexity:
-  Enabled: false
-
-Metrics/LineLength:
   Enabled: false
 
 Metrics/MethodLength:
