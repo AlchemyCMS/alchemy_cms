@@ -58,6 +58,9 @@ module Alchemy
         if (host = database_config['host']) && (host != 'localhost')
           command << "--host='#{host}'"
         end
+        if (port = database_config['port'])
+          command << "--port=#{port}"
+        end
         command.join(' ')
       end
 
