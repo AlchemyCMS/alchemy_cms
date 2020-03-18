@@ -150,6 +150,13 @@ RSpec.describe 'Show page feature:', type: :system do
           expect(page).to have_selector('li a[href="/page-1"], li a[href="/page-2"]')
         end
       end
+
+      it 'shows the navigation in a custom controller' do
+        visit '/ns/locations'
+        within('nav ul') do
+          expect(page).to have_selector('li a[href="/page-1"], li a[href="/page-2"]')
+        end
+      end
     end
   end
 
