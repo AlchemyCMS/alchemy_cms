@@ -198,7 +198,7 @@ module Alchemy
         node_partial_name: "#{root_node.view_folder_name}/node"
       }.merge(options)
 
-      render(root_node, menu: root_node, node: root_node, options: options)
+      render(root_node.to_partial_path, menu: root_node, node: root_node, options: options)
     rescue ActionView::MissingTemplate => e
       warning <<~WARN
         Menu partial not found for #{name}.
