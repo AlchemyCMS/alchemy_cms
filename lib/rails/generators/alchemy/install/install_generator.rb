@@ -18,7 +18,7 @@ module Alchemy
       end
 
       def copy_yml_files
-        %w(elements page_layouts).each do |file|
+        %w(elements page_layouts menus).each do |file|
           template "#{__dir__}/templates/#{file}.yml.tt", "config/alchemy/#{file}.yml"
         end
       end
