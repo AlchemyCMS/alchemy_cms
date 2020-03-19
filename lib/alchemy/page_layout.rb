@@ -163,7 +163,7 @@ module Alchemy
         if File.exist?(layouts_file_path)
           YAML.safe_load(ERB.new(File.read(layouts_file_path)).result, YAML_WHITELIST_CLASSES, [], true) || []
         else
-          raise LoadError, "Could not find page_layouts.yml file! Please run `rails generate alchemy:scaffold`"
+          raise LoadError, "Could not find page_layouts.yml file! Please run `rails generate alchemy:install`"
         end
       end
 
