@@ -49,6 +49,14 @@ en:
     #
     content_names:
 
+
+    # === Translations for menu names
+    # Used for the translations of the names of root menu nodes.
+    #
+    menu_names:
+      main_menu: Main Menu
+      footer_menu: Footer Menu
+
     # === Translations for content validations
     # Used when a user did not enter (correct) values to the content field.
     #
