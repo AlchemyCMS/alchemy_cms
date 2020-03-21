@@ -6,6 +6,20 @@ de:
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
 
+    # == Translations for menu names
+    # Just use the menu name like defined inside the config/alchemy/menus.yml file and translate it.
+    # We're providing main and footer menu here as a convenience.
+    # Example:
+    #
+    # de:
+    #   alchemy:
+    #     menu_names:
+    #       sidebar_menu: Seitenleistenmenü
+    #
+    menu_names:
+      main_menu: Hauptmenü
+      footer_menut: Footermenü
+
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
     #
