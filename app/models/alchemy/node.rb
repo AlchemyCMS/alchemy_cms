@@ -28,6 +28,28 @@ module Alchemy
         raise 'No language found' if Language.current.nil?
         roots.where(language_id: Language.current.id)
       end
+
+      def available_menu_names
+        read_definitions_file
+      end
+
+      private
+
+      # Reads the element definitions file named +menus.yml+ from +config/alchemy/+ folder.
+      #
+      def read_definitions_file
+        if ::File.exist?(definitions_file_path)
+          ::YAML.safe_load(File.read(definitions_file_path)) || []
+        else
+          raise LoadError, "Could not find menus.yml file! Please run `rails generate alchemy:install`"
+        end
+      end
+
+      # Returns the +menus.yml+ file path
+      #
+      def definitions_file_path
+        Rails.root.join 'config/alchemy/menus.yml'
+      end
     end
 
     # Returns the url

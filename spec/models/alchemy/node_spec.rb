@@ -29,6 +29,12 @@ module Alchemy
       end
     end
 
+    describe '.available_menu_names' do
+      subject { described_class.available_menu_names }
+
+      it { is_expected.to contain_exactly('main_menu', 'footer_menu') }
+    end
+
     describe '#url' do
       it 'is valid with leading slash' do
         expect(build(:alchemy_node, url: '/something')).to be_valid
