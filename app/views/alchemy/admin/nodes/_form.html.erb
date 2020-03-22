@@ -1,10 +1,15 @@
 <%= alchemy_form_for([:admin, node]) do |f| %>
-  <%= f.input :name, input_html: {
-    autofocus: true,
-    value: node.page && node.read_attribute(:name).blank? ? nil : node.name,
-    placeholder: node.page ? node.page.name : nil
-  } %>
-  <% unless node.root? %>
+  <% if node.root? %>
+    <%= f.input :name,
+      collection: Alchemy::Node.available_menu_names.map { |n| [I18n.t(n, scope: [:alchemy, :menu_names]), n] },
+      include_blank: false,
+      input_html: { class: 'alchemy_selectbox' } %>
+  <% else %>
+    <%= f.input :name, input_html: {
+      autofocus: true,
+      value: node.page && node.read_attribute(:name).blank? ? nil : node.name,
+      placeholder: node.page ? node.page.name : nil
+    } %>
     <%= f.input :page_id, label: Alchemy::Page.model_name.human, input_html: { class: 'alchemy_selectbox' } %>
     <%= f.input :url, input_html: { disabled: node.page }, hint: Alchemy.t(:node_url_hint) %>
     <%= f.input :title %>

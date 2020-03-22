@@ -57,7 +57,11 @@
       <% end %>
     </span>
     <div class="node_name">
-      <%= node.name || '&nbsp;'.html_safe %>
+      <% if node.root? %>
+        <%= I18n.t(node.name, scope: [:alchemy, :menu_names]) %>
+      <% else %>
+        <%= node.name || '&nbsp;'.html_safe %>
+      <% end %>
       <span class="node_page">
       <% if node.page %>
         <i class="icon far fa-file"></i>
