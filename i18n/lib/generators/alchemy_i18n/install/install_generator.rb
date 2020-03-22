@@ -47,7 +47,7 @@ module AlchemyI18n
       def append_manifest
         locales.each do |locale|
           append_file 'app/assets/config/manifest.js', <<~MANIFEST
-            //= link vendor/assets/javascripts/tinymce/langs/#{locale}.js
+            //= link tinymce/langs/#{locale}.js
           MANIFEST
         end
       end
