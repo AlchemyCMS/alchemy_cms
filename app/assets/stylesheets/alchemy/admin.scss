@@ -4,9 +4,11 @@
  *= require_self
  */
 
+$fa-font-path: "../../";
+
 @import "fontawesome/fontawesome";
-@import "fontawesome/fa-regular";
-@import "fontawesome/fa-solid";
+@import "fontawesome/regular";
+@import "fontawesome/solid";
 @import "alchemy/defaults";
 @import "alchemy/archive";
 @import "alchemy/navigation";
