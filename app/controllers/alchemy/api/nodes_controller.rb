@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+module Alchemy
+  class Api::NodesController < Api::BaseController
+    before_action :load_node
+
+    def move
+      target_parent_node = Node.find(params[:target_parent_id])
+      @node.move_to_child_with_index(target_parent_node, params[:new_position])
+      render json: @node, serializer: NodeSerializer
+    end
+
+    private
+
+    def load_node
+      @node = Node.find(params[:id])
+    end
+  end
+end
