@@ -88,9 +88,9 @@ module Alchemy
 
           render_views
 
-          it "returns nodes children" do
+          it "returns success" do
             patch :toggle, params: { id: node.id }
-            expect(response.body).to have_selector('li .sitemap_node')
+            expect(response).to be_successful
           end
         end
       end
