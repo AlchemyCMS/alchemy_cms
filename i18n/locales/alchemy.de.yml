@@ -6,6 +6,20 @@ de:
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
 
+    # == Translations for menu names
+    # Just use the menu name like defined inside the config/alchemy/menus.yml file and translate it.
+    # We're providing main and footer menu here as a convenience.
+    # Example:
+    #
+    # de:
+    #   alchemy:
+    #     menu_names:
+    #       sidebar_menu: Seitenleistenmenü
+    #
+    menu_names:
+      main_menu: Hauptmenü
+      footer_menut: Footermenü
+
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
     #
@@ -18,6 +32,7 @@ de:
     #       search: Suche
     #
     page_layout_names:
+      index: Startseite
 
     # == Translations for element names
     # Just use the elements name like defined inside the config/alchemy/elements.yml file and translate it.
@@ -31,6 +46,7 @@ de:
     #       contactform: Kontaktformular
     #
     element_names:
+      article: Artikel
 
     # == Translated names for contents in elements.
     # Used for the content editor label inside the element editor view (The elements window)
@@ -50,6 +66,9 @@ de:
     #      show_caption: Zeige Bildunterschrift
     #
     content_names:
+      headline: Überschrift
+      text: Text
+      picture: Bild
 
     # === Translations for content validations
     # Used when a user did not enter (correct) values to the content field.
@@ -73,9 +92,22 @@ de:
         invalid: '%{field} hat das falsche Format'
         taken: '%{field} wurde schon benutzt'
 
+    # Hint texts for contents
+    content_hints:
+      headline: "Dies ist ein einzeiliger unformatierter Text"
+      picture: "Bilder werden in der Bibliothek gespeichert. Ein Bild kann mehrfach einem Element zugewiesen werden. Auch ein Bildauswahlwerkzeug ist in Alchemy integriert."
+      text: "Dies ist ein formatierbarer Textblock. Die Einstellungen des Editors können angepasst werden. Siehe http://guides.alchemy-cms.com/stable/customize_tinymce.html"
+
+    # Default texts for new contents created
     default_content_texts:
+      article_headline: "Willkommen auf Ihrer Alchemy Seite"
+      article_text: '<p>Als erstes sollte man sich mit der Struktur von Alchemy vertraut machen. <a class="external" href="http://guides.alchemy-cms.com/stable/alchemy_approach.html" target="_blank" data-link-target="blank">Mehr dazu in den Guidelines</a>.</p><p>Die wichtigsten beiden Dinge die man über Alchemy wissen muss sind Elemente und Seitentypen.</p><p><span style="text-decoration: underline;"><strong>Elemente:</strong></span></p><p>Mit Alchemy kann man eine Seite in Inhaltsbereiche aufteilen, Elemente. Diese Elemente werden aus verschiedenen Grundtypen (Essenzen) zusammengesetzt. Die Essenzen sind:</p><ul><li>EssenceText - <em>Eine Zeile Text</em></li><li>EssenceRichtext - <em>Ein TinyMCE basierter formatierter Textblock</em></li><li>EssencePicture - <em>Ein Verweis auf ein Bild</em></li><li>EssenceHtml - <em>HTML Code</em></li><li>EssenceSelect - <em>Eine Auswahl an Werten</em></li><li>EssenceBoolean - <em>Eine Checkbox</em></li></ul><p>Elemente werden in einer YAML Datei definiert: <strong>config/alchemy/elements.yml</strong></p><p><a class="external" href="http://guides.alchemy-cms.com/stable/elements.html" target="_blank" data-link-target="blank">Mehr über Elemente und wie sie definiert werden, kann in den Guidelines nachgelesen werden.</a></p><p><span style="text-decoration: underline;"><strong>Seitentypen:</strong></span></p><p>Es können verschiedene Seitentypen definiert werden. Diesen können Elemente zugewiesen und ihr Verhalten definiert werden.</p><p>Seitentypen werden ein einer YAML Datei definiert: <strong>config/alchemy/page_layouts.yml</strong></p><p><a class="external" href="http://guides.alchemy-cms.com/stable/page_layouts.html" target="_blank" data-link-target="blank">Mehr über das Erstellen von Seitentypen kann in den Guidelines nachgelesen werden.</a></p>'
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
+
+    # Hint texts for elements
+    element_hints:
+      article: "Dies ist ein Hinweistext für das Artikel Element. Dieser Text kann in der `config/locales/alchemy.de.yml` Datei angepasst werden."
 
     essence_pictures:
       css_classes:
@@ -160,6 +192,7 @@ de:
       site:
         aliases: Weitere Domains bitte mit Leerzeichen oder Leerzeile getrennt angeben.
 
+    add_nested_element: "%{name} hinzufügen"
     anchor: 'Sprungmarke'
     attribute_fixed: Dieser Wert ist für diesen Seitentyp nicht veränderbar
     back: 'zurück'
@@ -326,6 +359,8 @@ de:
     confirm_to_delete_image: "Wollen Sie dieses Bild wirklich löschen?"
     confirm_to_delete_image_from_server: "Wollen Sie dieses Bild wirklich vom Server löschen?"
     confirm_to_delete_images_from_server: "Wollen Sie diese Bilder wirklich vom Server löschen?"
+    confirm_to_delete_menu: "Wollen Sie dieses Menü wirklich löschen?"
+    confirm_to_delete_node: "Wollen Sie diesen Menü-Eintrag wirklich entfernen?"
     confirm_to_delete_page: "Wollen Sie diese Seite wirklich löschen? Alle Inhalte (auch die aus dem Papierkorb) gehen dabei unwiderruflich verloren!"
     content_essence_not_found: "Essenz wurde nicht gefunden"
     content_not_found: "Das Feld für diesen Inhalt ist nicht vorhanden."
@@ -342,11 +377,15 @@ de:
     "Create site": "Eine neue Website erstellen"
     create_language_tree_heading: "Einen leeren Sprachbaum erstellen"
     create_page: "Eine Unterseite anlegen"
+    create_menu: "Ein Menü erstellen"
+    create_node: "Einen Menü-Eintrag hinzufügen"
     currently_edited_by: "Wird bearbeitet von"
     cut_element: "Element ausschneiden"
     delete_file: "Datei vom Server löschen"
     delete_image: "Bild löschen."
     delete_language: "Sprache löschen"
+    delete_menu: "Menü löschen"
+    delete_node: "Menü-Eintrag entfernen"
     delete_page: "Seite löschen"
     delete_tag: 'Tag löschen'
     document: "Dokument"
@@ -357,6 +396,8 @@ de:
     edit_file_properties: "Dateieigenschaften bearbeiten"
     edit_image_properties: "Bildeigenschaften bearbeiten"
     edit_language: "Sprache bearbeiten"
+    edit_menu: "Menü bearbeiten"
+    edit_node: "Menü-Eintrag ändern"
     edit_page: "Seite bearbeiten"
     edit_page_properties: "Seiteneigenschaften bearbeiten"
     edit_tag: 'Tag bearbeiten'
@@ -398,7 +439,7 @@ de:
     image_name: "Name"
     image_title: "Titel-Tag"
     internal_link_headline: "Wählen Sie eine Seite zum Verlinken aus."
-    internal_link_page_elements_explanation: "Zusätzlich können Sie rechts neben der jeweiligen Seite auf 'Elemente anzeigen' klicken, um eine Sprungmarke zu einem Element dieser Seite zu erstellen."
+    internal_link_page_elements_explanation: "Zusätzlich können Sie eine Sprungmarke zu einem Element der gewählten Seite setzen."
     internal_link_page_anchors_explanation: "Alternativ können Sie auch eine Sprungmarke innerhalb der aktuellen Seite erstellen."
     "item copied to clipboard": "%{name} wurde in die Zwischenablage kopiert."
     "item moved to clipboard": "%{name} wurde in die Zwischenablage bewegt."
@@ -413,6 +454,7 @@ de:
     legacy_url_info_text: "Ein Verweis ist eine Weiterleitung einer alten URL auf die aktuelle URL dieser Seite. Diese Weiterleitung findet mit einem <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301-Status-Code</a> statt."
     link_image: "Bild verlinken"
     link_overlay_tab_label:
+      anchor: Sprungmarke
       contactform: "Kontaktformular"
       external: "Extern"
       file: "Datei"
@@ -425,6 +467,7 @@ de:
     male: "Herr"
     me: 'Ich'
     medium_thumbnails: "mittlere Miniaturbilder"
+    menu: Menü
     meta_data: "Meta Daten"
     meta_description: "Meta Beschreibung"
     meta_keywords: "Meta Tags"
@@ -435,12 +478,16 @@ de:
       languages: "Sprachen"
       layoutpages: "Globale Seiten"
       library: "Bibliothek"
+      menus: "Menüs"
       pages: "Seiten"
       tags: "Tags"
       sites: "Websites"
+      user_sessions: "Anmeldung"
+      users: "Benutzer"
     name: "Name"
     names: "Namen"
     navigation_name: "Navigationsname"
+    node_url_hint: "Beginnen Sie die URL bitte mit einem Slash (/) oder verwenden Sie eine URL mit Protokoll (zB. https:)"
     no_image_for_cropper_found: "Es wurde kein Bild gefunden. Bitte speichern Sie zuerst das Element."
     no: "Nein"
     "no pages": "Keine Seiten"
@@ -454,6 +501,7 @@ de:
     "not a valid image": "Keine valide Bilddatei."
     "or": 'oder'
     or_replace_it_with_an_existing_tag: 'Oder Sie ersetzen es durch ein vorhandenes Tag'
+    page: Seite
     "Page created": "Seite '%{name}' wurde erstellt."
     page_for_links:
       choose_page: "%{name} wählen"
@@ -529,6 +577,8 @@ de:
     saved_link: "Link wurde gespeichert."
     search: "suchen"
     search_engines: "Suchmaschinen"
+    search_page: Seite wählen
+    Select a page first: Zuerst eine Seite wählen
     select_element: "Element wählen"
     seperate_tags_with_comma: 'Mehrere Tags mit Komma trennen.'
     show_element_content: "Element ausklappen"
@@ -598,6 +648,43 @@ de:
     "Update status unavailable": 'Update Status konnte nicht ermittelt werden'
     "Uploading": "Hochladen"
     "Your user role does not allow you to edit this page": Ihre Benutzerrolle erlaubt es Ihnen nicht diese Seite zu bearbeiten
+    cannot_signup_more_then_once: "Sie können nur einmal einen Admin Benutzer registrieren."
+    confirm_to_delete_user: "Wollen Sie diesen Benutzer wirklich löschen?"
+    create_user: "Einen Benutzer anlegen"
+    delete_user: "Benutzer löschen"
+    edit_user: "Benutzer bearbeiten"
+    "No users found": "Keine Benutzer gefunden."
+    "Successfully signup admin user": "Admin Benutzer wurde erfolgreich eingerichtet."
+    "Your user credentials": "Ihre Zugangsdaten"
+    "Your Alchemy Login": "Ihre Alchemy Zugangsdaten"
+
+    # Kaminari pagination translations
+    pagination:
+      first: "erste Seite"
+      previous_page: "vorherige Seite"
+      next_page: "nächste Seite"
+      last: "letzte Seite"
+
+    # Simple form translations
+    forms:
+      "yes": 'Ja'
+      "no": 'Nein'
+      required:
+        text: 'Pflichtfeld'
+        mark: '*'
+      error_notification:
+        default_message: "Es sind Fehler aufgetreten:"
+      labels:
+        user:
+          email: E-Mail
+          login: Benutzername
+          password: Passwort
+
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%d.%m.%Y"
 
   # Alchemy time formats
   time:
@@ -646,6 +733,12 @@ de:
         attributes:
           image_file:
             blank: "Bitte fügen Sie ein Bild an."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "entspricht nicht dem Format einer E-Mail-Adresse"
+          alchemy_roles:
+            blank: "mindestens eine Rolle muss angegeben sein"
 
   # Translations for Alchemy models
   activemodel:
@@ -683,6 +776,9 @@ de:
       alchemy/language:
         one: "Sprache"
         other: "Sprachen"
+      alchemy/node:
+        one: "Menü-Eintrag"
+        other: "Menü-Einträge"
       alchemy/page:
         one: "Seite"
         other: "Seiten"
@@ -692,6 +788,9 @@ de:
       alchemy/picture:
         one: Bild
         other: Bilder
+      alchemy/user:
+        one: Benutzer
+        other: Benutzer
     attributes:
       gutentag/tag:
         taggings_types: Verwendet an
@@ -739,6 +838,11 @@ de:
         code: ISO-Code
       alchemy/legacy_page_url:
         urlname: "URL-Pfad"
+      alchemy/node:
+        url: URL
+        title: Link-Titel
+        nofollow: Suchmaschinen den Link nicht folgen lassen
+        external: Link in neuem Tab/Fenster öffnen
       alchemy/page:
         created_at: "Erstellt am"
         language: "Sprache"
@@ -772,11 +876,17 @@ de:
         public: "veröffentlicht"
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Auf primäre Domain weiterleiten"
-
-  # Kaminari pagination translations
-  views:
-    pagination:
-      first: "erste Seite"
-      previous_page: "vorherige Seite"
-      next_page: "nächste Seite"
-      last: "letzte Seite"
+      alchemy/user:
+        email: "E-Mail"
+        firstname: "Vorname"
+        gender: "Anrede"
+        language: "Sprache"
+        lastname: "Nachname"
+        last_sign_in_at: "letzter Login am"
+        login: "Benutzername"
+        name: "Name"
+        password: "Passwort"
+        password_confirmation: "Passwort Bestätigung"
+        alchemy_roles: "Benutzerrollen"
+        tag_list: Tags
+        send_credentials: "Sende Benutzerdaten per E-Mail"

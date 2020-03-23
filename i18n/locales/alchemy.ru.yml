@@ -6,6 +6,18 @@ ru:
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
 
+    # == Translations for menu names
+    # Just use the menu name like defined inside the config/alchemy/menus.yml file and translate it.
+    # We're providing main and footer menu here as a convenience.
+    # Example:
+    #
+    # de:
+    #   alchemy:
+    #     menu_names:
+    #       sidebar_menu: Seitenleistenmenü
+    #
+    menu_names:
+
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
     #
@@ -159,6 +171,7 @@ ru:
       site:
         aliases: Разделяйте дополнительные домены с помощью пробелов или переходом на новую строку.
 
+    add_nested_element: "Add %{name}"
     anchor: 'Анкор'
     attribute_fixed: Значение не может быть изменен
     back: 'назад'
@@ -432,6 +445,8 @@ ru:
       pages: "Страницы"
       tags: "Метки"
       sites: "Сайты"
+      user_sessions: "Войти"
+      users: "Пользователи"
     name: "Название"
     names: "Названия"
     navigation_name: "Название для навигации"
@@ -586,10 +601,44 @@ ru:
     "Update available": 'Доступно обновление'
     "Update status unavailable": 'Статус обновлений недоступен'
     "Uploading": "Загрузка..."
+    cannot_signup_more_then_once: "You can't signup more then once."
+    confirm_to_delete_user: "Вы действительно хотите удалить пользователя?"
+    create_user: "Создать нового пользователя"
+    delete_user: "Удалить этого пользователя"
+    edit_user: "Редактировать пользователя"
+    "No users found": "Пользователи не найдены"
+
+    # Kaminari pagination translations
+    pagination:
+      first: "Первая"
+      previous_page: "Передыдущая"
+      next_page: "Следующая"
+      last: "Последняя"
+
+    # Simple form translations
+    forms:
+      "yes": 'Да'
+      "no": 'Нет'
+      required:
+        text: 'обязательные поля'
+        mark: '*'
+      error_notification:
+        default_message: "Пожалуйста, исправьте эти ошибки:"
+      labels:
+        user:
+          email: Email
+          login: войти
+          password: Пароль
 
   ### Add Russian rails translations(and better i18n support) using 'russian' gem
   # You should put this to your Gemfile
   # gem 'russian', '~> 0.6.0'
+
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%d.%m.%Y"
 
   # Alchemy time formats
   time:
@@ -638,6 +687,12 @@ ru:
         attributes:
           image_file:
             blank: "Приложите изображение."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "не является валидным email адресом"
+          alchemy_roles:
+            blank: "пользователю должна быть назначена хотя бы одна роль"
 
   # Translations for Alchemy models
   activemodel:
@@ -701,6 +756,12 @@ ru:
         few: "Изображения"
         many: "Изображений"
         zero: "Изображений"
+      alchemy/user:
+        one: Пользователь
+        few: "Пользователей"
+        many: "Пользователи"
+        other: "Пользователи"
+        zero: "Пользователей"
     attributes:
       gutentag/tag:
         name: "Название"
@@ -778,11 +839,18 @@ ru:
         public: "Публичный"
         aliases: "Дополнительные домены"
         redirect_to_primary_host: "Перенаправлять на основной хост"
-
-  # Kaminari pagination translations
-  views:
-    pagination:
-      first: "Первая"
-      previous_page: "Передыдущая"
-      next_page: "Следующая"
-      last: "Последняя"
+      alchemy/user:
+        email: "Email"
+        firstname: "Имя"
+        gender: "Пол"
+        language: "Язык"
+        lastname: "Фамилия"
+        last_sign_in_at: "Последний вход"
+        login: "Логин"
+        name: "Имя"
+        password: "Пароль"
+        password_confirmation: "Подтверждение пароля"
+        alchemy_roles: "Роли пользователя"
+        send_credentials: "Отправить email с данными для доступа"
+        roles: "Роли"
+        tag_list: "Метки"

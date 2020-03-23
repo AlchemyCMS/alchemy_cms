@@ -6,6 +6,20 @@ fr:
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
 
+    # == Translations for menu names
+    # Just use the menu name like defined inside the config/alchemy/menus.yml file and translate it.
+    # We're providing main and footer menu here as a convenience.
+    # Example:
+    #
+    # de:
+    #   alchemy:
+    #     menu_names:
+    #       sidebar_menu: Menu latéral
+    #
+    menu_names:
+      main_menu: Menu principal
+      footer_menut: Menu de bas de page
+
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
     #
@@ -174,6 +188,7 @@ fr:
       site:
         aliases: "S'il vous plaît indiquer Autres domaines séparés par des espaces ou ligne blanche."
 
+    add_nested_element: "Add %{name}"
     anchor: 'ancre'
     attribute_fixed: La valeur ne peut être modifiée
     back: 'arrière'
@@ -454,6 +469,8 @@ fr:
       pages: "Pages"
       tags: "Tags"
       sites: "Websites"
+      user_sessions: "Enregistrement"
+      users: "Utilisateur"
     name: "Nom"
     names: "Prénom"
     navigation_name: "Nom de navigation"
@@ -613,6 +630,43 @@ fr:
     "Update status unavailable": "L'état de mise à jour n'a pas pu être déterminée"
     "Uploading": "Télécharger"
     "Uploaded x files": "x fichiers téléchargés."
+    cannot_signup_more_then_once: "You can't signup more then once."
+    confirm_to_delete_user: "Voulez-vous vraiment supprimer cet utilisateur?"
+    create_user: "Création d'un utilisateur"
+    delete_user: "Supprimer utilisateurs"
+    edit_user: "Modifier l´utilisateur"
+    "No users found": "Aucun utilisateur trouvé."
+    "Successfully signup admin user": "Utilisateur Admin a été mis en place avec succès."
+    "Your user credentials": "vos dates d´accès "
+    "Your Alchemy Login": "vos dates d´accès Alchemy"
+
+    # Kaminari pagination translations
+    pagination:
+      first: "première page"
+      previous_page: "page précédente"
+      next_page: "page suivante"
+      last: "dernère page"
+
+    # Simple form translations
+    forms:
+      "yes": 'oui'
+      "no": 'non'
+      required:
+        text: 'champ obligatoire'
+        mark: '*'
+      error_notification:
+        default_message: "Il ya des erreurs:"
+      labels:
+        user:
+          email: E-Mail
+          login: Nom d'utilisateur
+          password: Mot de passe
+
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%d.%m.%Y"
 
   # Alchemy time formats
   time:
@@ -661,6 +715,12 @@ fr:
         attributes:
           image_file:
             blank: "S'il vous plaît ajouter une photo."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "ne correspond pas au format d'une adresse e-mail"
+          alchemy_roles:
+            blank: "au moins un rôle doit être précisé"
 
  # Translations for Alchemy models
   activemodel:
@@ -707,6 +767,9 @@ fr:
       alchemy/site:
         one: Website
         other: Websites
+      alchemy/user:
+        one: Utilisateur
+        other: Utilisateur
     attributes:
       gutentag/tag:
         taggings_types: Posté le
@@ -781,11 +844,17 @@ fr:
         public: "publié"
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirection vers domaine principal"
-
-  # Kaminari pagination translations
-  views:
-    pagination:
-      first: "première page"
-      previous_page: "page précédente"
-      next_page: "page suivante"
-      last: "dernère page"
+      alchemy/user:
+        email: "E-Mail"
+        firstname: "Prénom"
+        gender: "Titre"
+        language: "Langage"
+        lastname: "Nom"
+        last_sign_in_at: "dernier login le"
+        login: "Nom d'utilisateur"
+        name: "Nom"
+        password: "Mot de passe"
+        password_confirmation: "Confirmation mot de passe"
+        alchemy_roles: "Rôles de l'utilisateur"
+        tag_list: Tags
+        send_credentials: "Transmet nom d´utilisateur par e-mail"

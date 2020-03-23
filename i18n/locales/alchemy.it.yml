@@ -6,6 +6,18 @@ it:
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
 
+    # == Translations for menu names
+    # Just use the menu name like defined inside the config/alchemy/menus.yml file and translate it.
+    # We're providing main and footer menu here as a convenience.
+    # Example:
+    #
+    # de:
+    #   alchemy:
+    #     menu_names:
+    #       sidebar_menu: Side bar menu (?)
+    #
+    menu_names:
+
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
     #
@@ -160,6 +172,7 @@ it:
       site:
         aliases: Separa i domini aggiuntivi con uno spazio od un ritorno a capo.
 
+    add_nested_element: "Add %{name}"
     anchor: 'Collegamento'
     attribute_fixed: Il valore non può essere modificato
     back: 'indietro'
@@ -591,6 +604,34 @@ it:
     "Update status unavailable": 'Stato dell''update non disponibile'
     "Uploading": "Caricamento in corso"
 
+    # Kaminari pagination translations
+    pagination:
+      first: "Prima Pagina"
+      previous_page: "Pagina Precedente"
+      next_page: "Prossima Pagina"
+      last: "Ultima Pagina"
+
+    # Simple form translations
+    forms:
+      "yes": 'Sì'
+      "no": 'No'
+      required:
+        text: 'obbligatorio'
+        mark: '*'
+      error_notification:
+        default_message: "Correggi gli errori sottostanti:"
+      labels:
+        user:
+          email: Email
+          login: Login
+          password: Password
+
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%Y-%m-%d"
+
   # Alchemy time formats
   time:
     formats:
@@ -638,6 +679,12 @@ it:
         attributes:
           image_file:
             blank: "Carica un'immagine."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "is not a valid email address"
+          alchemy_roles:
+            blank: "at least one role must be given"
 
   # Translations for Alchemy models
   activemodel:
@@ -684,6 +731,9 @@ it:
       alchemy/picture:
         one: Immagine
         other: Immagini
+      alchemy/user:
+        one: User
+        other: User
     attributes:
       gutentag/tag:
         taggings_types: Usato per
@@ -723,7 +773,7 @@ it:
         default: "Default"
         frontpage_name: "Nome della prima pagina"
         name: "Nome"
-        page_layout: "Tipo della prima pagiona"
+        page_layout: "Tipo della prima pagina"
         public: "Pubblica"
         locale: Localizzazione
         code: Codice-ISO
@@ -762,11 +812,17 @@ it:
         public: "Publico"
         aliases: "Alias di Dominio"
         redirect_to_primary_host: "Redirect all'Host Primario"
-
-  # Kaminari pagination translations
-  views:
-    pagination:
-      first: "Prima Pagina"
-      previous_page: "Pagina Precedente"
-      next_page: "Prossima Pagina"
-      last: "Ultima Pagina"
+      alchemy/user:
+        email: "Email"
+        firstname: "Firstname"
+        gender: "Gender"
+        language: "Language"
+        lastname: "Lastname"
+        last_sign_in_at: "Last Login At"
+        login: "Username"
+        name: "Name"
+        password: "Password"
+        password_confirmation: "Password confirmation"
+        alchemy_roles: "User roles"
+        send_credentials: "Send email with credentials"
+        tag_list: Tags

@@ -6,6 +6,18 @@ nl:
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
 
+    # == Translations for menu names
+    # Just use the menu name like defined inside the config/alchemy/menus.yml file and translate it.
+    # We're providing main and footer menu here as a convenience.
+    # Example:
+    #
+    # de:
+    #   alchemy:
+    #     menu_names:
+    #       sidebar_menu: Side bar menu (?)
+    #
+    menu_names:
+
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
     #
@@ -159,6 +171,7 @@ nl:
       site:
         aliases: Specificeer andere domeinen gescheiden met witte ruimte of lege regel
 
+    add_nested_element: "Add %{name}"
     anchor: 'Anchor'
     attribute_fixed: Waarde kan niet worden gewijzigd
     back: 'back'
@@ -430,6 +443,8 @@ nl:
       pages: "Pagina's"
       tags: "Tags"
       sites: "Sites"
+      user_sessions: "Aanmelden"
+      users: "Gebruikers"
     name: "Naam"
     names: "Namen"
     navigation_name: "Navigatiename"
@@ -584,6 +599,40 @@ nl:
     "Update available": "Er is een update verkrijgbaar"
     "Update status unavailable": "Updatestatus is niet beschikbaar"
     "Uploading": "Uploaden"
+    cannot_signup_more_then_once: "You can't signup more then once."
+    confirm_to_delete_user: "Wilt u deze gebruiker zeker verwijderen?"
+    create_user: "Nieuwe gebruiker aanmaken"
+    delete_user: "Deze gebruiker verwijderen"
+    edit_user: "Eigenschappen van de gebruiker aanpassen"
+    "No users found": "Geen gebruikers gevonden"
+
+    # Kaminari pagination translations
+    pagination:
+      first: "Eerste pagina"
+      previous_page: "Vorige pagina"
+      next_page: "Volgende pagina"
+      last: "Laatste pagina"
+
+    # Simple form translations
+    forms:
+      "yes": 'Ja'
+      "no": 'Nee'
+      required:
+        text: 'Verplicht'
+        mark: '*'
+      error_notification:
+        default_message: "Controleer de volgende problemen:"
+      labels:
+        user:
+          email: Emailadres
+          login: Gebruikersnaam
+          password: Wachtwoord
+
+  # Alchemy date formats
+  date:
+    formats:
+      alchemy:
+        default: "%Y-%m-%d"
 
   # Alchemy time formats
   time:
@@ -632,6 +681,12 @@ nl:
         attributes:
           image_file:
             blank: "Voeg een afbeelding toe."
+      alchemy/user:
+        attributes:
+          email:
+            invalid: "Is geen valide e-mailadres"
+          alchemy_roles:
+            blank: "Er moet tenminste één rol worden geselecteerd."
 
   # Translations for Alchemy models
   activemodel:
@@ -678,6 +733,9 @@ nl:
       alchemy/picture:
         one: Afbeelding
         other: Afbeeldingen
+      alchemy/user:
+        one: Gebruiker
+        other: Gebruikers
     attributes:
       gutentag/tag:
         taggings_types: Gebruikt voor
@@ -754,11 +812,17 @@ nl:
         public: "Publiek"
         aliases: "Domain-Aliases"
         redirect_to_primary_host: "Redirect naar primaire host"
-
-  # Kaminari pagination translations
-  views:
-    pagination:
-      first: "Eerste pagina"
-      previous_page: "Vorige pagina"
-      next_page: "Volgende pagina"
-      last: "Laatste pagina"
+      alchemy/user:
+        email: "Email"
+        firstname: "Voornaam"
+        gender: "Geslacht"
+        language: "Taal"
+        lastname: "Achternaam"
+        last_sign_in_at: "Laatst aangemeld op"
+        login: "Gebruikersnaam"
+        name: "Naam"
+        password: "Wachtwoord"
+        password_confirmation: "Bevestiging wachtwoord"
+        alchemy_roles: "Gebruikersrollen"
+        send_credentials: "Email met gegevens versturen"
+        tag_list: Tags
