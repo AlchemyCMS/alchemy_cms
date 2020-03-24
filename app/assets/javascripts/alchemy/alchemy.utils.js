@@ -12,3 +12,13 @@ Alchemy.on = function (eventName, baseSelector, targetSelector, callback) {
     }
   });
 }
+
+Alchemy.xhr = function(method, url) {
+  var xhr = new XMLHttpRequest()
+  var token = document.querySelector('meta[name="csrf-token"]').attributes.content.textContent
+  xhr.open(method, url);
+  xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  xhr.setRequestHeader('X-CSRF-Token', token)
+
+  return xhr;
+}

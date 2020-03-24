@@ -1,16 +1,13 @@
 Alchemy.NodeTree = {
   onFinishDragging: function (evt) {
     var url = '/api/nodes/' + evt.item.dataset.id + '/move.json'
-    var xhr = new XMLHttpRequest()
-    var token = document.querySelector('meta[name="csrf-token"]').attributes.content.textContent
+    var xhr = Alchemy.xhr('PATCH', url)
     var data = {
       target_parent_id: evt.to.dataset.nodeId,
       new_position: evt.newIndex
     };
     var json = JSON.stringify(data)
-    xhr.open("PATCH", url);
-    xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-    xhr.setRequestHeader('X-CSRF-Token', token)
+
     evt.to.parentElement.dataset.folded = 'false'
     evt.to.classList.remove('folded')
     xhr.onload = function () {
@@ -44,12 +41,7 @@ Alchemy.NodeTree = {
       var menu_item = this.closest('li.menu-item')
       var url = '/admin/nodes/' + nodeId + '/toggle.html'
       var list = menu_item.querySelector('.children')
-      var xhr = new XMLHttpRequest()
-      var token = document.querySelector('meta[name="csrf-token"]').attributes.content.textContent
-
-      xhr.open("PATCH", url);
-      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-      xhr.setRequestHeader('X-CSRF-Token', token)
+      var xhr = Alchemy.xhr('PATCH', url)
 
       xhr.onload = function () {
         if (xhr.readyState == 4 && xhr.status == "200") {
