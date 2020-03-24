@@ -40,41 +40,51 @@ Alchemy.NodeTree = {
         leftIconArea.innerHTML = '&nbsp;'
       }
     });
-
-    this.handleNodeFolders();
   },
 
   handleNodeFolders: function() {
-    var folders = document.querySelectorAll('.nodes_tree .node_folder');
+    this.registerDelegatingEventHandler('click', '.nodes_tree', '.node_folder', function(evt) {
+      var nodeId = this.dataset.nodeId
+      var menu_item = this.closest('li.menu-item')
+      var url = '/admin/nodes/' + nodeId + '/toggle.html'
+      var list = menu_item.querySelector('.children')
+      var xhr = new XMLHttpRequest()
+      var token = document.querySelector('meta[name="csrf-token"]').attributes.content.textContent
 
-    folders.forEach(function(folder){
-      folder.addEventListener('click', function(evt) {
-        var nodeId = this.dataset.nodeId
-        var menu_item = this.closest('li.menu-item')
-        var url = '/admin/nodes/' + nodeId + '/toggle.html'
-        var list = menu_item.querySelector('.children')
-        var xhr = new XMLHttpRequest()
-        var token = document.querySelector('meta[name="csrf-token"]').attributes.content.textContent
+      xhr.open("PATCH", url);
+      xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+      xhr.setRequestHeader('X-CSRF-Token', token)
 
-        xhr.open("PATCH", url);
-        xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-        xhr.setRequestHeader('X-CSRF-Token', token)
-
-        xhr.onload = function () {
-          if (xhr.readyState == 4 && xhr.status == "200") {
-            list.classList.toggle('folded')
-            menu_item.dataset.folded = menu_item.dataset.folded == 'true' ? 'false' : 'true'
-            Alchemy.NodeTree.displayNodeFolders();
-          } else {
-            Alchemy.growl('error folding');
-          }
+      xhr.onload = function () {
+        if (xhr.readyState == 4 && xhr.status == "200") {
+          list.classList.toggle('folded')
+          menu_item.dataset.folded = menu_item.dataset.folded == 'true' ? 'false' : 'true'
+          Alchemy.NodeTree.displayNodeFolders();
+        } else {
+          Alchemy.growl('error folding');
         }
-        xhr.send()
-      })
+      }
+      xhr.send()
+    });
+  },
+
+  registerDelegatingEventHandler: function(eventName, baseSelector, targetSelector, callback) {
+    var baseNode = document.querySelector(baseSelector)
+    baseNode.addEventListener(eventName, function(evt) {
+      var targets = Array.from(baseNode.querySelectorAll(targetSelector))
+      var currentNode = evt.target
+      while (currentNode !== baseNode) {
+        if (targets.includes(currentNode)) {
+          callback.call(currentNode, evt)
+          return
+        }
+        currentNode = currentNode.parentElement
+      }
     });
   },
 
   init: function() {
+    this.handleNodeFolders()
     this.displayNodeFolders()
 
     document.querySelectorAll('.nodes_tree ul.children').forEach(function (el) {
