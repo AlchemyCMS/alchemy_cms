@@ -23,5 +23,41 @@ module Alchemy
         expect(page_node.children).to include(url_node)
       end
     end
+
+
+    describe '#toggle_folded' do
+      context 'with expanded node' do
+        let(:node) { create(:alchemy_node, folded: false) }
+
+        it "folds node" do
+          expect {
+            patch alchemy.toggle_folded_api_node_path(node)
+          }.to change { node.reload.folded }.to(true)
+        end
+      end
+
+      context 'with folded node' do
+        let(:node) { create(:alchemy_node, folded: true) }
+
+        it "expands node" do
+          expect {
+            patch alchemy.toggle_folded_api_node_path(node)
+          }.to change { node.reload.folded }.to(false)
+        end
+
+        context 'with node having children' do
+          before do
+            create(:alchemy_node, parent: node)
+          end
+
+          it "returns success" do
+            patch alchemy.toggle_folded_api_node_path(node)
+            expect(response).to be_successful
+            response_json = JSON.parse(response.body)
+            expect(response_json['id']).to eq(node.id)
+          end
+        end
+      end
+    end
   end
 end

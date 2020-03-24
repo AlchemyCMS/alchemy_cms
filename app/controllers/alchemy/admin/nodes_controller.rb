@@ -15,12 +15,6 @@ module Alchemy
         )
       end
 
-      def toggle
-        node = Node.find(params[:id])
-        node.update(folded: !node.folded)
-        head :ok
-      end
-
       private
 
       def resource_params

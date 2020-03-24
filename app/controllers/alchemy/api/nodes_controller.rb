@@ -10,6 +10,11 @@ module Alchemy
       render json: @node, serializer: NodeSerializer
     end
 
+    def toggle_folded
+      @node.update(folded: !@node.folded)
+      render json: @node, serializer: NodeSerializer
+    end
+
     private
 
     def load_node

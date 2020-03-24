@@ -39,7 +39,7 @@ Alchemy.NodeTree = {
     Alchemy.on('click', '.nodes_tree', '.node_folder', function(evt) {
       var nodeId = this.dataset.nodeId
       var menu_item = this.closest('li.menu-item')
-      var url = '/admin/nodes/' + nodeId + '/toggle.html'
+      var url = '/api/nodes/' + nodeId + '/toggle_folded.json'
       var list = menu_item.querySelector('.children')
       var xhr = Alchemy.xhr('PATCH', url)
 

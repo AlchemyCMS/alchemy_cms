@@ -60,40 +60,5 @@ module Alchemy
         end
       end
     end
-
-    describe '#toggle' do
-      context 'with expanded node' do
-        let(:node) { create(:alchemy_node, folded: false) }
-
-        it "folds node" do
-          expect {
-            patch :toggle, params: { id: node.id }
-          }.to change { node.reload.folded }.to(true)
-        end
-      end
-
-      context 'with folded node' do
-        let(:node) { create(:alchemy_node, folded: true) }
-
-        it "expands node" do
-          expect {
-            patch :toggle, params: { id: node.id }
-          }.to change { node.reload.folded }.to(false)
-        end
-
-        context 'with node having children' do
-          before do
-            create(:alchemy_node, parent: node)
-          end
-
-          render_views
-
-          it "returns success" do
-            patch :toggle, params: { id: node.id }
-            expect(response).to be_successful
-          end
-        end
-      end
-    end
   end
 end
