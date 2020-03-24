@@ -18,6 +18,7 @@ Alchemy.xhr = function(method, url) {
   var token = document.querySelector('meta[name="csrf-token"]').attributes.content.textContent
   xhr.open(method, url);
   xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+  xhr.setRequestHeader('Accept', 'application/json');
   xhr.setRequestHeader('X-CSRF-Token', token)
 
   return xhr;
