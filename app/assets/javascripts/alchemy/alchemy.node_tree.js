@@ -1,6 +1,6 @@
 Alchemy.NodeTree = {
   onFinishDragging: function (evt) {
-    var url = '/api/nodes/' + evt.item.dataset.id + '/move.json'
+    var url = Alchemy.routes.move_api_node_path(evt.item.dataset.id)
     var xhr = Alchemy.xhr('PATCH', url)
     var data = {
       target_parent_id: evt.to.dataset.nodeId,
@@ -39,7 +39,7 @@ Alchemy.NodeTree = {
     Alchemy.on('click', '.nodes_tree', '.node_folder', function(evt) {
       var nodeId = this.dataset.nodeId
       var menu_item = this.closest('li.menu-item')
-      var url = '/api/nodes/' + nodeId + '/toggle_folded.json'
+      var url = Alchemy.routes.toggle_folded_api_node_path(nodeId)
       var list = menu_item.querySelector('.children')
       var xhr = Alchemy.xhr('PATCH', url)
 
