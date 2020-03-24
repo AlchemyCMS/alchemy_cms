@@ -25,17 +25,13 @@ Alchemy.NodeTree = {
   },
 
   displayNodeFolders: function () {
-    var generate_link = function (node_id, folded) {
-      var icon = folded === "true" ? 'plus' : 'minus';
-      return '<a class="node_folder" data-node-id="' + node_id + '"><i class="far fa-' + icon + '-square fa-fw"></i></a>'
-    }
-
     document.querySelectorAll('li.menu-item').forEach(function (el) {
       var leftIconArea = el.querySelector('.nodes_tree-left_images')
       var list = el.querySelector('ul')
+      var node = { folded: el.dataset.folded === 'true', id: el.dataset.id }
 
-      if (list.children.length > 0 || el.dataset.folded === 'true' ) {
-        leftIconArea.innerHTML = generate_link(el.dataset.id, el.dataset.folded)
+      if (list.children.length > 0 || node.folded ) {
+        leftIconArea.innerHTML = HandlebarsTemplates.node_folder({ node: node })
       } else {
         leftIconArea.innerHTML = '&nbsp;'
       }
