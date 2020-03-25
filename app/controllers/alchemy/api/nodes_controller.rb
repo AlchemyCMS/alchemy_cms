@@ -3,6 +3,7 @@
 module Alchemy
   class Api::NodesController < Api::BaseController
     before_action :load_node
+    before_action :authorize_access, only: [:move, :toggle_folded]
 
     def move
       target_parent_node = Node.find(params[:target_parent_id])
@@ -19,6 +20,10 @@ module Alchemy
 
     def load_node
       @node = Node.find(params[:id])
+    end
+
+    def authorize_access
+      authorize! :update, @node
     end
   end
 end
