@@ -110,6 +110,7 @@
     text-decoration: none;
     overflow: hidden;
     background-color: $sitemap-page-background-color;
+    cursor: move;
 
     &.without-status {
       @include border-right-radius($default-border-radius);
