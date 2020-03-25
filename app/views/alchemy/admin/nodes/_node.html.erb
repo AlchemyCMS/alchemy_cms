@@ -1,21 +1,11 @@
-<li>
+<%= content_tag :li, class: 'menu-item', data: { id: node.id, parent_id: node.parent_id, folded: node.folded? } do %>
   <%= content_tag :div, class: [
     'sitemap_node',
     node.external? ? 'external' : 'internal',
     "sitemap_node-level_#{node.depth}"
   ] do %>
     <span class="nodes_tree-left_images">
-      <% if node.children.any? %>
-        <a class="node_folder" data-node-id="<%= node.id %>">
-          <% if node.folded? %>
-            <i class="far fa-plus-square fa-fw"></i>
-          <% else %>
-            <i class="far fa-minus-square fa-fw"></i>
-          <% end %>
-        </a>
-      <% else %>
-        &nbsp;
-      <% end %>
+      &nbsp;
     </span>
     <span class="nodes_tree-right_tools">
       <% if can?(:edit, node) %>
@@ -81,11 +71,7 @@
       <% end %>
     </div>
   <% end %>
-  <% if node.children.any? %>
-    <ul class="children<%= node.folded? ? ' hidden' : nil %>">
-      <% unless node.folded? %>
-        <%= render partial: 'node', collection: node.children.includes(:page, :children) %>
-      <% end %>
-    </ul>
+  <%= content_tag :ul, class: "children #{' folded' if node.folded?}", data: { node_id: node.id } do %>
+    <%= render partial: 'node', collection: node.children.includes(:page, :children) %>
   <% end %>
-</li>
+<% end %>

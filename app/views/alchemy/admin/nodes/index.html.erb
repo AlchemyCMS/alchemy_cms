@@ -43,20 +43,6 @@
 </div>
 
 <script>
-  $('.nodes_tree').on('click', '.node_folder', function() {
-    var $this = $(this)
-    var node_id = $this.data('node-id')
-    var url = '<%= alchemy.toggle_admin_node_path(id: ":id") %>'.replace(':id', node_id)
-    var $children = $this.closest('li').find('> .children')
-    $this.find('> i').
-      toggleClass('fa-plus-square').
-      toggleClass('fa-minus-square')
-    $children.toggleClass('hidden')
-    $.ajax(url, { method: 'PATCH' }).then(function (nodes) {
-      if ($children.children().length === 0) {
-        $children.append(nodes)
-      }
-    })
-    return false
-  })
+  Alchemy.NodeTree.init()
+
 </script>

@@ -15,16 +15,6 @@ module Alchemy
         )
       end
 
-      def toggle
-        node = Node.find(params[:id])
-        node.update(folded: !node.folded)
-        if node.folded?
-          head :ok
-        else
-          render partial: 'node', collection: node.children.includes(:page, :children)
-        end
-      end
-
       private
 
       def resource_params
