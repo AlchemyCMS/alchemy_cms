@@ -1,24 +1,18 @@
 Alchemy.NodeTree = {
   onFinishDragging: function (evt) {
     var url = Alchemy.routes.move_api_node_path(evt.item.dataset.id)
-    var xhr = Alchemy.xhr('PATCH', url)
     var data = {
       target_parent_id: evt.to.dataset.nodeId,
       new_position: evt.newIndex
     };
-    var json = JSON.stringify(data)
+    var ajax = Alchemy.ajax('PATCH', url, data)
 
-    evt.to.parentElement.dataset.folded = 'false'
-    evt.to.classList.remove('folded')
-    xhr.onload = function () {
-      response_json = JSON.parse(xhr.responseText)
-      if (xhr.readyState == 4 && xhr.status == "200") {
-        Alchemy.NodeTree.displayNodeFolders()
-      } else {
-        Alchemy.growl(response_json.error, 'error');
-      }
-    }
-    xhr.send(json)
+    ajax.then(function(response) {
+      Alchemy.growl('Successfully moved menu item.')
+      Alchemy.NodeTree.displayNodeFolders()
+    }).catch(function() {
+      Alchemy.growl(error.message || error);
+    })
   },
 
   displayNodeFolders: function () {
@@ -41,18 +35,15 @@ Alchemy.NodeTree = {
       var menu_item = this.closest('li.menu-item')
       var url = Alchemy.routes.toggle_folded_api_node_path(nodeId)
       var list = menu_item.querySelector('.children')
-      var xhr = Alchemy.xhr('PATCH', url)
+      var ajax = Alchemy.ajax('PATCH', url)
 
-      xhr.onload = function () {
-        if (xhr.readyState == 4 && xhr.status == "200") {
-          list.classList.toggle('folded')
-          menu_item.dataset.folded = menu_item.dataset.folded == 'true' ? 'false' : 'true'
-          Alchemy.NodeTree.displayNodeFolders();
-        } else {
-          Alchemy.growl('error folding');
-        }
-      }
-      xhr.send()
+      ajax.then(function() {
+        list.classList.toggle('folded')
+        menu_item.dataset.folded = menu_item.dataset.folded == 'true' ? 'false' : 'true'
+        Alchemy.NodeTree.displayNodeFolders();
+      }).catch(function(error){
+        Alchemy.growl(error.message || error);
+      });
     });
   },
 
