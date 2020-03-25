@@ -19,7 +19,8 @@ module Alchemy
     # Returns self.date for the Element#preview_text method.
     def preview_text(_maxlength = nil)
       return "" if date.blank?
-      ::I18n.l(date, format: :date)
+
+      ::I18n.l(date, format: :'alchemy.essence_date')
     end
   end
 end

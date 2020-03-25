@@ -1,0 +1,23 @@
+<%- cache(contactform) do -%>
+  <%= element_view_for(contactform) do |el| -%>
+    <form action="/messages" method="POST">
+      <div>
+        <label>
+          Name<br>
+          <input type="text" placeholder="Your name">
+        </label>
+      </div>
+      <div>
+        <label>
+          Email<br>
+          <input type="email" placeholder="Your email">
+        </label>
+      </div>
+      <div>
+        <label>Comment</label><br>
+        <textarea></textarea>
+      </div>
+      <button>Send</button>
+    </form>
+  <%- end -%>
+<%- end -%>

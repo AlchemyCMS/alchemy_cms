@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 # Here's a tiny custom matcher making it a bit easier to check the
 # current session for a language configuration.
@@ -24,8 +26,10 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
     end
 
     context "with custom current_user_method" do
-      before do
+      around do |example|
         Alchemy.current_user_method = 'current_admin'
+        example.run
+        Alchemy.current_user_method = 'current_user'
       end
 
       it "calls the custom method" do
@@ -35,16 +39,14 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
     end
 
     context "with not implemented current_user_method" do
-      before do
+      around do |example|
         Alchemy.current_user_method = 'not_implemented_method'
-      end
-
-      after do
+        example.run
         Alchemy.current_user_method = 'current_user'
       end
 
       it "raises an error" do
-        expect{
+        expect {
           controller.send :current_alchemy_user
         }.to raise_error(Alchemy::NoCurrentUserFoundError)
       end
@@ -58,6 +60,8 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
     after do
       # We must never change the app's locale
       expect(::I18n.locale).to eq(:en)
+      # Reset the current language so its fresh for every subsequent test
+      RequestStore.store[:alchemy_current_language] = nil
     end
 
     context "with a Language argument" do

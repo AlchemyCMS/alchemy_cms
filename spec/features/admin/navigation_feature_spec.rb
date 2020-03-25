@@ -1,6 +1,8 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe 'Admin navigation feature' do
+require 'rails_helper'
+
+RSpec.describe 'Admin navigation feature', type: :system do
   context 'admin users' do
     before { authorize_user(:as_admin) }
 

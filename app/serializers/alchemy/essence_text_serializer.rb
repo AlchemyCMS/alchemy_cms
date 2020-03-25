@@ -2,8 +2,6 @@
 
 module Alchemy
   class EssenceTextSerializer < ActiveModel::Serializer
-    self.root = false
-
     attributes :id,
       :body,
       :link,
@@ -12,6 +10,7 @@ module Alchemy
 
     def link
       return if object.link.blank?
+
       {
         url: object.link,
         title: object.link_title,

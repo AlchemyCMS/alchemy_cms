@@ -4,11 +4,13 @@ module Alchemy
   module Admin
     class AttachmentsController < ResourcesController
       include UploaderResponses
+      include ArchiveOverlay
 
       helper 'alchemy/admin/tags'
 
       def index
         @query = Attachment.ransack(search_filter_params[:q])
+        @query.sorts = 'name asc' if @query.sorts.empty?
         @attachments = @query.result
 
         if search_filter_params[:tagged_with].present?
@@ -21,7 +23,7 @@ module Alchemy
 
         @attachments = @attachments
           .page(params[:page] || 1)
-          .per(15)
+          .per(items_per_page)
 
         if in_overlay?
           archive_overlay
@@ -82,18 +84,6 @@ module Alchemy
           render successful_uploader_response(file: @attachment, status: status)
         else
           render failed_uploader_response(file: @attachment)
-        end
-      end
-
-      def in_overlay?
-        params[:content_id].present?
-      end
-
-      def archive_overlay
-        @content = Content.find_by(id: params[:content_id])
-        respond_to do |format|
-          format.html { render partial: 'archive_overlay' }
-          format.js   { render action:  'archive_overlay' }
         end
       end
 

@@ -59,7 +59,7 @@ $dialog-transition-duration: 150ms;
 .alchemy-dialog,
 .alchemy-image-overlay-dialog {
   position: relative;
-  max-width: 100%;
+  max-width: calc(100vw - 16px);
   display: inline-block;
   vertical-align: middle;
   text-align: left;
@@ -70,13 +70,13 @@ $dialog-transition-duration: 150ms;
   margin: 2*$default-margin;
   @include border-top-radius($default-border-radius);
   box-shadow: $dialog-box-shadow;
+  background-color: $dialog-background-color;
   transition: min-height $dialog-transition-duration ease-in-out;
 
   div#jscropper {
     padding: 2 * $default-padding;
 
     .thumbnail_background {
-      @extend %thumbnail-background;
       width: 800px;
       height: 600px;
       position: relative;
@@ -167,7 +167,6 @@ $dialog-transition-duration: 150ms;
 
 .alchemy-dialog-body {
   position: relative;
-  background-color: $dialog-background-color;
   color: $text-color;
 
   .message {

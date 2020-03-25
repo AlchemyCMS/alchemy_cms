@@ -20,6 +20,10 @@
       linkable: true
   - name: image
     type: EssencePicture
+    settings:
+      size: 450x300
+      crop: true
+      fixed_ratio: false
   - name: text
     type: EssenceRichtext
 
@@ -69,7 +73,7 @@
     validate:
       - presence
   - name: success_page
-    type: EssenceSelect
+    type: EssencePage
     validate:
       - presence
 
@@ -113,6 +117,7 @@
     type: EssenceRichtext
 
 - name: slide
+  compact: true
   contents:
     - name: picture
       type: EssencePicture
@@ -123,6 +128,35 @@
 - name: slider
   nestable_elements:
     - slide
+  autogenerate:
+    - slide
 
 - name: gallery
-  picture_gallery: true
+  nestable_elements:
+    - gallery_picture
+
+- name: gallery_picture
+  compact: true
+  contents:
+    - name: picture
+      type: EssencePicture
+      settings:
+        size: 160x120
+
+- name: right_column
+  fixed: true
+  unique: true
+  contents:
+    - name: title
+      type: EssenceText
+  nestable_elements: [search, text]
+
+- name: left_column
+  fixed: true
+  unique: true
+  nestable_elements: [text]
+
+- name: <%= 'erb_' + 'cell' %>
+  fixed: true
+  unique: true
+  nestable_elements: [text]

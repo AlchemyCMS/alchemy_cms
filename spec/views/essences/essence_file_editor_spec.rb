@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 describe 'alchemy/essences/_essence_file_editor' do
   let(:attachment) { build_stubbed(:alchemy_attachment) }
@@ -6,7 +8,9 @@ describe 'alchemy/essences/_essence_file_editor' do
   let(:content) { build_stubbed(:alchemy_content, essence: essence) }
 
   subject do
-    render partial: "alchemy/essences/essence_file_editor", locals: {content: content}
+    render partial: "alchemy/essences/essence_file_editor", locals: {
+      essence_file_editor: Alchemy::ContentEditor.new(content)
+    }
     rendered
   end
 

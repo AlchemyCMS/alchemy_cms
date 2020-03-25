@@ -2,12 +2,12 @@
 <table class="list" id="<%= resource_handler.resources_name %>_list">
   <thead>
     <tr>
-    <% resource_handler.attributes.each do |attribute| %>
+    <% resource_handler.sorted_attributes.each do |attribute| %>
       <th class="<%= attribute[:type] %> <%= attribute[:name] %>">
         <%= sort_link [:resource_url_proxy, @query],
           sortable_resource_header_column(attribute),
           resource_handler.model.human_attribute_name(attribute[:name]),
-          hide_indicator: true %>
+          default_order: attribute[:type].to_s =~ /date|time/ ? 'desc' : 'asc' %>
       </th>
     <% end %>
       <th class="tools"></th>

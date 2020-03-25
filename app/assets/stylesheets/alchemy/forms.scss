@@ -16,10 +16,6 @@ form {
     height: 67px;
   }
 
-  > h2 {
-    @include form-heading;
-  }
-
   .control-label {
     @include form-label;
   }
@@ -29,6 +25,7 @@ form {
     @include clearfix;
 
     > input[type="url"],
+    > input[type="number"],
     > input[type="text"],
     > input[type="email"],
     > input[type="password"],
@@ -39,6 +36,10 @@ form {
     > .with-hint {
       width: $form-right-width;
       float: right;
+    }
+
+    .input > .select2-container {
+      width: 100%;
     }
 
     > .autocomplete_tag_list {
@@ -52,11 +53,8 @@ form {
       line-height: 16px;
     }
 
-    &.select, &.grouped_select {
-
-      .select2-container {
-        margin: 4px 0;
-      }
+    .select2-container {
+      margin: 4px 0;
     }
 
     &.boolean {
@@ -164,8 +162,12 @@ form {
 
   .control_group {
     width: $form-right-width;
-    padding-top: 6px;
+    padding-top: $default-margin;
     float: right;
+  }
+
+  .check_boxes .control_group {
+    padding-top: 0.6em;
   }
 
   .input .hint {

@@ -1,0 +1,8 @@
+<div id="content">
+  <%= render_elements %>
+</div>
+<div id="right-column">
+  <% @page.fixed_elements.each do |element| %>
+    <%= render_element(element) %>
+  <% end %>
+</div>

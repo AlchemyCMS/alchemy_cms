@@ -1,6 +1,8 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe "Resources" do
+require 'rails_helper'
+
+RSpec.describe "Resources", type: :system do
   let(:event)        { create(:event) }
   let(:second_event) { create(:event, name: 'My second Event', entrance_fee: 12.32) }
 
@@ -26,20 +28,33 @@ describe "Resources" do
       visit '/admin/events'
       expect(page).to have_selector('div#archive_all table.list')
     end
+
+    describe "date fields" do
+      let(:yesterday) { Date.yesterday }
+      let(:tomorrow) { Date.tomorrow }
+
+      before do
+        Booking.create(from: yesterday, until: tomorrow)
+      end
+
+      it "displays date values" do
+        visit '/admin/bookings'
+        expect(page).to have_content(yesterday)
+        expect(page).to have_content(tomorrow)
+      end
+    end
   end
 
   describe "form for creating and updating items" do
     it "renders an input field according to the attribute's type" do
       visit '/admin/events/new'
       expect(page).to have_selector('input#event_name[type="text"]')
-      expect(page).to have_selector('input#event_starts_at[type="datetime"]')
+      expect(page).to have_selector('input#event_starts_at[data-datepicker-type="datetime"]')
+      expect(page).to have_selector('input#event_ends_at[data-datepicker-type="datetime"]')
       expect(page).to have_selector('textarea#event_description')
       expect(page).to have_selector('input#event_published[type="checkbox"]')
-      expect(page).to have_selector('input#event_lunch_starts_at_1i[type="hidden"]')
-      expect(page).to have_selector('input#event_lunch_starts_at_2i[type="hidden"]')
-      expect(page).to have_selector('input#event_lunch_starts_at_3i[type="hidden"]')
-      expect(page).to have_selector('select#event_lunch_starts_at_4i')
-      expect(page).to have_selector('select#event_lunch_starts_at_5i')
+      expect(page).to have_selector('input#event_lunch_starts_at[data-datepicker-type="time"]')
+      expect(page).to have_selector('input#event_lunch_ends_at[data-datepicker-type="time"]')
     end
 
     it "should have a select box for associated models" do
@@ -48,23 +63,31 @@ describe "Resources" do
         expect(page).to have_selector('select')
       end
     end
+
+    describe "date fields" do
+      it "have date picker" do
+        visit '/admin/bookings/new'
+        expect(page).to have_selector('input#booking_from[data-datepicker-type="date"]')
+      end
+    end
   end
 
   describe "create resource item" do
     context "when form filled with valid data" do
       let!(:location) { create(:location) }
+      let(:start_date) { 1.week.from_now }
 
       before do
         visit '/admin/events/new'
         fill_in 'event_name', with: 'My second event'
-        fill_in 'event_starts_at', with: Time.local(2012, 03, 03, 20, 00)
+        fill_in 'event_starts_at', with: start_date
         select location.name, from: 'Location'
         click_on 'Save'
       end
 
       it "lists the new item" do
         expect(page).to have_content "My second event"
-        expect(page).to have_content "03 Mar 2012"
+        expect(page).to have_content I18n.l(start_date, format: :'alchemy.default')
       end
 
       it "shows a success message" do

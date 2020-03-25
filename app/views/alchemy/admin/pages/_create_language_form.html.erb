@@ -1,7 +1,7 @@
 <% if root = Alchemy::Page.rootpage %>
-<div id="create_language_tree_form">
+<div class="panel">
   <%= render_message do %>
-    <h2><%= Alchemy.t(:language_does_not_exist) %></h2>
+    <p><%= Alchemy.t(:language_does_not_exist) %></p>
   <% end %>
 <%- if @language -%>
 

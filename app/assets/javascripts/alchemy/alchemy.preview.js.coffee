@@ -1,5 +1,3 @@
-#= require alchemy/alchemy.i18n
-
 window.Alchemy = Alchemy || {}
 
 Alchemy.initAlchemyPreviewMode = ->
@@ -23,26 +21,25 @@ Alchemy.initAlchemyPreviewMode = ->
           "outline-offset": "4px"
 
       init: ->
-        window.addEventListener "message", (message) =>
-          if message.data == "blurAlchemyElements"
-            @blurElements()
-        , false
-        @elements = document.querySelectorAll("[data-alchemy-element]")
+        window.addEventListener "message", (event) =>
+          if event.origin != window.location.origin
+            console.warn 'Unsafe message origin!', event.origin
+            return
+          switch event.data.message
+            when "Alchemy.blurElements" then @blurElements()
+            when "Alchemy.focusElement" then @focusElement(event.data)
+            else console.info("Received unknown message!", event.data)
+          return
+        @elements = Array.from document.querySelectorAll("[data-alchemy-element]")
         @elements.forEach (element) =>
           element.addEventListener 'mouseover', =>
-            element.setAttribute('title', Alchemy.t('click_to_edit'))
             unless element.classList.contains('selected')
               Object.assign element.style, @getStyle('hover')
             return
           element.addEventListener 'mouseout', =>
-            element.removeAttribute('title')
             unless element.classList.contains('selected')
               Object.assign element.style, @getStyle('reset')
             return
-          element.addEventListener 'SelectPreviewElement.Alchemy', =>
-            @selectElement(element)
-            return
-          , false
           element.addEventListener 'click', (e) =>
             e.stopPropagation()
             e.preventDefault()
@@ -70,14 +67,25 @@ Alchemy.initAlchemyPreviewMode = ->
           return
         return
 
+      # Focus the element in the Alchemy preview window.
+      focusElement: (data) ->
+        element = @getElement(data.element_id)
+        if element
+          @selectElement(element)
+        else
+          console.warn('Could not focus element with id', data.element_id)
+
+      getElement: (element_id) ->
+        @elements.find (element) ->
+          element.dataset.alchemyElement == element_id.toString()
+
       # Focus the element editor in the Alchemy element window.
       focusElementEditor: (element) ->
-        alchemy_window = window.parent
-        target_id = element.getAttribute('data-alchemy-element')
-        $element_editor = alchemy_window.$("#element_#{target_id}")
-        elements_window = alchemy_window.Alchemy.ElementsWindow
-        $element_editor.trigger("FocusElementEditor.Alchemy", target_id)
-        elements_window.show() if elements_window.hidden
+        element_id = element.getAttribute('data-alchemy-element')
+        window.parent.postMessage
+          message: 'Alchemy.focusElementEditor'
+          element_id: element_id
+        , window.location.origin
         return
 
       getStyle: (state) ->

@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 module Alchemy
   describe Admin::ClipboardController do
@@ -17,7 +19,7 @@ module Alchemy
       context 'with `remarkable_type` being an allowed type' do
         it 'is successful' do
           get :index, params: {remarkable_type: 'elements'}
-          expect(response).to be_success
+          expect(response).to be_successful
         end
       end
 

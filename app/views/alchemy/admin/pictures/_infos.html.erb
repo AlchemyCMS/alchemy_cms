@@ -1,6 +1,5 @@
 <div class="resource_info">
   <div class="picture-file-infos">
-    <h2><%= Alchemy.t('Picture infos') %></h2>
     <div class="value">
       <label><%= Alchemy::Picture.human_attribute_name(:image_file_name) %></label>
       <p><%= @picture.image_file_name %></p>
@@ -17,14 +16,19 @@
 </div>
 
 <div class="picture-usage-info resource_info">
-  <h2><%= Alchemy.t(:this_picture_is_used_on_these_pages) %></h2>
+  <h3>
+    <%= Alchemy.t(:this_picture_is_used_on_these_pages) %>
+  </h3>
   <div id="pictures_page_list">
-    <% if @pages.any? %>
-      <ol>
-        <% @pages.each do |page, essence_pictures| %>
+    <% if @assignments.any? %>
+      <ul>
+        <% @assignments.group_by(&:page).each do |page, essence_pictures| %>
           <% if page %>
             <li>
-              <h3><%= link_to page.name, edit_admin_page_path(page) %></h3>
+              <h3>
+                <%= render_icon 'file-alt' %>
+                <p><%= link_to page.name, edit_admin_page_path(page) %></p>
+              </h3>
               <ul class="list">
                 <% essence_pictures.group_by(&:element).each do |element, essence_pictures| %>
                   <li class="<%= cycle('even', 'odd') %>">
@@ -33,14 +37,22 @@
                     <% pictures = essence_pictures.collect do |e|
                                     e.content.name_for_label
                                   end.to_sentence %>
-                    <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: pictures) %>
+                    <% if element.public? %>
+                      <%= render_icon('window-maximize', style: 'regular') %>
+                    <% else %>
+                      <%= render_icon('window-close') %>
+                    <% end %>
+                    <p>
+                      <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: pictures) %>
+                      <em><%= Alchemy::Element.human_attribute_name(:trashed) if element.trashed? %></em>
+                    </p>
                   </li>
                 <% end %>
               </ul>
             </li>
           <% end %>
         <% end %>
-      </ol>
+      </ul>
     <% else %>
       <%= render_message do %>
         <%= Alchemy.t(:picture_not_in_use_yet) %>

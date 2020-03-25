@@ -19,6 +19,7 @@ module Alchemy
     # Returns the correct params-hash for passing to show_page_path
     def show_page_path_params(page, optional_params = {})
       raise ArgumentError, 'Page is nil' if page.nil?
+
       url_params = {urlname: page.urlname}.update(optional_params)
       prefix_locale? ? url_params.update(locale: page.language_code) : url_params
     end

@@ -1,6 +1,8 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe "Modules" do
+require 'rails_helper'
+
+RSpec.describe "Modules", type: :system do
   context "A custom module with a main-apps controller" do
     before { authorize_user(:as_admin) }
 

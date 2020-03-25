@@ -42,9 +42,10 @@ module Alchemy
       def latest_alchemy_version
         versions = get_alchemy_versions
         return '' if versions.blank?
+
         # reject any non release version
         versions.reject! { |v| v =~ /[a-z]/ }
-        versions.sort.last
+        versions.max
       end
 
       # Get alchemy versions from rubygems or github, if rubygems failes.
@@ -60,7 +61,7 @@ module Alchemy
           response = query_github
           if response.code == "200"
             alchemy_tags = JSON.parse(response.body)
-            alchemy_tags.collect { |h| h['name'] }.sort
+            alchemy_tags.collect { |h| h['name'].tr('v', '') }.sort
           else
             # no luck at all?
             raise UpdateServiceUnavailable

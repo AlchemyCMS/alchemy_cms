@@ -1,10 +1,12 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe Alchemy::PagesController, 'OnPageLayout mixin', type: :controller do
   routes { Alchemy::Engine.routes }
 
   before(:all) do
-    ApplicationController.send(:extend, Alchemy::OnPageLayout)
+    ApplicationController.extend Alchemy::OnPageLayout
   end
 
   let(:page) { create(:alchemy_page, :public, page_layout: 'standard') }
@@ -267,7 +269,7 @@ end
 
 RSpec.describe ApplicationController, 'OnPageLayout mixin', type: :controller do
   before(:all) do
-    ApplicationController.send(:extend, Alchemy::OnPageLayout)
+    ApplicationController.extend Alchemy::OnPageLayout
   end
 
   controller do
@@ -298,7 +300,7 @@ RSpec.describe Alchemy::Admin::PagesController, 'OnPageLayout mixin', type: :con
   routes { Alchemy::Engine.routes }
 
   before(:all) do
-    ApplicationController.send(:extend, Alchemy::OnPageLayout)
+    ApplicationController.extend Alchemy::OnPageLayout
   end
 
   context 'in admin/pages_controller' do

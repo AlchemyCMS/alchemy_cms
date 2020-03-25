@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Alchemy.register_ability Ability
 Alchemy.user_class_name = 'DummyUser'
 Alchemy.signup_path = '/admin/pages' unless Rails.env.test?
@@ -15,6 +17,14 @@ Alchemy::Modules.register_module(
     }, {
       name: 'Locations',
       controller: '/admin/locations',
+      action: 'index'
+    }, {
+      name: 'Series',
+      controller: '/admin/series',
+      action: 'index'
+    }, {
+      name: 'Bookings',
+      controller: '/admin/bookings',
       action: 'index'
     }]
   }

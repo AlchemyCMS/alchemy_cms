@@ -5,13 +5,19 @@ module Alchemy
     class LanguagesController < ResourcesController
       def index
         @query = Language.on_current_site.ransack(search_filter_params[:q])
-        @languages = @query.result.page(params[:page] || 1).per(per_page_value_for_screen_size)
+        @query.sorts = default_sort_order if @query.sorts.empty?
+        @languages = @query.result.page(params[:page] || 1).per(items_per_page)
       end
 
       def new
         @language = Language.new(
           page_layout: Config.get(:default_language)['page_layout']
         )
+      end
+
+      def switch
+        set_alchemy_language(params[:language_id])
+        do_redirect_to request.referer || alchemy.admin_dashboard_path
       end
     end
   end

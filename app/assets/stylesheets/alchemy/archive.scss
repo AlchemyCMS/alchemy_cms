@@ -1,3 +1,15 @@
+.resources-header {
+  padding: 2*$default-padding;
+}
+
+.resources-table-wrapper {
+  padding-bottom: 60px;
+
+  &.with_tag_filter {
+    padding-right: 242px;
+  }
+}
+
 div#image_assign_filter_and_image_sizing {
   width: 100%;
   height: 40px;
@@ -14,28 +26,28 @@ div#image_assign_filter_and_image_sizing {
   }
 }
 
-.picture_thumbnail {
-  padding: $default-padding;
-  margin: 2px 1px 2px 2px;
-  background-color: #fff;
-  float: none;
-  display: inline-block;
-  border: 1px solid #c0c0c0;
+.thumbnail_background {
   position: relative;
-  border-radius: $default-border-radius;
-  width: 170px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $thumbnail-background-color;
+  width: 100%;
+  height: 120px;
+}
+
+.picture_thumbnail {
+  margin: 2*$default-margin;
+  background-color: #fff;
+  position: relative;
+  box-shadow: 0 0 0 1px $default-border-color;
+  width: 160px;
 
   img {
     width: auto;
     height: auto;
     max-width: 100%;
     max-height: 100%;
-  }
-
-  .thumbnail_background {
-    @extend %thumbnail-background;
-    width: 160px;
-    height: 120px;
   }
 
   .picture_name {
@@ -46,49 +58,46 @@ div#image_assign_filter_and_image_sizing {
     overflow: hidden;
     bottom: 0;
     left: 0;
-    font-family: "Courier New", Courier, mono;
-    line-height: 16px;
-    padding: $default-padding 0 0;
+    line-height: 2;
+    padding: 0 $default-padding;
+    text-overflow: ellipsis;
   }
 
   &.small {
-    width: 90px;
+    width: 80px;
 
     .thumbnail_background {
-      width: 80px;
       height: 60px;
     }
   }
 
   &.large {
-    width: 250px;
+    width: 240px;
 
     .thumbnail_background {
-      width: 240px;
       height: 180px;
     }
   }
 
   &:hover {
 
-    .picture_tool {
-      display: block;
+    .picture_tool, .picture_tags {
+      visibility: visible;
+      opacity: 1;
     }
   }
 }
 
+#pictures,
+#overlay_picture_list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 #pictures {
-  margin-right: 232px;
-  padding-bottom: 60px;
-  overflow: hidden;
 
-  .picture_thumbnail {
-    margin: 0 2*$default-margin 2*$default-margin 0;
-    float: left;
-
-    .thumbnail_background {
-      @include zoom-in;
-    }
+  .thumbnail_background {
+    @include zoom-in;
   }
 }
 
@@ -108,16 +117,20 @@ div.assign_image_list_image {
   position: absolute;
   background-color: white;
   top: $default-padding;
-  padding: 2px 3px;
+  padding: $default-padding / 2;
   z-index: 10;
-  display: none;
+  text-align: center;
+  border-radius: $default-border-radius;
+  box-shadow: 0 0 1px $dark-gray;
 
   &.visible {
-    display: block;
+    visibility: visible;
+    opacity: 1;
   }
 
   &.hidden {
-    display: none;
+    // Overwrite the `.hidden { display: none }` style
+    display: block;
   }
 
   &.select {
@@ -141,14 +154,30 @@ div.assign_image_list_image {
   }
 }
 
+.picture_tags {
+  overflow: hidden;
+  position: absolute;
+  bottom: 22px;
+  left: 0;
+  width: 100%;
+  max-height: 80%;
+  padding: $default-padding;
+  pointer-events: none;
+}
+
+.picture_tags, .picture_tool {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity $transition-duration;
+}
+
 div#library_sidebar {
   position: fixed;
   border-left: 1px solid $default-border-color;
   top: 0;
   right: 0;
   width: 232px;
-  padding-top: 96px;
-  padding: 84px 4*$default-padding 0 4*$default-padding;
+  padding: 86px 4*$default-padding 0 4*$default-padding;
   height: 100%;
   z-index: 3;
   background-color: $light-gray;
@@ -169,79 +198,6 @@ div#filter_bar {
   }
 }
 
-.tag-list {
-  height: 100%;
-  padding-bottom: 138px;
-
-  &.filtered {
-    padding-bottom: 164px;
-  }
-
-  &.with_filter_bar {
-    padding-bottom: 218px;
-
-    &.filtered {
-      padding-bottom: 244px;
-    }
-  }
-
-  .js_filter_field_box {
-    position: absolute;
-    right: auto;
-    top: auto;
-    width: 200px;
-    z-index: 1100;
-    transition: background-color 200ms;
-
-    input {
-      width: 200px;
-      background-color: transparentize($white, 0.25);
-
-      &:focus {
-        background-color: $white;
-      }
-    }
-
-    label { display: none }
-  }
-
-  .js_filter_field_clear {
-    right: 4px;
-  }
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 40px 0 4px 0;
-    height: 100%;
-    width: 200px;
-    overflow-x: hidden;
-    overflow-y: auto;
-
-    li {
-      display: block;
-
-      &:first-child { margin-top: 0 }
-
-      a {
-        @include tag-base;
-        text-decoration: none;
-        display: block;
-      }
-
-      &:hover { background-color: $very-light-blue }
-
-      &.active {
-
-        a {
-          background-color: $dark-gray;
-          color: $light-gray
-        }
-      }
-    }
-  }
-}
-
 .alchemy-dialog-body {
 
   #library_sidebar {
@@ -251,38 +207,14 @@ div#filter_bar {
 
 #assign_image_list, #assign_file_list {
   position: relative;
-  height: 535px;
+  height: 548px;
 }
 
 #assign_image_list {
   padding-right: 244px;
-
-  .tag-list ul {
-    height: 316px;
-  }
-
-  &.filtered .tag-list ul {
-    height: 292px;
-  }
-}
-
-#assign_file_list {
-
-  .tag-list ul {
-    height: 396px;
-  }
-
-  &.filtered .tag-list ul {
-    height: 372px;
-  }
 }
 
 #overlay_file_list {
-
-  &.with_tag_list {
-    padding-right: 234px;
-  }
-
   .assign_file_file {
     display: block;
     margin-bottom: 4px;
@@ -310,38 +242,6 @@ div#filter_bar {
       margin-right: 4px;
     }
   }
-}
-
-.picture_tags {
-  overflow: hidden;
-  position: absolute;
-  top: 22px;
-  left: $default-padding;
-  width: 50%;
-  max-height: 80%;
-  padding: $default-padding;
-  pointer-events: none;
-  display: none;
-}
-
-.picture_thumbnail:hover .picture_tags {
-  display: block;
-}
-
-.tag {
-  @include tag-base(
-    $margin: $default-margin/2 0,
-    $padding: $default-padding 2*$default-padding $default-padding
-  );
-  display: inline-block;
-  vertical-align: middle;
-  color: $text-color;
-  pointer-events: none;
-  font-size: $small-font-size;
-}
-
-.tags .list .tag {
-  padding: 0;
 }
 
 #all_files td.name a {

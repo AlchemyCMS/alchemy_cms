@@ -1,6 +1,8 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-RSpec.feature 'Admin layout' do
+require 'rails_helper'
+
+RSpec.describe 'Admin layout', type: :system do
   let(:user) { create(:alchemy_dummy_user, :as_admin, name: "Joe User") }
 
   before do

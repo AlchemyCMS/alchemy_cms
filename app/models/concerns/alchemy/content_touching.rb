@@ -17,7 +17,8 @@ module Alchemy
     #
     def touch_contents
       return unless respond_to?(:contents)
-      contents.each(&:touch)
+
+      contents.update_all(updated_at: Time.current)
     end
   end
 end

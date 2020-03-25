@@ -155,10 +155,10 @@ module Alchemy
     end
 
     def set_expiration_headers
-      if @page.cache_page?
-        expires_in @page.expiration_time, public: !@page.restricted
-      else
+      if must_not_cache?
         expires_now
+      else
+        expires_in @page.expiration_time, public: !@page.restricted, must_revalidate: true
       end
     end
 
@@ -190,10 +190,15 @@ module Alchemy
     # or the cache is stale, because it's been republished by the user.
     #
     def render_fresh_page?
-      !@page.cache_page? || stale?(etag: page_etag,
+      must_not_cache? || stale?(etag: page_etag,
         last_modified: @page.published_at,
         public: !@page.restricted,
         template: 'pages/show')
+    end
+
+    # don't cache pages if we have flash message to display or the page has caching disabled
+    def must_not_cache?
+      flash.present? || !@page.cache_page?
     end
 
     def page_not_found!

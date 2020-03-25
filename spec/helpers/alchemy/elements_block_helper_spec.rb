@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 include Alchemy::ElementsHelper
 
@@ -57,19 +59,6 @@ module Alchemy
       end
     end
 
-    describe '#element_editor_for' do
-      it "should yield an instance of ElementEditorHelper" do
-        expect { |b| element_editor_for(element, &b) }.
-          to yield_with_args(ElementsBlockHelper::ElementEditorHelper)
-      end
-
-      it "should not add any extra elements" do
-        expect(element_editor_for(element) do
-          'view'
-        end).to eq('view')
-      end
-    end
-
     describe 'ElementsBlockHelper::ElementViewHelper' do
       let(:scope) { double }
       subject { ElementsBlockHelper::ElementViewHelper.new(scope, element: element) }
@@ -79,9 +68,18 @@ module Alchemy
       end
 
       describe '#render' do
-        it 'should delegate to the render_essence_view_by_name helper' do
-          expect(scope).to receive(:render_essence_view_by_name).with(element, "title", foo: 'bar')
-          subject.render :title, foo: 'bar'
+        let(:element) { create(:alchemy_element, :with_contents) }
+        let(:content) { element.content_by_name(:headline) }
+
+        it "delegates to Rails' render helper" do
+          expect(scope).to receive(:render).with(content, {
+            content: content,
+            options: {
+              foo: 'bar'
+            },
+            html_options: {}
+          })
+          subject.render(:headline, foo: 'bar')
         end
       end
 
@@ -112,22 +110,6 @@ module Alchemy
             and_return(mock_model('Content', essence: mock_model('EssenceText')))
 
           subject.essence :title
-        end
-      end
-    end
-
-    describe 'ElementsBlockHelper::ElementEditorHelper' do
-      let(:scope) { double }
-      subject { ElementsBlockHelper::ElementEditorHelper.new(scope, element: element) }
-
-      it 'should have a reference to the specified element' do
-        subject.element == element
-      end
-
-      describe '#edit' do
-        it "should delegate to the render_essence_editor_by_name helper" do
-          expect(scope).to receive(:render_essence_editor_by_name).with(element, "title", foo: 'bar')
-          subject.edit :title, foo: 'bar'
         end
       end
     end

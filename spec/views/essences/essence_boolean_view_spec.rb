@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 describe 'alchemy/essences/_essence_boolean_view' do
   context 'with true as ingredient' do

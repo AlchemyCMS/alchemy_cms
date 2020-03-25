@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "alchemy/shell"
 
 module Alchemy
@@ -23,6 +24,7 @@ module Alchemy
 
       def try_seed_pages
         return unless page_seeds_file.file?
+
         if Alchemy::Page.exists?
           desc "Seeding Alchemy pages"
           log "There are already pages present in your database. " \
@@ -66,7 +68,7 @@ module Alchemy
         if Alchemy.user_class.exists?
           log "There are already users present in your database. " \
               "Please use `rake db:reset' if you want to rebuild your database.", :skip
-          return false
+          false
         else
           users = YAML.load_file(user_seeds_file)
           users.each do |draft|

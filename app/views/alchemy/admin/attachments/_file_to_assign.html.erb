@@ -1,8 +1,7 @@
 <li class="assign_file_file <%= cycle('even', 'odd') %>">
   <%= link_to alchemy.assign_admin_essence_files_path(
       attachment_id: file_to_assign.id,
-      content_id: @content.id,
-      options: options_from_params
+      content_id: @content.id
     ),
     remote: true,
     method: 'put' do %>

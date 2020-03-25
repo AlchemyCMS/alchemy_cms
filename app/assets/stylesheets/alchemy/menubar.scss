@@ -11,14 +11,15 @@
   left: -358px;
   width: 400px;
   z-index: 10000;
-  background: $blue;
-  transition: left 0.15s ease-in;
+  background: $main-menu-bg-color;
+  transition: left 0.25s cubic-bezier(0.23, 1, 0.32, 1);
   box-shadow: 0 0 0 1px $white;
   box-sizing: border-box;
   height: auto;
   padding: 8px 40px 8px 8px;
   overflow: hidden;
-  font: $default-font-style;
+  font-family: $default-font-family;
+  font-size: $base-font-size;
 
   * {
     box-sizing: border-box;
@@ -37,7 +38,7 @@
     position: absolute;
     right: 10px;
     top: 50%;
-    background: image-url('alchemy/icon.svg') 0 0 no-repeat;
+    background: image-url('alchemy/icon-white.svg') 1px 1px no-repeat;
     background-size: 24px 24px;
     transform: translateY(-50%);
   }
@@ -58,11 +59,13 @@
 
       a, button {
         @include button-defaults(
-          $background-color: $blue,
-          $hover-color: rgba($white, 0.15),
+          $background-color: $main-menu-bg-color,
+          $hover-color: $blue,
           $hover-border-color: $white,
           $border: 1px solid $white,
+          $box-shadow: none,
           $padding: 0.5em 0,
+          $margin: 0,
           $color: $white
         );
         width: 100%;

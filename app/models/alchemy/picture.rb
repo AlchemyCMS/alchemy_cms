@@ -30,7 +30,11 @@ module Alchemy
     include Alchemy::Picture::Transformations
     include Alchemy::Picture::Url
 
-    has_many :essence_pictures, class_name: 'Alchemy::EssencePicture', foreign_key: 'picture_id'
+    has_many :essence_pictures,
+      class_name: 'Alchemy::EssencePicture',
+      foreign_key: 'picture_id',
+      inverse_of: :ingredient_association
+
     has_many :contents, through: :essence_pictures
     has_many :elements, through: :contents
     has_many :pages, through: :elements
@@ -98,6 +102,7 @@ module Alchemy
       def last_upload
         last_picture = Picture.last
         return Picture.all unless last_picture
+
         Picture.where(upload_hash: last_picture.upload_hash)
       end
 
@@ -186,6 +191,7 @@ module Alchemy
     #
     def humanized_name
       return "" if image_file_name.blank?
+
       convert_to_humanized_name(image_file_name, suffix)
     end
 
@@ -245,27 +251,6 @@ module Alchemy
     #
     def image_file_dimensions
       "#{image_file_width}x#{image_file_height}"
-    end
-
-    # Returns a security token for signed picture rendering requests.
-    #
-    # Pass a params hash containing:
-    #
-    #   size       [String]  (Optional)
-    #   crop       [Boolean] (Optional)
-    #   crop_from  [String]  (Optional)
-    #   crop_size  [String]  (Optional)
-    #   quality    [Integer] (Optional)
-    #
-    # to sign them.
-    #
-    def security_token(params = {})
-      params = params.dup.stringify_keys
-      params.update({
-        'crop' => params['crop'] ? 'crop' : nil,
-        'id' => id
-      })
-      PictureAttributes.secure(params)
     end
   end
 end

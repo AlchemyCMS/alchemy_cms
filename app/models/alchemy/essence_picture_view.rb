@@ -48,6 +48,7 @@ module Alchemy
 
     def caption
       return unless show_caption?
+
       @_caption ||= content_tag(:figcaption, essence.caption)
     end
 

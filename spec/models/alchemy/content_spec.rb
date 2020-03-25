@@ -1,12 +1,14 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 module Alchemy
   describe Content do
-    let(:element) { create(:alchemy_element, name: 'headline', create_contents_after_create: true) }
+    let(:element) { create(:alchemy_element, :with_contents, name: 'headline') }
     let(:content) { element.contents.find_by(essence_type: 'Alchemy::EssenceText') }
 
     it "should return the ingredient from its essence" do
-      content.essence.update_attributes(body: "Hello")
+      content.essence.update_columns(body: "Hello")
       expect(content.ingredient).to eq("Hello")
     end
 
@@ -47,7 +49,7 @@ module Alchemy
     describe '#update_essence' do
       subject { content.update_essence(params) }
 
-      let(:element) { create(:alchemy_element, name: 'text', create_contents_after_create: true) }
+      let(:element) { create(:alchemy_element, :with_contents, name: 'text') }
       let(:content) { element.contents.first }
       let(:params)  { {} }
 
@@ -71,7 +73,7 @@ module Alchemy
       end
 
       context 'with validations and without params given' do
-        let(:element) { create(:alchemy_element, name: 'contactform', create_contents_after_create: true) }
+        let(:element) { create(:alchemy_element, :with_contents, name: 'contactform') }
 
         it "should add error messages if save fails and return false" do
           is_expected.to be_falsey
@@ -92,9 +94,7 @@ module Alchemy
 
     describe '.copy' do
       let(:element) do
-        create :alchemy_element,
-          name: 'text',
-          create_contents_after_create: true
+        create(:alchemy_element, :with_contents, name: 'text')
       end
 
       let(:new_element) do
@@ -106,8 +106,7 @@ module Alchemy
       end
 
       it "should create a new record with all attributes of source except given differences" do
-        copy = Content.copy(content, {name: 'foobar', element_id: new_element.id})
-        expect(copy.name).to eq('foobar')
+        copy = Content.copy(content, {element_id: new_element.id})
         expect(copy.element_id).to eq(new_element.id)
       end
 
@@ -117,79 +116,98 @@ module Alchemy
       end
 
       it "should copy source essence attributes" do
+        content.essence.update_column(:body, 'Lorem ipsum')
         copy = Content.copy(content)
         copy.essence.body == content.essence.body
       end
     end
 
-    describe '.build' do
-      let(:element) { build_stubbed(:alchemy_element) }
+    describe ".definitions" do
+      context "without any definitions in elements.yml file" do
+        before { expect(Element).to receive(:definitions).and_return([]) }
 
-      it "builds a new instance from elements.yml definition" do
-        expect(Content.build(element, {name: 'headline'})).to be_instance_of(Content)
-      end
-    end
-
-    describe '.content_definition' do
-      let(:element) { build_stubbed(:alchemy_element) }
-
-      context "with blank name key" do
-        it "returns a essence hash build from essence type" do
-          expect(Content).to receive(:content_definition_from_essence_type).with(element, 'EssenceText')
-          Content.content_definition(element, essence_type: 'EssenceText')
+        it "should return an empty array" do
+          expect(Content.definitions).to eq([])
         end
       end
 
-      context "with name key present" do
-        it "returns a essence hash from element" do
-          expect(element).to receive(:content_definition_for).with('headline')
-          Content.content_definition(element, name: 'headline')
+      context "with some element definitions having no contents defined" do
+        before do
+          expect(Element).to receive(:definitions) do
+            [
+              {
+                'name' => 'foo',
+                'contents' => [{'name' => 'title'}]
+              },
+              {
+                'name' => 'bar'
+              }
+            ]
+          end
+        end
+
+        it "returns only content definitions" do
+          expect(Content.definitions).to match_array(
+            [{'name' => 'title'}]
+          )
         end
       end
     end
 
-    describe '.content_definition_from_essence_type' do
-      let(:element) { build_stubbed(:alchemy_element) }
+    describe '.new' do
+      let(:element) { build(:alchemy_element) }
 
-      it "returns the definition hash from element" do
-        expect(Content).to receive(:content_name_from_element_and_essence_type).with(element, 'EssenceText').and_return('Foo')
-        expect(Content.content_definition_from_essence_type(element, 'EssenceText')).to eq({
-          'type' => 'EssenceText',
-          'name' => 'Foo'
-        })
+      subject { Content.new({element: element, name: 'headline'}) }
+
+      it "builds a new content instance from elements.yml definition" do
+        is_expected.to be_instance_of(Content)
+        is_expected.to_not be_persisted
+      end
+
+      it "builds a new essence instance from elements.yml definition" do
+        expect(subject.essence).to be_instance_of(EssenceText)
+        expect(subject.essence).to_not be_persisted
       end
     end
 
-    describe '.content_name_from_element_and_essence_type' do
-      let(:element) { build_stubbed(:alchemy_element) }
-
-      it "returns a name from essence type and count of essences in element" do
-        expect(Content.content_name_from_element_and_essence_type(element, 'EssenceText')).to eq("essence_text_1")
-      end
-    end
-
-    describe '.create_from_scratch' do
+    describe '.create' do
       let(:element) { create(:alchemy_element, name: 'article') }
 
-      it "builds the content" do
-        expect(Content.create_from_scratch(element, name: 'headline')).to be_instance_of(Alchemy::Content)
+      subject(:content) { Content.create(element: element, name: 'headline') }
+
+      it "creates the content" do
+        is_expected.to be_instance_of(Alchemy::Content)
+        is_expected.to be_persisted
       end
 
-      it "creates the essence from name" do
-        expect(Content.create_from_scratch(element, name: 'headline').essence).to_not be_nil
-      end
-
-      it "creates the essence from essence_type" do
-        expect(Content.create_from_scratch(element, essence_type: 'EssenceText').essence).to_not be_nil
+      it "creates the essence" do
+        expect(subject.essence).to be_instance_of(Alchemy::EssenceText)
+        expect(subject.essence).to be_persisted
       end
 
       context "with default value present" do
         it "should have the ingredient column filled with default value." do
-          allow_any_instance_of(Element).to receive(:content_definition_for) do
-            {'name' => 'headline', 'type' => 'EssenceText', 'default' => 'Welcome'}
+          allow_any_instance_of(Content).to receive(:definition) do
+            {
+              'name' => 'headline',
+              'type' => 'EssenceText',
+              'default' => 'Welcome'
+            }.with_indifferent_access
           end
-          content = Content.create_from_scratch(element, name: 'headline')
           expect(content.ingredient).to eq("Welcome")
+        end
+
+        context 'with default value being a symbol' do
+          it "passes default value through I18n." do
+            allow_any_instance_of(Content).to receive(:definition) do
+              {
+                'name' => 'headline',
+                'type' => 'EssenceText',
+                'default' => :welcome
+              }.with_indifferent_access
+            end
+            expect(content.ingredient).to eq("Welcome to my site")
+          end
         end
       end
     end
@@ -198,27 +216,21 @@ module Alchemy
       let(:element) { create(:alchemy_element, name: 'headline') }
 
       it "should set the given value to the ingredient column of essence" do
-        c = Content.create_from_scratch(element, name: 'headline')
+        c = Content.create(element: element, name: 'headline')
         c.ingredient = "Welcome"
         expect(c.ingredient).to eq("Welcome")
       end
 
       context "no essence associated" do
         let(:element) { create(:alchemy_element, name: 'headline') }
+        let(:content) { Alchemy::Content.new(element: element, name: 'headline').tap(&:save) }
+
+        before do
+          expect(content).to receive(:essence) { nil }
+        end
 
         it "should raise error" do
-          content = Content.create(element_id: element.id, name: 'headline')
           expect { content.ingredient = "Welcome" }.to raise_error(EssenceMissingError)
-        end
-      end
-    end
-
-    describe "#definitions" do
-      context "without any definitions in elements.yml file" do
-        before { allow(Element).to receive(:definitions).and_return([]) }
-
-        it "should return an empty array" do
-          expect(Content.definitions).to eq([])
         end
       end
     end
@@ -357,34 +369,6 @@ module Alchemy
 
         it 'returns name including element name' do
           is_expected.to eq('has_tinymce article_text')
-        end
-      end
-    end
-
-    describe '#form_field_name' do
-      let(:content) { Content.new(id: 1) }
-
-      it "returns a name value for form fields with ingredient as default" do
-        expect(content.form_field_name).to eq('contents[1][ingredient]')
-      end
-
-      context 'with a essence column given' do
-        it "returns a name value for form fields for that column" do
-          expect(content.form_field_name(:link_title)).to eq('contents[1][link_title]')
-        end
-      end
-    end
-
-    describe '#form_field_id' do
-      let(:content) { Content.new(id: 1) }
-
-      it "returns a id value for form fields with ingredient as default" do
-        expect(content.form_field_id).to eq('contents_1_ingredient')
-      end
-
-      context 'with a essence column given' do
-        it "returns a id value for form fields for that column" do
-          expect(content.form_field_id(:link_title)).to eq('contents_1_link_title')
         end
       end
     end

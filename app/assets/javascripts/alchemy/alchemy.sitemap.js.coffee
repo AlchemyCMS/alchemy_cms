@@ -1,5 +1,3 @@
-#= require date-formatter
-
 window.Alchemy = {} if typeof(window.Alchemy) is 'undefined'
 
 # The admin sitemap Alchemy module
@@ -8,7 +6,7 @@ Alchemy.Sitemap =
   # Storing some objects.
   init: (options) ->
     @search_field = $(".search_input_field")
-    @filter_field_clear = $('.js_filter_field_clear')
+    @filter_field_clear = $('.search_field_clear')
     @display = $('#page_filter_result')
     @sitemap_wrapper = $('#sitemap-wrapper p.loading')
     @template = Handlebars.compile($('#sitemap-template').html())
@@ -57,7 +55,7 @@ Alchemy.Sitemap =
         self.options.ready()
 
     request.fail (jqXHR, status) ->
-      Alchemy.debug("Request failed: " + status)
+      console.warn("Request failed: " + status)
 
   # Filters the sitemap
   filter: (term) ->
@@ -111,7 +109,7 @@ Alchemy.Sitemap =
         now = new Date()
         if $checkbox.is(':checked')
           $publication_date_fields.removeClass('hidden')
-          $public_on_field.val Date.format(now, format)
+          $public_on_field[0]._flatpickr.setDate(now)
         else
           $publication_date_fields.addClass('hidden')
           $public_on_field.val('')

@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 def reload_mailer_class(class_name)
   Alchemy.send(:remove_const, class_name)

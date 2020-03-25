@@ -1,5 +1,3 @@
-# encoding: UTF-8
-#
 # == This is the global Alchemy configuration file
 #
 
@@ -58,6 +56,11 @@ sitemap:
 #   rake alchemy:convert:urlnames:to_slug
 #
 url_nesting: true
+
+# === Default items per page in admin views
+#
+# In Alchemy's Admin, change how many items you would get shown per page by Kaminari
+items_per_page: 15
 
 # === Picture rendering settings
 #
@@ -176,9 +179,6 @@ uploader:
 #
 link_target_options: [blank]
 
-# Should pages that redirect to an external url open the link in a new tab/window?
-open_external_links_in_new_tab: true
-
 # === Format matchers
 #
 # Named aliases for regular expressions that can be used in various places.
@@ -192,3 +192,6 @@ format_matchers:
   email: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
   url: !ruby/regexp '/\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix'
   link_url: !ruby/regexp '/^(mailto:|\/|[a-z]+:\/\/)/'
+
+# The layout used for rendering the +alchemy/admin/pages#show+ action.
+admin_page_preview_layout: application

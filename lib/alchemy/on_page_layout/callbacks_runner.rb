@@ -18,6 +18,7 @@ module Alchemy
       def run_on_page_layout_callbacks
         OnPageLayout.callbacks.each do |page_layout, callbacks|
           next unless call_page_layout_callback_for?(page_layout)
+
           callbacks.each do |callback|
             if callback.respond_to?(:call)
               instance_eval(&callback)

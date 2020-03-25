@@ -18,18 +18,19 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     # attach events we handle
     @attachEvents()
     # Store some jQuery objects for further reference
-    @$page_anchor = $('#page_anchor', @dialog_body)
-    @$internal_urlname = $('#internal_urlname', @dialog_body)
-    @$internal_anchor = $('#internal_anchor', @dialog_body)
+    @$page_urlname = $('#page_urlname', @dialog_body)
+    @$element_anchor = $('#element_anchor', @dialog_body)
+    @$anchor_link = $('#anchor_link', @dialog_body)
     @$external_url = $('#external_url', @dialog_body)
     @$public_filename = $('#public_filename', @dialog_body)
     @$overlay_tabs = $('#overlay_tabs', @dialog_body)
     @$page_container = $('#page_selector_container')
-    @initInternalAnchors()
     # if we edit an existing link
     if @link_object
       # we select the correct tab
       @selectTab()
+    @initPageSelect()
+    @initAnchorLinks()
 
   # Attaches click events to several buttons in the link dialog.
   attachEvents: ->
@@ -42,8 +43,12 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
           url = @$external_url.val()
         when 'file'
           url = @$public_filename.val()
+        when 'anchor'
+          url = @$anchor_link.val()
         else
-          url = $("##{@link_type}_urlname").val()
+          url = @$page_urlname.val()
+          if @$element_anchor.val() != ''
+            url += "##{@$element_anchor.val()}"
       # Create the link
       @createLink
         url: url
@@ -51,38 +56,67 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
         target: $("##{@link_type}_link_target").val()
       false
 
-  # Attaches click events to buttons in the link dialog that appear after the
-  # page tree has finished loading.
-  attachTreeEvents: ->
-    # The select page and show elements links.
-    $('a.sitemap_pagename_link, a.show_elements_to_link', @dialog_body).click (e) =>
-      $this = $(e.currentTarget)
-      page_id = $this.data('page-id')
-      url = $this.data('url')
-      # Select page in page tree
-      @selectPage(page_id)
-      # if the show elements link was clicked
-      if $this.hasClass('show_elements_to_link')
-        # we open the elements select for that page
-        @showElementsSelect($this.attr('href'), url)
+  # Initializes the select2 based Page select
+  initPageSelect: ->
+    pageTemplate = HandlebarsTemplates.page
+    element_anchor_placeholder = @$element_anchor.attr('placeholder')
+    @$page_urlname.select2
+      placeholder: Alchemy.t('Search page')
+      allowClear: true
+      minimumInputLength: 3
+      ajax:
+        url: Alchemy.routes.api_pages_path
+        datatype: 'json'
+        quietMillis: 300
+        data: (term, page) ->
+          q:
+            name_cont: term
+          page: page
+        results: (data) ->
+          meta = data.meta
+          results:
+            data.pages.map (page) ->
+              id: "/#{page.urlname}"
+              name: page.name
+              urlname: page.urlname
+              page_id: page.id
+          more: meta.page * meta.per_page < meta.total_count
+      initSelection: ($element, callback) =>
+        urlname = $element.val()
+        $.get Alchemy.routes.api_pages_path,
+          q:
+            urlname_eq: urlname.replace(/^\//, '')
+          page: 1
+          per_page: 1,
+          (data) =>
+            page = data.pages[0]
+            if page
+              @initElementSelect(page.id)
+              callback
+                id: "/#{page.urlname}"
+                name: page.name
+                urlname: page.name
+                page_id: page.id
+      formatSelection: (page) ->
+        page.name
+      formatResult: (page) ->
+        pageTemplate(page: page)
+    .on 'change', (event) =>
+      if event.val == ''
+        @$element_anchor.val(element_anchor_placeholder)
+        @$element_anchor.select2('destroy').prop('disabled', true)
       else
-        # store url
-        @$internal_urlname.val('/' + url)
-      false
-    # Select the current page in the tree
-    @selectInternalLinkTab()
+        @$element_anchor.val('')
+        @initElementSelect(event.added.page_id)
 
-  # Sets the page selected and scrolls it in the viewport.
-  selectPage: (page_id) ->
-    # deselect any selected page from page tree
-    @deselectPage()
-    # reset the internal anchor select
-    @$internal_anchor.select2('val', '')
-    $('#sitemap_sitename_' + page_id).addClass('selected_page')
-    @$page_container.scrollTo("#sitemap_sitename_#{page_id}", {duration: 400, offset: -10})
-
-  deselectPage: ->
-    $('#sitemap .selected_page', @dialog_body).removeClass('selected_page')
+  # Initializes the select2 based elements select
+  # reveals after a page has been selected
+  initElementSelect: (page_id) ->
+    $.get Alchemy.routes.api_elements_path, page_id: page_id, (data) =>
+      @$element_anchor.prop('disabled', false).removeAttr('placeholder').select2
+        data: [ id: '', text: Alchemy.t('None') ].concat data.elements.map (element) ->
+          id: element.dom_id
+          text: element.display_name
 
   # Creates a link if no validation errors are present.
   # Otherwise shows an error notice.
@@ -124,7 +158,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     $("#contents_#{content_id}_link_class_name").val(@link_type)
     $("#contents_#{content_id}_link_target").val(target)
     @$link_object.addClass('linked')
-    @$link_object.next().addClass('linked').removeClass('disabled')
+    @$link_object.next().addClass('linked').removeClass('disabled').removeAttr('tabindex')
 
   # Selects the correct tab for link type and fills all fields.
   selectTab: ->
@@ -149,57 +183,24 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
       # Handles a file link.
       tab = $('#overlay_tab_file_link')
       @$public_filename.select2('val', @$link[0].pathname + @$link[0].search)
+    else if @$link.attr('href').match(/^#/)
+      # Handles an anchor link.
+      tab = $('#overlay_tab_anchor_link')
+      @$anchor_link.select2('val', @$link.attr('href'))
     else
       # Handles an internal link.
       tab = $('#overlay_tab_internal_link')
+      @initInternalLinkTab()
     # activate the tab jquery ui 1.10 style o.O
     @$overlay_tabs.tabs('option', 'active', $('#overlay_tabs > div').index(tab))
 
   # Handles actions for internal link tab.
-  selectInternalLinkTab: ->
-    return unless @$link
+  initInternalLinkTab: ->
     url = @$link.attr('href').split('#')
-    urlname = url[0]
-    anchor = url[1]
-    if anchor
-      # store the anchor
-      @$page_anchor.val("##{anchor}")
-      # and update the url field
-      @$internal_urlname.val("#{urlname}##{anchor}")
-      # if we linked an internal anchor
-      if @$internal_urlname.val().match(/^#/)
-        # we select the correct value from anchors select
-        value = @$internal_urlname.val()
-        @$internal_anchor.select2 'val', value.replace(/^#/, '')
-    else
-      @$internal_urlname.val(urlname)
-    $sitemap_line = $('.sitemap_sitename').closest('[name="'+urlname+'"]')
-    if ($sitemap_line.length > 0)
-      # Select the line where the link was detected in.
-      $sitemap_line.addClass('selected_page')
-      @$page_container.scrollTo($sitemap_line.closest('li'), {duration: 400, offset: -10})
-
-  # Opens a new Dialog that shows the elements from given page_id in a selectbox.
-  # The value is stored as anchor and the url gets updated so it includes the anchor link
-  showElementsSelect: (show_elements_url, urlname) ->
-    dialog = new Alchemy.Dialog show_elements_url,
-      size: '400x165'
-      ready: =>
-        $element_select = $('.elements_from_page_selector')
-        # check if the urlname is the same as stored,
-        current_urlname = @$internal_urlname.val().split('#')[0]
-        if "/#{urlname}" == current_urlname
-          # then we can select the current anchor in the selectbox
-          $element_select.select2 'val', @$page_anchor.val()
-        $element_select.change =>
-          @$page_anchor.val $element_select.select2('val')
-        $('button', dialog.dialog_body).click =>
-          @$internal_urlname.val("/#{urlname}#{@$page_anchor.val()}")
-          dialog.close()
-          false
-        return
-    dialog.open()
-    return
+    # update the url field
+    @$page_urlname.val(url[0])
+    # store the anchor
+    @$element_anchor.val(url[1])
 
   # Creates a temporay $('a') object that holds all values on it.
   createTempLink: ->
@@ -225,20 +226,16 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     $('#errors', @dialog_body).show()
 
   # Populates the internal anchors select
-  initInternalAnchors: ->
+  initAnchorLinks: ->
     frame = document.getElementById('alchemy_preview_window')
     elements = frame.contentDocument.getElementsByTagName('*')
     if elements.length > 0
       for element in elements
         if element.id
-          @$internal_anchor.append("<option value='#{element.id}'>##{element.id}</option>")
+          @$anchor_link.append("<option value='##{element.id}'>##{element.id}</option>")
     else
-      @$internal_anchor.html("<option>#{Alchemy.t('No anchors found')}</option>")
-    @$internal_anchor.change (e) =>
-      # deselect any selected page from page tree
-      @deselectPage()
-      # store the internal anchor as urlname
-      $("#internal_urlname").val("##{e.target.value}")
+      @$anchor_link.html("<option>#{Alchemy.t('No anchors found')}</option>")
+    return
 
   # Public class methods
 
@@ -251,6 +248,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     $("#contents_#{content_id}_link_target").val('')
     if $link.hasClass('linked')
       Alchemy.setElementDirty $(link).closest('.element-editor')
-      $link.removeClass('linked').addClass('disabled')
+      $link.removeClass('linked').addClass('disabled').attr('tabindex', '-1')
+      $link.blur()
     $('#edit_link_' + content_id).removeClass('linked')
     false

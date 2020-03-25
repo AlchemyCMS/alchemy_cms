@@ -9,7 +9,7 @@
 <% if current_page.first? %>
   <span class="first-page disabled"><i class="icon fas fa-angle-double-left"></i></span>
 <% else %>
-  <%= link_to url, remote: remote, title: t('views.pagination.first'), class: 'first-page' do %>
+  <%= link_to url, remote: remote, title: Alchemy.t(:first, scope: 'pagination'), class: 'first-page' do %>
     <i class="icon fas fa-angle-double-left"></i>
   <% end %>
 <% end %>

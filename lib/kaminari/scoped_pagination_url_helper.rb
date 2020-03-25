@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # A Kaminari patch for scoping the urls.
 Kaminari::Helpers::Tag.class_eval do
   def page_url_for(page)

@@ -2,6 +2,7 @@
 <html class="no-js">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title><%= render_alchemy_title %></title>
     <link rel="shortcut icon" href="<%= asset_path('alchemy/favicon.ico') %>">
     <%= csrf_meta_tag %>
@@ -80,9 +81,11 @@
         <% end %>
         <div id="user_info">
           <%= current_alchemy_user_name %>
-          <%= select_tag 'change_locale',
-            options_for_select(translations_for_select, ::I18n.locale),
-            class: 'alchemy_selectbox tiny' %>
+          <% if Alchemy::I18n.available_locales.length > 1 %>
+            <%= select_tag 'change_locale',
+              options_for_select(translations_for_select, ::I18n.locale),
+              class: 'alchemy_selectbox tiny' %>
+          <% end %>
         </div>
       </div>
       <div id="toolbar">

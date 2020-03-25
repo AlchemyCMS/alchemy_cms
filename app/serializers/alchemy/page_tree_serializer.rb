@@ -57,9 +57,7 @@ module Alchemy
         restricted: page.restricted?,
         page_layout: page.page_layout,
         slug: page.slug,
-        redirects_to_external: page.redirects_to_external?,
         urlname: page.urlname,
-        external_urlname: page.redirects_to_external? ? page.external_urlname : nil,
         level: level,
         root: level == 1,
         root_or_leaf: level == 1 || !has_children,
@@ -67,7 +65,7 @@ module Alchemy
       }
 
       if opts[:elements]
-        p_hash.update(elements: ActiveModel::ArraySerializer.new(page_elements(page)))
+        p_hash.update(elements: ActiveModel::Serializer::CollectionSerializer.new(page_elements(page)))
       end
 
       if opts[:ability].can?(:index, :alchemy_admin_pages)

@@ -1,6 +1,8 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-RSpec.describe 'Page seeding' do
+require 'rails_helper'
+
+RSpec.describe 'Page seeding', type: :system do
   context 'when db/seeds/alchemy/pages.yml file is present' do
     let(:seeds_file) do
       'spec/fixtures/pages.yml'

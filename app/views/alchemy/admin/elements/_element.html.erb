@@ -1,57 +1,79 @@
 <%= content_tag :div,
   id: "element_#{element.id}",
   data: {'element-id' => element.id, 'element-name' => element.name},
-  class: element_editor_classes(element, local_assigns) do %>
+  class: element.css_classes do %>
 
-  <%= render 'alchemy/admin/elements/element_header', element: element %>
+  <% unless element.fixed? %>
+    <%= render 'alchemy/admin/elements/element_header', element: element %>
+  <% end %>
 
-  <% if element.expanded? %>
+  <% if element.expanded? || element.fixed? %>
     <%= render 'alchemy/admin/elements/element_toolbar', element: element %>
 
-    <%= form_for [alchemy, :admin, element], remote: true,
-      html: {id: "element_#{element.id}_form".html_safe, class: 'element-content'} do |f| %>
+    <% element.definition[:message].tap do |message| %>
+      <%= render_message(:info, sanitize(message)) if message %>
+    <% end %>
 
-      <div id="element_<%= element.id %>_errors" class="element_errors"></div>
+    <% element.definition[:warning].tap do |warning| %>
+      <%= render_message(:warning, sanitize(warning)) if warning %>
+    <% end %>
 
-      <div id="element_<%= element.id %>_content" class="element-content-editors">
-        <%== render_editor(element) %>
-      </div>
+    <% if element.editable? %>
+      <%= form_for [alchemy, :admin, element], remote: true,
+        html: {id: "element_#{element.id}_form".html_safe, class: 'element-content'} do |f| %>
 
-      <% if element.taggable? %>
-        <div class="autocomplete_tag_list">
-          <%= f.label :tag_list %>
-          <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
+        <div id="element_<%= element.id %>_errors" class="element_errors"></div>
+
+        <div id="element_<%= element.id %>_content" class="element-content-editors">
+          <%= render element.contents.map { |content| Alchemy::ContentEditor.new(content) } %>
         </div>
+
+        <% if element.taggable? %>
+          <div class="autocomplete_tag_list">
+            <%= f.label :tag_list %>
+            <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
+          </div>
+        <% end %>
       <% end %>
+
+      <%= render 'alchemy/admin/elements/element_footer', element: element %>
     <% end %>
   <% end %>
 
   <% if element.nestable_elements.any? %>
-    <% if show_element_footer?(element, :with_nestable_elements) %>
-      <%= render 'alchemy/admin/elements/element_footer', element: element %>
-    <% end %>
     <div class="nestable-elements">
       <%= content_tag :div,
-            class: "nested-elements", data: {
-              'droppable-elements' => element.nestable_elements.join(' ')
-            } do %>
-        <%= render partial: 'alchemy/admin/elements/element', collection: element.nested_elements %>
+        class: "nested-elements", data: {
+          'droppable-elements' => element.nestable_elements.join(' ')
+        } do %>
+        <%= render element.all_nested_elements.map { |element|
+          Alchemy::ElementEditor.new(element)
+        } %>
       <% end %>
 
-      <% if element.expanded? %>
-        <%= link_to_dialog render_icon(:plus, size: 'xs') + Alchemy.t("New Element"),
-          alchemy.new_admin_element_path(
-            parent_element_id: element.id,
-            page_id: element.page.id
-          ), {
-            size: "320x125",
-            title: Alchemy.t("New Element")
-          }, class: "button with_icon add-nestable-element-button" %>
+      <% if element.expanded? || element.fixed? %>
+        <% if element.nestable_elements.length == 1 %>
+          <% nestable_element = element.nestable_elements.first %>
+          <%= form_for [:admin, Alchemy::Element.new(name: nestable_element)],
+            remote: true, html: { class: 'add-nested-element-form', id: nil } do |f| %>
+            <%= f.hidden_field :name %>
+            <%= f.hidden_field :page_id, value: element.page_id %>
+            <%= f.hidden_field :parent_element_id, value: element.id %>
+            <button class="button add-nestable-element-button" data-alchemy-button>
+              <%= Alchemy.t(:add_nested_element) % { name: Alchemy.t(nestable_element, scope: 'element_names') } %>
+            </button>
+          <% end %>
+        <% else %>
+          <%= link_to_dialog Alchemy.t("New Element"),
+            alchemy.new_admin_element_path(
+              parent_element_id: element.id,
+              page_id: element.page.id
+            ), {
+              size: "320x125",
+              title: Alchemy.t("New Element")
+            }, class: "button add-nestable-element-button" %>
+        <% end %>
       <% end %>
     </div>
-  <% end %>
-
-  <% if show_element_footer?(element) %>
-    <%= render 'alchemy/admin/elements/element_footer', element: element %>
   <% end %>
 <% end %>

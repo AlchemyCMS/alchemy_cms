@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 module Alchemy
   describe Language do
@@ -68,7 +70,7 @@ module Alchemy
       describe "#remove_old_default if default attribute has changed to true" do
         it "should unset the default status of the old default language" do
           default_language
-          language.update_attributes(default: true)
+          language.update(default: true)
           default_language.reload
           expect(default_language.default).to be_falsey
         end
@@ -79,7 +81,7 @@ module Alchemy
       describe "#set_pages_language if language´s code has changed" do
         it "should update all its pages with the new code" do
           @other_page = create(:alchemy_page, language: language)
-          language.update_attributes(code: "fo")
+          language.update(code: "fo")
           language.reload; page.reload; @other_page.reload
           expect([page.language_code, @other_page.language_code]).to eq([language.code, language.code])
         end
@@ -89,7 +91,7 @@ module Alchemy
         it "should set all pages to unpublic if it gets set to unpublic" do
           page = create(:alchemy_page, language: language)
           @other_page = create(:alchemy_page, language: language)
-          language.update_attributes(public: false)
+          language.update(public: false)
           language.reload; page.reload; @other_page.reload
           expect([page.public?, @other_page.public?]).to eq([false, false])
         end

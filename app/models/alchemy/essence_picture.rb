@@ -25,9 +25,13 @@
 
 module Alchemy
   class EssencePicture < BaseRecord
-    acts_as_essence ingredient_column: 'picture'
+    acts_as_essence ingredient_column: :picture, belongs_to: {
+      class_name: 'Alchemy::Picture',
+      foreign_key: :picture_id,
+      inverse_of: :essence_pictures,
+      optional: true
+    }
 
-    belongs_to :picture, required: false
     delegate :image_file_width, :image_file_height, :image_file, to: :picture
     before_save :fix_crop_values
     before_save :replace_newlines
@@ -75,7 +79,8 @@ module Alchemy
       {
         format: picture.default_render_format,
         crop_from: crop_from.presence,
-        crop_size: crop_size.presence
+        crop_size: crop_size.presence,
+        size: content.settings[:size]
       }.with_indifferent_access
     end
 
@@ -85,11 +90,11 @@ module Alchemy
     # image displayed in the frontend.
     #
     # @return [String]
-    def thumbnail_url(options = {})
+    def thumbnail_url
       return if picture.nil?
 
-      crop = crop_values_present? || content.settings_value(:crop, options)
-      size = render_size || content.settings_value(:size, options)
+      crop = crop_values_present? || content.settings[:crop]
+      size = render_size || content.settings[:size]
 
       options = {
         size: thumbnail_size(size, crop),
@@ -111,6 +116,7 @@ module Alchemy
     # @return [String]
     def preview_text(max = 30)
       return "" if picture.nil?
+
       picture.name.to_s[0..max - 1]
     end
 
@@ -119,6 +125,7 @@ module Alchemy
     # @return [Hash]
     def cropping_mask
       return if crop_from.blank? || crop_size.blank?
+
       crop_from = point_from_string(read_attribute(:crop_from))
       crop_size = sizes_from_string(read_attribute(:crop_size))
 
@@ -132,12 +139,12 @@ module Alchemy
       picture_url(content.settings)
     end
 
-    # Show image cropping link for content and options?
-    def allow_image_cropping?(options = {})
-      content && content.settings_value(:crop, options) && picture &&
+    # Show image cropping link for content
+    def allow_image_cropping?
+      content && content.settings[:crop] && picture &&
         picture.can_be_cropped_to(
-          content.settings_value(:size, options),
-          content.settings_value(:upsample, options)
+          content.settings[:size],
+          content.settings[:upsample]
         )
     end
 
@@ -161,11 +168,12 @@ module Alchemy
 
     def normalize_number(number)
       number = number.to_f.round
-      number < 0 ? 0 : number
+      number.negative? ? 0 : number
     end
 
     def replace_newlines
       return nil if caption.nil?
+
       caption.gsub!(/(\r\n|\r|\n)/, "<br/>")
     end
   end

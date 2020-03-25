@@ -26,7 +26,7 @@
 ) %>
 
 <div id="archive_all" class="resources-table-wrapper<%= ' with_tag_filter' if resource_has_tags || resource_has_filters %>">
-  <%= resources_header %>
+  <%= render 'alchemy/admin/resources/table_header' %>
   <%= render 'table' %>
 
   <% if resource_has_tags || resource_has_filters %>

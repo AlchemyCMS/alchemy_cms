@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 describe 'The API routes' do
   routes { Alchemy::Engine.routes }

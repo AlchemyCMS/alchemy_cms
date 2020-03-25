@@ -1,23 +1,23 @@
-<div class="content_editor essence_link" id="<%= content.dom_id %>" data-content-id="<%= content.id %>">
-  <%= content_label(content) %>
-  <%= text_field_tag '', content.ingredient,
+<div class="content_editor essence_link" id="<%= essence_link_editor.dom_id %>" data-content-id="<%= essence_link_editor.id %>">
+  <%= content_label(essence_link_editor) %>
+  <%= text_field_tag '', essence_link_editor.ingredient,
     class: "thin_border text_with_icon disabled",
     name: nil,
     id: nil,
     disabled: true
   %>
-  <%= hidden_field_tag content.form_field_name(:link),
-    content.essence.link %>
-  <%= hidden_field_tag content.form_field_name(:link_title),
-    content.essence.link_title %>
-  <%= hidden_field_tag content.form_field_name(:link_class_name),
-    content.essence.link_class_name %>
-  <%= hidden_field_tag content.form_field_name(:link_target),
-    content.essence.link_target %>
-  <%= render 'alchemy/essences/shared/linkable_essence_tools', content: content %>
+  <%= hidden_field_tag essence_link_editor.form_field_name(:link),
+    essence_link_editor.essence.link %>
+  <%= hidden_field_tag essence_link_editor.form_field_name(:link_title),
+    essence_link_editor.essence.link_title %>
+  <%= hidden_field_tag essence_link_editor.form_field_name(:link_class_name),
+    essence_link_editor.essence.link_class_name %>
+  <%= hidden_field_tag essence_link_editor.form_field_name(:link_target),
+    essence_link_editor.essence.link_target %>
+  <%= render 'alchemy/essences/shared/linkable_essence_tools', content: essence_link_editor.content %>
 </div>
 <script type="text/javascript" charset="utf-8">
-  $('#<%= content.form_field_id(:link) %>').on('change', function() {
-    $('#<%= content.dom_id %> input.text_with_icon').val($(this).val());
+  $('#<%= essence_link_editor.form_field_id(:link) %>').on('change', function() {
+    $('#<%= essence_link_editor.dom_id %> input.text_with_icon').val($(this).val());
   });
 </script>

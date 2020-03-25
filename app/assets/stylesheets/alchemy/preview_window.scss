@@ -7,7 +7,7 @@
   border: 0 none;
   background: #fff;
   border-right: $default-border;
-  transition: 200ms ease-in-out;
+  transition: $transition-duration ease-in-out;
 
   .collapsed-menu & {
     left: $collapsed-main-menu-width;
@@ -16,5 +16,9 @@
 
   .collapsed-menu.elements-window-visible & {
     width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-width});
+
+    @media screen and (min-width: $large-screen-break-point) {
+      max-width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width} - #{$elements-window-min-width});
+    }
   }
 }

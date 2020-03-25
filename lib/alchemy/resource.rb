@@ -101,8 +101,8 @@ module Alchemy
     attr_accessor :resource_relations, :model_associations
     attr_reader :model
 
-    DEFAULT_SKIPPED_ATTRIBUTES = %w(id updated_at created_at creator_id updater_id)
-    DEFAULT_SKIPPED_ASSOCIATIONS = %w(creator updater)
+    DEFAULT_SKIPPED_ATTRIBUTES = %w(id created_at creator_id)
+    DEFAULT_SKIPPED_ASSOCIATIONS = %w(creator)
     SEARCHABLE_COLUMN_TYPES = [:string, :text]
 
     def initialize(controller_path, module_definition = nil, custom_model = nil)
@@ -113,6 +113,7 @@ module Alchemy
         if !model.respond_to?(:reflect_on_all_associations)
           raise MissingActiveRecordAssociation
         end
+
         store_model_associations
         map_relations
       end
@@ -152,6 +153,7 @@ module Alchemy
     #
     def model_association_names
       return unless model_associations
+
       model_associations.map do |assoc|
         assoc.name.to_sym
       end
@@ -160,12 +162,20 @@ module Alchemy
     def attributes
       @_attributes ||= model.columns.collect do |col|
         next if skipped_attributes.include?(col.name)
+
         {
           name: col.name,
           type: resource_column_type(col),
           relation: resource_relation(col.name)
         }.delete_if { |_k, v| v.nil? }
       end.compact
+    end
+
+    def sorted_attributes
+      @_sorted_attributes ||= attributes.
+        sort_by  { |attr| attr[:name] == 'name' ? 0 : 1 }.
+        sort_by! { |attr| attr[:type] == :boolean ? 1 : 0 }.
+        sort_by! { |attr| attr[:name] == 'updated_at' ? 1 : 0 }
     end
 
     def editable_attributes
@@ -238,23 +248,23 @@ module Alchemy
 
     private
 
-    def searchable_attribute?(a)
-      SEARCHABLE_COLUMN_TYPES.include?(a[:type].to_sym) && !a.key?(:relation)
+    def searchable_attribute?(attribute)
+      SEARCHABLE_COLUMN_TYPES.include?(attribute[:type].to_sym) && !attribute.key?(:relation)
     end
 
-    def searchable_attribute_on_relation?(a)
-      a.key?(:relation) &&
-        SEARCHABLE_COLUMN_TYPES.include?(a[:relation][:attr_type].to_sym)
+    def searchable_attribute_on_relation?(attribute)
+      attribute.key?(:relation) &&
+        SEARCHABLE_COLUMN_TYPES.include?(attribute[:relation][:attr_type].to_sym)
     end
 
     def searchable_relation_attributes(attrs)
       attrs.select { |a| searchable_attribute_on_relation?(a) }.map { |a| searchable_relation_attribute(a) }
     end
 
-    def searchable_relation_attribute(a)
+    def searchable_relation_attribute(attribute)
       {
-        name: "#{a[:relation][:model_association].name}_#{a[:relation][:attr_method]}",
-        type: a[:relation][:attr_type]
+        name: "#{attribute[:relation][:model_association].name}_#{attribute[:relation][:attr_method]}",
+        type: attribute[:relation][:attr_type]
       }
     end
 

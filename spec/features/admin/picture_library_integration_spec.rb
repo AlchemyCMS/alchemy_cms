@@ -1,6 +1,8 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-RSpec.feature "Picture Library" do
+require 'rails_helper'
+
+RSpec.describe "Picture Library", type: :system do
   before do
     authorize_user(:as_admin)
   end

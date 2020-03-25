@@ -1,11 +1,11 @@
-<div class="content_editor essence_richtext" id="<%= content.dom_id %>">
-  <%= content_label(content) %>
+<div class="content_editor essence_richtext" id="<%= essence_richtext_editor.dom_id %>">
+  <%= content_label(essence_richtext_editor) %>
   <div class="tinymce_container">
     <%= text_area_tag(
-      content.form_field_name,
-      content.ingredient || '',
-      class: content.tinymce_class_name,
-      id: "tinymce_#{content.id}"
+      essence_richtext_editor.form_field_name,
+      essence_richtext_editor.ingredient || '',
+      class: essence_richtext_editor.tinymce_class_name,
+      id: "tinymce_#{essence_richtext_editor.id}"
     ) %>
   </div>
 </div>

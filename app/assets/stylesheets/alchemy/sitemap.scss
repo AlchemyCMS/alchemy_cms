@@ -24,7 +24,7 @@
 }
 
 .sitemap_pagename_link {
-  display: inline-block;
+  display: block;
   padding: 0 10px;
   margin: 2px;
   text-decoration: none;
@@ -47,30 +47,6 @@
   text-overflow: ellipsis;
 }
 
-#page_selector_container {
-  height: 230px;
-  background-color: $light-gray;
-  margin-bottom: 4px;
-  border-width: $form-field-border-width;
-  border-style: $form-field-border-style;
-  border-color: $form-field-border-color;
-  overflow: auto;
-  padding: 4px 0 0 4px;
-  border-radius: $default-border-radius;
-
-  .sitemap_pagename_link:hover {
-    text-decoration: none;
-
-    &:after {
-      display: none;
-    }
-  }
-
-  .sitemap_right_tools {
-    width: 24px;
-  }
-}
-
 .sitemap_line_spacer {
   float: left;
   width: 20px;
@@ -81,7 +57,7 @@
   height: $sitemap-line-height;
   margin: 3*$default-margin 0;
   position: relative;
-  transition: background-color 250ms;
+  transition: background-color $transition-duration;
 
   &.highlight {
     background-color: $sitemap-highlight-color;
@@ -177,11 +153,6 @@
   li {
     padding-left: 0;
 
-    .selected_page {
-      background-color: $linked-color;
-      color: $dark-gray;
-    }
-
     li {
       padding-left: $sitemap-line-height;
       padding-right: 0;
@@ -209,16 +180,6 @@
 
 .page_status {
   display: inline-block;
-}
-
-#create_language_tree_form {
-  width: 80%;
-  max-width: 500px;
-  margin: 2em auto;
-  padding: 4*$default-padding;
-  border: $default-border;
-  background: $medium-gray;
-  border-radius: $default-border-radius;
 }
 
 #sitemap_heading {
@@ -254,8 +215,4 @@
 
     .page_icon { cursor: default }
   }
-}
-
-.elements_from_page_selector {
-  width: 100%;
 }

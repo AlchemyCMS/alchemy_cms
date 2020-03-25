@@ -4,39 +4,20 @@
   height: 29px;
 }
 
-.search_field,
-.js_filter_field_box {
+.search_field {
   .fa-search {
     position: absolute;
     left: 8px;
     top: 9px;
   }
-}
-
-.js_filter_field_box {
-  position: absolute;
-  right: 4px;
-  top: 8px;
-
-  .js_filter_field {
-    width: 220px;
-    text-align: left;
-    border-radius: $default-border-radius;
-    padding: 3px 24px 3px 28px;
-    height: 29px;
-    margin: 0;
-  }
 
   label {
-    font-size: $small-font-size;
     display: block;
-    text-align: center;
-    padding-top: 3px;
+    height: inherit;
   }
 }
 
-.search_field_clear,
-.js_filter_field_clear {
+.search_field_clear {
   display: none;
   position: absolute;
   top: 7px;
@@ -47,67 +28,10 @@
   text-align: center;
 }
 
-#tags_tag_list {
-  text-align: left;
-  padding-top: 5px;
-
-  ul.tags {
-    max-height: 10em;
-    padding: 1px;
-    margin: 0;
-    margin-top: 2px;
-    overflow: auto;
-    text-align: left;
-    list-style-type: none;
-
-    li {
-      background-color: $medium-gray;
-      padding: 4px;
-      margin: 0 0 4px 0;
-      position: relative;
-      border-radius: $default-border-radius;
-
-      &.odd { background-color: #eaf3f9 }
-
-      input {
-        position: absolute;
-        top: 3px;
-        left: 4px;
-      }
-
-      label {
-        display: inline-block;
-        margin-left: 2em;
-        line-height: 1.6em;
-      }
-    }
-  }
-
-  .js_filter_field_box {
-    position: relative;
-    top: 0;
-    right: 0;
-    margin: 0;
-
-    .js_filter_field {
-      width: 100%;
-    }
-
-    label {
-      display: none
-    }
-  }
-
-  .js_filter_field_clear {
-    right: 4px;
-  }
-}
-
 #toolbar,
 #overlay_toolbar {
 
-  .search_form,
-  .js_filter_field_box {
+  .search_form {
     position: absolute;
     top: 0;
     right: 0;
@@ -119,7 +43,7 @@
   }
 
   .search_input_field {
-    width: 150px;
+    width: 0;
     height: inherit;
     border: none;
     background-color: transparentize($form-field-background-color, 0.25);
@@ -133,16 +57,26 @@
     box-shadow: none;
     -webkit-appearance: none;
 
+    @media screen and (min-width: $medium-screen-break-point) {
+      width: 150px;
+    }
+
     &:focus {
       width: 250px;
       background-color: $form-field-background-color;
+
+      @include default-focus-style(
+        $box-shadow: inset 0 0 0 2px $focus-color,
+        $border-radius: 0
+      );
     }
   }
 
-  .search_field .icon,
-  .js_filter_field_box .icon,
-  .search_field_clear,
-  .js_filter_field_clear {
+  .search_field .icon {
+    top: 18px;
+  }
+
+  .search_field_clear {
     top: 16px;
   }
 }

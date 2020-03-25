@@ -2,8 +2,6 @@
 
 module Alchemy
   class EssencePictureSerializer < ActiveModel::Serializer
-    self.root = false
-
     attributes :id,
       :picture_id,
       :caption,
@@ -18,6 +16,7 @@ module Alchemy
 
     def link
       return if object.link.blank?
+
       {
         url: object.link,
         css_class: object.link_class_name,

@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 class Party < ActiveRecord::Base
   belongs_to :location
@@ -97,9 +99,9 @@ module Alchemy
             allow(Party).to receive(:respond_to?) do |arg|
               case arg
               when :reflect_on_all_associations
-                then false
+                false
               when :alchemy_resource_relations
-                then true
+                true
               end
             end
           end
@@ -305,6 +307,28 @@ module Alchemy
 
       it "does not contain restricted attributes" do
         is_expected.to eq([{name: "name", type: :string}, {name: "title", type: :string}])
+      end
+    end
+
+    describe "#sorted_attributes" do
+      subject { resource.sorted_attributes }
+
+      let(:columns) do
+        [
+          double(:column, {name: 'title', type: :string}),
+          double(:column, {name: 'name', type: :string}),
+          double(:column, {name: 'updated_at', type: :datetime}),
+          double(:column, {name: 'public', type: :boolean})
+        ]
+      end
+
+      it "sorts by name, and updated_at" do
+        is_expected.to eq([
+          {name: "name", type: :string},
+          {name: "title", type: :string},
+          {name: "public", type: :boolean},
+          {name: "updated_at", type: :datetime}
+        ])
       end
     end
 

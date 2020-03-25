@@ -1,12 +1,13 @@
 .pagination {
-  background: $light_gray;
   position: fixed;
+  display: flex;
+  align-items: center;
+  background: $light_gray;
   bottom: 0;
   right: 0;
   width: 100%;
   left: 0px;
   height: 52px;
-  line-height: 35px;
   padding: 2*$default-padding;
   padding-left: $main-menu-width + 10px;
   text-align: left;
@@ -18,6 +19,7 @@
     font-weight: bold;
     color: $icon-color;
     padding: $default-padding 2*$default-padding;
+    margin: 0 $default-margin/2;
   }
 
   a:hover {
@@ -28,15 +30,12 @@
 
   span a { padding: 0 }
 
-  .page { padding: 0px 8px }
-
   .current {
-    color: $blue;
-    border: 1px solid $blue;
+    color: $text-color;
+    border: 1px solid $text-color;
     text-shadow: 0px 1px 1px #fff;
     cursor: default;
     border-radius: $default-border-radius;
-    padding: 5px 8px;
   }
 
   .previous_page {
@@ -55,11 +54,17 @@
     border: none;
     background: transparent;
     cursor: default;
+    margin: 0;
   }
 
   .icon {
     color: inherit;
   }
+}
+
+.per-page-select-form {
+  margin-left: auto;
+  display: inline;
 }
 
 #assign_image_list .pagination, #assign_file_list .pagination {

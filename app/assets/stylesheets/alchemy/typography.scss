@@ -1,0 +1,55 @@
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4,
+h5, .h5 {
+  padding: 0;
+  margin: 1em 0;
+}
+
+h1, .h1,
+h2, .h2,
+h3, .h3,
+h4, .h4 {
+  font-weight: bold;
+}
+
+h1, .h1 {
+  font-size: 1.5rem;
+}
+
+h2, .h2 {
+  font-size: 1.25rem;
+}
+
+h3, .h3 {
+  font-size: 1.125rem;
+}
+
+h4, .h4,
+h5, .h5 {
+  font-size: 1rem;
+}
+
+h5, .h5 {
+  font-weight: normal;
+}
+
+p {
+  margin: 0 0 2*$default-margin 0;
+  white-space: normal;
+
+  a {
+    color: $anchor-color;
+  }
+}
+
+kbd {
+  font-family: Courier, monospaced;
+  background: $medium-gray;
+  border: $default-border;
+  padding: 0.25em 0.5em;
+  vertical-align: top;
+  margin-right: 1ex;
+  border-radius: $default-border-radius;
+}

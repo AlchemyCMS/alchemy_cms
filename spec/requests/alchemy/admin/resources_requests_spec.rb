@@ -1,10 +1,12 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe 'Resource requests' do
   describe 'csv export' do
     it 'returns valid csv file' do
       get '/admin/events.csv'
-      expect(response.content_type).to eq('text/csv')
+      expect(response.media_type).to eq('text/csv')
       expect(response.body).to include(';')
     end
 

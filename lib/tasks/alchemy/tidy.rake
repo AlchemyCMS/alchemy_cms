@@ -1,28 +1,13 @@
+# frozen_string_literal: true
 require 'alchemy/tasks/tidy'
 
 namespace :alchemy do
   namespace :tidy do
     desc "Tidy up Alchemy database."
     task :up do
-      Rake::Task['alchemy:tidy:cells'].invoke
       Rake::Task['alchemy:tidy:element_positions'].invoke
       Rake::Task['alchemy:tidy:content_positions'].invoke
       Rake::Task['alchemy:tidy:remove_orphaned_records'].invoke
-    end
-
-    desc "Creates missing cells for pages."
-    task cells: :environment do
-      if !File.exist? Rails.root.join('config/alchemy/cells.yml')
-        puts "No page cell definitions found."
-      else
-        cells = Alchemy::Cell.definitions
-        page_layouts = Alchemy::PageLayout.all
-        if cells && page_layouts
-          Alchemy::Tidy.create_missing_cells(page_layouts, cells)
-        else
-          puts "No page layouts or cell definitions found."
-        end
-      end
     end
 
     desc "Fixes element positions."
@@ -35,16 +20,10 @@ namespace :alchemy do
       Alchemy::Tidy.update_content_positions
     end
 
-    desc "Remove orphaned records (cells, elements, contents)."
+    desc "Remove orphaned records (elements & contents)."
     task remove_orphaned_records: [:environment] do
-      Rake::Task['alchemy:tidy:remove_orphaned_cells'].invoke
       Rake::Task['alchemy:tidy:remove_orphaned_elements'].invoke
       Rake::Task['alchemy:tidy:remove_orphaned_contents'].invoke
-    end
-
-    desc "Remove orphaned cells."
-    task remove_orphaned_cells: [:environment] do
-      Alchemy::Tidy.remove_orphaned_cells
     end
 
     desc "Remove orphaned elements."
@@ -55,6 +34,33 @@ namespace :alchemy do
     desc "Remove orphaned contents."
     task remove_orphaned_contents: [:environment] do
       Alchemy::Tidy.remove_orphaned_contents
+    end
+
+    desc "List Alchemy elements usage"
+    task elements_usage: :environment do
+      puts "\n"
+      removable_elements = []
+      names = Alchemy::Element.definitions.map { |e| e['name'] }
+      longest_name = names.max_by { |name| name.to_s.length }.length + 1
+      names.sort.each do |name|
+        names = Alchemy::Element.where(name: name)
+        count = names.count
+        page_count = Alchemy::Page.where(id: names.pluck(:page_id)).published.count
+        if count.zero?
+          removable_elements.push(name)
+        else
+          spacer = ' ' * (longest_name - name.length)
+          puts "#{name}#{spacer}is used\t#{count}\ttime(s) on\t#{page_count}\tpublic page(s)"
+        end
+      end
+      if removable_elements.many?
+        puts "\n"
+        puts "These elements can probably be removed. They are not used anywhere:"
+        puts "\n"
+        removable_elements.each do |name|
+          puts name
+        end
+      end
     end
   end
 end

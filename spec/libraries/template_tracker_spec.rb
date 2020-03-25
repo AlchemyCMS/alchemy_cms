@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 module Alchemy
   module CacheDigests
@@ -23,26 +25,9 @@ module Alchemy
           it "returns all element layout view partial names for that layout" do
             is_expected.to include('alchemy/elements/_text_view')
           end
-
-          context 'and page layout having cells' do
-            let(:page_layout) { {'name' => 'intro', 'elements' => ['text'], 'cells' => ['header']} }
-
-            it "returns all cell view partial names for that layout" do
-              is_expected.to include('alchemy/cells/_header')
-            end
-          end
         end
 
-        context 'with a cell given as template name' do
-          let(:name) { 'alchemy/cells/_header' }
-          before { allow(Cell).to receive(:definition_for).and_return({'name' => 'header', 'elements' => ['text']}) }
-
-          it "returns all element layout view partial names for that cell" do
-            is_expected.to include('alchemy/elements/_text_view')
-          end
-        end
-
-        context 'with an element given as name' do
+        context 'with an element view given as name' do
           let(:name) { 'alchemy/elements/_text_view' }
           let(:elements) { [{'name' => 'text', 'contents' => [{'type' => 'EssenceText'}]}] }
 
@@ -52,13 +37,35 @@ module Alchemy
             it "returns all essence layout view partial names for that element" do
               is_expected.to include('alchemy/essences/_essence_text_view')
             end
+          end
 
-            context 'and element has picture_gallery enabled' do
-              let(:elements) { [{'name' => 'text', 'picture_gallery' => true}] }
+          context 'that has no definition' do
+            before { allow(Element).to receive(:definitions).and_return([]) }
 
-              it "has EssencePicture as template dependency" do
-                is_expected.to include('alchemy/essences/_essence_picture_view')
-              end
+            it "returns empty array" do
+              is_expected.to be_empty
+            end
+          end
+        end
+
+        context 'with an element editor given as name' do
+          let(:name) { 'alchemy/elements/_text_editor' }
+          let(:elements) { [{'name' => 'text', 'contents' => [{'type' => 'EssenceText'}]}] }
+
+          it do
+            is_expected.to be_empty
+          end
+        end
+
+        context 'with an element given as name' do
+          let(:name) { 'alchemy/elements/_text' }
+          let(:elements) { [{'name' => 'text', 'contents' => [{'type' => 'EssenceText'}]}] }
+
+          context 'that is having a definition' do
+            before { allow(Element).to receive(:definitions).and_return(elements) }
+
+            it "returns all essence layout view partial names for that element" do
+              is_expected.to include('alchemy/essences/_essence_text_view')
             end
           end
 

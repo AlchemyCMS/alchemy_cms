@@ -20,9 +20,11 @@
 #  locale         :string
 #
 
+require_dependency 'alchemy/site'
+
 module Alchemy
   class Language < BaseRecord
-    belongs_to :site, required: true
+    belongs_to :site
     has_many :pages
 
     before_validation :set_locale, if: -> { locale.blank? }
@@ -57,13 +59,19 @@ module Alchemy
 
     scope :published,       -> { where(public: true) }
     scope :with_root_page,  -> { joins(:pages).where(Page.table_name => {language_root: true}) }
-    scope :on_site,         ->(s) { s ? where(site_id: s.id) : all }
-    scope :on_current_site, -> { on_site(Site.current) }
 
     class << self
+      def on_site(site)
+        site ? where(site_id: site.id) : all
+      end
+
+      def on_current_site
+        on_site(Site.current)
+      end
+
       # Store the current language in the current thread.
-      def current=(v)
-        RequestStore.store[:alchemy_current_language] = v
+      def current=(language)
+        RequestStore.store[:alchemy_current_language] = language
       end
 
       # Current language from current thread or default.
@@ -149,6 +157,7 @@ module Alchemy
     def remove_old_default
       lang = Language.on_site(site).default
       return true if lang.nil?
+
       lang.default = false
       lang.save(validate: false)
     end

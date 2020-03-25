@@ -28,9 +28,6 @@
   direction: ltr;
 }
 
-.mce-widget button {
-}
-
 .mce-container *[unselectable] {
   user-select: none;
 }
@@ -70,6 +67,8 @@
   overflow: hidden;
   height: 100%;
   z-index: 100;
+  background: #fff;
+  border-radius: 0;
 
   .mce-resizehandle {
     display: none;
@@ -337,21 +336,6 @@ div.mce-tinymce-inline {
   }
 }
 
-.mce-fullscreen {
-  border: 0;
-  padding: 0;
-  margin: 0;
-  overflow: hidden;
-  background: #fff;
-  height: 100%;
-}
-
-div.mce-fullscreen {
-  position: fixed;
-  top: 0;
-  left: 0;
-}
-
 #mce-modal-block {
   opacity: 0;
   position: fixed;
@@ -467,11 +451,13 @@ div.mce-fullscreen {
     }
 
     button {
-      padding: 0.3em 1.5em;
+      padding: $button-padding;
       width: auto !important;
       height: auto !important;
+      line-height: 1;
       border: 1px solid $button-border-color;
       background-color: $button-bg-color;
+      box-shadow: $button-box-shadow;
     }
 
     .mce-txt {
@@ -530,10 +516,10 @@ body .mce-abs-layout-item {
 .mce-tooltip {
   position: absolute;
   padding: 5px;
+  transition-delay: .3s;
 }
 
 .mce-tooltip-inner {
-  font-size: 11px;
   background-color: $tooltip-background-color;
   color: $white;
   max-width: 200px;
@@ -656,17 +642,24 @@ body .mce-abs-layout-item {
   display: inline-block;
   *display: inline;
   *zoom: 1;
-  box-shadow: $button-box-shadow;
+  box-shadow: none;
   background-color: $light-gray;
 
   &:focus,
   &:hover {
     color: $text-color;
-    background-color: darken($medium-gray, 3%);
 
     button {
       background: inherit;
     }
+  }
+
+  &:hover {
+    background-color: darken($medium-gray, 3%);
+  }
+
+  &:focus {
+    background-color: $focus-color;
   }
 
   button {
@@ -680,6 +673,7 @@ body .mce-abs-layout-item {
     overflow: visible;
     -webkit-appearance: none;
     border-radius: inherit;
+    box-shadow: none;
 
     &:focus {
       box-shadow: none;
@@ -712,9 +706,7 @@ body .mce-abs-layout-item {
 
   &.mce-active,
   &.mce-active:hover {
-    background-color: #e6f0f5;
-    background-image: linear-gradient(#e5e5e5, #cccccc);
-    box-shadow: #c4c4c4 0 1px 2px inset;
+    background-color: $default-border-color;
 
     button i {
       color: #000;
@@ -722,18 +714,7 @@ body .mce-abs-layout-item {
   }
 
   &:not(.mce-disabled):active {
-    background-color: #d6d6d6;
-    background-image: -moz-linear-gradient(top,#e6e6e6,#c0c0c0);
-    background-image: -webkit-gradient(linear,0 0,0 100%,from(#e6e6e6),to(#c0c0c0));
-    background-image: -webkit-linear-gradient(top,#e6e6e6,#c0c0c0);
-    background-image: -o-linear-gradient(top,#e6e6e6,#c0c0c0);
-    background-image: linear-gradient(to bottom,#e6e6e6,#c0c0c0);
-    background-repeat: repeat-x;
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr= '#ffe6e6e6',endColorstr='#ffc0c0c0',GradientType=0);
-    zoom: 1;
-    -webkit-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
-    -moz-box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
-    box-shadow: inset 0 2px 4px rgba(0,0,0,0.15),0 1px 2px rgba(0,0,0,0.05);
+    background-color: $default-border-color;
   }
 }
 
@@ -1021,8 +1002,7 @@ i.mce-i-checkbox {
 }
 
 .mce-path-item:focus {
-  background: #666;
-  color: #fff;
+  @include default-focus-style;
 }
 
 .mce-path .mce-divider {

@@ -24,19 +24,13 @@ module Alchemy
     # Concerns
     include Alchemy::Content::Factory
 
-    belongs_to :essence, required: true, polymorphic: true, dependent: :destroy
-    belongs_to :element, required: true, touch: true
+    belongs_to :essence, polymorphic: true, dependent: :destroy, inverse_of: :content
+    belongs_to :element, touch: true, inverse_of: :contents
     has_one :page, through: :element
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    acts_as_list
-
-    # ActsAsList scope
-    def scope_condition
-      # Fixes a bug with postgresql having a wrong element_id value, if element_id is nil.
-      "element_id = #{element_id || 'null'} AND essence_type = '#{essence_type}'"
-    end
+    acts_as_list scope: [:element_id]
 
     # Essence scopes
     scope :essence_booleans,  -> { where(essence_type: "Alchemy::EssenceBoolean") }
@@ -45,7 +39,6 @@ module Alchemy
     scope :essence_htmls,     -> { where(essence_type: "Alchemy::EssenceHtml") }
     scope :essence_links,     -> { where(essence_type: "Alchemy::EssenceLink") }
     scope :essence_pictures,  -> { where(essence_type: "Alchemy::EssencePicture") }
-    scope :gallery_pictures,  -> { essence_pictures.where("#{table_name}.name LIKE 'essence_picture_%'") }
     scope :essence_richtexts, -> { where(essence_type: "Alchemy::EssenceRichtext") }
     scope :essence_selects,   -> { where(essence_type: "Alchemy::EssenceSelect") }
     scope :essence_texts,     -> { where(essence_type: "Alchemy::EssenceText") }
@@ -106,6 +99,7 @@ module Alchemy
     # Settings from the elements.yml definition
     def settings
       return {} if definition.blank?
+
       @settings ||= definition.fetch(:settings, {})
     end
 
@@ -121,12 +115,14 @@ module Alchemy
 
     def siblings
       return [] if !element
+
       element.contents
     end
 
     # Gets the ingredient from essence
     def ingredient
       return nil if essence.nil?
+
       essence.ingredient
     end
 
@@ -152,6 +148,7 @@ module Alchemy
     # Sets the ingredient from essence
     def ingredient=(value)
       raise EssenceMissingError if essence.nil?
+
       essence.ingredient = value
     end
 
@@ -163,11 +160,12 @@ module Alchemy
     #
     def update_essence(params = {})
       raise EssenceMissingError if essence.nil?
+
       if essence.update(params)
-        return true
+        true
       else
         errors.add(:essence, :validation_failed)
-        return false
+        false
       end
     end
 
@@ -179,31 +177,10 @@ module Alchemy
       definition['validate'].present?
     end
 
-    # Returns a string to be passed to Rails form field tags to ensure we have same params layout everywhere.
-    #
-    # === Example:
-    #
-    #   <%= text_field_tag content.form_field_name, content.ingredient %>
-    #
-    # === Options:
-    #
-    # You can pass an Essence column_name. Default is 'ingredient'
-    #
-    # ==== Example:
-    #
-    #   <%= text_field_tag content.form_field_name(:link), content.ingredient %>
-    #
-    def form_field_name(essence_column = 'ingredient')
-      "contents[#{id}][#{essence_column}]"
-    end
-
-    def form_field_id(essence_column = 'ingredient')
-      "contents_#{id}_#{essence_column}"
-    end
-
     # Returns a string used as dom id on html elements.
     def dom_id
       return '' if essence.nil?
+
       "#{essence_partial_name}_#{id}"
     end
 
@@ -229,6 +206,7 @@ module Alchemy
 
     def essence_partial_name
       return '' if essence.nil?
+
       essence.partial_name
     end
 
@@ -256,7 +234,7 @@ module Alchemy
     #
     # If the value is a symbol it gets passed through i18n
     # inside the +alchemy.default_content_texts+ scope
-    def default_text(default)
+    def default_value(default = definition[:default])
       case default
       when Symbol
         Alchemy.t(default, scope: :default_content_texts)

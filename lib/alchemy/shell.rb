@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require 'thor/shell/color'
 
 module Alchemy
@@ -5,6 +6,13 @@ module Alchemy
   # in a list on the shell / log
   #
   module Shell
+    COLORS = {
+      clear: Thor::Shell::Color::CLEAR,
+      green: Thor::Shell::Color::GREEN,
+      red: Thor::Shell::Color::RED,
+      yellow: Thor::Shell::Color::YELLOW
+    }.freeze
+
     def self.silence!
       @silenced = true
     end
@@ -49,14 +57,22 @@ module Alchemy
     def display_todos
       return if todos.empty?
 
-      log "\nTODOs:", :message
-      log "------\n", :message
+      log "\n+---------+", :message
+      log "| 📝 TODO |", :message
+      log "+---------+\n", :message
+      puts "\nWe did most of the work for you, but there are still some things left for you to do."
       todos.each_with_index do |todo, i|
         title = "\n#{i + 1}. #{todo[0]}"
         log title, :message
-        puts '-' * title.length
+        puts '=' * title.length
+        puts ""
         log todo[1], :message
       end
+      puts ""
+      puts "============================================================"
+      puts "= ✨ Please take a minute and read the notes from above ✨ ="
+      puts "============================================================"
+      puts ""
     end
 
     # Prints out the given log message with the color due to its type
@@ -88,12 +104,7 @@ module Alchemy
     # @return [String]
     #
     def color(name)
-      color_const = name.to_s.upcase
-      if Thor::Shell::Color.const_defined?(color_const)
-        "Thor::Shell::Color::#{color_const}".constantize
-      else
-        ""
-      end
+      COLORS[name]
     end
   end
 end

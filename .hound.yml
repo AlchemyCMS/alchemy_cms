@@ -1,5 +1,6 @@
-ruby:
+rubocop:
   config_file: .rubocop.yml
+  version: 0.80.0
 scss:
   enabled: false
 coffeescript:

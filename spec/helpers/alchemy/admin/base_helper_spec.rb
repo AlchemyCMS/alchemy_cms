@@ -1,37 +1,9 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 module Alchemy
   describe Admin::BaseHelper do
-    context "maximum amount of images option" do
-      subject { helper.max_image_count }
-
-      before { helper.instance_variable_set('@options', options) }
-
-      context "with max_images option set to emtpy string" do
-        let(:options) { {max_images: ""} }
-
-        it { is_expected.to eq(nil) }
-      end
-
-      context "with max_images option set to '1'" do
-        let(:options) { {max_images: "1"} }
-
-        it { is_expected.to eq(1) }
-      end
-
-      context "with maximum_amount_of_images option set to emtpy string" do
-        let(:options) { {maximum_amount_of_images: ""} }
-
-        it { is_expected.to eq(nil) }
-      end
-
-      context "with maximum_amount_of_images option set to '1'" do
-        let(:options) { {maximum_amount_of_images: "1"} }
-
-        it { is_expected.to eq(1) }
-      end
-    end
-
     describe '#toolbar_button' do
       context "with permission" do
         before { allow(helper).to receive(:can?).and_return(true) }
@@ -117,15 +89,6 @@ module Alchemy
           allow(element).to receive(:display_name_with_preview_text).and_return('Name with Preview text')
           expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector('option', text: 'Name with Preview text')
         end
-
-        context "when @page can have cells" do
-          before { allow(page).to receive(:can_have_cells?).and_return(true) }
-
-          it "should group the elements in the clipboard by cell" do
-            expect(helper).to receive(:grouped_elements_for_select).and_return({})
-            helper.clipboard_select_tag_options(clipboard_items)
-          end
-        end
       end
 
       context 'with page items' do
@@ -186,10 +149,10 @@ module Alchemy
       end
 
       context "with date given as value" do
-        let(:value) { Time.now }
+        let(:value) { Time.new(2019, 10, 1, 11, 30, 0, "+09:00") }
 
         it "sets given date as value" do
-          is_expected.to have_selector("input[value='#{::I18n.l(value, format: :datepicker)}']")
+          is_expected.to have_selector("input[value='2019-10-01T11:30:00+09:00']")
         end
       end
 
@@ -198,7 +161,7 @@ module Alchemy
         let(:essence) { EssenceDate.new(date: date) }
 
         it "sets this date as value" do
-          is_expected.to have_selector("input[value='#{::I18n.l(date, format: :datepicker)}']")
+          is_expected.to have_selector("input[value='1976-10-07T00:00:00Z']")
         end
       end
     end

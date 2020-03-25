@@ -9,29 +9,24 @@ module Alchemy
     included do
       before_validation :set_urlname,
         if: :renamed?,
-        unless: -> { systempage? || redirects_to_external? || name.blank? }
+        unless: -> { systempage? || name.blank? }
 
       validates :name,
         presence: true
       validates :urlname,
         uniqueness: {scope: [:language_id, :layoutpage], if: -> { urlname.present? }},
         exclusion:  {in: RESERVED_URLNAMES},
-        length:     {minimum: 3, if: -> { urlname.present? }},
-        format:     {with: /\A[:\.\w\-+_\/\?&%;=]*\z/, if: :redirects_to_external?}
-      validates :urlname,
-        on: :update,
-        presence: {if: :redirects_to_external?}
+        length:     {minimum: 3, if: -> { urlname.present? }}
 
       before_save :set_title,
-        unless: -> { systempage? || redirects_to_external? },
+        unless: -> { systempage? },
         if: -> { title.blank? }
 
       after_update :update_descendants_urlnames,
         if: :should_update_descendants_urlnames?
 
       after_move :update_urlname!,
-        if: -> { Config.get(:url_nesting) },
-        unless: :redirects_to_external?
+        if: -> { Config.get(:url_nesting) }
     end
 
     # Returns true if name or urlname has changed.
@@ -54,15 +49,10 @@ module Alchemy
       urlname.to_s.split('/').last
     end
 
-    # Returns an urlname prefixed with http://, if no protocol is given
-    def external_urlname
-      return urlname if urlname =~ /\A(\/|[a-z]+:\/\/)/
-      "http://#{urlname}"
-    end
-
     # Returns an array of visible/non-language_root ancestors.
     def visible_ancestors
       return [] unless parent
+
       if new_record?
         parent.visible_ancestors.tap do |base|
           base.push(parent) if parent.visible?
@@ -76,6 +66,7 @@ module Alchemy
 
     def should_update_descendants_urlnames?
       return false if !Config.get(:url_nesting)
+
       if active_record_5_1?
         saved_change_to_urlname? || saved_change_to_visible?
       else
@@ -85,10 +76,7 @@ module Alchemy
 
     def update_descendants_urlnames
       reload
-      descendants.each do |descendant|
-        next if descendant.redirects_to_external?
-        descendant.update_urlname!
-      end
+      descendants.each(&:update_urlname!)
     end
 
     # Sets the urlname to a url friendly slug.
@@ -130,6 +118,7 @@ module Alchemy
     # the root page itself, or url_nesting is off.
     def ancestor_slugs
       return [] if !Config.get(:url_nesting) || parent.nil? || parent.root?
+
       visible_ancestors.map(&:slug).compact
     end
   end

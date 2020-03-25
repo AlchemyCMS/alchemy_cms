@@ -1,0 +1,5 @@
+<% content = local_assigns[:content] || local_assigns[:essence_page_view] %>
+<% page = content.ingredient %>
+<% if page %>
+<%= link_to page.name, alchemy.show_page_path(urlname: page.urlname) %>
+<% end %>

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 namespace :alchemy do
   namespace :convert do
     namespace :urlnames do
@@ -6,6 +7,7 @@ namespace :alchemy do
         unless Alchemy::Config.get(:url_nesting)
           raise "\nURL nesting is disabled! Please enable url_nesting in `config/alchemy/config.yml` first.\n\n"
         end
+
         puts "Converting..."
         pages = Alchemy::Page.contentpages
         count = pages.count
@@ -21,6 +23,7 @@ namespace :alchemy do
         if Alchemy::Config.get(:url_nesting)
           raise "\nURL nesting is enabled! Please disable url_nesting in `config/alchemy/config.yml` first.\n\n"
         end
+
         puts "Converting..."
         pages = Alchemy::Page.contentpages
         count = pages.count

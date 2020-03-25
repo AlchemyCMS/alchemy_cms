@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 describe Alchemy::LegacyPageUrl do
   let(:page) { build_stubbed(:alchemy_page) }

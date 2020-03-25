@@ -1,0 +1,11 @@
+<%= element_view_for(news) do |el| %>
+  <div class="date">
+    <%= el.render :date, date_format: "%d.%m.%Y" %>
+  </div>
+  <h2>
+    <%= el.render :news_headline %>
+  </h2>
+  <div class="body">
+    <%= el.render :body %>
+  </div>
+<% end %>

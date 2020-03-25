@@ -122,7 +122,7 @@ class window.Alchemy.Dialog
         @show_error(xhr, status)
 
   # Displays an error message
-  show_error: (xhr, status_message) ->
+  show_error: (xhr, status_message, $container = @dialog_body) ->
     error_type = "warning"
     switch xhr.status
       when 0
@@ -135,7 +135,7 @@ class window.Alchemy.Dialog
         error_type = "error"
         if status_message
           error_header = status_message
-          console.error eval(xhr.responseText)
+          console.error(xhr.responseText)
         else
           error_header = "#{xhr.statusText} (#{xhr.status})"
         error_body = "Please check log and try again."
@@ -143,7 +143,7 @@ class window.Alchemy.Dialog
     $errorDiv.append Alchemy.messageIcon(error_type)
     $errorDiv.append "<h1>#{error_header}</h1>"
     $errorDiv.append "<p>#{error_body}</p>"
-    @dialog_body.html $errorDiv
+    $container.html $errorDiv
 
   # Binds close events on:
   # - Close button

@@ -7,7 +7,7 @@
       title: Alchemy.t(:info),
       dialog_options: {
         title: Alchemy.t(:info),
-        size: "420x380"
+        size: "420x435"
       },
       if_permitted_to: [:info, :alchemy_admin_dashboard],
       hotkey: 'alt+i'
@@ -26,7 +26,7 @@
   </h1>
   <% if @last_sign_at %>
   <p>
-    <small><%= Alchemy.t('Your last login was on', time: l(@last_sign_at)) %></small>
+    <small><%= Alchemy.t('Your last login was on', time: l(@last_sign_at, format: :'alchemy.default')) %></small>
   </p>
   <% end %>
   <div class="column left">
@@ -34,9 +34,10 @@
     <%= render 'recent_pages' %>
   </div>
   <div class="column right">
-    <% if @online_users.any? %>
+    <% if @online_users.try(:any?) %>
       <%= render 'users' %>
     <% end %>
+
     <% if multi_site? %>
       <%= render 'sites' %>
     <% end %>

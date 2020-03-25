@@ -4,6 +4,7 @@ module Alchemy
   module Admin
     class PicturesController < Alchemy::Admin::ResourcesController
       include UploaderResponses
+      include ArchiveOverlay
 
       helper 'alchemy/admin/tags'
 
@@ -15,7 +16,11 @@ module Alchemy
       def index
         @size = params[:size].present? ? params[:size] : 'medium'
         @query = Picture.ransack(search_filter_params[:q])
-        @pictures = Picture.search_by(search_filter_params, @query, pictures_per_page_for_size(@size))
+        @pictures = Picture.search_by(
+          search_filter_params,
+          @query,
+          items_per_page
+        )
 
         if in_overlay?
           archive_overlay
@@ -25,7 +30,7 @@ module Alchemy
       def show
         @previous = @picture.previous(params)
         @next = @picture.next(params)
-        @pages = @picture.essence_pictures.group_by(&:page)
+        @assignments = @picture.essence_pictures.joins(content: {element: :page})
         render action: 'show'
       end
 
@@ -108,31 +113,34 @@ module Alchemy
         redirect_to_index
       end
 
+      def items_per_page
+        if in_overlay?
+          case params[:size]
+          when 'small' then 25
+          when 'large' then 4
+          else
+            9
+          end
+        else
+          cookies[:alchemy_pictures_per_page] = params[:per_page] ||
+            cookies[:alchemy_pictures_per_page] ||
+            pictures_per_page_for_size(params[:size])
+        end
+      end
+
+      def items_per_page_options
+        per_page = pictures_per_page_for_size(@size)
+        [per_page, per_page * 2, per_page * 4]
+      end
+
       private
 
       def pictures_per_page_for_size(size)
         case size
-        when 'small'
-          per_page = in_overlay? ? 25 : (per_page_value_for_screen_size * 2.9).floor
-        when 'large'
-          per_page = in_overlay? ? 4 : (per_page_value_for_screen_size / 1.7).floor + 1
+        when 'small' then 60
+        when 'large' then 12
         else
-          per_page = in_overlay? ? 9 : (per_page_value_for_screen_size / 1.0).ceil + 4
-        end
-        per_page
-      end
-
-      def in_overlay?
-        params[:element_id].present?
-      end
-
-      def archive_overlay
-        @content = Content.select('id').find_by(id: params[:content_id])
-        @element = Element.select('id').find_by(id: params[:element_id])
-
-        respond_to do |format|
-          format.html { render partial: 'archive_overlay' }
-          format.js   { render action:  'archive_overlay' }
+          20
         end
       end
 

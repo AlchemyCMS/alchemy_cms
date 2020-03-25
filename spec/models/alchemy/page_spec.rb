@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 module Alchemy
   describe Page do
@@ -8,7 +10,7 @@ module Alchemy
     let(:language_root) { create(:alchemy_page, :language_root) }
     let(:page)          { mock_model(Page, page_layout: 'foo') }
     let(:public_page)   { create(:alchemy_page, :public) }
-    let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', do_not_autogenerate: false) }
+    let(:news_page)     { create(:alchemy_page, :public, page_layout: 'news', autogenerate_elements: true) }
 
     it { is_expected.to have_one(:site) }
 
@@ -92,36 +94,6 @@ module Alchemy
           expect(systempage).to be_valid
         end
       end
-
-      context 'saving an external page' do
-        let(:external_page) { build(:alchemy_page, page_layout: 'external') }
-
-        it "does not pass with invalid url given" do
-          external_page.urlname = 'not, a valid page url'
-          expect(external_page).to_not be_valid
-        end
-
-        it "only be valid with correct url given" do
-          external_page.urlname = 'www.google.com&utf_src=alchemy;page_id=%20'
-          expect(external_page).to be_valid
-        end
-
-        context 'on create' do
-          it "is valid without urlname given" do
-            external_page.urlname = ''
-            expect(external_page).to be_valid
-          end
-        end
-
-        context 'on update' do
-          before { external_page.save! }
-
-          it "is not valid without urlname given" do
-            external_page.urlname = ''
-            expect(external_page).to_not be_valid
-          end
-        end
-      end
     end
 
     # Callbacks
@@ -147,18 +119,11 @@ module Alchemy
 
       context 'after_update' do
         context "urlname has changed" do
-          it "should store legacy url if page is not redirect to external page" do
+          it "should store legacy url" do
             page.urlname = 'new-urlname'
             page.save!
             expect(page.legacy_urls).not_to be_empty
             expect(page.legacy_urls.first.urlname).to eq('my-testpage')
-          end
-
-          it "should not store legacy url if page is redirect to external page" do
-            page.urlname = 'new-urlname'
-            page.page_layout = "external"
-            page.save!
-            expect(page.legacy_urls).to be_empty
           end
 
           it "should not store legacy url twice for same urlname" do
@@ -232,20 +197,11 @@ module Alchemy
           page.move_to_child_of parent_2
           expect(page.urlname).to eq('parent-2/page')
         end
-
-        context 'of an external page' do
-          let(:external) { create(:alchemy_page, parent_id: parent_1.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
-
-          it "the urlname does not get updated" do
-            external.move_to_child_of parent_2
-            expect(external.urlname).to eq('http://google.com')
-          end
-        end
       end
 
       context "Saving a normal page" do
         let(:page) do
-          build(:alchemy_page, language_code: nil, language: klingon, do_not_autogenerate: false)
+          build(:alchemy_page, language_code: nil, language: klingon, autogenerate_elements: true)
         end
 
         it "sets the language code" do
@@ -266,43 +222,6 @@ module Alchemy
           it "does not autogenerate" do
             page.save!
             expect(page.elements.select { |e| e.name == 'header' }.length).to eq(1)
-          end
-        end
-
-        context "with cells" do
-          before do
-            allow(page).to receive(:definition) do
-              {
-                'cells' => %w(header main),
-                'autogenerate' => %w(article)
-              }
-            end
-          end
-
-          context 'with elements defined in cells' do
-            before do
-              allow(page).to receive(:cell_definitions) do
-                [{'name' => 'header', 'elements' => %w(article)}]
-              end
-            end
-
-            it "has the generated elements in their cells" do
-              page.save!
-              expect(page.cells.where(name: 'header').first.elements).not_to be_empty
-            end
-          end
-
-          context "and no elements in cell definitions" do
-            before do
-              allow(page).to receive(:cell_definitions) do
-                [{'name' => 'header', 'elements' => []}]
-              end
-            end
-
-            it "should have the elements in the nil cell" do
-              page.save!
-              expect(page.cells.collect(&:elements).flatten).to be_empty
-            end
           end
         end
 
@@ -333,9 +252,9 @@ module Alchemy
           end
         end
 
-        context "with do_not_autogenerate set to true" do
+        context "with autogenerate_elements set to false" do
           before do
-            page.do_not_autogenerate = true
+            page.autogenerate_elements = false
           end
 
           it "should not autogenerate the elements" do
@@ -362,15 +281,23 @@ module Alchemy
 
         it "all elements not allowed on this page should be trashed" do
           expect(news_page.trashed_elements).to be_empty
-          news_page.update_attributes(page_layout: 'standard')
+          news_page.update(page_layout: 'standard')
           trashed = news_page.trashed_elements.pluck(:name)
           expect(trashed).to eq(['news'])
           expect(trashed).to_not include('article', 'header')
         end
 
         it "should autogenerate elements" do
-          news_page.update_attributes(page_layout: 'contact')
+          news_page.update(page_layout: 'contact')
           expect(news_page.elements.pluck(:name)).to include('contactform')
+        end
+      end
+
+      context 'destruction' do
+        let!(:page) { create(:alchemy_page, autogenerate_elements: true) }
+
+        it 'destroys elements along with itself' do
+          expect { page.destroy! }.to change(Alchemy::Element, :count).from(3).to(0)
         end
       end
     end
@@ -589,12 +516,12 @@ module Alchemy
         end
       end
 
-      context "page with cells" do
-        before { page.cells << create(:alchemy_cell) }
+      context "page with fixed elements" do
+        before { page.elements << create(:alchemy_element, :fixed) }
 
-        it "the copy should have source cells" do
-          expect(subject.cells).not_to be_empty
-          expect(subject.cells.count).to eq(page.cells.length) # It must be length, because!
+        it "the copy should have source fixed elements" do
+          expect(subject.fixed_elements).not_to be_empty
+          expect(subject.fixed_elements.count).to eq(page.fixed_elements.count)
         end
       end
 
@@ -811,38 +738,36 @@ module Alchemy
     # InstanceMethods (a-z)
 
     describe '#available_element_definitions' do
-      let(:page) { build_stubbed(:alchemy_page, :public) }
+      subject { page.available_element_definitions }
+
+      let(:page) { create(:alchemy_page, :public) }
 
       it "returns all element definitions of available elements" do
-        expect(page.available_element_definitions).to be_an(Array)
-        expect(page.available_element_definitions.collect { |e| e['name'] }).to include('header')
+        expect(subject).to be_an(Array)
+        expect(subject.collect { |e| e['name'] }).to include('header')
       end
 
       context "with unique elements already on page" do
-        let(:element) { build_stubbed(:alchemy_element, :unique) }
-
-        before do
-          allow(page)
-            .to receive(:elements)
-            .and_return double(not_trashed: double(pluck: [element.name]))
-        end
+        let!(:element) { create(:alchemy_element, :unique, page: page) }
 
         it "does not return unique element definitions" do
-          expect(page.available_element_definitions.collect { |e| e['name'] }).to include('article')
-          expect(page.available_element_definitions.collect { |e| e['name'] }).not_to include('header')
+          expect(subject.collect { |e| e['name'] }).to include('article')
+          expect(subject.collect { |e| e['name'] }).not_to include('header')
         end
       end
 
       context 'limited amount' do
-        let(:page) { build_stubbed(:alchemy_page, page_layout: 'columns') }
-        let(:unique_element) do
-          build_stubbed(:alchemy_element, :unique, name: 'unique_headline')
-        end
-        let(:element_1) { build_stubbed(:alchemy_element, name: 'column_headline') }
-        let(:element_2) { build_stubbed(:alchemy_element, name: 'column_headline') }
-        let(:element_3) { build_stubbed(:alchemy_element, name: 'column_headline') }
+        let(:page) { create(:alchemy_page, page_layout: 'columns') }
 
-        before {
+        let!(:unique_element) do
+          create(:alchemy_element, :unique, name: 'unique_headline', page: page)
+        end
+
+        let!(:element_1) { create(:alchemy_element, name: 'column_headline', page: page) }
+        let!(:element_2) { create(:alchemy_element, name: 'column_headline', page: page) }
+        let!(:element_3) { create(:alchemy_element, name: 'column_headline', page: page) }
+
+        before do
           allow(Element).to receive(:definitions).and_return([
             {
               'name' => 'column_headline',
@@ -861,15 +786,7 @@ module Alchemy
             'elements' => ['column_headline', 'unique_headline'],
             'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
           })
-          allow(page).to receive(:elements).and_return double(
-            not_trashed: double(pluck: [
-              unique_element.name,
-              element_1.name,
-              element_2.name,
-              element_3.name
-            ])
-          )
-        }
+        end
 
         it "should be readable" do
           element = page.element_definitions_by_name('column_headline').first
@@ -877,23 +794,23 @@ module Alchemy
         end
 
         it "should limit elements" do
-          expect(page.available_element_definitions.collect { |e| e['name'] }).not_to include('column_headline')
+          expect(subject.collect { |e| e['name'] }).not_to include('column_headline')
         end
 
         it "should be ignored if unique" do
-          expect(page.available_element_definitions.collect { |e| e['name'] }).not_to include('unique_headline')
+          expect(subject.collect { |e| e['name'] }).not_to include('unique_headline')
         end
       end
     end
 
     describe '#available_elements_within_current_scope' do
-      let(:page) { build_stubbed(:alchemy_page, page_layout: 'columns') }
+      let(:page) { create(:alchemy_page, page_layout: 'columns') }
       let(:nestable_element) { create(:alchemy_element, :with_nestable_elements) }
       let(:currently_available_elements) { page.available_elements_within_current_scope(nestable_element) }
 
       context "When unique element is already nested" do
         before do
-          nestable_element.nested_elements << create(:alchemy_element, name: 'slide', unique: true)
+          nestable_element.nested_elements << create(:alchemy_element, name: 'slide', unique: true, page: page)
           page.elements << nestable_element
         end
 
@@ -941,21 +858,56 @@ module Alchemy
       end
     end
 
-    describe '#cell_definitions' do
+    describe "#all_elements" do
+      let(:page) { create(:alchemy_page) }
+      let!(:element_1) { create(:alchemy_element, page: page) }
+      let!(:element_2) { create(:alchemy_element, page: page) }
+      let!(:element_3) { create(:alchemy_element, page: page) }
+
       before do
-        @page = build(:alchemy_page, page_layout: 'foo')
-        allow(@page).to receive(:definition).and_return({'name' => "foo", 'cells' => ["foo_cell"]})
-        @cell_definitions = [{'name' => "foo_cell", 'elements' => ["1", "2"]}]
-        allow(Cell).to receive(:definitions).and_return(@cell_definitions)
+        element_3.move_to_top
       end
 
-      it "should return all cell definitions for its page_layout" do
-        expect(@page.cell_definitions).to eq(@cell_definitions)
+      it 'returns a ordered active record collection of elements on that page' do
+        expect(page.all_elements).to eq([element_3, element_1, element_2])
       end
 
-      it "should return empty array if no cells defined in page layout" do
-        allow(@page).to receive(:definition).and_return({'name' => "foo"})
-        expect(@page.cell_definitions).to eq([])
+      context 'with nestable elements' do
+        let!(:nestable_element) do
+          create(:alchemy_element, page: page)
+        end
+
+        let!(:nested_element) do
+          create(:alchemy_element, name: 'slide', parent_element: nestable_element, page: page)
+        end
+
+        it 'contains nested elements of an element' do
+          expect(page.all_elements).to include(nested_element)
+        end
+      end
+
+      context 'with trashed elements' do
+        let(:trashed_element) { create(:alchemy_element, page: page).tap(&:trash!) }
+
+        it 'contains trashed elements' do
+          expect(page.all_elements).to include(trashed_element)
+        end
+      end
+
+      context 'with hidden elements' do
+        let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
+
+        it 'contains hidden elements' do
+          expect(page.all_elements).to include(hidden_element)
+        end
+      end
+
+      context 'with fixed elements' do
+        let(:fixed_element) { create(:alchemy_element, page: page, fixed: true) }
+
+        it 'contains hidden elements' do
+          expect(page.all_elements).to include(fixed_element)
+        end
       end
     end
 
@@ -986,59 +938,60 @@ module Alchemy
           expect(page.elements).to_not include(nestable_element.nested_elements.first)
         end
       end
-    end
 
-    describe "#descendent_elements" do
-      let!(:page) do
-        create(:alchemy_page)
+      context 'with trashed elements' do
+        let(:trashed_element) { create(:alchemy_element, page: page) }
+
+        before do
+          trashed_element.trash!
+        end
+
+        it 'does not contain trashed elements' do
+          expect(page.elements).to_not include(trashed_element)
+        end
       end
 
-      let!(:element_1) do
-        create(:alchemy_element, page: page)
-      end
+      context 'with hidden elements' do
+        let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
 
-      let!(:element_2) do
-        create(:alchemy_element, :with_nestable_elements, page: page, parent_element_id: element_1.id)
-      end
-
-      let!(:element_3) do
-        create(:alchemy_element, page: page)
-      end
-
-      it 'returns an active record collection of all elements including nested elements on that page' do
-        expect(page.descendent_elements.count).to eq(3)
+        it 'does not contain hidden elements' do
+          expect(page.elements).to_not include(hidden_element)
+        end
       end
     end
 
-    describe "#descendent_contents" do
-      let!(:page) do
-        create(:alchemy_page)
+    describe "#fixed_elements" do
+      let(:page) { create(:alchemy_page) }
+      let!(:element_1) { create(:alchemy_element, fixed: true, page: page) }
+      let!(:element_2) { create(:alchemy_element, fixed: true, page: page) }
+      let!(:element_3) { create(:alchemy_element, fixed: true, page: page) }
+
+      before do
+        element_3.move_to_top
       end
 
-      let!(:element_1) do
-        create :alchemy_element,
-          :with_nestable_elements,
-          :with_contents, {
-            name: 'slider',
-            page: page
-          }
+      it 'returns a ordered active record collection of fixed elements on that page' do
+        expect(page.fixed_elements).to eq([element_3, element_1, element_2])
       end
 
-      let!(:element_2) do
-        create :alchemy_element,
-          :with_contents, {
-            name: 'slide',
-            page: page,
-            parent_element_id: element_1.id
-          }
+      context 'with trashed fixed elements' do
+        let(:trashed_element) { create(:alchemy_element, page: page, fixed: true) }
+
+        before do
+          trashed_element.trash!
+        end
+
+        it 'does not contain trashed fixed elements' do
+          expect(page.fixed_elements).to_not include(trashed_element)
+        end
       end
 
-      let!(:element_3) do
-        create(:alchemy_element, :with_contents, name: 'slide', page: page)
-      end
+      context 'with hidden fixed elements' do
+        let(:hidden_element) { create(:alchemy_element, page: page, fixed: true, public: false) }
 
-      it 'returns an active record collection of all content including nested elements on that page' do
-        expect(page.descendent_contents.count).to eq(4)
+        it 'does not contain hidden fixed elements' do
+          expect(page.fixed_elements).to_not include(hidden_element)
+        end
       end
     end
 
@@ -1115,94 +1068,22 @@ module Alchemy
 
       before do
         allow(page).to receive(:definition) { page_definition }
-        allow(page).to receive(:cell_definitions) { cell_definitions }
       end
 
-      context "with elements only assigned in page definition" do
+      context "with elements assigned in page definition" do
         let(:page_definition) do
           {'elements' => %w(article)}
         end
-
-        let(:cell_definitions) { [] }
 
         it "returns an array of the page's element names" do
           is_expected.to eq %w(article)
         end
       end
 
-      context "with elements assigned only in cell definition" do
-        before do
-          allow(page).to receive(:definition).and_return({})
-          allow(page).to receive(:cell_definitions) do
-            [{'elements' => ['search']}]
-          end
-        end
-
-        it "returns an array of the cell's element names" do
-          is_expected.to eq(['search'])
-        end
-      end
-
-      context "with elements assigned in page and cell definition" do
-        let(:page_definition) do
-          {'elements' => %w(header article)}
-        end
-
-        let(:cell_definitions) do
-          [{'elements' => %w(search)}]
-        end
-
-        it "returns the combined element names" do
-          is_expected.to eq %w(header article search)
-        end
-
-        context "and cell definition contains same element name as page definition" do
-          let(:page_definition) do
-            {'elements' => %w(header article)}
-          end
-
-          let(:cell_definitions) do
-            [{'elements' => %w(header search)}]
-          end
-
-          it "includes no duplicates" do
-            is_expected.to eq %w(header article search)
-          end
-        end
-      end
-
-      context "without elements assigned in page definition or cell definition" do
+      context "without elements assigned in page definition" do
         let(:page_definition) { {} }
-        let(:cell_definitions) { [] }
 
         it { is_expected.to eq([]) }
-      end
-    end
-
-    describe '#elements_grouped_by_cells' do
-      let(:page) { create(:alchemy_page, :public, do_not_autogenerate: false) }
-
-      before do
-        allow(PageLayout).to receive(:get).and_return({
-          'name' => 'standard',
-          'cells' => ['header'],
-          'elements' => ['header', 'text'],
-          'autogenerate' => ['header', 'text']
-        })
-        allow(Cell).to receive(:definitions).and_return([{
-          'name' => "header",
-          'elements' => ["header"]
-        }])
-      end
-
-      it "should return elements grouped by cell" do
-        elements = page.elements_grouped_by_cells
-        expect(elements.keys.first).to be_instance_of(Cell)
-        expect(elements.values.first.first).to be_instance_of(Element)
-      end
-
-      it "should only include elements beeing in a cell " do
-        expect(page.elements_grouped_by_cells.keys).not_to include(nil)
       end
     end
 
@@ -1226,102 +1107,25 @@ module Alchemy
     end
 
     describe '#find_elements' do
-      before do
-        create(:alchemy_element, public: false, page: public_page)
-        create(:alchemy_element, public: false, page: public_page)
+      subject { page.find_elements(options) }
+
+      let(:page) { build(:alchemy_page) }
+      let(:options) { {} }
+      let(:finder) { instance_double(Alchemy::ElementsFinder) }
+
+      it 'passes self and all options to elements finder' do
+        expect(Alchemy::ElementsFinder).to receive(:new).with(options) { finder }
+        expect(finder).to receive(:elements).with(page: page)
+        subject
       end
 
-      context "with show_non_public argument TRUE" do
-        it "should return all elements from empty options" do
-          expect(public_page.find_elements({}, true).to_a).to eq(public_page.elements.to_a)
+      context 'with a custom finder given in options' do
+        let(:options) do
+          { finder: CustomNewsElementsFinder.new }
         end
 
-        it "should only return the elements passed as options[:only]" do
-          expect(public_page.find_elements({only: ['article']}, true).to_a).to eq(public_page.elements.named('article').to_a)
-        end
-
-        it "should not return the elements passed as options[:except]" do
-          expect(public_page.find_elements({except: ['article']}, true).to_a).to eq(public_page.elements - public_page.elements.named('article').to_a)
-        end
-
-        it "should return elements offsetted" do
-          expect(public_page.find_elements({offset: 2}, true).to_a).to eq(public_page.elements.offset(2))
-        end
-
-        it "should return elements limitted in count" do
-          expect(public_page.find_elements({count: 1}, true).to_a).to eq(public_page.elements.limit(1))
-        end
-      end
-
-      context "with options[:from_cell]" do
-        let(:element) { build_stubbed(:alchemy_element) }
-
-        context "given as String" do
-          context 'with elements present' do
-            before do
-              expect(public_page.cells)
-                .to receive(:find_by_name)
-                .and_return double(elements: double(offset: double(limit: double(published: [element]))))
-            end
-
-            it "returns only the elements from given cell" do
-              expect(public_page.find_elements(from_cell: 'A Cell').to_a).to eq([element])
-            end
-          end
-
-          context "that can not be found" do
-            let(:elements) { [] }
-
-            before do
-              allow(elements)
-                .to receive(:offset)
-                .and_return double(limit: double(published: elements))
-            end
-
-            it "returns empty set" do
-              expect(Element).to receive(:none).and_return(elements)
-              expect(public_page.find_elements(from_cell: 'Lolo').to_a).to eq([])
-            end
-
-            it "loggs a warning" do
-              expect(Rails.logger).to receive(:debug)
-              public_page.find_elements(from_cell: 'Lolo')
-            end
-          end
-        end
-
-        context "given as cell object" do
-          let(:cell) { build_stubbed(:alchemy_cell, page: public_page) }
-
-          it "returns only the elements from given cell" do
-            expect(cell)
-              .to receive(:elements)
-              .and_return double(offset: double(limit: double(published: [element])))
-
-            expect(public_page.find_elements(from_cell: cell).to_a).to eq([element])
-          end
-        end
-      end
-
-      context "with show_non_public argument FALSE" do
-        it "should return all elements from empty arguments" do
-          expect(public_page.find_elements.to_a).to eq(public_page.elements.published.to_a)
-        end
-
-        it "should only return the public elements passed as options[:only]" do
-          expect(public_page.find_elements(only: ['article']).to_a).to eq(public_page.elements.published.named('article').to_a)
-        end
-
-        it "should return all public elements except the ones passed as options[:except]" do
-          expect(public_page.find_elements(except: ['article']).to_a).to eq(public_page.elements.published.to_a - public_page.elements.published.named('article').to_a)
-        end
-
-        it "should return elements offsetted" do
-          expect(public_page.find_elements({offset: 2}).to_a).to eq(public_page.elements.published.offset(2))
-        end
-
-        it "should return elements limitted in count" do
-          expect(public_page.find_elements({count: 1}).to_a).to eq(public_page.elements.published.limit(1))
+        it 'uses that to load elements to render' do
+          expect(subject.map(&:name)).to eq(['news'])
         end
       end
     end
@@ -1878,7 +1682,6 @@ module Alchemy
       let(:page)          { create(:alchemy_page, parent_id: parent.id, name: 'page', visible: true) }
       let(:invisible)     { create(:alchemy_page, parent_id: page.id, name: 'invisible', visible: false) }
       let(:contact)       { create(:alchemy_page, parent_id: invisible.id, name: 'contact', visible: true) }
-      let(:external)      { create(:alchemy_page, parent_id: parent.id, name: 'external', page_layout: 'external', urlname: 'http://google.com') }
       let(:language_root) { parentparent.parent }
 
       context "with activated url_nesting" do
@@ -1925,16 +1728,6 @@ module Alchemy
             expect(page.urlname).to eq('new-urlname/parent/page')
           end
 
-          context 'with descendants that are redirecting to external' do
-            it "it skips this page" do
-              external
-              parent.urlname = 'new-urlname'
-              parent.save!
-              external.reload
-              expect(external.urlname).to eq('http://google.com')
-            end
-          end
-
           it "should create a legacy url" do
             allow(page).to receive(:slug).and_return('foo')
             page.update_urlname!
@@ -1975,63 +1768,32 @@ module Alchemy
           stub_alchemy_config(:url_nesting, true)
         end
 
-        context "when page is not external" do
-          before do
-            expect(page).to receive(:redirects_to_external?).and_return(false)
-          end
-
-          it "should update all attributes" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(node.url)
-            expect(page.restricted).to eq(node.restricted)
-          end
-
-          context "when url is the same" do
-            let(:node) { TreeNode.new(10, 11, 12, 13, original_url, true) }
-
-            it "should not create a legacy url" do
-              page.update_node!(node)
-              page.reload
-              expect(page.legacy_urls.size).to eq(0)
-            end
-          end
-
-          context "when url is not the same" do
-            it "should create a legacy url" do
-              page.update_node!(node)
-              page.reload
-              expect(page.legacy_urls.size).to eq(1)
-            end
-          end
+        it "should update all attributes" do
+          page.update_node!(node)
+          page.reload
+          expect(page.lft).to eq(node.left)
+          expect(page.rgt).to eq(node.right)
+          expect(page.parent_id).to eq(node.parent)
+          expect(page.depth).to eq(node.depth)
+          expect(page.urlname).to eq(node.url)
+          expect(page.restricted).to eq(node.restricted)
         end
 
-        context "when page is external" do
-          before do
-            expect(page)
-              .to receive(:redirects_to_external?)
-              .and_return(true)
-          end
-
-          it "should update all attributes except url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(original_url)
-            expect(page.restricted).to eq(node.restricted)
-          end
+        context "when url is the same" do
+          let(:node) { TreeNode.new(10, 11, 12, 13, original_url, true) }
 
           it "should not create a legacy url" do
             page.update_node!(node)
             page.reload
             expect(page.legacy_urls.size).to eq(0)
+          end
+        end
+
+        context "when url is not the same" do
+          it "should create a legacy url" do
+            page.update_node!(node)
+            page.reload
+            expect(page.legacy_urls.size).to eq(1)
           end
         end
       end
@@ -2041,50 +1803,21 @@ module Alchemy
           stub_alchemy_config(:url_nesting, false)
         end
 
-        context "when page is not external" do
-          before do
-            allow(page).to receive(:redirects_to_external?).and_return(false)
-          end
-
-          it "should update all attributes except url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(original_url)
-            expect(page.restricted).to eq(node.restricted)
-          end
-
-          it "should not create a legacy url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.legacy_urls.size).to eq(0)
-          end
+        it "should update all attributes except url" do
+          page.update_node!(node)
+          page.reload
+          expect(page.lft).to eq(node.left)
+          expect(page.rgt).to eq(node.right)
+          expect(page.parent_id).to eq(node.parent)
+          expect(page.depth).to eq(node.depth)
+          expect(page.urlname).to eq(original_url)
+          expect(page.restricted).to eq(node.restricted)
         end
 
-        context "when page is external" do
-          before do
-            allow(page).to receive(:redirects_to_external?).and_return(true)
-          end
-
-          it "should update all attributes except url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.lft).to eq(node.left)
-            expect(page.rgt).to eq(node.right)
-            expect(page.parent_id).to eq(node.parent)
-            expect(page.depth).to eq(node.depth)
-            expect(page.urlname).to eq(original_url)
-            expect(page.restricted).to eq(node.restricted)
-          end
-
-          it "should not create a legacy url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.legacy_urls.size).to eq(0)
-          end
+        it "should not create a legacy url" do
+          page.update_node!(node)
+          page.reload
+          expect(page.legacy_urls.size).to eq(0)
         end
       end
     end
@@ -2151,34 +1884,6 @@ module Alchemy
       end
     end
 
-    describe '#external_urlname' do
-      let(:external_page) { build(:alchemy_page, page_layout: 'external') }
-
-      context 'with missing protocol' do
-        before { external_page.urlname = 'google.com' }
-
-        it "returns an urlname prefixed with http://" do
-          expect(external_page.external_urlname).to eq 'http://google.com'
-        end
-      end
-
-      context 'with protocol present' do
-        before { external_page.urlname = 'ftp://google.com' }
-
-        it "returns the urlname" do
-          expect(external_page.external_urlname).to eq 'ftp://google.com'
-        end
-      end
-
-      context 'beginngin with a slash' do
-        before { external_page.urlname = '/internal-url' }
-
-        it "returns the urlname" do
-          expect(external_page.external_urlname).to eq '/internal-url'
-        end
-      end
-    end
-
     context 'page status methods' do
       let(:page) do
         build(:alchemy_page, :public, visible: true, restricted: false)
@@ -2209,109 +1914,56 @@ module Alchemy
       end
     end
 
-    context 'indicate page editors' do
-      let(:page) { Page.new }
+    describe 'page editor methods' do
       let(:user) { create(:alchemy_dummy_user, :as_editor) }
 
       describe '#creator' do
-        before { page.update(creator_id: user.id) }
+        let(:page) { Page.new(creator: user) }
+        subject(:creator) { page.creator }
 
         it "returns the user that created the page" do
-          expect(page.creator).to eq(user)
+          is_expected.to eq(user)
         end
 
-        context 'with user class having a different primary key' do
-          before do
-            allow(Alchemy.user_class)
-              .to receive(:primary_key)
-              .and_return('user_id')
-
-            allow(page)
-              .to receive(:creator_id)
-              .and_return(1)
-          end
-
-          it "returns the user that created the page" do
-            expect(Alchemy.user_class)
-              .to receive(:find_by)
-              .with({'user_id' => 1})
-
-            page.creator
-          end
+        it 'uses the primary key defined on user class' do
+          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { :id }
+          subject
         end
       end
 
       describe '#updater' do
-        before { page.update(updater_id: user.id) }
+        let(:page) { Page.new(updater: user) }
+        subject(:updater) { page.updater }
 
         it "returns the user that updated the page" do
-          expect(page.updater).to eq(user)
+          is_expected.to eq(user)
         end
 
-        context 'with user class having a different primary key' do
-          before do
-            allow(Alchemy.user_class)
-              .to receive(:primary_key)
-              .and_return('user_id')
-
-            allow(page)
-              .to receive(:updater_id)
-              .and_return(1)
-          end
-
-          it "returns the user that updated the page" do
-            expect(Alchemy.user_class)
-              .to receive(:find_by)
-              .with({'user_id' => 1})
-
-            page.updater
-          end
+        it 'uses the primary key defined on user class' do
+          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { :id }
+          subject
         end
       end
 
       describe '#locker' do
-        before { page.update(locked_by: user.id) }
+        let(:page) { Page.new(locker: user) }
+        subject(:locker) { page.locker }
 
-        it "returns the user that locked the page" do
-          expect(page.locker).to eq(user)
+        it "returns the user that updated the page" do
+          is_expected.to eq(user)
         end
 
-        context 'with user class having a different primary key' do
-          before do
-            allow(Alchemy.user_class)
-              .to receive(:primary_key)
-              .and_return('user_id')
-
-            allow(page)
-              .to receive(:locked_by)
-              .and_return(1)
-          end
-
-          it "returns the user that locked the page" do
-            expect(Alchemy.user_class)
-              .to receive(:find_by)
-              .with({'user_id' => 1})
-
-            page.locker
-          end
-        end
-      end
-
-      context 'with user that can not be found' do
-        it 'does not raise not found error' do
-          %w(creator updater locker).each do |user_type|
-            expect {
-              page.send(user_type)
-            }.to_not raise_error
-          end
+        it 'uses the primary key defined on user class' do
+          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { :id }
+          subject
         end
       end
 
       context 'with user class having a name accessor' do
-        let(:user) { double(name: 'Paul Page') }
+        let(:user) { build(:alchemy_dummy_user, name: 'Paul Page') }
 
         describe '#creator_name' do
-          before { allow(page).to receive(:creator).and_return(user) }
+          let(:page) { Page.new(creator: user) }
 
           it "returns the name of the creator" do
             expect(page.creator_name).to eq('Paul Page')
@@ -2319,7 +1971,7 @@ module Alchemy
         end
 
         describe '#updater_name' do
-          before { allow(page).to receive(:updater).and_return(user) }
+          let(:page) { Page.new(updater: user) }
 
           it "returns the name of the updater" do
             expect(page.updater_name).to eq('Paul Page')
@@ -2327,7 +1979,7 @@ module Alchemy
         end
 
         describe '#locker_name' do
-          before { allow(page).to receive(:locker).and_return(user) }
+          let(:page) { Page.new(locker: user) }
 
           it "returns the name of the current page editor" do
             expect(page.locker_name).to eq('Paul Page')
@@ -2335,11 +1987,11 @@ module Alchemy
         end
       end
 
-      context 'with user class not having a name accessor' do
+      context 'with user class returning nil for name' do
         let(:user) { Alchemy.user_class.new }
 
         describe '#creator_name' do
-          before { allow(page).to receive(:creator).and_return(user) }
+          let(:page) { Page.new(creator: user) }
 
           it "returns unknown" do
             expect(page.creator_name).to eq('unknown')
@@ -2347,7 +1999,7 @@ module Alchemy
         end
 
         describe '#updater_name' do
-          before { allow(page).to receive(:updater).and_return(user) }
+          let(:page) { Page.new(updater: user) }
 
           it "returns unknown" do
             expect(page.updater_name).to eq('unknown')
@@ -2355,25 +2007,43 @@ module Alchemy
         end
 
         describe '#locker_name' do
-          before { allow(page).to receive(:locker).and_return(user) }
+          let(:page) { Page.new(locker: user) }
 
           it "returns unknown" do
             expect(page.locker_name).to eq('unknown')
           end
         end
       end
-    end
 
-    describe '#controller_and_action' do
-      let(:page) { Page.new }
+      context 'with user class not responding to name' do
+        let(:user) { Alchemy.user_class.new }
 
-      context 'if the page has a custom controller defined in its definition' do
         before do
-          allow(page).to receive(:has_controller?).and_return(true)
-          allow(page).to receive(:definition).and_return({'controller' => 'comments', 'action' => 'index'})
+          expect(user).to receive(:respond_to?).with(:name) { false }
         end
-        it "should return a Hash with controller and action key-value pairs" do
-          expect(page.controller_and_action).to eq({controller: '/comments', action: 'index'})
+
+        describe '#creator_name' do
+          let(:page) { Page.new(creator: user) }
+
+          it "returns unknown" do
+            expect(page.creator_name).to eq('unknown')
+          end
+        end
+
+        describe '#updater_name' do
+          let(:page) { Page.new(updater: user) }
+
+          it "returns unknown" do
+            expect(page.updater_name).to eq('unknown')
+          end
+        end
+
+        describe '#locker_name' do
+          let(:page) { Page.new(locker: user) }
+
+          it "returns unknown" do
+            expect(page.locker_name).to eq('unknown')
+          end
         end
       end
     end
@@ -2414,19 +2084,17 @@ module Alchemy
       let!(:page) { create(:alchemy_page) }
 
       let!(:expanded_element) do
-        create :alchemy_element,
+        create :alchemy_element, :with_contents,
           name: 'article',
           page: page,
-          folded: false,
-          create_contents_after_create: true
+          folded: false
       end
 
       let!(:folded_element) do
-        create :alchemy_element,
+        create :alchemy_element, :with_contents,
           name: 'article',
           page: page,
-          folded: true,
-          create_contents_after_create: true
+          folded: true
       end
 
       subject(:richtext_contents_ids) { page.richtext_contents_ids }
@@ -2440,28 +2108,26 @@ module Alchemy
 
       context 'with nested elements' do
         let!(:nested_expanded_element) do
-          create :alchemy_element,
+          create :alchemy_element, :with_contents,
             name: 'article',
             page: page,
             parent_element: expanded_element,
-            folded: false,
-            create_contents_after_create: true
+            folded: false
         end
 
         let!(:nested_folded_element) do
-          create :alchemy_element,
+          create :alchemy_element, :with_contents,
             name: 'article',
             page: page,
             parent_element: folded_element,
-            folded: true,
-            create_contents_after_create: true
+            folded: true
         end
 
         it 'returns content ids for all expanded nested elements that have tinymce enabled' do
           expanded_rtf_contents = expanded_element.contents.essence_richtexts
           nested_expanded_rtf_contents = nested_expanded_element.contents.essence_richtexts
           rtf_content_ids = expanded_rtf_contents.pluck(:id) +
-                            nested_expanded_rtf_contents.pluck(:id)
+            nested_expanded_rtf_contents.pluck(:id)
           expect(richtext_contents_ids.sort).to eq(rtf_content_ids)
 
           nested_folded_rtf_content = nested_folded_element.contents.essence_richtexts.first
@@ -2497,6 +2163,75 @@ module Alchemy
             page.update(name: 'Foo')
           }.to_not change { page.name }
         end
+      end
+    end
+
+    describe '#attach_to_menu!' do
+      let(:page) { create(:alchemy_page) }
+
+      context 'if menu_id is set' do
+        let(:root_node) { create(:alchemy_node) }
+
+        before do
+          page.menu_id = root_node.id
+        end
+
+        context 'and no nodes are present yet' do
+          it 'attaches to menu' do
+            expect { page.save }.to change { page.nodes.count }.from(0).to(1)
+          end
+        end
+
+        context 'and nodes are already present' do
+          let!(:page_node) { create(:alchemy_node, page: page) }
+
+          it 'does not attach to menu' do
+            expect { page.save }.not_to change { page.nodes.count }
+          end
+        end
+      end
+
+      context 'if menu_id is not set' do
+        it 'does not attach to menu' do
+          expect { page.save }.not_to change { page.nodes.count }
+        end
+      end
+
+      context 'if menu_id is empty' do
+        it 'does not raise error' do
+          page.menu_id = ""
+          expect { page.save }.not_to raise_error
+        end
+      end
+    end
+
+    describe '#nodes' do
+      let(:page) { create(:alchemy_page) }
+      let(:node) { create(:alchemy_node, page: page, updated_at: 1.hour.ago) }
+
+      it 'returns all nodes the page is attached to' do
+        expect(page.nodes).to include(node)
+      end
+
+      describe 'after page updates' do
+        it 'touches all nodes' do
+          expect {
+            page.update(name: 'foo')
+          }.to change { node.reload.updated_at }
+        end
+      end
+    end
+
+    describe '#menus' do
+      let(:page) { create(:alchemy_page) }
+      let(:root_node) { create(:alchemy_node) }
+
+      let!(:child_node) do
+        create(:alchemy_node, page: page, parent: root_node)
+      end
+
+      it 'returns all root nodes the page is attached to' do
+        expect(page.menus).to include(root_node)
       end
     end
   end

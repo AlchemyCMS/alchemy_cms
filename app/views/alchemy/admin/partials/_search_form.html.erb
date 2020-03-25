@@ -2,10 +2,12 @@
 
 <%= search_form_for @query, url: url, class: 'search_form' do |f| %>
   <div class="search_field">
-    <%= render_icon('search') %>
-    <%= f.search_field resource_handler.search_field_name,
-      class: 'search_input_field',
-      placeholder: Alchemy.t(:search) %>
+    <label>
+      <%= render_icon('search') %>
+      <%= f.search_field resource_handler.search_field_name,
+        class: 'search_input_field',
+        placeholder: Alchemy.t(:search) %>
+    </label>
     <% local_assigns.fetch(:additional_query_fields, []).each do |field| %>
       <%= f.hidden_field field %>
     <% end %>

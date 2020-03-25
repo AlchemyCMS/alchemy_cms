@@ -9,21 +9,19 @@
     <label class="control-label"><%= Alchemy.t(:page_status) %></label>
     <div class="control_group">
       <%= render 'alchemy/admin/pages/publication_fields' %>
-      <%= page_status_checkbox(@page, :visible) %>
       <%= page_status_checkbox(@page, :restricted) %>
+      <%= render 'alchemy/admin/pages/menu_fields', f: f %>
       <% if configuration(:sitemap)['show_flag'] %>
         <%= page_status_checkbox(@page, :sitemap) %>
       <% end %>
     </div>
   </div>
 
-  <h2><%= Alchemy.t(:names) %></h2>
   <%= f.input :name, autofocus: true %>
   <%= f.input :urlname, as: 'string', input_html: {value: @page.slug} %>
   <%= f.input :title,
     input_html: {'data-alchemy-char-counter' => 60} %>
 
-  <h2><%= Alchemy.t(:meta_data) %></h2>
   <div class="input check_boxes">
     <label class="control-label"><%= Alchemy.t(:search_engines) %></label>
     <div class="control_group">

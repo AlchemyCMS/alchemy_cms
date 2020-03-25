@@ -12,7 +12,8 @@ module Alchemy
       include Alchemy::ResourcesHelper
 
       helper Alchemy::ResourcesHelper, TagsHelper
-      helper_method :resource_handler, :search_filter_params
+      helper_method :resource_handler, :search_filter_params,
+        :items_per_page, :items_per_page_options
 
       before_action :load_resource,
         only: [:show, :edit, :update, :destroy]
@@ -21,6 +22,7 @@ module Alchemy
 
       def index
         @query = resource_handler.model.ransack(search_filter_params[:q])
+        @query.sorts = default_sort_order if @query.sorts.empty?
         items = @query.result
 
         if contains_relations?
@@ -37,7 +39,7 @@ module Alchemy
 
         respond_to do |format|
           format.html {
-            items = items.page(params[:page] || 1).per(per_page_value_for_screen_size)
+            items = items.page(params[:page] || 1).per(items_per_page)
             instance_variable_set("@#{resource_handler.resources_name}", items)
           }
           format.csv {
@@ -61,16 +63,16 @@ module Alchemy
         resource_instance_variable.save
         render_errors_or_redirect(
           resource_instance_variable,
-          resources_path(resource_handler.namespaced_resources_name, search_filter_params),
+          resources_path(resource_instance_variable.class, search_filter_params),
           flash_notice_for_resource_action
         )
       end
 
       def update
-        resource_instance_variable.update_attributes(resource_params)
+        resource_instance_variable.update(resource_params)
         render_errors_or_redirect(
           resource_instance_variable,
-          resources_path(resource_handler.namespaced_resources_name, search_filter_params),
+          resources_path(resource_instance_variable.class, search_filter_params),
           flash_notice_for_resource_action
         )
       end
@@ -91,6 +93,7 @@ module Alchemy
       # The key should look like "Modelname successfully created|updated|destroyed."
       def flash_notice_for_resource_action(action = params[:action])
         return if resource_instance_variable.errors.any?
+
         case action.to_sym
         when :create
           verb = "created"
@@ -142,13 +145,29 @@ module Alchemy
 
       def common_search_filter_includes
         [
-          # contrary to Rails' documentation passing an empty hash to permit all keys does not work
-          {options: options_from_params.keys},
-          {q: resource_handler.search_field_name},
+          {q: [
+            resource_handler.search_field_name,
+            :s
+          ]},
           :tagged_with,
           :filter,
-          :page
+          :page,
+          :per_page
         ].freeze
+      end
+
+      def items_per_page
+        cookies[:alchemy_items_per_page] = params[:per_page] || cookies[:alchemy_items_per_page] || Alchemy::Config.get(:items_per_page)
+      end
+
+      def items_per_page_options
+        per_page = Alchemy::Config.get(:items_per_page)
+        [per_page, per_page * 2, per_page * 4]
+      end
+
+      def default_sort_order
+        name = resource_handler.attributes.detect { |attr| attr[:name] == 'name' }
+        name ? 'name asc' : "#{resource_handler.attributes.first[:name]} asc"
       end
     end
   end

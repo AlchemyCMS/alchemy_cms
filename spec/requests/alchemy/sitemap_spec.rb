@@ -1,11 +1,13 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe 'Requests for PagesController#sitemap' do
   let!(:page) { create(:alchemy_page, :public, sitemap: true) }
 
   it 'renders valid xml sitemap' do
     get '/sitemap.xml'
-    expect(response.content_type).to eq('application/xml')
+    expect(response.media_type).to eq('application/xml')
     xml_doc = Nokogiri::XML(response.body)
     expect(xml_doc.namespaces).to have_key('xmlns')
     expect(xml_doc.namespaces['xmlns']).to eq('http://www.sitemaps.org/schemas/sitemap/0.9')
@@ -14,7 +16,7 @@ RSpec.describe 'Requests for PagesController#sitemap' do
 
   it 'lastmod dates are ISO 8601 timestamps' do
     get '/sitemap.xml'
-    expect(response.content_type).to eq('application/xml')
+    expect(response.media_type).to eq('application/xml')
     xml_doc = Nokogiri::XML(response.body)
     xml_doc.css('urlset url lastmod').each do |timestamps|
       expect(timestamps.text).to match(/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/)

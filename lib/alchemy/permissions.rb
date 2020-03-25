@@ -64,8 +64,7 @@ module Alchemy
 
         # Resources
         can [:show, :download], Alchemy::Attachment
-        can :read,              Alchemy::Page,      Alchemy::Page.published, &:public?
-        can :see,               Alchemy::Page,      restricted: true, visible: true
+        can :see,               Alchemy::Page, restricted: true, visible: true
 
         can :read, Alchemy::Content, Alchemy::Content.available do |c|
           c.public? && !c.trashed?
@@ -73,6 +72,10 @@ module Alchemy
 
         can :read, Alchemy::Element, Alchemy::Element.available do |e|
           e.public? && !e.trashed?
+        end
+
+        can :read, Alchemy::Page, Alchemy::Page.published do |p|
+          p.public?
         end
       end
     end
@@ -92,6 +95,7 @@ module Alchemy
           :alchemy_admin_attachments,
           :alchemy_admin_dashboard,
           :alchemy_admin_layoutpages,
+          :alchemy_admin_nodes,
           :alchemy_admin_pages,
           :alchemy_admin_pictures,
           :alchemy_admin_tags,
@@ -113,6 +117,7 @@ module Alchemy
         can :manage,                Alchemy::EssenceFile
         can :manage,                Alchemy::EssencePicture
         can :manage,                Alchemy::LegacyPageUrl
+        can :manage,                Alchemy::Node
         can :read,                  Alchemy::Picture
         can [:read, :autocomplete], Alchemy::Tag
         can(:edit_content,          Alchemy::Page) { |p| p.editable_by?(@user) }
@@ -180,7 +185,7 @@ module Alchemy
         alchemy_editor_rules
 
         # Navigation
-        can :index,                 [:alchemy_admin_sites]
+        can :index,                 [:alchemy_admin_sites, :alchemy_admin_styleguide]
 
         # Controller actions
         can [:info, :update_check], :alchemy_admin_dashboard
@@ -195,6 +200,7 @@ module Alchemy
 
     def user_role_rules
       return alchemy_guest_user_rules if @user.alchemy_roles.blank?
+
       @user.alchemy_roles.each do |role|
         exec_role_rules(role)
       end

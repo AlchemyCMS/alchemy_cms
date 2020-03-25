@@ -2,23 +2,26 @@
 
 module Alchemy
   class ElementSerializer < ActiveModel::Serializer
-    self.root = false
-
     attributes :id,
       :name,
       :position,
       :page_id,
-      :cell_id,
       :tag_list,
       :created_at,
       :updated_at,
       :ingredients,
-      :content_ids
+      :content_ids,
+      :dom_id,
+      :display_name
 
     has_many :nested_elements
 
     def ingredients
       object.contents.collect(&:serialize)
+    end
+
+    def display_name
+      object.display_name_with_preview_text
     end
   end
 end

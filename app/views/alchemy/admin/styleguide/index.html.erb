@@ -1,0 +1,238 @@
+<% content_for :title do %>
+  <%= "Styleguide" %>
+<% end %>
+
+<% content_for :javascript_includes do %>
+  <meta name="turbolinks-cache-control" content="no-cache">
+<% end %>
+
+<% content_for(:toolbar) do %>
+  <%= toolbar_button(
+    icon: :info,
+    label: 'Info',
+    url: alchemy.dashboard_info_path,
+    title: 'Info',
+    hotkey: 'alt+i',
+    dialog_options: {
+      title: 'Info',
+      size: "430x400"
+    },
+    if_permitted_to: [:index, :alchemy_admin_styleguide]
+  ) %>
+<% end %>
+
+<h1>AlchemyCMS Styleguide</h1>
+
+<h2>Typography</h2>
+
+<h1>Heading 1</h1>
+<h2>Heading 2</h2>
+<h3>Heading 3</h3>
+<h4>Heading 4</h4>
+<h5>Heading 5</h5>
+
+<p>This is a paragraph, with <a href="#">a link</a>, a <kbd>keyboard shortcut</kbd> and an <code>inline code snippet</code>.</p>
+
+<h2>Messages</h2>
+
+<h3>Info Message</h3>
+
+<%= render_message do %>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<% end %>
+
+<h3>Warning Message</h3>
+
+<%= render_message :warning do %>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<% end %>
+
+<h3>Error Message</h3>
+
+<%= render_message :error do %>
+  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+<% end %>
+
+<h2>Forms</h2>
+
+<div class="panel">
+  <%= render_message do %>
+    <p>This form is inside a <code>.panel</code> component.</p>
+  <% end %>
+
+  <form class="simple_form alchemy" action="#" accept-charset="UTF-8" method="post">
+    <div class="input select">
+      <label class="select control-label" for="select">Select</label>
+      <select class="select alchemy_selectbox" id="select">
+        <option value="">Please choose</option>
+        <option value="1">Option 1</option>
+        <option selected="selected" value="2">Option 2</option>
+        <option value="3">Option 3</option>
+      </select>
+    </div>
+
+    <div class="input">
+      <label class="control-label" for="datetime_picker">Date Time Picker</label>
+      <input type="text" data-datepicker-type="datetime" id="datetime_picker">
+    </div>
+
+    <div class="input">
+      <label class="control-label">Date & Time Pickers</label>
+      <div class="control_group">
+        <div class="input-row">
+          <div class="input-column">
+            <input type="text" data-datepicker-type="date" id="date_picker">
+          </div>
+          <div class="input-column">
+            <input type="text" data-datepicker-type="time" id="time_picker">
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="input">
+      <label class="control-label" for="optional_string">String</label>
+      <input type="text" id="optional_string">
+    </div>
+    <div class="input required">
+      <label class="required control-label" for="required_string">
+        Required String<abbr title="required">*</abbr>
+      </label>
+      <input type="text" id="required_string">
+    </div>
+    <div class="input field_with_errors">
+      <label class="control-label" for="string_with_error">String with error</label>
+      <input type="text" id="string_with_error">
+      <small class="error">Error message</small>
+    </div>
+    <div class="input">
+      <label class="control-label" for="string_with_counter">String with char counter</label>
+      <input data-alchemy-char-counter="60" type="text" id="string_with_counter">
+    </div>
+
+    <div class="input check_boxes">
+      <label class="control-label">Check Boxes</label>
+      <div class="control_group">
+        <label class="checkbox">
+          <input type="checkbox" value="1" checked="checked">
+          Checked
+        </label>
+        <label class="checkbox">
+          <input type="checkbox" value="1">
+          Unchecked
+        </label>
+      </div>
+    </div>
+
+    <div class="input text">
+      <label class="text control-label" for="textarea_with_counter">Textarea with char counter</label>
+      <textarea data-alchemy-char-counter="160" class="text" id="textarea_with_counter"></textarea>
+    </div>
+
+    <div class="input text">
+      <label class="text control-label" for="textarea">Textarea</label>
+      <textarea class="text" id="textarea"></textarea>
+      <small class="hint">With hint</small>
+    </div>
+
+    <div class="input text tinymce_container">
+      <label class="text control-label" for="tinymce_1">Richtext editor</label>
+      <textarea class="text" id="tinymce_1"></textarea>
+    </div>
+
+    <div class="submit">
+      <button class="secondary">Secondary</button>
+      <button data-alchemy-button>Primary Submit</button>
+    </div>
+  </form>
+</div>
+
+<h2>Tables</h2>
+
+<h3>Normal Table</h3>
+
+<table class="list">
+  <tr>
+    <th>Table Heading 1</th>
+    <th>Table Heading 2</th>
+    <th>Table Heading 3</th>
+  </tr>
+  <tr class="even">
+    <td>Even table cell 1</td>
+    <td>Even table cell 2</td>
+    <td>Even table cell 3</td>
+  </tr>
+  <tr class="odd">
+    <td>Odd table cell 1</td>
+    <td>Odd table cell 2</td>
+    <td>Odd table cell 3</td>
+  </tr>
+</table>
+
+<h3>Table with icons</h3>
+
+<table class="list">
+  <tr>
+    <th class="icon"></th>
+    <th>Table Heading 1</th>
+    <th>Table Heading 2</th>
+    <th>Table Heading 3</th>
+    <th class="tools"></th>
+  </tr>
+  <tr class="even">
+    <td class="icon">
+      <i class="icon fa-fw fas fa-user"></i>
+    </td>
+    <td>Even table cell 1</td>
+    <td>Even table cell 2</td>
+    <td>Even table cell 3</td>
+    <td class="tools">
+      <a href="#" class="icon_button">
+        <i class="icon fa-fw fas fa-minus"></i>
+      </a>
+      <a href="#" class="icon_button">
+        <i class="icon fa-fw fas fa-edit"></i>
+      </a>
+    </td>
+  </tr>
+  <tr class="odd">
+    <td class="icon">
+      <i class="icon fa-fw fas fa-user"></i>
+    </td>
+    <td>Odd table cell 1</td>
+    <td>Odd table cell 2</td>
+    <td>Odd table cell 3</td>
+    <td class="tools">
+      <a href="#" class="icon_button">
+        <i class="icon fa-fw fas fa-minus"></i>
+      </a>
+      <a href="#" class="icon_button">
+        <i class="icon fa-fw fas fa-edit"></i>
+      </a>
+    </td>
+  </tr>
+</table>
+
+<h2>Lists</h2>
+
+<h3>Unordered List</h3>
+
+<ul>
+  <li>List item</li>
+  <li>List item</li>
+  <li>List item</li>
+</ul>
+
+<h3>Ordered List</h3>
+
+<ol>
+  <li>List item</li>
+  <li>List item</li>
+  <li>List item</li>
+</ol>
+
+<%= content_for :javascripts do %>
+  <script>
+    Alchemy.Tinymce.init([1])
+  </script>
+<% end %>

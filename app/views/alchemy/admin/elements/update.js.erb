@@ -9,7 +9,7 @@
   $el.trigger('SaveElement.Alchemy', {previewText: '<%= j sanitize(@element.preview_text) %>'});
   Alchemy.growl('<%= Alchemy.t(:element_saved) %>');
   Alchemy.PreviewWindow.refresh(function() {
-    Alchemy.ElementEditors.selectElementInPreview(<%= @element.id %>);
+    Alchemy.ElementEditors.focusElementPreview(<%= @element.id %>);
   });
 
 <%- else -%>

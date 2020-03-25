@@ -28,7 +28,7 @@ module Alchemy
 
       # Checks if we need to change to locale or not.
       def locale_change_needed?
-        params[:admin_locale].present? || session[:alchemy_locale].blank?
+        params[:admin_locale].present? || session[:alchemy_locale].blank? || available_locale.nil?
       end
 
       # Returns either the most preferred locale that is within the list of available locales or nil
@@ -41,12 +41,13 @@ module Alchemy
       #
       def available_locale
         locales = [params[:admin_locale], locale_from_user, locale_from_browser].compact.map(&:to_sym)
-        locales.detect { |locale| ::I18n.available_locales.include?(locale) }
+        locales.detect { |locale| Alchemy::I18n.available_locales.include?(locale) }
       end
 
       # Try to get the locale from user settings.
       def locale_from_user
         return if !current_alchemy_user
+
         if user_has_preferred_language?
           current_alchemy_user.language
         end
@@ -55,6 +56,7 @@ module Alchemy
       # Checks if the +current_alchemy_user+ has a preferred language set or not.
       def user_has_preferred_language?
         return if !current_alchemy_user
+
         current_alchemy_user.respond_to?(:language) &&
           current_alchemy_user.language.present? &&
           current_alchemy_user.language.respond_to?(:to_sym)

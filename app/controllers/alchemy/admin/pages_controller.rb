@@ -26,7 +26,6 @@ module Alchemy
       def index
         authorize! :index, :alchemy_admin_pages
 
-        @languages = Language.on_current_site
         if !@page_root
           @language = Language.current
           @languages_with_page_tree = Language.on_current_site.with_root_page
@@ -49,7 +48,7 @@ module Alchemy
         Page.current_preview = @page
         # Setting the locale to pages language, so the page content has it's correct translations.
         ::I18n.locale = @page.language.locale
-        render layout: 'application'
+        render(layout: Alchemy::Config.get(:admin_page_preview_layout) || 'application')
       end
 
       def info
@@ -94,7 +93,6 @@ module Alchemy
       # Set page configuration like page names, meta tags and states.
       def configure
         @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, Language.current.id, @page.layoutpage?)
-        render @page.redirects_to_external? ? 'configure_external' : 'configure'
       end
 
       # Updates page
@@ -104,7 +102,7 @@ module Alchemy
       def update
         # stores old page_layout value, because unfurtunally rails @page.changes does not work here.
         @old_page_layout = @page.page_layout
-        if @page.update_attributes(page_params)
+        if @page.update(page_params)
           @notice = Alchemy.t("Page saved", name: @page.name)
           @while_page_edit = request.referer.include?('edit')
 
@@ -140,12 +138,6 @@ module Alchemy
       end
 
       def link
-        if configuration(:show_real_root)
-          @page_root = Page.root
-        else
-          set_root_page
-        end
-        @content_id = params[:content_id]
         @attachments = Attachment.all.collect { |f|
           [f.name, download_attachment_path(id: f.id, name: f.urlname)]
         }
@@ -217,11 +209,6 @@ module Alchemy
 
         flash[:notice] = Alchemy.t("Pages order saved")
         do_redirect_to admin_pages_path
-      end
-
-      def switch_language
-        set_alchemy_language(params[:language_id])
-        do_redirect_to redirect_path_for_switch_language
       end
 
       def flush
@@ -308,7 +295,7 @@ module Alchemy
       # This function will add a node's own slug into their ancestor's path
       # in order to create the full URL of a node
       #
-      # NOTE: external and invisible pages are not part of the full path of their children
+      # NOTE: Invisible pages are not part of the full path of their children
       #
       # @param [String]
       #   The node's ancestors path
@@ -320,8 +307,8 @@ module Alchemy
 
         pair = {my_urlname: default_urlname, children_path: default_urlname}
 
-        if item['external'] == true || item['visible'] == false
-          # children ignore an ancestor in their path if external or invisible
+        if item['visible'] == false
+          # children ignore an ancestor in their path if invisible
           pair[:children_path] = ancestors_path
         end
 
@@ -341,19 +328,11 @@ module Alchemy
         end
       end
 
-      def redirect_path_for_switch_language
-        if request.referer && request.referer.include?('admin/layoutpages')
-          admin_layoutpages_path
-        else
-          admin_pages_path
-        end
-      end
-
       def redirect_path_after_create_page
-        if @page.redirects_to_external? || !@page.editable_by?(current_alchemy_user)
-          admin_pages_path
-        else
+        if @page.editable_by?(current_alchemy_user)
           params[:redirect_to] || edit_admin_page_path(@page)
+        else
+          admin_pages_path
         end
       end
 
@@ -372,11 +351,13 @@ module Alchemy
       def page_is_locked?
         return false if !@page.locker.try(:logged_in?)
         return false if !current_alchemy_user.respond_to?(:id)
+
         @page.locked? && @page.locker.id != current_alchemy_user.id
       end
 
       def page_needs_lock?
         return true unless @page.locker
+
         @page.locker.try!(:id) != current_alchemy_user.try!(:id)
       end
 

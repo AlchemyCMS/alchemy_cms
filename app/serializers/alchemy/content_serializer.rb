@@ -2,8 +2,6 @@
 
 module Alchemy
   class ContentSerializer < ActiveModel::Serializer
-    self.root = false
-
     attributes :id,
       :name,
       :ingredient,

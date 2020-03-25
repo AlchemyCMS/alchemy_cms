@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'ostruct'
-require 'spec_helper'
+require 'rails_helper'
 
 module Alchemy
   describe Admin::PagesController do
@@ -72,22 +74,6 @@ module Alchemy
             end
           end
         end
-
-        context "with multiple sites" do
-          let!(:site_2) do
-            create(:alchemy_site, host: 'another-one.com')
-          end
-
-          let(:language_2) do
-            site_2.default_language
-          end
-
-          it "loads languages from current site only" do
-            get admin_pages_path
-            expect(assigns(:languages)).to include(language)
-            expect(assigns(:languages)).to_not include(language_2)
-          end
-        end
       end
 
       describe '#tree' do
@@ -105,7 +91,7 @@ module Alchemy
           get_tree
 
           expect(response.status).to eq(200)
-          expect(response.content_type).to eq('application/json')
+          expect(response.media_type).to eq('application/json')
 
           result = JSON.parse(response.body)
 
@@ -149,7 +135,7 @@ module Alchemy
             get tree_admin_pages_path(id: page_1.id, full: 'false')
 
             expect(response.status).to eq(200)
-            expect(response.content_type).to eq('application/json')
+            expect(response.media_type).to eq('application/json')
 
             result = JSON.parse(response.body)
             page = result['pages'].first['children'].first
@@ -167,7 +153,7 @@ module Alchemy
             get_tree
 
             expect(response.status).to eq(200)
-            expect(response.content_type).to eq('application/json')
+            expect(response.media_type).to eq('application/json')
 
             result = JSON.parse(response.body)
 
@@ -287,15 +273,28 @@ module Alchemy
           get admin_page_path(page)
           expect(response).to render_template(layout: 'application')
         end
+
+        context 'when layout is set to custom' do
+          before do
+            allow(Alchemy::Config).to receive(:get) do |arg|
+              arg == :admin_page_preview_layout ? 'custom' : Alchemy::Config.parameter(arg)
+            end
+          end
+
+          it "it renders custom layout instead" do
+            get admin_page_path(page)
+            expect(response).to render_template(layout: 'custom')
+          end
+        end
       end
 
       describe '#order' do
         let(:page_1)       { create(:alchemy_page, visible: true) }
         let(:page_2)       { create(:alchemy_page, visible: true) }
         let(:page_3)       { create(:alchemy_page, visible: true) }
-        let(:page_item_1)  { {id: page_1.id, slug: page_1.slug, restricted: false, external: page_1.redirects_to_external?, visible: page_1.visible?, children: [page_item_2]} }
-        let(:page_item_2)  { {id: page_2.id, slug: page_2.slug, restricted: false, external: page_2.redirects_to_external?, visible: page_2.visible?, children: [page_item_3]} }
-        let(:page_item_3)  { {id: page_3.id, slug: page_3.slug, restricted: false, external: page_3.redirects_to_external?, visible: page_3.visible? } }
+        let(:page_item_1)  { {id: page_1.id, slug: page_1.slug, restricted: false, visible: page_1.visible?, children: [page_item_2]} }
+        let(:page_item_2)  { {id: page_2.id, slug: page_2.slug, restricted: false, visible: page_2.visible?, children: [page_item_3]} }
+        let(:page_item_3)  { {id: page_3.id, slug: page_3.slug, restricted: false, visible: page_3.visible? } }
         let(:set_of_pages) { [page_item_1] }
 
         it "stores the new order" do
@@ -332,23 +331,6 @@ module Alchemy
               [page_1, page_2, page_3].map(&:reload)
               expect(page_1.urlname).to eq(page_1.slug.to_s)
               expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
-              expect(page_3.urlname).to eq("#{page_1.slug}/#{page_3.slug}")
-            end
-          end
-
-          context 'with external page in tree' do
-            let(:page_item_2) do
-              {
-                id: page_2.id,
-                slug: page_2.slug,
-                children: [page_item_3],
-                external: true
-              }
-            end
-
-            it "does not use this pages slug in urlnames of descendants" do
-              post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
-              [page_1, page_2, page_3].map(&:reload)
               expect(page_3.urlname).to eq("#{page_1.slug}/#{page_3.slug}")
             end
           end
@@ -469,20 +451,6 @@ module Alchemy
               it "should render the `new` template" do
                 expect(subject).to render_template(:new)
               end
-            end
-          end
-
-          context 'with page redirecting to external' do
-            let(:page_params) do
-              {
-                parent_id: parent.id,
-                name: 'Google',
-                page_layout: 'external'
-              }
-            end
-
-            it "redirects to sitemap" do
-              expect(subject).to redirect_to(admin_pages_path)
             end
           end
 
@@ -752,39 +720,6 @@ module Alchemy
             it "should redirect to the given path" do
               is_expected.to redirect_to('this/path')
             end
-          end
-        end
-      end
-
-      describe "#switch_language" do
-        subject(:switch_language) do
-          get switch_language_admin_pages_path(language_id: language.id)
-        end
-
-        let(:language) { build_stubbed(:alchemy_language, :klingon) }
-
-        before do
-          allow(Language).to receive(:find_by).and_return(language)
-        end
-
-        it "should store the current language in session" do
-          switch_language
-          expect(session[:alchemy_language_id]).to eq(language.id)
-        end
-
-        it "should redirect to sitemap" do
-          is_expected.to redirect_to(admin_pages_path)
-        end
-
-        context "coming from layoutpages" do
-          before do
-            allow_any_instance_of(ActionDispatch::Request).to receive(:referer) do
-              'admin/layoutpages'
-            end
-          end
-
-          it "should redirect to layoutpages" do
-            is_expected.to redirect_to(admin_layoutpages_path)
           end
         end
       end

@@ -23,11 +23,13 @@ module Alchemy
 
     def systempage?
       return true if Page.count.zero?
+
       rootpage? || (parent_id == Page.root.id && !language_root?)
     end
 
     def folded?(user_id)
       return unless Alchemy.user_class < ActiveRecord::Base
+
       folded_pages.where(user_id: user_id, folded: true).any?
     end
 
@@ -51,30 +53,13 @@ module Alchemy
 
     def editor_roles
       return unless has_limited_editors?
+
       definition["editable_by"]
-    end
-
-    # Returns true or false if the pages definition for config/alchemy/page_layouts.yml contains redirects_to_external: true
-    def redirects_to_external?
-      !!definition["redirects_to_external"]
-    end
-
-    def has_controller?
-      !PageLayout.get(page_layout).nil? && !PageLayout.get(page_layout)["controller"].blank?
     end
 
     # True if page locked_at timestamp and locked_by id are set
     def locked?
       locked_by? && locked_at?
-    end
-
-    def controller_and_action
-      if has_controller?
-        {
-          controller: definition["controller"].gsub(/(^\b)/, "/#{$1}"),
-          action: definition["action"]
-        }
-      end
     end
 
     # Returns a Hash describing the status of the Page.
@@ -168,6 +153,7 @@ module Alchemy
     #
     def cache_page?
       return false unless caching_enabled?
+
       page_layout = PageLayout.get(self.page_layout)
       page_layout['cache'] != false && page_layout['searchresults'] != true
     end

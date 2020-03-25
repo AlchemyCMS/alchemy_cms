@@ -6,10 +6,22 @@ button, input[type="submit"], a.button, input.button {
     background-color: $secondary-button-bg-color;
     color: $secondary-button-text-color;
     border-color: $secondary-button-border-color;
+
+    &:focus {
+      @include default-focus-style(
+        $border-color: $button-focus-border-color,
+        $box-shadow: $button-focus-box-shadow
+      );
+    }
+
+    &:active, &:active:focus {
+      border-color: $button-hover-border-color;
+      box-shadow: none;
+    }
   }
 
   &.small {
-    padding: $default-padding 3*$default-padding;
+    padding: $small-button-padding;
     vertical-align: inherit;
     line-height: 4*$default-padding;
     font-size: inherit;
@@ -18,24 +30,16 @@ button, input[type="submit"], a.button, input.button {
   &.with_icon .icon {
     position: relative;
     top: -1px;
-    margin-right: $default-margin;
+    margin-right: 2 * $default-margin;
     color: inherit;
   }
 
-  &.icon_only {
-    margin: 0;
-    padding: 0;
-    border: 0 none;
-    background: none;
+  &[disabled] {
+    cursor: not-allowed;
 
-    .icon {
-      margin: 0;
+    & + label {
+      display: none;
     }
-  }
-
-  &.disabled {
-    line-height: 13px;
-    height: 29px;
   }
 }
 
@@ -83,11 +87,16 @@ button, input[type="submit"], a.button, input.button {
     }
   }
 
-  &.disabled {
+  &.disabled,
+  &[disabled] {
 
     span {
       opacity: 0.3;
       cursor: not-allowed;
+    }
+
+    i {
+      opacity: 0.3;
     }
 
     &:hover {
@@ -100,7 +109,7 @@ button, input[type="submit"], a.button, input.button {
   }
 
   &:focus {
-    @extend %blue-focus-style;
+    @include default-focus-style;
   }
 }
 
@@ -121,30 +130,13 @@ button.icon_button {
 .button_with_label {
   position: relative;
   display: inline-block;
-  vertical-align: top;
   text-align: center;
   margin: 0 2*$default-margin;
-  line-height: 0;
 
-  &.active, &:active {
-
-    .icon_button {
-      background-color: darken($white, 10%);
-      border: $default-border;
-      padding: 2px;
-      border-radius: $default-border-radius;
-    }
-  }
-
-  &:hover .icon_button {
-    border: $default-border;
-    padding: 2px;
-    border-radius: $default-border-radius;
-    cursor: pointer;
-
-    &:focus {
-      border: 0;
-      padding: 3px;
+  &.active, &:active, &:hover {
+   .icon_button:not([disabled]) {
+      background-color: $default-border-color;
+      cursor: pointer;
     }
   }
 
@@ -174,7 +166,7 @@ button.icon_button {
   .icon_button {
     width: 29px;
     height: 29px;
-    line-height: 23px;
+    line-height: 24px;
   }
 
   label {
@@ -187,7 +179,7 @@ button.icon_button {
     z-index: 30;
     background-color: $tooltip-background-color;
     color: $white;
-    padding: $default-padding 2*$default-padding;
+    padding: $default-padding 2*$default-padding 1.5*$default-padding;
     line-height: 1;
     box-shadow: 0 0 4px $default-border-color;
     white-space: nowrap;

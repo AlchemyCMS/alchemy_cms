@@ -1,6 +1,4 @@
-<% checkbox = check_box_tag :page_public, nil, @page.public?, name: nil,
-  data: {date_format: I18n.t(:datetimepicker, scope: 'time.formats')},
-  disabled: @page.attribute_fixed?(:public_on) %>
+<% checkbox = check_box_tag :page_public, nil, @page.public?, name: nil, disabled: @page.attribute_fixed?(:public_on) %>
 
 <label class="checkbox">
 <% if @page.attribute_fixed?(:public_on) || @page.attribute_fixed?(:public_until) %>

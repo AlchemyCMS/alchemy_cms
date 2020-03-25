@@ -1,0 +1,6 @@
+<%- cache(slide) do -%>
+  <%= element_view_for(slide) do |el| -%>
+    <%= el.render :picture %>
+    <%= el.render :caption %>
+  <%- end -%>
+<%- end -%>

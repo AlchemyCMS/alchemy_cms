@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 require 'cancan/matchers'
 
 describe Alchemy::Permissions do

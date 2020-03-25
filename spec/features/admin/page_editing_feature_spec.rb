@@ -1,6 +1,8 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe 'Page editing feature' do
+require 'rails_helper'
+
+RSpec.describe 'Page editing feature', type: :system do
   let(:a_page) { create(:alchemy_page) }
 
   context 'as author' do
@@ -107,17 +109,22 @@ describe 'Page editing feature' do
         expect(page).not_to have_selector('#alchemy_menubar')
       end
 
-      it "navigation links are not clickable" do
-        visit alchemy.admin_page_path(a_page)
-        within('#navigation') do
-          expect(page).to have_selector('a[href="javascript: void(0)"]')
+      context 'with menu available' do
+        let!(:menu) { create(:alchemy_node, name: 'Main Navigation') }
+        let!(:node) { create(:alchemy_node, url: '/page-1', parent: menu) }
+
+        it "navigation links are not clickable" do
+          visit alchemy.admin_page_path(a_page)
+          within('nav') do
+            expect(page).to have_selector('a[href="javascript: void(0)"]')
+          end
         end
       end
     end
 
     context 'in element panel' do
       let!(:everything_page) do
-        create(:alchemy_page, page_layout: 'everything', do_not_autogenerate: false)
+        create(:alchemy_page, page_layout: 'everything', autogenerate_elements: true)
       end
 
       it "renders essence editors for all elements" do

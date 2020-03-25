@@ -1,30 +1,33 @@
-<% if @cells.any? %>
-  <div id="cells">
+<% if @fixed_elements.any? %>
+  <div id="fixed-elements">
     <ul>
-      <li><a href="#cell_for_other_elements"><%= Alchemy.t(:main_content) %></a></li>
-      <% @elements.each do |cell, elements| %>
+      <li>
+        <a href="#main-content-elements">
+          <%= Alchemy.t(:main_content) %>
+        </a>
+      </li>
+      <% @fixed_elements.each do |element| %>
         <li>
-          <a href="#cell_<%= cell.name %>">
-            <%= Alchemy.t(cell.name, scope: :cell_names) %>
+          <a href="#fixed-element-<%= element.id %>">
+            <%= element.display_name %>
           </a>
         </li>
       <% end %>
     </ul>
-    <div id="cell_for_other_elements" class="sortable_cell for_other_elements_cell">
-      <%= render partial: 'alchemy/admin/elements/element',
-        collection: @page.elements.not_trashed.not_in_cell %>
+    <div id="main-content-elements" class="sortable-elements" data-droppable-elements="<%= @page.element_definition_names.join(' ') %>">
+      <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
     </div>
-    <% @elements.each do |cell, elements| -%>
-      <%= content_tag :div,
-        id: "cell_#{cell.name}",
-        class: ["sortable_cell", "#{cell.name}_cell"].join(' '),
-        data: {'cell-id' => cell.id, 'data-droppable-elements' => cell.element_definitions.join(' ')} do %>
-        <%= render partial: 'alchemy/admin/elements/element', collection: elements %>
-      <% end %>
+    <% @fixed_elements.each do |element| %>
+      <div
+        id="fixed-element-<%= element.id %>"
+        class="sortable-elements"
+        data-droppable-elements="<%= element.nestable_elements.join(' ') %>">
+        <%= render Alchemy::ElementEditor.new(element) %>
+      </div>
     <% end %>
   </div>
 <% else %>
-  <div class="sortable_cell for_other_elements_cell" id="cell_for_other_elements" data-droppable-elements="<%= @page.element_names_from_definition.join(' ') %>">
-    <%= render partial: 'alchemy/admin/elements/element', collection: @elements %>
+  <div id="main-content-elements" class="sortable-elements" data-droppable-elements="<%= @page.element_definition_names.join(' ') %>">
+    <%= render @elements.map { |element| Alchemy::ElementEditor.new(element) } %>
   </div>
 <% end %>

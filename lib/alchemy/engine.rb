@@ -1,8 +1,13 @@
+# frozen_string_literal: true
 module Alchemy
   class Engine < Rails::Engine
     isolate_namespace Alchemy
     engine_name 'alchemy'
     config.mount_at = '/'
+
+    initializer 'alchemy.lookup_context' do
+      Alchemy::LOOKUP_CONTEXT = ActionView::LookupContext.new(Rails.root.join('app', 'views', 'alchemy'))
+    end
 
     initializer 'alchemy.dependency_tracker' do
       [:erb, :slim, :haml].each do |handler|
@@ -21,14 +26,13 @@ module Alchemy
       Gutentag.normaliser = ->(value) { value.to_s }
     end
 
-    # We need to reload each essence class in development mode on every request,
-    # so it can register itself as essence relation on Page and Element models
-    #
-    # @see lib/alchemy/essence.rb:71
-    config.to_prepare do
-      unless Rails.configuration.cache_classes
-        essences = File.join(File.dirname(__FILE__), '../../app/models/alchemy/essence_*.rb')
-        Dir.glob(essences).each { |essence| load(essence) }
+    # Custom Ransack sort arrows
+    initializer 'alchemy.ransack' do
+      Ransack.configure do |config|
+        config.custom_arrows = {
+          up_arrow: '<i class="fa fas fa-xs fa-arrow-up"></i>',
+          down_arrow: '<i class="fa fas fa-xs fa-arrow-down"></i>'
+        }
       end
     end
 

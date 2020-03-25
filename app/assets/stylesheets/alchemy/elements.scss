@@ -3,15 +3,25 @@
   right: 0;
   top: $top-menu-height;
   z-index: 20;
-  width: $elements-window-width;
+  width: calc(100vw - #{$collapsed-main-menu-width});
   height: calc(100vh - #{$top-menu-height});
   border-left: $default-border;
   background-color: $light-gray;
-  transition: 200ms ease-in-out;
-  transform: translate3d($elements-window-width - $default-border-width, 0, 0);
+  transition: $transition-duration ease-in-out;
+  transform: translate3d(100%, 0, 0);
 
   .elements-window-visible & {
     transform: translate3d(0, 0, 0);
+  }
+
+  // Fix for Tinymce fullscreen window positioning issues (GH#1511)
+  .mce-fullscreen & {
+    width: calc(100vw - #{$collapsed-main-menu-width - $default-border-width});
+  }
+
+  @media screen and (min-width: $large-screen-break-point) {
+    width: $elements-window-width;
+    min-width: $elements-window-min-width;
   }
 }
 
@@ -19,10 +29,10 @@
   height: calc(100vh - #{$top-menu-height + $toolbar-height});
   overflow-x: hidden;
   overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 
-  .sortable_cell {
+  .sortable-elements {
     min-height: 100px;
-    padding: 2*$default-padding $default-padding 2px;
   }
 
   textarea {
@@ -33,6 +43,15 @@
       height: 140px !important;
     }
   }
+
+  > .message {
+    margin: 2*$default-margin
+  }
+}
+
+#main-content-elements,
+.element-editor.is-fixed .nestable-elements {
+  padding: 2*$default-padding $default-padding 2px;
 }
 
 .element-title {
@@ -99,46 +118,18 @@
   }
 }
 
-.add_picture {
-  float: left;
-  margin: 1px;
-  width: 119px;
-  border: 1px solid #c0c0c0;
-  border-radius: $default-border-radius;
-  height: 123px;
-
-  a {
-    display: block;
-    height: 100%;
-    width: 100%;
-    position: relative;
-    text-decoration: none;
-    overflow: hidden;
-    text-align: center;
-    line-height: 104px;
-    border-radius: $default-border-radius;
-    background-color: $light-gray;
-
-    &:hover {
-      background-color: $medium-gray;
-    }
-
-    .icon {
-      font-size: 1.5em;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-  }
-}
-
 .element-editor {
+  position: relative;
   border: 1px solid $default-border-color;
   border-radius: $default-border-radius;
   background-color: $light-gray;
   margin-bottom: 2*$default-margin;
-  transition: box-shadow 250ms;
+  transition: box-shadow $transition-duration;
+
+  &.is-fixed {
+    border-width: 0;
+    border-radius: 0;
+  }
 
   &.not-draggable {
     opacity: 0.5;
@@ -147,12 +138,12 @@
   &.dirty {
     border-color: #d0c83d;
 
-    > .element-header {
+    >.element-header {
       background-color: #fff8df;
     }
   }
 
-  &.selected {
+  &.selected:not(.is-fixed) {
     border-color: #c3c3c3;
     box-shadow: 0 2px 8px rgba(#9b9b9b, 0.75);
   }
@@ -164,23 +155,112 @@
     }
   }
 
-  &.dragged {
-    border-style: dotted;
-    height: 36px;
+  &.expanded {
+    &.not-fixed {
+      .nestable-elements {
+        box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
+        background-color: $medium-gray;
+        padding: 8px 4px 4px;
 
-    * { display: none }
-  }
-
-  &.with-contents, &.without-contents.not-nestable {
-
-    .element-content {
-      padding: 2*$default-padding 2*$default-padding 0;
-      border-top: 1px solid $medium-gray;
+        .add-nestable-element-button {
+          width: calc(50% - 8px);
+          margin: 4px;
+          text-align: center;
+        }
+      }
     }
   }
 
-  form {
-    margin: 0;
+  &.dragged {
+    border-style: dotted;
+    overflow: hidden;
+
+    &:not(.compact) {
+      height: 36px !important;
+      transition: height 0.2s;
+    }
+  }
+
+  &.compact {
+    .element-toolbar {
+      visibility: hidden;
+      position: absolute;
+      height: 35px;
+      padding: 2px 0;
+      opacity: 0;
+      z-index: 1;
+      border-bottom: $default-border;
+      background-color: $light-gray;
+      transition: all $transition-duration;
+    }
+
+    .element-header:hover+.element-toolbar,
+    .element-toolbar:hover {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .element-footer {
+      padding-top: 0;
+      border-top: 0;
+
+      .button {
+        padding: $small-button-padding;
+      }
+    }
+
+    .element-title {
+      max-width: 75%;
+    }
+
+    &:not(.folded) .ajax-folder {
+      pointer-events: none;
+
+      i:before {
+        content: fa-content($fa-var-ellipsis-v);
+      }
+    }
+
+    .element_tools {
+      display: flex;
+      width: 100%;
+      justify-content: space-between;
+      margin-left: 0;
+    }
+
+    .element-content {
+      margin: 4px 8px;
+    }
+
+    .button_with_label {
+      margin: 0 4px;
+    }
+
+    .content_editor,
+    .picture_thumbnail {
+      width: 100%;
+    }
+
+    .picture_thumbnail {
+      margin: 0;
+    }
+
+    .thumbnail_background {
+      height: 115px;
+    }
+
+    textarea,
+    input[type="url"],
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 0.5em;
+      height: auto;
+    }
+  }
+
+  .element-content {
+    margin: 2*$default-padding;
   }
 
   .validation_notice {
@@ -197,22 +277,6 @@
 
   .foot_note {
     margin-bottom: 1em;
-  }
-
-  .content_editor_error {
-    border: 1px solid #f5b04e;
-    padding: 4px 8px;
-    line-height: 21px;
-    background-color: #f5dea9;
-    margin-top: 4px;
-    border-radius: $default-border-radius;
-
-    .icon.warning {
-      position: relative;
-      top: 2px;
-      margin-right: 8px;
-      vertical-align: top;
-    }
   }
 
   .autocomplete_tag_list {
@@ -251,7 +315,7 @@
   cursor: pointer;
   @include border-top-radius($default-border-radius);
 
-  > .hint-with-icon {
+  >.hint-with-icon {
     position: absolute;
     right: 32px;
     top: 10px;
@@ -273,7 +337,7 @@
 .element-toolbar {
   padding: $default-padding 0;
   height: $element-toolbar-height;
-  // background-color: #f0f0f0;
+  border-bottom: 1px solid $medium-gray;
 
   .element_tools {
     float: left;
@@ -283,7 +347,6 @@
 
 .element-footer {
   border-top: 1px solid $medium-gray;
-  margin: 8px 0 0 0;
   padding: 2*$default-padding;
   text-align: right;
 
@@ -292,25 +355,12 @@
   }
 }
 
-.picture_gallery_images {
-  overflow: hidden;
-  margin: $default-margin 0;
-  border: 1px solid $default-border-color;
-  border-radius: $default-border-radius;
-  background-color: $medium-gray;
-  padding: 1px;
-
-  .essence_picture {
-    margin: 1px;
-    float: left;
-    height: 126px;
-
-    .picture_thumbnail { margin: 0 }
-  }
+.element-content-editors {
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .picture_thumbnail .picture_image {
-  height: 93px;
   overflow: hidden;
 
   img.img_paddingtop {
@@ -318,48 +368,58 @@
   }
 }
 
-#cells {
+#fixed-elements {
   min-height: 100px;
 }
 
 .linkable_essence_tools {
+  display: flex;
   position: absolute;
-  bottom: 6px;
+  bottom: 2 * $default-margin;
   right: 0;
 
   .icon_button {
-    @include button-defaults(
-      $background-color: $medium-gray,
+    @include button-defaults($background-color: $medium-gray,
       $hover-color: darken($medium-gray, 5%),
-      $border: $default-border);
-    width: $form-field-height;
+      $border: 1px solid #c0c0c0,
+      $box-shadow: none,
+      $hover-border-color: #c0c0c0,
+      $line-height: 30px,
+      $padding: 0,
+      $margin: 0,
+      $border-radius: 0,
+      $focus-border-color: $focus-color,
+      $focus-box-shadow: 0 0 0 2px $focus-color);
+    width: 29px;
     height: $form-field-height;
-    margin: 0 0 0 4px;
-    padding: 2px;
-    position: absolute;
-    bottom: 2px;
-    right: 28px;
-    border-radius: 0;
 
-    &.disabled, &.disabled:hover {
+    &.disabled,
+    &.disabled:hover {
       background-color: $form-field-disabled-bg-color;
     }
 
-    &.link-essence,
-    &.unlink-essence {
-      border: 1px solid #c0c0c0;
-    }
-
     &.linked.link-essence {
-      @include linked-button($border-radius: 0 0 0 0);
+      @include linked-button($border-radius: 0,
+        $line-height: 30px,
+        $padding: 0);
+
+      &:focus {
+        border-radius: 0;
+      }
     }
 
     &.linked.unlink-essence {
-      @include linked-button($border-radius: 0 $default-border-radius $default-border-radius 0);
+      @include linked-button($border-radius: 0 $default-border-radius $default-border-radius 0,
+        $line-height: 30px,
+        $padding: 0);
+
+      &:focus {
+        border-radius: 0 $default-border-radius $default-border-radius 0;
+      }
     }
 
     &.unlink-essence {
-      right: 0;
+      border-left-width: 0;
       @extend .right-rounded-border;
     }
   }
@@ -380,6 +440,7 @@
   left: 0;
   bottom: 0;
   z-index: 0;
+  width: 100%;
   padding: $default-padding $default-padding/2;
 
   a {
@@ -415,14 +476,10 @@
   }
 
   .picture_thumbnail {
-    width: 121px;
-    height: 125px;
+    display: inline-block;
+    width: 160px;
     margin: $default-margin 0;
-
-    .thumbnail_background {
-      width: 111px;
-      height: 93px;
-    }
+    padding-bottom: 28px;
   }
 
   &.validation_failed .picture_thumbnail {
@@ -448,25 +505,6 @@
     height: 12px;
     overflow: hidden;
   }
-}
-
-.draggable_picture {
-  float: left;
-
-  .picture_handle {
-    cursor: move;
-  }
-}
-
-.picture_thumbnail .picture_handle {
-  position: absolute;
-  z-index: 1;
-  width: 100%;
-  height: 97px;
-  top: 0;
-  left: 0;
-  background-color: transparent;
-  @extend .disable-user-select;
 }
 
 .content_editor.essence_file {
@@ -538,10 +576,12 @@ select.long {
 }
 
 .content_editor {
+  width: 100%;
   padding: $default-padding 0;
   position: relative;
 
-  .thin_border, input[type="text"] {
+  .thin_border,
+  input[type="text"] {
     width: 100%;
   }
 
@@ -570,23 +610,30 @@ select.long {
     margin-right: 4px;
     vertical-align: top;
 
-    .thin_border, input[type="text"] {
+    .thin_border,
+    input[type="text"] {
       width: 170px;
     }
   }
 
   &.validation_failed {
 
-    label { color: $error_text_color }
-    input { @extend %field-with-error }
+    label {
+      color: $error_text_color
+    }
+
+    input {
+      @extend %field-with-error
+    }
+
     .tinymce_container {
       outline: 1px solid $error_border_color;
     }
   }
 
   label {
-    display: inline-block;
-    margin-bottom: 2px;
+    display: block;
+    margin: $default-margin 0;
     font-size: $small-font-size;
     line-height: 15px;
     text-indent: 1px;
@@ -606,7 +653,9 @@ select.long {
 
   &.essence_select {
 
-    label { margin-bottom: 4px }
+    label {
+      margin-bottom: 2*$default-margin
+    }
 
     .select2-container {
       width: 100%;
@@ -645,10 +694,14 @@ select.long {
   }
 
   &.essence_picture {
-    float: none;
-    height: auto;
-    display: inline-block;
-    vertical-align: middle;
+    width: 50%;
+    padding-left: 1px; // Compensate the box shadow
+    padding-right: $default-padding;
+
+    +.essence_picture {
+      padding-left: $default-padding;
+      padding-right: 1px; // Compensate the box shadow
+    }
   }
 }
 
@@ -700,7 +753,7 @@ textarea.has_tinymce {
 .element-handle .hint-with-icon {
   margin: 0;
 
-  > .hint-bubble {
+  >.hint-bubble {
     left: -7px;
     transform: none;
 
@@ -714,33 +767,54 @@ textarea.has_tinymce {
   top: -1px;
 }
 
-.nestable-elements {
-  box-shadow: inset 0 4px 8px -2px darken($medium-gray, 15%);
-  background-color: $medium-gray;
+.is-fixed {
+  &.with-contents {
+    >.element-footer {
+      border-top: 0;
+      border-bottom: 1px solid $medium-gray;
+    }
+  }
 
-  .expanded.element-editor > & {
-    padding: 16px 8px 8px;
+  >.nestable-elements .add-nestable-element-button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+.element-editor,
+.droppable_element_placeholder {
+  width: 100%;
+
+  .not-fixed & {
+    width: calc(100% - 8px);
+    margin: 4px;
+  }
+
+  &.compact {
+    width: calc(50% - 8px);
   }
 }
 
 .nested-elements {
+  display: flex;
+  flex-wrap: wrap;
+
+  .element-editor {
+    position: relative;
+  }
 
   .element-header {
     background-color: transparent;
   }
 
   .element-toolbar {
-    background-color: transparent;
+    width: 100%;
     border-top: 1px solid $medium-gray;
   }
 }
 
-.add-nestable-element-button {
-  margin-top: 0;
-}
-
 .essence_date--label {
   position: absolute;
-  right: 5px;
-  top: 35px;
+  right: 7px;
+  top: 37px;
 }

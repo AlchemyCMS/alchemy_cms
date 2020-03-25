@@ -1,6 +1,8 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe 'Locked pages feature' do
+require 'rails_helper'
+
+RSpec.describe 'Locked pages feature', type: :system do
   let(:a_page) { create(:alchemy_page) }
 
   let(:user) do

@@ -24,13 +24,6 @@
      ,ready: function () {
        Alchemy.PageSorter();
      }
-     <% elsif action_name == 'link' %>
-     ,spinner: new Alchemy.Spinner('small'),
-     ready: function () {
-       if (Alchemy.currentDialog()) {
-         Alchemy.currentDialog().attachTreeEvents();
-       }
-     }
      <% end %>
    });
  });

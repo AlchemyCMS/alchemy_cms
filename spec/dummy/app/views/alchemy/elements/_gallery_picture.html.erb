@@ -1,0 +1,5 @@
+<%- cache(gallery_picture) do -%>
+  <%= element_view_for(gallery_picture) do |el| -%>
+    <%= el.render :picture %>
+  <%- end -%>
+<%- end -%>

@@ -7,7 +7,7 @@
   line-height: 1;
 
   path {
-    fill: $dark-gray;
+    fill: currentColor;
     opacity: 1;
     animation: spinner 1s infinite ease-in-out both;
   }

@@ -1,0 +1,5 @@
+<%- cache(erb_element) do -%>
+  <%= element_view_for(erb_element) do |el| -%>
+    <%= el.render :text %>
+  <%- end -%>
+<%- end -%>

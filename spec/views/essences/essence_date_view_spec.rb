@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 describe 'alchemy/essences/_essence_date_view' do
   let(:essence) { Alchemy::EssenceDate.new(date: '2013-10-27 21:14:16 +0100'.to_datetime) }

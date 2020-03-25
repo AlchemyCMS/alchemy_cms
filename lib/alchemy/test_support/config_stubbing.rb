@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Alchemy
   module TestSupport
     # Allows you to stub the Alchemy configuration in your specs

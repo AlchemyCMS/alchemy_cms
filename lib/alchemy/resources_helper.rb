@@ -68,17 +68,27 @@ module Alchemy
     # @param [Alchemy::Resource] resource
     # @param [Hash] attribute
     # @option options [Hash] :truncate (50) The length of the value returned.
+    # @option options [Hash] :datetime_format (alchemy.default) The format of timestamps.
+    # @option options [Hash] :time_format (alchemy.time) The format of time values.
     #
     # @return [String]
     #
     def render_attribute(resource, attribute, options = {})
+      attribute_value = resource.send(attribute[:name])
       if attribute[:relation]
         record = resource.send(attribute[:relation][:name])
         value = record.present? ? record.send(attribute[:relation][:attr_method]) : Alchemy.t(:not_found)
-      elsif attribute[:type] == :datetime
-        value = l(resource.send(attribute[:name]))
+      elsif attribute_value && attribute[:type].to_s =~ /(date|time)/
+        localization_format = if attribute[:type] == :datetime
+          options[:datetime_format] || :'alchemy.default'
+        elsif attribute[:type] == :date
+          options[:date_format] || :'alchemy.default'
+        else
+          options[:time_format] || :'alchemy.time'
+        end
+        value = l(attribute_value, format: localization_format)
       else
-        value = resource.send(attribute[:name])
+        value = attribute_value
       end
 
       options.reverse_merge!(truncate: 50)
@@ -92,29 +102,24 @@ module Alchemy
     # Returns a options hash for simple_form input fields.
     def resource_attribute_field_options(attribute)
       options = {hint: resource_handler.help_text_for(attribute)}
-      case attribute[:type].to_s
+      input_type = attribute[:type].to_s
+      case input_type
       when 'boolean'
         options
-      when 'date', 'datetime'
-        options.merge as: 'string',
+      when 'date', 'time', 'datetime'
+        date = resource_instance_variable.send(attribute[:name]) || Time.current
+        options.merge(
+          as: 'string',
           input_html: {
-            type: attribute[:type].to_s,
-            value: l(resource_instance_variable.send(attribute[:name]) || Time.current,
-              format: "#{attribute[:type]}picker".to_sym
-            )
+            'data-datepicker-type' => input_type,
+            value: date ? date.iso8601 : nil
           }
-      when 'time'
-        options.merge(as: 'time')
+        )
       when 'text'
         options.merge(as: 'text', input_html: {rows: 4})
       else
         options.merge(as: 'string')
       end
-    end
-
-    # Renders the human model name with a count as h1 header
-    def resources_header
-      content_tag :h1, "#{resources_instance_variable.total_count} #{resource_model.model_name.human(count: resources_instance_variable.total_count)}", class: 'resources-header'
     end
 
     # Returns true if the resource contains any relations

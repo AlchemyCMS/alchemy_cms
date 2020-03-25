@@ -1,6 +1,11 @@
-<p class="center"><%= image_tag('alchemy/alchemy-logo.svg') %></p>
+<p class="center">
+  <%= image_tag('alchemy/alchemy-logo.svg', width: 267, height: 91) %>
+</p>
 <h2 class="center">
-  <%= Alchemy.t("Version") %>: <%= @alchemy_version %>
+  v<%= @alchemy_version %><br>
+  <small>
+    Ruby v<%= RUBY_VERSION %>, Rails v<%= Rails.version %>
+  </small>
 </h2>
 <% if can? :update_check, :alchemy_admin_dashboard %>
 <p class="center" id="update_check">
@@ -17,6 +22,22 @@
     <%= Alchemy.t 'Update status unavailable' %>
   </span>
 </p>
+<script type="text/javascript">
+  var el = $('#update_check');
+  var spinner = new Alchemy.Spinner('small')
+  spinner.spin(el[0])
+  $.get('<%= alchemy.update_check_path %>', function(data, textStatus, jqXHR) {
+    if (data == 'true') {
+      $('#update_available').show()
+    } else {
+      $('#up_to_date').show()
+    }
+  }).fail(function(jqXHR, textStatus, errorThrown) {
+    $('#error').show()
+  }).always(function() {
+    spinner.stop()
+  })
+</script>
 <% end %>
 <%= render_message do %>
   <p><%= Alchemy.t('Alchemy is open software and itself uses open software and free resources:') %></p>
@@ -40,24 +61,4 @@
       <a href="https://fontawesome.com" target="_blank">FontAwesome Icons</a>
     </li>
   </ul>
-<% end %>
-<% if can? :update_check, :alchemy_admin_dashboard %>
-<script type="text/javascript">
-  (function() {
-    var el = $('#update_check');
-    var spinner = new Alchemy.Spinner('small');
-    spinner.spin(el[0]);
-    $.get('<%= alchemy.update_check_path %>', function(data, textStatus, jqXHR) {
-      if (data == 'true') {
-        $('#update_available').show();
-      } else {
-        $('#up_to_date').show();
-      }
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-      $('#error').show();
-    }).always(function() {
-      spinner.stop();
-    });
-  })();
-</script>
 <% end %>

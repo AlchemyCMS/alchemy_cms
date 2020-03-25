@@ -96,8 +96,9 @@ module Alchemy
     private
 
     def preview_text_from_nested_elements(maxlength)
-      return unless nested_elements.present?
-      nested_elements.first.preview_text(maxlength)
+      return if all_nested_elements.empty?
+
+      all_nested_elements.first.preview_text(maxlength)
     end
 
     def preview_text_from_preview_content(maxlength)

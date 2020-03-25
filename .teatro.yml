@@ -1,8 +1,0 @@
-project:
-  after:
-    - apt-get -y install imagemagick
-stage:
-  before: cd spec/dummy
-  database: bin/rake db:setup RAILS_ENV=production
-  assets: bin/rake assets:precompile RAILS_ENV=production
-  run: bin/rails server -e production

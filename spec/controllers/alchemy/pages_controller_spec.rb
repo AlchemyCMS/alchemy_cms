@@ -1,5 +1,7 @@
+# frozen_string_literal: true
+
 require 'ostruct'
-require 'spec_helper'
+require 'rails_helper'
 
 module Alchemy
   describe PagesController do
@@ -18,7 +20,7 @@ module Alchemy
         name: 'News',
         urlname: 'news',
         language: default_language,
-        do_not_autogenerate: false
+        autogenerate_elements: true
     end
 
     before do
@@ -63,7 +65,7 @@ module Alchemy
 
             context "when a page layout callback is set" do
               before do
-                ApplicationController.send(:extend, Alchemy::OnPageLayout)
+                ApplicationController.extend Alchemy::OnPageLayout
                 ApplicationController.class_eval do
                   on_page_layout('index') { "do something" }
                 end
@@ -191,7 +193,7 @@ module Alchemy
 
       it "renders page" do
         get :show, params: {urlname: still_public_page.urlname}
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
@@ -205,7 +207,7 @@ module Alchemy
 
       it "renders page" do
         get :show, params: {urlname: still_public_page.urlname}
-        expect(response).to be_success
+        expect(response).to be_successful
       end
     end
 
@@ -214,11 +216,11 @@ module Alchemy
 
       it "should render a rss feed" do
         get :show, params: {urlname: page.urlname, format: :rss}
-        expect(response.content_type).to eq('application/rss+xml')
+        expect(response.media_type).to eq('application/rss+xml')
       end
 
       it "should include content" do
-        page.elements.first.content_by_name('news_headline').essence.update_attributes({body: 'Peters Petshop'})
+        page.elements.first.content_by_name('news_headline').essence.update_columns(body: 'Peters Petshop')
         get :show, params: {urlname: 'news', format: :rss}
         expect(response.body).to match /Peters Petshop/
       end
@@ -246,7 +248,7 @@ module Alchemy
 
       let(:catalog)  { create(:alchemy_page, :public, name: "Catalog", urlname: 'catalog', parent: default_language_root, language: default_language, visible: true) }
       let(:products) { create(:alchemy_page, :public, name: "Products", urlname: 'products', parent: catalog, language: default_language, visible: true) }
-      let(:product)  { create(:alchemy_page, :public, name: "Screwdriver", urlname: 'screwdriver', parent: products, language: default_language, do_not_autogenerate: false, visible: true) }
+      let(:product)  { create(:alchemy_page, :public, name: "Screwdriver", urlname: 'screwdriver', parent: products, language: default_language, autogenerate_elements: true, visible: true) }
 
       before do
         allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
@@ -305,7 +307,7 @@ module Alchemy
       context 'having two pages with the same url names in different languages' do
         render_views
 
-        let!(:klingon_page) { create(:alchemy_page, :public, language: klingon, name: "same-name", do_not_autogenerate: false) }
+        let!(:klingon_page) { create(:alchemy_page, :public, language: klingon, name: "same-name", autogenerate_elements: true) }
         let!(:english_page) { create(:alchemy_page, :public, language: default_language, name: "same-name") }
 
         before do

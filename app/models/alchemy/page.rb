@@ -43,7 +43,7 @@ module Alchemy
     include Alchemy::Taggable
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
-      do_not_autogenerate: true,
+      autogenerate_elements: false,
       visible: false,
       public_on: nil,
       public_until: nil,
@@ -79,19 +79,39 @@ module Alchemy
       :title,
       :urlname,
       :visible,
-      :layoutpage
+      :layoutpage,
+      :menu_id
     ]
 
     acts_as_nested_set(dependent: :destroy)
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    belongs_to :language, required: false
+    belongs_to :language, optional: true
+
+    belongs_to :creator,
+      primary_key: Alchemy.user_class_primary_key,
+      class_name: Alchemy.user_class_name,
+      foreign_key: :creator_id,
+      optional: true
+
+    belongs_to :updater,
+      primary_key: Alchemy.user_class_primary_key,
+      class_name: Alchemy.user_class_name,
+      foreign_key: :updater_id,
+      optional: true
+
+    belongs_to :locker,
+      primary_key: Alchemy.user_class_primary_key,
+      class_name: Alchemy.user_class_name,
+      foreign_key: :locked_by,
+      optional: true
 
     has_one :site, through: :language
     has_many :site_languages, through: :site, source: :languages
     has_many :folded_pages
     has_many :legacy_urls, class_name: 'Alchemy::LegacyPageUrl'
+    has_many :nodes, class_name: 'Alchemy::Node', inverse_of: :page
 
     validates_presence_of :language, on: :create, unless: :root
     validates_presence_of :page_layout, unless: :systempage?
@@ -122,19 +142,23 @@ module Alchemy
       unless: :systempage?
 
     after_update :create_legacy_url,
-      if: :should_create_legacy_url?,
-      unless: :redirects_to_external?
+      if: :should_create_legacy_url?
+
+    after_update :attach_to_menu!,
+      if: :should_attach_to_menu?
+
+    after_update -> { nodes.update_all(updated_at: Time.current) }
 
     # Concerns
     include Alchemy::Page::PageScopes
     include Alchemy::Page::PageNatures
     include Alchemy::Page::PageNaming
-    include Alchemy::Page::PageUsers
-    include Alchemy::Page::PageCells
     include Alchemy::Page::PageElements
 
     # site_name accessor
     delegate :name, to: :site, prefix: true, allow_nil: true
+
+    attr_accessor :menu_id
 
     # Class methods
     #
@@ -188,7 +212,6 @@ module Alchemy
         page = Alchemy::Page.new(attributes_from_source_for_copy(source, differences))
         page.tag_list = source.tag_list
         if page.save!
-          copy_cells(source, page)
           copy_elements(source, page)
           page
         end
@@ -201,12 +224,13 @@ module Alchemy
       def find_or_create_layout_root_for(language_id)
         layoutroot = layout_root_for(language_id)
         return layoutroot if layoutroot
+
         language = Language.find(language_id)
         Page.create!(
           name: "Layoutroot for #{language.name}",
           layoutpage: true,
           language: language,
-          do_not_autogenerate: true,
+          autogenerate_elements: false,
           parent_id: Page.root.id
         )
       end
@@ -226,11 +250,13 @@ module Alchemy
 
       def all_from_clipboard(clipboard)
         return [] if clipboard.blank?
+
         where(id: clipboard.collect { |p| p['id'] })
       end
 
       def all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)
         return [] if clipboard.blank?
+
         clipboard_pages = all_from_clipboard(clipboard)
         allowed_page_layouts = Alchemy::PageLayout.selectable_layouts(language_id, layoutpage)
         allowed_page_layout_names = allowed_page_layouts.collect { |p| p['name'] }
@@ -251,6 +277,7 @@ module Alchemy
       # I.e. used to find the active page in navigation.
       def ancestors_for(current)
         return [] if current.nil?
+
         current.self_and_ancestors.contentpages
       end
 
@@ -284,12 +311,39 @@ module Alchemy
       #
       def new_name_for_copy(custom_name, source_name)
         return custom_name if custom_name.present?
+
         "#{source_name} (#{Alchemy.t('Copy')})"
       end
     end
 
     # Instance methods
     #
+
+    # Returns elements from page.
+    #
+    # @option options [Array<String>|String] :only
+    #   Returns only elements with given names
+    # @option options [Array<String>|String] :except
+    #   Returns all elements except the ones with given names
+    # @option options [Integer] :count
+    #   Limit the count of returned elements
+    # @option options [Integer] :offset
+    #   Starts with an offset while returning elements
+    # @option options [Boolean] :include_hidden (false)
+    #   Return hidden elements as well
+    # @option options [Boolean] :random (false)
+    #   Return elements randomly shuffled
+    # @option options [Boolean] :reverse (false)
+    #   Reverse the load order
+    # @option options [Class] :finder (Alchemy::ElementsFinder)
+    #   A class that will return elements from page.
+    #   Use this for your custom element loading logic.
+    #
+    # @return [ActiveRecord::Relation]
+    def find_elements(options = {})
+      finder = options[:finder] || Alchemy::ElementsFinder.new(options)
+      finder.elements(page: self)
+    end
 
     # The page's view partial is dependent from its page layout
     #
@@ -357,7 +411,7 @@ module Alchemy
 
     def set_restrictions_to_child_pages
       descendants.each do |child|
-        child.update_attributes(restricted: restricted?)
+        child.update(restricted: restricted?)
       end
     end
 
@@ -378,6 +432,7 @@ module Alchemy
     def copy_children_to(new_parent)
       children.each do |child|
         next if child == new_parent
+
         new_child = Page.copy(child, {
           language_id: new_parent.language_id,
           language_code: new_parent.language_code
@@ -406,7 +461,7 @@ module Alchemy
     # Updates an Alchemy::Page based on a new ordering to be applied to it
     #
     # Note: Page's urls should not be updated (and a legacy URL created) if nesting is OFF
-    # or if a page is external or if the URL is the same
+    # or if the URL is the same
     #
     # @param [TreeNode]
     #   A tree node with new lft, rgt, depth, url, parent_id and restricted indexes to be updated
@@ -414,7 +469,7 @@ module Alchemy
     def update_node!(node)
       hash = {lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted}
 
-      if Config.get(:url_nesting) && !redirects_to_external? && urlname != node.url
+      if Config.get(:url_nesting) && urlname != node.url
         LegacyPageUrl.create(page_id: id, urlname: urlname)
         hash[:urlname] = node.url
       end
@@ -439,6 +494,7 @@ module Alchemy
     #
     def editable_by?(user)
       return true unless has_limited_editors?
+
       (editor_roles & user.alchemy_roles).any?
     end
 
@@ -456,6 +512,39 @@ module Alchemy
     #
     def public_until
       attribute_fixed?(:public_until) ? fixed_attributes[:public_until] : self[:public_until]
+    end
+
+    # Returns the name of the creator of this page.
+    #
+    # If no creator could be found or associated user model
+    # does not respond to +#name+ it returns +'unknown'+
+    #
+    def creator_name
+      creator.try(:name) || Alchemy.t('unknown')
+    end
+
+    # Returns the name of the last updater of this page.
+    #
+    # If no updater could be found or associated user model
+    # does not respond to +#name+ it returns +'unknown'+
+    #
+    def updater_name
+      updater.try(:name) || Alchemy.t('unknown')
+    end
+
+    # Returns the name of the user currently editing this page.
+    #
+    # If no locker could be found or associated user model
+    # does not respond to +#name+ it returns +'unknown'+
+    #
+    def locker_name
+      locker.try(:name) || Alchemy.t('unknown')
+    end
+
+    # Menus (aka. root nodes) this page is attached to
+    #
+    def menus
+      @_menus ||= nodes.map(&:root)
     end
 
     private
@@ -502,6 +591,21 @@ module Alchemy
 
     def set_published_at
       self.published_at = Time.current
+    end
+
+    def attach_to_menu!
+      current_site_id = Alchemy::Site.current.id
+      node = Alchemy::Node.find_by!(id: menu_id, site_id: current_site_id)
+      node.children.create!(
+        site_id: current_site_id,
+        language_id: language_id,
+        page_id: id,
+        name: name
+      )
+    end
+
+    def should_attach_to_menu?
+      menu_id.present? && nodes.none?
     end
   end
 end

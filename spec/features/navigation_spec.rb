@@ -1,6 +1,8 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe "Dummy App" do
+require 'rails_helper'
+
+RSpec.describe "Dummy App", type: :system do
   include Capybara::DSL
 
   it "should be a valid app" do

@@ -17,11 +17,12 @@
 
 module Alchemy
   class EssenceFile < BaseRecord
-    belongs_to :attachment, required: false
+    belongs_to :attachment, optional: true
     acts_as_essence ingredient_column: 'attachment'
 
     def attachment_url
       return if attachment.nil?
+
       routes.download_attachment_path(
         id: attachment.id,
         name: attachment.urlname,
@@ -31,6 +32,7 @@ module Alchemy
 
     def preview_text(max = 30)
       return "" if attachment.blank?
+
       attachment.name.to_s[0..max - 1]
     end
 

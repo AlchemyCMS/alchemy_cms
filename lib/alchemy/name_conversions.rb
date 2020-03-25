@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-# encoding: utf-8
-
 module Alchemy
   # Provides methods for converting names into urlnames and vice versa.
   #

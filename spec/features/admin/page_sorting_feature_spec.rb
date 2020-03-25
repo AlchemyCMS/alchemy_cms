@@ -1,6 +1,8 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-describe "Admin page sorting" do
+require 'rails_helper'
+
+RSpec.describe "Admin page sorting", type: :system do
   let!(:alchemy_page) { create(:alchemy_page) }
 
   before do

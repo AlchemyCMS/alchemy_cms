@@ -26,8 +26,15 @@ module Alchemy
     class ElementViewHelper < BlockHelper
       # Renders one of the element's contents.
       #
-      def render(name, *args)
-        helpers.render_essence_view_by_name(element, name.to_s, *args)
+      def render(name, options = {}, html_options = {})
+        content = element.content_by_name(name)
+        return if content.nil?
+
+        helpers.render(content, {
+          content: content,
+          options: options,
+          html_options: html_options
+        })
       end
 
       # Returns one of the element's contents (ie. essence instances).
@@ -52,14 +59,6 @@ module Alchemy
       #
       def essence(name)
         content(name).try(:essence)
-      end
-    end
-
-    # Block-level helper class for element editors.
-    #
-    class ElementEditorHelper < BlockHelper
-      def edit(name, *args)
-        helpers.render_essence_editor_by_name(element, name.to_s, *args)
       end
     end
 
@@ -131,26 +130,6 @@ module Alchemy
 
       # that's it!
       output
-    end
-
-    # Block-level helper for element editors. Provides a block helper object
-    # you can use for concise access to Alchemy's various helpers.
-    #
-    # === Example:
-    #
-    #   <%= element_editor_for(element) do |el| %>
-    #     <%= el.edit :title %>
-    #     <%= el.edit :body %>
-    #     <%= el.edit :target_url %>
-    #   <% end %>
-    #
-    # @param [Alchemy::Element] element
-    #   The element to display.
-    #
-    def element_editor_for(element)
-      capture do
-        yield ElementEditorHelper.new(self, element: element) if block_given?
-      end
     end
   end
 end

@@ -1,0 +1,31 @@
+<%- cache(all_you_can_eat) do -%>
+  <%= element_view_for(all_you_can_eat) do |el| -%>
+    <div class="essence_text">
+      <%= el.render :essence_text %>
+    </div>
+    <div class="essence_picture">
+      <%= el.render :essence_picture %>
+    </div>
+    <div class="essence_richtext">
+      <%= el.render :essence_richtext %>
+    </div>
+    <div class="essence_select">
+      <%= el.render :essence_select %>
+    </div>
+    <div class="essence_boolean">
+      <%= el.render :essence_boolean %>
+    </div>
+    <div class="essence_date">
+      <%= el.render :essence_date %>
+    </div>
+    <div class="essence_file">
+      <%= el.render :essence_file %>
+    </div>
+    <div class="essence_html">
+      <%= el.render :essence_html %>
+    </div>
+    <div class="essence_link">
+      <%= el.render :essence_link %>
+    </div>
+  <%- end -%>
+<%- end -%>

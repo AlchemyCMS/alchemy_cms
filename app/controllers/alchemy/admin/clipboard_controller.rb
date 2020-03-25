@@ -48,6 +48,7 @@ module Alchemy
 
       def model_class
         raise ActionController::BadRequest unless remarkable_type
+
         "alchemy/#{remarkable_type}".classify.constantize
       end
 

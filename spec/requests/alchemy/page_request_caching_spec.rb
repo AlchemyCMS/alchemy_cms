@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 RSpec.describe 'Page request caching' do
   let!(:page) { create(:alchemy_page, :public) }
@@ -38,7 +40,7 @@ RSpec.describe 'Page request caching' do
           it "sets public cache control header" do
             get "/#{page.urlname}"
             expect(response.headers).to have_key('Cache-Control')
-            expect(response.headers['Cache-Control']).to eq('public')
+            expect(response.headers['Cache-Control']).to eq('public, must-revalidate')
           end
         end
 
@@ -56,7 +58,7 @@ RSpec.describe 'Page request caching' do
             get "/#{page.urlname}"
             expect(response.headers).to have_key('Cache-Control')
             expect(response.headers['Cache-Control']).to \
-              eq("max-age=#{expiration_time.to_i}, public")
+              eq("max-age=#{expiration_time.to_i}, public, must-revalidate")
           end
         end
       end
@@ -69,7 +71,7 @@ RSpec.describe 'Page request caching' do
         it "sets private cache control header" do
           get "/#{page.urlname}"
           expect(response.headers).to have_key('Cache-Control')
-          expect(response.headers['Cache-Control']).to eq('private')
+          expect(response.headers['Cache-Control']).to eq('private, must-revalidate')
         end
       end
 
@@ -96,9 +98,23 @@ RSpec.describe 'Page request caching' do
         expect(response.headers['Cache-Control']).to eq('no-cache')
       end
 
-      it "does not set etag header" do
+      it "does not set last-modified header" do
         get "/#{page.urlname}"
-        expect(response.headers).to_not have_key('ETag')
+        expect(response.headers).to_not have_key('Last-Modified')
+      end
+    end
+
+    context "but a flash message is present" do
+      before do
+        allow_any_instance_of(ActionDispatch::Flash::FlashHash).to receive(:present?) do
+          true
+        end
+      end
+
+      it "sets no-cache header" do
+        get "/#{page.urlname}"
+        expect(response.headers).to have_key('Cache-Control')
+        expect(response.headers['Cache-Control']).to eq('no-cache')
       end
 
       it "does not set last-modified header" do

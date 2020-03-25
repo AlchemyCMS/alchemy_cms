@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 describe 'alchemy/essences/_essence_richtext_view' do
   let(:essence) { Alchemy::EssenceRichtext.new(body: '<h1>Lorem ipsum dolor sit amet</h1> <p>consectetur adipiscing elit.</p>', stripped_body: 'Lorem ipsum dolor sit amet consectetur adipiscing elit.') }

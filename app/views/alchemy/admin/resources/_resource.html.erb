@@ -1,5 +1,5 @@
 <tr class="<%= cycle('even', 'odd') %>">
-<% resource_handler.attributes.each do |attribute| %>
+<% resource_handler.sorted_attributes.each do |attribute| %>
   <td class="<%= attribute[:type] %> <%= attribute[:name] %>">
   <% if attribute[:type] == :boolean %>
     <%= resource.public_send(attribute[:name]) ? render_icon(:check) : nil %>

@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 module Alchemy
   describe MessagesController do
@@ -152,15 +154,31 @@ module Alchemy
           end
 
           describe "#redirect_to_success_page" do
-            context "if 'success_page' ingredient of element is set with urlname" do
-              before do
-                allow(element).to receive(:ingredient).with(:success_page).and_return('success-page')
+            context "if 'success_page' ingredient of element" do
+              context 'is set with urlname string' do
+                before do
+                  allow(element).to receive(:ingredient).with(:success_page).and_return('success-page')
+                end
+
+                it "should redirect to the given urlname" do
+                  expect(
+                    subject
+                  ).to redirect_to(show_page_path(urlname: 'success-page'))
+                end
               end
 
-              it "should redirect to the given urlname" do
-                expect(
-                  subject
-                ).to redirect_to(show_page_path(urlname: 'success-page'))
+              context 'is set with page instance' do
+                let(:page) { build(:alchemy_page, name: 'Success', urlname: 'success-page') }
+
+                before do
+                  allow(element).to receive(:ingredient).with(:success_page).and_return(page)
+                end
+
+                it "should redirect to the given urlname" do
+                  expect(
+                    subject
+                  ).to redirect_to(show_page_path(urlname: 'success-page'))
+                end
               end
             end
 

@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 describe "essences/_essence_picture_editor" do
   let(:picture) { stub_model(Alchemy::Picture) }
@@ -20,7 +22,7 @@ describe "essences/_essence_picture_editor" do
     )
   end
 
-  let(:options) { Hash.new }
+  let(:settings) { Hash.new }
 
   before do
     view.class.send(:include, Alchemy::Admin::BaseHelper)
@@ -30,8 +32,9 @@ describe "essences/_essence_picture_editor" do
   end
 
   subject do
+    allow(content).to receive(:settings) { settings }
     render partial: "alchemy/essences/essence_picture_editor",
-      locals: {content: content, options: options}
+      locals: {essence_picture_editor: Alchemy::ContentEditor.new(content)}
     rendered
   end
 
@@ -43,8 +46,10 @@ describe "essences/_essence_picture_editor" do
   end
 
   context "with settings[:deletable] being false" do
-    let(:options) do
-      {linkable: false}
+    let(:settings) do
+      {
+        linkable: false
+      }
     end
 
     it 'should not render a button to link and unlink the picture' do

@@ -9,8 +9,7 @@ module Alchemy
       before_action { enforce_ssl if ssl_required? && !request.ssl? }
       before_action :load_locked_pages
 
-      helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?,
-        :options_from_params
+      helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
 
       check_authorization
 
@@ -39,20 +38,20 @@ module Alchemy
       end
 
       # Handles exceptions
-      def exception_handler(e)
-        exception_logger(e)
-        show_error_notice(e)
+      def exception_handler(error)
+        exception_logger(error)
+        show_error_notice(error)
         if defined?(Airbrake)
-          notify_airbrake(e) unless Rails.env.development? || Rails.env.test?
+          notify_airbrake(error) unless Rails.env.development? || Rails.env.test?
         end
       end
 
       # Displays an error notice in the Alchemy backend.
-      def show_error_notice(e)
-        @error = e
+      def show_error_notice(error)
+        @error = error
         # truncate the message, because very long error messages (i.e from mysql2) causes cookie overflow errors
-        @notice = e.message[0..255]
-        @trace = e.backtrace[0..50]
+        @notice = error.message[0..255]
+        @trace = error.backtrace[0..50]
         if request.xhr?
           render action: "error_notice"
         else
@@ -90,6 +89,7 @@ module Alchemy
       # Returns true if the current_alchemy_user (The logged-in Alchemy User) has the admin role.
       def is_admin?
         return false if !current_alchemy_user
+
         current_alchemy_user.admin?
       end
 
@@ -109,12 +109,6 @@ module Alchemy
         end
       end
 
-      def per_page_value_for_screen_size
-        return 25 if session[:screen_size].blank?
-        screen_height = session[:screen_size].split('x').last.to_i
-        (screen_height / 50) - 12
-      end
-
       # Does redirects for html and js requests
       #
       def do_redirect_to(url_or_path)
@@ -124,17 +118,6 @@ module Alchemy
             render :redirect
           }
           format.html { redirect_to url_or_path }
-        end
-      end
-
-      # Extracts options from params and permits all keys
-      #
-      # If no options are present it returns an empty parameters hash.
-      #
-      # @returns [ActionController::Parameters]
-      def options_from_params
-        @_options_from_params ||= begin
-          (params[:options] || ActionController::Parameters.new).permit!
         end
       end
 

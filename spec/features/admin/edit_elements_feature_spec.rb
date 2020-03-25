@@ -1,9 +1,11 @@
-require 'spec_helper'
+# frozen_string_literal: true
 
-RSpec.feature "The edit elements feature" do
+require 'rails_helper'
+
+RSpec.describe "The edit elements feature", type: :system do
   let!(:a_page) { create(:alchemy_page) }
 
-  background do
+  before do
     authorize_user(:as_editor)
   end
 

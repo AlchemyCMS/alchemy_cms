@@ -1,21 +1,17 @@
 # Relaxed.Ruby.Style
 
 AllCops:
+  TargetRubyVersion: 2.3
   Exclude:
     - 'bin/rspec'
     - 'vendor/**/*'
-    - 'spec/dummy/**/*'
+    - 'spec/dummy/db/**/*'
+    - 'spec/dummy/config/**/*'
     - 'alchemy_cms.gemspec'
-
-  TargetRubyVersion: 2.1
+    - 'Rakefile'
 
 # Really, rubocop?
 Bundler/OrderedGems:
-  Enabled: false
-
-# Sometimes I believe this reads better
-# This also causes spacing issues on multi-line fixes
-Style/BracesAroundHashParameters:
   Enabled: false
 
 Style/EmptyLiteral:
@@ -24,6 +20,9 @@ Style/EmptyLiteral:
 # We use class vars and will have to continue doing so for compatability
 Style/ClassVars:
   Enabled: false
+
+Style/FloatDivision:
+  EnforcedStyle: left_coerce
 
 # This has been used for customization
 Style/MutableConstant:
@@ -39,19 +38,27 @@ Style/GuardClause:
 Style/SymbolArray:
   Enabled: false
 
+Style/SymbolProc:
+  Exclude:
+    - 'lib/alchemy/permissions.rb'
+
 Style/WordArray:
   Enabled: false
 
 Style/ConditionalAssignment:
   Enabled: false
 
-Performance/Count:
+Style/MixinUsage:
+  Exclude:
+    - spec/**/*
+
+Layout/ArgumentAlignment:
   Enabled: false
 
-Layout/AlignHash:
+Layout/HashAlignment:
   Enabled: false
 
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
 
 Layout/ClosingParenthesisIndentation:
@@ -67,16 +74,20 @@ Layout/ElseAlignment:
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 
-Layout/IndentArray:
+Layout/EmptyLinesAroundAccessModifier:
+  Exclude:
+    - lib/alchemy/test_support/factories/*.rb
+
+Layout/FirstArrayElementIndentation:
   Enabled: false
 
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   Enabled: false
-
-Layout/IndentHeredoc:
-  EnforcedStyle: active_support
 
 Layout/IndentationWidth:
+  Enabled: false
+
+Layout/LineLength:
   Enabled: false
 
 Layout/MultilineHashBraceLayout:
@@ -87,6 +98,9 @@ Layout/MultilineMethodCallBraceLayout:
 
 Layout/MultilineMethodCallIndentation:
   Enabled: false
+
+Layout/MultilineOperationIndentation:
+  EnforcedStyle: indented
 
 Layout/SpaceBeforeBlockBraces:
   Enabled: false
@@ -99,16 +113,15 @@ Layout/SpaceInsideParens:
   Enabled: false
   StyleGuide: http://relaxed.ruby.style/#stylespaceinsideparens
 
-Lint/EndAlignment:
+Layout/EndAlignment:
   Enabled: false
 
-Lint/HandleExceptions:
+Layout/RescueEnsureAlignment:
+  Enabled: false
+
+Lint/SuppressedException:
   Exclude:
     - 'config/initializers/mini_profiler.rb'
-
-Lint/ShadowedException:
-  Exclude:
-    - 'lib/alchemy/sass_support.rb'
 
 Style/CollectionMethods:
   Enabled: false
@@ -259,9 +272,6 @@ Metrics/ModuleLength:
 Metrics/CyclomaticComplexity:
   Enabled: false
 
-Metrics/LineLength:
-  Enabled: false
-
 Metrics/MethodLength:
   Enabled: false
 
@@ -272,6 +282,13 @@ Metrics/PerceivedComplexity:
   Enabled: false
 
 Naming/AccessorMethodName:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+    Enabled: false
+
+# This cop is great but has no config option to support the style `@_method_name` we are using.
+Naming/MemoizedInstanceVariableName:
   Enabled: false
 
 # We need these names for backwards compatability

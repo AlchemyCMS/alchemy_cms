@@ -64,54 +64,16 @@ $.extend Alchemy,
     $element = $form_field.closest(".element-editor")
     if $form_field[0]
       $form_field.val ""
-      $form_field.prev().remove()
-      $form_field.parent().html '<i class="icon far fa-image fa-fw"/>'
+      $element.find(".thumbnail_background").html('<i class="icon far fa-image fa-fw"/>')
       Alchemy.setElementDirty $element
     false
 
-  # Initializes all select tag with .alchemy_selectbox class as selectBoxIt instance
+  # Initializes all select tag with .alchemy_selectbox class as select2 instance
   # Pass a jQuery scope to only init a subset of selectboxes.
   SelectBox: (scope) ->
     $("select.alchemy_selectbox", scope).select2
       minimumResultsForSearch: 7
       dropdownAutoWidth: true
-    return
-
-  # Selects cell tab for given name.
-  # Creates it if it's not present yet.
-  selectOrCreateCellTab: (cell_name, label) ->
-    $cells = $('#cells')
-    $tab = $("#cell_#{cell_name}")
-    if $tab.length == 0
-      $("<li><a href=\"#cell_#{cell_name}\">#{label}</a></li>")
-        .appendTo('#cells .ui-tabs-nav')
-      $tab = $("<div id=\"cell_#{cell_name}\" class=\"sortable_cell\"/>")
-      $cells.append($tab)
-      $cells.tabs().tabs('refresh')
-    $cells.tabs().tabs('option', 'active', $('#cells > div').index($tab))
-    return
-
-  # Inits the cell tabs
-  buildTabbedCells: (label) ->
-    $cells = $('<div id="cells"/>')
-    $('#cell_for_other_elements').wrap($cells)
-    $('#cells').prepend("<ul><li><a href=\"#cell_for_other_elements\">#{label}</a></li></ul>")
-    .tabs 'paging',
-      follow: true
-      followOnSelect: true
-    return
-
-  # Logs exception to js console, if present.
-  debug: (e) ->
-    if window["console"]
-      console.debug e
-      console.trace()
-    return
-
-  # Logs errors to js console, if present.
-  log_error: (e) ->
-    if window["console"]
-      console.error e
     return
 
   getUrlParam: (name) ->

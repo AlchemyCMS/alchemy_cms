@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 describe 'alchemy/essences/_essence_link_view' do
   let(:essence) { Alchemy::EssenceLink.new(link: 'http://google.com') }

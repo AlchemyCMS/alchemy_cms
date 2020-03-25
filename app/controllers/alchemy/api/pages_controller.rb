@@ -13,10 +13,14 @@ module Alchemy
       else
         @pages = Page.accessible_by(current_ability, :index)
       end
-      if params[:page_layout].present?
-        @pages = @pages.where(page_layout: params[:page_layout])
+      @pages = @pages.includes(*page_includes)
+      @pages = @pages.ransack(params[:q]).result
+
+      if params[:page]
+        @pages = @pages.page(params[:page]).per(params[:per_page])
       end
-      respond_with @pages
+
+      render json: @pages, adapter: :json, root: 'pages', meta: meta_data
     end
 
     # Returns all pages as nested json object for tree views
@@ -47,12 +51,69 @@ module Alchemy
     private
 
     def load_page
-      @page = Page.find_by(id: params[:id]) ||
-              Language.current.pages.find_by(
-                urlname: params[:urlname],
-                language_code: params[:locale] || Language.current.code
-              ) ||
-              raise(ActiveRecord::RecordNotFound)
+      @page = load_page_by_id || load_page_by_urlname || raise(ActiveRecord::RecordNotFound)
+    end
+
+    def load_page_by_id
+      # The route param is called :urlname although it might be an integer
+      Page.where(id: params[:urlname]).includes(page_includes).first
+    end
+
+    def load_page_by_urlname
+      Language.current.pages.where(
+        urlname: params[:urlname],
+        language_code: params[:locale] || Language.current.code
+      ).includes(page_includes).first
+    end
+
+    def meta_data
+      {
+        total_count: total_count_value,
+        per_page: per_page_value,
+        page: page_value
+      }
+    end
+
+    def total_count_value
+      params[:page] ? @pages.total_count : @pages.size
+    end
+
+    def per_page_value
+      if params[:page]
+        (params[:per_page] || Kaminari.config.default_per_page).to_i
+      else
+        @pages.size
+      end
+    end
+
+    def page_value
+      params[:page] ? params[:page].to_i : nil
+    end
+
+    def page_includes
+      [
+        :tags,
+        {
+          elements: [
+            {
+              nested_elements: [
+                {
+                  contents: {
+                    essence: :ingredient_association
+                  }
+                },
+                :tags
+              ]
+            },
+            {
+              contents: {
+                essence: :ingredient_association
+              }
+            },
+            :tags
+          ]
+        }
+      ]
     end
   end
 end

@@ -1,4 +1,6 @@
-require 'spec_helper'
+# frozen_string_literal: true
+
+require 'rails_helper'
 
 module Alchemy
   describe Picture do
@@ -7,7 +9,7 @@ module Alchemy
     end
 
     let :image_file do
-      File.new(File.expand_path('../../../fixtures/image.png', __FILE__))
+      File.new(File.expand_path('../../fixtures/image.png', __dir__))
     end
 
     let(:picture) { Picture.new }
@@ -23,20 +25,20 @@ module Alchemy
     end
 
     it "is valid with capitalized image file extension" do
-      image_file = File.new(File.expand_path('../../../fixtures/image2.PNG', __FILE__))
+      image_file = File.new(File.expand_path('../../fixtures/image2.PNG', __dir__))
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
     end
 
     it "is valid with jpeg image file extension" do
-      image_file = File.new(File.expand_path('../../../fixtures/image3.jpeg', __FILE__))
+      image_file = File.new(File.expand_path('../../fixtures/image3.jpeg', __dir__))
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
     end
 
     context 'with enabled preprocess_image_resize config option' do
       let(:image_file) do
-        File.new(File.expand_path('../../../fixtures/80x60.png', __FILE__))
+        File.new(File.expand_path('../../fixtures/80x60.png', __dir__))
       end
 
       context 'with > geometry string' do
@@ -106,38 +108,6 @@ module Alchemy
           allow(pic).to receive(:suffix).and_return("")
           expect(pic.humanized_name).to eq("cute kitten")
         end
-      end
-    end
-
-    describe '#security_token' do
-      before { @pic = stub_model(Picture, id: 1) }
-
-      it "should return a sha1 hash" do
-        expect(@pic.security_token).to match(/\b([a-f0-9]{16})\b/)
-      end
-
-      it "should return a 16 chars long hash" do
-        @pic.security_token.length == 16
-      end
-
-      it "should convert crop true value into string" do
-        digest = PictureAttributes.secure({id: @pic.id, crop: 'crop'})
-        expect(@pic.security_token(crop: true)).to eq(digest)
-      end
-
-      it "should always include picture id" do
-        digest = PictureAttributes.secure({id: @pic.id})
-        expect(@pic.security_token).to eq(digest)
-      end
-
-      it "should remove all not suitable options" do
-        digest = PictureAttributes.secure({id: @pic.id})
-        expect(@pic.security_token({foo: 'baz'})).to eq(digest)
-      end
-
-      it "should remove all option values that have nil values" do
-        digest = PictureAttributes.secure({id: @pic.id})
-        expect(@pic.security_token({crop: nil})).to eq(digest)
       end
     end
 
@@ -271,7 +241,7 @@ module Alchemy
         let(:picture) { create :alchemy_picture }
 
         before do
-          essence_picture.update_attributes(picture_id: picture.id)
+          essence_picture.update_columns(picture_id: picture.id)
         end
 
         it "should raise error message" do
