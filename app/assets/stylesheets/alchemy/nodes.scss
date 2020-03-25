@@ -63,6 +63,10 @@
   ul {
     margin: 0;
     padding: 0;
+
+    .folded > li {
+      display: none;
+    }
   }
 
   li {
@@ -106,6 +110,7 @@
     text-decoration: none;
     overflow: hidden;
     background-color: $sitemap-page-background-color;
+    cursor: move;
 
     &.without-status {
       @include border-right-radius($default-border-radius);
