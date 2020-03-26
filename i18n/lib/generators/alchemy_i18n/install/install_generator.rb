@@ -18,12 +18,14 @@ module AlchemyI18n
         default: [],
         desc: "Locales to generate files for. #{description}"
 
-      source_root AlchemyI18n::Engine.root.join('locales')
+      source_root AlchemyI18n::Engine.root
 
       def copy_locales
         locales.each do |locale|
-          filename = "alchemy.#{locale}.yml"
-          copy_file filename, Rails.root.join('config', 'locales', filename)
+          yml_filename = "alchemy.#{locale}.yml"
+          copy_file File.join('locales', yml_filename), Rails.root.join('config', 'locales', yml_filename)
+          js_filename = "#{locale}.js"
+          copy_file File.join('app', 'assets', 'javascripts', 'alchemy_i18n', js_filename), Rails.root.join('vendor', 'assets', 'javascripts', 'alchemy_i18n', js_filename)
         end
       end
 
@@ -39,7 +41,7 @@ module AlchemyI18n
 
       def copy_tinymce_locales
         locales.each do |locale|
-          copy_file "tinymce/#{locale}.js",
+          copy_file File.join("locales", "tinymce", "#{locale}.js"),
             Rails.root.join('vendor', 'assets', 'javascripts', 'tinymce', 'langs', "#{locale}.js")
         end
       end
