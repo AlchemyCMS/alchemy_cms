@@ -4,7 +4,7 @@ require 'rails_helper'
 
 module Alchemy
   describe Language do
-    let(:default_language) { Alchemy::Language.default }
+    let(:default_language) { create(:alchemy_language) }
     let(:language)         { create(:alchemy_language, :klingon) }
     let(:page)             { create(:alchemy_page, language: language) }
 
