@@ -25,9 +25,6 @@ module Alchemy
 
     scope :published, -> { where(public: true) }
 
-    # Callbacks
-    before_create :create_default_language!, unless: -> { languages.any? }
-
     # concerns
     include Alchemy::Site::Layout
 
@@ -64,7 +61,7 @@ module Alchemy
       end
 
       def default
-        Site.first || create_default_site!
+        Site.first
       end
 
       def find_for_host(host)
@@ -80,38 +77,6 @@ module Alchemy
         all.find do |site|
           site.aliases.split.include?(host) if site.aliases.present?
         end
-      end
-
-      private
-
-      def create_default_site!
-        default_site = Alchemy::Config.get(:default_site)
-        if default_site
-          create!(name: default_site['name'], host: default_site['host'])
-        else
-          raise DefaultSiteNotFoundError
-        end
-      end
-    end
-
-    private
-
-    # If no languages are present, create a default language based
-    # on the host app's Alchemy configuration.
-    def create_default_language!
-      default_language = Alchemy::Config.get(:default_language)
-      if default_language
-        languages.build(
-          name:           default_language['name'],
-          language_code:  default_language['code'],
-          locale:         default_language['code'],
-          frontpage_name: default_language['frontpage_name'],
-          page_layout:    default_language['page_layout'],
-          public:         true,
-          default:        true
-        )
-      else
-        raise DefaultLanguageNotFoundError
       end
     end
   end

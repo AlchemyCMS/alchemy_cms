@@ -14,26 +14,6 @@ module Alchemy
       end
 
       context 'when being saved' do
-        context 'when it has no languages yet' do
-          it 'should automatically create a default language' do
-            subject.save!
-            expect(subject.languages.count).to eq(1)
-            expect(subject.languages.first).to be_default
-          end
-
-          context 'when default language configuration is missing' do
-            before do
-              stub_alchemy_config(:default_language, nil)
-            end
-
-            it 'raises error' do
-              expect {
-                subject.save!
-              }.to raise_error(DefaultLanguageNotFoundError)
-            end
-          end
-        end
-
         context 'when it already has a language' do
           let(:language) { build(:alchemy_language, site: nil) }
           before { subject.languages << language }
@@ -56,21 +36,7 @@ module Alchemy
           Site.delete_all
         end
 
-        it 'creates it' do
-          expect { subject }.to change { Site.count }.by(1)
-        end
-
-        context 'when default site configuration is missing' do
-          before do
-            stub_alchemy_config(:default_site, nil)
-          end
-
-          it 'raises error' do
-            expect {
-              subject.save!
-            }.to raise_error(DefaultSiteNotFoundError)
-          end
-        end
+        it { is_expected.to be nil }
       end
 
       context 'when default site is present' do
@@ -122,7 +88,11 @@ module Alchemy
 
     describe '.current' do
       context 'when set to nil' do
-        before { Site.current = nil }
+        let!(:site) { create(:alchemy_site, host: 'example.com') }
+
+        before do
+          Site.current = nil
+        end
 
         it "should return default site" do
           expect(Site.current).not_to be_nil
@@ -206,11 +176,11 @@ module Alchemy
 
     describe '#default_language' do
       let!(:default_language) do
-        Alchemy::Language.find_by(default: true, site: site)
+        create(:alchemy_language, default: true, site: site)
       end
 
       let!(:other_language) do
-        create(:alchemy_language, default: false, site: site)
+        create(:alchemy_language, :english, default: false, site: site)
       end
 
       subject(:site_default_language) do
