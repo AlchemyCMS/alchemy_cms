@@ -18,11 +18,7 @@ Alchemy::Engine.routes.draw do
   namespace :admin, {path: Alchemy.admin_path, constraints: Alchemy.admin_constraints} do
     resources :contents, only: [:create]
 
-    resources :nodes do
-      member do
-        patch :toggle
-      end
-    end
+    resources :nodes
 
     resources :pages do
       resources :elements
@@ -153,6 +149,13 @@ Alchemy::Engine.routes.draw do
 
     get '/pages/*urlname(.:format)' => 'pages#show', as: 'page'
     get '/admin/pages/:id(.:format)' => 'pages#show', as: 'preview_page'
+
+    resources :nodes, only: [] do
+      member do
+        patch :move
+        patch :toggle_folded
+      end
+    end
   end
 
   get '/:locale' => 'pages#index',
