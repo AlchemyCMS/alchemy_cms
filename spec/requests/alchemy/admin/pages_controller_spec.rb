@@ -5,6 +5,9 @@ require 'rails_helper'
 
 module Alchemy
   describe Admin::PagesController do
+    let(:site) { create(:alchemy_site, host: "*") }
+    let!(:language) { create(:alchemy_language, site: site) }
+
     context 'a guest' do
       it 'can not access page tree' do
         get admin_pages_path
@@ -27,8 +30,6 @@ module Alchemy
       before { authorize_user(user) }
 
       describe '#index' do
-        let!(:language) { create(:alchemy_language) }
-
         context 'with existing language root page' do
           let!(:language_root) { create(:alchemy_page, :language_root) }
 
@@ -59,7 +60,7 @@ module Alchemy
             end
 
             let(:site_2_language) do
-              site_2.default_language
+              create(:alchemy_language, site: site_2)
             end
 
             before do
