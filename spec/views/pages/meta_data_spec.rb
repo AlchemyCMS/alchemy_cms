@@ -3,6 +3,7 @@
 require 'rails_helper'
 module Alchemy
   describe 'alchemy/pages/_meta_data' do
+    let!(:language) { create(:alchemy_language, code: :en) }
     let(:root_page)       { Page.new }
     let(:page)            { Page.new(language_code: "en", title: "Road Runner", urlname: "roadrunner") }
     let(:title_prefix)    { "" }
