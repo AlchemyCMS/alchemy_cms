@@ -16,6 +16,7 @@
 //= require select2
 //= require handlebars
 //= require sortable/Sortable.min
+//= require simplebar/simplebar.min
 //= require alchemy/templates
 //= require alchemy/alchemy.base
 //= require alchemy/alchemy.utils
