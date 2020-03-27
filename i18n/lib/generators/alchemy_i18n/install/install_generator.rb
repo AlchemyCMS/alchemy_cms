@@ -26,6 +26,7 @@ module AlchemyI18n
           copy_file File.join('locales', yml_filename), Rails.root.join('config', 'locales', yml_filename)
           js_filename = "#{locale}.js"
           copy_file File.join('app', 'assets', 'javascripts', 'alchemy_i18n', js_filename), Rails.root.join('vendor', 'assets', 'javascripts', 'alchemy_i18n', js_filename)
+          copy_file File.join('vendor', 'assets', 'javascripts', 'flatpickr', js_filename), Rails.root.join('vendor', 'assets', 'javascripts', 'flatpickr', js_filename)
         end
       end
 
