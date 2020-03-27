@@ -26,6 +26,7 @@ module Alchemy
     # Sets +I18n.locale+ to current Alchemy language.
     #
     def set_locale
+      return unless Language.current
       ::I18n.locale = Language.current&.locale
     end
 

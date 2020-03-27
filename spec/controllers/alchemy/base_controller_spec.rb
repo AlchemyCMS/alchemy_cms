@@ -19,9 +19,10 @@ module Alchemy
       context 'without Language.current set' do
         before { Alchemy::Language.current = nil }
 
-        it "sets the ::I18n.locale to default language code" do
-          controller.send(:set_locale)
-          expect(::I18n.locale).to eq(Language.default.code.to_sym)
+        it "does not set the ::I18n.locale" do
+          expect {
+            controller.send(:set_locale)
+          }.not_to change { ::I18n.locale }
         end
       end
     end
