@@ -50,6 +50,7 @@ Alchemy.ElementsWindow =
     $.get @url, (data) =>
       @element_area.html data
       Alchemy.GUI.init(@element_area)
+      @element_area.trigger('LoadedElementEditor.Alchemy');
       if @callback
         @callback.call()
     .fail (xhr, status, error) =>
