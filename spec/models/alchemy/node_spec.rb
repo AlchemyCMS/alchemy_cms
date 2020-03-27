@@ -19,8 +19,8 @@ module Alchemy
       end
 
       context 'with current language present' do
-        let(:root_node)  { create(:alchemy_node) }
-        let(:child_node) { create(:alchemy_node, parent_id: root_node.id) }
+        let!(:root_node)  { create(:alchemy_node) }
+        let!(:child_node) { create(:alchemy_node, parent_id: root_node.id) }
 
         it "returns root nodes from current language" do
           expect(Node.language_root_nodes).to include(root_node)
