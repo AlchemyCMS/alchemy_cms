@@ -81,6 +81,8 @@ module Alchemy
 
       # The root page of the current language.
       def current_root_page
+        return unless current
+
         current.pages.language_roots.first
       end
 
