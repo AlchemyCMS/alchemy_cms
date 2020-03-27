@@ -5,7 +5,7 @@ require 'rails_helper'
 module Alchemy
   describe Page do
     let(:rootpage)      { Page.root }
-    let(:language)      { Language.default }
+    let(:language)      { create(:alchemy_language, :english, default: true) }
     let(:klingon)       { create(:alchemy_language, :klingon) }
     let(:language_root) { create(:alchemy_page, :language_root) }
     let(:page)          { mock_model(Page, page_layout: 'foo') }
