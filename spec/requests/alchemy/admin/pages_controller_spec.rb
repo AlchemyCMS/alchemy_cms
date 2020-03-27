@@ -6,7 +6,6 @@ require 'rails_helper'
 module Alchemy
   describe Admin::PagesController do
     let(:site) { create(:alchemy_site, host: "*") }
-    let!(:language) { create(:alchemy_language, site: site) }
 
     context 'a guest' do
       it 'can not access page tree' do
@@ -39,39 +38,49 @@ module Alchemy
           end
         end
 
-        context 'without language root page' do
-          before do
-            expect(Language).to receive(:current_root_page).and_return(nil)
-            allow(Language).to receive(:current).and_return(language)
-          end
-
-          it "it assigns current language" do
+        context 'without current language present' do
+          it "it redirects to the languages admin" do
             get admin_pages_path
-            expect(assigns(:language)).to eq(language)
+            expect(response).to redirect_to(alchemy.admin_languages_path)
           end
+        end
 
-          context "with multiple sites" do
-            let!(:site_1_language_2) do
-              create(:alchemy_language, code: 'fr')
-            end
+        context 'with current language present' do
+          let!(:language) { create(:alchemy_language, site: site) }
 
-            let!(:site_2) do
-              create(:alchemy_site, host: 'another-one.com')
-            end
-
-            let(:site_2_language) do
-              create(:alchemy_language, site: site_2)
-            end
-
+          context 'without language root page' do
             before do
-              create(:alchemy_page, :language_root, language: site_2_language)
-              create(:alchemy_page, :language_root, language: site_1_language_2)
+              expect(Language).to receive(:current_root_page).and_return(nil)
             end
 
-            it "loads languages with pages from current site only" do
+            it "it assigns current language" do
               get admin_pages_path
-              expect(assigns(:languages_with_page_tree)).to include(site_1_language_2)
-              expect(assigns(:languages_with_page_tree)).to_not include(site_2_language)
+              expect(assigns(:language)).to eq(language)
+            end
+
+            context "with multiple sites" do
+              let!(:site_1_language_2) do
+                create(:alchemy_language, code: 'fr')
+              end
+
+              let!(:site_2) do
+                create(:alchemy_site, host: 'another-one.com')
+              end
+
+              let(:site_2_language) do
+                create(:alchemy_language, site: site_2)
+              end
+
+              before do
+                create(:alchemy_page, :language_root, language: site_2_language)
+                create(:alchemy_page, :language_root, language: site_1_language_2)
+              end
+
+              it "loads languages with pages from current site only" do
+                get admin_pages_path
+                expect(assigns(:languages_with_page_tree)).to include(site_1_language_2)
+                expect(assigns(:languages_with_page_tree)).to_not include(site_2_language)
+              end
             end
           end
         end

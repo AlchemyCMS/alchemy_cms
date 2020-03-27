@@ -7,25 +7,30 @@ module Alchemy
 
       helper 'alchemy/pages'
 
+      before_action :load_page, except: [:index, :flush, :new, :order, :create, :copy_language_tree, :link, :sort]
+
+      authorize_resource class: Alchemy::Page, except: [:index, :tree]
+
+      before_action only: [:index, :tree, :flush, :new, :order, :create, :copy_language_tree] do
+        authorize! :index, :alchemy_admin_pages
+      end
+
+      before_action unless: -> { Alchemy::Language.current }, only: :index do
+        flash[:warning] = Alchemy.t('Please create a language first.')
+        redirect_to admin_languages_path
+      end
+
       before_action :set_translation,
         except: [:show]
 
-      before_action :load_page,
-        only: [:show, :info, :unlock, :visit, :publish, :configure, :edit, :update, :destroy, :fold,
-               :tree]
-
       before_action :set_root_page,
         only: [:index, :show, :sort, :order]
-
-      authorize_resource class: Alchemy::Page, except: [:index, :tree]
 
       before_action :run_on_page_layout_callbacks,
         if: :run_on_page_layout_callbacks?,
         only: [:show]
 
       def index
-        authorize! :index, :alchemy_admin_pages
-
         if !@page_root
           @language = Language.current
           @languages_with_page_tree = Language.on_current_site.with_root_page
@@ -36,8 +41,6 @@ module Alchemy
       # Returns all pages as a tree from the root given by the id parameter
       #
       def tree
-        authorize! :tree, :alchemy_admin_pages
-
         render json: serialized_page_tree
       end
 
@@ -56,10 +59,10 @@ module Alchemy
       end
 
       def new
-        @page = Page.new(layoutpage: params[:layoutpage] == 'true', parent_id: params[:parent_id])
-        @page_layouts = PageLayout.layouts_for_select(Language.current.id, @page.layoutpage?)
+        @page ||= Page.new(layoutpage: params[:layoutpage] == 'true', parent_id: params[:parent_id])
+        @page_layouts = PageLayout.layouts_for_select(Language.current&.id, @page.layoutpage?)
         @clipboard = get_clipboard('pages')
-        @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, Language.current.id, @page.layoutpage?)
+        @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, Language.current&.id, @page.layoutpage?)
       end
 
       def create
@@ -68,9 +71,7 @@ module Alchemy
           flash[:notice] = Alchemy.t("Page created", name: @page.name)
           do_redirect_to(redirect_path_after_create_page)
         else
-          @page_layouts = PageLayout.layouts_for_select(Language.current.id, @page.layoutpage?)
-          @clipboard = get_clipboard('pages')
-          @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, Language.current.id, @page.layoutpage?)
+          new
           render :new
         end
       end
