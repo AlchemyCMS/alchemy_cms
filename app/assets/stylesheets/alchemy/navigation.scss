@@ -33,9 +33,12 @@
 }
 
 #main_navi {
-  max-height: 100vh;
+  /*max-height: 100vh;*/
+  /*padding-bottom: 80px;*/
+  padding-bottom: 0px;
+  max-height: initial; 
+  margin-bottom: 40px;
   padding-top: 28px;
-  padding-bottom: 80px;
 
   @media screen and (max-width: $medium-screen-break-point) {
     overflow-x: hidden;
@@ -47,7 +50,7 @@
 .main_navi_entry {
   position: relative;
   display: block;
-  line-height: 46px;
+  line-height: 30px;
   margin-bottom: 3*$default-padding;
   background-color: transparent;
   transition: background-color $transition-duration $transition-easing;
@@ -107,7 +110,85 @@
     }
   }
 
-  &.has_sub_navigation label {
+  &.has_sub_navigation {
+    position: relative;
+    &:before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 27px;
+      width: 100%;
+      z-index: 2;
+      cursor: pointer;
+    }
+    > a:first-child {
+      position: relative;
+      padding-right: 10px;
+      &:after {
+        content: '+';
+        color: #ffffff;
+        position: absolute;
+        right: 8px;
+        top: 50%;
+        font-size: 20px;
+        transform: translateY(-50%);
+      }
+    }
+
+    &.expanded {
+      > a:first-child {
+        &:after {
+          content: '-';
+        }
+      }
+      background-color: #eca96e !important;
+    }
+
+    &.expanded {
+      .sub_navigation {
+        max-height: 500px;
+        .subnavi_tab {
+          border-left: 1px solid #204166;
+
+          &:before {
+            background-color: #204166;
+          }
+        }
+      }
+    }
+
+    .sub_navigation {
+      position: relative !important;
+      opacity: 1 !important;
+      visibility: initial !important;
+      left: 0 !important;
+      padding-left: 45px !important;
+      max-height: 0;
+      transition: 0.4s max-height ease-in-out;
+      overflow: hidden;
+      .subnavi_tab {
+        border-left: 1px solid #eca96e;
+        margin-left: -1px;
+        position: relative;
+        a {
+          max-width: 100% !important;
+        }
+        &:before {
+          content: '';
+          background-color: #eca96e;
+          height: 1px;
+          width: 10px;
+          position: absolute;
+          left: 0;
+          top: 50%;
+          transform: translateY(-50%);
+        }
+      }
+    }
+  }   
+
+  /*&.has_sub_navigation label {
     display: none;
 
     @media screen and (min-width: $large-screen-break-point) {
@@ -115,7 +196,7 @@
         display: inline-block;
       }
     }
-  }
+  }*/
 
   &:hover label {
     visibility: visible;
