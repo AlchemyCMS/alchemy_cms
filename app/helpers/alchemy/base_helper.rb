@@ -71,6 +71,11 @@ module Alchemy
     # If a String is given, it tries to find the page via page_layout
     # Logs a warning if no page is given.
     def page_or_find(page)
+      unless Language.current
+        warning("No default language set up")
+        return nil
+      end
+
       if page.is_a?(String)
         page = Language.current.pages.find_by(page_layout: page)
       end
