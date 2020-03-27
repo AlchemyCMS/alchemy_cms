@@ -37,11 +37,17 @@ module Alchemy
     describe "#multi_language?" do
       subject { controller.multi_language? }
 
+      context "if no language exists" do
+        it { is_expected.to be(false) }
+      end
+
       context "if less than two published languages exists" do
+        let!(:language) { create(:alchemy_language) }
         it { is_expected.to be(false) }
       end
 
       context "if more than one published language exists" do
+        let!(:language) { create(:alchemy_language) }
         let!(:language_2) do
           create(:alchemy_language, :klingon)
         end
@@ -70,13 +76,14 @@ module Alchemy
       subject(:prefix_locale?) { controller.prefix_locale? }
 
       context "if multi_language? is true" do
-        before do
-          expect(controller).to receive(:multi_language?) { true }
+        let!(:language) { create(:alchemy_language) }
+        let!(:language_2) do
+          create(:alchemy_language, :klingon)
         end
 
         context "and current language is not the default locale" do
           before do
-            allow(Alchemy::Language).to receive(:current) { double(code: 'en') }
+            allow(Alchemy::Language).to receive(:current) { double(code: 'kl') }
             allow(::I18n).to receive(:default_locale) { :de }
           end
 
@@ -114,9 +121,7 @@ module Alchemy
       end
 
       context "if multi_language? is false" do
-        before do
-          expect(controller).to receive(:multi_language?) { false }
-        end
+        let!(:language) { create(:alchemy_language) }
 
         it { expect(prefix_locale?).to be(false) }
       end
