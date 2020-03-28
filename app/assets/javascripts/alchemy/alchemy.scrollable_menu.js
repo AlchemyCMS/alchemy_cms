@@ -10,7 +10,6 @@ Alchemy.ScrollableMenu = {
   },
   init: function() {
     this.expandibleMenu();
-
     new SimpleBar($('#left_menu')[0]);
   }
 }
