@@ -3,6 +3,11 @@
 module Alchemy
   module Admin
     class LanguagesController < ResourcesController
+      before_action unless: -> { Alchemy::Site.any? } do
+        flash[:warning] = Alchemy.t('Please create a site first.')
+        redirect_to admin_sites_path
+      end
+
       def index
         @query = Language.on_current_site.ransack(search_filter_params[:q])
         @query.sorts = default_sort_order if @query.sorts.empty?
