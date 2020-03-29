@@ -15,10 +15,7 @@ module Alchemy
         authorize! :index, :alchemy_admin_pages
       end
 
-      before_action unless: -> { Alchemy::Language.current }, only: :index do
-        flash[:warning] = Alchemy.t('Please create a language first.')
-        redirect_to admin_languages_path
-      end
+      include Alchemy::Admin::LanguageNeededRedirect
 
       before_action :set_translation,
         except: [:show]

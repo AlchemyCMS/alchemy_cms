@@ -5,10 +5,7 @@ module Alchemy
     class LayoutpagesController < Alchemy::Admin::BaseController
       authorize_resource class: :alchemy_admin_layoutpages
 
-      before_action unless: -> { Alchemy::Language.current }, only: :index do
-        flash[:warning] = Alchemy.t('Please create a language first.')
-        redirect_to admin_languages_path
-      end
+      include Alchemy::Admin::LanguageNeededRedirect
 
       helper Alchemy::Admin::PagesHelper
 

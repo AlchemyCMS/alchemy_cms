@@ -3,10 +3,7 @@
 module Alchemy
   module Admin
     class NodesController < Admin::ResourcesController
-      before_action unless: -> { Alchemy::Language.current }, only: :index do
-        flash[:warning] = Alchemy.t('Please create a language first.')
-        redirect_to admin_languages_path
-      end
+      include Alchemy::Admin::LanguageNeededRedirect
 
       def index
         @root_nodes = Node.language_root_nodes
