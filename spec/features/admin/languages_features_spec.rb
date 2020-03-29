@@ -10,6 +10,7 @@ RSpec.describe "Admin Languages Features", type: :system do
   describe 'creating a new language' do
     context 'when selected locale is not an available locale' do
       before do
+        create(:alchemy_site)
         allow(::I18n).to receive(:available_locales) { [:de, :en] }
       end
 
