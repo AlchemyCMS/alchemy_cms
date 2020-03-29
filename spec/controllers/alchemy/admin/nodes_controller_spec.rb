@@ -11,6 +11,13 @@ module Alchemy
     end
 
     describe '#index' do
+      context 'if no language is present' do
+        it 'redirects to the language admin' do
+          get :index
+          expect(response).to redirect_to(admin_languages_path)
+        end
+      end
+
       context 'if root nodes present' do
         let!(:root_node)  { create(:alchemy_node) }
         let!(:child_node) { create(:alchemy_node, parent_id: root_node.id) }
