@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Requesting a page' do
-  let!(:default_language) { Alchemy::Language.default }
+  let!(:default_language) { create(:alchemy_language, :english, default: true) }
 
   let!(:default_language_root) do
     create(:alchemy_page, :language_root, language: default_language, name: 'Home')
