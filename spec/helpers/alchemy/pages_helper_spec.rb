@@ -76,6 +76,18 @@ module Alchemy
           is_expected.to have_selector('ul.nav > li.nav-item > a.nav-link[href="/default-site"]')
         end
       end
+
+      context 'with multiple languages' do
+        let!(:menu) { create(:alchemy_node, name: name) }
+        let!(:node) { create(:alchemy_node, parent: menu, url: '/default') }
+        let!(:klingon_menu) { create(:alchemy_node, name: name, language: klingon) }
+        let!(:klingon_node) { create(:alchemy_node, parent: klingon_menu, language: klingon, url: '/klingon') }
+
+        it 'should return the menu for the current language' do
+          is_expected.to have_selector('ul.nav > li.nav-item > a.nav-link[href="/default"]')
+          is_expected.not_to have_selector('ul.nav > li.nav-item > a.nav-link[href="/klingon"]')
+        end
+      end
     end
 
     describe "#render_breadcrumb" do
