@@ -1,8 +1,8 @@
 <% label_title = Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')) %>
 
-<% toolbar(
-  buttons: [
-    {
+<% content_for :toolbar do %>
+  <div class="toolbar_buttons">
+    <%= toolbar_button(
       icon: :plus,
       label: label_title,
       url: new_resource_path,
@@ -10,14 +10,26 @@
       hotkey: 'alt+n',
       dialog_options: {
         title: label_title,
-        size: resource_window_size
+        size: "430x415"
       },
       if_permitted_to: [:create, Alchemy::Site]
-    }
-  ]
-) %>
+    ) if @sites.any? %>
+  </div>
+  <%= render 'alchemy/admin/partials/search_form' %>
+<% end %>
 
 <div id="archive_all" class="resources-table-wrapper">
-  <%= render 'alchemy/admin/resources/table_header' %>
-  <%= render 'table' %>
+  <% if @sites.any? %>
+    <%= render 'alchemy/admin/resources/table_header' %>
+    <%= render 'table' %>
+  <% elsif search_filter_params[:q].present? %>
+    <%= render_message { Alchemy.t('Nothing found') } %>
+  <% else %>
+    <div class="panel no-resource-found">
+      <%= render_message do %>
+        <%== Alchemy.t('alchemy/site', scope: :no_resource_found) %>
+      <% end %>
+      <%= render 'form', site: Alchemy::Site.new(Alchemy::Config.get(:default_site).merge(public: true)) %>
+    </div>
+  <% end %>
 </div>
