@@ -83,7 +83,6 @@ module Alchemy
     def render_menu(name, options = {})
       root_node = Alchemy::Node.roots.find_by(
         name: name,
-        site: Alchemy::Site.current,
         language: Alchemy::Language.current
       )
       if root_node.nil?
