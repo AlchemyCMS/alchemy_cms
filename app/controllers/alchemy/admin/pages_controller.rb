@@ -15,7 +15,7 @@ module Alchemy
         authorize! :index, :alchemy_admin_pages
       end
 
-      include Alchemy::Admin::LanguageNeededRedirect
+      include Alchemy::Admin::CurrentLanguage
 
       before_action :set_translation,
         except: [:show]

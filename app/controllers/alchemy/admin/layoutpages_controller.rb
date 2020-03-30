@@ -5,7 +5,7 @@ module Alchemy
     class LayoutpagesController < Alchemy::Admin::BaseController
       authorize_resource class: :alchemy_admin_layoutpages
 
-      include Alchemy::Admin::LanguageNeededRedirect
+      include Alchemy::Admin::CurrentLanguage
 
       helper Alchemy::Admin::PagesHelper
 

@@ -2,7 +2,7 @@
 
 module Alchemy
   module Admin
-    module LanguageNeededRedirect
+    module CurrentLanguage
       extend ActiveSupport::Concern
 
       included do
