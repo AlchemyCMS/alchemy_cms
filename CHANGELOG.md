@@ -11,6 +11,17 @@
 - Add ContentEditor decorator [#1645](https://github.com/AlchemyCMS/alchemy_cms/pull/1645) ([tvdeyen](https://github.com/tvdeyen))
 - Remove local options from essence editors [#1638](https://github.com/AlchemyCMS/alchemy_cms/pull/1638) ([tvdeyen](https://github.com/tvdeyen))
 
+## 4.5.0 (2020-03-30)
+
+- Sortable menus [#1758](https://github.com/AlchemyCMS/alchemy_cms/pull/1758) ([mamhoff](https://github.com/mamhoff))
+- Programmatic menus [#1756](https://github.com/AlchemyCMS/alchemy_cms/pull/1756) ([mamhoff](https://github.com/mamhoff))
+- Fix syntax in non-erb Menu templates [#1751]((https://github.com/AlchemyCMS/alchemy_cms/pull/1751)) ([Alexander ADAM](https://github.com/alexanderadam))
+- Fix `render_menu` for custom controllers [#1746]((https://github.com/AlchemyCMS/alchemy_cms/pull/1746)) ([Alexander ADAM](https://github.com/alexanderadam))
+
+## 4.4.4 (2020-02-28)
+
+- Fix new menu form [#1740](https://github.com/AlchemyCMS/alchemy_cms/pull/1740) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.4.3 (2020-02-26)
 
 - Scope nodes to sites [#1738](https://github.com/AlchemyCMS/alchemy_cms/pull/1738) ([tvdeyen](https://github.com/tvdeyen))
