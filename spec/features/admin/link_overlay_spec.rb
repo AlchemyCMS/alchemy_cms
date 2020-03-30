@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe "Link overlay", type: :system do
+  let!(:language) { create(:alchemy_language) }
+
   before do
     authorize_user(:as_admin)
   end

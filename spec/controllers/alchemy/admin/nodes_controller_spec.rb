@@ -31,15 +31,26 @@ module Alchemy
     end
 
     describe '#new' do
-      it "sets the current language on new node" do
-        get :new
-        expect(assigns('node').language).to eq(Language.current)
+      context 'if no language is present' do
+        it 'redirects to the language admin' do
+          get :new
+          expect(response).to redirect_to(admin_languages_path)
+        end
       end
 
-      context 'with parent id in params' do
-        it "sets it to new node" do
-          get :new, params: { parent_id: 1 }
-          expect(assigns('node').parent_id).to eq(1)
+      context 'if language is present' do
+        let!(:default_language) { create(:alchemy_language) }
+
+        it "sets the current language on new node" do
+          get :new
+          expect(assigns('node').language).to eq(default_language)
+        end
+
+        context 'with parent id in params' do
+          it "sets it to new node" do
+            get :new, params: { parent_id: 1 }
+            expect(assigns('node').parent_id).to eq(1)
+          end
         end
       end
     end

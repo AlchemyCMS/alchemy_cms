@@ -13,7 +13,7 @@ module Alchemy
         @node = Node.new(
           site: Alchemy::Site.current,
           parent_id: params[:parent_id],
-          language: Language.current
+          language: @current_language
         )
       end
 

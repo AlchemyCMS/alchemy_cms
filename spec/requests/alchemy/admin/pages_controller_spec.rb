@@ -50,12 +50,12 @@ module Alchemy
 
           context 'without language root page' do
             before do
-              expect(Language).to receive(:current_root_page).and_return(nil)
+              expect_any_instance_of(Language).to receive(:root_page).and_return(nil)
             end
 
             it "it assigns current language" do
               get admin_pages_path
-              expect(assigns(:language)).to eq(language)
+              expect(assigns(:current_language)).to eq(language)
             end
 
             context "with multiple sites" do
@@ -239,30 +239,36 @@ module Alchemy
       end
 
       describe '#new' do
-        context "pages in clipboard" do
-          let(:page) { mock_model(Alchemy::Page, name: 'Foobar') }
-
-          before do
-            allow_any_instance_of(described_class).to receive(:get_clipboard).with('pages') do
-              [{'id' => page.id.to_s, 'action' => 'copy'}]
-            end
+        context 'if no language is present' do
+          it 'redirects to the language admin' do
+            get new_admin_page_path
+            expect(response).to redirect_to(admin_languages_path)
           end
+        end
 
-          it "should load all pages from clipboard" do
-            get new_admin_page_path(page_id: page.id), xhr: true
-            expect(assigns(:clipboard_items)).to be_kind_of(Array)
+        context 'with current language present' do
+          let!(:language) { create(:alchemy_language) }
+
+          context "pages in clipboard" do
+            let(:page) { mock_model(Alchemy::Page, name: 'Foobar') }
+
+            before do
+              allow_any_instance_of(described_class).to receive(:get_clipboard).with('pages') do
+                [{'id' => page.id.to_s, 'action' => 'copy'}]
+              end
+            end
+
+            it "should load all pages from clipboard" do
+              get new_admin_page_path(page_id: page.id), xhr: true
+              expect(assigns(:clipboard_items)).to be_kind_of(Array)
+            end
           end
         end
       end
 
       describe '#show' do
-        let(:language) { build_stubbed(:alchemy_language, locale: 'nl') }
-        let(:page) { build_stubbed(:alchemy_page, language: language) }
-
-        before do
-          expect(Page).to receive(:find).with(page.id.to_s).and_return(page)
-          allow(Page).to receive(:language_root_for).and_return(mock_model(Alchemy::Page))
-        end
+        let(:language) { create(:alchemy_language, locale: 'nl') }
+        let!(:page) { create(:alchemy_page, language: language) }
 
         it "should assign @preview_mode with true" do
           get admin_page_path(page)
@@ -675,7 +681,7 @@ module Alchemy
       end
 
       describe '#fold' do
-        let(:page) { mock_model(Alchemy::Page) }
+        let(:page) { create(:alchemy_page) }
 
         before do
           allow(Page).to receive(:find).and_return(page)
@@ -704,7 +710,7 @@ module Alchemy
       describe '#unlock' do
         subject { post unlock_admin_page_path(page), xhr: true }
 
-        let(:page) { mock_model(Alchemy::Page, name: 'Best practices') }
+        let(:page) { create(:alchemy_page, name: 'Best practices') }
 
         before do
           allow(Page).to receive(:find).with(page.id.to_s).and_return(page)

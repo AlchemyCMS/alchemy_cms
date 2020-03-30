@@ -29,7 +29,7 @@ module Alchemy
 
       def index
         if !@page_root
-          @language = Language.current
+          @language = @current_language
           @languages_with_page_tree = Language.on_current_site.with_root_page
           @page_layouts = PageLayout.layouts_for_select(@language.id)
         end
@@ -57,9 +57,9 @@ module Alchemy
 
       def new
         @page ||= Page.new(layoutpage: params[:layoutpage] == 'true', parent_id: params[:parent_id])
-        @page_layouts = PageLayout.layouts_for_select(Language.current&.id, @page.layoutpage?)
+        @page_layouts = PageLayout.layouts_for_select(@current_language.id, @page.layoutpage?)
         @clipboard = get_clipboard('pages')
-        @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, Language.current&.id, @page.layoutpage?)
+        @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, @current_language.id, @page.layoutpage?)
       end
 
       def create
@@ -90,7 +90,7 @@ module Alchemy
 
       # Set page configuration like page names, meta tags and states.
       def configure
-        @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, Language.current.id, @page.layoutpage?)
+        @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, @current_language.id, @page.layoutpage?)
       end
 
       # Updates page
@@ -139,7 +139,7 @@ module Alchemy
         @attachments = Attachment.all.collect { |f|
           [f.name, download_attachment_path(id: f.id, name: f.urlname)]
         }
-        @url_prefix = prefix_locale? ? "#{Language.current.code}/" : ""
+        @url_prefix = prefix_locale? ? "#{@current_language.code}/" : ""
       end
 
       def fold
@@ -210,11 +210,11 @@ module Alchemy
       end
 
       def flush
-        Language.current.pages.flushables.update_all(published_at: Time.current)
+        @current_language.pages.flushables.update_all(published_at: Time.current)
         # We need to ensure, that also all layoutpages get the +published_at+ timestamp set,
         # but not set to public true, because the cache_key for an element is +published_at+
         # and we don't want the layout pages to be present in +Page.published+ scope.
-        Language.current.pages.flushable_layoutpages.update_all(published_at: Time.current)
+        @current_language.pages.flushable_layoutpages.update_all(published_at: Time.current)
         respond_to { |format| format.js }
       end
 
@@ -224,7 +224,7 @@ module Alchemy
         page_copy = Page.copy(
           language_root_to_copy_from,
           language_id: params[:languages][:new_lang_id],
-          language_code: Language.current.code
+          language_code: @current_language.code
         )
         page_copy.move_to_child_of Page.root
         page_copy
@@ -368,7 +368,7 @@ module Alchemy
       end
 
       def set_root_page
-        @page_root = Language.current_root_page
+        @page_root = @current_language.root_page
       end
 
       def serialized_page_tree
