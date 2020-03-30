@@ -144,7 +144,7 @@ module Alchemy
         @current_alchemy_site ||= begin
           site_id = params[:site_id] || session[:alchemy_site_id]
           site = Site.find_by(id: site_id) || super
-          session[:alchemy_site_id] = site.id
+          session[:alchemy_site_id] = site&.id
           site
         end
       end

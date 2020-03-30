@@ -4,6 +4,9 @@ module Alchemy
   module Admin
     class LayoutpagesController < Alchemy::Admin::BaseController
       authorize_resource class: :alchemy_admin_layoutpages
+
+      include Alchemy::Admin::LanguageNeededRedirect
+
       helper Alchemy::Admin::PagesHelper
 
       def index

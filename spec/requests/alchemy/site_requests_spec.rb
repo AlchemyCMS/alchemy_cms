@@ -5,10 +5,11 @@ require 'rails_helper'
 RSpec.describe 'Site requests' do
   context 'a site with host' do
     let!(:site) { create(:alchemy_site, :public, host: 'alchemy-cms.com') }
+    let(:language) { create(:alchemy_language, site: site) }
 
     let(:page) do
       Alchemy::Site.current = site
-      root = create(:alchemy_page, :language_root, language: site.languages.last)
+      root = create(:alchemy_page, :language_root, language: language)
       create(:alchemy_page, :public, parent: root)
     end
 

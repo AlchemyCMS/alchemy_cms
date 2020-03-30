@@ -10,6 +10,13 @@ describe Alchemy::Admin::LanguagesController do
   end
 
   describe "#index" do
+    context 'without a site' do
+      it "redirects to the sites admin" do
+        get :index
+        expect(response).to redirect_to(admin_sites_path)
+      end
+    end
+
     context "with multiple sites" do
       let!(:default_site_language) do
         create(:alchemy_language)
@@ -31,6 +38,8 @@ describe Alchemy::Admin::LanguagesController do
     end
 
     context "editor users" do
+      let!(:site) { create(:alchemy_site) }
+
       before do
         authorize_user(:as_editor)
       end
@@ -43,10 +52,21 @@ describe Alchemy::Admin::LanguagesController do
   end
 
   describe "#new" do
-    it "has default language's page_layout set" do
-      get :new
-      expect(assigns(:language).page_layout).
-        to eq(Alchemy::Config.get(:default_language)['page_layout'])
+   context 'without a site' do
+      it "redirects to the sites admin" do
+        get :index
+        expect(response).to redirect_to(admin_sites_path)
+      end
+    end
+
+    context 'with a site' do
+      let!(:site) { create(:alchemy_site) }
+
+      it "has default language's page_layout set" do
+        get :new
+        expect(assigns(:language).page_layout).
+          to eq(Alchemy::Config.get(:default_language)['page_layout'])
+      end
     end
   end
 

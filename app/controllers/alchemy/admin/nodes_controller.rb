@@ -3,6 +3,8 @@
 module Alchemy
   module Admin
     class NodesController < Admin::ResourcesController
+      include Alchemy::Admin::LanguageNeededRedirect
+
       def index
         @root_nodes = Node.language_root_nodes
       end

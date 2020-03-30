@@ -16,7 +16,7 @@ module Alchemy
     end
 
     def needs_redirect_to_primary_host?
-      current_alchemy_site.redirect_to_primary_host? &&
+      current_alchemy_site&.redirect_to_primary_host? &&
         current_alchemy_site.host != '*' &&
         current_alchemy_site.host != request.host
     end

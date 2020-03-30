@@ -153,6 +153,7 @@ module Alchemy
       #     page_layouts: [default_intro]
       #
       def available_on_site?(layout)
+        return false unless Alchemy::Site.current
         Alchemy::Site.current.definition.blank? ||
           Alchemy::Site.current.definition.fetch('page_layouts', []).include?(layout['name'])
       end

@@ -13,7 +13,7 @@ FactoryBot.define do
 
     public { true }
 
-    site { Alchemy::Site.default }
+    site { Alchemy::Site.default || create(:alchemy_site, :default) }
 
     trait :klingon do
       name { 'Klingon' }

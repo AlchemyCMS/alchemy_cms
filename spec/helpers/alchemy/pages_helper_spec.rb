@@ -201,13 +201,13 @@ module Alchemy
           context "with options[:reverse]" do
             context "set to false" do
               it "should render the language links in an ascending order" do
-                expect(helper.language_links(reverse: false)).to have_selector("a.en + a.kl")
+                expect(helper.language_links(reverse: false)).to have_selector("a.de + a.kl")
               end
             end
 
             context "set to true" do
               it "should render the language links in a descending order" do
-                expect(helper.language_links(reverse: true)).to have_selector("a.kl + a.en")
+                expect(helper.language_links(reverse: true)).to have_selector("a.kl + a.de")
               end
             end
           end

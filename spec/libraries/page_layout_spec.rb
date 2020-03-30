@@ -85,7 +85,8 @@ module Alchemy
     end
 
     describe '.selectable_layouts' do
-      let(:language) { Language.default }
+      let(:site) { create(:alchemy_site) }
+      let(:language) { create(:alchemy_language, code: :de) }
       before { language }
       subject { PageLayout.selectable_layouts(language.id) }
 
@@ -105,14 +106,12 @@ module Alchemy
       end
 
       context "with sites layouts present" do
-        let(:site) { Site.new }
-
-        let(:definitions) do
-          [{'name' => 'default_site', 'page_layouts' => %w(index)}]
+        let(:definition) do
+          {'name' => 'default_site', 'page_layouts' => %w(index)}
         end
 
         before do
-          allow(Site).to receive(:definitions).and_return(definitions)
+          allow_any_instance_of(Site).to receive(:definition).and_return(definition)
         end
 
         it "should only return layouts for site" do

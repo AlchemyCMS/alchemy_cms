@@ -6,8 +6,8 @@ require 'alchemy/test_support/factories/page_factory'
 
 FactoryBot.define do
   factory :alchemy_node, class: 'Alchemy::Node' do
-    site { Alchemy::Site.default }
-    language { Alchemy::Language.default }
+    site { Alchemy::Site.default || create(:alchemy_site) }
+    language { Alchemy::Language.default || create(:alchemy_language) }
     name { 'A Node' }
 
     trait :with_page do

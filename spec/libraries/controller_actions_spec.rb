@@ -54,7 +54,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
   end
 
   describe "#set_alchemy_language" do
-    let(:default_language) { Alchemy::Language.default }
+    let!(:default_language) { create(:alchemy_language, code: :en) }
     let(:klingon)          { create(:alchemy_language, :klingon) }
 
     after do
@@ -115,7 +115,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
         end
 
         let(:french_language) do
-          french_site.default_language
+          create(:alchemy_language, site: french_site, code: :fr)
         end
 
         before do

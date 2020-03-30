@@ -11,33 +11,50 @@ module Alchemy
     end
 
     describe "#index" do
-      it "should assign @layout_root" do
-        get :index
-        expect(assigns(:layout_root)).to be_a(Page)
-      end
-
-      it "should assign @languages" do
-        get :index
-        expect(assigns(:languages).first).to be_a(Language)
-      end
-
-      context "with multiple sites" do
-        let!(:language) do
-          create(:alchemy_language)
-        end
-
-        let!(:site_2) do
-          create(:alchemy_site, host: 'another-site.com')
-        end
-
-        let(:language_2) do
-          site_2.default_language
-        end
-
-        it 'only shows languages from current site' do
+      context 'with no language present' do
+        it 'redirects to the languages admin' do
           get :index
-          expect(assigns(:languages)).to include(language)
-          expect(assigns(:languages)).to_not include(language_2)
+          expect(response).to redirect_to(admin_languages_path)
+        end
+      end
+
+      context 'with a language present' do
+        let!(:language) { create(:alchemy_language) }
+
+        it "should assign @layout_root" do
+          get :index
+          expect(assigns(:layout_root)).to be_a(Page)
+        end
+
+        it "should assign @languages" do
+          get :index
+          expect(assigns(:languages).first).to be_a(Language)
+        end
+
+        context "with multiple sites" do
+          let!(:site_2) do
+            create(:alchemy_site, host: 'another-site.com')
+          end
+
+          context 'if no language exists for the current site' do
+            it 'redirects to the languages admin' do
+              get :index, session: { alchemy_site_id: site_2.id }
+              expect(response).to redirect_to(admin_languages_path)
+            end
+          end
+
+          context 'if an language exists for the current site' do
+            let!(:language) { create(:alchemy_language) }
+            let!(:language_2) do
+              create(:alchemy_language, site: site_2)
+            end
+
+            it 'only shows languages from current site' do
+              get :index, session: { alchemy_site_id: site_2.id }
+              expect(assigns(:languages)).to_not include(language)
+              expect(assigns(:languages)).to include(language_2)
+            end
+          end
         end
       end
     end

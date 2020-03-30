@@ -11,7 +11,7 @@ FactoryBot.define do
 
     parent_id do
       (Alchemy::Page.find_by(language_root: true) ||
-        FactoryBot.create(:alchemy_page, :language_root)).id
+        FactoryBot.create(:alchemy_page, :language_root, language: language)).id
     end
 
     # This speeds up creating of pages dramatically.

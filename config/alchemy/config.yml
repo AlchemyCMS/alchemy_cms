@@ -85,7 +85,7 @@ default_site:
   name: Default Site
   host: '*'
 
-# This is the default language when a new site gets created.
+# This is the default language when seeding.
 default_language:
   code: en
   name: English

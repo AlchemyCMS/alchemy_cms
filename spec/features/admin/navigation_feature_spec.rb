@@ -13,6 +13,7 @@ RSpec.describe 'Admin navigation feature', type: :system do
   end
 
   context 'editor users' do
+    let!(:default_site) { create(:alchemy_site) }
     before { authorize_user(:as_editor) }
 
     it "can access the languages page" do

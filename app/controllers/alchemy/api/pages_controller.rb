@@ -60,6 +60,8 @@ module Alchemy
     end
 
     def load_page_by_urlname
+      return unless Language.current
+
       Language.current.pages.where(
         urlname: params[:urlname],
         language_code: params[:locale] || Language.current.code
