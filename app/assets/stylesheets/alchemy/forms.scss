@@ -173,6 +173,11 @@ form {
   .input .hint {
     @include form-hint;
     margin-left: $form-left-width;
+
+    a[href] {
+      color: $very-dark-gray;
+      text-decoration: underline;
+    }
   }
 
   .submit {
