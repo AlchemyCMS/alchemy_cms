@@ -708,6 +708,12 @@ en:
 
   # Translations for Alchemy database models
   activerecord:
+    errors:
+      models:
+        alchemy/site:
+          attributes:
+            languages:
+              still_present: "are still attached to this site. Please remove them first."
     models:
       gutentag/tag:
         one: Tag

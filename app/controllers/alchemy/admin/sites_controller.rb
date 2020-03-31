@@ -12,6 +12,15 @@ module Alchemy
           render :new
         end
       end
+
+      def destroy
+        if @site.destroy
+          flash[:notice] = Alchemy.t('Site successfully removed')
+        else
+          flash[:warning] = @site.errors.full_messages.to_sentence
+        end
+        do_redirect_to alchemy.admin_sites_path
+      end
     end
   end
 end

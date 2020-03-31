@@ -26,4 +26,27 @@ describe Alchemy::Admin::SitesController do
       end
     end
   end
+
+  describe "#destroy" do
+    let(:site) { create(:alchemy_site) }
+
+    context 'with languages attached' do
+      let!(:language) { create(:alchemy_language, site: site) }
+
+      it 'returns with error message' do
+        delete :destroy, params: { id: site.id }
+        expect(response).to redirect_to admin_sites_path
+        expect(flash[:warning]).to \
+          eq('Languages are still attached to this site. Please remove them first.')
+      end
+    end
+
+    context 'without languages' do
+      it 'removes the site' do
+        delete :destroy, params: { id: site.id }
+        expect(response).to redirect_to admin_sites_path
+        expect(flash[:notice]).to eq('Website successfully removed.')
+      end
+    end
+  end
 end

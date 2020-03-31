@@ -23,6 +23,11 @@ module Alchemy
     # associations
     has_many :languages
 
+    before_destroy if: -> { languages.any? } do
+      errors.add(:languages, :still_present)
+      throw(:abort)
+    end
+
     scope :published, -> { where(public: true) }
 
     # concerns
