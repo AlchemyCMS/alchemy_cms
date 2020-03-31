@@ -70,6 +70,29 @@ describe Alchemy::Admin::LanguagesController do
     end
   end
 
+  describe "#destroy" do
+    let(:language) { create(:alchemy_language) }
+
+    context 'with pages attached' do
+      let!(:page) { create(:alchemy_page, language: language) }
+
+      it 'returns with error message' do
+        delete :destroy, params: { id: language.id }
+        expect(response).to redirect_to admin_languages_path
+        expect(flash[:warning]).to \
+          eq('Pages are still attached to this language. Please remove them first.')
+      end
+    end
+
+    context 'without pages' do
+      it 'removes the language' do
+        delete :destroy, params: { id: language.id }
+        expect(response).to redirect_to admin_languages_path
+        expect(flash[:notice]).to eq('Language successfully removed.')
+      end
+    end
+  end
+
   describe "#switch" do
     subject(:switch) do
       get :switch, params: { language_id: language.id }

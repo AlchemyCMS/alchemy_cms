@@ -23,13 +23,6 @@ module Alchemy
     end
   end
 
-  class DefaultLanguageNotDeletable < StandardError
-    # Raised if one tries to delete the default language.
-    def message
-      "Default language is not deletable!"
-    end
-  end
-
   class ElementDefinitionError < StandardError
     # Raised if element definition can not be found.
     def initialize(attributes)

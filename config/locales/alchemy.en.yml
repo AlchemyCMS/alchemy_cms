@@ -714,6 +714,10 @@ en:
           attributes:
             languages:
               still_present: "are still attached to this site. Please remove them first."
+        alchemy/language:
+          attributes:
+            pages:
+              still_present: "are still attached to this language. Please remove them first."
     models:
       gutentag/tag:
         one: Tag

@@ -18,6 +18,15 @@ module Alchemy
         )
       end
 
+      def destroy
+        if @language.destroy
+          flash[:notice] = Alchemy.t('Language successfully removed')
+        else
+          flash[:warning] = @language.errors.full_messages.to_sentence
+        end
+        do_redirect_to alchemy.admin_languages_path
+      end
+
       def switch
         set_alchemy_language(params[:language_id])
         do_redirect_to request.referer || alchemy.admin_dashboard_path

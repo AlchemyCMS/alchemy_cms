@@ -54,8 +54,10 @@ module Alchemy
     after_update :unpublish_pages,
       if: :should_unpublish_pages?
 
-    before_destroy :check_for_default
-    after_destroy :delete_language_root_page
+    before_destroy if: -> { pages.any? } do
+      errors.add(:pages, :still_present)
+      throw(:abort)
+    end
 
     scope :published,       -> { where(public: true) }
     scope :with_root_page,  -> { joins(:pages).where(Page.table_name => {language_root: true}) }
@@ -174,14 +176,6 @@ module Alchemy
 
     def set_pages_language
       pages.update_all language_code: code
-    end
-
-    def check_for_default
-      raise DefaultLanguageNotDeletable if default?
-    end
-
-    def delete_language_root_page
-      root_page.try(:destroy) && layout_root_page.try(:destroy)
     end
 
     def should_unpublish_pages?

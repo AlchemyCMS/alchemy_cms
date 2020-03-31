@@ -60,12 +60,6 @@ module Alchemy
       end
     end
 
-    it "should not be deletable if it is the default language" do
-      expect {
-        default_language.destroy
-      }.to raise_error(DefaultLanguageNotDeletable)
-    end
-
     describe "before save" do
       describe "#remove_old_default if default attribute has changed to true" do
         it "should unset the default status of the old default language" do
@@ -298,6 +292,28 @@ module Alchemy
         end
 
         it { is_expected.to eq [] }
+      end
+    end
+
+    describe '#destroy' do
+      let(:language) { create(:alchemy_language) }
+
+      subject { language.destroy }
+
+      context 'without pages' do
+        it 'works' do
+          subject
+          expect(language.errors[:pages]).to be_empty
+        end
+      end
+
+      context 'with pages' do
+        let!(:page) { create(:alchemy_page, language: language) }
+
+        it 'must not work' do
+          subject
+          expect(language.errors[:pages]).to_not be_empty
+        end
       end
     end
   end
