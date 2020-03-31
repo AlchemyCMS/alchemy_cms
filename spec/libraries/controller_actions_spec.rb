@@ -109,6 +109,19 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
         expect(Alchemy::Language.current).to eq(klingon)
       end
 
+      context "if no current site exists" do
+        before do
+          expect(Alchemy::Site).to receive(:current).exactly(:twice) { nil }
+        end
+
+        it "should set the default language" do
+          controller.send :set_alchemy_language
+
+          expect(assigns(:language)).to eq(default_language)
+          expect(Alchemy::Language.current).to eq(default_language)
+        end
+      end
+
       context "if the language is not on the current site" do
         let(:french_site) do
           create(:alchemy_site, host: 'french.fr')
