@@ -18,6 +18,16 @@ module Alchemy
         )
       end
 
+      def create
+        @language = Alchemy::Language.new(resource_params)
+        if @language.save
+          flash[:notice] = Alchemy.t('Language successfully created')
+          redirect_to alchemy.admin_pages_path(language_id: @language)
+        else
+          render :new
+        end
+      end
+
       def destroy
         if @language.destroy
           flash[:notice] = Alchemy.t('Language successfully removed')

@@ -70,6 +70,34 @@ describe Alchemy::Admin::LanguagesController do
     end
   end
 
+  describe "#create" do
+    context 'with valid params' do
+      it 'redirects to the pages admin' do
+        post :create, params: {
+          language: {
+            name: "English",
+            language_code: "en",
+            frontpage_name: "Index",
+            page_layout: "index",
+            public: true,
+            default: true,
+            site_id: create(:alchemy_site)
+          }
+        }
+        language = Alchemy::Language.last
+        expect(response).to redirect_to admin_pages_path(language_id: language)
+        expect(flash[:notice]).to eq('Language successfully created.')
+      end
+    end
+
+    context 'with invalid params' do
+      it 'shows the form again' do
+        post :create, params: { language: { name: '' } }
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+
   describe "#destroy" do
     let(:language) { create(:alchemy_language) }
 
