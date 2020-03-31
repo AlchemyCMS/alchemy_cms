@@ -82,7 +82,7 @@ module Alchemy
     # Load language from session if it's present on current site.
     # Otherwise return nil so we can load the default language from current site.
     def load_alchemy_language_from_session
-      if session[:alchemy_language_id].present?
+      if session[:alchemy_language_id].present? && Site.current
         Site.current.languages.find_by(id: session[:alchemy_language_id])
       end
     end
