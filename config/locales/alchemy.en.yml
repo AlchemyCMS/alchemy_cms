@@ -467,6 +467,7 @@ en:
     no_resource_found:
       default: "No %{resource} found. Please add your first one below."
       alchemy/language: "<h2>Your website does not have any languages yet.</h2><p>You need at least one language to work with. Please create one below.</p>"
+      alchemy/node: "<h2>You do not have any menus yet.</h2><p>With menus your users can navigate your website. You can have multiple menus on your website. How many depends on your website template.</p><p>Please chose which menu you want to create first.</p>"
       alchemy/site: "<h2>You do not have any websites yet.</h2><p>In order to serve requests you need to create a website first.</p><p>This form has been filled with sensible defaults that work in most cases.</p>"
     no_search_results: "Your search did not return any results."
     "not a valid image": "This is not an valid image."
