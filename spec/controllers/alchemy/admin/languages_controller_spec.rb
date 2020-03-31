@@ -54,7 +54,7 @@ describe Alchemy::Admin::LanguagesController do
   describe "#new" do
    context 'without a site' do
       it "redirects to the sites admin" do
-        get :index
+        get :new
         expect(response).to redirect_to(admin_sites_path)
       end
     end
