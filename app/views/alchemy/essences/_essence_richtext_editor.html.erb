@@ -1,4 +1,7 @@
-<div class="content_editor essence_richtext" id="<%= essence_richtext_editor.dom_id %>">
+<%= content_tag :div,
+  id: essence_richtext_editor.dom_id,
+  class: essence_richtext_editor.css_classes,
+  data: essence_richtext_editor.data_attributes do %>
   <%= content_label(essence_richtext_editor) %>
   <div class="tinymce_container">
     <%= text_area_tag(
@@ -8,4 +11,4 @@
       id: "tinymce_#{essence_richtext_editor.id}"
     ) %>
   </div>
-</div>
+<% end %>

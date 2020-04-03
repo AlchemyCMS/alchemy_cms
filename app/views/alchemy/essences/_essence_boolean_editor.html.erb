@@ -1,8 +1,11 @@
-<div class="content_editor essence_boolean" id="<%= essence_boolean_editor.dom_id %>" data-content-id="<%= essence_boolean_editor.id %>">
+<%= content_tag :div,
+  id: essence_boolean_editor.dom_id,
+  class: essence_boolean_editor.css_classes,
+  data: essence_boolean_editor.data_attributes do %>
   <input type="hidden" value="0" name="<%= essence_boolean_editor.form_field_name %>">
   <%= check_box_tag essence_boolean_editor.form_field_name, 1, essence_boolean_editor.ingredient %>
   <label for="<%= essence_boolean_editor.form_field_id %>" style="display: inline">
     <%= render_content_name(essence_boolean_editor) %>
   </label>
   <%= render_hint_for(essence_boolean_editor) %>
-</div>
+<% end %>

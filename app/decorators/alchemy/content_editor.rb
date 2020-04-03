@@ -8,6 +8,20 @@ module Alchemy
       "alchemy/essences/#{essence_partial_name}_editor"
     end
 
+    def css_classes
+      [
+        'content_editor',
+        essence_partial_name
+      ].compact
+    end
+
+    def data_attributes
+      {
+        content_id: id,
+        content_name: name
+      }
+    end
+
     # Returns a string to be passed to Rails form field tags to ensure we have same params layout everywhere.
     #
     # === Example:

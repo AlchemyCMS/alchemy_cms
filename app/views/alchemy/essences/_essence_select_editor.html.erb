@@ -3,10 +3,9 @@
 <%= content_tag :div,
   id: essence_select_editor.dom_id,
   class: [
-    "content_editor",
-    "essence_select",
-    essence_select_editor.settings[:display_inline] ? 'display_inline' : nil
-  ].compact, data: {content_id: essence_select_editor.id} do %>
+    essence_select_editor.css_classes,
+    essence_select_editor.settings[:display_inline] ? 'display_inline' : ''
+  ], data: essence_select_editor.data_attributes do %>
   <%= content_label(essence_select_editor) %>
 
   <% if select_values.nil? %>

@@ -12,7 +12,10 @@
   class: 'file_icon',
   title: Alchemy.t(:assign_file) %>
 
-<div class="content_editor essence_file" id="<%= essence_file_editor.dom_id %>" data-content-id="<%= essence_file_editor.id %>">
+<%= content_tag :div,
+  id: essence_file_editor.dom_id,
+  class: essence_file_editor.css_classes,
+  data: essence_file_editor.data_attributes do %>
   <%= content_label(essence_file_editor) %>
   <div class="file" id="file_<%= essence_file_editor.id %>">
     <% if essence_file_editor.ingredient %>
@@ -39,4 +42,4 @@
     <%= hidden_field_tag essence_file_editor.form_field_name(:attachment_id),
       essence_file_editor.ingredient && essence_file_editor.ingredient.id %>
   </div>
-</div>
+<% end %>

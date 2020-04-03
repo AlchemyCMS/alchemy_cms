@@ -4,11 +4,14 @@
 
   Please consult Alchemy::Content.rb docs for further methods on the content object
 %>
-<div class="content_editor <%= @essence_name.classify.demodulize.underscore %>" id="<%%= <%= @essence_editor_local %>.dom_id %>" data-content-id="<%%= <%= @essence_editor_local %>.id %>">
+<%%= content_tag :div,
+  id: <%= @essence_editor_local %>.dom_id,
+  class: <%= @essence_editor_local %>.css_classes,
+  data: <%= @essence_editor_local %>.data_attributes do %>
   <%%= content_label(<%= @essence_editor_local %>) %>
   <%%= text_field_tag(
     <%= @essence_editor_local %>.form_field_name,
     <%= @essence_editor_local %>.ingredient,
     id: <%= @essence_editor_local %>.form_field_id
   ) %>
-</div>
+<%% end %>

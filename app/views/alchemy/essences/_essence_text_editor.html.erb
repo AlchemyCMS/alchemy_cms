@@ -1,4 +1,9 @@
-<div class="essence_text content_editor<%= essence_text_editor.settings[:display_inline] ? ' display_inline' : '' %>" id="<%= essence_text_editor.dom_id %>">
+<%= content_tag :div,
+  id: essence_text_editor.dom_id,
+  class: [
+    essence_text_editor.css_classes,
+    essence_text_editor.settings[:display_inline] ? 'display_inline' : ''
+  ], data: essence_text_editor.data_attributes do %>
   <%= content_label(essence_text_editor) %>
   <%= text_field_tag(
     essence_text_editor.form_field_name,
@@ -13,4 +18,4 @@
     <%= hidden_field_tag essence_text_editor.form_field_name(:link_target), essence_text_editor.essence.link_target %>
     <%= render 'alchemy/essences/shared/linkable_essence_tools', content: essence_text_editor.content %>
   <% end %>
-</div>
+<% end %>
