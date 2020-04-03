@@ -54,7 +54,7 @@ describe Alchemy::Admin::LanguagesController do
   describe "#new" do
    context 'without a site' do
       it "redirects to the sites admin" do
-        get :index
+        get :new
         expect(response).to redirect_to(admin_sites_path)
       end
     end
@@ -66,6 +66,57 @@ describe Alchemy::Admin::LanguagesController do
         get :new
         expect(assigns(:language).page_layout).
           to eq(Alchemy::Config.get(:default_language)['page_layout'])
+      end
+    end
+  end
+
+  describe "#create" do
+    context 'with valid params' do
+      it 'redirects to the pages admin' do
+        post :create, params: {
+          language: {
+            name: "English",
+            language_code: "en",
+            frontpage_name: "Index",
+            page_layout: "index",
+            public: true,
+            default: true,
+            site_id: create(:alchemy_site)
+          }
+        }
+        language = Alchemy::Language.last
+        expect(response).to redirect_to admin_pages_path(language_id: language)
+        expect(flash[:notice]).to eq('Language successfully created.')
+      end
+    end
+
+    context 'with invalid params' do
+      it 'shows the form again' do
+        post :create, params: { language: { name: '' } }
+        expect(response).to render_template(:new)
+      end
+    end
+  end
+
+  describe "#destroy" do
+    let(:language) { create(:alchemy_language) }
+
+    context 'with pages attached' do
+      let!(:page) { create(:alchemy_page, language: language) }
+
+      it 'returns with error message' do
+        delete :destroy, params: { id: language.id }
+        expect(response).to redirect_to admin_languages_path
+        expect(flash[:warning]).to \
+          eq('Pages are still attached to this language. Please remove them first.')
+      end
+    end
+
+    context 'without pages' do
+      it 'removes the language' do
+        delete :destroy, params: { id: language.id }
+        expect(response).to redirect_to admin_languages_path
+        expect(flash[:notice]).to eq('Language successfully removed.')
       end
     end
   end

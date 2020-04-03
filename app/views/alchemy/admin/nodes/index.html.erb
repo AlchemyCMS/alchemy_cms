@@ -16,7 +16,7 @@
         size: '450x120'
       },
       if_permitted_to: [:create, Alchemy::Node]
-    ) %>
+    ) if @root_nodes.any? %>
   </div>
 <% end %>
 
@@ -31,7 +31,7 @@
   <% else %>
     <div class="panel no-resource-found">
       <%= render_message do %>
-        <%= Alchemy.t(:no_resource_found) % { resource: Alchemy.t(:menu) } %>
+        <%== Alchemy.t('alchemy/node', scope: :no_resource_found) %>
       <% end %>
       <%= render 'form', node: Alchemy::Node.new(
           site: Alchemy::Site.current,

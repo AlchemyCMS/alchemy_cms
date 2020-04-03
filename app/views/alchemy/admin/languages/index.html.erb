@@ -3,7 +3,8 @@
 <% content_for :toolbar do %>
   <div class="toolbar_buttons">
     <%= render 'alchemy/admin/partials/site_select' %>
-    <%= toolbar_button icon: :plus,
+    <%= toolbar_button(
+      icon: :plus,
       label: label_title,
       url: new_resource_path,
       title: label_title,
@@ -12,12 +13,30 @@
         title: label_title,
         size: "430x415"
       },
-      if_permitted_to: [:create, Alchemy::Language] %>
+      if_permitted_to: [:create, Alchemy::Language]
+    ) if @languages.any? %>
   </div>
   <%= render 'alchemy/admin/partials/search_form' %>
 <% end %>
 
 <div id="archive_all" class="resources-table-wrapper">
-  <%= render 'alchemy/admin/resources/table_header' %>
-  <%= render 'table' %>
+  <% if @languages.any? %>
+    <%= render 'alchemy/admin/resources/table_header' %>
+    <%= render 'table' %>
+  <% elsif search_filter_params[:q].present? %>
+    <%= render_message { Alchemy.t('Nothing found') } %>
+  <% else %>
+    <div class="panel no-resource-found">
+      <%= render_message do %>
+        <%== Alchemy.t('alchemy/language', scope: :no_resource_found) %>
+      <% end %>
+      <%= render 'form', language: Alchemy::Language.new(
+        Alchemy::Config.get(:default_language).merge(
+          site: Alchemy::Site.current,
+          default: true,
+          public: true
+        )
+      ) %>
+    </div>
+  <% end %>
 </div>

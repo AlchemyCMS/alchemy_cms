@@ -193,5 +193,27 @@ module Alchemy
         expect(site_default_language).to_not eq(other_language)
       end
     end
+
+    describe '#destroy' do
+      let(:site) { create(:alchemy_site) }
+
+      subject { site.destroy }
+
+      context 'without languages' do
+        it 'works' do
+          subject
+          expect(site.errors[:languages]).to be_empty
+        end
+      end
+
+      context 'with languages' do
+        let!(:language) { create(:alchemy_language, site: site) }
+
+        it 'must not work' do
+          subject
+          expect(site.errors[:languages]).to_not be_empty
+        end
+      end
+    end
   end
 end

@@ -3,7 +3,7 @@
 module Alchemy
   module Admin
     class NodesController < Admin::ResourcesController
-      include Alchemy::Admin::LanguageNeededRedirect
+      include Alchemy::Admin::CurrentLanguage
 
       def index
         @root_nodes = Node.language_root_nodes
@@ -13,7 +13,7 @@ module Alchemy
         @node = Node.new(
           site: Alchemy::Site.current,
           parent_id: params[:parent_id],
-          language: Language.current
+          language: @current_language
         )
       end
 
