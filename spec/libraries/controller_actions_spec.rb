@@ -55,7 +55,7 @@ describe 'Alchemy::ControllerActions', type: 'controller' do
 
   describe "#set_alchemy_language" do
     let!(:default_language) { create(:alchemy_language, code: :en) }
-    let(:klingon)          { create(:alchemy_language, :klingon) }
+    let(:klingon) { create(:alchemy_language, :klingon) }
 
     after do
       # We must never change the app's locale
