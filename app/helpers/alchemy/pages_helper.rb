@@ -81,7 +81,10 @@ module Alchemy
     # @param [String] - Name of the menu
     # @param [Hash] - A set of options available in your menu partials
     def render_menu(name, options = {})
-      root_node = Alchemy::Node.roots.find_by(name: name, site: Alchemy::Site.current)
+      root_node = Alchemy::Node.roots.find_by(
+        name: name,
+        language: Alchemy::Language.current
+      )
       if root_node.nil?
         warning("Menu with name #{name} not found!")
         return
