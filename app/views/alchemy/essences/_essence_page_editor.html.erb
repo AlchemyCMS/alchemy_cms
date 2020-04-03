@@ -1,4 +1,7 @@
-<div class="content_editor essence_page" id="<%= essence_page_editor.dom_id %>" data-content-id="<%= essence_page_editor.id %>">
+<%= content_tag :div,
+  id: essence_page_editor.dom_id,
+  class: essence_page_editor.css_classes,
+  data: essence_page_editor.data_attributes do %>
   <%= content_label(essence_page_editor) %>
   <%= text_field_tag(
     essence_page_editor.form_field_name,
@@ -6,7 +9,7 @@
     id: essence_page_editor.form_field_id,
     class: 'alchemy_selectbox full_width'
   ) %>
-</div>
+<% end %>
 
 <script>
   $('#<%= essence_page_editor.form_field_id %>').alchemyPageSelect({

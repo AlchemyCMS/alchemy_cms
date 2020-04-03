@@ -13,6 +13,26 @@ RSpec.describe Alchemy::ContentEditor do
     end
   end
 
+  describe "#css_classes" do
+    it "includes content_editor class" do
+      expect(content_editor.css_classes).to include('content_editor')
+    end
+
+    it "includes essence partial class" do
+      expect(content_editor.css_classes).to include(content_editor.essence_partial_name)
+    end
+  end
+
+  describe "#data_attributes" do
+    it "includes content_id" do
+      expect(content_editor.data_attributes[:content_id]).to eq(content_editor.id)
+    end
+
+    it "includes content_name" do
+      expect(content_editor.data_attributes[:content_name]).to eq(content_editor.name)
+    end
+  end
+
   describe '#to_partial_path' do
     subject { content_editor.to_partial_path }
 

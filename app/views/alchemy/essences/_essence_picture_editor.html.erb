@@ -1,6 +1,9 @@
 <% options = local_assigns.fetch(:options, {}) %>
 
-<%= content_tag :div, id: essence_picture_editor.dom_id, data: {"content-id" => essence_picture_editor.id}, class: "content_editor essence_picture" do %>
+<%= content_tag :div,
+  id: essence_picture_editor.dom_id,
+  class: essence_picture_editor.css_classes,
+  data: essence_picture_editor.data_attributes do %>
   <%= content_label(essence_picture_editor) %>
   <div class="picture_thumbnail">
     <span class="picture_tool delete">

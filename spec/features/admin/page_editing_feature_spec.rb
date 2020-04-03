@@ -127,18 +127,32 @@ RSpec.describe 'Page editing feature', type: :system do
         create(:alchemy_page, page_layout: 'everything', autogenerate_elements: true)
       end
 
-      it "renders essence editors for all elements" do
+      it "renders essence editors for all element contents" do
         visit alchemy.admin_elements_path(page_id: everything_page.id)
 
         expect(page).to have_selector('div.content_editor.essence_boolean')
         expect(page).to have_selector('div.content_editor.essence_date')
         expect(page).to have_selector('div.content_editor.essence_file')
-        expect(page).to have_selector('div.content_editor.essence_html_editor')
+        expect(page).to have_selector('div.content_editor.essence_html')
         expect(page).to have_selector('div.content_editor.essence_link')
         expect(page).to have_selector('div.content_editor.essence_picture')
         expect(page).to have_selector('div.content_editor.essence_richtext')
         expect(page).to have_selector('div.content_editor.essence_select')
         expect(page).to have_selector('div.content_editor.essence_text')
+      end
+
+      it "renders data attribute based on content name" do
+        visit alchemy.admin_elements_path(page_id: everything_page.id)
+
+        expect(page).to have_selector('div[data-content-name=essence_boolean]')
+        expect(page).to have_selector('div[data-content-name=essence_date]')
+        expect(page).to have_selector('div[data-content-name=essence_file]')
+        expect(page).to have_selector('div[data-content-name=essence_html]')
+        expect(page).to have_selector('div[data-content-name=essence_link]')
+        expect(page).to have_selector('div[data-content-name=essence_picture]')
+        expect(page).to have_selector('div[data-content-name=essence_richtext]')
+        expect(page).to have_selector('div[data-content-name=essence_select]')
+        expect(page).to have_selector('div[data-content-name=essence_text]')
       end
     end
   end
