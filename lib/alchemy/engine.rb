@@ -41,7 +41,7 @@ module Alchemy
       if app.config.public_file_server.enabled
         app.middleware.use(
           Rack::Static,
-          urls: ['/alchemy-packs'],
+          urls: ['/alchemy-packs', '/alchemy-packs-test'],
           root: Alchemy::ROOT_PATH.join('public')
         )
       end
