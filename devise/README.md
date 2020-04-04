@@ -1,4 +1,4 @@
-## Devise based authentication for AlchemyCMS 4.2
+## Devise based authentication for AlchemyCMS
 
 [![Build Status](https://secure.travis-ci.org/AlchemyCMS/alchemy-devise.svg?branch=master)](http://travis-ci.org/AlchemyCMS/alchemy-devise)
 
@@ -12,7 +12,7 @@ Just put the gem into your projects `Gemfile`.
 
 ```ruby
 # Gemfile
-gem 'alchemy-devise', github: 'AlchemyCMS/alchemy-devise', branch: '4.2-stable'
+gem 'alchemy-devise'
 ```
 
 and run `bundle install`.
