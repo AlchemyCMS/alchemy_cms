@@ -1,3 +1,8 @@
+## 4.5.0 (2020-04-04)
+
+- Remove alchemy controller requests test helper [#100](https://github.com/AlchemyCMS/alchemy-devise/pull/100) ([tvdeyen](https://github.com/tvdeyen))
+- Move session controllers into admin module namespace [#97](https://github.com/AlchemyCMS/alchemy-devise/pull/97) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.4.0 (2019-01-09)
 
 - Set Alchemy.logout_method to Devise.sign_out_via [#96](https://github.com/AlchemyCMS/alchemy-devise/pull/96) ([tvdeyen](https://github.com/tvdeyen))
@@ -48,5 +53,3 @@
 - Send code coverage results after successful build [#60](https://github.com/AlchemyCMS/alchemy-devise/pull/60) ([tvdeyen](https://github.com/tvdeyen))
 - Allow to configure devise modules [#59](https://github.com/AlchemyCMS/alchemy-devise/pull/59) ([tvdeyen](https://github.com/tvdeyen))
 - Rails 5, Alchemy 4, Devise 4 [#58](https://github.com/AlchemyCMS/alchemy-devise/pull/58) ([tvdeyen](https://github.com/tvdeyen))
-
-
