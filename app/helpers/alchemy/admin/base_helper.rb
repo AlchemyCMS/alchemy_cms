@@ -19,7 +19,11 @@ module Alchemy
       include ::Webpacker::Helper
 
       def current_webpacker_instance
-        Alchemy.webpacker
+        if controller_name == 'pages' && action_name == 'show'
+          super
+        else
+          Alchemy.webpacker
+        end
       end
 
       # Returns a string showing the name of the currently logged in user.
