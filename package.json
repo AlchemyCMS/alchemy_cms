@@ -23,11 +23,12 @@
     "url": "https://github.com/AlchemyCMS/alchemy_cms/issues"
   },
   "homepage": "https://github.com/AlchemyCMS/alchemy_cms#readme",
-  "devDependencies": {
-    "webpack": "^4.42.1",
-    "webpack-dev-server": "^3.10.3"
-  },
   "dependencies": {
     "@rails/webpacker": "^5.0.1"
+  },
+  "devDependencies": {
+    "prettier": "^2.0.2",
+    "webpack": "^4.42.1",
+    "webpack-dev-server": "^3.10.3"
   }
 }
