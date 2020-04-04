@@ -36,12 +36,15 @@ module Alchemy
       end
     end
 
-    initializer "alchemy.webpacker.proxy" do |app|
-      app.middleware.insert_before(
-        0, Webpacker::DevServerProxy,
-        ssl_verify_none: true,
-        webpacker: Alchemy.webpacker
-      )
+    # Serve webpacks if public file server enabled
+    initializer 'alchemy.webpacker.middleware' do |app|
+      if app.config.public_file_server.enabled
+        app.middleware.use(
+          Rack::Static,
+          urls: ['/alchemy-packs'],
+          root: Alchemy::ROOT_PATH.join('public')
+        )
+      end
     end
 
     config.after_initialize do
