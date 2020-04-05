@@ -34,7 +34,6 @@
 //= require alchemy/alchemy.growler
 //= require alchemy/alchemy.gui
 //= require alchemy/alchemy.hotkeys
-//= require alchemy/alchemy.i18n
 //= require alchemy/alchemy.image_cropper
 //= require alchemy/alchemy.image_overlay
 //= require alchemy/alchemy.string_extension
@@ -49,6 +48,5 @@
 //= require alchemy/alchemy.spinner
 //= require alchemy/alchemy.tinymce
 //= require alchemy/alchemy.tooltips
-//= require alchemy/alchemy.translations
 //= require alchemy/alchemy.trash_window
 //= require alchemy/page_select

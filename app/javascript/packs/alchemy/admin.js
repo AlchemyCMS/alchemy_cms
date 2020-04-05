@@ -1,3 +1,12 @@
-import hello from 'alchemy/admin/hello'
+import translate from "alchemy/admin/i18n"
 
-hello('Alchemy')
+// Global Alchemy object
+if (typeof window.Alchemy === "undefined") {
+  window.Alchemy = {}
+}
+
+// Global utility method for translating a given string
+//
+Alchemy.t = (key, replacement) => {
+  return translate(key, replacement)
+}
