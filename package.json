@@ -24,7 +24,8 @@
   },
   "homepage": "https://github.com/AlchemyCMS/alchemy_cms#readme",
   "dependencies": {
-    "@rails/webpacker": "^5.0.1"
+    "@rails/webpacker": "^5.0.1",
+    "core-js": "^3"
   },
   "devDependencies": {
     "prettier": "^2.0.2",
