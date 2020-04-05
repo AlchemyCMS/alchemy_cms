@@ -10,7 +10,7 @@
     "lib": "app/javascript"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "repository": {
     "type": "git",
@@ -28,8 +28,18 @@
     "core-js": "^3"
   },
   "devDependencies": {
+    "babel-jest": "^25.2.6",
+    "jest": "^25.2.7",
     "prettier": "^2.0.2",
     "webpack": "^4.42.1",
     "webpack-dev-server": "^3.10.3"
+  },
+  "jest": {
+    "globals": {
+      "Alchemy": {}
+    },
+    "roots": [
+      "app/javascript"
+    ]
   }
 }
