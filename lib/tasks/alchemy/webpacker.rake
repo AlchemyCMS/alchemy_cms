@@ -34,10 +34,18 @@ namespace :alchemy do
 end
 
 # Compile packs after compiled all other assets during precompilation
-Rake::Task["assets:precompile"].enhance do
-  Rake::Task["alchemy:webpacker:compile"].invoke
+if Rake::Task.task_defined?("assets:precompile")
+  Rake::Task["assets:precompile"].enhance do
+    Rake::Task["alchemy:webpacker:compile"].invoke
+  end
+else
+  Rake::Task.define_task("assets:precompile" => "alchemy:webpacker:compile")
 end
 
-Rake::Task["yarn:install"].enhance do
-  Rake::Task["alchemy:yarn:install"].invoke
+if Rake::Task.task_defined?("yarn:install")
+  Rake::Task["yarn:install"].enhance do
+    Rake::Task["alchemy:yarn:install"].invoke
+  end
+else
+  Rake::Task.define_task("yarn:install" => "alchemy:yarn:install")
 end
