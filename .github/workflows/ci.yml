@@ -109,3 +109,20 @@ jobs:
         with:
           name: Screenshots
           path: spec/dummy/tmp/screenshots
+  Jest:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v1
+      - name: Restore node modules cache
+        uses: actions/cache@preview
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install yarn
+        run: yarn install
+      - name: Run jest
+        run: yarn jest
