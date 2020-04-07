@@ -25,7 +25,8 @@
   "homepage": "https://github.com/AlchemyCMS/alchemy_cms#readme",
   "dependencies": {
     "@rails/webpacker": "^5.0.1",
-    "core-js": "^3"
+    "core-js": "^3",
+    "sortablejs": "^1.10.2"
   },
   "devDependencies": {
     "babel-jest": "^25.2.6",

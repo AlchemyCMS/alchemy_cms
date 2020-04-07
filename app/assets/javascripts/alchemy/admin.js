@@ -15,7 +15,6 @@
 //= require requestAnimationFrame
 //= require select2
 //= require handlebars
-//= require sortable/Sortable.min
 //= require alchemy/templates
 //= require alchemy/alchemy.base
 //= require alchemy/alchemy.utils
