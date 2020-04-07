@@ -1,5 +1,6 @@
 import Sortable from "sortablejs"
-import { on, ajax } from "./utils"
+import ajax from "./utils/ajax"
+import { on } from "./utils/events"
 
 function displayNodeFolders() {
   document.querySelectorAll("li.menu-item").forEach((el) => {
