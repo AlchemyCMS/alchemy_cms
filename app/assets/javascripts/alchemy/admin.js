@@ -17,7 +17,6 @@
 //= require handlebars
 //= require alchemy/templates
 //= require alchemy/alchemy.base
-//= require alchemy/alchemy.utils
 //= require alchemy/alchemy.autocomplete
 //= require alchemy/alchemy.browser
 //= require alchemy/alchemy.buttons
@@ -39,7 +38,6 @@
 //= require alchemy/alchemy.link_dialog
 //= require alchemy/alchemy.list_filter
 //= require alchemy/alchemy.initializer
-//= require alchemy/alchemy.node_tree
 //= require alchemy/alchemy.page_sorter
 //= require alchemy/alchemy.uploader
 //= require alchemy/alchemy.preview_window
