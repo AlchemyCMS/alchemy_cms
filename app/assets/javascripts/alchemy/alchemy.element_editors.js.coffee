@@ -179,8 +179,6 @@ Alchemy.ElementEditors =
     if data.message == 'Alchemy.focusElementEditor'
       $element = $("#element_#{data.element_id}")
       Alchemy.ElementEditors.focusElement($element)
-    else
-      console.warn 'Unknown message received!', data
 
   onClickBody: (e) ->
     element = $(e.target).parents('.element-editor')[0]

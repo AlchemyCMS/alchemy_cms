@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require "webpacker/helper"
+
 module Alchemy
   module Admin
     # This module contains helper methods for rendering dialogs, toolbar buttons and confirmation windows.
@@ -14,6 +16,15 @@ module Alchemy
     module BaseHelper
       include Alchemy::BaseHelper
       include Alchemy::Admin::NavigationHelper
+      include ::Webpacker::Helper
+
+      def current_webpacker_instance
+        if controller_name == 'pages' && action_name == 'show'
+          super
+        else
+          Alchemy.webpacker
+        end
+      end
 
       # Returns a string showing the name of the currently logged in user.
       #

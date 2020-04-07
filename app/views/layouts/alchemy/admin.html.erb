@@ -36,6 +36,7 @@
     </script>
     <%= render 'alchemy/admin/partials/routes' %>
     <%= javascript_include_tag('alchemy/admin/all', 'data-turbolinks-track' => true) %>
+    <%= javascript_pack_tag('alchemy/admin') %>
     <%= yield :javascript_includes %>
   </head>
   <%= content_tag :body, id: 'alchemy', class: alchemy_body_class do %>

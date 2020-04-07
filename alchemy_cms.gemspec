@@ -41,6 +41,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'simple_form',                      ['>= 4.0', '< 6']
   gem.add_runtime_dependency 'sprockets',                        ['>= 3.0', '< 5']
   gem.add_runtime_dependency 'turbolinks',                       ['>= 2.5']
+  gem.add_runtime_dependency 'webpacker',                        ['>= 4.0', '< 6']
 
   gem.add_development_dependency 'capybara',                     ['~> 3.0']
   gem.add_development_dependency 'capybara-screenshot',          ['~> 1.0']
