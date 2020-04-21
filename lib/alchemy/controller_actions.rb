@@ -49,7 +49,7 @@ module Alchemy
     # Returns the current site.
     #
     def current_alchemy_site
-      @current_alchemy_site ||= Site.find_for_host(request.host)
+      @current_alchemy_site ||= Site.published.find_for_host(request.host)
     end
 
     # Sets the current site in a cvar so the Language model

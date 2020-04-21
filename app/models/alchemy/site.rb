@@ -66,7 +66,7 @@ module Alchemy
       end
 
       def default
-        Site.first
+        Site.published.first
       end
 
       def find_for_host(host)
