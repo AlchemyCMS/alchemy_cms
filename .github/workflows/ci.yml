@@ -41,7 +41,7 @@ jobs:
           MYSQL_PASSWORD: password
           MYSQL_DATABASE: alchemy_cms_dummy_test
           MYSQL_ROOT_PASSWORD: password
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
       - uses: actions/checkout@v1
       - name: Set up Ruby
@@ -99,7 +99,7 @@ jobs:
         run: |
           bundle exec rake alchemy:spec:prepare
       - name: Run tests & publish code coverage
-        uses: paambaati/codeclimate-action@v2.5.6
+        uses: paambaati/codeclimate-action@v2.5.7
         env:
           CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
         with:
@@ -127,7 +127,7 @@ jobs:
       - name: Run jest
         run: yarn jest
       - name: Run jest & publish code coverage
-        uses: paambaati/codeclimate-action@v2.5.6
+        uses: paambaati/codeclimate-action@v2.5.7
         env:
           CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
         with:
