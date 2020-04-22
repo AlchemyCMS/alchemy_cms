@@ -42,7 +42,7 @@ jobs:
           MYSQL_PASSWORD: password
           MYSQL_DATABASE: alchemy_cms_dummy_test
           MYSQL_ROOT_PASSWORD: password
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
       - uses: actions/checkout@v1
       - name: Set up Ruby
@@ -89,15 +89,12 @@ jobs:
       - name: Prepare database
         run: |
           bundle exec rake alchemy:spec:prepare
-      - name: Install code climate test reporter
-        run: |
-          curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-          chmod +x ./cc-test-reporter
-          ./cc-test-reporter before-build
-      - name: Test with RSpec
-        run: |
-          bundle exec rspec
-          ./cc-test-reporter after-build --exit-code $?
+      - name: Run tests & publish code coverage
+        uses: paambaati/codeclimate-action@v2.5.7
+        env:
+          CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
+        with:
+          coverageCommand: bundle exec rspec
       - uses: actions/upload-artifact@master
         if: failure()
         with:
