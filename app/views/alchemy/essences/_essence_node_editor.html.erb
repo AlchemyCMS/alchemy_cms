@@ -1,0 +1,21 @@
+<%#
+  Available locals:
+  * content (The object the essence is linked to the element)
+  * html_options
+
+  Please consult Alchemy::Content.rb docs for further methods on the content object
+%>
+<div class="content_editor essence_node" id="<%= content.dom_id %>" data-content-id="<%= content.id %>">
+  <%= content_label(content) %>
+   <%= select_tag(
+    content.form_field_name,
+    options_from_collection_for_select(
+      local_assigns.fetch(:options, {})[:nodes] || Alchemy::Node.where(site: Alchemy::Site.current),
+      :id,
+      :name,
+      content.essence.node_id
+    ),
+    include_blank: t(".none"),
+    class: "alchemy_selectbox essence_editor_select full_width"
+  ) %>
+</div>
