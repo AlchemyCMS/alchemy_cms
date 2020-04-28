@@ -30,12 +30,11 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "essence_type", null: false
     t.integer "essence_id", null: false
     t.integer "element_id", null: false
-    t.integer "position"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "creator_id"
     t.integer "updater_id"
-    t.index ["element_id", "position"], name: "index_contents_on_element_id_and_position"
+    t.index ["element_id"], name: "index_contents_on_element_id"
     t.index ["essence_id", "essence_type"], name: "index_alchemy_contents_on_essence_id_and_essence_type", unique: true
   end
 
