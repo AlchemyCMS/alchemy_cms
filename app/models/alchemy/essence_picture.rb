@@ -14,8 +14,6 @@
 #  link_title      :string
 #  css_class       :string
 #  link_target     :string
-#  creator_id      :integer
-#  updater_id      :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #  crop_from       :string

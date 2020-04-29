@@ -11,8 +11,6 @@
 #  link_class_name :string
 #  public          :boolean          default(FALSE)
 #  link_target     :string
-#  creator_id      :integer
-#  updater_id      :integer
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
