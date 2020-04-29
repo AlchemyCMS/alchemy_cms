@@ -1,7 +1,7 @@
 # Relaxed.Ruby.Style
 
 AllCops:
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
   Exclude:
     - 'bin/rspec'
     - 'vendor/**/*'
@@ -9,6 +9,7 @@ AllCops:
     - 'spec/dummy/config/**/*'
     - 'alchemy_cms.gemspec'
     - 'Rakefile'
+    - 'node_modules/**/*'
 
 # Really, rubocop?
 Bundler/OrderedGems:
