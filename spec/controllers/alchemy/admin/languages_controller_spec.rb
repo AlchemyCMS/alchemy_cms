@@ -57,17 +57,17 @@ describe Alchemy::Admin::LanguagesController do
         get :new
         expect(response).to redirect_to(admin_sites_path)
       end
-    end
+   end
 
-    context 'with a site' do
-      let!(:site) { create(:alchemy_site) }
+   context 'with a site' do
+     let!(:site) { create(:alchemy_site) }
 
-      it "has default language's page_layout set" do
-        get :new
-        expect(assigns(:language).page_layout).
-          to eq(Alchemy::Config.get(:default_language)['page_layout'])
-      end
-    end
+     it "has default language's page_layout set" do
+       get :new
+       expect(assigns(:language).page_layout).
+         to eq(Alchemy::Config.get(:default_language)['page_layout'])
+     end
+   end
   end
 
   describe "#create" do

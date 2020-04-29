@@ -27,6 +27,7 @@ module Alchemy
     #
     def set_locale
       return unless Language.current
+
       ::I18n.locale = Language.current&.locale
     end
 

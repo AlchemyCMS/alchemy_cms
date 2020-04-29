@@ -46,7 +46,6 @@ module Alchemy
       end
     end
 
-
     describe '#toggle_folded' do
       context 'with expanded node' do
         let(:node) { create(:alchemy_node, folded: false) }
