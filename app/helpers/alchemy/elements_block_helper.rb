@@ -33,7 +33,7 @@ module Alchemy
         helpers.render(content, {
           content: content,
           options: options,
-          html_options: html_options
+          html_options: html_options,
         })
       end
 
@@ -107,7 +107,7 @@ module Alchemy
         tag: :div,
         id: element_dom_id(element),
         class: element.name,
-        tags_formatter: ->(tags) { tags.join(" ") }
+        tags_formatter: ->(tags) { tags.join(" ") },
       }.merge(options)
 
       # capture inner template block

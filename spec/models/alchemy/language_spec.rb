@@ -15,7 +15,7 @@ module Alchemy
         name: 'Österreich',
         frontpage_name: 'Start',
         page_layout: 'index',
-        site: build(:alchemy_site)
+        site: build(:alchemy_site),
       )
       expect(language).to be_valid
     end

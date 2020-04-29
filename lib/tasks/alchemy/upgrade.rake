@@ -5,7 +5,7 @@ require 'alchemy/version'
 namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
-    'alchemy:upgrade:prepare'
+    'alchemy:upgrade:prepare',
   ] do
     Alchemy::Upgrader.display_todos
   end
@@ -14,7 +14,7 @@ namespace :alchemy do
     desc 'Alchemy Upgrader: Prepares the database and updates Alchemys configuration file.'
     task prepare: [
       'alchemy:upgrade:database',
-      'alchemy:upgrade:config'
+      'alchemy:upgrade:config',
     ]
 
     desc "Alchemy Upgrader: Prepares the database."
@@ -22,7 +22,7 @@ namespace :alchemy do
       'alchemy:upgrade:5.0:install_gutentag_migrations',
       'alchemy:install:migrations',
       'db:migrate',
-      'alchemy:db:seed'
+      'alchemy:db:seed',
     ]
 
     desc "Alchemy Upgrader: Copy configuration file."
@@ -32,7 +32,7 @@ namespace :alchemy do
 
     desc 'Upgrade Alchemy to v5.0'
     task '5.0' => [
-      'alchemy:upgrade:prepare'
+      'alchemy:upgrade:prepare',
     ] do
       Alchemy::Upgrader.display_todos
     end

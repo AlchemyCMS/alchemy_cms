@@ -55,7 +55,7 @@ module Alchemy
           let(:params) do
             ActionController::Parameters.new(
               filter: 'foo',
-              q: {name_eq: 'foo'}
+              q: {name_eq: 'foo'},
             )
           end
 

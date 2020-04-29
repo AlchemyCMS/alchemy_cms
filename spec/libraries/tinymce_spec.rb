@@ -27,16 +27,16 @@ module Alchemy
           'name' => 'text',
           'settings' => {
             'tinymce' => {
-              'foo' => 'bar'
-            }
-          }
+              'foo' => 'bar',
+            },
+          },
         }
       end
 
       let(:element_definition) do
         {
           'name' => 'article',
-          'contents' => [content_definition]
+          'contents' => [content_definition],
         }
       end
 
@@ -57,7 +57,7 @@ module Alchemy
         and element name" do
           is_expected.to be_an(Array)
           is_expected.to include({
-            'element' => element_definition['name']
+            'element' => element_definition['name'],
           }.merge(content_definition))
         end
 
@@ -73,7 +73,7 @@ module Alchemy
           let(:element_definition) do
             {
               'name' => 'element',
-              'contents' => nil
+              'contents' => nil,
             }
           end
 
@@ -89,9 +89,9 @@ module Alchemy
               'contents' => [
                 'name' => 'headline',
                 'settings' => {
-                  'tinymce' => true
-                }
-              ]
+                  'tinymce' => true,
+                },
+              ],
             }
           end
 
@@ -106,14 +106,14 @@ module Alchemy
               element_definition,
               {
                 'name' => 'nested_element',
-                'contents' => [content_definition]
-              }
+                'contents' => [content_definition],
+              },
             ]
           end
 
           it 'includes these configs' do
             is_expected.to include({
-              'element' => element_definition['name']
+              'element' => element_definition['name'],
             }.merge(content_definition))
           end
         end

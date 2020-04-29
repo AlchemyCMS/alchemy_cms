@@ -9,7 +9,7 @@ RSpec.shared_examples :redirecting_to_picture_library do
       page: 2,
       q: {name_or_image_file_name_cont: 'kitten'},
       size: 'small',
-      tagged_with: 'cat'
+      tagged_with: 'cat',
     }
   end
 
@@ -252,7 +252,7 @@ module Alchemy
       it_behaves_like :redirecting_to_picture_library do
         let(:subject) do
           delete :delete_multiple, params: {
-            picture_ids: %w(1 2)
+            picture_ids: %w(1 2),
           }.merge(params)
         end
       end

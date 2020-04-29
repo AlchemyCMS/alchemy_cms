@@ -21,7 +21,7 @@ RSpec.describe Alchemy::ElementSerializer do
       'page_id' => element.page_id,
       'position' => nil,
       'tag_list' => [],
-      'updated_at' => element.updated_at.strftime('%FT%T.%LZ')
+      'updated_at' => element.updated_at.strftime('%FT%T.%LZ'),
     )
   end
 end

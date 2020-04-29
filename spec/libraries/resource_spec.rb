@@ -36,8 +36,8 @@ module Alchemy
           "name" => "modules.party_list",
           "controller" => "/admin/parties",
           "action" => "index",
-          "image" => "/assets/party_list_module.png"
-        }
+          "image" => "/assets/party_list_module.png",
+        },
       }
     end
 
@@ -49,7 +49,7 @@ module Alchemy
         double(:column, {name: 'id', type: :integer, array: false}),
         double(:column, {name: 'starts_at', type: :datetime, array: false}),
         double(:column, {name: 'location_id', type: :integer, array: false}),
-        double(:column, {name: 'organizer_id', type: :integer, array: false})
+        double(:column, {name: 'organizer_id', type: :integer, array: false}),
       ]
     end
 
@@ -182,7 +182,7 @@ module Alchemy
           {name: "description", type: :text},
           {name: "starts_at", type: :datetime},
           {name: "location_id", type: :integer},
-          {name: "organizer_id", type: :integer}
+          {name: "organizer_id", type: :integer},
         ])
       end
 
@@ -255,7 +255,7 @@ module Alchemy
         before do
           allow(Party).to receive(:alchemy_resource_relations) do
             {
-              location: {attr_method: "name", attr_type: :string}
+              location: {attr_method: "name", attr_type: :string},
             }
           end
         end
@@ -269,7 +269,7 @@ module Alchemy
         let(:columns) do
           [
             double(:column, {name: 'name', type: :string, array: false}),
-            double(:column, {name: 'languages', type: :string, array: true})
+            double(:column, {name: 'languages', type: :string, array: true}),
           ]
         end
 
@@ -295,7 +295,7 @@ module Alchemy
           double(:column, {name: 'name', type: :string}),
           double(:column, {name: 'title', type: :string}),
           double(:column, {name: 'synced_at', type: :datetime}),
-          double(:column, {name: 'remote_record_id', type: :string})
+          double(:column, {name: 'remote_record_id', type: :string}),
         ]
       end
 
@@ -318,7 +318,7 @@ module Alchemy
           double(:column, {name: 'title', type: :string}),
           double(:column, {name: 'name', type: :string}),
           double(:column, {name: 'updated_at', type: :datetime}),
-          double(:column, {name: 'public', type: :boolean})
+          double(:column, {name: 'public', type: :boolean}),
         ]
       end
 
@@ -327,7 +327,7 @@ module Alchemy
           {name: "name", type: :string},
           {name: "title", type: :string},
           {name: "public", type: :boolean},
-          {name: "updated_at", type: :datetime}
+          {name: "updated_at", type: :datetime},
         ])
       end
     end
@@ -338,7 +338,7 @@ module Alchemy
       before do
         allow(Event).to receive(:alchemy_resource_relations) do
           {
-            location: {attr_method: "name", attr_type: :string}
+            location: {attr_method: "name", attr_type: :string},
           }
         end
       end

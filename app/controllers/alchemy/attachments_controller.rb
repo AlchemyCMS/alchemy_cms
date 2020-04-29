@@ -13,8 +13,8 @@ module Alchemy
         {
           filename: @attachment.file_name,
           type: @attachment.file_mime_type,
-          disposition: 'inline'
-        }
+          disposition: 'inline',
+        },
       )
     end
 
@@ -24,7 +24,7 @@ module Alchemy
       send_file(
         @attachment.file.path, {
           filename: @attachment.file_name,
-          type: @attachment.file_mime_type
+          type: @attachment.file_mime_type,
         }
       )
     end

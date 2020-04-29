@@ -112,8 +112,8 @@ module Alchemy
           as: 'string',
           input_html: {
             'data-datepicker-type' => input_type,
-            value: date ? date.iso8601 : nil
-          }
+            value: date ? date.iso8601 : nil,
+          },
         )
       when 'text'
         options.merge(as: 'text', input_html: {rows: 4})
@@ -180,7 +180,7 @@ module Alchemy
       resource_model.alchemy_resource_filters.map do |filter_scope|
         [
           Alchemy.t(filter_scope.to_sym, scope: ['resources', resource_name, 'filters']),
-          filter_scope
+          filter_scope,
         ]
       end
     end

@@ -311,7 +311,7 @@ module Alchemy
           page_2 = create(:alchemy_page, language: language, name: 'Another page')
           clipboard = [
             {'id' => page_1.id.to_s, 'action' => 'copy'},
-            {'id' => page_2.id.to_s, 'action' => 'copy'}
+            {'id' => page_2.id.to_s, 'action' => 'copy'},
           ]
           expect(Page.all_from_clipboard_for_select(clipboard, language.id)).to include(page_1, page_2)
         end
@@ -321,7 +321,7 @@ module Alchemy
         it "should not return any pages" do
           page_1 = create(:alchemy_page, language: language, page_layout: 'contact')
           clipboard = [
-            {'id' => page_1.id.to_s, 'action' => 'copy'}
+            {'id' => page_1.id.to_s, 'action' => 'copy'},
           ]
           expect(Page.all_from_clipboard_for_select(clipboard, language.id)).to eq([])
         end
@@ -333,7 +333,7 @@ module Alchemy
           page_2 = create(:alchemy_page, name: 'Another page', language: language, page_layout: 'contact')
           clipboard = [
             {'id' => page_1.id.to_s, 'action' => 'copy'},
-            {'id' => page_2.id.to_s, 'action' => 'copy'}
+            {'id' => page_2.id.to_s, 'action' => 'copy'},
           ]
           expect(Page.all_from_clipboard_for_select(clipboard, language.id)).to eq([page_1])
         end
@@ -408,7 +408,7 @@ module Alchemy
           name: 'layoutpage',
           layoutpage: true,
           parent_id: layoutroot.id,
-          language: klingon
+          language: klingon,
         }
       end
 
@@ -416,7 +416,7 @@ module Alchemy
         create :alchemy_page, :language_root, {
           name: 'klingon_lang_root',
           layoutpage: nil,
-          language: klingon
+          language: klingon,
         }
       end
 
@@ -424,7 +424,7 @@ module Alchemy
         create :alchemy_page, :public, {
           name: 'contentpage',
           parent_id: language_root.id,
-          language: language
+          language: language,
         }
       end
 
@@ -432,7 +432,7 @@ module Alchemy
         expect(Page.contentpages.to_a).to include(
           language_root,
           klingon_lang_root,
-          contentpage
+          contentpage,
         )
       end
 
@@ -531,7 +531,7 @@ module Alchemy
           allow(page).to receive(:definition).and_return({
             'name' => 'standard',
             'elements' => ['headline'],
-            'autogenerate' => ['headline']
+            'autogenerate' => ['headline'],
           })
         end
 
@@ -772,19 +772,19 @@ module Alchemy
             {
               'name' => 'column_headline',
               'amount' => 3,
-              'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
+              'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}],
             },
             {
               'name' => 'unique_headline',
               'unique' => true,
               'amount' => 3,
-              'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}]
-            }
+              'contents' => [{'name' => 'headline', 'type' => 'EssenceText'}],
+            },
           ])
           allow(PageLayout).to receive(:get).and_return({
             'name' => 'columns',
             'elements' => ['column_headline', 'unique_headline'],
-            'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline']
+            'autogenerate' => ['unique_headline', 'column_headline', 'column_headline', 'column_headline'],
           })
         end
 
@@ -1025,7 +1025,7 @@ module Alchemy
             [
               {'name' => 'slider', 'nestable_elements' => %w(slide)},
               {'name' => 'gallery', 'nestable_elements' => %w(slide)},
-              {'name' => 'slide'}
+              {'name' => 'slide'},
             ]
           end
         end
@@ -1266,7 +1266,7 @@ module Alchemy
           parent_id: new_parent.id,
           language: new_parent.language,
           name: page_name,
-          title: page_name
+          title: page_name,
           })
         subject
       end
@@ -1519,7 +1519,7 @@ module Alchemy
         create(:alchemy_page,
           public_on: public_on,
           public_until: public_until,
-          published_at: published_at
+          published_at: published_at,
         )
       end
       let(:published_at) { nil }

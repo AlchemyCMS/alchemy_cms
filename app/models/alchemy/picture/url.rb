@@ -12,7 +12,7 @@ module Alchemy
       :format,
       :quality,
       :size,
-      :upsample
+      :upsample,
     ]
 
     # Returns a path to picture for use inside a image_tag helper.
@@ -66,7 +66,7 @@ module Alchemy
       end
 
       options = {
-        flatten: target_format != 'gif' && image_file_format == 'gif'
+        flatten: target_format != 'gif' && image_file_format == 'gif',
       }.merge(options)
 
       encoding_options = []

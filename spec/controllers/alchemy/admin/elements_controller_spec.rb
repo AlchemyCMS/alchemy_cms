@@ -79,7 +79,7 @@ module Alchemy
           post :order, params: {
             page_id: page.id,
             element_ids: element_ids,
-            parent_element_id: parent.id
+            parent_element_id: parent.id,
           }, xhr: true
         end
 
@@ -87,7 +87,7 @@ module Alchemy
           post :order, params: {
             page_id: page.id,
             element_ids: element_ids,
-            parent_element_id: parent.id
+            parent_element_id: parent.id,
           }, xhr: true
           [element_1, element_2, element_3].each do |element|
             expect(element.reload.parent_element_id).to eq parent.id
@@ -162,7 +162,7 @@ module Alchemy
             expect(PageLayout).to receive(:get).at_least(:once).and_return({
               'name' => 'news',
               'elements' => ['news'],
-              'insert_elements_at' => 'top'
+              'insert_elements_at' => 'top',
             })
           end
 

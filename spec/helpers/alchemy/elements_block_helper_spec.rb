@@ -75,9 +75,9 @@ module Alchemy
           expect(scope).to receive(:render).with(content, {
             content: content,
             options: {
-              foo: 'bar'
+              foo: 'bar',
             },
-            html_options: {}
+            html_options: {},
           })
           subject.render(:headline, foo: 'bar')
         end

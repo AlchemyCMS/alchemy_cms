@@ -12,7 +12,7 @@ describe 'alchemy/essences/_essence_text_editor' do
     allow(view).to receive(:content_label).and_return("1e Zahl")
     allow(content).to receive(:settings) { settings }
     render partial: "alchemy/essences/essence_text_editor", locals: {
-      essence_text_editor: Alchemy::ContentEditor.new(content)
+      essence_text_editor: Alchemy::ContentEditor.new(content),
     }
   end
 
@@ -25,7 +25,7 @@ describe 'alchemy/essences/_essence_text_editor' do
   context 'with a different input type set' do
     let(:settings) do
       {
-        input_type: "number"
+        input_type: "number",
       }
     end
 
@@ -37,7 +37,7 @@ describe 'alchemy/essences/_essence_text_editor' do
   context 'with settings linkable set to true' do
     let(:settings) do
       {
-        linkable: true
+        linkable: true,
       }
     end
 

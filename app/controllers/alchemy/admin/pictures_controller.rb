@@ -19,7 +19,7 @@ module Alchemy
         @pictures = Picture.search_by(
           search_filter_params,
           @query,
-          items_per_page
+          items_per_page,
         )
 
         if in_overlay?
@@ -53,12 +53,12 @@ module Alchemy
         if @picture.update(picture_params)
           @message = {
             body: Alchemy.t(:picture_updated_successfully, name: @picture.name),
-            type: 'notice'
+            type: 'notice',
           }
         else
           @message = {
             body: Alchemy.t(:picture_update_failed),
-            type: 'error'
+            type: 'error',
           }
         end
         render :update
@@ -89,7 +89,7 @@ module Alchemy
           if not_deletable.any?
             flash[:warn] = Alchemy.t(
               "These pictures could not be deleted, because they were in use",
-              names: not_deletable.to_sentence
+              names: not_deletable.to_sentence,
             )
           else
             flash[:notice] = Alchemy.t("Pictures deleted successfully", names: names.to_sentence)
@@ -154,8 +154,8 @@ module Alchemy
             :size,
             :element_id,
             :swap,
-            :content_id
-          ]
+            :content_id,
+          ],
         )
       end
 

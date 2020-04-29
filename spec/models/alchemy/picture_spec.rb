@@ -335,7 +335,7 @@ module Alchemy
           before do
             expect(picture).to receive(:pages).at_least(:once).and_return double(
               not_restricted: double(blank?: true),
-              any?: true
+              any?: true,
             )
           end
 
@@ -346,7 +346,7 @@ module Alchemy
           before do
             expect(picture).to receive(:pages).at_least(:once).and_return double(
               not_restricted: double(blank?: false),
-              any?: true
+              any?: true,
             )
           end
 

@@ -137,18 +137,18 @@ module Alchemy
             [
               {
                 'name' => 'foo',
-                'contents' => [{'name' => 'title'}]
+                'contents' => [{'name' => 'title'}],
               },
               {
-                'name' => 'bar'
-              }
+                'name' => 'bar',
+              },
             ]
           end
         end
 
         it "returns only content definitions" do
           expect(Content.definitions).to match_array(
-            [{'name' => 'title'}]
+            [{'name' => 'title'}],
           )
         end
       end
@@ -191,7 +191,7 @@ module Alchemy
             {
               'name' => 'headline',
               'type' => 'EssenceText',
-              'default' => 'Welcome'
+              'default' => 'Welcome',
             }.with_indifferent_access
           end
           expect(content.ingredient).to eq("Welcome")
@@ -203,7 +203,7 @@ module Alchemy
               {
                 'name' => 'headline',
                 'type' => 'EssenceText',
-                'default' => :welcome
+                'default' => :welcome,
               }.with_indifferent_access
             end
             expect(content.ingredient).to eq("Welcome to my site")
@@ -280,7 +280,7 @@ module Alchemy
       context 'defined as preview content' do
         before do
           expect(content).to receive(:definition).at_least(:once).and_return({
-            'as_element_title' => true
+            'as_element_title' => true,
           })
         end
 

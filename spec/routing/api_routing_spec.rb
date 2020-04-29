@@ -10,7 +10,7 @@ describe 'The API routes' do
       expect({get: "/api/pages.json"}).to route_to(
         controller: "alchemy/api/pages",
         action: "index",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -19,7 +19,7 @@ describe 'The API routes' do
         expect({get: "/api/pages"}).to route_to(
           controller: "alchemy/api/pages",
           action: "index",
-          format: "json"
+          format: "json",
         )
       end
     end
@@ -29,7 +29,7 @@ describe 'The API routes' do
         controller: "alchemy/api/pages",
         action: "show",
         urlname: "a-page",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -38,7 +38,7 @@ describe 'The API routes' do
         controller: "alchemy/api/pages",
         action: "show",
         urlname: "nested/a-page",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -48,7 +48,7 @@ describe 'The API routes' do
           controller: "alchemy/api/pages",
           action: "show",
           id: "8",
-          format: "json"
+          format: "json",
         )
       end
     end
@@ -59,7 +59,7 @@ describe 'The API routes' do
       expect({get: "/api/elements.json"}).to route_to(
         controller: "alchemy/api/elements",
         action: "index",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -68,7 +68,7 @@ describe 'The API routes' do
         expect({get: "/api/elements"}).to route_to(
           controller: "alchemy/api/elements",
           action: "index",
-          format: "json"
+          format: "json",
         )
       end
     end
@@ -78,7 +78,7 @@ describe 'The API routes' do
         controller: "alchemy/api/elements",
         action: "index",
         page_id: "1",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -88,7 +88,7 @@ describe 'The API routes' do
         action: "index",
         page_id: "1",
         named: "article",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -97,7 +97,7 @@ describe 'The API routes' do
         controller: "alchemy/api/elements",
         action: "show",
         id: "1",
-        format: "json"
+        format: "json",
       )
     end
   end
@@ -107,7 +107,7 @@ describe 'The API routes' do
       expect({get: "/api/contents.json"}).to route_to(
         controller: "alchemy/api/contents",
         action: "index",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -116,7 +116,7 @@ describe 'The API routes' do
         expect({get: "/api/contents"}).to route_to(
           controller: "alchemy/api/contents",
           action: "index",
-          format: "json"
+          format: "json",
         )
       end
     end
@@ -126,7 +126,7 @@ describe 'The API routes' do
         controller: "alchemy/api/contents",
         action: "index",
         element_id: "1",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -136,7 +136,7 @@ describe 'The API routes' do
         action: "show",
         element_id: "1",
         name: "headline",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -145,7 +145,7 @@ describe 'The API routes' do
         controller: "alchemy/api/contents",
         action: "show",
         id: "1",
-        format: "json"
+        format: "json",
       )
     end
   end

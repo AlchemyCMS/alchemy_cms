@@ -47,7 +47,7 @@ module Alchemy
           create_page(page, {
             parent: Alchemy::Page.root,
             language: Alchemy::Language.default,
-            language_root: true
+            language_root: true,
           })
         end
       end
@@ -59,7 +59,7 @@ module Alchemy
         layoutpages.each do |page|
           create_page(page, {
             parent: layout_root,
-            language: language
+            language: language,
           })
         end
       end
@@ -124,7 +124,7 @@ module Alchemy
             page_layout:    default_language['page_layout'],
             public:         true,
             default:        true,
-            site:           Alchemy::Site.default
+            site:           Alchemy::Site.default,
           )
         else
           raise DefaultLanguageNotFoundError

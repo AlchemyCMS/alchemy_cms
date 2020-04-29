@@ -23,7 +23,7 @@ module Alchemy
           warning("Content #{content.name} is missing its definition")
 
           icon = hint_with_tooltip(
-            Alchemy.t(:content_definition_missing)
+            Alchemy.t(:content_definition_missing),
           )
 
           content_name = "#{icon} #{content_name}".html_safe

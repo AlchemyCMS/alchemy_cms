@@ -91,7 +91,7 @@ module Alchemy
     def render_elements(options = {})
       options = {
         from_page: @page,
-        render_format: 'html'
+        render_format: 'html',
       }.update(options)
 
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
@@ -160,7 +160,7 @@ module Alchemy
       render element, {
         element: element,
         counter: counter,
-        options: options
+        options: options,
       }.merge(options.delete(:locals) || {})
     rescue ActionView::MissingTemplate => e
       warning(%(
@@ -224,7 +224,7 @@ module Alchemy
     #
     def element_tags_attributes(element, options = {})
       options = {
-        formatter: lambda { |tags| tags.join(' ') }
+        formatter: lambda { |tags| tags.join(' ') },
       }.merge(options)
 
       return {} if !element.taggable? || element.tag_list.blank?

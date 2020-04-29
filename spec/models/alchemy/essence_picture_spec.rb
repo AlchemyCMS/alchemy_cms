@@ -78,7 +78,7 @@ module Alchemy
 
         it "passes these crop sizes to the picture's url method." do
           expect(picture).to receive(:url).with(
-            hash_including(crop_from: '10x10', crop_size: '200x200')
+            hash_including(crop_from: '10x10', crop_size: '200x200'),
           )
           picture_url
         end
@@ -90,7 +90,7 @@ module Alchemy
 
           it "passes these crop sizes instead." do
             expect(picture).to receive(:url).with(
-              hash_including(crop_from: '30x30', crop_size: '75x75')
+              hash_including(crop_from: '30x30', crop_size: '75x75'),
             )
             picture_url
           end
@@ -208,7 +208,7 @@ module Alchemy
 
         it "passes these crop sizes to the picture's url method." do
           expect(picture).to receive(:url).with(
-            hash_including(crop_from: '10x10', crop_size: '200x200', crop: true)
+            hash_including(crop_from: '10x10', crop_size: '200x200', crop: true),
           )
           thumbnail_url
         end
@@ -217,7 +217,7 @@ module Alchemy
       context 'when no crop sizes are present' do
         it "it does not pass crop sizes to the picture's url method and disables cropping." do
           expect(picture).to receive(:url).with(
-            hash_including(crop_from: nil, crop_size: nil, crop: false)
+            hash_including(crop_from: nil, crop_size: nil, crop: false),
           )
           thumbnail_url
         end
@@ -229,7 +229,7 @@ module Alchemy
 
           it "it enables cropping." do
             expect(picture).to receive(:url).with(
-              hash_including(crop: true)
+              hash_including(crop: true),
             )
             thumbnail_url
           end
@@ -303,7 +303,7 @@ module Alchemy
         let(:settings) do
           {
             size: '150x150',
-            format: 'png'
+            format: 'png',
           }
         end
 

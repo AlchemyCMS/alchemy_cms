@@ -177,8 +177,8 @@ RSpec.describe Alchemy::ElementsFinder do
         {
           fallback: {
             for: 'download',
-            from: page_2
-          }
+            from: page_2,
+          },
         }
       end
 
@@ -200,8 +200,8 @@ RSpec.describe Alchemy::ElementsFinder do
               fallback: {
                 for: 'download',
                 with: 'header',
-                from: page_2
-              }
+                from: page_2,
+              },
             }
           end
 
@@ -219,8 +219,8 @@ RSpec.describe Alchemy::ElementsFinder do
               fallback: {
                 for: 'download',
                 with: 'text',
-                from: 'everything'
-              }
+                from: 'everything',
+              },
             }
           end
 

@@ -51,7 +51,7 @@ module Alchemy
     def page_redirect_url(options = {})
       options = {
         locale: prefix_locale? ? @page.language_code : nil,
-        urlname: @page.urlname
+        urlname: @page.urlname,
       }.merge(options)
 
       alchemy.show_page_path additional_params.merge(options)

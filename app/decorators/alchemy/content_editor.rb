@@ -11,14 +11,14 @@ module Alchemy
     def css_classes
       [
         'content_editor',
-        essence_partial_name
+        essence_partial_name,
       ].compact
     end
 
     def data_attributes
       {
         content_id: id,
-        content_name: name
+        content_name: name,
       }
     end
 

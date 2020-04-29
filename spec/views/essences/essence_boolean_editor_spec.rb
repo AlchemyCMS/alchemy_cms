@@ -9,7 +9,7 @@ describe 'alchemy/essences/_essence_boolean_editor' do
   let(:content_definition) do
     {
       name: 'essence_boolean',
-      type: 'EssenceBoolean'
+      type: 'EssenceBoolean',
     }.with_indifferent_access
   end
 
@@ -22,7 +22,7 @@ describe 'alchemy/essences/_essence_boolean_editor' do
 
   subject do
     render partial: "alchemy/essences/essence_boolean_editor", locals: {
-      essence_boolean_editor: Alchemy::ContentEditor.new(content)
+      essence_boolean_editor: Alchemy::ContentEditor.new(content),
     }
     rendered
   end
@@ -36,7 +36,7 @@ describe 'alchemy/essences/_essence_boolean_editor' do
       {
         name: 'essence_boolean',
         type: 'EssenceBoolean',
-        default: true
+        default: true,
       }.with_indifferent_access
     end
 

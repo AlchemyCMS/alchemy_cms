@@ -53,7 +53,7 @@ module Alchemy
         source_elements = source.all_elements.not_nested.not_trashed
         source_elements.order(:position).map do |source_element|
           Element.copy(source_element, {
-            page_id: target.id
+            page_id: target.id,
           }).tap(&:move_to_bottom)
         end
       end
@@ -206,7 +206,7 @@ module Alchemy
     def trash_not_allowed_elements!
       not_allowed_elements = elements.where([
         "#{Element.table_name}.name NOT IN (?)",
-        element_definition_names
+        element_definition_names,
       ])
       not_allowed_elements.to_a.map(&:trash!)
     end

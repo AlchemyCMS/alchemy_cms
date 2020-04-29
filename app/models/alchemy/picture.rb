@@ -167,7 +167,7 @@ module Alchemy
       {
         name: image_file_name,
         size: image_file_size,
-        error: errors[:image_file].join
+        error: errors[:image_file].join,
       }
     end
 

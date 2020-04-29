@@ -338,7 +338,7 @@ module Alchemy
                 id: page_2.id,
                 slug: page_2.slug,
                 children: [page_item_3],
-                visible: false
+                visible: false,
               }
             end
 
@@ -358,7 +358,7 @@ module Alchemy
                 id: page_2.id,
                 slug: page_2.slug,
                 children: [page_item_3],
-                restricted: true
+                restricted: true,
               }
             end
 
@@ -374,7 +374,7 @@ module Alchemy
               {
                 id: page_2.id,
                 slug: 42,
-                children: [page_item_3]
+                children: [page_item_3],
               }
             end
 
@@ -420,7 +420,7 @@ module Alchemy
           {
             parent_id: parent.id,
             name: 'new Page',
-            page_layout: 'standard'
+            page_layout: 'standard',
           }
         end
 
@@ -438,7 +438,7 @@ module Alchemy
             let(:page_params) do
               {
                 parent_id: parent.id,
-                name: 'new Page'
+                name: 'new Page',
               }
             end
 
@@ -460,7 +460,7 @@ module Alchemy
               let(:page_params) do
                 {
                   parent_id: parent.id,
-                  name: 'new Page'
+                  name: 'new Page',
                 }
               end
 
@@ -492,7 +492,7 @@ module Alchemy
               with(page_in_clipboard, parent, page_params[:name])
             post admin_pages_path(
               page: page_params,
-              paste_from_clipboard: page_in_clipboard.id
+              paste_from_clipboard: page_in_clipboard.id,
             ), xhr: true
           end
         end

@@ -9,7 +9,7 @@ describe "essences/_essence_picture_editor" do
     stub_model(
       Alchemy::EssencePicture,
       picture: picture,
-      caption: 'This is a cute cat'
+      caption: 'This is a cute cat',
     )
   end
 
@@ -18,7 +18,7 @@ describe "essences/_essence_picture_editor" do
       Alchemy::Content,
       name: 'image',
       essence_type: 'EssencePicture',
-      essence: essence_picture
+      essence: essence_picture,
     )
   end
 
@@ -48,7 +48,7 @@ describe "essences/_essence_picture_editor" do
   context "with settings[:deletable] being false" do
     let(:settings) do
       {
-        linkable: false
+        linkable: false,
       }
     end
 

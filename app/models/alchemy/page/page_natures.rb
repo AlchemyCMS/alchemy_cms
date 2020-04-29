@@ -69,7 +69,7 @@ module Alchemy
         public: public?,
         visible: visible?,
         locked: locked?,
-        restricted: restricted?
+        restricted: restricted?,
       }
     end
 

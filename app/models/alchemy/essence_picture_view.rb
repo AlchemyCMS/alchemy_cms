@@ -13,7 +13,7 @@ module Alchemy
       show_caption: true,
       disable_link: false,
       srcset: [],
-      sizes: []
+      sizes: [],
     }.with_indifferent_access
 
     def initialize(content, options = {}, html_options = {})
@@ -33,7 +33,7 @@ module Alchemy
         output = link_to(output, url_for(essence.link), {
           title: essence.link_title.presence,
           target: essence.link_target == "blank" ? "_blank" : nil,
-          data: {link_target: essence.link_target.presence}
+          data: {link_target: essence.link_target.presence},
         })
       end
 
@@ -59,7 +59,7 @@ module Alchemy
           title: essence.title.presence,
           class: caption ? nil : essence.css_class.presence,
           srcset: srcset.join(', ').presence,
-          sizes: options[:sizes].join(', ').presence
+          sizes: options[:sizes].join(', ').presence,
         }.merge(caption ? {} : html_options)
       )
     end

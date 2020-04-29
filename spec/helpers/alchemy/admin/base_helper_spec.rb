@@ -10,7 +10,7 @@ module Alchemy
 
         it "renders a toolbar button" do
           expect(helper.toolbar_button(
-                   url: admin_dashboard_path
+                   url: admin_dashboard_path,
           )).to match /<div.+class="button_with_label/
         end
       end
@@ -20,7 +20,7 @@ module Alchemy
 
         it "returns empty string" do
           expect(
-            helper.toolbar_button(url: admin_dashboard_path)
+            helper.toolbar_button(url: admin_dashboard_path),
           ).to be_empty
         end
       end
@@ -32,8 +32,8 @@ module Alchemy
           expect(
             helper.toolbar_button(
               url: admin_dashboard_path,
-              skip_permission_check: true
-            )
+              skip_permission_check: true,
+            ),
           ).to match /<div.+class="button_with_label/
         end
       end
@@ -46,8 +46,8 @@ module Alchemy
           expect(
             helper.toolbar_button(
               url: admin_dashboard_path,
-              if_permitted_to: ''
-            )
+              if_permitted_to: '',
+            ),
           ).not_to be_empty
         end
       end
@@ -61,7 +61,7 @@ module Alchemy
         it "renders a normal link" do
           button = helper.toolbar_button(
             url: admin_dashboard_path,
-            overlay: false
+            overlay: false,
           )
           expect(button).to match /<a.+href="#{admin_dashboard_path}"/
           expect(button).not_to match /data-alchemy-overlay/

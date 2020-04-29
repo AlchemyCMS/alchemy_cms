@@ -58,8 +58,8 @@ module Alchemy
           'name' => 'module',
           'navigation' => {
             'controller' => 'register_module_dummy',
-            'action' => 'index'
-          }
+            'action' => 'index',
+          },
         }
       end
 
@@ -68,8 +68,8 @@ module Alchemy
           'name' => 'bad_module_a',
           'navigation' => {
             'controller' => 'bad_module',
-            'action' => 'index'
-          }
+            'action' => 'index',
+          },
         }
       end
 
@@ -81,9 +81,9 @@ module Alchemy
             'action' => 'index',
             'sub_navigation' => [{
               'controller' => 'bad_module',
-              'action' => 'index'
-            }]
-          }
+              'action' => 'index',
+            }],
+          },
         }
       end
 

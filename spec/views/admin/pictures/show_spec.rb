@@ -6,7 +6,7 @@ describe "alchemy/admin/pictures/show.html.erb" do
   let(:image) do
     fixture_file_upload(
       File.expand_path('../../../fixtures/animated.gif', __dir__),
-      'image/gif'
+      'image/gif',
     )
   end
 
@@ -14,7 +14,7 @@ describe "alchemy/admin/pictures/show.html.erb" do
     create(:alchemy_picture, {
       image_file: image,
       name: 'animated',
-      image_file_name: 'animated.gif'
+      image_file_name: 'animated.gif',
     })
   end
 

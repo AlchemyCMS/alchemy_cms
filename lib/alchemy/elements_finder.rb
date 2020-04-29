@@ -86,7 +86,7 @@ module Alchemy
         Alchemy::Page.find_by(
           language: Alchemy::Language.current,
           page_layout: page_or_layout,
-          restricted: false
+          restricted: false,
         )
       end
     end

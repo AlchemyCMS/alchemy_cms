@@ -11,8 +11,8 @@ module Alchemy
         class_name: 'Alchemy::Page',
         foreign_key: :page_id,
         inverse_of: :essence_pages,
-        optional: true
-      }
+        optional: true,
+      },
     )
 
     def ingredient=(page)

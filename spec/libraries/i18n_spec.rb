@@ -39,7 +39,7 @@ module Alchemy
           expect(::I18n).to receive(:load_path) do
             [
               '/Users/tvd/gems/alchemy-devise/config/locales/alchemy.de.yml',
-              '/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.de.yml'
+              '/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.de.yml',
             ]
           end
         end
@@ -66,7 +66,7 @@ module Alchemy
           expect(::I18n).to receive(:load_path) do
             [
               '/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.zh-CN.yml',
-              '/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.de.yml'
+              '/Users/tvd/gems/alchemy_i18n/config/locales/alchemy.de.yml',
             ]
           end
         end

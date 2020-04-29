@@ -9,7 +9,7 @@ describe 'alchemy/essences/_essence_file_editor' do
 
   subject do
     render partial: "alchemy/essences/essence_file_editor", locals: {
-      essence_file_editor: Alchemy::ContentEditor.new(content)
+      essence_file_editor: Alchemy::ContentEditor.new(content),
     }
     rendered
   end

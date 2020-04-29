@@ -15,7 +15,7 @@ module Alchemy
           [Alchemy.t('480', scope: 'preview_sizes'), 480],
           [Alchemy.t('768', scope: 'preview_sizes'), 768],
           [Alchemy.t('1024', scope: 'preview_sizes'), 1024],
-          [Alchemy.t('1280', scope: 'preview_sizes'), 1280]
+          [Alchemy.t('1280', scope: 'preview_sizes'), 1280],
         ])
       end
 
@@ -27,7 +27,7 @@ module Alchemy
         if page.persisted? && page.definition.blank?
           [
             page_layout_missing_warning,
-            Alchemy.t(:page_type)
+            Alchemy.t(:page_type),
           ].join('&nbsp;').html_safe
         else
           Alchemy.t(:page_type)

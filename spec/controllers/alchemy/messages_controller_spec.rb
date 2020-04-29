@@ -162,7 +162,7 @@ module Alchemy
 
                 it "should redirect to the given urlname" do
                   expect(
-                    subject
+                    subject,
                   ).to redirect_to(show_page_path(urlname: 'success-page'))
                 end
               end
@@ -176,7 +176,7 @@ module Alchemy
 
                 it "should redirect to the given urlname" do
                   expect(
-                    subject
+                    subject,
                   ).to redirect_to(show_page_path(urlname: 'success-page'))
                 end
               end
@@ -193,7 +193,7 @@ module Alchemy
                     {
                       'fields' => %w(email),
                       'forward_to_page' => true,
-                      'mail_success_page' => 'mailer-config-success-page'
+                      'mail_success_page' => 'mailer-config-success-page',
                     }
                   end
                   allow(Page).to receive(:find_by).and_return double(urlname: 'mailer-config-success-page')
@@ -201,7 +201,7 @@ module Alchemy
 
                 it "redirect to the given success page" do
                   expect(
-                    subject
+                    subject,
                   ).to redirect_to(show_page_path(urlname: 'mailer-config-success-page'))
                 end
               end
@@ -217,7 +217,7 @@ module Alchemy
                 it "should redirect to the language root page" do
                   allow(Language).to receive(:current).and_return(language)
                   expect(
-                    subject
+                    subject,
                   ).to redirect_to(show_page_path(urlname: 'lang-root'))
                 end
               end

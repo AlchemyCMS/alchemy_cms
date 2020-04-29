@@ -17,7 +17,7 @@ module Alchemy::Language::Code
       codes << '' if codes.length == 1
       on_current_site.find_by(
         language_code: codes[0],
-        country_code: codes[1]
+        country_code: codes[1],
       )
     end
   end

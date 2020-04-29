@@ -13,8 +13,8 @@ describe "alchemy/admin/partials/_main_navigation_entry.html.erb" do
         name: 'Pages',
         image: 'alchemy/alchemy-logo.svg',
         data: { turbolinks: false },
-        sub_navigation: []
-      }
+        sub_navigation: [],
+      },
     }.with_indifferent_access
   end
 
@@ -43,8 +43,8 @@ describe "alchemy/admin/partials/_main_navigation_entry.html.erb" do
           action: 'index',
           name: 'Pages',
           image: 'alchemy/alchemy-logo.svg',
-          sub_navigation: []
-        }
+          sub_navigation: [],
+        },
       }.with_indifferent_access
     end
 

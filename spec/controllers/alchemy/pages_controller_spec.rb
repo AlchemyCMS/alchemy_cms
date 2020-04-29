@@ -32,7 +32,7 @@ module Alchemy
         it 'returns a 404' do
           expect { get(:index) }.to raise_exception(
             ActionController::RoutingError,
-           'Alchemy::Page not found "/"'
+           'Alchemy::Page not found "/"',
           )
         end
       end

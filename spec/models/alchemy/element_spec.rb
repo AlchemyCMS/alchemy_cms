@@ -43,7 +43,7 @@ module Alchemy
           an_instance_of(Alchemy::Content),
           an_instance_of(Alchemy::Content),
           an_instance_of(Alchemy::Content),
-          an_instance_of(Alchemy::Content)
+          an_instance_of(Alchemy::Content),
         ])
       end
 
@@ -52,7 +52,7 @@ module Alchemy
           described_class.create(
             page: page,
             name: 'article',
-            autogenerate_contents: false
+            autogenerate_contents: false,
           )
         end
 
@@ -68,7 +68,7 @@ module Alchemy
 
         it 'creates nested elements' do
           expect(element.nested_elements).to match_array([
-            an_instance_of(Alchemy::Element)
+            an_instance_of(Alchemy::Element),
           ])
         end
 
@@ -76,14 +76,14 @@ module Alchemy
           subject(:element) do
             described_class.create(
               page: page,
-              name: 'slider'
+              name: 'slider',
             )
           end
 
           before do
             expect(Alchemy::Element).to receive(:definitions).at_least(:once) do
               [
-                {'name' => 'slider', 'nestable_elements' => ['foo'], 'autogenerate' => ['bar']}
+                {'name' => 'slider', 'nestable_elements' => ['foo'], 'autogenerate' => ['bar']},
               ]
             end
           end
@@ -104,7 +104,7 @@ module Alchemy
             described_class.create(
               page: page,
               name: 'slider',
-              autogenerate_nested_elements: false
+              autogenerate_nested_elements: false,
             )
           end
 
@@ -148,7 +148,7 @@ module Alchemy
         let(:element) do
           create(:alchemy_element, :with_contents, :with_nestable_elements, {
             tag_list: 'red, yellow',
-            page: create(:alchemy_page)
+            page: create(:alchemy_page),
           })
         end
 
@@ -273,7 +273,7 @@ module Alchemy
 
       it "should return all elements that are fixed" do
         expect(Element.fixed).to match_array([
-          fixed_element
+          fixed_element,
         ])
       end
     end
@@ -284,7 +284,7 @@ module Alchemy
 
       it "should return all elements that are not fixed" do
         expect(Element.unfixed).to match_array([
-          element
+          element,
         ])
       end
     end
@@ -474,7 +474,7 @@ module Alchemy
           .with('article.content.invalid', {
             scope: "content_validations",
             default: [:"fields.content.invalid", :"errors.invalid"],
-            field: "Contenido"})
+            field: "Contenido", })
         expect(element).to receive(:essence_errors)
           .and_return({'content' => [:invalid]})
 
@@ -736,7 +736,7 @@ module Alchemy
         it "should return true" do
           expect(element).to receive(:definition).and_return({
             'name' => 'article',
-            'taggable' => true
+            'taggable' => true,
           })
           expect(element.taggable?).to be_truthy
         end
@@ -746,7 +746,7 @@ module Alchemy
         it "should return false" do
           expect(element).to receive(:definition).and_return({
             'name' => 'article',
-            'taggable' => 'foo'
+            'taggable' => 'foo',
           })
           expect(element.taggable?).to be_falsey
         end
@@ -755,7 +755,7 @@ module Alchemy
       context "definition has no 'taggable' key" do
         it "should return false" do
           expect(element).to receive(:definition).and_return({
-            'name' => 'article'
+            'name' => 'article',
           })
           expect(element.taggable?).to be_falsey
         end
@@ -866,7 +866,7 @@ module Alchemy
         before do
           allow(element).to receive(:definition) do
             {
-              'nestable_elements' => %w(news article)
+              'nestable_elements' => %w(news article),
             }
           end
         end
@@ -971,7 +971,7 @@ module Alchemy
           create(:alchemy_element, :with_contents, {
             name: 'text',
             parent_element: element,
-            folded: false
+            folded: false,
           })
         end
 
@@ -979,7 +979,7 @@ module Alchemy
           create(:alchemy_element, :with_contents, {
             name: 'text',
             parent_element: nested_element_1,
-            folded: false
+            folded: false,
           })
         end
 
@@ -987,7 +987,7 @@ module Alchemy
           create(:alchemy_element, :with_contents, {
             name: 'text',
             parent_element: nested_element_1,
-            folded: true
+            folded: true,
           })
         end
 
@@ -995,7 +995,7 @@ module Alchemy
           is_expected.to eq(
             element.content_ids +
             nested_element_1.content_ids +
-            nested_element_2.content_ids
+            nested_element_2.content_ids,
           )
         end
       end

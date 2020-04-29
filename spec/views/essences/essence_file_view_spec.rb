@@ -27,7 +27,7 @@ describe 'alchemy/essences/_essence_file_view' do
     it "renders a link to download the attachment" do
       render content, content: content
       expect(rendered).to have_selector(
-        "a[href='/attachment/#{attachment.id}/download/#{attachment.urlname}.#{attachment.suffix}']"
+        "a[href='/attachment/#{attachment.id}/download/#{attachment.urlname}.#{attachment.suffix}']",
       )
     end
 

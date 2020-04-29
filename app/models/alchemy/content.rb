@@ -72,7 +72,7 @@ module Alchemy
         Alchemy.t(
           content_name,
           scope: "content_names.#{element_name}",
-          default: Alchemy.t("content_names.#{content_name}", default: content_name.humanize)
+          default: Alchemy.t("content_names.#{content_name}", default: content_name.humanize),
         )
       end
     end
@@ -132,7 +132,7 @@ module Alchemy
       {
         name: name,
         value: serialized_ingredient,
-        link: essence.try(:link)
+        link: essence.try(:link),
       }.delete_if { |_k, v| v.blank? }
     end
 

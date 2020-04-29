@@ -40,7 +40,7 @@ module Alchemy #:nodoc:
         register_as_essence_association!
 
         configuration = {
-          ingredient_column: 'body'
+          ingredient_column: 'body',
         }.update(options)
 
         @_classes_with_ingredient_association ||= []
@@ -109,7 +109,7 @@ module Alchemy #:nodoc:
       def register_as_essence_association!
         klass_name = model_name.to_s
         arguments = [:has_many, klass_name.demodulize.tableize.to_sym, through: :contents,
-          source: :essence, source_type: klass_name]
+                                                                       source: :essence, source_type: klass_name]
         %w(Page Element).each { |k| "Alchemy::#{k}".constantize.send(*arguments) }
       end
     end

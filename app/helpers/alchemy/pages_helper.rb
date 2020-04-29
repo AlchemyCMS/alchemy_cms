@@ -28,7 +28,7 @@ module Alchemy
         linkname: 'name',
         show_title: true,
         spacer: '',
-        reverse: false
+        reverse: false,
       }.merge(options)
       languages = Language.on_current_site.published.with_root_page.order("name #{options[:reverse] ? 'DESC' : 'ASC'}")
       return nil if languages.count < 2
@@ -37,7 +37,7 @@ module Alchemy
         partial: "alchemy/language_links/language",
         collection: languages,
         spacer_template: "alchemy/language_links/spacer",
-        locals: {languages: languages, options: options}
+        locals: {languages: languages, options: options},
       )
     end
 
@@ -83,7 +83,7 @@ module Alchemy
     def render_menu(name, options = {})
       root_node = Alchemy::Node.roots.find_by(
         name: name,
-        language: Alchemy::Language.current
+        language: Alchemy::Language.current,
       )
       if root_node.nil?
         warning("Menu with name #{name} not found!")
@@ -91,7 +91,7 @@ module Alchemy
       end
 
       options = {
-        node_partial_name: "#{root_node.view_folder_name}/node"
+        node_partial_name: "#{root_node.view_folder_name}/node",
       }.merge(options)
 
       render(root_node.to_partial_path, menu: root_node, node: root_node, options: options)
@@ -124,7 +124,7 @@ module Alchemy
         page: @page,
         restricted_only: false,
         reverse: false,
-        link_active_page: false
+        link_active_page: false,
       }.merge(options)
 
       pages = Page.
@@ -160,7 +160,7 @@ module Alchemy
       options = {
         prefix: "",
         suffix: "",
-        separator: ""
+        separator: "",
       }.update(options)
       title_parts = [options[:prefix]]
       if response.status == 200

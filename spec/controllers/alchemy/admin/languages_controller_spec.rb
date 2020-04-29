@@ -81,8 +81,8 @@ describe Alchemy::Admin::LanguagesController do
             page_layout: "index",
             public: true,
             default: true,
-            site_id: create(:alchemy_site)
-          }
+            site_id: create(:alchemy_site),
+          },
         }
         language = Alchemy::Language.last
         expect(response).to redirect_to admin_pages_path(language_id: language)

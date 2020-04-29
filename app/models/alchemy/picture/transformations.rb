@@ -80,7 +80,7 @@ module Alchemy
       height = 0 if height.nil?
       {
         width: width,
-        height: height
+        height: height,
       }
     end
 
@@ -110,7 +110,7 @@ module Alchemy
     def image_size
       {
         width: image_file_width,
-        height: image_file_height
+        height: image_file_height,
       }
     end
 
@@ -149,7 +149,7 @@ module Alchemy
       y = 0 if y.nil?
       {
         x: x,
-        y: y
+        y: y,
       }
     end
 
@@ -160,7 +160,7 @@ module Alchemy
     def get_top_left_crop_corner(dimensions)
       {
         x: (image_file_width - dimensions[:width]) / 2,
-        y: (image_file_height - dimensions[:height]) / 2
+        y: (image_file_height - dimensions[:height]) / 2,
       }
     end
 
@@ -184,7 +184,7 @@ module Alchemy
     def size_when_fitting(target, dimensions = get_base_dimensions)
       zoom = [
         dimensions[:width].to_f / target[:width],
-        dimensions[:height].to_f / target[:height]
+        dimensions[:height].to_f / target[:height],
       ].max
 
       if zoom == 0.0
@@ -207,7 +207,7 @@ module Alchemy
         x1: point[:x],
         y1: point[:y],
         x2: point[:x] + mask[:width],
-        y2: point[:y] + mask[:height]
+        y2: point[:y] + mask[:height],
       }
     end
 
@@ -254,7 +254,7 @@ module Alchemy
     def reduce_to_image(dimensions)
       {
         width: [dimensions[:width], image_file_width].min,
-        height: [dimensions[:height], image_file_height].min
+        height: [dimensions[:height], image_file_height].min,
       }
     end
   end

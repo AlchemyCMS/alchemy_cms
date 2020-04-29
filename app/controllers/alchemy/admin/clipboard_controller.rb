@@ -20,7 +20,7 @@ module Alchemy
         unless @clipboard.detect { |item| item['id'] == remarkable_params[:remarkable_id] }
           @clipboard << {
             'id' => remarkable_params[:remarkable_id],
-            'action' => params[:remove] ? 'cut' : 'copy'
+            'action' => params[:remove] ? 'cut' : 'copy',
           }
         end
         respond_to do |format|

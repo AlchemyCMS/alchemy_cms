@@ -99,7 +99,7 @@ module Alchemy
           :alchemy_admin_pages,
           :alchemy_admin_pictures,
           :alchemy_admin_tags,
-          :alchemy_admin_users
+          :alchemy_admin_users,
         ]
 
         # Controller actions
@@ -137,7 +137,7 @@ module Alchemy
         # Navigation
         can :index, [
           :alchemy_admin_languages,
-          :alchemy_admin_users
+          :alchemy_admin_users,
         ]
 
         # Controller actions
@@ -150,7 +150,7 @@ module Alchemy
           :flush,
           :order,
           :sort,
-          :switch_language
+          :switch_language,
         ], Alchemy::Page
 
         # Resources which may be locked via template permissions
@@ -164,7 +164,7 @@ module Alchemy
         can([
           :create,
           :destroy,
-          :publish
+          :publish,
         ], Alchemy::Page) { |p| p.editable_by?(@user) }
 
         can :manage, Alchemy::Picture

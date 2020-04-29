@@ -11,7 +11,7 @@ describe 'alchemy/essences/_essence_link_editor' do
     view.class.send :include, Alchemy::Admin::BaseHelper
     allow(view).to receive(:content_label).and_return("1e Zahl")
     render partial: "alchemy/essences/essence_link_editor", locals: {
-      essence_link_editor: Alchemy::ContentEditor.new(content)
+      essence_link_editor: Alchemy::ContentEditor.new(content),
     }
   end
 

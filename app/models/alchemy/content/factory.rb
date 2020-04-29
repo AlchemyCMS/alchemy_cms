@@ -56,11 +56,11 @@ module Alchemy
         new_content = Content.new(
           source.attributes.
             except(*SKIPPED_ATTRIBUTES_ON_COPY).
-            merge(differences.with_indifferent_access)
+            merge(differences.with_indifferent_access),
         )
         new_essence = source.essence.class.create!(
           source.essence.attributes.
-            except(*SKIPPED_ATTRIBUTES_ON_COPY)
+            except(*SKIPPED_ATTRIBUTES_ON_COPY),
         )
         new_content.tap do |content|
           content.essence = new_essence
@@ -119,7 +119,7 @@ module Alchemy
     #
     def build_essence(type = essence_type)
       self.essence = essence_class(type).new({
-        ingredient: default_value
+        ingredient: default_value,
       })
     end
 

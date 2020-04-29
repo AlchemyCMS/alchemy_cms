@@ -16,8 +16,8 @@ module Alchemy
           double(
             all_last_edited_from: [],
             locked_by: [],
-            locked: []
-          )
+            locked: [],
+          ),
         )
       end
 
@@ -86,7 +86,7 @@ module Alchemy
       context "requesting rubygems.org" do
         before do
           stub_request(:get, 'https://rubygems.org/api/v1/versions/alchemy_cms.json').to_return(
-            status: 200, body: '[{"number": "3.0.0.alpha"}, {"number": "2.6.0"}, {"number": "2.5.1"}]'
+            status: 200, body: '[{"number": "3.0.0.alpha"}, {"number": "2.6.0"}, {"number": "2.5.1"}]',
           )
         end
 
@@ -119,7 +119,7 @@ module Alchemy
         before do
           stub_request(:get, 'https://rubygems.org/api/v1/versions/alchemy_cms.json').to_return(status: 503)
           stub_request(:get, 'https://api.github.com/repos/AlchemyCMS/alchemy_cms/tags').to_return(
-            status: 200, body: '[{"name": "v2.6.0"}, {"name": "v2.5.0"}]'
+            status: 200, body: '[{"name": "v2.6.0"}, {"name": "v2.5.0"}]',
           )
           allow(Alchemy).to receive(:version).and_return("2.6.2")
         end

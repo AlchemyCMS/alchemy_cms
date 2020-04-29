@@ -11,8 +11,8 @@ module Alchemy
         class_name: "Alchemy::Node",
         foreign_key: :node_id,
         inverse_of: :essence_nodes,
-        optional: true
-      }
+        optional: true,
+      },
     )
 
     delegate :name, to: :node, prefix: true

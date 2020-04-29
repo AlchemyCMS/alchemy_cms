@@ -15,7 +15,7 @@ module Alchemy
     let(:image) do
       fixture_file_upload(
         File.expand_path('../../fixtures/500x500.png', __dir__),
-        'image/png'
+        'image/png',
       )
     end
 
@@ -61,7 +61,7 @@ module Alchemy
           let(:options) do
             {
               size: '1600x1200',
-              upsample: true
+              upsample: true,
             }
           end
 
@@ -75,7 +75,7 @@ module Alchemy
           let(:options) do
             {
               size: '160x120',
-              crop: true
+              crop: true,
             }
           end
 
@@ -90,7 +90,7 @@ module Alchemy
                 crop_size: '123x44',
                 crop_from: '0x0',
                 size: '160x120',
-                crop: true
+                crop: true,
               }
             end
 
@@ -105,7 +105,7 @@ module Alchemy
           let(:options) do
             {
               size: '160x120',
-              crop: false
+              crop: false,
             }
           end
 
@@ -120,7 +120,7 @@ module Alchemy
                 crop_size: '123x44',
                 crop_from: '0x0',
                 size: '160x120',
-                crop: false
+                crop: false,
               }
             end
 
@@ -175,7 +175,7 @@ module Alchemy
           let(:image) do
             fixture_file_upload(
               File.expand_path('../../fixtures/icon.svg', __dir__),
-              'image/svg+xml'
+              'image/svg+xml',
             )
           end
 
@@ -193,7 +193,7 @@ module Alchemy
           let(:image) do
             fixture_file_upload(
               File.expand_path('../../fixtures/animated.gif', __dir__),
-              'image/gif'
+              'image/gif',
             )
           end
 

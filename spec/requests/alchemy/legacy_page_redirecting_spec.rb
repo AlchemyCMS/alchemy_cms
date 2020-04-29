@@ -26,7 +26,7 @@ RSpec.describe 'Redirecting to legacy page urls' do
   let(:legacy_url4) do
     Alchemy::LegacyPageUrl.create(
       urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69',
-      page: second_page
+      page: second_page,
     )
   end
 

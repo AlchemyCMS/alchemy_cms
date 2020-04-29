@@ -29,7 +29,7 @@ module Alchemy
       class_name: 'Alchemy::Picture',
       foreign_key: :picture_id,
       inverse_of: :essence_pictures,
-      optional: true
+      optional: true,
     }
 
     delegate :image_file_width, :image_file_height, :image_file, to: :picture
@@ -80,7 +80,7 @@ module Alchemy
         format: picture.default_render_format,
         crop_from: crop_from.presence,
         crop_size: crop_size.presence,
-        size: content.settings[:size]
+        size: content.settings[:size],
       }.with_indifferent_access
     end
 
@@ -102,7 +102,7 @@ module Alchemy
         crop_from: crop_from.presence,
         crop_size: crop_size.presence,
         flatten: true,
-        format: picture.image_file_format
+        format: picture.image_file_format,
       }
 
       picture.url(options)
@@ -144,7 +144,7 @@ module Alchemy
       content && content.settings[:crop] && picture &&
         picture.can_be_cropped_to(
           content.settings[:size],
-          content.settings[:upsample]
+          content.settings[:upsample],
         )
     end
 

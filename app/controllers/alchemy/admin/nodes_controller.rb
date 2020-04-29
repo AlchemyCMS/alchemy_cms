@@ -13,7 +13,7 @@ module Alchemy
         @node = Node.new(
           site: Alchemy::Site.current,
           parent_id: params[:parent_id],
-          language: @current_language
+          language: @current_language,
         )
       end
 
@@ -29,7 +29,7 @@ module Alchemy
           :url,
           :title,
           :nofollow,
-          :external
+          :external,
         )
       end
     end

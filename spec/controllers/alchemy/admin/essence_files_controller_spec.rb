@@ -45,8 +45,8 @@ module Alchemy
           essence_file: {
             title: 'new title',
             css_class: 'left',
-            link_text: 'Download this file'
-          }
+            link_text: 'Download this file',
+          },
         }, xhr: true
         expect(essence_file.title).to eq 'new title'
         expect(essence_file.css_class).to eq 'left'

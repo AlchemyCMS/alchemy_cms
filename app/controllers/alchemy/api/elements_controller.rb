@@ -41,18 +41,18 @@ module Alchemy
           nested_elements: [
             {
               contents: {
-                essence: :ingredient_association
-              }
+                essence: :ingredient_association,
+              },
             },
-            :tags
-          ]
+            :tags,
+          ],
         },
         {
           contents: {
-            essence: :ingredient_association
-          }
+            essence: :ingredient_association,
+          },
         },
-        :tags
+        :tags,
       ]
     end
   end

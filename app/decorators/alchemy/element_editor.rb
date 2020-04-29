@@ -17,7 +17,7 @@ module Alchemy
         taggable? ? 'taggable' : 'not-taggable',
         folded ? 'folded' : 'expanded',
         compact? ? 'compact' : nil,
-        fixed? ? 'is-fixed' : 'not-fixed'
+        fixed? ? 'is-fixed' : 'not-fixed',
       ].join(' ')
     end
 

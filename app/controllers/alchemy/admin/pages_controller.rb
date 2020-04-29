@@ -169,7 +169,7 @@ module Alchemy
         redirect_to show_page_url(
           urlname: @page.urlname,
           locale: prefix_locale? ? @page.language_code : nil,
-          host: @page.site.host == "*" ? request.host : @page.site.host
+          host: @page.site.host == "*" ? request.host : @page.site.host,
         )
       end
 
@@ -224,7 +224,7 @@ module Alchemy
         page_copy = Page.copy(
           language_root_to_copy_from,
           language_id: params[:languages][:new_lang_id],
-          language_code: @current_language.code
+          language_code: @current_language.code,
         )
         page_copy.move_to_child_of Page.root
         page_copy
@@ -321,7 +321,7 @@ module Alchemy
         request.raw_post.split('&').map do |i|
           parts = i.split('=')
           {
-            parts[0].gsub(/[^0-9]/, '') => parts[1]
+            parts[0].gsub(/[^0-9]/, '') => parts[1],
           }
         end
       end

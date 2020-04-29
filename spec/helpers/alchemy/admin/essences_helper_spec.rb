@@ -47,7 +47,7 @@ describe Alchemy::Admin::EssencesHelper do
         allow(content).to receive(:settings) do
           {
             caption_as_textarea: true,
-            sizes: ['100x100', '200x200']
+            sizes: ['100x100', '200x200'],
           }
         end
 
@@ -59,7 +59,7 @@ describe Alchemy::Admin::EssencesHelper do
       before do
         allow(content).to receive(:settings) do
           {
-            caption_as_textarea: true
+            caption_as_textarea: true,
           }
         end
 
@@ -72,7 +72,7 @@ describe Alchemy::Admin::EssencesHelper do
         allow(content).to receive(:settings) do
           {
             caption_as_textarea: false,
-            sizes: ['100x100', '200x200']
+            sizes: ['100x100', '200x200'],
           }
         end
 
@@ -84,7 +84,7 @@ describe Alchemy::Admin::EssencesHelper do
       before do
         allow(content).to receive(:settings) do
           {
-            caption_as_textarea: false
+            caption_as_textarea: false,
           }
         end
 

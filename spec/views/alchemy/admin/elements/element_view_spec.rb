@@ -10,7 +10,7 @@ describe 'alchemy/admin/elements/_element' do
   let(:definition) do
     {
       name: 'with_message',
-      message: 'One nice message'
+      message: 'One nice message',
     }.with_indifferent_access
   end
 
@@ -30,7 +30,7 @@ describe 'alchemy/admin/elements/_element' do
       let(:definition) do
         {
           name: 'with_message',
-          message: '<h1>One nice message</h1>'
+          message: '<h1>One nice message</h1>',
         }.with_indifferent_access
       end
 
@@ -46,7 +46,7 @@ describe 'alchemy/admin/elements/_element' do
     let(:definition) do
       {
         name: 'with_warning',
-        warning: 'One nice warning'
+        warning: 'One nice warning',
       }.with_indifferent_access
     end
 
@@ -58,7 +58,7 @@ describe 'alchemy/admin/elements/_element' do
       let(:definition) do
         {
           name: 'with_warning',
-          warning: '<h1>One nice warning</h1>'
+          warning: '<h1>One nice warning</h1>',
         }.with_indifferent_access
       end
 

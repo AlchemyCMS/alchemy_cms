@@ -21,7 +21,7 @@ namespace :alchemy do
         if Alchemy.webpacker.commands.compile
           FileUtils.cp_r(
             Alchemy::Engine.root.join("public", "alchemy-packs"),
-            Rails.root.join("public")
+            Rails.root.join("public"),
           )
         else
           # Failed compilation

@@ -131,13 +131,13 @@ describe Alchemy::ResourcesHelper do
       let(:relation) do
         {
           attr_method: 'title',
-          name: 'location'
+          name: 'location',
         }
       end
       let(:attributes) do
         {
           name: 'name',
-          relation: relation
+          relation: relation,
         }
       end
 
@@ -187,7 +187,7 @@ describe Alchemy::ResourcesHelper do
       let(:attributes) do
         {
           name: :created_at,
-          type: :datetime
+          type: :datetime,
         }
       end
 
@@ -216,7 +216,7 @@ describe Alchemy::ResourcesHelper do
       let(:attributes) do
         {
           name: :created_at,
-          type: :time
+          type: :time,
         }
       end
 

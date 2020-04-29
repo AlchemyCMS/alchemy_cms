@@ -111,7 +111,7 @@ module Alchemy
       def js_filter_field(items, options = {})
         options = {
           class: 'js_filter_field',
-          data: {'alchemy-list-filter' => items}
+          data: {'alchemy-list-filter' => items},
         }.merge(options)
         content_tag(:div, class: 'js_filter_field_box') do
           concat text_field_tag(nil, nil, options)
@@ -151,8 +151,8 @@ module Alchemy
               title: Alchemy.t(:please_confirm),
               message: message,
               ok_label: Alchemy.t("Yes"),
-              cancel_label: Alchemy.t("No")
-            }.to_json
+              cancel_label: Alchemy.t("No"),
+            }.to_json,
           )
         )
       end
@@ -181,7 +181,7 @@ module Alchemy
           message: Alchemy.t(:confirm_to_proceed),
           ok_label: Alchemy.t("Yes"),
           title: Alchemy.t(:please_confirm),
-          cancel_label: Alchemy.t("No")
+          cancel_label: Alchemy.t("No"),
         }.merge(options)
         form_tag url, {method: html_options.delete(:method), class: 'button-with-confirm'} do
           button_tag value, html_options.merge('data-alchemy-confirm' => options.to_json)
@@ -201,16 +201,16 @@ module Alchemy
         options = {
           title: Alchemy.t('Delete'),
           message: Alchemy.t('Are you sure?'),
-          icon: :minus
+          icon: :minus,
         }.merge(options)
         button_with_confirm(
           render_icon(options[:icon]),
           url, {
-            message: options[:message]
+            message: options[:message],
           }, {
             method: 'delete',
             title: options[:title],
-            class: "icon_button #{html_options.delete(:class)}".strip
+            class: "icon_button #{html_options.delete(:class)}".strip,
           }.merge(html_options)
         )
       end
@@ -270,11 +270,11 @@ module Alchemy
           active: false,
           link_options: {},
           dialog_options: {},
-          loading_indicator: false
+          loading_indicator: false,
         }.merge(options.symbolize_keys)
         button = render(
           'alchemy/admin/partials/toolbar_button',
-          options: options
+          options: options,
         )
         if options[:skip_permission_check] || can?(*permission_from_options(options))
           button
@@ -313,7 +313,7 @@ module Alchemy
       def toolbar(options = {})
         defaults = {
           buttons: [],
-          search: true
+          search: true,
         }
         options = defaults.merge(options)
         content_for(:toolbar) do
@@ -397,7 +397,7 @@ module Alchemy
           controller_name,
           action_name,
           content_for(:main_menu_style),
-          content_for(:alchemy_body_class)
+          content_for(:alchemy_body_class),
         ].compact
       end
 
@@ -439,7 +439,7 @@ module Alchemy
       # that explains the user that the page layout is missing
       def page_layout_missing_warning
         hint_with_tooltip(
-          Alchemy.t(:page_definition_missing)
+          Alchemy.t(:page_definition_missing),
         )
       end
 
@@ -457,7 +457,7 @@ module Alchemy
         action_controller = options[:url].gsub(/\A\//, '').split('/')
         [
           action_controller.last.to_sym,
-          action_controller[0..action_controller.length - 2].join('_').to_sym
+          action_controller[0..action_controller.length - 2].join('_').to_sym,
         ]
       end
     end

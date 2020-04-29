@@ -47,7 +47,7 @@ module Alchemy
             x1: 0,
             y1: 0,
             x2: 300,
-            y2: 250
+            y2: 250,
           }
         end
 
@@ -213,7 +213,7 @@ module Alchemy
           alt_tag: 'Alt Tag',
           caption: 'Caption',
           css_class: 'CSS Class',
-          title: 'Title'
+          title: 'Title',
         }
       end
 
@@ -229,8 +229,8 @@ module Alchemy
           essence_picture: {
             render_size: '1x1',
             crop_from: '0x0',
-            crop_size: '100x100'
-          }
+            crop_size: '100x100',
+          },
         }, xhr: true
       end
     end

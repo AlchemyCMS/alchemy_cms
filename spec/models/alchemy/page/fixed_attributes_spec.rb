@@ -9,14 +9,14 @@ RSpec.describe Alchemy::Page::FixedAttributes do
     {
       'name' => 'foo',
       'fixed_attributes' => {
-        name: 'Home'
-      }
+        name: 'Home',
+      },
     }
   end
 
   let(:definition_without_fixed_attributes) do
     {
-      'name' => 'foo'
+      'name' => 'foo',
     }
   end
 

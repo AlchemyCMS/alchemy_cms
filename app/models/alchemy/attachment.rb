@@ -71,7 +71,7 @@ module Alchemy
       {
         "name" => read_attribute(:file_name),
         "size" => read_attribute(:file_size),
-        'error' => errors[:file].join
+        'error' => errors[:file].join,
       }
     end
 

@@ -20,7 +20,7 @@ module Alchemy
           expect(url_node.lft).to eq(6)
           patch alchemy.move_api_node_path(url_node, format: :json), params: {
             target_parent_id: page_node.id,
-            new_position: 0
+            new_position: 0,
           }
           expect(response.status).to eq(200)
           response_json = JSON.parse(response.body)
@@ -37,7 +37,7 @@ module Alchemy
         it 'returns an unauthorized error' do
           patch alchemy.move_api_node_path(url_node, format: :json), params: {
             target_parent_id: page_node.id,
-            new_position: 0
+            new_position: 0,
           }
           expect(response).to be_forbidden
           response_json = JSON.parse(response.body)

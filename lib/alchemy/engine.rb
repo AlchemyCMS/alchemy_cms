@@ -31,7 +31,7 @@ module Alchemy
       Ransack.configure do |config|
         config.custom_arrows = {
           up_arrow: '<i class="fa fas fa-xs fa-arrow-up"></i>',
-          down_arrow: '<i class="fa fas fa-xs fa-arrow-down"></i>'
+          down_arrow: '<i class="fa fas fa-xs fa-arrow-down"></i>',
         }
       end
     end
@@ -52,7 +52,7 @@ module Alchemy
         app.middleware.use(
           Rack::Static,
           urls: ['/alchemy-packs', '/alchemy-packs-test'],
-          root: Alchemy::ROOT_PATH.join('public')
+          root: Alchemy::ROOT_PATH.join('public'),
         )
       end
     end

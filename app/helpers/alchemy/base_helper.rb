@@ -34,7 +34,7 @@ module Alchemy
         "fa#{options[:style].first}",
         options[:size] ? "fa-#{options[:size]}" : nil,
         options[:transform] ? "fa-#{options[:transform]}" : nil,
-        options[:class]
+        options[:class],
       ].compact
       content_tag('i', nil, class: classes)
     end

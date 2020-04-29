@@ -26,7 +26,7 @@ RSpec.describe 'alchemy/essences/_essence_select_editor' do
     before do
       expect(content).to receive(:settings).at_least(:once) do
         {
-          select_values: %w(red blue yellow)
+          select_values: %w(red blue yellow),
         }
       end
     end

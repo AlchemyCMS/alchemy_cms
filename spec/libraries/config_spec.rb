@@ -97,7 +97,7 @@ module Alchemy
       context 'when configs containing same keys' do
         it "should merge them together" do
           expect(Config.send(:merge_configs!, config_1, config_2)).to eq(
-            {'setting_1' => 'same', 'other_setting' => 'something', 'setting_2' => 'anything'}
+            {'setting_1' => 'same', 'other_setting' => 'something', 'setting_2' => 'anything'},
           )
         end
       end

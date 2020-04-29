@@ -255,7 +255,7 @@ describe Alchemy::EssencePictureView, type: :model do
     let(:sizes) do
       [
         '(max-width: 1023px) 100vh',
-        '(min-width: 1024px) 33.333vh'
+        '(min-width: 1024px) 33.333vh',
       ]
     end
 

@@ -9,7 +9,7 @@ module Alchemy
         let(:element_objects) do
           [
             mock_model('Element', name: 'element_1', display_name: 'Element 1'),
-            mock_model('Element', name: 'element_2', display_name: 'Element 2')
+            mock_model('Element', name: 'element_2', display_name: 'Element 2'),
           ]
         end
 
@@ -23,7 +23,7 @@ module Alchemy
         let(:element_definitions) do
           [{
             'name' => 'headline',
-            'contents' => []
+            'contents' => [],
           }]
         end
 

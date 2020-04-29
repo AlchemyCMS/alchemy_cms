@@ -14,7 +14,7 @@ module Alchemy
         render(
           'alchemy/admin/partials/main_navigation_entry',
           alchemy_module: alchemy_module,
-          navigation: alchemy_module['navigation']
+          navigation: alchemy_module['navigation'],
         )
       end
 
@@ -37,7 +37,7 @@ module Alchemy
       def navigate_module(navigation)
         [
           navigation['action'].to_sym,
-          navigation['controller'].to_s.gsub(/\A\//, '').gsub(/\//, '_').to_sym
+          navigation['controller'].to_s.gsub(/\A\//, '').gsub(/\//, '_').to_sym,
         ]
       end
 
@@ -47,7 +47,7 @@ module Alchemy
         [
           'main_navi_entry',
           admin_mainnavi_active?(navigation) ? 'active' : nil,
-          navigation.key?('sub_navigation') ? 'has_sub_navigation' : nil
+          navigation.key?('sub_navigation') ? 'has_sub_navigation' : nil,
         ].compact
       end
 
@@ -75,7 +75,7 @@ module Alchemy
       def url_for_module(alchemy_module)
         route_from_engine_or_main_app(
           alchemy_module['engine_name'],
-          url_options_for_module(alchemy_module)
+          url_options_for_module(alchemy_module),
         )
       end
 
@@ -94,7 +94,7 @@ module Alchemy
 
         route_from_engine_or_main_app(
           alchemy_module['engine_name'],
-          url_options_for_navigation_entry(navigation)
+          url_options_for_navigation_entry(navigation),
         )
       end
 
@@ -151,7 +151,7 @@ module Alchemy
           controller: entry['controller'],
           action: entry['action'],
           only_path: true,
-          params: entry['params']
+          params: entry['params'],
         }.delete_if { |_k, v| v.nil? }
       end
 

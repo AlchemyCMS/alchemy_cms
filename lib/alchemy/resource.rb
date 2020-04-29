@@ -166,7 +166,7 @@ module Alchemy
         {
           name: col.name,
           type: resource_column_type(col),
-          relation: resource_relation(col.name)
+          relation: resource_relation(col.name),
         }.delete_if { |_k, v| v.nil? }
       end.compact
     end
@@ -264,7 +264,7 @@ module Alchemy
     def searchable_relation_attribute(attribute)
       {
         name: "#{attribute[:relation][:model_association].name}_#{attribute[:relation][:attr_method]}",
-        type: attribute[:relation][:attr_type]
+        type: attribute[:relation][:attr_type],
       }
     end
 

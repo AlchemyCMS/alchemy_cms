@@ -23,7 +23,7 @@ RSpec.describe 'Requesting a page' do
     let(:legacy_url) do
       Alchemy::LegacyPageUrl.create(
         urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69',
-        page: second_page
+        page: second_page,
       )
     end
 
@@ -91,7 +91,7 @@ RSpec.describe 'Requesting a page' do
           public_on: nil,
           visible: false,
           name: 'Not Public',
-          urlname: ''
+          urlname: '',
         )
         public_child
       end
@@ -140,7 +140,7 @@ RSpec.describe 'Requesting a page' do
               public_on: nil,
               visible: false,
               name: 'Not Public',
-              urlname: ''
+              urlname: '',
             )
           end
 
@@ -222,7 +222,7 @@ RSpec.describe 'Requesting a page' do
     let(:legacy_url) do
       Alchemy::LegacyPageUrl.create(
         urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69',
-        page: second_page
+        page: second_page,
       )
     end
 
@@ -248,7 +248,7 @@ RSpec.describe 'Requesting a page' do
           visible: false,
           public_on: nil,
           name: 'Not Public',
-          urlname: ''
+          urlname: '',
         )
         public_child
       end

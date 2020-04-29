@@ -64,7 +64,7 @@ module Alchemy
         render_errors_or_redirect(
           resource_instance_variable,
           resources_path(resource_instance_variable.class, search_filter_params),
-          flash_notice_for_resource_action
+          flash_notice_for_resource_action,
         )
       end
 
@@ -73,7 +73,7 @@ module Alchemy
         render_errors_or_redirect(
           resource_instance_variable,
           resources_path(resource_instance_variable.class, search_filter_params),
-          flash_notice_for_resource_action
+          flash_notice_for_resource_action,
         )
       end
 
@@ -147,12 +147,12 @@ module Alchemy
         [
           {q: [
             resource_handler.search_field_name,
-            :s
+            :s,
           ]},
           :tagged_with,
           :filter,
           :page,
-          :per_page
+          :per_page,
         ].freeze
       end
 

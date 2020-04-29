@@ -36,7 +36,7 @@ module Alchemy
 
       alchemy.show_page_path(
         locale: prefix_locale? ? page.language_code : nil,
-        urlname: page.urlname
+        urlname: page.urlname,
       )
     end
 
@@ -46,8 +46,8 @@ module Alchemy
       LegacyPageUrl.joins(:page).where(
         urlname: urlname,
         Page.table_name => {
-          language_id: Language.current.id
-        }
+          language_id: Language.current.id,
+        },
       )
     end
 

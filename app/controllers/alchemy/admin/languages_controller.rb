@@ -14,7 +14,7 @@ module Alchemy
       def new
         @language = Language.new(
           site: @current_site,
-          page_layout: Config.get(:default_language)['page_layout']
+          page_layout: Config.get(:default_language)['page_layout'],
         )
       end
 
