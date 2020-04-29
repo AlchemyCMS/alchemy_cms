@@ -12,9 +12,9 @@ module Alchemy
       #
       def alchemy_main_navigation_entry(alchemy_module)
         render(
-          'alchemy/admin/partials/main_navigation_entry',
+          "alchemy/admin/partials/main_navigation_entry",
           alchemy_module: alchemy_module,
-          navigation: alchemy_module['navigation'],
+          navigation: alchemy_module["navigation"],
         )
       end
 
@@ -36,8 +36,8 @@ module Alchemy
       #
       def navigate_module(navigation)
         [
-          navigation['action'].to_sym,
-          navigation['controller'].to_s.gsub(/\A\//, '').gsub(/\//, '_').to_sym,
+          navigation["action"].to_sym,
+          navigation["controller"].to_s.gsub(/\A\//, "").gsub(/\//, "_").to_sym,
         ]
       end
 
@@ -45,9 +45,9 @@ module Alchemy
       #
       def main_navigation_css_classes(navigation)
         [
-          'main_navi_entry',
-          admin_mainnavi_active?(navigation) ? 'active' : nil,
-          navigation.key?('sub_navigation') ? 'has_sub_navigation' : nil,
+          "main_navi_entry",
+          admin_mainnavi_active?(navigation) ? "active" : nil,
+          navigation.key?("sub_navigation") ? "has_sub_navigation" : nil,
         ].compact
       end
 
@@ -74,7 +74,7 @@ module Alchemy
       #
       def url_for_module(alchemy_module)
         route_from_engine_or_main_app(
-          alchemy_module['engine_name'],
+          alchemy_module["engine_name"],
           url_options_for_module(alchemy_module),
         )
       end
@@ -93,7 +93,7 @@ module Alchemy
         return if alchemy_module.nil?
 
         route_from_engine_or_main_app(
-          alchemy_module['engine_name'],
+          alchemy_module["engine_name"],
           url_options_for_navigation_entry(navigation),
         )
       end
@@ -106,13 +106,13 @@ module Alchemy
         sorted = []
         not_sorted = []
         alchemy_modules.map do |m|
-          if m['position'].blank?
+          if m["position"].blank?
             not_sorted << m
           else
             sorted << m
           end
         end
-        sorted.sort_by { |m| m['position'] } + not_sorted
+        sorted.sort_by { |m| m["position"] } + not_sorted
       end
 
       private
@@ -138,7 +138,7 @@ module Alchemy
       #   A Alchemy module definition
       #
       def url_options_for_module(alchemy_module)
-        url_options_for_navigation_entry(alchemy_module['navigation'] || {})
+        url_options_for_navigation_entry(alchemy_module["navigation"] || {})
       end
 
       # Returns a url options hash for given navigation entry.
@@ -148,26 +148,26 @@ module Alchemy
       #
       def url_options_for_navigation_entry(entry)
         {
-          controller: entry['controller'],
-          action: entry['action'],
+          controller: entry["controller"],
+          action: entry["action"],
           only_path: true,
-          params: entry['params'],
+          params: entry["params"],
         }.delete_if { |_k, v| v.nil? }
       end
 
       # Retrieves the current Alchemy module from controller and index action.
       #
       def current_alchemy_module
-        module_definition_for(controller: params[:controller], action: 'index')
+        module_definition_for(controller: params[:controller], action: "index")
       end
 
       # Returns true if the current controller and action is in a modules navigation definition.
       #
       def admin_mainnavi_active?(navigation)
         # Has the given navigation entry a active sub navigation?
-        has_active_entry?(navigation['sub_navigation'] || []) ||
+        has_active_entry?(navigation["sub_navigation"] || []) ||
           # Has the given navigation entry a active nested navigation?
-          has_active_entry?(navigation['nested'] || []) ||
+          has_active_entry?(navigation["nested"] || []) ||
           # Is the navigation entry active?
           entry_active?(navigation || {})
       end
@@ -175,7 +175,7 @@ module Alchemy
       # Returns true if the given entry's controller is current controller
       #
       def is_entry_controller_active?(entry)
-        entry['controller'].gsub(/\A\//, '') == params[:controller]
+        entry["controller"].gsub(/\A\//, "") == params[:controller]
       end
 
       # Returns true if the given entry's action is current controllers action
@@ -183,8 +183,8 @@ module Alchemy
       # Also checks if given entry has a +nested_actions+ key, if so it checks if one of them is current controller's action
       #
       def is_entry_action_active?(entry)
-        entry['action'] == params[:action] ||
-          entry.fetch('nested_actions', []).include?(params[:action])
+        entry["action"] == params[:action] ||
+          entry.fetch("nested_actions", []).include?(params[:action])
       end
 
       # Returns true if an entry of given entries is active.

@@ -3,10 +3,10 @@
 module Alchemy
   class PagesController < Alchemy::BaseController
     SHOW_PAGE_PARAMS_KEYS = [
-      'action',
-      'controller',
-      'urlname',
-      'locale',
+      "action",
+      "controller",
+      "urlname",
+      "locale",
     ]
 
     include OnPageLayout::CallbacksRunner
@@ -78,7 +78,7 @@ module Alchemy
     def sitemap
       @pages = Page.sitemap
       respond_to do |format|
-        format.xml { render layout: 'alchemy/sitemap' }
+        format.xml { render layout: "alchemy/sitemap" }
       end
     end
 
@@ -95,7 +95,7 @@ module Alchemy
     #
     def load_index_page
       @page ||= Language.current_root_page
-      render template: 'alchemy/welcome', layout: false if signup_required?
+      render template: "alchemy/welcome", layout: false if signup_required?
     end
 
     # == Loads page by urlname
@@ -150,7 +150,7 @@ module Alchemy
           if @page.contains_feed?
             render action: :show, layout: false, handlers: [:builder]
           else
-            render xml: {error: 'Not found'}, status: 404
+            render xml: { error: "Not found" }, status: 404
           end
         end
       end
@@ -193,9 +193,9 @@ module Alchemy
     #
     def render_fresh_page?
       must_not_cache? || stale?(etag: page_etag,
-        last_modified: @page.published_at,
-        public: !@page.restricted,
-        template: 'pages/show')
+                                last_modified: @page.published_at,
+                                public: !@page.restricted,
+                                template: "pages/show")
     end
 
     # don't cache pages if we have flash message to display or the page has caching disabled

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe EssenceLink do
     it_behaves_like "an essence" do
       let(:essence)          { EssenceLink.new }
-      let(:ingredient_value) { 'http://alchemy-cms.com' }
+      let(:ingredient_value) { "http://alchemy-cms.com" }
     end
   end
 end

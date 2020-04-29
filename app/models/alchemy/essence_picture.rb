@@ -26,7 +26,7 @@
 module Alchemy
   class EssencePicture < BaseRecord
     acts_as_essence ingredient_column: :picture, belongs_to: {
-      class_name: 'Alchemy::Picture',
+      class_name: "Alchemy::Picture",
       foreign_key: :picture_id,
       inverse_of: :essence_pictures,
       optional: true,
@@ -163,7 +163,7 @@ module Alchemy
     end
 
     def normalize_crop_value(crop_value)
-      self[crop_value].split('x').map { |n| normalize_number(n) }.join('x')
+      self[crop_value].split("x").map { |n| normalize_number(n) }.join("x")
     end
 
     def normalize_number(number)

@@ -39,7 +39,7 @@ module Alchemy
   class MessagesController < Alchemy::BaseController
     before_action :get_page, except: :create
 
-    helper 'alchemy/pages'
+    helper "alchemy/pages"
 
     def index #:nodoc:
       redirect_to show_page_path(
@@ -50,7 +50,7 @@ module Alchemy
 
     def new #:nodoc:
       @message = Message.new
-      render template: 'alchemy/pages/show'
+      render template: "alchemy/pages/show"
     end
 
     def create #:nodoc:
@@ -67,7 +67,7 @@ module Alchemy
         MessagesMailer.contact_form_mail(@message, mail_to, mail_from, subject).deliver
         redirect_to_success_page
       else
-        render template: 'alchemy/pages/show'
+        render template: "alchemy/pages/show"
       end
     end
 
@@ -78,23 +78,23 @@ module Alchemy
     end
 
     def mail_to
-      @element.ingredient(:mail_to) || mailer_config['mail_to']
+      @element.ingredient(:mail_to) || mailer_config["mail_to"]
     end
 
     def mail_from
-      @element.ingredient(:mail_from) || mailer_config['mail_from']
+      @element.ingredient(:mail_from) || mailer_config["mail_from"]
     end
 
     def subject
-      @element.ingredient(:subject) || mailer_config['subject']
+      @element.ingredient(:subject) || mailer_config["subject"]
     end
 
     def redirect_to_success_page
-      flash[:notice] = Alchemy.t(:success, scope: 'contactform.messages')
+      flash[:notice] = Alchemy.t(:success, scope: "contactform.messages")
       if success_page
         urlname = success_page_urlname
-      elsif mailer_config['forward_to_page'] && mailer_config['mail_success_page']
-        urlname = Page.find_by(urlname: mailer_config['mail_success_page']).urlname
+      elsif mailer_config["forward_to_page"] && mailer_config["mail_success_page"]
+        urlname = Page.find_by(urlname: mailer_config["mail_success_page"]).urlname
       else
         urlname = Language.current_root_page.urlname
       end
@@ -118,16 +118,16 @@ module Alchemy
     end
 
     def get_page
-      @page = Language.current.pages.find_by(page_layout: mailer_config['page_layout_name'])
+      @page = Language.current.pages.find_by(page_layout: mailer_config["page_layout_name"])
       if @page.blank?
-        raise "Page for page_layout #{mailer_config['page_layout_name']} not found"
+        raise "Page for page_layout #{mailer_config["page_layout_name"]} not found"
       end
 
       @root_page = @page.get_language_root
     end
 
     def message_params
-      params.require(:message).permit(*mailer_config['fields'])
+      params.require(:message).permit(*mailer_config["fields"])
     end
   end
 end

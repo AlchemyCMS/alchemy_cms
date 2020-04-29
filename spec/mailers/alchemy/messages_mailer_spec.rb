@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 def reload_mailer_class(class_name)
   Alchemy.send(:remove_const, class_name)
@@ -9,8 +9,8 @@ end
 
 module Alchemy
   describe MessagesMailer do
-    let(:message) { Message.new(email: 'jon@doe.com', message: 'Lorem ipsum') }
-    let(:mail) { MessagesMailer.contact_form_mail(message, 'admin@page.com', 'contact@page.com', 'Subject') }
+    let(:message) { Message.new(email: "jon@doe.com", message: "Lorem ipsum") }
+    let(:mail) { MessagesMailer.contact_form_mail(message, "admin@page.com", "contact@page.com", "Subject") }
 
     it "inherits from ActionMailer::Base" do
       expect(MessagesMailer < ActionMailer::Base).to eq(true)
@@ -29,8 +29,8 @@ module Alchemy
     end
 
     it "delivers a mail to owner" do
-      expect(mail.to).to eq(['admin@page.com'])
-      expect(mail.subject).to eq('Subject')
+      expect(mail.to).to eq(["admin@page.com"])
+      expect(mail.subject).to eq("Subject")
     end
 
     it "reply_to should be set to senders email" do

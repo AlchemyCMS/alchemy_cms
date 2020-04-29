@@ -174,12 +174,12 @@ module Alchemy
     end
 
     def has_validations?
-      definition['validate'].present?
+      definition["validate"].present?
     end
 
     # Returns a string used as dom id on html elements.
     def dom_id
-      return '' if essence.nil?
+      return "" if essence.nil?
 
       "#{essence_partial_name}_#{id}"
     end
@@ -195,7 +195,7 @@ module Alchemy
 
     # Returns true if this content should be taken for element preview.
     def preview_content?
-      !!definition['as_element_title']
+      !!definition["as_element_title"]
     end
 
     # Proxy method that returns the preview text from essence.
@@ -205,7 +205,7 @@ module Alchemy
     end
 
     def essence_partial_name
-      return '' if essence.nil?
+      return "" if essence.nil?
 
       essence.partial_name
     end

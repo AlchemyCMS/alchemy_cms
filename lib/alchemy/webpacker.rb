@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'webpacker'
-require 'webpacker/instance'
+require "webpacker"
+require "webpacker/instance"
 
 module Alchemy
   def self.webpacker

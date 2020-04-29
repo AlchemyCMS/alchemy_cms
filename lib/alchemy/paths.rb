@@ -29,6 +29,6 @@ module Alchemy
 
   # Defaults
   #
-  @@admin_path = 'admin'
+  @@admin_path = "admin"
   @@admin_constraints = {}
 end

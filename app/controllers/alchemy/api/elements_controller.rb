@@ -22,7 +22,7 @@ module Alchemy
       end
       @elements = @elements.includes(*element_includes)
 
-      render json: @elements, adapter: :json, root: 'elements'
+      render json: @elements, adapter: :json, root: "elements"
     end
 
     # Returns a json object for element

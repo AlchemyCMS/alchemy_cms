@@ -13,7 +13,7 @@ module Alchemy
       #
       def render_content_name(content)
         if content.blank?
-          warning('Content is nil')
+          warning("Content is nil")
           return
         end
 
@@ -39,7 +39,7 @@ module Alchemy
       # Renders the label and a remove link for a content.
       def content_label(content)
         content_tag :label, for: content.form_field_id do
-          [render_hint_for(content), render_content_name(content)].compact.join('&nbsp;').html_safe
+          [render_hint_for(content), render_content_name(content)].compact.join("&nbsp;").html_safe
         end
       end
     end

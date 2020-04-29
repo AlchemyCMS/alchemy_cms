@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'active_support'
-require 'active_support/core_ext'
-require 'active_support/inflector'
+require "active_support"
+require "active_support/core_ext"
+require "active_support/inflector"
 
 module Alchemy
   # = Alchemy::Resource
@@ -120,7 +120,7 @@ module Alchemy
     end
 
     def resource_array
-      @_resource_array ||= controller_path_array.reject { |el| el == 'admin' }
+      @_resource_array ||= controller_path_array.reject { |el| el == "admin" }
     end
 
     def resources_name
@@ -139,7 +139,7 @@ module Alchemy
       @_namespaced_resources_name ||= begin
         resource_name_array = resource_array.dup
         resource_name_array.delete(engine_name) if in_engine?
-        resource_name_array.join('_')
+        resource_name_array.join("_")
       end
     end
 
@@ -173,9 +173,9 @@ module Alchemy
 
     def sorted_attributes
       @_sorted_attributes ||= attributes.
-        sort_by  { |attr| attr[:name] == 'name' ? 0 : 1 }.
+        sort_by  { |attr| attr[:name] == "name" ? 0 : 1 }.
         sort_by! { |attr| attr[:type] == :boolean ? 1 : 0 }.
-        sort_by! { |attr| attr[:name] == 'updated_at' ? 1 : 0 }
+        sort_by! { |attr| attr[:name] == "updated_at" ? 1 : 0 }
     end
 
     def editable_attributes
@@ -207,7 +207,7 @@ module Alchemy
     end
 
     def engine_name
-      @module_definition && @module_definition['engine_name']
+      @module_definition && @module_definition["engine_name"]
     end
 
     # Returns a help text for resource's form
@@ -269,11 +269,11 @@ module Alchemy
     end
 
     def guess_model_from_controller_path
-      resource_array.join('/').classify.constantize
+      resource_array.join("/").classify.constantize
     end
 
     def controller_path_array
-      @controller_path.split('/')
+      @controller_path.split("/")
     end
 
     def namespace_diff
@@ -296,7 +296,7 @@ module Alchemy
     def map_relations
       self.resource_relations = {}
       model.alchemy_resource_relations.each do |name, options|
-        name = name.to_s.gsub(/_id$/, '') # ensure that we don't have an id
+        name = name.to_s.gsub(/_id$/, "") # ensure that we don't have an id
         association = association_from_relation_name(name)
         foreign_key = association.options[:foreign_key] || "#{association.name}_id".to_sym
         resource_relations[foreign_key] = options.merge(model_association: association, name: name)

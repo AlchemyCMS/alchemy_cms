@@ -42,7 +42,7 @@ module Alchemy
 
     def legacy_urls
       # /slug/tree => slug/tree
-      urlname = (request.fullpath[1..-1] if request.fullpath[0] == '/') || request.fullpath
+      urlname = (request.fullpath[1..-1] if request.fullpath[0] == "/") || request.fullpath
       LegacyPageUrl.joins(:page).where(
         urlname: urlname,
         Page.table_name => {

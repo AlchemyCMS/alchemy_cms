@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe PagesHelper do
@@ -18,11 +18,11 @@ module Alchemy
     describe "#render_page_layout" do
       it "should render the current page layout" do
         @page = public_page
-        expect(helper.render_page_layout).to have_selector('div#content')
+        expect(helper.render_page_layout).to have_selector("div#content")
       end
     end
 
-    describe '#render_site_layout' do
+    describe "#render_site_layout" do
       let(:default_site) { Alchemy::Site.default }
 
       it "renders the partial for current site" do
@@ -39,51 +39,51 @@ module Alchemy
       end
     end
 
-    describe '#render_menu' do
+    describe "#render_menu" do
       subject { helper.render_menu(name) }
 
-      let(:name) { 'Main Navigation' }
+      let(:name) { "Main Navigation" }
 
-      context 'if menu exists' do
+      context "if menu exists" do
         let(:menu) { create(:alchemy_node, name: name) }
-        let!(:node) { create(:alchemy_node, parent: menu, url: '/') }
+        let!(:node) { create(:alchemy_node, parent: menu, url: "/") }
 
-        context 'and the template exists' do
-          it 'renders the menu' do
-            is_expected.to have_selector('ul.nav > li.nav-item > a.nav-link')
+        context "and the template exists" do
+          it "renders the menu" do
+            is_expected.to have_selector("ul.nav > li.nav-item > a.nav-link")
           end
         end
 
-        context 'but the template does not exist' do
-          let(:name) { 'Unkown' }
+        context "but the template does not exist" do
+          let(:name) { "Unkown" }
 
           it { is_expected.to be_nil }
         end
       end
 
-      context 'if menu does not exist' do
+      context "if menu does not exist" do
         it { is_expected.to be_nil }
       end
 
-      context 'with multiple sites' do
-        let!(:site_2) { create(:alchemy_site, host: 'another-site.com') }
+      context "with multiple sites" do
+        let!(:site_2) { create(:alchemy_site, host: "another-site.com") }
         let!(:menu) { create(:alchemy_node, name: name, site: Alchemy::Site.current) }
-        let!(:node) { create(:alchemy_node, parent: menu, url: '/default-site') }
+        let!(:node) { create(:alchemy_node, parent: menu, url: "/default-site") }
         let!(:menu_2) { create(:alchemy_node, name: name, site: site_2) }
-        let!(:node_2) { create(:alchemy_node, parent: menu_2, site: site_2, url: '/site-2') }
+        let!(:node_2) { create(:alchemy_node, parent: menu_2, site: site_2, url: "/site-2") }
 
-        it 'renders menu from current site' do
+        it "renders menu from current site" do
           is_expected.to have_selector('ul.nav > li.nav-item > a.nav-link[href="/default-site"]')
         end
       end
 
-      context 'with multiple languages' do
+      context "with multiple languages" do
         let!(:menu) { create(:alchemy_node, name: name) }
-        let!(:node) { create(:alchemy_node, parent: menu, url: '/default') }
+        let!(:node) { create(:alchemy_node, parent: menu, url: "/default") }
         let!(:klingon_menu) { create(:alchemy_node, name: name, language: klingon) }
-        let!(:klingon_node) { create(:alchemy_node, parent: klingon_menu, language: klingon, url: '/klingon') }
+        let!(:klingon_node) { create(:alchemy_node, parent: klingon_menu, language: klingon, url: "/klingon") }
 
-        it 'should return the menu for the current language' do
+        it "should return the menu for the current language" do
           is_expected.to have_selector('ul.nav > li.nav-item > a.nav-link[href="/default"]')
           is_expected.not_to have_selector('ul.nav > li.nav-item > a.nav-link[href="/klingon"]')
         end
@@ -106,7 +106,7 @@ module Alchemy
 
       context "with options[:separator] given" do
         it "should render a breadcrumb with an alternative separator" do
-          expect(helper.render_breadcrumb(page: page, separator: '<span>###</span>')).to have_selector('span[contains("###")]')
+          expect(helper.render_breadcrumb(page: page, separator: "<span>###</span>")).to have_selector('span[contains("###")]')
         end
       end
 
@@ -120,7 +120,7 @@ module Alchemy
         let(:user) { build(:alchemy_dummy_user) }
 
         it "should render a breadcrumb of restricted pages only" do
-          page.update_columns(restricted: true, urlname: 'a-restricted-public-page', name: 'A restricted Public Page', title: 'A restricted Public Page')
+          page.update_columns(restricted: true, urlname: "a-restricted-public-page", name: "A restricted Public Page", title: "A restricted Public Page")
           result = helper.render_breadcrumb(page: page, restricted_only: true).strip
           expect(result).to have_selector("*[contains(\"#{page.name}\")]")
           expect(result).to_not have_selector("*[contains(\"#{parent.name}\")]")
@@ -128,25 +128,25 @@ module Alchemy
       end
 
       it "should render a breadcrumb of visible pages only" do
-        page.update_columns(visible: false, urlname: 'a-invisible-page', name: 'A Invisible Page', title: 'A Invisible Page')
+        page.update_columns(visible: false, urlname: "a-invisible-page", name: "A Invisible Page", title: "A Invisible Page")
         expect(helper.render_breadcrumb(page: page)).not_to match(/A Invisible Page/)
       end
 
       it "should render a breadcrumb of visible and unpublished pages" do
-        page.update_columns(public_on: nil, urlname: 'a-unpublic-page', name: 'A Unpublic Page', title: 'A Unpublic Page')
+        page.update_columns(public_on: nil, urlname: "a-unpublic-page", name: "A Unpublic Page", title: "A Unpublic Page")
         expect(helper.render_breadcrumb(page: page)).to match(/A Unpublic Page/)
       end
 
       context "with options[:without]" do
         it "should render a breadcrumb without this page" do
-          page.update_columns(urlname: 'not-me', name: 'Not Me', title: 'Not Me')
+          page.update_columns(urlname: "not-me", name: "Not Me", title: "Not Me")
           expect(helper.render_breadcrumb(page: page, without: page)).not_to match(/Not Me/)
         end
       end
 
       context "with options[:without] as array" do
         it "should render a breadcrumb without these pages." do
-          page.update_columns(urlname: 'not-me', name: 'Not Me', title: 'Not Me')
+          page.update_columns(urlname: "not-me", name: "Not Me", title: "Not Me")
           expect(helper.render_breadcrumb(page: page, without: [page])).not_to match(/Not Me/)
         end
       end
@@ -161,8 +161,8 @@ module Alchemy
 
         before { klingon_language_root }
 
-        it 'should still only render two links' do
-          expect(helper.language_links).to have_selector('a', count: 2)
+        it "should still only render two links" do
+          expect(helper.language_links).to have_selector("a", count: 2)
         end
       end
 
@@ -181,7 +181,7 @@ module Alchemy
           before { klingon_language_root }
 
           it "should render two language links" do
-            expect(helper.language_links).to have_selector('a', count: 2)
+            expect(helper.language_links).to have_selector("a", count: 2)
           end
 
           it "should render language links referring to their language root page" do
@@ -193,13 +193,13 @@ module Alchemy
           context "with options[:linkname]" do
             context "set to 'name'" do
               it "should render the name of the language" do
-                expect(helper.language_links(linkname: 'name')).to have_selector("span[contains('#{klingon_language_root.language.name}')]")
+                expect(helper.language_links(linkname: "name")).to have_selector("span[contains('#{klingon_language_root.language.name}')]")
               end
             end
 
             context "set to 'code'" do
               it "should render the code of the language" do
-                expect(helper.language_links(linkname: 'code')).to have_selector("span[contains('#{klingon_language_root.language.code}')]")
+                expect(helper.language_links(linkname: "code")).to have_selector("span[contains('#{klingon_language_root.language.code}')]")
               end
             end
           end
@@ -234,7 +234,7 @@ module Alchemy
 
             context "set to false" do
               it "should render the language links without titles" do
-                expect(helper.language_links(show_title: false)).to_not have_selector('a[title]')
+                expect(helper.language_links(show_title: false)).to_not have_selector("a[title]")
               end
             end
           end
@@ -356,8 +356,8 @@ module Alchemy
     end
 
     describe "#picture_essence_caption" do
-      let(:essence) { mock_model('EssencePicture', caption: 'my caption') }
-      let(:content) { mock_model('Content', essence: essence) }
+      let(:essence) { mock_model("EssencePicture", caption: "my caption") }
+      let(:content) { mock_model("Content", essence: essence) }
 
       it "should return the caption of the contents essence" do
         expect(helper.picture_essence_caption(content)).to eq "my caption"

@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'alchemy/essences/_essence_date_editor' do
+RSpec.describe "alchemy/essences/_essence_date_editor" do
   let(:content) { Alchemy::Content.new(essence: essence) }
   let(:essence) { Alchemy::EssenceDate.new }
 
@@ -12,7 +12,7 @@ RSpec.describe 'alchemy/essences/_essence_date_editor' do
   end
 
   it "renders a datepicker" do
-    render 'alchemy/essences/essence_date_editor', essence_date_editor: Alchemy::ContentEditor.new(content)
+    render "alchemy/essences/essence_date_editor", essence_date_editor: Alchemy::ContentEditor.new(content)
     expect(rendered).to have_css('input[type="text"][data-datepicker-type="date"].date')
   end
 end

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-describe 'alchemy/essences/_essence_text_editor' do
-  let(:essence) { Alchemy::EssenceText.new(body: '1234') }
+describe "alchemy/essences/_essence_text_editor" do
+  let(:essence) { Alchemy::EssenceText.new(body: "1234") }
   let(:content) { Alchemy::Content.new(essence: essence) }
   let(:settings) { {} }
 
@@ -16,13 +16,13 @@ describe 'alchemy/essences/_essence_text_editor' do
     }
   end
 
-  context 'with no input type set' do
+  context "with no input type set" do
     it "renders an input field of type number" do
       expect(rendered).to have_selector('input[type="text"]')
     end
   end
 
-  context 'with a different input type set' do
+  context "with a different input type set" do
     let(:settings) do
       {
         input_type: "number",
@@ -34,7 +34,7 @@ describe 'alchemy/essences/_essence_text_editor' do
     end
   end
 
-  context 'with settings linkable set to true' do
+  context "with settings linkable set to true" do
     let(:settings) do
       {
         linkable: true,

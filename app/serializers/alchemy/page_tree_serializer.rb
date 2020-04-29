@@ -3,7 +3,7 @@
 module Alchemy
   class PageTreeSerializer < BaseSerializer
     def attributes
-      {'pages' => nil}
+      {"pages" => nil}
     end
 
     def pages
@@ -73,7 +73,7 @@ module Alchemy
           definition_missing: page.definition.blank?,
           folded: folded,
           locked: page.locked?,
-          locked_notice: page.locked? ? Alchemy.t('This page is locked', name: page.locker_name) : nil,
+          locked_notice: page.locked? ? Alchemy.t("This page is locked", name: page.locker_name) : nil,
           permissions: page_permissions(page, opts[:ability]),
           status_titles: page_status_titles(page),
         })
@@ -83,10 +83,10 @@ module Alchemy
     end
 
     def page_elements(page)
-      if opts[:elements] == 'true'
+      if opts[:elements] == "true"
         page.elements
       else
-        page.elements.named(opts[:elements].split(',') || [])
+        page.elements.named(opts[:elements].split(",") || [])
       end
     end
 

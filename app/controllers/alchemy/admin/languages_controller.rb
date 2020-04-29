@@ -14,14 +14,14 @@ module Alchemy
       def new
         @language = Language.new(
           site: @current_site,
-          page_layout: Config.get(:default_language)['page_layout'],
+          page_layout: Config.get(:default_language)["page_layout"],
         )
       end
 
       def create
         @language = Alchemy::Language.new(resource_params)
         if @language.save
-          flash[:notice] = Alchemy.t('Language successfully created')
+          flash[:notice] = Alchemy.t("Language successfully created")
           redirect_to alchemy.admin_pages_path(language_id: @language)
         else
           render :new
@@ -30,7 +30,7 @@ module Alchemy
 
       def destroy
         if @language.destroy
-          flash[:notice] = Alchemy.t('Language successfully removed')
+          flash[:notice] = Alchemy.t("Language successfully removed")
         else
           flash[:warning] = @language.errors.full_messages.to_sentence
         end
@@ -47,7 +47,7 @@ module Alchemy
       def load_current_site
         @current_site = Alchemy::Site.current
         if @current_site.nil?
-          flash[:warning] = Alchemy.t('Please create a site first.')
+          flash[:warning] = Alchemy.t("Please create a site first.")
           redirect_to admin_sites_path
         end
       end

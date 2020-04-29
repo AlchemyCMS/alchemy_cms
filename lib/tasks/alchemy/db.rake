@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'alchemy/seeder'
+require "alchemy/seeder"
 
 namespace :alchemy do
   namespace :db do

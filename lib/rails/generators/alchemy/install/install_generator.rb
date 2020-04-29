@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'rails'
+require "rails"
 
 module Alchemy
   module Generators
@@ -11,7 +11,7 @@ module Alchemy
         default: false,
         desc: "Skip creation of demo element, page and application layout."
 
-      source_root File.expand_path('files', __dir__)
+      source_root File.expand_path("files", __dir__)
 
       def copy_config
         copy_file "#{config_path}/config.yml", "config/alchemy/config.yml"
@@ -52,13 +52,13 @@ module Alchemy
       end
 
       def install_gutentag_migrations
-        rake 'gutentag:install:migrations'
+        rake "gutentag:install:migrations"
       end
 
       private
 
       def config_path
-        @_config_path ||= File.expand_path('../../../../../config/alchemy', __dir__)
+        @_config_path ||= File.expand_path("../../../../../config/alchemy", __dir__)
       end
     end
   end

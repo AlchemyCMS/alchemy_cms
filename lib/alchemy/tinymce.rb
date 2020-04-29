@@ -6,22 +6,22 @@ module Alchemy
 
     @@plugins = %w(alchemy_link anchor autoresize charmap code directionality fullscreen hr link lists paste tabfocus table)
     @@init = {
-      skin: 'alchemy',
-      width: 'auto',
+      skin: "alchemy",
+      width: "auto",
       resize: true,
-      autoresize_min_height: '105',
-      autoresize_max_height: '480',
+      autoresize_min_height: "105",
+      autoresize_max_height: "480",
       menubar: false,
       statusbar: true,
       toolbar: [
-        'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen',
-        'pastetext charmap hr | undo redo | alchemy_link unlink anchor | code',
+        "bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | fullscreen",
+        "pastetext charmap hr | undo redo | alchemy_link unlink anchor | code",
       ],
       fix_list_elements: true,
       convert_urls: false,
-      entity_encoding: 'raw',
+      entity_encoding: "raw",
       paste_as_text: true,
-      element_format: 'html',
+      element_format: "html",
       branding: false,
     }
 
@@ -42,14 +42,14 @@ module Alchemy
 
       def content_definitions_from_elements(definitions)
         definitions.collect do |el|
-          next if el['contents'].blank?
+          next if el["contents"].blank?
 
-          contents = el['contents'].select do |c|
-            c['settings'] && c['settings']['tinymce'].is_a?(Hash)
+          contents = el["contents"].select do |c|
+            c["settings"] && c["settings"]["tinymce"].is_a?(Hash)
           end
           next if contents.blank?
 
-          contents.map { |c| c.merge('element' => el['name']) }
+          contents.map { |c| c.merge("element" => el["name"]) }
         end.flatten.compact
       end
     end

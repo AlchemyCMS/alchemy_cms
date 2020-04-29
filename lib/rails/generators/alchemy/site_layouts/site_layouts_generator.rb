@@ -1,11 +1,11 @@
 # frozen_string_literal: true
-require_relative '../base'
+require_relative "../base"
 
 module Alchemy
   module Generators
     class SiteLayoutsGenerator < Base
       desc "This generator generates your site layouts view partials."
-      source_root File.expand_path('templates', __dir__)
+      source_root File.expand_path("templates", __dir__)
 
       def create_partials
         @sites = Alchemy::Site.all

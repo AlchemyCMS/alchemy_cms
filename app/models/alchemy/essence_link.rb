@@ -17,6 +17,6 @@
 
 module Alchemy
   class EssenceLink < BaseRecord
-    acts_as_essence ingredient_column: 'link'
+    acts_as_essence ingredient_column: "link"
   end
 end

@@ -8,7 +8,7 @@ module Alchemy
       before_action :set_current_alchemy_site
       before_action :set_alchemy_language
 
-      helper 'alchemy/pages'
+      helper "alchemy/pages"
 
       helper_method :current_alchemy_user,
         :alchemy_user_signed_in?,

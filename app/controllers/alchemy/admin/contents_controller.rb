@@ -3,7 +3,7 @@
 module Alchemy
   module Admin
     class ContentsController < Alchemy::Admin::BaseController
-      helper 'alchemy/admin/essences'
+      helper "alchemy/admin/essences"
 
       authorize_resource class: Alchemy::Content
 

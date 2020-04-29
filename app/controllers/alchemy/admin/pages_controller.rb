@@ -5,7 +5,7 @@ module Alchemy
     class PagesController < Alchemy::Admin::BaseController
       include OnPageLayout::CallbacksRunner
 
-      helper 'alchemy/pages'
+      helper "alchemy/pages"
 
       before_action :load_page, except: [:index, :flush, :new, :order, :create, :copy_language_tree, :link, :sort]
 
@@ -48,7 +48,7 @@ module Alchemy
         Page.current_preview = @page
         # Setting the locale to pages language, so the page content has it's correct translations.
         ::I18n.locale = @page.language.locale
-        render(layout: Alchemy::Config.get(:admin_page_preview_layout) || 'application')
+        render(layout: Alchemy::Config.get(:admin_page_preview_layout) || "application")
       end
 
       def info
@@ -56,9 +56,9 @@ module Alchemy
       end
 
       def new
-        @page ||= Page.new(layoutpage: params[:layoutpage] == 'true', parent_id: params[:parent_id])
+        @page ||= Page.new(layoutpage: params[:layoutpage] == "true", parent_id: params[:parent_id])
         @page_layouts = PageLayout.layouts_for_select(@current_language.id, @page.layoutpage?)
-        @clipboard = get_clipboard('pages')
+        @clipboard = get_clipboard("pages")
         @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, @current_language.id, @page.layoutpage?)
       end
 
@@ -80,7 +80,7 @@ module Alchemy
       def edit
         # fetching page via before filter
         if page_is_locked?
-          flash[:warning] = Alchemy.t('This page is locked', name: @page.locker_name)
+          flash[:warning] = Alchemy.t("This page is locked", name: @page.locker_name)
           redirect_to admin_pages_path
         elsif page_needs_lock?
           @page.lock_to!(current_alchemy_user)
@@ -102,7 +102,7 @@ module Alchemy
         @old_page_layout = @page.page_layout
         if @page.update(page_params)
           @notice = Alchemy.t("Page saved", name: @page.name)
-          @while_page_edit = request.referer.include?('edit')
+          @while_page_edit = request.referer.include?("edit")
 
           unless @while_page_edit
             @tree = serialized_page_tree
@@ -118,17 +118,17 @@ module Alchemy
           flash[:notice] = Alchemy.t("Page deleted", name: @page.name)
 
           # Remove page from clipboard
-          clipboard = get_clipboard('pages')
-          clipboard.delete_if { |item| item['id'] == @page.id.to_s }
+          clipboard = get_clipboard("pages")
+          clipboard.delete_if { |item| item["id"] == @page.id.to_s }
         end
 
         respond_to do |format|
           format.js do
             @redirect_url = if @page.layoutpage?
-                              alchemy.admin_layoutpages_path
-                            else
-                              alchemy.admin_pages_path
-                            end
+                alchemy.admin_layoutpages_path
+              else
+                alchemy.admin_pages_path
+              end
 
             render :redirect
           end
@@ -257,14 +257,14 @@ module Alchemy
       def visit_nodes(nodes, my_left, parent, depth, tree, url, restricted)
         nodes.each do |item|
           my_right = my_left + 1
-          my_restricted = item['restricted'] || restricted
+          my_restricted = item["restricted"] || restricted
           urls = process_url(url, item)
 
-          if item['children']
-            my_right, tree = visit_nodes(item['children'], my_left + 1, item['id'], depth + 1, tree, urls[:children_path], my_restricted)
+          if item["children"]
+            my_right, tree = visit_nodes(item["children"], my_left + 1, item["id"], depth + 1, tree, urls[:children_path], my_restricted)
           end
 
-          tree[item['id']] = TreeNode.new(my_left, my_right, parent, depth, urls[:my_urlname], my_restricted)
+          tree[item["id"]] = TreeNode.new(my_left, my_right, parent, depth, urls[:my_urlname], my_restricted)
           my_left = my_right + 1
         end
 
@@ -301,11 +301,11 @@ module Alchemy
       #   A children node
       #
       def process_url(ancestors_path, item)
-        default_urlname = (ancestors_path.blank? ? "" : "#{ancestors_path}/") + item['slug'].to_s
+        default_urlname = (ancestors_path.blank? ? "" : "#{ancestors_path}/") + item["slug"].to_s
 
-        pair = {my_urlname: default_urlname, children_path: default_urlname}
+        pair = { my_urlname: default_urlname, children_path: default_urlname }
 
-        if item['visible'] == false
+        if item["visible"] == false
           # children ignore an ancestor in their path if invisible
           pair[:children_path] = ancestors_path
         end
@@ -318,10 +318,10 @@ module Alchemy
       end
 
       def pages_from_raw_request
-        request.raw_post.split('&').map do |i|
-          parts = i.split('=')
+        request.raw_post.split("&").map do |i|
+          parts = i.split("=")
           {
-            parts[0].gsub(/[^0-9]/, '') => parts[1],
+            parts[0].gsub(/[^0-9]/, "") => parts[1],
           }
         end
       end
@@ -374,7 +374,7 @@ module Alchemy
       def serialized_page_tree
         PageTreeSerializer.new(@page, ability: current_ability,
                                       user: current_alchemy_user,
-                                      full: params[:full] == 'true')
+                                      full: params[:full] == "true")
       end
     end
   end

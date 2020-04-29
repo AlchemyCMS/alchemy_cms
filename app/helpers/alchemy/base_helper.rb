@@ -27,7 +27,7 @@ module Alchemy
     #
     # @return [String]
     def render_icon(icon_class, options = {})
-      options = {style: 'solid'}.merge(options)
+      options = {style: "solid"}.merge(options)
       classes = [
         "icon fa-fw",
         "fa-#{icon_class}",
@@ -36,7 +36,7 @@ module Alchemy
         options[:transform] ? "fa-#{options[:transform]}" : nil,
         options[:class],
       ].compact
-      content_tag('i', nil, class: classes)
+      content_tag("i", nil, class: classes)
     end
 
     # Returns a div with an icon and the passed content
@@ -64,7 +64,7 @@ module Alchemy
     # @param [Symbol] style The style of this flash. Valid values are +:notice+ (default), +:warn+ and +:error+
     #
     def render_flash_notice(notice, style = :notice)
-      render('alchemy/admin/partials/flash', flash_type: style, message: notice)
+      render("alchemy/admin/partials/flash", flash_type: style, message: notice)
     end
 
     # Checks if the given argument is a String or a Page object.
@@ -93,9 +93,9 @@ module Alchemy
     # @return [String] The FontAwesome icon name
     def message_icon_class(message_type)
       case message_type.to_s
-      when 'warning', 'warn', 'alert' then 'exclamation'
-      when 'notice' then 'check'
-      when 'error' then 'bug'
+      when "warning", "warn", "alert" then "exclamation"
+      when "notice" then "check"
+      when "error" then "bug"
       else
         message_type
       end

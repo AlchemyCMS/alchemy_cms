@@ -10,7 +10,7 @@ module Alchemy
 
     def css_classes
       [
-        'content_editor',
+        "content_editor",
         essence_partial_name,
       ].compact
     end
@@ -36,11 +36,11 @@ module Alchemy
     #
     #   <%= text_field_tag content_editor.form_field_name(:link), content_editor.ingredient %>
     #
-    def form_field_name(essence_column = 'ingredient')
+    def form_field_name(essence_column = "ingredient")
       "contents[#{id}][#{essence_column}]"
     end
 
-    def form_field_id(essence_column = 'ingredient')
+    def form_field_id(essence_column = "ingredient")
       "contents_#{id}_#{essence_column}"
     end
 

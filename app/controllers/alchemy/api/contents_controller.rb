@@ -18,7 +18,7 @@ module Alchemy
       end
       @contents = @contents.includes(*content_includes)
 
-      render json: @contents, adapter: :json, root: 'contents'
+      render json: @contents, adapter: :json, root: "contents"
     end
 
     # Returns a json object for content

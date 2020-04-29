@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Page destroy feature", type: :system, js: true do
   before { authorize_user(:as_admin) }
 
-  context 'destroying a content page' do
+  context "destroying a content page" do
     let!(:content_page) { create(:alchemy_page) }
 
     it "deletes page and redirects to page tree" do
@@ -13,8 +13,8 @@ RSpec.describe "Page destroy feature", type: :system, js: true do
 
       page.find("a[href='#{admin_page_path(content_page.id)}']").click
 
-      within '.alchemy-dialog-buttons' do
-        click_button 'Yes'
+      within ".alchemy-dialog-buttons" do
+        click_button "Yes"
       end
 
       expect(page.current_path).to eq admin_pages_path
@@ -22,7 +22,7 @@ RSpec.describe "Page destroy feature", type: :system, js: true do
     end
   end
 
-  context 'destroying a layout page' do
+  context "destroying a layout page" do
     let!(:layout_page) { create(:alchemy_page, :layoutpage) }
 
     it "deletes page and redirects to layoutpages list" do
@@ -30,8 +30,8 @@ RSpec.describe "Page destroy feature", type: :system, js: true do
 
       page.find("a[href='#{admin_page_path(layout_page.id)}']").click
 
-      within '.alchemy-dialog-buttons' do
-        click_button 'Yes'
+      within ".alchemy-dialog-buttons" do
+        click_button "Yes"
       end
 
       expect(page.current_path).to eq admin_layoutpages_path

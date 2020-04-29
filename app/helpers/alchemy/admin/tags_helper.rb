@@ -12,10 +12,10 @@ module Alchemy
       #   A HTML string containing <tt><li></tt> tags
       #
       def render_tag_list(class_name)
-        raise ArgumentError, 'Please provide a String as class_name' if class_name.nil?
+        raise ArgumentError, "Please provide a String as class_name" if class_name.nil?
 
         sorted_tags_from(class_name: class_name).map do |tag|
-          content_tag('li', name: tag.name, class: filtered_by_tag?(tag) ? 'active' : nil) do
+          content_tag("li", name: tag.name, class: filtered_by_tag?(tag) ? "active" : nil) do
             link_to(
               "#{tag.name} (#{tag.taggings_count})",
               url_for(
@@ -44,13 +44,13 @@ module Alchemy
           tags_from_params - Array(current.name)
         else
           tags_from_params.push(current.name)
-        end.uniq.join(',')
+        end.uniq.join(",")
       end
 
       # Returns tags from params
       # @returns [Array]
       def tags_from_params
-        search_filter_params[:tagged_with].to_s.split(',')
+        search_filter_params[:tagged_with].to_s.split(",")
       end
 
       def sorted_tags_from(class_name:)

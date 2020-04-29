@@ -25,12 +25,12 @@ module Alchemy
     #
     def language_links(options = {})
       options = {
-        linkname: 'name',
+        linkname: "name",
         show_title: true,
-        spacer: '',
+        spacer: "",
         reverse: false,
       }.merge(options)
-      languages = Language.on_current_site.published.with_root_page.order("name #{options[:reverse] ? 'DESC' : 'ASC'}")
+      languages = Language.on_current_site.published.with_root_page.order("name #{options[:reverse] ? "DESC" : "ASC"}")
       return nil if languages.count < 2
 
       render(
@@ -51,7 +51,7 @@ module Alchemy
       render @page, page: @page
     rescue ActionView::MissingTemplate
       warning("PageLayout: '#{@page.page_layout}' not found. Rendering standard page_layout.")
-      render 'alchemy/page_layouts/standard', page: @page
+      render "alchemy/page_layouts/standard", page: @page
     end
 
     # Renders a partial for current site
@@ -136,7 +136,7 @@ module Alchemy
       end
 
       if options.delete(:reverse)
-        pages = pages.reorder('lft DESC')
+        pages = pages.reorder("lft DESC")
       end
 
       if options[:without].present?
@@ -144,7 +144,7 @@ module Alchemy
         pages = pages.where.not(id: without.try(:collect, &:id) || without.id)
       end
 
-      render 'alchemy/breadcrumb/wrapper', pages: pages, options: options
+      render "alchemy/breadcrumb/wrapper", pages: pages, options: options
     end
 
     # Returns current page title
@@ -181,7 +181,7 @@ module Alchemy
     end
 
     def meta_robots
-      "#{@page.robot_index? ? '' : 'no'}index, #{@page.robot_follow? ? '' : 'no'}follow"
+      "#{@page.robot_index? ? "" : "no"}index, #{@page.robot_follow? ? "" : "no"}follow"
     end
   end
 end

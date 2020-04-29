@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-describe 'The API routes' do
+describe "The API routes" do
   routes { Alchemy::Engine.routes }
 
   describe "for pages" do
@@ -14,7 +14,7 @@ describe 'The API routes' do
       )
     end
 
-    context 'with missing format' do
+    context "with missing format" do
       it "defaults to json." do
         expect({get: "/api/pages"}).to route_to(
           controller: "alchemy/api/pages",
@@ -42,7 +42,7 @@ describe 'The API routes' do
       )
     end
 
-    context 'with admin namespace' do
+    context "with admin namespace" do
       it "routes to api pages controller." do
         expect({get: "/api/admin/pages/8"}).to route_to(
           controller: "alchemy/api/pages",
@@ -54,7 +54,7 @@ describe 'The API routes' do
     end
   end
 
-  describe 'for elements' do
+  describe "for elements" do
     it "has route to show all elements." do
       expect({get: "/api/elements.json"}).to route_to(
         controller: "alchemy/api/elements",
@@ -63,7 +63,7 @@ describe 'The API routes' do
       )
     end
 
-    context 'with missing format' do
+    context "with missing format" do
       it "defaults to json." do
         expect({get: "/api/elements"}).to route_to(
           controller: "alchemy/api/elements",
@@ -102,7 +102,7 @@ describe 'The API routes' do
     end
   end
 
-  describe 'for contents' do
+  describe "for contents" do
     it "has route to show all contents." do
       expect({get: "/api/contents.json"}).to route_to(
         controller: "alchemy/api/contents",
@@ -111,7 +111,7 @@ describe 'The API routes' do
       )
     end
 
-    context 'with missing format' do
+    context "with missing format" do
       it "defaults to json." do
         expect({get: "/api/contents"}).to route_to(
           controller: "alchemy/api/contents",

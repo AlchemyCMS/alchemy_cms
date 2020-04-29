@@ -20,7 +20,7 @@ module Alchemy
         @pages = @pages.page(params[:page]).per(params[:per_page])
       end
 
-      render json: @pages, adapter: :json, root: 'pages', meta: meta_data
+      render json: @pages, adapter: :json, root: "pages", meta: meta_data
     end
 
     # Returns all pages as nested json object for tree views

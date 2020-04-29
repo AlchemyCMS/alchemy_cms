@@ -1,15 +1,15 @@
 # frozen_string_literal: true
-require 'rails'
+require "rails"
 
 module Alchemy
   module Generators
     class Base < ::Rails::Generators::Base
-      class_option :template_engine, type: :string, aliases: '-e', desc: 'Template engine for the views. Available options are "erb", "haml", and "slim".'
+      class_option :template_engine, type: :string, aliases: "-e", desc: 'Template engine for the views. Available options are "erb", "haml", and "slim".'
 
       private
 
       def conditional_template(source, destination)
-        files = Dir.glob(destination.gsub(/\.([a-z]+)$/, '*'))
+        files = Dir.glob(destination.gsub(/\.([a-z]+)$/, "*"))
         if files.any?
           ext = File.extname(files.first)[1..-1]
 
@@ -29,7 +29,7 @@ module Alchemy
         # Rails is clever enough to default this to whatever template
         # engine is configured through its generator configuration,
         # but we'll default it to erb anyway, just in case.
-        options[:template_engine] || 'erb'
+        options[:template_engine] || "erb"
       end
 
       def load_alchemy_yaml(name)

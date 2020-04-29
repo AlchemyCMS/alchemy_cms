@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'thor'
+require "thor"
 
 class Alchemy::InstallTask < Thor
   include Thor::Actions

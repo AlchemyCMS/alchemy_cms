@@ -38,7 +38,7 @@ module Alchemy
       def get(name)
         return {} if name.blank?
 
-        all.detect { |a| a['name'].casecmp(name).zero? }
+        all.detect { |a| a["name"].casecmp(name).zero? }
       end
 
       def get_all_by_attributes(attributes)
@@ -67,7 +67,7 @@ module Alchemy
       #
       def layouts_with_own_for_select(page_layout_name, language_id, only_layoutpages = false)
         layouts = selectable_layouts(language_id, only_layoutpages)
-        if layouts.detect { |l| l['name'] == page_layout_name }.nil?
+        if layouts.detect { |l| l["name"] == page_layout_name }.nil?
           @map_array = [[human_layout_name(page_layout_name), page_layout_name]]
         else
           @map_array = []
@@ -88,9 +88,9 @@ module Alchemy
         @language_id = language_id
         all.select do |layout|
           if only_layoutpages
-            layout['layoutpage'] && layout_available?(layout)
+            layout["layoutpage"] && layout_available?(layout)
           else
-            !layout['layoutpage'] && layout_available?(layout)
+            !layout["layoutpage"] && layout_available?(layout)
           end
         end
       end
@@ -99,7 +99,7 @@ module Alchemy
       #
       def element_names_for(page_layout)
         if definition = get(page_layout)
-          definition.fetch('elements', [])
+          definition.fetch("elements", [])
         else
           Rails.logger.warn "\n+++ Warning: No layout definition for #{page_layout} found! in page_layouts.yml\n"
           []
@@ -119,7 +119,7 @@ module Alchemy
       #   The layout name
       #
       def human_layout_name(layout)
-        Alchemy.t(layout, scope: 'page_layout_names', default: layout.to_s.humanize)
+        Alchemy.t(layout, scope: "page_layout_names", default: layout.to_s.humanize)
       end
 
       private
@@ -127,13 +127,13 @@ module Alchemy
       # Returns true if the given layout is unique and not already taken or it should be hidden.
       #
       def layout_available?(layout)
-        !layout['hide'] && !already_taken?(layout) && available_on_site?(layout)
+        !layout["hide"] && !already_taken?(layout) && available_on_site?(layout)
       end
 
       # Returns true if this layout is unique and already taken by another page.
       #
       def already_taken?(layout)
-        layout['unique'] && page_with_layout_existing?(layout['name'])
+        layout["unique"] && page_with_layout_existing?(layout["name"])
       end
 
       # Returns true if one page already has the given layout
@@ -156,7 +156,7 @@ module Alchemy
         return false unless Alchemy::Site.current
 
         Alchemy::Site.current.definition.blank? ||
-          Alchemy::Site.current.definition.fetch('page_layouts', []).include?(layout['name'])
+          Alchemy::Site.current.definition.fetch("page_layouts", []).include?(layout["name"])
       end
 
       # Reads the layout definitions from +config/alchemy/page_layouts.yml+.
@@ -172,14 +172,14 @@ module Alchemy
       # Returns the page_layouts.yml file path
       #
       def layouts_file_path
-        Rails.root.join 'config/alchemy/page_layouts.yml'
+        Rails.root.join "config/alchemy/page_layouts.yml"
       end
 
       # Maps given layouts for Rails select form helper.
       #
       def mapped_layouts_for_select(layouts)
         layouts.each do |layout|
-          @map_array << [human_layout_name(layout['name']), layout["name"]]
+          @map_array << [human_layout_name(layout["name"]), layout["name"]]
         end
         @map_array
       end

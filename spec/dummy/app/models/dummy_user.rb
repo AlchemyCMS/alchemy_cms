@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class DummyUser < ActiveRecord::Base
-  has_many :folded_pages, class_name: 'Alchemy::FoldedPage'
+  has_many :folded_pages, class_name: "Alchemy::FoldedPage"
   attr_writer :alchemy_roles, :name
 
   def self.logged_in

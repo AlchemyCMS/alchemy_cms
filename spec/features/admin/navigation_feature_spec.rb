@@ -1,25 +1,25 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Admin navigation feature', type: :system do
-  context 'admin users' do
+RSpec.describe "Admin navigation feature", type: :system do
+  context "admin users" do
     before { authorize_user(:as_admin) }
 
     it "can leave the admin area" do
-      visit '/admin/leave'
-      expect(page).to have_content('You are about to leave Alchemy')
+      visit "/admin/leave"
+      expect(page).to have_content("You are about to leave Alchemy")
     end
   end
 
-  context 'editor users' do
+  context "editor users" do
     let!(:default_site) { create(:alchemy_site) }
     before { authorize_user(:as_editor) }
 
     it "can access the languages page" do
-      visit '/admin'
-      click_on 'Languages'
-      expect(current_path).to eq('/admin/languages')
+      visit "/admin"
+      click_on "Languages"
+      expect(current_path).to eq("/admin/languages")
     end
   end
 end

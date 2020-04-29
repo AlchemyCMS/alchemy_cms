@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe "The Routing" do
   routes { Alchemy::Engine.routes }
@@ -15,25 +15,25 @@ describe "The Routing" do
       )
     end
 
-    context 'with locale parameter' do
-      it 'routes to pages_controller#index' do
+    context "with locale parameter" do
+      it "routes to pages_controller#index" do
         expect({
-          get: '/en',
+          get: "/en",
         }).to route_to(
-          controller: 'alchemy/pages',
-          action: 'index',
-          locale: 'en',
+          controller: "alchemy/pages",
+          action: "index",
+          locale: "en",
         )
       end
 
-      context 'that contains uppercase country code' do
-        it 'routes to pages_controller#index' do
+      context "that contains uppercase country code" do
+        it "routes to pages_controller#index" do
           expect({
-            get: '/en-UK',
+            get: "/en-UK",
           }).to route_to(
-            controller: 'alchemy/pages',
-            action: 'index',
-            locale: 'en-UK',
+            controller: "alchemy/pages",
+            action: "index",
+            locale: "en-UK",
           )
         end
       end

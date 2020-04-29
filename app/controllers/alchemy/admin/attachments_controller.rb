@@ -6,11 +6,11 @@ module Alchemy
       include UploaderResponses
       include ArchiveOverlay
 
-      helper 'alchemy/admin/tags'
+      helper "alchemy/admin/tags"
 
       def index
         @query = Attachment.ransack(search_filter_params[:q])
-        @query.sorts = 'name asc' if @query.sorts.empty?
+        @query.sorts = "name asc" if @query.sorts.empty?
         @attachments = @query.result
 
         if search_filter_params[:tagged_with].present?
@@ -42,7 +42,7 @@ module Alchemy
 
       def update
         @attachment.update(attachment_attributes)
-        if attachment_attributes['file'].present?
+        if attachment_attributes["file"].present?
           handle_uploader_response(status: :accepted)
         else
           render_errors_or_redirect(
@@ -57,7 +57,7 @@ module Alchemy
         name = @attachment.name
         @attachment.destroy
         @url = admin_attachments_url(search_filter_params)
-        flash[:notice] = Alchemy.t('File deleted successfully', name: name)
+        flash[:notice] = Alchemy.t("File deleted successfully", name: name)
       end
 
       def download

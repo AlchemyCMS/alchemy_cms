@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-describe 'alchemy/essences/_essence_file_editor' do
+describe "alchemy/essences/_essence_file_editor" do
   let(:attachment) { build_stubbed(:alchemy_attachment) }
   let(:essence) { build_stubbed(:alchemy_essence_file, attachment: attachment) }
   let(:content) { build_stubbed(:alchemy_content, essence: essence) }
@@ -16,10 +16,10 @@ describe 'alchemy/essences/_essence_file_editor' do
 
   before do
     view.class.send :include, Alchemy::Admin::BaseHelper
-    allow(view).to receive(:content_label).and_return('')
+    allow(view).to receive(:content_label).and_return("")
   end
 
-  context 'with ingredient present' do
+  context "with ingredient present" do
     before do
       allow(content).to receive(:ingredient).and_return(attachment)
     end
@@ -29,37 +29,37 @@ describe 'alchemy/essences/_essence_file_editor' do
     end
 
     it "renders a link to open the attachment library overlay" do
-      within '.essence_file_tools' do
+      within ".essence_file_tools" do
         is_expected.to have_selector("a[href='/admin/attachments?content_id=#{content.id}']")
       end
     end
 
     it "renders a link to edit the essence" do
-      within '.essence_file_tools' do
+      within ".essence_file_tools" do
         is_expected.to have_selector("a[href='/admin/essence_files/#{essence.id}/edit']")
       end
     end
 
-    context 'with content settings `only`' do
+    context "with content settings `only`" do
       it "renders a link to open the attachment library overlay with only pdfs" do
-        within '.essence_file_tools' do
-          expect(content).to receive(:settings).at_least(:once).and_return({only: 'pdf'})
+        within ".essence_file_tools" do
+          expect(content).to receive(:settings).at_least(:once).and_return({only: "pdf"})
           is_expected.to have_selector("a[href='/admin/attachments?content_id=#{content.id}&only=pdf']")
         end
       end
     end
 
-    context 'with content settings `except`' do
+    context "with content settings `except`" do
       it "renders a link to open the attachment library overlay without pdfs" do
-        within '.essence_file_tools' do
-          expect(content).to receive(:settings).at_least(:once).and_return({except: 'pdf'})
+        within ".essence_file_tools" do
+          expect(content).to receive(:settings).at_least(:once).and_return({except: "pdf"})
           is_expected.to have_selector("a[href='/admin/attachments?content_id=#{content.id}&except=pdf']")
         end
       end
     end
   end
 
-  context 'without ingredient present' do
+  context "without ingredient present" do
     before do
       allow(content).to receive(:ingredient).and_return(nil)
     end

@@ -2,6 +2,6 @@
 
 class CustomNewsElementsFinder
   def elements(*)
-    [Alchemy::Element.new(name: 'news', id: 1001)]
+    [Alchemy::Element.new(name: "news", id: 1001)]
   end
 end

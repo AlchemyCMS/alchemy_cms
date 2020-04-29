@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe Site do
     let(:site) { create(:alchemy_site) }
 
-    describe 'new instances' do
-      subject { build(:alchemy_site, host: 'bla.com') }
+    describe "new instances" do
+      subject { build(:alchemy_site, host: "bla.com") }
 
-      it 'should start out with no languages' do
+      it "should start out with no languages" do
         expect(subject.languages).to be_empty
       end
 
-      context 'when being saved' do
-        context 'when it already has a language' do
+      context "when being saved" do
+        context "when it already has a language" do
           let(:language) { build(:alchemy_language, site: nil) }
           before { subject.languages << language }
 
-          it 'should not create any additional languages' do
+          it "should not create any additional languages" do
             expect(subject.languages).to eq([language])
 
             expect { subject.save! }.
@@ -28,10 +28,10 @@ module Alchemy
       end
     end
 
-    describe '.default' do
+    describe ".default" do
       subject { Site.default }
 
-      context 'when no default site is present' do
+      context "when no default site is present" do
         before do
           Site.delete_all
         end
@@ -39,56 +39,56 @@ module Alchemy
         it { is_expected.to be nil }
       end
 
-      context 'when default site is present' do
-        it 'returns it' do
+      context "when default site is present" do
+        it "returns it" do
           is_expected.to eq(Site.default)
         end
       end
     end
 
-    describe '.find_for_host' do
+    describe ".find_for_host" do
       # No need to create a default site, as it has already been added through the seeds.
       # But let's add some more:
       #
       let(:default_site)    { Site.default }
-      let!(:magiclabs_site) { create(:alchemy_site, host: 'www.magiclabs.de', aliases: 'magiclabs.de magiclabs.com www.magiclabs.com') }
+      let!(:magiclabs_site) { create(:alchemy_site, host: "www.magiclabs.de", aliases: "magiclabs.de magiclabs.com www.magiclabs.com") }
 
       subject { Site.find_for_host(host) }
 
       context "when the request doesn't match anything" do
-        let(:host) { 'oogabooga.com' }
+        let(:host) { "oogabooga.com" }
         it { is_expected.to eq(default_site) }
       end
 
       context "when the request matches a site's host field" do
-        let(:host) { 'www.magiclabs.de' }
+        let(:host) { "www.magiclabs.de" }
         it { is_expected.to eq(magiclabs_site) }
       end
 
       context "when the request matches one of the site's aliases" do
-        let(:host) { 'magiclabs.com' }
+        let(:host) { "magiclabs.com" }
         it { is_expected.to eq(magiclabs_site) }
       end
 
       context "when the request matches the site's first alias" do
-        let(:host) { 'magiclabs.de' }
+        let(:host) { "magiclabs.de" }
         it { is_expected.to eq(magiclabs_site) }
       end
 
       context "when the request matches the site's last alias" do
-        let(:host) { 'www.magiclabs.com' }
+        let(:host) { "www.magiclabs.com" }
         it { is_expected.to eq(magiclabs_site) }
       end
 
       context "when the request host matches only part of a site's aliases" do
-        let(:host) { 'labs.com' }
+        let(:host) { "labs.com" }
         it { is_expected.to eq(default_site) }
       end
     end
 
-    describe '.current' do
-      context 'when set to nil' do
-        let!(:site) { create(:alchemy_site, host: 'example.com') }
+    describe ".current" do
+      context "when set to nil" do
+        let!(:site) { create(:alchemy_site, host: "example.com") }
 
         before do
           Site.current = nil
@@ -101,14 +101,14 @@ module Alchemy
       end
     end
 
-    describe '.definitions' do
+    describe ".definitions" do
       # To prevent memoization across specs
       before { Site.instance_variable_set("@definitions", nil) }
 
       subject { Site.definitions }
 
       context "with file present" do
-        let(:definitions) { [{'name' => 'lala'}] }
+        let(:definitions) { [{"name" => "lala"}] }
         before { expect(YAML).to receive(:load_file).and_return(definitions) }
         it { is_expected.to eq(definitions) }
       end
@@ -123,50 +123,50 @@ module Alchemy
       end
     end
 
-    describe '#current?' do
+    describe "#current?" do
       let!(:default_site) { create(:alchemy_site, :default) }
 
       let!(:another_site) do
-        create(:alchemy_site, name: 'Another Site', host: 'another.com')
+        create(:alchemy_site, name: "Another Site", host: "another.com")
       end
 
       subject { default_site.current? }
 
-      context 'when Site.current is set to the same site' do
+      context "when Site.current is set to the same site" do
         before { Site.current = default_site }
         it { is_expected.to be(true) }
       end
 
-      context 'when Site.current is set to nil' do
+      context "when Site.current is set to nil" do
         before { Site.current = nil }
         it { is_expected.to be(true) }
       end
 
-      context 'when Site.current is set to a different site' do
+      context "when Site.current is set to a different site" do
         before { Site.current = another_site }
         it { is_expected.to be(false) }
       end
     end
 
-    describe '#to_partial_path' do
-      let(:site) { Site.new(name: 'My custom site') }
+    describe "#to_partial_path" do
+      let(:site) { Site.new(name: "My custom site") }
 
       it "returns the path to partial" do
         expect(site.to_partial_path).to eq("alchemy/site_layouts/my_custom_site")
       end
     end
 
-    describe '#partial_name' do
-      let(:site) { Site.new(name: 'My custom site') }
+    describe "#partial_name" do
+      let(:site) { Site.new(name: "My custom site") }
 
       it "returns the name for layout partial" do
         expect(site.partial_name).to eq("my_custom_site")
       end
     end
 
-    describe '#definition' do
-      let(:site) { Site.new(name: 'My custom site') }
-      let(:definitions) { [{'name' => 'my_custom_site', 'page_layouts' => %w(standard)}] }
+    describe "#definition" do
+      let(:site) { Site.new(name: "My custom site") }
+      let(:definitions) { [{"name" => "my_custom_site", "page_layouts" => %w(standard)}] }
 
       it "returns layout definition from site_layouts.yml file" do
         allow(Site).to receive(:definitions).and_return(definitions)
@@ -174,7 +174,7 @@ module Alchemy
       end
     end
 
-    describe '#default_language' do
+    describe "#default_language" do
       let!(:default_language) do
         create(:alchemy_language, default: true, site: site)
       end
@@ -187,29 +187,29 @@ module Alchemy
         site.default_language
       end
 
-      it 'returns the default language of site', :aggregate_failures do
+      it "returns the default language of site", :aggregate_failures do
         expect(site.languages.count).to eq(2)
         expect(site_default_language).to eq(default_language)
         expect(site_default_language).to_not eq(other_language)
       end
     end
 
-    describe '#destroy' do
+    describe "#destroy" do
       let(:site) { create(:alchemy_site) }
 
       subject { site.destroy }
 
-      context 'without languages' do
-        it 'works' do
+      context "without languages" do
+        it "works" do
           subject
           expect(site.errors[:languages]).to be_empty
         end
       end
 
-      context 'with languages' do
+      context "with languages" do
         let!(:language) { create(:alchemy_language, site: site) }
 
-        it 'must not work' do
+        it "must not work" do
           subject
           expect(site.errors[:languages]).to_not be_empty
         end

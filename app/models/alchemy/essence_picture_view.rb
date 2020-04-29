@@ -33,12 +33,12 @@ module Alchemy
         output = link_to(output, url_for(essence.link), {
           title: essence.link_title.presence,
           target: essence.link_target == "blank" ? "_blank" : nil,
-          data: {link_target: essence.link_target.presence},
+          data: { link_target: essence.link_target.presence },
         })
       end
 
       if caption
-        content_tag(:figure, output, {class: essence.css_class.presence}.merge(html_options))
+        content_tag(:figure, output, { class: essence.css_class.presence }.merge(html_options))
       else
         output
       end
@@ -58,8 +58,8 @@ module Alchemy
           alt: essence.alt_tag.presence,
           title: essence.title.presence,
           class: caption ? nil : essence.css_class.presence,
-          srcset: srcset.join(', ').presence,
-          sizes: options[:sizes].join(', ').presence,
+          srcset: srcset.join(", ").presence,
+          sizes: options[:sizes].join(", ").presence,
         }.merge(caption ? {} : html_options)
       )
     end
@@ -75,7 +75,7 @@ module Alchemy
     def srcset
       options[:srcset].map do |size|
         url = essence.picture_url(size: size)
-        width, height = size.split('x')
+        width, height = size.split("x")
         width.present? ? "#{url} #{width}w" : "#{url} #{height}h"
       end
     end

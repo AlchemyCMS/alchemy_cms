@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'alchemy/essences/_essence_page_editor' do
+RSpec.describe "alchemy/essences/_essence_page_editor" do
   let(:content) { Alchemy::Content.new(essence: essence) }
   let(:essence) { Alchemy::EssencePage.new }
 
@@ -12,15 +12,15 @@ RSpec.describe 'alchemy/essences/_essence_page_editor' do
   end
 
   subject do
-    render 'alchemy/essences/essence_page_editor', essence_page_editor: Alchemy::ContentEditor.new(content)
+    render "alchemy/essences/essence_page_editor", essence_page_editor: Alchemy::ContentEditor.new(content)
     rendered
   end
 
   it "renders a page input" do
-    is_expected.to have_css('input.alchemy_selectbox.full_width')
+    is_expected.to have_css("input.alchemy_selectbox.full_width")
   end
 
-  context 'with a page related to essence' do
+  context "with a page related to essence" do
     let(:page) { Alchemy::Page.new(id: 1) }
     let(:essence) { Alchemy::EssencePage.new(page_id: page.id) }
 

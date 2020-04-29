@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-describe 'alchemy/admin/elements/_element' do
+describe "alchemy/admin/elements/_element" do
   before do
     allow(element).to receive(:definition) { definition }
   end
 
   let(:definition) do
     {
-      name: 'with_message',
-      message: 'One nice message',
+      name: "with_message",
+      message: "One nice message",
     }.with_indifferent_access
   end
 
@@ -19,18 +19,18 @@ describe 'alchemy/admin/elements/_element' do
     rendered
   end
 
-  context 'with message given in element definition' do
-    let(:element) { create(:alchemy_element, name: 'with_message') }
+  context "with message given in element definition" do
+    let(:element) { create(:alchemy_element, name: "with_message") }
 
     it "renders the message" do
       is_expected.to have_css('.message:contains("One nice message")')
     end
 
-    context 'that contains HTML' do
+    context "that contains HTML" do
       let(:definition) do
         {
-          name: 'with_message',
-          message: '<h1>One nice message</h1>',
+          name: "with_message",
+          message: "<h1>One nice message</h1>",
         }.with_indifferent_access
       end
 
@@ -40,13 +40,13 @@ describe 'alchemy/admin/elements/_element' do
     end
   end
 
-  context 'with warning given in element definition' do
-    let(:element) { create(:alchemy_element, name: 'with_warning') }
+  context "with warning given in element definition" do
+    let(:element) { create(:alchemy_element, name: "with_warning") }
 
     let(:definition) do
       {
-        name: 'with_warning',
-        warning: 'One nice warning',
+        name: "with_warning",
+        warning: "One nice warning",
       }.with_indifferent_access
     end
 
@@ -54,11 +54,11 @@ describe 'alchemy/admin/elements/_element' do
       is_expected.to have_css('.warning:contains("One nice warning")')
     end
 
-    context 'that contains HTML' do
+    context "that contains HTML" do
       let(:definition) do
         {
-          name: 'with_warning',
-          warning: '<h1>One nice warning</h1>',
+          name: "with_warning",
+          warning: "<h1>One nice warning</h1>",
         }.with_indifferent_access
       end
 

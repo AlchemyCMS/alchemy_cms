@@ -34,7 +34,7 @@ module Alchemy
     def no_rails_route?
       return true if !%w(development test).include?(Rails.env)
 
-      (@params['urlname'] =~ /\Arails\//).nil?
+      (@params["urlname"] =~ /\Arails\//).nil?
     end
   end
 end

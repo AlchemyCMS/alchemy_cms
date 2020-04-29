@@ -3,7 +3,7 @@
 module Alchemy
   module Site::Layout
     extend ActiveSupport::Concern
-    SITE_DEFINITIONS_FILE = Rails.root.join('config/alchemy/site_layouts.yml')
+    SITE_DEFINITIONS_FILE = Rails.root.join("config/alchemy/site_layouts.yml")
 
     module ClassMethods
       # Returns the site layouts definition defined in +site_layouts.yml+ file
@@ -28,7 +28,7 @@ module Alchemy
     # Returns site's layout definition
     #
     def definition
-      self.class.definitions.detect { |l| l['name'] == partial_name }
+      self.class.definitions.detect { |l| l["name"] == partial_name }
     end
 
     # Returns the name for the layout partial

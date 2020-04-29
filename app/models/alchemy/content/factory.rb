@@ -71,7 +71,7 @@ module Alchemy
       # Returns all content definitions from elements.yml
       #
       def definitions
-        definitions = Element.definitions.flat_map { |e| e['contents'] }
+        definitions = Element.definitions.flat_map { |e| e["contents"] }
         definitions.compact!
         definitions
       end
@@ -139,7 +139,7 @@ module Alchemy
     # If an optional type is passed, this type of essence gets constantized.
     #
     def essence_class(type = nil)
-      Content.normalize_essence_type(type || definition['type']).constantize
+      Content.normalize_essence_type(type || definition["type"]).constantize
     end
   end
 end

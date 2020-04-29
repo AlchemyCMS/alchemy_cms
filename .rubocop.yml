@@ -221,8 +221,10 @@ Style/SpecialGlobalVars:
   StyleGuide: http://relaxed.ruby.style/#stylespecialglobalvars
 
 Style/StringLiterals:
-  Enabled: false
-  StyleGuide: http://relaxed.ruby.style/#stylestringliterals
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  EnforcedStyle: double_quotes
 
 Style/TrailingCommaInArguments:
   EnforcedStyleForMultiline: comma

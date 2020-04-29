@@ -53,13 +53,13 @@ module Alchemy
 
   # Defaults
   #
-  @@user_class_name = 'User'
+  @@user_class_name = "User"
   @@user_class_primary_key = :id
-  @@current_user_method = 'current_user'
-  @@signup_path = '/signup'
-  @@login_path = '/login'
-  @@logout_path = '/logout'
-  @@logout_method = 'delete'
+  @@current_user_method = "current_user"
+  @@signup_path = "/signup"
+  @@login_path = "/login"
+  @@logout_path = "/logout"
+  @@logout_method = "delete"
 
   # Returns the user class
   #
@@ -76,7 +76,7 @@ module Alchemy
   # Prefix with :: when getting to avoid constant name conflicts
   def self.user_class_name
     if !@@user_class_name.is_a?(String)
-      raise TypeError, 'Alchemy.user_class_name must be a String, not a Class.'
+      raise TypeError, "Alchemy.user_class_name must be a String, not a Class."
     end
 
     "::#{@@user_class_name}"

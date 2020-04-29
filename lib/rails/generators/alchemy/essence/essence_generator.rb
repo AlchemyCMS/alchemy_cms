@@ -1,16 +1,16 @@
 # frozen_string_literal: true
-require 'rails'
+require "rails"
 
 module Alchemy
   module Generators
     class EssenceGenerator < ::Rails::Generators::Base
       desc "This generator generates an Alchemy essence for you."
       argument :essence_name, banner: "YourEssenceName"
-      source_root File.expand_path('templates', __dir__)
+      source_root File.expand_path("templates", __dir__)
 
       def init
         @essence_name = essence_name.underscore
-        @essence_view_path = 'app/views/alchemy/essences'
+        @essence_view_path = "app/views/alchemy/essences"
       end
 
       def create_model

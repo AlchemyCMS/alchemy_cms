@@ -11,11 +11,11 @@ module Alchemy
     private
 
     def render_not_authorized
-      render json: {error: 'Not authorized'}, status: 403
+      render json: {error: "Not authorized"}, status: 403
     end
 
     def render_not_found
-      render json: {error: 'Record not found'}, status: 404
+      render json: {error: "Record not found"}, status: 404
     end
   end
 end

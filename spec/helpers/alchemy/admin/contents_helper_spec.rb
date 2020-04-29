@@ -1,29 +1,29 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe Alchemy::Admin::ContentsHelper do
-  let(:element) { build_stubbed(:alchemy_element, name: 'article') }
-  let(:content) { mock_model('Content', essence_partial_name: 'essence_text') }
+  let(:element) { build_stubbed(:alchemy_element, name: "article") }
+  let(:content) { mock_model("Content", essence_partial_name: "essence_text") }
 
-  describe 'content_label' do
+  describe "content_label" do
     let(:content) do
       Alchemy::ContentEditor.new(build_stubbed(:alchemy_content, element: element))
     end
 
     subject { helper.content_label(content) }
 
-    it 'has for attribute set to content form field id' do
+    it "has for attribute set to content form field id" do
       is_expected.to have_selector("label[for=\"#{content.form_field_id}\"]")
     end
   end
 
-  describe 'render_content_name' do
+  describe "render_content_name" do
     let(:content) do
-      mock_model 'Content',
-        name: 'intro',
-        definition: {name: 'intro', type: 'EssenceText'},
-        name_for_label: 'Intro',
+      mock_model "Content",
+        name: "intro",
+        definition: {name: "intro", type: "EssenceText"},
+        name_for_label: "Intro",
         has_validations?: false
     end
     subject { helper.render_content_name(content) }
@@ -32,7 +32,7 @@ describe Alchemy::Admin::ContentsHelper do
       is_expected.to eq("Intro")
     end
 
-    context 'if content is nil' do
+    context "if content is nil" do
       let(:content) { nil }
 
       it "returns nil" do
@@ -40,20 +40,20 @@ describe Alchemy::Admin::ContentsHelper do
       end
     end
 
-    context 'with missing definition' do
+    context "with missing definition" do
       before { expect(content).to receive(:definition).and_return({}) }
 
       it "renders a warning with tooltip" do
-        is_expected.to have_selector('.hint-with-icon .hint-bubble')
-        is_expected.to have_content('Intro')
+        is_expected.to have_selector(".hint-with-icon .hint-bubble")
+        is_expected.to have_content("Intro")
       end
     end
 
-    context 'with validations' do
+    context "with validations" do
       before { expect(content).to receive(:has_validations?).and_return(true) }
 
       it "show a validation indicator" do
-        is_expected.to have_selector('.validation_indicator')
+        is_expected.to have_selector(".validation_indicator")
       end
     end
   end

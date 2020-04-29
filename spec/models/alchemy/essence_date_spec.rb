@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe EssenceDate do
@@ -11,7 +11,7 @@ module Alchemy
       let(:ingredient_value) { Time.current.iso8601 }
     end
 
-    describe '#preview_text' do
+    describe "#preview_text" do
       subject { essence.preview_text }
 
       context "if no date set" do

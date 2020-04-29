@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe Kaminari::Helpers::Tag do
   subject { Kaminari::Helpers::Tag.new(template, options) }
 
   let(:template) { double(params: {}) }
-  let(:scope)    { double(url_for: '') }
+  let(:scope)    { double(url_for: "") }
 
-  describe '#page_url_for' do
+  describe "#page_url_for" do
     context "with scope option given" do
       let(:options) { {scope: scope} }
 

@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require 'factory_bot'
-require 'alchemy/test_support/factories/language_factory'
+require "factory_bot"
+require "alchemy/test_support/factories/language_factory"
 
 FactoryBot.define do
-  factory :alchemy_page, class: 'Alchemy::Page' do
+  factory :alchemy_page, class: "Alchemy::Page" do
     language { Alchemy::Language.default || FactoryBot.create(:alchemy_language) }
     sequence(:name) { |n| "A Page #{n}" }
     page_layout { "standard" }
@@ -19,14 +19,14 @@ FactoryBot.define do
     autogenerate_elements { false }
 
     trait :root do
-      name { 'Root' }
+      name { "Root" }
       language { nil }
       parent_id { nil }
       page_layout { nil }
     end
 
     trait :language_root do
-      name { 'Startseite' }
+      name { "Startseite" }
       page_layout { language.page_layout }
       language_root { true }
       public_on { Time.current }

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'rails'
+require "rails"
 
 module Alchemy
   module Generators
@@ -22,17 +22,17 @@ module Alchemy
 
       def copy_alchemy_views
         views_to_copy.each do |dir|
-          directory dir, Rails.root.join('app/views/alchemy', dir)
+          directory dir, Rails.root.join("app/views/alchemy", dir)
         end
       end
 
       private
 
       def views_to_copy
-        if @options['except']
-          ALCHEMY_VIEWS - @options['except']
-        elsif @options['only']
-          ALCHEMY_VIEWS.select { |v| @options['only'].include?(v) }
+        if @options["except"]
+          ALCHEMY_VIEWS - @options["except"]
+        elsif @options["only"]
+          ALCHEMY_VIEWS.select { |v| @options["only"].include?(v) }
         else
           ALCHEMY_VIEWS
         end

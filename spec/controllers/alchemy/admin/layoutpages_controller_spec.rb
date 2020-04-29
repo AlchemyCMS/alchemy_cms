@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe Admin::LayoutpagesController do
@@ -11,14 +11,14 @@ module Alchemy
     end
 
     describe "#index" do
-      context 'with no language present' do
-        it 'redirects to the languages admin' do
+      context "with no language present" do
+        it "redirects to the languages admin" do
           get :index
           expect(response).to redirect_to(admin_languages_path)
         end
       end
 
-      context 'with a language present' do
+      context "with a language present" do
         let!(:language) { create(:alchemy_language) }
 
         it "should assign @layout_root" do
@@ -33,23 +33,23 @@ module Alchemy
 
         context "with multiple sites" do
           let!(:site_2) do
-            create(:alchemy_site, host: 'another-site.com')
+            create(:alchemy_site, host: "another-site.com")
           end
 
-          context 'if no language exists for the current site' do
-            it 'redirects to the languages admin' do
+          context "if no language exists for the current site" do
+            it "redirects to the languages admin" do
               get :index, session: { alchemy_site_id: site_2.id }
               expect(response).to redirect_to(admin_languages_path)
             end
           end
 
-          context 'if an language exists for the current site' do
+          context "if an language exists for the current site" do
             let!(:language) { create(:alchemy_language) }
             let!(:language_2) do
               create(:alchemy_language, site: site_2)
             end
 
-            it 'only shows languages from current site' do
+            it "only shows languages from current site" do
               get :index, session: { alchemy_site_id: site_2.id }
               expect(assigns(:languages)).to_not include(language)
               expect(assigns(:languages)).to include(language_2)

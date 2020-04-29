@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'alchemy/logger'
+require "alchemy/logger"
 
 module Alchemy
   # Loads elements from given page
@@ -104,10 +104,10 @@ module Alchemy
 
     def random_function
       case ActiveRecord::Base.connection_config[:adapter]
-      when 'postgresql', 'sqlite3'
-        'RANDOM()'
+      when "postgresql", "sqlite3"
+        "RANDOM()"
       else
-        'RAND()'
+        "RAND()"
       end
     end
   end
