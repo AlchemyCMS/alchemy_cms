@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe Element do
@@ -9,126 +9,126 @@ module Alchemy
 
     # ClassMethods
 
-    describe '.new' do
+    describe ".new" do
       it "should initialize an element by name from scratch" do
-        el = Element.new(name: 'article')
+        el = Element.new(name: "article")
         expect(el).to be_an(Alchemy::Element)
-        expect(el.name).to eq('article')
+        expect(el.name).to eq("article")
       end
 
       it "should raise an error if the given name is not defined in the elements.yml" do
         expect {
-          Element.new(name: 'foobar')
+          Element.new(name: "foobar")
         }.to raise_error(ElementDefinitionError)
       end
 
       it "should merge given attributes into defined ones" do
-        el = Element.new(name: 'article', page_id: 1)
+        el = Element.new(name: "article", page_id: 1)
         expect(el.page_id).to eq(1)
       end
 
       it "should not have forbidden attributes from definition" do
-        el = Element.new(name: 'article')
+        el = Element.new(name: "article")
         expect(el.contents).to eq([])
       end
     end
 
-    describe '.create' do
+    describe ".create" do
       let(:page) { build(:alchemy_page) }
 
-      subject(:element) { described_class.create(page: page, name: 'article') }
+      subject(:element) { described_class.create(page: page, name: "article") }
 
-      it 'creates contents' do
+      it "creates contents" do
         expect(element.contents).to match_array([
           an_instance_of(Alchemy::Content),
           an_instance_of(Alchemy::Content),
           an_instance_of(Alchemy::Content),
-          an_instance_of(Alchemy::Content)
+          an_instance_of(Alchemy::Content),
         ])
       end
 
-      context 'if autogenerate_contents set to false' do
+      context "if autogenerate_contents set to false" do
         subject(:element) do
           described_class.create(
             page: page,
-            name: 'article',
-            autogenerate_contents: false
+            name: "article",
+            autogenerate_contents: false,
           )
         end
 
-        it 'creates contents' do
+        it "creates contents" do
           expect(element.contents).to be_empty
         end
       end
 
-      context 'if autogenerate is given in definition' do
+      context "if autogenerate is given in definition" do
         subject(:element) do
-          described_class.create(page: page, name: 'slider')
+          described_class.create(page: page, name: "slider")
         end
 
-        it 'creates nested elements' do
+        it "creates nested elements" do
           expect(element.nested_elements).to match_array([
-            an_instance_of(Alchemy::Element)
+            an_instance_of(Alchemy::Element),
           ])
         end
 
-        context 'if element name is not a nestable element' do
+        context "if element name is not a nestable element" do
           subject(:element) do
             described_class.create(
               page: page,
-              name: 'slider'
+              name: "slider",
             )
           end
 
           before do
             expect(Alchemy::Element).to receive(:definitions).at_least(:once) do
               [
-                {'name' => 'slider', 'nestable_elements' => ['foo'], 'autogenerate' => ['bar']}
+                { "name" => "slider", "nestable_elements" => ["foo"], "autogenerate" => ["bar"] },
               ]
             end
           end
 
-          it 'logs error warning' do
+          it "logs error warning" do
             expect_any_instance_of(Alchemy::Logger).to \
               receive(:log_warning).with("Element 'bar' not a nestable element for 'slider'. Skipping!")
             element
           end
 
-          it 'skips element' do
+          it "skips element" do
             expect(element.nested_elements).to be_empty
           end
         end
 
-        context 'if autogenerate_nested_elements set to false' do
+        context "if autogenerate_nested_elements set to false" do
           subject(:element) do
             described_class.create(
               page: page,
-              name: 'slider',
-              autogenerate_nested_elements: false
+              name: "slider",
+              autogenerate_nested_elements: false,
             )
           end
 
-          it 'creates contents' do
+          it "creates contents" do
             expect(element.contents).to be_empty
           end
         end
       end
     end
 
-    describe '.copy' do
+    describe ".copy" do
       subject { Element.copy(element) }
 
       let(:element) do
-        create(:alchemy_element, :with_contents, tag_list: 'red, yellow')
+        create(:alchemy_element, :with_contents, tag_list: "red, yellow")
       end
 
       it "should not create contents from scratch" do
         expect(subject.contents.count).to eq(element.contents.count)
       end
 
-      context 'with differences' do
+      context "with differences" do
         let(:new_page) { create(:alchemy_page) }
-        subject(:copy) { Element.copy(element, {page_id: new_page.id}) }
+        subject(:copy) { Element.copy(element, { page_id: new_page.id }) }
 
         it "should create a new record with all attributes of source except given differences" do
           expect(copy.page_id).to eq(new_page.id)
@@ -144,27 +144,27 @@ module Alchemy
         expect(subject.tag_list).to eq(element.tag_list)
       end
 
-      context 'with nested elements' do
+      context "with nested elements" do
         let(:element) do
           create(:alchemy_element, :with_contents, :with_nestable_elements, {
-            tag_list: 'red, yellow',
-            page: create(:alchemy_page)
+            tag_list: "red, yellow",
+            page: create(:alchemy_page),
           })
         end
 
         before do
-          element.nested_elements << create(:alchemy_element, name: 'slide')
+          element.nested_elements << create(:alchemy_element, name: "slide")
         end
 
         it "should copy nested elements" do
           expect(subject.nested_elements).to_not be_empty
         end
 
-        context 'copy to new page' do
+        context "copy to new page" do
           let(:new_page) { create(:alchemy_page) }
 
           subject(:new_element) do
-            Element.copy(element, {page_id: new_page.id})
+            Element.copy(element, { page_id: new_page.id })
           end
 
           it "should set page id to new page's id" do
@@ -176,13 +176,13 @@ module Alchemy
       end
     end
 
-    describe '.definitions' do
+    describe ".definitions" do
       it "should allow erb generated elements" do
-        expect(Element.definitions.collect { |el| el['name'] }).to include('erb_element')
+        expect(Element.definitions.collect { |el| el["name"] }).to include("erb_element")
       end
 
       context "with a YAML file including a symbol" do
-        let(:yaml) { '- name: :symbol' }
+        let(:yaml) { "- name: :symbol" }
 
         before do
           expect(File).to receive(:exist?).and_return(true)
@@ -195,7 +195,7 @@ module Alchemy
       end
 
       context "with a YAML file including a Date" do
-        let(:yaml) { '- default: 2017-12-24' }
+        let(:yaml) { "- default: 2017-12-24" }
 
         before do
           expect(File).to receive(:exist?).and_return(true)
@@ -237,59 +237,59 @@ module Alchemy
       end
     end
 
-    describe '.display_name_for' do
+    describe ".display_name_for" do
       it "should return the translation for the given name" do
-        expect(Alchemy).to receive(:t).with('subheadline', scope: "element_names", default: 'Subheadline').and_return('Überschrift')
-        expect(Element.display_name_for('subheadline')).to eq('Überschrift')
+        expect(Alchemy).to receive(:t).with("subheadline", scope: "element_names", default: "Subheadline").and_return("Überschrift")
+        expect(Element.display_name_for("subheadline")).to eq("Überschrift")
       end
 
       it "should return the humanized name if no translation found" do
-        expect(Element.display_name_for('not_existing_one')).to eq('Not existing one')
+        expect(Element.display_name_for("not_existing_one")).to eq("Not existing one")
       end
     end
 
-    describe '.excluded' do
+    describe ".excluded" do
       it "should return all elements but excluded ones" do
-        create(:alchemy_element, name: 'article')
-        create(:alchemy_element, name: 'article')
-        excluded = create(:alchemy_element, name: 'claim')
-        expect(Element.excluded(['claim'])).not_to include(excluded)
+        create(:alchemy_element, name: "article")
+        create(:alchemy_element, name: "article")
+        excluded = create(:alchemy_element, name: "claim")
+        expect(Element.excluded(["claim"])).not_to include(excluded)
       end
     end
 
-    describe '.named' do
+    describe ".named" do
       it "should return all elements by name" do
-        element_1 = create(:alchemy_element, name: 'article')
-        element_2 = create(:alchemy_element, name: 'headline')
-        elements = Element.named(['article'])
+        element_1 = create(:alchemy_element, name: "article")
+        element_2 = create(:alchemy_element, name: "headline")
+        elements = Element.named(["article"])
         expect(elements).to include(element_1)
         expect(elements).to_not include(element_2)
       end
     end
 
-    describe '.fixed' do
+    describe ".fixed" do
       let!(:fixed_element) { create(:alchemy_element, :fixed) }
       let!(:element) { create(:alchemy_element) }
 
       it "should return all elements that are fixed" do
         expect(Element.fixed).to match_array([
-          fixed_element
+          fixed_element,
         ])
       end
     end
 
-    describe '.unfixed' do
+    describe ".unfixed" do
       let!(:fixed_element) { create(:alchemy_element, :fixed) }
       let!(:element) { create(:alchemy_element) }
 
       it "should return all elements that are not fixed" do
         expect(Element.unfixed).to match_array([
-          element
+          element,
         ])
       end
     end
 
-    describe '.published' do
+    describe ".published" do
       it "should return all public elements" do
         element_1 = create(:alchemy_element, public: true)
         element_2 = create(:alchemy_element, public: false)
@@ -299,7 +299,7 @@ module Alchemy
       end
     end
 
-    describe '.folded' do
+    describe ".folded" do
       it "returns all folded elements" do
         element_1 = create(:alchemy_element, folded: true)
         element_2 = create(:alchemy_element, folded: false)
@@ -309,7 +309,7 @@ module Alchemy
       end
     end
 
-    describe '.expanded' do
+    describe ".expanded" do
       it "returns all expanded elements" do
         element_1 = create(:alchemy_element, folded: false)
         element_2 = create(:alchemy_element, folded: true)
@@ -319,7 +319,7 @@ module Alchemy
       end
     end
 
-    describe '.not_nested' do
+    describe ".not_nested" do
       subject { Element.not_nested }
 
       let!(:element_1) { create(:alchemy_element) }
@@ -330,10 +330,10 @@ module Alchemy
       end
     end
 
-    context 'trash' do
+    context "trash" do
       let(:element) { create(:alchemy_element) }
 
-      describe '.not_trashed' do
+      describe ".not_trashed" do
         before { element }
 
         it "should return a collection of not trashed elements" do
@@ -350,11 +350,11 @@ module Alchemy
       end
     end
 
-    describe '.all_from_clipboard_for_page' do
+    describe ".all_from_clipboard_for_page" do
       let(:element_1) { build_stubbed(:alchemy_element) }
-      let(:element_2) { build_stubbed(:alchemy_element, name: 'news') }
-      let(:page)      { build_stubbed(:alchemy_page, :public) }
-      let(:clipboard) { [{'id' => element_1.id.to_s}, {'id' => element_2.id.to_s}] }
+      let(:element_2) { build_stubbed(:alchemy_element, name: "news") }
+      let(:page) { build_stubbed(:alchemy_page, :public) }
+      let(:clipboard) { [{ "id" => element_1.id.to_s }, { "id" => element_2.id.to_s }] }
 
       before do
         allow(Element).to receive(:all_from_clipboard).and_return([element_1, element_2])
@@ -381,24 +381,24 @@ module Alchemy
 
     # InstanceMethods
 
-    describe '#all_contents_by_type' do
+    describe "#all_contents_by_type" do
       let(:element) { create(:alchemy_element, :with_contents) }
       let(:expected_contents) { element.contents.essence_texts }
 
       context "with namespaced essence type" do
-        subject { element.all_contents_by_type('Alchemy::EssenceText') }
+        subject { element.all_contents_by_type("Alchemy::EssenceText") }
         it { is_expected.not_to be_empty }
-        it('should return the correct list of essences') { is_expected.to eq(expected_contents) }
+        it("should return the correct list of essences") { is_expected.to eq(expected_contents) }
       end
 
       context "without namespaced essence type" do
-        subject { element.all_contents_by_type('EssenceText') }
+        subject { element.all_contents_by_type("EssenceText") }
         it { is_expected.not_to be_empty }
-        it('should return the correct list of essences') { is_expected.to eq(expected_contents) }
+        it("should return the correct list of essences") { is_expected.to eq(expected_contents) }
       end
     end
 
-    describe '#contents' do
+    describe "#contents" do
       let(:element) { create(:alchemy_element) }
       let!(:content1) { create(:alchemy_content, element: element) }
       let!(:content2) { create(:alchemy_content, element: element) }
@@ -410,32 +410,32 @@ module Alchemy
         content2.update_column(:position, 1)
       end
 
-      it 'are ordered by position' do
+      it "are ordered by position" do
         is_expected.to eq([content2, content1])
       end
     end
 
-    describe '#content_by_type' do
+    describe "#content_by_type" do
       before(:each) do
-        @element = create(:alchemy_element, name: 'headline')
+        @element = create(:alchemy_element, name: "headline")
         @content = @element.contents.first
       end
 
       context "with namespaced essence type" do
         it "should return content by passing a essence type" do
-          expect(@element.content_by_type('Alchemy::EssenceText')).to eq(@content)
+          expect(@element.content_by_type("Alchemy::EssenceText")).to eq(@content)
         end
       end
 
       context "without namespaced essence type" do
         it "should return content by passing a essence type" do
-          expect(@element.content_by_type('EssenceText')).to eq(@content)
+          expect(@element.content_by_type("EssenceText")).to eq(@content)
         end
       end
     end
 
-    describe '#display_name' do
-      let(:element) { Element.new(name: 'article') }
+    describe "#display_name" do
+      let(:element) { Element.new(name: "article") }
 
       it "should call .display_name_for" do
         expect(Element).to receive(:display_name_for).with(element.name)
@@ -443,55 +443,56 @@ module Alchemy
       end
     end
 
-    describe '#essence_errors' do
-      let(:element) { Element.new(name: 'article') }
-      let(:content) { Content.new(name: 'headline') }
-      let(:essence) { EssenceText.new(body: '') }
+    describe "#essence_errors" do
+      let(:element) { Element.new(name: "article") }
+      let(:content) { Content.new(name: "headline") }
+      let(:essence) { EssenceText.new(body: "") }
 
       before do
         allow(element).to receive(:contents) { [content] }
         allow(content).to receive(:essence) { essence }
         allow(content).to receive(:essence_validation_failed?) { true }
-        allow(essence).to receive(:validation_errors) { 'Cannot be blank' }
+        allow(essence).to receive(:validation_errors) { "Cannot be blank" }
       end
 
       it "returns hash with essence errors" do
-        expect(element.essence_errors).to eq({'headline' => 'Cannot be blank'})
+        expect(element.essence_errors).to eq({ "headline" => "Cannot be blank" })
       end
     end
 
-    describe '#essence_error_messages' do
-      let(:element) { Element.new(name: 'article') }
+    describe "#essence_error_messages" do
+      let(:element) { Element.new(name: "article") }
 
       it "should return the translation with the translated content label" do
         expect(Alchemy).to receive(:t)
-          .with('content_names.content', default: 'Content')
-          .and_return('Content')
+                             .with("content_names.content", default: "Content")
+                             .and_return("Content")
         expect(Alchemy).to receive(:t)
-          .with('content', scope: "content_names.article", default: 'Content')
-          .and_return('Contenido')
+                             .with("content", scope: "content_names.article", default: "Content")
+                             .and_return("Contenido")
         expect(Alchemy).to receive(:t)
-          .with('article.content.invalid', {
-            scope: "content_validations",
-            default: [:"fields.content.invalid", :"errors.invalid"],
-            field: "Contenido"})
+                             .with("article.content.invalid", {
+                               scope: "content_validations",
+                               default: [:"fields.content.invalid", :"errors.invalid"],
+                               field: "Contenido",
+                             })
         expect(element).to receive(:essence_errors)
-          .and_return({'content' => [:invalid]})
+                             .and_return({ "content" => [:invalid] })
 
         element.essence_error_messages
       end
     end
 
-    describe '#display_name_with_preview_text' do
-      let(:element) { build_stubbed(:alchemy_element, name: 'Foo') }
+    describe "#display_name_with_preview_text" do
+      let(:element) { build_stubbed(:alchemy_element, name: "Foo") }
 
       it "returns a string with display name and preview text" do
-        allow(element).to receive(:preview_text).and_return('Fula')
+        allow(element).to receive(:preview_text).and_return("Fula")
         expect(element.display_name_with_preview_text).to eq("Foo: Fula")
       end
     end
 
-    describe '#dom_id' do
+    describe "#dom_id" do
       let(:element) { build_stubbed(:alchemy_element) }
 
       it "returns an string from element name and id" do
@@ -499,21 +500,21 @@ module Alchemy
       end
     end
 
-    describe '#preview_text' do
+    describe "#preview_text" do
       let(:element) { build_stubbed(:alchemy_element) }
 
       let(:content) do
-        mock_model(Content, preview_text: 'Content 1', preview_content?: false)
+        mock_model(Content, preview_text: "Content 1", preview_content?: false)
       end
 
       let(:content_2) do
-        mock_model(Content, preview_text: 'Content 2', preview_content?: false)
+        mock_model(Content, preview_text: "Content 2", preview_content?: false)
       end
 
       let(:contents) { [] }
 
       let(:preview_content) do
-        mock_model(Content, preview_text: 'Preview Content', preview_content?: true)
+        mock_model(Content, preview_text: "Preview Content", preview_content?: true)
       end
 
       before do
@@ -544,13 +545,13 @@ module Alchemy
         end
       end
 
-      context 'with nested elements' do
+      context "with nested elements" do
         let(:element) do
           build_stubbed(:alchemy_element, :with_nestable_elements)
         end
 
         let(:nested_element) do
-          build_stubbed(:alchemy_element, name: 'slide')
+          build_stubbed(:alchemy_element, name: "slide")
         end
 
         before do
@@ -558,24 +559,24 @@ module Alchemy
           allow(element).to receive(:all_nested_elements) { [nested_element] }
         end
 
-        context 'when parent element has contents' do
+        context "when parent element has contents" do
           before do
             allow(element).to receive(:contents) { [content] }
           end
 
-          it 'returns the preview text from the parent element' do
+          it "returns the preview text from the parent element" do
             expect(content).to receive(:preview_text)
             expect(element.preview_text)
           end
         end
 
-        context 'when parent element has no contents but nestable element has' do
+        context "when parent element has no contents but nestable element has" do
           before do
             allow(element).to receive(:contents) { [] }
             allow(nested_element).to receive(:contents) { [content_2] }
           end
 
-          it 'returns the preview text from the first nested element' do
+          it "returns the preview text from the first nested element" do
             expect(content_2).to receive(:preview_text)
             expect(element.preview_text)
           end
@@ -583,56 +584,56 @@ module Alchemy
       end
     end
 
-    context 'previous and next elements.' do
+    context "previous and next elements." do
       let(:page) { create(:alchemy_page, :language_root) }
 
       before(:each) do
-        @element1 = create(:alchemy_element, page: page, name: 'headline')
+        @element1 = create(:alchemy_element, page: page, name: "headline")
         @element2 = create(:alchemy_element, page: page)
-        @element3 = create(:alchemy_element, page: page, name: 'text')
+        @element3 = create(:alchemy_element, page: page, name: "text")
       end
 
-      describe '#prev' do
+      describe "#prev" do
         it "should return previous element on same page" do
           expect(@element3.prev).to eq(@element2)
         end
 
         context "with name as parameter" do
           it "should return previous of this kind" do
-            expect(@element3.prev('headline')).to eq(@element1)
+            expect(@element3.prev("headline")).to eq(@element1)
           end
         end
       end
 
-      describe '#next' do
+      describe "#next" do
         it "should return next element on same page" do
           expect(@element2.next).to eq(@element3)
         end
 
         context "with name as parameter" do
           it "should return next of this kind" do
-            expect(@element1.next('text')).to eq(@element3)
+            expect(@element1.next("text")).to eq(@element3)
           end
         end
       end
     end
 
-    context 'retrieving contents, essences and ingredients' do
-      let(:element) { create(:alchemy_element, :with_contents, name: 'news') }
+    context "retrieving contents, essences and ingredients" do
+      let(:element) { create(:alchemy_element, :with_contents, name: "news") }
 
       it "should return an ingredient by name" do
-        expect(element.ingredient('news_headline')).to eq(EssenceText.first.ingredient)
+        expect(element.ingredient("news_headline")).to eq(EssenceText.first.ingredient)
       end
 
       it "should return the content for rss title" do
-        expect(element.content_for_rss_title).to eq(element.contents.find_by_name('news_headline'))
+        expect(element.content_for_rss_title).to eq(element.contents.find_by_name("news_headline"))
       end
 
       it "should return the content for rss descdefinitionription" do
-        expect(element.content_for_rss_description).to eq(element.contents.find_by_name('body'))
+        expect(element.content_for_rss_description).to eq(element.contents.find_by_name("body"))
       end
 
-      context 'if no content is defined as rss title' do
+      context "if no content is defined as rss title" do
         before { expect(element).to receive(:content_definitions).and_return([]) }
 
         it "should return nil" do
@@ -640,7 +641,7 @@ module Alchemy
         end
       end
 
-      context 'if no content is defined as rss description' do
+      context "if no content is defined as rss description" do
         before { expect(element).to receive(:content_definitions).and_return([]) }
 
         it "should return nil" do
@@ -649,11 +650,11 @@ module Alchemy
       end
     end
 
-    describe '#update_contents' do
+    describe "#update_contents" do
       subject { element.update_contents(params) }
 
-      let(:page)     { build_stubbed(:alchemy_page) }
-      let(:element)  { build_stubbed(:alchemy_element, page: page) }
+      let(:page) { build_stubbed(:alchemy_page) }
+      let(:element) { build_stubbed(:alchemy_element, page: page) }
       let(:content1) { double(:content, id: 1) }
       let(:content2) { double(:content, id: 2) }
 
@@ -665,23 +666,23 @@ module Alchemy
       end
 
       context "with valid attributes hash" do
-        let(:params) { {content1.id.to_s => {body: 'Title'}} }
+        let(:params) { { content1.id.to_s => { body: "Title" } } }
 
-        context 'when certain content is not part of the attributes hash (cause it was not filled by the user)' do
+        context "when certain content is not part of the attributes hash (cause it was not filled by the user)" do
           before do
             allow(element).to receive(:contents).and_return([content1, content2])
           end
 
-          it 'does not try to update that content' do
-            expect(content1).to receive(:update_essence).with({body: 'Title'}).and_return(true)
+          it "does not try to update that content" do
+            expect(content1).to receive(:update_essence).with({ body: "Title" }).and_return(true)
             expect(content2).to_not receive(:update_essence)
             subject
           end
         end
 
-        context 'with passing validations' do
+        context "with passing validations" do
           before do
-            expect(content1).to receive(:update_essence).with({body: 'Title'}).and_return(true)
+            expect(content1).to receive(:update_essence).with({ body: "Title" }).and_return(true)
           end
 
           it { is_expected.to be_truthy }
@@ -692,9 +693,9 @@ module Alchemy
           end
         end
 
-        context 'with failing validations' do
+        context "with failing validations" do
           it "adds error and returns false" do
-            expect(content1).to receive(:update_essence).with({body: 'Title'}).and_return(false)
+            expect(content1).to receive(:update_essence).with({ body: "Title" }).and_return(false)
             is_expected.to be_falsey
             expect(element.errors).not_to be_empty
           end
@@ -702,7 +703,7 @@ module Alchemy
       end
     end
 
-    describe '.after_update' do
+    describe ".after_update" do
       let(:element) { create(:alchemy_element, page: page) }
 
       let(:page) do
@@ -715,7 +716,7 @@ module Alchemy
         expect { element.save }.to change { page.updated_at }
       end
 
-      context 'with touchable pages' do
+      context "with touchable pages" do
         let(:touchable_page) do
           create(:alchemy_page).tap do |page|
             page.update_column(:updated_at, 3.hours.ago)
@@ -729,14 +730,14 @@ module Alchemy
       end
     end
 
-    describe '#taggable?' do
+    describe "#taggable?" do
       let(:element) { build(:alchemy_element) }
 
       context "definition has 'taggable' key with true value" do
         it "should return true" do
           expect(element).to receive(:definition).and_return({
-            'name' => 'article',
-            'taggable' => true
+            "name" => "article",
+            "taggable" => true,
           })
           expect(element.taggable?).to be_truthy
         end
@@ -745,8 +746,8 @@ module Alchemy
       context "definition has 'taggable' key with foo value" do
         it "should return false" do
           expect(element).to receive(:definition).and_return({
-            'name' => 'article',
-            'taggable' => 'foo'
+            "name" => "article",
+            "taggable" => "foo",
           })
           expect(element.taggable?).to be_falsey
         end
@@ -755,14 +756,14 @@ module Alchemy
       context "definition has no 'taggable' key" do
         it "should return false" do
           expect(element).to receive(:definition).and_return({
-            'name' => 'article'
+            "name" => "article",
           })
           expect(element.taggable?).to be_falsey
         end
       end
     end
 
-    describe '#compact?' do
+    describe "#compact?" do
       subject { element.compact? }
 
       let(:element) { build(:alchemy_element) }
@@ -772,22 +773,22 @@ module Alchemy
       end
 
       context "definition has 'compact' key with true value" do
-        let(:definition) { {'compact' => true} }
+        let(:definition) { { "compact" => true } }
         it { is_expected.to be(true) }
       end
 
       context "definition has 'compact' key with foo value" do
-        let(:definition) { {'compact' => 'foo'} }
+        let(:definition) { { "compact" => "foo" } }
         it { is_expected.to be(false) }
       end
 
       context "definition has no 'compact' key" do
-        let(:definition) { {'name' => 'article'} }
+        let(:definition) { { "name" => "article" } }
         it { is_expected.to be(false) }
       end
     end
 
-    describe '#trash!' do
+    describe "#trash!" do
       let(:element) { create(:alchemy_element) }
 
       let(:trashed_element) do
@@ -800,7 +801,7 @@ module Alchemy
       it { is_expected.not_to be_public }
       it { is_expected.to be_folded }
 
-      describe '#position' do
+      describe "#position" do
         subject { super().position }
         it { is_expected.to be_nil }
       end
@@ -826,11 +827,11 @@ module Alchemy
 
     describe "#to_partial_path" do
       it do
-        expect(Element.new(name: 'article').to_partial_path).to eq('alchemy/elements/article')
+        expect(Element.new(name: "article").to_partial_path).to eq("alchemy/elements/article")
       end
     end
 
-    describe '#cache_key' do
+    describe "#cache_key" do
       let(:page) { stub_model(Page, published_at: Time.current - 1.week) }
       let(:element) { stub_model(Element, page: page, updated_at: Time.current) }
 
@@ -862,28 +863,28 @@ module Alchemy
 
       subject { element.nestable_elements }
 
-      context 'with nestable_elements defined' do
+      context "with nestable_elements defined" do
         before do
           allow(element).to receive(:definition) do
             {
-              'nestable_elements' => %w(news article)
+              "nestable_elements" => %w(news article),
             }
           end
         end
 
-        it 'returns an array containing all available nested element names' do
+        it "returns an array containing all available nested element names" do
           is_expected.to eq %w(news article)
         end
       end
 
-      context 'without nestable_elements defined' do
+      context "without nestable_elements defined" do
         before do
           allow(element).to receive(:definition) do
             {}
           end
         end
 
-        it 'returns an empty array' do
+        it "returns an empty array" do
           is_expected.to eq []
         end
       end
@@ -896,26 +897,26 @@ module Alchemy
       let!(:element) { create(:alchemy_element, page: page) }
       let!(:nested_element) { create(:alchemy_element, parent_element: element, page: page) }
 
-      it 'returns nested elements' do
+      it "returns nested elements" do
         expect(subject).to eq([nested_element])
       end
 
-      context 'with hidden nested elements' do
+      context "with hidden nested elements" do
         let!(:hidden_nested_element) do
           create(:alchemy_element, parent_element: element, page: page, public: false)
         end
 
-        it 'includes them' do
+        it "includes them" do
           expect(subject).to include(hidden_nested_element)
         end
       end
 
-      context 'with trashed nested elements' do
+      context "with trashed nested elements" do
         let!(:trashed_nested_element) do
           create(:alchemy_element, parent_element: element, page: page).tap(&:trash!)
         end
 
-        it 'does not include them' do
+        it "does not include them" do
           expect(subject).to_not include(trashed_nested_element)
         end
       end
@@ -924,86 +925,86 @@ module Alchemy
     describe "#nested_elements" do
       subject { element.nested_elements }
 
-      context 'with nestable_elements defined' do
+      context "with nestable_elements defined" do
         let!(:page) { create(:alchemy_page) }
         let!(:element) { create(:alchemy_element, page: page) }
         let!(:nested_element) { create(:alchemy_element, parent_element: element, page: page) }
 
-        it 'returns nested elements' do
+        it "returns nested elements" do
           expect(subject).to eq([nested_element])
         end
 
-        context 'with hidden nested elements' do
+        context "with hidden nested elements" do
           let!(:hidden_nested_element) do
             create(:alchemy_element, parent_element: element, page: page, public: false)
           end
 
-          it 'does not include them' do
+          it "does not include them" do
             expect(subject).to eq([nested_element])
           end
         end
 
-        context 'with trashed nested elements' do
+        context "with trashed nested elements" do
           let!(:hidden_trashed_element) do
             create(:alchemy_element, parent_element: element, page: page).tap(&:trash!)
           end
 
-          it 'does not include them' do
+          it "does not include them" do
             expect(subject).to eq([nested_element])
           end
         end
       end
     end
 
-    describe '#richtext_contents_ids' do
+    describe "#richtext_contents_ids" do
       subject { element.richtext_contents_ids }
 
-      let(:element) { create(:alchemy_element, :with_contents, name: 'text') }
+      let(:element) { create(:alchemy_element, :with_contents, name: "text") }
 
       it { is_expected.to eq(element.content_ids) }
 
-      context 'for element with nested elements' do
+      context "for element with nested elements" do
         let!(:element) do
-          create(:alchemy_element, :with_contents, name: 'text')
+          create(:alchemy_element, :with_contents, name: "text")
         end
 
         let!(:nested_element_1) do
           create(:alchemy_element, :with_contents, {
-            name: 'text',
+            name: "text",
             parent_element: element,
-            folded: false
+            folded: false,
           })
         end
 
         let!(:nested_element_2) do
           create(:alchemy_element, :with_contents, {
-            name: 'text',
+            name: "text",
             parent_element: nested_element_1,
-            folded: false
+            folded: false,
           })
         end
 
         let!(:folded_nested_element_3) do
           create(:alchemy_element, :with_contents, {
-            name: 'text',
+            name: "text",
             parent_element: nested_element_1,
-            folded: true
+            folded: true,
           })
         end
 
-        it 'includes all richtext contents from all expanded descendent elements' do
+        it "includes all richtext contents from all expanded descendent elements" do
           is_expected.to eq(
             element.content_ids +
             nested_element_1.content_ids +
-            nested_element_2.content_ids
+            nested_element_2.content_ids,
           )
         end
       end
     end
 
-    context 'with parent element' do
+    context "with parent element" do
       let!(:parent_element) { create(:alchemy_element, :with_nestable_elements) }
-      let!(:element)        { create(:alchemy_element, name: 'slide', parent_element: parent_element) }
+      let!(:element) { create(:alchemy_element, name: "slide", parent_element: parent_element) }
 
       it "touches parent after update" do
         parent_element.update_column(:updated_at, 3.days.ago)

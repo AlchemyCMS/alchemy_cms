@@ -4,7 +4,7 @@ module Alchemy
   module Modules
     mattr_accessor :alchemy_modules
 
-    @@alchemy_modules = YAML.load_file(File.expand_path('../../config/alchemy/modules.yml', __dir__))
+    @@alchemy_modules = YAML.load_file(File.expand_path("../../config/alchemy/modules.yml", __dir__))
 
     class << self
       def included(base)
@@ -28,11 +28,11 @@ module Alchemy
         definition_hash = module_definition.deep_stringify_keys
 
         ### Validate controller(s) existence
-        if definition_hash['navigation'].is_a?(Hash)
-          defined_controllers = [definition_hash['navigation']['controller']]
+        if definition_hash["navigation"].is_a?(Hash)
+          defined_controllers = [definition_hash["navigation"]["controller"]]
 
-          if definition_hash['navigation']['sub_navigation'].is_a?(Array)
-            defined_controllers.concat(definition_hash['navigation']['sub_navigation'].map{ |x| x['controller'] })
+          if definition_hash["navigation"]["sub_navigation"].is_a?(Array)
+            defined_controllers.concat(definition_hash["navigation"]["sub_navigation"].map{ |x| x["controller"] })
           end
 
           validate_controllers_existence(defined_controllers)
@@ -52,7 +52,7 @@ module Alchemy
           begin
             controller_name.constantize
           rescue NameError
-            raise "Error in AlchemyCMS module definition: '#{definition_hash['name']}'. Could not find the matching controller class #{controller_name.sub(/^::/, '')} for the specified controller: '#{controller_val}'"
+            raise "Error in AlchemyCMS module definition: '#{definition_hash["name"]}'. Could not find the matching controller class #{controller_name.sub(/^::/, "")} for the specified controller: '#{controller_val}'"
           end
         end
       end
@@ -66,11 +66,11 @@ module Alchemy
     def module_definition_for(name_or_params)
       case name_or_params
       when String
-        alchemy_modules.detect { |m| m['name'] == name_or_params }
+        alchemy_modules.detect { |m| m["name"] == name_or_params }
       when Hash
         name_or_params.stringify_keys!
         alchemy_modules.detect do |alchemy_module|
-          module_navi = alchemy_module.fetch('navigation', {})
+          module_navi = alchemy_module.fetch("navigation", {})
           definition_from_mainnavi(module_navi, name_or_params) ||
             definition_from_subnavi(module_navi, name_or_params)
         end
@@ -86,7 +86,7 @@ module Alchemy
     end
 
     def definition_from_subnavi(module_navi, params)
-      subnavi = module_navi['sub_navigation']
+      subnavi = module_navi["sub_navigation"]
       return if subnavi.nil?
 
       subnavi.any? do |navi|
@@ -95,15 +95,15 @@ module Alchemy
     end
 
     def controller_matches?(navi, params)
-      remove_slash(navi['controller']) == remove_slash(params['controller'])
+      remove_slash(navi["controller"]) == remove_slash(params["controller"])
     end
 
     def action_matches?(navi, params)
-      navi['action'] == params['action']
+      navi["action"] == params["action"]
     end
 
     def remove_slash(str)
-      str.gsub(/^\//, '')
+      str.gsub(/^\//, "")
     end
   end
 end

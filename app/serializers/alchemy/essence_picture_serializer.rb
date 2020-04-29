@@ -21,7 +21,7 @@ module Alchemy
         url: object.link,
         css_class: object.link_class_name,
         title: object.link_title,
-        target: object.link_target
+        target: object.link_target,
       }
     end
   end

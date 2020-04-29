@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative 'tasks/element_views_updater'
+require_relative "tasks/element_views_updater"
 
 module Alchemy
   class Upgrader::FourPointFour < Upgrader
@@ -11,7 +11,7 @@ module Alchemy
       end
 
       def update_local_variable
-        desc 'Update element views local variable to element name.'
+        desc "Update element views local variable to element name."
         Alchemy::Upgrader::Tasks::ElementViewsUpdater.new.update_local_variable
       end
 
@@ -45,7 +45,7 @@ module Alchemy
           The former `element` variable is still present, though.
 
         NOTE
-        todo notice, 'Alchemy v4.4 TODO'
+        todo notice, "Alchemy v4.4 TODO"
       end
     end
   end

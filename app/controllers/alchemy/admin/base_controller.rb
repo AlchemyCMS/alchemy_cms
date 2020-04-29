@@ -27,14 +27,14 @@ module Alchemy
 
       def leave
         authorize! :leave, :alchemy_admin
-        render template: '/alchemy/admin/leave', layout: !request.xhr?
+        render template: "/alchemy/admin/leave", layout: !request.xhr?
       end
 
       private
 
       # Disable layout rendering for xhr requests.
       def set_layout
-        request.xhr? ? false : 'alchemy/admin'
+        request.xhr? ? false : "alchemy/admin"
       end
 
       # Handles exceptions
@@ -55,7 +55,7 @@ module Alchemy
         if request.xhr?
           render action: "error_notice"
         else
-          render '500', status: 500
+          render "500", status: 500
         end
       end
 
@@ -105,7 +105,7 @@ module Alchemy
           flash[:notice] = Alchemy.t(flash_notice)
           do_redirect_to redirect_url
         else
-          render action: (params[:action] == 'update' ? 'edit' : 'new')
+          render action: (params[:action] == "update" ? "edit" : "new")
         end
       end
 
@@ -131,7 +131,7 @@ module Alchemy
 
       # Are we currently in the page edit mode page preview.
       def is_page_preview?
-        controller_path == 'alchemy/admin/pages' && action_name == 'show'
+        controller_path == "alchemy/admin/pages" && action_name == "show"
       end
 
       def load_locked_pages

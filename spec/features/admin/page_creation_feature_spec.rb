@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Page creation", type: :system do
   before { authorize_user(:as_admin) }
@@ -9,7 +9,7 @@ RSpec.describe "Page creation", type: :system do
     context "without having a Page in the clipboard" do
       it "does not contain tabs" do
         visit new_admin_page_path
-        within('#main_content') { expect(page).to_not have_selector('#overlay_tabs') }
+        within("#main_content") { expect(page).to_not have_selector("#overlay_tabs") }
       end
     end
 
@@ -20,7 +20,7 @@ RSpec.describe "Page creation", type: :system do
 
       it "contains tabs for creating a new page and pasting from clipboard" do
         visit new_admin_page_path
-        within('#overlay_tabs') { expect(page).to have_selector '#create_page_tab, #paste_page_tab' }
+        within("#overlay_tabs") { expect(page).to have_selector "#create_page_tab, #paste_page_tab" }
       end
 
       context "", js: true do
@@ -32,18 +32,18 @@ RSpec.describe "Page creation", type: :system do
         end
 
         it "the create page tab is visible by default" do
-          within('#overlay_tabs') do
-            expect(page).to have_selector('#create_page_tab', visible: true)
-            expect(page).to have_selector('#paste_page_tab', visible: false)
+          within("#overlay_tabs") do
+            expect(page).to have_selector("#create_page_tab", visible: true)
+            expect(page).to have_selector("#paste_page_tab", visible: false)
           end
         end
 
         context "when clicking on an inactive tab" do
           it "shows that clicked tab" do
-            within('#overlay_tabs') do
-              click_link('Paste from clipboard')
-              expect(find('#create_page_tab')).to_not be_visible
-              expect(find('#paste_page_tab')).to be_visible
+            within("#overlay_tabs") do
+              click_link("Paste from clipboard")
+              expect(find("#create_page_tab")).to_not be_visible
+              expect(find("#paste_page_tab")).to be_visible
             end
           end
         end

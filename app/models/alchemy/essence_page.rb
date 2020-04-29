@@ -8,11 +8,11 @@ module Alchemy
       ingredient_column: :page,
       preview_text_method: :name,
       belongs_to: {
-        class_name: 'Alchemy::Page',
+        class_name: "Alchemy::Page",
         foreign_key: :page_id,
         inverse_of: :essence_pages,
-        optional: true
-      }
+        optional: true,
+      },
     )
 
     def ingredient=(page)

@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'dragonfly_svg'
+require "dragonfly_svg"
 
 # Logger
 Dragonfly.logger = Rails.logger

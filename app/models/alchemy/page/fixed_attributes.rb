@@ -31,7 +31,7 @@ module Alchemy
     # @return Hash
     #
     def attributes
-      @_attributes ||= page.definition.fetch('fixed_attributes', {}).symbolize_keys
+      @_attributes ||= page.definition.fetch("fixed_attributes", {}).symbolize_keys
     end
     alias_method :all, :attributes
 

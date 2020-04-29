@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe Admin::BaseHelper do
-    describe '#toolbar_button' do
+    describe "#toolbar_button" do
       context "with permission" do
         before { allow(helper).to receive(:can?).and_return(true) }
 
         it "renders a toolbar button" do
           expect(helper.toolbar_button(
-                   url: admin_dashboard_path
+                   url: admin_dashboard_path,
           )).to match /<div.+class="button_with_label/
         end
       end
@@ -20,7 +20,7 @@ module Alchemy
 
         it "returns empty string" do
           expect(
-            helper.toolbar_button(url: admin_dashboard_path)
+            helper.toolbar_button(url: admin_dashboard_path),
           ).to be_empty
         end
       end
@@ -32,8 +32,8 @@ module Alchemy
           expect(
             helper.toolbar_button(
               url: admin_dashboard_path,
-              skip_permission_check: true
-            )
+              skip_permission_check: true,
+            ),
           ).to match /<div.+class="button_with_label/
         end
       end
@@ -46,8 +46,8 @@ module Alchemy
           expect(
             helper.toolbar_button(
               url: admin_dashboard_path,
-              if_permitted_to: ''
-            )
+              if_permitted_to: "",
+            ),
           ).not_to be_empty
         end
       end
@@ -61,7 +61,7 @@ module Alchemy
         it "renders a normal link" do
           button = helper.toolbar_button(
             url: admin_dashboard_path,
-            overlay: false
+            overlay: false,
           )
           expect(button).to match /<a.+href="#{admin_dashboard_path}"/
           expect(button).not_to match /data-alchemy-overlay/
@@ -76,44 +76,44 @@ module Alchemy
       end
     end
 
-    describe '#clipboard_select_tag_options' do
+    describe "#clipboard_select_tag_options" do
       let(:page) { build_stubbed(:alchemy_page) }
 
-      before { helper.instance_variable_set('@page', page) }
+      before { helper.instance_variable_set("@page", page) }
 
-      context 'with element items' do
+      context "with element items" do
         let(:element) { build_stubbed(:alchemy_element) }
         let(:clipboard_items) { [element] }
 
         it "should include select options with the display name and preview text" do
-          allow(element).to receive(:display_name_with_preview_text).and_return('Name with Preview text')
-          expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector('option', text: 'Name with Preview text')
+          allow(element).to receive(:display_name_with_preview_text).and_return("Name with Preview text")
+          expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector("option", text: "Name with Preview text")
         end
       end
 
-      context 'with page items' do
-        let(:page_in_clipboard) { build_stubbed(:alchemy_page, name: 'Page name') }
+      context "with page items" do
+        let(:page_in_clipboard) { build_stubbed(:alchemy_page, name: "Page name") }
         let(:clipboard_items) { [page_in_clipboard] }
 
         it "should include select options with page names" do
-          expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector('option', text: 'Page name')
+          expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector("option", text: "Page name")
         end
       end
     end
 
-    describe '#button_with_confirm' do
+    describe "#button_with_confirm" do
       subject { button_with_confirm }
 
       it "renders a button tag with a data attribute for confirm dialog" do
-        is_expected.to have_selector('button[data-alchemy-confirm]')
+        is_expected.to have_selector("button[data-alchemy-confirm]")
       end
     end
 
-    describe '#delete_button' do
-      subject { delete_button('/admin/pages') }
+    describe "#delete_button" do
+      subject { delete_button("/admin/pages") }
 
       it "renders a button tag" do
-        is_expected.to have_selector('button')
+        is_expected.to have_selector("button")
       end
 
       it "returns a form tag with method=delete" do
@@ -121,7 +121,7 @@ module Alchemy
       end
     end
 
-    describe '#alchemy_datepicker' do
+    describe "#alchemy_datepicker" do
       subject { alchemy_datepicker(essence, :date, {value: value, type: type}) }
 
       let(:essence) { EssenceDate.new }
@@ -156,8 +156,8 @@ module Alchemy
         end
       end
 
-      context 'with date stored on object' do
-        let(:date)    { Time.parse('1976-10-07 00:00 Z') }
+      context "with date stored on object" do
+        let(:date)    { Time.parse("1976-10-07 00:00 Z") }
         let(:essence) { EssenceDate.new(date: date) }
 
         it "sets this date as value" do
@@ -166,35 +166,35 @@ module Alchemy
       end
     end
 
-    describe '#current_alchemy_user_name' do
+    describe "#current_alchemy_user_name" do
       subject { helper.current_alchemy_user_name }
 
       before { expect(helper).to receive(:current_alchemy_user).and_return(user) }
 
-      context 'with a user having a `alchemy_display_name` method' do
-        let(:user) { double('User', alchemy_display_name: 'Peter Schroeder') }
+      context "with a user having a `alchemy_display_name` method" do
+        let(:user) { double("User", alchemy_display_name: "Peter Schroeder") }
 
         it "Returns a span showing the name of the currently logged in user." do
-          is_expected.to have_content("#{Alchemy.t('Logged in as')} Peter Schroeder")
+          is_expected.to have_content("#{Alchemy.t("Logged in as")} Peter Schroeder")
           is_expected.to have_selector("span.current-user-name")
         end
       end
 
-      context 'with a user not having a `alchemy_display_name` method' do
-        let(:user) { double('User', name: 'Peter Schroeder') }
+      context "with a user not having a `alchemy_display_name` method" do
+        let(:user) { double("User", name: "Peter Schroeder") }
 
         it { is_expected.to be_nil }
       end
     end
 
-    describe '#link_url_regexp' do
+    describe "#link_url_regexp" do
       subject { helper.link_url_regexp }
 
       it "returns the regular expression for external link urls" do
         expect(subject).to be_a(Regexp)
       end
 
-      context 'if the expression from config is nil' do
+      context "if the expression from config is nil" do
         before do
           stub_alchemy_config(:format_matchers, {link_url: nil})
         end
@@ -205,20 +205,20 @@ module Alchemy
       end
     end
 
-    describe '#hint_with_tooltip' do
-      subject { helper.hint_with_tooltip('My hint') }
+    describe "#hint_with_tooltip" do
+      subject { helper.hint_with_tooltip("My hint") }
 
-      it 'renders a warning icon with hint text wrapped in tooltip', :aggregate_failures do
-        is_expected.to have_css 'span.hint-with-icon i.fa-exclamation-triangle'
-        is_expected.to have_css 'span.hint-with-icon span.hint-bubble'
-        is_expected.to have_content 'My hint'
+      it "renders a warning icon with hint text wrapped in tooltip", :aggregate_failures do
+        is_expected.to have_css "span.hint-with-icon i.fa-exclamation-triangle"
+        is_expected.to have_css "span.hint-with-icon span.hint-bubble"
+        is_expected.to have_content "My hint"
       end
 
-      context 'with icon set to info' do
-        subject { helper.hint_with_tooltip('My hint', icon: 'info') }
+      context "with icon set to info" do
+        subject { helper.hint_with_tooltip("My hint", icon: "info") }
 
-        it 'renders an info icon instead' do
-          is_expected.to have_css 'i.fa-info'
+        it "renders an info icon instead" do
+          is_expected.to have_css "i.fa-info"
         end
       end
     end

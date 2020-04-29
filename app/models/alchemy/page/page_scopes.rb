@@ -47,14 +47,14 @@ module Alchemy
       #
       scope :public_language_roots, -> {
         published.language_roots.where(
-          language_code: Language.published.pluck(:language_code)
+          language_code: Language.published.pluck(:language_code),
         )
       }
 
       # Last 5 pages that where recently edited by given user
       #
       scope :all_last_edited_from, ->(user) {
-        where(updater_id: user.id).order('updated_at DESC').limit(5)
+        where(updater_id: user.id).order("updated_at DESC").limit(5)
       }
 
       # Returns all pages that have the given +language_id+

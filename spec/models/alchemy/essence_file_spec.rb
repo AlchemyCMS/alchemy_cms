@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe EssenceFile do
@@ -12,21 +12,21 @@ module Alchemy
       let(:ingredient_value) { attachment }
     end
 
-    describe '#attachment_url' do
+    describe "#attachment_url" do
       subject { essence.attachment_url }
 
       it "returns the download attachment url." do
         is_expected.to match(/\/attachment\/#{attachment.id}\/download\/#{attachment.urlname}\.#{attachment.suffix}/)
       end
 
-      context 'without attachment assigned' do
+      context "without attachment assigned" do
         let(:attachment) { nil }
 
         it { is_expected.to be_nil }
       end
     end
 
-    describe '#preview_text' do
+    describe "#preview_text" do
       it "returns the attachment's name as preview text" do
         expect(essence.preview_text).to eq(attachment.name)
       end
@@ -34,7 +34,7 @@ module Alchemy
       context "with no attachment assigned" do
         it "returns empty string" do
           essence.attachment = nil
-          expect(essence.preview_text).to eq('')
+          expect(essence.preview_text).to eq("")
         end
       end
     end

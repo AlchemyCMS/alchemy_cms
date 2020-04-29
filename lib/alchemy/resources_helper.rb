@@ -104,21 +104,21 @@ module Alchemy
       options = {hint: resource_handler.help_text_for(attribute)}
       input_type = attribute[:type].to_s
       case input_type
-      when 'boolean'
+      when "boolean"
         options
-      when 'date', 'time', 'datetime'
+      when "date", "time", "datetime"
         date = resource_instance_variable.send(attribute[:name]) || Time.current
         options.merge(
-          as: 'string',
+          as: "string",
           input_html: {
-            'data-datepicker-type' => input_type,
-            value: date ? date.iso8601 : nil
-          }
+            "data-datepicker-type" => input_type,
+            value: date ? date.iso8601 : nil,
+          },
         )
-      when 'text'
-        options.merge(as: 'text', input_html: {rows: 4})
+      when "text"
+        options.merge(as: "text", input_html: {rows: 4})
       else
-        options.merge(as: 'string')
+        options.merge(as: "string")
       end
     end
 
@@ -165,7 +165,7 @@ module Alchemy
     def render_resources
       render partial: resource_name, collection: resources_instance_variable
     rescue ActionView::MissingTemplate
-      render partial: 'resource', collection: resources_instance_variable
+      render partial: "resource", collection: resources_instance_variable
     end
 
     def resource_has_tags
@@ -179,8 +179,8 @@ module Alchemy
     def resource_filter_select
       resource_model.alchemy_resource_filters.map do |filter_scope|
         [
-          Alchemy.t(filter_scope.to_sym, scope: ['resources', resource_name, 'filters']),
-          filter_scope
+          Alchemy.t(filter_scope.to_sym, scope: ["resources", resource_name, "filters"]),
+          filter_scope,
         ]
       end
     end

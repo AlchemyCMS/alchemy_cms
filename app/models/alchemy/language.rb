@@ -20,7 +20,7 @@
 #  locale         :string
 #
 
-require_dependency 'alchemy/site'
+require_dependency "alchemy/site"
 
 module Alchemy
   class Language < BaseRecord
@@ -122,7 +122,7 @@ module Alchemy
     #
     def matching_locales
       @_matching_locales ||= ::I18n.available_locales.select do |locale|
-        locale.to_s.split('-')[0] == language_code
+        locale.to_s.split("-")[0] == language_code
       end
     end
 

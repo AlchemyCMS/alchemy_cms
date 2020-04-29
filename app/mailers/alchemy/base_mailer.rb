@@ -2,7 +2,7 @@
 
 module Alchemy
   begin
-    base_class = Object.const_get('::ApplicationMailer')
+    base_class = Object.const_get("::ApplicationMailer")
   rescue NameError
     base_class = ActionMailer::Base
   end

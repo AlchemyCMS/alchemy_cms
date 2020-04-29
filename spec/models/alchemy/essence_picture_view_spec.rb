@@ -1,40 +1,40 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe Alchemy::EssencePictureView, type: :model do
   include Capybara::RSpecMatchers
 
   let(:image) do
-    File.new(File.expand_path('../../fixtures/image.png', __dir__))
+    File.new(File.expand_path("../../fixtures/image.png", __dir__))
   end
 
   let(:picture) do
     stub_model Alchemy::Picture,
-      image_file_format: 'png',
+      image_file_format: "png",
       image_file: image
   end
 
   let(:essence_picture) do
     stub_model Alchemy::EssencePicture,
       picture: picture,
-      caption: 'This is a cute cat'
+      caption: "This is a cute cat"
   end
 
   let(:content) do
     stub_model Alchemy::Content,
-      name: 'image',
-      essence_type: 'EssencePicture',
+      name: "image",
+      essence_type: "EssencePicture",
       essence: essence_picture
   end
 
-  let(:picture_url) { '/pictures/1/image.png' }
+  let(:picture_url) { "/pictures/1/image.png" }
 
   before do
     allow(picture).to receive(:url) { picture_url }
   end
 
-  describe 'DEFAULT_OPTIONS' do
+  describe "DEFAULT_OPTIONS" do
     it do
       expect(Alchemy::EssencePictureView::DEFAULT_OPTIONS).
         to be_a(HashWithIndifferentAccess)
@@ -55,12 +55,12 @@ describe Alchemy::EssencePictureView, type: :model do
     end
 
     it "should enclose the image in a <figure> element" do
-      expect(view).to have_selector('figure img')
+      expect(view).to have_selector("figure img")
     end
 
     it "should show the caption" do
-      expect(view).to have_selector('figure figcaption')
-      expect(view).to have_content('This is a cute cat')
+      expect(view).to have_selector("figure figcaption")
+      expect(view).to have_content("This is a cute cat")
     end
 
     it "does not pass default options to picture url" do
@@ -74,12 +74,12 @@ describe Alchemy::EssencePictureView, type: :model do
       end
 
       it "should not enclose the image in a <figure> element" do
-        expect(view).to_not have_selector('figure img')
+        expect(view).to_not have_selector("figure img")
       end
 
       it "should not show the caption" do
-        expect(view).to_not have_selector('figure figcaption')
-        expect(view).to_not have_content('This is a cute cat')
+        expect(view).to_not have_selector("figure figcaption")
+        expect(view).to_not have_content("This is a cute cat")
       end
     end
 
@@ -89,57 +89,57 @@ describe Alchemy::EssencePictureView, type: :model do
       end
 
       it "should not enclose the image in a <figure> element" do
-        expect(view).to_not have_selector('figure img')
+        expect(view).to_not have_selector("figure img")
       end
 
       it "should not show the caption" do
-        expect(view).to_not have_selector('figure figcaption')
-        expect(view).to_not have_content('This is a cute cat')
+        expect(view).to_not have_selector("figure figcaption")
+        expect(view).to_not have_content("This is a cute cat")
       end
 
-      context 'but enabled in the options hash' do
+      context "but enabled in the options hash" do
         let(:options) { {show_caption: true} }
 
         it "should enclose the image in a <figure> element" do
-          expect(view).to have_selector('figure img')
+          expect(view).to have_selector("figure img")
         end
 
         it "should show the caption" do
-          expect(view).to have_selector('figure figcaption')
-          expect(view).to have_content('This is a cute cat')
+          expect(view).to have_selector("figure figcaption")
+          expect(view).to have_content("This is a cute cat")
         end
       end
     end
 
     context "and essence with css class" do
       before do
-        essence_picture.css_class = 'left'
+        essence_picture.css_class = "left"
       end
 
       it "should have the class on the <figure> element" do
-        expect(view).to have_selector('figure.left img')
+        expect(view).to have_selector("figure.left img")
       end
 
       it "should not have the class on the <img> element" do
-        expect(view).not_to have_selector('figure img.left')
+        expect(view).not_to have_selector("figure img.left")
       end
     end
 
     context "and css class in the html_options" do
       before do
-        html_options[:class] = 'right'
+        html_options[:class] = "right"
       end
 
       it "should have the class from the html_options on the <figure> element" do
-        expect(view).to have_selector('figure.right img')
+        expect(view).to have_selector("figure.right img")
       end
 
       it "should not have the class from the essence on the <figure> element" do
-        expect(view).not_to have_selector('figure.left img')
+        expect(view).not_to have_selector("figure.left img")
       end
 
       it "should not have the class from the html_options on the <img> element" do
-        expect(view).not_to have_selector('figure img.right')
+        expect(view).not_to have_selector("figure img.right")
       end
     end
   end
@@ -150,7 +150,7 @@ describe Alchemy::EssencePictureView, type: :model do
     end
 
     subject(:view) do
-      essence_picture.link = '/home'
+      essence_picture.link = "/home"
       Alchemy::EssencePictureView.new(content, options).render
     end
 
@@ -164,7 +164,7 @@ describe Alchemy::EssencePictureView, type: :model do
       end
 
       it "should not enclose the image in a link tag" do
-        expect(view).not_to have_selector('a img')
+        expect(view).not_to have_selector("a img")
       end
     end
   end
@@ -199,7 +199,7 @@ describe Alchemy::EssencePictureView, type: :model do
       []
     end
 
-    it 'does not pass srcset option to picture_url' do
+    it "does not pass srcset option to picture_url" do
       expect(essence_picture).to receive(:picture_url).with({}) { picture_url }
       view
     end
@@ -209,9 +209,9 @@ describe Alchemy::EssencePictureView, type: :model do
         %w(1024x768 800x)
       end
 
-      it 'adds srcset attribute including image url and width for each size' do
-        url1 = essence_picture.picture_url(size: '1024x768')
-        url2 = essence_picture.picture_url(size: '800x')
+      it "adds srcset attribute including image url and width for each size" do
+        url1 = essence_picture.picture_url(size: "1024x768")
+        url2 = essence_picture.picture_url(size: "800x")
 
         expect(view).to have_selector("img[srcset=\"#{url1} 1024w, #{url2} 800w\"]")
       end
@@ -222,9 +222,9 @@ describe Alchemy::EssencePictureView, type: :model do
         %w(x768 x600)
       end
 
-      it 'adds srcset attribute including image url and height for each size' do
-        url1 = essence_picture.picture_url(size: 'x768')
-        url2 = essence_picture.picture_url(size: 'x600')
+      it "adds srcset attribute including image url and height for each size" do
+        url1 = essence_picture.picture_url(size: "x768")
+        url2 = essence_picture.picture_url(size: "x600")
 
         expect(view).to have_selector("img[srcset=\"#{url1} 768h, #{url2} 600h\"]")
       end
@@ -236,8 +236,8 @@ describe Alchemy::EssencePictureView, type: :model do
       Alchemy::EssencePictureView.new(content).render
     end
 
-    it 'image tag has no srcset attribute' do
-      expect(view).not_to have_selector('img[srcset]')
+    it "image tag has no srcset attribute" do
+      expect(view).not_to have_selector("img[srcset]")
     end
   end
 
@@ -254,17 +254,17 @@ describe Alchemy::EssencePictureView, type: :model do
 
     let(:sizes) do
       [
-        '(max-width: 1023px) 100vh',
-        '(min-width: 1024px) 33.333vh'
+        "(max-width: 1023px) 100vh",
+        "(min-width: 1024px) 33.333vh",
       ]
     end
 
-    it 'does not pass sizes option to picture_url' do
+    it "does not pass sizes option to picture_url" do
       expect(essence_picture).to receive(:picture_url).with({}) { picture_url }
       view
     end
 
-    it 'adds sizes attribute for each size' do
+    it "adds sizes attribute for each size" do
       expect(view).to have_selector("img[sizes=\"#{sizes[0]}, #{sizes[1]}\"]")
     end
   end
@@ -274,8 +274,8 @@ describe Alchemy::EssencePictureView, type: :model do
       Alchemy::EssencePictureView.new(content).render
     end
 
-    it 'image tag has no sizes attribute' do
-      expect(view).not_to have_selector('img[sizes]')
+    it "image tag has no sizes attribute" do
+      expect(view).not_to have_selector("img[sizes]")
     end
   end
 end

@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative '../base'
+require_relative "../base"
 
 module Alchemy
   module Generators
     class MenusGenerator < Base
       desc "This generator generates Alchemy menu partials."
-      source_root File.expand_path('templates', __dir__)
+      source_root File.expand_path("templates", __dir__)
 
       def create_partials
         menus = Alchemy::Node.available_menu_names

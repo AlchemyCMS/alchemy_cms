@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe Admin::EssenceFilesController do
@@ -10,11 +10,11 @@ module Alchemy
       authorize_user(:as_admin)
     end
 
-    let(:essence_file) { mock_model('EssenceFile', :attachment= => nil, content: content) }
-    let(:content)      { mock_model('Content') }
-    let(:attachment)   { mock_model('Attachment') }
+    let(:essence_file) { mock_model("EssenceFile", :attachment= => nil, content: content) }
+    let(:content)      { mock_model("Content") }
+    let(:attachment)   { mock_model("Attachment") }
 
-    describe '#edit' do
+    describe "#edit" do
       before do
         expect(EssenceFile).to receive(:find)
           .with(essence_file.id.to_s)
@@ -32,7 +32,7 @@ module Alchemy
       end
     end
 
-    describe '#update' do
+    describe "#update" do
       let(:essence_file) { create(:alchemy_essence_file) }
 
       before do
@@ -43,18 +43,18 @@ module Alchemy
         put :update, params: {
           id: essence_file.id,
           essence_file: {
-            title: 'new title',
-            css_class: 'left',
-            link_text: 'Download this file'
-          }
+            title: "new title",
+            css_class: "left",
+            link_text: "Download this file",
+          },
         }, xhr: true
-        expect(essence_file.title).to eq 'new title'
-        expect(essence_file.css_class).to eq 'left'
-        expect(essence_file.link_text).to eq 'Download this file'
+        expect(essence_file.title).to eq "new title"
+        expect(essence_file.css_class).to eq "left"
+        expect(essence_file.link_text).to eq "Download this file"
       end
     end
 
-    describe '#assign' do
+    describe "#assign" do
       let(:content) { create(:alchemy_content) }
 
       before do

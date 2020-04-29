@@ -15,7 +15,7 @@ module Alchemy
     before_action :mailer_set_url_options
     before_action :set_locale
 
-    helper 'alchemy/admin/form'
+    helper "alchemy/admin/form"
 
     rescue_from CanCan::AccessDenied do |exception|
       permission_denied(exception)
@@ -27,6 +27,7 @@ module Alchemy
     #
     def set_locale
       return unless Language.current
+
       ::I18n.locale = Language.current&.locale
     end
 
@@ -61,11 +62,11 @@ module Alchemy
     end
 
     def handle_redirect_for_user
-      flash[:warning] = Alchemy.t('You are not authorized')
+      flash[:warning] = Alchemy.t("You are not authorized")
       if can?(:index, :alchemy_admin_dashboard)
         redirect_or_render_notice
       else
-        redirect_to('/')
+        redirect_to("/")
       end
     end
 
@@ -76,8 +77,8 @@ module Alchemy
             render plain: flash.discard(:warning), status: 403
           end
           format.html do
-            render partial: 'alchemy/admin/partials/flash',
-              locals: {message: flash[:warning], flash_type: 'warning'}
+            render partial: "alchemy/admin/partials/flash",
+              locals: {message: flash[:warning], flash_type: "warning"}
           end
         end
       else
@@ -86,7 +87,7 @@ module Alchemy
     end
 
     def handle_redirect_for_guest
-      flash[:info] = Alchemy.t('Please log in')
+      flash[:info] = Alchemy.t("Please log in")
       if request.xhr?
         render :permission_denied
       else
@@ -99,7 +100,7 @@ module Alchemy
     def exception_logger(error)
       Rails.logger.error("\n#{error.class} #{error.message} in #{error.backtrace.first}")
       Rails.logger.error(error.backtrace[1..50].each { |line|
-        line.gsub(/#{Rails.root}/, '')
+        line.gsub(/#{Rails.root}/, "")
       }.join("\n"))
     end
   end

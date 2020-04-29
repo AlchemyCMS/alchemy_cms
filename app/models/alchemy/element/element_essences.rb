@@ -97,12 +97,12 @@ module Alchemy
         errors.each do |error|
           messages << Alchemy.t(
             "#{name}.#{content_name}.#{error}",
-            scope: 'content_validations',
+            scope: "content_validations",
             default: [
               "fields.#{content_name}.#{error}".to_sym,
-              "errors.#{error}".to_sym
+              "errors.#{error}".to_sym,
             ],
-            field: Content.translated_label_for(content_name, name)
+            field: Content.translated_label_for(content_name, name),
           )
         end
       end

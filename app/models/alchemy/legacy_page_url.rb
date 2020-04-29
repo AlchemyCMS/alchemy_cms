@@ -13,7 +13,7 @@
 
 class Alchemy::LegacyPageUrl < ActiveRecord::Base
   belongs_to :page,
-    class_name: 'Alchemy::Page',
+    class_name: "Alchemy::Page",
     required: true
 
   validates :urlname,

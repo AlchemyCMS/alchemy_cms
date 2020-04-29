@@ -17,10 +17,10 @@ module Alchemy
 
       def insert
         @item = model_class.find(remarkable_params[:remarkable_id])
-        unless @clipboard.detect { |item| item['id'] == remarkable_params[:remarkable_id] }
+        unless @clipboard.detect { |item| item["id"] == remarkable_params[:remarkable_id] }
           @clipboard << {
-            'id' => remarkable_params[:remarkable_id],
-            'action' => params[:remove] ? 'cut' : 'copy'
+            "id" => remarkable_params[:remarkable_id],
+            "action" => params[:remove] ? "cut" : "copy",
           }
         end
         respond_to do |format|
@@ -30,7 +30,7 @@ module Alchemy
 
       def remove
         @item = model_class.find(remarkable_params[:remarkable_id])
-        @clipboard.delete_if { |item| item['id'] == remarkable_params[:remarkable_id] }
+        @clipboard.delete_if { |item| item["id"] == remarkable_params[:remarkable_id] }
         respond_to do |format|
           format.js
         end

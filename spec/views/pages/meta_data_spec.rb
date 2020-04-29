@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 module Alchemy
-  describe 'alchemy/pages/_meta_data' do
+  describe "alchemy/pages/_meta_data" do
     let!(:language) { create(:alchemy_language, code: :en) }
     let(:root_page)       { Page.new }
     let(:page)            { Page.new(language_code: "en", title: "Road Runner", urlname: "roadrunner") }
@@ -15,11 +15,11 @@ module Alchemy
     end
 
     context "when current page is set" do
-      before { view.instance_variable_set('@page', page) }
+      before { view.instance_variable_set("@page", page) }
 
       describe "meta keywords" do
         context "are set" do
-          before { allow(page).to receive_messages(meta_keywords: 'cartoon, road runner') }
+          before { allow(page).to receive_messages(meta_keywords: "cartoon, road runner") }
 
           it "renders the keywords in the correct meta tag" do
             is_expected.to match /meta name="keywords" content="cartoon, road runner" lang="en"/
@@ -47,7 +47,7 @@ module Alchemy
 
       describe "meta description" do
         context "is set" do
-          before { allow(page).to receive_messages(meta_description: 'road runner goes meep meep') }
+          before { allow(page).to receive_messages(meta_description: "road runner goes meep meep") }
 
           it "renders the description in the correct meta tag" do
             is_expected.to match /meta name="description" content="road runner goes meep meep"/

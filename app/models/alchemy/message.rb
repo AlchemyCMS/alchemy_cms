@@ -22,17 +22,17 @@ module Alchemy
 
     attr_accessor :contact_form_id, :ip
 
-    config['fields'].each do |field|
+    config["fields"].each do |field|
       attr_accessor field.to_sym
     end
 
-    config['validate_fields'].each do |field|
+    config["validate_fields"].each do |field|
       validates_presence_of field
 
       case field.to_sym
       when /email/
         validates_format_of field,
-          with: Alchemy::Config.get('format_matchers')['email'],
+          with: Alchemy::Config.get("format_matchers")["email"],
           if: -> { send(field).present? }
       when :email_confirmation
         validates_confirmation_of :email

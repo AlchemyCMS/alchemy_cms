@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-describe 'A User-defined Essence' do
+describe "A User-defined Essence" do
   describe DummyModel do
     it_behaves_like "an essence" do
       let(:essence)          { DummyModel.new }

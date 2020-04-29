@@ -17,7 +17,7 @@ module Alchemy
         @parent_element = Element.find_by(id: params[:parent_element_id])
         @elements = @page.available_elements_within_current_scope(@parent_element)
         @element = @page.elements.build
-        @clipboard = get_clipboard('elements')
+        @clipboard = get_clipboard("elements")
         @clipboard_items = Element.all_from_clipboard_for_page(@clipboard, @page)
       end
 
@@ -30,7 +30,7 @@ module Alchemy
           else
             @element = Element.create(create_element_params)
           end
-          if @page.definition['insert_elements_at'] == 'top'
+          if @page.definition["insert_elements_at"] == "top"
             @insert_at_top = true
             @element.move_to_top
           end
@@ -40,7 +40,7 @@ module Alchemy
         else
           @element.page = @page
           @elements = @page.available_element_definitions
-          @clipboard = get_clipboard('elements')
+          @clipboard = get_clipboard("elements")
           @clipboard_items = Element.all_from_clipboard_for_page(@clipboard, @page)
           render :new
         end
@@ -56,7 +56,7 @@ module Alchemy
           @element_validated = @element.update(element_params)
         else
           @element_validated = false
-          @notice = Alchemy.t('Validation failed')
+          @notice = Alchemy.t("Validation failed")
           @error_message = "<h2>#{@notice}</h2><p>#{Alchemy.t(:content_validations_headline)}</p>".html_safe
         end
       end
@@ -81,7 +81,7 @@ module Alchemy
             Element.where(id: element_id).update_all(
               page_id: params[:page_id],
               parent_element_id: params[:parent_element_id],
-              position: idx + 1
+              position: idx + 1,
             )
           end
           @parent_element.try!(:touch)
@@ -100,20 +100,20 @@ module Alchemy
         [
           {
             contents: {
-              essence: :ingredient_association
-            }
+              essence: :ingredient_association,
+            },
           },
           :tags,
           {
             all_nested_elements: [
               {
                 contents: {
-                  essence: :ingredient_association
-                }
+                  essence: :ingredient_association,
+                },
               },
-              :tags
-            ]
-          }
+              :tags,
+            ],
+          },
         ]
       end
 
@@ -123,20 +123,20 @@ module Alchemy
 
       def element_from_clipboard
         @element_from_clipboard ||= begin
-          @clipboard = get_clipboard('elements')
-          @clipboard.detect { |item| item['id'].to_i == params[:paste_from_clipboard].to_i }
-        end
+            @clipboard = get_clipboard("elements")
+            @clipboard.detect { |item| item["id"].to_i == params[:paste_from_clipboard].to_i }
+          end
       end
 
       def paste_element_from_clipboard
-        @source_element = Element.find(element_from_clipboard['id'])
+        @source_element = Element.find(element_from_clipboard["id"])
         element = Element.copy(@source_element, {
           parent_element_id: create_element_params[:parent_element_id],
-          page_id: @page.id}
-        )
-        if element_from_clipboard['action'] == 'cut'
+          page_id: @page.id,
+        })
+        if element_from_clipboard["action"] == "cut"
           @cut_element_id = @source_element.id
-          @clipboard.delete_if { |item| item['id'] == @source_element.id.to_s }
+          @clipboard.delete_if { |item| item["id"] == @source_element.id.to_s }
           @source_element.destroy
         end
         element

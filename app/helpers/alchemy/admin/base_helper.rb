@@ -19,7 +19,7 @@ module Alchemy
       include ::Webpacker::Helper
 
       def current_webpacker_instance
-        if controller_name == 'pages' && action_name == 'show'
+        if controller_name == "pages" && action_name == "show"
           super
         else
           Alchemy.webpacker
@@ -34,7 +34,7 @@ module Alchemy
       def current_alchemy_user_name
         name = current_alchemy_user.try(:alchemy_display_name)
         if name.present?
-          content_tag :span, "#{Alchemy.t('Logged in as')} #{name}", class: 'current-user-name'
+          content_tag :span, "#{Alchemy.t("Logged in as")} #{name}", class: "current-user-name"
         end
       end
 
@@ -66,7 +66,7 @@ module Alchemy
         default_options = {modal: true}
         options = default_options.merge(options)
         link_to content, url,
-          html_options.merge('data-alchemy-dialog' => options.to_json)
+          html_options.merge("data-alchemy-dialog" => options.to_json)
       end
 
       # Used for translations selector in Alchemy cockpit user settings.
@@ -110,13 +110,13 @@ module Alchemy
       #
       def js_filter_field(items, options = {})
         options = {
-          class: 'js_filter_field',
-          data: {'alchemy-list-filter' => items}
+          class: "js_filter_field",
+          data: {"alchemy-list-filter" => items},
         }.merge(options)
-        content_tag(:div, class: 'js_filter_field_box') do
+        content_tag(:div, class: "js_filter_field_box") do
           concat text_field_tag(nil, nil, options)
           concat render_icon(:search)
-          concat link_to(render_icon(:times, size: 'xs'), '', class: 'js_filter_field_clear', title: Alchemy.t(:click_to_show_all))
+          concat link_to(render_icon(:times, size: "xs"), "", class: "js_filter_field_clear", title: Alchemy.t(:click_to_show_all))
         end
       end
 
@@ -147,12 +147,12 @@ module Alchemy
       def link_to_confirm_dialog(link_string = "", message = "", url = "", html_options = {})
         link_to(link_string, url,
           html_options.merge(
-            'data-alchemy-confirm-delete' => {
+            "data-alchemy-confirm-delete" => {
               title: Alchemy.t(:please_confirm),
               message: message,
               ok_label: Alchemy.t("Yes"),
-              cancel_label: Alchemy.t("No")
-            }.to_json
+              cancel_label: Alchemy.t("No"),
+            }.to_json,
           )
         )
       end
@@ -181,10 +181,10 @@ module Alchemy
           message: Alchemy.t(:confirm_to_proceed),
           ok_label: Alchemy.t("Yes"),
           title: Alchemy.t(:please_confirm),
-          cancel_label: Alchemy.t("No")
+          cancel_label: Alchemy.t("No"),
         }.merge(options)
-        form_tag url, {method: html_options.delete(:method), class: 'button-with-confirm'} do
-          button_tag value, html_options.merge('data-alchemy-confirm' => options.to_json)
+        form_tag url, {method: html_options.delete(:method), class: "button-with-confirm"} do
+          button_tag value, html_options.merge("data-alchemy-confirm" => options.to_json)
         end
       end
 
@@ -199,18 +199,18 @@ module Alchemy
       #
       def delete_button(url, options = {}, html_options = {})
         options = {
-          title: Alchemy.t('Delete'),
-          message: Alchemy.t('Are you sure?'),
-          icon: :minus
+          title: Alchemy.t("Delete"),
+          message: Alchemy.t("Are you sure?"),
+          icon: :minus,
         }.merge(options)
         button_with_confirm(
           render_icon(options[:icon]),
           url, {
-            message: options[:message]
+            message: options[:message],
           }, {
-            method: 'delete',
+            method: "delete",
             title: options[:title],
-            class: "icon_button #{html_options.delete(:class)}".strip
+            class: "icon_button #{html_options.delete(:class)}".strip,
           }.merge(html_options)
         )
       end
@@ -270,11 +270,11 @@ module Alchemy
           active: false,
           link_options: {},
           dialog_options: {},
-          loading_indicator: false
+          loading_indicator: false,
         }.merge(options.symbolize_keys)
         button = render(
-          'alchemy/admin/partials/toolbar_button',
-          options: options
+          "alchemy/admin/partials/toolbar_button",
+          options: options,
         )
         if options[:skip_permission_check] || can?(*permission_from_options(options))
           button
@@ -313,13 +313,13 @@ module Alchemy
       def toolbar(options = {})
         defaults = {
           buttons: [],
-          search: true
+          search: true,
         }
         options = defaults.merge(options)
         content_for(:toolbar) do
           content = <<-CONTENT.strip_heredoc
             #{options[:buttons].map { |button_options| toolbar_button(button_options) }.join}
-            #{render('alchemy/admin/partials/search_form', url: options[:search_url]) if options[:search]}
+            #{render("alchemy/admin/partials/search_form", url: options[:search_url]) if options[:search]}
           CONTENT
           content.html_safe
         end
@@ -371,7 +371,7 @@ module Alchemy
       #   The value the input displays. If you pass a String its parsed with +Time.parse+
       #
       def alchemy_datepicker(object, method, html_options = {})
-        type = html_options.delete(:type) || 'date'
+        type = html_options.delete(:type) || "date"
         date = html_options.delete(:value) || object.send(method.to_sym).presence
         date = Time.zone.parse(date) if date.is_a?(String)
         value = date ? date.iso8601 : nil
@@ -385,9 +385,9 @@ module Alchemy
       def render_hint_for(element)
         return unless element.has_hint?
 
-        content_tag :span, class: 'hint-with-icon' do
-          render_icon('question-circle') +
-            content_tag(:span, element.hint.html_safe, class: 'hint-bubble')
+        content_tag :span, class: "hint-with-icon" do
+          render_icon("question-circle") +
+            content_tag(:span, element.hint.html_safe, class: "hint-bubble")
         end
       end
 
@@ -397,7 +397,7 @@ module Alchemy
           controller_name,
           action_name,
           content_for(:main_menu_style),
-          content_for(:alchemy_body_class)
+          content_for(:alchemy_body_class),
         ].compact
       end
 
@@ -416,7 +416,7 @@ module Alchemy
 
       # Returns the regular expression used for external url validation in link dialog.
       def link_url_regexp
-        Alchemy::Config.get(:format_matchers)['link_url'] || /^(mailto:|\/|[a-z]+:\/\/)/
+        Alchemy::Config.get(:format_matchers)["link_url"] || /^(mailto:|\/|[a-z]+:\/\/)/
       end
 
       # Renders a hint with tooltip
@@ -429,9 +429,9 @@ module Alchemy
       # @param icon: 'exclamation-triangle' [String] - Icon name
       #
       # @return [String]
-      def hint_with_tooltip(text, icon: 'exclamation-triangle')
-        content_tag :span, class: 'hint-with-icon' do
-          render_icon(icon) + content_tag(:span, text, class: 'hint-bubble')
+      def hint_with_tooltip(text, icon: "exclamation-triangle")
+        content_tag :span, class: "hint-with-icon" do
+          render_icon(icon) + content_tag(:span, text, class: "hint-bubble")
         end
       end
 
@@ -439,7 +439,7 @@ module Alchemy
       # that explains the user that the page layout is missing
       def page_layout_missing_warning
         hint_with_tooltip(
-          Alchemy.t(:page_definition_missing)
+          Alchemy.t(:page_definition_missing),
         )
       end
 
@@ -454,10 +454,10 @@ module Alchemy
       end
 
       def permission_array_from_url(options)
-        action_controller = options[:url].gsub(/\A\//, '').split('/')
+        action_controller = options[:url].gsub(/\A\//, "").split("/")
         [
           action_controller.last.to_sym,
-          action_controller[0..action_controller.length - 2].join('_').to_sym
+          action_controller[0..action_controller.length - 2].join("_").to_sym,
         ]
       end
     end

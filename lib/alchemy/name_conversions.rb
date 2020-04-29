@@ -10,17 +10,17 @@ module Alchemy
     # @returns String
     def convert_to_urlname(name)
       name
-        .gsub(/[äÄ]/, 'ae')
-        .gsub(/[üÜ]/, 'ue')
-        .gsub(/[öÖ]/, 'oe')
-        .gsub(/[ß]/, 'ss')
+        .gsub(/[äÄ]/, "ae")
+        .gsub(/[üÜ]/, "ue")
+        .gsub(/[öÖ]/, "oe")
+        .gsub(/[ß]/, "ss")
         .parameterize
     end
 
     # Converts a filename and suffix into a human readable name.
     #
     def convert_to_humanized_name(name, suffix)
-      name.gsub(/\.#{::Regexp.quote(suffix)}$/i, '').tr('_', ' ').strip
+      name.gsub(/\.#{::Regexp.quote(suffix)}$/i, "").tr("_", " ").strip
     end
   end
 end

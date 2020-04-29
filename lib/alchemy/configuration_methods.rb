@@ -30,6 +30,7 @@ module Alchemy
     #
     def prefix_locale?(locale = Language.current&.code)
       return false unless locale
+
       multi_language? && locale != ::I18n.default_locale.to_s
     end
 

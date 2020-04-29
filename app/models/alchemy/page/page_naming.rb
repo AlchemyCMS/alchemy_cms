@@ -46,7 +46,7 @@ module Alchemy
 
     # Returns always the last part of a urlname path
     def slug
-      urlname.to_s.split('/').last
+      urlname.to_s.split("/").last
     end
 
     # Returns an array of visible/non-language_root ancestors.
@@ -103,14 +103,14 @@ module Alchemy
     def convert_url_name(value)
       url_name = convert_to_urlname(value.blank? ? name : value)
       if url_name.length < 3
-        ('-' * (3 - url_name.length)) + url_name
+        ("-" * (3 - url_name.length)) + url_name
       else
         url_name
       end
     end
 
     def nested_url_name(value)
-      (ancestor_slugs << convert_url_name(value)).join('/')
+      (ancestor_slugs << convert_url_name(value)).join("/")
     end
 
     # Slugs of all visible/non-language_root ancestors.

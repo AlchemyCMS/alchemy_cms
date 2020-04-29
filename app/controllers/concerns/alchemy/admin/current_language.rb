@@ -14,7 +14,7 @@ module Alchemy
       def load_current_language
         @current_language = Alchemy::Language.current
         if @current_language.nil?
-          flash[:warning] = Alchemy.t('Please create a language first.')
+          flash[:warning] = Alchemy.t("Please create a language first.")
           redirect_to admin_languages_path
         end
       end

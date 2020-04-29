@@ -4,12 +4,12 @@ module Alchemy
   class Node < BaseRecord
     VALID_URL_REGEX = /\A(\/|\D[a-z\+\d\.\-]+:)/
 
-    acts_as_nested_set scope: 'language_id', touch: true
+    acts_as_nested_set scope: "language_id", touch: true
     stampable stamper_class_name: Alchemy.user_class_name
 
-    belongs_to :site, class_name: 'Alchemy::Site'
-    belongs_to :language, class_name: 'Alchemy::Language'
-    belongs_to :page, class_name: 'Alchemy::Page', optional: true, inverse_of: :nodes
+    belongs_to :site, class_name: "Alchemy::Site"
+    belongs_to :language, class_name: "Alchemy::Language"
+    belongs_to :page, class_name: "Alchemy::Page", optional: true, inverse_of: :nodes
 
     has_many :essence_nodes, class_name: "Alchemy::Node", inverse_of: :node
 
@@ -27,7 +27,7 @@ module Alchemy
     class << self
       # Returns all root nodes for current language
       def language_root_nodes
-        raise 'No language found' if Language.current.nil?
+        raise "No language found" if Language.current.nil?
 
         roots.where(language_id: Language.current.id)
       end
@@ -51,7 +51,7 @@ module Alchemy
       # Returns the +menus.yml+ file path
       #
       def definitions_file_path
-        Rails.root.join 'config/alchemy/menus.yml'
+        Rails.root.join "config/alchemy/menus.yml"
       end
     end
 

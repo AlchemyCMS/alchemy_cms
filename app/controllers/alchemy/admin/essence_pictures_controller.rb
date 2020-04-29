@@ -9,9 +9,9 @@ module Alchemy
       before_action :load_essence_picture, only: [:edit, :crop, :update]
       before_action :load_content, only: [:edit, :update, :assign]
 
-      helper 'alchemy/admin/contents'
-      helper 'alchemy/admin/essences'
-      helper 'alchemy/url'
+      helper "alchemy/admin/contents"
+      helper "alchemy/admin/essences"
+      helper "alchemy/url"
 
       def edit
       end

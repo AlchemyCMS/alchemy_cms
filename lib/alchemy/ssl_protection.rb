@@ -26,7 +26,7 @@ module Alchemy
 
     # Redirects current request to https.
     def enforce_ssl
-      redirect_to url_for(request.params.merge(protocol: 'https'))
+      redirect_to url_for(request.params.merge(protocol: "https"))
     end
   end
 end

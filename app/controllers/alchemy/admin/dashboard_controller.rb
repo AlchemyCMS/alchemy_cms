@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'net/http'
-require 'alchemy/version'
+require "net/http"
+require "alchemy/version"
 
 module Alchemy
   module Admin
@@ -28,9 +28,9 @@ module Alchemy
       def update_check
         @alchemy_version = Alchemy.version
         if @alchemy_version < latest_alchemy_version
-          render plain: 'true'
+          render plain: "true"
         else
-          render plain: 'false'
+          render plain: "false"
         end
       rescue UpdateServiceUnavailable => e
         render plain: e, status: 503
@@ -41,7 +41,7 @@ module Alchemy
       # Returns latest alchemy version.
       def latest_alchemy_version
         versions = get_alchemy_versions
-        return '' if versions.blank?
+        return "" if versions.blank?
 
         # reject any non release version
         versions.reject! { |v| v =~ /[a-z]/ }
@@ -54,14 +54,14 @@ module Alchemy
         response = query_rubygems
         if response.code == "200"
           alchemy_versions = JSON.parse(response.body)
-          alchemy_versions.collect { |h| h['number'] }.sort
+          alchemy_versions.collect { |h| h["number"] }.sort
         else
           # rubygems.org not available?
           # then we try github
           response = query_github
           if response.code == "200"
             alchemy_tags = JSON.parse(response.body)
-            alchemy_tags.collect { |h| h['name'].tr('v', '') }.sort
+            alchemy_tags.collect { |h| h["name"].tr("v", "") }.sort
           else
             # no luck at all?
             raise UpdateServiceUnavailable
@@ -71,12 +71,12 @@ module Alchemy
 
       # Query the RubyGems API for Alchemy versions.
       def query_rubygems
-        make_api_request('https://rubygems.org/api/v1/versions/alchemy_cms.json')
+        make_api_request("https://rubygems.org/api/v1/versions/alchemy_cms.json")
       end
 
       # Query the GitHub API for Alchemy tags.
       def query_github
-        make_api_request('https://api.github.com/repos/AlchemyCMS/alchemy_cms/tags')
+        make_api_request("https://api.github.com/repos/AlchemyCMS/alchemy_cms/tags")
       end
 
       # Make a HTTP API request for given request url.

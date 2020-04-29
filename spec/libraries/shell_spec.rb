@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-require 'alchemy/shell'
+require "rails_helper"
+require "alchemy/shell"
 
 module Alchemy
   # Class fixture
@@ -12,31 +12,31 @@ module Alchemy
   describe Shell do
     before { allow(MyToDoList).to receive(:puts) }
 
-    describe '.todo' do
+    describe ".todo" do
       it "should add given string as a todo by delegating to .add_todo" do
         expect(MyToDoList).to receive(:add_todo).with(["", "new todo"])
         MyToDoList.todo("new todo")
       end
     end
 
-    describe '.todos' do
+    describe ".todos" do
       it "should be an Array" do
         expect(MyToDoList.todos).to be_a(Array)
       end
     end
 
-    describe '.add_todo' do
+    describe ".add_todo" do
       it "should add the given string to the .todos array" do
-        MyToDoList.add_todo('1')
-        MyToDoList.add_todo('2')
-        expect(MyToDoList.todos).to eq(['1', '2'])
+        MyToDoList.add_todo("1")
+        MyToDoList.add_todo("2")
+        expect(MyToDoList.todos).to eq(["1", "2"])
       end
     end
 
-    describe '.display_todos' do
-      context 'if there are todos in the list' do
+    describe ".display_todos" do
+      context "if there are todos in the list" do
         before do
-          allow(MyToDoList).to receive(:todos).and_return(['My first todo', 'My second todo'])
+          allow(MyToDoList).to receive(:todos).and_return(["My first todo", "My second todo"])
         end
 
         it "should log them" do
@@ -50,7 +50,7 @@ module Alchemy
         end
       end
 
-      context 'if there are todos in the list' do
+      context "if there are todos in the list" do
         before do
           allow(MyToDoList).to receive(:todos).and_return([])
         end
@@ -62,14 +62,14 @@ module Alchemy
       end
     end
 
-    describe '.log' do
+    describe ".log" do
       before { Alchemy::Shell.verbose! }
 
       context 'if the message type is "skip"' do
         it "the output color should be yellow and cleared again" do
           expect(MyToDoList).to receive(:color).with(:yellow)
           expect(MyToDoList).to receive(:color).with(:clear)
-          MyToDoList.log('in yellow, please', :skip)
+          MyToDoList.log("in yellow, please", :skip)
         end
       end
 
@@ -77,34 +77,34 @@ module Alchemy
         it "the output color should be yellow and cleared again" do
           expect(MyToDoList).to receive(:color).with(:red)
           expect(MyToDoList).to receive(:color).with(:clear)
-          MyToDoList.log('in red, please', :error)
+          MyToDoList.log("in red, please", :error)
         end
       end
 
       context 'if the message type is "message"' do
         it "the output color should just be cleared" do
           expect(MyToDoList).to receive(:color).with(:clear)
-          MyToDoList.log('cleared, please', :message)
+          MyToDoList.log("cleared, please", :message)
         end
       end
 
-      context 'if no message type is given' do
+      context "if no message type is given" do
         it "the output color should be green" do
           expect(MyToDoList).to receive(:color).with(:green)
           expect(MyToDoList).to receive(:color).with(:clear)
-          MyToDoList.log('in green, please')
+          MyToDoList.log("in green, please")
         end
       end
     end
 
-    describe '.color' do
-      context 'if given name is a constant of Thor::Shell::Color' do
+    describe ".color" do
+      context "if given name is a constant of Thor::Shell::Color" do
         it "should call the constant" do
           expect(MyToDoList.send(:color, :red)).to eq(Thor::Shell::Color::RED)
         end
       end
 
-      context 'if given name is not a defined constant of Thor::Shell::Color' do
+      context "if given name is not a defined constant of Thor::Shell::Color" do
         it "should return nil" do
           expect(MyToDoList.send(:color, :not_existing)).to be_nil
         end

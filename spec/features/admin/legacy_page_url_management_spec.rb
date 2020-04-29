@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Legacy page url management', type: :system, js: true do
+RSpec.describe "Legacy page url management", type: :system, js: true do
   before do
     authorize_user(:as_admin)
   end
@@ -16,45 +16,45 @@ RSpec.describe 'Legacy page url management', type: :system, js: true do
 
   it "lets a user add a page link" do
     open_page_properties
-    click_link 'Links'
-    fill_in 'legacy_page_url_urlname', with: 'new-urlname'
-    click_button 'Add'
-    within '#legacy_page_urls' do
-      expect(page).to have_content('new-urlname')
+    click_link "Links"
+    fill_in "legacy_page_url_urlname", with: "new-urlname"
+    click_button "Add"
+    within "#legacy_page_urls" do
+      expect(page).to have_content("new-urlname")
     end
-    within '#legacy_urls_label' do
-      expect(page).to have_content('(1) Link')
+    within "#legacy_urls_label" do
+      expect(page).to have_content("(1) Link")
     end
   end
 
-  context 'with wrong url format' do
+  context "with wrong url format" do
     it "displays error message" do
       open_page_properties
-      click_link 'Links'
-      fill_in 'legacy_page_url_urlname', with: 'invalid url name'
-      click_button 'Add'
-      within '#new_legacy_page_url' do
-        expect(page).to have_content('URL path is invalid')
+      click_link "Links"
+      fill_in "legacy_page_url_urlname", with: "invalid url name"
+      click_button "Add"
+      within "#new_legacy_page_url" do
+        expect(page).to have_content("URL path is invalid")
       end
     end
   end
 
-  context 'with legacy page url present' do
+  context "with legacy page url present" do
     before do
-      a_page.legacy_urls.create!(urlname: 'a-page-link')
+      a_page.legacy_urls.create!(urlname: "a-page-link")
       open_page_properties
-      click_link '(1) Link'
+      click_link "(1) Link"
     end
 
     it "lets a user remove a page link" do
-      click_link 'Remove'
-      click_button 'Yes'
-      within '#legacy_page_urls' do
-        expect(page).to_not have_content('a-page-link')
-        expect(page).to have_content(Alchemy.t('No page links for this page found'))
+      click_link "Remove"
+      click_button "Yes"
+      within "#legacy_page_urls" do
+        expect(page).to_not have_content("a-page-link")
+        expect(page).to have_content(Alchemy.t("No page links for this page found"))
       end
-      within '#legacy_urls_label' do
-        expect(page).to have_content('(0) Links')
+      within "#legacy_urls_label" do
+        expect(page).to have_content("(0) Links")
       end
     end
   end

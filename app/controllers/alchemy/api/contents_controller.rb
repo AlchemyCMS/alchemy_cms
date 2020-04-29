@@ -18,7 +18,7 @@ module Alchemy
       end
       @contents = @contents.includes(*content_includes)
 
-      render json: @contents, adapter: :json, root: 'contents'
+      render json: @contents, adapter: :json, root: "contents"
     end
 
     # Returns a json object for content
@@ -36,7 +36,7 @@ module Alchemy
       elsif params[:element_id] && params[:name]
         @content = Content.where(
           element_id: params[:element_id],
-          name: params[:name]
+          name: params[:name],
         ).includes(*content_includes).first || raise(ActiveRecord::RecordNotFound)
       end
       authorize! :show, @content
@@ -48,8 +48,8 @@ module Alchemy
     def content_includes
       [
         {
-          essence: :ingredient_association
-        }
+          essence: :ingredient_association,
+        },
       ]
     end
   end

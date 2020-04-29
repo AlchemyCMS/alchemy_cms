@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe Attachment do
-    let(:file)       { File.new(File.expand_path('../../fixtures/image with spaces.png', __dir__)) }
+    let(:file)       { File.new(File.expand_path("../../fixtures/image with spaces.png", __dir__)) }
     let(:attachment) { Attachment.new(file: file) }
 
-    describe 'after assign' do
+    describe "after assign" do
       it "stores the file mime type into database" do
         attachment.update(file: file)
         expect(attachment.file_mime_type).not_to be_blank
       end
     end
 
-    describe 'after save' do
+    describe "after save" do
       subject(:save) { attachment.save! }
 
       it "should have a humanized name" do
@@ -24,7 +24,7 @@ module Alchemy
 
       context "when file_name has not changed" do
         before do
-          attachment.update(name: 'image with spaces')
+          attachment.update(name: "image with spaces")
         end
 
         it "should not change name" do
@@ -32,7 +32,7 @@ module Alchemy
         end
       end
 
-      context 'assigned to contents' do
+      context "assigned to contents" do
         let(:attachment) { create(:alchemy_attachment) }
 
         let(:content) do
@@ -45,39 +45,39 @@ module Alchemy
           content.essence.update(attachment: attachment)
         end
 
-        it 'touches contents' do
+        it "touches contents" do
           expect { attachment.save }.to change { content.reload.updated_at }
         end
       end
     end
 
-    describe 'urlname sanitizing' do
+    describe "urlname sanitizing" do
       it "escapes unsafe url characters" do
-        attachment.file_name = 'f#%&cking cute kitten pic.png'
-        expect(attachment.urlname).to eq('f%23%25%26cking+cute+kitten+pic')
+        attachment.file_name = "f#%&cking cute kitten pic.png"
+        expect(attachment.urlname).to eq("f%23%25%26cking+cute+kitten+pic")
       end
 
       it "removes format suffix from end of file name" do
-        attachment.file_name = 'pic.png.png'
-        expect(attachment.urlname).to eq('pic+png')
+        attachment.file_name = "pic.png.png"
+        expect(attachment.urlname).to eq("pic+png")
       end
 
       it "converts dots into escaped spaces" do
-        attachment.file_name = 'cute.kitten.pic.png'
-        expect(attachment.urlname).to eq('cute+kitten+pic')
+        attachment.file_name = "cute.kitten.pic.png"
+        expect(attachment.urlname).to eq("cute+kitten+pic")
       end
 
       it "escapes umlauts in the name" do
-        attachment.file_name = 'süßes katzenbild.png'
-        expect(attachment.urlname).to eq('s%C3%BC%C3%9Fes+katzenbild')
+        attachment.file_name = "süßes katzenbild.png"
+        expect(attachment.urlname).to eq("s%C3%BC%C3%9Fes+katzenbild")
       end
     end
 
-    describe 'validations' do
+    describe "validations" do
       context "having a png, but only pdf allowed" do
         before do
           allow(Config).to receive(:get) do
-            {'allowed_filetypes' => {'alchemy/attachments' => ['pdf']}}
+            {"allowed_filetypes" => {"alchemy/attachments" => ["pdf"]}}
           end
         end
 
@@ -89,7 +89,7 @@ module Alchemy
       context "having a png and everything allowed" do
         before do
           allow(Config).to receive(:get) do
-            {'allowed_filetypes' => {'alchemy/attachments' => ['*']}}
+            {"allowed_filetypes" => {"alchemy/attachments" => ["*"]}}
           end
         end
 
@@ -100,7 +100,7 @@ module Alchemy
 
       context "having a filename with special characters" do
         before do
-           attachment.file_name = 'my FileNämü.pdf'
+           attachment.file_name = "my FileNämü.pdf"
            attachment.save
         end
 
@@ -110,107 +110,107 @@ module Alchemy
       end
     end
 
-    context 'PNG image' do
-      subject { stub_model(Attachment, file_name: 'kitten.png') }
+    context "PNG image" do
+      subject { stub_model(Attachment, file_name: "kitten.png") }
 
-      describe '#extension' do
+      describe "#extension" do
         subject { super().extension }
         it { is_expected.to eq("png") }
       end
     end
 
-    describe '#icon_css_class' do
+    describe "#icon_css_class" do
       subject { attachment.icon_css_class }
 
-      context 'mp3 file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'audio/mpeg') }
+      context "mp3 file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "audio/mpeg") }
 
         it { is_expected.to eq("file-audio") }
       end
 
-      context 'video file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'video/mpeg') }
+      context "video file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "video/mpeg") }
 
         it { is_expected.to eq("file-video") }
       end
 
-      context 'png file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'image/png') }
+      context "png file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "image/png") }
 
         it { is_expected.to eq("file-image") }
       end
 
-      context 'vcard file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/vcard') }
+      context "vcard file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "application/vcard") }
 
         it { is_expected.to eq("address-card") }
       end
 
-      context 'zip file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/zip') }
+      context "zip file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "application/zip") }
 
         it { is_expected.to eq("file-archive") }
       end
 
-      context 'photoshop file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'image/x-psd') }
+      context "photoshop file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "image/x-psd") }
 
         it { is_expected.to eq("file-image") }
       end
 
-      context 'text file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'text/plain') }
+      context "text file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "text/plain") }
 
         it { is_expected.to eq("file-alt") }
       end
 
-      context 'rtf file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/rtf') }
+      context "rtf file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "application/rtf") }
 
         it { is_expected.to eq("file-alt") }
       end
 
-      context 'pdf file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/pdf') }
+      context "pdf file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "application/pdf") }
 
         it { is_expected.to eq("file-pdf") }
       end
 
-      context 'word file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/msword') }
+      context "word file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "application/msword") }
 
         it { is_expected.to eq("file-word") }
       end
 
-      context 'excel file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/vnd.ms-excel') }
+      context "excel file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "application/vnd.ms-excel") }
 
         it { is_expected.to eq("file-excel") }
       end
 
-      context 'xlsx file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') }
+      context "xlsx file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet") }
 
         it { is_expected.to eq("file-excel") }
       end
 
-      context 'csv file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: 'text/csv') }
+      context "csv file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "text/csv") }
 
         it { is_expected.to eq("file-excel") }
       end
 
-      context 'unknown file' do
-        let(:attachment) { stub_model(Attachment, file_mime_type: '') }
+      context "unknown file" do
+        let(:attachment) { stub_model(Attachment, file_mime_type: "") }
 
         it { is_expected.to eq("file") }
       end
     end
 
-    describe '#restricted?' do
+    describe "#restricted?" do
       subject { attachment.restricted? }
 
-      context 'if only on restricted pages' do
+      context "if only on restricted pages" do
         before do
           pages = double(any?: true)
           expect(pages).to receive(:not_restricted).and_return([])
@@ -220,7 +220,7 @@ module Alchemy
         it { is_expected.to be_truthy }
       end
 
-      context 'if not only on restricted pages' do
+      context "if not only on restricted pages" do
         let(:page) { mock_model(Page) }
 
         before do

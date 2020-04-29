@@ -1,19 +1,19 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe Tinymce do
-    describe '.init' do
+    describe ".init" do
       subject { Tinymce.init }
 
       it "returns the default config" do
-        is_expected.to eq(Tinymce.class_variable_get('@@init'))
+        is_expected.to eq(Tinymce.class_variable_get("@@init"))
       end
     end
 
-    describe '.init=' do
-      let(:another_config) { {theme_advanced_buttons3: 'table'} }
+    describe ".init=" do
+      let(:another_config) { {theme_advanced_buttons3: "table"} }
 
       it "merges the default config with given config" do
         Tinymce.init = another_config
@@ -21,26 +21,26 @@ module Alchemy
       end
     end
 
-    context 'Methods for contents with custom tinymce config.' do
+    context "Methods for contents with custom tinymce config." do
       let(:content_definition) do
         {
-          'name' => 'text',
-          'settings' => {
-            'tinymce' => {
-              'foo' => 'bar'
-            }
-          }
+          "name" => "text",
+          "settings" => {
+            "tinymce" => {
+              "foo" => "bar",
+            },
+          },
         }
       end
 
       let(:element_definition) do
         {
-          'name' => 'article',
-          'contents' => [content_definition]
+          "name" => "article",
+          "contents" => [content_definition],
         }
       end
 
-      describe '.custom_config_contents' do
+      describe ".custom_config_contents" do
         let(:page) { build_stubbed(:alchemy_page) }
 
         let(:element_definitions) do
@@ -57,23 +57,23 @@ module Alchemy
         and element name" do
           is_expected.to be_an(Array)
           is_expected.to include({
-            'element' => element_definition['name']
+            "element" => element_definition["name"],
           }.merge(content_definition))
         end
 
-        context 'with no contents having custom tinymce config' do
+        context "with no contents having custom tinymce config" do
           let(:content_definition) do
-            {'name' => 'text'}
+            {"name" => "text"}
           end
 
           it { is_expected.to eq([]) }
         end
 
-        context 'with element definition having nil as contents value' do
+        context "with element definition having nil as contents value" do
           let(:element_definition) do
             {
-              'name' => 'element',
-              'contents' => nil
+              "name" => "element",
+              "contents" => nil,
             }
           end
 
@@ -82,16 +82,16 @@ module Alchemy
           end
         end
 
-        context 'with content settings tinymce set to true only' do
+        context "with content settings tinymce set to true only" do
           let(:element_definition) do
             {
-              'name' => 'element',
-              'contents' => [
-                'name' => 'headline',
-                'settings' => {
-                  'tinymce' => true
-                }
-              ]
+              "name" => "element",
+              "contents" => [
+                "name" => "headline",
+                "settings" => {
+                  "tinymce" => true,
+                },
+              ],
             }
           end
 
@@ -100,20 +100,20 @@ module Alchemy
           end
         end
 
-        context 'with nestable_elements defined' do
+        context "with nestable_elements defined" do
           let(:element_definitions) do
             [
               element_definition,
               {
-                'name' => 'nested_element',
-                'contents' => [content_definition]
-              }
+                "name" => "nested_element",
+                "contents" => [content_definition],
+              },
             ]
           end
 
-          it 'includes these configs' do
+          it "includes these configs" do
             is_expected.to include({
-              'element' => element_definition['name']
+              "element" => element_definition["name"],
             }.merge(content_definition))
           end
         end

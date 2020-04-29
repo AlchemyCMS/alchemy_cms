@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-describe 'The API routes' do
+describe "The API routes" do
   routes { Alchemy::Engine.routes }
 
   describe "for pages" do
@@ -10,16 +10,16 @@ describe 'The API routes' do
       expect({get: "/api/pages.json"}).to route_to(
         controller: "alchemy/api/pages",
         action: "index",
-        format: "json"
+        format: "json",
       )
     end
 
-    context 'with missing format' do
+    context "with missing format" do
       it "defaults to json." do
         expect({get: "/api/pages"}).to route_to(
           controller: "alchemy/api/pages",
           action: "index",
-          format: "json"
+          format: "json",
         )
       end
     end
@@ -29,7 +29,7 @@ describe 'The API routes' do
         controller: "alchemy/api/pages",
         action: "show",
         urlname: "a-page",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -38,37 +38,37 @@ describe 'The API routes' do
         controller: "alchemy/api/pages",
         action: "show",
         urlname: "nested/a-page",
-        format: "json"
+        format: "json",
       )
     end
 
-    context 'with admin namespace' do
+    context "with admin namespace" do
       it "routes to api pages controller." do
         expect({get: "/api/admin/pages/8"}).to route_to(
           controller: "alchemy/api/pages",
           action: "show",
           id: "8",
-          format: "json"
+          format: "json",
         )
       end
     end
   end
 
-  describe 'for elements' do
+  describe "for elements" do
     it "has route to show all elements." do
       expect({get: "/api/elements.json"}).to route_to(
         controller: "alchemy/api/elements",
         action: "index",
-        format: "json"
+        format: "json",
       )
     end
 
-    context 'with missing format' do
+    context "with missing format" do
       it "defaults to json." do
         expect({get: "/api/elements"}).to route_to(
           controller: "alchemy/api/elements",
           action: "index",
-          format: "json"
+          format: "json",
         )
       end
     end
@@ -78,7 +78,7 @@ describe 'The API routes' do
         controller: "alchemy/api/elements",
         action: "index",
         page_id: "1",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -88,7 +88,7 @@ describe 'The API routes' do
         action: "index",
         page_id: "1",
         named: "article",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -97,26 +97,26 @@ describe 'The API routes' do
         controller: "alchemy/api/elements",
         action: "show",
         id: "1",
-        format: "json"
+        format: "json",
       )
     end
   end
 
-  describe 'for contents' do
+  describe "for contents" do
     it "has route to show all contents." do
       expect({get: "/api/contents.json"}).to route_to(
         controller: "alchemy/api/contents",
         action: "index",
-        format: "json"
+        format: "json",
       )
     end
 
-    context 'with missing format' do
+    context "with missing format" do
       it "defaults to json." do
         expect({get: "/api/contents"}).to route_to(
           controller: "alchemy/api/contents",
           action: "index",
-          format: "json"
+          format: "json",
         )
       end
     end
@@ -126,7 +126,7 @@ describe 'The API routes' do
         controller: "alchemy/api/contents",
         action: "index",
         element_id: "1",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -136,7 +136,7 @@ describe 'The API routes' do
         action: "show",
         element_id: "1",
         name: "headline",
-        format: "json"
+        format: "json",
       )
     end
 
@@ -145,7 +145,7 @@ describe 'The API routes' do
         controller: "alchemy/api/contents",
         action: "show",
         id: "1",
-        format: "json"
+        format: "json",
       )
     end
   end

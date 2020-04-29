@@ -1,36 +1,36 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Redirecting to legacy page urls' do
+RSpec.describe "Redirecting to legacy page urls" do
   let(:page) do
-    create(:alchemy_page, :public, name: 'New page name')
+    create(:alchemy_page, :public, name: "New page name")
   end
 
   let(:second_page) do
-    create(:alchemy_page, :public, name: 'Second Page')
+    create(:alchemy_page, :public, name: "Second Page")
   end
 
   let(:legacy_page) do
-    create(:alchemy_page, :public, name: 'Legacy Url')
+    create(:alchemy_page, :public, name: "Legacy Url")
   end
 
   let!(:legacy_url) do
-    Alchemy::LegacyPageUrl.create(urlname: 'legacy-url', page: page)
+    Alchemy::LegacyPageUrl.create(urlname: "legacy-url", page: page)
   end
 
   let(:legacy_url2) do
-    Alchemy::LegacyPageUrl.create(urlname: 'legacy-url', page: second_page)
+    Alchemy::LegacyPageUrl.create(urlname: "legacy-url", page: second_page)
   end
 
   let(:legacy_url4) do
     Alchemy::LegacyPageUrl.create(
-      urlname: 'index.php?option=com_content&view=article&id=48&Itemid=69',
-      page: second_page
+      urlname: "index.php?option=com_content&view=article&id=48&Itemid=69",
+      page: second_page,
     )
   end
 
-  context 'if url has an unknown format & get parameters' do
+  context "if url has an unknown format & get parameters" do
     it "redirects permanently to page that belongs to legacy page url" do
       get "/#{legacy_url4.urlname}"
       expect(response.status).to eq(301)
@@ -54,9 +54,9 @@ RSpec.describe 'Redirecting to legacy page urls' do
     expect(response).to redirect_to("/#{second_page.urlname}")
   end
 
-  context 'if the url has get parameters' do
+  context "if the url has get parameters" do
     let(:legacy_url3) do
-      Alchemy::LegacyPageUrl.create(urlname: 'index.php?id=2', page: second_page)
+      Alchemy::LegacyPageUrl.create(urlname: "index.php?id=2", page: second_page)
     end
 
     it "redirects" do
@@ -65,9 +65,9 @@ RSpec.describe 'Redirecting to legacy page urls' do
     end
   end
 
-  context 'when the url has nested urlname' do
+  context "when the url has nested urlname" do
     let(:legacy_url5) do
-      Alchemy::LegacyPageUrl.create(urlname: 'nested/legacy/url', page: second_page)
+      Alchemy::LegacyPageUrl.create(urlname: "nested/legacy/url", page: second_page)
     end
 
     it "redirects" do

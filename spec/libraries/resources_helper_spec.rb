@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require_relative '../../lib/alchemy/i18n'
-require_relative '../../lib/alchemy/resource'
-require_relative '../../lib/alchemy/resources_helper'
+require_relative "../../lib/alchemy/i18n"
+require_relative "../../lib/alchemy/resource"
+require_relative "../../lib/alchemy/resources_helper"
 
 module Namespace
   class MyResource
@@ -16,7 +16,7 @@ class ResourcesController
   include Alchemy::ResourcesHelper
 
   def resource_handler
-    @resource_handler ||= Alchemy::Resource.new('admin/namespace/my_resources')
+    @resource_handler ||= Alchemy::Resource.new("admin/namespace/my_resources")
   end
 end
 
@@ -24,32 +24,32 @@ class ResourcesControllerForEngine
   include Alchemy::ResourcesHelper
 
   def resource_handler
-    @resource_handler ||= Alchemy::Resource.new('admin/engine_resources', {'engine_name' => 'my_engine'})
+    @resource_handler ||= Alchemy::Resource.new("admin/engine_resources", {"engine_name" => "my_engine"})
   end
 end
 
 describe Alchemy::ResourcesHelper do
   let(:controller) { ResourcesController.new }
-  let(:resource_item) { double('resource-item') }
+  let(:resource_item) { double("resource-item") }
 
   before {
-    allow(controller).to receive(:main_app).and_return 'main_app_proxy'
-    controller.instance_variable_set('@my_resource', resource_item)
-    controller.instance_variable_set('@my_resources', [resource_item])
+    allow(controller).to receive(:main_app).and_return "main_app_proxy"
+    controller.instance_variable_set("@my_resource", resource_item)
+    controller.instance_variable_set("@my_resources", [resource_item])
   }
 
   describe "path-helpers" do
     describe "#resource_url_proxy" do
       it "returns the current proxy for url-helper-methods" do
-        expect(controller.resource_url_proxy).to eq('main_app_proxy')
+        expect(controller.resource_url_proxy).to eq("main_app_proxy")
       end
 
       context "when resource is in engine" do
         let(:controller_for_engine) { ResourcesControllerForEngine.new }
-        before { allow(controller_for_engine).to receive('my_engine').and_return('my_engine_proxy') }
+        before { allow(controller_for_engine).to receive("my_engine").and_return("my_engine_proxy") }
 
         it "returns the engine's proxy" do
-          expect(controller_for_engine.resource_url_proxy).to eq('my_engine_proxy')
+          expect(controller_for_engine.resource_url_proxy).to eq("my_engine_proxy")
         end
       end
     end
@@ -119,75 +119,75 @@ describe Alchemy::ResourcesHelper do
     subject { controller.render_attribute(resource_item, attributes, options) }
 
     let(:options) { {} }
-    let(:attributes) { {name: 'name'} }
+    let(:attributes) { {name: "name"} }
 
     it "should return the value from resource attribute" do
-      allow(resource_item).to receive(:name).and_return('my-name')
-      is_expected.to eq('my-name')
+      allow(resource_item).to receive(:name).and_return("my-name")
+      is_expected.to eq("my-name")
     end
 
     context "resource having a relation" do
-      let(:associated_object) { double("location", title: 'Title of related object') }
+      let(:associated_object) { double("location", title: "Title of related object") }
       let(:relation) do
         {
-          attr_method: 'title',
-          name: 'location'
+          attr_method: "title",
+          name: "location",
         }
       end
       let(:attributes) do
         {
-          name: 'name',
-          relation: relation
+          name: "name",
+          relation: relation,
         }
       end
 
       before do
-        allow(resource_item).to receive(:name).and_return('my-name')
+        allow(resource_item).to receive(:name).and_return("my-name")
         expect(resource_item).to receive(:location).and_return(associated_object)
       end
 
       it "should return the value from the related object attribute" do
-        is_expected.to eq('Title of related object')
+        is_expected.to eq("Title of related object")
       end
 
-      context 'if the relation is empty' do
+      context "if the relation is empty" do
         let(:associated_object) { nil }
 
         it { is_expected.to eq("Not found") }
       end
     end
 
-    context 'with long values' do
+    context "with long values" do
       before do
-        allow(resource_item).to receive(:name).and_return('*' * 51)
+        allow(resource_item).to receive(:name).and_return("*" * 51)
       end
 
-      it 'truncates the values' do
+      it "truncates the values" do
         expect(subject.length).to eq(50)
       end
 
-      context 'but with options[:truncate] set to 10' do
+      context "but with options[:truncate] set to 10" do
         let(:options) { {truncate: 10} }
 
-        it 'does not truncate the values' do
+        it "does not truncate the values" do
           expect(subject.length).to eq(10)
         end
       end
 
-      context 'but with options[:truncate] set to false' do
+      context "but with options[:truncate] set to false" do
         let(:options) { {truncate: false} }
 
-        it 'does not truncate the values' do
+        it "does not truncate the values" do
           expect(subject.length).to eq(51)
         end
       end
     end
 
-    context 'format of timestamps' do
+    context "format of timestamps" do
       let(:attributes) do
         {
           name: :created_at,
-          type: :datetime
+          type: :datetime,
         }
       end
 
@@ -197,26 +197,26 @@ describe Alchemy::ResourcesHelper do
         allow(resource_item).to receive(:created_at) { now }
       end
 
-      it 'formats the time with alchemy default format' do
+      it "formats the time with alchemy default format" do
         expect(controller).to receive(:l).with(now, format: :'alchemy.default')
         subject
       end
 
-      context 'with options[:datetime_format] set to other format' do
-        let(:options) { {datetime_format: 'OTHR'} }
+      context "with options[:datetime_format] set to other format" do
+        let(:options) { {datetime_format: "OTHR"} }
 
-        it 'uses this format' do
-          expect(controller).to receive(:l).with(now, format: 'OTHR')
+        it "uses this format" do
+          expect(controller).to receive(:l).with(now, format: "OTHR")
           subject
         end
       end
     end
 
-    context 'format of time values' do
+    context "format of time values" do
       let(:attributes) do
         {
           name: :created_at,
-          type: :time
+          type: :time,
         }
       end
 
@@ -226,16 +226,16 @@ describe Alchemy::ResourcesHelper do
         allow(resource_item).to receive(:created_at) { now }
       end
 
-      it 'formats the time with alchemy datetime format' do
+      it "formats the time with alchemy datetime format" do
         expect(controller).to receive(:l).with(now, format: :'alchemy.time')
         subject
       end
 
-      context 'with options[:time_format] set to other format' do
-        let(:options) { {time_format: 'OTHR'} }
+      context "with options[:time_format] set to other format" do
+        let(:options) { {time_format: "OTHR"} }
 
-        it 'uses this format' do
-          expect(controller).to receive(:l).with(now, format: 'OTHR')
+        it "uses this format" do
+          expect(controller).to receive(:l).with(now, format: "OTHR")
           subject
         end
       end
