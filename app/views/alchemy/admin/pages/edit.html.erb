@@ -190,7 +190,7 @@
       }
     });
 
-    Alchemy.PreviewWindow.init('<%= admin_page_path(@page) %>');
+    Alchemy.PreviewWindow.init('<%= @preview_url %>');
 
     $('#preview_size').bind('open.selectBoxIt', function (e) {
       $('#top_menu').css('z-index', 5000);

@@ -9,6 +9,10 @@ module Alchemy
       Alchemy::LOOKUP_CONTEXT = ActionView::LookupContext.new(Rails.root.join("app", "views", "alchemy"))
     end
 
+    initializer "alchemy.admin.preview_url" do
+      Alchemy::Admin::PREVIEW_URL = Alchemy::Admin::PreviewUrl.new(routes: Alchemy::Engine.routes)
+    end
+
     initializer "alchemy.dependency_tracker" do
       [:erb, :slim, :haml].each do |handler|
         ActionView::DependencyTracker.register_tracker(handler, CacheDigests::TemplateTracker)
@@ -41,7 +45,7 @@ module Alchemy
         app.middleware.insert_before(
           0, Webpacker::DevServerProxy,
           ssl_verify_none: true,
-          webpacker: Alchemy.webpacker
+          webpacker: Alchemy.webpacker,
         )
       end
     end

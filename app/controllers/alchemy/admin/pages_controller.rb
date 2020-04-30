@@ -85,6 +85,7 @@ module Alchemy
         elsif page_needs_lock?
           @page.lock_to!(current_alchemy_user)
         end
+        @preview_url = Alchemy::Admin::PREVIEW_URL.url_for(@page)
         @layoutpage = @page.layoutpage?
       end
 
