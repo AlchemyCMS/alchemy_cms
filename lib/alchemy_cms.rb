@@ -30,6 +30,7 @@ require "userstamp"
 # Require globally used Alchemy mixins
 require_relative "alchemy/ability_helper"
 require_relative "alchemy/admin/locale"
+require_relative "alchemy/admin/preview_url"
 require_relative "alchemy/auth_accessors"
 require_relative "alchemy/cache_digests/template_tracker"
 require_relative "alchemy/config"
