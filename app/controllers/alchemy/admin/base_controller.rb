@@ -6,7 +6,6 @@ module Alchemy
       include Userstamp
       include Locale
 
-      before_action { enforce_ssl if ssl_required? && !request.ssl? }
       before_action :load_locked_pages
 
       helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
@@ -113,7 +112,7 @@ module Alchemy
       #
       def do_redirect_to(url_or_path)
         respond_to do |format|
-          format.js   {
+          format.js {
             @redirect_url = url_or_path
             render :redirect
           }
@@ -142,11 +141,11 @@ module Alchemy
       #
       def current_alchemy_site
         @current_alchemy_site ||= begin
-          site_id = params[:site_id] || session[:alchemy_site_id]
-          site = Site.find_by(id: site_id) || super
-          session[:alchemy_site_id] = site&.id
-          site
-        end
+            site_id = params[:site_id] || session[:alchemy_site_id]
+            site = Site.find_by(id: site_id) || super
+            session[:alchemy_site_id] = site&.id
+            site
+          end
       end
     end
   end
