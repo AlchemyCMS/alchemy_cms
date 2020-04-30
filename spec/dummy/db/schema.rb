@@ -22,7 +22,9 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "file_uid"
+    t.index ["creator_id"], name: "index_alchemy_attachments_on_creator_id"
     t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
+    t.index ["updater_id"], name: "index_alchemy_attachments_on_updater_id"
   end
 
   create_table "alchemy_contents", force: :cascade do |t|
@@ -34,8 +36,10 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "creator_id"
     t.integer "updater_id"
-    t.index ["element_id"], name: "index_contents_on_element_id"
-    t.index ["essence_id", "essence_type"], name: "index_alchemy_contents_on_essence_id_and_essence_type", unique: true
+    t.index ["creator_id"], name: "index_alchemy_contents_on_creator_id"
+    t.index ["element_id"], name: "index_alchemy_contents_on_element_id"
+    t.index ["essence_type", "essence_id"], name: "index_alchemy_contents_on_essence_type_and_essence_id", unique: true
+    t.index ["updater_id"], name: "index_alchemy_contents_on_updater_id"
   end
 
   create_table "alchemy_elements", force: :cascade do |t|
@@ -51,14 +55,18 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.integer "updater_id"
     t.integer "parent_element_id"
     t.boolean "fixed", default: false, null: false
+    t.index ["creator_id"], name: "index_alchemy_elements_on_creator_id"
     t.index ["fixed"], name: "index_alchemy_elements_on_fixed"
     t.index ["page_id", "parent_element_id"], name: "index_alchemy_elements_on_page_id_and_parent_element_id"
     t.index ["page_id", "position"], name: "index_elements_on_page_id_and_position"
+    t.index ["updater_id"], name: "index_alchemy_elements_on_updater_id"
   end
 
   create_table "alchemy_elements_alchemy_pages", id: false, force: :cascade do |t|
     t.integer "element_id"
     t.integer "page_id"
+    t.index ["element_id"], name: "index_alchemy_elements_alchemy_pages_on_element_id"
+    t.index ["page_id"], name: "index_alchemy_elements_alchemy_pages_on_page_id"
   end
 
   create_table "alchemy_essence_booleans", force: :cascade do |t|
@@ -178,9 +186,11 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "country_code", default: "", null: false
     t.integer "site_id", null: false
     t.string "locale"
+    t.index ["creator_id"], name: "index_alchemy_languages_on_creator_id"
     t.index ["language_code", "country_code"], name: "index_alchemy_languages_on_language_code_and_country_code"
     t.index ["language_code"], name: "index_alchemy_languages_on_language_code"
     t.index ["site_id"], name: "index_alchemy_languages_on_site_id"
+    t.index ["updater_id"], name: "index_alchemy_languages_on_updater_id"
   end
 
   create_table "alchemy_legacy_page_urls", force: :cascade do |t|
@@ -249,11 +259,13 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.datetime "public_on"
     t.datetime "public_until"
     t.datetime "locked_at"
-    t.index ["language_id"], name: "index_pages_on_language_id"
+    t.index ["creator_id"], name: "index_alchemy_pages_on_creator_id"
+    t.index ["language_id"], name: "index_alchemy_pages_on_language_id"
     t.index ["locked_at", "locked_by"], name: "index_alchemy_pages_on_locked_at_and_locked_by"
     t.index ["parent_id", "lft"], name: "index_pages_on_parent_id_and_lft"
     t.index ["public_on", "public_until"], name: "index_alchemy_pages_on_public_on_and_public_until"
     t.index ["rgt"], name: "index_alchemy_pages_on_rgt"
+    t.index ["updater_id"], name: "index_alchemy_pages_on_updater_id"
     t.index ["urlname"], name: "index_pages_on_urlname"
   end
 
@@ -270,6 +282,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "image_file_uid"
     t.integer "image_file_size"
     t.string "image_file_format"
+    t.index ["creator_id"], name: "index_alchemy_pictures_on_creator_id"
+    t.index ["updater_id"], name: "index_alchemy_pictures_on_updater_id"
   end
 
   create_table "alchemy_sites", force: :cascade do |t|
