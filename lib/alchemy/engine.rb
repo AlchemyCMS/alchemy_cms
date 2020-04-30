@@ -43,7 +43,8 @@ module Alchemy
     if Rails.env.development?
       initializer "alchemy.webpacker.proxy" do |app|
         app.middleware.insert_before(
-          0, Webpacker::DevServerProxy,
+          0,
+          Webpacker::DevServerProxy,
           ssl_verify_none: true,
           webpacker: Alchemy.webpacker,
         )
