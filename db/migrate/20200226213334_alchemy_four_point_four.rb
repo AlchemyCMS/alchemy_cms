@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
+class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
   def up
     unless table_exists?("alchemy_attachments")
       create_table "alchemy_attachments", force: :cascade do |t|
