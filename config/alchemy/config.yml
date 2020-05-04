@@ -1,12 +1,6 @@
 # == This is the global Alchemy configuration file
 #
 
-# === Require SSL for login form and all admin modules
-#
-# NOTE: You have to create a SSL certificate on your server to make this work
-#
-require_ssl: false
-
 # === Auto Log Out Time
 #
 # The amount of time of inactivity in minutes after which the user is kicked out of his current session.
