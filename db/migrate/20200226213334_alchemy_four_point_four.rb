@@ -65,8 +65,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.boolean "value"
         t.datetime "created_at", precision: 6, null: false
         t.datetime "updated_at", precision: 6, null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
         t.index ["value"], name: "index_alchemy_essence_booleans_on_value"
       end
     end
@@ -74,8 +72,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
     unless table_exists?("alchemy_essence_dates")
       create_table "alchemy_essence_dates", force: :cascade do |t|
         t.datetime "date"
-        t.integer "creator_id"
-        t.integer "updater_id"
         t.datetime "created_at", precision: 6, null: false
         t.datetime "updated_at", precision: 6, null: false
       end
@@ -86,8 +82,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.integer "attachment_id"
         t.string "title"
         t.string "css_class"
-        t.integer "creator_id"
-        t.integer "updater_id"
         t.datetime "created_at", precision: 6, null: false
         t.datetime "updated_at", precision: 6, null: false
         t.string "link_text"
@@ -98,8 +92,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
     unless table_exists?("alchemy_essence_htmls")
       create_table "alchemy_essence_htmls", force: :cascade do |t|
         t.text "source"
-        t.integer "creator_id"
-        t.integer "updater_id"
         t.datetime "created_at", precision: 6, null: false
         t.datetime "updated_at", precision: 6, null: false
       end
@@ -113,8 +105,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.string "link_class_name"
         t.datetime "created_at", precision: 6, null: false
         t.datetime "updated_at", precision: 6, null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
       end
     end
 
@@ -138,8 +128,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.string "link_title"
         t.string "css_class"
         t.string "link_target"
-        t.integer "creator_id"
-        t.integer "updater_id"
         t.datetime "created_at", precision: 6, null: false
         t.datetime "updated_at", precision: 6, null: false
         t.string "crop_from"
@@ -154,8 +142,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.text "body"
         t.text "stripped_body"
         t.boolean "public"
-        t.integer "creator_id"
-        t.integer "updater_id"
         t.datetime "created_at", precision: 6, null: false
         t.datetime "updated_at", precision: 6, null: false
       end
@@ -166,8 +152,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.string "value"
         t.datetime "created_at", precision: 6, null: false
         t.datetime "updated_at", precision: 6, null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
         t.index ["value"], name: "index_alchemy_essence_selects_on_value"
       end
     end
@@ -180,8 +164,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.string "link_class_name"
         t.boolean "public", default: false
         t.string "link_target"
-        t.integer "creator_id"
-        t.integer "updater_id"
         t.datetime "created_at", precision: 6, null: false
         t.datetime "updated_at", precision: 6, null: false
       end

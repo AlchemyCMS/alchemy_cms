@@ -66,15 +66,11 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.boolean "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "creator_id"
-    t.integer "updater_id"
     t.index ["value"], name: "index_alchemy_essence_booleans_on_value"
   end
 
   create_table "alchemy_essence_dates", force: :cascade do |t|
     t.datetime "date"
-    t.integer "creator_id"
-    t.integer "updater_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -83,8 +79,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.integer "attachment_id"
     t.string "title"
     t.string "css_class"
-    t.integer "creator_id"
-    t.integer "updater_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "link_text"
@@ -93,8 +87,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
 
   create_table "alchemy_essence_htmls", force: :cascade do |t|
     t.text "source"
-    t.integer "creator_id"
-    t.integer "updater_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -106,8 +98,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "link_class_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "creator_id"
-    t.integer "updater_id"
   end
 
   create_table "alchemy_essence_nodes", force: :cascade do |t|
@@ -134,8 +124,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "link_title"
     t.string "css_class"
     t.string "link_target"
-    t.integer "creator_id"
-    t.integer "updater_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "crop_from"
@@ -148,8 +136,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.text "body"
     t.text "stripped_body"
     t.boolean "public"
-    t.integer "creator_id"
-    t.integer "updater_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -158,8 +144,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "value"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "creator_id"
-    t.integer "updater_id"
     t.index ["value"], name: "index_alchemy_essence_selects_on_value"
   end
 
@@ -170,8 +154,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "link_class_name"
     t.boolean "public", default: false
     t.string "link_target"
-    t.integer "creator_id"
-    t.integer "updater_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

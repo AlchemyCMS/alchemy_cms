@@ -8,8 +8,6 @@
 #  body          :text
 #  stripped_body :text
 #  public        :boolean
-#  creator_id    :integer
-#  updater_id    :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
