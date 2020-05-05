@@ -6,7 +6,6 @@ module Alchemy
       :name,
       :ingredient,
       :element_id,
-      :position,
       :created_at,
       :updated_at,
       :settings

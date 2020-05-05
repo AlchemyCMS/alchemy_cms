@@ -60,7 +60,7 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    has_many :contents, -> { order(:position) }, dependent: :destroy, inverse_of: :element
+    has_many :contents, dependent: :destroy, inverse_of: :element
 
     has_many :all_nested_elements,
       -> { order(:position).not_trashed },

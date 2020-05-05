@@ -30,27 +30,25 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    acts_as_list scope: [:element_id]
-
     # Essence scopes
-    scope :essence_booleans,  -> { where(essence_type: "Alchemy::EssenceBoolean") }
-    scope :essence_dates,     -> { where(essence_type: "Alchemy::EssenceDate") }
-    scope :essence_files,     -> { where(essence_type: "Alchemy::EssenceFile") }
-    scope :essence_htmls,     -> { where(essence_type: "Alchemy::EssenceHtml") }
-    scope :essence_links,     -> { where(essence_type: "Alchemy::EssenceLink") }
-    scope :essence_pictures,  -> { where(essence_type: "Alchemy::EssencePicture") }
+    scope :essence_booleans, -> { where(essence_type: "Alchemy::EssenceBoolean") }
+    scope :essence_dates, -> { where(essence_type: "Alchemy::EssenceDate") }
+    scope :essence_files, -> { where(essence_type: "Alchemy::EssenceFile") }
+    scope :essence_htmls, -> { where(essence_type: "Alchemy::EssenceHtml") }
+    scope :essence_links, -> { where(essence_type: "Alchemy::EssenceLink") }
+    scope :essence_pictures, -> { where(essence_type: "Alchemy::EssencePicture") }
     scope :essence_richtexts, -> { where(essence_type: "Alchemy::EssenceRichtext") }
-    scope :essence_selects,   -> { where(essence_type: "Alchemy::EssenceSelect") }
-    scope :essence_texts,     -> { where(essence_type: "Alchemy::EssenceText") }
-    scope :named,             ->(name) { where(name: name) }
-    scope :available,         -> { published.not_trashed }
-    scope :published,         -> { joins(:element).merge(Element.published) }
-    scope :not_trashed,       -> { joins(:element).merge(Element.not_trashed) }
-    scope :not_restricted,    -> { joins(:element).merge(Element.not_restricted) }
+    scope :essence_selects, -> { where(essence_type: "Alchemy::EssenceSelect") }
+    scope :essence_texts, -> { where(essence_type: "Alchemy::EssenceText") }
+    scope :named, ->(name) { where(name: name) }
+    scope :available, -> { published.not_trashed }
+    scope :published, -> { joins(:element).merge(Element.published) }
+    scope :not_trashed, -> { joins(:element).merge(Element.not_trashed) }
+    scope :not_restricted, -> { joins(:element).merge(Element.not_restricted) }
 
-    delegate :restricted?, to: :page,    allow_nil: true
-    delegate :trashed?,    to: :element, allow_nil: true
-    delegate :public?,     to: :element, allow_nil: true
+    delegate :restricted?, to: :page, allow_nil: true
+    delegate :trashed?, to: :element, allow_nil: true
+    delegate :public?, to: :element, allow_nil: true
 
     class << self
       # Returns the translated label for a content name.
