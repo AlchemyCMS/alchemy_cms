@@ -24,8 +24,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.references "element", null: false
         t.datetime "created_at", precision: 6, null: false
         t.datetime "updated_at", precision: 6, null: false
-        t.references "creator"
-        t.references "updater"
       end
     end
 
