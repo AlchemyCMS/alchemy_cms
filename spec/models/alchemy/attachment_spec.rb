@@ -1,10 +1,11 @@
+# encoding: utf-8
 # frozen_string_literal: true
 
 require "rails_helper"
 
 module Alchemy
   describe Attachment do
-    let(:file)       { File.new(File.expand_path("../../fixtures/image with spaces.png", __dir__)) }
+    let(:file) { File.new(File.expand_path("../../fixtures/image with spaces.png", __dir__)) }
     let(:attachment) { Attachment.new(file: file) }
 
     describe "after assign" do
@@ -77,7 +78,7 @@ module Alchemy
       context "having a png, but only pdf allowed" do
         before do
           allow(Config).to receive(:get) do
-            {"allowed_filetypes" => {"alchemy/attachments" => ["pdf"]}}
+            { "allowed_filetypes" => { "alchemy/attachments" => ["pdf"] } }
           end
         end
 
@@ -89,7 +90,7 @@ module Alchemy
       context "having a png and everything allowed" do
         before do
           allow(Config).to receive(:get) do
-            {"allowed_filetypes" => {"alchemy/attachments" => ["*"]}}
+            { "allowed_filetypes" => { "alchemy/attachments" => ["*"] } }
           end
         end
 
@@ -100,8 +101,8 @@ module Alchemy
 
       context "having a filename with special characters" do
         before do
-           attachment.file_name = "my FileNämü.pdf"
-           attachment.save
+          attachment.file_name = "my FileNämü.pdf"
+          attachment.save
         end
 
         it "should be valid" do
