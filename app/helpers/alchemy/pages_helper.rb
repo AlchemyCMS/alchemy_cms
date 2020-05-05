@@ -37,7 +37,7 @@ module Alchemy
         partial: "alchemy/language_links/language",
         collection: languages,
         spacer_template: "alchemy/language_links/spacer",
-        locals: {languages: languages, options: options},
+        locals: { languages: languages, options: options },
       )
     end
 
@@ -127,8 +127,8 @@ module Alchemy
         link_active_page: false,
       }.merge(options)
 
-      pages = Page.
-        ancestors_for(options[:page]).
+      pages = options[:page].
+        self_and_ancestors.contentpages.
         accessible_by(current_ability, :see)
 
       if options.delete(:restricted_only)
