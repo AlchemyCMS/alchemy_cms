@@ -399,15 +399,10 @@ module Alchemy
     end
 
     describe ".contentpages" do
-      let!(:layoutroot) do
-        Page.find_or_create_layout_root_for(klingon.id)
-      end
-
       let!(:layoutpage) do
         create :alchemy_page, :public, {
           name: "layoutpage",
           layoutpage: true,
-          parent_id: layoutroot.id,
           language: klingon,
         }
       end
@@ -600,34 +595,6 @@ module Alchemy
             expect_any_instance_of(Page).to receive(:set_language_from_parent_or_default)
             Page.create!(name: "A", parent_id: language_root.id, page_layout: "standard")
           end
-        end
-      end
-    end
-
-    describe ".find_or_create_layout_root_for" do
-      subject { Page.find_or_create_layout_root_for(language.id) }
-
-      let!(:root_page) { create(:alchemy_page, :root) }
-      let(:language)   { create(:alchemy_language, name: "English") }
-
-      context "if no layout root page for given language id is present" do
-        it "creates one" do
-          expect {
-            subject
-          }.to change { Page.count }.by(1)
-        end
-      end
-
-      context "if layout root page for given language id is present" do
-        let!(:page) do
-          create :alchemy_page,
-            layoutpage: true,
-            parent_id: root_page.id,
-            language_id: language.id
-        end
-
-        it "returns layout root page" do
-          is_expected.to eq(page)
         end
       end
     end

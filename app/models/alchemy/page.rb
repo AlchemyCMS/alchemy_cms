@@ -116,7 +116,7 @@ module Alchemy
     validates_presence_of :language, on: :create, unless: :root
     validates_presence_of :page_layout, unless: :systempage?
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { systempage? || page_layout.blank? }
-    validates_presence_of :parent_id, if: proc { Page.count > 1 }
+    validates_presence_of :parent_id, if: proc { Page.count > 1 }, unless: -> { layoutpage? }
 
     before_save :set_language_code,
       if: -> { language.present? },
@@ -216,24 +216,6 @@ module Alchemy
           copy_elements(source, page)
           page
         end
-      end
-
-      def layout_root_for(language_id)
-        where({ parent_id: Page.root.id, layoutpage: true, language_id: language_id }).limit(1).first
-      end
-
-      def find_or_create_layout_root_for(language_id)
-        layoutroot = layout_root_for(language_id)
-        return layoutroot if layoutroot
-
-        language = Language.find(language_id)
-        Page.create!(
-          name: "Layoutroot for #{language.name}",
-          layoutpage: true,
-          language: language,
-          autogenerate_elements: false,
-          parent_id: Page.root.id,
-        )
       end
 
       def copy_and_paste(source, new_parent, new_name)

@@ -21,9 +21,13 @@ module Alchemy
       context "with a language present" do
         let!(:language) { create(:alchemy_language) }
 
-        it "should assign @layout_root" do
-          get :index
-          expect(assigns(:layout_root)).to be_a(Page)
+        context "and layoutpages present" do
+          let!(:layoutpages) { create_list(:alchemy_page, 2, :layoutpage, language: language) }
+
+          it "should assign @layout_pages" do
+            get :index
+            expect(assigns(:layout_pages)).to match_array(layoutpages)
+          end
         end
 
         it "should assign @languages" do

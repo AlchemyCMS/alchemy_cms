@@ -55,12 +55,8 @@ module Alchemy
       def seed_layoutpages
         desc "Seeding Alchemy layout pages from #{page_seeds_file}"
         language = Alchemy::Language.default
-        layout_root = Alchemy::Page.find_or_create_layout_root_for(language.id)
         layoutpages.each do |page|
-          create_page(page, {
-            parent: layout_root,
-            language: language,
-          })
+          create_page(page, { language: language })
         end
       end
 
@@ -117,14 +113,14 @@ module Alchemy
         default_language = Alchemy::Config.get(:default_language)
         if default_language
           Alchemy::Language.create!(
-            name:           default_language["name"],
-            language_code:  default_language["code"],
-            locale:         default_language["code"],
+            name: default_language["name"],
+            language_code: default_language["code"],
+            locale: default_language["code"],
             frontpage_name: default_language["frontpage_name"],
-            page_layout:    default_language["page_layout"],
-            public:         true,
-            default:        true,
-            site:           Alchemy::Site.default,
+            page_layout: default_language["page_layout"],
+            public: true,
+            default: true,
+            site: Alchemy::Site.default,
           )
         else
           raise DefaultLanguageNotFoundError

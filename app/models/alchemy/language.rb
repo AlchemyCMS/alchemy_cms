@@ -60,8 +60,8 @@ module Alchemy
       throw(:abort)
     end
 
-    scope :published,       -> { where(public: true) }
-    scope :with_root_page,  -> { joins(:pages).where(Page.table_name => {language_root: true}) }
+    scope :published, -> { where(public: true) }
+    scope :with_root_page, -> { joins(:pages).where(Page.table_name => { language_root: true }) }
 
     class << self
       def on_site(site)
@@ -108,11 +108,6 @@ module Alchemy
     # Root page
     def root_page
       @root_page ||= pages.language_roots.first
-    end
-
-    # Layout root page
-    def layout_root_page
-      @layout_root_page ||= Page.layout_root_for(id)
     end
 
     # All available locales matching this language
