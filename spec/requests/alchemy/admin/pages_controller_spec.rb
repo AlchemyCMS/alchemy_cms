@@ -492,7 +492,7 @@ module Alchemy
             expect(Page).to receive(:copy_and_paste).with(
               page_in_clipboard,
               parent,
-              page_params[:name]
+              page_params[:name],
             )
             post admin_pages_path(
               page: page_params,
