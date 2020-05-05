@@ -10,8 +10,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.integer "file_size"
         t.references "creator"
         t.references "updater"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
+        t.timestamps null: false
         t.string "file_uid"
         t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
       end
@@ -33,8 +32,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.boolean "public", default: true
         t.boolean "folded", default: false
         t.boolean "unique", default: false
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
+        t.timestamps null: false
         t.references "creator"
         t.references "updater"
         t.references "parent_element", index: false
@@ -154,8 +152,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.string "frontpage_name"
         t.string "page_layout", default: "intro"
         t.boolean "public", default: false
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
+        t.timestamps null: false
         t.references "creator"
         t.references "updater"
         t.boolean "default", default: false
@@ -171,8 +168,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
       create_table "alchemy_legacy_page_urls", force: :cascade do |t|
         t.string "urlname", null: false
         t.references "page", null: false
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
+        t.timestamps null: false
         t.index ["urlname"], name: "index_alchemy_legacy_page_urls_on_urlname"
       end
     end
@@ -193,8 +189,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.references "language", null: false
         t.references "creator"
         t.references "updater"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
+        t.timestamps null: false
         t.references "site", null: false
         t.index ["lft"], name: "index_alchemy_nodes_on_lft"
         t.index ["rgt"], name: "index_alchemy_nodes_on_rgt"
@@ -222,8 +217,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.boolean "robot_follow", default: true
         t.boolean "sitemap", default: true
         t.boolean "layoutpage", default: false
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
+        t.timestamps null: false
         t.references "creator"
         t.references "updater"
         t.references "language"
@@ -245,8 +239,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.string "image_file_name"
         t.integer "image_file_width"
         t.integer "image_file_height"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
+        t.timestamps null: false
         t.references "creator"
         t.references "updater"
         t.string "upload_hash"
@@ -260,8 +253,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
       create_table "alchemy_sites", force: :cascade do |t|
         t.string "host"
         t.string "name"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
+        t.timestamps null: false
         t.boolean "public", default: false
         t.text "aliases"
         t.boolean "redirect_to_primary_host"

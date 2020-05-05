@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.integer "file_size"
     t.integer "creator_id"
     t.integer "updater_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.string "file_uid"
     t.index ["creator_id"], name: "index_alchemy_attachments_on_creator_id"
     t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
@@ -43,8 +43,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.boolean "public", default: true
     t.boolean "folded", default: false
     t.boolean "unique", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "creator_id"
     t.integer "updater_id"
     t.integer "parent_element_id"
@@ -152,8 +152,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "frontpage_name"
     t.string "page_layout", default: "intro"
     t.boolean "public", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "creator_id"
     t.integer "updater_id"
     t.boolean "default", default: false
@@ -170,8 +170,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
   create_table "alchemy_legacy_page_urls", force: :cascade do |t|
     t.string "urlname", null: false
     t.integer "page_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["page_id"], name: "index_alchemy_legacy_page_urls_on_page_id"
     t.index ["urlname"], name: "index_alchemy_legacy_page_urls_on_urlname"
   end
@@ -224,8 +224,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.boolean "robot_follow", default: true
     t.boolean "sitemap", default: true
     t.boolean "layoutpage", default: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "creator_id"
     t.integer "updater_id"
     t.integer "language_id"
@@ -248,8 +248,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "image_file_name"
     t.integer "image_file_width"
     t.integer "image_file_height"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.integer "creator_id"
     t.integer "updater_id"
     t.string "upload_hash"
@@ -263,8 +263,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
   create_table "alchemy_sites", force: :cascade do |t|
     t.string "host"
     t.string "name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.boolean "public", default: false
     t.text "aliases"
     t.boolean "redirect_to_primary_host"
