@@ -5,8 +5,6 @@ module Alchemy
     attributes :id,
       :body,
       :link,
-      :created_at,
-      :updated_at
 
     def link
       return if object.link.blank?

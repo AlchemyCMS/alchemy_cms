@@ -9,8 +9,6 @@ module Alchemy
       :alt_tag,
       :css_class,
       :link,
-      :created_at,
-      :updated_at
 
     has_one :picture
 

@@ -32,8 +32,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "essence_type", null: false
     t.integer "essence_id", null: false
     t.integer "element_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["element_id"], name: "index_alchemy_contents_on_element_id"
     t.index ["essence_type", "essence_id"], name: "index_alchemy_contents_on_essence_type_and_essence_id", unique: true
   end
@@ -67,31 +65,23 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
 
   create_table "alchemy_essence_booleans", force: :cascade do |t|
     t.boolean "value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["value"], name: "index_alchemy_essence_booleans_on_value"
   end
 
   create_table "alchemy_essence_dates", force: :cascade do |t|
     t.datetime "date"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "alchemy_essence_files", force: :cascade do |t|
     t.integer "attachment_id"
     t.string "title"
     t.string "css_class"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "link_text"
     t.index ["attachment_id"], name: "index_alchemy_essence_files_on_attachment_id"
   end
 
   create_table "alchemy_essence_htmls", force: :cascade do |t|
     t.text "source"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "alchemy_essence_links", force: :cascade do |t|
@@ -99,8 +89,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "link_title"
     t.string "link_target"
     t.string "link_class_name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "alchemy_essence_nodes", force: :cascade do |t|
@@ -112,8 +100,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
 
   create_table "alchemy_essence_pages", force: :cascade do |t|
     t.integer "page_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.index ["page_id"], name: "index_alchemy_essence_pages_on_page_id"
   end
 
@@ -127,8 +113,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "link_title"
     t.string "css_class"
     t.string "link_target"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.string "crop_from"
     t.string "crop_size"
     t.string "render_size"
@@ -139,14 +123,10 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.text "body"
     t.text "stripped_body"
     t.boolean "public"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "alchemy_essence_selects", force: :cascade do |t|
     t.string "value"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
     t.index ["value"], name: "index_alchemy_essence_selects_on_value"
   end
 
@@ -157,8 +137,6 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.string "link_class_name"
     t.boolean "public", default: false
     t.string "link_target"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "alchemy_folded_pages", force: :cascade do |t|
