@@ -1,6 +1,13 @@
-(function($) {
-  $('#locked_page_<%= @page.id -%>').remove();
-  $('#page_<%= @page.id -%> .sitemap_left_images .with-hint').remove();
-  $('#page_<%= @page.id -%> .sitemap_left_images').append('<%= j render_icon(:file, style: 'regular', size: 'lg') %>');
-  Alchemy.growl('<%= flash[:notice] -%>');
-})(jQuery);
+(function() {
+  var locked_page_tab = document.querySelector('#locked_page_<%= @page.id -%>')
+  var locked_page_icon = document.querySelector(
+    '#page_<%= @page.id -%> > .sitemap_page > .sitemap_left_images .with-hint'
+  )
+  if (locked_page_tab) {
+    locked_page_tab.remove()
+  }
+  if (locked_page_icon) {
+    locked_page_icon.innerHTML = '<%= j render_icon(:file, style: 'regular', size: 'lg') %>'
+  }
+  Alchemy.growl('<%= flash[:notice] -%>')
+})()
