@@ -87,7 +87,7 @@ module Alchemy
       end
 
       describe "#tree" do
-        let(:user)   { create(:alchemy_dummy_user, :as_editor) }
+        let(:user) { create(:alchemy_dummy_user, :as_editor) }
         let(:page_1) { create(:alchemy_page, visible: true, name: "one") }
         let(:page_2) { create(:alchemy_page, visible: true, name: "two", parent_id: page_1.id) }
         let(:page_3) { create(:alchemy_page, visible: true, name: "three", parent_id: page_2.id) }
@@ -254,7 +254,7 @@ module Alchemy
 
             before do
               allow_any_instance_of(described_class).to receive(:get_clipboard).with("pages") do
-                [{"id" => page.id.to_s, "action" => "copy"}]
+                [{ "id" => page.id.to_s, "action" => "copy" }]
               end
             end
 
@@ -305,12 +305,12 @@ module Alchemy
       end
 
       describe "#order" do
-        let(:page_1)       { create(:alchemy_page, visible: true) }
-        let(:page_2)       { create(:alchemy_page, visible: true) }
-        let(:page_3)       { create(:alchemy_page, visible: true) }
-        let(:page_item_1)  { {id: page_1.id, slug: page_1.slug, restricted: false, visible: page_1.visible?, children: [page_item_2]} }
-        let(:page_item_2)  { {id: page_2.id, slug: page_2.slug, restricted: false, visible: page_2.visible?, children: [page_item_3]} }
-        let(:page_item_3)  { {id: page_3.id, slug: page_3.slug, restricted: false, visible: page_3.visible? } }
+        let(:page_1) { create(:alchemy_page, visible: true) }
+        let(:page_2) { create(:alchemy_page, visible: true) }
+        let(:page_3) { create(:alchemy_page, visible: true) }
+        let(:page_item_1) { { id: page_1.id, slug: page_1.slug, restricted: false, visible: page_1.visible?, children: [page_item_2] } }
+        let(:page_item_2) { { id: page_2.id, slug: page_2.slug, restricted: false, visible: page_2.visible?, children: [page_item_3] } }
+        let(:page_item_3) { { id: page_3.id, slug: page_3.slug, restricted: false, visible: page_3.visible? } }
         let(:set_of_pages) { [page_item_1] }
 
         it "stores the new order" do
@@ -488,8 +488,11 @@ module Alchemy
           let(:page_in_clipboard) { create(:alchemy_page) }
 
           it "should call Page#copy_and_paste" do
-            expect(Page).to receive(:copy_and_paste).
-              with(page_in_clipboard, parent, page_params[:name])
+            expect(Page).to receive(:copy_and_paste).with(
+              page_in_clipboard,
+              parent,
+              page_params[:name]
+            )
             post admin_pages_path(
               page: page_params,
               paste_from_clipboard: page_in_clipboard.id,
@@ -499,10 +502,10 @@ module Alchemy
       end
 
       describe "#copy_language_tree" do
-        let(:params)                     { {languages: {new_lang_id: "2", old_lang_id: "1"}} }
+        let(:params) { { languages: { new_lang_id: "2", old_lang_id: "1" } } }
         let(:language_root_to_copy_from) { build_stubbed(:alchemy_page, :language_root) }
-        let(:copy_of_language_root)      { build_stubbed(:alchemy_page, :language_root) }
-        let(:root_page)                  { mock_model("Page") }
+        let(:copy_of_language_root) { build_stubbed(:alchemy_page, :language_root) }
+        let(:root_page) { mock_model("Page") }
 
         before do
           allow(Page).to receive(:copy).and_return(copy_of_language_root)
@@ -514,7 +517,7 @@ module Alchemy
         end
 
         it "should copy the language root page over to the other language" do
-          expect(Page).to receive(:copy).with(language_root_to_copy_from, {language_id: "2", language_code: "de"})
+          expect(Page).to receive(:copy).with(language_root_to_copy_from, { language_id: "2", language_code: "de" })
           post copy_language_tree_admin_pages_path(params)
         end
 
@@ -541,7 +544,7 @@ module Alchemy
       end
 
       describe "#edit" do
-        let!(:page)       { create(:alchemy_page) }
+        let!(:page) { create(:alchemy_page) }
         let!(:other_user) { create(:alchemy_dummy_user, :as_author) }
 
         context "if page is locked by another user" do
@@ -631,7 +634,7 @@ module Alchemy
       end
 
       describe "#destroy" do
-        let(:clipboard) { [{"id" => page.id.to_s}] }
+        let(:clipboard) { [{ "id" => page.id.to_s }] }
         let(:page) { create(:alchemy_page, :public) }
 
         before do
