@@ -1,3 +1,4 @@
+# encoding: utf-8
 # frozen_string_literal: true
 
 require "rails_helper"
@@ -84,14 +85,6 @@ module Alchemy
 
         it "should be valid" do
           expect(rootpage).to be_valid
-        end
-      end
-
-      context "saving a systempage" do
-        let(:systempage) { build(:alchemy_page, :system) }
-
-        it "should not validate the page_layout" do
-          expect(systempage).to be_valid
         end
       end
     end
@@ -261,18 +254,6 @@ module Alchemy
             page.save
             expect(page.elements).to be_empty
           end
-        end
-      end
-
-      context "Creating a systempage" do
-        let!(:page) { create(:alchemy_page, :system) }
-
-        it "does not get the language code from language" do
-          expect(page.language_code).to be_nil
-        end
-
-        it "does not autogenerate the elements" do
-          expect(page.elements).to be_empty
         end
       end
 

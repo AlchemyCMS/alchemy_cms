@@ -9,17 +9,16 @@ module Alchemy
     included do
       before_validation :set_urlname,
         if: :renamed?,
-        unless: -> { systempage? || name.blank? }
+        unless: -> { name.blank? }
 
       validates :name,
         presence: true
       validates :urlname,
-        uniqueness: {scope: [:language_id, :layoutpage], if: -> { urlname.present? }},
-        exclusion:  {in: RESERVED_URLNAMES},
-        length:     {minimum: 3, if: -> { urlname.present? }}
+        uniqueness: { scope: [:language_id, :layoutpage], if: -> { urlname.present? } },
+        exclusion: { in: RESERVED_URLNAMES },
+        length: { minimum: 3, if: -> { urlname.present? } }
 
       before_save :set_title,
-        unless: -> { systempage? },
         if: -> { title.blank? }
 
       after_update :update_descendants_urlnames,
