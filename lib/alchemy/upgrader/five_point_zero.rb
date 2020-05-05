@@ -7,9 +7,9 @@ module Alchemy
     class << self
       def install_gutentag_migrations
         desc "Install Gutentag migrations"
-        `bundle exec rake gutentag:install:migrations`
+        Rake::Task["gutentag:install:migrations"].invoke
         Alchemy::Upgrader::Tasks::HardenGutentagMigrations.new.patch_migrations
-        `bundle exec rake db:migrate`
+        Rake::Task["db:migrate"].invoke
       end
 
       def remove_layout_roots
