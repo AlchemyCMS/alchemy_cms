@@ -11,6 +11,19 @@ module Alchemy
         Alchemy::Upgrader::Tasks::HardenGutentagMigrations.new.patch_migrations
         `bundle exec rake db:migrate`
       end
+
+      def remove_layout_roots
+        desc "Remove layout root pages"
+        layout_roots = Alchemy::Page.where(layoutpage: true).where("name LIKE 'Layoutroot for%'")
+        if layout_roots.size.positive?
+          log "Removing #{layout_roots.size} layout root pages."
+          layout_roots.delete_all
+          Alchemy::Page.where(layoutpage: true).update_all(parent_id: nil)
+          log "Done.", :success
+        else
+          log "No layout root pages found.", :skip
+        end
+      end
     end
   end
 end

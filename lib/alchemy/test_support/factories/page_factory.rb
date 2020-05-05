@@ -11,7 +11,7 @@ FactoryBot.define do
 
     parent_id do
       (Alchemy::Page.find_by(language_root: true) ||
-        FactoryBot.create(:alchemy_page, :language_root, language: language)).id
+       FactoryBot.create(:alchemy_page, :language_root, language: language)).id
     end
 
     # This speeds up creating of pages dramatically.
@@ -47,8 +47,6 @@ FactoryBot.define do
     end
 
     trait :layoutpage do
-      name { "Footer" }
-      parent_id { Alchemy::Page.find_or_create_layout_root_for(Alchemy::Language.current.id).id }
       layoutpage { true }
       page_layout { "footer" }
     end
