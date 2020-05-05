@@ -2,10 +2,10 @@
 
 module Alchemy
   class EssenceRichtextSerializer < ActiveModel::Serializer
-    attributes :id,
+    attributes(
+      :id,
       :body,
       :stripped_body,
-      :created_at,
-      :updated_at
+    )
   end
 end

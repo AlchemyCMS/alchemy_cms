@@ -22,7 +22,7 @@ module Alchemy
     include Alchemy::Filetypes
     include Alchemy::NameConversions
     include Alchemy::Taggable
-    include Alchemy::ContentTouching
+    include Alchemy::TouchElements
 
     dragonfly_accessor :file, app: :alchemy_attachments do
       after_assign { |f| write_attribute(:file_mime_type, f.mime_type) }
@@ -55,7 +55,8 @@ module Alchemy
 
     validates_presence_of :file
     validates_size_of :file, maximum: Config.get(:uploader)["file_size_limit"].megabytes
-    validates_property :ext, of: :file,
+    validates_property :ext,
+      of: :file,
       in: allowed_filetypes,
       case_sensitive: false,
       message: Alchemy.t("not a valid file"),
@@ -89,6 +90,7 @@ module Alchemy
     def extension
       file_name.split(".").last
     end
+
     alias_method :suffix, :extension
 
     # Returns a css class name for kind of file

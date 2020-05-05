@@ -6,8 +6,6 @@ module Alchemy
       :name,
       :ingredient,
       :element_id,
-      :created_at,
-      :updated_at,
       :settings
 
     has_one :essence, polymorphic: true

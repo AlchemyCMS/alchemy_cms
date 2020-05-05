@@ -22,8 +22,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.string "name"
         t.references "essence", null: false, polymorphic: true, index: { unique: true }
         t.references "element", null: false
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
       end
     end
 
@@ -57,8 +55,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     unless table_exists?("alchemy_essence_booleans")
       create_table "alchemy_essence_booleans", force: :cascade do |t|
         t.boolean "value"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
         t.index ["value"], name: "index_alchemy_essence_booleans_on_value"
       end
     end
@@ -66,8 +62,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     unless table_exists?("alchemy_essence_dates")
       create_table "alchemy_essence_dates", force: :cascade do |t|
         t.datetime "date"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
       end
     end
 
@@ -76,8 +70,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.references "attachment"
         t.string "title"
         t.string "css_class"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
         t.string "link_text"
       end
     end
@@ -85,8 +77,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     unless table_exists?("alchemy_essence_htmls")
       create_table "alchemy_essence_htmls", force: :cascade do |t|
         t.text "source"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
       end
     end
 
@@ -96,16 +86,12 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.string "link_title"
         t.string "link_target"
         t.string "link_class_name"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
       end
     end
 
     unless table_exists?("alchemy_essence_pages")
       create_table "alchemy_essence_pages", force: :cascade do |t|
         t.references "page"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
       end
     end
 
@@ -120,8 +106,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.string "link_title"
         t.string "css_class"
         t.string "link_target"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
         t.string "crop_from"
         t.string "crop_size"
         t.string "render_size"
@@ -133,16 +117,12 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.text "body"
         t.text "stripped_body"
         t.boolean "public"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
       end
     end
 
     unless table_exists?("alchemy_essence_selects")
       create_table "alchemy_essence_selects", force: :cascade do |t|
         t.string "value"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
         t.index ["value"], name: "index_alchemy_essence_selects_on_value"
       end
     end
@@ -155,8 +135,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.string "link_class_name"
         t.boolean "public", default: false
         t.string "link_target"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
       end
     end
 

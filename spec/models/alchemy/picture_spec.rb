@@ -75,14 +75,14 @@ module Alchemy
     describe "#suffix" do
       it "should return the suffix of original filename" do
         pic = stub_model(Picture, image_file_name: "kitten.JPG")
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: "jpg"}))
+        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
         expect(pic.suffix).to eq("jpg")
       end
 
       context "image has no suffix" do
         it "should return empty string" do
           pic = stub_model(Picture, image_file_name: "kitten")
-          allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: ""}))
+          allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "" }))
           expect(pic.suffix).to eq("")
         end
       end
@@ -91,13 +91,13 @@ module Alchemy
     describe "#humanized_name" do
       it "should return a humanized version of original filename" do
         pic = stub_model(Picture, image_file_name: "cute_kitten.JPG")
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: "jpg"}))
+        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
         expect(pic.humanized_name).to eq("cute kitten")
       end
 
       it "should not remove incidents of suffix from filename" do
         pic = stub_model(Picture, image_file_name: "cute_kitten_mo.jpgi.JPG")
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: "jpg"}))
+        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
         expect(pic.humanized_name).to eq("cute kitten mo.jpgi")
         expect(pic.humanized_name).not_to eq("cute kitten moi")
       end
@@ -264,20 +264,20 @@ module Alchemy
 
       it "updates tag_list" do
         expect(picture).to receive(:tag_list=).with("Foo")
-        picture.update_name_and_tag_list!({pictures_tag_list: "Foo"})
+        picture.update_name_and_tag_list!({ pictures_tag_list: "Foo" })
       end
 
       context "name is present" do
         it "updates name" do
           expect(picture).to receive(:name=).with("Foo")
-          picture.update_name_and_tag_list!({pictures_name: "Foo"})
+          picture.update_name_and_tag_list!({ pictures_name: "Foo" })
         end
       end
 
       context "name is not present" do
         it "does not update name" do
           expect(picture).not_to receive(:name=).with("Foo")
-          picture.update_name_and_tag_list!({pictures_name: ""})
+          picture.update_name_and_tag_list!({ pictures_name: "" })
         end
       end
     end
@@ -315,7 +315,7 @@ module Alchemy
         let(:picture) { build_stubbed(:alchemy_picture) }
 
         before do
-          expect(picture).to receive(:errors).and_return({image_file: %w(stupid_cats)})
+          expect(picture).to receive(:errors).and_return({ image_file: %w(stupid_cats) })
         end
 
         it "returns hash with error message" do
@@ -333,10 +333,12 @@ module Alchemy
       context "is assigned on pages" do
         context "that are all restricted" do
           before do
-            expect(picture).to receive(:pages).at_least(:once).and_return double(
-              not_restricted: double(blank?: true),
-              any?: true,
-            )
+            expect(picture).to receive(:pages).at_least(:once) do
+              double(
+                not_restricted: double(blank?: true),
+                any?: true,
+              )
+            end
           end
 
           it { is_expected.to be_truthy }
@@ -344,10 +346,12 @@ module Alchemy
 
         context "that are not all restricted" do
           before do
-            expect(picture).to receive(:pages).at_least(:once).and_return double(
-              not_restricted: double(blank?: false),
-              any?: true,
-            )
+            expect(picture).to receive(:pages).at_least(:once) do
+              double(
+                not_restricted: double(blank?: false),
+                any?: true,
+              )
+            end
           end
 
           it { is_expected.to be_falsey }
@@ -430,7 +434,7 @@ module Alchemy
 
         let(:content) do
           create(:alchemy_content, :essence_picture).tap do |content|
-            content.update_column(:updated_at, 3.hours.ago)
+            content.element.update_column(:updated_at, 3.hours.ago)
           end
         end
 
@@ -438,8 +442,8 @@ module Alchemy
           content.essence.update(picture: picture)
         end
 
-        it "touches contents" do
-          expect { picture.save }.to change { content.reload.updated_at }
+        it "touches elements" do
+          expect { picture.save }.to change { picture.elements.reload.first.updated_at }
         end
       end
     end

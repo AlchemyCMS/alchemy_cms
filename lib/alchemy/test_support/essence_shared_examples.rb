@@ -8,7 +8,7 @@ require "alchemy/test_support/factories/content_factory"
 RSpec.shared_examples_for "an essence" do
   let(:element) { Alchemy::Element.new }
   let(:content) { Alchemy::Content.new(name: "foo") }
-  let(:content_definition) { {"name" => "foo"} }
+  let(:content_definition) { { "name" => "foo" } }
 
   describe "eager loading" do
     before do
@@ -22,15 +22,15 @@ RSpec.shared_examples_for "an essence" do
     end
   end
 
-  it "touches the content after update" do
+  it "touches the element after save" do
     element = FactoryBot.create(:alchemy_element)
     content = FactoryBot.create(:alchemy_content, element: element, essence: essence, essence_type: essence.class.name)
 
-    content.update_column(:updated_at, 3.days.ago)
+    element.update_column(:updated_at, 3.days.ago)
     content.essence.update(essence.ingredient_column.to_sym => ingredient_value)
 
-    content.reload
-    expect(content.updated_at).to be_within(3.seconds).of(Time.current)
+    element.reload
+    expect(element.updated_at).to be_within(3.seconds).of(Time.current)
   end
 
   it "should have correct partial path" do
@@ -97,7 +97,7 @@ RSpec.shared_examples_for "an essence" do
 
     context "without validations defined in essence definition in elements.yml" do
       it "should return an empty array" do
-        allow(essence).to receive(:definition).and_return({name: "test", type: "EssenceText"})
+        allow(essence).to receive(:definition).and_return({ name: "test", type: "EssenceText" })
         expect(essence.validations).to eq([])
       end
     end
@@ -105,7 +105,7 @@ RSpec.shared_examples_for "an essence" do
     describe "presence" do
       context "with string given as validation type" do
         before do
-          allow(essence).to receive(:definition).and_return({"validate" => ["presence"]})
+          allow(essence).to receive(:definition).and_return({ "validate" => ["presence"] })
         end
 
         context "when the ingredient column is empty" do
@@ -132,7 +132,7 @@ RSpec.shared_examples_for "an essence" do
       context "with hash given as validation type" do
         context "where the value is true" do
           before do
-            allow(essence).to receive(:definition).and_return({"validate" => [{"presence" => true}]})
+            allow(essence).to receive(:definition).and_return({ "validate" => [{ "presence" => true }] })
           end
 
           context "when the ingredient column is empty" do
@@ -158,7 +158,7 @@ RSpec.shared_examples_for "an essence" do
 
         context "where the value is false" do
           before do
-            allow(essence).to receive(:definition).and_return({"validate" => [{"presence" => false}]})
+            allow(essence).to receive(:definition).and_return({ "validate" => [{ "presence" => false }] })
           end
 
           it "should be valid" do
@@ -170,13 +170,13 @@ RSpec.shared_examples_for "an essence" do
 
     describe "uniqueness" do
       before do
-        allow(essence).to receive(:element).and_return(FactoryBot.build_stubbed(:alchemy_element))
+        allow(essence).to receive(:element).and_return(FactoryBot.create(:alchemy_element))
         essence.update(essence.ingredient_column.to_sym => ingredient_value)
       end
 
       context "with string given as validation type" do
         before do
-          expect(essence).to receive(:definition).at_least(:once).and_return({"validate" => ["uniqueness"]})
+          expect(essence).to receive(:definition).at_least(:once).and_return({ "validate" => ["uniqueness"] })
         end
 
         context "when a duplicate exists" do
@@ -213,7 +213,7 @@ RSpec.shared_examples_for "an essence" do
       context "with hash given as validation type" do
         context "where the value is true" do
           before do
-            expect(essence).to receive(:definition).at_least(:once).and_return({"validate" => [{"uniqueness" => true}]})
+            expect(essence).to receive(:definition).at_least(:once).and_return({ "validate" => [{ "uniqueness" => true }] })
           end
 
           context "when a duplicate exists" do
@@ -249,7 +249,7 @@ RSpec.shared_examples_for "an essence" do
 
         context "where the value is false" do
           before do
-            allow(essence).to receive(:definition).and_return({"validate" => [{"uniqueness" => false}]})
+            allow(essence).to receive(:definition).and_return({ "validate" => [{ "uniqueness" => false }] })
           end
 
           it "should be valid" do
@@ -269,11 +269,11 @@ RSpec.shared_examples_for "an essence" do
   context "delegations" do
     it { should delegate_method(:restricted?).to(:page) }
     it { should delegate_method(:trashed?).to(:element) }
-    it { should delegate_method(:public?).to(:element)  }
+    it { should delegate_method(:public?).to(:element) }
   end
 
   describe "essence relations" do
-    let(:page)    { FactoryBot.create(:alchemy_page, :restricted) }
+    let(:page) { FactoryBot.create(:alchemy_page, :restricted) }
     let(:element) { FactoryBot.create(:alchemy_element) }
 
     it "registers itself on page as essence relation" do
