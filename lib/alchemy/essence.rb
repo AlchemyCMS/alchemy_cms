@@ -62,7 +62,7 @@ module Alchemy #:nodoc:
           delegate :trashed?,    to: :element, allow_nil: true
           delegate :public?,     to: :element, allow_nil: true
 
-          after_update :touch_content
+          after_save :touch_element
 
           def acts_as_essence_class
             #{name}
@@ -236,11 +236,9 @@ module Alchemy #:nodoc:
         element.content_definitions.detect { |c| c["name"] == content.name } || {}
       end
 
-      # Touch content. Called after update.
-      def touch_content
-        return nil if content.nil?
-
-        content.touch
+      # Touches element. Called after save.
+      def touch_element
+        element&.touch
       end
 
       # Returns the first x (default 30) characters of ingredient for the Element#preview_text method.

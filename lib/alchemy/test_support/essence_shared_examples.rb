@@ -22,15 +22,15 @@ RSpec.shared_examples_for "an essence" do
     end
   end
 
-  it "touches the content after update" do
+  it "touches the element after save" do
     element = FactoryBot.create(:alchemy_element)
     content = FactoryBot.create(:alchemy_content, element: element, essence: essence, essence_type: essence.class.name)
 
-    content.update_column(:updated_at, 3.days.ago)
+    element.update_column(:updated_at, 3.days.ago)
     content.essence.update(essence.ingredient_column.to_sym => ingredient_value)
 
-    content.reload
-    expect(content.updated_at).to be_within(3.seconds).of(Time.current)
+    element.reload
+    expect(element.updated_at).to be_within(3.seconds).of(Time.current)
   end
 
   it "should have correct partial path" do
@@ -170,7 +170,7 @@ RSpec.shared_examples_for "an essence" do
 
     describe "uniqueness" do
       before do
-        allow(essence).to receive(:element).and_return(FactoryBot.build_stubbed(:alchemy_element))
+        allow(essence).to receive(:element).and_return(FactoryBot.create(:alchemy_element))
         essence.update(essence.ingredient_column.to_sym => ingredient_value)
       end
 

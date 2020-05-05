@@ -65,11 +65,6 @@ module Alchemy
           is_expected.to be_truthy
           expect(content.ingredient).to eq("Mikes Petshop")
         end
-
-        it "updates timestamp after updating related essence" do
-          expect(content).to receive(:touch)
-          subject
-        end
       end
 
       context "with validations and without params given" do
