@@ -117,7 +117,7 @@ module Alchemy
 
     validates_presence_of :page_layout
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { page_layout.blank? }
-    validates_presence_of :parent_id, if: proc { Page.count > 1 }, unless: -> { layoutpage? }
+    validates_presence_of :parent, unless: -> { layoutpage? || language_root? }
 
     before_save :set_language_code,
       if: -> { language.present? }
@@ -159,18 +159,6 @@ module Alchemy
     # Class methods
     #
     class << self
-      # The root page of the page tree
-      #
-      # Internal use only. You wouldn't use this page ever.
-      #
-      # Automatically created when accessed the first time.
-      #
-      def root
-        super || create!(name: "Root", page_layout: "standard")
-      end
-
-      alias_method :rootpage, :root
-
       # Used to store the current page previewed in the edit page template.
       #
       def current_preview=(page)

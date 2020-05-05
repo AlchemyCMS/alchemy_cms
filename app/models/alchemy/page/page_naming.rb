@@ -116,7 +116,7 @@ module Alchemy
     # Returns [], if there is no parent, the parent is
     # the root page itself, or url_nesting is off.
     def ancestor_slugs
-      return [] if !Config.get(:url_nesting) || parent.nil? || parent.root?
+      return [] if !Config.get(:url_nesting) || parent.nil?
 
       visible_ancestors.map(&:slug).compact
     end

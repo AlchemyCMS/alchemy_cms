@@ -421,6 +421,7 @@ module Alchemy
             parent_id: parent.id,
             name: "new Page",
             page_layout: "standard",
+            language_id: parent.language_id,
           }
         end
 
@@ -509,7 +510,6 @@ module Alchemy
 
         before do
           allow(Page).to receive(:copy).and_return(copy_of_language_root)
-          allow(Page).to receive(:root).and_return(root_page)
           allow(Page).to receive(:language_root_for).and_return(language_root_to_copy_from)
           allow_any_instance_of(Page).to receive(:move_to_child_of)
           allow_any_instance_of(Page).to receive(:copy_children_to)
@@ -518,11 +518,6 @@ module Alchemy
 
         it "should copy the language root page over to the other language" do
           expect(Page).to receive(:copy).with(language_root_to_copy_from, { language_id: "2", language_code: "de" })
-          post copy_language_tree_admin_pages_path(params)
-        end
-
-        it "should move the newly created language-root-page below the absolute root page" do
-          expect(copy_of_language_root).to receive(:move_to_child_of).with(root_page)
           post copy_language_tree_admin_pages_path(params)
         end
 

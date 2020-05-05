@@ -66,7 +66,7 @@ module Alchemy
       # Returns all content pages.
       #
       scope :contentpages, -> {
-              where(layoutpage: [false, nil]).where.not(parent_id: nil)
+              where(layoutpage: [false, nil])
             }
 
       # Returns all public contentpages that are not locked.
@@ -80,7 +80,7 @@ module Alchemy
       # Used for flushing all pages caches at once.
       #
       scope :flushable_layoutpages, -> {
-              not_locked.layoutpages.where.not(parent_id: Page.unscoped.root.id)
+              not_locked.layoutpages
             }
 
       # All searchable pages

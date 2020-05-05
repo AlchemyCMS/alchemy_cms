@@ -5,7 +5,6 @@ require "rails_helper"
 
 module Alchemy
   describe Page do
-    let(:rootpage) { Page.root }
     let(:language) { create(:alchemy_language, :english, default: true) }
     let(:klingon) { create(:alchemy_language, :klingon) }
     let(:language_root) { create(:alchemy_page, :language_root) }
@@ -32,20 +31,6 @@ module Alchemy
           end
         end
 
-        it "should validate the page_layout" do
-          contentpage.page_layout = nil
-          expect(contentpage).not_to be_valid
-          contentpage.valid?
-          expect(contentpage.errors[:page_layout].size).to eq(1)
-        end
-
-        it "should validate the parent_id" do
-          contentpage.parent_id = nil
-          expect(contentpage).not_to be_valid
-          contentpage.valid?
-          expect(contentpage.errors[:parent_id].size).to eq(1)
-        end
-
         context "with page having same urlname" do
           before { with_same_urlname }
 
@@ -56,7 +41,7 @@ module Alchemy
         end
 
         context "with url_nesting set to true" do
-          let(:other_parent) { create(:alchemy_page, parent_id: Page.root.id, visible: true) }
+          let(:other_parent) { create(:alchemy_page, visible: true) }
 
           before do
             stub_alchemy_config(:url_nesting, true)
@@ -65,7 +50,7 @@ module Alchemy
 
           it "should only validate urlname dependent of parent" do
             contentpage.urlname = "existing_twice"
-            contentpage.parent_id = other_parent.id
+            contentpage.parent = other_parent
             expect(contentpage).to be_valid
           end
 
@@ -76,16 +61,22 @@ module Alchemy
         end
       end
 
-      context "creating the rootpage without parent_id and page_layout" do
-        let(:rootpage) { build(:alchemy_page, parent_id: nil, page_layout: nil, name: "Rootpage") }
+      context "a page not being a language_root and without parent" do
+        let(:page) { build(:alchemy_page, parent: nil, layoutpage: nil) }
 
-        before do
-          Page.delete_all
-        end
+        it { expect(page).to_not be_valid }
+      end
 
-        it "should be valid" do
-          expect(rootpage).to be_valid
-        end
+      context "a page being a language_root and without parent" do
+        let(:page) { build(:alchemy_page, parent: nil, layoutpage: true) }
+
+        it { expect(page).to be_valid }
+      end
+
+      context "a page without page_layout" do
+        let(:page) { build(:alchemy_page, page_layout: nil) }
+
+        it { expect(page).to_not be_valid }
       end
     end
 
@@ -93,7 +84,7 @@ module Alchemy
 
     context "callbacks" do
       let(:page) do
-        create(:alchemy_page, name: "My Testpage", language: language, parent_id: language_root.id)
+        create(:alchemy_page, name: "My Testpage", language: language, parent: language_root)
       end
 
       context "before_save" do
@@ -183,7 +174,7 @@ module Alchemy
       context "after_move" do
         let(:parent_1) { create(:alchemy_page, name: "Parent 1", visible: true) }
         let(:parent_2) { create(:alchemy_page, name: "Parent 2", visible: true) }
-        let(:page) { create(:alchemy_page, parent_id: parent_1.id, name: "Page", visible: true) }
+        let(:page) { create(:alchemy_page, parent: parent_1, name: "Page", visible: true) }
 
         it "updates the urlname" do
           expect(page.urlname).to eq("parent-1/page")
@@ -221,7 +212,7 @@ module Alchemy
         context "with children getting restricted set to true" do
           before do
             page.save
-            @child1 = create(:alchemy_page, name: "Child 1", parent_id: page.id)
+            @child1 = create(:alchemy_page, name: "Child 1", parent: page)
             page.reload
             page.restricted = true
             page.save
@@ -233,15 +224,16 @@ module Alchemy
           end
         end
 
-        context "with restricted parent gets created" do
+        context "with restricted parent" do
+          let(:new_page) { create(:alchemy_page, name: "New Page", parent: page) }
+
           before do
             page.save
-            page.parent.update!(restricted: true)
-            @new_page = create(:alchemy_page, name: "New Page", parent_id: page.id)
+            page.update!(restricted: true)
           end
 
-          it "is also be restricted" do
-            expect(@new_page.restricted?).to be_truthy
+          it "child is also restricted" do
+            expect(new_page.restricted?).to be_truthy
           end
         end
 
@@ -323,7 +315,7 @@ module Alchemy
 
     describe ".locked" do
       it "should return 1 page that is blocked by a user at the moment" do
-        create(:alchemy_page, :public, :locked, name: "First Public Child", parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, :locked, name: "First Public Child", parent: language_root, language: language)
         expect(Page.locked.size).to eq(1)
       end
     end
@@ -359,7 +351,7 @@ module Alchemy
 
     describe ".contentpages" do
       let!(:layoutpage) do
-        create :alchemy_page, :public, {
+        create :alchemy_page, {
           name: "layoutpage",
           layoutpage: true,
           language: klingon,
@@ -375,9 +367,9 @@ module Alchemy
       end
 
       let!(:contentpage) do
-        create :alchemy_page, :public, {
+        create :alchemy_page, {
           name: "contentpage",
-          parent_id: language_root.id,
+          parent: language_root,
           language: language,
         }
       end
@@ -506,53 +498,53 @@ module Alchemy
     describe ".create" do
       context "before/after filter" do
         it "should automatically set the title from its name" do
-          page = create(:alchemy_page, name: "My Testpage", language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: "My Testpage", language: language, parent: language_root)
           expect(page.title).to eq("My Testpage")
         end
 
         it "should get a webfriendly urlname" do
-          page = create(:alchemy_page, name: "klingon$&stößel ", language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: "klingon$&stößel ", language: language, parent: language_root)
           expect(page.urlname).to eq("klingon-stoessel")
         end
 
         context "with no name set" do
           it "should not set a urlname" do
-            page = Page.create(name: "", language: language, parent_id: language_root.id)
+            page = Page.create(name: "", language: language, parent: language_root)
             expect(page.urlname).to be_blank
           end
         end
 
         it "should generate a three letter urlname from two letter name" do
-          page = create(:alchemy_page, name: "Au", language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: "Au", language: language, parent: language_root)
           expect(page.urlname).to eq("-au")
         end
 
         it "should generate a three letter urlname from two letter name with umlaut" do
-          page = create(:alchemy_page, name: "Aü", language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: "Aü", language: language, parent: language_root)
           expect(page.urlname).to eq("aue")
         end
 
         it "should generate a three letter urlname from one letter name" do
-          page = create(:alchemy_page, name: "A", language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: "A", language: language, parent: language_root)
           expect(page.urlname).to eq("--a")
         end
 
         it "should add a user stamper" do
-          page = create(:alchemy_page, name: "A", language: language, parent_id: language_root.id)
+          page = create(:alchemy_page, name: "A", language: language, parent: language_root)
           expect(page.class.stamper_class.to_s).to eq("DummyUser")
         end
 
         context "with language given" do
           it "does not set the language from parent" do
             expect_any_instance_of(Page).not_to receive(:set_language)
-            Page.create!(name: "A", parent_id: language_root.id, page_layout: "standard", language: language)
+            Page.create!(name: "A", parent: language_root, page_layout: "standard", language: language)
           end
         end
 
         context "with no language given" do
           it "sets the language from parent" do
             expect_any_instance_of(Page).to receive(:set_language)
-            Page.create!(name: "A", parent_id: language_root.id, page_layout: "standard")
+            Page.create!(name: "A", parent: language_root, page_layout: "standard")
           end
         end
       end
@@ -560,30 +552,30 @@ module Alchemy
 
     describe ".language_roots" do
       it "should return 1 language_root" do
-        create(:alchemy_page, :public, name: "First Public Child", parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: "First Public Child", parent: language_root, language: language)
         expect(Page.language_roots.size).to eq(1)
       end
     end
 
     describe ".layoutpages" do
-      it "should return 1 layoutpage" do
-        create(:alchemy_page, :public, layoutpage: true, name: "Layoutpage", parent_id: rootpage.id, language: language)
+      it "should return layoutpages" do
+        create(:alchemy_page, :public, layoutpage: true, name: "Layoutpage", language: language)
         expect(Page.layoutpages.size).to eq(1)
       end
     end
 
     describe ".not_locked" do
       it "should return pages that are not blocked by a user at the moment" do
-        create(:alchemy_page, :public, :locked, name: "First Public Child", parent_id: language_root.id, language: language)
-        create(:alchemy_page, :public, name: "Second Public Child", parent_id: language_root.id, language: language)
-        expect(Page.not_locked.size).to eq(3)
+        create(:alchemy_page, :public, :locked, name: "First Public Child", parent: language_root, language: language)
+        create(:alchemy_page, :public, name: "Second Public Child", parent: language_root, language: language)
+        expect(Page.not_locked.size).to eq(2)
       end
     end
 
     describe ".not_restricted" do
-      it "should return 2 accessible pages" do
-        create(:alchemy_page, :public, name: "First Public Child", restricted: true, parent_id: language_root.id, language: language)
-        expect(Page.not_restricted.size).to eq(2)
+      it "should return accessible pages" do
+        create(:alchemy_page, :public, name: "First Public Child", restricted: true, parent: language_root, language: language)
+        expect(Page.not_restricted.size).to eq(1)
       end
     end
 
@@ -593,21 +585,21 @@ module Alchemy
       let!(:public_one) do
         create :alchemy_page, :public,
           name: "First Public Child",
-          parent_id: language_root.id,
+          parent: language_root,
           language: language
       end
 
       let!(:public_two) do
         create :alchemy_page, :public,
           name: "Second Public Child",
-          parent_id: language_root.id,
+          parent: language_root,
           language: language
       end
 
       let!(:non_public_page) do
         create :alchemy_page,
           name: "Non Public Child",
-          parent_id: language_root.id,
+          parent: language_root,
           language: language
       end
 
@@ -620,43 +612,21 @@ module Alchemy
 
     describe ".public_language_roots" do
       it "should return pages that public language roots" do
-        create(:alchemy_page, :public, name: "First Public Child", parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: "First Public Child", parent: language_root, language: language)
         expect(Page.public_language_roots.size).to eq(1)
       end
     end
 
     describe ".restricted" do
       it "should return 1 restricted page" do
-        create(:alchemy_page, :public, name: "First Public Child", restricted: true, parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: "First Public Child", restricted: true, parent: language_root, language: language)
         expect(Page.restricted.size).to eq(1)
-      end
-    end
-
-    describe ".root" do
-      context "when root page is present" do
-        let!(:root_page) { Page.root }
-
-        it "returns root page" do
-          expect(Page.root).to eq(root_page)
-        end
-      end
-
-      context "when no root page is present yet" do
-        before do
-          Page.delete_all
-        end
-
-        it "creates and returns root page" do
-          expect {
-            Page.root
-          }.to change { Page.count }.by(1)
-        end
       end
     end
 
     describe ".visible" do
       it "should return 1 visible page" do
-        create(:alchemy_page, :public, name: "First Public Child", visible: true, parent_id: language_root.id, language: language)
+        create(:alchemy_page, :public, name: "First Public Child", visible: true, parent: language_root, language: language)
         expect(Page.visible.size).to eq(1)
       end
     end
@@ -1061,7 +1031,7 @@ module Alchemy
         create :alchemy_page,
           name: "First child",
           language: language,
-          parent_id: language_root.id
+          parent: language_root
       end
 
       context "with existing public child" do
@@ -1069,7 +1039,7 @@ module Alchemy
           create :alchemy_page, :public,
                  name: "First public child",
                  language: language,
-                 parent_id: language_root.id
+                 parent: language_root
         end
 
         it "should return first_public_child" do
@@ -1147,10 +1117,6 @@ module Alchemy
       context "for a language root page" do
         it "it returns the page layout definition as hash." do
           expect(language_root.definition["name"]).to eq("index")
-        end
-
-        it "it returns an empty hash for root page." do
-          expect(rootpage.definition).to eq({})
         end
       end
     end
@@ -1601,10 +1567,10 @@ module Alchemy
 
     context "urlname updating" do
       let(:parentparent) { create(:alchemy_page, name: "parentparent", visible: true) }
-      let(:parent) { create(:alchemy_page, parent_id: parentparent.id, name: "parent", visible: true) }
-      let(:page) { create(:alchemy_page, parent_id: parent.id, name: "page", visible: true) }
-      let(:invisible) { create(:alchemy_page, parent_id: page.id, name: "invisible", visible: false) }
-      let(:contact) { create(:alchemy_page, parent_id: invisible.id, name: "contact", visible: true) }
+      let(:parent) { create(:alchemy_page, parent: parentparent, name: "parent", visible: true) }
+      let(:page) { create(:alchemy_page, parent: parent, name: "page", visible: true) }
+      let(:invisible) { create(:alchemy_page, parent: page, name: "invisible", visible: false) }
+      let(:contact) { create(:alchemy_page, parent: invisible, name: "contact", visible: true) }
       let(:language_root) { parentparent.parent }
 
       context "with activated url_nesting" do
@@ -1614,12 +1580,6 @@ module Alchemy
 
         it "should store all parents urlnames delimited by slash" do
           expect(page.urlname).to eq("parentparent/parent/page")
-        end
-
-        it "should not include the root page" do
-          Page.root.update_column(:urlname, "root")
-          language_root.update(urlname: "new-urlname")
-          expect(language_root.urlname).not_to match(/root/)
         end
 
         it "should not include the language root page" do
@@ -1683,7 +1643,7 @@ module Alchemy
 
     describe "#update_node!" do
       let(:original_url) { "sample-url" }
-      let(:page) { create(:alchemy_page, language: language, parent_id: language_root.id, urlname: original_url, restricted: false) }
+      let(:page) { create(:alchemy_page, language: language, parent: language_root, urlname: original_url, restricted: false) }
       let(:node) { TreeNode.new(10, 11, 12, 13, "another-url", true) }
 
       context "when nesting is enabled" do
