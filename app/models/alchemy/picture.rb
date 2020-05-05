@@ -26,7 +26,7 @@ module Alchemy
 
     include Alchemy::NameConversions
     include Alchemy::Taggable
-    include Alchemy::ContentTouching
+    include Alchemy::TouchElements
     include Alchemy::Picture::Transformations
     include Alchemy::Picture::Url
 

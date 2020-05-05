@@ -73,11 +73,11 @@ module Alchemy
         put :assign, params: {content_id: content.id, attachment_id: attachment.id}, xhr: true
       end
 
-      it "updates the @content.updated_at column" do
-        content.update_column(:updated_at, 3.days.ago)
+      it "updates the elements updated_at column" do
+        content.element.update_column(:updated_at, 3.days.ago)
         expect {
           put :assign, params: {content_id: content.id, attachment_id: attachment.id}, xhr: true
-        }.to change(content, :updated_at)
+        }.to change(content.element, :updated_at)
       end
     end
   end

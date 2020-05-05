@@ -249,11 +249,11 @@ module Alchemy
         expect(assigns(:content).essence.picture).to eq(picture)
       end
 
-      it "updates the content timestamp" do
-        content.update_column(:updated_at, 3.days.ago)
+      it "updates the element timestamp" do
+        content.element.update_column(:updated_at, 3.days.ago)
         expect {
           put :assign, params: {content_id: "1", picture_id: "1"}, xhr: true
-        }.to change(content, :updated_at)
+        }.to change(content.element, :updated_at)
       end
     end
   end

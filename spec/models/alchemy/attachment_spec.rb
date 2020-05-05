@@ -38,7 +38,7 @@ module Alchemy
 
         let(:content) do
           create(:alchemy_content, :essence_file).tap do |content|
-            content.update_column(:updated_at, 3.hours.ago)
+            content.element.update_column(:updated_at, 3.hours.ago)
           end
         end
 
@@ -46,8 +46,8 @@ module Alchemy
           content.essence.update(attachment: attachment)
         end
 
-        it "touches contents" do
-          expect { attachment.save }.to change { content.reload.updated_at }
+        it "touches elements" do
+          expect { attachment.save }.to change { attachment.elements.reload.first.updated_at }
         end
       end
     end

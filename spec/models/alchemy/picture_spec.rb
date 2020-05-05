@@ -430,7 +430,7 @@ module Alchemy
 
         let(:content) do
           create(:alchemy_content, :essence_picture).tap do |content|
-            content.update_column(:updated_at, 3.hours.ago)
+            content.element.update_column(:updated_at, 3.hours.ago)
           end
         end
 
@@ -438,8 +438,8 @@ module Alchemy
           content.essence.update(picture: picture)
         end
 
-        it "touches contents" do
-          expect { picture.save }.to change { content.reload.updated_at }
+        it "touches elements" do
+          expect { picture.save }.to change { picture.elements.reload.first.updated_at }
         end
       end
     end

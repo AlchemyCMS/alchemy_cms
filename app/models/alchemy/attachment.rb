@@ -22,7 +22,7 @@ module Alchemy
     include Alchemy::Filetypes
     include Alchemy::NameConversions
     include Alchemy::Taggable
-    include Alchemy::ContentTouching
+    include Alchemy::TouchElements
 
     dragonfly_accessor :file, app: :alchemy_attachments do
       after_assign { |f| write_attribute(:file_mime_type, f.mime_type) }
