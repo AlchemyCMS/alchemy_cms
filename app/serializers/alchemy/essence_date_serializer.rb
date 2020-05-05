@@ -2,7 +2,9 @@
 
 module Alchemy
   class EssenceDateSerializer < ActiveModel::Serializer
-    attributes :id,
+    attributes(
+      :id,
       :date,
+    )
   end
 end

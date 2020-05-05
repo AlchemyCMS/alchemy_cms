@@ -51,10 +51,10 @@ module Alchemy
 
       let(:element) { create(:alchemy_element, :with_contents, name: "text") }
       let(:content) { element.contents.first }
-      let(:params)  { {} }
+      let(:params) { {} }
 
       context "with params given" do
-        let(:params)  { {body: "Mikes Petshop"} }
+        let(:params) { { body: "Mikes Petshop" } }
         let(:essence) { content.essence }
 
         before do
@@ -101,7 +101,7 @@ module Alchemy
       end
 
       it "should create a new record with all attributes of source except given differences" do
-        copy = Content.copy(content, {element_id: new_element.id})
+        copy = Content.copy(content, { element_id: new_element.id })
         expect(copy.element_id).to eq(new_element.id)
       end
 
@@ -132,7 +132,7 @@ module Alchemy
             [
               {
                 "name" => "foo",
-                "contents" => [{"name" => "title"}],
+                "contents" => [{ "name" => "title" }],
               },
               {
                 "name" => "bar",
@@ -143,7 +143,7 @@ module Alchemy
 
         it "returns only content definitions" do
           expect(Content.definitions).to match_array(
-            [{"name" => "title"}],
+            [{ "name" => "title" }],
           )
         end
       end
@@ -152,7 +152,7 @@ module Alchemy
     describe ".new" do
       let(:element) { build(:alchemy_element) }
 
-      subject { Content.new({element: element, name: "headline"}) }
+      subject { Content.new({ element: element, name: "headline" }) }
 
       it "builds a new content instance from elements.yml definition" do
         is_expected.to be_instance_of(Content)
@@ -306,7 +306,7 @@ module Alchemy
       context "having custom tinymce config hash" do
         before do
           expect(content).to receive(:settings) do
-            {tinymce: {toolbar: []}}
+            { tinymce: { toolbar: [] } }
           end
         end
 
@@ -341,7 +341,7 @@ module Alchemy
       context "having custom tinymce config hash" do
         before do
           expect(content).to receive(:settings) do
-            {tinymce: {toolbar: []}}
+            { tinymce: { toolbar: [] } }
           end
         end
 
@@ -377,7 +377,7 @@ module Alchemy
       let(:content) { build_stubbed(:alchemy_content, name: "headline", element: element) }
 
       it "returns the settings hash from definition" do
-        expect(content.settings).to eq({"linkable" => true})
+        expect(content.settings).to eq({ "linkable" => true })
       end
 
       context "if settings are not defined" do
@@ -400,7 +400,7 @@ module Alchemy
       end
 
       context "with content having settings" do
-        let(:settings) { {key: "settings_value"} }
+        let(:settings) { { key: "settings_value" } }
 
         context "and empty options" do
           let(:options) { {} }
@@ -419,7 +419,7 @@ module Alchemy
         end
 
         context "but same key present in options" do
-          let(:options) { {key: "options_value"} }
+          let(:options) { { key: "options_value" } }
 
           it "returns the value for key from options" do
             expect(subject).to eq("options_value")
@@ -437,7 +437,7 @@ module Alchemy
         end
 
         context "but key present in options" do
-          let(:options) { {key: "options_value"} }
+          let(:options) { { key: "options_value" } }
 
           it "returns the value for key from options" do
             expect(subject).to eq("options_value")
@@ -446,7 +446,7 @@ module Alchemy
       end
 
       context "with content having settings with string as key" do
-        let(:settings) { {"key" => "value_from_string_key"} }
+        let(:settings) { { "key" => "value_from_string_key" } }
         let(:options) { {} }
 
         it "returns value" do
@@ -455,8 +455,8 @@ module Alchemy
       end
 
       context "with key passed as string" do
-        let(:settings) { {key: "value_from_symbol_key"} }
-        let(:key)     { "key" }
+        let(:settings) { { key: "value_from_symbol_key" } }
+        let(:key) { "key" }
         let(:options) { {} }
 
         it "returns value" do

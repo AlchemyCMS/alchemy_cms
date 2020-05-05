@@ -2,13 +2,15 @@
 
 module Alchemy
   class EssencePictureSerializer < ActiveModel::Serializer
-    attributes :id,
+    attributes(
+      :id,
       :picture_id,
       :caption,
       :title,
       :alt_tag,
       :css_class,
       :link,
+    )
 
     has_one :picture
 

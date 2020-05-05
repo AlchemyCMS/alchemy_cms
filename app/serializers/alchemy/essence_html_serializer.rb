@@ -2,7 +2,9 @@
 
 module Alchemy
   class EssenceHtmlSerializer < ActiveModel::Serializer
-    attributes :id,
+    attributes(
+      :id,
       :source,
+    )
   end
 end

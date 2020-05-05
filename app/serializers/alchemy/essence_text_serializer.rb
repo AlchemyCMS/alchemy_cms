@@ -2,9 +2,11 @@
 
 module Alchemy
   class EssenceTextSerializer < ActiveModel::Serializer
-    attributes :id,
+    attributes(
+      :id,
       :body,
       :link,
+    )
 
     def link
       return if object.link.blank?

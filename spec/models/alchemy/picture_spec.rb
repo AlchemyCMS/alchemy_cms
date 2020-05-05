@@ -333,10 +333,12 @@ module Alchemy
       context "is assigned on pages" do
         context "that are all restricted" do
           before do
-            expect(picture).to receive(:pages).at_least(:once).and_return double(
-                                                         not_restricted: double(blank?: true),
-                                                         any?: true,
-                                                       )
+            expect(picture).to receive(:pages).at_least(:once) do
+              double(
+                not_restricted: double(blank?: true),
+                any?: true,
+              )
+            end
           end
 
           it { is_expected.to be_truthy }
@@ -344,10 +346,12 @@ module Alchemy
 
         context "that are not all restricted" do
           before do
-            expect(picture).to receive(:pages).at_least(:once).and_return double(
-                                                         not_restricted: double(blank?: false),
-                                                         any?: true,
-                                                       )
+            expect(picture).to receive(:pages).at_least(:once) do
+              double(
+                not_restricted: double(blank?: false),
+                any?: true,
+              )
+            end
           end
 
           it { is_expected.to be_falsey }

@@ -2,7 +2,9 @@
 
 module Alchemy
   class EssenceBooleanSerializer < ActiveModel::Serializer
-    attributes :id,
+    attributes(
+      :id,
       :value,
+    )
   end
 end

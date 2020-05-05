@@ -76,21 +76,10 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    scope :named, ->(name) {
-            where("#{table_name}.name LIKE ?", "%#{name}%")
-          }
-
-    scope :recent, -> {
-            where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at)
-          }
-
-    scope :deletable, -> {
-            where("#{table_name}.id NOT IN (SELECT picture_id FROM #{EssencePicture.table_name})")
-          }
-
-    scope :without_tag, -> {
-            left_outer_joins(:taggings).where(gutentag_taggings: { id: nil })
-          }
+    scope :named, ->(name) { where("#{table_name}.name LIKE ?", "%#{name}%") }
+    scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
+    scope :deletable, -> { where("#{table_name}.id NOT IN (SELECT picture_id FROM #{EssencePicture.table_name})") }
+    scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: { id: nil }) }
 
     # Class methods
 
