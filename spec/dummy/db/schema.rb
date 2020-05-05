@@ -34,12 +34,8 @@ ActiveRecord::Schema.define(version: 2020_04_23_073425) do
     t.integer "element_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "creator_id"
-    t.integer "updater_id"
-    t.index ["creator_id"], name: "index_alchemy_contents_on_creator_id"
     t.index ["element_id"], name: "index_alchemy_contents_on_element_id"
     t.index ["essence_type", "essence_id"], name: "index_alchemy_contents_on_essence_type_and_essence_id", unique: true
-    t.index ["updater_id"], name: "index_alchemy_contents_on_updater_id"
   end
 
   create_table "alchemy_elements", force: :cascade do |t|

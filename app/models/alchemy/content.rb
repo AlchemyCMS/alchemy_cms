@@ -28,8 +28,6 @@ module Alchemy
     belongs_to :element, touch: true, inverse_of: :contents
     has_one :page, through: :element
 
-    stampable stamper_class_name: Alchemy.user_class_name
-
     # Essence scopes
     scope :essence_booleans, -> { where(essence_type: "Alchemy::EssenceBoolean") }
     scope :essence_dates, -> { where(essence_type: "Alchemy::EssenceDate") }
