@@ -137,8 +137,8 @@ module Alchemy
     before_save :set_fixed_attributes,
       if: -> { fixed_attributes.any? }
 
-    before_create :set_language_from_parent_or_default,
-      if: -> { language_id.blank? },
+    before_create :set_language,
+      if: -> { language.nil? },
       unless: :systempage?
 
     after_update :create_legacy_url,
@@ -547,8 +547,8 @@ module Alchemy
         .limit(1).first
     end
 
-    def set_language_from_parent_or_default
-      self.language = parent.language || Language.default
+    def set_language
+      self.language = parent&.language || Language.current
       set_language_code
     end
 

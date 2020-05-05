@@ -4,13 +4,13 @@ require "rails_helper"
 
 module Alchemy
   describe Page do
-    let(:rootpage)      { Page.root }
-    let(:language)      { create(:alchemy_language, :english, default: true) }
-    let(:klingon)       { create(:alchemy_language, :klingon) }
+    let(:rootpage) { Page.root }
+    let(:language) { create(:alchemy_language, :english, default: true) }
+    let(:klingon) { create(:alchemy_language, :klingon) }
     let(:language_root) { create(:alchemy_page, :language_root) }
-    let(:page)          { mock_model(Page, page_layout: "foo") }
-    let(:public_page)   { create(:alchemy_page, :public) }
-    let(:news_page)     { create(:alchemy_page, :public, page_layout: "news", autogenerate_elements: true) }
+    let(:page) { mock_model(Page, page_layout: "foo") }
+    let(:public_page) { create(:alchemy_page, :public) }
+    let(:news_page) { create(:alchemy_page, :public, page_layout: "news", autogenerate_elements: true) }
 
     it { is_expected.to have_one(:site) }
 
@@ -18,8 +18,8 @@ module Alchemy
 
     context "validations" do
       context "Creating a normal content page" do
-        let(:contentpage)              { build(:alchemy_page) }
-        let(:with_same_urlname)        { create(:alchemy_page, urlname: "existing_twice") }
+        let(:contentpage) { build(:alchemy_page) }
+        let(:with_same_urlname) { create(:alchemy_page, urlname: "existing_twice") }
         let(:global_with_same_urlname) { create(:alchemy_page, urlname: "existing_twice", layoutpage: true) }
 
         context "when its urlname exists as global page" do
@@ -190,7 +190,7 @@ module Alchemy
       context "after_move" do
         let(:parent_1) { create(:alchemy_page, name: "Parent 1", visible: true) }
         let(:parent_2) { create(:alchemy_page, name: "Parent 2", visible: true) }
-        let(:page)     { create(:alchemy_page, parent_id: parent_1.id, name: "Page", visible: true) }
+        let(:page) { create(:alchemy_page, parent_id: parent_1.id, name: "Page", visible: true) }
 
         it "updates the urlname" do
           expect(page.urlname).to eq("parent-1/page")
@@ -310,8 +310,8 @@ module Alchemy
           page_1 = create(:alchemy_page, language: language)
           page_2 = create(:alchemy_page, language: language, name: "Another page")
           clipboard = [
-            {"id" => page_1.id.to_s, "action" => "copy"},
-            {"id" => page_2.id.to_s, "action" => "copy"},
+            { "id" => page_1.id.to_s, "action" => "copy" },
+            { "id" => page_2.id.to_s, "action" => "copy" },
           ]
           expect(Page.all_from_clipboard_for_select(clipboard, language.id)).to include(page_1, page_2)
         end
@@ -321,7 +321,7 @@ module Alchemy
         it "should not return any pages" do
           page_1 = create(:alchemy_page, language: language, page_layout: "contact")
           clipboard = [
-            {"id" => page_1.id.to_s, "action" => "copy"},
+            { "id" => page_1.id.to_s, "action" => "copy" },
           ]
           expect(Page.all_from_clipboard_for_select(clipboard, language.id)).to eq([])
         end
@@ -332,8 +332,8 @@ module Alchemy
           page_1 = create(:alchemy_page, language: language, page_layout: "standard")
           page_2 = create(:alchemy_page, name: "Another page", language: language, page_layout: "contact")
           clipboard = [
-            {"id" => page_1.id.to_s, "action" => "copy"},
-            {"id" => page_2.id.to_s, "action" => "copy"},
+            { "id" => page_1.id.to_s, "action" => "copy" },
+            { "id" => page_2.id.to_s, "action" => "copy" },
           ]
           expect(Page.all_from_clipboard_for_select(clipboard, language.id)).to eq([page_1])
         end
@@ -352,9 +352,8 @@ module Alchemy
 
       before do
         create(:alchemy_page, :public, :locked, locked_by: 53) # This page must not be part of the collection
-        allow(user.class)
-          .to receive(:primary_key)
-          .and_return("id")
+        allow(user.class).to receive(:primary_key)
+                               .and_return("id")
       end
 
       it "should return the correct page collection blocked by a certain user" do
@@ -366,9 +365,8 @@ module Alchemy
         let(:user) { double(:user, user_id: 123, class: DummyUser) }
 
         before do
-          allow(user.class)
-            .to receive(:primary_key)
-            .and_return("user_id")
+          allow(user.class).to receive(:primary_key)
+                                 .and_return("user_id")
         end
 
         it "should return the correct page collection blocked by a certain user" do
@@ -380,8 +378,8 @@ module Alchemy
 
     describe ".ancestors_for" do
       let(:lang_root) { Page.language_root_for(Language.default.id) }
-      let(:parent)    { create(:alchemy_page, :public) }
-      let(:page)      { create(:alchemy_page, :public, parent_id: parent.id) }
+      let(:parent) { create(:alchemy_page, :public) }
+      let(:page) { create(:alchemy_page, :public, parent_id: parent.id) }
 
       it "returns an array of all parents including self" do
         expect(Page.ancestors_for(page)).to eq([lang_root, parent, page])
@@ -536,7 +534,7 @@ module Alchemy
       end
 
       context "with different page name given" do
-        subject { Page.copy(page, {name: "Different name"}) }
+        subject { Page.copy(page, { name: "Different name" }) }
 
         it "should take this name" do
           expect(subject.name).to eq("Different name")
@@ -585,14 +583,14 @@ module Alchemy
 
         context "with language given" do
           it "does not set the language from parent" do
-            expect_any_instance_of(Page).not_to receive(:set_language_from_parent_or_default)
+            expect_any_instance_of(Page).not_to receive(:set_language)
             Page.create!(name: "A", parent_id: language_root.id, page_layout: "standard", language: language)
           end
         end
 
         context "with no language given" do
           it "sets the language from parent" do
-            expect_any_instance_of(Page).to receive(:set_language_from_parent_or_default)
+            expect_any_instance_of(Page).to receive(:set_language)
             Page.create!(name: "A", parent_id: language_root.id, page_layout: "standard")
           end
         end
@@ -739,13 +737,13 @@ module Alchemy
             {
               "name" => "column_headline",
               "amount" => 3,
-              "contents" => [{"name" => "headline", "type" => "EssenceText"}],
+              "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
             },
             {
               "name" => "unique_headline",
               "unique" => true,
               "amount" => 3,
-              "contents" => [{"name" => "headline", "type" => "EssenceText"}],
+              "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
             },
           ])
           allow(PageLayout).to receive(:get).and_return({
@@ -965,11 +963,11 @@ module Alchemy
     describe "#element_definitions" do
       let(:page) { build_stubbed(:alchemy_page) }
       subject { page.element_definitions }
-      before { expect(Element).to receive(:definitions).and_return([{"name" => "article"}, {"name" => "header"}]) }
+      before { expect(Element).to receive(:definitions).and_return([{ "name" => "article" }, { "name" => "header" }]) }
 
       it "returns all element definitions that could be placed on current page" do
-        is_expected.to include({"name" => "article"})
-        is_expected.to include({"name" => "header"})
+        is_expected.to include({ "name" => "article" })
+        is_expected.to include({ "name" => "header" })
       end
     end
 
@@ -990,9 +988,9 @@ module Alchemy
           end
           expect(Element).to receive(:definitions).at_least(:once) do
             [
-              {"name" => "slider", "nestable_elements" => %w(slide)},
-              {"name" => "gallery", "nestable_elements" => %w(slide)},
-              {"name" => "slide"},
+              { "name" => "slider", "nestable_elements" => %w(slide) },
+              { "name" => "gallery", "nestable_elements" => %w(slide) },
+              { "name" => "slide" },
             ]
           end
         end
@@ -1039,7 +1037,7 @@ module Alchemy
 
       context "with elements assigned in page definition" do
         let(:page_definition) do
-          {"elements" => %w(article)}
+          { "elements" => %w(article) }
         end
 
         it "returns an array of the page's element names" do
@@ -1108,9 +1106,9 @@ module Alchemy
       context "with existing public child" do
         let!(:first_public_child) do
           create :alchemy_page, :public,
-          name: "First public child",
-          language: language,
-          parent_id: language_root.id
+                 name: "First public child",
+                 language: language,
+                 parent_id: language_root.id
         end
 
         it "should return first_public_child" do
@@ -1145,9 +1143,7 @@ module Alchemy
 
           context "if page is folded" do
             before do
-              expect(page)
-                .to receive(:folded_pages)
-                .and_return double(where: double(any?: true))
+              expect(page).to receive(:folded_pages).and_return double(where: double(any?: true))
             end
 
             it "should return true" do
@@ -1230,11 +1226,11 @@ module Alchemy
 
       it "should copy the source page with the given name to the new parent" do
         expect(Page).to receive(:copy).with(source, {
-          parent_id: new_parent.id,
-          language: new_parent.language,
-          name: page_name,
-          title: page_name,
-          })
+                          parent_id: new_parent.id,
+                          language: new_parent.language,
+                          name: page_name,
+                          title: page_name,
+                        })
         subject
       end
 
@@ -1254,8 +1250,8 @@ module Alchemy
     end
 
     context "previous and next." do
-      let(:center_page)     { create(:alchemy_page, :public, name: "Center Page") }
-      let(:next_page)       { create(:alchemy_page, :public, name: "Next Page") }
+      let(:center_page) { create(:alchemy_page, :public, name: "Center Page") }
+      let(:next_page) { create(:alchemy_page, :public, name: "Next Page") }
       let(:non_public_page) { create(:alchemy_page, name: "Not public Page") }
       let(:restricted_page) { create(:alchemy_page, :restricted, :public) }
 
@@ -1329,7 +1325,7 @@ module Alchemy
 
       context "template defines one alchemy role" do
         before do
-          allow(page).to receive(:definition).and_return({"editable_by" => ["freelancer"]})
+          allow(page).to receive(:definition).and_return({ "editable_by" => ["freelancer"] })
         end
 
         context "user has matching alchemy role" do
@@ -1350,7 +1346,7 @@ module Alchemy
 
       context "template defines multiple alchemy roles" do
         before do
-          allow(page).to receive(:definition).and_return({"editable_by" => ["freelancer", "admin"]})
+          allow(page).to receive(:definition).and_return({ "editable_by" => ["freelancer", "admin"] })
         end
 
         context "user has matching alchemy role" do
@@ -1484,13 +1480,12 @@ module Alchemy
       let(:current_time) { Time.current.change(usec: 0) }
       let(:page) do
         create(:alchemy_page,
-          public_on: public_on,
-          public_until: public_until,
-          published_at: published_at,
-        )
+               public_on: public_on,
+               public_until: public_until,
+               published_at: published_at)
       end
       let(:published_at) { nil }
-      let(:public_on)    { nil }
+      let(:public_on) { nil }
       let(:public_until) { nil }
 
       before do
@@ -1501,19 +1496,19 @@ module Alchemy
       context "with unpublished page" do
         it "sets public_on and published_at", aggregate_failures: true do
           expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to    eq(current_time)
+          expect(page.public_on).to eq(current_time)
           expect(page.public_until).to eq(nil)
         end
       end
 
       context "with already published page" do
-        let(:past_time)    { current_time - 3.weeks }
+        let(:past_time) { current_time - 3.weeks }
         let(:published_at) { past_time }
-        let(:public_on)    { past_time }
+        let(:public_on) { past_time }
 
         it "only sets published_at", aggregate_failures: true do
           expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to    eq(public_on)
+          expect(page.public_on).to eq(public_on)
           expect(page.public_until).to eq(nil)
         end
 
@@ -1531,27 +1526,27 @@ module Alchemy
 
         it "resets public_on and sets published_at", aggregate_failures: true do
           expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to    eq(current_time)
+          expect(page.public_on).to eq(current_time)
           expect(page.public_until).to eq(nil)
         end
       end
 
       context "with not anymore published page" do
-        let(:past_time)    { current_time - 3.weeks }
+        let(:past_time) { current_time - 3.weeks }
         let(:published_at) { past_time }
-        let(:public_on)    { past_time }
+        let(:public_on) { past_time }
         let(:public_until) { past_time + 1.week }
 
         it "resets public_on and published_at and sets public_until to nil",
           aggregate_failures: true do
           expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to    eq(public_on)
+          expect(page.public_on).to eq(public_on)
           expect(page.public_until).to eq(nil)
         end
       end
     end
 
-    describe "#set_language_from_parent_or_default" do
+    describe "#set_language" do
       let(:default_language) { mock_model("Language", code: "es") }
       let(:page) { Page.new }
 
@@ -1563,7 +1558,7 @@ module Alchemy
         let(:parent) { mock_model("Page", language: default_language, language_id: default_language.id, language_code: default_language.code) }
 
         before do
-          page.send(:set_language_from_parent_or_default)
+          page.send(:set_language)
         end
 
         describe "#language_id" do
@@ -1577,7 +1572,7 @@ module Alchemy
 
         before do
           allow(Language).to receive(:default).and_return(default_language)
-          page.send(:set_language_from_parent_or_default)
+          page.send(:set_language)
         end
 
         describe "#language_id" do
@@ -1591,7 +1586,7 @@ module Alchemy
       context "definition has 'taggable' key with true value" do
         it "should return true" do
           page = build(:alchemy_page)
-          allow(page).to receive(:definition).and_return({"name" => "standard", "taggable" => true})
+          allow(page).to receive(:definition).and_return({ "name" => "standard", "taggable" => true })
           expect(page.taggable?).to be_truthy
         end
       end
@@ -1599,7 +1594,7 @@ module Alchemy
       context "definition has 'taggable' key with foo value" do
         it "should return false" do
           page = build(:alchemy_page)
-          allow(page).to receive(:definition).and_return({"name" => "standard", "taggable" => "foo"})
+          allow(page).to receive(:definition).and_return({ "name" => "standard", "taggable" => "foo" })
           expect(page.taggable?).to be_falsey
         end
       end
@@ -1607,7 +1602,7 @@ module Alchemy
       context "definition has no 'taggable' key" do
         it "should return false" do
           page = build(:alchemy_page)
-          allow(page).to receive(:definition).and_return({"name" => "standard"})
+          allow(page).to receive(:definition).and_return({ "name" => "standard" })
           expect(page.taggable?).to be_falsey
         end
       end
@@ -1644,11 +1639,11 @@ module Alchemy
     end
 
     context "urlname updating" do
-      let(:parentparent)  { create(:alchemy_page, name: "parentparent", visible: true) }
-      let(:parent)        { create(:alchemy_page, parent_id: parentparent.id, name: "parent", visible: true) }
-      let(:page)          { create(:alchemy_page, parent_id: parent.id, name: "page", visible: true) }
-      let(:invisible)     { create(:alchemy_page, parent_id: page.id, name: "invisible", visible: false) }
-      let(:contact)       { create(:alchemy_page, parent_id: invisible.id, name: "contact", visible: true) }
+      let(:parentparent) { create(:alchemy_page, name: "parentparent", visible: true) }
+      let(:parent) { create(:alchemy_page, parent_id: parentparent.id, name: "parent", visible: true) }
+      let(:page) { create(:alchemy_page, parent_id: parent.id, name: "page", visible: true) }
+      let(:invisible) { create(:alchemy_page, parent_id: page.id, name: "invisible", visible: false) }
+      let(:contact) { create(:alchemy_page, parent_id: invisible.id, name: "contact", visible: true) }
       let(:language_root) { parentparent.parent }
 
       context "with activated url_nesting" do
@@ -1858,7 +1853,7 @@ module Alchemy
 
       describe "#status" do
         it "returns a combined status hash" do
-          expect(page.status).to eq({public: true, visible: true, restricted: false, locked: false})
+          expect(page.status).to eq({ public: true, visible: true, restricted: false, locked: false })
         end
       end
 
@@ -2030,7 +2025,7 @@ module Alchemy
     describe "#published_at" do
       context "with published_at date set" do
         let(:published_at) { 3.days.ago }
-        let(:page)         { build_stubbed(:alchemy_page, published_at: published_at) }
+        let(:page) { build_stubbed(:alchemy_page, published_at: published_at) }
 
         it "returns the published_at value from database" do
           expect(page.published_at).to be_within(1.second).of(published_at)
@@ -2039,7 +2034,7 @@ module Alchemy
 
       context "with published_at is nil" do
         let(:updated_at) { 3.days.ago }
-        let(:page)       { build_stubbed(:alchemy_page, published_at: nil, updated_at: updated_at) }
+        let(:page) { build_stubbed(:alchemy_page, published_at: nil, updated_at: updated_at) }
 
         it "returns the updated_at value" do
           expect(page.published_at).to be_within(1.second).of(updated_at)
@@ -2093,8 +2088,7 @@ module Alchemy
         it "returns content ids for all expanded nested elements that have tinymce enabled" do
           expanded_rtf_contents = expanded_element.contents.essence_richtexts
           nested_expanded_rtf_contents = nested_expanded_element.contents.essence_richtexts
-          rtf_content_ids = expanded_rtf_contents.pluck(:id) +
-            nested_expanded_rtf_contents.pluck(:id)
+          rtf_content_ids = expanded_rtf_contents.pluck(:id) + nested_expanded_rtf_contents.pluck(:id)
           expect(richtext_contents_ids.sort).to eq(rtf_content_ids)
 
           nested_folded_rtf_content = nested_folded_element.contents.essence_richtexts.first
