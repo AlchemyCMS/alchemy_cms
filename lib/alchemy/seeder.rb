@@ -102,7 +102,7 @@ module Alchemy
         page = Alchemy::Page.create!(draft.merge(attributes))
         log "Created page: #{page.name}"
         children.each do |child|
-          create_page(child, parent: page)
+          create_page(child, parent: page, language: page.language)
         end
       end
 

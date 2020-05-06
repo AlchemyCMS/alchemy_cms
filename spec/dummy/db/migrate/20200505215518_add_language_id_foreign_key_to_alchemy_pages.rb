@@ -1,0 +1,1 @@
+../../../../db/migrate/20200505215518_add_language_id_foreign_key_to_alchemy_pages.rb
