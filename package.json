@@ -29,7 +29,7 @@
     "sortablejs": "^1.10.2"
   },
   "devDependencies": {
-    "babel-jest": "^25.2.6",
+    "babel-jest": "^26.0.1",
     "jest": "^25.2.7",
     "prettier": "^2.0.2",
     "webpack": "^4.42.1",
