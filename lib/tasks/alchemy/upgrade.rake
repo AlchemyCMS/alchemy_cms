@@ -21,6 +21,7 @@ namespace :alchemy do
     task database: [
       "alchemy:upgrade:5.0:install_gutentag_migrations",
       "alchemy:upgrade:5.0:remove_layout_roots",
+      "alchemy:upgrade:5.0:remove_root_page",
       "alchemy:install:migrations",
       "db:migrate",
       "alchemy:db:seed",
@@ -47,6 +48,11 @@ namespace :alchemy do
       desc "Remove layout root pages"
       task remove_layout_roots: [:environment] do
         Alchemy::Upgrader::FivePointZero.remove_layout_roots
+      end
+
+      desc "Remove root page"
+      task remove_root_page: [:environment] do
+        Alchemy::Upgrader::FivePointZero.remove_root_page
       end
     end
   end

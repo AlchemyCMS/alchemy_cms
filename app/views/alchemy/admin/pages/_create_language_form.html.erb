@@ -1,4 +1,3 @@
-<% if root = Alchemy::Page.rootpage %>
 <div class="panel">
   <%= render_message do %>
     <p><%= Alchemy.t(:language_does_not_exist) %></p>
@@ -37,7 +36,6 @@
       <%= form.hidden_field :language_id, value: @language.id %>
       <%= form.hidden_field :language_code, value: @language.code %>
       <%= form.hidden_field :language_root, value: true %>
-      <%= form.hidden_field :parent_id, value: root.id %>
       <%= form.hidden_field :public, value: Alchemy::Language.all.size == 1 %>
       <%= form.submit Alchemy.t("create_tree_as_new_language", language: @language.name), autofocus: true %>
     <% end %>
@@ -50,9 +48,3 @@
 <%- end -%>
 
 </div>
-<% else %>
-<%= render_message :error do %>
-  <h2>Root page not found.</h2>
-  <p>Please run <code>bin/rake db:seed</code> task.</p>
-<% end %>
-<% end %>

@@ -24,6 +24,18 @@ module Alchemy
           log "No layout root pages found.", :skip
         end
       end
+
+      def remove_root_page
+        desc "Remove root page"
+        root_page = Alchemy::Page.find_by(parent_id: nil, name: "Root")
+        if root_page
+          Alchemy::Page.where(parent_id: root_page.id).update_all(parent_id: nil)
+          root_page.delete
+          log "Done.", :success
+        else
+          log "Root page not found.", :skip
+        end
+      end
     end
   end
 end

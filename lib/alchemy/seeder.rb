@@ -45,7 +45,6 @@ module Alchemy
 
         contentpages.each do |page|
           create_page(page, {
-            parent: Alchemy::Page.root,
             language: Alchemy::Language.default,
             language_root: true,
           })

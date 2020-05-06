@@ -114,32 +114,28 @@ module Alchemy
     has_many :nodes, class_name: "Alchemy::Node", inverse_of: :page
 
     validates_presence_of :language, on: :create, unless: :root
-    validates_presence_of :page_layout, unless: :systempage?
-    validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { systempage? || page_layout.blank? }
-    validates_presence_of :parent_id, if: proc { Page.count > 1 }, unless: -> { layoutpage? }
+
+    validates_presence_of :page_layout
+    validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { page_layout.blank? }
+    validates_presence_of :parent, unless: -> { layoutpage? || language_root? }
 
     before_save :set_language_code,
-      if: -> { language.present? },
-      unless: :systempage?
+      if: -> { language.present? }
 
     before_save :set_restrictions_to_child_pages,
-      if: :restricted_changed?,
-      unless: :systempage?
+      if: :restricted_changed?
 
     before_save :inherit_restricted_status,
-      if: -> { parent && parent.restricted? },
-      unless: :systempage?
+      if: -> { parent && parent.restricted? }
 
     before_save :set_published_at,
-      if: -> { public_on.present? && published_at.nil? },
-      unless: :systempage?
+      if: -> { public_on.present? && published_at.nil? }
 
     before_save :set_fixed_attributes,
       if: -> { fixed_attributes.any? }
 
     before_create :set_language,
-      if: -> { language.nil? },
-      unless: :systempage?
+      if: -> { language.nil? }
 
     after_update :create_legacy_url,
       if: :should_create_legacy_url?
@@ -163,18 +159,6 @@ module Alchemy
     # Class methods
     #
     class << self
-      # The root page of the page tree
-      #
-      # Internal use only. You wouldn't use this page ever.
-      #
-      # Automatically created when accessed the first time.
-      #
-      def root
-        super || create!(name: "Root")
-      end
-
-      alias_method :rootpage, :root
-
       # Used to store the current page previewed in the edit page template.
       #
       def current_preview=(page)

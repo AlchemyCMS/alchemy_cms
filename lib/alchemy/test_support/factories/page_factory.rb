@@ -9,41 +9,26 @@ FactoryBot.define do
     sequence(:name) { |n| "A Page #{n}" }
     page_layout { "standard" }
 
-    parent_id do
-      (Alchemy::Page.find_by(language_root: true) ||
-       FactoryBot.create(:alchemy_page, :language_root, language: language)).id
+    parent do
+      Alchemy::Page.find_by(language_root: true, language: language) ||
+        FactoryBot.create(:alchemy_page, :language_root, language: language)
     end
 
     # This speeds up creating of pages dramatically.
     # Pass autogenerate_elements: true to generate elements
     autogenerate_elements { false }
 
-    trait :root do
-      name { "Root" }
-      language { nil }
-      parent_id { nil }
-      page_layout { nil }
-    end
-
     trait :language_root do
-      name { "Startseite" }
+      name { language.frontpage_name }
       page_layout { language.page_layout }
       language_root { true }
       public_on { Time.current }
-      parent_id { Alchemy::Page.root.id }
+      parent { nil }
     end
 
     trait :public do
       sequence(:name) { |n| "A Public Page #{n}" }
       public_on { Time.current }
-    end
-
-    trait :system do
-      name { "Systempage" }
-      parent_id { Alchemy::Page.root.id }
-      language_root { false }
-      page_layout { nil }
-      language { nil }
     end
 
     trait :layoutpage do

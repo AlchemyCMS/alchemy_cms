@@ -33,7 +33,7 @@ module Alchemy
         join_table: ElementToPage.table_name
 
       after_create :generate_elements,
-        unless: -> { systempage? || autogenerate_elements == false }
+        unless: -> { autogenerate_elements == false }
 
       after_update :trash_not_allowed_elements!,
         if: :has_page_layout_changed?
@@ -81,11 +81,11 @@ module Alchemy
     #
     def available_element_definitions(only_element_named = nil)
       @_element_definitions ||= if only_element_named
-        definition = Element.definition_by_name(only_element_named)
-        element_definitions_by_name(definition["nestable_elements"])
-      else
-        element_definitions
-      end
+          definition = Element.definition_by_name(only_element_named)
+          element_definitions_by_name(definition["nestable_elements"])
+        else
+          element_definitions
+        end
 
       return [] if @_element_definitions.blank?
 
@@ -107,13 +107,13 @@ module Alchemy
     #
     def available_elements_within_current_scope(parent)
       @_available_elements = if parent
-        parents_unique_nested_elements = parent.nested_elements.where(unique: true).pluck(:name)
-        available_element_definitions(parent.name).reject do |e|
-          parents_unique_nested_elements.include? e["name"]
+          parents_unique_nested_elements = parent.nested_elements.where(unique: true).pluck(:name)
+          available_element_definitions(parent.name).reject do |e|
+            parents_unique_nested_elements.include? e["name"]
+          end
+        else
+          available_element_definitions
         end
-      else
-        available_element_definitions
-      end
     end
 
     # All element definitions defined for page's page layout
@@ -181,7 +181,7 @@ module Alchemy
     #
     def richtext_contents_ids
       Alchemy::Content.joins(:element)
-        .where(Element.table_name => {page_id: id, folded: false})
+        .where(Element.table_name => { page_id: id, folded: false })
         .select(&:has_tinymce?)
         .collect(&:id)
     end

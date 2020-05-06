@@ -222,13 +222,11 @@ module Alchemy
       private
 
       def copy_of_language_root
-        page_copy = Page.copy(
+        Page.copy(
           language_root_to_copy_from,
           language_id: params[:languages][:new_lang_id],
           language_code: @current_language.code,
         )
-        page_copy.move_to_child_of Page.root
-        page_copy
       end
 
       def language_root_to_copy_from
@@ -363,7 +361,7 @@ module Alchemy
       def paste_from_clipboard
         if params[:paste_from_clipboard]
           source = Page.find(params[:paste_from_clipboard])
-          parent = Page.find_by(id: params[:page][:parent_id]) || Page.root
+          parent = Page.find_by(id: params[:page][:parent_id])
           Page.copy_and_paste(source, parent, params[:page][:name])
         end
       end
