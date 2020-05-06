@@ -7,8 +7,22 @@ class RemoveSiteIdFromNodes < ActiveRecord::Migration[5.2]
   end
 
   def down
-    # This IS, in fact, reversible - but it's cumbersome to do. If someone tells me it benefits them
-    # I will implement.
-    raise ActiveRecord::IrreversibleMigration
+    add_column :alchemy_nodes, :site_id, :integer, null: true
+    sql = <<~SQL
+      UPDATE alchemy_nodes
+      SET site_id = (
+        SELECT alchemy_languages.site_id FROM alchemy_languages WHERE alchemy_nodes.language_id = alchemy_languages.id
+      ) WHERE
+      EXISTS (
+        SELECT *
+        FROM alchemy_languages
+        WHERE alchemy_languages.id = alchemy_nodes.language_id
+      );
+    SQL
+
+    connection.execute(sql)
+    change_column :alchemy_nodes, :site_id, :integer, null: false
+    add_index :alchemy_nodes, :site_id
+    add_foreign_key :alchemy_nodes, :alchemy_sites, column: :site_id
   end
 end
