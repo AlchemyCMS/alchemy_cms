@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_04_210159) do
+ActiveRecord::Schema.define(version: 2020_05_05_215518) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -226,7 +226,7 @@ ActiveRecord::Schema.define(version: 2020_05_04_210159) do
     t.datetime "updated_at", null: false
     t.integer "creator_id"
     t.integer "updater_id"
-    t.integer "language_id"
+    t.integer "language_id", null: false
     t.datetime "published_at"
     t.datetime "public_on"
     t.datetime "public_until"
@@ -338,4 +338,5 @@ ActiveRecord::Schema.define(version: 2020_05_04_210159) do
   add_foreign_key "alchemy_essence_pages", "alchemy_pages", column: "page_id"
   add_foreign_key "alchemy_nodes", "alchemy_languages", column: "language_id"
   add_foreign_key "alchemy_nodes", "alchemy_pages", column: "page_id", on_delete: :cascade
+  add_foreign_key "alchemy_pages", "alchemy_languages", column: "language_id"
 end

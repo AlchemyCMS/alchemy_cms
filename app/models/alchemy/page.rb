@@ -87,7 +87,7 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    belongs_to :language, optional: true
+    belongs_to :language
 
     belongs_to :creator,
       primary_key: Alchemy.user_class_primary_key,
@@ -113,7 +113,8 @@ module Alchemy
     has_many :legacy_urls, class_name: "Alchemy::LegacyPageUrl"
     has_many :nodes, class_name: "Alchemy::Node", inverse_of: :page
 
-    validates_presence_of :language, on: :create, unless: :root
+    before_validation :set_language,
+      if: -> { language.nil? }
 
     validates_presence_of :page_layout
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { page_layout.blank? }
@@ -133,9 +134,6 @@ module Alchemy
 
     before_save :set_fixed_attributes,
       if: -> { fixed_attributes.any? }
-
-    before_create :set_language,
-      if: -> { language.nil? }
 
     after_update :create_legacy_url,
       if: :should_create_legacy_url?

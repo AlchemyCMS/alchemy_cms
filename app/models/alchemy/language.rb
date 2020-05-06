@@ -25,7 +25,7 @@ require_dependency "alchemy/site"
 module Alchemy
   class Language < BaseRecord
     belongs_to :site
-    has_many :pages
+    has_many :pages, inverse_of: :language
     has_many :nodes, inverse_of: :language
 
     before_validation :set_locale, if: -> { locale.blank? }

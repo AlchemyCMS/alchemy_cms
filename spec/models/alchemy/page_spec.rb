@@ -534,16 +534,18 @@ module Alchemy
         end
 
         context "with language given" do
+          let!(:page) { Page.create!(name: "A New Page", parent: language_root, language: language, page_layout: "standard") }
+
           it "does not set the language from parent" do
-            expect_any_instance_of(Page).not_to receive(:set_language)
-            Page.create!(name: "A", parent: language_root, page_layout: "standard", language: language)
+            expect(page.language).to eq(language)
           end
         end
 
         context "with no language given" do
+          let!(:page) { Page.create!(name: "A New Page", parent: language_root, language: nil, page_layout: "standard") }
+
           it "sets the language from parent" do
-            expect_any_instance_of(Page).to receive(:set_language)
-            Page.create!(name: "A", parent: language_root, page_layout: "standard")
+            expect(page.language).to eq(language_root.language)
           end
         end
       end
