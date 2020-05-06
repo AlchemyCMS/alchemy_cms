@@ -67,10 +67,10 @@ module Alchemy
 
       context "with multiple sites" do
         let!(:site_2) { create(:alchemy_site, host: "another-site.com") }
-        let!(:menu) { create(:alchemy_node, name: name, site: Alchemy::Site.current) }
+        let!(:menu) { create(:alchemy_node, name: name, language: Alchemy::Language.current) }
         let!(:node) { create(:alchemy_node, parent: menu, url: "/default-site") }
-        let!(:menu_2) { create(:alchemy_node, name: name, site: site_2) }
-        let!(:node_2) { create(:alchemy_node, parent: menu_2, site: site_2, url: "/site-2") }
+        let!(:menu_2) { create(:alchemy_node, name: name, language: klingon) }
+        let!(:node_2) { create(:alchemy_node, parent: menu_2, language: klingon, url: "/site-2") }
 
         it "renders menu from current site" do
           is_expected.to have_selector('ul.nav > li.nav-item > a.nav-link[href="/default-site"]')

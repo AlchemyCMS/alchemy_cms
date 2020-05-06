@@ -571,10 +571,8 @@ module Alchemy
     end
 
     def attach_to_menu!
-      current_site_id = Alchemy::Site.current.id
-      node = Alchemy::Node.find_by!(id: menu_id, site_id: current_site_id)
+      node = Alchemy::Node.find_by!(id: menu_id, language_id: language_id)
       node.children.create!(
-        site_id: current_site_id,
         language_id: language_id,
         page_id: id,
         name: name,

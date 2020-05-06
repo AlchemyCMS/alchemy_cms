@@ -36,7 +36,7 @@ RSpec.describe "Admin Menus Features", type: :system do
         select "Main Menu", from: "Name"
         click_button "create"
 
-        expect(node.site_id).to eq(default_site.id)
+        expect(node.site).to eq(default_site)
       end
     end
   end
