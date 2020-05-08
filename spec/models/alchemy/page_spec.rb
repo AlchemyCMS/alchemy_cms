@@ -60,14 +60,26 @@ module Alchemy
         end
       end
 
-      context "a page not being a language_root and without parent" do
+      context "a page not being a layoutpage and without parent" do
         let(:page) { build(:alchemy_page, parent: nil, layoutpage: nil) }
 
         it { expect(page).to_not be_valid }
       end
 
-      context "a page being a language_root and without parent" do
+      context "a page being a layoutpage and without parent" do
         let(:page) { build(:alchemy_page, parent: nil, layoutpage: true) }
+
+        it { expect(page).to be_valid }
+      end
+
+      context "a page not being a language_root and without parent" do
+        let(:page) { build(:alchemy_page, parent: nil, language_root: nil) }
+
+        it { expect(page).to_not be_valid }
+      end
+
+      context "a page being a language_root and without parent" do
+        let(:page) { build(:alchemy_page, parent: nil, language_root: true) }
 
         it { expect(page).to be_valid }
       end
