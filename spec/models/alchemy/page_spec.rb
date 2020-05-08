@@ -89,6 +89,28 @@ module Alchemy
 
         it { expect(page).to_not be_valid }
       end
+
+      context "if language_root already exists for language" do
+        let(:page) do
+          build(:alchemy_page, language_root: true, language: language_root.language)
+        end
+
+        it "is not possible to create another one" do
+          expect(page).to_not be_valid
+          expect(page.errors[:language_root]).to be_present
+        end
+      end
+
+      context "a layoutpage" do
+        let(:page) do
+          build(:alchemy_page, layoutpage: true, language_root: true)
+        end
+
+        it "cannot be a language_root" do
+          expect(page).to_not be_valid
+          expect(page.errors[:language_root]).to be_present
+        end
+      end
     end
 
     # Callbacks
@@ -370,11 +392,9 @@ module Alchemy
       end
 
       let!(:klingon_lang_root) do
-        create :alchemy_page, :language_root, {
-          name: "klingon_lang_root",
-          layoutpage: nil,
-          language: klingon,
-        }
+        klingon.root_page.tap do |page|
+          page.update_column(:layoutpage, nil)
+        end
       end
 
       let!(:contentpage) do
