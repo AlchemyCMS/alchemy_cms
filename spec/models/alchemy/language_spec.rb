@@ -5,6 +5,7 @@ require "rails_helper"
 module Alchemy
   describe Language do
     it { is_expected.to have_many(:nodes) }
+    it { is_expected.to have_one(:root_page) }
 
     let(:default_language) { create(:alchemy_language) }
     let(:language)         { create(:alchemy_language, :klingon) }

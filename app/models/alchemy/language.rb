@@ -30,6 +30,8 @@ module Alchemy
 
     before_validation :set_locale, if: -> { locale.blank? }
 
+    has_one :root_page, -> { where(parent: nil) }, class_name: "Alchemy::Page"
+
     validates :name, presence: true
     validates :page_layout, presence: true
     validates :frontpage_name, presence: true
@@ -104,11 +106,6 @@ module Alchemy
     end
 
     include Alchemy::Language::Code
-
-    # Root page
-    def root_page
-      @root_page ||= pages.language_roots.first
-    end
 
     # All available locales matching this language
     #
