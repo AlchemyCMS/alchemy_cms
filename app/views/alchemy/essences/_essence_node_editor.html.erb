@@ -1,21 +1,29 @@
-<%#
-  Available locals:
-  * content (The object the essence is linked to the element)
-  * html_options
-
-  Please consult Alchemy::Content.rb docs for further methods on the content object
-%>
-<div class="content_editor essence_node" id="<%= content.dom_id %>" data-content-id="<%= content.id %>">
-  <%= content_label(content) %>
-   <%= select_tag(
-    content.form_field_name,
-    options_from_collection_for_select(
-      local_assigns.fetch(:options, {})[:nodes] || Alchemy::Node.where(site: Alchemy::Site.current),
-      :id,
-      :name,
-      content.essence.node_id
-    ),
-    include_blank: t(".none"),
-    class: "alchemy_selectbox essence_editor_select full_width"
+<%= content_tag :div,
+  id: essence_node_editor.dom_id,
+  class: essence_node_editor.css_classes,
+  data: essence_node_editor.data_attributes do %>
+  <%= content_label(essence_node_editor) %>
+  <%= text_field_tag(
+    essence_node_editor.form_field_name,
+    essence_node_editor.essence.node_id,
+    id: essence_node_editor.form_field_id,
+    class: 'alchemy_selectbox full_width'
   ) %>
-</div>
+<% end %>
+
+<script>
+  <% query_params = essence_node_editor.settings.fetch(:query_params, {}).merge({
+    include: :ancestors
+  }) %>
+  $('#<%= essence_node_editor.form_field_id %>').alchemyNodeSelect({
+    placeholder: "<%= Alchemy.t(:search_node) %>",
+    url: "<%= alchemy.api_nodes_path %>",
+    query_params: <%== query_params.to_json %>,
+    <% if essence_node_editor.essence.node %>
+    initialSelection: {
+      id: <%= essence_node_editor.essence.node_id %>,
+      text: "<%= essence_node_editor.essence.node.name %>"
+    }
+    <% end %>
+  })
+</script>

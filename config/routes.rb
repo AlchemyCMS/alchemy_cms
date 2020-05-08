@@ -150,7 +150,7 @@ Alchemy::Engine.routes.draw do
     get "/pages/*urlname(.:format)" => "pages#show", as: "page"
     get "/admin/pages/:id(.:format)" => "pages#show", as: "preview_page"
 
-    resources :nodes, only: [] do
+    resources :nodes, only: [:index] do
       member do
         patch :move
         patch :toggle_folded

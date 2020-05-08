@@ -15,7 +15,7 @@ module Alchemy
       },
     )
 
-    delegate :name, to: :node, prefix: true
+    delegate :name, to: :node, prefix: true, allow_nil: true
 
     def ingredient=(node)
       case node

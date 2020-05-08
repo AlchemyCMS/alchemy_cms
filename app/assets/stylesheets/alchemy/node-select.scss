@@ -1,0 +1,34 @@
+.node-select--node,
+.node-select--node-url {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.node-select--node {
+  display: flex;
+  align-items: center;
+
+  .icon {
+    margin: 0 8px 0 4px;
+
+    .select2-highlighted & {
+      color: $white
+    }
+  }
+}
+
+.node-select--node-name {
+  font-weight: bold;
+}
+
+.node-select--node-url {
+  margin-left: auto;
+  padding: $default-padding 2*$default-padding;
+  color: $dark-gray;
+  font-size: $small-font-size;
+
+  .select2-highlighted & {
+    color: $white
+  }
+}

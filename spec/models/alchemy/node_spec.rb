@@ -82,18 +82,28 @@ module Alchemy
     end
 
     describe "#name" do
-      context "with page attached" do
-        let(:node) { build_stubbed(:alchemy_node, :with_page) }
+      subject { node.name }
+      context "root node" do
+        let(:node) { build_stubbed(:alchemy_node, name: "main_menu") }
 
-        it "returns the name from page" do
-          expect(node.name).to eq(node.page.name)
-        end
+        it { is_expected.to eq("Main Menu") }
+      end
 
-        context "but with name set" do
-          let(:node) { build_stubbed(:alchemy_node, :with_page, name: "Google") }
+      context "child node" do
+        let(:parent) { build_stubbed(:alchemy_node) }
+        context "with page attached" do
+          let(:node) { build_stubbed(:alchemy_node, :with_page, parent: parent) }
 
-          it "still returns the name from name attribute" do
-            expect(node.name).to eq("Google")
+          it "returns the name from page" do
+            expect(node.name).to eq(node.page.name)
+          end
+
+          context "but with name set" do
+            let(:node) { build_stubbed(:alchemy_node, :with_page, name: "Google", parent: parent) }
+
+            it "still returns the name from name attribute" do
+              expect(node.name).to eq("Google")
+            end
           end
         end
       end

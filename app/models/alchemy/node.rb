@@ -22,7 +22,11 @@ module Alchemy
     # Either the value is stored in the database
     # or, if attached, the values comes from a page.
     def name
-      read_attribute(:name).presence || page&.name
+      if root?
+        Alchemy.t(read_attribute(:name), scope: :menu_names)
+      else
+        read_attribute(:name).presence || page&.name
+      end
     end
 
     class << self
