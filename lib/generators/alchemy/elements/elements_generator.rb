@@ -14,12 +14,7 @@ module Alchemy
         @elements.each do |element|
           @element = element
           @contents = element["contents"] || []
-          if element["name"] =~ /\A[a-z0-9_-]+\z/
-            @element_name = element["name"].underscore
-          else
-            raise "Element name '#{element["name"]}' has wrong format. Only lowercase and non whitespace characters allowed."
-          end
-
+          @element_name = element_name(element)
           conditional_template "view.html.#{template_engine}", "#{elements_dir}/_#{@element_name}.html.#{template_engine}"
         end
       end
@@ -28,6 +23,14 @@ module Alchemy
 
       def elements_dir
         @_elements_dir ||= "app/views/alchemy/elements"
+      end
+
+      def element_name(element)
+        if element["name"] =~ Alchemy::Element::NAME_REGEXP
+          element["name"].underscore
+        else
+          raise "Element name '#{element["name"]}' has wrong format. Only lowercase and non whitespace characters allowed."
+        end
       end
     end
   end

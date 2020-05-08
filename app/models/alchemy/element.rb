@@ -22,6 +22,8 @@
 
 module Alchemy
   class Element < BaseRecord
+    NAME_REGEXP = /\A[a-z0-9_-]+\z/
+
     include Alchemy::Logger
     include Alchemy::Taggable
     include Alchemy::Hints
@@ -89,7 +91,7 @@ module Alchemy
       join_table: ElementToPage.table_name
 
     validates_presence_of :name, on: :create
-    validates_format_of :name, on: :create, with: /\A[a-z0-9_-]+\z/
+    validates_format_of :name, on: :create, with: NAME_REGEXP
 
     attr_accessor :autogenerate_contents
     attr_accessor :autogenerate_nested_elements
