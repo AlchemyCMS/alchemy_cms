@@ -20,10 +20,8 @@
     url: "<%= alchemy.api_nodes_path %>",
     query_params: <%== query_params.to_json %>,
     <% if essence_node_editor.essence.node %>
-    initialSelection: {
-      id: <%= essence_node_editor.essence.node_id %>,
-      text: "<%= essence_node_editor.essence.node.name %>"
-    }
+    <% serialized_node = ActiveModelSerializers::SerializableResource.new(essence_node_editor.essence.node, include: :ancestors) %>
+    initialSelection: <%== serialized_node.to_json %>
     <% end %>
   })
 </script>
