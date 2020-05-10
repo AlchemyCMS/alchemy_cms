@@ -32,3 +32,12 @@
     color: $white
   }
 }
+
+// The container of the rendered node is slightly larger than other a line of
+// text, as it would be for the Alchemy::EssencePage. Reducing the padding here from 0.6em
+// to 0.4em centers the content nicely.
+.essence_node {
+  .select2-container.alchemy_selectbox .select2-choice {
+    padding: 0.4em 0.75em;
+  }
+}
