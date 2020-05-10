@@ -4,6 +4,68 @@ require "rails_helper"
 
 module Alchemy
   describe Api::NodesController do
+    describe "#index" do
+      context "without a Language present" do
+        let(:result) { JSON.parse(response.body) }
+
+        it "returns JSON" do
+          get alchemy.api_nodes_path(params: {format: :json})
+          expect(result["data"]).to eq([])
+        end
+      end
+
+      context "with nodes present" do
+        let!(:node) { create(:alchemy_node, name: "lol") }
+        let!(:node2) { create(:alchemy_node, name: "yup") }
+        let(:result) { JSON.parse(response.body) }
+
+        it "returns JSON" do
+          get alchemy.api_nodes_path(params: {format: :json})
+          expect(response.status).to eq(200)
+          expect(response.media_type).to eq("application/json")
+          expect(result).to have_key("data")
+        end
+
+        it "returns all nodes" do
+          get alchemy.api_nodes_path(params: {format: :json})
+
+          expect(result["data"].size).to eq(2)
+        end
+
+        it "includes meta data" do
+          get alchemy.api_nodes_path(params: {format: :json})
+
+          expect(result["data"].size).to eq(2)
+          expect(result["meta"]["page"]).to eq(1)
+          expect(result["meta"]["per_page"]).to eq(2)
+          expect(result["meta"]["total_count"]).to eq(2)
+        end
+
+        context "with page param given" do
+          before do
+            expect(Kaminari.config).to receive(:default_per_page).at_least(:once) { 1 }
+          end
+
+          it "returns paginated result" do
+            get alchemy.api_nodes_path(params: {format: :json, page: 2})
+
+            expect(result["data"].size).to eq(1)
+            expect(result["meta"]["page"]).to eq(2)
+            expect(result["meta"]["per_page"]).to eq(1)
+            expect(result["meta"]["total_count"]).to eq(2)
+          end
+        end
+
+        context "with ransack query param given" do
+          it "returns filtered result" do
+            get alchemy.api_nodes_path(params: {format: :json, filter: {name_eq: "yup"}})
+
+            expect(result["data"].size).to eq(1)
+          end
+        end
+      end
+    end
+
     describe "#move" do
       let!(:root_node) { create(:alchemy_node, name: "main_menu") }
       let!(:page_node) { create(:alchemy_node, :with_page, parent: root_node) }
