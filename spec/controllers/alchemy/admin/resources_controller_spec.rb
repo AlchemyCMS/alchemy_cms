@@ -137,5 +137,16 @@ describe Admin::EventsController do
       delete :destroy, params: {id: peter.id}.merge(params)
       expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bname_or_hidden_name_or_description_or_location_name_cont%5D=some_query")
     end
+
+    context "If the resource is not destroyable" do
+      let!(:undestroyable) { create(:event, name: "Undestructible") }
+
+      it "adds an error flash" do
+        delete :destroy, params: {id: undestroyable.id}.merge(params)
+
+        expect(response.redirect_url).to eq("http://test.host/admin/events?page=6&q%5Bname_or_hidden_name_or_description_or_location_name_cont%5D=some_query")
+        expect(flash[:error]).to eq("This is the undestructible event!")
+      end
+    end
   end
 end

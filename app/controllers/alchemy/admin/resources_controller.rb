@@ -79,6 +79,9 @@ module Alchemy
 
       def destroy
         resource_instance_variable.destroy
+        if resource_instance_variable.errors.any?
+          flash[:error] = resource_instance_variable.errors.full_messages.join(", ")
+        end
         flash_notice_for_resource_action
         do_redirect_to resource_url_proxy.url_for(search_filter_params.merge(action: "index"))
       end
