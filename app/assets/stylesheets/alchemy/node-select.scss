@@ -1,0 +1,43 @@
+.node-select--node,
+.node-select--node-url {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.node-select--node {
+  display: flex;
+  align-items: center;
+
+  .icon {
+    margin: 0 8px 0 4px;
+
+    .select2-highlighted & {
+      color: $white
+    }
+  }
+}
+
+.node-select--node-name {
+  font-weight: bold;
+}
+
+.node-select--node-url {
+  margin-left: auto;
+  padding: $default-padding 2*$default-padding;
+  color: $dark-gray;
+  font-size: $small-font-size;
+
+  .select2-highlighted & {
+    color: $white
+  }
+}
+
+// The container of the rendered node is slightly larger than other a line of
+// text, as it would be for the Alchemy::EssencePage. Reducing the padding here from 0.6em
+// to 0.4em centers the content nicely.
+.essence_node {
+  .select2-container.alchemy_selectbox .select2-choice {
+    padding: 0.4em 0.75em;
+  }
+}

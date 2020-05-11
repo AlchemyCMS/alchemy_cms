@@ -47,3 +47,4 @@
 //= require alchemy/alchemy.tooltips
 //= require alchemy/alchemy.trash_window
 //= require alchemy/page_select
+//= require alchemy/node_select

@@ -15,12 +15,12 @@ module Alchemy
       },
     )
 
-    delegate :name, to: :node, prefix: true
+    delegate :name, to: :node, prefix: true, allow_nil: true
 
     def ingredient=(node)
       case node
       when NODE_ID
-        self.node = Alchemy::Page.new(id: node)
+        self.node = Alchemy::Node.new(id: node)
       when Alchemy::Node
         self.node = node
       else

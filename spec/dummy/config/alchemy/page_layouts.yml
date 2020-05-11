@@ -39,6 +39,8 @@
   autogenerate: [headline, text, contactform]
 
 - name: footer
+  elements:
+  - menu
   layoutpage: true
 
 - name: <%= 'erb_' + 'layout' %>
