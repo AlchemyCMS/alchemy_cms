@@ -14,7 +14,7 @@ RSpec.describe "Admin Menus Features", type: :system do
       it "creates menu" do
         visit alchemy.admin_nodes_path
 
-        select "Main Menu", from: "Name"
+        select "Main Menu", from: "Menu Type"
         click_button "create"
 
         expect(page).to have_selector(".node_name", text: "Main Menu")
@@ -33,7 +33,7 @@ RSpec.describe "Admin Menus Features", type: :system do
       it "creates menu for current site" do
         visit alchemy.new_admin_node_path
 
-        select "Main Menu", from: "Name"
+        select "Main Menu", from: "Menu Type"
         click_button "create"
 
         expect(node.site).to eq(default_site)

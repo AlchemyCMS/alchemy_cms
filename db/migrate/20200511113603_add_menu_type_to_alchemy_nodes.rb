@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class AddMenuTypeToAlchemyNodes < ActiveRecord::Migration[5.2]
   class LocalNode < ActiveRecord::Base
     self.table_name = :alchemy_nodes
@@ -5,7 +6,8 @@ class AddMenuTypeToAlchemyNodes < ActiveRecord::Migration[5.2]
 
     def self.root_for(node)
       return node if node.parent_id.nil?
-      root_for(node)
+
+      root_for(node.parent)
     end
   end
 

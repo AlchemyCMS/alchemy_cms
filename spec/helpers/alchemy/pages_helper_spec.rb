@@ -40,12 +40,12 @@ module Alchemy
     end
 
     describe "#render_menu" do
-      subject { helper.render_menu(name) }
+      subject { helper.render_menu(menu_type) }
 
-      let(:name) { "main_menu" }
+      let(:menu_type) { "main_menu" }
 
       context "if menu exists" do
-        let(:menu) { create(:alchemy_node, name: name) }
+        let(:menu) { create(:alchemy_node, menu_type: menu_type) }
         let!(:node) { create(:alchemy_node, parent: menu, url: "/") }
 
         context "and the template exists" do
@@ -55,7 +55,7 @@ module Alchemy
         end
 
         context "but the template does not exist" do
-          let(:name) { "Unkown" }
+          let(:menu_type) { "unknown" }
 
           it { is_expected.to be_nil }
         end
@@ -67,9 +67,9 @@ module Alchemy
 
       context "with multiple sites" do
         let!(:site_2) { create(:alchemy_site, host: "another-site.com") }
-        let!(:menu) { create(:alchemy_node, name: name, language: Alchemy::Language.current) }
+        let!(:menu) { create(:alchemy_node, menu_type: menu_type, language: Alchemy::Language.current) }
         let!(:node) { create(:alchemy_node, parent: menu, url: "/default-site") }
-        let!(:menu_2) { create(:alchemy_node, name: name, language: klingon) }
+        let!(:menu_2) { create(:alchemy_node, menu_type: menu_type, language: klingon) }
         let!(:node_2) { create(:alchemy_node, parent: menu_2, language: klingon, url: "/site-2") }
 
         it "renders menu from current site" do
@@ -78,9 +78,9 @@ module Alchemy
       end
 
       context "with multiple languages" do
-        let!(:menu) { create(:alchemy_node, name: name) }
+        let!(:menu) { create(:alchemy_node, menu_type: menu_type) }
         let!(:node) { create(:alchemy_node, parent: menu, url: "/default") }
-        let!(:klingon_menu) { create(:alchemy_node, name: name, language: klingon) }
+        let!(:klingon_menu) { create(:alchemy_node, menu_type: menu_type, language: klingon) }
         let!(:klingon_node) { create(:alchemy_node, parent: klingon_menu, language: klingon, url: "/klingon") }
 
         it "should return the menu for the current language" do

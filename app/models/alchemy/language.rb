@@ -119,6 +119,10 @@ module Alchemy
       end
     end
 
+    def available_menu_names
+      Alchemy::Node.available_menu_names - nodes.reject(&:parent_id).map(&:menu_type)
+    end
+
     private
 
     def set_locale
