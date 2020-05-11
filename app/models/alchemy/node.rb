@@ -12,7 +12,7 @@ module Alchemy
 
     has_one :site, through: :language
 
-    has_many :essence_nodes, class_name: "Alchemy::Node", inverse_of: :node
+    has_many :essence_nodes, class_name: "Alchemy::EssenceNode", foreign_key: :node_id, inverse_of: :ingredient_association
 
     validates :name, presence: true, if: -> { page.nil? }
     validates :url, format: { with: VALID_URL_REGEX }, unless: -> { url.nil? }
