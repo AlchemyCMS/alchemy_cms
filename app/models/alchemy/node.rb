@@ -14,6 +14,8 @@ module Alchemy
 
     has_many :essence_nodes, class_name: "Alchemy::EssenceNode", foreign_key: :node_id, inverse_of: :ingredient_association
 
+    before_destroy :check_if_related_essence_nodes_present
+
     validates :name, presence: true, if: -> { page.nil? }
     validates :url, format: { with: VALID_URL_REGEX }, unless: -> { url.nil? }
 
@@ -74,6 +76,13 @@ module Alchemy
 
     def view_folder_name
       "alchemy/menus/#{name.parameterize.underscore}"
+    end
+
+    def check_if_related_essence_nodes_present
+      if essence_nodes.any?
+        errors.add(:base, :essence_nodes_present, page_names: essence_nodes.map(&:page).map(&:name).to_sentence)
+        throw(:abort)
+      end
     end
   end
 end
