@@ -5,6 +5,7 @@ require "rails_helper"
 module Alchemy
   describe Node do
     it { is_expected.to have_many(:essence_nodes) }
+    it { is_expected.to respond_to(:menu_type) }
 
     it "is only valid with language and name given" do
       expect(Node.new).to be_invalid
