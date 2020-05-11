@@ -4,6 +4,8 @@ module Alchemy
   class Node < BaseRecord
     VALID_URL_REGEX = /\A(\/|\D[a-z\+\d\.\-]+:)/
 
+    before_destroy :check_if_related_essence_nodes_present
+
     acts_as_nested_set scope: "language_id", touch: true
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -13,8 +15,6 @@ module Alchemy
     has_one :site, through: :language
 
     has_many :essence_nodes, class_name: "Alchemy::EssenceNode", foreign_key: :node_id, inverse_of: :ingredient_association
-
-    before_destroy :check_if_related_essence_nodes_present
 
     validates :name, presence: true, if: -> { page.nil? }
     validates :url, format: { with: VALID_URL_REGEX }, unless: -> { url.nil? }
@@ -79,8 +79,9 @@ module Alchemy
     end
 
     def check_if_related_essence_nodes_present
-      if essence_nodes.any?
-        errors.add(:base, :essence_nodes_present, page_names: essence_nodes.map(&:page).map(&:name).to_sentence)
+      dependent_essence_nodes = self_and_descendants.flat_map(&:essence_nodes)
+      if dependent_essence_nodes.any?
+        errors.add(:base, :essence_nodes_present, page_names: dependent_essence_nodes.map(&:page).map(&:name).to_sentence)
         throw(:abort)
       end
     end

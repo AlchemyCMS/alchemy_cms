@@ -152,6 +152,16 @@ module Alchemy
         expect(node).not_to be_destroyed
         expect(node.errors.full_messages).to eq(["This menu item is in use inside an Alchemy element on the following pages: #{page.name}."])
       end
+
+      context "if there are essence nodes present on a child node" do
+        let!(:parent_node) { create(:alchemy_node, children: [node]) }
+
+        it "does not destroy the node and children either but adds an error" do
+          parent_node.destroy
+          expect(parent_node).not_to be_destroyed
+          expect(parent_node.errors.full_messages).to eq(["This menu item is in use inside an Alchemy element on the following pages: #{page.name}."])
+        end
+      end
     end
   end
 end
