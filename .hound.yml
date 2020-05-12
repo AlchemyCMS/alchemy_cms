@@ -7,4 +7,6 @@ coffeescript:
   enabled: false
 javascript:
   enabled: false
+haml:
+  enabled: false
 fail_on_violations: true
