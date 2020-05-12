@@ -68,12 +68,16 @@ module Alchemy
       page && "/#{page.urlname}" || read_attribute(:url).presence
     end
 
-    def to_partial_path
-      "#{view_folder_name}/wrapper"
+    def node_partial_name
+      "alchemy/menus/#{menu_type}/node"
     end
 
-    def view_folder_name
-      "alchemy/menus/#{name.parameterize.underscore}"
+    def to_partial_path
+      "alchemy/menus/#{menu_type}/wrapper"
+    end
+
+    def menu_type
+      name.parameterize.underscore
     end
   end
 end

@@ -1,2 +1,1 @@
-<%# The content object holds the essence %>
-<%= content.ingredient %>
+<%= render content.ingredient, options: { render_self: true } if content.ingredient %>

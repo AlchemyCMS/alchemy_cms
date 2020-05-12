@@ -125,11 +125,11 @@ module Alchemy
       end
     end
 
-    describe "#view_folder_name" do
+    describe "#node_partial_name" do
       let(:node) { build(:alchemy_node, name: "Main Menu") }
 
-      it "returns the path to the menu view folder" do
-        expect(node.view_folder_name).to eq("alchemy/menus/main_menu")
+      it "returns the path to the menu node partial" do
+        expect(node.node_partial_name).to eq("alchemy/menus/main_menu/node")
       end
     end
   end
