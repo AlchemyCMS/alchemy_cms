@@ -163,5 +163,5 @@
 
 - name: menu
   contents:
-  - name: Menu
+  - name: menu
     type: EssenceNode
