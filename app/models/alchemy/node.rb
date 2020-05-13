@@ -4,6 +4,8 @@ module Alchemy
   class Node < BaseRecord
     VALID_URL_REGEX = /\A(\/|\D[a-z\+\d\.\-]+:)/
 
+    before_destroy :check_if_related_essence_nodes_present
+
     acts_as_nested_set scope: "language_id", touch: true
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -74,6 +76,14 @@ module Alchemy
 
     def view_folder_name
       "alchemy/menus/#{name.parameterize.underscore}"
+    end
+
+    def check_if_related_essence_nodes_present
+      dependent_essence_nodes = self_and_descendants.flat_map(&:essence_nodes)
+      if dependent_essence_nodes.any?
+        errors.add(:base, :essence_nodes_present, page_names: dependent_essence_nodes.map(&:page).map(&:name).to_sentence)
+        throw(:abort)
+      end
     end
   end
 end
