@@ -4,6 +4,8 @@ require "rails_helper"
 
 module Alchemy
   describe Node do
+    it { is_expected.to have_many(:essence_nodes) }
+
     it "is only valid with language and name given" do
       expect(Node.new).to be_invalid
       expect(build(:alchemy_node)).to be_valid
