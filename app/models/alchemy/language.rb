@@ -30,7 +30,7 @@ module Alchemy
 
     before_validation :set_locale, if: -> { locale.blank? }
 
-    has_one :root_page, -> { where(parent: nil) }, class_name: "Alchemy::Page"
+    has_one :root_page, -> { where(parent: nil, layoutpage: false) }, class_name: "Alchemy::Page"
 
     validates :name, presence: true
     validates :page_layout, presence: true
