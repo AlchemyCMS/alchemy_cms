@@ -138,7 +138,7 @@ RSpec.describe "Show page feature:", type: :system do
 
   describe "navigation rendering" do
     context "with menu available" do
-      let(:menu) { create(:alchemy_node, name: "Main Navigation") }
+      let(:menu) { create(:alchemy_node, name: "main_menu") }
       let(:page1) { create(:alchemy_page, :public, visible: true, name: "Page 1") }
       let(:page2) { create(:alchemy_page, :public, visible: true, name: "Page 2") }
       let!(:node1) { create(:alchemy_node, page: page1, parent: menu) }

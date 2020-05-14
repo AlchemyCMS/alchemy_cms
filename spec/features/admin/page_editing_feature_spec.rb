@@ -110,7 +110,7 @@ RSpec.describe "Page editing feature", type: :system do
       end
 
       context "with menu available" do
-        let!(:menu) { create(:alchemy_node, name: "Main Navigation") }
+        let!(:menu) { create(:alchemy_node, name: "main_menu") }
         let!(:node) { create(:alchemy_node, url: "/page-1", parent: menu) }
 
         it "navigation links are not clickable" do

@@ -42,7 +42,7 @@ module Alchemy
     describe "#render_menu" do
       subject { helper.render_menu(name) }
 
-      let(:name) { "Main Navigation" }
+      let(:name) { "main_menu" }
 
       context "if menu exists" do
         let(:menu) { create(:alchemy_node, name: name) }

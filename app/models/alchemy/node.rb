@@ -71,11 +71,11 @@ module Alchemy
     end
 
     def to_partial_path
-      "#{view_folder_name}/wrapper"
+      "alchemy/menus/#{menu_type}/node"
     end
 
-    def view_folder_name
-      "alchemy/menus/#{name.parameterize.underscore}"
+    def menu_type
+      root.name.parameterize.underscore
     end
 
     def check_if_related_essence_nodes_present
