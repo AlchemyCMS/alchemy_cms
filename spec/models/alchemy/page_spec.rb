@@ -61,7 +61,7 @@ module Alchemy
       end
 
       context "a page not being a language_root and without parent" do
-        let(:page) { build(:alchemy_page, parent: nil, layoutpage: nil) }
+        let(:page) { build(:alchemy_page, parent: nil, layoutpage: false) }
 
         it { expect(page).to_not be_valid }
       end
@@ -360,7 +360,7 @@ module Alchemy
       let!(:klingon_lang_root) do
         create :alchemy_page, :language_root, {
           name: "klingon_lang_root",
-          layoutpage: nil,
+          layoutpage: false,
           language: klingon,
         }
       end
@@ -385,10 +385,8 @@ module Alchemy
         expect(Page.contentpages.to_a.select { |p| p.layoutpage == true }).to be_empty
       end
 
-      it "contains pages with attribute :layoutpage set to nil" do
-        expect(Page.contentpages.to_a.select do |page|
-          page.layoutpage.nil?
-        end).to include(klingon_lang_root)
+      it "contains pages with attribute :layoutpage set to false" do
+        expect(Page.contentpages.to_a.select { |p| p.layoutpage == false }).to include(klingon_lang_root)
       end
     end
 
