@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_05_215518) do
+ActiveRecord::Schema.define(version: 2020_05_14_091507) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -221,7 +221,7 @@ ActiveRecord::Schema.define(version: 2020_05_05_215518) do
     t.boolean "robot_index", default: true
     t.boolean "robot_follow", default: true
     t.boolean "sitemap", default: true
-    t.boolean "layoutpage", default: false
+    t.boolean "layoutpage", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "creator_id"
