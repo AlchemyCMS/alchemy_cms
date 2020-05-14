@@ -1,0 +1,5 @@
+<%- cache(menu) do -%>
+  <%= element_view_for(menu) do |el| -%>
+    <%= el.render :menu %>
+  <%- end -%>
+<%- end -%>
