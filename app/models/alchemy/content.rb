@@ -172,28 +172,6 @@ module Alchemy
       definition['validate'].present?
     end
 
-    # Returns a string to be passed to Rails form field tags to ensure we have same params layout everywhere.
-    #
-    # === Example:
-    #
-    #   <%= text_field_tag content.form_field_name, content.ingredient %>
-    #
-    # === Options:
-    #
-    # You can pass an Essence column_name. Default is 'ingredient'
-    #
-    # ==== Example:
-    #
-    #   <%= text_field_tag content.form_field_name(:link), content.ingredient %>
-    #
-    def form_field_name(essence_column = 'ingredient')
-      "contents[#{id}][#{essence_column}]"
-    end
-
-    def form_field_id(essence_column = 'ingredient')
-      "contents_#{id}_#{essence_column}"
-    end
-
     # Returns a string used as dom id on html elements.
     def dom_id
       return '' if essence.nil?
@@ -244,6 +222,14 @@ module Alchemy
     def tinymce_class_name
       "has_tinymce" + (has_custom_tinymce_config? ? " #{element.name}_#{name}" : "")
     end
+
+    def editor
+      @_editor ||= ContentEditor.new(self)
+    end
+    delegate :form_field_name, to: :editor
+    deprecate form_field_name: "use Alchemy::ContentEditor#form_field_name instead", deprecator: Alchemy::Deprecation
+    delegate :form_field_id, to: :editor
+    deprecate form_field_id: "use Alchemy::ContentEditor#form_field_id instead", deprecator: Alchemy::Deprecation
 
     # Returns the default value from content definition
     #
