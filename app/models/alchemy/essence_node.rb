@@ -2,8 +2,6 @@
 
 module Alchemy
   class EssenceNode < BaseRecord
-    NODE_ID = /\A\d+\z/
-
     acts_as_essence(
       ingredient_column: :node,
       preview_text_column: :node_name,
@@ -16,16 +14,5 @@ module Alchemy
     )
 
     delegate :name, to: :node, prefix: true, allow_nil: true
-
-    def ingredient=(node)
-      case node
-      when NODE_ID
-        self.node = Alchemy::Node.new(id: node)
-      when Alchemy::Node
-        self.node = node
-      else
-        super
-      end
-    end
   end
 end
