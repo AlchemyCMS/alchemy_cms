@@ -226,6 +226,14 @@ module Alchemy
       "has_tinymce" + (has_custom_tinymce_config? ? " #{element.name}_#{name}" : "")
     end
 
+    def editor
+      @_editor ||= ContentEditor.new(self)
+    end
+    delegate :form_field_name, to: :editor
+    deprecate form_field_name: "use Alchemy::ContentEditor#form_field_name instead", deprecator: Alchemy::Deprecation
+    delegate :form_field_id, to: :editor
+    deprecate form_field_id: "use Alchemy::ContentEditor#form_field_id instead", deprecator: Alchemy::Deprecation
+
     # Returns the default value from content definition
     #
     # If the value is a symbol it gets passed through i18n
