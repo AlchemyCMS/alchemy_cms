@@ -11,6 +11,11 @@ module Alchemy
         default: false,
         desc: "Skip creation of demo element, page and application layout."
 
+      class_option :skip_webpacker_installer,
+        type: :boolean,
+        default: false,
+        desc: "Skip running the webpacker installer."
+
       source_root File.expand_path("files", __dir__)
 
       def copy_config
@@ -53,6 +58,12 @@ module Alchemy
 
       def install_gutentag_migrations
         rake "gutentag:install:migrations"
+      end
+
+      def run_webpacker_installer
+        unless options[:skip_webpacker_installer]
+          rake("webpacker:install", abort_on_failure: true)
+        end
       end
 
       private
