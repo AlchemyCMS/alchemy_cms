@@ -5,12 +5,14 @@
   </label>
   <% @page.menus.each do |menu| %>
     <span class="page-menu-name label">
-      <%= menu.name %>
+      <%= I18n.t(menu.name, scope: [:alchemy, :menu_names]) %>
     </span>
   <% end %>
 <% elsif Alchemy::Node.roots.any? %>
   <%= page_status_checkbox(@page, :visible) %>
-  <%= f.input :menu_id, collection: Alchemy::Node.roots.map { |n| [n.name, n.id] },
+  <%= f.input :menu_id, collection: Alchemy::Node.roots.map { |n|
+      [I18n.t(n.name, scope: [:alchemy, :menu_names]), n.id]
+    },
     prompt: Alchemy.t('Please choose a menu'),
     input_html: { class: 'alchemy_selectbox' },
     wrapper_html: { style: @page.visible? ? 'display: block' : 'display: none' },
