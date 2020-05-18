@@ -8,7 +8,7 @@
       <%= I18n.t(menu.name, scope: [:alchemy, :menu_names]) %>
     </span>
   <% end %>
-<% elsif Alchemy::Node.roots.any? %>
+<% elsif Alchemy::Node.roots.where(language: @page.language).any? %>
   <%= page_status_checkbox(@page, :visible) %>
   <%= f.input :menu_id, collection: Alchemy::Node.roots.map { |n|
       [I18n.t(n.name, scope: [:alchemy, :menu_names]), n.id]
