@@ -8,7 +8,7 @@
       <%= menu.name %>
     </span>
   <% end %>
-<% elsif Alchemy::Node.roots.any? %>
+<% elsif Alchemy::Node.roots.where(language: @page.language).any? %>
   <%= page_status_checkbox(@page, :visible) %>
   <%= f.input :menu_id, collection: Alchemy::Node.roots.map { |n| [n.name, n.id] },
     prompt: Alchemy.t('Please choose a menu'),
