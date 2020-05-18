@@ -18,44 +18,4 @@ RSpec.describe Alchemy::EssencePage, type: :model do
       expect(essences[0].association(:ingredient_association)).to be_loaded
     end
   end
-
-  describe "ingredient=" do
-    subject(:ingredient) { essence.page }
-
-    context "when String value is only a number" do
-      let(:value) { "101" }
-
-      before do
-        essence.ingredient = value
-      end
-
-      it "sets page to an page instance with that id" do
-        is_expected.to be_a(Alchemy::Page)
-        expect(ingredient.id).to eq(101)
-      end
-    end
-
-    context "when value is an Alchemy Page" do
-      let(:value) { page }
-
-      before do
-        essence.ingredient = value
-      end
-
-      it "sets page to an page instance with that id" do
-        is_expected.to be_a(Alchemy::Page)
-        expect(ingredient).to eq(page)
-      end
-    end
-
-    context "when value is not only a number" do
-      let(:value) { "page1" }
-
-      it do
-        expect {
-          essence.ingredient = value
-        }.to raise_error(ActiveRecord::AssociationTypeMismatch)
-      end
-    end
-  end
 end
