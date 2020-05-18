@@ -9,13 +9,13 @@ module Alchemy
       #
       def preview_sizes_for_select
         options_for_select([
-          'auto',
-          [Alchemy.t('240', scope: 'preview_sizes'), 240],
-          [Alchemy.t('320', scope: 'preview_sizes'), 320],
-          [Alchemy.t('480', scope: 'preview_sizes'), 480],
-          [Alchemy.t('768', scope: 'preview_sizes'), 768],
-          [Alchemy.t('1024', scope: 'preview_sizes'), 1024],
-          [Alchemy.t('1280', scope: 'preview_sizes'), 1280]
+          "auto",
+          [Alchemy.t("240", scope: "preview_sizes"), 240],
+          [Alchemy.t("320", scope: "preview_sizes"), 320],
+          [Alchemy.t("480", scope: "preview_sizes"), 480],
+          [Alchemy.t("768", scope: "preview_sizes"), 768],
+          [Alchemy.t("1024", scope: "preview_sizes"), 1024],
+          [Alchemy.t("1280", scope: "preview_sizes"), 1280],
         ])
       end
 
@@ -27,8 +27,8 @@ module Alchemy
         if page.persisted? && page.definition.blank?
           [
             page_layout_missing_warning,
-            Alchemy.t(:page_type)
-          ].join('&nbsp;').html_safe
+            Alchemy.t(:page_type),
+          ].join("&nbsp;").html_safe
         else
           Alchemy.t(:page_type)
         end
@@ -39,10 +39,10 @@ module Alchemy
 
         if page.attribute_fixed?(attribute)
           checkbox = check_box(:page, attribute, disabled: true)
-          hint = content_tag(:span, class: 'hint-bubble') do
+          hint = content_tag(:span, class: "hint-bubble") do
             Alchemy.t(:attribute_fixed, attribute: attribute)
           end
-          content = content_tag(:span, class: 'with-hint') do
+          content = content_tag(:span, class: "with-hint") do
             "#{checkbox}\n#{label}\n#{hint}".html_safe
           end
         else
@@ -50,7 +50,7 @@ module Alchemy
           content = "#{checkbox}\n#{label}".html_safe
         end
 
-        content_tag(:label, class: 'checkbox') { content }
+        content_tag(:label, class: "checkbox") { content }
       end
     end
   end
