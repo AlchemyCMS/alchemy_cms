@@ -34,8 +34,8 @@ module Alchemy
         end
       end
 
-      def page_status_checkbox(page, attribute)
-        label = page.class.human_attribute_name(attribute)
+      def page_status_checkbox(page, attribute, label: nil)
+        label_text = label || page.class.human_attribute_name(attribute)
 
         if page.attribute_fixed?(attribute)
           checkbox = check_box(:page, attribute, disabled: true)
@@ -43,11 +43,11 @@ module Alchemy
             Alchemy.t(:attribute_fixed, attribute: attribute)
           end
           content = content_tag(:span, class: "with-hint") do
-            "#{checkbox}\n#{label}\n#{hint}".html_safe
+            "#{checkbox}\n#{label_text}\n#{hint}".html_safe
           end
         else
           checkbox = check_box(:page, attribute)
-          content = "#{checkbox}\n#{label}".html_safe
+          content = "#{checkbox}\n#{label_text}".html_safe
         end
 
         content_tag(:label, class: "checkbox") { content }
