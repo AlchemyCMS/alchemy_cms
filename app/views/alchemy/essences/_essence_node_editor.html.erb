@@ -4,7 +4,7 @@
   data: essence_node_editor.data_attributes do %>
   <%= content_label(essence_node_editor) %>
   <%= text_field_tag(
-    essence_node_editor.form_field_name,
+    essence_node_editor.form_field_name("node_id"),
     essence_node_editor.essence.node_id,
     id: essence_node_editor.form_field_id,
     class: 'alchemy_selectbox full_width'
