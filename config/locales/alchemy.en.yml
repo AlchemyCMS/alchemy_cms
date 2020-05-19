@@ -801,6 +801,7 @@ en:
       alchemy/legacy_page_url:
         urlname: "URL path"
       alchemy/node:
+        menu_type: Menu Type
         name: "Name"
         title: "Title"
         nofollow: "Search engine must not follow"

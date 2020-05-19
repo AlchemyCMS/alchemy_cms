@@ -78,22 +78,22 @@ module Alchemy
     # Menu partials are placed in the `app/views/alchemy/menus` folder
     # Use the `rails g alchemy:menus` generator to create the partials
     #
-    # @param [String] - Name of the menu
+    # @param [String] - Type of the menu
     # @param [Hash] - A set of options available in your menu partials
-    def render_menu(name, options = {})
+    def render_menu(menu_type, options = {})
       root_node = Alchemy::Node.roots.find_by(
-        name: name,
+        menu_type: menu_type,
         language: Alchemy::Language.current,
       )
       if root_node.nil?
-        warning("Menu with name #{name} not found!")
+        warning("Menu with type #{menu_type} not found!")
         return
       end
 
-      render("alchemy/menus/#{name}/wrapper", menu: root_node, options: options)
+      render("alchemy/menus/#{menu_type}/wrapper", menu: root_node, options: options)
     rescue ActionView::MissingTemplate => e
       warning <<~WARN
-        Menu partial not found for #{name}.
+        Menu partial not found for #{menu_type}.
         #{e}
       WARN
     end

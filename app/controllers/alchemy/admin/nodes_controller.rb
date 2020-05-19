@@ -20,6 +20,7 @@ module Alchemy
 
       def resource_params
         params.require(:node).permit(
+          :menu_type,
           :parent_id,
           :language_id,
           :page_id,

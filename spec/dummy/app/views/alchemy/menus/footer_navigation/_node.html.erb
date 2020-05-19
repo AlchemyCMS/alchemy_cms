@@ -8,10 +8,7 @@
     rel: node.nofollow? ? 'nofollow' : nil %>
   <% if node.children.any? %>
     <ul class="dropdown-menu">
-      <%= render partial: options[:node_partial_name],
-        collection: node.children.includes(:page, :children),
-        locals: { options: options },
-        as: 'node' %>
+      <%= render node.children.includes(:page, :children), as: 'node' %>
     </ul>
   <% end %>
 <% end %>

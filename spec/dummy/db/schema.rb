@@ -193,6 +193,7 @@ ActiveRecord::Schema.define(version: 2020_05_14_091507) do
     t.integer "updater_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "menu_type", null: false
     t.index ["creator_id"], name: "index_alchemy_nodes_on_creator_id"
     t.index ["language_id"], name: "index_alchemy_nodes_on_language_id"
     t.index ["lft"], name: "index_alchemy_nodes_on_lft"
