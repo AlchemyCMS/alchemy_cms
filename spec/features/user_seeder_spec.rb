@@ -1,26 +1,26 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'User seeding', type: :system do
-  context 'when db/seeds/alchemy/users.yml file is present' do
+RSpec.describe "User seeding", type: :system do
+  context "when db/seeds/alchemy/users.yml file is present" do
     let(:seeds_file) do
-      'spec/fixtures/users.yml'
+      "spec/fixtures/users.yml"
     end
 
     before do
-      FileUtils.mkdir_p(Rails.root.join('db/seeds/alchemy'))
-      FileUtils.cp(seeds_file, Rails.root.join('db/seeds/alchemy/users.yml'))
+      FileUtils.mkdir_p(Rails.root.join("db/seeds/alchemy"))
+      FileUtils.cp(seeds_file, Rails.root.join("db/seeds/alchemy/users.yml"))
     end
 
-    it 'seeds users' do
+    it "seeds users" do
       Alchemy::Seeder.seed!
-      expect(DummyUser.find_by(email: 'admin@example.com')).to be_present
-      expect(DummyUser.find_by(email: 'member@example.com')).to be_present
+      expect(DummyUser.find_by(email: "admin@example.com")).to be_present
+      expect(DummyUser.find_by(email: "member@example.com")).to be_present
     end
 
     after do
-      FileUtils.rm_rf(Rails.root.join('db/seeds'))
+      FileUtils.rm_rf(Rails.root.join("db/seeds"))
     end
   end
 end

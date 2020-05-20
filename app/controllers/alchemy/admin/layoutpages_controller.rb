@@ -10,7 +10,7 @@ module Alchemy
       helper Alchemy::Admin::PagesHelper
 
       def index
-        @layout_root = Page.find_or_create_layout_root_for(@current_language.id)
+        @layout_pages = Page.layoutpages.where(language: @current_language)
         @languages = Language.on_current_site
       end
 

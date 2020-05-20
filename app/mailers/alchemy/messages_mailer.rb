@@ -8,7 +8,7 @@ module Alchemy
         from: mail_from,
         to: mail_to,
         reply_to: message.try(:email),
-        subject: subject
+        subject: subject,
       )
     end
   end

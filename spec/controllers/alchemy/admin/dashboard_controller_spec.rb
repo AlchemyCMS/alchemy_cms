@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe Admin::DashboardController do
@@ -10,14 +10,14 @@ module Alchemy
 
     before { authorize_user(user) }
 
-    describe '#index' do
+    describe "#index" do
       before do
         allow(Page).to receive(:from_current_site).and_return(
           double(
             all_last_edited_from: [],
             locked_by: [],
-            locked: []
-          )
+            locked: [],
+          ),
         )
       end
 
@@ -31,9 +31,9 @@ module Alchemy
         expect(assigns(:all_locked_pages)).to eq([])
       end
 
-      context 'with user class having logged_in scope' do
-        context 'with other users online' do
-          let(:another_user) { mock_model('DummyUser') }
+      context "with user class having logged_in scope" do
+        context "with other users online" do
+          let(:another_user) { mock_model("DummyUser") }
 
           before do
             expect(Alchemy.user_class).to receive(:logged_in).and_return([another_user])
@@ -45,7 +45,7 @@ module Alchemy
           end
         end
 
-        context 'without other users online' do
+        context "without other users online" do
           it "does not assign @online_users" do
             get :index
             expect(assigns(:online_users)).to eq([])
@@ -53,7 +53,7 @@ module Alchemy
         end
       end
 
-      context 'user having signed in before' do
+      context "user having signed in before" do
         before do
           expect(user).to receive(:sign_in_count).and_return(5)
           expect(user).to receive(:last_sign_in_at).and_return(Time.current)
@@ -71,22 +71,22 @@ module Alchemy
       end
     end
 
-    describe '#info' do
+    describe "#info" do
       it "assigns @alchemy_version with the current Alchemy version" do
         get :info
         expect(assigns(:alchemy_version)).to eq(Alchemy.version)
       end
     end
 
-    describe '#update_check' do
+    describe "#update_check" do
       before do
         WebMock.enable!
       end
 
       context "requesting rubygems.org" do
         before do
-          stub_request(:get, 'https://rubygems.org/api/v1/versions/alchemy_cms.json').to_return(
-            status: 200, body: '[{"number": "3.0.0.alpha"}, {"number": "2.6.0"}, {"number": "2.5.1"}]'
+          stub_request(:get, "https://rubygems.org/api/v1/versions/alchemy_cms.json").to_return(
+            status: 200, body: '[{"number": "3.0.0.alpha"}, {"number": "2.6.0"}, {"number": "2.5.1"}]',
           )
         end
 
@@ -97,8 +97,8 @@ module Alchemy
 
           it "should render 'false'" do
             get :update_check
-            expect(response.code).to eq('200')
-            expect(response.body).to eq('false')
+            expect(response.code).to eq("200")
+            expect(response.body).to eq("false")
           end
         end
 
@@ -109,25 +109,25 @@ module Alchemy
 
           it "should render 'true'" do
             get :update_check
-            expect(response.code).to eq('200')
-            expect(response.body).to eq('true')
+            expect(response.code).to eq("200")
+            expect(response.body).to eq("true")
           end
         end
       end
 
       context "if rubygems.org is unavailable" do
         before do
-          stub_request(:get, 'https://rubygems.org/api/v1/versions/alchemy_cms.json').to_return(status: 503)
-          stub_request(:get, 'https://api.github.com/repos/AlchemyCMS/alchemy_cms/tags').to_return(
-            status: 200, body: '[{"name": "v2.6.0"}, {"name": "v2.5.0"}]'
+          stub_request(:get, "https://rubygems.org/api/v1/versions/alchemy_cms.json").to_return(status: 503)
+          stub_request(:get, "https://api.github.com/repos/AlchemyCMS/alchemy_cms/tags").to_return(
+            status: 200, body: '[{"name": "v2.6.0"}, {"name": "v2.5.0"}]',
           )
           allow(Alchemy).to receive(:version).and_return("2.6.2")
         end
 
         it "should request github.com" do
           get :update_check
-          expect(response.code).to eq('200')
-          expect(response.body).to eq('false')
+          expect(response.code).to eq("200")
+          expect(response.body).to eq("false")
         end
       end
 
@@ -138,7 +138,7 @@ module Alchemy
 
         it "should have status code 503" do
           get :update_check
-          expect(response.code).to eq('503')
+          expect(response.code).to eq("503")
         end
       end
 

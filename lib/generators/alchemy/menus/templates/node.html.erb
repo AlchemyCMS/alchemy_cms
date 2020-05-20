@@ -1,0 +1,16 @@
+<%% cache node do %>
+  <%%= content_tag :li, class: ['nav-item', node.children.any? ? 'dropdown' : nil].compact do %>
+    <%%= link_to_if node.url,
+      node.name,
+      @preview_mode ? 'javascript: void(0)' : node.url,
+      class: ['nav-link', current_page?(node.url) ? 'active' : nil].compact,
+      title: node.title,
+      target: node.external? ? '_blank' : nil,
+      rel: node.nofollow? ? 'nofollow' : nil %>
+    <%% if node.children.any? %>
+      <ul class="dropdown-menu">
+        <%%= render node.children.includes(:page, :children), as: 'node' %>
+      </ul>
+    <%% end %>
+  <%% end %>
+<%% end %>

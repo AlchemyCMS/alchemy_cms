@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe EssencePicture do
@@ -9,10 +9,10 @@ module Alchemy
       let(:ingredient_value) { Picture.new }
     end
 
-    describe 'eager loading' do
+    describe "eager loading" do
       let!(:essence_pictures) { create_list(:alchemy_essence_picture, 2) }
 
-      it 'eager loads pictures' do
+      it "eager loads pictures" do
         essences = described_class.all.includes(:ingredient_association)
         expect(essences[0].association(:ingredient_association)).to be_loaded
       end
@@ -23,14 +23,14 @@ module Alchemy
     end
 
     it "should not store negative values for crop values" do
-      essence = EssencePicture.new(crop_from: '-1x100', crop_size: '-20x30')
+      essence = EssencePicture.new(crop_from: "-1x100", crop_size: "-20x30")
       essence.save!
       expect(essence.crop_from).to eq("0x100")
       expect(essence.crop_size).to eq("0x30")
     end
 
     it "should not store float values for crop values" do
-      essence = EssencePicture.new(crop_from: '0.05x104.5', crop_size: '99.5x203.4')
+      essence = EssencePicture.new(crop_from: "0.05x104.5", crop_size: "99.5x203.4")
       essence.save!
       expect(essence.crop_from).to eq("0x105")
       expect(essence.crop_size).to eq("100x203")
@@ -49,70 +49,70 @@ module Alchemy
       expect(essence.caption).to eq("hello<br/>kitty")
     end
 
-    describe '#picture_url' do
+    describe "#picture_url" do
       subject(:picture_url) { essence.picture_url(options) }
 
       let(:options) { {} }
       let(:picture) { create(:alchemy_picture) }
       let(:essence) { create(:alchemy_essence_picture, :with_content, picture: picture) }
 
-      context 'with no format in the options' do
+      context "with no format in the options" do
         it "includes the image's default render format." do
           expect(picture_url).to match(/\.png/)
         end
       end
 
-      context 'with format in the options' do
-        let(:options) { {format: 'gif'} }
+      context "with format in the options" do
+        let(:options) { {format: "gif"} }
 
         it "takes this as format." do
           expect(picture_url).to match(/\.gif/)
         end
       end
 
-      context 'when crop sizes are present' do
+      context "when crop sizes are present" do
         before do
-          expect(essence).to receive(:crop_size).and_return('200x200')
-          expect(essence).to receive(:crop_from).and_return('10x10')
+          expect(essence).to receive(:crop_size).and_return("200x200")
+          expect(essence).to receive(:crop_from).and_return("10x10")
         end
 
         it "passes these crop sizes to the picture's url method." do
           expect(picture).to receive(:url).with(
-            hash_including(crop_from: '10x10', crop_size: '200x200')
+            hash_including(crop_from: "10x10", crop_size: "200x200"),
           )
           picture_url
         end
 
-        context 'but with crop sizes in the options' do
+        context "but with crop sizes in the options" do
           let(:options) do
-            {crop_from: '30x30', crop_size: '75x75'}
+            {crop_from: "30x30", crop_size: "75x75"}
           end
 
           it "passes these crop sizes instead." do
             expect(picture).to receive(:url).with(
-              hash_including(crop_from: '30x30', crop_size: '75x75')
+              hash_including(crop_from: "30x30", crop_size: "75x75"),
             )
             picture_url
           end
         end
       end
 
-      context 'with other options' do
-        let(:options) { {foo: 'baz'} }
+      context "with other options" do
+        let(:options) { {foo: "baz"} }
 
-        it 'adds them to the url' do
+        it "adds them to the url" do
           expect(picture_url).to match /\?foo=baz/
         end
       end
 
-      context 'without picture assigned' do
+      context "without picture assigned" do
         let(:picture) { nil }
 
         it { is_expected.to be_nil }
       end
     end
 
-    describe '#picture_url_options' do
+    describe "#picture_url_options" do
       subject(:picture_url_options) { essence.picture_url_options }
 
       let(:picture) { build_stubbed(:alchemy_picture) }
@@ -121,27 +121,27 @@ module Alchemy
       it { is_expected.to be_a(HashWithIndifferentAccess) }
 
       it "includes the pictures default render format." do
-        expect(picture).to receive(:default_render_format) { 'img' }
-        expect(picture_url_options[:format]).to eq('img')
+        expect(picture).to receive(:default_render_format) { "img" }
+        expect(picture_url_options[:format]).to eq("img")
       end
 
-      context 'with crop sizes present' do
+      context "with crop sizes present" do
         before do
-          expect(essence).to receive(:crop_size) { '200x200' }
-          expect(essence).to receive(:crop_from) { '10x10' }
+          expect(essence).to receive(:crop_size) { "200x200" }
+          expect(essence).to receive(:crop_from) { "10x10" }
         end
 
         it "includes these crop sizes.", :aggregate_failures do
-          expect(picture_url_options[:crop_from]).to eq '10x10'
-          expect(picture_url_options[:crop_size]).to eq '200x200'
+          expect(picture_url_options[:crop_from]).to eq "10x10"
+          expect(picture_url_options[:crop_size]).to eq "200x200"
         end
       end
 
       # Regression spec for issue #1279
-      context 'with crop sizes being empty strings' do
+      context "with crop sizes being empty strings" do
         before do
-          expect(essence).to receive(:crop_size) { '' }
-          expect(essence).to receive(:crop_from) { '' }
+          expect(essence).to receive(:crop_size) { "" }
+          expect(essence).to receive(:crop_from) { "" }
         end
 
         it "does not include these crop sizes.", :aggregate_failures do
@@ -150,24 +150,24 @@ module Alchemy
         end
       end
 
-      context 'with content having size setting' do
+      context "with content having size setting" do
         before do
-          expect(essence.content).to receive(:settings) { {size: '30x70'} }
+          expect(essence.content).to receive(:settings) { {size: "30x70"} }
         end
 
         it "includes this size." do
-          expect(picture_url_options[:size]).to eq '30x70'
+          expect(picture_url_options[:size]).to eq "30x70"
         end
       end
 
-      context 'without picture assigned' do
+      context "without picture assigned" do
         let(:picture) { nil }
 
         it { is_expected.to be_a(Hash) }
       end
     end
 
-    describe '#thumbnail_url' do
+    describe "#thumbnail_url" do
       subject(:thumbnail_url) { essence.thumbnail_url }
 
       let(:settings) do
@@ -200,94 +200,94 @@ module Alchemy
         thumbnail_url
       end
 
-      context 'when crop sizes are present' do
+      context "when crop sizes are present" do
         before do
-          allow(essence).to receive(:crop_size).and_return('200x200')
-          allow(essence).to receive(:crop_from).and_return('10x10')
+          allow(essence).to receive(:crop_size).and_return("200x200")
+          allow(essence).to receive(:crop_from).and_return("10x10")
         end
 
         it "passes these crop sizes to the picture's url method." do
           expect(picture).to receive(:url).with(
-            hash_including(crop_from: '10x10', crop_size: '200x200', crop: true)
+            hash_including(crop_from: "10x10", crop_size: "200x200", crop: true),
           )
           thumbnail_url
         end
       end
 
-      context 'when no crop sizes are present' do
+      context "when no crop sizes are present" do
         it "it does not pass crop sizes to the picture's url method and disables cropping." do
           expect(picture).to receive(:url).with(
-            hash_including(crop_from: nil, crop_size: nil, crop: false)
+            hash_including(crop_from: nil, crop_size: nil, crop: false),
           )
           thumbnail_url
         end
 
-        context 'when crop is explicitely enabled in the settings' do
+        context "when crop is explicitely enabled in the settings" do
           let(:settings) do
             { crop: true }
           end
 
           it "it enables cropping." do
             expect(picture).to receive(:url).with(
-              hash_including(crop: true)
+              hash_including(crop: true),
             )
             thumbnail_url
           end
         end
       end
 
-      context 'without picture assigned' do
+      context "without picture assigned" do
         let(:picture) { nil }
 
         it { is_expected.to be_nil }
       end
     end
 
-    describe '#cropping_mask' do
+    describe "#cropping_mask" do
       subject { essence.cropping_mask }
 
-      context 'with crop values given' do
-        let(:essence) { build_stubbed(:alchemy_essence_picture, crop_from: '0x0', crop_size: '100x100') }
+      context "with crop values given" do
+        let(:essence) { build_stubbed(:alchemy_essence_picture, crop_from: "0x0", crop_size: "100x100") }
 
         it "returns a hash containing cropping coordinates" do
           is_expected.to eq({x1: 0, y1: 0, x2: 100, y2: 100})
         end
       end
 
-      context 'with no crop values given' do
+      context "with no crop values given" do
         let(:essence) { build_stubbed(:alchemy_essence_picture) }
 
         it { is_expected.to be_nil }
       end
     end
 
-    describe '#preview_text' do
-      let(:picture) { mock_model(Picture, name: 'Cute Cat Kittens') }
+    describe "#preview_text" do
+      let(:picture) { mock_model(Picture, name: "Cute Cat Kittens") }
       let(:essence) { EssencePicture.new }
 
       it "should return the pictures name as preview text" do
         allow(essence).to receive(:picture).and_return(picture)
-        expect(essence.preview_text).to eq('Cute Cat Kittens')
+        expect(essence.preview_text).to eq("Cute Cat Kittens")
       end
 
       context "with no picture assigned" do
         it "returns empty string" do
-          expect(essence.preview_text).to eq('')
+          expect(essence.preview_text).to eq("")
         end
       end
     end
 
-    describe '#serialized_ingredient' do
+    describe "#serialized_ingredient" do
       let(:content) do
         Content.new
       end
 
       let(:picture) do
         mock_model Picture,
-          name: 'Cute Cat Kittens',
-          urlname: 'cute-cat-kittens',
-          security_token: 'kljhgfd',
-          default_render_format: 'jpg'
+          name: "Cute Cat Kittens",
+          urlname: "cute-cat-kittens",
+          security_token: "kljhgfd",
+          default_render_format: "jpg"
       end
 
       let(:essence) do
@@ -299,11 +299,11 @@ module Alchemy
         essence.serialized_ingredient
       end
 
-      context 'with image settings set as content settings' do
+      context "with image settings set as content settings" do
         let(:settings) do
           {
-            size: '150x150',
-            format: 'png'
+            size: "150x150",
+            format: "png",
           }
         end
 

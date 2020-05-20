@@ -79,7 +79,7 @@ module Alchemy
       end
 
       def alchemy_scoped_scope(options)
-        default_scope = ['alchemy']
+        default_scope = ["alchemy"]
         case options[:scope]
         when Array
           default_scope + options[:scope]

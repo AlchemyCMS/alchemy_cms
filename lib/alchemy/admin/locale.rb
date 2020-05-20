@@ -64,7 +64,7 @@ module Alchemy
 
       # Try to get the locale from browser headers.
       def locale_from_browser
-        request.env['HTTP_ACCEPT_LANGUAGE'].try(:scan, /\A[a-z]{2}/).try(:first)
+        request.env["HTTP_ACCEPT_LANGUAGE"].try(:scan, /\A[a-z]{2}/).try(:first)
       end
     end
   end

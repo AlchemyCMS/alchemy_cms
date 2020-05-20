@@ -6,7 +6,6 @@ module Alchemy
       include Userstamp
       include Locale
 
-      before_action { enforce_ssl if ssl_required? && !request.ssl? }
       before_action :load_locked_pages
 
       helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
@@ -27,14 +26,14 @@ module Alchemy
 
       def leave
         authorize! :leave, :alchemy_admin
-        render template: '/alchemy/admin/leave', layout: !request.xhr?
+        render template: "/alchemy/admin/leave", layout: !request.xhr?
       end
 
       private
 
       # Disable layout rendering for xhr requests.
       def set_layout
-        request.xhr? ? false : 'alchemy/admin'
+        request.xhr? ? false : "alchemy/admin"
       end
 
       # Handles exceptions
@@ -55,7 +54,7 @@ module Alchemy
         if request.xhr?
           render action: "error_notice"
         else
-          render '500', status: 500
+          render "500", status: 500
         end
       end
 
@@ -105,7 +104,7 @@ module Alchemy
           flash[:notice] = Alchemy.t(flash_notice)
           do_redirect_to redirect_url
         else
-          render action: (params[:action] == 'update' ? 'edit' : 'new')
+          render action: (params[:action] == "update" ? "edit" : "new")
         end
       end
 
@@ -113,7 +112,7 @@ module Alchemy
       #
       def do_redirect_to(url_or_path)
         respond_to do |format|
-          format.js   {
+          format.js {
             @redirect_url = url_or_path
             render :redirect
           }
@@ -131,7 +130,7 @@ module Alchemy
 
       # Are we currently in the page edit mode page preview.
       def is_page_preview?
-        controller_path == 'alchemy/admin/pages' && action_name == 'show'
+        controller_path == "alchemy/admin/pages" && action_name == "show"
       end
 
       def load_locked_pages
@@ -142,11 +141,11 @@ module Alchemy
       #
       def current_alchemy_site
         @current_alchemy_site ||= begin
-          site_id = params[:site_id] || session[:alchemy_site_id]
-          site = Site.find_by(id: site_id) || super
-          session[:alchemy_site_id] = site&.id
-          site
-        end
+            site_id = params[:site_id] || session[:alchemy_site_id]
+            site = Site.find_by(id: site_id) || super
+            session[:alchemy_site_id] = site&.id
+            site
+          end
       end
     end
   end

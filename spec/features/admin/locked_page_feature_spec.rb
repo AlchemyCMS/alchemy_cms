@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Locked pages feature', type: :system do
+RSpec.describe "Locked pages feature", type: :system do
   let(:a_page) { create(:alchemy_page) }
 
   let(:user) do
@@ -14,20 +14,20 @@ RSpec.describe 'Locked pages feature', type: :system do
     authorize_user(user)
   end
 
-  it 'displays tab for each locked page' do
+  it "displays tab for each locked page" do
     visit alchemy.admin_pages_path
 
-    within '#locked_pages' do
+    within "#locked_pages" do
       expect(page).to have_link a_page.name, href: alchemy.edit_admin_page_path(a_page)
     end
   end
 
-  context 'with multiple languages' do
+  context "with multiple languages" do
     let!(:language) do
       create(:alchemy_language, :klingon)
     end
 
-    it 'displays information for language' do
+    it "displays information for language" do
       visit alchemy.admin_pages_path
 
       within "#locked_page_#{a_page.id}" do
@@ -36,12 +36,12 @@ RSpec.describe 'Locked pages feature', type: :system do
     end
   end
 
-  context 'with multiple sites' do
+  context "with multiple sites" do
     let!(:site) do
-      create(:alchemy_site, host: 'another-site.com')
+      create(:alchemy_site, host: "another-site.com")
     end
 
-    it 'displays information for site' do
+    it "displays information for site" do
       visit alchemy.admin_pages_path
 
       within "#locked_page_#{a_page.id}" do

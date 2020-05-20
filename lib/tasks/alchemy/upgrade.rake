@@ -1,28 +1,30 @@
 # frozen_string_literal: true
-require 'alchemy/upgrader'
-require 'alchemy/version'
+require "alchemy/upgrader"
+require "alchemy/version"
 
 namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
-    'alchemy:upgrade:prepare'
+    "alchemy:upgrade:prepare",
   ] do
     Alchemy::Upgrader.display_todos
   end
 
   namespace :upgrade do
-    desc 'Alchemy Upgrader: Prepares the database and updates Alchemys configuration file.'
+    desc "Alchemy Upgrader: Prepares the database and updates Alchemys configuration file."
     task prepare: [
-      'alchemy:upgrade:database',
-      'alchemy:upgrade:config'
+      "alchemy:upgrade:database",
+      "alchemy:upgrade:config",
     ]
 
     desc "Alchemy Upgrader: Prepares the database."
     task database: [
-      'alchemy:upgrade:5.0:install_gutentag_migrations',
-      'alchemy:install:migrations',
-      'db:migrate',
-      'alchemy:db:seed'
+      "alchemy:upgrade:5.0:install_gutentag_migrations",
+      "alchemy:upgrade:5.0:remove_layout_roots",
+      "alchemy:upgrade:5.0:remove_root_page",
+      "alchemy:install:migrations",
+      "db:migrate",
+      "alchemy:db:seed",
     ]
 
     desc "Alchemy Upgrader: Copy configuration file."
@@ -30,17 +32,27 @@ namespace :alchemy do
       Alchemy::Upgrader.copy_new_config_file
     end
 
-    desc 'Upgrade Alchemy to v5.0'
-    task '5.0' => [
-      'alchemy:upgrade:prepare'
+    desc "Upgrade Alchemy to v5.0"
+    task "5.0" => [
+      "alchemy:upgrade:prepare",
     ] do
       Alchemy::Upgrader.display_todos
     end
 
-    namespace '5.0' do
-      desc 'Install Gutentag migrations'
+    namespace "5.0" do
+      desc "Install Gutentag migrations"
       task install_gutentag_migrations: [:environment] do
         Alchemy::Upgrader::FivePointZero.install_gutentag_migrations
+      end
+
+      desc "Remove layout root pages"
+      task remove_layout_roots: [:environment] do
+        Alchemy::Upgrader::FivePointZero.remove_layout_roots
+      end
+
+      desc "Remove root page"
+      task remove_root_page: [:environment] do
+        Alchemy::Upgrader::FivePointZero.remove_root_page
       end
     end
   end

@@ -45,9 +45,8 @@ module Alchemy
 
         contentpages.each do |page|
           create_page(page, {
-            parent: Alchemy::Page.root,
             language: Alchemy::Language.default,
-            language_root: true
+            language_root: true,
           })
         end
       end
@@ -55,12 +54,8 @@ module Alchemy
       def seed_layoutpages
         desc "Seeding Alchemy layout pages from #{page_seeds_file}"
         language = Alchemy::Language.default
-        layout_root = Alchemy::Page.find_or_create_layout_root_for(language.id)
         layoutpages.each do |page|
-          create_page(page, {
-            parent: layout_root,
-            language: language
-          })
+          create_page(page, { language: language })
         end
       end
 
@@ -83,7 +78,7 @@ module Alchemy
       private
 
       def page_seeds_file
-        @_page_seeds_file ||= Rails.root.join('db', 'seeds', 'alchemy', 'pages.yml')
+        @_page_seeds_file ||= Rails.root.join("db", "seeds", "alchemy", "pages.yml")
       end
 
       def page_yml
@@ -91,23 +86,23 @@ module Alchemy
       end
 
       def contentpages
-        page_yml.reject { |p| p['layoutpage'] }
+        page_yml.reject { |p| p["layoutpage"] }
       end
 
       def layoutpages
-        page_yml.select { |p| p['layoutpage'] }
+        page_yml.select { |p| p["layoutpage"] }
       end
 
       def user_seeds_file
-        @_user_seeds_file ||= Rails.root.join('db', 'seeds', 'alchemy', 'users.yml')
+        @_user_seeds_file ||= Rails.root.join("db", "seeds", "alchemy", "users.yml")
       end
 
       def create_page(draft, attributes = {})
-        children = draft.delete('children') || []
+        children = draft.delete("children") || []
         page = Alchemy::Page.create!(draft.merge(attributes))
         log "Created page: #{page.name}"
         children.each do |child|
-          create_page(child, parent: page)
+          create_page(child, parent: page, language: page.language)
         end
       end
 
@@ -117,14 +112,14 @@ module Alchemy
         default_language = Alchemy::Config.get(:default_language)
         if default_language
           Alchemy::Language.create!(
-            name:           default_language['name'],
-            language_code:  default_language['code'],
-            locale:         default_language['code'],
-            frontpage_name: default_language['frontpage_name'],
-            page_layout:    default_language['page_layout'],
-            public:         true,
-            default:        true,
-            site:           Alchemy::Site.default
+            name: default_language["name"],
+            language_code: default_language["code"],
+            locale: default_language["code"],
+            frontpage_name: default_language["frontpage_name"],
+            page_layout: default_language["page_layout"],
+            public: true,
+            default: true,
+            site: Alchemy::Site.default,
           )
         else
           raise DefaultLanguageNotFoundError
@@ -134,7 +129,7 @@ module Alchemy
       def create_default_site!
         default_site = Alchemy::Config.get(:default_site)
         if default_site
-          Alchemy::Site.create!(name: default_site['name'], host: default_site['host'])
+          Alchemy::Site.create!(name: default_site["name"], host: default_site["host"])
         else
           raise DefaultSiteNotFoundError
         end

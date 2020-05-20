@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe "alchemy/admin/partials/_main_navigation_entry.html.erb" do
   let(:alchemy_module) do
     {
-      engine_name: 'alchemy',
-      name: 'what_a_name',
+      engine_name: "alchemy",
+      name: "what_a_name",
       navigation: {
-        controller: 'alchemy/admin/pages',
-        action: 'index',
-        name: 'Pages',
-        image: 'alchemy/alchemy-logo.svg',
+        controller: "alchemy/admin/pages",
+        action: "index",
+        name: "Pages",
+        image: "alchemy/alchemy-logo.svg",
         data: { turbolinks: false },
-        sub_navigation: []
-      }
+        sub_navigation: [],
+      },
     }.with_indifferent_access
   end
 
@@ -33,18 +33,18 @@ describe "alchemy/admin/partials/_main_navigation_entry.html.erb" do
     expect(rendered).to have_selector('div[data-turbolinks="false"]')
   end
 
-  context 'with no data attribute' do
+  context "with no data attribute" do
     let(:alchemy_module) do
       {
-        engine_name: 'alchemy',
-        name: 'what_a_name',
+        engine_name: "alchemy",
+        name: "what_a_name",
         navigation: {
-          controller: 'alchemy/admin/pages',
-          action: 'index',
-          name: 'Pages',
-          image: 'alchemy/alchemy-logo.svg',
-          sub_navigation: []
-        }
+          controller: "alchemy/admin/pages",
+          action: "index",
+          name: "Pages",
+          image: "alchemy/alchemy-logo.svg",
+          sub_navigation: [],
+        },
       }.with_indifferent_access
     end
 

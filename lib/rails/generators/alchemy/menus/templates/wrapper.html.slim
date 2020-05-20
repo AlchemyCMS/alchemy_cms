@@ -1,6 +1,0 @@
-- cache menu do
-  ul.nav
-    = render partial: options[:node_partial_name],
-      collection: menu.children.includes(:page, :children),
-      locals: { options: options },
-      as: 'node'

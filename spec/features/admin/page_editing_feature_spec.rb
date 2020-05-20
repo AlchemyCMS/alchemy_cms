@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Page editing feature', type: :system do
+RSpec.describe "Page editing feature", type: :system do
   let(:a_page) { create(:alchemy_page) }
 
-  context 'as author' do
+  context "as author" do
     before { authorize_user(:as_author) }
 
-    it 'cannot publish page.' do
+    it "cannot publish page." do
       visit alchemy.edit_admin_page_path(a_page)
-      expect(page).to_not have_selector('#publish_page_form')
+      expect(page).to_not have_selector("#publish_page_form")
     end
 
     describe "the preview frame", :js do
@@ -21,26 +21,26 @@ RSpec.describe 'Page editing feature', type: :system do
     end
   end
 
-  context 'as editor' do
+  context "as editor" do
     before { authorize_user(:as_editor) }
 
-    it 'can publish page.' do
+    it "can publish page." do
       visit alchemy.edit_admin_page_path(a_page)
-      find('#publish_page_form button').click
+      find("#publish_page_form button").click
       expect(page).to have_content Alchemy.t(:page_published, name: a_page.name)
     end
 
-    context 'while editing a global page' do
+    context "while editing a global page" do
       let(:a_page) { create(:alchemy_page, layoutpage: true) }
 
-      it 'can publish page.' do
+      it "can publish page." do
         visit alchemy.edit_admin_page_path(a_page)
-        expect(page).to have_selector('#publish_page_form')
+        expect(page).to have_selector("#publish_page_form")
       end
     end
   end
 
-  context 'as admin' do
+  context "as admin" do
     let(:a_page) { create(:alchemy_page, :public, visible: true) }
 
     before { authorize_user(:as_admin) }
@@ -49,15 +49,15 @@ RSpec.describe 'Page editing feature', type: :system do
       context "when editing a normal page" do
         it "should show all relevant input fields" do
           visit alchemy.configure_admin_page_path(a_page)
-          expect(page).to have_selector('input#page_urlname')
-          expect(page).to have_selector('input#page_title')
-          expect(page).to have_selector('input#page_robot_index')
-          expect(page).to have_selector('input#page_robot_follow')
+          expect(page).to have_selector("input#page_urlname")
+          expect(page).to have_selector("input#page_title")
+          expect(page).to have_selector("input#page_robot_index")
+          expect(page).to have_selector("input#page_robot_follow")
         end
 
         context "with sitemaps show_flag config option set to true" do
           before do
-            stub_alchemy_config(:sitemap, {'show_flag' => true})
+            stub_alchemy_config(:sitemap, {"show_flag" => true})
           end
 
           it "should show sitemap checkbox" do
@@ -68,7 +68,7 @@ RSpec.describe 'Page editing feature', type: :system do
 
         context "with sitemaps show_flag config option set to false" do
           before do
-            stub_alchemy_config(:sitemap, {'show_flag' => false})
+            stub_alchemy_config(:sitemap, {"show_flag" => false})
           end
 
           it "should not show sitemap checkbox" do
@@ -83,10 +83,10 @@ RSpec.describe 'Page editing feature', type: :system do
 
         it "should not show the input fields for normal pages" do
           visit alchemy.edit_admin_layoutpage_path(layout_page)
-          expect(page).to_not have_selector('input#page_urlname')
-          expect(page).to_not have_selector('input#page_title')
-          expect(page).to_not have_selector('input#page_robot_index')
-          expect(page).to_not have_selector('input#page_robot_follow')
+          expect(page).to_not have_selector("input#page_urlname")
+          expect(page).to_not have_selector("input#page_title")
+          expect(page).to_not have_selector("input#page_robot_index")
+          expect(page).to_not have_selector("input#page_robot_follow")
         end
       end
 
@@ -98,7 +98,7 @@ RSpec.describe 'Page editing feature', type: :system do
 
         it "should show the tag_list input field" do
           visit alchemy.configure_admin_page_path(a_page)
-          expect(page).to have_selector('input#page_tag_list')
+          expect(page).to have_selector("input#page_tag_list")
         end
       end
     end
@@ -106,53 +106,53 @@ RSpec.describe 'Page editing feature', type: :system do
     context "in preview frame" do
       it "the menubar does not render on the page" do
         visit alchemy.admin_page_path(a_page)
-        expect(page).not_to have_selector('#alchemy_menubar')
+        expect(page).not_to have_selector("#alchemy_menubar")
       end
 
-      context 'with menu available' do
-        let!(:menu) { create(:alchemy_node, name: 'Main Navigation') }
-        let!(:node) { create(:alchemy_node, url: '/page-1', parent: menu) }
+      context "with menu available" do
+        let!(:menu) { create(:alchemy_node, name: "main_menu") }
+        let!(:node) { create(:alchemy_node, url: "/page-1", parent: menu) }
 
         it "navigation links are not clickable" do
           visit alchemy.admin_page_path(a_page)
-          within('nav') do
+          within("nav") do
             expect(page).to have_selector('a[href="javascript: void(0)"]')
           end
         end
       end
     end
 
-    context 'in element panel' do
+    context "in element panel" do
       let!(:everything_page) do
-        create(:alchemy_page, page_layout: 'everything', autogenerate_elements: true)
+        create(:alchemy_page, page_layout: "everything", autogenerate_elements: true)
       end
 
       it "renders essence editors for all element contents" do
         visit alchemy.admin_elements_path(page_id: everything_page.id)
 
-        expect(page).to have_selector('div.content_editor.essence_boolean')
-        expect(page).to have_selector('div.content_editor.essence_date')
-        expect(page).to have_selector('div.content_editor.essence_file')
-        expect(page).to have_selector('div.content_editor.essence_html')
-        expect(page).to have_selector('div.content_editor.essence_link')
-        expect(page).to have_selector('div.content_editor.essence_picture')
-        expect(page).to have_selector('div.content_editor.essence_richtext')
-        expect(page).to have_selector('div.content_editor.essence_select')
-        expect(page).to have_selector('div.content_editor.essence_text')
+        expect(page).to have_selector("div.content_editor.essence_boolean")
+        expect(page).to have_selector("div.content_editor.essence_date")
+        expect(page).to have_selector("div.content_editor.essence_file")
+        expect(page).to have_selector("div.content_editor.essence_html")
+        expect(page).to have_selector("div.content_editor.essence_link")
+        expect(page).to have_selector("div.content_editor.essence_picture")
+        expect(page).to have_selector("div.content_editor.essence_richtext")
+        expect(page).to have_selector("div.content_editor.essence_select")
+        expect(page).to have_selector("div.content_editor.essence_text")
       end
 
       it "renders data attribute based on content name" do
         visit alchemy.admin_elements_path(page_id: everything_page.id)
 
-        expect(page).to have_selector('div[data-content-name=essence_boolean]')
-        expect(page).to have_selector('div[data-content-name=essence_date]')
-        expect(page).to have_selector('div[data-content-name=essence_file]')
-        expect(page).to have_selector('div[data-content-name=essence_html]')
-        expect(page).to have_selector('div[data-content-name=essence_link]')
-        expect(page).to have_selector('div[data-content-name=essence_picture]')
-        expect(page).to have_selector('div[data-content-name=essence_richtext]')
-        expect(page).to have_selector('div[data-content-name=essence_select]')
-        expect(page).to have_selector('div[data-content-name=essence_text]')
+        expect(page).to have_selector("div[data-content-name=essence_boolean]")
+        expect(page).to have_selector("div[data-content-name=essence_date]")
+        expect(page).to have_selector("div[data-content-name=essence_file]")
+        expect(page).to have_selector("div[data-content-name=essence_html]")
+        expect(page).to have_selector("div[data-content-name=essence_link]")
+        expect(page).to have_selector("div[data-content-name=essence_picture]")
+        expect(page).to have_selector("div[data-content-name=essence_richtext]")
+        expect(page).to have_selector("div[data-content-name=essence_select]")
+        expect(page).to have_selector("div[data-content-name=essence_text]")
       end
     end
   end
@@ -181,10 +181,10 @@ RSpec.describe 'Page editing feature', type: :system do
 
     context "when page has fixed attributes" do
       let!(:readonly_page) do
-        create(:alchemy_page, page_layout: 'readonly')
+        create(:alchemy_page, page_layout: "readonly")
       end
 
-      it 'is not possible to edit the attribute', :aggregate_failures do
+      it "is not possible to edit the attribute", :aggregate_failures do
         visit alchemy.configure_admin_page_path(readonly_page)
         readonly_page.fixed_attributes.all.each do |attribute, _v|
           expect(page).to have_selector("#page_#{attribute}[disabled=\"disabled\"]")

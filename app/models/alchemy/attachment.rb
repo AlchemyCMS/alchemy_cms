@@ -22,7 +22,7 @@ module Alchemy
     include Alchemy::Filetypes
     include Alchemy::NameConversions
     include Alchemy::Taggable
-    include Alchemy::ContentTouching
+    include Alchemy::TouchElements
 
     dragonfly_accessor :file, app: :alchemy_attachments do
       after_assign { |f| write_attribute(:file_mime_type, f.mime_type) }
@@ -30,7 +30,7 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    has_many :essence_files, class_name: 'Alchemy::EssenceFile', foreign_key: 'attachment_id'
+    has_many :essence_files, class_name: "Alchemy::EssenceFile", foreign_key: "attachment_id"
     has_many :contents, through: :essence_files
     has_many :elements, through: :contents
     has_many :pages, through: :elements
@@ -42,24 +42,25 @@ module Alchemy
       end
 
       def allowed_filetypes
-        Config.get(:uploader).fetch('allowed_filetypes', {}).fetch('alchemy/attachments', [])
+        Config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/attachments", [])
       end
 
       def file_types_for_select
         file_types = Alchemy::Attachment.pluck(:file_mime_type).uniq.map do |type|
-          [Alchemy.t(type, scope: 'mime_types'), type]
+          [Alchemy.t(type, scope: "mime_types"), type]
         end
         file_types.sort_by(&:first)
       end
     end
 
     validates_presence_of :file
-    validates_size_of :file, maximum: Config.get(:uploader)['file_size_limit'].megabytes
-    validates_property :ext, of: :file,
+    validates_size_of :file, maximum: Config.get(:uploader)["file_size_limit"].megabytes
+    validates_property :ext,
+      of: :file,
       in: allowed_filetypes,
       case_sensitive: false,
       message: Alchemy.t("not a valid file"),
-      unless: -> { self.class.allowed_filetypes.include?('*') }
+      unless: -> { self.class.allowed_filetypes.include?("*") }
 
     before_save :set_name, if: :file_name_changed?
 
@@ -71,13 +72,13 @@ module Alchemy
       {
         "name" => read_attribute(:file_name),
         "size" => read_attribute(:file_size),
-        'error' => errors[:file].join
+        "error" => errors[:file].join,
       }
     end
 
     # An url save filename without format suffix
     def urlname
-      CGI.escape(file_name.gsub(/\.#{extension}$/, '').tr('.', ' '))
+      CGI.escape(file_name.gsub(/\.#{extension}$/, "").tr(".", " "))
     end
 
     # Checks if the attachment is restricted, because it is attached on restricted pages only
@@ -89,6 +90,7 @@ module Alchemy
     def extension
       file_name.split(".").last
     end
+
     alias_method :suffix, :extension
 
     # Returns a css class name for kind of file

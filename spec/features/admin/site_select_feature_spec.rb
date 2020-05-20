@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Site select', type: :system do
+RSpec.describe "Site select", type: :system do
   before do
     authorize_user(:as_admin)
   end
@@ -10,7 +10,7 @@ RSpec.describe 'Site select', type: :system do
   context "without multiple sites" do
     it "does not display the site select" do
       visit admin_pages_path
-      expect(page).not_to have_select('change_site')
+      expect(page).not_to have_select("change_site")
     end
   end
 
@@ -21,7 +21,7 @@ RSpec.describe 'Site select', type: :system do
     context "not on pages or languages module" do
       it "does not display the site select" do
         visit admin_dashboard_path
-        expect(page).not_to have_select('change_site')
+        expect(page).not_to have_select("change_site")
       end
     end
 
@@ -29,26 +29,26 @@ RSpec.describe 'Site select', type: :system do
       it "contains all sites in a selectbox" do
         %w(admin_pages_path admin_layoutpages_path admin_languages_path).each do |module_path|
           visit send(module_path)
-          expect(page).to have_select('change_site',
+          expect(page).to have_select("change_site",
             options: [Alchemy::Site.default.name, a_site.name],
             selected: Alchemy::Site.default.name)
         end
       end
     end
 
-    context 'when switching site' do
+    context "when switching site" do
       it "stores the site in session" do
         visit admin_pages_path(site_id: a_site.id)
-        expect(page).to have_select('change_site', selected: a_site.name)
+        expect(page).to have_select("change_site", selected: a_site.name)
 
         visit admin_languages_path
-        expect(page).to have_select('change_site', selected: a_site.name)
+        expect(page).to have_select("change_site", selected: a_site.name)
       end
 
-      context 'when site id is not found' do
+      context "when site id is not found" do
         it "stores the default site in session" do
-          visit admin_pages_path(site_id: '')
-          expect(page).to have_select('change_site', selected: Alchemy::Site.default.name)
+          visit admin_pages_path(site_id: "")
+          expect(page).to have_select("change_site", selected: Alchemy::Site.default.name)
         end
       end
     end

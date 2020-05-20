@@ -25,16 +25,16 @@ module Alchemy
         [
           {
             contents: {
-              essence: :ingredient_association
+              essence: :ingredient_association,
             },
             all_nested_elements: [
               {
                 contents: {
-                  essence: :ingredient_association
-                }
-              }
-            ]
-          }
+                  essence: :ingredient_association,
+                },
+              },
+            ],
+          },
         ]
       end
     end

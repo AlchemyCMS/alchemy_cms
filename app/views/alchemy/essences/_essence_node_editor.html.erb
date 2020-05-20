@@ -1,0 +1,27 @@
+<%= content_tag :div,
+  id: essence_node_editor.dom_id,
+  class: essence_node_editor.css_classes,
+  data: essence_node_editor.data_attributes do %>
+  <%= content_label(essence_node_editor) %>
+  <%= text_field_tag(
+    essence_node_editor.form_field_name("node_id"),
+    essence_node_editor.essence.node_id,
+    id: essence_node_editor.form_field_id,
+    class: 'alchemy_selectbox full_width'
+  ) %>
+<% end %>
+
+<script>
+  <% query_params = essence_node_editor.settings.fetch(:query_params, {}).merge({
+    include: :ancestors
+  }) %>
+  $('#<%= essence_node_editor.form_field_id %>').alchemyNodeSelect({
+    placeholder: "<%= Alchemy.t(:search_node) %>",
+    url: "<%= alchemy.api_nodes_path %>",
+    query_params: <%== query_params.to_json %>,
+    <% if essence_node_editor.essence.node %>
+    <% serialized_node = ActiveModelSerializers::SerializableResource.new(essence_node_editor.essence.node, include: :ancestors) %>
+    initialSelection: <%== serialized_node.to_json %>
+    <% end %>
+  })
+</script>

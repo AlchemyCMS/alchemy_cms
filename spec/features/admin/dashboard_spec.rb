@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'Dashboard feature', type: :system do
+RSpec.describe "Dashboard feature", type: :system do
   let(:user) { create(:alchemy_dummy_user, :as_admin, name: "Joe User") }
 
   before do
     authorize_user(user)
   end
 
-  describe 'Locked pages summary' do
+  describe "Locked pages summary" do
     let(:a_page) { create(:alchemy_page, :public, visible: true) }
 
     it "should initially show no pages are locked" do
@@ -19,7 +19,7 @@ RSpec.describe 'Dashboard feature', type: :system do
       expect(locked_pages_widget).to have_content "no pages"
     end
 
-    context 'When locked by current user' do
+    context "When locked by current user" do
       it "should show locked by me" do
         a_page.lock_to!(user)
         visit admin_dashboard_path
@@ -30,7 +30,7 @@ RSpec.describe 'Dashboard feature', type: :system do
       end
     end
 
-    context 'When locked by another user' do
+    context "When locked by another user" do
       let(:other_user) { create(:alchemy_dummy_user, :as_admin) }
 
       it "shows the name of the user who locked the page" do
@@ -44,10 +44,10 @@ RSpec.describe 'Dashboard feature', type: :system do
     end
   end
 
-  describe 'Sites widget' do
-    context 'with multiple sites' do
+  describe "Sites widget" do
+    context "with multiple sites" do
       let!(:default_site) { create(:alchemy_site, :default) }
-      let!(:another_site) { create(:alchemy_site, name: 'Site', host: 'site.com') }
+      let!(:another_site) { create(:alchemy_site, name: "Site", host: "site.com") }
 
       it "lists all sites" do
         visit admin_dashboard_path
@@ -57,9 +57,9 @@ RSpec.describe 'Dashboard feature', type: :system do
         expect(sites_widget).to have_content "Site"
       end
 
-      context 'with alchemy url proxy object having `login_url`' do
+      context "with alchemy url proxy object having `login_url`" do
         before do
-          allow_any_instance_of(ActionDispatch::Routing::RoutesProxy).to receive(:login_url).and_return('http://site.com/admin/login')
+          allow_any_instance_of(ActionDispatch::Routing::RoutesProxy).to receive(:login_url).and_return("http://site.com/admin/login")
         end
 
         it "links to login page of every site" do
@@ -70,7 +70,7 @@ RSpec.describe 'Dashboard feature', type: :system do
       end
     end
 
-    context 'with only one site' do
+    context "with only one site" do
       it "does not display" do
         visit admin_dashboard_path
         sites_widget = all('div[@class="widget sites"]').first
@@ -79,8 +79,8 @@ RSpec.describe 'Dashboard feature', type: :system do
     end
   end
 
-  describe 'Online users' do
-    context 'with alchemy users' do
+  describe "Online users" do
+    context "with alchemy users" do
       let(:other_user) { build_stubbed(:alchemy_dummy_user) }
 
       before do
@@ -96,10 +96,10 @@ RSpec.describe 'Dashboard feature', type: :system do
       end
     end
 
-    context 'with non alchemy user class' do
+    context "with non alchemy user class" do
       class SomeUser; end
       before do
-        Alchemy.user_class_name = 'SomeUser'
+        Alchemy.user_class_name = "SomeUser"
       end
 
       it "does not list online users" do
@@ -109,7 +109,7 @@ RSpec.describe 'Dashboard feature', type: :system do
       end
 
       after do
-        Alchemy.user_class_name = 'DummyUser'
+        Alchemy.user_class_name = "DummyUser"
       end
     end
   end

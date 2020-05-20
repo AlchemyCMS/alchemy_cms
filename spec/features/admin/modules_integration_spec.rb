@@ -1,18 +1,18 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe "Modules", type: :system do
   context "A custom module with a main-apps controller" do
     before { authorize_user(:as_admin) }
 
     it "should have a button in main_navigation, pointing to the configured controller" do
-      visit '/admin'
-      within '#main_navi' do
-        first('a', text: 'Events').click
+      visit "/admin"
+      within "#main_navi" do
+        first("a", text: "Events").click
       end
-      within '#main_content' do
-        expect(page).to have_content('0 Events')
+      within "#main_content" do
+        expect(page).to have_content("0 Events")
       end
     end
   end

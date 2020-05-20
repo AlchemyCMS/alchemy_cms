@@ -73,7 +73,7 @@ module Alchemy
     #       rss_title: true
     #
     def content_for_rss_title
-      content_for_rss_meta('title')
+      content_for_rss_meta("title")
     end
 
     # Returns the content that is marked as rss description.
@@ -87,14 +87,14 @@ module Alchemy
     #       rss_description: true
     #
     def content_for_rss_description
-      content_for_rss_meta('description')
+      content_for_rss_meta("description")
     end
 
     # Returns the array with the hashes for all element contents in the elements.yml file
     def content_definitions
       return nil if definition.blank?
 
-      definition['contents']
+      definition["contents"]
     end
 
     # Returns the definition for given content_name
@@ -103,7 +103,7 @@ module Alchemy
         log_warning "Element #{name} is missing the content definition for #{content_name}"
         nil
       else
-        content_definitions.detect { |d| d['name'] == content_name.to_s }
+        content_definitions.detect { |d| d["name"] == content_name.to_s }
       end
     end
 
@@ -139,12 +139,12 @@ module Alchemy
       definition = content_definitions.detect { |c| c["rss_#{type}"] }
       return if definition.blank?
 
-      contents.detect { |content| content.name == definition['name'] }
+      contents.detect { |content| content.name == definition["name"] }
     end
 
     # creates the contents for this element as described in the elements.yml
     def create_contents
-      definition.fetch('contents', []).each do |attributes|
+      definition.fetch("contents", []).each do |attributes|
         Content.create(attributes.merge(element: self))
       end
     end

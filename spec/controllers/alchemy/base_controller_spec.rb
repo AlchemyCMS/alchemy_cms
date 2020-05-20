@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe BaseController do
-    describe '#set_locale' do
-      context 'with Language.current set' do
+    describe "#set_locale" do
+      context "with Language.current set" do
         let(:language) { create(:alchemy_language, :klingon) }
 
         before { Alchemy::Language.current = language }
@@ -16,7 +16,7 @@ module Alchemy
         end
       end
 
-      context 'without Language.current set' do
+      context "without Language.current set" do
         before { Alchemy::Language.current = nil }
 
         it "does not set the ::I18n.locale" do
@@ -59,14 +59,14 @@ module Alchemy
         let!(:default_site) { create(:alchemy_site, :default) }
 
         let!(:site_2) do
-          create(:alchemy_site, host: 'another-host.com')
+          create(:alchemy_site, host: "another-host.com")
         end
 
         let!(:site_2_language_2) do
           create(:alchemy_language, :klingon, site: site_2)
         end
 
-        it 'only is true for current site' do
+        it "only is true for current site" do
           is_expected.to be(false)
         end
       end
@@ -83,7 +83,7 @@ module Alchemy
 
         context "and current language is not the default locale" do
           before do
-            allow(Alchemy::Language).to receive(:current) { double(code: 'kl') }
+            allow(Alchemy::Language).to receive(:current) { double(code: "kl") }
             allow(::I18n).to receive(:default_locale) { :de }
           end
 
@@ -92,7 +92,7 @@ module Alchemy
 
         context "and current language is the default locale" do
           before do
-            allow(Alchemy::Language).to receive(:current) { double(code: 'de') }
+            allow(Alchemy::Language).to receive(:current) { double(code: "de") }
             allow(::I18n).to receive(:default_locale) { :de }
           end
 
@@ -100,7 +100,7 @@ module Alchemy
         end
 
         context "and passed in locale is not the default locale" do
-          subject(:prefix_locale?) { controller.prefix_locale?('en') }
+          subject(:prefix_locale?) { controller.prefix_locale?("en") }
 
           before do
             allow(::I18n).to receive(:default_locale) { :de }
@@ -110,7 +110,7 @@ module Alchemy
         end
 
         context "and passed in locale is the default locale" do
-          subject(:prefix_locale?) { controller.prefix_locale?('de') }
+          subject(:prefix_locale?) { controller.prefix_locale?("de") }
 
           before do
             allow(::I18n).to receive(:default_locale) { :de }

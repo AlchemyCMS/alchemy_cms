@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 include Alchemy::ElementsHelper
 
 module Alchemy
-  describe 'ElementsBlockHelper' do
-    let(:page)    { create(:alchemy_page, :public) }
-    let(:element) { create(:alchemy_element, page: page, tag_list: 'foo, bar') }
+  describe "ElementsBlockHelper" do
+    let(:page) { create(:alchemy_page, :public) }
+    let(:element) { create(:alchemy_element, page: page, tag_list: "foo, bar") }
     let(:expected_wrapper_tag) { "div.#{element.name}##{element_dom_id(element)}" }
 
-    describe '#element_view_for' do
+    describe "#element_view_for" do
       it "should yield an instance of ElementViewHelper" do
         expect { |b| element_view_for(element, &b) }.
           to yield_with_args(ElementsBlockHelper::ElementViewHelper)
@@ -22,8 +22,8 @@ module Alchemy
       end
 
       it "should change the wrapping DOM element according to parameters" do
-        expect(element_view_for(element, tag: 'span', class: 'some_class', id: 'some_id')).
-          to have_css 'span.some_class#some_id'
+        expect(element_view_for(element, tag: "span", class: "some_class", id: "some_id")).
+          to have_css "span.some_class#some_id"
       end
 
       it "should include the element's tags in the wrapper DOM element" do
@@ -38,8 +38,8 @@ module Alchemy
 
       it "should include the contents rendered by the block passed to it" do
         expect(element_view_for(element) do
-          'view'
-        end).to have_content 'view'
+          "view"
+        end).to have_content "view"
       end
 
       context "when/if preview mode is not active" do
@@ -59,15 +59,15 @@ module Alchemy
       end
     end
 
-    describe 'ElementsBlockHelper::ElementViewHelper' do
+    describe "ElementsBlockHelper::ElementViewHelper" do
       let(:scope) { double }
       subject { ElementsBlockHelper::ElementViewHelper.new(scope, element: element) }
 
-      it 'should have a reference to the specified element' do
+      it "should have a reference to the specified element" do
         subject.element == element
       end
 
-      describe '#render' do
+      describe "#render" do
         let(:element) { create(:alchemy_element, :with_contents) }
         let(:content) { element.content_by_name(:headline) }
 
@@ -75,39 +75,39 @@ module Alchemy
           expect(scope).to receive(:render).with(content, {
             content: content,
             options: {
-              foo: 'bar'
+              foo: "bar",
             },
-            html_options: {}
+            html_options: {},
           })
-          subject.render(:headline, foo: 'bar')
+          subject.render(:headline, foo: "bar")
         end
       end
 
-      describe '#content' do
+      describe "#content" do
         it "should delegate to the element's #content_by_name method" do
           expect(element).to receive(:content_by_name).with(:title)
           subject.content :title
         end
       end
 
-      describe '#ingredient' do
+      describe "#ingredient" do
         it "should delegate to the element's #ingredient method" do
           expect(element).to receive(:ingredient).with(:title)
           subject.ingredient :title
         end
       end
 
-      describe '#has?' do
+      describe "#has?" do
         it "should delegate to the element's #has_ingredient? method" do
           expect(element).to receive(:has_ingredient?).with(:title)
           subject.has? :title
         end
       end
 
-      describe '#essence' do
+      describe "#essence" do
         it "should provide the specified content essence" do
           expect(subject).to receive(:content).with(:title).
-            and_return(mock_model('Content', essence: mock_model('EssenceText')))
+              and_return(mock_model("Content", essence: mock_model("EssenceText")))
 
           subject.essence :title
         end

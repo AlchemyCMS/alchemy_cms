@@ -41,7 +41,7 @@ jobs:
           MYSQL_PASSWORD: password
           MYSQL_DATABASE: alchemy_cms_dummy_test
           MYSQL_ROOT_PASSWORD: password
-        options: --health-cmd="mysqladmin ping" --health-interval=5s --health-timeout=2s --health-retries=3
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
       - uses: actions/checkout@v1
       - name: Set up Ruby
@@ -85,11 +85,21 @@ jobs:
         timeout-minutes: 10
         run: |
           bundle install --jobs 4 --retry 3 --path vendor/bundle
+      - name: Restore node modules cache
+        id: yarn-cache
+        uses: actions/cache@preview
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install yarn
+        run: yarn install
       - name: Prepare database
         run: |
           bundle exec rake alchemy:spec:prepare
       - name: Run tests & publish code coverage
-        uses: paambaati/codeclimate-action@v2.5.5
+        uses: paambaati/codeclimate-action@v2.5.7
         env:
           CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
         with:
@@ -99,3 +109,28 @@ jobs:
         with:
           name: Screenshots
           path: spec/dummy/tmp/screenshots
+  Jest:
+    runs-on: ubuntu-latest
+    env:
+      NODE_ENV: test
+    steps:
+      - uses: actions/checkout@v1
+      - name: Restore node modules cache
+        uses: actions/cache@preview
+        with:
+          path: node_modules
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: Install yarn
+        run: yarn install
+      - name: Run jest
+        run: yarn jest
+      - name: Run jest & publish code coverage
+        uses: paambaati/codeclimate-action@v2.5.7
+        env:
+          CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
+        with:
+          coverageLocations:
+            ./coverage/lcov.info:lcov
+          coverageCommand: yarn jest --collectCoverage --coverageDirectory=coverage

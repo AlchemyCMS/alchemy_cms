@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'thor/shell/color'
+require "thor/shell/color"
 
 module Alchemy
   # Provides methods for collecting sentences and displaying them
@@ -10,7 +10,7 @@ module Alchemy
       clear: Thor::Shell::Color::CLEAR,
       green: Thor::Shell::Color::GREEN,
       red: Thor::Shell::Color::RED,
-      yellow: Thor::Shell::Color::YELLOW
+      yellow: Thor::Shell::Color::YELLOW,
     }.freeze
 
     def self.silence!
@@ -28,11 +28,11 @@ module Alchemy
     def desc(message)
       unless Alchemy::Shell.silenced?
         puts "\n#{message}"
-        puts "#{'-' * message.length}\n"
+        puts "#{"-" * message.length}\n"
       end
     end
 
-    def todo(todo, title = '')
+    def todo(todo, title = "")
       add_todo [title, todo]
     end
 
@@ -64,7 +64,7 @@ module Alchemy
       todos.each_with_index do |todo, i|
         title = "\n#{i + 1}. #{todo[0]}"
         log title, :message
-        puts '=' * title.length
+        puts "=" * title.length
         puts ""
         log todo[1], :message
       end

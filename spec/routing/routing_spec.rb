@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe "The Routing" do
   routes { Alchemy::Engine.routes }
@@ -8,32 +8,32 @@ describe "The Routing" do
   describe "root url" do
     it "routes to pages_controller#index" do
       expect({
-        get: "/"
+        get: "/",
       }).to route_to(
         controller: "alchemy/pages",
-        action: "index"
+        action: "index",
       )
     end
 
-    context 'with locale parameter' do
-      it 'routes to pages_controller#index' do
+    context "with locale parameter" do
+      it "routes to pages_controller#index" do
         expect({
-          get: '/en'
+          get: "/en",
         }).to route_to(
-          controller: 'alchemy/pages',
-          action: 'index',
-          locale: 'en'
+          controller: "alchemy/pages",
+          action: "index",
+          locale: "en",
         )
       end
 
-      context 'that contains uppercase country code' do
-        it 'routes to pages_controller#index' do
+      context "that contains uppercase country code" do
+        it "routes to pages_controller#index" do
           expect({
-            get: '/en-UK'
+            get: "/en-UK",
           }).to route_to(
-            controller: 'alchemy/pages',
-            action: 'index',
-            locale: 'en-UK'
+            controller: "alchemy/pages",
+            action: "index",
+            locale: "en-UK",
           )
         end
       end
@@ -43,13 +43,13 @@ describe "The Routing" do
   context "for downloads" do
     it "should have a named route" do
       expect({
-        get: "/attachment/32/download/Presseveranstaltung.pdf"
+        get: "/attachment/32/download/Presseveranstaltung.pdf",
       }).to route_to(
         controller: "alchemy/attachments",
         action: "download",
         id: "32",
         name: "Presseveranstaltung",
-        format: "pdf"
+        format: "pdf",
       )
     end
   end
@@ -58,23 +58,23 @@ describe "The Routing" do
     context "one level deep nested" do
       it "should route to pages show" do
         expect({
-          get: "/products/my-product"
+          get: "/products/my-product",
         }).to route_to(
           controller: "alchemy/pages",
           action: "show",
-          urlname: "products/my-product"
+          urlname: "products/my-product",
         )
       end
 
       context "and language" do
         it "should route to pages show" do
           expect({
-            get: "/de/products/my-product"
+            get: "/de/products/my-product",
           }).to route_to(
             controller: "alchemy/pages",
             action: "show",
             urlname: "products/my-product",
-            locale: "de"
+            locale: "de",
           )
         end
       end
@@ -83,23 +83,23 @@ describe "The Routing" do
     context "two levels deep nested" do
       it "should route to pages show" do
         expect({
-          get: "/catalog/products/my-product"
+          get: "/catalog/products/my-product",
         }).to route_to(
           controller: "alchemy/pages",
           action: "show",
-          urlname: "catalog/products/my-product"
+          urlname: "catalog/products/my-product",
         )
       end
 
       context "and language" do
         it "should route to pages show" do
           expect({
-            get: "/de/catalog/products/my-product"
+            get: "/de/catalog/products/my-product",
           }).to route_to(
             controller: "alchemy/pages",
             action: "show",
             urlname: "catalog/products/my-product",
-            locale: "de"
+            locale: "de",
           )
         end
       end
@@ -108,23 +108,23 @@ describe "The Routing" do
     context "with a blog date url" do
       it "should route to pages show" do
         expect({
-          get: "/2011/12/08/my-post"
+          get: "/2011/12/08/my-post",
         }).to route_to(
           controller: "alchemy/pages",
           action: "show",
-          urlname: "2011/12/08/my-post"
+          urlname: "2011/12/08/my-post",
         )
       end
 
       context "and language" do
         it "should route to pages show" do
           expect({
-            get: "/de/2011/12/08/my-post"
+            get: "/de/2011/12/08/my-post",
           }).to route_to(
             controller: "alchemy/pages",
             action: "show",
             urlname: "2011/12/08/my-post",
-            locale: "de"
+            locale: "de",
           )
         end
       end
@@ -134,7 +134,7 @@ describe "The Routing" do
   describe "image format requests" do
     it "should not be handled by alchemy/pages controller" do
       expect({
-        get: "/products/my-product.jpg"
+        get: "/products/my-product.jpg",
       }).not_to be_routable
     end
   end
@@ -142,12 +142,12 @@ describe "The Routing" do
   describe "rss feed requests" do
     it "should be handled by alchemy/pages controller" do
       expect({
-        get: "/news.rss"
+        get: "/news.rss",
       }).to route_to(
         controller: "alchemy/pages",
         action: "show",
         urlname: "news",
-        format: "rss"
+        format: "rss",
       )
     end
   end
@@ -155,22 +155,22 @@ describe "The Routing" do
   describe "unknown formats" do
     it "should be handled by alchemy/pages controller" do
       expect({
-        get: "/index.php?id=234"
+        get: "/index.php?id=234",
       }).to route_to(
         controller: "alchemy/pages",
         action: "show",
         urlname: "index",
         format: "php",
-        id: "234"
+        id: "234",
       )
 
       expect({
-        get: "/action.do"
+        get: "/action.do",
       }).to route_to(
         controller: "alchemy/pages",
         action: "show",
         urlname: "action",
-        format: "do"
+        format: "do",
       )
     end
   end
@@ -178,7 +178,7 @@ describe "The Routing" do
   describe "Rails info requests" do
     it "should not be handled by alchemy/pages controller" do
       expect({
-        get: "/rails/info/routes"
+        get: "/rails/info/routes",
       }).not_to be_routable
     end
   end
@@ -187,20 +187,20 @@ describe "The Routing" do
     context "default" do
       it "should route to admin dashboard" do
         expect({
-          get: "/admin/dashboard"
+          get: "/admin/dashboard",
         }).to route_to(
           controller: "alchemy/admin/dashboard",
-          action: "index"
+          action: "index",
         )
       end
 
       it "should route to page preview" do
         expect({
-          get: "/admin/pages/3/preview"
+          get: "/admin/pages/3/preview",
         }).to route_to(
           controller: "alchemy/admin/pages",
           action: "preview",
-          id: "3"
+          id: "3",
         )
       end
     end
@@ -214,22 +214,22 @@ describe "The Routing" do
 
       it "should route to admin dashboard" do
         expect({
-          get: "http://hidden.example.org/backend/dashboard"
+          get: "http://hidden.example.org/backend/dashboard",
         }).to route_to(
           controller: "alchemy/admin/dashboard",
           action: "index",
-          subdomain: "hidden"
+          subdomain: "hidden",
         )
       end
 
       it "should route to page preview" do
         expect({
-          get: "http://hidden.example.org/backend/pages/3/preview"
+          get: "http://hidden.example.org/backend/pages/3/preview",
         }).to route_to(
           controller: "alchemy/admin/pages",
           action: "preview",
           id: "3",
-          subdomain: "hidden"
+          subdomain: "hidden",
         )
       end
 

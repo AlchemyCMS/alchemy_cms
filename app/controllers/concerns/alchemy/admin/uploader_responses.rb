@@ -8,12 +8,12 @@ module Alchemy
       def successful_uploader_response(file:, status: :created)
         message = Alchemy.t(:upload_success,
           scope: [:uploader, file.class.model_name.i18n_key],
-          name: file.name
+          name: file.name,
         )
 
         {
           json: uploader_response(file: file, message: message),
-          status: status
+          status: status,
         }
       end
 
@@ -21,12 +21,12 @@ module Alchemy
         message = Alchemy.t(:upload_failure,
           scope: [:uploader, file.class.model_name.i18n_key],
           error: file.errors[:file].join,
-          name: file.name
+          name: file.name,
         )
 
         {
           json: uploader_response(file: file, message: message),
-          status: :unprocessable_entity
+          status: :unprocessable_entity,
         }
       end
 
@@ -35,7 +35,7 @@ module Alchemy
       def uploader_response(file:, message:)
         {
           files: [file.to_jq_upload],
-          growl_message: message
+          growl_message: message,
         }
       end
     end

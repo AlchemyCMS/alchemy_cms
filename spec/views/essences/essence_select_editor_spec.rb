@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
-RSpec.describe 'alchemy/essences/_essence_select_editor' do
+RSpec.describe "alchemy/essences/_essence_select_editor" do
   let(:content) { Alchemy::Content.new(essence: essence) }
   let(:essence) { Alchemy::EssenceSelect.new }
 
@@ -12,27 +12,27 @@ RSpec.describe 'alchemy/essences/_essence_select_editor' do
   end
 
   subject do
-    render 'alchemy/essences/essence_select_editor', essence_select_editor: Alchemy::ContentEditor.new(content)
+    render "alchemy/essences/essence_select_editor", essence_select_editor: Alchemy::ContentEditor.new(content)
     rendered
   end
 
-  context 'if no select values are set' do
-    it 'renders a warning' do
-      is_expected.to have_css('.warning')
+  context "if no select values are set" do
+    it "renders a warning" do
+      is_expected.to have_css(".warning")
     end
   end
 
-  context 'if select values are set' do
+  context "if select values are set" do
     before do
       expect(content).to receive(:settings).at_least(:once) do
         {
-          select_values: %w(red blue yellow)
+          select_values: %w(red blue yellow),
         }
       end
     end
 
     it "renders a select box" do
-      is_expected.to have_css('select.alchemy_selectbox')
+      is_expected.to have_css("select.alchemy_selectbox")
     end
   end
 end

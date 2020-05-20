@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 class Party < ActiveRecord::Base
   belongs_to :location
@@ -36,20 +36,20 @@ module Alchemy
           "name" => "modules.party_list",
           "controller" => "/admin/parties",
           "action" => "index",
-          "image" => "/assets/party_list_module.png"
-        }
+          "image" => "/assets/party_list_module.png",
+        },
       }
     end
 
     let(:columns) do
       [
-        double(:column, {name: 'name', type: :string, array: false}),
-        double(:column, {name: 'hidden_value', type: :string, array: false}),
-        double(:column, {name: 'description', type: :text, array: false}),
-        double(:column, {name: 'id', type: :integer, array: false}),
-        double(:column, {name: 'starts_at', type: :datetime, array: false}),
-        double(:column, {name: 'location_id', type: :integer, array: false}),
-        double(:column, {name: 'organizer_id', type: :integer, array: false})
+        double(:column, {name: "name", type: :string, array: false}),
+        double(:column, {name: "hidden_value", type: :string, array: false}),
+        double(:column, {name: "description", type: :text, array: false}),
+        double(:column, {name: "id", type: :integer, array: false}),
+        double(:column, {name: "starts_at", type: :datetime, array: false}),
+        double(:column, {name: "location_id", type: :integer, array: false}),
+        double(:column, {name: "organizer_id", type: :integer, array: false}),
       ]
     end
 
@@ -90,7 +90,7 @@ module Alchemy
       context "when model has alchemy_resource_relations defined" do
         before do
           allow(Party).to receive(:alchemy_resource_relations) do
-            {location: {attr_method: 'name', type: 'string'}}
+            {location: {attr_method: "name", type: "string"}}
           end
         end
 
@@ -145,17 +145,17 @@ module Alchemy
     describe "#namespaced_resource_name" do
       it "returns resource_name with namespace (namespace_party for Namespace::Party), i.e. for use in forms" do
         namespaced_resource = Resource.new("admin/namespace/parties")
-        expect(namespaced_resource.namespaced_resource_name).to eq('namespace_party')
+        expect(namespaced_resource.namespaced_resource_name).to eq("namespace_party")
       end
 
       it "equals resource_name if resource not namespaced" do
         namespaced_resource = Resource.new("admin/parties")
-        expect(namespaced_resource.namespaced_resource_name).to eq('party')
+        expect(namespaced_resource.namespaced_resource_name).to eq("party")
       end
 
       it "doesn't include the engine's name" do
         namespaced_resource = Resource.new("admin/party_engine/namespace/parties", module_definition)
-        expect(namespaced_resource.namespaced_resource_name).to eq('namespace_party')
+        expect(namespaced_resource.namespaced_resource_name).to eq("namespace_party")
       end
     end
 
@@ -182,7 +182,7 @@ module Alchemy
           {name: "description", type: :text},
           {name: "starts_at", type: :datetime},
           {name: "location_id", type: :integer},
-          {name: "organizer_id", type: :integer}
+          {name: "organizer_id", type: :integer},
         ])
       end
 
@@ -224,10 +224,10 @@ module Alchemy
         end
       end
 
-      describe '#attributes' do
+      describe "#attributes" do
         it "does not return the attributes returned by that method" do
-          expect(resource.attributes.detect { |a| a[:name] == 'hidden_name' }).to be_nil
-          expect(resource.attributes.detect { |a| a[:name] == 'name' }).not_to be_nil
+          expect(resource.attributes.detect { |a| a[:name] == "hidden_name" }).to be_nil
+          expect(resource.attributes.detect { |a| a[:name] == "name" }).not_to be_nil
         end
       end
     end
@@ -255,7 +255,7 @@ module Alchemy
         before do
           allow(Party).to receive(:alchemy_resource_relations) do
             {
-              location: {attr_method: "name", attr_type: :string}
+              location: {attr_method: "name", attr_type: :string},
             }
           end
         end
@@ -268,8 +268,8 @@ module Alchemy
       context "with an array attribute" do
         let(:columns) do
           [
-            double(:column, {name: 'name', type: :string, array: false}),
-            double(:column, {name: 'languages', type: :string, array: true})
+            double(:column, {name: "name", type: :string, array: false}),
+            double(:column, {name: "languages", type: :string, array: true}),
           ]
         end
 
@@ -292,10 +292,10 @@ module Alchemy
 
       let(:columns) do
         [
-          double(:column, {name: 'name', type: :string}),
-          double(:column, {name: 'title', type: :string}),
-          double(:column, {name: 'synced_at', type: :datetime}),
-          double(:column, {name: 'remote_record_id', type: :string})
+          double(:column, {name: "name", type: :string}),
+          double(:column, {name: "title", type: :string}),
+          double(:column, {name: "synced_at", type: :datetime}),
+          double(:column, {name: "remote_record_id", type: :string}),
         ]
       end
 
@@ -315,10 +315,10 @@ module Alchemy
 
       let(:columns) do
         [
-          double(:column, {name: 'title', type: :string}),
-          double(:column, {name: 'name', type: :string}),
-          double(:column, {name: 'updated_at', type: :datetime}),
-          double(:column, {name: 'public', type: :boolean})
+          double(:column, {name: "title", type: :string}),
+          double(:column, {name: "name", type: :string}),
+          double(:column, {name: "updated_at", type: :datetime}),
+          double(:column, {name: "public", type: :boolean}),
         ]
       end
 
@@ -327,7 +327,7 @@ module Alchemy
           {name: "name", type: :string},
           {name: "title", type: :string},
           {name: "public", type: :boolean},
-          {name: "updated_at", type: :datetime}
+          {name: "updated_at", type: :datetime},
         ])
       end
     end
@@ -338,12 +338,12 @@ module Alchemy
       before do
         allow(Event).to receive(:alchemy_resource_relations) do
           {
-            location: {attr_method: "name", attr_type: :string}
+            location: {attr_method: "name", attr_type: :string},
           }
         end
       end
 
-      describe '#resource_relations' do
+      describe "#resource_relations" do
         it "should contain model_association from ActiveRecord::Reflections" do
           relation = resource.resource_relations[:location_id]
           expect(relation.keys).to include(:model_association)
@@ -357,25 +357,25 @@ module Alchemy
         it "stores the relation name" do
           relation = resource.resource_relations[:location_id]
           expect(relation.keys).to include(:name)
-          expect(relation[:name]).to eq('location')
+          expect(relation[:name]).to eq("location")
         end
       end
 
-      describe '#model_associations' do
+      describe "#model_associations" do
         it "skip default alchemy model associations" do
           expect(resource.model_associations.collect(&:name)).not_to include(*resource.class.const_get(:DEFAULT_SKIPPED_ASSOCIATIONS).map(&:to_sym))
         end
       end
 
-      describe '#model_association_names' do
-        it 'returns an array of association names' do
+      describe "#model_association_names" do
+        it "returns an array of association names" do
           expect(resource.model_association_names).to include(:location)
         end
       end
 
-      describe '#attributes' do
+      describe "#attributes" do
         it "contains the attribute of the related model" do
-          expect(resource.attributes.detect { |a| a[:name] == 'location_id' }.keys).to include(:relation)
+          expect(resource.attributes.detect { |a| a[:name] == "location_id" }.keys).to include(:relation)
         end
 
         it "contains the related model's column type as type" do

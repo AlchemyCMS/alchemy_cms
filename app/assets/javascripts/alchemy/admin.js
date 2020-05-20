@@ -15,10 +15,8 @@
 //= require requestAnimationFrame
 //= require select2
 //= require handlebars
-//= require sortable/Sortable.min
 //= require alchemy/templates
 //= require alchemy/alchemy.base
-//= require alchemy/alchemy.utils
 //= require alchemy/alchemy.autocomplete
 //= require alchemy/alchemy.browser
 //= require alchemy/alchemy.buttons
@@ -34,14 +32,12 @@
 //= require alchemy/alchemy.growler
 //= require alchemy/alchemy.gui
 //= require alchemy/alchemy.hotkeys
-//= require alchemy/alchemy.i18n
 //= require alchemy/alchemy.image_cropper
 //= require alchemy/alchemy.image_overlay
 //= require alchemy/alchemy.string_extension
 //= require alchemy/alchemy.link_dialog
 //= require alchemy/alchemy.list_filter
 //= require alchemy/alchemy.initializer
-//= require alchemy/alchemy.node_tree
 //= require alchemy/alchemy.page_sorter
 //= require alchemy/alchemy.uploader
 //= require alchemy/alchemy.preview_window
@@ -49,6 +45,6 @@
 //= require alchemy/alchemy.spinner
 //= require alchemy/alchemy.tinymce
 //= require alchemy/alchemy.tooltips
-//= require alchemy/alchemy.translations
 //= require alchemy/alchemy.trash_window
 //= require alchemy/page_select
+//= require alchemy/node_select

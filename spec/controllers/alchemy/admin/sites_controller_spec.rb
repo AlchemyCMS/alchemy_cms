@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe Alchemy::Admin::SitesController do
   routes { Alchemy::Engine.routes }
@@ -10,18 +10,18 @@ describe Alchemy::Admin::SitesController do
   end
 
   describe "#create" do
-    context 'with valid params' do
-      it 'redirects to the languages admin' do
-        post :create, params: { site: { host: '*' } }
+    context "with valid params" do
+      it "redirects to the languages admin" do
+        post :create, params: { site: { host: "*" } }
         site = Alchemy::Site.last
         expect(response).to redirect_to admin_languages_path(site_id: site)
-        expect(flash[:notice]).to eq('Please create a default language for this site.')
+        expect(flash[:notice]).to eq("Please create a default language for this site.")
       end
     end
 
-    context 'with invalid params' do
-      it 'shows the form again' do
-        post :create, params: { site: { host: '' } }
+    context "with invalid params" do
+      it "shows the form again" do
+        post :create, params: { site: { host: "" } }
         expect(response).to render_template(:new)
       end
     end
@@ -30,22 +30,22 @@ describe Alchemy::Admin::SitesController do
   describe "#destroy" do
     let(:site) { create(:alchemy_site) }
 
-    context 'with languages attached' do
+    context "with languages attached" do
       let!(:language) { create(:alchemy_language, site: site) }
 
-      it 'returns with error message' do
+      it "returns with error message" do
         delete :destroy, params: { id: site.id }
         expect(response).to redirect_to admin_sites_path
         expect(flash[:warning]).to \
-          eq('Languages are still attached to this site. Please remove them first.')
+          eq("Languages are still attached to this site. Please remove them first.")
       end
     end
 
-    context 'without languages' do
-      it 'removes the site' do
+    context "without languages" do
+      it "removes the site" do
         delete :destroy, params: { id: site.id }
         expect(response).to redirect_to admin_sites_path
-        expect(flash[:notice]).to eq('Website successfully removed.')
+        expect(flash[:notice]).to eq("Website successfully removed.")
       end
     end
   end

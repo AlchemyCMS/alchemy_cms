@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'thor'
+require "thor"
 
 class Alchemy::InstallTask < Thor
   include Thor::Actions
@@ -30,7 +30,7 @@ end
 
 namespace :alchemy do
   desc "Installs Alchemy CMS into your app."
-  task :install do
+  task install: "alchemy:yarn:install" do
     install_helper = Alchemy::InstallTask.new
 
     puts "\nAlchemy Installer"

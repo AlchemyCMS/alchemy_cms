@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
-require 'cancan/matchers'
+require "rails_helper"
+require "cancan/matchers"
 
 describe Alchemy::Permissions do
   subject { ability }

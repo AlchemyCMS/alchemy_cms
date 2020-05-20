@@ -35,7 +35,7 @@ module Alchemy
     # @return String
     #
     def hint
-      hint = definition['hint']
+      hint = definition["hint"]
       if hint == true
         Alchemy.t(name, scope: hint_translation_scope)
       else

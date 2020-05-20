@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe Admin::AttachmentsController do
@@ -10,8 +10,8 @@ module Alchemy
 
     let(:file) do
       fixture_file_upload(
-        File.expand_path('../../../fixtures/500x500.png', __dir__),
-        'image/png'
+        File.expand_path("../../../fixtures/500x500.png", __dir__),
+        "image/png",
       )
     end
 
@@ -28,7 +28,7 @@ module Alchemy
       context "when params[:tagged_with] is set" do
         it "should filter the records by tags" do
           expect(Attachment).to receive(:tagged_with).and_return(Attachment.all)
-          get :index, params: {tagged_with: "pdf"}
+          get :index, params: { tagged_with: "pdf" }
         end
       end
 
@@ -38,8 +38,8 @@ module Alchemy
         context "is set" do
           it "it renders the archive_overlay partial" do
             expect(Content).to receive(:find_by).and_return(content)
-            get :index, params: {content_id: content.id}
-            expect(response).to render_template(partial: '_archive_overlay')
+            get :index, params: { content_id: content.id }
+            expect(response).to render_template(partial: "_archive_overlay")
             expect(assigns(:content)).to eq(content)
           end
         end
@@ -52,17 +52,17 @@ module Alchemy
         end
       end
 
-      describe 'file_type filter' do
+      describe "file_type filter" do
         let!(:png) { create(:alchemy_attachment) }
 
         let!(:jpg) do
           create :alchemy_attachment,
-            file: File.new(File.expand_path('../../../fixtures/image3.jpeg', __dir__))
+            file: File.new(File.expand_path("../../../fixtures/image3.jpeg", __dir__))
         end
 
-        context 'with params[:file_type]' do
-          it 'loads only attachments with matching content type' do
-            get :index, params: {file_type: 'image/jpeg'}
+        context "with params[:file_type]" do
+          it "loads only attachments with matching content type" do
+            get :index, params: { file_type: "image/jpeg" }
             expect(assigns(:attachments).to_a).to eq([jpg])
             expect(assigns(:attachments).to_a).to_not eq([png])
           end
@@ -70,46 +70,46 @@ module Alchemy
       end
     end
 
-    describe '#show' do
+    describe "#show" do
       before do
         expect(Attachment).to receive(:find).and_return(attachment)
       end
 
       it "renders the show template" do
-        get :show, params: {id: attachment.id}
+        get :show, params: { id: attachment.id }
         expect(response).to render_template(:show)
       end
     end
 
-    describe '#create' do
+    describe "#create" do
       subject { post :create, params: params }
 
-      context 'with passing validations' do
-        let(:params) { {attachment: {file: file}} }
+      context "with passing validations" do
+        let(:params) { { attachment: { file: file } } }
 
         it "renders json response with success message" do
           subject
-          expect(response.media_type).to eq('application/json')
+          expect(response.media_type).to eq("application/json")
           expect(response.status).to eq(201)
           json = JSON.parse(response.body)
-          expect(json).to have_key('growl_message')
-          expect(json).to have_key('files')
+          expect(json).to have_key("growl_message")
+          expect(json).to have_key("files")
         end
       end
 
-      context 'with failing validations' do
-        include_context 'with invalid file'
+      context "with failing validations" do
+        include_context "with invalid file"
 
-        let(:params) { {attachment: {file: invalid_file}} }
+        let(:params) { { attachment: { file: invalid_file } } }
 
-        it_behaves_like 'having a json uploader error message'
+        it_behaves_like "having a json uploader error message"
       end
     end
 
-    describe '#update' do
+    describe "#update" do
       let(:params) do
         {
-          id: attachment.id, attachment: {name: ''}
+          id: attachment.id, attachment: { name: "" },
         }
       end
 
@@ -122,25 +122,25 @@ module Alchemy
       context "when file is passed" do
         let(:file) do
           fixture_file_upload(
-            File.expand_path('../../../fixtures/image2.PNG', __dir__),
-            'image/png'
+            File.expand_path("../../../fixtures/image2.PNG", __dir__),
+            "image/png",
           )
         end
 
-        context 'with passing validations' do
+        context "with passing validations" do
           let(:params) do
             {
-              id: attachment.id, attachment: {file: file}
+              id: attachment.id, attachment: { file: file },
             }
           end
 
           it "renders json response with success message" do
             subject
-            expect(response.media_type).to eq('application/json')
+            expect(response.media_type).to eq("application/json")
             expect(response.status).to eq(202)
             json = JSON.parse(response.body)
-            expect(json).to have_key('growl_message')
-            expect(json).to have_key('files')
+            expect(json).to have_key("growl_message")
+            expect(json).to have_key("files")
           end
 
           it "replaces the file" do
@@ -149,25 +149,25 @@ module Alchemy
         end
       end
 
-      context 'with passing validations' do
+      context "with passing validations" do
         it "redirects to index path" do
           is_expected.to redirect_to admin_attachments_path
         end
 
-        context 'with search params' do
+        context "with search params" do
           let(:search_filter_params) do
             {
-              q: {name_or_file_name_cont: 'kitten'},
-              tagged_with: 'cute',
-              file_type: 'pdf',
-              page: 2
+              q: { name_or_file_name_cont: "kitten" },
+              tagged_with: "cute",
+              file_type: "pdf",
+              page: 2,
             }
           end
 
           subject do
             put :update, params: {
-              id: attachment.id, attachment: {name: ''}
-            }.merge(search_filter_params)
+                           id: attachment.id, attachment: { name: "" },
+                         }.merge(search_filter_params)
           end
 
           it "passes them along" do
@@ -176,8 +176,8 @@ module Alchemy
         end
       end
 
-      context 'with failing validations' do
-        include_context 'with invalid file'
+      context "with failing validations" do
+        include_context "with invalid file"
 
         it "renders edit form" do
           is_expected.to render_template(:edit)
@@ -185,33 +185,33 @@ module Alchemy
       end
     end
 
-    describe '#destroy' do
+    describe "#destroy" do
       before do
         expect(Attachment).to receive(:find).and_return(attachment)
       end
 
       it "destroys the attachment and sets a success message" do
         expect(attachment).to receive(:destroy)
-        delete :destroy, params: {id: 1}, xhr: true
+        delete :destroy, params: { id: 1 }, xhr: true
         expect(assigns(:attachment)).to eq(attachment)
         expect(assigns(:url)).not_to be_blank
         expect(flash[:notice]).not_to be_blank
       end
 
-      context 'with search params' do
+      context "with search params" do
         let(:search_filter_params) do
           {
-            q: {name_or_file_name_cont: 'kitten'},
-            tagged_with: 'cute',
-            file_type: 'pdf',
-            page: 2
+            q: { name_or_file_name_cont: "kitten" },
+            tagged_with: "cute",
+            file_type: "pdf",
+            page: 2,
           }
         end
 
         it "passes them along" do
           expect(attachment).to receive(:destroy) { true }
-          delete :destroy, params: {id: 1}.merge(search_filter_params), xhr: true
-          expect(assigns(:url)).to eq admin_attachments_url(search_filter_params.merge(host: 'test.host'))
+          delete :destroy, params: { id: 1 }.merge(search_filter_params), xhr: true
+          expect(assigns(:url)).to eq admin_attachments_url(search_filter_params.merge(host: "test.host"))
         end
       end
     end
@@ -222,8 +222,8 @@ module Alchemy
       end
 
       it "sends the file as download" do
-        get :download, params: {id: attachment.id}
-        expect(response.headers['Content-Disposition']).to match(/attachment/)
+        get :download, params: { id: attachment.id }
+        expect(response.headers["Content-Disposition"]).to match(/attachment/)
       end
     end
   end

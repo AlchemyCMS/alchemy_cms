@@ -8,15 +8,13 @@
 #  body          :text
 #  stripped_body :text
 #  public        :boolean
-#  creator_id    :integer
-#  updater_id    :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #
 
 module Alchemy
   class EssenceRichtext < BaseRecord
-    acts_as_essence preview_text_column: 'stripped_body'
+    acts_as_essence preview_text_column: "stripped_body"
 
     before_save :strip_content
 

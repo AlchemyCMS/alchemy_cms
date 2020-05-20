@@ -9,17 +9,16 @@ module Alchemy
     included do
       before_validation :set_urlname,
         if: :renamed?,
-        unless: -> { systempage? || name.blank? }
+        unless: -> { name.blank? }
 
       validates :name,
         presence: true
       validates :urlname,
-        uniqueness: {scope: [:language_id, :layoutpage], if: -> { urlname.present? }},
-        exclusion:  {in: RESERVED_URLNAMES},
-        length:     {minimum: 3, if: -> { urlname.present? }}
+        uniqueness: { scope: [:language_id, :layoutpage], if: -> { urlname.present? } },
+        exclusion: { in: RESERVED_URLNAMES },
+        length: { minimum: 3, if: -> { urlname.present? } }
 
       before_save :set_title,
-        unless: -> { systempage? },
         if: -> { title.blank? }
 
       after_update :update_descendants_urlnames,
@@ -46,7 +45,7 @@ module Alchemy
 
     # Returns always the last part of a urlname path
     def slug
-      urlname.to_s.split('/').last
+      urlname.to_s.split("/").last
     end
 
     # Returns an array of visible/non-language_root ancestors.
@@ -103,21 +102,21 @@ module Alchemy
     def convert_url_name(value)
       url_name = convert_to_urlname(value.blank? ? name : value)
       if url_name.length < 3
-        ('-' * (3 - url_name.length)) + url_name
+        ("-" * (3 - url_name.length)) + url_name
       else
         url_name
       end
     end
 
     def nested_url_name(value)
-      (ancestor_slugs << convert_url_name(value)).join('/')
+      (ancestor_slugs << convert_url_name(value)).join("/")
     end
 
     # Slugs of all visible/non-language_root ancestors.
     # Returns [], if there is no parent, the parent is
     # the root page itself, or url_nesting is off.
     def ancestor_slugs
-      return [] if !Config.get(:url_nesting) || parent.nil? || parent.root?
+      return [] if !Config.get(:url_nesting) || parent.nil?
 
       visible_ancestors.map(&:slug).compact
     end

@@ -36,18 +36,18 @@ module Alchemy
 
       alchemy.show_page_path(
         locale: prefix_locale? ? page.language_code : nil,
-        urlname: page.urlname
+        urlname: page.urlname,
       )
     end
 
     def legacy_urls
       # /slug/tree => slug/tree
-      urlname = (request.fullpath[1..-1] if request.fullpath[0] == '/') || request.fullpath
+      urlname = (request.fullpath[1..-1] if request.fullpath[0] == "/") || request.fullpath
       LegacyPageUrl.joins(:page).where(
         urlname: urlname,
         Page.table_name => {
-          language_id: Language.current.id
-        }
+          language_id: Language.current.id,
+        },
       )
     end
 

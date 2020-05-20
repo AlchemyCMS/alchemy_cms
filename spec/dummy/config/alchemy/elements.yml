@@ -160,3 +160,8 @@
   fixed: true
   unique: true
   nestable_elements: [text]
+
+- name: menu
+  contents:
+  - name: menu
+    type: EssenceNode

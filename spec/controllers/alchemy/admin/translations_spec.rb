@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe Alchemy::Admin::DashboardController do
   routes { Alchemy::Engine.routes }
 
   context "in admin backend" do
-    let(:dummy_user) { mock_model(Alchemy.user_class, alchemy_roles: %w(admin), language: 'de') }
+    let(:dummy_user) { mock_model(Alchemy.user_class, alchemy_roles: %w(admin), language: "de") }
 
     before { authorize_user(dummy_user) }
 
-    context 'if locale is available' do
+    context "if locale is available" do
       before do
         expect(Alchemy::I18n).to receive(:available_locales).at_least(:once) do
           [:de, :nl, :en]
@@ -18,26 +18,26 @@ describe Alchemy::Admin::DashboardController do
       end
 
       it "should be possible to set the locale of the admin backend via params" do
-        get :index, params: {admin_locale: 'nl'}
+        get :index, params: {admin_locale: "nl"}
         expect(::I18n.locale).to eq(:nl)
       end
 
       it "should store the current locale in the session" do
-        get :index, params: {admin_locale: 'nl'}
+        get :index, params: {admin_locale: "nl"}
         expect(session[:alchemy_locale]).to eq(:nl)
       end
 
       it "should be possible to change the current locale in the session" do
-        get :index, params: {admin_locale: 'de'}
+        get :index, params: {admin_locale: "de"}
         expect(session[:alchemy_locale]).to eq(:de)
-        get :index, params: {admin_locale: 'en'}
+        get :index, params: {admin_locale: "en"}
         expect(session[:alchemy_locale]).to eq(:en)
       end
     end
 
-    context 'with unknown locale' do
+    context "with unknown locale" do
       it "it uses the users default language" do
-        get :index, params: {admin_locale: 'ko'}
+        get :index, params: {admin_locale: "ko"}
         expect(::I18n.locale).to eq(:de)
       end
     end
@@ -51,7 +51,7 @@ describe Alchemy::Admin::DashboardController do
       context "if user has no preferred locale" do
         let(:dummy_user) { mock_model(Alchemy.user_class, alchemy_roles: %w(admin), language: nil) }
 
-        context 'if locale is available' do
+        context "if locale is available" do
           before do
             expect(Alchemy::I18n).to receive(:available_locales).at_least(:once) do
               [:es, :nl]
@@ -59,7 +59,7 @@ describe Alchemy::Admin::DashboardController do
           end
 
           it "should use the browsers language setting" do
-            request.headers['ACCEPT-LANGUAGE'] = 'es-ES'
+            request.headers["ACCEPT-LANGUAGE"] = "es-ES"
             get :index
             expect(::I18n.locale).to eq(:es)
           end
@@ -70,7 +70,7 @@ describe Alchemy::Admin::DashboardController do
 
             context "if language doesn't return a valid locale symbol" do
               it "should use the browsers language setting" do
-                request.headers['ACCEPT-LANGUAGE'] = 'es-ES'
+                request.headers["ACCEPT-LANGUAGE"] = "es-ES"
                 get :index
                 expect(::I18n.locale).to eq(:es)
               end

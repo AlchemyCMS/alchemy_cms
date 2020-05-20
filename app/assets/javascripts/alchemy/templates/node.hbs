@@ -1,0 +1,16 @@
+<div class="node-select--node">
+  <i class="icon fas fa-list fa-lg"></i>
+  <div class="node-select--node-display_name">
+    <span class="node-select--node-ancestors">
+      {{#each node.ancestors}}
+        {{ this.name }} /&nbsp;
+      {{/each}}
+    </span>
+    <span class="node-select--node-name">
+      {{ node.name }}
+    </span>
+  </div>
+  <div class="node-select--node-url">
+    {{ node.url }}
+  </div>
+</div>

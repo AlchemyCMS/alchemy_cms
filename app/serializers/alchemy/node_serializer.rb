@@ -8,5 +8,7 @@ module Alchemy
       :rgt,
       :url,
       :parent_id
+
+    has_many :ancestors, record_type: :node, serializer: self
   end
 end

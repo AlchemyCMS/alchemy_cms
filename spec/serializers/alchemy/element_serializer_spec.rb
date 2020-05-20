@@ -1,27 +1,27 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 RSpec.describe Alchemy::ElementSerializer do
   subject { described_class.new(element).to_json }
 
   let(:element) { build_stubbed(:alchemy_element) }
 
-  it 'includes all attributes' do
+  it "includes all attributes" do
     json = JSON.parse(subject)
     expect(json).to eq(
-      'content_ids' => [],
-      'created_at' => element.created_at.strftime('%FT%T.%LZ'),
-      'display_name' => element.display_name_with_preview_text,
-      'dom_id' => element.dom_id,
-      'id' => element.id,
-      'ingredients' => [],
-      'name' => element.name,
-      'nested_elements' => [],
-      'page_id' => element.page_id,
-      'position' => nil,
-      'tag_list' => [],
-      'updated_at' => element.updated_at.strftime('%FT%T.%LZ')
+      "content_ids" => [],
+      "created_at" => element.created_at.strftime("%FT%T.%LZ"),
+      "display_name" => element.display_name_with_preview_text,
+      "dom_id" => element.dom_id,
+      "id" => element.id,
+      "ingredients" => [],
+      "name" => element.name,
+      "nested_elements" => [],
+      "page_id" => element.page_id,
+      "position" => nil,
+      "tag_list" => [],
+      "updated_at" => element.updated_at.strftime("%FT%T.%LZ"),
     )
   end
 end

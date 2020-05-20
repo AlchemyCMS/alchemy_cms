@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'active_record'
+require "active_record"
 
 module Alchemy #:nodoc:
   # A bogus association that skips eager loading for essences not having an ingredient association
@@ -40,7 +40,7 @@ module Alchemy #:nodoc:
         register_as_essence_association!
 
         configuration = {
-          ingredient_column: 'body'
+          ingredient_column: "body",
         }.update(options)
 
         @_classes_with_ingredient_association ||= []
@@ -48,7 +48,7 @@ module Alchemy #:nodoc:
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
           attr_writer :validation_errors
           include Alchemy::Essence::InstanceMethods
-          stampable stamper_class_name: Alchemy.user_class_name
+
           validate :validate_ingredient, on: :update, if: -> { validations.any? }
 
           has_one :content, as: :essence, class_name: "Alchemy::Content", inverse_of: :essence
@@ -62,7 +62,7 @@ module Alchemy #:nodoc:
           delegate :trashed?,    to: :element, allow_nil: true
           delegate :public?,     to: :element, allow_nil: true
 
-          after_update :touch_content
+          after_save :touch_element
 
           def acts_as_essence_class
             #{name}
@@ -109,7 +109,7 @@ module Alchemy #:nodoc:
       def register_as_essence_association!
         klass_name = model_name.to_s
         arguments = [:has_many, klass_name.demodulize.tableize.to_sym, through: :contents,
-          source: :essence, source_type: klass_name]
+                                                                       source: :essence, source_type: klass_name]
         %w(Page Element).each { |k| "Alchemy::#{k}".constantize.send(*arguments) }
       end
     end
@@ -171,7 +171,7 @@ module Alchemy #:nodoc:
       end
 
       def validations
-        @validations ||= definition.present? ? definition['validate'] || [] : []
+        @validations ||= definition.present? ? definition["validate"] || [] : []
       end
 
       def validation_errors
@@ -195,7 +195,7 @@ module Alchemy #:nodoc:
       end
 
       def validate_format(format)
-        matcher = Config.get('format_matchers')[format] || format
+        matcher = Config.get("format_matchers")[format] || format
         if ingredient.to_s.match(Regexp.new(matcher)).nil?
           errors.add(ingredient_column, :invalid)
           validation_errors << :invalid
@@ -226,21 +226,19 @@ module Alchemy #:nodoc:
 
       # Returns the setter method for ingredient column
       def ingredient_setter_method
-        ingredient_column.to_s + '='
+        ingredient_column.to_s + "="
       end
 
       # Essence definition from config/elements.yml
       def definition
         return {} if element.nil? || element.content_definitions.nil?
 
-        element.content_definitions.detect { |c| c['name'] == content.name } || {}
+        element.content_definitions.detect { |c| c["name"] == content.name } || {}
       end
 
-      # Touch content. Called after update.
-      def touch_content
-        return nil if content.nil?
-
-        content.touch
+      # Touches element. Called after save.
+      def touch_element
+        element&.touch
       end
 
       # Returns the first x (default 30) characters of ingredient for the Element#preview_text method.
@@ -250,11 +248,11 @@ module Alchemy #:nodoc:
       end
 
       def open_link_in_new_window?
-        respond_to?(:link_target) && link_target == 'blank'
+        respond_to?(:link_target) && link_target == "blank"
       end
 
       def partial_name
-        self.class.name.split('::').last.underscore
+        self.class.name.split("::").last.underscore
       end
 
       def acts_as_essence?

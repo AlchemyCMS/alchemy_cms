@@ -2,9 +2,11 @@
 
 module Alchemy
   class EssenceFileSerializer < ActiveModel::Serializer
-    attributes :id,
+    attributes(
+      :id,
       :title,
-      :css_class
+      :css_class,
+    )
 
     has_one :attachment
   end

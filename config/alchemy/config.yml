@@ -1,12 +1,6 @@
 # == This is the global Alchemy configuration file
 #
 
-# === Require SSL for login form and all admin modules
-#
-# NOTE: You have to create a SSL certificate on your server to make this work
-#
-require_ssl: false
-
 # === Auto Log Out Time
 #
 # The amount of time of inactivity in minutes after which the user is kicked out of his current session.
@@ -61,6 +55,19 @@ url_nesting: true
 #
 # In Alchemy's Admin, change how many items you would get shown per page by Kaminari
 items_per_page: 15
+
+# === Preview window URL configuration
+#
+# By default Alchemy uses its internal page preview renderer,
+# but you can configure it to be any URL instead.
+#
+# Basic Auth is supported.
+#
+# preview:
+#   host: https://www.my-static-site.com
+#   auth:
+#     username: <%= ENV["BASIC_AUTH_USERNAME"] %>
+#     password: <%= ENV["BASIC_AUTH_PASSWORD"] %>
 
 # === Picture rendering settings
 #

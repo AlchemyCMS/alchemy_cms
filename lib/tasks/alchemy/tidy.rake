@@ -1,13 +1,13 @@
 # frozen_string_literal: true
-require 'alchemy/tasks/tidy'
+require "alchemy/tasks/tidy"
 
 namespace :alchemy do
   namespace :tidy do
     desc "Tidy up Alchemy database."
     task :up do
-      Rake::Task['alchemy:tidy:element_positions'].invoke
-      Rake::Task['alchemy:tidy:content_positions'].invoke
-      Rake::Task['alchemy:tidy:remove_orphaned_records'].invoke
+      Rake::Task["alchemy:tidy:element_positions"].invoke
+      Rake::Task["alchemy:tidy:content_positions"].invoke
+      Rake::Task["alchemy:tidy:remove_orphaned_records"].invoke
     end
 
     desc "Fixes element positions."
@@ -22,8 +22,8 @@ namespace :alchemy do
 
     desc "Remove orphaned records (elements & contents)."
     task remove_orphaned_records: [:environment] do
-      Rake::Task['alchemy:tidy:remove_orphaned_elements'].invoke
-      Rake::Task['alchemy:tidy:remove_orphaned_contents'].invoke
+      Rake::Task["alchemy:tidy:remove_orphaned_elements"].invoke
+      Rake::Task["alchemy:tidy:remove_orphaned_contents"].invoke
     end
 
     desc "Remove orphaned elements."
@@ -40,7 +40,7 @@ namespace :alchemy do
     task elements_usage: :environment do
       puts "\n"
       removable_elements = []
-      names = Alchemy::Element.definitions.map { |e| e['name'] }
+      names = Alchemy::Element.definitions.map { |e| e["name"] }
       longest_name = names.max_by { |name| name.to_s.length }.length + 1
       names.sort.each do |name|
         names = Alchemy::Element.where(name: name)
@@ -49,7 +49,7 @@ namespace :alchemy do
         if count.zero?
           removable_elements.push(name)
         else
-          spacer = ' ' * (longest_name - name.length)
+          spacer = " " * (longest_name - name.length)
           puts "#{name}#{spacer}is used\t#{count}\ttime(s) on\t#{page_count}\tpublic page(s)"
         end
       end

@@ -28,29 +28,25 @@ module Alchemy
     belongs_to :element, touch: true, inverse_of: :contents
     has_one :page, through: :element
 
-    stampable stamper_class_name: Alchemy.user_class_name
-
-    acts_as_list scope: [:element_id]
-
     # Essence scopes
-    scope :essence_booleans,  -> { where(essence_type: "Alchemy::EssenceBoolean") }
-    scope :essence_dates,     -> { where(essence_type: "Alchemy::EssenceDate") }
-    scope :essence_files,     -> { where(essence_type: "Alchemy::EssenceFile") }
-    scope :essence_htmls,     -> { where(essence_type: "Alchemy::EssenceHtml") }
-    scope :essence_links,     -> { where(essence_type: "Alchemy::EssenceLink") }
-    scope :essence_pictures,  -> { where(essence_type: "Alchemy::EssencePicture") }
+    scope :essence_booleans, -> { where(essence_type: "Alchemy::EssenceBoolean") }
+    scope :essence_dates, -> { where(essence_type: "Alchemy::EssenceDate") }
+    scope :essence_files, -> { where(essence_type: "Alchemy::EssenceFile") }
+    scope :essence_htmls, -> { where(essence_type: "Alchemy::EssenceHtml") }
+    scope :essence_links, -> { where(essence_type: "Alchemy::EssenceLink") }
+    scope :essence_pictures, -> { where(essence_type: "Alchemy::EssencePicture") }
     scope :essence_richtexts, -> { where(essence_type: "Alchemy::EssenceRichtext") }
-    scope :essence_selects,   -> { where(essence_type: "Alchemy::EssenceSelect") }
-    scope :essence_texts,     -> { where(essence_type: "Alchemy::EssenceText") }
-    scope :named,             ->(name) { where(name: name) }
-    scope :available,         -> { published.not_trashed }
-    scope :published,         -> { joins(:element).merge(Element.published) }
-    scope :not_trashed,       -> { joins(:element).merge(Element.not_trashed) }
-    scope :not_restricted,    -> { joins(:element).merge(Element.not_restricted) }
+    scope :essence_selects, -> { where(essence_type: "Alchemy::EssenceSelect") }
+    scope :essence_texts, -> { where(essence_type: "Alchemy::EssenceText") }
+    scope :named, ->(name) { where(name: name) }
+    scope :available, -> { published.not_trashed }
+    scope :published, -> { joins(:element).merge(Element.published) }
+    scope :not_trashed, -> { joins(:element).merge(Element.not_trashed) }
+    scope :not_restricted, -> { joins(:element).merge(Element.not_restricted) }
 
-    delegate :restricted?, to: :page,    allow_nil: true
-    delegate :trashed?,    to: :element, allow_nil: true
-    delegate :public?,     to: :element, allow_nil: true
+    delegate :restricted?, to: :page, allow_nil: true
+    delegate :trashed?, to: :element, allow_nil: true
+    delegate :public?, to: :element, allow_nil: true
 
     class << self
       # Returns the translated label for a content name.
@@ -72,7 +68,7 @@ module Alchemy
         Alchemy.t(
           content_name,
           scope: "content_names.#{element_name}",
-          default: Alchemy.t("content_names.#{content_name}", default: content_name.humanize)
+          default: Alchemy.t("content_names.#{content_name}", default: content_name.humanize),
         )
       end
     end
@@ -132,7 +128,7 @@ module Alchemy
       {
         name: name,
         value: serialized_ingredient,
-        link: essence.try(:link)
+        link: essence.try(:link),
       }.delete_if { |_k, v| v.blank? }
     end
 
@@ -174,12 +170,12 @@ module Alchemy
     end
 
     def has_validations?
-      definition['validate'].present?
+      definition["validate"].present?
     end
 
     # Returns a string used as dom id on html elements.
     def dom_id
-      return '' if essence.nil?
+      return "" if essence.nil?
 
       "#{essence_partial_name}_#{id}"
     end
@@ -195,7 +191,7 @@ module Alchemy
 
     # Returns true if this content should be taken for element preview.
     def preview_content?
-      !!definition['as_element_title']
+      !!definition["as_element_title"]
     end
 
     # Proxy method that returns the preview text from essence.
@@ -205,7 +201,7 @@ module Alchemy
     end
 
     def essence_partial_name
-      return '' if essence.nil?
+      return "" if essence.nil?
 
       essence.partial_name
     end

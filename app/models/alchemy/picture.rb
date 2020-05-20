@@ -26,13 +26,13 @@ module Alchemy
 
     include Alchemy::NameConversions
     include Alchemy::Taggable
-    include Alchemy::ContentTouching
+    include Alchemy::TouchElements
     include Alchemy::Picture::Transformations
     include Alchemy::Picture::Url
 
     has_many :essence_pictures,
-      class_name: 'Alchemy::EssencePicture',
-      foreign_key: 'picture_id',
+      class_name: "Alchemy::EssencePicture",
+      foreign_key: "picture_id",
       inverse_of: :ingredient_association
 
     has_many :contents, through: :essence_pictures
@@ -62,12 +62,12 @@ module Alchemy
     # We need to define this method here to have it available in the validations below.
     class << self
       def allowed_filetypes
-        Config.get(:uploader).fetch('allowed_filetypes', {}).fetch('alchemy/pictures', [])
+        Config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/pictures", [])
       end
     end
 
     validates_presence_of :image_file
-    validates_size_of :image_file, maximum: Config.get(:uploader)['file_size_limit'].megabytes
+    validates_size_of :image_file, maximum: Config.get(:uploader)["file_size_limit"].megabytes
     validates_property :format,
       of: :image_file,
       in: allowed_filetypes,
@@ -76,21 +76,10 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class_name
 
-    scope :named, ->(name) {
-      where("#{table_name}.name LIKE ?", "%#{name}%")
-    }
-
-    scope :recent, -> {
-      where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at)
-    }
-
-    scope :deletable, -> {
-      where("#{table_name}.id NOT IN (SELECT picture_id FROM #{EssencePicture.table_name})")
-    }
-
-    scope :without_tag, -> {
-      left_outer_joins(:taggings).where(gutentag_taggings: {id: nil})
-    }
+    scope :named, ->(name) { where("#{table_name}.name LIKE ?", "%#{name}%") }
+    scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
+    scope :deletable, -> { where("#{table_name}.id NOT IN (SELECT picture_id FROM #{EssencePicture.table_name})") }
+    scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: { id: nil }) }
 
     # Class methods
 
@@ -124,11 +113,11 @@ module Alchemy
         pictures.order(:name)
       end
 
-      def filtered_by(filter = '')
+      def filtered_by(filter = "")
         case filter
-        when 'recent'      then recent
-        when 'last_upload' then last_upload
-        when 'without_tag' then without_tag
+        when "recent" then recent
+        when "last_upload" then last_upload
+        when "without_tag" then without_tag
         else
           all
         end
@@ -167,7 +156,7 @@ module Alchemy
       {
         name: image_file_name,
         size: image_file_size,
-        error: errors[:image_file].join
+        error: errors[:image_file].join,
       }
     end
 
@@ -177,7 +166,7 @@ module Alchemy
       if name.blank?
         "image_#{id}"
       else
-        ::CGI.escape(name.gsub(/\.(gif|png|jpe?g|tiff?)/i, '').tr('.', ' '))
+        ::CGI.escape(name.gsub(/\.(gif|png|jpe?g|tiff?)/i, "").tr(".", " "))
       end
     end
 
@@ -215,7 +204,7 @@ module Alchemy
     #
     def convertible?
       Config.get(:image_output_format) &&
-        Config.get(:image_output_format) != 'original' &&
+        Config.get(:image_output_format) != "original" &&
         has_convertible_format?
     end
 

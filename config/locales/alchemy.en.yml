@@ -711,6 +711,10 @@ en:
   activerecord:
     errors:
       models:
+        alchemy/node:
+          attributes:
+            base:
+              essence_nodes_present: "This menu item is in use inside an Alchemy element on the following pages: %{page_names}."
         alchemy/site:
           attributes:
             languages:
@@ -797,6 +801,7 @@ en:
       alchemy/legacy_page_url:
         urlname: "URL path"
       alchemy/node:
+        menu_type: Menu Type
         name: "Name"
         title: "Title"
         nofollow: "Search engine must not follow"

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
+class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
   def up
     unless table_exists?("alchemy_attachments")
       create_table "alchemy_attachments", force: :cascade do |t|
@@ -8,10 +8,9 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.string "file_name"
         t.string "file_mime_type"
         t.integer "file_size"
-        t.integer "creator_id"
-        t.integer "updater_id"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
+        t.references "creator"
+        t.references "updater"
+        t.timestamps null: false
         t.string "file_uid"
         t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
       end
@@ -20,16 +19,8 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
     unless table_exists?("alchemy_contents")
       create_table "alchemy_contents", force: :cascade do |t|
         t.string "name"
-        t.string "essence_type", null: false
-        t.integer "essence_id", null: false
-        t.integer "element_id", null: false
-        t.integer "position"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
-        t.index ["element_id", "position"], name: "index_contents_on_element_id_and_position"
-        t.index ["essence_id", "essence_type"], name: "index_alchemy_contents_on_essence_id_and_essence_type", unique: true
+        t.references "essence", null: false, polymorphic: true, index: { unique: true }
+        t.references "element", null: false
       end
     end
 
@@ -37,15 +28,14 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
       create_table "alchemy_elements", force: :cascade do |t|
         t.string "name"
         t.integer "position"
-        t.integer "page_id", null: false
+        t.references "page", null: false, index: false
         t.boolean "public", default: true
         t.boolean "folded", default: false
         t.boolean "unique", default: false
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
-        t.integer "parent_element_id"
+        t.timestamps null: false
+        t.references "creator"
+        t.references "updater"
+        t.references "parent_element", index: false
         t.boolean "fixed", default: false, null: false
         t.index ["fixed"], name: "index_alchemy_elements_on_fixed"
         t.index ["page_id", "parent_element_id"], name: "index_alchemy_elements_on_page_id_and_parent_element_id"
@@ -55,18 +45,14 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
 
     unless table_exists?("alchemy_elements_alchemy_pages")
       create_table "alchemy_elements_alchemy_pages", id: false, force: :cascade do |t|
-        t.integer "element_id"
-        t.integer "page_id"
+        t.references "element"
+        t.references "page"
       end
     end
 
     unless table_exists?("alchemy_essence_booleans")
       create_table "alchemy_essence_booleans", force: :cascade do |t|
         t.boolean "value"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
         t.index ["value"], name: "index_alchemy_essence_booleans_on_value"
       end
     end
@@ -74,34 +60,21 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
     unless table_exists?("alchemy_essence_dates")
       create_table "alchemy_essence_dates", force: :cascade do |t|
         t.datetime "date"
-        t.integer "creator_id"
-        t.integer "updater_id"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
       end
     end
 
     unless table_exists?("alchemy_essence_files")
       create_table "alchemy_essence_files", force: :cascade do |t|
-        t.integer "attachment_id"
+        t.references "attachment"
         t.string "title"
         t.string "css_class"
-        t.integer "creator_id"
-        t.integer "updater_id"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
         t.string "link_text"
-        t.index ["attachment_id"], name: "index_alchemy_essence_files_on_attachment_id"
       end
     end
 
     unless table_exists?("alchemy_essence_htmls")
       create_table "alchemy_essence_htmls", force: :cascade do |t|
         t.text "source"
-        t.integer "creator_id"
-        t.integer "updater_id"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
       end
     end
 
@@ -111,25 +84,18 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.string "link_title"
         t.string "link_target"
         t.string "link_class_name"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
       end
     end
 
     unless table_exists?("alchemy_essence_pages")
       create_table "alchemy_essence_pages", force: :cascade do |t|
-        t.integer "page_id"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
-        t.index ["page_id"], name: "index_alchemy_essence_pages_on_page_id"
+        t.references "page"
       end
     end
 
     unless table_exists?("alchemy_essence_pictures")
       create_table "alchemy_essence_pictures", force: :cascade do |t|
-        t.integer "picture_id"
+        t.references "picture"
         t.string "caption"
         t.string "title"
         t.string "alt_tag"
@@ -138,14 +104,9 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.string "link_title"
         t.string "css_class"
         t.string "link_target"
-        t.integer "creator_id"
-        t.integer "updater_id"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
         t.string "crop_from"
         t.string "crop_size"
         t.string "render_size"
-        t.index ["picture_id"], name: "index_alchemy_essence_pictures_on_picture_id"
       end
     end
 
@@ -154,20 +115,12 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.text "body"
         t.text "stripped_body"
         t.boolean "public"
-        t.integer "creator_id"
-        t.integer "updater_id"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
       end
     end
 
     unless table_exists?("alchemy_essence_selects")
       create_table "alchemy_essence_selects", force: :cascade do |t|
         t.string "value"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
         t.index ["value"], name: "index_alchemy_essence_selects_on_value"
       end
     end
@@ -180,17 +133,13 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.string "link_class_name"
         t.boolean "public", default: false
         t.string "link_target"
-        t.integer "creator_id"
-        t.integer "updater_id"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
       end
     end
 
     unless table_exists?("alchemy_folded_pages")
       create_table "alchemy_folded_pages", force: :cascade do |t|
-        t.integer "page_id", null: false
-        t.integer "user_id", null: false
+        t.references "page", null: false, index: false
+        t.references "user", null: false, index: false
         t.boolean "folded", default: false
         t.index ["page_id", "user_id"], name: "index_alchemy_folded_pages_on_page_id_and_user_id", unique: true
       end
@@ -203,27 +152,23 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.string "frontpage_name"
         t.string "page_layout", default: "intro"
         t.boolean "public", default: false
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
+        t.timestamps null: false
+        t.references "creator"
+        t.references "updater"
         t.boolean "default", default: false
         t.string "country_code", default: "", null: false
-        t.integer "site_id", null: false
+        t.references "site", null: false
         t.string "locale"
         t.index ["language_code", "country_code"], name: "index_alchemy_languages_on_language_code_and_country_code"
         t.index ["language_code"], name: "index_alchemy_languages_on_language_code"
-        t.index ["site_id"], name: "index_alchemy_languages_on_site_id"
       end
     end
 
     unless table_exists?("alchemy_legacy_page_urls")
       create_table "alchemy_legacy_page_urls", force: :cascade do |t|
         t.string "urlname", null: false
-        t.integer "page_id", null: false
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
-        t.index ["page_id"], name: "index_alchemy_legacy_page_urls_on_page_id"
+        t.references "page", null: false
+        t.timestamps null: false
         t.index ["urlname"], name: "index_alchemy_legacy_page_urls_on_urlname"
       end
     end
@@ -236,25 +181,18 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.boolean "nofollow", default: false, null: false
         t.boolean "external", default: false, null: false
         t.boolean "folded", default: false, null: false
-        t.integer "parent_id"
+        t.references "parent"
         t.integer "lft", null: false
         t.integer "rgt", null: false
         t.integer "depth", default: 0, null: false
-        t.integer "page_id"
-        t.integer "language_id", null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
-        t.datetime "created_at", null: false
-        t.datetime "updated_at", null: false
-        t.integer "site_id", null: false
-        t.index ["creator_id"], name: "index_alchemy_nodes_on_creator_id"
-        t.index ["language_id"], name: "index_alchemy_nodes_on_language_id"
+        t.references "page"
+        t.references "language", null: false
+        t.references "creator"
+        t.references "updater"
+        t.timestamps null: false
+        t.references "site", null: false
         t.index ["lft"], name: "index_alchemy_nodes_on_lft"
-        t.index ["page_id"], name: "index_alchemy_nodes_on_page_id"
-        t.index ["parent_id"], name: "index_alchemy_nodes_on_parent_id"
         t.index ["rgt"], name: "index_alchemy_nodes_on_rgt"
-        t.index ["site_id"], name: "index_alchemy_nodes_on_site_id"
-        t.index ["updater_id"], name: "index_alchemy_nodes_on_updater_id"
       end
     end
 
@@ -270,7 +208,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.text "meta_description"
         t.integer "lft"
         t.integer "rgt"
-        t.integer "parent_id"
+        t.references "parent", index: false
         t.integer "depth"
         t.boolean "visible", default: false
         t.integer "locked_by"
@@ -279,16 +217,14 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.boolean "robot_follow", default: true
         t.boolean "sitemap", default: true
         t.boolean "layoutpage", default: false
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
-        t.integer "language_id"
+        t.timestamps null: false
+        t.references "creator"
+        t.references "updater"
+        t.references "language"
         t.datetime "published_at"
         t.datetime "public_on"
         t.datetime "public_until"
         t.datetime "locked_at"
-        t.index ["language_id"], name: "index_pages_on_language_id"
         t.index ["locked_at", "locked_by"], name: "index_alchemy_pages_on_locked_at_and_locked_by"
         t.index ["parent_id", "lft"], name: "index_pages_on_parent_id_and_lft"
         t.index ["public_on", "public_until"], name: "index_alchemy_pages_on_public_on_and_public_until"
@@ -303,10 +239,9 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
         t.string "image_file_name"
         t.integer "image_file_width"
         t.integer "image_file_height"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
-        t.integer "creator_id"
-        t.integer "updater_id"
+        t.timestamps null: false
+        t.references "creator"
+        t.references "updater"
         t.string "upload_hash"
         t.string "image_file_uid"
         t.integer "image_file_size"
@@ -318,8 +253,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.0]
       create_table "alchemy_sites", force: :cascade do |t|
         t.string "host"
         t.string "name"
-        t.datetime "created_at", precision: 6, null: false
-        t.datetime "updated_at", precision: 6, null: false
+        t.timestamps null: false
         t.boolean "public", default: false
         t.text "aliases"
         t.boolean "redirect_to_primary_host"

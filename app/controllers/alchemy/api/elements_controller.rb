@@ -22,7 +22,7 @@ module Alchemy
       end
       @elements = @elements.includes(*element_includes)
 
-      render json: @elements, adapter: :json, root: 'elements'
+      render json: @elements, adapter: :json, root: "elements"
     end
 
     # Returns a json object for element
@@ -41,18 +41,18 @@ module Alchemy
           nested_elements: [
             {
               contents: {
-                essence: :ingredient_association
-              }
+                essence: :ingredient_association,
+              },
             },
-            :tags
-          ]
+            :tags,
+          ],
         },
         {
           contents: {
-            essence: :ingredient_association
-          }
+            essence: :ingredient_association,
+          },
         },
-        :tags
+        :tags,
       ]
     end
   end

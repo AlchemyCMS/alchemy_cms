@@ -11,14 +11,14 @@ module Alchemy
     # CSS classes for the element editor partial.
     def css_classes
       [
-        'element-editor',
-        content_definitions.present? ? 'with-contents' : 'without-contents',
-        nestable_elements.any? ? 'nestable' : 'not-nestable',
-        taggable? ? 'taggable' : 'not-taggable',
-        folded ? 'folded' : 'expanded',
-        compact? ? 'compact' : nil,
-        fixed? ? 'is-fixed' : 'not-fixed'
-      ].join(' ')
+        "element-editor",
+        content_definitions.present? ? "with-contents" : "without-contents",
+        nestable_elements.any? ? "nestable" : "not-nestable",
+        taggable? ? "taggable" : "not-taggable",
+        folded ? "folded" : "expanded",
+        compact? ? "compact" : nil,
+        fixed? ? "is-fixed" : "not-fixed",
+      ].join(" ")
     end
 
     # Tells us, if we should show the element footer and form inputs.

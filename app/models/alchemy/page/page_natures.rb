@@ -14,17 +14,11 @@ module Alchemy
     end
 
     def taggable?
-      definition['taggable'] == true
+      definition["taggable"] == true
     end
 
     def rootpage?
       !new_record? && parent_id.blank?
-    end
-
-    def systempage?
-      return true if Page.count.zero?
-
-      rootpage? || (parent_id == Page.root.id && !language_root?)
     end
 
     def folded?(user_id)
@@ -69,7 +63,7 @@ module Alchemy
         public: public?,
         visible: visible?,
         locked: locked?,
-        restricted: restricted?
+        restricted: restricted?,
       }
     end
 
@@ -95,7 +89,7 @@ module Alchemy
     # Page layout names are defined inside the config/alchemy/page_layouts.yml file.
     # Translate the name in your config/locales language yml file.
     def layout_display_name
-      Alchemy.t(page_layout, scope: 'page_layout_names')
+      Alchemy.t(page_layout, scope: "page_layout_names")
     end
 
     # Returns the name for the layout partial
@@ -155,7 +149,7 @@ module Alchemy
       return false unless caching_enabled?
 
       page_layout = PageLayout.get(self.page_layout)
-      page_layout['cache'] != false && page_layout['searchresults'] != true
+      page_layout["cache"] != false && page_layout["searchresults"] != true
     end
 
     private

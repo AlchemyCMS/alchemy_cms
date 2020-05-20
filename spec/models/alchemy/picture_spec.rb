@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 module Alchemy
   describe Picture do
@@ -9,7 +9,7 @@ module Alchemy
     end
 
     let :image_file do
-      File.new(File.expand_path('../../fixtures/image.png', __dir__))
+      File.new(File.expand_path("../../fixtures/image.png", __dir__))
     end
 
     let(:picture) { Picture.new }
@@ -25,86 +25,86 @@ module Alchemy
     end
 
     it "is valid with capitalized image file extension" do
-      image_file = File.new(File.expand_path('../../fixtures/image2.PNG', __dir__))
+      image_file = File.new(File.expand_path("../../fixtures/image2.PNG", __dir__))
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
     end
 
     it "is valid with jpeg image file extension" do
-      image_file = File.new(File.expand_path('../../fixtures/image3.jpeg', __dir__))
+      image_file = File.new(File.expand_path("../../fixtures/image3.jpeg", __dir__))
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
     end
 
-    context 'with enabled preprocess_image_resize config option' do
+    context "with enabled preprocess_image_resize config option" do
       let(:image_file) do
-        File.new(File.expand_path('../../fixtures/80x60.png', __dir__))
+        File.new(File.expand_path("../../fixtures/80x60.png", __dir__))
       end
 
-      context 'with > geometry string' do
+      context "with > geometry string" do
         before do
           allow(Config).to receive(:get) do |arg|
             if arg == :preprocess_image_resize
-              '10x10>'
+              "10x10>"
             end
           end
         end
 
         it "it resizes the image after upload" do
           picture = Picture.new(image_file: image_file)
-          expect(picture.image_file.data[0x10..0x18].unpack('NN')).to eq([10, 8])
+          expect(picture.image_file.data[0x10..0x18].unpack("NN")).to eq([10, 8])
         end
       end
 
-      context 'without > geometry string' do
+      context "without > geometry string" do
         before do
           allow(Config).to receive(:get) do |arg|
             if arg == :preprocess_image_resize
-              '10x10'
+              "10x10"
             end
           end
         end
 
         it "it resizes the image after upload" do
           picture = Picture.new(image_file: image_file)
-          expect(picture.image_file.data[0x10..0x18].unpack('NN')).to eq([10, 8])
+          expect(picture.image_file.data[0x10..0x18].unpack("NN")).to eq([10, 8])
         end
       end
     end
 
-    describe '#suffix' do
+    describe "#suffix" do
       it "should return the suffix of original filename" do
-        pic = stub_model(Picture, image_file_name: 'kitten.JPG')
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: 'jpg'}))
+        pic = stub_model(Picture, image_file_name: "kitten.JPG")
+        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
         expect(pic.suffix).to eq("jpg")
       end
 
       context "image has no suffix" do
         it "should return empty string" do
-          pic = stub_model(Picture, image_file_name: 'kitten')
-          allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: ''}))
+          pic = stub_model(Picture, image_file_name: "kitten")
+          allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "" }))
           expect(pic.suffix).to eq("")
         end
       end
     end
 
-    describe '#humanized_name' do
+    describe "#humanized_name" do
       it "should return a humanized version of original filename" do
-        pic = stub_model(Picture, image_file_name: 'cute_kitten.JPG')
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: 'jpg'}))
+        pic = stub_model(Picture, image_file_name: "cute_kitten.JPG")
+        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
         expect(pic.humanized_name).to eq("cute kitten")
       end
 
       it "should not remove incidents of suffix from filename" do
-        pic = stub_model(Picture, image_file_name: 'cute_kitten_mo.jpgi.JPG')
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ext: 'jpg'}))
+        pic = stub_model(Picture, image_file_name: "cute_kitten_mo.jpgi.JPG")
+        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
         expect(pic.humanized_name).to eq("cute kitten mo.jpgi")
         expect(pic.humanized_name).not_to eq("cute kitten moi")
       end
 
       context "image has no suffix" do
         it "should return humanized name" do
-          pic = stub_model(Picture, image_file_name: 'cute_kitten')
+          pic = stub_model(Picture, image_file_name: "cute_kitten")
           allow(pic).to receive(:suffix).and_return("")
           expect(pic.humanized_name).to eq("cute kitten")
         end
@@ -119,7 +119,7 @@ module Alchemy
       let(:query) { double(result: pictures) }
       let(:per_page) { nil }
 
-      it 'orders the result by name' do
+      it "orders the result by name" do
         expect(pictures).to receive(:order).with(:name)
         search_by
       end
@@ -148,66 +148,66 @@ module Alchemy
 
       context "when params[:filter] is set" do
         let(:params) do
-          ActionController::Parameters.new(filter: 'recent')
+          ActionController::Parameters.new(filter: "recent")
         end
 
         it "filters the pictures collection by the given filter string" do
           expect(pictures).to \
-            receive(:filtered_by).with(params['filter']).and_call_original
+            receive(:filtered_by).with(params["filter"]).and_call_original
           search_by
         end
       end
 
       context "when params[:tagged_with] is set" do
         let(:params) do
-          ActionController::Parameters.new(tagged_with: 'kitten')
+          ActionController::Parameters.new(tagged_with: "kitten")
         end
 
         it "filters the records by tags" do
           expect(pictures).to \
-            receive(:tagged_with).with(params['tagged_with']).and_call_original
+            receive(:tagged_with).with(params["tagged_with"]).and_call_original
           search_by
         end
       end
     end
 
-    describe '.filtered_by' do
+    describe ".filtered_by" do
       let(:picture) { build_stubbed(:alchemy_picture) }
 
       context "with 'recent' as argument" do
-        it 'should call the .recent scope' do
+        it "should call the .recent scope" do
           expect(Picture).to receive(:recent).and_return(picture)
-          expect(Picture.filtered_by('recent')).to eq(picture)
+          expect(Picture.filtered_by("recent")).to eq(picture)
         end
       end
 
       context "with 'last_upload' as argument" do
-        it 'should call the .last_upload scope' do
+        it "should call the .last_upload scope" do
           expect(Picture).to receive(:last_upload).and_return(picture)
-          expect(Picture.filtered_by('last_upload')).to eq(picture)
+          expect(Picture.filtered_by("last_upload")).to eq(picture)
         end
       end
 
       context "with 'without_tag' as argument" do
-        it 'should call the .without_tag scope' do
+        it "should call the .without_tag scope" do
           expect(Picture).to receive(:without_tag).and_return(picture)
-          expect(Picture.filtered_by('without_tag')).to eq(picture)
+          expect(Picture.filtered_by("without_tag")).to eq(picture)
         end
       end
 
       context "with no argument" do
-        it 'should return the scoped collection' do
+        it "should return the scoped collection" do
           expect(Picture).to receive(:all).and_return(picture)
-          expect(Picture.filtered_by('')).to eq(picture)
+          expect(Picture.filtered_by("")).to eq(picture)
         end
       end
     end
 
-    describe '.last_upload' do
+    describe ".last_upload" do
       it "should return all pictures that have the same upload-hash as the most recent picture" do
-        other_upload = Picture.create!(image_file: image_file, upload_hash: '456')
-        same_upload = Picture.create!(image_file: image_file, upload_hash: '123')
-        most_recent = Picture.create!(image_file: image_file, upload_hash: '123')
+        other_upload = Picture.create!(image_file: image_file, upload_hash: "456")
+        same_upload = Picture.create!(image_file: image_file, upload_hash: "123")
+        most_recent = Picture.create!(image_file: image_file, upload_hash: "123")
 
         expect(Picture.last_upload).to include(most_recent)
         expect(Picture.last_upload).to include(same_upload)
@@ -217,7 +217,7 @@ module Alchemy
       end
     end
 
-    describe '.recent' do
+    describe ".recent" do
       before do
         now = Time.current
         @recent = Picture.create!(image_file: image_file)
@@ -235,7 +235,7 @@ module Alchemy
       end
     end
 
-    describe '#destroy' do
+    describe "#destroy" do
       context "a picture that is assigned in an essence" do
         let(:essence_picture) { EssencePicture.create }
         let(:picture) { create :alchemy_picture }
@@ -253,46 +253,46 @@ module Alchemy
     describe "#image_file_dimensions" do
       it "should return the width and height in the format of '1024x768'" do
         picture.image_file = image_file
-        expect(picture.image_file_dimensions).to eq('1x1')
+        expect(picture.image_file_dimensions).to eq("1x1")
       end
     end
 
-    describe '#update_name_and_tag_list!' do
+    describe "#update_name_and_tag_list!" do
       let(:picture) { Picture.new(image_file: image_file) }
 
       before { allow(picture).to receive(:save!).and_return(true) }
 
       it "updates tag_list" do
-        expect(picture).to receive(:tag_list=).with('Foo')
-        picture.update_name_and_tag_list!({pictures_tag_list: 'Foo'})
+        expect(picture).to receive(:tag_list=).with("Foo")
+        picture.update_name_and_tag_list!({ pictures_tag_list: "Foo" })
       end
 
-      context 'name is present' do
+      context "name is present" do
         it "updates name" do
-          expect(picture).to receive(:name=).with('Foo')
-          picture.update_name_and_tag_list!({pictures_name: 'Foo'})
+          expect(picture).to receive(:name=).with("Foo")
+          picture.update_name_and_tag_list!({ pictures_name: "Foo" })
         end
       end
 
-      context 'name is not present' do
+      context "name is not present" do
         it "does not update name" do
-          expect(picture).not_to receive(:name=).with('Foo')
-          picture.update_name_and_tag_list!({pictures_name: ''})
+          expect(picture).not_to receive(:name=).with("Foo")
+          picture.update_name_and_tag_list!({ pictures_name: "" })
         end
       end
     end
 
-    describe '#urlname' do
+    describe "#urlname" do
       subject { picture.urlname }
 
-      let(:picture) { build_stubbed(:alchemy_picture, name: 'Cute kittens.jpg') }
+      let(:picture) { build_stubbed(:alchemy_picture, name: "Cute kittens.jpg") }
 
       it "returns a uri escaped name" do
-        is_expected.to eq('Cute+kittens')
+        is_expected.to eq("Cute+kittens")
       end
 
-      context 'with blank name' do
-        let(:picture) { build_stubbed(:alchemy_picture, name: '') }
+      context "with blank name" do
+        let(:picture) { build_stubbed(:alchemy_picture, name: "") }
 
         it "returns generic name" do
           is_expected.to eq("image_#{picture.id}")
@@ -300,10 +300,10 @@ module Alchemy
       end
     end
 
-    describe '#to_jq_upload' do
+    describe "#to_jq_upload" do
       subject { picture.to_jq_upload }
 
-      let(:picture) { build_stubbed(:alchemy_picture, image_file_name: 'cute-kittens.jpg', image_file_size: 1024) }
+      let(:picture) { build_stubbed(:alchemy_picture, image_file_name: "cute-kittens.jpg", image_file_size: 1024) }
 
       it "returns a hash containing data for jquery fileuploader" do
         is_expected.to be_an_instance_of(Hash)
@@ -311,50 +311,54 @@ module Alchemy
         is_expected.to include(size: picture.image_file_size)
       end
 
-      context 'with error' do
+      context "with error" do
         let(:picture) { build_stubbed(:alchemy_picture) }
 
         before do
-          expect(picture).to receive(:errors).and_return({image_file: %w(stupid_cats)})
+          expect(picture).to receive(:errors).and_return({ image_file: %w(stupid_cats) })
         end
 
         it "returns hash with error message" do
           is_expected.to be_an_instance_of(Hash)
-          is_expected.to include(error: 'stupid_cats')
+          is_expected.to include(error: "stupid_cats")
         end
       end
     end
 
-    describe '#restricted?' do
+    describe "#restricted?" do
       subject { picture.restricted? }
 
       let(:picture) { build_stubbed(:alchemy_picture) }
 
-      context 'is assigned on pages' do
-        context 'that are all restricted' do
+      context "is assigned on pages" do
+        context "that are all restricted" do
           before do
-            expect(picture).to receive(:pages).at_least(:once).and_return double(
-              not_restricted: double(blank?: true),
-              any?: true
-            )
+            expect(picture).to receive(:pages).at_least(:once) do
+              double(
+                not_restricted: double(blank?: true),
+                any?: true,
+              )
+            end
           end
 
           it { is_expected.to be_truthy }
         end
 
-        context 'that are not all restricted' do
+        context "that are not all restricted" do
           before do
-            expect(picture).to receive(:pages).at_least(:once).and_return double(
-              not_restricted: double(blank?: false),
-              any?: true
-            )
+            expect(picture).to receive(:pages).at_least(:once) do
+              double(
+                not_restricted: double(blank?: false),
+                any?: true,
+              )
+            end
           end
 
           it { is_expected.to be_falsey }
         end
       end
 
-      context 'is not assigned on any page' do
+      context "is not assigned on any page" do
         before do
           expect(picture).to receive(:pages).and_return double(any?: false)
         end
@@ -363,9 +367,9 @@ module Alchemy
       end
     end
 
-    context 'navigating records' do
-      let!(:picture1) { create(:alchemy_picture, name: 'abc') }
-      let!(:picture2) { create(:alchemy_picture, name: 'def') }
+    context "navigating records" do
+      let!(:picture1) { create(:alchemy_picture, name: "abc") }
+      let!(:picture2) { create(:alchemy_picture, name: "def") }
 
       describe "#previous" do
         subject { picture2.previous }
@@ -384,53 +388,53 @@ module Alchemy
       end
     end
 
-    describe '#default_render_format' do
+    describe "#default_render_format" do
       let(:picture) do
-        Picture.new(image_file_format: 'png')
+        Picture.new(image_file_format: "png")
       end
 
       subject { picture.default_render_format }
 
       context "when `image_output_format` is configured to `original`" do
         before do
-          stub_alchemy_config(:image_output_format, 'original')
+          stub_alchemy_config(:image_output_format, "original")
         end
 
         it "returns the image file format" do
-          is_expected.to eq('png')
+          is_expected.to eq("png")
         end
       end
 
       context "when `image_output_format` is configured to an image format" do
         before do
-          stub_alchemy_config(:image_output_format, 'jpg')
+          stub_alchemy_config(:image_output_format, "jpg")
         end
 
         context "and the format is a convertible format" do
           it "returns the configured file format." do
-            is_expected.to eq('jpg')
+            is_expected.to eq("jpg")
           end
         end
 
         context "but the format is not a convertible format" do
           before do
-            allow(picture).to receive(:image_file_format) { 'svg' }
+            allow(picture).to receive(:image_file_format) { "svg" }
           end
 
           it "returns the original file format." do
-            is_expected.to eq('svg')
+            is_expected.to eq("svg")
           end
         end
       end
     end
 
-    describe 'after update' do
-      context 'assigned to contents' do
+    describe "after update" do
+      context "assigned to contents" do
         let(:picture) { create(:alchemy_picture) }
 
         let(:content) do
           create(:alchemy_content, :essence_picture).tap do |content|
-            content.update_column(:updated_at, 3.hours.ago)
+            content.element.update_column(:updated_at, 3.hours.ago)
           end
         end
 
@@ -438,8 +442,8 @@ module Alchemy
           content.essence.update(picture: picture)
         end
 
-        it 'touches contents' do
-          expect { picture.save }.to change { content.reload.updated_at }
+        it "touches elements" do
+          expect { picture.save }.to change { picture.elements.reload.first.updated_at }
         end
       end
     end

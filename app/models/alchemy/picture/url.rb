@@ -12,7 +12,7 @@ module Alchemy
       :format,
       :quality,
       :size,
-      :upsample
+      :upsample,
     ]
 
     # Returns a path to picture for use inside a image_tag helper.
@@ -77,13 +77,13 @@ module Alchemy
       end
 
       if options[:flatten]
-        encoding_options << '-flatten'
+        encoding_options << "-flatten"
       end
 
       convertion_needed = target_format != image_file_format || encoding_options.present?
 
       if has_convertible_format? && convertion_needed
-        image = image.encode(target_format, encoding_options.join(' '))
+        image = image.encode(target_format, encoding_options.join(" "))
       end
 
       image

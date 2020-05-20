@@ -25,19 +25,19 @@ module Alchemy
     #
     def language_links(options = {})
       options = {
-        linkname: 'name',
+        linkname: "name",
         show_title: true,
-        spacer: '',
-        reverse: false
+        spacer: "",
+        reverse: false,
       }.merge(options)
-      languages = Language.on_current_site.published.with_root_page.order("name #{options[:reverse] ? 'DESC' : 'ASC'}")
+      languages = Language.on_current_site.published.with_root_page.order("name #{options[:reverse] ? "DESC" : "ASC"}")
       return nil if languages.count < 2
 
       render(
         partial: "alchemy/language_links/language",
         collection: languages,
         spacer_template: "alchemy/language_links/spacer",
-        locals: {languages: languages, options: options}
+        locals: { languages: languages, options: options },
       )
     end
 
@@ -51,7 +51,7 @@ module Alchemy
       render @page, page: @page
     rescue ActionView::MissingTemplate
       warning("PageLayout: '#{@page.page_layout}' not found. Rendering standard page_layout.")
-      render 'alchemy/page_layouts/standard', page: @page
+      render "alchemy/page_layouts/standard", page: @page
     end
 
     # Renders a partial for current site
@@ -78,26 +78,22 @@ module Alchemy
     # Menu partials are placed in the `app/views/alchemy/menus` folder
     # Use the `rails g alchemy:menus` generator to create the partials
     #
-    # @param [String] - Name of the menu
+    # @param [String] - Type of the menu
     # @param [Hash] - A set of options available in your menu partials
-    def render_menu(name, options = {})
+    def render_menu(menu_type, options = {})
       root_node = Alchemy::Node.roots.find_by(
-        name: name,
-        language: Alchemy::Language.current
+        menu_type: menu_type,
+        language: Alchemy::Language.current,
       )
       if root_node.nil?
-        warning("Menu with name #{name} not found!")
+        warning("Menu with type #{menu_type} not found!")
         return
       end
 
-      options = {
-        node_partial_name: "#{root_node.view_folder_name}/node"
-      }.merge(options)
-
-      render(root_node.to_partial_path, menu: root_node, node: root_node, options: options)
+      render("alchemy/menus/#{menu_type}/wrapper", menu: root_node, options: options)
     rescue ActionView::MissingTemplate => e
       warning <<~WARN
-        Menu partial not found for #{name}.
+        Menu partial not found for #{menu_type}.
         #{e}
       WARN
     end
@@ -124,11 +120,11 @@ module Alchemy
         page: @page,
         restricted_only: false,
         reverse: false,
-        link_active_page: false
+        link_active_page: false,
       }.merge(options)
 
-      pages = Page.
-        ancestors_for(options[:page]).
+      pages = options[:page].
+        self_and_ancestors.contentpages.
         accessible_by(current_ability, :see)
 
       if options.delete(:restricted_only)
@@ -136,7 +132,7 @@ module Alchemy
       end
 
       if options.delete(:reverse)
-        pages = pages.reorder('lft DESC')
+        pages = pages.reorder("lft DESC")
       end
 
       if options[:without].present?
@@ -144,7 +140,7 @@ module Alchemy
         pages = pages.where.not(id: without.try(:collect, &:id) || without.id)
       end
 
-      render 'alchemy/breadcrumb/wrapper', pages: pages, options: options
+      render "alchemy/breadcrumb/wrapper", pages: pages, options: options
     end
 
     # Returns current page title
@@ -160,7 +156,7 @@ module Alchemy
       options = {
         prefix: "",
         suffix: "",
-        separator: ""
+        separator: "",
       }.update(options)
       title_parts = [options[:prefix]]
       if response.status == 200
@@ -181,7 +177,7 @@ module Alchemy
     end
 
     def meta_robots
-      "#{@page.robot_index? ? '' : 'no'}index, #{@page.robot_follow? ? '' : 'no'}follow"
+      "#{@page.robot_index? ? "" : "no"}index, #{@page.robot_follow? ? "" : "no"}follow"
     end
   end
 end

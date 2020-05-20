@@ -1,0 +1,8 @@
+<%% cache menu do %>
+  <ul class="nav">
+    <%%= render partial: menu.to_partial_path,
+      collection: menu.children.includes(:page, :children),
+      locals: { options: options },
+      as: 'node' %>
+  </ul>
+<%% end %>

@@ -77,7 +77,7 @@ SimpleForm.setup do |config|
   config.boolean_style = :inline
 
   # Default class for buttons
-  config.button_class = 'button'
+  config.button_class = "button"
 
   # Method used to tidy up errors. Specify any Rails Array method.
   # :first lists the first message for each field.
@@ -88,7 +88,7 @@ SimpleForm.setup do |config|
   config.error_notification_tag = :div
 
   # CSS class to add for error notification helper.
-  config.error_notification_class = 'field_with_errors'
+  config.error_notification_class = "field_with_errors"
 
   # ID to add for error notification helper.
   # config.error_notification_id = nil
@@ -103,7 +103,7 @@ SimpleForm.setup do |config|
   config.collection_wrapper_tag = :div
 
   # You can define the class to use on all collection wrappers. Defaulting to none.
-  config.collection_wrapper_class = 'control_group'
+  config.collection_wrapper_class = "control_group"
 
   # You can wrap each item in a collection of radio/check boxes with a tag,
   # defaulting to :span.
@@ -116,7 +116,7 @@ SimpleForm.setup do |config|
   config.label_text = proc { |label, required| "#{label}#{required}" }
 
   # You can define the class to use on all labels. Default is nil.
-  config.label_class = 'control-label'
+  config.label_class = "control-label"
 
   # You can define the default class to be used on forms. Can be overriden
   # with `html: { :class }`. Defaulting to none.
@@ -170,12 +170,12 @@ SimpleForm.setup do |config|
   # config.input_class = nil
 
   # Define the default class of the input wrapper of the boolean input.
-  config.boolean_label_class = 'checkbox'
+  config.boolean_label_class = "checkbox"
 
   # Defines if the default input wrapper class should be included in radio
   # collection wrappers.
   # config.include_default_input_wrapper_class = true
 
   # Defines which i18n scope will be used in Simple Form.
-  config.i18n_scope = 'alchemy.forms'
+  config.i18n_scope = "alchemy.forms"
 end

@@ -1,15 +1,15 @@
 # frozen_string_literal: true
 
-require 'rails_helper'
+require "rails_helper"
 
 describe Alchemy::Admin::EssencesHelper do
   include Alchemy::Admin::ElementsHelper
 
   let(:element) do
-    create(:alchemy_element, :with_contents, name: 'article')
+    create(:alchemy_element, :with_contents, name: "article")
   end
 
-  describe '#essence_picture_thumbnail' do
+  describe "#essence_picture_thumbnail" do
     let(:essence) do
       build_stubbed(:alchemy_essence_picture)
     end
@@ -28,7 +28,7 @@ describe Alchemy::Admin::EssencesHelper do
         have_selector("img[src].img_paddingtop")
     end
 
-    context 'when given content has no ingredient' do
+    context "when given content has no ingredient" do
       before { allow(content).to receive(:ingredient).and_return(nil) }
 
       it "should return nil" do
@@ -47,7 +47,7 @@ describe Alchemy::Admin::EssencesHelper do
         allow(content).to receive(:settings) do
           {
             caption_as_textarea: true,
-            sizes: ['100x100', '200x200']
+            sizes: ["100x100", "200x200"],
           }
         end
 
@@ -59,7 +59,7 @@ describe Alchemy::Admin::EssencesHelper do
       before do
         allow(content).to receive(:settings) do
           {
-            caption_as_textarea: true
+            caption_as_textarea: true,
           }
         end
 
@@ -72,7 +72,7 @@ describe Alchemy::Admin::EssencesHelper do
         allow(content).to receive(:settings) do
           {
             caption_as_textarea: false,
-            sizes: ['100x100', '200x200']
+            sizes: ["100x100", "200x200"],
           }
         end
 
@@ -84,7 +84,7 @@ describe Alchemy::Admin::EssencesHelper do
       before do
         allow(content).to receive(:settings) do
           {
-            caption_as_textarea: false
+            caption_as_textarea: false,
           }
         end
 

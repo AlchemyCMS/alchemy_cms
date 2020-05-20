@@ -8,8 +8,6 @@
 #  attachment_id :integer
 #  title         :string
 #  css_class     :string
-#  creator_id    :integer
-#  updater_id    :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  link_text     :string
@@ -18,7 +16,7 @@
 module Alchemy
   class EssenceFile < BaseRecord
     belongs_to :attachment, optional: true
-    acts_as_essence ingredient_column: 'attachment'
+    acts_as_essence ingredient_column: "attachment"
 
     def attachment_url
       return if attachment.nil?
@@ -26,7 +24,7 @@ module Alchemy
       routes.download_attachment_path(
         id: attachment.id,
         name: attachment.urlname,
-        format: attachment.suffix
+        format: attachment.suffix,
       )
     end
 
