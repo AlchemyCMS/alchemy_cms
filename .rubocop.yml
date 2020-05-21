@@ -9,15 +9,10 @@ AllCops:
     - 'alchemy_cms.gemspec'
     - 'Rakefile'
 
-  TargetRubyVersion: 2.3
+  TargetRubyVersion: 2.4
 
 # Really, rubocop?
 Bundler/OrderedGems:
-  Enabled: false
-
-# Sometimes I believe this reads better
-# This also causes spacing issues on multi-line fixes
-Style/BracesAroundHashParameters:
   Enabled: false
 
 Style/EmptyLiteral:
@@ -55,13 +50,10 @@ Style/MixinUsage:
   Exclude:
     - spec/**/*
 
-Performance/Count:
+Layout/HashAlignment:
   Enabled: false
 
-Layout/AlignHash:
-  Enabled: false
-
-Layout/AlignParameters:
+Layout/ParameterAlignment:
   Enabled: false
 
 Layout/ClosingParenthesisIndentation:
@@ -77,13 +69,13 @@ Layout/ElseAlignment:
 Layout/EmptyLineAfterMagicComment:
   Enabled: false
 
-Layout/IndentArray:
+Layout/FirstArrayElementIndentation:
   Enabled: false
 
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   Enabled: false
 
-Layout/IndentHeredoc:
+Layout/HeredocIndentation:
   EnforcedStyle: active_support
 
 Layout/IndentationWidth:
@@ -115,7 +107,7 @@ Layout/SpaceInsideParens:
 Layout/EndAlignment:
   Enabled: false
 
-Lint/HandleExceptions:
+Lint/SuppressedException:
   Exclude:
     - 'config/initializers/mini_profiler.rb'
 
