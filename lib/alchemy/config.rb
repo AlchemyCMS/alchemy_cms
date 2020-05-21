@@ -31,9 +31,7 @@ module Alchemy
       # a value of nil means there is no new default
       # any not nil value is the new default
       def deprecated_configs
-        {
-          url_nesting: true,
-        }
+        {}
       end
 
       private

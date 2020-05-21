@@ -19,28 +19,34 @@ module Alchemy
         context "without a new default" do
           before do
             expect(described_class).to receive(:deprecated_configs).at_least(:once) do
-              { url_nesting: nil }
+              { foo: nil }
             end
           end
 
           it "warns" do
             expect(Alchemy::Deprecation).to receive(:warn)
-            Config.get(:url_nesting)
+            Config.get(:foo)
           end
         end
 
         context "with a new default" do
+          before do
+            expect(described_class).to receive(:deprecated_configs).at_least(:once) do
+              { foo: true }
+            end
+          end
+
           context "and current value is not the default" do
             before do
               expect(described_class).to receive(:show).at_least(:once) do
-                { "url_nesting" => false }
+                { "foo" => false }
               end
             end
 
             it "warns about new default" do
               expect(Alchemy::Deprecation).to \
-                receive(:warn).with("Setting url_nesting configuration to false is deprecated and will be always true in Alchemy 5.0")
-              Config.get(:url_nesting)
+                receive(:warn).with("Setting foo configuration to false is deprecated and will be always true in Alchemy 5.0")
+              Config.get(:foo)
             end
           end
         end

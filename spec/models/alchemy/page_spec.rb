@@ -37,25 +37,15 @@ module Alchemy
             contentpage.urlname = "existing_twice"
             expect(contentpage).not_to be_valid
           end
-        end
 
-        context "with url_nesting set to true" do
-          let(:other_parent) { create(:alchemy_page, visible: true) }
+          context "with another parent" do
+            let(:other_parent) { create(:alchemy_page, visible: true) }
 
-          before do
-            stub_alchemy_config(:url_nesting, true)
-            with_same_urlname
-          end
-
-          it "should only validate urlname dependent of parent" do
-            contentpage.urlname = "existing_twice"
-            contentpage.parent = other_parent
-            expect(contentpage).to be_valid
-          end
-
-          it "should validate urlname dependent of parent" do
-            contentpage.urlname = "existing_twice"
-            expect(contentpage).not_to be_valid
+            it "should be valid" do
+              contentpage.urlname = "existing_twice"
+              contentpage.parent = other_parent
+              expect(contentpage).to be_valid
+            end
           end
         end
       end
@@ -1571,70 +1561,54 @@ module Alchemy
       let(:contact) { create(:alchemy_page, parent: invisible, name: "contact", visible: true) }
       let(:language_root) { parentparent.parent }
 
-      context "with activated url_nesting" do
-        before do
-          stub_alchemy_config(:url_nesting, true)
+      it "should store all parents urlnames delimited by slash" do
+        expect(page.urlname).to eq("parentparent/parent/page")
+      end
+
+      it "should not include the language root page" do
+        expect(page.urlname).not_to match(/startseite/)
+      end
+
+      it "should not include invisible pages" do
+        expect(contact.urlname).not_to match(/invisible/)
+      end
+
+      context "with an invisible parent" do
+        before { parent.update_attribute(:visible, false) }
+
+        it "does not change if set_urlname is called" do
+          expect { page.send(:set_urlname) }.not_to change { page.urlname }
         end
 
-        it "should store all parents urlnames delimited by slash" do
-          expect(page.urlname).to eq("parentparent/parent/page")
-        end
-
-        it "should not include the language root page" do
-          expect(page.urlname).not_to match(/startseite/)
-        end
-
-        it "should not include invisible pages" do
-          expect(contact.urlname).not_to match(/invisible/)
-        end
-
-        context "with an invisible parent" do
-          before { parent.update_attribute(:visible, false) }
-
-          it "does not change if set_urlname is called" do
-            expect { page.send(:set_urlname) }.not_to change { page.urlname }
-          end
-
-          it "does not change if update_urlname! is called" do
-            expect { page.update_urlname! }.not_to change { page.urlname }
-          end
-        end
-
-        context "after changing page's urlname" do
-          it "updates urlnames of descendants" do
-            page
-            parentparent.urlname = "new-urlname"
-            parentparent.save!
-            page.reload
-            expect(page.urlname).to eq("new-urlname/parent/page")
-          end
-
-          it "should create a legacy url" do
-            allow(page).to receive(:slug).and_return("foo")
-            page.update_urlname!
-            expect(page.legacy_urls).not_to be_empty
-            expect(page.legacy_urls.pluck(:urlname)).to include("parentparent/parent/page")
-          end
-        end
-
-        context "after updating my visibility" do
-          it "should update urlnames of descendants" do
-            page
-            parentparent.visible = false
-            parentparent.save!
-            page.reload
-            expect(page.urlname).to eq("parent/page")
-          end
+        it "does not change if update_urlname! is called" do
+          expect { page.update_urlname! }.not_to change { page.urlname }
         end
       end
 
-      context "with disabled url_nesting" do
-        before do
-          stub_alchemy_config(:url_nesting, false)
+      context "after changing page's urlname" do
+        it "updates urlnames of descendants" do
+          page
+          parentparent.urlname = "new-urlname"
+          parentparent.save!
+          page.reload
+          expect(page.urlname).to eq("new-urlname/parent/page")
         end
 
-        it "should only store my urlname" do
-          expect(page.urlname).to eq("page")
+        it "should create a legacy url" do
+          allow(page).to receive(:slug).and_return("foo")
+          page.update_urlname!
+          expect(page.legacy_urls).not_to be_empty
+          expect(page.legacy_urls.pluck(:urlname)).to include("parentparent/parent/page")
+        end
+      end
+
+      context "after updating my visibility" do
+        it "should update urlnames of descendants" do
+          page
+          parentparent.visible = false
+          parentparent.save!
+          page.reload
+          expect(page.urlname).to eq("parent/page")
         end
       end
     end
@@ -1644,61 +1618,32 @@ module Alchemy
       let(:page) { create(:alchemy_page, language: language, parent: language_root, urlname: original_url, restricted: false) }
       let(:node) { TreeNode.new(10, 11, 12, 13, "another-url", true) }
 
-      context "when nesting is enabled" do
-        before do
-          stub_alchemy_config(:url_nesting, true)
-        end
-
-        it "should update all attributes" do
-          page.update_node!(node)
-          page.reload
-          expect(page.lft).to eq(node.left)
-          expect(page.rgt).to eq(node.right)
-          expect(page.parent_id).to eq(node.parent)
-          expect(page.depth).to eq(node.depth)
-          expect(page.urlname).to eq(node.url)
-          expect(page.restricted).to eq(node.restricted)
-        end
-
-        context "when url is the same" do
-          let(:node) { TreeNode.new(10, 11, 12, 13, original_url, true) }
-
-          it "should not create a legacy url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.legacy_urls.size).to eq(0)
-          end
-        end
-
-        context "when url is not the same" do
-          it "should create a legacy url" do
-            page.update_node!(node)
-            page.reload
-            expect(page.legacy_urls.size).to eq(1)
-          end
-        end
+      it "should update all attributes" do
+        page.update_node!(node)
+        page.reload
+        expect(page.lft).to eq(node.left)
+        expect(page.rgt).to eq(node.right)
+        expect(page.parent_id).to eq(node.parent)
+        expect(page.depth).to eq(node.depth)
+        expect(page.urlname).to eq(node.url)
+        expect(page.restricted).to eq(node.restricted)
       end
 
-      context "when nesting is disabled" do
-        before do
-          stub_alchemy_config(:url_nesting, false)
-        end
-
-        it "should update all attributes except url" do
-          page.update_node!(node)
-          page.reload
-          expect(page.lft).to eq(node.left)
-          expect(page.rgt).to eq(node.right)
-          expect(page.parent_id).to eq(node.parent)
-          expect(page.depth).to eq(node.depth)
-          expect(page.urlname).to eq(original_url)
-          expect(page.restricted).to eq(node.restricted)
-        end
+      context "when url is the same" do
+        let(:node) { TreeNode.new(10, 11, 12, 13, original_url, true) }
 
         it "should not create a legacy url" do
           page.update_node!(node)
           page.reload
           expect(page.legacy_urls.size).to eq(0)
+        end
+      end
+
+      context "when url is not the same" do
+        it "should create a legacy url" do
+          page.update_node!(node)
+          page.reload
+          expect(page.legacy_urls.size).to eq(1)
         end
       end
     end

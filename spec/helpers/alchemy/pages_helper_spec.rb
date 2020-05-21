@@ -4,14 +4,13 @@ require "rails_helper"
 
 module Alchemy
   describe PagesHelper do
-    let(:language_root)            { create(:alchemy_page, :language_root) }
-    let(:public_page)              { create(:alchemy_page, :public) }
-    let(:klingon)                  { create(:alchemy_language, :klingon) }
-    let(:klingon_language_root)    { create(:alchemy_page, :language_root, language: klingon) }
+    let(:language_root) { create(:alchemy_page, :language_root) }
+    let(:public_page) { create(:alchemy_page, :public) }
+    let(:klingon) { create(:alchemy_language, :klingon) }
+    let(:klingon_language_root) { create(:alchemy_page, :language_root, language: klingon) }
 
     before do
       helper.controller.class_eval { include Alchemy::ConfigurationMethods }
-      allow(Config).to receive(:get) { |arg| arg == :url_nesting ? true : Config.parameter(arg) }
       @root_page = language_root # We need this instance variable in the helpers
     end
 
@@ -92,8 +91,8 @@ module Alchemy
 
     describe "#render_breadcrumb" do
       let(:parent) { create(:alchemy_page, :public, visible: true) }
-      let(:page)   { create(:alchemy_page, :public, parent_id: parent.id, visible: true) }
-      let(:user)   { nil }
+      let(:page) { create(:alchemy_page, :public, parent_id: parent.id, visible: true) }
+      let(:user) { nil }
 
       before do
         allow(helper).to receive(:multi_language?).and_return(false)
