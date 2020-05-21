@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_14_091507) do
+ActiveRecord::Schema.define(version: 2020_05_19_073500) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -216,7 +216,6 @@ ActiveRecord::Schema.define(version: 2020_05_14_091507) do
     t.integer "rgt"
     t.integer "parent_id"
     t.integer "depth"
-    t.boolean "visible", default: false
     t.integer "locked_by"
     t.boolean "restricted", default: false
     t.boolean "robot_index", default: true
