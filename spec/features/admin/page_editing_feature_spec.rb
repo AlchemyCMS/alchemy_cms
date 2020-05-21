@@ -41,7 +41,7 @@ RSpec.describe "Page editing feature", type: :system do
   end
 
   context "as admin" do
-    let(:a_page) { create(:alchemy_page, :public, visible: true) }
+    let(:a_page) { create(:alchemy_page, :public) }
 
     before { authorize_user(:as_admin) }
 

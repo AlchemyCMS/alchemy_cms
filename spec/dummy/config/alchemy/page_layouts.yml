@@ -6,7 +6,6 @@
     page_layout: readonly
     public_on: ~
     public_until: ~
-    visible: false
     restricted: false
     name: false
     urlname: false

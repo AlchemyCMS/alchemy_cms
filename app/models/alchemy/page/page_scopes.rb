@@ -32,10 +32,6 @@ module Alchemy
       #
       scope :not_locked, -> { where(locked_at: nil, locked_by: nil) }
 
-      # All visible pages
-      #
-      scope :visible, -> { where(visible: true) }
-
       # All not restricted pages
       #
       scope :not_restricted, -> { where(restricted: false) }

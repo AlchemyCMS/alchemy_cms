@@ -256,9 +256,9 @@ module Alchemy
       describe "url nesting" do
         render_views
 
-        let(:catalog) { create(:alchemy_page, :public, name: "Catalog", urlname: "catalog", parent: default_language_root, language: default_language, visible: true) }
-        let(:products) { create(:alchemy_page, :public, name: "Products", urlname: "products", parent: catalog, language: default_language, visible: true) }
-        let(:product) { create(:alchemy_page, :public, name: "Screwdriver", urlname: "screwdriver", parent: products, language: default_language, autogenerate_elements: true, visible: true) }
+        let(:catalog) { create(:alchemy_page, :public, name: "Catalog", urlname: "catalog", parent: default_language_root, language: default_language) }
+        let(:products) { create(:alchemy_page, :public, name: "Products", urlname: "products", parent: catalog, language: default_language) }
+        let(:product) { create(:alchemy_page, :public, name: "Screwdriver", urlname: "screwdriver", parent: products, language: default_language, autogenerate_elements: true) }
 
         before do
           allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))

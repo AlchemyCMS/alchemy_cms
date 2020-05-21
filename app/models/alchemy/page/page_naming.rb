@@ -22,7 +22,7 @@ module Alchemy
         if: -> { title.blank? }
 
       after_update :update_descendants_urlnames,
-        if: :should_update_descendants_urlnames?
+        if: :saved_change_to_urlname?
 
       after_move :update_urlname!
     end
@@ -47,24 +47,20 @@ module Alchemy
       urlname.to_s.split("/").last
     end
 
-    # Returns an array of visible/non-language_root ancestors.
-    def visible_ancestors
+    # Returns an array of non-language_root ancestors.
+    def non_root_ancestors
       return [] unless parent
 
       if new_record?
-        parent.visible_ancestors.tap do |base|
-          base.push(parent) if parent.visible?
+        parent.non_root_ancestors.tap do |base|
+          base.push(parent) unless parent.language_root?
         end
       else
-        ancestors.visible.contentpages.where(language_root: nil).to_a
+        ancestors.contentpages.where(language_root: nil).to_a
       end
     end
 
     private
-
-    def should_update_descendants_urlnames?
-      saved_change_to_urlname? || saved_change_to_visible?
-    end
 
     def update_descendants_urlnames
       reload
@@ -100,13 +96,13 @@ module Alchemy
       (ancestor_slugs << convert_url_name(value)).join("/")
     end
 
-    # Slugs of all visible/non-language_root ancestors.
+    # Slugs of all non-language_root ancestors.
     # Returns [], if there is no parent, the parent is
     # the root page itself.
     def ancestor_slugs
       return [] if parent.nil?
 
-      visible_ancestors.map(&:slug).compact
+      non_root_ancestors.map(&:slug).compact
     end
   end
 end

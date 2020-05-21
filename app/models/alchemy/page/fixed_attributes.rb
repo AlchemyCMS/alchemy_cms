@@ -15,7 +15,6 @@ module Alchemy
   #       fixed_attributes:
   #         - public_on: nil
   #         - public_until: nil
-  #         - visible: false
   #
   class Page::FixedAttributes
     attr_reader :page

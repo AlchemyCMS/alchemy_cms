@@ -291,8 +291,6 @@ module Alchemy
       # This function will add a node's own slug into their ancestor's path
       # in order to create the full URL of a node
       #
-      # NOTE: Invisible pages are not part of the full path of their children
-      #
       # @param [String]
       #   The node's ancestors path
       # @param [Hash]
@@ -300,15 +298,7 @@ module Alchemy
       #
       def process_url(ancestors_path, item)
         default_urlname = (ancestors_path.blank? ? "" : "#{ancestors_path}/") + item["slug"].to_s
-
-        pair = { my_urlname: default_urlname, children_path: default_urlname }
-
-        if item["visible"] == false
-          # children ignore an ancestor in their path if invisible
-          pair[:children_path] = ancestors_path
-        end
-
-        pair
+        { my_urlname: default_urlname, children_path: default_urlname }
       end
 
       def load_page

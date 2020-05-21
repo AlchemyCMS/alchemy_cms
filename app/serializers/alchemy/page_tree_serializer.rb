@@ -53,7 +53,6 @@ module Alchemy
         id: page.id,
         name: page.name,
         public: page.public?,
-        visible: page.visible?,
         restricted: page.restricted?,
         page_layout: page.page_layout,
         slug: page.slug,
@@ -105,7 +104,6 @@ module Alchemy
     def page_status_titles(page)
       {
         public: page.status_title(:public),
-        visible: page.status_title(:visible),
         restricted: page.status_title(:restricted),
       }
     end

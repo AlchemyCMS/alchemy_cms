@@ -36,7 +36,7 @@ module Alchemy
     module GuestUser
       def alchemy_guest_user_rules
         can([:show, :download], Alchemy::Attachment) { |a| !a.restricted? }
-        can :see,               Alchemy::Page,       restricted: false, visible: true
+        can :see, Alchemy::Page, restricted: false
 
         can :read, Alchemy::Content, Alchemy::Content.available.not_restricted do |c|
           c.public? && !c.restricted? && !c.trashed?
@@ -64,7 +64,7 @@ module Alchemy
 
         # Resources
         can [:show, :download], Alchemy::Attachment
-        can :see,               Alchemy::Page, restricted: true, visible: true
+        can :see, Alchemy::Page, restricted: true
 
         can :read, Alchemy::Content, Alchemy::Content.available do |c|
           c.public? && !c.trashed?

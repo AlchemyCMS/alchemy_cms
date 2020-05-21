@@ -10,7 +10,7 @@ RSpec.describe "Dashboard feature", type: :system do
   end
 
   describe "Locked pages summary" do
-    let(:a_page) { create(:alchemy_page, :public, visible: true) }
+    let(:a_page) { create(:alchemy_page, :public) }
 
     it "should initially show no pages are locked" do
       visit admin_dashboard_path

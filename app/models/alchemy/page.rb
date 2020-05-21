@@ -17,7 +17,6 @@
 #  rgt              :integer
 #  parent_id        :integer
 #  depth            :integer
-#  visible          :boolean          default(FALSE)
 #  locked_by        :integer
 #  restricted       :boolean          default(FALSE)
 #  robot_index      :boolean          default(TRUE)
@@ -44,7 +43,6 @@ module Alchemy
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       autogenerate_elements: false,
-      visible: false,
       public_on: nil,
       public_until: nil,
       locked_at: nil,
@@ -78,7 +76,6 @@ module Alchemy
       :tag_list,
       :title,
       :urlname,
-      :visible,
       :layoutpage,
       :menu_id,
     ]

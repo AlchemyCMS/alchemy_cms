@@ -61,7 +61,6 @@ module Alchemy
     def status
       {
         public: public?,
-        visible: visible?,
         locked: locked?,
         restricted: restricted?,
       }

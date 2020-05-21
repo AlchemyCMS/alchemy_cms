@@ -10,7 +10,7 @@ RSpec.describe "Requesting a page" do
   end
 
   let(:public_page) do
-    create(:alchemy_page, :public, visible: true, name: "Page 1")
+    create(:alchemy_page, :public, name: "Page 1")
   end
 
   let(:public_child) do
@@ -89,7 +89,6 @@ RSpec.describe "Requesting a page" do
       before do
         public_page.update(
           public_on: nil,
-          visible: false,
           name: "Not Public",
           urlname: "",
         )
@@ -98,7 +97,7 @@ RSpec.describe "Requesting a page" do
 
       it "redirects to public child" do
         visit "/not-public"
-        expect(page.current_path).to eq("/public-child")
+        expect(page.current_path).to eq("/not-public/public-child")
       end
 
       context "with only unpublished pages in page tree" do
@@ -117,7 +116,7 @@ RSpec.describe "Requesting a page" do
         it "redirects to public child with prefixed locale" do
           allow(::I18n).to receive(:default_locale).and_return(:de)
           visit "/not-public"
-          expect(page.current_path).to eq("/en/public-child")
+          expect(page.current_path).to eq("/en/not-public/public-child")
         end
       end
     end
@@ -138,7 +137,6 @@ RSpec.describe "Requesting a page" do
           before do
             default_language_root.update(
               public_on: nil,
-              visible: false,
               name: "Not Public",
               urlname: "",
             )
@@ -245,7 +243,6 @@ RSpec.describe "Requesting a page" do
     context "redirects to public child" do
       before do
         public_page.update(
-          visible: false,
           public_on: nil,
           name: "Not Public",
           urlname: "",
@@ -255,12 +252,12 @@ RSpec.describe "Requesting a page" do
 
       it "if requested page is unpublished" do
         visit "/not-public"
-        expect(page.current_path).to eq("/public-child")
+        expect(page.current_path).to eq("/not-public/public-child")
       end
 
       it "with normal url, if requested url has nested language code and is not public" do
         visit "/en/not-public"
-        expect(page.current_path).to eq("/public-child")
+        expect(page.current_path).to eq("/not-public/public-child")
       end
     end
 

@@ -10,7 +10,6 @@
     <div class="control_group">
       <%= render 'alchemy/admin/pages/publication_fields' %>
       <%= page_status_checkbox(@page, :restricted) %>
-      <%= page_status_checkbox(@page, :visible) %>
       <% if configuration(:sitemap)['show_flag'] %>
         <%= page_status_checkbox(@page, :sitemap) %>
       <% end %>
