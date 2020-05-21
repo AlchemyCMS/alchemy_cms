@@ -17,15 +17,10 @@ module Alchemy
 
       context "if config is deprecated" do
         context "without a new default" do
-          before do
-            expect(described_class).to receive(:deprecated_configs).at_least(:once) do
-              { url_nesting: nil }
-            end
-          end
-
           it "warns" do
-            expect(Alchemy::Deprecation).to receive(:warn)
-            Config.get(:url_nesting)
+            expect(Alchemy::Deprecation).to \
+              receive(:warn).with("require_ssl configuration is deprecated and will be removed from Alchemy 5.0")
+            Config.get(:require_ssl)
           end
         end
 
