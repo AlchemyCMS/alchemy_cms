@@ -11,8 +11,39 @@ module Alchemy
       end
 
       it "should return the requested part of the config" do
-        expect(Config).to receive(:show).and_return({"mailer" => {"setting" => "true"}})
-        expect(Config.get(:mailer)).to eq({"setting" => "true"})
+        expect(Config).to receive(:show).and_return({ "mailer" => { "setting" => "true" } })
+        expect(Config.get(:mailer)).to eq({ "setting" => "true" })
+      end
+
+      context "if config is deprecated" do
+        context "without a new default" do
+          before do
+            expect(described_class).to receive(:deprecated_configs).at_least(:once) do
+              { url_nesting: nil }
+            end
+          end
+
+          it "warns" do
+            expect(Alchemy::Deprecation).to receive(:warn)
+            Config.get(:url_nesting)
+          end
+        end
+
+        context "with a new default" do
+          context "and current value is not the default" do
+            before do
+              expect(described_class).to receive(:show).at_least(:once) do
+                { "url_nesting" => false }
+              end
+            end
+
+            it "warns about new default" do
+              expect(Alchemy::Deprecation).to \
+                receive(:warn).with("Setting url_nesting configuration to false is deprecated and will be always true in Alchemy 5.0")
+              Config.get(:url_nesting)
+            end
+          end
+        end
       end
     end
 
@@ -20,8 +51,8 @@ module Alchemy
       let(:main_app_config_path) { "#{Rails.root}/config/alchemy/config.yml" }
 
       it "should call and return .read_file with the correct config path" do
-        expect(Config).to receive(:read_file).with(main_app_config_path).once.and_return({setting: "true"})
-        expect(Config.send(:main_app_config)).to eq({setting: "true"})
+        expect(Config).to receive(:read_file).with(main_app_config_path).once.and_return({ setting: "true" })
+        expect(Config.send(:main_app_config)).to eq({ setting: "true" })
       end
     end
 
@@ -29,8 +60,8 @@ module Alchemy
       let(:env_specific_config_path) { "#{Rails.root}/config/alchemy/#{Rails.env}.config.yml" }
 
       it "should call and return .read_file with the correct config path" do
-        expect(Config).to receive(:read_file).with(env_specific_config_path).once.and_return({setting: "true"})
-        expect(Config.send(:env_specific_config)).to eq({setting: "true"})
+        expect(Config).to receive(:read_file).with(env_specific_config_path).once.and_return({ setting: "true" })
+        expect(Config.send(:env_specific_config)).to eq({ setting: "true" })
       end
     end
 
@@ -39,17 +70,17 @@ module Alchemy
         before { Config.instance_variable_set("@config", nil) }
 
         it "should call and return .merge_configs!" do
-          expect(Config).to receive(:merge_configs!).once.and_return({setting: "true"})
-          expect(Config.show).to eq({setting: "true"})
+          expect(Config).to receive(:merge_configs!).once.and_return({ setting: "true" })
+          expect(Config.show).to eq({ setting: "true" })
         end
       end
 
       context "when ivar @config was already set" do
-        before { Config.instance_variable_set("@config", {setting: "true"}) }
+        before { Config.instance_variable_set("@config", { setting: "true" }) }
         after { Config.instance_variable_set("@config", nil) }
 
         it "should have memoized the return value of .merge_configs!" do
-          expect(Config.send(:show)).to eq({setting: "true"})
+          expect(Config.send(:show)).to eq({ setting: "true" })
         end
       end
     end
@@ -77,11 +108,11 @@ module Alchemy
 
     describe ".merge_configs!" do
       let(:config_1) do
-        {setting_1: "same", other_setting: "something"}
+        { setting_1: "same", other_setting: "something" }
       end
 
       let(:config_2) do
-        {setting_1: "same", setting_2: "anything"}
+        { setting_1: "same", setting_2: "anything" }
       end
 
       it "should stringify the keys" do
@@ -97,7 +128,9 @@ module Alchemy
       context "when configs containing same keys" do
         it "should merge them together" do
           expect(Config.send(:merge_configs!, config_1, config_2)).to eq(
-            {"setting_1" => "same", "other_setting" => "something", "setting_2" => "anything"},
+            "setting_1" => "same",
+            "other_setting" => "something",
+            "setting_2" => "anything",
           )
         end
       end
