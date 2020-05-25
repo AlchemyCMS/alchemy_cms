@@ -1,33 +1,37 @@
-<% if @page.menus.any? %>
-  <label class="checkbox">
-    <input type="checkbox" disabled checked>
-    <%= Alchemy.t(:attached_to) %>
-  </label>
-  <% @page.menus.each do |menu| %>
-    <span class="page-menu-name label">
-      <%= menu.name %>
-    </span>
+<% if Alchemy::Node.roots.where(language: @page.language).any? %>
+  <% unless @page.language_root %>
+    <%= page_status_checkbox(@page, :visible, label: Alchemy.t("show in url of child pages")) %>
   <% end %>
-<% elsif Alchemy::Node.roots.any? %>
-  <%= page_status_checkbox(@page, :visible) %>
-  <%= f.input :menu_id, collection: Alchemy::Node.roots.map { |n| [n.name, n.id] },
-    prompt: Alchemy.t('Please choose a menu'),
-    input_html: { class: 'alchemy_selectbox' },
-    wrapper_html: { style: @page.visible? ? 'display: block' : 'display: none' },
-    label: false %>
-  <script>
-    (function() {
-      var $wrapper = $('.input.page_menu_id')
-      $('#page_visible').click(function() {
-        if ($(this).is(':checked')) {
-          $wrapper.show()
-        } else {
-          $wrapper.find('select').val('')
-          $wrapper.hide()
-        }
-      })
-    })()
-  </script>
+  <% if @page.menus.any? %>
+    <label style="vertical-align: middle">
+      <%= Alchemy.t(:attached_to) %>
+    </label>
+    <% @page.menus.each do |menu| %>
+      <span class="page-menu-name label">
+        <%= I18n.t(menu.name, scope: [:alchemy, :menu_names]) %>
+      </span>
+    <% end %>
+  <% else %>
+    <a class="button small" id="attach-page"><%= Alchemy.t("attach to a menu") %></a>
+    <%= f.input :menu_id, collection: Alchemy::Node.roots.map { |n|
+        [I18n.t(n.name, scope: [:alchemy, :menu_names]), n.id]
+      },
+      prompt: Alchemy.t("Please choose a menu"),
+      input_html: { class: "alchemy_selectbox" },
+      wrapper_html: { class: "hidden" },
+      label: false %>
+    <script>
+      (function() {
+        var wrapper = document.querySelector(".input.page_menu_id")
+        document.querySelector("#attach-page").addEventListener("click", function() {
+          var select = wrapper.querySelector("select")
+          this.classList.toggle("active")
+          wrapper.classList.toggle("hidden")
+          $(select).select2("val", "")
+        })
+      })()
+    </script>
+  <% end %>
 <% else %>
   <%= page_status_checkbox(@page, :visible) %>
 <% end %>
