@@ -138,7 +138,7 @@ module Alchemy
 
       def link
         @attachments = Attachment.all.collect { |f|
-          [f.name, download_attachment_path(id: f.id, name: f.urlname)]
+          [f.name, download_attachment_path(id: f.id, name: f.slug)]
         }
       end
 

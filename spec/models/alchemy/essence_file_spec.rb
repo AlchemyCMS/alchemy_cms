@@ -16,7 +16,7 @@ module Alchemy
       subject { essence.attachment_url }
 
       it "returns the download attachment url." do
-        is_expected.to match(/\/attachment\/#{attachment.id}\/download\/#{attachment.urlname}\.#{attachment.suffix}/)
+        is_expected.to match(/\/attachment\/#{attachment.id}\/download\/#{attachment.slug}\.#{attachment.suffix}/)
       end
 
       context "without attachment assigned" do
