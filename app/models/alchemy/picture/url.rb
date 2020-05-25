@@ -67,7 +67,7 @@ module Alchemy
 
       options = {
         flatten: target_format != "gif" && image_file_format == "gif",
-      }.merge(options)
+      }.with_indifferent_access.merge(options)
 
       encoding_options = []
 
