@@ -33,6 +33,7 @@ module Alchemy
       def deprecated_configs
         {
           url_nesting: true,
+          require_ssl: nil,
         }
       end
 
