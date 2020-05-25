@@ -34,6 +34,7 @@ module Alchemy
         {
           url_nesting: true,
           require_ssl: nil,
+          auto_logout_time: nil,
         }
       end
 
