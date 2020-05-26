@@ -24,16 +24,14 @@
   },
   "homepage": "https://github.com/AlchemyCMS/alchemy_cms#readme",
   "dependencies": {
-    "@rails/webpacker": "^5.0.1",
-    "core-js": "^3",
     "sortablejs": "^1.10.2"
   },
   "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
     "babel-jest": "^26.0.1",
     "jest": "^25.2.7",
     "prettier": "^2.0.2",
-    "webpack": "^4.42.1",
-    "webpack-dev-server": "^3.10.3",
     "xhr-mock": "^2.5.1"
   },
   "jest": {
