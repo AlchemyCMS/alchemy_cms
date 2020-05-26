@@ -33,7 +33,9 @@ namespace :alchemy do
       system <<-BASH
 cd spec/dummy
 export RAILS_ENV=test
-bin/rake db:create db:environment:set db:migrate
+bin/rake railties:install:migrations
+bin/rake db:drop db:create db:migrate
+bin/rails g alchemy:install --force
 bin/rails g alchemy:devise:install --force
 cd -
 BASH
