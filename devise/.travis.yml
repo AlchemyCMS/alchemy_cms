@@ -1,21 +1,20 @@
 language: ruby
-dist: bionic
-services:
-  - mysql
-addons:
-  postgresql: "10"
+dist: trusty
 sudo: false
-cache: bundler
+cache:
+  bundler: true
 rvm:
   - 2.5.5
-  - 2.6.3
-branches:
-  only:
-    - master
-before_install:
-  - gem install bundler
-script: rake
-after_success: bundle exec codeclimate-test-reporter
+  - 2.6.6
+  - 2.7.0
 env:
-  - DB=mysql
-  - DB=postgresql
+  matrix:
+    - ALCHEMY_BRANCH=4.4-stable
+    - ALCHEMY_BRANCH=4.5-stable
+    - ALCHEMY_BRANCH=4.6-stable
+    - ALCHEMY_BRANCH=master
+matrix:
+  fast_finish: true
+  allow_failures:
+    - env: ALCHEMY_BRANCH=master
+script: bundle exec rake

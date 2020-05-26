@@ -1,18 +1,10 @@
-source "https://rubygems.org"
+source 'https://rubygems.org'
 
+alchemy_branch = ENV.fetch('ALCHEMY_BRANCH', 'master')
+gem "alchemy_cms", github: "AlchemyCMS/alchemy_cms", branch: alchemy_branch
+
+# Specify your gem's dependencies in alchemy-solidus.gemspec
 gemspec
-
-gem 'rails', '~> 6.0.0'
-gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: 'master'
-gem 'sassc-rails'
-
-unless ENV['CI']
-  gem 'pry'
-  gem 'spring-commands-rspec'
-  gem 'launchy'
-  gem 'github_fast_changelog', require: false
-  gem 'listen', require: false
-end
 
 group :test do
   gem 'sqlite3' if ENV['DB'].nil? || ENV['DB'] == 'sqlite'
@@ -22,3 +14,4 @@ group :test do
     gem "codeclimate-test-reporter", '~> 1.0', require: false
   end
 end
+
