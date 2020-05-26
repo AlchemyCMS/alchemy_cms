@@ -23,8 +23,8 @@ FactoryBot.define do
     autogenerate_elements { false }
 
     trait :language_root do
-      name { language.frontpage_name }
-      page_layout { language.page_layout }
+      name { language&.frontpage_name || "Intro" }
+      page_layout { language&.page_layout || "index" }
       language_root { true }
       public_on { Time.current }
       parent { nil }
