@@ -1,5 +1,5 @@
-import translate from "alchemy/admin/i18n"
-import NodeTree from "alchemy/admin/node_tree"
+import translate from "./src/i18n"
+import NodeTree from "./src/node_tree"
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {

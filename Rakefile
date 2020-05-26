@@ -45,6 +45,7 @@ namespace :alchemy do
         bin/rake db:create && \
         bin/rake db:environment:set && \
         bin/rake db:migrate:reset && \
+        bin/rails g alchemy:install --skip --skip-demo-files && \
         cd -
       BASH
       result || fail
