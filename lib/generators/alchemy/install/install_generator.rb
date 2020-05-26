@@ -62,9 +62,22 @@ module Alchemy
 
       def run_webpacker_installer
         unless options[:skip_webpacker_installer]
+          # Webpacker does not create a package.json, but we need one
+          unless File.exist? app_root.join("package.json")
+            in_root { run "echo '{}' > package.json" }
+          end
           rake("webpacker:install", abort_on_failure: true)
-          rake("yarn:install")
         end
+      end
+
+      def add_npm_package
+        run "yarn add @alchemy_cms/admin"
+      end
+
+      def copy_alchemy_entry_point
+        webpack_config = YAML.load_file(app_root.join("config", "webpacker.yml"))[Rails.env]
+        copy_file "alchemy_admin.js",
+          app_root.join(webpack_config["source_path"], webpack_config["source_entry_path"], "alchemy/admin.js")
       end
 
       private
