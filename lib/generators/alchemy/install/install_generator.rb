@@ -63,6 +63,7 @@ module Alchemy
       def run_webpacker_installer
         unless options[:skip_webpacker_installer]
           rake("webpacker:install", abort_on_failure: true)
+          rake("yarn:install")
         end
       end
 
