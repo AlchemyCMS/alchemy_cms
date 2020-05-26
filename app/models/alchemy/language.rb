@@ -164,11 +164,7 @@ module Alchemy
     end
 
     def should_set_pages_language?
-      if active_record_5_1?
-        saved_change_to_language_code? || saved_change_to_country_code?
-      else
-        language_code_changed? || country_code_changed?
-      end
+      saved_change_to_language_code? || saved_change_to_country_code?
     end
 
     def set_pages_language
@@ -176,11 +172,7 @@ module Alchemy
     end
 
     def should_unpublish_pages?
-      if active_record_5_1?
-        saved_changes[:public] == [true, false]
-      else
-        changes[:public] == [true, false]
-      end
+      saved_changes[:public] == [true, false]
     end
 
     def unpublish_pages

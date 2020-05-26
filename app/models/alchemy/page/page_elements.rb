@@ -36,10 +36,10 @@ module Alchemy
         unless: -> { autogenerate_elements == false }
 
       after_update :trash_not_allowed_elements!,
-        if: :has_page_layout_changed?
+        if: :saved_change_to_page_layout?
 
       after_update :generate_elements,
-        if: :has_page_layout_changed?
+        if: :saved_change_to_page_layout?
     end
 
     module ClassMethods
@@ -209,14 +209,6 @@ module Alchemy
         element_definition_names,
       ])
       not_allowed_elements.to_a.map(&:trash!)
-    end
-
-    def has_page_layout_changed?
-      if active_record_5_1?
-        saved_change_to_page_layout?
-      else
-        page_layout_changed?
-      end
     end
 
     # Deletes unique and already present definitions from @_element_definitions.
