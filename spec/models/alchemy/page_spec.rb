@@ -19,7 +19,7 @@ module Alchemy
       context "Creating a normal content page" do
         let(:contentpage) { build(:alchemy_page) }
         let(:with_same_urlname) { create(:alchemy_page, urlname: "existing_twice") }
-        let(:global_with_same_urlname) { create(:alchemy_page, urlname: "existing_twice", layoutpage: true) }
+        let(:global_with_same_urlname) { create(:alchemy_page, :layoutpage, urlname: "existing_twice") }
 
         context "when its urlname exists as global page" do
           before { global_with_same_urlname }
@@ -313,9 +313,12 @@ module Alchemy
     end
 
     describe ".locked" do
-      it "should return 1 page that is blocked by a user at the moment" do
-        create(:alchemy_page, :public, :locked, name: "First Public Child", parent: language_root, language: language)
-        expect(Page.locked.size).to eq(1)
+      let!(:locked_page) { create(:alchemy_page, :locked) }
+
+      subject { Page.locked }
+
+      it "returns pages that are locked by a user" do
+        is_expected.to include(locked_page)
       end
     end
 
@@ -350,9 +353,8 @@ module Alchemy
 
     describe ".contentpages" do
       let!(:layoutpage) do
-        create :alchemy_page, {
+        create :alchemy_page, :layoutpage, {
           name: "layoutpage",
-          layoutpage: true,
           language: klingon,
         }
       end
@@ -360,7 +362,6 @@ module Alchemy
       let!(:klingon_lang_root) do
         create :alchemy_page, :language_root, {
           name: "klingon_lang_root",
-          layoutpage: false,
           language: klingon,
         }
       end
@@ -369,24 +370,21 @@ module Alchemy
         create :alchemy_page, {
           name: "contentpage",
           parent: language_root,
-          language: language,
         }
       end
 
+      subject { Page.contentpages }
+
       it "returns a collection of contentpages" do
-        expect(Page.contentpages.to_a).to include(
+        is_expected.to include(
           language_root,
           klingon_lang_root,
           contentpage,
         )
       end
 
-      it "does not contain pages with attribute :layoutpage set to true" do
-        expect(Page.contentpages.to_a.select { |p| p.layoutpage == true }).to be_empty
-      end
-
-      it "contains pages with attribute :layoutpage set to false" do
-        expect(Page.contentpages.to_a.select { |p| p.layoutpage == false }).to include(klingon_lang_root)
+      it "does not contain layout pages" do
+        is_expected.to_not include(layoutpage)
       end
     end
 
@@ -531,76 +529,74 @@ module Alchemy
           expect(page.class.stamper_class.to_s).to eq("DummyUser")
         end
 
-        context "with language given" do
-          let!(:page) { Page.create!(name: "A New Page", parent: language_root, language: language, page_layout: "standard") }
+        context "with language already given" do
+          let(:page) { create(:alchemy_page, parent: language_root, language: language_root.language) }
 
-          it "does not set the language from parent" do
-            expect(page.language).to eq(language)
+          it "does not set the language again" do
+            expect(page).not_to receive(:set_language)
+            page
           end
         end
 
         context "with no language given" do
-          let!(:page) { Page.create!(name: "A New Page", parent: language_root, language: nil, page_layout: "standard") }
+          context "with parent given" do
+            let!(:page) { create(:alchemy_page, parent: language_root, language: nil) }
 
-          it "sets the language from parent" do
-            expect(page.language).to eq(language_root.language)
+            it "sets the language from parent" do
+              expect(page.language).to eq(language_root.language)
+            end
+          end
+
+          context "with no parent given" do
+            let!(:current_language) { create(:alchemy_language, default: true) }
+            let!(:page) { create(:alchemy_page, language: nil) }
+
+            it "sets the current language" do
+              expect(page.language).to eq(current_language)
+            end
           end
         end
       end
     end
 
     describe ".language_roots" do
+      let!(:language_root) { create(:alchemy_page, :language_root) }
+
       it "should return 1 language_root" do
-        create(:alchemy_page, :public, name: "First Public Child", parent: language_root, language: language)
-        expect(Page.language_roots.size).to eq(1)
+        expect(Page.language_roots.to_a).to eq([language_root])
       end
     end
 
     describe ".layoutpages" do
+      let!(:layoutpage) { create(:alchemy_page, :layoutpage) }
+
       it "should return layoutpages" do
-        create(:alchemy_page, :public, layoutpage: true, name: "Layoutpage", language: language)
-        expect(Page.layoutpages.size).to eq(1)
+        expect(Page.layoutpages.to_a).to eq([layoutpage])
       end
     end
 
     describe ".not_locked" do
+      let!(:not_locked) { create(:alchemy_page, :language_root) }
+
       it "should return pages that are not blocked by a user at the moment" do
-        create(:alchemy_page, :public, :locked, name: "First Public Child", parent: language_root, language: language)
-        create(:alchemy_page, :public, name: "Second Public Child", parent: language_root, language: language)
-        expect(Page.not_locked.size).to eq(2)
+        expect(Page.not_locked.to_a).to eq([not_locked])
       end
     end
 
     describe ".not_restricted" do
+      let!(:not_restricted) { create(:alchemy_page, :language_root) }
+
       it "should return accessible pages" do
-        create(:alchemy_page, :public, name: "First Public Child", restricted: true, parent: language_root, language: language)
-        expect(Page.not_restricted.size).to eq(1)
+        expect(Page.not_restricted.to_a).to eq([not_restricted])
       end
     end
 
     describe ".published" do
       subject(:published) { Page.published }
 
-      let!(:public_one) do
-        create :alchemy_page, :public,
-          name: "First Public Child",
-          parent: language_root,
-          language: language
-      end
-
-      let!(:public_two) do
-        create :alchemy_page, :public,
-          name: "Second Public Child",
-          parent: language_root,
-          language: language
-      end
-
-      let!(:non_public_page) do
-        create :alchemy_page,
-          name: "Non Public Child",
-          parent: language_root,
-          language: language
-      end
+      let!(:public_one) { create(:alchemy_page, :public) }
+      let!(:public_two) { create(:alchemy_page, :public) }
+      let!(:non_public_page) { create(:alchemy_page) }
 
       it "returns public available pages" do
         expect(published).to include(public_one)
@@ -610,23 +606,26 @@ module Alchemy
     end
 
     describe ".public_language_roots" do
+      let!(:public_language_root) { create(:alchemy_page, :public, :language_root) }
+
       it "should return pages that public language roots" do
-        create(:alchemy_page, :public, name: "First Public Child", parent: language_root, language: language)
-        expect(Page.public_language_roots.size).to eq(1)
+        expect(Page.public_language_roots.to_a).to eq([public_language_root])
       end
     end
 
     describe ".restricted" do
-      it "should return 1 restricted page" do
-        create(:alchemy_page, :public, name: "First Public Child", restricted: true, parent: language_root, language: language)
-        expect(Page.restricted.size).to eq(1)
+      let!(:restricted) { create(:alchemy_page, :restricted) }
+
+      it "should return restricted pages" do
+        expect(Page.restricted.to_a).to eq([restricted])
       end
     end
 
     describe ".visible" do
-      it "should return 1 visible page" do
-        create(:alchemy_page, :public, name: "First Public Child", visible: true, parent: language_root, language: language)
-        expect(Page.visible.size).to eq(1)
+      let!(:visible) { create(:alchemy_page, :public, visible: true) }
+
+      it "should return visible pages" do
+        expect(Page.visible.to_a).to eq([visible])
       end
     end
 
