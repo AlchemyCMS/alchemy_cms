@@ -195,15 +195,13 @@ module Alchemy
         end
 
         let(:layout_page_1) do
-          create :alchemy_page,
-            layoutpage: true,
+          create :alchemy_page, :layoutpage,
             name: "layout_page 1",
             published_at: Time.current - 5.days
         end
 
         let(:layout_page_2) do
-          create :alchemy_page,
-            layoutpage: true,
+          create :alchemy_page, :layoutpage,
             name: "layout_page 2",
             published_at: Time.current - 8.days
         end

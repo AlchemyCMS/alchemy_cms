@@ -32,6 +32,7 @@ FactoryBot.define do
     end
 
     trait :layoutpage do
+      parent { nil }
       layoutpage { true }
       page_layout { "footer" }
     end
