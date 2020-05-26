@@ -1,9 +1,16 @@
-$.fn.alchemyNodeSelect = function(options) {
-  var renderNodeTemplate = function(node) { return HandlebarsTemplates.node({ node: node }) }
-  var queryParamsFromTerm = function(term) {
-    return {filter: Object.assign({ name_or_page_name_cont: term }, options.query_params)}
+$.fn.alchemyNodeSelect = function (options) {
+  var renderNodeTemplate = function (node) {
+    return HandlebarsTemplates.node({ node: node })
   }
-  var resultsFromResponse = function(response) {
+  var queryParamsFromTerm = function (term) {
+    return {
+      filter: Object.assign(
+        { name_or_page_name_cont: term },
+        options.query_params
+      )
+    }
+  }
+  var resultsFromResponse = function (response) {
     var meta = response.meta
     var data = response.data
     var more = meta.page * meta.per_page < meta.total_count
@@ -21,7 +28,7 @@ $.fn.alchemyNodeSelect = function(options) {
     },
     ajax: {
       url: options.url,
-      datatype: 'json',
+      datatype: "json",
       quietMillis: 300,
       data: queryParamsFromTerm,
       results: resultsFromResponse
