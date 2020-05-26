@@ -1,3 +1,5 @@
+require_dependency 'alchemy/version'
+
 module Alchemy
   module Admin
     class UserSessionsController < ::Devise::SessionsController
@@ -5,10 +7,11 @@ module Alchemy
 
       protect_from_forgery prepend: true
 
-      before_action except: 'destroy' do
-        enforce_ssl if ssl_required? && !request.ssl?
+      if Alchemy.gem_version <= Gem::Version.new("4.9")
+        before_action except: 'destroy' do
+          enforce_ssl if ssl_required? && !request.ssl?
+        end
       end
-
       before_action :check_user_count, :only => :new
 
       helper 'Alchemy::Admin::Base'

@@ -3,7 +3,9 @@ module Alchemy
     class PasswordsController < ::Devise::PasswordsController
       include Alchemy::Admin::Locale
 
-      before_action { enforce_ssl if ssl_required? && !request.ssl? }
+      if Alchemy.gem_version <= Gem::Version.new("4.9")
+        before_action { enforce_ssl if ssl_required? && !request.ssl? }
+      end
 
       helper 'Alchemy::Admin::Base'
 
