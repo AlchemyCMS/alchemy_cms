@@ -5,7 +5,11 @@ require "alchemy/test_support/factories/language_factory"
 
 FactoryBot.define do
   factory :alchemy_page, class: "Alchemy::Page" do
-    language { Alchemy::Language.default || FactoryBot.create(:alchemy_language) }
+    language do
+      @cached_attributes[:parent]&.language ||
+        Alchemy::Language.default ||
+        FactoryBot.create(:alchemy_language)
+    end
     sequence(:name) { |n| "A Page #{n}" }
     page_layout { "standard" }
 
