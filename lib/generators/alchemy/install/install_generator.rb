@@ -34,7 +34,7 @@ module Alchemy
       end
 
       def copy_demo_views
-        return if @options[:skip_demo_files]
+        return if options[:skip_demo_files]
 
         copy_file "application.html.erb", app_views_path.join("layouts", "application.html.erb")
         copy_file "article.scss", app_assets_path.join("stylesheets", "alchemy", "elements", "article.scss")
