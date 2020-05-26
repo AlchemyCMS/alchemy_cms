@@ -1,4 +1,6 @@
-require_dependency 'alchemy/version'
+# frozen_string_literal: true
+
+require_dependency "alchemy/version"
 
 module Alchemy
   module Admin
@@ -8,15 +10,15 @@ module Alchemy
       protect_from_forgery prepend: true
 
       if Alchemy.gem_version <= Gem::Version.new("4.9")
-        before_action except: 'destroy' do
+        before_action except: "destroy" do
           enforce_ssl if ssl_required? && !request.ssl?
         end
       end
       before_action :check_user_count, :only => :new
 
-      helper 'Alchemy::Admin::Base'
+      helper "Alchemy::Admin::Base"
 
-      layout 'alchemy/admin'
+      layout "alchemy/admin"
 
       def create
         authenticate_user!
@@ -26,10 +28,10 @@ module Alchemy
             redirect_path = admin_dashboard_path
           else
             # We have to strip double slashes from beginning of path, because of strange rails/rack bug.
-            redirect_path = session[:redirect_path].gsub(/\A\/{2,}/, '/')
+            redirect_path = session[:redirect_path].gsub(/\A\/{2,}/, "/")
           end
           redirect_to redirect_path,
-            notice: t(:signed_in, scope: 'devise.sessions')
+            notice: t(:signed_in, scope: "devise.sessions")
         else
           super
         end

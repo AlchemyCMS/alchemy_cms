@@ -7,9 +7,9 @@ module Alchemy
         before_action { enforce_ssl if ssl_required? && !request.ssl? }
       end
 
-      helper 'Alchemy::Admin::Base'
+      helper "Alchemy::Admin::Base"
 
-      layout 'alchemy/admin'
+      layout "alchemy/admin"
 
       private
 
@@ -18,7 +18,7 @@ module Alchemy
         alchemy.admin_login_path
       end
 
-      def admin_edit_password_url(resource, options={})
+      def admin_edit_password_url(_resource, options = {})
         alchemy.admin_edit_password_url(options)
       end
 
@@ -29,7 +29,6 @@ module Alchemy
           alchemy.root_path
         end
       end
-
     end
   end
 end
