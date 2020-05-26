@@ -1,1 +1,0 @@
-../../../../db/migrate/20131225232042_add_alchemy_roles_to_alchemy_users.rb
