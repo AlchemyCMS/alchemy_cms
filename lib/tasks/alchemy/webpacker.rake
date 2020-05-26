@@ -5,7 +5,7 @@ namespace :alchemy do
     desc "Install Alchemy JavaScript dependencies as specified via Yarn"
     task :install do
       Dir.chdir(File.join(__dir__, "../..")) do
-        puts "🧙‍♂️ Install AlchemyCMS JS bundle"
+        puts "🧙 Install AlchemyCMS JS bundle"
         system "yarn install --no-progress --production"
       end
     end
@@ -17,7 +17,7 @@ namespace :alchemy do
       require "fileutils"
       Webpacker.with_node_env("production") do
         start = Time.now
-        puts "🧙‍♂️ Compile AlchemyCMS JS packs"
+        puts "🧙 Compile AlchemyCMS JS packs"
         if Alchemy.webpacker.commands.compile
           FileUtils.cp_r(
             Alchemy::Engine.root.join("public", "alchemy-packs"),
@@ -27,7 +27,7 @@ namespace :alchemy do
           # Failed compilation
           exit!
         end
-        puts "🧙‍♂️ Done in #{(Time.now - start).round(2)}s."
+        puts "🧙 Done in #{(Time.now - start).round(2)}s."
       end
     end
   end
