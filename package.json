@@ -2,12 +2,12 @@
   "name": "@alchemy_cms/admin",
   "version": "0.1.0",
   "description": "AlchemyCMS",
-  "browser": "app/javascript/packs/alchemy/admin.js",
+  "browser": "package/admin.js",
   "files": [
-    "app/javascript/**/*"
+    "package/**/*"
   ],
   "directories": {
-    "lib": "app/javascript"
+    "lib": "package"
   },
   "scripts": {
     "test": "jest"
@@ -41,7 +41,7 @@
       "Alchemy": {}
     },
     "roots": [
-      "app/javascript"
+      "package"
     ]
   }
 }
