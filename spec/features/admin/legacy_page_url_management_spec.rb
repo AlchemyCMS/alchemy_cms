@@ -34,7 +34,7 @@ RSpec.describe "Legacy page url management", type: :system, js: true do
       fill_in "legacy_page_url_urlname", with: "invalid url name"
       click_button "Add"
       within "#new_legacy_page_url" do
-        expect(page).to have_content("URL path is invalid")
+        expect(page).to have_content("URL-Path is invalid")
       end
     end
   end

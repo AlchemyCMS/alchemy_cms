@@ -578,7 +578,6 @@ en:
         button_label: Upload image(s)
         upload_success: "Picture %{name} uploaded successfully"
         upload_failure: "Error while uploading %{name}: %{error}"
-    url_name: "URL-Name"
     visible: "visible"
     want_to_create_new_language: "Do you want to create a new empty language tree?"
     want_to_make_copy_of_existing_language: "Do you want to copy an existing language tree?"
@@ -675,9 +674,9 @@ en:
           page_layout:
             blank: "^Please choose a page layout."
           urlname:
-            too_short: "^The pages urlname is too short (minimum of 3 characters)."
-            taken: "^URL-Name already taken."
-            exclusion: "^URL-Name reserved."
+            too_short: "^URL-Path is too short (minimum of 3 characters)."
+            taken: "^URL-Path already taken."
+            exclusion: "^URL-Path reserved."
       alchemy/picture:
         attributes:
           image_file:
@@ -799,7 +798,7 @@ en:
         locale: Localization
         code: ISO Code
       alchemy/legacy_page_url:
-        urlname: "URL path"
+        urlname: "URL-Path"
       alchemy/node:
         menu_type: Menu Type
         name: "Name"
@@ -825,7 +824,7 @@ en:
         tag_list: Tags
         title: "Title"
         updated_at: "Updated at"
-        urlname: "Urlname"
+        urlname: "URL-Path"
         slug: "Slug"
         visible: "visible in navigation"
       alchemy/picture:
