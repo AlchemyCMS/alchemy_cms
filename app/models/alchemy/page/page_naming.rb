@@ -66,11 +66,7 @@ module Alchemy
     def should_update_descendants_urlnames?
       return false if !Config.get(:url_nesting)
 
-      if active_record_5_1?
-        saved_change_to_urlname? || saved_change_to_visible?
-      else
-        urlname_changed? || visible_changed?
-      end
+      saved_change_to_urlname? || saved_change_to_visible?
     end
 
     def update_descendants_urlnames
