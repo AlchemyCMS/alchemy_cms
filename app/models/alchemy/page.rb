@@ -161,6 +161,10 @@ module Alchemy
 
     attr_accessor :menu_id
 
+    deprecate visible: "Page slugs will be visible in URLs of child pages all the time. " \
+      "Please use Menus and Tags instead to re-organize your pages if your page tree does not reflect the URL hierarchy.",
+      deprecator: Alchemy::Deprecation
+
     # Class methods
     #
     class << self
