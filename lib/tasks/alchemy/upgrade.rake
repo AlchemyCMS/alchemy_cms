@@ -1,29 +1,31 @@
-require 'alchemy/upgrader'
-require 'alchemy/version'
+# frozen_string_literal: true
+
+require "alchemy/upgrader"
+require "alchemy/version"
 
 namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
-    'alchemy:upgrade:prepare',
-    'alchemy:upgrade:4.1:run', 'alchemy:upgrade:4.1:todo',
-    'alchemy:upgrade:4.2:run', 'alchemy:upgrade:4.2:todo',
-    'alchemy:upgrade:4.4:run', 'alchemy:upgrade:4.4:todo'
+    "alchemy:upgrade:prepare",
+    "alchemy:upgrade:4.1:run", "alchemy:upgrade:4.1:todo",
+    "alchemy:upgrade:4.2:run", "alchemy:upgrade:4.2:todo",
+    "alchemy:upgrade:4.4:run", "alchemy:upgrade:4.4:todo",
   ] do
     Alchemy::Upgrader.display_todos
   end
 
   namespace :upgrade do
-    desc 'Alchemy Upgrader: Prepares the database and updates Alchemys configuration file.'
+    desc "Alchemy Upgrader: Prepares the database and updates Alchemys configuration file."
     task prepare: [
-      'alchemy:upgrade:database',
-      'alchemy:upgrade:config'
+      "alchemy:upgrade:database",
+      "alchemy:upgrade:config",
     ]
 
     desc "Alchemy Upgrader: Prepares the database."
     task database: [
-      'alchemy:install:migrations',
-      'db:migrate',
-      'alchemy:db:seed'
+      "alchemy:install:migrations",
+      "db:migrate",
+      "alchemy:db:seed",
     ]
 
     desc "Alchemy Upgrader: Copy configuration file."
@@ -37,19 +39,19 @@ namespace :alchemy do
       end
     end
 
-    desc 'Upgrade Alchemy to v4.1'
-    task '4.1' => [
-      'alchemy:upgrade:prepare',
-      'alchemy:upgrade:4.1:run',
-      'alchemy:upgrade:4.1:todo'
+    desc "Upgrade Alchemy to v4.1"
+    task "4.1" => [
+      "alchemy:upgrade:prepare",
+      "alchemy:upgrade:4.1:run",
+      "alchemy:upgrade:4.1:todo",
     ] do
       Alchemy::Upgrader.display_todos
     end
 
-    namespace '4.1' do
-      task run: ['alchemy:upgrade:4.1:harden_acts_as_taggable_on_migrations']
+    namespace "4.1" do
+      task run: ["alchemy:upgrade:4.1:harden_acts_as_taggable_on_migrations"]
 
-      desc 'Harden acts_as_taggable_on migrations'
+      desc "Harden acts_as_taggable_on migrations"
       task harden_acts_as_taggable_on_migrations: [:environment] do
         Alchemy::Upgrader::FourPointOne.harden_acts_as_taggable_on_migrations
       end
@@ -59,45 +61,45 @@ namespace :alchemy do
       end
     end
 
-    desc 'Upgrade Alchemy to v4.2'
-    task '4.2' => [
-      'alchemy:upgrade:prepare',
-      'alchemy:upgrade:4.2:run',
-      'alchemy:upgrade:4.2:todo'
+    desc "Upgrade Alchemy to v4.2"
+    task "4.2" => [
+      "alchemy:upgrade:prepare",
+      "alchemy:upgrade:4.2:run",
+      "alchemy:upgrade:4.2:todo",
     ] do
       Alchemy::Upgrader.display_todos
     end
 
-    namespace '4.2' do
+    namespace "4.2" do
       task run: [
-        'alchemy:upgrade:4.2:convert_picture_galleries',
-        'alchemy:upgrade:4.2:migrate_picture_galleries',
-        'alchemy:upgrade:4.2:convert_cells',
-        'alchemy:upgrade:4.2:migrate_cells',
-        'alchemy:upgrade:4.2:update_element_partial_name_variable'
+        "alchemy:upgrade:4.2:convert_picture_galleries",
+        "alchemy:upgrade:4.2:migrate_picture_galleries",
+        "alchemy:upgrade:4.2:convert_cells",
+        "alchemy:upgrade:4.2:migrate_cells",
+        "alchemy:upgrade:4.2:update_element_partial_name_variable",
       ]
 
-      desc 'Convert `picture_gallery` element definitions to `nestable_elements`.'
+      desc "Convert `picture_gallery` element definitions to `nestable_elements`."
       task convert_picture_galleries: [:environment] do
         Alchemy::Upgrader::FourPointTwo.convert_picture_galleries
       end
 
-      desc 'Migrate `picture_gallery` elements to `nestable_elements`.'
+      desc "Migrate `picture_gallery` elements to `nestable_elements`."
       task migrate_picture_galleries: [:environment] do
         Alchemy::Upgrader::FourPointTwo.migrate_picture_galleries
       end
 
-      desc 'Convert cells config to fixed nestable elements.'
+      desc "Convert cells config to fixed nestable elements."
       task convert_cells: [:environment] do
         Alchemy::Upgrader::FourPointTwo.convert_cells
       end
 
-      desc 'Migrate existing cells to fixed nestable elements.'
-      task migrate_cells: ['alchemy:install:migrations', 'db:migrate'] do
+      desc "Migrate existing cells to fixed nestable elements."
+      task migrate_cells: ["alchemy:install:migrations", "db:migrate"] do
         Alchemy::Upgrader::FourPointTwo.migrate_cells
       end
 
-      desc 'Update element views to use element partial name variable.'
+      desc "Update element views to use element partial name variable."
       task :update_element_partial_name_variable do
         Alchemy::Upgrader::FourPointTwo.update_element_views_variable_name
       end
@@ -107,19 +109,19 @@ namespace :alchemy do
       end
     end
 
-    desc 'Upgrade Alchemy to v4.4'
-    task '4.4' => [
-      'alchemy:upgrade:prepare',
-      'alchemy:upgrade:4.4:run',
-      'alchemy:upgrade:4.4:todo'
+    desc "Upgrade Alchemy to v4.4"
+    task "4.4" => [
+      "alchemy:upgrade:prepare",
+      "alchemy:upgrade:4.4:run",
+      "alchemy:upgrade:4.4:todo",
     ] do
       Alchemy::Upgrader.display_todos
     end
 
-    namespace '4.4' do
+    namespace "4.4" do
       task run: [
-        'alchemy:upgrade:4.4:rename_element_views',
-        'alchemy:upgrade:4.4:update_local_variable'
+        "alchemy:upgrade:4.4:rename_element_views",
+        "alchemy:upgrade:4.4:update_local_variable",
       ]
 
       desc "Remove '_view' suffix from element views."
@@ -127,7 +129,7 @@ namespace :alchemy do
         Alchemy::Upgrader::FourPointFour.rename_element_views
       end
 
-      desc 'Update element views local variable to element name.'
+      desc "Update element views local variable to element name."
       task update_local_variable: [:environment] do
         Alchemy::Upgrader::FourPointFour.update_local_variable
       end
