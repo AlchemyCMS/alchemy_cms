@@ -18,7 +18,7 @@
     <label><%= Alchemy::Page.human_attribute_name(:urlname) %></label>
     <p><%= @page.urlname %></p>
   <% else %>
-    <label><%= Alchemy::LegacyPageUrl.human_attribute_name(:urlname) %></label>
+    <label><%= Alchemy::Page.human_attribute_name(:urlname) %></label>
     <p><%= "/#{@page.urlname}" %></p>
   <% end %>
   </div>
