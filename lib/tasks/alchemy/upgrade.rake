@@ -10,7 +10,7 @@ namespace :alchemy do
     "alchemy:upgrade:4.1:run", "alchemy:upgrade:4.1:todo",
     "alchemy:upgrade:4.2:run", "alchemy:upgrade:4.2:todo",
     "alchemy:upgrade:4.4:run", "alchemy:upgrade:4.4:todo",
-    "alchemy:upgrade:4.6:run",
+    "alchemy:upgrade:4.6:run", "alchemy:upgrade:4.6:todo",
   ] do
     Alchemy::Upgrader.display_todos
   end
@@ -151,6 +151,10 @@ namespace :alchemy do
       desc "Move child pages of invisible pages to visible parent."
       task restructure_page_tree: [:environment] do
         Alchemy::Upgrader::FourPointSix.restructure_page_tree
+      end
+
+      task :todo do
+        Alchemy::Upgrader::FourPointSix.todos
       end
     end
   end

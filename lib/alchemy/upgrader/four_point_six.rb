@@ -3,6 +3,23 @@
 module Alchemy
   class Upgrader::FourPointSix < Upgrader
     class << self
+      def todos
+        notice = <<-NOTE.strip_heredoc
+
+          ℹ️  Page visible attribute is deprecated
+          ----------------------------------------
+
+          Page slugs will be visible in URLs of child pages all the time in the future.
+          Please use Menus and Tags instead to re-organize your pages if your page tree does not reflect the URL hierarchy.
+
+          A rake task to help with the migration is available.
+
+              bin/rake alchemy:upgrade:4.6:restructure_page_tree
+
+        NOTE
+        todo notice, "Alchemy v4.6 TODO"
+      end
+
       def restructure_page_tree
         desc "Move child pages of invisible pages to visible parent."
         pages = Alchemy::Page.contentpages.where(visible: [false, nil]).order(depth: :desc)
