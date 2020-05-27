@@ -5,7 +5,11 @@ require "alchemy/test_support/factories/language_factory"
 
 FactoryBot.define do
   factory :alchemy_page, class: "Alchemy::Page" do
-    language { Alchemy::Language.default || FactoryBot.create(:alchemy_language) }
+    language do
+      @cached_attributes[:parent]&.language ||
+        Alchemy::Language.default ||
+        FactoryBot.create(:alchemy_language)
+    end
     sequence(:name) { |n| "A Page #{n}" }
     page_layout { "standard" }
 
@@ -19,8 +23,8 @@ FactoryBot.define do
     autogenerate_elements { false }
 
     trait :language_root do
-      name { language.frontpage_name }
-      page_layout { language.page_layout }
+      name { language&.frontpage_name || "Intro" }
+      page_layout { language&.page_layout || "index" }
       language_root { true }
       public_on { Time.current }
       parent { nil }
@@ -32,6 +36,7 @@ FactoryBot.define do
     end
 
     trait :layoutpage do
+      parent { nil }
       layoutpage { true }
       page_layout { "footer" }
     end

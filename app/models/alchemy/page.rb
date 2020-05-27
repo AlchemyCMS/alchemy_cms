@@ -83,7 +83,7 @@ module Alchemy
       :menu_id,
     ]
 
-    acts_as_nested_set(dependent: :destroy)
+    acts_as_nested_set(dependent: :destroy, scope: [:layoutpage, :language_id])
 
     stampable stamper_class_name: Alchemy.user_class_name
 

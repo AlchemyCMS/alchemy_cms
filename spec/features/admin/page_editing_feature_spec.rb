@@ -31,7 +31,7 @@ RSpec.describe "Page editing feature", type: :system do
     end
 
     context "while editing a global page" do
-      let(:a_page) { create(:alchemy_page, layoutpage: true) }
+      let(:a_page) { create(:alchemy_page, :layoutpage) }
 
       it "can publish page." do
         visit alchemy.edit_admin_page_path(a_page)
@@ -57,7 +57,7 @@ RSpec.describe "Page editing feature", type: :system do
 
         context "with sitemaps show_flag config option set to true" do
           before do
-            stub_alchemy_config(:sitemap, {"show_flag" => true})
+            stub_alchemy_config(:sitemap, { "show_flag" => true })
           end
 
           it "should show sitemap checkbox" do
@@ -68,7 +68,7 @@ RSpec.describe "Page editing feature", type: :system do
 
         context "with sitemaps show_flag config option set to false" do
           before do
-            stub_alchemy_config(:sitemap, {"show_flag" => false})
+            stub_alchemy_config(:sitemap, { "show_flag" => false })
           end
 
           it "should not show sitemap checkbox" do
@@ -79,7 +79,7 @@ RSpec.describe "Page editing feature", type: :system do
       end
 
       context "when editing a global page" do
-        let(:layout_page) { create(:alchemy_page, layoutpage: true) }
+        let(:layout_page) { create(:alchemy_page, :layoutpage) }
 
         it "should not show the input fields for normal pages" do
           visit alchemy.edit_admin_layoutpage_path(layout_page)
@@ -92,8 +92,7 @@ RSpec.describe "Page editing feature", type: :system do
 
       context "when page is taggable" do
         before do
-          expect_any_instance_of(Alchemy::Page)
-            .to receive(:taggable?).and_return(true)
+          expect_any_instance_of(Alchemy::Page).to receive(:taggable?).and_return(true)
         end
 
         it "should show the tag_list input field" do
