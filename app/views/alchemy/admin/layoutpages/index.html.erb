@@ -30,6 +30,10 @@
 </div>
 <% end %>
 
-<ul class="list" id="layoutpages">
+<h4 id="sitemap_heading">
+  <span class="page_name"><%= Alchemy::Page.human_attribute_name(:name) %></span>
+</h4>
+
+<ul class="list" id="sitemap">
   <%= render partial: "layoutpage", collection: @layout_root.children %>
 </ul>

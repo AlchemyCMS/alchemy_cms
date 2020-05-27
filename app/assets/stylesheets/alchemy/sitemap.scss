@@ -189,19 +189,24 @@
 }
 
 #sitemap_heading {
+  display: flex;
   padding: 0;
-
-  .page_infos {
-    margin-right: 210px;
-    text-align: left;
-    float: right;
-    line-height: 28px;
-    background: transparent;
-  }
+  line-height: 28px;
+  justify-content: space-between;
 
   .page_name {
-    line-height: 28px;
     margin-left: 43px;
+  }
+
+  .page_urlname {
+    flex-grow: 1;
+    text-align: right;
+    padding-right: 2 * $default-padding;
+  }
+
+  .page_status {
+    padding-left: 2 * $default-padding;
+    margin-right: 210px;
   }
 }
 
