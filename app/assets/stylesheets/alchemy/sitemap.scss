@@ -28,6 +28,9 @@
   padding: 0 10px;
   margin: 2px;
   text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   &.inactive {
     color: #656565;
@@ -38,13 +41,14 @@
   float: right;
   text-align: right;
   background-color: $sitemap-info-background-color;
-  line-height: $sitemap-line-height;
+  line-height: $sitemap-line-height - 2px;
   font-size: $small-font-size;
   padding: 0 2 * $default-padding;
-  max-width: 45%;
+  max-width: 35%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border: 1px solid $sitemap-page-background-color;
 }
 
 .sitemap_line_spacer {
