@@ -826,6 +826,7 @@ en:
         title: "Title"
         updated_at: "Updated at"
         urlname: "Urlname"
+        slug: "Slug"
         visible: "visible in navigation"
       alchemy/picture:
         image_file_name: "Filename"
