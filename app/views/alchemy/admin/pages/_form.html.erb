@@ -18,7 +18,7 @@
   </div>
 
   <%= f.input :name, autofocus: true %>
-  <%= f.input :urlname, as: 'string', input_html: {value: @page.slug} %>
+  <%= f.input :urlname, as: 'string', input_html: {value: @page.slug}, label: Alchemy::Page.human_attribute_name(:slug) %>
   <%= f.input :title,
     input_html: {'data-alchemy-char-counter' => 60} %>
 
