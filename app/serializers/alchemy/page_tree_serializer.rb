@@ -60,6 +60,7 @@ module Alchemy
         redirects_to_external: page.definition['redirects_to_external'],
         urlname: page.urlname,
         external_urlname: page.definition['redirects_to_external'] ? page.external_urlname : nil,
+        url_path: page.url_path,
         level: level,
         root: level == 1,
         root_or_leaf: level == 1 || !has_children,
