@@ -47,10 +47,10 @@ module Alchemy
           authorize_user(build(:alchemy_dummy_user, :as_author))
         end
 
-        it "returns all pages" do
+        it "returns all non-root pages" do
           get :index, params: {format: :json}
 
-          expect(result['pages'].size).to eq(Alchemy::Page.count)
+          expect(result["pages"].size).to eq(2)
         end
       end
 
