@@ -22,33 +22,27 @@ module Alchemy
 
       def restructure_page_tree
         desc "Move child pages of invisible pages to visible parent."
-        pages = Alchemy::Page.contentpages.where(visible: [false, nil]).order(depth: :desc)
-        if pages.size > 0
-          log "Moving #{pages.size} page(s). Please wait..."
-          pages.find_each do |page|
-            parent = visible_parent(page.parent)
-            Alchemy::Page.transaction do
-              if parent
-                page.children.find_each { |child| child.move_to_child_of(parent) }
-              end
-              page.update!(visible: true)
-            end
-            print "."
+        Alchemy::Deprecation.silence do
+          # All leaves can safely be marked visible
+          Alchemy::Page.leaves.update_all(visible: true)
+          Alchemy::Page.language_roots.each do |root_page|
+            # Root pages are always visible
+            root_page.update(visible: true)
+            remove_invisible_children(root_page)
           end
-          puts "\n"
-          log "Done!"
-        else
-          log "No invisible pages found!", :skip
         end
       end
 
       private
 
-      def visible_parent(page)
-        return unless page
-        return page if page.visible? || page.language_root?
-
-        visible_parent(page.parent)
+      def remove_invisible_children(page)
+        page.children.each { |child| remove_invisible_children(child) }
+        if !page.visible
+          page.children.reload.reverse.each do |child|
+            puts "Moving #{child.urlname} to right of #{page.urlname}"
+            child.move_to_right_of(page)
+          end
+        end
       end
     end
   end
