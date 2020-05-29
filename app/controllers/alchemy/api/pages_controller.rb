@@ -13,6 +13,7 @@ module Alchemy
       else
         @pages = Page.accessible_by(current_ability, :index)
       end
+      @pages = @pages.where.not(parent_id: nil)
       @pages = @pages.includes(*page_includes)
       if params[:page_layout].present?
         Alchemy::Deprecation.warn <<~WARN
