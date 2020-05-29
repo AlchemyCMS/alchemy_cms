@@ -27,9 +27,10 @@ module Alchemy
           Alchemy::Page.leaves.update_all(visible: true)
           Alchemy::Page.language_roots.each do |root_page|
             # Root pages are always visible
-            root_page.update(visible: true)
+            root_page.update!(visible: true)
             remove_invisible_children(root_page)
           end
+          Alchemy::Page.update_all(visible: true)
         end
       end
 
