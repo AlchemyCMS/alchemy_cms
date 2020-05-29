@@ -1,3 +1,6 @@
+$sitemap-url-large-width: 250px;
+$sitemap-url-xlarge-width: 350px;
+
 #sort_panel {
   background: $light-gray;
   padding: 47px 0 8px 0;
@@ -38,17 +41,25 @@
 }
 
 .sitemap_url {
+  display: none;
   float: right;
-  text-align: right;
   background-color: $sitemap-info-background-color;
   line-height: $sitemap-line-height - 2px;
   font-size: $small-font-size;
   padding: 0 2 * $default-padding;
-  max-width: 35%;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   border: 1px solid $sitemap-page-background-color;
+
+  @media screen and (min-width: $large-screen-break-point) {
+    display: block;
+    width: $sitemap-url-large-width;
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: $sitemap-url-xlarge-width;
+  }
 }
 
 .sitemap_line_spacer {
@@ -192,21 +203,35 @@
   display: flex;
   padding: 0;
   line-height: 28px;
-  justify-content: space-between;
 
   .page_name {
     margin-left: 43px;
   }
 
   .page_urlname {
-    flex-grow: 1;
-    text-align: right;
+    display: none;
+    margin-left: auto;
+    padding-left: 2 * $default-padding;
     padding-right: 2 * $default-padding;
+
+    @media screen and (min-width: $large-screen-break-point) {
+      display: block;
+      width: $sitemap-url-large-width;
+    }
+
+    @media screen and (min-width: 1440px) {
+      width: $sitemap-url-xlarge-width;
+    }
   }
 
   .page_status {
     padding-left: 2 * $default-padding;
-    margin-right: 210px;
+    margin-right: 214px;
+    margin-left: auto;
+
+    @media screen and (min-width: $large-screen-break-point) {
+      margin-left: initial;
+    }
   }
 }
 
