@@ -105,6 +105,7 @@ module Alchemy
       [
         :tags,
         {
+          language: :site,
           elements: [
             {
               nested_elements: [

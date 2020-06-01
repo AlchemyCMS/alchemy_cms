@@ -76,16 +76,16 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
           meta = data.meta
           results:
             data.pages.map (page) ->
-              id: "/#{page.urlname}"
+              id: page.url_path
               name: page.name
-              urlname: page.urlname
+              url_path: page.url_path
               page_id: page.id
           more: meta.page * meta.per_page < meta.total_count
       initSelection: ($element, callback) =>
         urlname = $element.val()
         $.get Alchemy.routes.api_pages_path,
           q:
-            urlname_eq: urlname.replace(/^\//, '')
+            urlname_eq: urlname.replace(/^\/([a-z]{2}(-[A-Z]{2})?\/)?/, '')
           page: 1
           per_page: 1,
           (data) =>
@@ -93,9 +93,9 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
             if page
               @initElementSelect(page.id)
               callback
-                id: "/#{page.urlname}"
+                id: page.url_path
                 name: page.name
-                urlname: page.name
+                url_path: page.url_path
                 page_id: page.id
       formatSelection: (page) ->
         page.name

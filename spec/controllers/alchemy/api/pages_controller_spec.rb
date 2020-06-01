@@ -204,6 +204,7 @@ module Alchemy
           result = JSON.parse(response.body)
 
           expect(result['id']).to eq(page.id)
+          expect(result["url_path"]).to eq("/a-page")
         end
 
         context 'requesting an restricted page' do
