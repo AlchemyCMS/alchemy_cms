@@ -140,7 +140,6 @@ module Alchemy
         @attachments = Attachment.all.collect { |f|
           [f.name, download_attachment_path(id: f.id, name: f.urlname)]
         }
-        @url_prefix = prefix_locale? ? "#{@current_language.code}/" : ""
       end
 
       def fold

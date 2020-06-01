@@ -67,7 +67,7 @@ module Alchemy
     # Either the value is stored in the database, aka. an external url.
     # Or, if attached, the values comes from a page.
     def url
-      page && "/#{page.urlname}" || read_attribute(:url).presence
+      page&.url_path || read_attribute(:url).presence
     end
 
     def to_partial_path
