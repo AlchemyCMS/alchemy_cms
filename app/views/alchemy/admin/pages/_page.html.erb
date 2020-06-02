@@ -159,12 +159,9 @@
         <span class="hint-bubble">{{status_titles.restricted}}</span>
       </span>
     </div>
-    {{#if redirects_to_external}}
-      <div class="redirect_url" title="{{urlname}}">
-        &raquo; <%= Alchemy.t('Redirects to') %>:
-        {{ external_urlname }}
-      </div>
-    {{/if}}
+    <div class="sitemap_url" title="{{url_path}}">
+      {{ url_path }}
+    </div>
     <div class="sitemap_sitename">
       {{#if redirects_to_external}}
         <span class="sitemap_pagename_link inactive">{{ name }}</span>
