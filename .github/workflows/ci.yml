@@ -60,15 +60,15 @@ jobs:
         if: matrix.database == 'postgresql'
         run: |
           mkdir -p /home/runner/apt/cache
-          sudo apt-get update -qq
-          sudo apt-get install -qq --fix-missing libpq-dev -o dir::cache::archives="/home/runner/apt/cache"
+          sudo apt update -qq
+          sudo apt install -qq --fix-missing libpq-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
       - name: Install MySQL headers
         if: matrix.database == 'mysql'
         run: |
           mkdir -p /home/runner/apt/cache
-          sudo apt-get update -qq
-          sudo apt-get install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
+          sudo apt update -qq
+          sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
       - name: Install bundler
         run: |
