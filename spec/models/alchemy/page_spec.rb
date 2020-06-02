@@ -1991,45 +1991,6 @@ module Alchemy
       end
     end
 
-    describe "#attach_to_menu!" do
-      let(:page) { create(:alchemy_page) }
-
-      context "if menu_id is set" do
-        let(:root_node) { create(:alchemy_node) }
-
-        before do
-          page.menu_id = root_node.id
-        end
-
-        context "and no nodes are present yet" do
-          it "attaches to menu" do
-            expect { page.save }.to change { page.nodes.count }.from(0).to(1)
-          end
-        end
-
-        context "and nodes are already present" do
-          let!(:page_node) { create(:alchemy_node, page: page) }
-
-          it "does not attach to menu" do
-            expect { page.save }.not_to change { page.nodes.count }
-          end
-        end
-      end
-
-      context "if menu_id is not set" do
-        it "does not attach to menu" do
-          expect { page.save }.not_to change { page.nodes.count }
-        end
-      end
-
-      context "if menu_id is empty" do
-        it "does not raise error" do
-          page.menu_id = ""
-          expect { page.save }.not_to raise_error
-        end
-      end
-    end
-
     describe "#nodes" do
       let(:page) { create(:alchemy_page) }
       let(:node) { create(:alchemy_node, page: page, updated_at: 1.hour.ago) }

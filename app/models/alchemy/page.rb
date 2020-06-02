@@ -138,9 +138,6 @@ module Alchemy
     after_update :create_legacy_url,
       if: :saved_change_to_urlname?
 
-    after_update :attach_to_menu!,
-      if: :should_attach_to_menu?
-
     after_update -> { nodes.update_all(updated_at: Time.current) }
 
     # Concerns
@@ -151,8 +148,6 @@ module Alchemy
 
     # site_name accessor
     delegate :name, to: :site, prefix: true, allow_nil: true
-
-    attr_accessor :menu_id
 
     # Class methods
     #
@@ -544,19 +539,6 @@ module Alchemy
 
     def set_published_at
       self.published_at = Time.current
-    end
-
-    def attach_to_menu!
-      node = Alchemy::Node.find_by!(id: menu_id, language_id: language_id)
-      node.children.create!(
-        language_id: language_id,
-        page_id: id,
-        name: name,
-      )
-    end
-
-    def should_attach_to_menu?
-      menu_id.present? && nodes.none?
     end
   end
 end
