@@ -1,4 +1,10 @@
 <div id="sitemap-wrapper">
+  <h4 id="sitemap_heading">
+    <span class="page_name"><%= Alchemy::Page.human_attribute_name(:name) %></span>
+    <span class="page_urlname"><%= Alchemy::Page.human_attribute_name(:urlname) %></span>
+    <span class="page_status"><%= Alchemy.t(:page_status) %></span>
+  </h4>
+
   <p class="loading"></p>
 </div>
 

@@ -1,3 +1,6 @@
+$sitemap-url-large-width: 250px;
+$sitemap-url-xlarge-width: 350px;
+
 #sort_panel {
   background: $light-gray;
   padding: 47px 0 8px 0;
@@ -28,23 +31,35 @@
   padding: 0 10px;
   margin: 2px;
   text-decoration: none;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   &.inactive {
     color: #656565;
   }
 }
 
-.redirect_url {
+.sitemap_url {
+  display: none;
   float: right;
-  text-align: right;
   background-color: $sitemap-info-background-color;
-  line-height: $sitemap-line-height;
+  line-height: $sitemap-line-height - 2px;
   font-size: $small-font-size;
-  padding: 0 2*$default-padding;
-  max-width: 45%;
+  padding: 0 2 * $default-padding;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  border: 1px solid $sitemap-page-background-color;
+
+  @media screen and (min-width: $large-screen-break-point) {
+    display: block;
+    width: $sitemap-url-large-width;
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: $sitemap-url-xlarge-width;
+  }
 }
 
 .sitemap_line_spacer {
@@ -55,7 +70,7 @@
 
 .sitemap_page {
   height: $sitemap-line-height;
-  margin: 3*$default-margin 0;
+  margin: 3 * $default-margin 0;
   position: relative;
   transition: background-color $transition-duration;
 
@@ -89,13 +104,13 @@
   width: 32px;
   line-height: $sitemap-line-height;
   float: left;
-  padding: 0 2*$default-padding;
+  padding: 0 2 * $default-padding;
   text-align: center;
 }
 
 .sitemap_right_tools {
   height: $sitemap-line-height;
-  padding: 0 2*$default-padding;
+  padding: 0 2 * $default-padding;
   float: right;
 
   .sitemap_tool {
@@ -130,7 +145,9 @@
   &.sorting {
     padding-top: 100px;
 
-    .page_icon { cursor: move }
+    .page_icon {
+      cursor: move;
+    }
   }
 
   .page_folder {
@@ -183,25 +200,44 @@
 }
 
 #sitemap_heading {
+  display: flex;
   padding: 0;
-
-  .page_infos {
-    margin-right: 210px;
-    text-align: left;
-    float: right;
-    line-height: 28px;
-    background: transparent;
-  }
+  line-height: 28px;
 
   .page_name {
-    line-height: 28px;
     margin-left: 43px;
+  }
+
+  .page_urlname {
+    display: none;
+    margin-left: auto;
+    padding-left: 2 * $default-padding;
+    padding-right: 2 * $default-padding;
+
+    @media screen and (min-width: $large-screen-break-point) {
+      display: block;
+      width: $sitemap-url-large-width;
+    }
+
+    @media screen and (min-width: 1440px) {
+      width: $sitemap-url-xlarge-width;
+    }
+  }
+
+  .page_status {
+    padding-left: 2 * $default-padding;
+    margin-right: 214px;
+    margin-left: auto;
+
+    @media screen and (min-width: $large-screen-break-point) {
+      margin-left: initial;
+    }
   }
 }
 
 #page_filter_result {
   display: none;
-  margin-left: 2*$default-margin;
+  margin-left: 2 * $default-margin;
 }
 
 .alchemy-dialog {
@@ -213,6 +249,8 @@
     margin: 0;
     padding: 0 24px 8px 8px;
 
-    .page_icon { cursor: default }
+    .page_icon {
+      cursor: default;
+    }
   }
 }

@@ -58,6 +58,7 @@ module Alchemy
         page_layout: page.page_layout,
         slug: page.slug,
         urlname: page.urlname,
+        url_path: page.url_path,
         level: level,
         root: level == 1,
         root_or_leaf: level == 1 || !has_children,

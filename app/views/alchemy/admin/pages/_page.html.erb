@@ -159,6 +159,9 @@
         <span class="hint-bubble">{{status_titles.restricted}}</span>
       </span>
     </div>
+    <div class="sitemap_url" title="{{url_path}}">
+      {{ url_path }}
+    </div>
     <div class="sitemap_sitename">
       {{#if permissions.edit_content}}
         <%= link_to_unless(
