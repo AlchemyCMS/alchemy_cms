@@ -9,7 +9,7 @@ module Alchemy
     def pages
       tree = []
       path = [{id: object.parent_id, children: tree}]
-      page_list = object.self_and_descendants
+      page_list = object.self_and_descendants.includes({ language: :site }, :locker)
       base_level = object.level - 1
       # Load folded pages in advance
       folded_user_pages = FoldedPage.folded_for_user(opts[:user]).pluck(:page_id)
