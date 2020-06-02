@@ -24,8 +24,7 @@ module Alchemy
       after_update :update_descendants_urlnames,
         if: :should_update_descendants_urlnames?
 
-      after_move :update_urlname!,
-        if: -> { Config.get(:url_nesting) }
+      after_move :update_urlname!
     end
 
     # Returns true if name or urlname has changed.
@@ -64,8 +63,6 @@ module Alchemy
     private
 
     def should_update_descendants_urlnames?
-      return false if !Config.get(:url_nesting)
-
       saved_change_to_urlname? || saved_change_to_visible?
     end
 
@@ -76,14 +73,9 @@ module Alchemy
 
     # Sets the urlname to a url friendly slug.
     # Either from name, or if present, from urlname.
-    # If url_nesting is enabled the urlname contains the whole path.
+    # The urlname contains the whole path including parent urlnames.
     def set_urlname
-      if Config.get(:url_nesting)
-        value = slug
-      else
-        value = urlname
-      end
-      self[:urlname] = nested_url_name(value)
+      self[:urlname] = nested_url_name(slug)
     end
 
     def set_title
@@ -110,9 +102,9 @@ module Alchemy
 
     # Slugs of all visible/non-language_root ancestors.
     # Returns [], if there is no parent, the parent is
-    # the root page itself, or url_nesting is off.
+    # the root page itself.
     def ancestor_slugs
-      return [] if !Config.get(:url_nesting) || parent.nil?
+      return [] if parent.nil?
 
       visible_ancestors.map(&:slug).compact
     end

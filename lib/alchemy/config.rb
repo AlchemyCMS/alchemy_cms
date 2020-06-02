@@ -8,8 +8,10 @@ module Alchemy
       # @param name [String]
       #
       def get(name)
+        check_deprecation(name)
         show[name.to_s]
       end
+
       alias_method :parameter, :get
 
       # Returns a merged configuration of the following files
@@ -23,6 +25,13 @@ module Alchemy
       #
       def show
         @config ||= merge_configs!(alchemy_config, main_app_config, env_specific_config)
+      end
+
+      # A list of deprecated configurations
+      # a value of nil means there is no new default
+      # any not nil value is the new default
+      def deprecated_configs
+        {}
       end
 
       private
@@ -59,6 +68,20 @@ module Alchemy
         config = {}
         config_files.each { |h| config.merge!(h.stringify_keys!) }
         config
+      end
+
+      def check_deprecation(name)
+        if deprecated_configs.key?(name.to_sym)
+          config = deprecated_configs[name.to_sym]
+          if config.nil?
+            Alchemy::Deprecation.warn("#{name} configuration is deprecated and will be removed from Alchemy 5.0")
+          else
+            value = show[name.to_s]
+            if value != config
+              Alchemy::Deprecation.warn("Setting #{name} configuration to #{value} is deprecated and will be always #{config} in Alchemy 5.0")
+            end
+          end
+        end
       end
     end
   end

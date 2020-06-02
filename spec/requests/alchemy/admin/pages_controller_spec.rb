@@ -317,84 +317,78 @@ module Alchemy
           expect(page_1.descendants).to eq([page_2, page_3])
         end
 
-        context "with url nesting enabled" do
-          before do
-            stub_alchemy_config(:url_nesting, true)
+        it "updates the pages urlnames" do
+          post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
+          [page_1, page_2, page_3].map(&:reload)
+          expect(page_1.urlname).to eq(page_1.slug.to_s)
+          expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
+          expect(page_3.urlname).to eq("#{page_1.slug}/#{page_2.slug}/#{page_3.slug}")
+        end
+
+        context "with invisible page in tree" do
+          let(:page_item_2) do
+            {
+              id: page_2.id,
+              slug: page_2.slug,
+              children: [page_item_3],
+              visible: false,
+            }
           end
 
-          it "updates the pages urlnames" do
+          it "does not use this pages slug in urlnames of descendants" do
             post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
             [page_1, page_2, page_3].map(&:reload)
             expect(page_1.urlname).to eq(page_1.slug.to_s)
             expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
+            expect(page_3.urlname).to eq("#{page_1.slug}/#{page_3.slug}")
+          end
+        end
+
+        context "with restricted page in tree" do
+          let(:page_2) { create(:alchemy_page, restricted: true) }
+          let(:page_item_2) do
+            {
+              id: page_2.id,
+              slug: page_2.slug,
+              children: [page_item_3],
+              restricted: true,
+            }
+          end
+
+          it "updates restricted status of descendants" do
+            post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
+            page_3.reload
+            expect(page_3.restricted).to be_truthy
+          end
+        end
+
+        context "with page having number as slug" do
+          let(:page_item_2) do
+            {
+              id: page_2.id,
+              slug: 42,
+              children: [page_item_3],
+            }
+          end
+
+          it "does not raise error" do
+            expect {
+              post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
+            }.not_to raise_error
+          end
+
+          it "still generates the correct urlname on page_3" do
+            post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
+            [page_1, page_2, page_3].map(&:reload)
             expect(page_3.urlname).to eq("#{page_1.slug}/#{page_2.slug}/#{page_3.slug}")
           end
+        end
 
-          context "with invisible page in tree" do
-            let(:page_item_2) do
-              {
-                id: page_2.id,
-                slug: page_2.slug,
-                children: [page_item_3],
-                visible: false,
-              }
-            end
-
-            it "does not use this pages slug in urlnames of descendants" do
-              post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
-              [page_1, page_2, page_3].map(&:reload)
-              expect(page_1.urlname).to eq(page_1.slug.to_s)
-              expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
-              expect(page_3.urlname).to eq("#{page_1.slug}/#{page_3.slug}")
-            end
-          end
-
-          context "with restricted page in tree" do
-            let(:page_2) { create(:alchemy_page, restricted: true) }
-            let(:page_item_2) do
-              {
-                id: page_2.id,
-                slug: page_2.slug,
-                children: [page_item_3],
-                restricted: true,
-              }
-            end
-
-            it "updates restricted status of descendants" do
-              post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
-              page_3.reload
-              expect(page_3.restricted).to be_truthy
-            end
-          end
-
-          context "with page having number as slug" do
-            let(:page_item_2) do
-              {
-                id: page_2.id,
-                slug: 42,
-                children: [page_item_3],
-              }
-            end
-
-            it "does not raise error" do
-              expect {
-                post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
-              }.not_to raise_error
-            end
-
-            it "still generates the correct urlname on page_3" do
-              post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
-              [page_1, page_2, page_3].map(&:reload)
-              expect(page_3.urlname).to eq("#{page_1.slug}/#{page_2.slug}/#{page_3.slug}")
-            end
-          end
-
-          it "creates legacy urls" do
-            post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
-            [page_2, page_3].map(&:reload)
-            expect(page_2.legacy_urls.size).to eq(1)
-            expect(page_3.legacy_urls.size).to eq(1)
-          end
+        it "creates legacy urls" do
+          post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
+          [page_2, page_3].map(&:reload)
+          expect(page_2.legacy_urls.size).to eq(1)
+          expect(page_3.legacy_urls.size).to eq(1)
         end
       end
 
