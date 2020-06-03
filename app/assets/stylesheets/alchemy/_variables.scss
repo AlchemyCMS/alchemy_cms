@@ -76,7 +76,7 @@ $button-text-shadow: none !default;
 $button-box-shadow: 0px 1px 1px -1px #333 !default;
 $button-focus-box-shadow: 0px 1px 1px 0px $button-focus-border-color !default;
 $button-padding: 0.55em 2em !default;
-$small-button-padding: 0.4em 1.25em !default;
+$small-button-padding: 0.4em 0.8em !default;
 $button-margin: $form-field-margin !default;
 
 $secondary-button-bg-color: transparent !default;
@@ -108,7 +108,7 @@ $form-right-width: 65% !default;
 $sitemap-line-height: 32px !default;
 $sitemap-page-background-color: rgba($white, 0.75) !default;
 $sitemap-page-hover-color: rgba($light_yellow, 0.5) !default;
-$sitemap-info-background-color: rgba($linked-color, 0.5) !default;
+$sitemap-info-background-color: rgba($white, 0.5) !default;
 $sitemap-highlight-color: rgba(#fffba5, 0.5) !default;
 
 $main-menu-width: 150px !default;

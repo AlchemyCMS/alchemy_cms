@@ -49,9 +49,8 @@
     border-color: $hover-border-color;
   }
 
-  &:active, &:active:focus {
-    border-color: $hover-border-color;
-    box-shadow: none;
+  &:active, &.active {
+    box-shadow: inset $button-box-shadow;
   }
 
   &:focus {

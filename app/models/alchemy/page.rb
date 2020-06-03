@@ -302,6 +302,13 @@ module Alchemy
       finder.elements(page: self)
     end
 
+    # = The url_path for this page
+    #
+    # @see Alchemy::Page::UrlPath#call
+    def url_path
+      Alchemy::Page::UrlPath.new(self).call
+    end
+
     # The page's view partial is dependent from its page layout
     #
     # == Define page layouts

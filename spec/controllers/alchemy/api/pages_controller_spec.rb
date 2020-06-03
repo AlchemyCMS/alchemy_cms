@@ -11,7 +11,7 @@ module Alchemy
         let(:result) { JSON.parse(response.body) }
 
         it "returns JSON" do
-          get :index, params: {format: :json}
+          get :index, params: { format: :json }
           expect(result["pages"]).to eq([])
         end
       end
@@ -21,7 +21,7 @@ module Alchemy
         let(:result) { JSON.parse(response.body) }
 
         it "returns JSON" do
-          get :index, params: {format: :json}
+          get :index, params: { format: :json }
 
           expect(response.status).to eq(200)
           expect(response.media_type).to eq("application/json")
@@ -29,7 +29,7 @@ module Alchemy
         end
 
         it "returns all public pages" do
-          get :index, params: {format: :json}
+          get :index, params: { format: :json }
 
           expect(result["pages"].size).to eq(2)
         end
@@ -40,7 +40,7 @@ module Alchemy
           end
 
           it "returns all pages" do
-            get :index, params: {format: :json}
+            get :index, params: { format: :json }
 
             expect(result["pages"].size).to eq(Alchemy::Page.count)
           end
@@ -86,7 +86,7 @@ module Alchemy
         let!(:page) { create(:alchemy_page, :public, page_layout: "contact") }
 
         it "returns all pages as nested json tree without admin related infos", :aggregate_failures do
-          get :nested, params: {format: :json}
+          get :nested, params: { format: :json }
 
           expect(response.status).to eq(200)
           expect(response.media_type).to eq("application/json")
@@ -114,7 +114,7 @@ module Alchemy
           end
 
           it "returns all pages as nested json tree with admin related infos", :aggregate_failures do
-            get :nested, params: {format: :json}
+            get :nested, params: { format: :json }
 
             expect(response.status).to eq(200)
             expect(response.media_type).to eq("application/json")
@@ -139,7 +139,7 @@ module Alchemy
 
         context "when a page_id is passed" do
           it "returns all pages as nested json from this page only" do
-            get :nested, params: {page_id: page.id, format: :json}
+            get :nested, params: { page_id: page.id, format: :json }
 
             expect(response.status).to eq(200)
             expect(response.media_type).to eq("application/json")
@@ -153,7 +153,7 @@ module Alchemy
 
         context "when `elements=true` is passed" do
           it "returns all pages as nested json tree with elements included" do
-            get :nested, params: {elements: "true", format: :json}
+            get :nested, params: { elements: "true", format: :json }
 
             expect(response.status).to eq(200)
             expect(response.media_type).to eq("application/json")
@@ -170,7 +170,7 @@ module Alchemy
             end
 
             it "returns all pages as nested json tree with only these elements included" do
-              get :nested, params: {elements: "headline,text", format: :json}
+              get :nested, params: { elements: "headline,text", format: :json }
 
               result = JSON.parse(response.body)
 
@@ -189,7 +189,7 @@ module Alchemy
         let(:page) { create(:alchemy_page, :public, urlname: "a-page") }
 
         it "returns page as json" do
-          get :show, params: {urlname: page.urlname, format: :json}
+          get :show, params: { urlname: page.urlname, format: :json }
 
           expect(response.status).to eq(200)
           expect(response.media_type).to eq("application/json")
@@ -197,13 +197,14 @@ module Alchemy
           result = JSON.parse(response.body)
 
           expect(result["id"]).to eq(page.id)
+          expect(result["url_path"]).to eq("/a-page")
         end
 
         context "requesting an restricted page" do
           let(:page) { create(:alchemy_page, restricted: true, urlname: "a-page") }
 
           it "responds with 403" do
-            get :show, params: {urlname: page.urlname, format: :json}
+            get :show, params: { urlname: page.urlname, format: :json }
 
             expect(response.status).to eq(403)
             expect(response.media_type).to eq("application/json")
@@ -219,7 +220,7 @@ module Alchemy
           let(:page) { create(:alchemy_page, urlname: "a-page") }
 
           it "responds with 403" do
-            get :show, params: {urlname: page.urlname, format: :json}
+            get :show, params: { urlname: page.urlname, format: :json }
 
             expect(response.status).to eq(403)
             expect(response.media_type).to eq("application/json")
@@ -234,7 +235,7 @@ module Alchemy
 
       context "requesting an unknown page" do
         it "responds with 404" do
-          get :show, params: {urlname: "not-existing", format: :json}
+          get :show, params: { urlname: "not-existing", format: :json }
 
           expect(response.status).to eq(404)
           expect(response.media_type).to eq("application/json")
@@ -249,7 +250,7 @@ module Alchemy
           let(:page) { create(:alchemy_page, :public) }
 
           it "responds with 404" do
-            get :show, params: {urlname: page.urlname, locale: "na", format: :json}
+            get :show, params: { urlname: page.urlname, locale: "na", format: :json }
             expect(response.status).to eq(404)
           end
         end
@@ -259,7 +260,7 @@ module Alchemy
         let(:page) { create(:alchemy_page, :public) }
 
         it "responds with json" do
-          get :show, params: {urlname: page.id, format: :json}
+          get :show, params: { urlname: page.id, format: :json }
 
           expect(response.status).to eq(200)
           expect(response.media_type).to eq("application/json")
@@ -280,7 +281,7 @@ module Alchemy
 
           context "when a locale is given" do
             it "renders the page related to its language" do
-              get :show, params: {urlname: "same-name", locale: klingon_page.language_code, format: :json}
+              get :show, params: { urlname: "same-name", locale: klingon_page.language_code, format: :json }
               result = JSON.parse(response.body)
               expect(result["id"]).to eq(klingon_page.id)
             end
@@ -288,7 +289,7 @@ module Alchemy
 
           context "when no locale is given" do
             it "renders the page of the default language" do
-              get :show, params: {urlname: "same-name", format: :json}
+              get :show, params: { urlname: "same-name", format: :json }
               result = JSON.parse(response.body)
               expect(result["id"]).to eq(english_page.id)
             end

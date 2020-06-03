@@ -116,6 +116,8 @@ module Alchemy
           expect(page["name"]).to eq(page_1.name)
           expect(page).to have_key("children")
           expect(page["children"].count).to eq(1)
+          expect(page).to have_key("url_path")
+          expect(page["url_path"]).to eq(page_1.url_path)
 
           page = page["children"].first
 
@@ -125,6 +127,8 @@ module Alchemy
           expect(page["name"]).to eq(page_2.name)
           expect(page).to have_key("children")
           expect(page["children"].count).to eq(1)
+          expect(page).to have_key("url_path")
+          expect(page["url_path"]).to eq(page_2.url_path)
 
           page = page["children"].first
 
@@ -134,6 +138,8 @@ module Alchemy
           expect(page["name"]).to eq(page_3.name)
           expect(page).to have_key("children")
           expect(page["children"].count).to eq(0)
+          expect(page).to have_key("url_path")
+          expect(page["url_path"]).to eq(page_3.url_path)
         end
 
         context "when branch is folded" do
