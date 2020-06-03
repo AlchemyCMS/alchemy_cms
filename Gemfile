@@ -14,7 +14,7 @@ gem "pg",     "~> 1.0"   if ENV["DB"] == "postgresql"
 
 group :development, :test do
   if ENV["GITHUB_ACTIONS"]
-    gem "sassc", "~> 2.3.0" # https://github.com/sass/sassc-ruby/issues/146
+    gem "sassc", "~> 2.4.0" # https://github.com/sass/sassc-ruby/issues/146
   else
     gem "launchy"
     gem "annotate"
