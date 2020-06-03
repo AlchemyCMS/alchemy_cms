@@ -197,6 +197,10 @@ $sitemap-url-xlarge-width: 350px;
 
 .page_status {
   display: inline-block;
+
+  .alchemy-dialog & {
+    display: block;
+  }
 }
 
 #sitemap_heading {
