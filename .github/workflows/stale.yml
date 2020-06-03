@@ -13,5 +13,5 @@ jobs:
     - uses: actions/stale@v1
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'This issue has not seen any activity in a long time. If the issue descriped still exists in recent versions of Alchemy, please open a new issue or preferably open a PR with a fix. Thanks for reporting.'
+        stale-issue-message: 'This issue has not seen any activity in a long time. If the issue described still exists in recent versions of Alchemy, please open a new issue or preferably open a PR with a fix. Thanks for reporting.'
         stale-pr-message: 'This pull request has not seen any activiy in a long time. Probably because of missing tests or a necessary rebase. Please open a new PR to latest master if you want to continue working on this. Thanks for the contribution.'
