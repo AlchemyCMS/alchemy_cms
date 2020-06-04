@@ -24,7 +24,6 @@ namespace :alchemy do
       "alchemy:upgrade:5.0:remove_root_page",
       "alchemy:install:migrations",
       "db:migrate",
-      "alchemy:db:seed",
     ]
 
     desc "Alchemy Upgrader: Copy configuration file."
