@@ -1,5 +1,9 @@
 ## 5.0.0 (unreleased)
 
+## 4.6.1 (2020-06-04)
+
+- Fix 4.6 upgrader
+
 ## 4.6.0 (2020-06-04)
 
 - Use apt update instead of apt-get in GH action [#1865](https://github.com/AlchemyCMS/alchemy_cms/pull/1865) ([tvdeyen](https://github.com/tvdeyen))
