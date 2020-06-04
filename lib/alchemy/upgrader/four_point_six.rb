@@ -3,7 +3,7 @@
 module Alchemy
   class Upgrader::FourPointSix < Upgrader
     class << self
-      def todos
+      def alchemy_4_6_todos
         notice = <<-NOTE.strip_heredoc
 
           ℹ️  Page visible attribute is deprecated

@@ -154,7 +154,7 @@ namespace :alchemy do
       end
 
       task :todo do
-        Alchemy::Upgrader::FourPointSix.todos
+        Alchemy::Upgrader::FourPointSix.alchemy_4_6_todos
       end
     end
   end
