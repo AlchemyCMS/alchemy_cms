@@ -38,19 +38,6 @@ sitemap:
   show_root: true
   show_flag: false
 
-# === URL nesting
-#
-# Since Alchemy 2.6.0, page urls are nested, respectively to their tree position.
-#
-# Disable +url_nesting+ to get slug only urls.
-#
-# NOTE: After changing the url_nesting, you should run one of these convert rake tasks:
-#
-#   rake alchemy:convert:urlnames:to_nested
-#   rake alchemy:convert:urlnames:to_slug
-#
-url_nesting: true
-
 # === Default items per page in admin views
 #
 # In Alchemy's Admin, change how many items you would get shown per page by Kaminari
