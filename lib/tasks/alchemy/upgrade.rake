@@ -6,6 +6,7 @@ namespace :alchemy do
   desc "Upgrades your app to AlchemyCMS v#{Alchemy::VERSION}."
   task upgrade: [
     "alchemy:upgrade:prepare",
+    "alchemy:upgrade:5.0:run",
   ] do
     Alchemy::Upgrader.display_todos
   end
@@ -19,9 +20,6 @@ namespace :alchemy do
 
     desc "Alchemy Upgrader: Prepares the database."
     task database: [
-      "alchemy:upgrade:5.0:install_gutentag_migrations",
-      "alchemy:upgrade:5.0:remove_layout_roots",
-      "alchemy:upgrade:5.0:remove_root_page",
       "alchemy:install:migrations",
       "db:migrate",
     ]
@@ -34,11 +32,18 @@ namespace :alchemy do
     desc "Upgrade Alchemy to v5.0"
     task "5.0" => [
       "alchemy:upgrade:prepare",
+      "alchemy:upgrade:5.0:run",
     ] do
       Alchemy::Upgrader.display_todos
     end
 
     namespace "5.0" do
+      task "run" => [
+        "alchemy:upgrade:5.0:install_gutentag_migrations",
+        "alchemy:upgrade:5.0:remove_layout_roots",
+        "alchemy:upgrade:5.0:remove_root_page",
+      ]
+
       desc "Install Gutentag migrations"
       task install_gutentag_migrations: [:environment] do
         Alchemy::Upgrader::FivePointZero.install_gutentag_migrations
