@@ -4,7 +4,7 @@ function buildPromise(xhr) {
       if (xhr.status >= 200 && xhr.status < 400) {
         try {
           resolve({
-            data: JSON.parse(xhr.responseText),
+            data: JSON.parse(xhr.responseText || "{}"),
             status: xhr.status
           })
         } catch (error) {
