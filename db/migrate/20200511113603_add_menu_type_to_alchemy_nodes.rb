@@ -11,13 +11,17 @@ class AddMenuTypeToAlchemyNodes < ActiveRecord::Migration[5.2]
     end
   end
 
-  def change
+  def up
     add_column :alchemy_nodes, :menu_type, :string
     LocalNode.all.each do |node|
       root = LocalNode.root_for(node)
       menu_type = root.name.parameterize.underscore
       node.update(menu_type: menu_type)
     end
-    change_column :alchemy_nodes, :menu_type, :string, null: false
+    change_column_null :alchemy_nodes, :menu_type, false
+  end
+
+  def down
+    remove_column :alchemy_nodes, :menu_type
   end
 end
