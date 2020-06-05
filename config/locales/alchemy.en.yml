@@ -481,9 +481,6 @@ en:
     page_published: "Published page"
     page_restricted: "restricted"
     page_states:
-      visible:
-        "true": "Page is visible in navigation."
-        "false": "Page is not visible in navigation."
       public:
         "true": "Page is published."
         "false": "Page is unpublished."
@@ -578,7 +575,6 @@ en:
         button_label: Upload image(s)
         upload_success: "Picture %{name} uploaded successfully"
         upload_failure: "Error while uploading %{name}: %{error}"
-    visible: "visible"
     want_to_create_new_language: "Do you want to create a new empty language tree?"
     want_to_make_copy_of_existing_language: "Do you want to copy an existing language tree?"
     "We need at least one default.": "A default language must exist."
@@ -826,7 +822,6 @@ en:
         updated_at: "Updated at"
         urlname: "URL-Path"
         slug: "Slug"
-        visible: "visible in navigation"
       alchemy/picture:
         image_file_name: "Filename"
         image_file_height: "Height"

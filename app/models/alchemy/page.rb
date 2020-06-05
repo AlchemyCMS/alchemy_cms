@@ -17,7 +17,6 @@
 #  rgt              :integer
 #  parent_id        :integer
 #  depth            :integer
-#  visible          :boolean          default(FALSE)
 #  locked_by        :integer
 #  restricted       :boolean          default(FALSE)
 #  robot_index      :boolean          default(TRUE)
@@ -44,7 +43,6 @@ module Alchemy
 
     DEFAULT_ATTRIBUTES_FOR_COPY = {
       autogenerate_elements: false,
-      visible: false,
       public_on: nil,
       public_until: nil,
       locked_at: nil,
@@ -78,7 +76,6 @@ module Alchemy
       :tag_list,
       :title,
       :urlname,
-      :visible,
       :layoutpage,
       :menu_id,
     ]
@@ -138,9 +135,6 @@ module Alchemy
     after_update :create_legacy_url,
       if: :saved_change_to_urlname?
 
-    after_update :attach_to_menu!,
-      if: :should_attach_to_menu?
-
     after_update -> { nodes.update_all(updated_at: Time.current) }
 
     # Concerns
@@ -151,8 +145,6 @@ module Alchemy
 
     # site_name accessor
     delegate :name, to: :site, prefix: true, allow_nil: true
-
-    attr_accessor :menu_id
 
     # Class methods
     #
@@ -544,19 +536,6 @@ module Alchemy
 
     def set_published_at
       self.published_at = Time.current
-    end
-
-    def attach_to_menu!
-      node = Alchemy::Node.find_by!(id: menu_id, language_id: language_id)
-      node.children.create!(
-        language_id: language_id,
-        page_id: id,
-        name: name,
-      )
-    end
-
-    def should_attach_to_menu?
-      menu_id.present? && nodes.none?
     end
   end
 end

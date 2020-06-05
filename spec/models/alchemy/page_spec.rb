@@ -39,7 +39,7 @@ module Alchemy
           end
 
           context "with another parent" do
-            let(:other_parent) { create(:alchemy_page, visible: true) }
+            let(:other_parent) { create(:alchemy_page) }
 
             it "should be valid" do
               contentpage.urlname = "existing_twice"
@@ -161,9 +161,9 @@ module Alchemy
       end
 
       context "after_move" do
-        let(:parent_1) { create(:alchemy_page, name: "Parent 1", visible: true) }
-        let(:parent_2) { create(:alchemy_page, name: "Parent 2", visible: true) }
-        let(:page) { create(:alchemy_page, parent: parent_1, name: "Page", visible: true) }
+        let(:parent_1) { create(:alchemy_page, name: "Parent 1") }
+        let(:parent_2) { create(:alchemy_page, name: "Parent 2") }
+        let(:page) { create(:alchemy_page, parent: parent_1, name: "Page") }
 
         it "updates the urlname" do
           expect(page.urlname).to eq("parent-1/page")
@@ -387,14 +387,6 @@ module Alchemy
         expect(subject.name).to eq("#{page.name} (Copy)")
       end
 
-      context "a visible page" do
-        let(:page) { create(:alchemy_page, name: "Source", visible: true) }
-
-        it "the copy should not be visible" do
-          expect(subject.visible).to be(false)
-        end
-      end
-
       context "a public page" do
         let(:page) { create(:alchemy_page, :public, name: "Source", public_until: Time.current) }
 
@@ -608,14 +600,6 @@ module Alchemy
 
       it "should return restricted pages" do
         expect(Page.restricted.to_a).to eq([restricted])
-      end
-    end
-
-    describe ".visible" do
-      let!(:visible) { create(:alchemy_page, :public, visible: true) }
-
-      it "should return visible pages" do
-        expect(Page.visible.to_a).to eq([visible])
       end
     end
 
@@ -1554,11 +1538,9 @@ module Alchemy
     end
 
     context "urlname updating" do
-      let(:parentparent) { create(:alchemy_page, name: "parentparent", visible: true) }
-      let(:parent) { create(:alchemy_page, parent: parentparent, name: "parent", visible: true) }
-      let(:page) { create(:alchemy_page, parent: parent, name: "page", visible: true) }
-      let(:invisible) { create(:alchemy_page, parent: page, name: "invisible", visible: false) }
-      let(:contact) { create(:alchemy_page, parent: invisible, name: "contact", visible: true) }
+      let(:parentparent) { create(:alchemy_page, name: "parentparent") }
+      let(:parent) { create(:alchemy_page, parent: parentparent, name: "parent") }
+      let(:page) { create(:alchemy_page, parent: parent, name: "page") }
       let(:language_root) { parentparent.parent }
 
       it "should store all parents urlnames delimited by slash" do
@@ -1567,22 +1549,6 @@ module Alchemy
 
       it "should not include the language root page" do
         expect(page.urlname).not_to match(/startseite/)
-      end
-
-      it "should not include invisible pages" do
-        expect(contact.urlname).not_to match(/invisible/)
-      end
-
-      context "with an invisible parent" do
-        before { parent.update_attribute(:visible, false) }
-
-        it "does not change if set_urlname is called" do
-          expect { page.send(:set_urlname) }.not_to change { page.urlname }
-        end
-
-        it "does not change if update_urlname! is called" do
-          expect { page.update_urlname! }.not_to change { page.urlname }
-        end
       end
 
       context "after changing page's urlname" do
@@ -1599,16 +1565,6 @@ module Alchemy
           page.update_urlname!
           expect(page.legacy_urls).not_to be_empty
           expect(page.legacy_urls.pluck(:urlname)).to include("parentparent/parent/page")
-        end
-      end
-
-      context "after updating my visibility" do
-        it "should update urlnames of descendants" do
-          page
-          parentparent.visible = false
-          parentparent.save!
-          page.reload
-          expect(page.urlname).to eq("parent/page")
         end
       end
     end
@@ -1712,22 +1668,18 @@ module Alchemy
 
     context "page status methods" do
       let(:page) do
-        build(:alchemy_page, :public, visible: true, restricted: false)
+        build(:alchemy_page, :public, restricted: false)
       end
 
       describe "#status" do
         it "returns a combined status hash" do
-          expect(page.status).to eq({ public: true, visible: true, restricted: false, locked: false })
+          expect(page.status).to eq({ public: true, restricted: false, locked: false })
         end
       end
 
       describe "#status_title" do
         it "returns a translated status string for public status" do
           expect(page.status_title(:public)).to eq("Page is published.")
-        end
-
-        it "returns a translated status string for visible status" do
-          expect(page.status_title(:visible)).to eq("Page is visible in navigation.")
         end
 
         it "returns a translated status string for locked status" do
@@ -1987,45 +1939,6 @@ module Alchemy
           expect {
             page.update(name: "Foo")
           }.to_not change { page.name }
-        end
-      end
-    end
-
-    describe "#attach_to_menu!" do
-      let(:page) { create(:alchemy_page) }
-
-      context "if menu_id is set" do
-        let(:root_node) { create(:alchemy_node) }
-
-        before do
-          page.menu_id = root_node.id
-        end
-
-        context "and no nodes are present yet" do
-          it "attaches to menu" do
-            expect { page.save }.to change { page.nodes.count }.from(0).to(1)
-          end
-        end
-
-        context "and nodes are already present" do
-          let!(:page_node) { create(:alchemy_node, page: page) }
-
-          it "does not attach to menu" do
-            expect { page.save }.not_to change { page.nodes.count }
-          end
-        end
-      end
-
-      context "if menu_id is not set" do
-        it "does not attach to menu" do
-          expect { page.save }.not_to change { page.nodes.count }
-        end
-      end
-
-      context "if menu_id is empty" do
-        it "does not raise error" do
-          page.menu_id = ""
-          expect { page.save }.not_to raise_error
         end
       end
     end

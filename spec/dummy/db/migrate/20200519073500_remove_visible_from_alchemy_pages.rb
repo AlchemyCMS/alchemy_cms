@@ -1,0 +1,1 @@
+../../../../db/migrate/20200519073500_remove_visible_from_alchemy_pages.rb

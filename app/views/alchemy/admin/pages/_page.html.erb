@@ -1,4 +1,4 @@
-<li id="page_{{id}}" class="page_level_{{level}} {{page_layout}}" data-slug="{{slug}}" data-restricted="{{restricted}}" data-visible="{{visible}}">
+<li id="page_{{id}}" class="page_level_{{level}} {{page_layout}}" data-slug="{{slug}}" data-restricted="{{restricted}}">
   <div class="sitemap_page{{#if locked}} locked{{/if}}" name="{{name}}">
     <div class="sitemap_left_images<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>">
       <% unless @sorting %>
@@ -149,10 +149,6 @@
       <span class="page_status with-hint">
         <i class="icon fas fa-fw fa-compass {{#unless public}}disabled{{/unless}}" data-fa-transform="shrink-2"></i>
         <span class="hint-bubble">{{status_titles.public}}</span>
-      </span>
-      <span class="page_status with-hint">
-        <i class="icon fas fa-fw fa-eye {{#unless visible}}disabled{{/unless}}" data-fa-transform="shrink-2"></i>
-        <span class="hint-bubble">{{status_titles.visible}}</span>
       </span>
       <span class="page_status with-hint">
         <i class="icon fas fa-fw fa-lock {{#unless restricted}}disabled{{/unless}}" data-fa-transform="shrink-2"></i>

@@ -90,8 +90,8 @@ module Alchemy
     end
 
     describe "#render_breadcrumb" do
-      let(:parent) { create(:alchemy_page, :public, visible: true) }
-      let(:page) { create(:alchemy_page, :public, parent_id: parent.id, visible: true) }
+      let(:parent) { create(:alchemy_page, :public) }
+      let(:page) { create(:alchemy_page, :public, parent_id: parent.id) }
       let(:user) { nil }
 
       before do
@@ -126,12 +126,7 @@ module Alchemy
         end
       end
 
-      it "should render a breadcrumb of visible pages only" do
-        page.update_columns(visible: false, urlname: "a-invisible-page", name: "A Invisible Page", title: "A Invisible Page")
-        expect(helper.render_breadcrumb(page: page)).not_to match(/A Invisible Page/)
-      end
-
-      it "should render a breadcrumb of visible and unpublished pages" do
+      it "should render a breadcrumb of unpublished pages" do
         page.update_columns(public_on: nil, urlname: "a-unpublic-page", name: "A Unpublic Page", title: "A Unpublic Page")
         expect(helper.render_breadcrumb(page: page)).to match(/A Unpublic Page/)
       end

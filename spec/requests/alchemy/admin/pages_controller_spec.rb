@@ -88,9 +88,9 @@ module Alchemy
 
       describe "#tree" do
         let(:user) { create(:alchemy_dummy_user, :as_editor) }
-        let(:page_1) { create(:alchemy_page, visible: true, name: "one") }
-        let(:page_2) { create(:alchemy_page, visible: true, name: "two", parent_id: page_1.id) }
-        let(:page_3) { create(:alchemy_page, visible: true, name: "three", parent_id: page_2.id) }
+        let(:page_1) { create(:alchemy_page, name: "one") }
+        let(:page_2) { create(:alchemy_page, name: "two", parent_id: page_1.id) }
+        let(:page_3) { create(:alchemy_page, name: "three", parent_id: page_2.id) }
         let!(:pages) { [page_1, page_2, page_3] }
 
         subject :get_tree do
@@ -309,12 +309,12 @@ module Alchemy
       end
 
       describe "#order" do
-        let(:page_1) { create(:alchemy_page, visible: true) }
-        let(:page_2) { create(:alchemy_page, visible: true) }
-        let(:page_3) { create(:alchemy_page, visible: true) }
-        let(:page_item_1) { { id: page_1.id, slug: page_1.slug, restricted: false, visible: page_1.visible?, children: [page_item_2] } }
-        let(:page_item_2) { { id: page_2.id, slug: page_2.slug, restricted: false, visible: page_2.visible?, children: [page_item_3] } }
-        let(:page_item_3) { { id: page_3.id, slug: page_3.slug, restricted: false, visible: page_3.visible? } }
+        let(:page_1) { create(:alchemy_page) }
+        let(:page_2) { create(:alchemy_page) }
+        let(:page_3) { create(:alchemy_page) }
+        let(:page_item_1) { { id: page_1.id, slug: page_1.slug, restricted: false, children: [page_item_2] } }
+        let(:page_item_2) { { id: page_2.id, slug: page_2.slug, restricted: false, children: [page_item_3] } }
+        let(:page_item_3) { { id: page_3.id, slug: page_3.slug, restricted: false } }
         let(:set_of_pages) { [page_item_1] }
 
         it "stores the new order" do
@@ -329,25 +329,6 @@ module Alchemy
           expect(page_1.urlname).to eq(page_1.slug.to_s)
           expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
           expect(page_3.urlname).to eq("#{page_1.slug}/#{page_2.slug}/#{page_3.slug}")
-        end
-
-        context "with invisible page in tree" do
-          let(:page_item_2) do
-            {
-              id: page_2.id,
-              slug: page_2.slug,
-              children: [page_item_3],
-              visible: false,
-            }
-          end
-
-          it "does not use this pages slug in urlnames of descendants" do
-            post order_admin_pages_path(set: set_of_pages.to_json), xhr: true
-            [page_1, page_2, page_3].map(&:reload)
-            expect(page_1.urlname).to eq(page_1.slug.to_s)
-            expect(page_2.urlname).to eq("#{page_1.slug}/#{page_2.slug}")
-            expect(page_3.urlname).to eq("#{page_1.slug}/#{page_3.slug}")
-          end
         end
 
         context "with restricted page in tree" do

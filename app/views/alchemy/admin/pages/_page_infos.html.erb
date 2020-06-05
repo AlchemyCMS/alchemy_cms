@@ -3,10 +3,6 @@
   <span class="hint-bubble"><%= page.status_title(:public) %></span>
 </span>
 <span class="page_status with-hint">
-  <%= render_icon(:eye, transform: 'shrink-2', class: @page.visible? ? nil : 'disabled') %>
-  <span class="hint-bubble"><%= page.status_title(:visible) %></span>
-</span>
-<span class="page_status with-hint">
   <%= render_icon(:lock, transform: 'shrink-2', class: @page.restricted? ? nil : 'disabled') %>
   <span class="hint-bubble"><%= page.status_title(:restricted) %></span>
 </span>

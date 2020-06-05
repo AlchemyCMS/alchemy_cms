@@ -10,7 +10,7 @@ RSpec.describe "Show page feature:", type: :system do
   end
 
   let(:public_page) do
-    create(:alchemy_page, :public, visible: true, name: "Page 1")
+    create(:alchemy_page, :public, name: "Page 1")
   end
 
   let(:public_child) do
@@ -139,12 +139,12 @@ RSpec.describe "Show page feature:", type: :system do
   describe "navigation rendering" do
     context "with menu available" do
       let(:menu) { create(:alchemy_node, menu_type: "main_menu") }
-      let(:page1) { create(:alchemy_page, :public, visible: true, name: "Page 1") }
-      let(:page2) { create(:alchemy_page, :public, visible: true, name: "Page 2") }
+      let(:page1) { create(:alchemy_page, :public, name: "Page 1") }
+      let(:page2) { create(:alchemy_page, :public, name: "Page 2") }
       let!(:node1) { create(:alchemy_node, page: page1, parent: menu) }
       let!(:node2) { create(:alchemy_node, page: page2, parent: menu) }
 
-      it "should show the navigation with all visible pages" do
+      it "should show the navigation with all pages" do
         visit "/"
         within("nav ul") do
           expect(page).to have_selector('li a[href="/page-1"], li a[href="/page-2"]')
