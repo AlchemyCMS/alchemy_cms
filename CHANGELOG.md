@@ -24,6 +24,27 @@
 - Add ContentEditor decorator [#1645](https://github.com/AlchemyCMS/alchemy_cms/pull/1645) ([tvdeyen](https://github.com/tvdeyen))
 - Remove local options from essence editors [#1638](https://github.com/AlchemyCMS/alchemy_cms/pull/1638) ([tvdeyen](https://github.com/tvdeyen))
 
+## 4.6.1 (2020-06-04)
+
+- Fix 4.6 upgrader
+
+## 4.6.0 (2020-06-04)
+
+- Use apt update instead of apt-get in GH action [#1865](https://github.com/AlchemyCMS/alchemy_cms/pull/1865) ([tvdeyen](https://github.com/tvdeyen))
+- Use depth for page tree serializer root_or_leaf [#1864](https://github.com/AlchemyCMS/alchemy_cms/pull/1864) ([tvdeyen](https://github.com/tvdeyen))
+- Fix sitemap wrapper height [#1861](https://github.com/AlchemyCMS/alchemy_cms/pull/1861) ([tvdeyen](https://github.com/tvdeyen))
+- Do not return the root page with API responses. [#1860](https://github.com/AlchemyCMS/alchemy_cms/pull/1860) ([tvdeyen](https://github.com/tvdeyen))
+- Introduce page.url_path and use it for alchemyPageSelect [#1859](https://github.com/AlchemyCMS/alchemy_cms/pull/1859) ([tvdeyen](https://github.com/tvdeyen))
+- Update Urlname translation [#1857](https://github.com/AlchemyCMS/alchemy_cms/pull/1857) ([tvdeyen](https://github.com/tvdeyen))
+- Show url name in Page tree [#1856](https://github.com/AlchemyCMS/alchemy_cms/pull/1856) ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate Page#visible attribute [#1855](https://github.com/AlchemyCMS/alchemy_cms/pull/1855) ([tvdeyen](https://github.com/tvdeyen))
+- 4.6: Re-add `auto_logout_time` configuration option [#1852](https://github.com/AlchemyCMS/alchemy_cms/pull/1852) ([mamhoff](https://github.com/mamhoff))
+- Backport ContentEditor to 4.6, deprecate removed methods on `Alchemy::Content` [#1847](https://github.com/AlchemyCMS/alchemy_cms/pull/1847) ([mamhoff](https://github.com/mamhoff))
+- Deprecate auto_logout_time (4.6) [#1843](https://github.com/AlchemyCMS/alchemy_cms/pull/1843) ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate require_ssl (4.6) [#1842](https://github.com/AlchemyCMS/alchemy_cms/pull/1842) ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate url_nesting configuration (4.6) [#1841](https://github.com/AlchemyCMS/alchemy_cms/pull/1841) ([tvdeyen](https://github.com/tvdeyen))
+- Allow page visible toggle (4.6) [#1838](https://github.com/AlchemyCMS/alchemy_cms/pull/1838) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.5.0 (2020-03-30)
 
 - Sortable menus [#1758](https://github.com/AlchemyCMS/alchemy_cms/pull/1758) ([mamhoff](https://github.com/mamhoff))
