@@ -48,6 +48,14 @@ module Alchemy
       respond_with @page
     end
 
+    def move
+      @page = Page.find(params[:id])
+      authorize! :move, @page
+      target_parent_page = Page.find(params[:target_parent_id])
+      @page.move_to_child_with_index(target_parent_page, params[:new_position])
+      render json: { url_path: @page.url_path }
+    end
+
     private
 
     def load_page

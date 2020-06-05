@@ -145,6 +145,9 @@ Alchemy::Engine.routes.draw do
       collection do
         get :nested
       end
+      member do
+        patch :move
+      end
     end
 
     get "/pages/*urlname(.:format)" => "pages#show", as: "page"

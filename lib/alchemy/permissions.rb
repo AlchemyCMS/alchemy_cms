@@ -151,6 +151,7 @@ module Alchemy
           :order,
           :sort,
           :switch_language,
+          :move,
         ], Alchemy::Page
 
         # Resources which may be locked via template permissions

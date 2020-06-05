@@ -177,6 +177,7 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:flush, Alchemy::Page)
       is_expected.to be_able_to(:order, Alchemy::Page)
       is_expected.to be_able_to(:sort, Alchemy::Page)
+      is_expected.to be_able_to(:move, Alchemy::Page)
       is_expected.to be_able_to(:switch_language, Alchemy::Page)
     end
 
