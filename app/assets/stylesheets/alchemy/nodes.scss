@@ -48,7 +48,7 @@
     }
   }
 
-  .node_folder {
+  .folder_link {
     cursor: pointer;
   }
 
@@ -112,15 +112,6 @@
       color: #656565;
     }
   }
-}
-
-.nodes_tree-left_images {
-  position: relative;
-  width: 32px;
-  line-height: $sitemap-line-height;
-  float: left;
-  padding: 0 2*$default-padding;
-  text-align: center;
 }
 
 .nodes_tree-right_tools {
