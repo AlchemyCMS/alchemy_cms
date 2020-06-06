@@ -1,26 +1,6 @@
 $sitemap-url-large-width: 250px;
 $sitemap-url-xlarge-width: 350px;
 
-#sort_panel {
-  background: $light-gray;
-  padding: 47px 0 8px 0;
-  position: fixed;
-  top: 29px;
-  left: 0;
-  z-index: 1;
-  width: 100%;
-  border-bottom: $default-border;
-
-  div.info {
-    margin: 16px 12px 8px 163px;
-  }
-
-  .buttons {
-    margin: 0 12px 0 163px;
-    text-align: right;
-  }
-}
-
 #sitemap-wrapper {
   position: relative;
   min-height: calc(100vh - 96px);
@@ -145,14 +125,6 @@ li:not(.page_level_0) .sitemap_left_images {
 
 #sitemap {
   padding: 0 0 104px 0;
-
-  &.sorting {
-    padding-top: 100px;
-
-    .page_icon {
-      cursor: move;
-    }
-  }
 
   .page_folder {
     position: absolute;

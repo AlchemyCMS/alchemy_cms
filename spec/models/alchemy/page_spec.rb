@@ -1569,41 +1569,6 @@ module Alchemy
       end
     end
 
-    describe "#update_node!" do
-      let(:original_url) { "sample-url" }
-      let(:page) { create(:alchemy_page, language: language, parent: language_root, urlname: original_url, restricted: false) }
-      let(:node) { TreeNode.new(10, 11, 12, 13, "another-url", true) }
-
-      it "should update all attributes" do
-        page.update_node!(node)
-        page.reload
-        expect(page.lft).to eq(node.left)
-        expect(page.rgt).to eq(node.right)
-        expect(page.parent_id).to eq(node.parent)
-        expect(page.depth).to eq(node.depth)
-        expect(page.urlname).to eq(node.url)
-        expect(page.restricted).to eq(node.restricted)
-      end
-
-      context "when url is the same" do
-        let(:node) { TreeNode.new(10, 11, 12, 13, original_url, true) }
-
-        it "should not create a legacy url" do
-          page.update_node!(node)
-          page.reload
-          expect(page.legacy_urls.size).to eq(0)
-        end
-      end
-
-      context "when url is not the same" do
-        it "should create a legacy url" do
-          page.update_node!(node)
-          page.reload
-          expect(page.legacy_urls.size).to eq(1)
-        end
-      end
-    end
-
     describe "#cache_page?" do
       let(:page) { Page.new(page_layout: "news") }
       subject { page.cache_page? }

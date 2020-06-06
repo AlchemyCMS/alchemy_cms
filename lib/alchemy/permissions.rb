@@ -148,8 +148,6 @@ module Alchemy
           :copy,
           :copy_language_tree,
           :flush,
-          :order,
-          :sort,
           :switch_language,
           :move,
         ], Alchemy::Page

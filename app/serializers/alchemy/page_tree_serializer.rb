@@ -26,7 +26,7 @@ module Alchemy
         end
 
         # If this page is folded, skip all pages that are on a higher level (further down the tree).
-        if folded && !opts[:full]
+        if folded
           folded_depth = page.depth
         end
 

@@ -1,14 +1,6 @@
 .nodes_tree.list {
   margin: 2em 0;
 
-  &.sorting {
-    padding-top: 100px;
-
-    .page_icon {
-      cursor: move
-    }
-  }
-
   .sitemap_node-level_0 {
 
     > .node_name {

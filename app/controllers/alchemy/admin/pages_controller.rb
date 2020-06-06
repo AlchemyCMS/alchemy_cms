@@ -7,11 +7,11 @@ module Alchemy
 
       helper "alchemy/pages"
 
-      before_action :load_page, except: [:index, :flush, :new, :order, :create, :copy_language_tree, :link, :sort]
+      before_action :load_page, except: [:index, :flush, :new, :create, :copy_language_tree, :link]
 
       authorize_resource class: Alchemy::Page, except: [:index, :tree]
 
-      before_action only: [:index, :tree, :flush, :new, :order, :create, :copy_language_tree] do
+      before_action only: [:index, :tree, :flush, :new, :create, :copy_language_tree] do
         authorize! :index, :alchemy_admin_pages
       end
 
@@ -21,7 +21,7 @@ module Alchemy
         except: [:show]
 
       before_action :set_root_page,
-        only: [:index, :show, :sort, :order]
+        only: [:index, :show]
 
       before_action :run_on_page_layout_callbacks,
         if: :run_on_page_layout_callbacks?,
@@ -188,27 +188,6 @@ module Alchemy
         redirect_to admin_pages_path
       end
 
-      def sort
-        @sorting = true
-      end
-
-      # Receives a JSON object representing a language tree to be ordered
-      # and updates all pages in that language structure to their correct indexes
-      def order
-        neworder = JSON.parse(params[:set])
-        tree = create_tree(neworder, @page_root)
-
-        Alchemy::Page.transaction do
-          tree.each do |key, node|
-            dbitem = Page.find(key)
-            dbitem.update_node!(node)
-          end
-        end
-
-        flash[:notice] = Alchemy.t("Pages order saved")
-        do_redirect_to admin_pages_path
-      end
-
       def flush
         @current_language.pages.flushables.update_all(published_at: Time.current)
         # We need to ensure, that also all layoutpages get the +published_at+ timestamp set,
@@ -232,86 +211,8 @@ module Alchemy
         Page.language_root_for(params[:languages][:old_lang_id])
       end
 
-      # Returns the current left index and the aggregated hash of tree nodes indexed by page id visited so far
-      #
-      # Visits a batch of children nodes, assigns them the correct ordering indexes and spuns recursively the same
-      # procedure on their children, if any
-      #
-      # @param [Array]
-      #   An array of children nodes to be visited
-      # @param [Integer]
-      #   The lft attribute that should be given to the first node in the array
-      # @param [Integer]
-      #   The page id of the parent of this batch of children nodes
-      # @param [Integer]
-      #   The depth at which these children reside
-      # @param [Hash]
-      #   A Hash of TreeNode's indexed by their page ids
-      # @param [String]
-      #   The url for the parent node of these children
-      # @param [Boolean]
-      #   Whether these children reside in a restricted branch according to their ancestors
-      #
-      def visit_nodes(nodes, my_left, parent, depth, tree, url, restricted)
-        nodes.each do |item|
-          my_right = my_left + 1
-          my_restricted = item["restricted"] || restricted
-          urls = process_url(url, item)
-
-          if item["children"]
-            my_right, tree = visit_nodes(item["children"], my_left + 1, item["id"], depth + 1, tree, urls[:children_path], my_restricted)
-          end
-
-          tree[item["id"]] = TreeNode.new(my_left, my_right, parent, depth, urls[:my_urlname], my_restricted)
-          my_left = my_right + 1
-        end
-
-        [my_left, tree]
-      end
-
-      # Returns a Hash of TreeNode's indexed by their page ids
-      #
-      # Grabs the array representing a tree structure of pages passed as a parameter,
-      # visits it and creates a map of TreeNodes indexed by page id featuring Nested Set
-      # ordering information consisting of the left, right, depth and parent_id indexes as
-      # well as a node's url and restricted status
-      #
-      # @param [Array]
-      #   An Array representing a tree of Alchemy::Page's
-      # @param [Alchemy::Page]
-      #   The root page for the language being ordered
-      #
-      def create_tree(items, rootpage)
-        _, tree = visit_nodes(items, rootpage.lft + 1, rootpage.id, rootpage.depth + 1, {}, "", rootpage.restricted)
-        tree
-      end
-
-      # Returns a pair, the path that a given tree node should take, and the path its children should take
-      #
-      # This function will add a node's own slug into their ancestor's path
-      # in order to create the full URL of a node
-      #
-      # @param [String]
-      #   The node's ancestors path
-      # @param [Hash]
-      #   A children node
-      #
-      def process_url(ancestors_path, item)
-        default_urlname = (ancestors_path.blank? ? "" : "#{ancestors_path}/") + item["slug"].to_s
-        { my_urlname: default_urlname, children_path: default_urlname }
-      end
-
       def load_page
         @page = Page.find(params[:id])
-      end
-
-      def pages_from_raw_request
-        request.raw_post.split("&").map do |i|
-          parts = i.split("=")
-          {
-            parts[0].gsub(/[^0-9]/, "") => parts[1],
-          }
-        end
       end
 
       def redirect_path_after_create_page
@@ -360,9 +261,9 @@ module Alchemy
       end
 
       def serialized_page_tree
-        PageTreeSerializer.new(@page, ability: current_ability,
-                                      user: current_alchemy_user,
-                                      full: params[:full] == "true")
+        PageTreeSerializer.new(@page,
+                               ability: current_ability,
+                               user: current_alchemy_user)
       end
     end
   end

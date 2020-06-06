@@ -43,7 +43,6 @@ Alchemy.Sitemap =
 
     request = $.ajax url: @options.url, data:
       id: pageId
-      full: @options.full
 
     request.done (data) ->
       # This will also remove the spinner

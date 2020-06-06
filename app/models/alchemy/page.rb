@@ -416,25 +416,6 @@ module Alchemy
       )
     end
 
-    # Updates an Alchemy::Page based on a new ordering to be applied to it
-    #
-    # Note: Page's urls should not be updated (and a legacy URL created) if nesting is OFF
-    # or if the URL is the same
-    #
-    # @param [TreeNode]
-    #   A tree node with new lft, rgt, depth, url, parent_id and restricted indexes to be updated
-    #
-    def update_node!(node)
-      hash = { lft: node.left, rgt: node.right, parent_id: node.parent, depth: node.depth, restricted: node.restricted }
-
-      if urlname != node.url
-        LegacyPageUrl.create(page_id: id, urlname: urlname)
-        hash[:urlname] = node.url
-      end
-
-      update_columns(hash)
-    end
-
     # Holds an instance of +FixedAttributes+
     def fixed_attributes
       @_fixed_attributes ||= Alchemy::Page::FixedAttributes.new(self)

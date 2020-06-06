@@ -9,7 +9,7 @@
 </div>
 
 <script id="sitemap-template" type="text/x-handlebars-template">
-  <ul id="sitemap" class="list<%= @sorting ? ' sorting' : nil %>">
+  <ul id="sitemap" class="list">
     {{> list}}
   </ul>
 </script>
@@ -25,7 +25,6 @@
    Alchemy.Sitemap.init({
      url: '<%= alchemy.tree_admin_pages_path %>',
      page_root_id: <%= @page_root.id %>,
-     full: <%= full %>,
      ready: function () {
        Alchemy.PageSorter();
      }
