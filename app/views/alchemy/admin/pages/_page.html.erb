@@ -1,4 +1,4 @@
-<li id="page_{{id}}" class="page_level_{{level}} {{page_layout}}" data-slug="{{slug}}" data-restricted="{{restricted}}">
+<li id="page_{{id}}" class="page {{page_layout}}" data-slug="{{slug}}" data-restricted="{{restricted}}" data-id="{{id}}">
   <div class="sitemap_page{{#if locked}} locked{{/if}}" name="{{name}}">
     <div class="sitemap_left_images<% if @sorting %>{{#unless root}} handle{{/unless}}<% end %>">
       <% unless @sorting %>
@@ -172,11 +172,11 @@
       {{/if}}
     </div>
   </div>
-  {{#if children}}
   <% unless @sorting %>{{#unless folded}}<% end %>
-  <ul id="page_{{id}}_children" class="level_{{level}}_children">
-    {{> list}}
+  <ul id="page_{{id}}_children" class="level_{{level}}_children" data-page-id="{{id}}">
+    {{#if children}}
+      {{> list}}
+    {{/if}}
   </ul>
   <% unless @sorting %>{{/unless}}<% end %>
-  {{/if}}
 </li>

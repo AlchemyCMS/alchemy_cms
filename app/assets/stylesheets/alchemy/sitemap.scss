@@ -108,6 +108,10 @@ $sitemap-url-xlarge-width: 350px;
   text-align: center;
 }
 
+li:not(.page_level_0) .sitemap_left_images {
+  cursor: move;
+}
+
 .sitemap_right_tools {
   height: $sitemap-line-height;
   padding: 0 2 * $default-padding;
