@@ -32,7 +32,6 @@ Alchemy::Engine.routes.draw do
       member do
         post :unlock
         post :publish
-        post :fold
         post :visit
         get :configure
         get :preview
@@ -145,6 +144,7 @@ Alchemy::Engine.routes.draw do
       end
       member do
         patch :move
+        patch :fold
       end
     end
 

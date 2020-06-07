@@ -586,33 +586,6 @@ module Alchemy
         end
       end
 
-      describe "#fold" do
-        let(:page) { create(:alchemy_page) }
-
-        before do
-          allow(Page).to receive(:find).and_return(page)
-          allow(page).to receive(:editable_by?).with(user).and_return(true)
-        end
-
-        context "if page is currently not folded" do
-          before { allow(page).to receive(:folded?).and_return(false) }
-
-          it "should fold the page" do
-            expect(page).to receive(:fold!).with(user.id, true).and_return(true)
-            post fold_admin_page_path(page), xhr: true
-          end
-        end
-
-        context "if page is already folded" do
-          before { allow(page).to receive(:folded?).and_return(true) }
-
-          it "should unfold the page" do
-            expect(page).to receive(:fold!).with(user.id, false).and_return(true)
-            post fold_admin_page_path(page), xhr: true
-          end
-        end
-      end
-
       describe "#unlock" do
         subject { post unlock_admin_page_path(page), xhr: true }
 

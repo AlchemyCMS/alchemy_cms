@@ -1,22 +1,6 @@
-<li id="page_{{id}}" class="page {{page_layout}}" data-slug="{{slug}}" data-restricted="{{restricted}}" data-id="{{id}}">
+<li id="page_{{id}}" class="page {{page_layout}}" data-slug="{{slug}}" data-restricted="{{restricted}}" data-id="{{id}}" data-folded="{{folded}}">
   <div class="sitemap_page{{#if locked}} locked{{/if}}" name="{{name}}">
     <div class="sitemap_left_images">
-      {{#unless root_or_leaf}}
-      <%= link_to(
-        alchemy.fold_admin_page_path(page),
-        remote: true,
-        method: :post,
-        class: "page_folder",
-        title: "{{#if folded}}#{Alchemy.t('Show childpages')}{{else}}#{Alchemy.t('Hide childpages')}{{/if}}",
-        id: "fold_button_{{id}}"
-      ) do %>
-        {{#if folded}}
-          <i class="far fa-plus-square fa-fw"></i>
-        {{else}}
-          <i class="far fa-minus-square fa-fw"></i>
-        {{/if}}
-      <% end %>
-      {{/unless}}
       {{#if definition_missing}}
         <%= page_layout_missing_warning %>
       {{else}}
@@ -167,11 +151,9 @@
       {{/if}}
     </div>
   </div>
-  {{#unless folded}}
-  <ul id="page_{{id}}_children" class="level_{{level}}_children" data-page-id="{{id}}">
+  <ul class="children{{#if folded}} folded{{/if}}" data-page-id="{{id}}">
     {{#if children}}
       {{> list}}
     {{/if}}
   </ul>
-  {{/unless}}
 </li>

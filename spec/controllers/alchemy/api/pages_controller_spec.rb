@@ -352,5 +352,93 @@ module Alchemy
         end
       end
     end
+
+    describe "#fold" do
+      let(:page) { create(:alchemy_page) }
+      let(:user) { create(:alchemy_dummy_user, :as_editor) }
+
+      before do
+        allow(Page).to receive(:find).and_return(page)
+        allow(page).to receive(:editable_by?).with(user).and_return(true)
+      end
+
+      subject(:fold) do
+        patch :fold, params: { id: page.id }, format: :json
+      end
+
+      context "with authorized access" do
+        before do
+          authorize_user(user)
+        end
+
+        context "if page is currently not folded" do
+          before { allow(page).to receive(:folded?).and_return(false) }
+
+          it "should fold the page" do
+            expect(page).to receive(:fold!).with(user.id, true).and_return(true)
+            fold
+          end
+        end
+
+        context "if page is already folded" do
+          before { allow(page).to receive(:folded?).and_return(true) }
+
+          it "should unfold the page" do
+            expect(page).to receive(:fold!).with(user.id, false).and_return(true)
+            fold
+          end
+
+          it "returns serialized sub-tree" do
+            fold
+            response_json = JSON.parse(response.body)
+            expect(response_json["pages"]).to eq([
+              {
+                "children" => [],
+                "definition_missing" => false,
+                "folded" => nil,
+                "id" => page.id,
+                "level" => 1,
+                "locked" => false,
+                "locked_notice" => nil,
+                "name" => page.name,
+                "page_layout" => "standard",
+                "permissions" => {
+                  "configure" => true,
+                  "copy" => true,
+                  "create" => true,
+                  "destroy" => true,
+                  "edit_content" => true,
+                  "info" => true,
+                },
+                "public" => false,
+                "restricted" => false,
+                "root" => true,
+                "root_or_leaf" => true,
+                "slug" => page.slug,
+                "status_titles" => {
+                  "public" => "false",
+                  "restricted" => "false",
+                },
+                "url_path" => page.url_path,
+                "urlname" => page.urlname,
+              },
+            ])
+          end
+        end
+      end
+
+      context "with unauthorized access" do
+        before do
+          authorize_user
+        end
+
+        it "returns an unauthorized error" do
+          fold
+          expect(response).to be_forbidden
+          response_json = JSON.parse(response.body)
+          expect(response_json["error"]).to eq("Not authorized")
+        end
+      end
+    end
   end
 end

@@ -142,14 +142,6 @@ module Alchemy
         }
       end
 
-      def fold
-        # @page is fetched via before filter
-        @page.fold!(current_alchemy_user.id, !@page.folded?(current_alchemy_user.id))
-        respond_to do |format|
-          format.js
-        end
-      end
-
       # Leaves the page editing mode and unlocks the page for other users
       def unlock
         # fetching page via before filter

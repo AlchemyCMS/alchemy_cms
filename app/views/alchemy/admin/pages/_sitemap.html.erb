@@ -24,10 +24,7 @@
  $(function() {
    Alchemy.Sitemap.init({
      url: '<%= alchemy.tree_admin_pages_path %>',
-     page_root_id: <%= @page_root.id %>,
-     ready: function () {
-       Alchemy.PageSorter();
-     }
+     page_root_id: <%= @page_root.id %>
    });
  });
 </script>

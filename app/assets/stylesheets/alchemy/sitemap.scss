@@ -82,13 +82,14 @@ $sitemap-url-xlarge-width: 350px;
 .sitemap_left_images {
   position: relative;
   width: 32px;
+  height: $sitemap-line-height;
   line-height: $sitemap-line-height;
   float: left;
   padding: 0 2 * $default-padding;
   text-align: center;
 }
 
-li:not(.page_level_0) .sitemap_left_images {
+li:not(.level_0) .sitemap_left_images .icon {
   cursor: move;
 }
 
@@ -123,13 +124,21 @@ li:not(.page_level_0) .sitemap_left_images {
   }
 }
 
+.folder_link {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  cursor: pointer;
+}
+
 #sitemap {
   padding: 0 0 104px 0;
 
-  .page_folder {
-    position: absolute;
+  .folder_link {
     left: -23px;
-    top: 0;
   }
 
   .placeholder {

@@ -12,7 +12,6 @@ Alchemy.Sitemap =
     @template = Handlebars.compile($('#sitemap-template').html())
     list_template_regexp = new RegExp '\/' + options.page_root_id, 'g'
     list_template_html = $('#sitemap-list').html().replace(list_template_regexp, '/{{id}}')
-    @list_template = Handlebars.compile(list_template_html)
     @items = null
     @options = options
     @watchPagePublicationState()
@@ -23,21 +22,14 @@ Alchemy.Sitemap =
     @fetch()
 
   # Fetches the sitemap from JSON
-  fetch: (foldingId) ->
+  fetch: ->
     self = Alchemy.Sitemap
 
-    if foldingId
-      spinner = new Alchemy.Spinner('small')
-      spinTarget = $('#fold_button_' + foldingId)
-      renderTarget = $('#page_' + foldingId)
-      renderTemplate = @list_template
-      pageId = foldingId
-    else
-      spinner = @options.spinner || new Alchemy.Spinner('medium')
-      spinTarget = @sitemap_wrapper
-      renderTarget = @sitemap_wrapper
-      renderTemplate = @template
-      pageId = @options.page_root_id
+    spinner = @options.spinner || new Alchemy.Spinner('medium')
+    spinTarget = @sitemap_wrapper
+    renderTarget = @sitemap_wrapper
+    renderTemplate = @template
+    pageId = @options.page_root_id
 
     spinner.spin(spinTarget[0])
 
@@ -49,9 +41,7 @@ Alchemy.Sitemap =
       renderTarget.replaceWith(renderTemplate({children: data.pages}))
       self.items = $(".sitemap_page", '#sitemap')
       self._observe()
-
-      if self.options.ready
-        self.options.ready()
+      Alchemy.PageSorter()
 
     request.fail (jqXHR, status) ->
       console.warn("Request failed: " + status)

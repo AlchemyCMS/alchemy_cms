@@ -56,6 +56,17 @@ module Alchemy
       render json: { url_path: @page.url_path }
     end
 
+    def fold
+      @page = Page.find(params[:id])
+      authorize! :fold, @page
+      @page.fold!(current_alchemy_user.id, !@page.folded?(current_alchemy_user.id))
+      render json: PageTreeSerializer.new(
+        @page,
+        ability: current_ability,
+        user: current_alchemy_user,
+      )
+    end
+
     private
 
     def load_page
