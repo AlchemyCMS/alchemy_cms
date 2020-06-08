@@ -32,13 +32,13 @@ module Alchemy
       name_changed? || urlname_changed?
     end
 
-    # Makes a slug of all ancestors urlnames including mine and delimit them be slash.
-    # So the whole path is stored as urlname in the database.
+    # Creates a url-path out of all ancestors slugs including own slug and delimit them by slash.
+    # So the whole url-path is stored in the database.
     def update_urlname!
       new_urlname = nested_url_name
       if urlname != new_urlname
         legacy_urls.create(urlname: urlname)
-        update_column(:urlname, new_urlname)
+        update!(urlname: new_urlname)
       end
     end
 
