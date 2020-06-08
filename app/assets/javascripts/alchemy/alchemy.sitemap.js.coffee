@@ -41,7 +41,7 @@ Alchemy.Sitemap =
       renderTarget.replaceWith(renderTemplate({children: data.pages}))
       self.items = $(".sitemap_page", '#sitemap')
       self._observe()
-      Alchemy.PageSorter()
+      Alchemy.PageTree()
 
     request.fail (jqXHR, status) ->
       console.warn("Request failed: " + status)
