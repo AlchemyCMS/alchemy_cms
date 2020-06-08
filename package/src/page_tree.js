@@ -10,7 +10,7 @@ function initSortable(el) {
     animation: 150,
     fallbackOnBody: true,
     swapThreshold: 0.65,
-    handle: ".sitemap_left_images",
+    handle: ".sitemap_sitename",
     invertSwap: true,
     onEnd: onFinishDragging
   })

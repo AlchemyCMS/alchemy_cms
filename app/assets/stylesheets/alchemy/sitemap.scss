@@ -7,9 +7,7 @@ $sitemap-url-xlarge-width: 350px;
 }
 
 .sitemap_pagename_link {
-  display: block;
-  padding: 0 10px;
-  margin: 2px;
+  margin: 2px 12px;
   text-decoration: none;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -70,7 +68,7 @@ $sitemap-url-xlarge-width: 350px;
 
 .sitemap_sitename {
   @include border-left-radius($default-border-radius);
-  line-height: $sitemap-line-height - 4;
+  line-height: $sitemap-line-height;
   overflow: hidden;
   background-color: $sitemap-page-background-color;
 
@@ -89,7 +87,7 @@ $sitemap-url-xlarge-width: 350px;
   text-align: center;
 }
 
-li:not(.level_0) .sitemap_left_images .icon {
+li:not(.level_0) .sitemap_sitename {
   cursor: move;
 }
 
