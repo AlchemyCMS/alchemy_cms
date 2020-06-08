@@ -53,7 +53,11 @@ module Alchemy
       authorize! :move, @page
       target_parent_page = Page.find(params[:target_parent_id])
       @page.move_to_child_with_index(target_parent_page, params[:new_position])
-      render json: { url_path: @page.url_path }
+      render json: PageTreeSerializer.new(
+        @page,
+        ability: current_ability,
+        user: current_alchemy_user,
+      )
     end
 
     def fold

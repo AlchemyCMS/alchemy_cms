@@ -16,17 +16,18 @@ function initSortable(el) {
   })
 }
 
+function subTreeHTML(children) {
+  const template_markup = document
+    .getElementById("sitemap-list")
+    .innerHTML.replace(/\/\d+/, "/{{id}}")
+  const treeTemplate = Handlebars.compile(template_markup)
+  return treeTemplate({ children })
+}
+
 function afterFold(responseData, list) {
   const page = responseData.pages[0]
   if (page.children.length > 0) {
-    const template_markup = document
-      .getElementById("sitemap-list")
-      .innerHTML.replace(/\/\d+/, "/{{id}}")
-    const treeTemplate = Handlebars.compile(template_markup)
-    const children = document
-      .createRange()
-      .createContextualFragment(treeTemplate({ children: page.children }))
-    list.appendChild(children)
+    list.innerHTML = subTreeHTML(page.children)
   } else {
     list.innerHTML = ""
   }
@@ -41,14 +42,16 @@ function onFinishDragging(evt) {
     target_parent_id: evt.to.dataset.pageId,
     new_position: evt.newIndex
   }
+  const parent = evt.item.parentNode
 
   ajax("PATCH", url, data)
     .then((response) => {
       const data = response.data
       const message = Alchemy.t("Successfully moved page")
-      const url_path = evt.item.querySelector(".sitemap_url a")
-      url_path.setAttribute("href", data.url_path)
-      url_path.innerHTML = data.url_path
+      evt.item.outerHTML = subTreeHTML(data.pages)
+      parent.querySelectorAll(".children").forEach((el) => {
+        initSortable(el)
+      })
       Alchemy.growl(message)
       updateFolderLinks(pageSelector)
     })
