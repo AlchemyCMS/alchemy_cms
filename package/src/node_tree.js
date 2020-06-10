@@ -32,11 +32,11 @@ export default function NodeTree() {
   document.querySelectorAll(".nodes_tree ul.children").forEach((el) => {
     new Sortable(el, {
       group: "nodes",
-      animation: 150,
+      animation: 100,
       fallbackOnBody: true,
-      swapThreshold: 0.65,
+      swapThreshold: 0.8,
+      direction: "horizontal",
       handle: ".node_name",
-      invertSwap: true,
       onEnd: onFinishDragging
     })
   })

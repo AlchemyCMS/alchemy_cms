@@ -7,11 +7,11 @@ const pageSelector = "li.page"
 function initSortable(el) {
   new Sortable(el, {
     group: "pages",
-    animation: 150,
+    animation: 100,
     fallbackOnBody: true,
-    swapThreshold: 0.65,
+    swapThreshold: 0.8,
+    direction: "horizontal",
     handle: ".sitemap_sitename",
-    invertSwap: true,
     onEnd: onFinishDragging
   })
 }
