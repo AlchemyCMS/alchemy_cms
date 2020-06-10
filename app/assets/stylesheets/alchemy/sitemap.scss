@@ -151,11 +151,10 @@ li:not(.level_0) .sitemap_sitename {
   }
 
   li {
-    padding-left: 0;
+    margin-left: 0;
 
     li {
-      padding-left: $sitemap-line-height;
-      padding-right: 0;
+      margin-left: $sitemap-line-height;
     }
   }
 }
@@ -240,4 +239,9 @@ li:not(.level_0) .sitemap_sitename {
       cursor: default;
     }
   }
+}
+
+.sortable-ghost {
+  background-color: $light-blue;
+  border-radius: $default-border-radius;
 }

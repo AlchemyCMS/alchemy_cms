@@ -59,10 +59,10 @@
 
   li {
     line-height: $sitemap-line-height;
-    padding-left: $default-padding;
+    margin-left: $default-padding;
 
     li {
-      padding-left: $sitemap-line-height;
+      margin-left: $sitemap-line-height;
     }
   }
 }
