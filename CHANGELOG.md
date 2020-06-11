@@ -1,5 +1,6 @@
 ## 5.0.0 (unreleased)
 
+- Fix Page tree sorting after root page removal [#1876](https://github.com/AlchemyCMS/alchemy_cms/pull/1876) ([tvdeyen](https://github.com/tvdeyen))
 - 5.0 Upgrader fixes [#1874](https://github.com/AlchemyCMS/alchemy_cms/pull/1874) ([tvdeyen](https://github.com/tvdeyen))
 - Remove url_nesting config [#1872](https://github.com/AlchemyCMS/alchemy_cms/pull/1872) ([tvdeyen](https://github.com/tvdeyen))
 - [ruby] Upgrade sassc to version 2.4.0 [#1871](https://github.com/AlchemyCMS/alchemy_cms/pull/1871) ([depfu](https://github.com/apps/depfu))
