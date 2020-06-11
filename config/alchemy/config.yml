@@ -55,6 +55,16 @@ items_per_page: 15
 #   auth:
 #     username: <%= ENV["BASIC_AUTH_USERNAME"] %>
 #     password: <%= ENV["BASIC_AUTH_PASSWORD"] %>
+#
+# Preview config per site is supported as well.
+#
+# preview:
+#   My site name:
+#     host: https://www.my-static-site.com
+#     auth:
+#       username: <%= ENV["BASIC_AUTH_USERNAME"] %>
+#       password: <%= ENV["BASIC_AUTH_PASSWORD"] %>
+#
 
 # === Picture rendering settings
 #
