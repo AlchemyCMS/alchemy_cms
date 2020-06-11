@@ -19,16 +19,28 @@ module Alchemy
     #         username: <%= ENV["BASIC_AUTH_USERNAME"] %>
     #         password: <%= ENV["BASIC_AUTH_PASSWORD"] %>
     #
+    # Preview config per site is supported as well.
+    #
+    # == Example config/alchemy/config.yml
+    #
+    #     preview:
+    #       My site name:
+    #         host: https://www.my-static-site.com
+    #         auth:
+    #           username: <%= ENV["BASIC_AUTH_USERNAME"] %>
+    #           password: <%= ENV["BASIC_AUTH_PASSWORD"] %>
+    #
     class PreviewUrl
       class MissingProtocolError < StandardError; end
 
       def initialize(routes:)
         @routes = routes.url_helpers
-        @preview_config = Alchemy::Config.get(:preview)
       end
 
       def url_for(page)
-        if preview_config
+        @preview_config = preview_config_for(page)
+
+        if @preview_config && uri
           uri_class.build(
             host: uri.host,
             path: "/#{page.urlname}",
@@ -41,10 +53,19 @@ module Alchemy
 
       private
 
-      attr_reader :preview_config, :routes
+      attr_reader :routes
+
+      def preview_config_for(page)
+        preview_config = Alchemy::Config.get(:preview)
+        return unless preview_config
+
+        preview_config[page.site.name] || preview_config
+      end
 
       def uri
-        URI(preview_config["host"])
+        return unless @preview_config["host"]
+
+        URI(@preview_config["host"])
       end
 
       def uri_class
@@ -56,7 +77,7 @@ module Alchemy
       end
 
       def userinfo
-        auth = preview_config["auth"]
+        auth = @preview_config["auth"]
         auth ? "#{auth["username"]}:#{auth["password"]}" : nil
       end
     end

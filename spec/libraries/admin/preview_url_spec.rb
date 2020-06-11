@@ -70,6 +70,57 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
           is_expected.to eq "https://foo:baz@www.example.com/#{page.urlname}"
         end
       end
+
+      context "for a site" do
+        before do
+          stub_alchemy_config(:preview, config)
+        end
+
+        context "that matches the pages site name" do
+          let(:config) do
+            {
+              page.site.name => {
+                "host" => "http://new.example.com",
+              },
+            }
+          end
+
+          it "returns the configured preview url for that site" do
+            is_expected.to eq "http://new.example.com/#{page.urlname}"
+          end
+        end
+
+        context "that does not match the pages site name" do
+          context "with a default configured" do
+            let(:config) do
+              {
+                "Not matching site name" => {
+                  "host" => "http://new.example.com",
+                },
+                "host" => "http://www.example.com",
+              }
+            end
+
+            it "returns the default configured preview url" do
+              is_expected.to eq "http://www.example.com/#{page.urlname}"
+            end
+          end
+
+          context "without a default configured" do
+            let(:config) do
+              {
+                "Not matching site name" => {
+                  "host" => "http://new.example.com",
+                },
+              }
+            end
+
+            it "returns the internal preview url" do
+              is_expected.to eq "/admin/pages/#{page.id}"
+            end
+          end
+        end
+      end
     end
   end
 end
