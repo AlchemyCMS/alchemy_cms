@@ -121,6 +121,20 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
           end
         end
       end
+
+      context "with page being the language root page" do
+        let(:page) { create(:alchemy_page, :language_root) }
+
+        before do
+          stub_alchemy_config(:preview, {
+            "host" => "https://www.example.com",
+          })
+        end
+
+        it "returns the preview url without urlname" do
+          is_expected.to eq "https://www.example.com/"
+        end
+      end
     end
   end
 end

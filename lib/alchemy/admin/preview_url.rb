@@ -43,7 +43,7 @@ module Alchemy
         if @preview_config && uri
           uri_class.build(
             host: uri.host,
-            path: "/#{page.urlname}",
+            path: page.url_path,
             userinfo: userinfo,
           ).to_s
         else
