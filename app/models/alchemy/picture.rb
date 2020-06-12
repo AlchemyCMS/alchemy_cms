@@ -112,6 +112,20 @@ module Alchemy
     # Class methods
 
     class << self
+      # The class used to generate URLs for pictures
+      #
+      # @see Alchemy::Picture::Url
+      def url_class
+        @_url_class ||= Alchemy::Picture::Url
+      end
+
+      # Set a different picture url class
+      #
+      # @see Alchemy::Picture::Url
+      def url_class=(klass)
+        @_url_class = klass
+      end
+
       def searchable_alchemy_resource_attributes
         %w(name image_file_name)
       end
@@ -168,7 +182,7 @@ module Alchemy
     def url(options = {})
       variant = PictureVariant.new(self).call(options.slice(*TRANSFORMATION_OPTIONS))
       if variant
-        Url.new(variant).call(options.except(*TRANSFORMATION_OPTIONS).merge(name: name))
+        self.class.url_class.new(variant).call(options.except(*TRANSFORMATION_OPTIONS).merge(name: name))
       end
     end
 
