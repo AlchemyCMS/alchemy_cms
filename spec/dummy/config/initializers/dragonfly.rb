@@ -18,7 +18,7 @@ Dragonfly.app(:alchemy_pictures).configure do
   plugin :imagemagick
   plugin :svg
   secret "976ee38cf5e6d65dbf58f1d355825ba33239ab7a76a432818cd592526e9c78b5"
-  url_format "/pictures/:job/:name.:ext"
+  url_format "/pictures/:job/:basename.:ext"
 
   datastore :file,
     root_path: Rails.root.join("uploads/pictures").to_s,

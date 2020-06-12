@@ -182,7 +182,13 @@ module Alchemy
     def url(options = {})
       variant = PictureVariant.new(self).call(options.slice(*TRANSFORMATION_OPTIONS))
       if variant
-        self.class.url_class.new(variant).call(options.except(*TRANSFORMATION_OPTIONS).merge(name: name))
+        self.class.url_class.new(variant).call(
+          options.except(*TRANSFORMATION_OPTIONS).merge(
+            basename: name,
+            ext: variant.ext,
+            name: name,
+          )
+        )
       end
     end
 
