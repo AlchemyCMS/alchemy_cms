@@ -278,6 +278,65 @@ module Alchemy
       end
     end
 
+    describe "#url" do
+      subject(:url) { picture.url(options) }
+
+      let(:image) do
+        fixture_file_upload(
+          File.expand_path("../../fixtures/500x500.png", __dir__),
+          "image/png",
+        )
+      end
+
+      let(:picture) do
+        create(:alchemy_picture, image_file: image)
+      end
+
+      let(:options) { Hash.new }
+
+      it "includes the name and render format" do
+        expect(url).to match /\/#{picture.name}\.#{picture.default_render_format}/
+      end
+
+      context "when no image is present" do
+        before do
+          expect(picture).to receive(:image_file) { nil }
+        end
+
+        it "returns nil" do
+          expect(url).to be_nil
+        end
+      end
+
+      context "when options are passed" do
+        context "that are transformation options" do
+          let(:options) do
+            {
+              crop: true,
+              size: "10x10",
+            }
+          end
+
+          it "does not pass them to the URL" do
+            expect(url).to_not match /crop/
+          end
+        end
+
+        context "that are params" do
+          let(:options) do
+            {
+              page: 1,
+              per_page: 10,
+            }
+          end
+
+          it "passes them to the URL" do
+            expect(url).to match /page=1/
+          end
+        end
+      end
+    end
+
     describe "#urlname" do
       subject { picture.urlname }
 
