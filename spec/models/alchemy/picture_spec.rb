@@ -4,10 +4,6 @@ require "rails_helper"
 
 module Alchemy
   describe Picture do
-    it_behaves_like "has image transformations" do
-      let(:picture) { build_stubbed(:alchemy_picture) }
-    end
-
     let :image_file do
       File.new(File.expand_path("../../fixtures/image.png", __dir__))
     end
