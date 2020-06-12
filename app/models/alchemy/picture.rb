@@ -30,11 +30,21 @@ module Alchemy
 
     CONVERTIBLE_FILE_FORMATS = %w(gif jpg jpeg png).freeze
 
+    TRANSFORMATION_OPTIONS = [
+      :crop,
+      :crop_from,
+      :crop_size,
+      :flatten,
+      :format,
+      :quality,
+      :size,
+      :upsample,
+    ]
+
     include Alchemy::NameConversions
     include Alchemy::Taggable
     include Alchemy::TouchElements
     include Alchemy::Picture::Transformations
-    include Alchemy::Picture::Url
 
     has_many :essence_pictures,
       class_name: "Alchemy::EssencePicture",
@@ -144,6 +154,24 @@ module Alchemy
     end
 
     # Instance methods
+
+    # Returns an url (or relative path) to a processed image for use inside an image_tag helper.
+    #
+    # Any additional options are passed to the url method, so you can add params to your url.
+    #
+    # Example:
+    #
+    #   <%= image_tag picture.url(size: '320x200', format: 'png') %>
+    #
+    # @see Alchemy::PictureVariant#call for transformation options
+    # @see Alchemy::Picture::Url#call for url options
+    # @return [String|Nil]
+    def url(options = {})
+      variant = PictureVariant.new(self).call(options.slice(*TRANSFORMATION_OPTIONS))
+      if variant
+        Url.new(variant).call(options.except(*TRANSFORMATION_OPTIONS).merge(name: name))
+      end
+    end
 
     def previous(params = {})
       query = Picture.ransack(params[:q])

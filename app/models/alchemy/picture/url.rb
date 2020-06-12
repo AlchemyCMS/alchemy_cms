@@ -1,31 +1,26 @@
 # frozen_string_literal: true
 
 module Alchemy
-  module Picture::Url
-    TRANSFORMATION_OPTIONS = [
-      :crop,
-      :crop_from,
-      :crop_size,
-      :flatten,
-      :format,
-      :quality,
-      :size,
-      :upsample,
-    ]
+  class Picture < BaseRecord
+    class Url
+      attr_reader :variant
 
-    # Returns a path to picture for use inside a image_tag helper.
-    #
-    # Any additional options are passed to the url_helper, so you can add arguments to your url.
-    #
-    # Example:
-    #
-    #   <%= image_tag picture.url(size: '320x200', format: 'png') %>
-    #
-    def url(options = {})
-      variant = PictureVariant.new(self).call(options)
+      # @param [Alchemy::PictureVariant]
+      #
+      def initialize(variant)
+        raise ArgumentError, "Variant missing!" if variant.nil?
 
-      if variant
-        variant.url(options.except(*TRANSFORMATION_OPTIONS).merge(name: name))
+        @variant = variant
+      end
+
+      # The URL to a variant of a picture
+      #
+      # @param [Hash] params URL params
+      #
+      # @return [String]
+      #
+      def call(params = {})
+        variant.url(params)
       end
     end
   end
