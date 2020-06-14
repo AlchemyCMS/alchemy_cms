@@ -24,14 +24,6 @@ module Alchemy
 
     # @param [Alchemy::Picture]
     #
-    def initialize(picture)
-      raise ArgumentError, "Picture missing!" if picture.nil?
-
-      @picture = picture
-    end
-
-    # Get a variant of given picture
-    #
     # @param [Hash] options passed to the image processor
     # @option options [Boolean] :crop Pass true to enable cropping
     # @option options [String] :crop_from Coordinates to start cropping from
@@ -42,18 +34,27 @@ module Alchemy
     # @option options [String] :size Size of resulting image in WxH
     # @option options [Boolean] :upsample Pass true to upsample (grow) an image if the original size is lower than the resulting size
     #
-    # @return [Dragonfly::Attachment] The processed image variant
+    def initialize(picture, options = {})
+      raise ArgumentError, "Picture missing!" if picture.nil?
+
+      @picture = picture
+      @options = options
+    end
+
+    # Process a variant of picture
     #
-    def call(options = {})
+    # @return [Dragonfly::Attachment|Dragonfly::Job] The processed image variant
+    #
+    def image
       image = image_file
 
       raise MissingImageFileError, "Missing image file for #{picture.inspect}" if image.nil?
 
-      image = processed_image(image, options)
-      image = encoded_image(image, options)
+      image = processed_image(image, @options)
+      image = encoded_image(image, @options)
       image
     rescue MissingImageFileError, WrongImageFormatError => e
-      log_warning e.message
+      log_warning(e.message)
       nil
     end
 

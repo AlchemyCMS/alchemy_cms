@@ -3,6 +3,8 @@
 module Alchemy
   class Picture < BaseRecord
     class Url
+      include Alchemy::Logger
+
       attr_reader :variant
 
       # @param [Alchemy::PictureVariant]
@@ -20,7 +22,13 @@ module Alchemy
       # @return [String]
       #
       def call(params = {})
-        variant.url(params)
+        # Lazy load the processed image
+        image = variant.image
+        # Get URL from local dragonfly server
+        image.url(params)
+      rescue ::Dragonfly::Job::Fetch::NotFound => e
+        log_warning(e.message)
+        "/missing-image.jpg"
       end
     end
   end

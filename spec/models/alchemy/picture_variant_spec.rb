@@ -13,7 +13,7 @@ RSpec.describe Alchemy::PictureVariant do
     let(:picture) { described_class.new(alchemy_picture) }
   end
 
-  subject { described_class.new(alchemy_picture).call(options) }
+  subject { described_class.new(alchemy_picture, options).image }
 
   let(:options) { Hash.new }
 

@@ -180,16 +180,16 @@ module Alchemy
     # @see Alchemy::Picture::Url#call for url options
     # @return [String|Nil]
     def url(options = {})
-      variant = PictureVariant.new(self).call(options.slice(*TRANSFORMATION_OPTIONS))
-      if variant
-        self.class.url_class.new(variant).call(
-          options.except(*TRANSFORMATION_OPTIONS).merge(
-            basename: name,
-            ext: variant.ext,
-            name: name,
-          )
+      return unless image_file
+
+      variant = PictureVariant.new(self, options.slice(*TRANSFORMATION_OPTIONS))
+      self.class.url_class.new(variant).call(
+        options.except(*TRANSFORMATION_OPTIONS).merge(
+          basename: name,
+          ext: suffix,
+          name: name,
         )
-      end
+      )
     end
 
     def previous(params = {})
