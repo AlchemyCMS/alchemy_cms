@@ -22,6 +22,12 @@
 
 module Alchemy
   class Picture < BaseRecord
+    THUMBNAIL_SIZES = {
+      small: "80x60",
+      medium: "160x120",
+      large: "240x180",
+    }.with_indifferent_access.freeze
+
     CONVERTIBLE_FILE_FORMATS = %w(gif jpg jpeg png).freeze
 
     include Alchemy::NameConversions
