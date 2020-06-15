@@ -13,7 +13,7 @@ module Alchemy
     include Alchemy::Logger
     include Alchemy::Picture::Transformations
 
-    attr_reader :picture
+    attr_reader :picture, :render_format
 
     def_delegators :@picture,
       :image_file,
@@ -39,6 +39,7 @@ module Alchemy
 
       @picture = picture
       @options = options
+      @render_format = options[:format] || picture.default_render_format
     end
 
     # Process a variant of picture
@@ -80,21 +81,19 @@ module Alchemy
     # Can be overwritten via +options[:flatten]+.
     #
     def encoded_image(image, options = {})
-      target_format = options[:format] || picture.default_render_format
-
-      unless target_format.in?(Alchemy::Picture.allowed_filetypes)
-        raise WrongImageFormatError.new(self, target_format)
+      unless render_format.in?(Alchemy::Picture.allowed_filetypes)
+        raise WrongImageFormatError.new(picture, @render_format)
       end
 
       options = {
-        flatten: target_format != "gif" && picture.image_file_format == "gif",
+        flatten: render_format != "gif" && picture.image_file_format == "gif",
       }.with_indifferent_access.merge(options)
 
       encoding_options = []
 
-      convert_format = target_format != picture.image_file_format.sub("jpeg", "jpg")
+      convert_format = render_format != picture.image_file_format.sub("jpeg", "jpg")
 
-      if target_format =~ /jpe?g/ && convert_format
+      if render_format =~ /jpe?g/ && convert_format
         quality = options[:quality] || Config.get(:output_image_jpg_quality)
         encoding_options << "-quality #{quality}"
       end
@@ -106,7 +105,7 @@ module Alchemy
       convertion_needed = convert_format || encoding_options.present?
 
       if picture.has_convertible_format? && convertion_needed
-        image = image.encode(target_format, encoding_options.join(" "))
+        image = image.encode(render_format, encoding_options.join(" "))
       end
 
       image

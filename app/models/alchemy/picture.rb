@@ -186,7 +186,7 @@ module Alchemy
       self.class.url_class.new(variant).call(
         options.except(*TRANSFORMATION_OPTIONS).merge(
           basename: name,
-          ext: suffix,
+          ext: variant.render_format,
           name: name,
         )
       )
