@@ -53,9 +53,8 @@ module Alchemy
     # Enables Dragonfly image processing
     dragonfly_accessor :image_file, app: :alchemy_pictures do
       # Preprocess after uploading the picture
-      after_assign do |p|
-        resize = Config.get(:preprocess_image_resize)
-        p.thumb!(resize) if resize.present?
+      after_assign do |image|
+        Preprocessor.new(image).call
       end
     end
 
