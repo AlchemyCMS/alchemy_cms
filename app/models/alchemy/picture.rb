@@ -50,11 +50,25 @@ module Alchemy
       raise PictureInUseError, Alchemy.t(:cannot_delete_picture_notice) % { name: name }
     end
 
+    # Image preprocessing class
+    def self.preprocessor_class
+      @_preprocessor_class ||= Preprocessor
+    end
+
+    # Set a image preprocessing class
+    #
+    #     # config/initializers/alchemy.rb
+    #     Alchemy::Picture.preprocessor_class = My::ImagePreprocessor
+    #
+    def self.preprocessor_class=(klass)
+      @_preprocessor_class = klass
+    end
+
     # Enables Dragonfly image processing
     dragonfly_accessor :image_file, app: :alchemy_pictures do
       # Preprocess after uploading the picture
       after_assign do |image|
-        Preprocessor.new(image).call
+        self.class.preprocessor_class.new(image).call
       end
     end
 
