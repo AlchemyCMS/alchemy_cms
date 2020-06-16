@@ -4,12 +4,10 @@ module Alchemy
   module Admin
     module PicturesHelper
       def preview_size(size)
-        case size
-        when "small" then "80x60"
-        when "large" then "240x180"
-        else
-          "160x120"
-        end
+        Alchemy::Picture::THUMBNAIL_SIZES.fetch(
+          size,
+          Alchemy::Picture::THUMBNAIL_SIZES[:medium]
+        )
       end
     end
   end
