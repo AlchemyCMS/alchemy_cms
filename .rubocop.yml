@@ -227,7 +227,7 @@ Style/StringLiteralsInInterpolation:
   EnforcedStyle: double_quotes
 
 Style/TrailingCommaInArguments:
-  EnforcedStyleForMultiline: comma
+  Enabled: false
 
 Style/TrailingCommaInArrayLiteral:
   EnforcedStyleForMultiline: comma
