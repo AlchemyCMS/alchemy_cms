@@ -40,3 +40,4 @@ yarn-error.log
 yarn-debug.log*
 .yarn-integrity
 yarn.lock
+/spec/dummy/public/pictures

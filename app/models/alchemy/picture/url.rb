@@ -3,6 +3,8 @@
 module Alchemy
   class Picture < BaseRecord
     class Url
+      MISSING_IMAGE = "missing-image.jpg"
+
       include Alchemy::Logger
 
       attr_reader :variant
@@ -17,18 +19,33 @@ module Alchemy
 
       # The URL to a variant of a picture
       #
-      # @param [Hash] params URL params
-      #
       # @return [String]
       #
       def call(params = {})
-        # Lazy load the processed image
-        image = variant.image
-        # Get URL from local dragonfly server
-        image.url(params)
+        return variant.image.url(params) unless processible_image?
+
+        "/#{uid}"
+      end
+
+      private
+
+      def processible_image?
+        variant.image.is_a?(::Dragonfly::Job)
+      end
+
+      def uid
+        signature = PictureThumb::Signature.call(variant)
+        thumb = PictureThumb.find_by(signature: signature)
+        if thumb
+          uid = thumb.uid
+        else
+          uid = PictureThumb::Uid.call(signature, variant)
+          PictureThumb::Create.call(variant, signature, uid)
+        end
+        uid
       rescue ::Dragonfly::Job::Fetch::NotFound => e
         log_warning(e.message)
-        "/missing-image.jpg"
+        MISSING_IMAGE
       end
     end
   end

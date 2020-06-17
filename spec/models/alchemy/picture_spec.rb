@@ -324,6 +324,10 @@ module Alchemy
           it "does not pass them to the URL" do
             expect(url).to_not match /crop/
           end
+
+          it "returns the url to the thumbnail" do
+            is_expected.to match(/\/pictures\/\d+\/.+\/500x500\.png/)
+          end
         end
 
         context "that are params" do
