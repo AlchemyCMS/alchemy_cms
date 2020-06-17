@@ -40,7 +40,7 @@ module Alchemy
           uid = thumb.uid
         else
           uid = PictureThumb::Uid.call(signature, variant)
-          PictureThumb::Create.call(variant, signature, uid)
+          PictureThumb.generator_class.call(variant, signature, uid)
         end
         uid
       rescue ::Dragonfly::Job::Fetch::NotFound => e

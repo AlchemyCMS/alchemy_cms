@@ -14,5 +14,44 @@ module Alchemy
 
     validates :signature, presence: true
     validates :uid, presence: true
+
+    class << self
+      # Thumbnail generator class
+      #
+      # @see Alchemy::PictureThumb::Create
+      def generator_class
+        @_generator_class ||= Alchemy::PictureThumb::Create
+      end
+
+      # Set a thumbnail generator class
+      #
+      # @see Alchemy::PictureThumb::Create
+      def generator_class=(klass)
+        @_generator_class = klass
+      end
+
+      # Upfront generation of picture thumbnails
+      #
+      # Called after a Alchemy::Picture has been created (after an image has been uploaded)
+      #
+      # Generates three types of thumbnails that are used by Alchemys picture archive and
+      # persists them in the configures file store (Default Dragonfly::FileDataStore).
+      #
+      # @see Picture::THUMBNAIL_SIZES
+      def generate_thumbs!(picture)
+        Alchemy::Picture::THUMBNAIL_SIZES.values.each do |size|
+          variant = Alchemy::PictureVariant.new(picture, {
+            size: size,
+            flatten: true,
+          })
+          signature = Alchemy::PictureThumb::Signature.call(variant)
+          thumb = find_by(signature: signature)
+          next if thumb
+
+          uid = Alchemy::PictureThumb::Uid.call(signature, variant)
+          generator_class.call(variant, signature, uid)
+        end
+      end
+    end
   end
 end

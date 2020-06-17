@@ -89,6 +89,9 @@ module Alchemy
       end
     end
 
+    # Create important thumbnails upfront
+    after_create -> { PictureThumb.generate_thumbs!(self) }
+
     # We need to define this method here to have it available in the validations below.
     class << self
       def allowed_filetypes

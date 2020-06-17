@@ -14,6 +14,12 @@ module Alchemy
 
     it { is_expected.to have_many(:thumbs).class_name("Alchemy::PictureThumb") }
 
+    it "generates thumbnails after create" do
+      expect {
+        create(:alchemy_picture)
+      }.to change { Alchemy::PictureThumb.count }.by(3)
+    end
+
     it "is valid with valid attributes" do
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
