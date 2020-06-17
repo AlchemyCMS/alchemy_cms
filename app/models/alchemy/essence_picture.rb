@@ -140,7 +140,7 @@ module Alchemy
     # Show image cropping link for content
     def allow_image_cropping?
       content && content.settings[:crop] && picture &&
-        picture.can_be_cropped_to(
+        picture.can_be_cropped_to?(
           content.settings[:size],
           content.settings[:upsample],
         ) && !!picture.image_file

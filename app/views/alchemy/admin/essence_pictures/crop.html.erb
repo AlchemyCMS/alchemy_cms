@@ -34,7 +34,7 @@
   $('#imageToCrop').load(function() {
     Alchemy.ImageCropper.init(
        <%= @initial_box.values.to_json %>,
-      <% if @essence_picture.can_be_cropped_to("#{@min_size[:width]}x#{@min_size[:height]}") %>
+      <% if @picture.can_be_cropped_to?("#{@min_size[:width]}x#{@min_size[:height]}") %>
         <%= @min_size.values.to_json %>,
       <% else %>
         <%= false %>,

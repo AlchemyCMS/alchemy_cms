@@ -24,6 +24,7 @@ require "alchemy/test_support/shared_contexts"
 require "alchemy/test_support/shared_uploader_examples"
 
 require_relative "factories"
+require_relative "support/calculation_examples.rb"
 require_relative "support/hint_examples.rb"
 require_relative "support/transformation_examples.rb"
 require_relative "support/capybara_helpers.rb"

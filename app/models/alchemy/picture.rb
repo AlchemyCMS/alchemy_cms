@@ -44,6 +44,7 @@ module Alchemy
     include Alchemy::NameConversions
     include Alchemy::Taggable
     include Alchemy::TouchElements
+    include Calculations
 
     has_many :essence_pictures,
       class_name: "Alchemy::EssencePicture",

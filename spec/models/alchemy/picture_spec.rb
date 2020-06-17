@@ -10,6 +10,8 @@ module Alchemy
 
     let(:picture) { Picture.new }
 
+    it_behaves_like "has image calculations"
+
     it "is valid with valid attributes" do
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
