@@ -21,6 +21,7 @@ module Alchemy
           @query,
           items_per_page,
         )
+        @pictures = @pictures.includes(:thumbs)
 
         if in_overlay?
           archive_overlay

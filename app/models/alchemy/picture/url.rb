@@ -35,7 +35,7 @@ module Alchemy
 
       def uid
         signature = PictureThumb::Signature.call(variant)
-        thumb = PictureThumb.find_by(signature: signature)
+        thumb = variant.picture.thumbs.detect { |t| t.signature == signature }
         if thumb
           uid = thumb.uid
         else
