@@ -87,6 +87,9 @@
     - name: essence_picture
       type: EssencePicture
       hint: true
+      settings:
+        size: 1200x480
+        crop: true
     - name: essence_richtext
       type: EssenceRichtext
       hint: true
@@ -142,6 +145,7 @@
       type: EssencePicture
       settings:
         size: 160x120
+        crop: true
 
 - name: right_column
   fixed: true
