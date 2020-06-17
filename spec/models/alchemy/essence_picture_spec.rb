@@ -189,20 +189,19 @@ module Alchemy
       end
 
       let(:picture) do
-        build_stubbed(:alchemy_picture)
+        create(:alchemy_picture)
       end
 
       let(:essence) do
-        build_stubbed(:alchemy_essence_picture, picture: picture)
+        create(:alchemy_essence_picture, picture: picture)
       end
 
       let(:content) do
-        build_stubbed(:alchemy_content, essence: essence)
+        create(:alchemy_content, essence: essence)
       end
 
       before do
         allow(content).to receive(:settings) { settings }
-        allow(essence).to receive(:content) { content }
       end
 
       it "includes the image's original file format." do

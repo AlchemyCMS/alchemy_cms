@@ -12,6 +12,8 @@ module Alchemy
 
     it_behaves_like "has image calculations"
 
+    it { is_expected.to have_many(:thumbs).class_name("Alchemy::PictureThumb") }
+
     it "is valid with valid attributes" do
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid

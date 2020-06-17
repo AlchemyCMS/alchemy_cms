@@ -54,6 +54,7 @@ module Alchemy
     has_many :contents, through: :essence_pictures
     has_many :elements, through: :contents
     has_many :pages, through: :elements
+    has_many :thumbs, class_name: "Alchemy::PictureThumb", dependent: :destroy
 
     # Raise error, if picture is in use (aka. assigned to an EssencePicture)
     #

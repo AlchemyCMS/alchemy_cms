@@ -11,15 +11,11 @@ describe Alchemy::Admin::EssencesHelper do
 
   describe "#essence_picture_thumbnail" do
     let(:essence) do
-      build_stubbed(:alchemy_essence_picture)
+      create(:alchemy_essence_picture)
     end
 
     let(:content) do
-      build_stubbed(:alchemy_content, essence: essence)
-    end
-
-    before do
-      allow(essence).to receive(:content) { content }
+      create(:alchemy_content, essence: essence)
     end
 
     it "should return an image tag with thumbnail url from essence" do
