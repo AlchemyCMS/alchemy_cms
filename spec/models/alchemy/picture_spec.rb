@@ -318,6 +318,16 @@ module Alchemy
         end
       end
 
+      context "when the image can not be fetched" do
+        before do
+          expect_any_instance_of(described_class.url_class).to receive(:call) do
+            raise(::Dragonfly::Job::Fetch::NotFound)
+          end
+        end
+
+        it { is_expected.to be_nil }
+      end
+
       context "when options are passed" do
         context "that are transformation options" do
           let(:options) do

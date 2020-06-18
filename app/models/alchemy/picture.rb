@@ -41,6 +41,7 @@ module Alchemy
       :upsample,
     ]
 
+    include Alchemy::Logger
     include Alchemy::NameConversions
     include Alchemy::Taggable
     include Alchemy::TouchElements
@@ -195,6 +196,9 @@ module Alchemy
           name: name,
         )
       )
+    rescue ::Dragonfly::Job::Fetch::NotFound => e
+      log_warning(e.message)
+      nil
     end
 
     def previous(params = {})

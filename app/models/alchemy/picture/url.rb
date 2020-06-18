@@ -3,10 +3,6 @@
 module Alchemy
   class Picture < BaseRecord
     class Url
-      MISSING_IMAGE = "missing-image.jpg"
-
-      include Alchemy::Logger
-
       attr_reader :variant
 
       # @param [Alchemy::PictureVariant]
@@ -43,9 +39,6 @@ module Alchemy
           PictureThumb.generator_class.call(variant, signature, uid)
         end
         uid
-      rescue ::Dragonfly::Job::Fetch::NotFound => e
-        log_warning(e.message)
-        MISSING_IMAGE
       end
     end
   end
