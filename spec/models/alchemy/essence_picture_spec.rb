@@ -124,6 +124,16 @@ module Alchemy
 
         it { is_expected.to be_nil }
       end
+
+      context "if picture.url returns nil" do
+        before do
+          expect(picture).to receive(:url) { nil }
+        end
+
+        it "returns missing image url" do
+          is_expected.to eq "missing-image.png"
+        end
+      end
     end
 
     describe "#picture_url_options" do
@@ -253,6 +263,16 @@ module Alchemy
         let(:picture) { nil }
 
         it { is_expected.to be_nil }
+      end
+
+      context "if picture.url returns nil" do
+        before do
+          expect(picture).to receive(:url) { nil }
+        end
+
+        it "returns missing image url" do
+          is_expected.to eq "alchemy/missing-image.svg"
+        end
       end
     end
 

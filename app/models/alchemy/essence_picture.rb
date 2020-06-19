@@ -62,7 +62,7 @@ module Alchemy
     def picture_url(options = {})
       return if picture.nil?
 
-      picture.url picture_url_options.merge(options)
+      picture.url(picture_url_options.merge(options)) || "missing-image.png"
     end
 
     # Picture rendering options
@@ -103,7 +103,7 @@ module Alchemy
         format: picture.image_file_format,
       }
 
-      picture.url(options)
+      picture.url(options) || "alchemy/missing-image.svg"
     end
 
     # The name of the picture used as preview text in element editor views.
