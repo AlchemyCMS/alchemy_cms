@@ -51,7 +51,7 @@ RSpec.describe "Admin Languages Features", type: :system do
   end
 
   describe "editing an language" do
-    let!(:language) { create(:alchemy_language) }
+    let!(:language) { create(:alchemy_language, :german) }
 
     context "when selected locale has multiple matching locale files" do
       before do

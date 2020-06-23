@@ -180,7 +180,7 @@ module Alchemy
       end
 
       let!(:other_language) do
-        create(:alchemy_language, :english, default: false, site: site)
+        create(:alchemy_language, :german, default: false, site: site)
       end
 
       subject(:site_default_language) do

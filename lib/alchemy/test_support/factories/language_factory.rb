@@ -5,8 +5,8 @@ require "alchemy/test_support/factories/site_factory"
 
 FactoryBot.define do
   factory :alchemy_language, class: "Alchemy::Language" do
-    name { "Deutsch" }
-    code { "de" }
+    name { "Your Language" }
+    code { ::I18n.available_locales.first.to_s }
     default { true }
     frontpage_name { "Intro" }
     page_layout { Alchemy::Config.get(:default_language)["page_layout"] }
@@ -25,7 +25,12 @@ FactoryBot.define do
     trait :english do
       name { "English" }
       code { "en" }
-      frontpage_name { "Intro" }
+      default { false }
+    end
+
+    trait :german do
+      name { "Deutsch" }
+      code { "de" }
       default { false }
     end
   end
