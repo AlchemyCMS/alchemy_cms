@@ -138,13 +138,13 @@ module Alchemy
         end
 
         context "requesting non default locale" do
-          let!(:english) do
-            create(:alchemy_language, :english, default: false)
+          let!(:klingon) do
+            create(:alchemy_language, :klingon, default: false)
           end
 
           let!(:start_page) do
             create :alchemy_page, :language_root,
-              language: english,
+              language: klingon,
               name: "Start Page"
           end
 
@@ -153,12 +153,12 @@ module Alchemy
           end
 
           it "loads the root page of that language" do
-            get :index, params: { locale: "en" }
+            get :index, params: { locale: "kl" }
             expect(assigns(:page)).to eq(start_page)
           end
 
           it "sets @root_page to root page of that language" do
-            get :index, params: { locale: "en" }
+            get :index, params: { locale: "kl" }
             expect(assigns(:root_page)).to eq(start_page)
           end
         end

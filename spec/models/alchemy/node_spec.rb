@@ -143,7 +143,7 @@ module Alchemy
         let!(:parent_node) { create(:alchemy_node, children: [node]) }
 
         it "does not destroy the node and children either but adds an error" do
-          parent_node.destroy
+          parent_node.reload.destroy
           expect(parent_node).not_to be_destroyed
           expect(parent_node.errors.full_messages).to eq(["This menu item is in use inside an Alchemy element on the following pages: #{page.name}."])
         end

@@ -25,7 +25,7 @@ describe Alchemy::ConfigurationMethods do
     end
 
     context "if more than one language is present" do
-      let!(:german) { create(:alchemy_language) }
+      let!(:german) { create(:alchemy_language, :german, default: true) }
       let!(:english) { create(:alchemy_language, :english) }
 
       subject { controller.prefix_locale?(args) }

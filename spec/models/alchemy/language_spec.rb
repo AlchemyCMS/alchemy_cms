@@ -280,7 +280,7 @@ module Alchemy
       end
 
       before do
-        expect(::I18n).to receive(:available_locales) do
+        expect(::I18n).to receive(:available_locales).twice do
           [:de, :'de-at', :'en-uk']
         end
       end
