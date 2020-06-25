@@ -1,5 +1,10 @@
 ## 5.0.0 (unreleased)
 
+- Language Factory: Create default language in host app's locale [#1884](https://github.com/AlchemyCMS/alchemy_cms/pull/1884) ([mamhoff](https://github.com/mamhoff))
+- Respect filter and tagging params in picture archive size buttons [#1880](https://github.com/AlchemyCMS/alchemy_cms/pull/1880) ([tvdeyen](https://github.com/tvdeyen))
+- Extract picture thumbnail sizes in a constant [#1879](https://github.com/AlchemyCMS/alchemy_cms/pull/1879) ([tvdeyen](https://github.com/tvdeyen))
+- Configurable Image Preprocessor [#1878](https://github.com/AlchemyCMS/alchemy_cms/pull/1878) ([tvdeyen](https://github.com/tvdeyen))
+- Configure edit page preview per site [#1877](https://github.com/AlchemyCMS/alchemy_cms/pull/1877) ([tvdeyen](https://github.com/tvdeyen))
 - Fix Page tree sorting after root page removal [#1876](https://github.com/AlchemyCMS/alchemy_cms/pull/1876) ([tvdeyen](https://github.com/tvdeyen))
 - 5.0 Upgrader fixes [#1874](https://github.com/AlchemyCMS/alchemy_cms/pull/1874) ([tvdeyen](https://github.com/tvdeyen))
 - Remove url_nesting config [#1872](https://github.com/AlchemyCMS/alchemy_cms/pull/1872) ([tvdeyen](https://github.com/tvdeyen))
