@@ -124,7 +124,7 @@ Alchemy::Engine.routes.draw do
 
   get "/attachment/:id/download(/:name)" => "attachments#download",
       as: :download_attachment
-  get "/attachment/:id/show" => "attachments#show",
+  get "/attachment/:id/show(/:name)" => "attachments#show",
       as: :show_attachment
 
   resources :messages, only: [:index, :new, :create]
