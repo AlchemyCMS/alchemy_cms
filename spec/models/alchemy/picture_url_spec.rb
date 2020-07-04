@@ -49,7 +49,7 @@ module Alchemy
 
       context "when a size is passed in" do
         let(:options) do
-          {size: "120x160"}
+          { size: "120x160" }
         end
 
         it "resizes the image without upsampling it" do
@@ -133,7 +133,7 @@ module Alchemy
 
         context "with no height given" do
           let(:options) do
-            {size: "40"}
+            { size: "40" }
           end
 
           it "resizes the image inferring the height" do
@@ -144,7 +144,7 @@ module Alchemy
 
         context "with no width given" do
           let(:options) do
-            {size: "x30"}
+            { size: "x30" }
           end
 
           it "resizes the image inferring the width" do
@@ -163,7 +163,7 @@ module Alchemy
 
       context "when a different format is requested" do
         let(:options) do
-          {format: "gif"}
+          { format: "gif" }
         end
 
         it "converts the format" do
@@ -187,7 +187,7 @@ module Alchemy
 
         context "for an animated gif" do
           let(:options) do
-            {format: "png"}
+            { format: "png" }
           end
 
           let(:image) do
@@ -206,7 +206,7 @@ module Alchemy
 
       context "requesting a not allowed format" do
         let(:options) do
-          {format: "zip"}
+          { format: "zip" }
         end
 
         it "returns nil" do
@@ -221,22 +221,52 @@ module Alchemy
 
       context "when jpg format is requested" do
         let(:options) do
-          {format: "jpg"}
+          { format: "jpg" }
         end
 
-        it "sets the default quality" do
-          job = decode_dragon_fly_job(url)
-          expect(job[1]).to include("-quality 85")
-        end
-
-        context "and quality is passed" do
-          let(:options) do
-            {format: "jpg", quality: "30"}
+        context "and the image file format is not JPG" do
+          it "sets the default quality" do
+            job = decode_dragon_fly_job(url)
+            expect(job[1]).to include("-quality 85")
           end
 
-          it "sets the quality" do
+          context "and quality is passed" do
+            let(:options) do
+              { format: "jpg", quality: "30" }
+            end
+
+            it "sets the quality" do
+              job = decode_dragon_fly_job(url)
+              expect(job[1]).to include("-quality 30")
+            end
+          end
+        end
+
+        context "and image has jpg format" do
+          let(:image) do
+            fixture_file_upload(
+              File.expand_path("../../fixtures/image4.jpg", __dir__),
+              "image/jpeg",
+            )
+          end
+
+          it "does not convert the picture format" do
             job = decode_dragon_fly_job(url)
-            expect(job[1]).to include("-quality 30")
+            expect(job[1]).to be_nil
+          end
+        end
+
+        context "and image has jpeg format" do
+          let(:image) do
+            fixture_file_upload(
+              File.expand_path("../../fixtures/image3.jpeg", __dir__),
+              "image/jpeg",
+            )
+          end
+
+          it "does not convert the picture format" do
+            job = decode_dragon_fly_job(url)
+            expect(job[1]).to be_nil
           end
         end
       end
