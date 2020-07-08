@@ -395,5 +395,14 @@ module Alchemy
         expect(resource.in_engine?).to eq(true)
       end
     end
+
+    describe "#help_text_for" do
+      it "should return a text as string for an attribute" do
+        expect(resource.help_text_for(name: :name)).to eq("Party")
+      end
+      it "should return nil for a nonexistent attribute" do
+        expect(resource.help_text_for(name: :nonexistent_attribute_dummy)).to be_nil
+      end
+    end
   end
 end
