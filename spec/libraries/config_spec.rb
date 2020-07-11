@@ -45,7 +45,7 @@ module Alchemy
 
             it "warns about new default" do
               expect(Alchemy::Deprecation).to \
-                receive(:warn).with("Setting foo configuration to false is deprecated and will be always true in Alchemy 5.0")
+                receive(:warn).with("Setting foo configuration to false is deprecated and will be always true in Alchemy 5.1")
               Config.get(:foo)
             end
           end

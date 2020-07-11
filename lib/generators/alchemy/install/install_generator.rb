@@ -69,7 +69,7 @@ module Alchemy
         template(
           "#{__dir__}/templates/dragonfly.rb.tt",
           app_config_path.join("initializers", "dragonfly.rb"),
-          force: options[:auto_accept]
+          skip: options[:auto_accept]
         )
       end
 

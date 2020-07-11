@@ -31,7 +31,9 @@ module Alchemy
       # a value of nil means there is no new default
       # any not nil value is the new default
       def deprecated_configs
-        {}
+        {
+          redirect_to_public_child: nil,
+        }
       end
 
       private
@@ -74,11 +76,11 @@ module Alchemy
         if deprecated_configs.key?(name.to_sym)
           config = deprecated_configs[name.to_sym]
           if config.nil?
-            Alchemy::Deprecation.warn("#{name} configuration is deprecated and will be removed from Alchemy 5.0")
+            Alchemy::Deprecation.warn("#{name} configuration is deprecated and will be removed from Alchemy 5.1")
           else
             value = show[name.to_s]
             if value != config
-              Alchemy::Deprecation.warn("Setting #{name} configuration to #{value} is deprecated and will be always #{config} in Alchemy 5.0")
+              Alchemy::Deprecation.warn("Setting #{name} configuration to #{value} is deprecated and will be always #{config} in Alchemy 5.1")
             end
           end
         end
