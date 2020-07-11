@@ -125,7 +125,7 @@ $ bundle add alchemy-devise
 Then run the `alchemy-devise` installer:
 
 ```bash
-$ bin/rails g alchemy_devise:install
+$ bin/rails g alchemy:devise:install
 ```
 
 ##### Use your User model
