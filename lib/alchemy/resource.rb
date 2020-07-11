@@ -210,7 +210,7 @@ module Alchemy
       @module_definition && @module_definition["engine_name"]
     end
 
-    # Returns a help text for resource's form
+    # Returns a help text for resource's form or nil if no help text is available
     #
     # === Example:
     #
@@ -223,7 +223,7 @@ module Alchemy
     def help_text_for(attribute)
       ::I18n.translate!(attribute[:name], scope: [:alchemy, :resource_help_texts, resource_name])
     rescue ::I18n::MissingTranslationData
-      false
+      nil
     end
 
     # Return attributes that should be viewable but not editable.

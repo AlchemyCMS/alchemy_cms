@@ -1,5 +1,5 @@
 <%= alchemy_form_for site, url: alchemy.admin_sites_path(site, search_filter_params) do |f| %>
-  <%= f.input :host, hint: resource_handler.help_text_for(name: :host).try(:html_safe) %>
+  <%= f.input :host, hint: resource_handler.help_text_for(name: :host)&.html_safe %>
   <%= f.input :name %>
   <%= f.input :public %>
   <%= f.input :aliases, hint: resource_handler.help_text_for(name: :aliases), input_html: {rows: 4} %>
