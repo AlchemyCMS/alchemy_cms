@@ -8,6 +8,8 @@ module Alchemy
 
       no_tasks do
         def inject_routes(auto_accept = false)
+          return if File.read("./config/routes.rb").match?("mount Alchemy::Engine")
+
           mountpoint = "/"
           unless auto_accept
             mountpoint = ask("- At which path do you want to mount Alchemy CMS at?", default: mountpoint)
