@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "rails/generators"
+require "alchemy/install/tasks"
 
 module Alchemy
   module Generators
@@ -17,6 +18,13 @@ module Alchemy
         desc: "Skip running the webpacker installer."
 
       source_root File.expand_path("files", __dir__)
+
+      def setup
+        header
+        say "Welcome to AlchemyCMS!"
+        say "Let's begin with some questions.\n\n"
+        install_tasks.inject_routes
+      end
 
       def copy_config
         copy_file "#{gem_config_path}/config.yml", app_config_path.join("alchemy", "config.yml")
@@ -80,7 +88,41 @@ module Alchemy
           app_root.join(webpack_config["source_path"], webpack_config["source_entry_path"], "alchemy/admin.js")
       end
 
+      def set_primary_language
+        header
+        install_tasks.set_primary_language
+      end
+
+      def setup_database
+        rake("db:create", abort_on_failure: true)
+        # We can't invoke this rake task, because Rails will use wrong engine names otherwise
+        rake("railties:install:migrations", abort_on_failure: true)
+        rake("db:migrate", abort_on_failure: true)
+        install_tasks.inject_seeder
+        rake("db:seed", abort_on_failure: true)
+      end
+
+      def finalize
+        header
+        say "Alchemy successfully installed!"
+        say "Now start the server with:\n\n"
+        say "  bin/rails server\n\n"
+        say "and point your browser to\n\n"
+        say "  http://localhost:3000/admin\n\n"
+        say "and follow the onscreen instructions to finalize the installation.\n\n"
+      end
+
       private
+
+      def header
+        puts "─────────────────────"
+        puts "* Alchemy Installer *"
+        puts "─────────────────────"
+      end
+
+      def say(something)
+        puts "  #{something}"
+      end
 
       def gem_config_path
         @_config_path ||= File.expand_path("../../../../config/alchemy", __dir__)
@@ -104,6 +146,10 @@ module Alchemy
 
       def app_root
         @_app_root ||= Rails.root
+      end
+
+      def install_tasks
+        @_install_tasks ||= Alchemy::Install::Tasks.new
       end
     end
   end

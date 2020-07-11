@@ -167,7 +167,7 @@ Please follow [this guide](http://guides.alchemy-cms.com/stable/custom_authentic
 **After** you set the user model you need to run the Alchemy install task:
 
 ```bash
-$ bin/rake alchemy:install
+$ bin/rails alchemy:install
 ```
 
 Now everything should be set up and you should be able to visit the Alchemy Dashboard at:
