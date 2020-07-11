@@ -376,7 +376,7 @@ module Alchemy
 
         content_tag :span, class: "hint-with-icon" do
           render_icon("question-circle") +
-            content_tag(:span, element.hint.try(:html_safe), class: "hint-bubble")
+            content_tag(:span, element.hint.html_safe, class: "hint-bubble")
         end
       end
 
