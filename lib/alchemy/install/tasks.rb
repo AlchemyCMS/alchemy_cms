@@ -7,18 +7,24 @@ module Alchemy
       include Thor::Actions
 
       no_tasks do
-        def inject_routes
-          mountpoint = ask "- At which path do you want to mount Alchemy CMS at? (DEFAULT: At root path '/')"
-          mountpoint = "/" if mountpoint.empty?
+        def inject_routes(auto_accept = false)
+          mountpoint = "/"
+          unless auto_accept
+            mountpoint = ask("- At which path do you want to mount Alchemy CMS at?", default: mountpoint)
+          end
           sentinel = /\.routes\.draw do(?:\s*\|map\|)?\s*$/
           inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", { after: sentinel, verbose: true }
         end
 
-        def set_primary_language
-          code = ask "- What is the language code of your site's primary language? (DEFAULT: en)"
-          code = "en" if code.empty?
-          name = ask "- What is the name of your site's primary language? (DEFAULT: English)"
-          name = "English" if name.empty?
+        def set_primary_language(auto_accept = false)
+          code = "en"
+          unless auto_accept
+            code = ask("- What is the language code of your site's primary language?", default: code)
+          end
+          name = "English"
+          unless auto_accept
+            name = ask("- What is the name of your site's primary language?", default: name)
+          end
           gsub_file "./config/alchemy/config.yml", /default_language:\n\s\scode:\sen\n\s\sname:\sEnglish/m do
             "default_language:\n  code: #{code}\n  name: #{name}"
           end
