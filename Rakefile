@@ -39,16 +39,17 @@ namespace :alchemy do
   namespace :spec do
     desc "Prepares database for testing Alchemy"
     task :prepare do
-      result = system <<~BASH
-        cd spec/dummy && \
-        export RAILS_ENV=test && \
-        bin/rake db:create && \
-        bin/rake db:environment:set && \
-        bin/rake db:migrate:reset && \
-        bin/rails g alchemy:install --skip --skip-demo-files && \
-        cd -
-      BASH
-      result || fail
+      system(
+        <<~BASH
+          cd spec/dummy && \
+          export RAILS_ENV=test && \
+          bin/rake db:create && \
+          bin/rake db:environment:set && \
+          bin/rake db:migrate:reset && \
+          bin/rails g alchemy:install --skip --skip-demo-files --auto-accept && \
+          cd -
+        BASH
+      ) || fail
     end
   end
 

@@ -7,6 +7,11 @@ module Alchemy
     class InstallGenerator < ::Rails::Generators::Base
       desc "Installs Alchemy into your App."
 
+      class_option :auto_accept,
+        type: :boolean,
+        default: false,
+        desc: "Automatically accept defaults."
+
       class_option :skip_demo_files,
         type: :boolean,
         default: false,
@@ -23,7 +28,7 @@ module Alchemy
         header
         say "Welcome to AlchemyCMS!"
         say "Let's begin with some questions.\n\n"
-        install_tasks.inject_routes
+        install_tasks.inject_routes(options[:auto_accept])
       end
 
       def copy_config
@@ -61,7 +66,11 @@ module Alchemy
       end
 
       def copy_dragonfly_config
-        template "#{__dir__}/templates/dragonfly.rb.tt", app_config_path.join("initializers", "dragonfly.rb")
+        template(
+          "#{__dir__}/templates/dragonfly.rb.tt",
+          app_config_path.join("initializers", "dragonfly.rb"),
+          skip: options[:auto_accept]
+        )
       end
 
       def install_gutentag_migrations
@@ -90,7 +99,7 @@ module Alchemy
 
       def set_primary_language
         header
-        install_tasks.set_primary_language
+        install_tasks.set_primary_language(options[:auto_accept])
       end
 
       def setup_database
@@ -115,12 +124,16 @@ module Alchemy
       private
 
       def header
+        return if options[:auto_accept]
+
         puts "─────────────────────"
         puts "* Alchemy Installer *"
         puts "─────────────────────"
       end
 
       def say(something)
+        return if options[:auto_accept]
+
         puts "  #{something}"
       end
 
