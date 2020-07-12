@@ -164,6 +164,14 @@ module Alchemy
         @_url_path_class = klass
       end
 
+      def alchemy_resource_filters
+        %w[published not_public restricted]
+      end
+
+      def searchable_alchemy_resource_attributes
+        %w[name urlname title]
+      end
+
       # Used to store the current page previewed in the edit page template.
       #
       def current_preview=(page)

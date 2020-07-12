@@ -1,0 +1,107 @@
+<tr class="<%= cycle(:even, :odd) %>" data-page-id="<%= page.id %>">
+  <td class="icon">
+    <% if can?(:edit_content, page) %>
+      <% if page.locked? %>
+        <span class="with-hint">
+          <i class="icon fas fa-edit fa-fw"></i>
+          <span class="hint-bubble">
+            <%= Alchemy.t("This page is locked", name: page.locker_name) %>
+          </span>
+        </span>
+      <% else %>
+        <i class="icon far fa-file fa-lg"></i>
+      <% end %>
+    <% else %>
+      <span class="with-hint">
+        <i class="icon fas fa-ban fa-fw"></i>
+        <span class="hint-bubble">
+          <%= Alchemy.t("Your user role does not allow you to edit this page") %>
+        </span>
+      </span>
+    <% end %>
+  </td>
+  <td class="string name">
+    <%= link_to_if(
+      can?(:edit_content, page),
+      page.name,
+      alchemy.edit_admin_page_path(page),
+      title: Alchemy.t(:edit_page),
+    ) { content_tag(:span, page.name) } -%>
+  </td>
+  <td class="url">
+    <%= page.url_path %>
+  </td>
+  <td class="page_layout">
+    <%= Alchemy.t(page.page_layout, scope: "page_layout_names", default: page.page_layout.to_s.humanize) %>
+  </td>
+  <td class="tags">
+    <% page.tag_list.each do |tag| %>
+      <%= content_tag(:span, tag, class: "tag") %>
+    <% end %>
+  </td>
+  <td class="date">
+    <%= l(page.updated_at, format: :"alchemy.default") %>
+  </td>
+  <td class="status center">
+    <span class="page_status with-hint">
+      <i class="icon fas fa-fw fa-compass <% unless page.public? %>disabled<% end %>" data-fa-transform="shrink-2"></i>
+      <span class="hint-bubble"><%= page.status_title(:public) %></span>
+    </span>
+    <span class="page_status with-hint">
+      <i class="icon fas fa-fw fa-lock <% unless page.restricted? %>disabled<% end %>" data-fa-transform="shrink-2"></i>
+      <span class="hint-bubble"><%= page.status_title(:restricted) %></span>
+    </span>
+  </td>
+  <td class="tools">
+    <% if can?(:info, page) %>
+      <div class="button_with_label">
+        <%= link_to_dialog(
+          render_icon('info-circle'),
+          alchemy.info_admin_page_path(page),
+          {
+            title: Alchemy.t(:page_infos),
+            size: '520x290'
+          }
+        ) %>
+        <label class="center"><%= Alchemy.t(:page_infos) %></label>
+      </div>
+    <% end %>
+    <% if can?(:configure, page) %>
+      <div class="button_with_label sitemap_tool">
+        <%= link_to_dialog(
+          render_icon(:cog),
+          alchemy.configure_admin_page_path(page),
+          {
+            title: Alchemy.t(:edit_page_properties),
+            size: '450x680'
+          }
+        ) -%>
+        <label class="center"><%= Alchemy.t(:edit_page_properties) %></label>
+      </div>
+    <% end %>
+    <% if can?(:copy, page) %>
+      <div class="button_with_label sitemap_tool">
+        <%= link_to(
+          render_icon(:copy),
+          alchemy.insert_admin_clipboard_path(
+            remarkable_type: :pages,
+            remarkable_id: page.id,
+          ),
+          remote: true,
+          method: :post
+        ) %>
+        <label class="center"><%= Alchemy.t(:copy_page) %></label>
+      </div>
+    <% end %>
+    <% if can?(:destroy, page) %>
+      <div class="button_with_label">
+        <%= link_to_confirm_dialog(
+          render_icon(:minus),
+          Alchemy.t(:confirm_to_delete_page),
+          alchemy.admin_page_path(page)
+        ) -%>
+        <label class="center"><%= Alchemy.t(:delete_page) %></label>
+      </div>
+    <% end %>
+  </td>
+</tr>

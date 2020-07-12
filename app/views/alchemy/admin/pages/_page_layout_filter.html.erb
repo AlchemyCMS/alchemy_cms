@@ -1,0 +1,29 @@
+<div id="page_layout_filter">
+  <label>
+    <h3><%= Alchemy::Page.human_attribute_name(:page_layout) %></h3>
+    <%= select_tag(
+      "page_layout",
+      options_for_select(
+        @current_language.site.page_layout_names.map do |layout|
+          [
+            Alchemy::PageLayout.human_layout_name(layout),
+            layout
+          ]
+        end,
+        search_filter_params[:page_layout]
+      ),
+      include_blank: Alchemy.t(:all, scope: ["resources", "page", "filters"]),
+      class: "alchemy_selectbox full_width"
+    ) %>
+  </label>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    $("#page_layout").on("change", function(e) {
+      var url = "<%= alchemy.admin_pages_path(search_filter_params.except(:page_layout, :page).merge(view: "list")) %>";
+      delimiter = url.match(/\?/) ? "&" : "?";
+      Turbolinks.visit(url + delimiter + "page_layout=" + encodeURIComponent($(this).val()));
+    });
+  });
+</script>

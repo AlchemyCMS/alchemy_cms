@@ -4,39 +4,47 @@
 
 <% content_for :toolbar do %>
   <%= render "alchemy/admin/pages/toolbar" %>
-  <div class="search_form">
-    <div class="search_field">
-      <label>
-        <%= text_field_tag 'filter', '',
-          class: 'search_input_field',
-          placeholder: Alchemy.t(:search),
-          id: nil %>
-        <%= render_icon :search %>
-      </label>
-      <%= link_to(render_icon(:times, size: 'xs'), '#', {
-        class: "search_field_clear",
-        title: Alchemy.t(:click_to_show_all)
-      }) %>
+<% end %>
+
+<%= content_tag :div,
+  id: "archive_all",
+  class: [params[:view] == "list" && "resources-table-wrapper with_tag_filter"] do %>
+  <% if params[:view] == "list" %>
+    <%= render "alchemy/admin/resources/table_header", resources_instance_variable: @pages %>
+    <% if @pages.any? %>
+      <%= render "table" %>
+    <% elsif search_filter_params.present? %>
+      <%= render_message do %>
+        <%= Alchemy.t("No pages found") %>
+      <% end %>
+    <% elsif can?(:create, Alchemy::Page) %>
+      <%= render partial: "create_language_form" %>
+    <% end %>
+
+    <%= paginate @pages, scope: alchemy, theme: "alchemy" %>
+
+    <div id="library_sidebar">
+      <%= render "page_layout_filter" %>
+
+      <%= render "filter_bar",
+        label: Alchemy::Page.human_attribute_name(:status),
+        url: alchemy.admin_pages_path(search_filter_params.except(:filter, :page).merge(view: "list")) %>
+
+      <% if resource_has_tags %>
+        <%= render "tag_list" %>
+      <% end %>
     </div>
-  </div>
-<% end %>
-
-<div id="archive_all">
-<% if @page_root %>
-  <h2 id="page_filter_result"></h2>
-
-  <%= render 'sitemap', page_partial: 'page', full: !!@sorting %>
-
-<% elsif can?(:create, Alchemy::Page) %>
-
-  <%= render partial: 'create_language_form' %>
-
-<% else %>
-
-  <%= render_message :warn do %>
-    <h2>No language root page found.</h2>
-    <p>Please ask the admin to create one.</p>
+  <% else %>
+    <% if @page_root %>
+      <h2 id="page_filter_result"></h2>
+      <%= render "sitemap", page_partial: "page", full: !!@sorting %>
+    <% elsif can?(:create, Alchemy::Page) %>
+      <%= render partial: "create_language_form" %>
+    <% else %>
+      <%= render_message :warn do %>
+        <h2>No language root page found.</h2>
+        <p>Please ask the admin to create one.</p>
+      <% end %>
+    <% end %>
   <% end %>
-
 <% end %>
-</div>

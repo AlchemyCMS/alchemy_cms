@@ -39,4 +39,25 @@
     ) %>
     <label><%= Alchemy.t("Show clipboard") %></label>
   </div>
+  <div class="toolbar_spacer"></div>
+  <div class="button_with_label<%= params[:view] != "list" ? " active" : nil %>">
+    <%= link_to(
+      render_icon(:stream),
+      alchemy.admin_pages_path(view: "tree"),
+      class: "icon_button"
+    ) %>
+    <label><%= Alchemy.t("Hierarchical") %></label>
+  </div>
+  <div class="button_with_label<%= params[:view] == "list" ? " active" : nil %>">
+    <%= link_to(
+      render_icon("sort-amount-down-alt"),
+      alchemy.admin_pages_path(view: "list"),
+      class: "icon_button"
+    ) %>
+    <label><%= Alchemy.t("Sortable List") %></label>
+  </div>
 </div>
+<% search_filter_params[:view] = "list" %>
+<%= render "alchemy/admin/partials/search_form",
+  url: alchemy.admin_pages_path(search_filter_params.except(:q, :page)),
+  additional_params: [:view, :page_layout, :tagged_with, :filter] %>
