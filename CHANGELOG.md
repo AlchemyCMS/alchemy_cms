@@ -1,5 +1,8 @@
 ## 5.0.0 (unreleased)
 
+- Deprecate redirect_to_public_child ([tvdeyen](https://github.com/tvdeyen))
+- Add --auto-accept option to installer ([tvdeyen](https://github.com/tvdeyen))
+- Move all installer code into install generator ([tvdeyen](https://github.com/tvdeyen))
 - Language Factory: Create default language in host app's locale [#1884](https://github.com/AlchemyCMS/alchemy_cms/pull/1884) ([mamhoff](https://github.com/mamhoff))
 - Respect filter and tagging params in picture archive size buttons [#1880](https://github.com/AlchemyCMS/alchemy_cms/pull/1880) ([tvdeyen](https://github.com/tvdeyen))
 - Extract picture thumbnail sizes in a constant [#1879](https://github.com/AlchemyCMS/alchemy_cms/pull/1879) ([tvdeyen](https://github.com/tvdeyen))
