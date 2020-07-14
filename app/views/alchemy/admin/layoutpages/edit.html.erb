@@ -5,11 +5,9 @@
     include_blank: Alchemy.t('Please choose'),
     input_html: {class: 'alchemy_selectbox'} %>
   <%= f.input :name, autofocus: true %>
-  <% if @page.taggable? %>
-    <div class="input string">
-      <%= f.label :tag_list %>
-      <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
-    </div>
-  <% end %>
+  <div class="input string">
+    <%= f.label :tag_list %>
+    <%= render 'alchemy/admin/partials/autocomplete_tag_list', f: f %>
+  </div>
   <%= f.submit Alchemy.t(:save) %>
 <% end %>

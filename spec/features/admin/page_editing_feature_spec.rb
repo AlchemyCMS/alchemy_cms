@@ -90,15 +90,9 @@ RSpec.describe "Page editing feature", type: :system do
         end
       end
 
-      context "when page is taggable" do
-        before do
-          expect_any_instance_of(Alchemy::Page).to receive(:taggable?).and_return(true)
-        end
-
-        it "should show the tag_list input field" do
-          visit alchemy.configure_admin_page_path(a_page)
-          expect(page).to have_selector("input#page_tag_list")
-        end
+      it "should show the tag_list input field" do
+        visit alchemy.configure_admin_page_path(a_page)
+        expect(page).to have_selector("input#page_tag_list")
       end
     end
 

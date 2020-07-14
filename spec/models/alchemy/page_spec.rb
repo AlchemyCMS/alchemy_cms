@@ -1482,6 +1482,10 @@ module Alchemy
     end
 
     describe "#taggable?" do
+      around do |example|
+        Alchemy::Deprecation.silence { example.run }
+      end
+
       context "definition has 'taggable' key with true value" do
         it "should return true" do
           page = build(:alchemy_page)
