@@ -15,7 +15,7 @@
   $(function() {
     $('#resource_filter').on('change', function(e) {
       var $this = $(this);
-      var url = '<%= resources_path(resource_handler.namespaced_resources_name, search_filter_params.except(:filter).to_h) %>';
+      var url = '<%= local_assigns[:url] || resources_path(resource_handler.namespaced_resources_name, search_filter_params.except(:filter).to_h) %>';
       if ($this.data('remote') === true) {
         $.get(url, {filter: $this.val()}, null, 'script');
       } else {
