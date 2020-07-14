@@ -17,6 +17,8 @@ module Alchemy
       definition["taggable"] == true
     end
 
+    deprecate :taggable?, deprecator: Alchemy::Deprecation
+
     def rootpage?
       !new_record? && parent_id.blank?
     end
