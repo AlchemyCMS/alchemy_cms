@@ -26,3 +26,6 @@ en:
       essence_text: This content type (Essence) represents a simple line of text
     default_content_texts:
       welcome: Welcome to my site
+    resource_help_texts:
+      party:
+        name: Party
