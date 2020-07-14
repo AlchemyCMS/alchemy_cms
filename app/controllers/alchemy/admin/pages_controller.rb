@@ -2,12 +2,12 @@
 
 module Alchemy
   module Admin
-    class PagesController < Alchemy::Admin::BaseController
+    class PagesController < ResourcesController
       include OnPageLayout::CallbacksRunner
 
       helper "alchemy/pages"
 
-      before_action :load_page, except: [:index, :flush, :new, :order, :create, :copy_language_tree, :link, :sort]
+      before_action :load_resource, except: [:index, :flush, :new, :order, :create, :copy_language_tree, :link, :sort]
 
       authorize_resource class: Alchemy::Page, except: [:index, :tree]
 
@@ -310,7 +310,7 @@ module Alchemy
         { my_urlname: default_urlname, children_path: default_urlname }
       end
 
-      def load_page
+      def load_resource
         @page = Page.find(params[:id])
       end
 
