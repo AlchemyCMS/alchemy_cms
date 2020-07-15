@@ -149,4 +149,14 @@ describe Admin::EventsController do
       end
     end
   end
+
+  describe "#common_search_filter_includes" do
+    before do
+      allow(controller).to receive(:alchemy_module) { { name: "events" } }
+    end
+
+    it "should not be frozen" do
+      expect(controller.send(:common_search_filter_includes)).to_not be_frozen
+    end
+  end
 end
