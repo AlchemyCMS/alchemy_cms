@@ -1,4 +1,4 @@
-<%- url ||= resource_url_proxy.url_for(action: 'index') -%>
+<%- url ||= resource_url_proxy.url_for({ action: 'index' }.merge(search_filter_params.except(:q))) -%>
 
 <%= search_form_for @query, url: url, class: 'search_form' do |f| %>
   <div class="search_field">

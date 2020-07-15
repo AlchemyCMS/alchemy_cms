@@ -1,6 +1,7 @@
-<%= search_form_for @query, url: url_for(
-    action: 'index',
-    size: @size
+<%= search_form_for @query, url: url_for({
+      action: 'index',
+      size: @size,
+    }.merge(search_filter_params.except(:q))
   ), remote: true, html: {class: 'search_form', id: nil} do |f| %>
   <%= hidden_field_tag("element_id", @element.blank? ? "" : @element.id) %>
   <%= hidden_field_tag("content_id", @content.blank? ? "" : @content.id) %>
@@ -12,13 +13,13 @@
       placeholder: Alchemy.t(:search),
       class: 'search_input_field',
       id: nil %>
-    <%= link_to render_icon(:times, size: 'xs'), url_for(
+    <%= link_to render_icon(:times, size: 'xs'), url_for({
         action: 'index',
         element_id: @element.blank? ? '' : @element.id,
         content_id: @content.blank? ? '' : @content.id,
         size: @size,
         overlay: true
-      ),
+      }.merge(search_filter_params.except(:q))),
       remote: true,
       class: 'search_field_clear',
       title: Alchemy.t(:click_to_show_all),

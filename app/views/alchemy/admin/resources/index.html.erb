@@ -21,7 +21,10 @@
     dialog: false,
     if_permitted_to: [:index, resource_model]
   ) %>
-  <%= render 'alchemy/admin/partials/search_form' %>
+  <%= render 'alchemy/admin/partials/search_form', additional_params: [
+    resource_has_filters ? :filter : nil,
+    resource_has_tags ? :tagged_with : nil
+  ].compact %>
 <% end %>
 
 <div id="archive_all" class="resources-table-wrapper<%= ' with_tag_filter' if resource_has_tags || resource_has_filters %>">
