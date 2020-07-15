@@ -314,6 +314,8 @@ module Alchemy
         end
       end
 
+      deprecate toolbar: "Please use `content_for(:toolbar)` instead", deprecator: Alchemy::Deprecation
+
       # (internal) Used by upload form
       def new_asset_path_with_session_information(asset_type)
         session_key = Rails.application.config.session_options[:key]
