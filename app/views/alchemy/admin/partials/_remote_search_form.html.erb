@@ -5,13 +5,13 @@
   <%= hidden_field_tag("element_id", @element.blank? ? "" : @element.id) %>
   <%= hidden_field_tag("content_id", @content.blank? ? "" : @content.id) %>
   <div class="search_field">
-    <label>
+    <button type="submit">
       <%= render_icon('search') %>
-      <%= f.search_field resource_handler.search_field_name,
-        placeholder: Alchemy.t(:search),
-        class: 'search_input_field',
-        id: nil %>
-    </label>
+    </button>
+    <%= f.search_field resource_handler.search_field_name,
+      placeholder: Alchemy.t(:search),
+      class: 'search_input_field',
+      id: nil %>
     <%= link_to render_icon(:times, size: 'xs'), url_for(
         action: 'index',
         element_id: @element.blank? ? '' : @element.id,
