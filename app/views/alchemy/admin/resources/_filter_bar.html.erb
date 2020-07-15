@@ -1,6 +1,6 @@
 <div id="filter_bar">
   <label>
-    <h3><%= Alchemy.t('Filter') %></h3>
+    <h3><%= local_assigns[:label] || Alchemy.t('Filter') %></h3>
     <%= select_tag(
       'resource_filter',
       options_for_select(
