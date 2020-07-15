@@ -1,26 +1,10 @@
 .tag-list {
+  display: flex;
+  flex-direction: column;
   height: 100%;
-  padding-bottom: 138px;
-
-  &.filtered {
-    padding-bottom: 178px;
-  }
-
-  &.with_filter_bar {
-    padding-bottom: 218px;
-
-    &.filtered {
-      padding-bottom: 256px;
-    }
-  }
 
   .js_filter_field_box {
-    position: absolute;
-    right: auto;
-    top: auto;
-    width: 200px;
-    z-index: 1100;
-    transition: background-color $transition-duration;
+    margin: 0;
 
     input {
       background-color: transparentize($white, 0.25);
@@ -29,23 +13,22 @@
         background-color: $white;
       }
     }
-
-    label { display: none }
   }
 
   ul {
     list-style-type: none;
     padding: 0;
-    margin: 44px 0 4px 0;
+    margin: 0;
     height: 100%;
-    width: 200px;
     overflow-x: hidden;
     overflow-y: auto;
 
     li {
       display: block;
 
-      &:first-child { margin-top: 0 }
+      &:first-child {
+        margin-top: 0;
+      }
 
       a {
         @include tag-base;
@@ -53,13 +36,14 @@
         display: block;
       }
 
-      &:hover { background-color: $very-light-blue }
+      &:hover {
+        background-color: $very-light-blue;
+      }
 
       &.active {
-
         a {
           background-color: $dark-gray;
-          color: $light-gray
+          color: $light-gray;
         }
       }
     }
@@ -69,7 +53,7 @@
 .tag {
   @include tag-base(
     $margin: $default-margin/2 0,
-    $padding: $default-padding 2*$default-padding $default-padding
+    $padding: $default-padding 2 * $default-padding $default-padding
   );
   pointer-events: none;
   font-size: $small-font-size;
@@ -124,7 +108,9 @@
       position: relative;
       border-radius: $default-border-radius;
 
-      &.odd { background-color: #eaf3f9 }
+      &.odd {
+        background-color: #eaf3f9;
+      }
 
       input {
         position: absolute;
@@ -141,14 +127,16 @@
   }
 }
 
-.tag_list, .autocomplete_tag_list {
+.tag_list,
+.autocomplete_tag_list {
   .select2-container.select2-container-multi {
     .select2-search-choice {
       padding: 0;
 
       div {
         @include tag-base(
-          $padding: $default-padding 6*$default-padding $default-padding 3*$default-padding,
+          $padding: $default-padding 6 * $default-padding $default-padding 3 *
+            $default-padding,
           $margin: 0
         );
       }

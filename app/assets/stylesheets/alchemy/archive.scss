@@ -1,5 +1,5 @@
 .resources-header {
-  padding: 2*$default-padding;
+  padding: 2 * $default-padding;
 }
 
 .resources-table-wrapper {
@@ -16,12 +16,11 @@ div#image_assign_filter_and_image_sizing {
 }
 
 #picture_archive {
-
   .selected_item_tools {
-    margin: -2*$default-padding;
+    margin: -2 * $default-padding;
     border-bottom: 1px solid $default-border-color;
-    margin-bottom: 4*$default-padding;
-    padding: 4*$default-padding;
+    margin-bottom: 4 * $default-padding;
+    padding: 4 * $default-padding;
     display: none;
   }
 }
@@ -37,7 +36,7 @@ div#image_assign_filter_and_image_sizing {
 }
 
 .picture_thumbnail {
-  margin: 2*$default-margin;
+  margin: 2 * $default-margin;
   background-color: #fff;
   position: relative;
   box-shadow: 0 0 0 1px $default-border-color;
@@ -80,8 +79,8 @@ div#image_assign_filter_and_image_sizing {
   }
 
   &:hover {
-
-    .picture_tool, .picture_tags {
+    .picture_tool,
+    .picture_tags {
       visibility: visible;
       opacity: 1;
     }
@@ -95,7 +94,6 @@ div#image_assign_filter_and_image_sizing {
 }
 
 #pictures {
-
   .thumbnail_background {
     @include zoom-in;
   }
@@ -165,25 +163,34 @@ div.assign_image_list_image {
   pointer-events: none;
 }
 
-.picture_tags, .picture_tool {
+.picture_tags,
+.picture_tool {
   visibility: hidden;
   opacity: 0;
   transition: opacity $transition-duration;
 }
 
 div#library_sidebar {
+  display: flex;
+  flex-direction: column;
   position: fixed;
   border-left: 1px solid $default-border-color;
   top: 0;
   right: 0;
   width: 232px;
-  padding: 86px 4*$default-padding 0 4*$default-padding;
+
+  padding: $top-menu-height + 2 * $default-padding 4 * $default-padding
+    $pagination-height + 2 * $default-padding 4 * $default-padding;
   height: 100%;
   z-index: 3;
   background-color: $light-gray;
 
   h2 {
-    margin-top: 4*$default-margin;
+    margin-top: 4 * $default-margin;
+  }
+
+  h3 {
+    margin: 2em 0 1em;
   }
 }
 
@@ -192,20 +199,19 @@ div#library_sidebar {
 }
 
 div#filter_bar {
-
   .selectboxit {
     width: 194px;
   }
 }
 
 .alchemy-dialog-body {
-
   #library_sidebar {
-    padding: 0 4*$default-padding;
+    padding: 0 4 * $default-padding;
   }
 }
 
-#assign_image_list, #assign_file_list {
+#assign_image_list,
+#assign_file_list {
   position: relative;
   height: 548px;
 }
@@ -234,7 +240,7 @@ div#filter_bar {
       display: block;
       line-height: 25px;
       text-decoration: none;
-      padding: $default-padding 2*$default-padding;
+      padding: $default-padding 2 * $default-padding;
     }
 
     .icon {
