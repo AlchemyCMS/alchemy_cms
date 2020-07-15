@@ -35,7 +35,7 @@ cd spec/dummy
 export RAILS_ENV=test
 bin/rake railties:install:migrations
 bin/rake db:drop db:create db:migrate
-bin/rails g alchemy:install --force
+bin/rails g alchemy:install --force --auto-accept
 bin/rails g alchemy:devise:install --force
 cd -
 BASH

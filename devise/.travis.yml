@@ -4,14 +4,15 @@ sudo: false
 cache:
   bundler: true
 rvm:
-  - 2.5.5
+  - 2.5.8
   - 2.6.6
-  - 2.7.0
+  - 2.7.1
 env:
   matrix:
     - ALCHEMY_BRANCH=4.4-stable
     - ALCHEMY_BRANCH=4.5-stable
     - ALCHEMY_BRANCH=4.6-stable
+    - ALCHEMY_BRANCH=5.0-stable
     - ALCHEMY_BRANCH=master
 matrix:
   fast_finish: true
