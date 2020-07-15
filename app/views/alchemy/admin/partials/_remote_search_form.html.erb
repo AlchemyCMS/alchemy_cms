@@ -2,8 +2,8 @@
     action: 'index',
     size: @size
   ), remote: true, html: {class: 'search_form', id: nil} do |f| %>
-  <%= hidden_field_tag("element_id", @element.blank? ? "" : @element.id) %>
-  <%= hidden_field_tag("content_id", @content.blank? ? "" : @content.id) %>
+  <%= hidden_field_tag("element_id", @element.blank? ? "" : @element.id, id: nil) %>
+  <%= hidden_field_tag("content_id", @content.blank? ? "" : @content.id, id: nil) %>
   <div class="search_field">
     <label>
       <%= render_icon('search') %>

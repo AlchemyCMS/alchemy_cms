@@ -2,10 +2,10 @@
   <% search_filter_params.reject { |k, _| k == 'page' || k == 'per_page' }.each do |key, value| %>
     <% if value.is_a? Hash %>
       <% value.each do |k, v| %>
-        <%= hidden_field_tag "#{key}[#{k}]", v %>
+        <%= hidden_field_tag "#{key}[#{k}]", v, id: nil %>
       <% end %>
     <% else %>
-      <%= hidden_field_tag key, value %>
+      <%= hidden_field_tag key, value, id: nil %>
     <% end %>
   <% end %>
   <label>
