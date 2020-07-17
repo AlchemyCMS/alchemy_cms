@@ -51,6 +51,60 @@ module Alchemy
       end
     end
 
+    describe "#url" do
+      subject { attachment.url }
+
+      context "without file" do
+        let(:attachment) { described_class.new }
+
+        it { is_expected.to be_nil }
+      end
+
+      context "with file" do
+        let(:attachment) { create(:alchemy_attachment) }
+
+        it "returns local path" do
+          is_expected.to eq "/attachment/#{attachment.id}/show"
+        end
+
+        context "with download enabled" do
+          subject { attachment.url(download: true) }
+
+          it "returns local download path" do
+            is_expected.to eq "/attachment/#{attachment.id}/download"
+          end
+
+          context "with extra params given" do
+            subject do
+              attachment.url(download: true, name: attachment.urlname, format: attachment.suffix)
+            end
+
+            it "returns local download path with name and suffix" do
+              is_expected.to eq "/attachment/#{attachment.id}/download/#{attachment.urlname}.#{attachment.suffix}"
+            end
+          end
+        end
+
+        context "with download disabled" do
+          subject { attachment.url(download: false) }
+
+          it "returns local path" do
+            is_expected.to eq "/attachment/#{attachment.id}/show"
+          end
+
+          context "with extra params given" do
+            subject do
+              attachment.url(download: false, name: attachment.urlname, format: attachment.suffix)
+            end
+
+            it "returns local path with name and suffix" do
+              is_expected.to eq "/attachment/#{attachment.id}/show/#{attachment.urlname}.#{attachment.suffix}"
+            end
+          end
+        end
+      end
+    end
+
     describe "urlname sanitizing" do
       it "escapes unsafe url characters" do
         attachment.file_name = "f#%&cking cute kitten pic.png"

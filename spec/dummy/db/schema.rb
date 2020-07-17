@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_19_073500) do
+ActiveRecord::Schema.define(version: 2020_06_17_110713) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -241,6 +241,14 @@ ActiveRecord::Schema.define(version: 2020_05_19_073500) do
     t.index ["urlname"], name: "index_pages_on_urlname"
   end
 
+  create_table "alchemy_picture_thumbs", force: :cascade do |t|
+    t.integer "picture_id", null: false
+    t.string "signature", null: false
+    t.text "uid", null: false
+    t.index ["picture_id"], name: "index_alchemy_picture_thumbs_on_picture_id"
+    t.index ["signature"], name: "index_alchemy_picture_thumbs_on_signature", unique: true
+  end
+
   create_table "alchemy_pictures", force: :cascade do |t|
     t.string "name"
     t.string "image_file_name"
@@ -339,4 +347,5 @@ ActiveRecord::Schema.define(version: 2020_05_19_073500) do
   add_foreign_key "alchemy_nodes", "alchemy_languages", column: "language_id"
   add_foreign_key "alchemy_nodes", "alchemy_pages", column: "page_id", on_delete: :cascade
   add_foreign_key "alchemy_pages", "alchemy_languages", column: "language_id"
+  add_foreign_key "alchemy_picture_thumbs", "alchemy_pictures", column: "picture_id"
 end

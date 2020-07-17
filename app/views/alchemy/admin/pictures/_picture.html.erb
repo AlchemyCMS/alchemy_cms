@@ -22,7 +22,7 @@
   </span>
   <% end %>
   <% image = image_tag(
-    picture.url(size: preview_size(@size), flatten: true),
+    picture.url(size: preview_size(@size), flatten: true) || "alchemy/missing-image.svg",
     alt: picture.name,
     title: Alchemy.t(:zoom_image)
   ) %>

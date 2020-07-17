@@ -37,6 +37,20 @@ module Alchemy
 
     # We need to define this method here to have it available in the validations below.
     class << self
+      # The class used to generate URLs for attachments
+      #
+      # @see Alchemy::Attachment::Url
+      def url_class
+        @_url_class ||= Alchemy::Attachment::Url
+      end
+
+      # Set a different attachment url class
+      #
+      # @see Alchemy::Attachment::Url
+      def url_class=(klass)
+        @_url_class = klass
+      end
+
       def searchable_alchemy_resource_attributes
         %w(name file_name)
       end
@@ -74,6 +88,12 @@ module Alchemy
         "size" => read_attribute(:file_size),
         "error" => errors[:file].join,
       }
+    end
+
+    def url(options = {})
+      if file
+        self.class.url_class.new(self).call(options)
+      end
     end
 
     # An url save filename without format suffix

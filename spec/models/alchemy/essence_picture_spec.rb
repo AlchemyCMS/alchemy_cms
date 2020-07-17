@@ -4,6 +4,20 @@ require "rails_helper"
 
 module Alchemy
   describe EssencePicture do
+    around do |example|
+      RSpec.configure do |config|
+        config.mock_with :rspec do |mock|
+          mock.verify_partial_doubles = true
+        end
+      end
+      example.run
+      RSpec.configure do |config|
+        config.mock_with :rspec do |mock|
+          mock.verify_partial_doubles = false
+        end
+      end
+    end
+
     it_behaves_like "an essence" do
       let(:essence)          { EssencePicture.new }
       let(:ingredient_value) { Picture.new }
@@ -110,6 +124,16 @@ module Alchemy
 
         it { is_expected.to be_nil }
       end
+
+      context "if picture.url returns nil" do
+        before do
+          expect(picture).to receive(:url) { nil }
+        end
+
+        it "returns missing image url" do
+          is_expected.to eq "missing-image.png"
+        end
+      end
     end
 
     describe "#picture_url_options" do
@@ -175,20 +199,19 @@ module Alchemy
       end
 
       let(:picture) do
-        build_stubbed(:alchemy_picture)
+        create(:alchemy_picture)
       end
 
       let(:essence) do
-        build_stubbed(:alchemy_essence_picture, picture: picture)
+        create(:alchemy_essence_picture, picture: picture)
       end
 
       let(:content) do
-        build_stubbed(:alchemy_content, essence: essence)
+        create(:alchemy_content, essence: essence)
       end
 
       before do
         allow(content).to receive(:settings) { settings }
-        allow(essence).to receive(:content) { content }
       end
 
       it "includes the image's original file format." do
@@ -240,6 +263,16 @@ module Alchemy
         let(:picture) { nil }
 
         it { is_expected.to be_nil }
+      end
+
+      context "if picture.url returns nil" do
+        before do
+          expect(picture).to receive(:url) { nil }
+        end
+
+        it "returns missing image url" do
+          is_expected.to eq "alchemy/missing-image.svg"
+        end
       end
     end
 
@@ -343,7 +376,7 @@ module Alchemy
 
           context "and with image larger than crop size" do
             before do
-              allow(picture).to receive(:can_be_cropped_to) { true }
+              allow(picture).to receive(:can_be_cropped_to?) { true }
             end
 
             it { is_expected.to be_falsy }

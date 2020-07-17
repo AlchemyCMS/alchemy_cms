@@ -1,94 +1,45 @@
 # frozen_string_literal: true
 
 module Alchemy
-  module Picture::Url
-    include Alchemy::Logger
+  class Picture < BaseRecord
+    class Url
+      attr_reader :variant
 
-    TRANSFORMATION_OPTIONS = [
-      :crop,
-      :crop_from,
-      :crop_size,
-      :flatten,
-      :format,
-      :quality,
-      :size,
-      :upsample,
-    ]
+      # @param [Alchemy::PictureVariant]
+      #
+      def initialize(variant)
+        raise ArgumentError, "Variant missing!" if variant.nil?
 
-    # Returns a path to picture for use inside a image_tag helper.
-    #
-    # Any additional options are passed to the url_helper, so you can add arguments to your url.
-    #
-    # Example:
-    #
-    #   <%= image_tag picture.url(size: '320x200', format: 'png') %>
-    #
-    def url(options = {})
-      image = image_file
-
-      raise MissingImageFileError, "Missing image file for #{inspect}" if image.nil?
-
-      image = processed_image(image, options)
-      image = encoded_image(image, options)
-
-      image.url(options.except(*TRANSFORMATION_OPTIONS).merge(name: name))
-    rescue MissingImageFileError, WrongImageFormatError => e
-      log_warning e.message
-      nil
-    end
-
-    private
-
-    # Returns the processed image dependent of size and cropping parameters
-    def processed_image(image, options = {})
-      size = options[:size]
-      upsample = !!options[:upsample]
-
-      return image unless size.present? && has_convertible_format?
-
-      if options[:crop]
-        crop(size, options[:crop_from], options[:crop_size], upsample)
-      else
-        resize(size, upsample)
-      end
-    end
-
-    # Returns the encoded image
-    #
-    # Flatten animated gifs, only if converting to a different format.
-    # Can be overwritten via +options[:flatten]+.
-    #
-    def encoded_image(image, options = {})
-      target_format = options[:format] || default_render_format
-
-      unless target_format.in?(Alchemy::Picture.allowed_filetypes)
-        raise WrongImageFormatError.new(self, target_format)
+        @variant = variant
       end
 
-      options = {
-        flatten: target_format != "gif" && image_file_format == "gif",
-      }.with_indifferent_access.merge(options)
+      # The URL to a variant of a picture
+      #
+      # @return [String]
+      #
+      def call(params = {})
+        return variant.image.url(params) unless processible_image?
 
-      encoding_options = []
-
-      convert_format = target_format != image_file_format.sub("jpeg", "jpg")
-
-      if target_format =~ /jpe?g/ && convert_format
-        quality = options[:quality] || Config.get(:output_image_jpg_quality)
-        encoding_options << "-quality #{quality}"
+        "/#{uid}"
       end
 
-      if options[:flatten]
-        encoding_options << "-flatten"
+      private
+
+      def processible_image?
+        variant.image.is_a?(::Dragonfly::Job)
       end
 
-      convertion_needed = convert_format || encoding_options.present?
-
-      if has_convertible_format? && convertion_needed
-        image = image.encode(target_format, encoding_options.join(" "))
+      def uid
+        signature = PictureThumb::Signature.call(variant)
+        thumb = variant.picture.thumbs.detect { |t| t.signature == signature }
+        if thumb
+          uid = thumb.uid
+        else
+          uid = PictureThumb::Uid.call(signature, variant)
+          PictureThumb.generator_class.call(variant, signature, uid)
+        end
+        uid
       end
-
-      image
     end
   end
 end

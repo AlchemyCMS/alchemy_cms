@@ -4,15 +4,21 @@ require "rails_helper"
 
 module Alchemy
   describe Picture do
-    it_behaves_like "has image transformations" do
-      let(:picture) { build_stubbed(:alchemy_picture) }
-    end
-
     let :image_file do
       File.new(File.expand_path("../../fixtures/image.png", __dir__))
     end
 
     let(:picture) { Picture.new }
+
+    it_behaves_like "has image calculations"
+
+    it { is_expected.to have_many(:thumbs).class_name("Alchemy::PictureThumb") }
+
+    it "generates thumbnails after create" do
+      expect {
+        create(:alchemy_picture)
+      }.to change { Alchemy::PictureThumb.count }.by(3)
+    end
 
     it "is valid with valid attributes" do
       picture = Picture.new(image_file: image_file)
@@ -278,6 +284,79 @@ module Alchemy
         it "does not update name" do
           expect(picture).not_to receive(:name=).with("Foo")
           picture.update_name_and_tag_list!({ pictures_name: "" })
+        end
+      end
+    end
+
+    describe "#url" do
+      subject(:url) { picture.url(options) }
+
+      let(:image) do
+        fixture_file_upload(
+          File.expand_path("../../fixtures/500x500.png", __dir__),
+          "image/png",
+        )
+      end
+
+      let(:picture) do
+        create(:alchemy_picture, image_file: image)
+      end
+
+      let(:options) { Hash.new }
+
+      it "includes the name and render format" do
+        expect(url).to match /\/#{picture.name}\.#{picture.default_render_format}/
+      end
+
+      context "when no image is present" do
+        before do
+          expect(picture).to receive(:image_file) { nil }
+        end
+
+        it "returns nil" do
+          expect(url).to be_nil
+        end
+      end
+
+      context "when the image can not be fetched" do
+        before do
+          expect_any_instance_of(described_class.url_class).to receive(:call) do
+            raise(::Dragonfly::Job::Fetch::NotFound)
+          end
+        end
+
+        it { is_expected.to be_nil }
+      end
+
+      context "when options are passed" do
+        context "that are transformation options" do
+          let(:options) do
+            {
+              crop: true,
+              size: "10x10",
+            }
+          end
+
+          it "does not pass them to the URL" do
+            expect(url).to_not match /crop/
+          end
+
+          it "returns the url to the thumbnail" do
+            is_expected.to match(/\/pictures\/\d+\/.+\/500x500\.png/)
+          end
+        end
+
+        context "that are params" do
+          let(:options) do
+            {
+              page: 1,
+              per_page: 10,
+            }
+          end
+
+          it "passes them to the URL" do
+            expect(url).to match /page=1/
+          end
         end
       end
     end

@@ -7,15 +7,15 @@
   </div>
   <div class="value with-icon">
     <label><%= Alchemy::Attachment.human_attribute_name(:url) %></label>
-    <p><%= alchemy.show_attachment_url(@attachment) %></p>
-    <a data-clipboard-text="<%= alchemy.show_attachment_url(@attachment) %>" class="icon_button--right">
+    <p><%= @attachment.url %></p>
+    <a data-clipboard-text="<%= @attachment.url %>" class="icon_button--right">
       <%= render_icon(:clipboard, style: 'regular') %>
     </a>
   </div>
   <div class="value with-icon">
     <label><%= Alchemy::Attachment.human_attribute_name(:download_url) %></label>
-    <p><%= alchemy.download_attachment_url(@attachment) %></p>
-    <a data-clipboard-text="<%= alchemy.download_attachment_url(@attachment) %>" class="icon_button--right">
+    <p><%= @attachment.url(download: true) %></p>
+    <a data-clipboard-text="<%= @attachment.url(download: true) %>" class="icon_button--right">
       <%= render_icon(:clipboard, style: 'regular') %>
     </a>
   </div>
@@ -24,18 +24,18 @@
 <% case @attachment.icon_css_class %>
 <% when "file-image" %>
 <div class="attachment_preview_container image-preview">
-  <%= image_tag(alchemy.show_attachment_path(@attachment), class: "full_width") %>
+  <%= image_tag(@attachment.url, class: "full_width") %>
 </div>
 <% when "file-audio" %>
 <div class="attachment_preview_container player-preview">
-  <%= audio_tag(alchemy.show_attachment_path(@attachment), preload: "none", controls: true, class: "full_width") %>
+  <%= audio_tag(@attachment.url, preload: "none", controls: true, class: "full_width") %>
 </div>
 <% when "file-video" %>
 <div class="attachment_preview_container player-preview">
-  <%= video_tag(alchemy.show_attachment_path(@attachment), preload: "metadata", controls: true, class: "full_width") %>
+  <%= video_tag(@attachment.url, preload: "metadata", controls: true, class: "full_width") %>
 </div>
 <% when "file-pdf" %>
-<iframe src="<%= alchemy.show_attachment_path(@attachment) %>" frameborder=0 class="full-iframe">
+<iframe src="<%= @attachment.url %>" frameborder=0 class="full-iframe">
   Your browser does not support frames.
 </iframe>
 <% end %>

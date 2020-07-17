@@ -30,11 +30,22 @@ module Alchemy
 
     CONVERTIBLE_FILE_FORMATS = %w(gif jpg jpeg png).freeze
 
+    TRANSFORMATION_OPTIONS = [
+      :crop,
+      :crop_from,
+      :crop_size,
+      :flatten,
+      :format,
+      :quality,
+      :size,
+      :upsample,
+    ]
+
+    include Alchemy::Logger
     include Alchemy::NameConversions
     include Alchemy::Taggable
     include Alchemy::TouchElements
-    include Alchemy::Picture::Transformations
-    include Alchemy::Picture::Url
+    include Calculations
 
     has_many :essence_pictures,
       class_name: "Alchemy::EssencePicture",
@@ -44,6 +55,7 @@ module Alchemy
     has_many :contents, through: :essence_pictures
     has_many :elements, through: :contents
     has_many :pages, through: :elements
+    has_many :thumbs, class_name: "Alchemy::PictureThumb", dependent: :destroy
 
     # Raise error, if picture is in use (aka. assigned to an EssencePicture)
     #
@@ -78,6 +90,9 @@ module Alchemy
       end
     end
 
+    # Create important thumbnails upfront
+    after_create -> { PictureThumb.generate_thumbs!(self) }
+
     # We need to define this method here to have it available in the validations below.
     class << self
       def allowed_filetypes
@@ -103,6 +118,20 @@ module Alchemy
     # Class methods
 
     class << self
+      # The class used to generate URLs for pictures
+      #
+      # @see Alchemy::Picture::Url
+      def url_class
+        @_url_class ||= Alchemy::Picture::Url
+      end
+
+      # Set a different picture url class
+      #
+      # @see Alchemy::Picture::Url
+      def url_class=(klass)
+        @_url_class = klass
+      end
+
       def searchable_alchemy_resource_attributes
         %w(name image_file_name)
       end
@@ -144,6 +173,33 @@ module Alchemy
     end
 
     # Instance methods
+
+    # Returns an url (or relative path) to a processed image for use inside an image_tag helper.
+    #
+    # Any additional options are passed to the url method, so you can add params to your url.
+    #
+    # Example:
+    #
+    #   <%= image_tag picture.url(size: '320x200', format: 'png') %>
+    #
+    # @see Alchemy::PictureVariant#call for transformation options
+    # @see Alchemy::Picture::Url#call for url options
+    # @return [String|Nil]
+    def url(options = {})
+      return unless image_file
+
+      variant = PictureVariant.new(self, options.slice(*TRANSFORMATION_OPTIONS))
+      self.class.url_class.new(variant).call(
+        options.except(*TRANSFORMATION_OPTIONS).merge(
+          basename: name,
+          ext: variant.render_format,
+          name: name,
+        )
+      )
+    rescue ::Dragonfly::Job::Fetch::NotFound => e
+      log_warning(e.message)
+      nil
+    end
 
     def previous(params = {})
       query = Picture.ransack(params[:q])

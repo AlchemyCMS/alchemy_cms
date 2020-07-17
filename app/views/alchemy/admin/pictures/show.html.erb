@@ -1,5 +1,5 @@
 <div class="zoomed-picture-background">
-  <%= image_tag @picture.url %>
+  <%= image_tag @picture.url || "alchemy/missing-image.svg" %>
 </div>
 
 <div class="picture-overlay-navigation">

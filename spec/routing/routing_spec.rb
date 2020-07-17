@@ -54,6 +54,30 @@ describe "The Routing" do
     end
   end
 
+  context "for files" do
+    it "should have a default route" do
+      expect({
+        get: "/attachment/32/show",
+      }).to route_to(
+        controller: "alchemy/attachments",
+        action: "show",
+        id: "32",
+      )
+    end
+
+    it "should have a named route" do
+      expect({
+        get: "/attachment/32/show/Presseveranstaltung.pdf",
+      }).to route_to(
+        controller: "alchemy/attachments",
+        action: "show",
+        id: "32",
+        name: "Presseveranstaltung",
+        format: "pdf",
+      )
+    end
+  end
+
   describe "nested url" do
     context "one level deep nested" do
       it "should route to pages show" do
