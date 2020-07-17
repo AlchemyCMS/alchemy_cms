@@ -350,10 +350,22 @@ module Alchemy
 
             context "with crop set to true" do
               before do
-                allow(content).to receive(:settings) { {crop: true} }
+                allow(content).to receive(:settings) { { crop: true } }
               end
 
-              it { is_expected.to be(true) }
+              context "if picture.image_file is nil" do
+                before do
+                  expect(picture).to receive(:image_file) { nil }
+                end
+
+                it { is_expected.to be_falsy }
+              end
+
+              context "if picture.image_file is present" do
+                let(:picture) { build_stubbed(:alchemy_picture) }
+
+                it { is_expected.to be(true) }
+              end
             end
           end
         end
