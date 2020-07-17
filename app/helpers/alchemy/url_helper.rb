@@ -26,12 +26,12 @@ module Alchemy
 
     # Returns the path for downloading an alchemy attachment
     def download_alchemy_attachment_path(attachment)
-      alchemy.download_attachment_path(attachment, attachment.urlname)
+      alchemy.download_attachment_path(attachment, attachment.slug)
     end
 
     # Returns the url for downloading an alchemy attachment
     def download_alchemy_attachment_url(attachment)
-      alchemy.download_attachment_url(attachment, attachment.urlname)
+      alchemy.download_attachment_url(attachment, attachment.slug)
     end
 
     # Returns the full url containing host, page and anchor for the given element

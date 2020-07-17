@@ -77,9 +77,12 @@ module Alchemy
     end
 
     # An url save filename without format suffix
-    def urlname
+    def slug
       CGI.escape(file_name.gsub(/\.#{extension}$/, "").tr(".", " "))
     end
+
+    alias_method :urlname, :slug
+    deprecate urlname: :slug, deprecator: Alchemy::Deprecation
 
     # Checks if the attachment is restricted, because it is attached on restricted pages only
     def restricted?
