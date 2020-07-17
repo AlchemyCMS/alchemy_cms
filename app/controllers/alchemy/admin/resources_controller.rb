@@ -148,15 +148,15 @@ module Alchemy
 
       def common_search_filter_includes
         [
-          {q: [
+          { q: [
             resource_handler.search_field_name,
             :s,
-          ]},
+          ] },
           :tagged_with,
           :filter,
           :page,
           :per_page,
-        ].freeze
+        ]
       end
 
       def items_per_page
