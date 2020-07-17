@@ -175,7 +175,8 @@ module Alchemy
       # Returns true if the given entry's controller is current controller
       #
       def is_entry_controller_active?(entry)
-        entry["controller"].gsub(/\A\//, "") == params[:controller]
+        entry["controller"].gsub(/\A\//, "") == params[:controller] ||
+          entry.fetch("nested_controllers", []).include?(params[:controller])
       end
 
       # Returns true if the given entry's action is current controllers action

@@ -72,7 +72,8 @@ module Alchemy
         alchemy_modules.detect do |alchemy_module|
           module_navi = alchemy_module.fetch("navigation", {})
           definition_from_mainnavi(module_navi, name_or_params) ||
-            definition_from_subnavi(module_navi, name_or_params)
+            definition_from_subnavi(module_navi, name_or_params) ||
+            definition_from_nested(module_navi, name_or_params)
         end
       else
         raise ArgumentError, "Could not find module definition for #{name_or_params}"
@@ -90,6 +91,15 @@ module Alchemy
       return if subnavi.nil?
 
       subnavi.any? do |navi|
+        controller_matches?(navi, params) && action_matches?(navi, params)
+      end
+    end
+
+    def definition_from_nested(module_navi, params)
+      nested = module_navi["nested"]
+      return if nested.nil?
+
+      nested.any? do |navi|
         controller_matches?(navi, params) && action_matches?(navi, params)
       end
     end

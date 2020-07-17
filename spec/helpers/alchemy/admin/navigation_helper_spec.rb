@@ -156,8 +156,13 @@ describe Alchemy::Admin::NavigationHelper do
   end
 
   describe "#entry_active?" do
+    subject { helper.entry_active?(entry) }
+
     let(:entry) do
-      { "controller" => "alchemy/admin/dashboard", "action" => "index" }
+      {
+        "controller" => "alchemy/admin/dashboard",
+        "action" => "index",
+      }
     end
 
     context "with active entry" do
@@ -170,33 +175,69 @@ describe Alchemy::Admin::NavigationHelper do
         end
       end
 
-      it "returns true" do
-        expect(helper.entry_active?(entry)).to be_truthy
-      end
+      it { is_expected.to be_truthy }
 
       context "and with leading slash in controller name" do
-        before { entry["controller"] = "/alchemy/admin/dashboard" }
+        let(:entry) do
+          {
+            "controller" => "/alchemy/admin/dashboard",
+            "action" => "index",
+          }
+        end
 
-        it "returns true" do
-          expect(helper.entry_active?(entry)).to be_truthy
+        it { is_expected.to be_truthy }
+      end
+
+      context "with non matching action" do
+        let(:entry) do
+          {
+            "controller" => "alchemy/admin/dashboard",
+            "action" => "some",
+          }
+        end
+
+        it { is_expected.to be_falsey }
+
+        context "but with action listed in nested_actions key" do
+          let(:entry) do
+            {
+              "controller" => "alchemy/admin/dashboard",
+              "action" => "some",
+              "nested_actions" => %w(index),
+            }
+          end
+
+          it { is_expected.to be_truthy }
         end
       end
 
-      context "but with action listed in nested_actions key" do
-        before do
-          entry["action"] = nil
-          entry["nested_actions"] = %w(index)
+      context "with non matching controller" do
+        let(:entry) do
+          {
+            "controller" => "some/one",
+            "action" => "index",
+          }
         end
 
-        it "returns true" do
-          expect(helper.entry_active?(entry)).to be_truthy
+        it { is_expected.to be_falsey }
+
+        context "but controller listed in nested_controllers" do
+          let(:entry) do
+            {
+              "controller" => "some/one",
+              "action" => "index",
+              "nested_controllers" => %w(alchemy/admin/dashboard),
+            }
+          end
+
+          it { is_expected.to be_truthy }
         end
       end
     end
 
     context "with inactive entry" do
       before do
-        expect(helper).to receive(:params) do
+        expect(helper).to receive(:params).twice do
           {
             controller: "alchemy/admin/users",
             action: "index",
@@ -204,9 +245,7 @@ describe Alchemy::Admin::NavigationHelper do
         end
       end
 
-      it "returns false" do
-        expect(helper.entry_active?(entry)).to be_falsey
-      end
+      it { is_expected.to be_falsey }
     end
   end
 
