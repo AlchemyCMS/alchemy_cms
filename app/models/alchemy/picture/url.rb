@@ -71,7 +71,9 @@ module Alchemy
 
       encoding_options = []
 
-      if target_format =~ /jpe?g/
+      convert_format = target_format != image_file_format.sub("jpeg", "jpg")
+
+      if target_format =~ /jpe?g/ && convert_format
         quality = options[:quality] || Config.get(:output_image_jpg_quality)
         encoding_options << "-quality #{quality}"
       end
@@ -80,7 +82,7 @@ module Alchemy
         encoding_options << "-flatten"
       end
 
-      convertion_needed = target_format != image_file_format || encoding_options.present?
+      convertion_needed = convert_format || encoding_options.present?
 
       if has_convertible_format? && convertion_needed
         image = image.encode(target_format, encoding_options.join(" "))
