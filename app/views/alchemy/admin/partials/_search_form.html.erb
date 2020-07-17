@@ -1,13 +1,13 @@
-<%- url ||= resource_url_proxy.url_for(action: 'index') -%>
+<%- url ||= resource_url_proxy.url_for({ action: 'index' }.merge(search_filter_params.except(:q))) -%>
 
 <%= search_form_for @query, url: url, class: 'search_form' do |f| %>
   <div class="search_field">
-    <label>
+    <button type="submit">
       <%= render_icon('search') %>
-      <%= f.search_field resource_handler.search_field_name,
-        class: 'search_input_field',
-        placeholder: Alchemy.t(:search) %>
-    </label>
+    </button>
+    <%= f.search_field resource_handler.search_field_name,
+      class: 'search_input_field',
+      placeholder: Alchemy.t(:search) %>
     <% local_assigns.fetch(:additional_query_fields, []).each do |field| %>
       <%= f.hidden_field field, id: nil %>
     <% end %>

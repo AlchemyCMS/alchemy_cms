@@ -11,9 +11,19 @@
     top: 9px;
   }
 
-  label {
-    display: block;
+  button {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 30px;
     height: inherit;
+    appearance: none;
+    background-color: transparent;
+    border: 0 none;
+    border-radius: 0;
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
   }
 }
 

@@ -222,5 +222,22 @@ RSpec.describe "Resources", type: :system do
       expect(page).to have_content("Hovercar Expo")
       expect(page).to have_content("Horse Expo")
     end
+
+    context "full text search" do
+      it "should respect filters" do
+        visit "/admin/events?filter=future"
+
+        expect(page).to have_content("Hovercar Expo")
+        expect(page).to_not have_content("Car Expo")
+        expect(page).to_not have_content("Horse Expo")
+
+        page.find(".search_input_field").set("Horse")
+        page.find(".search_field button").click
+
+        expect(page).to_not have_content("Hovercar Expo")
+        expect(page).to_not have_content("Car Expo")
+        expect(page).to_not have_content("Horse Expo")
+      end
+    end
   end
 end
