@@ -143,7 +143,7 @@ module Alchemy
         picture.can_be_cropped_to(
           content.settings[:size],
           content.settings[:upsample],
-        )
+        ) && !!picture.image_file
     end
 
     def crop_values_present?
