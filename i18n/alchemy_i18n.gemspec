@@ -16,6 +16,6 @@ Gem::Specification.new do |s|
 
   s.files = Dir["{app,locales,lib,vendor}/**/*", "LICENSE", "README.md"]
 
-  s.add_dependency "alchemy_cms", [">= 4.4.0.a", "< 5.0"]
+  s.add_dependency "alchemy_cms", [">= 4.4.0.a", "< 6.0"]
   s.add_dependency "rails-i18n"
 end
