@@ -234,4 +234,32 @@ RSpec.describe Alchemy::PictureVariant do
       end
     end
   end
+
+  context "when jpeg format is requested" do
+    let(:options) do
+      {
+        format: "jpeg",
+      }
+    end
+
+    context "and image has jpg format" do
+      let(:alchemy_picture) do
+        build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "jpg")
+      end
+
+      it "does not convert the picture format" do
+        expect(subject).to_not respond_to(:steps)
+      end
+    end
+
+    context "and image has jpeg format" do
+      let(:alchemy_picture) do
+        build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "jpeg")
+      end
+
+      it "does not convert the picture format" do
+        expect(subject).to_not respond_to(:steps)
+      end
+    end
+  end
 end
