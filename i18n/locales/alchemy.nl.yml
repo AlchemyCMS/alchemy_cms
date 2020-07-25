@@ -353,7 +353,7 @@ nl:
     create_language_tree_heading: "Nieuwe lege boomstructuur voor taal maken"
     create_page: "Nieuwe subpagina maken"
     create_menu: "Nieuw menu maken"
-    create_node: "Nieuwe menu-item maken"
+    create_node: "Nieuw menu-item maken"
     currently_edited_by: "Deze pagina is vergrendeld door"
     cut_element: "Element knippen"
     delete_file: "Bestand van de server verwijderen"
