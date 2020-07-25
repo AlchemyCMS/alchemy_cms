@@ -15,7 +15,6 @@ gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 group :development, :test do
   if ENV["TRAVIS"]
     gem "sassc", "~> 2.4.0" # https://github.com/sass/sassc-ruby/issues/146
-    gem "codeclimate-test-reporter", "~> 1.0", require: false
   else
     gem "launchy"
     gem "annotate"

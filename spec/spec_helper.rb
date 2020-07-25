@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require "simplecov"
-if ENV["TRAVIS"]
-  require "codeclimate-test-reporter"
-end
 SimpleCov.start "rails" do
   add_filter "/lib/alchemy/upgrader"
   add_filter "/lib/alchemy/version"
