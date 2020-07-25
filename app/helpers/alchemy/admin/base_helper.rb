@@ -272,50 +272,6 @@ module Alchemy
         end
       end
 
-      # Renders the toolbar shown on top of the records.
-      #
-      # == Example
-      #
-      #   <% label_title = Alchemy.t("Create #{resource_name}", default: Alchemy.t('Create')) %>
-      #   <% toolbar(
-      #     buttons: [
-      #       {
-      #         icon: :plus,
-      #         label: label_title,
-      #         url: new_resource_path,
-      #         title: label_title,
-      #         hotkey: 'alt+n',
-      #         dialog_options: {
-      #           title: label_title,
-      #           size: "430x400"
-      #         },
-      #         if_permitted_to: [:create, resource_model]
-      #       }
-      #     ]
-      #   ) %>
-      #
-      # @option options [Array] :buttons ([])
-      #   Pass an Array with button options. They will be passed to {#toolbar_button} helper.
-      # @option options [Boolean] :search (true)
-      #   Show searchfield.
-      #
-      def toolbar(options = {})
-        defaults = {
-          buttons: [],
-          search: true,
-        }
-        options = defaults.merge(options)
-        content_for(:toolbar) do
-          content = <<-CONTENT.strip_heredoc
-            #{options[:buttons].map { |button_options| toolbar_button(button_options) }.join}
-            #{render("alchemy/admin/partials/search_form", url: options[:search_url]) if options[:search]}
-          CONTENT
-          content.html_safe
-        end
-      end
-
-      deprecate toolbar: "Please use `content_for(:toolbar)` instead", deprecator: Alchemy::Deprecation
-
       # (internal) Used by upload form
       def new_asset_path_with_session_information(asset_type)
         session_key = Rails.application.config.session_options[:key]
