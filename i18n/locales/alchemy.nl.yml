@@ -17,6 +17,8 @@ nl:
     #       sidebar_menu: Side bar menu (?)
     #
     menu_names:
+      main_menu: Hoofdmenu
+      footer_menu: Menu footer
 
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
@@ -332,6 +334,8 @@ nl:
     confirm_to_delete_image: "Afbeelding van de server verwijderen?"
     confirm_to_delete_image_from_server: "Afbeelding van de server verwijderen?"
     confirm_to_delete_images_from_server: "Afbeeldingen van de server verwijderen?"
+    confirm_to_delete_menu: "Menu-item zeker verwijderen?"
+    confirm_to_delete_node: "Menu-item zeker verwijderen?"
     confirm_to_delete_page: "Deze pagina verwijderen? Alle inhoud gaat verloren."
     content_essence_not_found: "Content essence is niet gevonden"
     content_not_found: "Veld voor content is niet aanwezig"
@@ -348,6 +352,8 @@ nl:
     "Create site": "Nieuwe site maken"
     create_language_tree_heading: "Nieuwe lege boomstructuur voor taal maken"
     create_page: "Nieuwe subpagina maken"
+    create_menu: "Nieuw menu maken"
+    create_node: "Nieuwe menu-item maken"
     currently_edited_by: "Deze pagina is vergrendeld door"
     cut_element: "Element knippen"
     delete_file: "Bestand van de server verwijderen"
@@ -355,6 +361,8 @@ nl:
     delete_language: "Deze taal verwijderen"
     delete_page: "Deze pagina verwijderen"
     delete_tag: 'Tag wissen'
+    delete_menu: "Menu verwijderen"
+    delete_node: "Menu-item verwijderen"
     document: "Bestand"
     download_csv: "CSV downloaden"
     download_file: "Bestand '%{filename}' downloaden"
@@ -367,6 +375,8 @@ nl:
     edit_page_properties: "Eigenschappen van de pagina aanpassen"
     edit_tag: 'Tag bewerken'
     edit_selected_pictures: "Geselecteerde afbeeldingen aanpassen"
+    edit_menu: "Menu bewerken"
+    edit_node: "Menu-item bewerken"
     element_editor_not_found: "Foutmelding in het element"
     element_of_type: "Element"
     element_saved: "Opgeslagen element."
@@ -433,7 +443,9 @@ nl:
     meta_data: "Meta-Data"
     meta_description: "Meta-Description"
     meta_keywords: "Meta-Keywords"
+    menu: "Menu"
     modules:
+      menus: "Menus"
       attachments: "Bestanden"
       dashboard: "Dashboard"
       pictures: "Afbeeldingen"
@@ -777,6 +789,9 @@ nl:
         public: "Publiek"
         locale: Localization
         code: ISO Code
+      alchemy/node:
+        one: "Menu-item"
+        other: "Menu-items"
       alchemy/legacy_page_url:
         urlname: "URL pad"
       alchemy/page:
