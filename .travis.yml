@@ -1,6 +1,6 @@
 language: ruby
+os: linux
 dist: bionic
-sudo: false
 services:
   - mysql
 addons:
