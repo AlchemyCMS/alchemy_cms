@@ -20,8 +20,7 @@ before_script:
 script: bundle exec rake
 
 after_script:
-  - ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.rspec.json coverage/.resultset.json
-  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage -i coverage/codeclimate.rspec.json; fi
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
 
 jobs:
   include:
@@ -30,9 +29,8 @@ jobs:
       install: yarn install
       script: yarn jest --coverage
       env: NODE_ENV=test
-      after_script:
-        - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.jest.json coverage/lcov.info
-        - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage -i coverage/codeclimate.jest.json; fi
+      before_script: skip
+      after_script: skip
 
 env:
   global:
