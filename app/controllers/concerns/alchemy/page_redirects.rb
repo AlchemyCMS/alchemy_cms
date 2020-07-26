@@ -15,36 +15,21 @@ module Alchemy
     #
     # == Lookup:
     #
-    # 1. If the page is not published and we have a published child,
-    #    we return the url top that page. (Configurable through +redirect_to_public_child+).
-    # 2. If the page layout of the page found has a controller and action configured,
-    #    we return the url to that route. (Configure controller and action in `page_layouts.yml`).
-    # 3. If the current page URL has no locale prefixed, but we should have one,
+    # 1. If the current page URL has no locale prefixed, but we should have one,
     #    we return the prefixed URL.
-    # 4. If no redirection is needed returns nil.
+    # 2. If no redirection is needed returns nil.
     #
     # @return String
     # @return NilClass
     #
     def redirect_url
-      @_redirect_url ||= public_child_redirect_url || locale_prefixed_url || nil
+      @_redirect_url ||= locale_prefixed_url || nil
     end
 
     def locale_prefixed_url
       return unless locale_prefix_missing?
 
       page_redirect_url(locale: Language.current.code)
-    end
-
-    def public_child_redirect_url
-      return if @page.public?
-
-      if configuration(:redirect_to_public_child)
-        @page = @page.descendants.published.not_restricted.first
-        @page ? page_redirect_url : page_not_found!
-      else
-        page_not_found!
-      end
     end
 
     # Page url with or without locale while keeping all additional params

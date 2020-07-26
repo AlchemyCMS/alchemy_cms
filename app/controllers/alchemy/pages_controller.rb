@@ -21,10 +21,10 @@ module Alchemy
     # Legacy page redirects need to run after the page was loaded and before we render 404.
     include LegacyPageRedirects
 
-    # From here on, we need a +@page+ to work with!
-    before_action :page_not_found!, if: -> { @page.blank? }, only: [:index, :show]
+    # From here on, we need a published +@page+ to work with!
+    before_action :page_not_found!, unless: -> { @page&.public? }, only: [:index, :show]
 
-    # Page redirects need to run after the page was loaded and we're sure to have a +@page+ set.
+    # Page redirects need to run after the page was loaded and we're sure to have a public +@page+ set.
     include PageRedirects
 
     # We only need to set the +@root_page+ if we are sure that no more redirects happen.
@@ -87,9 +87,6 @@ module Alchemy
     # == Loads index page
     #
     # Loads the current public language root page.
-    #
-    # If the root page is not public it redirects to the first published child.
-    # This can be configured via +redirect_to_public_child+ [default: true]
     #
     # If no index page and no admin users are present we show the "Welcome to Alchemy" page.
     #
