@@ -76,11 +76,11 @@ module Alchemy
 
           context "with extra params given" do
             subject do
-              attachment.url(download: true, name: attachment.urlname, format: attachment.suffix)
+              attachment.url(download: true, name: attachment.slug, format: attachment.suffix)
             end
 
             it "returns local download path with name and suffix" do
-              is_expected.to eq "/attachment/#{attachment.id}/download/#{attachment.urlname}.#{attachment.suffix}"
+              is_expected.to eq "/attachment/#{attachment.id}/download/#{attachment.slug}.#{attachment.suffix}"
             end
           end
         end
@@ -94,11 +94,11 @@ module Alchemy
 
           context "with extra params given" do
             subject do
-              attachment.url(download: false, name: attachment.urlname, format: attachment.suffix)
+              attachment.url(download: false, name: attachment.slug, format: attachment.suffix)
             end
 
             it "returns local path with name and suffix" do
-              is_expected.to eq "/attachment/#{attachment.id}/show/#{attachment.urlname}.#{attachment.suffix}"
+              is_expected.to eq "/attachment/#{attachment.id}/show/#{attachment.slug}.#{attachment.suffix}"
             end
           end
         end
