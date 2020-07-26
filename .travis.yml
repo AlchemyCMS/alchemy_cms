@@ -7,21 +7,33 @@ addons:
   postgresql: "10"
 cache:
   bundler: true
+  yarn: true
   directories:
     - /home/travis/.webdrivers/
 rvm:
   - 2.6.6
   - 2.7.1
-before_install:
-  - gem install bundler
 before_script:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
   - ./cc-test-reporter before-build
-  - bundle exec rake alchemy:spec:prepare
-script: bundle exec rspec
+script: bundle exec rake
+
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
+  - ./cc-test-reporter format-coverage -t simplecov -o coverage/codeclimate.rspec.json coverage/.resultset.json
+  - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage -i coverage/codeclimate.rspec.json; fi
+
+jobs:
+  include:
+    - language: node_js
+      node_js: 12
+      install: yarn install
+      script: yarn jest --coverage
+      env: NODE_ENV=test
+      after_script:
+        - ./cc-test-reporter format-coverage -t lcov -o coverage/codeclimate.jest.json coverage/lcov.info
+        - if [[ "$TRAVIS_TEST_RESULT" == 0 ]]; then ./cc-test-reporter upload-coverage -i coverage/codeclimate.jest.json; fi
+
 env:
   global:
     CC_TEST_REPORTER_ID=bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
