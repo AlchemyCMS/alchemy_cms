@@ -1,20 +1,17 @@
-<%= toolbar(
-  buttons: [
-    {
-      icon: 'info-circle',
-      label: Alchemy.t(:info),
-      url: alchemy.dashboard_info_path,
+<%= content_for :toolbar do %>
+  <%= toolbar_button(
+    icon: 'info-circle',
+    label: Alchemy.t(:info),
+    url: alchemy.dashboard_info_path,
+    title: Alchemy.t(:info),
+    dialog_options: {
       title: Alchemy.t(:info),
-      dialog_options: {
-        title: Alchemy.t(:info),
-        size: "420x435"
-      },
-      if_permitted_to: [:info, :alchemy_admin_dashboard],
-      hotkey: 'alt+i'
-    }
-  ],
-  search: false
-) %>
+      size: "420x435"
+    },
+    if_permitted_to: [:info, :alchemy_admin_dashboard],
+    hotkey: 'alt+i'
+  ) %>
+<% end %>
 
 <div id="dashboard">
   <h1>

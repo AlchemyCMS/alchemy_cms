@@ -1,16 +1,14 @@
-<%= toolbar(
-  buttons: [
-    {
-      icon: 'angle-double-left',
-      url: request.referer || alchemy.admin_dashboard_path,
-      label: Alchemy.t(:back),
-      title: Alchemy.t(:back),
-      hotkey: 'alt+z',
-      dialog: false,
-      skip_permission_check: true
-    }
-  ], search: false
-) %>
+<%= content_for :toolbar do %>
+  <%= toolbar_button(
+    icon: 'angle-double-left',
+    url: request.referer || alchemy.admin_dashboard_path,
+    label: Alchemy.t(:back),
+    title: Alchemy.t(:back),
+    hotkey: 'alt+z',
+    dialog: false,
+    skip_permission_check: true
+  ) %>
+<% end %>
 
 <% content_for(:alchemy_body_class) { 'error' } %>
 
