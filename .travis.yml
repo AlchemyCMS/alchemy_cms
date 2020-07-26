@@ -10,8 +10,8 @@ cache:
   directories:
     - /home/travis/.webdrivers/
 rvm:
-  - 2.5.7
-  - 2.6.5
+  - 2.6.6
+  - 2.7.1
 before_install:
   - gem install bundler
 before_script:
@@ -26,8 +26,10 @@ env:
   global:
     CC_TEST_REPORTER_ID=bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
   jobs:
-    - DB=mysql
-    - DB=postgresql
+    - DB=mysql RAILS_VERSION=5.2
+    - DB=mysql RAILS_VERSION=6.0
+    - DB=postgresql RAILS_VERSION=5.2
+    - DB=postgresql RAILS_VERSION=6.0
 notifications:
   slack:
     secure: QzOFw1Ph69pzwWBFgtIVkOnjbcRxB9HPRQ+RYjK+2tg+fsbiTJ+wYgHcZL49tPYcLAls4kymkFWzWBF3PCAXJMfKgUCqXzdQ2FuJC/JoVRTLll4wDnZFPG33jsm5tVznmycZ3ma4+ZWfJQ+C+elEBOba6v1kG9eGIy6sH2cvXfE=
