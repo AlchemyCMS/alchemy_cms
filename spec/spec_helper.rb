@@ -4,7 +4,7 @@ require "simplecov"
 SimpleCov.start "rails" do
   add_filter "/lib/alchemy/upgrader"
   add_filter "/lib/alchemy/version"
-  add_filter "/lib/rails"
+  add_filter "/lib/generators"
 end
 
 require "rspec/core"
