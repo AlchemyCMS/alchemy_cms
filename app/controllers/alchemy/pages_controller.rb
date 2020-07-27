@@ -13,7 +13,10 @@ module Alchemy
 
     # Redirecting concerns. Order is important here!
     include SiteRedirects
-    include LocaleRedirects
+
+    before_action :enforce_no_locale,
+      if: :locale_prefix_not_allowed?,
+      only: [:index, :show]
 
     before_action :load_index_page, only: [:index]
     before_action :load_page, only: [:show]
@@ -25,7 +28,9 @@ module Alchemy
     before_action :page_not_found!, unless: -> { @page&.public? }, only: [:index, :show]
 
     # Page redirects need to run after the page was loaded and we're sure to have a public +@page+ set.
-    include PageRedirects
+    before_action :enforce_locale,
+      if: :locale_prefix_missing?,
+      only: [:index, :show]
 
     # We only need to set the +@root_page+ if we are sure that no more redirects happen.
     before_action :set_root_page, only: [:index, :show]
@@ -66,12 +71,8 @@ module Alchemy
     # descendant it finds. If no public page can be found it renders a 404 error.
     #
     def show
-      if redirect_url.present?
-        redirect_permanently_to redirect_url
-      else
-        authorize! :show, @page
-        render_page if render_fresh_page?
-      end
+      authorize! :show, @page
+      render_page if render_fresh_page?
     end
 
     # Renders a search engine compatible xml sitemap.
@@ -83,6 +84,21 @@ module Alchemy
     end
 
     private
+
+    # Redirects to requested action without locale prefixed
+    def enforce_no_locale
+      redirect_permanently_to additional_params.merge(locale: nil)
+    end
+
+    # Is the requested locale allowed?
+    #
+    # If Alchemy is not in multi language mode or the requested locale is the default locale,
+    # then we want to redirect to a non prefixed url.
+    #
+    def locale_prefix_not_allowed?
+      params[:locale].present? && !multi_language? ||
+        params[:locale].presence == ::I18n.default_locale.to_s
+    end
 
     # == Loads index page
     #
@@ -111,6 +127,28 @@ module Alchemy
         urlname: params[:urlname],
         language_code: params[:locale] || Language.current.code,
       )
+    end
+
+    def enforce_locale
+      redirect_permanently_to page_locale_redirect_url(locale: Language.current.code)
+    end
+
+    def locale_prefix_missing?
+      multi_language? && params[:locale].blank? && !default_locale?
+    end
+
+    def default_locale?
+      Language.current.code.to_sym == ::I18n.default_locale.to_sym
+    end
+
+    # Page url with or without locale while keeping all additional params
+    def page_locale_redirect_url(options = {})
+      options = {
+        locale: prefix_locale? ? @page.language_code : nil,
+        urlname: @page.urlname,
+      }.merge(options)
+
+      alchemy.show_page_path additional_params.merge(options)
     end
 
     # Redirects to given url with 301 status
