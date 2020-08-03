@@ -76,13 +76,13 @@ items_per_page: 15
 #
 # See http://markevans.github.com/dragonfly for further info.
 #
-# ==== Options:
+# ==== Global Options:
 #
 #   output_image_jpg_quality  [Integer]       # If image gets rendered as JPG this is the quality setting for it. (Default 85)
 #   preprocess_image_resize   [String]        # Use this option to resize images to the given size when they are uploaded to the image library. Downsizing example: '1000x1000>' (Default nil)
 #   image_output_format       [String]        # The global image output format setting. (Default +original+)
 #
-# NOTE: You can always override the output format in the options of your Essence in elements.yml, I.E. {format: 'gif'}
+# NOTE: You can always override the output format in the settings of your Essence in elements.yml, I.E. {format: 'gif'}
 #
 output_image_jpg_quality: 85
 preprocess_image_resize:
