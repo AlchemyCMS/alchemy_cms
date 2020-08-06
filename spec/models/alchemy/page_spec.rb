@@ -266,6 +266,24 @@ module Alchemy
 
     # ClassMethods (a-z)
 
+    describe ".url_path_class" do
+      subject { described_class.url_path_class }
+
+      it { is_expected.to eq(Alchemy::Page::UrlPath) }
+
+      context "if set to another url path class" do
+        class AnotherUrlPathClass; end
+
+        before do
+          described_class.url_path_class = AnotherUrlPathClass
+        end
+
+        it { is_expected.to eq(AnotherUrlPathClass) }
+
+        after { described_class.instance_variable_set(:@_url_path_class, nil) }
+      end
+    end
+
     describe ".all_from_clipboard_for_select" do
       context "with clipboard holding pages having non unique page layout" do
         it "should return the pages" do
