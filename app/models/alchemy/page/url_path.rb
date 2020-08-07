@@ -20,8 +20,6 @@ module Alchemy
     #     link_to page.url
     #
     class UrlPath
-      ROOT_PATH = "/"
-
       def initialize(page)
         @page = page
         @language = @page.language
@@ -41,7 +39,7 @@ module Alchemy
       private
 
       def language_root_path
-        @language.default? ? ROOT_PATH : language_path
+        @language.default? ? root_path : language_path
       end
 
       def page_path_with_language_prefix
@@ -49,15 +47,19 @@ module Alchemy
       end
 
       def page_path_with_leading_slash
-        @page.language_root? ? ROOT_PATH : page_path
+        @page.language_root? ? root_path : page_path
       end
 
       def language_path
-        "/#{@page.language_code}"
+        "#{root_path}#{@page.language_code}"
       end
 
       def page_path
-        "/#{@page.urlname}"
+        "#{root_path}#{@page.urlname}"
+      end
+
+      def root_path
+        Engine.routes.url_helpers.root_path
       end
     end
   end
