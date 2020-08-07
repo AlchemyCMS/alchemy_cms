@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "alchemy/devise/ability"
 
 Alchemy.register_ability(Alchemy::Devise::Ability)
