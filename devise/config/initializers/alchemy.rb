@@ -8,7 +8,7 @@ Alchemy::Modules.register_module({
   position: 4.1,
   navigation: {
     name: 'modules.users',
-    controller: 'alchemy/admin/users',
+    controller: '/alchemy/admin/users',
     action: 'index',
     icon: 'users'
   }
