@@ -65,4 +65,20 @@ RSpec.describe Alchemy::Page::UrlPath do
       end
     end
   end
+
+  context "mounted on a non-root path" do
+    let(:page) do
+      create(:alchemy_page)
+    end
+
+    before do
+      expect(Alchemy::Engine.routes).to receive(:url_helpers) do
+        double(root_path: "/pages/")
+      end
+    end
+
+    it "prefixes the path" do
+      is_expected.to eq("/pages/#{page.urlname}")
+    end
+  end
 end
