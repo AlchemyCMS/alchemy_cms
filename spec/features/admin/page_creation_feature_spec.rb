@@ -5,6 +5,24 @@ require "rails_helper"
 RSpec.describe "Page creation", type: :system do
   before { authorize_user(:as_admin) }
 
+  describe "parent selection" do
+    let!(:homepage) { create(:alchemy_page, :language_root) }
+
+    context "without having a parent id in the params" do
+      it "contains a parent select" do
+        visit new_admin_page_path
+        expect(page).to have_select("Parent", selected: homepage.name)
+      end
+    end
+
+    context "with having a parent id in the params" do
+      it "contains a hidden parent_id field" do
+        visit new_admin_page_path(parent_id: homepage)
+        expect(page).to have_field("page_parent_id", type: "hidden")
+      end
+    end
+  end
+
   describe "overlay GUI" do
     context "without having a Page in the clipboard" do
       it "does not contain tabs" do
