@@ -1,6 +1,20 @@
 <div class="toolbar_buttons">
   <%= render "alchemy/admin/partials/site_select" %>
   <%= render "alchemy/admin/partials/language_tree_select" %>
+  <%= toolbar_button(
+    icon: :plus,
+    url: alchemy.new_admin_page_path(language: @current_language),
+    hotkey: 'alt+n',
+    dialog_options: {
+      title: Alchemy.t('Add a page'),
+      size: '340x215',
+      overflow: true
+    },
+    title: Alchemy.t('Add a page'),
+    label: Alchemy.t('Add a page'),
+    if_permitted_to: [:create, Alchemy::Page]
+  ) %>
+  <div class="toolbar_spacer"></div>
   <% if can?(:flush, Alchemy::Page) %>
     <div class="button_with_label">
       <%= link_to(

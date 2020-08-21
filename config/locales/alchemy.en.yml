@@ -172,6 +172,7 @@ en:
     attribute_fixed: Value can't be changed for this page type
     back: 'back'
     locked_pages: "Active pages"
+    "Add a page": "Add a page"
     "Add global page": "Add global page"
     "Add page link": "Add page link"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software and itself uses open software and free resources:"
