@@ -63,16 +63,16 @@ items_per_page: 15
 # === Picture rendering settings
 #
 # Alchemy uses Dragonfly to render images. Settings for image rendering are specific to elements and are defined in elements.yml
-# 
+#
 # Example:
-# -name: some_element
-#  contents:
-#  - name: some_picture
-#    type: EssencePicture
-#    settings:
-#      hint: true
-#      crop: true  # turns on image cropping
-#      size: '500x500' # image will be cropped to this size
+# - name: some_element
+#   contents:
+#   - name: some_picture
+#     type: EssencePicture
+#     settings:
+#       hint: true
+#       crop: true  # turns on image cropping
+#       size: '500x500' # image will be cropped to this size
 #
 # See http://markevans.github.com/dragonfly for further info.
 #
