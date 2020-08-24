@@ -8,8 +8,8 @@
 
 <%= content_tag :div,
   id: "archive_all",
-  class: [params[:view] == "list" && "resources-table-wrapper with_tag_filter"] do %>
-  <% if params[:view] == "list" %>
+  class: [@view == "list" && "resources-table-wrapper with_tag_filter"] do %>
+  <% if @view == "list" %>
     <%= render "alchemy/admin/resources/table_header", resources_instance_variable: @pages %>
     <% if @pages.any? %>
       <%= render "table" %>

@@ -54,7 +54,7 @@
     <label><%= Alchemy.t("Show clipboard") %></label>
   </div>
   <div class="toolbar_spacer"></div>
-  <div class="button_with_label<%= params[:view] != "list" ? " active" : nil %>">
+  <div class="button_with_label<%= @view != "list" ? " active" : nil %>">
     <%= link_to(
       render_icon(:stream),
       alchemy.admin_pages_path(view: "tree"),
@@ -62,7 +62,7 @@
     ) %>
     <label><%= Alchemy.t("Hierarchical") %></label>
   </div>
-  <div class="button_with_label<%= params[:view] == "list" ? " active" : nil %>">
+  <div class="button_with_label<%= @view == "list" ? " active" : nil %>">
     <%= link_to(
       render_icon("sort-amount-down-alt"),
       alchemy.admin_pages_path(view: "list"),

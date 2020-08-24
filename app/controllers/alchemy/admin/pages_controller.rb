@@ -31,10 +31,12 @@ module Alchemy
         unless: -> { @page_root },
         only: [:index]
 
+      before_action :set_view, only: [:index]
+
       def index
         @query = @current_language.pages.contentpages.ransack(search_filter_params[:q])
 
-        if params[:view] == "list"
+        if @view == "list"
           @query.sorts = default_sort_order if @query.sorts.empty?
           items = @query.result
 
@@ -255,6 +257,11 @@ module Alchemy
 
       def common_search_filter_includes
         super.push(:page_layout, :view)
+      end
+
+      def set_view
+        @view = params[:view] || session[:alchemy_pages_view] || "tree"
+        session[:alchemy_pages_view] = @view
       end
 
       def copy_of_language_root
