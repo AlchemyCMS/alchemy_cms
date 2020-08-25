@@ -6,7 +6,7 @@
     <small class="hint"><%= Alchemy.t('Please seperate the tags with commata') %></small>
   </div>
   <%= hidden_field_tag :q, search_filter_params[:q] %>
-  <%= hidden_field_tag :size, params[:size] %>
+  <%= hidden_field_tag :size, @size %>
   <%= hidden_field_tag :tagged_with, search_filter_params[:tagged_with] %>
   <%= hidden_field_tag :filter, search_filter_params[:filter] %>
   <%= f.submit Alchemy.t(:save) %>
