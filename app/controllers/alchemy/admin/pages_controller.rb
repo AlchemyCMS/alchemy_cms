@@ -27,6 +27,10 @@ module Alchemy
         if: :run_on_page_layout_callbacks?,
         only: [:show]
 
+      before_action :load_languages_and_layouts,
+        unless: -> { @page_root },
+        only: [:index]
+
       def index
         @query = @current_language.pages.contentpages.ransack(search_filter_params[:q])
 
@@ -396,6 +400,12 @@ module Alchemy
         PageTreeSerializer.new(@page, ability: current_ability,
                                       user: current_alchemy_user,
                                       full: params[:full] == "true")
+      end
+
+      def load_languages_and_layouts
+        @language = @current_language
+        @languages_with_page_tree = Language.on_current_site.with_root_page
+        @page_layouts = PageLayout.layouts_for_select(@language.id)
       end
     end
   end

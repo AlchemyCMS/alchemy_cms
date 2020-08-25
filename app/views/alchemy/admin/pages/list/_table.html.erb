@@ -20,8 +20,12 @@
       <%= render partial: "page", collection: @pages %>
     </tbody>
   </table>
-<% elsif search_filter_params[:q].present? %>
-  <p><%= Alchemy.t('Nothing found') %></p>
+<% elsif search_filter_params.present? %>
+  <%= render_message do %>
+    <%= Alchemy.t('No pages found') %>
+  <% end %>
+<% else %>
+  <%= render partial: 'alchemy/admin/pages/create_language_form' %>
 <% end %>
 
 <%= paginate @pages, scope: alchemy, theme: 'alchemy' %>
