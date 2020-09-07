@@ -68,7 +68,7 @@ module Alchemy
           base.push(parent) if parent.visible?
         end
       else
-        ancestors.visible.contentpages.where(language_root: nil).to_a
+        ancestors.visible.contentpages.where(language_root: [nil, false]).to_a
       end
     end
 
