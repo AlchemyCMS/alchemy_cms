@@ -1,4 +1,6 @@
-## 5.0.0 (unreleased)
+## 4.6.2 (2020-09-07)
+
+- Fix tri-Boolean check in PageNaming Module [#1931](https://github.com/AlchemyCMS/alchemy_cms/pull/1931) ([mamhoff](https://github.com/mamhoff))
 
 ## 4.6.1 (2020-06-04)
 
