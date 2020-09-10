@@ -4,7 +4,7 @@
   <%= f.input :caption, as: @content.settings[:caption_as_textarea] ? 'text' : 'string' %>
   <%= f.input :title %>
   <%= f.input :alt_tag %>
-  <%- if @content.settings[:sizes].present? -%>
+  <%- if @content.settings[:sizes].present? && @content.settings[:srcset].blank? -%>
     <%= f.input :render_size,
       collection: [
         [Alchemy.t('Layout default'), @content.settings[:size]]
