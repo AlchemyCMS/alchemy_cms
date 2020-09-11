@@ -44,17 +44,19 @@ module Alchemy
       end
     end
 
-    private
-
     def caption
       return unless show_caption?
 
       @_caption ||= content_tag(:figcaption, essence.caption)
     end
 
+    def img_tag_src
+      essence.picture_url(options.except(*DEFAULT_OPTIONS.keys))
+    end
+
     def img_tag
       @_img_tag ||= image_tag(
-        essence.picture_url(options.except(*DEFAULT_OPTIONS.keys)), {
+        img_tag_src, {
           alt: essence.alt_tag.presence,
           title: essence.title.presence,
           class: caption ? nil : essence.css_class.presence,
