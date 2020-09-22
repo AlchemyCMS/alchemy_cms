@@ -55,7 +55,7 @@ module Alchemy
     def img_tag
       @_img_tag ||= image_tag(
         essence.picture_url(options.except(*DEFAULT_OPTIONS.keys)), {
-          alt: essence.alt_tag.presence,
+          alt: alt_text,
           title: essence.title.presence,
           class: caption ? nil : essence.css_class.presence,
           srcset: srcset.join(", ").presence,
@@ -78,6 +78,10 @@ module Alchemy
         width, height = size.split("x")
         width.present? ? "#{url} #{width}w" : "#{url} #{height}h"
       end
+    end
+
+    def alt_text
+      essence.alt_tag.presence || html_options.delete(:alt) || essence.picture.name&.humanize
     end
   end
 end
