@@ -70,7 +70,7 @@ describe Alchemy::EssencePictureView, type: :model do
 
     context "but disabled in the options" do
       let(:options) do
-        {show_caption: false}
+        { show_caption: false }
       end
 
       it "should not enclose the image in a <figure> element" do
@@ -85,7 +85,7 @@ describe Alchemy::EssencePictureView, type: :model do
 
     context "but disabled in the content settings" do
       before do
-        allow(content).to receive(:settings).and_return({show_caption: false})
+        allow(content).to receive(:settings).and_return({ show_caption: false })
       end
 
       it "should not enclose the image in a <figure> element" do
@@ -98,7 +98,7 @@ describe Alchemy::EssencePictureView, type: :model do
       end
 
       context "but enabled in the options hash" do
-        let(:options) { {show_caption: true} }
+        let(:options) { { show_caption: true } }
 
         it "should enclose the image in a <figure> element" do
           expect(view).to have_selector("figure img")
@@ -179,7 +179,7 @@ describe Alchemy::EssencePictureView, type: :model do
     end
 
     it "does not overwrite DEFAULT_OPTIONS" do
-      Alchemy::EssencePictureView.new(content, {my_custom_option: true})
+      Alchemy::EssencePictureView.new(content, { my_custom_option: true })
       expect(picture_view.options).to_not have_key(:my_custom_option)
     end
   end
@@ -187,7 +187,7 @@ describe Alchemy::EssencePictureView, type: :model do
   context "with srcset content setting" do
     before do
       allow(content).to receive(:settings) do
-        {srcset: srcset}
+        { srcset: srcset }
       end
     end
 
@@ -244,7 +244,7 @@ describe Alchemy::EssencePictureView, type: :model do
   context "with sizes content setting" do
     before do
       allow(content).to receive(:settings) do
-        {sizes: sizes}
+        { sizes: sizes }
       end
     end
 
@@ -276,6 +276,57 @@ describe Alchemy::EssencePictureView, type: :model do
 
     it "image tag has no sizes attribute" do
       expect(view).not_to have_selector("img[sizes]")
+    end
+  end
+
+  describe "alt text" do
+    subject(:view) do
+      Alchemy::EssencePictureView.new(content, {}, html_options).render
+    end
+
+    let(:html_options) { {} }
+
+    context "essence having alt text stored" do
+      let(:essence_picture) do
+        stub_model Alchemy::EssencePicture,
+          picture: picture,
+          alt_tag: "A cute cat"
+      end
+
+      it "uses this as image alt text" do
+        expect(view).to have_selector('img[alt="A cute cat"]')
+      end
+    end
+
+    context "essence not having alt text stored" do
+      context "but passed as html option" do
+        let(:html_options) { { alt: "Cute kittens" } }
+
+        it "uses this as image alt text" do
+          expect(view).to have_selector('img[alt="Cute kittens"]')
+        end
+      end
+
+      context "and not passed as html option" do
+        context "with name on the picture" do
+          let(:picture) do
+            stub_model Alchemy::Picture,
+              image_file_format: "png",
+              image_file: image,
+              name: "cute_kitty-cat"
+          end
+
+          it "uses a humanized picture name as alt text" do
+            expect(view).to have_selector('img[alt="Cute kitty-cat"]')
+          end
+        end
+
+        context "and no name on the picture" do
+          it "has no alt text" do
+            expect(view).to_not have_selector("img[alt]")
+          end
+        end
+      end
     end
   end
 end
