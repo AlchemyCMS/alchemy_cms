@@ -278,4 +278,55 @@ describe Alchemy::EssencePictureView, type: :model do
       expect(view).not_to have_selector("img[sizes]")
     end
   end
+
+  describe "alt text" do
+    subject(:view) do
+      Alchemy::EssencePictureView.new(content, {}, html_options).render
+    end
+
+    let(:html_options) { {} }
+
+    context "essence having alt text stored" do
+      let(:essence_picture) do
+        stub_model Alchemy::EssencePicture,
+          picture: picture,
+          alt_tag: "A cute cat"
+      end
+
+      it "uses this as image alt text" do
+        expect(view).to have_selector('img[alt="A cute cat"]')
+      end
+    end
+
+    context "essence not having alt text stored" do
+      context "but passed as html option" do
+        let(:html_options) { { alt: "Cute kittens" } }
+
+        it "uses this as image alt text" do
+          expect(view).to have_selector('img[alt="Cute kittens"]')
+        end
+      end
+
+      context "and not passed as html option" do
+        context "with name on the picture" do
+          let(:picture) do
+            stub_model Alchemy::Picture,
+              image_file_format: "png",
+              image_file: image,
+              name: "cute_kitty-cat"
+          end
+
+          it "uses a humanized picture name as alt text" do
+            expect(view).to have_selector('img[alt="Cute kitty-cat"]')
+          end
+        end
+
+        context "and no name on the picture" do
+          it "has no alt text" do
+            expect(view).to_not have_selector("img[alt]")
+          end
+        end
+      end
+    end
+  end
 end
