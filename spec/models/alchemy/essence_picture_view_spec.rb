@@ -70,7 +70,7 @@ describe Alchemy::EssencePictureView, type: :model do
 
     context "but disabled in the options" do
       let(:options) do
-        {show_caption: false}
+        { show_caption: false }
       end
 
       it "should not enclose the image in a <figure> element" do
@@ -85,7 +85,7 @@ describe Alchemy::EssencePictureView, type: :model do
 
     context "but disabled in the content settings" do
       before do
-        allow(content).to receive(:settings).and_return({show_caption: false})
+        allow(content).to receive(:settings).and_return({ show_caption: false })
       end
 
       it "should not enclose the image in a <figure> element" do
@@ -98,7 +98,7 @@ describe Alchemy::EssencePictureView, type: :model do
       end
 
       context "but enabled in the options hash" do
-        let(:options) { {show_caption: true} }
+        let(:options) { { show_caption: true } }
 
         it "should enclose the image in a <figure> element" do
           expect(view).to have_selector("figure img")
@@ -179,7 +179,7 @@ describe Alchemy::EssencePictureView, type: :model do
     end
 
     it "does not overwrite DEFAULT_OPTIONS" do
-      Alchemy::EssencePictureView.new(content, {my_custom_option: true})
+      Alchemy::EssencePictureView.new(content, { my_custom_option: true })
       expect(picture_view.options).to_not have_key(:my_custom_option)
     end
   end
@@ -187,7 +187,7 @@ describe Alchemy::EssencePictureView, type: :model do
   context "with srcset content setting" do
     before do
       allow(content).to receive(:settings) do
-        {srcset: srcset}
+        { srcset: srcset }
       end
     end
 
@@ -244,7 +244,7 @@ describe Alchemy::EssencePictureView, type: :model do
   context "with sizes content setting" do
     before do
       allow(content).to receive(:settings) do
-        {sizes: sizes}
+        { sizes: sizes }
       end
     end
 
