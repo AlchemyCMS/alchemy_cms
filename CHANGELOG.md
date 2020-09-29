@@ -1,3 +1,7 @@
+## 5.0.1 (2020-09-29)
+
+- Better image alt text support [#1940](https://github.com/AlchemyCMS/alchemy_cms/pull/1940) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.0.0 (2020-07-17)
 
 - Do not convert JPEG images into JPG [#1904](https://github.com/AlchemyCMS/alchemy_cms/pull/1904) ([tvdeyen](https://github.com/tvdeyen))
