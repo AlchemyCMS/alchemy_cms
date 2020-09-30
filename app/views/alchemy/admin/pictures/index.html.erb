@@ -5,7 +5,7 @@
         object: Alchemy::Picture.new,
         file_attribute: 'image_file',
         redirect_url: alchemy.admin_pictures_path(
-          size: params[:size],
+          size: @size,
           filter: 'last_upload'
         ) %>
       <div class="toolbar_spacer"></div>

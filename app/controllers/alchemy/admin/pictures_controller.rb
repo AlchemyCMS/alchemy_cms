@@ -11,10 +11,11 @@ module Alchemy
       before_action :load_resource,
         only: [:show, :edit, :update, :destroy, :info]
 
+      before_action :set_size, only: [:index, :show, :edit_multiple]
+
       authorize_resource class: Alchemy::Picture
 
       def index
-        @size = params[:size].present? ? params[:size] : "medium"
         @query = Picture.ransack(search_filter_params[:q])
         @pictures = Picture.search_by(
           search_filter_params,
@@ -116,7 +117,7 @@ module Alchemy
 
       def items_per_page
         if in_overlay?
-          case params[:size]
+          case @size
           when "small" then 25
           when "large" then 4
           else
@@ -125,19 +126,24 @@ module Alchemy
         else
           cookies[:alchemy_pictures_per_page] = params[:per_page] ||
             cookies[:alchemy_pictures_per_page] ||
-            pictures_per_page_for_size(params[:size])
+            pictures_per_page_for_size
         end
       end
 
       def items_per_page_options
-        per_page = pictures_per_page_for_size(@size)
+        per_page = pictures_per_page_for_size
         [per_page, per_page * 2, per_page * 4]
       end
 
       private
 
-      def pictures_per_page_for_size(size)
-        case size
+      def set_size
+        @size = params[:size] || session[:alchemy_pictures_size] || "medium"
+        session[:alchemy_pictures_size] = @size
+      end
+
+      def pictures_per_page_for_size
+        case @size
         when "small" then 60
         when "large" then 12
         else

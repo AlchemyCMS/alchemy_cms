@@ -9,7 +9,7 @@
         q: search_filter_params[:q],
         page: params[:page],
         tagged_with: search_filter_params[:tagged_with],
-        size: params[:size],
+        size: @size,
         filter: search_filter_params[:filter]
       ),
       class: "previous-picture",
@@ -23,7 +23,7 @@
         q: search_filter_params[:q],
         page: params[:page],
         tagged_with: search_filter_params[:tagged_with],
-        size: params[:size],
+        size: @size,
         filter: search_filter_params[:filter]
       ),
       class: "next-picture",
