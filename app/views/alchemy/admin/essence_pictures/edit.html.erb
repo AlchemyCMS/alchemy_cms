@@ -7,7 +7,7 @@
   <%- if @content.settings[:sizes].present? -%>
     <%= f.input :render_size,
       collection: [
-        [Alchemy.t('Layout default'), @content.settings[:size]]
+        [Alchemy.t('Layout default'), ""]
       ] + @content.settings[:sizes].to_a,
       include_blank: false,
       input_html: {class: 'alchemy_selectbox'} %>
