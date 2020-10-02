@@ -383,7 +383,7 @@ $ bundle exec rake release
 
 ## 🏅 Contributors
 
-This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+This amazing project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
 <a href="https://github.com/undefined/undefinedgraphs/contributors"><img src="https://opencollective.com/alchemy_cms/contributors.svg?width=890&button=false" /></a>
 
 
