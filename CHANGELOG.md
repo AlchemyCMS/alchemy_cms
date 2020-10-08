@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.6.6 (2020-10-08)
+
+- Allow AwesomeNestedSet >= 3.0 [#1619](https://github.com/AlchemyCMS/alchemy_cms/pull/1619) by [tvdeyen](https://github.com/tvdeyen)
+
 ## 3.6.5 (2018-05-08)
 
 - Fix for drag'n'drop trashed elements into pages with cells [#1430](https://github.com/AlchemyCMS/alchemy_cms/pull/1430) by [tvdeyen](https://github.com/tvdeyen)
