@@ -1,5 +1,13 @@
 # Change Log
 
+## 3.6.5 (2018-05-08)
+
+- Fix for drag'n'drop trashed elements into pages with cells [#1430](https://github.com/AlchemyCMS/alchemy_cms/pull/1430) by [tvdeyen](https://github.com/tvdeyen)
+
+## 3.6.4 (2018-04-23)
+
+- Allows `Symbol`, `Regexp` and `Date` in all YAML config files [#1333](https://github.com/AlchemyCMS/alchemy_cms/pull/1333) by [robinboening](https://github.com/robinboening)
+
 ## 3.6.3 (2017-10-24)
 
 * Remove `:display` cancan alias [#1318](https://github.com/AlchemyCMS/alchemy_cms/pull/1318) by [tvdeyen](https://github.com/tvdeyen)
