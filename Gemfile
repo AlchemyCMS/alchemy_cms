@@ -14,6 +14,7 @@ group :development, :test do
   gem 'jasmine-rails',        github: 'searls/jasmine-rails'
   gem 'jasmine-jquery-rails', github: 'travisjeffery/jasmine-jquery-rails'
   gem 'simplecov', require: false
+  gem 'sassc', '~> 2.1.0'
   if ENV['TRAVIS']
     gem 'codeclimate-test-reporter', '~> 1.0', require: false
   end
