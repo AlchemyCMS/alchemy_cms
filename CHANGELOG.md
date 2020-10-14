@@ -1,5 +1,14 @@
-## 5.0.0 (unreleased)
+## 5.0.1 (2020-09-29)
 
+- Better image alt text support [#1940](https://github.com/AlchemyCMS/alchemy_cms/pull/1940) ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.0.0 (2020-07-17)
+
+- Do not convert JPEG images into JPG [#1904](https://github.com/AlchemyCMS/alchemy_cms/pull/1904) ([tvdeyen](https://github.com/tvdeyen))
+- Do not enable image cropper if file is missing [#1903](https://github.com/AlchemyCMS/alchemy_cms/pull/1903) ([tvdeyen](https://github.com/tvdeyen))
+- Always show original image as zoomed image [#1902](https://github.com/AlchemyCMS/alchemy_cms/pull/1902) ([tvdeyen](https://github.com/tvdeyen))
+- Rename Attachment#urlname into slug [#1848](https://github.com/AlchemyCMS/alchemy_cms/pull/1848) ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate toolbar helper ([tvdeyen](https://github.com/tvdeyen))
 - Deprecate redirect_to_public_child ([tvdeyen](https://github.com/tvdeyen))
 - Add --auto-accept option to installer ([tvdeyen](https://github.com/tvdeyen))
 - Move all installer code into install generator ([tvdeyen](https://github.com/tvdeyen))

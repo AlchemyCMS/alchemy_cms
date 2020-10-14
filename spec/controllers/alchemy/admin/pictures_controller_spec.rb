@@ -73,15 +73,35 @@ module Alchemy
         end
       end
 
-      it "assigns @size to default value" do
-        get :index
-        expect(assigns(:size)).to eq("medium")
+      context "with params[:size] not set" do
+        subject { get(:index) }
+
+        context "and session pictures size not set" do
+          it "sets size to default value" do
+            subject
+            expect(assigns(:size)).to eq("medium")
+            expect(session[:alchemy_pictures_size]).to eq("medium")
+          end
+
+          context "but with pictures size set in session" do
+            before do
+              session[:alchemy_pictures_size] = "small"
+            end
+
+            it "sets size to that value" do
+              subject
+              expect(assigns(:size)).to eq("small")
+              expect(session[:alchemy_pictures_size]).to eq("small")
+            end
+          end
+        end
       end
 
       context "with params[:size] set to 'large'" do
-        it "assigns @size to large" do
-          get :index, params: {size: "large"}
+        it "sets size to large" do
+          get :index, params: { size: "large" }
           expect(assigns(:size)).to eq("large")
+          expect(session[:alchemy_pictures_size]).to eq("large")
         end
       end
 
@@ -361,6 +381,7 @@ module Alchemy
       subject { controller.send(:items_per_page) }
 
       before do
+        controller.instance_variable_set(:@size, params[:size] || "medium")
         expect(controller).to receive(:params).at_least(:once) { params }
       end
 
