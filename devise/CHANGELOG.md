@@ -1,3 +1,7 @@
+## 5.0.0 (unreleased)
+
+- Use absolute paths in Alchemy module definition [#106](https://github.com/AlchemyCMS/alchemy-devise/pull/106) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.6.0 (2020-10-16)
 
 - Remove require_ssl from User Sessions Controller for Alchemy 5+ [#102](https://github.com/AlchemyCMS/alchemy-devise/pull/102) ([mamhoff](https://github.com/mamhoff))
