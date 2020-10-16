@@ -1,3 +1,7 @@
+## 4.6.0 (2020-10-16)
+
+- Remove require_ssl from User Sessions Controller for Alchemy 5+ [#102](https://github.com/AlchemyCMS/alchemy-devise/pull/102) ([mamhoff](https://github.com/mamhoff))
+
 ## 4.5.0 (2020-04-04)
 
 - Remove alchemy controller requests test helper [#100](https://github.com/AlchemyCMS/alchemy-devise/pull/100) ([tvdeyen](https://github.com/tvdeyen))
