@@ -95,11 +95,16 @@ module Alchemy
 
         AlchemyCMS cannot find any user class!
 
-        Please add a user class and tell Alchemy about it or, if you don't want
-        to create your own class, add the `alchemy-devise` gem to your Gemfile.
+        Please add a user class and tell Alchemy about it:
+
+            # config/initializers/alchemy.rb
+            Alchemy.user_class_name = 'MyUser'
+
+        Or add the `alchemy-devise` gem to your Gemfile:
 
             bundle add alchemy-devise
 
+        Original error message: #{e.message}
         MSG
       else
         raise e
