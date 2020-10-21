@@ -7,13 +7,13 @@ module Alchemy
 
     # sends file inline. i.e. for viewing pdfs/movies in browser
     def show
-      response.headers["Content-Length"] = @attachment.file.size.to_s
+      response.headers["Content-Length"] = @attachment.file_size
       redirect_to @attachment.url
     end
 
     # sends file as attachment. aka download
     def download
-      response.headers["Content-Length"] = @attachment.file.size.to_s
+      response.headers["Content-Length"] = @attachment.file_size
       send_data(
         @attachment.file.download, {
           filename: @attachment.file_name,
