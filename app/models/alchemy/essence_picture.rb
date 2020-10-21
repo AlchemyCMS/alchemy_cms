@@ -62,7 +62,7 @@ module Alchemy
     def picture_url(options = {})
       return if picture.nil?
 
-      picture.url(picture_url_options.merge(options)) || "missing-image.png"
+      picture.url(picture_url_options.merge(options)) || "fallback/default.jpg"
     end
 
     # Picture rendering options
@@ -72,14 +72,15 @@ module Alchemy
     #
     # @return [HashWithIndifferentAccess]
     def picture_url_options
-      return {} if picture.nil?
+      # return {} if picture.nil?
 
-      {
-        format: picture.default_render_format,
-        crop_from: crop_from.presence,
-        crop_size: crop_size.presence,
-        size: content.settings[:size],
-      }.with_indifferent_access
+      # {
+      #   format: picture.default_render_format,
+      #   crop_from: crop_from.presence,
+      #   crop_size: crop_size.presence,
+      #   size: content.settings[:size],
+      # }.with_indifferent_access
+      {}
     end
 
     # Returns an url for the thumbnail representation of the assigned picture
@@ -91,19 +92,19 @@ module Alchemy
     def thumbnail_url
       return if picture.nil?
 
-      crop = crop_values_present? || content.settings[:crop]
-      size = render_size || content.settings[:size]
+      # crop = crop_values_present? || content.settings[:crop]
+      # size = render_size || content.settings[:size]
 
-      options = {
-        size: thumbnail_size(size, crop),
-        crop: !!crop,
-        crop_from: crop_from.presence,
-        crop_size: crop_size.presence,
-        flatten: true,
-        format: picture.image_file_format,
-      }
-
-      picture.url(options) || "alchemy/missing-image.svg"
+      # # options = {
+      # #   size: thumbnail_size(size, crop),
+      # #   crop: !!crop,
+      # #   crop_from: crop_from.presence,
+      # #   crop_size: crop_size.presence,
+      # #   flatten: true,
+      # #   format: picture.image_file_format,
+      # # }
+      options = {}
+      picture.url(options) || "fallback/default.jpg"
     end
 
     # The name of the picture used as preview text in element editor views.

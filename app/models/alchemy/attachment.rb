@@ -24,9 +24,9 @@ module Alchemy
     include Alchemy::Taggable
     include Alchemy::TouchElements
 
-    dragonfly_accessor :file, app: :alchemy_attachments do
-      after_assign { |f| write_attribute(:file_mime_type, f.mime_type) }
-    end
+    has_one_attached :file
+
+    before_save :set_fields
 
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -60,21 +60,22 @@ module Alchemy
       end
 
       def file_types_for_select
-        file_types = Alchemy::Attachment.pluck(:file_mime_type).uniq.map do |type|
-          [Alchemy.t(type, scope: "mime_types"), type]
-        end
-        file_types.sort_by(&:first)
+        # file_types = Alchemy::Attachment.pluck(:file_mime_type).uniq.map do |type|
+        #   [Alchemy.t(type, scope: "mime_types"), type]
+        # end
+        # file_types.sort_by(&:first)
+        []
       end
     end
 
-    validates_presence_of :file
-    validates_size_of :file, maximum: Config.get(:uploader)["file_size_limit"].megabytes
-    validates_property :ext,
-      of: :file,
-      in: allowed_filetypes,
-      case_sensitive: false,
-      message: Alchemy.t("not a valid file"),
-      unless: -> { self.class.allowed_filetypes.include?("*") }
+    # validates_presence_of :file
+    # validates_size_of :file, maximum: Config.get(:uploader)["file_size_limit"].megabytes
+    # validates_property :ext,
+    #   of: :file,
+    #   in: allowed_filetypes,
+    #   case_sensitive: false,
+    #   message: Alchemy.t("not a valid file"),
+    #   unless: -> { self.class.allowed_filetypes.include?("*") }
 
     before_save :set_name, if: :file_name_changed?
 
@@ -91,15 +92,20 @@ module Alchemy
     end
 
     def url(options = {})
-      if file
-        self.class.url_class.new(self).call(options)
-      end
+      return unless file.present?
+      Rails.application.routes.url_helpers.rails_blob_path(file, only_path: true)
+      # if file
+      #   self.class.url_class.new(self).call(options)
+      # end
     end
 
     # An url save filename without format suffix
     def slug
       CGI.escape(file_name.gsub(/\.#{extension}$/, "").tr(".", " "))
     end
+
+    alias_method :urlname, :slug
+    deprecate urlname: :slug, deprecator: Alchemy::Deprecation
 
     # Checks if the attachment is restricted, because it is attached on restricted pages only
     def restricted?
@@ -142,8 +148,15 @@ module Alchemy
 
     private
 
+    def set_fields
+      return unless file.attached?
+      self.file_mime_type = file.blob.content_type
+      self.file_name = file.blob.filename
+      self.file_size = file.blob.byte_size
+    end
+
     def set_name
-      self.name = convert_to_humanized_name(file_name, file.ext)
+      self.name = convert_to_humanized_name(file_name, File.extname(file_name))
     end
   end
 end

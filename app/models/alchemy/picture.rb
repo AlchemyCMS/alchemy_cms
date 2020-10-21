@@ -45,7 +45,10 @@ module Alchemy
     include Alchemy::NameConversions
     include Alchemy::Taggable
     include Alchemy::TouchElements
-    include Calculations
+    #include Calculations
+    has_one_attached :image_file
+
+    before_save :set_fields
 
     has_many :essence_pictures,
       class_name: "Alchemy::EssencePicture",
@@ -68,31 +71,6 @@ module Alchemy
       raise PictureInUseError, Alchemy.t(:cannot_delete_picture_notice) % { name: name }
     end
 
-    # Image preprocessing class
-    def self.preprocessor_class
-      @_preprocessor_class ||= Preprocessor
-    end
-
-    # Set a image preprocessing class
-    #
-    #     # config/initializers/alchemy.rb
-    #     Alchemy::Picture.preprocessor_class = My::ImagePreprocessor
-    #
-    def self.preprocessor_class=(klass)
-      @_preprocessor_class = klass
-    end
-
-    # Enables Dragonfly image processing
-    dragonfly_accessor :image_file, app: :alchemy_pictures do
-      # Preprocess after uploading the picture
-      after_assign do |image|
-        self.class.preprocessor_class.new(image).call
-      end
-    end
-
-    # Create important thumbnails upfront
-    after_create -> { PictureThumb.generate_thumbs!(self) }
-
     # We need to define this method here to have it available in the validations below.
     class << self
       def allowed_filetypes
@@ -100,13 +78,13 @@ module Alchemy
       end
     end
 
-    validates_presence_of :image_file
-    validates_size_of :image_file, maximum: Config.get(:uploader)["file_size_limit"].megabytes
-    validates_property :format,
-      of: :image_file,
-      in: allowed_filetypes,
-      case_sensitive: false,
-      message: Alchemy.t("not a valid image")
+    # validates_presence_of :image_file
+    # validates_size_of :image_file, maximum: Config.get(:uploader)["file_size_limit"].megabytes
+    # validates_property :format,
+    #   of: :image_file,
+    #   in: allowed_filetypes,
+    #   case_sensitive: false,
+    #   message: Alchemy.t("not a valid image")
 
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -186,19 +164,21 @@ module Alchemy
     # @see Alchemy::Picture::Url#call for url options
     # @return [String|Nil]
     def url(options = {})
-      return unless image_file
+      # TODO: Fix this
+      return unless image_file.present?
+      Rails.application.routes.url_helpers.rails_blob_path(image_file, only_path: true)
 
-      variant = PictureVariant.new(self, options.slice(*TRANSFORMATION_OPTIONS))
-      self.class.url_class.new(variant).call(
-        options.except(*TRANSFORMATION_OPTIONS).merge(
-          basename: name,
-          ext: variant.render_format,
-          name: name,
-        )
-      )
-    rescue ::Dragonfly::Job::Fetch::NotFound => e
-      log_warning(e.message)
-      nil
+    #   variant = PictureVariant.new(self, options.slice(*TRANSFORMATION_OPTIONS))
+    #   self.class.url_class.new(variant).call(
+    #     options.except(*TRANSFORMATION_OPTIONS).merge(
+    #       basename: name,
+    #       ext: variant.render_format,
+    #       name: name,
+    #     )
+    #   )
+    # rescue ::Dragonfly::Job::Fetch::NotFound => e
+    #   log_warning(e.message)
+    #   nil
     end
 
     def previous(params = {})
@@ -315,6 +295,25 @@ module Alchemy
     #
     def image_file_dimensions
       "#{image_file_width}x#{image_file_height}"
+    end
+
+    def image_file_width
+      self[:image_file_width] || image_file.blob.metadata[:width]
+    end
+
+    def image_file_height
+      self[:image_file_height] || image_file.blob.metadata[:height]
+    end
+
+    private
+
+    def set_fields
+      return unless image_file.attached?
+      self.image_file_format = image_file.blob.content_type
+      self.image_file_name = image_file.blob.filename
+      self.image_file_size = image_file.blob.byte_size
+      self.image_file_height = image_file.blob.metadata[:height]
+      self.image_file_width = image_file.blob.metadata[:width]
     end
   end
 end

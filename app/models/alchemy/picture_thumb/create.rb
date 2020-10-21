@@ -30,8 +30,8 @@ module Alchemy
         # path for security reasons. The Dragonfly FileDataStorage does not support that,
         # so we need to build the path on our own.
         def server_path(uid)
-          dragonfly_app = ::Dragonfly.app(:alchemy_pictures)
-          "#{dragonfly_app.datastore.server_root}/#{uid}"
+          # dragonfly_app = ::Dragonfly.app(:alchemy_pictures)
+          # "#{dragonfly_app.datastore.server_root}/#{uid}"
         end
       end
     end

@@ -62,7 +62,7 @@ module Alchemy
 
       def download
         @attachment = Attachment.find(params[:id])
-        send_file @attachment.file.path, {
+        send_data @attachment.file.download, {
           filename: @attachment.file_name,
           type: @attachment.file_mime_type,
         }

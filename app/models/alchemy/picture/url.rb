@@ -26,7 +26,7 @@ module Alchemy
       private
 
       def processible_image?
-        variant.image.is_a?(::Dragonfly::Job)
+        # variant.image.is_a?(::Dragonfly::Job)
       end
 
       def uid

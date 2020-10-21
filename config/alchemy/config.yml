@@ -60,34 +60,6 @@ items_per_page: 15
 #       password: <%= ENV["BASIC_AUTH_PASSWORD"] %>
 #
 
-# === Picture rendering settings
-#
-# Alchemy uses Dragonfly to render images. Settings for image rendering are specific to elements and are defined in elements.yml
-#
-# Example:
-# - name: some_element
-#   contents:
-#   - name: some_picture
-#     type: EssencePicture
-#     settings:
-#       hint: true
-#       crop: true  # turns on image cropping
-#       size: '500x500' # image will be cropped to this size
-#
-# See http://markevans.github.com/dragonfly for further info.
-#
-# ==== Global Options:
-#
-#   output_image_jpg_quality  [Integer]       # If image gets rendered as JPG this is the quality setting for it. (Default 85)
-#   preprocess_image_resize   [String]        # Use this option to resize images to the given size when they are uploaded to the image library. Downsizing example: '1000x1000>' (Default nil)
-#   image_output_format       [String]        # The global image output format setting. (Default +original+)
-#
-# NOTE: You can always override the output format in the settings of your Essence in elements.yml, I.E. {format: 'gif'}
-#
-output_image_jpg_quality: 85
-preprocess_image_resize:
-image_output_format: original
-
 # This is used by the seeder to create the default site.
 default_site:
   name: Default Site
