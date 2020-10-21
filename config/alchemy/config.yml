@@ -203,3 +203,8 @@ format_matchers:
 
 # The layout used for rendering the +alchemy/admin/pages#show+ action.
 admin_page_preview_layout: application
+
+# ===  Enfoce locale in path
+# Redirects to default locale if none given
+#
+# enforce_default_locale: true

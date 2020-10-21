@@ -97,7 +97,7 @@ module Alchemy
     #
     def locale_prefix_not_allowed?
       params[:locale].present? && !multi_language? ||
-        params[:locale].presence == ::I18n.default_locale.to_s
+        (params[:locale].presence == ::I18n.default_locale.to_s && !enforce_default_locale?)
     end
 
     # == Loads index page
@@ -134,11 +134,15 @@ module Alchemy
     end
 
     def locale_prefix_missing?
-      multi_language? && params[:locale].blank? && !default_locale?
+      multi_language? && params[:locale].blank? && (!default_locale? || enforce_default_locale?)
     end
 
     def default_locale?
       Language.current.code.to_sym == ::I18n.default_locale.to_sym
+    end
+
+    def enforce_default_locale?
+      !!Alchemy::Config.get(:enforce_default_locale)
     end
 
     # Page url with or without locale while keeping all additional params
