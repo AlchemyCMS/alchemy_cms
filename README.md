@@ -1,7 +1,7 @@
 # AlchemyCMS
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.svg)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://travis-ci.com/AlchemyCMS/alchemy_cms.svg?branch=master)](https://travis-ci.com/AlchemyCMS/alchemy_cms)
+[![Build Status](https://travis-ci.com/AlchemyCMS/alchemy_cms.svg?branch=main)](https://travis-ci.com/AlchemyCMS/alchemy_cms)
 [![Maintainability](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/maintainability)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/test_coverage)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/test_coverage)
 [![Depfu](https://badges.depfu.com/badges/ebe56d2dd7b7044a8ae700cc81212a8e/overview.svg)](https://depfu.com/github/AlchemyCMS/alchemy_cms?project_id=4600)
@@ -18,7 +18,7 @@ Alchemy is an open source CMS engine written in Ruby on Rails.
 
 Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [guidelines](https://guides.alchemy-cms.com).
 
-**CAUTION: This master branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (5.0-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/5.0-stable).**
+**CAUTION: This main branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (5.0-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/5.0-stable).**
 
 
 ## ✅ Features
