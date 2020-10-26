@@ -40,8 +40,13 @@ module Alchemy
       end
     end
 
-    config.after_initialize do
-      require_relative "./userstamp"
+    initializer "alchemy.userstamp" do
+      if Alchemy.user_class
+        ActiveSupport.on_load(:active_record) do
+          Alchemy.user_class.model_stamper
+          Alchemy.user_class.stampable(stamper_class_name: Alchemy.user_class_name)
+        end
+      end
     end
   end
 end

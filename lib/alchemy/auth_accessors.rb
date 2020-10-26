@@ -91,16 +91,23 @@ module Alchemy
       @@user_class_name.constantize
     rescue NameError => e
       if e.message =~ /#{Regexp.escape(@@user_class_name)}/
-        abort <<-MSG.strip_heredoc
+        Rails.logger.warn <<~MSG
+          #{e.message}
+          #{e.backtrace.join("\n")}
 
-        AlchemyCMS cannot find any user class!
+          AlchemyCMS cannot find any user class!
 
-        Please add a user class and tell Alchemy about it or, if you don't want
-        to create your own class, add the `alchemy-devise` gem to your Gemfile.
+          Please add a user class and tell Alchemy about it:
 
-            bundle add alchemy-devise
+              # config/initializers/alchemy.rb
+              Alchemy.user_class_name = 'MyUser'
+
+          Or add the `alchemy-devise` gem to your Gemfile:
+
+              bundle add alchemy-devise
 
         MSG
+        nil
       else
         raise e
       end
