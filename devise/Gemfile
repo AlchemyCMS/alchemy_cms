@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-alchemy_branch = ENV.fetch("ALCHEMY_BRANCH", "master")
+alchemy_branch = ENV.fetch("ALCHEMY_BRANCH", "main")
 gem "alchemy_cms", github: "AlchemyCMS/alchemy_cms", branch: alchemy_branch
 
 # Specify your gem's dependencies in alchemy-solidus.gemspec

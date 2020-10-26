@@ -13,9 +13,9 @@ env:
     - ALCHEMY_BRANCH=4.5-stable
     - ALCHEMY_BRANCH=4.6-stable
     - ALCHEMY_BRANCH=5.0-stable
-    - ALCHEMY_BRANCH=master
+    - ALCHEMY_BRANCH=main
 matrix:
   fast_finish: true
   allow_failures:
-    - env: ALCHEMY_BRANCH=master
+    - env: ALCHEMY_BRANCH=main
 script: bundle exec rake
