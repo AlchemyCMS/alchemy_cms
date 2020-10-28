@@ -1,0 +1,14 @@
+<%#
+  Available locals:
+  * essence_action_text_editor - A Alchemy::ContentEditor instance
+
+  Please consult Alchemy::Content.rb docs for further methods on the content object
+%>
+
+<%= content_tag :div,
+  id: essence_action_text_editor.dom_id,
+  class: essence_action_text_editor.css_classes,
+  data: essence_action_text_editor.data_attributes do %>
+  <%= content_label(essence_action_text_editor) %>
+  <%= rich_text_area_tag essence_action_text_editor.form_field_name, essence_action_text_editor.ingredient %>
+<% end %>

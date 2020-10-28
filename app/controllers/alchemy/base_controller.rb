@@ -15,6 +15,7 @@ module Alchemy
     before_action :set_locale
 
     helper "alchemy/admin/form"
+    helper ActionText::TagHelper
 
     rescue_from CanCan::AccessDenied do |exception|
       permission_denied(exception)
