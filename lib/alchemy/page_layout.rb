@@ -58,17 +58,17 @@ module Alchemy
 
       # Returns page layouts ready for Rails' select form helper.
       #
-      def layouts_for_select(language_id, only_layoutpages = false)
+      def layouts_for_select(language_id, only_layoutpages = false, parent_layout_name = nil)
         @map_array = []
-        mapped_layouts_for_select(selectable_layouts(language_id, only_layoutpages))
+        mapped_layouts_for_select(selectable_layouts(language_id, only_layoutpages, parent_layout_name))
       end
 
       # Returns page layouts including given layout ready for Rails' select form helper.
       #
-      def layouts_with_own_for_select(page_layout_name, language_id, only_layoutpages = false)
-        layouts = selectable_layouts(language_id, only_layoutpages)
-        if layouts.detect { |l| l["name"] == page_layout_name }.nil?
-          @map_array = [[human_layout_name(page_layout_name), page_layout_name]]
+      def layouts_with_own_for_select(parent_layout_name, language_id, only_layoutpages = false)
+        layouts = selectable_layouts(language_id, only_layoutpages, parent_layout_name)
+        if layouts.detect { |l| l["name"] == parent_layout_name }.nil?
+          @map_array = [[human_layout_name(parent_layout_name), parent_layout_name]]
         else
           @map_array = []
         end
@@ -83,9 +83,17 @@ module Alchemy
       #   language_id of current used Language.
       # @param [Boolean] (false)
       #   Pass true to only select layouts for global/layout pages.
+      # @param [String]
+      #   name of current/parent page layout
       #
-      def selectable_layouts(language_id, only_layoutpages = false)
+      def selectable_layouts(language_id, only_layoutpages = false, parent_layout_name = nil)
         @language_id = language_id
+        # Assign layout as the "parent" for which we will get the selectable "child" page layouts
+        @parent_layout = parent_layout_name.present? ? all.detect{ |layout| layout["name"] == parent_layout_name } : nil
+        # Return empty array if child pages are not allowed in parent layout definition
+        return [] if @parent_layout.present? && @parent_layout["child_pages"] == false
+
+        # Select all layouts that will be available for creation under @parent_layout
         all.select do |layout|
           if only_layoutpages
             layout["layoutpage"] && layout_available?(layout)
@@ -124,10 +132,35 @@ module Alchemy
 
       private
 
-      # Returns true if the given layout is unique and not already taken or it should be hidden.
+      # Returns true if the given layout is available as child under @parent_layout
       #
       def layout_available?(layout)
-        !layout["hide"] && !already_taken?(layout) && available_on_site?(layout)
+        layout_available_from_parent?(layout) && layout_available_from_child?(layout) &&
+          !already_taken?(layout) && available_on_site?(layout)
+      end
+
+      # Returns true if layout is available as child under @parent_layout according to parent definition
+      #
+      def layout_available_from_parent?(layout)
+        return true if !@parent_layout
+
+        only = @parent_layout.dig("child_pages", "only")
+        except = @parent_layout.dig("child_pages", "except")
+
+        @parent_layout["child_pages"].blank? ||
+          only&.include?(layout["name"]) ||
+          (except && !except.include?(layout["name"]))
+      end
+
+      # Returns true if layout is available as child under @parent_layout according to child definition
+      #
+      def layout_available_from_child?(layout)
+        only = layout.dig("parent_pages", "only")
+        except = layout.dig("parent_pages", "except")
+
+        @parent_layout.nil? || layout["parent_pages"].blank? ||
+          only&.include?(@parent_layout["name"]) ||
+          (except && !except.include?(@parent_layout["name"]))
       end
 
       # Returns true if this layout is unique and already taken by another page.

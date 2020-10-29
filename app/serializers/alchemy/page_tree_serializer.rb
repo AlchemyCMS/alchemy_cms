@@ -55,6 +55,7 @@ module Alchemy
         public: page.public?,
         restricted: page.restricted?,
         page_layout: page.page_layout,
+        show_create_page_btn: page.definition["child_pages"] != false,
         slug: page.slug,
         urlname: page.urlname,
         url_path: page.url_path,

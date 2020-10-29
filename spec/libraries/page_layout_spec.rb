@@ -105,6 +105,82 @@ module Alchemy
         end
       end
 
+      context "with child page restriction" do
+        before do
+          allow(PageLayout).to receive(:all).and_return([
+            {
+              "name" => "parent_only",
+              "child_pages" => {
+                "only" => [
+                  "child_page1",
+                  "child_page2",
+                ],
+              },
+            },
+            {
+              "name" => "parent_except",
+              "child_pages" => {
+                "except" => [
+                  "child_page1",
+                  "child_page2",
+                ],
+              },
+            },
+            { "name" => "child_page1" },
+            { "name" => "child_page2" },
+            { "name" => "child_page3" },
+          ])
+        end
+
+        it "should only return pages specified in 'only'" do
+          selectable_layout_names = PageLayout.selectable_layouts(language.id, false, "parent_only").map{ |l| l["name"] }
+
+          expect(selectable_layout_names).to eq(["child_page1", "child_page2"])
+        end
+
+        it "should not return pages specified in 'except'" do
+          selectable_layout_names = PageLayout.selectable_layouts(language.id, false, "parent_except").map{ |l| l["name"] }
+
+          expect(selectable_layout_names).to eq(["parent_only", "parent_except", "child_page3"])
+        end
+      end
+
+      context "with parent page restriction" do
+        before do
+          allow(PageLayout).to receive(:all).and_return([
+            { "name" => "parent_page1" },
+            {
+              "name" => "child_only",
+              "parent_pages" => {
+                "only" => [
+                  "parent_page1",
+                ],
+              },
+            },
+            {
+              "name" => "child_except",
+              "parent_pages" => {
+                "except" => [
+                  "parent_page1",
+                ],
+              },
+            },
+          ])
+        end
+
+        it "should return child pages where parent listed in 'only'" do
+          selectable_layout_names = PageLayout.selectable_layouts(language.id, false, "parent_page1").map{ |l| l["name"] }
+
+          expect(selectable_layout_names).to include("child_only")
+        end
+
+        it "should not return child pages where parent listed in 'except'" do
+          selectable_layout_names = PageLayout.selectable_layouts(language.id, false, "parent_page1").map{ |l| l["name"] }
+
+          expect(selectable_layout_names).to_not include("child_except")
+        end
+      end
+
       context "with sites layouts present" do
         let(:definition) do
           {"name" => "default_site", "page_layouts" => %w(index)}
