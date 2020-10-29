@@ -56,7 +56,9 @@ RSpec.describe Alchemy::PictureVariant do
       end
 
       it "crops from center and resizes the picture" do
-        expect(subject.steps[0].arguments).to eq(["160x120#"])
+        # height is 25% smaller => 500 * 3/4 = 375
+        # 125 / 2 side spacing => 63 rounded down with int division
+        expect(subject.steps[0].arguments).to eq(["-crop 500x375+0+62 -resize 160x120>"])
       end
 
       context "and crop_from and crop_size is passed in" do
@@ -71,6 +73,56 @@ RSpec.describe Alchemy::PictureVariant do
 
         it "crops and resizes the picture" do
           expect(subject.steps[0].arguments).to eq(["-crop 123x44+0+0 -resize 160x120>"])
+        end
+      end
+
+      context "and render_size is passed in" do
+        let(:options) do
+          {
+            size: "200x200",
+            render_size: "250x500",
+            crop: true,
+          }
+        end
+
+        it "center crops to render size" do
+          expect(subject.steps[0].arguments).to include("-crop 250x500+125+0 -resize 200x200>")
+        end
+      end
+
+      context "and aspect ratio is unchanged" do
+        let(:options) do
+          {
+            size: "200x200",
+            crop: true,
+          }
+        end
+
+        it "does not crop the picture" do
+          expect(subject.steps[0].arguments).to include("-resize 200x200>")
+        end
+      end
+
+      context "and render_crop is true and gravity is passed in" do
+        let(:options) do
+          {
+            size: "125x500",
+            render_size: "250x500",
+            crop: true,
+            render_crop: true,
+            gravity: { size: "grow", x: "center", y: "center" },
+          }
+        end
+
+        it "crops render_size to fit size aspect ratio" do
+          expect(subject.steps[0].arguments).to include("-crop 125x500+187+0 -resize 125x500>")
+        end
+
+        it "crops crop_from/crop_size to fit size aspect ratio" do
+          # Center cropped 200x300 square
+          options[:crop_from] = "150x100"
+          options[:crop_size] = "200x300"
+          expect(subject.steps[0].arguments).to include("-crop 125x500+187+0 -resize 125x500>")
         end
       end
     end

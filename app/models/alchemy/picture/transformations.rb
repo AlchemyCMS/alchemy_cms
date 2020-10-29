@@ -18,7 +18,7 @@ module Alchemy
     # If the mask is bigger than the image, the mask is scaled down
     # so the largest possible part of the image is visible.
     #
-    def default_mask(mask_arg)
+    def default_mask(mask_arg, to_points = true)
       mask = mask_arg.dup
       mask[:width] = image_file_width if mask[:width].zero?
       mask[:height] = image_file_height if mask[:height].zero?
@@ -26,7 +26,7 @@ module Alchemy
       crop_size = size_when_fitting({width: image_file_width, height: image_file_height}, mask)
       top_left = get_top_left_crop_corner(crop_size)
 
-      point_and_mask_to_points(top_left, crop_size)
+      to_points ? point_and_mask_to_points(top_left, crop_size) : [top_left, crop_size]
     end
 
     # Returns a size value String for the thumbnail used in essence picture editors.
@@ -48,20 +48,50 @@ module Alchemy
       "#{size[:width]}x#{size[:height]}"
     end
 
-    # Returns the rendered cropped image. Tries to use the crop_from and crop_size
-    # parameters. When they can't be parsed, it just crops from the center.
+    # Returns the rendered cropped image.
+    # "size" is the requested size from settings or render
+    # "render_size" comes from a sizes selection in Picture properties.
+    # "render_crop" boolean states if size will crop to fit aspect ratio.
+    # This could lead to a secondary cropping if crop=true and the user had already cropped the image in admin.
     #
-    def crop(size, crop_from = nil, crop_size = nil, upsample = false)
+    def crop(size, render_size, crop_from = nil, crop_size = nil, render_crop = false, gravity = {}, upsample = false)
       raise "No size given!" if size.empty?
 
       render_to = sizes_from_string(size)
-      if crop_from && crop_size
-        top_left = point_from_string(crop_from)
-        crop_dimensions = sizes_from_string(crop_size)
-        xy_crop_resize(render_to, top_left, crop_dimensions, upsample)
-      else
-        center_crop(render_to, upsample)
+
+      top_left, crop_dimensions = get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+      xy_crop_resize(render_to, top_left, crop_dimensions, upsample)
+    end
+
+    # Get crop_from position and crop_size dimensions in correct hash formats
+    #
+    # 1. Check if the image has been cropped => has crop_from, crop_size
+    # 2. If not, check if a default cropping mask is applied
+    # 3. If requested size aspect ratio differs from the cropped area => Adjust cropping area first
+    #
+    def get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+      size = sizes_from_string(size)
+      render_size = sizes_from_string(render_size) if render_size.present?
+
+      if crop_from.present? && crop_size.present? # User has cropped image
+        crop_from = point_from_string(crop_from)
+        crop_size = sizes_from_string(crop_size)
+      elsif render_size.present? # User has selected a size in picture properties, essence_pictures/edit.html.erb
+        crop_from, crop_size = default_mask(render_size, false)
+      else # Size specified in content settings/render options
+        crop_from, crop_size = default_mask(size, false)
       end
+
+      size_ar, crop_ar = size_aspect_ratio(size), size_aspect_ratio(crop_size)
+
+      if render_crop && size_ar != crop_ar # Render cropping allowed and aspect ratio changed => adjust cropping
+        raise ArgumentError, "Cannot render_crop without gravity" if !gravity.present?
+
+        crop_from, crop_size = adjust_crop_area_to_aspect_ratio(crop_from, crop_size, size_ar, crop_ar, gravity)
+      end
+
+      [crop_from, crop_size]
     end
 
     # Returns the rendered resized image using imagemagick directly.
@@ -104,22 +134,6 @@ module Alchemy
     end
 
     private
-
-    # Given a string with an x, this function return a Hash with key :x and :y
-    #
-    def point_from_string(string = "0x0")
-      string = "0x0" if string.empty?
-      raise ArgumentError if !string.match(/(\d*x)|(x\d*)/)
-
-      x, y = string.scan(/(\d*)x(\d*)/)[0].map(&:to_i)
-
-      x = 0 if x.nil?
-      y = 0 if y.nil?
-      {
-        x: x,
-        y: y,
-      }
-    end
 
     # Given dimensions for a possibly destructive crop operation,
     # this function returns the top left corner as a Hash
@@ -185,24 +199,20 @@ module Alchemy
       "#{dimensions[:width]}x#{dimensions[:height]}"
     end
 
-    # Uses imagemagick to make a centercropped thumbnail. Does not scale the image up.
-    #
-    def center_crop(dimensions, upsample)
-      if is_smaller_than?(dimensions) && upsample == false
-        dimensions = reduce_to_image(dimensions)
-      end
-      image_file.thumb("#{dimensions_to_string(dimensions)}#")
-    end
-
     # Use imagemagick to custom crop an image. Uses -thumbnail for better performance when resizing.
     #
     def xy_crop_resize(dimensions, top_left, crop_dimensions, upsample)
-      crop_argument = "-crop #{dimensions_to_string(crop_dimensions)}"
-      crop_argument += "+#{top_left[:x]}+#{top_left[:y]}"
+      crop_argument = ""
+
+      # Only crop if dimensions changed
+      if crop_dimensions[:width] != image_file_width || crop_dimensions[:height] != image_file_height
+        crop_argument += "-crop #{dimensions_to_string(crop_dimensions)}"
+        crop_argument += "+#{top_left[:x]}+#{top_left[:y]} "
+      end
 
       resize_argument = "-resize #{dimensions_to_string(dimensions)}"
       resize_argument += ">" unless upsample
-      image_file.convert "#{crop_argument} #{resize_argument}"
+      image_file.convert "#{crop_argument}#{resize_argument}"
     end
 
     # Used when centercropping.

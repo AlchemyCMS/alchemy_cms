@@ -28,6 +28,8 @@ describe Alchemy::EssencePictureView, type: :model do
       essence: essence_picture
   end
 
+  let(:default_options) { Alchemy::EssencePictureView::DEFAULT_OPTIONS }
+
   let(:picture_url) { "/pictures/1/image.png" }
 
   before do
@@ -63,8 +65,11 @@ describe Alchemy::EssencePictureView, type: :model do
       expect(view).to have_content("This is a cute cat")
     end
 
-    it "does not pass default options to picture url" do
-      expect(essence_picture).to receive(:picture_url).with({}) { picture_url }
+    it "does not pass default options to picture url, except render_size and gravity" do
+      expect(essence_picture).to receive(:picture_url).with(
+        hash_excluding(default_options.except(:render_size, :gravity))
+      ) { picture_url }
+
       view
     end
 
@@ -200,7 +205,9 @@ describe Alchemy::EssencePictureView, type: :model do
     end
 
     it "does not pass srcset option to picture_url" do
-      expect(essence_picture).to receive(:picture_url).with({}) { picture_url }
+      expect(essence_picture).to receive(:picture_url).with(
+        hash_excluding(:srcset)
+      ) { picture_url }
       view
     end
 
@@ -260,7 +267,9 @@ describe Alchemy::EssencePictureView, type: :model do
     end
 
     it "does not pass sizes option to picture_url" do
-      expect(essence_picture).to receive(:picture_url).with({}) { picture_url }
+      expect(essence_picture).to receive(:picture_url).with(
+        hash_excluding(:sizes)
+      ) { picture_url }
       view
     end
 

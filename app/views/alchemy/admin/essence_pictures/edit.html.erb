@@ -26,5 +26,16 @@
         [Alchemy.t(:right), "right"]
       ], include_blank: Alchemy.t("Layout default"), input_html: {class: 'alchemy_selectbox'} %>
   <%- end -%>
+  <%- if @content.settings[:gravity].present? -%>
+    <%- gravity = @essence_picture.gravity -%>
+    <% [:size, :x, :y].each do |type| %>
+      <%= f.input "render_gravity_#{type}".to_sym,
+        label: Alchemy.t("gravity_#{type}"),
+        collection: @essence_picture.available_gravities[type].map{|g| [Alchemy.t(g).capitalize, g]},
+        selected: @essence_picture.render_gravity ? @essence_picture.render_gravity[type.to_s] : '',
+        include_blank: Alchemy.t("Layout default"),
+        input_html: {class: 'alchemy_selectbox'} %>
+    <% end %>
+  <%- end -%>
   <%= f.submit Alchemy.t(:save) %>
 <% end %>

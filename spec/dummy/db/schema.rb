@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2020_09_07_111332) do
     t.string "crop_from"
     t.string "crop_size"
     t.string "render_size"
+    t.string "render_gravity"
     t.index ["picture_id"], name: "index_alchemy_essence_pictures_on_picture_id"
   end
 

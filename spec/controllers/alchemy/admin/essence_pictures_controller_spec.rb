@@ -202,8 +202,8 @@ module Alchemy
     end
 
     describe "#update" do
-      before do
-        expect(EssencePicture).to receive(:find).and_return(essence)
+      before(:each) do |test|
+        expect(EssencePicture).to receive(:find).and_return(essence) unless test.metadata[:stub_essence_picture]
         expect(Content).to receive(:find).and_return(content)
       end
 
@@ -232,6 +232,82 @@ module Alchemy
                      crop_size: "100x100",
                    },
                  }, xhr: true
+      end
+
+      context "with render_gravity params" do
+        it "combines separated render_gravitiy params into serialized json hash" do
+          put :update, params: {
+            id: 1,
+            essence_picture: {
+              render_gravity_size: "shrink",
+              render_gravity_x: "left",
+              render_gravity_y: "top",
+            },
+          }, xhr: true
+
+          expect(response.status).to eq(200)
+          expect(essence.render_gravity).to eq({
+            "size" => "shrink",
+            "x" => "left",
+            "y" => "top",
+          })
+        end
+
+        it "can set/unset individual gravity values", :stub_essence_picture do
+          essence = EssencePicture.new(id: 1, content: content, picture: picture, render_gravity: {size: "shrink", x: "left"})
+          allow(EssencePicture).to receive(:find).and_return(essence)
+
+          # load_essence_picture did not find our essence in before_action so i set @essence_picture manually
+          expect(controller).to receive(:load_essence_picture).and_return(nil)
+          controller.instance_variable_set(:@essence_picture, essence)
+
+          put :update, params: {
+            id: 1,
+            essence_picture: {
+              render_gravity_y: "top",
+              render_gravity_x: "",
+            },
+          }, xhr: true
+
+          expect(response.status).to eq(200)
+          expect(essence.render_gravity).to eq({
+            "size" => "shrink",
+            "y" => "top",
+          })
+        end
+
+        it "renders 400 with errors if gravity invalid" do
+          put :update, params: {
+            id: 1,
+            essence_picture: {
+              render_gravity_x: "unknown",
+            },
+          }, xhr: true
+
+          expect(response.status).to eq(400)
+          expect(essence.errors.details[:render_gravity]).to eq([{error: :invalid}])
+        end
+
+        it "Sets render_gravity = nil if all render_gravities are blank", :stub_essence_picture do
+          essence = EssencePicture.new(id: 1, content: content, picture: picture, render_gravity: {size: "shrink"})
+          allow(EssencePicture).to receive(:find).and_return(essence)
+
+          # load_essence_picture did not find our essence in before_action so i set @essence_picture manually
+          expect(controller).to receive(:load_essence_picture).and_return(nil)
+          controller.instance_variable_set(:@essence_picture, essence)
+
+          put :update, params: {
+            id: 1,
+            essence_picture: {
+              render_gravity_size: "",
+              render_gravity_x: "",
+              render_gravity_y: "",
+            },
+          }, xhr: true
+
+          expect(response.status).to eq(200)
+          expect(essence.render_gravity).to equal(nil)
+        end
       end
     end
 

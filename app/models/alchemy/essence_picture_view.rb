@@ -14,14 +14,22 @@ module Alchemy
       disable_link: false,
       srcset: [],
       sizes: [],
+      render_size: nil,
+      gravity: nil,
     }.with_indifferent_access
 
     def initialize(content, options = {}, html_options = {})
       @content = content
-      @options = DEFAULT_OPTIONS.merge(content.settings).merge(options)
-      @html_options = html_options
       @essence = content.essence
       @picture = essence.picture
+      @html_options = html_options
+
+      @options = DEFAULT_OPTIONS.merge(content.settings).merge(options).merge(
+        # Get potential user selected size so we can calculate crop area
+        render_size: @essence.render_size,
+        # Set gravity with correct fallbacks and validation through essence gravity method
+        gravity: @essence.gravity(options.delete(:gravity))
+      )
     end
 
     def render
@@ -51,7 +59,11 @@ module Alchemy
     end
 
     def src
-      essence.picture_url(options.except(*DEFAULT_OPTIONS.keys))
+      essence.picture_url(
+        options.except(
+          *DEFAULT_OPTIONS.except(:render_size, :gravity).keys
+        )
+      )
     end
 
     def img_tag
@@ -76,7 +88,13 @@ module Alchemy
 
     def srcset
       options[:srcset].map do |size|
-        url = essence.picture_url(size: size)
+        url = essence.picture_url(
+          size: size,
+          render_size: options[:render_size],
+          crop: options[:crop],
+          render_crop: options[:render_crop],
+          gravity: options[:gravity],
+        )
         width, height = size.split("x")
         width.present? ? "#{url} #{width}w" : "#{url} #{height}h"
       end

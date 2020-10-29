@@ -32,12 +32,15 @@ module Alchemy
 
     TRANSFORMATION_OPTIONS = [
       :crop,
+      :render_crop,
       :crop_from,
       :crop_size,
+      :gravity,
       :flatten,
       :format,
       :quality,
       :size,
+      :render_size,
       :upsample,
     ]
 

@@ -148,5 +148,153 @@ module Alchemy
         end
       end
     end
+
+    # This is the main crop area method where most functionality is tested
+    #
+    describe "#get_crop_area" do
+      # Base input variables
+      let(:size) { nil }
+      let(:render_size) { nil }
+      let(:crop_from) { nil }
+      let(:crop_size) { nil }
+      let(:render_crop) { nil }
+
+      let(:gravity) do
+        {
+          size: "grow",
+          x: "center",
+          y: "center",
+        }
+      end
+
+      before(:each) do
+        allow(picture).to receive(:image_file_width) { 800 }
+        allow(picture).to receive(:image_file_height) { 800 }
+      end
+
+      context "without render_crop" do
+        it "crops to user crop first if set (crop_from/crop_size)" do
+          # Given size would only resize the final images pixel size in render
+          crop_from = "200x300"
+          crop_size = "400x200"
+          render_size = "800x800"
+          size = "800x400"
+
+          new_crop_from, new_crop_size = picture.get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+          expect(new_crop_from).to eq({ x: 200, y: 300 })
+          expect(new_crop_size).to eq({ width: 400, height: 200 })
+        end
+
+        it "crops to user crop selection (render_size) before size if user hasn't cropped (crop_from/crop_size)" do
+          # ... As given size would only resize the final images pixel size in render
+          render_size = "400x800"
+          size = "800x400"
+
+          new_crop_from, new_crop_size = picture.get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+          expect(new_crop_from).to eq({ x: 200, y: 0 })
+          expect(new_crop_size).to eq({ width: 400, height: 800 })
+        end
+
+        it "crops to size if no crop_from/crop_size/render_size given" do
+          # Without any user applied overrides, size will crop instead of only resize as crop = true (even though render_crop = false)
+          size = "800x400"
+
+          new_crop_from, new_crop_size = picture.get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+          expect(new_crop_from).to eq({ x: 0, y: 200 })
+          expect(new_crop_size).to eq({ width: 800, height: 400 })
+        end
+      end
+
+      context "with render_crop" do
+        let(:render_crop) { true }
+        # User has center cropped 400x200, 2:1 in our 800x800 (1:1) base image
+        let(:crop_from) { "200x300" }
+        let(:crop_size) { "400x200" }
+        # This size will now be used to adjust crop area back to to 1:1 aspect ratio from user cropped 2:1
+        let(:size) { "800x800" }
+
+        it "adjusts aspect ratio of a user cropped area (crop_from/crop_size) to fit given size" do
+          new_crop_from, new_crop_size = picture.get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+          expect(new_crop_from).to eq({ x: 200, y: 200 })
+          expect(new_crop_size).to eq({ width: 400, height: 400 })
+        end
+
+        it "adjusts aspect ratio of a user selected crop area (render_size) to fit given size" do
+          crop_from, crop_size = [nil, nil]
+          # render_size 400x200 will actually crop 800x400 as it is applying default mask which expands to cover as much as possible of original image
+          # Then the pixel size will be reduced later on
+          render_size = "400x200"
+
+          new_crop_from, new_crop_size = picture.get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+          expect(new_crop_from).to eq({ x: 0, y: 0 })
+          expect(new_crop_size).to eq({ width: 800, height: 800 })
+        end
+
+        context "With different gravity options" do
+          # Grow/center/center is already tested in default examples
+          it "applies size = shrink" do
+            gravity[:size] = "shrink"
+
+            new_crop_from, new_crop_size = picture.get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+            expect(new_crop_from).to eq({ x: 300, y: 300 })
+            expect(new_crop_size).to eq({ width: 200, height: 200 })
+          end
+
+          it "applies size = closest_fit" do
+            # Meaning half growth and half shrink to fit
+            gravity[:size] = "closest_fit"
+
+            new_crop_from, new_crop_size = picture.get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+            expect(new_crop_from).to eq({ x: 250, y: 250 })
+            expect(new_crop_size).to eq({ width: 300, height: 300 })
+          end
+
+          it "applies y = top" do
+            gravity[:y] = "top"
+
+            new_crop_from, new_crop_size = picture.get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+            expect(new_crop_from).to eq({ x: 200, y: 300 }) # Still 300 from top. Would've been 200 if centered
+            expect(new_crop_size).to eq({ width: 400, height: 400 })
+          end
+
+          it "applies y = bottom" do
+            gravity[:y] = "bottom"
+
+            new_crop_from, new_crop_size = picture.get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+            expect(new_crop_from).to eq({ x: 200, y: 100 }) # y now grows upwards as bottom is maintained
+            expect(new_crop_size).to eq({ width: 400, height: 400 })
+          end
+
+          it "applies x = left" do
+            size = "800x200" # Image width doubled
+            gravity[:x] = "left"
+
+            new_crop_from, new_crop_size = picture.get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+            expect(new_crop_from).to eq({ x: 200, y: 325 }) # Maintains x 200, can't grow fully so has to shrink height 50px to fix aspect ratio
+            expect(new_crop_size).to eq({ width: 600, height: 150 })
+          end
+
+          it "applies x = right" do
+            size = "800x200" # Image width doubled
+            gravity[:x] = "right"
+
+            new_crop_from, new_crop_size = picture.get_crop_area(size, render_size, crop_from, crop_size, render_crop, gravity)
+
+            expect(new_crop_from).to eq({ x: 0, y: 325 }) # Now right side maintained so x grows left, hence no offset left => x = 0
+            expect(new_crop_size).to eq({ width: 600, height: 150 })
+          end
+        end
+      end
+    end
   end
 end

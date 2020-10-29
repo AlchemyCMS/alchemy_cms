@@ -319,12 +319,15 @@ en:
     attachment_filename_notice: "* Please do not use any special characters for the filename."
     auto_play: "Play movie after load"
     big_thumbnails: "Big thumbnails"
+    bottom: "Bottom"
     cancel: "cancel"
     cannot_delete_picture_notice: "Cannot delete Picture %{name}, because it's still in use."
+    center: "Center"
     choose_file_to_link: "Please choose a file to link"
     "clear clipboard": "clear clipboard"
     "clear trash": "clear trash"
     click_to_show_all: "Click to show all again."
+    closest_fit: "Closest fit"
     confirm_to_delete_file: "Do you really want to delete this file from the server?"
     confirm_to_delete_image: "Do you really want to delete this image from server?"
     confirm_to_delete_image_from_server: "Do you really want to delete this image from the server?"
@@ -386,6 +389,10 @@ en:
     file: "File"
     file_rename_error: "Error renaming file."
     from_at: "from %{by} at %{at}"
+    gravity_size: "Gravity size"
+    gravity_x: "Gravity x"
+    gravity_y: "Gravity y"
+    grow: "Grow"
     height: "Height"
     help:
       shortcuts:
@@ -546,6 +553,7 @@ en:
     show_eq: "Show EQ"
     show_navigation: "Show in navigation"
     show_page_in_sitemap: "Show page in sitemap."
+    shrink: "Shrink"
     signup_mail_delivery_error: 'Signup mail could not be delivered. Please check your mail settings.'
     small_thumbnails: "Small thumbnails"
     subject: "Subject"
@@ -561,6 +569,7 @@ en:
     this_picture_is_used_on_these_pages: "This picture is used on following pages"
     title: "Title"
     to_alchemy: "To Alchemy"
+    top: "Top"
     "trash element": "Put element into trash"
     unknown: "unknown"
     unlink: "Remove link from this image."
@@ -782,6 +791,7 @@ en:
         render_size: Render size
         crop_from: Crop from
         crop_size: Crop size
+        render_gravity: "Gravity"
         picture_id: Bild
       alchemy/language:
         country_code: "Country code"

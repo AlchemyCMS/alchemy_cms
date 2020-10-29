@@ -31,7 +31,9 @@ module Alchemy
       end
 
       def update
-        @essence_picture.update(essence_picture_params)
+        unless @essence_picture.update(essence_picture_params)
+          render json: @essence_picture.errors, status: 400
+        end
       end
 
       # Assigns picture, but does not save it.
@@ -106,8 +108,31 @@ module Alchemy
         end
       end
 
+      # Combines separated gravity params (size, x, y) into single gravity hash
+      #
+      def combine_gravities(essence_picture_params)
+        gravity = @essence_picture.render_gravity.presence || {}
+        gravity = gravity.symbolize_keys.merge({
+          size: essence_picture_params.delete(:render_gravity_size),
+          x: essence_picture_params.delete(:render_gravity_x),
+          y: essence_picture_params.delete(:render_gravity_y),
+        }.compact)
+
+        # Remove any blanks after setting values, render_gravity=nil if all empty
+        gravity = gravity.delete_if { |_k, v| v.blank? }.presence
+
+        essence_picture_params[:render_gravity] = gravity
+        essence_picture_params
+      end
+
       def essence_picture_params
-        params.require(:essence_picture).permit(:alt_tag, :caption, :css_class, :render_size, :title, :crop_from, :crop_size)
+        essence_picture_params = params.require(:essence_picture).permit(:alt_tag, :caption, :css_class, :render_size, :title, :crop_from, :crop_size, :render_gravity, :render_gravity_size, :render_gravity_x, :render_gravity_y)
+
+        if @essence_picture.present? && [:render_gravity_size, :render_gravity_x, :render_gravity_y].any? { |k| essence_picture_params.key?(k) }
+          essence_picture_params = combine_gravities(essence_picture_params)
+        end
+
+        essence_picture_params
       end
     end
   end
