@@ -20,6 +20,7 @@ module Alchemy
     def move
       target_parent_node = Node.find(params[:target_parent_id])
       @node.move_to_child_with_index(target_parent_node, params[:new_position])
+      @node.touch
       render json: @node, serializer: NodeSerializer
     end
 
