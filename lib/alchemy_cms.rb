@@ -1,8 +1,7 @@
 # frozen_string_literal: true
+
 # Instantiate the global Alchemy namespace
-module Alchemy
-  YAML_WHITELIST_CLASSES = %w(Symbol Date Regexp)
-end
+require "alchemy"
 
 # Require globally used external libraries
 require "acts_as_list"
