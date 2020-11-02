@@ -37,7 +37,7 @@ Alchemy.PreviewWindow =
 
   postMessage: (data) ->
     frameWindow = @currentWindow[0].contentWindow
-    frameWindow.postMessage(data, window.location.origin)
+    frameWindow.postMessage(data, "*")
 
   _showSpinner: ->
     @reload = $('#reload_preview_button')

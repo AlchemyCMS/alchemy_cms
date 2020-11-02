@@ -22,9 +22,6 @@ Alchemy.initAlchemyPreviewMode = ->
 
       init: ->
         window.addEventListener "message", (event) =>
-          if event.origin != window.location.origin
-            console.warn 'Unsafe message origin!', event.origin
-            return
           switch event.data.message
             when "Alchemy.blurElements" then @blurElements()
             when "Alchemy.focusElement" then @focusElement(event.data)
