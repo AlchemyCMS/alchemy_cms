@@ -29,3 +29,7 @@ en:
     resource_help_texts:
       party:
         name: Party
+
+  activemodel:
+    models:
+      foo_preview_source: Foo Preview

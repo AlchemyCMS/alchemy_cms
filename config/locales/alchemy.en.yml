@@ -521,6 +521,7 @@ en:
       '768': '768px (iPad - Portrait)'
       '1024': '1024px (iPad - Landscape)'
       '1280': '1280px (Desktop)'
+    preview_url: Preview
     recently_uploaded_only: 'Recently uploaded only'
     "regular method": "Regular method"
     remove: "Remove"
@@ -690,6 +691,7 @@ en:
       alchemy/message:
         one: Message
         other: Messages
+      alchemy/admin/preview_url: Internal
     attributes:
       alchemy/message:
         salutation: 'Salutation'
