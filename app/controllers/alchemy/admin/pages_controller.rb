@@ -178,6 +178,10 @@ module Alchemy
       def publish
         # fetching page via before filter
         @page.publish!
+
+        # Send publish notification to all registered publish targets
+        Alchemy.publish_targets.each { |p| p.perform_later(@page) }
+
         flash[:notice] = Alchemy.t(:page_published, name: @page.name)
         redirect_back(fallback_location: admin_pages_path)
       end
