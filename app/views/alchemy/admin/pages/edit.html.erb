@@ -198,7 +198,7 @@
       }
     });
 
-    Alchemy.PreviewWindow.init('<%= @preview_urls.first.last %>');
+    Alchemy.PreviewWindow.init(<%== @preview_urls.first %>);
 
     $('#preview_size').bind('open.selectBoxIt', function (e) {
       $('#top_menu').css('z-index', 5000);
