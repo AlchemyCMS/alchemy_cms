@@ -88,6 +88,14 @@
       class: 'alchemy_selectbox medium' %>
   </div>
   <div class="toolbar_spacer"></div>
+  <% if @preview_urls.many? %>
+    <div class="select_with_label">
+      <label><%= Alchemy.t(:preview_url) %></label>
+      <%= select_tag 'preview_url',
+        options_for_select(@preview_urls),
+        class: 'alchemy_selectbox large' %>
+    </div>
+  <% end %>
   <div class="button_with_label">
     <%= link_to render_icon(:redo), nil, {
       title: Alchemy.t('Reload Preview'),
@@ -190,7 +198,7 @@
       }
     });
 
-    Alchemy.PreviewWindow.init('<%= @preview_url %>');
+    Alchemy.PreviewWindow.init(<%== @preview_urls.first %>);
 
     $('#preview_size').bind('open.selectBoxIt', function (e) {
       $('#top_menu').css('z-index', 5000);

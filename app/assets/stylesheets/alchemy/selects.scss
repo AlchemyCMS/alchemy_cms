@@ -1,5 +1,3 @@
-$medium-select-box-width: 90px;
-
 select {
   @include button-defaults(
     $background-color: $form-field-background-color,
@@ -74,6 +72,10 @@ select {
 
     &.medium {
       width: $medium-select-box-width;
+    }
+
+    &.large {
+      width: $large-select-box-width;
     }
 
     &.select2-container-active {

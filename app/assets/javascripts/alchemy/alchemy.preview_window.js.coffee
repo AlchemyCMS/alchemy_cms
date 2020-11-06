@@ -4,8 +4,10 @@ Alchemy.PreviewWindow =
   MIN_WIDTH: 240
   HEIGHT: 75 # Top menu height
 
-  init: (url) ->
-    $iframe = $("<iframe name=\"alchemy_preview_window\" src=\"#{url}\" id=\"alchemy_preview_window\" frameborder=\"0\"/>")
+  init: (previewUrl) ->
+    @select = document.querySelector('#preview_url')
+    @previewUrl = @_getCurrentPreviewUrl() || previewUrl[1]
+    $iframe = $("<iframe name=\"alchemy_preview_window\" src=\"#{@previewUrl}\" id=\"alchemy_preview_window\" frameborder=\"0\"/>")
     $reload = $('#reload_preview_button')
     @_showSpinner()
     $iframe.load =>
@@ -13,6 +15,10 @@ Alchemy.PreviewWindow =
     $('body').append($iframe)
     @currentWindow = $iframe
     @_bindReloadButton()
+    if @select
+      @select.value = @previewUrl
+      @_bindSelect()
+    return
 
   resize: (width) ->
     width = @MIN_WIDTH if width < @MIN_WIDTH
@@ -29,12 +35,12 @@ Alchemy.PreviewWindow =
       @_hideSpinner()
       if callback
         callback.call(e, $iframe)
-    $iframe.attr 'src', $iframe.attr('src')
+    $iframe.attr('src', @previewUrl)
     true
 
   postMessage: (data) ->
     frameWindow = @currentWindow[0].contentWindow
-    frameWindow.postMessage(data, window.location.origin)
+    frameWindow.postMessage(data, "*")
 
   _showSpinner: ->
     @reload = $('#reload_preview_button')
@@ -52,6 +58,25 @@ Alchemy.PreviewWindow =
     $reload.click (e) =>
       e.preventDefault()
       @refresh()
+
+  _getCurrentPreviewUrl: ->
+    if @select
+      option = Array.from(@select.options).find (o) =>
+        o.text == window.localStorage.getItem("alchemyPreview")
+      if option
+        option.value
+      else
+        null
+    else
+      null
+
+  _bindSelect: ->
+    $(@select).change (e) =>
+      @previewUrl = e.target.value
+      option = e.target.querySelector("option[value='#{@previewUrl}']")
+      window.localStorage.setItem("alchemyPreview", option.text)
+      @refresh()
+      return
 
 Alchemy.reloadPreview = ->
   Alchemy.PreviewWindow.refresh()
