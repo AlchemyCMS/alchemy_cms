@@ -8,6 +8,7 @@
 - Store current pictures size in session [#1927](https://github.com/AlchemyCMS/alchemy_cms/pull/1927) ([tvdeyen](https://github.com/tvdeyen))
 - Add support for custom mount points in Page::UrlPath [#1921](https://github.com/AlchemyCMS/alchemy_cms/pull/1921) ([tvdeyen](https://github.com/tvdeyen))
 - Allow to set a custom Page::UrlPath class [#1919](https://github.com/AlchemyCMS/alchemy_cms/pull/1919) ([tvdeyen](https://github.com/tvdeyen))
+- Introduce a pages list view [#1906](https://github.com/AlchemyCMS/alchemy_cms/pull/1906) ([tvdeyen](https://github.com/tvdeyen))
 
 ### Changes
 
