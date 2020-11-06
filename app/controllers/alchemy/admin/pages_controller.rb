@@ -85,7 +85,12 @@ module Alchemy
         elsif page_needs_lock?
           @page.lock_to!(current_alchemy_user)
         end
-        @preview_url = Alchemy::Admin::PREVIEW_URL.url_for(@page)
+        @preview_urls = Alchemy.preview_sources.map do |klass|
+          [
+            klass.model_name.human,
+            klass.new(routes: Alchemy::Engine.routes).url_for(@page),
+          ]
+        end
         @layoutpage = @page.layoutpage?
       end
 

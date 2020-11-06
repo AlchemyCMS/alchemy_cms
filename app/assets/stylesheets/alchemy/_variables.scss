@@ -159,6 +159,8 @@ $datepicker_day_color: $text-color !default;
 
 $select-hover-bg-color: $dark-blue !default;
 $select-hover-text-color: $white !default;
+$medium-select-box-width: 90px;
+$large-select-box-width: 120px;
 
 $thumbnail-background-color: opacify($default-border-color, 1) !default;
 $medium-screen-break-point: 700px;
