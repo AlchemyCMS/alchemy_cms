@@ -174,6 +174,181 @@ module Alchemy
       end
     end
 
+    describe "#page_layout_names" do
+      before do
+        Alchemy::PageLayout.instance_variable_set(:@definitions, nil)
+      end
+
+      context "if site has a layout definition file" do
+        let(:site) { Site.new(name: "My custom site") }
+        let(:definitions) { [{ "name" => "my_custom_site", "page_layouts" => %w[standard footer] }] }
+
+        before do
+          allow(Site).to receive(:definitions).and_return(definitions)
+        end
+
+        it "returns all non 'layoutpage' page layout names" do
+          expect(site.page_layout_names).to eq(%w[standard])
+        end
+
+        context "when layoutpages are requested" do
+          it "returns all 'layoutpage' page layout names" do
+            expect(site.page_layout_names(layoutpages: true)).to eq(%w[footer])
+          end
+        end
+      end
+
+      context "if site has no layout definition file" do
+        let(:site) { Site.new(name: "My custom site") }
+
+        it "returns all non 'layoutpage' page layout names" do
+          allow(Site).to receive(:definitions).and_return([])
+          expect(site.page_layout_names).to eq(%w[index readonly standard everything news contact erb_layout])
+        end
+
+        context "when layoutpages are requested" do
+          it "returns all 'layoutpage' page layout names" do
+            allow(Site).to receive(:definitions).and_return([])
+            expect(site.page_layout_names(layoutpages: true)).to eq(%w[footer])
+          end
+        end
+      end
+    end
+
+    describe "#page_layout_definitions" do
+      before do
+        Alchemy::PageLayout.instance_variable_set(:@definitions, nil)
+      end
+
+      context "if site has a layout definition file" do
+        let(:site) { Site.new(name: "My custom site") }
+        let(:definitions) { [{ "name" => "my_custom_site", "page_layouts" => %w[standard] }] }
+
+        it "returns page layouts defined" do
+          allow(Site).to receive(:definitions).and_return(definitions)
+          expect(site.page_layout_definitions).to eq(
+            [
+              {
+                "name" => "standard",
+                "autogenerate" => [
+                  "header",
+                  "article",
+                  "download",
+                ],
+                "elements" => [
+                  "article",
+                  "header",
+                  "slider",
+                  "download",
+                ],
+              },
+            ]
+          )
+        end
+      end
+
+      context "if site has no layout definition file" do
+        let(:site) { Site.new(name: "My custom site") }
+
+        it "returns all page layout definitions" do
+          allow(Site).to receive(:definitions).and_return([])
+          expect(site.page_layout_definitions).to eq(
+            [
+              {
+                "name" => "index",
+                "unique" => true,
+              },
+              {
+                "name" => "readonly",
+                "fixed_attributes" => {
+                  "meta_description" => nil,
+                  "meta_keywords" => nil,
+                  "name" => false,
+                  "page_layout" => "readonly",
+                  "public_on" => nil,
+                  "public_until" => nil,
+                  "restricted" => false,
+                  "robot_follow" => false,
+                  "robot_index" => false,
+                  "title" => false,
+                  "urlname" => false,
+                },
+              },
+              {
+                "name" => "standard",
+                "autogenerate" => [
+                  "header",
+                  "article",
+                  "download",
+                ],
+                "elements" => [
+                  "article",
+                  "header",
+                  "slider",
+                  "download",
+                ],
+              },
+              {
+                "name" => "everything",
+                "autogenerate" => [
+                  "all_you_can_eat",
+                  "right_column",
+                  "left_column",
+                ],
+                "elements" => [
+                  "text",
+                  "all_you_can_eat",
+                  "gallery",
+                  "right_column",
+                  "left_column",
+                ],
+              },
+              {
+                "name" => "news",
+                "autogenerate" => [
+                  "news",
+                ],
+                "elements" => [
+                  "headline",
+                  "news",
+                ],
+                "feed" => true,
+                "feed_elements" => ["news"],
+                "insert_elements_at" => "top",
+                "unique" => true,
+              },
+              {
+                "name" => "contact",
+                "unique" => true,
+                "autogenerate" => [
+                  "headline",
+                  "text",
+                  "contactform",
+                ],
+                "cache" => false,
+                "elements" => [
+                  "headline",
+                  "text",
+                  "contactform",
+                ],
+              },
+              {
+                "name" => "footer",
+                "elements" => [
+                  "menu",
+                ],
+                "layoutpage" => true,
+              },
+              {
+                "name" => "erb_layout",
+                "unique" => true,
+              },
+            ]
+          )
+        end
+      end
+    end
+
     describe "#default_language" do
       let!(:default_language) do
         create(:alchemy_language, default: true, site: site)

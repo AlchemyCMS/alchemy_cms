@@ -1,4 +1,7 @@
-button, input[type="submit"], a.button, input.button {
+button,
+input[type="submit"],
+a.button,
+input.button {
   @include button-defaults;
   position: relative;
 
@@ -14,7 +17,8 @@ button, input[type="submit"], a.button, input.button {
       );
     }
 
-    &:active, &:active:focus {
+    &:active,
+    &:active:focus {
       border-color: $button-hover-border-color;
       box-shadow: none;
     }
@@ -23,7 +27,7 @@ button, input[type="submit"], a.button, input.button {
   &.small {
     padding: $small-button-padding;
     vertical-align: inherit;
-    line-height: 4*$default-padding;
+    line-height: 4 * $default-padding;
     font-size: inherit;
   }
 
@@ -83,13 +87,14 @@ button, input[type="submit"], a.button, input.button {
       border: $default-border-width $default-border-style $icon-color;
       color: $icon-color;
 
-      .icon { color: inherit }
+      .icon {
+        color: inherit;
+      }
     }
   }
 
   &.disabled,
   &[disabled] {
-
     span {
       opacity: 0.3;
       cursor: not-allowed;
@@ -118,7 +123,8 @@ button.icon_button {
   border: 0 none;
   box-shadow: none;
 
-  &:disabled, &.disabled {
+  &:disabled,
+  &.disabled {
     background: transparent;
   }
 }
@@ -131,10 +137,15 @@ button.icon_button {
   position: relative;
   display: inline-block;
   text-align: center;
-  margin: 0 2*$default-margin;
 
-  &.active, &:active, &:hover {
-   .icon_button:not([disabled]) {
+  .toolbar_buttons & {
+    margin: 0 2 * $default-margin;
+  }
+
+  &.active,
+  &:active,
+  &:hover {
+    .icon_button:not([disabled]) {
       background-color: $default-border-color;
       cursor: pointer;
     }
@@ -161,8 +172,8 @@ button.icon_button {
   }
 }
 
-.button_with_label, .button_group {
-
+.button_with_label,
+.button_group {
   .icon_button {
     width: 29px;
     height: 29px;
@@ -179,16 +190,16 @@ button.icon_button {
     z-index: 30;
     background-color: $tooltip-background-color;
     color: $white;
-    padding: $default-padding 2*$default-padding 1.5*$default-padding;
+    padding: $default-padding 2 * $default-padding 1.5 * $default-padding;
     line-height: 1;
     box-shadow: 0 0 4px $default-border-color;
     white-space: nowrap;
     pointer-events: none;
     opacity: 0;
-    transition: .3s;
+    transition: 0.3s;
 
     &:before {
-      content: '';
+      content: "";
       position: absolute;
       bottom: -10px;
       left: 8px;
@@ -238,6 +249,6 @@ button.icon_button {
     visibility: visible;
     opacity: 1;
     top: -25px;
-    transition-delay: .2s;
+    transition-delay: 0.2s;
   }
 }

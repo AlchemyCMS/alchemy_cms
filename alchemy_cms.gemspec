@@ -54,6 +54,7 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'webdrivers',                   ['~> 4.0']
   gem.add_development_dependency 'webmock',                      ['~> 3.3']
   gem.add_development_dependency 'shoulda-matchers',             ['~> 4.0']
+  gem.add_development_dependency 'timecop',                      ['~> 0.9']
 
   gem.post_install_message = <<-MSG
 -------------------------------------------------------------

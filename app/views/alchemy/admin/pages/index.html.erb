@@ -3,81 +3,48 @@
 <% end %>
 
 <% content_for :toolbar do %>
-<div class="toolbar_buttons">
-  <%= render 'alchemy/admin/partials/site_select' %>
-  <%= render 'alchemy/admin/partials/language_tree_select' %>
-  <% if can?(:flush, Alchemy::Page) %>
-  <div class="button_with_label">
-    <%= link_to(
-      render_icon(:eraser),
-      alchemy.flush_admin_pages_path,
-      :remote => true,
-      :method => :post,
-      :class => 'icon_button please_wait',
-      :title => Alchemy.t('Flush page cache')
-    ) %>
-    <label><%= Alchemy.t('Flush page cache') %></label>
-  </div>
-  <% end %>
-  <% if can?(:sort, Alchemy::Page) %>
-  <div class="button_with_label">
-    <%= link_to(
-      render_icon(:random),
-      alchemy.sort_admin_pages_path,
-      method: :get,
-      class: 'icon_button',
-      title: Alchemy.t('Sort pages')
-    ) %>
-    <label><%= Alchemy.t('Sort pages') %></label>
-  </div>
-  <% end %>
-  <div class="button_with_label" id="clipboard_button">
-    <%= link_to_dialog(
-      render_icon(clipboard_empty?('pages') ? :clipboard : :paste),
-      alchemy.admin_clipboard_path(:remarkable_type => 'pages'),
-      {
-        :title => Alchemy.t('Clipboard'),
-        :size => '380x305'
-      },
-      :class => 'icon_button',
-      :title => Alchemy.t('Show clipboard')
-    ) %>
-    <label><%= Alchemy.t('Show clipboard') %></label>
-  </div>
-</div>
-<div class="search_form">
-  <div class="search_field">
-    <label>
-      <%= text_field_tag 'filter', '',
-        class: 'search_input_field',
-        placeholder: Alchemy.t(:search),
-        id: nil %>
-      <%= render_icon :search %>
-    </label>
-    <%= link_to(render_icon(:times, size: 'xs'), '#', {
-      class: "search_field_clear",
-      title: Alchemy.t(:click_to_show_all)
-    }) %>
-  </div>
-</div>
+  <%= render "alchemy/admin/pages/toolbar" %>
 <% end %>
 
-<div id="archive_all">
-<% if @page_root %>
-  <h2 id="page_filter_result"></h2>
+<%= content_tag :div,
+  id: "archive_all",
+  class: [@view == "list" && "resources-table-wrapper with_tag_filter"] do %>
+  <% if @view == "list" %>
+    <%= render "alchemy/admin/resources/table_header", resources_instance_variable: @pages %>
+    <% if @pages.any? %>
+      <%= render "table" %>
+    <% elsif search_filter_params.present? %>
+      <%= render_message do %>
+        <%= Alchemy.t("No pages found") %>
+      <% end %>
+    <% elsif can?(:create, Alchemy::Page) %>
+      <%= render partial: "create_language_form" %>
+    <% end %>
 
-  <%= render 'sitemap', page_partial: 'page', full: !!@sorting %>
+    <%= paginate @pages, scope: alchemy, theme: "alchemy" %>
 
-<% elsif can?(:create, Alchemy::Page) %>
+    <div id="library_sidebar">
+      <%= render "page_layout_filter" %>
 
-  <%= render partial: 'create_language_form' %>
+      <%= render "filter_bar",
+        label: Alchemy::Page.human_attribute_name(:status),
+        url: alchemy.admin_pages_path(search_filter_params.except(:filter, :page).merge(view: "list")) %>
 
-<% else %>
-
-  <%= render_message :warn do %>
-    <h2>No language root page found.</h2>
-    <p>Please ask the admin to create one.</p>
+      <% if resource_has_tags %>
+        <%= render "tag_list" %>
+      <% end %>
+    </div>
+  <% else %>
+    <% if @page_root %>
+      <h2 id="page_filter_result"></h2>
+      <%= render "sitemap", page_partial: "page", full: !!@sorting %>
+    <% elsif can?(:create, Alchemy::Page) %>
+      <%= render partial: "create_language_form" %>
+    <% else %>
+      <%= render_message :warn do %>
+        <h2>No language root page found.</h2>
+        <p>Please ask the admin to create one.</p>
+      <% end %>
+    <% end %>
   <% end %>
-
 <% end %>
-</div>

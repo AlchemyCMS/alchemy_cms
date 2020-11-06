@@ -1,0 +1,31 @@
+<% if @pages.any? %>
+  <table class="list">
+    <thead>
+      <tr>
+        <th class="icon"></th>
+        <th class="string name">
+          <%= sort_link [:alchemy, @query],
+            "name",
+            Alchemy::Page.human_attribute_name(:name),
+            default_order: "asc" %>
+        </th>
+        <th><%= Alchemy::Page.human_attribute_name(:urlname) %></th>
+        <th><%= Alchemy::Page.human_attribute_name(:page_type) %></th>
+        <th><%= Alchemy::Page.human_attribute_name(:tag_list) %></th>
+        <th class="status center"><%= Alchemy::Page.human_attribute_name(:status) %></th>
+        <th class="tools"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <%= render partial: "page", collection: @pages %>
+    </tbody>
+  </table>
+<% elsif search_filter_params.present? %>
+  <%= render_message do %>
+    <%= Alchemy.t('No pages found') %>
+  <% end %>
+<% else %>
+  <%= render partial: 'alchemy/admin/pages/create_language_form' %>
+<% end %>
+
+<%= paginate @pages, scope: alchemy, theme: 'alchemy' %>

@@ -1,0 +1,77 @@
+<div class="toolbar_buttons">
+  <%= render "alchemy/admin/partials/site_select" %>
+  <%= render "alchemy/admin/partials/language_tree_select" %>
+  <%= toolbar_button(
+    icon: :plus,
+    url: alchemy.new_admin_page_path(language: @current_language),
+    hotkey: 'alt+n',
+    dialog_options: {
+      title: Alchemy.t('Add a page'),
+      size: '340x215',
+      overflow: true
+    },
+    title: Alchemy.t('Add a page'),
+    label: Alchemy.t('Add a page'),
+    if_permitted_to: [:create, Alchemy::Page]
+  ) %>
+  <div class="toolbar_spacer"></div>
+  <% if can?(:flush, Alchemy::Page) %>
+    <div class="button_with_label">
+      <%= link_to(
+        render_icon(:eraser),
+        alchemy.flush_admin_pages_path,
+        remote: true,
+        method: :post,
+        class: "icon_button please_wait",
+        title: Alchemy.t("Flush page cache")
+      ) %>
+      <label><%= Alchemy.t("Flush page cache") %></label>
+    </div>
+  <% end %>
+  <% if can?(:sort, Alchemy::Page) %>
+    <div class="button_with_label">
+      <%= link_to(
+        render_icon(:random),
+        alchemy.sort_admin_pages_path,
+        method: :get,
+        class: "icon_button",
+        title: Alchemy.t("Sort pages")
+      ) %>
+      <label><%= Alchemy.t("Sort pages") %></label>
+    </div>
+  <% end %>
+  <div class="button_with_label" id="clipboard_button">
+    <%= link_to_dialog(
+      render_icon(clipboard_empty?("pages") ? :clipboard : :paste),
+      alchemy.admin_clipboard_path(remarkable_type: "pages"),
+      {
+        title: Alchemy.t("Clipboard"),
+        size: "380x305"
+      },
+      class: "icon_button",
+      title: Alchemy.t("Show clipboard")
+    ) %>
+    <label><%= Alchemy.t("Show clipboard") %></label>
+  </div>
+  <div class="toolbar_spacer"></div>
+  <div class="button_with_label<%= @view != "list" ? " active" : nil %>">
+    <%= link_to(
+      render_icon(:stream),
+      alchemy.admin_pages_path(view: "tree"),
+      class: "icon_button"
+    ) %>
+    <label><%= Alchemy.t("Hierarchical") %></label>
+  </div>
+  <div class="button_with_label<%= @view == "list" ? " active" : nil %>">
+    <%= link_to(
+      render_icon("sort-amount-down-alt"),
+      alchemy.admin_pages_path(view: "list"),
+      class: "icon_button"
+    ) %>
+    <label><%= Alchemy.t("Sortable List") %></label>
+  </div>
+</div>
+<% search_filter_params[:view] = "list" %>
+<%= render "alchemy/admin/partials/search_form",
+  url: alchemy.admin_pages_path(search_filter_params.except(:q, :page)),
+  additional_params: [:view, :page_layout, :tagged_with, :filter] %>

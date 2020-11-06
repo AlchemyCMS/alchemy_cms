@@ -171,8 +171,8 @@ en:
     anchor_link_headline: "You can link to an element anchor from the actual page."
     attribute_fixed: Value can't be changed for this page type
     back: 'back'
-    create_tree_as_new_language: "Create %{language} as a new language tree"
     locked_pages: "Active pages"
+    "Add a page": "Add a page"
     "Add global page": "Add global page"
     "Add page link": "Add page link"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software and itself uses open software and free resources:"
@@ -339,13 +339,13 @@ en:
     copy_element: "Copy this element"
     copy_page: "Copy page"
     "Could not delete Pictures": "Could not delete Pictures"
-    copy_language_tree_heading: "Copy page tree"
+    copy_language_tree_heading: "Copy pages"
     country_code_placeholder: 'i.e. US (optional)'
     country_code_foot_note: "You only need to set a country code if you want to support multiple countries with the same language."
     create: "create"
     "Create language": "Create a new language"
     "Create site": "Create a new site"
-    create_language_tree_heading: "Create empty language tree"
+    create_language_tree_heading: "Create new homepage"
     create_menu: "Add a menu"
     create_node: "Add a menu node"
     create_page: "Create a new subpage"
@@ -402,6 +402,7 @@ en:
         "Open upload form": "Open upload form"
         "Select all pictures": "Select all pictures"
     hide_element_content: "Hide this elements content."
+    homepage_does_not_exist: "This language has no homepage yet"
     dashboard: "Dashboard"
     image_alt_tag: "Alt-tag"
     image_caption: "Caption"
@@ -415,7 +416,6 @@ en:
     javascript_disabled_headline: "Javascript is disabled!"
     javascript_disabled_text: "Alchemy needs Javascript to run smoothly. Please enable it in your browser settings."
     language_code_placeholder: 'i.e. en'
-    language_does_not_exist: "This language tree does not exist"
     language_pages_copied: "Language tree successfully copied."
     last_upload_only: "Last upload only"
     left: "left"

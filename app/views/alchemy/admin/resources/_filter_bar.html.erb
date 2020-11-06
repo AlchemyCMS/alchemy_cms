@@ -1,21 +1,23 @@
 <div id="filter_bar">
-  <h3><%= Alchemy.t('Filter') %></h3>
-  <%= select_tag(
-    'resource_filter',
-    options_for_select(
-      resource_filter_select, search_filter_params[:filter]
-    ),
-    include_blank: Alchemy.t(:all, scope: ['resources', resource_name, 'filters']),
-    data: { remote: !!request.xhr? },
-    class: 'alchemy_selectbox'
-  ) %>
+  <label>
+    <h3><%= local_assigns[:label] || Alchemy.t('Filter') %></h3>
+    <%= select_tag(
+      'resource_filter',
+      options_for_select(
+        resource_filter_select, search_filter_params[:filter]
+      ),
+      include_blank: Alchemy.t(:all, scope: ['resources', resource_name, 'filters']),
+      data: { remote: !!request.xhr? },
+      class: 'alchemy_selectbox'
+    ) %>
+  </label>
 </div>
 
 <script type="text/javascript">
   $(function() {
     $('#resource_filter').on('change', function(e) {
       var $this = $(this);
-      var url = '<%= resources_path(resource_handler.namespaced_resources_name, search_filter_params.except(:filter).to_h) %>';
+      var url = '<%= local_assigns[:url] || resources_path(resource_handler.namespaced_resources_name, search_filter_params.except(:filter).to_h) %>';
       if ($this.data('remote') === true) {
         $.get(url, {filter: $this.val()}, null, 'script');
       } else {
