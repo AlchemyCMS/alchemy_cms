@@ -17,6 +17,8 @@ it:
     #       sidebar_menu: Side bar menu (?)
     #
     menu_names:
+      main_menu: Menu principale
+      footer_menut: Menu footer
 
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
@@ -336,6 +338,8 @@ it:
     confirm_to_delete_image: "Vuoi veramente eliminare questa immagine dal server?"
     confirm_to_delete_image_from_server: "Vuoi veramente eliminare questa immagine dal server?"
     confirm_to_delete_images_from_server: "Vuoi veramente eliminare queste immagini dal server?"
+    confirm_to_delete_menu: "Vuoi veramente eliminare questo menu?"
+    confirm_to_delete_node: "Vuoi veramente eliminare questo nodo?"
     confirm_to_delete_page: "Vuoi eliminare veramente questa pagina? I suoi elementi andranno persi!"
     content_essence_not_found: "Essenza del contenuto non trovata"
     content_not_found: "Campo per il contenuto non trovato."
@@ -345,6 +349,8 @@ it:
     copy_page: "Copia pagina"
     "Could not delete Pictures": "Impossibile eliminare le Immagini"
     copy_language_tree_heading: "Copia struttura delle pagine"
+    create_menu: "Aggiungi un menu"
+    create_node: "Aggiungi un nodo al menu"
     country_code_placeholder: 'ad es. US (opzionale)'
     country_code_foot_note: "È necessario configurare un codice nazione solo se vuoi supportare diverse nazioni con la stessa lingua."
     create: "crea"
@@ -357,6 +363,8 @@ it:
     delete_file: "Elimina questo file dal server."
     delete_image: "Elimina quest'immagine"
     delete_language: "Elimina questa lingua"
+    delete_menu: "Cancella il menu"
+    delete_node: "Cancella il nodo di menu"    
     delete_page: "Elimina questa pagina"
     delete_tag: 'Elimina tag'
     document: "File"
@@ -368,6 +376,8 @@ it:
     edit_image_properties: "Modifica le proprietà dell'immagine."
     edit_language: "Modifica lingua"
     edit_page: "Modifica questa pagina"
+    edit_menu: "Modifica il menu"
+    edit_node: "Modifica il nodo di menu"
     edit_page_properties: "Modifica proprietà pagina"
     edit_tag: 'Modifica tag'
     edit_selected_pictures: "Modifica le immagini selezionate"
@@ -434,6 +444,7 @@ it:
     male: "Maschio"
     me: "Me"
     medium_thumbnails: "Thumbnail di meda dimensione"
+    menu: Menu
     meta_data: "Meta-Data"
     meta_description: "Meta-Description"
     meta_keywords: "Meta-Keywords"
@@ -444,6 +455,7 @@ it:
       languages: "Lingue"
       layoutpages: "Pagine Globali"
       library: "Libreria"
+      menus: "Menus"
       pages: "Pagine"
       tags: "Tags"
       sites: "Siti"
@@ -722,6 +734,9 @@ it:
       alchemy/language:
         one: "Lingua"
         other: "Lingue"
+      alchemy/node:
+        one: "Nodo Menu"
+        other: "Nodi Menu"        
       alchemy/page:
         one: "Pagina"
         other: "Pagine"
