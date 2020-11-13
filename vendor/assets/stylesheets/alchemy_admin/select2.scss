@@ -24,15 +24,10 @@ Version: 3.5.4 Timestamp: Sun Aug 30 13:30:32 EDT 2015
 
 .select2-container .select2-choice {
   display: block;
-  height: 26px;
-  padding: 0 0 0 8px;
   overflow: hidden;
   position: relative;
 
-  border: 1px solid #aaa;
   white-space: nowrap;
-  line-height: 26px;
-  color: #444;
   text-decoration: none;
 
   border-radius: 4px;
@@ -44,19 +39,6 @@ Version: 3.5.4 Timestamp: Sun Aug 30 13:30:32 EDT 2015
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-
-  background-color: #fff;
-  background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0, #eee),
-    color-stop(0.5, #fff)
-  );
-  background-image: -webkit-linear-gradient(center bottom, #eee 0%, #fff 50%);
-  background-image: -moz-linear-gradient(center bottom, #eee 0%, #fff 50%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#ffffff', endColorstr = '#eeeeee', GradientType = 0);
-  background-image: linear-gradient(to top, #eee 0%, #fff 50%);
 }
 
 html[dir="rtl"] .select2-container .select2-choice {
@@ -191,29 +173,10 @@ html[dir="rtl"] .select2-container .select2-choice > .select2-chosen {
 
 .select2-container .select2-choice .select2-arrow {
   display: inline-block;
-  width: 18px;
-  height: 100%;
   position: absolute;
   right: 0;
-  top: 0;
 
-  border-left: 1px solid #aaa;
   border-radius: 0 4px 4px 0;
-
-  background-clip: padding-box;
-
-  background: #ccc;
-  background-image: -webkit-gradient(
-    linear,
-    left bottom,
-    left top,
-    color-stop(0, #ccc),
-    color-stop(0.6, #eee)
-  );
-  background-image: -webkit-linear-gradient(center bottom, #ccc 0%, #eee 60%);
-  background-image: -moz-linear-gradient(center bottom, #ccc 0%, #eee 60%);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr = '#eeeeee', endColorstr = '#cccccc', GradientType = 0);
-  background-image: linear-gradient(to top, #ccc 0%, #eee 60%);
 }
 
 html[dir="rtl"] .select2-container .select2-choice .select2-arrow {
@@ -229,7 +192,6 @@ html[dir="rtl"] .select2-container .select2-choice .select2-arrow {
   display: block;
   width: 100%;
   height: 100%;
-  background: image-url("select2.png") no-repeat 0 1px;
 }
 
 html[dir="rtl"] .select2-container .select2-choice .select2-arrow b {
@@ -255,26 +217,6 @@ html[dir="rtl"] .select2-container .select2-choice .select2-arrow b {
   min-height: 26px;
   padding: 4px 20px 4px 5px;
   margin: 0;
-
-  outline: 0;
-  font-family: sans-serif;
-  font-size: 1em;
-
-  border: 1px solid #aaa;
-  border-radius: 0;
-
-  -webkit-box-shadow: none;
-  box-shadow: none;
-
-  background: #fff image-url("select2.png") no-repeat 100% -22px;
-  background: image-url("select2.png") no-repeat 100% -22px,
-    -webkit-gradient(linear, left bottom, left top, color-stop(0.85, #fff), color-stop(0.99, #eee));
-  background: image-url("select2.png") no-repeat 100% -22px,
-    -webkit-linear-gradient(center bottom, #fff 85%, #eee 99%);
-  background: image-url("select2.png") no-repeat 100% -22px,
-    -moz-linear-gradient(center bottom, #fff 85%, #eee 99%);
-  background: image-url("select2.png") no-repeat 100% -22px,
-    linear-gradient(to bottom, #fff 85%, #eee 99%) 0 0;
 }
 
 html[dir="rtl"] .select2-search input {
