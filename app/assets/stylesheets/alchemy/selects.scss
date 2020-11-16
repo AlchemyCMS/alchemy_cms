@@ -1,13 +1,16 @@
+@import "alchemy_admin/select2";
+
 select {
   @include button-defaults(
     $background-color: $form-field-background-color,
     $hover-color: $form-field-background-color,
     $hover-border-color: darken($default-border-color, 10%),
-    $padding: 0 2*$default-padding,
+    $padding: 0 2 * $default-padding,
     $border: 1px solid $default-border-color,
     $box-shadow: none,
     $color: $text-color,
-    $margin: 0);
+    $margin: 0
+  );
   height: $form-field-height;
   padding: 0.4em 0.6em;
   max-width: 100%;
@@ -32,7 +35,8 @@ select {
         $border: 1px solid $default-border-color,
         $box-shadow: none,
         $color: $text-color,
-        $margin: 0);
+        $margin: 0
+      );
       background-image: none;
       display: block;
       font-weight: normal;
@@ -79,14 +83,13 @@ select {
     }
 
     &.select2-container-active {
-
-      .select2-choice, .select2-choices {
+      .select2-choice,
+      .select2-choices {
         @include default-focus-style($box-shadow: 0 0 0 1px $focus-color);
       }
     }
 
     &.select2-container-disabled {
-
       &:hover {
         + .with-hint > .hint-bubble {
           @include hint-hover-style;
@@ -98,7 +101,8 @@ select {
         top: 0;
       }
 
-      .select2-choice, .select2-choice:hover {
+      .select2-choice,
+      .select2-choice:hover {
         background-image: none;
         background-color: $light-gray;
         box-shadow: none;
@@ -108,7 +112,9 @@ select {
         .select2-arrow {
           border-color: $border-inset-color;
 
-          b { color: $border-inset-color; }
+          b {
+            color: $border-inset-color;
+          }
         }
       }
     }
@@ -142,7 +148,6 @@ select {
     margin-top: 0 !important;
 
     &.select2-container-active {
-
       .select2-choices {
         @include default-focus-style($box-shadow: 0 0 0 1px $focus-color);
       }
@@ -214,7 +219,8 @@ select {
       }
     }
 
-    .select2-no-results, .select2-searching {
+    .select2-no-results,
+    .select2-searching {
       padding: 8px;
       margin: 0;
     }
@@ -235,41 +241,39 @@ select {
 
   .select2-more-results,
   .select2-ajax-error {
-    padding: 2*$default-padding;
+    padding: 2 * $default-padding;
     margin-bottom: 0;
   }
 }
 
-.window_form, #filter_bar {
-
+.window_form,
+#filter_bar {
   .select2-container {
     width: 100%;
   }
 }
 
 .select_with_label {
-  margin: 0 3*$default-margin;
+  margin: 0 3 * $default-margin;
   display: inline-block;
   vertical-align: middle;
 
   label {
     display: inline-block;
     vertical-align: middle;
-    margin-right: 2*$default-margin;
+    margin-right: 2 * $default-margin;
   }
 }
 
 // overriding important of select2 default style for retina screens
 @media only screen and (-webkit-min-device-pixel-ratio: 1.5),
-       only screen and (min-resolution: 2dppx) {
-
+  only screen and (min-resolution: 2dppx) {
   #alchemy {
-
     .select2-search input,
     .select2-search-choice-close,
     .select2-container .select2-choice abbr,
     .select2-container .select2-choice .select2-arrow b {
-       background-image: none !important;
+      background-image: none !important;
     }
   }
 }
