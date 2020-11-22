@@ -18,4 +18,5 @@ matrix:
   fast_finish: true
   allow_failures:
     - env: ALCHEMY_BRANCH=main
+before_script: nvm use 12
 script: bundle exec rake
