@@ -1,5 +1,6 @@
-## 5.0.0 (unreleased)
+## 5.0.1 (2020-11-22)
 
+- Require alchemy/version in controllers using ssl_required [#113](https://github.com/AlchemyCMS/alchemy-devise/pull/113) ([tvdeyen](https://github.com/tvdeyen))
 - Use absolute paths in Alchemy module definition [#106](https://github.com/AlchemyCMS/alchemy-devise/pull/106) ([tvdeyen](https://github.com/tvdeyen))
 
 ## 4.6.0 (2020-10-16)
