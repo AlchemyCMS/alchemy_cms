@@ -14,3 +14,5 @@ group :test do
     gem "codeclimate-test-reporter", "~> 1.0", require: false
   end
 end
+
+gem "github_fast_changelog"
