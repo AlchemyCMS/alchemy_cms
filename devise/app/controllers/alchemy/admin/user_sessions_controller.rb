@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_dependency "alchemy/version"
+require "alchemy/version"
 
 module Alchemy
   module Admin

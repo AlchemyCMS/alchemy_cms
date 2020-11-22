@@ -1,3 +1,7 @@
+# frozen_string_literal: true
+
+require "alchemy/version"
+
 module Alchemy
   module Admin
     class PasswordsController < ::Devise::PasswordsController
