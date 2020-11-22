@@ -15,4 +15,4 @@ group :test do
   end
 end
 
-gem "github_fast_changelog"
+gem "github_fast_changelog", require: false
