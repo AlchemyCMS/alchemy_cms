@@ -36,6 +36,14 @@ describe "Admin users feature." do
 
         expect(page).to have_selector "table#user_list"
       end
+
+      it "is searchable" do
+        visit admin_users_path
+        fill_in "search", with: users.first.email
+        find(".search_field button").click
+        expect(page).to have_content users.first.email
+        expect(page).to_not have_content users.last.email
+      end
     end
 
     describe 'edit existing user' do
