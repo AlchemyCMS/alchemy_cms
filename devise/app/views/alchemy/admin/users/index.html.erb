@@ -14,7 +14,7 @@
 <% end %>
 
 <div id="archive_all" class="resources-table-wrapper">
-  <%= resources_header %>
+  <%= render "alchemy/admin/resources/table_header" %>
 <% if @users.any? %>
 
   <table class="list" id="user_list">

@@ -28,6 +28,16 @@ describe "Admin users feature." do
       end
     end
 
+    describe "users list" do
+      let!(:users) { create_list(:alchemy_user, 2) }
+
+      it "lists existing users" do
+        visit admin_users_path
+
+        expect(page).to have_selector "table#user_list"
+      end
+    end
+
     describe 'edit existing user' do
       let(:user) { create(:alchemy_author_user) }
 
