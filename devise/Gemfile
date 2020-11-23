@@ -11,6 +11,7 @@ group :test do
   gem "mysql2" if ENV["DB"] == "mysql"
   gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
   if ENV["TRAVIS"]
+    gem "sassc", "~> 2.1.0"
     gem "codeclimate-test-reporter", "~> 1.0", require: false
   end
 end
