@@ -28,6 +28,30 @@ describe "Admin users feature." do
       end
     end
 
+    describe "users list" do
+      let!(:users) { create_list(:alchemy_user, 2) }
+
+      it "lists existing users" do
+        visit admin_users_path
+
+        expect(page).to have_selector "table#user_list"
+      end
+
+      it "is searchable" do
+        visit admin_users_path
+        fill_in "search", with: users.first.email
+        begin
+          find(".search_field button").click
+          # Allow to fail on Alchemy 5.0 that does not have a submit button
+        rescue Capybara::ElementNotFound
+          true
+        else
+          expect(page).to have_content users.first.email
+          expect(page).to_not have_content users.last.email
+        end
+      end
+    end
+
     describe 'edit existing user' do
       let(:user) { create(:alchemy_author_user) }
 
