@@ -1,3 +1,11 @@
+## 5.1.0 (unreleased)
+
+- Remove support for old Alchemy versions [#118](https://github.com/AlchemyCMS/alchemy-devise/pull/118) ([tvdeyen](https://github.com/tvdeyen))
+- Admin users list fixes [#117](https://github.com/AlchemyCMS/alchemy-devise/pull/117) ([tvdeyen](https://github.com/tvdeyen))
+- Use Alchemy::User as class in ability [#116](https://github.com/AlchemyCMS/alchemy-devise/pull/116) ([tvdeyen](https://github.com/tvdeyen))
+- Fixate sassc gem to 2.1.0 [#115](https://github.com/AlchemyCMS/alchemy-devise/pull/115) ([tvdeyen](https://github.com/tvdeyen))
+- Use content_for :toolbar instead of toolbar [#114](https://github.com/AlchemyCMS/alchemy-devise/pull/114) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.0.1 (2020-11-22)
 
 - Require alchemy/version in controllers using ssl_required [#113](https://github.com/AlchemyCMS/alchemy-devise/pull/113) ([tvdeyen](https://github.com/tvdeyen))
