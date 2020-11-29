@@ -5,6 +5,7 @@ gemspec
 
 rails_version = ENV.fetch("RAILS_VERSION", 6.0).to_f
 gem "rails", "~> #{rails_version}.0"
+gem "alchemy-legacy_api", github: "AlchemyCMS/alchemy-legacy_api", branch: "main"
 
 if ENV["DB"].nil? || ENV["DB"] == "sqlite"
   gem "sqlite3", "~> 1.4.1"
