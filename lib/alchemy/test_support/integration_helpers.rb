@@ -17,14 +17,7 @@ module Alchemy
         else
           user = build(:alchemy_dummy_user, user_or_role)
         end
-        set_phantomjs_browser_language("en")
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
-      end
-
-      def set_phantomjs_browser_language(lang = nil)
-        if Capybara.current_driver == :poltergeist
-          page.driver.headers = {"Accept-Language" => lang}
-        end
       end
     end
   end
