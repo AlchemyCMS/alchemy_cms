@@ -54,7 +54,7 @@
 
   .search_input_field {
     width: 0;
-    height: inherit;
+    height: 100%;
     border: none;
     background-color: transparentize($form-field-background-color, 0.25);
     transition:
