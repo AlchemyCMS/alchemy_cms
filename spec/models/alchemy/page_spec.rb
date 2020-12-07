@@ -1368,11 +1368,15 @@ module Alchemy
 
       before do
         allow(Time).to receive(:current).and_return(current_time)
-        page.publish!
+      end
+
+      it "creates a public version" do
+        expect { page.publish! }.to change { page.versions.published.count }.by(1)
       end
 
       context "with unpublished page" do
         it "sets public_on and published_at", aggregate_failures: true do
+          page.publish!
           expect(page.published_at).to eq(current_time)
           expect(page.public_on).to eq(current_time)
           expect(page.public_until).to eq(nil)
@@ -1385,6 +1389,7 @@ module Alchemy
         let(:public_on) { past_time }
 
         it "only sets published_at", aggregate_failures: true do
+          page.publish!
           expect(page.published_at).to eq(current_time)
           expect(page.public_on).to eq(public_on)
           expect(page.public_until).to eq(nil)
@@ -1394,6 +1399,7 @@ module Alchemy
           let(:public_until) { current_time + 2.weeks }
 
           it "does not change public_until" do
+            page.publish!
             expect(page.public_until).to eq(public_until)
           end
         end
@@ -1403,6 +1409,7 @@ module Alchemy
         let(:public_on) { current_time + 3.hours }
 
         it "resets public_on and sets published_at", aggregate_failures: true do
+          page.publish!
           expect(page.published_at).to eq(current_time)
           expect(page.public_on).to eq(current_time)
           expect(page.public_until).to eq(nil)
@@ -1417,6 +1424,7 @@ module Alchemy
 
         it "resets public_on and published_at and sets public_until to nil",
           aggregate_failures: true do
+          page.publish!
           expect(page.published_at).to eq(current_time)
           expect(page.public_on).to eq(public_on)
           expect(page.public_until).to eq(nil)
