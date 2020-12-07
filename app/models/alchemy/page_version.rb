@@ -9,5 +9,13 @@ module Alchemy
       inverse_of: :page_version
 
     scope :drafts, -> { where(public_on: nil).order(updated_at: :desc) }
+
+    # All published versions
+    #
+    def self.published
+      where("#{table_name}.public_on <= :time AND " \
+            "(#{table_name}.public_until IS NULL " \
+            "OR #{table_name}.public_until >= :time)", time: Time.current).order(public_on: :desc)
+    end
   end
 end
