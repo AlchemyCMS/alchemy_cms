@@ -4,6 +4,8 @@ require "rails_helper"
 
 module Alchemy
   describe Element do
+    it { is_expected.to belong_to(:page_version).optional }
+
     # to prevent memoization
     before { ElementDefinition.instance_variable_set("@definitions", nil) }
 
