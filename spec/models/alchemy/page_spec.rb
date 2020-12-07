@@ -6,6 +6,7 @@ module Alchemy
   describe Page do
     it { is_expected.to have_many(:versions) }
     it { is_expected.to have_one(:draft_version) }
+    it { is_expected.to have_one(:public_version) }
 
     let(:language) { create(:alchemy_language, :german, default: true) }
     let(:klingon) { create(:alchemy_language, :klingon) }
@@ -720,6 +721,18 @@ module Alchemy
         let(:preview) { nil }
 
         it { is_expected.to eq("alchemy/pages/#{page.id}-#{page.published_at}") }
+      end
+    end
+
+    describe "#public_version" do
+      subject(:public_version) { page.public_version }
+
+      let(:page) { create(:alchemy_page) }
+      let!(:public_one) { Alchemy::PageVersion.create!(page: page, public_on: Date.yesterday) }
+      let!(:public_two) { Alchemy::PageVersion.create!(page: page, public_on: Time.current) }
+
+      it "returns latest published version" do
+        is_expected.to eq(public_two)
       end
     end
 
