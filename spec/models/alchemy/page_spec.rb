@@ -78,6 +78,18 @@ module Alchemy
         create(:alchemy_page, name: "My Testpage", language: language, parent: language_root)
       end
 
+      context "before_create" do
+        let(:page) do
+          build(:alchemy_page, language: language, parent: language_root)
+        end
+
+        it "builds a version" do
+          expect {
+            page.save!
+          }.to change { page.versions.length }.by(1)
+        end
+      end
+
       context "before_save" do
         it "should not set the title automatically if the name changed but title is not blank" do
           page.name = "My Renaming Test"
