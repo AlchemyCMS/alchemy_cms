@@ -5,6 +5,7 @@ require "rails_helper"
 module Alchemy
   describe Page do
     it { is_expected.to have_many(:versions) }
+    it { is_expected.to have_one(:draft_version) }
 
     let(:language) { create(:alchemy_language, :german, default: true) }
     let(:klingon) { create(:alchemy_language, :klingon) }

@@ -7,5 +7,7 @@ module Alchemy
     has_many :elements, -> { order(:position) },
       class_name: "Alchemy::Element",
       inverse_of: :page_version
+
+    scope :drafts, -> { where(public_on: nil).order(updated_at: :desc) }
   end
 end
