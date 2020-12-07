@@ -428,7 +428,7 @@ module Alchemy
       end
     end
 
-    # Publishes the page.
+    # Creates a public version of the page.
     #
     # Sets +public_on+ and the +published_at+ value to current time
     # and resets +public_until+ to nil
@@ -442,6 +442,7 @@ module Alchemy
         public_on: already_public_for?(current_time) ? public_on : current_time,
         public_until: still_public_for?(current_time) ? public_until : nil,
       )
+      versions.create!(public_on: current_time)
     end
 
     # Updates an Alchemy::Page based on a new ordering to be applied to it

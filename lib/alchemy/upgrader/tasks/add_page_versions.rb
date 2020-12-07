@@ -13,7 +13,12 @@ module Alchemy::Upgrader::Tasks
           next if page.versions.any?
 
           version = page.versions.create!
+          version = page.versions.create!(
+            public_on: page.public_on,
+            public_until: page.public_until
+          ) if page.public?
           page.elements.update_all(page_version_id: version.id)
+
           print "."
         end
         puts "\nDone."
