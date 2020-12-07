@@ -175,6 +175,22 @@ module Alchemy
             end
           end
         end
+
+        context "copy to new page version" do
+          let(:public_version) do
+            element.page.versions.create!(public_on: Time.current)
+          end
+
+          subject(:new_element) do
+            Element.copy(element, { page_version_id: public_version.id })
+          end
+
+          it "sets page_version id" do
+            new_element.nested_elements.each do |nested_element|
+              expect(nested_element.page_version_id).to eq(public_version.id)
+            end
+          end
+        end
       end
     end
 

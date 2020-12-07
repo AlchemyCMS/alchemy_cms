@@ -312,6 +312,7 @@ module Alchemy
         Element.copy(nested_element, {
           parent_element_id: target_element.id,
           page_id: target_element.page_id,
+          page_version_id: target_element.page_version_id,
         })
       end
     end
