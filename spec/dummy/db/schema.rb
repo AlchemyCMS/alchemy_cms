@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_07_111332) do
+ActiveRecord::Schema.define(version: 2020_12_07_131309) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -203,6 +203,16 @@ ActiveRecord::Schema.define(version: 2020_09_07_111332) do
     t.index ["updater_id"], name: "index_alchemy_nodes_on_updater_id"
   end
 
+  create_table "alchemy_page_versions", force: :cascade do |t|
+    t.integer "page_id", null: false
+    t.datetime "public_on"
+    t.datetime "public_until"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_alchemy_page_versions_on_page_id"
+    t.index ["public_on", "public_until"], name: "index_alchemy_page_versions_on_public_on_and_public_until"
+  end
+
   create_table "alchemy_pages", force: :cascade do |t|
     t.string "name"
     t.string "urlname"
@@ -346,6 +356,7 @@ ActiveRecord::Schema.define(version: 2020_09_07_111332) do
   add_foreign_key "alchemy_essence_pages", "alchemy_pages", column: "page_id"
   add_foreign_key "alchemy_nodes", "alchemy_languages", column: "language_id"
   add_foreign_key "alchemy_nodes", "alchemy_pages", column: "page_id", on_delete: :cascade
+  add_foreign_key "alchemy_page_versions", "alchemy_pages", column: "page_id", on_delete: :cascade
   add_foreign_key "alchemy_pages", "alchemy_languages", column: "language_id"
   add_foreign_key "alchemy_picture_thumbs", "alchemy_pictures", column: "picture_id"
 end

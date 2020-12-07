@@ -109,6 +109,7 @@ module Alchemy
     has_many :folded_pages
     has_many :legacy_urls, class_name: "Alchemy::LegacyPageUrl"
     has_many :nodes, class_name: "Alchemy::Node", inverse_of: :page
+    has_many :versions, class_name: "Alchemy::PageVersion", inverse_of: :page, dependent: :destroy
 
     before_validation :set_language,
       if: -> { language.nil? }
