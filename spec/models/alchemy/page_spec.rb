@@ -1374,6 +1374,19 @@ module Alchemy
         expect { page.publish! }.to change { page.versions.published.count }.by(1)
       end
 
+      context "with elements" do
+        let(:page) do
+          create(:alchemy_page, autogenerate_elements: true).tap do |page|
+            page.elements.first.update!(public: false)
+          end
+        end
+
+        it "copies all published elements to new page version" do
+          page.publish!
+          expect(page.public_version.elements.count).to eq(2)
+        end
+      end
+
       context "with unpublished page" do
         it "sets public_on and published_at", aggregate_failures: true do
           page.publish!
