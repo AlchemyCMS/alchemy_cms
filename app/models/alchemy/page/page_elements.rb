@@ -184,7 +184,7 @@ module Alchemy
     #
     def generate_elements
       definition.fetch("autogenerate", []).each do |element_name|
-        Element.create(page: self, name: element_name)
+        Element.create(page: self, page_version: draft_version, name: element_name)
       end
     end
 

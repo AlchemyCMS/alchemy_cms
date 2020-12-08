@@ -198,9 +198,9 @@ module Alchemy
           expect(page.language_code).to eq("kl")
         end
 
-        it "autogenerates the elements" do
+        it "autogenerates the elements on the draft version" do
           page.save!
-          expect(page.elements).not_to be_empty
+          expect(page.draft_version.elements).not_to be_empty
         end
 
         context "with children getting restricted set to true" do
