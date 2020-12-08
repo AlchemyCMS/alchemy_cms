@@ -1,0 +1,6 @@
+- autogenerate elements on draft version
+- list available elements from draft version?
+- load trashed element from draft version?
+- load `all_elements` from published version?
+- make version elements mandatory
+- copy draft version on page copy
