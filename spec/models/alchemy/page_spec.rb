@@ -738,105 +738,136 @@ module Alchemy
 
     describe "#all_elements" do
       let(:page) { create(:alchemy_page) }
-      let!(:element_1) { create(:alchemy_element, page: page) }
-      let!(:element_2) { create(:alchemy_element, page: page) }
-      let!(:element_3) { create(:alchemy_element, page: page) }
 
-      before do
-        element_3.move_to_top
-      end
-
-      it "returns a ordered active record collection of elements on that page" do
-        expect(page.all_elements).to eq([element_3, element_1, element_2])
-      end
-
-      context "with nestable elements" do
-        let!(:nestable_element) do
-          create(:alchemy_element, page: page)
-        end
-
-        let!(:nested_element) do
-          create(:alchemy_element, name: "slide", parent_element: nestable_element, page: page)
-        end
-
-        it "contains nested elements of an element" do
-          expect(page.all_elements).to include(nested_element)
+      context "with no published version" do
+        it "returns an empty active record collection" do
+          expect(page.all_elements).to eq([])
         end
       end
 
-      context "with hidden elements" do
-        let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
+      context "with published version" do
+        let(:page) { create(:alchemy_page, :public) }
+        let!(:element_1) { create(:alchemy_element, page: page, page_version: page.public_version) }
+        let!(:element_2) { create(:alchemy_element, page: page, page_version: page.public_version) }
+        let!(:element_3) { create(:alchemy_element, page: page, page_version: page.public_version) }
 
-        it "contains hidden elements" do
-          expect(page.all_elements).to include(hidden_element)
+        before do
+          element_3.move_to_top
         end
-      end
 
-      context "with fixed elements" do
-        let(:fixed_element) { create(:alchemy_element, page: page, fixed: true) }
+        it "returns a ordered active record collection of elements on that pages published version" do
+          expect(page.all_elements).to eq([element_3, element_1, element_2])
+        end
 
-        it "contains hidden elements" do
-          expect(page.all_elements).to include(fixed_element)
+        context "with nestable elements" do
+          let!(:nestable_element) do
+            create(:alchemy_element, page: page, page_version: page.public_version)
+          end
+
+          let!(:nested_element) do
+            create(:alchemy_element, name: "slide", parent_element: nestable_element, page: page, page_version: page.public_version)
+          end
+
+          it "contains nested elements of an element" do
+            expect(page.all_elements).to include(nested_element)
+          end
+        end
+
+        context "with hidden elements" do
+          let(:hidden_element) { create(:alchemy_element, page: page, public: false, page_version: page.public_version) }
+
+          it "contains hidden elements" do
+            expect(page.all_elements).to include(hidden_element)
+          end
+        end
+
+        context "with fixed elements" do
+          let(:fixed_element) { create(:alchemy_element, page: page, fixed: true, page_version: page.public_version) }
+
+          it "contains fixed elements" do
+            expect(page.all_elements).to include(fixed_element)
+          end
         end
       end
     end
 
     describe "#elements" do
       let(:page) { create(:alchemy_page) }
-      let!(:element_1) { create(:alchemy_element, page: page) }
-      let!(:element_2) { create(:alchemy_element, page: page) }
-      let!(:element_3) { create(:alchemy_element, page: page) }
 
-      before do
-        element_3.move_to_top
+      context "with no published version" do
+        it "returns an empty active record collection" do
+          expect(page.all_elements).to eq([])
+        end
       end
 
-      it "returns a ordered active record collection of elements on that page" do
-        expect(page.elements).to eq([element_3, element_1, element_2])
-      end
-
-      context "with nestable elements" do
-        let(:nestable_element) { create(:alchemy_element, :with_nestable_elements) }
+      context "with published version" do
+        let(:page) { create(:alchemy_page, :public) }
+        let!(:element_1) { create(:alchemy_element, page: page, page_version: page.public_version) }
+        let!(:element_2) { create(:alchemy_element, page: page, page_version: page.public_version) }
+        let!(:element_3) { create(:alchemy_element, page: page, page_version: page.public_version) }
 
         before do
-          nestable_element.nested_elements << create(:alchemy_element, name: "slide")
-          page.elements << nestable_element
+          element_3.move_to_top
         end
 
-        it "does not contain nested elements of an element" do
-          expect(nestable_element.nested_elements).to_not be_empty
-          expect(page.elements).to_not include(nestable_element.nested_elements.first)
+        it "returns a ordered active record collection of top level elements on that page" do
+          expect(page.elements).to eq([element_3, element_1, element_2])
         end
-      end
 
-      context "with hidden elements" do
-        let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
+        context "with nestable elements" do
+          let!(:nestable_element) do
+            create(:alchemy_element, page: page, page_version: page.public_version)
+          end
 
-        it "does not contain hidden elements" do
-          expect(page.elements).to_not include(hidden_element)
+          let!(:nested_element) do
+            create(:alchemy_element, name: "slide", parent_element: nestable_element, page: page, page_version: page.public_version)
+          end
+
+          it "does not contain nested elements of an element" do
+            expect(nestable_element.nested_elements).to_not be_empty
+            expect(page.elements).to_not include(nestable_element.nested_elements)
+          end
+        end
+
+        context "with hidden elements" do
+          let(:hidden_element) { create(:alchemy_element, page: page, public: false, page_version: page.public_version) }
+
+          it "does not contain hidden elements" do
+            expect(page.elements).to_not include(hidden_element)
+          end
         end
       end
     end
 
     describe "#fixed_elements" do
       let(:page) { create(:alchemy_page) }
-      let!(:element_1) { create(:alchemy_element, fixed: true, page: page) }
-      let!(:element_2) { create(:alchemy_element, fixed: true, page: page) }
-      let!(:element_3) { create(:alchemy_element, fixed: true, page: page) }
 
-      before do
-        element_3.move_to_top
+      context "with no published version" do
+        it "returns an empty active record collection" do
+          expect(page.all_elements).to eq([])
+        end
       end
 
-      it "returns a ordered active record collection of fixed elements on that page" do
-        expect(page.fixed_elements).to eq([element_3, element_1, element_2])
-      end
+      context "with published version" do
+        let(:page) { create(:alchemy_page, :public) }
+        let!(:element_1) { create(:alchemy_element, fixed: true, page: page, page_version: page.public_version) }
+        let!(:element_2) { create(:alchemy_element, fixed: true, page: page, page_version: page.public_version) }
+        let!(:element_3) { create(:alchemy_element, fixed: true, page: page, page_version: page.public_version) }
 
-      context "with hidden fixed elements" do
-        let(:hidden_element) { create(:alchemy_element, page: page, fixed: true, public: false) }
+        before do
+          element_3.move_to_top
+        end
 
-        it "does not contain hidden fixed elements" do
-          expect(page.fixed_elements).to_not include(hidden_element)
+        it "returns a ordered active record collection of fixed elements on that page" do
+          expect(page.fixed_elements).to eq([element_3, element_1, element_2])
+        end
+
+        context "with hidden fixed elements" do
+          let(:hidden_element) { create(:alchemy_element, page: page, fixed: true, public: false, page_version: page.public_version) }
+
+          it "does not contain hidden fixed elements" do
+            expect(page.fixed_elements).to_not include(hidden_element)
+          end
         end
       end
     end
@@ -934,15 +965,16 @@ module Alchemy
     end
 
     describe "#feed_elements" do
-      let(:news_element) { create(:alchemy_element, name: "news", public: false, page: news_page) }
+      let(:news_page) { create(:alchemy_page, :public, name: "News", page_layout: "news") }
+      let(:news_element) { create(:alchemy_element, name: "news", page: news_page, page_version: news_page.public_version) }
+      let(:unpublic_news_element) { create(:alchemy_element, name: "news", public: false, page: news_page, page_version: news_page.draft_version) }
 
       it "should return all published rss feed elements" do
-        expect(news_page.feed_elements).not_to be_empty
-        expect(news_page.feed_elements).to eq(Element.where(name: "news").available.to_a)
+        expect(news_page.feed_elements).to eq([news_element])
       end
 
       it "should not return unpublished rss feed elements" do
-        expect(news_page.feed_elements).not_to include(news_element)
+        expect(news_page.feed_elements).not_to include(unpublic_news_element)
       end
     end
 
@@ -1377,7 +1409,7 @@ module Alchemy
       context "with elements" do
         let(:page) do
           create(:alchemy_page, autogenerate_elements: true).tap do |page|
-            page.elements.first.update!(public: false)
+            page.draft_version.elements.first.update!(public: false)
           end
         end
 

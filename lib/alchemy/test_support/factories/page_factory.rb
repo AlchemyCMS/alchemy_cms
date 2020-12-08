@@ -33,6 +33,20 @@ FactoryBot.define do
     trait :public do
       sequence(:name) { |n| "A Public Page #{n}" }
       public_on { Time.current }
+      after(:build) do |page|
+        page.build_public_version(public_on: page.public_on)
+      end
+      after(:create) do |page|
+        if page.autogenerate_elements
+          page.definition["autogenerate"].each do |name|
+            create(:alchemy_element,
+              name: name,
+              page: page,
+              page_version: page.public_version,
+              autogenerate_contents: true)
+          end
+        end
+      end
     end
 
     trait :layoutpage do

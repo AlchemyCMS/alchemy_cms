@@ -7,16 +7,18 @@ module Alchemy
     included do
       attr_accessor :autogenerate_elements
 
-      has_many :all_elements,
-        -> { order(:position) },
+      with_options(
         class_name: "Alchemy::Element",
-        inverse_of: :page
-      has_many :elements,
-        -> { order(:position).not_nested.unfixed.available },
-        class_name: "Alchemy::Element",
-        inverse_of: :page
-      has_many :fixed_elements,
-        -> { order(:position).fixed.available },
+        through: :public_version,
+        inverse_of: :page,
+        source: :elements) do
+          has_many :all_elements
+          has_many :elements, -> { not_nested.unfixed.available }
+          has_many :fixed_elements, -> { fixed.available }
+      end
+
+      has_many :trashed_elements,
+        -> { Element.trashed.order(:position) },
         class_name: "Alchemy::Element",
         inverse_of: :page
       has_many :dependent_destroyable_elements,
