@@ -133,60 +133,23 @@ module Alchemy
       point_and_mask_to_points(crop_from, crop_size)
     end
 
-    # Returns the gravity that will be used in render with correct fallbacks etc.
-    # Gravity is used when adjusting cropping masks, see transformations.
-    # But can also have a general use in aligning background-images with dynamic aspect ratio etc.
+    # Returns the gravity that will be used in render with correct fallbacks and validations.
+    # see render_crop.rb for more information.
     #
     def gravity(gravity_override = nil)
-      g = default_gravity
+      gravity = {}
 
-      # settings_gravity = true would leave default gravity but allow users to edit it in essence_picture/edit
+      # settings_gravity = true would not alter default gravity but allow users to edit it in essence_picture/edit
       settings_gravity = content.settings[:gravity] == true ? nil : content.settings[:gravity]
 
       # Here we allow gravity to be overwritten in correct order of priority
-      # First we started with default_gravity above.
-      # render_gravity comes from db, gravity_override from render
-      [settings_gravity, render_gravity, gravity_override].each do |gravity|
-        next if gravity.blank?
-
-        if gravity.is_a?(Hash)
-          g = g.merge(gravity.symbolize_keys)
-        else
-          raise ArgumentError, "Gravity not a hash"
-        end
+      # render_gravity comes from db (essence_picture/edit), gravity_override from render
+      [default_gravity, settings_gravity, render_gravity, gravity_override].each do |g|
+        validate_gravity(g) # Will raise if invalid
+        gravity.merge!(g.symbolize_keys) unless g.nil?
       end
 
-      g.each do |key, val|
-        unless available_gravities[key]&.include?(val)
-          raise ArgumentError, "Invalid gravity option: #{key}: #{val}"
-        end
-      end
-
-      g
-    end
-
-    # Default size gravity is set to "grow" because:
-    #
-    # 1. It usually makes sense to show as much as possible of an image.
-    # Lets say the user uploads a perfectly fine 4:3 image and is then forced to crop it to 16:9
-    # as per defined settings. Then in some place you want to render it in 4:3 again => use original.
-    # If the user specifically cropped an image down to hide something => use gravity = shrink instead.
-    #
-    # 2. If the user has not applied a cropping mask, the original image should be center cropped to fit
-    # size aspect ratio, ignoring the boundaries of the rendered cropping mask => this equates to "grow".
-    #
-    def default_gravity
-      { size: "grow", x: "center", y: "center"}
-    end
-
-    # Available gravities are used to validate gravity method input
-    #
-    def available_gravities
-      {
-        size: ["grow", "shrink", "closest_fit"],
-        x: ["left", "center", "right"],
-        y: ["top", "center", "bottom"],
-      }
+      gravity
     end
 
     # Returns a serialized ingredient value for json api
@@ -219,15 +182,12 @@ module Alchemy
       end
     end
 
+    # Validates render_gravity db column
+    #
     def validate_render_gravity
-      return if render_gravity.blank?
-
-      # Gravity method validates gravity
-      begin
-        gravity
+      validate_gravity(render_gravity)
       rescue ArgumentError
         errors.add(:render_gravity, :invalid)
-      end
     end
 
     def normalize_crop_value(crop_value)

@@ -347,8 +347,8 @@ module Alchemy
       end
 
       it "returns default gravity if settings gravity is true" do
-        # This is specified to allow users to edit gravity it in essence_picture/edit
-        allow(content).to receive(:settings) { { gravity: true } } # This will not apply
+        # This is specified to allow users to edit gravity in essence_picture/edit
+        allow(content).to receive(:settings) { { gravity: true } }
 
         expect(essence.gravity).to eq({
           size: "grow",
@@ -357,12 +357,9 @@ module Alchemy
         })
       end
 
-      it "raises error if gravity param is not a hash" do
-        expect { essence.gravity("string") }.to raise_error(ArgumentError)
-      end
-
-      it "raises error if non-available gravity option passed in" do
-        expect { essence.gravity({x: "unknown"}) }.to raise_error(ArgumentError)
+      it "validates each gravity provided" do
+        expect(essence).to receive(:validate_gravity).exactly(4).times
+        essence.gravity
       end
     end
 
@@ -370,10 +367,16 @@ module Alchemy
       let(:content) { Content.new }
       let(:essence) { EssencePicture.new(content: content) }
 
-      it "adds error on invalid render_gravity" do
+      it "adds validation error if render_gravity invalid" do
         essence.render_gravity = { x: "unknown" } # invalid gravity
         essence.valid? # run validations
         expect(essence.errors[:render_gravity]).to include("is invalid")
+      end
+
+      it "does not add validation error if render_gravity valid" do
+        essence.render_gravity = { x: "left" }
+        essence.valid? # run validations
+        expect(essence.errors[:render_gravity]).not_to include("is invalid")
       end
     end
 

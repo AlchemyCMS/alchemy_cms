@@ -67,7 +67,7 @@ describe Alchemy::EssencePictureView, type: :model do
 
     it "does not pass default options to picture url, except render_size and gravity" do
       expect(essence_picture).to receive(:picture_url).with(
-        hash_excluding(default_options.except(:render_size, :gravity))
+        hash_excluding(default_options)
       ) { picture_url }
 
       view

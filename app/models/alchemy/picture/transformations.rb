@@ -9,6 +9,7 @@ module Alchemy
 
     included do
       include Alchemy::Picture::Calculations
+      include Alchemy::Picture::RenderCrop
     end
 
     THUMBNAIL_WIDTH = 160
@@ -50,9 +51,10 @@ module Alchemy
 
     # Returns the rendered cropped image.
     # "size" is the requested size from settings or render
-    # "render_size" comes from a sizes selection in Picture properties.
+    # "render_size" comes from a sizes selection in Picture properties, stored in db.
     # "render_crop" boolean states if size will crop to fit aspect ratio.
     # This could lead to a secondary cropping if crop=true and the user had already cropped the image in admin.
+    # See render_crop.rb for more information
     #
     def crop(size, render_size, crop_from = nil, crop_size = nil, render_crop = false, gravity = {}, upsample = false)
       raise "No size given!" if size.empty?
@@ -83,12 +85,9 @@ module Alchemy
         crop_from, crop_size = default_mask(size, false)
       end
 
-      size_ar, crop_ar = size_aspect_ratio(size), size_aspect_ratio(crop_size)
-
-      if render_crop && size_ar != crop_ar # Render cropping allowed and aspect ratio changed => adjust cropping
-        raise ArgumentError, "Cannot render_crop without gravity" if !gravity.present?
-
-        crop_from, crop_size = adjust_crop_area_to_aspect_ratio(crop_from, crop_size, size_ar, crop_ar, gravity)
+      # If render crop requested and aspect ratio changed => adjust cropping
+      if render_crop && gravity.present? && aspect_ratio(size) != aspect_ratio(crop_size)
+        crop_from, crop_size = adjust_crop_area_to_aspect_ratio(size, crop_from, crop_size, gravity)
       end
 
       [crop_from, crop_size]
@@ -134,6 +133,22 @@ module Alchemy
     end
 
     private
+
+    # Given a string with an x, this function return a Hash with key :x and :y
+    #
+    def point_from_string(string = "0x0")
+      string = "0x0" if string.empty?
+      raise ArgumentError if !string.match(/(\d*x)|(x\d*)/)
+
+      x, y = string.scan(/(\d*)x(\d*)/)[0].map(&:to_i)
+
+      x = 0 if x.nil?
+      y = 0 if y.nil?
+      {
+        x: x,
+        y: y,
+      }
+    end
 
     # Given dimensions for a possibly destructive crop operation,
     # this function returns the top left corner as a Hash
