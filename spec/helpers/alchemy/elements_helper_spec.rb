@@ -69,8 +69,8 @@ module Alchemy
       subject { helper.render_elements(options) }
 
       let(:page) { create(:alchemy_page, :public) }
-      let!(:element) { create(:alchemy_element, name: "headline", page: page) }
-      let!(:another_element) { create(:alchemy_element, page: page) }
+      let!(:element) { create(:alchemy_element, name: "headline", page: page, page_version: page.public_version) }
+      let!(:another_element) { create(:alchemy_element, page: page, page_version: page.public_version) }
 
       context "without any options" do
         let(:options) { {} }
@@ -89,8 +89,8 @@ module Alchemy
             { from_page: another_page }
           end
 
-          let!(:element) { create(:alchemy_element, name: "headline", page: another_page) }
-          let!(:another_element) { create(:alchemy_element, page: another_page) }
+          let!(:element) { create(:alchemy_element, name: "headline", page: another_page, page_version: another_page.public_version) }
+          let!(:another_element) { create(:alchemy_element, page: another_page, page_version: another_page.public_version) }
 
           it "should render all elements from that page." do
             is_expected.to have_selector("##{element.name}_#{element.id}")
