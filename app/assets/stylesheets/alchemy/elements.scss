@@ -221,19 +221,8 @@
       }
     }
 
-    .element_tools {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      margin-left: 0;
-    }
-
     .element-content {
       margin: 4px 8px;
-    }
-
-    .button_with_label {
-      margin: 0 4px;
     }
 
     .content_editor,
@@ -338,10 +327,14 @@
   padding: $default-padding 0;
   height: $element-toolbar-height;
   border-bottom: 1px solid $medium-gray;
+}
 
-  .element_tools {
-    float: left;
-    margin-left: -$default-margin;
+.element_tools {
+  display: flex;
+  width: 100%;
+
+  .button_with_label {
+    margin: 0 2px;
   }
 }
 
