@@ -15,20 +15,22 @@ module Alchemy
 
     describe "#index" do
       let!(:alchemy_page)    { create(:alchemy_page) }
-      let!(:element)         { create(:alchemy_element, page: alchemy_page) }
-      let!(:nested_element)  { create(:alchemy_element, :nested, page: alchemy_page) }
-      let!(:hidden_element)  { create(:alchemy_element, page: alchemy_page, public: false) }
+      let!(:element)         { create(:alchemy_element, page: alchemy_page, page_version: alchemy_page.draft_version) }
+      let!(:nested_element)  { create(:alchemy_element, :nested, page: alchemy_page, page_version: alchemy_page.draft_version) }
+      let!(:hidden_element)  { create(:alchemy_element, page: alchemy_page, page_version: alchemy_page.draft_version, public: false) }
 
       context "with fixed elements" do
         let!(:fixed_element) do
           create(:alchemy_element, :fixed,
-            page: alchemy_page)
+            page: alchemy_page,
+            page_version: alchemy_page.draft_version)
         end
 
         let!(:fixed_hidden_element) do
           create(:alchemy_element, :fixed,
             public: false,
-            page: alchemy_page)
+            page: alchemy_page,
+            page_version: alchemy_page.draft_version)
         end
 
         it "assigns fixed elements" do

@@ -18,7 +18,9 @@ RSpec.describe "The edit elements feature", type: :system do
     end
 
     context "with a page_id and parent_element_id passed" do
-      let!(:element) { create(:alchemy_element, :with_nestable_elements, page: a_page) }
+      let!(:element) do
+        create(:alchemy_element, :with_nestable_elements, page: a_page, page_version: a_page.draft_version)
+      end
 
       scenario "a hidden field with parent element id is in the form." do
         visit alchemy.new_admin_element_path(page_id: a_page.id, parent_element_id: element.id)
@@ -28,7 +30,9 @@ RSpec.describe "The edit elements feature", type: :system do
   end
 
   context "With an element having nestable elements defined" do
-    let!(:element) { create(:alchemy_element, :with_nestable_elements, page: a_page) }
+    let!(:element) do
+      create(:alchemy_element, :with_nestable_elements, page: a_page, page_version: a_page.draft_version)
+    end
 
     scenario "a button to add an nestable element appears." do
       visit alchemy.admin_elements_path(page_id: element.page_id)
