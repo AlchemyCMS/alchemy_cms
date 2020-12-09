@@ -44,10 +44,12 @@ RSpec.describe "Link overlay", type: :system do
       create(:alchemy_page, :public, parent_id: lang_root.id)
     end
 
-    let(:article) { page1.elements.named(:article).first }
-
-    before do
-      page1.elements.create!(name: "article")
+    let!(:article) do
+      create(:alchemy_element,
+        name: "article",
+        page: page1,
+        page_version: page1.draft_version,
+        autogenerate_contents: true)
     end
 
     it "should be possible to link a page" do
