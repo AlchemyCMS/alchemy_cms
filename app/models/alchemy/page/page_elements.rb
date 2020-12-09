@@ -17,10 +17,6 @@ module Alchemy
           has_many :fixed_elements, -> { fixed.available }
       end
 
-      has_many :trashed_elements,
-        -> { Element.trashed.order(:position) },
-        class_name: "Alchemy::Element",
-        inverse_of: :page
       has_many :dependent_destroyable_elements,
         -> { not_nested },
         class_name: "Alchemy::Element",
