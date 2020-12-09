@@ -2,3 +2,4 @@
 - load `all_elements` from published version?
 - make version elements mandatory
 - copy draft version on page copy
+- Element acts_as_list scope should include page_version
