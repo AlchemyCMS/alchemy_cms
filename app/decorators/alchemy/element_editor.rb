@@ -18,6 +18,7 @@ module Alchemy
         folded ? "folded" : "expanded",
         compact? ? "compact" : nil,
         fixed? ? "is-fixed" : "not-fixed",
+        public? ? "visible" : "hidden",
       ].join(" ")
     end
 
