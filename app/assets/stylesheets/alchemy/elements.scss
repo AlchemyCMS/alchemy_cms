@@ -60,6 +60,7 @@
   max-width: 85%;
   margin-left: $default-margin;
   text-overflow: ellipsis;
+  transition: color $transition-duration;
 
   .has-hint & {
     max-width: 80%;
@@ -73,7 +74,6 @@
 
 .preview_text_element_name {
   font-size: $small-font-size;
-  text-shadow: #efefef 1px 1px 1px;
   font-weight: bold;
   line-height: 15px;
 }
@@ -106,6 +106,7 @@
   height: 16px;
   right: 8px;
   top: 10px;
+  transition: none;
 
   .error_icon {
     float: left;
@@ -170,8 +171,14 @@
   }
 
   &.selected:not(.is-fixed) {
-    border-color: #c3c3c3;
-    box-shadow: 0 2px 8px rgba(#9b9b9b, 0.75);
+    &:not(.hidden) {
+      box-shadow: 0 2px 8px rgba(#9b9b9b, 0.75);
+    }
+
+    &:not(.folded):not(.dirty):not(.hidden) > .element-header {
+      background-color: $element-header-active-bg-color;
+      color: $element-header-active-color;
+    }
   }
 
   &.folded {
@@ -328,7 +335,18 @@
   background-color: $element-header-bg-color;
   @extend .disable-user-select;
   cursor: pointer;
-  @include border-top-radius($default-border-radius);
+  border-radius: $default-border-radius;
+  transition: background-color $transition-duration;
+
+  .expanded & {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .icon {
+    color: inherit;
+    transition: color $transition-duration;
+  }
 
   >.hint-with-icon {
     position: absolute;
