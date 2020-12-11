@@ -78,7 +78,7 @@ module Alchemy
 
       return [] if @_element_definitions.blank?
 
-      existing_elements = all_elements.not_nested
+      existing_elements = draft_version.elements.not_nested
       @_existing_element_names = existing_elements.pluck(:name)
       delete_unique_element_definitions!
       delete_outnumbered_element_definitions!
