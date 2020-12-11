@@ -170,12 +170,14 @@
     }
   }
 
-  &.selected:not(.is-fixed) {
+  &.selected:not(.is-fixed), &:hover {
     &:not(.hidden) {
       box-shadow: 0 2px 8px rgba(#9b9b9b, 0.75);
     }
+  }
 
-    &:not(.folded):not(.dirty):not(.hidden) > .element-header {
+  &.selected:not(.is-fixed):not(.folded):not(.dirty):not(.hidden) {
+    > .element-header {
       background-color: $element-header-active-bg-color;
       color: $element-header-active-color;
     }
