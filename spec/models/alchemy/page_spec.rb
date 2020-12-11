@@ -393,6 +393,10 @@ module Alchemy
         expect(subject.name).to eq("#{page.name} (Copy)")
       end
 
+      it "the copy should have a draft version" do
+        expect(subject.draft_version).to_not be_nil
+      end
+
       context "a public page" do
         let(:page) { create(:alchemy_page, :public, name: "Source", public_until: Time.current) }
 
@@ -426,20 +430,20 @@ module Alchemy
       end
 
       context "page with elements" do
-        before { page.elements << create(:alchemy_element) }
+        before { create(:alchemy_element, page: page, page_version: page.draft_version) }
 
-        it "the copy should have source elements" do
-          expect(subject.elements).not_to be_empty
-          expect(subject.elements.count).to eq(page.elements.count)
+        it "the copy should have source elements on its draft version" do
+          expect(subject.draft_version.elements).not_to be_empty
+          expect(subject.draft_version.elements.count).to eq(page.draft_version.elements.count)
         end
       end
 
       context "page with fixed elements" do
-        before { page.elements << create(:alchemy_element, :fixed) }
+        before { create(:alchemy_element, :fixed, page: page, page_version: page.draft_version) }
 
-        it "the copy should have source fixed elements" do
-          expect(subject.fixed_elements).not_to be_empty
-          expect(subject.fixed_elements.count).to eq(page.fixed_elements.count)
+        it "the copy should have source fixed elements on its draft version" do
+          expect(subject.draft_version.elements.fixed).not_to be_empty
+          expect(subject.draft_version.elements.fixed.count).to eq(page.draft_version.elements.fixed.count)
         end
       end
 
@@ -454,7 +458,7 @@ module Alchemy
         end
 
         it "the copy should not autogenerate elements" do
-          expect(subject.elements).to be_empty
+          expect(subject.draft_version.elements).to be_empty
         end
       end
 
