@@ -28,7 +28,9 @@ module Alchemy
           if @paste_from_clipboard = params[:paste_from_clipboard].present?
             @element = paste_element_from_clipboard
           else
-            @element = Element.create(create_element_params)
+            @element = Element.new(create_element_params)
+            @element.page_version = @page.draft_version
+            @element.save
           end
           if @page.definition["insert_elements_at"] == "top"
             @insert_at_top = true

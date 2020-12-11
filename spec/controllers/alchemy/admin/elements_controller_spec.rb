@@ -7,8 +7,8 @@ module Alchemy
     routes { Alchemy::Engine.routes }
 
     let(:alchemy_page)         { create(:alchemy_page) }
-    let(:element)              { create(:alchemy_element, page: alchemy_page) }
-    let(:element_in_clipboard) { create(:alchemy_element, page: alchemy_page) }
+    let(:element)              { create(:alchemy_element, page: alchemy_page, page_version: alchemy_page.draft_version) }
+    let(:element_in_clipboard) { create(:alchemy_element, page: alchemy_page, page_version: alchemy_page.draft_version) }
     let(:clipboard)            { session[:alchemy_clipboard] = {} }
 
     before { authorize_user(:as_author) }
@@ -88,19 +88,15 @@ module Alchemy
     end
 
     describe "#new" do
-      let(:alchemy_page) { build_stubbed(:alchemy_page) }
-
-      before do
-        expect(Page).to receive(:find).and_return(alchemy_page)
-      end
+      let(:alchemy_page) { create(:alchemy_page) }
 
       it "assign variable for all available element definitions" do
-        expect(alchemy_page).to receive(:available_element_definitions)
+        expect_any_instance_of(Alchemy::Page).to receive(:available_element_definitions)
         get :new, params: {page_id: alchemy_page.id}
       end
 
       context "with elements in clipboard" do
-        let(:element) { build_stubbed(:alchemy_element) }
+        let(:element) { create(:alchemy_element, page_version: alchemy_page.draft_version) }
         let(:clipboard_items) { [{"id" => element.id.to_s, "action" => "copy"}] }
 
         before { clipboard["elements"] = clipboard_items }
@@ -119,8 +115,8 @@ module Alchemy
 
         it "should insert the element at bottom of list" do
           post :create, params: {element: {name: "news", page_id: alchemy_page.id}}, xhr: true
-          expect(alchemy_page.elements.count).to eq(2)
-          expect(alchemy_page.elements.last.name).to eq("news")
+          expect(alchemy_page.draft_version.elements.count).to eq(2)
+          expect(alchemy_page.draft_version.elements.order(:position).last.name).to eq("news")
         end
 
         context "on a page with a setting for insert_elements_at of top" do
@@ -134,8 +130,8 @@ module Alchemy
 
           it "should insert the element at top of list" do
             post :create, params: {element: {name: "news", page_id: alchemy_page.id}}, xhr: true
-            expect(alchemy_page.elements.count).to eq(2)
-            expect(alchemy_page.elements.first.name).to eq("news")
+            expect(alchemy_page.draft_version.elements.count).to eq(2)
+            expect(alchemy_page.draft_version.elements.order(:position).first.name).to eq("news")
           end
         end
       end

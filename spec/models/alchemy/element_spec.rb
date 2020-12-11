@@ -349,9 +349,9 @@ module Alchemy
     end
 
     describe ".all_from_clipboard_for_page" do
-      let(:element_1) { build_stubbed(:alchemy_element) }
-      let(:element_2) { build_stubbed(:alchemy_element, name: "news") }
-      let(:page) { build_stubbed(:alchemy_page, :public) }
+      let(:element_1) { create(:alchemy_element, page_version: page.draft_version) }
+      let(:element_2) { create(:alchemy_element, name: "news", page_version: page.draft_version) }
+      let(:page) { create(:alchemy_page, :public) }
       let(:clipboard) { [{ "id" => element_1.id.to_s }, { "id" => element_2.id.to_s }] }
 
       before do
