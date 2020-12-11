@@ -38,10 +38,11 @@ module Alchemy
       # @return [Array]
       #
       def copy_elements(source, target)
-        source_elements = source.all_elements.not_nested
+        source_elements = source.draft_version.elements.not_nested
         source_elements.order(:position).map do |source_element|
           Element.copy(source_element, {
             page_id: target.id,
+            page_version_id: target.draft_version.id,
           }).tap(&:move_to_bottom)
         end
       end
