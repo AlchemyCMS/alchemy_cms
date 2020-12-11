@@ -565,17 +565,17 @@ module Alchemy
       end
     end
 
-    context "previous and next elements." do
-      let(:page) { create(:alchemy_page, :language_root) }
+    describe "previous and next elements." do
+      let(:page) { create(:alchemy_page, :public, :language_root) }
 
       before(:each) do
-        @element1 = create(:alchemy_element, page: page, name: "headline")
-        @element2 = create(:alchemy_element, page: page)
-        @element3 = create(:alchemy_element, page: page, name: "text")
+        @element1 = create(:alchemy_element, page: page, page_version: page.public_version, name: "headline")
+        @element2 = create(:alchemy_element, page: page, page_version: page.public_version)
+        @element3 = create(:alchemy_element, page: page, page_version: page.public_version, name: "text")
       end
 
       describe "#prev" do
-        it "should return previous element on same page" do
+        it "should return previous element on same page version" do
           expect(@element3.prev).to eq(@element2)
         end
 
@@ -587,7 +587,7 @@ module Alchemy
       end
 
       describe "#next" do
-        it "should return next element on same page" do
+        it "should return next element on same page version" do
           expect(@element2.next).to eq(@element3)
         end
 

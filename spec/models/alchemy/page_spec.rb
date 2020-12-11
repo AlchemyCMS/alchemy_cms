@@ -610,7 +610,7 @@ module Alchemy
     describe "#available_element_definitions" do
       subject { page.available_element_definitions }
 
-      let(:page) { create(:alchemy_page, :public) }
+      let(:page) { create(:alchemy_page) }
 
       it "returns all element definitions of available elements" do
         expect(subject).to be_an(Array)
@@ -618,7 +618,7 @@ module Alchemy
       end
 
       context "with unique elements already on page" do
-        let!(:element) { create(:alchemy_element, :unique, page: page) }
+        let!(:element) { create(:alchemy_element, :unique, page: page, page_version: page.draft_version) }
 
         it "does not return unique element definitions" do
           expect(subject.collect { |e| e["name"] }).to include("article")
@@ -630,12 +630,12 @@ module Alchemy
         let(:page) { create(:alchemy_page, page_layout: "columns") }
 
         let!(:unique_element) do
-          create(:alchemy_element, :unique, name: "unique_headline", page: page)
+          create(:alchemy_element, :unique, name: "unique_headline", page: page, page_version: page.draft_version)
         end
 
-        let!(:element_1) { create(:alchemy_element, name: "column_headline", page: page) }
-        let!(:element_2) { create(:alchemy_element, name: "column_headline", page: page) }
-        let!(:element_3) { create(:alchemy_element, name: "column_headline", page: page) }
+        let!(:element_1) { create(:alchemy_element, name: "column_headline", page: page, page_version: page.draft_version) }
+        let!(:element_2) { create(:alchemy_element, name: "column_headline", page: page, page_version: page.draft_version) }
+        let!(:element_3) { create(:alchemy_element, name: "column_headline", page: page, page_version: page.draft_version) }
 
         before do
           allow(Element).to receive(:definitions).and_return([
@@ -675,13 +675,12 @@ module Alchemy
 
     describe "#available_elements_within_current_scope" do
       let(:page) { create(:alchemy_page, page_layout: "columns") }
-      let(:nestable_element) { create(:alchemy_element, :with_nestable_elements) }
+      let(:nestable_element) { create(:alchemy_element, :with_nestable_elements, page_version: page.draft_version) }
       let(:currently_available_elements) { page.available_elements_within_current_scope(nestable_element) }
 
       context "When unique element is already nested" do
         before do
-          nestable_element.nested_elements << create(:alchemy_element, name: "slide", unique: true, page: page)
-          page.elements << nestable_element
+          create(:alchemy_element, name: "slide", unique: true, page: page, page_version: page.draft_version, parent_element: nestable_element)
         end
 
         it "returns no available elements" do
@@ -697,7 +696,7 @@ module Alchemy
     end
 
     describe "#available_element_names" do
-      let(:page) { build_stubbed(:alchemy_page) }
+      let(:page) { create(:alchemy_page) }
 
       it "returns all names of elements that could be placed on current page" do
         page.available_element_names == %w(header article)
