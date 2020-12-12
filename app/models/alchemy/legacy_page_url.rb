@@ -18,5 +18,5 @@ class Alchemy::LegacyPageUrl < ActiveRecord::Base
 
   validates :urlname,
     presence: true,
-    format: {with: /\A[:\.\w\-+_\/\?&%;=]*\z/}
+    format: {with: /\A[:\.\w\-+_\/\?&%;=#]*\z/}
 end
