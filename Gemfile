@@ -13,7 +13,7 @@ gem "mysql2", "~> 0.5.1" if ENV["DB"] == "mysql"
 gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
 group :development, :test do
-  if ENV["TRAVIS"]
+  if ENV["GITHUB_ACTIONS"]
     gem "sassc", "~> 2.4.0" # https://github.com/sass/sassc-ruby/issues/146
   else
     gem "launchy"

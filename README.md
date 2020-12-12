@@ -1,7 +1,7 @@
 # AlchemyCMS
 
 [![Gem Version](https://badge.fury.io/rb/alchemy_cms.svg)](http://badge.fury.io/rb/alchemy_cms)
-[![Build Status](https://travis-ci.com/AlchemyCMS/alchemy_cms.svg?branch=main)](https://travis-ci.com/AlchemyCMS/alchemy_cms)
+[![Build Status](https://github.com/AlchemyCMS/alchemy_cms/workflows/CI/badge.svg?branch=main)](https://github.com/AlchemyCMS/alchemy_cms/actions)
 [![Maintainability](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/maintainability)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/maintainability)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/196c56c56568ed24a697/test_coverage)](https://codeclimate.com/github/AlchemyCMS/alchemy_cms/test_coverage)
 [![Depfu](https://badges.depfu.com/badges/ebe56d2dd7b7044a8ae700cc81212a8e/overview.svg)](https://depfu.com/github/AlchemyCMS/alchemy_cms?project_id=4600)
