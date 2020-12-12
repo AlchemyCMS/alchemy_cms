@@ -124,11 +124,3 @@ jobs:
         run: yarn install
       - name: Run jest
         run: yarn jest
-      - name: Run jest & publish code coverage
-        uses: paambaati/codeclimate-action@v2.7.5
-        env:
-          CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
-        with:
-          coverageLocations:
-            ./coverage/lcov.info:lcov
-          coverageCommand: yarn jest --collectCoverage --coverageDirectory=coverage
