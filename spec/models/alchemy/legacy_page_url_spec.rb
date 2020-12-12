@@ -20,4 +20,10 @@ describe Alchemy::LegacyPageUrl do
   it "is also valid with get parameters in urlname" do
     expect(page_url_with_parameters).to be_valid
   end
+
+  it "is valid with pound sign in urlname" do
+    expect(
+      Alchemy::LegacyPageUrl.new(urlname: "with#anchor", page: page)
+    ).to be_valid
+  end
 end
