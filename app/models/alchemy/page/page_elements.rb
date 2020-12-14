@@ -17,10 +17,6 @@ module Alchemy
           has_many :fixed_elements, -> { fixed.available }
       end
 
-      has_many :dependent_destroyable_elements,
-        -> { not_nested },
-        class_name: "Alchemy::Element",
-        dependent: :destroy
       has_many :contents, through: :elements
       has_and_belongs_to_many :to_be_swept_elements, -> { distinct },
         class_name: "Alchemy::Element",
@@ -41,7 +37,6 @@ module Alchemy
         source_elements = source.draft_version.elements.not_nested
         source_elements.order(:position).map do |source_element|
           Element.copy(source_element, {
-            page_id: target.id,
             page_version_id: target.draft_version.id,
           }).tap(&:move_to_bottom)
         end
@@ -170,7 +165,7 @@ module Alchemy
     #
     def richtext_contents_ids
       Alchemy::Content.joins(:element)
-        .where(Element.table_name => { page_id: id, folded: false })
+        .where(Element.table_name => { page_version_id: draft_version.id, folded: false })
         .select(&:has_tinymce?)
         .collect(&:id)
     end

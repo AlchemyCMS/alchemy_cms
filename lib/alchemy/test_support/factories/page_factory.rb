@@ -41,7 +41,6 @@ FactoryBot.define do
           page.definition["autogenerate"].each do |name|
             create(:alchemy_element,
               name: name,
-              page: page,
               page_version: page.public_version,
               autogenerate_contents: true)
           end

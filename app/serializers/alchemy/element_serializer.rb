@@ -6,6 +6,7 @@ module Alchemy
       :name,
       :position,
       :page_id,
+      :page_version_id,
       :tag_list,
       :created_at,
       :updated_at,
@@ -22,6 +23,10 @@ module Alchemy
 
     def display_name
       object.display_name_with_preview_text
+    end
+
+    def page_id
+      object.page.id
     end
   end
 end

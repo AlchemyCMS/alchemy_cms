@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Alchemy::ElementSerializer do
   subject { described_class.new(element).to_json }
 
-  let(:element) { build_stubbed(:alchemy_element) }
+  let(:element) { create(:alchemy_element) }
 
   it "includes all attributes" do
     json = JSON.parse(subject)
@@ -18,8 +18,9 @@ RSpec.describe Alchemy::ElementSerializer do
       "ingredients" => [],
       "name" => element.name,
       "nested_elements" => [],
-      "page_id" => element.page_id,
-      "position" => nil,
+      "page_id" => element.page.id,
+      "page_version_id" => element.page_version_id,
+      "position" => 1,
       "tag_list" => [],
       "updated_at" => element.updated_at.strftime("%FT%T.%LZ"),
     )

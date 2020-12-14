@@ -7,7 +7,7 @@
 #  id                :integer          not null, primary key
 #  name              :string
 #  position          :integer
-#  page_id           :integer          not null
+#  page_version_id   :integer          not null
 #  public            :boolean          default(TRUE)
 #  fixed             :boolean          default(FALSE)
 #  folded            :boolean          default(FALSE)
@@ -78,8 +78,8 @@ module Alchemy
       dependent: :destroy,
       inverse_of: :parent_element
 
-    belongs_to :page, touch: true, inverse_of: :elements
-    belongs_to :page_version, touch: true, inverse_of: :elements, optional: true
+    belongs_to :page_version, touch: true, inverse_of: :elements
+    has_one :page, through: :page_version
 
     # A nested element belongs to a parent element.
     belongs_to :parent_element,
@@ -311,7 +311,6 @@ module Alchemy
       nested_elements.map do |nested_element|
         Element.copy(nested_element, {
           parent_element_id: target_element.id,
-          page_id: target_element.page_id,
           page_version_id: target_element.page_version_id,
         })
       end

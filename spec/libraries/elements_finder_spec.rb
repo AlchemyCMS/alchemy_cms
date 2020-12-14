@@ -10,8 +10,8 @@ RSpec.describe Alchemy::ElementsFinder do
     subject { finder.elements }
 
     let(:page) { create(:alchemy_page, :public) }
-    let!(:visible_element) { create(:alchemy_element, public: true, page: page, page_version: page.public_version) }
-    let!(:hidden_element) { create(:alchemy_element, public: false, page: page, page_version: page.public_version) }
+    let!(:visible_element) { create(:alchemy_element, public: true, page_version: page.public_version) }
+    let!(:hidden_element) { create(:alchemy_element, public: false, page_version: page.public_version) }
 
     context "without page given" do
       it do
@@ -28,11 +28,11 @@ RSpec.describe Alchemy::ElementsFinder do
 
       context "with multiple ordered elements" do
         let!(:element_2) do
-          create(:alchemy_element, public: true, page: page, page_version: page.public_version).tap { |el| el.update_columns(position: 3) }
+          create(:alchemy_element, public: true, page_version: page.public_version).tap { |el| el.update_columns(position: 3) }
         end
 
         let!(:element_3) do
-          create(:alchemy_element, public: true, page: page, page_version: page.public_version).tap { |el| el.update_columns(position: 2) }
+          create(:alchemy_element, public: true, page_version: page.public_version).tap { |el| el.update_columns(position: 2) }
         end
 
         it "returns elements ordered by position" do
@@ -41,7 +41,7 @@ RSpec.describe Alchemy::ElementsFinder do
       end
 
       context "with fixed elements present" do
-        let!(:fixed_element) { create(:alchemy_element, :fixed, page: page, page_version: page.public_version) }
+        let!(:fixed_element) { create(:alchemy_element, :fixed, page_version: page.public_version) }
 
         it "does not include fixed elements" do
           is_expected.to_not include(fixed_element)
@@ -59,7 +59,7 @@ RSpec.describe Alchemy::ElementsFinder do
       end
 
       context "with nested elements present" do
-        let!(:nested_element) { create(:alchemy_element, :nested, page: page, page_version: page.public_version) }
+        let!(:nested_element) { create(:alchemy_element, :nested, page_version: page.public_version) }
 
         it "does not include nested elements" do
           is_expected.to_not include(nested_element)
@@ -91,8 +91,8 @@ RSpec.describe Alchemy::ElementsFinder do
           { offset: 2 }
         end
 
-        let!(:visible_element_2) { create(:alchemy_element, public: true, page: page, page_version: page.public_version) }
-        let!(:visible_element_3) { create(:alchemy_element, public: true, page: page, page_version: page.public_version) }
+        let!(:visible_element_2) { create(:alchemy_element, public: true, page_version: page.public_version) }
+        let!(:visible_element_3) { create(:alchemy_element, public: true, page_version: page.public_version) }
 
         it "returns elements beginning from that offset" do
           is_expected.to eq([visible_element_3])
@@ -104,7 +104,7 @@ RSpec.describe Alchemy::ElementsFinder do
           { count: 1 }
         end
 
-        let!(:visible_element_2) { create(:alchemy_element, public: true, page: page, page_version: page.public_version) }
+        let!(:visible_element_2) { create(:alchemy_element, public: true, page_version: page.public_version) }
 
         it "returns elements beginning from that offset" do
           is_expected.to eq([visible_element])
@@ -116,7 +116,7 @@ RSpec.describe Alchemy::ElementsFinder do
           { reverse: true }
         end
 
-        let!(:visible_element_2) { create(:alchemy_element, public: true, page: page, page_version: page.public_version) }
+        let!(:visible_element_2) { create(:alchemy_element, public: true, page_version: page.public_version) }
 
         it "returns elements in reverse order" do
           is_expected.to eq([visible_element_2, visible_element])

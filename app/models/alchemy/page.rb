@@ -443,7 +443,7 @@ module Alchemy
         public_until: still_public_for?(current_time) ? public_until : nil,
       )
       versions.create!(public_on: current_time).tap do |version|
-        Element.where(page_id: id).not_nested.available.order(:position).find_each do |element|
+        Element.where(page_version_id: draft_version.id).not_nested.available.order(:position).find_each do |element|
           Element.copy(element, page_version_id: version.id)
         end
       end

@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 2020_12_07_135820) do
   create_table "alchemy_elements", force: :cascade do |t|
     t.string "name"
     t.integer "position"
-    t.integer "page_id", null: false
     t.boolean "public", default: true, null: false
     t.boolean "folded", default: false, null: false
     t.boolean "unique", default: false, null: false
@@ -49,12 +48,11 @@ ActiveRecord::Schema.define(version: 2020_12_07_135820) do
     t.integer "updater_id"
     t.integer "parent_element_id"
     t.boolean "fixed", default: false, null: false
-    t.integer "page_version_id"
+    t.integer "page_version_id", null: false
     t.index ["creator_id"], name: "index_alchemy_elements_on_creator_id"
     t.index ["fixed"], name: "index_alchemy_elements_on_fixed"
-    t.index ["page_id", "parent_element_id"], name: "index_alchemy_elements_on_page_id_and_parent_element_id"
-    t.index ["page_id", "position"], name: "index_elements_on_page_id_and_position"
-    t.index ["page_version_id"], name: "index_alchemy_elements_on_page_version_id"
+    t.index ["page_version_id", "parent_element_id"], name: "idx_alchemy_elements_on_page_version_id_and_parent_element_id"
+    t.index ["page_version_id", "position"], name: "idx_alchemy_elements_on_page_version_id_and_position"
     t.index ["updater_id"], name: "index_alchemy_elements_on_updater_id"
   end
 
@@ -354,7 +352,6 @@ ActiveRecord::Schema.define(version: 2020_12_07_135820) do
 
   add_foreign_key "alchemy_contents", "alchemy_elements", column: "element_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "alchemy_elements", "alchemy_page_versions", column: "page_version_id", on_delete: :cascade
-  add_foreign_key "alchemy_elements", "alchemy_pages", column: "page_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "alchemy_essence_nodes", "alchemy_nodes", column: "node_id"
   add_foreign_key "alchemy_essence_pages", "alchemy_pages", column: "page_id"
   add_foreign_key "alchemy_nodes", "alchemy_languages", column: "language_id"
