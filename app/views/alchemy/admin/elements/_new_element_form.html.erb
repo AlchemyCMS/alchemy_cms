@@ -4,7 +4,7 @@
   <% end %>
 <%- else -%>
   <%= alchemy_form_for [:admin, @element] do |form| %>
-    <%= form.hidden_field :page_id %>
+    <%= form.hidden_field :page_version_id %>
     <%= form.input :name,
       label: Alchemy.t(:element_of_type),
       collection: elements_for_select(@elements),

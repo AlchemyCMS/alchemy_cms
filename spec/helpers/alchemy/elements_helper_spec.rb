@@ -5,11 +5,10 @@ include Alchemy::BaseHelper
 
 module Alchemy
   describe ElementsHelper do
-    let(:page)    { build_stubbed(:alchemy_page, :public) }
-    let(:element) { build_stubbed(:alchemy_element, name: "headline", page: page) }
+    let(:element) { create(:alchemy_element, name: "headline") }
 
     before do
-      assign(:page, page)
+      assign(:page, element&.page)
       allow_any_instance_of(Element).to receive(:store_page).and_return(true)
     end
 
@@ -69,8 +68,8 @@ module Alchemy
       subject { helper.render_elements(options) }
 
       let(:page) { create(:alchemy_page, :public) }
-      let!(:element) { create(:alchemy_element, name: "headline", page: page, page_version: page.public_version) }
-      let!(:another_element) { create(:alchemy_element, page: page, page_version: page.public_version) }
+      let!(:element) { create(:alchemy_element, name: "headline", page_version: page.public_version) }
+      let!(:another_element) { create(:alchemy_element, page_version: page.public_version) }
 
       context "without any options" do
         let(:options) { {} }

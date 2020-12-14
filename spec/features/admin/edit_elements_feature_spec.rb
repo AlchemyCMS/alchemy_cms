@@ -19,7 +19,7 @@ RSpec.describe "The edit elements feature", type: :system do
 
     context "with a page_id and parent_element_id passed" do
       let!(:element) do
-        create(:alchemy_element, :with_nestable_elements, page: a_page, page_version: a_page.draft_version)
+        create(:alchemy_element, :with_nestable_elements, page_version: a_page.draft_version)
       end
 
       scenario "a hidden field with parent element id is in the form." do
@@ -31,7 +31,7 @@ RSpec.describe "The edit elements feature", type: :system do
 
   context "With an element having nestable elements defined" do
     let!(:element) do
-      create(:alchemy_element, :with_nestable_elements, page: a_page, page_version: a_page.draft_version)
+      create(:alchemy_element, :with_nestable_elements, page_version: a_page.draft_version)
     end
 
     scenario "a button to add an nestable element appears." do
@@ -44,7 +44,7 @@ RSpec.describe "The edit elements feature", type: :system do
     let!(:element) { create(:alchemy_element, page: a_page) }
 
     scenario "is possible to copy element into clipboard" do
-      visit alchemy.admin_elements_path(page_id: element.page_id)
+      visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
       expect(page).to have_selector(".element-toolbar")
       find(".fa-clone").click
       within "#flash_notices" do

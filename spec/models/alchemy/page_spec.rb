@@ -1903,14 +1903,14 @@ module Alchemy
       let!(:expanded_element) do
         create :alchemy_element, :with_contents,
           name: "article",
-          page: page,
+          page_version: page.draft_version,
           folded: false
       end
 
       let!(:folded_element) do
         create :alchemy_element, :with_contents,
           name: "article",
-          page: page,
+          page_version: page.draft_version,
           folded: true
       end
 
@@ -1927,7 +1927,7 @@ module Alchemy
         let!(:nested_expanded_element) do
           create :alchemy_element, :with_contents,
             name: "article",
-            page: page,
+            page_version: page.draft_version,
             parent_element: expanded_element,
             folded: false
         end
@@ -1935,7 +1935,7 @@ module Alchemy
         let!(:nested_folded_element) do
           create :alchemy_element, :with_contents,
             name: "article",
-            page: page,
+            page_version: page.draft_version,
             parent_element: folded_element,
             folded: true
         end
