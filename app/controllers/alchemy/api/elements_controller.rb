@@ -9,13 +9,16 @@ module Alchemy
     # If you want to only load a specific type of element pass ?named=an_element_name
     #
     def index
-      @elements = Element.not_nested
+      if params[:page_id].present?
+        @page = Page.find(params[:page_id])
+        @elements = @page.elements.not_nested
+      else
+        @elements = Element.not_nested.joins(:page_version).merge(PageVersion.published)
+      end
+
       # Fix for cancancan not able to merge multiple AR scopes for logged in users
       if cannot? :manage, Alchemy::Element
         @elements = @elements.accessible_by(current_ability, :index)
-      end
-      if params[:page_id].present?
-        @elements = @elements.where(page_id: params[:page_id])
       end
       if params[:named].present?
         @elements = @elements.named(params[:named])

@@ -7,14 +7,14 @@ module Alchemy
     routes { Alchemy::Engine.routes }
 
     describe "#index" do
-      let(:page) { create(:alchemy_page, :public) }
+      let(:page_version) { create(:alchemy_page_version, :published) }
 
       before do
-        2.times { create(:alchemy_element, page: page) }
-        create(:alchemy_element, :nested, page: page)
+        2.times { create(:alchemy_element, page_version: page_version) }
+        create(:alchemy_element, :nested, page_version: page_version)
       end
 
-      it "returns all public not nested elements as json objects" do
+      it "returns all not nested elements from published versions as json objects" do
         get :index, params: {format: :json}
 
         expect(response.status).to eq(200)
@@ -23,14 +23,14 @@ module Alchemy
         result = JSON.parse(response.body)
         expect(result).to have_key("elements")
         expect(result["elements"].last["nested_elements"]).to_not be_empty
-        expect(result["elements"].size).to eq(Alchemy::Element.not_nested.count)
+        expect(result["elements"].size).to eq(3)
       end
 
       context "with page_id param" do
         let!(:other_page)    { create(:alchemy_page, :public) }
-        let!(:other_element) { create(:alchemy_element, page: other_page) }
+        let!(:other_element) { create(:alchemy_element, page_version: other_page.public_version) }
 
-        it "returns only elements from this page" do
+        it "returns only elements from this pages public version" do
           get :index, params: {page_id: other_page.id, format: :json}
 
           expect(response.status).to eq(200)
@@ -54,12 +54,13 @@ module Alchemy
           result = JSON.parse(response.body)
 
           expect(result).to have_key("elements")
-          expect(result["elements"].size).to eq(Alchemy::Element.not_nested.count)
+          expect(result["elements"].size).to eq(3)
         end
       end
 
       context "with named param" do
-        let!(:other_element) { create(:alchemy_element, page: page, name: "news") }
+        let!(:other_page)    { create(:alchemy_page, :public) }
+        let!(:other_element) { create(:alchemy_element, name: "news", page_version: other_page.public_version) }
 
         it "returns only elements named like this." do
           get :index, params: {named: "news", format: :json}
@@ -85,7 +86,7 @@ module Alchemy
           result = JSON.parse(response.body)
 
           expect(result).to have_key("elements")
-          expect(result["elements"].size).to eq(Alchemy::Element.not_nested.count)
+          expect(result["elements"].size).to eq(3)
         end
       end
 
@@ -103,14 +104,15 @@ module Alchemy
           result = JSON.parse(response.body)
 
           expect(result).to have_key("elements")
-          expect(result["elements"].size).to eq(Alchemy::Element.not_nested.count)
+          expect(result["elements"].size).to eq(3)
         end
       end
     end
 
     describe "#show" do
-      let(:page)    { create(:alchemy_page) }
-      let(:element) { create(:alchemy_element, page: page, position: 1) }
+      let(:page) { create(:alchemy_page) }
+      let(:page_version) { create(:alchemy_page_version, page: page) }
+      let(:element) { create(:alchemy_element, page_version: page_version, position: 1) }
 
       it "returns element as json" do
         get :show, params: {id: element.id, format: :json}
