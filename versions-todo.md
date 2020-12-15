@@ -1,1 +1,3 @@
 - make version elements mandatory
+- move element definitions methods from page to page version
+- remove page ivar from admin/elements controller and views

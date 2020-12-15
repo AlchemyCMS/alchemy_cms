@@ -60,6 +60,19 @@ RSpec.describe "Page editing feature", type: :system do
         expect(page).to have_selector("#publish_page_form")
       end
     end
+
+    it "can create a new element", :js do
+      visit alchemy.edit_admin_page_path(a_page)
+      expect(page).to have_link("New element")
+      click_link("New element")
+      expect(page).to have_selector(".alchemy-dialog-body .simple_form")
+      within ".alchemy-dialog-body .simple_form" do
+        select2("Article", from: "Element")
+        click_button("Add")
+      end
+      expect(page).to_not have_selector(".alchemy-dialog-body")
+      expect(page).to have_selector('.element-editor[data-element-name="article"]')
+    end
   end
 
   context "as admin" do
@@ -143,7 +156,7 @@ RSpec.describe "Page editing feature", type: :system do
       end
 
       it "renders essence editors for all element contents" do
-        visit alchemy.admin_elements_path(page_id: everything_page.id)
+        visit alchemy.admin_elements_path(page_version_id: everything_page.draft_version.id)
 
         expect(page).to have_selector("div.content_editor.essence_boolean")
         expect(page).to have_selector("div.content_editor.essence_date")
@@ -157,7 +170,7 @@ RSpec.describe "Page editing feature", type: :system do
       end
 
       it "renders data attribute based on content name" do
-        visit alchemy.admin_elements_path(page_id: everything_page.id)
+        visit alchemy.admin_elements_path(page_version_id: everything_page.draft_version.id)
 
         expect(page).to have_selector("div[data-content-name=essence_boolean]")
         expect(page).to have_selector("div[data-content-name=essence_date]")

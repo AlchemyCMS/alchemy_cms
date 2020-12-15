@@ -147,7 +147,7 @@
     });
     Alchemy.Sitemap.watchPagePublicationState();
     Alchemy.PageLeaveObserver();
-    Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_id: @page.id) %>', {
+    Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_version_id: @page.draft_version.id) %>', {
       texts: {
         title: '<%= Alchemy.t("Elements") %>',
         dirtyTitle: '<%= Alchemy.t("Warning!") %>',
@@ -164,7 +164,7 @@
           hotkey: 'alt+n',
           iconClass: 'plus',
           onClick: function() {
-            Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_id: @page.id) %>', {
+            Alchemy.openDialog('<%= alchemy.new_admin_element_path(page_version_id: @page_version.id) %>', {
               title: '<%= Alchemy.t("New Element") %>',
               size: '320x125'
             });

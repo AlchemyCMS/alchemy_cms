@@ -7,30 +7,32 @@ module Alchemy
       authorize_resource class: Alchemy::Element
 
       def index
-        @page = Page.find(params[:page_id])
-        @elements = @page.draft_version.elements.not_nested.unfixed.includes(*element_includes)
-        @fixed_elements = @page.draft_version.elements.fixed.includes(*element_includes)
+        @page_version = PageVersion.find(params[:page_version_id])
+        @page = @page_version.page
+        elements = @page_version.elements.order(:position).includes(*element_includes)
+        @elements = elements.not_nested.unfixed
+        @fixed_elements = elements.not_nested.fixed
       end
 
       def new
-        @page = Page.find(params[:page_id])
+        @page_version = PageVersion.find(params[:page_version_id])
+        @page = @page_version.page
         @parent_element = Element.find_by(id: params[:parent_element_id])
         @elements = @page.available_elements_within_current_scope(@parent_element)
-        @element = @page.elements.build
+        @element = @page_version.elements.build
         @clipboard = get_clipboard("elements")
         @clipboard_items = Element.all_from_clipboard_for_page(@clipboard, @page)
       end
 
       # Creates a element as discribed in config/alchemy/elements.yml on page via AJAX.
       def create
-        @page = Page.find(params[:element][:page_id])
+        @page_version = PageVersion.find(params[:element][:page_version_id])
+        @page = @page_version.page
         Element.transaction do
           if @paste_from_clipboard = params[:paste_from_clipboard].present?
             @element = paste_element_from_clipboard
           else
-            @element = Element.new(create_element_params)
-            @element.page_version = @page.draft_version
-            @element.save
+            @element = Element.create(create_element_params)
           end
           if @page.definition["insert_elements_at"] == "top"
             @insert_at_top = true
@@ -40,7 +42,7 @@ module Alchemy
         if @element.valid?
           render :create
         else
-          @element.page = @page
+          @element.page_version = @page_version
           @elements = @page.available_element_definitions
           @clipboard = get_clipboard("elements")
           @clipboard_items = Element.all_from_clipboard_for_page(@clipboard, @page)
@@ -129,7 +131,7 @@ module Alchemy
         @source_element = Element.find(element_from_clipboard["id"])
         element = Element.copy(@source_element, {
           parent_element_id: create_element_params[:parent_element_id],
-          page_id: @page.id,
+          page_version_id: @page_version.id,
         })
         if element_from_clipboard["action"] == "cut"
           @cut_element_id = @source_element.id
@@ -152,7 +154,7 @@ module Alchemy
       end
 
       def create_element_params
-        params.require(:element).permit(:name, :page_id, :parent_element_id)
+        params.require(:element).permit(:name, :page_version_id, :parent_element_id)
       end
     end
   end
