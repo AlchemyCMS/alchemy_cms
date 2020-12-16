@@ -7,6 +7,7 @@ namespace :alchemy do
   task upgrade: [
     "alchemy:upgrade:prepare",
     "alchemy:upgrade:5.0:run",
+    "alchemy:upgrade:6.0:run",
   ] do
     Alchemy::Upgrader.display_todos
   end
@@ -57,6 +58,25 @@ namespace :alchemy do
       desc "Remove root page"
       task remove_root_page: [:environment] do
         Alchemy::Upgrader::FivePointZero.remove_root_page
+      end
+    end
+
+    desc "Upgrade Alchemy to v6.0"
+    task "6.0" => [
+      "alchemy:upgrade:prepare",
+      "alchemy:upgrade:6.0:run",
+    ] do
+      Alchemy::Upgrader.display_todos
+    end
+
+    namespace "6.0" do
+      task "run" => [
+        "alchemy:upgrade:6.0:create_public_page_versions",
+      ]
+
+      desc "Install Gutentag migrations"
+      task create_public_page_versions: [:environment] do
+        Alchemy::Upgrader::SixPointZero.create_public_page_versions
       end
     end
   end
