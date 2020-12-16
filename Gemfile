@@ -22,7 +22,7 @@ group :development, :test do
     gem "yard"
     gem "redcarpet"
     gem "pry-byebug"
-    gem "rubocop", "~> 1.1.0", require: false
+    gem "rubocop", "~> 1.6.1", require: false
     gem "listen"
     gem "localeapp", "~> 3.0", require: false
     gem "dotenv", "~> 2.2"
