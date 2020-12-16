@@ -16,5 +16,6 @@ var eye = el.find('> .element-toolbar .publish-element-button .icon');
   eye.addClass('fa-eye');
   label.text('<%= Alchemy.t(:show_element) %>');
 <%- end -%>
+el.toggleClass('visible hidden');
 
 Alchemy.reloadPreview();

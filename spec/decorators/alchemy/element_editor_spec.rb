@@ -27,6 +27,18 @@ RSpec.describe Alchemy::ElementEditor do
       is_expected.to include("element-editor")
     end
 
+    context "with element is public" do
+      let(:element) { build_stubbed(:alchemy_element, public: true) }
+
+      it { is_expected.to include("visible") }
+    end
+
+    context "with element is not public" do
+      let(:element) { build_stubbed(:alchemy_element, public: false) }
+
+      it { is_expected.to include("hidden") }
+    end
+
     context "with element is folded" do
       let(:element) { build_stubbed(:alchemy_element, folded: true) }
 

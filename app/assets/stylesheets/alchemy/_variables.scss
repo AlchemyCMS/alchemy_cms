@@ -102,6 +102,9 @@ $error_border_color: #c49c9c !default;
 $error_text_color: #a23434 !default;
 $error_background_color: #efd3d3 !default;
 
+$hint-background-color: $light_yellow !default;
+$hint-text-color: $very-dark-gray !default;
+
 $form-left-width: 35% !default;
 $form-right-width: 65% !default;
 
@@ -140,6 +143,8 @@ $table-row-hover-color: rgba($light_yellow, 0.5) !default;
 $elements-window-width: 22.5vw !default;
 $elements-window-min-width: 400px !default;
 $element-header-bg-color: $medium-gray !default;
+$element-header-active-bg-color: $dark-blue !default;
+$element-header-active-color: $white !default;
 $top-menu-height: 75px !default;
 
 $tabs-height: 31px !default;
