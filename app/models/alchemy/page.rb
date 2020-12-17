@@ -442,10 +442,15 @@ module Alchemy
         public_on: already_public_for?(current_time) ? public_on : current_time,
         public_until: still_public_for?(current_time) ? public_until : nil,
       )
-      versions.create!(public_on: current_time).tap do |version|
-        # We must not use .find_each here to not mess up the order of elements
-        draft_version.elements.not_nested.available.each do |element|
-          Element.copy(element, page_version_id: version.id)
+      self.class.transaction do
+        versions.create!(public_on: current_time).tap do |version|
+          # We must not use .find_each here to not mess up the order of elements
+          draft_version.elements.not_nested.available.each do |element|
+            Element.copy(element, page_version_id: version.id)
+          end
+          # unpublish all currently published versions
+          # TODO: Add a exclusion constraint to database so that we never have more than one published version
+          versions.published(on: current_time).where.not(id: version.id).update_all(public_until: current_time)
         end
       end
     end

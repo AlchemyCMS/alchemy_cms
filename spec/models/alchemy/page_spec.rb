@@ -1409,6 +1409,37 @@ module Alchemy
         expect { page.publish! }.to change { page.versions.published.count }.by(1)
       end
 
+      context "with more than one published page to that time" do
+        let!(:public_version) do
+          create(:alchemy_page_version, public_on: Date.yesterday.to_time, page: page)
+        end
+
+        it "sets all other versions to not public" do
+          expect {
+            page.publish!
+          }.to change { public_version.reload.public_until }.from(nil)
+        end
+
+        it "does not change current public version" do
+          page.publish!
+          expect(page.reload.versions.published.first.public_until).to be_nil
+        end
+
+        context "with former published versions" do
+          let(:the_day_before) { Date.yesterday - 1 }
+
+          let!(:former_published_version) do
+            create(:alchemy_page_version, public_on: the_day_before.to_time, public_until: Date.yesterday.to_time, page: page)
+          end
+
+          it "does not change public_until on those" do
+            expect {
+              page.publish!
+            }.to_not change(former_published_version.reload, :public_until)
+          end
+        end
+      end
+
       context "with elements" do
         let(:page) do
           create(:alchemy_page, autogenerate_elements: true).tap do |page|
