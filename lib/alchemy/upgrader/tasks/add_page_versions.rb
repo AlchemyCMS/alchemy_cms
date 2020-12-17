@@ -16,7 +16,8 @@ module Alchemy::Upgrader::Tasks
               public_on: page.public_on,
               public_until: page.public_until
             ).tap do |version|
-              Alchemy::Element.where(page_version_id: page.draft_version.id).not_nested.available.order(:position).find_each do |element|
+              # We must not use .find_each here to not mess up the order of elements
+              page.draft_version.elements.not_nested.available.each do |element|
                 Alchemy::Element.copy(element, page_version_id: version.id)
               end
             end
