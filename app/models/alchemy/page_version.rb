@@ -12,10 +12,10 @@ module Alchemy
 
     # All published versions
     #
-    def self.published
+    def self.published(on: Time.current)
       where("#{table_name}.public_on <= :time AND " \
             "(#{table_name}.public_until IS NULL " \
-            "OR #{table_name}.public_until >= :time)", time: Time.current).order(public_on: :desc)
+            "OR #{table_name}.public_until >= :time)", time: on).order(public_on: :desc)
     end
   end
 end
