@@ -29,14 +29,32 @@ describe Alchemy::PageVersion do
     let!(:public_two) { Alchemy::PageVersion.create!(page: page, public_on: Time.current) }
     let!(:non_public) { page.draft_version }
 
-    it "returns published page versions" do
+    it "returns currently published page versions" do
       expect(published).to include(public_one)
       expect(published).to include(public_two)
       expect(published).to_not include(non_public)
     end
 
-    it "latest published version is first in order" do
+    it "latest currently published version is first in order" do
       expect(published.first).to eq(public_two)
+    end
+
+    context "with another time passed" do
+      subject(:published) { described_class.published(on: tomorrow) }
+
+      let(:tomorrow) { Date.tomorrow.to_time }
+
+      before do
+        public_one.update_columns(public_until: Time.current)
+      end
+
+      let!(:public_three) { Alchemy::PageVersion.create!(page: page, public_on: tomorrow) }
+
+      it "returns page versions published on that time" do
+        expect(published).to_not include(public_one)
+        expect(published).to include(public_two)
+        expect(published).to include(public_three)
+      end
     end
   end
 end
