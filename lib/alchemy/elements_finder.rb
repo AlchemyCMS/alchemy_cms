@@ -81,6 +81,9 @@ module Alchemy
       when Alchemy::Page
         page_or_layout
       when String
+        Alchemy::Deprecation.warn "Passing a String as `from_page` option to " \
+          "`render_elements` is deprecated and will be removed with Alchemy 6.0. " \
+          "Please load the page beforehand and pass it as an object instead."
         Alchemy::Page.find_by(
           language: Alchemy::Language.current,
           page_layout: page_or_layout,
