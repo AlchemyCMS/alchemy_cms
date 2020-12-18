@@ -1,7 +1,10 @@
-## 5.1.0 (unreleased)
+## 5.1.0 (2020-12-18)
 
 ### Features
 
+- Allow pound sign in legacy url [#1980](https://github.com/AlchemyCMS/alchemy_cms/pull/1980) ([robinboening](https://github.com/robinboening))
+- Adjust element editor UI [#1979](https://github.com/AlchemyCMS/alchemy_cms/pull/1979) ([tvdeyen](https://github.com/tvdeyen))
+- Always show the full page name in active page tab [#1972](https://github.com/AlchemyCMS/alchemy_cms/pull/1972) ([tvdeyen](https://github.com/tvdeyen))
 - Allow multiple preview sources [#1959](https://github.com/AlchemyCMS/alchemy_cms/pull/1959) ([tvdeyen](https://github.com/tvdeyen))
 - Add Publish Targets [#1957](https://github.com/AlchemyCMS/alchemy_cms/pull/1957) ([tvdeyen](https://github.com/tvdeyen))
 - Persist rendered picture variants [#1882](https://github.com/AlchemyCMS/alchemy_cms/pull/1882) ([tvdeyen](https://github.com/tvdeyen))
@@ -12,6 +15,8 @@
 
 ### Changes
 
+- Fix height of search input field [#1973](https://github.com/AlchemyCMS/alchemy_cms/pull/1973) ([tvdeyen](https://github.com/tvdeyen))
+- Load select2 from assets folder [#1961](https://github.com/AlchemyCMS/alchemy_cms/pull/1961) ([tvdeyen](https://github.com/tvdeyen))
 - Do not abort if user class cannot be found [#1950](https://github.com/AlchemyCMS/alchemy_cms/pull/1950) ([tvdeyen](https://github.com/tvdeyen))
 - Deprivatize useful picture view methods [#1936](https://github.com/AlchemyCMS/alchemy_cms/pull/1936) ([mickenorlen](https://github.com/mickenorlen))
 - Unset render_size on layout default selection [#1935](https://github.com/AlchemyCMS/alchemy_cms/pull/1935) ([mickenorlen](https://github.com/mickenorlen))
@@ -39,6 +44,8 @@
 
 ### Misc
 
+- Move away from Travis CI [#1981](https://github.com/AlchemyCMS/alchemy_cms/pull/1981) ([tvdeyen](https://github.com/tvdeyen))
+- Remove poltergeist and phantomjs leftovers [#1970](https://github.com/AlchemyCMS/alchemy_cms/pull/1970) ([tvdeyen](https://github.com/tvdeyen))
 - [ruby - main] Upgrade rubocop to version 1.1.0 [#1958](https://github.com/AlchemyCMS/alchemy_cms/pull/1958) ([depfu](https://github.com/apps/depfu))
 - Remove greetings action [#1956](https://github.com/AlchemyCMS/alchemy_cms/pull/1956) ([tvdeyen](https://github.com/tvdeyen))
 - [ruby] Upgrade rubocop to version 1.0.0 [#1952](https://github.com/AlchemyCMS/alchemy_cms/pull/1952) ([depfu](https://github.com/apps/depfu))
