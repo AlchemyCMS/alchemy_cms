@@ -59,8 +59,8 @@ module Alchemy
         urlname: page.urlname,
         url_path: page.url_path,
         level: level,
-        root: page.depth == 1,
-        root_or_leaf: page.depth == 1 || !has_children,
+        root: page.root?,
+        root_or_leaf: page.root? || page.leaf?,
         children: [],
       }
 
