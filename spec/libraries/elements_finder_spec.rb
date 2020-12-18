@@ -150,26 +150,6 @@ RSpec.describe Alchemy::ElementsFinder do
       end
     end
 
-    context "with page layout name given as options[:from_page]" do
-      subject { finder.elements(page: "standard") }
-
-      let(:page) { create(:alchemy_page, :public, page_layout: "standard") }
-      let!(:visible_element) { create(:alchemy_element, public: true, page: page) }
-      let!(:hidden_element) { create(:alchemy_element, public: false, page: page) }
-
-      it "returns all public elements from page with given page layout" do
-        is_expected.to eq([visible_element])
-      end
-
-      context "that is not found" do
-        subject { finder.elements(page: "foobaz") }
-
-        it "returns empty active record relation" do
-          is_expected.to eq(Alchemy::Element.none)
-        end
-      end
-    end
-
     context "with fallback options given" do
       subject { finder.elements(page: page) }
 
