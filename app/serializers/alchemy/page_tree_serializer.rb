@@ -40,7 +40,7 @@ module Alchemy
 
         level = path.count + base_level
 
-        path.last[:children] << page_hash(page, has_children, level, folded)
+        path.last[:children] << page_hash(page, level, folded)
       end
 
       tree
@@ -48,7 +48,7 @@ module Alchemy
 
     protected
 
-    def page_hash(page, has_children, level, folded)
+    def page_hash(page, level, folded)
       p_hash = {
         id: page.id,
         name: page.name,
@@ -59,8 +59,8 @@ module Alchemy
         urlname: page.urlname,
         url_path: page.url_path,
         level: level,
-        root: page.depth == 1,
-        root_or_leaf: page.depth == 1 || !has_children,
+        root: page.root?,
+        root_or_leaf: page.root? || page.leaf?,
         children: [],
       }
 
