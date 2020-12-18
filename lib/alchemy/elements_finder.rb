@@ -37,10 +37,6 @@ module Alchemy
       @page = page
       elements = find_elements
 
-      if fallback_required?(elements)
-        elements = elements.merge(fallback_elements)
-      end
-
       if options[:reverse]
         elements = elements.reverse_order
       end
@@ -74,20 +70,6 @@ module Alchemy
       end
 
       elements
-    end
-
-    def fallback_required?(elements)
-      if options[:fallback]
-        Alchemy::Deprecation.warn "Passing `fallback` options to `render_elements` is deprecated an will be removed with Alchemy 6.0."
-      end
-      options[:fallback] && elements
-        .where(Alchemy::Element.table_name => {name: options[:fallback][:for]})
-        .none?
-    end
-
-    def fallback_elements
-      find_elements(options[:fallback][:from])
-        .named(options[:fallback][:with] || options[:fallback][:for])
     end
 
     def random_function
