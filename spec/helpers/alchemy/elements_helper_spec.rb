@@ -74,7 +74,7 @@ module Alchemy
       context "without any options" do
         let(:options) { {} }
 
-        it "should render all elements from current page." do
+        it "should render all elements from current pages public version." do
           is_expected.to have_selector("##{element.name}_#{element.id}")
           is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
         end

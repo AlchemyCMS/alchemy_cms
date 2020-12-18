@@ -296,7 +296,9 @@ module Alchemy
     # Instance methods
     #
 
-    # Returns elements from page.
+    # Returns elements from pages public version.
+    #
+    # You can pass another page_version to load elements from in the options.
     #
     # @option options [Array<String>|String] :only
     #   Returns only elements with given names
@@ -315,11 +317,14 @@ module Alchemy
     # @option options [Class] :finder (Alchemy::ElementsFinder)
     #   A class that will return elements from page.
     #   Use this for your custom element loading logic.
+    # @option options [Alchemy::PageVersion] :page_version
+    #   A page version to load elements from.
+    #   Uses the pages public_version by default.
     #
     # @return [ActiveRecord::Relation]
     def find_elements(options = {})
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
-      finder.elements(page: self)
+      finder.elements(page_version: options[:page_version] || public_version)
     end
 
     # = The url_path for this page

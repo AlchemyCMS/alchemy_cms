@@ -984,13 +984,13 @@ module Alchemy
     describe "#find_elements" do
       subject { page.find_elements(options) }
 
-      let(:page) { build(:alchemy_page) }
+      let(:page) { create(:alchemy_page, :public) }
       let(:options) { {} }
       let(:finder) { instance_double(Alchemy::ElementsFinder) }
 
-      it "passes self and all options to elements finder" do
+      it "passes public_version and all options to elements finder" do
         expect(Alchemy::ElementsFinder).to receive(:new).with(options) { finder }
-        expect(finder).to receive(:elements).with(page: page)
+        expect(finder).to receive(:elements).with(page_version: page.public_version)
         subject
       end
 

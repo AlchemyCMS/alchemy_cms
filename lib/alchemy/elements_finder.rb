@@ -3,7 +3,7 @@
 require "alchemy/logger"
 
 module Alchemy
-  # Loads elements from given page
+  # Loads elements from given page version.
   #
   # Used by {Alchemy::Page#find_elements} and {Alchemy::ElementsHelper#render_elements} helper.
   #
@@ -30,12 +30,11 @@ module Alchemy
       @options = options
     end
 
-    # @param page [Alchemy::Page]
-    #   The page the elements are loaded from.
+    # @param page [Alchemy::PageVersion]
+    #   The page version the elements are loaded from.
     # @return [ActiveRecord::Relation]
-    def elements(page:)
-      @page = page
-      elements = find_elements
+    def elements(page_version:)
+      elements = find_elements(page_version)
 
       if options[:reverse]
         elements = elements.reverse_order
@@ -50,16 +49,13 @@ module Alchemy
 
     private
 
-    attr_reader :page, :options
+    attr_reader :options
 
-    def find_elements
-      return Alchemy::Element.none unless page
+    def find_elements(page_version)
+      return Alchemy::Element.none unless page_version
 
-      if options[:fixed]
-        elements = page.fixed_elements
-      else
-        elements = page.elements
-      end
+      elements = page_version.elements.not_nested.available
+      elements = options[:fixed] ? elements.fixed : elements.unfixed
 
       if options[:only]
         elements = elements.named(options[:only])
