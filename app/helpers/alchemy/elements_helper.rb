@@ -74,7 +74,7 @@ module Alchemy
       options = {
         from_page: @page,
         render_format: "html",
-        page_version: :public_version
+        page_version: @preview_mode ? :draft_version : :public_version,
       }.update(options)
 
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)

@@ -1,3 +1,4 @@
-- make version elements mandatory
 - move element definitions methods from page to page version
-- remove page ivar from admin/elements controller and views
+- add database constraint to make sure we only have one published version at a time
+- cleanup x old page versions on page#publish!
+- move page.publish! into activejob
