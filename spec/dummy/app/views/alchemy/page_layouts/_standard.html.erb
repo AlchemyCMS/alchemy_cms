@@ -1,6 +1,6 @@
 <div id="header">
   <div id="header_image">
-    <%= render_elements(:only => 'header', :fallback => {:for => 'header', :from => 'layout_header'}) %>
+    <%= render_elements(:only => 'header') %>
   </div>
   <%- claim = render_elements :only => ["claim"] -%>
   <%- if !claim.blank? -%>
