@@ -74,10 +74,13 @@ module Alchemy
       options = {
         from_page: @page,
         render_format: "html",
+        page_version: :public_version
       }.update(options)
 
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
-      elements = finder.elements(page: options[:from_page])
+      elements = finder.elements(
+        page_version: options[:from_page]&.send(options[:page_version])
+      )
 
       buff = []
       elements.each_with_index do |element, i|
