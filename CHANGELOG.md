@@ -1,3 +1,7 @@
+## 5.0.2 (2020-12-18)
+
+- Fix page sorting [#1984](https://github.com/AlchemyCMS/alchemy_cms/pull/1984) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.0.1 (2020-09-29)
 
 - Better image alt text support [#1940](https://github.com/AlchemyCMS/alchemy_cms/pull/1940) ([tvdeyen](https://github.com/tvdeyen))
