@@ -123,6 +123,33 @@ module Alchemy
           is_expected.to have_selector("#news_1001")
         end
       end
+
+      context "with option page_version given" do
+        let(:options) { { page_version: :draft_version } }
+
+        before do
+          assign(:page, page)
+        end
+
+        it "uses this version of page" do
+          expect(page).to receive(:draft_version)
+          subject
+        end
+      end
+
+      context "in preview mode" do
+        let(:options) { {} }
+
+        before do
+          assign(:page, page)
+          assign(:preview_mode, :draft_version)
+        end
+
+        it "the pages draft version is used" do
+          expect(page).to receive(:draft_version)
+          subject
+        end
+      end
     end
 
     describe "#element_preview_code_attributes" do
