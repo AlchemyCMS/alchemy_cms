@@ -124,6 +124,9 @@ module Alchemy
 
     # class methods
     class << self
+      deprecate :trashed, deprecator: Alchemy::Deprecation
+      deprecate :not_trashed, deprecator: Alchemy::Deprecation
+
       # Builds a new element as described in +/config/alchemy/elements.yml+
       #
       # - Returns a new Alchemy::Element object if no name is given in attributes,
@@ -227,10 +230,12 @@ module Alchemy
       self.folded = true
       remove_from_list
     end
+    deprecate :trash!, deprecator: Alchemy::Deprecation
 
     def trashed?
       position.nil?
     end
+    deprecate :trashed?, deprecator: Alchemy::Deprecation
 
     # Returns true if the definition of this element has a taggable true value.
     def taggable?
