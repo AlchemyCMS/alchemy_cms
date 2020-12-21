@@ -10,7 +10,7 @@ module Alchemy
 
       subject { ElementDefinition.all }
 
-      it "should return all page_layouts" do
+      it "should return all element definitions" do
         is_expected.to be_instance_of(Array)
         expect(subject.collect { |l| l["name"] }).to include("slider")
       end

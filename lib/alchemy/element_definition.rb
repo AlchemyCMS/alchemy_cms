@@ -38,7 +38,8 @@ module Alchemy
       #
       def get(name)
         return {} if name.blank?
-        all.detect { |a| a['name'] == name }
+
+        all.detect { |a| a["name"] == name }
       end
 
       private
@@ -55,14 +56,14 @@ module Alchemy
           ) || []
         else
           raise LoadError,
-                'Could not find elements.yml file! Please run `rails generate alchemy:install`'
+                "Could not find elements.yml file! Please run `rails generate alchemy:install`"
         end
       end
 
       # Returns the elements.yml file path
       #
       def definitions_file_path
-        Rails.root.join 'config/alchemy/elements.yml'
+        Rails.root.join "config/alchemy/elements.yml"
       end
     end
   end
