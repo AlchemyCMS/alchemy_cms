@@ -51,15 +51,13 @@ module Alchemy
       let(:page)        { element_1.page }
 
       it "sets new position for given element ids" do
-        post :order, params: {page_id: page.id, element_ids: element_ids}, xhr: true
+        post :order, params: { element_ids: element_ids }, xhr: true
         expect(Element.all.pluck(:id)).to eq(element_ids)
       end
 
       context "with missing [:element_ids] param" do
         it "does not raise any error and silently rejects to order" do
-          expect {
-            post :order, params: {page_id: page.id}, xhr: true
-          }.to_not raise_error
+          expect { post :order, xhr: true }.to_not raise_error
         end
       end
 
@@ -70,7 +68,6 @@ module Alchemy
           expect(Element).to receive(:find_by) { parent }
           expect(parent).to receive(:touch) { true }
           post :order, params: {
-            page_id: page.id,
             element_ids: element_ids,
             parent_element_id: parent.id,
           }, xhr: true
@@ -78,7 +75,6 @@ module Alchemy
 
         it "assigns parent element id to each element" do
           post :order, params: {
-            page_id: page.id,
             element_ids: element_ids,
             parent_element_id: parent.id,
           }, xhr: true
