@@ -72,6 +72,7 @@ module Alchemy
       def trash_empty?(category)
         "alchemy/#{category.singularize}".classify.constantize.trashed.blank?
       end
+      deprecate :trash_empty?, deprecator: Alchemy::Deprecation
 
       def set_stamper
         if Alchemy.user_class < ActiveRecord::Base
