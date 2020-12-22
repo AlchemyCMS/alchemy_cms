@@ -478,7 +478,7 @@ en:
     or_replace_it_with_an_existing_tag: 'Or replace it with an existing tag'
     "Page created": "Page: '%{name}' created."
     page_infos: 'Page info'
-    page_layout_changed_notice: "Page type was changed. Elements not usable anymore have been moved into the trash."
+    page_layout_changed_notice: "Page type was changed. Elements not usable anymore have been hided."
     page_properties: "Page properties"
     page_public: "published"
     page_published: "Published page"
