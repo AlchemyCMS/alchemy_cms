@@ -104,6 +104,7 @@ module Alchemy
     scope :trashed, -> { where(position: nil).order("updated_at DESC") }
     scope :not_trashed, -> { where.not(position: nil) }
     scope :published, -> { where(public: true) }
+    scope :hidden, -> { where(public: false) }
     scope :not_restricted, -> { joins(:page).merge(Page.not_restricted) }
     scope :available, -> { published.not_trashed }
     scope :named, ->(names) { where(name: names) }

@@ -239,14 +239,13 @@ module Alchemy
       end
 
       context "after changing the page layout" do
-        let(:news_element) { news_page.elements.find_by(name: "news") }
-
-        it "all elements not allowed on this page should be trashed" do
-          expect(news_page.trashed_elements).to be_empty
-          news_page.update(page_layout: "standard")
-          trashed = news_page.trashed_elements.pluck(:name)
-          expect(trashed).to eq(["news"])
-          expect(trashed).to_not include("article", "header")
+        it "all elements not allowed on this page should be hidden" do
+          expect(news_page.elements.hidden).to be_empty
+          news_page.update!(page_layout: "standard")
+          hidden = news_page.all_elements.hidden.pluck(:name)
+          published = news_page.elements.published.pluck(:name)
+          expect(hidden).to eq(["news"])
+          expect(published).to match_array(["article", "header", "download"])
         end
 
         it "should autogenerate elements" do

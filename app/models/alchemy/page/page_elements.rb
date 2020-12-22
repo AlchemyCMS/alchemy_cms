@@ -35,7 +35,7 @@ module Alchemy
       after_create :generate_elements,
         unless: -> { autogenerate_elements == false }
 
-      after_update :trash_not_allowed_elements!,
+      after_update :hide_not_allowed_elements,
         if: :saved_change_to_page_layout?
 
       after_update(if: :saved_change_to_page_layout?) do
@@ -208,13 +208,13 @@ module Alchemy
       end
     end
 
-    # Trashes all elements that are not allowed for this page_layout.
-    def trash_not_allowed_elements!
+    # Hides all elements that are not allowed for this page_layout.
+    def hide_not_allowed_elements
       not_allowed_elements = elements.where([
         "#{Element.table_name}.name NOT IN (?)",
         element_definition_names,
       ])
-      not_allowed_elements.to_a.map(&:trash!)
+      not_allowed_elements.update_all(public: false)
     end
     deprecate :trash_not_allowed_elements!, deprecator: Alchemy::Deprecation
 
