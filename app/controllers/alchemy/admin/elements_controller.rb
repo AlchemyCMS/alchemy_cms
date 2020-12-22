@@ -73,16 +73,13 @@ module Alchemy
       def order
         @parent_element = Element.find_by(id: params[:parent_element_id])
         Element.transaction do
-          params.fetch(:element_ids, []).each_with_index do |element_id, idx|
-            # Ensure to set page_id and parent_element_id to the current
-            # because of trashed elements could still have old values
-            Element.where(id: element_id).update_all(
-              page_id: params[:page_id],
+          Element.where(id: params.fetch(:element_ids, [])).each.with_index(1) do |element, position|
+            element.update_columns(
               parent_element_id: params[:parent_element_id],
-              position: idx + 1,
+              position: position
             )
           end
-          @parent_element.try!(:touch)
+          @parent_element&.touch
         end
       end
 
