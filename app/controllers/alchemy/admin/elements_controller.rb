@@ -3,13 +3,13 @@
 module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
-      before_action :load_element, only: [:update, :destroy, :trash, :fold, :publish]
+      before_action :load_element, only: [:update, :destroy, :fold, :publish]
       authorize_resource class: Alchemy::Element
 
       def index
         @page = Page.find(params[:page_id])
-        @elements = @page.all_elements.not_nested.unfixed.not_trashed.includes(*element_includes)
-        @fixed_elements = @page.all_elements.fixed.not_trashed.includes(*element_includes)
+        @elements = @page.all_elements.not_nested.unfixed.includes(*element_includes)
+        @fixed_elements = @page.all_elements.fixed.includes(*element_includes)
       end
 
       def new
@@ -70,14 +70,7 @@ module Alchemy
         @element.update(public: !@element.public?)
       end
 
-      # Trashes the Element instead of deleting it.
-      def trash
-        @page = @element.page
-        @element.trash!
-      end
-
       def order
-        @trashed_element_ids = Element.trashed.where(id: params[:element_ids]).pluck(:id)
         @parent_element = Element.find_by(id: params[:parent_element_id])
         Element.transaction do
           params.fetch(:element_ids, []).each_with_index do |element_id, idx|

@@ -14,10 +14,10 @@ describe Alchemy::Permissions do
   let(:public_page) { build_stubbed(:alchemy_page, :public, restricted: false) }
   let(:unpublic_page) { build_stubbed(:alchemy_page) }
   let(:restricted_page) { build_stubbed(:alchemy_page, :public, restricted: true) }
-  let(:published_element) { mock_model(Alchemy::Element, restricted?: false, public?: true, trashed?: false) }
-  let(:restricted_element) { mock_model(Alchemy::Element, restricted?: true, public?: true, trashed?: false) }
-  let(:published_content) { mock_model(Alchemy::Content, restricted?: false, public?: true, trashed?: false) }
-  let(:restricted_content) { mock_model(Alchemy::Content, restricted?: true, public?: true, trashed?: false) }
+  let(:published_element) { mock_model(Alchemy::Element, restricted?: false, public?: true) }
+  let(:restricted_element) { mock_model(Alchemy::Element, restricted?: true, public?: true) }
+  let(:published_content) { mock_model(Alchemy::Content, restricted?: false, public?: true) }
+  let(:restricted_content) { mock_model(Alchemy::Content, restricted?: true, public?: true) }
 
   context "A guest user" do
     let(:user) { nil }
@@ -148,10 +148,6 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:manage, Alchemy::EssenceFile)
     end
 
-    it "can see the trash" do
-      is_expected.to be_able_to(:index, :trash)
-    end
-
     it "can manage the clipboard" do
       is_expected.to be_able_to(:manage, :alchemy_admin_clipboard)
     end
@@ -182,10 +178,6 @@ describe Alchemy::Permissions do
 
     it "can publish pages" do
       is_expected.to be_able_to(:publish, Alchemy::Page)
-    end
-
-    it "can clear the trash" do
-      is_expected.to be_able_to(:clear, :trash)
     end
 
     it "can manage attachments" do

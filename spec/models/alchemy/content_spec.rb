@@ -511,12 +511,6 @@ module Alchemy
         expect(content.restricted?).to be true
       end
 
-      it "delegates trashed? to element" do
-        element.update!(position: nil)
-        expect(element.trashed?).to be true
-        expect(content.trashed?).to be true
-      end
-
       it "delegates public? to element" do
         element.update!(public: false)
         expect(element.public?).to be false

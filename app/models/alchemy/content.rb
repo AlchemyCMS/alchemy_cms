@@ -39,19 +39,14 @@ module Alchemy
     scope :essence_selects, -> { where(essence_type: "Alchemy::EssenceSelect") }
     scope :essence_texts, -> { where(essence_type: "Alchemy::EssenceText") }
     scope :named, ->(name) { where(name: name) }
-    scope :available, -> { published.not_trashed }
+    scope :available, -> { published }
     scope :published, -> { joins(:element).merge(Element.published) }
-    scope :not_trashed, -> { joins(:element).merge(Element.not_trashed) }
     scope :not_restricted, -> { joins(:element).merge(Element.not_restricted) }
 
     delegate :restricted?, to: :page, allow_nil: true
-    delegate :trashed?, to: :element, allow_nil: true
-    deprecate :trashed?, deprecator: Alchemy::Deprecation
     delegate :public?, to: :element, allow_nil: true
 
     class << self
-      deprecate :not_trashed, deprecator: Alchemy::Deprecation
-
       # Returns the translated label for a content name.
       #
       # Translate it in your locale yml file:
