@@ -16,7 +16,6 @@ module Alchemy
     describe "#index" do
       let!(:alchemy_page)    { create(:alchemy_page) }
       let!(:element)         { create(:alchemy_element, page: alchemy_page) }
-      let!(:trashed_element) { create(:alchemy_element, page: alchemy_page).tap(&:trash!) }
       let!(:nested_element)  { create(:alchemy_element, :nested, page: alchemy_page) }
       let!(:hidden_element)  { create(:alchemy_element, page: alchemy_page, public: false) }
 
@@ -30,12 +29,6 @@ module Alchemy
           create(:alchemy_element, :fixed,
             public: false,
             page: alchemy_page)
-        end
-
-        let!(:fixed_trashed_element) do
-          create(:alchemy_element, :fixed,
-            public: false,
-            page: alchemy_page).tap(&:trash!)
         end
 
         it "assigns fixed elements" do
@@ -91,31 +84,6 @@ module Alchemy
           }, xhr: true
           [element_1, element_2, element_3].each do |element|
             expect(element.reload.parent_element_id).to eq parent.id
-          end
-        end
-      end
-
-      context "untrashing" do
-        let!(:trashed_element) { create(:alchemy_element).tap(&:trash!) }
-
-        it "sets a list of trashed element ids" do
-          post :order, params: {page_id: page.id, element_ids: [trashed_element.id]}, xhr: true
-          expect(assigns(:trashed_element_ids).to_a).to eq [trashed_element.id]
-        end
-
-        it "sets a new position to the element" do
-          post :order, params: {page_id: page.id, element_ids: [trashed_element.id]}, xhr: true
-          trashed_element.reload
-          expect(trashed_element.position).to_not be_nil
-        end
-
-        context "with new page_id present" do
-          let(:page) { create(:alchemy_page) }
-
-          it "should assign the (new) page_id to the element" do
-            post :order, params: {element_ids: [trashed_element.id], page_id: page.id}, xhr: true
-            trashed_element.reload
-            expect(trashed_element.page_id).to be page.id
           end
         end
       end
@@ -315,19 +283,6 @@ module Alchemy
             controller.send :element_params
           end
         end
-      end
-    end
-
-    describe "#trash" do
-      subject { delete :trash, params: {id: element.id}, xhr: true }
-
-      let(:element) { build_stubbed(:alchemy_element) }
-
-      before { expect(Element).to receive(:find).and_return element }
-
-      it "trashes the element instead of deleting it" do
-        expect(element).to receive(:trash!).and_return(true)
-        subject
       end
     end
 

@@ -26,11 +26,6 @@ RSpec.describe Alchemy::ElementsFinder do
         is_expected.to eq([visible_element])
       end
 
-      it "does not return trashed elements" do
-        visible_element.remove_from_list
-        is_expected.to eq([])
-      end
-
       context "with multiple ordered elements" do
         let!(:element_2) do
           create(:alchemy_element, public: true, page: page).tap { |el| el.update_columns(position: 3) }

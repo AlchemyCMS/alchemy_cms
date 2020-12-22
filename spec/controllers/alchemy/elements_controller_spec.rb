@@ -17,13 +17,6 @@ module Alchemy
         expect(response.status).to eq(200)
       end
 
-      it "should raise ActiveRecord::RecordNotFound error for trashed elements" do
-        element.trash!
-        expect {
-          get :show, params: {id: element.id}
-        }.to raise_error(ActiveRecord::RecordNotFound)
-      end
-
       it "should raise ActiveRecord::RecordNotFound error for unpublished elements" do
         element.update_columns(public: false)
         expect {

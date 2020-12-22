@@ -169,15 +169,6 @@
               size: '400x305'
             });
           }
-        },
-        {
-          title: '<%= Alchemy.t("Show trash") %>',
-          label: '<%= Alchemy.t("Show trash") %>',
-          iconClass: 'trash-alt<%= trash_empty?("elements") ? "" : " full" %>',
-          buttonId: 'element_trash_button',
-          onClick: function() {
-            Alchemy.TrashWindow.open(<%= @page.id %>, '<%= Alchemy.t("Trash") %>');
-          }
         }
       ]
     }, function() {

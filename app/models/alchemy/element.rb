@@ -65,7 +65,7 @@ module Alchemy
     has_many :contents, dependent: :destroy, inverse_of: :element
 
     has_many :all_nested_elements,
-      -> { order(:position).not_trashed },
+      -> { order(:position) },
       class_name: "Alchemy::Element",
       foreign_key: :parent_element_id,
       dependent: :destroy
@@ -100,12 +100,10 @@ module Alchemy
 
     after_update :touch_touchable_pages
 
-    scope :trashed, -> { where(position: nil).order("updated_at DESC") }
-    scope :not_trashed, -> { where.not(position: nil) }
     scope :published, -> { where(public: true) }
     scope :hidden, -> { where(public: false) }
     scope :not_restricted, -> { joins(:page).merge(Page.not_restricted) }
-    scope :available, -> { published.not_trashed }
+    scope :available, -> { published }
     scope :named, ->(names) { where(name: names) }
     scope :excluded, ->(names) { where.not(name: names) }
     scope :fixed, -> { where(fixed: true) }
@@ -125,9 +123,6 @@ module Alchemy
 
     # class methods
     class << self
-      deprecate :trashed, deprecator: Alchemy::Deprecation
-      deprecate :not_trashed, deprecator: Alchemy::Deprecation
-
       # Builds a new element as described in +/config/alchemy/elements.yml+
       #
       # - Returns a new Alchemy::Element object if no name is given in attributes,
@@ -224,19 +219,6 @@ module Alchemy
         touchable_pages << page
       end
     end
-
-    # Trashing an element means nullifying its position, folding and unpublishing it.
-    def trash!
-      self.public = false
-      self.folded = true
-      remove_from_list
-    end
-    deprecate :trash!, deprecator: Alchemy::Deprecation
-
-    def trashed?
-      position.nil?
-    end
-    deprecate :trashed?, deprecator: Alchemy::Deprecation
 
     # Returns true if the definition of this element has a taggable true value.
     def taggable?
