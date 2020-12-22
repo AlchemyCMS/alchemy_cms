@@ -3,7 +3,7 @@
 module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
-      before_action :load_element, only: [:update, :trash, :fold, :publish]
+      before_action :load_element, only: [:update, :destroy, :trash, :fold, :publish]
       authorize_resource class: Alchemy::Element
 
       def index
@@ -59,6 +59,11 @@ module Alchemy
           @notice = Alchemy.t("Validation failed")
           @error_message = "<h2>#{@notice}</h2><p>#{Alchemy.t(:content_validations_headline)}</p>".html_safe
         end
+      end
+
+      def destroy
+        @element.destroy
+        @notice = Alchemy.t("Successfully deleted element") % { element: @element.display_name }
       end
 
       def publish

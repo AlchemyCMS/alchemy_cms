@@ -259,6 +259,16 @@ module Alchemy
       end
     end
 
+    describe "#destroy" do
+      subject { delete :destroy, params: { id: element.id }, xhr: true }
+
+      let!(:element) { create(:alchemy_element) }
+
+      it "deletes the element" do
+        expect { subject }.to change(Alchemy::Element, :count).to(0)
+      end
+    end
+
     describe "params security" do
       context "contents params" do
         let(:parameters) { ActionController::Parameters.new(contents: {1 => {ingredient: "Title"}}) }
