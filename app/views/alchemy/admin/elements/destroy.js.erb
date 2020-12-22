@@ -1,9 +1,7 @@
 $('#element_<%= @element.id %>').hide(200, function() {
   $(this).remove();
-  Alchemy.growl('<%= j Alchemy.t("Element trashed") %>');
+  Alchemy.growl('<%= j @notice %>');
   $('#element_area .sortable-elements').sortable('refresh');
-  Alchemy.TrashWindow.refresh();
-  $('#element_trash_button .icon').addClass('full');
   Alchemy.PreviewWindow.refresh();
   <% @element.richtext_contents_ids.each do |id| %>
   tinymce.get('tinymce_<%= id %>').remove();

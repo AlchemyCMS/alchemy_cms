@@ -78,27 +78,3 @@ $.extend Alchemy,
     $sortable_area.sortable(sortable_options)
     $sortable_area.find('.nested-elements').sortable(sortable_options)
     return
-
-  DraggableTrashItems: ->
-    $("#trash_items div.draggable").each ->
-      $this = $(this)
-      name = $this.data('element-name')
-      $dropzone = $("[data-droppable-elements~='#{name}']")
-      $this.draggable
-        helper: "clone"
-        iframeFix: "iframe#alchemy_preview_window"
-        connectToSortable: $dropzone
-        revert: "invalid"
-        revertDuration: 200
-        start: (event, ui) ->
-          $dropzone.css('minHeight', 36)
-          $(this).addClass "dragged"
-          ui.helper.css('width', 345)
-          return
-        stop: (event, ui) ->
-          $(this).removeClass "dragged"
-          $dropzone.css('minHeight', '')
-          ui.helper.css('width', '')
-          return
-      return
-    return

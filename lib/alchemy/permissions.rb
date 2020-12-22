@@ -39,11 +39,11 @@ module Alchemy
         can :see, Alchemy::Page, restricted: false
 
         can :read, Alchemy::Content, Alchemy::Content.available.not_restricted do |c|
-          c.public? && !c.restricted? && !c.trashed?
+          c.public? && !c.restricted?
         end
 
         can :read, Alchemy::Element, Alchemy::Element.available.not_restricted do |e|
-          e.public? && !e.restricted? && !e.trashed?
+          e.public? && !e.restricted?
         end
 
         can :read, Alchemy::Page, Alchemy::Page.published.not_restricted do |p|
@@ -67,11 +67,11 @@ module Alchemy
         can :see, Alchemy::Page, restricted: true
 
         can :read, Alchemy::Content, Alchemy::Content.available do |c|
-          c.public? && !c.trashed?
+          c.public?
         end
 
         can :read, Alchemy::Element, Alchemy::Element.available do |e|
-          e.public? && !e.trashed?
+          e.public?
         end
 
         can :read, Alchemy::Page, Alchemy::Page.published do |p|
@@ -106,7 +106,6 @@ module Alchemy
         can :leave,                 :alchemy_admin
         can [:info, :help],         :alchemy_admin_dashboard
         can :manage,                :alchemy_admin_clipboard
-        can :index,                 :trash
         can :edit,                  :alchemy_admin_layoutpages
         can :tree,                  :alchemy_admin_pages
 
@@ -139,9 +138,6 @@ module Alchemy
           :alchemy_admin_languages,
           :alchemy_admin_users,
         ]
-
-        # Controller actions
-        can :clear, :trash
 
         # Resources
         can [

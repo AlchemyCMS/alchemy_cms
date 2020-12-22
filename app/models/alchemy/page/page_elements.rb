@@ -15,10 +15,6 @@ module Alchemy
         -> { order(:position).not_nested.unfixed.available },
         class_name: "Alchemy::Element",
         inverse_of: :page
-      has_many :trashed_elements,
-        -> { Element.trashed.order(:position) },
-        class_name: "Alchemy::Element",
-        inverse_of: :page
       has_many :fixed_elements,
         -> { order(:position).fixed.available },
         class_name: "Alchemy::Element",
@@ -35,7 +31,7 @@ module Alchemy
       after_create :generate_elements,
         unless: -> { autogenerate_elements == false }
 
-      after_update :trash_not_allowed_elements!,
+      after_update :hide_not_allowed_elements,
         if: :saved_change_to_page_layout?
 
       after_update :generate_elements,
@@ -43,8 +39,6 @@ module Alchemy
     end
 
     module ClassMethods
-      deprecate :trashed_elements, deprecator: Alchemy::Deprecation
-
       # Copy page elements
       #
       # @param source [Alchemy::Page]
@@ -52,7 +46,7 @@ module Alchemy
       # @return [Array]
       #
       def copy_elements(source, target)
-        source_elements = source.all_elements.not_nested.not_trashed
+        source_elements = source.all_elements.not_nested
         source_elements.order(:position).map do |source_element|
           Element.copy(source_element, {
             page_id: target.id,
@@ -91,7 +85,7 @@ module Alchemy
 
       return [] if @_element_definitions.blank?
 
-      existing_elements = all_elements.not_nested.not_trashed
+      existing_elements = all_elements.not_nested
       @_existing_element_names = existing_elements.pluck(:name)
       delete_unique_element_definitions!
       delete_outnumbered_element_definitions!
@@ -195,7 +189,7 @@ module Alchemy
     # And if so, it generates them.
     #
     def generate_elements
-      existing_elements = all_elements.not_nested.not_trashed
+      existing_elements = all_elements.not_nested
       existing_element_names = existing_elements.pluck(:name).uniq
       definition.fetch("autogenerate", []).each do |element_name|
         next if existing_element_names.include?(element_name)
@@ -204,13 +198,13 @@ module Alchemy
       end
     end
 
-    # Trashes all elements that are not allowed for this page_layout.
-    def trash_not_allowed_elements!
+    # Hides all elements that are not allowed for this page_layout.
+    def hide_not_allowed_elements
       not_allowed_elements = elements.where([
         "#{Element.table_name}.name NOT IN (?)",
         element_definition_names,
       ])
-      not_allowed_elements.to_a.map(&:trash!)
+      not_allowed_elements.update_all(public: false)
     end
 
     # Deletes unique and already present definitions from @_element_definitions.

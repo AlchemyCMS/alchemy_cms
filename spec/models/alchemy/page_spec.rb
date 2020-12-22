@@ -239,14 +239,13 @@ module Alchemy
       end
 
       context "after changing the page layout" do
-        let(:news_element) { news_page.elements.find_by(name: "news") }
-
-        it "all elements not allowed on this page should be trashed" do
-          expect(news_page.trashed_elements).to be_empty
-          news_page.update(page_layout: "standard")
-          trashed = news_page.trashed_elements.pluck(:name)
-          expect(trashed).to eq(["news"])
-          expect(trashed).to_not include("article", "header")
+        it "all elements not allowed on this page should be hidden" do
+          expect(news_page.elements.hidden).to be_empty
+          news_page.update!(page_layout: "standard")
+          hidden = news_page.all_elements.hidden.pluck(:name)
+          published = news_page.elements.published.pluck(:name)
+          expect(hidden).to eq(["news"])
+          expect(published).to match_array(["article", "header", "download"])
         end
 
         it "should autogenerate elements" do
@@ -443,17 +442,6 @@ module Alchemy
         it "the copy should have source elements" do
           expect(subject.elements).not_to be_empty
           expect(subject.elements.count).to eq(page.elements.count)
-        end
-      end
-
-      context "page with trashed elements" do
-        before do
-          page.elements << create(:alchemy_element)
-          page.elements.first.trash!
-        end
-
-        it "the copy should not hold a copy of the trashed elements" do
-          expect(subject.elements).to be_empty
         end
       end
 
@@ -772,14 +760,6 @@ module Alchemy
         end
       end
 
-      context "with trashed elements" do
-        let(:trashed_element) { create(:alchemy_element, page: page).tap(&:trash!) }
-
-        it "contains trashed elements" do
-          expect(page.all_elements).to include(trashed_element)
-        end
-      end
-
       context "with hidden elements" do
         let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
 
@@ -825,18 +805,6 @@ module Alchemy
         end
       end
 
-      context "with trashed elements" do
-        let(:trashed_element) { create(:alchemy_element, page: page) }
-
-        before do
-          trashed_element.trash!
-        end
-
-        it "does not contain trashed elements" do
-          expect(page.elements).to_not include(trashed_element)
-        end
-      end
-
       context "with hidden elements" do
         let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
 
@@ -858,18 +826,6 @@ module Alchemy
 
       it "returns a ordered active record collection of fixed elements on that page" do
         expect(page.fixed_elements).to eq([element_3, element_1, element_2])
-      end
-
-      context "with trashed fixed elements" do
-        let(:trashed_element) { create(:alchemy_element, page: page, fixed: true) }
-
-        before do
-          trashed_element.trash!
-        end
-
-        it "does not contain trashed fixed elements" do
-          expect(page.fixed_elements).to_not include(trashed_element)
-        end
       end
 
       context "with hidden fixed elements" do
@@ -982,12 +938,6 @@ module Alchemy
       end
 
       it "should not return unpublished rss feed elements" do
-        expect(news_page.feed_elements).not_to include(news_element)
-      end
-
-      it "should not return trashed rss feed elements" do
-        news_element.update(public: true)
-        news_element.trash!
         expect(news_page.feed_elements).not_to include(news_element)
       end
     end

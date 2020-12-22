@@ -5,12 +5,6 @@
       return '<%= alchemy.admin_picture_path(id: 1) %>'.replace(/1/, id);
     },
 
-    admin_trash_path: function(page_id) {
-      var url = '<%= alchemy.admin_trash_path %>';
-      if (page_id) url += '?page_id=' + page_id;
-      return url;
-    },
-
     fold_admin_element_path: function(id) {
       return '<%= alchemy.fold_admin_element_path(id: 1) %>'.replace(/1/, id);
     },

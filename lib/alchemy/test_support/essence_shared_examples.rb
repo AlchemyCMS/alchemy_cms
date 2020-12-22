@@ -268,7 +268,6 @@ RSpec.shared_examples_for "an essence" do
 
   context "delegations" do
     it { should delegate_method(:restricted?).to(:page) }
-    it { should delegate_method(:trashed?).to(:element) }
     it { should delegate_method(:public?).to(:element) }
   end
 
