@@ -26,8 +26,6 @@ module Alchemy
     #   Randomize the output of elements
     # @option options [Boolean] :reverse (false)
     #   Reverse the load order
-    # @option options [Hash] :fallback
-    #   Define elements that are loaded from another page if no element was found on given page.
     def initialize(options = {})
       @options = options
     end
@@ -83,6 +81,9 @@ module Alchemy
       when Alchemy::Page
         page_or_layout
       when String
+        Alchemy::Deprecation.warn "Passing a String as `from_page` option to " \
+          "`render_elements` is deprecated and will be removed with Alchemy 6.0. " \
+          "Please load the page beforehand and pass it as an object instead."
         Alchemy::Page.find_by(
           language: Alchemy::Language.current,
           page_layout: page_or_layout,
@@ -92,6 +93,9 @@ module Alchemy
     end
 
     def fallback_required?(elements)
+      if options[:fallback]
+        Alchemy::Deprecation.warn "Passing `fallback` options to `render_elements` is deprecated an will be removed with Alchemy 6.0."
+      end
       options[:fallback] && elements
         .where(Alchemy::Element.table_name => {name: options[:fallback][:for]})
         .none?

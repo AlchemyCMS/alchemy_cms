@@ -28,22 +28,6 @@ module Alchemy
     #     <%= render_elements from_page: 'footer' %>
     #   </footer>
     #
-    # === Fallback to elements from global page:
-    #
-    # You can use the fallback option as an override for elements that are stored on another page.
-    # So you can take elements from a global page and only if the user adds an element on current page the
-    # local one gets rendered.
-    #
-    # 1. You have to pass the the name of the element the fallback is for as <tt>for</tt> key.
-    # 2. You have to pass a <tt>page_layout</tt> name or {Alchemy::Page} from where the fallback elements is taken from as <tt>from</tt> key.
-    # 3. You can pass the name of element to fallback with as <tt>with</tt> key. This is optional (the element name from the <tt>for</tt> key is taken as default).
-    #
-    #   <%= render_elements(fallback: {
-    #     for: 'contact_teaser',
-    #     from: 'sidebar',
-    #     with: 'contact_teaser'
-    #   }) %>
-    #
     # === Custom elements finder:
     #
     # Having a custom element finder class:
@@ -76,8 +60,6 @@ module Alchemy
     #   The amount of elements to be rendered (begins with first element found)
     # @option options [Number] :offset
     #   The offset to begin loading elements from
-    # @option options [Hash] :fallback
-    #   Define elements that are rendered from another page.
     # @option options [Boolean] :random (false)
     #   Randomize the output of elements
     # @option options [Boolean] :reverse (false)
