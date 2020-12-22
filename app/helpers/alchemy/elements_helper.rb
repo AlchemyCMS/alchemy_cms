@@ -25,7 +25,7 @@ module Alchemy
     # === Render elements from global page:
     #
     #   <footer>
-    #     <%= render_elements from_page: 'footer' %>
+    #     <%= render_elements from_page: Alchemy::Page.find_by(page_layout: 'footer') %>
     #   </footer>
     #
     # === Custom elements finder:
@@ -50,8 +50,8 @@ module Alchemy
     #     <%= render_elements finder: MyCustomNewsArchive.new %>
     #   </div>
     #
-    # @option options [Alchemy::Page|String] :from_page (@page)
-    #   The page the elements are rendered from. You can pass a page_layout String or a {Alchemy::Page} object.
+    # @option options [Alchemy::Page] :from_page (@page)
+    #   The page the elements are rendered from.
     # @option options [Array<String>|String] :only
     #   A list of element names only to be rendered.
     # @option options [Array<String>|String] :except

@@ -30,15 +30,12 @@ module Alchemy
       @options = options
     end
 
-    # @param page [Alchemy::Page|String]
-    #   The page the elements are loaded from. You can pass a page_layout String or a {Alchemy::Page} object.
+    # @param page [Alchemy::Page]
+    #   The page the elements are loaded from.
     # @return [ActiveRecord::Relation]
     def elements(page:)
-      elements = find_elements(page)
-
-      if fallback_required?(elements)
-        elements = elements.merge(fallback_elements)
-      end
+      @page = page
+      elements = find_elements
 
       if options[:reverse]
         elements = elements.reverse_order
@@ -55,8 +52,7 @@ module Alchemy
 
     attr_reader :page, :options
 
-    def find_elements(page_or_layout)
-      @page = get_page(page_or_layout)
+    def find_elements
       return Alchemy::Element.none unless page
 
       if options[:fixed]
@@ -74,36 +70,6 @@ module Alchemy
       end
 
       elements
-    end
-
-    def get_page(page_or_layout)
-      case page_or_layout
-      when Alchemy::Page
-        page_or_layout
-      when String
-        Alchemy::Deprecation.warn "Passing a String as `from_page` option to " \
-          "`render_elements` is deprecated and will be removed with Alchemy 6.0. " \
-          "Please load the page beforehand and pass it as an object instead."
-        Alchemy::Page.find_by(
-          language: Alchemy::Language.current,
-          page_layout: page_or_layout,
-          restricted: false,
-        )
-      end
-    end
-
-    def fallback_required?(elements)
-      if options[:fallback]
-        Alchemy::Deprecation.warn "Passing `fallback` options to `render_elements` is deprecated an will be removed with Alchemy 6.0."
-      end
-      options[:fallback] && elements
-        .where(Alchemy::Element.table_name => {name: options[:fallback][:for]})
-        .none?
-    end
-
-    def fallback_elements
-      find_elements(options[:fallback][:from])
-        .named(options[:fallback][:with] || options[:fallback][:for])
     end
 
     def random_function

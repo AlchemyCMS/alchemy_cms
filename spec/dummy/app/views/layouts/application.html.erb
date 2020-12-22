@@ -14,7 +14,7 @@
   <%= render "alchemy/edit_mode" %>
 
   <footer>
-    <%= render_elements from_page: :footer %>
+    <%= render_elements from_page: Alchemy::Page.find_by(page_layout: 'footer') %>
   </footer>
 </body>
 </html>
