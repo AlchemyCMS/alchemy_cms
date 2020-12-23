@@ -169,3 +169,11 @@
   contents:
   - name: menu
     type: EssenceNode
+
+- name: old
+  deprecated: true
+  contents:
+    - name: title
+      type: EssenceText
+    - name: text
+      type: EssenceRichtext

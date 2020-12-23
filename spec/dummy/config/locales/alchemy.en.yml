@@ -29,6 +29,8 @@ en:
     resource_help_texts:
       party:
         name: Party
+    element_deprecation_notices:
+      old: Old element is deprecated
 
   activemodel:
     models:
