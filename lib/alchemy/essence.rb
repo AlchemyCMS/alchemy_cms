@@ -83,7 +83,7 @@ module Alchemy #:nodoc:
 
         if configuration[:belongs_to]
           class_eval <<-RUBY, __FILE__, __LINE__ + 1
-            belongs_to :ingredient_association, #{configuration[:belongs_to]}
+            belongs_to :ingredient_association, **#{configuration[:belongs_to]}
 
             alias_method :#{configuration[:ingredient_column]}, :ingredient_association
             alias_method :#{configuration[:ingredient_column]}=, :ingredient_association=
@@ -108,9 +108,9 @@ module Alchemy #:nodoc:
       # Register the current class as has_many association on +Alchemy::Page+ and +Alchemy::Element+ models
       def register_as_essence_association!
         klass_name = model_name.to_s
-        arguments = [:has_many, klass_name.demodulize.tableize.to_sym, through: :contents,
-                                                                       source: :essence, source_type: klass_name]
-        %w(Page Element).each { |k| "Alchemy::#{k}".constantize.send(*arguments) }
+        arguments = [:has_many, klass_name.demodulize.tableize.to_sym]
+        kwargs = { through: :contents, source: :essence, source_type: klass_name }
+        %w(Page Element).each { |k| "Alchemy::#{k}".constantize.send(*arguments, **kwargs) }
       end
     end
 
