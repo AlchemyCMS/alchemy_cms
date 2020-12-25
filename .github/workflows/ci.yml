@@ -11,8 +11,8 @@ jobs:
         rails:
           - '6.0'
         ruby:
-          - '2.6.x'
-          - '2.7.x'
+          - '2.6.6'
+          - '2.7.2'
           - '3.0.0'
         database:
           - mysql
@@ -45,7 +45,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.3.4
       - name: Set up Ruby
-        uses: actions/setup-ruby@v1.1.2
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
       - name: Restore apt cache
