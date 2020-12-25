@@ -11,9 +11,9 @@ jobs:
         rails:
           - '6.0'
         ruby:
-          - '2.5.x'
           - '2.6.x'
           - '2.7.x'
+          - '3.0.0'
         database:
           - mysql
           - postgresql
