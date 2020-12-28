@@ -110,6 +110,7 @@
     - name: essence_html
       type: EssenceHtml
       hint: true
+      deprecated: true
     - name: essence_link
       type: EssenceLink
       hint: true

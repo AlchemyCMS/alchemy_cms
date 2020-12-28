@@ -19,13 +19,14 @@ module Alchemy
 
         content_name = content.name_for_label
 
-        if content.definition.blank?
-          warning("Content #{content.name} is missing its definition")
-
-          icon = hint_with_tooltip(
-            Alchemy.t(:content_definition_missing),
-          )
-
+        if content.definition.blank? || content.deprecated?
+          if content.definition.blank?
+            warning("Content #{content.name} is missing its definition")
+            message = Alchemy.t(:content_definition_missing)
+          else
+            message = content.deprecation_notice
+          end
+          icon = hint_with_tooltip(message)
           content_name = "#{icon} #{content_name}".html_safe
         end
 

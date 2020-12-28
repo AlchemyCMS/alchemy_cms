@@ -689,6 +689,24 @@ select.long {
     }
   }
 
+  &.deprecated {
+    border-radius: $default-border-radius;
+    background-color: $element-header-deprecated-bg-color;
+    background-image: linear-gradient(
+      45deg,
+      $element-header-deprecated-bg-color 25%,
+      $element-header-bg-color 25%,
+      $element-header-bg-color 50%,
+      $element-header-deprecated-bg-color 50%,
+      $element-header-deprecated-bg-color 75%,
+      $element-header-bg-color 75%,
+      $element-header-bg-color 100%
+    );
+    background-size: 28.28px 28.28px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
   label {
     display: block;
     margin: $default-margin 0;
