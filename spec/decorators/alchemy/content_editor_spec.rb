@@ -83,6 +83,68 @@ RSpec.describe Alchemy::ContentEditor do
     it { is_expected.to be(false) }
   end
 
+  describe "#has_warnings?" do
+    subject { content_editor.has_warnings? }
+
+    context "when content is not deprecated" do
+      let(:content) { build(:alchemy_content) }
+
+      it { is_expected.to be(false) }
+    end
+
+    context "when content is deprecated" do
+      let(:content) do
+        mock_model("Content", definition: { deprecated: true }, deprecated?: true)
+      end
+
+      it { is_expected.to be(true) }
+    end
+
+    context "when content is missing its definition" do
+      let(:content) do
+        mock_model("Content", definition: {})
+      end
+
+      it { is_expected.to be(true) }
+    end
+  end
+
+  describe "#warnings" do
+    subject { content_editor.warnings }
+
+    context "when content has no warnings" do
+      let(:content) { build(:alchemy_content) }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when content is missing its definition" do
+      let(:content) do
+        mock_model("Content", name: "foo", definition: {})
+      end
+
+      it { is_expected.to eq Alchemy.t(:content_definition_missing) }
+
+      it "logs a warning" do
+        expect(Alchemy::Logger).to receive(:warn)
+        subject
+      end
+    end
+
+    context "when content is deprecated" do
+      let(:content) do
+        mock_model("Content",
+          name: "foo",
+          definition: { "name" => "foo", "deprecated" => "Deprecated" },
+          deprecated?: true)
+      end
+
+      it "returns a deprecation notice" do
+        is_expected.to eq("Deprecated")
+      end
+    end
+  end
+
   describe "#deprecation_notice" do
     subject { content_editor.deprecation_notice }
 

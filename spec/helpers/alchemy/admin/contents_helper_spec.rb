@@ -25,7 +25,8 @@ describe Alchemy::Admin::ContentsHelper do
         definition: { name: "intro", type: "EssenceText" },
         name_for_label: "Intro",
         has_validations?: false,
-        deprecated?: false
+        deprecated?: false,
+        has_warnings?: false
     end
 
     subject { helper.render_content_name(content) }
@@ -49,7 +50,9 @@ describe Alchemy::Admin::ContentsHelper do
           definition: { },
           name_for_label: "Intro",
           has_validations?: false,
-          deprecated?: false
+          deprecated?: false,
+          has_warnings?: true,
+          warnings: Alchemy.t(:content_definition_missing)
       end
 
       it "renders a warning with tooltip" do
@@ -66,7 +69,8 @@ describe Alchemy::Admin::ContentsHelper do
           name_for_label: "Intro",
           has_validations?: false,
           deprecated?: true,
-          deprecation_notice: Alchemy.t(:content_deprecated)
+          has_warnings?: true,
+          warnings: Alchemy.t(:content_deprecated)
       end
 
       it "renders a deprecation notice with tooltip" do

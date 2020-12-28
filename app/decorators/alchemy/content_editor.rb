@@ -53,6 +53,21 @@ module Alchemy
       super
     end
 
+    def has_warnings?
+      definition.blank? || deprecated?
+    end
+
+    def warnings
+      return unless has_warnings?
+
+      if definition.blank?
+        Logger.warn("Content #{name} is missing its definition", caller(1..1))
+        Alchemy.t(:content_definition_missing)
+      else
+        deprecation_notice
+      end
+    end
+
     # Returns a deprecation notice for contents marked deprecated
     #
     # You can either use localizations or pass a String as notice
