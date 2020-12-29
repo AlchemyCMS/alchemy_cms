@@ -2,6 +2,8 @@
   <span class="element-handle">
     <% if element.definition.blank? %>
       <%= hint_with_tooltip Alchemy.t(:element_definition_missing) %>
+    <% elsif element.deprecated? %>
+      <%= hint_with_tooltip element.deprecation_notice %>
     <% else %>
       <% if element.public? %>
         <%= render_icon('window-maximize', style: 'regular', class: 'element') %>
