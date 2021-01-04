@@ -30,16 +30,6 @@ module Alchemy
 
       after_create :generate_elements,
         unless: -> { autogenerate_elements == false }
-
-      after_update :hide_not_allowed_elements,
-        if: :saved_change_to_page_layout?
-
-      after_update(if: :saved_change_to_page_layout?) do
-        Alchemy::Deprecation.warn(
-          "Autogenerating elements on page_layout change is deprecated and will be removed from Alchemy 6.0"
-        )
-        generate_elements
-      end
     end
 
     module ClassMethods
@@ -193,24 +183,10 @@ module Alchemy
     # And if so, it generates them.
     #
     def generate_elements
-      existing_elements = all_elements.not_nested
-      existing_element_names = existing_elements.pluck(:name).uniq
       definition.fetch("autogenerate", []).each do |element_name|
-        next if existing_element_names.include?(element_name)
-
         Element.create(page: self, name: element_name)
       end
     end
-
-    # Hides all elements that are not allowed for this page_layout.
-    def hide_not_allowed_elements
-      not_allowed_elements = elements.where([
-        "#{Element.table_name}.name NOT IN (?)",
-        element_definition_names,
-      ])
-      not_allowed_elements.update_all(public: false)
-    end
-    deprecate :trash_not_allowed_elements!, deprecator: Alchemy::Deprecation
 
     # Deletes unique and already present definitions from @_element_definitions.
     #
