@@ -38,8 +38,12 @@ module Alchemy
       after_update :trash_not_allowed_elements!,
         if: :saved_change_to_page_layout?
 
-      after_update :generate_elements,
-        if: :saved_change_to_page_layout?
+      after_update(if: :saved_change_to_page_layout?) do
+        Alchemy::Deprecation.warn(
+          "Autogenerating elements on page_layout change is deprecated and will be removed from Alchemy 6.0"
+        )
+        generate_elements
+      end
     end
 
     module ClassMethods
@@ -212,6 +216,7 @@ module Alchemy
       ])
       not_allowed_elements.to_a.map(&:trash!)
     end
+    deprecate :trash_not_allowed_elements!, deprecator: Alchemy::Deprecation
 
     # Deletes unique and already present definitions from @_element_definitions.
     #
