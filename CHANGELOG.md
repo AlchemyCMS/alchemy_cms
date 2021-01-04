@@ -2,6 +2,22 @@
 
 ## 5.2.0 (unreleased)
 
+### Features
+
+- Allow Element and Content deprecation notices [#1988](https://github.com/AlchemyCMS/alchemy_cms/pull/1988) ([tvdeyen](https://github.com/tvdeyen))
+- Add element definition api (based on PageLayout definitions) [#1986](https://github.com/AlchemyCMS/alchemy_cms/pull/1986) ([stockime](https://github.com/stockime))
+
+### Changes
+
+- Fix Ruby 2.7 deprecations [#1989](https://github.com/AlchemyCMS/alchemy_cms/pull/1989) ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate trash [#1985](https://github.com/AlchemyCMS/alchemy_cms/pull/1985) ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate elements fallbacks [#1982](https://github.com/AlchemyCMS/alchemy_cms/pull/1982) ([tvdeyen](https://github.com/tvdeyen))
+
+### Misc
+
+- [ruby - main] Upgrade rubocop to version 1.6.1 [#1978](https://github.com/AlchemyCMS/alchemy_cms/pull/1978) ([depfu](https://github.com/apps/depfu))
+- [ruby - main] Upgrade simplecov to version 0.20.0 [#1971](https://github.com/AlchemyCMS/alchemy_cms/pull/1971) ([depfu](https://github.com/apps/depfu))
+
 ## 5.1.0 (2020-12-18)
 
 ### Features

@@ -751,6 +751,31 @@ module Alchemy
       end
     end
 
+    describe "#deprecated?" do
+      subject { element.deprecated? }
+
+      let(:element) { build(:alchemy_element) }
+
+      before do
+        expect(element).to receive(:definition) { definition }
+      end
+
+      context "definition has 'deprecated' key with true value" do
+        let(:definition) { { "deprecated" => true } }
+        it { is_expected.to be(true) }
+      end
+
+      context "definition has 'deprecated' key with foo value" do
+        let(:definition) { { "deprecated" => "This is deprecated" } }
+        it { is_expected.to be(true) }
+      end
+
+      context "definition has no 'deprecated' key" do
+        let(:definition) { { "name" => "article" } }
+        it { is_expected.to be(false) }
+      end
+    end
+
     describe "#to_partial_path" do
       it do
         expect(Element.new(name: "article").to_partial_path).to eq("alchemy/elements/article")

@@ -19,13 +19,8 @@ module Alchemy
 
         content_name = content.name_for_label
 
-        if content.definition.blank?
-          warning("Content #{content.name} is missing its definition")
-
-          icon = hint_with_tooltip(
-            Alchemy.t(:content_definition_missing),
-          )
-
+        if content.has_warnings?
+          icon = hint_with_tooltip(content.warnings)
           content_name = "#{icon} #{content_name}".html_safe
         end
 
@@ -39,7 +34,7 @@ module Alchemy
       # Renders the label and a remove link for a content.
       def content_label(content)
         content_tag :label, for: content.form_field_id do
-          [render_hint_for(content), render_content_name(content)].compact.join("&nbsp;").html_safe
+          [render_content_name(content), render_hint_for(content)].compact.join("&nbsp;").html_safe
         end
       end
     end

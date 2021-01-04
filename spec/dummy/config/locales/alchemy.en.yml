@@ -29,6 +29,11 @@ en:
     resource_help_texts:
       party:
         name: Party
+    content_deprecation_notices:
+      all_you_can_eat:
+        essence_html: Old content is deprecated
+    element_deprecation_notices:
+      old: Old element is deprecated
 
   activemodel:
     models:

@@ -98,6 +98,14 @@ RSpec.describe Alchemy::ElementEditor do
 
       it { is_expected.to include("not-nestable") }
     end
+
+    context "with element being deprecated" do
+      before do
+        allow(element).to receive(:deprecated?) { true }
+      end
+
+      it { is_expected.to include("deprecated") }
+    end
   end
 
   describe "#editable?" do
@@ -140,5 +148,56 @@ RSpec.describe Alchemy::ElementEditor do
     subject { element_editor.respond_to?(:to_model) }
 
     it { is_expected.to be(false) }
+  end
+
+  describe "deprecation_notice" do
+    subject { element_editor.deprecation_notice }
+
+    context "when element is not deprecated" do
+      let(:element) { build(:alchemy_element, name: "article") }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "when element is deprecated" do
+      let(:element) { build(:alchemy_element, name: "old") }
+
+      context "with custom element translation" do
+        it { is_expected.to eq("Old element is deprecated") }
+      end
+
+      context "without custom element translation" do
+        let(:element) { build(:alchemy_element, name: "old_too") }
+
+        before do
+          allow(element).to receive(:definition) do
+            {
+              "name" => "old_too",
+              "deprecated" => true,
+            }
+          end
+        end
+
+        it do
+          is_expected.to eq(
+            "WARNING! This element is deprecated and will be removed soon. " \
+            "Please do not use it anymore."
+          )
+        end
+      end
+
+      context "with String as deprecation" do
+        before do
+          allow(element).to receive(:definition) do
+            {
+              "name" => "old",
+              "deprecated" => "Foo baz widget",
+            }
+          end
+        end
+
+        it { is_expected.to eq("Foo baz widget") }
+      end
+    end
   end
 end

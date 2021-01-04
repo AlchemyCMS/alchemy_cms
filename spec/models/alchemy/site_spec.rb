@@ -301,6 +301,7 @@ module Alchemy
                   "gallery",
                   "right_column",
                   "left_column",
+                  "old",
                 ],
               },
               {
