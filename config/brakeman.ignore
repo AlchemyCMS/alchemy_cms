@@ -72,99 +72,6 @@
       "note": "Because we actually can't know all attributes each inheriting controller supports, we permit all resource model params. It is adviced that all inheriting controllers implement this method and provide its own set of permitted attributes. As this all happens inside the password protected /admin namespace this can be considered a false positive."
     },
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "293a6f5581ba3f0e7aa4f81b38d68baf21f1219c8f3bae3eca6b3e1776b734df",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped parameter value",
-      "file": "app/views/alchemy/admin/elements/order.js.erb",
-      "line": 17,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "Element.trashed.where(:id => params[:element_ids]).pluck(:id).collect do\n \"#element_area [data-element-id=\\\"#{id}\\\"]\"\n end.join(\", \")",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Alchemy::Admin::ElementsController",
-          "method": "order",
-          "line": 78,
-          "file": "app/controllers/alchemy/admin/elements_controller.rb",
-          "rendered": {
-            "name": "alchemy/admin/elements/order",
-            "file": "app/views/alchemy/admin/elements/order.js.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "alchemy/admin/elements/order"
-      },
-      "user_input": "params[:element_ids]",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "2eb67abb2b025c3446afa2f9b8d48c6b6a05379234a9228c9af4c25b7e672b00",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/alchemy/admin/elements/index.html.erb",
-      "line": 18,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => Page.find(params[:page_id]).all_elements.not_nested.unfixed.not_trashed.includes(*element_includes).map do\n Alchemy::ElementEditor.new(element)\n end, {})",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Alchemy::Admin::ElementsController",
-          "method": "index",
-          "line": 13,
-          "file": "app/controllers/alchemy/admin/elements_controller.rb",
-          "rendered": {
-            "name": "alchemy/admin/elements/index",
-            "file": "app/views/alchemy/admin/elements/index.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "alchemy/admin/elements/index"
-      },
-      "user_input": "params[:page_id]",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
-      "warning_type": "Dynamic Render Path",
-      "warning_code": 15,
-      "fingerprint": "2eb67abb2b025c3446afa2f9b8d48c6b6a05379234a9228c9af4c25b7e672b00",
-      "check_name": "Render",
-      "message": "Render path contains parameter value",
-      "file": "app/views/alchemy/admin/elements/index.html.erb",
-      "line": 31,
-      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
-      "code": "render(action => Page.find(params[:page_id]).all_elements.not_nested.unfixed.not_trashed.includes(*element_includes).map do\n Alchemy::ElementEditor.new(element)\n end, {})",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Alchemy::Admin::ElementsController",
-          "method": "index",
-          "line": 13,
-          "file": "app/controllers/alchemy/admin/elements_controller.rb",
-          "rendered": {
-            "name": "alchemy/admin/elements/index",
-            "file": "app/views/alchemy/admin/elements/index.html.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "alchemy/admin/elements/index"
-      },
-      "user_input": "params[:page_id]",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "2fa9bf5c73b4e6e3c272f0b14635f96efbd763e9a2c5b785caefffe3589ac461",
@@ -210,7 +117,7 @@
           "type": "controller",
           "class": "Alchemy::Admin::ElementsController",
           "method": "fold",
-          "line": 95,
+          "line": 90,
           "file": "app/controllers/alchemy/admin/elements_controller.rb",
           "rendered": {
             "name": "alchemy/admin/elements/fold",
@@ -233,7 +140,7 @@
       "check_name": "MassAssignment",
       "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
       "file": "app/controllers/alchemy/admin/elements_controller.rb",
-      "line": 146,
+      "line": 141,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.fetch(:contents, {}).permit!",
       "render_path": null,
@@ -346,8 +253,70 @@
       "user_input": "params[:content_id]",
       "confidence": "Weak",
       "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "e47b12a64ca94227190b5077c3acfa16403bb7fd3a155e9a0d63c1a29d329aa4",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/alchemy/admin/elements/index.html.erb",
+      "line": 18,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => Page.find(params[:page_id]).all_elements.not_nested.unfixed.includes(*element_includes).map do\n Alchemy::ElementEditor.new(element)\n end, {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Alchemy::Admin::ElementsController",
+          "method": "index",
+          "line": 13,
+          "file": "app/controllers/alchemy/admin/elements_controller.rb",
+          "rendered": {
+            "name": "alchemy/admin/elements/index",
+            "file": "app/views/alchemy/admin/elements/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "alchemy/admin/elements/index"
+      },
+      "user_input": "params[:page_id]",
+      "confidence": "Weak",
+      "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "e47b12a64ca94227190b5077c3acfa16403bb7fd3a155e9a0d63c1a29d329aa4",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/alchemy/admin/elements/index.html.erb",
+      "line": 31,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => Page.find(params[:page_id]).all_elements.not_nested.unfixed.includes(*element_includes).map do\n Alchemy::ElementEditor.new(element)\n end, {})",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Alchemy::Admin::ElementsController",
+          "method": "index",
+          "line": 13,
+          "file": "app/controllers/alchemy/admin/elements_controller.rb",
+          "rendered": {
+            "name": "alchemy/admin/elements/index",
+            "file": "app/views/alchemy/admin/elements/index.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "alchemy/admin/elements/index"
+      },
+      "user_input": "params[:page_id]",
+      "confidence": "Weak",
+      "note": ""
     }
   ],
-  "updated": "2021-01-04 16:29:42 +0100",
+  "updated": "2021-01-04 16:43:03 +0100",
   "brakeman_version": "4.10.1"
 }
