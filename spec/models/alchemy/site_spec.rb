@@ -264,7 +264,6 @@ module Alchemy
                   "meta_description" => nil,
                   "meta_keywords" => nil,
                   "name" => false,
-                  "page_layout" => "readonly",
                   "public_on" => nil,
                   "public_until" => nil,
                   "restricted" => false,

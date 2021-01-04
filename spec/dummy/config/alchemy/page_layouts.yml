@@ -3,7 +3,6 @@
 
 - name: readonly
   fixed_attributes:
-    page_layout: readonly
     public_on: ~
     public_until: ~
     restricted: false
