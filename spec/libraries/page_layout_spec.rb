@@ -76,14 +76,6 @@ module Alchemy
       end
     end
 
-    describe ".layouts_with_own_for_select" do
-      it "should not hold a layout twice" do
-        layouts = PageLayout.layouts_with_own_for_select("standard", 1, false)
-        layouts = layouts.collect(&:last)
-        expect(layouts.select { |l| l == "standard" }.length).to eq(1)
-      end
-    end
-
     describe ".selectable_layouts" do
       let(:site) { create(:alchemy_site) }
       let(:language) { create(:alchemy_language, code: :de) }
