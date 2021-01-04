@@ -74,6 +74,7 @@ module Alchemy
         end
         mapped_layouts_for_select(layouts)
       end
+      deprecate :layouts_with_own_for_select, deprecator: Alchemy::Deprecation
 
       # Returns all layouts that can be used for creating a new page.
       #
