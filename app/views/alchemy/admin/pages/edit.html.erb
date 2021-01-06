@@ -147,7 +147,7 @@
     });
     Alchemy.Sitemap.watchPagePublicationState();
     Alchemy.PageLeaveObserver();
-    Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_version_id: @page.draft_version.id) %>', {
+    Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_version_id: @page_version.id) %>', {
       texts: {
         title: '<%= Alchemy.t("Elements") %>',
         dirtyTitle: '<%= Alchemy.t("Warning!") %>',
