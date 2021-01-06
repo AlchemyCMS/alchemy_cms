@@ -124,30 +124,17 @@ module Alchemy
         end
       end
 
-      context "with option page_version given" do
-        let(:options) { { page_version: :draft_version } }
-
-        before do
-          assign(:page, page)
-        end
-
-        it "uses this version of page" do
-          expect(page).to receive(:draft_version)
-          subject
-        end
-      end
-
-      context "in preview mode" do
+      context "with page_version assigned" do
         let(:options) { {} }
+        let(:page_version) { create(:alchemy_page_version, :with_elements) }
 
         before do
           assign(:page, page)
-          assign(:preview_mode, :draft_version)
+          assign(:page_version, page_version)
         end
 
-        it "the pages draft version is used" do
-          expect(page).to receive(:draft_version)
-          subject
+        it "this page version is used" do
+          expect(subject).to have_selector(".article")
         end
       end
     end

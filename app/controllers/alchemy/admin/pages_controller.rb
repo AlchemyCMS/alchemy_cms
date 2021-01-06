@@ -33,6 +33,8 @@ module Alchemy
 
       before_action :set_view, only: [:index]
 
+      before_action :set_page_version, only: [:show, :edit]
+
       def index
         @query = @current_language.pages.contentpages.ransack(search_filter_params[:q])
 
@@ -400,6 +402,10 @@ module Alchemy
 
       def set_root_page
         @page_root = @current_language.root_page
+      end
+
+      def set_page_version
+        @page_version = @page.draft_version
       end
 
       def serialized_page_tree
