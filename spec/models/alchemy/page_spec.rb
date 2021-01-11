@@ -576,14 +576,14 @@ module Alchemy
       subject(:published) { Page.published }
 
       let!(:public_one) { create(:alchemy_page, :public) }
-      let!(:public_two) { create(:alchemy_page, :public) }
+      let!(:public_two) { create(:alchemy_page, :public, public_on: Date.tomorrow) }
       let!(:non_public_page) { create(:alchemy_page) }
       let!(:page_with_non_public_language) { create(:alchemy_page, :public, language: non_public_language) }
       let(:non_public_language) { create(:alchemy_language, :german, public: false) }
 
-      it "returns public available pages" do
+      it "returns pages with public page version" do
         expect(published).to include(public_one)
-        expect(published).to include(public_two)
+        expect(published).to_not include(public_two)
         expect(published).to_not include(non_public_page)
         expect(published).to_not include(page_with_non_public_language)
       end
@@ -1337,48 +1337,26 @@ module Alchemy
     describe "#public?" do
       subject { page.public? }
 
-      context "when public_on is not set" do
-        let(:page) { create(:alchemy_page, public_on: nil) }
+      context "when public version is not present" do
+        let(:page) { create(:alchemy_page) }
 
         it { is_expected.to be(false) }
       end
 
-      context "when public_on is set to past date" do
-        context "and public_until is set to nil" do
-          let(:page) do
-            create :alchemy_page,
-              public_on: Time.current - 2.days,
-              public_until: nil
-          end
+      context "when public version is present" do
+        let(:page) { create(:alchemy_page, :public) }
 
+        context "that is public" do
           it { is_expected.to be(true) }
         end
 
-        context "and public_until is set to future date" do
-          let(:page) do
-            create :alchemy_page,
-              public_on: Time.current - 2.days,
-              public_until: Time.current + 2.days
-          end
-
-          it { is_expected.to be(true) }
-        end
-
-        context "and public_until is set to past date" do
-          let(:page) do
-            create :alchemy_page,
-              public_on: Time.current - 2.days,
-              public_until: Time.current - 1.days
+        context "that is not public" do
+          before do
+            expect(page.public_version).to receive(:public?) { false }
           end
 
           it { is_expected.to be(false) }
         end
-      end
-
-      context "when public_on is set to future date" do
-        let(:page) { create(:alchemy_page, public_on: Time.current + 2.days) }
-
-        it { is_expected.to be(false) }
       end
 
       context "when language is not public" do
@@ -1410,61 +1388,9 @@ module Alchemy
         page.publish!
       end
 
-      context "with unpublished page" do
-        it "sets public_on and published_at", aggregate_failures: true do
-          page.publish!
-          expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to eq(current_time)
-          expect(page.public_until).to eq(nil)
-        end
-      end
-
-      context "with already published page" do
-        let(:past_time) { current_time - 3.weeks }
-        let(:published_at) { past_time }
-        let(:public_on) { past_time }
-
-        it "only sets published_at", aggregate_failures: true do
-          page.publish!
-          expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to eq(public_on)
-          expect(page.public_until).to eq(nil)
-        end
-
-        context "that is scheduled for unpublishing" do
-          let(:public_until) { current_time + 2.weeks }
-
-          it "does not change public_until" do
-            page.publish!
-            expect(page.public_until).to eq(public_until)
-          end
-        end
-      end
-
-      context "with page scheduled for publishing" do
-        let(:public_on) { current_time + 3.hours }
-
-        it "resets public_on and sets published_at", aggregate_failures: true do
-          page.publish!
-          expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to eq(current_time)
-          expect(page.public_until).to eq(nil)
-        end
-      end
-
-      context "with not anymore published page" do
-        let(:past_time) { current_time - 3.weeks }
-        let(:published_at) { past_time }
-        let(:public_on) { past_time }
-        let(:public_until) { past_time + 1.week }
-
-        it "resets public_on and published_at and sets public_until to nil",
-          aggregate_failures: true do
-          page.publish!
-          expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to eq(public_on)
-          expect(page.public_until).to eq(nil)
-        end
+      it "sets published_at" do
+        page.publish!
+        expect(page.published_at).to eq(current_time)
       end
     end
 

@@ -9,13 +9,38 @@ module Alchemy
       inverse_of: :page_version
 
     scope :drafts, -> { where(public_on: nil).order(updated_at: :desc) }
+    scope :published, -> { where.not(public_on: nil).order(public_on: :desc) }
 
-    # All published versions
-    #
-    def self.published(on: Time.current)
+    def self.public_on(time = Time.current)
       where("#{table_name}.public_on <= :time AND " \
             "(#{table_name}.public_until IS NULL " \
-            "OR #{table_name}.public_until >= :time)", time: on).order(public_on: :desc)
+            "OR #{table_name}.public_until >= :time)", time: time)
+    end
+
+    # Determines if this version is public
+    #
+    # Takes the two timestamps +public_on+ and +public_until+
+    # and returns true if the time given (+Time.current+ per default)
+    # is in this timespan.
+    #
+    # @param time [DateTime] (Time.current)
+    # @returns Boolean
+    def public?(time = Time.current)
+      already_public_for?(time) && still_public_for?(time)
+    end
+
+    # Determines if this version is already public for given time
+    # @param time [DateTime] (Time.current)
+    # @returns Boolean
+    def already_public_for?(time = Time.current)
+      !public_on.nil? && public_on <= time
+    end
+
+    # Determines if this version is still public for given time
+    # @param time [DateTime] (Time.current)
+    # @returns Boolean
+    def still_public_for?(time = Time.current)
+      public_until.nil? || public_until >= time
     end
   end
 end

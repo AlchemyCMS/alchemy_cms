@@ -4,9 +4,12 @@ module Alchemy
   module Page::PageNatures
     extend ActiveSupport::Concern
 
+    # Determines if this page has a public version and this version is public.
+    #
+    # @see PageVersion#public?
+    # @returns Boolean
     def public?
-      current_time = Time.current
-      language.public? && already_public_for?(current_time) && still_public_for?(current_time)
+      language.public? && !!public_version&.public?
     end
 
     def expiration_time
@@ -158,14 +161,6 @@ module Alchemy
     def caching_enabled?
       Alchemy::Config.get(:cache_pages) &&
         Rails.application.config.action_controller.perform_caching
-    end
-
-    def already_public_for?(time)
-      !public_on.nil? && public_on <= time
-    end
-
-    def still_public_for?(time)
-      public_until.nil? || public_until >= time
     end
   end
 end

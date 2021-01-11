@@ -32,9 +32,11 @@ FactoryBot.define do
 
     trait :public do
       sequence(:name) { |n| "A Public Page #{n}" }
-      public_on { Time.current }
-      after(:build) do |page|
-        page.build_public_version(public_on: page.public_on)
+      transient do
+        public_on { Time.current }
+      end
+      after(:build) do |page, evaluator|
+        page.build_public_version(public_on: evaluator.public_on)
       end
       after(:create) do |page|
         if page.autogenerate_elements

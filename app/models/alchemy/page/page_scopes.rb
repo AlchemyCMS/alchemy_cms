@@ -40,6 +40,15 @@ module Alchemy
       #
       scope :restricted, -> { where(restricted: true) }
 
+      # All public pages
+      #
+      scope :published,
+        -> {
+          joins(:language, :versions).
+            merge(Language.published).
+            merge(PageVersion.public_on(Time.current))
+        }
+
       # All pages that are a published language root
       #
       scope :public_language_roots,
@@ -93,15 +102,6 @@ module Alchemy
     end
 
     module ClassMethods
-      # All public pages
-      #
-      def published
-        joins(:language).merge(Language.published).
-        where("#{table_name}.public_on <= :time AND " \
-              "(#{table_name}.public_until IS NULL " \
-              "OR #{table_name}.public_until >= :time)", time: Time.current)
-      end
-
       # All not public pages
       #
       def not_public
