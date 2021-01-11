@@ -143,7 +143,11 @@ namespace :alchemy do
     desc "Upgrade Alchemy to v4.6"
     task "4.6" => [
       "alchemy:upgrade:prepare",
-    ]
+      "alchemy:upgrade:4.6:run",
+      "alchemy:upgrade:4.6:todo",
+    ] do
+      Alchemy::Upgrader.display_todos
+    end
 
     namespace "4.6" do
       task run: []
