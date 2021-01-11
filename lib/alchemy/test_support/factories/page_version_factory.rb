@@ -11,9 +11,15 @@ FactoryBot.define do
       public_on { Time.current }
     end
 
+    transient do
+      element_count { 1 }
+    end
+
     trait :with_elements do
-      after(:build) do |page_version|
-        page_version.elements.build(name: "article")
+      after(:build) do |page_version, evaluator|
+        evaluator.element_count.times do
+          page_version.elements.build(name: "article")
+        end
       end
     end
   end
