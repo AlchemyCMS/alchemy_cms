@@ -1,3 +1,7 @@
+## 5.0.3 (2021-01-12)
+
+- Fix copy element feature [#1996](https://github.com/AlchemyCMS/alchemy_cms/pull/1996) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.0.2 (2020-12-18)
 
 - Fix page sorting [#1984](https://github.com/AlchemyCMS/alchemy_cms/pull/1984) ([tvdeyen](https://github.com/tvdeyen))
