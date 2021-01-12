@@ -11,7 +11,7 @@ describe Alchemy::Admin::AttachmentsHelper do
     end
 
     it "should return the translation for the given mime type" do
-      expect(helper.mime_to_human("text/plain")).to eq("Text-Document")
+      expect(helper.mime_to_human("text/plain")).to eq("Plain Text Document")
     end
   end
 end
