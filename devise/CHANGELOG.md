@@ -1,4 +1,4 @@
-## 5.1.0 (unreleased)
+## 5.1.0 (2021-01-13)
 
 - Remove support for old Alchemy versions [#118](https://github.com/AlchemyCMS/alchemy-devise/pull/118) ([tvdeyen](https://github.com/tvdeyen))
 - Admin users list fixes [#117](https://github.com/AlchemyCMS/alchemy-devise/pull/117) ([tvdeyen](https://github.com/tvdeyen))
