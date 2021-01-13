@@ -1,6 +1,16 @@
 name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+      - 5.1-stable
+      - 5.0-stable
+  pull_request:
+    branches:
+      - main
+      - 5.1-stable
+      - 5.0-stable
 
 jobs:
   RSpec:
