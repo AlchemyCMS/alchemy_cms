@@ -24,7 +24,7 @@ postgresql: &postgresql
 defaults: &defaults
   pool: 5
   timeout: 5000
-  host: localhost
+  host: <%= ENV['DB_HOST'] || "localhost" %>
   <<: *<%= ENV["DB"] || "sqlite" %>
 
 development:
