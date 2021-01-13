@@ -1,0 +1,106 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+  RSpec:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        alchemy_branch:
+          - 5.0
+          - 5.1
+          - main
+        ruby:
+          - '2.5.8'
+          - '2.6.6'
+          - '2.7.2'
+        database:
+          - mysql
+          - postgresql
+    env:
+      DB: ${{ matrix.database }}
+      DB_USER: alchemy_user
+      DB_PASSWORD: password
+      DB_HOST: '127.0.0.1'
+      RAILS_ENV: test
+      RAILS_VERSION: ${{ matrix.rails }}
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_USER: alchemy_user
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: alchemy_devise_dummy_test
+        ports: ['5432:5432']
+        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
+      mysql:
+        image: mysql:latest
+        ports: ['3306:3306']
+        env:
+          MYSQL_USER: alchemy_user
+          MYSQL_PASSWORD: password
+          MYSQL_DATABASE: alchemy_devise_dummy_test
+          MYSQL_ROOT_PASSWORD: password
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+    steps:
+      - uses: actions/checkout@v2.3.4
+      - name: Set up Ruby
+        uses: actions/setup-ruby@v1.1.2
+        with:
+          ruby-version: ${{ matrix.ruby }}
+      - name: Restore apt cache
+        id: apt-cache
+        uses: actions/cache@v2.1.3
+        with:
+          path: /home/runner/apt/cache
+          key: ${{ runner.os }}-apt-${{ matrix.database }}
+          restore-keys: |
+            ${{ runner.os }}-apt-
+      - name: Install Postgres headers
+        if: matrix.database == 'postgresql'
+        run: |
+          mkdir -p /home/runner/apt/cache
+          sudo apt update -qq
+          sudo apt install -qq --fix-missing libpq-dev -o dir::cache::archives="/home/runner/apt/cache"
+          sudo chown -R runner /home/runner/apt/cache
+      - name: Install MySQL headers
+        if: matrix.database == 'mysql'
+        run: |
+          mkdir -p /home/runner/apt/cache
+          sudo apt update -qq
+          sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
+          sudo chown -R runner /home/runner/apt/cache
+      - name: Install bundler
+        run: |
+          gem install bundler
+      - name: Restore Ruby Gems cache
+        id: cache
+        uses: actions/cache@v2.1.3
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-bundle-${{ matrix.ruby }}-${{ matrix.rails }}-${{ matrix.database }}-${{ hashFiles('**/Gemfile') }}
+          restore-keys: |
+            ${{ runner.os }}-bundle-
+      - name: Install bundle
+        timeout-minutes: 10
+        run: |
+          bundle install --jobs 4 --retry 3 --path vendor/bundle
+      - name: Restore node modules cache
+        id: yarn-cache
+        uses: actions/cache@v2.1.3
+        with:
+          path: spec/dummy/node_modules
+          key: ${{ runner.os }}-yarn-dummy-${{ hashFiles('./package.json') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-dummy-
+      - name: Prepare database
+        run: bundle exec rake alchemy:spec:prepare
+      - name: Run tests
+        run: bundle exec rspec
+      - uses: actions/upload-artifact@main
+        if: failure()
+        with:
+          name: Screenshots
+          path: spec/dummy/tmp/screenshots
