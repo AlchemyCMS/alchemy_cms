@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_07_111332) do
+ActiveRecord::Schema.define(version: 2021_01_14_152444) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -49,7 +49,9 @@ ActiveRecord::Schema.define(version: 2020_09_07_111332) do
     t.integer "updater_id"
     t.integer "parent_element_id"
     t.boolean "fixed", default: false, null: false
+    t.boolean "deprecated", default: false, null: false
     t.index ["creator_id"], name: "index_alchemy_elements_on_creator_id"
+    t.index ["deprecated"], name: "index_alchemy_elements_on_deprecated"
     t.index ["fixed"], name: "index_alchemy_elements_on_fixed"
     t.index ["page_id", "parent_element_id"], name: "index_alchemy_elements_on_page_id_and_parent_element_id"
     t.index ["page_id", "position"], name: "index_elements_on_page_id_and_position"

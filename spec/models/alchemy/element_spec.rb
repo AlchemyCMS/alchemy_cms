@@ -774,24 +774,29 @@ module Alchemy
     describe "#deprecated?" do
       subject { element.deprecated? }
 
-      let(:element) { build(:alchemy_element) }
+      let(:element) { described_class.new(name: "foo") }
 
       before do
-        expect(element).to receive(:definition) { definition }
+        expect(described_class).to receive(:definition_by_name).at_least(:once) { definition }
       end
 
       context "definition has 'deprecated' key with true value" do
-        let(:definition) { { "deprecated" => true } }
+        let(:definition) { { "name" => "foo", "deprecated" => true } }
         it { is_expected.to be(true) }
+
+        it "deprecated is persisted" do
+          element.page = build(:alchemy_page)
+          expect(element.tap(&:save!).reload).to be_deprecated
+        end
       end
 
       context "definition has 'deprecated' key with foo value" do
-        let(:definition) { { "deprecated" => "This is deprecated" } }
+        let(:definition) { { "name" => "foo", "deprecated" => "This is deprecated" } }
         it { is_expected.to be(true) }
       end
 
       context "definition has no 'deprecated' key" do
-        let(:definition) { { "name" => "article" } }
+        let(:definition) { { "name" => "foo" } }
         it { is_expected.to be(false) }
       end
     end
