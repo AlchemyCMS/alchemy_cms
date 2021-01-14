@@ -1,0 +1,1 @@
+../../../../db/migrate/20210114163147_add_deprecated_to_alchemy_contents.rb

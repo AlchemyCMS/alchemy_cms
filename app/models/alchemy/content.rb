@@ -192,10 +192,6 @@ module Alchemy
       essence && !essence.link.blank?
     end
 
-    def deprecated?
-      !!definition["deprecated"]
-    end
-
     # Returns true if this content should be taken for element preview.
     def preview_content?
       !!definition["as_element_title"]

@@ -264,7 +264,8 @@ module Alchemy
     end
 
     describe "#deprecated?" do
-      let(:content) { build_stubbed(:alchemy_content) }
+      let(:element) { build(:alchemy_element, page: build(:alchemy_page)) }
+      let(:content) { described_class.new(name: "text", element: element) }
 
       subject { content.deprecated? }
 
@@ -276,21 +277,33 @@ module Alchemy
 
       context "defined as deprecated" do
         before do
-          expect(content).to receive(:definition).at_least(:once).and_return({
-            "deprecated" => true,
-          })
+          expect(element).to receive(:content_definition_for).at_least(:once) do
+            {
+              name: "text",
+              type: "EssenceText",
+              deprecated: true,
+            }.with_indifferent_access
+          end
         end
 
         it "returns true" do
           expect(content.deprecated?).to be true
         end
+
+        it "deprecated is persisted" do
+          expect(content.tap(&:save!).reload).to be_deprecated
+        end
       end
 
       context "defined as deprecated per String" do
         before do
-          expect(content).to receive(:definition).at_least(:once).and_return({
-            "deprecated" => "This content is deprecated",
-          })
+          expect(element).to receive(:content_definition_for).at_least(:once) do
+            {
+              name: "text",
+              type: "EssenceText",
+              deprecated: "This content is deprecated",
+            }.with_indifferent_access
+          end
         end
 
         it "returns true" do

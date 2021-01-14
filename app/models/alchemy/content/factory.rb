@@ -7,6 +7,17 @@ module Alchemy
     extend ActiveSupport::Concern
 
     module ClassMethods
+      SKIPPED_DEFINITION_ATTRIBUTES = %w(
+        type
+        settings
+        hint
+        default
+        validate
+        as_element_title
+        rss_title
+        rss_description
+      ).freeze
+
       SKIPPED_ATTRIBUTES_ON_COPY = %w(position created_at updated_at creator_id updater_id id)
 
       # Builds a new content as descriped in the elements.yml file.
@@ -24,9 +35,10 @@ module Alchemy
         end
 
         super(
-          name: definition[:name],
-          essence_type: normalize_essence_type(definition[:type]),
-          element_id: element.id
+          definition.except(*SKIPPED_DEFINITION_ATTRIBUTES).merge(
+            essence_type: normalize_essence_type(definition[:type]),
+            element: element
+          )
         ).tap(&:build_essence)
       end
 

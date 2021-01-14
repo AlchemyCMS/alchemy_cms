@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_01_14_152444) do
+ActiveRecord::Schema.define(version: 2021_01_14_163147) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -32,6 +32,8 @@ ActiveRecord::Schema.define(version: 2021_01_14_152444) do
     t.string "essence_type", null: false
     t.integer "essence_id", null: false
     t.integer "element_id", null: false
+    t.boolean "deprecated", default: false, null: false
+    t.index ["deprecated"], name: "index_alchemy_contents_on_deprecated"
     t.index ["element_id"], name: "index_alchemy_contents_on_element_id"
     t.index ["essence_type", "essence_id"], name: "index_alchemy_contents_on_essence_type_and_essence_id", unique: true
   end
