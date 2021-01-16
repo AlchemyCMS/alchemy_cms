@@ -310,6 +310,16 @@ module Alchemy
       end
     end
 
+    describe ".definitions_repository=" do
+      let(:dummy_repo) { Class.new }
+
+      it "should be able to set another repository class" do
+        expect(Element.definitions_repository = dummy_repo).to eq(dummy_repo)
+      end
+
+      after { Element.instance_variable_set(:@_definitions_repository, nil) }
+    end
+
     describe ".display_name_for" do
       it "should return the translation for the given name" do
         expect(Alchemy).to receive(:t).with("subheadline", scope: "element_names", default: "Subheadline").and_return("Überschrift")
