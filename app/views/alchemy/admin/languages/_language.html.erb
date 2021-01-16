@@ -18,7 +18,7 @@
     <%= language.frontpage_name %>
   </td>
   <td>
-    <%= Alchemy::PageLayout.human_layout_name(language.page_layout) %>
+    <%= Alchemy::Page.human_layout_name(language.page_layout) %>
   </td>
   <td class="center">
     <%= language.public? ? render_icon(:check) : nil %>

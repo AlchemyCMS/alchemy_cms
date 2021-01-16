@@ -6,7 +6,7 @@
       options_for_select(
         @current_language.site.page_layout_names.map do |layout|
           [
-            Alchemy::PageLayout.human_layout_name(layout),
+            Alchemy::Page.human_layout_name(layout),
             layout
           ]
         end,

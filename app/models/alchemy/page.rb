@@ -36,6 +36,7 @@
 #
 
 require_dependency "alchemy/page/fixed_attributes"
+require_dependency "alchemy/page/page_layouts"
 require_dependency "alchemy/page/page_scopes"
 require_dependency "alchemy/page/page_natures"
 require_dependency "alchemy/page/page_naming"
@@ -152,6 +153,7 @@ module Alchemy
     after_update :touch_nodes
 
     # Concerns
+    include PageLayouts
     include PageScopes
     include PageNatures
     include PageNaming
@@ -271,7 +273,7 @@ module Alchemy
         return [] if clipboard.blank?
 
         clipboard_pages = all_from_clipboard(clipboard)
-        allowed_page_layouts = Alchemy::PageLayout.selectable_layouts(language_id, layoutpage)
+        allowed_page_layouts = Alchemy::Page.selectable_layouts(language_id, layoutpage)
         allowed_page_layout_names = allowed_page_layouts.collect { |p| p["name"] }
         clipboard_pages.select { |cp| allowed_page_layout_names.include?(cp.page_layout) }
       end
