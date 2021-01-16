@@ -8,19 +8,33 @@ module Alchemy
       extend ActiveSupport::Concern
 
       module ClassMethods
+        # Register a custom element definitions repository
+        #
+        # The default repository is Alchemy::ElementDefinition
+        #
+        def repository=(repo_klass)
+          @_repository = repo_klass
+        end
+
         # Returns the definitions from elements.yml file.
         #
         # Place a +elements.yml+ file inside your apps +config/alchemy+ folder to define
         # your own set of elements
         #
         def definitions
-          ElementDefinition.all
+          repository.all
         end
 
         # Returns one element definition by given name.
         #
         def definition_by_name(name)
-          ElementDefinition.get(name)
+          repository.get(name)
+        end
+
+        private
+
+        def repository
+          @_repository ||= ElementDefinition
         end
       end
 
