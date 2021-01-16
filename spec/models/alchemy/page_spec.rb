@@ -225,6 +225,16 @@ module Alchemy
 
     # ClassMethods (a-z)
 
+    describe ".layouts_repository=" do
+      let(:dummy_repo) { Class.new }
+
+      it "should be able to set another repository class" do
+        expect(Alchemy::Page.layouts_repository = dummy_repo).to eq(dummy_repo)
+      end
+
+      after { Alchemy::Page.instance_variable_set(:@_layouts_repository, nil) }
+    end
+
     describe ".url_path_class" do
       subject { described_class.url_path_class }
 
