@@ -8,6 +8,14 @@ module Alchemy
       extend ActiveSupport::Concern
 
       module ClassMethods
+        # Register a custom page layouts repository
+        #
+        # The default repository is Alchemy::PageLayout
+        #
+        def repository=(repo_klass)
+          @_repository = repo_klass
+        end
+
         # Returns page layouts ready for Rails' select form helper.
         #
         def layouts_for_select(language_id, only_layoutpages = false)
@@ -40,7 +48,7 @@ module Alchemy
         #
         def selectable_layouts(language_id, only_layoutpages = false)
           @language_id = language_id
-          Alchemy::PageLayout.all.select do |layout|
+          repository.all.select do |layout|
             if only_layoutpages
               layout["layoutpage"] && layout_available?(layout)
             else
@@ -66,6 +74,10 @@ module Alchemy
         end
 
         private
+
+        def repository
+          @_repository ||= PageLayout
+        end
 
         # Maps given layouts for Rails select form helper.
         #
