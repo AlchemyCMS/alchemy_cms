@@ -14,7 +14,7 @@
   <%= f.input :frontpage_name %>
   <%= f.input :page_layout,
     collection: Alchemy::PageLayout.all,
-    label_method: ->(p) { Alchemy::PageLayout.human_layout_name(p['name']) },
+    label_method: ->(p) { Alchemy::Page.human_layout_name(p['name']) },
     value_method: ->(p) { p['name'] },
     input_html: {class: 'alchemy_selectbox'} %>
   <%= f.input :public %>
