@@ -1,3 +1,8 @@
+## 5.1.2 (2021-01-26)
+
+- Allow to safe hidden elements [#2007](https://github.com/AlchemyCMS/alchemy_cms/pull/2007) ([tvdeyen](https://github.com/tvdeyen))
+
+
 ## 5.1.1 (2021-01-12)
 
 - Fix copy element feature [#1996](https://github.com/AlchemyCMS/alchemy_cms/pull/1996) ([tvdeyen](https://github.com/tvdeyen))
