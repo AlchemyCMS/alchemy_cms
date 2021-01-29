@@ -64,7 +64,9 @@ or visit the existing demo at https://alchemy-demo.herokuapp.com
 
 ## 💎 Ruby Version
 
-Alchemy runs with Ruby >= 2.3.0.
+Alchemy runs with Ruby >= 2.5.0.
+
+For a Ruby 2.4 compatible version use the [`5.2-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/5.2-stable).
 
 For a Ruby 2.2 compatible version use the [`4.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/4.1-stable).
 
