@@ -1,10 +1,4 @@
 <%= alchemy_form_for [:admin, @page], class: 'edit_page' do |f| %>
-  <%= f.input :page_layout,
-    collection: @page_layouts,
-    label: page_layout_label(@page),
-    include_blank: Alchemy.t('Please choose'),
-    input_html: {class: 'alchemy_selectbox'} %>
-
   <div class="input check_boxes">
     <label class="control-label"><%= Alchemy.t(:page_status) %></label>
     <div class="control_group">

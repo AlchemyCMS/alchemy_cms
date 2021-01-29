@@ -187,17 +187,6 @@ module Alchemy
           expect(page.elements).not_to be_empty
         end
 
-        context "with elements already on the page" do
-          before do
-            page.elements << create(:alchemy_element, name: "header")
-          end
-
-          it "does not autogenerate" do
-            page.save!
-            expect(page.elements.select { |e| e.name == "header" }.length).to eq(1)
-          end
-        end
-
         context "with children getting restricted set to true" do
           before do
             page.save
@@ -235,22 +224,6 @@ module Alchemy
             page.save
             expect(page.elements).to be_empty
           end
-        end
-      end
-
-      context "after changing the page layout" do
-        it "all elements not allowed on this page should be hidden" do
-          expect(news_page.elements.hidden).to be_empty
-          news_page.update!(page_layout: "standard")
-          hidden = news_page.all_elements.hidden.pluck(:name)
-          published = news_page.elements.published.pluck(:name)
-          expect(hidden).to eq(["news"])
-          expect(published).to match_array(["article", "header", "download"])
-        end
-
-        it "should autogenerate elements" do
-          news_page.update(page_layout: "contact")
-          expect(news_page.elements.pluck(:name)).to include("contactform")
         end
       end
 
