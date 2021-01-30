@@ -40,7 +40,20 @@ module Alchemy
     EXCEL_FILE_TYPES = [
       "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       "application/vnd.ms-excel",
+      "application/msexcel",
       "text/csv",
+    ]
+
+    WORD_FILE_TYPES = [
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/vnd.ms-word",
+      "application/msword",
+    ]
+
+    POWERPOINT_FILE_TYPES = [
+      "application/vnd.openxmlformats-officedocument.presentationml.presentation",
+      "application/vnd.ms-powerpoint",
+      "application/mspowerpoint",
     ]
   end
 end
