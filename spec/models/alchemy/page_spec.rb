@@ -589,6 +589,20 @@ module Alchemy
       end
     end
 
+    describe ".not_public" do
+      subject(:not_public) { Page.not_public }
+
+      let!(:public_one) { create(:alchemy_page, :public) }
+      let!(:not_yet_public) { create(:alchemy_page, :public, public_on: Date.tomorrow) }
+      let!(:non_public_page) { create(:alchemy_page) }
+
+      it "returns pages without any public page version" do
+        expect(not_public).to_not include(public_one)
+        expect(not_public).to include(not_yet_public)
+        expect(not_public).to include(non_public_page)
+      end
+    end
+
     describe ".public_language_roots" do
       let!(:public_language_root) { create(:alchemy_page, :public, :language_root) }
 
