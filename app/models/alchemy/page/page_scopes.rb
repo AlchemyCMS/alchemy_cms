@@ -102,12 +102,20 @@ module Alchemy
     end
 
     module ClassMethods
-      # All not public pages
+      # All pages that do not have any public version
       #
-      def not_public
-        where("#{table_name}.public_on IS NULL OR " \
-              "#{table_name}.public_on >= :time OR " \
-              "#{table_name}.public_until <= :time", time: Time.current)
+      def not_public(time = Time.current)
+        where <<~SQL
+          alchemy_pages.id NOT IN (
+            SELECT alchemy_page_versions.page_id
+            FROM alchemy_page_versions
+            WHERE alchemy_page_versions.public_on <= '#{connection.quoted_date(time)}'
+            AND (
+              alchemy_page_versions.public_until IS NULL
+              OR alchemy_page_versions.public_until >= '#{connection.quoted_date(time)}'
+            )
+          )
+        SQL
       end
     end
   end
