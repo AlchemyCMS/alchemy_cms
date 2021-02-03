@@ -131,9 +131,6 @@ module Alchemy
     before_save :inherit_restricted_status,
       if: -> { parent && parent.restricted? }
 
-    before_save :set_published_at,
-      if: -> { public_on.present? && published_at.nil? }
-
     before_save :set_fixed_attributes,
       if: -> { fixed_attributes.any? }
 
@@ -566,10 +563,6 @@ module Alchemy
     # Stores the old urlname in a LegacyPageUrl
     def create_legacy_url
       legacy_urls.find_or_create_by(urlname: urlname_before_last_save)
-    end
-
-    def set_published_at
-      self.published_at = Time.current
     end
   end
 end

@@ -133,47 +133,6 @@ module Alchemy
             expect(page.legacy_urls).to be_empty
           end
         end
-
-        context "set_published_at hook" do
-          let(:current_time) { Time.current.change(usec: 0) }
-          let(:page) do
-            create(:alchemy_page, public_on: public_on, published_at: published_at)
-          end
-
-          before do
-            allow(Time).to receive(:current).and_return(current_time)
-            page.save!
-          end
-
-          context "page is scheduled for publication" do
-            let(:public_on) { current_time + 3.hours }
-
-            context "and published_at is nil" do
-              let(:published_at) { nil }
-
-              it "should set published_at to current time" do
-                expect(page.published_at).to eq(current_time)
-              end
-            end
-
-            context "and published_at is already set" do
-              let(:published_at) { public_on }
-
-              it "should not set published_at" do
-                expect(page.published_at).to eq(public_on)
-              end
-            end
-          end
-
-          context "page is not public and not scheduled for publication" do
-            let(:public_on) { nil }
-            let(:published_at) { nil }
-
-            it "should not update published_at" do
-              expect(page.read_attribute(:published_at)).to eq(nil)
-            end
-          end
-        end
       end
 
       context "after_move" do
