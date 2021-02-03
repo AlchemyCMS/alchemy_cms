@@ -20,6 +20,11 @@
 #  parent_element_id :integer
 #
 
+require_dependency "alchemy/element/definitions"
+require_dependency "alchemy/element/element_contents"
+require_dependency "alchemy/element/element_essences"
+require_dependency "alchemy/element/presenters"
+
 module Alchemy
   class Element < BaseRecord
     NAME_REGEXP = /\A[a-z0-9_-]+\z/
@@ -118,10 +123,10 @@ module Alchemy
     delegate :restricted?, to: :page, allow_nil: true
 
     # Concerns
-    include Alchemy::Element::Definitions
-    include Alchemy::Element::ElementContents
-    include Alchemy::Element::ElementEssences
-    include Alchemy::Element::Presenters
+    include Definitions
+    include ElementContents
+    include ElementEssences
+    include Presenters
 
     # class methods
     class << self

@@ -35,6 +35,12 @@
 #  locked_at        :datetime
 #
 
+require_dependency "alchemy/page/fixed_attributes"
+require_dependency "alchemy/page/page_scopes"
+require_dependency "alchemy/page/page_natures"
+require_dependency "alchemy/page/page_naming"
+require_dependency "alchemy/page/page_elements"
+
 module Alchemy
   class Page < BaseRecord
     include Alchemy::Hints
@@ -140,10 +146,10 @@ module Alchemy
     after_update -> { nodes.update_all(updated_at: Time.current) }
 
     # Concerns
-    include Alchemy::Page::PageScopes
-    include Alchemy::Page::PageNatures
-    include Alchemy::Page::PageNaming
-    include Alchemy::Page::PageElements
+    include PageScopes
+    include PageNatures
+    include PageNaming
+    include PageElements
 
     # site_name accessor
     delegate :name, to: :site, prefix: true, allow_nil: true
@@ -476,7 +482,7 @@ module Alchemy
 
     # Holds an instance of +FixedAttributes+
     def fixed_attributes
-      @_fixed_attributes ||= Alchemy::Page::FixedAttributes.new(self)
+      @_fixed_attributes ||= FixedAttributes.new(self)
     end
 
     # True if given attribute name is defined as fixed
