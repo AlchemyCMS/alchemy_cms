@@ -432,20 +432,28 @@ module Alchemy
 
     # Creates a public version of the page.
     #
-    # Sets +public_on+ and the +published_at+ value to current time
-    # and resets +public_until+ to nil
+    # Sets the +published_at+ value to current time
     #
     # The +published_at+ attribute is used as +cache_key+.
     #
-    def publish!
-      current_time = Time.current
-      update_columns(
-        published_at: current_time,
-        public_on: already_public_for?(current_time) ? public_on : current_time,
-        public_until: still_public_for?(current_time) ? public_until : nil,
-      )
+    def publish!(current_time = Time.current)
+      update_columns(published_at: current_time)
       Publisher.new(self).publish!(public_on: current_time)
     end
+
+    # Sets the public_on date on the published version
+    #
+    # Builds a new version if none exists yet.
+    #
+    def public_on=(time)
+      if public_version
+        public_version.public_on = time
+      else
+        versions.build(public_on: time)
+      end
+    end
+
+    delegate :public_until, :public_until=, to: :public_version, allow_nil: true
 
     # Updates an Alchemy::Page based on a new ordering to be applied to it
     #
@@ -487,12 +495,12 @@ module Alchemy
       (editor_roles & user.alchemy_roles).any?
     end
 
-    # Returns the value of +public_on+ attribute
+    # Returns the value of +public_on+ attribute from public version
     #
     # If it's a fixed attribute then the fixed value is returned instead
     #
     def public_on
-      attribute_fixed?(:public_on) ? fixed_attributes[:public_on] : self[:public_on]
+      attribute_fixed?(:public_on) ? fixed_attributes[:public_on] : public_version&.public_on
     end
 
     # Returns the value of +public_until+ attribute
@@ -500,7 +508,7 @@ module Alchemy
     # If it's a fixed attribute then the fixed value is returned instead
     #
     def public_until
-      attribute_fixed?(:public_until) ? fixed_attributes[:public_until] : self[:public_until]
+      attribute_fixed?(:public_until) ? fixed_attributes[:public_until] : public_version&.public_until
     end
 
     # Returns the name of the creator of this page.

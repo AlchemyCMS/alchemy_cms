@@ -34,9 +34,13 @@ FactoryBot.define do
       sequence(:name) { |n| "A Public Page #{n}" }
       transient do
         public_on { Time.current }
+        public_until { nil }
       end
       after(:build) do |page, evaluator|
-        page.build_public_version(public_on: evaluator.public_on)
+        page.build_public_version(
+          public_on: evaluator.public_on,
+          public_until: evaluator.public_until,
+        )
       end
       after(:create) do |page|
         if page.autogenerate_elements

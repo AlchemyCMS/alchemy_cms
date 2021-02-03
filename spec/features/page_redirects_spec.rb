@@ -83,11 +83,7 @@ RSpec.describe "Requesting a page" do
 
     context "if requested page is unpublished" do
       before do
-        public_page.update(
-          public_on: nil,
-          name: "Not Public",
-          urlname: "",
-        )
+        create(:alchemy_page, name: "Not Public")
       end
 
       it "should raise not found error" do

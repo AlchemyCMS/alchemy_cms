@@ -1297,12 +1297,22 @@ module Alchemy
       end
 
       context "when is not fixed attribute" do
-        let(:page) do
-          create(:alchemy_page, page_layout: "standard", public_until: "2016-11-01")
+        context "and a public version is available" do
+          let(:page) do
+            create(:alchemy_page, :public, public_until: "2016-11-01")
+          end
+
+          it "returns public_until from public version" do
+            is_expected.to eq("2016-11-01".to_time(:utc))
+          end
         end
 
-        it "returns value" do
-          is_expected.to eq("2016-11-01".to_time(:utc))
+        context "and a public version is not available" do
+          let(:page) do
+            create(:alchemy_page, public_until: "2016-11-01")
+          end
+
+          it { is_expected.to be_nil }
         end
       end
     end

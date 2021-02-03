@@ -13,7 +13,7 @@ module Alchemy
     end
 
     def expiration_time
-      public_until? ? public_until - Time.current : nil
+      public_until ? public_until - Time.current : nil
     end
 
     def taggable?
