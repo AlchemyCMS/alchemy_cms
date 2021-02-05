@@ -266,7 +266,6 @@ en:
     "Please log in": "Please log in."
     "Please seperate the tags with commata": "* Please seperate the tags with commas."
     "Properties": "Properties"
-    "Publish page": "Publish page"
     "Read the License": "Read the License"
     "Redirects to": "Redirects to"
     "Reload Preview": "Reload Preview"
@@ -334,6 +333,7 @@ en:
     big_thumbnails: "Big thumbnails"
     cancel: "cancel"
     cannot_delete_picture_notice: "Cannot delete Picture %{name}, because it's still in use."
+    cannot_visit_unpublic_page: "Publish page before visiting it."
     choose_file_to_link: "Please choose a file to link"
     "clear clipboard": "clear clipboard"
     click_to_show_all: "Click to show all again."
@@ -390,7 +390,7 @@ en:
     element_saved: "Saved element."
     enter_external_link: "Please enter the URL you want to link with"
     explain_cropping: "<p>Move the frame and change its size with the mouse or arrow keys to adjust the image mask. Click on \"apply\" when you are satisfied with your selection.</p><p>If you want to return to the original centered image mask like it was defined in the layout, click \"reset\" and \"apply\" afterwards.</p>"
-    explain_publishing: "Publish the page and remove the cached version from the server."
+    explain_publishing: "Publish current page content"
     explain_sitemap_dragndrop_sorting: "Tip: Drag the pages at the icon in order to sort them."
     explain_unlocking: "Leave page and unlock it for other users."
     external_link_notice_1: "Please enter the complete url with http:// or a similar protocol."
@@ -535,6 +535,8 @@ en:
       '1024': '1024px (iPad - Landscape)'
       '1280': '1280px (Desktop)'
     preview_url: Preview
+    publish_page_language_not_public: Cannot publish page if language is not public
+    publish_page_not_allowed: You have not the permission to publish this page
     recently_uploaded_only: 'Recently uploaded only'
     "regular method": "Regular method"
     remove: "Remove"

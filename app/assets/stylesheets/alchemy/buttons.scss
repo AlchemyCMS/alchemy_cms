@@ -40,10 +40,6 @@ input.button {
 
   &[disabled] {
     cursor: not-allowed;
-
-    & + label {
-      display: none;
-    }
   }
 }
 
