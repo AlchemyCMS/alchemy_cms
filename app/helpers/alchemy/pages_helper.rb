@@ -125,7 +125,7 @@ module Alchemy
 
       pages = options[:page].
         self_and_ancestors.contentpages.
-        accessible_by(current_ability, :see)
+        published
 
       if options.delete(:restricted_only)
         pages = pages.restricted
