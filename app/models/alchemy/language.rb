@@ -54,9 +54,6 @@ module Alchemy
     after_update :set_pages_language,
       if: :should_set_pages_language?
 
-    after_update :unpublish_pages,
-      if: :should_unpublish_pages?
-
     before_destroy if: -> { pages.any? } do
       errors.add(:pages, :still_present)
       throw(:abort)
@@ -169,14 +166,6 @@ module Alchemy
 
     def set_pages_language
       pages.update_all language_code: code
-    end
-
-    def should_unpublish_pages?
-      saved_changes[:public] == [true, false]
-    end
-
-    def unpublish_pages
-      pages.update_all(public_on: nil, public_until: nil)
     end
   end
 end
