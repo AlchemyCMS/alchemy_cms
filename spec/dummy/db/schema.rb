@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_07_135820) do
+ActiveRecord::Schema.define(version: 2021_02_05_143548) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -238,14 +238,11 @@ ActiveRecord::Schema.define(version: 2020_12_07_135820) do
     t.integer "updater_id"
     t.integer "language_id", null: false
     t.datetime "published_at"
-    t.datetime "public_on"
-    t.datetime "public_until"
     t.datetime "locked_at"
     t.index ["creator_id"], name: "index_alchemy_pages_on_creator_id"
     t.index ["language_id"], name: "index_alchemy_pages_on_language_id"
     t.index ["locked_at", "locked_by"], name: "index_alchemy_pages_on_locked_at_and_locked_by"
     t.index ["parent_id", "lft"], name: "index_pages_on_parent_id_and_lft"
-    t.index ["public_on", "public_until"], name: "index_alchemy_pages_on_public_on_and_public_until"
     t.index ["rgt"], name: "index_alchemy_pages_on_rgt"
     t.index ["updater_id"], name: "index_alchemy_pages_on_updater_id"
     t.index ["urlname"], name: "index_pages_on_urlname"
