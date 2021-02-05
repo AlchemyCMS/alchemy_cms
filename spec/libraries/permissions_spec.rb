@@ -39,11 +39,6 @@ describe Alchemy::Permissions do
       is_expected.not_to be_able_to(:index, restricted_page)
     end
 
-    it "can only see public not restricted pages" do
-      is_expected.to be_able_to(:see, public_page)
-      is_expected.not_to be_able_to(:see, restricted_page)
-    end
-
     it "can only see public not restricted elements" do
       is_expected.to be_able_to(:show, published_element)
       is_expected.not_to be_able_to(:show, restricted_element)
@@ -77,10 +72,6 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:show, restricted_page)
       is_expected.to be_able_to(:index, public_page)
       is_expected.to be_able_to(:index, restricted_page)
-    end
-
-    it "can see restricted pages" do
-      is_expected.to be_able_to(:see, restricted_page)
     end
 
     it "can see public restricted elements" do
@@ -213,8 +204,8 @@ describe Alchemy::Permissions do
     let(:user) { mock_model(Alchemy.user_class, alchemy_roles: []) }
 
     it "can only see public not restricted pages (like the guest role)" do
-      is_expected.to be_able_to(:see, public_page)
-      is_expected.not_to be_able_to(:see, restricted_page)
+      is_expected.to be_able_to(:show, public_page)
+      is_expected.not_to be_able_to(:show, restricted_page)
     end
   end
 end
