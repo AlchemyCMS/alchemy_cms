@@ -125,6 +125,10 @@ module Alchemy
         "file-alt"
       when *EXCEL_FILE_TYPES
         "file-excel"
+      when *POWERPOINT_FILE_TYPES
+        "file-powerpoint"
+      when *WORD_FILE_TYPES
+        "file-word"
       when *VCARD_FILE_TYPES
         "address-card"
       when *ARCHIVE_FILE_TYPES
