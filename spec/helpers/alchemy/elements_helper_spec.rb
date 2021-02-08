@@ -78,6 +78,19 @@ module Alchemy
           is_expected.to have_selector("##{element.name}_#{element.id}")
           is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
         end
+
+        context "with page_version assigned" do
+          let(:page_version) { create(:alchemy_page_version, :with_elements) }
+
+          before do
+            assign(:page, page)
+            assign(:page_version, page_version)
+          end
+
+          it "this page version elements get rendered" do
+            expect(subject).to have_selector(".article")
+          end
+        end
       end
 
       context "with from_page option" do
@@ -91,13 +104,26 @@ module Alchemy
           let!(:element) { create(:alchemy_element, name: "headline", page: another_page, page_version: another_page.public_version) }
           let!(:another_element) { create(:alchemy_element, page: another_page, page_version: another_page.public_version) }
 
-          it "should render all elements from that page." do
+          it "should render all elements from that pages public version." do
             is_expected.to have_selector("##{element.name}_#{element.id}")
             is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
           end
+
+          context "with page_version assigned" do
+            let(:page_version) { create(:alchemy_page_version, :with_elements) }
+
+            before do
+              assign(:page_version, page_version)
+            end
+
+            it "still renders all elements from the pages public version." do
+              is_expected.to have_selector("##{element.name}_#{element.id}")
+              is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
+            end
+          end
         end
 
-        context "if from_page is nil" do
+        context "that is nil" do
           let(:options) do
             { from_page: nil }
           end
@@ -121,20 +147,6 @@ module Alchemy
 
         it "uses that to load elements to render" do
           is_expected.to have_selector("#news_1001")
-        end
-      end
-
-      context "with page_version assigned" do
-        let(:options) { {} }
-        let(:page_version) { create(:alchemy_page_version, :with_elements) }
-
-        before do
-          assign(:page, page)
-          assign(:page_version, page_version)
-        end
-
-        it "this page version is used" do
-          expect(subject).to have_selector(".article")
         end
       end
     end

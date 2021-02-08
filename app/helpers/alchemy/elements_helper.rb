@@ -72,12 +72,16 @@ module Alchemy
     #
     def render_elements(options = {})
       options = {
-        from_page: @page,
         render_format: "html",
       }.update(options)
 
+      if options.key?(:from_page)
+        page_version = options[:from_page]&.public_version
+      else
+        page_version = @page_version || @page.public_version
+      end
+
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
-      page_version = @page_version || options[:from_page]&.public_version
       elements = finder.elements(page_version: page_version)
 
       buff = []
