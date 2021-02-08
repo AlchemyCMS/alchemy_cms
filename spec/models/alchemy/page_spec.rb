@@ -558,11 +558,14 @@ module Alchemy
       let!(:public_one) { create(:alchemy_page, :public) }
       let!(:public_two) { create(:alchemy_page, :public) }
       let!(:non_public_page) { create(:alchemy_page) }
+      let!(:page_with_non_public_language) { create(:alchemy_page, :public, language: non_public_language) }
+      let(:non_public_language) { create(:alchemy_language, :german, public: false) }
 
       it "returns public available pages" do
         expect(published).to include(public_one)
         expect(published).to include(public_two)
         expect(published).to_not include(non_public_page)
+        expect(published).to_not include(page_with_non_public_language)
       end
     end
 
@@ -1311,6 +1314,13 @@ module Alchemy
 
       context "when public_on is set to future date" do
         let(:page) { create(:alchemy_page, public_on: Time.current + 2.days) }
+
+        it { is_expected.to be(false) }
+      end
+
+      context "when language is not public" do
+        let(:language) { create(:alchemy_language, public: false, default: false) }
+        let(:page) { create(:alchemy_page, :public, language: language) }
 
         it { is_expected.to be(false) }
       end

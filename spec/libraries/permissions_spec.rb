@@ -167,8 +167,22 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:switch_language, Alchemy::Page)
     end
 
-    it "can publish pages" do
-      is_expected.to be_able_to(:publish, Alchemy::Page)
+    context "if page language is public" do
+      let(:language) { create(:alchemy_language, :german, public: true) }
+      let(:page) { create(:alchemy_page, language: language) }
+
+      it "can publish pages" do
+        is_expected.to be_able_to(:publish, page)
+      end
+    end
+
+    context "if page language is not public" do
+      let(:language) { create(:alchemy_language, :german, public: false) }
+      let(:page) { create(:alchemy_page, language: language) }
+
+      it "cannot publish pages" do
+        is_expected.to_not be_able_to(:publish, page)
+      end
     end
 
     it "can manage attachments" do

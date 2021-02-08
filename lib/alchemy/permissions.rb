@@ -158,8 +158,11 @@ module Alchemy
         can([
           :create,
           :destroy,
-          :publish,
         ], Alchemy::Page) { |p| p.editable_by?(@user) }
+
+        can(:publish, Alchemy::Page) do |page|
+          page.language.public? && page.editable_by?(@user)
+        end
 
         can :manage, Alchemy::Picture
         can :manage, Alchemy::Attachment
