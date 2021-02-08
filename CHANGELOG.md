@@ -1,5 +1,14 @@
 ## 6.0.0 (unreleased)
 
+- Do not include unpublished pages in breadcrumb [#2020](https://github.com/AlchemyCMS/alchemy_cms/pull/2020) ([tvdeyen](https://github.com/tvdeyen))
+- Respect Language public status for page public status [#2017](https://github.com/AlchemyCMS/alchemy_cms/pull/2017) ([tvdeyen](https://github.com/tvdeyen))
+- Use at least Ruby 2.5 [#2014](https://github.com/AlchemyCMS/alchemy_cms/pull/2014) ([tvdeyen](https://github.com/tvdeyen))
+- Drop Rails 5.2 support [#2013](https://github.com/AlchemyCMS/alchemy_cms/pull/2013) ([tvdeyen](https://github.com/tvdeyen))
+- Remove page layout change of persisted pages [#1991](https://github.com/AlchemyCMS/alchemy_cms/pull/1991) ([tvdeyen](https://github.com/tvdeyen))
+- Build for Ruby 3 [#1990](https://github.com/AlchemyCMS/alchemy_cms/pull/1990) ([tvdeyen](https://github.com/tvdeyen))
+- Remove element trash [#1987](https://github.com/AlchemyCMS/alchemy_cms/pull/1987) ([tvdeyen](https://github.com/tvdeyen))
+- Remove elements fallbacks [#1983](https://github.com/AlchemyCMS/alchemy_cms/pull/1983) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.2.0 (unreleased)
 
 ### Features
