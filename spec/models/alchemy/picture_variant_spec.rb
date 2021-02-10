@@ -223,6 +223,18 @@ RSpec.describe Alchemy::PictureVariant do
         it "does not convert the picture format" do
           expect(subject).to_not respond_to(:steps)
         end
+
+        context "and quality is passed in options" do
+          let(:options) do
+            { format: format, quality: "30" }
+          end
+
+          it "sets the quality" do
+            step = subject.steps[0]
+            expect(step.name).to eq(:encode)
+            expect(step.arguments).to eq([format, "-quality 30"])
+          end
+        end
       end
 
       context "and image has jpeg format" do
@@ -232,6 +244,18 @@ RSpec.describe Alchemy::PictureVariant do
 
         it "does not convert the picture format" do
           expect(subject).to_not respond_to(:steps)
+        end
+
+        context "and quality is passed in options" do
+          let(:options) do
+            { format: format, quality: "30" }
+          end
+
+          it "sets the quality" do
+            step = subject.steps[0]
+            expect(step.name).to eq(:encode)
+            expect(step.arguments).to eq([format, "-quality 30"])
+          end
         end
       end
     end
