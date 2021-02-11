@@ -16,6 +16,15 @@
 - [ruby - main] Upgrade rubocop to version 1.6.1 [#1978](https://github.com/AlchemyCMS/alchemy_cms/pull/1978) ([depfu](https://github.com/apps/depfu))
 - [ruby - main] Upgrade simplecov to version 0.20.0 [#1971](https://github.com/AlchemyCMS/alchemy_cms/pull/1971) ([depfu](https://github.com/apps/depfu))
 
+## 5.1.2 (2021-01-26)
+
+- Allow to safe hidden elements [#2007](https://github.com/AlchemyCMS/alchemy_cms/pull/2007) ([tvdeyen](https://github.com/tvdeyen))
+
+
+## 5.1.1 (2021-01-12)
+
+- Fix copy element feature [#1996](https://github.com/AlchemyCMS/alchemy_cms/pull/1996) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.1.0 (2020-12-18)
 
 ### Features
@@ -75,6 +84,10 @@
 - Move back to Travis CI [#1907](https://github.com/AlchemyCMS/alchemy_cms/pull/1907) ([tvdeyen](https://github.com/tvdeyen))
 - [ruby] Upgrade rubocop to version 0.88.0 [#1892](https://github.com/AlchemyCMS/alchemy_cms/pull/1892) ([depfu](https://github.com/apps/depfu))
 - [ruby] Upgrade rubocop to version 0.87.1 [#1889](https://github.com/AlchemyCMS/alchemy_cms/pull/1889) ([depfu](https://github.com/apps/depfu))
+
+## 5.0.3 (2021-01-12)
+
+- Fix copy element feature [#1996](https://github.com/AlchemyCMS/alchemy_cms/pull/1996) ([tvdeyen](https://github.com/tvdeyen))
 
 ## 5.0.2 (2020-12-18)
 
