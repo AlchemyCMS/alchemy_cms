@@ -330,26 +330,6 @@ module Alchemy
       end
     end
 
-    context "trash" do
-      let(:element) { create(:alchemy_element) }
-
-      describe ".not_trashed" do
-        before { element }
-
-        it "should return a collection of not trashed elements" do
-          expect(Element.not_trashed.to_a).to eq([element])
-        end
-      end
-
-      describe ".trashed" do
-        before { element.trash! }
-
-        it "should return a collection of trashed elements" do
-          expect(Element.trashed.to_a).to eq([element])
-        end
-      end
-    end
-
     describe ".all_from_clipboard_for_page" do
       let(:element_1) { build_stubbed(:alchemy_element) }
       let(:element_2) { build_stubbed(:alchemy_element, name: "news") }
@@ -796,43 +776,6 @@ module Alchemy
       end
     end
 
-    describe "#trash!" do
-      let(:element) { create(:alchemy_element) }
-
-      let(:trashed_element) do
-        element.trash!
-        element
-      end
-
-      subject { trashed_element }
-
-      it { is_expected.not_to be_public }
-      it { is_expected.to be_folded }
-
-      describe "#position" do
-        subject { super().position }
-        it { is_expected.to be_nil }
-      end
-
-      specify { expect { element.trash! }.to_not change(element, :page_id) }
-
-      context "with already one trashed element on the same page" do
-        let(:element_2) do
-          create(:alchemy_element, page: trashed_element.page)
-        end
-
-        before do
-          trashed_element
-          element_2
-        end
-
-        it "it should be possible to trash another" do
-          element_2.trash!
-          expect(Element.trashed.to_a).to include(trashed_element, element_2)
-        end
-      end
-    end
-
     describe "#to_partial_path" do
       it do
         expect(Element.new(name: "article").to_partial_path).to eq("alchemy/elements/article")
@@ -918,16 +861,6 @@ module Alchemy
           expect(subject).to include(hidden_nested_element)
         end
       end
-
-      context "with trashed nested elements" do
-        let!(:trashed_nested_element) do
-          create(:alchemy_element, parent_element: element, page: page).tap(&:trash!)
-        end
-
-        it "does not include them" do
-          expect(subject).to_not include(trashed_nested_element)
-        end
-      end
     end
 
     describe "#nested_elements" do
@@ -945,16 +878,6 @@ module Alchemy
         context "with hidden nested elements" do
           let!(:hidden_nested_element) do
             create(:alchemy_element, parent_element: element, page: page, public: false)
-          end
-
-          it "does not include them" do
-            expect(subject).to eq([nested_element])
-          end
-        end
-
-        context "with trashed nested elements" do
-          let!(:hidden_trashed_element) do
-            create(:alchemy_element, parent_element: element, page: page).tap(&:trash!)
           end
 
           it "does not include them" do

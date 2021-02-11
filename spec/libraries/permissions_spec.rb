@@ -14,10 +14,10 @@ describe Alchemy::Permissions do
   let(:public_page) { build_stubbed(:alchemy_page, :public, restricted: false) }
   let(:unpublic_page) { build_stubbed(:alchemy_page) }
   let(:restricted_page) { build_stubbed(:alchemy_page, :public, restricted: true) }
-  let(:published_element) { mock_model(Alchemy::Element, restricted?: false, public?: true, trashed?: false) }
-  let(:restricted_element) { mock_model(Alchemy::Element, restricted?: true, public?: true, trashed?: false) }
-  let(:published_content) { mock_model(Alchemy::Content, restricted?: false, public?: true, trashed?: false) }
-  let(:restricted_content) { mock_model(Alchemy::Content, restricted?: true, public?: true, trashed?: false) }
+  let(:published_element) { mock_model(Alchemy::Element, restricted?: false, public?: true) }
+  let(:restricted_element) { mock_model(Alchemy::Element, restricted?: true, public?: true) }
+  let(:published_content) { mock_model(Alchemy::Content, restricted?: false, public?: true) }
+  let(:restricted_content) { mock_model(Alchemy::Content, restricted?: true, public?: true) }
 
   context "A guest user" do
     let(:user) { nil }
@@ -37,11 +37,6 @@ describe Alchemy::Permissions do
       is_expected.not_to be_able_to(:show, restricted_page)
       is_expected.to be_able_to(:index, public_page)
       is_expected.not_to be_able_to(:index, restricted_page)
-    end
-
-    it "can only see public not restricted pages" do
-      is_expected.to be_able_to(:see, public_page)
-      is_expected.not_to be_able_to(:see, restricted_page)
     end
 
     it "can only see public not restricted elements" do
@@ -77,10 +72,6 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:show, restricted_page)
       is_expected.to be_able_to(:index, public_page)
       is_expected.to be_able_to(:index, restricted_page)
-    end
-
-    it "can see restricted pages" do
-      is_expected.to be_able_to(:see, restricted_page)
     end
 
     it "can see public restricted elements" do
@@ -148,10 +139,6 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:manage, Alchemy::EssenceFile)
     end
 
-    it "can see the trash" do
-      is_expected.to be_able_to(:index, :trash)
-    end
-
     it "can manage the clipboard" do
       is_expected.to be_able_to(:manage, :alchemy_admin_clipboard)
     end
@@ -180,12 +167,22 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:switch_language, Alchemy::Page)
     end
 
-    it "can publish pages" do
-      is_expected.to be_able_to(:publish, Alchemy::Page)
+    context "if page language is public" do
+      let(:language) { create(:alchemy_language, :german, public: true) }
+      let(:page) { create(:alchemy_page, language: language) }
+
+      it "can publish pages" do
+        is_expected.to be_able_to(:publish, page)
+      end
     end
 
-    it "can clear the trash" do
-      is_expected.to be_able_to(:clear, :trash)
+    context "if page language is not public" do
+      let(:language) { create(:alchemy_language, :german, public: false) }
+      let(:page) { create(:alchemy_page, language: language) }
+
+      it "cannot publish pages" do
+        is_expected.to_not be_able_to(:publish, page)
+      end
     end
 
     it "can manage attachments" do
@@ -221,8 +218,8 @@ describe Alchemy::Permissions do
     let(:user) { mock_model(Alchemy.user_class, alchemy_roles: []) }
 
     it "can only see public not restricted pages (like the guest role)" do
-      is_expected.to be_able_to(:see, public_page)
-      is_expected.not_to be_able_to(:see, restricted_page)
+      is_expected.to be_able_to(:show, public_page)
+      is_expected.not_to be_able_to(:show, restricted_page)
     end
   end
 end

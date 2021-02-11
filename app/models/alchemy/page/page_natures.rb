@@ -6,7 +6,7 @@ module Alchemy
 
     def public?
       current_time = Time.current
-      already_public_for?(current_time) && still_public_for?(current_time)
+      language.public? && already_public_for?(current_time) && still_public_for?(current_time)
     end
 
     def expiration_time

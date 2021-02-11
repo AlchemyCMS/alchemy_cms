@@ -96,6 +96,7 @@ module Alchemy
       # All public pages
       #
       def published
+        joins(:language).merge(Language.published).
         where("#{table_name}.public_on <= :time AND " \
               "(#{table_name}.public_until IS NULL " \
               "OR #{table_name}.public_until >= :time)", time: Time.current)

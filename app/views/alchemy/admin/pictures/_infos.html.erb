@@ -44,7 +44,6 @@
                     <% end %>
                     <p>
                       <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: pictures) %>
-                      <em><%= Alchemy::Element.human_attribute_name(:trashed) if element.trashed? %></em>
                     </p>
                   </li>
                 <% end %>

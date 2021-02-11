@@ -3,13 +3,13 @@
 module Alchemy
   module Admin
     class ElementsController < Alchemy::Admin::BaseController
-      before_action :load_element, only: [:update, :trash, :fold, :publish]
+      before_action :load_element, only: [:update, :destroy, :fold, :publish]
       authorize_resource class: Alchemy::Element
 
       def index
         @page = Page.find(params[:page_id])
-        @elements = @page.all_elements.not_nested.unfixed.not_trashed.includes(*element_includes)
-        @fixed_elements = @page.all_elements.fixed.not_trashed.includes(*element_includes)
+        @elements = @page.all_elements.not_nested.unfixed.includes(*element_includes)
+        @fixed_elements = @page.all_elements.fixed.includes(*element_includes)
       end
 
       def new
@@ -61,30 +61,25 @@ module Alchemy
         end
       end
 
+      def destroy
+        @element.destroy
+        @notice = Alchemy.t("Successfully deleted element") % { element: @element.display_name }
+      end
+
       def publish
         @element.update(public: !@element.public?)
       end
 
-      # Trashes the Element instead of deleting it.
-      def trash
-        @page = @element.page
-        @element.trash!
-      end
-
       def order
-        @trashed_element_ids = Element.trashed.where(id: params[:element_ids]).pluck(:id)
         @parent_element = Element.find_by(id: params[:parent_element_id])
         Element.transaction do
-          params.fetch(:element_ids, []).each_with_index do |element_id, idx|
-            # Ensure to set page_id and parent_element_id to the current
-            # because of trashed elements could still have old values
-            Element.where(id: element_id).update_all(
-              page_id: params[:page_id],
+          Element.where(id: params.fetch(:element_ids, [])).each.with_index(1) do |element, position|
+            element.update_columns(
               parent_element_id: params[:parent_element_id],
-              position: idx + 1,
+              position: position
             )
           end
-          @parent_element.try!(:touch)
+          @parent_element&.touch
         end
       end
 

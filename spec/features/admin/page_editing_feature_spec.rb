@@ -10,7 +10,7 @@ RSpec.describe "Page editing feature", type: :system do
 
     it "cannot publish page." do
       visit alchemy.edit_admin_page_path(a_page)
-      expect(page).to_not have_selector("#publish_page_form")
+      expect(page).to have_selector("#publish_page_form button[disabled]")
     end
 
     describe "the preview frame", :js do

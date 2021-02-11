@@ -8,7 +8,7 @@ module Alchemy
 
       before_action :load_locked_pages
 
-      helper_method :clipboard_empty?, :trash_empty?, :get_clipboard, :is_admin?
+      helper_method :clipboard_empty?, :get_clipboard, :is_admin?
 
       check_authorization
 
@@ -68,11 +68,6 @@ module Alchemy
       def clipboard_empty?(category)
         get_clipboard(category).blank?
       end
-
-      def trash_empty?(category)
-        "alchemy/#{category.singularize}".classify.constantize.trashed.blank?
-      end
-      deprecate :trash_empty?, deprecator: Alchemy::Deprecation
 
       def set_stamper
         if Alchemy.user_class < ActiveRecord::Base

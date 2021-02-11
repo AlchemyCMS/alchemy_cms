@@ -14,6 +14,8 @@ gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
 group :development, :test do
   if ENV["GITHUB_ACTIONS"]
+    # Necessary because GH Actions gem cache does not have this "Bundled with Ruby" gem installed
+    gem "rexml", "~> 3.2.4"
     gem "sassc", "~> 2.4.0" # https://github.com/sass/sassc-ruby/issues/146
   else
     gem "launchy"

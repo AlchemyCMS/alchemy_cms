@@ -6,23 +6,6 @@
     '<%= sanitize(@parent_element.preview_text.presence || '&nbsp;') %>'
   );
 <% end %>
-
-<% if @trashed_element_ids.any? %>
-
-  $('#element_area .ajax-folder').show();
-  <% element_ids = @trashed_element_ids.collect do |id|
-                     "#element_area [data-element-id=\"#{id}\"]"
-                   end.join(", ").html_safe %>
-  <% @trashed_element_ids.each do |id| %>
-  $('<%= element_ids %>').each(function() { this.id = 'element_' + <%= id %> });
-  <% end %>
-  Alchemy.growl('<%= Alchemy.t(:successfully_restored_element) -%>');
-
-<% else %>
-
   Alchemy.growl('<%= Alchemy.t(:successfully_saved_element_position) -%>');
-
-<% end %>
-
   Alchemy.PreviewWindow.refresh();
 })();

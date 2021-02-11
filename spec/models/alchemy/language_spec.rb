@@ -83,16 +83,6 @@ module Alchemy
           expect([page.language_code, @other_page.language_code]).to eq([language.code, language.code])
         end
       end
-
-      describe "#unpublish_pages" do
-        it "should set all pages to unpublic if it gets set to unpublic" do
-          page = create(:alchemy_page, language: language)
-          @other_page = create(:alchemy_page, language: language)
-          language.update(public: false)
-          language.reload; page.reload; @other_page.reload
-          expect([page.public?, @other_page.public?]).to eq([false, false])
-        end
-      end
     end
 
     describe ".default" do

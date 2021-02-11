@@ -59,7 +59,6 @@ module Alchemy #:nodoc:
           scope :from_element, ->(name) { joins(:element).where(Element.table_name => { name: name }) }
 
           delegate :restricted?, to: :page,    allow_nil: true
-          delegate :trashed?,    to: :element, allow_nil: true
           delegate :public?,     to: :element, allow_nil: true
 
           after_save :touch_element

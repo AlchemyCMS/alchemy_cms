@@ -118,7 +118,6 @@ module Alchemy
 
       # Set page configuration like page names, meta tags and states.
       def configure
-        @page_layouts = PageLayout.layouts_with_own_for_select(@page.page_layout, @current_language.id, @page.layoutpage?)
       end
 
       # Updates page

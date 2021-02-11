@@ -18,7 +18,7 @@
       <%= sanitize(element.preview_text.presence || '&nbsp;') %>
     </span>
   </span>
-  <%= render_hint_for(element) unless element.trashed? %>
+  <%= render_hint_for(element) %>
   <%= link_to '#', {
     'data-element-toggle' => element.id,
     title: Alchemy.t(element.folded? ? :show_element_content : :hide_element_content),
