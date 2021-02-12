@@ -142,7 +142,8 @@ module Alchemy
       end
 
       it "should not include unpublished pages" do
-        page.update_columns(public_on: nil, urlname: "a-unpublic-page", name: "A Unpublic Page", title: "A Unpublic Page")
+        page.update_columns(urlname: "a-unpublic-page", name: "A Unpublic Page", title: "A Unpublic Page")
+        page.public_version.destroy
         is_expected.to_not match(/A Unpublic Page/)
       end
 
