@@ -78,8 +78,9 @@ window.Alchemy.confirmToDeleteDialog = (url, opts) ->
         type: "DELETE"
         error: (xhr, status, error) ->
           type = if xhr.status == 403 then 'warning' else 'error'
-          Alchemy.pleaseWaitOverlay(false)
           Alchemy.growl(xhr.responseText || error, type)
+        complete: () ->
+          Alchemy.pleaseWaitOverlay(false)
 
   $.extend(options, opts)
   Alchemy.openConfirmDialog options.message, options
