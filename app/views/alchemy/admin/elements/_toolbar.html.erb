@@ -26,9 +26,7 @@
         render_icon('trash-alt'),
         Alchemy.t(:confirm_to_delete_element),
         alchemy.admin_element_path(element),
-        method: :delete,
-        class: "icon_button",
-        remote: true
+        class: "icon_button"
       ) -%>
       <label><%= Alchemy.t("Delete element") %></label>
     </div>
