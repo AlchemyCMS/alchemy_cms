@@ -4,11 +4,11 @@
   class: element.css_classes do %>
 
   <% unless element.fixed? %>
-    <%= render 'alchemy/admin/elements/element_header', element: element %>
+    <%= render 'alchemy/admin/elements/header', element: element %>
   <% end %>
 
   <% if element.expanded? || element.fixed? %>
-    <%= render 'alchemy/admin/elements/element_toolbar', element: element %>
+    <%= render 'alchemy/admin/elements/toolbar', element: element %>
 
     <% element.definition[:message].tap do |message| %>
       <%= render_message(:info, sanitize(message)) if message %>
@@ -36,7 +36,7 @@
         <% end %>
       <% end %>
 
-      <%= render 'alchemy/admin/elements/element_footer', element: element %>
+      <%= render 'alchemy/admin/elements/footer', element: element %>
     <% end %>
   <% end %>
 
