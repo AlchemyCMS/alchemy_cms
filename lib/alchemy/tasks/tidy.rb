@@ -62,6 +62,23 @@ module Alchemy
         end
       end
 
+      def remove_trashed_elements
+        puts "\n## Removing trashed elements"
+        elements = Alchemy::Element.unscoped.where(position: nil)
+        if elements.any?
+          log "Destroying #{elements.size} trashed elements"
+          nested_elements, parent_elements = elements.partition(&:parent_element_id)
+          (nested_elements + parent_elements).each do |element|
+            element.destroy
+            print "."
+          end
+          puts "\n"
+          log "Done", :message
+        else
+          log "No trashed elements found", :skip
+        end
+      end
+
       def remove_orphaned_contents
         puts "\n## Removing orphaned contents"
         contents = Alchemy::Content.unscoped.all
