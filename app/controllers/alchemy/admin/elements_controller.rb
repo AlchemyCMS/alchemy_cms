@@ -73,12 +73,16 @@ module Alchemy
       def order
         @parent_element = Element.find_by(id: params[:parent_element_id])
         Element.transaction do
-          Element.where(id: params.fetch(:element_ids, [])).each.with_index(1) do |element, position|
-            element.update_columns(
+          params.fetch(:element_ids, []).each.with_index(1) do |element_id, position|
+            # We need to set the parent_element_id, because we might have dragged the
+            # element over from another nestable element
+            Element.find_by(id: element_id).update_columns(
               parent_element_id: params[:parent_element_id],
-              position: position
+              position: position,
             )
           end
+          # Need to manually touch the parent because Rails does not do it
+          # with the update_columns above
           @parent_element&.touch
         end
       end
