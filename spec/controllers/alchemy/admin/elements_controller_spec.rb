@@ -44,22 +44,24 @@ module Alchemy
     end
 
     describe "#order" do
-      let(:element_1)   { create(:alchemy_element) }
-      let(:element_2)   { create(:alchemy_element, page: page) }
-      let(:element_3)   { create(:alchemy_element, page: page) }
+      let!(:element_1)   { create(:alchemy_element) }
+      let!(:element_2)   { create(:alchemy_element, page: page) }
+      let!(:element_3)   { create(:alchemy_element, page: page) }
       let(:element_ids) { [element_1.id, element_3.id, element_2.id] }
       let(:page)        { element_1.page }
 
       it "sets new position for given element ids" do
-        post :order, params: {page_id: page.id, element_ids: element_ids}, xhr: true
-        expect(Element.all.pluck(:id)).to eq(element_ids)
+        post :order, params: { element_ids: element_ids }, xhr: true
+        expect(Element.all.pluck(:id, :position)).to eq([
+          [element_1.id, 1],
+          [element_3.id, 2],
+          [element_2.id, 3],
+        ])
       end
 
       context "with missing [:element_ids] param" do
         it "does not raise any error and silently rejects to order" do
-          expect {
-            post :order, params: {page_id: page.id}, xhr: true
-          }.to_not raise_error
+          expect { post :order, xhr: true }.to_not raise_error
         end
       end
 
@@ -67,18 +69,17 @@ module Alchemy
         let(:parent) { create(:alchemy_element) }
 
         it "touches the cache key of parent element" do
-          expect(Element).to receive(:find_by) { parent }
-          expect(parent).to receive(:touch) { true }
-          post :order, params: {
-            page_id: page.id,
-            element_ids: element_ids,
-            parent_element_id: parent.id,
-          }, xhr: true
+          parent.update_column(:updated_at, 3.days.ago)
+          expect {
+            post :order, params: {
+              element_ids: element_ids,
+              parent_element_id: parent.id,
+            }, xhr: true
+          }.to change { parent.reload.updated_at }
         end
 
         it "assigns parent element id to each element" do
           post :order, params: {
-            page_id: page.id,
             element_ids: element_ids,
             parent_element_id: parent.id,
           }, xhr: true
