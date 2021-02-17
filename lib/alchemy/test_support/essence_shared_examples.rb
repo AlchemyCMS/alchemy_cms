@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 require "shoulda-matchers"
-require "alchemy/test_support/factories/page_factory"
-require "alchemy/test_support/factories/element_factory"
-require "alchemy/test_support/factories/content_factory"
 
 RSpec.shared_examples_for "an essence" do
   let(:element) { Alchemy::Element.new }
