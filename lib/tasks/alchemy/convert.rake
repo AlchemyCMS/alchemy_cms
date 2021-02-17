@@ -60,15 +60,17 @@ namespace :alchemy do
         def convert_to_nodes(children, node:)
           children.each do |page|
             has_children = page.children.any?
-            next unless page.visible || has_children
 
             Alchemy::Deprecation.silence do
+              next unless page.visible || has_children
+
               new_node = node.children.create!(
                 name: name_for_node(page),
                 page: page_for_node(page),
-                url: page.definition['redirects_to_external'] ? page.urlname : nil,
-                external: page.definition['redirects_to_external'] && Alchemy::Config.get(:open_external_links_in_new_tab),
-                language_id: page.language_id
+                url: !!page.definition['redirects_to_external'] ? page.urlname : nil,
+                external: !!page.definition['redirects_to_external'] && Alchemy::Config.get(:open_external_links_in_new_tab),
+                language_id: page.language_id,
+                site_id: page.language.site_id
               )
               print "."
               if has_children
@@ -82,9 +84,8 @@ namespace :alchemy do
         puts "\n- Converting #{menu_count} page #{'tree'.pluralize(menu_count)} into #{'menu'.pluralize(menu_count)}."
         Alchemy::BaseRecord.transaction do
           Alchemy::Language.all.each do |language|
-            locale = language.locale.presence || I18n.default_locale
-            menu_name = I18n.t('Main Navigation', scope: 'alchemy.menu_names', default: 'Main Navigation', locale: locale)
-            root_node = Alchemy::Node.create(language: language, name: menu_name)
+            menu_name = 'main_menu'
+            root_node = Alchemy::Node.create(language: language, name: menu_name, site: language.site, external: false)
             language.pages.language_roots.each do |root_page|
               convert_to_nodes(root_page.children, node: root_node)
             end
