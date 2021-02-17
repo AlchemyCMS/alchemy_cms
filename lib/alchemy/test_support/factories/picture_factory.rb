@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "factory_bot"
-
 FactoryBot.define do
   factory :alchemy_picture, class: "Alchemy::Picture" do
     image_file do
