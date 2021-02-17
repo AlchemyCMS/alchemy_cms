@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "factory_bot"
-
 FactoryBot.define do
   factory :alchemy_dummy_user, class: "DummyUser" do
     sequence(:email) { |n| "john.#{n}@doe.com" }

@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require "factory_bot"
-require "alchemy/test_support/factories/language_factory"
-require "alchemy/test_support/factories/page_factory"
-
 FactoryBot.define do
   factory :alchemy_node, class: "Alchemy::Node" do
     language { Alchemy::Language.default || create(:alchemy_language) }
