@@ -1,3 +1,9 @@
+## 5.2.0.rc1 (2021-02-17)
+
+### Changes
+
+- Change Factory loading mechanism to FactoryBots supported mechanism [#2030](https://github.com/AlchemyCMS/alchemy_cms/pull/2030) ([mamhoff](https://github.com/mamhoff))
+
 ## 5.2.0.b1 (2021-02-11)
 
 ### Features
