@@ -24,6 +24,7 @@ module Alchemy
       attribute :preview_text
       attribute :display_name
       attribute :has_validations
+      attribute :nestable_elements
     end
 
     has_many :nested_elements
