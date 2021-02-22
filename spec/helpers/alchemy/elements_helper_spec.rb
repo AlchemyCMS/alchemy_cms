@@ -78,6 +78,18 @@ module Alchemy
           is_expected.to have_selector("##{element.name}_#{element.id}")
           is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
         end
+
+        context "in preview_mode" do
+          let!(:draft_element) { create(:alchemy_element, name: "headline", page_version: page.draft_version) }
+
+          before do
+            assign(:preview_mode, true)
+          end
+
+          it "page draft version is used" do
+            is_expected.to have_selector("##{draft_element.name}_#{draft_element.id}")
+          end
+        end
       end
 
       context "with from_page option" do
@@ -94,6 +106,18 @@ module Alchemy
           it "should render all elements from that page." do
             is_expected.to have_selector("##{element.name}_#{element.id}")
             is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
+          end
+
+          context "in preview_mode" do
+            let!(:draft_element) { create(:alchemy_element, name: "headline", page_version: another_page.draft_version) }
+
+            before do
+              assign(:preview_mode, true)
+            end
+
+            it "page draft version is used" do
+              is_expected.to have_selector("##{draft_element.name}_#{draft_element.id}")
+            end
           end
         end
 
@@ -121,20 +145,6 @@ module Alchemy
 
         it "uses that to load elements to render" do
           is_expected.to have_selector("#news_1001")
-        end
-      end
-
-      context "with page_version assigned" do
-        let(:options) { {} }
-        let(:page_version) { create(:alchemy_page_version, :with_elements) }
-
-        before do
-          assign(:page, page)
-          assign(:page_version, page_version)
-        end
-
-        it "this page version is used" do
-          expect(subject).to have_selector(".article")
         end
       end
     end

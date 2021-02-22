@@ -77,7 +77,13 @@ module Alchemy
       }.update(options)
 
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
-      page_version = @page_version || options[:from_page]&.public_version
+
+      page_version = if @preview_mode
+          options[:from_page]&.draft_version
+        else
+          options[:from_page]&.public_version
+        end
+
       elements = finder.elements(page_version: page_version)
 
       buff = []
