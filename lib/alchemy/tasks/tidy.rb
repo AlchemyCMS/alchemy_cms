@@ -98,6 +98,18 @@ module Alchemy
         end
       end
 
+      def remove_duplicate_legacy_urls
+        puts "\n## Removing duplicate legacy URLs"
+        sql = <<~SQL
+          DELETE FROM alchemy_legacy_page_urls A USING alchemy_legacy_page_urls B
+          WHERE A.page_id = B.page_id
+            AND A.urlname = B.urlname
+            AND A.id < B.id
+        SQL
+        count = ActiveRecord::Base.connection.exec_delete(sql)
+        log "Deleted #{count} duplicate legacy URLs"
+      end
+
       private
 
       def destroy_orphaned_records(records, class_name)
