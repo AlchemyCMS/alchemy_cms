@@ -6,7 +6,7 @@ function displayNodeFolders() {
   document.querySelectorAll("li.menu-item").forEach((el) => {
     const leftIconArea = el.querySelector(".nodes_tree-left_images")
     const list = el.querySelector(".children")
-    const node = { folded: el.dataset.folded === "true", id: el.dataset.id }
+    const node = { folded: el.dataset.folded === "true", id: el.dataset.id, type: el.dataset.type }
 
     if (list.children.length > 0 || node.folded) {
       leftIconArea.innerHTML = HandlebarsTemplates.node_folder({ node: node })
@@ -17,9 +17,9 @@ function displayNodeFolders() {
 }
 
 function onFinishDragging(evt) {
-  const url = Alchemy.routes.move_api_node_path(evt.item.dataset.id)
+  const url = Alchemy.routes[evt.item.dataset.type].move_api_path(evt.item.dataset.id)
   const data = {
-    target_parent_id: evt.to.dataset.nodeId,
+    target_parent_id: evt.to.dataset.recordId,
     new_position: evt.newIndex
   }
 
@@ -36,9 +36,9 @@ function onFinishDragging(evt) {
 
 function handleNodeFolders() {
   on("click", ".nodes_tree", ".node_folder", function () {
-    const nodeId = this.dataset.nodeId
+    const nodeId = this.dataset.recordId
     const menu_item = this.closest("li.menu-item")
-    const url = Alchemy.routes.toggle_folded_api_node_path(nodeId)
+    const url = Alchemy.routes[this.dataset.recordType].toggle_folded_api_path(nodeId)
     const list = menu_item.querySelector(".children")
 
     ajax("PATCH", url)

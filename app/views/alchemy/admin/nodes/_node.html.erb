@@ -1,4 +1,4 @@
-<%= content_tag :li, class: 'menu-item', data: { id: node.id, parent_id: node.parent_id, folded: node.folded? } do %>
+<%= content_tag :li, class: 'menu-item', data: { id: node.id, parent_id: node.parent_id, folded: node.folded?, type: "node" } do %>
   <%= content_tag :div, class: [
     'sitemap_node',
     node.external? ? 'external' : 'internal',
