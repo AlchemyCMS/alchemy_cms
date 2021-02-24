@@ -12,12 +12,20 @@ RSpec.describe Alchemy::ElementsRepository do
 
   it { expect(repo).to be_an(Enumerable) }
 
+  shared_examples "being chainable" do
+    it "is chainable" do
+      expect(subject).to be_an(described_class)
+    end
+  end
+
   describe "#visible" do
     subject { repo.visible }
 
     it "returns only visible elements" do
       is_expected.to match_array([visible_element, fixed_element, folded_element])
     end
+
+    it_behaves_like "being chainable"
   end
 
   describe "#hidden" do
@@ -26,12 +34,16 @@ RSpec.describe Alchemy::ElementsRepository do
     it "returns only hidden elements" do
       is_expected.to match_array([hidden_element])
     end
+
+    it_behaves_like "being chainable"
   end
 
   describe "#named" do
     let(:names) { [] }
 
     subject { repo.named(names) }
+
+    it_behaves_like "being chainable"
 
     context "with a single string" do
       let(:names) { "headline" }
@@ -67,7 +79,11 @@ RSpec.describe Alchemy::ElementsRepository do
   end
 
   describe "#where" do
+    let(:attrs) { {} }
+
     subject { repo.where(attrs) }
+
+    it_behaves_like "being chainable"
 
     context "with a single key hash" do
       let(:attrs) { { name: "headline" } }
@@ -87,7 +103,11 @@ RSpec.describe Alchemy::ElementsRepository do
   end
 
   describe "#excluded" do
+    let(:names) { [] }
+
     subject { repo.excluded(names) }
+
+    it_behaves_like "being chainable"
 
     context "with a single string" do
       let(:names) { "headline" }
@@ -128,6 +148,8 @@ RSpec.describe Alchemy::ElementsRepository do
     it "returns only fixed elements" do
       is_expected.to match_array([fixed_element])
     end
+
+    it_behaves_like "being chainable"
   end
 
   describe "#unfixed" do
@@ -136,6 +158,8 @@ RSpec.describe Alchemy::ElementsRepository do
     it "returns only not fixed elements" do
       is_expected.to match_array([visible_element, hidden_element, folded_element])
     end
+
+    it_behaves_like "being chainable"
   end
 
   describe "#folded" do
@@ -144,6 +168,8 @@ RSpec.describe Alchemy::ElementsRepository do
     it "returns only folded elements" do
       is_expected.to match_array([folded_element])
     end
+
+    it_behaves_like "being chainable"
   end
 
   describe "#expanded" do
@@ -152,5 +178,7 @@ RSpec.describe Alchemy::ElementsRepository do
     it "returns only expanded elements" do
       is_expected.to match_array([visible_element, hidden_element, fixed_element])
     end
+
+    it_behaves_like "being chainable"
   end
 end

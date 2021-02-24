@@ -12,66 +12,68 @@ module Alchemy
     end
 
     # All visible elements
-    # @return [Array]
+    # @return [Alchemy::ElementRepository]
     def visible
-      select(&:public)
+      self.class.new select(&:public)
     end
 
     # All not fixed elements
-    # @return [Array]
+    # @return [Alchemy::ElementRepository]
     def hidden
-      reject(&:public)
+      self.class.new reject(&:public)
     end
 
     # All elements with given name(s)
     # @param [Array<String|Symbol>|String|Symbol]
-    # @return [Array]
+    # @return [Alchemy::ElementRepository]
     def named(*names)
       names.flatten!
-      select { |e| e.name.in?(names.map!(&:to_s)) }
+      self.class.new(select { |e| e.name.in?(names.map!(&:to_s)) })
     end
 
     # Filter elements by given attribute and value
     # @param [Array|Hash]
-    # @return [Array]
+    # @return [Alchemy::ElementRepository]
     def where(attrs)
-      select do |element|
-        attrs.all? do |attr, value|
-          element.public_send(attr) == value
+      self.class.new(
+        select do |element|
+          attrs.all? do |attr, value|
+            element.public_send(attr) == value
+          end
         end
-      end
+      )
     end
 
     # All elements excluding those wth given name(s)
     # @param [Array<String|Symbol>|String|Symbol]
-    # @return [Array]
+    # @return [Alchemy::ElementRepository]
     def excluded(*names)
       names.flatten!
-      reject { |e| e.name.in?(names.map!(&:to_s)) }
+      self.class.new(reject { |e| e.name.in?(names.map!(&:to_s)) })
     end
 
     # All fixed elements
-    # @return [Array]
+    # @return [Alchemy::ElementRepository]
     def fixed
-      select(&:fixed)
+      self.class.new select(&:fixed)
     end
 
     # All not fixed elements
-    # @return [Array]
+    # @return [Alchemy::ElementRepository]
     def unfixed
-      reject(&:fixed)
+      self.class.new reject(&:fixed)
     end
 
     # All folded elements
-    # @return [Array]
+    # @return [Alchemy::ElementRepository]
     def folded
-      select(&:folded)
+      self.class.new select(&:folded)
     end
 
     # All expanded elements
-    # @return [Array]
+    # @return [Alchemy::ElementRepository]
     def expanded
-      reject(&:folded)
+      self.class.new reject(&:folded)
     end
 
     def each(&blk)
