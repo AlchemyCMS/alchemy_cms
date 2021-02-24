@@ -4,11 +4,11 @@ require "rails_helper"
 
 RSpec.describe Alchemy::ElementsRepository do
   let(:repo) { described_class.new(elements) }
-  let(:visible_element) { create(:alchemy_element, name: "headline") }
-  let(:hidden_element) { create(:alchemy_element, public: false) }
-  let(:fixed_element) { create(:alchemy_element, fixed: true) }
-  let(:folded_element) { create(:alchemy_element, folded: true) }
-  let(:nested_element) { create(:alchemy_element, parent_element: visible_element) }
+  let(:visible_element) { build_stubbed(:alchemy_element, name: "headline") }
+  let(:hidden_element) { build_stubbed(:alchemy_element, public: false) }
+  let(:fixed_element) { build_stubbed(:alchemy_element, fixed: true) }
+  let(:folded_element) { build_stubbed(:alchemy_element, folded: true) }
+  let(:nested_element) { build_stubbed(:alchemy_element, parent_element: visible_element) }
   let(:elements) { [visible_element, hidden_element, fixed_element, folded_element, nested_element] }
 
   it { expect(repo).to be_an(Enumerable) }
