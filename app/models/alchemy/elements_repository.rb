@@ -6,6 +6,11 @@ module Alchemy
   class ElementsRepository
     include Enumerable
 
+    # An empty set of elements
+    def self.none
+      new([])
+    end
+
     # @param [ActiveRecord::Relation]
     def initialize(elements)
       @elements = elements.to_a
@@ -74,6 +79,36 @@ module Alchemy
     # @return [Alchemy::ElementRepository]
     def expanded
       self.class.new reject(&:folded)
+    end
+
+    # All not nested top level elements
+    # @return [Alchemy::ElementRepository]
+    def not_nested
+      self.class.new(select { |e| e.parent_element_id.nil? })
+    end
+
+    # Elements in reversed order
+    # @return [Alchemy::ElementRepository]
+    def reverse
+      self.class.new elements.reverse
+    end
+
+    # Elements in random order
+    # @return [Alchemy::ElementRepository]
+    def random
+      self.class.new Array(elements).shuffle
+    end
+
+    # Elements off setted by
+    # @return [Alchemy::ElementRepository]
+    def offset(offset)
+      self.class.new elements[offset.to_i..-1]
+    end
+
+    # Elements limitted by
+    # @return [Alchemy::ElementRepository]
+    def limit(limit)
+      self.class.new elements[0..(limit.to_i - 1)]
     end
 
     def each(&blk)
