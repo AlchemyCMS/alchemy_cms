@@ -107,7 +107,9 @@ module Alchemy
     # If no index page and no admin users are present we show the "Welcome to Alchemy" page.
     #
     def load_index_page
-      @page ||= Language.current_root_page
+      page_not_found! unless Language.current
+
+      @page ||= Language.current.pages.language_roots.includes(*alchemy_page_loading_includes).first
       render template: "alchemy/welcome", layout: false if signup_required?
     end
 
@@ -123,7 +125,7 @@ module Alchemy
     def load_page
       page_not_found! unless Language.current
 
-      @page ||= Language.current.pages.contentpages.find_by(
+      @page ||= Language.current.pages.contentpages.includes(*alchemy_page_loading_includes).find_by(
         urlname: params[:urlname],
         language_code: params[:locale] || Language.current.code,
       )

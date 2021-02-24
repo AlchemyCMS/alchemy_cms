@@ -8,6 +8,7 @@ module Alchemy
     include Alchemy::AbilityHelper
     include Alchemy::ControllerActions
     include Alchemy::Modules
+    include Alchemy::EagerLoading
 
     protect_from_forgery
 
