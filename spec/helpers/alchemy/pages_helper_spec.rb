@@ -30,6 +30,17 @@ module Alchemy
         helper.render_site_layout
       end
 
+      context "when block is given" do
+        it "passes it on to the render method" do
+          expect(helper).to receive(:current_alchemy_site).and_return(default_site)
+          expect(helper)
+            .to receive(:render)
+            .with(default_site) { |&block| expect(block).to be }
+
+          helper.render_site_layout { true }
+        end
+      end
+
       context "with missing partial" do
         it "returns empty string and logges warning" do
           expect(helper).to receive(:current_alchemy_site).twice.and_return(default_site)
