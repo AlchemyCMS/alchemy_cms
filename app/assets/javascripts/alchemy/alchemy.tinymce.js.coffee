@@ -13,17 +13,6 @@ $.extend Alchemy.Tinymce,
     config.init_instance_callback = @initInstanceCallback
     return config
 
-  # Returns configuration for given custom tinymce editor selector.
-  #
-  # It uses the +.getDefaultConfig+ and merges the custom parts.
-  #
-  getConfig: (id, selector) ->
-    editor_config = @customConfigs[selector]
-    if editor_config
-      $.extend({}, @getDefaultConfig(id), editor_config)
-    else
-      @getDefaultConfig(id)
-
   # Initializes all TinyMCE editors with given ids
   #
   # @param ids [Array]
@@ -43,8 +32,11 @@ $.extend Alchemy.Tinymce,
   #
   # @param id [Number]
   #   - Editor id that should be initialized.
+  # @param customConfig [Object]
+  #   - Configuration that should be used instead of the default one.
   #
-  initEditor: (id) ->
+  initEditor: (id, customConfig) ->
+    config = @getDefaultConfig(id)
     editor_id = "tinymce_#{id}"
     textarea = $("##{editor_id}")
     editor = tinymce.get(editor_id)
@@ -53,13 +45,11 @@ $.extend Alchemy.Tinymce,
     if textarea.length == 0
       console.warn "Could not initialize TinyMCE for textarea#tinymce_#{id}!"
       return
-    config = @getConfig(id, textarea[0].classList[1])
-    if config
-      spinner = new Alchemy.Spinner('small')
-      textarea.closest('.tinymce_container').prepend spinner.spin().el
-      tinymce.init(config)
-    else
-      console.warn('No tinymce configuration found for', id)
+    if customConfig
+      config = $.extend({}, config, customConfig)
+    spinner = new Alchemy.Spinner('small')
+    textarea.closest('.tinymce_container').prepend spinner.spin().el
+    tinymce.init(config)
 
   # Gets called after an editor instance gets intialized
   #
