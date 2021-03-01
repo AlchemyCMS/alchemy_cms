@@ -51,7 +51,7 @@ RSpec.describe "Page request caching" do
 
           before do
             allow(Time).to receive(:current) { now }
-            page.update_column(:public_until, public_until)
+            page.public_version.update(public_until: public_until)
           end
 
           it "sets max-age cache control header" do

@@ -57,7 +57,7 @@
           <%= form_for [:admin, Alchemy::Element.new(name: nestable_element)],
             remote: true, html: { class: 'add-nested-element-form', id: nil } do |f| %>
             <%= f.hidden_field :name %>
-            <%= f.hidden_field :page_id, value: element.page_id %>
+            <%= f.hidden_field :page_version_id, value: element.page_version_id %>
             <%= f.hidden_field :parent_element_id, value: element.id %>
             <button class="button add-nestable-element-button" data-alchemy-button>
               <%= Alchemy.t(:add_nested_element) % { name: Alchemy.t(nestable_element, scope: 'element_names') } %>

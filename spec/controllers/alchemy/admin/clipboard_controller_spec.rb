@@ -6,9 +6,8 @@ module Alchemy
   describe Admin::ClipboardController do
     routes { Alchemy::Engine.routes }
 
-    let(:public_page)     { build_stubbed(:alchemy_page, :public) }
-    let(:element)         { build_stubbed(:alchemy_element, page: public_page) }
-    let(:another_element) { build_stubbed(:alchemy_element, page: public_page) }
+    let(:element)         { build_stubbed(:alchemy_element) }
+    let(:another_element) { build_stubbed(:alchemy_element) }
 
     before do
       authorize_user(:as_admin)
@@ -70,6 +69,8 @@ module Alchemy
       end
 
       context "with pages as remarkable_type" do
+        let(:public_page) { build_stubbed(:alchemy_page, :public) }
+
         it "should clear the pages clipboard" do
           session[:alchemy_clipboard]["pages"] = [{"id" => public_page.id.to_s}]
           delete :clear, params: {remarkable_type: "pages"}, xhr: true

@@ -4,6 +4,10 @@ require "rails_helper"
 
 module Alchemy
   describe Page do
+    it { is_expected.to have_many(:versions) }
+    it { is_expected.to have_one(:draft_version) }
+    it { is_expected.to have_one(:public_version) }
+
     let(:language) { create(:alchemy_language, :german, default: true) }
     let(:klingon) { create(:alchemy_language, :klingon) }
     let(:language_root) { create(:alchemy_page, :language_root) }
@@ -76,6 +80,18 @@ module Alchemy
         create(:alchemy_page, name: "My Testpage", language: language, parent: language_root)
       end
 
+      context "before_create" do
+        let(:page) do
+          build(:alchemy_page, language: language, parent: language_root)
+        end
+
+        it "builds a version" do
+          expect {
+            page.save!
+          }.to change { page.versions.length }.by(1)
+        end
+      end
+
       context "before_save" do
         it "should not set the title automatically if the name changed but title is not blank" do
           page.name = "My Renaming Test"
@@ -117,47 +133,6 @@ module Alchemy
             expect(page.legacy_urls).to be_empty
           end
         end
-
-        context "set_published_at hook" do
-          let(:current_time) { Time.current.change(usec: 0) }
-          let(:page) do
-            create(:alchemy_page, public_on: public_on, published_at: published_at)
-          end
-
-          before do
-            allow(Time).to receive(:current).and_return(current_time)
-            page.save!
-          end
-
-          context "page is scheduled for publication" do
-            let(:public_on) { current_time + 3.hours }
-
-            context "and published_at is nil" do
-              let(:published_at) { nil }
-
-              it "should set published_at to current time" do
-                expect(page.published_at).to eq(current_time)
-              end
-            end
-
-            context "and published_at is already set" do
-              let(:published_at) { public_on }
-
-              it "should not set published_at" do
-                expect(page.published_at).to eq(public_on)
-              end
-            end
-          end
-
-          context "page is not public and not scheduled for publication" do
-            let(:public_on) { nil }
-            let(:published_at) { nil }
-
-            it "should not update published_at" do
-              expect(page.read_attribute(:published_at)).to eq(nil)
-            end
-          end
-        end
       end
 
       context "after_move" do
@@ -182,9 +157,9 @@ module Alchemy
           expect(page.language_code).to eq("kl")
         end
 
-        it "autogenerates the elements" do
+        it "autogenerates the elements on the draft version" do
           page.save!
-          expect(page.elements).not_to be_empty
+          expect(page.draft_version.elements).not_to be_empty
         end
 
         context "with children getting restricted set to true" do
@@ -377,6 +352,10 @@ module Alchemy
         expect(subject.name).to eq("#{page.name} (Copy)")
       end
 
+      it "the copy should have a draft version" do
+        expect(subject.draft_version).to_not be_nil
+      end
+
       context "a public page" do
         let(:page) { create(:alchemy_page, :public, name: "Source", public_until: Time.current) }
 
@@ -410,20 +389,20 @@ module Alchemy
       end
 
       context "page with elements" do
-        before { page.elements << create(:alchemy_element) }
+        before { create(:alchemy_element, page: page, page_version: page.draft_version) }
 
-        it "the copy should have source elements" do
-          expect(subject.elements).not_to be_empty
-          expect(subject.elements.count).to eq(page.elements.count)
+        it "the copy should have source elements on its draft version" do
+          expect(subject.draft_version.elements).not_to be_empty
+          expect(subject.draft_version.elements.count).to eq(page.draft_version.elements.count)
         end
       end
 
       context "page with fixed elements" do
-        before { page.elements << create(:alchemy_element, :fixed) }
+        before { create(:alchemy_element, :fixed, page: page, page_version: page.draft_version) }
 
-        it "the copy should have source fixed elements" do
-          expect(subject.fixed_elements).not_to be_empty
-          expect(subject.fixed_elements.count).to eq(page.fixed_elements.count)
+        it "the copy should have source fixed elements on its draft version" do
+          expect(subject.draft_version.elements.fixed).not_to be_empty
+          expect(subject.draft_version.elements.fixed.count).to eq(page.draft_version.elements.fixed.count)
         end
       end
 
@@ -438,7 +417,7 @@ module Alchemy
         end
 
         it "the copy should not autogenerate elements" do
-          expect(subject.elements).to be_empty
+          expect(subject.draft_version.elements).to be_empty
         end
       end
 
@@ -556,16 +535,30 @@ module Alchemy
       subject(:published) { Page.published }
 
       let!(:public_one) { create(:alchemy_page, :public) }
-      let!(:public_two) { create(:alchemy_page, :public) }
+      let!(:public_two) { create(:alchemy_page, :public, public_on: Date.tomorrow) }
       let!(:non_public_page) { create(:alchemy_page) }
       let!(:page_with_non_public_language) { create(:alchemy_page, :public, language: non_public_language) }
       let(:non_public_language) { create(:alchemy_language, :german, public: false) }
 
-      it "returns public available pages" do
+      it "returns pages with public page version" do
         expect(published).to include(public_one)
-        expect(published).to include(public_two)
+        expect(published).to_not include(public_two)
         expect(published).to_not include(non_public_page)
         expect(published).to_not include(page_with_non_public_language)
+      end
+    end
+
+    describe ".not_public" do
+      subject(:not_public) { Page.not_public }
+
+      let!(:public_one) { create(:alchemy_page, :public) }
+      let!(:not_yet_public) { create(:alchemy_page, :public, public_on: Date.tomorrow) }
+      let!(:non_public_page) { create(:alchemy_page) }
+
+      it "returns pages without any public page version" do
+        expect(not_public).to_not include(public_one)
+        expect(not_public).to include(not_yet_public)
+        expect(not_public).to include(non_public_page)
       end
     end
 
@@ -590,7 +583,7 @@ module Alchemy
     describe "#available_element_definitions" do
       subject { page.available_element_definitions }
 
-      let(:page) { create(:alchemy_page, :public) }
+      let(:page) { create(:alchemy_page) }
 
       it "returns all element definitions of available elements" do
         expect(subject).to be_an(Array)
@@ -598,7 +591,7 @@ module Alchemy
       end
 
       context "with unique elements already on page" do
-        let!(:element) { create(:alchemy_element, :unique, page: page) }
+        let!(:element) { create(:alchemy_element, :unique, page: page, page_version: page.draft_version) }
 
         it "does not return unique element definitions" do
           expect(subject.collect { |e| e["name"] }).to include("article")
@@ -610,12 +603,12 @@ module Alchemy
         let(:page) { create(:alchemy_page, page_layout: "columns") }
 
         let!(:unique_element) do
-          create(:alchemy_element, :unique, name: "unique_headline", page: page)
+          create(:alchemy_element, :unique, name: "unique_headline", page: page, page_version: page.draft_version)
         end
 
-        let!(:element_1) { create(:alchemy_element, name: "column_headline", page: page) }
-        let!(:element_2) { create(:alchemy_element, name: "column_headline", page: page) }
-        let!(:element_3) { create(:alchemy_element, name: "column_headline", page: page) }
+        let!(:element_1) { create(:alchemy_element, name: "column_headline", page: page, page_version: page.draft_version) }
+        let!(:element_2) { create(:alchemy_element, name: "column_headline", page: page, page_version: page.draft_version) }
+        let!(:element_3) { create(:alchemy_element, name: "column_headline", page: page, page_version: page.draft_version) }
 
         before do
           allow(Element).to receive(:definitions).and_return([
@@ -655,13 +648,12 @@ module Alchemy
 
     describe "#available_elements_within_current_scope" do
       let(:page) { create(:alchemy_page, page_layout: "columns") }
-      let(:nestable_element) { create(:alchemy_element, :with_nestable_elements) }
+      let(:nestable_element) { create(:alchemy_element, :with_nestable_elements, page_version: page.draft_version) }
       let(:currently_available_elements) { page.available_elements_within_current_scope(nestable_element) }
 
       context "When unique element is already nested" do
         before do
-          nestable_element.nested_elements << create(:alchemy_element, name: "slide", unique: true, page: page)
-          page.elements << nestable_element
+          create(:alchemy_element, name: "slide", unique: true, page: page, page_version: page.draft_version, parent_element: nestable_element)
         end
 
         it "returns no available elements" do
@@ -677,7 +669,7 @@ module Alchemy
     end
 
     describe "#available_element_names" do
-      let(:page) { build_stubbed(:alchemy_page) }
+      let(:page) { create(:alchemy_page) }
 
       it "returns all names of elements that could be placed on current page" do
         page.available_element_names == %w(header article)
@@ -708,107 +700,150 @@ module Alchemy
       end
     end
 
+    describe "#public_version" do
+      subject(:public_version) { page.public_version }
+
+      let(:page) { create(:alchemy_page) }
+      let!(:public_one) { Alchemy::PageVersion.create!(page: page, public_on: Date.yesterday) }
+      let!(:public_two) { Alchemy::PageVersion.create!(page: page, public_on: Time.current) }
+
+      it "returns latest published version" do
+        is_expected.to eq(public_two)
+      end
+    end
+
     describe "#all_elements" do
       let(:page) { create(:alchemy_page) }
-      let!(:element_1) { create(:alchemy_element, page: page) }
-      let!(:element_2) { create(:alchemy_element, page: page) }
-      let!(:element_3) { create(:alchemy_element, page: page) }
 
-      before do
-        element_3.move_to_top
-      end
-
-      it "returns a ordered active record collection of elements on that page" do
-        expect(page.all_elements).to eq([element_3, element_1, element_2])
-      end
-
-      context "with nestable elements" do
-        let!(:nestable_element) do
-          create(:alchemy_element, page: page)
-        end
-
-        let!(:nested_element) do
-          create(:alchemy_element, name: "slide", parent_element: nestable_element, page: page)
-        end
-
-        it "contains nested elements of an element" do
-          expect(page.all_elements).to include(nested_element)
+      context "with no published version" do
+        it "returns an empty active record collection" do
+          expect(page.all_elements).to eq([])
         end
       end
 
-      context "with hidden elements" do
-        let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
+      context "with published version" do
+        let(:page) { create(:alchemy_page, :public) }
+        let!(:element_1) { create(:alchemy_element, page: page, page_version: page.public_version) }
+        let!(:element_2) { create(:alchemy_element, page: page, page_version: page.public_version) }
+        let!(:element_3) { create(:alchemy_element, page: page, page_version: page.public_version) }
 
-        it "contains hidden elements" do
-          expect(page.all_elements).to include(hidden_element)
+        before do
+          element_3.move_to_top
         end
-      end
 
-      context "with fixed elements" do
-        let(:fixed_element) { create(:alchemy_element, page: page, fixed: true) }
+        it "returns a ordered active record collection of elements on that pages published version" do
+          expect(page.all_elements).to eq([element_3, element_1, element_2])
+        end
 
-        it "contains hidden elements" do
-          expect(page.all_elements).to include(fixed_element)
+        context "with nestable elements" do
+          let!(:nestable_element) do
+            create(:alchemy_element, page: page, page_version: page.public_version)
+          end
+
+          let!(:nested_element) do
+            create(:alchemy_element, name: "slide", parent_element: nestable_element, page: page, page_version: page.public_version)
+          end
+
+          it "contains nested elements of an element" do
+            expect(page.all_elements).to include(nested_element)
+          end
+        end
+
+        context "with hidden elements" do
+          let(:hidden_element) { create(:alchemy_element, page: page, public: false, page_version: page.public_version) }
+
+          it "contains hidden elements" do
+            expect(page.all_elements).to include(hidden_element)
+          end
+        end
+
+        context "with fixed elements" do
+          let(:fixed_element) { create(:alchemy_element, page: page, fixed: true, page_version: page.public_version) }
+
+          it "contains fixed elements" do
+            expect(page.all_elements).to include(fixed_element)
+          end
         end
       end
     end
 
     describe "#elements" do
       let(:page) { create(:alchemy_page) }
-      let!(:element_1) { create(:alchemy_element, page: page) }
-      let!(:element_2) { create(:alchemy_element, page: page) }
-      let!(:element_3) { create(:alchemy_element, page: page) }
 
-      before do
-        element_3.move_to_top
+      context "with no published version" do
+        it "returns an empty active record collection" do
+          expect(page.all_elements).to eq([])
+        end
       end
 
-      it "returns a ordered active record collection of elements on that page" do
-        expect(page.elements).to eq([element_3, element_1, element_2])
-      end
-
-      context "with nestable elements" do
-        let(:nestable_element) { create(:alchemy_element, :with_nestable_elements) }
+      context "with published version" do
+        let(:page) { create(:alchemy_page, :public) }
+        let!(:element_1) { create(:alchemy_element, page: page, page_version: page.public_version) }
+        let!(:element_2) { create(:alchemy_element, page: page, page_version: page.public_version) }
+        let!(:element_3) { create(:alchemy_element, page: page, page_version: page.public_version) }
 
         before do
-          nestable_element.nested_elements << create(:alchemy_element, name: "slide")
-          page.elements << nestable_element
+          element_3.move_to_top
         end
 
-        it "does not contain nested elements of an element" do
-          expect(nestable_element.nested_elements).to_not be_empty
-          expect(page.elements).to_not include(nestable_element.nested_elements.first)
+        it "returns a ordered active record collection of top level elements on that page" do
+          expect(page.elements).to eq([element_3, element_1, element_2])
         end
-      end
 
-      context "with hidden elements" do
-        let(:hidden_element) { create(:alchemy_element, page: page, public: false) }
+        context "with nestable elements" do
+          let!(:nestable_element) do
+            create(:alchemy_element, page: page, page_version: page.public_version)
+          end
 
-        it "does not contain hidden elements" do
-          expect(page.elements).to_not include(hidden_element)
+          let!(:nested_element) do
+            create(:alchemy_element, name: "slide", parent_element: nestable_element, page: page, page_version: page.public_version)
+          end
+
+          it "does not contain nested elements of an element" do
+            expect(nestable_element.nested_elements).to_not be_empty
+            expect(page.elements).to_not include(nestable_element.nested_elements)
+          end
+        end
+
+        context "with hidden elements" do
+          let(:hidden_element) { create(:alchemy_element, page: page, public: false, page_version: page.public_version) }
+
+          it "does not contain hidden elements" do
+            expect(page.elements).to_not include(hidden_element)
+          end
         end
       end
     end
 
     describe "#fixed_elements" do
       let(:page) { create(:alchemy_page) }
-      let!(:element_1) { create(:alchemy_element, fixed: true, page: page) }
-      let!(:element_2) { create(:alchemy_element, fixed: true, page: page) }
-      let!(:element_3) { create(:alchemy_element, fixed: true, page: page) }
 
-      before do
-        element_3.move_to_top
+      context "with no published version" do
+        it "returns an empty active record collection" do
+          expect(page.all_elements).to eq([])
+        end
       end
 
-      it "returns a ordered active record collection of fixed elements on that page" do
-        expect(page.fixed_elements).to eq([element_3, element_1, element_2])
-      end
+      context "with published version" do
+        let(:page) { create(:alchemy_page, :public) }
+        let!(:element_1) { create(:alchemy_element, fixed: true, page: page, page_version: page.public_version) }
+        let!(:element_2) { create(:alchemy_element, fixed: true, page: page, page_version: page.public_version) }
+        let!(:element_3) { create(:alchemy_element, fixed: true, page: page, page_version: page.public_version) }
 
-      context "with hidden fixed elements" do
-        let(:hidden_element) { create(:alchemy_element, page: page, fixed: true, public: false) }
+        before do
+          element_3.move_to_top
+        end
 
-        it "does not contain hidden fixed elements" do
-          expect(page.fixed_elements).to_not include(hidden_element)
+        it "returns a ordered active record collection of fixed elements on that page" do
+          expect(page.fixed_elements).to eq([element_3, element_1, element_2])
+        end
+
+        context "with hidden fixed elements" do
+          let(:hidden_element) { create(:alchemy_element, page: page, fixed: true, public: false, page_version: page.public_version) }
+
+          it "does not contain hidden fixed elements" do
+            expect(page.fixed_elements).to_not include(hidden_element)
+          end
         end
       end
     end
@@ -906,28 +941,29 @@ module Alchemy
     end
 
     describe "#feed_elements" do
-      let(:news_element) { create(:alchemy_element, name: "news", public: false, page: news_page) }
+      let(:news_page) { create(:alchemy_page, :public, name: "News", page_layout: "news") }
+      let(:news_element) { create(:alchemy_element, name: "news", page: news_page, page_version: news_page.public_version) }
+      let(:unpublic_news_element) { create(:alchemy_element, name: "news", public: false, page: news_page, page_version: news_page.draft_version) }
 
       it "should return all published rss feed elements" do
-        expect(news_page.feed_elements).not_to be_empty
-        expect(news_page.feed_elements).to eq(Element.where(name: "news").available.to_a)
+        expect(news_page.feed_elements).to eq([news_element])
       end
 
       it "should not return unpublished rss feed elements" do
-        expect(news_page.feed_elements).not_to include(news_element)
+        expect(news_page.feed_elements).not_to include(unpublic_news_element)
       end
     end
 
     describe "#find_elements" do
       subject { page.find_elements(options) }
 
-      let(:page) { build(:alchemy_page) }
+      let(:page) { create(:alchemy_page, :public) }
       let(:options) { {} }
       let(:finder) { instance_double(Alchemy::ElementsFinder) }
 
-      it "passes self and all options to elements finder" do
+      it "passes public_version and all options to elements finder" do
         expect(Alchemy::ElementsFinder).to receive(:new).with(options) { finder }
-        expect(finder).to receive(:elements).with(page: page)
+        expect(finder).to receive(:elements).with(page_version: page.public_version)
         subject
       end
 
@@ -1261,12 +1297,22 @@ module Alchemy
       end
 
       context "when is not fixed attribute" do
-        let(:page) do
-          create(:alchemy_page, page_layout: "standard", public_until: "2016-11-01")
+        context "and a public version is available" do
+          let(:page) do
+            create(:alchemy_page, :public, public_until: "2016-11-01")
+          end
+
+          it "returns public_until from public version" do
+            is_expected.to eq("2016-11-01".to_time(:utc))
+          end
         end
 
-        it "returns value" do
-          is_expected.to eq("2016-11-01".to_time(:utc))
+        context "and a public version is not available" do
+          let(:page) do
+            create(:alchemy_page, public_until: "2016-11-01")
+          end
+
+          it { is_expected.to be_nil }
         end
       end
     end
@@ -1274,48 +1320,26 @@ module Alchemy
     describe "#public?" do
       subject { page.public? }
 
-      context "when public_on is not set" do
-        let(:page) { create(:alchemy_page, public_on: nil) }
+      context "when public version is not present" do
+        let(:page) { create(:alchemy_page) }
 
         it { is_expected.to be(false) }
       end
 
-      context "when public_on is set to past date" do
-        context "and public_until is set to nil" do
-          let(:page) do
-            create :alchemy_page,
-              public_on: Time.current - 2.days,
-              public_until: nil
-          end
+      context "when public version is present" do
+        let(:page) { create(:alchemy_page, :public) }
 
+        context "that is public" do
           it { is_expected.to be(true) }
         end
 
-        context "and public_until is set to future date" do
-          let(:page) do
-            create :alchemy_page,
-              public_on: Time.current - 2.days,
-              public_until: Time.current + 2.days
-          end
-
-          it { is_expected.to be(true) }
-        end
-
-        context "and public_until is set to past date" do
-          let(:page) do
-            create :alchemy_page,
-              public_on: Time.current - 2.days,
-              public_until: Time.current - 1.days
+        context "that is not public" do
+          before do
+            expect(page.public_version).to receive(:public?) { false }
           end
 
           it { is_expected.to be(false) }
         end
-      end
-
-      context "when public_on is set to future date" do
-        let(:page) { create(:alchemy_page, public_on: Time.current + 2.days) }
-
-        it { is_expected.to be(false) }
       end
 
       context "when language is not public" do
@@ -1340,59 +1364,16 @@ module Alchemy
 
       before do
         allow(Time).to receive(:current).and_return(current_time)
+      end
+
+      it "calls the page publisher" do
+        expect_any_instance_of(Alchemy::Page::Publisher).to receive(:publish!).with(public_on: current_time)
         page.publish!
       end
 
-      context "with unpublished page" do
-        it "sets public_on and published_at", aggregate_failures: true do
-          expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to eq(current_time)
-          expect(page.public_until).to eq(nil)
-        end
-      end
-
-      context "with already published page" do
-        let(:past_time) { current_time - 3.weeks }
-        let(:published_at) { past_time }
-        let(:public_on) { past_time }
-
-        it "only sets published_at", aggregate_failures: true do
-          expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to eq(public_on)
-          expect(page.public_until).to eq(nil)
-        end
-
-        context "that is scheduled for unpublishing" do
-          let(:public_until) { current_time + 2.weeks }
-
-          it "does not change public_until" do
-            expect(page.public_until).to eq(public_until)
-          end
-        end
-      end
-
-      context "with page scheduled for publishing" do
-        let(:public_on) { current_time + 3.hours }
-
-        it "resets public_on and sets published_at", aggregate_failures: true do
-          expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to eq(current_time)
-          expect(page.public_until).to eq(nil)
-        end
-      end
-
-      context "with not anymore published page" do
-        let(:past_time) { current_time - 3.weeks }
-        let(:published_at) { past_time }
-        let(:public_on) { past_time }
-        let(:public_until) { past_time + 1.week }
-
-        it "resets public_on and published_at and sets public_until to nil",
-          aggregate_failures: true do
-          expect(page.published_at).to eq(current_time)
-          expect(page.public_on).to eq(public_on)
-          expect(page.public_until).to eq(nil)
-        end
+      it "sets published_at" do
+        page.publish!
+        expect(page.published_at).to eq(current_time)
       end
     end
 
@@ -1819,14 +1800,14 @@ module Alchemy
       let!(:expanded_element) do
         create :alchemy_element, :with_contents,
           name: "article",
-          page: page,
+          page_version: page.draft_version,
           folded: false
       end
 
       let!(:folded_element) do
         create :alchemy_element, :with_contents,
           name: "article",
-          page: page,
+          page_version: page.draft_version,
           folded: true
       end
 
@@ -1843,7 +1824,7 @@ module Alchemy
         let!(:nested_expanded_element) do
           create :alchemy_element, :with_contents,
             name: "article",
-            page: page,
+            page_version: page.draft_version,
             parent_element: expanded_element,
             folded: false
         end
@@ -1851,7 +1832,7 @@ module Alchemy
         let!(:nested_folded_element) do
           create :alchemy_element, :with_contents,
             name: "article",
-            page: page,
+            page_version: page.draft_version,
             parent_element: folded_element,
             folded: true
         end

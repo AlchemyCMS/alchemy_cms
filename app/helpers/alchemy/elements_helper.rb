@@ -77,7 +77,14 @@ module Alchemy
       }.update(options)
 
       finder = options[:finder] || Alchemy::ElementsFinder.new(options)
-      elements = finder.elements(page: options[:from_page])
+
+      page_version = if @preview_mode
+          options[:from_page]&.draft_version
+        else
+          options[:from_page]&.public_version
+        end
+
+      elements = finder.elements(page_version: page_version)
 
       buff = []
       elements.each_with_index do |element, i|
@@ -133,7 +140,7 @@ module Alchemy
     def render_element(element, options = {}, counter = 1)
       if element.nil?
         warning("Element is nil")
-        render "alchemy/elements/view_not_found", {name: "nil"}
+        render "alchemy/elements/view_not_found", { name: "nil" }
         return
       end
 

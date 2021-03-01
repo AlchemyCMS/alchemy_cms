@@ -41,6 +41,15 @@ module Alchemy
         #
         scope :restricted, -> { where(restricted: true) }
 
+        # All public pages
+        #
+        scope :published,
+          -> {
+            joins(:language, :versions).
+              merge(Language.published).
+              merge(PageVersion.public_on(Time.current))
+          }
+
         # All pages that are a published language root
         #
         scope :public_language_roots,
@@ -94,21 +103,20 @@ module Alchemy
       end
 
       module ClassMethods
-        # All public pages
+        # All pages that do not have any public version
         #
-        def published
-          joins(:language).merge(Language.published).
-          where("#{table_name}.public_on <= :time AND " \
-                "(#{table_name}.public_until IS NULL " \
-                "OR #{table_name}.public_until >= :time)", time: Time.current)
-        end
-
-        # All not public pages
-        #
-        def not_public
-          where("#{table_name}.public_on IS NULL OR " \
-                "#{table_name}.public_on >= :time OR " \
-                "#{table_name}.public_until <= :time", time: Time.current)
+        def not_public(time = Time.current)
+          where <<~SQL
+            alchemy_pages.id NOT IN (
+              SELECT alchemy_page_versions.page_id
+              FROM alchemy_page_versions
+              WHERE alchemy_page_versions.public_on <= '#{connection.quoted_date(time)}'
+              AND (
+                alchemy_page_versions.public_until IS NULL
+                OR alchemy_page_versions.public_until >= '#{connection.quoted_date(time)}'
+              )
+            )
+          SQL
         end
       end
     end

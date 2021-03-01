@@ -58,8 +58,8 @@ module Alchemy
           end
 
           context "and the root page is not public" do
-            before do
-              default_language_root.update!(public_on: nil)
+            let(:default_language_root) do
+              create(:alchemy_page, :language_root, public_on: nil, language: default_language, name: "Home")
             end
 
             it "raises routing error (404)" do
@@ -128,7 +128,7 @@ module Alchemy
 
       describe "requesting a no longer public page" do
         let(:no_longer_public) do
-          create :alchemy_page,
+          create :alchemy_page, :public,
             parent: default_language_root,
             public_on: 2.days.ago,
             public_until: 1.day.ago

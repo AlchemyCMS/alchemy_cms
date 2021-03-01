@@ -5,11 +5,10 @@ include Alchemy::BaseHelper
 
 module Alchemy
   describe ElementsHelper do
-    let(:page)    { build_stubbed(:alchemy_page, :public) }
-    let(:element) { build_stubbed(:alchemy_element, name: "headline", page: page) }
+    let(:element) { create(:alchemy_element, name: "headline") }
 
     before do
-      assign(:page, page)
+      assign(:page, element&.page)
       allow_any_instance_of(Element).to receive(:store_page).and_return(true)
     end
 
@@ -69,15 +68,27 @@ module Alchemy
       subject { helper.render_elements(options) }
 
       let(:page) { create(:alchemy_page, :public) }
-      let!(:element) { create(:alchemy_element, name: "headline", page: page) }
-      let!(:another_element) { create(:alchemy_element, page: page) }
+      let!(:element) { create(:alchemy_element, name: "headline", page_version: page.public_version) }
+      let!(:another_element) { create(:alchemy_element, page_version: page.public_version) }
 
       context "without any options" do
         let(:options) { {} }
 
-        it "should render all elements from current page." do
+        it "should render all elements from current pages public version." do
           is_expected.to have_selector("##{element.name}_#{element.id}")
           is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
+        end
+
+        context "in preview_mode" do
+          let!(:draft_element) { create(:alchemy_element, name: "headline", page_version: page.draft_version) }
+
+          before do
+            assign(:preview_mode, true)
+          end
+
+          it "page draft version is used" do
+            is_expected.to have_selector("##{draft_element.name}_#{draft_element.id}")
+          end
         end
       end
 
@@ -89,12 +100,24 @@ module Alchemy
             { from_page: another_page }
           end
 
-          let!(:element) { create(:alchemy_element, name: "headline", page: another_page) }
-          let!(:another_element) { create(:alchemy_element, page: another_page) }
+          let!(:element) { create(:alchemy_element, name: "headline", page: another_page, page_version: another_page.public_version) }
+          let!(:another_element) { create(:alchemy_element, page: another_page, page_version: another_page.public_version) }
 
           it "should render all elements from that page." do
             is_expected.to have_selector("##{element.name}_#{element.id}")
             is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
+          end
+
+          context "in preview_mode" do
+            let!(:draft_element) { create(:alchemy_element, name: "headline", page_version: another_page.draft_version) }
+
+            before do
+              assign(:preview_mode, true)
+            end
+
+            it "page draft version is used" do
+              is_expected.to have_selector("##{draft_element.name}_#{draft_element.id}")
+            end
           end
         end
 

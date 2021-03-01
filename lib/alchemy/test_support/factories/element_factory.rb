@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :alchemy_element, class: "Alchemy::Element" do
     name { "article" }
     autogenerate_contents { false }
-    association :page, factory: :alchemy_page
+    association :page_version, factory: :alchemy_page_version
 
     trait :fixed do
       fixed { true }
@@ -21,7 +21,7 @@ FactoryBot.define do
     end
 
     trait :nested do
-      association :parent_element, factory: :alchemy_element, name: "slider"
+      parent_element { build(:alchemy_element, name: "slider", page_version: page_version) }
       name { "slide" }
     end
 

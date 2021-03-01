@@ -83,10 +83,11 @@ module Alchemy
     end
 
     def page_elements(page)
+      elements = page.public_version&.elements || Alchemy::Element.none
       if opts[:elements] == "true"
-        page.elements
+        elements
       else
-        page.elements.named(opts[:elements].split(",") || [])
+        elements.named(opts[:elements].split(",") || [])
       end
     end
 

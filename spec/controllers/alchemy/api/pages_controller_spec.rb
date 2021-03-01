@@ -163,22 +163,24 @@ module Alchemy
             expect(result).to have_key("pages")
             expect(result["pages"][0]).to have_key("elements")
           end
+        end
 
-          context "and elements is a comma separated list of element names" do
-            before do
-              page.send(:generate_elements)
+        context "when elements is a comma separated list of element names" do
+          before do
+            %i(headline text contactform).map do |name|
+              create(:alchemy_element, name: name, page: page, page_version: page.public_version)
             end
+          end
 
-            it "returns all pages as nested json tree with only these elements included" do
-              get :nested, params: { elements: "headline,text", format: :json }
+          it "returns all pages as nested json tree with only these elements included" do
+            get :nested, params: { elements: "headline,text", format: :json }
 
-              result = JSON.parse(response.body)
+            result = JSON.parse(response.body)
 
-              elements = result["pages"][0]["children"][0]["elements"]
-              element_names = elements.collect { |element| element["name"] }
-              expect(element_names).to include("headline", "text")
-              expect(element_names).to_not include("contactform")
-            end
+            elements = result["pages"][0]["children"][0]["elements"]
+            element_names = elements.collect { |element| element["name"] }
+            expect(element_names).to include("headline", "text")
+            expect(element_names).to_not include("contactform")
           end
         end
       end

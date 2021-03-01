@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_09_07_111332) do
+ActiveRecord::Schema.define(version: 2021_02_05_143548) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -39,7 +39,6 @@ ActiveRecord::Schema.define(version: 2020_09_07_111332) do
   create_table "alchemy_elements", force: :cascade do |t|
     t.string "name"
     t.integer "position"
-    t.integer "page_id", null: false
     t.boolean "public", default: true, null: false
     t.boolean "folded", default: false, null: false
     t.boolean "unique", default: false, null: false
@@ -49,10 +48,11 @@ ActiveRecord::Schema.define(version: 2020_09_07_111332) do
     t.integer "updater_id"
     t.integer "parent_element_id"
     t.boolean "fixed", default: false, null: false
+    t.integer "page_version_id", null: false
     t.index ["creator_id"], name: "index_alchemy_elements_on_creator_id"
     t.index ["fixed"], name: "index_alchemy_elements_on_fixed"
-    t.index ["page_id", "parent_element_id"], name: "index_alchemy_elements_on_page_id_and_parent_element_id"
-    t.index ["page_id", "position"], name: "index_elements_on_page_id_and_position"
+    t.index ["page_version_id", "parent_element_id"], name: "idx_alchemy_elements_on_page_version_id_and_parent_element_id"
+    t.index ["page_version_id", "position"], name: "idx_alchemy_elements_on_page_version_id_and_position"
     t.index ["updater_id"], name: "index_alchemy_elements_on_updater_id"
   end
 
@@ -203,6 +203,16 @@ ActiveRecord::Schema.define(version: 2020_09_07_111332) do
     t.index ["updater_id"], name: "index_alchemy_nodes_on_updater_id"
   end
 
+  create_table "alchemy_page_versions", force: :cascade do |t|
+    t.integer "page_id", null: false
+    t.datetime "public_on"
+    t.datetime "public_until"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["page_id"], name: "index_alchemy_page_versions_on_page_id"
+    t.index ["public_on", "public_until"], name: "index_alchemy_page_versions_on_public_on_and_public_until"
+  end
+
   create_table "alchemy_pages", force: :cascade do |t|
     t.string "name"
     t.string "urlname"
@@ -228,14 +238,13 @@ ActiveRecord::Schema.define(version: 2020_09_07_111332) do
     t.integer "updater_id"
     t.integer "language_id", null: false
     t.datetime "published_at"
-    t.datetime "public_on"
-    t.datetime "public_until"
+    t.datetime "legacy_public_on"
+    t.datetime "legacy_public_until"
     t.datetime "locked_at"
     t.index ["creator_id"], name: "index_alchemy_pages_on_creator_id"
     t.index ["language_id"], name: "index_alchemy_pages_on_language_id"
     t.index ["locked_at", "locked_by"], name: "index_alchemy_pages_on_locked_at_and_locked_by"
     t.index ["parent_id", "lft"], name: "index_pages_on_parent_id_and_lft"
-    t.index ["public_on", "public_until"], name: "index_alchemy_pages_on_public_on_and_public_until"
     t.index ["rgt"], name: "index_alchemy_pages_on_rgt"
     t.index ["updater_id"], name: "index_alchemy_pages_on_updater_id"
     t.index ["urlname"], name: "index_pages_on_urlname"
@@ -341,11 +350,12 @@ ActiveRecord::Schema.define(version: 2020_09_07_111332) do
   end
 
   add_foreign_key "alchemy_contents", "alchemy_elements", column: "element_id", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "alchemy_elements", "alchemy_pages", column: "page_id", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "alchemy_elements", "alchemy_page_versions", column: "page_version_id", on_delete: :cascade
   add_foreign_key "alchemy_essence_nodes", "alchemy_nodes", column: "node_id"
   add_foreign_key "alchemy_essence_pages", "alchemy_pages", column: "page_id"
   add_foreign_key "alchemy_nodes", "alchemy_languages", column: "language_id"
   add_foreign_key "alchemy_nodes", "alchemy_pages", column: "page_id", on_delete: :cascade
+  add_foreign_key "alchemy_page_versions", "alchemy_pages", column: "page_id", on_delete: :cascade
   add_foreign_key "alchemy_pages", "alchemy_languages", column: "language_id"
   add_foreign_key "alchemy_picture_thumbs", "alchemy_pictures", column: "picture_id"
 end
