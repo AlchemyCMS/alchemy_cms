@@ -1,7 +1,7 @@
 # Relaxed.Ruby.Style
 
 AllCops:
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.5
   Exclude:
     - 'bin/rspec'
     - 'vendor/**/*'
