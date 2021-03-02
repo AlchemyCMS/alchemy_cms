@@ -45,7 +45,7 @@ Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
 
 FactoryBot.definition_file_paths.concat(Alchemy::TestSupport.factory_paths)
-FactoryBot.reload
+FactoryBot.find_definitions
 
 Capybara.register_driver :selenium_chrome_headless do |app|
   Capybara::Selenium::Driver.load_selenium

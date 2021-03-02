@@ -7,8 +7,8 @@ Alchemy::Deprecation.warn <<~MSG
 
       require 'alchemy/test_support'
 
-      FactoryBot.definition_file_paths.concat(Alchemy::TestSupport.factory_paths)
-      FactoryBot.reload
+      FactoryBot.definition_file_paths.append(Alchemy::TestSupport.factories_path)
+      FactoryBot.find_definitions
 MSG
 
 Dir["#{File.dirname(__FILE__)}/factories/*.rb"].sort.each do |file|
