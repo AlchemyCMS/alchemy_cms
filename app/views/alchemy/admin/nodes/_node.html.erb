@@ -1,4 +1,4 @@
-<%= content_tag :li, class: 'menu-item', data: { id: node.id, parent_id: node.parent_id, folded: node.folded? } do %>
+<%= content_tag :li, class: 'menu-item', data: { id: node.id, parent_id: node.parent_id, folded: node.folded?, type: "node" } do %>
   <%= content_tag :div, class: [
     'sitemap_node',
     node.external? ? 'external' : 'internal',
@@ -67,7 +67,7 @@
       <% end %>
     </div>
   <% end %>
-  <%= content_tag :ul, class: "children #{' folded' if node.folded?}", data: { node_id: node.id } do %>
+  <%= content_tag :ul, class: "children #{' folded' if node.folded?}", data: { record_id: node.id } do %>
     <%= render partial: 'node', collection: node.children.includes(:page, :children) %>
   <% end %>
 <% end %>
