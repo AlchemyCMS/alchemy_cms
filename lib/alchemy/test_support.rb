@@ -2,10 +2,8 @@
 
 module Alchemy
   module TestSupport
-    def self.factory_paths
-      Dir[
-        ::Alchemy::Engine.root.join("lib", "alchemy", "test_support", "factories", "*_factory.rb")
-      ].map { |path| path.sub(/.rb\z/, "") }
+    def self.factories_path
+      ::Alchemy::Engine.root.join("lib", "alchemy", "test_support", "factories")
     end
   end
 end
