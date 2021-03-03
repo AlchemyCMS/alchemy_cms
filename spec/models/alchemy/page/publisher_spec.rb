@@ -51,6 +51,10 @@ RSpec.describe Alchemy::Page::Publisher do
         create(:alchemy_page_version, :with_elements, element_count: 3, public_on: Date.yesterday.to_time, page: page)
       end
 
+      let!(:nested_element) do
+        create(:alchemy_element, page_version: public_version, parent_element: public_version.elements.first)
+      end
+
       it "does not change current public versions public on date" do
         expect { publish }.to_not change(page.public_version, :public_on)
       end
