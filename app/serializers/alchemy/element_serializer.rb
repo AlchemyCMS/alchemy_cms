@@ -11,15 +11,14 @@ module Alchemy
       :tag_list,
       :created_at,
       :updated_at,
-      :dom_id,
-      :display_name
+      :dom_id
 
-    with_options unless: :can_manage? do
+    with_options unless: :can_read? do
       attribute :ingredients
       attribute :content_ids
     end
 
-    with_options if: :can_manage? do
+    with_options if: :can_read? do
       attribute :folded
       attribute :public
       attribute :preview_text
@@ -28,8 +27,8 @@ module Alchemy
       attribute :nestable_elements
     end
 
-    has_many :nested_elements
-    has_many :contents, if: :can_manage?
+    has_many :nested_elements, serializer: self, class_name: "Alchemy::Element"
+    has_many :contents, if: :can_read?
 
     def ingredients
       object.contents.collect(&:serialize)
@@ -47,8 +46,8 @@ module Alchemy
       object.has_validations?
     end
 
-    def can_manage?
-      scope.can?(:manage, object)
+    def can_read?
+      scope.can?(:read, object)
     end
   end
 end

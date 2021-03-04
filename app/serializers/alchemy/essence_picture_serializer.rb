@@ -12,7 +12,7 @@ module Alchemy
       :link,
     )
 
-    attribute :thumbnail_url, if: -> { scope.can?(:manage, object) }
+    attribute :thumbnail_url, if: -> { scope.can?(:read, object) }
 
     has_one :picture
 

@@ -8,7 +8,7 @@ module Alchemy
       :element_id,
       :settings
 
-    with_options if: :can_manage? do
+    with_options if: :can_read? do
       attribute :label
       attribute :component_name
       attribute :form_field_id
@@ -47,8 +47,8 @@ module Alchemy
       object.essence_validation_error_messages
     end
 
-    def can_manage?
-      scope.can?(:manage, object)
+    def can_read?
+      scope.can?(:read, object)
     end
   end
 end
