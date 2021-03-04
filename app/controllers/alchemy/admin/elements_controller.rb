@@ -12,6 +12,16 @@ module Alchemy
         elements = @page_version.elements.order(:position).includes(*element_includes)
         @elements = elements.not_nested.unfixed
         @fixed_elements = elements.not_nested.fixed
+
+        respond_to do |format|
+          format.html
+          format.json do
+            render json: @elements,
+                   scope: current_ability,
+                   root: :elements,
+                   adapter: :json
+          end
+        end
       end
 
       def new

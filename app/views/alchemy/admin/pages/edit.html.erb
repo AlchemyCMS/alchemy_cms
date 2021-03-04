@@ -135,7 +135,7 @@
 <div id="edit_page">
   <alchemy-preview-window :preview-url="<%= @preview_urls.first %>"></alchemy-preview-window>
   <alchemy-elements-window
-    url="<%= alchemy.api_elements_path(page_id: @page.id) %>"
+    url="<%= alchemy.admin_elements_path(page_version_id: @page_version.id, format: :json) %>"
     :page-id="<%= @page.id %>"
     :richtext-content-ids="<%= @page.richtext_contents_ids.to_json %>"
     title="<%= Alchemy.t("Elements") %>"
