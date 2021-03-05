@@ -10,14 +10,14 @@ RSpec.describe "The edit elements feature", type: :system do
   end
 
   context "Visiting the new element form" do
-    context "with a page_id passed" do
+    context "with a page_version_id passed" do
       scenario "a form to select a new element for the page appears." do
         visit alchemy.new_admin_element_path(page_version_id: a_page.draft_version.id)
         expect(page).to have_selector('select[name="element[name]"]')
       end
     end
 
-    context "with a page_id and parent_element_id passed" do
+    context "with a page_version_id and parent_element_id passed" do
       let!(:element) do
         create(:alchemy_element, :with_nestable_elements, page_version: a_page.draft_version)
       end
@@ -25,6 +25,25 @@ RSpec.describe "The edit elements feature", type: :system do
       scenario "a hidden field with parent element id is in the form." do
         visit alchemy.new_admin_element_path(page_version_id: a_page.draft_version.id, parent_element_id: element.id)
         expect(page).to have_selector(%(input[type="hidden"][name="element[parent_element_id]"][value="#{element.id}"]))
+      end
+    end
+
+    context "with element in clipboard" do
+      let(:element) do
+        create(:alchemy_element, page_version: a_page.draft_version)
+      end
+
+      before do
+        expect_any_instance_of(Alchemy::Admin::ElementsController).to receive(:get_clipboard) do
+          [
+            { "id" => element.id, "action" => "copy" },
+          ]
+        end
+      end
+
+      scenario "a hidden field with page version id is in the form." do
+        visit alchemy.new_admin_element_path(page_version_id: a_page.draft_version.id)
+        expect(page).to have_selector(%(input[type="hidden"][name="element[page_version_id]"][value="#{a_page.draft_version.id}"]))
       end
     end
   end
