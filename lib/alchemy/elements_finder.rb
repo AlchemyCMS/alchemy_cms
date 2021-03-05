@@ -32,16 +32,16 @@ module Alchemy
 
     # @param page [Alchemy::PageVersion]
     #   The page version the elements are loaded from.
-    # @return [ActiveRecord::Relation]
+    # @return [Alchemy::ElementsRepository]
     def elements(page_version:)
       elements = find_elements(page_version)
 
       if options[:reverse]
-        elements = elements.reverse_order
+        elements = elements.reverse
       end
 
       if options[:random]
-        elements = elements.reorder(Arel.sql(random_function))
+        elements = elements.random
       end
 
       elements.offset(options[:offset]).limit(options[:count])
@@ -52,9 +52,10 @@ module Alchemy
     attr_reader :options
 
     def find_elements(page_version)
-      return Alchemy::Element.none unless page_version
+      return Alchemy::ElementsRepository.none unless page_version
 
-      elements = page_version.elements.not_nested.available
+      elements = Alchemy::ElementsRepository.new(page_version.elements.available)
+      elements = elements.not_nested
       elements = options[:fixed] ? elements.fixed : elements.unfixed
 
       if options[:only]
@@ -66,15 +67,6 @@ module Alchemy
       end
 
       elements
-    end
-
-    def random_function
-      case ActiveRecord::Base.connection_config[:adapter]
-      when "postgresql", "sqlite3"
-        "RANDOM()"
-      else
-        "RAND()"
-      end
     end
   end
 end

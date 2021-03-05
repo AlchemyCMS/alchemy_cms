@@ -20,7 +20,7 @@ RSpec.describe Alchemy::ElementsFinder do
     end
 
     context "with page_version object given" do
-      subject { finder.elements(page_version: page_version) }
+      subject { finder.elements(page_version: page_version).to_a }
 
       it "returns all public elements from page_version" do
         is_expected.to eq([visible_element])
@@ -132,18 +132,9 @@ RSpec.describe Alchemy::ElementsFinder do
           { random: true }
         end
 
-        let(:random_function) do
-          case ActiveRecord::Base.connection_config[:adapter]
-          when "postgresql", "sqlite3"
-            "RANDOM()"
-          else
-            "RAND()"
-          end
-        end
-
         it "returns elements in random order" do
-          expect_any_instance_of(ActiveRecord::Relation).to \
-            receive(:reorder).with(random_function).and_call_original
+          expect_any_instance_of(Alchemy::ElementsRepository).to \
+            receive(:random).and_call_original
           subject
         end
       end
