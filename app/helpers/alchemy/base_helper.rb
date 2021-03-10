@@ -102,9 +102,9 @@ module Alchemy
     end
 
     def render_picture_assignment_box(record)
-      render partial: "alchemy/admin/pictures/picture_assignment", 
+      render partial: "alchemy/admin/pictures/picture_assignment",
             locals: { record: record,
-                      image: record.send(record.picture_assignment_field_name)
+                      image: record.send(record.picture_assignment_field_name),
                     }
     end
   end

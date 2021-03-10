@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateAlchemyPictureAssignments < ActiveRecord::Migration[6.0]
   def change
     unless table_exists?("alchemy_picture_assignments")
