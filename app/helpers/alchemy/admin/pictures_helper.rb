@@ -10,17 +10,19 @@ module Alchemy
         )
       end
 
-      def picture_thumbnail(image)
-        picture = image
-
-        return if picture.nil?
-
-        image_tag(
-          picture.url,
-          alt: picture.name,
-          class: "img_paddingtop",
-          title: Alchemy.t(:image_name) + ": #{picture.name}",
-        )
+      def picture_assignment_redirect_url(picture_to_assign, record, content)
+        if content.present?
+          alchemy.assign_admin_essence_pictures_path(
+            picture_id: picture_to_assign.id,
+            content_id: content
+          )
+        else
+          alchemy.assign_admin_pictures_path(
+            picture_id: picture_to_assign.id,
+            record_id: record.id,
+            record_type: record.class.name
+          )
+        end
       end
     end
   end

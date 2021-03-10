@@ -4,10 +4,7 @@
       picture_to_assign.url(size: preview_size(size), flatten: true) || "alchemy/missing-image.svg",
       alt: picture_to_assign.name
     ),
-    alchemy.assign_admin_pictures_path(
-      picture_id: picture_to_assign.id,
-      book_id: @book.id
-    ),
+    picture_assignment_redirect_url(picture_to_assign, @record, @content),
     remote: true,
     onclick: '$(self).attr("href", "#").off("click"); return false',
     method: 'put',
