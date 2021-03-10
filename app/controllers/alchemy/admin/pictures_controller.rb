@@ -137,8 +137,9 @@ module Alchemy
 
       def assign
         @picture = Picture.find_by(id: params[:picture_id])
-        @book = Alchemy::Book.find_by(id: params[:book_id])
-        @book.cover_image = @picture
+        @record = params[:record_type].constantize.find_by(id: params[:record_id])
+        picture_attribute = @record.picture_assignment_field_name
+        @record.send("#{picture_attribute}=", @picture)
       end
 
       private

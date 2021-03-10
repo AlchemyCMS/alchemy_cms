@@ -8,10 +8,11 @@
       redirect_url: alchemy.admin_pictures_path(
         size: search_filter_params[:size],
         filter: 'last_upload',
-        book_id: @book.id,
-        use_assign_box: true,
-        # content_id: @content.try(:id),
-        # element_id: @element.try(:id)
+        record_id: @record&.id,
+        record_type: @record&.class&.name,
+        use_overlay: true,
+        content_id: @content.try(:id),
+        element_id: @element.try(:id)
       ) %>
     <div class="toolbar_spacer"></div>
   <% end %>
@@ -25,7 +26,10 @@
           element_id: @element,
           q: search_filter_params[:q],
           filter: search_filter_params[:filter],
-          tagged_with: search_filter_params[:tagged_with]
+          tagged_with: search_filter_params[:tagged_with],
+          record_id: @record&.id,
+          record_type: @record&.class&.name,
+          use_overlay: true,
         }),
         remote: true,
         title: Alchemy.t(:small_thumbnails),
@@ -41,7 +45,10 @@
           element_id: @element,
           q: search_filter_params[:q],
           filter: search_filter_params[:filter],
-          tagged_with: search_filter_params[:tagged_with]
+          tagged_with: search_filter_params[:tagged_with],
+          use_overlay: true,
+          record_id: @record&.id,
+          record_type: @record&.class&.name,
         }),
         remote: true,
         title: Alchemy.t(:medium_thumbnails),
@@ -57,7 +64,10 @@
           element_id: @element,
           q: search_filter_params[:q],
           filter: search_filter_params[:filter],
-          tagged_with: search_filter_params[:tagged_with]
+          tagged_with: search_filter_params[:tagged_with],
+          use_overlay: true,
+          record_id: @record&.id,
+          record_type: @record&.class&.name,
         }),
         remote: true,
         title: Alchemy.t(:big_thumbnails),

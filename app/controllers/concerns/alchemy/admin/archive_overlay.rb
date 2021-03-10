@@ -5,12 +5,12 @@ module Alchemy
       private
 
       def in_overlay?
-        params[:content_id].present? || params[:use_assign_box]
+        params[:content_id].present? || params[:use_overlay]
       end
 
       def archive_overlay
         @content = Content.find_by(id: params[:content_id])
-        @book = Alchemy::Book.find_by(id: params[:book_id])
+        @record = params[:record_type]&.constantize&.find_by(id: params[:record_id])
 
         respond_to do |format|
           format.html { render partial: "archive_overlay" }
