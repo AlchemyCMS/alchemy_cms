@@ -1,0 +1,38 @@
+<div id="cover_image">
+  <div class="picture_thumbnail">
+    <span class="picture_tool delete">
+      <%= link_to render_icon(:times), '#',
+        onclick: "return Alchemy.removeCommonPicture('#book_picture_id');"%>
+      <%= link_to_dialog render_icon('edit', style: 'regular'),
+        alchemy.admin_pictures_path(
+          swap: true,
+          record_id: record.id,
+          record_type: record.class.name,
+          use_overlay: true
+        ),
+        {
+          title: (Alchemy.t(:insert_image)),
+          size: '790x590',
+          padding: false
+        },
+        title: (Alchemy.t(:swap_image)) %>
+    </span>
+    <div class="picture_image">
+      <div class="thumbnail_background">
+        <%- if image.present? -%>
+          <%= image_tag(
+            image.url,
+            id: "#{record.id}-cover-image",
+            alt: image.name,
+            class: "img_paddingtop",
+            title: Alchemy.t(:image_name) + ": #{image.name}",
+            )
+          %>
+        <% else %>
+          <%= render_icon(:image, style: 'regular') %>
+        <% end %>
+      </div>
+    </div>
+    <%= hidden_field_tag "book[picture_id]", image.try!(:id) %>
+  </div>
+</div>
