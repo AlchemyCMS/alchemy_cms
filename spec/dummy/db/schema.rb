@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_05_143548) do
+ActiveRecord::Schema.define(version: 2021_03_10_080333) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -248,6 +248,16 @@ ActiveRecord::Schema.define(version: 2021_02_05_143548) do
     t.index ["rgt"], name: "index_alchemy_pages_on_rgt"
     t.index ["updater_id"], name: "index_alchemy_pages_on_updater_id"
     t.index ["urlname"], name: "index_pages_on_urlname"
+  end
+
+  create_table "alchemy_picture_assignments", force: :cascade do |t|
+    t.string "assignee_type", null: false
+    t.integer "assignee_id", null: false
+    t.integer "picture_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index "\"assignee_id\", \"assigne_type\", \"picture_id\"", name: "index_assignee_picture_uniqueness"
+    t.index ["picture_id"], name: "index_alchemy_picture_assignments_on_picture_id"
   end
 
   create_table "alchemy_picture_thumbs", force: :cascade do |t|
