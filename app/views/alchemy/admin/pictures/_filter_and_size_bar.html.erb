@@ -8,8 +8,10 @@
       redirect_url: alchemy.admin_pictures_path(
         size: search_filter_params[:size],
         filter: 'last_upload',
-        content_id: @content.try(:id),
-        element_id: @element.try(:id)
+        book_id: @book.id,
+        use_assign_box: true,
+        # content_id: @content.try(:id),
+        # element_id: @element.try(:id)
       ) %>
     <div class="toolbar_spacer"></div>
   <% end %>

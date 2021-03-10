@@ -69,6 +69,14 @@ $.extend Alchemy,
       Alchemy.setElementDirty $element
     false
 
+  removeCommonPicture: (selector) ->
+    $form_field = $(selector)
+    $content = $form_field.closest(".picture_thumbnail")
+    if $form_field[0]
+      $form_field.val ""
+      $content.find(".thumbnail_background").html('<i class="icon far fa-image fa-fw"/>')
+    false
+
   # Initializes all select tag with .alchemy_selectbox class as select2 instance
   # Pass a jQuery scope to only init a subset of selectboxes.
   SelectBox: (scope) ->

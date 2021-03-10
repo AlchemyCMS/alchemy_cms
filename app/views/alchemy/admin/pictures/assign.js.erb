@@ -1,0 +1,3 @@
+$('#picture_to_assign_<%= @picture.id %> a').attr('href', '#').off('click');
+$('#cover_image').replaceWith('<%= j render(partial: "alchemy/admin/books/cover_image") %>');
+Alchemy.closeCurrentDialog();

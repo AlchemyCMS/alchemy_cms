@@ -135,6 +135,12 @@ module Alchemy
         [per_page, per_page * 2, per_page * 4]
       end
 
+      def assign
+        @picture = Picture.find_by(id: params[:picture_id])
+        @book = Alchemy::Book.find_by(id: params[:book_id])
+        @book.cover_image = @picture
+      end
+
       private
 
       def set_size

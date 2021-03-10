@@ -57,6 +57,7 @@ Alchemy::Engine.routes.draw do
 
     resources :pictures, except: [:new] do
       collection do
+        put :assign
         post :update_multiple
         delete :delete_multiple
         get :edit_multiple
