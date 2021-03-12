@@ -1014,21 +1014,22 @@ module Alchemy
       subject { element.nested_elements }
 
       context "with nestable_elements defined" do
-        let!(:page) { create(:alchemy_page) }
-        let!(:element) { create(:alchemy_element, page: page) }
-        let!(:nested_element) { create(:alchemy_element, parent_element: element, page: page) }
+        let!(:page_version) { create(:alchemy_page_version) }
+        let!(:element) { create(:alchemy_element, page_version: page_version) }
+        let!(:nested_element) { create(:alchemy_element, parent_element: element, page_version: page_version) }
 
         it "returns nested elements" do
-          expect(subject).to eq([nested_element])
+          expect(subject).to contain_exactly(nested_element)
         end
 
         context "with hidden nested elements" do
           let!(:hidden_nested_element) do
-            create(:alchemy_element, parent_element: element, page: page, public: false)
+            create(:alchemy_element, parent_element: element, page_version: page_version, public: false)
           end
 
           it "does not include them" do
-            expect(subject).to eq([nested_element])
+            element.reload # necessary since Rails 6.1
+            expect(subject).to contain_exactly(nested_element)
           end
         end
       end
