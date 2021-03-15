@@ -76,6 +76,12 @@ module Alchemy
           ])
         end
 
+        it "sets parent elements page_version" do
+          expect(element.nested_elements.map(&:page_version_id)).to eq([
+            element.page_version_id,
+          ])
+        end
+
         context "if element name is not a nestable element" do
           subject(:element) do
             described_class.create(

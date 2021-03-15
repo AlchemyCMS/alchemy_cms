@@ -326,7 +326,7 @@ module Alchemy
     def generate_nested_elements
       definition.fetch("autogenerate", []).each do |nestable_element|
         if nestable_elements.include?(nestable_element)
-          Element.create(page: page, parent_element_id: id, name: nestable_element)
+          Element.create(page_version: page_version, parent_element_id: id, name: nestable_element)
         else
           log_warning("Element '#{nestable_element}' not a nestable element for '#{name}'. Skipping!")
         end

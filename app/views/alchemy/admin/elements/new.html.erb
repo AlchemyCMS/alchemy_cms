@@ -1,5 +1,5 @@
 <%- if @clipboard_items.blank? -%>
-  <%= render 'new_element_form' %>
+  <%= render 'form' %>
 <%- else -%>
 <div id="overlay_tabs">
   <ul>
@@ -7,11 +7,11 @@
     <li><a href="#paste_element_tab"><%= Alchemy.t('Paste from clipboard') %></a></li>
   </ul>
   <div id="create_element_tab">
-    <%= render 'new_element_form' %>
+    <%= render 'form' %>
   </div>
   <div id="paste_element_tab">
     <%= alchemy_form_for([:admin, @element]) do |f| %>
-      <%= f.hidden_field :page_id %>
+      <%= f.hidden_field :page_version_id %>
       <%= f.hidden_field :parent_element_id, value: @parent_element.try(:id) %>
       <div class="input select">
         <label for="paste_from_clipboard" class="control-label"><%= Alchemy.t("Element") %></label>
