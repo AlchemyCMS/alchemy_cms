@@ -19,7 +19,8 @@ module Alchemy
             render json: @elements,
                    scope: current_ability,
                    root: :elements,
-                   adapter: :json
+                   adapter: :json,
+                   include: "**"
           end
         end
       end

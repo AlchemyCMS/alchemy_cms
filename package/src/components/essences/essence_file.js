@@ -38,7 +38,7 @@ export default {
   `,
 
   data() {
-    const essence = this.content.essence.essence_file
+    const essence = this.content.essence
     return {
       editUrl: "",
       essence: essence

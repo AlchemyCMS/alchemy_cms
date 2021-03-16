@@ -1,14 +1,14 @@
-import AddLink from "./add_link"
+import AlchemyAddEssenceLink from "./add_link"
 import AlchemyContentError from "./content_error"
 import AlchemyContentLabel from "./content_label"
-import RemoveLink from "./remove_link"
+import AlchemyRemoveEssenceLink from "./remove_link"
 
 export default {
   components: {
-    AddLink,
+    AlchemyAddEssenceLink,
     AlchemyContentError,
     AlchemyContentLabel,
-    RemoveLink
+    AlchemyRemoveEssenceLink
   },
 
   props: {
@@ -34,7 +34,7 @@ export default {
 
   data() {
     return {
-      essence: this.content.essence.essence_link
+      essence: this.content.essence
     }
   }
 }

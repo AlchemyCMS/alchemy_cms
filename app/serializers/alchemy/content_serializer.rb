@@ -17,7 +17,7 @@ module Alchemy
       attribute :validation_errors
     end
 
-    has_one :essence, polymorphic: true
+    has_one :essence, polymorphic: false
 
     def ingredient
       object.serialized_ingredient

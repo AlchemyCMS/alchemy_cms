@@ -1,10 +1,14 @@
 import AlchemyContentError from "./content_error"
 import AlchemyContentLabel from "./content_label"
+import AlchemyAddEssenceLink from "./add_link"
+import AlchemyRemoveEssenceLink from "./remove_link"
 
 export default {
   components: {
     AlchemyContentError,
-    AlchemyContentLabel
+    AlchemyContentLabel,
+    AlchemyAddEssenceLink,
+    AlchemyRemoveEssenceLink
   },
 
   props: {
@@ -68,7 +72,7 @@ export default {
   },
 
   data() {
-    const essence = this.content.essence.essence_picture
+    const essence = this.content.essence
     const picture_id = essence.picture_id
     return {
       essence: essence,

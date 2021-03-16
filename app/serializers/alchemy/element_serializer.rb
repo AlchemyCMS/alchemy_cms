@@ -27,7 +27,7 @@ module Alchemy
       attribute :nestable_elements
     end
 
-    has_many :nested_elements, serializer: self, class_name: "Alchemy::Element"
+    has_many :nested_elements
     has_many :contents, if: :can_read?
 
     def ingredients
