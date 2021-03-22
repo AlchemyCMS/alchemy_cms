@@ -12,6 +12,20 @@ RSpec.describe Alchemy::ElementEditor do
     end
   end
 
+  describe "#contents" do
+    let(:element) { create(:alchemy_element, :with_contents) }
+
+    subject(:contents) { element_editor.contents }
+
+    it "returns a ContentEditor instance for each content defined" do
+      aggregate_failures do
+        contents.each do |content|
+          expect(content).to be_an(Alchemy::ContentEditor)
+        end
+      end
+    end
+  end
+
   describe "#to_partial_path" do
     subject { element_editor.to_partial_path }
 

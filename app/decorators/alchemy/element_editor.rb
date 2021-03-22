@@ -8,6 +8,12 @@ module Alchemy
       "alchemy/admin/elements/element"
     end
 
+    def contents
+      element.contents.map do |content|
+        Alchemy::ContentEditor.new(content)
+      end
+    end
+
     # CSS classes for the element editor partial.
     def css_classes
       [
