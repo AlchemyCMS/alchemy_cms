@@ -458,9 +458,14 @@ module Alchemy
     # Sets the public_on date on the published version
     #
     # Builds a new version if none exists yet.
+    # Destroys public version if empty time is set
     #
     def public_on=(time)
-      if public_version
+      if public_version && time.blank?
+        public_version.destroy!
+        # Need to reset the public version on the instance so we do not need to reload
+        self.public_version = nil
+      elsif public_version
         public_version.public_on = time
       else
         versions.build(public_on: time)
