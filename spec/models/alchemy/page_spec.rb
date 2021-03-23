@@ -1259,6 +1259,53 @@ module Alchemy
       end
     end
 
+    describe "#public_on=" do
+      let(:time) { Time.now }
+
+      subject { page.public_on = time }
+
+      context "when there is a public version" do
+        let(:page) { build(:alchemy_page, :public) }
+
+        it "sets public_on on the public version" do
+          subject
+          expect(page.public_version.public_on).to be_within(1.second).of(time)
+        end
+
+        context "and the time is nil" do
+          let(:page) { build(:alchemy_page, :public) }
+          let(:time) { nil }
+
+          it "destroys the public version" do
+            expect(page.public_version).to be
+            subject
+            expect(page.public_version).not_to be
+          end
+        end
+
+        context "and the time is empty string" do
+          let(:page) { build(:alchemy_page, :public) }
+          let(:time) { "" }
+
+          it "destroys the public version" do
+            expect(page.public_version).to be
+            subject
+            expect(page.public_version).not_to be
+          end
+        end
+      end
+
+      context "when there is no public version" do
+        let(:page) { build(:alchemy_page) }
+
+        it "builds a public version and sets public_on on it" do
+          subject
+          expect(page.versions.last).to be
+          expect(page.versions.last.public_on).to be_within(1.second).of(time)
+        end
+      end
+    end
+
     describe "#public_on" do
       subject(:public_on) { page.public_on }
 
