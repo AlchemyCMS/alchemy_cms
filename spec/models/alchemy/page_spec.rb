@@ -1268,9 +1268,8 @@ module Alchemy
         let(:page) { build(:alchemy_page, :public) }
 
         it "sets public_on on the public version" do
-          expect {
-            subject
-          }.to change(page.public_version, :public_on).to(time)
+          subject
+          expect(page.public_version.public_on).to be_within(1.second).of(time)
         end
 
         context "and the time is nil" do
@@ -1302,7 +1301,7 @@ module Alchemy
         it "builds a public version and sets public_on on it" do
           subject
           expect(page.versions.last).to be
-          expect(page.versions.last.public_on).to eq(time)
+          expect(page.versions.last.public_on).to be_within(1.second).of(time)
         end
       end
     end
