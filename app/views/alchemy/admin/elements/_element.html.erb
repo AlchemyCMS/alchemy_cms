@@ -67,7 +67,7 @@
           <%= link_to_dialog Alchemy.t("New Element"),
             alchemy.new_admin_element_path(
               parent_element_id: element.id,
-              page_id: element.page.id
+              page_version_id: element.page_version_id
             ), {
               size: "320x125",
               title: Alchemy.t("New Element")

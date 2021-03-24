@@ -48,14 +48,39 @@ RSpec.describe "The edit elements feature", type: :system do
     end
   end
 
-  context "With an element having nestable elements defined" do
+  context "With an element having one nestable element defined" do
     let!(:element) do
       create(:alchemy_element, :with_nestable_elements, page_version: a_page.draft_version)
     end
 
-    scenario "a button to add an nestable element appears." do
+    scenario "the add element button immediately creates the nested element.", :js do
       visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
-      expect(page).to have_selector(".add-nestable-element-button")
+      button = page.find(".add-nestable-element-button")
+      expect(button).to have_content "Add slide"
+      button.click
+      expect(page).to have_selector(".element-editor[data-element-name='slide']")
+    end
+  end
+
+  context "With an element having multiple nestable element defined" do
+    let!(:element) do
+      create(:alchemy_element,
+             :with_nestable_elements,
+             name: :right_column,
+             page_version: a_page.draft_version)
+    end
+
+    scenario "the add element button opens add element form.", :js do
+      visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+      button = page.find(".add-nestable-element-button")
+      expect(button).to have_content "New element"
+      button.click
+      expect(page).to have_select("Element")
+      within ".alchemy-dialog" do
+        select2("Text", from: "Element")
+        click_button("Add")
+      end
+      expect(page).to have_selector(".element-editor[data-element-name='text']")
     end
   end
 
