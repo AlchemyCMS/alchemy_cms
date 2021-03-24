@@ -19,6 +19,18 @@ Gem::Specification.new do |gem|
   gem.files = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^spec/}) }
   gem.require_paths = ["lib"]
 
+  %w[
+    actionmailer
+    actionpack
+    actionview
+    activemodel
+    activerecord
+    activesupport
+    railties
+  ].each do |rails_gem|
+    gem.add_runtime_dependency rails_gem, [">= 6.0", "< 6.1"]
+  end
+
   gem.add_runtime_dependency "active_model_serializers", ["~> 0.10.0"]
   gem.add_runtime_dependency "acts_as_list", [">= 0.3", "< 2"]
   gem.add_runtime_dependency "awesome_nested_set", ["~> 3.1"]
@@ -33,7 +45,6 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "kaminari", ["~> 1.1"]
   gem.add_runtime_dependency "originator", ["~> 3.1"]
   gem.add_runtime_dependency "non-stupid-digest-assets", ["~> 1.0.8"]
-  gem.add_runtime_dependency "rails", [">= 6.0", "< 6.1"]
   gem.add_runtime_dependency "ransack", [">= 1.8", "< 2.4.2"] # 2.4.2 dropped Ruby 2.5 support in a patch level release
   gem.add_runtime_dependency "request_store", ["~> 1.2"]
   gem.add_runtime_dependency "responders", [">= 2.0", "< 4.0"]
