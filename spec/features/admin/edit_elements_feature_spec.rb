@@ -70,7 +70,7 @@ RSpec.describe "The edit elements feature", type: :system do
              page_version: a_page.draft_version)
     end
 
-    pending "the add element button opens add element form.", :js do
+    scenario "the add element button opens add element form.", :js do
       visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
       button = page.find(".add-nestable-element-button")
       expect(button).to have_content "New element"
