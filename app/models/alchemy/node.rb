@@ -6,7 +6,7 @@ module Alchemy
 
     before_destroy :check_if_related_essence_nodes_present
 
-    acts_as_nested_set scope: "language_id", touch: true
+    acts_as_nested_set scope: ["language_id", "menu_type"], touch: true
     stampable stamper_class_name: Alchemy.user_class_name
 
     belongs_to :language, class_name: "Alchemy::Language"
