@@ -26,7 +26,7 @@ module Alchemy
         super(
           name: definition[:name],
           essence_type: normalize_essence_type(definition[:type]),
-          element_id: element.id
+          element: element
         ).tap(&:build_essence)
       end
 
@@ -53,18 +53,16 @@ module Alchemy
       #   @copy.element_id # => 3
       #
       def copy(source, differences = {})
-        new_content = Content.new(
+        Content.new(
           source.attributes.
             except(*SKIPPED_ATTRIBUTES_ON_COPY).
-            merge(differences.with_indifferent_access),
-        )
-        new_essence = source.essence.class.create!(
-          source.essence.attributes.
-            except(*SKIPPED_ATTRIBUTES_ON_COPY),
-        )
-        new_content.tap do |content|
-          content.essence = new_essence
-          content.save
+            merge(differences.with_indifferent_access)
+        ).tap do |new_content|
+          new_content.build_essence(
+            source.essence.attributes.
+              except(*SKIPPED_ATTRIBUTES_ON_COPY)
+          )
+          new_content.save
         end
       end
 
@@ -117,18 +115,18 @@ module Alchemy
     #
     # If an optional type is passed, this type of essence gets created.
     #
-    def build_essence(type = essence_type)
-      self.essence = essence_class(type).new({
-        ingredient: default_value,
-      })
+    def build_essence(attributes = {})
+      self.essence = essence_class(essence_type).new(
+        { ingredient: default_value }.merge(attributes)
+      )
     end
 
     # Creates essence from definition.
     #
     # If an optional type is passed, this type of essence gets created.
     #
-    def create_essence!(type = nil)
-      build_essence(type).save!
+    def create_essence!(attrs = {})
+      build_essence(attrs).save!
       save!
     end
 
