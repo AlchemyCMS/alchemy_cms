@@ -26,7 +26,7 @@ module Alchemy
         super(
           name: definition[:name],
           essence_type: normalize_essence_type(definition[:type]),
-          element_id: element.id
+          element: element
         ).tap(&:build_essence)
       end
 
