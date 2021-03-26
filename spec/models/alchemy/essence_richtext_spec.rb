@@ -4,13 +4,38 @@ require "rails_helper"
 
 module Alchemy
   describe EssenceRichtext do
+    let(:element) { create(:alchemy_element, name: "article") }
+    let(:content) { Alchemy::Content.new(name: "text", element: element) }
     let(:essence) do
-      EssenceRichtext.new(body: "<h1>Hello!</h1><p>Welcome to Peters Petshop.</p>")
+      Alchemy::EssenceRichtext.new(
+        content: content,
+        body: "<h1 style=\"color: red;\">Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>"
+      )
     end
 
     it_behaves_like "an essence" do
-      let(:essence) { EssenceRichtext.new }
-      let(:ingredient_value) { "<h1>Hello!</h1><p>Welcome to Peters Petshop.</p>" }
+      let(:essence) { EssenceRichtext.new(content: content) }
+      let(:ingredient_value) { "<h1 style=\"color: red;\">Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>" }
+    end
+
+    it "should save a HTML tag free version of body column" do
+      essence.save
+      expect(essence.stripped_body).to eq("Hello!Welcome to Peters Petshop.")
+    end
+
+    it "should save a sanitized version of body column" do
+      essence.save
+      expect(essence.sanitized_body).to eq("<h1>Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>")
+    end
+
+    context "when class is not part of the allowed attributes" do
+      let(:element) { create(:alchemy_element, name: "text") }
+      let(:content) { Alchemy::Content.new(name: "text", element: element) }
+
+      it "should save a sanitized version of body column" do
+        essence.save
+        expect(essence.sanitized_body).to eq("Hello!<p>Welcome to Peters Petshop.</p>")
+      end
     end
 
     it "should save a HTML tag free version of body column" do
