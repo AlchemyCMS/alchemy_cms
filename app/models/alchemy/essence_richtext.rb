@@ -17,6 +17,7 @@ module Alchemy
     acts_as_essence preview_text_column: "stripped_body"
 
     before_save :strip_content
+    before_save :sanitize_content
 
     def has_tinymce?
       true
@@ -26,6 +27,17 @@ module Alchemy
 
     def strip_content
       self.stripped_body = Rails::Html::FullSanitizer.new.sanitize(body)
+    end
+
+    def sanitize_content
+      self.sanitized_body = Rails::Html::SafeListSanitizer.new.sanitize(
+        body,
+        content_sanitizer_settings
+      )
+    end
+
+    def content_sanitizer_settings
+      content&.settings&.fetch(:sanitizer, {})
     end
   end
 end

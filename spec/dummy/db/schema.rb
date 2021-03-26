@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_05_143548) do
+ActiveRecord::Schema.define(version: 2021_03_26_105046) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -123,6 +123,7 @@ ActiveRecord::Schema.define(version: 2021_02_05_143548) do
     t.text "body"
     t.text "stripped_body"
     t.boolean "public", default: false, null: false
+    t.text "sanitized_body"
   end
 
   create_table "alchemy_essence_selects", force: :cascade do |t|
