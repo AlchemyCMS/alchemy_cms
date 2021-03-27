@@ -13,6 +13,18 @@ module Alchemy
       )
     end
 
+    context "without a content" do
+      let(:essence) do
+        Alchemy::EssenceRichtext.new(
+          body: "<h1 style=\"color: red;\">Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>"
+        )
+      end
+
+      it "can still be created with no odd error" do
+        expect { essence.save! }.not_to raise_exception
+      end
+    end
+
     it_behaves_like "an essence" do
       let(:essence) { EssenceRichtext.new(content: content) }
       let(:ingredient_value) { "<h1 style=\"color: red;\">Hello!</h1><p class=\"green\">Welcome to Peters Petshop.</p>" }
