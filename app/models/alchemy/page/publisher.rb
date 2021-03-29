@@ -17,11 +17,13 @@ module Alchemy
       def publish!(public_on:)
         Page.transaction do
           version = public_version(public_on)
-          version.elements.not_nested.destroy_all
+          version.elements.not_nested.includes(*element_includes).destroy_all
 
-          # We must not use .find_each here to not mess up the order of elements
-          page.draft_version.elements.not_nested.available.each do |element|
-            Element.copy(element, page_version_id: version.id)
+          repository = ElementsRepository.new(page.draft_version.elements.includes(*element_includes))
+          repository.visible.not_nested.each do |element|
+            Element::Duplicator.new(element, repository: repository).duplicate(
+              page_version_id: version.id,
+            )
           end
         end
       end
@@ -33,6 +35,10 @@ module Alchemy
       # Load the pages public version or create one
       def public_version(public_on)
         page.public_version || page.versions.create!(public_on: public_on)
+      end
+
+      def element_includes
+        [{ contents: :essence }, :tags]
       end
     end
   end

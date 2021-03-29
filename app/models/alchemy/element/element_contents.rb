@@ -19,6 +19,7 @@ module Alchemy
       def contents_by_name(name)
         contents.select { |content| content.name == name.to_s }
       end
+
       alias_method :all_contents_by_name, :contents_by_name
 
       # All contents from element by given essence type.
@@ -27,6 +28,7 @@ module Alchemy
           content.essence_type == Content.normalize_essence_type(essence_type)
         end
       end
+
       alias_method :all_contents_by_type, :contents_by_type
 
       # Updates all related contents by calling +update_essence+ on each of them.
@@ -54,13 +56,6 @@ module Alchemy
           content.update_essence(content_hash) || errors.add(:base, :essence_validation_failed)
         end
         errors.blank?
-      end
-
-      # Copy current content's contents to given target element
-      def copy_contents_to(element)
-        contents.map do |content|
-          Content.copy(content, element_id: element.id)
-        end
       end
 
       # Returns the content that is marked as rss title.

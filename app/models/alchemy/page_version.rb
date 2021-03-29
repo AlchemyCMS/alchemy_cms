@@ -42,5 +42,9 @@ module Alchemy
     def still_public_for?(time = Time.current)
       public_until.nil? || public_until >= time
     end
+
+    def element_repository
+      ElementsRepository.new(elements.includes({ contents: :essence }, :tags))
+    end
   end
 end

@@ -7,7 +7,7 @@ module Alchemy
     extend ActiveSupport::Concern
 
     module ClassMethods
-      SKIPPED_ATTRIBUTES_ON_COPY = %w(position created_at updated_at creator_id updater_id id)
+      SKIPPED_ATTRIBUTES_ON_COPY = %w(position created_at updated_at creator_id updater_id id element_id)
 
       # Builds a new content as descriped in the elements.yml file.
       #
@@ -26,7 +26,7 @@ module Alchemy
         super(
           name: definition[:name],
           essence_type: normalize_essence_type(definition[:type]),
-          element: element
+          element: element,
         ).tap(&:build_essence)
       end
 
@@ -54,7 +54,7 @@ module Alchemy
       #
       def copy(source, differences = {})
         Content.new(
-          source.attributes.
+          source.attributes.with_indifferent_access.
             except(*SKIPPED_ATTRIBUTES_ON_COPY).
             merge(differences.with_indifferent_access)
         ).tap do |new_content|

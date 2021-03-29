@@ -111,6 +111,10 @@ module Alchemy
       self.class.new elements[0..(limit.to_i - 1)]
     end
 
+    def children_of(parent)
+      self.class.new(select { |e| e.parent_element_id == parent.id })
+    end
+
     def each(&blk)
       elements.each(&blk)
     end

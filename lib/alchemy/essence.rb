@@ -61,7 +61,7 @@ module Alchemy #:nodoc:
           delegate :restricted?, to: :page,    allow_nil: true
           delegate :public?,     to: :element, allow_nil: true
 
-          after_save :touch_element
+          after_update :touch_element
 
           def acts_as_essence_class
             #{name}
