@@ -37,7 +37,7 @@ module Alchemy
     end
 
     def content_sanitizer_settings
-      content&.settings&.fetch(:sanitizer, {})
+      content&.settings&.fetch(:sanitizer, {}) || {}
     end
   end
 end
