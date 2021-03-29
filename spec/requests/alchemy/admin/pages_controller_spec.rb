@@ -633,30 +633,6 @@ module Alchemy
         end
       end
 
-      describe "#visit" do
-        subject do
-          post visit_admin_page_path(page)
-        end
-
-        let(:page) { create(:alchemy_page, urlname: "home", site: site) }
-
-        context "when the pages site is a catch-all" do
-          let(:site) { create(:alchemy_site, host: "*") }
-
-          it "should redirect to the page path" do
-            is_expected.to redirect_to("/home")
-          end
-        end
-
-        context "when pages site is a real host" do
-          let(:site) { create(:alchemy_site, host: "reallygoodsite.com") }
-
-          it "should redirect to the page path on that host" do
-            is_expected.to redirect_to("http://reallygoodsite.com/home")
-          end
-        end
-      end
-
       describe "#fold" do
         let(:page) { create(:alchemy_page) }
 

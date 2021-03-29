@@ -192,15 +192,6 @@ module Alchemy
         end
       end
 
-      def visit
-        @page.unlock!
-        redirect_to show_page_url(
-          urlname: @page.urlname,
-          locale: prefix_locale? ? @page.language_code : nil,
-          host: @page.site.host == "*" ? request.host : @page.site.host,
-        )
-      end
-
       # Sets the page public and updates the published_at attribute that is used as cache_key
       #
       def publish
