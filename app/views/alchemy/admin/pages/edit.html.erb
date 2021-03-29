@@ -149,7 +149,7 @@
 <script type="text/javascript" charset="utf-8">
 
   $(function() {
-    $('#unlock_page_form, #visit_page_form, #publish_page_form').on('submit', function(event) {
+    $('#unlock_page_form, #publish_page_form').on('submit', function(event) {
       var not_dirty = Alchemy.checkPageDirtyness(this);
       if (!not_dirty) Alchemy.pleaseWaitOverlay(false);
       return not_dirty;
