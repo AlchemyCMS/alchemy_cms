@@ -4,7 +4,6 @@ module Alchemy
   class Element < BaseRecord
     class Duplicator
       SKIPPED_ATTRIBUTES_ON_COPY = [
-        "cached_tag_list",
         "created_at",
         "creator_id",
         "id",
@@ -28,7 +27,7 @@ module Alchemy
           .merge({
             autogenerate_contents: false,
             autogenerate_nested_elements: false,
-            tag_list: source_element.tag_list,
+            tags: source_element.tags,
           })
 
         new_element = Element.create(attributes)
@@ -40,8 +39,8 @@ module Alchemy
         nested_elements = repository.children_of(source_element)
         nested_elements.map do |nested_element|
           self.class.new(nested_element, repository: repository).duplicate(
-            parent_element: new_element,
-            page_version: new_element.page_version,
+            parent_element_id: new_element.id,
+            page_version_id: new_element.page_version_id,
           )
         end
 

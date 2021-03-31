@@ -20,10 +20,12 @@ module Alchemy
           DeleteElements.new(version.elements).call
 
           repository = ElementsRepository.new(page.draft_version.elements.includes(*element_includes))
-          repository.visible.not_nested.each do |element|
-            Element::Duplicator.new(element, repository: repository).duplicate(
-              page_version_id: version.id,
-            )
+          ActiveRecord::Base.no_touching do
+            repository.visible.not_nested.each do |element|
+              Element::Duplicator.new(element, repository: repository).duplicate(
+                page_version_id: version.id,
+              )
+            end
           end
         end
       end
@@ -57,7 +59,7 @@ module Alchemy
       end
 
       def element_includes
-        [{ contents: :essence }, :tags]
+        [:nested_elements, { contents: { essence: :ingredient_association } }, :tags]
       end
     end
   end
