@@ -17,7 +17,7 @@ module Alchemy
       def publish!(public_on:)
         Page.transaction do
           version = public_version(public_on)
-          version.elements.not_nested.includes(*element_includes).destroy_all
+          DeleteElements.new(version.elements).call
 
           repository = ElementsRepository.new(page.draft_version.elements.includes(*element_includes))
           repository.visible.not_nested.each do |element|
@@ -25,6 +25,25 @@ module Alchemy
               page_version_id: version.id,
             )
           end
+        end
+      end
+
+      class DeleteElements
+        attr_reader :elements
+
+        def initialize(elements)
+          @elements = elements
+        end
+
+        def call
+          contents = Alchemy::Content.where(element_id: elements.map(&:id))
+          contents.group_by(&:essence_type)
+            .transform_values! { |value| value.map(&:essence_id) }
+            .each do |class_name, ids|
+              class_name.constantize.where(id: ids).delete_all
+            end
+          contents.delete_all
+          elements.delete_all(:delete_all)
         end
       end
 
