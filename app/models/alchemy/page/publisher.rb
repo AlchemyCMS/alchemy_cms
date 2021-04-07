@@ -22,9 +22,11 @@ module Alchemy
           repository = ElementsRepository.new(page.draft_version.elements.includes(*element_includes))
           ActiveRecord::Base.no_touching do
             repository.visible.not_nested.each do |element|
-              Element::Duplicator.new(element, repository: repository).duplicate(
-                page_version_id: version.id,
-              )
+              Element.acts_as_list_no_update do
+                Element::Duplicator.new(element, repository: repository).duplicate(
+                  page_version: version,
+                )
+              end
             end
           end
         end

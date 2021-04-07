@@ -6,9 +6,9 @@ module Alchemy
       SKIPPED_ATTRIBUTES_ON_COPY = [
         "created_at",
         "creator_id",
+        "parent_element_id",
+        "page_version_id",
         "id",
-        "folded",
-        "position",
         "updated_at",
         "updater_id",
       ].freeze
@@ -39,8 +39,8 @@ module Alchemy
         nested_elements = repository.children_of(source_element)
         nested_elements.map do |nested_element|
           self.class.new(nested_element, repository: repository).duplicate(
-            parent_element_id: new_element.id,
-            page_version_id: new_element.page_version_id,
+            parent_element: new_element,
+            page_version: new_element.page_version,
           )
         end
 
