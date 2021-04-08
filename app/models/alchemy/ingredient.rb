@@ -13,15 +13,23 @@ module Alchemy
     validates :type, presence: true
     validates :role, presence: true
 
-    # Defines getters and setter methods for ingredient attributes
-    def self.ingredient_attributes(*attributes)
-      attributes.each do |name|
-        define_method name.to_sym do
-          data[name]
+    class << self
+      # Defines getters and setter methods for ingredient attributes
+      def ingredient_attributes(*attributes)
+        attributes.each do |name|
+          define_method name.to_sym do
+            data[name]
+          end
+          define_method "#{name}=" do |value|
+            data[name] = value
+          end
         end
-        define_method "#{name}=" do |value|
-          data[name] = value
-        end
+      end
+
+      # Defines getter and setter method aliases for related object
+      def related_object_alias(name)
+        alias_method name, :related_object
+        alias_method "#{name}=", :related_object=
       end
     end
 
