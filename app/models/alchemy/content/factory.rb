@@ -117,7 +117,7 @@ module Alchemy
     #
     def build_essence(attributes = {})
       self.essence = essence_class(essence_type).new(
-        { ingredient: default_value }.merge(attributes)
+        { content: self, ingredient: default_value }.merge(attributes)
       )
     end
 

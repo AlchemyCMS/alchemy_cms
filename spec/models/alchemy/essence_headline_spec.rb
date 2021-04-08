@@ -66,4 +66,25 @@ RSpec.describe Alchemy::EssenceHeadline do
       end
     end
   end
+
+  describe "creating from a content" do
+    it "should have the size and level fields filled with correct defaults" do
+      element = create(:alchemy_element)
+
+      allow(element).to receive(:content_definition_for) do
+        {
+          "name" => "headline",
+          "type" => "EssenceHeadline",
+          "settings" => {
+            "sizes" => [3],
+            "levels" => [2, 3],
+          },
+        }.with_indifferent_access
+      end
+
+      content = Alchemy::Content.create(element: element, name: "headline")
+      expect(content.essence.size).to eq(3)
+      expect(content.essence.level).to eq(2)
+    end
+  end
 end
