@@ -13,6 +13,18 @@ module Alchemy
     validates :type, presence: true
     validates :role, presence: true
 
+    # Defines getters and setter methods for ingredient attributes
+    def self.ingredient_attributes(*attributes)
+      attributes.each do |name|
+        define_method name.to_sym do
+          data[name]
+        end
+        define_method "#{name}=" do |value|
+          data[name] = value
+        end
+      end
+    end
+
     # Compatibility method for access from element
     def essence
       self

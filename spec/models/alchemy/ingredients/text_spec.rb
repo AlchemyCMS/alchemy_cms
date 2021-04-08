@@ -44,4 +44,28 @@ RSpec.describe Alchemy::Ingredients::Text do
 
     it { is_expected.to eq("button") }
   end
+
+  describe "#link=" do
+    before { text_ingredient.link = "https://foobar.io" }
+    subject { text_ingredient.link }
+    it { is_expected.to eq("https://foobar.io") }
+  end
+
+  describe "#link_target=" do
+    before { text_ingredient.link_target = "" }
+    subject { text_ingredient.link_target }
+    it { is_expected.to eq("") }
+  end
+
+  describe "#link_title=" do
+    before { text_ingredient.link_title = "Follow me" }
+    subject { text_ingredient.link_title }
+    it { is_expected.to eq("Follow me") }
+  end
+
+  describe "#link_class_name=" do
+    before { text_ingredient.link_class_name = "btn btn-default" }
+    subject { text_ingredient.link_class_name }
+    it { is_expected.to eq("btn btn-default") }
+  end
 end

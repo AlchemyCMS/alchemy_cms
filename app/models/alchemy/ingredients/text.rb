@@ -7,21 +7,12 @@ module Alchemy
     # Optionally it can have a link
     #
     class Text < Alchemy::Ingredient
-      def link
-        data[:link]
-      end
-
-      def link_target
-        data[:link_target]
-      end
-
-      def link_title
-        data[:link_title]
-      end
-
-      def link_class_name
-        data[:link_class_name]
-      end
+      ingredient_attributes(
+        :link,
+        :link_target,
+        :link_title,
+        :link_class_name
+      )
     end
   end
 end
