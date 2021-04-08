@@ -38,6 +38,11 @@ module Alchemy
       self
     end
 
+    # The value or the related object if present
+    def value
+      related_object || self[:value]
+    end
+
     # Settings for this ingredient from the +elements.yml+ definition.
     def settings
       definition[:settings] || {}

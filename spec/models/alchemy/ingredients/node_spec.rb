@@ -50,4 +50,20 @@ RSpec.describe Alchemy::Ingredients::Node do
       it { is_expected.to eq("") }
     end
   end
+
+  describe "value" do
+    subject { node_ingredient.value }
+
+    context "with node assigned" do
+      it "returns node" do
+        is_expected.to be(node)
+      end
+    end
+
+    context "with no node assigned" do
+      let(:node) { nil }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end

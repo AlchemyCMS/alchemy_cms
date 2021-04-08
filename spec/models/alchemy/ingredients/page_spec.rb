@@ -50,4 +50,20 @@ RSpec.describe Alchemy::Ingredients::Page do
       it { is_expected.to eq("") }
     end
   end
+
+  describe "value" do
+    subject { page_ingredient.value }
+
+    context "with page assigned" do
+      it "returns page" do
+        is_expected.to be(page)
+      end
+    end
+
+    context "with no page assigned" do
+      let(:page) { nil }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end

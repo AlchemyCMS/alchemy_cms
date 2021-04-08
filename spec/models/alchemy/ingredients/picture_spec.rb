@@ -79,6 +79,22 @@ RSpec.describe Alchemy::Ingredients::Picture do
     end
   end
 
+  describe "value" do
+    subject { picture_ingredient.value }
+
+    context "with picture assigned" do
+      it "returns picture" do
+        is_expected.to be(picture)
+      end
+    end
+
+    context "with no picture assigned" do
+      let(:picture) { nil }
+
+      it { is_expected.to be_nil }
+    end
+  end
+
   describe "#picture_url" do
     subject(:picture_url) { picture_ingredient.picture_url(options) }
 

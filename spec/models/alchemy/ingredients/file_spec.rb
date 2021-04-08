@@ -71,4 +71,20 @@ RSpec.describe Alchemy::Ingredients::File do
       it { is_expected.to eq("") }
     end
   end
+
+  describe "value" do
+    subject { file_ingredient.value }
+
+    context "with attachment assigned" do
+      it "returns attachment" do
+        is_expected.to be(attachment)
+      end
+    end
+
+    context "with no attachment assigned" do
+      let(:attachment) { nil }
+
+      it { is_expected.to be_nil }
+    end
+  end
 end
