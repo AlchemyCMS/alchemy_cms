@@ -56,4 +56,12 @@ RSpec.describe Alchemy::Ingredients::Link do
 
     it { is_expected.to eq("btn btn-default") }
   end
+
+  describe "preview_text" do
+    subject { link_ingredient.preview_text }
+
+    it "returns first 30 characters of the value" do
+      is_expected.to eq("https://example.com")
+    end
+  end
 end

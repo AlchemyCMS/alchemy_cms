@@ -89,6 +89,11 @@ en:
         right: 'Right from text'
         no_float: 'Above the text'
 
+    ingredient_values:
+      boolean:
+        true: "True"
+        false: "False"
+
     # == Contactform translations
     contactform:
       labels:

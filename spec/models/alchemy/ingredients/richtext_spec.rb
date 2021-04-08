@@ -45,4 +45,12 @@ RSpec.describe Alchemy::Ingredients::Richtext do
       end
     end
   end
+
+  describe "preview_text" do
+    subject { richtext_ingredient.tap(&:save).preview_text }
+
+    it "returns the first 30 chars of the stripped body column" do
+      is_expected.to eq("Hello!Welcome to Peters Petsho")
+    end
+  end
 end

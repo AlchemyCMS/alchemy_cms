@@ -30,4 +30,24 @@ RSpec.describe Alchemy::Ingredients::Page do
 
     it { is_expected.to be(page) }
   end
+
+  describe "preview_text" do
+    subject { page_ingredient.preview_text }
+
+    context "with a page" do
+      let(:page) do
+        Alchemy::Page.new(name: "A very long page name that would not fit")
+      end
+
+      it "returns first 30 characters of the pages name" do
+        is_expected.to eq("A very long page name that wou")
+      end
+    end
+
+    context "with no page" do
+      let(:page) { nil }
+
+      it { is_expected.to eq("") }
+    end
+  end
 end

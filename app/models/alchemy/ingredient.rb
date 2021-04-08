@@ -51,6 +51,16 @@ module Alchemy
       element.content_definition_for(role) || {}
     end
 
+    # The first 30 characters of the value
+    #
+    # Used by the Element#preview_text method.
+    #
+    # @param [Integer] max_length (30)
+    #
+    def preview_text(maxlength = 30)
+      value.to_s[0..maxlength - 1]
+    end
+
     # Cross DB adapter data accessor that works
     def data
       @_data ||= (self[:data] || {}).with_indifferent_access

@@ -13,6 +13,16 @@ module Alchemy
       before_save :strip_content
       before_save :sanitize_content
 
+      # The first 30 characters of the stripped_body
+      #
+      # Used by the Element#preview_text method.
+      #
+      # @param [Integer] max_length (30)
+      #
+      def preview_text(max_length = 30)
+        stripped_body.to_s[0..max_length - 1]
+      end
+
       # Returns css class names for the editor textarea.
       def tinymce_class_name
         "has_tinymce#{has_custom_tinymce_config? ? " #{element.name}_#{role}" : ""}"

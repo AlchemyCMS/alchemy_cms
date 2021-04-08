@@ -8,6 +8,16 @@ module Alchemy
     #
     class Node < Alchemy::Ingredient
       related_object_alias :node
+
+      # The first 30 characters of node name
+      #
+      # Used by the Element#preview_text method.
+      #
+      # @param [Integer] max_length (30)
+      #
+      def preview_text(max_length = 30)
+        node&.name.to_s[0..max_length - 1]
+      end
     end
   end
 end

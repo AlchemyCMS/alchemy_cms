@@ -30,4 +30,24 @@ RSpec.describe Alchemy::Ingredients::Node do
 
     it { is_expected.to be(node) }
   end
+
+  describe "preview_text" do
+    subject { node_ingredient.preview_text }
+
+    context "with a node" do
+      let(:node) do
+        Alchemy::Node.new(name: "A very long node name that would not fit")
+      end
+
+      it "returns first 30 characters of the nodes name" do
+        is_expected.to eq("A very long node name that wou")
+      end
+    end
+
+    context "with no node" do
+      let(:node) { nil }
+
+      it { is_expected.to eq("") }
+    end
+  end
 end

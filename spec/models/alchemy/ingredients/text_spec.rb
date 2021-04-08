@@ -12,6 +12,7 @@ RSpec.describe Alchemy::Ingredients::Text do
       element: element,
       type: described_class.name,
       role: "headline",
+      value: "A brown fox quickly jumps over the lazy dog",
       data: {
         link: "https://example.com",
         link_target: "_blank",
@@ -67,5 +68,13 @@ RSpec.describe Alchemy::Ingredients::Text do
     before { text_ingredient.link_class_name = "btn btn-default" }
     subject { text_ingredient.link_class_name }
     it { is_expected.to eq("btn btn-default") }
+  end
+
+  describe "preview_text" do
+    subject { text_ingredient.preview_text }
+
+    it "returns the first 30 chars of the value" do
+      is_expected.to eq("A brown fox quickly jumps over")
+    end
   end
 end

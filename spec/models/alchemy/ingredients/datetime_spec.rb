@@ -36,4 +36,24 @@ RSpec.describe Alchemy::Ingredients::Datetime do
       it { is_expected.to be_nil }
     end
   end
+
+  describe "preview_text" do
+    subject { datetime_ingredient.preview_text }
+
+    it "returns a localized date" do
+      is_expected.to eq("2021-04-01")
+    end
+
+    context "without date" do
+      let(:datetime_ingredient) do
+        described_class.new(
+          element: element,
+          type: described_class.name,
+          role: "date",
+        )
+      end
+
+      it { is_expected.to eq "" }
+    end
+  end
 end

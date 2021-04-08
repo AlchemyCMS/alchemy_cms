@@ -51,4 +51,24 @@ RSpec.describe Alchemy::Ingredients::File do
 
     it { is_expected.to be(attachment) }
   end
+
+  describe "preview_text" do
+    subject { file_ingredient.preview_text }
+
+    context "with a attachment" do
+      let(:attachment) do
+        Alchemy::Attachment.new(name: "A very long file name that would not fit")
+      end
+
+      it "returns first 30 characters of the attachment name" do
+        is_expected.to eq("A very long file name that wou")
+      end
+    end
+
+    context "with no attachment" do
+      let(:attachment) { nil }
+
+      it { is_expected.to eq("") }
+    end
+  end
 end

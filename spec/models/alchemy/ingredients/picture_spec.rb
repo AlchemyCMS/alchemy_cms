@@ -59,6 +59,26 @@ RSpec.describe Alchemy::Ingredients::Picture do
     it { is_expected.to be(picture) }
   end
 
+  describe "preview_text" do
+    subject { picture_ingredient.preview_text }
+
+    context "with a picture" do
+      let(:picture) do
+        Alchemy::Picture.new(name: "A very long picture name that would not fit")
+      end
+
+      it "returns first 30 characters of the picture name" do
+        is_expected.to eq("A very long picture name that ")
+      end
+    end
+
+    context "with no picture" do
+      let(:picture) { nil }
+
+      it { is_expected.to eq("") }
+    end
+  end
+
   describe "#picture_url" do
     subject(:picture_url) { picture_ingredient.picture_url(options) }
 

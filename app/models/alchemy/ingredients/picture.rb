@@ -26,6 +26,16 @@ module Alchemy
 
       related_object_alias :picture
 
+      # The first 30 characters of the pictures name
+      #
+      # Used by the Element#preview_text method.
+      #
+      # @param [Integer] max_length (30)
+      #
+      def preview_text(max_length = 30)
+        picture&.name.to_s[0..max_length - 1]
+      end
+
       # The url to show the picture.
       #
       # Takes all values like +name+ and crop sizes (+crop_from+, +crop_size+ from the build in graphical image cropper)
