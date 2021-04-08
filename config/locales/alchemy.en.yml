@@ -701,11 +701,18 @@ en:
   # Translations for Alchemy models
   activemodel:
     models:
+      alchemy/essence_headline:
+        one: Headline
+        other: Headline
       alchemy/message:
         one: Message
         other: Messages
       alchemy/admin/preview_url: Internal
     attributes:
+      alchemy/essence_headline:
+        body: Headline
+        level: Level
+        size: Size
       alchemy/message:
         salutation: 'Salutation'
         firstname: 'Firstname'

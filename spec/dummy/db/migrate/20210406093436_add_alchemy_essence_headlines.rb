@@ -1,0 +1,1 @@
+../../../../db/migrate/20210406093436_add_alchemy_essence_headlines.rb

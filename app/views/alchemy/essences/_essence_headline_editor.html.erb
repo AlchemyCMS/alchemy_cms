@@ -1,0 +1,36 @@
+<%= content_tag :div,
+  id: essence_headline_editor.dom_id,
+  class: essence_headline_editor.css_classes,
+  data: essence_headline_editor.data_attributes do %>
+  <%= content_label(essence_headline_editor) %>
+  <%= text_field_tag(
+    essence_headline_editor.form_field_name,
+    essence_headline_editor.essence.body,
+    id: essence_headline_editor.form_field_id
+  ) %>
+
+  <div class="input-row">
+    <% essence = essence_headline_editor.essence %>
+    <% if essence.level_options.length > 1 %>
+      <div class="input-column">
+        <%= label_tag Alchemy::EssenceHeadline.human_attribute_name(:level) %>
+        <%= select_tag(
+          essence_headline_editor.form_field_name(:level),
+          options_for_select(essence_headline_editor.essence.level_options, essence_headline_editor.essence.level),
+          class: "alchemy_selectbox full_width"
+        ) %>
+      </div>
+    <% end %>
+
+    <% if essence.size_options.length > 1 %>
+      <div class="input-column">
+        <%= label_tag Alchemy::EssenceHeadline.human_attribute_name(:size) %>
+        <%= select_tag(
+          essence_headline_editor.form_field_name(:size),
+          options_for_select(essence_headline_editor.essence.size_options, essence_headline_editor.essence.size),
+          class: "alchemy_selectbox full_width"
+        ) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

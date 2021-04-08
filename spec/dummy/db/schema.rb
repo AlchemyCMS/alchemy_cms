@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_26_105046) do
+ActiveRecord::Schema.define(version: 2021_04_06_093436) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -78,6 +78,14 @@ ActiveRecord::Schema.define(version: 2021_03_26_105046) do
     t.string "css_class"
     t.string "link_text"
     t.index ["attachment_id"], name: "index_alchemy_essence_files_on_attachment_id"
+  end
+
+  create_table "alchemy_essence_headlines", force: :cascade do |t|
+    t.text "body"
+    t.integer "level"
+    t.integer "size"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "alchemy_essence_htmls", force: :cascade do |t|
