@@ -10,7 +10,7 @@ module Alchemy
   #
   module TouchElements
     def self.included(base)
-      base.after_save(:touch_elements)
+      base.after_update(:touch_elements)
     end
 
     private
@@ -18,7 +18,7 @@ module Alchemy
     def touch_elements
       return unless respond_to?(:elements)
 
-      elements.map(&:touch)
+      elements.touch_all
     end
   end
 end

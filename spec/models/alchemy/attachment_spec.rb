@@ -46,7 +46,7 @@ module Alchemy
         end
 
         it "touches elements" do
-          expect { attachment.save }.to change { attachment.elements.reload.first.updated_at }
+          expect { attachment.update(name: "image with spaces") }.to change { attachment.elements.reload.first.updated_at }
         end
       end
     end
