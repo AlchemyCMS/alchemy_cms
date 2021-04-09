@@ -187,3 +187,13 @@
       type: EssenceText
     - name: text
       type: EssenceRichtext
+
+- name: element_with_ingredients
+  ingredients:
+    - role: headline
+      type: Text
+      default: Hello World
+      settings:
+        linkable: true
+    - role: text
+      type: Richtext

@@ -3,12 +3,11 @@
 require "shoulda-matchers"
 
 RSpec.shared_examples_for "an alchemy ingredient" do
-  let(:element) { build(:alchemy_element) }
+  let(:element) { build(:alchemy_element, name: "element_with_ingredients") }
 
   subject(:ingredient) do
     described_class.new(
       element: element,
-      type: described_class.name,
       role: "headline",
     )
   end
@@ -45,8 +44,8 @@ RSpec.shared_examples_for "an alchemy ingredient" do
     context "with element" do
       it do
         is_expected.to eq({
-          name: "headline",
-          type: "EssenceText",
+          role: "headline",
+          type: "Text",
           settings: {
             linkable: true,
           },
