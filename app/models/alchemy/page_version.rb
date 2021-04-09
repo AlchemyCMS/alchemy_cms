@@ -17,6 +17,8 @@ module Alchemy
             "OR #{table_name}.public_until >= :time)", time: time)
     end
 
+    before_destroy :delete_elements
+
     # Determines if this version is public
     #
     # Takes the two timestamps +public_on+ and +public_until+
@@ -41,6 +43,12 @@ module Alchemy
     # @returns Boolean
     def still_public_for?(time = Time.current)
       public_until.nil? || public_until >= time
+    end
+
+    private
+
+    def delete_elements
+      DeleteElements.new(elements).call
     end
   end
 end
