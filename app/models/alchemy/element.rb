@@ -70,6 +70,8 @@ module Alchemy
 
     has_many :contents, dependent: :destroy, inverse_of: :element
 
+    before_destroy :delete_all_nested_elements
+
     has_many :all_nested_elements,
       -> { order(:position) },
       class_name: "Alchemy::Element",
@@ -346,6 +348,19 @@ module Alchemy
       return unless respond_to?(:touchable_pages)
 
       touchable_pages.each(&:touch)
+    end
+
+    def delete_all_nested_elements
+      deeply_nested_elements = descendent_elements(self).flatten
+      DeleteElements.new(deeply_nested_elements).call
+      nested_elements.reset
+      all_nested_elements.reset
+    end
+
+    def descendent_elements(element)
+      element.all_nested_elements + element.all_nested_elements.map do |nested_element|
+        descendent_elements(nested_element)
+      end
     end
   end
 end
