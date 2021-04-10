@@ -968,4 +968,18 @@ module Alchemy
       end
     end
   end
+
+  describe "destroy callbacks" do
+    let(:element) { create(:alchemy_element) }
+    let!(:nested_element_1) { create(:alchemy_element, parent_element: element) }
+    let!(:nested_element_2) { create(:alchemy_element, parent_element: nested_element_1) }
+    let!(:nested_element_3) { create(:alchemy_element, parent_element: nested_element_2) }
+
+    it "destroys all the nested elements quickly" do
+      expect(Alchemy::DeleteElements).to receive(:new).with(
+        [nested_element_1, nested_element_2, nested_element_3]
+      ).and_call_original
+      element.reload.destroy!
+    end
+  end
 end
