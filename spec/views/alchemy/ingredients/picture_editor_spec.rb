@@ -21,7 +21,6 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
   it_behaves_like "an alchemy ingredient editor"
 
   before do
-    view.class.send(:include, Alchemy::Admin::BaseHelper)
     view.class.send(:include, Alchemy::Admin::EssencesHelper)
     allow(ingredient).to receive(:settings) { settings }
   end
@@ -42,7 +41,7 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
     end
   end
 
-  context "with settings[:deletable] being false" do
+  context "with settings[:linkable] being false" do
     let(:settings) do
       {
         linkable: false,

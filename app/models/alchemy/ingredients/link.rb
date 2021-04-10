@@ -10,6 +10,8 @@ module Alchemy
         link_target
         link_title
       ]
+
+      alias_method :link, :value
     end
   end
 end

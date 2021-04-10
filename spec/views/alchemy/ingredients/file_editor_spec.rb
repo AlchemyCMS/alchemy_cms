@@ -2,70 +2,81 @@
 
 require "rails_helper"
 
-describe "alchemy/essences/_essence_file_editor" do
-  let(:attachment) { build_stubbed(:alchemy_attachment) }
-  let(:essence) { build_stubbed(:alchemy_essence_file, attachment: attachment) }
-  let(:content) { build_stubbed(:alchemy_content, essence: essence) }
+describe "alchemy/ingredients/_file_editor" do
+  let(:element) { build(:alchemy_element) }
+
+  let(:ingredient) do
+    stub_model(
+      Alchemy::Ingredients::File,
+      element: element,
+      attachment: attachment,
+      role: "file",
+    )
+  end
+
+  let(:file_editor) { Alchemy::IngredientEditor.new(ingredient) }
+  let(:settings) { {} }
 
   subject do
-    render partial: "alchemy/essences/essence_file_editor", locals: {
-      essence_file_editor: Alchemy::ContentEditor.new(content),
+    render partial: "alchemy/ingredients/file_editor", locals: {
+      file_editor: file_editor,
+      file_editor_counter: 0,
     }
     rendered
   end
 
   before do
-    view.class.send :include, Alchemy::Admin::BaseHelper
-    allow(view).to receive(:content_label).and_return("")
+    # view.class.send(:include, Alchemy::Admin::BaseHelper)
+    view.class.send(:include, Alchemy::Admin::IngredientsHelper)
+    allow(ingredient).to receive(:settings) { settings }
+    allow(file_editor).to receive(:attachment) { attachment }
   end
 
-  context "with ingredient present" do
-    before do
-      allow(content).to receive(:ingredient).and_return(attachment)
-    end
+  context "with attachment present" do
+    let(:attachment) { build_stubbed(:alchemy_attachment) }
 
     it "renders a hidden field with attachment id" do
       is_expected.to have_selector("input[type='hidden'][value='#{attachment.id}']")
     end
 
     it "renders a link to open the attachment library overlay" do
-      within ".essence_file_tools" do
-        is_expected.to have_selector("a[href='/admin/attachments?content_id=#{content.id}']")
+      within ".file_tools" do
+        is_expected.to have_selector("a[href='/admin/attachments?form_field_id=element_ingredients_attributes_0_attachment_id']")
       end
     end
 
-    it "renders a link to edit the essence" do
-      within ".essence_file_tools" do
-        is_expected.to have_selector("a[href='/admin/essence_files/#{essence.id}/edit']")
+    it "renders a link to edit the ingredient" do
+      within ".file_tools" do
+        is_expected.to have_selector("a[href='/admin/ingredients/#{ingredient.id}/edit']")
       end
     end
 
-    context "with content settings `only`" do
+    context "with settings `only`" do
+      let(:settings) { { only: "pdf" } }
+
       it "renders a link to open the attachment library overlay with only pdfs" do
-        within ".essence_file_tools" do
-          expect(content).to receive(:settings).at_least(:once).and_return({only: "pdf"})
-          is_expected.to have_selector("a[href='/admin/attachments?content_id=#{content.id}&only=pdf']")
+        within ".file_tools" do
+          is_expected.to have_selector("a[href='/admin/attachments?form_field_id=element_ingredients_attributes_0_attachment_id&only=pdf']")
         end
       end
     end
 
-    context "with content settings `except`" do
+    context "with settings `except`" do
+      let(:settings) { { except: "pdf" } }
+
       it "renders a link to open the attachment library overlay without pdfs" do
-        within ".essence_file_tools" do
-          expect(content).to receive(:settings).at_least(:once).and_return({except: "pdf"})
-          is_expected.to have_selector("a[href='/admin/attachments?content_id=#{content.id}&except=pdf']")
+        within ".file_tools" do
+          is_expected.to have_selector("a[href='/admin/attachments?form_field_id=element_ingredients_attributes_0_attachment_id&except=pdf']")
         end
       end
     end
   end
 
-  context "without ingredient present" do
-    before do
-      allow(content).to receive(:ingredient).and_return(nil)
-    end
+  context "without attachment present" do
+    let(:attachment) { nil }
 
     it "renders a hidden field for attachment_id" do
-      is_expected.to have_selector("input[type='hidden'][name='contents[#{content.id}][attachment_id]']")
+      is_expected.to have_selector("input[type='hidden'][name='element[ingredients_attributes][0][attachment_id]']")
     end
   end
 end

@@ -237,7 +237,7 @@ Alchemy.ElementEditors =
   # private
 
   _shouldUpdateTitle: (element, event) ->
-    editors = element.find('> .element-content .element-content-editors').children()
+    editors = element.find('> .element-content .element-content-editors, > .element-content .element-ingredient-editors').children()
     if @_hasParents(element)
       editors.length != 0
     else if @_isParent(element) && @_isFirstChild $(event.target)

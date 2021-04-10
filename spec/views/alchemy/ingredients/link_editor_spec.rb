@@ -2,27 +2,37 @@
 
 require "rails_helper"
 
-describe "alchemy/essences/_essence_link_editor" do
-  let(:essence) { Alchemy::EssenceLink.new(link: "http://alchemy-cms.com") }
-  let(:content) { Alchemy::Content.new(essence: essence) }
-  let(:settings) { {} }
+RSpec.describe "alchemy/ingredients/_link_editor" do
+  let(:element) { build(:alchemy_element) }
+
+  let(:ingredient) do
+    stub_model(
+      Alchemy::Ingredients::Link,
+      element: element,
+      role: "link",
+    )
+  end
+
+  subject do
+    render partial: "alchemy/ingredients/link_editor", locals: {
+      link_editor: Alchemy::IngredientEditor.new(ingredient),
+      link_editor_counter: 0,
+    }
+    rendered
+  end
 
   before do
-    view.class.send :include, Alchemy::Admin::BaseHelper
-    allow(view).to receive(:content_label).and_return("1e Zahl")
-    render partial: "alchemy/essences/essence_link_editor", locals: {
-      essence_link_editor: Alchemy::ContentEditor.new(content),
-    }
+    view.class.send(:include, Alchemy::Admin::IngredientsHelper)
   end
 
   it "renders a disabled text input field" do
-    expect(rendered).to have_selector('input[type="text"][disabled]')
+    is_expected.to have_selector('input[type="text"][disabled]')
   end
 
   it "renders link buttons" do
-    expect(rendered).to have_selector('input[type="hidden"][name="contents[][link]"]')
-    expect(rendered).to have_selector('input[type="hidden"][name="contents[][link_title]"]')
-    expect(rendered).to have_selector('input[type="hidden"][name="contents[][link_class_name]"]')
-    expect(rendered).to have_selector('input[type="hidden"][name="contents[][link_target]"]')
+    is_expected.to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][value]"]')
+    is_expected.to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_title]"]')
+    is_expected.to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_class_name]"]')
+    is_expected.to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_target]"]')
   end
 end

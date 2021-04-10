@@ -1,26 +1,26 @@
 <%= content_tag :div,
-  id: essence_link_editor.dom_id,
-  class: essence_link_editor.css_classes,
-  data: essence_link_editor.data_attributes do %>
-  <%= content_label(essence_link_editor) %>
-  <%= text_field_tag '', essence_link_editor.ingredient,
+  class: link_editor.css_classes,
+  data: link_editor.data_attributes do %>
+  <%= ingredient_label(link_editor, counter: link_editor_counter) %>
+  <%= text_field_tag "", link_editor.value,
     class: "thin_border text_with_icon disabled",
     name: nil,
     id: nil,
     disabled: true
   %>
-  <%= hidden_field_tag essence_link_editor.form_field_name(:link),
-    essence_link_editor.essence.link %>
-  <%= hidden_field_tag essence_link_editor.form_field_name(:link_title),
-    essence_link_editor.essence.link_title %>
-  <%= hidden_field_tag essence_link_editor.form_field_name(:link_class_name),
-    essence_link_editor.essence.link_class_name %>
-  <%= hidden_field_tag essence_link_editor.form_field_name(:link_target),
-    essence_link_editor.essence.link_target %>
-  <%= render 'alchemy/essences/shared/linkable_essence_tools', content: essence_link_editor.content %>
+  <%= hidden_field_tag link_editor.form_field_name(counter: link_editor_counter),
+    link_editor.value %>
+  <%= hidden_field_tag link_editor.form_field_name(:link_title, counter: link_editor_counter),
+    link_editor.link_title %>
+  <%= hidden_field_tag link_editor.form_field_name(:link_class_name, counter: link_editor_counter),
+    link_editor.link_class_name %>
+  <%= hidden_field_tag link_editor.form_field_name(:link_target, counter: link_editor_counter),
+    link_editor.link_target %>
+  <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: link_editor %>
 <% end %>
-<script type="text/javascript" charset="utf-8">
-  $('#<%= essence_link_editor.form_field_id(:link) %>').on('change', function() {
-    $('#<%= essence_link_editor.dom_id %> input.text_with_icon').val($(this).val());
+
+<script>
+  $("#<%= link_editor.form_field_id(:value, counter: link_editor_counter) %>").on("change", function() {
+    $("[data-ingredient-id='<%= link_editor.id %>'] input.text_with_icon").val($(this).val());
   });
 </script>

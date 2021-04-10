@@ -2,27 +2,22 @@
 
 require "rails_helper"
 
-describe "alchemy/essences/_essence_boolean_editor" do
-  let(:element) { create(:alchemy_element, name: "all_you_can_eat") }
-  let(:content) { Alchemy::Content.create(name: "essence_boolean", type: "EssenceBoolean", element: element) }
+RSpec.describe "alchemy/ingredients/_boolean_editor" do
+  let(:element) { build(:alchemy_element, name: "all_you_can_eat_ingredients") }
 
-  let(:content_definition) do
-    {
-      name: "essence_boolean",
-      type: "EssenceBoolean",
-    }.with_indifferent_access
+  let(:ingredient) do
+    Alchemy::Ingredients::Boolean.build(role: "boolean", type: "Boolean", element: element)
   end
 
   before do
-    expect(element).to receive(:content_definition_for) { content_definition }
-    allow_any_instance_of(Alchemy::Content).to receive(:definition) { content_definition }
-    allow(view).to receive(:render_content_name).and_return(content.name)
-    allow(view).to receive(:render_hint_for).and_return("")
+    view.class.send :include, Alchemy::Admin::BaseHelper
+    view.class.send :include, Alchemy::Admin::IngredientsHelper
   end
 
   subject do
-    render partial: "alchemy/essences/essence_boolean_editor", locals: {
-      essence_boolean_editor: Alchemy::ContentEditor.new(content),
+    render partial: "alchemy/ingredients/boolean_editor", locals: {
+      boolean_editor: Alchemy::IngredientEditor.new(ingredient),
+      boolean_editor_counter: 0,
     }
     rendered
   end
@@ -31,11 +26,16 @@ describe "alchemy/essences/_essence_boolean_editor" do
     is_expected.to have_selector('input[type="checkbox"]')
   end
 
-  context "with default value given in content settings" do
-    let(:content_definition) do
+  context "with default value given in ingredient settings" do
+    before do
+      expect(element).to receive(:ingredient_definition_for) { ingredient_definition }
+      allow_any_instance_of(Alchemy::Ingredients::Boolean).to receive(:definition) { ingredient_definition }
+    end
+
+    let(:ingredient_definition) do
       {
-        name: "essence_boolean",
-        type: "EssenceBoolean",
+        role: "boolean",
+        type: "Boolean",
         default: true,
       }.with_indifferent_access
     end

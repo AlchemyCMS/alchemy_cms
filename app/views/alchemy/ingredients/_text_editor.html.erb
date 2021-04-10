@@ -6,7 +6,7 @@
   <%= ingredient_label(text_editor, counter: text_editor_counter) %>
   <%= text_field_tag(
     text_editor.form_field_name(counter: text_editor_counter),
-    text_editor.ingredient,
+    text_editor.value,
     class: text_editor.settings[:linkable] ? "text_with_icon" : "",
     type: text_editor.settings[:input_type] || "text"
   ) %>

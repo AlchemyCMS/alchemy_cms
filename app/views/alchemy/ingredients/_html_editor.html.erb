@@ -1,10 +1,9 @@
 <%= content_tag :div,
-  id: essence_html_editor.dom_id,
-  class: essence_html_editor.css_classes,
-  data: essence_html_editor.data_attributes do %>
-  <%= content_label(essence_html_editor) %>
+  class: html_editor.css_classes,
+  data: html_editor.data_attributes do %>
+  <%= ingredient_label(html_editor, counter: html_editor_counter) %>
   <%= text_area_tag(
-    essence_html_editor.form_field_name,
-    essence_html_editor.ingredient
+    html_editor.form_field_name(counter: html_editor_counter),
+    html_editor.value
   ) %>
 <% end %>

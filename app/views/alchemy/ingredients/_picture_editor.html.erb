@@ -26,7 +26,7 @@
             title: Alchemy.t(:image_name, name: picture_editor.picture.name),
           ) %>
         <% else %>
-          <%= render_icon(:image, style: 'regular') %>
+          <%= render_icon(:image, style: "regular") %>
         <% end %>
       </div>
     </div>
@@ -37,8 +37,9 @@
       </div>
     <%- end -%>
     <div class="edit_images_bottom">
-      <%= render 'alchemy/ingredients/shared/picture_tools', {
-        ingredient: picture_editor
+      <%= render "alchemy/ingredients/shared/picture_tools", {
+        picture_editor: picture_editor,
+        picture_editor_counter: picture_editor_counter
       } %>
     </div>
   <% end %>

@@ -15,6 +15,8 @@ module Alchemy
 
       related_object_alias :attachment
 
+      delegate :name, to: :attachment, allow_nil: true
+
       # The first 30 characters of the attachments name
       #
       # Used by the Element#preview_text method.

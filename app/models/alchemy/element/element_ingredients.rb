@@ -17,6 +17,8 @@ module Alchemy
 
         before_create :build_ingredients,
           unless: -> { autogenerate_ingredients == false }
+
+        accepts_nested_attributes_for :ingredients
       end
 
       # Find first ingredient from element by given role.

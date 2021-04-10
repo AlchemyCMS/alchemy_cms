@@ -148,7 +148,7 @@
     - role: boolean
       type: Boolean
       hint: true
-    - role: date
+    - role: datetime
       type: Datetime
       hint: true
     - role: file
