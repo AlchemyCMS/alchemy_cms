@@ -7,7 +7,7 @@
 - name: headline
   contents:
   - name: headline
-    type: EssenceText
+    type: EssenceHeadline
 
 - name: article
   taggable: true

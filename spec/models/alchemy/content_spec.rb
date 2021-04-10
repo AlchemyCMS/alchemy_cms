@@ -5,7 +5,7 @@ require "rails_helper"
 module Alchemy
   describe Content do
     let(:element) { create(:alchemy_element, :with_contents, name: "headline") }
-    let(:content) { element.contents.find_by(essence_type: "Alchemy::EssenceText") }
+    let(:content) { element.contents.find_by(name: "headline") }
 
     it "should return the ingredient from its essence" do
       content.essence.update_columns(body: "Hello")
