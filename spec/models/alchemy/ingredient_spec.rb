@@ -7,6 +7,10 @@ RSpec.describe Alchemy::Ingredient do
     build(:alchemy_element, name: "element_with_ingredients", autogenerate_ingredients: false)
   end
 
+  it_behaves_like "having a hint" do
+    let(:subject) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
+  end
+
   describe ".build" do
     subject { described_class.build(attributes) }
 

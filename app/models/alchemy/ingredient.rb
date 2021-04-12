@@ -4,6 +4,8 @@ module Alchemy
   class Ingredient < BaseRecord
     class DefinitionError < StandardError; end
 
+    include Hints
+
     self.abstract_class = true
     self.table_name = "alchemy_ingredients"
 
@@ -159,6 +161,12 @@ module Alchemy
     # @return [Boolean]
     def deprecated?
       !!definition[:deprecated]
+    end
+
+    private
+
+    def hint_translation_attribute
+      role
     end
   end
 end
