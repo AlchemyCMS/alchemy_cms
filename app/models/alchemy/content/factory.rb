@@ -54,7 +54,7 @@ module Alchemy
       #
       def copy(source, differences = {})
         Content.new(
-          source.attributes.
+          source.attributes.with_indifferent_access.
             except(*SKIPPED_ATTRIBUTES_ON_COPY).
             merge(differences.with_indifferent_access)
         ).tap do |new_content|
