@@ -243,4 +243,10 @@ RSpec.describe Alchemy::ElementsRepository do
 
     it_behaves_like "being chainable"
   end
+
+  describe "#children_of" do
+    subject { repo.children_of(visible_element) }
+
+    it { is_expected.to match_array([nested_element]) }
+  end
 end
