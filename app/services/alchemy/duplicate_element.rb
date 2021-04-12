@@ -6,9 +6,9 @@ module Alchemy
       "cached_tag_list",
       "created_at",
       "creator_id",
+      "position",
       "id",
       "folded",
-      "position",
       "updated_at",
       "updater_id",
     ].freeze
@@ -37,10 +37,11 @@ module Alchemy
       end
 
       nested_elements = repository.children_of(source_element)
-      nested_elements.map do |nested_element|
+      nested_elements.each.with_index do |nested_element, position|
         self.class.new(nested_element, repository: repository).call(
           parent_element: new_element,
           page_version: new_element.page_version,
+          position: position
         )
       end
 
