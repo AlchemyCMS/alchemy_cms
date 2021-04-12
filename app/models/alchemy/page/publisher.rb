@@ -20,10 +20,12 @@ module Alchemy
           DeleteElements.new(version.elements).call
 
           repository = page.draft_version.element_repository
-          repository.visible.not_nested.each do |element|
-            Alchemy::DuplicateElement.new(element, repository: repository).call(
-              page_version_id: version.id,
-            )
+          ActiveRecord::Base.no_touching do
+            repository.visible.not_nested.each do |element|
+              Alchemy::DuplicateElement.new(element, repository: repository).call(
+                page_version_id: version.id,
+              )
+            end
           end
         end
       end
