@@ -134,12 +134,31 @@ module Alchemy
       @_data ||= (self[:data] || {}).with_indifferent_access
     end
 
+    # The path to the view partial of the ingredient
+    # @return [String]
     def to_partial_path
       "alchemy/ingredients/#{partial_name}_view"
     end
 
+    # The demodulized underscored class name of the ingredient
+    # @return [String]
     def partial_name
       self.class.name.demodulize.underscore
+    end
+
+    # @return [Boolean]
+    def has_validations?
+      !!definition[:validate]
+    end
+
+    # @return [Boolean]
+    def has_hint?
+      !!definition[:hint]
+    end
+
+    # @return [Boolean]
+    def deprecated?
+      !!definition[:deprecated]
     end
   end
 end

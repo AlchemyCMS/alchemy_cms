@@ -150,4 +150,74 @@ RSpec.describe Alchemy::Ingredient do
       is_expected.to eq "alchemy/ingredients/richtext_view"
     end
   end
+
+  describe "#has_validations?" do
+    let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+
+    subject { ingredient.has_validations? }
+
+    context "not defined with validations" do
+      it { is_expected.to be false }
+    end
+
+    context "defined with validations" do
+      before do
+        expect(ingredient).to receive(:definition).at_least(:once).and_return({
+          validate: { presence: true },
+        })
+      end
+
+      it { is_expected.to be true }
+    end
+  end
+
+  describe "#has_hint?" do
+    let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+
+    subject { ingredient.has_hint? }
+
+    context "not defined with hint" do
+      it { is_expected.to be false }
+    end
+
+    context "defined with hint" do
+      before do
+        expect(ingredient).to receive(:definition).at_least(:once).and_return({
+          hint: true,
+        })
+      end
+
+      it { is_expected.to be true }
+    end
+  end
+
+  describe "#deprecated?" do
+    let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+
+    subject { ingredient.deprecated? }
+
+    context "not defined as deprecated" do
+      it { is_expected.to be false }
+    end
+
+    context "defined as deprecated" do
+      before do
+        expect(ingredient).to receive(:definition).at_least(:once).and_return({
+          deprecated: true,
+        })
+      end
+
+      it { is_expected.to be true }
+    end
+
+    context "defined as deprecated per String" do
+      before do
+        expect(ingredient).to receive(:definition).at_least(:once).and_return({
+          deprecated: "This ingredient is deprecated",
+        })
+      end
+
+      it { is_expected.to be true }
+    end
+  end
 end
