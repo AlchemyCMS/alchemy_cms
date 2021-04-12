@@ -124,6 +124,44 @@
       type: EssenceLink
       hint: true
 
+- name: all_you_can_eat_ingredients
+  hint: true
+  taggable: true
+  ingredients:
+    - role: text
+      type: Text
+      hint: true
+    - role: picture
+      type: Picture
+      hint: true
+      settings:
+        size: 1200x480
+        crop: true
+    - role: richtext
+      type: Richtext
+      hint: true
+    - role: select
+      type: Select
+      hint: true
+      settings:
+        select_values: [A, B, C]
+    - role: boolean
+      type: Boolean
+      hint: true
+    - role: date
+      type: Datetime
+      hint: true
+    - role: file
+      type: File
+      hint: true
+    - role: html
+      type: Html
+      hint: true
+      deprecated: true
+    - role: link
+      type: Link
+      hint: true
+
 - name: <%= 'erb_' + 'element' %>
   contents:
     - name: text

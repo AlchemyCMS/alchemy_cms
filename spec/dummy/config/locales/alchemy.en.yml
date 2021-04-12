@@ -32,6 +32,9 @@ en:
     content_deprecation_notices:
       all_you_can_eat:
         essence_html: Old content is deprecated
+    ingredient_deprecation_notices:
+      all_you_can_eat_ingredients:
+        html: Old ingredient is deprecated
     element_deprecation_notices:
       old: Old element is deprecated
 
