@@ -1,0 +1,16 @@
+<%- options = local_assigns.fetch(:options, {}) -%>
+<%- html_options = local_assigns.fetch(:html_options, {}) -%>
+<%- if text_view.link.blank? ||
+    text_view.settings_value(:disable_link, options) -%>
+<%= text_view.value -%>
+<%- else -%>
+  <%= link_to(
+    text_view.value,
+    url_for(text_view.link),
+    {
+      title: text_view.link_title,
+      target: (text_view.link_target == "blank" ? "_blank" : nil),
+      'data-link-target' => text_view.link_target
+    }.merge(html_options)
+) -%>
+<%- end -%>

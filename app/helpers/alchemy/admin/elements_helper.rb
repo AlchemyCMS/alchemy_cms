@@ -3,6 +3,7 @@
 module Alchemy
   module Admin
     module ElementsHelper
+      include Alchemy::Admin::IngredientsHelper
       include Alchemy::Admin::ContentsHelper
       include Alchemy::Admin::EssencesHelper
 

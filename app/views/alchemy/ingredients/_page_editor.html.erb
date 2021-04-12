@@ -1,0 +1,26 @@
+<%= content_tag :div,
+  id: essence_page_editor.dom_id,
+  class: essence_page_editor.css_classes,
+  data: essence_page_editor.data_attributes do %>
+  <%= content_label(essence_page_editor) %>
+  <%= text_field_tag(
+    essence_page_editor.form_field_name("page_id"),
+    essence_page_editor.essence.page_id,
+    id: essence_page_editor.form_field_id,
+    class: 'alchemy_selectbox full_width'
+  ) %>
+<% end %>
+
+<script>
+  $('#<%= essence_page_editor.form_field_id %>').alchemyPageSelect({
+    placeholder: "<%= Alchemy.t(:search_page) %>",
+    url: "<%= alchemy.api_pages_path %>",
+    query_params: <%== essence_page_editor.settings[:query_params].to_json %>,
+    <% if essence_page_editor.essence.page %>
+    initialSelection: {
+      id: <%= essence_page_editor.essence.page_id %>,
+      text: "<%= essence_page_editor.essence.page.name %>"
+    }
+    <% end %>
+  })
+</script>

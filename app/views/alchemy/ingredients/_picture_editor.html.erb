@@ -1,0 +1,43 @@
+<% options = local_assigns.fetch(:options, {}) %>
+
+<%= content_tag :div,
+  class: picture_editor.css_classes,
+  data: picture_editor.data_attributes do %>
+  <%= ingredient_label(picture_editor, counter: picture_editor_counter) %>
+  <div class="picture_thumbnail">
+    <span class="picture_tool delete">
+      <%= link_to render_icon(:times), '#',
+        onclick: "return Alchemy.removePicture('##{picture_editor.form_field_id(:picture_id, counter: picture_editor_counter)}');" %>
+    </span>
+    <div class="picture_image">
+      <div class="thumbnail_background">
+        <%- if picture_editor.ingredient -%>
+          <%= essence_picture_thumbnail(picture_editor) %>
+        <% else %>
+          <%= render_icon(:image, style: 'regular') %>
+        <% end %>
+      </div>
+    </div>
+    <%- if picture_editor.essence.css_class.present? -%>
+      <div class="essence_picture_css_class">
+        <%= Alchemy.t("alchemy.essence_pictures.css_classes.#{picture_editor.essence.css_class}",
+          default: picture_editor.essence.css_class.camelcase) %>
+      </div>
+    <%- end -%>
+    <div class="edit_images_bottom">
+      <%= render 'alchemy/ingredients/shared/picture_tools', {
+        ingredient: picture_editor
+      } %>
+    </div>
+  </div>
+  <%= hidden_field_tag picture_editor.form_field_name(:picture_id, counter: picture_editor_counter),
+    picture_editor.picture&.id %>
+  <%= hidden_field_tag picture_editor.form_field_name(:link, counter: picture_editor_counter),
+    picture_editor.link %>
+  <%= hidden_field_tag picture_editor.form_field_name(:link_title, counter: picture_editor_counter),
+    picture_editor.link_title %>
+  <%= hidden_field_tag picture_editor.form_field_name(:link_class_name, counter: picture_editor_counter),
+    picture_editor.link_class_name %>
+  <%= hidden_field_tag picture_editor.form_field_name(:link_target, counter: picture_editor_counter),
+    picture_editor.link_target %>
+<% end %>
