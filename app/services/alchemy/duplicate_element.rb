@@ -27,7 +27,7 @@ module Alchemy
         .merge(
           autogenerate_contents: false,
           autogenerate_nested_elements: false,
-          tag_list: source_element.tag_list,
+          tags: source_element.tags,
         )
 
       new_element = Element.create(attributes)
