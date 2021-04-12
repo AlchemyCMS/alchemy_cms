@@ -7,7 +7,7 @@ module Alchemy
     extend ActiveSupport::Concern
 
     module ClassMethods
-      SKIPPED_ATTRIBUTES_ON_COPY = %w(position created_at updated_at creator_id updater_id id)
+      SKIPPED_ATTRIBUTES_ON_COPY = %w(position created_at updated_at creator_id updater_id element_id id)
 
       # Builds a new content as descriped in the elements.yml file.
       #
