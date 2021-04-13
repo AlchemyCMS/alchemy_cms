@@ -45,6 +45,10 @@ module Alchemy
       public_until.nil? || public_until >= time
     end
 
+    def element_repository
+      ElementsRepository.new(elements.includes({ contents: :essence }, :tags))
+    end
+
     private
 
     def delete_elements

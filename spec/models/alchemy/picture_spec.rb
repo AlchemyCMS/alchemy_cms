@@ -512,13 +512,12 @@ module Alchemy
         let(:picture) { create(:alchemy_picture) }
 
         let(:content) do
-          create(:alchemy_content, :essence_picture).tap do |content|
-            content.element.update_column(:updated_at, 3.hours.ago)
-          end
+          create(:alchemy_content, :essence_picture)
         end
 
         before do
           content.essence.update(picture: picture)
+          content.element.update_column(:updated_at, 3.hours.ago)
         end
 
         it "touches elements" do

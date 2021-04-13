@@ -19,9 +19,16 @@ module Alchemy
           version = public_version(public_on)
           DeleteElements.new(version.elements).call
 
-          # We must not use .find_each here to not mess up the order of elements
-          page.draft_version.elements.not_nested.available.each do |element|
-            Element.copy(element, page_version_id: version.id)
+          repository = page.draft_version.element_repository
+          ActiveRecord::Base.no_touching do
+            Element.acts_as_list_no_update do
+              repository.visible.not_nested.each.with_index(1) do |element, position|
+                Alchemy::DuplicateElement.new(element, repository: repository).call(
+                  page_version_id: version.id,
+                  position: position
+                )
+              end
+            end
           end
         end
       end

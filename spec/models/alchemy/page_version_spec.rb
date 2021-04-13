@@ -137,5 +137,15 @@ describe Alchemy::PageVersion do
         expect(Alchemy::EssenceRichtext.count).to be_zero
       end
     end
+
+    describe "#element_repository" do
+      let(:page_version) { create(:alchemy_page_version, :with_elements) }
+      subject { page_version.element_repository }
+
+      it "is an element repository containing the pages elements" do
+        expect(Alchemy::ElementsRepository).to receive(:new).with(page_version.elements).and_call_original
+        expect(subject).to be_a(Alchemy::ElementsRepository)
+      end
+    end
   end
 end

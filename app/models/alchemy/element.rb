@@ -45,17 +45,6 @@ module Alchemy
       "deprecated",
     ].freeze
 
-    SKIPPED_ATTRIBUTES_ON_COPY = [
-      "cached_tag_list",
-      "created_at",
-      "creator_id",
-      "id",
-      "folded",
-      "position",
-      "updated_at",
-      "updater_id",
-    ].freeze
-
     # All Elements that share the same page version and parent element and are fixed or not are considered a list.
     #
     # If parent_element_id is nil (typical case for a simple page),
@@ -163,26 +152,7 @@ module Alchemy
       #   @copy.public? # => false
       #
       def copy(source_element, differences = {})
-        attributes = source_element.attributes.with_indifferent_access
-          .except(*SKIPPED_ATTRIBUTES_ON_COPY)
-          .merge(differences)
-          .merge({
-            autogenerate_contents: false,
-            autogenerate_nested_elements: false,
-            tag_list: source_element.tag_list,
-          })
-
-        new_element = create!(attributes)
-
-        if source_element.contents.any?
-          source_element.copy_contents_to(new_element)
-        end
-
-        if source_element.nested_elements.any?
-          source_element.copy_nested_elements_to(new_element)
-        end
-
-        new_element
+        DuplicateElement.new(source_element).call(differences)
       end
 
       def all_from_clipboard(clipboard)
@@ -311,16 +281,6 @@ module Alchemy
     # A collection of element names that can be nested inside this element.
     def nestable_elements
       definition.fetch("nestable_elements", [])
-    end
-
-    # Copy all nested elements from current element to given target element.
-    def copy_nested_elements_to(target_element)
-      nested_elements.map do |nested_element|
-        Element.copy(nested_element, {
-          parent_element_id: target_element.id,
-          page_version_id: target_element.page_version_id,
-        })
-      end
     end
 
     private
