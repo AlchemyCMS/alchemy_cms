@@ -23,6 +23,7 @@ Gem::Specification.new do |gem|
     actionmailer
     actionpack
     actionview
+    activejob
     activemodel
     activerecord
     activesupport

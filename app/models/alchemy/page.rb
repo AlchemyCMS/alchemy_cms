@@ -451,8 +451,8 @@ module Alchemy
     # The +published_at+ attribute is used as +cache_key+.
     #
     def publish!(current_time = Time.current)
-      update_columns(published_at: current_time)
-      Publisher.new(self).publish!(public_on: current_time)
+      update(published_at: current_time)
+      PublishPageJob.perform_later(self, public_on: current_time)
     end
 
     # Sets the public_on date on the published version
