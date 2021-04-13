@@ -1413,9 +1413,10 @@ module Alchemy
         allow(Time).to receive(:current).and_return(current_time)
       end
 
-      it "calls the page publisher" do
-        expect_any_instance_of(Alchemy::Page::Publisher).to receive(:publish!).with(public_on: current_time)
-        page.publish!
+      it "enqueues publish page job" do
+        expect {
+          page.publish!
+        }.to have_enqueued_job(Alchemy::PublishPageJob)
       end
 
       it "sets published_at" do
