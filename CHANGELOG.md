@@ -1,5 +1,9 @@
 # Change Log
 
+## 3.6.7 (2021-04-13)
+
+- Allow "data" key for module navigations
+
 ## 3.6.6 (2020-10-08)
 
 - Allow AwesomeNestedSet >= 3.0 [#1619](https://github.com/AlchemyCMS/alchemy_cms/pull/1619) by [tvdeyen](https://github.com/tvdeyen)
