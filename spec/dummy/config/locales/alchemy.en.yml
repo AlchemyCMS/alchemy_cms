@@ -26,6 +26,8 @@ en:
       essence_text: This content type (Essence) represents a simple line of text
     default_content_texts:
       welcome: Welcome to my site
+    default_ingredient_texts:
+      lorem_ipsum: Dapibus nostra massa phasellus viverra rhoncus fringilla
     resource_help_texts:
       party:
         name: Party

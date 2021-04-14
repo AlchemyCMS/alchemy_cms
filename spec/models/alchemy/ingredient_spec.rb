@@ -36,8 +36,18 @@ RSpec.describe Alchemy::Ingredient do
       context "with default defined" do
         let(:attributes) { { element: element, role: "headline" } }
 
-        it "sets default value" do
-          expect(subject.value).to eq("Hello World")
+        context "defined as String" do
+          it "sets default value" do
+            expect(subject.value).to eq("Hello World")
+          end
+        end
+
+        context "defined as Symbol" do
+          let(:attributes) { { element: element, role: "text" } }
+
+          it "sets translated default value" do
+            expect(subject.value).to eq("Dapibus nostra massa phasellus viverra rhoncus fringilla")
+          end
         end
       end
 

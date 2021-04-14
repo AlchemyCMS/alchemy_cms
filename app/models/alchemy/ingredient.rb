@@ -31,7 +31,7 @@ module Alchemy
         ingredient_class = Ingredient.ingredient_class_by_type(definition[:type])
         ingredient_class.new(
           type: Ingredient.normalize_type(definition[:type]),
-          value: definition[:default],
+          value: default_value(definition),
           role: definition[:role],
           element: element,
         )
@@ -85,6 +85,22 @@ module Alchemy
       # @return [String]
       def normalize_type(ingredient_type)
         "Alchemy::Ingredients::#{ingredient_type.to_s.classify.demodulize}"
+      end
+
+      private
+
+      # Returns the default value from ingredient definition
+      #
+      # If the value is a symbol it gets passed through i18n
+      # inside the +alchemy.default_ingredient_texts+ scope
+      def default_value(definition)
+        default = definition[:default]
+        case default
+        when Symbol
+          Alchemy.t(default, scope: :default_ingredient_texts)
+        else
+          default
+        end
       end
     end
 

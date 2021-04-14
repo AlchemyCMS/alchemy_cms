@@ -235,3 +235,4 @@
         linkable: true
     - role: text
       type: Richtext
+      default: :lorem_ipsum
