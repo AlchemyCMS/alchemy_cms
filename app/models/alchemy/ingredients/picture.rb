@@ -10,6 +10,8 @@ module Alchemy
     # As well as set the alt tag, a caption and title
     #
     class Picture < Alchemy::Ingredient
+      include Alchemy::Picture::Transformations
+
       ingredient_attributes(
         :alt_tag,
         :caption,
@@ -25,6 +27,8 @@ module Alchemy
       )
 
       related_object_alias :picture
+
+      delegate :image_file_width, :image_file_height, :image_file, to: :picture
 
       # The first 30 characters of the pictures name
       #
@@ -65,6 +69,30 @@ module Alchemy
         picture.url(picture_url_options.merge(options)) || "missing-image.png"
       end
 
+      # Returns an url for the thumbnail representation of the assigned picture
+      #
+      # It takes cropping values into account, so it always represents the current
+      # image displayed in the frontend.
+      #
+      # @return [String]
+      def thumbnail_url
+        return if picture.nil?
+
+        crop = crop_values_present? || settings[:crop]
+        size = render_size || settings[:size]
+
+        options = {
+          size: thumbnail_size(size, crop),
+          crop: !!crop,
+          crop_from: crop_from.presence,
+          crop_size: crop_size.presence,
+          flatten: true,
+          format: picture.image_file_format,
+        }
+
+        picture.url(options) || "alchemy/missing-image.svg"
+      end
+
       # Picture rendering options
       #
       # Returns the +default_render_format+ of the associated +Alchemy::Picture+
@@ -90,6 +118,12 @@ module Alchemy
             settings[:size],
             settings[:upsample],
           ) && !!picture.image_file
+      end
+
+      private
+
+      def crop_values_present?
+        crop_from.present? && crop_size.present?
       end
     end
   end

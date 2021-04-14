@@ -154,6 +154,81 @@ RSpec.describe Alchemy::Ingredients::Picture do
     end
   end
 
+  describe "#thumbnail_url" do
+    subject(:thumbnail_url) { picture_ingredient.thumbnail_url }
+
+    let(:settings) { {} }
+
+    before do
+      allow(picture_ingredient).to receive(:settings) { settings }
+    end
+
+    context "with persisted picture" do
+      let(:picture) { create(:alchemy_picture) }
+
+      it "includes the image's original file format." do
+        expect(thumbnail_url).to match(/\.png/)
+      end
+    end
+
+    it "flattens the image." do
+      expect(picture).to receive(:url).with(hash_including(flatten: true))
+      thumbnail_url
+    end
+
+    context "when crop sizes are present" do
+      before do
+        allow(picture_ingredient).to receive(:crop_size).and_return("200x200")
+        allow(picture_ingredient).to receive(:crop_from).and_return("10x10")
+      end
+
+      it "passes these crop sizes to the picture's url method." do
+        expect(picture).to receive(:url).with(
+          hash_including(crop_from: "10x10", crop_size: "200x200", crop: true),
+        )
+        thumbnail_url
+      end
+    end
+
+    context "when no crop sizes are present" do
+      it "it does not pass crop sizes to the picture's url method and disables cropping." do
+        expect(picture).to receive(:url).with(
+          hash_including(crop_from: nil, crop_size: nil, crop: false),
+        )
+        thumbnail_url
+      end
+
+      context "when crop is explicitely enabled in the settings" do
+        let(:settings) do
+          { crop: true }
+        end
+
+        it "it enables cropping." do
+          expect(picture).to receive(:url).with(
+            hash_including(crop: true),
+          )
+          thumbnail_url
+        end
+      end
+    end
+
+    context "without picture assigned" do
+      let(:picture) { nil }
+
+      it { is_expected.to be_nil }
+    end
+
+    context "if picture.url returns nil" do
+      before do
+        expect(picture).to receive(:url) { nil }
+      end
+
+      it "returns missing image url" do
+        is_expected.to eq "alchemy/missing-image.svg"
+      end
+    end
+  end
+
   describe "#picture_url_options" do
     subject(:picture_url_options) { picture_ingredient.picture_url_options }
 
