@@ -163,6 +163,18 @@ module Alchemy
         expect(subject.essence).to be_instance_of(EssenceText)
         expect(subject.essence).to_not be_persisted
       end
+
+      context "when given an essence_type attribute that is not in the definition" do
+        let(:arguments) { { element: element, essence_type: "Alchemy::EssenceText", name: "not_in_elements_yml" } }
+
+        subject { Content.new(arguments) }
+
+        it "does not raise an error" do
+          expect { subject }.not_to raise_exception
+          expect(subject.name).to eq("not_in_elements_yml")
+          expect(subject.essence).to be_a(Alchemy::EssenceText)
+        end
+      end
     end
 
     describe ".create" do
