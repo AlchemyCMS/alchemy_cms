@@ -117,7 +117,7 @@ module Alchemy
         can :manage, Alchemy::EssenceVideo
         can :manage, Alchemy::LegacyPageUrl
         can :manage, Alchemy::Node
-        can :read, Alchemy::Picture
+        can [:read, :url], Alchemy::Picture
         can [:read, :autocomplete], Alchemy::Tag
         can(:edit_content, Alchemy::Page) { |p| p.editable_by?(@user) }
       end

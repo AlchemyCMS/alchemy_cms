@@ -9,7 +9,7 @@ module Alchemy
       helper "alchemy/admin/tags"
 
       before_action :load_resource,
-        only: [:show, :edit, :update, :destroy, :info]
+        only: [:show, :edit, :update, :url, :destroy, :info]
 
       before_action :set_size, only: [:index, :show, :edit_multiple]
 
@@ -34,6 +34,13 @@ module Alchemy
         @next = @picture.next(params)
         @assignments = @picture.essence_pictures.joins(content: {element: :page})
         render action: "show"
+      end
+
+      def url
+        options = picture_url_params.to_h.symbolize_keys.transform_values! do |value|
+          value.in?(%w[true false]) ? value == "true" : value
+        end
+        render json: { url: @picture.url(options) }
       end
 
       def create
@@ -168,6 +175,19 @@ module Alchemy
 
       def picture_params
         params.require(:picture).permit(:image_file, :upload_hash, :name, :tag_list)
+      end
+
+      def picture_url_params
+        params.permit(
+          :crop_from,
+          :crop_size,
+          :crop,
+          :flatten,
+          :format,
+          :quality,
+          :size,
+          :upsample
+        )
       end
     end
   end
