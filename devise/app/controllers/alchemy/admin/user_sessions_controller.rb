@@ -18,7 +18,7 @@ module Alchemy
 
       helper "Alchemy::Admin::Base"
 
-      layout "alchemy/admin"
+      layout Alchemy::Devise.layout
 
       def create
         authenticate_user!

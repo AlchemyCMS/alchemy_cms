@@ -37,5 +37,12 @@ module Alchemy
   end
 
   module Devise
+    def self.layout=(value)
+      @layout = value
+    end
+
+    def self.layout
+      @layout || "alchemy/admin"
+    end
   end
 end

@@ -13,7 +13,7 @@ module Alchemy
 
       helper "Alchemy::Admin::Base"
 
-      layout "alchemy/admin"
+      layout Alchemy::Devise.layout
 
       private
 
