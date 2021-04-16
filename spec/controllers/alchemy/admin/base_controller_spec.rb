@@ -32,7 +32,7 @@ describe Alchemy::Admin::BaseController do
       before do
         allow(I18n).to receive(:default_locale) { :es }
         allow(I18n).to receive(:available_locales) { [:es] }
-        allow(controller).to receive(:session) { { alchemy_locale: "kl"} }
+        allow(controller).to receive(:session) { { alchemy_locale: "kl" } }
       end
 
       it "sets I18n.locale to the default locale" do
@@ -60,7 +60,7 @@ describe Alchemy::Admin::BaseController do
   context "when current_alchemy_user is present" do
     let!(:page_1) { create(:alchemy_page, name: "Page 1") }
     let!(:page_2) { create(:alchemy_page, name: "Page 2") }
-    let(:user)    { create(:alchemy_dummy_user, :as_admin) }
+    let(:user) { create(:alchemy_dummy_user, :as_admin) }
 
     context "and she has locked pages" do
       before do
@@ -73,6 +73,35 @@ describe Alchemy::Admin::BaseController do
       it "loads locked pages ordered by locked_at date" do
         controller.send(:load_locked_pages)
         expect(assigns(:locked_pages).pluck(:name)).to eq(["Page 2", "Page 1"])
+      end
+    end
+  end
+
+  describe "error responses" do
+    controller do
+      def index
+        raise "Error!"
+      end
+    end
+
+    before do
+      allow_any_instance_of(described_class).to receive(:raise_exception?) { false }
+    end
+
+    context "for HTML requests" do
+      it "renders 500 template" do
+        get :index
+        expect(response).to render_template("alchemy/base/500")
+      end
+    end
+
+    context "for JSON requests" do
+      render_views
+
+      it "renders 500 template" do
+        get :index, format: :json
+        expect(response.media_type).to eq("application/json")
+        expect(JSON.parse(response.body)).to eq({ "message" => "Error!" })
       end
     end
   end
