@@ -18,7 +18,6 @@ module Alchemy
 
       def crop
         if @picture = @essence_picture.picture
-          @content = @essence_picture.content
           @min_size = sizes_from_essence_or_params
           @ratio = ratio_from_size_or_settings
           infer_width_or_height_from_ratio

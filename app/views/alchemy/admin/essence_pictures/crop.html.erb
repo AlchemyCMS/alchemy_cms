@@ -10,22 +10,10 @@
   <div class="thumbnail_background">
     <%= image_tag @picture.url(size: '800x600', flatten: true), id: 'imageToCrop' %>
   </div>
-  <%= form_for(
-    @essence_picture,
-    url: alchemy.admin_essence_picture_path(@essence_picture),
-    id: 'image_cropper_form',
-    remote: true
-  ) do |f| %>
-    <%= f.hidden_field :crop_from %>
-    <%= f.hidden_field :crop_size %>
-    <%= hidden_field_tag :content_id, @content.id %>
-    <%= button_tag Alchemy.t('Reset Imagemask'), {
-      onclick: 'Alchemy.ImageCropper.reset(); return false',
-      class: 'reset_mask',
-      type: 'reset'
-    } %>
-    <%= f.button Alchemy.t(:apply) %>
-  <% end %>
+  <form>
+    <%= button_tag Alchemy.t(:apply), type: 'submit' %>
+    <%= button_tag Alchemy.t('Reset Imagemask'), class: 'reset_mask', type: 'reset' %>
+  </form>
 </div>
 <% end %>
 <% if @initial_box && @default_box %>
@@ -33,7 +21,7 @@
   Alchemy.ImageLoader('#jscropper .thumbnail_background');
   $('#imageToCrop').load(function() {
     Alchemy.ImageCropper.init(
-       <%= @initial_box.values.to_json %>,
+      <%= @initial_box.values.to_json %>,
       <% if @picture.can_be_cropped_to?("#{@min_size[:width]}x#{@min_size[:height]}") %>
         <%= @min_size.values.to_json %>,
       <% else %>
@@ -41,7 +29,12 @@
       <% end %>
       <%= @default_box.values.to_json %>,
       <%= @ratio %>,
-      <%= @picture.image_size.values.to_json %>
+      <%= @picture.image_size.values.to_json %>,
+      [
+        "<%= params[:crop_from_form_field_id] %>",
+        "<%= params[:crop_size_form_field_id] %>",
+      ],
+      <%= @essence_picture.element.id %>
     );
   });
 </script>

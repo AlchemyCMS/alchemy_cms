@@ -94,10 +94,19 @@ module Alchemy
     def thumbnail_url
       return if picture.nil?
 
+      picture.url(thumbnail_url_options) || "alchemy/missing-image.svg"
+    end
+
+    # Thumbnail rendering options
+    #
+    # @return [HashWithIndifferentAccess]
+    def thumbnail_url_options
+      return {} if picture.nil?
+
       crop = crop_values_present? || content.settings[:crop]
       size = render_size || content.settings[:size]
 
-      options = {
+      {
         size: thumbnail_size(size, crop),
         crop: !!crop,
         crop_from: crop_from.presence,
@@ -105,8 +114,6 @@ module Alchemy
         flatten: true,
         format: picture.image_file_format,
       }
-
-      picture.url(options) || "alchemy/missing-image.svg"
     end
 
     # The name of the picture used as preview text in element editor views.
