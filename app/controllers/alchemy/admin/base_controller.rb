@@ -54,7 +54,10 @@ module Alchemy
         if request.xhr?
           render action: "error_notice"
         else
-          render "500", status: 500
+          respond_to do |format|
+            format.html { render "500", status: 500 }
+            format.json { render json: { message: @notice }, status: 500 }
+          end
         end
       end
 

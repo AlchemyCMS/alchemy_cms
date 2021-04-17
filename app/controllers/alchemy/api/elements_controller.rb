@@ -23,7 +23,7 @@ module Alchemy
       if params[:named].present?
         @elements = @elements.named(params[:named])
       end
-      @elements = @elements.includes(*element_includes)
+      @elements = @elements.includes(*element_includes).order(:position)
 
       render json: @elements, adapter: :json, root: "elements"
     end
