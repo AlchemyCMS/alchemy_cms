@@ -42,22 +42,6 @@ $.extend Alchemy,
       $overlay.hide()
     return
 
-  # Shows spinner while loading images and
-  # fades the image after its been loaded
-  ImageLoader: (scope = document, options = {fill: '#fff'}) ->
-    $('img', scope).each ->
-      if !this.complete
-        image = $(this).hide()
-        $parent = image.parent()
-        spinner = new Alchemy.Spinner('small', options)
-        spinner.spin $parent[0]
-        image.on 'load', ->
-          spinner.stop()
-          image.fadeIn 400
-        image.on 'error', ->
-          spinner.stop()
-          $parent.html('<span class="icon warn"/>')
-
   # Removes the picture from essence picture thumbnail
   removePicture: (selector) ->
     $form_field = $(selector)
