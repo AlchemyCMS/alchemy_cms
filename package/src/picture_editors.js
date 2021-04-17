@@ -1,5 +1,6 @@
 import debounce from "lodash/debounce"
 import ajax from "./utils/ajax"
+import ImageLoader from "./image_loader"
 
 const UPDATE_DELAY = 250
 const EMPTY_IMAGE = '<img src="" class="img_paddingtop" />'
@@ -18,6 +19,7 @@ class PictureEditor {
     this.cropSize = this.cropSizeField.value
     this.size = this.sizeField.dataset.size
     this.pictureId = this.pictureIdField.value
+    this.imageLoader = new ImageLoader(this.image)
 
     this.update = debounce(() => {
       this.updateImage()
@@ -47,6 +49,8 @@ class PictureEditor {
 
   updateImage() {
     this.ensureImage()
+    this.image.removeAttribute("src")
+    this.imageLoader.load()
     ajax("GET", `/admin/pictures/${this.pictureId}/url`, {
       crop: true,
       crop_from: this.cropFrom,
