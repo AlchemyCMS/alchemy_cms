@@ -29,16 +29,21 @@ function getToken() {
   return metaTag.attributes.content.textContent
 }
 
-export default function ajax(method, url, data) {
+export default function ajax(method, path, data) {
   const xhr = new XMLHttpRequest()
   const promise = buildPromise(xhr)
+  const url = new URL(window.location.origin + path)
 
-  xhr.open(method, url)
+  if (data && method.toLowerCase() === "get") {
+    url.search = new URLSearchParams(data).toString()
+  }
+
+  xhr.open(method, url.toString())
   xhr.setRequestHeader("Content-type", "application/json; charset=utf-8")
   xhr.setRequestHeader("Accept", "application/json")
   xhr.setRequestHeader("X-CSRF-Token", getToken())
 
-  if (data) {
+  if (data && method.toLowerCase() !== "get") {
     xhr.send(JSON.stringify(data))
   } else {
     xhr.send()
