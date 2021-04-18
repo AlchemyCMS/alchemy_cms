@@ -1,3 +1,0 @@
-$('#<%= @content.dom_id %>').replaceWith('<%= j render(Alchemy::ContentEditor.new(@content)) %>');
-Alchemy.closeCurrentDialog();
-Alchemy.setElementDirty($('#element_<%= @content.element.id %>'));

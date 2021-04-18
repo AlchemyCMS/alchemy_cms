@@ -32,15 +32,12 @@ module Alchemy
         end
       end
 
-      context "when params[:content_id]" do
-        let(:content) { mock_model(Content) }
-
+      context "when params[:form_field_id]" do
         context "is set" do
           it "it renders the archive_overlay partial" do
-            expect(Content).to receive(:find_by).and_return(content)
-            get :index, params: { content_id: content.id }
+            get :index, params: { form_field_id: "contents_1_attachment_id" }
             expect(response).to render_template(partial: "_archive_overlay")
-            expect(assigns(:content)).to eq(content)
+            expect(assigns(:form_field_id)).to eq("contents_1_attachment_id")
           end
         end
 
@@ -224,6 +221,16 @@ module Alchemy
       it "sends the file as download" do
         get :download, params: { id: attachment.id }
         expect(response.headers["Content-Disposition"]).to match(/attachment/)
+      end
+    end
+
+    describe "#assign" do
+      let(:attachment) { create(:alchemy_attachment) }
+
+      it "assigns a assignable_id" do
+        put :assign, params: { form_field_id: "contents_1_attachment_id", id: attachment.id }, xhr: true
+        expect(assigns(:assignable_id)).to eq(attachment.id.to_s)
+        expect(assigns(:form_field_id)).to eq("contents_1_attachment_id")
       end
     end
   end

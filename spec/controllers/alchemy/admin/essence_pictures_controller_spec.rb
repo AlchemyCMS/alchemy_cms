@@ -234,27 +234,5 @@ module Alchemy
                  }, xhr: true
       end
     end
-
-    describe "#assign" do
-      let(:content) { create(:alchemy_content) }
-
-      before do
-        expect(Content).to receive(:find).and_return(content)
-        expect(content).to receive(:essence).at_least(:once).and_return(essence)
-        expect(Picture).to receive(:find_by).and_return(picture)
-      end
-
-      it "should assign a Picture" do
-        put :assign, params: { content_id: "1", picture_id: "1" }, xhr: true
-        expect(assigns(:content).essence.picture).to eq(picture)
-      end
-
-      it "updates the element timestamp" do
-        content.element.update_column(:updated_at, 3.days.ago)
-        expect {
-          put :assign, params: { content_id: "1", picture_id: "1" }, xhr: true
-        }.to change(content.element, :updated_at)
-      end
-    end
   end
 end

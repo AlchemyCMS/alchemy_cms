@@ -3,8 +3,7 @@
       size: @size,
     }.merge(search_filter_params.except(:q))
   ), remote: true, html: {class: 'search_form', id: nil} do |f| %>
-  <%= hidden_field_tag("element_id", @element.blank? ? "" : @element.id, id: nil) %>
-  <%= hidden_field_tag("content_id", @content.blank? ? "" : @content.id, id: nil) %>
+  <%= hidden_field_tag :form_field_id, @form_field_id %>
   <div class="search_field">
     <button type="submit">
       <%= render_icon('search') %>
@@ -15,8 +14,7 @@
       id: nil %>
     <%= link_to render_icon(:times, size: 'xs'), url_for({
         action: 'index',
-        element_id: @element.blank? ? '' : @element.id,
-        content_id: @content.blank? ? '' : @content.id,
+        form_field_id: @form_field_id,
         size: @size,
         overlay: true
       }.merge(search_filter_params.except(:q))),

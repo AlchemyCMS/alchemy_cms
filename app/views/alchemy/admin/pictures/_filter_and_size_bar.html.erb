@@ -8,8 +8,7 @@
       redirect_url: alchemy.admin_pictures_path(
         size: search_filter_params[:size],
         filter: 'last_upload',
-        content_id: @content.try(:id),
-        element_id: @element.try(:id)
+        form_field_id: @form_field_id
       ) %>
     <div class="toolbar_spacer"></div>
   <% end %>
@@ -19,8 +18,7 @@
         render_icon('search-minus'),
         alchemy.admin_pictures_path({
           size: "small",
-          content_id: @content,
-          element_id: @element,
+          form_field_id: @form_field_id,
           q: search_filter_params[:q],
           filter: search_filter_params[:filter],
           tagged_with: search_filter_params[:tagged_with]
@@ -35,8 +33,7 @@
         render_icon('search'),
         alchemy.admin_pictures_path({
           size: "medium",
-          content_id: @content,
-          element_id: @element,
+          form_field_id: @form_field_id,
           q: search_filter_params[:q],
           filter: search_filter_params[:filter],
           tagged_with: search_filter_params[:tagged_with]
@@ -51,8 +48,7 @@
         render_icon('search-plus'),
         alchemy.admin_pictures_path({
           size: "large",
-          content_id: @content,
-          element_id: @element,
+          form_field_id: @form_field_id,
           q: search_filter_params[:q],
           filter: search_filter_params[:filter],
           tagged_with: search_filter_params[:tagged_with]

@@ -1,0 +1,8 @@
+(function () {
+  var $form_field = $("#<%= @form_field_id -%>")
+  $("#assignable_<%= @assignable_id %> a").attr("href", "#").off("click")
+  $form_field.val("<%= @assignable_id %>")
+  Alchemy.closeCurrentDialog(function() {
+    Alchemy.setElementDirty($form_field.closest(".element-editor"))
+  })
+})()

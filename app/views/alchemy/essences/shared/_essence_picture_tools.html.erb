@@ -18,9 +18,7 @@
 
 <%= link_to_dialog render_icon('file-image', style: 'regular'),
   alchemy.admin_pictures_path(
-    element_id: content.element,
-    content_id: content.id,
-    swap: true
+    form_field_id: essence_picture_editor.form_field_id(:picture_id)
   ),
   {
     title: (content.ingredient ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)),

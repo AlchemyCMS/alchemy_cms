@@ -41,8 +41,8 @@ RSpec.describe "Picture assignment overlay", type: :system do
     let(:content) { element.contents.last }
 
     scenario "it has link to assign picture to content" do
-      visit alchemy.admin_pictures_path(content_id: content.id)
-      expect(page).to have_css('a[data-method="put"][href*="/admin/essence_pictures/assign"]')
+      visit alchemy.admin_pictures_path(form_field_id: "contents_#{content.id}_picture_id")
+      expect(page).to have_css %(a[data-method="put"][href*="/admin/pictures/#{picture.id}/assign"])
     end
   end
 end

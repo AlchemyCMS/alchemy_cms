@@ -1,6 +1,6 @@
 <% dialog_link = link_to_dialog render_icon(:file, style: 'regular'),
   alchemy.admin_attachments_path(
-    content_id: essence_file_editor.id,
+    form_field_id: essence_file_editor.form_field_id(:attachment_id),
     only: essence_file_editor.settings[:only],
     except: essence_file_editor.settings[:except]
   ),
