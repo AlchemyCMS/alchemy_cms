@@ -141,6 +141,7 @@ div.assign_image_list_image {
   }
 
   &.delete {
+    cursor: pointer;
     right: $default-padding;
   }
 

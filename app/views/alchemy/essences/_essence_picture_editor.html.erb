@@ -8,10 +8,9 @@
   <%= content_tag :div,
     data: { size: essence_picture_editor.essence.thumbnail_url_options[:size] },
     class: "picture_thumbnail" do %>
-    <span class="picture_tool delete">
-      <%= link_to render_icon(:times), '#',
-        onclick: "return Alchemy.removePicture('##{essence_picture_editor.form_field_id(:picture_id)}');" %>
-    </span>
+    <a class="picture_tool delete">
+      <%= render_icon(:times) %>
+    </a>
     <div class="picture_image">
       <div class="thumbnail_background">
         <%- if essence_picture_editor.ingredient -%>

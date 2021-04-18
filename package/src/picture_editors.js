@@ -3,6 +3,7 @@ import ajax from "./utils/ajax"
 import ImageLoader from "./image_loader"
 
 const UPDATE_DELAY = 250
+const IMAGE_PLACEHOLDER = '<i class="icon far fa-image fa-fw"></i>'
 const EMPTY_IMAGE = '<img src="" class="img_paddingtop" />'
 
 class PictureEditor {
@@ -14,16 +15,22 @@ class PictureEditor {
     this.sizeField = container.querySelector("[data-size]")
     this.image = container.querySelector("img")
     this.thumbnailBackground = container.querySelector(".thumbnail_background")
+    this.deleteButton = container.querySelector(".picture_tool.delete")
 
     this.cropFrom = this.cropFromField.value
     this.cropSize = this.cropSizeField.value
     this.size = this.sizeField.dataset.size
     this.pictureId = this.pictureIdField.value
-    this.imageLoader = new ImageLoader(this.image)
+
+    if (this.image) {
+      this.imageLoader = new ImageLoader(this.image)
+    }
 
     this.update = debounce(() => {
       this.updateImage()
     }, UPDATE_DELAY)
+
+    this.deleteButton.addEventListener("click", this.removeImage.bind(this))
   }
 
   observe() {
@@ -43,7 +50,7 @@ class PictureEditor {
       } else if ("pictureId" in mutation.target.dataset) {
         this.pictureId = mutation.target.value
       }
-      this.update()
+      if (this.pictureId) this.update()
     }
   }
 
@@ -73,6 +80,13 @@ class PictureEditor {
     this.thumbnailBackground.innerHTML = EMPTY_IMAGE
     this.image = this.container.querySelector("img")
     this.imageLoader = new ImageLoader(this.image)
+  }
+
+  removeImage() {
+    this.thumbnailBackground.innerHTML = IMAGE_PLACEHOLDER
+    this.pictureIdField.value = ""
+    this.image = null
+    Alchemy.setElementDirty(this.container.closest(".element-editor"))
   }
 }
 

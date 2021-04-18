@@ -527,18 +527,6 @@
 .essence_picture {
   position: relative;
 
-  .picture_tool_delete {
-    position: absolute;
-    right: $default-margin;
-    top: $default-margin;
-    padding: 2px 2px 0;
-    z-index: 2;
-  }
-
-  .picture_thumbnail:hover .picture_tool_delete {
-    display: block;
-  }
-
   .picture_thumbnail {
     display: inline-block;
     width: 160px;
