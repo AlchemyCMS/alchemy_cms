@@ -218,8 +218,8 @@ module Alchemy
     #
     def reduce_to_image(dimensions)
       {
-        width: [dimensions[:width], image_file_width].min,
-        height: [dimensions[:height], image_file_height].min,
+        width: [dimensions[:width].to_i, image_file_width.to_i].min,
+        height: [dimensions[:height].to_i, image_file_height.to_i].min,
       }
     end
   end

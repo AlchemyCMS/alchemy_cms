@@ -30,7 +30,7 @@ module Alchemy
       optional: true,
     }
 
-    delegate :image_file_width, :image_file_height, :image_file, to: :picture
+    delegate :image_file_width, :image_file_height, :image_file, to: :picture, allow_nil: true
     before_save :fix_crop_values
     before_save :replace_newlines
 
@@ -101,8 +101,6 @@ module Alchemy
     #
     # @return [HashWithIndifferentAccess]
     def thumbnail_url_options
-      return {} if picture.nil?
-
       crop = crop_values_present? || content.settings[:crop]
       size = render_size || content.settings[:size]
 
@@ -112,7 +110,7 @@ module Alchemy
         crop_from: crop_from.presence,
         crop_size: crop_size.presence,
         flatten: true,
-        format: picture.image_file_format,
+        format: picture&.image_file_format || "jpg",
       }
     end
 

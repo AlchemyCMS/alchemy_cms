@@ -19,7 +19,7 @@ module Alchemy
     end
 
     it_behaves_like "an essence" do
-      let(:essence)          { EssencePicture.new }
+      let(:essence) { EssencePicture.new }
       let(:ingredient_value) { Picture.new }
     end
 
@@ -77,7 +77,7 @@ module Alchemy
       end
 
       context "with format in the options" do
-        let(:options) { {format: "gif"} }
+        let(:options) { { format: "gif" } }
 
         it "takes this as format." do
           expect(picture_url).to match(/\.gif/)
@@ -98,7 +98,7 @@ module Alchemy
 
         context "but with crop sizes in the options" do
           let(:options) do
-            {crop_from: "30x30", crop_size: "75x75"}
+            { crop_from: "30x30", crop_size: "75x75" }
           end
 
           it "passes these crop sizes instead." do
@@ -111,7 +111,7 @@ module Alchemy
       end
 
       context "with other options" do
-        let(:options) { {foo: "baz"} }
+        let(:options) { { foo: "baz" } }
 
         it "adds them to the url" do
           expect(picture_url).to match /\?foo=baz/
@@ -181,7 +181,7 @@ module Alchemy
 
       context "with content having size setting" do
         before do
-          expect(essence.content).to receive(:settings).twice { {size: "30x70"} }
+          expect(essence.content).to receive(:settings).twice { { size: "30x70" } }
         end
 
         it "includes this size." do
@@ -191,7 +191,7 @@ module Alchemy
 
       context "with content having crop setting" do
         before do
-          expect(essence.content).to receive(:settings).twice { {crop: true} }
+          expect(essence.content).to receive(:settings).twice { { crop: true } }
         end
 
         it "includes this setting" do
@@ -291,6 +291,87 @@ module Alchemy
       end
     end
 
+    describe "#thumbnail_url_options" do
+      subject(:thumbnail_url_options) { essence.thumbnail_url_options }
+
+      let(:settings) { {} }
+      let(:picture) { nil }
+
+      let(:essence) do
+        build_stubbed(:alchemy_essence_picture, picture: picture)
+      end
+
+      let(:content) do
+        build_stubbed(:alchemy_content, essence: essence)
+      end
+
+      before do
+        allow(content).to receive(:settings) { settings }
+      end
+
+      context "with picture assigned" do
+        let(:picture) do
+          create(:alchemy_picture)
+        end
+
+        it "includes the image's original file format." do
+          expect(thumbnail_url_options[:format]).to eq("png")
+        end
+
+        it "flattens the image." do
+          expect(thumbnail_url_options[:flatten]).to be(true)
+        end
+      end
+
+      context "when crop values are present" do
+        before do
+          expect(essence).to receive(:crop_size).at_least(:once) { "200x200" }
+          expect(essence).to receive(:crop_from).at_least(:once) { "10x10" }
+        end
+
+        it "includes these crop values" do
+          expect(thumbnail_url_options).to match(
+            hash_including(crop_from: "10x10", crop_size: "200x200", crop: true)
+          )
+        end
+      end
+
+      context "when no crop values are present" do
+        it "does not include these crop values" do
+          expect(thumbnail_url_options).to_not match(
+            hash_including(crop_from: "10x10", crop_size: "200x200", crop: true)
+          )
+        end
+
+        context "when crop is explicitely enabled in the settings" do
+          let(:settings) do
+            { crop: true }
+          end
+
+          it "it enables cropping." do
+            expect(thumbnail_url_options).to match(
+              hash_including(crop: true),
+            )
+          end
+        end
+      end
+
+      context "without picture assigned" do
+        let(:picture) { nil }
+
+        it "returns default thumbnail options" do
+          is_expected.to eq(
+            crop: false,
+            crop_from: nil,
+            crop_size: nil,
+            flatten: true,
+            format: "jpg",
+            size: "160x120",
+          )
+        end
+      end
+    end
+
     describe "#cropping_mask" do
       subject { essence.cropping_mask }
 
@@ -298,7 +379,7 @@ module Alchemy
         let(:essence) { build_stubbed(:alchemy_essence_picture, crop_from: "0x0", crop_size: "100x100") }
 
         it "returns a hash containing cropping coordinates" do
-          is_expected.to eq({x1: 0, y1: 0, x2: 100, y2: 100})
+          is_expected.to eq({ x1: 0, y1: 0, x2: 100, y2: 100 })
         end
       end
 
