@@ -51,7 +51,14 @@ class PictureEditor {
       } else if ("pictureId" in mutation.target.dataset) {
         this.pictureId = mutation.target.value
       }
-      if (this.pictureId) this.update()
+
+      if (this.pictureId) {
+        this.update()
+
+        if (this.cropFrom && this.cropSize) {
+          this.updateCropLink()
+        }
+      }
     }
   }
 
@@ -68,10 +75,6 @@ class PictureEditor {
     })
       .then(({ data }) => {
         this.image.src = data.url
-
-        if (this.cropFrom && this.cropSize) {
-          this.cropLink.classList.remove("disabled")
-        }
       })
       .catch((error) => {
         console.error(error.message || error)
@@ -93,6 +96,20 @@ class PictureEditor {
     this.image = null
     this.cropLink.classList.add("disabled")
     Alchemy.setElementDirty(this.container.closest(".element-editor"))
+  }
+
+  updateCropLink() {
+    this.cropLink.classList.remove("disabled")
+    this.cropLink.classList.remove("disabled")
+
+    if (this.cropLink.href.match(/(picture_id=)\d+/)) {
+      this.cropLink.href = this.cropLink.href.replace(
+        /(picture_id=)\d+/,
+        "$1" + this.pictureId
+      )
+    } else {
+      this.cropLink.href = this.cropLink.href + `&picture_id=${this.pictureId}`
+    }
   }
 }
 
