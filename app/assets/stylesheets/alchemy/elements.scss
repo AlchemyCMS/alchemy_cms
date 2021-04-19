@@ -564,6 +564,8 @@
   &.essence_file,
   &.essence_video {
     .file {
+      display: flex;
+      align-items: center;
       margin: 6px 0 $default-margin;
       border: $default-border;
       background-color: $white;
@@ -577,36 +579,39 @@
     }
 
     .file_icon {
-      display: inline-block;
       text-align: center;
-      float: left;
       width: 24px;
-      padding: 6px 4px;
+      padding: $default-padding;
     }
 
     .file_name {
       white-space: nowrap;
       overflow: hidden;
-      float: left;
       max-width: 80%;
-      line-height: 28px;
       font-size: $small-font-size;
       text-overflow: ellipsis;
+      padding: $default-padding;
+    }
+
+    .remove_file_link {
+      width: 24px;
+      padding: $default-padding;
     }
   }
 }
 
 .essence_file_tools {
-  height: 27px;
-  float: right;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
   background-color: white;
   width: 48px;
   border-radius: 0 $default-border-radius $default-border-radius 0;
 
   a {
+    text-align: center;
     text-decoration: none;
-    padding: 6px $default-margin;
-    float: left;
+    padding: $default-padding;
   }
 }
 
