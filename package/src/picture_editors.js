@@ -29,6 +29,7 @@ class PictureEditor {
 
     this.update = debounce(() => {
       this.updateImage()
+      this.updateCropLink()
     }, UPDATE_DELAY)
 
     this.deleteButton.addEventListener("click", this.removeImage.bind(this))
@@ -51,18 +52,13 @@ class PictureEditor {
       } else if ("pictureId" in mutation.target.dataset) {
         this.pictureId = mutation.target.value
       }
-
-      if (this.pictureId) {
-        this.update()
-
-        if (this.cropFrom && this.cropSize) {
-          this.updateCropLink()
-        }
-      }
+      this.update()
     }
   }
 
   updateImage() {
+    if (!this.pictureId) return
+
     this.ensureImage()
     this.image.removeAttribute("src")
     this.imageLoader.load()
@@ -99,6 +95,9 @@ class PictureEditor {
   }
 
   updateCropLink() {
+    if (!this.pictureId) return
+    if (!this.cropFrom || !this.cropSize) return
+
     this.cropLink.classList.remove("disabled")
     this.cropLink.classList.remove("disabled")
 
