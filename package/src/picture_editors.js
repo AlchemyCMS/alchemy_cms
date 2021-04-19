@@ -60,6 +60,7 @@ class PictureEditor {
     if (!this.pictureId) return
 
     this.ensureImage()
+    this.image.classList.add("loading")
     this.image.removeAttribute("src")
     this.imageLoader.load()
     ajax("GET", `/admin/pictures/${this.pictureId}/url`, {

@@ -30,17 +30,17 @@ export default class ImageLoader {
     if (this.image.complete) return
 
     this.image.classList.add("loading")
-    this.spinner.spin(this.parent)
+    this.spinner.spin(this.image.parentElement)
   }
 
   onLoaded() {
-    this.spinner.stop()
+    this.removeSpinner()
     this.image.classList.remove("loading")
     this.unbind()
   }
 
   onError() {
-    this.spinner.stop()
+    this.removeSpinner()
     this.parent.innerHtml = '<span class="icon warn"></span>'
     this.unbind()
   }
@@ -48,5 +48,11 @@ export default class ImageLoader {
   unbind() {
     this.image.removeEventListener("load", this.onLoaded)
     this.image.removeEventListener("error", this.onError)
+  }
+
+  removeSpinner() {
+    this.parent.querySelectorAll(".spinner").forEach((spinner) => {
+      spinner.remove()
+    })
   }
 }
