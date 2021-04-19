@@ -16,6 +16,7 @@ class PictureEditor {
     this.image = container.querySelector("img")
     this.thumbnailBackground = container.querySelector(".thumbnail_background")
     this.deleteButton = container.querySelector(".picture_tool.delete")
+    this.cropLink = container.querySelector(".crop_link")
 
     this.cropFrom = this.cropFromField.value
     this.cropSize = this.cropSizeField.value
@@ -67,6 +68,10 @@ class PictureEditor {
     })
       .then(({ data }) => {
         this.image.src = data.url
+
+        if (this.cropFrom && this.cropSize) {
+          this.cropLink.classList.remove("disabled")
+        }
       })
       .catch((error) => {
         console.error(error.message || error)
@@ -86,6 +91,7 @@ class PictureEditor {
     this.thumbnailBackground.innerHTML = IMAGE_PLACEHOLDER
     this.pictureIdField.value = ""
     this.image = null
+    this.cropLink.classList.add("disabled")
     Alchemy.setElementDirty(this.container.closest(".element-editor"))
   }
 }
