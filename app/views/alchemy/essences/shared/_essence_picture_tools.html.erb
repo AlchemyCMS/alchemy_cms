@@ -5,7 +5,8 @@
 <%= link_to_dialog render_icon(:crop),
   alchemy.crop_admin_essence_picture_path(content.essence, {
     crop_from_form_field_id: essence_picture_editor.form_field_id(:crop_from),
-    crop_size_form_field_id: essence_picture_editor.form_field_id(:crop_size)
+    crop_size_form_field_id: essence_picture_editor.form_field_id(:crop_size),
+    picture_id: content.essence.picture_id
   }), {
     size: "1080x615",
     title: Alchemy.t('Edit Picturemask'),

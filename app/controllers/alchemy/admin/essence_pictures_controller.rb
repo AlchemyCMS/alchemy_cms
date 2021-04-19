@@ -17,7 +17,8 @@ module Alchemy
       end
 
       def crop
-        if @picture = @essence_picture.picture
+        @picture = Picture.find_by(id: params[:picture_id])
+        if @picture
           @min_size = sizes_from_essence_or_params
           @ratio = ratio_from_size_or_settings
           infer_width_or_height_from_ratio
