@@ -90,6 +90,18 @@ module Alchemy
             page.save!
           }.to change { page.versions.length }.by(1)
         end
+
+        context "if there is already a version" do
+          let(:page) do
+            build(:alchemy_page, language: language, parent: language_root).tap do |page|
+              page.versions.build
+            end
+          end
+
+          it "builds no version" do
+            expect { page.save! }.to_not change { page.versions.length }
+          end
+        end
       end
 
       context "before_save" do
@@ -352,8 +364,9 @@ module Alchemy
         expect(subject.name).to eq("#{page.name} (Copy)")
       end
 
-      it "the copy should have a draft version" do
-        expect(subject.draft_version).to_not be_nil
+      it "the copy should have one draft version" do
+        expect(subject.versions.length).to eq(1)
+        expect(subject.draft_version).to be
       end
 
       context "a public page" do
