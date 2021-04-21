@@ -224,11 +224,13 @@ module Alchemy
       # @return [Alchemy::Page]
       #
       def copy(source, differences = {})
-        page = Alchemy::Page.new(attributes_from_source_for_copy(source, differences))
-        page.tag_list = source.tag_list
-        if page.save!
-          copy_elements(source, page)
-          page
+        transaction do
+          page = Alchemy::Page.new(attributes_from_source_for_copy(source, differences))
+          page.tag_list = source.tag_list
+          if page.save!
+            copy_elements(source, page)
+            page
+          end
         end
       end
 

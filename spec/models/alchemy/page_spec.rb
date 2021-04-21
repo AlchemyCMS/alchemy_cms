@@ -441,6 +441,19 @@ module Alchemy
           expect(subject.name).to eq("Different name")
         end
       end
+
+      context "with exceptions during copy" do
+        before do
+          expect(Page).to receive(:copy_elements) { raise "boom" }
+        end
+
+        it "rolls back all changes" do
+          page
+          expect {
+            expect { Page.copy(page, { name: "Different name" }) }.to raise_error("boom")
+          }.to_not change(Alchemy::Page, :count)
+        end
+      end
     end
 
     describe ".create" do
