@@ -90,6 +90,18 @@ module Alchemy
             page.save!
           }.to change { page.versions.length }.by(1)
         end
+
+        context "if there is already a version" do
+          let(:page) do
+            build(:alchemy_page, language: language, parent: language_root).tap do |page|
+              page.versions.build
+            end
+          end
+
+          it "builds no version" do
+            expect { page.save! }.to_not change { page.versions.length }
+          end
+        end
       end
 
       context "before_save" do
@@ -352,8 +364,9 @@ module Alchemy
         expect(subject.name).to eq("#{page.name} (Copy)")
       end
 
-      it "the copy should have a draft version" do
-        expect(subject.draft_version).to_not be_nil
+      it "the copy should have one draft version" do
+        expect(subject.versions.length).to eq(1)
+        expect(subject.draft_version).to be
       end
 
       context "a public page" do
@@ -426,6 +439,19 @@ module Alchemy
 
         it "should take this name" do
           expect(subject.name).to eq("Different name")
+        end
+      end
+
+      context "with exceptions during copy" do
+        before do
+          expect(Page).to receive(:copy_elements) { raise "boom" }
+        end
+
+        it "rolls back all changes" do
+          page
+          expect {
+            expect { Page.copy(page, { name: "Different name" }) }.to raise_error("boom")
+          }.to_not change(Alchemy::Page, :count)
         end
       end
     end
@@ -1302,6 +1328,15 @@ module Alchemy
           subject
           expect(page.versions.last).to be
           expect(page.versions.last.public_on).to be_within(1.second).of(time)
+        end
+
+        context "and the time is empty string" do
+          let(:time) { "" }
+          let!(:page) { create(:alchemy_page) }
+
+          it "does not build a new version" do
+            expect { subject }.to_not change(page.versions, :length)
+          end
         end
       end
     end

@@ -152,7 +152,7 @@ module Alchemy
       #   @copy.public? # => false
       #
       def copy(source_element, differences = {})
-        DuplicateElement.new(source_element).call(differences)
+        Alchemy::DuplicateElement.new(source_element).call(differences)
       end
 
       def all_from_clipboard(clipboard)

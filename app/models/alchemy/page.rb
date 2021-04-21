@@ -126,7 +126,8 @@ module Alchemy
     validates_format_of :page_layout, with: /\A[a-z0-9_-]+\z/, unless: -> { page_layout.blank? }
     validates_presence_of :parent, unless: -> { layoutpage? || language_root? }
 
-    before_create -> { versions.build }
+    before_create -> { versions.build },
+      if: -> { versions.none? }
 
     before_save :set_language_code,
       if: -> { language.present? }
@@ -223,11 +224,13 @@ module Alchemy
       # @return [Alchemy::Page]
       #
       def copy(source, differences = {})
-        page = Alchemy::Page.new(attributes_from_source_for_copy(source, differences))
-        page.tag_list = source.tag_list
-        if page.save!
-          copy_elements(source, page)
-          page
+        transaction do
+          page = Alchemy::Page.new(attributes_from_source_for_copy(source, differences))
+          page.tag_list = source.tag_list
+          if page.save!
+            copy_elements(source, page)
+            page
+          end
         end
       end
 
@@ -467,7 +470,7 @@ module Alchemy
         self.public_version = nil
       elsif public_version
         public_version.public_on = time
-      else
+      elsif time.present?
         versions.build(public_on: time)
       end
     end
