@@ -470,7 +470,7 @@ module Alchemy
         self.public_version = nil
       elsif public_version
         public_version.public_on = time
-      else
+      elsif time.present?
         versions.build(public_on: time)
       end
     end

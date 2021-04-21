@@ -1329,6 +1329,15 @@ module Alchemy
           expect(page.versions.last).to be
           expect(page.versions.last.public_on).to be_within(1.second).of(time)
         end
+
+        context "and the time is empty string" do
+          let(:time) { "" }
+          let!(:page) { create(:alchemy_page) }
+
+          it "does not build a new version" do
+            expect { subject }.to_not change(page.versions, :length)
+          end
+        end
       end
     end
 
