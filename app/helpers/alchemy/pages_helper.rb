@@ -98,12 +98,6 @@ module Alchemy
       WARN
     end
 
-    # Returns true if page is in the active branch
-    def page_active?(page)
-      @_page_ancestors ||= Page.ancestors_for(@page)
-      @_page_ancestors.include?(page)
-    end
-
     # Returns page links in a breadcrumb beginning from root to current page.
     #
     # === Options:
