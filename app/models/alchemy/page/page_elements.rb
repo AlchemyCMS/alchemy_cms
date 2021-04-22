@@ -36,11 +36,16 @@ module Alchemy
         # @return [Array]
         #
         def copy_elements(source, target)
-          source_elements = source.draft_version.elements.not_nested
-          source_elements.order(:position).map do |source_element|
-            Element.copy(source_element, {
-              page_version_id: target.draft_version.id,
-            }).tap(&:move_to_bottom)
+          repository = source.draft_version.element_repository
+          transaction do
+            Element.acts_as_list_no_update do
+              repository.not_nested.each.with_index(1) do |element, position|
+                Alchemy::DuplicateElement.new(element, repository: repository).call(
+                  page_version_id: target.draft_version.id,
+                  position: position,
+                )
+              end
+            end
           end
         end
       end
