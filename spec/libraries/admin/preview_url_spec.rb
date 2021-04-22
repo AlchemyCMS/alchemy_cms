@@ -71,6 +71,18 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
         end
       end
 
+      context "with a port configured" do
+        before do
+          stub_alchemy_config(:preview, {
+            "host" => "https://www.example.com:8080",
+          })
+        end
+
+        it "returns the configured preview url with userinfo" do
+          is_expected.to eq "https://www.example.com:8080/#{page.urlname}"
+        end
+      end
+
       context "for a site" do
         before do
           stub_alchemy_config(:preview, config)
