@@ -29,7 +29,7 @@ module Alchemy
       def call
         if @page.language_root?
           language_root_path
-        elsif @site.languages.select(&:public?).length > 1
+        elsif @site.languages.count(&:public?) > 1
           page_path_with_language_prefix
         else
           page_path_with_leading_slash
