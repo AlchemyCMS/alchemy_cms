@@ -45,8 +45,10 @@ module Alchemy
         if @preview_config && uri
           uri_class.build(
             host: uri.host,
+            port: uri.port,
             path: page.url_path,
             userinfo: userinfo,
+            query: { alchemy_preview_mode: true }.to_param,
           ).to_s
         else
           routes.admin_page_path(page)

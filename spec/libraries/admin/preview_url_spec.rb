@@ -39,7 +39,7 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
         end
 
         it "returns the configured preview url" do
-          is_expected.to eq "http://www.example.com/#{page.urlname}"
+          is_expected.to eq "http://www.example.com/#{page.urlname}?alchemy_preview_mode=true"
         end
       end
 
@@ -51,7 +51,7 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
         end
 
         it "returns the configured preview url with https" do
-          is_expected.to eq "https://www.example.com/#{page.urlname}"
+          is_expected.to eq "https://www.example.com/#{page.urlname}?alchemy_preview_mode=true"
         end
       end
 
@@ -67,7 +67,19 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
         end
 
         it "returns the configured preview url with userinfo" do
-          is_expected.to eq "https://foo:baz@www.example.com/#{page.urlname}"
+          is_expected.to eq "https://foo:baz@www.example.com/#{page.urlname}?alchemy_preview_mode=true"
+        end
+      end
+
+      context "with a port configured" do
+        before do
+          stub_alchemy_config(:preview, {
+            "host" => "https://www.example.com:8080",
+          })
+        end
+
+        it "returns the configured preview url with userinfo" do
+          is_expected.to eq "https://www.example.com:8080/#{page.urlname}?alchemy_preview_mode=true"
         end
       end
 
@@ -86,7 +98,7 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
           end
 
           it "returns the configured preview url for that site" do
-            is_expected.to eq "http://new.example.com/#{page.urlname}"
+            is_expected.to eq "http://new.example.com/#{page.urlname}?alchemy_preview_mode=true"
           end
         end
 
@@ -102,7 +114,7 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
             end
 
             it "returns the default configured preview url" do
-              is_expected.to eq "http://www.example.com/#{page.urlname}"
+              is_expected.to eq "http://www.example.com/#{page.urlname}?alchemy_preview_mode=true"
             end
           end
 
@@ -132,7 +144,7 @@ RSpec.describe Alchemy::Admin::PreviewUrl do
         end
 
         it "returns the preview url without urlname" do
-          is_expected.to eq "https://www.example.com/"
+          is_expected.to eq "https://www.example.com/?alchemy_preview_mode=true"
         end
       end
     end
