@@ -20,7 +20,7 @@
 <script type="text/javascript">
   Alchemy.ImageLoader('#jscropper .thumbnail_background');
   $('#imageToCrop').load(function() {
-    Alchemy.ImageCropper.init(
+    new Alchemy.ImageCropper(
       <%= @initial_box.values.to_json %>,
       <% if @picture.can_be_cropped_to?("#{@min_size[:width]}x#{@min_size[:height]}") %>
         <%= @min_size.values.to_json %>,

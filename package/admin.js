@@ -3,6 +3,7 @@ import NodeTree from "./src/node_tree"
 import fileEditors from "./src/file_editors"
 import pictureEditors from "./src/picture_editors"
 import ImageLoader from "./src/image_loader"
+import ImageCropper from "./src/image_cropper"
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {
@@ -16,5 +17,6 @@ Object.assign(Alchemy, {
   NodeTree,
   fileEditors,
   pictureEditors,
-  ImageLoader: ImageLoader.init
+  ImageLoader: ImageLoader.init,
+  ImageCropper
 })
