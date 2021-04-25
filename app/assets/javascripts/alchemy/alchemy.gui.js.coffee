@@ -23,3 +23,5 @@ Alchemy.GUI =
     Alchemy.ElementDirtyObserver($el)
     Alchemy.GUI.init($el)
     Alchemy.ImageLoader($el[0])
+    Alchemy.fileEditors($el.find(".essence_file").selector)
+    Alchemy.pictureEditors($el.find(".essence_picture").selector)
