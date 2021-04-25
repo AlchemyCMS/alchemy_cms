@@ -17,9 +17,24 @@ export default class ImageCropper {
     this.elementId = elementId
     this.dialog = Alchemy.currentDialog()
 
+    if (this.cropFromField.value && this.cropSizeField.value) {
+      const cropFrom = this.cropFromField.value
+        .split("x")
+        .map((v) => parseInt(v))
+      const cropSize = this.cropSizeField.value
+        .split("x")
+        .map((v) => parseInt(v))
+      this.box = [
+        cropFrom[0],
+        cropFrom[1],
+        cropSize[0],
+        cropSize[1] + cropFrom[1]
+      ]
+    }
+
     const JcropOptions = {
       onSelect: this.update.bind(this),
-      setSelect: box,
+      setSelect: this.box,
       aspectRatio,
       minSize,
       boxWidth: 800,
