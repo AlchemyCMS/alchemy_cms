@@ -390,6 +390,161 @@ module Alchemy
       end
     end
 
+    describe "#image_cropper_settings" do
+      let(:content) { build_stubbed(:alchemy_content, :essence_picture, essence: essence) }
+      let(:essence) { build_stubbed(:alchemy_essence_picture, picture: picture) }
+      let(:picture) { nil }
+
+      subject { essence.image_cropper_settings }
+
+      context "with no picture assigned" do
+        it { is_expected.to eq({}) }
+      end
+
+      context "with picture assigned" do
+        let(:picture) { build_stubbed(:alchemy_picture) }
+
+        let(:default_mask) do
+          {
+            x1: 0,
+            y1: 0,
+            x2: 300,
+            y2: 250,
+          }
+        end
+
+        let(:settings) { {} }
+
+        before do
+          picture.image_file_width = 300
+          picture.image_file_height = 250
+          allow(content).to receive(:settings) { settings }
+        end
+
+        context "with no render_size present in essence" do
+          before do
+            expect(essence).to receive(:render_size).at_least(:once).and_return(nil)
+          end
+
+          context "with sizes in content settings" do
+            let(:settings) do
+              { size: "300x250" }
+            end
+
+            it "sets sizes to given values" do
+              expect(subject[:min_size]).to eq({ width: 300, height: 250 })
+            end
+          end
+
+          context "with no sizes in content settngs" do
+            it "sets sizes to zero" do
+              expect(subject[:min_size]).to eq({ width: 0, height: 0 })
+            end
+          end
+        end
+
+        context "with render_size present in essence" do
+          it "sets sizes from these values" do
+            expect(essence).to receive(:render_size).at_least(:once).and_return("30x25")
+            expect(subject[:min_size]).to eq({ width: 30, height: 25 })
+          end
+
+          context "when width or height is not fixed" do
+            it "infers the height from the image file preserving the aspect ratio" do
+              expect(essence).to receive(:render_size).at_least(:once).and_return("30x")
+              expect(subject[:min_size]).to eq({ width: 30, height: 0 })
+            end
+
+            context "and aspect ratio set on the contents settings" do
+              let(:settings) do
+                { fixed_ratio: "2" }
+              end
+
+              it "does not infer the height from the image file preserving the aspect ratio" do
+                expect(essence).to receive(:render_size).at_least(:once).and_return("x25")
+                expect(subject[:min_size]).to eq({ width: 50, height: 25 })
+              end
+            end
+          end
+
+          context "when width or height is not fixed and an aspect ratio is given" do
+            context "and aspect ratio set on the contents setting" do
+              let(:settings) do
+                { fixed_ratio: "0.5" }
+              end
+
+              it "width is given, it infers the height from width and ratio" do
+                expect(essence).to receive(:render_size).at_least(:once).and_return("30x")
+                expect(subject[:min_size]).to eq({ width: 30, height: 60 })
+              end
+            end
+
+            it "infers the height from the image file preserving the aspect ratio" do
+              expect(essence).to receive(:render_size).at_least(:once).and_return("x25")
+              expect(subject[:min_size]).to eq({ width: 0, height: 25 })
+            end
+          end
+        end
+
+        context "no crop sizes present in essence" do
+          before do
+            expect(essence).to receive(:crop_from).and_return(nil)
+            allow(essence).to receive(:crop_size).and_return(nil)
+          end
+
+          it "assigns default mask boxes" do
+            expect(subject[:initial_box]).to eq(default_mask)
+            expect(subject[:default_box]).to eq(default_mask)
+          end
+        end
+
+        context "crop sizes present in essence" do
+          let(:mask) { { "x1" => "0", "y1" => "0", "x2" => "120", "y2" => "160" } }
+
+          before do
+            allow(essence).to receive(:crop_from).and_return("0x0")
+            allow(essence).to receive(:crop_size).and_return("120x160")
+          end
+
+          it "assigns cropping boxes" do
+            expect(essence).to receive(:cropping_mask).and_return(mask)
+            expect(subject[:initial_box]).to eq(mask)
+            expect(subject[:default_box]).to eq(default_mask)
+          end
+        end
+
+        context "with fixed_ratio set to false" do
+          let(:settings) do
+            { fixed_ratio: false }
+          end
+
+          it "sets ratio to false" do
+            expect(subject[:ratio]).to eq(false)
+          end
+        end
+
+        context "with fixed_ratio set to a non float string" do
+          let(:settings) do
+            { fixed_ratio: "123,45" }
+          end
+
+          it "doesn't set a fixed ratio" do
+            expect(subject[:ratio]).to eq(false)
+          end
+        end
+
+        context "with no fixed_ratio set" do
+          let(:settings) do
+            { size: "80x60" }
+          end
+
+          it "sets a fixed ratio from sizes" do
+            expect(subject[:ratio]).to eq(80.0 / 60.0)
+          end
+        end
+      end
+    end
+
     describe "#preview_text" do
       let(:picture) { mock_model(Picture, name: "Cute Cat Kittens") }
       let(:essence) { EssencePicture.new }

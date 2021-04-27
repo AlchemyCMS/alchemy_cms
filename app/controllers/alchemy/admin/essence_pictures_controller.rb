@@ -3,7 +3,6 @@
 module Alchemy
   module Admin
     class EssencePicturesController < Alchemy::Admin::BaseController
-      FLOAT_REGEX = /\A\d+(\.\d+)?\z/
       authorize_resource class: Alchemy::EssencePicture
 
       before_action :load_essence_picture, only: [:edit, :crop, :update]
@@ -19,12 +18,12 @@ module Alchemy
       def crop
         @picture = Picture.find_by(id: params[:picture_id])
         if @picture
-          @min_size = sizes_from_essence_or_params
-          @ratio = ratio_from_size_or_settings
-          infer_width_or_height_from_ratio
+          cropper_settings = @essence_picture.image_cropper_settings
 
-          @default_box = @essence_picture.default_mask(@min_size)
-          @initial_box = @essence_picture.cropping_mask || @default_box
+          @min_size = cropper_settings[:min_size]
+          @ratio = cropper_settings[:ratio]
+          @default_box = cropper_settings[:default_box]
+          @initial_box = cropper_settings[:initial_box]
         else
           @no_image_notice = Alchemy.t(:no_image_for_cropper_found)
         end
@@ -42,46 +41,6 @@ module Alchemy
 
       def load_content
         @content = Content.find(params[:content_id])
-      end
-
-      # Gets the minimum size of the image to be rendered.
-      #
-      # The +render_size+ attribute has preference over the contents +size+ setting.
-      #
-      def sizes_from_essence_or_params
-        if @essence_picture.render_size?
-          @essence_picture.sizes_from_string(@essence_picture.render_size)
-        elsif @essence_picture.content.settings[:size]
-          @essence_picture.sizes_from_string(@essence_picture.content.settings[:size])
-        else
-          { width: 0, height: 0 }
-        end
-      end
-
-      # Infers the aspect ratio from size or contents settings. If you don't want a fixed
-      # aspect ratio, don't specify a size or only width or height.
-      #
-      def ratio_from_size_or_settings
-        if @min_size.value?(0) && @essence_picture.content.settings[:fixed_ratio].to_s =~ FLOAT_REGEX
-          @essence_picture.content.settings[:fixed_ratio].to_f
-        elsif !@min_size[:width].zero? && !@min_size[:height].zero?
-          @min_size[:width].to_f / @min_size[:height]
-        else
-          false
-        end
-      end
-
-      # Infers the minimum width or height
-      # if the aspect ratio and one dimension is specified.
-      #
-      def infer_width_or_height_from_ratio
-        return unless @ratio
-
-        if @min_size[:height].zero?
-          @min_size[:height] = (@min_size[:width] / @ratio).to_i
-        else
-          @min_size[:width] = (@min_size[:height] * @ratio).to_i
-        end
       end
 
       def essence_picture_params

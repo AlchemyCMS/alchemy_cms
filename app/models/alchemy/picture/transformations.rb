@@ -164,7 +164,7 @@ module Alchemy
         dimensions[:height].to_f / target[:height],
       ].max
 
-      if zoom == 0.0
+      if zoom.zero?
         width = target[:width]
         height = target[:height]
       else

@@ -23,6 +23,8 @@
 
 module Alchemy
   class EssencePicture < BaseRecord
+    FLOAT_REGEX = /\A\d+(\.\d+)?\z/
+
     acts_as_essence ingredient_column: :picture, belongs_to: {
       class_name: "Alchemy::Picture",
       foreign_key: :picture_id,
@@ -158,7 +160,64 @@ module Alchemy
       crop_from.present? && crop_size.present?
     end
 
+    # Settings for the graphical JS image cropper
+    def image_cropper_settings
+      return {} unless picture
+
+      min_size = sizes_from_render_size_or_settings
+      ratio = ratio_from_size_or_settings(min_size)
+      infer_width_or_height_from_ratio!(min_size, ratio)
+      default_box = default_mask(min_size)
+
+      {
+        min_size: min_size,
+        ratio: ratio,
+        default_box: default_box,
+        initial_box: cropping_mask || default_box,
+      }
+    end
+
     private
+
+    # Gets the minimum size of the image to be rendered.
+    #
+    # The +render_size+ attribute has preference over the contents +size+ setting.
+    #
+    def sizes_from_render_size_or_settings
+      if render_size?
+        sizes_from_string(render_size)
+      elsif content.settings[:size]
+        sizes_from_string(content.settings[:size])
+      else
+        { width: 0, height: 0 }
+      end
+    end
+
+    # Infers the aspect ratio from size or contents settings. If you don't want a fixed
+    # aspect ratio, don't specify a size or only width or height.
+    #
+    def ratio_from_size_or_settings(min_size)
+      if min_size.value?(0) && content.settings[:fixed_ratio].to_s =~ FLOAT_REGEX
+        content.settings[:fixed_ratio].to_f
+      elsif !min_size[:width].zero? && !min_size[:height].zero?
+        min_size[:width].to_f / min_size[:height]
+      else
+        false
+      end
+    end
+
+    # Infers the minimum width or height
+    # if the aspect ratio and one dimension is specified.
+    #
+    def infer_width_or_height_from_ratio!(min_size, ratio)
+      return unless ratio
+
+      if min_size[:height].zero?
+        min_size[:height] = (min_size[:width] / ratio).to_i
+      else
+        min_size[:width] = (min_size[:height] * ratio).to_i
+      end
+    end
 
     def fix_crop_values
       %i(crop_from crop_size).each do |crop_value|
