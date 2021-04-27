@@ -18,6 +18,7 @@ module Alchemy
       def crop
         @picture = Picture.find_by(id: params[:picture_id])
         if @picture
+          @essence_picture.picture = @picture
           cropper_settings = @essence_picture.image_cropper_settings
 
           @min_size = cropper_settings[:min_size]
