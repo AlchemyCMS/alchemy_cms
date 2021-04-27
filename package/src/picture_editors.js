@@ -97,7 +97,6 @@ class PictureEditor {
 
   updateCropLink() {
     if (!this.pictureId) return
-    if (!this.cropFrom || !this.cropSize) return
 
     this.cropLink.classList.remove("disabled")
     this.cropLink.classList.remove("disabled")
