@@ -63,9 +63,10 @@ export default class ImageCropper {
   }
 
   reset() {
-    this.api.setSelect(this.defaultBox)
-    this.cropFromField.value = ""
-    this.cropSizeField.value = ""
+    const box = this.defaultBox
+    this.api.setSelect(box)
+    this.cropFromField.value = `${box[0]}x${box[1]}`
+    this.cropSizeField.value = `${box[2]}x${box[3] - box[1]}`
   }
 
   destroy() {
