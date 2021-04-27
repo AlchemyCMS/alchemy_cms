@@ -11,12 +11,41 @@ export default class ImageCropper {
     this.initialized = false
 
     this.box = box
+    this.minSize = minSize
     this.defaultBox = defaultBox
+    this.aspectRatio = aspectRatio
+    this.trueSize = trueSize
     this.cropFromField = document.getElementById(formFieldIds[0])
     this.cropSizeField = document.getElementById(formFieldIds[1])
     this.elementId = elementId
     this.dialog = Alchemy.currentDialog()
 
+    this.init()
+    this.bind()
+  }
+
+  get jcropOptions() {
+    return {
+      onSelect: this.update.bind(this),
+      setSelect: this.box,
+      aspectRatio: this.aspectRatio,
+      minSize: this.minSize,
+      boxWidth: 800,
+      boxHeight: 600,
+      trueSize: this.trueSize,
+      closed: this.destroy.bind(this)
+    }
+  }
+
+  init() {
+    this.setBoxFromCropValues()
+    if (!this.initialized) {
+      this.api = $.Jcrop("#imageToCrop", this.jcropOptions)
+      this.initialized = true
+    }
+  }
+
+  setBoxFromCropValues() {
     if (this.cropFromField.value && this.cropSizeField.value) {
       const cropFrom = this.cropFromField.value
         .split("x")
@@ -31,24 +60,6 @@ export default class ImageCropper {
         cropSize[1] + cropFrom[1]
       ]
     }
-
-    const JcropOptions = {
-      onSelect: this.update.bind(this),
-      setSelect: this.box,
-      aspectRatio,
-      minSize,
-      boxWidth: 800,
-      boxHeight: 600,
-      trueSize,
-      closed: this.destroy.bind(this)
-    }
-
-    if (!this.initialized) {
-      this.api = $.Jcrop("#imageToCrop", JcropOptions)
-      this.initialized = true
-    }
-
-    this.bind()
   }
 
   update(coords) {
