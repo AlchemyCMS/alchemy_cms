@@ -16,20 +16,16 @@
   </form>
 </div>
 <% end %>
-<% if @initial_box && @default_box %>
+<% if @settings %>
 <script type="text/javascript">
   Alchemy.ImageLoader('#jscropper .thumbnail_background');
   $('#imageToCrop').load(function() {
     new Alchemy.ImageCropper(
-      <%= @initial_box.values.to_json %>,
-      <% if @picture.can_be_cropped_to?("#{@min_size[:width]}x#{@min_size[:height]}") %>
-        <%= @min_size.values.to_json %>,
-      <% else %>
-        <%= false %>,
-      <% end %>
-      <%= @default_box.values.to_json %>,
-      <%= @ratio %>,
-      <%= @picture.image_size.values.to_json %>,
+      <%= @settings[:initial_box].to_json %>,
+      <%= @settings[:min_size].to_json %>,
+      <%= @settings[:default_box].to_json %>,
+      <%= @settings[:ratio] %>,
+      <%= @settings[:image_size].to_json %>,
       [
         "<%= params[:crop_from_form_field_id] %>",
         "<%= params[:crop_size_form_field_id] %>",

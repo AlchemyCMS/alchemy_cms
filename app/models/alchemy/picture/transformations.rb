@@ -14,21 +14,6 @@ module Alchemy
     THUMBNAIL_WIDTH = 160
     THUMBNAIL_HEIGHT = 120
 
-    # Returns the default centered image mask for a given size.
-    # If the mask is bigger than the image, the mask is scaled down
-    # so the largest possible part of the image is visible.
-    #
-    def default_mask(mask_arg)
-      mask = mask_arg.dup
-      mask[:width] = image_file_width if mask[:width].zero?
-      mask[:height] = image_file_height if mask[:height].zero?
-
-      crop_size = size_when_fitting({width: image_file_width, height: image_file_height}, mask)
-      top_left = get_top_left_crop_corner(crop_size)
-
-      point_and_mask_to_points(top_left, crop_size)
-    end
-
     # Returns a size value String for the thumbnail used in essence picture editors.
     #
     def thumbnail_size(size_string = "0x0", crop = false)
@@ -130,17 +115,6 @@ module Alchemy
       }
     end
 
-    # Given dimensions for a possibly destructive crop operation,
-    # this function returns the top left corner as a Hash
-    # with keys :x, :y
-    #
-    def get_top_left_crop_corner(dimensions)
-      {
-        x: (image_file_width - dimensions[:width]) / 2,
-        y: (image_file_height - dimensions[:height]) / 2,
-      }
-    end
-
     # Gets the base dimensions (the dimensions of the Picture before scaling).
     # If anything is missing, it gets padded with zero (Integer 0).
     # This is the order of precedence: crop_size > image_size
@@ -173,19 +147,6 @@ module Alchemy
       end
 
       {width: width.to_i, height: height.to_i}
-    end
-
-    # Given a point as a Hash with :x and :y, and a mask with
-    # :width and :height, this function returns the area on the
-    # underlying canvas as a Hash of two points
-    #
-    def point_and_mask_to_points(point, mask)
-      {
-        x1: point[:x],
-        y1: point[:y],
-        x2: point[:x] + mask[:width],
-        y2: point[:y] + mask[:height],
-      }
     end
 
     # Converts a dimensions hash to a string of from "20x20"

@@ -19,12 +19,7 @@ module Alchemy
         @picture = Picture.find_by(id: params[:picture_id])
         if @picture
           @essence_picture.picture = @picture
-          cropper_settings = @essence_picture.image_cropper_settings
-
-          @min_size = cropper_settings[:min_size]
-          @ratio = cropper_settings[:ratio]
-          @default_box = cropper_settings[:default_box]
-          @initial_box = cropper_settings[:initial_box]
+          @settings = @essence_picture.image_cropper_settings
         else
           @no_image_notice = Alchemy.t(:no_image_for_cropper_found)
         end

@@ -372,27 +372,9 @@ module Alchemy
       end
     end
 
-    describe "#cropping_mask" do
-      subject { essence.cropping_mask }
-
-      context "with crop values given" do
-        let(:essence) { build_stubbed(:alchemy_essence_picture, crop_from: "0x0", crop_size: "100x100") }
-
-        it "returns a hash containing cropping coordinates" do
-          is_expected.to eq({ x1: 0, y1: 0, x2: 100, y2: 100 })
-        end
-      end
-
-      context "with no crop values given" do
-        let(:essence) { build_stubbed(:alchemy_essence_picture) }
-
-        it { is_expected.to be_nil }
-      end
-    end
-
     describe "#image_cropper_settings" do
-      let(:content) { build_stubbed(:alchemy_content, :essence_picture, essence: essence) }
-      let(:essence) { build_stubbed(:alchemy_essence_picture, picture: picture) }
+      let(:content) { essence.content }
+      let(:essence) { build_stubbed(:alchemy_essence_picture, :with_content, picture: picture) }
       let(:picture) { nil }
 
       subject { essence.image_cropper_settings }
@@ -405,12 +387,12 @@ module Alchemy
         let(:picture) { build_stubbed(:alchemy_picture) }
 
         let(:default_mask) do
-          {
-            x1: 0,
-            y1: 0,
-            x2: 300,
-            y2: 250,
-          }
+          [
+            0,
+            0,
+            300,
+            250,
+          ]
         end
 
         let(:settings) { {} }
@@ -432,13 +414,13 @@ module Alchemy
             end
 
             it "sets sizes to given values" do
-              expect(subject[:min_size]).to eq({ width: 300, height: 250 })
+              expect(subject[:min_size]).to eq([300, 250])
             end
           end
 
           context "with no sizes in content settngs" do
             it "sets sizes to zero" do
-              expect(subject[:min_size]).to eq({ width: 0, height: 0 })
+              expect(subject[:min_size]).to eq([0, 0])
             end
           end
         end
@@ -446,13 +428,13 @@ module Alchemy
         context "with render_size present in essence" do
           it "sets sizes from these values" do
             expect(essence).to receive(:render_size).at_least(:once).and_return("30x25")
-            expect(subject[:min_size]).to eq({ width: 30, height: 25 })
+            expect(subject[:min_size]).to eq([30, 25])
           end
 
           context "when width or height is not fixed" do
             it "infers the height from the image file preserving the aspect ratio" do
               expect(essence).to receive(:render_size).at_least(:once).and_return("30x")
-              expect(subject[:min_size]).to eq({ width: 30, height: 0 })
+              expect(subject[:min_size]).to eq([30, 0])
             end
 
             context "and aspect ratio set on the contents settings" do
@@ -462,7 +444,7 @@ module Alchemy
 
               it "does not infer the height from the image file preserving the aspect ratio" do
                 expect(essence).to receive(:render_size).at_least(:once).and_return("x25")
-                expect(subject[:min_size]).to eq({ width: 50, height: 25 })
+                expect(subject[:min_size]).to eq([50, 25])
               end
             end
           end
@@ -475,13 +457,13 @@ module Alchemy
 
               it "width is given, it infers the height from width and ratio" do
                 expect(essence).to receive(:render_size).at_least(:once).and_return("30x")
-                expect(subject[:min_size]).to eq({ width: 30, height: 60 })
+                expect(subject[:min_size]).to eq([30, 60])
               end
             end
 
             it "infers the height from the image file preserving the aspect ratio" do
               expect(essence).to receive(:render_size).at_least(:once).and_return("x25")
-              expect(subject[:min_size]).to eq({ width: 0, height: 25 })
+              expect(subject[:min_size]).to eq([0, 25])
             end
           end
         end
@@ -499,7 +481,7 @@ module Alchemy
         end
 
         context "crop sizes present in essence" do
-          let(:mask) { { "x1" => "0", "y1" => "0", "x2" => "120", "y2" => "160" } }
+          let(:mask) { [0, 0, 120, 160] }
 
           before do
             allow(essence).to receive(:crop_from).and_return("0x0")
@@ -507,7 +489,6 @@ module Alchemy
           end
 
           it "assigns cropping boxes" do
-            expect(essence).to receive(:cropping_mask).and_return(mask)
             expect(subject[:initial_box]).to eq(mask)
             expect(subject[:default_box]).to eq(default_mask)
           end

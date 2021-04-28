@@ -41,12 +41,12 @@ module Alchemy
         subject { get :crop, params: { id: 1, picture_id: picture.id } }
 
         let(:default_mask) do
-          {
-            x1: 0,
-            y1: 0,
-            x2: 300,
-            y2: 250,
-          }
+          [
+            0,
+            0,
+            300,
+            250,
+          ]
         end
 
         let(:settings) { {} }
@@ -70,14 +70,14 @@ module Alchemy
 
             it "sets sizes to given values" do
               subject
-              expect(assigns(:min_size)).to eq({ width: 300, height: 250 })
+              expect(assigns(:settings)[:min_size]).to eq([300, 250])
             end
           end
 
           context "with no sizes in content settngs" do
             it "sets sizes to zero" do
               subject
-              expect(assigns(:min_size)).to eq({ width: 0, height: 0 })
+              expect(assigns(:settings)[:min_size]).to eq([0, 0])
             end
           end
         end
@@ -87,7 +87,7 @@ module Alchemy
             expect(essence).to receive(:render_size).at_least(:once).and_return("30x25")
 
             subject
-            expect(assigns(:min_size)).to eq({ width: 30, height: 25 })
+            expect(assigns(:settings)[:min_size]).to eq([30, 25])
           end
 
           context "when width or height is not fixed" do
@@ -95,7 +95,7 @@ module Alchemy
               expect(essence).to receive(:render_size).at_least(:once).and_return("30x")
 
               subject
-              expect(assigns(:min_size)).to eq({ width: 30, height: 0 })
+              expect(assigns(:settings)[:min_size]).to eq([30, 0])
             end
 
             context "and aspect ratio set on the contents settings" do
@@ -107,7 +107,7 @@ module Alchemy
                 expect(essence).to receive(:render_size).at_least(:once).and_return("x25")
 
                 subject
-                expect(assigns(:min_size)).to eq({ width: 50, height: 25 })
+                expect(assigns(:settings)[:min_size]).to eq([50, 25])
               end
             end
           end
@@ -122,7 +122,7 @@ module Alchemy
                 expect(essence).to receive(:render_size).at_least(:once).and_return("30x")
 
                 subject
-                expect(assigns(:min_size)).to eq({ width: 30, height: 60 })
+                expect(assigns(:settings)[:min_size]).to eq([30, 60])
               end
             end
 
@@ -130,7 +130,7 @@ module Alchemy
               expect(essence).to receive(:render_size).at_least(:once).and_return("x25")
 
               subject
-              expect(assigns(:min_size)).to eq({ width: 0, height: 25 })
+              expect(assigns(:settings)[:min_size]).to eq([0, 25])
             end
           end
         end
@@ -143,13 +143,13 @@ module Alchemy
 
           it "assigns default mask boxes" do
             subject
-            expect(assigns(:initial_box)).to eq(default_mask)
-            expect(assigns(:default_box)).to eq(default_mask)
+            expect(assigns(:settings)[:initial_box]).to eq(default_mask)
+            expect(assigns(:settings)[:default_box]).to eq(default_mask)
           end
         end
 
         context "crop sizes present in essence" do
-          let(:mask) { { "x1" => "0", "y1" => "0", "x2" => "120", "y2" => "160" } }
+          let(:mask) { [0, 0, 120, 160] }
 
           before do
             allow(essence).to receive(:crop_from).and_return("0x0")
@@ -157,10 +157,9 @@ module Alchemy
           end
 
           it "assigns cropping boxes" do
-            expect(essence).to receive(:cropping_mask).and_return(mask)
             subject
-            expect(assigns(:initial_box)).to eq(mask)
-            expect(assigns(:default_box)).to eq(default_mask)
+            expect(assigns(:settings)[:initial_box]).to eq(mask)
+            expect(assigns(:settings)[:default_box]).to eq(default_mask)
           end
         end
 
@@ -171,7 +170,7 @@ module Alchemy
 
           it "sets ratio to false" do
             subject
-            expect(assigns(:ratio)).to eq(false)
+            expect(assigns(:settings)[:ratio]).to eq(false)
           end
         end
 
@@ -182,7 +181,7 @@ module Alchemy
 
           it "doesn't set a fixed ratio" do
             subject
-            expect(assigns(:ratio)).to eq(false)
+            expect(assigns(:settings)[:ratio]).to eq(false)
           end
         end
 
@@ -193,7 +192,7 @@ module Alchemy
 
           it "sets a fixed ratio from sizes" do
             subject
-            expect(assigns(:ratio)).to eq(80.0 / 60.0)
+            expect(assigns(:settings)[:ratio]).to eq(80.0 / 60.0)
           end
         end
       end

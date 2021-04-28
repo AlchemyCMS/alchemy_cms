@@ -97,56 +97,5 @@ module Alchemy
         expect(picture.respond_to?(:square?)).to be_truthy
       end
     end
-
-    describe "#default_mask" do
-      before do
-        allow(picture).to receive(:image_file_width) { 200 }
-        allow(picture).to receive(:image_file_height) { 100 }
-      end
-
-      it "should return a Hash" do
-        expect(picture.default_mask({ width: 10, height: 10 })).to be_a(Hash)
-      end
-
-      it "should return a Hash with four keys x1, x2, y1, y2" do
-        expect(picture.default_mask({ width: 10, height: 10 }).keys.sort).to eq([:x1, :x2, :y1, :y2])
-      end
-
-      it "should return a Hash where all values are Integer" do
-        expect(picture.default_mask({ width: 13, height: 13 }).all? do |_k, v|
-          v.is_a? Integer
-        end).to be_truthy
-      end
-
-      context "making a default cropping mask" do
-        it "to 200x50 pixel, the hash should be {x1: 0, y1: 25, x2: 200, y2: 75}" do
-          expect(picture.default_mask({ width: 200, height: 50 })).to eq({x1: 0, y1: 25, x2: 200, y2: 75})
-        end
-
-        it "to 0x0 pixel, it should not crop the picture" do
-          expect(picture.default_mask({ width: 0, height: 0 })).to eq({x1: 0, y1: 0, x2: 200, y2: 100})
-        end
-
-        it "to 50x100 pixel, the hash should be {x1: 75, y1: 0, x2: 125, y2: 100}" do
-          expect(picture.default_mask({ width: 50, height: 100 })).to eq({x1: 75, y1: 0, x2: 125, y2: 100})
-        end
-
-        it "to 50x50 pixel, the hash should be {x1: 50, y1: 0, x2: 150, y2: 100}" do
-          expect(picture.default_mask({ width: 50, height: 50 })).to eq({x1: 50, y1: 0, x2: 150, y2: 100})
-        end
-
-        it "to 400x200 pixel, the hash should be {x1: 0, y1: 0, x2: 200, y2: 100}" do
-          expect(picture.default_mask({ width: 400, height: 200 })).to eq({x1: 0, y1: 0, x2: 200, y2: 100})
-        end
-
-        it "to 400x100 pixel, the hash should be {x1: 0, y1: 25, x2: 200, y2: 75}" do
-          expect(picture.default_mask({ width: 400, height: 100 })).to eq({x1: 0, y1: 25, x2: 200, y2: 75})
-        end
-
-        it "to 200x200 pixel, the hash should be {x1: 50, y1: 0, x2: 150, y2: 100}" do
-          expect(picture.default_mask({ width: 200, height: 200 })).to eq({x1: 50, y1: 0, x2: 150, y2: 100})
-        end
-      end
-    end
   end
 end
