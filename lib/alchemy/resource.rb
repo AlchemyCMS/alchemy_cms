@@ -284,6 +284,11 @@ module Alchemy
       resource_relation(column_name).try(:[], :attr_type)
     end
 
+    def resource_relation_class(association)
+      class_name = association.options[:class_name] || association.name.to_s.classify
+      class_name.constantize
+    end
+
     def resource_column_type(col)
       resource_relation_type(col.name) || (col.try(:array) ? :array : col.type)
     end
@@ -296,10 +301,15 @@ module Alchemy
     def map_relations
       self.resource_relations = {}
       model.alchemy_resource_relations.each do |name, options|
-        name = name.to_s.gsub(/_id$/, "") # ensure that we don't have an id
-        association = association_from_relation_name(name)
+        relation_name = name.to_s.gsub(/_id$/, "") # ensure that we don't have an id
+        association = association_from_relation_name(relation_name)
         foreign_key = association.options[:foreign_key] || "#{association.name}_id".to_sym
-        resource_relations[foreign_key] = options.merge(model_association: association, name: name)
+        collection = options[:collection] || resource_relation_class(association).all
+        resource_relations[foreign_key] = options.merge(
+          model_association: association,
+          name: relation_name,
+          collection: collection,
+        )
       end
     end
 
