@@ -8,6 +8,17 @@ module Alchemy
       "alchemy/admin/elements/element"
     end
 
+    # Returns content editor instances for defined contents
+    #
+    # Creates contents on demand if the content is not yet present on the element
+    #
+    # @return Array<Alchemy::ContentEditor>
+    def contents
+      element.definition.fetch(:contents, []).map do |content|
+        Alchemy::ContentEditor.new(find_or_create_content(content[:name]))
+      end
+    end
+
     # CSS classes for the element editor partial.
     def css_classes
       [
@@ -77,6 +88,20 @@ module Alchemy
                   scope: :element_deprecation_notices,
                   default: Alchemy.t(:element_deprecated))
       end
+    end
+
+    private
+
+    def find_or_create_content(name)
+      find_content(name) || create_content(name)
+    end
+
+    def find_content(name)
+      element.contents.find { |content| content.name == name }
+    end
+
+    def create_content(name)
+      Alchemy::Content.create(element: element, name: name)
     end
   end
 end
