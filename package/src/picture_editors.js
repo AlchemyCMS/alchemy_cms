@@ -1,10 +1,12 @@
 import debounce from "lodash/debounce"
+import max from "lodash/max"
 import ajax from "./utils/ajax"
 import ImageLoader from "./image_loader"
 
 const UPDATE_DELAY = 250
 const IMAGE_PLACEHOLDER = '<i class="icon far fa-image fa-fw"></i>'
 const EMPTY_IMAGE = '<img src="" class="img_paddingtop" />'
+const THUMBNAIL_SIZE = "160x120"
 
 class PictureEditor {
   constructor(container) {
@@ -12,7 +14,7 @@ class PictureEditor {
     this.cropFromField = container.querySelector("[data-crop-from]")
     this.cropSizeField = container.querySelector("[data-crop-size]")
     this.pictureIdField = container.querySelector("[data-picture-id]")
-    this.sizeField = container.querySelector("[data-size]")
+    this.targetSizeField = container.querySelector("[data-target-size]")
     this.image = container.querySelector("img")
     this.thumbnailBackground = container.querySelector(".thumbnail_background")
     this.deleteButton = container.querySelector(".picture_tool.delete")
@@ -20,10 +22,8 @@ class PictureEditor {
 
     this.cropFrom = this.cropFromField.value
     this.cropSize = this.cropSizeField.value
-    this.size = this.sizeField.dataset.size
+    this.targetSize = this.targetSizeField.dataset.targetSize
     this.pictureId = this.pictureIdField.value
-    this.imageFileWidth = this.pictureIdField.dataset.imageFileWidth
-    this.imageFileHeight = this.pictureIdField.dataset.imageFileHeight
 
     if (this.image) {
       this.imageLoader = new ImageLoader(this.image)
@@ -67,10 +67,10 @@ class PictureEditor {
     this.imageLoader.load()
     ajax("GET", `/admin/pictures/${this.pictureId}/url`, {
       crop: true,
-      crop_from: this.cropFrom,
-      crop_size: this.cropSize,
+      crop_from: this.cropFrom || this.defaultCropFrom.join("x"),
+      crop_size: this.cropSize || this.defaultCropSize.join("x"),
       flatten: true,
-      size: this.size
+      size: THUMBNAIL_SIZE
     })
       .then(({ data }) => {
         this.image.src = data.url
@@ -101,7 +101,6 @@ class PictureEditor {
     if (!this.pictureId) return
 
     this.cropLink.classList.remove("disabled")
-    this.cropLink.classList.remove("disabled")
 
     if (this.cropLink.href.match(/(picture_id=)\d+/)) {
       this.cropLink.href = this.cropLink.href.replace(
@@ -111,6 +110,33 @@ class PictureEditor {
     } else {
       this.cropLink.href = this.cropLink.href + `&picture_id=${this.pictureId}`
     }
+  }
+
+  get defaultCropSize() {
+    const mask = this.targetSize.split("x").map((n) => parseInt(n))
+    const zoom = max([
+      (mask[0] || this.imageFileWidth) / this.imageFileWidth,
+      (mask[1] || this.imageFileHeight) / this.imageFileHeight
+    ])
+
+    return [Math.round(mask[0] / zoom), Math.round(mask[1] / zoom)]
+  }
+
+  get defaultCropFrom() {
+    const dimensions = this.defaultCropSize
+
+    return [
+      Math.round((this.imageFileWidth - dimensions[0]) / 2),
+      Math.round((this.imageFileHeight - dimensions[1]) / 2)
+    ]
+  }
+
+  get imageFileWidth() {
+    return parseInt(this.pictureIdField.dataset.imageFileWidth)
+  }
+
+  get imageFileHeight() {
+    return parseInt(this.pictureIdField.dataset.imageFileHeight)
   }
 }
 

@@ -6,7 +6,9 @@
   data: essence_picture_editor.data_attributes do %>
   <%= content_label(essence_picture_editor) %>
   <%= content_tag :div,
-    data: { size: essence_picture_editor.essence.thumbnail_url_options[:size] },
+    data: {
+      target_size: essence_picture_editor.content.settings[:size]
+    },
     class: "picture_thumbnail" do %>
     <a class="picture_tool delete">
       <%= render_icon(:times) %>
