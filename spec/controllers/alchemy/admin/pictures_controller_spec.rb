@@ -445,12 +445,13 @@ module Alchemy
     end
 
     describe "#assign" do
-      let(:picture) { build_stubbed(:alchemy_picture) }
+      let(:picture) { create(:alchemy_picture) }
 
       it "assigns a assignable_id" do
         put :assign, params: { form_field_id: "contents_1_picture_id", id: picture.id }, xhr: true
         expect(assigns(:assignable_id)).to eq(picture.id.to_s)
         expect(assigns(:form_field_id)).to eq("contents_1_picture_id")
+        expect(assigns(:picture).id).to eq(picture.id)
       end
     end
   end

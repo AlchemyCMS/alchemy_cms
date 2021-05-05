@@ -33,7 +33,11 @@
     </div>
   <% end %>
   <%= hidden_field_tag essence_picture_editor.form_field_name(:picture_id),
-    essence_picture_editor.ingredient.try!(:id), data: { picture_id: true } %>
+    essence_picture_editor.ingredient&.id, data: {
+      picture_id: true,
+      image_file_width: essence_picture_editor.ingredient&.image_file_width,
+      image_file_height: essence_picture_editor.ingredient&.image_file_height
+    } %>
   <%= hidden_field_tag essence_picture_editor.form_field_name(:link),
     essence_picture_editor.essence.link %>
   <%= hidden_field_tag essence_picture_editor.form_field_name(:link_title),

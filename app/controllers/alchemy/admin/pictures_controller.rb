@@ -15,6 +15,10 @@ module Alchemy
 
       authorize_resource class: Alchemy::Picture
 
+      before_action(only: :assign) do
+        @picture = Picture.find(params[:id])
+      end
+
       def index
         @query = Picture.ransack(search_filter_params[:q])
         @pictures = Picture.search_by(

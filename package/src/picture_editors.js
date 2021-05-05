@@ -22,6 +22,8 @@ class PictureEditor {
     this.cropSize = this.cropSizeField.value
     this.size = this.sizeField.dataset.size
     this.pictureId = this.pictureIdField.value
+    this.imageFileWidth = this.pictureIdField.dataset.imageFileWidth
+    this.imageFileHeight = this.pictureIdField.dataset.imageFileHeight
 
     if (this.image) {
       this.imageLoader = new ImageLoader(this.image)
