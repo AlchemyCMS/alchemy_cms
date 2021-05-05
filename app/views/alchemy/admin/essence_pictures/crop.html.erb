@@ -21,7 +21,6 @@
   Alchemy.ImageLoader('#jscropper .thumbnail_background');
   $('#imageToCrop').load(function() {
     new Alchemy.ImageCropper(
-      <%= @settings[:initial_box].to_json %>,
       <%= @settings[:min_size].to_json %>,
       <%= @settings[:default_box].to_json %>,
       <%= @settings[:ratio] %>,

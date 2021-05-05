@@ -1,6 +1,5 @@
 export default class ImageCropper {
   constructor(
-    box,
     minSize,
     defaultBox,
     aspectRatio,
@@ -10,7 +9,6 @@ export default class ImageCropper {
   ) {
     this.initialized = false
 
-    this.box = box
     this.minSize = minSize
     this.defaultBox = defaultBox
     this.aspectRatio = aspectRatio
@@ -37,28 +35,35 @@ export default class ImageCropper {
     }
   }
 
-  init() {
-    this.setBoxFromCropValues()
-    if (!this.initialized) {
-      this.api = $.Jcrop("#imageToCrop", this.jcropOptions)
-      this.initialized = true
+  get cropFrom() {
+    if (this.cropFromField.value) {
+      return this.cropFromField.value.split("x").map((v) => parseInt(v))
     }
   }
 
-  setBoxFromCropValues() {
-    if (this.cropFromField.value && this.cropSizeField.value) {
-      const cropFrom = this.cropFromField.value
-        .split("x")
-        .map((v) => parseInt(v))
-      const cropSize = this.cropSizeField.value
-        .split("x")
-        .map((v) => parseInt(v))
-      this.box = [
-        cropFrom[0],
-        cropFrom[1],
-        cropSize[0],
-        cropSize[1] + cropFrom[1]
+  get cropSize() {
+    if (this.cropSizeField.value) {
+      return this.cropSizeField.value.split("x").map((v) => parseInt(v))
+    }
+  }
+
+  get box() {
+    if (this.cropFrom && this.cropSize) {
+      return [
+        this.cropFrom[0],
+        this.cropFrom[1],
+        this.cropSize[0],
+        this.cropSize[1] + this.cropFrom[1]
       ]
+    } else {
+      return this.defaultBox
+    }
+  }
+
+  init() {
+    if (!this.initialized) {
+      this.api = $.Jcrop("#imageToCrop", this.jcropOptions)
+      this.initialized = true
     }
   }
 
@@ -69,15 +74,10 @@ export default class ImageCropper {
     this.cropFromField.dispatchEvent(new Event("change"))
   }
 
-  undo() {
-    this.api.setSelect(this.box)
-  }
-
   reset() {
-    const box = this.defaultBox
-    this.api.setSelect(box)
-    this.cropFromField.value = `${box[0]}x${box[1]}`
-    this.cropSizeField.value = `${box[2]}x${box[3] - box[1]}`
+    this.api.setSelect(this.defaultBox)
+    this.cropFromField.value = `${this.box[0]}x${this.box[1]}`
+    this.cropSizeField.value = `${this.box[2]}x${this.box[3] - this.box[1]}`
   }
 
   destroy() {

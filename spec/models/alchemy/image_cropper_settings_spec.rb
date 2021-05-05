@@ -171,23 +171,6 @@ RSpec.describe Alchemy::ImageCropperSettings do
         end
       end
 
-      describe ":initial_box" do
-        context "no crop sizes given" do
-          it "assigns default cropping box" do
-            expect(subject[:initial_box]).to eq([0, 0, 300, 250])
-          end
-        end
-
-        context "crop values given" do
-          let(:crop_from) { "0x0" }
-          let(:crop_size) { "120x160" }
-
-          it "assigns cropping box from crop values" do
-            expect(subject[:initial_box]).to eq([0, 0, 120, 160])
-          end
-        end
-      end
-
       describe ":ratio" do
         context "with fixed_ratio set to false" do
           let(:settings) do

@@ -143,7 +143,6 @@ module Alchemy
 
           it "assigns default mask boxes" do
             subject
-            expect(assigns(:settings)[:initial_box]).to eq(default_mask)
             expect(assigns(:settings)[:default_box]).to eq(default_mask)
           end
         end
@@ -158,7 +157,6 @@ module Alchemy
 
           it "assigns cropping boxes" do
             subject
-            expect(assigns(:settings)[:initial_box]).to eq(mask)
             expect(assigns(:settings)[:default_box]).to eq(default_mask)
           end
         end

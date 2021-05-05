@@ -30,7 +30,6 @@ module Alchemy
         min_size: min_size_value(min_size),
         ratio: ratio,
         default_box: default_box.values,
-        initial_box: (cropping_mask || default_box).values,
         image_size: [image_width, image_height],
       }.freeze
     end
@@ -90,18 +89,6 @@ module Alchemy
       top_left = get_top_left_crop_corner(crop_size)
 
       point_and_mask_to_points(top_left, crop_size)
-    end
-
-    # A Hash of coordinates suitable for the graphical image cropper.
-    #
-    # @return [Hash]
-    def cropping_mask
-      return if crop_from.blank? || crop_size.blank?
-
-      point_and_mask_to_points(
-        point_from_string(crop_from),
-        sizes_from_string(crop_size)
-      )
     end
 
     # Given dimensions for a possibly destructive crop operation,
