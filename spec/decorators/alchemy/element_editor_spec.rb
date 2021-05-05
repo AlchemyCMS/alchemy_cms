@@ -12,6 +12,44 @@ RSpec.describe Alchemy::ElementEditor do
     end
   end
 
+  describe "#contents" do
+    let(:element) { create(:alchemy_element, :with_contents, name: "headline") }
+
+    subject(:contents) { element_editor.contents }
+
+    it "returns a ContentEditor instance for each content defined" do
+      aggregate_failures do
+        contents.each do |content|
+          expect(content).to be_an(Alchemy::ContentEditor)
+        end
+      end
+    end
+
+    context "with a content defined but not existing yet" do
+      before do
+        expect(element).to receive(:definition).at_least(:once) do
+          {
+            name: "headline",
+            contents: [
+              {
+                name: "headline",
+                type: "EssenceText",
+              },
+              {
+                name: "foo",
+                type: "EssenceText",
+              },
+            ],
+          }.with_indifferent_access
+        end
+      end
+
+      it "creates the missing content" do
+        expect { subject }.to change { element.contents.count }.by(1)
+      end
+    end
+  end
+
   describe "#to_partial_path" do
     subject { element_editor.to_partial_path }
 
