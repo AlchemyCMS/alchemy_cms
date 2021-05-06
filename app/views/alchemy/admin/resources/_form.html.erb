@@ -2,6 +2,7 @@
   <% resource_handler.editable_attributes.each do |attribute| %>
     <% if relation = attribute[:relation] %>
       <%= f.association relation[:name].to_sym,
+        collection: relation[:collection],
         label_method: relation[:attr_method],
         include_blank: Alchemy.t(:blank, scope: 'resources.relation_select'),
         input_html: {class: 'alchemy_selectbox'} %>

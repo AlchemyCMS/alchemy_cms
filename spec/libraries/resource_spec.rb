@@ -359,6 +359,26 @@ module Alchemy
           expect(relation.keys).to include(:name)
           expect(relation[:name]).to eq("location")
         end
+
+        it "stores an ActiveRecord::Relation scope for all records in a collection key" do
+          expect(Location).to receive(:all).and_call_original
+          expect(resource.resource_relations[:location_id][:collection]).to be_a(ActiveRecord::Relation)
+        end
+
+        context "when collection gets passed with a specific ActiveRecord::Relation" do
+          before do
+            allow(Event).to receive(:alchemy_resource_relations) do
+              {
+                location: {attr_method: "name", attr_type: :string, collection: Location.where(name: "foo")},
+              }
+            end
+          end
+
+          it "stores the given ActiveRecord::Relation scope in a collection key" do
+            expect(resource.resource_relations[:location_id][:collection].where_values_hash).to eq({"name" => "foo"})
+            expect(resource.resource_relations[:location_id][:collection]).to be_a(ActiveRecord::Relation)
+          end
+        end
       end
 
       describe "#model_associations" do
