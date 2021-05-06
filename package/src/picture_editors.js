@@ -15,6 +15,7 @@ class PictureEditor {
     this.cropSizeField = container.querySelector("[data-crop-size]")
     this.pictureIdField = container.querySelector("[data-picture-id]")
     this.targetSizeField = container.querySelector("[data-target-size]")
+    this.imageCropperField = container.querySelector("[data-image-cropper]")
     this.image = container.querySelector("img")
     this.thumbnailBackground = container.querySelector(".thumbnail_background")
     this.deleteButton = container.querySelector(".picture_tool.delete")
@@ -98,7 +99,7 @@ class PictureEditor {
   }
 
   updateCropLink() {
-    if (!this.pictureId) return
+    if (!this.pictureId || !this.imageCropperEnabled) return
 
     this.cropLink.classList.remove("disabled")
 
@@ -137,6 +138,10 @@ class PictureEditor {
 
   get imageFileHeight() {
     return parseInt(this.pictureIdField.dataset.imageFileHeight)
+  }
+
+  get imageCropperEnabled() {
+    return this.targetSizeField.dataset.imageCropper === "true"
   }
 }
 
