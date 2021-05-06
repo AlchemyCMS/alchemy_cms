@@ -72,5 +72,20 @@ RSpec.describe Alchemy::Page::Publisher do
         end
       end
     end
+
+    context "with publish targets" do
+      let(:target) { Class.new(ActiveJob::Base) }
+
+      around do |example|
+        Alchemy.publish_targets << target
+        example.run
+        Alchemy.instance_variable_set(:@_publish_targets, nil)
+      end
+
+      it "performs each target" do
+        expect(target).to receive(:perform_later).with(page)
+        publish
+      end
+    end
   end
 end

@@ -14,6 +14,8 @@ module Alchemy
       #
       # Creates a new published version if none exists yet.
       #
+      # Sends a publish notification to all registered publish targets
+      #
       def publish!(public_on:)
         Page.transaction do
           version = public_version(public_on)
@@ -31,6 +33,8 @@ module Alchemy
             end
           end
         end
+
+        Alchemy.publish_targets.each { |p| p.perform_later(page) }
       end
 
       private
