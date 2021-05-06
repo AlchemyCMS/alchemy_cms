@@ -48,14 +48,6 @@ module Alchemy
         @content.touch
       end
 
-      def destroy
-        @content = Content.find_by(id: params[:id])
-        @element = @content.element
-        @content_id = @content.id
-        @content.destroy
-        @essence_pictures = @element.contents.essence_pictures
-      end
-
       private
 
       def load_essence_picture

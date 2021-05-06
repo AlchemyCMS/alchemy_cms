@@ -71,7 +71,7 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :essence_pictures, except: [:show, :new, :create] do
+    resources :essence_pictures, only: [:edit, :update] do
       collection do
         put :assign
       end
