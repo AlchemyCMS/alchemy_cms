@@ -1,3 +1,8 @@
+## 5.2.0 (2021-05-06)
+
+- Backport #2049 to 5.2 [#2086](https://github.com/AlchemyCMS/alchemy_cms/pull/2086) ([rickythefox](https://github.com/rickythefox))
+- hotfix and deprecate page_active? helper [#2073](https://github.com/AlchemyCMS/alchemy_cms/pull/2073) ([robinboening](https://github.com/robinboening))
+
 ## 5.2.0.rc1 (2021-02-17)
 
 ### Changes
