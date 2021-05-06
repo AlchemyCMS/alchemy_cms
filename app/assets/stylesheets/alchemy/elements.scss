@@ -45,13 +45,13 @@
   }
 
   > .message {
-    margin: 2*$default-margin
+    margin: 2 * $default-margin;
   }
 }
 
 #main-content-elements,
 .element-editor.is-fixed .nestable-elements {
-  padding: 2*$default-padding $default-padding 2px;
+  padding: 2 * $default-padding $default-padding 2px;
 }
 
 .element-title {
@@ -124,7 +124,7 @@
   border: 1px solid $default-border-color;
   border-radius: $default-border-radius;
   background-color: $light-gray;
-  margin-bottom: 2*$default-margin;
+  margin-bottom: 2 * $default-margin;
   transition: box-shadow $transition-duration;
 
   &.hidden {
@@ -165,7 +165,7 @@
   &.dirty {
     border-color: #d0c83d;
 
-    >.element-header {
+    > .element-header {
       background-color: #fff8df;
     }
   }
@@ -189,7 +189,8 @@
     }
   }
 
-  &.selected:not(.is-fixed), &:hover {
+  &.selected:not(.is-fixed),
+  &:hover {
     &:not(.hidden) {
       box-shadow: 0 2px 8px rgba(#9b9b9b, 0.75);
     }
@@ -203,7 +204,6 @@
   }
 
   &.folded {
-
     .nested-elements {
       display: none;
     }
@@ -248,7 +248,7 @@
       transition: all $transition-duration;
     }
 
-    .element-header:hover+.element-toolbar,
+    .element-header:hover + .element-toolbar,
     .element-toolbar:hover {
       visibility: visible;
       opacity: 1;
@@ -303,7 +303,7 @@
   }
 
   .element-content {
-    margin: 2*$default-padding;
+    margin: 2 * $default-padding;
   }
 
   .validation_notice {
@@ -315,7 +315,7 @@
   }
 
   .message {
-    margin: 2*$default-margin;
+    margin: 2 * $default-margin;
   }
 
   .foot_note {
@@ -343,7 +343,7 @@
   hr {
     height: 0;
     width: 100%;
-    margin: 0 0 4*$default-margin 0;
+    margin: 0 0 4 * $default-margin 0;
     border: 0 none;
     border-top: 1px solid $medium-gray;
     opacity: 1;
@@ -352,7 +352,7 @@
 
 .element-header {
   position: relative;
-  padding: 2*$default-padding;
+  padding: 2 * $default-padding;
   background-color: $element-header-bg-color;
   @extend .disable-user-select;
   cursor: pointer;
@@ -369,7 +369,7 @@
     transition: color $transition-duration;
   }
 
-  >.hint-with-icon {
+  > .hint-with-icon {
     position: absolute;
     right: 32px;
     top: 10px;
@@ -405,7 +405,7 @@
 
 .element-footer {
   border-top: 1px solid $medium-gray;
-  padding: 2*$default-padding;
+  padding: 2 * $default-padding;
   text-align: right;
 
   .button {
@@ -437,7 +437,8 @@
   right: 0;
 
   .icon_button {
-    @include button-defaults($background-color: $medium-gray,
+    @include button-defaults(
+      $background-color: $medium-gray,
       $hover-color: darken($medium-gray, 5%),
       $border: 1px solid #c0c0c0,
       $box-shadow: none,
@@ -447,7 +448,8 @@
       $margin: 0,
       $border-radius: 0,
       $focus-border-color: $focus-color,
-      $focus-box-shadow: 0 0 0 2px $focus-color);
+      $focus-box-shadow: 0 0 0 2px $focus-color
+    );
     width: 29px;
     height: $form-field-height;
 
@@ -457,9 +459,11 @@
     }
 
     &.linked.link-essence {
-      @include linked-button($border-radius: 0,
+      @include linked-button(
+        $border-radius: 0,
         $line-height: 30px,
-        $padding: 0);
+        $padding: 0
+      );
 
       &:focus {
         border-radius: 0;
@@ -467,9 +471,11 @@
     }
 
     &.linked.unlink-essence {
-      @include linked-button($border-radius: 0 $default-border-radius $default-border-radius 0,
+      @include linked-button(
+        $border-radius: 0 $default-border-radius $default-border-radius 0,
         $line-height: 30px,
-        $padding: 0);
+        $padding: 0
+      );
 
       &:focus {
         border-radius: 0 $default-border-radius $default-border-radius 0;
@@ -487,7 +493,7 @@
   height: 36px;
   border: 1px dotted $button-border-color;
   background-color: $medium-gray;
-  margin-bottom: 2*$default-margin;
+  margin-bottom: 2 * $default-margin;
   border-radius: $default-border-radius;
 }
 
@@ -541,7 +547,7 @@
   }
 
   &.validation_failed .picture_thumbnail {
-    border-color: $error_border_color
+    border-color: $error_border_color;
   }
 
   .thumbnail_background .icon {
@@ -647,7 +653,6 @@ select.long {
   }
 
   &.missing {
-
     .message {
       margin: 0;
       @include clearfix;
@@ -678,13 +683,12 @@ select.long {
   }
 
   &.validation_failed {
-
     label {
-      color: $error_text_color
+      color: $error_text_color;
     }
 
     input {
-      @extend %field-with-error
+      @extend %field-with-error;
     }
 
     .tinymce_container {
@@ -731,9 +735,8 @@ select.long {
   }
 
   &.essence_select {
-
     label {
-      margin-bottom: 2*$default-margin
+      margin-bottom: 2 * $default-margin;
     }
 
     .select2-container {
@@ -777,7 +780,7 @@ select.long {
     padding-left: 1px; // Compensate the box shadow
     padding-right: $default-padding;
 
-    +.essence_picture {
+    + .essence_picture {
       padding-left: $default-padding;
       padding-right: 1px; // Compensate the box shadow
     }
@@ -815,7 +818,7 @@ textarea.has_tinymce {
   margin-top: 8px;
   margin-bottom: 8px;
   background-color: $error_background_color;
-  padding: 2*$default-padding;
+  padding: 2 * $default-padding;
   list-style-type: none;
   border-radius: $default-border-radius;
   color: $error_text_color;
@@ -832,7 +835,7 @@ textarea.has_tinymce {
 .element-handle .hint-with-icon {
   margin: 0;
 
-  >.hint-bubble {
+  > .hint-bubble {
     left: -7px;
     transform: none;
 
@@ -844,13 +847,13 @@ textarea.has_tinymce {
 
 .is-fixed {
   &.with-contents {
-    >.element-footer {
+    > .element-footer {
       border-top: 0;
       border-bottom: 1px solid $medium-gray;
     }
   }
 
-  >.nestable-elements .add-nestable-element-button {
+  > .nestable-elements .add-nestable-element-button {
     width: 100%;
     text-align: center;
   }
