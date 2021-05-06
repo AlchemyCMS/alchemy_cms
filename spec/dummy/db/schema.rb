@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_04_06_093436) do
+ActiveRecord::Schema.define(version: 2021_05_06_140258) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -61,6 +61,15 @@ ActiveRecord::Schema.define(version: 2021_04_06_093436) do
     t.integer "page_id"
     t.index ["element_id"], name: "index_alchemy_elements_alchemy_pages_on_element_id"
     t.index ["page_id"], name: "index_alchemy_elements_alchemy_pages_on_page_id"
+  end
+
+  create_table "alchemy_essence_audios", force: :cascade do |t|
+    t.integer "attachment_id"
+    t.boolean "controls", default: true, null: false
+    t.boolean "autoplay", default: false
+    t.boolean "loop", default: false, null: false
+    t.boolean "muted", default: false, null: false
+    t.index ["attachment_id"], name: "index_alchemy_essence_audios_on_attachment_id"
   end
 
   create_table "alchemy_essence_booleans", force: :cascade do |t|
@@ -146,6 +155,19 @@ ActiveRecord::Schema.define(version: 2021_04_06_093436) do
     t.string "link_class_name"
     t.boolean "public", default: false, null: false
     t.string "link_target"
+  end
+
+  create_table "alchemy_essence_videos", force: :cascade do |t|
+    t.integer "attachment_id"
+    t.string "width"
+    t.string "height"
+    t.boolean "allow_fullscreen", default: true, null: false
+    t.boolean "autoplay", default: false, null: false
+    t.boolean "controls", default: true, null: false
+    t.boolean "loop", default: false, null: false
+    t.boolean "muted", default: false, null: false
+    t.string "preload"
+    t.index ["attachment_id"], name: "index_alchemy_essence_videos_on_attachment_id"
   end
 
   create_table "alchemy_folded_pages", force: :cascade do |t|

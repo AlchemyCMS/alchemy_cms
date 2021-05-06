@@ -6,7 +6,7 @@ Alchemy::Engine.routes.draw do
 
   get "/sitemap.xml" => "pages#sitemap", format: "xml"
 
-  scope Alchemy.admin_path, {constraints: Alchemy.admin_constraints} do
+  scope Alchemy.admin_path, { constraints: Alchemy.admin_constraints } do
     get "/" => redirect("#{Alchemy.admin_path}/dashboard"), as: :admin
     get "/dashboard" => "admin/dashboard#index", as: :admin_dashboard
     get "/dashboard/info" => "admin/dashboard#info", as: :dashboard_info
@@ -15,7 +15,7 @@ Alchemy::Engine.routes.draw do
     get "/leave" => "admin/base#leave", as: :leave_admin
   end
 
-  namespace :admin, {path: Alchemy.admin_path, constraints: Alchemy.admin_constraints} do
+  namespace :admin, { path: Alchemy.admin_path, constraints: Alchemy.admin_constraints } do
     resources :contents, only: [:create]
 
     resources :nodes
@@ -71,7 +71,9 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :essence_pictures, except: [:show, :new, :create] do
+    resources :essence_audios, only: [:edit, :update]
+
+    resources :essence_pictures, only: [:edit, :update] do
       collection do
         put :assign
       end
@@ -85,6 +87,8 @@ Alchemy::Engine.routes.draw do
         put :assign
       end
     end
+
+    resources :essence_videos, only: [:edit, :update]
 
     resources :legacy_page_urls
     resources :languages do
@@ -122,7 +126,7 @@ Alchemy::Engine.routes.draw do
   resources :elements, only: :show
   resources :contents, only: :show
 
-  namespace :api, defaults: {format: "json"} do
+  namespace :api, defaults: { format: "json" } do
     resources :contents, only: [:index, :show]
 
     resources :elements, only: [:index, :show] do
@@ -150,7 +154,7 @@ Alchemy::Engine.routes.draw do
   end
 
   get "/:locale" => "pages#index",
-    constraints: {locale: Alchemy::RoutingConstraints::LOCALE_REGEXP},
+    constraints: { locale: Alchemy::RoutingConstraints::LOCALE_REGEXP },
     as: :show_language_root
 
   # The page show action has to be last route

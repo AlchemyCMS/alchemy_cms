@@ -135,8 +135,10 @@ describe Alchemy::Permissions do
     end
 
     it "can manage essences" do
-      is_expected.to be_able_to(:manage, Alchemy::EssencePicture)
+      is_expected.to be_able_to(:manage, Alchemy::EssenceAudio)
       is_expected.to be_able_to(:manage, Alchemy::EssenceFile)
+      is_expected.to be_able_to(:manage, Alchemy::EssencePicture)
+      is_expected.to be_able_to(:manage, Alchemy::EssenceVideo)
     end
 
     it "can manage the clipboard" do

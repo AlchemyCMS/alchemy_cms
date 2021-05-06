@@ -32,7 +32,11 @@
     <div class="essence_file_tools">
       <%= dialog_link %>
       <%= link_to_dialog render_icon(:edit),
-        alchemy.edit_admin_essence_file_path(id: essence_file_editor.essence.id),
+        alchemy.polymorphic_url([
+          :edit,
+          :admin,
+          essence_file_editor.essence
+        ]),
         {
           title: Alchemy.t(:edit_file_properties),
           size: '400x215'

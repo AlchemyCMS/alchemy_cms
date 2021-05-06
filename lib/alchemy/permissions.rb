@@ -101,23 +101,25 @@ module Alchemy
         ]
 
         # Controller actions
-        can :leave,                 :alchemy_admin
-        can [:info, :help],         :alchemy_admin_dashboard
-        can :manage,                :alchemy_admin_clipboard
-        can :edit,                  :alchemy_admin_layoutpages
-        can :tree,                  :alchemy_admin_pages
+        can :leave, :alchemy_admin
+        can [:info, :help], :alchemy_admin_dashboard
+        can :manage, :alchemy_admin_clipboard
+        can :edit, :alchemy_admin_layoutpages
+        can :tree, :alchemy_admin_pages
 
         # Resources
-        can [:read, :download],     Alchemy::Attachment
-        can :manage,                Alchemy::Content
-        can :manage,                Alchemy::Element
-        can :manage,                Alchemy::EssenceFile
-        can :manage,                Alchemy::EssencePicture
-        can :manage,                Alchemy::LegacyPageUrl
-        can :manage,                Alchemy::Node
-        can :read,                  Alchemy::Picture
+        can [:read, :download], Alchemy::Attachment
+        can :manage, Alchemy::Content
+        can :manage, Alchemy::Element
+        can :manage, Alchemy::EssenceAudio
+        can :manage, Alchemy::EssenceFile
+        can :manage, Alchemy::EssencePicture
+        can :manage, Alchemy::EssenceVideo
+        can :manage, Alchemy::LegacyPageUrl
+        can :manage, Alchemy::Node
+        can :read, Alchemy::Picture
         can [:read, :autocomplete], Alchemy::Tag
-        can(:edit_content,          Alchemy::Page) { |p| p.editable_by?(@user) }
+        can(:edit_content, Alchemy::Page) { |p| p.editable_by?(@user) }
       end
     end
 
@@ -167,7 +169,7 @@ module Alchemy
         can :manage, Alchemy::Picture
         can :manage, Alchemy::Attachment
         can :manage, Alchemy::Tag
-        can :index,  Alchemy::Language
+        can :index, Alchemy::Language
       end
     end
 
@@ -182,14 +184,14 @@ module Alchemy
         alchemy_editor_rules
 
         # Navigation
-        can :index,                 [:alchemy_admin_sites, :alchemy_admin_styleguide]
+        can :index, [:alchemy_admin_sites, :alchemy_admin_styleguide]
 
         # Controller actions
         can [:info, :update_check], :alchemy_admin_dashboard
 
         # Resources
-        can :manage,                Alchemy::Language
-        can :manage,                Alchemy::Site
+        can :manage, Alchemy::Language
+        can :manage, Alchemy::Site
       end
     end
 

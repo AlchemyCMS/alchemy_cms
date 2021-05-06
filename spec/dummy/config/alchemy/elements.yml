@@ -1,86 +1,85 @@
 - name: header
   unique: true
   contents:
-  - name: image
-    type: EssencePicture
+    - name: image
+      type: EssencePicture
 
 - name: headline
   contents:
-  - name: headline
-    type: EssenceHeadline
+    - name: headline
+      type: EssenceHeadline
 
 - name: article
   taggable: true
   contents:
-  - name: intro
-    type: EssenceText
-  - name: headline
-    type: EssenceText
-    settings:
-      linkable: true
-  - name: image
-    type: EssencePicture
-    settings:
-      size: 450x300
-      crop: true
-      fixed_ratio: false
-  - name: text
-    type: EssenceRichtext
+    - name: intro
+      type: EssenceText
+    - name: headline
+      type: EssenceText
+      settings:
+        linkable: true
+    - name: image
+      type: EssencePicture
+      settings:
+        size: 450x300
+        crop: true
+        fixed_ratio: false
+    - name: text
+      type: EssenceRichtext
 
 - name: text
   contents:
-  - name: text
-    type: EssenceRichtext
-    settings:
-      sanitizer:
-        attributes: [href, target]
-        tags: [p, ol, ul, ul, li, em, strong]
-
+    - name: text
+      type: EssenceRichtext
+      settings:
+        sanitizer:
+          attributes: [href, target]
+          tags: [p, ol, ul, ul, li, em, strong]
 
 - name: search
   contents: []
 
 - name: news
   contents:
-  - name: date
-    type: EssenceDate
-  - name: news_headline
-    type: EssenceText
-    rss_title: true
-  - name: body
-    type: EssenceRichtext
-    rss_description: true
+    - name: date
+      type: EssenceDate
+    - name: news_headline
+      type: EssenceText
+      rss_title: true
+    - name: body
+      type: EssenceRichtext
+      rss_description: true
 
 - name: download
   contents:
-  - name: file
-    type: EssenceFile
+    - name: file
+      type: EssenceFile
 
 - name: bild
   contents:
-  - name: image
-    type: EssencePicture
+    - name: image
+      type: EssencePicture
 
 - name: contactform
   unique: true
   contents:
-  - name: mail_from
-    type: EssenceText
-    validate:
-      - presence
-  - name: mail_to
-    type: EssenceText
-    validate:
-      - presence
-  - name: subject
-    type: EssenceText
-    as_element_title: true
-    validate:
-      - presence
-  - name: success_page
-    type: EssencePage
-    validate:
-      - presence
+    - name: mail_from
+      type: EssenceText
+      validate:
+        - presence
+    - name: mail_to
+      type: EssenceText
+      validate:
+        - presence
+    - name: subject
+      type: EssenceText
+      as_element_title: true
+      validate:
+        - presence
+    - name: success_page
+      type: EssencePage
+      validate:
+        - presence
 
 - name: all_you_can_eat
   hint: true
@@ -109,8 +108,14 @@
     - name: essence_date
       type: EssenceDate
       hint: true
+    - name: essence_audio
+      type: EssenceAudio
+      hint: true
     - name: essence_file
       type: EssenceFile
+      hint: true
+    - name: essence_video
+      type: EssenceVideo
       hint: true
     - name: essence_html
       type: EssenceHtml
@@ -122,8 +127,8 @@
 
 - name: <%= 'erb_' + 'element' %>
   contents:
-  - name: text
-    type: EssenceRichtext
+    - name: text
+      type: EssenceRichtext
 
 - name: slide
   compact: true
@@ -173,8 +178,8 @@
 
 - name: menu
   contents:
-  - name: menu
-    type: EssenceNode
+    - name: menu
+      type: EssenceNode
 
 - name: old
   deprecated: true

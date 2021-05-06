@@ -1,0 +1,18 @@
+<% content = local_assigns[:content] || local_assigns[:essence_video_view] %>
+<%- if content.ingredient -%>
+  <%= content_tag :video,
+    controls: content.essence.controls,
+    autoplay: content.essence.autoplay,
+    loop: content.essence.loop,
+    muted: content.essence.muted,
+    preload: content.essence.preload.presence,
+    width: content.essence.width.presence,
+    height: content.essence.height.presence do %>
+    <%= tag :source,
+      src: alchemy.show_attachment_path(
+        content.ingredient,
+        format: content.ingredient.suffix
+      ),
+      type: content.ingredient.file_mime_type %>
+  <% end %>
+<%- end -%>

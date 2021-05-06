@@ -1,0 +1,7 @@
+<%= alchemy_form_for [:admin, @essence_audio] do |f| %>
+  <%= f.input :autoplay %>
+  <%= f.input :controls %>
+  <%= f.input :loop %>
+  <%= f.input :muted %>
+  <%= f.submit Alchemy.t(:save) %>
+<% end %>
