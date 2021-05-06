@@ -1,7 +1,10 @@
+## 5.1.3 (2021-05-06)
+
+- Use symbols in polymorphic routes for resources [#2087](https://github.com/AlchemyCMS/alchemy_cms/pull/2087) ([tvdeyen](https://github.com/tvdeyen))
+- Backport #2049 to 5.1 [#2059](https://github.com/AlchemyCMS/alchemy_cms/pull/2059) ([rickythefox](https://github.com/rickythefox))
 ## 5.1.2 (2021-01-26)
 
 - Allow to safe hidden elements [#2007](https://github.com/AlchemyCMS/alchemy_cms/pull/2007) ([tvdeyen](https://github.com/tvdeyen))
-
 
 ## 5.1.1 (2021-01-12)
 
