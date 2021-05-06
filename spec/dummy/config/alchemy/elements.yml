@@ -109,8 +109,14 @@
     - name: essence_date
       type: EssenceDate
       hint: true
+    - name: essence_audio
+      type: EssenceAudio
+      hint: true
     - name: essence_file
       type: EssenceFile
+      hint: true
+    - name: essence_video
+      type: EssenceVideo
       hint: true
     - name: essence_html
       type: EssenceHtml
