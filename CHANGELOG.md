@@ -1,3 +1,7 @@
+## 5.0.4 (2021-05-06)
+
+- Use symbols in polymorphic routes for resources [#2087](https://github.com/AlchemyCMS/alchemy_cms/pull/2087) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.0.3 (2021-01-12)
 
 - Fix copy element feature [#1996](https://github.com/AlchemyCMS/alchemy_cms/pull/1996) ([tvdeyen](https://github.com/tvdeyen))
