@@ -170,6 +170,7 @@ module Alchemy
         @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:picture_ids]).permit(
           *common_search_filter_includes + [
             :size,
+            :form_field_id,
           ],
         )
       end
