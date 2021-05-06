@@ -132,7 +132,9 @@ module Alchemy
     end
 
     def namespaced_resource_name
-      @_namespaced_resource_name ||= namespaced_resources_name.singularize
+      @_namespaced_resource_name ||= begin
+        namespaced_resources_name.to_s.singularize
+      end.to_sym # Rails >= 6.0.3.7 needs symbols in polymorphic routes
     end
 
     def namespaced_resources_name
@@ -140,13 +142,13 @@ module Alchemy
         resource_name_array = resource_array.dup
         resource_name_array.delete(engine_name) if in_engine?
         resource_name_array.join("_")
-      end
+      end.to_sym # Rails >= 6.0.3.7 needs symbols in polymorphic routes
     end
 
     def namespace_for_scope
       namespace_array = namespace_diff
       namespace_array.delete(engine_name) if in_engine?
-      namespace_array
+      namespace_array.map(&:to_sym) # Rails >= 6.0.3.7 needs symbols in polymorphic routes
     end
 
     # Returns an array of underscored association names
