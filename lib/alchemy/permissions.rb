@@ -111,8 +111,10 @@ module Alchemy
         can [:read, :download], Alchemy::Attachment
         can :manage, Alchemy::Content
         can :manage, Alchemy::Element
+        can :manage, Alchemy::EssenceAudio
         can :manage, Alchemy::EssenceFile
         can :manage, Alchemy::EssencePicture
+        can :manage, Alchemy::EssenceVideo
         can :manage, Alchemy::LegacyPageUrl
         can :manage, Alchemy::Node
         can :read, Alchemy::Picture

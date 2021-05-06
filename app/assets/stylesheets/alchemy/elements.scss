@@ -565,37 +565,40 @@
   }
 }
 
-.content_editor.essence_file {
+.content_editor {
+  &.essence_audio,
+  &.essence_file,
+  &.essence_video {
+    .file {
+      margin: 6px 0 $default-margin;
+      border: $default-border;
+      background-color: $white;
+      border-radius: $default-border-radius;
+      height: $form-field-height;
 
-  .file {
-    margin: 6px 0 $default-margin;
-    border: $default-border;
-    background-color: $white;
-    border-radius: $default-border-radius;
-    height: $form-field-height;
-
-    .validation_failed & {
-      color: $error_text_color;
-      border-color: $error_border_color;
+      .validation_failed & {
+        color: $error_text_color;
+        border-color: $error_border_color;
+      }
     }
-  }
 
-  .file_icon {
-    display: inline-block;
-    text-align: center;
-    float: left;
-    width: 24px;
-    padding: 6px 4px;
-  }
+    .file_icon {
+      display: inline-block;
+      text-align: center;
+      float: left;
+      width: 24px;
+      padding: 6px 4px;
+    }
 
-  .file_name {
-    white-space: nowrap;
-    overflow: hidden;
-    float: left;
-    max-width: 80%;
-    line-height: 28px;
-    font-size: $small-font-size;
-    text-overflow: ellipsis;
+    .file_name {
+      white-space: nowrap;
+      overflow: hidden;
+      float: left;
+      max-width: 80%;
+      line-height: 28px;
+      font-size: $small-font-size;
+      text-overflow: ellipsis;
+    }
   }
 }
 
