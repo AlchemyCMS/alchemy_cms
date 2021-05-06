@@ -50,7 +50,6 @@ $.extend Alchemy,
           complete: ->
             Alchemy.initializedSortableElements = false
             $(event.target).css("cursor", "")
-            Alchemy.TrashWindow.refresh(page_id)
             return
       start: (event, ui) ->
         $this = $(this)
