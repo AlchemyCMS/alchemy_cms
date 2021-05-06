@@ -1,3 +1,9 @@
+## 4.6.3 (2020-05-06)
+
+- Use symbols in polymorphic routes for resources [#2087](https://github.com/AlchemyCMS/alchemy_cms/pull/2087) ([tvdeyen](https://github.com/tvdeyen))
+- Fix convert:page_trees:to_menus task [#2033](https://github.com/AlchemyCMS/alchemy_cms/pull/2033) ([afdev82](https://github.com/afdev82))
+- fix 4.6 upgrader tasks [#1995](https://github.com/AlchemyCMS/alchemy_cms/pull/1995) ([afdev82](https://github.com/afdev82))
+
 ## 4.6.2 (2020-09-07)
 
 - Fix tri-Boolean check in PageNaming Module [#1931](https://github.com/AlchemyCMS/alchemy_cms/pull/1931) ([mamhoff](https://github.com/mamhoff))
