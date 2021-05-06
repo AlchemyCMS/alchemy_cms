@@ -143,19 +143,19 @@ module Alchemy
     end
 
     describe "#namespaced_resource_name" do
-      it "returns resource_name with namespace (namespace_party for Namespace::Party), i.e. for use in forms" do
+      it "returns resource_name symbol with namespace (namespace_party for Namespace::Party), i.e. for use in forms" do
         namespaced_resource = Resource.new("admin/namespace/parties")
-        expect(namespaced_resource.namespaced_resource_name).to eq("namespace_party")
+        expect(namespaced_resource.namespaced_resource_name).to eq(:namespace_party)
       end
 
-      it "equals resource_name if resource not namespaced" do
+      it "equals resource_name symbol if resource not namespaced" do
         namespaced_resource = Resource.new("admin/parties")
-        expect(namespaced_resource.namespaced_resource_name).to eq("party")
+        expect(namespaced_resource.namespaced_resource_name).to eq(:party)
       end
 
       it "doesn't include the engine's name" do
         namespaced_resource = Resource.new("admin/party_engine/namespace/parties", module_definition)
-        expect(namespaced_resource.namespaced_resource_name).to eq("namespace_party")
+        expect(namespaced_resource.namespaced_resource_name).to eq(:namespace_party)
       end
     end
 
@@ -168,7 +168,7 @@ module Alchemy
 
     describe "#namespace_for_scope" do
       it "returns a scope for use in url_for based path helpers" do
-        expect(resource.namespace_for_scope).to eq(%w(admin))
+        expect(resource.namespace_for_scope).to eq(%i(admin))
       end
     end
 
