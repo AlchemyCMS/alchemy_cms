@@ -6,9 +6,8 @@ cache:
   directories:
     - "travis_phantomjs"
 rvm:
-- 2.2.7
-- 2.3.5
-- 2.4.2
+  - 2.3.5
+  - 2.4.2
 before_install:
   - "phantomjs --version"
   - "export PATH=$PWD/travis_phantomjs/phantomjs-2.1.1-linux-x86_64/bin:$PATH"
@@ -22,8 +21,8 @@ before_script: bundle exec rake alchemy:spec:prepare
 script: bundle exec rspec
 after_success: bundle exec codeclimate-test-reporter
 env:
-- DB=mysql
-- DB=postgresql
+  - DB=mysql
+  - DB=postgresql
 notifications:
   slack:
     secure: QzOFw1Ph69pzwWBFgtIVkOnjbcRxB9HPRQ+RYjK+2tg+fsbiTJ+wYgHcZL49tPYcLAls4kymkFWzWBF3PCAXJMfKgUCqXzdQ2FuJC/JoVRTLll4wDnZFPG33jsm5tVznmycZ3ma4+ZWfJQ+C+elEBOba6v1kG9eGIy6sH2cvXfE=
