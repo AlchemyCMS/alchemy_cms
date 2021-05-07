@@ -61,6 +61,15 @@ en:
     # Used in the right filter column in case the model has `alchemy_resource_filters` defined.
     #
     filters:
+      page:
+        by_page_layout:
+          name: Page Type
+        status:
+          name: Status
+          values:
+            not_public: Unpublished
+            published: Published
+            restricted: Restricted
 
     # === Translations for content validations
     # Used when a user did not enter (correct) values to the content field.

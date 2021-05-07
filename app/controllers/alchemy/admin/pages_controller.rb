@@ -47,11 +47,7 @@ module Alchemy
           end
 
           if search_filter_params[:filter].present?
-            items = items.public_send(sanitized_filter_params)
-          end
-
-          if search_filter_params[:page_layout].present?
-            items = items.where(page_layout: search_filter_params[:page_layout])
+            items = apply_filters(items)
           end
 
           items = items.page(params[:page] || 1).per(items_per_page)
@@ -242,10 +238,6 @@ module Alchemy
 
       def resource_handler
         @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module, Alchemy::Page)
-      end
-
-      def common_search_filter_includes
-        super.push(:page_layout, :view)
       end
 
       def set_view
