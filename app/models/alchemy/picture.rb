@@ -91,7 +91,7 @@ module Alchemy
     end
 
     # Create important thumbnails upfront
-    after_create -> { PictureThumb.generate_thumbs!(self) }
+    after_create -> { PictureThumb.generate_thumbs!(self) if has_convertible_format? }
 
     # We need to define this method here to have it available in the validations below.
     class << self
