@@ -198,12 +198,12 @@ RSpec.describe "Resources", type: :system do
       end
 
       # Here we visit the pages manually, as we don't want to test the JS here.
-      visit "/admin/events?filter=starting_today"
+      visit "/admin/events?filter[start]=starting_today"
       expect(page).to     have_content("Car Expo")
       expect(page).to_not have_content("Hovercar Expo")
       expect(page).to_not have_content("Horse Expo")
 
-      visit "/admin/events?filter=future"
+      visit "/admin/events?filter[start]=future"
       expect(page).to     have_content("Hovercar Expo")
       expect(page).to_not have_content("Car Expo")
       expect(page).to_not have_content("Horse Expo")
@@ -217,7 +217,7 @@ RSpec.describe "Resources", type: :system do
     end
 
     it "does not work with undefined scopes" do
-      visit "/admin/events?filter=undefined_scope"
+      visit "/admin/events?filter[start]=undefined_scope"
       expect(page).to have_content("Car Expo")
       expect(page).to have_content("Hovercar Expo")
       expect(page).to have_content("Horse Expo")
@@ -225,7 +225,7 @@ RSpec.describe "Resources", type: :system do
 
     context "full text search" do
       it "should respect filters" do
-        visit "/admin/events?filter=future"
+        visit "/admin/events?filter[start]=future"
 
         expect(page).to have_content("Hovercar Expo")
         expect(page).to_not have_content("Car Expo")

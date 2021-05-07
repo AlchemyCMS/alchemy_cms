@@ -57,6 +57,11 @@ en:
       main_menu: Main Menu
       footer_menu: Footer Menu
 
+    # === Translations for filter names and values
+    # Used in the right filter column in case the model has `alchemy_resource_filters` defined.
+    #
+    filters:
+
     # === Translations for content validations
     # Used when a user did not enter (correct) values to the content field.
     #
