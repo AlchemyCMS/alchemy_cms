@@ -17,7 +17,12 @@ class Event < ActiveRecord::Base
   end
 
   def self.alchemy_resource_filters
-    %w(starting_today future)
+    [
+      {
+        name: :start,
+        values: %w(starting_today future)
+      }
+    ]
   end
 
   private
