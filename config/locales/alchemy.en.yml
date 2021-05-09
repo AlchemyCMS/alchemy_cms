@@ -70,6 +70,20 @@ en:
             not_public: Unpublished
             published: Published
             restricted: Restricted
+      picture:
+        by_file_format:
+          name: File Type
+          values:
+            gif: GIF Image
+            jpeg: JPG Image
+            png: PNG Image
+            tiff: TIFF Image
+        misc:
+          name: Miscellaneous
+          values:
+            last_upload: Last upload only
+            recent: Recently uploaded only
+            without_tag: Without tag
 
     # === Translations for content validations
     # Used when a user did not enter (correct) values to the content field.
@@ -449,7 +463,6 @@ en:
     javascript_disabled_text: "Alchemy needs Javascript to run smoothly. Please enable it in your browser settings."
     language_code_placeholder: 'i.e. en'
     language_pages_copied: "Language tree successfully copied."
-    last_upload_only: "Last upload only"
     left: "left"
     legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
     link_image: "Link this image."
@@ -533,11 +546,6 @@ en:
         comma_seperated: "Separate by comma"
     password: "Password"
     paste: "paste"
-    picture_library:
-      filter:
-        last_upload: "from last upload"
-        recent: "that where recently uploaded"
-        without_tag: "without tag"
     pictures_in_page: "%{page} in %{pictures}"
     place_link: "Link text"
     player_version: "Flash Player version"

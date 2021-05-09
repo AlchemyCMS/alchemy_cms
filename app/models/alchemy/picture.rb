@@ -116,6 +116,7 @@ module Alchemy
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
     scope :deletable, -> { where("#{table_name}.id NOT IN (SELECT picture_id FROM #{EssencePicture.table_name})") }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: { id: nil }) }
+    scope :by_file_format, ->(format) { where(image_file_format: format) }
 
     # Class methods
 
@@ -134,6 +135,19 @@ module Alchemy
         @_url_class = klass
       end
 
+      def alchemy_resource_filters
+        [
+          {
+            name: :by_file_format,
+            values: distinct.pluck(:image_file_format),
+          },
+          {
+            name: :misc,
+            values: %w(recent last_upload without_tag),
+          },
+        ]
+      end
+
       def searchable_alchemy_resource_attributes
         %w(name image_file_name)
       end
@@ -143,34 +157,6 @@ module Alchemy
         return Picture.all unless last_picture
 
         Picture.where(upload_hash: last_picture.upload_hash)
-      end
-
-      def search_by(params, query, per_page = nil)
-        pictures = query.result
-
-        if params[:tagged_with].present?
-          pictures = pictures.tagged_with(params[:tagged_with])
-        end
-
-        if params[:filter].present?
-          pictures = pictures.filtered_by(params[:filter])
-        end
-
-        if per_page
-          pictures = pictures.page(params[:page] || 1).per(per_page)
-        end
-
-        pictures.order(:name)
-      end
-
-      def filtered_by(filter = "")
-        case filter
-        when "recent" then recent
-        when "last_upload" then last_upload
-        when "without_tag" then without_tag
-        else
-          all
-        end
       end
     end
 
@@ -201,16 +187,6 @@ module Alchemy
     rescue ::Dragonfly::Job::Fetch::NotFound => e
       log_warning(e.message)
       nil
-    end
-
-    def previous(params = {})
-      query = Picture.ransack(params[:q])
-      Picture.search_by(params, query).where("name < ?", name).last
-    end
-
-    def next(params = {})
-      query = Picture.ransack(params[:q])
-      Picture.search_by(params, query).where("name > ?", name).first
     end
 
     # Updates name and tag_list attributes.
