@@ -87,6 +87,13 @@ en:
       attachment:
         by_file_type:
           name: File Type
+        misc:
+          name: Miscellaneous
+          values:
+            last_upload: Last upload only
+            recent: Recently uploaded only
+            without_tag: Without tag
+            deletable: Not linked by file content
 
     # === Translations for content validations
     # Used when a user did not enter (correct) values to the content field.

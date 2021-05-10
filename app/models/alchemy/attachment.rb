@@ -36,6 +36,8 @@ module Alchemy
     has_many :pages, through: :elements
 
     scope :by_file_type, ->(file_type) { where(file_mime_type: file_type) }
+    scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
+    scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: { id: nil }) }
 
     # We need to define this method here to have it available in the validations below.
     class << self
@@ -59,7 +61,18 @@ module Alchemy
             name: :by_file_type,
             values: distinct.pluck(:file_mime_type).map { |type| [Alchemy.t(type, scope: "mime_types"), type] }.sort_by(&:first),
           },
+          {
+            name: :misc,
+            values: %w(recent last_upload without_tag),
+          },
         ]
+      end
+
+      def last_upload
+        last_id = Attachment.maximum(:id)
+        return Attachment.all unless last_id
+
+        where(id: last_id)
       end
 
       def searchable_alchemy_resource_attributes
