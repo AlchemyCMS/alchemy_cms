@@ -21,8 +21,8 @@ module Alchemy
           @attachments = @attachments.tagged_with(search_filter_params[:tagged_with])
         end
 
-        if search_filter_params[:file_type].present?
-          @attachments = @attachments.with_file_type(search_filter_params[:file_type])
+        if search_filter_params[:filter].present?
+          @attachments = apply_filters(@attachments)
         end
 
         @attachments = @attachments
@@ -77,8 +77,8 @@ module Alchemy
       def search_filter_params
         @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
           *common_search_filter_includes + [
-            :file_type,
             :form_field_id,
+            :content_id,
           ]
         )
       end

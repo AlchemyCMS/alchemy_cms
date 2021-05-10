@@ -35,6 +35,8 @@ module Alchemy
     has_many :elements, through: :contents
     has_many :pages, through: :elements
 
+    scope :by_file_type, ->(file_type) { where(file_mime_type: file_type) }
+
     # We need to define this method here to have it available in the validations below.
     class << self
       # The class used to generate URLs for attachments
@@ -51,19 +53,21 @@ module Alchemy
         @_url_class = klass
       end
 
+      def alchemy_resource_filters
+        [
+          {
+            name: :by_file_type,
+            values: distinct.pluck(:file_mime_type).map { |type| [Alchemy.t(type, scope: "mime_types"), type] }.sort_by(&:first),
+          },
+        ]
+      end
+
       def searchable_alchemy_resource_attributes
         %w(name file_name)
       end
 
       def allowed_filetypes
         Config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/attachments", [])
-      end
-
-      def file_types_for_select
-        file_types = Alchemy::Attachment.pluck(:file_mime_type).uniq.map do |type|
-          [Alchemy.t(type, scope: "mime_types"), type]
-        end
-        file_types.sort_by(&:first)
       end
     end
 

@@ -84,6 +84,9 @@ en:
             last_upload: Last upload only
             recent: Recently uploaded only
             without_tag: Without tag
+      attachment:
+        by_file_type:
+          name: File Type
 
     # === Translations for content validations
     # Used when a user did not enter (correct) values to the content field.
