@@ -1,5 +1,9 @@
 # frozen_string_literal: true
 
+return if caller.find do |line|
+  line.include?("/factory_bot/find_definitions.rb")
+end
+
 Alchemy::Deprecation.warn <<~MSG
   Please require factories using FactoryBots preferred approach:
 
