@@ -44,7 +44,7 @@ Rails.logger.level = 4
 Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
 
-FactoryBot.definition_file_paths.concat(Alchemy::TestSupport.factory_paths)
+FactoryBot.definition_file_paths.prepend(Alchemy::TestSupport.factories_path)
 FactoryBot.find_definitions
 
 Capybara.register_driver :selenium_chrome_headless do |app|
