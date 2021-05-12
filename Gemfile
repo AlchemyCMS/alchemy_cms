@@ -13,6 +13,11 @@ gem "mysql2", "~> 0.5.1" if ENV["DB"] == "mysql"
 gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
 group :development, :test do
+  # execjs 2.8 removes deprecation warnings but also breaks a number of dependent projects.
+  # in our case the culprit is `handlebars-assets`. The changes between 2.7.0 and 2.8.0 are
+  # minimal, but breaking.
+  gem "execjs", "= 2.7.0"
+
   if ENV["GITHUB_ACTIONS"]
     # Necessary because GH Actions gem cache does not have this "Bundled with Ruby" gem installed
     gem "rexml", "~> 3.2.4"
