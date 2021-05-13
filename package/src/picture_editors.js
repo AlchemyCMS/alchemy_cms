@@ -3,7 +3,7 @@ import max from "lodash/max"
 import ajax from "./utils/ajax"
 import ImageLoader from "./image_loader"
 
-const UPDATE_DELAY = 250
+const UPDATE_DELAY = 125
 const IMAGE_PLACEHOLDER = '<i class="icon far fa-image fa-fw"></i>'
 const EMPTY_IMAGE = '<img src="" class="img_paddingtop" />'
 const THUMBNAIL_SIZE = "160x120"
