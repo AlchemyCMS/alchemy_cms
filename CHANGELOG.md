@@ -1,3 +1,8 @@
+## 5.1.4 (2021-05-13)
+
+- Fix alchemy:generate:thumbnails task [#2092](https://github.com/AlchemyCMS/alchemy_cms/pull/2092) ([afdev82](https://github.com/afdev82))
+- Do not attempt to generate thumbs for svg files. [#2090](https://github.com/AlchemyCMS/alchemy_cms/pull/2090) ([oneiros](https://github.com/oneiros))
+
 ## 5.1.3 (2021-05-06)
 
 - Use symbols in polymorphic routes for resources [#2087](https://github.com/AlchemyCMS/alchemy_cms/pull/2087) ([tvdeyen](https://github.com/tvdeyen))
