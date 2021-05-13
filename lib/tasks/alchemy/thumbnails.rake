@@ -4,8 +4,8 @@ namespace :alchemy do
   namespace :generate do
     desc "Generates all thumbnails for Alchemy Pictures and EssencePictures."
     task thumbnails: [
-      "alchemy_dragonfly_s3:generate:picture_thumbnails",
-      "alchemy_dragonfly_s3:generate:essence_picture_thumbnails",
+      "alchemy:generate:picture_thumbnails",
+      "alchemy:generate:essence_picture_thumbnails",
     ]
 
     desc "Generates thumbnails for Alchemy Pictures."
