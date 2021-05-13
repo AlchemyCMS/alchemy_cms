@@ -114,16 +114,20 @@ class PictureEditor {
   }
 
   get defaultCropSize() {
+    if (!this.imageCropperEnabled) return []
+
     const mask = this.targetSize.split("x").map((n) => parseInt(n))
     const zoom = max([
-      (mask[0] || this.imageFileWidth) / this.imageFileWidth,
-      (mask[1] || this.imageFileHeight) / this.imageFileHeight
+      mask[0] / this.imageFileWidth,
+      mask[1] / this.imageFileHeight
     ])
 
     return [Math.round(mask[0] / zoom), Math.round(mask[1] / zoom)]
   }
 
   get defaultCropFrom() {
+    if (!this.imageCropperEnabled) return []
+
     const dimensions = this.defaultCropSize
 
     return [
