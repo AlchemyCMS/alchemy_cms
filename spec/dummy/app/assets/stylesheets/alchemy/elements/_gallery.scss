@@ -1,0 +1,19 @@
+.gallery_images {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  background-color: lightgray;
+
+  .gallery_picture {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 160px;
+    margin: 1rem;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}
