@@ -74,8 +74,11 @@ module Alchemy
     def picture_url_options
       return {} if picture.nil?
 
+      crop = crop_values_present? || content.settings[:crop]
+
       {
         format: picture.default_render_format,
+        crop: !!crop,
         crop_from: crop_from.presence,
         crop_size: crop_size.presence,
         size: content.settings[:size],

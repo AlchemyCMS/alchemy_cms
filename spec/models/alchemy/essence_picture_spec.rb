@@ -85,9 +85,8 @@ module Alchemy
       end
 
       context "when crop sizes are present" do
-        before do
-          expect(essence).to receive(:crop_size).and_return("200x200")
-          expect(essence).to receive(:crop_from).and_return("10x10")
+        let(:essence) do
+          create(:alchemy_essence_picture, :with_content, picture: picture, crop_size: "200x200", crop_from: "10x10")
         end
 
         it "passes these crop sizes to the picture's url method." do
@@ -150,37 +149,53 @@ module Alchemy
       end
 
       context "with crop sizes present" do
-        before do
-          expect(essence).to receive(:crop_size) { "200x200" }
-          expect(essence).to receive(:crop_from) { "10x10" }
+        let(:essence) do
+          create(:alchemy_essence_picture, :with_content, picture: picture, crop_size: "200x200", crop_from: "10x10")
         end
 
         it "includes these crop sizes.", :aggregate_failures do
           expect(picture_url_options[:crop_from]).to eq "10x10"
           expect(picture_url_options[:crop_size]).to eq "200x200"
         end
+
+        it "includes {crop: true}" do
+          expect(picture_url_options[:crop]).to be true
+        end
       end
 
       # Regression spec for issue #1279
       context "with crop sizes being empty strings" do
-        before do
-          expect(essence).to receive(:crop_size) { "" }
-          expect(essence).to receive(:crop_from) { "" }
+        let(:essence) do
+          create(:alchemy_essence_picture, :with_content, picture: picture, crop_size: "", crop_from: "")
         end
 
         it "does not include these crop sizes.", :aggregate_failures do
           expect(picture_url_options[:crop_from]).to be_nil
           expect(picture_url_options[:crop_size]).to be_nil
         end
+
+        it "includes {crop: false}" do
+          expect(picture_url_options[:crop]).to be false
+        end
       end
 
       context "with content having size setting" do
         before do
-          expect(essence.content).to receive(:settings) { {size: "30x70"} }
+          expect(essence.content).to receive(:settings).twice { {size: "30x70"} }
         end
 
         it "includes this size." do
           expect(picture_url_options[:size]).to eq "30x70"
+        end
+      end
+
+      context "with content having crop setting" do
+        before do
+          expect(essence.content).to receive(:settings).twice { {crop: true} }
+        end
+
+        it "includes this setting" do
+          expect(picture_url_options[:crop]).to be true
         end
       end
 
