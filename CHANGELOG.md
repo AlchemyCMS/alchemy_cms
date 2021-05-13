@@ -1,3 +1,8 @@
+## 5.2.1 (2021-05-13)
+
+- Fix alchemy:generate:thumbnails task [#2092](https://github.com/AlchemyCMS/alchemy_cms/pull/2092) ([afdev82](https://github.com/afdev82))
+- Do not attempt to generate thumbs for svg files. [#2090](https://github.com/AlchemyCMS/alchemy_cms/pull/2090) ([oneiros](https://github.com/oneiros))
+
 ## 5.2.0 (2021-05-06)
 
 - Backport #2049 to 5.2 [#2086](https://github.com/AlchemyCMS/alchemy_cms/pull/2086) ([rickythefox](https://github.com/rickythefox))
