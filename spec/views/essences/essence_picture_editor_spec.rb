@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "essences/_essence_picture_editor" do
+describe "alchemy/essences/_essence_picture_editor" do
   let(:picture) { stub_model(Alchemy::Picture) }
 
   let(:essence_picture) do
