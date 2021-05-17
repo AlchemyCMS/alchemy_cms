@@ -105,7 +105,7 @@ module Alchemy
       size = render_size || content.settings[:size]
 
       {
-        size: content.settings[:size] || thumbnail_size(size, crop),
+        size: thumbnail_size(size, crop),
         crop: !!crop,
         crop_from: crop_from.presence,
         crop_size: crop_size.presence,
