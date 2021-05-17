@@ -12,8 +12,6 @@
   class: 'file_icon',
   title: Alchemy.t(:assign_file) %>
 
-<% assign_file_text = ("&#x2190;&nbsp;" + Alchemy.t(:assign_file_from_archive)).html_safe %>
-
 <%= content_tag :div,
   id: essence_file_editor.dom_id,
   class: essence_file_editor.css_classes,
@@ -24,11 +22,9 @@
       <div class="file_icon">
         <%= render_icon(essence_file_editor.ingredient.icon_css_class) %>
       </div>
-    <% else %>
-      <%= dialog_link %>
     <% end %>
     <div class="file_name">
-      <%= essence_file_editor.ingredient.try(:name) || assign_file_text %>
+      <%= essence_file_editor.ingredient.try(:name) %>
     </div>
     <%= link_to render_icon(:times), "#",
       class: [
@@ -36,8 +32,7 @@
         essence_file_editor.ingredient ? nil : "hidden"
       ],
       data: {
-        form_field_id: essence_file_editor.form_field_id(:attachment_id),
-        assign_file_text: assign_file_text
+        form_field_id: essence_file_editor.form_field_id(:attachment_id)
       } %>
     <div class="essence_file_tools">
       <%= dialog_link %>

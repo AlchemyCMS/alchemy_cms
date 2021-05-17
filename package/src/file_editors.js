@@ -1,5 +1,3 @@
-const FILE_ICON = '<i class="icon fa-fw fa-file far"></i>'
-
 class FileEditor {
   constructor(container) {
     this.container = container
@@ -15,8 +13,8 @@ class FileEditor {
   removeFile(event) {
     event.stopPropagation()
     this.formField.value = ""
-    this.fileIcon.innerHTML = FILE_ICON
-    this.fileName.innerHTML = this.assignFileText
+    this.fileIcon.innerHTML = ""
+    this.fileName.innerHTML = ""
     this.deleteLink.classList.add("hidden")
     Alchemy.setElementDirty(this.container.closest(".element-editor"))
     return false
