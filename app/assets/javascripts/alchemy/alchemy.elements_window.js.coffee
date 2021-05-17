@@ -50,7 +50,7 @@ Alchemy.ElementsWindow =
     $.get @url, (data) =>
       @element_area.html data
       Alchemy.GUI.init(@element_area)
-      Alchemy.fileEditors(@element_area.find(".essence_file").selector)
+      Alchemy.fileEditors(@element_area.find(".essence_file, .essence_video, .essence_audio").selector)
       Alchemy.pictureEditors(@element_area.find(".essence_picture").selector)
       if @callback
         @callback.call()
