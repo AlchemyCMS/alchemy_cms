@@ -63,9 +63,8 @@ class PictureEditor {
     if (!this.pictureId) return
 
     this.ensureImage()
-    this.image.classList.add("loading")
     this.image.removeAttribute("src")
-    this.imageLoader.load()
+    this.imageLoader.load(true)
     ajax("GET", `/admin/pictures/${this.pictureId}/url`, {
       crop: true,
       crop_from: this.cropFrom || this.defaultCropFrom.join("x"),

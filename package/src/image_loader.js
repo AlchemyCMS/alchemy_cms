@@ -26,8 +26,8 @@ export default class ImageLoader {
     this.image.addEventListener("error", this.onError.bind(this))
   }
 
-  load() {
-    if (this.image.complete) return
+  load(force = false) {
+    if (!force && this.image.complete) return
 
     this.image.classList.add("loading")
     this.spinner.spin(this.image.parentElement)
