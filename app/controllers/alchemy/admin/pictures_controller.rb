@@ -44,7 +44,10 @@ module Alchemy
         options = picture_url_params.to_h.symbolize_keys.transform_values! do |value|
           value.in?(%w[true false]) ? value == "true" : value
         end
-        render json: { url: @picture.url(options) }
+        render json: {
+          url: @picture.url(options),
+          alt: @picture.name,
+        }
       end
 
       def create

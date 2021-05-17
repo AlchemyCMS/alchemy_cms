@@ -63,6 +63,7 @@ class PictureEditor {
     if (!this.pictureId) return
 
     this.ensureImage()
+    this.image.removeAttribute("alt")
     this.image.removeAttribute("src")
     this.imageLoader.load(true)
     ajax("GET", `/admin/pictures/${this.pictureId}/url`, {
@@ -74,6 +75,7 @@ class PictureEditor {
     })
       .then(({ data }) => {
         this.image.src = data.url
+        this.image.alt = data.alt
       })
       .catch((error) => {
         console.error(error.message || error)
