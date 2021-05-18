@@ -167,18 +167,20 @@ module Alchemy
     end
 
     def default_crop_size
-      return nil unless content.settings[:crop]
-      return nil unless content.settings[:size]
+      return nil unless content.settings[:crop] && content.settings[:size]
 
-      mask = content.settings[:size].split("x").map(&:to_f)
-      zoom = [
-        mask[0] / (image_file_width || 1),
-        mask[1] / (image_file_height || 1),
-      ].max
-
+      mask = point_from_string(content.settings[:size])
+      zoom = thumbnail_zoom_factor(mask)
       return nil if zoom.zero?
 
       [(mask[0] / zoom), (mask[1] / zoom)].map(&:round)
+    end
+
+    def thumbnail_zoom_factor(mask)
+      [
+        mask[0].to_f / (image_file_width || 1),
+        mask[1].to_f / (image_file_height || 1),
+      ].max
     end
 
     def default_crop_from
