@@ -255,7 +255,7 @@ module Alchemy
       context "when no crop sizes are present" do
         it "it does not pass crop sizes to the picture's url method and disables cropping." do
           expect(picture).to receive(:url).with(
-            hash_including(crop_from: nil, crop_size: nil, crop: false),
+            hash_including(crop_from: "", crop_size: "", crop: false),
           )
           thumbnail_url
         end
@@ -362,8 +362,8 @@ module Alchemy
         it "returns default thumbnail options" do
           is_expected.to eq(
             crop: false,
-            crop_from: nil,
-            crop_size: nil,
+            crop_from: "",
+            crop_size: "",
             flatten: true,
             format: "jpg",
             size: "160x120",

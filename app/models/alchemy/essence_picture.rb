@@ -102,13 +102,12 @@ module Alchemy
     # @return [HashWithIndifferentAccess]
     def thumbnail_url_options
       crop = crop_values_present? || content.settings[:crop]
-      size = render_size || content.settings[:size]
 
       {
-        size: thumbnail_size(size, crop),
+        size: "160x120",
         crop: !!crop,
-        crop_from: crop_from.presence,
-        crop_size: crop_size.presence,
+        crop_from: crop_from.presence || default_crop_from.join("x"),
+        crop_size: crop_size.presence || default_crop_size.join("x"),
         flatten: true,
         format: picture&.image_file_format || "jpg",
       }
@@ -166,6 +165,27 @@ module Alchemy
           write_attribute crop_value, normalize_crop_value(crop_value)
         end
       end
+    end
+
+    def default_crop_size
+      return [] unless content.settings[:crop] && content.settings[:size]
+
+      mask = content.settings[:size].split("x").map(&:to_f) || []
+      zoom = [
+        mask[0] / (image_file_width || 1),
+        mask[1] / (image_file_height || 1),
+      ].max
+
+      [(mask[0] / zoom), (mask[1] / zoom)].map(&:round)
+    end
+
+    def default_crop_from
+      return [] unless content.settings[:crop] && default_crop_size.many?
+
+      [
+        ((image_file_width || 0) - default_crop_size[0]) / 2,
+        ((image_file_height || 0) - default_crop_size[1]) / 2,
+      ].map(&:round)
     end
 
     def normalize_crop_value(crop_value)
