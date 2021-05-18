@@ -5,7 +5,7 @@ module Alchemy
   class ImageCropperSettings
     FLOAT_REGEX = /\A\d+(\.\d+)?\z/
 
-    include Alchemy::Picture::Transformations
+    include Alchemy::Picture::Calculations
 
     attr_reader :render_size, :crop_from, :crop_size, :fixed_ratio, :image_width, :image_height
 
@@ -89,6 +89,29 @@ module Alchemy
       top_left = get_top_left_crop_corner(crop_size)
 
       point_and_mask_to_points(top_left, crop_size)
+    end
+
+    # This function takes a target and a base dimensions hash and returns
+    # the dimensions of the image when the base dimensions hash fills
+    # the target.
+    #
+    # Aspect ratio will be preserved.
+    #
+    def size_when_fitting(target, dimensions)
+      zoom = [
+        dimensions[:width].to_f / target[:width],
+        dimensions[:height].to_f / target[:height],
+      ].max
+
+      if zoom.zero?
+        width = target[:width]
+        height = target[:height]
+      else
+        width = (dimensions[:width] / zoom).round
+        height = (dimensions[:height] / zoom).round
+      end
+
+      { width: width.to_i, height: height.to_i }
     end
 
     # Given dimensions for a possibly destructive crop operation,

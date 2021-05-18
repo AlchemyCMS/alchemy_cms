@@ -11,28 +11,6 @@ module Alchemy
       include Alchemy::Picture::Calculations
     end
 
-    THUMBNAIL_WIDTH = 160
-    THUMBNAIL_HEIGHT = 120
-
-    # Returns a size value String for the thumbnail used in essence picture editors.
-    #
-    def thumbnail_size(size_string = "0x0", crop = false)
-      size = sizes_from_string(size_string)
-
-      # only if crop is set do we need to actually parse the size string, otherwise
-      # we take the base image size.
-      if crop
-        size[:width] = get_base_dimensions[:width] if size[:width].zero?
-        size[:height] = get_base_dimensions[:height] if size[:height].zero?
-        size = reduce_to_image(size)
-      else
-        size = get_base_dimensions
-      end
-
-      size = size_when_fitting({width: THUMBNAIL_WIDTH, height: THUMBNAIL_HEIGHT}, size)
-      "#{size[:width]}x#{size[:height]}"
-    end
-
     # Returns the rendered cropped image. Tries to use the crop_from and crop_size
     # parameters. When they can't be parsed, it just crops from the center.
     #
@@ -113,40 +91,6 @@ module Alchemy
         x: x,
         y: y,
       }
-    end
-
-    # Gets the base dimensions (the dimensions of the Picture before scaling).
-    # If anything is missing, it gets padded with zero (Integer 0).
-    # This is the order of precedence: crop_size > image_size
-    def get_base_dimensions
-      if crop_size?
-        sizes_from_string(crop_size)
-      else
-        image_size
-      end
-    end
-
-    # This function takes a target and a base dimensions hash and returns
-    # the dimensions of the image when the base dimensions hash fills
-    # the target.
-    #
-    # Aspect ratio will be preserved.
-    #
-    def size_when_fitting(target, dimensions = get_base_dimensions)
-      zoom = [
-        dimensions[:width].to_f / target[:width],
-        dimensions[:height].to_f / target[:height],
-      ].max
-
-      if zoom.zero?
-        width = target[:width]
-        height = target[:height]
-      else
-        width = (dimensions[:width] / zoom).round
-        height = (dimensions[:height] / zoom).round
-      end
-
-      {width: width.to_i, height: height.to_i}
     end
 
     # Converts a dimensions hash to a string of from "20x20"
