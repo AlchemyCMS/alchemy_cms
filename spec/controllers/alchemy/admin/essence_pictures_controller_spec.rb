@@ -136,11 +136,6 @@ module Alchemy
         end
 
         context "no crop sizes present in essence" do
-          before do
-            expect(essence).to receive(:crop_from).and_return(nil)
-            allow(essence).to receive(:crop_size).and_return(nil)
-          end
-
           it "assigns default mask boxes" do
             subject
             expect(assigns(:settings)[:default_box]).to eq(default_mask)
@@ -177,9 +172,8 @@ module Alchemy
             { fixed_ratio: "123,45" }
           end
 
-          it "doesn't set a fixed ratio" do
-            subject
-            expect(assigns(:settings)[:ratio]).to eq(false)
+          it "raises error" do
+            expect { subject }.to raise_error(ArgumentError)
           end
         end
 
@@ -220,13 +214,13 @@ module Alchemy
       it "saves the cropping mask" do
         expect(essence).to receive(:update).and_return(true)
         put :update, params: {
-                   id: 1,
-                   essence_picture: {
-                     render_size: "1x1",
-                     crop_from: "0x0",
-                     crop_size: "100x100",
-                   },
-                 }, xhr: true
+                       id: 1,
+                       essence_picture: {
+                         render_size: "1x1",
+                         crop_from: "0x0",
+                         crop_size: "100x100",
+                       },
+                     }, xhr: true
       end
     end
   end

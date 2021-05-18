@@ -251,7 +251,7 @@ module Alchemy
       context "when no crop sizes are present" do
         it "it does not pass crop sizes to the picture's url method and disables cropping." do
           expect(picture).to receive(:url).with(
-            hash_including(crop_from: "", crop_size: "", crop: false),
+            hash_including(crop_from: nil, crop_size: nil, crop: false),
           )
           thumbnail_url
         end
@@ -358,8 +358,8 @@ module Alchemy
         it "returns default thumbnail options" do
           is_expected.to eq(
             crop: false,
-            crop_from: "",
-            crop_size: "",
+            crop_from: nil,
+            crop_size: nil,
             flatten: true,
             format: "jpg",
             size: "160x120",
@@ -465,11 +465,6 @@ module Alchemy
         end
 
         context "no crop sizes present in essence" do
-          before do
-            expect(essence).to receive(:crop_from).and_return(nil)
-            allow(essence).to receive(:crop_size).and_return(nil)
-          end
-
           it "assigns default mask boxes" do
             expect(subject[:default_box]).to eq(default_mask)
           end
@@ -503,8 +498,8 @@ module Alchemy
             { fixed_ratio: "123,45" }
           end
 
-          it "doesn't set a fixed ratio" do
-            expect(subject[:ratio]).to eq(false)
+          it "raises an error" do
+            expect { subject }.to raise_exception(ArgumentError)
           end
         end
 

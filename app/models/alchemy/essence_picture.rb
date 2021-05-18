@@ -104,8 +104,8 @@ module Alchemy
       {
         size: "160x120",
         crop: !!crop,
-        crop_from: crop_from.presence || default_crop_from.join("x"),
-        crop_size: crop_size.presence || default_crop_size.join("x"),
+        crop_from: crop_from.presence || default_crop_from&.join("x"),
+        crop_size: crop_size.presence || default_crop_size&.join("x"),
         flatten: true,
         format: picture&.image_file_format || "jpg",
       }
@@ -146,9 +146,9 @@ module Alchemy
     # Settings for the graphical JS image cropper
     def image_cropper_settings
       Alchemy::ImageCropperSettings.new(
-        render_size: render_size.presence || content.settings[:size],
-        crop_from: crop_from,
-        crop_size: crop_size,
+        render_size: point_from_string(render_size.presence || content.settings[:size]),
+        default_crop_from: default_crop_from,
+        default_crop_size: default_crop_size,
         fixed_ratio: content.settings[:fixed_ratio],
         image_width: picture&.image_file_width,
         image_height: picture&.image_file_height,
@@ -166,9 +166,10 @@ module Alchemy
     end
 
     def default_crop_size
-      return [] unless content.settings[:crop] && content.settings[:size]
+      return nil if !content.settings[:crop]
+      return nil if !content.settings[:size]
 
-      mask = content.settings[:size].split("x").map(&:to_f) || []
+      mask = content.settings[:size].split("x").map(&:to_f)
       zoom = [
         mask[0] / (image_file_width || 1),
         mask[1] / (image_file_height || 1),
@@ -178,12 +179,18 @@ module Alchemy
     end
 
     def default_crop_from
-      return [] unless content.settings[:crop] && default_crop_size.many?
+      return nil unless content.settings[:crop]
+      return nil if default_crop_size.nil?
 
       [
         ((image_file_width || 0) - default_crop_size[0]) / 2,
         ((image_file_height || 0) - default_crop_size[1]) / 2,
       ].map(&:round)
+    end
+
+    def point_from_string(string)
+      return if string.nil?
+      string.split("x", 2).map(&:to_i)
     end
 
     def normalize_crop_value(crop_value)
