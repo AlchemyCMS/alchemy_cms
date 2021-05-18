@@ -512,6 +512,71 @@ module Alchemy
             expect(subject[:ratio]).to eq(80.0 / 60.0)
           end
         end
+
+        context "with size set to different values" do
+          let(:settings) { { crop: true, size: size } }
+
+          before do
+            picture.image_file_width = 200
+            picture.image_file_height = 100
+          end
+
+          context "size 200x50" do
+            let(:size) { "200x50" }
+
+            it "default box should be [0, 25, 200, 75]" do
+              expect(subject[:default_box]).to eq([0, 25, 200, 75])
+            end
+          end
+
+          context "size 0x0" do
+            let(:size) { "0x0" }
+
+            it "it should not crop the picture" do
+              expect(subject[:default_box]).to eq([0, 0, 200, 100])
+            end
+          end
+
+          context "size 50x100" do
+            let(:size) { "50x100" }
+
+            it "the hash should be {x1: 75, y1: 0, x2: 125, y2: 100}" do
+              expect(subject[:default_box]).to eq([75, 0, 125, 100])
+            end
+          end
+
+          context "size 50x50" do
+            let(:size) { "50x50" }
+
+            it "the hash should be {x1: 50, y1: 0, x2: 150, y2: 100}" do
+              expect(subject[:default_box]).to eq([50, 0, 150, 100])
+            end
+          end
+
+          context "size 400x200" do
+            let(:size) { "400x200" }
+
+            it "the hash should be {x1: 0, y1: 0, x2: 200, y2: 100}" do
+              expect(subject[:default_box]).to eq([0, 0, 200, 100])
+            end
+          end
+
+          context "size 400x100" do
+            let(:size) { "400x100" }
+
+            it "the hash should be {x1: 0, y1: 25, x2: 200, y2: 75}" do
+              expect(subject[:default_box]).to eq([0, 25, 200, 75])
+            end
+          end
+
+          context "size 200x200" do
+            let(:size) { "200x200" }
+
+            it "the hash should be {x1: 50, y1: 0, x2: 150, y2: 100}" do
+              expect(subject[:default_box]).to eq([50, 0, 150, 100])
+            end
+          end
+        end
       end
     end
 
