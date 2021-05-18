@@ -34,8 +34,6 @@ module Alchemy
     before_save :fix_crop_values
     before_save :replace_newlines
 
-    include Alchemy::Picture::Transformations
-
     # The url to show the picture.
     #
     # Takes all values like +name+ and crop sizes (+crop_from+, +crop_size+ from the build in graphical image cropper)

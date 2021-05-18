@@ -32,10 +32,6 @@ module Alchemy
       end
     end
 
-    it_behaves_like "has image transformations" do
-      let(:picture) { build_stubbed(:alchemy_essence_picture) }
-    end
-
     it "should not store negative values for crop values" do
       essence = EssencePicture.new(crop_from: "-1x100", crop_size: "-20x30")
       essence.save!
