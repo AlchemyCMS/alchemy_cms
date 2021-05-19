@@ -62,7 +62,7 @@ RSpec.describe Alchemy::ImageCropperSettings do
             let(:render_size) { [30, 0] }
 
             it "infers the height from the image file preserving the aspect ratio" do
-              expect(min_size).to eq([30, 0])
+              expect(min_size).to eq([30, 25])
             end
 
             context "and fixed_ratio set to integer" do
@@ -86,7 +86,7 @@ RSpec.describe Alchemy::ImageCropperSettings do
             let(:render_size) { [0, 25] }
 
             it "infers the height from the image file preserving the aspect ratio" do
-              expect(min_size).to eq([0, 25])
+              expect(min_size).to eq([30, 25])
             end
           end
         end
@@ -119,9 +119,7 @@ RSpec.describe Alchemy::ImageCropperSettings do
 
       describe ":ratio" do
         context "with fixed_ratio set to false" do
-          let(:settings) do
-            { fixed_ratio: false }
-          end
+          let(:fixed_ratio) { false }
 
           it "sets ratio to false" do
             expect(subject[:ratio]).to eq(false)

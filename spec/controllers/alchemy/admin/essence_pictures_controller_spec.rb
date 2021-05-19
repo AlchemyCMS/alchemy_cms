@@ -95,7 +95,7 @@ module Alchemy
               expect(essence).to receive(:render_size).at_least(:once).and_return("30x")
 
               subject
-              expect(assigns(:settings)[:min_size]).to eq([30, 0])
+              expect(assigns(:settings)[:min_size]).to eq([30, 25])
             end
 
             context "and aspect ratio set on the contents settings" do
@@ -130,7 +130,7 @@ module Alchemy
               expect(essence).to receive(:render_size).at_least(:once).and_return("x25")
 
               subject
-              expect(assigns(:settings)[:min_size]).to eq([0, 25])
+              expect(assigns(:settings)[:min_size]).to eq([30, 25])
             end
           end
         end

@@ -147,7 +147,7 @@ module Alchemy
 
     def image_cropper_settings
       Alchemy::ImageCropperSettings.new(
-        render_size: point_from_string(render_size.presence || content.settings[:size]),
+        render_size: dimensions_from_string(render_size.presence || content.settings[:size]),
         default_crop_from: default_crop_from,
         default_crop_size: default_crop_size,
         fixed_ratio: content.settings[:fixed_ratio],
@@ -169,7 +169,7 @@ module Alchemy
     def default_crop_size
       return nil unless content.settings[:crop] && content.settings[:size]
 
-      mask = point_from_string(content.settings[:size])
+      mask = inferred_dimensions_from_string(content.settings[:size])
       zoom = thumbnail_zoom_factor(mask)
       return nil if zoom.zero?
 
@@ -193,10 +193,27 @@ module Alchemy
       ].map(&:round)
     end
 
-    def point_from_string(string)
+    def dimensions_from_string(string)
       return if string.nil?
 
       string.split("x", 2).map(&:to_i)
+    end
+
+    def inferred_dimensions_from_string(string)
+      return if string.nil?
+
+      width, height = dimensions_from_string(string)
+      ratio = image_file_width.to_f / image_file_height.to_i
+
+      if width.zero? && ratio.is_a?(Float)
+        width = height * ratio
+      end
+
+      if height.zero? && ratio.is_a?(Float)
+        height = width / ratio
+      end
+
+      [width.to_i, height.to_i]
     end
 
     def normalize_crop_value(crop_value)

@@ -50,9 +50,13 @@ module Alchemy
     # aspect ratio, don't specify a size or only width or height.
     #
     def ratio_from_size
-      return false if !render_size || render_size.any?(&:zero?) || render_size.any?(&:nil?)
-
-      render_size[0].to_f / render_size[1]
+      if render_size.none?(&:zero?)
+        render_size[0].to_f / render_size[1]
+      elsif [image_width, image_height].none?(&:zero?)
+        image_width.to_f / image_height
+      else
+        false
+      end
     end
 
     # Infers the minimum width or height

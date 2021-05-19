@@ -17,10 +17,10 @@ module Alchemy
     def crop(size, crop_from = nil, crop_size = nil, upsample = false)
       raise "No size given!" if size.empty?
 
-      render_to = sizes_from_string(size)
+      render_to = inferred_sizes_from_string(size)
       if crop_from && crop_size
         top_left = point_from_string(crop_from)
-        crop_dimensions = sizes_from_string(crop_size)
+        crop_dimensions = inferred_sizes_from_string(crop_size)
         xy_crop_resize(render_to, top_left, crop_dimensions, upsample)
       else
         center_crop(render_to, upsample)
@@ -91,6 +91,20 @@ module Alchemy
         x: x,
         y: y,
       }
+    end
+
+    def inferred_sizes_from_string(string)
+      sizes = sizes_from_string(string)
+      ratio = image_file_width.to_f / image_file_height
+
+      if sizes[:width].zero?
+        sizes[:width] = image_file_width * ratio
+      end
+      if sizes[:height].zero?
+        sizes[:height] = image_file_width / ratio
+      end
+
+      sizes
     end
 
     # Converts a dimensions hash to a string of from "20x20"
