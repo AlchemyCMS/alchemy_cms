@@ -52,8 +52,8 @@ export default class ImageCropper {
       return [
         this.cropFrom[0],
         this.cropFrom[1],
-        this.cropSize[0],
-        this.cropSize[1] + this.cropFrom[1]
+        this.cropFrom[0] + this.cropSize[0],
+        this.cropFrom[1] + this.cropSize[1]
       ]
     } else {
       return this.defaultBox
