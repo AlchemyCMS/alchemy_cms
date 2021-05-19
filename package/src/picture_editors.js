@@ -53,6 +53,10 @@ class PictureEditor {
       } else if ("cropSize" in mutation.target.dataset) {
         this.cropSize = mutation.target.value
       } else if ("pictureId" in mutation.target.dataset) {
+        this.cropFromField.value = ""
+        this.cropSizeField.value = ""
+        this.cropFrom = null
+        this.cropSize = null
         this.pictureId = mutation.target.value
       }
       this.update()
