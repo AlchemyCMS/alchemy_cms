@@ -7,7 +7,10 @@
   <%= content_label(essence_picture_editor) %>
   <%= content_tag :div,
     data: {
-      target_size: essence_picture_editor.essence.thumbnail_url_options[:size],
+      target_size: essence_picture_editor.essence.content.settings[:size] || [
+        essence_picture_editor.essence.image_file_width.to_i,
+        essence_picture_editor.essence.image_file_height.to_i
+      ].join("x"),
       image_cropper: essence_picture_editor.essence.thumbnail_url_options[:crop],
     },
     class: "picture_thumbnail" do %>
