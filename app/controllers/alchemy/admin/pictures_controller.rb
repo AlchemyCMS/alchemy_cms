@@ -36,7 +36,7 @@ module Alchemy
       def show
         @previous = @picture.previous(params)
         @next = @picture.next(params)
-        @assignments = @picture.essence_pictures.joins(content: {element: :page})
+        @assignments = @picture.essence_pictures.joins(content: { element: :page })
         render action: "show"
       end
 
@@ -47,6 +47,7 @@ module Alchemy
         render json: {
           url: @picture.url(options),
           alt: @picture.name,
+          title: Alchemy.t(:image_name, name: @picture.name),
         }
       end
 
@@ -139,8 +140,8 @@ module Alchemy
           end
         else
           cookies[:alchemy_pictures_per_page] = params[:per_page] ||
-            cookies[:alchemy_pictures_per_page] ||
-            pictures_per_page_for_size
+                                                cookies[:alchemy_pictures_per_page] ||
+                                                pictures_per_page_for_size
         end
       end
 
@@ -172,9 +173,9 @@ module Alchemy
       def search_filter_params
         @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:picture_ids]).permit(
           *common_search_filter_includes + [
-            :size,
-            :form_field_id,
-          ],
+          :size,
+          :form_field_id,
+        ],
         )
       end
 

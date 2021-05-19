@@ -24,6 +24,7 @@ RSpec.describe "Alchemy::Admin::PicturesController" do
         expect(json).to match({
           "url" => /\/pictures\/.+\/image\.png/,
           "alt" => picture.name,
+          "title" => Alchemy.t(:image_name, name: picture.name),
         })
       end
 
