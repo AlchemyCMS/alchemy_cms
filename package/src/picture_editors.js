@@ -76,6 +76,7 @@ class PictureEditor {
       .then(({ data }) => {
         this.image.src = data.url
         this.image.alt = data.alt
+        this.image.title = data.title
       })
       .catch((error) => {
         console.error(error.message || error)
