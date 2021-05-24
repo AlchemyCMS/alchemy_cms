@@ -21,8 +21,6 @@ class PictureEditor {
     this.deleteButton = container.querySelector(".picture_tool.delete")
     this.cropLink = container.querySelector(".crop_link")
 
-    this.cropFrom = this.cropFromField.value
-    this.cropSize = this.cropSizeField.value
     this.targetSize = this.targetSizeField.dataset.targetSize
     this.pictureId = this.pictureIdField.value
 
@@ -48,15 +46,9 @@ class PictureEditor {
 
   mutationCallback(mutationsList) {
     for (const mutation of mutationsList) {
-      if ("cropFrom" in mutation.target.dataset) {
-        this.cropFrom = mutation.target.value
-      } else if ("cropSize" in mutation.target.dataset) {
-        this.cropSize = mutation.target.value
-      } else if ("pictureId" in mutation.target.dataset) {
+      if ("pictureId" in mutation.target.dataset) {
         this.cropFromField.value = ""
         this.cropSizeField.value = ""
-        this.cropFrom = null
-        this.cropSize = null
         this.pictureId = mutation.target.value
       }
       this.update()
@@ -71,9 +63,9 @@ class PictureEditor {
     this.image.removeAttribute("src")
     this.imageLoader.load(true)
     ajax("GET", `/admin/pictures/${this.pictureId}/url`, {
-      crop: true,
-      crop_from: this.cropFrom || this.defaultCropFrom.join("x"),
-      crop_size: this.cropSize || this.defaultCropSize.join("x"),
+      crop: this.imageCropperEnabled,
+      crop_from: this.cropFrom,
+      crop_size: this.cropSize,
       flatten: true,
       size: THUMBNAIL_SIZE
     })
@@ -117,6 +109,20 @@ class PictureEditor {
     } else {
       this.cropLink.href = this.cropLink.href + `&picture_id=${this.pictureId}`
     }
+  }
+
+  get cropFrom() {
+    if (this.cropFromField.value === "") {
+      return this.defaultCropFrom.join("x")
+    }
+    return this.cropFromField.value
+  }
+
+  get cropSize() {
+    if (this.cropSizeField.value === "") {
+      return this.defaultCropSize.join("x")
+    }
+    return this.cropSizeField.value
   }
 
   get defaultCropSize() {
