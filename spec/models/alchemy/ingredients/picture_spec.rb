@@ -243,8 +243,8 @@ RSpec.describe Alchemy::Ingredients::Picture do
 
     context "with crop sizes present" do
       before do
-        expect(picture_ingredient).to receive(:crop_size) { "200x200" }
-        expect(picture_ingredient).to receive(:crop_from) { "10x10" }
+        expect(picture_ingredient).to receive(:crop_size).twice { "200x200" }
+        expect(picture_ingredient).to receive(:crop_from).twice { "10x10" }
       end
 
       it "includes these crop sizes.", :aggregate_failures do
@@ -257,7 +257,7 @@ RSpec.describe Alchemy::Ingredients::Picture do
     context "with crop sizes being empty strings" do
       before do
         expect(picture_ingredient).to receive(:crop_size) { "" }
-        expect(picture_ingredient).to receive(:crop_from) { "" }
+        expect(picture_ingredient).to receive(:crop_from).twice { "" }
       end
 
       it "does not include these crop sizes.", :aggregate_failures do
@@ -268,7 +268,7 @@ RSpec.describe Alchemy::Ingredients::Picture do
 
     context "with ingredient having size setting" do
       before do
-        expect(picture_ingredient).to receive(:settings) { { size: "30x70" } }
+        expect(picture_ingredient).to receive(:settings).twice { { size: "30x70" } }
       end
 
       it "includes this size." do

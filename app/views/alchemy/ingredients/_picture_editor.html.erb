@@ -4,15 +4,27 @@
   class: picture_editor.css_classes,
   data: picture_editor.data_attributes do %>
   <%= ingredient_label(picture_editor, counter: picture_editor_counter) %>
-  <div class="picture_thumbnail">
-    <span class="picture_tool delete">
-      <%= link_to render_icon(:times), '#',
-        onclick: "return Alchemy.removePicture('##{picture_editor.form_field_id(:picture_id, counter: picture_editor_counter)}');" %>
-    </span>
+  <%= content_tag :div,
+    data: {
+      target_size: picture_editor.settings[:size] || [
+        picture_editor.image_file_width.to_i,
+        picture_editor.image_file_height.to_i
+      ].join("x"),
+      image_cropper: picture_editor.thumbnail_url_options[:crop],
+    },
+    class: "picture_thumbnail" do %>
+    <a class="picture_tool delete">
+      <%= render_icon(:times) %>
+    </a>
     <div class="picture_image">
       <div class="thumbnail_background">
-        <%- if picture_editor.ingredient -%>
-          <%= essence_picture_thumbnail(picture_editor) %>
+        <%- if picture_editor.picture -%>
+          <%= image_tag(
+            picture_editor.thumbnail_url,
+            alt: picture_editor.picture.name,
+            class: "img_paddingtop",
+            title: Alchemy.t(:image_name, name: picture_editor.picture.name),
+          ) %>
         <% else %>
           <%= render_icon(:image, style: 'regular') %>
         <% end %>
@@ -29,9 +41,13 @@
         ingredient: picture_editor
       } %>
     </div>
-  </div>
+  <% end %>
   <%= hidden_field_tag picture_editor.form_field_name(:picture_id, counter: picture_editor_counter),
-    picture_editor.picture&.id %>
+    picture_editor.picture&.id, data: {
+      picture_id: true,
+      image_file_width: picture_editor.image_file_width,
+      image_file_height: picture_editor.image_file_height
+    } %>
   <%= hidden_field_tag picture_editor.form_field_name(:link, counter: picture_editor_counter),
     picture_editor.link %>
   <%= hidden_field_tag picture_editor.form_field_name(:link_title, counter: picture_editor_counter),
@@ -40,4 +56,8 @@
     picture_editor.link_class_name %>
   <%= hidden_field_tag picture_editor.form_field_name(:link_target, counter: picture_editor_counter),
     picture_editor.link_target %>
+  <%= hidden_field_tag picture_editor.form_field_name(:crop_from, counter: picture_editor_counter),
+    picture_editor.crop_from, data: { crop_from: true } %>
+  <%= hidden_field_tag picture_editor.form_field_name(:crop_size, counter: picture_editor_counter),
+    picture_editor.crop_size, data: { crop_size: true } %>
 <% end %>

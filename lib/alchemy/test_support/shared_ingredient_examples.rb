@@ -46,6 +46,7 @@ RSpec.shared_examples_for "an alchemy ingredient" do
         is_expected.to eq({
           role: "headline",
           type: "Text",
+          default: "Hello World",
           settings: {
             linkable: true,
           },

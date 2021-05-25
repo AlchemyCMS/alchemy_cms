@@ -23,7 +23,6 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
   before do
     view.class.send(:include, Alchemy::Admin::BaseHelper)
     view.class.send(:include, Alchemy::Admin::EssencesHelper)
-    allow(view).to receive(:essence_picture_thumbnail).and_return("<img />")
     allow(ingredient).to receive(:settings) { settings }
   end
 
