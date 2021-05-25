@@ -9,7 +9,7 @@ module Alchemy
     # Helper to dedoce a hashed dragonfly job
     def decode_dragon_fly_job(url)
       job = url.split("/")[2]
-      Dragonfly::Serializer.json_b64_decode(job)
+      ::Dragonfly::Serializer.json_b64_decode(job)
     end
 
     let(:image) do
@@ -96,7 +96,7 @@ module Alchemy
 
             it "crops and resizes the picture" do
               job = decode_dragon_fly_job(url)
-              expect(job[1]).to include("-crop 123x44+0+0 -resize 160x120>")
+              expect(job[1]).to include("crop_resize").and include("123x44+0+0").and include("160x120>")
             end
           end
         end
