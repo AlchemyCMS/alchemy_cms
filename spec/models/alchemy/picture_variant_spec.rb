@@ -70,7 +70,7 @@ RSpec.describe Alchemy::PictureVariant do
         end
 
         it "crops and resizes the picture" do
-          expect(subject.steps[0].arguments).to eq(["-crop 123x44+0+0 -resize 160x120>"])
+          expect(subject.steps[0].arguments).to eq(["123x44+0+0", "160x120>"])
         end
       end
     end
