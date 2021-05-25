@@ -12,19 +12,19 @@ module Alchemy
     class Picture < Alchemy::Ingredient
       include Alchemy::PictureThumbnails
 
-      ingredient_attributes(
-        :alt_tag,
-        :caption,
-        :crop_from,
-        :crop_size,
-        :css_class,
-        :link_class_name,
-        :link_target,
-        :link_title,
-        :link,
-        :render_size,
-        :title,
-      )
+      self.ingredient_attributes = %i[
+        alt_tag
+        caption
+        crop_from
+        crop_size
+        css_class
+        link_class_name
+        link_target
+        link_title
+        link
+        render_size
+        title
+      ]
 
       related_object_alias :picture
 

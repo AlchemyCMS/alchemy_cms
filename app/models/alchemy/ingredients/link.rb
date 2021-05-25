@@ -5,11 +5,11 @@ module Alchemy
     # A URL
     #
     class Link < Alchemy::Ingredient
-      ingredient_attributes(
-        :link_class_name,
-        :link_target,
-        :link_title,
-      )
+      self.ingredient_attributes = %i[
+        link_class_name
+        link_target
+        link_title
+      ]
     end
   end
 end

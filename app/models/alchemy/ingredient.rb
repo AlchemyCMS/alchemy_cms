@@ -43,7 +43,8 @@ module Alchemy
       end
 
       # Defines getters and setter methods for ingredient attributes
-      def ingredient_attributes(*attributes)
+      def ingredient_attributes=(attributes)
+        @ingredient_attributes = attributes
         attributes.each do |name|
           define_method name.to_sym do
             data[name]
@@ -53,6 +54,8 @@ module Alchemy
           end
         end
       end
+
+      attr_reader :ingredient_attributes
 
       # Defines getter and setter method aliases for related object
       def related_object_alias(name)

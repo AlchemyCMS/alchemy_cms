@@ -7,12 +7,12 @@ module Alchemy
     # Optionally it can have a link
     #
     class Text < Alchemy::Ingredient
-      ingredient_attributes(
-        :link,
-        :link_target,
-        :link_title,
-        :link_class_name
-      )
+      self.ingredient_attributes = %i[
+        link
+        link_target
+        link_title
+        link_class_name
+      ]
     end
   end
 end

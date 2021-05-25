@@ -5,10 +5,10 @@ module Alchemy
     # A blob of richtext
     #
     class Richtext < Alchemy::Ingredient
-      ingredient_attributes(
-        :stripped_body,
-        :sanitized_body,
-      )
+      self.ingredient_attributes = %i[
+        stripped_body
+        sanitized_body
+      ]
 
       before_save :strip_content
       before_save :sanitize_content
