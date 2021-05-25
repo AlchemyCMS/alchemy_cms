@@ -88,6 +88,8 @@ Alchemy::Engine.routes.draw do
 
     resources :essence_videos, only: [:edit, :update]
 
+    resources :ingredients, only: [:edit, :update]
+
     resources :legacy_page_urls
     resources :languages do
       collection do

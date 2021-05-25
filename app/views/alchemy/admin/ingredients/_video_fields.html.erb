@@ -1,0 +1,8 @@
+<%= f.input :width %>
+<%= f.input :height %>
+<%= f.input :autoplay, as: :boolean %>
+<%= f.input :controls, as: :boolean %>
+<%= f.input :loop, as: :boolean %>
+<%= f.input :muted, as: :boolean %>
+<%= f.input :preload, collection: %w(auto none metadata),
+  include_blank: false, input_html: {class: 'alchemy_selectbox'} %>

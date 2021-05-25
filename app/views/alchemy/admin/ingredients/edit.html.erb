@@ -1,0 +1,4 @@
+<%= alchemy_form_for @ingredient, as: :ingredient, url: alchemy.admin_ingredient_path(@ingredient) do |f| %>
+  <%= render "alchemy/admin/ingredients/#{@ingredient.partial_name}_fields", ingredient: @ingredient, f: f %>
+  <%= f.submit Alchemy.t(:save) %>
+<% end %>

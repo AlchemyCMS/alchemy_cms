@@ -140,6 +140,7 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:manage, Alchemy::EssenceFile)
       is_expected.to be_able_to(:manage, Alchemy::EssencePicture)
       is_expected.to be_able_to(:manage, Alchemy::EssenceVideo)
+      is_expected.to be_able_to(:manage, Alchemy::Ingredient)
     end
 
     it "can manage the clipboard" do
