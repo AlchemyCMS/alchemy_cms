@@ -61,6 +61,8 @@ Alchemy::Engine.routes.draw do
         get :edit_multiple
       end
       member do
+        get :url
+        put :assign
         delete :remove
       end
     end
@@ -68,25 +70,19 @@ Alchemy::Engine.routes.draw do
     resources :attachments, except: [:new] do
       member do
         get :download
+        put :assign
       end
     end
 
     resources :essence_audios, only: [:edit, :update]
 
     resources :essence_pictures, only: [:edit, :update] do
-      collection do
-        put :assign
-      end
       member do
         get :crop
       end
     end
 
-    resources :essence_files, only: [:edit, :update] do
-      collection do
-        put :assign
-      end
-    end
+    resources :essence_files, only: [:edit, :update]
 
     resources :essence_videos, only: [:edit, :update]
 

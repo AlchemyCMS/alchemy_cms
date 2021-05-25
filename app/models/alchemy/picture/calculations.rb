@@ -27,15 +27,9 @@ module Alchemy
       # Given a string with an x, this function returns a Hash with point
       # :width and :height.
       #
-      def sizes_from_string(string = "0x0")
-        string = "0x0" if string.nil? || string.empty?
+      def sizes_from_string(string)
+        width, height = string.to_s.split("x", 2).map(&:to_i)
 
-        raise ArgumentError unless string =~ /(\d*x\d*)/
-
-        width, height = string.scan(/(\d*)x(\d*)/)[0].map(&:to_i)
-
-        width = 0 if width.nil?
-        height = 0 if height.nil?
         {
           width: width,
           height: height,

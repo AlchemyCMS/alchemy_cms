@@ -11,53 +11,16 @@ module Alchemy
       include Alchemy::Picture::Calculations
     end
 
-    THUMBNAIL_WIDTH = 160
-    THUMBNAIL_HEIGHT = 120
-
-    # Returns the default centered image mask for a given size.
-    # If the mask is bigger than the image, the mask is scaled down
-    # so the largest possible part of the image is visible.
-    #
-    def default_mask(mask_arg)
-      mask = mask_arg.dup
-      mask[:width] = image_file_width if mask[:width].zero?
-      mask[:height] = image_file_height if mask[:height].zero?
-
-      crop_size = size_when_fitting({width: image_file_width, height: image_file_height}, mask)
-      top_left = get_top_left_crop_corner(crop_size)
-
-      point_and_mask_to_points(top_left, crop_size)
-    end
-
-    # Returns a size value String for the thumbnail used in essence picture editors.
-    #
-    def thumbnail_size(size_string = "0x0", crop = false)
-      size = sizes_from_string(size_string)
-
-      # only if crop is set do we need to actually parse the size string, otherwise
-      # we take the base image size.
-      if crop
-        size[:width] = get_base_dimensions[:width] if size[:width].zero?
-        size[:height] = get_base_dimensions[:height] if size[:height].zero?
-        size = reduce_to_image(size)
-      else
-        size = get_base_dimensions
-      end
-
-      size = size_when_fitting({width: THUMBNAIL_WIDTH, height: THUMBNAIL_HEIGHT}, size)
-      "#{size[:width]}x#{size[:height]}"
-    end
-
     # Returns the rendered cropped image. Tries to use the crop_from and crop_size
     # parameters. When they can't be parsed, it just crops from the center.
     #
     def crop(size, crop_from = nil, crop_size = nil, upsample = false)
       raise "No size given!" if size.empty?
 
-      render_to = sizes_from_string(size)
+      render_to = inferred_sizes_from_string(size)
       if crop_from && crop_size
         top_left = point_from_string(crop_from)
-        crop_dimensions = sizes_from_string(crop_size)
+        crop_dimensions = inferred_sizes_from_string(crop_size)
         xy_crop_resize(render_to, top_left, crop_dimensions, upsample)
       else
         center_crop(render_to, upsample)
@@ -130,62 +93,18 @@ module Alchemy
       }
     end
 
-    # Given dimensions for a possibly destructive crop operation,
-    # this function returns the top left corner as a Hash
-    # with keys :x, :y
-    #
-    def get_top_left_crop_corner(dimensions)
-      {
-        x: (image_file_width - dimensions[:width]) / 2,
-        y: (image_file_height - dimensions[:height]) / 2,
-      }
-    end
+    def inferred_sizes_from_string(string)
+      sizes = sizes_from_string(string)
+      ratio = image_file_width.to_f / image_file_height
 
-    # Gets the base dimensions (the dimensions of the Picture before scaling).
-    # If anything is missing, it gets padded with zero (Integer 0).
-    # This is the order of precedence: crop_size > image_size
-    def get_base_dimensions
-      if crop_size?
-        sizes_from_string(crop_size)
-      else
-        image_size
+      if sizes[:width].zero?
+        sizes[:width] = image_file_width * ratio
       end
-    end
-
-    # This function takes a target and a base dimensions hash and returns
-    # the dimensions of the image when the base dimensions hash fills
-    # the target.
-    #
-    # Aspect ratio will be preserved.
-    #
-    def size_when_fitting(target, dimensions = get_base_dimensions)
-      zoom = [
-        dimensions[:width].to_f / target[:width],
-        dimensions[:height].to_f / target[:height],
-      ].max
-
-      if zoom == 0.0
-        width = target[:width]
-        height = target[:height]
-      else
-        width = (dimensions[:width] / zoom).round
-        height = (dimensions[:height] / zoom).round
+      if sizes[:height].zero?
+        sizes[:height] = image_file_width / ratio
       end
 
-      {width: width.to_i, height: height.to_i}
-    end
-
-    # Given a point as a Hash with :x and :y, and a mask with
-    # :width and :height, this function returns the area on the
-    # underlying canvas as a Hash of two points
-    #
-    def point_and_mask_to_points(point, mask)
-      {
-        x1: point[:x],
-        y1: point[:y],
-        x2: point[:x] + mask[:width],
-        y2: point[:y] + mask[:height],
-      }
+      sizes
     end
 
     # Converts a dimensions hash to a string of from "20x20"
@@ -218,8 +137,8 @@ module Alchemy
     #
     def reduce_to_image(dimensions)
       {
-        width: [dimensions[:width], image_file_width].min,
-        height: [dimensions[:height], image_file_height].min,
+        width: [dimensions[:width].to_i, image_file_width.to_i].min,
+        height: [dimensions[:height].to_i, image_file_height.to_i].min,
       }
     end
   end

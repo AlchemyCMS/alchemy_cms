@@ -1,0 +1,8 @@
+img {
+  opacity: 1;
+  transition: opacity $transition-duration;
+
+  &.loading {
+    opacity: 0;
+  }
+}

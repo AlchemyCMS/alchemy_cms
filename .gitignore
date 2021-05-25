@@ -10,7 +10,6 @@ tmp
 log
 .sass-cache
 spec/dummy/.browserslistrc
-spec/dummy/app/assets/stylesheets/alchemy/
 spec/dummy/app/javascript/
 spec/dummy/babel.config.js
 spec/dummy/bin/webpack

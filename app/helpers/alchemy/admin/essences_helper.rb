@@ -14,7 +14,7 @@ module Alchemy
           essence.thumbnail_url,
           alt: picture.name,
           class: "img_paddingtop",
-          title: Alchemy.t(:image_name) + ": #{picture.name}",
+          title: Alchemy.t(:image_name, name: picture.name),
         )
       end
 

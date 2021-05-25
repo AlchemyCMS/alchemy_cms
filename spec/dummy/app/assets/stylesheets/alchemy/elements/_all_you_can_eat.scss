@@ -1,0 +1,11 @@
+.all_you_can_eat {
+  .essence_picture {
+    max-width: 50%;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+}

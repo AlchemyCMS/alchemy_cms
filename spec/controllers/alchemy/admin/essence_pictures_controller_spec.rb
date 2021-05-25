@@ -31,10 +31,6 @@ module Alchemy
       end
 
       context "with no picture assigned" do
-        before do
-          expect(essence).to receive(:picture).at_least(:once).and_return(nil)
-        end
-
         it "renders error message" do
           get :crop, params: { id: 1 }
           expect(assigns(:no_image_notice)).to eq(Alchemy.t(:no_image_for_cropper_found))
@@ -42,13 +38,15 @@ module Alchemy
       end
 
       context "with picture assigned" do
+        subject { get :crop, params: { id: 1, picture_id: picture.id } }
+
         let(:default_mask) do
-          {
-            x1: 0,
-            y1: 0,
-            x2: 300,
-            y2: 250,
-          }
+          [
+            0,
+            0,
+            300,
+            250,
+          ]
         end
 
         let(:settings) { {} }
@@ -56,8 +54,8 @@ module Alchemy
         before do
           picture.image_file_width = 300
           picture.image_file_height = 250
-          expect(essence).to receive(:picture).at_least(:once).and_return(picture)
           allow(content).to receive(:settings) { settings }
+          expect(Picture).to receive(:find_by) { picture }
         end
 
         context "with no render_size present in essence" do
@@ -71,15 +69,15 @@ module Alchemy
             end
 
             it "sets sizes to given values" do
-              get :crop, params: { id: 1 }
-              expect(assigns(:min_size)).to eq({ width: 300, height: 250 })
+              subject
+              expect(assigns(:settings)[:min_size]).to eq([300, 250])
             end
           end
 
           context "with no sizes in content settngs" do
             it "sets sizes to zero" do
-              get :crop, params: { id: 1 }
-              expect(assigns(:min_size)).to eq({ width: 0, height: 0 })
+              subject
+              expect(assigns(:settings)[:min_size]).to eq([0, 0])
             end
           end
         end
@@ -88,16 +86,16 @@ module Alchemy
           it "sets sizes from these values" do
             expect(essence).to receive(:render_size).at_least(:once).and_return("30x25")
 
-            get :crop, params: { id: 1 }
-            expect(assigns(:min_size)).to eq({ width: 30, height: 25 })
+            subject
+            expect(assigns(:settings)[:min_size]).to eq([30, 25])
           end
 
           context "when width or height is not fixed" do
             it "infers the height from the image file preserving the aspect ratio" do
               expect(essence).to receive(:render_size).at_least(:once).and_return("30x")
 
-              get :crop, params: { id: 1 }
-              expect(assigns(:min_size)).to eq({ width: 30, height: 0 })
+              subject
+              expect(assigns(:settings)[:min_size]).to eq([30, 25])
             end
 
             context "and aspect ratio set on the contents settings" do
@@ -108,8 +106,8 @@ module Alchemy
               it "does not infer the height from the image file preserving the aspect ratio" do
                 expect(essence).to receive(:render_size).at_least(:once).and_return("x25")
 
-                get :crop, params: { id: 1 }
-                expect(assigns(:min_size)).to eq({ width: 50, height: 25 })
+                subject
+                expect(assigns(:settings)[:min_size]).to eq([50, 25])
               end
             end
           end
@@ -123,35 +121,29 @@ module Alchemy
               it "width is given, it infers the height from width and ratio" do
                 expect(essence).to receive(:render_size).at_least(:once).and_return("30x")
 
-                get :crop, params: { id: 1 }
-                expect(assigns(:min_size)).to eq({ width: 30, height: 60 })
+                subject
+                expect(assigns(:settings)[:min_size]).to eq([30, 60])
               end
             end
 
             it "infers the height from the image file preserving the aspect ratio" do
               expect(essence).to receive(:render_size).at_least(:once).and_return("x25")
 
-              get :crop, params: { id: 1 }
-              expect(assigns(:min_size)).to eq({ width: 0, height: 25 })
+              subject
+              expect(assigns(:settings)[:min_size]).to eq([30, 25])
             end
           end
         end
 
         context "no crop sizes present in essence" do
-          before do
-            expect(essence).to receive(:crop_from).and_return(nil)
-            allow(essence).to receive(:crop_size).and_return(nil)
-          end
-
           it "assigns default mask boxes" do
-            get :crop, params: { id: 1 }
-            expect(assigns(:initial_box)).to eq(default_mask)
-            expect(assigns(:default_box)).to eq(default_mask)
+            subject
+            expect(assigns(:settings)[:default_box]).to eq(default_mask)
           end
         end
 
         context "crop sizes present in essence" do
-          let(:mask) { { "x1" => "0", "y1" => "0", "x2" => "120", "y2" => "160" } }
+          let(:mask) { [0, 0, 120, 160] }
 
           before do
             allow(essence).to receive(:crop_from).and_return("0x0")
@@ -159,10 +151,8 @@ module Alchemy
           end
 
           it "assigns cropping boxes" do
-            expect(essence).to receive(:cropping_mask).and_return(mask)
-            get :crop, params: { id: 1 }
-            expect(assigns(:initial_box)).to eq(mask)
-            expect(assigns(:default_box)).to eq(default_mask)
+            subject
+            expect(assigns(:settings)[:default_box]).to eq(default_mask)
           end
         end
 
@@ -172,8 +162,8 @@ module Alchemy
           end
 
           it "sets ratio to false" do
-            get :crop, params: { id: 1 }
-            expect(assigns(:ratio)).to eq(false)
+            subject
+            expect(assigns(:settings)[:ratio]).to eq(false)
           end
         end
 
@@ -182,9 +172,8 @@ module Alchemy
             { fixed_ratio: "123,45" }
           end
 
-          it "doesn't set a fixed ratio" do
-            get :crop, params: { id: 1 }
-            expect(assigns(:ratio)).to eq(false)
+          it "raises error" do
+            expect { subject }.to raise_error(ArgumentError)
           end
         end
 
@@ -194,8 +183,8 @@ module Alchemy
           end
 
           it "sets a fixed ratio from sizes" do
-            get :crop, params: { id: 1 }
-            expect(assigns(:ratio)).to eq(80.0 / 60.0)
+            subject
+            expect(assigns(:settings)[:ratio]).to eq(80.0 / 60.0)
           end
         end
       end
@@ -225,35 +214,13 @@ module Alchemy
       it "saves the cropping mask" do
         expect(essence).to receive(:update).and_return(true)
         put :update, params: {
-                   id: 1,
-                   essence_picture: {
-                     render_size: "1x1",
-                     crop_from: "0x0",
-                     crop_size: "100x100",
-                   },
-                 }, xhr: true
-      end
-    end
-
-    describe "#assign" do
-      let(:content) { create(:alchemy_content) }
-
-      before do
-        expect(Content).to receive(:find).and_return(content)
-        expect(content).to receive(:essence).at_least(:once).and_return(essence)
-        expect(Picture).to receive(:find_by).and_return(picture)
-      end
-
-      it "should assign a Picture" do
-        put :assign, params: { content_id: "1", picture_id: "1" }, xhr: true
-        expect(assigns(:content).essence.picture).to eq(picture)
-      end
-
-      it "updates the element timestamp" do
-        content.element.update_column(:updated_at, 3.days.ago)
-        expect {
-          put :assign, params: { content_id: "1", picture_id: "1" }, xhr: true
-        }.to change(content.element, :updated_at)
+                       id: 1,
+                       essence_picture: {
+                         render_size: "1x1",
+                         crop_from: "0x0",
+                         crop_size: "100x100",
+                       },
+                     }, xhr: true
       end
     end
   end

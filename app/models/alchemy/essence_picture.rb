@@ -30,11 +30,9 @@ module Alchemy
       optional: true,
     }
 
-    delegate :image_file_width, :image_file_height, :image_file, to: :picture
+    delegate :image_file_width, :image_file_height, :image_file, to: :picture, allow_nil: true
     before_save :fix_crop_values
     before_save :replace_newlines
-
-    include Alchemy::Picture::Transformations
 
     # The url to show the picture.
     #
@@ -94,19 +92,23 @@ module Alchemy
     def thumbnail_url
       return if picture.nil?
 
+      picture.url(thumbnail_url_options) || "alchemy/missing-image.svg"
+    end
+
+    # Thumbnail rendering options
+    #
+    # @return [HashWithIndifferentAccess]
+    def thumbnail_url_options
       crop = crop_values_present? || content.settings[:crop]
-      size = render_size || content.settings[:size]
 
-      options = {
-        size: thumbnail_size(size, crop),
+      {
+        size: "160x120",
         crop: !!crop,
-        crop_from: crop_from.presence,
-        crop_size: crop_size.presence,
+        crop_from: crop_from.presence || default_crop_from&.join("x"),
+        crop_size: crop_size.presence || default_crop_size&.join("x"),
         flatten: true,
-        format: picture.image_file_format,
+        format: picture&.image_file_format || "jpg",
       }
-
-      picture.url(options) || "alchemy/missing-image.svg"
     end
 
     # The name of the picture used as preview text in element editor views.
@@ -119,18 +121,6 @@ module Alchemy
       return "" if picture.nil?
 
       picture.name.to_s[0..max - 1]
-    end
-
-    # A Hash of coordinates suitable for the graphical image cropper.
-    #
-    # @return [Hash]
-    def cropping_mask
-      return if crop_from.blank? || crop_size.blank?
-
-      crop_from = point_from_string(read_attribute(:crop_from))
-      crop_size = sizes_from_string(read_attribute(:crop_size))
-
-      point_and_mask_to_points(crop_from, crop_size)
     end
 
     # Returns a serialized ingredient value for json api
@@ -153,6 +143,19 @@ module Alchemy
       crop_from.present? && crop_size.present?
     end
 
+    # Settings for the graphical JS image cropper
+
+    def image_cropper_settings
+      Alchemy::ImageCropperSettings.new(
+        render_size: dimensions_from_string(render_size.presence || content.settings[:size]),
+        default_crop_from: default_crop_from,
+        default_crop_size: default_crop_size,
+        fixed_ratio: content.settings[:fixed_ratio],
+        image_width: picture&.image_file_width,
+        image_height: picture&.image_file_height,
+      ).to_h
+    end
+
     private
 
     def fix_crop_values
@@ -161,6 +164,56 @@ module Alchemy
           write_attribute crop_value, normalize_crop_value(crop_value)
         end
       end
+    end
+
+    def default_crop_size
+      return nil unless content.settings[:crop] && content.settings[:size]
+
+      mask = inferred_dimensions_from_string(content.settings[:size])
+      zoom = thumbnail_zoom_factor(mask)
+      return nil if zoom.zero?
+
+      [(mask[0] / zoom), (mask[1] / zoom)].map(&:round)
+    end
+
+    def thumbnail_zoom_factor(mask)
+      [
+        mask[0].to_f / (image_file_width || 1),
+        mask[1].to_f / (image_file_height || 1),
+      ].max
+    end
+
+    def default_crop_from
+      return nil unless content.settings[:crop]
+      return nil if default_crop_size.nil?
+
+      [
+        ((image_file_width || 0) - default_crop_size[0]) / 2,
+        ((image_file_height || 0) - default_crop_size[1]) / 2,
+      ].map(&:round)
+    end
+
+    def dimensions_from_string(string)
+      return if string.nil?
+
+      string.split("x", 2).map(&:to_i)
+    end
+
+    def inferred_dimensions_from_string(string)
+      return if string.nil?
+
+      width, height = dimensions_from_string(string)
+      ratio = image_file_width.to_f / image_file_height.to_i
+
+      if width.zero? && ratio.is_a?(Float)
+        width = height * ratio
+      end
+
+      if height.zero? && ratio.is_a?(Float)
+        height = width / ratio
+      end
+
+      [width.to_i, height.to_i]
     end
 
     def normalize_crop_value(crop_value)

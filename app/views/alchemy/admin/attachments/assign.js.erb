@@ -1,0 +1,11 @@
+(function () {
+  var $form_field = $("#<%= @form_field_id -%>")
+  $("#assignable_<%= @assignable_id %> a").attr("href", "#").off("click")
+  $form_field.val("<%= @assignable_id %>")
+  $form_field.parent().find("> .file_name").text("<%= @attachment.name %>")
+  $form_field.parent().find("> .file_icon").html("<%= j render_icon(@attachment.icon_css_class) %>")
+  $form_field.parent().find("> .remove_file_link").removeClass("hidden")
+  Alchemy.closeCurrentDialog(function() {
+    Alchemy.setElementDirty($form_field.closest(".element-editor"))
+  })
+})()

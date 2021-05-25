@@ -1,0 +1,16 @@
+.slider {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  background-color: lightgray;
+
+  .slide {
+    width: 400px;
+    padding: 1rem;
+
+    img {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+}

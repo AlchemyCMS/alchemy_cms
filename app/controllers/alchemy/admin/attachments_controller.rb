@@ -8,6 +8,10 @@ module Alchemy
 
       helper "alchemy/admin/tags"
 
+      before_action(only: :assign) do
+        @attachment = Attachment.find(params[:id])
+      end
+
       def index
         @query = Attachment.ransack(search_filter_params[:q])
         @query.sorts = "name asc" if @query.sorts.empty?
@@ -74,8 +78,8 @@ module Alchemy
         @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:attachment]).permit(
           *common_search_filter_includes + [
             :file_type,
-            :content_id,
-          ],
+            :form_field_id,
+          ]
         )
       end
 

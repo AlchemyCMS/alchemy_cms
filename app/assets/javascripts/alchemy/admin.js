@@ -31,7 +31,6 @@
 //= require alchemy/alchemy.growler
 //= require alchemy/alchemy.gui
 //= require alchemy/alchemy.hotkeys
-//= require alchemy/alchemy.image_cropper
 //= require alchemy/alchemy.image_overlay
 //= require alchemy/alchemy.string_extension
 //= require alchemy/alchemy.link_dialog

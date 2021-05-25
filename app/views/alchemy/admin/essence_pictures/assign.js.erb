@@ -1,4 +1,0 @@
-$('#picture_to_assign_<%= @picture.id %> a').attr('href', '#').off('click');
-$('#<%= @content.dom_id -%>').replaceWith('<%= j render(Alchemy::ContentEditor.new(@content)) %>');
-Alchemy.closeCurrentDialog();
-Alchemy.setElementDirty('#element_<%= @content.element.id %>');

@@ -42,33 +42,6 @@ $.extend Alchemy,
       $overlay.hide()
     return
 
-  # Shows spinner while loading images and
-  # fades the image after its been loaded
-  ImageLoader: (scope = document, options = {fill: '#fff'}) ->
-    $('img', scope).each ->
-      if !this.complete
-        image = $(this).hide()
-        $parent = image.parent()
-        spinner = new Alchemy.Spinner('small', options)
-        spinner.spin $parent[0]
-        image.on 'load', ->
-          spinner.stop()
-          image.fadeIn 400
-        image.on 'error', ->
-          spinner.stop()
-          $parent.html('<span class="icon warn"/>')
-
-  # Removes the picture from essence picture thumbnail
-  removePicture: (selector) ->
-    $form_field = $(selector)
-    $element = $form_field.closest(".element-editor")
-    $content = $form_field.closest(".content_editor")
-    if $form_field[0]
-      $form_field.val ""
-      $content.find(".thumbnail_background").html('<i class="icon far fa-image fa-fw"/>')
-      Alchemy.setElementDirty $element
-    false
-
   # Initializes all select tag with .alchemy_selectbox class as select2 instance
   # Pass a jQuery scope to only init a subset of selectboxes.
   SelectBox: (scope) ->

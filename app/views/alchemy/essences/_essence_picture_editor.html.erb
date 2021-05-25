@@ -5,11 +5,18 @@
   class: essence_picture_editor.css_classes,
   data: essence_picture_editor.data_attributes do %>
   <%= content_label(essence_picture_editor) %>
-  <div class="picture_thumbnail">
-    <span class="picture_tool delete">
-      <%= link_to render_icon(:times), '#',
-        onclick: "return Alchemy.removePicture('##{essence_picture_editor.form_field_id(:picture_id)}');" %>
-    </span>
+  <%= content_tag :div,
+    data: {
+      target_size: essence_picture_editor.essence.content.settings[:size] || [
+        essence_picture_editor.essence.image_file_width.to_i,
+        essence_picture_editor.essence.image_file_height.to_i
+      ].join("x"),
+      image_cropper: essence_picture_editor.essence.thumbnail_url_options[:crop],
+    },
+    class: "picture_thumbnail" do %>
+    <a class="picture_tool delete">
+      <%= render_icon(:times) %>
+    </a>
     <div class="picture_image">
       <div class="thumbnail_background">
         <%- if essence_picture_editor.ingredient -%>
@@ -27,12 +34,16 @@
     <%- end -%>
     <div class="edit_images_bottom">
       <%= render 'alchemy/essences/shared/essence_picture_tools', {
-        content: essence_picture_editor.content
+        essence_picture_editor: essence_picture_editor
       } %>
     </div>
-  </div>
+  <% end %>
   <%= hidden_field_tag essence_picture_editor.form_field_name(:picture_id),
-    essence_picture_editor.ingredient.try!(:id) %>
+    essence_picture_editor.ingredient&.id, data: {
+      picture_id: true,
+      image_file_width: essence_picture_editor.ingredient&.image_file_width,
+      image_file_height: essence_picture_editor.ingredient&.image_file_height
+    } %>
   <%= hidden_field_tag essence_picture_editor.form_field_name(:link),
     essence_picture_editor.essence.link %>
   <%= hidden_field_tag essence_picture_editor.form_field_name(:link_title),
@@ -41,4 +52,8 @@
     essence_picture_editor.essence.link_class_name %>
   <%= hidden_field_tag essence_picture_editor.form_field_name(:link_target),
     essence_picture_editor.essence.link_target %>
+  <%= hidden_field_tag essence_picture_editor.form_field_name(:crop_from),
+    essence_picture_editor.essence.crop_from, data: { crop_from: true } %>
+  <%= hidden_field_tag essence_picture_editor.form_field_name(:crop_size),
+    essence_picture_editor.essence.crop_size, data: { crop_size: true } %>
 <% end %>

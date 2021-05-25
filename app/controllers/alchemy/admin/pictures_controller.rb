@@ -9,11 +9,15 @@ module Alchemy
       helper "alchemy/admin/tags"
 
       before_action :load_resource,
-        only: [:show, :edit, :update, :destroy, :info]
+        only: [:show, :edit, :update, :url, :destroy, :info]
 
       before_action :set_size, only: [:index, :show, :edit_multiple]
 
       authorize_resource class: Alchemy::Picture
+
+      before_action(only: :assign) do
+        @picture = Picture.find(params[:id])
+      end
 
       def index
         @query = Picture.ransack(search_filter_params[:q])
@@ -32,8 +36,19 @@ module Alchemy
       def show
         @previous = @picture.previous(params)
         @next = @picture.next(params)
-        @assignments = @picture.essence_pictures.joins(content: {element: :page})
+        @assignments = @picture.essence_pictures.joins(content: { element: :page })
         render action: "show"
+      end
+
+      def url
+        options = picture_url_params.to_h.symbolize_keys.transform_values! do |value|
+          value.in?(%w[true false]) ? value == "true" : value
+        end
+        render json: {
+          url: @picture.url(options),
+          alt: @picture.name,
+          title: Alchemy.t(:image_name, name: @picture.name),
+        }
       end
 
       def create
@@ -125,8 +140,8 @@ module Alchemy
           end
         else
           cookies[:alchemy_pictures_per_page] = params[:per_page] ||
-            cookies[:alchemy_pictures_per_page] ||
-            pictures_per_page_for_size
+                                                cookies[:alchemy_pictures_per_page] ||
+                                                pictures_per_page_for_size
         end
       end
 
@@ -158,16 +173,27 @@ module Alchemy
       def search_filter_params
         @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES + [:picture_ids]).permit(
           *common_search_filter_includes + [
-            :size,
-            :element_id,
-            :swap,
-            :content_id,
-          ],
+          :size,
+          :form_field_id,
+        ],
         )
       end
 
       def picture_params
         params.require(:picture).permit(:image_file, :upload_hash, :name, :tag_list)
+      end
+
+      def picture_url_params
+        params.permit(
+          :crop_from,
+          :crop_size,
+          :crop,
+          :flatten,
+          :format,
+          :quality,
+          :size,
+          :upsample
+        )
       end
     end
   end

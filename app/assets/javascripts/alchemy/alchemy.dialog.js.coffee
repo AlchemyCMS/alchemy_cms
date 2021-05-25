@@ -251,7 +251,7 @@ window.Alchemy.openDialog = (url, options) ->
 # See Alchemy.Dialog for further options you can add to the data attribute
 #
 window.Alchemy.watchForDialogs = (scope = '#alchemy') ->
-  $(scope).on 'click', '[data-alchemy-dialog]', (event) ->
+  $(scope).on 'click', '[data-alchemy-dialog]:not(.disabled)', (event) ->
     $this = $(this)
     url = $this.attr('href')
     options = $this.data('alchemy-dialog')

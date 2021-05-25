@@ -55,32 +55,5 @@ module Alchemy
         expect(essence_file.link_text).to eq "Download this file"
       end
     end
-
-    describe "#assign" do
-      let(:content) { create(:alchemy_content) }
-
-      before do
-        expect(Content).to receive(:find_by).and_return(content)
-        expect(Attachment).to receive(:find_by).and_return(attachment)
-        allow(content).to receive(:essence).and_return(essence_file)
-      end
-
-      it "should assign @attachment with the Attachment found by attachment_id" do
-        put :assign, params: { content_id: content.id, attachment_id: attachment.id }, xhr: true
-        expect(assigns(:attachment)).to eq(attachment)
-      end
-
-      it "should assign @content.essence.attachment with the attachment found by id" do
-        expect(content.essence).to receive(:attachment=).with(attachment)
-        put :assign, params: { content_id: content.id, attachment_id: attachment.id }, xhr: true
-      end
-
-      it "updates the elements updated_at column" do
-        content.element.update_column(:updated_at, 3.days.ago)
-        expect {
-          put :assign, params: { content_id: content.id, attachment_id: attachment.id }, xhr: true
-        }.to change(content.element, :updated_at)
-      end
-    end
   end
 end

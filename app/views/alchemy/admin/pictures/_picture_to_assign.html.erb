@@ -1,12 +1,12 @@
-<div class="picture_thumbnail assign_image_list_detail <%= size.blank? ? 'medium' : size %>" name="<%= picture_to_assign.name %>" id="picture_to_assign_<%= picture_to_assign.id %>">
+<div class="picture_thumbnail assign_image_list_detail <%= size.blank? ? 'medium' : size %>" name="<%= picture_to_assign.name %>" id="assignable_<%= picture_to_assign.id %>">
   <%= link_to(
     image_tag(
       picture_to_assign.url(size: preview_size(size), flatten: true) || "alchemy/missing-image.svg",
       alt: picture_to_assign.name
     ),
-    alchemy.assign_admin_essence_pictures_path(
-      picture_id: picture_to_assign.id,
-      content_id: @content
+    alchemy.assign_admin_picture_path(
+      id: picture_to_assign.id,
+      form_field_id: @form_field_id
     ),
     remote: true,
     onclick: '$(self).attr("href", "#").off("click"); return false',

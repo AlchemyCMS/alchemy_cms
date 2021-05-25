@@ -7,7 +7,7 @@ RSpec.shared_examples :redirecting_to_picture_library do
     {
       filter: "latest",
       page: 2,
-      q: {name_or_image_file_name_cont: "kitten"},
+      q: { name_or_image_file_name_cont: "kitten" },
       size: "small",
       tagged_with: "cat",
     }
@@ -32,7 +32,7 @@ module Alchemy
         let!(:picture_2) { create(:alchemy_picture, name: "nice beach") }
 
         it "assigns @pictures with filtered pictures" do
-          get :index, params: {q: {name_or_image_file_name_cont: "kitten"}}
+          get :index, params: { q: { name_or_image_file_name_cont: "kitten" } }
           expect(assigns(:pictures)).to include(picture_1)
           expect(assigns(:pictures)).to_not include(picture_2)
         end
@@ -43,7 +43,7 @@ module Alchemy
         let!(:picture_2) { create(:alchemy_picture, tag_list: %w(kitten)) }
 
         it "assigns @pictures with filtered pictures" do
-          get :index, params: {filter: "without_tag"}
+          get :index, params: { filter: "without_tag" }
           expect(assigns(:pictures)).to include(picture_1)
           expect(assigns(:pictures)).to_not include(picture_2)
         end
@@ -55,7 +55,7 @@ module Alchemy
         let!(:picture_3) { create(:alchemy_picture, tag_list: %w(water nature)) }
 
         it "assigns @pictures with filtered pictures" do
-          get :index, params: {tagged_with: "water"}
+          get :index, params: { tagged_with: "water" }
           expect(assigns(:pictures)).to include(picture_1)
           expect(assigns(:pictures)).to_not include(picture_2)
           expect(assigns(:pictures)).to include(picture_3)
@@ -67,7 +67,7 @@ module Alchemy
         let!(:picture_2) { create(:alchemy_picture, tag_list: %w(water nature)) }
 
         it "assigns @pictures with filtered pictures" do
-          get :index, params: {tagged_with: "water,nature"}
+          get :index, params: { tagged_with: "water,nature" }
           expect(assigns(:pictures)).to_not include(picture_1)
           expect(assigns(:pictures)).to include(picture_2)
         end
@@ -105,15 +105,15 @@ module Alchemy
         end
       end
 
-      context "when params[:content_id]" do
+      context "when params[:form_field_id]" do
         context "is set" do
           it "for html requests it renders the archive_overlay partial" do
-            get :index, params: {content_id: 1}
+            get :index, params: { form_field_id: "contents_1_picture_id" }
             expect(response).to render_template(partial: "_archive_overlay")
           end
 
           it "for ajax requests it renders the archive_overlay template" do
-            get :index, params: {content_id: 1}, xhr: true
+            get :index, params: { form_field_id: "contents_1_picture_id" }, xhr: true
             expect(response).to render_template(:archive_overlay)
           end
         end
@@ -130,7 +130,7 @@ module Alchemy
     describe "#create" do
       subject { post :create, params: params }
 
-      let(:params)  { {picture: {name: ""}} }
+      let(:params) { { picture: { name: "" } } }
       let(:picture) { mock_model("Picture", humanized_name: "Cute kittens", to_jq_upload: {}) }
 
       context "with passing validations" do
@@ -160,7 +160,7 @@ module Alchemy
       let(:picture) { create(:alchemy_picture, name: "kitten") }
 
       it "assigns @picture" do
-        get :show, params: {id: picture.id}
+        get :show, params: { id: picture.id }
         expect(assigns(:picture).id).to eq(picture.id)
       end
 
@@ -171,7 +171,7 @@ module Alchemy
         let!(:essence) { create(:alchemy_essence_picture, content: content, picture: picture) }
 
         it "assigns all essence pictures having an assignment to @assignments" do
-          get :show, params: {id: picture.id}
+          get :show, params: { id: picture.id }
           expect(assigns(:assignments)).to eq([essence])
         end
       end
@@ -180,7 +180,7 @@ module Alchemy
         let!(:previous) { create(:alchemy_picture, name: "abraham") }
 
         it "assigns @previous to previous picture" do
-          get :show, params: {id: picture.id}
+          get :show, params: { id: picture.id }
           expect(assigns(:previous).id).to eq(previous.id)
         end
       end
@@ -189,7 +189,7 @@ module Alchemy
         let!(:next_picture) { create(:alchemy_picture, name: "zebra") }
 
         it "assigns @next to next picture" do
-          get :show, params: {id: picture.id}
+          get :show, params: { id: picture.id }
           expect(assigns(:next).id).to eq(next_picture.id)
         end
       end
@@ -212,7 +212,7 @@ module Alchemy
 
     describe "#update" do
       subject do
-        put :update, params: {id: 1, picture: {name: ""}}, xhr: true
+        put :update, params: { id: 1, picture: { name: "" } }, xhr: true
       end
 
       let(:picture) { build_stubbed(:alchemy_picture, name: "Cute kitten") }
@@ -248,7 +248,7 @@ module Alchemy
     end
 
     describe "#update_multiple" do
-      let(:picture)  { build_stubbed(:alchemy_picture) }
+      let(:picture) { build_stubbed(:alchemy_picture) }
       let(:pictures) { [picture] }
 
       before do
@@ -267,13 +267,13 @@ module Alchemy
     end
 
     describe "#delete_multiple" do
-      subject { delete :delete_multiple, params: {picture_ids: picture_ids} }
+      subject { delete :delete_multiple, params: { picture_ids: picture_ids } }
 
       it_behaves_like :redirecting_to_picture_library do
         let(:subject) do
           delete :delete_multiple, params: {
-            picture_ids: %w(1 2),
-          }.merge(params)
+                                     picture_ids: %w(1 2),
+                                   }.merge(params)
         end
       end
 
@@ -351,7 +351,7 @@ module Alchemy
 
       it "destroys the picture and sets and success message" do
         expect(picture).to receive(:destroy)
-        delete :destroy, params: {id: picture.id}
+        delete :destroy, params: { id: picture.id }
         expect(assigns(:picture)).to eq(picture)
         expect(flash[:notice]).not_to be_blank
       end
@@ -362,18 +362,18 @@ module Alchemy
         end
 
         it "shows error notice" do
-          delete :destroy, params: {id: picture.id}
+          delete :destroy, params: { id: picture.id }
           expect(flash[:error]).not_to be_blank
         end
 
         it "redirects to index" do
-          delete :destroy, params: {id: picture.id}
+          delete :destroy, params: { id: picture.id }
           expect(response).to redirect_to admin_pictures_path
         end
       end
 
       it_behaves_like :redirecting_to_picture_library do
-        let(:subject) { delete :destroy, params: {id: picture.id}.merge(params) }
+        let(:subject) { delete :destroy, params: { id: picture.id }.merge(params) }
       end
     end
 
@@ -386,7 +386,7 @@ module Alchemy
       end
 
       context "in overlay" do
-        let(:params) { {content_id: :id, size: size} }
+        let(:params) { { form_field_id: "contents_1_picture_id", size: size } }
 
         context "with params[:size] set to medium" do
           let(:size) { "medium" }
@@ -408,7 +408,7 @@ module Alchemy
       end
 
       context "in archive" do
-        let(:params) { {size: size} }
+        let(:params) { { size: size } }
 
         context "with params[:size] set to medium" do
           let(:size) { "medium" }
@@ -423,7 +423,7 @@ module Alchemy
             it { is_expected.to eq(2) }
 
             context "with params[:per_page] given" do
-              let(:params) { {per_page: 8, size: size} }
+              let(:params) { { per_page: 8, size: size } }
 
               it { is_expected.to eq(8) }
             end
@@ -441,6 +441,17 @@ module Alchemy
 
           it { is_expected.to eq(12) }
         end
+      end
+    end
+
+    describe "#assign" do
+      let(:picture) { create(:alchemy_picture) }
+
+      it "assigns a assignable_id" do
+        put :assign, params: { form_field_id: "contents_1_picture_id", id: picture.id }, xhr: true
+        expect(assigns(:assignable_id)).to eq(picture.id.to_s)
+        expect(assigns(:form_field_id)).to eq("contents_1_picture_id")
+        expect(assigns(:picture).id).to eq(picture.id)
       end
     end
   end
