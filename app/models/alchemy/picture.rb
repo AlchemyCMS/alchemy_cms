@@ -86,7 +86,9 @@ module Alchemy
     dragonfly_accessor :image_file, app: :alchemy_pictures do
       # Preprocess after uploading the picture
       after_assign do |image|
-        self.class.preprocessor_class.new(image).call
+        if has_convertible_format?
+          self.class.preprocessor_class.new(image).call
+        end
       end
     end
 
