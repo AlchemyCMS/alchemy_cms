@@ -128,6 +128,9 @@
   hint: true
   taggable: true
   ingredients:
+    - role: headline
+      type: Headline
+      hint: true
     - role: text
       type: Text
       hint: true
@@ -160,6 +163,18 @@
       deprecated: true
     - role: link
       type: Link
+      hint: true
+    - role: node
+      type: Node
+      hint: true
+    - role: audio
+      type: Audio
+      hint: true
+    - role: video
+      type: Video
+      hint: true
+    - role: page
+      type: Page
       hint: true
 
 - name: <%= 'erb_' + 'element' %>

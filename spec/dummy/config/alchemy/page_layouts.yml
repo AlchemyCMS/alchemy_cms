@@ -1,5 +1,9 @@
 - name: index
   unique: true
+  elements:
+    - all_you_can_eat_ingredients
+  autogenerate:
+    - all_you_can_eat_ingredients
 
 - name: readonly
   fixed_attributes:
