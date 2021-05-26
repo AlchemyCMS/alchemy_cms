@@ -28,6 +28,10 @@ module Alchemy
         "has_tinymce#{has_custom_tinymce_config? ? " #{element.name}_#{role}" : ""}"
       end
 
+      def has_tinymce?
+        true
+      end
+
       private
 
       def strip_content

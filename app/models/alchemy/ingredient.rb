@@ -197,6 +197,11 @@ module Alchemy
       !!definition[:deprecated]
     end
 
+    # @return [Boolean]
+    def has_tinymce?
+      false
+    end
+
     private
 
     def hint_translation_attribute

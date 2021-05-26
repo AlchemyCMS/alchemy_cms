@@ -46,6 +46,12 @@ RSpec.describe Alchemy::Ingredients::Richtext do
     end
   end
 
+  describe "#has_tinymce?" do
+    subject { richtext_ingredient.has_tinymce? }
+
+    it { is_expected.to be(true) }
+  end
+
   describe "preview_text" do
     subject { richtext_ingredient.tap(&:save).preview_text }
 

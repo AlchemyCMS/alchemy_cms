@@ -268,4 +268,12 @@ RSpec.describe Alchemy::Ingredient do
       it { is_expected.to be true }
     end
   end
+
+  describe "#has_tinymce?" do
+    subject { ingredient.has_tinymce? }
+
+    let(:ingredient) { Alchemy::Ingredient.build(role: "headline", element: element) }
+
+    it { is_expected.to be(false) }
+  end
 end
