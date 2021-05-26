@@ -1,7 +1,10 @@
 <script>
   // Populate custom tinymce configurations
-  <% Alchemy::Tinymce.custom_config_contents(@page).each do |content| %>
-  Alchemy.Tinymce.customConfigs["<%= content['element'] %>_<%= content['name'] %>"] = {
+  <% (
+    Alchemy::Tinymce.custom_config_contents(@page) +
+    Alchemy::Tinymce.custom_config_ingredients(@page)
+  ).each do |content| %>
+  Alchemy.Tinymce.customConfigs["<%= content['element'] %>_<%= content['name'] || content['role'] %>"] = {
     <% content.fetch('settings', {}).fetch('tinymce', {}).each do |k, v| %>
     <%= k %>: <%== v.to_json %>,
     <% end %>

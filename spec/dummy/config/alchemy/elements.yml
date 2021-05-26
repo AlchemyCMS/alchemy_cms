@@ -143,6 +143,9 @@
     - role: richtext
       type: Richtext
       hint: true
+      settings:
+        tinymce:
+          toolbar: bold italic underline | undo redo | pastetext alchemy_link unlink | fullscreen code
     - role: select
       type: Select
       hint: true
