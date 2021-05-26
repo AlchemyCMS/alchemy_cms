@@ -1,9 +1,9 @@
 <%- html_options = local_assigns.fetch(:html_options, {}) -%>
 
-<%= content_tag "h#{content.essence.level}",
-    content.essence.ingredient,
+<%= content_tag "h#{headline_view.level}",
+    headline_view.value,
     class: [
-      content.essence.size ? "h#{content.essence.size}" : nil,
+      headline_view.size ? "h#{headline_view.size}" : nil,
       html_options[:class]
     ]
 %>

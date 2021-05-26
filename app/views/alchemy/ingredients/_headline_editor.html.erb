@@ -1,33 +1,30 @@
 <%= content_tag :div,
-  id: essence_headline_editor.dom_id,
-  class: essence_headline_editor.css_classes,
-  data: essence_headline_editor.data_attributes do %>
-  <%= content_label(essence_headline_editor) %>
+  class: headline_editor.css_classes,
+  data: headline_editor.data_attributes do %>
+  <%= ingredient_label(headline_editor, counter: headline_editor_counter) %>
   <%= text_field_tag(
-    essence_headline_editor.form_field_name,
-    essence_headline_editor.essence.body,
-    id: essence_headline_editor.form_field_id
+    headline_editor.form_field_name(counter: headline_editor_counter),
+    headline_editor.value
   ) %>
 
   <div class="input-row">
-    <% essence = essence_headline_editor.essence %>
-    <% if essence.level_options.length > 1 %>
+    <% if headline_editor.level_options.length > 1 %>
       <div class="input-column">
         <%= label_tag Alchemy::EssenceHeadline.human_attribute_name(:level) %>
         <%= select_tag(
-          essence_headline_editor.form_field_name(:level),
-          options_for_select(essence_headline_editor.essence.level_options, essence_headline_editor.essence.level),
+          headline_editor.form_field_name(:level, counter: headline_editor_counter),
+          options_for_select(headline_editor.level_options, headline_editor.level),
           class: "alchemy_selectbox full_width"
         ) %>
       </div>
     <% end %>
 
-    <% if essence.size_options.length > 1 %>
+    <% if headline_editor.size_options.length > 1 %>
       <div class="input-column">
         <%= label_tag Alchemy::EssenceHeadline.human_attribute_name(:size) %>
         <%= select_tag(
-          essence_headline_editor.form_field_name(:size),
-          options_for_select(essence_headline_editor.essence.size_options, essence_headline_editor.essence.size),
+          headline_editor.form_field_name(:size, counter: headline_editor_counter),
+          options_for_select(headline_editor.size_options, headline_editor.size),
           class: "alchemy_selectbox full_width"
         ) %>
       </div>
