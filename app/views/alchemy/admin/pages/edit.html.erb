@@ -197,7 +197,7 @@
       Alchemy.SortableElements(<%= @page.id %>, '<%= form_authenticity_token %>');
       Alchemy.ElementEditors.init();
       Alchemy.SelectBox('.element-editor');
-      Alchemy.Tinymce.init(<%= @page.richtext_contents_ids.to_json %>);
+      Alchemy.Tinymce.init(<%= (@page.richtext_contents_ids + @page.richtext_ingredients_ids).to_json %>);
       $('#fixed-elements').tabs().tabs('paging', {
         follow: true,
         followOnSelect: true,

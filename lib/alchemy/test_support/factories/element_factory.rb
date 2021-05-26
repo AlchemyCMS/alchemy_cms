@@ -28,5 +28,9 @@ FactoryBot.define do
     trait :with_contents do
       autogenerate_contents { true }
     end
+
+    trait :with_ingredients do
+      autogenerate_ingredients { true }
+    end
   end
 end

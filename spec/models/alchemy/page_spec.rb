@@ -1933,6 +1933,62 @@ module Alchemy
       end
     end
 
+    describe "#richtext_ingredients_ids" do
+      let!(:page) { create(:alchemy_page) }
+
+      let!(:expanded_element) do
+        create :alchemy_element, :with_ingredients,
+          name: "element_with_ingredients",
+          page_version: page.draft_version,
+          folded: false
+      end
+
+      let!(:folded_element) do
+        create :alchemy_element, :with_ingredients,
+          name: "element_with_ingredients",
+          page_version: page.draft_version,
+          folded: true
+      end
+
+      subject(:richtext_ingredients_ids) { page.richtext_ingredients_ids }
+
+      it "returns ingredient ids for all expanded elements that have tinymce enabled" do
+        expanded_rtf_ingredients = expanded_element.ingredients.richtexts
+        expect(richtext_ingredients_ids).to eq(expanded_rtf_ingredients.pluck(:id))
+        folded_rtf_ingredient = folded_element.ingredients.richtexts.first
+        expect(richtext_ingredients_ids).to_not include(folded_rtf_ingredient.id)
+      end
+
+      context "with nested elements" do
+        let!(:nested_expanded_element) do
+          create :alchemy_element, :with_ingredients,
+            name: "element_with_ingredients",
+            page_version: page.draft_version,
+            parent_element: expanded_element,
+            folded: false
+        end
+
+        let!(:nested_folded_element) do
+          create :alchemy_element, :with_ingredients,
+            name: "element_with_ingredients",
+            page_version: page.draft_version,
+            parent_element: folded_element,
+            folded: true
+        end
+
+        it "returns ingredient ids for all expanded nested elements that have tinymce enabled" do
+          expanded_rtf_ingredients = expanded_element.ingredients.richtexts
+          nested_expanded_rtf_ingredients = nested_expanded_element.ingredients.richtexts
+          rtf_ingredient_ids = expanded_rtf_ingredients.pluck(:id) + nested_expanded_rtf_ingredients.pluck(:id)
+          expect(richtext_ingredients_ids.sort).to eq(rtf_ingredient_ids)
+
+          nested_folded_rtf_ingredient = nested_folded_element.ingredients.richtexts.first
+
+          expect(richtext_ingredients_ids).to_not include(nested_folded_rtf_ingredient.id)
+        end
+      end
+    end
+
     describe "#fixed_attributes" do
       let(:page) { Alchemy::Page.new }
 
