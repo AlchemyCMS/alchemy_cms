@@ -11,6 +11,40 @@ RSpec.describe Alchemy::Ingredient do
     let(:subject) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
   end
 
+  describe "scopes" do
+    let(:element) do
+      build(:alchemy_element, name: "all_you_can_eat_ingredients", autogenerate_ingredients: false)
+    end
+
+    %w[
+      audio
+      boolean
+      datetime
+      file
+      headline
+      html
+      link
+      node
+      page
+      picture
+      richtext
+      select
+      text
+      video
+    ].each do |type|
+      describe ".#{type}s" do
+        subject { described_class.send(type.pluralize) }
+
+        let(type.to_sym) { "Alchemy::Ingredients::#{type.classify}".constantize.create(role: type, element: element) }
+        let!(:ingredients) { [public_send(type)] }
+
+        it "returns only #{type} ingredients" do
+          is_expected.to eq([public_send(type)])
+        end
+      end
+    end
+  end
+
   describe ".build" do
     subject { described_class.build(attributes) }
 

@@ -15,6 +15,21 @@ module Alchemy
     validates :type, presence: true
     validates :role, presence: true
 
+    scope :audios, -> { where(type: "Alchemy::Ingredients::Audio") }
+    scope :booleans, -> { where(type: "Alchemy::Ingredients::Boolean") }
+    scope :datetimes, -> { where(type: "Alchemy::Ingredients::Datetime") }
+    scope :files, -> { where(type: "Alchemy::Ingredients::File") }
+    scope :headlines, -> { where(type: "Alchemy::Ingredients::Headline") }
+    scope :htmls, -> { where(type: "Alchemy::Ingredients::Html") }
+    scope :links, -> { where(type: "Alchemy::Ingredients::Link") }
+    scope :nodes, -> { where(type: "Alchemy::Ingredients::Node") }
+    scope :pages, -> { where(type: "Alchemy::Ingredients::Page") }
+    scope :pictures, -> { where(type: "Alchemy::Ingredients::Picture") }
+    scope :richtexts, -> { where(type: "Alchemy::Ingredients::Richtext") }
+    scope :selects, -> { where(type: "Alchemy::Ingredients::Select") }
+    scope :texts, -> { where(type: "Alchemy::Ingredients::Text") }
+    scope :videos, -> { where(type: "Alchemy::Ingredients::Video") }
+
     class << self
       # Builds concrete ingredient class as described in the +elements.yml+
       def build(attributes = {})
