@@ -1,6 +1,10 @@
 # Change Log
 
-## 4.0.5 (unreleased)
+## 4.0.6 (2021-05-28)
+
+- Allow "data" key for module navigations [#1512](https://github.com/AlchemyCMS/alchemy_cms/pull/1512) ([mamhoff](https://github.com/mamhoff))
+
+## 4.0.5 (2018-09-17)
 
 - Do not cache sitemap in Turbolinks [#1463](https://github.com/AlchemyCMS/alchemy_cms/pull/1463) ([tvdeyen](https://github.com/tvdeyen))
 - Skip folded deeper levels when rendering page tree [#1324](https://github.com/AlchemyCMS/alchemy_cms/pull/1324) ([pascalj](https://github.com/pascalj))
