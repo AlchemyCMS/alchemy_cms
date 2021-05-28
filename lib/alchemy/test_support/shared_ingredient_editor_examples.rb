@@ -6,17 +6,16 @@ RSpec.shared_examples_for "an alchemy ingredient editor" do
   before do
     view.class.send :include, Alchemy::Admin::BaseHelper
     view.class.send :include, Alchemy::Admin::IngredientsHelper
+    allow(element_editor).to receive(:ingredients) { [ingredient_editor] }
   end
 
-  before do
-    render partial: ingredient_editor.to_partial_path, locals: {
-      "#{ingredient_editor.partial_name}_editor".to_sym => ingredient_editor,
-      "#{ingredient_editor.partial_name}_editor_counter".to_sym => 0,
-    }
+  subject do
+    render element_editor
+    rendered
   end
 
   it "renders a ingredient editor", :aggregate_failures do
-    expect(rendered).to have_css(".ingredient-editor.#{ingredient_editor.partial_name}")
-    expect(rendered).to have_css("[data-ingredient-role]")
+    is_expected.to have_css(".ingredient-editor.#{ingredient_editor.partial_name}")
+    is_expected.to have_css("[data-ingredient-role]")
   end
 end

@@ -55,24 +55,24 @@ RSpec.describe Alchemy::IngredientEditor do
 
   describe "#form_field_name" do
     it "returns a name for form fields with value as default" do
-      expect(ingredient_editor.form_field_name(counter: 0)).to eq("element[ingredients_attributes][0][value]")
+      expect(ingredient_editor.form_field_name).to eq("element[ingredients_attributes][0][value]")
     end
 
     context "with a value given" do
       it "returns a name for form fields for that column" do
-        expect(ingredient_editor.form_field_name(:link_title, counter: 0)).to eq("element[ingredients_attributes][0][link_title]")
+        expect(ingredient_editor.form_field_name(:link_title)).to eq("element[ingredients_attributes][0][link_title]")
       end
     end
   end
 
   describe "#form_field_id" do
     it "returns a id value for form fields with ingredient as default" do
-      expect(ingredient_editor.form_field_id(counter: 0)).to eq("element_ingredients_attributes_0_value")
+      expect(ingredient_editor.form_field_id).to eq("element_ingredients_attributes_0_value")
     end
 
     context "with a value given" do
       it "returns a id value for form fields for that column" do
-        expect(ingredient_editor.form_field_id(:link_title, counter: 0)).to eq("element_ingredients_attributes_0_link_title")
+        expect(ingredient_editor.form_field_id(:link_title)).to eq("element_ingredients_attributes_0_link_title")
       end
     end
   end

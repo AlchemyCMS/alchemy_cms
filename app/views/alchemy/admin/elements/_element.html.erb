@@ -25,7 +25,7 @@
         <div id="element_<%= element.id %>_errors" class="element_errors"></div>
         <% if element.has_ingredients_defined? %>
           <div class="element-ingredient-editors">
-            <%= render element.ingredients %>
+            <%= render element.ingredients, element_form: f %>
           </div>
         <% else %>
           <div id="element_<%= element.id %>_content" class="element-content-editors">

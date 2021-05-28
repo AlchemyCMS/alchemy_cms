@@ -3,7 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_text_editor" do
-  let(:element) { build(:alchemy_element, name: "element_with_ingredients") }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element_editor) { Alchemy::ElementEditor.new(element) }
   let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", value: "1234", element: element) }
   let(:settings) { {} }
 
@@ -12,11 +13,9 @@ RSpec.describe "alchemy/ingredients/_text_editor" do
   before do
     view.class.send :include, Alchemy::Admin::BaseHelper
     view.class.send :include, Alchemy::Admin::IngredientsHelper
+    allow(element_editor).to receive(:ingredients) { [Alchemy::IngredientEditor.new(ingredient)] }
     allow(ingredient).to receive(:settings) { settings }
-    render partial: "alchemy/ingredients/text_editor", locals: {
-      text_editor: Alchemy::IngredientEditor.new(ingredient),
-      text_editor_counter: 0,
-    }
+    render element_editor
   end
 
   context "with no input type set" do

@@ -3,7 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_richtext_editor" do
-  let(:element) { build(:alchemy_element, name: "element_with_ingredients") }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element_editor) { Alchemy::ElementEditor.new(element) }
   let(:ingredient) { Alchemy::Ingredients::Richtext.new(role: "text", value: "<p>1234</p>", element: element) }
   let(:settings) { {} }
 
@@ -13,10 +14,8 @@ RSpec.describe "alchemy/ingredients/_richtext_editor" do
     view.class.send :include, Alchemy::Admin::BaseHelper
     view.class.send :include, Alchemy::Admin::IngredientsHelper
     allow(ingredient).to receive(:settings) { settings }
-    render partial: "alchemy/ingredients/richtext_editor", locals: {
-      richtext_editor: Alchemy::IngredientEditor.new(ingredient),
-      richtext_editor_counter: 0,
-    }
+    allow(element_editor).to receive(:ingredients) { [Alchemy::IngredientEditor.new(ingredient)] }
+    render element_editor
   end
 
   it "renders a text area for tinymce" do

@@ -3,7 +3,8 @@
 require "rails_helper"
 
 describe "alchemy/ingredients/_html_editor" do
-  let(:element) { build(:alchemy_element) }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element_editor) { Alchemy::ElementEditor.new(element) }
 
   let(:ingredient) do
     stub_model(
@@ -17,16 +18,16 @@ describe "alchemy/ingredients/_html_editor" do
   let(:settings) { {} }
 
   subject do
-    render partial: "alchemy/ingredients/html_editor", locals: {
-      html_editor: html_editor,
-      html_editor_counter: 0,
-    }
+    render element_editor
     rendered
   end
 
   before do
+    allow(element_editor).to receive(:ingredients) { [html_editor] }
     view.class.send(:include, Alchemy::Admin::IngredientsHelper)
   end
+
+  it_behaves_like "an alchemy ingredient editor"
 
   it "renders a textarea" do
     is_expected.to have_selector("textarea[name='element[ingredients_attributes][0][value]']")

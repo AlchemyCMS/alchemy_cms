@@ -60,12 +60,12 @@ module Alchemy
     #
     #   <%= text_field_tag text_editor.form_field_name(:link), text_editor.value %>
     #
-    def form_field_name(column = "value", counter:)
-      "element[ingredients_attributes][#{counter}][#{column}]"
+    def form_field_name(column = "value")
+      "element[ingredients_attributes][#{form_field_counter}][#{column}]"
     end
 
-    def form_field_id(column = "value", counter:)
-      "element_ingredients_attributes_#{counter}_#{column}"
+    def form_field_id(column = "value")
+      "element_ingredients_attributes_#{form_field_counter}_#{column}"
     end
 
     # Fixes Rails partial renderer calling to_model on the object
@@ -143,6 +143,12 @@ module Alchemy
           default: Alchemy.t(:ingredient_deprecated),
         )
       end
+    end
+
+    private
+
+    def form_field_counter
+      element.definition.fetch(:ingredients, []).index { |i| i[:role] == role }
     end
   end
 end

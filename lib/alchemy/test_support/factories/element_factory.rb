@@ -30,6 +30,7 @@ FactoryBot.define do
     end
 
     trait :with_ingredients do
+      name { "element_with_ingredients" }
       autogenerate_ingredients { true }
     end
   end

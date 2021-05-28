@@ -3,8 +3,8 @@
 
 <%= link_to_dialog render_icon(:crop),
   alchemy.crop_admin_essence_picture_path(picture_editor.ingredient, {
-    crop_from_form_field_id: picture_editor.form_field_id(:crop_from, counter: picture_editor_counter),
-    crop_size_form_field_id: picture_editor.form_field_id(:crop_size, counter: picture_editor_counter),
+    crop_from_form_field_id: picture_editor.form_field_id(:crop_from),
+    crop_size_form_field_id: picture_editor.form_field_id(:crop_size),
     picture_id: picture_editor.picture&.id
   }), {
     size: "1080x615",
@@ -20,7 +20,7 @@
 
 <%= link_to_dialog render_icon("file-image", style: "regular"),
   alchemy.admin_pictures_path(
-    form_field_id: picture_editor.form_field_id(:picture_id, counter: picture_editor_counter)
+    form_field_id: picture_editor.form_field_id(:picture_id)
   ),
   {
     title: (picture_editor.picture ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)),

@@ -1,9 +1,8 @@
 <%= content_tag :div,
   class: html_editor.css_classes,
   data: html_editor.data_attributes do %>
-  <%= ingredient_label(html_editor, counter: html_editor_counter) %>
-  <%= text_area_tag(
-    html_editor.form_field_name(counter: html_editor_counter),
-    html_editor.value
-  ) %>
+  <%= element_form.fields_for(:ingredients, html_editor.ingredient) do |f| %>
+    <%= ingredient_label(html_editor) %>
+    <%= f.text_area :value %>
+  <% end %>
 <% end %>

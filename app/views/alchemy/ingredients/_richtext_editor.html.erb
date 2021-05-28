@@ -1,13 +1,12 @@
 <%= content_tag :div,
   class: richtext_editor.css_classes,
   data: richtext_editor.data_attributes do %>
-  <%= ingredient_label(richtext_editor, counter: richtext_editor_counter) %>
-  <div class="tinymce_container">
-    <%= text_area_tag(
-      richtext_editor.form_field_name(counter: richtext_editor_counter),
-      richtext_editor.value,
-      class: richtext_editor.tinymce_class_name,
-      id: "tinymce_#{richtext_editor.id}"
-    ) %>
-  </div>
+  <%= element_form.fields_for(:ingredients, richtext_editor.ingredient) do |f| %>
+    <%= ingredient_label(richtext_editor) %>
+    <div class="tinymce_container">
+      <%= f.text_area :value,
+        class: richtext_editor.tinymce_class_name,
+        id: "tinymce_#{richtext_editor.id}" %>
+    </div>
+  <% end %>
 <% end %>

@@ -3,7 +3,9 @@
 require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_video_editor" do
-  let(:element) { build(:alchemy_element) }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element_editor) { Alchemy::ElementEditor.new(element) }
+  let(:attachment) { build_stubbed(:alchemy_attachment) }
 
   let(:ingredient) do
     stub_model(
@@ -18,10 +20,7 @@ RSpec.describe "alchemy/ingredients/_video_editor" do
   let(:settings) { {} }
 
   subject do
-    render partial: "alchemy/ingredients/video_editor", locals: {
-      video_editor: video_editor,
-      video_editor_counter: 0,
-    }
+    render element_editor
     rendered
   end
 
@@ -29,11 +28,12 @@ RSpec.describe "alchemy/ingredients/_video_editor" do
     view.class.send(:include, Alchemy::Admin::IngredientsHelper)
     allow(ingredient).to receive(:settings) { settings }
     allow(video_editor).to receive(:attachment) { attachment }
+    allow(element_editor).to receive(:ingredients) { [Alchemy::IngredientEditor.new(ingredient)] }
   end
 
-  context "with attachment present" do
-    let(:attachment) { build_stubbed(:alchemy_attachment) }
+  it_behaves_like "an alchemy ingredient editor"
 
+  context "with attachment present" do
     it "renders a hidden field with attachment id" do
       is_expected.to have_selector("input[type='hidden'][value='#{attachment.id}']")
     end

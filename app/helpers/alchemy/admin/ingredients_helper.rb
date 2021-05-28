@@ -31,9 +31,9 @@ module Alchemy
         end
       end
 
-      # Renders the label and a remove link for a ingredient.
-      def ingredient_label(ingredient, counter:)
-        label_tag ingredient.form_field_id(counter: counter) do
+      # Renders the label and hint for a ingredient.
+      def ingredient_label(ingredient, column = :value)
+        label_tag ingredient.form_field_id(column) do
           [render_ingredient_role(ingredient), render_hint_for(ingredient)].compact.join("&nbsp;").html_safe
         end
       end

@@ -192,32 +192,61 @@ module Alchemy
     end
 
     describe "#update" do
-      let(:element) { build_stubbed(:alchemy_element) }
-      let(:contents_parameters) { ActionController::Parameters.new(1 => {ingredient: "Title"}) }
-      let(:element_parameters) { ActionController::Parameters.new(tag_list: "Tag 1", public: false) }
-
       before do
-        expect(Element).to receive(:find).and_return element
-        expect(controller).to receive(:contents_params).and_return(contents_parameters)
+        expect(Element).to receive(:find).at_least(:once).and_return(element)
       end
 
-      it "updates all contents in element" do
-        expect(element).to receive(:update_contents).with(contents_parameters)
-        put :update, params: {id: element.id}, xhr: true
+      context "with element having contents" do
+        subject do
+          put :update, params: { id: element.id, element: element_params, contents: contents_params }, xhr: true
+        end
+
+        let(:element) { create(:alchemy_element, :with_contents) }
+        let(:content) { element.contents.first }
+        let(:element_params) { { tag_list: "Tag 1", public: false } }
+        let(:contents_params) { { content.id => { ingredient: "Title" } } }
+
+        it "updates all contents in element" do
+          expect { subject }.to change { content.reload.ingredient }.to("Title")
+        end
+
+        it "updates the element" do
+          expect { subject }.to change { element.tag_list }.to(["Tag 1"])
+        end
+
+        context "failed validations" do
+          it "displays validation failed notice" do
+            expect(element).to receive(:update_contents).and_return(false)
+            subject
+            expect(assigns(:element_validated)).to be_falsey
+          end
+        end
       end
 
-      it "updates the element" do
-        expect(controller).to receive(:element_params).and_return(element_parameters)
-        expect(element).to receive(:update_contents).and_return(true)
-        expect(element).to receive(:update).with(element_parameters).and_return(true)
-        put :update, params: {id: element.id}, xhr: true
-      end
+      context "with element having ingredients" do
+        subject do
+          put :update, params: { id: element.id, element: element_params }, xhr: true
+        end
 
-      context "failed validations" do
-        it "displays validation failed notice" do
-          expect(element).to receive(:update_contents).and_return(false)
-          put :update, params: {id: element.id}, xhr: true
-          expect(assigns(:element_validated)).to be_falsey
+        let(:element) { create(:alchemy_element, :with_ingredients) }
+        let(:ingredient) { element.ingredients.first }
+        let(:ingredients_attributes) { { 0 => { id: ingredient.id, value: "Title" } } }
+        let(:element_params) { { tag_list: "Tag 1", public: false, ingredients_attributes: ingredients_attributes } }
+
+        it "updates all ingredients in element" do
+          expect { subject }.to change { ingredient.value }.to("Title")
+        end
+
+        it "updates the element" do
+          expect { subject }.to change { element.tag_list }.to(["Tag 1"])
+        end
+
+        context "failed validations" do
+          it "displays validation failed notice" do
+            expect(element).to receive(:update).and_return(false)
+            subject
+            expect(assigns(:element_validated)).to be_falsey
+          end
         end
       end
     end

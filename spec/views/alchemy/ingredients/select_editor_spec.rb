@@ -3,7 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_select_editor" do
-  let(:element) { build(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element_editor) { Alchemy::ElementEditor.new(element) }
   let(:ingredient) { Alchemy::Ingredients::Select.new(role: "select", value: "blue", element: element) }
 
   it_behaves_like "an alchemy ingredient editor"
@@ -11,12 +12,11 @@ RSpec.describe "alchemy/ingredients/_select_editor" do
   before do
     view.class.send :include, Alchemy::Admin::BaseHelper
     view.class.send :include, Alchemy::Admin::IngredientsHelper
+    allow(element_editor).to receive(:ingredients) { [Alchemy::IngredientEditor.new(ingredient)] }
   end
 
   subject do
-    render "alchemy/ingredients/select_editor",
-      select_editor: Alchemy::IngredientEditor.new(ingredient),
-      select_editor_counter: 0
+    render element_editor
     rendered
   end
 

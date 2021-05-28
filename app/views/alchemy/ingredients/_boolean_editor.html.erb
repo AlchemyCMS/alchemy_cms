@@ -1,10 +1,11 @@
 <%= content_tag :div,
   class: boolean_editor.css_classes,
   data: boolean_editor.data_attributes do %>
-  <input type="hidden" value="0" name="<%= boolean_editor.form_field_name(counter: boolean_editor_counter) %>">
-  <%= check_box_tag boolean_editor.form_field_name(counter: boolean_editor_counter), 1, boolean_editor.value %>
-  <label for="<%= boolean_editor.form_field_id(counter: boolean_editor_counter) %>" style="display: inline">
-    <%= render_ingredient_role(boolean_editor) %>
-  </label>
-  <%= render_hint_for(boolean_editor) %>
+  <%= element_form.fields_for(:ingredients, boolean_editor.ingredient) do |f| %>
+    <%= f.label :value, style: "display: inline-block" do %>
+      <%= f.check_box :value %>
+      <%= render_ingredient_role(boolean_editor) %>
+    <% end %>
+    <%= render_hint_for(boolean_editor) %>
+  <% end %>
 <% end %>

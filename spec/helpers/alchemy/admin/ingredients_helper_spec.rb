@@ -8,10 +8,18 @@ describe Alchemy::Admin::IngredientsHelper do
   let(:ingredient_editor) { Alchemy::IngredientEditor.new(ingredient) }
 
   describe "#ingredient_label" do
-    subject { helper.ingredient_label(ingredient_editor, counter: 0) }
+    subject { helper.ingredient_label(ingredient_editor) }
 
     it "has for attribute set to ingredient form field id" do
       is_expected.to have_selector('label[for="element_ingredients_attributes_0_value"]')
+    end
+
+    context "with another column given" do
+      subject { helper.ingredient_label(ingredient_editor, :picture_id) }
+
+      it "has for attribute set to ingredient form field id for that column" do
+        is_expected.to have_selector('label[for="element_ingredients_attributes_0_picture_id"]')
+      end
     end
 
     context "with a hint" do

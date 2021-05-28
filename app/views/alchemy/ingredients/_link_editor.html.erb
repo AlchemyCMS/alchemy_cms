@@ -1,26 +1,24 @@
 <%= content_tag :div,
   class: link_editor.css_classes,
   data: link_editor.data_attributes do %>
-  <%= ingredient_label(link_editor, counter: link_editor_counter) %>
-  <%= text_field_tag "", link_editor.value,
-    class: "thin_border text_with_icon disabled",
-    name: nil,
-    id: nil,
-    disabled: true
-  %>
-  <%= hidden_field_tag link_editor.form_field_name(counter: link_editor_counter),
-    link_editor.value %>
-  <%= hidden_field_tag link_editor.form_field_name(:link_title, counter: link_editor_counter),
-    link_editor.link_title %>
-  <%= hidden_field_tag link_editor.form_field_name(:link_class_name, counter: link_editor_counter),
-    link_editor.link_class_name %>
-  <%= hidden_field_tag link_editor.form_field_name(:link_target, counter: link_editor_counter),
-    link_editor.link_target %>
+  <%= element_form.fields_for(:ingredients, link_editor.ingredient) do |f| %>
+    <%= ingredient_label(link_editor) %>
+    <%= f.text_field :value,
+      class: "thin_border text_with_icon disabled",
+      name: nil,
+      id: nil,
+      disabled: true
+    %>
+    <%= f.hidden_field :value %>
+    <%= f.hidden_field :link_title %>
+    <%= f.hidden_field :link_class_name %>
+    <%= f.hidden_field :link_target %>
+  <% end %>
   <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: link_editor %>
 <% end %>
 
 <script>
-  $("#<%= link_editor.form_field_id(:value, counter: link_editor_counter) %>").on("change", function() {
+  $("#<%= link_editor.form_field_id %>").on("change", function() {
     $("[data-ingredient-id='<%= link_editor.id %>'] input.text_with_icon").val($(this).val());
   });
 </script>

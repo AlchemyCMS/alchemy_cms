@@ -4,7 +4,8 @@ require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_picture_editor" do
   let(:picture) { stub_model(Alchemy::Picture) }
-  let(:element) { build(:alchemy_element) }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element_editor) { Alchemy::ElementEditor.new(element) }
 
   let(:ingredient) do
     stub_model(
@@ -21,16 +22,12 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
   it_behaves_like "an alchemy ingredient editor"
 
   before do
-    view.class.send(:include, Alchemy::Admin::EssencesHelper)
+    allow(element_editor).to receive(:ingredients) { [Alchemy::IngredientEditor.new(ingredient)] }
     allow(ingredient).to receive(:settings) { settings }
   end
 
   subject do
-    render partial: "alchemy/ingredients/picture_editor",
-           locals: {
-             picture_editor: Alchemy::IngredientEditor.new(ingredient),
-             picture_editor_counter: 0,
-           }
+    render element_editor
     rendered
   end
 

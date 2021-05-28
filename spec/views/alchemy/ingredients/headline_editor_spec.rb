@@ -3,7 +3,8 @@
 require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_headline_editor" do
-  let(:element) { build(:alchemy_element) }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element_editor) { Alchemy::ElementEditor.new(element) }
 
   let(:ingredient) do
     stub_model(
@@ -17,17 +18,17 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
   let(:settings) { {} }
 
   subject do
-    render partial: "alchemy/ingredients/headline_editor", locals: {
-      headline_editor: headline_editor,
-      headline_editor_counter: 0,
-    }
+    render element_editor
     rendered
   end
 
   before do
+    allow(element_editor).to receive(:ingredients) { [headline_editor] }
     view.class.send(:include, Alchemy::Admin::IngredientsHelper)
     allow(ingredient).to receive(:settings) { settings }
   end
+
+  it_behaves_like "an alchemy ingredient editor"
 
   it "renders a text input" do
     is_expected.to have_selector("input[type='text'][name='element[ingredients_attributes][0][value]']")

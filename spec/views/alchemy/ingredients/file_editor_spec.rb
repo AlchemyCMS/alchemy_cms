@@ -3,7 +3,9 @@
 require "rails_helper"
 
 describe "alchemy/ingredients/_file_editor" do
-  let(:element) { build(:alchemy_element) }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element_editor) { Alchemy::ElementEditor.new(element) }
+  let(:attachment) { build_stubbed(:alchemy_attachment) }
 
   let(:ingredient) do
     stub_model(
@@ -18,23 +20,20 @@ describe "alchemy/ingredients/_file_editor" do
   let(:settings) { {} }
 
   subject do
-    render partial: "alchemy/ingredients/file_editor", locals: {
-      file_editor: file_editor,
-      file_editor_counter: 0,
-    }
+    render element_editor
     rendered
   end
 
   before do
-    # view.class.send(:include, Alchemy::Admin::BaseHelper)
+    allow(element_editor).to receive(:ingredients) { [file_editor] }
     view.class.send(:include, Alchemy::Admin::IngredientsHelper)
     allow(ingredient).to receive(:settings) { settings }
     allow(file_editor).to receive(:attachment) { attachment }
   end
 
-  context "with attachment present" do
-    let(:attachment) { build_stubbed(:alchemy_attachment) }
+  it_behaves_like "an alchemy ingredient editor"
 
+  context "with attachment present" do
     it "renders a hidden field with attachment id" do
       is_expected.to have_selector("input[type='hidden'][value='#{attachment.id}']")
     end
