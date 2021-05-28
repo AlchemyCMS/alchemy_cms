@@ -6,7 +6,7 @@ RSpec.describe Alchemy::Ingredients::Picture do
   it_behaves_like "an alchemy ingredient"
 
   let(:element) { build(:alchemy_element) }
-  let(:picture) { build(:alchemy_picture) }
+  let(:picture) { build_stubbed(:alchemy_picture) }
 
   let(:picture_ingredient) do
     described_class.new(
@@ -57,6 +57,22 @@ RSpec.describe Alchemy::Ingredients::Picture do
     subject { picture_ingredient.picture = picture }
 
     it { is_expected.to be(picture) }
+  end
+
+  describe "#picture_id" do
+    subject { picture_ingredient.picture_id }
+
+    it {
+      is_expected.to be_an(Integer)
+    }
+  end
+
+  describe "#picture_id=" do
+    let(:picture) { Alchemy::Picture.new(id: 111) }
+
+    subject { picture_ingredient.picture_id = picture.id }
+
+    it { is_expected.to be(111) }
   end
 
   describe "preview_text" do

@@ -6,7 +6,7 @@ RSpec.describe Alchemy::Ingredients::File do
   it_behaves_like "an alchemy ingredient"
 
   let(:element) { build(:alchemy_element) }
-  let(:attachment) { build(:alchemy_attachment) }
+  let(:attachment) { build_stubbed(:alchemy_attachment) }
 
   let(:file_ingredient) do
     described_class.new(
@@ -50,6 +50,22 @@ RSpec.describe Alchemy::Ingredients::File do
     subject { file_ingredient.attachment = attachment }
 
     it { is_expected.to be(attachment) }
+  end
+
+  describe "#attachment_id" do
+    subject { file_ingredient.attachment_id }
+
+    it {
+      is_expected.to be_an(Integer)
+    }
+  end
+
+  describe "#attachment_id=" do
+    let(:attachment) { Alchemy::Attachment.new(id: 111) }
+
+    subject { file_ingredient.attachment_id = attachment.id }
+
+    it { is_expected.to be(111) }
   end
 
   describe "preview_text" do

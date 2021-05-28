@@ -76,6 +76,15 @@ module Alchemy
       def related_object_alias(name)
         alias_method name, :related_object
         alias_method "#{name}=", :related_object=
+
+        # Somehow Rails STI does not allow us to use `alias_method` for the related_object_id
+        define_method "#{name}_id" do
+          related_object_id
+        end
+
+        define_method "#{name}_id=" do |id|
+          self.related_object_id = id
+        end
       end
 
       # Returns an ingredient class by type
