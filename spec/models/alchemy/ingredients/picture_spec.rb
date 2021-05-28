@@ -73,6 +73,7 @@ RSpec.describe Alchemy::Ingredients::Picture do
     subject { picture_ingredient.picture_id = picture.id }
 
     it { is_expected.to be(111) }
+    it { expect(picture_ingredient.related_object_type).to eq("Alchemy::Picture") }
   end
 
   describe "preview_text" do

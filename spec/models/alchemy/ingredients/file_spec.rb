@@ -66,6 +66,7 @@ RSpec.describe Alchemy::Ingredients::File do
     subject { file_ingredient.attachment_id = attachment.id }
 
     it { is_expected.to be(111) }
+    it { expect(file_ingredient.related_object_type).to eq("Alchemy::Attachment") }
   end
 
   describe "preview_text" do

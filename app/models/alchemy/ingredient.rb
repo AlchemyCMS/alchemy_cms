@@ -73,7 +73,10 @@ module Alchemy
       attr_reader :ingredient_attributes
 
       # Defines getter and setter method aliases for related object
-      def related_object_alias(name)
+      #
+      # @param [String|Symbol] The name of the alias
+      # @param [String] The class name of the related object
+      def related_object_alias(name, class_name:)
         alias_method name, :related_object
         alias_method "#{name}=", :related_object=
 
@@ -84,6 +87,7 @@ module Alchemy
 
         define_method "#{name}_id=" do |id|
           self.related_object_id = id
+          self.related_object_type = class_name
         end
       end
 

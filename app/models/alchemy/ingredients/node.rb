@@ -7,7 +7,7 @@ module Alchemy
     # Assign Alchemy::Node to this ingredient
     #
     class Node < Alchemy::Ingredient
-      related_object_alias :node
+      related_object_alias :node, class_name: "Alchemy::Node"
 
       # The first 30 characters of node name
       #

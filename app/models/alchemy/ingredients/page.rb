@@ -7,7 +7,7 @@ module Alchemy
     # Assign Alchemy::Page to this ingredient
     #
     class Page < Alchemy::Ingredient
-      related_object_alias :page
+      related_object_alias :page, class_name: "Alchemy::Page"
 
       # The first 30 characters of page name
       #

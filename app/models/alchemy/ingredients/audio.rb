@@ -12,7 +12,7 @@ module Alchemy
         muted
       ]
 
-      related_object_alias :attachment
+      related_object_alias :attachment, class_name: "Alchemy::Attachment"
 
       delegate :name, to: :attachment, allow_nil: true
 

@@ -6,7 +6,7 @@ RSpec.describe Alchemy::Ingredients::Node do
   it_behaves_like "an alchemy ingredient"
 
   let(:element) { build(:alchemy_element) }
-  let(:node) { build(:alchemy_node) }
+  let(:node) { build_stubbed(:alchemy_node) }
 
   let(:node_ingredient) do
     described_class.new(
@@ -29,6 +29,21 @@ RSpec.describe Alchemy::Ingredients::Node do
     subject { node_ingredient.node = node }
 
     it { is_expected.to be(node) }
+  end
+
+  describe "#node_id" do
+    subject { node_ingredient.node_id }
+
+    it { is_expected.to be_an(Integer) }
+  end
+
+  describe "#node_id=" do
+    let(:node) { Alchemy::Node.new(id: 111) }
+
+    subject { node_ingredient.node_id = node.id }
+
+    it { is_expected.to be(111) }
+    it { expect(node_ingredient.related_object_type).to eq("Alchemy::Node") }
   end
 
   describe "preview_text" do

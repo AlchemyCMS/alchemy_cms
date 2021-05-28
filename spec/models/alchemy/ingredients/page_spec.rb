@@ -6,7 +6,7 @@ RSpec.describe Alchemy::Ingredients::Page do
   it_behaves_like "an alchemy ingredient"
 
   let(:element) { build(:alchemy_element) }
-  let(:page) { build(:alchemy_page) }
+  let(:page) { build_stubbed(:alchemy_page) }
 
   let(:page_ingredient) do
     described_class.new(
@@ -29,6 +29,21 @@ RSpec.describe Alchemy::Ingredients::Page do
     subject { page_ingredient.page = page }
 
     it { is_expected.to be(page) }
+  end
+
+  describe "#page_id" do
+    subject { page_ingredient.page_id }
+
+    it { is_expected.to be_an(Integer) }
+  end
+
+  describe "#page_id=" do
+    let(:page) { Alchemy::Page.new(id: 111) }
+
+    subject { page_ingredient.page_id = page.id }
+
+    it { is_expected.to be(111) }
+    it { expect(page_ingredient.related_object_type).to eq("Alchemy::Page") }
   end
 
   describe "preview_text" do

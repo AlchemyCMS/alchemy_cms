@@ -6,7 +6,7 @@ RSpec.describe Alchemy::Ingredients::Video do
   it_behaves_like "an alchemy ingredient"
 
   let(:element) { build(:alchemy_element) }
-  let(:attachment) { build(:alchemy_attachment) }
+  let(:attachment) { build_stubbed(:alchemy_attachment) }
 
   let(:video_ingredient) do
     described_class.new(
@@ -77,6 +77,21 @@ RSpec.describe Alchemy::Ingredients::Video do
     subject { video_ingredient.attachment = attachment }
 
     it { is_expected.to be(attachment) }
+  end
+
+  describe "#attachment_id" do
+    subject { video_ingredient.attachment_id }
+
+    it { is_expected.to be_an(Integer) }
+  end
+
+  describe "#attachment_id=" do
+    let(:attachment) { Alchemy::Attachment.new(id: 111) }
+
+    subject { video_ingredient.attachment_id = attachment.id }
+
+    it { is_expected.to be(111) }
+    it { expect(video_ingredient.related_object_type).to eq("Alchemy::Attachment") }
   end
 
   describe "#preview_text" do
