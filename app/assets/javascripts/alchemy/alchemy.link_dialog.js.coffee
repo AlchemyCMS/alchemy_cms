@@ -228,7 +228,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   # Populates the internal anchors select
   initAnchorLinks: ->
     frame = document.getElementById('alchemy_preview_window')
-    elements = frame.contentDocument.getElementsByTagName('*')
+    elements = frame.contentDocument?.getElementsByTagName('*') || []
     if elements.length > 0
       for element in elements
         if element.id
