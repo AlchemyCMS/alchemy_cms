@@ -80,6 +80,18 @@ module Alchemy
             expect(result["pages"].size).to eq(1)
           end
         end
+
+        context "with multiple sites" do
+          let(:site_2) { create(:alchemy_site) }
+          let(:language_2) { create(:alchemy_language, site: site_2) }
+          let!(:site_2_page) { create(:alchemy_page, :public, language: language_2) }
+
+          it "only returns pages for current site" do
+            get :index, format: :json
+
+            expect(result["pages"].map { |r| r["id"] }).to_not include(site_2_page.id)
+          end
+        end
       end
 
       describe "#nested" do
