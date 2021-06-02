@@ -7,11 +7,10 @@ module Alchemy
     # Returns all pages as json object
     #
     def index
+      @pages = Language.current&.pages.presence || Alchemy::Page.none
       # Fix for cancancan not able to merge multiple AR scopes for logged in users
-      if can? :edit_content, Alchemy::Page
-        @pages = Page.all
-      else
-        @pages = Page.accessible_by(current_ability, :index)
+      if cannot? :edit_content, Alchemy::Page
+        @pages = @pages.accessible_by(current_ability, :index)
       end
       @pages = @pages.includes(*page_includes)
       @pages = @pages.ransack(params[:q]).result
