@@ -1,5 +1,4 @@
-//= require alchemy/alchemy.translations
-
+Alchemy.translations = Alchemy.translations || {};
 Alchemy.translations.fr = {
   allowed_chars: 'von %{count} signes',
   cancel: 'abandonner',

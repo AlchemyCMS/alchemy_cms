@@ -1,5 +1,4 @@
-//= require alchemy/alchemy.translations
-
+Alchemy.translations = Alchemy.translations || {};
 Alchemy.translations['zh-CN'] = {
   allowed_chars: '%{count} 个字符',
   cancel: '取消',
