@@ -261,55 +261,6 @@ module Alchemy
       end
     end
 
-    describe "params security" do
-      context "contents params" do
-        let(:parameters) { ActionController::Parameters.new(contents: {1 => {ingredient: "Title"}}) }
-
-        specify ":contents is required" do
-          expect(controller.params).to receive(:fetch).and_return(parameters)
-          controller.send :contents_params
-        end
-
-        specify "everything is permitted" do
-          expect(controller).to receive(:params).and_return(parameters)
-          expect(parameters).to receive(:fetch).and_return(parameters)
-          expect(parameters).to receive(:permit!)
-          controller.send :contents_params
-        end
-      end
-
-      context "element params" do
-        let(:parameters) { ActionController::Parameters.new(element: {public: true}) }
-
-        before do
-          expect(controller).to receive(:params).and_return(parameters)
-          expect(parameters).to receive(:fetch).with(:element, {}).and_return(parameters)
-        end
-
-        context "with taggable element" do
-          before do
-            controller.instance_variable_set(:'@element', mock_model(Element, taggable?: true))
-          end
-
-          specify ":tag_list is permitted" do
-            expect(parameters).to receive(:permit).with(:tag_list)
-            controller.send :element_params
-          end
-        end
-
-        context "with not taggable element" do
-          before do
-            controller.instance_variable_set(:'@element', mock_model(Element, taggable?: false))
-          end
-
-          specify ":tag_list is not permitted" do
-            expect(parameters).to_not receive(:permit)
-            controller.send :element_params
-          end
-        end
-      end
-    end
-
     describe "#fold" do
       subject { post :fold, params: {id: element.id}, xhr: true }
 
