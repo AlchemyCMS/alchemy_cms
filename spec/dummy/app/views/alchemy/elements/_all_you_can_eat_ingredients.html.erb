@@ -1,0 +1,46 @@
+<%- cache(all_you_can_eat_ingredients) do -%>
+  <%= element_view_for(all_you_can_eat_ingredients) do |el| -%>
+    <div class="headline">
+      <%= el.render(:headline) %>
+    </div>
+    <div class="text">
+      <%= el.render(:text) %>
+    </div>
+    <div class="picture">
+      <%= el.render(:picture) %>
+    </div>
+    <div class="richtext">
+      <%= el.render(:richtext) %>
+    </div>
+    <div class="select">
+      <%= el.render(:select) %>
+    </div>
+    <div class="boolean">
+      <%= el.render(:boolean) %>
+    </div>
+    <div class="datetime">
+      <%= el.render(:datetime) %>
+    </div>
+    <div class="file">
+      <%= el.render(:file) %>
+    </div>
+    <div class="html">
+      <%= el.render(:html) %>
+    </div>
+    <div class="link">
+      <%= el.render(:link) %>
+    </div>
+    <div class="node">
+      <%= el.render(:node) %>
+    </div>
+    <div class="audio">
+      <%= el.render(:audio) %>
+    </div>
+    <div class="video">
+      <%= el.render(:video) %>
+    </div>
+    <div class="page">
+      <%= el.render(:page) %>
+    </div>
+  <%- end -%>
+<%- end -%>
