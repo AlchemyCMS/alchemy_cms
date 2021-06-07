@@ -15,12 +15,20 @@ describe("translate", () => {
     })
 
     describe("if translation is present", () => {
+      beforeEach(() => {
+        Alchemy.translations = { en: { help: "Help" } }
+      })
+
       it("Returns translated string", () => {
         expect(translate("help")).toEqual("Help")
       })
 
       describe("if key includes a period", () => {
         describe("that is translated", () => {
+          beforeEach(() => {
+            Alchemy.translations = { en: { formats: { date: "Y-m-d" } } }
+          })
+
           it("splits into group", () => {
             expect(translate("formats.date")).toEqual("Y-m-d")
           })
@@ -40,6 +48,10 @@ describe("translate", () => {
       })
 
       describe("if replacement is given", () => {
+        beforeEach(() => {
+          Alchemy.translations = { en: { allowed_chars: "of %{number} chars" } }
+        })
+
         it("replaces it", () => {
           expect(translate("allowed_chars", 5)).toEqual("of 5 chars")
         })
@@ -58,6 +70,17 @@ describe("translate", () => {
       Alchemy.locale = "kl"
     })
 
+    it("Returns passed string and logs a warning", () => {
+      const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
+      expect(translate("help")).toEqual("help")
+      expect(spy.mock.calls).toEqual([
+        ["Translations for locale kl not found!"]
+      ])
+      spy.mockRestore()
+    })
+  })
+
+  describe("if Alchemy.translations is not set", () => {
     it("Returns passed string and logs a warning", () => {
       const spy = jest.spyOn(console, "warn").mockImplementation(() => {})
       expect(translate("help")).toEqual("help")
