@@ -9,7 +9,7 @@ function currentLocale() {
 
 function getTranslations() {
   const locale = currentLocale()
-  const translations = Alchemy.translations[locale]
+  const translations = Alchemy.translations && Alchemy.translations[locale]
 
   if (translations) {
     return translations
