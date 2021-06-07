@@ -6,18 +6,18 @@ module Alchemy
   describe Admin::ElementsController do
     routes { Alchemy::Engine.routes }
 
-    let(:page_version)         { create(:alchemy_page_version) }
-    let(:element)              { create(:alchemy_element, page_version: page_version) }
+    let(:page_version) { create(:alchemy_page_version) }
+    let(:element) { create(:alchemy_element, page_version: page_version) }
     let(:element_in_clipboard) { create(:alchemy_element, page_version: page_version) }
-    let(:clipboard)            { session[:alchemy_clipboard] = {} }
+    let(:clipboard) { session[:alchemy_clipboard] = {} }
 
     before { authorize_user(:as_author) }
 
     describe "#index" do
-      let!(:page_version)    { create(:alchemy_page_version) }
-      let!(:element)         { create(:alchemy_element, page_version: page_version) }
-      let!(:nested_element)  { create(:alchemy_element, :nested, page_version: page_version) }
-      let!(:hidden_element)  { create(:alchemy_element, page_version: page_version, public: false) }
+      let!(:page_version) { create(:alchemy_page_version) }
+      let!(:element) { create(:alchemy_element, page_version: page_version) }
+      let!(:nested_element) { create(:alchemy_element, :nested, page_version: page_version) }
+      let!(:hidden_element) { create(:alchemy_element, page_version: page_version, public: false) }
 
       context "with fixed elements" do
         let!(:fixed_element) do
@@ -41,9 +41,9 @@ module Alchemy
     end
 
     describe "#order" do
-      let!(:element_1)   { create(:alchemy_element) }
-      let!(:element_2)   { create(:alchemy_element, page_version: page_version) }
-      let!(:element_3)   { create(:alchemy_element, page_version: page_version) }
+      let!(:element_1) { create(:alchemy_element) }
+      let!(:element_2) { create(:alchemy_element, page_version: page_version) }
+      let!(:element_3) { create(:alchemy_element, page_version: page_version) }
       let(:element_ids) { [element_1.id, element_3.id, element_2.id] }
       let(:page_version) { element_1.page_version }
 
@@ -69,17 +69,17 @@ module Alchemy
           parent.update_column(:updated_at, 3.days.ago)
           expect {
             post :order, params: {
-              element_ids: element_ids,
-              parent_element_id: parent.id,
-            }, xhr: true
+                           element_ids: element_ids,
+                           parent_element_id: parent.id,
+                         }, xhr: true
           }.to change { parent.reload.updated_at }
         end
 
         it "assigns parent element id to each element" do
           post :order, params: {
-            element_ids: element_ids,
-            parent_element_id: parent.id,
-          }, xhr: true
+                         element_ids: element_ids,
+                         parent_element_id: parent.id,
+                       }, xhr: true
           [element_1, element_2, element_3].each do |element|
             expect(element.reload.parent_element_id).to eq parent.id
           end
@@ -92,18 +92,18 @@ module Alchemy
 
       it "assign variable for all available element definitions" do
         expect_any_instance_of(Alchemy::Page).to receive(:available_element_definitions)
-        get :new, params: {page_version_id: page_version.id}
+        get :new, params: { page_version_id: page_version.id }
       end
 
       context "with elements in clipboard" do
         let(:element) { create(:alchemy_element, page_version: page_version) }
-        let(:clipboard_items) { [{"id" => element.id.to_s, "action" => "copy"}] }
+        let(:clipboard_items) { [{ "id" => element.id.to_s, "action" => "copy" }] }
 
         before { clipboard["elements"] = clipboard_items }
 
         it "should load all elements from clipboard" do
           expect(Element).to receive(:all_from_clipboard_for_page).and_return(clipboard_items)
-          get :new, params: {page_version_id: page_version.id}
+          get :new, params: { page_version_id: page_version.id }
           expect(assigns(:clipboard_items)).to eq(clipboard_items)
         end
       end
@@ -151,7 +151,7 @@ module Alchemy
         render_views
 
         before do
-          clipboard["elements"] = [{"id" => element_in_clipboard.id.to_s, "action" => "cut"}]
+          clipboard["elements"] = [{ "id" => element_in_clipboard.id.to_s, "action" => "cut" }]
         end
 
         it "should create an element from clipboard" do
@@ -262,7 +262,7 @@ module Alchemy
     end
 
     describe "#fold" do
-      subject { post :fold, params: {id: element.id}, xhr: true }
+      subject { post :fold, params: { id: element.id }, xhr: true }
 
       let(:element) { build_stubbed(:alchemy_element) }
 
