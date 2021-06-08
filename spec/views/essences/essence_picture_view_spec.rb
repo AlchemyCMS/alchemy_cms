@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe "alchemy/essences/_essence_picture_view" do
-  let(:picture) { build_stubbed(:alchemy_picture) }
+  let(:picture) { create(:alchemy_picture) }
   let(:essence) { build_stubbed(:alchemy_essence_picture, picture: picture) }
   let(:content) { build_stubbed(:alchemy_content, essence: essence) }
 
