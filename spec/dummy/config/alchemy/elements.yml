@@ -261,3 +261,38 @@
     - role: text
       type: Richtext
       default: :lorem_ipsum
+
+- name: element_with_ingredient_groups
+  ingredients:
+    - role: title
+      type: Text
+    - role: description
+      type: Richtext
+      group: details
+    - role: width
+      type: Text
+      group: size
+    - role: height
+      type: Text
+      group: size
+    - role: key_words
+      type: Text
+      group: details
+
+- name: element_with_content_groups
+  contents:
+    - name: title
+      type: EssenceText
+    - name: description
+      type: EssenceRichtext
+      group: details
+    - name: width
+      type: EssenceText
+      group: size
+    - name: height
+      type: EssenceText
+      group: size
+    - name: key_words
+      type: EssenceText
+      group: details
+

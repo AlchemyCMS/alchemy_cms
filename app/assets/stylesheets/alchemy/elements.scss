@@ -414,6 +414,37 @@
   }
 }
 
+.content-group {
+  width: 100%;
+  padding: $default-padding 0;
+  position: relative;
+  border-bottom: 1px solid $medium-gray;
+
+  &:last-child { border-bottom: none;}
+
+  .content-group-header { 
+    font-weight: bold;
+
+    .content-group-expand {
+      position: absolute;
+      right: 8px;
+      top: 8px;
+    }
+  }
+
+  .content-group-contents { display: none; }
+
+  &.expanded {
+    .content-group-contents {
+      display: block;
+    }
+
+    .content-group-expand {
+      @extend .fa-minus;
+    }
+  }
+}
+
 .element-content-editors,
 .element-ingredient-editors {
   display: flex;

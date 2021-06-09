@@ -36,6 +36,29 @@ module Alchemy
       element.definition.fetch(:ingredients, []).any?
     end
 
+    # Returns the translated content/ingredient group for displaying in admin editor group headings
+    #
+    # Translate it in your locale yml file:
+    #
+    #   alchemy:
+    #     element_groups:
+    #       foo: Bar
+    #
+    # Optionally you can scope your ingredient role to an element:
+    #
+    #   alchemy:
+    #     element_groups:
+    #       article:
+    #         foo: Baz
+    #
+    def translated_group(group)
+      Alchemy.t(
+        group,
+        scope: "element_groups.#{element.name}",
+        default: Alchemy.t("element_groups.#{group}", default: group.humanize),
+      )
+    end
+
     # CSS classes for the element editor partial.
     def css_classes
       [

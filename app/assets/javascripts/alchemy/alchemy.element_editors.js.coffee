@@ -36,6 +36,8 @@ Alchemy.ElementEditors =
     # Binds the custom SaveElement event
     @element_area.on "SaveElement.Alchemy", '.element-editor', (e, data) =>
       @onSaveElement(e, data)
+    @element_area.on "click", '[data-toggle-content-group]', (e) =>
+      @onToggleContentGroup(e)
     # Listen to postMessage messages from the preview frame
     window.addEventListener 'message', (e) =>
       @onMessage(e.data)
@@ -169,6 +171,12 @@ Alchemy.ElementEditors =
       Alchemy.setElementClean($element)
       Alchemy.Buttons.enable($element)
     true
+
+  # Toggle visibility of the content fields in the group
+  onToggleContentGroup: (event) ->
+    $group_div = $(event.currentTarget).closest('.content-group');
+    $group_div.toggleClass('expanded');
+    false
 
   # Event handlers
 

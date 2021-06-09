@@ -96,4 +96,42 @@ RSpec.describe "The edit elements feature", type: :system do
       end
     end
   end
+
+  {content: "name", ingredient: "role"}.each do |type, name_field|
+    describe "With an element that has #{type} groups" do
+      let(:element) { create(:alchemy_element, page: a_page, name: "element_with_#{type}_groups") }
+
+      scenario "collapsed #{type} groups shown", js: true do
+        # Need to be on page editor rather than just admin_elements in order to have JS interaction
+        visit alchemy.edit_admin_page_path(element.page)
+
+        # No group content initially visible
+        expect(page).not_to have_selector(".content-group-contents", visible: true)
+
+        page.find("a#content_group_details_header", text: "Details").click
+        # 'Details' group content visible
+        expect(page).to have_selector("#element_#{element.id}_content_group_details", visible: true)
+        within("#element_#{element.id}_content_group_details") do
+          expect(page).to have_selector("[data-#{type}-#{name_field}='description']")
+          expect(page).to have_selector("[data-#{type}-#{name_field}='key_words']")
+        end
+        expect(page).to have_selector("#element_#{element.id}_content_group_details", visible: true)
+
+        # 'Size' group content not visible
+        expect(page).not_to have_selector("#element_#{element.id}_content_group_size", visible: true)
+
+        page.find("a#content_group_size_header", text: "Size").click
+        # 'Size' group now visible
+        expect(page).to have_selector("#element_#{element.id}_content_group_size", visible: true)
+        within("#element_#{element.id}_content_group_size") do
+          expect(page).to have_selector("[data-#{type}-#{name_field}='width']")
+          expect(page).to have_selector("[data-#{type}-#{name_field}='height']")
+        end
+
+        page.find("a#content_group_size_header", text: "Size").click
+        # 'Size' group hidden
+        expect(page).not_to have_selector("#element_#{element.id}_content_group_size", visible: true)
+      end
+    end
+  end
 end
