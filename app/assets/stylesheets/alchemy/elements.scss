@@ -682,7 +682,7 @@ select.long {
   }
 
   &.validation_failed {
-    label {
+    > label {
       color: $error_text_color;
     }
 

@@ -121,6 +121,14 @@ module Alchemy
         "Alchemy::Ingredients::#{ingredient_type.to_s.classify.demodulize}"
       end
 
+      def translated_label_for(role, element_name = nil)
+        Alchemy.t(
+          role,
+          scope: "ingredient_roles.#{element_name}",
+          default: Alchemy.t("ingredient_roles.#{role}", default: role.humanize),
+        )
+      end
+
       private
 
       # Returns the default value from ingredient definition

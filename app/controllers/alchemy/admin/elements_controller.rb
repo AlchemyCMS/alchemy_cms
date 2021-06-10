@@ -161,6 +161,7 @@ module Alchemy
           @element_validated = true
         else
           element_update_error
+          @error_messages = @element.ingredient_error_messages
         end
       end
 
@@ -169,6 +170,7 @@ module Alchemy
           @element_validated = @element.update(element_params)
         else
           element_update_error
+          @error_messages = @element.essence_error_messages
         end
       end
 

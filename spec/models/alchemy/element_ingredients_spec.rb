@@ -114,4 +114,27 @@ RSpec.describe Alchemy::Element do
       expect(element.errors[:ingredients]).to be_present
     end
   end
+
+  describe "#ingredient_error_messages" do
+    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients") }
+
+    before do
+      element.update(
+        ingredients_attributes: {
+          "0": {
+            id: element.ingredients.first.id,
+            value: "",
+          },
+        },
+      )
+    end
+
+    it "returns translated ingredient error messages" do
+      expect(element.ingredient_error_messages).to eq([
+        "Please enter a headline for all you can eat",
+        "Text is invalid",
+        "Please select something else",
+      ])
+    end
+  end
 end

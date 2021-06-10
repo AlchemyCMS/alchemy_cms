@@ -15,9 +15,10 @@
 <%- else -%>
 
   Alchemy.growl('<%= j @notice %>', 'warn');
-  $errors.html('<%= j @error_message %><ul><li><%== j @element.essence_error_messages.join("</li><li>") %></li></ul>');
+  $errors.html('<%= j @error_message %><ul><li><%== j @error_messages.join("</li><li>") %></li></ul>');
   $errors.show();
   $('<%= @element.contents_with_errors.map { |content| "#" + content.dom_id }.join(", ") %>').addClass('validation_failed');
+  $('<%== @element.ingredients_with_errors.map { |ingredient| "[data-ingredient-id=\"#{ingredient.id}\"]" }.join(", ") %>').addClass('validation_failed');
   Alchemy.Buttons.enable($el);
 
 <%- end -%>
