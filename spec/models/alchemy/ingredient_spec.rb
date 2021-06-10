@@ -179,6 +179,17 @@ RSpec.describe Alchemy::Ingredient do
     end
   end
 
+  describe "ingredient_attributes=" do
+    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients") }
+    let(:ingredient) { element.ingredients.first }
+
+    it "persists the value in the data column" do
+      ingredient.level = "2"
+      ingredient.save!
+      expect(ingredient.reload.data[:level]).to eq("2")
+    end
+  end
+
   describe "#partial_name" do
     let(:ingredient) { Alchemy::Ingredients::Richtext.build(role: "text", element: element) }
 

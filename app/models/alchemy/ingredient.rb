@@ -66,6 +66,7 @@ module Alchemy
           end
           define_method "#{name}=" do |value|
             data[name] = value
+            write_attribute(:data, data)
           end
         end
       end
