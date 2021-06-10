@@ -14,6 +14,8 @@ namespace :alchemy do
       puts "Please wait..."
 
       Alchemy::Picture.find_each do |picture|
+        next unless picture.has_convertible_format?
+
         puts Alchemy::PictureThumb.generate_thumbs!(picture)
       end
 
