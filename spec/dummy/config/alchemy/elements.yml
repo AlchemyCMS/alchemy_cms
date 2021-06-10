@@ -131,9 +131,13 @@
     - role: headline
       type: Headline
       hint: true
+      validate:
+        - presence
     - role: text
       type: Text
       hint: true
+      validate:
+        - format: !ruby/regexp '/\w+/i'
     - role: picture
       type: Picture
       hint: true
@@ -151,6 +155,8 @@
       hint: true
       settings:
         select_values: [A, B, C]
+      validate:
+        - uniqueness
     - role: boolean
       type: Boolean
       hint: true

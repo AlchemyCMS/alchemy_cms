@@ -95,4 +95,23 @@ RSpec.describe Alchemy::Element do
       it { expect(element.has_value_for?(:foo)).to be(false) }
     end
   end
+
+  describe "ingredient validations" do
+    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients") }
+
+    before do
+      element.update(
+        ingredients_attributes: {
+          "0": {
+            id: element.ingredients.first.id,
+            value: "",
+          },
+        },
+      )
+    end
+
+    it "validates ingredients on update" do
+      expect(element.errors[:ingredients]).to be_present
+    end
+  end
 end

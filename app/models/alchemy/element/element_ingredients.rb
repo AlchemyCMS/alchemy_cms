@@ -19,6 +19,7 @@ module Alchemy
           unless: -> { autogenerate_ingredients == false }
 
         accepts_nested_attributes_for :ingredients
+        validates_associated :ingredients, on: :update
       end
 
       # Find first ingredient from element by given role.

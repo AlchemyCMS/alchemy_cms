@@ -15,6 +15,8 @@ module Alchemy
     validates :type, presence: true
     validates :role, presence: true
 
+    validates_with Alchemy::IngredientValidator, on: :update, if: :has_validations?
+
     scope :audios, -> { where(type: "Alchemy::Ingredients::Audio") }
     scope :booleans, -> { where(type: "Alchemy::Ingredients::Boolean") }
     scope :datetimes, -> { where(type: "Alchemy::Ingredients::Datetime") }

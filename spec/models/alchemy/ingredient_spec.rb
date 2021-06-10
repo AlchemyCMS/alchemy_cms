@@ -184,6 +184,7 @@ RSpec.describe Alchemy::Ingredient do
     let(:ingredient) { element.ingredients.first }
 
     it "persists the value in the data column" do
+      ingredient.value = "Welcome"
       ingredient.level = "2"
       ingredient.save!
       expect(ingredient.reload.data[:level]).to eq("2")
