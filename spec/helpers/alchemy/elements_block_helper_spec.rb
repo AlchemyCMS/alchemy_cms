@@ -68,18 +68,34 @@ module Alchemy
       end
 
       describe "#render" do
-        let(:element) { create(:alchemy_element, :with_contents) }
-        let(:content) { element.content_by_name(:headline) }
+        context "with element having contents" do
+          let(:element) { create(:alchemy_element, :with_contents) }
+          let(:content) { element.content_by_name(:headline) }
 
-        it "delegates to Rails' render helper" do
-          expect(scope).to receive(:render).with(content, {
-            content: content,
-            options: {
-              foo: "bar",
-            },
-            html_options: {},
-          })
-          subject.render(:headline, foo: "bar")
+          it "delegates to Rails' render helper" do
+            expect(scope).to receive(:render).with(content, {
+              options: {
+                foo: "bar",
+              },
+              html_options: {},
+            })
+            subject.render(:headline, foo: "bar")
+          end
+        end
+
+        context "with element having ingredients" do
+          let(:element) { create(:alchemy_element, :with_ingredients) }
+          let(:ingredient) { element.ingredient_by_role(:headline) }
+
+          it "delegates to Rails' render helper" do
+            expect(scope).to receive(:render).with(ingredient, {
+              options: {
+                foo: "bar",
+              },
+              html_options: {},
+            })
+            subject.render(:headline, foo: "bar")
+          end
         end
       end
 
@@ -91,23 +107,48 @@ module Alchemy
       end
 
       describe "#ingredient" do
-        it "should delegate to the element's #ingredient method" do
-          expect(element).to receive(:ingredient).with(:title)
-          subject.ingredient :title
+        context "with element having contents" do
+          it "should delegate to the element's #ingredient method" do
+            expect(element).to receive(:ingredient).with(:title)
+            subject.ingredient(:title)
+          end
+        end
+
+        context "with element having ingredients" do
+          let(:element) { create(:alchemy_element, :with_ingredients) }
+          let(:ingredient) { element.ingredients.first }
+
+          it "should return the ingredients value" do
+            expect(ingredient).to receive(:value).and_call_original
+            subject.ingredient(:headline)
+          end
         end
       end
 
       describe "#has?" do
-        it "should delegate to the element's #has_ingredient? method" do
-          expect(element).to receive(:has_ingredient?).with(:title)
-          subject.has? :title
+        context "with element having contents" do
+          it "should delegate to the element's #has_ingredient? method" do
+            expect(element).to receive(:has_ingredient?).with(:title)
+            subject.has?(:title)
+          end
+        end
+
+        context "with element having ingredients" do
+          let(:element) { create(:alchemy_element, :with_ingredients) }
+          let(:ingredient) { element.ingredients.first }
+
+          it "should delegate to the element's #has_value? method" do
+            expect(element).to receive(:has_value_for?).with(:headline)
+            subject.has?(:headline)
+          end
         end
       end
 
       describe "#essence" do
         it "should provide the specified content essence" do
-          expect(subject).to receive(:content).with(:title).
-              and_return(mock_model("Content", essence: mock_model("EssenceText")))
+          expect(subject).to receive(:content).with(:title) do
+            mock_model("Content", essence: mock_model("EssenceText"))
+          end
 
           subject.essence :title
         end
