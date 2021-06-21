@@ -17,6 +17,7 @@ export default class ImageCropper {
     this.cropSizeField = document.getElementById(formFieldIds[1])
     this.elementId = elementId
     this.dialog = Alchemy.currentDialog()
+    this.dialog.options.closed = this.destroy
 
     this.init()
     this.bind()
