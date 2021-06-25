@@ -76,11 +76,13 @@ Alchemy::Engine.routes.draw do
 
     resources :essence_audios, only: [:edit, :update]
 
-    resources :essence_pictures, only: [:edit, :update] do
+    concern :croppable do
       member do
         get :crop
       end
     end
+
+    resources :essence_pictures, only: [:edit, :update], concerns: [:croppable]
 
     resources :essence_files, only: [:edit, :update]
 
