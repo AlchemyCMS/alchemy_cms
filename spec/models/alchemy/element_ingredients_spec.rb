@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Alchemy::Element do
   it { is_expected.to have_many(:ingredients) }
 
-  let(:element) { build(:alchemy_element, name: "element_with_ingredients") }
+  let(:element) { build(:alchemy_element, :with_ingredients) }
 
   it "creates ingredients after creation" do
     expect {

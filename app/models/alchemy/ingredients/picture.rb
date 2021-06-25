@@ -28,8 +28,6 @@ module Alchemy
 
       related_object_alias :picture, class_name: "Alchemy::Picture"
 
-      delegate :image_file_width, :image_file_height, :image_file, :name, to: :picture, allow_nil: true
-
       # The first 30 characters of the pictures name
       #
       # Used by the Element#preview_text method.
