@@ -2,7 +2,7 @@
 <% croppable = picture_editor.allow_image_cropping? %>
 
 <%= link_to_dialog render_icon(:crop),
-  alchemy.crop_admin_essence_picture_path(picture_editor.ingredient, {
+  alchemy.crop_admin_ingredient_path(picture_editor.ingredient, {
     crop_from_form_field_id: picture_editor.form_field_id(:crop_from),
     crop_size_form_field_id: picture_editor.form_field_id(:crop_size),
     picture_id: picture_editor.picture&.id

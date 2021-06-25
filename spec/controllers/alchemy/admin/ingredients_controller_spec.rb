@@ -6,7 +6,7 @@ RSpec.describe Alchemy::Admin::IngredientsController do
   routes { Alchemy::Engine.routes }
 
   let(:attachment) { build_stubbed(:alchemy_attachment) }
-  let(:element) { build_stubbed(:alchemy_element) }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
 
   let(:ingredient) do
     stub_model(
@@ -19,7 +19,7 @@ RSpec.describe Alchemy::Admin::IngredientsController do
   end
 
   before do
-    expect(Alchemy::Ingredient).to receive(:find).with(ingredient.id.to_s) { ingredient }
+    allow(Alchemy::Ingredient).to receive(:find).with(ingredient.id.to_s) { ingredient }
   end
 
   context "without authorized user" do
@@ -91,6 +91,17 @@ RSpec.describe Alchemy::Admin::IngredientsController do
           expect(ingredient).to receive(:update).with({})
           patch :update, params: params, xhr: true
         end
+      end
+    end
+
+    it_behaves_like "having crop action", model_class: Alchemy::Ingredient do
+      let(:croppable_resource) do
+        Alchemy::Ingredient.build(
+          type: "Alchemy::Ingredients::Picture",
+          element: element,
+          attachment: attachment,
+          role: "picture",
+        )
       end
     end
   end

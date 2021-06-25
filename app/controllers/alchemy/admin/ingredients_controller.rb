@@ -5,6 +5,8 @@ module Alchemy
     class IngredientsController < Alchemy::Admin::BaseController
       load_and_authorize_resource class: Alchemy::Ingredient
 
+      include CropAction
+
       helper "Alchemy::Admin::Ingredients"
 
       def edit
@@ -18,6 +20,10 @@ module Alchemy
 
       def ingredient_params
         params.require(:ingredient).permit(@ingredient.class.ingredient_attributes)
+      end
+
+      def load_croppable_resource
+        @croppable_resource = @ingredient
       end
     end
   end
