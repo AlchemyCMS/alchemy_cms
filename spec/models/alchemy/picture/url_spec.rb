@@ -34,5 +34,21 @@ RSpec.describe Alchemy::Picture::Url do
     it "returns the url to the thumbnail" do
       is_expected.to match(/\/pictures\/\d+\/.+\/image\.png/)
     end
+
+    context "and params are passed" do
+      let(:params) do
+        {
+          page: 1,
+          basename: "foo",
+          ext: "baz",
+        }
+      end
+
+      it "passes valid ones to the URL" do
+        is_expected.to match(/page=1/)
+        is_expected.to_not match(/basename=foo/)
+        is_expected.to_not match(/ext=baz/)
+      end
+    end
   end
 end

@@ -5,6 +5,8 @@ module Alchemy
     class Url
       attr_reader :variant
 
+      DRAGONFLY_URL_PARAMS = %i[basename ext]
+
       # @param [Alchemy::PictureVariant]
       #
       def initialize(variant)
@@ -20,7 +22,11 @@ module Alchemy
       def call(params = {})
         return variant.image.url(params) unless processible_image?
 
-        "/#{uid}"
+        if params.any?
+          "/#{uid}?#{params.except(*DRAGONFLY_URL_PARAMS).to_query}"
+        else
+          "/#{uid}"
+        end
       end
 
       private
