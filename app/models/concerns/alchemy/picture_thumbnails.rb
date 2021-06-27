@@ -49,13 +49,13 @@ module Alchemy
     def picture_url_options
       return {} if picture.nil?
 
-      crop = crop_values_present? || settings[:crop]
+      crop = !!settings[:crop]
 
       {
         format: picture.default_render_format,
-        crop: !!crop,
-        crop_from: crop_from.presence,
-        crop_size: crop_size.presence,
+        crop: crop,
+        crop_from: crop && crop_from.presence || nil,
+        crop_size: crop && crop_size.presence || nil,
         size: settings[:size],
       }.with_indifferent_access
     end
@@ -76,13 +76,13 @@ module Alchemy
     #
     # @return [HashWithIndifferentAccess]
     def thumbnail_url_options
-      crop = crop_values_present? || settings[:crop]
+      crop = !!settings[:crop]
 
       {
         size: "160x120",
-        crop: !!crop,
-        crop_from: crop_from.presence || default_crop_from&.join("x"),
-        crop_size: crop_size.presence || default_crop_size&.join("x"),
+        crop: crop,
+        crop_from: crop && crop_from.presence || default_crop_from&.join("x"),
+        crop_size: crop && crop_size.presence || default_crop_size&.join("x"),
         flatten: true,
         format: picture&.image_file_format || "jpg",
       }
@@ -110,10 +110,6 @@ module Alchemy
     end
 
     private
-
-    def crop_values_present?
-      crop_from.present? && crop_size.present?
-    end
 
     def default_crop_size
       return nil unless settings[:crop] && settings[:size]
