@@ -33,14 +33,14 @@
   onclick: "new Alchemy.LinkDialog(this).open(); return false;",
   class: picture_editor.linked? ? "linked" : nil,
   title: Alchemy.t(:link_image),
-  "data-content-id" => picture_editor.id,
+  "data-parent-selector": "[data-ingredient-id='#{picture_editor.id}']",
   id: "edit_link_#{picture_editor.id}"
 } do %>
   <span class="disabled" tabindex="-1"><%= render_icon(:link) %></span>
 <% end %>
 
 <%= link_to_if linkable, render_icon(:unlink), "", {
-  onclick: "return Alchemy.LinkDialog.removeLink(this, #{picture_editor.id})",
+  onclick: "return Alchemy.LinkDialog.removeLink(this, '[data-ingredient-id=\"#{picture_editor.id}\"]')",
   class: picture_editor.linked? ? "linked" : "disabled",
   tabindex: picture_editor.linked? ? nil : "-1",
   title: Alchemy.t(:unlink)

@@ -4,14 +4,14 @@
     '#',
     onclick: 'new Alchemy.LinkDialog(this).open(); return false;',
     class: "icon_button#{content.linked? ? ' linked' : ''} link-essence",
-    'data-content-id' => content.id,
+    "data-parent-selector": "##{content.dom_id}",
     title: Alchemy.t(:place_link),
     id: "edit_link_#{content.id}"
   ) %>
   <%= link_to(
     render_icon(:unlink),
     '#',
-    onclick: "return Alchemy.LinkDialog.removeLink(this, #{content.id})",
+    onclick: "return Alchemy.LinkDialog.removeLink(this, '##{content.dom_id}')",
     class: "icon_button unlink-essence #{content.linked? ? 'linked' : 'disabled'}",
     tabindex: content.linked? ? nil : '-1',
     'data-content-id' => content.id,

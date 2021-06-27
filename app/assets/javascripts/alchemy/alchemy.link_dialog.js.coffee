@@ -4,6 +4,12 @@
 class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   constructor: (@link_object) ->
+    parent_selector = @link_object.dataset.parentSelector
+    parent = document.querySelector(parent_selector)
+    @link_value_field = parent.querySelector("[data-link-value]")
+    @link_title_field = parent.querySelector("[data-link-title]")
+    @link_target_field = parent.querySelector("[data-link-target]")
+    @link_class_field = parent.querySelector("[data-link-class]")
     @url = Alchemy.routes.link_admin_pages_path
     @$link_object = $(@link_object)
     @options =
@@ -136,7 +142,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     if @link_object.editor
       @setTinyMCELink(url, title, target)
     else
-      @setEssenceLink(url, title, target)
+      @setLinkFields(url, title, target)
 
   # Sets a link in TinyMCE editor.
   setTinyMCELink: (url, title, target) ->
@@ -151,14 +157,16 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     true
 
   # Sets a link on an Essence (e.g. EssencePicture).
-  setEssenceLink: (url, title, target) ->
-    content_id = @$link_object.data('content-id')
-    $("#contents_#{content_id}_link").val(url).change()
-    $("#contents_#{content_id}_link_title").val(title)
-    $("#contents_#{content_id}_link_class_name").val(@link_type)
-    $("#contents_#{content_id}_link_target").val(target)
-    @$link_object.addClass('linked')
-    @$link_object.next().addClass('linked').removeClass('disabled').removeAttr('tabindex')
+  setLinkFields: (url, title, target) ->
+    @link_value_field.value = url
+    @link_value_field.dispatchEvent(new Event("change"))
+    @link_title_field.value = title
+    @link_class_field.value = @link_type
+    @link_target_field.value = target
+    @link_object.classList.add("linked")
+    @link_object.nextElementSibling.classList.replace("disabled", "linked")
+    @link_object.nextElementSibling.removeAttribute("tabindex")
+    return
 
   # Selects the correct tab for link type and fills all fields.
   selectTab: ->
@@ -205,12 +213,11 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   # Creates a temporay $('a') object that holds all values on it.
   createTempLink: ->
     @$tmp_link = $('<a/>')
-    content_id = @$link_object.data('content-id')
-    @$tmp_link.attr 'href', $("#contents_#{content_id}_link").val()
-    @$tmp_link.attr 'title', $("#contents_#{content_id}_link_title").val()
-    @$tmp_link.attr 'data-link-target', $("#contents_#{content_id}_link_target").val()
-    @$tmp_link.attr 'target', if $("#contents_#{content_id}_link_target").val() == 'blank' then '_blank' else null
-    @$tmp_link.addClass $("#contents_#{content_id}_link_class_name").val()
+    @$tmp_link.attr('href', @link_value_field.value)
+    @$tmp_link.attr('title', @link_title_field.value)
+    @$tmp_link.attr('data-link-target', @link_target_field.value)
+    @$tmp_link.attr('target', if @link_target_field.value == 'blank' then '_blank' else null)
+    @$tmp_link.addClass(@link_class_field.value)
     @$tmp_link
 
   # Validates url for beginning with an protocol.
@@ -240,15 +247,21 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   # Public class methods
 
   # Removes link from Essence.
-  @removeLink = (link, content_id) ->
-    $link = $(link)
-    $("#contents_#{content_id}_link").val('').change()
-    $("#contents_#{content_id}_link_title").val('')
-    $("#contents_#{content_id}_link_class_name").val('')
-    $("#contents_#{content_id}_link_target").val('')
-    if $link.hasClass('linked')
-      Alchemy.setElementDirty $(link).closest('.element-editor')
-      $link.removeClass('linked').addClass('disabled').attr('tabindex', '-1')
-      $link.blur()
-    $('#edit_link_' + content_id).removeClass('linked')
+  @removeLink = (link, parent_selector) ->
+    parent = document.querySelector(parent_selector)
+    link_value_field = parent.querySelector("[data-link-value]")
+    link_title_field = parent.querySelector("[data-link-title]")
+    link_target_field = parent.querySelector("[data-link-target]")
+    link_class_field = parent.querySelector("[data-link-class]")
+    link_value_field.value = ""
+    link_value_field.dispatchEvent(new Event("change"))
+    link_title_field.value = ""
+    link_class_field.value = ""
+    link_target_field.value = ""
+    if link.classList.contains('linked')
+      Alchemy.setElementDirty link.closest('.element-editor')
+      link.classList.replace('linked', 'disabled')
+      link.setAttribute('tabindex', '-1')
+      link.blur()
+    link.previousElementSibling.classList.remove("linked")
     false

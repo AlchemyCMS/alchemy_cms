@@ -10,13 +10,17 @@
     disabled: true
   %>
   <%= hidden_field_tag essence_link_editor.form_field_name(:link),
-    essence_link_editor.essence.link %>
+    essence_link_editor.essence.link,
+    "data-link-value": true %>
   <%= hidden_field_tag essence_link_editor.form_field_name(:link_title),
-    essence_link_editor.essence.link_title %>
+    essence_link_editor.essence.link_title,
+    "data-link-title": true %>
   <%= hidden_field_tag essence_link_editor.form_field_name(:link_class_name),
-    essence_link_editor.essence.link_class_name %>
+    essence_link_editor.essence.link_class_name,
+    "data-link-class": true %>
   <%= hidden_field_tag essence_link_editor.form_field_name(:link_target),
-    essence_link_editor.essence.link_target %>
+    essence_link_editor.essence.link_target,
+    "data-link-target": true %>
   <%= render 'alchemy/essences/shared/linkable_essence_tools', content: essence_link_editor.content %>
 <% end %>
 <script type="text/javascript" charset="utf-8">

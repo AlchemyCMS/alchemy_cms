@@ -34,14 +34,14 @@
   onclick: 'new Alchemy.LinkDialog(this).open(); return false;',
   class: content.linked? ? 'linked' : nil,
   title: Alchemy.t(:link_image),
-  'data-content-id' => content.id,
+  "data-parent-selector": "##{content.dom_id}",
   id: "edit_link_#{content.id}"
 } do %>
   <span class="disabled" tabindex="-1"><%= render_icon(:link) %></span>
 <% end %>
 
 <%= link_to_if linkable, render_icon(:unlink), '', {
-  onclick: "return Alchemy.LinkDialog.removeLink(this, #{content.id})",
+  onclick: "return Alchemy.LinkDialog.removeLink(this, '##{content.dom_id}')",
   class: content.linked? ? 'linked' : 'disabled',
   tabindex: content.linked? ? nil : '-1',
   title: Alchemy.t(:unlink)

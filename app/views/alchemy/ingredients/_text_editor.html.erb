@@ -9,10 +9,10 @@
       class: text_editor.settings[:linkable] ? "text_with_icon" : "",
       type: text_editor.settings[:input_type] || "text" %>
     <% if text_editor.settings[:linkable] %>
-      <%= f.hidden_field :link %>
-      <%= f.hidden_field :link_title %>
-      <%= f.hidden_field :link_class_name %>
-      <%= f.hidden_field :link_target %>
+      <%= f.hidden_field :link, "data-link-value": true %>
+      <%= f.hidden_field :link_title, "data-link-title": true %>
+      <%= f.hidden_field :link_class_name, "data-link-class": true%>
+      <%= f.hidden_field :link_target, "data-link-target": true %>
       <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: text_editor %>
     <% end %>
   <% end %>
