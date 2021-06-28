@@ -3,9 +3,11 @@
 module Alchemy
   module Admin
     class EssencePicturesController < Alchemy::Admin::BaseController
+      include CropAction
+
       authorize_resource class: Alchemy::EssencePicture
 
-      before_action :load_essence_picture, only: [:edit, :crop, :update]
+      before_action :load_essence_picture, only: [:edit, :update]
       before_action :load_content, only: [:edit, :update]
 
       helper "alchemy/admin/contents"
@@ -13,16 +15,6 @@ module Alchemy
       helper "alchemy/url"
 
       def edit
-      end
-
-      def crop
-        @picture = Picture.find_by(id: params[:picture_id])
-        if @picture
-          @essence_picture.picture = @picture
-          @settings = @essence_picture.image_cropper_settings
-        else
-          @no_image_notice = Alchemy.t(:no_image_for_cropper_found)
-        end
       end
 
       def update
@@ -33,6 +25,10 @@ module Alchemy
 
       def load_essence_picture
         @essence_picture = EssencePicture.find(params[:id])
+      end
+
+      def load_croppable_resource
+        @croppable_resource = EssencePicture.find(params[:id])
       end
 
       def load_content
