@@ -51,23 +51,29 @@ RSpec.shared_examples_for "having picture thumbnails" do
         allow(record).to receive(:crop_size) { "200x200" }
       end
 
-      it "passes these crop values to the picture's url method." do
-        expect(picture).to receive(:url).with(
-          hash_including(crop_from: "10x10", crop_size: "200x200"),
-        )
-        picture_url
-      end
-
-      context "but with crop values in the options" do
-        let(:options) do
-          { crop_from: "30x30", crop_size: "75x75" }
+      context "if cropping is enabled" do
+        before do
+          allow(record).to receive(:settings) { { crop: true } }
         end
 
-        it "passes these crop values instead." do
+        it "passes these crop values to the picture's url method." do
           expect(picture).to receive(:url).with(
-            hash_including(crop_from: "30x30", crop_size: "75x75"),
+            hash_including(crop_from: "10x10", crop_size: "200x200"),
           )
           picture_url
+        end
+
+        context "but with crop values in the options" do
+          let(:options) do
+            { crop_from: "30x30", crop_size: "75x75" }
+          end
+
+          it "passes these crop values instead." do
+            expect(picture).to receive(:url).with(
+              hash_including(crop_from: "30x30", crop_size: "75x75"),
+            )
+            picture_url
+          end
         end
       end
     end
@@ -121,30 +127,39 @@ RSpec.shared_examples_for "having picture thumbnails" do
         allow(record).to receive(:crop_size) { "200x200" }
       end
 
-      it "includes these crop values.", :aggregate_failures do
-        expect(picture_url_options[:crop_from]).to eq "10x10"
-        expect(picture_url_options[:crop_size]).to eq "200x200"
+      context "with cropping enabled" do
+        before do
+          allow(record).to receive(:settings) { { crop: true } }
+        end
+
+        it "includes these crop values.", :aggregate_failures do
+          expect(picture_url_options[:crop_from]).to eq "10x10"
+          expect(picture_url_options[:crop_size]).to eq "200x200"
+        end
       end
 
-      it "includes {crop: true}" do
-        expect(picture_url_options[:crop]).to be true
-      end
-    end
+      context "with cropping disabled" do
+        before do
+          allow(record).to receive(:settings) { { crop: nil } }
+        end
 
-    # Regression spec for issue #1279
-    context "with crop values being empty strings" do
-      before do
-        allow(record).to receive(:crop_from) { "" }
-        allow(record).to receive(:crop_size) { "" }
-      end
-
-      it "does not include these crop values.", :aggregate_failures do
-        expect(picture_url_options[:crop_from]).to be_nil
-        expect(picture_url_options[:crop_size]).to be_nil
+        it "does not include these crop values.", :aggregate_failures do
+          expect(picture_url_options[:crop_from]).to be_nil
+          expect(picture_url_options[:crop_size]).to be_nil
+        end
       end
 
-      it "includes {crop: false}" do
-        expect(picture_url_options[:crop]).to be false
+      # Regression spec for issue #1279
+      context "with crop values being empty strings" do
+        before do
+          allow(record).to receive(:crop_from) { "" }
+          allow(record).to receive(:crop_size) { "" }
+        end
+
+        it "does not include these crop values.", :aggregate_failures do
+          expect(picture_url_options[:crop_from]).to be_nil
+          expect(picture_url_options[:crop_size]).to be_nil
+        end
       end
     end
 
@@ -197,36 +212,61 @@ RSpec.shared_examples_for "having picture thumbnails" do
       thumbnail_url
     end
 
-    context "when crop sizes are present" do
-      before do
-        allow(record).to receive(:crop_size).and_return("200x200")
-        allow(record).to receive(:crop_from).and_return("10x10")
+    context "when crop is enabled in the settings" do
+      let(:settings) do
+        { crop: true }
       end
 
-      it "passes these crop sizes to the picture's url method." do
-        expect(picture).to receive(:url).with(
-          hash_including(crop_from: "10x10", crop_size: "200x200", crop: true),
-        )
-        thumbnail_url
+      context "and crop sizes are present" do
+        before do
+          allow(record).to receive(:crop_size).and_return("200x200")
+          allow(record).to receive(:crop_from).and_return("10x10")
+        end
+
+        it "passes these crop sizes to the picture's url method." do
+          expect(picture).to receive(:url).with(
+            hash_including(
+              crop_from: "10x10",
+              crop_size: "200x200",
+              crop: true,
+            ),
+          )
+          thumbnail_url
+        end
+      end
+
+      context "when no crop sizes are present" do
+        it "it does not pass crop sizes to the picture's url method and enables center cropping." do
+          expect(picture).to receive(:url).with(
+            hash_including(
+              crop_from: nil,
+              crop_size: nil,
+              crop: true,
+            ),
+          )
+          thumbnail_url
+        end
       end
     end
 
-    context "when no crop sizes are present" do
-      it "it does not pass crop sizes to the picture's url method and disables cropping." do
-        expect(picture).to receive(:url).with(
-          hash_including(crop_from: nil, crop_size: nil, crop: false),
-        )
-        thumbnail_url
+    context "when cropping is disabled in the settings" do
+      let(:settings) do
+        { crop: false }
       end
 
-      context "when crop is explicitely enabled in the settings" do
-        let(:settings) do
-          { crop: true }
+      context "but crop sizes are present" do
+        before do
+          allow(record).to receive(:crop_size).and_return("200x200")
+          allow(record).to receive(:crop_from).and_return("10x10")
         end
 
-        it "it enables cropping." do
+        it "it disables cropping." do
           expect(picture).to receive(:url).with(
-            hash_including(crop: true),
+            hash_including(
+              crop_size: nil,
+              crop_from: nil,
+              crop: false,
+            ),
           )
           thumbnail_url
         end
@@ -274,34 +314,59 @@ RSpec.shared_examples_for "having picture thumbnails" do
       end
     end
 
-    context "when crop values are present" do
-      before do
-        expect(record).to receive(:crop_size).at_least(:once) { "200x200" }
-        expect(record).to receive(:crop_from).at_least(:once) { "10x10" }
+    context "when cropping is enabled in settings" do
+      let(:settings) do
+        { crop: true }
       end
 
-      it "includes these crop values" do
-        expect(thumbnail_url_options).to match(
-          hash_including(crop_from: "10x10", crop_size: "200x200", crop: true)
-        )
+      context "and crop values are present" do
+        before do
+          expect(record).to receive(:crop_size).at_least(:once) { "200x200" }
+          expect(record).to receive(:crop_from).at_least(:once) { "10x10" }
+        end
+
+        it "includes these crop values" do
+          expect(thumbnail_url_options).to match(
+            hash_including(
+              crop_from: "10x10",
+              crop_size: "200x200",
+              crop: true,
+            )
+          )
+        end
+      end
+
+      context "and no crop values are present" do
+        it "does not include crop values but enables center cropping" do
+          expect(thumbnail_url_options).to match(
+            hash_including(
+              crop_from: nil,
+              crop_size: nil,
+              crop: true,
+            )
+          )
+        end
       end
     end
 
-    context "when no crop values are present" do
-      it "does not include these crop values" do
-        expect(thumbnail_url_options).to_not match(
-          hash_including(crop_from: "10x10", crop_size: "200x200", crop: true)
-        )
+    context "when cropping is disabled in settings" do
+      let(:settings) do
+        { crop: false }
       end
 
-      context "when crop is explicitely enabled in the settings" do
-        let(:settings) do
-          { crop: true }
+      context "but crop values are present" do
+        before do
+          allow(record).to receive(:crop_size) { "200x200" }
+          allow(record).to receive(:crop_from) { "10x10" }
         end
 
-        it "it enables cropping." do
+        it "does not include crop values" do
           expect(thumbnail_url_options).to match(
-            hash_including(crop: true),
+            hash_including(
+              crop_from: nil,
+              crop_size: nil,
+              crop: false,
+            )
           )
         end
       end
@@ -367,7 +432,7 @@ RSpec.shared_examples_for "having picture thumbnails" do
           end
         end
 
-        context "with no sizes in  settngs" do
+        context "with no sizes in settings" do
           it "sets sizes to zero" do
             expect(subject[:min_size]).to eq([0, 0])
           end
