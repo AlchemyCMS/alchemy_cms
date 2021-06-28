@@ -19,6 +19,7 @@ module Alchemy
       def contents_by_name(name)
         contents.select { |content| content.name == name.to_s }
       end
+
       alias_method :all_contents_by_name, :contents_by_name
 
       # All contents from element by given essence type.
@@ -27,6 +28,7 @@ module Alchemy
           content.essence_type == Content.normalize_essence_type(essence_type)
         end
       end
+
       alias_method :all_contents_by_type, :contents_by_type
 
       # Updates all related contents by calling +update_essence+ on each of them.
@@ -144,7 +146,12 @@ module Alchemy
       end
 
       # creates the contents for this element as described in the elements.yml
+      #
+      # If ingredients are defined as well no contents get created,
+      # ingredients get created instead.
       def create_contents
+        return if definition.fetch(:ingredients, []).any?
+
         definition.fetch("contents", []).each do |attributes|
           Content.create(attributes.merge(element: self))
         end
