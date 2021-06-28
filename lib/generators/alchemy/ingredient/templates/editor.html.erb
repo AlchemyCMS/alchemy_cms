@@ -1,0 +1,14 @@
+<%%#
+  Available locals:
+  * <%= @ingredient_editor_local %> - An Alchemy::IngredientEditor instance
+
+  Please consult Alchemy::IngredientEditor.rb docs for further methods on the ingredient object
+%>
+<%%= content_tag :div,
+  class: <%= @ingredient_editor_local %>.css_classes,
+  data: <%= @ingredient_editor_local %>.data_attributes do %>
+  <%%= element_form.fields_for(:ingredients, <%= @ingredient_editor_local %>.ingredient) do |f| %>
+    <%%= ingredient_label(<%= @ingredient_editor_local %>) %>
+    <%%= f.text_field :value %>
+  <%% end %>
+<%% end %>
