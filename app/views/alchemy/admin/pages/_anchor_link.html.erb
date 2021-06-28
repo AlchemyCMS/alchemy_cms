@@ -17,6 +17,6 @@
     <%= text_field_tag "anchor_link_title", '', class: 'link_title' %>
   </div>
   <div class="submit">
-    <%= link_to Alchemy.t(:apply), '', class: 'create-link button', 'data-link-type' => 'anchor' %>
+    <%= button_tag Alchemy.t(:apply), class: 'create-link button', data: { link_type: 'anchor' } %>
   </div>
 <% end %>

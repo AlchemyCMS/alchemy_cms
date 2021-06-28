@@ -26,6 +26,6 @@
       class: 'alchemy_selectbox link_target' %>
   </div>
   <div class="submit">
-    <%= link_to Alchemy.t(:apply), '#', class: 'create-link button', 'data-link-type' => 'file' %>
+    <%= button_tag Alchemy.t(:apply), class: 'create-link button', data: { link_type: 'file' } %>
   </div>
 <% end %>
