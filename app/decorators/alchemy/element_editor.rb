@@ -55,7 +55,7 @@ module Alchemy
     def editable?
       return false if folded?
 
-      content_definitions.present? || taggable?
+      content_definitions.present? || ingredient_definitions.any? || taggable?
     end
 
     # Fixes Rails partial renderer calling to_model on the object
