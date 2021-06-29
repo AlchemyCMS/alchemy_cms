@@ -9,7 +9,7 @@ module Alchemy
     self.abstract_class = true
     self.table_name = "alchemy_ingredients"
 
-    belongs_to :element, class_name: "Alchemy::Element", inverse_of: :ingredients
+    belongs_to :element, touch: true, class_name: "Alchemy::Element", inverse_of: :ingredients
     belongs_to :related_object, polymorphic: true, optional: true
 
     validates :type, presence: true

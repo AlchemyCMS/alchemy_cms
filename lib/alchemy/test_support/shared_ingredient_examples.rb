@@ -12,7 +12,7 @@ RSpec.shared_examples_for "an alchemy ingredient" do
     )
   end
 
-  it { is_expected.to belong_to(:element) }
+  it { is_expected.to belong_to(:element).touch(true).class_name("Alchemy::Element") }
   it { is_expected.to belong_to(:related_object).optional }
   it { is_expected.to validate_presence_of(:role) }
   it { is_expected.to validate_presence_of(:type) }
