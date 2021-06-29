@@ -29,7 +29,7 @@ module Alchemy
       # If the element uses +ingredients+ it renders the ingredient record.
       #
       def render(name, options = {}, html_options = {})
-        renderable = content(name) || element.ingredient_by_role(name)
+        renderable = element.ingredient_by_role(name) || content(name)
         return if renderable.nil?
 
         helpers.render(renderable, {
