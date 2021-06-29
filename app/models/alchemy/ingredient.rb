@@ -59,22 +59,6 @@ module Alchemy
         build(attributes).tap(&:save)
       end
 
-      # Defines getters and setter methods for ingredient attributes
-      def ingredient_attributes=(attributes)
-        @ingredient_attributes = attributes
-        attributes.each do |name|
-          define_method name.to_sym do
-            data[name]
-          end
-          define_method "#{name}=" do |value|
-            data[name] = value
-            write_attribute(:data, data)
-          end
-        end
-      end
-
-      attr_reader :ingredient_attributes
-
       # Defines getter and setter method aliases for related object
       #
       # @param [String|Symbol] The name of the alias

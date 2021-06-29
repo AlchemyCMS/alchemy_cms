@@ -5,12 +5,11 @@ module Alchemy
     # A audio attachment
     #
     class Audio < Alchemy::Ingredient
-      self.ingredient_attributes = %i[
-        autoplay
-        controls
-        loop
-        muted
-      ]
+      store_accessor :data,
+        :autoplay,
+        :controls,
+        :muted,
+        :loop
 
       related_object_alias :attachment, class_name: "Alchemy::Attachment"
 

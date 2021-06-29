@@ -3,9 +3,8 @@
 module Alchemy
   module Ingredients
     class <%= @class_name %> < Alchemy::Ingredient
-      # Set additional attributes that get stored in the data JSON column
-      # Alchemy will create attribute accessors for each of it.
-      # self.ingredient_attributes = %i[]
+      # Set additional attributes that get stored in the `data` JSON column
+      # store_accessor :data, :some, :attribute
 
       # Set a related_object alias for convenience
       # related_object_alias :some_association_name, class_name: "Some::Klass"

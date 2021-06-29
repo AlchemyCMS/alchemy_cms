@@ -7,11 +7,10 @@ module Alchemy
     # Attach Alchemy::Attachment into this ingredient
     #
     class File < Alchemy::Ingredient
-      self.ingredient_attributes = %i[
-        css_class
-        link_text
-        title
-      ]
+      store_accessor :data,
+        :css_class,
+        :link_text,
+        :title
 
       related_object_alias :attachment, class_name: "Alchemy::Attachment"
 

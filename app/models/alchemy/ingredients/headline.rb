@@ -5,10 +5,9 @@ module Alchemy
     # A text headline
     #
     class Headline < Alchemy::Ingredient
-      self.ingredient_attributes = %i[
-        level
-        size
-      ]
+      store_accessor :data,
+        :level,
+        :size
 
       before_create :set_level_and_size
 

@@ -5,16 +5,15 @@ module Alchemy
     # A video attachment
     #
     class Video < Alchemy::Ingredient
-      self.ingredient_attributes = %i[
-        allow_fullscreen
-        autoplay
-        controls
-        height
-        loop
-        muted
-        preload
-        width
-      ]
+      store_accessor :data,
+        :allow_fullscreen,
+        :autoplay,
+        :controls,
+        :height,
+        :loop,
+        :muted,
+        :preload,
+        :width
 
       related_object_alias :attachment, class_name: "Alchemy::Attachment"
 
