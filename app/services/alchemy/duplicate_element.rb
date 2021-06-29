@@ -26,11 +26,14 @@ module Alchemy
         .merge(differences)
         .merge(
           autogenerate_contents: false,
+          autogenerate_ingredients: false,
           autogenerate_nested_elements: false,
           tags: source_element.tags,
         )
 
-      new_element = Element.create(attributes)
+      new_element = Element.new(attributes)
+      new_element.ingredients = source_element.ingredients.map(&:dup)
+      new_element.save!
 
       source_element.contents.map do |content|
         Content.copy(content, element: new_element)
