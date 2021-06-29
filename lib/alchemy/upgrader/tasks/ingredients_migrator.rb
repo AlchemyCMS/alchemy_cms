@@ -33,6 +33,7 @@ module Alchemy::Upgrader::Tasks
                     else
                       ingredient.value = content.ingredient
                     end
+                    content.destroy!
                     print "."
                     ingredient
                   end.compact
