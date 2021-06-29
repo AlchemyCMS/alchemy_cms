@@ -104,6 +104,7 @@ module Alchemy
             contents: {
               essence: :ingredient_association,
             },
+            ingredients: :related_object,
           },
           :tags,
           {
@@ -112,6 +113,7 @@ module Alchemy
                 contents: {
                   essence: :ingredient_association,
                 },
+                ingredients: :related_object,
               },
               :tags,
             ],
