@@ -35,20 +35,24 @@ module Alchemy
     # @return String
     #
     def hint
-      hint = definition["hint"]
+      hint = definition[:hint]
       if hint == true
-        Alchemy.t(name, scope: hint_translation_scope)
+        Alchemy.t(hint_translation_attribute, scope: hint_translation_scope)
       else
         hint
       end
     end
 
-    # Returns true if the element has a hint
+    # Returns true if the element has a hint defined
     def has_hint?
-      hint.present?
+      !!definition[:hint]
     end
 
     private
+
+    def hint_translation_attribute
+      name
+    end
 
     def hint_translation_scope
       "#{self.class.model_name.to_s.demodulize.downcase}_hints"

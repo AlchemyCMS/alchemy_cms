@@ -14,6 +14,7 @@ module Alchemy
         @elements.each do |element|
           @element = element
           @contents = element["contents"] || []
+          @ingredients = element["ingredients"] || []
           @element_name = element_name(element)
           conditional_template "view.html.#{template_engine}", "#{elements_dir}/_#{@element_name}.html.#{template_engine}"
         end

@@ -1,0 +1,25 @@
+<%= content_tag :div,
+  class: node_editor.css_classes,
+  data: node_editor.data_attributes do %>
+  <%= element_form.fields_for(:ingredients, node_editor.ingredient) do |f| %>
+    <%= ingredient_label(node_editor, :node_id) %>
+    <%= f.text_field :node_id,
+      value: node_editor.node&.id,
+      class: 'alchemy_selectbox full_width' %>
+  <% end %>
+<% end %>
+
+<script>
+  <% query_params = node_editor.settings.fetch(:query_params, {}).merge({
+    include: :ancestors
+  }) %>
+  $('#<%= node_editor.form_field_id(:node_id) %>').alchemyNodeSelect({
+    placeholder: "<%= Alchemy.t(:search_node) %>",
+    url: "<%= alchemy.api_nodes_path %>",
+    query_params: <%== query_params.to_json %>,
+    <% if node_editor.node %>
+    <% serialized_node = ActiveModelSerializers::SerializableResource.new(node_editor.node, include: :ancestors) %>
+    initialSelection: <%== serialized_node.to_json %>
+    <% end %>
+  })
+</script>

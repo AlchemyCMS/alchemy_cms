@@ -50,7 +50,7 @@ module Alchemy
       # No need to create a default site, as it has already been added through the seeds.
       # But let's add some more:
       #
-      let(:default_site)    { Site.default }
+      let(:default_site) { Site.default }
       let!(:magiclabs_site) { create(:alchemy_site, host: "www.magiclabs.de", aliases: "magiclabs.de magiclabs.com www.magiclabs.com") }
 
       subject { Site.find_for_host(host) }
@@ -108,7 +108,7 @@ module Alchemy
       subject { Site.definitions }
 
       context "with file present" do
-        let(:definitions) { [{"name" => "lala"}] }
+        let(:definitions) { [{ "name" => "lala" }] }
         before { expect(YAML).to receive(:load_file).and_return(definitions) }
         it { is_expected.to eq(definitions) }
       end
@@ -166,7 +166,7 @@ module Alchemy
 
     describe "#definition" do
       let(:site) { Site.new(name: "My custom site") }
-      let(:definitions) { [{"name" => "my_custom_site", "page_layouts" => %w(standard)}] }
+      let(:definitions) { [{ "name" => "my_custom_site", "page_layouts" => %w(standard) }] }
 
       it "returns layout definition from site_layouts.yml file" do
         allow(Site).to receive(:definitions).and_return(definitions)
@@ -257,6 +257,12 @@ module Alchemy
               {
                 "name" => "index",
                 "unique" => true,
+                "elements" => [
+                  "all_you_can_eat_ingredients",
+                ],
+                "autogenerate" => [
+                  "all_you_can_eat_ingredients",
+                ],
               },
               {
                 "name" => "readonly",
@@ -301,6 +307,8 @@ module Alchemy
                   "right_column",
                   "left_column",
                   "old",
+                  "all_you_can_eat_ingredients",
+                  "element_with_ingredients",
                 ],
               },
               {

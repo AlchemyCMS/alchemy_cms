@@ -26,12 +26,13 @@ module Alchemy
     class ElementViewHelper < BlockHelper
       # Renders one of the element's contents.
       #
+      # If the element uses +ingredients+ it renders the ingredient record.
+      #
       def render(name, options = {}, html_options = {})
-        content = element.content_by_name(name)
-        return if content.nil?
+        renderable = element.ingredient_by_role(name) || content(name)
+        return if renderable.nil?
 
-        helpers.render(content, {
-          content: content,
+        helpers.render(renderable, {
           options: options,
           html_options: html_options,
         })
@@ -43,16 +44,28 @@ module Alchemy
         element.content_by_name(name)
       end
 
+      deprecate content: "Use `ingredient_by_role` instead", deprecator: Alchemy::Deprecation
+
       # Returns the ingredient of one of the element's contents.
       #
+      # If the element uses +ingredients+ it returns the +value+ of the ingredient record.
+      #
       def ingredient(name)
-        element.ingredient(name)
+        element.ingredient(name).presence || element.ingredient_by_role(name)&.value
       end
 
-      # Returns true if the given content has been filled by the user.
+      deprecate ingredient: :value, deprecator: Alchemy::Deprecation
+
+      # Returns the value of one of the element's ingredients.
+      #
+      def value(name)
+        element.ingredient_by_role(name)&.value
+      end
+
+      # Returns true if the given content or ingredient has been filled by the user.
       #
       def has?(name)
-        element.has_ingredient?(name)
+        element.has_ingredient?(name) || element.has_value_for?(name)
       end
 
       # Return's the given content's essence.
@@ -60,6 +73,8 @@ module Alchemy
       def essence(name)
         content(name).try(:essence)
       end
+
+      deprecate essence: "Use `ingredient_by_role` instead", deprecator: Alchemy::Deprecation
     end
 
     # Block-level helper for element views. Constructs a DOM element wrapping

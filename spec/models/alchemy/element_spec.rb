@@ -60,7 +60,33 @@ module Alchemy
           )
         end
 
-        it "creates contents" do
+        it "does not create contents" do
+          expect(element.contents).to be_empty
+        end
+      end
+
+      context "if ingredients are defined as well" do
+        before do
+          expect_any_instance_of(Alchemy::Element).to receive(:definition).at_least(:once) do
+            {
+              name: "article",
+              contents: [
+                {
+                  name: "headline",
+                  type: "EssenceText",
+                },
+              ],
+              ingredients: [
+                {
+                  role: "headline",
+                  type: "Text",
+                },
+              ],
+            }.with_indifferent_access
+          end
+        end
+
+        it "does not create contents" do
           expect(element.contents).to be_empty
         end
       end

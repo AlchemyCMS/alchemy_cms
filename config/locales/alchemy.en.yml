@@ -89,6 +89,11 @@ en:
         right: 'Right from text'
         no_float: 'Above the text'
 
+    ingredient_values:
+      boolean:
+        true: "True"
+        false: "False"
+
     # == Contactform translations
     contactform:
       labels:
@@ -307,6 +312,7 @@ en:
     "Warning!": "Warning!"
     content_definition_missing: "Warning: Content is missing its definition. Please check the elements.yml"
     content_deprecated: "WARNING! This content is deprecated and will be removed soon. Please do not use it anymore."
+    ingredient_deprecated: "WARNING! This content is deprecated and will be removed soon. Please do not use it anymore."
     element_definition_missing: "WARNING! Missing element definition. Please check your elements.yml file."
     element_deprecated: "WARNING! This element is deprecated and will be removed soon. Please do not use it anymore."
     page_definition_missing: "WARNING! Missing page layout definition. Please check your page_layouts.yml file."

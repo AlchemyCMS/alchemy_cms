@@ -55,13 +55,12 @@ module Alchemy
       # And update all contents in the elements by calling update_contents.
       #
       def update
-        if @element.update_contents(contents_params)
-          @page = @element.page
-          @element_validated = @element.update(element_params)
+        @page = @element.page
+
+        if element_params.key?(:ingredients_attributes)
+          update_element_with_ingredients
         else
-          @element_validated = false
-          @notice = Alchemy.t("Validation failed")
-          @error_message = "<h2>#{@notice}</h2><p>#{Alchemy.t(:content_validations_headline)}</p>".html_safe
+          update_element_with_contents
         end
       end
 
@@ -105,6 +104,7 @@ module Alchemy
             contents: {
               essence: :ingredient_association,
             },
+            ingredients: :related_object,
           },
           :tags,
           {
@@ -113,6 +113,7 @@ module Alchemy
                 contents: {
                   essence: :ingredient_association,
                 },
+                ingredients: :related_object,
               },
               :tags,
             ],
@@ -150,15 +151,35 @@ module Alchemy
       end
 
       def element_params
-        if @element.taggable?
-          params.fetch(:element, {}).permit(:tag_list)
-        else
-          params.fetch(:element, {})
-        end
+        params.fetch(:element).permit(:tag_list, ingredients_attributes: {})
       end
 
       def create_element_params
         params.require(:element).permit(:name, :page_version_id, :parent_element_id)
+      end
+
+      def update_element_with_ingredients
+        if @element.update(element_params)
+          @element_validated = true
+        else
+          element_update_error
+          @error_messages = @element.ingredient_error_messages
+        end
+      end
+
+      def update_element_with_contents
+        if @element.update_contents(contents_params)
+          @element_validated = @element.update(element_params)
+        else
+          element_update_error
+          @error_messages = @element.essence_error_messages
+        end
+      end
+
+      def element_update_error
+        @element_validated = false
+        @notice = Alchemy.t("Validation failed")
+        @error_message = "<h2>#{@notice}</h2><p>#{Alchemy.t(:content_validations_headline)}</p>".html_safe
       end
     end
   end

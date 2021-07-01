@@ -1,0 +1,17 @@
+<%- if video_view.attachment -%>
+  <%= content_tag :video,
+    controls: video_view.controls,
+    autoplay: video_view.autoplay,
+    loop: video_view.loop,
+    muted: video_view.muted,
+    preload: video_view.preload.presence,
+    width: video_view.width.presence,
+    height: video_view.height.presence do %>
+    <%= tag :source,
+      src: alchemy.show_attachment_path(
+        video_view.attachment,
+        format: video_view.attachment.suffix
+      ),
+      type: video_view.attachment.file_mime_type %>
+  <% end %>
+<%- end -%>

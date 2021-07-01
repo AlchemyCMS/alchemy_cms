@@ -1,0 +1,8 @@
+<%= content_tag :div,
+  class: html_editor.css_classes,
+  data: html_editor.data_attributes do %>
+  <%= element_form.fields_for(:ingredients, html_editor.ingredient) do |f| %>
+    <%= ingredient_label(html_editor) %>
+    <%= f.text_area :value %>
+  <% end %>
+<% end %>

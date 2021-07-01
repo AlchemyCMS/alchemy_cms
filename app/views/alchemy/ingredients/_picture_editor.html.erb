@@ -1,0 +1,59 @@
+<% options = local_assigns.fetch(:options, {}) %>
+
+<%= content_tag :div,
+  class: picture_editor.css_classes,
+  data: picture_editor.data_attributes do %>
+  <%= element_form.fields_for(:ingredients, picture_editor.ingredient) do |f| %>
+    <%= ingredient_label(picture_editor, :picture_id) %>
+    <%= content_tag :div,
+      data: {
+        target_size: picture_editor.settings[:size] || [
+          picture_editor.image_file_width.to_i,
+          picture_editor.image_file_height.to_i
+        ].join("x"),
+        image_cropper: picture_editor.thumbnail_url_options[:crop],
+      },
+      class: "picture_thumbnail" do %>
+      <a class="picture_tool delete">
+        <%= render_icon(:times) %>
+      </a>
+      <div class="picture_image">
+        <div class="thumbnail_background">
+          <%- if picture_editor.picture -%>
+            <%= image_tag(
+              picture_editor.thumbnail_url,
+              alt: picture_editor.picture.name,
+              class: "img_paddingtop",
+              title: Alchemy.t(:image_name, name: picture_editor.picture.name),
+            ) %>
+          <% else %>
+            <%= render_icon(:image, style: "regular") %>
+          <% end %>
+        </div>
+      </div>
+      <%- if picture_editor.essence.css_class.present? -%>
+        <div class="essence_picture_css_class">
+          <%= Alchemy.t("alchemy.essence_pictures.css_classes.#{picture_editor.essence.css_class}",
+            default: picture_editor.essence.css_class.camelcase) %>
+        </div>
+      <%- end -%>
+      <div class="edit_images_bottom">
+        <%= render "alchemy/ingredients/shared/picture_tools", {
+          picture_editor: picture_editor
+        } %>
+      </div>
+    <% end %>
+    <%= f.hidden_field :picture_id, value: picture_editor.picture&.id,
+      data: {
+        picture_id: true,
+        image_file_width: picture_editor.image_file_width,
+        image_file_height: picture_editor.image_file_height
+      } %>
+    <%= f.hidden_field :link, data: { link_value: true } %>
+    <%= f.hidden_field :link_title, data: { link_title: true } %>
+    <%= f.hidden_field :link_class_name, data: { link_class: true } %>
+    <%= f.hidden_field :link_target, data: { link_target: true } %>
+    <%= f.hidden_field :crop_from, data: { crop_from: true } %>
+    <%= f.hidden_field :crop_size, data: { crop_size: true } %>
+  <% end %>
+<% end %>

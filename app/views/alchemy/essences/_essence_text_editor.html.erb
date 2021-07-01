@@ -12,10 +12,18 @@
     type: essence_text_editor.settings[:input_type] || "text"
   ) %>
   <% if essence_text_editor.settings[:linkable] %>
-    <%= hidden_field_tag essence_text_editor.form_field_name(:link), essence_text_editor.essence.link %>
-    <%= hidden_field_tag essence_text_editor.form_field_name(:link_title), essence_text_editor.essence.link_title %>
-    <%= hidden_field_tag essence_text_editor.form_field_name(:link_class_name), essence_text_editor.essence.link_class_name %>
-    <%= hidden_field_tag essence_text_editor.form_field_name(:link_target), essence_text_editor.essence.link_target %>
+    <%= hidden_field_tag essence_text_editor.form_field_name(:link),
+      essence_text_editor.essence.link,
+      "data-link-value": true %>
+    <%= hidden_field_tag essence_text_editor.form_field_name(:link_title),
+      essence_text_editor.essence.link_title,
+      "data-link-title": true %>
+    <%= hidden_field_tag essence_text_editor.form_field_name(:link_class_name),
+      essence_text_editor.essence.link_class_name,
+      "data-link-class": true %>
+    <%= hidden_field_tag essence_text_editor.form_field_name(:link_target),
+      essence_text_editor.essence.link_target,
+      "data-link-target": true %>
     <%= render 'alchemy/essences/shared/linkable_essence_tools', content: essence_text_editor.content %>
   <% end %>
 <% end %>

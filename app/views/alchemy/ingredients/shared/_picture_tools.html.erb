@@ -1,0 +1,57 @@
+<% linkable = picture_editor.settings[:linkable] != false %>
+<% croppable = picture_editor.allow_image_cropping? %>
+
+<%= link_to_dialog render_icon(:crop),
+  alchemy.crop_admin_ingredient_path(picture_editor.ingredient, {
+    crop_from_form_field_id: picture_editor.form_field_id(:crop_from),
+    crop_size_form_field_id: picture_editor.form_field_id(:crop_size),
+    picture_id: picture_editor.picture&.id
+  }), {
+    size: "1080x615",
+    title: Alchemy.t("Edit Picturemask"),
+    image_loader: false,
+    padding: false
+  }, {
+    title: Alchemy.t("Edit Picturemask"),
+    class: croppable ? "crop_link" : "disabled crop_link",
+    tabindex: croppable ? nil : "-1",
+    onclick: "return false"
+  } %>
+
+<%= link_to_dialog render_icon("file-image", style: "regular"),
+  alchemy.admin_pictures_path(
+    form_field_id: picture_editor.form_field_id(:picture_id)
+  ),
+  {
+    title: (picture_editor.picture ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)),
+    size: "790x590",
+    padding: false
+  },
+  title: (picture_editor.picture ? Alchemy.t(:swap_image) : Alchemy.t(:insert_image)) %>
+
+<%= link_to_if linkable, render_icon(:link), "", {
+  onclick: "new Alchemy.LinkDialog(this).open(); return false;",
+  class: picture_editor.linked? ? "linked" : nil,
+  title: Alchemy.t(:link_image),
+  "data-parent-selector": "[data-ingredient-id='#{picture_editor.id}']",
+  id: "edit_link_#{picture_editor.id}"
+} do %>
+  <span class="disabled" tabindex="-1"><%= render_icon(:link) %></span>
+<% end %>
+
+<%= link_to_if linkable, render_icon(:unlink), "", {
+  onclick: "return Alchemy.LinkDialog.removeLink(this, '[data-ingredient-id=\"#{picture_editor.id}\"]')",
+  class: picture_editor.linked? ? "linked" : "disabled",
+  tabindex: picture_editor.linked? ? nil : "-1",
+  title: Alchemy.t(:unlink)
+} do %>
+  <span class="disabled" tabindex="-1"><%= render_icon(:unlink) %></span>
+<% end %>
+
+<%= link_to_dialog render_icon(:edit),
+  alchemy.edit_admin_ingredient_path(id: picture_editor.id),
+  {
+    title: Alchemy.t(:edit_image_properties),
+    size: "380x255"
+  },
+  title: Alchemy.t(:edit_image_properties) %>

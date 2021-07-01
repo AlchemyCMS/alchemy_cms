@@ -1,0 +1,18 @@
+<% css_classes = ingredient.settings[:css_classes] %>
+
+<%= f.input :link_text %>
+<%= f.input :title %>
+<%- if css_classes.present? -%>
+  <%= f.input :css_class,
+    collection: css_classes,
+    include_blank: Alchemy.t('None'),
+    input_html: {class: 'alchemy_selectbox'} %>
+<%- else -%>
+  <%= f.input :css_class,
+    label: Alchemy.t(:position_in_text),
+    collection: [
+      [Alchemy.t(:above), "no_float"],
+      [Alchemy.t(:left), "left"],
+      [Alchemy.t(:right), "right"]
+    ], include_blank: Alchemy.t('Layout default'), input_html: {class: 'alchemy_selectbox'} %>
+<%- end -%>

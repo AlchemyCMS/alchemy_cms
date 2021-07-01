@@ -115,6 +115,8 @@ module Alchemy
         can :manage, Alchemy::EssenceFile
         can :manage, Alchemy::EssencePicture
         can :manage, Alchemy::EssenceVideo
+        can :manage, Alchemy::Ingredient
+        can [:crop], Alchemy::Ingredients::Picture
         can :manage, Alchemy::LegacyPageUrl
         can :manage, Alchemy::Node
         can [:read, :url], Alchemy::Picture

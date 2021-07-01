@@ -26,14 +26,30 @@ en:
       essence_text: This content type (Essence) represents a simple line of text
     default_content_texts:
       welcome: Welcome to my site
+    default_ingredient_texts:
+      lorem_ipsum: Dapibus nostra massa phasellus viverra rhoncus fringilla
     resource_help_texts:
       party:
         name: Party
     content_deprecation_notices:
       all_you_can_eat:
         essence_html: Old content is deprecated
+    ingredient_deprecation_notices:
+      all_you_can_eat_ingredients:
+        html: Old ingredient is deprecated
     element_deprecation_notices:
       old: Old element is deprecated
+    ingredient_validations:
+      errors:
+        blank: "%{field} can't be blank"
+        invalid: "%{field} is invalid"
+        taken: "%{field} has already been taken"
+      fields:
+        select:
+          taken: "Please select something else"
+      all_you_can_eat_ingredients:
+        headline:
+          blank: Please enter a headline for all you can eat
 
   activemodel:
     models:

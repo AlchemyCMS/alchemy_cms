@@ -4,6 +4,7 @@ FactoryBot.define do
   factory :alchemy_element, class: "Alchemy::Element" do
     name { "article" }
     autogenerate_contents { false }
+    autogenerate_ingredients { false }
     association :page_version, factory: :alchemy_page_version
 
     trait :fixed do
@@ -27,6 +28,11 @@ FactoryBot.define do
 
     trait :with_contents do
       autogenerate_contents { true }
+    end
+
+    trait :with_ingredients do
+      name { "element_with_ingredients" }
+      autogenerate_ingredients { true }
     end
   end
 end

@@ -19,6 +19,23 @@ module Alchemy
       end
     end
 
+    # Returns ingredient editor instances for defined ingredients
+    #
+    # Creates ingredient on demand if the ingredient is not yet present on the element
+    #
+    # @return Array<Alchemy::IngredientEditor>
+    def ingredients
+      element.definition.fetch(:ingredients, []).map do |ingredient|
+        Alchemy::IngredientEditor.new(find_or_create_ingredient(ingredient[:role]))
+      end
+    end
+
+    # Are any ingredients defined?
+    # @return [Boolean]
+    def has_ingredients_defined?
+      element.definition.fetch(:ingredients, []).any?
+    end
+
     # CSS classes for the element editor partial.
     def css_classes
       [
@@ -38,7 +55,7 @@ module Alchemy
     def editable?
       return false if folded?
 
-      content_definitions.present? || taggable?
+      content_definitions.present? || ingredient_definitions.any? || taggable?
     end
 
     # Fixes Rails partial renderer calling to_model on the object
@@ -102,6 +119,11 @@ module Alchemy
 
     def create_content(name)
       Alchemy::Content.create(element: element, name: name)
+    end
+
+    def find_or_create_ingredient(role)
+      element.ingredients.find { |i| i.role == role } ||
+        Ingredient.create(element: element, role: role)
     end
   end
 end

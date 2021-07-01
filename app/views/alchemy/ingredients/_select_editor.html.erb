@@ -1,0 +1,29 @@
+<% select_values = select_editor.settings[:select_values] %>
+
+<%= content_tag :div,
+  class: [
+    select_editor.css_classes,
+    select_editor.settings[:display_inline] ? 'display_inline' : ''
+  ], data: select_editor.data_attributes do %>
+  <%= element_form.fields_for(:ingredients, select_editor.ingredient) do |f| %>
+    <%= ingredient_label(select_editor) %>
+
+    <% if select_values.nil? %>
+      <%= warning(':select_values is nil',
+      "<strong>No select values given.</strong>
+      <br>Please provide <code>select_values</code> on the
+      content definition <code>settings</code> in
+      <code>elements.yml</code>.") %>
+    <% else %>
+      <%
+      if select_values.is_a?(Hash)
+        options_tags = grouped_options_for_select(select_values, select_editor.value)
+      else
+        options_tags = options_for_select(select_values, select_editor.value)
+      end %>
+      <%= f.select :value, options_tags, {}, {
+        class: ["alchemy_selectbox", "ingredient-editor-select"]
+      } %>
+    <% end %>
+  <% end %>
+<% end %>

@@ -22,6 +22,7 @@
 
 require_dependency "alchemy/element/definitions"
 require_dependency "alchemy/element/element_contents"
+require_dependency "alchemy/element/element_ingredients"
 require_dependency "alchemy/element/element_essences"
 require_dependency "alchemy/element/presenters"
 
@@ -39,6 +40,7 @@ module Alchemy
       "nestable_elements",
       "contents",
       "hint",
+      "ingredients",
       "taggable",
       "compact",
       "message",
@@ -117,6 +119,7 @@ module Alchemy
     include Definitions
     include ElementContents
     include ElementEssences
+    include ElementIngredients
     include Presenters
 
     # class methods

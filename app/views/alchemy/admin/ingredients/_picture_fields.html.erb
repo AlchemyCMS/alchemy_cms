@@ -1,0 +1,25 @@
+<%= f.input :caption, as: ingredient.settings[:caption_as_textarea] ? 'text' : 'string' %>
+<%= f.input :title %>
+<%= f.input :alt_tag %>
+<%- if ingredient.settings[:sizes].present? && ingredient.settings[:srcset].blank? -%>
+  <%= f.input :render_size,
+    collection: [
+      [Alchemy.t('Layout default'), ""]
+    ] + ingredient.settings[:sizes].to_a,
+    include_blank: false,
+    input_html: {class: 'alchemy_selectbox'} %>
+<%- end -%>
+<%- if ingredient.settings[:css_classes].present? -%>
+  <%= f.input :css_class,
+    collection: ingredient.settings[:css_classes],
+    include_blank: Alchemy.t('None'),
+    input_html: {class: 'alchemy_selectbox'} %>
+<%- else -%>
+  <%= f.input :css_class,
+    label: Alchemy.t(:position_in_text),
+    collection: [
+      [Alchemy.t(:above), "no_float"],
+      [Alchemy.t(:left), "left"],
+      [Alchemy.t(:right), "right"]
+    ], include_blank: Alchemy.t("Layout default"), input_html: {class: 'alchemy_selectbox'} %>
+<%- end -%>

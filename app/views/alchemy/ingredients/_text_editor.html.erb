@@ -1,0 +1,19 @@
+<%= content_tag :div,
+  class: [
+    text_editor.css_classes,
+    text_editor.settings[:display_inline] ? "display_inline" : ""
+  ], data: text_editor.data_attributes do %>
+  <%= element_form.fields_for(:ingredients, text_editor.ingredient) do |f| %>
+    <%= ingredient_label(text_editor) %>
+    <%= f.text_field :value,
+      class: text_editor.settings[:linkable] ? "text_with_icon" : "",
+      type: text_editor.settings[:input_type] || "text" %>
+    <% if text_editor.settings[:linkable] %>
+      <%= f.hidden_field :link, "data-link-value": true %>
+      <%= f.hidden_field :link_title, "data-link-title": true %>
+      <%= f.hidden_field :link_class_name, "data-link-class": true%>
+      <%= f.hidden_field :link_target, "data-link-target": true %>
+      <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: text_editor %>
+    <% end %>
+  <% end %>
+<% end %>

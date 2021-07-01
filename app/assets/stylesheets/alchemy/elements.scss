@@ -280,6 +280,7 @@
     }
 
     .content_editor,
+    .ingredient-editor,
     .picture_thumbnail {
       width: 100%;
     }
@@ -413,7 +414,8 @@
   }
 }
 
-.element-content-editors {
+.element-content-editors,
+.element-ingredient-editors {
   display: flex;
   flex-wrap: wrap;
 }
@@ -524,7 +526,8 @@
   }
 }
 
-.essence_picture {
+.essence_picture,
+.ingredient-editor.picture {
   position: relative;
 
   .picture_thumbnail {
@@ -559,47 +562,49 @@
   }
 }
 
-.content_editor {
-  &.essence_audio,
-  &.essence_file,
-  &.essence_video {
-    .file {
-      display: flex;
-      align-items: center;
-      margin: 6px 0 $default-margin;
-      border: $default-border;
-      background-color: $white;
-      border-radius: $default-border-radius;
-      height: $form-field-height;
+.content_editor.essence_audio,
+.content_editor.essence_file,
+.content_editor.essence_video,
+.ingredient-editor.audio,
+.ingredient-editor.file,
+.ingredient-editor.video {
+  .file {
+    display: flex;
+    align-items: center;
+    margin: 6px 0 $default-margin;
+    border: $default-border;
+    background-color: $white;
+    border-radius: $default-border-radius;
+    height: $form-field-height;
 
-      .validation_failed & {
-        color: $error_text_color;
-        border-color: $error_border_color;
-      }
+    .validation_failed & {
+      color: $error_text_color;
+      border-color: $error_border_color;
     }
+  }
 
-    .file_icon {
-      text-align: center;
-      width: 24px;
-      padding: $default-padding;
-    }
+  .file_icon {
+    text-align: center;
+    width: 24px;
+    padding: $default-padding;
+  }
 
-    .file_name {
-      white-space: nowrap;
-      overflow: hidden;
-      max-width: 80%;
-      font-size: $small-font-size;
-      text-overflow: ellipsis;
-      padding: $default-padding;
-    }
+  .file_name {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 80%;
+    font-size: $small-font-size;
+    text-overflow: ellipsis;
+    padding: $default-padding;
+  }
 
-    .remove_file_link {
-      width: 24px;
-      padding: $default-padding;
-    }
+  .remove_file_link {
+    width: 24px;
+    padding: $default-padding;
   }
 }
 
+.file_tools,
 .essence_file_tools {
   display: flex;
   align-items: center;
@@ -635,7 +640,8 @@ select.long {
   padding: 0;
 }
 
-.content_editor {
+.content_editor,
+.ingredient-editor {
   width: 100%;
   padding: $default-padding 0;
   position: relative;
@@ -676,7 +682,7 @@ select.long {
   }
 
   &.validation_failed {
-    label {
+    > label {
       color: $error_text_color;
     }
 
@@ -727,7 +733,8 @@ select.long {
     }
   }
 
-  &.essence_select {
+  &.essence_select,
+  &.select {
     label {
       margin-bottom: 2 * $default-margin;
     }
@@ -741,6 +748,7 @@ select.long {
     }
   }
 
+  select.ingredient-editor-select,
   select.essence_editor_select {
     border-radius: $default-border-radius;
     background: white;
@@ -768,12 +776,14 @@ select.long {
     }
   }
 
-  &.essence_picture {
+  &.essence_picture,
+  &.picture {
     width: 50%;
     padding-left: 1px; // Compensate the box shadow
     padding-right: $default-padding;
 
-    + .essence_picture {
+    + .essence_picture,
+    + .picture {
       padding-left: $default-padding;
       padding-right: 1px; // Compensate the box shadow
     }
@@ -825,6 +835,8 @@ textarea.has_tinymce {
 
 .content_editor .hint-with-icon,
 .content_editor .with-hint,
+.ingredient-editor .hint-with-icon,
+.ingredient-editor .with-hint,
 .element-handle .hint-with-icon {
   margin: 0;
 
@@ -884,6 +896,7 @@ textarea.has_tinymce {
   }
 }
 
+.ingredient-date--label,
 .essence_date--label {
   position: absolute;
   right: 7px;

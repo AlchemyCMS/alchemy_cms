@@ -1,0 +1,24 @@
+<%= content_tag :div,
+  class: link_editor.css_classes,
+  data: link_editor.data_attributes do %>
+  <%= element_form.fields_for(:ingredients, link_editor.ingredient) do |f| %>
+    <%= ingredient_label(link_editor) %>
+    <%= f.text_field :value,
+      class: "thin_border text_with_icon disabled",
+      name: nil,
+      id: nil,
+      disabled: true
+    %>
+    <%= f.hidden_field :value, "data-link-value": true %>
+    <%= f.hidden_field :link_title, "data-link-title": true %>
+    <%= f.hidden_field :link_class_name, "data-link-class": true %>
+    <%= f.hidden_field :link_target, "data-link-target": true %>
+  <% end %>
+  <%= render "alchemy/ingredients/shared/link_tools", ingredient_editor: link_editor %>
+<% end %>
+
+<script>
+  $("#<%= link_editor.form_field_id %>").on("change", function() {
+    $("[data-ingredient-id='<%= link_editor.id %>'] input.text_with_icon").val($(this).val());
+  });
+</script>

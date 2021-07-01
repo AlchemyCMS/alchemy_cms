@@ -178,6 +178,18 @@ RSpec.describe Alchemy::ElementEditor do
 
           it { is_expected.to eq(false) }
         end
+
+        context "but element has ingredients defined" do
+          before {
+            expect(element).to receive(:ingredient_definitions) {
+              [{
+                role: "headline", type: "Headline",
+              }]
+            }
+          }
+
+          it { is_expected.to eq(true) }
+        end
       end
     end
   end

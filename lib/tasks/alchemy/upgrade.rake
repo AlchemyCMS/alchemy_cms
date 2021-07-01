@@ -72,11 +72,17 @@ namespace :alchemy do
     namespace "6.0" do
       task "run" => [
         "alchemy:upgrade:6.0:create_public_page_versions",
+        "alchemy:upgrade:6.0:create_ingredients",
       ]
 
-      desc "Install Gutentag migrations"
+      desc "Create public page versions"
       task create_public_page_versions: [:environment] do
         Alchemy::Upgrader::SixPointZero.create_public_page_versions
+      end
+
+      desc "Create ingredients for elements with ingredients defined"
+      task create_ingredients: [:environment] do
+        Alchemy::Upgrader::SixPointZero.create_ingredients
       end
     end
   end

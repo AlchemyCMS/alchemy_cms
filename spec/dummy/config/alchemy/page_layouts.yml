@@ -1,5 +1,9 @@
 - name: index
   unique: true
+  elements:
+    - all_you_can_eat_ingredients
+  autogenerate:
+    - all_you_can_eat_ingredients
 
 - name: readonly
   fixed_attributes:
@@ -19,7 +23,17 @@
   autogenerate: [header, article, download]
 
 - name: everything
-  elements: [text, all_you_can_eat, gallery, right_column, left_column, old]
+  elements:
+    [
+      text,
+      all_you_can_eat,
+      gallery,
+      right_column,
+      left_column,
+      old,
+      all_you_can_eat_ingredients,
+      element_with_ingredients
+    ]
   autogenerate: [all_you_can_eat, right_column, left_column]
 
 - name: news
@@ -38,7 +52,7 @@
 
 - name: footer
   elements:
-  - menu
+    - menu
   layoutpage: true
 
 - name: <%= 'erb_' + 'layout' %>

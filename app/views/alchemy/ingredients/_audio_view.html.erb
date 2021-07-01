@@ -1,0 +1,14 @@
+<%- if audio_view.attachment -%>
+  <%= content_tag :audio,
+      controls: audio_view.controls,
+      autoplay: audio_view.autoplay,
+      loop: audio_view.loop,
+      muted: audio_view.muted do %>
+    <%= tag :source,
+      src: alchemy.show_attachment_path(
+        audio_view.attachment,
+        format: audio_view.attachment.suffix
+      ),
+      type: audio_view.attachment.file_mime_type %>
+  <% end %>
+<%- end -%>

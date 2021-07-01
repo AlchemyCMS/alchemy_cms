@@ -1,0 +1,24 @@
+<%= content_tag :div,
+  class: page_editor.css_classes,
+  data: page_editor.data_attributes do %>
+  <%= element_form.fields_for(:ingredients, page_editor.ingredient) do |f| %>
+    <%= ingredient_label(page_editor, :page_id) %>
+    <%= f.text_field :page_id,
+      value: page_editor.page&.id,
+      class: 'alchemy_selectbox full_width' %>
+  <% end %>
+<% end %>
+
+<script>
+  $('#<%= page_editor.form_field_id(:page_id) %>').alchemyPageSelect({
+    placeholder: "<%= Alchemy.t(:search_page) %>",
+    url: "<%= alchemy.api_pages_path %>",
+    query_params: <%== page_editor.settings[:query_params].to_json %>,
+    <% if page_editor.page %>
+    initialSelection: {
+      id: <%= page_editor.page.id %>,
+      text: "<%= page_editor.page.name %>"
+    }
+    <% end %>
+  })
+</script>

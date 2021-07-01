@@ -8,6 +8,15 @@
     = el.render :<%= content["name"] %>
     <%- end -%>
   <%- end -%>
+  <%- @ingredients.each do |ingredient| -%>
+    <%- if @ingredients.length > 1 -%>
+    .<%= ingredient["role"] %>
+      = el.render(:<%= ingredient["role"] %>)
+    </div>
+    <%- else -%>
+    = el.render(:<%= ingredient["role"] %>)
+    <%- end -%>
+  <%- end -%>
   <%- if @element['nestable_elements'].present? -%>
     = render <%= @element_name -%>.nested_elements.available
   <%- end -%>

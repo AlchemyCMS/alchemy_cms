@@ -1,0 +1,50 @@
+<% dialog_link = link_to_dialog render_icon(:file, style: "regular"),
+  alchemy.admin_attachments_path(
+    form_field_id: file_editor.form_field_id(:attachment_id),
+    only: file_editor.settings[:only],
+    except: file_editor.settings[:except]
+  ),
+  {
+    title: Alchemy.t(:assign_file),
+    size: "780x585",
+    padding: false
+  },
+  class: "file_icon",
+  title: Alchemy.t(:assign_file) %>
+
+<%= content_tag :div,
+  class: file_editor.css_classes,
+  data: file_editor.data_attributes do %>
+  <%= element_form.fields_for(:ingredients, file_editor.ingredient) do |f| %>
+    <%= ingredient_label(file_editor) %>
+    <div class="file">
+      <% if file_editor.attachment %>
+        <div class="file_icon">
+          <%= render_icon(file_editor.attachment.icon_css_class) %>
+        </div>
+      <% end %>
+      <div class="file_name">
+        <%= file_editor.attachment&.name %>
+      </div>
+      <%= link_to render_icon(:times), "#",
+        class: [
+          "remove_file_link",
+          file_editor.attachment ? nil : "hidden"
+        ],
+        data: {
+          form_field_id: file_editor.form_field_id(:attachment_id)
+        } %>
+      <div class="file_tools">
+        <%= dialog_link %>
+        <%= link_to_dialog render_icon(:edit),
+          alchemy.edit_admin_ingredient_path(file_editor),
+          {
+            title: Alchemy.t(:edit_file_properties),
+            size: "400x215"
+          },
+          title: Alchemy.t(:edit_file_properties) %>
+      </div>
+      <%= f.hidden_field :attachment_id, value: file_editor.attachment&.id %>
+    </div>
+  <% end %>
+<% end %>

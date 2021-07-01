@@ -1,0 +1,10 @@
+<%- cache(element_with_ingredients) do -%>
+  <%= element_view_for(element_with_ingredients) do |el| -%>
+    <div class="headline">
+      <%= el.render(:headline) %>
+    </div>
+    <div class="text">
+      <%= el.render(:text) %>
+    </div>
+  <%- end -%>
+<%- end -%>

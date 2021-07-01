@@ -6,18 +6,18 @@ module Alchemy
   describe Admin::ElementsController do
     routes { Alchemy::Engine.routes }
 
-    let(:page_version)         { create(:alchemy_page_version) }
-    let(:element)              { create(:alchemy_element, page_version: page_version) }
+    let(:page_version) { create(:alchemy_page_version) }
+    let(:element) { create(:alchemy_element, page_version: page_version) }
     let(:element_in_clipboard) { create(:alchemy_element, page_version: page_version) }
-    let(:clipboard)            { session[:alchemy_clipboard] = {} }
+    let(:clipboard) { session[:alchemy_clipboard] = {} }
 
     before { authorize_user(:as_author) }
 
     describe "#index" do
-      let!(:page_version)    { create(:alchemy_page_version) }
-      let!(:element)         { create(:alchemy_element, page_version: page_version) }
-      let!(:nested_element)  { create(:alchemy_element, :nested, page_version: page_version) }
-      let!(:hidden_element)  { create(:alchemy_element, page_version: page_version, public: false) }
+      let!(:page_version) { create(:alchemy_page_version) }
+      let!(:element) { create(:alchemy_element, page_version: page_version) }
+      let!(:nested_element) { create(:alchemy_element, :nested, page_version: page_version) }
+      let!(:hidden_element) { create(:alchemy_element, page_version: page_version, public: false) }
 
       context "with fixed elements" do
         let!(:fixed_element) do
@@ -41,9 +41,9 @@ module Alchemy
     end
 
     describe "#order" do
-      let!(:element_1)   { create(:alchemy_element) }
-      let!(:element_2)   { create(:alchemy_element, page_version: page_version) }
-      let!(:element_3)   { create(:alchemy_element, page_version: page_version) }
+      let!(:element_1) { create(:alchemy_element) }
+      let!(:element_2) { create(:alchemy_element, page_version: page_version) }
+      let!(:element_3) { create(:alchemy_element, page_version: page_version) }
       let(:element_ids) { [element_1.id, element_3.id, element_2.id] }
       let(:page_version) { element_1.page_version }
 
@@ -69,17 +69,17 @@ module Alchemy
           parent.update_column(:updated_at, 3.days.ago)
           expect {
             post :order, params: {
-              element_ids: element_ids,
-              parent_element_id: parent.id,
-            }, xhr: true
+                           element_ids: element_ids,
+                           parent_element_id: parent.id,
+                         }, xhr: true
           }.to change { parent.reload.updated_at }
         end
 
         it "assigns parent element id to each element" do
           post :order, params: {
-            element_ids: element_ids,
-            parent_element_id: parent.id,
-          }, xhr: true
+                         element_ids: element_ids,
+                         parent_element_id: parent.id,
+                       }, xhr: true
           [element_1, element_2, element_3].each do |element|
             expect(element.reload.parent_element_id).to eq parent.id
           end
@@ -92,18 +92,18 @@ module Alchemy
 
       it "assign variable for all available element definitions" do
         expect_any_instance_of(Alchemy::Page).to receive(:available_element_definitions)
-        get :new, params: {page_version_id: page_version.id}
+        get :new, params: { page_version_id: page_version.id }
       end
 
       context "with elements in clipboard" do
         let(:element) { create(:alchemy_element, page_version: page_version) }
-        let(:clipboard_items) { [{"id" => element.id.to_s, "action" => "copy"}] }
+        let(:clipboard_items) { [{ "id" => element.id.to_s, "action" => "copy" }] }
 
         before { clipboard["elements"] = clipboard_items }
 
         it "should load all elements from clipboard" do
           expect(Element).to receive(:all_from_clipboard_for_page).and_return(clipboard_items)
-          get :new, params: {page_version_id: page_version.id}
+          get :new, params: { page_version_id: page_version.id }
           expect(assigns(:clipboard_items)).to eq(clipboard_items)
         end
       end
@@ -151,7 +151,7 @@ module Alchemy
         render_views
 
         before do
-          clipboard["elements"] = [{"id" => element_in_clipboard.id.to_s, "action" => "cut"}]
+          clipboard["elements"] = [{ "id" => element_in_clipboard.id.to_s, "action" => "cut" }]
         end
 
         it "should create an element from clipboard" do
@@ -192,32 +192,61 @@ module Alchemy
     end
 
     describe "#update" do
-      let(:element) { build_stubbed(:alchemy_element) }
-      let(:contents_parameters) { ActionController::Parameters.new(1 => {ingredient: "Title"}) }
-      let(:element_parameters) { ActionController::Parameters.new(tag_list: "Tag 1", public: false) }
-
       before do
-        expect(Element).to receive(:find).and_return element
-        expect(controller).to receive(:contents_params).and_return(contents_parameters)
+        expect(Element).to receive(:find).at_least(:once).and_return(element)
       end
 
-      it "updates all contents in element" do
-        expect(element).to receive(:update_contents).with(contents_parameters)
-        put :update, params: {id: element.id}, xhr: true
+      context "with element having contents" do
+        subject do
+          put :update, params: { id: element.id, element: element_params, contents: contents_params }, xhr: true
+        end
+
+        let(:element) { create(:alchemy_element, :with_contents) }
+        let(:content) { element.contents.first }
+        let(:element_params) { { tag_list: "Tag 1", public: false } }
+        let(:contents_params) { { content.id => { ingredient: "Title" } } }
+
+        it "updates all contents in element" do
+          expect { subject }.to change { content.reload.ingredient }.to("Title")
+        end
+
+        it "updates the element" do
+          expect { subject }.to change { element.tag_list }.to(["Tag 1"])
+        end
+
+        context "failed validations" do
+          it "displays validation failed notice" do
+            expect(element).to receive(:update_contents).and_return(false)
+            subject
+            expect(assigns(:element_validated)).to be_falsey
+          end
+        end
       end
 
-      it "updates the element" do
-        expect(controller).to receive(:element_params).and_return(element_parameters)
-        expect(element).to receive(:update_contents).and_return(true)
-        expect(element).to receive(:update).with(element_parameters).and_return(true)
-        put :update, params: {id: element.id}, xhr: true
-      end
+      context "with element having ingredients" do
+        subject do
+          put :update, params: { id: element.id, element: element_params }, xhr: true
+        end
 
-      context "failed validations" do
-        it "displays validation failed notice" do
-          expect(element).to receive(:update_contents).and_return(false)
-          put :update, params: {id: element.id}, xhr: true
-          expect(assigns(:element_validated)).to be_falsey
+        let(:element) { create(:alchemy_element, :with_ingredients) }
+        let(:ingredient) { element.ingredients.first }
+        let(:ingredients_attributes) { { 0 => { id: ingredient.id, value: "Title" } } }
+        let(:element_params) { { tag_list: "Tag 1", public: false, ingredients_attributes: ingredients_attributes } }
+
+        it "updates all ingredients in element" do
+          expect { subject }.to change { ingredient.value }.to("Title")
+        end
+
+        it "updates the element" do
+          expect { subject }.to change { element.tag_list }.to(["Tag 1"])
+        end
+
+        context "failed validations" do
+          it "displays validation failed notice" do
+            expect(element).to receive(:update).and_return(false)
+            subject
+            expect(assigns(:element_validated)).to be_falsey
+          end
         end
       end
     end
@@ -232,57 +261,8 @@ module Alchemy
       end
     end
 
-    describe "params security" do
-      context "contents params" do
-        let(:parameters) { ActionController::Parameters.new(contents: {1 => {ingredient: "Title"}}) }
-
-        specify ":contents is required" do
-          expect(controller.params).to receive(:fetch).and_return(parameters)
-          controller.send :contents_params
-        end
-
-        specify "everything is permitted" do
-          expect(controller).to receive(:params).and_return(parameters)
-          expect(parameters).to receive(:fetch).and_return(parameters)
-          expect(parameters).to receive(:permit!)
-          controller.send :contents_params
-        end
-      end
-
-      context "element params" do
-        let(:parameters) { ActionController::Parameters.new(element: {public: true}) }
-
-        before do
-          expect(controller).to receive(:params).and_return(parameters)
-          expect(parameters).to receive(:fetch).with(:element, {}).and_return(parameters)
-        end
-
-        context "with taggable element" do
-          before do
-            controller.instance_variable_set(:'@element', mock_model(Element, taggable?: true))
-          end
-
-          specify ":tag_list is permitted" do
-            expect(parameters).to receive(:permit).with(:tag_list)
-            controller.send :element_params
-          end
-        end
-
-        context "with not taggable element" do
-          before do
-            controller.instance_variable_set(:'@element', mock_model(Element, taggable?: false))
-          end
-
-          specify ":tag_list is not permitted" do
-            expect(parameters).to_not receive(:permit)
-            controller.send :element_params
-          end
-        end
-      end
-    end
-
     describe "#fold" do
-      subject { post :fold, params: {id: element.id}, xhr: true }
+      subject { post :fold, params: { id: element.id }, xhr: true }
 
       let(:element) { build_stubbed(:alchemy_element) }
 

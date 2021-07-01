@@ -7,7 +7,7 @@ module Alchemy
     describe "#hint" do
       context "with hint as text" do
         before do
-          expect(subject).to receive(:definition).and_return({"hint" => "The hint"})
+          expect(subject).to receive(:definition).and_return({ hint: "The hint" })
         end
 
         it "returns the hint" do
@@ -17,7 +17,7 @@ module Alchemy
 
       context "with hint set to true" do
         before do
-          expect(subject).to receive(:definition).and_return({"hint" => true})
+          expect(subject).to receive(:definition).and_return({ hint: true })
           expect(Alchemy).to receive(:t).and_return("The hint")
         end
 

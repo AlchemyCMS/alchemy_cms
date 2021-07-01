@@ -177,6 +177,15 @@ module Alchemy
           .collect(&:id)
       end
 
+      # Returns an array of all Richtext ingredients ids from not folded elements
+      #
+      def richtext_ingredients_ids
+        Alchemy::Ingredient.richtexts.joins(:element)
+          .where(Element.table_name => { page_version_id: draft_version.id, folded: false })
+          .select(&:has_tinymce?)
+          .collect(&:id)
+      end
+
       private
 
       # Looks in the page_layout descripion, if there are elements to autogenerate.

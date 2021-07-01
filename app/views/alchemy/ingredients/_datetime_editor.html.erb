@@ -1,0 +1,17 @@
+<%= content_tag :div,
+  class: datetime_editor.css_classes,
+  data: datetime_editor.data_attributes do %>
+  <%= element_form.fields_for(:ingredients, datetime_editor.ingredient) do |f| %>
+    <%= ingredient_label(datetime_editor) %>
+    <%= alchemy_datepicker(
+      datetime_editor, :value, {
+        name: datetime_editor.form_field_name,
+        id: datetime_editor.form_field_id,
+        value: datetime_editor.value
+      }
+    ) %>
+  <% end %>
+  <label for="<%= datetime_editor.form_field_id %>" class="ingredient-date--label">
+    <i class="icon far fa-calendar-alt fa-fw fa-lg"></i>
+  </label>
+<% end %>

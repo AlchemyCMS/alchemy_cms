@@ -23,11 +23,15 @@
         html: {id: "element_#{element.id}_form".html_safe, class: 'element-content'} do |f| %>
 
         <div id="element_<%= element.id %>_errors" class="element_errors"></div>
-
-        <div id="element_<%= element.id %>_content" class="element-content-editors">
-          <%= render element.contents %>
-        </div>
-
+        <% if element.has_ingredients_defined? %>
+          <div class="element-ingredient-editors">
+            <%= render element.ingredients, element_form: f %>
+          </div>
+        <% else %>
+          <div id="element_<%= element.id %>_content" class="element-content-editors">
+            <%= render element.contents %>
+          </div>
+        <% end %>
         <% if element.taggable? %>
           <div class="autocomplete_tag_list">
             <%= f.label :tag_list %>

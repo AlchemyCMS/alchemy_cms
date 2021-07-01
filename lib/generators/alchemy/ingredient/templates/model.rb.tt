@@ -1,0 +1,13 @@
+# frozen_string_literal: true
+
+module Alchemy
+  module Ingredients
+    class <%= @class_name %> < Alchemy::Ingredient
+      # Set additional attributes that get stored in the `data` JSON column
+      # store_accessor :data, :some, :attribute
+
+      # Set a related_object alias for convenience
+      # related_object_alias :some_association_name, class_name: "Some::Klass"
+    end
+  end
+end
