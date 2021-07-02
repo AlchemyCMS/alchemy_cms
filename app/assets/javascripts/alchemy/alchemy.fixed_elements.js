@@ -10,7 +10,7 @@ Alchemy.FixedElements = {
         $tabs = $(this.TABS.replace(/{{label}}/, label));
 
     $('#main-content-elements').wrap($wrapper);
-    $('#fixed-elements').prepend($tabs).tabs('paging', {
+    $('#fixed-elements').prepend($tabs).tabs().tabs('paging', {
       follow: true,
       followOnSelect: true
     });
