@@ -67,7 +67,7 @@ An essence is the smallest part of content in Alchemy and represents a headline,
 
 Alchemy uses [ImageMagick®](https://www.imagemagick.org) and [Dragonfly](http://markevans.github.io/dragonfly/) to render images on-the-fly.
 
-Images are stored as master images in the picture library. The editor just assigns these images to elements you provide them. You also set the image rendering bounderies. The max width and heigth values, or even the size an image should be cropped to. Alchemy comes with a built-in image cropping tool, so that the editor can define the mask to be used.
+Images are stored as master images in the picture library. The editor just assigns these images to elements you provide them. You also set the image rendering boundaries. The max width and heigth values, or even the size an image should be cropped to. Alchemy comes with a built-in image cropping tool, so that the editor can define the mask to be used.
 
 [Read more about how to use the powerful image processing tools](render_images.html).
 
