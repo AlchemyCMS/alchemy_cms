@@ -34,7 +34,7 @@ The core modules can be extended by own modules. A module should be a Rails engi
 
 Unlike many other CMS's that store a whole page body with complete HTML markup, Alchemy only stores unformatted text, ids of objects (like attachments and pictures) and only some  richtext content in the database. No HTML markup, no CSS, no styling, no layout. Just pure content.
 
-You, the webdeveloper is in full control of the markup and styling. The editor just manages the content.
+You, the webdeveloper are in full control of the markup and styling. The editor just manages the content.
 
 ### The render flow
 
