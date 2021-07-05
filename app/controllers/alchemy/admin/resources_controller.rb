@@ -131,7 +131,7 @@ module Alchemy
       end
 
       def sanitize_filter_params!
-        search_filter_params[:filter].reject! do |_,v|
+        search_filter_params[:filter].reject! do |_, v|
           eligible_resource_filter_values.exclude?(v)
         end
       end
@@ -201,7 +201,7 @@ module Alchemy
 
         if resource_has_filters
           search_filters << {
-            filter: resource_model.alchemy_resource_filters.map { |f| f[:name] }
+            filter: resource_model.alchemy_resource_filters.map { |f| f[:name] },
           }
         end
 

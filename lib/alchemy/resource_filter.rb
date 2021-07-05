@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Alchemy
   class ResourceFilter
     attr_reader :name
@@ -33,7 +35,6 @@ module Alchemy
       else
         @values.map { |v| Alchemy.t(v.to_sym, scope: ["filters", @resource_name, @name, "values"]) }
       end
-
     end
   end
 end

@@ -12,7 +12,7 @@ class Event < ActiveRecord::Base
 
   def self.alchemy_resource_relations
     {
-      location: {attr_method: "name", attr_type: "string"},
+      location: { attr_method: "name", attr_type: "string" },
     }
   end
 
@@ -20,8 +20,8 @@ class Event < ActiveRecord::Base
     [
       {
         name: :start,
-        values: %w(starting_today future)
-      }
+        values: %w(starting_today future),
+      },
     ]
   end
 

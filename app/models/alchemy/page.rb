@@ -185,12 +185,12 @@ module Alchemy
         [
           {
             name: :by_page_layout,
-            values: PageLayout.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] }
+            values: PageLayout.all.map { |p| [Alchemy.t(p["name"], scope: "page_layout_names"), p["name"]] },
           },
           {
             name: :status,
-            values: %w[published not_public restricted]
-          }
+            values: %w[published not_public restricted],
+          },
         ]
       end
 
