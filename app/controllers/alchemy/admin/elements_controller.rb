@@ -151,7 +151,7 @@ module Alchemy
       end
 
       def element_params
-        params.fetch(:element).permit(:tag_list, ingredients_attributes: {})
+        params.fetch(:element, {}).permit(:tag_list, ingredients_attributes: {})
       end
 
       def create_element_params

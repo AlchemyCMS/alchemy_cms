@@ -198,7 +198,7 @@ module Alchemy
 
       context "with element having contents" do
         subject do
-          put :update, params: { id: element.id, element: element_params, contents: contents_params }, xhr: true
+          put :update, params: { id: element.id, element: element_params, contents: contents_params }.compact, xhr: true
         end
 
         let(:element) { create(:alchemy_element, :with_contents) }
@@ -219,6 +219,14 @@ module Alchemy
             expect(element).to receive(:update_contents).and_return(false)
             subject
             expect(assigns(:element_validated)).to be_falsey
+          end
+        end
+
+        context "with element not taggable" do
+          let(:element_params) { nil }
+
+          it "updates the element" do
+            expect { subject }.to_not raise_error
           end
         end
       end
