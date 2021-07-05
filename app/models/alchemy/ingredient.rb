@@ -210,6 +210,11 @@ module Alchemy
       false
     end
 
+    # @return [Boolean]
+    def preview_ingredient?
+      !!definition[:as_element_title]
+    end
+
     private
 
     def hint_translation_attribute
