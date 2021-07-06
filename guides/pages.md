@@ -67,10 +67,6 @@ Every page layout needs at least a name. You don't need to set every option. It 
 
   Pass `true` to enable a RSS feed of news elements from this page.
 
-* **redirects_to_external** `Boolean` (Default `false`)
-
-  Pass `true` to disable normal page rendering and redirect to a external page instead.
-
 * **controller** `String`
 
   Controller to use instead of the default `Alchemy::PagesController`
