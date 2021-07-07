@@ -10,6 +10,9 @@ module Alchemy::Upgrader::Tasks
       def create_ingredients
         Alchemy::Deprecation.silence do
           elements_with_ingredients = Alchemy::ElementDefinition.all.select { |d| d.key?(:ingredients) }
+          if ENV["ONLY"]
+            elements_with_ingredients = elements_with_ingredients.select { |d| d[:name].in? ENV["ONLY"].split(",") }
+          end
           # eager load all elements that have ingredients defined but no ingredient records yet.
           all_elements = Alchemy::Element
             .named(elements_with_ingredients.map { |d| d[:name] })
