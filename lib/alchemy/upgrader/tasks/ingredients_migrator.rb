@@ -37,10 +37,10 @@ module Alchemy::Upgrader::Tasks
                     else
                       ingredient.value = content.ingredient
                     end
-                    ingredient.class.stored_attributes.fetch(:data, []).each do |attr|
-                      value = essence.public_send(attr)
-                      ingredient.public_send("#{attr}=", value)
+                    data = ingredient.class.stored_attributes.fetch(:data, []).each_with_object({}) do |attr, d|
+                      d[attr] = essence.public_send(attr)
                     end
+                    ingredient.data = data
                     print "."
                     ingredient.save!
                     content.destroy!
