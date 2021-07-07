@@ -1,5 +1,11 @@
 en:
   alchemy:
+    filters:
+      event:
+        start:
+          name: Start
+        by_location_name:
+          name: Location
     element_names:
       gallery_picture: Gallery picture
     content_names:

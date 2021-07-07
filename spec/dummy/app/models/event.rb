@@ -9,6 +9,7 @@ class Event < ActiveRecord::Base
 
   scope :starting_today, -> { where(starts_at: Time.current.at_midnight..Date.tomorrow.at_midnight) }
   scope :future, -> { where("starts_at > ?", Date.tomorrow.at_midnight) }
+  scope :by_location_name, ->(name) { joins(:location).where(locations: { name: name }) }
 
   def self.alchemy_resource_relations
     {
@@ -21,6 +22,10 @@ class Event < ActiveRecord::Base
       {
         name: :start,
         values: %w(starting_today future),
+      },
+      {
+        name: :by_location_name,
+        values: Location.distinct.pluck(:name),
       },
     ]
   end
