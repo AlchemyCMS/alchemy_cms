@@ -19,13 +19,15 @@ module Alchemy
       @elements = @elements.not_nested.joins(:page_version).merge(PageVersion.published)
 
       if params[:page_id].present?
-        @elements = @elements.where(alchemy_pages: { id: params[:page_id] })
+        @elements = @elements.includes(:page).where(alchemy_pages: { id: params[:page_id] })
+      else
+        @elements = @elements.includes(*element_includes)
       end
 
       if params[:named].present?
         @elements = @elements.named(params[:named])
       end
-      @elements = @elements.includes(*element_includes).order(:position)
+      @elements = @elements.order(:position)
 
       render json: @elements, adapter: :json, root: "elements"
     end
