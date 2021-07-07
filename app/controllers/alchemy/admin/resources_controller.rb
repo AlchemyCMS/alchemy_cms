@@ -15,7 +15,7 @@ module Alchemy
       helper Alchemy::ResourcesHelper, TagsHelper
       helper_method :resource_handler, :search_filter_params,
         :items_per_page, :items_per_page_options, :resource_has_filters,
-        :resource_filters
+        :resource_filters_for_select
 
       before_action :load_resource,
         only: [:show, :edit, :update, :destroy]
@@ -96,15 +96,40 @@ module Alchemy
         resource_model.respond_to?(:alchemy_resource_filters)
       end
 
+      def resource_has_deprecated_filters
+        resource_model.alchemy_resource_filters.any? { |f| !f.is_a?(Hash) }
+      end
+
       def resource_filters
         return unless resource_has_filters
 
-        resource_model.alchemy_resource_filters.map do |filter|
+        @_resource_filters ||= deprecated_resource_filters || resource_model.alchemy_resource_filters
+      end
+
+      def resource_filters_for_select
+        resource_filters.map do |filter|
           ResourceFilter.new(filter, resource_handler.resource_name)
         end
       end
 
       protected
+
+      def deprecated_resource_filters
+        if resource_has_deprecated_filters
+          Alchemy::Deprecation.warn(
+            "#{resource_model}.alchemy_resource_filters is using a legacy data structure. " \
+            "Please use an Array of Hashes instead. i.e. [{ name: 'foo', values: ['bar', 'baz'] }, ...] " \
+            "where values are scopes. With Alchemy 6.1 only the new structure will be supported."
+          )
+
+          @_resource_filters ||= [
+            {
+              name: :misc,
+              values: resource_model.alchemy_resource_filters,
+            },
+          ]
+        end
+      end
 
       def apply_filters(items)
         sanitize_filter_params!
@@ -201,7 +226,7 @@ module Alchemy
 
         if resource_has_filters
           search_filters << {
-            filter: resource_model.alchemy_resource_filters.map { |f| f[:name] },
+            filter: resource_filters.map { |f| f[:name] },
           }
         end
 
