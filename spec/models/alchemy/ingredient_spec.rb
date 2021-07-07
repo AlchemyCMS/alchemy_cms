@@ -269,6 +269,26 @@ RSpec.describe Alchemy::Ingredient do
     end
   end
 
+  describe "#preview_ingredient?" do
+    let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+
+    subject { ingredient.preview_ingredient? }
+
+    context "not defined as as_element_title" do
+      it { is_expected.to be false }
+    end
+
+    context "defined as as_element_title" do
+      before do
+        expect(ingredient).to receive(:definition).at_least(:once).and_return({
+          as_element_title: true,
+        })
+      end
+
+      it { is_expected.to be true }
+    end
+  end
+
   describe "#has_tinymce?" do
     subject { ingredient.has_tinymce? }
 

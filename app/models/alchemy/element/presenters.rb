@@ -46,7 +46,9 @@ module Alchemy
       #   Length of characters after the text will be cut off.
       #
       def preview_text(maxlength = 60)
-        preview_text_from_preview_content(maxlength) || preview_text_from_nested_elements(maxlength)
+        preview_text_from_preview_ingredient(maxlength) ||
+          preview_text_from_preview_content(maxlength) ||
+          preview_text_from_nested_elements(maxlength)
       end
 
       # Generates a preview text containing Element#display_name and Element#preview_text.
@@ -94,6 +96,17 @@ module Alchemy
         @_preview_content ||= contents.detect(&:preview_content?) || contents.first
       end
 
+      # The ingredient that's used for element's preview text.
+      #
+      # It tries to find one of element's ingredients that is defined +as_element_title+.
+      # Takes element's first ingredient if no ingredient is defined +as_element_title+.
+      #
+      # @return (Alchemy::Ingredient)
+      #
+      def preview_ingredient
+        @_preview_ingredient ||= ingredients.detect(&:preview_ingredient?) || ingredients.first
+      end
+
       private
 
       def preview_text_from_nested_elements(maxlength)
@@ -104,6 +117,10 @@ module Alchemy
 
       def preview_text_from_preview_content(maxlength)
         preview_content.try!(:preview_text, maxlength)
+      end
+
+      def preview_text_from_preview_ingredient(maxlength)
+        preview_ingredient&.preview_text(maxlength)
       end
     end
   end
