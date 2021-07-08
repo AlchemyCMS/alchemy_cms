@@ -54,6 +54,7 @@ require_relative "alchemy/permissions"
 require_relative "alchemy/resource"
 require_relative "alchemy/tinymce"
 require_relative "alchemy/taggable"
+require_relative "alchemy/version"
 
 # Require hacks
 require_relative "kaminari/scoped_pagination_url_helper"
