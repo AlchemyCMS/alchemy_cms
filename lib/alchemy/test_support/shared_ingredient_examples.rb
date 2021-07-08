@@ -28,6 +28,16 @@ RSpec.shared_examples_for "an alchemy ingredient" do
     end
 
     context "with element" do
+      before do
+        expect(element).to receive(:ingredient_definition_for) do
+          {
+            settings: {
+              linkable: true,
+            },
+          }.with_indifferent_access
+        end
+      end
+
       it { is_expected.to eq({ linkable: true }.with_indifferent_access) }
     end
   end
@@ -42,15 +52,23 @@ RSpec.shared_examples_for "an alchemy ingredient" do
     end
 
     context "with element" do
-      it do
-        is_expected.to eq({
+      let(:definition) do
+        {
           role: "headline",
           type: "Text",
           default: "Hello World",
           settings: {
             linkable: true,
           },
-        }.with_indifferent_access)
+        }.with_indifferent_access
+      end
+
+      before do
+        expect(element).to receive(:ingredient_definition_for) { definition }
+      end
+
+      it "returns ingredient definition" do
+        is_expected.to eq(definition)
       end
     end
   end
