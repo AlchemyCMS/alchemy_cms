@@ -57,6 +57,50 @@ en:
       main_menu: Main Menu
       footer_menu: Footer Menu
 
+    # == Mime Types translations
+    # These are human readable mime types used for the document-type row in archive files.
+    #
+    mime_types: &mime_types
+      application/msexcel: Excel Spreadsheet
+      application/mspowerpoint: PowerPoint Presentation
+      application/msword: Word Document
+      application/pdf: PDF Document
+      application/rtf: RTF Document
+      application/vcard: vCard
+      application/vnd:
+        ms-excel: Excel Spreadsheet
+        ms-powerpoint: PowerPoint Presentation
+        ms-word: Word Document
+        openxmlformats-officedocument:
+          presentationml:
+            presentation: PowerPoint 2007 Presentation
+          spreadsheetml:
+            sheet: Excel 2007 Spreadsheet
+          wordprocessingml:
+            document: Word 2007 Document
+      application/x-flash-video: Flash Video
+      application/x-rar: RAR Archive
+      application/x-shockwave-flash: Flash Movie
+      application/zip: ZIP Archive
+      audio/mp4: MPEG-4 Audio
+      audio/mpeg: MP3 Audio
+      audio/wav: WAV Audio
+      audio/x-wav: WAV Audio
+      image/gif: GIF Image
+      image/jpeg: JPG Image
+      image/png: PNG Image
+      image/tiff: TIFF Image
+      image/x-psd: Photoshop File
+      image/svg+xml: SVG Image
+      text/plain: Plain Text Document
+      text/x-vcard: vCard
+      video/mp4: MPEG-4 Video
+      video/mpeg: MPEG Video
+      video/quicktime: Quicktime Video
+      video/x-flv: Flash Video
+      video/x-ms-wmv: Windows Media Video
+      video/x-msvideo: AVI Video
+
     # === Translations for filter names and values
     # Used in the right filter column in case the model has `alchemy_resource_filters` defined.
     #
@@ -87,6 +131,8 @@ en:
       attachment:
         by_file_type:
           name: File Type
+          values:
+            <<: *mime_types
         misc:
           name: Miscellaneous
           values:
@@ -169,49 +215,6 @@ en:
       author: "Author"
       editor: "Editor"
       admin: "Administrator"
-
-    # == Mime Types translations
-    # These are human readable mime types used for the document-type row in archive files.
-    mime_types:
-      application/msexcel: Excel Spreadsheet
-      application/mspowerpoint: PowerPoint Presentation
-      application/msword: Word Document
-      application/pdf: PDF Document
-      application/rtf: RTF Document
-      application/vcard: vCard
-      application/vnd:
-        ms-excel: Excel Spreadsheet
-        ms-powerpoint: PowerPoint Presentation
-        ms-word: Word Document
-        openxmlformats-officedocument:
-          presentationml:
-            presentation: PowerPoint 2007 Presentation
-          spreadsheetml:
-            sheet: Excel 2007 Spreadsheet
-          wordprocessingml:
-            document: Word 2007 Document
-      application/x-flash-video: Flash Video
-      application/x-rar: RAR Archive
-      application/x-shockwave-flash: Flash Movie
-      application/zip: ZIP Archive
-      audio/mp4: MPEG-4 Audio
-      audio/mpeg: MP3 Audio
-      audio/wav: WAV Audio
-      audio/x-wav: WAV Audio
-      image/gif: GIF Image
-      image/jpeg: JPG Image
-      image/png: PNG Image
-      image/tiff: TIFF Image
-      image/x-psd: Photoshop File
-      image/svg+xml: SVG Image
-      text/plain: Plain Text Document
-      text/x-vcard: vCard
-      video/mp4: MPEG-4 Video
-      video/mpeg: MPEG Video
-      video/quicktime: Quicktime Video
-      video/x-flv: Flash Video
-      video/x-ms-wmv: Windows Media Video
-      video/x-msvideo: AVI Video
 
     link_target_options:
       default: Same Window
@@ -441,6 +444,7 @@ en:
     female: "Female"
     file: "File"
     file_rename_error: "Error renaming file."
+    filtered_by: "Filtered by"
     from_at: "from %{by} at %{at}"
     height: "Height"
     help:

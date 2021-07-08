@@ -2,6 +2,15 @@
   padding: 2 * $default-padding;
 }
 
+.applied-filter {
+  display: inline-block;
+  padding: 2px 6px;
+  border-radius: $default-border-radius;
+  border: 1px solid $default-border-color;
+  white-space: nowrap;
+  font-weight: normal;
+}
+
 .resources-table-wrapper {
   padding-bottom: 60px;
 
