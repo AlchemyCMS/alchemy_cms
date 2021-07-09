@@ -6,7 +6,7 @@
         file_attribute: 'image_file',
         redirect_url: alchemy.admin_pictures_path(
           size: @size,
-          filter: 'last_upload'
+          filter: { misc: 'last_upload' }
         ) %>
       <div class="toolbar_spacer"></div>
     <% end %>
@@ -67,7 +67,7 @@
   </div>
 
   <%= render 'alchemy/admin/partials/search_form',
-    additional_params: [:filter, :tagged_with, :size] %>
+    additional_params: [:size] %>
 <% end %>
 
 <div id="picture_archive" class="resources-table-wrapper with_tag_filter">
@@ -75,7 +75,12 @@
     <h2>
       <%= @pictures.total_count %>
       <%= Alchemy::Picture.model_name.human(count: @pictures.total_count) %>
-      <%= Alchemy.t("picture_library.filter.#{search_filter_params[:filter]}") if search_filter_params[:filter].present? %>
+      <% if search_filter_params[:filter].present? %>
+        <%= Alchemy.t("filtered_by") %>
+        <% search_filter_params[:filter].each do |k, v| %>
+          <span class="applied-filter"><%= Alchemy.t("filters.picture.#{k}.values.#{v}") %></span>
+        <% end %>
+      <% end %>
     </h2>
   </div>
   <%= render 'archive' %>

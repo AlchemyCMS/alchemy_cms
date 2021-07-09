@@ -1,0 +1,12 @@
+<label>
+  <h3><%= Alchemy.t("name", scope: ["filters", resource_name, filter.name]) || Alchemy.t('Filter') %></h3>
+  <%= select_tag(
+    filter.name,
+    options_for_select(
+      filter.options_for_select, params[:filter].try(:[], filter.name)
+    ),
+    include_blank: Alchemy.t(:all, scope: ['resources', resource_name, 'filters']),
+    data: { remote: !!request.xhr? },
+    class: 'alchemy_selectbox'
+  ) %>
+</label>

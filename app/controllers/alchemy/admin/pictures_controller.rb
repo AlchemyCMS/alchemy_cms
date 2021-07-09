@@ -21,12 +21,7 @@ module Alchemy
 
       def index
         @query = Picture.ransack(search_filter_params[:q])
-        @pictures = Picture.search_by(
-          search_filter_params,
-          @query,
-          items_per_page,
-        )
-        @pictures = @pictures.includes(:thumbs)
+        @pictures = filtered_pictures.includes(:thumbs)
 
         if in_overlay?
           archive_overlay
@@ -34,9 +29,11 @@ module Alchemy
       end
 
       def show
-        @previous = @picture.previous(params)
-        @next = @picture.next(params)
+        @query = Picture.ransack(params[:q])
+        @previous = filtered_pictures.where("name < ?", @picture.name).last
+        @next = filtered_pictures.where("name > ?", @picture.name).first
         @assignments = @picture.essence_pictures.joins(content: { element: :page })
+
         render action: "show"
       end
 
@@ -128,6 +125,22 @@ module Alchemy
         flash[:error] = e.message
       ensure
         redirect_to_index
+      end
+
+      def filtered_pictures
+        pictures = @query.result
+
+        if params[:tagged_with].present?
+          pictures = pictures.tagged_with(params[:tagged_with])
+        end
+
+        if search_filter_params[:filter].present?
+          pictures = apply_filters(pictures)
+        end
+
+        pictures = pictures.page(params[:page] || 1).per(items_per_page)
+
+        pictures.order(:name)
       end
 
       def items_per_page

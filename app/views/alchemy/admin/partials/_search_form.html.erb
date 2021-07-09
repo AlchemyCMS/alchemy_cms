@@ -16,6 +16,15 @@
         id: 'search_field_clear',
         title: Alchemy.t(:click_to_show_all),
         style: search_filter_params.fetch(:q, {}).fetch(resource_handler.search_field_name, '').present? ? 'display: block' : 'display: none' %>
+
+    <% search_filter_params.fetch(:filter, []).each do |filter_param| %>
+      <%= hidden_field_tag "filter[#{filter_param[0]}]", filter_param[1], id: nil %>
+    <% end %>
+
+    <% if search_filter_params.fetch(:tagged_with, nil) %>
+      <%= hidden_field_tag :tagged_with, search_filter_params.fetch(:tagged_with), id: nil %>
+    <% end %>
+
     <% local_assigns.fetch(:additional_params, []).each do |additional_param| %>
       <%= hidden_field_tag additional_param, search_filter_params[additional_param], id: nil %>
     <% end %>

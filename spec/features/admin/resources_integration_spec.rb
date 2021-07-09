@@ -29,6 +29,133 @@ RSpec.describe "Resources", type: :system do
       expect(page).to have_selector("div#archive_all table.list")
     end
 
+    describe "pagination" do
+      before do
+        create_list(:event, 15)
+      end
+
+      it "should limit the number of items per page based on alchemy's general configuration" do
+        stub_alchemy_config(:items_per_page, 5)
+
+        visit "/admin/events"
+        expect(page).to have_selector("div#archive_all table.list tbody tr", count: 5)
+        expect(page).to have_selector("div#archive_all .pagination .page", count: 3)
+      end
+
+      context "params containing per_page" do
+        it "should limit the items per page based on the given value" do
+          visit "/admin/events?per_page=3"
+          expect(page).to have_selector("div#archive_all table.list tbody tr", count: 3)
+          expect(page).to have_selector("div#archive_all .pagination .page", count: 5)
+        end
+      end
+    end
+
+    describe "filters" do
+      let(:filter_count) { Event.alchemy_resource_filters.size }
+
+      context "resource model has alchemy_resource_filters defined" do
+        it "should show selectboxes for the filters" do
+          visit "/admin/events"
+
+          within "#library_sidebar #filter_bar" do
+            expect(page).to have_selector("select", count: filter_count)
+            expect(page).to have_selector("label", text: "Start")
+            expect(page).to have_selector("label", text: "Location")
+          end
+        end
+
+        context "selecting a filter option" do
+          let(:location) { create(:location, name: "berlin") }
+
+          before do
+            create(:event, name: "today 1", starts_at: Time.current)
+            create(:event, name: "today 2", starts_at: Time.current, location: location)
+            create(:event, name: "yesterday", starts_at: Time.current - 1.day)
+          end
+
+          it "should filter the list to only show matching items", js: true do
+            visit "/admin/events"
+
+            within "div#archive_all table.list tbody" do
+              expect(page).to have_selector("tr", count: 3)
+              expect(page).to have_content("today 1")
+              expect(page).to have_content("today 2")
+              expect(page).to have_content("yesterday")
+            end
+
+            within "#library_sidebar #filter_bar" do
+              select2("Starting today", from: "Start")
+            end
+
+            within "div#archive_all table.list tbody" do
+              expect(page).to have_selector("tr", count: 2)
+              expect(page).to have_content("today 1")
+              expect(page).to have_content("today 2")
+              expect(page).to_not have_content("yesterday")
+            end
+          end
+
+          it "can combine multiple filters" do
+            visit "/admin/events?filter[start]=starting_today&filter[by_location_name]=#{location.name}"
+
+            within "div#archive_all table.list tbody" do
+              expect(page).to have_selector("tr", count: 1)
+              expect(page).to have_content("today 2")
+              expect(page).to_not have_content("today 1")
+            end
+          end
+        end
+      end
+
+      context "with no tagged items" do
+        before do
+          create(:event, tag_list: nil)
+        end
+
+        it "should not show the tag list" do
+          visit "/admin/events"
+
+          within "#library_sidebar" do
+            expect(page).to_not have_selector(".tag-list")
+          end
+        end
+      end
+
+      context "with tagged items" do
+        before do
+          create_list(:event, 2, tag_list: ["remote"])
+          create(:event, name: "onsite event", tag_list: ["onsite"])
+        end
+
+        it "should list all tags including the number of tagged items" do
+          visit "/admin/events"
+
+          within "#library_sidebar" do
+            expect(page).to have_selector(".tag-list a", text: "remote (2)")
+            expect(page).to have_selector(".tag-list a", text: "onsite (1)")
+          end
+        end
+
+        context "selecting a tag from the list" do
+          it "should filter the list to only show matching items" do
+            visit "/admin/events"
+
+            within "div#archive_all table.list tbody" do
+              expect(page).to have_selector("tr", count: 3)
+            end
+
+            find("#library_sidebar .tag-list a", text: "onsite (1)").click
+
+            within "div#archive_all table.list tbody" do
+              expect(page).to have_selector("tr", count: 1)
+              expect(page).to have_selector("td", text: "onsite event")
+            end
+          end
+        end
+      end
+    end
+
     describe "date fields" do
       let(:yesterday) { Date.yesterday }
       let(:tomorrow) { Date.tomorrow }
@@ -198,12 +325,12 @@ RSpec.describe "Resources", type: :system do
       end
 
       # Here we visit the pages manually, as we don't want to test the JS here.
-      visit "/admin/events?filter=starting_today"
+      visit "/admin/events?filter[start]=starting_today"
       expect(page).to     have_content("Car Expo")
       expect(page).to_not have_content("Hovercar Expo")
       expect(page).to_not have_content("Horse Expo")
 
-      visit "/admin/events?filter=future"
+      visit "/admin/events?filter[start]=future"
       expect(page).to     have_content("Hovercar Expo")
       expect(page).to_not have_content("Car Expo")
       expect(page).to_not have_content("Horse Expo")
@@ -217,7 +344,7 @@ RSpec.describe "Resources", type: :system do
     end
 
     it "does not work with undefined scopes" do
-      visit "/admin/events?filter=undefined_scope"
+      visit "/admin/events?filter[start]=undefined_scope"
       expect(page).to have_content("Car Expo")
       expect(page).to have_content("Hovercar Expo")
       expect(page).to have_content("Horse Expo")
@@ -225,7 +352,7 @@ RSpec.describe "Resources", type: :system do
 
     context "full text search" do
       it "should respect filters" do
-        visit "/admin/events?filter=future"
+        visit "/admin/events?filter[start]=future"
 
         expect(page).to have_content("Hovercar Expo")
         expect(page).to_not have_content("Car Expo")

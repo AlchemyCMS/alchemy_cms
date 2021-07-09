@@ -57,6 +57,90 @@ en:
       main_menu: Main Menu
       footer_menu: Footer Menu
 
+    # == Mime Types translations
+    # These are human readable mime types used for the document-type row in archive files.
+    #
+    mime_types: &mime_types
+      application/msexcel: Excel Spreadsheet
+      application/mspowerpoint: PowerPoint Presentation
+      application/msword: Word Document
+      application/pdf: PDF Document
+      application/rtf: RTF Document
+      application/vcard: vCard
+      application/vnd:
+        ms-excel: Excel Spreadsheet
+        ms-powerpoint: PowerPoint Presentation
+        ms-word: Word Document
+        openxmlformats-officedocument:
+          presentationml:
+            presentation: PowerPoint 2007 Presentation
+          spreadsheetml:
+            sheet: Excel 2007 Spreadsheet
+          wordprocessingml:
+            document: Word 2007 Document
+      application/x-flash-video: Flash Video
+      application/x-rar: RAR Archive
+      application/x-shockwave-flash: Flash Movie
+      application/zip: ZIP Archive
+      audio/mp4: MPEG-4 Audio
+      audio/mpeg: MP3 Audio
+      audio/wav: WAV Audio
+      audio/x-wav: WAV Audio
+      image/gif: GIF Image
+      image/jpeg: JPG Image
+      image/png: PNG Image
+      image/tiff: TIFF Image
+      image/x-psd: Photoshop File
+      image/svg+xml: SVG Image
+      text/plain: Plain Text Document
+      text/x-vcard: vCard
+      video/mp4: MPEG-4 Video
+      video/mpeg: MPEG Video
+      video/quicktime: Quicktime Video
+      video/x-flv: Flash Video
+      video/x-ms-wmv: Windows Media Video
+      video/x-msvideo: AVI Video
+
+    # === Translations for filter names and values
+    # Used in the right filter column in case the model has `alchemy_resource_filters` defined.
+    #
+    filters:
+      page:
+        by_page_layout:
+          name: Page Type
+        status:
+          name: Status
+          values:
+            not_public: Unpublished
+            published: Published
+            restricted: Restricted
+      picture:
+        by_file_format:
+          name: File Type
+          values:
+            gif: GIF Image
+            jpeg: JPG Image
+            png: PNG Image
+            tiff: TIFF Image
+        misc:
+          name: Miscellaneous
+          values:
+            last_upload: Last upload only
+            recent: Recently uploaded only
+            without_tag: Without tag
+      attachment:
+        by_file_type:
+          name: File Type
+          values:
+            <<: *mime_types
+        misc:
+          name: Miscellaneous
+          values:
+            last_upload: Last upload only
+            recent: Recently uploaded only
+            without_tag: Without tag
+            deletable: Not linked by file content
+
     # === Translations for content validations
     # Used when a user did not enter (correct) values to the content field.
     #
@@ -131,49 +215,6 @@ en:
       author: "Author"
       editor: "Editor"
       admin: "Administrator"
-
-    # == Mime Types translations
-    # These are human readable mime types used for the document-type row in archive files.
-    mime_types:
-      application/msexcel: Excel Spreadsheet
-      application/mspowerpoint: PowerPoint Presentation
-      application/msword: Word Document
-      application/pdf: PDF Document
-      application/rtf: RTF Document
-      application/vcard: vCard
-      application/vnd:
-        ms-excel: Excel Spreadsheet
-        ms-powerpoint: PowerPoint Presentation
-        ms-word: Word Document
-        openxmlformats-officedocument:
-          presentationml:
-            presentation: PowerPoint 2007 Presentation
-          spreadsheetml:
-            sheet: Excel 2007 Spreadsheet
-          wordprocessingml:
-            document: Word 2007 Document
-      application/x-flash-video: Flash Video
-      application/x-rar: RAR Archive
-      application/x-shockwave-flash: Flash Movie
-      application/zip: ZIP Archive
-      audio/mp4: MPEG-4 Audio
-      audio/mpeg: MP3 Audio
-      audio/wav: WAV Audio
-      audio/x-wav: WAV Audio
-      image/gif: GIF Image
-      image/jpeg: JPG Image
-      image/png: PNG Image
-      image/tiff: TIFF Image
-      image/x-psd: Photoshop File
-      image/svg+xml: SVG Image
-      text/plain: Plain Text Document
-      text/x-vcard: vCard
-      video/mp4: MPEG-4 Video
-      video/mpeg: MPEG Video
-      video/quicktime: Quicktime Video
-      video/x-flv: Flash Video
-      video/x-ms-wmv: Windows Media Video
-      video/x-msvideo: AVI Video
 
     link_target_options:
       default: Same Window
@@ -403,6 +444,7 @@ en:
     female: "Female"
     file: "File"
     file_rename_error: "Error renaming file."
+    filtered_by: "Filtered by"
     from_at: "from %{by} at %{at}"
     height: "Height"
     help:
@@ -435,7 +477,6 @@ en:
     javascript_disabled_text: "Alchemy needs Javascript to run smoothly. Please enable it in your browser settings."
     language_code_placeholder: 'i.e. en'
     language_pages_copied: "Language tree successfully copied."
-    last_upload_only: "Last upload only"
     left: "left"
     legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
     link_image: "Link this image."
@@ -519,11 +560,6 @@ en:
         comma_seperated: "Separate by comma"
     password: "Password"
     paste: "paste"
-    picture_library:
-      filter:
-        last_upload: "from last upload"
-        recent: "that where recently uploaded"
-        without_tag: "without tag"
     pictures_in_page: "%{page} in %{pictures}"
     place_link: "Link text"
     player_version: "Flash Player version"

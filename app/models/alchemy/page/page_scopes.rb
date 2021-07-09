@@ -8,6 +8,10 @@ module Alchemy
       extend ActiveSupport::Concern
 
       included do
+        # All pages of given page layout
+        #
+        scope :by_page_layout, ->(page_layout) { where(page_layout: page_layout) }
+
         # All language root pages
         #
         scope :language_roots, -> { where(language_root: true) }

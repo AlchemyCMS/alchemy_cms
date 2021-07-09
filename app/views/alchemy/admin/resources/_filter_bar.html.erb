@@ -1,28 +1,25 @@
 <div id="filter_bar">
-  <label>
-    <h3><%= local_assigns[:label] || Alchemy.t('Filter') %></h3>
-    <%= select_tag(
-      'resource_filter',
-      options_for_select(
-        resource_filter_select, search_filter_params[:filter]
-      ),
-      include_blank: Alchemy.t(:all, scope: ['resources', resource_name, 'filters']),
-      data: { remote: !!request.xhr? },
-      class: 'alchemy_selectbox'
-    ) %>
-  </label>
+  <%= render partial: "filter", collection: resource_filters_for_select %>
 </div>
 
 <script type="text/javascript">
   $(function() {
-    $('#resource_filter').on('change', function(e) {
+    $('select', '#filter_bar').on('change', function(e) {
       var $this = $(this);
-      var url = '<%= local_assigns[:url] || resources_path(resource_handler.namespaced_resources_name, search_filter_params.except(:filter).to_h) %>';
-      if ($this.data('remote') === true) {
-        $.get(url, {filter: $this.val()}, null, 'script');
+      var filter_param = 'filter['+$this.attr('name')+']';
+      var path = '<%= resources_path(resource_handler.namespaced_resources_name) %>';
+      var params = new URLSearchParams('<%= raw search_filter_params.to_query %>');
+
+      if ($this.val() === "") {
+        params.delete(filter_param);
       } else {
-        delimiter = url.match(/\?/) ? '&' : '?';
-        Turbolinks.visit(url + delimiter + 'filter=' + encodeURIComponent($this.val()));
+        params.set(filter_param, $this.val());
+      }
+
+      if ($this.data('remote') === true) {
+        $.get(path, params.toString(), null, 'script');
+      } else {
+        Turbolinks.visit(path + '?' + params.toString());
       }
       return false;
     });

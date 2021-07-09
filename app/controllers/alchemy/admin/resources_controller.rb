@@ -3,6 +3,7 @@
 require "csv"
 require "alchemy/resource"
 require "alchemy/resources_helper"
+require "alchemy/resource_filter"
 
 module Alchemy
   module Admin
@@ -13,7 +14,8 @@ module Alchemy
 
       helper Alchemy::ResourcesHelper, TagsHelper
       helper_method :resource_handler, :search_filter_params,
-        :items_per_page, :items_per_page_options
+        :items_per_page, :items_per_page_options, :resource_has_filters,
+        :resource_filters_for_select
 
       before_action :load_resource,
         only: [:show, :edit, :update, :destroy]
@@ -34,7 +36,7 @@ module Alchemy
         end
 
         if search_filter_params[:filter].present?
-          items = items.public_send(sanitized_filter_params)
+          items = apply_filters(items)
         end
 
         respond_to do |format|
@@ -90,7 +92,78 @@ module Alchemy
         @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module)
       end
 
+      def resource_has_filters
+        resource_model.respond_to?(:alchemy_resource_filters)
+      end
+
+      def resource_has_deprecated_filters
+        resource_model.alchemy_resource_filters.any? { |f| !f.is_a?(Hash) }
+      end
+
+      def resource_filters
+        return unless resource_has_filters
+
+        @_resource_filters ||= deprecated_resource_filters || resource_model.alchemy_resource_filters
+      end
+
+      def resource_filters_for_select
+        resource_filters.map do |filter|
+          ResourceFilter.new(filter, resource_handler.resource_name)
+        end
+      end
+
       protected
+
+      def deprecated_resource_filters
+        if resource_has_deprecated_filters
+          Alchemy::Deprecation.warn(
+            "#{resource_model}.alchemy_resource_filters is using a legacy data structure. " \
+            "Please use an Array of Hashes instead. i.e. [{ name: 'foo', values: ['bar', 'baz'] }, ...] " \
+            "where values are scopes. With Alchemy 6.1 only the new structure will be supported."
+          )
+
+          @_resource_filters ||= [
+            {
+              name: :misc,
+              values: resource_model.alchemy_resource_filters,
+            },
+          ]
+        end
+      end
+
+      def apply_filters(items)
+        sanitize_filter_params!
+
+        search_filter_params[:filter].each do |filter|
+          if argument_scope_filter?(filter)
+            items = items.public_send(filter[0], filter[1])
+          elsif simple_scope_filter?(filter)
+            items = items.public_send(filter[1])
+          else
+            raise "Can't apply filter #{filter[0]}. Either the name or the values must be defined as class methods / scopes on the model."
+          end
+        end
+
+        items
+      end
+
+      def simple_scope_filter?(filter)
+        resource_model.respond_to?(filter[1])
+      end
+
+      def argument_scope_filter?(filter)
+        resource_model.respond_to?(filter[0])
+      end
+
+      def sanitize_filter_params!
+        search_filter_params[:filter].reject! do |_, v|
+          eligible_resource_filter_values.exclude?(v)
+        end
+      end
+
+      def eligible_resource_filter_values
+        resource_filters.map(&:values).flatten
+      end
 
       # Returns a translated +flash[:notice]+.
       # The key should look like "Modelname successfully created|updated|destroyed."
@@ -136,27 +209,28 @@ module Alchemy
         params.require(resource_handler.namespaced_resource_name).permit!
       end
 
-      def sanitized_filter_params
-        resource_model.alchemy_resource_filters.detect do |filter|
-          filter == search_filter_params[:filter]
-        end || :all
-      end
-
       def search_filter_params
         @_search_filter_params ||= params.except(*COMMON_SEARCH_FILTER_EXCLUDES).permit(*common_search_filter_includes).to_h
       end
 
       def common_search_filter_includes
-        [
+        search_filters = [
           { q: [
             resource_handler.search_field_name,
             :s,
           ] },
           :tagged_with,
-          :filter,
           :page,
           :per_page,
         ]
+
+        if resource_has_filters
+          search_filters << {
+            filter: resource_filters.map { |f| f[:name] },
+          }
+        end
+
+        search_filters
       end
 
       def items_per_page

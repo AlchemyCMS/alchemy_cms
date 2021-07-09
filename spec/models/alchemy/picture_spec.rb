@@ -131,98 +131,6 @@ module Alchemy
       end
     end
 
-    describe ".search_by" do
-      subject(:search_by) { Picture.search_by(params, query, per_page) }
-
-      let(:pictures) { Picture.all }
-      let(:params) { ActionController::Parameters.new }
-      let(:query) { double(result: pictures) }
-      let(:per_page) { nil }
-
-      it "orders the result by name" do
-        expect(pictures).to receive(:order).with(:name)
-        search_by
-      end
-
-      context "with per_page given" do
-        let(:per_page) { 10 }
-
-        context "without page parameter given" do
-          it "paginates the records" do
-            expect(pictures).to receive(:page).with(1).and_call_original
-            search_by
-          end
-        end
-
-        context "with page parameter given" do
-          let(:params) do
-            ActionController::Parameters.new(page: 2)
-          end
-
-          it "paginates the records" do
-            expect(pictures).to receive(:page).with(2).and_call_original
-            search_by
-          end
-        end
-      end
-
-      context "when params[:filter] is set" do
-        let(:params) do
-          ActionController::Parameters.new(filter: "recent")
-        end
-
-        it "filters the pictures collection by the given filter string" do
-          expect(pictures).to \
-            receive(:filtered_by).with(params["filter"]).and_call_original
-          search_by
-        end
-      end
-
-      context "when params[:tagged_with] is set" do
-        let(:params) do
-          ActionController::Parameters.new(tagged_with: "kitten")
-        end
-
-        it "filters the records by tags" do
-          expect(pictures).to \
-            receive(:tagged_with).with(params["tagged_with"]).and_call_original
-          search_by
-        end
-      end
-    end
-
-    describe ".filtered_by" do
-      let(:picture) { build_stubbed(:alchemy_picture) }
-
-      context "with 'recent' as argument" do
-        it "should call the .recent scope" do
-          expect(Picture).to receive(:recent).and_return(picture)
-          expect(Picture.filtered_by("recent")).to eq(picture)
-        end
-      end
-
-      context "with 'last_upload' as argument" do
-        it "should call the .last_upload scope" do
-          expect(Picture).to receive(:last_upload).and_return(picture)
-          expect(Picture.filtered_by("last_upload")).to eq(picture)
-        end
-      end
-
-      context "with 'without_tag' as argument" do
-        it "should call the .without_tag scope" do
-          expect(Picture).to receive(:without_tag).and_return(picture)
-          expect(Picture.filtered_by("without_tag")).to eq(picture)
-        end
-      end
-
-      context "with no argument" do
-        it "should return the scoped collection" do
-          expect(Picture).to receive(:all).and_return(picture)
-          expect(Picture.filtered_by("")).to eq(picture)
-        end
-      end
-    end
-
     describe ".last_upload" do
       it "should return all pictures that have the same upload-hash as the most recent picture" do
         other_upload = Picture.create!(image_file: image_file, upload_hash: "456")
@@ -457,27 +365,6 @@ module Alchemy
         end
 
         it { is_expected.to be_falsey }
-      end
-    end
-
-    context "navigating records" do
-      let!(:picture1) { create(:alchemy_picture, name: "abc") }
-      let!(:picture2) { create(:alchemy_picture, name: "def") }
-
-      describe "#previous" do
-        subject { picture2.previous }
-
-        it "returns the previous record by name" do
-          is_expected.to eq(picture1)
-        end
-      end
-
-      describe "#next" do
-        subject { picture1.next }
-
-        it "returns the next record by name" do
-          is_expected.to eq(picture2)
-        end
       end
     end
 

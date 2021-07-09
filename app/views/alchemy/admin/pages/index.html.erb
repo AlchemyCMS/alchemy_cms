@@ -24,15 +24,8 @@
     <%= paginate @pages, scope: alchemy, theme: "alchemy" %>
 
     <div id="library_sidebar">
-      <%= render "page_layout_filter" %>
-
-      <%= render "filter_bar",
-        label: Alchemy::Page.human_attribute_name(:status),
-        url: alchemy.admin_pages_path(search_filter_params.except(:filter, :page).merge(view: "list")) %>
-
-      <% if resource_has_tags %>
-        <%= render "tag_list" %>
-      <% end %>
+      <%= render "filter_bar" if resource_has_filters %>
+      <%= render "tag_list" if resource_has_tags %>
     </div>
   <% else %>
     <% if @page_root %>

@@ -49,7 +49,7 @@ module Alchemy
         end
       end
 
-      describe "file_type filter" do
+      describe "by_file_type filter" do
         let!(:png) { create(:alchemy_attachment) }
 
         let!(:jpg) do
@@ -57,12 +57,10 @@ module Alchemy
             file: File.new(File.expand_path("../../../fixtures/image3.jpeg", __dir__))
         end
 
-        context "with params[:file_type]" do
-          it "loads only attachments with matching content type" do
-            get :index, params: { file_type: "image/jpeg" }
-            expect(assigns(:attachments).to_a).to eq([jpg])
-            expect(assigns(:attachments).to_a).to_not eq([png])
-          end
+        it "loads only attachments with matching content type" do
+          get :index, params: { filter: { by_file_type: "image/jpeg" } }
+          expect(assigns(:attachments).to_a).to eq([jpg])
+          expect(assigns(:attachments).to_a).to_not eq([png])
         end
       end
     end
@@ -156,7 +154,7 @@ module Alchemy
             {
               q: { name_or_file_name_cont: "kitten" },
               tagged_with: "cute",
-              file_type: "pdf",
+              filter: { by_file_type: "pdf" },
               page: 2,
             }
           end
@@ -200,7 +198,7 @@ module Alchemy
           {
             q: { name_or_file_name_cont: "kitten" },
             tagged_with: "cute",
-            file_type: "pdf",
+            filter: { by_file_type: "pdf" },
             page: 2,
           }
         end

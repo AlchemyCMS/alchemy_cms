@@ -5,11 +5,15 @@ module CapybaraSelect2
   def select2(value, options)
     label = find_label_by_text(options[:from])
 
-    within label.first(:xpath, ".//..") do
-      options[:from] = "##{find(".select2-container")["id"]}"
-    end
+    select2_anchor_selector = ".select2-container a"
 
-    find(options[:from]).find("a").click
+    if label.has_css?(select2_anchor_selector)
+      label.find(select2_anchor_selector).click
+    else
+      within label.find(:xpath, "..") do
+        find(select2_anchor_selector).click
+      end
+    end
 
     within_entire_page do
       page.find("div.select2-result-label",
