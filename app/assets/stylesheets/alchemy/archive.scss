@@ -9,6 +9,11 @@
   border: 1px solid $default-border-color;
   white-space: nowrap;
   font-weight: normal;
+
+  .dismiss-filter {
+    position: relative;
+    top: -1px;
+  }
 }
 
 .resources-table-wrapper {
