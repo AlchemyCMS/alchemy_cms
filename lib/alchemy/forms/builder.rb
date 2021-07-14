@@ -20,7 +20,7 @@ module Alchemy
 
       # Renders a simple_form input that displays a datepicker
       #
-      def datepicker(attribute_name, options = {}, &block)
+      def datepicker(attribute_name, options = {})
         options[:wrapper] = :alchemy
 
         type = options[:as] || :date
