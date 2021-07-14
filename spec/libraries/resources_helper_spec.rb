@@ -242,6 +242,111 @@ describe Alchemy::ResourcesHelper do
     end
   end
 
+  describe "#resource_attribute_field_options" do
+    subject { controller.resource_attribute_field_options(attribute) }
+
+    context "a boolean" do
+      let(:attribute) do
+        {
+          type: :boolean
+        }
+      end
+
+      it "just returns hint options" do
+        is_expected.to match(hash_including(
+          hint: nil
+        ))
+      end
+    end
+
+    context "a date" do
+      let(:attribute) do
+        {
+          type: :date
+        }
+      end
+
+      it "returns options for date picker" do
+        is_expected.to match(hash_including(
+          hint: nil,
+          as: "string",
+          input_html: {
+            data: { datepicker_type: "date" }
+          }
+        ))
+      end
+    end
+
+    context "a datetime" do
+      let(:attribute) do
+        {
+          type: :datetime
+        }
+      end
+
+      it "returns options for datetime picker" do
+        is_expected.to match(hash_including(
+          hint: nil,
+          as: "string",
+          input_html: {
+            data: { datepicker_type: "datetime" }
+          }
+        ))
+      end
+    end
+
+    context "a time" do
+      let(:attribute) do
+        {
+          type: :time
+        }
+      end
+
+      it "returns options for time picker" do
+        is_expected.to match(hash_including(
+          hint: nil,
+          as: "string",
+          input_html: {
+            data: { datepicker_type: "time" }
+          }
+        ))
+      end
+    end
+
+    context "a text" do
+      let(:attribute) do
+        {
+          type: :text
+        }
+      end
+
+      it "returns options for textarea" do
+        is_expected.to match(hash_including(
+          hint: nil,
+          as: "text",
+          input_html: {
+            rows: 4
+          }
+        ))
+      end
+    end
+
+    context "everything else" do
+      let(:attribute) do
+        {
+          type: :foo
+        }
+      end
+
+      it "returns options for text input field" do
+        is_expected.to match(hash_including(
+          hint: nil,
+          as: "string"
+        ))
+      end
+    end
+  end
+
   describe "#resource_name" do
     it "returns resource_handler.resource_name" do
       expect(controller.resource_name).to eq("my_resource")
