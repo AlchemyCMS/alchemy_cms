@@ -24,7 +24,7 @@ class ResourcesControllerForEngine
   include Alchemy::ResourcesHelper
 
   def resource_handler
-    @resource_handler ||= Alchemy::Resource.new("admin/engine_resources", {"engine_name" => "my_engine"})
+    @resource_handler ||= Alchemy::Resource.new("admin/engine_resources", { "engine_name" => "my_engine" })
   end
 end
 
@@ -119,7 +119,7 @@ describe Alchemy::ResourcesHelper do
     subject { controller.render_attribute(resource_item, attributes, options) }
 
     let(:options) { {} }
-    let(:attributes) { {name: "name"} }
+    let(:attributes) { { name: "name" } }
 
     it "should return the value from resource attribute" do
       allow(resource_item).to receive(:name).and_return("my-name")
@@ -167,7 +167,7 @@ describe Alchemy::ResourcesHelper do
       end
 
       context "but with options[:truncate] set to 10" do
-        let(:options) { {truncate: 10} }
+        let(:options) { { truncate: 10 } }
 
         it "does not truncate the values" do
           expect(subject.length).to eq(10)
@@ -175,7 +175,7 @@ describe Alchemy::ResourcesHelper do
       end
 
       context "but with options[:truncate] set to false" do
-        let(:options) { {truncate: false} }
+        let(:options) { { truncate: false } }
 
         it "does not truncate the values" do
           expect(subject.length).to eq(51)
@@ -203,7 +203,7 @@ describe Alchemy::ResourcesHelper do
       end
 
       context "with options[:datetime_format] set to other format" do
-        let(:options) { {datetime_format: "OTHR"} }
+        let(:options) { { datetime_format: "OTHR" } }
 
         it "uses this format" do
           expect(controller).to receive(:l).with(now, format: "OTHR")
@@ -232,12 +232,129 @@ describe Alchemy::ResourcesHelper do
       end
 
       context "with options[:time_format] set to other format" do
-        let(:options) { {time_format: "OTHR"} }
+        let(:options) { { time_format: "OTHR" } }
 
         it "uses this format" do
           expect(controller).to receive(:l).with(now, format: "OTHR")
           subject
         end
+      end
+    end
+  end
+
+  describe "#resource_attribute_field_options" do
+    subject { controller.resource_attribute_field_options(attribute) }
+
+    context "a boolean" do
+      let(:attribute) do
+        {
+          type: :boolean,
+        }
+      end
+
+      it "just returns hint options" do
+        is_expected.to match(
+          hash_including(
+            hint: nil,
+          )
+        )
+      end
+    end
+
+    context "a date" do
+      let(:attribute) do
+        {
+          type: :date,
+        }
+      end
+
+      it "returns options for date picker" do
+        is_expected.to match(
+          hash_including(
+            hint: nil,
+            as: "string",
+            input_html: {
+              data: { datepicker_type: "date" },
+            },
+          )
+        )
+      end
+    end
+
+    context "a datetime" do
+      let(:attribute) do
+        {
+          type: :datetime,
+        }
+      end
+
+      it "returns options for datetime picker" do
+        is_expected.to match(
+          hash_including(
+            hint: nil,
+            as: "string",
+            input_html: {
+              data: { datepicker_type: "datetime" },
+            },
+          )
+        )
+      end
+    end
+
+    context "a time" do
+      let(:attribute) do
+        {
+          type: :time,
+        }
+      end
+
+      it "returns options for time picker" do
+        is_expected.to match(
+          hash_including(
+            hint: nil,
+            as: "string",
+            input_html: {
+              data: { datepicker_type: "time" },
+            },
+          )
+        )
+      end
+    end
+
+    context "a text" do
+      let(:attribute) do
+        {
+          type: :text,
+        }
+      end
+
+      it "returns options for textarea" do
+        is_expected.to match(
+          hash_including(
+            hint: nil,
+            as: "text",
+            input_html: {
+              rows: 4,
+            },
+          )
+        )
+      end
+    end
+
+    context "everything else" do
+      let(:attribute) do
+        {
+          type: :foo,
+        }
+      end
+
+      it "returns options for text input field" do
+        is_expected.to match(
+          hash_including(
+            hint: nil,
+            as: "string",
+          )
+        )
       end
     end
   end

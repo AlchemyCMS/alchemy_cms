@@ -107,12 +107,10 @@ module Alchemy
       when "boolean"
         options
       when "date", "time", "datetime"
-        date = resource_instance_variable.send(attribute[:name]) || Time.current
         options.merge(
           as: "string",
           input_html: {
-            "data-datepicker-type" => input_type,
-            value: date ? date.iso8601 : nil,
+            data: { datepicker_type: input_type },
           },
         )
       when "text"
