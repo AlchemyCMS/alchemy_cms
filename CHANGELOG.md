@@ -1,3 +1,24 @@
+## 6.0.0.b2 (2021-08-05)
+
+### Features
+
+- Add datepicker simple form input [#2162](https://github.com/AlchemyCMS/alchemy_cms/pull/2162) ([tvdeyen](https://github.com/tvdeyen))
+- Feature flexible resource filters [#2091](https://github.com/AlchemyCMS/alchemy_cms/pull/2091) ([robinboening](https://github.com/robinboening))
+
+### Changes
+
+- Require alchemy/version [#2159](https://github.com/AlchemyCMS/alchemy_cms/pull/2159) ([tvdeyen](https://github.com/tvdeyen))
+- Make ingredient examples usable without elements.yml [#2158](https://github.com/AlchemyCMS/alchemy_cms/pull/2158) ([tvdeyen](https://github.com/tvdeyen))
+- Fix ingredient migrator (again) [#2155](https://github.com/AlchemyCMS/alchemy_cms/pull/2155) ([tvdeyen](https://github.com/tvdeyen))
+- Respect additional essence attributes during ingredients migration [#2154](https://github.com/AlchemyCMS/alchemy_cms/pull/2154) ([tvdeyen](https://github.com/tvdeyen))
+- Improve cache key defaults for menus [#2153](https://github.com/AlchemyCMS/alchemy_cms/pull/2153) ([oneiros](https://github.com/oneiros))
+- Make element preview text work with ingredients [#2152](https://github.com/AlchemyCMS/alchemy_cms/pull/2152) ([tvdeyen](https://github.com/tvdeyen))
+- Do not leak all records for guest users in API controllers [#2145](https://github.com/AlchemyCMS/alchemy_cms/pull/2145) ([tvdeyen](https://github.com/tvdeyen))
+
+### Misc
+
+- [ruby - main] Upgrade shoulda-matchers to version 5.0.0 [#2161](https://github.com/AlchemyCMS/alchemy_cms/pull/2161) ([depfu](https://github.com/apps/depfu))
+
 ## 6.0.0.b1 (2021-07-05)
 
 ### Features
