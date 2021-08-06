@@ -80,7 +80,7 @@ module Alchemy
 
       # Returns an ingredient class by type
       #
-      # Raises ArgumentError if there is no such class in the
+      # Raises NameError if there is no such class in the
       # +Alchemy::Ingredients+ module namespace.
       #
       # If you add custom ingredient class,
@@ -89,7 +89,7 @@ module Alchemy
       # @param [String] The ingredient class name to constantize
       # @return [Class]
       def ingredient_class_by_type(ingredient_type)
-        Alchemy::Ingredients.const_get(ingredient_type.to_s.classify.demodulize)
+        normalize_type(ingredient_type).constantize
       end
 
       # Modulize ingredient type

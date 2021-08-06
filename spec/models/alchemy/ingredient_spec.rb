@@ -105,6 +105,34 @@ RSpec.describe Alchemy::Ingredient do
     end
   end
 
+  describe ".ingredient_class_by_type" do
+    subject { described_class.ingredient_class_by_type(ingredient_type) }
+
+    context "with a known ingredient class" do
+      let(:ingredient_type) { "Text" }
+
+      it "returns full ingredient constant" do
+        expect(subject).to eq(Alchemy::Ingredients::Text)
+      end
+    end
+
+    context "with unkown ingredient class" do
+      let(:ingredient_type) { "Foo" }
+
+      it do
+        expect { subject }.to raise_error(NameError)
+      end
+    end
+  end
+
+  describe ".normalize_type" do
+    subject { described_class.normalize_type("Text") }
+
+    it "returns full ingredient constant name" do
+      is_expected.to eq("Alchemy::Ingredients::Text")
+    end
+  end
+
   describe "#settings" do
     let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
 
