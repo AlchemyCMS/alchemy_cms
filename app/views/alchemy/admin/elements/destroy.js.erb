@@ -3,9 +3,7 @@ $('#element_<%= @element.id %>').hide(200, function() {
   Alchemy.growl('<%= j @notice %>');
   $('#element_area .sortable-elements').sortable('refresh');
   Alchemy.PreviewWindow.refresh();
-  <% @element.richtext_contents_ids.each do |id| %>
-  tinymce.get('tinymce_<%= id %>').remove();
-  <% end %>
+  Alchemy.Tinymce.remove(<%= @richtext_ids.to_json %>);
   <% if @element.fixed? %>
   Alchemy.FixedElements.removeTab(<%= @element.id %>);
   <% end %>
