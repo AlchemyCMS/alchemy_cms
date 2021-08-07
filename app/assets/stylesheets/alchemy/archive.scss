@@ -20,7 +20,8 @@
   padding-bottom: 60px;
 
   &.with_tag_filter {
-    padding-right: 242px;
+    width: calc(100% - 235px);
+    overflow-x: auto;
   }
 }
 
