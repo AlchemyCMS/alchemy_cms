@@ -50,11 +50,11 @@
         image_file_width: picture_editor.image_file_width,
         image_file_height: picture_editor.image_file_height
       } %>
-    <%= f.hidden_field :link, data: { link_value: true } %>
-    <%= f.hidden_field :link_title, data: { link_title: true } %>
-    <%= f.hidden_field :link_class_name, data: { link_class: true } %>
-    <%= f.hidden_field :link_target, data: { link_target: true } %>
-    <%= f.hidden_field :crop_from, data: { crop_from: true } %>
-    <%= f.hidden_field :crop_size, data: { crop_size: true } %>
+    <%= f.hidden_field :link, data: { link_value: true }, id: nil %>
+    <%= f.hidden_field :link_title, data: { link_title: true }, id: nil %>
+    <%= f.hidden_field :link_class_name, data: { link_class: true }, id: nil %>
+    <%= f.hidden_field :link_target, data: { link_target: true }, id: nil %>
+    <%= f.hidden_field :crop_from, data: { crop_from: true }, id: nil %>
+    <%= f.hidden_field :crop_size, data: { crop_size: true }, id: nil %>
   <% end %>
 <% end %>
