@@ -44,6 +44,7 @@
       </div>
     <% end %>
     <%= f.hidden_field :picture_id, value: picture_editor.picture&.id,
+      id: picture_editor.form_field_id(:picture_id),
       data: {
         picture_id: true,
         image_file_width: picture_editor.image_file_width,

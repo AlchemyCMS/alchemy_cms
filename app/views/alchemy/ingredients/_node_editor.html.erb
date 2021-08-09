@@ -5,6 +5,7 @@
     <%= ingredient_label(node_editor, :node_id) %>
     <%= f.text_field :node_id,
       value: node_editor.node&.id,
+      id: node_editor.form_field_id(:node_id),
       class: 'alchemy_selectbox full_width' %>
   <% end %>
 <% end %>

@@ -6,7 +6,7 @@
     <%= f.text_field :value,
       class: "thin_border text_with_icon disabled",
       name: nil,
-      id: nil,
+      id: link_editor.form_field_id,
       disabled: true
     %>
     <%= f.hidden_field :value, "data-link-value": true %>

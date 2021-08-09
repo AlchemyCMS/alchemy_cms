@@ -44,7 +44,9 @@
           },
           title: Alchemy.t(:edit_file_properties) %>
       </div>
-      <%= f.hidden_field :attachment_id, value: file_editor.attachment&.id %>
+      <%= f.hidden_field :attachment_id,
+        value: file_editor.attachment&.id,
+        id: file_editor.form_field_id(:attachment_id) %>
     </div>
   <% end %>
 <% end %>
