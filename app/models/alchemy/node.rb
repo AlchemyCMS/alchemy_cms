@@ -7,6 +7,7 @@ module Alchemy
     before_destroy :check_if_related_essence_nodes_present
 
     acts_as_nested_set scope: "language_id", touch: true
+    after_move :touch_parent
     stampable stamper_class_name: Alchemy.user_class_name
 
     belongs_to :language, class_name: "Alchemy::Language"
@@ -90,6 +91,10 @@ module Alchemy
 
     def set_menu_type_from_root
       self.menu_type = root.menu_type
+    end
+
+    def touch_parent
+      parent.touch
     end
   end
 end
