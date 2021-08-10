@@ -11,14 +11,14 @@ describe Alchemy::Admin::IngredientsHelper do
     subject { helper.ingredient_label(ingredient_editor) }
 
     it "has for attribute set to ingredient form field id" do
-      is_expected.to have_selector('label[for="element_ingredients_attributes_0_value"]')
+      is_expected.to have_selector("label[for='element_#{element.id}_ingredient_#{ingredient.id}_value']")
     end
 
     context "with another column given" do
       subject { helper.ingredient_label(ingredient_editor, :picture_id) }
 
       it "has for attribute set to ingredient form field id for that column" do
-        is_expected.to have_selector('label[for="element_ingredients_attributes_0_picture_id"]')
+        is_expected.to have_selector("label[for='element_#{element.id}_ingredient_#{ingredient.id}_picture_id']")
       end
     end
 

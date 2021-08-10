@@ -64,8 +64,12 @@ module Alchemy
       "element[ingredients_attributes][#{form_field_counter}][#{column}]"
     end
 
+    # Returns a unique string to be passed to a form field id.
+    #
+    # @param column [String] A Ingredient column_name. Default is 'value'
+    #
     def form_field_id(column = "value")
-      "element_ingredients_attributes_#{form_field_counter}_#{column}"
+      "element_#{element.id}_ingredient_#{id}_#{column}"
     end
 
     # Fixes Rails partial renderer calling to_model on the object

@@ -26,12 +26,11 @@ RSpec.describe "alchemy/ingredients/_link_editor" do
 
   it_behaves_like "an alchemy ingredient editor"
 
-  it "renders a disabled text input field" do
-    is_expected.to have_selector('input[type="text"][disabled]')
+  it "renders a readonly text input field" do
+    is_expected.to have_selector('input[type="text"][readonly]')
   end
 
   it "renders link buttons" do
-    is_expected.to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][value]"]')
     is_expected.to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_title]"]')
     is_expected.to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_class_name]"]')
     is_expected.to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_target]"]')

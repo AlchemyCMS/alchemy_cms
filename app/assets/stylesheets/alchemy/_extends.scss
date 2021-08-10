@@ -31,14 +31,27 @@
   line-height: $form-field-line-height;
   transition: $transition-duration;
 
-  &:focus {
+  &:focus:not(.readonly) {
     @include default-focus-style($box-shadow: 0 0 0 1px $focus-color);
   }
 
-  &[disabled], .disabled {
+  &[disabled],
+  &.disabled,
+  &[readonly],
+  &.readonly {
     color: $form-field-disabled-text-color;
     background-color: $form-field-disabled-bg-color;
+    cursor: default;
+  }
+
+  &[disabled],
+  &.disabled {
     cursor: not-allowed;
+  }
+
+  &[readonly],
+  &.readonly {
+    pointer-events: none;
   }
 }
 
