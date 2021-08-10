@@ -51,21 +51,23 @@ module Alchemy
       # If the element uses +ingredients+ it returns the +value+ of the ingredient record.
       #
       def ingredient(name)
-        element.ingredient(name).presence || element.ingredient_by_role(name)&.value
+        element.ingredient(name)
       end
-
-      deprecate ingredient: :value, deprecator: Alchemy::Deprecation
 
       # Returns the value of one of the element's ingredients.
       #
       def value(name)
-        element.ingredient_by_role(name)&.value
+        element.value_for(name)
       end
 
-      # Returns true if the given content or ingredient has been filled by the user.
+      # Returns true if the given content or ingredient has a value.
       #
       def has?(name)
-        element.has_ingredient?(name) || element.has_value_for?(name)
+        if element.ingredient_definitions.any?
+          element.has_value_for?(name)
+        else
+          element.has_ingredient?(name)
+        end
       end
 
       # Return's the given content's essence.

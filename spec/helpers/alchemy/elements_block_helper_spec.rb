@@ -119,9 +119,21 @@ module Alchemy
           let(:ingredient) { element.ingredients.first }
 
           it "should return the ingredients value" do
-            expect(ingredient).to receive(:value).and_call_original
-            subject.ingredient(:headline)
+            Alchemy::Deprecation.silenced do
+              expect(ingredient).to receive(:value).and_call_original
+              subject.ingredient(:headline)
+            end
           end
+        end
+      end
+
+      describe "#value" do
+        let(:element) { create(:alchemy_element, :with_ingredients) }
+        let(:ingredient) { element.ingredients.first }
+
+        it "should return the ingredients value" do
+          expect(element).to receive(:value_for).and_call_original
+          subject.value(:headline)
         end
       end
 

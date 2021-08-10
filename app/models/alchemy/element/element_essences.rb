@@ -5,10 +5,20 @@ module Alchemy
     module ElementEssences
       # Returns the contents essence value (aka. ingredient) for passed content name.
       def ingredient(name)
-        content = content_by_name(name)
-        return nil if content.blank?
+        ing = ingredient_by_role(name)
+        if ing
+          Alchemy::Deprecation.warn <<~WARN
+            Using `element.ingredient` to get the value of an ingredient is deprecated and will change in Alchemy 6.1
+            If you want to read the value of an elements ingredient please use `element.value_for(:ingredient_role)` instead.
+            The next version of Alchemy will return a `Alchemy::Ingredient` record instead.
+          WARN
+          ing.value
+        else
+          content = content_by_name(name)
+          return nil if content.blank?
 
-        content.ingredient
+          content.ingredient
+        end
       end
 
       # True if the element has a content for given name,
@@ -16,6 +26,7 @@ module Alchemy
       def has_ingredient?(name)
         ingredient(name).present?
       end
+      deprecate has_ingredient?: :has_value_for?, deprecator: Alchemy::Deprecation
 
       # Returns all essence errors in the format of:
       #

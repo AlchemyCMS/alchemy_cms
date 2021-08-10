@@ -66,6 +66,36 @@ RSpec.describe Alchemy::Element do
     end
   end
 
+  describe "#value_for" do
+    let!(:element) { create(:alchemy_element, :with_ingredients) }
+
+    context "with role existing" do
+      let(:ingredient) { element.ingredients.first }
+
+      context "with blank value" do
+        before do
+          expect(ingredient).to receive(:value) { nil }
+        end
+
+        it { expect(element.value_for(:headline)).to be_nil }
+      end
+
+      context "with value present" do
+        before do
+          expect(ingredient).to receive(:value) { "Headline" }
+        end
+
+        it "should return value" do
+          expect(element.value_for(:headline)).to eq("Headline")
+        end
+      end
+    end
+
+    context "role not existing" do
+      it { expect(element.value_for(:foo)).to be_nil }
+    end
+  end
+
   describe "#has_value_for?" do
     let!(:element) { create(:alchemy_element, :with_ingredients) }
 

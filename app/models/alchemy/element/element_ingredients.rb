@@ -22,6 +22,11 @@ module Alchemy
         validates_associated :ingredients, on: :update
       end
 
+      # The value of an ingredient of the element by role
+      def value_for(role)
+        ingredient_by_role(role)&.value
+      end
+
       # Find first ingredient from element by given role.
       def ingredient_by_role(role)
         ingredients.detect { |ingredient| ingredient.role == role.to_s }
@@ -87,7 +92,7 @@ module Alchemy
       # True if the element has a ingredient for given name
       # that has a non blank value.
       def has_value_for?(role)
-        ingredient_by_role(role)&.value.present?
+        value_for(role).present?
       end
 
       # Ingredient validation error messages
