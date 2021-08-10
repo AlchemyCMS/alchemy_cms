@@ -4,12 +4,12 @@
   <%= element_form.fields_for(:ingredients, link_editor.ingredient) do |f| %>
     <%= ingredient_label(link_editor) %>
     <%= f.text_field :value,
-      class: "thin_border text_with_icon disabled",
-      name: nil,
+      class: "thin_border text_with_icon readonly",
       id: link_editor.form_field_id,
-      disabled: true
+      "data-link-value": true,
+      readonly: true,
+      tabindex: -1
     %>
-    <%= f.hidden_field :value, "data-link-value": true, id: nil %>
     <%= f.hidden_field :link_title, "data-link-title": true, id: nil %>
     <%= f.hidden_field :link_class_name, "data-link-class": true, id: nil %>
     <%= f.hidden_field :link_target, "data-link-target": true, id: nil %>
