@@ -50,6 +50,42 @@ RSpec.describe Alchemy::ElementEditor do
     end
   end
 
+  describe "#ingredients" do
+    let(:element) { create(:alchemy_element, :with_ingredients) }
+
+    subject(:ingredients) { element_editor.ingredients }
+
+    it "returns a ContentEditor instance for each ingredient defined" do
+      aggregate_failures do
+        ingredients.each do |ingredient|
+          expect(ingredient).to be_an(Alchemy::IngredientEditor)
+        end
+      end
+    end
+
+    context "with a ingredient defined but not existing yet" do
+      let(:element) { create(:alchemy_element, name: "headline") }
+
+      before do
+        expect(element).to receive(:definition).at_least(:once) do
+          {
+            name: "headline",
+            ingredients: [
+              {
+                role: "headline",
+                type: "Headline",
+              },
+            ],
+          }.with_indifferent_access
+        end
+      end
+
+      it "creates the missing ingredient" do
+        expect { subject }.to change { element.ingredients.count }.by(1)
+      end
+    end
+  end
+
   describe "#to_partial_path" do
     subject { element_editor.to_partial_path }
 
