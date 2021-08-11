@@ -70,7 +70,7 @@ RSpec.describe Alchemy::Element do
     let!(:element) { create(:alchemy_element, :with_ingredients) }
 
     context "with role existing" do
-      let(:ingredient) { element.ingredients.first }
+      let(:ingredient) { element.ingredient_by_role(:headline) }
 
       context "with blank value" do
         before do
@@ -100,19 +100,15 @@ RSpec.describe Alchemy::Element do
     let!(:element) { create(:alchemy_element, :with_ingredients) }
 
     context "with role existing" do
-      let(:ingredient) { element.ingredients.first }
+      let(:ingredient) { element.ingredient_by_role(:headline) }
 
       context "with blank value" do
-        before do
-          expect(ingredient).to receive(:value) { nil }
-        end
-
         it { expect(element.has_value_for?(:headline)).to be(false) }
       end
 
       context "with value present" do
         before do
-          expect(ingredient).to receive(:value) { "Headline" }
+          ingredient.value = "Headline"
         end
 
         it "should return ingredient" do
@@ -163,7 +159,6 @@ RSpec.describe Alchemy::Element do
       expect(element.ingredient_error_messages).to eq([
         "Please enter a headline for all you can eat",
         "Text is invalid",
-        "Please select something else",
       ])
     end
   end

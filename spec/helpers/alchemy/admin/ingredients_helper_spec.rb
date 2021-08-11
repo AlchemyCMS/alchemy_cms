@@ -4,7 +4,7 @@ require "rails_helper"
 
 describe Alchemy::Admin::IngredientsHelper do
   let(:element) { build_stubbed(:alchemy_element, name: "element_with_ingredients") }
-  let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+  let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
   let(:ingredient_editor) { Alchemy::IngredientEditor.new(ingredient) }
 
   describe "#ingredient_label" do

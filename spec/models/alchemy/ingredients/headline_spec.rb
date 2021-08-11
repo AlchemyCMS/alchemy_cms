@@ -60,7 +60,7 @@ RSpec.describe Alchemy::Ingredients::Headline do
     end
 
     it "should have the size and level fields filled with correct defaults" do
-      ingredient = Alchemy::Ingredient.create(element: element, role: "headline")
+      ingredient = described_class.create(element: element, role: "headline")
       expect(ingredient.size).to eq(3)
       expect(ingredient.level).to eq(2)
     end

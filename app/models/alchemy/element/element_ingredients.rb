@@ -172,8 +172,11 @@ module Alchemy
 
       # Builds ingredients for this element as described in the +elements.yml+
       def build_ingredients
-        self.ingredients = ingredient_definitions.map do |attributes|
-          Ingredient.build(role: attributes[:role], element: self)
+        ingredient_definitions.each do |attributes|
+          ingredients.build(
+            role: attributes[:role],
+            type: Alchemy::Ingredient.normalize_type(attributes[:type]),
+          )
         end
       end
     end
