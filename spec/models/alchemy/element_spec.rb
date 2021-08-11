@@ -721,8 +721,27 @@ module Alchemy
     context "retrieving contents, essences and ingredients" do
       let(:element) { create(:alchemy_element, :with_contents, name: "news") }
 
-      it "should return an ingredient by name" do
-        expect(element.ingredient("news_headline")).to eq(EssenceText.first.ingredient)
+      describe "#ingredient" do
+        context "with contents" do
+          let(:essence) { element.content_by_name(:news_headline) }
+
+          it "returns a contents value by name" do
+            expect(essence).to receive(:ingredient).and_call_original
+            element.ingredient("news_headline")
+          end
+        end
+
+        context "with ingredients" do
+          let(:element) { create(:alchemy_element, :with_ingredients) }
+          let(:ingredient) { element.ingredient_by_role(:headline) }
+
+          it "returns a ingredients value by name" do
+            Alchemy::Deprecation.silenced do
+              expect(ingredient).to receive(:value).and_call_original
+              element.ingredient("headline")
+            end
+          end
+        end
       end
 
       it "should return the content for rss title" do
