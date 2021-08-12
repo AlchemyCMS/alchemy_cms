@@ -30,7 +30,10 @@ module Alchemy::Upgrader::Tasks
                     next unless content
 
                     essence = content.essence
-                    ingredient = Alchemy::Ingredient.build(role: ingredient_definition[:role], element: element)
+                    ingredient = element.ingredients.build(
+                      role: ingredient_definition[:role],
+                      type: Alchemy::Ingredient.normalize_type(ingredient_definition[:type]),
+                    )
                     belongs_to_associations = essence.class.reflect_on_all_associations(:belongs_to)
                     if belongs_to_associations.any?
                       ingredient.related_object = essence.public_send(belongs_to_associations.first.name)

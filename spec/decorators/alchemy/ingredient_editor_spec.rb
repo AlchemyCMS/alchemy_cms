@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Alchemy::IngredientEditor do
   let(:element) { build(:alchemy_element, name: "element_with_ingredients") }
-  let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+  let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
   let(:ingredient_editor) { described_class.new(ingredient) }
 
   describe "#ingredient" do
@@ -190,7 +190,7 @@ RSpec.describe Alchemy::IngredientEditor do
         let(:element) { build(:alchemy_element, name: "all_you_can_eat_ingredients") }
 
         let(:ingredient) do
-          Alchemy::Ingredients::Html.build(
+          Alchemy::Ingredients::Html.new(
             role: "html",
             element: element,
           )

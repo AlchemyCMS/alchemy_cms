@@ -237,7 +237,7 @@ module Alchemy
         end
 
         let(:element) { create(:alchemy_element, :with_ingredients) }
-        let(:ingredient) { element.ingredients.first }
+        let(:ingredient) { element.ingredient_by_role(:headline) }
         let(:ingredients_attributes) { { 0 => { id: ingredient.id, value: "Title" } } }
         let(:element_params) { { tag_list: "Tag 1", public: false, ingredients_attributes: ingredients_attributes } }
 

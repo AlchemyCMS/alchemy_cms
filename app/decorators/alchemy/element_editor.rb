@@ -26,7 +26,7 @@ module Alchemy
     # @return Array<Alchemy::IngredientEditor>
     def ingredients
       element.definition.fetch(:ingredients, []).map do |ingredient|
-        Alchemy::IngredientEditor.new(find_or_create_ingredient(ingredient[:role]))
+        Alchemy::IngredientEditor.new(find_or_create_ingredient(ingredient))
       end
     end
 
@@ -121,9 +121,12 @@ module Alchemy
       Alchemy::Content.create(element: element, name: name)
     end
 
-    def find_or_create_ingredient(role)
-      element.ingredients.find { |i| i.role == role } ||
-        Ingredient.create(element: element, role: role)
+    def find_or_create_ingredient(definition)
+      element.ingredients.detect { |i| i.role == definition[:role] } ||
+        element.ingredients.create!(
+          role: definition[:role],
+          type: Alchemy::Ingredient.normalize_type(definition[:type]),
+        )
     end
   end
 end

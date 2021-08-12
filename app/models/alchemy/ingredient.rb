@@ -6,11 +6,12 @@ module Alchemy
 
     include Hints
 
-    self.abstract_class = true
     self.table_name = "alchemy_ingredients"
 
     belongs_to :element, touch: true, class_name: "Alchemy::Element", inverse_of: :ingredients
     belongs_to :related_object, polymorphic: true, optional: true
+
+    before_validation(on: :create) { self.value ||= default_value }
 
     validates :type, presence: true
     validates :role, presence: true
@@ -33,32 +34,6 @@ module Alchemy
     scope :videos, -> { where(type: "Alchemy::Ingredients::Video") }
 
     class << self
-      # Builds concrete ingredient class as described in the +elements.yml+
-      def build(attributes = {})
-        element = attributes[:element]
-        raise ArgumentError, "No element given. Please pass element in attributes." if element.nil?
-        raise ArgumentError, "No role given. Please pass role in attributes." if attributes[:role].nil?
-
-        definition = element.ingredient_definition_for(attributes[:role])
-        if definition.nil?
-          raise DefinitionError,
-            "No definition found for #{attributes[:role]}. Please define #{attributes[:role]} on #{element[:name]}."
-        end
-
-        ingredient_class = Ingredient.ingredient_class_by_type(definition[:type])
-        ingredient_class.new(
-          type: Ingredient.normalize_type(definition[:type]),
-          value: default_value(definition),
-          role: definition[:role],
-          element: element,
-        )
-      end
-
-      # Creates concrete ingredient class as described in the +elements.yml+
-      def create(attributes = {})
-        build(attributes).tap(&:save)
-      end
-
       # Defines getter and setter method aliases for related object
       #
       # @param [String|Symbol] The name of the alias
@@ -76,20 +51,6 @@ module Alchemy
           self.related_object_id = id
           self.related_object_type = class_name
         end
-      end
-
-      # Returns an ingredient class by type
-      #
-      # Raises NameError if there is no such class in the
-      # +Alchemy::Ingredients+ module namespace.
-      #
-      # If you add custom ingredient class,
-      # put them in the +Alchemy::Ingredients+ module namespace
-      #
-      # @param [String] The ingredient class name to constantize
-      # @return [Class]
-      def ingredient_class_by_type(ingredient_type)
-        normalize_type(ingredient_type).constantize
       end
 
       # Modulize ingredient type
@@ -111,22 +72,6 @@ module Alchemy
           scope: "ingredient_roles.#{element_name}",
           default: Alchemy.t("ingredient_roles.#{role}", default: role.humanize),
         )
-      end
-
-      private
-
-      # Returns the default value from ingredient definition
-      #
-      # If the value is a symbol it gets passed through i18n
-      # inside the +alchemy.default_ingredient_texts+ scope
-      def default_value(definition)
-        default = definition[:default]
-        case default
-        when Symbol
-          Alchemy.t(default, scope: :default_ingredient_texts)
-        else
-          default
-        end
       end
     end
 
@@ -219,6 +164,20 @@ module Alchemy
 
     def hint_translation_attribute
       role
+    end
+
+    # Returns the default value from ingredient definition
+    #
+    # If the value is a symbol it gets passed through i18n
+    # inside the +alchemy.default_ingredient_texts+ scope
+    def default_value
+      default = definition[:default]
+      case default
+      when Symbol
+        Alchemy.t(default, scope: :default_ingredient_texts)
+      else
+        default
+      end
     end
   end
 end

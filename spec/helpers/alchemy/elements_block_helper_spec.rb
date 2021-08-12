@@ -116,7 +116,7 @@ module Alchemy
 
         context "with element having ingredients" do
           let(:element) { create(:alchemy_element, :with_ingredients) }
-          let(:ingredient) { element.ingredients.first }
+          let(:ingredient) { element.ingredient_by_role(:headline) }
 
           it "should return the ingredients value" do
             Alchemy::Deprecation.silenced do

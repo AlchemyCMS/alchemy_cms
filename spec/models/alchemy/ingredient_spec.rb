@@ -45,86 +45,6 @@ RSpec.describe Alchemy::Ingredient do
     end
   end
 
-  describe ".build" do
-    subject { described_class.build(attributes) }
-
-    context "without element" do
-      let(:attributes) { {} }
-
-      it { expect { subject }.to raise_error(ArgumentError) }
-    end
-
-    context "with element" do
-      context "without role given" do
-        let(:attributes) { { element: element } }
-
-        it { expect { subject }.to raise_error(ArgumentError) }
-      end
-
-      context "with role given" do
-        let(:attributes) { { element: element, role: "headline" } }
-
-        it { is_expected.to be_an(Alchemy::Ingredients::Text) }
-      end
-
-      context "with default defined" do
-        let(:attributes) { { element: element, role: "headline" } }
-
-        context "defined as String" do
-          it "sets default value" do
-            expect(subject.value).to eq("Hello World")
-          end
-        end
-
-        context "defined as Symbol" do
-          let(:attributes) { { element: element, role: "text" } }
-
-          it "sets translated default value" do
-            expect(subject.value).to eq("Dapibus nostra massa phasellus viverra rhoncus fringilla")
-          end
-        end
-      end
-
-      context "with undefined role given" do
-        let(:attributes) { { element: element, role: "foo" } }
-
-        it { expect { subject }.to raise_error(Alchemy::Ingredient::DefinitionError) }
-      end
-    end
-  end
-
-  describe ".create" do
-    subject { described_class.create(attributes) }
-
-    let(:attributes) { { element: element, role: "headline" } }
-
-    it { expect { subject }.to change(Alchemy::Ingredients::Text, :count).by(1) }
-
-    it "returns self" do
-      is_expected.to be_an(Alchemy::Ingredients::Text)
-    end
-  end
-
-  describe ".ingredient_class_by_type" do
-    subject { described_class.ingredient_class_by_type(ingredient_type) }
-
-    context "with a known ingredient class" do
-      let(:ingredient_type) { "Text" }
-
-      it "returns full ingredient constant" do
-        expect(subject).to eq(Alchemy::Ingredients::Text)
-      end
-    end
-
-    context "with unkown ingredient class" do
-      let(:ingredient_type) { "Foo" }
-
-      it do
-        expect { subject }.to raise_error(NameError)
-      end
-    end
-  end
-
   describe ".normalize_type" do
     subject { described_class.normalize_type("Text") }
 
@@ -134,14 +54,14 @@ RSpec.describe Alchemy::Ingredient do
   end
 
   describe "#settings" do
-    let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
 
     it "returns the settings hash from definition" do
       expect(ingredient.settings).to eq({ "linkable" => true })
     end
 
     context "if settings are not defined" do
-      let(:ingredient) { Alchemy::Ingredients::Text.build(role: "text", element: element) }
+      let(:ingredient) { Alchemy::Ingredients::Text.new(role: "text", element: element) }
 
       it "returns empty hash" do
         expect(ingredient.settings).to eq({})
@@ -150,7 +70,7 @@ RSpec.describe Alchemy::Ingredient do
   end
 
   describe "#settings_value" do
-    let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
     let(:key) { :linkable }
     let(:options) { {} }
 
@@ -189,7 +109,7 @@ RSpec.describe Alchemy::Ingredient do
     end
 
     context "with ingredient having no settings" do
-      let(:ingredient) { Alchemy::Ingredients::Richtext.build(role: "text", element: element) }
+      let(:ingredient) { Alchemy::Ingredients::Richtext.new(role: "text", element: element) }
 
       context "and empty options" do
         let(:options) { {} }
@@ -208,7 +128,7 @@ RSpec.describe Alchemy::Ingredient do
   end
 
   describe "#partial_name" do
-    let(:ingredient) { Alchemy::Ingredients::Richtext.build(role: "text", element: element) }
+    let(:ingredient) { Alchemy::Ingredients::Richtext.new(role: "text", element: element) }
 
     subject { ingredient.partial_name }
 
@@ -218,7 +138,7 @@ RSpec.describe Alchemy::Ingredient do
   end
 
   describe "#to_partial_path" do
-    let(:ingredient) { Alchemy::Ingredients::Richtext.build(role: "text", element: element) }
+    let(:ingredient) { Alchemy::Ingredients::Richtext.new(role: "text", element: element) }
 
     subject { ingredient.to_partial_path }
 
@@ -228,7 +148,7 @@ RSpec.describe Alchemy::Ingredient do
   end
 
   describe "#has_validations?" do
-    let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
 
     subject { ingredient.has_validations? }
 
@@ -248,7 +168,7 @@ RSpec.describe Alchemy::Ingredient do
   end
 
   describe "#has_hint?" do
-    let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
 
     subject { ingredient.has_hint? }
 
@@ -268,7 +188,7 @@ RSpec.describe Alchemy::Ingredient do
   end
 
   describe "#deprecated?" do
-    let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
 
     subject { ingredient.deprecated? }
 
@@ -298,7 +218,7 @@ RSpec.describe Alchemy::Ingredient do
   end
 
   describe "#preview_ingredient?" do
-    let(:ingredient) { Alchemy::Ingredients::Text.build(role: "headline", element: element) }
+    let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
 
     subject { ingredient.preview_ingredient? }
 
@@ -320,7 +240,7 @@ RSpec.describe Alchemy::Ingredient do
   describe "#has_tinymce?" do
     subject { ingredient.has_tinymce? }
 
-    let(:ingredient) { Alchemy::Ingredient.build(role: "headline", element: element) }
+    let(:ingredient) { Alchemy::Ingredients::Headline.new(role: "headline", element: element) }
 
     it { is_expected.to be(false) }
   end

@@ -95,11 +95,12 @@ RSpec.describe Alchemy::Admin::IngredientsController do
     end
 
     it_behaves_like "having crop action", model_class: Alchemy::Ingredient do
+      let(:picture) { build_stubbed(:alchemy_picture) }
+
       let(:croppable_resource) do
-        Alchemy::Ingredient.build(
-          type: "Alchemy::Ingredients::Picture",
+        Alchemy::Ingredients::Picture.new(
           element: element,
-          attachment: attachment,
+          picture: picture,
           role: "picture",
         )
       end
