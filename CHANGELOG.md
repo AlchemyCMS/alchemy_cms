@@ -1,3 +1,14 @@
+## 6.0.0.b3 (2021-08-12)
+
+### Fixes
+
+- Simplify ingredient creation [#2171](https://github.com/AlchemyCMS/alchemy_cms/pull/2171) ([tvdeyen](https://github.com/tvdeyen))
+- Return ingredients value if element asked for ingredient [#2170](https://github.com/AlchemyCMS/alchemy_cms/pull/2170) ([tvdeyen](https://github.com/tvdeyen))
+- Fix ingredient form field DOM ids [#2167](https://github.com/AlchemyCMS/alchemy_cms/pull/2167) ([tvdeyen](https://github.com/tvdeyen))
+- Ensure resource table ends before the filter/tag sidebar [#2166](https://github.com/AlchemyCMS/alchemy_cms/pull/2166) ([robinboening](https://github.com/robinboening))
+- Return fully namespaced ingredient constant [#2164](https://github.com/AlchemyCMS/alchemy_cms/pull/2164) ([tvdeyen](https://github.com/tvdeyen))
+- (Re)-init Tinymce for elements with ingredients [#2163](https://github.com/AlchemyCMS/alchemy_cms/pull/2163) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.0.b2 (2021-08-05)
 
 ### Features
