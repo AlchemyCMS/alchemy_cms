@@ -14,7 +14,7 @@ module Alchemy
       # Used by the Element#preview_text method.
       #
       def preview_text(_max_length = nil)
-        Alchemy.t(value, scope: "ingredient_values.boolean")
+        Alchemy.t(value.to_s, scope: "ingredient_values.boolean")
       end
     end
   end
