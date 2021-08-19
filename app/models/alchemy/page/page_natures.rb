@@ -110,7 +110,7 @@ module Alchemy
       # If the page is the current preview it uses the updated_at value as cache key.
       #
       def cache_key
-        if Page.current_preview == self
+        if Page.current_preview == id
           "alchemy/pages/#{id}-#{updated_at}"
         else
           "alchemy/pages/#{id}-#{published_at}"

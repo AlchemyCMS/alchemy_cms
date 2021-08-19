@@ -198,13 +198,13 @@ module Alchemy
         %w[name urlname title]
       end
 
-      # Used to store the current page previewed in the edit page template.
+      # Used to store the current page id previewed in the edit page template.
       #
       def current_preview=(page)
-        RequestStore.store[:alchemy_current_preview] = page
+        RequestStore.store[:alchemy_current_preview] = page&.id
       end
 
-      # Returns the current page previewed in the edit page template.
+      # Returns the current page id previewed in the edit page template.
       #
       def current_preview
         RequestStore.store[:alchemy_current_preview]
