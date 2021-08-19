@@ -1871,9 +1871,7 @@ module Alchemy
         let(:updated_at) { 3.days.ago }
         let(:page) { build_stubbed(:alchemy_page, published_at: nil, updated_at: updated_at) }
 
-        it "returns the updated_at value" do
-          expect(page.published_at).to be_within(1.second).of(updated_at)
-        end
+        it { expect(page.published_at).to be_nil }
       end
     end
 

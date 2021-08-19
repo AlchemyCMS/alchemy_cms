@@ -117,15 +117,6 @@ module Alchemy
         end
       end
 
-      # We use the published_at value for the cache_key.
-      #
-      # If no published_at value is set yet, i.e. because it was never published,
-      # we return the updated_at value.
-      #
-      def published_at
-        read_attribute(:published_at) || updated_at
-      end
-
       # Returns true if the page cache control headers should be set.
       #
       # == Disable Alchemy's page caching globally
