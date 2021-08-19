@@ -2,7 +2,7 @@
 
 module Alchemy
   class PageVersion < BaseRecord
-    belongs_to :page, class_name: "Alchemy::Page", inverse_of: :versions
+    belongs_to :page, class_name: "Alchemy::Page", inverse_of: :versions, touch: true
 
     has_many :elements, -> { order(:position) },
       class_name: "Alchemy::Element",

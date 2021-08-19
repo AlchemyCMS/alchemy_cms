@@ -70,6 +70,16 @@ describe Alchemy::PageVersion do
     end
   end
 
+  describe "when saved" do
+    let(:page_version) { build(:alchemy_page_version) }
+    let(:page) { page_version.page }
+
+    it "touches the page" do
+      expect(page).to receive(:touch)
+      page_version.save
+    end
+  end
+
   describe "#public?" do
     subject { page_version.public? }
 
