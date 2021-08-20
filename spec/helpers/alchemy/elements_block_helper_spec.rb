@@ -79,7 +79,9 @@ module Alchemy
               },
               html_options: {},
             })
-            subject.render(:headline, foo: "bar")
+            Alchemy::Deprecation.silence do
+              subject.render(:headline, foo: "bar")
+            end
           end
         end
 
@@ -102,7 +104,9 @@ module Alchemy
       describe "#content" do
         it "should delegate to the element's #content_by_name method" do
           expect(element).to receive(:content_by_name).with(:title)
-          subject.content :title
+          Alchemy::Deprecation.silence do
+            subject.content :title
+          end
         end
       end
 
@@ -162,7 +166,9 @@ module Alchemy
             mock_model("Content", essence: mock_model("EssenceText"))
           end
 
-          subject.essence :title
+          Alchemy::Deprecation.silence do
+            subject.essence :title
+          end
         end
       end
     end
