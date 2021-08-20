@@ -77,6 +77,12 @@ module Alchemy
       end
 
       deprecate essence: "Use `ingredient_by_role` instead", deprecator: Alchemy::Deprecation
+
+      # Return's the ingredient record by given role.
+      #
+      def ingredient_by_role(role)
+        element.ingredient_by_role(role)
+      end
     end
 
     # Block-level helper for element views. Constructs a DOM element wrapping
