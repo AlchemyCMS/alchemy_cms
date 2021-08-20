@@ -171,6 +171,15 @@ module Alchemy
           end
         end
       end
+
+      describe "#ingredient_by_role" do
+        let(:element) { create(:alchemy_element, :with_ingredients) }
+        let(:ingredient) { element.ingredient_by_role(:headline) }
+
+        it "returns the ingredient record by role" do
+          expect(subject.ingredient_by_role(:headline)).to eq(ingredient)
+        end
+      end
     end
   end
 end
