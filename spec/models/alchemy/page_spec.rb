@@ -604,6 +604,31 @@ module Alchemy
       end
     end
 
+    describe ".current_preview=" do
+      let(:page) { create(:alchemy_page) }
+
+      it "stores page id in request store" do
+        described_class.current_preview = page
+        expect(RequestStore.store[:alchemy_current_preview]).to eq(page.id)
+      end
+
+      context "with page being nil" do
+        it "removes page id from request store" do
+          described_class.current_preview = nil
+          expect(RequestStore.store[:alchemy_current_preview]).to be_nil
+        end
+      end
+    end
+
+    describe ".current_preview" do
+      let(:page) { create(:alchemy_page) }
+
+      it "returns page id from request store" do
+        described_class.current_preview = page
+        expect(described_class.current_preview).to eq(page.id)
+      end
+    end
+
     # InstanceMethods (a-z)
 
     describe "#available_element_definitions" do
@@ -703,8 +728,11 @@ module Alchemy
     end
 
     describe "#cache_key" do
+      let(:now) { Time.current }
+      let(:last_week) { Time.current - 1.week }
+
       let(:page) do
-        stub_model(Page, updated_at: Time.current, published_at: Time.current - 1.week)
+        build_stubbed(:alchemy_page, updated_at: now, published_at: last_week)
       end
 
       subject { page.cache_key }
@@ -714,15 +742,19 @@ module Alchemy
       end
 
       context "when current page rendered in preview mode" do
-        let(:preview) { page }
+        let(:preview) { page.id }
 
-        it { is_expected.to eq("alchemy/pages/#{page.id}-#{page.updated_at}") }
+        it "uses updated_at" do
+          is_expected.to eq("alchemy/pages/#{page.id}-#{now}")
+        end
       end
 
       context "when current page not in preview mode" do
         let(:preview) { nil }
 
-        it { is_expected.to eq("alchemy/pages/#{page.id}-#{page.published_at}") }
+        it "uses published_at" do
+          is_expected.to eq("alchemy/pages/#{page.id}-#{last_week}")
+        end
       end
     end
 
@@ -1871,9 +1903,7 @@ module Alchemy
         let(:updated_at) { 3.days.ago }
         let(:page) { build_stubbed(:alchemy_page, published_at: nil, updated_at: updated_at) }
 
-        it "returns the updated_at value" do
-          expect(page.published_at).to be_within(1.second).of(updated_at)
-        end
+        it { expect(page.published_at).to be_nil }
       end
     end
 

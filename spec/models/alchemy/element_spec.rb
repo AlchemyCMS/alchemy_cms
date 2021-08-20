@@ -937,29 +937,6 @@ module Alchemy
       end
     end
 
-    describe "#cache_key" do
-      let(:page) { create(:alchemy_page, published_at: Time.current - 1.week) }
-      let(:element) { create(:alchemy_element, page_version: page.draft_version, updated_at: Time.current) }
-
-      subject { element.cache_key }
-
-      before do
-        expect(Page).to receive(:current_preview).and_return(preview)
-      end
-
-      context "when current page rendered in preview mode" do
-        let(:preview) { page }
-
-        it { is_expected.to eq("alchemy/elements/#{element.id}-#{element.updated_at}") }
-      end
-
-      context "when current page not in preview mode" do
-        let(:preview) { nil }
-
-        it { is_expected.to eq("alchemy/elements/#{element.id}-#{page.published_at}") }
-      end
-    end
-
     it_behaves_like "having a hint" do
       let(:subject) { Element.new }
     end
