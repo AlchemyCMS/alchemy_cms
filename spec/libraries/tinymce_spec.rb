@@ -40,6 +40,42 @@ module Alchemy
         }
       end
 
+      describe ".custom_configs_present?" do
+        let(:page) { build_stubbed(:alchemy_page) }
+
+        subject { described_class.custom_configs_present?(page) }
+
+        context "if custom_config_contents are present" do
+          before do
+            expect(described_class).to receive(:custom_config_contents) { [:foo] }
+          end
+
+          it { is_expected.to be(true) }
+        end
+
+        context "if no custom_config_contents are present" do
+          before do
+            expect(described_class).to receive(:custom_config_contents) { [] }
+          end
+
+          context "but custom_config_ingredients are present" do
+            before do
+              expect(described_class).to receive(:custom_config_ingredients) { [:foo] }
+            end
+
+            it { is_expected.to be(true) }
+          end
+
+          context "and no custom_config_ingredients are present" do
+            before do
+              expect(described_class).to receive(:custom_config_ingredients) { [] }
+            end
+
+            it { is_expected.to be(false) }
+          end
+        end
+      end
+
       describe ".custom_config_contents" do
         let(:page) { build_stubbed(:alchemy_page) }
 
