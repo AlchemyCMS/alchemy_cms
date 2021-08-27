@@ -118,11 +118,6 @@ module Alchemy
       value.to_s[0..maxlength - 1]
     end
 
-    # Cross DB adapter data accessor that works
-    def data
-      @_data ||= (self[:data] || {}).with_indifferent_access
-    end
-
     # The path to the view partial of the ingredient
     # @return [String]
     def to_partial_path
