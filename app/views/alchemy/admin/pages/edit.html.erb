@@ -138,7 +138,7 @@
 <% end %>
 
 <% content_for :javascripts do %>
-<% if Alchemy::Tinymce.custom_config_contents(@page).present? %>
+<% if Alchemy::Tinymce.custom_configs_present?(@page) %>
   <%= render 'tinymce_custom_config' %>
 <% end %>
 

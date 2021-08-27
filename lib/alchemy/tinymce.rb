@@ -34,6 +34,10 @@ module Alchemy
         @@init
       end
 
+      def custom_configs_present?(page)
+        custom_config_contents(page).any? || custom_config_ingredients(page).any?
+      end
+
       def custom_config_contents(page)
         content_definitions_from_elements(page.descendent_element_definitions)
       end
