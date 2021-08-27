@@ -1,3 +1,8 @@
+## 6.0.0-b5 (2021-08-27)
+
+- Remove spec that tests default data store value [#2184](https://github.com/AlchemyCMS/alchemy_cms/pull/2184) ([tvdeyen](https://github.com/tvdeyen))
+- Remove data store accessor from ingredient base class [#2183](https://github.com/AlchemyCMS/alchemy_cms/pull/2183) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.0-b4 (2021-08-27)
 
 - Load custom Tinymce config for ingredients [#2182](https://github.com/AlchemyCMS/alchemy_cms/pull/2182) ([tvdeyen](https://github.com/tvdeyen))
