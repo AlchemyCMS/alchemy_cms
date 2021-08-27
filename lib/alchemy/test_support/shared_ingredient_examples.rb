@@ -16,7 +16,6 @@ RSpec.shared_examples_for "an alchemy ingredient" do
   it { is_expected.to belong_to(:related_object).optional }
   it { is_expected.to validate_presence_of(:role) }
   it { is_expected.to validate_presence_of(:type) }
-  it { expect(subject.data).to eq({}) }
 
   describe "#settings" do
     subject { ingredient.settings }
