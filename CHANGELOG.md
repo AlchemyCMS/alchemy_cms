@@ -1,3 +1,12 @@
+## 6.0.0-b4 (2021-08-27)
+
+- Load custom Tinymce config for ingredients [#2182](https://github.com/AlchemyCMS/alchemy_cms/pull/2182) ([tvdeyen](https://github.com/tvdeyen))
+- Fix ingredient editor selector in element update callback [#2181](https://github.com/AlchemyCMS/alchemy_cms/pull/2181) ([tvdeyen](https://github.com/tvdeyen))
+- Ingredient by role block level helper [#2180](https://github.com/AlchemyCMS/alchemy_cms/pull/2180) ([tvdeyen](https://github.com/tvdeyen))
+- Fixes caching [#2179](https://github.com/AlchemyCMS/alchemy_cms/pull/2179) ([tvdeyen](https://github.com/tvdeyen))
+- make images non-executable [#2176](https://github.com/AlchemyCMS/alchemy_cms/pull/2176) ([mensfeld](https://github.com/mensfeld))
+- Release task [#2173](https://github.com/AlchemyCMS/alchemy_cms/pull/2173) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.0.b3 (2021-08-12)
 
 ### Fixes
