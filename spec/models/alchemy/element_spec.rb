@@ -519,18 +519,20 @@ module Alchemy
       let(:element) { build_stubbed(:alchemy_element) }
 
       context "with element having ingredients" do
+        let(:element) { build_stubbed(:alchemy_element, :with_ingredients) }
+
         let(:ingredient) do
-          mock_model(Ingredients::Text, preview_text: "Ingredient 1", preview_ingredient?: false)
+          mock_model(Ingredients::Text, role: "foo", preview_text: "Ingredient 1", preview_ingredient?: false)
         end
 
         let(:ingredient_2) do
-          mock_model(Ingredients::Text, preview_text: "Ingredient 2", preview_ingredient?: false)
+          mock_model(Ingredients::Text, role: "headline", preview_text: "Ingredient 2", preview_ingredient?: false)
         end
 
         let(:ingredients) { [] }
 
         let(:preview_ingredient) do
-          mock_model(Ingredients::Text, preview_text: "Preview Ingredient", preview_ingredient?: true)
+          mock_model(Ingredients::Text, role: "bar", preview_text: "Preview Ingredient", preview_ingredient?: true)
         end
 
         before do
@@ -541,7 +543,7 @@ module Alchemy
           let(:ingredients) { [ingredient, ingredient_2] }
 
           it "returns the preview text of first ingredient found" do
-            expect(ingredient).to receive(:preview_text).with(60)
+            expect(ingredient_2).to receive(:preview_text).with(60)
             element.preview_text
           end
         end
@@ -615,14 +617,24 @@ module Alchemy
           build_stubbed(:alchemy_element, name: "slide")
         end
 
+        let(:content_2) do
+          mock_model(Content, preview_text: "Content 2", preview_content?: false)
+        end
+
         before do
           allow(nested_element).to receive(:contents) { [content_2] }
           allow(element).to receive(:all_nested_elements) { [nested_element] }
         end
 
         context "when parent element has ingredients" do
+          let(:element) { build_stubbed(:alchemy_element, :with_ingredients) }
+
+          let(:nested_element) do
+            build_stubbed(:alchemy_element, :with_ingredients, name: "slide")
+          end
+
           let(:ingredient) do
-            mock_model(Ingredients::Text, preview_text: "Ingredient 1", preview_ingredient?: false)
+            mock_model(Ingredients::Text, role: "headline", preview_text: "Ingredient 1", preview_ingredient?: false)
           end
 
           before do
@@ -636,8 +648,11 @@ module Alchemy
         end
 
         context "when parent element has no ingredients but nestable element has" do
+          let(:element) { build_stubbed(:alchemy_element, :with_ingredients) }
+          let(:nested_element) { build_stubbed(:alchemy_element, :with_ingredients) }
+
           let(:ingredient) do
-            mock_model(Ingredients::Text, preview_text: "Ingredient 1", preview_ingredient?: false)
+            mock_model(Ingredients::Text, role: "headline", preview_text: "Ingredient 1", preview_ingredient?: false)
           end
 
           before do
