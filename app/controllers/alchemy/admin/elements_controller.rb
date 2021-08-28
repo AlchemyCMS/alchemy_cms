@@ -91,10 +91,14 @@ module Alchemy
         end
       end
 
+      # Toggle fodls the element and persists the state in the db
+      #
+      # Ingredient validations might make the element invalid.
+      # In this case we are just toggling a UI state and do not care about the validations.
       def fold
         @page = @element.page
         @element.folded = !@element.folded
-        @element.save
+        @element.save(validate: false)
       end
 
       private
