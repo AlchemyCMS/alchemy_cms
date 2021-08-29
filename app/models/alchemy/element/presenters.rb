@@ -99,12 +99,12 @@ module Alchemy
       # The ingredient that's used for element's preview text.
       #
       # It tries to find one of element's ingredients that is defined +as_element_title+.
-      # Takes element's first ingredient if no ingredient is defined +as_element_title+.
+      # Takes element's first defined ingredient if no ingredient is defined +as_element_title+.
       #
       # @return (Alchemy::Ingredient)
       #
       def preview_ingredient
-        @_preview_ingredient ||= ingredients.detect(&:preview_ingredient?) || ingredients.first
+        @_preview_ingredient ||= ingredients.detect(&:preview_ingredient?) || first_ingredient_by_definition
       end
 
       private
@@ -121,6 +121,13 @@ module Alchemy
 
       def preview_text_from_preview_ingredient(maxlength)
         preview_ingredient&.preview_text(maxlength)
+      end
+
+      def first_ingredient_by_definition
+        return if ingredient_definitions.empty?
+
+        role = ingredient_definitions.first["role"]
+        ingredients.detect { |ingredient| ingredient.role == role }
       end
     end
   end
