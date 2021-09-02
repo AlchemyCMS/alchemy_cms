@@ -8,9 +8,10 @@ module Alchemy
     let(:public_page) { create(:alchemy_page, :public) }
     let(:klingon) { create(:alchemy_language, :klingon) }
     let(:klingon_language_root) { create(:alchemy_page, :language_root, language: klingon) }
+    let(:prefix_locale?) { false }
 
     before do
-      helper.controller.class_eval { include Alchemy::ConfigurationMethods }
+      allow(helper).to receive(:prefix_locale?) { prefix_locale? }
       @root_page = language_root # We need this instance variable in the helpers
     end
 
@@ -208,6 +209,8 @@ module Alchemy
         context "with two language root pages" do
           # Always create a language root page for klingon
           before { klingon_language_root }
+
+          let(:prefix_locale?) { true }
 
           it "should render two language links" do
             expect(helper.language_links).to have_selector("a", count: 2)
