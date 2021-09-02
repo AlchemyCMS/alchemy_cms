@@ -75,8 +75,7 @@ describe Alchemy::PageVersion do
     let(:page) { page_version.page }
 
     it "touches the page" do
-      expect(page).to receive(:touch)
-      page_version.save
+      expect { page_version.save }.to change(page, :updated_at)
     end
   end
 
