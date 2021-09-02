@@ -36,6 +36,15 @@ RSpec.describe Alchemy::Admin::ElementsController do
         post fold_admin_element_path(id: element.id, format: :js)
         expect(response.body).to include("Alchemy.Tinymce.init([#{element.ingredient_by_role(:text).id}]);")
       end
+
+      context "with validations" do
+        let(:element) { create(:alchemy_element, :with_ingredients, name: :all_you_can_eat_ingredients) }
+
+        it "saves without running validations" do
+          post fold_admin_element_path(id: element.id, format: :js)
+          expect(element.reload).to be_folded
+        end
+      end
     end
   end
 

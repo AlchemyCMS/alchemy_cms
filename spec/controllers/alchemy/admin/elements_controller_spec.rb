@@ -189,6 +189,16 @@ module Alchemy
           expect(subject).to render_template(:new)
         end
       end
+
+      context "with ingredient validations" do
+        subject do
+          post :create, params: { element: { page_version_id: page_version.id, name: "all_you_can_eat_ingredients" } }, xhr: true
+        end
+
+        it "creates element without error" do
+          expect(subject).to render_template(:create)
+        end
+      end
     end
 
     describe "#update" do

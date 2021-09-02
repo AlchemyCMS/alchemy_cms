@@ -32,14 +32,14 @@ module Alchemy
           if @paste_from_clipboard = params[:paste_from_clipboard].present?
             @element = paste_element_from_clipboard
           else
-            @element = Element.create(create_element_params)
+            @element = Element.new(create_element_params)
           end
           if @page.definition["insert_elements_at"] == "top"
             @insert_at_top = true
-            @element.move_to_top
+            @element.position = 1
           end
         end
-        if @element.valid?
+        if @element.save
           render :create
         else
           @element.page_version = @page_version
@@ -91,10 +91,14 @@ module Alchemy
         end
       end
 
+      # Toggle fodls the element and persists the state in the db
+      #
+      # Ingredient validations might make the element invalid.
+      # In this case we are just toggling a UI state and do not care about the validations.
       def fold
         @page = @element.page
         @element.folded = !@element.folded
-        @element.save
+        @element.save(validate: false)
       end
 
       private
