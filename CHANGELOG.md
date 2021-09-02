@@ -1,3 +1,7 @@
+## 6.0.0-b6 (2021-09-02)
+
+- Fix element with ingredients preview text [#2187](https://github.com/AlchemyCMS/alchemy_cms/pull/2187) ([tvdeyen](https://github.com/tvdeyen))
+- Do not validate element during toggle fold and create [#2186](https://github.com/AlchemyCMS/alchemy_cms/pull/2186) ([tvdeyen](https://github.com/tvdeyen))
 ## 6.0.0-b5 (2021-08-27)
 
 - Remove spec that tests default data store value [#2184](https://github.com/AlchemyCMS/alchemy_cms/pull/2184) ([tvdeyen](https://github.com/tvdeyen))
