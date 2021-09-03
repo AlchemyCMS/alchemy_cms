@@ -172,7 +172,7 @@ module Alchemy
 
     def resource_polymorphic_route(source_name)
       source_name.map do |name|
-        if name.class == String
+        if name.instance_of? String
           name.to_sym
         else
           name
