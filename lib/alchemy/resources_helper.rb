@@ -30,7 +30,7 @@ module Alchemy
     end
 
     def resource_scope
-      @_resource_scope ||= [resource_url_proxy].concat(resource_handler.namespace_for_scope)
+      @_resource_scope ||= [resource_url_proxy].concat(resource_polymorphic_route(resource_handler.namespace_for_scope))
     end
 
     def resources_path(resource_or_name = resource_handler.namespaced_resources_name, options = {})
@@ -168,6 +168,16 @@ module Alchemy
 
     def resource_has_tags
       resource_model.respond_to?(:tag_counts) && resource_model.tag_counts.any?
+    end
+
+    def resource_polymorphic_route(source_name)
+      source_name.map do |name|
+        if name.class == String
+          name.to_sym
+        else
+          name
+        end
+      end
     end
   end
 end
