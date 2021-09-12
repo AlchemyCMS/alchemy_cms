@@ -1,3 +1,7 @@
+## 6.0.0-rc1 (2021-09-12)
+
+- Allow Rails 6.1 [#2047](https://github.com/AlchemyCMS/alchemy_cms/pull/2047) ([robinboening](https://github.com/robinboening))
+
 ## 6.0.0-b6 (2021-09-02)
 
 - Fix element with ingredients preview text [#2187](https://github.com/AlchemyCMS/alchemy_cms/pull/2187) ([tvdeyen](https://github.com/tvdeyen))
