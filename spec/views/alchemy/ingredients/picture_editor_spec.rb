@@ -24,6 +24,8 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
   before do
     allow(element_editor).to receive(:ingredients) { [Alchemy::IngredientEditor.new(ingredient)] }
     allow(ingredient).to receive(:settings) { settings }
+    view.class.send :include, Alchemy::Admin::BaseHelper
+    view.class.send :include, Alchemy::Admin::IngredientsHelper
   end
 
   subject do

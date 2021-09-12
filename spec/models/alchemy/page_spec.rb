@@ -1755,7 +1755,7 @@ module Alchemy
         end
 
         it "uses the primary key defined on user class" do
-          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { :id }
+          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { "id" }
           subject
         end
       end
@@ -1769,7 +1769,7 @@ module Alchemy
         end
 
         it "uses the primary key defined on user class" do
-          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { :id }
+          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { "id" }
           subject
         end
       end
@@ -1783,7 +1783,7 @@ module Alchemy
         end
 
         it "uses the primary key defined on user class" do
-          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { :id }
+          expect(Alchemy.user_class).to receive(:primary_key).at_least(:once) { "id" }
           subject
         end
       end

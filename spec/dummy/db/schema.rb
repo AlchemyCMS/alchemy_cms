@@ -2,8 +2,8 @@
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
 #
-# This file is the source Rails uses to define your schema when running `rails
-# db:schema:load`. When creating a new database, `rails db:schema:load` tends to
+# This file is the source Rails uses to define your schema when running `bin/rails
+# db:schema:load`. When creating a new database, `bin/rails db:schema:load` tends to
 # be faster and is potentially less error prone than running all of your
 # migrations from scratch. Old migrations may fail to apply correctly if those
 # migrations use external dependencies or application code.
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
     t.integer "essence_id", null: false
     t.integer "element_id", null: false
     t.index ["element_id"], name: "index_alchemy_contents_on_element_id"
-    t.index ["essence_type", "essence_id"], name: "index_alchemy_contents_on_essence_type_and_essence_id", unique: true
+    t.index ["essence_type", "essence_id"], name: "index_alchemy_contents_on_essence", unique: true
   end
 
   create_table "alchemy_elements", force: :cascade do |t|
@@ -64,7 +64,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
   end
 
   create_table "alchemy_essence_audios", force: :cascade do |t|
-    t.integer "attachment_id"
+    t.bigint "attachment_id"
     t.boolean "controls", default: true, null: false
     t.boolean "autoplay", default: false
     t.boolean "loop", default: false, null: false
@@ -158,7 +158,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
   end
 
   create_table "alchemy_essence_videos", force: :cascade do |t|
-    t.integer "attachment_id"
+    t.bigint "attachment_id"
     t.string "width"
     t.string "height"
     t.boolean "allow_fullscreen", default: true, null: false
@@ -178,13 +178,13 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
   end
 
   create_table "alchemy_ingredients", force: :cascade do |t|
-    t.integer "element_id", null: false
+    t.bigint "element_id", null: false
     t.string "type", null: false
     t.string "role", null: false
     t.text "value"
     t.json "data"
     t.string "related_object_type"
-    t.integer "related_object_id"
+    t.bigint "related_object_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["element_id", "role"], name: "index_alchemy_ingredients_on_element_id_and_role", unique: true

@@ -8,10 +8,6 @@ module Alchemy
   describe UrlHelper do
     let(:page) { mock_model(Page, urlname: "testpage", language_code: "en") }
 
-    before do
-      helper.controller.class_eval { include Alchemy::ConfigurationMethods }
-    end
-
     context "page path helpers" do
       describe "#show_page_path_params" do
         subject(:show_page_path_params) { helper.show_page_path_params(page) }

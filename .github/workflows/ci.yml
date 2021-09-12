@@ -10,10 +10,11 @@ jobs:
       matrix:
         rails:
           - '6.0'
+          - '6.1'
         ruby:
-          - '2.6.6'
-          - '2.7.2'
-          - '3.0.0'
+          - '2.6.8'
+          - '2.7.4'
+          - '3.0.2'
         database:
           - mysql
           - postgresql
