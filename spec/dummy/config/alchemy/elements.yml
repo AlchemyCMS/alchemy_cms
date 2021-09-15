@@ -160,6 +160,7 @@
     - role: boolean
       type: Boolean
       hint: true
+      default: true
     - role: datetime
       type: Datetime
       hint: true

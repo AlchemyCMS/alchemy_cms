@@ -5,15 +5,33 @@ require "rails_helper"
 RSpec.describe Alchemy::Ingredients::Boolean do
   it_behaves_like "an alchemy ingredient"
 
-  let(:element) { build(:alchemy_element) }
+  let(:element) { build(:alchemy_element, name: "all_you_can_eat_ingredients") }
 
   let(:boolean_ingredient) do
     described_class.new(
       element: element,
       type: described_class.name,
-      role: "has_padding",
+      role: "boolean",
       value: "1",
     )
+  end
+
+  describe "before_validation" do
+    let(:ingredient) { described_class.new(role: "boolean", element: element) }
+
+    context "on create" do
+      it "sets the default value" do
+        expect(ingredient.tap(&:save!).value).to eq(true)
+      end
+    end
+
+    context "on update" do
+      it "does not set a value" do
+        ingredient.save
+        ingredient.update(value: false)
+        expect(ingredient.reload.value).to eq(false)
+      end
+    end
   end
 
   describe "value" do
