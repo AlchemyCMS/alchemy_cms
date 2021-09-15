@@ -1,3 +1,9 @@
+## 5.1.5 (2021-09-15)
+
+- generate picture thumbnails only for pictures with convertible format [#2131](https://github.com/AlchemyCMS/alchemy_cms/pull/2131) ([afdev82](https://github.com/afdev82))
+- Backport #2115 to v5.1 [#2125](https://github.com/AlchemyCMS/alchemy_cms/pull/2125) ([dbwinger](https://github.com/dbwinger))
+- Backport #2114 to v5.1 [#2117](https://github.com/AlchemyCMS/alchemy_cms/pull/2117) ([afdev82](https://github.com/afdev82))
+
 ## 5.1.4 (2021-05-13)
 
 - Fix alchemy:generate:thumbnails task [#2092](https://github.com/AlchemyCMS/alchemy_cms/pull/2092) ([afdev82](https://github.com/afdev82))
