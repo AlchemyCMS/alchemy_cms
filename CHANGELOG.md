@@ -1,3 +1,11 @@
+## 5.2.2 (2021-09-15)
+
+- Return only pages from current site in api [#2169](https://github.com/AlchemyCMS/alchemy_cms/pull/2169) ([afdev82](https://github.com/afdev82))
+- Improve cache key defaults for menus #2138 [#2160](https://github.com/AlchemyCMS/alchemy_cms/pull/2160) ([oneiros](https://github.com/oneiros))
+- generate picture thumbnails only for pictures with convertible format [#2130](https://github.com/AlchemyCMS/alchemy_cms/pull/2130) ([afdev82](https://github.com/afdev82))
+- Backport #2114 to v5.2 [#2116](https://github.com/AlchemyCMS/alchemy_cms/pull/2116) ([afdev82](https://github.com/afdev82))
+- Add webpacker tasks to Alchemy upgrader [#2115](https://github.com/AlchemyCMS/alchemy_cms/pull/2115) ([dbwinger](https://github.com/dbwinger))
+
 ## 5.2.1 (2021-05-13)
 
 - Fix alchemy:generate:thumbnails task [#2092](https://github.com/AlchemyCMS/alchemy_cms/pull/2092) ([afdev82](https://github.com/afdev82))
