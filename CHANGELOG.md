@@ -1,3 +1,9 @@
+## 5.0.5 (2021-09-15)
+
+- Backport #2115 to v5.0 [#2126](https://github.com/AlchemyCMS/alchemy_cms/pull/2126) ([dbwinger](https://github.com/dbwinger))
+- Fixate Dragonfly to < 1.4 [#2122](https://github.com/AlchemyCMS/alchemy_cms/pull/2122) ([tvdeyen](https://github.com/tvdeyen))
+- Backport #2114 to v5.0 [#2118](https://github.com/AlchemyCMS/alchemy_cms/pull/2118) ([afdev82](https://github.com/afdev82))
+
 ## 5.0.4 (2021-05-06)
 
 - Use symbols in polymorphic routes for resources [#2087](https://github.com/AlchemyCMS/alchemy_cms/pull/2087) ([tvdeyen](https://github.com/tvdeyen))
