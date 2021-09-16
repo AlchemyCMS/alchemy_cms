@@ -357,5 +357,36 @@ module Alchemy
         expect(helper.picture_essence_caption(content)).to eq "my caption"
       end
     end
+
+    describe "#page_active?" do
+      let(:child_page) { create(:alchemy_page, parent: public_page) }
+
+      before do
+        @page = current_page
+      end
+
+      subject { helper.page_active?(passed_page) }
+
+      context "passed page is the current page" do
+        let(:passed_page) { public_page }
+        let(:current_page) { public_page }
+
+        it { is_expected.to be true }
+      end
+
+      context "passed page is an ancestor of the current page" do
+        let(:current_page) { child_page }
+        let(:passed_page) { public_page }
+
+        it { is_expected.to be true }
+      end
+
+      context "passed page is in another branch of the page tree" do
+        let(:passed_page) { create(:alchemy_page, parent: language_root) }
+        let(:current_page) { public_page }
+
+        it { is_expected.to be false }
+      end
+    end
   end
 end
