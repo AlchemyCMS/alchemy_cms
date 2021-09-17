@@ -1,3 +1,7 @@
+## 5.0.6 (2021-09-17)
+
+- Use self_and_ancestors in page_active? helper [#2193](https://github.com/AlchemyCMS/alchemy_cms/pull/2193) ([mamhoff](https://github.com/mamhoff))
+
 ## 5.0.5 (2021-09-15)
 
 - Backport #2115 to v5.0 [#2126](https://github.com/AlchemyCMS/alchemy_cms/pull/2126) ([dbwinger](https://github.com/dbwinger))
