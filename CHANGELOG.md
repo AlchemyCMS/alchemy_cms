@@ -1,3 +1,7 @@
+## 5.1.6 (2021-09-17)
+
+- Use self_and_ancestors in page_active? helper [#2194](https://github.com/AlchemyCMS/alchemy_cms/pull/2194) ([mamhoff](https://github.com/mamhoff))
+
 ## 5.1.5 (2021-09-15)
 
 - generate picture thumbnails only for pictures with convertible format [#2131](https://github.com/AlchemyCMS/alchemy_cms/pull/2131) ([afdev82](https://github.com/afdev82))
@@ -852,3 +856,4 @@ No changes
 ## 3.0.0 (2014-07-03)
 
 [Release Notes](https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v3.0.0)
+
