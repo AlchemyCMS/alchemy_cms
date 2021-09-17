@@ -100,7 +100,7 @@ module Alchemy
 
     # Returns true if page is in the active branch
     def page_active?(page)
-      @_page_ancestors ||= Page.ancestors_for(@page)
+      @_page_ancestors ||= @page.self_and_ancestors.contentpages
       @_page_ancestors.include?(page)
     end
 
