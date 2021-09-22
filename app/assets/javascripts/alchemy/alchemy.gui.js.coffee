@@ -6,7 +6,7 @@ Alchemy.GUI =
   # Initializes all Alchemy GUI elements in given scope
   init: (scope) ->
     Alchemy.SelectBox(scope)
-    Alchemy.Datepicker(scope)
+    Alchemy.Datepicker(scope && scope.selector)
     Alchemy.Tooltips(scope)
     Alchemy.Buttons.observe(scope)
     # Dialog links use event delegation and therefore do not
@@ -21,7 +21,7 @@ Alchemy.GUI =
 
   initElement: ($el) ->
     Alchemy.ElementDirtyObserver($el)
-    Alchemy.GUI.init($el)
+    Alchemy.GUI.init($el && $el.selector)
     Alchemy.ImageLoader($el[0])
     Alchemy.fileEditors($el.find(".essence_file, .essence_video, .essence_audio, .ingredient-editor.file, .ingredient-editor.audio, .ingredient-editor.video").selector)
     Alchemy.pictureEditors($el.find(".essence_picture, .ingredient-editor.picture").selector)

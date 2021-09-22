@@ -5,6 +5,7 @@ import fileEditors from "./src/file_editors"
 import pictureEditors from "./src/picture_editors"
 import ImageLoader from "./src/image_loader"
 import ImageCropper from "./src/image_cropper"
+import Datepicker from "./src/datepicker"
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {
@@ -20,5 +21,6 @@ Object.assign(Alchemy, {
   fileEditors,
   pictureEditors,
   ImageLoader: ImageLoader.init,
-  ImageCropper
+  ImageCropper,
+  Datepicker
 })
