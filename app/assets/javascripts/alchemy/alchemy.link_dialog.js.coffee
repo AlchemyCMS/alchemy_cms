@@ -4,12 +4,13 @@
 class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   constructor: (@link_object) ->
-    parent_selector = @link_object.dataset.parentSelector
-    parent = document.querySelector(parent_selector)
-    @link_value_field = parent.querySelector("[data-link-value]")
-    @link_title_field = parent.querySelector("[data-link-title]")
-    @link_target_field = parent.querySelector("[data-link-target]")
-    @link_class_field = parent.querySelector("[data-link-class]")
+    if @link_object.dataset
+      parent_selector = @link_object.dataset.parentSelector
+      parent = document.querySelector(parent_selector)
+      @link_value_field = parent.querySelector("[data-link-value]")
+      @link_title_field = parent.querySelector("[data-link-title]")
+      @link_target_field = parent.querySelector("[data-link-target]")
+      @link_class_field = parent.querySelector("[data-link-class]")
     @url = Alchemy.routes.link_admin_pages_path
     @$link_object = $(@link_object)
     @options =
