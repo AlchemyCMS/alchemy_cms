@@ -1,3 +1,7 @@
+## 6.0.0-rc2 (2021-10-13)
+
+- Fix init link dialog if used in tinymce [#2200](https://github.com/AlchemyCMS/alchemy_cms/pull/2200) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.0-rc1 (2021-09-12)
 
 - Allow Rails 6.1 [#2047](https://github.com/AlchemyCMS/alchemy_cms/pull/2047) ([robinboening](https://github.com/robinboening))
