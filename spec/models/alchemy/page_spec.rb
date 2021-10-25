@@ -765,7 +765,7 @@ module Alchemy
       subject { source.copy_children_to(new_parent) }
 
       it "should copy the source page with the given name to the new parent" do
-        child = mock_model("Page",children:[])
+        child = mock_model("Page", children: [])
         new_child = mock_model("Page")
 
         expect(new_child).to receive(:move_to_child_of).with(new_parent)
@@ -774,11 +774,10 @@ module Alchemy
         expect(Page).to receive(:copy).with(child, {
           parent_id: new_parent.id,
           language_id: new_parent.language_id,
-          language_code: new_parent.language_code
+          language_code: new_parent.language_code,
         }).and_return(new_child )
         subject
       end
-
 
     end
 
