@@ -778,7 +778,6 @@ module Alchemy
         }).and_return(new_child)
         subject
       end
-
     end
 
     describe "#public_version" do
