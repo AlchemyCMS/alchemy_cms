@@ -46,6 +46,7 @@ Rails.logger.level = 4
 # Configure capybara for integration testing
 Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
+Capybara.server = :puma
 
 FactoryBot.definition_file_paths.append(Alchemy::TestSupport.factories_path)
 FactoryBot.find_definitions
