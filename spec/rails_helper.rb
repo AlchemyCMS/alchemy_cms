@@ -12,7 +12,6 @@ require "capybara-screenshot/rspec"
 require "rails-controller-testing"
 require "rspec-activemodel-mocks"
 require "rspec/rails"
-require "webdrivers/chromedriver"
 require "shoulda-matchers"
 require "factory_bot"
 
@@ -51,16 +50,11 @@ Capybara.ignore_hidden_elements = false
 FactoryBot.definition_file_paths.append(Alchemy::TestSupport.factories_path)
 FactoryBot.find_definitions
 
-Capybara.register_driver :selenium_chrome_headless do |app|
-  Capybara::Selenium::Driver.load_selenium
-  browser_options = ::Selenium::WebDriver::Chrome::Options.new.tap do |opts|
-    opts.args << "--headless"
-    opts.args << "--disable-gpu" if Gem.win_platform?
-    # Workaround https://bugs.chromium.org/p/chromedriver/issues/detail?id=2650&q=load&sort=-id&colspec=ID%20Status%20Pri%20Owner%20Summary
-    opts.args << "--disable-site-isolation-trials"
-    opts.args << "--window-size=1280,800"
-  end
-  Capybara::Selenium::Driver.new(app, browser: :chrome, options: browser_options)
+require "capybara/cuprite"
+Capybara.register_driver(:cuprite) do |app|
+  Capybara::Cuprite::Driver.new(app, {
+    window_size: [1280, 800],
+  })
 end
 
 Shoulda::Matchers.configure do |config|
@@ -107,6 +101,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
-    driven_by :selenium_chrome_headless
+    driven_by :cuprite
   end
 end
