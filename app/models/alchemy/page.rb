@@ -450,6 +450,7 @@ module Alchemy
         new_child = Page.copy(child, {
           language_id: new_parent.language_id,
           language_code: new_parent.language_code,
+          parent_id: new_parent.id
         })
         new_child.move_to_child_of(new_parent)
         child.copy_children_to(new_child) unless child.children.blank?
