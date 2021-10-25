@@ -775,7 +775,7 @@ module Alchemy
           parent_id: new_parent.id,
           language_id: new_parent.language_id,
           language_code: new_parent.language_code,
-        }).and_return(new_child )
+        }).and_return(new_child)
         subject
       end
 
