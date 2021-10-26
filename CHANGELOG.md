@@ -1,3 +1,7 @@
+## 5.1.7 (2021-10-26)
+
+- Make sure to install correct npm package ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.1.6 (2021-09-17)
 
 - Use self_and_ancestors in page_active? helper [#2194](https://github.com/AlchemyCMS/alchemy_cms/pull/2194) ([mamhoff](https://github.com/mamhoff))
@@ -856,4 +860,3 @@ No changes
 ## 3.0.0 (2014-07-03)
 
 [Release Notes](https://github.com/AlchemyCMS/alchemy_cms/releases/tag/v3.0.0)
-
