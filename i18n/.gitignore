@@ -3,3 +3,5 @@ log/*.log
 pkg/
 .env
 Gemfile.lock
+.localeapp/log.yml
+.localeapp/localeapp.pid

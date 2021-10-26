@@ -1,0 +1,783 @@
+nb-NO:
+  activemodel:
+    attributes:
+      alchemy/message:
+        address: Gateadresse
+        city: Sted
+        email: E-post
+        firstname: Fornavn
+        lastname: Etternavn
+        message: Beskjed
+        phone: Telefon
+        salutation: Hilsen
+        zip: Postnummer
+    models:
+      alchemy/message:
+        one: Beskjed
+        other: Beskjeder
+  activerecord:
+    attributes:
+      acts_as_taggable_on/tag:
+        taggings_count:
+        taggings_types:
+      alchemy/attachment:
+        created_at: Opprettet
+        download_url: Nedlastings-URL
+        file_mime_type: Filtype
+        file_name: Filnavn
+        file_size: Filstørrelse
+        name: Navn
+        tag_list: Tags
+        url: URL
+      alchemy/element:
+        display_name: Navn
+        name: Navn
+        public: synlig
+        tag_list: Tags
+      alchemy/essence_file:
+        css_class: Stil
+        link_text:
+        title:
+      alchemy/essence_picture:
+        alt_tag: Alternativ tekst
+        caption: Billedtekst
+        crop_from: Beskjær fra
+        crop_size: Beskåret størrelse
+        css_class: Stil
+        link: Kobling
+        link_class_name: Koble CSS-klasse
+        link_target: Mål for kobling
+        link_title: Koblingstittel
+        picture_id: Bilde
+        render_size: Visningsstørrelse
+        title: Tittel
+      alchemy/language:
+        code: ISO-kode
+        country_code: Landkode
+        default: Standard
+        frontpage_name: Navn på forside
+        language_code: Landkode
+        locale: Lokalisering
+        name: Navn
+        page_layout: Sidetype for forside
+        public: Offentlig
+      alchemy/legacy_page_url:
+        urlname: URL-sti
+      alchemy/page:
+        created_at: Opprettet
+        language: Språk
+        locked: Denne siden er låst av en annen bruker.
+        locked_by: låst av
+        meta_description: Beskrivelse
+        meta_keywords: Nøkkelord
+        name: Navn
+        page_layout: Sidetype
+        public: offentlig
+        restricted: begrenset
+        robot_follow: robot kan følge koblinger
+        robot_index: tillat robot å indeksere
+        sitemap: synlig i sidekart
+        tag_list: Tags
+        title: Tittel
+        updated_at: Oppdatert
+        urlname: URL-navn
+        visible: synlig i navigasjon
+      alchemy/picture:
+        image_file_dimensions: Dimensjoner
+        image_file_height: Høyde
+        image_file_name: Filnavn
+        image_file_size: Filstørrelse
+        image_file_width: Bredde
+        name: Navn
+        tag_list: Tags
+      alchemy/site:
+        aliases: Domene-alias
+        host: Primær tjener
+        name: Navn
+        public: Offentlig
+        redirect_to_primary_host: Videresend til primær tjener
+      alchemy/user:
+        alchemy_roles: Brukerroller
+        email: E-post
+        firstname: Fornavn
+        gender: Kjønn
+        language: Språk
+        last_sign_in_at: Siste innlogging
+        lastname: Etternavn
+        login: Brukernavn
+        name: Navn
+        password: Passord
+        password_confirmation: Passordbekreftelse
+        roles:
+        send_credentials: Send e-post med innloggingsdata
+        tag_list: Tags
+      gutentag/tag:
+        name:
+        taggings_count: Antall i bruk
+        taggings_types: Brukt til
+    models:
+      alchemy/attachment:
+        one: Fil
+        other: Filer
+      alchemy/element:
+        one: Element
+        other: Elementer
+      alchemy/language:
+        one: Språk
+        other: Språk
+      alchemy/legacy_page_url:
+        one: Kobling
+        other: Koblinger
+      alchemy/page:
+        one: Side
+        other: Sider
+      alchemy/picture:
+        one: Bilde
+        other: Bilder
+      alchemy/site:
+        one: Nettside
+        other: Nettsider
+      alchemy/user:
+        one: Bruker
+        other: Brukere
+      gutentag/tag:
+        one: Tag
+        other: Tags
+  alchemy:
+    Add global page: Legg til global side
+    Add page link: Legg til sidekobling
+    'Alchemy is open software and itself uses open software and free resources:': 'Alchemy er fri programvare og bruker selv fri programvare og ressurser:'
+    Alchemy is up to date: Alchemy er oppdatert
+    An error happened: En feil oppstod
+    Are you sure?: Er du sikker?
+    Attachment Preview: Vedleggsforhåndsvisning
+    Change password: Bytt passord
+    Choose page: Velg side
+    Clear selection: Fjern valg
+    Cleared trash: Tømte søppel
+    Clipboard: Utklippstavle
+    Confirm new password: Bekreft nytt passord
+    Copied to clipboard: Kopier til utklippstavle
+    Copy: Kopier
+    Could not delete Pictures: Kunne ikke slette bilder
+    Could not load Adobe Flash® Plugin!: Kunne ikke laste Adobe Flash® Plugin!
+    Create: Opprett
+    Create language: Opprett nytt språk
+    Create site: Opprett nytt nettsted
+    Currently locked pages: Låste sider for øyeblikket
+    Default language has to be public: Standardspråk må være offentlig
+    Delete: Slett
+    Delete image: Fjern bilde
+    Do you really want to clear the clipboard?: Vil du virkelig fjerne alle elementer fra utklippstavlen?
+    Do you really want to clear the trash?: Vil du virkelig tømme papirkurven?
+    Do you really want to delete this content?: Vil du virkelig slette dette innholdet?
+    Do you want to: Vil du virkelig
+    Drag an element over to the element window to restore it: Dra et element over et elementvindu for å gjenopprettte
+    Edit: Rediger
+    Edit Picturemask: Rediger bildemaske
+    Edit image: Rediger bilde
+    Edit multiple pictures: Rediger flere bilder
+    Element trashed: Element lagt i papirkurv
+    Elements: Elementer
+    Error with the Flash® Uploader!: Feil med Flash® Uploader!
+    Excerpt: Utdrag
+    File deleted successfully: "%{name} har blitt slettet"
+    File successfully updated: Oppdatering av fil vellykket
+    Filter:
+    Filter by tag: Filtrer med tag
+    Flush page cache: Tøm sidehurtiglager
+    Flush picture cache: Tøm bildehurtiglager
+    Forgot your password?: Glemt passord?
+    Global shortcuts: Globale snarveier
+    Hide childpages: Skjul undersider
+    Image missing: Bilde mangler
+    Image size: Bildestørrelse
+    Image updated successfully:
+    "Index Error after saving Element\x01 Please try again!":
+    Language successfully created: Språk vellykket opprettet.
+    "Language successfully created\x01":
+    "Language successfully destroyed\x01":
+    Language successfully removed: Fjerning av språk vellykket.
+    Language successfully updated: Språk vellykket oppdatert.
+    "Language successfully updated\x01":
+    Language tree: Språktre
+    Layout default: Layoutstandard
+    Leave Alchemy: Forlat Alchemy
+    Library shortcuts: Biblioteksnarveier
+    Logged in as: Innlogget som
+    Mandatory: Obligatoriske felt
+    Name: Navn
+    New: Ny
+    New Element: Nytt element
+    New Tag: Ny tag
+    New Tag Created: Ny tag opprettet
+    New page: Ny side
+    New password: Nytt passord
+    'No': Nei
+    No EssenceType given:
+    No Tags found: Ingen tags funnet
+    No items in your clipboard: Ingen elementer i utklippstavlen
+    No page links for this page found: Ingen sidelenker for denne siden funnet
+    No users found: Ingen brukere funnet.
+    None: Ingen
+    Nothing found: Ingenting funnet.
+    Now drop the files:
+    Open Link in: Åpne kobling med
+    Page: Side
+    Page cache flushed: Sidehurtiglager tømt
+    Page created: 'Side: ''%{name}'' opprettet.'
+    Page deleted: "%{name} slettet"
+    Page edit shortcuts: Side rediger snarveier
+    Page saved: "%{name} lagret"
+    Pages order saved: Siderekkefølge lagret
+    Password: Passord
+    Password reset: Nullstilling av passord
+    Paste from clipboard: Lim inn fra utklippstavle
+    Picture deleted successfully: Sletting av bilde %{name} vellykket
+    Picture infos: Bildeinformasjon
+    Picture renamed successfully: Bilde gitt nytt navn fra %{from} til %{to}
+    Pictures deleted successfully:
+    Pictures updated successfully: Bilder vellykket oppdatert
+    Please Signup: Vennligst registrer deg for å redigere nettstedet.
+    Please choose: Vennligst velg
+    Please enter a new password: Vennligst skriv inn nytt passord.
+    Please enter your email address: Vennligst skriv inn e-post-adresse.
+    Please log in: Vennligst logg inn.
+    Please seperate the tags with commata: "* Vennligst del tags med komma."
+    "Please wait\x01 Flash® is loading\x01\x01\x01":
+    Properties: Egenskaper
+    Publish page: Publiser side
+    Queued x files:
+    Read the License: Les lisensavtalen
+    Redirects to: Videresendes til
+    Reload Preview: Last forhåndsvisning på nytt
+    Remove item from clipboard: Fjern elementer fra utklippstavle
+    Remove tag filter: Fjern tag-filter
+    Remove this content: Fjern dette innholdet
+    Replaced Tag: Tag '%{old_tag}' ble erstattet med '%{new_tag}'
+    Reset Imagemask: Nullstill maske
+    Reset password instructions: Nullstill passord-instrukser
+    Select all: Velg alle
+    Select an content: Velg innhold
+    Select style: Velg stil
+    Send reset instructions: Send instrukser for nullstilling
+    Show all files:
+    Show childpages: Vis undersider
+    Show clipboard: Vis utklippstavle
+    Show error details:
+    Show picture infos: Vis bildeinfo
+    Show trash: Vis papirkurv
+    Site successfully created: Nettsted vellykket opprettet.
+    Site successfully removed: Nettsted vellykket fjernet.
+    Site successfully updated: 'Nettsted vellykket oppdatert '
+    Size: Størrelse
+    Sort pages: Endre rekkefølge på sider
+    Status:
+    Successfully added content: La til %{content}
+    Successfully created: Opprettet
+    Successfully deleted content: Sletting av %{content} vellykket
+    Successfully removed: Fjernet
+    Successfully saved content position: Lagring av innholdsposisjon vellykket
+    Successfully signup admin user:
+    Successfully updated: Oppdatert
+    Switch to Flash® Uploader:
+    Tags: Tags
+    These pictures could not be deleted, because they were in use: 'Disse bildene kunne ikke slettes fordi de var i bruk: %{names}'
+    This page is locked: Denne siden er låst av %{name}
+    Title: Tittel
+    Trash: Papirkurv
+    Update available: Oppdatering tilgjengelig
+    Update status unavailable: Oppdateringsstatus utilgjengelig
+    Uploaded x files:
+    Uploading: Laster opp
+    User created: "%{name} bruker opprettet"
+    User deleted: "%{name} Bruker slettet"
+    User updated: "%{name} Bruker oppdatert"
+    Validation failed: Validering feilet
+    Version: Versjon
+    View File: Vis fil
+    Visit page: Besøk side
+    Warning!: Advarsel!
+    "We need at least one default\x01": Et standardspråk må eksistere.
+    Welcome to Alchemy: Velkommen til Alchemy
+    Who else is online: Hvem andre er online
+    'Yes': Ja
+    You are about to edit many pictures at once: Du er i ferd med å redigere %{length} bilder på en gang
+    You are about to leave Alchemy: Du er i ferd med å forlate Alchemy
+    You are not authorized: Du har ikke tilgang
+    Your Alchemy Login:
+    Your last login was on: Din siste innlogging var %{time}.
+    Your last updated pages: Dine sist oppdaterte sider
+    Your trash is empty: Papirkurven er tom
+    Your user credentials:
+    Your user role does not allow you to edit this page:
+    above: over
+    add: Legg til
+    add new content: Legg til innhold
+    add_image_to_element: Legg til bilde
+    align_in_text: Justering i tekst
+    all: alt
+    all_pictures: Alle bilder
+    allow_fullscreen: Tillat fullskjerm
+    anchor: Anker
+    apply: bruk
+    assign_file: Tildel en fil
+    assign_file_from_archive: Tildel en fil fra arkivet
+    assign_image: Tildel et bilde
+    attachment_filename_notice: "* Vennligst ikke bruk spesialtegn i filnavnet"
+    attribute_fixed: Verdi kan ikke endres for denne sidetypen
+    auto_play: Spill film etter lasting
+    back: tilbake
+    big_thumbnails: Store forhåndsvisninger
+    cancel: avbryt
+    cannot_delete_picture_notice: Kan ikke slette bilde %{name} fordi det fremdeles er i bruk.
+    cannot_signup_more_then_once: Du kan ikke registrere deg mer enn én gang.
+    choose_element_as_target: Vennligst velg et element som mål
+    choose_element_to_link: Vennligst velg et element
+    choose_file_to_link: Vennligst velg en fil som kobling
+    clear clipboard: fjern elementene i utklippstavlen
+    clear trash: Tøm søppel
+    click_to_show_all: Klikk for å vise alle igjen.
+    complete: Fullført
+    confirm_to_delete_file: Vil du virkelig slette denne filen fra serveren?
+    confirm_to_delete_image: Vil du virkelig slette dette bildet fra serveren?
+    confirm_to_delete_image_from_server: Vil du virkelig slette dette bildet fra serveren?
+    confirm_to_delete_images_from_server: Vil du virkelig slette disse bildene fra serveren?
+    confirm_to_delete_language:
+    confirm_to_delete_page: Vil du virkelig slette denne siden? Alle elementene (selv dem i søppelkurven) vil forsvinne!
+    confirm_to_delete_user: Vil du virkelig slette denne brukeren?
+    contactform:
+      labels:
+        address: Gateadresse
+        choose: Vennligst velg
+        email: E-post
+        firstname: Fornavn
+        lastname: Etternavn
+        mandatory_fields: "*Obligatoriske felt"
+        message: Beskjed
+        mr: Hr.
+        mrs: Fr.
+        phone: Telefonnummer
+        salutation: Hilsen
+        send: Send
+        zip: Postnummer/sted
+      messages:
+        success: Din beskjed ble levert
+    contactform_body:
+    content_definition_missing: 'Advarsel: Innhold mangler definisjon. Vennligst sjekk elements.yml'
+    content_essence_not_found: Innholdsessens ikke funnet
+    content_names:
+    content_not_found: Felt for innhold mangler
+    content_validations:
+      contactform:
+        success_page:
+          blank:
+      content_validations:
+        contactform:
+          mail_to:
+            blank:
+          success_page:
+            blank:
+      errors:
+        blank: "%{field} kan ikke være blankt"
+        invalid: "%{field} har feil format"
+        taken: "%{field} er allerede i bruk"
+    content_validations_headline: Vennligst sjekk markerte felt under
+    copy: kopier
+    copy_element: Kopier dette elementet
+    copy_language_tree_heading: Kopier sidetre
+    copy_page: Kopier side
+    country_code_foot_note: Du trenger bare å sette landkode hvis du ønsker å støtte flere land med samme språk.
+    country_code_placeholder: dvs. US (valgfritt)
+    create: opprett
+    create_language_tree_heading: Opprett nytt språktre
+    create_page: Opprett ny underside
+    create_tree_as_new_language: Opprett %{language} som nytt språktre
+    create_user: Opprett ny bruker
+    currently_edited_by: Denne siden er låst av
+    cut_element: Klipp ut dette elementet.
+    dashboard: Kontrollpanel
+    default_content_texts:
+      corporate_lorem: Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures.
+      lorem: Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    delete_file: Slett denne filen fra serveren.
+    delete_image: Fjern dette bildet
+    delete_language: Fjern dette språket
+    delete_page: Fjern denne siden
+    delete_tag: Fjern tag
+    delete_user: Slett denne brukeren
+    do_you_really_want_to_delete_this_tag?: Vil du virkelig slette denne tagen?
+    document: Fil
+    download_csv: Last ned CSV
+    download_file: Last ned fil '%{filename}'
+    drag_to_sort: Trekk-og-slipp for å sortere bilder
+    edit_file_properties: Rediger filegenskaper
+    edit_image_properties: Rediger bildeegenskaper.
+    edit_language: Rediger spårk
+    edit_page: Rediger denne siden
+    edit_page_properties: Rediger sideegenskaper
+    edit_selected_pictures: Rediger valgte bilder
+    edit_tag: Rediger tag
+    edit_user: Rediger brukeregenskaper
+    element_definition_missing: ADVARSEL! Manglende elementdefinsjoner. Vennligst sjekk din elements.yml-fil
+    element_dirty_close_window_notice: Du har ulagrede elementer. Vil du virkelig lukke elementvinduet?
+    element_editor_not_found: Feil i dette elementet
+    element_names:
+    element_of_type: Element
+    element_saved: Lagret element.
+    enter_external_link: Vennligst skriv inn URL du ønsker å lenke til
+    essence_pictures:
+      css_classes:
+        left: Venstre fra tekst
+        no_float: Over tekst
+        right: Høyre fra tekst
+    explain_cropping: "<p>Flytt rammen og endre størrelse med mus eller piltaster for å justere bildemasken. Klikk på utfør når du er fornøyd med valget.</p><p>Hvis du vil tilbake til den opprinnelige sentrerte bildemasken som var definert i layout, klikk tilbakestill og utfør etterpå.</p>"
+    explain_publishing: Publiser siden og fjern hurtiglagret versjon fra server
+    explain_sitemap_dragndrop_sorting: 'Tips: Dra sidene fra ikonet for å sortere'
+    explain_unlocking: Forlat side og lås opp for andre brukere.
+    external_link_notice_1: Vennligst skriv inn komplett url med http:// or tilsvarende protokoll.
+    external_link_notice_2: For å vise til en sti fra ditt nettsted, start med /
+    'false': Nei
+    female: Kvinnelig
+    file: Fil
+    file_rename_error: Feil ved navneendring av fil.
+    forms:
+      error_notification:
+        default_message: 'Vennligst se gjennom problemene under:'
+      labels:
+        user:
+          email: E-post
+          login: Logginn
+          password: Passord
+      'no': Nei
+      required:
+        mark:
+        text: påkrevd
+      'yes': Ja
+    from:
+    from_at: fra %{by} %{at}
+    height: Høyde
+    help:
+      shortcuts:
+        Close current dialog: Lukk gjeldende dialogboks
+        Create a new record: Opprett ny oppføring
+        Create new element: Opprett nytt element
+        Edit page properties: Rediger sideegenskaper
+        Focus search field: Fokuser søkefelt
+        Leave the page: Forlat side
+        Open help window: Åpne hjelpevindu
+        Open logout dialog: Åpne utloggingsdialogboks
+        Open upload form: Åpne opplastingsskjema
+        Reload the preview: Last forhåndsvisning på nytt
+        Select all pictures: Velg alle bilder
+        Show page infos: Vis sideinfo
+    hide_element: Skjul element
+    hide_element_content: Skjul dette elementets innhold.
+    hide_elements: Skjul elementer
+    image_alt_tag: Alt-tag
+    image_caption: Bildetekst
+    image_name: Navn
+    image_title: Tittel-tag
+    insert_image: Sett inn bilde
+    internal_link_headline: Velg en side å lenke til.
+    internal_link_page_anchors_explanation: Alternativt kan du lenke til et anker på den aktuelle siden.
+    internal_link_page_elements_explanation: 'I tillegg kan du klippe ved siden av en side på vis elementer for å lenke til et elementanker fra den siden. '
+    item copied to clipboard: Kopierte %{name} til utklippstavle
+    item moved to clipboard: Flyttet %{name} til utklippstavle
+    item removed from clipboard: Fjernet %{name} fra utklippstavlen
+    javascript_disabled_headline: Javascript er slått av!
+    javascript_disabled_text: Alchemy trenger Javascript for å fungere bra. Vennligst aktiver det i nettleserinnstillingene dine.
+    language_code_placeholder: dvs. en
+    language_does_not_exist: Dette språktreet eksisterer ikke
+    language_pages_copied: Språktre vellykket kopiert
+    last_upload_only: Kun siste opplasting
+    leave: forlat
+    left: venstre
+    legacy_url_info_text: A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>.
+    link_image: Lenke bilde
+    link_overlay_tab_label:
+      contactform: Kontaktskjema
+      external: Ekstern
+      file: Fil
+      internal: Intern
+    link_target_options:
+      blank: Nytt vindu/ny fane
+      default: Samme vindu
+      overlay: Overlay
+    link_title: Lenketittel
+    locked_pages: Aktive sider
+    login: logg inn
+    logout: logg ut
+    mail_to: Mottaker
+    main_content: Hovedinnhold
+    male: Mannlig
+    me: Meg
+    medium_thumbnails: Medium forhåndsvisninger
+    meta_data: Metadata
+    meta_description: Meta-beskrivelse
+    meta_keywords: Meta-nøkkelord
+    mime_types:
+      application/msword: Word-dokument
+      application/pdf: PDF-dokument
+      application/rtf: RTF-dokument
+      application/vcard: vCard
+      application/vnd:
+        ms-excel: Excel-dokument
+      application/x-flash-video: Flash-video
+      application/x-rar: RAR-arkivfil
+      application/x-shockwave-flash: Flash-film
+      application/zip: ZIP-arkivfil
+      audio/mp4: MP4-lyd
+      audio/mpeg: MP3-lyd
+      image/gif: GIF-bilde
+      image/jpeg: JPG-bilde
+      image/png: PNG-bilde
+      image/svg+xml:
+      image/tiff: TIFF-bilde
+      image/x-psd: Photoshop-fil
+      text/plain: Tekstdokument
+      text/x-vcard: vCard
+      video/mp4: MP4-video
+      video/mpeg: MPEG-video
+      video/quicktime: Quicktime-video
+      video/x-flv: Flash-video
+      video/x-ms-wmv: Windows Media-video
+      video/x-msvideo: AVI-video
+    modules:
+      attachments: Filer
+      dashboard: Kontrollpanel
+      languages: Språk
+      layoutpages: Globale sider
+      library: Bibliotek
+      pages: Sider
+      pictures: Bilder
+      sites: Nettsteder
+      tags: Tags
+      user_sessions: Logg inn
+      users: Brukere
+    name: Navn
+    names: Navn
+    navigation_name: Navigasjonsnavn
+    no pages: ingen sider
+    no users: ingen brukere
+    no_default_language_found: Standardspråk ikke funnet.
+    no_element_given: Ingen elementer oppgitt.
+    no_files_in_archive: Du har ingen filer i arkivet.
+    no_image_for_cropper_found: Ingen bilder funnet. Vennligst lagre elementet først.
+    no_images_in_archive: Du har ingen bilder i arkivet
+    no_more_elements_to_add: Ingen flere elementer tilgjengelig.
+    no_search_results: Søket ditt ga ingen resultater.
+    not a valid image: Dette er ikke et gyldig bilde.
+    or: eller
+    or to completely: eller fullstendig
+    or_replace_it_with_an_existing_tag: Eller erstatt med en eksisterende tag
+    page_definition_missing: ADVARSEL! Mangler definisjon av sidelayout. Vennligste sjekk page_layouts.yml-filen.
+    page_for_links:
+      choose_page: Velg %{name}
+    page_infos: Sideinfo
+    page_layout_changed_notice: Sidetype ble endret. Elementer som ikke lenger kan brukes har blitt flyttet til papirkurven.
+    page_layout_names:
+    page_properties: Sideegenskaper
+    page_public: publisert
+    page_published: Publisert side
+    page_restricted: begrenset
+    page_states:
+      locked:
+        'false':
+        'true': Side redigeres for øyeblikket.
+      public:
+        'false': Side er upublisert
+        'true': Side er publisert.
+      restricted:
+        'false': Side er upublisert.
+        'true': Side er begrenset.
+      visible:
+        'false': Side er ikke synlig i navigasjon.
+        'true': Side er synlig i navigasjon
+    page_status: Status
+    page_title: Tittel
+    page_type: Type
+    page_visible_in_navigation: synlig i navigasjonen
+    page_was_created: Ble opprettet
+    page_was_updated: Ble oppdatert
+    pages:
+      update:
+        comma_seperated: Del med komma
+    pagination:
+      first: Første side
+      last: Siste side
+      next_page: Neste side
+      previous_page: Forrige side
+    password: Passord
+    paste: lim inn
+    picture_gallery_editor: Bilder
+    picture_library:
+      filter:
+        last_upload: fra siste opplasting
+        recent: som er nylig lastet opp
+        without_tag: uten tag
+    picture_not_in_use_yet:
+    pictures_in_page: "%{page} i %{pictures}"
+    place_link: Koblingstekst
+    player_version: Flash Player-versjon
+    please enter subject and mail address: Vennligst skriv inn mottaker og emne.
+    please_confirm: Vennligst bekreft
+    please_wait: Vennligst vent
+    position_in_text: Posisjon i tekst
+    preview_size: Størrelse på forhåndsvisning
+    preview_sizes:
+      '1024': 1024px (iPad - Landscape)
+      '1280': 1280px (Desktop)
+      '240': 240px (small phone)
+      '320': 320px (iPhone)
+      '480': 480px (small Tablet)
+      '768': 768px (iPad - Portrait)
+    public_available:
+    recently_uploaded_only: Kun nylige opplastinger
+    regular method: Ordinær metode
+    remove: Fjern
+    rename: Gi nytt navn
+    rename_file: Gi denne filen nytt navn
+    replace: erstatt
+    replace_file: Erstatt fil
+    resource_help_texts:
+      site:
+        aliases: Vennligst del ekstra domener med mellomrom eller linjeskift
+    resources:
+      relation_select:
+        blank: "- ingen -"
+    right: høyre
+    robot_follow: robot kan følge koblinger.
+    robot_index: tillat robot å indeksere.
+    save: Lagre
+    save order: Lagre rekkefølge
+    saved_link: Kobling lagret.
+    search: søk
+    search_engines: Søkemotorer
+    searchresults_editor_info:
+    select_element: Velg element
+    seperate_tags_with_comma: Del tags med komma
+    show_element: Vis element
+    show_element_content: Vis innholdet til dette elementet.
+    show_elements: Vis elementer
+    show_elements_from_page: Vis alle elementer fra denne siden
+    show_eq: Vis EQ
+    show_navigation: Vi i navigasjon
+    show_page_in_sitemap: Vis sider i sidekart.
+    signup_mail_delivery_error: Registrerings-e-post kunne ikke leveres. Vennligst sjekk e-post-innstillingene dine.
+    sitemap_editor_info:
+    small_thumbnails: Små forhåndsvisninger
+    stay logged in: forbli innlogget
+    subject: Emne
+    successfully_added_element: La til nytt element.
+    successfully_deleted_tag: Sletting av tag vellykket
+    successfully_restored_element: Gjenoppretting av element vellykket
+    successfully_saved_element_position: Oppdatering av elementposisjon vellykket
+    successfully_updated_tag: Oppdatert tag
+    swap_image: Endre bilde
+    tag_list: Tags
+    tags_get_created_if_used_the_first_time: Tags blir opprettet hvis brukt første gang.
+    this_picture_is_not_used_on_any_page:
+    this_picture_is_used_on_these_pages: Dette bildet er i bruk på følgende sider
+    title: Tittel
+    to_alchemy: Til Alchemy
+    translations:
+      de: DE
+      en: EN
+      es: ES
+      fr: FR
+      it: IT
+      nl: NL
+      ru: RU
+    trash element: Legg element i papirkurv
+    unknown: ukjent
+    unlink: Fjern kobling fra dette bildet.
+    unlock_page: Forlat side
+    unlocked_page: Låste opp siden %{name}.
+    until:
+    uploader:
+      alchemy/attachment:
+        button_label: Last opp fil(er)
+        upload_failure: 'Fil %{name} opplastingsfeil: %{error}'
+        upload_success: Fil %{name} lastet opp vellykket
+      alchemy/picture:
+        button_label: Last opp bilde(r)
+        upload_failure: 'Feil under opplasting %{name}: %{error}'
+        upload_success: Bilde %{name} lastet opp
+    url_name: URL-navn
+    use_alternative_uploader_instead:
+    user_roles:
+      admin: Administrator
+      author: Forfatter
+      editor: Redaktør
+      member: Medlem
+      registered: Registrert
+    visible: synlig
+    want_to_create_new_language: Vil du opprettet et nytt språktre
+    want_to_make_copy_of_existing_language: Vil du kopiere et eksisterende språktre
+    welcome_back_note: Velkommen tilbake %{name}
+    welcome_note: Velkommen %{name}
+    welcome_please_identify_notice: Velkommen! Vennligst identifiser deg.
+    width: Bredde
+    without_tag: Uten tag
+    you_can_rename_this_tag: Du kan gi tagen nytt navn
+    zoom_image: Zoom dette bildet
+    你确认要 clear the clipboard?:
+    你确认要 clear the trash?:
+    你确认要 delete this content?:
+  errors:
+    models:
+      alchemy/content:
+        attributes:
+          essence:
+            validation_failed: Validering feilet
+          name:
+            taken: er allerede tatt i dette elementet.
+      alchemy/element:
+        attributes:
+          name:
+            blank: "^Vennligst velg et element."
+      alchemy/language:
+        attributes:
+          code:
+            invalid:
+            taken:
+          language_code:
+            invalid: "^Formatet på språkkode er ikke gyldig. Vennligst kun bruk to små bokstaver."
+            taken: er allerede tatt for denne landskoden.
+          locale:
+            missing_file: Lokalisering ikke funnet for denne språkkoden. Vennligst velg en eksisterende.
+      alchemy/page:
+        attributes:
+          name:
+            blank: "^Vennligst velg et navn."
+          page_layout:
+            blank: "^Vennligst velg en sidelayout."
+          urlname:
+            exclusion: "^URL-Navn reservert."
+            taken: "^URL-Navn allerede tatt."
+            too_short: "^Denne sidens URL er for kort (minimum 3 tegn)."
+      alchemy/picture:
+        attributes:
+          image_file:
+            blank: Vennligst legg ved et bilde.
+      alchemy/user:
+        attributes:
+          alchemy_roles:
+            blank: minst en rolle må oppgis
+          email:
+            alchemy_roles:
+              blank:
+            invalid: er ikke en gyldig e-post-adresse
+  time:
+    formats:
+      alchemy:
+        datepicker: "%d.%m.%Y"
+        datetimepicker: "%d.%m.%Y %H:%M"
+        default: "%a, %d %b %Y %H:%M:%S %z"
+        essence_dat:
+        essence_date: "%d.%m.%Y"
+        page_status: "%d.%m.%Y %H:%M"
+        short_datetime: "%d.%b %H:%M"
+        time: "%H:%M"
+        timepicker: "%H:%M"
