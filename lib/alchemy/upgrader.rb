@@ -24,6 +24,12 @@ module Alchemy
           todo "Check the default configuration file (./config/alchemy/config.yml.defaults) for new configuration options and insert them into your config file.", "Configuration has changed"
         end
       end
+
+      def update_npm_package
+        desc "Install new npm package."
+        `yarn add @alchemy_cms/admin@~#{Alchemy.version}`
+        log "Installed new npm package."
+      end
     end
   end
 end
