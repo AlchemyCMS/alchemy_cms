@@ -58,7 +58,7 @@
       "check_name": "MassAssignment",
       "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
       "file": "app/controllers/alchemy/admin/resources_controller.rb",
-      "line": 136,
+      "line": 209,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.require(resource_handler.namespaced_resource_name).permit!",
       "render_path": null,
@@ -86,7 +86,7 @@
           "type": "controller",
           "class": "Alchemy::Admin::ElementsController",
           "method": "fold",
-          "line": 97,
+          "line": 102,
           "file": "app/controllers/alchemy/admin/elements_controller.rb",
           "rendered": {
             "name": "alchemy/admin/elements/fold",
@@ -109,7 +109,7 @@
       "check_name": "MassAssignment",
       "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
       "file": "app/controllers/alchemy/admin/elements_controller.rb",
-      "line": 150,
+      "line": 155,
       "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
       "code": "params.fetch(:contents, {}).permit!",
       "render_path": null,
@@ -121,6 +121,26 @@
       "user_input": null,
       "confidence": "Medium",
       "note": "`Alchemy::Content` is a polymorphic association of any kind of model extending `Alchemy::Essence`. Since we can't know the attributes of all potential essences we need to permit all attributes. As this all happens inside the password protected /admin namespace this can be considered a false positive."
+    },
+    {
+      "warning_type": "Command Injection",
+      "warning_code": 14,
+      "fingerprint": "6addfcb9d23d2d6f699f2f3542169744ff749dc4d0a97f8ac783ab92593e1d84",
+      "check_name": "Execute",
+      "message": "Possible command injection",
+      "file": "lib/alchemy/upgrader.rb",
+      "line": 30,
+      "link": "https://brakemanscanner.org/docs/warning_types/command_injection/",
+      "code": "`yarn add @alchemy_cms/admin@~#{Alchemy.version}`",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Alchemy::Upgrader",
+        "method": "update_npm_package"
+      },
+      "user_input": "Alchemy.version",
+      "confidence": "Medium",
+      "note": "The alchemy version is safe"
     },
     {
       "warning_type": "Cross-Site Scripting",
@@ -255,6 +275,6 @@
       "note": ""
     }
   ],
-  "updated": "2021-06-29 20:56:10 +0200",
-  "brakeman_version": "5.0.1"
+  "updated": "2021-10-26 21:44:59 +0200",
+  "brakeman_version": "5.1.1"
 }
