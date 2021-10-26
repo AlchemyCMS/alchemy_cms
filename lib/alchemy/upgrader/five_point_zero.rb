@@ -4,6 +4,7 @@ require_relative "tasks/harden_gutentag_migrations"
 require "rails/generators"
 require "thor"
 require "alchemy/install/tasks"
+require "alchemy/version"
 
 module Alchemy
   class Upgrader::FivePointZero < Upgrader
@@ -12,7 +13,7 @@ module Alchemy
     include Thor::Actions
 
     source_root File.expand_path("../../generators/alchemy/install/files", __dir__)
-    
+
     class << self
       def install_gutentag_migrations
         desc "Install Gutentag migrations"
@@ -55,7 +56,7 @@ module Alchemy
       end
 
       def add_npm_package
-        new.run "yarn add @alchemy_cms/admin"
+        new.run "yarn add @alchemy_cms/admin@~#{Alchemy.version}"
       end
 
       def copy_alchemy_entry_point
