@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.3.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v2.3.0) (2021-10-26)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v2.2.0...v2.3.0)
+
+**Closed issues:**
+
+- Norwegian translation added through localeapp [\#30](https://github.com/AlchemyCMS/alchemy_i18n/issues/30)
+
+**Merged pull requests:**
+
+- Add norwegian translation [\#35](https://github.com/AlchemyCMS/alchemy_i18n/pull/35) ([tvdeyen](https://github.com/tvdeyen))
+
 ## [v2.2.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v2.2.0) (2021-10-26)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v2.1.0...v2.2.0)
