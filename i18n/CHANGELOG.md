@@ -1,5 +1,20 @@
 # Changelog
 
+## [v2.2.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v2.2.0) (2021-10-26)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v2.1.0...v2.2.0)
+
+**Closed issues:**
+
+- Missing file alchemy.translations [\#32](https://github.com/AlchemyCMS/alchemy_i18n/issues/32)
+
+**Merged pull requests:**
+
+- Alchemy v5 compatibility [\#34](https://github.com/AlchemyCMS/alchemy_i18n/pull/34) ([afdev82](https://github.com/afdev82))
+- Add select2 locales [\#31](https://github.com/AlchemyCMS/alchemy_i18n/pull/31) ([tvdeyen](https://github.com/tvdeyen))
+- Added Dutch translation for menu-functionality. [\#29](https://github.com/AlchemyCMS/alchemy_i18n/pull/29) ([bjornconstructors](https://github.com/bjornconstructors))
+- IT translations for new menus entry [\#26](https://github.com/AlchemyCMS/alchemy_i18n/pull/26) ([juryghidinelli](https://github.com/juryghidinelli))
+
 ## [v2.1.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v2.1.0) (2020-07-20)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v2.0.0...v2.1.0)
