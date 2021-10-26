@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "rails/generators"
 require "alchemy/install/tasks"
+require "alchemy/version"
 
 module Alchemy
   module Generators
@@ -88,7 +89,7 @@ module Alchemy
       end
 
       def add_npm_package
-        run "yarn add @alchemy_cms/admin"
+        run "yarn add @alchemy_cms/admin@~#{Alchemy.version}"
       end
 
       def copy_alchemy_entry_point
