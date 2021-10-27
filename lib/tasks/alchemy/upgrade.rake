@@ -17,6 +17,7 @@ namespace :alchemy do
     task prepare: [
       "alchemy:upgrade:database",
       "alchemy:upgrade:config",
+      "alchemy:upgrade:package",
     ]
 
     desc "Alchemy Upgrader: Prepares the database."
@@ -28,6 +29,11 @@ namespace :alchemy do
     desc "Alchemy Upgrader: Copy configuration file."
     task config: [:environment] do
       Alchemy::Upgrader.copy_new_config_file
+    end
+
+    desc "Alchemy Upgrader: Install new Node package."
+    task package: [:environment] do
+      Alchemy::Upgrader.update_npm_package
     end
 
     desc "Upgrade Alchemy to v5.0"
