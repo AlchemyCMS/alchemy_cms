@@ -11,10 +11,14 @@ module Alchemy::Upgrader::Tasks
         puts "-- Update element views local variable to partial name"
         Dir.glob("#{elements_view_folder}/*_view.*").each do |view|
           variable_name = File.basename(view).gsub(/^_([\w-]*)\..*$/, '\1')
-          gsub_file(view, /cache\(?element([,\s\w:\-,=>'"\?\/]*)\)?/, "cache(#{variable_name}\\1)")
-          gsub_file(view, /render_essence_view_by_name\(?element([,\s\w:\-,=>'"\?\/]*)\)?/, "render_essence_view_by_name(#{variable_name}\\1)")
-          gsub_file(view, /element_view_for\(?element([,\s\w:\-,=>'"\?\/]*)\)?/, "element_view_for(#{variable_name}\\1)")
-          gsub_file(view, /element\.([\w\?]+)/, "#{variable_name}.\\1")
+          %w[
+            cache
+            render_essence_view_by_name
+            element_view_for
+          ].each do |method_name|
+            gsub_file(view, /#{method_name}([\s(]+)element([^\w])/, "#{method_name}\\1#{variable_name}\\2")
+          end
+          gsub_file(view, /([\s(%={]+)element([^\w:"'])/, "\\1#{variable_name}\\2")
         end
       end
     end
