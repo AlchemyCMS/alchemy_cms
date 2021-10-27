@@ -77,7 +77,7 @@ module Alchemy::Upgrader::Tasks
         append_to_file Rails.root.join('config', 'alchemy', 'elements.yml') do
           <<-CELL.strip_heredoc
 
-            - name: #{cell['name']}
+            - name: #{CellNameMigrator.call(cell['name'])}
               fixed: true
               unique: true
               nestable_elements: [#{cell['elements'].join(', ')}]
@@ -128,8 +128,25 @@ module Alchemy::Upgrader::Tasks
       puts "-- Update render_cell calls"
       Dir.glob("#{alchemy_views_folder}/**/*").each do |view|
         next if File.directory?(view)
-        gsub_file(view, /render_cell[\(\s]?([:'"]?[a-z_]+['"]?)\)?/, 'render_elements(only: \1, fixed: true)')
-        gsub_file(view, /render_elements[\(\s](.*):?from_cell:?\s?(=>)?\s?(['"][a-z_]+['"])\)?/, 'render_elements(\1only: \3, fixed: true)')
+        # <%= render_cell 'test' %>
+        # <%= render_cell('test') %>
+        # <%= render_cell("test", options: true) %>
+        content = File.binread(view)
+        content.gsub!(/render_cell([\s(]+)(['":])(\w+)([^\w])(.*?)/) do
+          element_name = CellNameMigrator.call($3)
+          "render_elements#{$1}only: #{$2}#{element_name}#{$4}, fixed: true#{$5}"
+        end
+        
+        # <%= render_elements from_cell: 'page_intro' %>
+        # <%= render_elements testing: 'blubb',     from_cell: :page_intro %>
+        # <%= render_elements from_cell: "page_intro", testing: 'blubb' %>
+        # <%= render_elements(from_cell: "page_intro", testing: 'blubb') %>
+        # <%= render_elements(testing: 'blubb', from_cell: "page_intro") %>
+        content.gsub!(/render_elements(.*?)from_cell[:\s=>]+([:'"])(\w+)(['"]?)(.*)/) do
+          element_name = CellNameMigrator.call($3)
+          "render_elements#{$1}only: #{$2}#{element_name}#{$4}, fixed: true#{$5}"
+        end
+        File.open(view, "wb") { |file| file.write(content) }
       end
     end
 
