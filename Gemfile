@@ -40,3 +40,8 @@ group :development, :test do
     gem "brakeman", require: false
   end
 end
+
+# Necessary for system tests in Rails 6.0
+if ENV["RAILS_VERSION"] == "6.0"
+  gem "selenium-webdriver"
+end
