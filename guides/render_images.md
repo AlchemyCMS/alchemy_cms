@@ -5,7 +5,7 @@ next: /configuration.html
 
 # Render Images
 
-Alchemy uses [Dragonfly](http://markevans.github.com/dragonfly) to render images.
+Alchemy uses [Dragonfly](https://markevans.github.io/dragonfly/) to render images.
 
 Images are stored as master images in the pictury library. The editor just assigns these master images to content elements you provide. You also set the image rendering bounderies. The max width and height values, or even the size an image should be cropped to. Alchemy even comes with a built in image cropping tool, so that your editors can define the mask to be used.
 
