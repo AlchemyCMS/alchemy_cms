@@ -78,6 +78,7 @@ module Alchemy
         end
 
         it "returns JSON and moves the node" do
+          expect(page_node).to receive(:touch)
           expect(page_node.children).to be_empty
           expect(url_node.lft).to eq(6)
           patch alchemy.move_api_node_path(url_node, format: :json), params: {
