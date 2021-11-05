@@ -169,8 +169,23 @@ module Alchemy
           name: col.name,
           type: resource_column_type(col),
           relation: resource_relation(col.name),
-        }.delete_if { |_k, v| v.nil? }
+          enum: enum_values_collection_for_select(col.name),
+        }.delete_if { |_k, v| v.blank? }
       end.compact
+    end
+
+    def enum_values_collection_for_select(column_name)
+      enum = model.defined_enums[column_name]
+      return if enum.blank?
+
+      enum.keys.map do |key|
+        [
+          ::I18n.t(key, scope: [
+            :activerecord, :attributes, model.model_name.i18n_key, "#{column_name}_values"
+          ], default: key.humanize),
+          key,
+        ]
+      end
     end
 
     def sorted_attributes

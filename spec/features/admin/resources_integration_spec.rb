@@ -187,7 +187,15 @@ RSpec.describe "Resources", type: :system do
     it "should have a select box for associated models" do
       visit "/admin/events/new"
       within("form") do
-        expect(page).to have_selector("select")
+        expect(page).to have_selector("select#event_location_id")
+      end
+    end
+
+    it "should have a select box for enums values" do
+      visit "/admin/events/new"
+
+      within("form") do
+        expect(page).to have_selector("select#event_event_type")
       end
     end
 
