@@ -8,6 +8,7 @@ module Alchemy::Upgrader::Tasks
     def migrate_cells
       if ActiveRecord::Base.connection.data_source_exists?('alchemy_cells')
         cells = Cell.all
+        @fixed_element_name_finder = FixedElementNameFinder.new
 
         if cells.any?
           cells.each do |cell|
@@ -26,7 +27,7 @@ module Alchemy::Upgrader::Tasks
     def migrate_cell!(cell)
       # bust element definitions insta cache
       Alchemy::Element.instance_variable_set('@definitions', nil)
-      fixed_element = Alchemy::Element.find_or_initialize_by(fixed: true, name: CellNameMigrator.call(cell.name), page: cell.page)
+      fixed_element = Alchemy::Element.find_or_initialize_by(fixed: true, name: @fixed_element_name_finder.call(cell.name), page: cell.page)
       elements = Alchemy::Element.where(cell_id: cell.id).order(position: :asc)
 
       if fixed_element.new_record?
