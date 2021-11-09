@@ -1,6 +1,6 @@
 require_relative 'tasks/picture_gallery_upgrader'
 require_relative 'tasks/picture_gallery_migration'
-require_relative 'tasks/cell_name_migrator'
+require_relative 'tasks/fixed_element_name_finder'
 require_relative 'tasks/cells_upgrader'
 require_relative 'tasks/cells_migration'
 require_relative 'tasks/element_partial_name_variable_updater'
