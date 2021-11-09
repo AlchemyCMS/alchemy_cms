@@ -72,12 +72,13 @@ module Alchemy::Upgrader::Tasks
 
     def convert_cell_config
       puts '-- Converting cells into unique fixed nestable elements.'
+      fixed_element_name_finder = FixedElementNameFinder.new
 
       YAML.load_file(cells_config_file).each do |cell|
         append_to_file Rails.root.join('config', 'alchemy', 'elements.yml') do
           <<-CELL.strip_heredoc
 
-            - name: #{CellNameMigrator.call(cell['name'])}
+            - name: #{fixed_element_name_finder.call(cell['name'])}
               fixed: true
               unique: true
               nestable_elements: [#{cell['elements'].join(', ')}]
