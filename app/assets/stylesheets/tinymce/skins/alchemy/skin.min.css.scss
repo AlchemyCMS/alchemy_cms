@@ -1566,18 +1566,18 @@ i.mce-i-resize {
 
 @font-face {
   font-family: 'tinymce';
-  src: url('fonts/tinymce.woff') format('woff'),
-       url('fonts/tinymce.ttf') format('truetype'),
-       url('fonts/tinymce.svg#tinymce') format('svg');
+  src: url('./fonts/tinymce.woff') format('woff'),
+       url('./fonts/tinymce.ttf') format('truetype'),
+       url('./fonts/tinymce.svg#tinymce') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
   font-family: 'tinymce-small';
-  src: url('fonts/tinymce-small.woff') format('woff'),
-       url('fonts/tinymce-small.ttf') format('truetype'),
-       url('fonts/tinymce-small.svg#tinymce') format('svg');
+  src: url('./fonts/tinymce-small.woff') format('woff'),
+       url('./fonts/tinymce-small.ttf') format('truetype'),
+       url('./fonts/tinymce-small.svg#tinymce') format('svg');
   font-weight: normal;
   font-style: normal;
 }
