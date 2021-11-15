@@ -1,3 +1,7 @@
+## 4.6.4 (2021-11-15)
+
+- Use relative path for tinymce font-face ([tvdeyen](https://github.com/tvdeyen))
+
 ## 4.6.3 (2020-05-06)
 
 - Use symbols in polymorphic routes for resources [#2087](https://github.com/AlchemyCMS/alchemy_cms/pull/2087) ([tvdeyen](https://github.com/tvdeyen))
