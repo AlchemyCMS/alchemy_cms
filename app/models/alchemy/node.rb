@@ -5,7 +5,7 @@ module Alchemy
     VALID_URL_REGEX = /\A(\/|\D[a-z\+\d\.\-]+:)/
 
     acts_as_nested_set scope: "language_id", touch: true
-    stampable stamper_class_name: Alchemy.user_class_name
+    stampable stamper_class_name: Alchemy.user_class.name
 
     belongs_to :site, class_name: "Alchemy::Site"
     belongs_to :language, class_name: "Alchemy::Language"

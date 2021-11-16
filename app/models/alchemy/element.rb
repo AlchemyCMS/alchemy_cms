@@ -58,7 +58,7 @@ module Alchemy
     #
     acts_as_list scope: [:page_id, :fixed, :parent_element_id]
 
-    stampable stamper_class_name: Alchemy.user_class_name
+    stampable stamper_class_name: Alchemy.user_class.name
 
     has_many :contents, -> { order(:position) }, dependent: :destroy, inverse_of: :element
 
