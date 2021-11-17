@@ -1,3 +1,8 @@
+## 5.1.8 (2021-11-17)
+
+- Set stampable user_class_name without root identifier  ([tvdeyen](https://github.com/tvdeyen))
+- Use relative path for tinymce font-face  ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.1.7 (2021-10-26)
 
 - Make sure to install correct npm package ([tvdeyen](https://github.com/tvdeyen))
