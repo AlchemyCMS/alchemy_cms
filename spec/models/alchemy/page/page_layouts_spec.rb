@@ -5,20 +5,33 @@ require "rails_helper"
 RSpec.describe Alchemy::Page::PageLayouts do
   describe ".layouts_with_own_for_select" do
     it "should not hold a layout twice" do
-      layouts = Alchemy::Page.layouts_with_own_for_select("standard", 1, false)
-      layouts = layouts.collect(&:last)
-      expect(layouts.count { |l| l == "standard" }).to eq(1)
+      Alchemy::Deprecation.silence do
+        layouts = Alchemy::Page.layouts_with_own_for_select("standard", 1, layoutpages: false)
+        layouts = layouts.collect(&:last)
+        expect(layouts.count { |l| l == "standard" }).to eq(1)
+      end
+    end
+
+    it "should return layoutpages" do
+      Alchemy::Deprecation.silence do
+        layouts = Alchemy::Page.layouts_with_own_for_select("footer", 1, layoutpages: true)
+        layouts = layouts.collect(&:last)
+        expect(layouts.count { |l| l == "footer" }).to eq(1)
+      end
     end
   end
 
   describe ".selectable_layouts" do
     let(:site) { create(:alchemy_site) }
-    let(:language) { create(:alchemy_language, code: :de) }
-    before { language }
+    let!(:language) { create(:alchemy_language, code: :de) }
     subject { Alchemy::Page.selectable_layouts(language.id) }
 
     it "should not display hidden page layouts" do
       subject.each { |l| expect(l["hide"]).not_to eq(true) }
+    end
+
+    it "should not display layoutpages" do
+      subject.each { |l| expect(l["layoutpage"]).not_to eq(true) }
     end
 
     context "with already taken layouts" do
@@ -44,6 +57,14 @@ RSpec.describe Alchemy::Page::PageLayouts do
       it "should only return layouts for site" do
         expect(subject.length).to eq(1)
         expect(subject.first["name"]).to eq("index")
+      end
+    end
+
+    context "with layoutpages set to true" do
+      subject { Alchemy::Page.selectable_layouts(language.id, layoutpages: true) }
+
+      it "should only return layoutpages" do
+        subject.each { |l| expect(l["layoutpage"]).to eq(true) }
       end
     end
   end
