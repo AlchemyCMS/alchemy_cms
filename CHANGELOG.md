@@ -1,4 +1,11 @@
-## 5.0.0 (unreleased)
+## 4.5.1 (2021-11-17)
+
+- Set stampable user_class_name without root identifier ([tvdeyen](https://github.com/tvdeyen))
+- Use relative path for tinymce font-face ([tvdeyen](https://github.com/tvdeyen))
+- Use symbols in polymorphic routes for resources ([tvdeyen](https://github.com/tvdeyen))
+- make the fixed element upgrader more robust ([darkswoop](https://github.com/darkswoop))
+- don't use existing element names when migrating from cells ([darkswoop](https://github.com/darkswoop))
+- enhance regexp in partial name upgrader ([darkswoop](https://github.com/darkswoop))
 
 ## 4.5.0 (2020-03-30)
 
