@@ -287,6 +287,19 @@ module Alchemy
           expect(Page.all_from_clipboard_for_select(clipboard, language.id)).to eq([page_1])
         end
       end
+
+      context "with clipboard holding layoutpages and pages." do
+        let(:page_1) { create(:alchemy_page, :layoutpage, language: language) }
+        let(:page_2) { create(:alchemy_page, language: language) }
+
+        it "should only return layoutpages" do
+          clipboard = [
+            { "id" => page_1.id.to_s, "action" => "copy" },
+            { "id" => page_2.id.to_s, "action" => "copy" },
+          ]
+          expect(Page.all_from_clipboard_for_select(clipboard, language.id, layoutpages: true)).to eq([page_1])
+        end
+      end
     end
 
     describe ".locked" do

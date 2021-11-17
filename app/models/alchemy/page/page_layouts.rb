@@ -18,15 +18,15 @@ module Alchemy
 
         # Returns page layouts ready for Rails' select form helper.
         #
-        def layouts_for_select(language_id, only_layoutpages = false)
+        def layouts_for_select(language_id, layoutpages: false)
           @map_array = []
-          mapped_layouts_for_select(selectable_layouts(language_id, only_layoutpages))
+          mapped_layouts_for_select(selectable_layouts(language_id, layoutpages: layoutpages))
         end
 
         # Returns page layouts including given layout ready for Rails' select form helper.
         #
-        def layouts_with_own_for_select(page_layout_name, language_id, only_layoutpages = false)
-          layouts = selectable_layouts(language_id, only_layoutpages)
+        def layouts_with_own_for_select(page_layout_name, language_id, layoutpages: false)
+          layouts = selectable_layouts(language_id, layoutpages: layoutpages)
           if layouts.detect { |l| l["name"] == page_layout_name }.nil?
             @map_array = [[human_layout_name(page_layout_name), page_layout_name]]
           else
@@ -46,10 +46,10 @@ module Alchemy
         # @param [Boolean] (false)
         #   Pass true to only select layouts for global/layout pages.
         #
-        def selectable_layouts(language_id, only_layoutpages = false)
+        def selectable_layouts(language_id, layoutpages: false)
           @language_id = language_id
           layouts_repository.all.select do |layout|
-            if only_layoutpages
+            if layoutpages
               layout["layoutpage"] && layout_available?(layout)
             else
               !layout["layoutpage"] && layout_available?(layout)

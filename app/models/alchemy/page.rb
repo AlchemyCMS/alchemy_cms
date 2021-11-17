@@ -269,11 +269,11 @@ module Alchemy
         where(id: clipboard.collect { |p| p["id"] })
       end
 
-      def all_from_clipboard_for_select(clipboard, language_id, layoutpage = false)
+      def all_from_clipboard_for_select(clipboard, language_id, layoutpages: false)
         return [] if clipboard.blank?
 
         clipboard_pages = all_from_clipboard(clipboard)
-        allowed_page_layouts = Alchemy::Page.selectable_layouts(language_id, layoutpage)
+        allowed_page_layouts = Alchemy::Page.selectable_layouts(language_id, layoutpages: layoutpages)
         allowed_page_layout_names = allowed_page_layouts.collect { |p| p["name"] }
         clipboard_pages.select { |cp| allowed_page_layout_names.include?(cp.page_layout) }
       end

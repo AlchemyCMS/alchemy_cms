@@ -78,9 +78,9 @@ module Alchemy
 
       def new
         @page ||= Page.new(layoutpage: params[:layoutpage] == "true", parent_id: params[:parent_id])
-        @page_layouts = Page.layouts_for_select(@current_language.id, @page.layoutpage?)
+        @page_layouts = Page.layouts_for_select(@current_language.id, layoutpages: @page.layoutpage?)
         @clipboard = get_clipboard("pages")
-        @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, @current_language.id, @page.layoutpage?)
+        @clipboard_items = Page.all_from_clipboard_for_select(@clipboard, @current_language.id, layoutpages: @page.layoutpage?)
       end
 
       def create
