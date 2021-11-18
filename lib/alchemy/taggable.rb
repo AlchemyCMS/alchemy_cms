@@ -22,13 +22,20 @@ module Alchemy
     end
 
     module ClassMethods
-      # Find all records matching all of the given tags.
-      # Separate multiple tags by comma.
-      def tagged_with(names)
+      def tagged_with(names = [], **args)
         if names.is_a? String
           names = names.split(/,\s*/)
         end
-        super(names: names, match: :all)
+
+        unless args[:match]
+          args.merge!(match: :all)
+        end
+
+        if names.any?
+          args.merge!(names: names)
+        end
+
+        super(args)
       end
 
       # Returns all unique tags
