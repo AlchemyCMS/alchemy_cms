@@ -54,7 +54,7 @@
     <%= f.hidden_field :link_title, data: { link_title: true }, id: nil %>
     <%= f.hidden_field :link_class_name, data: { link_class: true }, id: nil %>
     <%= f.hidden_field :link_target, data: { link_target: true }, id: nil %>
-    <%= f.hidden_field :crop_from, data: { crop_from: true }, id: nil %>
-    <%= f.hidden_field :crop_size, data: { crop_size: true }, id: nil %>
+    <%= f.hidden_field :crop_from, data: { crop_from: true }, id: picture_editor.form_field_id(:crop_from) %>
+    <%= f.hidden_field :crop_size, data: { crop_size: true }, id: picture_editor.form_field_id(:crop_size) %>
   <% end %>
 <% end %>

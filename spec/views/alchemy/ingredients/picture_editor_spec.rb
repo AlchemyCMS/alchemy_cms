@@ -6,6 +6,7 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
   let(:picture) { stub_model(Alchemy::Picture) }
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
   let(:element_editor) { Alchemy::ElementEditor.new(element) }
+  let(:ingredient_editor) { Alchemy::IngredientEditor.new(ingredient) }
 
   let(:ingredient) do
     stub_model(
@@ -22,7 +23,7 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
   it_behaves_like "an alchemy ingredient editor"
 
   before do
-    allow(element_editor).to receive(:ingredients) { [Alchemy::IngredientEditor.new(ingredient)] }
+    allow(element_editor).to receive(:ingredients) { [ingredient_editor] }
     allow(ingredient).to receive(:settings) { settings }
     view.class.send :include, Alchemy::Admin::BaseHelper
     view.class.send :include, Alchemy::Admin::IngredientsHelper
@@ -65,6 +66,14 @@ RSpec.describe "alchemy/ingredients/_picture_editor" do
 
     it "shows cropping link" do
       is_expected.to have_selector('a[href*="crop"]')
+    end
+
+    it "has crop_from hidden field" do
+      is_expected.to have_selector("input[type=\"hidden\"][id=\"#{ingredient_editor.form_field_id(:crop_from)}\"]")
+    end
+
+    it "has crop_size hidden field" do
+      is_expected.to have_selector("input[type=\"hidden\"][id=\"#{ingredient_editor.form_field_id(:crop_size)}\"]")
     end
   end
 
