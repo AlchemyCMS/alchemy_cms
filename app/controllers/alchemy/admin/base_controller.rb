@@ -42,9 +42,7 @@ module Alchemy
       def exception_handler(error)
         exception_logger(error)
         show_error_notice(error)
-        if defined?(Airbrake)
-          notify_airbrake(error) unless Rails.env.development? || Rails.env.test?
-        end
+        notify_error_tracker(error)
       end
 
       # Displays an error notice in the Alchemy backend.

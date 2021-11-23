@@ -120,5 +120,12 @@ module Alchemy
         it { expect(prefix_locale?).to be(false) }
       end
     end
+
+    describe "#notify_error_tracker" do
+      it "does not throw an error if the proc is nil" do
+        Alchemy.error_notification_handler = nil
+        expect { controller.send(:notify_error_tracker, StandardError.new) }.not_to raise_error
+      end
+    end
   end
 end

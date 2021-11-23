@@ -101,5 +101,13 @@ module Alchemy
         line.gsub(/#{Rails.root.to_s}/, '')
       }.join("\n"))
     end
+
+    def notify_error_tracker(error)
+      if ::Alchemy.error_notification_handler.respond_to?(:call)
+        ::Alchemy.error_notification_handler.call(error)
+      else
+        Rails.logger.warn("Error notification handled. To use the Alchemy.error_notification_handler, it must respond to #call.")
+      end
+    end
   end
 end
