@@ -29,8 +29,7 @@ RSpec.describe "Picture assignment overlay", type: :system do
         end
 
         # We expect to see only the picture tagged with 'landscape'.
-        expect(page).to have_selector("#overlay_picture_list a img", count: 1)
-        expect(page).to have_selector("#overlay_picture_list a img[alt='Hill']")
+        expect(page).to have_selector("#overlay_picture_list a img[alt='Hill']", count: 1, wait: 10)
       end
     end
   end
