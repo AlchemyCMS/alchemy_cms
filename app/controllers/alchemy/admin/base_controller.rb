@@ -40,9 +40,7 @@ module Alchemy
       def exception_handler(error)
         exception_logger(error)
         show_error_notice(error)
-        if defined?(Airbrake)
-          notify_airbrake(error) unless Rails.env.development? || Rails.env.test?
-        end
+        notify_error_tracker(error)
       end
 
       # Displays an error notice in the Alchemy backend.
@@ -147,6 +145,14 @@ module Alchemy
             session[:alchemy_site_id] = site&.id
             site
           end
+      end
+
+      def notify_error_tracker(exception)
+        if ::Alchemy::ErrorTracking.notification_handler.respond_to?(:call)
+          ::Alchemy::ErrorTracking.notification_handler.call(exception)
+        else
+          Rails.logger.warn("To use the Alchemy::ErrorTracking.notification_handler, it must respond to #call.")
+        end
       end
     end
   end
