@@ -1,3 +1,7 @@
+## 5.0.9 (2021-11-24)
+
+- Adjust tinymce skin assets urls again ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.0.8 (2021-11-17)
 
 - Set stampable user_class_name without root identifier ([tvdeyen](https://github.com/tvdeyen))
