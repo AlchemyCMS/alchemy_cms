@@ -43,5 +43,12 @@ module Alchemy
     config.after_initialize do
       require_relative "./userstamp"
     end
+
+    initializer "alchemy.error_tracking" do
+      if defined?(Airbrake)
+        require_relative "error_tracking/airbrake_handler"
+        Alchemy::ErrorTracking.notification_handler = Alchemy::ErrorTracking::AirbrakeHandler
+      end
+    end
   end
 end
