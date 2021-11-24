@@ -75,5 +75,18 @@ describe Alchemy::Admin::BaseController do
         expect(assigns(:locked_pages).pluck(:name)).to eq(["Page 2", "Page 1"])
       end
     end
+
+    describe "#notify_error_tracker" do
+      it "does not throw an error if the proc is nil" do
+        allow(Alchemy::ErrorTracking).to receive(:notification_handler).and_return(nil)
+        expect { controller.send(:notify_error_tracker, StandardError.new) }.not_to raise_error
+      end
+
+      it "calls error notification handler" do
+        error = StandardError.new
+        expect(Alchemy::ErrorTracking.notification_handler).to receive(:call).with(error)
+        controller.send(:notify_error_tracker, error)
+      end
+    end
   end
 end
