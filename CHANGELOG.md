@@ -1,3 +1,10 @@
+## 4.6.6 (2021-11-24)
+
+- Give overlay picture spec more time to load images
+- Stay below dragonfly 1.4
+- Adjust tinymce skin assets urls again
+- Fix userstamp spec
+
 ## 4.6.5 (2021-11-17)
 
 - Set stampable user_class_name without root identifier ([tvdeyen](https://github.com/tvdeyen))
