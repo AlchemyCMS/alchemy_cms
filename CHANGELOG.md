@@ -1,3 +1,22 @@
+## 6.0.0-rc3 (2021-11-24)
+
+### Changes
+
+- Set stampable user_class_name without root identifier [#2215](https://github.com/AlchemyCMS/alchemy_cms/pull/2215) ([tvdeyen](https://github.com/tvdeyen))
+- Allow all possible args in tagged_with method [#2211](https://github.com/AlchemyCMS/alchemy_cms/pull/2211) ([robinboening](https://github.com/robinboening))
+
+### Fixes
+
+- fix(ImageCropper): Add dom ids to picture crop fields [#2219](https://github.com/AlchemyCMS/alchemy_cms/pull/2219) ([tvdeyen](https://github.com/tvdeyen))
+- Adjust tinymce skin assets urls again [#2218](https://github.com/AlchemyCMS/alchemy_cms/pull/2218) ([tvdeyen](https://github.com/tvdeyen))
+- Use relative path for tinymce font-face [#2214](https://github.com/AlchemyCMS/alchemy_cms/pull/2214) ([tvdeyen](https://github.com/tvdeyen))
+
+### Misc
+
+- Install correct npm package [#2204](https://github.com/AlchemyCMS/alchemy_cms/pull/2204) ([tvdeyen](https://github.com/tvdeyen))
+- Switch to cuprite for system testing [#2203](https://github.com/AlchemyCMS/alchemy_cms/pull/2203) ([tvdeyen](https://github.com/tvdeyen))
+- Upgrade webdrivers to version 5.0.0 [#2201](https://github.com/AlchemyCMS/alchemy_cms/pull/2201) ([depfu](https://github.com/apps/depfu))
+
 ## 6.0.0-rc2 (2021-10-13)
 
 - Fix init link dialog if used in tinymce [#2200](https://github.com/AlchemyCMS/alchemy_cms/pull/2200) ([tvdeyen](https://github.com/tvdeyen))
