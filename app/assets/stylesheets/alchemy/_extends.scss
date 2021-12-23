@@ -37,8 +37,8 @@
 
   &[disabled],
   &.disabled,
-  &[readonly],
-  &.readonly {
+  &:not(.flatpickr-input)[readonly],
+  &:not(.flatpickr-input).readonly {
     color: $form-field-disabled-text-color;
     background-color: $form-field-disabled-bg-color;
     cursor: default;
@@ -49,8 +49,8 @@
     cursor: not-allowed;
   }
 
-  &[readonly],
-  &.readonly {
+  &:not(.flatpickr-input)[readonly],
+  &:not(.flatpickr-input).readonly {
     pointer-events: none;
   }
 }
