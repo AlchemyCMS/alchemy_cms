@@ -4,7 +4,7 @@
     "guides:build": "vuepress build guides"
   },
   "devDependencies": {
-    "@vuepress/plugin-google-analytics": "^1.9.4",
+    "@vuepress/plugin-google-analytics": "^1.9.5",
     "vuepress": "^1.9.4"
   }
 }

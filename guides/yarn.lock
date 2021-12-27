@@ -1324,12 +1324,12 @@
     "@vuepress/types" "1.9.4"
     lodash.debounce "^4.0.8"
 
-"@vuepress/plugin-google-analytics@^1.9.4":
-  version "1.9.4"
-  resolved "https://registry.yarnpkg.com/@vuepress/plugin-google-analytics/-/plugin-google-analytics-1.9.4.tgz#c554e932e2d702e0b1b1ba7c7430248cf2f529e0"
-  integrity sha512-2zfh6Y4MGo6/wvOfbYi0QmI+9gEq0hVHGkx84GBGRZ9u3TZcIh9JnM39cS89fdRM9soI1ccHdxoZ3EtbF3tzFw==
+"@vuepress/plugin-google-analytics@^1.9.5":
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/@vuepress/plugin-google-analytics/-/plugin-google-analytics-1.9.5.tgz#269d3ebea2a43bb0eee1deb8d6e2a5438dbe46f0"
+  integrity sha512-tuEDq/5xwdK//0W3FZgAGJgTRlgV15fdVm6Nbo/nn2K/O0SmgJd3exybblZCOg2ZiVB8IGDyqzCflINc7u6G8Q==
   dependencies:
-    "@vuepress/types" "1.9.4"
+    "@vuepress/types" "1.9.5"
 
 "@vuepress/plugin-last-updated@1.9.4":
   version "1.9.4"
@@ -1412,6 +1412,15 @@
   version "1.9.4"
   resolved "https://registry.yarnpkg.com/@vuepress/types/-/types-1.9.4.tgz#e3380cff1a1e8f4f925181280c957c13383b7f10"
   integrity sha512-I/dArssaOeYyPg9/OKyMm0jj+zNHm72Zj+bu7umfdg7gR0m1Ild9bwUn4Fs/XTZb4Kan/YIcWelxvvG9NGSTBQ==
+  dependencies:
+    "@types/markdown-it" "^10.0.0"
+    "@types/webpack-dev-server" "^3"
+    webpack-chain "^6.0.0"
+
+"@vuepress/types@1.9.5":
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/@vuepress/types/-/types-1.9.5.tgz#9fe265fac3236cd5f9c01216553825461d5eca9b"
+  integrity sha512-fu1Wyi+cPFyn7nfxNH4MVvU5glYvRB0RMI7besq9kiI/KkZJPb2G1hITopECJOGk+6G/cOU/iSdUDUHH4GQLgA==
   dependencies:
     "@types/markdown-it" "^10.0.0"
     "@types/webpack-dev-server" "^3"
