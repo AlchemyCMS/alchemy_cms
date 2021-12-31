@@ -144,7 +144,7 @@ module Alchemy
     after_update :create_legacy_url,
       if: :saved_change_to_urlname?
 
-    after_update -> { nodes.update_all(updated_at: Time.current) }
+    after_update :touch_nodes
 
     # Concerns
     include PageScopes
@@ -602,6 +602,11 @@ module Alchemy
     # Stores the old urlname in a LegacyPageUrl
     def create_legacy_url
       legacy_urls.find_or_create_by(urlname: urlname_before_last_save)
+    end
+
+    def touch_nodes
+      ids = node_ids + nodes.flat_map { |n| n.ancestors.pluck(:id) }
+      Node.where(id: ids).touch_all
     end
   end
 end
