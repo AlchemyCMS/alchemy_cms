@@ -72,13 +72,6 @@ jobs:
           sudo apt update -qq
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
-      - name: Install bundler
-        run: |
-          gem install bundler
-      - name: Install bundle
-        timeout-minutes: 10
-        run: |
-          bundle install --jobs 4 --retry 3
       - name: Restore node modules cache
         id: yarn-cache
         uses: actions/cache@v2.1.3
