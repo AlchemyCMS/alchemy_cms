@@ -51,9 +51,9 @@ Capybara.server = :puma
 FactoryBot.definition_file_paths.append(Alchemy::TestSupport.factories_path)
 FactoryBot.find_definitions
 
-require "capybara/cuprite"
-Capybara.register_driver(:cuprite) do |app|
-  Capybara::Cuprite::Driver.new(app, {
+require "capybara/apparition"
+Capybara.register_driver(:apparition) do |app|
+  Capybara::Apparition::Driver.new(app, {
     window_size: [1280, 800],
   })
 end
@@ -102,6 +102,6 @@ RSpec.configure do |config|
   end
 
   config.before(:each, type: :system, js: true) do
-    driven_by :cuprite
+    driven_by :apparition
   end
 end
