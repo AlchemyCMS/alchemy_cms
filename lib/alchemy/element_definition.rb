@@ -50,9 +50,8 @@ module Alchemy
         if File.exist?(definitions_file_path)
           YAML.safe_load(
             ERB.new(File.read(definitions_file_path)).result,
-            YAML_WHITELIST_CLASSES,
-            [],
-            true
+            permitted_classes: YAML_WHITELIST_CLASSES,
+            aliases: true,
           ) || []
         else
           raise LoadError,

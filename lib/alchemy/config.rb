@@ -55,7 +55,11 @@ module Alchemy
       # If it does not exist, or its empty, it returns an empty Hash.
       #
       def read_file(file)
-        YAML.safe_load(ERB.new(File.read(file)).result, YAML_WHITELIST_CLASSES, [], true) || {}
+        YAML.safe_load(
+          ERB.new(File.read(file)).result,
+          permitted_classes: YAML_WHITELIST_CLASSES,
+          aliases: true,
+        ) || {}
       rescue Errno::ENOENT
         {}
       end
