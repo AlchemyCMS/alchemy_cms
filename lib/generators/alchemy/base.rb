@@ -35,7 +35,7 @@ module Alchemy
       def load_alchemy_yaml(name)
         YAML.safe_load(
           ERB.new(File.read(Rails.root.join("config", "alchemy", name))).result,
-          permitted_classes: YAML_WHITELIST_CLASSES,
+          permitted_classes: YAML_PERMITTED_CLASSES,
           aliases: true,
         )
       rescue Errno::ENOENT

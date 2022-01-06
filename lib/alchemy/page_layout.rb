@@ -153,7 +153,7 @@ module Alchemy
         if File.exist?(layouts_file_path)
           YAML.safe_load(
             ERB.new(File.read(layouts_file_path)).result,
-            permitted_classes: YAML_WHITELIST_CLASSES,
+            permitted_classes: YAML_PERMITTED_CLASSES,
             aliases: true,
           ) || []
         else

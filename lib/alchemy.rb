@@ -3,7 +3,7 @@
 require "alchemy/admin/preview_url"
 
 module Alchemy
-  YAML_WHITELIST_CLASSES = %w(Symbol Date Regexp)
+  YAML_PERMITTED_CLASSES = %w(Symbol Date Regexp)
 
   # Define page preview sources
   #
@@ -36,8 +36,8 @@ module Alchemy
   #
   def self.preview_sources
     @_preview_sources ||= begin
-      Set.new << Alchemy::Admin::PreviewUrl
-    end
+        Set.new << Alchemy::Admin::PreviewUrl
+      end
   end
 
   # Define page publish targets
