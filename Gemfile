@@ -48,3 +48,10 @@ group :development, :test do
     gem "brakeman", require: false
   end
 end
+
+# Ruby 3.1 split out the net-smtp gem
+# Necessary until https://github.com/mikel/mail/pull/1439
+# got merged and released.
+if Gem.ruby_version >= Gem::Version.new("3.1.0")
+  gem "net-smtp", "~> 0.3.0", require: false
+end
