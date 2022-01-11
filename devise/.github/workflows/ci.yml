@@ -23,9 +23,9 @@ jobs:
           - 5.1-stable
           - main
         ruby:
-          - '2.5.8'
-          - '2.6.6'
-          - '2.7.2'
+          - '2.5'
+          - '2.6'
+          - '2.7'
         database:
           - mysql
           - postgresql
