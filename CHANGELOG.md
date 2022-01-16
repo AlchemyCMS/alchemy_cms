@@ -1,3 +1,11 @@
+## 6.0.0-rc4 (2022-01-16)
+
+### Changes
+
+- Allow ransack 2.5.0 [#2223](https://github.com/AlchemyCMS/alchemy_cms/pull/2223) ([depfu](https://github.com/apps/depfu))
+- make the admin error tracker customizable [#2220](https://github.com/AlchemyCMS/alchemy_cms/pull/2220) ([DarkSwoop](https://github.com/DarkSwoop))
+- Update Flatpickr to 4.6.9 [#2197](https://github.com/AlchemyCMS/alchemy_cms/pull/2197) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.0-rc3 (2021-11-24)
 
 ### Changes
