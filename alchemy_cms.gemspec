@@ -32,7 +32,7 @@ Gem::Specification.new do |gem|
     gem.add_runtime_dependency rails_gem, [">= 6.0", "< 6.2"]
   end
 
-  gem.add_runtime_dependency "active_model_serializers", ["~> 0.10.0"]
+  gem.add_runtime_dependency "active_model_serializers", ["0.10.13"]
   gem.add_runtime_dependency "acts_as_list", [">= 0.3", "< 2"]
   gem.add_runtime_dependency "awesome_nested_set", ["~> 3.1"]
   gem.add_runtime_dependency "cancancan", [">= 2.1", "< 4.0"]
