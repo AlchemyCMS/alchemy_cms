@@ -19,11 +19,12 @@ module Alchemy
       NonStupidDigestAssets.whitelist += [/^tinymce\//]
     end
 
-    # Gutentag downcases all tgas before save.
-    # We support having tags with uppercase characters.
-    # The Gutentag search is case insensitive.
-    initializer "alchemy.gutentag_normalizer" do
+    # Gutentag downcases all tags before save
+    # and Gutentag validations are not case sensitive.
+    # But we support having tags with uppercase characters.
+    config.to_prepare do
       Gutentag.normaliser = ->(value) { value.to_s }
+      Gutentag.tag_validations = Alchemy::TagValidations
     end
 
     # Custom Ransack sort arrows
