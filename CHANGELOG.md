@@ -1,3 +1,8 @@
+## 4.6.7 (2022-01-23)
+
+- fix(CellsMigration): Do not autogenerate nested elements
+- make the admin error tracker customizable
+
 ## 4.6.6 (2021-11-24)
 
 - Give overlay picture spec more time to load images
