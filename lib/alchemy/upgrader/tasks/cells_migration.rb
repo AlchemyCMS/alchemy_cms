@@ -31,6 +31,7 @@ module Alchemy::Upgrader::Tasks
       elements = Alchemy::Element.where(cell_id: cell.id).order(position: :asc)
 
       if fixed_element.new_record?
+        fixed_element.autogenerate_nested_elements = false
         fixed_element.save!
         Alchemy::Element.acts_as_list_no_update do
           elements.update_all(parent_element_id: fixed_element.id)
