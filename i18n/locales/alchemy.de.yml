@@ -497,6 +497,8 @@ de:
     no_files_in_archive: "Sie haben noch keine Dateien in Ihrem Archiv."
     no_images_in_archive: "Sie haben keine Bilder in Ihrem Archiv"
     no_more_elements_to_add: "Keine weiteren Elemente verfügbar."
+    no_resource_found:
+      alchemy/node: "<h2>Sie haben bisher keine Menüs.</h2><p>Mittels Menüs können Benutzer Ihre Webseite navigieren. Sie können mehrere Menüs auf Ihrer Website anzeigen. Wie viele hängt von Ihrem Website-Template ab.</p><p>Bitte wählen Sie aus welches Menü Sie erstellen wollen.</p>"
     no_search_results: "Keine Suchergebnisse."
     "not a valid image": "Keine valide Bilddatei."
     "or": 'oder'
@@ -839,6 +841,7 @@ de:
       alchemy/legacy_page_url:
         urlname: "URL-Pfad"
       alchemy/node:
+        menu_type: Menü-Typ
         url: URL
         title: Link-Titel
         nofollow: Suchmaschinen den Link nicht folgen lassen
