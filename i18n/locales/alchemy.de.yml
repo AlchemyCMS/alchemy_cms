@@ -16,7 +16,7 @@ de:
     #
     menu_names:
       main_menu: Hauptmenü
-      footer_menut: Footermenü
+      footer_menu: Footermenü
 
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
