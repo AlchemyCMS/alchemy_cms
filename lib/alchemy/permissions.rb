@@ -220,6 +220,7 @@ module Alchemy
         :update,
         :unlock,
         :visit,
+        :tree,
         to: :edit_content
     end
 

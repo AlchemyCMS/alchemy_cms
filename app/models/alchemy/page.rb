@@ -82,7 +82,7 @@ module Alchemy
 
     acts_as_nested_set(dependent: :destroy, scope: [:layoutpage, :language_id])
 
-    stampable stamper_class_name: Alchemy.user_class_name
+    stampable stamper_class_name: Alchemy.user_class.name
 
     belongs_to :language
 
@@ -162,6 +162,14 @@ module Alchemy
       #
       def url_path_class=(klass)
         @_url_path_class = klass
+      end
+
+      def alchemy_resource_filters
+        %w[published not_public restricted]
+      end
+
+      def searchable_alchemy_resource_attributes
+        %w[name urlname title]
       end
 
       # Used to store the current page previewed in the edit page template.

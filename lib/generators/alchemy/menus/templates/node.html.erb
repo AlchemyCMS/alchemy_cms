@@ -1,4 +1,4 @@
-<%% cache node do %>
+<%% cache [node, @page, @preview_mode] do %>
   <%%= content_tag :li, class: ['nav-item', node.children.any? ? 'dropdown' : nil].compact do %>
     <%%= link_to_if node.url,
       node.name,

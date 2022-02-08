@@ -38,10 +38,7 @@ Alchemy.ElementEditors =
       @onSaveElement(e, data)
     # Listen to postMessage messages from the preview frame
     window.addEventListener 'message', (e) =>
-      if e.origin == window.location.origin
-        @onMessage(e.data)
-      else
-        console.warn 'Unsafe message origin!', e.origin
+      @onMessage(e.data)
       true
     return
 

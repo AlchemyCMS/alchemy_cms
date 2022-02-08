@@ -1,0 +1,27 @@
+<table class="list">
+  <thead>
+    <tr>
+      <th class="icon"></th>
+      <th class="string name">
+        <%= sort_link [:alchemy, @query],
+          "name",
+          Alchemy::Page.human_attribute_name(:name),
+          default_order: "asc" %>
+      </th>
+      <th><%= Alchemy::Page.human_attribute_name(:urlname) %></th>
+      <th><%= Alchemy::Page.human_attribute_name(:page_type) %></th>
+      <th><%= Alchemy::Page.human_attribute_name(:tag_list) %></th>
+      <th>
+        <%= sort_link [:alchemy, @query],
+          :updated_at,
+          Alchemy::Page.human_attribute_name(:updated_at),
+          default_order: "desc" %>
+      </th>
+      <th class="status center"><%= Alchemy::Page.human_attribute_name(:status) %></th>
+      <th class="tools"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%= render partial: "table_row", collection: @pages, as: "page" %>
+  </tbody>
+</table>

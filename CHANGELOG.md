@@ -1,6 +1,147 @@
+## 5.2.5 (2021-11-24)
+
+- Adjust tinymce skin assets urls again ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.2.4 (2021-11-17)
+
+- Set stampable user_class_name without root identifier ([tvdeyen](https://github.com/tvdeyen))
+- Use relative path for tinymce font-face ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.2.3 (2021-10-26)
+
+- Make sure to install correct npm package ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.2.2 (2021-09-15)
+
+- Return only pages from current site in api [#2169](https://github.com/AlchemyCMS/alchemy_cms/pull/2169) ([afdev82](https://github.com/afdev82))
+- Improve cache key defaults for menus #2138 [#2160](https://github.com/AlchemyCMS/alchemy_cms/pull/2160) ([oneiros](https://github.com/oneiros))
+- generate picture thumbnails only for pictures with convertible format [#2130](https://github.com/AlchemyCMS/alchemy_cms/pull/2130) ([afdev82](https://github.com/afdev82))
+- Backport #2114 to v5.2 [#2116](https://github.com/AlchemyCMS/alchemy_cms/pull/2116) ([afdev82](https://github.com/afdev82))
+- Add webpacker tasks to Alchemy upgrader [#2115](https://github.com/AlchemyCMS/alchemy_cms/pull/2115) ([dbwinger](https://github.com/dbwinger))
+
+## 5.2.1 (2021-05-13)
+
+- Fix alchemy:generate:thumbnails task [#2092](https://github.com/AlchemyCMS/alchemy_cms/pull/2092) ([afdev82](https://github.com/afdev82))
+- Do not attempt to generate thumbs for svg files. [#2090](https://github.com/AlchemyCMS/alchemy_cms/pull/2090) ([oneiros](https://github.com/oneiros))
+
+## 5.2.0 (2021-05-06)
+
+- Backport #2049 to 5.2 [#2086](https://github.com/AlchemyCMS/alchemy_cms/pull/2086) ([rickythefox](https://github.com/rickythefox))
+- hotfix and deprecate page_active? helper [#2073](https://github.com/AlchemyCMS/alchemy_cms/pull/2073) ([robinboening](https://github.com/robinboening))
+
+## 5.2.0.rc1 (2021-02-17)
+
+### Changes
+
+- Change Factory loading mechanism to FactoryBots supported mechanism [#2030](https://github.com/AlchemyCMS/alchemy_cms/pull/2030) ([mamhoff](https://github.com/mamhoff))
+
+## 5.2.0.b1 (2021-02-11)
+
+### Features
+
+- Allow Element and Content deprecation notices [#1988](https://github.com/AlchemyCMS/alchemy_cms/pull/1988) ([tvdeyen](https://github.com/tvdeyen))
+- Add element definition api (based on PageLayout definitions) [#1986](https://github.com/AlchemyCMS/alchemy_cms/pull/1986) ([stockime](https://github.com/stockime))
+
+### Changes
+
+- Fix jpeg quality option for jpeg files [#2016](https://github.com/AlchemyCMS/alchemy_cms/pull/2016) ([kulturbande](https://github.com/kulturbande))
+- Pin Ransack to below 2.4.2 [#2012](https://github.com/AlchemyCMS/alchemy_cms/pull/2012) ([tvdeyen](https://github.com/tvdeyen))
+- Fix setting current_user in integration helper [#2006](https://github.com/AlchemyCMS/alchemy_cms/pull/2006) ([tvdeyen](https://github.com/tvdeyen))
+- Update mime type icons and translations [#2002](https://github.com/AlchemyCMS/alchemy_cms/pull/2002) ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate page layout change [#1993](https://github.com/AlchemyCMS/alchemy_cms/pull/1993) ([tvdeyen](https://github.com/tvdeyen))
+- Fix Ruby 2.7 deprecations [#1989](https://github.com/AlchemyCMS/alchemy_cms/pull/1989) ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate trash [#1985](https://github.com/AlchemyCMS/alchemy_cms/pull/1985) ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate elements fallbacks [#1982](https://github.com/AlchemyCMS/alchemy_cms/pull/1982) ([tvdeyen](https://github.com/tvdeyen))
+
+### Misc
+
+- Use Ubuntu 18.04 on GH actions [#2018](https://github.com/AlchemyCMS/alchemy_cms/pull/2018) ([tvdeyen](https://github.com/tvdeyen))
+- [ruby - main] Upgrade rubocop to version 1.9.0 [#2011](https://github.com/AlchemyCMS/alchemy_cms/pull/2011) ([depfu](https://github.com/apps/depfu))
+- [ruby - main] Upgrade rubocop to version 1.8.1 [#1999](https://github.com/AlchemyCMS/alchemy_cms/pull/1999) ([depfu](https://github.com/apps/depfu))
+- Update brakeman ignores [#1992](https://github.com/AlchemyCMS/alchemy_cms/pull/1992) ([tvdeyen](https://github.com/tvdeyen))
+- [ruby - main] Upgrade rubocop to version 1.6.1 [#1978](https://github.com/AlchemyCMS/alchemy_cms/pull/1978) ([depfu](https://github.com/apps/depfu))
+- [ruby - main] Upgrade simplecov to version 0.20.0 [#1971](https://github.com/AlchemyCMS/alchemy_cms/pull/1971) ([depfu](https://github.com/apps/depfu))
+
+## 5.1.2 (2021-01-26)
+
+- Allow to safe hidden elements [#2007](https://github.com/AlchemyCMS/alchemy_cms/pull/2007) ([tvdeyen](https://github.com/tvdeyen))
+
+
+## 5.1.1 (2021-01-12)
+
+- Fix copy element feature [#1996](https://github.com/AlchemyCMS/alchemy_cms/pull/1996) ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.1.0 (2020-12-18)
+
+### Features
+
+- Allow pound sign in legacy url [#1980](https://github.com/AlchemyCMS/alchemy_cms/pull/1980) ([robinboening](https://github.com/robinboening))
+- Adjust element editor UI [#1979](https://github.com/AlchemyCMS/alchemy_cms/pull/1979) ([tvdeyen](https://github.com/tvdeyen))
+- Always show the full page name in active page tab [#1972](https://github.com/AlchemyCMS/alchemy_cms/pull/1972) ([tvdeyen](https://github.com/tvdeyen))
+- Allow multiple preview sources [#1959](https://github.com/AlchemyCMS/alchemy_cms/pull/1959) ([tvdeyen](https://github.com/tvdeyen))
+- Add Publish Targets [#1957](https://github.com/AlchemyCMS/alchemy_cms/pull/1957) ([tvdeyen](https://github.com/tvdeyen))
+- Persist rendered picture variants [#1882](https://github.com/AlchemyCMS/alchemy_cms/pull/1882) ([tvdeyen](https://github.com/tvdeyen))
+- Store current pictures size in session [#1927](https://github.com/AlchemyCMS/alchemy_cms/pull/1927) ([tvdeyen](https://github.com/tvdeyen))
+- Add support for custom mount points in Page::UrlPath [#1921](https://github.com/AlchemyCMS/alchemy_cms/pull/1921) ([tvdeyen](https://github.com/tvdeyen))
+- Allow to set a custom Page::UrlPath class [#1919](https://github.com/AlchemyCMS/alchemy_cms/pull/1919) ([tvdeyen](https://github.com/tvdeyen))
+- Introduce a pages list view [#1906](https://github.com/AlchemyCMS/alchemy_cms/pull/1906) ([tvdeyen](https://github.com/tvdeyen))
+
+### Changes
+
+- Fix height of search input field [#1973](https://github.com/AlchemyCMS/alchemy_cms/pull/1973) ([tvdeyen](https://github.com/tvdeyen))
+- Load select2 from assets folder [#1961](https://github.com/AlchemyCMS/alchemy_cms/pull/1961) ([tvdeyen](https://github.com/tvdeyen))
+- Do not abort if user class cannot be found [#1950](https://github.com/AlchemyCMS/alchemy_cms/pull/1950) ([tvdeyen](https://github.com/tvdeyen))
+- Deprivatize useful picture view methods [#1936](https://github.com/AlchemyCMS/alchemy_cms/pull/1936) ([mickenorlen](https://github.com/mickenorlen))
+- Unset render_size on layout default selection [#1935](https://github.com/AlchemyCMS/alchemy_cms/pull/1935) ([mickenorlen](https://github.com/mickenorlen))
+- Dont show sizes selection if using srcset [#1934](https://github.com/AlchemyCMS/alchemy_cms/pull/1934) ([mickenorlen](https://github.com/mickenorlen))
+- Change all Boolean columns to never be null [#1933](https://github.com/AlchemyCMS/alchemy_cms/pull/1933) ([mamhoff](https://github.com/mamhoff))
+- Autoselect first if only one layout available [#1932](https://github.com/AlchemyCMS/alchemy_cms/pull/1932) ([mickenorlen](https://github.com/mickenorlen))
+- Remove page from search form query [#1928](https://github.com/AlchemyCMS/alchemy_cms/pull/1928) ([tvdeyen](https://github.com/tvdeyen))
+- Allow coffee-rails 5 [#1926](https://github.com/AlchemyCMS/alchemy_cms/pull/1926) ([sechix](https://github.com/sechix))
+- Update documentation [#1917](https://github.com/AlchemyCMS/alchemy_cms/pull/1917) ([dhughesbc](https://github.com/dhughesbc))
+- Remove deprecated Attachment#urlname [#1911](https://github.com/AlchemyCMS/alchemy_cms/pull/1911) ([tvdeyen](https://github.com/tvdeyen))
+- Remove redirect_to_public_child flag and feature [#1910](https://github.com/AlchemyCMS/alchemy_cms/pull/1910) ([tvdeyen](https://github.com/tvdeyen))
+- Remove toolbar helper [#1909](https://github.com/AlchemyCMS/alchemy_cms/pull/1909) ([tvdeyen](https://github.com/tvdeyen))
+- Two minor CSS fixes [#1908](https://github.com/AlchemyCMS/alchemy_cms/pull/1908) ([tvdeyen](https://github.com/tvdeyen))
+- Do not convert JPG images into JPEG [#1905](https://github.com/AlchemyCMS/alchemy_cms/pull/1905) ([tvdeyen](https://github.com/tvdeyen))
+- Full text search respects filters [#1901](https://github.com/AlchemyCMS/alchemy_cms/pull/1901) ([tvdeyen](https://github.com/tvdeyen))
+- Do not add id attributes to hidden fields in search and filters [#1899](https://github.com/AlchemyCMS/alchemy_cms/pull/1899) ([tvdeyen](https://github.com/tvdeyen))
+- Do not freeze common_search_filter_includes [#1898](https://github.com/AlchemyCMS/alchemy_cms/pull/1898) ([tvdeyen](https://github.com/tvdeyen))
+- Refactor sidebar CSS [#1897](https://github.com/AlchemyCMS/alchemy_cms/pull/1897) ([tvdeyen](https://github.com/tvdeyen))
+- Fix tag-list height [#1896](https://github.com/AlchemyCMS/alchemy_cms/pull/1896) ([tvdeyen](https://github.com/tvdeyen))
+- Fix vertical position of site name in page tab [#1895](https://github.com/AlchemyCMS/alchemy_cms/pull/1895) ([tvdeyen](https://github.com/tvdeyen))
+- Support nested controllers in modules [#1894](https://github.com/AlchemyCMS/alchemy_cms/pull/1894) ([tvdeyen](https://github.com/tvdeyen))
+- Always make pages taggable [#1893](https://github.com/AlchemyCMS/alchemy_cms/pull/1893) ([tvdeyen](https://github.com/tvdeyen))
+- Fix editing sites [#1891](https://github.com/AlchemyCMS/alchemy_cms/pull/1891) ([mamhoff](https://github.com/mamhoff))
+- Fix missing help_text_text translations [#1888](https://github.com/AlchemyCMS/alchemy_cms/pull/1888) ([gr8bit](https://github.com/gr8bit))
+
+### Misc
+
+- Move away from Travis CI [#1981](https://github.com/AlchemyCMS/alchemy_cms/pull/1981) ([tvdeyen](https://github.com/tvdeyen))
+- Remove poltergeist and phantomjs leftovers [#1970](https://github.com/AlchemyCMS/alchemy_cms/pull/1970) ([tvdeyen](https://github.com/tvdeyen))
+- [ruby - main] Upgrade rubocop to version 1.1.0 [#1958](https://github.com/AlchemyCMS/alchemy_cms/pull/1958) ([depfu](https://github.com/apps/depfu))
+- Remove greetings action [#1956](https://github.com/AlchemyCMS/alchemy_cms/pull/1956) ([tvdeyen](https://github.com/tvdeyen))
+- [ruby] Upgrade rubocop to version 1.0.0 [#1952](https://github.com/AlchemyCMS/alchemy_cms/pull/1952) ([depfu](https://github.com/apps/depfu))
+- [ruby] Upgrade rubocop to version 0.93.1 [#1948](https://github.com/AlchemyCMS/alchemy_cms/pull/1948) ([depfu](https://github.com/apps/depfu))
+- [ruby] Upgrade puma to version 5.0.2 [#1944](https://github.com/AlchemyCMS/alchemy_cms/pull/1944) ([depfu](https://github.com/apps/depfu))
+- [ruby] Upgrade rubocop to version 0.92.0 [#1942](https://github.com/AlchemyCMS/alchemy_cms/pull/1942) ([depfu](https://github.com/apps/depfu))
+- Use Node 12 on CI runs [#1925](https://github.com/AlchemyCMS/alchemy_cms/pull/1925) ([tvdeyen](https://github.com/tvdeyen))
+- [ruby] Upgrade rubocop to version 0.89.0 [#1920](https://github.com/AlchemyCMS/alchemy_cms/pull/1920) ([depfu](https://github.com/apps/depfu))
+- Move back to Travis CI [#1907](https://github.com/AlchemyCMS/alchemy_cms/pull/1907) ([tvdeyen](https://github.com/tvdeyen))
+- [ruby] Upgrade rubocop to version 0.88.0 [#1892](https://github.com/AlchemyCMS/alchemy_cms/pull/1892) ([depfu](https://github.com/apps/depfu))
+- [ruby] Upgrade rubocop to version 0.87.1 [#1889](https://github.com/AlchemyCMS/alchemy_cms/pull/1889) ([depfu](https://github.com/apps/depfu))
+
+## 5.0.3 (2021-01-12)
+
+- Fix copy element feature [#1996](https://github.com/AlchemyCMS/alchemy_cms/pull/1996) ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.0.2 (2020-12-18)
+
+- Fix page sorting [#1984](https://github.com/AlchemyCMS/alchemy_cms/pull/1984) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.0.1 (2020-09-29)
 
-- Better image alt text support [#1940](https://github.com/AlchemyCMS/alchemy_cms/pull/1940) ([tvdeyen](https://github.com/tvdeyen))
+- [a11y] Better image alt text support [#1940](https://github.com/AlchemyCMS/alchemy_cms/pull/1940) ([tvdeyen](https://github.com/tvdeyen))
 
 ## 5.0.0 (2020-07-17)
 
@@ -8,7 +149,7 @@
 - Do not enable image cropper if file is missing [#1903](https://github.com/AlchemyCMS/alchemy_cms/pull/1903) ([tvdeyen](https://github.com/tvdeyen))
 - Always show original image as zoomed image [#1902](https://github.com/AlchemyCMS/alchemy_cms/pull/1902) ([tvdeyen](https://github.com/tvdeyen))
 - Rename Attachment#urlname into slug [#1848](https://github.com/AlchemyCMS/alchemy_cms/pull/1848) ([tvdeyen](https://github.com/tvdeyen))
-- Deprecate toolbar helper ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate toolbar helper [#1900](https://github.com/AlchemyCMS/alchemy_cms/pull/1900) ([tvdeyen](https://github.com/tvdeyen))
 - Deprecate redirect_to_public_child ([tvdeyen](https://github.com/tvdeyen))
 - Add --auto-accept option to installer ([tvdeyen](https://github.com/tvdeyen))
 - Move all installer code into install generator ([tvdeyen](https://github.com/tvdeyen))

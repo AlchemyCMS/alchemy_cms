@@ -9,7 +9,6 @@ module Alchemy
   describe "AuthAccessors" do
     describe ".user_class_name" do
       before do
-        # prevent memoization
         Alchemy.user_class_name = "DummyClassName"
       end
 
@@ -23,9 +22,65 @@ module Alchemy
       it "returns user_class_name with :: prefix" do
         expect(Alchemy.user_class_name).to eq("::DummyClassName")
       end
+    end
 
-      after do
-        Alchemy.user_class_name = "DummyClassName"
+    describe ".user_class" do
+      context "with no custom user_class_name set" do
+        before do
+          Alchemy.user_class_name = "User"
+        end
+
+        context "and the default user class exists" do
+          class ::User; end
+
+          it "returns the default user class" do
+            expect(Alchemy.user_class).to be(::User)
+          end
+        end
+
+        context "and the default user class does not exist" do
+          before do
+            if Object.constants.include?(:User)
+              Object.send(:remove_const, :User)
+            end
+          end
+
+          it "returns nil" do
+            expect(Alchemy.user_class).to be_nil
+          end
+
+          it "logs warning" do
+            expect(Rails.logger).to receive(:warn).with(a_string_matching("AlchemyCMS cannot find any user class"))
+            Alchemy.user_class
+          end
+        end
+      end
+
+      context "with custom user_class_name set" do
+        before do
+          Alchemy.user_class_name = "DummyUser"
+        end
+
+        context "and the custom User class exists" do
+          it "returns the custom user class" do
+            expect(Alchemy.user_class).to be(::DummyUser)
+          end
+        end
+
+        context "and the custom user class does not exist" do
+          before do
+            Alchemy.user_class_name = "NoUser"
+          end
+
+          it "returns nil" do
+            expect(Alchemy.user_class).to be_nil
+          end
+
+          it "logs warning" do
+            expect(Rails.logger).to receive(:warn).with(a_string_matching("AlchemyCMS cannot find any user class"))
+            Alchemy.user_class
+          end
+        end
       end
     end
 
@@ -49,6 +104,11 @@ module Alchemy
       it "has default value for Alchemy.logout_method" do
         expect(Alchemy.logout_method).to eq("delete")
       end
+    end
+
+    after do
+      Alchemy.user_class_name = "DummyUser"
+      Alchemy.class_variable_set("@@user_class", nil)
     end
   end
 end

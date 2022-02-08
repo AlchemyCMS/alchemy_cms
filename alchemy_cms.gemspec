@@ -33,11 +33,10 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency 'originator',                       ['~> 3.1']
   gem.add_runtime_dependency 'non-stupid-digest-assets',         ['~> 1.0.8']
   gem.add_runtime_dependency 'rails',                            ['>= 5.2.0', '< 6.1']
-  gem.add_runtime_dependency 'ransack',                          ['>= 1.8', '< 3.0']
+  gem.add_runtime_dependency 'ransack',                          ['>= 1.8', '< 2.4.2'] # 2.4.2 dropped Ruby 2.5 support in a patch level release
   gem.add_runtime_dependency 'request_store',                    ['~> 1.2']
   gem.add_runtime_dependency 'responders',                       ['>= 2.0', '< 4.0']
   gem.add_runtime_dependency 'sassc-rails',                      ['~> 2.1']
-  gem.add_runtime_dependency 'select2-rails',                    ['>= 3.5.9.1', '< 4.0']
   gem.add_runtime_dependency 'simple_form',                      ['>= 4.0', '< 6']
   gem.add_runtime_dependency 'sprockets',                        ['>= 3.0', '< 5']
   gem.add_runtime_dependency 'turbolinks',                       ['>= 2.5']
@@ -50,10 +49,11 @@ Gem::Specification.new do |gem|
   gem.add_development_dependency 'rails-controller-testing',     ['~> 1.0']
   gem.add_development_dependency 'rspec-activemodel-mocks',      ['~> 1.0']
   gem.add_development_dependency 'rspec-rails',                  ['>= 4.0.0.beta2']
-  gem.add_development_dependency 'simplecov',                    ['~> 0.17.1']
+  gem.add_development_dependency 'simplecov',                    ['~> 0.20']
   gem.add_development_dependency 'webdrivers',                   ['~> 4.0']
   gem.add_development_dependency 'webmock',                      ['~> 3.3']
   gem.add_development_dependency 'shoulda-matchers',             ['~> 4.0']
+  gem.add_development_dependency 'timecop',                      ['~> 0.9']
 
   gem.post_install_message = <<-MSG
 -------------------------------------------------------------

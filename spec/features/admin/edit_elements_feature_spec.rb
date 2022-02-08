@@ -35,4 +35,17 @@ RSpec.describe "The edit elements feature", type: :system do
       expect(page).to have_selector(".add-nestable-element-button")
     end
   end
+
+  describe "Copy element", :js do
+    let!(:element) { create(:alchemy_element, page: a_page) }
+
+    scenario "is possible to copy element into clipboard" do
+      visit alchemy.admin_elements_path(page_id: element.page_id)
+      expect(page).to have_selector(".element-toolbar")
+      find(".fa-clone").click
+      within "#flash_notices" do
+        expect(page).to have_content(/Copied Article/)
+      end
+    end
+  end
 end

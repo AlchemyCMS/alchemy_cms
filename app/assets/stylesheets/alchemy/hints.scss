@@ -27,7 +27,8 @@
 
   > .hint-bubble {
     visibility: hidden;
-    background: $light_yellow;
+    background-color: $hint-background-color;
+    color: $hint-text-color;
     border-radius: $default-border-radius;
     box-shadow: 0px 4px 8px rgba(0, 0, 0, .3);
     position: absolute;

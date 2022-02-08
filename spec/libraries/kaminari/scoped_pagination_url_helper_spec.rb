@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe Kaminari::Helpers::Tag do
-  subject { Kaminari::Helpers::Tag.new(template, options) }
+  subject { Kaminari::Helpers::Tag.new(template, **options) }
 
   let(:template) { double(params: {}) }
   let(:scope)    { double(url_for: "") }

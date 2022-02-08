@@ -189,76 +189,74 @@ RSpec.describe Alchemy::PictureVariant do
     end
   end
 
-  context "when jpg format is requested" do
-    let(:options) do
-      { format: "jpg" }
-    end
-
-    context "and the image file format is not JPG" do
-      it "sets the default quality" do
-        step = subject.steps[0]
-        expect(step.name).to eq(:encode)
-        expect(step.arguments).to eq(["jpg", "-quality 85"])
+  %w[jpg jpeg].each do |format|
+    context "when #{format} format is requested" do
+      let(:options) do
+        { format: format }
       end
 
-      context "and quality is passed" do
-        let(:options) do
-          { format: "jpg", quality: "30" }
-        end
-
-        it "sets the quality" do
+      context "and the image file format is not JPG" do
+        it "sets the default quality" do
           step = subject.steps[0]
           expect(step.name).to eq(:encode)
-          expect(step.arguments).to eq(["jpg", "-quality 30"])
+          expect(step.arguments).to eq([format, "-quality 85"])
+        end
+
+        context "and quality is passed" do
+          let(:options) do
+            { format: format, quality: "30" }
+          end
+
+          it "sets the quality" do
+            step = subject.steps[0]
+            expect(step.name).to eq(:encode)
+            expect(step.arguments).to eq([format, "-quality 30"])
+          end
         end
       end
-    end
 
-    context "and image has jpg format" do
-      let(:alchemy_picture) do
-        build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "jpg")
+      context "and image has jpg format" do
+        let(:alchemy_picture) do
+          build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "jpg")
+        end
+
+        it "does not convert the picture format" do
+          expect(subject).to_not respond_to(:steps)
+        end
+
+        context "and quality is passed in options" do
+          let(:options) do
+            { format: format, quality: "30" }
+          end
+
+          it "sets the quality" do
+            step = subject.steps[0]
+            expect(step.name).to eq(:encode)
+            expect(step.arguments).to eq([format, "-quality 30"])
+          end
+        end
       end
 
-      it "does not convert the picture format" do
-        expect(subject).to_not respond_to(:steps)
-      end
-    end
+      context "and image has jpeg format" do
+        let(:alchemy_picture) do
+          build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "jpeg")
+        end
 
-    context "and image has jpeg format" do
-      let(:alchemy_picture) do
-        build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "jpeg")
-      end
+        it "does not convert the picture format" do
+          expect(subject).to_not respond_to(:steps)
+        end
 
-      it "does not convert the picture format" do
-        expect(subject).to_not respond_to(:steps)
-      end
-    end
-  end
+        context "and quality is passed in options" do
+          let(:options) do
+            { format: format, quality: "30" }
+          end
 
-  context "when jpeg format is requested" do
-    let(:options) do
-      {
-        format: "jpeg",
-      }
-    end
-
-    context "and image has jpg format" do
-      let(:alchemy_picture) do
-        build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "jpg")
-      end
-
-      it "does not convert the picture format" do
-        expect(subject).to_not respond_to(:steps)
-      end
-    end
-
-    context "and image has jpeg format" do
-      let(:alchemy_picture) do
-        build_stubbed(:alchemy_picture, image_file: image_file, image_file_format: "jpeg")
-      end
-
-      it "does not convert the picture format" do
-        expect(subject).to_not respond_to(:steps)
+          it "sets the quality" do
+            step = subject.steps[0]
+            expect(step.name).to eq(:encode)
+            expect(step.arguments).to eq([format, "-quality 30"])
+          end
+        end
       end
     end
   end

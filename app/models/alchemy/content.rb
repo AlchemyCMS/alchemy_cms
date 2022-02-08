@@ -46,9 +46,12 @@ module Alchemy
 
     delegate :restricted?, to: :page, allow_nil: true
     delegate :trashed?, to: :element, allow_nil: true
+    deprecate :trashed?, deprecator: Alchemy::Deprecation
     delegate :public?, to: :element, allow_nil: true
 
     class << self
+      deprecate :not_trashed, deprecator: Alchemy::Deprecation
+
       # Returns the translated label for a content name.
       #
       # Translate it in your locale yml file:
@@ -187,6 +190,10 @@ module Alchemy
 
     def linked?
       essence && !essence.link.blank?
+    end
+
+    def deprecated?
+      !!definition["deprecated"]
     end
 
     # Returns true if this content should be taken for element preview.

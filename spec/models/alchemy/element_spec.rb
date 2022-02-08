@@ -5,7 +5,7 @@ require "rails_helper"
 module Alchemy
   describe Element do
     # to prevent memoization
-    before { Element.instance_variable_set("@definitions", nil) }
+    before { ElementDefinition.instance_variable_set("@definitions", nil) }
 
     # ClassMethods
 
@@ -81,7 +81,7 @@ module Alchemy
           end
 
           before do
-            expect(Alchemy::Element).to receive(:definitions).at_least(:once) do
+            expect(Alchemy::ElementDefinition).to receive(:all).at_least(:once) do
               [
                 { "name" => "slider", "nestable_elements" => ["foo"], "autogenerate" => ["bar"] },
               ]
@@ -766,6 +766,31 @@ module Alchemy
       end
 
       context "definition has no 'compact' key" do
+        let(:definition) { { "name" => "article" } }
+        it { is_expected.to be(false) }
+      end
+    end
+
+    describe "#deprecated?" do
+      subject { element.deprecated? }
+
+      let(:element) { build(:alchemy_element) }
+
+      before do
+        expect(element).to receive(:definition) { definition }
+      end
+
+      context "definition has 'deprecated' key with true value" do
+        let(:definition) { { "deprecated" => true } }
+        it { is_expected.to be(true) }
+      end
+
+      context "definition has 'deprecated' key with foo value" do
+        let(:definition) { { "deprecated" => "This is deprecated" } }
+        it { is_expected.to be(true) }
+      end
+
+      context "definition has no 'deprecated' key" do
         let(:definition) { { "name" => "article" } }
         it { is_expected.to be(false) }
       end

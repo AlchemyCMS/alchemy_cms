@@ -14,6 +14,14 @@ module Alchemy
       @root_page = language_root # We need this instance variable in the helpers
     end
 
+    describe "page_active?" do
+      it "shows a deprecation warning" do
+        @page = public_page
+        expect(Alchemy::Deprecation).to receive(:warn).with /will be removed from Alchemy 6/
+        helper.page_active?(public_page)
+      end
+    end
+
     describe "#render_page_layout" do
       it "should render the current page layout" do
         @page = public_page

@@ -1,5 +1,5 @@
 (function() {
-  var $page;
+  var page = document.querySelector('#page_<%= @page.id %>');
 
 <% if @old_page_layout != @page.page_layout -%>
   Alchemy.ElementsWindow.reload();
@@ -9,18 +9,27 @@
 <% if @while_page_edit -%>
 
   Alchemy.reloadPreview();
-  $('#page_<%= @page.id %>_status').replaceWith('<%= j render("current_page", current_page: @page) %>');
+  document.querySelector('#page_<%= @page.id %>_status').outerHTML = '<%= j render("current_page", current_page: @page) %>';
+  Alchemy.growl("<%= j @notice %>");
+  Alchemy.closeCurrentDialog();
 
 <% else -%>
 
-  var page_html = "<%= j render('page', page: @page) %>";
-  var compiler = Handlebars.compile(page_html);
-  var tree = <%== @tree.to_json %>;
-  var html = compiler(tree.pages[0]);
-  $('#page_<%= @page.id %>').replaceWith(html);
+  if (page) {
+    var page_html = "<%= j render('page', page: @page) %>";
+    var compiler = Handlebars.compile(page_html);
+    var tree = <%== @tree.to_json %>;
+    page.outerHTML = compiler(tree.pages[0]);
+    Alchemy.growl("<%= j @notice %>");
+    Alchemy.closeCurrentDialog();
+  } else {
+    document.addEventListener('turbolinks:load', function () {
+      Alchemy.growl("<%= j @notice %>");
+    }, { once: true })
+    Alchemy.closeCurrentDialog(function() {
+      Turbolinks.visit(location.toString(), { action: "replace" });
+    });
+  }
 
 <% end -%>
-
-  Alchemy.growl("<%= j @notice %>");
-  Alchemy.closeCurrentDialog();
 })()

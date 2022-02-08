@@ -22,10 +22,13 @@ describe Alchemy::Admin::ContentsHelper do
     let(:content) do
       mock_model "Content",
         name: "intro",
-        definition: {name: "intro", type: "EssenceText"},
+        definition: { name: "intro", type: "EssenceText" },
         name_for_label: "Intro",
-        has_validations?: false
+        has_validations?: false,
+        deprecated?: false,
+        has_warnings?: false
     end
+
     subject { helper.render_content_name(content) }
 
     it "returns the content name" do
@@ -41,11 +44,38 @@ describe Alchemy::Admin::ContentsHelper do
     end
 
     context "with missing definition" do
-      before { expect(content).to receive(:definition).and_return({}) }
+      let(:content) do
+        mock_model "Content",
+          name: "intro",
+          definition: { },
+          name_for_label: "Intro",
+          has_validations?: false,
+          deprecated?: false,
+          has_warnings?: true,
+          warnings: Alchemy.t(:content_definition_missing)
+      end
 
       it "renders a warning with tooltip" do
         is_expected.to have_selector(".hint-with-icon .hint-bubble")
-        is_expected.to have_content("Intro")
+        is_expected.to have_content Alchemy.t(:content_definition_missing)
+      end
+    end
+
+    context "when deprecated" do
+      let(:content) do
+        mock_model "Content",
+          name: "intro",
+          definition: { name: "intro", type: "EssenceText" },
+          name_for_label: "Intro",
+          has_validations?: false,
+          deprecated?: true,
+          has_warnings?: true,
+          warnings: Alchemy.t(:content_deprecated)
+      end
+
+      it "renders a deprecation notice with tooltip" do
+        is_expected.to have_selector(".hint-with-icon .hint-bubble")
+        is_expected.to have_content Alchemy.t(:content_deprecated)
       end
     end
 

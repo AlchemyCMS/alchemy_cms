@@ -37,6 +37,7 @@ module Alchemy
       "taggable",
       "compact",
       "message",
+      "deprecated",
     ].freeze
 
     SKIPPED_ATTRIBUTES_ON_COPY = [
@@ -60,7 +61,7 @@ module Alchemy
     #
     acts_as_list scope: [:page_id, :fixed, :parent_element_id]
 
-    stampable stamper_class_name: Alchemy.user_class_name
+    stampable stamper_class_name: Alchemy.user_class.name
 
     has_many :contents, dependent: :destroy, inverse_of: :element
 
@@ -124,6 +125,9 @@ module Alchemy
 
     # class methods
     class << self
+      deprecate :trashed, deprecator: Alchemy::Deprecation
+      deprecate :not_trashed, deprecator: Alchemy::Deprecation
+
       # Builds a new element as described in +/config/alchemy/elements.yml+
       #
       # - Returns a new Alchemy::Element object if no name is given in attributes,
@@ -227,10 +231,12 @@ module Alchemy
       self.folded = true
       remove_from_list
     end
+    deprecate :trash!, deprecator: Alchemy::Deprecation
 
     def trashed?
       position.nil?
     end
+    deprecate :trashed?, deprecator: Alchemy::Deprecation
 
     # Returns true if the definition of this element has a taggable true value.
     def taggable?
@@ -245,6 +251,38 @@ module Alchemy
     # Defined as compact element?
     def compact?
       definition["compact"] == true
+    end
+
+    # Defined as deprecated element?
+    #
+    # You can either set true or a String on your elements definition.
+    #
+    # == Passing true
+    #
+    #     - name: old_element
+    #       deprecated: true
+    #
+    # The deprecation notice can be translated. Either as global notice for all deprecated elements.
+    #
+    #     en:
+    #       alchemy:
+    #         element_deprecation_notice: Foo baz widget is deprecated
+    #
+    # Or add a translation to your locale file for a per element notice.
+    #
+    #     en:
+    #       alchemy:
+    #         element_deprecation_notices:
+    #           old_element: Foo baz widget is deprecated
+    #
+    # == Pass a String
+    #
+    #     - name: old_element
+    #       deprecated: This element will be removed soon.
+    #
+    # @return Boolean
+    def deprecated?
+      !!definition["deprecated"]
     end
 
     # The element's view partial is dependent from its name

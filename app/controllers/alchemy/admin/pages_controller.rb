@@ -2,12 +2,12 @@
 
 module Alchemy
   module Admin
-    class PagesController < Alchemy::Admin::BaseController
+    class PagesController < ResourcesController
       include OnPageLayout::CallbacksRunner
 
       helper "alchemy/pages"
 
-      before_action :load_page, except: [:index, :flush, :new, :order, :create, :copy_language_tree, :link, :sort]
+      before_action :load_resource, except: [:index, :flush, :new, :order, :create, :copy_language_tree, :link, :sort]
 
       authorize_resource class: Alchemy::Page, except: [:index, :tree]
 
@@ -27,11 +27,33 @@ module Alchemy
         if: :run_on_page_layout_callbacks?,
         only: [:show]
 
+      before_action :load_languages_and_layouts,
+        unless: -> { @page_root },
+        only: [:index]
+
+      before_action :set_view, only: [:index]
+
       def index
-        if !@page_root
-          @language = @current_language
-          @languages_with_page_tree = Language.on_current_site.with_root_page
-          @page_layouts = PageLayout.layouts_for_select(@language.id)
+        @query = @current_language.pages.contentpages.ransack(search_filter_params[:q])
+
+        if @view == "list"
+          @query.sorts = default_sort_order if @query.sorts.empty?
+          items = @query.result
+
+          if search_filter_params[:tagged_with].present?
+            items = items.tagged_with(search_filter_params[:tagged_with])
+          end
+
+          if search_filter_params[:filter].present?
+            items = items.public_send(sanitized_filter_params)
+          end
+
+          if search_filter_params[:page_layout].present?
+            items = items.where(page_layout: search_filter_params[:page_layout])
+          end
+
+          items = items.page(params[:page] || 1).per(items_per_page)
+          @pages = items
         end
       end
 
@@ -85,7 +107,12 @@ module Alchemy
         elsif page_needs_lock?
           @page.lock_to!(current_alchemy_user)
         end
-        @preview_url = Alchemy::Admin::PREVIEW_URL.url_for(@page)
+        @preview_urls = Alchemy.preview_sources.map do |klass|
+          [
+            klass.model_name.human,
+            klass.new(routes: Alchemy::Engine.routes).url_for(@page),
+          ]
+        end
         @layoutpage = @page.layoutpage?
       end
 
@@ -178,6 +205,10 @@ module Alchemy
       def publish
         # fetching page via before filter
         @page.publish!
+
+        # Send publish notification to all registered publish targets
+        Alchemy.publish_targets.each { |p| p.perform_later(@page) }
+
         flash[:notice] = Alchemy.t(:page_published, name: @page.name)
         redirect_back(fallback_location: admin_pages_path)
       end
@@ -219,6 +250,19 @@ module Alchemy
       end
 
       private
+
+      def resource_handler
+        @_resource_handler ||= Alchemy::Resource.new(controller_path, alchemy_module, Alchemy::Page)
+      end
+
+      def common_search_filter_includes
+        super.push(:page_layout, :view)
+      end
+
+      def set_view
+        @view = params[:view] || session[:alchemy_pages_view] || "tree"
+        session[:alchemy_pages_view] = @view
+      end
 
       def copy_of_language_root
         Page.copy(
@@ -301,7 +345,7 @@ module Alchemy
         { my_urlname: default_urlname, children_path: default_urlname }
       end
 
-      def load_page
+      def load_resource
         @page = Page.find(params[:id])
       end
 
@@ -363,6 +407,12 @@ module Alchemy
         PageTreeSerializer.new(@page, ability: current_ability,
                                       user: current_alchemy_user,
                                       full: params[:full] == "true")
+      end
+
+      def load_languages_and_layouts
+        @language = @current_language
+        @languages_with_page_tree = Language.on_current_site.with_root_page
+        @page_layouts = PageLayout.layouts_for_select(@language.id)
       end
     end
   end

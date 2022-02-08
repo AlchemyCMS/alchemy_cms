@@ -60,6 +60,7 @@
   max-width: 85%;
   margin-left: $default-margin;
   text-overflow: ellipsis;
+  transition: color $transition-duration;
 
   .has-hint & {
     max-width: 80%;
@@ -73,7 +74,6 @@
 
 .preview_text_element_name {
   font-size: $small-font-size;
-  text-shadow: #efefef 1px 1px 1px;
   font-weight: bold;
   line-height: 15px;
 }
@@ -106,6 +106,7 @@
   height: 16px;
   right: 8px;
   top: 10px;
+  transition: none;
 
   .error_icon {
     float: left;
@@ -126,6 +127,32 @@
   margin-bottom: 2*$default-margin;
   transition: box-shadow $transition-duration;
 
+  &.hidden {
+    display: block;
+    border-style: dashed;
+    opacity: 0.5;
+    transition: opacity $transition-duration;
+
+    > .element-header {
+      background-color: transparent;
+      background-image: linear-gradient(
+        45deg,
+        $light-gray 25%,
+        $medium-gray 25%,
+        $medium-gray 50%,
+        $light-gray 50%,
+        $light-gray 75%,
+        $medium-gray 75%,
+        $medium-gray 100%
+      );
+      background-size: 28.28px 28.28px;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   &.is-fixed {
     border-width: 0;
     border-radius: 0;
@@ -143,9 +170,36 @@
     }
   }
 
-  &.selected:not(.is-fixed) {
-    border-color: #c3c3c3;
-    box-shadow: 0 2px 8px rgba(#9b9b9b, 0.75);
+  &.deprecated {
+    border-color: $element-deprecated-border-color;
+
+    > .element-header {
+      background-color: $element-header-deprecated-bg-color;
+      background-image: linear-gradient(
+        45deg,
+        $element-header-deprecated-bg-color 25%,
+        $element-header-bg-color 25%,
+        $element-header-bg-color 50%,
+        $element-header-deprecated-bg-color 50%,
+        $element-header-deprecated-bg-color 75%,
+        $element-header-bg-color 75%,
+        $element-header-bg-color 100%
+      );
+      background-size: 28.28px 28.28px;
+    }
+  }
+
+  &.selected:not(.is-fixed), &:hover {
+    &:not(.hidden) {
+      box-shadow: 0 2px 8px rgba(#9b9b9b, 0.75);
+    }
+  }
+
+  &.selected:not(.is-fixed):not(.folded):not(.dirty):not(.hidden):not(.deprecated) {
+    > .element-header {
+      background-color: $element-header-active-bg-color;
+      color: $element-header-active-color;
+    }
   }
 
   &.folded {
@@ -221,19 +275,8 @@
       }
     }
 
-    .element_tools {
-      display: flex;
-      width: 100%;
-      justify-content: space-between;
-      margin-left: 0;
-    }
-
     .element-content {
       margin: 4px 8px;
-    }
-
-    .button_with_label {
-      margin: 0 4px;
     }
 
     .content_editor,
@@ -313,7 +356,18 @@
   background-color: $element-header-bg-color;
   @extend .disable-user-select;
   cursor: pointer;
-  @include border-top-radius($default-border-radius);
+  border-radius: $default-border-radius;
+  transition: background-color $transition-duration;
+
+  .expanded & {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+
+  .icon {
+    color: inherit;
+    transition: color $transition-duration;
+  }
 
   >.hint-with-icon {
     position: absolute;
@@ -338,10 +392,14 @@
   padding: $default-padding 0;
   height: $element-toolbar-height;
   border-bottom: 1px solid $medium-gray;
+}
 
-  .element_tools {
-    float: left;
-    margin-left: -$default-margin;
+.element_tools {
+  display: flex;
+  width: 100%;
+
+  .button_with_label {
+    margin: 0 2px;
   }
 }
 
@@ -631,6 +689,24 @@ select.long {
     }
   }
 
+  &.deprecated {
+    border-radius: $default-border-radius;
+    background-color: $element-header-deprecated-bg-color;
+    background-image: linear-gradient(
+      45deg,
+      $element-header-deprecated-bg-color 25%,
+      $element-header-bg-color 25%,
+      $element-header-bg-color 50%,
+      $element-header-deprecated-bg-color 50%,
+      $element-header-deprecated-bg-color 75%,
+      $element-header-bg-color 75%,
+      $element-header-bg-color 100%
+    );
+    background-size: 28.28px 28.28px;
+    padding-left: 2px;
+    padding-right: 2px;
+  }
+
   label {
     display: block;
     margin: $default-margin 0;
@@ -761,10 +837,6 @@ textarea.has_tinymce {
       left: 16px;
     }
   }
-}
-
-.element-handle .hint-with-icon {
-  top: -1px;
 }
 
 .is-fixed {

@@ -1,5 +1,3 @@
-import translationData from "./translations"
-
 const KEY_SEPARATOR = /\./
 
 function currentLocale() {
@@ -11,7 +9,7 @@ function currentLocale() {
 
 function getTranslations() {
   const locale = currentLocale()
-  const translations = translationData[locale]
+  const translations = Alchemy.translations && Alchemy.translations[locale]
 
   if (translations) {
     return translations

@@ -19,6 +19,28 @@ RSpec.describe "Page editing feature", type: :system do
         expect(page).to have_selector("iframe[src='#{admin_page_path(a_page)}']")
       end
     end
+
+    describe "single preview source", :js do
+      it "does not show as select" do
+        visit alchemy.edit_admin_page_path(a_page)
+        expect(page).to_not have_select("preview_url")
+      end
+    end
+
+    describe "multiple preview sources", :js do
+      class FooPreviewSource < Alchemy::Admin::PreviewUrl; end
+
+      around do |example|
+        Alchemy.preview_sources << FooPreviewSource
+        example.run
+        Alchemy.instance_variable_set(:@_preview_sources, nil)
+      end
+
+      it "show as select" do
+        visit alchemy.edit_admin_page_path(a_page)
+        expect(page).to have_select("preview_url", options: ["Internal", "Foo Preview"])
+      end
+    end
   end
 
   context "as editor" do

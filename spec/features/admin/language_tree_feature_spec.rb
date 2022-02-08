@@ -52,7 +52,7 @@ RSpec.describe "Language tree feature", type: :system, js: true do
     it "displays a form for creating language root with preselected page layout and front page name" do
       visit("/admin/pages")
       select2 "Klingon", from: "Language tree"
-      expect(page).to have_content("This language tree does not exist")
+      expect(page).to have_content("This language has no homepage yet")
 
       within("form#create_language_tree") do
         expect(page).to \

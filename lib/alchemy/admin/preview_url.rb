@@ -31,6 +31,8 @@ module Alchemy
     #           password: <%= ENV["BASIC_AUTH_PASSWORD"] %>
     #
     class PreviewUrl
+      extend ActiveModel::Translation
+
       class MissingProtocolError < StandardError; end
 
       def initialize(routes:)

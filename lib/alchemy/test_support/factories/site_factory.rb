@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "factory_bot"
-
 FactoryBot.define do
   factory :alchemy_site, class: "Alchemy::Site" do
     name { "A Site" }

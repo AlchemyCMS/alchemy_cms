@@ -1,8 +1,7 @@
 <div class="panel">
   <%= render_message do %>
-    <p><%= Alchemy.t(:language_does_not_exist) %></p>
+    <p><%= Alchemy.t(:homepage_does_not_exist) %></p>
   <% end %>
-<%- if @language -%>
 
   <%- if @languages_with_page_tree.size >= 1 -%>
     <%= form_tag(alchemy.copy_language_tree_admin_pages_path) do %>
@@ -19,32 +18,23 @@
     <% end %>
   <%- end -%>
 
-  <%- if params[:action] == "index" -%>
-    <%= alchemy_form_for([:admin, Alchemy::Page.new], id: 'create_language_tree') do |form| %>
-      <% if @languages_with_page_tree.size >= 1 %>
-        <h3><%= Alchemy.t(:create_language_tree_heading) %></h3>
-        <p><%= Alchemy.t(:want_to_create_new_language) %></p>
-      <% end %>
-      <%= form.input :name, input_html: {value: @language.frontpage_name} %>
-      <%= form.input :page_layout,
-        collection: @page_layouts,
-        selected: @language.page_layout,
-        label: Alchemy.t(:page_type),
-        include_blank: Alchemy.t('Please choose'),
-        required: true,
-        input_html: {class: 'alchemy_selectbox'} %>
-      <%= form.hidden_field :language_id, value: @language.id %>
-      <%= form.hidden_field :language_code, value: @language.code %>
-      <%= form.hidden_field :language_root, value: true %>
-      <%= form.hidden_field :public, value: Alchemy::Language.all.size == 1 %>
-      <%= form.submit Alchemy.t("create_tree_as_new_language", language: @language.name), autofocus: true %>
+  <%= alchemy_form_for([:admin, Alchemy::Page.new], id: 'create_language_tree') do |form| %>
+    <% if @languages_with_page_tree.size >= 1 %>
+      <h3><%= Alchemy.t(:create_language_tree_heading) %></h3>
+      <p><%= Alchemy.t(:want_to_create_new_language) %></p>
     <% end %>
-  <%- end -%>
-
-<%- else -%>
-
-  <p><%= Alchemy.t("Actually this language does not exist. Please create this language first.") %></p>
-
-<%- end -%>
-
+    <%= form.input :name, input_html: {value: @language.frontpage_name} %>
+    <%= form.input :page_layout,
+      collection: @page_layouts,
+      selected: @language.page_layout,
+      label: Alchemy.t(:page_type),
+      include_blank: Alchemy.t('Please choose'),
+      required: true,
+      input_html: {class: 'alchemy_selectbox'} %>
+    <%= form.hidden_field :language_id, value: @language.id %>
+    <%= form.hidden_field :language_code, value: @language.code %>
+    <%= form.hidden_field :language_root, value: true %>
+    <%= form.hidden_field :public, value: Alchemy::Language.all.size == 1 %>
+    <%= form.submit Alchemy.t(:create), autofocus: true %>
+  <% end %>
 </div>

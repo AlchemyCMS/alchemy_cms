@@ -12,8 +12,8 @@ module Alchemy
     #
     #     Alchemy.t(:hello)
     #
-    def t(msg, *args)
-      Alchemy::I18n.translate(msg, *args)
+    def t(msg, **kwargs)
+      Alchemy::I18n.translate(msg, **kwargs)
     end
   end
 
@@ -47,11 +47,10 @@ module Alchemy
       #       world:
       #         hello: Hallo
       #
-      def translate(msg, *args)
-        options = args.extract_options!
+      def translate(msg, **options)
         humanize_default_string!(msg, options)
         scope = alchemy_scoped_scope(options)
-        ::I18n.t(msg, options.merge(scope: scope))
+        ::I18n.t(msg, **options.merge(scope: scope))
       end
 
       def available_locales

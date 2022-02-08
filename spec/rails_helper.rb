@@ -14,16 +14,16 @@ require "rspec-activemodel-mocks"
 require "rspec/rails"
 require "webdrivers/chromedriver"
 require "shoulda-matchers"
+require "factory_bot"
 
 require "alchemy/seeder"
+require "alchemy/test_support"
 require "alchemy/test_support/config_stubbing"
 require "alchemy/test_support/essence_shared_examples"
 require "alchemy/test_support/integration_helpers"
-require "alchemy/test_support/factories"
 require "alchemy/test_support/shared_contexts"
 require "alchemy/test_support/shared_uploader_examples"
 
-require_relative "factories"
 require_relative "support/calculation_examples.rb"
 require_relative "support/hint_examples.rb"
 require_relative "support/transformation_examples.rb"
@@ -43,6 +43,9 @@ Rails.logger.level = 4
 # Configure capybara for integration testing
 Capybara.default_selector = :css
 Capybara.ignore_hidden_elements = false
+
+FactoryBot.definition_file_paths.prepend(Alchemy::TestSupport.factories_path)
+FactoryBot.find_definitions
 
 Capybara.register_driver :selenium_chrome_headless do |app|
   Capybara::Selenium::Driver.load_selenium

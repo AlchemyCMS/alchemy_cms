@@ -6,7 +6,8 @@ table {
   width: 100%;
 
   &.list .tools {
-    button, a {
+    button,
+    a {
       display: inline-block;
       width: 18px;
       height: 18px;
@@ -22,8 +23,9 @@ table {
   }
 }
 
-.list td, .list th {
-  padding: 2*$default-padding;
+.list td,
+.list th {
+  padding: 2 * $default-padding;
   vertical-align: top;
   line-height: 18px;
   border-right: 1px solid $medium-gray;
@@ -93,9 +95,10 @@ td.heading {
   background-color: $table-row-hover-color;
 }
 
-td, th {
-
-  &.center, &.boolean {
+td,
+th {
+  &.center,
+  &.boolean {
     text-align: center;
   }
 
@@ -105,7 +108,6 @@ td, th {
 }
 
 td {
-
   &.file_name {
     word-break: break-all;
   }
@@ -118,7 +120,8 @@ td {
     width: 80px;
   }
 
-  &.date, &.datetime {
+  &.date,
+  &.datetime {
     width: 150px;
   }
 
@@ -137,9 +140,35 @@ td {
   &.rights {
     width: 60px;
   }
+
+  &.page_layout {
+    width: 160px;
+  }
+
+  &.status {
+    width: 80px;
+
+    .page_status {
+      margin: 0 $default-margin;
+    }
+  }
+
+  &.tags {
+    width: 180px;
+
+    .tag {
+      margin: 0;
+      padding: 0 2 + $default-padding;
+
+      &:before {
+        padding-right: $default-padding;
+      }
+    }
+  }
 }
 
-th.count, td.count {
+th.count,
+td.count {
   width: 120px;
   text-align: right;
   padding-right: 16px;

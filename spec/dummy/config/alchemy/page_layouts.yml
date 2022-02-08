@@ -20,7 +20,7 @@
   autogenerate: [header, article, download]
 
 - name: everything
-  elements: [text, all_you_can_eat, gallery, right_column, left_column]
+  elements: [text, all_you_can_eat, gallery, right_column, left_column, old]
   autogenerate: [all_you_can_eat, right_column, left_column]
 
 - name: news

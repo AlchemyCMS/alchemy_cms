@@ -28,7 +28,7 @@ module Alchemy
 
     before_save :set_fields
 
-    stampable stamper_class_name: Alchemy.user_class_name
+    stampable stamper_class_name: Alchemy.user_class.name
 
     has_many :essence_files, class_name: "Alchemy::EssenceFile", foreign_key: "attachment_id"
     has_many :contents, through: :essence_files
@@ -131,6 +131,10 @@ module Alchemy
         "file-alt"
       when *EXCEL_FILE_TYPES
         "file-excel"
+      when *POWERPOINT_FILE_TYPES
+        "file-powerpoint"
+      when *WORD_FILE_TYPES
+        "file-word"
       when *VCARD_FILE_TYPES
         "address-card"
       when *ARCHIVE_FILE_TYPES

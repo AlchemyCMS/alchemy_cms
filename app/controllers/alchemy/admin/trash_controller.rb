@@ -12,12 +12,14 @@ module Alchemy
         @page = Page.find(params[:page_id])
         @allowed_elements = @page.available_element_definitions
       end
+      deprecate :index, deprecator: Alchemy::Deprecation
 
       def clear
         @page = Page.find(params[:page_id])
         @elements = Element.trashed
         @elements.map(&:destroy)
       end
+      deprecate :clear, deprecator: Alchemy::Deprecation
 
       private
 
