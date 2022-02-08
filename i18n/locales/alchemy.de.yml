@@ -1,11 +1,9 @@
 # encoding: UTF-8
 
 de:
-
   # = Alchemy Translations
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
-
     # == Translations for menu names
     # Just use the menu name like defined inside the config/alchemy/menus.yml file and translate it.
     # We're providing main and footer menu here as a convenience.
@@ -88,9 +86,9 @@ de:
     #
     content_validations:
       errors:
-        blank: '%{field} darf nicht leer sein'
-        invalid: '%{field} hat das falsche Format'
-        taken: '%{field} wurde schon benutzt'
+        blank: "%{field} darf nicht leer sein"
+        invalid: "%{field} hat das falsche Format"
+        taken: "%{field} wurde schon benutzt"
 
     # Hint texts for contents
     content_hints:
@@ -111,39 +109,39 @@ de:
 
     essence_pictures:
       css_classes:
-        left: 'Links vom Text'
-        right: 'Rechts vom Text'
-        no_float: 'Über dem Text'
+        left: "Links vom Text"
+        right: "Rechts vom Text"
+        no_float: "Über dem Text"
 
     # == Contactform translations
     contactform:
       labels:
-        salutation: 'Anrede'
-        choose: 'Wählen Sie'
-        mr: 'Herr'
-        mrs: 'Frau'
-        firstname: 'Vorname'
-        lastname: 'Name'
-        address: 'Straße / Nr.'
-        zip: 'PLZ / Ort'
-        phone: 'Telefon'
-        email: 'E-Mail'
-        message: 'Nachricht'
-        send: 'absenden'
-        mandatory_fields: '*Pflichtfelder. Bitte füllen Sie diese Felder aus.'
+        salutation: "Anrede"
+        choose: "Wählen Sie"
+        mr: "Herr"
+        mrs: "Frau"
+        firstname: "Vorname"
+        lastname: "Name"
+        address: "Straße / Nr."
+        zip: "PLZ / Ort"
+        phone: "Telefon"
+        email: "E-Mail"
+        message: "Nachricht"
+        send: "absenden"
+        mandatory_fields: "*Pflichtfelder. Bitte füllen Sie diese Felder aus."
       # The flash message shown after successfully sending the message.
       messages:
-        success: 'Ihre Nachricht wurde erfolgreich übermittelt.'
+        success: "Ihre Nachricht wurde erfolgreich übermittelt."
 
     # == Translated language names for translation select
     translations:
-      de: 'DE'
-      en: 'EN'
-      es: 'ES'
-      it: 'IT'
-      fr: 'FR'
-      nl: 'NL'
-      ru: 'RU'
+      de: "DE"
+      en: "EN"
+      es: "ES"
+      it: "IT"
+      fr: "FR"
+      nl: "NL"
+      ru: "RU"
 
     # == User roles translations
     user_roles:
@@ -156,32 +154,32 @@ de:
     # == Mime Types translations
     # These are human readable mime types used for the document-type row in archive files.
     mime_types:
-      audio/mp4: 'MP4-Audio'
-      application/msword: 'Word-Dokument'
-      application/rtf: 'RTF-Dokument'
-      audio/mpeg: 'MP3-Audio'
-      text/plain: 'Text-Dokument'
-      video/mp4: 'MP4-Video'
-      video/mpeg: 'MPEG-Video'
-      application/pdf: 'PDF-Dokument'
-      application/x-flash-video: 'Flash-Video'
-      video/x-flv: 'Flash-Video'
-      application/x-shockwave-flash: 'Flash-Film'
-      application/zip: 'ZIP-Archiv'
-      application/x-rar: 'RAR-Archiv'
+      audio/mp4: "MP4-Audio"
+      application/msword: "Word-Dokument"
+      application/rtf: "RTF-Dokument"
+      audio/mpeg: "MP3-Audio"
+      text/plain: "Text-Dokument"
+      video/mp4: "MP4-Video"
+      video/mpeg: "MPEG-Video"
+      application/pdf: "PDF-Dokument"
+      application/x-flash-video: "Flash-Video"
+      video/x-flv: "Flash-Video"
+      application/x-shockwave-flash: "Flash-Film"
+      application/zip: "ZIP-Archiv"
+      application/x-rar: "RAR-Archiv"
       application/vnd:
-        ms-excel: 'Excel-Dokument'
-      video/quicktime: 'Quicktime-Video'
-      image/x-psd: 'Photoshop-Datei'
-      image/gif: 'GIF-Bild'
-      image/jpeg: 'JPG-Bild'
-      image/png: 'PNG-Bild'
+        ms-excel: "Excel-Dokument"
+      video/quicktime: "Quicktime-Video"
+      image/x-psd: "Photoshop-Datei"
+      image/gif: "GIF-Bild"
+      image/jpeg: "JPG-Bild"
+      image/png: "PNG-Bild"
       image/svg+xml: SVG-Grafik
-      video/x-msvideo: 'AVI-Video'
-      video/x-ms-wmv: 'Windows Media Video'
-      image/tiff: 'TIFF-Bild'
-      'text/x-vcard': 'vCard'
-      application/vcard: 'vCard'
+      video/x-msvideo: "AVI-Video"
+      video/x-ms-wmv: "Windows Media Video"
+      image/tiff: "TIFF-Bild"
+      "text/x-vcard": "vCard"
+      application/vcard: "vCard"
 
     link_target_options:
       default: gleichem Fenster
@@ -193,16 +191,16 @@ de:
         aliases: Weitere Domains bitte mit Leerzeichen oder Leerzeile getrennt angeben.
 
     add_nested_element: "%{name} hinzufügen"
-    anchor: 'Sprungmarke'
+    anchor: "Sprungmarke"
     attribute_fixed: Dieser Wert ist für diesen Seitentyp nicht veränderbar
-    back: 'zurück'
+    back: "zurück"
     create_tree_as_new_language: "%{language} als neuen Sprachbaum anlegen"
     locked_pages: "Aktive Seiten"
     "Add global page": "Neue globale Seite"
     "Add page link": "Verweis hinzufügen"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy ist offene Software und benutzt selbst offene Software und freie Ressourcen:"
-    "Alchemy is up to date": 'Alchemy ist aktuell'
-    'An error happened': 'Es ist leider ein Fehler aufgetreten!'
+    "Alchemy is up to date": "Alchemy ist aktuell"
+    "An error happened": "Es ist leider ein Fehler aufgetreten!"
     "Change password": "Passwort ändern"
     "Choose page": "Seite wählen"
     "Cleared trash": "Der Papierkorb wurde geleert"
@@ -370,7 +368,7 @@ de:
     copy_page: "Seite kopieren"
     "Could not delete Pictures": "Bilder konnten nicht gelöscht werden"
     copy_language_tree_heading: "Einen Sprachbaum kopieren"
-    country_code_placeholder: 'z.B. AT (optional)'
+    country_code_placeholder: "z.B. AT (optional)"
     country_code_foot_note: "Das Länderkürzel ist nur notwendig, wenn Sie unterschiedliche Länder mit der gleichen Sprache versehen wollen."
     create: "erstellen"
     "Create language": "Eine neue Sprache erstellen"
@@ -387,7 +385,7 @@ de:
     delete_menu: "Menü löschen"
     delete_node: "Menü-Eintrag entfernen"
     delete_page: "Seite löschen"
-    delete_tag: 'Tag löschen'
+    delete_tag: "Tag löschen"
     document: "Dokument"
     download_csv: "CSV runterladen"
     download_file: "%{filename} runterladen"
@@ -400,13 +398,13 @@ de:
     edit_node: "Menü-Eintrag ändern"
     edit_page: "Seite bearbeiten"
     edit_page_properties: "Seiteneigenschaften bearbeiten"
-    edit_tag: 'Tag bearbeiten'
+    edit_tag: "Tag bearbeiten"
     edit_selected_pictures: "Selektierte Bilder:"
     element_editor_not_found: "Bei diesem Element ist ein Fehler aufgetreten"
     element_of_type: "Element"
     element_saved: "Element wurde gespeichert."
     enter_external_link: "Geben Sie hier die Adresse der Seite ein zu der Sie einen Link setzen wollen."
-    explain_cropping: "<p>Sie können den Rahmen mit der Maus und den Pfeiltasten verschieben und in der Größe verändern, um einen eigenen Bildausschnitt festzulegen. Wenn Sie zufrieden sind, dann klicken Sie bitte auf \"übernehmen\".</p><p>Um zu dem zentrierten Bildausschnitt zurückzukehren, wie er im Layout vorgesehen wurde, klicken Sie bitte auf \"zurücksezen\" und \"übernehmen\" anschließend die Änderungen.</p>"
+    explain_cropping: '<p>Sie können den Rahmen mit der Maus und den Pfeiltasten verschieben und in der Größe verändern, um einen eigenen Bildausschnitt festzulegen. Wenn Sie zufrieden sind, dann klicken Sie bitte auf "übernehmen".</p><p>Um zu dem zentrierten Bildausschnitt zurückzukehren, wie er im Layout vorgesehen wurde, klicken Sie bitte auf "zurücksezen" und "übernehmen" anschließend die Änderungen.</p>'
     explain_publishing: "Die gecachte Version vom Server löschen und die aktuellen Änderungen veröffentlichen"
     explain_sitemap_dragndrop_sorting: "Tip: Halten Sie zum Sortieren der Seiten das Seitensymbol mit der Maus fest und bewegen Sie sie an ihre neue Position."
     explain_unlocking: "Die Seite verlassen und für andere Benutzer zum Bearbeiten freigeben."
@@ -415,7 +413,7 @@ de:
     female: "Frau"
     file: "Datei"
     file_rename_error: "Datei konnte nicht umbenannt werden."
-    from: 'von'
+    from: "von"
     from_at: "von %{by} am %{at}"
     height: "Höhe"
     help:
@@ -446,7 +444,7 @@ de:
     "item removed from clipboard": "%{name} wurde aus der Zwischenablage entfernt."
     javascript_disabled_headline: "Javascript ist deaktiviert!"
     javascript_disabled_text: "Alchemy funktioniert nur einwandfrei mit aktiviertem Javascript. Bitte aktivieren Sie es in Ihrem Browser."
-    language_code_placeholder: 'z.B. de'
+    language_code_placeholder: "z.B. de"
     language_does_not_exist: "Dieser Sprachbaum existiert noch nicht"
     language_pages_copied: "Der Sprachbaum wurde kopiert"
     last_upload_only: "Zuletzt hochgeladene"
@@ -465,7 +463,7 @@ de:
     mail_to: "Empfängeradresse"
     main_content: "Hauptinhalt"
     male: "Herr"
-    me: 'Ich'
+    me: "Ich"
     medium_thumbnails: "mittlere Miniaturbilder"
     menu: Menü
     meta_data: "Meta Daten"
@@ -501,13 +499,13 @@ de:
       alchemy/node: "<h2>Sie haben bisher keine Menüs.</h2><p>Mittels Menüs können Benutzer Ihre Webseite navigieren. Sie können mehrere Menüs auf Ihrer Website anzeigen. Wie viele hängt von Ihrem Website-Template ab.</p><p>Bitte wählen Sie aus welches Menü Sie erstellen wollen.</p>"
     no_search_results: "Keine Suchergebnisse."
     "not a valid image": "Keine valide Bilddatei."
-    "or": 'oder'
-    or_replace_it_with_an_existing_tag: 'Oder Sie ersetzen es durch ein vorhandenes Tag'
+    "or": "oder"
+    or_replace_it_with_an_existing_tag: "Oder Sie ersetzen es durch ein vorhandenes Tag"
     page: Seite
     "Page created": "Seite '%{name}' wurde erstellt."
     page_for_links:
       choose_page: "%{name} wählen"
-    page_infos: 'Seiteninformationen'
+    page_infos: "Seiteninformationen"
     page_layout_changed_notice: "Der Seitentyp wurde verändert. Nicht mehr verwendbare Elemente wurden in den Papierkorb verschoben."
     page_properties: "Seiteneigenschaften"
     page_public: "öffentlich"
@@ -537,7 +535,7 @@ de:
         comma_seperated: "Durch Kommata getrennt eingeben"
     password: "Passwort"
     paste: "einfügen"
-    picture_gallery_editor: 'Bilder'
+    picture_gallery_editor: "Bilder"
     picture_library:
       filter:
         last_upload: "die zuletzt hochgeladen wurden"
@@ -553,24 +551,24 @@ de:
     position_in_text: "Textanordnung"
     preview_size: "Vorschaugröße"
     preview_sizes:
-      '240': '240px (kleines Mobiltelefon)'
-      '320': '320px (iPhone)'
-      '480': '480px (kleines Tablet)'
-      '768': '768px (iPad - Portrait)'
-      '1024': '1024px (iPad - Breitbild)'
-      '1280': '1280px (Desktop)'
+      "240": "240px (kleines Mobiltelefon)"
+      "320": "320px (iPhone)"
+      "480": "480px (kleines Tablet)"
+      "768": "768px (iPad - Portrait)"
+      "1024": "1024px (iPad - Breitbild)"
+      "1280": "1280px (Desktop)"
     public_available: Öffentlich verfügbar
-    recently_uploaded_only: 'Kürzlich hochgeladene'
+    recently_uploaded_only: "Kürzlich hochgeladene"
     "regular method": "herkömmlichen Methode"
     remove: "entfernen"
     rename_file: "Datei umbenennen"
     rename: umbenennen
     replace: ersetzen
     replace_file: Datei ersetzen
-    'Replaced Tag': "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
+    "Replaced Tag": "Das Tag '%{old_tag}' wurde durch das Tag '%{new_tag}' ersetzt"
     resources:
       relation_select:
-        blank: '- ohne -'
+        blank: "- ohne -"
     right: "rechts"
     robot_follow: "den Robot Links folgen lassen"
     robot_index: "durch Robot indizieren"
@@ -582,7 +580,7 @@ de:
     search_page: Seite wählen
     Select a page first: Zuerst eine Seite wählen
     select_element: "Element wählen"
-    seperate_tags_with_comma: 'Mehrere Tags mit Komma trennen.'
+    seperate_tags_with_comma: "Mehrere Tags mit Komma trennen."
     show_element_content: "Element ausklappen"
     show_elements_from_page: "Elemente dieser Seite anzeigen"
     show_eq: "EQ anzeigen"
@@ -599,7 +597,7 @@ de:
     swap_image: "Bild tauschen"
     insert_image: "Bild einfügen"
     tag_list: Tags
-    tags_get_created_if_used_the_first_time: 'Ein Tag wird automatisch erstellt, sobald Sie es das erste mal verwenden.'
+    tags_get_created_if_used_the_first_time: "Ein Tag wird automatisch erstellt, sobald Sie es das erste mal verwenden."
     this_picture_is_used_on_these_pages: "Dieses Bild wird auf folgenden Seiten benutzt"
     title: "Titel"
     to_alchemy: "Zu Alchemy"
@@ -608,7 +606,7 @@ de:
     unlink: "Link entfernen"
     unlock_page: "Seite verlassen"
     unlocked_page: "Seite %{name} wurde freigegeben."
-    until: 'bis'
+    until: "bis"
     uploader:
       alchemy/attachment:
         button_label: Datei(en) hochladen
@@ -627,7 +625,7 @@ de:
     welcome_back_note: "Willkommen zurück %{name}"
     welcome_please_identify_notice: "Willkommen! Bitte identifizieren Sie sich."
     width: "Breite"
-    without_tag: 'Ohne Tag'
+    without_tag: "Ohne Tag"
     you_can_rename_this_tag: "Sie können dieses Tag umbenennen"
     zoom_image: "Bild in voller Größe anzeigen."
     "Leave Alchemy": "Alchemy verlassen"
@@ -645,9 +643,9 @@ de:
     "Successfully updated": "Erfolgreich aktualisiert"
     "Successfully removed": "Erfolgreich gelöscht"
     "Nothing found": "Keine Einträge gefunden."
-    complete: 'Abgeschlossen'
-    "Update available": 'Es ist ein Update verfügbar'
-    "Update status unavailable": 'Update Status konnte nicht ermittelt werden'
+    complete: "Abgeschlossen"
+    "Update available": "Es ist ein Update verfügbar"
+    "Update status unavailable": "Update Status konnte nicht ermittelt werden"
     "Uploading": "Hochladen"
     "Your user role does not allow you to edit this page": Ihre Benutzerrolle erlaubt es Ihnen nicht diese Seite zu bearbeiten
     cannot_signup_more_then_once: "Sie können nur einmal einen Admin Benutzer registrieren."
@@ -669,11 +667,11 @@ de:
 
     # Simple form translations
     forms:
-      "yes": 'Ja'
-      "no": 'Nein'
+      "yes": "Ja"
+      "no": "Nein"
       required:
-        text: 'Pflichtfeld'
-        mark: '*'
+        text: "Pflichtfeld"
+        mark: "*"
       error_notification:
         default_message: "Es sind Fehler aufgetreten:"
       labels:
@@ -707,9 +705,9 @@ de:
       alchemy/content:
         attributes:
           name:
-            taken: 'gibt es in diesem Element bereits.'
+            taken: "gibt es in diesem Element bereits."
           essence:
-            validation_failed: 'Validierung fehlgeschlagen.'
+            validation_failed: "Validierung fehlgeschlagen."
       alchemy/element:
         attributes:
           name:
@@ -717,8 +715,8 @@ de:
       alchemy/language:
         attributes:
           language_code:
-            invalid: 'ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden.'
-            taken: 'ist für dieses Länderkürzel bereits vergeben.'
+            invalid: "ist nicht korrekt. Bitte exakt zwei Kleinbuchstaben verwenden."
+            taken: "ist für dieses Länderkürzel bereits vergeben."
           locale:
             missing_file: "Eine Lokalisierung für dieses Sprachkürzel konnte nicht gefunden werden. Bitte wählen Sie eine der vorhandenen aus."
       alchemy/page:
