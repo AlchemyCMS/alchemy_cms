@@ -719,6 +719,10 @@ de:
             taken: "ist für dieses Länderkürzel bereits vergeben."
           locale:
             missing_file: "Eine Lokalisierung für dieses Sprachkürzel konnte nicht gefunden werden. Bitte wählen Sie eine der vorhandenen aus."
+      alchemy/node:
+        attributes:
+          base:
+            essence_nodes_present: "Dieser Menü-Eintrag wird noch in einem Element auf folgenden Seiten benutzt: %{page_names}."
       alchemy/page:
         attributes:
           name:
