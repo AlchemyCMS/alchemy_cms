@@ -23,6 +23,7 @@ Alchemy.translations.de = {
     "Maximale Anzahl gleichzeitig erlaubter Datei-Uploads erreicht.",
   "Uploaded bytes exceed file size":
     "Maximale Größe der erlaubten Dateigröße erreicht.",
+  "Successfully moved menu item": "Menü-Eintrag wurde erfolgreich bewegt.",
   formats: {
     datetime: "d.m.Y H:i",
     date: "d.m.Y",
