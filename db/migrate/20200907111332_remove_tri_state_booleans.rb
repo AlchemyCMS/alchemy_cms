@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class RemoveTriStateBooleans < ActiveRecord::Migration[5.2]
+class RemoveTriStateBooleans < ActiveRecord::Migration[6.0]
   def change
     change_column_null :alchemy_elements, :public, false, false
     change_column_default :alchemy_elements, :public, true

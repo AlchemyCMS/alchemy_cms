@@ -1,23 +1,23 @@
 # frozen_string_literal: true
 
-class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
+class AlchemyFourPointFour < ActiveRecord::Migration[6.0]
   def up
     unless table_exists?("alchemy_attachments")
-      create_table "alchemy_attachments", force: :cascade do |t|
+      create_table "alchemy_attachments" do |t|
         t.string "name"
         t.string "file_name"
         t.string "file_mime_type"
         t.integer "file_size"
         t.references "creator"
         t.references "updater"
-        t.timestamps null: false
+        t.timestamps
         t.string "file_uid"
         t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
       end
     end
 
     unless table_exists?("alchemy_contents")
-      create_table "alchemy_contents", force: :cascade do |t|
+      create_table "alchemy_contents" do |t|
         t.string "name"
         t.references "essence", null: false, polymorphic: true, index: { unique: true }
         t.references "element", null: false
@@ -25,14 +25,14 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_elements")
-      create_table "alchemy_elements", force: :cascade do |t|
+      create_table "alchemy_elements" do |t|
         t.string "name"
         t.integer "position"
         t.references "page", null: false, index: false
         t.boolean "public", default: true
         t.boolean "folded", default: false
         t.boolean "unique", default: false
-        t.timestamps null: false
+        t.timestamps
         t.references "creator"
         t.references "updater"
         t.references "parent_element", index: false
@@ -44,27 +44,27 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_elements_alchemy_pages")
-      create_table "alchemy_elements_alchemy_pages", id: false, force: :cascade do |t|
+      create_table "alchemy_elements_alchemy_pages", id: false do |t|
         t.references "element"
         t.references "page"
       end
     end
 
     unless table_exists?("alchemy_essence_booleans")
-      create_table "alchemy_essence_booleans", force: :cascade do |t|
+      create_table "alchemy_essence_booleans" do |t|
         t.boolean "value"
         t.index ["value"], name: "index_alchemy_essence_booleans_on_value"
       end
     end
 
     unless table_exists?("alchemy_essence_dates")
-      create_table "alchemy_essence_dates", force: :cascade do |t|
+      create_table "alchemy_essence_dates" do |t|
         t.datetime "date"
       end
     end
 
     unless table_exists?("alchemy_essence_files")
-      create_table "alchemy_essence_files", force: :cascade do |t|
+      create_table "alchemy_essence_files" do |t|
         t.references "attachment"
         t.string "title"
         t.string "css_class"
@@ -73,13 +73,13 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_essence_htmls")
-      create_table "alchemy_essence_htmls", force: :cascade do |t|
+      create_table "alchemy_essence_htmls" do |t|
         t.text "source"
       end
     end
 
     unless table_exists?("alchemy_essence_links")
-      create_table "alchemy_essence_links", force: :cascade do |t|
+      create_table "alchemy_essence_links" do |t|
         t.string "link"
         t.string "link_title"
         t.string "link_target"
@@ -88,13 +88,13 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_essence_pages")
-      create_table "alchemy_essence_pages", force: :cascade do |t|
+      create_table "alchemy_essence_pages" do |t|
         t.references "page"
       end
     end
 
     unless table_exists?("alchemy_essence_pictures")
-      create_table "alchemy_essence_pictures", force: :cascade do |t|
+      create_table "alchemy_essence_pictures" do |t|
         t.references "picture"
         t.string "caption"
         t.string "title"
@@ -111,7 +111,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_essence_richtexts")
-      create_table "alchemy_essence_richtexts", force: :cascade do |t|
+      create_table "alchemy_essence_richtexts" do |t|
         t.text "body"
         t.text "stripped_body"
         t.boolean "public"
@@ -119,14 +119,14 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_essence_selects")
-      create_table "alchemy_essence_selects", force: :cascade do |t|
+      create_table "alchemy_essence_selects" do |t|
         t.string "value"
         t.index ["value"], name: "index_alchemy_essence_selects_on_value"
       end
     end
 
     unless table_exists?("alchemy_essence_texts")
-      create_table "alchemy_essence_texts", force: :cascade do |t|
+      create_table "alchemy_essence_texts" do |t|
         t.text "body"
         t.string "link"
         t.string "link_title"
@@ -137,7 +137,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_folded_pages")
-      create_table "alchemy_folded_pages", force: :cascade do |t|
+      create_table "alchemy_folded_pages" do |t|
         t.references "page", null: false, index: false
         t.references "user", null: false, index: false
         t.boolean "folded", default: false
@@ -146,13 +146,13 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_languages")
-      create_table "alchemy_languages", force: :cascade do |t|
+      create_table "alchemy_languages" do |t|
         t.string "name"
         t.string "language_code"
         t.string "frontpage_name"
         t.string "page_layout", default: "intro"
         t.boolean "public", default: false
-        t.timestamps null: false
+        t.timestamps
         t.references "creator"
         t.references "updater"
         t.boolean "default", default: false
@@ -165,16 +165,16 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_legacy_page_urls")
-      create_table "alchemy_legacy_page_urls", force: :cascade do |t|
+      create_table "alchemy_legacy_page_urls" do |t|
         t.string "urlname", null: false
         t.references "page", null: false
-        t.timestamps null: false
+        t.timestamps
         t.index ["urlname"], name: "index_alchemy_legacy_page_urls_on_urlname"
       end
     end
 
     unless table_exists?("alchemy_nodes")
-      create_table "alchemy_nodes", force: :cascade do |t|
+      create_table "alchemy_nodes" do |t|
         t.string "name"
         t.string "title"
         t.string "url"
@@ -189,7 +189,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.references "language", null: false
         t.references "creator"
         t.references "updater"
-        t.timestamps null: false
+        t.timestamps
         t.references "site", null: false
         t.index ["lft"], name: "index_alchemy_nodes_on_lft"
         t.index ["rgt"], name: "index_alchemy_nodes_on_rgt"
@@ -197,7 +197,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_pages")
-      create_table "alchemy_pages", force: :cascade do |t|
+      create_table "alchemy_pages" do |t|
         t.string "name"
         t.string "urlname"
         t.string "title"
@@ -217,7 +217,7 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
         t.boolean "robot_follow", default: true
         t.boolean "sitemap", default: true
         t.boolean "layoutpage", default: false
-        t.timestamps null: false
+        t.timestamps
         t.references "creator"
         t.references "updater"
         t.references "language"
@@ -234,12 +234,12 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_pictures")
-      create_table "alchemy_pictures", force: :cascade do |t|
+      create_table "alchemy_pictures" do |t|
         t.string "name"
         t.string "image_file_name"
         t.integer "image_file_width"
         t.integer "image_file_height"
-        t.timestamps null: false
+        t.timestamps
         t.references "creator"
         t.references "updater"
         t.string "upload_hash"
@@ -250,10 +250,10 @@ class AlchemyFourPointFour < ActiveRecord::Migration[5.2]
     end
 
     unless table_exists?("alchemy_sites")
-      create_table "alchemy_sites", force: :cascade do |t|
+      create_table "alchemy_sites" do |t|
         t.string "host"
         t.string "name"
-        t.timestamps null: false
+        t.timestamps
         t.boolean "public", default: false
         t.text "aliases"
         t.boolean "redirect_to_primary_host"
