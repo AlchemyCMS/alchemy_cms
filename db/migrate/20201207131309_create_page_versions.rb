@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreatePageVersions < ActiveRecord::Migration[5.2]
+class CreatePageVersions < ActiveRecord::Migration[6.0]
   def change
     create_table :alchemy_page_versions do |t|
       t.references :page,

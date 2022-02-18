@@ -17,10 +17,10 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
     t.string "file_name"
     t.string "file_mime_type"
     t.integer "file_size"
-    t.integer "creator_id"
-    t.integer "updater_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.bigint "creator_id"
+    t.bigint "updater_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "file_uid"
     t.index ["creator_id"], name: "index_alchemy_attachments_on_creator_id"
     t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
@@ -33,7 +33,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
     t.integer "essence_id", null: false
     t.integer "element_id", null: false
     t.index ["element_id"], name: "index_alchemy_contents_on_element_id"
-    t.index ["essence_type", "essence_id"], name: "index_alchemy_contents_on_essence", unique: true
+    t.index ["essence_type", "essence_id"], name: "index_alchemy_contents_on_essence_type_and_essence_id", unique: true
   end
 
   create_table "alchemy_elements", force: :cascade do |t|
@@ -42,8 +42,8 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
     t.boolean "public", default: true, null: false
     t.boolean "folded", default: false, null: false
     t.boolean "unique", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "creator_id"
     t.integer "updater_id"
     t.integer "parent_element_id"
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
   end
 
   create_table "alchemy_elements_alchemy_pages", id: false, force: :cascade do |t|
-    t.integer "element_id"
-    t.integer "page_id"
+    t.bigint "element_id"
+    t.bigint "page_id"
     t.index ["element_id"], name: "index_alchemy_elements_alchemy_pages_on_element_id"
     t.index ["page_id"], name: "index_alchemy_elements_alchemy_pages_on_page_id"
   end
@@ -82,7 +82,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
   end
 
   create_table "alchemy_essence_files", force: :cascade do |t|
-    t.integer "attachment_id"
+    t.bigint "attachment_id"
     t.string "title"
     t.string "css_class"
     t.string "link_text"
@@ -110,8 +110,8 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
 
   create_table "alchemy_essence_nodes", force: :cascade do |t|
     t.integer "node_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["node_id"], name: "index_alchemy_essence_nodes_on_node_id"
   end
 
@@ -121,7 +121,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
   end
 
   create_table "alchemy_essence_pictures", force: :cascade do |t|
-    t.integer "picture_id"
+    t.bigint "picture_id"
     t.string "caption"
     t.string "title"
     t.string "alt_tag"
@@ -199,8 +199,8 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
     t.string "frontpage_name"
     t.string "page_layout", default: "intro"
     t.boolean "public", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "creator_id"
     t.integer "updater_id"
     t.boolean "default", default: false, null: false
@@ -216,9 +216,9 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
 
   create_table "alchemy_legacy_page_urls", force: :cascade do |t|
     t.string "urlname", null: false
-    t.integer "page_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.bigint "page_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["page_id"], name: "index_alchemy_legacy_page_urls_on_page_id"
     t.index ["urlname"], name: "index_alchemy_legacy_page_urls_on_urlname"
   end
@@ -238,8 +238,8 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
     t.integer "language_id", null: false
     t.integer "creator_id"
     t.integer "updater_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.string "menu_type", null: false
     t.index ["creator_id"], name: "index_alchemy_nodes_on_creator_id"
     t.index ["language_id"], name: "index_alchemy_nodes_on_language_id"
@@ -251,11 +251,11 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
   end
 
   create_table "alchemy_page_versions", force: :cascade do |t|
-    t.integer "page_id", null: false
+    t.bigint "page_id", null: false
     t.datetime "public_on"
     t.datetime "public_until"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.index ["page_id"], name: "index_alchemy_page_versions_on_page_id"
     t.index ["public_on", "public_until"], name: "index_alchemy_page_versions_on_public_on_and_public_until"
   end
@@ -279,8 +279,8 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
     t.boolean "robot_follow", default: true, null: false
     t.boolean "sitemap", default: true, null: false
     t.boolean "layoutpage", default: false, null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.integer "creator_id"
     t.integer "updater_id"
     t.integer "language_id", null: false
@@ -298,7 +298,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
   end
 
   create_table "alchemy_picture_thumbs", force: :cascade do |t|
-    t.integer "picture_id", null: false
+    t.bigint "picture_id", null: false
     t.string "signature", null: false
     t.text "uid", null: false
     t.index ["picture_id"], name: "index_alchemy_picture_thumbs_on_picture_id"
@@ -310,10 +310,10 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
     t.string "image_file_name"
     t.integer "image_file_width"
     t.integer "image_file_height"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "creator_id"
-    t.integer "updater_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.bigint "creator_id"
+    t.bigint "updater_id"
     t.string "upload_hash"
     t.string "image_file_uid"
     t.integer "image_file_size"
@@ -325,8 +325,8 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
   create_table "alchemy_sites", force: :cascade do |t|
     t.string "host"
     t.string "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
     t.boolean "public", default: false, null: false
     t.text "aliases"
     t.boolean "redirect_to_primary_host", default: false, null: false

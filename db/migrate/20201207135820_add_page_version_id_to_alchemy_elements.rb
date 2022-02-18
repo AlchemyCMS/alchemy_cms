@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class AddPageVersionIdToAlchemyElements < ActiveRecord::Migration[5.2]
+class AddPageVersionIdToAlchemyElements < ActiveRecord::Migration[6.0]
   class LocalPage < ActiveRecord::Base
     self.table_name = :alchemy_pages
     has_many :elements, class_name: "LocalElement", inverse_of: :page

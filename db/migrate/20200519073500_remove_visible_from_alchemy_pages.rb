@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-class RemoveVisibleFromAlchemyPages < ActiveRecord::Migration[5.2]
+class RemoveVisibleFromAlchemyPages < ActiveRecord::Migration[6.0]
   class LocalPage < ActiveRecord::Base
     self.table_name = "alchemy_pages"
 

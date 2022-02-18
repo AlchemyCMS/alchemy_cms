@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateAlchemyEssenceNodes < ActiveRecord::Migration[5.2]
+class CreateAlchemyEssenceNodes < ActiveRecord::Migration[6.0]
   def change
     create_table :alchemy_essence_nodes do |t|
       t.references "node"

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class CreateAlchemyPictureThumbs < ActiveRecord::Migration[5.2]
+class CreateAlchemyPictureThumbs < ActiveRecord::Migration[6.0]
   def up
     return if table_exists?(:alchemy_picture_thumbs)
 
