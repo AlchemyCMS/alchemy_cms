@@ -18,7 +18,7 @@ es:
     #
     menu_names:
       main_menu: Menú principal
-      footer_menut: Menú de pie de página
+      footer_menu: Menú de pie de página
 
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
@@ -849,3 +849,42 @@ es:
         alchemy_roles: "Roles"
         send_credentials: "Enviar correo con las credenciales"
         tag_list: Etiquetas
+    errors:
+      models:
+        alchemy/content:
+          attributes:
+            name:
+              taken: 'ya está en uso en este elemento.'
+            essence:
+              validation_failed: 'La validación falló.'
+        alchemy/element:
+          attributes:
+            name:
+              blank: "^Por favor elige un elemento."
+        alchemy/language:
+          attributes:
+            language_code:
+              invalid: '^El formato del código de lenguaje no es válido. Por favor usa exactamente 2 letras minúsculas.'
+              taken: 'ya está en uso para este código de país.'
+            locale:
+              missing_file: Localización no encontrado para el código de idioma dado. Por favor, elige uno de los existentes.
+        alchemy/page:
+          attributes:
+            name:
+              blank: "^Por favor introduce un nombre."
+            page_layout:
+              blank: "^Por favor elige un tipo de página."
+            urlname:
+              too_short: "^La ruta URL es demasiado corta (3 caracteres mímino)."
+              taken: "^Ruta URL ya en uso."
+              exclusion: "^Ruta URL reservada."
+        alchemy/picture:
+          attributes:
+            image_file:
+              blank: "Por favor adjunta una imagen."
+        alchemy/user:
+          attributes:
+            email:
+              invalid: "no es una dirección de correo válida"
+              alchemy_roles:
+                blank: "se debe asignar al menos un rol"
