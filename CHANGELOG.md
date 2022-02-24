@@ -1,3 +1,13 @@
+## 6.0.0-rc5 (2022-02-24)
+
+### Changes
+
+- Change database version to 6.0 [#2239](https://github.com/AlchemyCMS/alchemy_cms/pull/2239) ([tvdeyen](https://github.com/tvdeyen))
+- Remove unused route [#2238](https://github.com/AlchemyCMS/alchemy_cms/pull/2238) ([phantomwhale](https://github.com/phantomwhale))
+- Add custom gutentag tag validations class [#2232](https://github.com/AlchemyCMS/alchemy_cms/pull/2232) ([tvdeyen](https://github.com/tvdeyen))
+- Touch nodes and all ancestors on page update [#2226](https://github.com/AlchemyCMS/alchemy_cms/pull/2226) ([tvdeyen](https://github.com/tvdeyen))
+- Extract Airbrake error handler into extension [#2221](https://github.com/AlchemyCMS/alchemy_cms/pull/2221) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.0-rc4 (2022-01-16)
 
 ### Changes
