@@ -1119,7 +1119,7 @@ module Alchemy
           :public,
           children: [
             build(:alchemy_page),
-            build(:alchemy_page, name: 'child with children', children: [build(:alchemy_page)])
+            build(:alchemy_page, name: "child with children", children: [build(:alchemy_page)]),
           ]
         )
       end
@@ -1133,8 +1133,8 @@ module Alchemy
           expect(new_parent.children.where(title: child.title).count).to eq 1
         end
 
-        source_page_grandchildren = source_page.children.find_by_title('child with children').children
-        new_parent_grandchildren = new_parent.children.find_by_title('child with children').children
+        source_page_grandchildren = source_page.children.find_by_title("child with children").children
+        new_parent_grandchildren = new_parent.children.find_by_title("child with children").children
 
         source_page_grandchildren.each do |grandchild|
           expect(new_parent_grandchildren.where(title: grandchild.title).count).to eq 1
@@ -1151,8 +1151,8 @@ module Alchemy
             expect(new_parent.children.where(title: child.title).count).to eq 1
           end
 
-          source_page_grandchildren = source_page.children.find_by_title('child with children').children
-          new_parent_grandchildren = new_parent.children.find_by_title('child with children').children
+          source_page_grandchildren = source_page.children.find_by_title("child with children").children
+          new_parent_grandchildren = new_parent.children.find_by_title("child with children").children
 
           source_page_grandchildren.each do |grandchild|
             expect(new_parent_grandchildren.where(title: grandchild.title).count).to eq 1
