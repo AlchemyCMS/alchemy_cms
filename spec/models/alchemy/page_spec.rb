@@ -295,7 +295,7 @@ module Alchemy
       before do
         create(:alchemy_page, :public, :locked, locked_by: 53) # This page must not be part of the collection
         allow(user.class).to receive(:primary_key)
-                               .and_return("id")
+        .and_return("id")
       end
 
       it "should return the correct page collection blocked by a certain user" do
@@ -308,7 +308,7 @@ module Alchemy
 
         before do
           allow(user.class).to receive(:primary_key)
-                                 .and_return("user_id")
+          .and_return("user_id")
         end
 
         it "should return the correct page collection blocked by a certain user" do
@@ -423,9 +423,9 @@ module Alchemy
         before do
           page = create(:alchemy_page)
           allow(page).to receive(:definition).and_return({
-            "name" => "standard",
-            "elements" => ["headline"],
-            "autogenerate" => ["headline"],
+                                                           "name" => "standard",
+                                                           "elements" => ["headline"],
+                                                           "autogenerate" => ["headline"],
           })
         end
 
@@ -663,22 +663,22 @@ module Alchemy
 
         before do
           allow(Element).to receive(:definitions).and_return([
-            {
-              "name" => "column_headline",
-              "amount" => 3,
-              "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
-            },
-            {
-              "name" => "unique_headline",
-              "unique" => true,
-              "amount" => 3,
-              "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
-            },
+                                                               {
+                                                                 "name" => "column_headline",
+                                                                 "amount" => 3,
+                                                                 "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
+                                                               },
+                                                               {
+                                                                 "name" => "unique_headline",
+                                                                 "unique" => true,
+                                                                 "amount" => 3,
+                                                                 "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
+                                                               },
           ])
           allow(PageLayout).to receive(:get).and_return({
-            "name" => "columns",
-            "elements" => ["column_headline", "unique_headline"],
-            "autogenerate" => ["unique_headline", "column_headline", "column_headline", "column_headline"],
+                                                          "name" => "columns",
+                                                          "elements" => ["column_headline", "unique_headline"],
+                                                          "autogenerate" => ["unique_headline", "column_headline", "column_headline", "column_headline"],
           })
         end
 
@@ -1047,9 +1047,9 @@ module Alchemy
       context "with existing public child" do
         let!(:first_public_child) do
           create :alchemy_page, :public,
-                 name: "First public child",
-                 language: language,
-                 parent: language_root
+            name: "First public child",
+            language: language,
+            parent: language_root
         end
 
         it "should return first_public_child" do
@@ -1110,6 +1110,70 @@ module Alchemy
       end
     end
 
+    describe "#copy_children_to" do
+      subject { source_page.copy_children_to new_parent }
+
+      let(:source_page) do
+        create(
+          :alchemy_page,
+          :public,
+          children: [
+            build(:alchemy_page),
+            build(:alchemy_page, name: 'child with children', children: [build(:alchemy_page)])
+          ]
+        )
+      end
+
+      let(:new_parent) { create :alchemy_page, :public }
+
+      it "copies children and their descendents under new_parent" do
+        expect { subject }.to change { new_parent.children.count }.from(0).to 2
+
+        source_page.children.each do |child|
+          expect(new_parent.children.where(title: child.title).count).to eq 1
+        end
+
+        source_page_grandchildren = source_page.children.find_by_title('child with children').children
+        new_parent_grandchildren = new_parent.children.find_by_title('child with children').children
+
+        source_page_grandchildren.each do |grandchild|
+          expect(new_parent_grandchildren.where(title: grandchild.title).count).to eq 1
+        end
+      end
+
+      context "when copying to a new_parent in a different language tree" do
+        let(:new_parent) { create :alchemy_page, :public, language: klingon }
+
+        it "copies children and their descendents under new_parent" do
+          expect { subject }.to change { new_parent.children.count }.from(0).to 2
+
+          source_page.children.each do |child|
+            expect(new_parent.children.where(title: child.title).count).to eq 1
+          end
+
+          source_page_grandchildren = source_page.children.find_by_title('child with children').children
+          new_parent_grandchildren = new_parent.children.find_by_title('child with children').children
+
+          source_page_grandchildren.each do |grandchild|
+            expect(new_parent_grandchildren.where(title: grandchild.title).count).to eq 1
+          end
+        end
+      end
+    end
+
+    def copy_children_to(new_parent)
+      children.each do |child|
+        next if child == new_parent
+
+        new_child = Page.copy(child, {
+                                language_id: new_parent.language_id,
+                                language_code: new_parent.language_code,
+        })
+        new_child.move_to_child_of(new_parent)
+        child.copy_children_to(new_child) unless child.children.blank?
+      end
+    end
+
     describe "#definition" do
       context "if the page layout could not be found in the definition file" do
         let(:page) { build_stubbed(:alchemy_page, page_layout: "notexisting") }
@@ -1163,11 +1227,11 @@ module Alchemy
 
       it "should copy the source page with the given name to the new parent" do
         expect(Page).to receive(:copy).with(source, {
-                          parent: new_parent,
-                          language: new_parent.language,
-                          name: page_name,
-                          title: page_name,
-                        })
+                                              parent: new_parent,
+                                              language: new_parent.language,
+                                              name: page_name,
+                                              title: page_name,
+        })
         subject
       end
 
@@ -1191,11 +1255,11 @@ module Alchemy
 
         it "copies the source page with the given name" do
           expect(Page).to receive(:copy).with(source, {
-                          parent: nil,
-                          language: nil,
-                          name: page_name,
-                          title: page_name,
-                        })
+                                                parent: nil,
+                                                language: nil,
+                                                name: page_name,
+                                                title: page_name,
+          })
           subject
         end
       end
