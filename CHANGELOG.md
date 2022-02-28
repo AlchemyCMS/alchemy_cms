@@ -1,3 +1,7 @@
+## 5.2.6 (2022-02-28)
+
+- Add crop_resize Dragonfly processor ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.2.5 (2021-11-24)
 
 - Adjust tinymce skin assets urls again ([tvdeyen](https://github.com/tvdeyen))
