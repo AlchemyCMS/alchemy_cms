@@ -1143,7 +1143,7 @@ module Alchemy
 
       it "should copy the source page with the given name to the new parent" do
         expect(Page).to receive(:copy).with(source, {
-                          parent_id: new_parent.id,
+                          parent: new_parent,
                           language: new_parent.language,
                           name: page_name,
                           title: page_name,
@@ -1161,6 +1161,21 @@ module Alchemy
           allow(Page).to receive(:copy).and_return(copied_page)
           allow(source).to receive(:children).and_return([mock_model("Page")])
           expect(source).to receive(:copy_children_to).with(copied_page)
+          subject
+        end
+      end
+
+      context "if the source page has no parent (global page)" do
+        let(:source) { build_stubbed(:alchemy_page, layoutpage: true, parent_id: nil) }
+        let(:new_parent) { nil }
+
+        it "copies the source page with the given name" do
+          expect(Page).to receive(:copy).with(source, {
+                          parent: nil,
+                          language: nil,
+                          name: page_name,
+                          title: page_name,
+                        })
           subject
         end
       end
