@@ -106,7 +106,7 @@ module Alchemy
             page.save!
             page.urlname = "another-urlname"
             page.save!
-            expect(page.legacy_urls.select { |u| u.urlname == "my-testpage" }.size).to eq(1)
+            expect(page.legacy_urls.count { |u| u.urlname == "my-testpage" }).to eq(1)
           end
         end
 
@@ -194,7 +194,7 @@ module Alchemy
 
           it "does not autogenerate" do
             page.save!
-            expect(page.elements.select { |e| e.name == "header" }.length).to eq(1)
+            expect(page.elements.count { |e| e.name == "header" }).to eq(1)
           end
         end
 
@@ -335,8 +335,7 @@ module Alchemy
 
       before do
         create(:alchemy_page, :public, :locked, locked_by: 53) # This page must not be part of the collection
-        allow(user.class).to receive(:primary_key)
-        .and_return("id")
+        allow(user.class).to receive(:primary_key).and_return("id")
       end
 
       it "should return the correct page collection blocked by a certain user" do
@@ -348,8 +347,7 @@ module Alchemy
         let(:user) { double(:user, user_id: 123, class: DummyUser) }
 
         before do
-          allow(user.class).to receive(:primary_key)
-          .and_return("user_id")
+          allow(user.class).to receive(:primary_key).and_return("user_id")
         end
 
         it "should return the correct page collection blocked by a certain user" do
@@ -470,9 +468,9 @@ module Alchemy
         before do
           page = create(:alchemy_page)
           allow(page).to receive(:definition).and_return({
-                                                           "name" => "standard",
-                                                           "elements" => ["headline"],
-                                                           "autogenerate" => ["headline"],
+            "name" => "standard",
+            "elements" => ["headline"],
+            "autogenerate" => ["headline"],
           })
         end
 
@@ -655,22 +653,22 @@ module Alchemy
 
         before do
           allow(Element).to receive(:definitions).and_return([
-                                                               {
-                                                                 "name" => "column_headline",
-                                                                 "amount" => 3,
-                                                                 "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
-                                                               },
-                                                               {
-                                                                 "name" => "unique_headline",
-                                                                 "unique" => true,
-                                                                 "amount" => 3,
-                                                                 "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
-                                                               },
+            {
+              "name" => "column_headline",
+              "amount" => 3,
+              "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
+            },
+            {
+              "name" => "unique_headline",
+              "unique" => true,
+              "amount" => 3,
+              "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
+            },
           ])
           allow(PageLayout).to receive(:get).and_return({
-                                                          "name" => "columns",
-                                                          "elements" => ["column_headline", "unique_headline"],
-                                                          "autogenerate" => ["unique_headline", "column_headline", "column_headline", "column_headline"],
+            "name" => "columns",
+            "elements" => ["column_headline", "unique_headline"],
+            "autogenerate" => ["unique_headline", "column_headline", "column_headline", "column_headline"],
           })
         end
 
@@ -1099,8 +1097,8 @@ module Alchemy
           :public,
           children: [
             build(:alchemy_page),
-            build(:alchemy_page, name: 'child with children', children: [build(:alchemy_page)])
-          ]
+            build(:alchemy_page, name: "child with children", children: [build(:alchemy_page)]),
+          ],
         )
       end
 
@@ -1113,8 +1111,8 @@ module Alchemy
           expect(new_parent.children.where(title: child.title).count).to eq 1
         end
 
-        source_page_grandchildren = source_page.children.find_by_title('child with children').children
-        new_parent_grandchildren = new_parent.children.find_by_title('child with children').children
+        source_page_grandchildren = source_page.children.find_by_title("child with children").children
+        new_parent_grandchildren = new_parent.children.find_by_title("child with children").children
 
         source_page_grandchildren.each do |grandchild|
           expect(new_parent_grandchildren.where(title: grandchild.title).count).to eq 1
@@ -1131,8 +1129,8 @@ module Alchemy
             expect(new_parent.children.where(title: child.title).count).to eq 1
           end
 
-          source_page_grandchildren = source_page.children.find_by_title('child with children').children
-          new_parent_grandchildren = new_parent.children.find_by_title('child with children').children
+          source_page_grandchildren = source_page.children.find_by_title("child with children").children
+          new_parent_grandchildren = new_parent.children.find_by_title("child with children").children
 
           source_page_grandchildren.each do |grandchild|
             expect(new_parent_grandchildren.where(title: grandchild.title).count).to eq 1
@@ -1146,8 +1144,8 @@ module Alchemy
         next if child == new_parent
 
         new_child = Page.copy(child, {
-                                language_id: new_parent.language_id,
-                                language_code: new_parent.language_code,
+          language_id: new_parent.language_id,
+          language_code: new_parent.language_code,
         })
         new_child.move_to_child_of(new_parent)
         child.copy_children_to(new_child) unless child.children.blank?
@@ -1207,10 +1205,10 @@ module Alchemy
 
       it "should copy the source page with the given name to the new parent" do
         expect(Page).to receive(:copy).with(source, {
-                                              parent: new_parent,
-                                              language: new_parent.language,
-                                              name: page_name,
-                                              title: page_name,
+          parent: new_parent,
+          language: new_parent.language,
+          name: page_name,
+          title: page_name,
         })
         subject
       end
@@ -1235,10 +1233,10 @@ module Alchemy
 
         it "copies the source page with the given name" do
           expect(Page).to receive(:copy).with(source, {
-                                                parent: nil,
-                                                language: nil,
-                                                name: page_name,
-                                                title: page_name,
+            parent: nil,
+            language: nil,
+            name: page_name,
+            title: page_name,
           })
           subject
         end
@@ -1475,10 +1473,12 @@ module Alchemy
     describe "#publish!" do
       let(:current_time) { Time.current.change(usec: 0) }
       let(:page) do
-        create(:alchemy_page,
-               public_on: public_on,
-               public_until: public_until,
-               published_at: published_at)
+        create(
+          :alchemy_page,
+          public_on: public_on,
+          public_until: public_until,
+          published_at: published_at,
+        )
       end
       let(:published_at) { nil }
       let(:public_on) { nil }
