@@ -448,6 +448,7 @@ module Alchemy
         next if child == new_parent
 
         new_child = Page.copy(child, {
+          parent_id: new_parent.id,
           language_id: new_parent.language_id,
           language_code: new_parent.language_code,
         })
