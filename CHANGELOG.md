@@ -1,3 +1,8 @@
+## 5.2.7 (2022-03-01)
+
+- Fix copying page with descendants to a different language ([dbwinger](https://github.com/dbwinger))
+- Handle copying/pasting global pages ([dbwinger](https://github.com/dbwinger))
+
 ## 5.2.6 (2022-02-28)
 
 - Add crop_resize Dragonfly processor ([tvdeyen](https://github.com/tvdeyen))
