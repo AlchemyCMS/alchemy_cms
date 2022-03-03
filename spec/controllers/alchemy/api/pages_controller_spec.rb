@@ -7,8 +7,9 @@ module Alchemy
     routes { Alchemy::Engine.routes }
 
     describe "#index" do
-      context "without a Language present" do
-        let(:result) { JSON.parse(response.body) }
+      let(:result) { JSON.parse(response.body) }
+
+      context "without a default language present" do
 
         it "returns JSON" do
           get :index, params: { format: :json }
@@ -16,9 +17,9 @@ module Alchemy
         end
       end
 
-      context "with a language and a page present" do
-        let!(:page) { create(:alchemy_page, :public) }
-        let(:result) { JSON.parse(response.body) }
+      context "with a default language and a page present" do
+        let!(:default_language) { create(:alchemy_language, :english, default: true) }
+        let!(:page) { create(:alchemy_page, :public, language: default_language) }
 
         it "returns JSON" do
           get :index, params: { format: :json }
@@ -56,8 +57,8 @@ module Alchemy
         end
 
         context "with page param given" do
-          let!(:page1) { create(:alchemy_page) }
-          let!(:page2) { create(:alchemy_page) }
+          let!(:page1) { create(:alchemy_page, language: default_language) }
+          let!(:page2) { create(:alchemy_page, language: default_language) }
 
           before do
             expect(Kaminari.config).to receive(:default_per_page).at_least(:once) { 1 }
@@ -90,6 +91,31 @@ module Alchemy
             get :index, format: :json
 
             expect(result["pages"].map { |r| r["id"] }).to_not include(site_2_page.id)
+          end
+        end
+
+        context "with language_id param" do
+          subject { get :index, params: { format: :json, language_id: try(:language)&.id } }
+
+          let!(:default_language_page) { create(:alchemy_page, :public, language: default_language, name: "same-name") }
+
+          context "when a language with that id exists" do
+            let(:language) { create(:alchemy_language, :klingon) }
+            let!(:default_language_page) { create(:alchemy_page, :public, language: default_language, name: "same-name") }
+            let!(:klingon_page) { create(:alchemy_page, :public, language: language, name: "same-name") }
+
+            it "only returns results from that language" do
+              subject
+              expect(result["pages"].map { |r| r["id"] }).to match_array [language.pages.root.id, klingon_page.id]
+            end
+          end
+
+          context "when a language with that id does not exist" do
+            it "uses the default language" do
+              subject
+              expect(result["pages"].map { |r| r["id"] }).to include(default_language_page.id)
+              expect(result["pages"].map { |r| r["language_code"] }).not_to include("kl")
+            end
           end
         end
       end

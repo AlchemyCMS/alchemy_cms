@@ -7,12 +7,14 @@ module Alchemy
     # Returns all pages as json object
     #
     def index
+      language = Alchemy::Language.find_by(id: params[:language_id]) || Alchemy::Language.current
+
       # Fix for cancancan not able to merge multiple AR scopes for logged in users
       if cannot? :edit_content, Alchemy::Page
         @pages = Alchemy::Page.accessible_by(current_ability, :index)
-        @pages = @pages.where(language: Language.current)
+        @pages = @pages.where(language: language)
       else
-        @pages = Language.current&.pages.presence || Alchemy::Page.none
+        @pages = language&.pages.presence || Alchemy::Page.none
       end
       @pages = @pages.includes(*page_includes)
       @pages = @pages.ransack(params[:q]).result
