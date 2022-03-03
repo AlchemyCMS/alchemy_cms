@@ -14,7 +14,7 @@
 <script>
   $('#<%= essence_page_editor.form_field_id %>').alchemyPageSelect({
     placeholder: "<%= Alchemy.t(:search_page) %>",
-    url: "<%= alchemy.api_pages_path %>",
+    url: "<%= alchemy.api_pages_path language_id: essence_page_editor.page&.language_id %>",
     query_params: <%== essence_page_editor.settings[:query_params].to_json %>,
     <% if essence_page_editor.essence.page %>
     initialSelection: {
