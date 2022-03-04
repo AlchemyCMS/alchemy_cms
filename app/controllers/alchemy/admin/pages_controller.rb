@@ -133,7 +133,7 @@ module Alchemy
             @tree = serialized_page_tree
           end
         else
-          configure
+          render :configure
         end
       end
 
