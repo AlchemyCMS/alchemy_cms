@@ -5,13 +5,13 @@ require "rails_helper"
 RSpec.describe "Page creation", type: :system do
   before { authorize_user(:as_admin) }
 
-  describe "parent selection" do
+  describe "parent selection", :js do
     let!(:homepage) { create(:alchemy_page, :language_root) }
 
     context "without having a parent id in the params" do
       it "contains a parent select" do
         visit new_admin_page_path
-        expect(page).to have_select("Parent", selected: homepage.name)
+        expect(page).to have_css("#s2id_page_parent_id")
       end
     end
 
@@ -19,6 +19,7 @@ RSpec.describe "Page creation", type: :system do
       it "contains a hidden parent_id field" do
         visit new_admin_page_path(parent_id: homepage)
         expect(page).to have_field("page_parent_id", type: "hidden")
+        expect(page).to_not have_css("#s2id_page_parent_id")
       end
     end
   end
