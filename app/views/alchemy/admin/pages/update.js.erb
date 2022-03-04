@@ -1,11 +1,6 @@
 (function() {
   var page = document.querySelector('#page_<%= @page.id %>');
 
-<% if @old_page_layout != @page.page_layout -%>
-  Alchemy.ElementsWindow.reload();
-  Alchemy.growl('<%= j Alchemy.t(:page_layout_changed_notice) %>');
-<% end -%>
-
 <% if @while_page_edit -%>
 
   Alchemy.reloadPreview();
