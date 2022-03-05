@@ -10,7 +10,7 @@ export default class Sitemap {
     this.search_field = $(".search_input_field")
     this.filter_field_clear = $(".search_field_clear")
     this.display = $("#page_filter_result")
-    this.sitemap_wrapper = $("#sitemap-wrapper p.loading")
+    this.sitemap_wrapper = $("#sitemap-wrapper")
     this.template = Handlebars.compile($("#sitemap-template").html())
     this.list_template = Handlebars.compile(list_template_html)
     this.items = null
@@ -23,6 +23,7 @@ export default class Sitemap {
   load(pageId) {
     const spinner = this.options.spinner || new Alchemy.Spinner("medium")
     const spinTarget = this.sitemap_wrapper
+    spinTarget.empty()
     spinner.spin(spinTarget[0])
     this.fetch(
       `${this.options.url}?id=${pageId}&full=${this.options.full}`
@@ -55,12 +56,14 @@ export default class Sitemap {
     if (foldingId) {
       renderTarget = $("#page_" + foldingId)
       renderTemplate = this.list_template
+      renderTarget.replaceWith(renderTemplate({ children: data.pages }))
     } else {
       renderTarget = this.sitemap_wrapper
       renderTemplate = this.template
+      renderTarget.html(renderTemplate({ children: data.pages }))
     }
-    renderTarget.replaceWith(renderTemplate({ children: data.pages }))
     this.items = $(".sitemap_page", "#sitemap")
+    this.sitemap_wrapper = $("#sitemap-wrapper")
     this._observe()
 
     if (this.options.ready) {
