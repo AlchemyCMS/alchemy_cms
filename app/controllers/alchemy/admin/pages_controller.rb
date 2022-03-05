@@ -123,8 +123,6 @@ module Alchemy
       # * fetches page via before filter
       #
       def update
-        # stores old page_layout value, because unfurtunally rails @page.changes does not work here.
-        @old_page_layout = @page.page_layout
         if @page.update(page_params)
           @notice = Alchemy.t("Page saved", name: @page.name)
           @while_page_edit = request.referer.include?("edit")
