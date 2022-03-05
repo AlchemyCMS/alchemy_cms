@@ -1,3 +1,11 @@
+## 6.0.0-rc6 (2022-03-05)
+
+- Rework sitemap JS [#2249](https://github.com/AlchemyCMS/alchemy_cms/pull/2249) ([tvdeyen](https://github.com/tvdeyen))
+- Remove old page layout change code from update action [#2248](https://github.com/AlchemyCMS/alchemy_cms/pull/2248) ([tvdeyen](https://github.com/tvdeyen))
+- Fix rendering errors in page configure overlay [#2247](https://github.com/AlchemyCMS/alchemy_cms/pull/2247) ([tvdeyen](https://github.com/tvdeyen))
+- Fix copying page with descendants to a different language [#2243](https://github.com/AlchemyCMS/alchemy_cms/pull/2243) ([dbwinger](https://github.com/dbwinger))
+- Handle copying/pasting global pages [#2241](https://github.com/AlchemyCMS/alchemy_cms/pull/2241) ([dbwinger](https://github.com/dbwinger))
+
 ## 6.0.0-rc5 (2022-02-24)
 
 ### Changes
