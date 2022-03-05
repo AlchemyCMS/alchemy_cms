@@ -133,7 +133,7 @@
       if (!not_dirty) Alchemy.pleaseWaitOverlay(false);
       return not_dirty;
     });
-    Alchemy.Sitemap.watchPagePublicationState();
+    Alchemy.PagePublicationFields();
     Alchemy.PageLeaveObserver();
     Alchemy.ElementsWindow.init('<%= alchemy.admin_elements_path(page_id: @page.id) %>', {
       texts: {

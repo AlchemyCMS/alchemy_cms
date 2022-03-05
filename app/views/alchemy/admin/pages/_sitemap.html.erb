@@ -1,11 +1,10 @@
-<div id="sitemap-wrapper">
-  <h4 id="sitemap_heading">
-    <span class="page_name"><%= Alchemy::Page.human_attribute_name(:name) %></span>
-    <span class="page_urlname"><%= Alchemy::Page.human_attribute_name(:urlname) %></span>
-    <span class="page_status"><%= Alchemy.t(:page_status) %></span>
-  </h4>
+<h4 id="sitemap_heading">
+  <span class="page_name"><%= Alchemy::Page.human_attribute_name(:name) %></span>
+  <span class="page_urlname"><%= Alchemy::Page.human_attribute_name(:urlname) %></span>
+  <span class="page_status"><%= Alchemy.t(:page_status) %></span>
+</h4>
 
-  <p class="loading"></p>
+<div id="sitemap-wrapper">
 </div>
 
 <script id="sitemap-template" type="text/x-handlebars-template">
@@ -22,7 +21,7 @@
 
 <script type="text/javascript">
  $(function() {
-   Alchemy.Sitemap.init({
+   Alchemy.currentSitemap = new Alchemy.Sitemap({
      url: '<%= alchemy.tree_admin_pages_path %>',
      page_root_id: <%= @page_root.id %>,
      full: <%= full %>
@@ -32,5 +31,6 @@
      }
      <% end %>
    });
+   Alchemy.PagePublicationFields();
  });
 </script>
