@@ -16,24 +16,18 @@ export default class Sitemap {
     this.items = null
     this.options = options
     Handlebars.registerPartial("list", list_template_html)
-    this.fetch()
+    this.load()
   }
 
-  // Fetches the sitemap from JSON
-  fetch(foldingId) {
+  // Loads the sitemap
+  load(foldingId) {
     const pageId = foldingId || this.options.page_root_id
 
-    $.ajax({
-      url: this.options.url,
-      data: {
-        id: pageId,
-        full: this.options.full
-      }
-    })
-      .done((data) => {
-        this.render(data, foldingId)
+    fetch(`${this.options.url}?id=${pageId}&full=${this.options.full}`)
+      .then(async (response) => {
+        this.render(await response.json(), foldingId)
       })
-      .fail((_jqXHR, status) => console.warn("Request failed: " + status))
+      .catch((error) => console.warn(`Request failed: ${error}`))
   }
 
   // Renders the sitemap
