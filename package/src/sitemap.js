@@ -4,14 +4,17 @@ export default class Sitemap {
   // Storing some objects.
   constructor(options) {
     const list_template_regexp = new RegExp("/" + options.page_root_id, "g")
-    const list_template_html = $("#sitemap-list")
-      .html()
-      .replace(list_template_regexp, "/{{id}}")
-    this.search_field = $(".search_input_field")
-    this.filter_field_clear = $(".search_field_clear")
-    this.display = $("#page_filter_result")
-    this.sitemap_wrapper = $("#sitemap-wrapper")
-    this.template = Handlebars.compile($("#sitemap-template").html())
+    const list_template_html = document
+      .getElementById("sitemap-list")
+      .innerHTML.replace(list_template_regexp, "/{{id}}")
+    this.search_field = document.querySelector(".search_input_field")
+    this.filter_field_clear = document.querySelector(".search_field_clear")
+    this.filter_field_clear.removeAttribute("href")
+    this.display = document.getElementById("page_filter_result")
+    this.sitemap_wrapper = document.getElementById("sitemap-wrapper")
+    this.template = Handlebars.compile(
+      document.getElementById("sitemap-template").innerHTML
+    )
     this.list_template = Handlebars.compile(list_template_html)
     this.items = null
     this.options = options
@@ -23,8 +26,8 @@ export default class Sitemap {
   load(pageId) {
     const spinner = this.options.spinner || new Alchemy.Spinner("medium")
     const spinTarget = this.sitemap_wrapper
-    spinTarget.empty()
-    spinner.spin(spinTarget[0])
+    spinTarget.innerHTML = ""
+    spinner.spin(spinTarget)
     this.fetch(
       `${this.options.url}?id=${pageId}&full=${this.options.full}`
     ).then(async (response) => {
@@ -36,9 +39,9 @@ export default class Sitemap {
   // Reload the sitemap for a specific branch
   reload(pageId) {
     const spinner = new Alchemy.Spinner("small")
-    const spinTarget = $("#fold_button_" + pageId)
-    spinTarget.find(".far").hide()
-    spinner.spin(spinTarget[0])
+    const spinTarget = document.getElementById(`fold_button_${pageId}`)
+    spinTarget.querySelector(".far").remove()
+    spinner.spin(spinTarget)
     this.fetch(`${this.options.url}?id=${pageId}`).then(async (response) => {
       this.render(await response.json(), pageId)
       spinner.stop()
@@ -54,16 +57,18 @@ export default class Sitemap {
     let renderTarget, renderTemplate
 
     if (foldingId) {
-      renderTarget = $("#page_" + foldingId)
+      renderTarget = document.getElementById(`page_${foldingId}`)
       renderTemplate = this.list_template
-      renderTarget.replaceWith(renderTemplate({ children: data.pages }))
+      renderTarget.outerHTML = renderTemplate({ children: data.pages })
     } else {
       renderTarget = this.sitemap_wrapper
       renderTemplate = this.template
-      renderTarget.html(renderTemplate({ children: data.pages }))
+      renderTarget.innerHTML = renderTemplate({ children: data.pages })
     }
-    this.items = $(".sitemap_page", "#sitemap")
-    this.sitemap_wrapper = $("#sitemap-wrapper")
+    this.items = document
+      .getElementById("sitemap")
+      .querySelectorAll(".sitemap_page")
+    this.sitemap_wrapper = document.getElementById("sitemap-wrapper")
     this._observe()
 
     if (this.options.ready) {
@@ -75,43 +80,52 @@ export default class Sitemap {
   filter(term) {
     const results = []
 
-    this.items.map(function () {
-      const item = $(this)
-
-      if (term !== "" && item.attr("name").toLowerCase().indexOf(term) !== -1) {
-        item.addClass("highlight")
-        item.removeClass("no-match")
+    this.items.forEach(function (item) {
+      if (
+        term !== "" &&
+        item.getAttribute("name").toLowerCase().indexOf(term) !== -1
+      ) {
+        item.classList.add("highlight")
+        item.classList.remove("no-match")
         results.push(item)
       } else {
-        item.addClass("no-match")
-        item.removeClass("highlight")
+        item.classList.add("no-match")
+        item.classList.remove("highlight")
       }
     })
-    this.filter_field_clear.show()
+    this.filter_field_clear.style.display = "inline-block"
     const { length } = results
 
     if (length === 1) {
-      this.display.show().text(`1 ${Alchemy.t("page_found")}`)
-      $.scrollTo(results[0], { duration: 400, offset: -80 })
+      this.display.style.display = "block"
+      this.display.innerText = `1 ${Alchemy.t("page_found")}`
+      results[0].scrollIntoView({ behavior: "smooth", block: "center" })
     } else if (length > 1) {
-      this.display.show().text(`${length} ${Alchemy.t("pages_found")}`)
+      this.display.style.display = "block"
+      this.display.innerText = `${length} ${Alchemy.t("pages_found")}`
     } else {
-      this.items.removeClass("no-match highlight")
-      this.display.hide()
-      $.scrollTo("0", 400)
-      this.filter_field_clear.hide()
+      this.items.forEach((item) =>
+        item.classList.remove("no-match", "highlight")
+      )
+      this.display.style.display = "none"
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: "smooth"
+      })
+      this.filter_field_clear.style.display = "none"
     }
   }
 
   // Adds onkey up observer to search field
   _observe() {
-    this.search_field.on("keyup", (evt) => {
+    this.search_field.addEventListener("keyup", (evt) => {
       const term = evt.target.value
       this.filter(term.toLowerCase())
     })
-    this.search_field.on("focus", () => key.setScope("search"))
-    this.filter_field_clear.click(() => {
-      this.search_field.val("")
+    this.search_field.addEventListener("focus", () => key.setScope("search"))
+    this.filter_field_clear.addEventListener("click", () => {
+      this.search_field.value = ""
       this.filter("")
       return false
     })
@@ -119,27 +133,29 @@ export default class Sitemap {
 
   // Handles the page publication date fields
   static watchPagePublicationState() {
-    $(document).on("DialogReady.Alchemy", function (e, $dialog) {
-      const $public_on_field = $("#page_public_on", $dialog)
-      const $public_until_field = $("#page_public_until", $dialog)
-      const $publication_date_fields = $(
-        ".page-publication-date-fields",
-        $dialog
+    document.addEventListener("DialogReady.Alchemy", function (evt) {
+      const dialog = evt.detail.body
+      const public_on_field = dialog.querySelector("#page_public_on")
+      const public_until_field = dialog.querySelector("#page_public_until")
+      const publication_date_fields = dialog.querySelector(
+        ".page-publication-date-fields"
       )
 
-      return $("#page_public", $dialog).click(function () {
-        const $checkbox = $(this)
-        const now = new Date()
+      dialog
+        .querySelector("#page_public")
+        .addEventListener("click", function (evt) {
+          const checkbox = evt.target
+          const now = new Date()
 
-        if ($checkbox.is(":checked")) {
-          $publication_date_fields.removeClass("hidden")
-          $public_on_field[0]._flatpickr.setDate(now)
-        } else {
-          $publication_date_fields.addClass("hidden")
-          $public_on_field.val("")
-        }
-        $public_until_field.val("")
-      })
+          if (checkbox.checked) {
+            publication_date_fields.classList.remove("hidden")
+            public_on_field._flatpickr.setDate(now)
+          } else {
+            publication_date_fields.classList.add("hidden")
+            public_on_field.value = ""
+          }
+          public_until_field.value = ""
+        })
     })
   }
 }
