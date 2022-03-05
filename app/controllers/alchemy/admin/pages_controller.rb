@@ -123,6 +123,7 @@ module Alchemy
       # * fetches page via before filter
       #
       def update
+        @old_parent_id = @page.parent_id
         if @page.update(page_params)
           @notice = Alchemy.t("Page saved", name: @page.name)
           @while_page_edit = request.referer.include?("edit")
