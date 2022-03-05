@@ -21,44 +21,45 @@ export default class Sitemap {
 
   // Fetches the sitemap from JSON
   fetch(foldingId) {
-    let pageId, renderTarget, renderTemplate, spinner, spinTarget
+    const pageId = foldingId || this.options.page_root_id
 
-    if (foldingId) {
-      spinner = new Alchemy.Spinner("small")
-      spinTarget = $("#fold_button_" + foldingId)
-      renderTarget = $("#page_" + foldingId)
-      renderTemplate = this.list_template
-      pageId = foldingId
-    } else {
-      spinner = this.options.spinner || new Alchemy.Spinner("medium")
-      spinTarget = this.sitemap_wrapper
-      renderTarget = this.sitemap_wrapper
-      renderTemplate = this.template
-      pageId = this.options.page_root_id
-    }
-
-    spinner.spin(spinTarget[0])
-
-    const request = $.ajax({
+    $.ajax({
       url: this.options.url,
       data: {
         id: pageId,
         full: this.options.full
       }
     })
+      .done((data) => {
+        this.render(data, foldingId)
+      })
+      .fail((_jqXHR, status) => console.warn("Request failed: " + status))
+  }
 
-    request.done((data) => {
-      // This will also remove the spinner
-      renderTarget.replaceWith(renderTemplate({ children: data.pages }))
-      this.items = $(".sitemap_page", "#sitemap")
-      this._observe()
+  // Renders the sitemap
+  render(data, foldingId) {
+    let renderTarget, renderTemplate, spinner, spinTarget
 
-      if (this.options.ready) {
-        this.options.ready()
-      }
-    })
+    if (foldingId) {
+      spinner = new Alchemy.Spinner("small")
+      spinTarget = $("#fold_button_" + foldingId)
+      renderTarget = $("#page_" + foldingId)
+      renderTemplate = this.list_template
+    } else {
+      spinner = this.options.spinner || new Alchemy.Spinner("medium")
+      spinTarget = this.sitemap_wrapper
+      renderTarget = this.sitemap_wrapper
+      renderTemplate = this.template
+    }
+    spinner.spin(spinTarget[0])
+    // This will also remove the spinner
+    renderTarget.replaceWith(renderTemplate({ children: data.pages }))
+    this.items = $(".sitemap_page", "#sitemap")
+    this._observe()
 
-    request.fail((_jqXHR, status) => console.warn("Request failed: " + status))
+    if (this.options.ready) {
+      this.options.ready()
+    }
   }
 
   // Filters the sitemap
