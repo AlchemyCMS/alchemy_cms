@@ -7,6 +7,7 @@ import ImageLoader from "./src/image_loader"
 import ImageCropper from "./src/image_cropper"
 import Datepicker from "./src/datepicker"
 import Sitemap from "./src/sitemap"
+import PagePublicationFields from "./src/page_publication_fields.js"
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {
@@ -24,5 +25,6 @@ Object.assign(Alchemy, {
   ImageLoader: ImageLoader.init,
   ImageCropper,
   Datepicker,
-  Sitemap
+  Sitemap,
+  PagePublicationFields
 })
