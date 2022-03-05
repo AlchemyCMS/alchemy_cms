@@ -47,6 +47,7 @@ namespace :alchemy do
           bin/rake db:environment:set && \
           bin/rake db:migrate:reset && \
           bin/rails g alchemy:install --skip --skip-demo-files --auto-accept && \
+          RAILS_ENV=test bin/webpack && \
           cd -
         BASH
       ) || fail
