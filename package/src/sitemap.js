@@ -16,37 +16,49 @@ export default class Sitemap {
     this.items = null
     this.options = options
     Handlebars.registerPartial("list", list_template_html)
-    this.load()
+    this.load(options.page_root_id)
   }
 
   // Loads the sitemap
-  load(foldingId) {
-    const pageId = foldingId || this.options.page_root_id
+  load(pageId) {
+    const spinner = this.options.spinner || new Alchemy.Spinner("medium")
+    const spinTarget = this.sitemap_wrapper
+    spinner.spin(spinTarget[0])
+    this.fetch(
+      `${this.options.url}?id=${pageId}&full=${this.options.full}`
+    ).then(async (response) => {
+      this.render(await response.json())
+      spinner.stop()
+    })
+  }
 
-    fetch(`${this.options.url}?id=${pageId}&full=${this.options.full}`)
-      .then(async (response) => {
-        this.render(await response.json(), foldingId)
-      })
-      .catch((error) => console.warn(`Request failed: ${error}`))
+  // Reload the sitemap for a specific branch
+  reload(pageId) {
+    const spinner = new Alchemy.Spinner("small")
+    const spinTarget = $("#fold_button_" + pageId)
+    spinTarget.find(".far").hide()
+    spinner.spin(spinTarget[0])
+    this.fetch(`${this.options.url}?id=${pageId}`).then(async (response) => {
+      this.render(await response.json(), pageId)
+      spinner.stop()
+    })
+  }
+
+  fetch(url) {
+    return fetch(url).catch((error) => console.warn(`Request failed: ${error}`))
   }
 
   // Renders the sitemap
   render(data, foldingId) {
-    let renderTarget, renderTemplate, spinner, spinTarget
+    let renderTarget, renderTemplate
 
     if (foldingId) {
-      spinner = new Alchemy.Spinner("small")
-      spinTarget = $("#fold_button_" + foldingId)
       renderTarget = $("#page_" + foldingId)
       renderTemplate = this.list_template
     } else {
-      spinner = this.options.spinner || new Alchemy.Spinner("medium")
-      spinTarget = this.sitemap_wrapper
       renderTarget = this.sitemap_wrapper
       renderTemplate = this.template
     }
-    spinner.spin(spinTarget[0])
-    // This will also remove the spinner
     renderTarget.replaceWith(renderTemplate({ children: data.pages }))
     this.items = $(".sitemap_page", "#sitemap")
     this._observe()
