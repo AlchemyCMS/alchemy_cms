@@ -8,6 +8,7 @@ import ImageCropper from "./src/image_cropper"
 import Datepicker from "./src/datepicker"
 import Sitemap from "./src/sitemap"
 import PagePublicationFields from "./src/page_publication_fields.js"
+import PageSorter from "./page_sorter"
 
 // Global Alchemy object
 if (typeof window.Alchemy === "undefined") {
@@ -26,5 +27,6 @@ Object.assign(Alchemy, {
   ImageCropper,
   Datepicker,
   Sitemap,
-  PagePublicationFields
+  PagePublicationFields,
+  PageSorter
 })

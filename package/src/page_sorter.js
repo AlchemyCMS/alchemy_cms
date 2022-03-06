@@ -1,5 +1,5 @@
-Alchemy.PageSorter = function () {
-  var $sortables = $("ul#sitemap").find("ul.level_0_children")
+export default function () {
+  const $sortables = $("ul#sitemap").find("ul.level_0_children")
 
   $sortables.nestedSortable({
     disableNesting: "no-nest",
