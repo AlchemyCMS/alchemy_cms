@@ -3,11 +3,7 @@
     <%= f.hidden_field(:parent_id) %>
   <% else %>
     <% @page.parent = @current_language.root_page %>
-    <%= f.input :parent_id,
-      collection: @current_language.pages.contentpages,
-      label_method: :name,
-      value_method: :id,
-      input_html: { class: "alchemy_selectbox" } %>
+    <%= f.input :parent_id, as: :string, input_html: { class: 'alchemy_selectbox' } %>
   <% end %>
   <%= f.hidden_field(:language_id) %>
   <%= f.hidden_field(:layoutpage) %>
@@ -21,3 +17,18 @@
   <%= f.input :name %>
   <%= f.submit Alchemy.t(:create) %>
 <% end %>
+
+<script>
+  $('input[type="text"]#page_parent_id').alchemyPageSelect({
+    placeholder: "<%= Alchemy.t(:search_page) %>",
+    url: "<%= alchemy.api_pages_path %>",
+    allowClear: false,
+    <% if @page.parent %>
+    initialSelection: {
+      id: <%= @page.parent.id %>,
+      text: "<%= @page.parent.name %>",
+      url_path: "<%= @page.parent.url_path %>"
+    }
+    <% end %>
+  })
+</script>

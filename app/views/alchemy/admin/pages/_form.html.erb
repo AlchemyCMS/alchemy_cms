@@ -1,4 +1,8 @@
 <%= alchemy_form_for [:admin, @page], class: 'edit_page' do |f| %>
+  <% unless @page.language_root? || @page.layoutpage %>
+    <%= f.input :parent_id, required: true, input_html: { class: 'alchemy_selectbox' } %>
+  <% end %>
+
   <%= f.input :page_layout,
     collection: @page_layouts,
     label: page_layout_label(@page),
@@ -43,3 +47,18 @@
 
   <%= f.submit Alchemy.t(:save) %>
 <% end %>
+
+<script>
+  $('#page_parent_id').alchemyPageSelect({
+    placeholder: "<%= Alchemy.t(:search_page) %>",
+    url: "<%= alchemy.api_pages_path %>",
+    allowClear: false,
+    <% if @page.parent %>
+    initialSelection: {
+      id: <%= @page.parent.id %>,
+      text: "<%= @page.parent.name %>",
+      url_path: "<%= @page.parent.url_path %>"
+    }
+    <% end %>
+  })
+</script>

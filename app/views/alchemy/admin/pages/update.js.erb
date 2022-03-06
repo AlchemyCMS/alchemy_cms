@@ -13,6 +13,13 @@
   Alchemy.growl("<%= j @notice %>");
   Alchemy.closeCurrentDialog();
 
+<% elsif @page.parent_id != @old_parent_id -%>
+
+  Alchemy.closeCurrentDialog(function() {
+    Alchemy.growl("<%= j @notice %>");
+    Alchemy.currentSitemap.load(<%= @page.get_language_root.id %>);
+  });
+
 <% else -%>
 
   if (page) {

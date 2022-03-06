@@ -128,6 +128,7 @@ module Alchemy
       def update
         # stores old page_layout value, because unfurtunally rails @page.changes does not work here.
         @old_page_layout = @page.page_layout
+        @old_parent_id = @page.parent_id
         if @page.update(page_params)
           @notice = Alchemy.t("Page saved", name: @page.name)
           @while_page_edit = request.referer.include?("edit")

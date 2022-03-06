@@ -1,9 +1,11 @@
-$.fn.alchemyPageSelect = function(options) {
+$.fn.alchemyPageSelect = function (options) {
   var pageTemplate = HandlebarsTemplates.page
 
   return this.select2({
     placeholder: options.placeholder,
-    allowClear: true,
+    allowClear: options.hasOwnProperty("allowClear")
+      ? options.allowClear
+      : true,
     minimumInputLength: 3,
     initSelection: function (_$el, callback) {
       if (options.initialSelection) {
@@ -12,13 +14,16 @@ $.fn.alchemyPageSelect = function(options) {
     },
     ajax: {
       url: options.url,
-      datatype: 'json',
+      datatype: "json",
       quietMillis: 300,
       data: function (term, page) {
         return {
-          q: $.extend({
-            name_cont: term
-          }, options.query_params),
+          q: $.extend(
+            {
+              name_cont: term
+            },
+            options.query_params
+          ),
           page: page
         }
       },
@@ -34,8 +39,8 @@ $.fn.alchemyPageSelect = function(options) {
     formatSelection: function (page) {
       return page.text || page.name
     },
-    formatResult: function(page) {
-      return pageTemplate({page: page})
+    formatResult: function (page) {
+      return pageTemplate({ page: page })
     }
   })
 }
