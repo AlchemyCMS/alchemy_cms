@@ -55,6 +55,7 @@ require "capybara/cuprite"
 Capybara.register_driver(:cuprite) do |app|
   Capybara::Cuprite::Driver.new(app, {
     window_size: [1280, 800],
+    timeout: 10,
   })
 end
 

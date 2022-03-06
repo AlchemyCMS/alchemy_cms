@@ -73,6 +73,7 @@ RSpec.describe "Link overlay", type: :system do
         expect(page).to have_content "Saved element."
       end
 
+      expect(page).to have_css("iframe#alchemy_preview_window", wait: 5)
       within_frame "alchemy_preview_window" do
         expect(page).to have_link("Link me", href: "/#{page2.urlname}")
       end
