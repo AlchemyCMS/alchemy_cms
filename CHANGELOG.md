@@ -189,6 +189,52 @@
 - Fix delete element confirm dialog [#2023](https://github.com/AlchemyCMS/alchemy_cms/pull/2023) ([tvdeyen](https://github.com/tvdeyen))
 - Build for Ruby 3 [#1990](https://github.com/AlchemyCMS/alchemy_cms/pull/1990) ([tvdeyen](https://github.com/tvdeyen))
 
+## 5.2.7 (2022-03-01)
+
+- Fix copying page with descendants to a different language ([dbwinger](https://github.com/dbwinger))
+- Handle copying/pasting global pages ([dbwinger](https://github.com/dbwinger))
+
+## 5.2.6 (2022-02-28)
+
+- Add crop_resize Dragonfly processor ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.2.5 (2021-11-24)
+
+- Adjust tinymce skin assets urls again ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.2.4 (2021-11-17)
+
+- Set stampable user_class_name without root identifier ([tvdeyen](https://github.com/tvdeyen))
+- Use relative path for tinymce font-face ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.2.3 (2021-10-26)
+
+- Make sure to install correct npm package ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.2.2 (2021-09-15)
+
+- Return only pages from current site in api [#2169](https://github.com/AlchemyCMS/alchemy_cms/pull/2169) ([afdev82](https://github.com/afdev82))
+- Improve cache key defaults for menus #2138 [#2160](https://github.com/AlchemyCMS/alchemy_cms/pull/2160) ([oneiros](https://github.com/oneiros))
+- generate picture thumbnails only for pictures with convertible format [#2130](https://github.com/AlchemyCMS/alchemy_cms/pull/2130) ([afdev82](https://github.com/afdev82))
+- Backport #2114 to v5.2 [#2116](https://github.com/AlchemyCMS/alchemy_cms/pull/2116) ([afdev82](https://github.com/afdev82))
+- Add webpacker tasks to Alchemy upgrader [#2115](https://github.com/AlchemyCMS/alchemy_cms/pull/2115) ([dbwinger](https://github.com/dbwinger))
+
+## 5.2.1 (2021-05-13)
+
+- Fix alchemy:generate:thumbnails task [#2092](https://github.com/AlchemyCMS/alchemy_cms/pull/2092) ([afdev82](https://github.com/afdev82))
+- Do not attempt to generate thumbs for svg files. [#2090](https://github.com/AlchemyCMS/alchemy_cms/pull/2090) ([oneiros](https://github.com/oneiros))
+
+## 5.2.0 (2021-05-06)
+
+- Backport #2049 to 5.2 [#2086](https://github.com/AlchemyCMS/alchemy_cms/pull/2086) ([rickythefox](https://github.com/rickythefox))
+- hotfix and deprecate page_active? helper [#2073](https://github.com/AlchemyCMS/alchemy_cms/pull/2073) ([robinboening](https://github.com/robinboening))
+
+## 5.2.0.rc1 (2021-02-17)
+
+### Changes
+
+- Change Factory loading mechanism to FactoryBots supported mechanism [#2030](https://github.com/AlchemyCMS/alchemy_cms/pull/2030) ([mamhoff](https://github.com/mamhoff))
+
 ## 5.2.0.b1 (2021-02-11)
 
 ### Features
