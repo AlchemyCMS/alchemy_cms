@@ -25,6 +25,8 @@ jobs:
       DB_HOST: '127.0.0.1'
       RAILS_ENV: test
       RAILS_VERSION: ${{ matrix.rails }}
+      FERRUM_INTERMITTENT_SLEEP: 0.2
+      FERRUM_INTERMITTENT_ATTEMPTS: 12
     services:
       postgres:
         image: postgres:11
