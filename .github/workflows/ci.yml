@@ -9,12 +9,12 @@ jobs:
       fail-fast: false
       matrix:
         rails:
-          - '6.0'
-          - '6.1'
+          - "6.0"
+          - "6.1"
         ruby:
-          - '2.6.8'
-          - '2.7.4'
-          - '3.0.2'
+          - "2.6"
+          - "2.7"
+          - "3.0"
         database:
           - mysql
           - postgresql
@@ -22,7 +22,7 @@ jobs:
       DB: ${{ matrix.database }}
       DB_USER: alchemy_user
       DB_PASSWORD: password
-      DB_HOST: '127.0.0.1'
+      DB_HOST: "127.0.0.1"
       RAILS_ENV: test
       RAILS_VERSION: ${{ matrix.rails }}
     services:
@@ -32,11 +32,11 @@ jobs:
           POSTGRES_USER: alchemy_user
           POSTGRES_PASSWORD: password
           POSTGRES_DB: alchemy_cms_dummy_test
-        ports: ['5432:5432']
+        ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
       mysql:
         image: mysql:latest
-        ports: ['3306:3306']
+        ports: ["3306:3306"]
         env:
           MYSQL_USER: alchemy_user
           MYSQL_PASSWORD: password
