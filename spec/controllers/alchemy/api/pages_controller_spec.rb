@@ -337,5 +337,41 @@ module Alchemy
         end
       end
     end
+
+    describe "#move" do
+      let!(:root_page) { create(:alchemy_page, :language_root) }
+      let!(:page) { create(:alchemy_page, parent: root_page) }
+      let!(:page_2) { create(:alchemy_page, parent: root_page) }
+      let!(:page_3) { create(:alchemy_page, parent: root_page) }
+
+      context "with authorized access" do
+        before do
+          authorize_user(:as_admin)
+        end
+
+        it "returns JSON and moves the page" do
+          expect(page.children).to be_empty
+          expect(page_3.lft).to eq(6)
+          patch :move, params: { id: page_3, target_parent_id: page.id, new_position: 0, format: :json }
+          expect(response.status).to eq(200)
+          response_json = JSON.parse(response.body)
+          expect(response_json["parent_id"]).to eq(page.id)
+          expect(page.children).to include(page_3)
+        end
+      end
+
+      context "with unauthorized access" do
+        before do
+          authorize_user
+        end
+
+        it "returns an unauthorized error" do
+          patch :move, params: { id: page_3, target_parent_id: page.id, new_position: 0, format: :json }
+          expect(response).to be_forbidden
+          response_json = JSON.parse(response.body)
+          expect(response_json["error"]).to eq("Not authorized")
+        end
+      end
+    end
   end
 end
