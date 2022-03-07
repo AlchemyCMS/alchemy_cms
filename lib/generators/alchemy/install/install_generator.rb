@@ -95,7 +95,7 @@ module Alchemy
       def copy_alchemy_entry_point
         webpack_config = YAML.load_file(app_root.join("config", "webpacker.yml"))[Rails.env]
         copy_file "alchemy_admin.js",
-          app_root.join(webpack_config["source_path"], webpack_config["source_entry_path"], "alchemy/admin.js")
+          app_root.join(webpack_config["source_path"], webpack_config["source_entry_path"], "alchemy_admin.js")
       end
 
       def set_primary_language
