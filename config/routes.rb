@@ -34,7 +34,7 @@ Alchemy::Engine.routes.draw do
       member do
         post :unlock
         post :publish
-        post :fold
+        patch :fold
         get :configure
         get :preview
         get :info

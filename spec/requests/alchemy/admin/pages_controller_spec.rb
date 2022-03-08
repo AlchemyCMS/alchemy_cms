@@ -654,7 +654,7 @@ module Alchemy
 
           it "should fold the page" do
             expect(page).to receive(:fold!).with(user.id, true).and_return(true)
-            post fold_admin_page_path(page), xhr: true
+            patch fold_admin_page_path(page), xhr: true
           end
         end
 
@@ -663,7 +663,7 @@ module Alchemy
 
           it "should unfold the page" do
             expect(page).to receive(:fold!).with(user.id, false).and_return(true)
-            post fold_admin_page_path(page), xhr: true
+            patch fold_admin_page_path(page), xhr: true
           end
         end
       end

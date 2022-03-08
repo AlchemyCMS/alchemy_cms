@@ -168,9 +168,7 @@ module Alchemy
       def fold
         # @page is fetched via before filter
         @page.fold!(current_alchemy_user.id, !@page.folded?(current_alchemy_user.id))
-        respond_to do |format|
-          format.js
-        end
+        render json: serialized_page_tree
       end
 
       # Leaves the page editing mode and unlocks the page for other users
