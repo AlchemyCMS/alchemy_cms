@@ -28,7 +28,6 @@ Alchemy::Engine.routes.draw do
         post :copy_language_tree
         get :create_language
         get :link
-        get :sort
         get :tree
       end
       member do

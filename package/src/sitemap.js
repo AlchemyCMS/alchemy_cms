@@ -30,7 +30,7 @@ export default class Sitemap {
     const spinTarget = this.sitemap_wrapper
     spinTarget.innerHTML = ""
     spinner.spin(spinTarget)
-    fetch(`${this.options.url}?id=${pageId}&full=${this.options.full}`)
+    fetch(`${this.options.url}?id=${pageId}`)
       .then(async (response) => {
         this.render(await response.json())
         this.handlePageFolders()

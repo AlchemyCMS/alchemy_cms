@@ -23,8 +23,7 @@
  $(function() {
    Alchemy.currentSitemap = new Alchemy.Sitemap({
      url: '<%= alchemy.tree_admin_pages_path %>',
-     page_root_id: <%= @page_root.id %>,
-     full: <%= full %>
+     page_root_id: <%= @page_root.id %>
    });
    Alchemy.PagePublicationFields();
  });

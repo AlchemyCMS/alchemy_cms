@@ -7,7 +7,7 @@ module Alchemy
 
       helper "alchemy/pages"
 
-      before_action :load_resource, except: [:index, :flush, :new, :order, :create, :copy_language_tree, :link, :sort]
+      before_action :load_resource, except: [:index, :flush, :new, :order, :create, :copy_language_tree, :link]
 
       authorize_resource class: Alchemy::Page, except: [:index, :tree]
 
@@ -21,7 +21,7 @@ module Alchemy
         except: [:show]
 
       before_action :set_root_page,
-        only: [:index, :show, :sort, :order]
+        only: [:index, :show, :order]
 
       before_action :run_on_page_layout_callbacks,
         if: :run_on_page_layout_callbacks?,
@@ -199,10 +199,6 @@ module Alchemy
         language_root_to_copy_from.copy_children_to(copy_of_language_root)
         flash[:notice] = Alchemy.t(:language_pages_copied)
         redirect_to admin_pages_path
-      end
-
-      def sort
-        @sorting = true
       end
 
       # Receives a JSON object representing a language tree to be ordered
@@ -386,9 +382,11 @@ module Alchemy
       end
 
       def serialized_page_tree
-        PageTreeSerializer.new(@page, ability: current_ability,
-                                      user: current_alchemy_user,
-                                      full: params[:full] == "true")
+        PageTreeSerializer.new(
+          @page,
+          ability: current_ability,
+          user: current_alchemy_user,
+        )
       end
 
       def load_languages_and_layouts
