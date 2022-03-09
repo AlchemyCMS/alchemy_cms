@@ -76,4 +76,18 @@ namespace :alchemy do
       File.delete(backup)
     end
   end
+
+  desc "Release a new Ruby gem and npm package in one command"
+  task :release do
+    require "json"
+    require_relative "lib/alchemy/version"
+    package = File.read("package.json")
+    unless JSON.parse(package)["version"] == Alchemy.version
+      abort "Ruby gem and npm package versions are out of sync! Please fix."
+    end
+    # Release the Ruby gem with bundler
+    Rake::Task["release"].invoke
+    # Publish npm package via CLI
+    system "npm publish"
+  end
 end
