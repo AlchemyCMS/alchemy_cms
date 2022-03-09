@@ -34,7 +34,6 @@ spec/dummy/uploads/
 .ruby-gemset
 .ruby-version
 .env
-.rspec
 node_modules
 yarn-error.log
 yarn-debug.log*
