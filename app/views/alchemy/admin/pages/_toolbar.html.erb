@@ -28,18 +28,6 @@
       <label><%= Alchemy.t("Flush page cache") %></label>
     </div>
   <% end %>
-  <% if can?(:sort, Alchemy::Page) %>
-    <div class="button_with_label">
-      <%= link_to(
-        render_icon(:random),
-        alchemy.sort_admin_pages_path,
-        method: :get,
-        class: "icon_button",
-        title: Alchemy.t("Sort pages")
-      ) %>
-      <label><%= Alchemy.t("Sort pages") %></label>
-    </div>
-  <% end %>
   <div class="button_with_label" id="clipboard_button">
     <%= link_to_dialog(
       render_icon(clipboard_empty?("pages") ? :clipboard : :paste),

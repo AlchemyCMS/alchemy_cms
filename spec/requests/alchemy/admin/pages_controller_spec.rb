@@ -94,7 +94,7 @@ module Alchemy
         let!(:pages) { [page_1, page_2, page_3] }
 
         subject :get_tree do
-          get tree_admin_pages_path(id: page_1.id, full: "true")
+          get tree_admin_pages_path(id: page_1.id)
         end
 
         it "returns a tree as JSON" do
@@ -148,7 +148,7 @@ module Alchemy
           end
 
           it "does not return a branch that is folded" do
-            get tree_admin_pages_path(id: page_1.id, full: "false")
+            get tree_admin_pages_path(id: page_1.id)
 
             expect(response.status).to eq(200)
             expect(response.media_type).to eq("application/json")
@@ -654,7 +654,7 @@ module Alchemy
 
           it "should fold the page" do
             expect(page).to receive(:fold!).with(user.id, true).and_return(true)
-            post fold_admin_page_path(page), xhr: true
+            patch fold_admin_page_path(page), xhr: true
           end
         end
 
@@ -663,7 +663,7 @@ module Alchemy
 
           it "should unfold the page" do
             expect(page).to receive(:fold!).with(user.id, false).and_return(true)
-            post fold_admin_page_path(page), xhr: true
+            patch fold_admin_page_path(page), xhr: true
           end
         end
       end

@@ -1,12 +1,14 @@
 // The admin sitemap Alchemy class
+import PageSorter from "./page_sorter"
+import { on } from "./utils/events"
+import { createSortables, displayPageFolders } from "./page_sorter"
 
 export default class Sitemap {
   // Storing some objects.
   constructor(options) {
-    const list_template_regexp = new RegExp("/" + options.page_root_id, "g")
     const list_template_html = document
       .getElementById("sitemap-list")
-      .innerHTML.replace(list_template_regexp, "/{{id}}")
+      .innerHTML.replace(/__ID__/g, "{{id}}")
     this.search_field = document.querySelector(".search_input_field")
     this.filter_field_clear = document.querySelector(".search_field_clear")
     this.filter_field_clear.removeAttribute("href")
@@ -24,56 +26,68 @@ export default class Sitemap {
 
   // Loads the sitemap
   load(pageId) {
-    const spinner = this.options.spinner || new Alchemy.Spinner("medium")
+    const spinner = new Alchemy.Spinner("medium")
     const spinTarget = this.sitemap_wrapper
     spinTarget.innerHTML = ""
     spinner.spin(spinTarget)
-    this.fetch(
-      `${this.options.url}?id=${pageId}&full=${this.options.full}`
-    ).then(async (response) => {
-      this.render(await response.json())
-      spinner.stop()
-    })
+    fetch(`${this.options.url}?id=${pageId}`)
+      .then(async (response) => {
+        this.render(await response.json())
+        this.handlePageFolders()
+        spinner.stop()
+      })
+      .catch(this.errorHandler)
   }
 
-  // Reload the sitemap for a specific branch
-  reload(pageId) {
-    const spinner = new Alchemy.Spinner("small")
-    const spinTarget = document.getElementById(`fold_button_${pageId}`)
-    spinTarget.querySelector(".far").remove()
-    spinner.spin(spinTarget)
-    this.fetch(`${this.options.url}?id=${pageId}`).then(async (response) => {
-      this.render(await response.json(), pageId)
-      spinner.stop()
-    })
-  }
+  // Watch page folder clicks and re-render the page branch
+  handlePageFolders() {
+    on(
+      "click",
+      "#sitemap",
+      ".page_folder",
+      function (evt) {
+        const spinner = new Alchemy.Spinner("small")
+        const pageFolder = evt.target.closest(".page_folder")
+        const pageId = pageFolder.dataset.pageId
+        pageFolder.innerHTML = ""
+        spinner.spin(pageFolder)
 
-  fetch(url) {
-    return fetch(url).catch((error) => console.warn(`Request failed: ${error}`))
+        fetch(Alchemy.routes.fold_admin_page_path(pageId), {
+          method: "PATCH",
+          headers: {
+            Accept: "application/json"
+          }
+        })
+          .then(async (response) => {
+            this.reRender(pageId, await response.json())
+            spinner.stop()
+          })
+          .catch(this.errorHandler)
+      }.bind(this)
+    )
   }
 
   // Renders the sitemap
-  render(data, foldingId) {
-    let renderTarget, renderTemplate
+  render(data) {
+    const renderTarget = this.sitemap_wrapper
+    const renderTemplate = this.template
 
-    if (foldingId) {
-      renderTarget = document.getElementById(`page_${foldingId}`)
-      renderTemplate = this.list_template
-      renderTarget.outerHTML = renderTemplate({ children: data.pages })
-    } else {
-      renderTarget = this.sitemap_wrapper
-      renderTemplate = this.template
-      renderTarget.innerHTML = renderTemplate({ children: data.pages })
-    }
+    renderTarget.innerHTML = renderTemplate({ children: data.pages })
     this.items = document
       .getElementById("sitemap")
       .querySelectorAll(".sitemap_page")
     this.sitemap_wrapper = document.getElementById("sitemap-wrapper")
     this._observe()
+    PageSorter()
+  }
 
-    if (this.options.ready) {
-      this.options.ready()
-    }
+  reRender(pageId, data) {
+    let pageEl = document.getElementById(`page_${pageId}`)
+    pageEl.outerHTML = this.list_template({ children: data.pages })
+    pageEl = document.getElementById(`page_${pageId}`)
+    const sortables = pageEl.querySelectorAll("ul.children")
+    createSortables(sortables)
+    displayPageFolders()
   }
 
   // Filters the sitemap
@@ -129,5 +143,10 @@ export default class Sitemap {
       this.filter("")
       return false
     })
+  }
+
+  errorHandler(error) {
+    Alchemy.growl(error.message || error, "error")
+    console.error(error)
   }
 }

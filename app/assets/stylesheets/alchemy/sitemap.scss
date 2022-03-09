@@ -142,12 +142,8 @@ $sitemap-url-xlarge-width: 350px;
 #sitemap {
   padding: 0 0 104px 0;
 
-  &.sorting {
-    padding-top: 100px;
-
-    .page_icon {
-      cursor: move;
-    }
+  .handle {
+    cursor: move;
   }
 
   .page_folder {
