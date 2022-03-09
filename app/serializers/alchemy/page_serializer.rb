@@ -14,7 +14,8 @@ module Alchemy
       :created_at,
       :updated_at,
       :status,
-      :url_path
+      :url_path,
+      :parent_id
 
     has_many :elements
   end

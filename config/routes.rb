@@ -28,13 +28,12 @@ Alchemy::Engine.routes.draw do
         post :copy_language_tree
         get :create_language
         get :link
-        get :sort
         get :tree
       end
       member do
         post :unlock
         post :publish
-        post :fold
+        patch :fold
         post :visit
         get :configure
         get :preview
@@ -144,6 +143,9 @@ Alchemy::Engine.routes.draw do
       get "elements/:named" => "elements#index", as: "named_elements"
       collection do
         get :nested
+      end
+      member do
+        patch :move
       end
     end
 
