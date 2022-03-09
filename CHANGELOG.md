@@ -1,3 +1,10 @@
+## 5.3.0 (2022-03-09)
+
+- Allow parent page change ([tvdeyen](https://github.com/tvdeyen))
+- Precompile packs during test setup ([tvdeyen](https://github.com/tvdeyen))
+- Rework Sitemap JS ([tvdeyen](https://github.com/tvdeyen))
+- Fix rendering errors in page configure overlay ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.2.7 (2022-03-01)
 
 - Fix copying page with descendants to a different language ([dbwinger](https://github.com/dbwinger))
