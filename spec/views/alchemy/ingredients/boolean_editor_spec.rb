@@ -28,21 +28,14 @@ RSpec.describe "alchemy/ingredients/_boolean_editor" do
   end
 
   context "with default value given in ingredient settings" do
-    let(:element) { create(:alchemy_element, name: "all_you_can_eat_ingredients") }
-
-    let(:ingredient) do
-      allow_any_instance_of(Alchemy::Ingredients::Boolean).to receive(:definition) do
-        {
-          role: "boolean",
-          type: "Boolean",
-          default: true,
-        }.with_indifferent_access
-      end
-      Alchemy::Ingredients::Boolean.create!(role: "boolean", element: element)
+    let(:element) do
+      create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients")
     end
 
     it "checks the checkbox" do
-      is_expected.to have_selector('input[type="checkbox"][checked="checked"]')
+      within ".ingredient-editor boolean" do
+        is_expected.to have_selector('input[type="checkbox"][checked="checked"]')
+      end
     end
   end
 end

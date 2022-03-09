@@ -28,7 +28,7 @@ RSpec.shared_examples_for "an alchemy ingredient" do
 
     context "with element" do
       before do
-        expect(element).to receive(:ingredient_definition_for) do
+        expect(element).to receive(:ingredient_definition_for).at_least(:once) do
           {
             settings: {
               linkable: true,
@@ -63,7 +63,9 @@ RSpec.shared_examples_for "an alchemy ingredient" do
       end
 
       before do
-        expect(element).to receive(:ingredient_definition_for) { definition }
+        expect(element).to receive(:ingredient_definition_for).at_least(:once) do
+          definition
+        end
       end
 
       it "returns ingredient definition" do
