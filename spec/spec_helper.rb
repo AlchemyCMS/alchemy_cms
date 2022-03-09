@@ -13,6 +13,7 @@ require "webmock"
 RSpec.configure do |config|
   config.raise_errors_for_deprecations!
   config.run_all_when_everything_filtered = true
+  config.pattern = "**/*_spec.rb"
   config.filter_run :focus
   config.include WebMock::API, type: :controller
 end
