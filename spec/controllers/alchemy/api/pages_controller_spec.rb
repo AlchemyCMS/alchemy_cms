@@ -10,7 +10,6 @@ module Alchemy
       let(:result) { JSON.parse(response.body) }
 
       context "without a default language present" do
-
         it "returns JSON" do
           get :index, params: { format: :json }
           expect(result["pages"]).to eq([])
@@ -87,10 +86,27 @@ module Alchemy
           let(:language_2) { create(:alchemy_language, site: site_2) }
           let!(:site_2_page) { create(:alchemy_page, :public, language: language_2) }
 
-          it "only returns pages for current site" do
-            get :index, format: :json
+          context "as guest user" do
+            it "only returns pages for current site" do
+              get :index, format: :json
+              expect(result["pages"].map { |r| r["id"] }).to eq([page.parent_id, page.id])
+            end
+          end
 
-            expect(result["pages"].map { |r| r["id"] }).to_not include(site_2_page.id)
+          context "as author user" do
+            before do
+              authorize_user(build(:alchemy_dummy_user, :as_author))
+            end
+
+            it "returns all pages" do
+              get :index, format: :json
+              expect(result["pages"].map { |r| r["id"] }).to eq([
+                page.parent_id,
+                page.id,
+                site_2_page.parent_id,
+                site_2_page.id,
+              ])
+            end
           end
         end
 

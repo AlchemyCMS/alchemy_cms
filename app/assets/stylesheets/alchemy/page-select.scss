@@ -7,24 +7,49 @@
 
 .page-select--page {
   display: flex;
-  align-items: center;
+  flex-direction: column;
 
   .icon {
     margin: 0 8px 0 4px;
 
     .select2-highlighted & {
-      color: $white
+      color: $white;
     }
+  }
+}
+
+.page-select--top,
+.page-select--bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.page-select--bottom {
+  font-size: $small-font-size;
+  padding-left: 6 * $default-padding;
+}
+
+.page-select--language-code {
+  display: inline-block;
+  background-color: $medium-gray;
+  margin-left: auto;
+  border-radius: $default-border-radius;
+  padding: $default-padding / 2 $default-padding;
+
+  .select2-highlighted & {
+    color: $select-hover-bg-color;
+    background-color: white;
   }
 }
 
 .page-select--page-urlname {
   margin-left: auto;
-  padding: $default-padding 2*$default-padding;
+  padding: $default-padding 2 * $default-padding;
   color: $dark-gray;
   font-size: $small-font-size;
 
   .select2-highlighted & {
-    color: $white
+    color: $white;
   }
 }

@@ -18,5 +18,10 @@ module Alchemy
       :parent_id
 
     has_many :elements
+
+    with_options if: -> { scope.can?(:edit_content, object) } do
+      belongs_to :site
+      belongs_to :language
+    end
   end
 end
