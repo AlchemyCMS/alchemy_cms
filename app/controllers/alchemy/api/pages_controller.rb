@@ -2,6 +2,7 @@
 
 module Alchemy
   class Api::PagesController < Api::BaseController
+    serialization_scope :current_ability
     before_action :load_page, only: [:show]
 
     # Returns all pages as json object
