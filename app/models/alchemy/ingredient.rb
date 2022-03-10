@@ -11,7 +11,8 @@ module Alchemy
     belongs_to :element, touch: true, class_name: "Alchemy::Element", inverse_of: :ingredients
     belongs_to :related_object, polymorphic: true, optional: true
 
-    before_validation(on: :create) { self.value ||= default_value }
+    after_initialize :set_default_value,
+      if: -> { definition.key?(:default) && value.nil? }
 
     validates :type, presence: true
     validates :role, presence: true
@@ -159,6 +160,10 @@ module Alchemy
 
     def hint_translation_attribute
       role
+    end
+
+    def set_default_value
+      self.value = default_value
     end
 
     # Returns the default value from ingredient definition

@@ -97,7 +97,9 @@ RSpec.describe Alchemy::Element do
   end
 
   describe "#has_value_for?" do
-    let!(:element) { create(:alchemy_element, :with_ingredients) }
+    let!(:element) do
+      create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients")
+    end
 
     context "with role existing" do
       let(:ingredient) { element.ingredient_by_role(:headline) }
