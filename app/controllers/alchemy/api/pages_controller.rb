@@ -2,19 +2,19 @@
 
 module Alchemy
   class Api::PagesController < Api::BaseController
+    serialization_scope :current_ability
     before_action :load_page, only: [:show]
 
     # Returns all pages as json object
     #
     def index
-      language = Alchemy::Language.find_by(id: params[:language_id]) || Alchemy::Language.current
-
       # Fix for cancancan not able to merge multiple AR scopes for logged in users
-      if cannot? :edit_content, Alchemy::Page
+      if can? :edit_content, Alchemy::Page
+        @pages = Alchemy::Page.all
+      else
+        language = Alchemy::Language.find_by(id: params[:language_id]) || Alchemy::Language.current
         @pages = Alchemy::Page.accessible_by(current_ability, :index)
         @pages = @pages.where(language: language)
-      else
-        @pages = language&.pages.presence || Alchemy::Page.none
       end
       @pages = @pages.includes(*page_includes)
       @pages = @pages.ransack(params[:q]).result
