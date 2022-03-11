@@ -1,3 +1,10 @@
+## 5.3.1 (2022-03-11)
+
+- Allow all pages in API again ([tvdeyen](https://github.com/tvdeyen))
+- New sortable page tree ([tvdeyen](https://github.com/tvdeyen))
+- Send language_id to Api::PagesController#index so Pages can be restricted to the language of the page. ([dbwinger](https://github.com/dbwinger))
+- Eager load in PageTree serializer ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.3.0 (2022-03-09)
 
 - Allow parent page change ([tvdeyen](https://github.com/tvdeyen))
