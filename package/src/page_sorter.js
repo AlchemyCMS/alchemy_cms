@@ -1,4 +1,5 @@
 import Sortable from "sortablejs"
+import { patch } from "./utils/ajax"
 
 function onFinishDragging(evt) {
   const pageId = evt.item.dataset.pageId
@@ -8,14 +9,7 @@ function onFinishDragging(evt) {
     new_position: evt.newIndex
   }
 
-  fetch(url, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json",
-      Accept: "application/json"
-    },
-    body: JSON.stringify(data)
-  })
+  patch(url, data)
     .then(async (response) => {
       const pageData = await response.json()
       const pageEl = document.getElementById(`page_${pageId}`)
