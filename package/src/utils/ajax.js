@@ -29,6 +29,18 @@ function getToken() {
   return metaTag.attributes.content.textContent
 }
 
+export function get(url, params) {
+  return ajax("GET", url, params)
+}
+
+export function patch(url, data) {
+  return ajax("PATCH", url, data)
+}
+
+export function post(url, data) {
+  return ajax("POST", url, data)
+}
+
 export default function ajax(method, path, data) {
   const xhr = new XMLHttpRequest()
   const promise = buildPromise(xhr)

@@ -1,6 +1,6 @@
 import debounce from "lodash/debounce"
 import max from "lodash/max"
-import ajax from "./utils/ajax"
+import { get } from "./utils/ajax"
 import ImageLoader from "./image_loader"
 
 const UPDATE_DELAY = 125
@@ -62,7 +62,7 @@ class PictureEditor {
     this.image.removeAttribute("alt")
     this.image.removeAttribute("src")
     this.imageLoader.load(true)
-    ajax("GET", `/admin/pictures/${this.pictureId}/url`, {
+    get(`/admin/pictures/${this.pictureId}/url`, {
       crop: this.imageCropperEnabled,
       crop_from: this.cropFrom,
       crop_size: this.cropSize,
