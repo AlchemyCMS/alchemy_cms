@@ -89,7 +89,10 @@ module Alchemy
           context "as guest user" do
             it "only returns pages for current site" do
               get :index, format: :json
-              expect(result["pages"].map { |r| r["id"] }).to eq([page.parent_id, page.id])
+              expect(result["pages"].map { |r| r["id"] }).to match_array([
+                page.parent_id,
+                page.id,
+              ])
             end
           end
 
@@ -100,7 +103,7 @@ module Alchemy
 
             it "returns all pages" do
               get :index, format: :json
-              expect(result["pages"].map { |r| r["id"] }).to eq([
+              expect(result["pages"].map { |r| r["id"] }).to match_array([
                 page.parent_id,
                 page.id,
                 site_2_page.parent_id,
