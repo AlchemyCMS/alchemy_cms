@@ -4,7 +4,13 @@ source "https://rubygems.org"
 gemspec
 
 rails_version = ENV.fetch("RAILS_VERSION", 6.1).to_f
-gem "rails", "~> #{rails_version}.0"
+# Necessary until a new 6.1.5 version has been released
+# https://github.com/rails/rails/pull/44691
+if rails_version.to_s.match?(/6.1/)
+  gem "rails", git: "https://github.com/rails/rails", branch: "6-1-stable"
+else
+  gem "rails", "~> #{rails_version}.0"
+end
 
 if ENV["DB"].nil? || ENV["DB"] == "sqlite"
   gem "sqlite3", "~> 1.4.1"
