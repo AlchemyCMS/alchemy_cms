@@ -2,16 +2,30 @@ name: Mark stale issues and pull requests
 
 on:
   schedule:
-  - cron: "0 0 * * *"
+    - cron: "0 0 * * *"
 
 jobs:
   stale:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/stale@v1
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        stale-issue-message: 'This issue has not seen any activity in a long time. If the issue described still exists in recent versions of Alchemy, please open a new issue or preferably open a PR with a fix. Thanks for reporting.'
-        stale-pr-message: 'This pull request has not seen any activiy in a long time. Probably because of missing tests or a necessary rebase. Please open a new PR to latest main if you want to continue working on this. Thanks for the contribution.'
+      - uses: actions/stale@v5
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          stale-issue-message: |
+            This issue has not seen any activity in a long time.
+            Please create a pull request with a fix or ask someone of the community if they can help.
+            This issue will be closed in 7 days if no further activity happens.
+          close-issue-message: |
+            This issue has not seen any activity in a long time.
+            If the issue described still exists in recent versions of Alchemy,
+            please open a new issue with. Thanks for reporting.
+          stale-pr-message: |
+            This pull request has not seen any activiy in a long time.
+            Probably because of missing tests or a necessary rebase.
+            This PR will be closed in 7 days if no further activity happens.
+          close-pr-message: |
+            This pull request has not seen any activiy in a long time.
+            Probably because of missing tests or a necessary rebase.
+            Please open a new PR to latest main if you want to continue working on this.
+            Thanks for the contribution.
