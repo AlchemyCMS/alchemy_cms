@@ -23,6 +23,11 @@ module Alchemy
         default: false,
         desc: "Skip running the webpacker installer."
 
+      class_option :skip_db_create,
+        type: :boolean,
+        default: false,
+        desc: "Skip creting the database during install."
+
       source_root File.expand_path("files", __dir__)
 
       def setup
@@ -104,7 +109,7 @@ module Alchemy
       end
 
       def setup_database
-        rake("db:create", abort_on_failure: true)
+        rake("db:create", abort_on_failure: true) unless options[:skip_db_create]
         # We can't invoke this rake task, because Rails will use wrong engine names otherwise
         rake("railties:install:migrations", abort_on_failure: true)
         rake("db:migrate", abort_on_failure: true)
