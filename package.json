@@ -24,7 +24,7 @@
   },
   "homepage": "https://github.com/AlchemyCMS/alchemy_cms#readme",
   "dependencies": {
-    "flatpickr": "^4.6.9",
+    "flatpickr": "4.6.11",
     "lodash-es": "^4.17.21",
     "sortablejs": "^1.10.2"
   },
