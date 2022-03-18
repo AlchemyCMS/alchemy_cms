@@ -1,6 +1,7 @@
 // The admin sitemap Alchemy class
 import PageSorter from "./page_sorter"
 import { on } from "./utils/events"
+import { patch } from "./utils/ajax"
 import { createSortables, displayPageFolders } from "./page_sorter"
 
 export default class Sitemap {
@@ -52,12 +53,7 @@ export default class Sitemap {
         pageFolder.innerHTML = ""
         spinner.spin(pageFolder)
 
-        fetch(Alchemy.routes.fold_admin_page_path(pageId), {
-          method: "PATCH",
-          headers: {
-            Accept: "application/json"
-          }
-        })
+        patch(Alchemy.routes.fold_admin_page_path(pageId))
           .then(async (response) => {
             this.reRender(pageId, await response.json())
             spinner.stop()
