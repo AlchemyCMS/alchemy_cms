@@ -1,5 +1,5 @@
-import debounce from "lodash/debounce"
-import max from "lodash/max"
+import debounce from "lodash-es/debounce"
+import max from "lodash-es/max"
 import { get } from "./utils/ajax"
 import ImageLoader from "./image_loader"
 
