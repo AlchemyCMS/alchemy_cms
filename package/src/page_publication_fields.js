@@ -7,21 +7,22 @@ export default function () {
     const publication_date_fields = dialog.querySelector(
       ".page-publication-date-fields"
     )
+    const public_field = dialog.querySelector("#page_public")
 
-    dialog
-      .querySelector("#page_public")
-      .addEventListener("click", function (evt) {
-        const checkbox = evt.target
-        const now = new Date()
+    if(!public_field) return
 
-        if (checkbox.checked) {
-          publication_date_fields.classList.remove("hidden")
-          public_on_field._flatpickr.setDate(now)
-        } else {
-          publication_date_fields.classList.add("hidden")
-          public_on_field.value = ""
-        }
-        public_until_field.value = ""
-      })
+    public_field.addEventListener("click", function (evt) {
+      const checkbox = evt.target
+      const now = new Date()
+
+      if (checkbox.checked) {
+        publication_date_fields.classList.remove("hidden")
+        public_on_field._flatpickr.setDate(now)
+      } else {
+        publication_date_fields.classList.add("hidden")
+        public_on_field.value = ""
+      }
+      public_until_field.value = ""
+    })
   })
 }
