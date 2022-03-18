@@ -1,5 +1,5 @@
 import Sortable from "sortablejs"
-import ajax from "./utils/ajax"
+import { patch } from "./utils/ajax"
 import { on } from "./utils/events"
 
 function displayNodeFolders() {
@@ -23,7 +23,7 @@ function onFinishDragging(evt) {
     new_position: evt.newIndex
   }
 
-  ajax("PATCH", url, data)
+  patch(url, data)
     .then(() => {
       const message = Alchemy.t("Successfully moved menu item")
       Alchemy.growl(message)
@@ -41,7 +41,7 @@ function handleNodeFolders() {
     const url = Alchemy.routes.toggle_folded_api_node_path(nodeId)
     const list = menu_item.querySelector(".children")
 
-    ajax("PATCH", url)
+    patch(url)
       .then(() => {
         list.classList.toggle("folded")
         menu_item.dataset.folded =
