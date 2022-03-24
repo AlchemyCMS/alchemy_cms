@@ -1,3 +1,8 @@
+## 5.3.2 (2022-03-24)
+
+- ImageLoader: Add error handling ([tvdeyen](https://github.com/tvdeyen))
+- Fix new Sitemap ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.3.1 (2022-03-11)
 
 - Allow all pages in API again ([tvdeyen](https://github.com/tvdeyen))

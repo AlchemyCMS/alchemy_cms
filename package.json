@@ -1,6 +1,6 @@
 {
   "name": "@alchemy_cms/admin",
-  "version": "5.3.1",
+  "version": "5.3.2",
   "description": "AlchemyCMS",
   "browser": "package/admin.js",
   "files": [
