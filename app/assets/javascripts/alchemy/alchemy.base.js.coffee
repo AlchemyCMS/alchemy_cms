@@ -54,9 +54,12 @@ $.extend Alchemy,
         image.on 'load', ->
           spinner.stop()
           image.fadeIn 400
-        image.on 'error', ->
+        image.on 'error', (evt) ->
+          message = "Could not load #{this.src}"
           spinner.stop()
-          $parent.html('<span class="icon warn"/>')
+          console.error(message, evt)
+          $parent.html('<span class="icon fas fa-exclamation-triangle" title="' + message + '" />')
+          return
 
   # Removes the picture from essence picture thumbnail
   removePicture: (selector) ->
