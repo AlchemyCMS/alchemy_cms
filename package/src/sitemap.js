@@ -1,7 +1,7 @@
 // The admin sitemap Alchemy class
 import PageSorter from "./page_sorter"
 import { on } from "./utils/events"
-import { patch } from "./utils/ajax"
+import { get, patch } from "./utils/ajax"
 import { createSortables, displayPageFolders } from "./page_sorter"
 
 export default class Sitemap {
@@ -31,9 +31,9 @@ export default class Sitemap {
     const spinTarget = this.sitemap_wrapper
     spinTarget.innerHTML = ""
     spinner.spin(spinTarget)
-    fetch(`${this.options.url}?id=${pageId}`)
+    get(this.options.url, { id: pageId })
       .then(async (response) => {
-        this.render(await response.json())
+        this.render(await response.data)
         this.handlePageFolders()
         spinner.stop()
       })
@@ -55,7 +55,7 @@ export default class Sitemap {
 
         patch(Alchemy.routes.fold_admin_page_path(pageId))
           .then(async (response) => {
-            this.reRender(pageId, await response.json())
+            this.reRender(pageId, await response.data)
             spinner.stop()
           })
           .catch(this.errorHandler)

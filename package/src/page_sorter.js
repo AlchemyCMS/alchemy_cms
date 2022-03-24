@@ -11,7 +11,7 @@ function onFinishDragging(evt) {
 
   patch(url, data)
     .then(async (response) => {
-      const pageData = await response.json()
+      const pageData = await response.data
       const pageEl = document.getElementById(`page_${pageId}`)
       const urlPathEl = pageEl.querySelector(".sitemap_url")
 
