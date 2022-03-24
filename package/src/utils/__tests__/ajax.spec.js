@@ -10,7 +10,7 @@ beforeEach(() => {
 
 describe("get", () => {
   it("sends X-CSRF-TOKEN header", async () => {
-    xhrMock.get("/users", (req, res) => {
+    xhrMock.get("http://localhost/users", (req, res) => {
       expect(req.header("X-CSRF-TOKEN")).toEqual(token)
       return res.status(200).body('{"message":"Ok"}')
     })
@@ -18,7 +18,7 @@ describe("get", () => {
   })
 
   it("sends Content-Type header", async () => {
-    xhrMock.get("/users", (req, res) => {
+    xhrMock.get("http://localhost/users", (req, res) => {
       expect(req.header("Content-Type")).toEqual(
         "application/json; charset=utf-8"
       )
@@ -28,7 +28,7 @@ describe("get", () => {
   })
 
   it("sends Accept header", async () => {
-    xhrMock.get("/users", (req, res) => {
+    xhrMock.get("http://localhost/users", (req, res) => {
       expect(req.header("Accept")).toEqual("application/json")
       return res.status(200).body('{"message":"Ok"}')
     })
@@ -36,7 +36,7 @@ describe("get", () => {
   })
 
   it("returns JSON", async () => {
-    xhrMock.get("/users", (_req, res) => {
+    xhrMock.get("http://localhost/users", (_req, res) => {
       return res.status(200).body('{"email":"mail@example.com"}')
     })
     await get("/users").then((res) => {
@@ -45,7 +45,7 @@ describe("get", () => {
   })
 
   it("JSON parse errors get rejected", async () => {
-    xhrMock.get("/users", (_req, res) => {
+    xhrMock.get("http://localhost/users", (_req, res) => {
       return res.status(200).body('email => "mail@example.com"')
     })
     expect.assertions(1)
@@ -55,7 +55,7 @@ describe("get", () => {
   })
 
   it("network errors get rejected", async () => {
-    xhrMock.get("/users", () => {
+    xhrMock.get("http://localhost/users", () => {
       return Promise.reject(new Error())
     })
     expect.assertions(1)
@@ -65,7 +65,7 @@ describe("get", () => {
   })
 
   it("server errors get rejected", async () => {
-    xhrMock.get("/users", (_req, res) => {
+    xhrMock.get("http://localhost/users", (_req, res) => {
       return res.status(401).body('{"error":"Unauthorized"}')
     })
     expect.assertions(1)
@@ -75,7 +75,7 @@ describe("get", () => {
   })
 
   it("server errors parsing errors get rejected", async () => {
-    xhrMock.get("/users", (_req, res) => {
+    xhrMock.get("http://localhost/users", (_req, res) => {
       return res.status(401).body("Unauthorized")
     })
     expect.assertions(1)
@@ -83,11 +83,19 @@ describe("get", () => {
       expect(e.message).toMatch("Unexpected token")
     })
   })
+
+  it("params get attached as query string", async () => {
+    xhrMock.get("http://localhost/users?name=foo", (_req, res) => {
+      return res.status(200).body(`{"name":"foo"}`)
+    })
+    const { data } = await get("/users", { name: "foo" })
+    expect(data.name).toEqual("foo")
+  })
 })
 
 describe("patch", () => {
   it("sends X-CSRF-TOKEN header", async () => {
-    xhrMock.patch("/users", (req, res) => {
+    xhrMock.patch("http://localhost/users", (req, res) => {
       expect(req.header("X-CSRF-TOKEN")).toEqual(token)
       return res.status(200).body('{"message":"Ok"}')
     })
@@ -95,7 +103,7 @@ describe("patch", () => {
   })
 
   it("sends Content-Type header", async () => {
-    xhrMock.patch("/users", (req, res) => {
+    xhrMock.patch("http://localhost/users", (req, res) => {
       expect(req.header("Content-Type")).toEqual(
         "application/json; charset=utf-8"
       )
@@ -105,7 +113,7 @@ describe("patch", () => {
   })
 
   it("sends Accept header", async () => {
-    xhrMock.patch("/users", (req, res) => {
+    xhrMock.patch("http://localhost/users", (req, res) => {
       expect(req.header("Accept")).toEqual("application/json")
       return res.status(200).body('{"message":"Ok"}')
     })
@@ -113,7 +121,7 @@ describe("patch", () => {
   })
 
   it("sends JSON data", async () => {
-    xhrMock.patch("/users", (req, res) => {
+    xhrMock.patch("http://localhost/users", (req, res) => {
       expect(req.body()).toEqual('{"email":"mail@example.com"}')
       return res.status(200).body('{"message":"Ok"}')
     })
@@ -123,7 +131,7 @@ describe("patch", () => {
 
 describe("post", () => {
   it("sends X-CSRF-TOKEN header", async () => {
-    xhrMock.post("/users", (req, res) => {
+    xhrMock.post("http://localhost/users", (req, res) => {
       expect(req.header("X-CSRF-TOKEN")).toEqual(token)
       return res.status(200).body('{"message":"Ok"}')
     })
@@ -131,7 +139,7 @@ describe("post", () => {
   })
 
   it("sends Content-Type header", async () => {
-    xhrMock.post("/users", (req, res) => {
+    xhrMock.post("http://localhost/users", (req, res) => {
       expect(req.header("Content-Type")).toEqual(
         "application/json; charset=utf-8"
       )
@@ -141,7 +149,7 @@ describe("post", () => {
   })
 
   it("sends Accept header", async () => {
-    xhrMock.post("/users", (req, res) => {
+    xhrMock.post("http://localhost/users", (req, res) => {
       expect(req.header("Accept")).toEqual("application/json")
       return res.status(200).body('{"message":"Ok"}')
     })
@@ -149,7 +157,7 @@ describe("post", () => {
   })
 
   it("sends JSON data", async () => {
-    xhrMock.post("/users", (req, res) => {
+    xhrMock.post("http://localhost/users", (req, res) => {
       expect(req.body()).toEqual('{"email":"mail@example.com"}')
       return res.status(200).body('{"message":"Ok"}')
     })
