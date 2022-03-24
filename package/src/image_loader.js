@@ -39,9 +39,11 @@ export default class ImageLoader {
     this.unbind()
   }
 
-  onError() {
+  onError(evt) {
+    const message = `Could not load ${this.image.src}`
     this.removeSpinner()
-    this.parent.innerHtml = '<span class="icon warn"></span>'
+    this.parent.innerHTML = `<span class="icon fas fa-exclamation-triangle" title="${message}" />`
+    console.error(message, evt)
     this.unbind()
   }
 

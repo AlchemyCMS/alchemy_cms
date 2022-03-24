@@ -48,6 +48,10 @@ div#image_assign_filter_and_image_sizing {
   background-color: $thumbnail-background-color;
   width: 100%;
   height: 120px;
+
+  &:hover {
+    text-decoration: none;
+  }
 }
 
 .picture_thumbnail {
