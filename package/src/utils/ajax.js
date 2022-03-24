@@ -33,8 +33,8 @@ export function get(url, params) {
   return ajax("GET", url, params)
 }
 
-export function patch(url, data = {}) {
-  return ajax("POST", url, { ...data, _method: "patch" })
+export function patch(url, data) {
+  return ajax("PATCH", url, data)
 }
 
 export function post(url, data) {
