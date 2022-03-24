@@ -1,3 +1,10 @@
+## 5.3.3 (2022-03-24)
+
+- fix admin sitemap feature specs ([tvdeyen](https://github.com/tvdeyen))
+- fix: Add support for ajax.get query params ([tvdeyen](https://github.com/tvdeyen))
+- fix(Sitemap): Use response data ([tvdeyen](https://github.com/tvdeyen))
+- Revert "Ajax: Send method override" ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.3.2 (2022-03-24)
 
 - ImageLoader: Add error handling ([tvdeyen](https://github.com/tvdeyen))
