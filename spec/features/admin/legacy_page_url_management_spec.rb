@@ -11,7 +11,8 @@ RSpec.describe "Legacy page url management", type: :system, js: true do
 
   def open_page_properties
     visit admin_pages_path
-    page.find("a[href='#{configure_admin_page_path(a_page)}']").click
+    expect(page).to have_no_css(".spinner")
+    page.find("a[href='#{configure_admin_page_path(a_page)}']", wait: 10).click
   end
 
   it "lets a user add a page link" do
