@@ -28,7 +28,7 @@ module Alchemy
       large: "240x180",
     }.with_indifferent_access.freeze
 
-    CONVERTIBLE_FILE_FORMATS = %w(gif jpg jpeg png).freeze
+    CONVERTIBLE_FILE_FORMATS = %w[gif jpg jpeg png webp].freeze
 
     TRANSFORMATION_OPTIONS = [
       :crop,
