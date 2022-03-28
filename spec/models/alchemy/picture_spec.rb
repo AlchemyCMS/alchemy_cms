@@ -34,6 +34,18 @@ module Alchemy
       end
     end
 
+    context "with a webp file" do
+      let :image_file do
+        File.new(File.expand_path("../../fixtures/image5.webp", __dir__))
+      end
+
+      it "generates thumbnails after create" do
+        expect {
+          create(:alchemy_picture)
+        }.to change { Alchemy::PictureThumb.count }.by(3)
+      end
+    end
+
     it "is valid with valid attributes" do
       picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
@@ -385,7 +397,7 @@ module Alchemy
         end
       end
 
-      context "when `image_output_format` is configured to an image format" do
+      context "when `image_output_format` is configured to jpg" do
         before do
           stub_alchemy_config(:image_output_format, "jpg")
         end
@@ -393,6 +405,28 @@ module Alchemy
         context "and the format is a convertible format" do
           it "returns the configured file format." do
             is_expected.to eq("jpg")
+          end
+        end
+
+        context "but the format is not a convertible format" do
+          before do
+            allow(picture).to receive(:image_file_format) { "svg" }
+          end
+
+          it "returns the original file format." do
+            is_expected.to eq("svg")
+          end
+        end
+      end
+
+      context "when `image_output_format` is configured to webp" do
+        before do
+          stub_alchemy_config(:image_output_format, "webp")
+        end
+
+        context "and the format is a convertible format" do
+          it "returns the configured file format." do
+            is_expected.to eq("webp")
           end
         end
 
