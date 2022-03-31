@@ -87,6 +87,8 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
               name: page.name
               url_path: page.url_path
               page_id: page.id
+              language: page.language
+              site: page.site
           more: meta.page * meta.per_page < meta.total_count
       initSelection: ($element, callback) =>
         urlname = $element.val()
