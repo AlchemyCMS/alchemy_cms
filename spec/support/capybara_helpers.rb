@@ -22,10 +22,15 @@ module CapybaraSelect2
   end
 
   def select2_search(value, options)
-    label = find_label_by_text(options[:from])
-
-    within label.first(:xpath, ".//..") do
-      options[:from] = "##{find(".select2-container")["id"]}"
+    if options[:from]
+      label = find_label_by_text(options[:from])
+      within label.first(:xpath, ".//..") do
+        options[:from] = "##{find(".select2-container")["id"]}"
+      end
+    elsif options[:element_id] && options[:content_name]
+      container_id = find("#element_#{options[:element_id]} [data-content-name='#{options[:content_name]}'] .select2-container"
+      )["id"]
+      options[:from] = "##{container_id}"
     end
 
     find("#{options[:from]}:not(.select2-container-disabled):not(.select2-offscreen)").click
