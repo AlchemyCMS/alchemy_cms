@@ -10,5 +10,9 @@ en:
     attributes:
       event:
         tag_names: Tags
+        event_type: Type
+        event_type_values:
+          expo: exposition
+          workshop: workshop
       location:
         tag_names: Tags

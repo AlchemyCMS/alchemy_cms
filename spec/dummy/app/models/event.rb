@@ -5,6 +5,12 @@ class Event < ActiveRecord::Base
 
   validates_presence_of :name
   belongs_to :location
+
+  enum event_type: {
+    expo: 0,
+    workshop: 1,
+  }
+
   before_destroy :abort_if_name_is_undestructible
 
   scope :starting_today, -> { where(starts_at: Time.current.at_midnight..Date.tomorrow.at_midnight) }

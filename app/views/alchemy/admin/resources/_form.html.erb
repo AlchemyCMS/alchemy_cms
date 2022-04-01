@@ -8,6 +8,11 @@
         input_html: {class: 'alchemy_selectbox'} %>
     <% elsif attribute[:type].in? %i[date time datetime] %>
       <%= f.datepicker attribute[:name], resource_attribute_field_options(attribute) %>
+    <% elsif attribute[:enum].present? %>
+      <%= f.input attribute[:name],
+        collection: attribute[:enum],
+        include_blank: Alchemy.t(:blank, scope: 'resources.relation_select'),
+        input_html: {class: 'alchemy_selectbox'} %>
     <% else %>
       <%= f.input attribute[:name], resource_attribute_field_options(attribute) %>
     <% end %>

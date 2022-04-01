@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_05_08_091432) do
+ActiveRecord::Schema.define(version: 2021_11_05_175532) do
 
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
@@ -364,6 +364,7 @@ ActiveRecord::Schema.define(version: 2021_05_08_091432) do
     t.integer "location_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "event_type", default: 0, null: false
   end
 
   create_table "gutentag_taggings", force: :cascade do |t|
