@@ -149,8 +149,8 @@ module Alchemy
       render element, {
         element: element,
         counter: counter,
-        options: options,
-      }.merge(options.delete(:locals) || {})
+        options: options.except(:locals),
+      }.merge(options[:locals] || {})
     rescue ActionView::MissingTemplate => e
       warning(%(
         Element view partial not found for #{element.name}.\n

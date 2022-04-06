@@ -147,6 +147,25 @@ module Alchemy
           is_expected.to have_selector("#news_1001")
         end
       end
+
+      context "with locals option" do
+        let(:options) do
+          { locals: { foo: :bar} }
+        end
+
+        it "sends locals with every #render_element call" do
+          expect(helper).to receive(:render).with(
+            element,
+            {element: element, counter: 1, options: { from_page: page, render_format: "html" }, foo: :bar}
+          )
+          expect(helper).to receive(:render).with(
+            another_element,
+            {element: another_element, counter: 2, options: { from_page: page, render_format: "html" }, foo: :bar}
+          )
+
+          subject
+        end
+      end
     end
 
     describe "#element_preview_code_attributes" do
