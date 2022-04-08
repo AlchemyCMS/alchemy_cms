@@ -5,7 +5,6 @@ import ImageLoader from "./image_loader"
 
 const UPDATE_DELAY = 125
 const IMAGE_PLACEHOLDER = '<i class="icon far fa-image fa-fw"></i>'
-const EMPTY_IMAGE = '<img src="" class="img_paddingtop" />'
 const THUMBNAIL_SIZE = "160x120"
 
 class PictureEditor {
@@ -83,9 +82,10 @@ class PictureEditor {
   ensureImage() {
     if (this.image) return
 
-    this.thumbnailBackground.innerHTML = EMPTY_IMAGE
-    this.image = this.container.querySelector("img")
-    this.imageLoader = new ImageLoader(this.image)
+    const img = new Image()
+    this.thumbnailBackground.replaceChildren(img)
+    this.image = img
+    this.imageLoader = new ImageLoader(img)
   }
 
   removeImage() {
