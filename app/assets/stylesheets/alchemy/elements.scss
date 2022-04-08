@@ -545,6 +545,10 @@
     font-size: 4em;
     color: $medium-gray;
     vertical-align: top;
+
+    &.error {
+      font-size: 1.2em;
+    }
   }
 
   .essence_picture_css_class {
