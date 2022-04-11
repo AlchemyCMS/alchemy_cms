@@ -1,3 +1,8 @@
+## 5.3.4 (2022-04-11)
+
+- Don't delete locals in render_element so they can be used by all elem… [#2284](https://github.com/AlchemyCMS/alchemy_cms/pull/2284) ([dbwinger](https://github.com/dbwinger))
+- Show site and language name on page select in Link dialog [#2280](https://github.com/AlchemyCMS/alchemy_cms/pull/2280) ([dbwinger](https://github.com/dbwinger))
+
 ## 5.3.3 (2022-03-24)
 
 - fix admin sitemap feature specs ([tvdeyen](https://github.com/tvdeyen))
