@@ -3,18 +3,6 @@
 require "active_record"
 
 module Alchemy #:nodoc:
-  # A bogus association that skips eager loading for essences not having an ingredient association
-  class IngredientAssociation < ActiveRecord::Associations::BelongsToAssociation
-    # Skip eager loading if called by Rails' preloader
-    def klass
-      if caller.any? { |line| line =~ /preloader\.rb/ }
-        nil
-      else
-        super
-      end
-    end
-  end
-
   module Essence #:nodoc:
     def self.included(base)
       base.extend(ClassMethods)
@@ -42,8 +30,6 @@ module Alchemy #:nodoc:
         configuration = {
           ingredient_column: "body",
         }.update(options)
-
-        @_classes_with_ingredient_association ||= []
 
         class_eval <<-RUBY, __FILE__, __LINE__ + 1
           attr_writer :validation_errors
@@ -87,18 +73,6 @@ module Alchemy #:nodoc:
             alias_method :#{configuration[:ingredient_column]}, :ingredient_association
             alias_method :#{configuration[:ingredient_column]}=, :ingredient_association=
           RUBY
-
-          @_classes_with_ingredient_association << self
-        end
-      end
-
-      # Overwrite ActiveRecords method to return a bogus association class that skips eager loading
-      # for essence classes that do not have an ingredient association
-      def _reflect_on_association(name)
-        if name == :ingredient_association && !in?(@_classes_with_ingredient_association)
-          OpenStruct.new(association_class: Alchemy::IngredientAssociation)
-        else
-          super
         end
       end
 

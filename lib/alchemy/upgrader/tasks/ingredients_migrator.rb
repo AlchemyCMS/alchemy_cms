@@ -16,7 +16,7 @@ module Alchemy::Upgrader::Tasks
           # eager load all elements that have ingredients defined but no ingredient records yet.
           all_elements = Alchemy::Element
             .named(elements_with_ingredients.map { |d| d[:name] })
-            .includes(contents: { essence: :ingredient_association })
+            .includes(contents: :essence)
             .left_outer_joins(:ingredients).where(alchemy_ingredients: { id: nil })
             .to_a
           elements_with_ingredients.map do |element_definition|
