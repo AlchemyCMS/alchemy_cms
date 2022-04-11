@@ -18,7 +18,7 @@ Alchemy is an open source CMS engine written in Ruby on Rails.
 
 Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [guidelines](https://guides.alchemy-cms.com).
 
-**CAUTION: This main branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (5.2-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/5.2-stable).**
+**CAUTION: This main branch is a development branch that *can* contain bugs. For productive environments you should use the [current Ruby gem version](https://rubygems.org/gems/alchemy_cms), or the [latest stable branch (6.0-stable)](https://github.com/AlchemyCMS/alchemy_cms/tree/6.0-stable).**
 
 
 ## ✅ Features
@@ -27,6 +27,7 @@ Read more about Alchemy on the [website](https://alchemy-cms.com) and in the [gu
 - A rich RESTful API
 - Intuitive admin interface with live preview
 - Multi language and multi domain
+- Page versioning
 - SEO friendly urls
 - User Access Control
 - Build in contact form mailer
@@ -51,9 +52,9 @@ or visit the existing demo at https://alchemy-demo.herokuapp.com
 
 ## 🚂 Rails Version
 
-**This version of AlchemyCMS runs with Rails 6.0**
+**This version of AlchemyCMS runs with Rails 7.0, 6.1 and 6.0**
 
-* For a Rails 5.2 compatible version use the [`5.2-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/5.2-stable).
+* For a Rails 5.2 compatible version use the [`5.3-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/5.3-stable).
 * For a Rails 5.0 or 5.1 compatible version use the [`4.5-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/4.5-stable).
 * For a Rails 4.2 compatible version use the [`3.6-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.6-stable).
 * For a Rails 4.0/4.1 compatible version use the [`3.1-stable` branch](https://github.com/AlchemyCMS/alchemy_cms/tree/3.1-stable).
