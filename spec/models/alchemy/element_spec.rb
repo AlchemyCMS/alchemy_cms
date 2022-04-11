@@ -389,7 +389,9 @@ module Alchemy
       let(:clipboard) { [{ "id" => element_1.id.to_s }, { "id" => element_2.id.to_s }] }
 
       before do
-        allow(Element).to receive(:all_from_clipboard).and_return([element_1, element_2])
+        allow(Element).to receive(:all_from_clipboard).and_return(
+          Element.where(id: [element_1, element_2].map(&:id))
+        )
       end
 
       it "return all elements from clipboard that could be placed on page" do
@@ -408,6 +410,37 @@ module Alchemy
         it "returns empty array" do
           expect(Element.all_from_clipboard_for_page(nil, page)).to eq([])
         end
+      end
+    end
+
+    describe ".all_from_clipboard_for_parent_element" do
+      subject { Element.all_from_clipboard_for_parent_element(clipboard, parent_element) }
+
+      let(:element_1) { create(:alchemy_element) }
+      let(:element_2) { create(:alchemy_element, name: "slide") }
+      let(:clipboard) { [{ "id" => element_1.id.to_s }, { "id" => element_2.id.to_s }] }
+      let(:parent_element) { create :alchemy_element, name: "slider" }
+
+      before do
+        allow(Element).to receive(:all_from_clipboard).and_return(
+          Element.where(id: [element_1, element_2].map(&:id))
+        )
+      end
+
+      it "returns all elements from clipboard that can be nested in the parent element" do
+        expect(subject).to match_array [element_2]
+      end
+
+      context "when clipboard nil" do
+        let(:clipboard) { nil }
+
+        it { is_expected.to be_empty }
+      end
+
+      context "when parent_element nil" do
+        let(:parent_element) { nil }
+
+        it { is_expected.to be_empty }
       end
     end
 
@@ -480,19 +513,19 @@ module Alchemy
 
       it "should return the translation with the translated content label" do
         expect(Alchemy).to receive(:t)
-                             .with("content_names.content", default: "Content")
-                             .and_return("Content")
+        .with("content_names.content", default: "Content")
+        .and_return("Content")
         expect(Alchemy).to receive(:t)
-                             .with("content", scope: "content_names.article", default: "Content")
-                             .and_return("Contenido")
+        .with("content", scope: "content_names.article", default: "Content")
+        .and_return("Contenido")
         expect(Alchemy).to receive(:t)
-                             .with("article.content.invalid", {
-                               scope: "content_validations",
-                               default: [:"fields.content.invalid", :"errors.invalid"],
-                               field: "Contenido",
-                             })
+        .with("article.content.invalid", {
+          scope: "content_validations",
+          default: [:"fields.content.invalid", :"errors.invalid"],
+          field: "Contenido",
+        })
         expect(element).to receive(:essence_errors)
-                             .and_return({ "content" => [:invalid] })
+        .and_return({ "content" => [:invalid] })
 
         element.essence_error_messages
       end

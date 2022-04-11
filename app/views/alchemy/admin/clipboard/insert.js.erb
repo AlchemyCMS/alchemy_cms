@@ -14,3 +14,14 @@
   Alchemy.growl('<%= j Alchemy.t("item copied to clipboard", name: @item.class.name == "Alchemy::Element" ? @item.display_name_with_preview_text : @item.name) %>')
 <% end -%>
 $('#clipboard_button .icon').removeClass('fa-clipboard').addClass('fa-paste');
+
+if (window.location.pathname == "<%= edit_admin_page_path(@item.page.id) %>") {
+  <%# Update add nested element forms for any elements that accept ONLY this as a nested element %>
+  <% if @item.class == Alchemy::Element %>
+    <% @item.page.draft_version.elements.expanded.each do |element| %>
+      <% if element.definition["nestable_elements"] == [@item.name] %>
+        $(".add-nested-element[data-element-id='<%= element.id %>']").replaceWith('<%= j render "alchemy/admin/elements/add_nested_element_form", element: element %>')
+      <% end %>
+    <% end %>
+  <% end %>
+}

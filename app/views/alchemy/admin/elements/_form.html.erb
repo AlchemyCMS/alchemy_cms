@@ -9,7 +9,11 @@
       label: Alchemy.t(:element_of_type),
       collection: elements_for_select(@elements),
       prompt: Alchemy.t(:select_element),
-      input_html: {class: 'alchemy_selectbox', autofocus: true} %>
+      selected: (@elements.first if @elements.count == 1),
+      input_html: {class: 'alchemy_selectbox', autofocus: true, disabled: @elements.count == 1} %>
+    <% if @elements.count == 1 %>
+      <%= form.hidden_field :name, value: @elements.first[:name] %>
+    <% end %>
     <%= form.hidden_field :parent_element_id, value: @parent_element.try(:id) %>
     <%= form.submit Alchemy.t(:add) %>
   <%- end -%>
