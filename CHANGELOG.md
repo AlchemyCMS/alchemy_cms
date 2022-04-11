@@ -1,3 +1,15 @@
+## 6.0.0 (2022-04-11)
+
+- [ruby - main] Allow ransack version 3.0.1 [#2287](https://github.com/AlchemyCMS/alchemy_cms/pull/2287) ([depfu](https://github.com/apps/depfu))
+- Fix image loader [#2285](https://github.com/AlchemyCMS/alchemy_cms/pull/2285) ([tvdeyen](https://github.com/tvdeyen))
+- Don't delete locals in render_element so they can be used by all elements in render_elements [#2283](https://github.com/AlchemyCMS/alchemy_cms/pull/2283) ([dbwinger](https://github.com/dbwinger))
+- Don't hardcode URLs in Javascript  [#2282](https://github.com/AlchemyCMS/alchemy_cms/pull/2282) ([dssjoblom](https://github.com/dssjoblom))
+- [ruby - main] Allow ransack 3.0.0 [#2278](https://github.com/AlchemyCMS/alchemy_cms/pull/2278) ([depfu](https://github.com/apps/depfu))
+- Show site and language name on page select in Link dialog [#2276](https://github.com/AlchemyCMS/alchemy_cms/pull/2276) ([dbwinger](https://github.com/dbwinger))
+- Allow webp as image file format [#2274](https://github.com/AlchemyCMS/alchemy_cms/pull/2274) ([tvdeyen](https://github.com/tvdeyen))
+- Rails 7 Support [#2225](https://github.com/AlchemyCMS/alchemy_cms/pull/2225) ([tvdeyen](https://github.com/tvdeyen))
+- Support AR enums in resource models [#2210](https://github.com/AlchemyCMS/alchemy_cms/pull/2210) ([robinboening](https://github.com/robinboening))
+
 ## 6.0.0-rc7 (2022-03-28)
 
 - fix(Sitemap): Use response data [#2272](https://github.com/AlchemyCMS/alchemy_cms/pull/2272) ([tvdeyen](https://github.com/tvdeyen))
