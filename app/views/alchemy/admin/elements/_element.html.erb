@@ -27,10 +27,10 @@
         <!-- Ingredients -->
         <% if element.has_ingredients_defined? %>
           <div class="element-ingredient-editors">
-            <%= render element.ingredients.select { |i| i.definition[:group].blank? }, element_form: f %>
+            <%= render element.ingredients.select { |i| !i.definition[:group] }, element_form: f %>
 
             <!-- Each ingredient group -->
-            <% element.ingredients.select { |i| i.definition[:group].present? }.group_by { |i| i.definition[:group] }.each do |group, ingredients| %>
+            <% element.ingredients.select { |i| i.definition[:group] }.group_by { |i| i.definition[:group] }.each do |group, ingredients| %>
               <div class="content-group">
                 <%= link_to '#', id: "content_group_#{group.parameterize.underscore}_header", class: 'content-group-header', data: { toggle_content_group: true } do %>
                   <i class="content-group-expand icon fa-fw fa-plus fas"></i>
@@ -45,10 +45,10 @@
         <% end %>
         <!-- Contents -->
         <div id="element_<%= element.id %>_content" class="element-content-editors">
-          <%= render element.contents.select { |c| c.definition[:group].blank? } %>
+          <%= render element.contents.select { |c| !c.definition[:group] } %>
 
           <!-- Each content group -->
-          <% element.contents.select { |c| c.definition[:group].present? }.group_by { |c| c.definition[:group] }.each do |group, contents| %>
+          <% element.contents.select { |c| c.definition[:group] }.group_by { |c| c.definition[:group] }.each do |group, contents| %>
             <div class="content-group">
               <%= link_to '#', id: "content_group_#{group.parameterize.underscore}_header", class: 'content-group-header', data: { toggle_content_group: true } do %>
                 <i class="content-group-expand icon fa-fw fa-plus fas"></i>
