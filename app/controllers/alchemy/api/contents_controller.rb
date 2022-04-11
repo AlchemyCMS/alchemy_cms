@@ -46,11 +46,7 @@ module Alchemy
     private
 
     def content_includes
-      [
-        {
-          essence: :ingredient_association,
-        },
-      ]
+      %i[essence]
     end
   end
 end

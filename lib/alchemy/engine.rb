@@ -37,7 +37,7 @@ module Alchemy
       end
     end
 
-    initializer "alchemy.userstamp" do
+    config.after_initialize do
       if Alchemy.user_class
         ActiveSupport.on_load(:active_record) do
           Alchemy.user_class.model_stamper

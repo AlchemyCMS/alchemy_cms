@@ -11,6 +11,7 @@ jobs:
         rails:
           - "6.0"
           - "6.1"
+          - "7.0"
         ruby:
           - "2.6"
           - "2.7"
@@ -18,6 +19,13 @@ jobs:
         database:
           - mysql
           - postgresql
+        exclude:
+          - rails: "7.0"
+            ruby: "2.6"
+            database: mysql
+          - rails: "7.0"
+            ruby: "2.6"
+            database: postgresql
     env:
       DB: ${{ matrix.database }}
       DB_USER: alchemy_user

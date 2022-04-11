@@ -3,11 +3,13 @@ source "https://rubygems.org"
 
 gemspec
 
-rails_version = ENV.fetch("RAILS_VERSION", 6.1).to_f
+rails_version = ENV.fetch("RAILS_VERSION", 7.0).to_f
 # Necessary until a new 6.1.5 version has been released
 # https://github.com/rails/rails/pull/44691
 if rails_version.to_s.match?(/6.1/)
   gem "rails", git: "https://github.com/rails/rails", branch: "6-1-stable"
+elsif rails_version.to_s.match?(/7.0/)
+  gem "rails", git: "https://github.com/rails/rails", branch: "7-0-stable"
 else
   gem "rails", "~> #{rails_version}.0"
 end
