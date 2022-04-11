@@ -21,6 +21,12 @@ jobs:
           - mysql
           - postgresql
         exclude:
+          - rails: "6.0"
+            ruby: "3.1"
+            database: mysql
+          - rails: "6.0"
+            ruby: "3.1"
+            database: postgresql
           - rails: "7.0"
             ruby: "2.6"
             database: mysql
