@@ -179,9 +179,12 @@ module Alchemy
         @pages_locked_by_user = Page.from_current_site.locked_by(current_alchemy_user)
         respond_to do |format|
           format.js
-          format.html {
-            redirect_to params[:redirect_to].blank? ? admin_pages_path : params[:redirect_to]
-          }
+          format.html do
+            redirect_to(
+              params[:redirect_to].presence || admin_pages_path,
+              allow_other_host: true,
+            )
+          end
         end
       end
 
