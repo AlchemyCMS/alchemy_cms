@@ -8,6 +8,8 @@ rails_version = ENV.fetch("RAILS_VERSION", 7.0).to_f
 # https://github.com/rails/rails/pull/44691
 if rails_version.to_s.match?(/6.1/)
   gem "rails", git: "https://github.com/rails/rails", branch: "6-1-stable"
+elsif rails_version.to_s.match?(/7.0/)
+  gem "rails", git: "https://github.com/rails/rails", branch: "7-0-stable"
 else
   gem "rails", "~> #{rails_version}.0"
 end
