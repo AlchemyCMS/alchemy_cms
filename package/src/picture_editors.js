@@ -61,7 +61,7 @@ class PictureEditor {
     this.image.removeAttribute("alt")
     this.image.removeAttribute("src")
     this.imageLoader.load(true)
-    get(`/admin/pictures/${this.pictureId}/url`, {
+    get(Alchemy.routes.url_admin_picture_path(this.pictureId), {
       crop: this.imageCropperEnabled,
       crop_from: this.cropFrom,
       crop_size: this.cropSize,
