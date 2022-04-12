@@ -45,16 +45,5 @@ module Alchemy
         end
       end
     end
-
-    initializer "alchemy.webp-mime_type" do
-      # Rails does not know anything about webp even in 2022
-      unless Mime::Type.lookup_by_extension(:webp)
-        Mime::Type.register("image/webp", :webp)
-      end
-      # Dragonfly uses Rack to read the mime type and guess what
-      unless Rack::Mime::MIME_TYPES[".webp"]
-        Rack::Mime::MIME_TYPES[".webp"] = "image/webp"
-      end
-    end
   end
 end

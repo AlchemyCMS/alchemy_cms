@@ -57,8 +57,8 @@ module Alchemy
     #
     # === CAUTION
     #
-    # This HAS to be placed for Dragonfly's class methods,
-    # to ensure this runs before Dragonfly's before_destroy callback.
+    # This HAS to be placed for ActiveStorage class methods,
+    # to ensure this runs before ActiveStorage before_destroy callback.
     #
     before_destroy unless: :deletable? do
       raise PictureInUseError, Alchemy.t(:cannot_delete_picture_notice) % { name: name }
