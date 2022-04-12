@@ -21,8 +21,7 @@ module Alchemy
 
         context "with taggable missing" do
           before do
-            picture.thumbs.destroy_all
-            picture.delete
+            picture.destroy
           end
 
           it "does not raise error" do

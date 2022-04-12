@@ -105,7 +105,7 @@ module Alchemy
       settings[:crop] && picture&.can_be_cropped_to?(
         settings[:size],
         settings[:upsample]
-      ) && !!picture.image_file
+      ) && !!picture.image_file.attached?
     end
 
     private
