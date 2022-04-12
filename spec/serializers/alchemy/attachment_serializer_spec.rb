@@ -5,17 +5,21 @@ require "rails_helper"
 RSpec.describe Alchemy::AttachmentSerializer do
   subject { described_class.new(attachment).to_json }
 
-  let(:attachment) { build_stubbed(:alchemy_attachment) }
+  let(:file) do
+    Alchemy::Engine.root.join("lib", "alchemy", "test_support", "fixtures", "image.png")
+  end
+
+  let(:attachment) { create(:alchemy_attachment, file: file) }
 
   it "includes all attributes" do
     json = JSON.parse(subject)
     expect(json).to eq(
       "id" => attachment.id,
-      "name" => attachment.name,
-      "file_name" => attachment.file_name,
-      "file_mime_type" => attachment.file_mime_type,
+      "name" => "image",
+      "file_name" => "image.png",
+      "file_mime_type" => "image/png",
       "file_size" => attachment.file_size,
-      "icon_css_class" => attachment.icon_css_class,
+      "icon_css_class" => "file-image",
       "tag_list" => attachment.tag_list,
       "created_at" => attachment.created_at.as_json,
       "updated_at" => attachment.updated_at.as_json,
