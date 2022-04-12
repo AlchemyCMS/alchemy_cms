@@ -31,3 +31,4 @@ yarn-debug.log*
 /spec/dummy/public/pictures
 .byebug_history
 .vscode/
+/spec/dummy/storage
