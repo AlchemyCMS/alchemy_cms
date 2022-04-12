@@ -264,8 +264,28 @@ module Alchemy
       picture_ingredients.empty?
     end
 
+    def image_file_name
+      image_file&.filename&.to_s
+    end
+
+    def image_file_format
+      image_file&.content_type
+    end
+
+    def image_file_size
+      image_file&.byte_size
+    end
+
+    def image_file_width
+      image_file&.metadata&.fetch(:width, nil)
+    end
+
+    def image_file_height
+      image_file&.metadata&.fetch(:height, nil)
+    end
+
     def image_file_extension
-      image_file&.filename&.extension
+      image_file&.filename&.extension&.downcase
     end
 
     alias_method :suffix, :image_file_extension
@@ -284,8 +304,7 @@ module Alchemy
     private
 
     def image_file_type_allowed
-      symbol = Mime::Type.lookup_by_extension(image_file_format)&.symbol&.to_s.presence
-      unless symbol&.in?(self.class.allowed_filetypes)
+      unless image_file_extension&.in?(self.class.allowed_filetypes)
         errors.add(:image_file, Alchemy.t("not a valid image"))
       end
     end
