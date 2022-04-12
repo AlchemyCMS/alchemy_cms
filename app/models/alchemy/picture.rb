@@ -220,18 +220,12 @@ module Alchemy
       end
     end
 
-    # Returns the suffix of the filename.
-    #
-    def suffix
-      image_file.ext
-    end
-
     # Returns a humanized, readable name from image filename.
     #
     def humanized_name
       return "" if image_file_name.blank?
 
-      convert_to_humanized_name(image_file_name, suffix)
+      convert_to_humanized_name(image_file_name, image_file_extension)
     end
 
     # Returns the format the image should be rendered with
@@ -243,7 +237,7 @@ module Alchemy
       if convertible?
         Config.get(:image_output_format)
       else
-        image_file_format
+        image_file_extension
       end
     end
 
@@ -281,6 +275,13 @@ module Alchemy
     def deletable?
       picture_ingredients.empty?
     end
+
+    def image_file_extension
+      image_file&.filename&.extension
+    end
+
+    alias_method :suffix, :image_file_extension
+    deprecate suffix: :image_file_extension, deprecator: Alchemy::Deprecation
 
     # A size String from original image file values.
     #
