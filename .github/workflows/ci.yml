@@ -9,7 +9,6 @@ jobs:
       fail-fast: false
       matrix:
         rails:
-          - "6.0"
           - "6.1"
           - "7.0"
         ruby:
