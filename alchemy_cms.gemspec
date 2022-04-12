@@ -30,6 +30,7 @@ Gem::Specification.new do |gem|
     activejob
     activemodel
     activerecord
+    activestorage
     activesupport
     railties
   ].each do |rails_gem|
@@ -43,6 +44,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "csv", ["~> 3.3"]
   gem.add_runtime_dependency "dragonfly", ["~> 1.4"]
   gem.add_runtime_dependency "gutentag", ["~> 2.2", ">= 2.2.1"]
+  gem.add_runtime_dependency "image_processing", ["~> 1.14"]
   gem.add_runtime_dependency "importmap-rails", ["~> 2.0"]
   gem.add_runtime_dependency "kaminari", ["~> 1.1"]
   gem.add_runtime_dependency "originator", ["~> 3.1"]
