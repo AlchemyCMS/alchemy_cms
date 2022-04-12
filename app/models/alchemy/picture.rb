@@ -43,7 +43,6 @@ module Alchemy
     include Alchemy::NameConversions
     include Alchemy::Taggable
     include Alchemy::TouchElements
-    include Calculations
 
     has_many :picture_ingredients,
       class_name: "Alchemy::Ingredients::Picture",
