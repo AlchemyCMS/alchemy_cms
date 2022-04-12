@@ -39,7 +39,7 @@
   <% end %>
   <% if can?(:download, attachment) %>
     <%= link_to render_icon(:download),
-      alchemy.download_admin_attachment_path(attachment),
+      alchemy.download_attachment_path(attachment),
       title: Alchemy.t("download_file", filename: attachment.file_name),
       target: "_blank" %>
   <% end %>

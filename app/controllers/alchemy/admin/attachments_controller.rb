@@ -64,14 +64,6 @@ module Alchemy
         flash[:notice] = Alchemy.t("File deleted successfully", name: name)
       end
 
-      def download
-        @attachment = Attachment.find(params[:id])
-        send_file @attachment.file.path, {
-          filename: @attachment.file_name,
-          type: @attachment.file_mime_type,
-        }
-      end
-
       private
 
       def search_filter_params
