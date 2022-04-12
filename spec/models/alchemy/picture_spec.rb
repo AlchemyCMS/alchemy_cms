@@ -112,8 +112,13 @@ module Alchemy
     end
 
     describe "#image_file_dimensions" do
+      before do
+        expect(picture.image_file).to receive(:metadata).twice do
+          { width: 1, height: 1 }
+        end
+      end
+
       it "should return the width and height in the format of '1024x768'" do
-        picture.image_file = image_file
         expect(picture.image_file_dimensions).to eq("1x1")
       end
     end
