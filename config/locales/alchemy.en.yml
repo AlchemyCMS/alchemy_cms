@@ -118,6 +118,7 @@ en:
         by_file_format:
           name: File Type
           values:
+            <<: *mime_types
             gif: GIF Image
             jpeg: JPG Image
             png: PNG Image

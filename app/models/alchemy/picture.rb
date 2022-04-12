@@ -91,7 +91,9 @@ module Alchemy
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
     scope :deletable, -> { where("#{table_name}.id NOT IN (SELECT picture_id FROM #{EssencePicture.table_name})") }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: { id: nil }) }
-    scope :by_file_format, ->(format) { where(image_file_format: format) }
+    scope :by_file_format, ->(file_format) {
+        with_attached_image_file.joins(:image_file_blob).where(active_storage_blobs: { content_type: file_format })
+      }
 
     # Class methods
 
@@ -111,14 +113,10 @@ module Alchemy
       end
 
       def alchemy_resource_filters
-        file_types = file_formats.map do |format|
-          MiniMime.lookup_by_content_type(format)&.extension
-        end
-
         [
           {
             name: :by_file_format,
-            values: file_types,
+            values: file_formats,
           },
           {
             name: :misc,
