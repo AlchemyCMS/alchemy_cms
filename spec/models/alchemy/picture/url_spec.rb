@@ -5,34 +5,42 @@ require "rails_helper"
 RSpec.describe Alchemy::Picture::Url do
   let(:image) { File.new(File.expand_path("../../../fixtures/image.png", __dir__)) }
   let(:picture) { create(:alchemy_picture, image_file: image) }
-  let(:variant) { Alchemy::PictureVariant.new(picture) }
 
-  subject { described_class.new(variant).call(params) }
+  subject { described_class.new(picture).call(options) }
 
-  let(:params) { {} }
+  let(:options) { {} }
 
-  it "returns the url to the image" do
-    is_expected.to match(/\/pictures\/.+\/image\.png\?sha=.+/)
+  it "returns the proxy url to the image" do
+    is_expected.to match(/\/rails\/active_storage\/representations\/proxy\/.+\/image\.png/)
   end
 
-  context "when params are passed" do
-    let(:params) do
-      {
-        page: 1,
-        per_page: 10,
-      }
-    end
-
-    it "passes them to the URL" do
-      is_expected.to match(/page=1/)
-    end
+  it "adds image name and format to url" do
+    is_expected.to match(/\/image\.png$/)
   end
 
   context "with a processed variant" do
-    let(:variant) { Alchemy::PictureVariant.new(picture, { size: "10x10" }) }
+    let(:options) do
+      { size: "10x10" }
+    end
 
-    it "returns the url to the thumbnail" do
-      is_expected.to match(/\/pictures\/\d+\/.+\/image\.png/)
+    it "uses converted options for image_processing" do
+      expect(picture.image_file).to receive(:variant).with(
+        {
+          resize_to_limit: [10, 10, { sharpen: false }],
+          saver: { quality: 85 },
+        },
+      )
+      subject
+    end
+  end
+
+  context "with format in options" do
+    let(:options) do
+      { format: "webp" }
+    end
+
+    it "adds format to url" do
+      is_expected.to match(/\/image\.webp$/)
     end
   end
 end

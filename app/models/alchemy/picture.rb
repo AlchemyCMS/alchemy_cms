@@ -82,18 +82,8 @@ module Alchemy
       @_preprocessor_class = klass
     end
 
-    # Enables Dragonfly image processing
-    dragonfly_accessor :image_file, app: :alchemy_pictures do
-      # Preprocess after uploading the picture
-      after_assign do |image|
-        if has_convertible_format?
-          self.class.preprocessor_class.new(image).call
-        end
-      end
-    end
-
-    # Create important thumbnails upfront
-    after_create -> { PictureThumb.generate_thumbs!(self) if has_convertible_format? }
+    # Use ActiveStorage image processing
+    has_one_attached(:image_file)
 
     validates_presence_of :image_file
     validate :image_file_type_allowed, :image_file_not_too_big,
@@ -125,10 +115,14 @@ module Alchemy
       end
 
       def alchemy_resource_filters
+        file_types = file_formats.map do |format|
+          MiniMime.lookup_by_content_type(format)&.extension
+        end
+
         [
           {
             name: :by_file_format,
-            values: distinct.pluck(:image_file_format),
+            values: file_types,
           },
           {
             name: :misc,
@@ -147,33 +141,30 @@ module Alchemy
 
         Picture.where(upload_hash: last_picture.upload_hash)
       end
+
+      private
+
+      def file_formats
+        ActiveStorage::Blob.joins(:attachments).merge(
+          ActiveStorage::Attachment.where(record_type: name)
+        ).distinct.pluck(:content_type)
+      end
     end
 
     # Instance methods
 
     # Returns an url (or relative path) to a processed image for use inside an image_tag helper.
     #
-    # Any additional options are passed to the url method, so you can add params to your url.
-    #
     # Example:
     #
     #   <%= image_tag picture.url(size: '320x200', format: 'png') %>
     #
-    # @see Alchemy::PictureVariant#call for transformation options
-    # @see Alchemy::Picture::Url#call for url options
     # @return [String|Nil]
     def url(options = {})
       return unless image_file
 
-      variant = PictureVariant.new(self, options.slice(*TRANSFORMATION_OPTIONS))
-      self.class.url_class.new(variant).call(
-        options.except(*TRANSFORMATION_OPTIONS).merge(
-          basename: name,
-          ext: variant.render_format,
-          name: name,
-        )
-      )
-    rescue ::Dragonfly::Job::Fetch::NotFound => e
+      self.class.url_class.new(self).call(options)
+    rescue ::ActiveStorage::Error => e
       log_warning(e.message)
       nil
     end

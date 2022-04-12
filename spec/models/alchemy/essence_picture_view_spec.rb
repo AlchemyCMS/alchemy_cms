@@ -10,9 +10,7 @@ describe Alchemy::EssencePictureView, type: :model do
   end
 
   let(:picture) do
-    stub_model Alchemy::Picture,
-      image_file_format: "png",
-      image_file: image
+    build_stubbed(:alchemy_picture, image_file: image)
   end
 
   let(:essence_picture) do
@@ -310,8 +308,7 @@ describe Alchemy::EssencePictureView, type: :model do
       context "and not passed as html option" do
         context "with name on the picture" do
           let(:picture) do
-            stub_model Alchemy::Picture,
-              image_file_format: "png",
+            build_stubbed :alchemy_picture,
               image_file: image,
               name: "cute_kitty-cat"
           end
@@ -322,6 +319,12 @@ describe Alchemy::EssencePictureView, type: :model do
         end
 
         context "and no name on the picture" do
+          let(:picture) do
+            build_stubbed :alchemy_picture,
+              image_file: image,
+              name: ""
+          end
+
           it "has no alt text" do
             expect(view).to_not have_selector("img[alt]")
           end

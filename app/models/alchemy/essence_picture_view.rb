@@ -83,7 +83,7 @@ module Alchemy
     end
 
     def alt_text
-      essence.alt_tag.presence || html_options.delete(:alt) || essence.picture.name&.humanize
+      essence.alt_tag.presence || html_options.delete(:alt) || essence.picture.name&.humanize&.presence
     end
   end
 end

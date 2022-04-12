@@ -3,42 +3,43 @@
 module Alchemy
   class Picture < BaseRecord
     class Url
-      attr_reader :variant
+      attr_reader :picture, :image_file
 
-      # @param [Alchemy::PictureVariant]
+      # @param [Alchemy::Picture]
       #
-      def initialize(variant)
-        raise ArgumentError, "Variant missing!" if variant.nil?
-
-        @variant = variant
+      def initialize(picture)
+        @picture = picture
+        @image_file = picture.image_file
       end
 
       # The URL to a variant of a picture
       #
       # @return [String]
       #
-      def call(params = {})
-        return variant.image.url(params) unless processible_image?
+      def call(options = {})
+        variant_options = DragonflyToImageProcessing.call(options)
+        variant = image_file&.variant(variant_options)
+        return unless variant
 
-        "/#{uid}"
+        Rails.application.routes.url_helpers.rails_storage_proxy_url(
+          variant,
+          {
+            filename: filename(options),
+            only_path: true,
+            format: nil,
+          }
+        )
       end
 
       private
 
-      def processible_image?
-        variant.image.is_a?(::Dragonfly::Job)
-      end
-
-      def uid
-        signature = PictureThumb::Signature.call(variant)
-        thumb = variant.picture.thumbs.detect { |t| t.signature == signature }
-        if thumb
-          uid = thumb.uid
+      def filename(options = {})
+        format = options[:format] || picture.image_file_extension
+        if picture.name.presence
+          "#{picture.name.to_param}.#{format}"
         else
-          uid = PictureThumb::Uid.call(signature, variant)
-          PictureThumb.generator_class.call(variant, signature, uid)
+          picture.image_file_name
         end
-        uid
       end
     end
   end
