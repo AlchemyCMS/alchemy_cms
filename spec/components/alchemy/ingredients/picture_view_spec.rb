@@ -8,9 +8,7 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
   end
 
   let(:picture) do
-    stub_model Alchemy::Picture,
-      image_file_format: "png",
-      image_file: image
+    build_stubbed(:alchemy_picture, image_file: image)
   end
 
   let(:ingredient) do
@@ -346,8 +344,7 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
       context "and not passed as html option" do
         context "with name on the picture" do
           let(:picture) do
-            stub_model Alchemy::Picture,
-              image_file_format: "png",
+            build_stubbed :alchemy_picture,
               image_file: image,
               name: "cute_kitty-cat"
           end
@@ -358,6 +355,12 @@ RSpec.describe Alchemy::Ingredients::PictureView, type: :component do
         end
 
         context "and no name on the picture" do
+          let(:picture) do
+            build_stubbed :alchemy_picture,
+              image_file: image,
+              name: nil
+          end
+
           it "has no alt text" do
             expect(page).to_not have_selector("img[alt]")
           end
