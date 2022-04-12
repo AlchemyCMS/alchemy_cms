@@ -28,8 +28,6 @@ module Alchemy
       large: "240x180",
     }.with_indifferent_access.freeze
 
-    CONVERTIBLE_FILE_FORMATS = %w[gif jpg jpeg png webp].freeze
-
     TRANSFORMATION_OPTIONS = [
       :crop,
       :crop_from,
@@ -238,7 +236,7 @@ module Alchemy
     # Returns true if the image can be converted into other formats
     #
     def has_convertible_format?
-      image_file_format.in?(CONVERTIBLE_FILE_FORMATS)
+      image_file&.variable?
     end
 
     # Checks if the picture is restricted.
