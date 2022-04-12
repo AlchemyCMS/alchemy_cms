@@ -70,7 +70,7 @@ module Alchemy
           expect(Alchemy::Picture.alchemy_resource_filters).to eq([
             {
               name: :by_file_format,
-              values: ["png"]
+              values: ["image/png"]
             },
             {
               name: :misc,

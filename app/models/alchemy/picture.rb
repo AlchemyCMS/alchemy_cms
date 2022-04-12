@@ -93,7 +93,10 @@ module Alchemy
         where("#{table_name}.id NOT IN (SELECT related_object_id FROM alchemy_ingredients WHERE related_object_type = 'Alchemy::Picture')")
       }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: {id: nil}) }
-    scope :by_file_format, ->(format) { where(image_file_format: format) }
+    scope :by_file_format,
+      ->(file_format) {
+        with_attached_image_file.joins(:image_file_blob).where(active_storage_blobs: {content_type: file_format})
+      }
 
     # Class methods
 
@@ -113,14 +116,10 @@ module Alchemy
       end
 
       def alchemy_resource_filters
-        @_file_formats ||= file_formats.map do |format|
-          MiniMime.lookup_by_content_type(format)&.extension
-        end
-
         [
           {
             name: :by_file_format,
-            values: @_file_formats
+            values: file_formats
           },
           {
             name: :misc,
