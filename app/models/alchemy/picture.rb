@@ -95,20 +95,9 @@ module Alchemy
     # Create important thumbnails upfront
     after_create -> { PictureThumb.generate_thumbs!(self) if has_convertible_format? }
 
-    # We need to define this method here to have it available in the validations below.
-    class << self
-      def allowed_filetypes
-        Config.get(:uploader).fetch("allowed_filetypes", {}).fetch("alchemy/pictures", [])
-      end
-    end
-
     validates_presence_of :image_file
-    validates_size_of :image_file, maximum: Config.get(:uploader)["file_size_limit"].megabytes
-    validates_property :format,
-      of: :image_file,
-      in: allowed_filetypes,
-      case_sensitive: false,
-      message: Alchemy.t("not a valid image")
+    validate :image_file_type_allowed, :image_file_not_too_big,
+      if: -> { image_file.present? }
 
     stampable stamper_class_name: Alchemy.user_class.name
 
@@ -293,6 +282,24 @@ module Alchemy
     #
     def image_file_dimensions
       "#{image_file_width}x#{image_file_height}"
+    end
+
+    private
+
+    def image_file_type_allowed
+      allowed_filetypes = Config
+        .get(:uploader)
+        .dig("allowed_filetypes", "alchemy/pictures") || []
+      unless MiniMime.lookup_by_content_type(image_file.content_type)&.extension&.in? allowed_filetypes
+        errors.add(:image_file, Alchemy.t("not a valid image"))
+      end
+    end
+
+    def image_file_not_too_big
+      maximum = Config.get(:uploader)["file_size_limit"].megabytes
+      if image_file.byte_size > maximum
+        errors.add(:image_file, :too_big)
+      end
     end
   end
 end
