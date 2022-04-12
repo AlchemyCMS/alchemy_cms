@@ -5,103 +5,32 @@ require "rails_helper"
 module Alchemy
   describe Picture do
     let :image_file do
-      File.new(File.expand_path("../../fixtures/image.png", __dir__))
+      Alchemy::Engine.root.join("lib", "alchemy", "test_support", "fixtures", "image.png")
     end
 
-    let(:picture) { Picture.new }
+    let(:picture) { build(:alchemy_picture, image_file: image_file) }
 
     it_behaves_like "has image calculations"
 
-    it { is_expected.to have_many(:thumbs).class_name("Alchemy::PictureThumb") }
-
-    context "with a png file" do
-      it "generates thumbnails after create" do
-        expect {
-          create(:alchemy_picture)
-        }.to change { Alchemy::PictureThumb.count }.by(3)
-      end
-    end
-
-    context "with a svg file" do
-      let :image_file do
-        File.new(File.expand_path("../../fixtures/icon.svg", __dir__))
-      end
-
-      it "does not generate any thumbnails" do
-        expect {
-          create(:alchemy_picture, image_file: image_file)
-        }.to_not change { Alchemy::PictureThumb.count }
-      end
-    end
-
-    context "with a webp file" do
-      let :image_file do
-        File.new(File.expand_path("../../fixtures/image5.webp", __dir__))
-      end
-
-      it "generates thumbnails after create" do
-        expect {
-          create(:alchemy_picture)
-        }.to change { Alchemy::PictureThumb.count }.by(3)
-      end
-    end
-
     it "is valid with valid attributes" do
-      picture = Picture.new(image_file: image_file)
       expect(picture).to be_valid
     end
 
     it "is not valid without image file" do
-      picture = Picture.new
+      picture = build(:alchemy_picture, image_file: nil)
       expect(picture).not_to be_valid
     end
 
     it "is valid with capitalized image file extension" do
-      image_file = File.new(File.expand_path("../../fixtures/image2.PNG", __dir__))
-      picture = Picture.new(image_file: image_file)
+      image_file = File.open(File.expand_path("../../fixtures/image2.PNG", __dir__))
+      picture = build(:alchemy_picture, image_file: image_file)
       expect(picture).to be_valid
     end
 
     it "is valid with jpeg image file extension" do
-      image_file = File.new(File.expand_path("../../fixtures/image3.jpeg", __dir__))
-      picture = Picture.new(image_file: image_file)
+      image_file = File.open(File.expand_path("../../fixtures/image3.jpeg", __dir__))
+      picture = build(:alchemy_picture, image_file: image_file)
       expect(picture).to be_valid
-    end
-
-    context "with enabled preprocess_image_resize config option" do
-      let(:image_file) do
-        File.new(File.expand_path("../../fixtures/80x60.png", __dir__))
-      end
-
-      context "with > geometry string" do
-        before do
-          allow(Config).to receive(:get) do |arg|
-            if arg == :preprocess_image_resize
-              "10x10>"
-            end
-          end
-        end
-
-        it "it resizes the image after upload" do
-          picture = Picture.new(image_file: image_file)
-          expect(picture.image_file.data[0x10..0x18].unpack("NN")).to eq([10, 8])
-        end
-      end
-
-      context "without > geometry string" do
-        before do
-          allow(Config).to receive(:get) do |arg|
-            if arg == :preprocess_image_resize
-              "10x10"
-            end
-          end
-        end
-
-        it "it resizes the image after upload" do
-          picture = Picture.new(image_file: image_file)
-          expect(picture.image_file.data[0x10..0x18].unpack("NN")).to eq([10, 8])
-        end
-      end
     end
 
     describe "#suffix" do
@@ -164,9 +93,9 @@ module Alchemy
 
     describe ".last_upload" do
       it "should return all pictures that have the same upload-hash as the most recent picture" do
-        other_upload = Picture.create!(image_file: image_file, upload_hash: "456")
-        same_upload = Picture.create!(image_file: image_file, upload_hash: "123")
-        most_recent = Picture.create!(image_file: image_file, upload_hash: "123")
+        other_upload = create(:alchemy_picture, image_file: image_file, upload_hash: "456")
+        same_upload = create(:alchemy_picture, image_file: image_file, upload_hash: "123")
+        most_recent = create(:alchemy_picture, image_file: image_file, upload_hash: "123")
 
         expect(Picture.last_upload).to include(most_recent)
         expect(Picture.last_upload).to include(same_upload)
@@ -179,8 +108,8 @@ module Alchemy
     describe ".recent" do
       before do
         now = Time.current
-        @recent = Picture.create!(image_file: image_file)
-        @old_picture = Picture.create!(image_file: image_file)
+        @recent = create(:alchemy_picture, image_file: image_file)
+        @old_picture = create(:alchemy_picture, image_file: image_file)
         @recent.update_column(:created_at, now - 23.hours)
         @old_picture.update_column(:created_at, now - 10.days)
       end
@@ -213,7 +142,7 @@ module Alchemy
     end
 
     describe "#update_name_and_tag_list!" do
-      let(:picture) { Picture.new(image_file: image_file) }
+      let(:picture) { build(:alchemy_picture, image_file: image_file) }
 
       before { allow(picture).to receive(:save!).and_return(true) }
 
@@ -248,13 +177,13 @@ module Alchemy
       end
 
       let(:picture) do
-        create(:alchemy_picture, image_file: image)
+        create(:alchemy_picture, name: "square", image_file: image)
       end
 
       let(:options) { {} }
 
       it "includes the name and render format" do
-        expect(url).to match(/\/#{picture.name}\.#{picture.default_render_format}/)
+        expect(url).to match(/\/square\.png/)
       end
 
       context "when no image is present" do
@@ -270,7 +199,7 @@ module Alchemy
       context "when the image can not be fetched" do
         before do
           expect_any_instance_of(described_class.url_class).to receive(:call) do
-            raise(::Dragonfly::Job::Fetch::NotFound)
+            raise(::ActiveStorage::FileNotFoundError)
           end
         end
 
@@ -291,20 +220,7 @@ module Alchemy
           end
 
           it "returns the url to the thumbnail" do
-            is_expected.to match(/\/pictures\/\d+\/.+\/500x500\.png/)
-          end
-        end
-
-        context "that are params" do
-          let(:options) do
-            {
-              page: 1,
-              per_page: 10
-            }
-          end
-
-          it "passes them to the URL" do
-            expect(url).to match(/page=1/)
+            is_expected.to match(/\/rails\/active_storage\/representations\/proxy\/.+\/square\.png/)
           end
         end
       end
