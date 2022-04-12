@@ -102,14 +102,22 @@ module Alchemy
 
     # Show image cropping link for content
     def allow_image_cropping?
-      settings[:crop] && picture &&
-        picture.can_be_cropped_to?(
-          settings[:size],
-          settings[:upsample],
-        ) && !!picture.image_file.attached?
+      settings[:crop] &&
+        picture&.image_file&.attached? &&
+        can_be_cropped_to?
     end
 
     private
+
+    # An Image smaller than dimensions
+    # can not be cropped to given size - unless upsample is true.
+    #
+    def can_be_cropped_to?
+      return true if settings[:upsample]
+
+      dimensions = inferred_dimensions_from_string(settings[:size])
+      picture.image_file_width > dimensions[0] && picture.image_file_height > dimensions[1]
+    end
 
     def default_crop_size
       return nil unless settings[:crop] && settings[:size]

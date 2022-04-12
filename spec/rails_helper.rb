@@ -28,7 +28,6 @@ require "alchemy/test_support/integration_helpers"
 require "alchemy/test_support/shared_contexts"
 require "alchemy/test_support/shared_uploader_examples"
 
-require_relative "support/calculation_examples.rb"
 require_relative "support/hint_examples.rb"
 require_relative "support/capybara_helpers.rb"
 require_relative "support/custom_news_elements_finder"
