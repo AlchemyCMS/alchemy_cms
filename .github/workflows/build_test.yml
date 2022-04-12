@@ -152,6 +152,14 @@ jobs:
           sudo apt update -qq
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
+      - name: Install libvips
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          mkdir -p /home/runner/apt/cache
+          sudo apt update -qq
+          sudo apt install -qq --fix-missing libvips -o dir::cache::archives="/home/runner/apt/cache"
+          sudo chown -R runner /home/runner/apt/cache
       - uses: actions/download-artifact@v4
         if: needs.check_bun_lock.outputs.bun_lock_changed == 'true'
         with:
