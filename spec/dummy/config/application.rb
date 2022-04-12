@@ -30,5 +30,9 @@ module Dummy
     # Application configuration can go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded after loading
     # the framework and any gems in your application.
+    # config.active_storage.variant_processor = :mini_magick
+    if ENV["ALCHEMY_STORAGE_ADAPTER"] == "active_storage"
+      config.active_storage.variant_processor = :vips
+    end
   end
 end
