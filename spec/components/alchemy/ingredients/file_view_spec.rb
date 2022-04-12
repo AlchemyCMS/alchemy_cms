@@ -4,11 +4,11 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Ingredients::FileView, type: :component do
   let(:file) do
-    File.new(File.expand_path("../../../fixtures/image with spaces.png", __dir__))
+    File.expand_path("../../../fixtures/image with spaces.png", __dir__)
   end
 
   let(:attachment) do
-    build_stubbed(:alchemy_attachment, file: file, name: "an image", file_name: "image with spaces.png")
+    create(:alchemy_attachment, file: file, name: "an image")
   end
 
   let(:ingredient) { Alchemy::Ingredients::File.new(attachment: attachment) }
