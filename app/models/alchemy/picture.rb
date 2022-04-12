@@ -84,18 +84,8 @@ module Alchemy
       @_preprocessor_class = klass
     end
 
-    # Enables Dragonfly image processing
-    dragonfly_accessor :image_file, app: :alchemy_pictures do
-      # Preprocess after uploading the picture
-      after_assign do |image|
-        if has_convertible_format?
-          self.class.preprocessor_class.new(image).call
-        end
-      end
-    end
-
-    # Create important thumbnails upfront
-    after_create -> { PictureThumb.generate_thumbs!(self) if has_convertible_format? }
+    # Use ActiveStorage image processing
+    has_one_attached :image_file, service: :alchemy_cms
 
     # We need to define this method here to have it available in the validations below.
     class << self
@@ -152,7 +142,7 @@ module Alchemy
       end
 
       def file_formats(scope = all)
-        scope.reorder(:image_file_format).distinct.pluck(:image_file_format).compact.presence || []
+        scope.with_attached_image_files.pluck(active_storage_blobs: :content_type).uniq.tap(&:compact!).presence || []
       end
     end
 
@@ -160,27 +150,16 @@ module Alchemy
 
     # Returns an url (or relative path) to a processed image for use inside an image_tag helper.
     #
-    # Any additional options are passed to the url method, so you can add params to your url.
-    #
     # Example:
     #
     #   <%= image_tag picture.url(size: '320x200', format: 'png') %>
     #
-    # @see Alchemy::PictureVariant#call for transformation options
-    # @see Alchemy::Picture::Url#call for url options
     # @return [String|Nil]
     def url(options = {})
       return unless image_file
 
-      variant = PictureVariant.new(self, options.slice(*TRANSFORMATION_OPTIONS))
-      self.class.url_class.new(variant).call(
-        options.except(*TRANSFORMATION_OPTIONS).merge(
-          basename: name,
-          ext: variant.render_format,
-          name: name
-        )
-      )
-    rescue ::Dragonfly::Job::Fetch::NotFound => e
+      self.class.url_class.new(self).call(options)
+    rescue ::ActiveStorage::Error => e
       log_warning(e.message)
       nil
     end
