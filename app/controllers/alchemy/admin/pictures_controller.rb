@@ -21,7 +21,7 @@ module Alchemy
 
       def index
         @query = Picture.ransack(search_filter_params[:q])
-        @pictures = filtered_pictures.includes(:thumbs)
+        @pictures = filtered_pictures.with_attached_image_file
 
         if in_overlay?
           archive_overlay
