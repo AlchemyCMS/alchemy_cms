@@ -732,6 +732,7 @@ en:
         attributes:
           image_file:
             blank: "Please attach a picture."
+            too_big: must not be larger than %{maximum}MB
       alchemy/user:
         attributes:
           email:
