@@ -13,12 +13,18 @@ module Alchemy::Upgrader::Tasks
           if ENV["ONLY"]
             elements_with_ingredients = elements_with_ingredients.select { |d| d[:name].in? ENV["ONLY"].split(",") }
           end
+
           # eager load all elements that have ingredients defined but no ingredient records yet.
           all_elements = Alchemy::Element
             .named(elements_with_ingredients.map { |d| d[:name] })
             .includes(contents: :essence)
-            .left_outer_joins(:ingredients).where(alchemy_ingredients: { id: nil })
-            .to_a
+          all_elements = if Rails.gem_version >= Gem::Version.new("6.1.0")
+                           all_elements.where.missing(:ingredients)
+                         else
+                           all_elements.left_outer_joins(:ingredients).where(alchemy_ingredients: { id: nil })
+                         end
+          all_elements = all_elements.to_a
+
           elements_with_ingredients.map do |element_definition|
             elements = all_elements.select { |e| e.name == element_definition[:name] }
             if elements.any?
