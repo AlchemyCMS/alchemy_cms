@@ -48,3 +48,5 @@ group :development, :test do
     gem "brakeman", require: false
   end
 end
+
+gem "web-console", "~> 4.2", group: :development
