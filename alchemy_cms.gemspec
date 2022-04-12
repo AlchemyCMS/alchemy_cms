@@ -26,6 +26,7 @@ Gem::Specification.new do |gem|
     activejob
     activemodel
     activerecord
+    activestorage
     activesupport
     railties
   ].each do |rails_gem|
