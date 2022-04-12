@@ -103,6 +103,7 @@ module Alchemy
       deprecate "output_image_jpg_quality=": :output_image_quality=, deprecator: Alchemy::Deprecation
       option :preprocess_image_resize, :string
       option :image_output_format, :string, default: "original"
+      option :sharpen_images, :boolean, default: false
 
       # This is used by the seeder to create the default site.
       configuration :default_site, DefaultSite
