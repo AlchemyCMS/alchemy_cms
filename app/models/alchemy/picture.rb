@@ -106,11 +106,7 @@ module Alchemy
 
     validates_presence_of :image_file
     validates_size_of :image_file, maximum: Alchemy.config.get(:uploader)["file_size_limit"].megabytes
-    validates_property :format,
-      of: :image_file,
-      in: allowed_filetypes,
-      case_sensitive: false,
-      message: Alchemy.t("not a valid image")
+    validate :image_file_type_allowed, if: -> { image_file.present? }
 
     stampable stamper_class_name: Alchemy.user_class_name
 
@@ -303,6 +299,15 @@ module Alchemy
     #
     def image_file_dimensions
       "#{image_file_width}x#{image_file_height}"
+    end
+
+    private
+
+    def image_file_type_allowed
+      symbol = Mime::Type.lookup_by_extension(image_file_format)&.symbol&.to_s.presence
+      unless symbol&.in?(self.class.allowed_filetypes)
+        errors.add(:image_file, Alchemy.t("not a valid image"))
+      end
     end
   end
 end
