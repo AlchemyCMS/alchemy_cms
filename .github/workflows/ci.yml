@@ -80,6 +80,10 @@ jobs:
           sudo apt update -qq
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
+      - name: Install libvips
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: sudo apt install --fix-missing libvips -o dir::cache::archives="/home/runner/apt/cache"
       - name: Restore node modules cache
         id: yarn-cache
         uses: actions/cache@v2.1.3
