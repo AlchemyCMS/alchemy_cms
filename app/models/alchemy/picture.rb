@@ -274,6 +274,26 @@ module Alchemy
       picture_ingredients.empty?
     end
 
+    def image_file_name
+      image_file&.filename&.to_s
+    end
+
+    def image_file_format
+      image_file&.content_type
+    end
+
+    def image_file_size
+      image_file&.byte_size
+    end
+
+    def image_file_width
+      image_file&.metadata&.fetch(:width, nil)
+    end
+
+    def image_file_height
+      image_file&.metadata&.fetch(:height, nil)
+    end
+
     def image_file_extension
       image_file&.filename&.extension
     end
