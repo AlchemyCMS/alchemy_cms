@@ -35,39 +35,31 @@ module Alchemy
 
     describe "#suffix" do
       it "should return the suffix of original filename" do
-        pic = stub_model(Picture, image_file_name: "kitten.JPG")
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
-        expect(pic.suffix).to eq("jpg")
-      end
-
-      context "image has no suffix" do
-        it "should return empty string" do
-          pic = stub_model(Picture, image_file_name: "kitten")
-          allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "" }))
-          expect(pic.suffix).to eq("")
+        Alchemy::Deprecation.silenced do
+          pic = build(:alchemy_picture)
+          expect(pic.suffix).to eq("png")
         end
       end
     end
 
     describe "#humanized_name" do
       it "should return a humanized version of original filename" do
-        pic = stub_model(Picture, image_file_name: "cute_kitten.JPG")
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
-        expect(pic.humanized_name).to eq("cute kitten")
+        allow(picture).to receive(:image_file_name).and_return("cute_kitten.JPG")
+        allow(picture).to receive(:image_file_extension).and_return("jpg")
+        expect(picture.humanized_name).to eq("cute kitten")
       end
 
       it "should not remove incidents of suffix from filename" do
-        pic = stub_model(Picture, image_file_name: "cute_kitten_mo.jpgi.JPG")
-        allow(pic).to receive(:image_file).and_return(OpenStruct.new({ ext: "jpg" }))
-        expect(pic.humanized_name).to eq("cute kitten mo.jpgi")
-        expect(pic.humanized_name).not_to eq("cute kitten moi")
+        allow(picture).to receive(:image_file_name).and_return("cute_kitten_mo.jpgi.JPG")
+        allow(picture).to receive(:image_file_extension).and_return("jpg")
+        expect(picture.humanized_name).to eq("cute kitten mo.jpgi")
       end
 
       context "image has no suffix" do
         it "should return humanized name" do
-          pic = stub_model(Picture, image_file_name: "cute_kitten")
-          allow(pic).to receive(:suffix).and_return("")
-          expect(pic.humanized_name).to eq("cute kitten")
+          allow(picture).to receive(:image_file_name).and_return("cute_kitten")
+          allow(picture).to receive(:image_file_extension).and_return("")
+          expect(picture.humanized_name).to eq("cute kitten")
         end
       end
     end
@@ -297,20 +289,46 @@ module Alchemy
     end
 
     describe "#default_render_format" do
-      let(:picture) do
-        Picture.new(image_file_format: "png")
-      end
+      let(:picture) { build(:alchemy_picture) }
 
       subject { picture.default_render_format }
+
+      context "when image is convertible" do
+        before do
+          expect(picture).to receive(:convertible?) { true }
+          stub_alchemy_config(:image_output_format, "jpg")
+        end
+
+        it "returns the configured image output format" do
+          is_expected.to eq("jpg")
+        end
+      end
+
+      context "when image is not convertible" do
+        before do
+          expect(picture).to receive(:convertible?) { false }
+          stub_alchemy_config(:image_output_format, "original")
+        end
+
+        it "returns the original file format." do
+          is_expected.to eq("png")
+        end
+      end
+    end
+
+    describe "#convertible?" do
+      let(:picture) do
+        Picture.new(image_file_format: "image/png")
+      end
+
+      subject { picture.convertible? }
 
       context "when `image_output_format` is configured to `original`" do
         before do
           stub_alchemy_config(:image_output_format, "original")
         end
 
-        it "returns the image file format" do
-          is_expected.to eq("png")
-        end
+        it { is_expected.to be(false) }
       end
 
       context "when `image_output_format` is configured to jpg" do
@@ -318,43 +336,31 @@ module Alchemy
           stub_alchemy_config(:image_output_format, "jpg")
         end
 
-        context "and the format is a convertible format" do
-          it "returns the configured file format." do
-            is_expected.to eq("jpg")
+        context "and the image has a convertible format" do
+          before do
+            expect(picture).to receive(:has_convertible_format?) { true }
           end
+
+          it { is_expected.to be(true) }
         end
 
-        context "but the format is not a convertible format" do
+        context "but the image has no convertible format" do
           before do
-            allow(picture).to receive(:image_file_format) { "svg" }
+            expect(picture).to receive(:has_convertible_format?) { false }
           end
 
-          it "returns the original file format." do
-            is_expected.to eq("svg")
-          end
+          it { is_expected.to be(false) }
         end
       end
+    end
 
-      context "when `image_output_format` is configured to webp" do
-        before do
-          stub_alchemy_config(:image_output_format, "webp")
-        end
+    describe "#image_file_extension" do
+      let(:picture) { build(:alchemy_picture) }
 
-        context "and the format is a convertible format" do
-          it "returns the configured file format." do
-            is_expected.to eq("webp")
-          end
-        end
+      subject { picture.image_file_extension }
 
-        context "but the format is not a convertible format" do
-          before do
-            allow(picture).to receive(:image_file_format) { "svg" }
-          end
-
-          it "returns the original file format." do
-            is_expected.to eq("svg")
-          end
-        end
+      it "returns file extension by file format" do
+        is_expected.to eq("png")
       end
     end
 
