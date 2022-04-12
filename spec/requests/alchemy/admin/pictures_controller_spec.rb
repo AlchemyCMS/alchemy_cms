@@ -22,7 +22,7 @@ RSpec.describe "Alchemy::Admin::PicturesController" do
         get alchemy.url_admin_picture_path(picture)
         json = JSON.parse(response.body)
         expect(json).to match({
-          "url" => /\/pictures\/.+\/image\.png/,
+          "url" => /\/rails\/active_storage\/representations\/proxy\/.+\/image\.png/,
           "alt" => picture.name,
           "title" => Alchemy.t(:image_name, name: picture.name)
         })

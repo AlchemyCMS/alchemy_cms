@@ -3,50 +3,42 @@
 module Alchemy
   class Picture < BaseRecord
     class Url
-      attr_reader :variant, :thumb
+      attr_reader :picture, :image_file
 
-      # @param [Alchemy::PictureVariant]
+      # @param [Alchemy::Picture]
       #
-      def initialize(variant)
-        raise ArgumentError, "Variant missing!" if variant.nil?
-
-        @variant = variant
+      def initialize(picture)
+        @picture = picture
+        @image_file = picture.image_file
       end
 
       # The URL to a variant of a picture
       #
       # @return [String]
       #
-      def call(params = {})
-        return variant.image.url(params) unless processible_image?
+      def call(options = {})
+        variant_options = DragonflyToImageProcessing.call(options)
+        variant = image_file&.variant(variant_options)
+        return unless variant
 
-        "/#{uid}"
+        Rails.application.routes.url_helpers.rails_storage_proxy_url(
+          variant,
+          {
+            filename: filename(options),
+            only_path: true,
+            format: nil
+          }
+        )
       end
 
       private
 
-      def processible_image?
-        variant.image.is_a?(::Dragonfly::Job)
-      end
-
-      def uid
-        signature = PictureThumb::Signature.call(variant)
-        if find_thumb_by(signature)
-          thumb.uid
+      def filename(options = {})
+        format = options[:format] || picture.image_file_extension
+        if picture.name.presence
+          "#{picture.name.to_param}.#{format}"
         else
-          uid = PictureThumb::Uid.call(signature, variant)
-          ActiveRecord::Base.connected_to(role: ActiveRecord.writing_role) do
-            PictureThumb::Create.call(variant, signature, uid)
-          end
-          uid
-        end
-      end
-
-      def find_thumb_by(signature)
-        @thumb = if variant.picture.thumbs.loaded?
-          variant.picture.thumbs.find { |t| t.signature == signature }
-        else
-          variant.picture.thumbs.find_by(signature: signature)
+          picture.image_file_name
         end
       end
     end
