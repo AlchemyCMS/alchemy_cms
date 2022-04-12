@@ -276,7 +276,7 @@ module Alchemy
     end
 
     def image_file_extension
-      image_file&.filename&.extension
+      image_file&.filename&.extension&.downcase
     end
 
     alias_method :suffix, :image_file_extension
@@ -298,15 +298,17 @@ module Alchemy
       allowed_filetypes = Config
         .get(:uploader)
         .dig("allowed_filetypes", "alchemy/pictures") || []
-      unless MiniMime.lookup_by_content_type(image_file.content_type)&.extension&.in? allowed_filetypes
+      unless image_file_extension&.in?(allowed_filetypes)
         errors.add(:image_file, Alchemy.t("not a valid image"))
       end
     end
 
     def image_file_not_too_big
-      maximum = Config.get(:uploader)["file_size_limit"].megabytes
-      if image_file.byte_size > maximum
-        errors.add(:image_file, :too_big)
+      maximum = Config.get(:uploader)["file_size_limit"]&.megabytes
+      return true unless maximum
+
+      if image_file_size > maximum
+        errors.add(:file, :too_big)
       end
     end
   end
