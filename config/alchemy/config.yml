@@ -87,6 +87,7 @@ items_per_page: 15
 output_image_jpg_quality: 85
 preprocess_image_resize:
 image_output_format: original
+sharpen_images: false
 
 # This is used by the seeder to create the default site.
 default_site:
