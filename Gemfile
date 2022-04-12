@@ -56,3 +56,5 @@ if Gem.ruby_version >= Gem::Version.new("3.1.0")
   end
   gem "net-smtp", "~> 0.3.0", require: false
 end
+
+gem "web-console", "~> 4.2", group: :development
