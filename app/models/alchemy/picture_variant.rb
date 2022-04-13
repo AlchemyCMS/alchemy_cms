@@ -13,6 +13,8 @@ module Alchemy
     include Alchemy::Logger
     include Alchemy::Picture::Transformations
 
+    ANIMATED_IMAGE_FORMATS = %w[gif webp]
+
     attr_reader :picture, :render_format
 
     def_delegators :@picture,
@@ -86,7 +88,7 @@ module Alchemy
       end
 
       options = {
-        flatten: render_format != "gif" && picture.image_file_format == "gif",
+        flatten: !render_format.in?(ANIMATED_IMAGE_FORMATS) && picture.image_file_format == "gif",
       }.with_indifferent_access.merge(options)
 
       encoding_options = []
