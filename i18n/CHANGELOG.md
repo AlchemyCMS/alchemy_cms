@@ -1,5 +1,21 @@
 # Changelog
 
+## [v3.0.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v3.0.0) (2022-04-17)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v2.3.0...v3.0.0)
+
+**Closed issues:**
+
+- Load the translations from the gem instead of copy [\#33](https://github.com/AlchemyCMS/alchemy_i18n/issues/33)
+
+**Merged pull requests:**
+
+- Append locales to I18n load path [\#41](https://github.com/AlchemyCMS/alchemy_i18n/pull/41) ([tvdeyen](https://github.com/tvdeyen))
+- Update alchemy.es.yml [\#39](https://github.com/AlchemyCMS/alchemy_i18n/pull/39) ([diegodev9](https://github.com/diegodev9))
+- Update alchemy.es.yml [\#38](https://github.com/AlchemyCMS/alchemy_i18n/pull/38) ([diegodev9](https://github.com/diegodev9))
+- Add german node translations [\#37](https://github.com/AlchemyCMS/alchemy_i18n/pull/37) ([tvdeyen](https://github.com/tvdeyen))
+- Allow Alchemy 6 [\#36](https://github.com/AlchemyCMS/alchemy_i18n/pull/36) ([afdev82](https://github.com/afdev82))
+
 ## [v2.3.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v2.3.0) (2021-10-26)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v2.2.0...v2.3.0)
