@@ -17,8 +17,8 @@ module Alchemy
           # source and destination file names to use that engine.
           if ext != template_engine.to_s
             say_status :warning, "View uses unexpected template engine '#{ext}'.", :cyan
-            destination.gsub!(/#{template_engine}$/, ext)
-            source.gsub!(/#{template_engine}$/, ext)
+            destination = destination.gsub(/#{template_engine}$/, ext)
+            source = source.gsub(/#{template_engine}$/, ext)
           end
         end
 
