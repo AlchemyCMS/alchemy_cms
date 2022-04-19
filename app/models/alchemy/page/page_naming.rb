@@ -15,7 +15,7 @@ module Alchemy
         validates :name,
           presence: true
         validates :urlname,
-          uniqueness: { scope: [:language_id, :layoutpage], if: -> { urlname.present? } },
+          uniqueness: { scope: [:language_id, :layoutpage], if: -> { urlname.present? }, case_sensitive: false },
           exclusion: { in: RESERVED_URLNAMES },
           length: { minimum: 3, if: -> { urlname.present? } }
 
