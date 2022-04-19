@@ -1,12 +1,13 @@
 # AlchemyCMS Translations
 
-Translations files for AlchemyCMS 4.4 and above.
+Translations files for AlchemyCMS 6.0 and above.
 
 ## Installation
 
 Add this Gem to your `Gemfile` and run the install generator
 
 ```
+bundle add alchemy_i18n
 bin/rails g alchemy_i18n:install
 ```
 
