@@ -15,13 +15,15 @@
 <% end -%>
 $('#clipboard_button .icon').removeClass('fa-clipboard').addClass('fa-paste');
 
-if (window.location.pathname == "<%= edit_admin_page_path(@item.page.id) %>") {
-  <%# Update add nested element forms for any elements that accept ONLY this as a nested element %>
-  <% if @item.class == Alchemy::Element %>
-    <% @item.page.draft_version.elements.expanded.each do |element| %>
-      <% if element.definition["nestable_elements"] == [@item.name] %>
-        $(".add-nested-element[data-element-id='<%= element.id %>']").replaceWith('<%= j render "alchemy/admin/elements/add_nested_element_form", element: element %>')
-      <% end %>
+<%# Update add nested element forms for any elements that accept ONLY this as a nested element %>
+<% if @item.class == Alchemy::Element %>
+  if (window.location.pathname == "<%= edit_admin_page_path(@item.page.id) %>") {
+    <%
+      @item.page.draft_version.elements.expanded.select do |element|
+        element.definition["nestable_elements"] == [@item.name]
+      end.each do |element|
+    %>
+      $(".add-nested-element[data-element-id='<%= element.id %>']").replaceWith('<%= j render "alchemy/admin/elements/add_nested_element_form", element: element %>')
     <% end %>
-  <% end %>
-}
+  }
+<% end %>
