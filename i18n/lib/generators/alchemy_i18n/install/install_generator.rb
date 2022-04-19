@@ -25,7 +25,6 @@ module AlchemyI18n
           append_file 'vendor/assets/javascripts/alchemy/admin/all.js', <<~ASSETS
             //= require alchemy_i18n/#{locale}
             //= require select2_locale_#{locale}
-            //= require flatpickr/#{locale}
           ASSETS
         end
       end
@@ -35,6 +34,16 @@ module AlchemyI18n
           append_file 'app/assets/config/manifest.js', <<~MANIFEST
             //= link tinymce/langs/#{locale}.js
           MANIFEST
+        end
+      end
+
+      def append_pack
+        webpack_config = YAML.load_file(Rails.root.join("config", "webpacker.yml"))[Rails.env]
+        pack = Rails.root.join(webpack_config["source_path"], webpack_config["source_entry_path"], "alchemy/admin.js")
+        locales.each do |locale|
+          append_file pack, <<~PACK
+            import "flatpickr/dist/l10n/#{locale}.js"
+          PACK
         end
       end
 
