@@ -171,6 +171,25 @@ RSpec.describe Alchemy::PictureVariant do
         expect(step.name).to eq(:encode)
         expect(step.arguments).to eq(["png", "-flatten"])
       end
+
+      context "converted to webp" do
+        let(:options) do
+          { format: "webp" }
+        end
+
+        let(:image_file) do
+          fixture_file_upload(
+            File.expand_path("../../fixtures/animated.gif", __dir__),
+            "image/gif",
+          )
+        end
+
+        it "does not flatten the image." do
+          step = subject.steps[0]
+          expect(step.name).to eq(:encode)
+          expect(step.arguments).to eq(["webp", ""])
+        end
+      end
     end
   end
 
