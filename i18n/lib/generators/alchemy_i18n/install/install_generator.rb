@@ -20,14 +20,6 @@ module AlchemyI18n
 
       source_root AlchemyI18n::Engine.root
 
-      def copy_locales
-        locales.each do |locale|
-          js_filename = "#{locale}.js"
-          copy_file File.join('app', 'assets', 'javascripts', 'alchemy_i18n', js_filename), Rails.root.join('vendor', 'assets', 'javascripts', 'alchemy_i18n', js_filename)
-          copy_file File.join('vendor', 'assets', 'javascripts', 'flatpickr', js_filename), Rails.root.join('vendor', 'assets', 'javascripts', 'flatpickr', js_filename)
-        end
-      end
-
       def append_assets
         locales.each do |locale|
           append_file 'vendor/assets/javascripts/alchemy/admin/all.js', <<~ASSETS
@@ -35,13 +27,6 @@ module AlchemyI18n
             //= require select2_locale_#{locale}
             //= require flatpickr/#{locale}
           ASSETS
-        end
-      end
-
-      def copy_tinymce_locales
-        locales.each do |locale|
-          copy_file File.join("locales", "tinymce", "#{locale}.js"),
-            Rails.root.join('vendor', 'assets', 'javascripts', 'tinymce', 'langs', "#{locale}.js")
         end
       end
 
