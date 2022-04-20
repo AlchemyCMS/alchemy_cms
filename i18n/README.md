@@ -2,6 +2,10 @@
 
 Translations files for AlchemyCMS 6.0 and above.
 
+## Alchemy version
+
+For a Alchemy 5.3 compatible version use v2.3.1 or the `2.3-stable` branch.
+
 ## Installation
 
 Add this Gem to your `Gemfile` and run the install generator
