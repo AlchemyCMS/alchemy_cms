@@ -9,7 +9,7 @@ module AlchemyI18n
       desc "Installs Alchemy locales into your App."
 
       def self.description
-        locales = Alchemy::I18n.available_locales.reject { |l| l == :en }.to_sentence
+        locales = Alchemy::I18n.available_locales.to_sentence
         "Available locales are #{locales}"
       end
 
@@ -21,7 +21,7 @@ module AlchemyI18n
       source_root AlchemyI18n::Engine.root
 
       def append_assets
-        locales.each do |locale|
+        additional_locales.each do |locale|
           append_file 'vendor/assets/javascripts/alchemy/admin/all.js', <<~ASSETS
             //= require alchemy_i18n/#{locale}
             //= require select2_locale_#{locale}
@@ -30,7 +30,7 @@ module AlchemyI18n
       end
 
       def append_manifest
-        locales.each do |locale|
+        additional_locales.each do |locale|
           append_file 'app/assets/config/manifest.js', <<~MANIFEST
             //= link tinymce/langs/#{locale}.js
           MANIFEST
@@ -40,7 +40,7 @@ module AlchemyI18n
       def append_pack
         webpack_config = YAML.load_file(Rails.root.join("config", "webpacker.yml"))[Rails.env]
         pack = Rails.root.join(webpack_config["source_path"], webpack_config["source_entry_path"], "alchemy/admin.js")
-        locales.each do |locale|
+        additional_locales.each do |locale|
           append_file pack, <<~PACK
             import "flatpickr/dist/l10n/#{locale}.js"
           PACK
@@ -49,7 +49,7 @@ module AlchemyI18n
 
       def add_rails_i18n
         environment do
-          "config.i18n.available_locales = #{locales.map(&:to_sym).inspect}"
+          "config.i18n.available_locales = #{locales.inspect}"
         end
       end
 
@@ -61,10 +61,14 @@ module AlchemyI18n
 
       private
 
+      def additional_locales
+        @_additional_locales ||= locales.reject { |locale| locale == :en }
+      end
+
       def locales
         @_locales ||= begin
-          options[:locales].presence || ask_locales.split(' ')
-        end
+          options[:locales].presence || ask_locales.split(" ")
+        end.map(&:to_sym)
       end
 
       def ask_locales
