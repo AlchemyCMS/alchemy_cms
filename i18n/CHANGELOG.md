@@ -1,5 +1,13 @@
 # Changelog
 
+## [v3.0.2](https://github.com/AlchemyCMS/alchemy_i18n/tree/v3.0.2) (2022-04-20)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v2.3.1...v3.0.2)
+
+**Merged pull requests:**
+
+- Skip English for additional locales [\#46](https://github.com/AlchemyCMS/alchemy_i18n/pull/46) ([tvdeyen](https://github.com/tvdeyen))
+
 ## [v3.0.1](https://github.com/AlchemyCMS/alchemy_i18n/tree/v3.0.1) (2022-04-20)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v3.0.0...v3.0.1)
@@ -27,6 +35,10 @@
 - Update alchemy.es.yml [\#38](https://github.com/AlchemyCMS/alchemy_i18n/pull/38) ([diegodev9](https://github.com/diegodev9))
 - Add german node translations [\#37](https://github.com/AlchemyCMS/alchemy_i18n/pull/37) ([tvdeyen](https://github.com/tvdeyen))
 - Allow Alchemy 6 [\#36](https://github.com/AlchemyCMS/alchemy_i18n/pull/36) ([afdev82](https://github.com/afdev82))
+
+## [v2.3.1](https://github.com/AlchemyCMS/alchemy_i18n/tree/v2.3.1) (2022-04-20)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v3.0.1...v2.3.1)
 
 ## [v2.3.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v2.3.0) (2021-10-26)
 
