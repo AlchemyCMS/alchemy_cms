@@ -3,6 +3,8 @@ source "https://rubygems.org"
 alchemy_branch = ENV.fetch("ALCHEMY_BRANCH", "main")
 gem "alchemy_cms", github: "AlchemyCMS/alchemy_cms", branch: alchemy_branch
 
+gem "rails", "~> 6.1.5"
+
 # Specify your gem's dependencies in alchemy-solidus.gemspec
 gemspec
 
