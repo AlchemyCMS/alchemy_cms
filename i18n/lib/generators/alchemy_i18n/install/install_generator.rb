@@ -20,28 +20,12 @@ module AlchemyI18n
 
       source_root AlchemyI18n::Engine.root
 
-      def copy_locales
-        locales.each do |locale|
-          js_filename = "#{locale}.js"
-          copy_file File.join('app', 'assets', 'javascripts', 'alchemy_i18n', js_filename), Rails.root.join('vendor', 'assets', 'javascripts', 'alchemy_i18n', js_filename)
-          copy_file File.join('vendor', 'assets', 'javascripts', 'flatpickr', js_filename), Rails.root.join('vendor', 'assets', 'javascripts', 'flatpickr', js_filename)
-        end
-      end
-
       def append_assets
         locales.each do |locale|
           append_file 'vendor/assets/javascripts/alchemy/admin/all.js', <<~ASSETS
             //= require alchemy_i18n/#{locale}
             //= require select2_locale_#{locale}
-            //= require flatpickr/#{locale}
           ASSETS
-        end
-      end
-
-      def copy_tinymce_locales
-        locales.each do |locale|
-          copy_file File.join("locales", "tinymce", "#{locale}.js"),
-            Rails.root.join('vendor', 'assets', 'javascripts', 'tinymce', 'langs', "#{locale}.js")
         end
       end
 
@@ -50,6 +34,16 @@ module AlchemyI18n
           append_file 'app/assets/config/manifest.js', <<~MANIFEST
             //= link tinymce/langs/#{locale}.js
           MANIFEST
+        end
+      end
+
+      def append_pack
+        webpack_config = YAML.load_file(Rails.root.join("config", "webpacker.yml"))[Rails.env]
+        pack = Rails.root.join(webpack_config["source_path"], webpack_config["source_entry_path"], "alchemy/admin.js")
+        locales.each do |locale|
+          append_file pack, <<~PACK
+            import "flatpickr/dist/l10n/#{locale}.js"
+          PACK
         end
       end
 
