@@ -1,5 +1,17 @@
 # Changelog
 
+## [v3.0.1](https://github.com/AlchemyCMS/alchemy_i18n/tree/v3.0.1) (2022-04-20)
+
+[Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v3.0.0...v3.0.1)
+
+**Closed issues:**
+
+- Publish new Alchemy 6.0-compatible gem? [\#40](https://github.com/AlchemyCMS/alchemy_i18n/issues/40)
+
+**Merged pull requests:**
+
+- Fix loading of JS locales [\#43](https://github.com/AlchemyCMS/alchemy_i18n/pull/43) ([tvdeyen](https://github.com/tvdeyen))
+
 ## [v3.0.0](https://github.com/AlchemyCMS/alchemy_i18n/tree/v3.0.0) (2022-04-17)
 
 [Full Changelog](https://github.com/AlchemyCMS/alchemy_i18n/compare/v2.3.0...v3.0.0)
