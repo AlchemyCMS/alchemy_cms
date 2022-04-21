@@ -25,10 +25,6 @@ module Alchemy
 
       before_action :set_preview_mode, only: [:show]
 
-      before_action :run_on_page_layout_callbacks,
-        if: :run_on_page_layout_callbacks?,
-        only: [:show]
-
       before_action :load_languages_and_layouts,
         unless: -> { @page_root },
         only: [:index]
@@ -36,6 +32,10 @@ module Alchemy
       before_action :set_view, only: [:index]
 
       before_action :set_page_version, only: [:show, :edit]
+
+      before_action :run_on_page_layout_callbacks,
+        if: :run_on_page_layout_callbacks?,
+        only: [:show]
 
       def index
         @query = @current_language.pages.contentpages.ransack(search_filter_params[:q])
