@@ -53,16 +53,53 @@ RSpec.describe "The edit elements feature", type: :system do
       create(:alchemy_element, :with_nestable_elements, page_version: a_page.draft_version)
     end
 
-    scenario "the add element button immediately creates the nested element.", :js do
-      visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
-      button = page.find(".add-nestable-element-button")
-      expect(button).to have_content "Add slide"
-      button.click
-      expect(page).to have_selector(".element-editor[data-element-name='slide']")
+    context "when clipboard has a nestable element" do
+      before do
+        allow_any_instance_of(Alchemy::Admin::ElementsController).to receive(:get_clipboard) do
+          [
+            { "id" => create(:alchemy_element, name: element.definition["nestable_elements"].first).id, "action" => "copy" },
+          ]
+        end
+      end
+
+      scenario "the add button opens add element form with the clipboard tab" do
+        visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+        button = page.find(".add-nestable-element-button")
+        expect(button).to have_content "Add slide"
+        button.click
+        expect(page).to have_select("Element")
+        expect(page).to have_link("Paste from clipboard")
+      end
+    end
+
+    context "when clipboard does not have a nestable element", :js do
+      scenario "the add element button immediately creates the nested element." do
+        visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
+        button = page.find("button.add-nestable-element-button")
+        expect(button).to have_content "Add slide"
+        button.click
+        expect(page).to have_selector(".element-editor[data-element-name='slide']")
+      end
+
+      context "when a nested element is copied to clipboard" do
+        before do
+          visit alchemy.edit_admin_page_path(element.page)
+          page.find(".add-nestable-element-button").click
+          new_element = Alchemy::Element.last
+          page.find("#element_#{new_element.id} .element-header").hover
+          page.first("a[href^='/admin/clipboard/insert?remarkable_id=#{new_element.id}&remarkable_type=elements']").click
+        end
+
+        scenario "the add button now opens add element form with the clipboard tab" do
+          find("a.add-nestable-element-button").click
+          expect(page).to have_select("Element")
+          expect(page).to have_link("Paste from clipboard")
+        end
+      end
     end
   end
 
-  context "With an element having multiple nestable element defined" do
+  context "With an element having multiple nestable elements defined" do
     let!(:element) do
       create(:alchemy_element,
              :with_nestable_elements,

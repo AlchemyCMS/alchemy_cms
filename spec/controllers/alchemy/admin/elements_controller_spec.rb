@@ -91,7 +91,7 @@ module Alchemy
       let(:page_version) { create(:alchemy_page_version) }
 
       it "assign variable for all available element definitions" do
-        expect_any_instance_of(Alchemy::Page).to receive(:available_element_definitions)
+        expect_any_instance_of(Alchemy::Page).to receive(:available_element_definitions).twice { [] }
         get :new, params: { page_version_id: page_version.id }
       end
 
