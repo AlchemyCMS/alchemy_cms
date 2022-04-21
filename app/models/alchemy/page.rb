@@ -117,7 +117,7 @@ module Alchemy
     has_many :nodes, class_name: "Alchemy::Node", inverse_of: :page
     has_many :versions, class_name: "Alchemy::PageVersion", inverse_of: :page, dependent: :destroy
     has_one :draft_version, -> { drafts }, class_name: "Alchemy::PageVersion"
-    has_one :public_version, -> { published }, class_name: "Alchemy::PageVersion"
+    has_one :public_version, -> { published }, class_name: "Alchemy::PageVersion", autosave: -> { persisted? }
 
     before_validation :set_language,
       if: -> { language.nil? }
