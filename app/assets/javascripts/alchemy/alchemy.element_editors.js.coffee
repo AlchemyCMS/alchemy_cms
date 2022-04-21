@@ -15,6 +15,7 @@ Alchemy.ElementEditors =
   init: ->
     @element_area = $("#element_area")
     @bindEvents()
+    @expandContentGroups()
     return
 
   # Binds click events on several DOM elements from element editors
@@ -43,6 +44,12 @@ Alchemy.ElementEditors =
       @onMessage(e.data)
       true
     return
+
+  # Expands content groups that are stored in sessionStorage as expanded
+  expandContentGroups: ->
+    if $expanded_content_groups = sessionStorage.getItem('Alchemy.expanded_content_groups')
+      for header_id in JSON.parse($expanded_content_groups) then do (header_id) =>
+        $('#' + header_id).closest('.content-group').addClass('expanded');
 
   # Selects and scrolls to element with given id in the preview window.
   #
@@ -176,6 +183,17 @@ Alchemy.ElementEditors =
   onToggleContentGroup: (event) ->
     $group_div = $(event.currentTarget).closest('.content-group');
     $group_div.toggleClass('expanded');
+
+    $expanded_content_groups = JSON.parse(sessionStorage.getItem('Alchemy.expanded_content_groups') || '[]');
+    # Add or remove depending on whether this content group is expanded
+    if $group_div.hasClass('expanded')
+      if $expanded_content_groups.indexOf(event.currentTarget.id) == -1
+        $expanded_content_groups.push(event.currentTarget.id);
+    else
+      $expanded_content_groups = $expanded_content_groups.filter (value) ->
+        value != event.currentTarget.id
+
+    sessionStorage.setItem('Alchemy.expanded_content_groups', JSON.stringify($expanded_content_groups))
     false
 
   # Event handlers
