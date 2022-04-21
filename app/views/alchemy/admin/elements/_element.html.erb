@@ -33,8 +33,8 @@
             <% element.ingredients.select { |i| i.definition[:group] }.group_by { |i| i.definition[:group] }.each do |group, ingredients| %>
               <div class="content-group">
                 <%= link_to '#', id: "content_group_#{group.parameterize.underscore}_header", class: 'content-group-header', data: { toggle_content_group: true } do %>
-                  <i class="content-group-expand icon fa-fw fa-plus fas"></i>
                   <%= element.translated_group group %>
+                  <i class="content-group-expand icon fa-fw fa-angle-down fas"></i>
                 <% end %>
                 <%= content_tag :div, id: "element_#{element.id}_content_group_#{group.parameterize.underscore}", class: 'content-group-contents' do %>
                   <%= render ingredients, element_form: f %>
@@ -51,8 +51,8 @@
           <% element.contents.select { |c| c.definition[:group] }.group_by { |c| c.definition[:group] }.each do |group, contents| %>
             <div class="content-group">
               <%= link_to '#', id: "content_group_#{group.parameterize.underscore}_header", class: 'content-group-header', data: { toggle_content_group: true } do %>
-                <i class="content-group-expand icon fa-fw fa-plus fas"></i>
                 <%= element.translated_group group %>
+                <i class="content-group-expand icon fa-fw fa-angle-down fas"></i>
               <% end %>
               <%= content_tag :div, id: "element_#{element.id}_content_group_#{group.parameterize.underscore}", class: 'content-group-contents' do %>
                 <%= render contents, element_form: f %>

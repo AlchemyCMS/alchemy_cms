@@ -420,19 +420,23 @@
   position: relative;
   border-bottom: 1px solid $medium-gray;
 
-  &:last-child { border-bottom: none;}
-
-  .content-group-header { 
-    font-weight: bold;
-
-    .content-group-expand {
-      position: absolute;
-      right: 8px;
-      top: 8px;
-    }
+  &:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
   }
 
-  .content-group-contents { display: none; }
+  .content-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    text-decoration: none;
+    padding: $default-padding 1px;
+  }
+
+  .content-group-contents {
+    display: none;
+  }
 
   &.expanded {
     .content-group-contents {
@@ -440,7 +444,7 @@
     }
 
     .content-group-expand {
-      @extend .fa-minus;
+      @extend .fa-angle-up;
     }
   }
 }
