@@ -23,9 +23,7 @@ module Alchemy
       before_action :set_root_page,
         only: [:index, :show, :order]
 
-      before_action :run_on_page_layout_callbacks,
-        if: :run_on_page_layout_callbacks?,
-        only: [:show]
+      before_action :set_preview_mode, only: [:show]
 
       before_action :load_languages_and_layouts,
         unless: -> { @page_root },
@@ -34,6 +32,10 @@ module Alchemy
       before_action :set_view, only: [:index]
 
       before_action :set_page_version, only: [:show, :edit]
+
+      before_action :run_on_page_layout_callbacks,
+        if: :run_on_page_layout_callbacks?,
+        only: [:show]
 
       def index
         @query = @current_language.pages.contentpages.ransack(search_filter_params[:q])
@@ -64,7 +66,6 @@ module Alchemy
       # Used by page preview iframe in Page#edit view.
       #
       def show
-        @preview_mode = true
         Page.current_preview = @page
         # Setting the locale to pages language, so the page content has it's correct translations.
         ::I18n.locale = @page.language.locale
@@ -396,6 +397,10 @@ module Alchemy
         @language = @current_language
         @languages_with_page_tree = Language.on_current_site.with_root_page
         @page_layouts = PageLayout.layouts_for_select(@language.id)
+      end
+
+      def set_preview_mode
+        @preview_mode = true
       end
     end
   end
