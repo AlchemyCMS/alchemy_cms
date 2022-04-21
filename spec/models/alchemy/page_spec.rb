@@ -1397,7 +1397,7 @@ module Alchemy
     end
 
     describe "#public_on=" do
-      let(:time) { Time.now }
+      let(:time) { 1.hour.ago }
 
       subject { page.public_on = time }
 
@@ -1407,6 +1407,15 @@ module Alchemy
         it "sets public_on on the public version" do
           subject
           expect(page.public_version.public_on).to be_within(1.second).of(time)
+        end
+
+        context "when the page is persisted" do
+          let(:page) { create(:alchemy_page, :public) }
+
+          it "sets public_on on the public version" do
+            page.update(public_on: time)
+            expect(page.reload.public_version.public_on).to be_within(1.second).of(time)
+          end
         end
 
         context "and the time is nil" do
