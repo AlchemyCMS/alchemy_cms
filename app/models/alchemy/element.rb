@@ -159,7 +159,7 @@ module Alchemy
       end
 
       def all_from_clipboard(clipboard)
-        return [] if clipboard.nil?
+        return none if clipboard.nil?
 
         where(id: clipboard.collect { |e| e["id"] })
       end
@@ -167,11 +167,16 @@ module Alchemy
       # All elements in clipboard that could be placed on page
       #
       def all_from_clipboard_for_page(clipboard, page)
-        return [] if clipboard.nil? || page.nil?
+        return none if clipboard.nil? || page.nil?
 
-        all_from_clipboard(clipboard).select { |ce|
-          page.available_element_names.include?(ce.name)
-        }
+        all_from_clipboard(clipboard).where(name: page.available_element_names)
+      end
+
+      # All elements in clipboard that could be placed as a child of `parent_element`
+      def all_from_clipboard_for_parent_element(clipboard, parent_element)
+        return none if clipboard.nil? || parent_element.nil?
+
+        all_from_clipboard(clipboard).where(name: parent_element.definition["nestable_elements"])
       end
     end
 
