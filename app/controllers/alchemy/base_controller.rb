@@ -9,6 +9,13 @@ module Alchemy
     include Alchemy::ControllerActions
     include Alchemy::Modules
 
+    # Include Turbolinks explicitly in case Alchemy is embedded into a
+    # larger application that doesn't work with Turbolinks. The app
+    # can then set config.turbolinks.auto_include = false so that
+    # Turbolinks is not included in the app controllers.
+    include Turbolinks::Controller
+    ::ActionDispatch::Assertions.include ::Turbolinks::Assertions
+
     protect_from_forgery
 
     before_action :mailer_set_url_options
