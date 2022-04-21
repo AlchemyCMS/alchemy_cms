@@ -63,6 +63,18 @@ module Alchemy
             expect(result["data"].size).to eq(1)
           end
         end
+
+        context "with a language_id given" do
+          let(:klingon) { create(:alchemy_language, :klingon) }
+          let!(:klingon_node) { create(:alchemy_node, name: "yup", language: klingon) }
+
+          it "returns only nodes for that language" do
+            get alchemy.api_nodes_path(params: {format: :json, language_id: klingon.id})
+
+            expect(result["data"].size).to eq(1)
+            expect(result["data"].first["id"]).to eq klingon_node.id
+          end
+        end
       end
     end
 
