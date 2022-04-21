@@ -8,6 +8,7 @@ module Alchemy
     def index
       @nodes = Node.all
       @nodes = @nodes.includes(:parent)
+      @nodes = @nodes.where(language_id: params[:language_id]) if params[:language_id]
       @nodes = @nodes.ransack(params[:filter]).result
 
       if params[:page]
