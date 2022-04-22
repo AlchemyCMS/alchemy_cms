@@ -54,8 +54,7 @@ module Alchemy
     def find_elements(page_version)
       return Alchemy::ElementsRepository.none unless page_version
 
-      elements = Alchemy::ElementsRepository.new(page_version.elements.available)
-      elements = elements.not_nested
+      elements = page_version.element_repository.visible.not_nested
       elements = options[:fixed] ? elements.fixed : elements.unfixed
 
       if options[:only]
