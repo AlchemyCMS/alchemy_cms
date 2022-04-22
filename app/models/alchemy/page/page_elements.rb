@@ -15,8 +15,8 @@ module Alchemy
           source: :elements,
         ) do
           has_many :all_elements
-          has_many :elements, -> { not_nested.unfixed.available }
-          has_many :fixed_elements, -> { fixed.available }
+          has_many :elements, -> { not_nested.unfixed.published }
+          has_many :fixed_elements, -> { fixed.published }
         end
 
         has_many :contents, through: :elements
