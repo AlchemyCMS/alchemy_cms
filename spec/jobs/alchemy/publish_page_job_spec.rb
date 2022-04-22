@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Alchemy::PublishPageJob, type: :job do
   describe "#perfom_later" do
-    let(:page) { build_stubbed(:alchemy_page) }
+    let(:page) { create(:alchemy_page) }
     let(:public_on) { Time.current }
 
     it "enqueues job" do
