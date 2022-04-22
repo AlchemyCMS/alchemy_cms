@@ -178,6 +178,8 @@ module Alchemy
 
         all_from_clipboard(clipboard).where(name: parent_element.definition["nestable_elements"])
       end
+
+      deprecate available: :published, deprecator: Alchemy::Deprecation
     end
 
     # Returns next public element from same page.
