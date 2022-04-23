@@ -23,7 +23,7 @@ module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     if config.respond_to?(:load_defaults)
-      config.load_defaults ENV['RAILS_VERSION'] || 6.0
+      config.load_defaults ENV['RAILS_VERSION'] || 6.1
     end
 
     # Settings in config/environments/* take precedence over those specified here.

@@ -3,7 +3,7 @@ source "https://rubygems.org"
 
 gemspec
 
-rails_version = ENV.fetch("RAILS_VERSION", 6.0).to_f
+rails_version = ENV.fetch("RAILS_VERSION", 6.1).to_f
 gem "rails", "~> #{rails_version}.0"
 
 if ENV["DB"].nil? || ENV["DB"] == "sqlite"
