@@ -17,7 +17,6 @@ Rails.application.config.to_prepare do
     },
   })
 
-  Alchemy.user_class_name = "Alchemy::User"
   Alchemy.signup_path = "/admin/signup"
   Alchemy.login_path = "/admin/login"
   Alchemy.logout_path = "/admin/logout"
