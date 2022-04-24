@@ -1,3 +1,10 @@
+## 6.0.0 (2022-04-24)
+
+- Alchemy 6 compatibility [#137](https://github.com/AlchemyCMS/alchemy-devise/pull/137) ([tvdeyen](https://github.com/tvdeyen))
+- Use minor versions for Ruby in CI [#131](https://github.com/AlchemyCMS/alchemy-devise/pull/131) ([mamhoff](https://github.com/mamhoff))
+- Migrate to GH actions as CI [#122](https://github.com/AlchemyCMS/alchemy-devise/pull/122) ([tvdeyen](https://github.com/tvdeyen))
+- Allow Alchemy 6 [#119](https://github.com/AlchemyCMS/alchemy-devise/pull/119) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.1.0 (2021-01-13)
 
 - Remove support for old Alchemy versions [#118](https://github.com/AlchemyCMS/alchemy-devise/pull/118) ([tvdeyen](https://github.com/tvdeyen))
