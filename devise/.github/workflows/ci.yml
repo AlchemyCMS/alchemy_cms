@@ -10,6 +10,7 @@ jobs:
       matrix:
         alchemy_branch:
           - 5.3-stable
+          - 6.0-stable
           - main
         ruby:
           - "2.5"
@@ -19,6 +20,12 @@ jobs:
           - mysql
           - postgresql
         exclude:
+          - alchemy_branch: 6.0-stable
+            ruby: "2.5"
+            database: mysql
+          - alchemy_branch: 6.0-stable
+            ruby: "2.5"
+            database: postgresql
           - alchemy_branch: main
             ruby: "2.5"
             database: mysql
