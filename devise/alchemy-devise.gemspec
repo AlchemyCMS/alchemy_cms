@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
   s.summary     = "Devise based user authentication for AlchemyCMS."
   s.description = "Devise based user authentication for AlchemyCMS."
 
-  s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "Rakefile", "README.md"]
+  s.files = Dir["{app,config,db,lib}/**/*", "LICENSE", "CHANGELOG.md", "README.md"]
 
   s.add_dependency "alchemy_cms", [">= 5.0.0", "< 6.1"]
   s.add_dependency "devise",      [">= 4.7.1", "< 5"]
