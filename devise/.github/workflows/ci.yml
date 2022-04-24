@@ -57,12 +57,13 @@ jobs:
     steps:
       - uses: actions/checkout@v2.3.4
       - name: Set up Ruby
-        uses: actions/setup-ruby@v1.1.2
+        uses: ruby/setup-ruby@v1
         with:
           ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
       - name: Restore apt cache
         id: apt-cache
-        uses: actions/cache@v2.1.3
+        uses: actions/cache@v2
         with:
           path: /home/runner/apt/cache
           key: ${{ runner.os }}-apt-${{ matrix.database }}
@@ -82,24 +83,9 @@ jobs:
           sudo apt update -qq
           sudo apt install -qq --fix-missing libmysqlclient-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
-      - name: Install bundler
-        run: |
-          gem install bundler
-      - name: Restore Ruby Gems cache
-        id: cache
-        uses: actions/cache@v2.1.3
-        with:
-          path: vendor/bundle
-          key: ${{ runner.os }}-bundle-${{ matrix.ruby }}-${{ matrix.alchemy_branch }}-${{ matrix.database }}-${{ hashFiles('**/Gemfile') }}
-          restore-keys: |
-            ${{ runner.os }}-bundle-
-      - name: Install bundle
-        timeout-minutes: 10
-        run: |
-          bundle install --jobs 4 --retry 3 --path vendor/bundle
       - name: Restore node modules cache
         id: yarn-cache
-        uses: actions/cache@v2.1.3
+        uses: actions/cache@v2
         with:
           path: spec/dummy/node_modules
           key: ${{ runner.os }}-yarn-dummy-${{ hashFiles('./package.json') }}
