@@ -1,5 +1,6 @@
-require 'rails_helper'
-require 'alchemy/test_support/factories/page_factory'
+# frozen_string_literal: true
+
+require "rails_helper"
 
 module Alchemy
   describe User do
@@ -8,34 +9,34 @@ module Alchemy
 
     it "should have at least member role" do
       expect(user.alchemy_roles).not_to be_blank
-      expect(user.alchemy_roles).to include('member')
+      expect(user.alchemy_roles).to include("member")
     end
 
-    describe '.search' do
+    describe ".search" do
       subject { User.search(query) }
 
       let!(:user1) do
         create :alchemy_user,
-          email: 'find@me.com',
-          login: 'user1',
-          firstname: 'Michael',
-          lastname: 'Jackson'
+          email: "find@me.com",
+          login: "user1",
+          firstname: "Michael",
+          lastname: "Jackson"
       end
 
       let!(:user2) do
         create :alchemy_user,
-          email: 'find@me-not.com',
-          login: 'user2',
-          firstname: 'Prince Rogers',
-          lastname: 'Nelson'
+          email: "find@me-not.com",
+          login: "user2",
+          firstname: "Prince Rogers",
+          lastname: "Nelson"
       end
 
       let!(:users) do
         [user1, user1]
       end
 
-      context 'by email' do
-        let(:query) { 'find@me.com' }
+      context "by email" do
+        let(:query) { "find@me.com" }
 
         it "returns all matching users" do
           is_expected.to include(user1)
@@ -43,38 +44,38 @@ module Alchemy
         end
       end
 
-      context 'by login' do
-        let(:query) { 'User1' }
+      context "by login" do
+        let(:query) { "User1" }
 
-        it 'returns all matching users' do
+        it "returns all matching users" do
           is_expected.to include(user1)
           is_expected.to_not include(user2)
         end
       end
 
-      context 'by firstname' do
-        let(:query) { 'prince' }
+      context "by firstname" do
+        let(:query) { "prince" }
 
-        it 'returns all matching users' do
+        it "returns all matching users" do
           is_expected.to_not include(user1)
           is_expected.to include(user2)
         end
       end
 
-      context 'by lastname' do
-        let(:query) { 'jackson' }
+      context "by lastname" do
+        let(:query) { "jackson" }
 
-        it 'returns all matching users' do
+        it "returns all matching users" do
           is_expected.to include(user1)
           is_expected.to_not include(user2)
         end
       end
     end
 
-    describe 'scopes' do
+    describe "scopes" do
       let(:user) { create(:alchemy_admin_user) }
 
-      describe '.admins' do
+      describe ".admins" do
         it "should only return users with admin role" do
           expect(User.admins).to include(user)
         end
@@ -83,17 +84,16 @@ module Alchemy
 
     describe ".human_rolename" do
       it "return a translated role name" do
-        expect(User.human_rolename('member')).to eq("Member")
+        expect(User.human_rolename("member")).to eq("Member")
       end
     end
 
-    describe '#deliver_welcome_mail' do
+    describe "#deliver_welcome_mail" do
       let(:user) { build_stubbed(:alchemy_admin_user) }
 
       it "delivers the admin welcome mail." do
-        expect(Notifications)
-          .to receive(:alchemy_user_created)
-          .and_return(OpenStruct.new(deliver: true))
+        expect(Notifications).to receive(:alchemy_user_created)
+                                   .and_return(OpenStruct.new(deliver: true))
 
         user.deliver_welcome_mail
       end
@@ -102,9 +102,8 @@ module Alchemy
         before { user.alchemy_roles = %w(author) }
 
         it "delivers the admin welcome mail." do
-          expect(Notifications)
-            .to receive(:alchemy_user_created)
-            .and_return(OpenStruct.new(deliver: true))
+          expect(Notifications).to receive(:alchemy_user_created)
+                                     .and_return(OpenStruct.new(deliver: true))
 
           user.deliver_welcome_mail
         end
@@ -114,9 +113,8 @@ module Alchemy
         before { user.alchemy_roles = %w(member) }
 
         it "delivers the welcome mail." do
-          expect(Notifications)
-            .to receive(:member_created)
-            .and_return(OpenStruct.new(deliver: true))
+          expect(Notifications).to receive(:member_created)
+                                     .and_return(OpenStruct.new(deliver: true))
 
           user.deliver_welcome_mail
         end
@@ -125,21 +123,21 @@ module Alchemy
 
     describe "#human_roles_string" do
       it "should return a humanized roles string." do
-        user.alchemy_roles = ['member', 'admin']
+        user.alchemy_roles = ["member", "admin"]
         expect(user.human_roles_string).to eq("Member and Administrator")
       end
     end
 
-    describe '#role_symbols' do
+    describe "#role_symbols" do
       it "should return an array of user role symbols" do
         expect(user.role_symbols).to eq([:member])
       end
     end
 
-    describe '#has_role?' do
+    describe "#has_role?" do
       context "with given role" do
         it "should return true." do
-          expect(user.has_role?('member')).to be_truthy
+          expect(user.has_role?("member")).to be_truthy
         end
       end
 
@@ -151,16 +149,16 @@ module Alchemy
 
       context "without given role" do
         it "should return true." do
-          expect(user.has_role?('admin')).to be_falsey
+          expect(user.has_role?("admin")).to be_falsey
         end
       end
     end
 
-    describe '#role' do
+    describe "#role" do
       context "when user doesn't have any roles" do
         before { user.alchemy_roles = [] }
 
-        it 'should return nil' do
+        it "should return nil" do
           expect(user.role).to be_nil
         end
       end
@@ -168,20 +166,19 @@ module Alchemy
       context "when user has multiple roles" do
         before { user.alchemy_roles = ["admin", "member"] }
 
-        it 'should return the first role' do
+        it "should return the first role" do
           expect(user.role).to eq("admin")
         end
       end
     end
 
-    describe '#alchemy_roles' do
+    describe "#alchemy_roles" do
       it "should return an array of user roles" do
         expect(user.alchemy_roles).to eq(["member"])
       end
     end
 
-    describe '#alchemy_roles=' do
-
+    describe "#alchemy_roles=" do
       it "should accept an array of user roles" do
         user.alchemy_roles = ["admin"]
         expect(user.alchemy_roles).to eq(["admin"])
@@ -196,7 +193,6 @@ module Alchemy
         user.alchemy_roles = ["admin", "member"]
         expect(user.read_attribute(:alchemy_roles)).to eq("admin member")
       end
-
     end
 
     describe "#add_role" do
@@ -211,7 +207,7 @@ module Alchemy
       end
     end
 
-    describe '#logged_in?' do
+    describe "#logged_in?" do
       let(:user) { build(:alchemy_user) }
 
       before { allow(Config).to receive(:get).and_return 60 }
@@ -223,7 +219,7 @@ module Alchemy
       end
     end
 
-    describe '#logged_out?' do
+    describe "#logged_out?" do
       let(:user) { build(:alchemy_user) }
 
       before { allow(Config).to receive(:get).and_return 60 }
@@ -248,7 +244,7 @@ module Alchemy
       end
     end
 
-    describe '#unlock_pages' do
+    describe "#unlock_pages" do
       let(:user) { create(:alchemy_user) }
       let(:page) { create(:alchemy_page) }
 
@@ -262,14 +258,14 @@ module Alchemy
       end
     end
 
-    describe '#is_admin?' do
+    describe "#is_admin?" do
       it "should return true if the user has admin role" do
         user.alchemy_roles = "admin"
         expect(user.is_admin?).to be_truthy
       end
     end
 
-    describe '#fullname' do
+    describe "#fullname" do
       it "should return the firstname and lastname" do
         expect(user.fullname).to eq("John Doe")
       end
@@ -296,7 +292,7 @@ module Alchemy
       end
     end
 
-    describe '#store_request_time!' do
+    describe "#store_request_time!" do
       let(:user) { create(:alchemy_admin_user) }
 
       it "should store the timestamp of the request" do

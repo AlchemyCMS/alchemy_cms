@@ -7,6 +7,10 @@ module Alchemy
       isolate_namespace Alchemy
       engine_name 'alchemy_devise'
 
+      initializer "alchemy_devise.user_class", before: "alchemy.userstamp" do
+        Alchemy.user_class_name = "Alchemy::User"
+      end
+
       initializer 'alchemy_devise.assets' do |app|
         app.config.assets.precompile += [
           'alchemy-devise.css'

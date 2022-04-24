@@ -1,18 +1,23 @@
 # frozen_string_literal: true
 
-require_relative './spec_helper'
+require_relative "./spec_helper"
 
 # Configure Rails Environment
 ENV["RAILS_ENV"] ||= "test"
 
 require File.expand_path("../dummy/config/environment.rb", __FILE__)
-require 'rails-controller-testing'
+require "rails-controller-testing"
 require "rspec/rails"
-require 'rspec/active_model/mocks'
+require "rspec/active_model/mocks"
 require "capybara/rails"
-require 'factory_bot'
-require 'alchemy/test_support/integration_helpers'
-require 'alchemy/devise/test_support/factories'
+require "factory_bot_rails"
+require "alchemy/test_support/integration_helpers"
+
+require "alchemy/test_support"
+FactoryBot.definition_file_paths.append(Alchemy::TestSupport.factories_path)
+FactoryBot.reload
+
+require "alchemy/devise/test_support/factories"
 
 ActionMailer::Base.delivery_method = :test
 ActionMailer::Base.perform_deliveries = true

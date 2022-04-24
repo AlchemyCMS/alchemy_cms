@@ -1,4 +1,4 @@
-require_relative 'boot'
+require_relative "boot"
 
 require "rails"
 # Pick the frameworks you want:
@@ -23,7 +23,12 @@ require "alchemy/devise"
 module Dummy
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
-    config.load_defaults 6.0
+    case ENV.fetch("ALCHEMY_BRANCH", "main")
+    when /5\.3/
+      config.load_defaults 6.0
+    else
+      config.load_defaults 6.1
+    end
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration can go into files in config/initializers
