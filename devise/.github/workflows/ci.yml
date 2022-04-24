@@ -1,16 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - main
-      - 5.1-stable
-      - 5.0-stable
-  pull_request:
-    branches:
-      - main
-      - 5.1-stable
-      - 5.0-stable
+on: [push, pull_request]
 
 jobs:
   RSpec:
@@ -19,8 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         alchemy_branch:
-          - 5.0-stable
-          - 5.1-stable
+          - 5.3-stable
           - main
         ruby:
           - "2.5"
