@@ -23,17 +23,24 @@ jobs:
           - 5.1-stable
           - main
         ruby:
-          - '2.5'
-          - '2.6'
-          - '2.7'
+          - "2.5"
+          - "2.6"
+          - "2.7"
         database:
           - mysql
           - postgresql
+        exclude:
+          - alchemy_branch: main
+            ruby: "2.5"
+            database: mysql
+          - alchemy_branch: main
+            ruby: "2.5"
+            database: postgresql
     env:
       DB: ${{ matrix.database }}
       DB_USER: alchemy_user
       DB_PASSWORD: password
-      DB_HOST: '127.0.0.1'
+      DB_HOST: "127.0.0.1"
       RAILS_ENV: test
       ALCHEMY_BRANCH: ${{ matrix.alchemy_branch }}
     services:
@@ -43,11 +50,11 @@ jobs:
           POSTGRES_USER: ${{ env.DB_USER }}
           POSTGRES_PASSWORD: ${{ env.DB_PASSWORD }}
           POSTGRES_DB: alchemy_devise_dummy_test
-        ports: ['5432:5432']
+        ports: ["5432:5432"]
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
       mysql:
         image: mysql:latest
-        ports: ['3306:3306']
+        ports: ["3306:3306"]
         env:
           MYSQL_USER: ${{ env.DB_USER }}
           MYSQL_PASSWORD: ${{ env.DB_PASSWORD }}
