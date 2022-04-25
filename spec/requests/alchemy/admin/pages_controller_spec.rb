@@ -643,45 +643,44 @@ module Alchemy
 
       describe "#fold" do
         let(:page) { create(:alchemy_page) }
+        let(:user) { create(:alchemy_dummy_user, :as_editor) }
 
         before do
-          allow(Page).to receive(:find).and_return(page)
-          allow(page).to receive(:editable_by?).with(user).and_return(true)
+          allow_any_instance_of(described_class).to receive(:current_alchemy_user) { user }
         end
 
-        context "if page is currently not folded" do
-          before { allow(page).to receive(:folded?).and_return(false) }
+        subject { patch fold_admin_page_path(page), xhr: true }
 
+        context "if page is currently not folded" do
           it "should fold the page" do
-            expect(page).to receive(:fold!).with(user.id, true).and_return(true)
-            patch fold_admin_page_path(page), xhr: true
+            expect { subject }.to change { page.folded?(user.id) }.from(false).to(true)
           end
         end
 
         context "if page is already folded" do
-          before { allow(page).to receive(:folded?).and_return(true) }
+          before do
+            page.fold!(user.id, true)
+          end
 
           it "should unfold the page" do
-            expect(page).to receive(:fold!).with(user.id, false).and_return(true)
-            patch fold_admin_page_path(page), xhr: true
+            expect { subject }.to change { page.folded?(user.id) }.from(true).to(false)
           end
         end
       end
 
       describe "#unlock" do
+        let(:page) { create(:alchemy_page) }
+        let(:user) { create(:alchemy_dummy_user, :as_editor) }
+
         subject { post unlock_admin_page_path(page), xhr: true }
 
-        let(:page) { create(:alchemy_page, name: "Best practices") }
-
         before do
-          allow(Page).to receive(:find).with(page.id.to_s).and_return(page)
-          allow(page).to receive(:editable_by?).with(user).and_return(true)
-          allow(Page).to receive(:from_current_site).and_return(double(locked_by: nil))
-          expect(page).to receive(:unlock!) { true }
+          page.lock_to!(user)
+          allow_any_instance_of(described_class).to receive(:current_alchemy_user) { user }
         end
 
         it "should unlock the page" do
-          is_expected.to eq(200)
+          expect { subject }.to change { page.reload.locked? }.from(true).to(false)
         end
 
         context "requesting for html format" do
