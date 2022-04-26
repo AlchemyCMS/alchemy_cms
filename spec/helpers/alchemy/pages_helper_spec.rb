@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Alchemy
   describe PagesHelper do
-    let(:language_root) { create(:alchemy_page, :language_root) }
+    let!(:language_root) { create(:alchemy_page, :language_root) }
     let(:public_page) { create(:alchemy_page, :public) }
     let(:klingon) { create(:alchemy_language, :klingon) }
     let(:klingon_language_root) { create(:alchemy_page, :language_root, language: klingon) }
@@ -12,7 +12,6 @@ module Alchemy
 
     before do
       allow(helper).to receive(:prefix_locale?) { prefix_locale? }
-      @root_page = language_root # We need this instance variable in the helpers
     end
 
     describe "#render_page_layout" do
@@ -34,9 +33,8 @@ module Alchemy
       context "when block is given" do
         it "passes it on to the render method" do
           expect(helper).to receive(:current_alchemy_site).and_return(default_site)
-          expect(helper)
-            .to receive(:render)
-            .with(default_site) { |&block| expect(block).to be }
+          expect(helper).to receive(:render)
+              .with(default_site) { |&block| expect(block).to be }
 
           helper.render_site_layout { true }
         end
