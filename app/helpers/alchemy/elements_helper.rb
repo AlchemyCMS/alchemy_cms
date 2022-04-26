@@ -70,7 +70,7 @@ module Alchemy
     #   A class instance that will return elements that get rendered.
     #   Use this for your custom element loading logic in views.
     #
-    def render_elements(options = {})
+    def render_elements(options = {}, &blk)
       options = {
         from_page: @page,
         render_format: "html",
@@ -86,11 +86,12 @@ module Alchemy
 
       elements = finder.elements(page_version: page_version)
 
-      buff = []
-      elements.each_with_index do |element, i|
-        buff << render_element(element, options, i + 1)
-      end
-      buff.join(options[:separator]).html_safe
+      default_rendering = ->(element, i) { render_element(element, options, i + 1) }
+      if block_given?
+        elements.map.with_index(&blk)
+      else
+        elements.map.with_index(&default_rendering)
+      end.join(options[:separator]).html_safe
     end
 
     # This helper renders a {Alchemy::Element} view partial.
