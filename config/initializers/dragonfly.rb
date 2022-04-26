@@ -2,6 +2,7 @@
 require "dragonfly_svg"
 require "alchemy/dragonfly/processors/crop_resize"
 require "alchemy/dragonfly/processors/auto_orient"
+require "alchemy/dragonfly/processors/thumbnail"
 
 # Logger
 Dragonfly.logger = Rails.logger
@@ -18,4 +19,5 @@ Dragonfly::ImageMagick::Processors::Encode::WHITELISTED_ARGS << "flatten"
 Rails.application.config.after_initialize do
   Dragonfly.app(:alchemy_pictures).add_processor(:crop_resize, Alchemy::Dragonfly::Processors::CropResize.new)
   Dragonfly.app(:alchemy_pictures).add_processor(:auto_orient, Alchemy::Dragonfly::Processors::AutoOrient.new)
+  Dragonfly.app(:alchemy_pictures).add_processor(:thumbnail, Alchemy::Dragonfly::Processors::Thumbnail.new)
 end
