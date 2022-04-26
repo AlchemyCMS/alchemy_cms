@@ -88,7 +88,7 @@ module Alchemy
 
     def duplicates
       ingredient.class
-        .joins(:element).merge(Alchemy::Element.available)
+        .joins(:element).merge(Alchemy::Element.published)
         .where(Alchemy::Element.table_name => { name: ingredient.element.name })
         .where(value: ingredient.value)
         .where.not(id: ingredient.id)
