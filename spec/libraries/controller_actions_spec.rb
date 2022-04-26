@@ -158,13 +158,12 @@ describe "Alchemy::ControllerActions", type: "controller" do
       context "for language that does not exist" do
         before do
           allow(controller).to receive(:params).and_return(locale: "fo")
-          controller.send :set_alchemy_language
         end
 
-        it "should set the language to default" do
-          expect(assigns(:language)).to eq(default_language)
-          expect(Alchemy::Language.current).to eq(default_language)
-          expect(controller.session).to include_language_information_for(default_language)
+        it "should raise an error" do
+          expect do
+            controller.send :set_alchemy_language
+          end.to raise_exception(ActionController::RoutingError, "Language not found")
         end
       end
     end
