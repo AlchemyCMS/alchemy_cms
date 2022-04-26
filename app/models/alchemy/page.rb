@@ -465,7 +465,7 @@ module Alchemy
     #
     def publish!(current_time = Time.current)
       update(published_at: current_time)
-      PublishPageJob.perform_later(self, public_on: current_time)
+      PublishPageJob.perform_later(id, public_on: current_time)
     end
 
     # Sets the public_on date on the published version

@@ -9,7 +9,7 @@ RSpec.describe Alchemy::PublishPageJob, type: :job do
 
     it "enqueues job" do
       expect {
-        described_class.perform_later(page, public_on: public_on)
+        described_class.perform_later(page.id, public_on: public_on)
       }.to have_enqueued_job
     end
 
@@ -17,7 +17,7 @@ RSpec.describe Alchemy::PublishPageJob, type: :job do
       expect_any_instance_of(Alchemy::Page::Publisher).to receive(:publish!).with(
         public_on: public_on,
       )
-      described_class.new.perform(page, public_on: public_on)
+      described_class.new.perform(page.id, public_on: public_on)
     end
   end
 end
