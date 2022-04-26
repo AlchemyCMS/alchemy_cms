@@ -1,0 +1,4 @@
+<%= element_view_for(other_headline, tag: 'h3') do |el| %>
+  <%= local_assigns[:counter] -%>. <%= el.render(:headline) %>
+  <small><%= local_assigns[:some] -%></small>
+<% end %>
