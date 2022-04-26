@@ -147,11 +147,15 @@ module Alchemy
 
       element.store_page(@page)
 
-      render element, {
-        element: element,
-        counter: counter,
-        options: options.except(:locals),
-      }.merge(options[:locals] || {})
+      render(
+        partial: options[:partial] || element.to_partial_path,
+        object: element,
+        locals: {
+          element: element,
+          counter: counter,
+          options: options.except(:locals, :partial),
+        }.merge(options[:locals] || {}),
+      )
     rescue ActionView::MissingTemplate => e
       warning(%(
         Element view partial not found for #{element.name}.\n

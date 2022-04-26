@@ -54,6 +54,14 @@ module Alchemy
           is_expected.to match(/2\./)
         end
       end
+
+      context "with partial given" do
+        subject { render_element(element, partial: "alchemy/elements/other_headline") }
+
+        it "renders the differing partial" do
+          is_expected.to match(/<h3/)
+        end
+      end
     end
 
     describe "#element_dom_id" do
@@ -143,7 +151,7 @@ module Alchemy
       end
 
       context "with option separator given" do
-        let(:options) { {separator: "<hr>"} }
+        let(:options) { { separator: "<hr>" } }
 
         it "joins element partials with given string" do
           is_expected.to have_selector("hr")
@@ -162,17 +170,19 @@ module Alchemy
 
       context "with locals option" do
         let(:options) do
-          { locals: { foo: :bar} }
+          { locals: { foo: :bar } }
         end
 
         it "sends locals with every #render_element call" do
           expect(helper).to receive(:render).with(
-            element,
-            {element: element, counter: 1, options: { from_page: page, render_format: "html" }, foo: :bar}
+            partial: element.to_partial_path,
+            object: element,
+            locals: { element: element, counter: 1, options: { from_page: page, render_format: "html" }, foo: :bar },
           )
           expect(helper).to receive(:render).with(
-            another_element,
-            {element: another_element, counter: 2, options: { from_page: page, render_format: "html" }, foo: :bar}
+            partial: another_element.to_partial_path,
+            object: another_element,
+            locals: { element: another_element, counter: 2, options: { from_page: page, render_format: "html" }, foo: :bar },
           )
 
           subject
@@ -187,7 +197,7 @@ module Alchemy
         before { assign(:preview_mode, true) }
 
         it "should return the data-alchemy-element HTML attribute for element" do
-          is_expected.to eq({"data-alchemy-element" => element.id})
+          is_expected.to eq({ "data-alchemy-element" => element.id })
         end
       end
 
@@ -232,7 +242,7 @@ module Alchemy
         end
 
         context "with a formatter lambda given" do
-          let(:options) { {formatter: ->(tags) { tags.join ", " }} }
+          let(:options) { { formatter: ->(tags) { tags.join ", " } } }
 
           it "should return a properly formatted HTML data attribute" do
             is_expected.to eq(" data-element-tags=\"peter, lustig\"")
