@@ -52,11 +52,6 @@ module Alchemy
             expect(assigns(:page)).to eq(default_language_root)
           end
 
-          it "sets @root_page to default language root" do
-            get :index
-            expect(assigns(:root_page)).to eq(default_language_root)
-          end
-
           context "and the root page is not public" do
             let(:default_language_root) do
               create(:alchemy_page, :language_root, public_on: nil, language: default_language, name: "Home")
@@ -103,11 +98,6 @@ module Alchemy
           it "loads the root page of that language" do
             get :index, params: { locale: "kl" }
             expect(assigns(:page)).to eq(start_page)
-          end
-
-          it "sets @root_page to root page of that language" do
-            get :index, params: { locale: "kl" }
-            expect(assigns(:root_page)).to eq(start_page)
           end
         end
       end

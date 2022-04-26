@@ -32,9 +32,6 @@ module Alchemy
       if: :locale_prefix_missing?,
       only: [:index, :show]
 
-    # We only need to set the +@root_page+ if we are sure that no more redirects happen.
-    before_action :set_root_page, only: [:index, :show]
-
     # Page layout callbacks need to run after all other callbacks
     before_action :run_on_page_layout_callbacks,
       if: :run_on_page_layout_callbacks?,
@@ -197,10 +194,6 @@ module Alchemy
       else
         expires_in @page.expiration_time, public: !@page.restricted, must_revalidate: true
       end
-    end
-
-    def set_root_page
-      @root_page ||= Language.current_root_page
     end
 
     def signup_required?
