@@ -126,7 +126,7 @@ module Alchemy
     #
     # == Usage
     #
-    #   <%= render_element(Alchemy::Element.available.named(:headline).first) %>
+    #   <%= render_element(Alchemy::Element.published.named(:headline).first) %>
     #
     # @param [Alchemy::Element] element
     #   The element you want to render the view for
