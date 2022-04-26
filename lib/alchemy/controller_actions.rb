@@ -75,7 +75,8 @@ module Alchemy
 
     def load_alchemy_language_from_params
       if params[:locale].present?
-        Language.find_by_code(params[:locale])
+        Language.find_by_code(params[:locale]) ||
+          raise(ActionController::RoutingError, "Language not found")
       end
     end
 
