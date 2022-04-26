@@ -245,6 +245,43 @@
 - Fix delete element confirm dialog [#2023](https://github.com/AlchemyCMS/alchemy_cms/pull/2023) ([tvdeyen](https://github.com/tvdeyen))
 - Build for Ruby 3 [#1990](https://github.com/AlchemyCMS/alchemy_cms/pull/1990) ([tvdeyen](https://github.com/tvdeyen))
 
+## 5.3.5 (2022-04-26)
+
+- Add thumbnail processor to support resizing on animated GIFs [#2316](https://github.com/AlchemyCMS/alchemy_cms/pull/2316) ([kulturbande](https://github.com/kulturbande))
+- Backport #2277 to 5.3 [#2306](https://github.com/AlchemyCMS/alchemy_cms/pull/2306) ([dbwinger](https://github.com/dbwinger))
+- add webp - support to 5.3 stable [#2294](https://github.com/AlchemyCMS/alchemy_cms/pull/2294) ([kulturbande](https://github.com/kulturbande))
+
+## 5.3.4 (2022-04-11)
+
+- Don't delete locals in render_element so they can be used by all elem… [#2284](https://github.com/AlchemyCMS/alchemy_cms/pull/2284) ([dbwinger](https://github.com/dbwinger))
+- Show site and language name on page select in Link dialog [#2280](https://github.com/AlchemyCMS/alchemy_cms/pull/2280) ([dbwinger](https://github.com/dbwinger))
+
+## 5.3.3 (2022-03-24)
+
+- fix admin sitemap feature specs ([tvdeyen](https://github.com/tvdeyen))
+- fix: Add support for ajax.get query params ([tvdeyen](https://github.com/tvdeyen))
+- fix(Sitemap): Use response data ([tvdeyen](https://github.com/tvdeyen))
+- Revert "Ajax: Send method override" ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.3.2 (2022-03-24)
+
+- ImageLoader: Add error handling ([tvdeyen](https://github.com/tvdeyen))
+- Fix new Sitemap ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.3.1 (2022-03-11)
+
+- Allow all pages in API again ([tvdeyen](https://github.com/tvdeyen))
+- New sortable page tree ([tvdeyen](https://github.com/tvdeyen))
+- Send language_id to Api::PagesController#index so Pages can be restricted to the language of the page. ([dbwinger](https://github.com/dbwinger))
+- Eager load in PageTree serializer ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.3.0 (2022-03-09)
+
+- Allow parent page change ([tvdeyen](https://github.com/tvdeyen))
+- Precompile packs during test setup ([tvdeyen](https://github.com/tvdeyen))
+- Rework Sitemap JS ([tvdeyen](https://github.com/tvdeyen))
+- Fix rendering errors in page configure overlay ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.2.7 (2022-03-01)
 
 - Fix copying page with descendants to a different language ([dbwinger](https://github.com/dbwinger))
