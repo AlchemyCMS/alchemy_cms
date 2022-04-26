@@ -92,6 +92,18 @@ module Alchemy
         end
       end
 
+      context "with a block" do
+        subject do
+          helper.render_elements(separator: ", ") do |element|
+            element.name
+          end
+        end
+
+        it "renders the block" do
+          is_expected.to eq("headline, article")
+        end
+      end
+
       context "with from_page option" do
         context "is a page object" do
           let(:another_page) { create(:alchemy_page, :public) }
