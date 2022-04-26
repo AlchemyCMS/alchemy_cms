@@ -99,7 +99,7 @@ jobs:
         run: |
           bundle exec rake alchemy:spec:prepare
       - name: Run tests & publish code coverage
-        uses: paambaati/codeclimate-action@v2.7.5
+        uses: paambaati/codeclimate-action@v3
         env:
           CC_TEST_REPORTER_ID: bca4349e32f97919210ac8a450b04904b90683fcdd57d65a22c0f5065482bc22
         with:
