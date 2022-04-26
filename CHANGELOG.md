@@ -1,3 +1,9 @@
+## 5.3.5 (2022-04-26)
+
+- Add thumbnail processor to support resizing on animated GIFs [#2316](https://github.com/AlchemyCMS/alchemy_cms/pull/2316) ([kulturbande](https://github.com/kulturbande))
+- Backport #2277 to 5.3 [#2306](https://github.com/AlchemyCMS/alchemy_cms/pull/2306) ([dbwinger](https://github.com/dbwinger))
+- add webp - support to 5.3 stable [#2294](https://github.com/AlchemyCMS/alchemy_cms/pull/2294) ([kulturbande](https://github.com/kulturbande))
+
 ## 5.3.4 (2022-04-11)
 
 - Don't delete locals in render_element so they can be used by all elem… [#2284](https://github.com/AlchemyCMS/alchemy_cms/pull/2284) ([dbwinger](https://github.com/dbwinger))
