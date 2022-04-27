@@ -1,3 +1,8 @@
+## 6.0.2 (2022-04-27)
+
+- Remove JSON decode from ingredient data store [#2323](https://github.com/AlchemyCMS/alchemy_cms/pull/2323) ([tvdeyen](https://github.com/tvdeyen))
+- Eagerload at the controller or job layer [#2313](https://github.com/AlchemyCMS/alchemy_cms/pull/2313) ([mamhoff](https://github.com/mamhoff))
+
 ## 6.0.1 (2022-04-26)
 
 - Allow passing a different partial to `render_element` [#2322](https://github.com/AlchemyCMS/alchemy_cms/pull/2322) ([mamhoff](https://github.com/mamhoff))
