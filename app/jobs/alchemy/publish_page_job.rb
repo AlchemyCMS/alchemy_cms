@@ -6,18 +6,7 @@ module Alchemy
 
     def perform(page_id, public_on:)
       page = Alchemy::Page.includes(
-        :tags,
-        language: :site,
-        draft_version: {
-          elements: [
-            :page,
-            :touchable_pages,
-            {
-              ingredients: :related_object,
-              contents: :essence,
-            },
-          ],
-        },
+        Alchemy::EagerLoading.page_includes(version: :draft_version)
       ).find(page_id)
       Alchemy::Page::Publisher.new(page).publish!(public_on: public_on)
     end

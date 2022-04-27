@@ -11,7 +11,7 @@ module Alchemy
     # Raised if no default language configuration can be found.
     def message
       "No default language configuration found!" \
-        " Please ensure that you have a 'default_language' defined in Alchemy configuration file."
+      " Please ensure that you have a 'default_language' defined in Alchemy configuration file."
     end
   end
 
@@ -19,7 +19,7 @@ module Alchemy
     # Raised if no default site configuration can be found.
     def message
       "No default site configuration found!" \
-        " Please ensure that you have a 'default_site' defined in Alchemy configuration file."
+      " Please ensure that you have a 'default_site' defined in Alchemy configuration file."
     end
   end
 
@@ -88,6 +88,12 @@ module Alchemy
     # Raised if no current_user is found to authorize against.
     def message
       "You need to provide a current_user method in your ApplicationController that returns the current authenticated user."
+    end
+  end
+
+  class UnsupportedPageVersion < StandardError
+    def message
+      "Unknown Version! Please use one of #{Alchemy::EagerLoading::PAGE_VERSIONS.join(", ")}"
     end
   end
 end

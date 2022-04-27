@@ -404,20 +404,7 @@ module Alchemy
       end
 
       def page_includes
-        {
-          :tags,
-          language: :site,
-          draft_version: {
-            elements: [
-              :page,
-              :touchable_pages,
-              {
-                ingredients: :related_object,
-                contents: :essence,
-              },
-            ],
-          },
-        }
+        Alchemy::EagerLoading.page_includes(version: :draft_version)
       end
     end
   end
