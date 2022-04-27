@@ -4,12 +4,12 @@ require "rails_helper"
 
 RSpec.describe Alchemy::PublishPageJob, type: :job do
   describe "#perfom_later" do
-    let(:page) { build_stubbed(:alchemy_page) }
+    let(:page) { create(:alchemy_page) }
     let(:public_on) { Time.current }
 
     it "enqueues job" do
       expect {
-        described_class.perform_later(page, public_on: public_on)
+        described_class.perform_later(page.id, public_on: public_on)
       }.to have_enqueued_job
     end
 
@@ -17,7 +17,7 @@ RSpec.describe Alchemy::PublishPageJob, type: :job do
       expect_any_instance_of(Alchemy::Page::Publisher).to receive(:publish!).with(
         public_on: public_on,
       )
-      described_class.new.perform(page, public_on: public_on)
+      described_class.new.perform(page.id, public_on: public_on)
     end
   end
 end

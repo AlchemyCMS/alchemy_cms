@@ -46,7 +46,7 @@ module Alchemy
     end
 
     def element_repository
-      ElementsRepository.new(elements.includes({ contents: :essence }, :tags))
+      ElementsRepository.new(elements)
     end
 
     private
