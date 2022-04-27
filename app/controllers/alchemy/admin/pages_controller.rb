@@ -324,7 +324,7 @@ module Alchemy
       end
 
       def load_resource
-        @page = Page.find(params[:id])
+        @page = Page.includes(page_includes).find(params[:id])
       end
 
       def pages_from_raw_request
@@ -401,6 +401,10 @@ module Alchemy
 
       def set_preview_mode
         @preview_mode = true
+      end
+
+      def page_includes
+        Alchemy::EagerLoading.page_includes(version: :draft_version)
       end
     end
   end
