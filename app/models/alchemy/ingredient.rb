@@ -6,10 +6,6 @@ module Alchemy
 
     include Hints
 
-    # MariaDB needs to be told explicitly to use `data` as a JSON store. All other databases
-    # can do this natively.
-    store :data, coder: JSON
-
     self.table_name = "alchemy_ingredients"
 
     belongs_to :element, touch: true, class_name: "Alchemy::Element", inverse_of: :ingredients
