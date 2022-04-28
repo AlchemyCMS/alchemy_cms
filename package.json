@@ -31,7 +31,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
-    "babel-jest": "^27.0.1",
+    "babel-jest": "^28.0.2",
     "jest": "^25.2.7",
     "prettier": "^2.0.2",
     "xhr-mock": "^2.5.1"
