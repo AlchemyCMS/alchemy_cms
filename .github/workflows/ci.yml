@@ -20,6 +20,7 @@ jobs:
         database:
           - mysql
           - postgresql
+          - mariadb
         exclude:
           - rails: "6.0"
             ruby: "3.1"
@@ -27,12 +28,18 @@ jobs:
           - rails: "6.0"
             ruby: "3.1"
             database: postgresql
+          - rails: "6.0"
+            ruby: "3.1"
+            database: mariadb
           - rails: "7.0"
             ruby: "2.6"
             database: mysql
           - rails: "7.0"
             ruby: "2.6"
             database: postgresql
+          - rails: "7.0"
+            ruby: "2.6"
+            database: mariadb
     env:
       DB: ${{ matrix.database }}
       DB_USER: alchemy_user
@@ -58,6 +65,15 @@ jobs:
           MYSQL_DATABASE: alchemy_cms_dummy_test
           MYSQL_ROOT_PASSWORD: password
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=5
+      mariadb:
+        image: mariadb:latest
+        ports: ["3307:3306"]
+        env:
+          MARIADB_USER: alchemy_user
+          MARIADB_PASSWORD: password
+          MARIADB_DATABASE: alchemy_cms_dummy_test
+          MARIADB_ROOT_PASSWORD: password
+        options: --health-cmd="mariadb-admin ping" --health-interval=10s --health-timeout=5s --health-retries=5
     steps:
       - uses: actions/checkout@v2.3.4
       - name: Set up Ruby
@@ -81,7 +97,7 @@ jobs:
           sudo apt install -qq --fix-missing libpq-dev -o dir::cache::archives="/home/runner/apt/cache"
           sudo chown -R runner /home/runner/apt/cache
       - name: Install MySQL headers
-        if: matrix.database == 'mysql'
+        if: matrix.database == 'mysql' || matrix.database == 'mariadb'
         run: |
           mkdir -p /home/runner/apt/cache
           sudo apt update -qq

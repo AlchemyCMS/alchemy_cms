@@ -17,7 +17,9 @@ end
 if ENV["DB"].nil? || ENV["DB"] == "sqlite"
   gem "sqlite3", "~> 1.4.1"
 end
-gem "mysql2", "~> 0.5.1" if ENV["DB"] == "mysql"
+if ENV["DB"] == "mysql" || ENV["DB"] == "mariadb"
+  gem "mysql2", "~> 0.5.1"
+end
 gem "pg", "~> 1.0" if ENV["DB"] == "postgresql"
 
 group :development, :test do
