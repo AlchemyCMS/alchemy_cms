@@ -1,3 +1,8 @@
+## 6.0.3 (2022-05-02)
+
+- Add Support for MariaDB [#2326](https://github.com/AlchemyCMS/alchemy_cms/pull/2326) ([mamhoff](https://github.com/mamhoff))
+- Fix Alchemy::Content::Factory module definition [#2325](https://github.com/AlchemyCMS/alchemy_cms/pull/2325) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.2 (2022-04-27)
 
 - Remove JSON decode from ingredient data store [#2323](https://github.com/AlchemyCMS/alchemy_cms/pull/2323) ([tvdeyen](https://github.com/tvdeyen))
