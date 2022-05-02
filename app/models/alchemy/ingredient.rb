@@ -8,6 +8,8 @@ module Alchemy
 
     self.table_name = "alchemy_ingredients"
 
+    attribute :data, :json
+
     belongs_to :element, touch: true, class_name: "Alchemy::Element", inverse_of: :ingredients
     belongs_to :related_object, polymorphic: true, optional: true
 
