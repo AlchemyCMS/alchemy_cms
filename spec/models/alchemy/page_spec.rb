@@ -695,6 +695,14 @@ module Alchemy
           expect(subject.collect { |e| e["name"] }).not_to include("unique_headline")
         end
       end
+
+      describe ".ransackable_scopes" do
+        let(:auth_object) { double }
+
+        subject { described_class.ransackable_scopes(auth_object) }
+
+        it { is_expected.to match_array([:published, :from_current_site, :layoutpages, :searchables]) }
+      end
     end
 
     describe "#available_elements_within_current_scope" do
