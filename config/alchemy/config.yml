@@ -200,7 +200,7 @@ link_target_options: [blank]
 format_matchers:
   email: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
   url: !ruby/regexp '/\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix'
-  link_url: !ruby/regexp '/^(mailto:|\/|[a-z]+:\/\/)/'
+  link_url: !ruby/regexp '/^(tel:|mailto:|\/|[a-z]+:\/\/)/'
 
 # The layout used for rendering the +alchemy/admin/pages#show+ action.
 admin_page_preview_layout: application
