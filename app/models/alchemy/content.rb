@@ -16,13 +16,15 @@
 #  updater_id   :integer
 #
 
+require_dependency "alchemy/content/factory"
+
 module Alchemy
   class Content < BaseRecord
     include Alchemy::Logger
     include Alchemy::Hints
 
     # Concerns
-    include Alchemy::Content::Factory
+    include Factory
 
     belongs_to :essence, polymorphic: true, dependent: :destroy, inverse_of: :content
     belongs_to :element, touch: true, inverse_of: :contents
