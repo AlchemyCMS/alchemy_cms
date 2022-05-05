@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+require "timecop"
 
 RSpec.describe Alchemy::Admin::PagesController do
   routes { Alchemy::Engine.routes }
@@ -50,8 +51,12 @@ RSpec.describe Alchemy::Admin::PagesController do
     let(:page) { create(:alchemy_page) }
 
     it "publishes the page" do
-      expect_any_instance_of(Alchemy::Page).to receive(:publish!)
-      post :publish, params: { id: page }
+      current_time = Time.current
+      Timecop.freeze(current_time) do
+        expect {
+          post :publish, params: { id: page }
+        }.to have_enqueued_job(Alchemy::PublishPageJob).with(page.id, public_on: current_time)
+      end
     end
   end
 end

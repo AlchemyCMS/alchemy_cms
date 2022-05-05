@@ -37,6 +37,14 @@ RSpec.describe Alchemy::Page::Publisher do
       expect { publish }.to change { page.versions.published.count }.by(1)
     end
 
+    it "updates the public_on timestamp" do
+      expect {
+        publish
+      }.to change {
+        page.reload.public_on
+      }.to(current_time)
+    end
+
     context "with elements" do
       include_context "with elements"
 

@@ -12,7 +12,9 @@ module Alchemy
 
       # Copies all currently visible elements to the public version of page
       #
-      # Creates a new published version if none exists yet.
+      # Creates a new published version if none exists yet and updates
+      # the `published_at` timestamp of the page.
+      # `published_at` is used as a cache key.
       #
       # Sends a publish notification to all registered publish targets
       #
@@ -32,6 +34,7 @@ module Alchemy
               end
             end
           end
+          page.update(published_at: public_on)
         end
 
         Alchemy.publish_targets.each { |p| p.perform_later(page) }
