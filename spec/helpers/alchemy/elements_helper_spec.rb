@@ -108,6 +108,7 @@ module Alchemy
         end
 
         it "renders the block" do
+          is_expected.to be_a(ActiveSupport::SafeBuffer)
           is_expected.to eq("headline, article")
         end
       end
