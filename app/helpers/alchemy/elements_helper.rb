@@ -87,11 +87,13 @@ module Alchemy
       elements = finder.elements(page_version: page_version)
 
       default_rendering = ->(element, i) { render_element(element, options, i + 1) }
-      if block_given?
-        elements.map.with_index(&blk)
-      else
-        elements.map.with_index(&default_rendering)
-      end.join(options[:separator]).html_safe
+      capture do
+        if block_given?
+          elements.map.with_index(&blk)
+        else
+          elements.map.with_index(&default_rendering)
+        end.join(options[:separator]).html_safe
+      end
     end
 
     # This helper renders a {Alchemy::Element} view partial.
