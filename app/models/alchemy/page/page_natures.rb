@@ -103,17 +103,17 @@ module Alchemy
         page_layout.parameterize.underscore
       end
 
-      # Returns the key that's taken for cache path.
+      # Returns the version that's taken for Rails' recycable cache key.
       #
       # Uses the +published_at+ value that's updated when the user publishes the page.
       #
-      # If the page is the current preview it uses the updated_at value as cache key.
+      # If the page is the current preview it uses the +updated_at+ value as cache key.
       #
-      def cache_key
+      def cache_version
         if Page.current_preview == id
-          "alchemy/pages/#{id}-#{updated_at}"
+          updated_at.to_s
         else
-          "alchemy/pages/#{id}-#{published_at}"
+          published_at.to_s
         end
       end
 
