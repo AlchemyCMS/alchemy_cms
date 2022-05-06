@@ -735,7 +735,7 @@ module Alchemy
       end
     end
 
-    describe "#cache_key" do
+    describe "#cache_version" do
       let(:now) { Time.current }
       let(:last_week) { Time.current - 1.week }
 
@@ -743,7 +743,7 @@ module Alchemy
         build_stubbed(:alchemy_page, updated_at: now, published_at: last_week)
       end
 
-      subject { page.cache_key }
+      subject { page.cache_version }
 
       before do
         expect(Page).to receive(:current_preview).and_return(preview)
@@ -753,7 +753,7 @@ module Alchemy
         let(:preview) { page.id }
 
         it "uses updated_at" do
-          is_expected.to eq("alchemy/pages/#{page.id}-#{now}")
+          is_expected.to eq(now.to_s)
         end
       end
 
@@ -761,7 +761,7 @@ module Alchemy
         let(:preview) { nil }
 
         it "uses published_at" do
-          is_expected.to eq("alchemy/pages/#{page.id}-#{last_week}")
+          is_expected.to eq(last_week.to_s)
         end
       end
     end
