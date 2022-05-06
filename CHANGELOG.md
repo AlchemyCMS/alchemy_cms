@@ -1,3 +1,11 @@
+## 6.0.4 (2022-05-06)
+
+- Add support for Rails' recycable cache keys [#2334](https://github.com/AlchemyCMS/alchemy_cms/pull/2334) ([tvdeyen](https://github.com/tvdeyen))
+- Make Alchemy::Content::Factory reloadable [#2333](https://github.com/AlchemyCMS/alchemy_cms/pull/2333) ([tvdeyen](https://github.com/tvdeyen))
+- Wrap the result of rendering into an ActiveSupport::SafeBuffer [#2332](https://github.com/AlchemyCMS/alchemy_cms/pull/2332) ([mamhoff](https://github.com/mamhoff))
+- Override Alchemy::Page.ransackable_scopes [#2328](https://github.com/AlchemyCMS/alchemy_cms/pull/2328) ([mamhoff](https://github.com/mamhoff))
+- Default Link Format matcher: Allow tel: protocol [#2327](https://github.com/AlchemyCMS/alchemy_cms/pull/2327) ([mamhoff](https://github.com/mamhoff))
+
 ## 6.0.3 (2022-05-02)
 
 - Add Support for MariaDB [#2326](https://github.com/AlchemyCMS/alchemy_cms/pull/2326) ([mamhoff](https://github.com/mamhoff))
