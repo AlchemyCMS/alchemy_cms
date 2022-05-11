@@ -1,3 +1,7 @@
+## 6.0.5 (2022-05-11)
+
+- Extract element ingredient migrator [#2337](https://github.com/AlchemyCMS/alchemy_cms/pull/2337) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.4 (2022-05-06)
 
 - Add support for Rails' recycable cache keys [#2334](https://github.com/AlchemyCMS/alchemy_cms/pull/2334) ([tvdeyen](https://github.com/tvdeyen))

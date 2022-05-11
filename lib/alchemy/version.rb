@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Alchemy
-  VERSION = "6.0.4"
+  VERSION = "6.0.5"
 
   def self.version
     VERSION
