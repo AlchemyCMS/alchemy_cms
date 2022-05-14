@@ -46,6 +46,29 @@ RSpec.describe Alchemy::Admin::PagesController do
     end
   end
 
+  describe "#destroy" do
+    let(:page) { create(:alchemy_page) }
+
+    context "with nodes attached" do
+      let!(:node) { create(:alchemy_node, page: page) }
+
+      it "returns with error message" do
+        delete :destroy, params: { id: page.id, format: :js }
+        expect(response).to redirect_to admin_pages_path
+        expect(flash[:warning]).to \
+          eq("Nodes are still attached to this page. Please remove them first.")
+      end
+    end
+
+    context "without nodes" do
+      it "removes the page" do
+        delete :destroy, params: { id: page.id, format: :js }
+        expect(response).to redirect_to admin_pages_path
+        expect(flash[:notice]).to eq("Page successfully removed.")
+      end
+    end
+  end
+
   describe "#publish" do
     let(:page) { create(:alchemy_page) }
 

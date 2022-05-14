@@ -129,6 +129,11 @@ module Alchemy
     before_create -> { versions.build },
       if: -> { versions.none? }
 
+    before_destroy if: -> { nodes.any? } do
+      errors.add(:nodes, :still_present)
+      throw(:abort)
+    end
+
     before_save :set_language_code,
       if: -> { language.present? }
 
