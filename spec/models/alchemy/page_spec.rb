@@ -1561,30 +1561,10 @@ module Alchemy
     end
 
     describe "#publish!" do
-      let(:current_time) { Time.current.change(usec: 0) }
-      let(:page) do
-        create(:alchemy_page,
-               public_on: public_on,
-               public_until: public_until,
-               published_at: published_at)
-      end
-      let(:published_at) { nil }
-      let(:public_on) { nil }
-      let(:public_until) { nil }
+      let(:page) { create(:alchemy_page) }
 
-      before do
-        allow(Time).to receive(:current).and_return(current_time)
-      end
-
-      it "enqueues publish page job" do
-        expect {
-          page.publish!
-        }.to have_enqueued_job(Alchemy::PublishPageJob)
-      end
-
-      it "sets published_at" do
-        page.publish!
-        expect(page.published_at).to eq(current_time)
+      it "enqueues a Alchemy::PublishPageJob" do
+        expect { page.publish! }.to have_enqueued_job(Alchemy::PublishPageJob)
       end
     end
 

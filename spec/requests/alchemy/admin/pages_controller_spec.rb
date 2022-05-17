@@ -634,10 +634,10 @@ module Alchemy
       describe "#publish" do
         let(:page) { create(:alchemy_page, published_at: 3.days.ago) }
 
-        it "should publish the page" do
+        it "published page in the background" do
           expect {
             post publish_admin_page_path(page)
-          }.to change { page.reload.published_at }
+          }.to have_enqueued_job(Alchemy::PublishPageJob)
         end
       end
 
