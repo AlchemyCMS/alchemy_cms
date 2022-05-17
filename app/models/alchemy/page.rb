@@ -457,14 +457,9 @@ module Alchemy
       end
     end
 
-    # Creates a public version of the page.
-    #
-    # Sets the +published_at+ value to current time
-    #
-    # The +published_at+ attribute is used as +cache_key+.
+    # Creates a public version of the page in the background.
     #
     def publish!(current_time = Time.current)
-      update(published_at: current_time)
       PublishPageJob.perform_later(id, public_on: current_time)
     end
 
