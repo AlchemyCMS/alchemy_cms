@@ -6,6 +6,7 @@ namespace :alchemy do
     task thumbnails: [
       "alchemy:generate:picture_thumbnails",
       "alchemy:generate:essence_picture_thumbnails",
+      "alchemy:generate:ingredient_picture_thumbnails",
     ]
 
     desc "Generates thumbnails for Alchemy Pictures."
@@ -31,6 +32,10 @@ namespace :alchemy do
       essence_pictures.find_each do |essence_picture|
         puts essence_picture.picture_url
         puts essence_picture.thumbnail_url
+
+        essence_picture.settings.fetch(:srcset, []).each do |src|
+          puts essence_picture.picture_url(src)
+        end
       end
 
       puts "Done!"
@@ -55,6 +60,10 @@ namespace :alchemy do
       ingredient_pictures.find_each do |ingredient_picture|
         puts ingredient_picture.picture_url
         puts ingredient_picture.thumbnail_url
+
+        ingredient_picture.settings.fetch(:srcset, []).each do |src|
+          puts ingredient_picture.picture_url(src)
+        end
       end
 
       puts "Done!"
