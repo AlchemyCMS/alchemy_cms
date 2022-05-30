@@ -6,6 +6,7 @@ namespace :alchemy do
     task thumbnails: [
       "alchemy:generate:picture_thumbnails",
       "alchemy:generate:essence_picture_thumbnails",
+      "alchemy:generate:ingredient_picture_thumbnails",
     ]
 
     desc "Generates thumbnails for Alchemy Pictures."
