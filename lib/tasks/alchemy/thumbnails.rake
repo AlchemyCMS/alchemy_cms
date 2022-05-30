@@ -35,5 +35,29 @@ namespace :alchemy do
 
       puts "Done!"
     end
+
+    desc "Generates thumbnails for Alchemy Picture Ingredients (set ELEMENTS=element1,element2 to only generate thumbnails for a subset of elements)."
+    task ingredient_picture_thumbnails: :environment do
+      ingredient_pictures = Alchemy::Ingredients::Picture.
+        joins(:element).
+        preload({ related_object: :thumbs }).
+        merge(Alchemy::Element.available)
+
+      if ENV["ELEMENTS"].present?
+        ingredient_pictures = ingredient_pictures.merge(
+          Alchemy::Element.named(ENV["ELEMENTS"].split(","))
+        )
+      end
+
+      puts "Regenerate #{ingredient_pictures.count} ingredient picture thumbnails."
+      puts "Please wait..."
+
+      ingredient_pictures.find_each do |ingredient_picture|
+        puts ingredient_picture.picture_url
+        puts ingredient_picture.thumbnail_url
+      end
+
+      puts "Done!"
+    end
   end
 end
