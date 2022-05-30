@@ -1,3 +1,12 @@
+## 6.0.6 (2022-05-30)
+
+- Add task to eagerly generate ingredients pictures thumbnails [#2342](https://github.com/AlchemyCMS/alchemy_cms/pull/2342) ([tvdeyen](https://github.com/tvdeyen))
+- Add spec for ingredients migrator; fix preloading in Rails 6.1+ [#2340](https://github.com/AlchemyCMS/alchemy_cms/pull/2340) ([mamhoff](https://github.com/mamhoff))
+- Extract element ingredient migrator [#2337](https://github.com/AlchemyCMS/alchemy_cms/pull/2337) ([tvdeyen](https://github.com/tvdeyen))
+- Update published_at only after page has been published. [#2331](https://github.com/AlchemyCMS/alchemy_cms/pull/2331) ([pascalbetz](https://github.com/pascalbetz))
+- Add element groups functionality for cleaning up editors [#2124](https://github.com/AlchemyCMS/alchemy_cms/pull/2124) ([dbwinger](https://github.com/dbwinger))
+- Eagerload at the controller or job layer [#2313](https://github.com/AlchemyCMS/alchemy_cms/pull/2313) ([mamhoff](https://github.com/mamhoff))
+
 ## 6.0.5 (2022-05-11)
 
 - Extract element ingredient migrator [#2337](https://github.com/AlchemyCMS/alchemy_cms/pull/2337) ([tvdeyen](https://github.com/tvdeyen))
