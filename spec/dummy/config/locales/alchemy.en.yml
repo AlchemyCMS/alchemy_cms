@@ -56,6 +56,9 @@ en:
       all_you_can_eat_ingredients:
         headline:
           blank: Please enter a headline for all you can eat
+    page_hints:
+      everything: This page is for everything.
+
 
   activemodel:
     models:

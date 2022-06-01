@@ -23,6 +23,7 @@
   autogenerate: [header, article, download]
 
 - name: everything
+  hint: true
   elements:
     [
       text,
