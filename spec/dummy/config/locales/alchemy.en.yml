@@ -34,6 +34,8 @@ en:
         essence_html: Old content is deprecated
     element_deprecation_notices:
       old: Old element is deprecated
+    page_hints:
+      everything: This page is for everything.
 
   activemodel:
     models:

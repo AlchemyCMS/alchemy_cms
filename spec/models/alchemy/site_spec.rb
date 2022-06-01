@@ -303,6 +303,7 @@ module Alchemy
                   "left_column",
                   "old",
                 ],
+                "hint" => true,
               },
               {
                 "name" => "news",
