@@ -1957,6 +1957,12 @@ module Alchemy
       let(:subject) { Page.new }
     end
 
+    it "keys hint translation by page_layout" do
+      page = Page.new(page_layout: :everything)
+      expect(page).to have_hint
+      expect(page.hint).to eq Alchemy.t("page_hints.everything")
+    end
+
     describe "#layout_partial_name" do
       let(:page) { Page.new(page_layout: "Standard Page") }
 

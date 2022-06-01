@@ -565,6 +565,12 @@ module Alchemy
       locker.try(:name) || Alchemy.t("unknown")
     end
 
+    # Key hint translations by page layout, rather than the default name.
+    #
+    def hint_translation_attribute
+      page_layout
+    end
+
     # Menus (aka. root nodes) this page is attached to
     #
     def menus
