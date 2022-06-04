@@ -1,3 +1,8 @@
+## 6.0.7 (2022-06-04)
+
+- Eagerly generate thumbs for srcset images in task as well [#2344](https://github.com/AlchemyCMS/alchemy_cms/pull/2344) ([tvdeyen](https://github.com/tvdeyen))
+- Use HashWithIndifferentAccess for Page definition.  Key hint translation by page_layout [#2343](https://github.com/AlchemyCMS/alchemy_cms/pull/2343) ([dbwinger](https://github.com/dbwinger))
+
 ## 6.0.6 (2022-05-30)
 
 - Add task to eagerly generate ingredients pictures thumbnails [#2342](https://github.com/AlchemyCMS/alchemy_cms/pull/2342) ([tvdeyen](https://github.com/tvdeyen))
