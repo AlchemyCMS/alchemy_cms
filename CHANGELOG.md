@@ -281,6 +281,10 @@
 - Fix delete element confirm dialog [#2023](https://github.com/AlchemyCMS/alchemy_cms/pull/2023) ([tvdeyen](https://github.com/tvdeyen))
 - Build for Ruby 3 [#1990](https://github.com/AlchemyCMS/alchemy_cms/pull/1990) ([tvdeyen](https://github.com/tvdeyen))
 
+## 5.3.6 (2022-06-04)
+
+- Use HashWithIndifferentAccess for Page definition.  Key hint translation by page_layout [#2343](https://github.com/AlchemyCMS/alchemy_cms/pull/2343) ([dbwinger](https://github.com/dbwinger))
+
 ## 5.3.5 (2022-04-26)
 
 - Add thumbnail processor to support resizing on animated GIFs [#2316](https://github.com/AlchemyCMS/alchemy_cms/pull/2316) ([kulturbande](https://github.com/kulturbande))
