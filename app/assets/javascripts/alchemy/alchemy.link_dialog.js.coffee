@@ -94,7 +94,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
         urlname = $element.val()
         $.get Alchemy.routes.api_pages_path,
           q:
-            urlname_eq: urlname.replace(/^\/([a-z]{2}(-[A-Z]{2})?\/)?/, '')
+            urlname_eq: urlname.replace(/^\/([a-z]{2}(-[A-Z]{2})?\/)?(.+?)\/?$/, '$3')
           page: 1
           per_page: 1,
           (data) =>
