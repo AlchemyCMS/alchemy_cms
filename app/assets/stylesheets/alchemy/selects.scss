@@ -42,10 +42,6 @@ select {
       font-weight: normal;
       text-align: left;
 
-      .select2-chosen {
-        overflow: visible;
-      }
-
       .select2-arrow {
         top: 0;
         width: $form-field-height;
