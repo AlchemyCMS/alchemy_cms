@@ -1,3 +1,8 @@
+## 5.3.7 (2022-06-10)
+
+- Fix admin page tree links after update [#2348](https://github.com/AlchemyCMS/alchemy_cms/pull/2348) ([tvdeyen](https://github.com/tvdeyen))
+- Fix initial selection of internal page link select [#2346](https://github.com/AlchemyCMS/alchemy_cms/pull/2346) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.3.6 (2022-06-04)
 
 - Use HashWithIndifferentAccess for Page definition.  Key hint translation by page_layout [#2343](https://github.com/AlchemyCMS/alchemy_cms/pull/2343) ([dbwinger](https://github.com/dbwinger))
