@@ -18,7 +18,7 @@
 <% else -%>
 
   if (page) {
-    var page_html = "<%= j render('page', page: @page) %>";
+    var page_html = "<%= j render('page', page: @page) %>".replace(/__ID__/g, "<%= @page.id %>");;
     var compiler = Handlebars.compile(page_html);
     var tree = <%== @tree.to_json %>;
     page.outerHTML = compiler(tree.pages[0]);
