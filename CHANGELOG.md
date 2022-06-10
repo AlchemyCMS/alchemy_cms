@@ -1,3 +1,8 @@
+## 6.0.8 (2022-06-10)
+
+- Fix admin page tree links after update [#2348](https://github.com/AlchemyCMS/alchemy_cms/pull/2348) ([tvdeyen](https://github.com/tvdeyen))
+- Fix initial selection of internal page link select [#2346](https://github.com/AlchemyCMS/alchemy_cms/pull/2346) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.7 (2022-06-04)
 
 - Eagerly generate thumbs for srcset images in task as well [#2344](https://github.com/AlchemyCMS/alchemy_cms/pull/2344) ([tvdeyen](https://github.com/tvdeyen))
@@ -280,6 +285,11 @@
 - Fix constants reloading in page and element concerns [#2024](https://github.com/AlchemyCMS/alchemy_cms/pull/2024) ([tvdeyen](https://github.com/tvdeyen))
 - Fix delete element confirm dialog [#2023](https://github.com/AlchemyCMS/alchemy_cms/pull/2023) ([tvdeyen](https://github.com/tvdeyen))
 - Build for Ruby 3 [#1990](https://github.com/AlchemyCMS/alchemy_cms/pull/1990) ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.3.7 (2022-06-10)
+
+- Fix admin page tree links after update [#2348](https://github.com/AlchemyCMS/alchemy_cms/pull/2348) ([tvdeyen](https://github.com/tvdeyen))
+- Fix initial selection of internal page link select [#2346](https://github.com/AlchemyCMS/alchemy_cms/pull/2346) ([tvdeyen](https://github.com/tvdeyen))
 
 ## 5.3.6 (2022-06-04)
 
