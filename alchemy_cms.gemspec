@@ -51,7 +51,7 @@ Gem::Specification.new do |gem|
   gem.add_runtime_dependency "responders", [">= 2.0", "< 4.0"]
   gem.add_runtime_dependency "sassc-rails", ["~> 2.1"]
   gem.add_runtime_dependency "simple_form", [">= 4.0", "< 6"]
-  gem.add_runtime_dependency "sprockets", [">= 3.0", "< 5"]
+  gem.add_runtime_dependency "sprockets", ["4.1.0"]
   gem.add_runtime_dependency "turbolinks", [">= 2.5"]
   gem.add_runtime_dependency "webpacker", [">= 4.0", "< 6"]
 
