@@ -90,8 +90,12 @@ jobs:
             ${{ runner.os }}-yarn-dummy-
       - name: Prepare database
         run: bundle exec rake alchemy:spec:prepare
-      - name: Run tests
-        run: bundle exec rspec
+      - name: Run tests & publish code coverage
+        uses: paambaati/codeclimate-action@v3.0.0
+        env:
+          CC_TEST_REPORTER_ID: 8908e9226a16b7c4537ed07da25d09b086dfc7135b4f4c583603e043401288e8
+        with:
+          coverageCommand: bundle exec rspec
       - uses: actions/upload-artifact@main
         if: failure()
         with:
