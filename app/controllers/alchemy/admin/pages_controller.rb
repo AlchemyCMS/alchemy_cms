@@ -84,8 +84,10 @@ module Alchemy
       end
 
       def create
-        @page = paste_from_clipboard || Page.new(page_params)
+        parent_page = Alchemy::Page.find(page_params[:parent_id])
+        @page = paste_from_clipboard || parent_page.children.new(page_params)
         if @page.save
+          @page.move_to_child_with_index(parent_page, 0)
           flash[:notice] = Alchemy.t("Page created", name: @page.name)
           do_redirect_to(redirect_path_after_create_page)
         else

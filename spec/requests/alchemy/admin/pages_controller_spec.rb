@@ -414,6 +414,16 @@ module Alchemy
             expect(subject).to redirect_to(edit_admin_page_path(Alchemy::Page.last))
           end
 
+          context "if parent already has child pages" do
+            let!(:existing_child) { create(:alchemy_page, parent: parent) }
+
+            it "saves the new page as the first child" do
+              subject
+              expect(response).to be_redirect
+              expect(parent.children.map(&:id)).to match([instance_of(Integer), existing_child.id])
+            end
+          end
+
           context "if new page can not be saved" do
             let(:page_params) do
               {
