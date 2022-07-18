@@ -98,10 +98,10 @@ module Alchemy
       ratio = image_file_width.to_f / image_file_height
 
       if sizes[:width].zero?
-        sizes[:width] = image_file_width * ratio
+        sizes[:width] = (sizes[:height] * ratio).round.to_i
       end
       if sizes[:height].zero?
-        sizes[:height] = image_file_width / ratio
+        sizes[:height] = (sizes[:width] / ratio).round.to_i
       end
 
       sizes

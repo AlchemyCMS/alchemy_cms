@@ -111,6 +111,19 @@ RSpec.describe Alchemy::PictureVariant do
       it "resizes the image inferring the height" do
         expect(subject.steps[0].arguments).to eq(["40>"])
       end
+
+      context "and crop set to true" do
+        let(:image_file) do
+          File.new(File.expand_path("../../fixtures/80x60.png", __dir__))
+        end
+        let(:options) do
+          { size: "17x", crop: true }
+        end
+
+        it "resizes the image inferring the height" do
+          expect(subject.steps[0].arguments).to eq(["17x13#"])
+        end
+      end
     end
 
     context "with no width given" do
