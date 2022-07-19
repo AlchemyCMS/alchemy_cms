@@ -25,6 +25,7 @@ module Alchemy
               elements: [
                 :page,
                 :touchable_pages,
+                :tags,
                 {
                   ingredients: :related_object,
                   contents: :essence,
