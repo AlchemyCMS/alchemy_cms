@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Dashboard feature", type: :system do
-  let(:user) { create(:alchemy_dummy_user, :as_admin, name: "Joe User") }
+  let(:user) { create(:alchemy_dummy_user, :as_editor, name: "Joe Editor") }
 
   before do
     authorize_user(user)
@@ -27,6 +27,7 @@ RSpec.describe "Dashboard feature", type: :system do
         expect(locked_pages_widget).to have_content "Currently locked pages"
         expect(locked_pages_widget).to have_content a_page.name
         expect(locked_pages_widget).to have_content "Me"
+        expect(locked_pages_widget).to have_css "button[title=\"#{Alchemy.t(:explain_unlocking)}\"]"
       end
     end
 
@@ -40,6 +41,22 @@ RSpec.describe "Dashboard feature", type: :system do
         expect(locked_pages_widget).to have_content "Currently locked pages"
         expect(locked_pages_widget).to have_content a_page.name
         expect(locked_pages_widget).to have_content other_user.name
+        expect(locked_pages_widget).not_to have_css "button[title=\"#{Alchemy.t(:explain_unlocking)}\"]"
+      end
+    end
+
+    context "when logged in as admin" do
+      let(:user) { create(:alchemy_dummy_user, :as_admin, name: "Joe Editor") }
+      let(:other_user) { create(:alchemy_dummy_user, :as_admin) }
+
+      it "shows the name of the user who locked the page" do
+        a_page.lock_to!(other_user)
+        visit admin_dashboard_path
+        locked_pages_widget = all('div[@class="widget"]').first
+        expect(locked_pages_widget).to have_content "Currently locked pages"
+        expect(locked_pages_widget).to have_content a_page.name
+        expect(locked_pages_widget).to have_content other_user.name
+        expect(locked_pages_widget).to have_css "button[title=\"#{Alchemy.t(:explain_unlocking)}\"]"
       end
     end
   end
