@@ -1,3 +1,11 @@
+## 6.0.9 (2022-07-25)
+
+- Allow Site managers to remove page locks [#2360](https://github.com/AlchemyCMS/alchemy_cms/pull/2360) ([mamhoff](https://github.com/mamhoff))
+- Add tags to Alchemy::EagerLoading [#2359](https://github.com/AlchemyCMS/alchemy_cms/pull/2359) ([mamhoff](https://github.com/mamhoff))
+- Delete Gutentag Taggings in Alchemy::DeleteElements [#2358](https://github.com/AlchemyCMS/alchemy_cms/pull/2358) ([mamhoff](https://github.com/mamhoff))
+- Fix PictureTransformations#inferred_sizes_from_string [#2356](https://github.com/AlchemyCMS/alchemy_cms/pull/2356) ([mamhoff](https://github.com/mamhoff))
+- add playsinline attribute to ingredient and essence [#2351](https://github.com/AlchemyCMS/alchemy_cms/pull/2351) ([pascalbetz](https://github.com/pascalbetz))
+
 ## 6.0.8 (2022-06-10)
 
 - Fix admin page tree links after update [#2348](https://github.com/AlchemyCMS/alchemy_cms/pull/2348) ([tvdeyen](https://github.com/tvdeyen))
