@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2021_11_05_175532) do
+ActiveRecord::Schema[7.0].define(version: 2022_05_14_072456) do
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
     t.string "file_name"
@@ -402,7 +402,7 @@ ActiveRecord::Schema[7.0].define(version: 2021_11_05_175532) do
   add_foreign_key "alchemy_essence_pages", "alchemy_pages", column: "page_id"
   add_foreign_key "alchemy_ingredients", "alchemy_elements", column: "element_id", on_delete: :cascade
   add_foreign_key "alchemy_nodes", "alchemy_languages", column: "language_id"
-  add_foreign_key "alchemy_nodes", "alchemy_pages", column: "page_id", on_delete: :cascade
+  add_foreign_key "alchemy_nodes", "alchemy_pages", column: "page_id", on_delete: :restrict
   add_foreign_key "alchemy_page_versions", "alchemy_pages", column: "page_id", on_delete: :cascade
   add_foreign_key "alchemy_pages", "alchemy_languages", column: "language_id"
   add_foreign_key "alchemy_picture_thumbs", "alchemy_pictures", column: "picture_id"

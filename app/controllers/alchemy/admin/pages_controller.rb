@@ -145,6 +145,8 @@ module Alchemy
           # Remove page from clipboard
           clipboard = get_clipboard("pages")
           clipboard.delete_if { |item| item["id"] == @page.id.to_s }
+        else
+          flash[:warning] = @page.errors.full_messages.to_sentence
         end
 
         respond_to do |format|
