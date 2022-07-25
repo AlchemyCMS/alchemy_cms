@@ -777,6 +777,10 @@ en:
           attributes:
             pages:
               still_present: "are still attached to this language. Please remove them first."
+        alchemy/page:
+          attributes:
+            nodes:
+              still_present: "are still attached to this page. Please remove them first."
     models:
       gutentag/tag:
         one: Tag
