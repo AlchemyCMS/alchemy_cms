@@ -16,6 +16,7 @@ RSpec.describe Alchemy::EagerLoading do
               elements: [
                 :page,
                 :touchable_pages,
+                :tags,
                 {
                   ingredients: :related_object,
                   contents: :essence,
@@ -39,6 +40,7 @@ RSpec.describe Alchemy::EagerLoading do
               elements: [
                 :page,
                 :touchable_pages,
+                :tags,
                 {
                   ingredients: :related_object,
                   contents: :essence,
