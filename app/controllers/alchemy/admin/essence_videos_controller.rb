@@ -24,6 +24,7 @@ module Alchemy
           :controls,
           :loop,
           :muted,
+          :playsinline,
           :preload,
           :attachment_id
         )

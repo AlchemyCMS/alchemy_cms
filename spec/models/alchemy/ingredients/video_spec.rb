@@ -53,6 +53,12 @@ RSpec.describe Alchemy::Ingredients::Video do
     it { is_expected.to eq(true) }
   end
 
+  describe "#playsinline" do
+    subject { video_ingredient.playsinline }
+    before { video_ingredient.playsinline = true }
+    it { is_expected.to eq(true) }
+  end
+
   describe "#preload" do
     subject { video_ingredient.preload }
     before { video_ingredient.preload = "auto" }
