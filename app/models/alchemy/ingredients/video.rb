@@ -12,6 +12,7 @@ module Alchemy
         :height,
         :loop,
         :muted,
+        :playsinline,
         :preload,
         :width
 

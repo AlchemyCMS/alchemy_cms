@@ -21,6 +21,7 @@ RSpec.describe "alchemy/ingredients/_video_view" do
       height: 720,
       loop: true,
       muted: true,
+      playsinline: true,
       preload: "auto",
       width: 1280,
     )
@@ -39,7 +40,7 @@ RSpec.describe "alchemy/ingredients/_video_view" do
     it "renders a video tag with source" do
       render ingredient
       expect(rendered).to have_selector(
-        "video[controls][muted][loop][autoplay][preload='auto'][width='1280'][height='720'] source[src]"
+        "video[controls][muted][playsinline][loop][autoplay][preload='auto'][width='1280'][height='720'] source[src]"
       )
     end
   end
