@@ -21,6 +21,7 @@ module Alchemy
           class_name.constantize.where(id: ids).delete_all
         end
       contents.delete_all
+      Gutentag::Tagging.where(taggable: elements).delete_all
       delete_elements
     end
 
