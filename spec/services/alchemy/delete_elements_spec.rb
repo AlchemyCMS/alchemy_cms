@@ -5,14 +5,17 @@ require "rails_helper"
 RSpec.describe Alchemy::DeleteElements do
   let!(:parent_element) { create(:alchemy_element, :with_nestable_elements, :with_contents) }
   let!(:nested_element) { parent_element.nested_elements.first }
-  let!(:normal_element) { create(:alchemy_element, :with_contents) }
+  let!(:normal_element) { create(:alchemy_element, :with_contents, tag_names: ["Zero"]) }
 
   before do
+    nested_element.tag_names = ["Cool"]
+    nested_element.save!
     expect(Alchemy::Element.count).not_to be_zero
     expect(Alchemy::Content.count).not_to be_zero
     expect(Alchemy::EssenceText.count).not_to be_zero
     expect(Alchemy::EssencePicture.count).not_to be_zero
     expect(Alchemy::EssenceRichtext.count).not_to be_zero
+    expect(Gutentag::Tagging.count).not_to be_zero
   end
 
   subject { Alchemy::DeleteElements.new(elements).call }
@@ -27,6 +30,7 @@ RSpec.describe Alchemy::DeleteElements do
       expect(Alchemy::EssenceText.count).to be_zero
       expect(Alchemy::EssencePicture.count).to be_zero
       expect(Alchemy::EssenceRichtext.count).to be_zero
+      expect(Gutentag::Tagging.count).to be_zero
     end
 
     context "when calling with an ActiveRecord::Relation" do
@@ -39,6 +43,7 @@ RSpec.describe Alchemy::DeleteElements do
         expect(Alchemy::EssenceText.count).to be_zero
         expect(Alchemy::EssencePicture.count).to be_zero
         expect(Alchemy::EssenceRichtext.count).to be_zero
+        expect(Gutentag::Tagging.count).to be_zero
       end
     end
 
@@ -56,6 +61,7 @@ RSpec.describe Alchemy::DeleteElements do
         expect(Alchemy::EssenceText.count).to be_zero
         expect(Alchemy::EssencePicture.count).to be_zero
         expect(Alchemy::EssenceRichtext.count).to be_zero
+        expect(Gutentag::Tagging.count).to be_zero
       end
     end
   end
