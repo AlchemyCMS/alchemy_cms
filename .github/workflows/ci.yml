@@ -13,7 +13,6 @@ jobs:
           - "6.1"
           - "7.0"
         ruby:
-          - "2.6"
           - "2.7"
           - "3.0"
           - "3.1"
@@ -30,15 +29,6 @@ jobs:
             database: postgresql
           - rails: "6.0"
             ruby: "3.1"
-            database: mariadb
-          - rails: "7.0"
-            ruby: "2.6"
-            database: mysql
-          - rails: "7.0"
-            ruby: "2.6"
-            database: postgresql
-          - rails: "7.0"
-            ruby: "2.6"
             database: mariadb
     env:
       DB: ${{ matrix.database }}
