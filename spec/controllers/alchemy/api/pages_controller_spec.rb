@@ -85,9 +85,10 @@ module Alchemy
           let(:site_2) { create(:alchemy_site) }
           let(:language_2) { create(:alchemy_language, site: site_2) }
           let!(:site_2_page) { create(:alchemy_page, :public, language: language_2) }
+          let!(:unpublished_page) { create(:alchemy_page, language: default_language) }
 
           context "as guest user" do
-            it "only returns pages for current site" do
+            it "only returns public pages for current site" do
               get :index, format: :json
               expect(result["pages"].map { |r| r["id"] }).to match_array([
                 page.parent_id,
@@ -101,13 +102,12 @@ module Alchemy
               authorize_user(build(:alchemy_dummy_user, :as_author))
             end
 
-            it "returns all pages" do
+            it "returns all pages for current site" do
               get :index, format: :json
               expect(result["pages"].map { |r| r["id"] }).to match_array([
                 page.parent_id,
                 page.id,
-                site_2_page.parent_id,
-                site_2_page.id,
+                unpublished_page.id,
               ])
             end
           end
