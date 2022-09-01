@@ -121,7 +121,9 @@ module Alchemy
         can :manage, Alchemy::Node
         can [:read, :url], Alchemy::Picture
         can [:read, :autocomplete], Alchemy::Tag
-        can(:edit_content, Alchemy::Page) { |p| p.editable_by?(@user) }
+        can :edit_content, Alchemy::Page, Alchemy::Page.all do |page|
+          page.editable_by?(@user)
+        end
       end
     end
 
