@@ -273,21 +273,20 @@ module Alchemy
         subject { controller.send(:page_etag) }
 
         before do
-          expect(page).to receive(:cache_key).and_return("aaa")
           controller.instance_variable_set("@page", page)
         end
 
         it "returns the etag for response headers" do
-          expect(subject).to eq("aaa")
+          expect(subject).to include(page)
         end
 
         context "with user logged in" do
           before do
-            authorize_user(mock_model(Alchemy.user_class, cache_key: "bbb"))
+            authorize_user(mock_model(Alchemy.user_class, cache_key_with_version: "bbb"))
           end
 
           it "returns another etag for response headers" do
-            expect(subject).to eq("aaabbb")
+            expect(subject).to include(an_instance_of(Alchemy.user_class))
           end
         end
       end

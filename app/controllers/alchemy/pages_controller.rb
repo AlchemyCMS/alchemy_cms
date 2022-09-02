@@ -218,12 +218,12 @@ module Alchemy
     #
     # IMPORTANT:
     #
-    # If your user does not have a +cache_key+ method (i.e. it's not an ActiveRecord model),
+    # If your user does not have a +cache_key_with_version+ method (i.e. it's not an ActiveRecord model),
     # you have to ensure to implement it and return a unique identifier for that particular user.
     # Otherwise all users will see the same cached page, regardless of user's state.
     #
     def page_etag
-      @page.cache_key + current_alchemy_user.try(:cache_key).to_s
+      [@page, current_alchemy_user]
     end
 
     # We only render the page if either the cache is disabled for this page
