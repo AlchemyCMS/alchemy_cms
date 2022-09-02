@@ -294,6 +294,10 @@
 - Fix delete element confirm dialog [#2023](https://github.com/AlchemyCMS/alchemy_cms/pull/2023) ([tvdeyen](https://github.com/tvdeyen))
 - Build for Ruby 3 [#1990](https://github.com/AlchemyCMS/alchemy_cms/pull/1990) ([tvdeyen](https://github.com/tvdeyen))
 
+## 5.3.8 (2022-09-02)
+
+- Fix author edit_content permissions [#2364](https://github.com/AlchemyCMS/alchemy_cms/pull/2364) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 5.3.7 (2022-06-10)
 
 - Fix admin page tree links after update [#2348](https://github.com/AlchemyCMS/alchemy_cms/pull/2348) ([tvdeyen](https://github.com/tvdeyen))
