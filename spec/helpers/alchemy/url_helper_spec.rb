@@ -14,7 +14,7 @@ module Alchemy
 
         context "if prefix_locale? is false" do
           before do
-            expect(helper).to receive(:prefix_locale?) { false }
+            expect(helper).to receive(:prefix_locale?).with(page.language_code) { false }
           end
 
           it "returns a Hash with urlname and no locale parameter" do
@@ -22,7 +22,7 @@ module Alchemy
             expect(show_page_path_params).to_not include(locale: "en")
           end
 
-          context "with addiitonal parameters" do
+          context "with additional parameters" do
             subject(:show_page_path_params) do
               helper.show_page_path_params(page, { query: "test" })
             end
@@ -38,7 +38,7 @@ module Alchemy
 
         context "if prefix_locale? is false" do
           before do
-            expect(helper).to receive(:prefix_locale?) { true }
+            expect(helper).to receive(:prefix_locale?).with(page.language_code) { true }
           end
 
           it "returns a Hash with urlname and locale parameter" do
@@ -62,7 +62,7 @@ module Alchemy
       describe "#show_alchemy_page_path" do
         context "when prefix_locale? set to true" do
           before do
-            expect(helper).to receive(:prefix_locale?) { true }
+            expect(helper).to receive(:prefix_locale?).with(page.language_code) { true }
           end
 
           it "should return the correct relative path string" do
@@ -77,7 +77,7 @@ module Alchemy
 
         context "when prefix_locale? set to false" do
           before do
-            expect(helper).to receive(:prefix_locale?) { false }
+            expect(helper).to receive(:prefix_locale?).with(page.language_code) { false }
           end
 
           it "should return the correct relative path string" do
@@ -94,7 +94,7 @@ module Alchemy
       describe "#show_alchemy_page_url" do
         context "when prefix_locale? set to true" do
           before do
-            expect(helper).to receive(:prefix_locale?) { true }
+            expect(helper).to receive(:prefix_locale?).with(page.language_code) { true }
           end
 
           it "should return the correct url string" do
@@ -110,7 +110,7 @@ module Alchemy
 
         context "when prefix_locale? set to false" do
           before do
-            expect(helper).to receive(:prefix_locale?) { false }
+            expect(helper).to receive(:prefix_locale?).with(page.language_code) { false }
           end
 
           it "should return the correct url string" do
