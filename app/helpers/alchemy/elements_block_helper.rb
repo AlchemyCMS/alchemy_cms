@@ -29,8 +29,15 @@ module Alchemy
       # If the element uses +ingredients+ it renders the ingredient record.
       #
       def render(name, options = {}, html_options = {})
-        renderable = element.ingredient_by_role(name) || content(name)
+        renderable = element.ingredient_by_role(name) || Alchemy::Deprecation.silence { content(name) }
         return if renderable.nil?
+
+        if Alchemy::DEPRECATED_ESSENCE_CLASSES.include?(renderable.try(:essence)&.class&.name)
+          Alchemy::Deprecation.warn(
+            "Using a '#{renderable.essence.class.name.demodulize}' content is deprecated. " \
+            "Please use a '#{Alchemy::DEPRECATED_ESSENCE_CLASS_MAPPING[renderable.essence.class.name].demodulize}' ingredient instead."
+          )
+        end
 
         helpers.render(renderable, {
           options: options,
@@ -66,7 +73,9 @@ module Alchemy
         if element.ingredient_definitions.any?
           element.has_value_for?(name)
         else
-          element.has_ingredient?(name)
+          Alchemy::Deprecation.silence do
+            element.has_ingredient?(name)
+          end
         end
       end
 

@@ -5,6 +5,25 @@ require "alchemy/admin/preview_url"
 module Alchemy
   YAML_PERMITTED_CLASSES = %w[Symbol Date Regexp]
 
+  DEPRECATED_ESSENCE_CLASS_MAPPING = {
+    "Alchemy::EssenceAudio" => "Alchemy::Ingredients::Audio",
+    "Alchemy::EssenceBoolean" => "Alchemy::Ingredients::Boolean",
+    "Alchemy::EssenceDate" => "Alchemy::Ingredients::Date",
+    "Alchemy::EssenceFile" => "Alchemy::Ingredients::File",
+    "Alchemy::EssenceHeadline" => "Alchemy::Ingredients::Headline",
+    "Alchemy::EssenceHtml" => "Alchemy::Ingredients::Html",
+    "Alchemy::EssenceLink" => "Alchemy::Ingredients::Link",
+    "Alchemy::EssenceNode" => "Alchemy::Ingredients::Node",
+    "Alchemy::EssencePage" => "Alchemy::Ingredients::Page",
+    "Alchemy::EssencePicture" => "Alchemy::Ingredients::Picture",
+    "Alchemy::EssenceRichtext" => "Alchemy::Ingredients::Richtext",
+    "Alchemy::EssenceSelect" => "Alchemy::Ingredients::Select",
+    "Alchemy::EssenceText" => "Alchemy::Ingredients::Text",
+    "Alchemy::EssenceVideo" => "Alchemy::Ingredients::Video",
+  }
+
+  DEPRECATED_ESSENCE_CLASSES = DEPRECATED_ESSENCE_CLASS_MAPPING.keys
+
   # Define page preview sources
   #
   # A preview source is a Ruby class returning an URL

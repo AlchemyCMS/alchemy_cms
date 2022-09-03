@@ -19,6 +19,7 @@
 require_dependency "alchemy/content/factory"
 
 module Alchemy
+  # @deprecated
   class Content < BaseRecord
     include Alchemy::Logger
     include Alchemy::Hints

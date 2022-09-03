@@ -23,8 +23,12 @@ module Alchemy #:nodoc:
       #   The column the the validations run against.
       # @option options [String || Symbol] preview_text_column (ingredient_column)
       #   Specify the column for the preview_text method.
-      #
+      # @deprecated
       def acts_as_essence(options = {})
+        if !DEPRECATED_ESSENCE_CLASSES.include?(name)
+          Alchemy::Deprecation.warn "Please create a custom Alchemy::Ingredient for #{name} instead"
+        end
+
         register_as_essence_association!
 
         configuration = {
