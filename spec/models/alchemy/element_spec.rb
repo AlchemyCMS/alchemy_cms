@@ -1138,13 +1138,4 @@ module Alchemy
       element.reload.destroy!
     end
   end
-
-  describe ".available" do
-    subject { Alchemy::Element.available }
-
-    it "is deprecated" do
-      expect(Alchemy::Deprecation).to receive(:warn)
-      subject
-    end
-  end
 end

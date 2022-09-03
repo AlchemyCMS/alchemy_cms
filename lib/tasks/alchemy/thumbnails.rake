@@ -46,7 +46,7 @@ namespace :alchemy do
       ingredient_pictures = Alchemy::Ingredients::Picture.
         joins(:element).
         preload({ related_object: :thumbs }).
-        merge(Alchemy::Element.available)
+        merge(Alchemy::Element.published)
 
       if ENV["ELEMENTS"].present?
         ingredient_pictures = ingredient_pictures.merge(
