@@ -141,6 +141,12 @@ module Alchemy
     end
 
     describe "#full_url_for_element" do
+      around do |example|
+        Alchemy::Deprecation.silence do
+          example.run
+        end
+      end
+
       subject { full_url_for_element(element) }
 
       let(:element) { create(:alchemy_element, name: "headline") }
