@@ -33,13 +33,5 @@ module Alchemy
     def download_alchemy_attachment_url(attachment)
       alchemy.download_attachment_url(attachment, attachment.slug)
     end
-
-    # Returns the full url containing host, page and anchor for the given element
-    # @deprecated
-    def full_url_for_element(element)
-      "#{current_server}/#{element.page.urlname}##{element.dom_id}"
-    end
-
-    deprecate :full_url_for_element, deprecator: Alchemy::Deprecation
   end
 end
