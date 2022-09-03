@@ -27,7 +27,7 @@ module Alchemy
         end
 
         it "renders the element's view partial" do
-          is_expected.to have_selector("##{element.name}_#{element.id}")
+          is_expected.to have_selector("##{element.dom_id}")
         end
 
         context "with element view partial not found" do
@@ -65,10 +65,16 @@ module Alchemy
     end
 
     describe "#element_dom_id" do
+      around do |example|
+        Alchemy::Deprecation.silence do
+          example.run
+        end
+      end
+
       subject { helper.element_dom_id(element) }
 
       it "should render a unique dom id for element" do
-        is_expected.to eq("#{element.name}_#{element.id}")
+        is_expected.to eq(element.dom_id)
       end
     end
 
@@ -83,8 +89,8 @@ module Alchemy
         let(:options) { {} }
 
         it "should render all elements from current pages public version." do
-          is_expected.to have_selector("##{element.name}_#{element.id}")
-          is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
+          is_expected.to have_selector("##{element.dom_id}")
+          is_expected.to have_selector("##{another_element.dom_id}")
         end
 
         context "in preview_mode" do
@@ -95,7 +101,7 @@ module Alchemy
           end
 
           it "page draft version is used" do
-            is_expected.to have_selector("##{draft_element.name}_#{draft_element.id}")
+            is_expected.to have_selector("##{draft_element.dom_id}")
           end
         end
       end
@@ -125,8 +131,8 @@ module Alchemy
           let!(:another_element) { create(:alchemy_element, page: another_page, page_version: another_page.public_version) }
 
           it "should render all elements from that page." do
-            is_expected.to have_selector("##{element.name}_#{element.id}")
-            is_expected.to have_selector("##{another_element.name}_#{another_element.id}")
+            is_expected.to have_selector("##{element.dom_id}")
+            is_expected.to have_selector("##{another_element.dom_id}")
           end
 
           context "in preview_mode" do
@@ -137,7 +143,7 @@ module Alchemy
             end
 
             it "page draft version is used" do
-              is_expected.to have_selector("##{draft_element.name}_#{draft_element.id}")
+              is_expected.to have_selector("##{draft_element.dom_id}")
             end
           end
         end
