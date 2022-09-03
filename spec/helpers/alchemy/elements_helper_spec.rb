@@ -64,20 +64,6 @@ module Alchemy
       end
     end
 
-    describe "#element_dom_id" do
-      around do |example|
-        Alchemy::Deprecation.silence do
-          example.run
-        end
-      end
-
-      subject { helper.element_dom_id(element) }
-
-      it "should render a unique dom id for element" do
-        is_expected.to eq(element.dom_id)
-      end
-    end
-
     describe "#render_elements" do
       subject { helper.render_elements(options) }
 
