@@ -36,7 +36,7 @@ module Alchemy
 
     # Returns the full url containing host, page and anchor for the given element
     def full_url_for_element(element)
-      "#{current_server}/#{element.page.urlname}##{element_dom_id(element)}"
+      "#{current_server}/#{element.page.urlname}##{element.dom_id}"
     end
   end
 end

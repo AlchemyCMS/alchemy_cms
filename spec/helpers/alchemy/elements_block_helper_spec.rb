@@ -8,7 +8,7 @@ module Alchemy
   describe "ElementsBlockHelper" do
     let(:page) { create(:alchemy_page, :public) }
     let(:element) { create(:alchemy_element, page: page, tag_list: "foo, bar") }
-    let(:expected_wrapper_tag) { "div.#{element.name}##{element_dom_id(element)}" }
+    let(:expected_wrapper_tag) { "div.#{element.name}##{element.dom_id}" }
 
     describe "#element_view_for" do
       it "should yield an instance of ElementViewHelper" do

@@ -13,8 +13,8 @@ xml.rss version: "2.0" do
         if element.has_ingredient?("date")
           xml.pubDate element.ingredient("date").to_s(:rfc822)
         end
-        xml.link show_alchemy_page_url(@page, anchor: element_dom_id(element))
-        xml.guid show_alchemy_page_url(@page, anchor: element_dom_id(element))
+        xml.link show_alchemy_page_url(@page, anchor: "##{element.dom_id}")
+        xml.guid show_alchemy_page_url(@page, anchor: "##{element.dom_id}")
       end
     end
   end
