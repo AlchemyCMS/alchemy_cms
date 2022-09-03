@@ -14,6 +14,7 @@
 #
 
 module Alchemy
+  # @deprecated
   class EssenceFile < BaseRecord
     belongs_to :attachment, optional: true
     acts_as_essence ingredient_column: "attachment"

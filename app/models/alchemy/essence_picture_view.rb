@@ -2,6 +2,7 @@
 
 module Alchemy
   # Renders an essence picture view
+  # @deprecated
   class EssencePictureView
     include ActionView::Helpers::AssetTagHelper
     include ActionView::Helpers::UrlHelper

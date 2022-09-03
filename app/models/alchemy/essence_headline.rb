@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Alchemy
+  # @deprecated
   class EssenceHeadline < BaseRecord
     acts_as_essence
 
