@@ -165,7 +165,7 @@ module Alchemy
         end
 
         it "uses that to load elements to render" do
-          is_expected.to have_selector("#news_1001")
+          is_expected.to have_selector("#news-1")
         end
       end
 
