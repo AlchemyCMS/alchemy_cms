@@ -11,6 +11,7 @@
 #
 
 module Alchemy
+  # @deprecated
   class EssenceDate < BaseRecord
     acts_as_essence ingredient_column: "date"
 

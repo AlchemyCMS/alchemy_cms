@@ -13,6 +13,7 @@
 # Stores boolean values.
 # Provides a checkbox in the editor views.
 module Alchemy
+  # @deprecated
   class EssenceBoolean < BaseRecord
     acts_as_essence ingredient_column: "value"
   end

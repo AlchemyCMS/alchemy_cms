@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Alchemy
+  # @deprecated
   class EssenceNode < BaseRecord
     acts_as_essence(
       ingredient_column: :node,
