@@ -139,22 +139,5 @@ module Alchemy
           eq("http://#{helper.request.host}/attachment/#{attachment.id}/download/#{attachment.slug}")
       end
     end
-
-    describe "#full_url_for_element" do
-      around do |example|
-        Alchemy::Deprecation.silence do
-          example.run
-        end
-      end
-
-      subject { full_url_for_element(element) }
-
-      let(:element) { create(:alchemy_element, name: "headline") }
-      let(:current_server) { "" }
-
-      it "returns the url to this element" do
-        is_expected.to eq("#{current_server}/#{element.page.urlname}##{element_dom_id(element)}")
-      end
-    end
   end
 end

@@ -166,14 +166,6 @@ module Alchemy
       render "alchemy/elements/view_not_found", name: element.name
     end
 
-    # Returns a string for the id attribute of a html element for the given element
-    # @deprecated
-    def element_dom_id(element)
-      element&.dom_id
-    end
-
-    deprecate element_dom_id: "element.dom_id", deprecator: Alchemy::Deprecation
-
     # Renders the HTML tag attributes required for preview mode.
     def element_preview_code(element)
       tag_builder.tag_options(element_preview_code_attributes(element))
