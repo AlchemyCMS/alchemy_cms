@@ -541,10 +541,24 @@ module Alchemy
     end
 
     describe "#dom_id" do
-      let(:element) { build_stubbed(:alchemy_element) }
+      let(:element) { build_stubbed(:alchemy_element, position: 1) }
 
-      it "returns an string from element name and id" do
-        expect(element.dom_id).to eq("#{element.name}_#{element.id}")
+      it "returns a string from element name and position" do
+        expect(element.dom_id).to eq("#{element.name}-#{element.position}")
+      end
+
+      context "with a parent element" do
+        let(:parent_element) do
+          build_stubbed(:alchemy_element, position: 1)
+        end
+
+        let(:element) do
+          build_stubbed(:alchemy_element, position: 1, parent_element: parent_element)
+        end
+
+        it "returns a string from element name and position" do
+          expect(element.dom_id).to eq("#{parent_element.name}-#{parent_element.position}-#{element.name}-#{element.position}")
+        end
       end
     end
 

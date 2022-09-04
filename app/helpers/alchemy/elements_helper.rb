@@ -167,11 +167,12 @@ module Alchemy
     end
 
     # Returns a string for the id attribute of a html element for the given element
+    # @deprecated
     def element_dom_id(element)
-      return "" if element.nil?
-
-      "#{element.name}_#{element.id}".html_safe
+      element&.dom_id
     end
+
+    deprecate element_dom_id: "element.dom_id", deprecator: Alchemy::Deprecation
 
     # Renders the HTML tag attributes required for preview mode.
     def element_preview_code(element)
