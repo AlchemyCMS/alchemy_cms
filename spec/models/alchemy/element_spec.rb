@@ -151,6 +151,27 @@ module Alchemy
       end
     end
 
+    describe ".dom_id_class" do
+      it "defaults to Alchemy::Element::DomId" do
+        expect(described_class.dom_id_class).to eq(Alchemy::Element::DomId)
+      end
+    end
+
+    describe ".dom_id_class=" do
+      let(:dummy_dom_id) { Class.new }
+
+      around do |example|
+        default_class = described_class.dom_id_class
+        described_class.dom_id_class = dummy_dom_id
+        example.run
+        described_class.dom_id_class = default_class
+      end
+
+      it "sets the dom id class" do
+        expect(described_class.dom_id_class).to eq(dummy_dom_id)
+      end
+    end
+
     describe ".copy" do
       subject { Element.copy(element) }
 
@@ -543,22 +564,9 @@ module Alchemy
     describe "#dom_id" do
       let(:element) { build_stubbed(:alchemy_element, position: 1) }
 
-      it "returns a string from element name and position" do
-        expect(element.dom_id).to eq("#{element.name}-#{element.position}")
-      end
-
-      context "with a parent element" do
-        let(:parent_element) do
-          build_stubbed(:alchemy_element, position: 1)
-        end
-
-        let(:element) do
-          build_stubbed(:alchemy_element, position: 1, parent_element: parent_element)
-        end
-
-        it "returns a string from element name and position" do
-          expect(element.dom_id).to eq("#{parent_element.name}-#{parent_element.position}-#{element.name}-#{element.position}")
-        end
+      it "calls dom id class" do
+        expect(Alchemy::Element.dom_id_class).to receive(:new).with(element).and_call_original
+        element.dom_id
       end
     end
 
