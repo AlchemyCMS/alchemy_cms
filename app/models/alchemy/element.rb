@@ -142,6 +142,18 @@ module Alchemy
         super(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
 
+      # The class responsible for the +dom_id+ of elements.
+      # Defaults to +Alchemy::Element::DomId+.
+      def dom_id_class
+        @_dom_id_class || DomId
+      end
+
+      # Register a custom +DomId+ class responsible for the +dom_id+ of elements.
+      # Defaults to +Alchemy::Element::DomId+.
+      def dom_id_class=(klass)
+        @_dom_id_class = klass
+      end
+
       # This methods does a copy of source and all depending contents and all of their depending essences.
       #
       # == Options
