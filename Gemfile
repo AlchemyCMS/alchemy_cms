@@ -7,7 +7,7 @@ rails_version = ENV.fetch("RAILS_VERSION", 7.0).to_f
 gem "rails", "~> #{rails_version}.0"
 
 if ENV["DB"].nil? || ENV["DB"] == "sqlite"
-  gem "sqlite3", "~> 1.4.1"
+  gem "sqlite3", "~> 1.5.0"
 end
 if ENV["DB"] == "mysql" || ENV["DB"] == "mariadb"
   gem "mysql2", "~> 0.5.1"
