@@ -65,7 +65,7 @@ RSpec.describe Alchemy::Admin::PagesController do
       it "removes the page" do
         delete :destroy, params: { id: page.id, format: :js }
         expect(response).to redirect_to admin_page_path(page.id)
-        expect(flash[:notice]).to eq("A Page 61 deleted")
+        expect(flash[:notice]).to eq Alchemy.t("Page deleted", name: page.name)
       end
     end
   end
