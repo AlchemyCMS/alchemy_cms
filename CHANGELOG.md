@@ -1,3 +1,8 @@
+## 6.0.11 (2022-09-22)
+
+- Do not touch pages when toggling element [#2377](https://github.com/AlchemyCMS/alchemy_cms/pull/2377) ([tvdeyen](https://github.com/tvdeyen))
+- Remove unused Kaminari::Helpers::Tag hack [#2376](https://github.com/AlchemyCMS/alchemy_cms/pull/2376) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.10 (2022-09-04)
 
 - Deprecate essence classes [#2371](https://github.com/AlchemyCMS/alchemy_cms/pull/2371) ([tvdeyen](https://github.com/tvdeyen))
