@@ -282,28 +282,28 @@ module Alchemy
     describe "#fold" do
       subject { post :fold, params: { id: element.id }, xhr: true }
 
-      let(:element) { build_stubbed(:alchemy_element) }
+      let(:page) { create(:alchemy_page) }
 
       before do
-        expect(element).to receive(:save).and_return true
-        expect(Element).to receive(:find).and_return element
+        expect(Element).to receive(:find).and_return(element)
+        element.touchable_pages << page
       end
 
       context "if element is folded" do
-        before { expect(element).to receive(:folded).and_return true }
+        let(:element) { create(:alchemy_element, folded: true) }
 
         it "sets folded to false." do
-          expect(element).to receive(:folded=).with(false).and_return(false)
-          subject
+          expect(page).not_to receive(:touch)
+          expect { subject }.to change { element.folded }.to(false)
         end
       end
 
       context "if element is not folded" do
-        before { expect(element).to receive(:folded).and_return false }
+        let(:element) { create(:alchemy_element, folded: false) }
 
         it "sets folded to true." do
-          expect(element).to receive(:folded=).with(true).and_return(true)
-          subject
+          expect(page).not_to receive(:touch)
+          expect { subject }.to change { element.folded }.to(true)
         end
       end
     end
