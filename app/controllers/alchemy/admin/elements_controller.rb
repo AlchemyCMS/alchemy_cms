@@ -90,8 +90,8 @@ module Alchemy
 
       def fold
         @page = @element.page
-        @element.folded = !@element.folded
-        @element.save
+        # We do not want to trigger the touch callback or any validations
+        @element.update_columns(folded: !@element.folded)
       end
 
       private
