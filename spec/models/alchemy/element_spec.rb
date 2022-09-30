@@ -151,6 +151,27 @@ module Alchemy
       end
     end
 
+    describe ".dom_id_class" do
+      it "defaults to Alchemy::Element::DomId" do
+        expect(described_class.dom_id_class).to eq(Alchemy::Element::DomId)
+      end
+    end
+
+    describe ".dom_id_class=" do
+      let(:dummy_dom_id) { Class.new }
+
+      around do |example|
+        default_class = described_class.dom_id_class
+        described_class.dom_id_class = dummy_dom_id
+        example.run
+        described_class.dom_id_class = default_class
+      end
+
+      it "sets the dom id class" do
+        expect(described_class.dom_id_class).to eq(dummy_dom_id)
+      end
+    end
+
     describe ".copy" do
       subject { Element.copy(element) }
 
@@ -541,10 +562,11 @@ module Alchemy
     end
 
     describe "#dom_id" do
-      let(:element) { build_stubbed(:alchemy_element) }
+      let(:element) { build_stubbed(:alchemy_element, position: 1) }
 
-      it "returns an string from element name and id" do
-        expect(element.dom_id).to eq("#{element.name}_#{element.id}")
+      it "calls dom id class" do
+        expect(Alchemy::Element.dom_id_class).to receive(:new).with(element).and_call_original
+        element.dom_id
       end
     end
 
@@ -1136,15 +1158,6 @@ module Alchemy
         [nested_element_1, nested_element_2, nested_element_3]
       ).and_call_original
       element.reload.destroy!
-    end
-  end
-
-  describe ".available" do
-    subject { Alchemy::Element.available }
-
-    it "is deprecated" do
-      expect(Alchemy::Deprecation).to receive(:warn)
-      subject
     end
   end
 end

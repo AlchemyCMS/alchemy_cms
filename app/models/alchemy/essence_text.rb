@@ -16,6 +16,7 @@
 #
 
 module Alchemy
+  # @deprecated
   class EssenceText < BaseRecord
     acts_as_essence
   end

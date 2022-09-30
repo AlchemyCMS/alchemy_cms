@@ -166,13 +166,6 @@ module Alchemy
       render "alchemy/elements/view_not_found", name: element.name
     end
 
-    # Returns a string for the id attribute of a html element for the given element
-    def element_dom_id(element)
-      return "" if element.nil?
-
-      "#{element.name}_#{element.id}".html_safe
-    end
-
     # Renders the HTML tag attributes required for preview mode.
     def element_preview_code(element)
       tag_builder.tag_options(element_preview_code_attributes(element))

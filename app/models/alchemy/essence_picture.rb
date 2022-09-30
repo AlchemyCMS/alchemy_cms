@@ -22,6 +22,7 @@
 #
 
 module Alchemy
+  # @deprecated
   class EssencePicture < BaseRecord
     include Alchemy::PictureThumbnails
 

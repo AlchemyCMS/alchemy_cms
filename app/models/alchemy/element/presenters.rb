@@ -82,7 +82,7 @@ module Alchemy
       # Returns a dom id used for elements html id tag.
       #
       def dom_id
-        "#{name}_#{id}"
+        self.class.dom_id_class.new(self).call
       end
 
       # The content that's used for element's preview text.

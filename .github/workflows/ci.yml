@@ -4,16 +4,14 @@ on: [push, pull_request]
 
 jobs:
   RSpec:
-    runs-on: ubuntu-18.04
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         rails:
-          - "6.0"
           - "6.1"
           - "7.0"
         ruby:
-          - "2.6"
           - "2.7"
           - "3.0"
           - "3.1"
@@ -21,25 +19,6 @@ jobs:
           - mysql
           - postgresql
           - mariadb
-        exclude:
-          - rails: "6.0"
-            ruby: "3.1"
-            database: mysql
-          - rails: "6.0"
-            ruby: "3.1"
-            database: postgresql
-          - rails: "6.0"
-            ruby: "3.1"
-            database: mariadb
-          - rails: "7.0"
-            ruby: "2.6"
-            database: mysql
-          - rails: "7.0"
-            ruby: "2.6"
-            database: postgresql
-          - rails: "7.0"
-            ruby: "2.6"
-            database: mariadb
     env:
       DB: ${{ matrix.database }}
       DB_USER: alchemy_user

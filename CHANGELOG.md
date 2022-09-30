@@ -1,3 +1,19 @@
+## 6.0.11 (2022-09-22)
+
+- Do not touch pages when toggling element [#2377](https://github.com/AlchemyCMS/alchemy_cms/pull/2377) ([tvdeyen](https://github.com/tvdeyen))
+- Remove unused Kaminari::Helpers::Tag hack [#2376](https://github.com/AlchemyCMS/alchemy_cms/pull/2376) ([tvdeyen](https://github.com/tvdeyen))
+
+## 6.0.10 (2022-09-04)
+
+- Deprecate essence classes [#2371](https://github.com/AlchemyCMS/alchemy_cms/pull/2371) ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate full_url_for_element helper [#2368](https://github.com/AlchemyCMS/alchemy_cms/pull/2368) ([tvdeyen](https://github.com/tvdeyen))
+- Deprecate element_dom_id helper [#2368](https://github.com/AlchemyCMS/alchemy_cms/pull/2368) ([tvdeyen](https://github.com/tvdeyen))
+- Use position instead of id for element dom_id [#2368](https://github.com/AlchemyCMS/alchemy_cms/pull/2368) ([tvdeyen](https://github.com/tvdeyen))
+- Fix ingredient boolean preview text [#2367](https://github.com/AlchemyCMS/alchemy_cms/pull/2367) ([tvdeyen](https://github.com/tvdeyen))
+- Decide locale prefix with page language in show_alchemy_page_url helper [#2366](https://github.com/AlchemyCMS/alchemy_cms/pull/2366) ([tvdeyen](https://github.com/tvdeyen))
+- Use cache_key_with_version in page_etag [#2365](https://github.com/AlchemyCMS/alchemy_cms/pull/2365) ([tvdeyen](https://github.com/tvdeyen))
+- Fix author edit_content permissions [#2364](https://github.com/AlchemyCMS/alchemy_cms/pull/2364) ([tvdeyen](https://github.com/tvdeyen))
+
 ## 6.0.9 (2022-07-25)
 
 - Allow Site managers to remove page locks [#2360](https://github.com/AlchemyCMS/alchemy_cms/pull/2360) ([mamhoff](https://github.com/mamhoff))
@@ -293,6 +309,10 @@
 - Fix constants reloading in page and element concerns [#2024](https://github.com/AlchemyCMS/alchemy_cms/pull/2024) ([tvdeyen](https://github.com/tvdeyen))
 - Fix delete element confirm dialog [#2023](https://github.com/AlchemyCMS/alchemy_cms/pull/2023) ([tvdeyen](https://github.com/tvdeyen))
 - Build for Ruby 3 [#1990](https://github.com/AlchemyCMS/alchemy_cms/pull/1990) ([tvdeyen](https://github.com/tvdeyen))
+
+## 5.3.8 (2022-09-02)
+
+- Fix author edit_content permissions [#2364](https://github.com/AlchemyCMS/alchemy_cms/pull/2364) ([tvdeyen](https://github.com/tvdeyen))
 
 ## 5.3.7 (2022-06-10)
 

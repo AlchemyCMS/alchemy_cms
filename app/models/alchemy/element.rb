@@ -103,7 +103,6 @@ module Alchemy
     scope :published, -> { where(public: true) }
     scope :hidden, -> { where(public: false) }
     scope :not_restricted, -> { joins(:page).merge(Page.not_restricted) }
-    scope :available, -> { published }
     scope :named, ->(names) { where(name: names) }
     scope :excluded, ->(names) { where.not(name: names) }
     scope :fixed, -> { where(fixed: true) }
@@ -143,6 +142,18 @@ module Alchemy
         super(element_definition.merge(element_attributes).except(*FORBIDDEN_DEFINITION_ATTRIBUTES))
       end
 
+      # The class responsible for the +dom_id+ of elements.
+      # Defaults to +Alchemy::Element::DomId+.
+      def dom_id_class
+        @_dom_id_class || DomId
+      end
+
+      # Register a custom +DomId+ class responsible for the +dom_id+ of elements.
+      # Defaults to +Alchemy::Element::DomId+.
+      def dom_id_class=(klass)
+        @_dom_id_class = klass
+      end
+
       # This methods does a copy of source and all depending contents and all of their depending essences.
       #
       # == Options
@@ -178,8 +189,6 @@ module Alchemy
 
         all_from_clipboard(clipboard).where(name: parent_element.definition["nestable_elements"])
       end
-
-      deprecate available: :published, deprecator: Alchemy::Deprecation
     end
 
     # Returns next public element from same page.

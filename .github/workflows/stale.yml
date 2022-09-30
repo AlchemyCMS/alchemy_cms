@@ -12,6 +12,8 @@ jobs:
       - uses: actions/stale@v5
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
+          days-before-issue-stale: 180
+          days-before-close: 30
           stale-issue-message: |
             This issue has not seen any activity in a long time.
             Please create a pull request with a fix or ask someone of the community if they can help.

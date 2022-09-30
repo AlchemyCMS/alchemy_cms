@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_05_14_072456) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_31_084620) do
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
     t.string "file_name"
@@ -166,6 +166,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_05_14_072456) do
     t.boolean "loop", default: false, null: false
     t.boolean "muted", default: false, null: false
     t.string "preload"
+    t.boolean "playsinline", default: false, null: false
     t.index ["attachment_id"], name: "index_alchemy_essence_videos_on_attachment_id"
   end
 

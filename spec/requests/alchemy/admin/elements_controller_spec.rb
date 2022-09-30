@@ -53,8 +53,9 @@ RSpec.describe Alchemy::Admin::ElementsController do
       let(:element) { create(:alchemy_element, :with_ingredients) }
 
       it "removes Tinymce for richtext ingredients" do
+        text_id = element.ingredient_by_role(:text).id
         delete admin_element_path(id: element.id, format: :js)
-        expect(response.body).to include("Alchemy.Tinymce.remove([#{element.ingredient_by_role(:text).id}]);")
+        expect(response.body).to include("Alchemy.Tinymce.remove([#{text_id}]);")
       end
     end
   end

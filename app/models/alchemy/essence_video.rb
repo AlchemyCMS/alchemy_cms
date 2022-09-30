@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Alchemy
+  # @deprecated
   class EssenceVideo < ActiveRecord::Base
     acts_as_essence(
       ingredient_column: :attachment,

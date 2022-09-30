@@ -15,10 +15,10 @@ module Alchemy::Upgrader::Tasks
             Alchemy::Page.transaction do
               page.versions.create!(
                 public_on: page.legacy_public_on,
-                public_until: page.legacy_public_until
+                public_until: page.legacy_public_until,
               ).tap do |version|
                 # We must not use .find_each here to not mess up the order of elements
-                page.draft_version.elements.not_nested.available.each do |element|
+                page.draft_version.elements.not_nested.published.each do |element|
                   Alchemy::Element.copy(element, page_version_id: version.id)
                 end
               end
