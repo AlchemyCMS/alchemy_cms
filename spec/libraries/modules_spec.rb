@@ -152,11 +152,11 @@ module Alchemy
         }
       end
 
-      it "registers a module definition into global list of modules" do
-        class ::RegisterModuleDummyController
-          ### mock the existence of the controller
-        end
+      class ::RegisterModuleDummyController
+        ### mock the existence of the controller
+      end
 
+      it "registers a module definition into global list of modules" do
         Modules.register_module(alchemy_module)
         expect(Modules.alchemy_modules).to include(alchemy_module)
       end
@@ -167,6 +167,17 @@ module Alchemy
 
       it "fails to register a module when a matching sub_navigation controller cannot be found" do
         expect { Modules.register_module(bad_alchemy_module_b) }.to raise_error(NameError)
+      end
+
+      it "registers a module definition only once" do
+        2.times do
+          Modules.register_module(alchemy_module)
+        end
+        expect(
+          Modules.class_variable_get(:@@alchemy_modules).count do |m|
+            m["name"] == alchemy_module["name"]
+          end
+        ).to eq(1)
       end
     end
   end
