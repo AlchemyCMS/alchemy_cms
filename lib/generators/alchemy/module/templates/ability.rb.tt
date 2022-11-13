@@ -1,4 +1,4 @@
-class <%= @class_name %>Ability
+class <%= @controller_class %>Ability
   include CanCan::Ability
 
   def initialize(user)
@@ -7,5 +7,4 @@ class <%= @class_name %>Ability
       can :manage, :admin_<%= @controller_name %>
     end
   end
-
 end

@@ -32,13 +32,13 @@ module Alchemy
           defined_controllers = [definition_hash["navigation"]["controller"]]
 
           if definition_hash["navigation"]["sub_navigation"].is_a?(Array)
-            defined_controllers.concat(definition_hash["navigation"]["sub_navigation"].map{ |x| x["controller"] })
+            defined_controllers.concat(definition_hash["navigation"]["sub_navigation"].map { |x| x["controller"] })
           end
 
           validate_controllers_existence(defined_controllers)
         end
 
-        @@alchemy_modules << definition_hash
+        @@alchemy_modules |= [definition_hash]
       end
 
       private
