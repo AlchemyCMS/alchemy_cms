@@ -23,6 +23,7 @@ module Alchemy
       # @return [String]
       #
       def call(options = {})
+        options[:format] ||= @attachment.suffix
         if options.delete(:download)
           routes.download_attachment_path(@attachment, options)
         else
