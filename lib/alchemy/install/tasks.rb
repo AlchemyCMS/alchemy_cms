@@ -18,12 +18,10 @@ module Alchemy
           inject_into_file "./config/routes.rb", "\n  mount Alchemy::Engine => '#{mountpoint}'\n", { after: sentinel, verbose: true }
         end
 
-        def set_primary_language(auto_accept = false)
-          code = "en"
+        def set_primary_language(code: "en", name: "English", auto_accept: false)
           unless auto_accept
             code = ask("- What is the language code of your site's primary language?", default: code)
           end
-          name = "English"
           unless auto_accept
             name = ask("- What is the name of your site's primary language?", default: name)
           end

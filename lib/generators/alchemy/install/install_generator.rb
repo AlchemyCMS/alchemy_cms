@@ -33,6 +33,16 @@ module Alchemy
         default: false,
         desc: "Skip mounting into routes.rb during install."
 
+      class_option :default_language_code,
+        type: :string,
+        default: "en",
+        desc: "The default language code of your site."
+
+      class_option :default_language_name,
+        type: :string,
+        default: "English",
+        desc: "The default language name of your site."
+
       source_root File.expand_path("files", __dir__)
 
       def setup
@@ -118,7 +128,11 @@ module Alchemy
 
       def set_primary_language
         header
-        install_tasks.set_primary_language(options[:auto_accept])
+        install_tasks.set_primary_language(
+          code: options[:default_language_code],
+          name: options[:default_language_name],
+          auto_accept: options[:auto_accept]
+        )
       end
 
       def setup_database
