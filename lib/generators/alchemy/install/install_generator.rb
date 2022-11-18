@@ -26,7 +26,12 @@ module Alchemy
       class_option :skip_db_create,
         type: :boolean,
         default: false,
-        desc: "Skip creting the database during install."
+        desc: "Skip creating the database during install."
+
+      class_option :skip_mount,
+        type: :boolean,
+        default: false,
+        desc: "Skip mounting into routes.rb during install."
 
       source_root File.expand_path("files", __dir__)
 
@@ -34,6 +39,11 @@ module Alchemy
         header
         say "Welcome to AlchemyCMS!"
         say "Let's begin with some questions.\n\n"
+      end
+
+      def mount
+        return if options[:skip_mount]
+
         install_tasks.inject_routes(options[:auto_accept])
       end
 
