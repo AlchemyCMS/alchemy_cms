@@ -63,14 +63,14 @@ module Alchemy
         let(:attachment) { create(:alchemy_attachment) }
 
         it "returns local path" do
-          is_expected.to eq "/attachment/#{attachment.id}/show"
+          is_expected.to eq "/attachment/#{attachment.id}/show.png"
         end
 
         context "with download enabled" do
           subject { attachment.url(download: true) }
 
           it "returns local download path" do
-            is_expected.to eq "/attachment/#{attachment.id}/download"
+            is_expected.to eq "/attachment/#{attachment.id}/download.png"
           end
 
           context "with extra params given" do
@@ -88,7 +88,7 @@ module Alchemy
           subject { attachment.url(download: false) }
 
           it "returns local path" do
-            is_expected.to eq "/attachment/#{attachment.id}/show"
+            is_expected.to eq "/attachment/#{attachment.id}/show.png"
           end
 
           context "with extra params given" do
