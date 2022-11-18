@@ -50,7 +50,7 @@ if Gem.ruby_version >= Gem::Version.new("3.1.0")
   if rails_version.to_s.match?(/6.1/)
     # Rails 6.1 needs this as well
     gem "net-pop", "~> 0.1.0", require: false
-    gem "net-imap", "~> 0.2.0", require: false
+    gem "net-imap", "~> 0.3.1", require: false
   end
   gem "net-smtp", "~> 0.3.0", require: false
 end
