@@ -1,3 +1,9 @@
+## 6.0.12 (2022-11-19)
+
+- More installer options [#2385](https://github.com/AlchemyCMS/alchemy_cms/pull/2385) ([tvdeyen](https://github.com/tvdeyen))
+- Fix custom module installer [#2384](https://github.com/AlchemyCMS/alchemy_cms/pull/2384) ([tvdeyen](https://github.com/tvdeyen))
+- Always provide format with attachment URLs [#2383](https://github.com/AlchemyCMS/alchemy_cms/pull/2383) ([mamhoff](https://github.com/mamhoff))
+
 ## 6.0.11 (2022-09-22)
 
 - Do not touch pages when toggling element [#2377](https://github.com/AlchemyCMS/alchemy_cms/pull/2377) ([tvdeyen](https://github.com/tvdeyen))
