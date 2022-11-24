@@ -15,13 +15,25 @@ module Alchemy
         # @return [Alchemy::PictureThumb] The persisted thumbnail record
         #
         def call(variant, signature, uid)
-          image = variant.image
-          image.to_file(server_path(uid)).close
-          variant.picture.thumbs.create!(
+          return if !variant.picture.valid?
+
+          # create the thumb before storing
+          # to prevent db race conditions
+          thumb = Alchemy::PictureThumb.create!(
             picture: variant.picture,
             signature: signature,
             uid: uid,
           )
+          begin
+            # process the image
+            image = variant.image
+            # store the processed image
+            image.to_file(server_path(uid)).close
+          rescue RuntimeError => e
+            Rails.logger.warn(e)
+            # destroy the thumb if processing or storing fails
+            thumb&.destroy
+          end
         end
 
         private
