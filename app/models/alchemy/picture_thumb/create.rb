@@ -30,7 +30,7 @@ module Alchemy
             # store the processed image
             image.to_file(server_path(uid)).close
           rescue RuntimeError => e
-            Rails.logger.warn(e)
+            ErrorTracking.notification_handler.call(e)
             # destroy the thumb if processing or storing fails
             thumb&.destroy
           end
