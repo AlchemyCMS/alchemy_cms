@@ -33,6 +33,13 @@ RSpec.describe "Page seeding", type: :system do
         expect(Alchemy::Page.find_by(name: "Footer")).to be_present
       end
 
+      it "public pages have two page versions" do
+        seed
+        home_page = Alchemy::Page.find_by(name: "Home")
+        expect(home_page.public_version).to be_present
+        expect(home_page.draft_version).to be_present
+      end
+
       context "when more then one content root page is present" do
         let(:seeds_file) do
           "spec/fixtures/pages_with_two_roots.yml"
