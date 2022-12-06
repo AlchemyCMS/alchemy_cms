@@ -9,6 +9,8 @@ module Alchemy
     end
 
     mattr_accessor :notification_handler
-    @@notification_handler = BaseHandler
   end
 end
+
+require "alchemy/error_tracking/error_logger"
+Alchemy::ErrorTracking.notification_handler = Alchemy::ErrorTracking::ErrorLogger
