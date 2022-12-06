@@ -83,7 +83,11 @@ module Alchemy
       end
 
       def page_yml
-        @_page_yml ||= YAML.load_file(page_seeds_file)
+        @_page_yml ||= YAML.safe_load(
+          page_seeds_file.read,
+          permitted_classes: [Date],
+          aliases: true
+        )
       end
 
       def contentpages
