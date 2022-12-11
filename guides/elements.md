@@ -282,13 +282,17 @@ bin/rails g alchemy:elements --skip
 ~~~
 
 ::: tip
+The `--skip` flag skips files that already exist
+:::
+
+::: tip
 You can pass `--template-engine` or `-e` as an argument to use `haml`, `slim` or `erb`.
 The default template engine depends on your settings in your Rails host app.
 :::
 
 The generator will create two files for each element in your `app/views/alchemy/elements` folder.
 
-According to the first example, the article element, the generator will create the `_article_view.html.erb` and `_article_editor.html.erb` files.
+According to the first example, the article element, the generator will create the `_article_view.html.erb` and `_article_editor.html.erb` (_deprecated since Alchemy 4.4_) files.
 
 * The element's view file `_article_view.html.erb` gets rendered, when a user requests your webpage.
 * The element's editor file `_article_editor.html.erb` gets rendered, when you edit the page in the admin frontend.  _deprecated since Alchemy 4.4_
@@ -313,9 +317,15 @@ Now that the above 'article' element example is associated with the 'standard' p
 
 This renders all elements from current page.
 
+::: tip
+Pages must be published for Elements to be associated and rendered.
+
+If you aren't seeing content you created in the admin interface, make sure elements are saved and and you click the "Publish current page content" button from the edit page admin view.
+:::
+
 ### Render only specific elements
 
-Sometimes you only want to render specific elements on your page and maybe some elements not.
+Sometimes you only want to render specific elements on your page and maybe exclude some elements.
 
 ~~~ erb
 <body>
@@ -328,6 +338,11 @@ Sometimes you only want to render specific elements on your page and maybe some 
   <footer><%= render_elements only: 'footer' %></footer>
 </body>
 ~~~
+
+::: tip
+The above example uses _elements_ (not pages) called `header` and `footer`. If these elements need to be editable in the Admin interface, you should associate these elements with their own [page_layouts](#defining-page-layouts).
+:::
+
 
 ### Render elements from other pages
 
