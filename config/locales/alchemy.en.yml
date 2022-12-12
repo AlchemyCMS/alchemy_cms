@@ -228,7 +228,7 @@ en:
 
     add_nested_element: "Add %{name}"
     anchor: 'Anchor'
-    anchor_link_headline: "You can link to an element anchor from the actual page."
+    anchor_link_headline: You can link to an anchor from the current page.
     automatic_anchor_notice: The anchor is generated automatically.
     attribute_fixed: Value can't be changed for this page type
     back: 'back'
@@ -468,7 +468,7 @@ en:
     image_name: "Name: %{name}"
     image_title: "Title-tag"
     internal_link_headline: "Search for a page to link to by entering its name into the Page select."
-    internal_link_page_elements_explanation: "Additionally you can choose an anchor to an element from selected page."
+    internal_link_page_elements_explanation: "Additionally you can choose an anchor to link to from selected page."
     "item copied to clipboard": "Copied %{name} to clipboard"
     "item moved to clipboard": "Moved %{name} to clipboard"
     "item removed from clipboard": "Removed %{name} from clipboard"

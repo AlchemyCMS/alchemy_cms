@@ -100,7 +100,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
           (data) =>
             page = data.pages[0]
             if page
-              @initElementSelect(page.id)
+              @initDomIdSelect(page.id)
               callback
                 id: page.url_path
                 name: page.name
@@ -116,16 +116,19 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
         @$element_anchor.select2('destroy').prop('disabled', true)
       else
         @$element_anchor.val('')
-        @initElementSelect(event.added.page_id)
+        @initDomIdSelect(event.added.page_id)
 
-  # Initializes the select2 based elements select
+  # Initializes the select2 based dom id select
   # reveals after a page has been selected
-  initElementSelect: (page_id) ->
-    $.get Alchemy.routes.api_elements_path, page_id: page_id, (data) =>
+  initDomIdSelect: (page_id) ->
+    $.get Alchemy.routes.api_ingredients_path, page_id: page_id, (data) =>
+      dom_ids = data.ingredients.filter (ingredient) ->
+        ingredient.data?.dom_id
+      .map (ingredient) ->
+        id: ingredient.data.dom_id
+        text: "##{ingredient.data.dom_id}"
       @$element_anchor.prop('disabled', false).removeAttr('placeholder').select2
-        data: [ id: '', text: Alchemy.t('None') ].concat data.elements.map (element) ->
-          id: element.dom_id
-          text: element.display_name
+        data: [ id: '', text: Alchemy.t('None') ].concat(dom_ids)
 
   # Creates a link if no validation errors are present.
   # Otherwise shows an error notice.
@@ -238,11 +241,10 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
   # Populates the internal anchors select
   initAnchorLinks: ->
     frame = document.getElementById('alchemy_preview_window')
-    elements = frame.contentDocument?.getElementsByTagName('*') || []
+    elements = frame.contentDocument?.querySelectorAll('[id]') || []
     if elements.length > 0
       for element in elements
-        if element.id
-          @$anchor_link.append("<option value='##{element.id}'>##{element.id}</option>")
+        @$anchor_link.append("<option value='##{element.id}'>##{element.id}</option>")
     else
       @$anchor_link.html("<option>#{Alchemy.t('No anchors found')}</option>")
     return
