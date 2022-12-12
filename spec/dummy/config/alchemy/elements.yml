@@ -136,6 +136,9 @@
     - role: text
       type: Text
       hint: true
+      settings:
+        anchor: true
+        linkable: true
       validate:
         - format: !ruby/regexp '/\w+/i'
     - role: picture

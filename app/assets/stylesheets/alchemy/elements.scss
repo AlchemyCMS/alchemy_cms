@@ -714,6 +714,18 @@ select.long {
     input[type="text"] {
       padding-right: 2 * ($form-field-addon-width + $default-padding);
     }
+
+    &.with-anchor {
+      input[type="text"] {
+        padding-right: 26px + 2 * ($form-field-addon-width + $default-padding);
+      }
+    }
+  }
+
+  &.with-anchor {
+    input[type="text"] {
+      padding-right: 26px;
+    }
   }
 
   &.missing {
@@ -962,9 +974,14 @@ textarea.has_tinymce {
 }
 
 .ingredient-date--label,
-.essence_date--label {
+.essence_date--label,
+.edit-ingredient-anchor-link {
   position: absolute;
   right: 2 * $default-padding;
   bottom: $form-field-height / 2;
   margin: 0 !important;
+
+  .linkable & {
+    right: 2 * $form-field-addon-width + $default-padding;
+  }
 }

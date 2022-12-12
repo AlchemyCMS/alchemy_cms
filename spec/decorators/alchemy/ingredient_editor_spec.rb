@@ -60,12 +60,22 @@ RSpec.describe Alchemy::IngredientEditor do
 
     context "when linkable" do
       before do
-        expect(ingredient).to receive(:settings) do
+        expect(ingredient).to receive(:settings).at_least(:once) do
           { linkable: true }
         end
       end
 
       it { is_expected.to include("linkable") }
+    end
+
+    context "when with anchor" do
+      before do
+        expect(ingredient).to receive(:settings).at_least(:once) do
+          { anchor: true }
+        end
+      end
+
+      it { is_expected.to include("with-anchor") }
     end
   end
 

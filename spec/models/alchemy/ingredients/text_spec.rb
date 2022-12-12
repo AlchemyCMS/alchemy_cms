@@ -14,12 +14,19 @@ RSpec.describe Alchemy::Ingredients::Text do
       role: "headline",
       value: "A brown fox quickly jumps over the lazy dog",
       data: {
+        dom_id: "se-anchor",
         link: "https://example.com",
         link_target: "_blank",
         link_title: "Click here",
         link_class_name: "button",
       },
     )
+  end
+
+  describe "#dom_id" do
+    subject { text_ingredient.dom_id }
+
+    it { is_expected.to eq("se-anchor") }
   end
 
   describe "#link" do

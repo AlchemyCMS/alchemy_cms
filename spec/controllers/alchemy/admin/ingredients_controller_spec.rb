@@ -60,9 +60,9 @@ RSpec.describe Alchemy::Admin::IngredientsController do
       let(:ingredient) do
         stub_model(
           Alchemy::Ingredients::Headline,
-          type: "Alchemy::Ingredients::Headline",
+          type: "Alchemy::Ingredients::Text",
           element: element,
-          role: "headline",
+          role: "text",
         )
       end
 

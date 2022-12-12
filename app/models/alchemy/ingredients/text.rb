@@ -8,6 +8,7 @@ module Alchemy
     #
     class Text < Alchemy::Ingredient
       store_accessor :data,
+        :dom_id,
         :link,
         :link_target,
         :link_title,

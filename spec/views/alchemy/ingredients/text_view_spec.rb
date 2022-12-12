@@ -6,10 +6,29 @@ describe "alchemy/ingredients/_text_view" do
   let(:ingredient) { Alchemy::Ingredients::Text.new(value: "Hello World") }
 
   context "with blank link value" do
-    it "only renders the value" do
-      render ingredient
-      expect(rendered).to have_content("Hello World")
-      expect(rendered).to_not have_selector("a")
+    context "and dom id set" do
+      let(:ingredient) do
+        Alchemy::Ingredients::Text.new(
+          value: "Hello World",
+          data: {
+            dom_id: "se-anchor",
+          },
+        )
+      end
+
+      it "renders the dom_id and the value" do
+        render ingredient, options: { disable_link: true }
+        expect(rendered).to have_content("Hello World")
+        expect(rendered).to have_selector('a[id="se-anchor"]')
+      end
+    end
+
+    context "and no dom id set" do
+      it "only renders the value" do
+        render ingredient
+        expect(rendered).to have_content("Hello World")
+        expect(rendered).to_not have_selector("a")
+      end
     end
   end
 
@@ -39,10 +58,32 @@ describe "alchemy/ingredients/_text_view" do
     end
 
     context "but with options disable_link set to true" do
-      it "only renders the value" do
-        render ingredient, options: { disable_link: true }
-        expect(rendered).to have_content("Hello World")
-        expect(rendered).to_not have_selector("a")
+      context "and dom id set" do
+        let(:ingredient) do
+          Alchemy::Ingredients::Text.new(
+            value: "Hello World",
+            data: {
+              dom_id: "se-anchor",
+              link: "http://google.com",
+              link_title: "Foo",
+              link_target: "blank",
+            },
+          )
+        end
+
+        it "renders the dom_id and the value" do
+          render ingredient, options: { disable_link: true }
+          expect(rendered).to have_content("Hello World")
+          expect(rendered).to have_selector('a[id="se-anchor"]')
+        end
+      end
+
+      context "and no dom id set" do
+        it "only renders the value" do
+          render ingredient, options: { disable_link: true }
+          expect(rendered).to have_content("Hello World")
+          expect(rendered).to_not have_selector("a")
+        end
       end
     end
 
@@ -55,6 +96,25 @@ describe "alchemy/ingredients/_text_view" do
         render ingredient
         expect(rendered).to have_content("Hello World")
         expect(rendered).to_not have_selector("a")
+      end
+    end
+
+    context "and a dom id set" do
+      let(:ingredient) do
+        Alchemy::Ingredients::Text.new(
+          value: "Hello World",
+          data: {
+            dom_id: "se-anchor",
+            link: "http://google.com",
+            link_title: "Foo",
+            link_target: "blank",
+          },
+        )
+      end
+
+      it "renders the dom_id" do
+        render ingredient
+        expect(rendered).to have_selector('a[id="se-anchor"]')
       end
     end
   end

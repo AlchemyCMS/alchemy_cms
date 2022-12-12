@@ -1,13 +1,17 @@
 <%- options = local_assigns.fetch(:options, {}) -%>
 <%- html_options = local_assigns.fetch(:html_options, {}) -%>
-<%- if text_view.link.blank? ||
-    text_view.settings_value(:disable_link, options) -%>
-<%= text_view.value -%>
+<%- if text_view.link.blank? || text_view.settings_value(:disable_link, options) -%>
+  <%- if text_view.dom_id.present? -%>
+    <%= content_tag :a, text_view.value, id: text_view.dom_id %>
+  <% else %>
+    <%= text_view.value -%>
+  <%- end -%>
 <%- else -%>
   <%= link_to(
     text_view.value,
     url_for(text_view.link),
     {
+      id: text_view.dom_id.presence,
       title: text_view.link_title,
       target: (text_view.link_target == "blank" ? "_blank" : nil),
       'data-link-target' => text_view.link_target
