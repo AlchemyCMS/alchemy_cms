@@ -7,6 +7,11 @@
   <%= element_form.fields_for(:ingredients, headline_editor.ingredient) do |f| %>
     <%= ingredient_label(headline_editor) %>
     <%= f.text_field :value, id: nil %>
+
+    <% if headline_editor.settings[:anchor] %>
+      <%= render "alchemy/ingredients/shared/anchor", ingredient_editor: headline_editor %>
+    <% end %>
+
     <% if has_level_select %>
       <div class="input-addon right<%= " second" if has_size_select %>">
         <%= f.select :level,
@@ -15,6 +20,7 @@
           { class: "custom-select", title: f.object.class.human_attribute_name(:level) } %>
       </div>
     <% end %>
+
     <% if has_size_select %>
       <div class="input-addon right">
         <%= f.select :size, options_for_select(headline_editor.size_options, headline_editor.size),

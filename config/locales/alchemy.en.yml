@@ -229,6 +229,7 @@ en:
     add_nested_element: "Add %{name}"
     anchor: 'Anchor'
     anchor_link_headline: "You can link to an element anchor from the actual page."
+    automatic_anchor_notice: The anchor is generated automatically.
     attribute_fixed: Value can't be changed for this page type
     back: 'back'
     locked_pages: "Active pages"

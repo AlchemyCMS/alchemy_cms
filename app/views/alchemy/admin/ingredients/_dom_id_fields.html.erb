@@ -1,0 +1,4 @@
+<% disabled = ingredient.settings[:anchor].to_s != "true" %>
+<%= f.input :dom_id,
+  disabled: disabled,
+  hint: disabled && Alchemy.t(:automatic_anchor_notice) %>

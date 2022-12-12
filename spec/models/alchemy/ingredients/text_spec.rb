@@ -4,6 +4,7 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Ingredients::Text do
   it_behaves_like "an alchemy ingredient"
+  it_behaves_like "having dom ids"
 
   let(:element) { build(:alchemy_element, name: "element_with_ingredients") }
 

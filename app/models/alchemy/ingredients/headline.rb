@@ -5,7 +5,10 @@ module Alchemy
     # A text headline
     #
     class Headline < Alchemy::Ingredient
+      include DomIds
+
       store_accessor :data,
+        :dom_id,
         :level,
         :size
 

@@ -7,6 +7,8 @@ module Alchemy
     # Optionally it can have a link
     #
     class Text < Alchemy::Ingredient
+      include DomIds
+
       store_accessor :data,
         :dom_id,
         :link,

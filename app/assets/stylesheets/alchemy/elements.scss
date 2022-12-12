@@ -606,6 +606,12 @@
     input[type="text"] {
       padding-right: $form-field-addon-width + 2 * $default-padding;
     }
+
+    &.with-anchor {
+      input[type="text"] {
+        padding-right: 22px + $form-field-addon-width + $default-padding;
+      }
+    }
   }
 
   &.with-size-select {
@@ -613,9 +619,21 @@
       padding-right: $form-field-addon-width + 2 * $default-padding;
     }
 
+    &.with-anchor {
+      input[type="text"] {
+        padding-right: 22px + $form-field-addon-width + $default-padding;
+      }
+    }
+
     &.with-level-select {
       input[type="text"] {
         padding-right: 2 * ($form-field-addon-width + $default-padding);
+      }
+
+      &.with-anchor {
+        input[type="text"] {
+          padding-right: 16px + 2 * ($form-field-addon-width + $default-padding);
+        }
       }
     }
   }
@@ -978,10 +996,40 @@ textarea.has_tinymce {
 .edit-ingredient-anchor-link {
   position: absolute;
   right: 2 * $default-padding;
-  bottom: $form-field-height / 2;
+  bottom: 15px;
   margin: 0 !important;
+}
+
+.edit-ingredient-anchor-link {
+  right: $default-padding;
+
+  > a {
+    padding: $default-padding;
+  }
 
   .linkable & {
     right: 2 * $form-field-addon-width + $default-padding;
+  }
+
+  .with-size-select & {
+    right: $form-field-addon-width + $default-padding;
+  }
+
+  .with-level-select & {
+    right: $form-field-addon-width + $default-padding;
+  }
+
+  .with-level-select.with-size-select & {
+    right: 2 * $form-field-addon-width + $default-padding;
+  }
+}
+
+.ingredient-properties-link {
+  position: absolute;
+  right: 2px;
+  bottom: 15px;
+
+  > a {
+    padding: $default-padding;
   }
 }

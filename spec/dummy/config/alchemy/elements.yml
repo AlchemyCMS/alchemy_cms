@@ -298,4 +298,3 @@
     - name: key_words
       type: EssenceText
       group: details
-

@@ -61,4 +61,16 @@ RSpec.describe "alchemy/ingredients/_headline_editor" do
       is_expected.to have_selector("select[name='element[ingredients_attributes][0][size]']")
     end
   end
+
+  context "with settings anchor set to true" do
+    let(:settings) do
+      {
+        anchor: true,
+      }
+    end
+
+    it "renders anchor link button" do
+      is_expected.to have_selector(".edit-ingredient-anchor-link a")
+    end
+  end
 end

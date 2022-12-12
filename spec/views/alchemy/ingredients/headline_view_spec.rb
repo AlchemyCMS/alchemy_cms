@@ -3,12 +3,19 @@
 require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_headline_view" do
-  let(:ingredient) { Alchemy::Ingredients::Headline.new(value: "Hello", level: 2) }
+  let(:ingredient) { Alchemy::Ingredients::Headline.new(value: "Hello", level: 2, dom_id: "se-headline") }
 
   it "renders headline for level" do
     render ingredient
     expect(rendered).to have_selector("h2")
     expect(rendered).to have_content("Hello")
+  end
+
+  context "with dom_id" do
+    it "adds id" do
+      render ingredient
+      expect(rendered).to have_selector("h2#se-headline")
+    end
   end
 
   context "without size" do
