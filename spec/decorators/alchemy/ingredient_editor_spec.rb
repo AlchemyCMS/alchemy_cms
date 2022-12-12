@@ -33,6 +33,40 @@ RSpec.describe Alchemy::IngredientEditor do
         is_expected.to include("deprecated")
       end
     end
+
+    context "when responding to level_options" do
+      context "and having many level options" do
+        before do
+          expect(ingredient).to receive(:level_options) do
+            [["H1", 1], ["H2", 2]]
+          end
+        end
+
+        it { is_expected.to include("with-level-select") }
+      end
+    end
+
+    context "when responding to size_options" do
+      context "and having many size options" do
+        before do
+          expect(ingredient).to receive(:size_options) do
+            [[".h1", 1], [".h2", 2]]
+          end
+        end
+
+        it { is_expected.to include("with-size-select") }
+      end
+    end
+
+    context "when linkable" do
+      before do
+        expect(ingredient).to receive(:settings) do
+          { linkable: true }
+        end
+      end
+
+      it { is_expected.to include("linkable") }
+    end
   end
 
   describe "#data_attributes" do

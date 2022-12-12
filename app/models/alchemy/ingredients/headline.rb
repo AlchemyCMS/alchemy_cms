@@ -20,7 +20,7 @@ module Alchemy
       end
 
       def size_options
-        sizes.map { |size| ["H#{size}", size] }
+        sizes.map { |size| [".h#{size}", size] }
       end
 
       private

@@ -36,6 +36,9 @@ module Alchemy
         "ingredient-editor",
         partial_name,
         deprecated? ? "deprecated" : nil,
+        respond_to?(:level_options) && level_options.many? ? "with-level-select" : nil,
+        respond_to?(:size_options) && size_options.many? ? "with-size-select" : nil,
+        settings[:linkable] ? "linkable" : nil,
       ].compact
     end
 
