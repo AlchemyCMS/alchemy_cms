@@ -48,6 +48,8 @@ The generator also creates all the other basic folders and files for setting up 
 
 ::: warning NOTE
 The element definitions are cached. Please restart the server after editing the `elements.yml`.
+*But*, you don't need to re-run the installer for your changes to be picked up in the admin interface.
+Re-running the views generator without the skip flag (`bin/rails g alchemy:elements`) can over-write your element view partials to include the content changes if you so desire.
 :::
 
 ### Example element definition
@@ -364,15 +366,18 @@ Given global pages with `page_layout` "header" and "footer".
 
 ### Render a group of elements on a fixed place on the page
 
-Often you have a separate section on a page like a sidebar where you'd like to place a few different elements together. If you tag those elements as `fixed: true` in `elements.yml`, then they'll be easy to grab from the frontend, and the same will be cleanly separated in a new tab in the admin elements section.
+Often you have a separate section on one page (like a sidebar) or a global section to be rendered on every page (like a navbar or footer).
+
+If you tag those elements as `fixed: true` in `elements.yml`, then they'll be separated from the general collection of elements and will be displayed separately in a separate tab in the admin elements section.
 
 ~~~ yaml {3}
-- name: your_element
+- name: sidebar
   unique: true
   fixed: true
   contents:
     - name: name
       type: EssenceText
+      ...
 ~~~
 
 ~~~ erb
@@ -382,7 +387,7 @@ Often you have a separate section on a page like a sidebar where you'd like to p
 ~~~
 
 ::: tip INFO
-Fixed elements replace the concept on [Cells](/cells.html) in Alchemy versions prior to 4.2.
+Fixed elements replace [Cells](/cells.html) in Alchemy > 4.2.
 :::
 
 As `fixed_elements` is an a active record scope you can also filter by `where(name: 'your_element')` or use the `named('your_element')` scope. To gain some extra efficiency from Rails you could also use the collection rendering shortcut
@@ -392,7 +397,7 @@ As `fixed_elements` is an a active record scope you can also filter by `where(na
 ~~~
 
 ::: tip NOTE
-You need to use the elements view partial name instead of the element local variable then in your child element views. Ie. `sidebar_view` instead of `element`.
+You need to use the elements view partial name instead of the element local variable in your child element views. Ie. `sidebar_view` instead of `element`.
 :::
 
 
