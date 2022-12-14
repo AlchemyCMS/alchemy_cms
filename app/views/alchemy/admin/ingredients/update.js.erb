@@ -1,0 +1,8 @@
+Alchemy.closeCurrentDialog(
+<% if @ingredient.settings[:anchor] %>
+  function() {
+    const ingredientEditor = document.querySelector('[data-ingredient-id="<%= @ingredient.id %>"]');
+    ingredientEditor.querySelector('.edit-ingredient-anchor-link a').innerHTML = '<%= j render_icon(:bookmark, { style: @ingredient.dom_id.present? ? "solid" : "regular" }) %>';
+  }
+<% end %>
+);
