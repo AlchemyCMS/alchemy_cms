@@ -57,23 +57,32 @@ RSpec.describe Alchemy::Admin::IngredientsController do
     end
 
     describe "patch :update" do
+      let(:ingredient) do
+        stub_model(
+          Alchemy::Ingredients::Headline,
+          type: "Alchemy::Ingredients::Headline",
+          element: element,
+          role: "headline",
+        )
+      end
+
       context "with permitted attributes" do
         let(:params) do
           {
             id: ingredient.id,
             ingredient: {
-              title: "new title",
-              css_class: "left",
-              link_text: "Download this file",
+              level: "2",
+              size: "3",
+              dom_id: "se-id",
             },
           }
         end
 
         it "updates the attributes of ingredient" do
           patch :update, params: params, xhr: true
-          expect(ingredient.title).to eq "new title"
-          expect(ingredient.css_class).to eq "left"
-          expect(ingredient.link_text).to eq "Download this file"
+          expect(ingredient.level).to eq "2"
+          expect(ingredient.size).to eq "3"
+          expect(ingredient.dom_id).to eq "se-id"
         end
       end
 
@@ -84,6 +93,19 @@ RSpec.describe Alchemy::Admin::IngredientsController do
             ingredient: {
               foo: "Baz",
             },
+          }
+        end
+
+        it "does not update the attributes of ingredient" do
+          expect(ingredient).to receive(:update).with({})
+          patch :update, params: params, xhr: true
+        end
+      end
+
+      context "without attributes" do
+        let(:params) do
+          {
+            id: ingredient.id,
           }
         end
 

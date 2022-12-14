@@ -845,6 +845,8 @@ en:
         crop_from: Crop from
         crop_size: Crop size
         picture_id: Bild
+      alchemy/ingredient:
+        dom_id: Anchor
       alchemy/language:
         country_code: "Country code"
         language_code: "Language code"

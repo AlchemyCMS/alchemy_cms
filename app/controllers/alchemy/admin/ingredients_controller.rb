@@ -19,7 +19,7 @@ module Alchemy
       private
 
       def ingredient_params
-        params.require(:ingredient).permit(@ingredient.class.stored_attributes[:data])
+        params[:ingredient]&.permit(@ingredient.class.stored_attributes[:data]) || {}
       end
 
       def load_croppable_resource
