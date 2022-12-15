@@ -500,3 +500,25 @@ de:
       contact_form:
         color: Button Farbe
 ~~~
+
+## Notes on interacting with Elements from the Admin interface
+
+While this guide is intended for developers building a CMS site, many developer will need to train clients and customers, or interact with the admin interface themselves.
+
+While the Admin UI tries to be as intuitive as possible, there are a few functions that aren't quite as obvious.
+
+### Re-arranging Elements on a Page
+
+Collapsed elements can be re-arranged by clicking and dragging the window icon to the left of the element title.
+
+You can't re-arrange an expanded element, you need to collapse it first.
+
+### Using the Clipboard
+
+The clipboard receives elements that are copied or cut. The most prominent use-case is to copy or move elements from one page to another.
+
+You can use the icons to copy and cut a specific element from its expanded state.
+
+You can view the contents of the clipboard using the icon at the top of the elements bar.
+
+When adding a new top-level element, the "Paste from clipboard" tab will be visible if the clipboard is storing any elements.
