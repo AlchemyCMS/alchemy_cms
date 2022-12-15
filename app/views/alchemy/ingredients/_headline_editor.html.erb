@@ -1,30 +1,26 @@
+<% has_level_select = headline_editor.level_options.many? %>
+<% has_size_select = headline_editor.size_options.many? %>
+
 <%= content_tag :div,
   class: headline_editor.css_classes,
   data: headline_editor.data_attributes do %>
   <%= element_form.fields_for(:ingredients, headline_editor.ingredient) do |f| %>
     <%= ingredient_label(headline_editor) %>
     <%= f.text_field :value, id: nil %>
-
-    <div class="input-row">
-      <% if headline_editor.level_options.length > 1 %>
-        <div class="input-column">
-          <%= f.label :level %>
-          <%= f.select :level,
-            options_for_select(headline_editor.level_options, headline_editor.level),
-            {},
-            { class: "alchemy_selectbox full_width" } %>
-        </div>
-      <% end %>
-
-      <% if headline_editor.size_options.length > 1 %>
-        <div class="input-column">
-          <%= f.label :size %>
-          <%= f.select :size,
-            options_for_select(headline_editor.size_options, headline_editor.size),
-            {},
-            { class: "alchemy_selectbox full_width" } %>
-        </div>
-      <% end %>
-    </div>
+    <% if has_level_select %>
+      <div class="input-addon right<%= " second" if has_size_select %>">
+        <%= f.select :level,
+          options_for_select(headline_editor.level_options, headline_editor.level),
+          {},
+          { class: "custom-select", title: f.object.class.human_attribute_name(:level) } %>
+      </div>
+    <% end %>
+    <% if has_size_select %>
+      <div class="input-addon right">
+        <%= f.select :size, options_for_select(headline_editor.size_options, headline_editor.size),
+          {},
+          { class: "custom-select", title: f.object.class.human_attribute_name(:size) } %>
+      </div>
+    <% end %>
   <% end %>
 <% end %>

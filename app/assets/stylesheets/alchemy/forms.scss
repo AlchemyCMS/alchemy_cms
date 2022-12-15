@@ -1,8 +1,7 @@
 form {
-
   #main_content > &.alchemy {
     max-width: 600px;
-    padding: 2*$default-padding;
+    padding: 2 * $default-padding;
     margin: 2em auto;
   }
 
@@ -43,8 +42,8 @@ form {
     }
 
     > .autocomplete_tag_list {
-
-      .select2-container, .select2-choices {
+      .select2-container,
+      .select2-choices {
         width: 100%;
       }
     }
@@ -81,16 +80,16 @@ form {
     }
 
     &.field_with_errors {
-
       input[type="text"],
       input[type="email"],
       input[type="password"],
       textarea,
       .select2-choices {
-        @extend %field-with-error
+        @extend %field-with-error;
       }
 
-      .select2-choice, .select2-choices {
+      .select2-choice,
+      .select2-choices {
         border-color: $error_border_color;
         color: $error_text_color;
         margin-bottom: 4px;
@@ -100,7 +99,9 @@ form {
         }
       }
 
-      label { color: $error_text_color }
+      label {
+        color: $error_text_color;
+      }
     }
 
     small.error {
@@ -115,10 +116,52 @@ form {
 
     &.language_locale small.error {
       @include form-hint(
-      $background-color: $error_background_color,
-      $border-color: $error_border_color
+        $background-color: $error_background_color,
+        $border-color: $error_border_color
       );
       text-align: left;
+    }
+  }
+
+  .input-addon {
+    width: $form-field-addon-width;
+    position: absolute;
+    bottom: 2 * $default-padding;
+
+    select {
+      width: 100%;
+      padding: 0 2px;
+      text-align: center;
+    }
+
+    &.left {
+      left: 0;
+
+      select {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+    }
+
+    &.right {
+      left: unset;
+      right: 0;
+
+      select {
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+
+      &.second {
+        left: unset;
+        right: $form-field-addon-width;
+
+        select {
+          border-right-width: 0;
+          border-top-right-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+      }
     }
   }
 
@@ -126,16 +169,18 @@ form {
   .checkbox > .with-hint {
     cursor: default;
 
-    input, textarea {
+    input,
+    textarea {
       cursor: not-allowed;
     }
   }
 
   .inline-input {
     @include clearfix;
-    margin: 0 -1*$default-margin;
+    margin: 0 -1 * $default-margin;
 
-    .left-column, .right-column {
+    .left-column,
+    .right-column {
       padding: 0 $default-padding;
     }
 
@@ -192,9 +237,7 @@ form {
   }
 
   .input-row {
-
     .input-column {
-
       &:first-of-type {
         padding-left: 0;
       }
@@ -212,7 +255,6 @@ textarea#essence_picture_caption {
 
 // styles for link overlay selects
 .window_form {
-
   td.checkbox {
     text-align: left;
   }
@@ -224,5 +266,5 @@ textarea#essence_picture_caption {
 
 .input-column > label {
   display: block;
-  margin-top: $default-margin +1;
+  margin-top: $default-margin + 1;
 }

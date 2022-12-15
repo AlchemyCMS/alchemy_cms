@@ -39,7 +39,7 @@ RSpec.describe Alchemy::Ingredients::Headline do
         expect(ingredient).to receive(:settings).and_return(sizes: [3, 4])
       end
 
-      it { is_expected.to eq([["H3", 3], ["H4", 4]]) }
+      it { is_expected.to eq([[".h3", 3], [".h4", 4]]) }
     end
   end
 

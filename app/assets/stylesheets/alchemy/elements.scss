@@ -487,7 +487,7 @@
       $focus-border-color: $focus-color,
       $focus-box-shadow: 0 0 0 2px $focus-color
     );
-    width: 29px;
+    width: $form-field-addon-width;
     height: $form-field-height;
 
     &.disabled,
@@ -601,6 +601,26 @@
   }
 }
 
+.ingredient-editor.headline {
+  &.with-level-select {
+    input[type="text"] {
+      padding-right: $form-field-addon-width + 2 * $default-padding;
+    }
+  }
+
+  &.with-size-select {
+    input[type="text"] {
+      padding-right: $form-field-addon-width + 2 * $default-padding;
+    }
+
+    &.with-level-select {
+      input[type="text"] {
+        padding-right: 2 * ($form-field-addon-width + $default-padding);
+      }
+    }
+  }
+}
+
 .content_editor.essence_audio,
 .content_editor.essence_file,
 .content_editor.essence_video,
@@ -688,6 +708,12 @@ select.long {
   .thin_border,
   input[type="text"] {
     width: 100%;
+  }
+
+  &.linkable {
+    input[type="text"] {
+      padding-right: 2 * ($form-field-addon-width + $default-padding);
+    }
   }
 
   &.missing {
@@ -938,6 +964,7 @@ textarea.has_tinymce {
 .ingredient-date--label,
 .essence_date--label {
   position: absolute;
-  right: 7px;
-  top: 37px;
+  right: 2 * $default-padding;
+  bottom: $form-field-height / 2;
+  margin: 0 !important;
 }
