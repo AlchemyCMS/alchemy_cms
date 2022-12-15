@@ -260,6 +260,7 @@
       type: Text
       default: Hello World
       settings:
+        anchor: from_value
         linkable: true
     - role: text
       type: Richtext

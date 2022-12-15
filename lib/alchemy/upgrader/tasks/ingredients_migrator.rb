@@ -56,6 +56,8 @@ module Alchemy::Upgrader::Tasks
                   ingredient.value = content.ingredient
                 end
                 data = ingredient.class.stored_attributes.fetch(:data, []).each_with_object({}) do |attr, d|
+                  next unless essence.respond_to?(attr)
+
                   d[attr] = essence.public_send(attr)
                 end
                 ingredient.data = data
