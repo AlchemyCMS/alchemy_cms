@@ -7,7 +7,7 @@ module Alchemy::Upgrader::Tasks
     include Thor::Actions
 
     no_tasks do
-      def create_ingredients
+      def create_ingredients(verbose: !Rails.env.test?)
         Alchemy::Deprecation.silence do
           elements_with_ingredients = Alchemy::ElementDefinition.all.select { |d| d.key?(:ingredients) }
           if ENV["ONLY"]
@@ -22,13 +22,13 @@ module Alchemy::Upgrader::Tasks
           elements_with_ingredients.map do |element_definition|
             elements = all_elements.select { |e| e.name == element_definition[:name] }
             if elements.any?
-              puts "-- Creating ingredients for #{elements.count} #{element_definition[:name]}(s)"
+              puts "-- Creating ingredients for #{elements.count} #{element_definition[:name]}(s)" if verbose
               elements.each do |element|
                 MigrateElementIngredients.call(element)
-                print "."
+                print "." if verbose
               end
-              puts "\n"
-            else
+              puts "\n" if verbose
+            elsif verbose
               puts "-- No #{element_definition[:name]} elements found for migration."
             end
           end
