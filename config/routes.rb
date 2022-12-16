@@ -126,6 +126,7 @@ Alchemy::Engine.routes.draw do
 
   namespace :api, defaults: { format: "json" } do
     resources :contents, only: [:index, :show]
+    resources :ingredients, only: [:index]
 
     resources :elements, only: [:index, :show] do
       get "/contents" => "contents#index", as: "contents"

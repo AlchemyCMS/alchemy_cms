@@ -39,6 +39,7 @@ module Alchemy
         respond_to?(:level_options) && level_options.many? ? "with-level-select" : nil,
         respond_to?(:size_options) && size_options.many? ? "with-size-select" : nil,
         settings[:linkable] ? "linkable" : nil,
+        settings[:anchor] ? "with-anchor" : nil,
       ].compact
     end
 

@@ -2,6 +2,7 @@ import translate from "./src/i18n"
 import translationData from "./src/translations"
 import NodeTree from "./src/node_tree"
 import fileEditors from "./src/file_editors"
+import IngredientAnchorLink from "./src/ingredient_anchor_link"
 import pictureEditors from "./src/picture_editors"
 import ImageLoader from "./src/image_loader"
 import ImageCropper from "./src/image_cropper"
@@ -24,6 +25,7 @@ Object.assign(Alchemy, {
   pictureEditors,
   ImageLoader: ImageLoader.init,
   ImageCropper,
+  IngredientAnchorLink,
   Datepicker,
   Sitemap,
   PagePublicationFields

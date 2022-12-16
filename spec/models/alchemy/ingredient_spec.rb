@@ -57,7 +57,7 @@ RSpec.describe Alchemy::Ingredient do
     let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
 
     it "returns the settings hash from definition" do
-      expect(ingredient.settings).to eq({ "linkable" => true })
+      expect(ingredient.settings).to eq({ "anchor" => "from_value", "linkable" => true })
     end
 
     context "if settings are not defined" do

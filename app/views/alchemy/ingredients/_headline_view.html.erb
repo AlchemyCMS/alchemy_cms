@@ -2,6 +2,7 @@
 
 <%= content_tag "h#{headline_view.level}",
     headline_view.value,
+    id: headline_view.dom_id.presence,
     class: [
       headline_view.size ? "h#{headline_view.size}" : nil,
       html_options[:class]

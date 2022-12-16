@@ -9,6 +9,9 @@
       class: text_editor.settings[:linkable] ? "text_with_icon" : "",
       id: nil,
       type: text_editor.settings[:input_type] || "text" %>
+    <% if text_editor.settings[:anchor] %>
+      <%= render "alchemy/ingredients/shared/anchor", ingredient_editor: text_editor %>
+    <% end %>
     <% if text_editor.settings[:linkable] %>
       <%= f.hidden_field :link, "data-link-value": true, id: nil %>
       <%= f.hidden_field :link_title, "data-link-title": true, id: nil %>

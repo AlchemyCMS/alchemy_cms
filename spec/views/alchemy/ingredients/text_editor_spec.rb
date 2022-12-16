@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe "alchemy/ingredients/_text_editor" do
   let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
   let(:element_editor) { Alchemy::ElementEditor.new(element) }
-  let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", value: "1234", element: element) }
+  let(:ingredient) { Alchemy::Ingredients::Text.new(id: 1, role: "headline", value: "1234", element: element) }
   let(:settings) { {} }
 
   it_behaves_like "an alchemy ingredient editor"
@@ -48,6 +48,18 @@ RSpec.describe "alchemy/ingredients/_text_editor" do
       expect(rendered).to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_title]"]')
       expect(rendered).to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_class_name]"]')
       expect(rendered).to have_selector('input[type="hidden"][name="element[ingredients_attributes][0][link_target]"]')
+    end
+  end
+
+  context "with settings anchor set to true" do
+    let(:settings) do
+      {
+        anchor: true,
+      }
+    end
+
+    it "renders anchor button" do
+      expect(rendered).to have_selector(".edit-ingredient-anchor-link a")
     end
   end
 end

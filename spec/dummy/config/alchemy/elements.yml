@@ -136,6 +136,9 @@
     - role: text
       type: Text
       hint: true
+      settings:
+        anchor: true
+        linkable: true
       validate:
         - format: !ruby/regexp '/\w+/i'
     - role: picture
@@ -257,6 +260,7 @@
       type: Text
       default: Hello World
       settings:
+        anchor: from_value
         linkable: true
     - role: text
       type: Richtext
@@ -295,4 +299,3 @@
     - name: key_words
       type: EssenceText
       group: details
-

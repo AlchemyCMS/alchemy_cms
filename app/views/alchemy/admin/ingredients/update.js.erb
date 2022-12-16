@@ -1,0 +1,7 @@
+Alchemy.closeCurrentDialog(
+<% if @ingredient.settings[:anchor] %>
+  function() {
+    Alchemy.IngredientAnchorLink.updateIcon(<%= @ingredient.id %>, <%= @ingredient.dom_id.present? %>);
+  }
+<% end %>
+);
