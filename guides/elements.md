@@ -48,8 +48,8 @@ The generator also creates all the other basic folders and files for setting up 
 
 ::: warning NOTE
 The element definitions are cached. Please restart the server after editing the `elements.yml`.
-*But*, you don't need to re-run the installer for your changes to be picked up in the admin interface.
-Re-running the views generator without the skip flag (`bin/rails g alchemy:elements`) can over-write your element view partials to include the content changes if you so desire.
+When re-running the views generator without the skip flag (`bin/rails g alchemy:elements`), the generator will prompt you about over-writing your element view partials to include the content changes.
+Running the view generator with the `--force` flag will overwrite your element view partials automatically.
 :::
 
 ### Example element definition
@@ -284,9 +284,7 @@ After typing the line below in your terminal, the rails generator will create th
 bin/rails g alchemy:elements --skip
 ~~~
 
-::: tip
-The `--skip` flag skips files that already exist
-:::
+The `--skip` flag command skips files that already exist
 
 ::: tip
 You can pass `--template-engine` or `-e` as an argument to use `haml`, `slim` or `erb`.
@@ -295,7 +293,7 @@ The default template engine depends on your settings in your Rails host app.
 
 The generator will create two files for each element in your `app/views/alchemy/elements` folder.
 
-According to the first example, the article element, the generator will create the `_article_view.html.erb` and `_article_editor.html.erb` (_deprecated since Alchemy 4.4_) files.
+According to the first example, the article element, the generator will create the `_article_view.html.erb` and `_article_editor.html.erb` files.
 
 * The element's view file `_article_view.html.erb` gets rendered, when a user requests your webpage.
 * The element's editor file `_article_editor.html.erb` gets rendered, when you edit the page in the admin frontend.  _deprecated since Alchemy 4.4_
@@ -328,7 +326,7 @@ If you aren't seeing content you created in the admin interface, make sure eleme
 
 ### Render only specific elements
 
-Sometimes you only want to render specific elements on your page and maybe exclude some elements.
+Sometimes you only want to render specific elements on a specific page and maybe exclude some elements.
 
 ~~~ erb
 <body>
@@ -342,28 +340,58 @@ Sometimes you only want to render specific elements on your page and maybe exclu
 </body>
 ~~~
 
-::: tip
-The above example uses _elements_ (not pages) called `header` and `footer`. If these elements need to be editable in the Admin interface, you should associate these elements with their own [page_layouts](#defining-page-layouts).
-:::
-
-
 ### Render elements from other pages
 
-A common use case is to have global pages for header and footer parts.
+A common use case is to have global pages for header and footer parts:
+~~~ yaml
+# config/alchemy/elements.yml
+- name: header
+  message: Navigation bar at the top of every page
+  contents:
+    # ...
 
-~~~ erb
-<body>
-  <header><%= render_elements from_page: 'header' %></header>
+- name: footer
+  message: Footer section at the bottom of every page
+  contents:
+    # ...
 
-  <main>
-    <%= render_elements %>
-  </main>
+# config/alchemy/page_layouts.yml
 
-  <footer><%= render_elements from_page: 'footer' %></footer>
-</body>
+- name: header
+  unique: true
+  elements: [header]
+  autogenerate: [header]
+  layoutpage: true
+
+- name: footer
+  unique: true
+  elements: [footer]
+  autogenerate: [footer]
+  layoutpage: true
 ~~~
 
-Given global pages with `page_layout` "header" and "footer".
+Which can be added to your `application.html.erb` file:
+
+~~~ erb
+<!DOCTYPE html>
+<html lang="<%= @page.language_code %>">
+  <head>
+    ...
+  </head>
+
+  <body>
+    <header><%= render_elements from_page: 'header' %></header>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer><%= render_elements from_page: 'footer' %></footer>
+
+    <%= render "alchemy/edit_mode" %>
+  </body>
+</html>
+~~~
 
 ### Render a group of elements on a fixed place on the page
 
@@ -378,8 +406,10 @@ If you tag those elements as `fixed: true` in `elements.yml`, then they'll be se
   contents:
     - name: name
       type: EssenceText
-      ...
+      # ...
 ~~~
+
+You can then access these elements using the `fixed_elements` method:
 
 ~~~ erb
 <% @page.fixed_elements.each do |element| %>
