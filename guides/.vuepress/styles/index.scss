@@ -102,6 +102,16 @@
   --homepage-width: 960px;
 }
 
+.DocSearch {
+  --docsearch-searchbox-background: rgba(51, 59, 81, 0.8);
+  --docsearch-searchbox-focus-background: rgb(51, 59, 81);
+}
+
+.DocSearch--active .DocSearch-Modal {
+  --docsearch-searchbox-background: var(--c-bg-lighter);
+  --docsearch-searchbox-focus-background: var(--c-bg);
+}
+
 html.dark {
   --c-brand: #214166;
   --c-brand-light: #d8741c;
