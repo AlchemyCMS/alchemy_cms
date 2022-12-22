@@ -226,5 +226,34 @@ module Alchemy
         end
       end
     end
+
+    describe "#message_params" do
+      before do
+        allow(controller).to receive(:params).and_return(ActionController::Parameters.new( message: { email: "email@addr.com", contact_form_id: "23" }).permit!)
+      end
+
+      context "when mailer_config['fields'] includes :contact_field_id" do
+        before do
+          allow(controller).to receive(:mailer_config).and_return({ page_layout_name: "contact", forward_to_page: false, mail_success_page: "thanks", mail_from: "your.mail@your-domain.com", mail_to: "your.mail@your-domain.com", subject: "A new contact form message", fields: ["salutation", "firstname", "lastname", "address", "zip", "city", "phone", "email", "message", "contact_field_id"], validate_fields: ["lastname", "email"] })
+        end
+
+        it "should permit :contact_form_id" do
+          expect(controller.send(:mailer_config)[:fields]).to include "contact_field_id"
+
+          msg_params = subject.send(:message_params)
+
+          expect(msg_params).to include :contact_form_id
+        end
+      end
+
+      context "when mailer_config['fields'] does not inlcude :contact_field_id" do
+        it "should permit :contact_form_id" do
+          expect(Alchemy::Config.get(:mailer)["fields"]).not_to include "contact_field_id"
+          msg_params = subject.send(:message_params)
+
+          expect(msg_params).to include :contact_form_id
+        end
+      end
+    end
   end
 end
