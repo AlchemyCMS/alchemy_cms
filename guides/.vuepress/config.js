@@ -1,114 +1,111 @@
-module.exports = {
-  title: 'AlchemyCMS Guides',
-  description: 'Developer Guidelines for AlchemyCMS',
+import { defaultTheme } from "@vuepress/theme-default"
+import { docsearchPlugin } from "@vuepress/plugin-docsearch"
+
+export default {
+  title: "AlchemyCMS Guides",
+  description: "Developer Guidelines for AlchemyCMS",
   head: [
     [
-      'link', {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Source+Sans+Pro:900'
-      }
-    ]
+      "link",
+      {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700,700i|Source+Sans+Pro:900",
+      },
+    ],
   ],
   plugins: [
-    ['@vuepress/google-analytics', {
-      ga: 'UA-22277258-1'
-    }]
+    docsearchPlugin({
+      apiKey: "5f50a085ecc6f17f5ba1bc8911c3cc90",
+      indexName: "alchemy-cms",
+    }),
   ],
-  themeConfig: {
-    repo: 'AlchemyCMS/alchemy-guides',
-    editLinks: true,
-    docsDir: 'guides',
-    home: true,
-    lastUpdated: 'Last Updated',
-    smoothScroll: true,
-    nav: [
+  theme: defaultTheme({
+    repo: "AlchemyCMS/alchemy-guides",
+    docsDir: "guides",
+    navbar: [
       {
         text: "Getting Started",
-        link: 'getting_started.html'
+        link: "getting_started",
       },
       {
-        text: 'Basics',
-        items: [
+        text: "Basics",
+        children: [
           {
             text: "About AlchemyCMS",
-            link: 'about'
+            link: "about",
           },
           {
             text: "Pages",
-            link: 'pages'
+            link: "pages",
           },
           {
             text: "Cells",
-            link: 'cells'
+            link: "cells",
           },
           {
             text: "Elements",
-            link: 'elements'
+            link: "elements",
           },
           {
             text: "Essences",
-            link: 'essences'
+            link: "essences",
           },
           {
             text: "Rendering images",
-            link: 'render_images'
+            link: "render_images",
           },
           {
             text: "Configuration",
-            link: 'configuration'
+            link: "configuration",
           },
           {
             text: "Upgrading",
-            link: 'upgrading'
-          }
-        ]
+            link: "upgrading",
+          },
+        ],
       },
       {
         text: "Guides",
-        items: [
+        children: [
           {
             text: "How to create a blog template",
-            link: 'best_practice_create_blog_template'
+            link: "best_practice_create_blog_template",
           },
           {
             text: "How to create a contact form",
-            link: 'best_practice_create_form'
+            link: "best_practice_create_form",
           },
           {
             text: "Customize the Richtext Editor",
-            link: 'customize_tinymce'
+            link: "customize_tinymce",
           },
           {
             text: "Create custom essences",
-            link: 'create_essences'
+            link: "create_essences",
           },
           {
             text: "Deploy to Heroku",
-            link: 'deploy_on_heroku'
+            link: "deploy_on_heroku",
           },
           {
             text: "Deploy to RailsHoster",
-            link: 'deploy_on_railshoster'
+            link: "deploy_on_railshoster",
           },
           {
             text: "Create custom modules",
-            link: 'create_modules'
+            link: "create_modules",
           },
           {
             text: "Create a custom authentication",
-            link: 'custom_authentication'
+            link: "custom_authentication",
           },
           {
             text: "Extending Alchemy",
-            link: 'extending_alchemy'
-          }
-        ]
-      }
+            link: "extending_alchemy",
+          },
+        ],
+      },
     ],
-    sidebar: 'auto',
-    algolia: {
-      apiKey: '5f50a085ecc6f17f5ba1bc8911c3cc90',
-      indexName: 'alchemy-cms'
-    }
-  }
-};
+    sidebar: "auto",
+  }),
+}
