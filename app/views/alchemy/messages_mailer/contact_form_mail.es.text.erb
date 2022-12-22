@@ -1,0 +1,14 @@
+<!-- Esta plantilla coincide con los campos de correo config. Si cambia la configuración, cree su propio archivo -->
+
+<%= @message.message %>
+
+--
+
+Remitente:
+
+<%= Alchemy.t(@message.salutation, scope: 'contactform.labels') %> <%= @message.firstname %> <%= @message.lastname %>
+<%= @message.address %>
+<%= @message.zip %> <%= @message.city %>
+
+Teléfono: <%= @message.phone %>
+Correo electrónico: <%= @message.email %>

@@ -37,4 +37,8 @@ module Alchemy
       expect(mail.reply_to).to eq([message.email])
     end
   end
+
+  it "mail body includes message" do
+    expect(mail.body).to match /#{message.message}/
+  end
 end

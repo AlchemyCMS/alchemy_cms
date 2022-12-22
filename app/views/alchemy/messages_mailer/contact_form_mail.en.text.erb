@@ -1,0 +1,14 @@
+<!-- This template matches the config mailer fields. If you change the config, please create your own file: app/views/alchemy/messages_mailer/contact_form_mail.text.erb -->
+
+<%= @message.message %>
+
+--
+
+Sender:
+
+<%= Alchemy.t(@message.salutation, scope: 'contactform.labels') %> <%= @message.firstname %> <%= @message.lastname %>
+<%= @message.address %>
+<%= @message.zip %> <%= @message.city %>
+
+Phone: <%= @message.phone %>
+Email: <%= @message.email %>

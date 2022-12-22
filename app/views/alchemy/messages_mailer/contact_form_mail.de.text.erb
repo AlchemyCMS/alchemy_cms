@@ -1,0 +1,14 @@
+<!-- Diese Vorlage stimmt mit den config Mailer-Feldern überein. Wenn Sie die Konfiguration ändern, erstellen Sie bitte eine eigene Datei -->
+
+<%= @message.message %>
+
+--
+
+Absender:
+
+<%= Alchemy.t(@message.salutation, scope: 'contactform.labels') %> <%= @message.firstname %> <%= @message.lastname %>
+<%= @message.address %>
+<%= @message.zip %> <%= @message.city %>
+
+Telefon: <%= @message.phone %>
+E-Mail: <%= @message.email %>
