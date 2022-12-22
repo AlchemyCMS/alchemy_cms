@@ -1,0 +1,137 @@
+// $alchemy-blue: #214166;
+// $alchemy-orange: #d8741c;
+// $alchemy-light-gray: #f7f7f7;
+// $alchemy-medium-gray: #efefef;
+// $alchemy-dark-gray: rgb(51, 59, 81);
+// $alchemy-transparent-dark-gray: rgba(51, 59, 81, 0.8);
+// $alchemy-border-color: rgba(#afafaf, 0.5);
+
+// $accent-color: $alchemy-orange;
+// $textColor: $alchemy-transparent-dark-gray;
+// $borderColor: $alchemy-border-color;
+// $arrowBgColor: $alchemy-transparent-dark-gray;
+// $codeLang: js html md vue css sass scss sh yaml erb;
+
+:root {
+  // brand colors
+  --c-brand: #214166;
+  --c-brand-light: #d8741c;
+
+  // background colors
+  --c-bg: #ffffff;
+  --c-bg-light: #f7f7f7;
+  --c-bg-lighter: #efefef;
+  --c-bg-dark: #efefef;
+  --c-bg-darker: rgb(51, 59, 81);
+  --c-bg-navbar: var(--c-brand);
+  --c-bg-sidebar: var(--c-bg);
+  --c-bg-arrow: #cccccc;
+
+  // text colors
+  --c-text: rgba(51, 59, 81, 0.8);
+  --c-text-accent: var(--c-brand-light);
+  --c-text-light: #fff;
+  --c-text-lighter: #4e6e8e;
+  --c-text-lightest: #6a8bad;
+  --c-text-quote: #999999;
+
+  // border colors
+  --c-border: rgba(#afafaf, 0.5);
+  --c-border-dark: #dfe2e5;
+
+  // custom container colors
+  --c-tip: #42b983;
+  --c-tip-bg: var(--c-bg-light);
+  --c-tip-title: var(--c-text);
+  --c-tip-text: var(--c-text);
+  --c-tip-text-accent: var(--c-text-accent);
+  --c-warning: #ffc310;
+  --c-warning-bg: #fffae3;
+  --c-warning-bg-light: #fff3ba;
+  --c-warning-bg-lighter: #fff0b0;
+  --c-warning-border-dark: #f7dc91;
+  --c-warning-details-bg: #fff5ca;
+  --c-warning-title: #f1b300;
+  --c-warning-text: #746000;
+  --c-warning-text-accent: #edb100;
+  --c-warning-text-light: #c1971c;
+  --c-warning-text-quote: #ccab49;
+  --c-danger: #f11e37;
+  --c-danger-bg: #ffe0e0;
+  --c-danger-bg-light: #ffcfde;
+  --c-danger-bg-lighter: #ffc9c9;
+  --c-danger-border-dark: #f1abab;
+  --c-danger-details-bg: #ffd4d4;
+  --c-danger-title: #ed1e2c;
+  --c-danger-text: #660000;
+  --c-danger-text-accent: #bd1a1a;
+  --c-danger-text-light: #b5474d;
+  --c-danger-text-quote: #c15b5b;
+  --c-details-bg: #eeeeee;
+
+  // badge component colors
+  --c-badge-tip: var(--c-tip);
+  --c-badge-warning: #ecc808;
+  --c-badge-warning-text: var(--c-bg);
+  --c-badge-danger: #dc2626;
+  --c-badge-danger-text: var(--c-bg);
+
+  // transition vars
+  --t-color: 0.3s ease;
+  --t-transform: 0.3s ease;
+
+  // code blocks vars
+  --code-bg-color: #282c34;
+  --code-hl-bg-color: rgba(0, 0, 0, 0.66);
+  --code-ln-color: #9e9e9e;
+  --code-ln-wrapper-width: 3.5rem;
+
+  // font vars
+  --font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
+  --font-family-code: Consolas, Monaco, "Andale Mono", "Ubuntu Mono", monospace;
+
+  // layout vars
+  --navbar-height: 3.6rem;
+  --navbar-padding-v: 0.7rem;
+  --navbar-padding-h: 1.5rem;
+  --sidebar-width: 20rem;
+  --sidebar-width-mobile: calc(var(--sidebar-width) * 0.82);
+  --content-width: 740px;
+  --homepage-width: 960px;
+}
+
+html.dark {
+  --c-brand: #214166;
+  --c-brand-light: #d8741c;
+  --c-text-light: #f7f7f7;
+}
+
+.navbar {
+  --c-text: var(--c-text-light);
+}
+
+.navbar-item {
+  color: var(--c-text-light);
+}
+
+main.page {
+  background-color: var(--c-bg-light);
+}
+
+.home {
+  .hero {
+    img {
+      max-height: 100px;
+    }
+
+    .action-button.primary:hover {
+      background-color: var(--c-bg-darker);
+    }
+  }
+
+  .feature h2 {
+    color: var(--c-text);
+  }
+}

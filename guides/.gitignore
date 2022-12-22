@@ -1,2 +1,4 @@
 /node_modules
 guides/.vuepress/dist
+guides/.vuepress/.cache
+guides/.vuepress/.temp

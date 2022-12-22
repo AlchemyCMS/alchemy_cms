@@ -1,8 +1,10 @@
 ---
 home: true
 heroImage: /alchemy-logo.svg
-actionText: Get Started →
-actionLink: /getting_started
+actions:
+  - text: Get Started →
+    link: /getting_started
+    type: primary
 features:
 - title: Not a common CMS
   details: Alchemy is a CMS framework. It enables you to build your own CMS.
