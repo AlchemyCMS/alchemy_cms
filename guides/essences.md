@@ -80,12 +80,16 @@ You can check out the [`ElementViewHelper#render` helper](https://github.com/Alc
 Options are not universally applied by all element types. For example, `ElementRichText` ignores `html_options` since it's already in HTML format and isn't wrapped in any special div. And you can't prevent the `ElementPicture` from generating an `<img>` tag.
 :::
 
+### Options
+
+The `options = {}` hash is used for formatting the child elements' tags. You can pass `false` to not include tags inside the wrapper element. For more, see the source code [here](https://github.com/AlchemyCMS/alchemy_cms/blob/56e95a07446fb6832676acfc1e8c7047d1b80495/app/helpers/alchemy/elements_block_helper.rb#L128) and [here](https://github.com/AlchemyCMS/alchemy_cms/blob/main/app/helpers/alchemy/elements_helper.rb#L193)
+
+### Html_options
+
 The `html_option = {}` are:
 * `:tag` - The HTML tag to be used for the wrapping element
 * `:id` - The wrapper tag's DOM ID.
 * `:class` - The wrapper tag's DOM class.
-
-The `options = {}` hash is used for formatting the child elements' tags. You can pass `false` to not include tags inside the wrapper element. For more, see the source code [here](https://github.com/AlchemyCMS/alchemy_cms/blob/56e95a07446fb6832676acfc1e8c7047d1b80495/app/helpers/alchemy/elements_block_helper.rb#L128) and [here](https://github.com/AlchemyCMS/alchemy_cms/blob/main/app/helpers/alchemy/elements_helper.rb#L193)
 
 
 ## Definition
