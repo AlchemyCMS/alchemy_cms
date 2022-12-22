@@ -1,6 +1,6 @@
 ---
 home: true
-heroImage: /alchemy-logo.svg
+heroImage: /icon.svg
 actions:
   - text: Get Started →
     link: /getting_started
