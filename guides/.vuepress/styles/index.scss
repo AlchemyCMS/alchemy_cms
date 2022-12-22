@@ -21,7 +21,7 @@
   --c-bg: #ffffff;
   --c-bg-light: #f7f7f7;
   --c-bg-lighter: #efefef;
-  --c-bg-dark: #efefef;
+  --c-bg-dark: #dfdfdf;
   --c-bg-darker: rgb(51, 59, 81);
   --c-bg-navbar: var(--c-brand);
   --c-bg-sidebar: var(--c-bg);
@@ -41,7 +41,7 @@
 
   // custom container colors
   --c-tip: #42b983;
-  --c-tip-bg: var(--c-bg-light);
+  --c-tip-bg: var(--c-bg-lighter);
   --c-tip-title: var(--c-text);
   --c-tip-text: var(--c-text);
   --c-tip-text-accent: var(--c-text-accent);
@@ -134,4 +134,9 @@ main.page {
   .feature h2 {
     color: var(--c-text);
   }
+}
+
+code {
+  background-color: var(--c-bg-lighter);
+  color: var(--c-text);
 }
