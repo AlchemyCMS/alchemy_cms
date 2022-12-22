@@ -1,5 +1,6 @@
 import { defaultTheme } from "@vuepress/theme-default"
 import { docsearchPlugin } from "@vuepress/plugin-docsearch"
+import { shikiPlugin } from "@vuepress/plugin-shiki"
 
 export default {
   title: "AlchemyCMS Guides",
@@ -17,6 +18,19 @@ export default {
     docsearchPlugin({
       apiKey: "5f50a085ecc6f17f5ba1bc8911c3cc90",
       indexName: "alchemy-cms",
+    }),
+    shikiPlugin({
+      langs: [
+        "html",
+        "css",
+        "diff",
+        "javascript",
+        "ruby",
+        "erb",
+        "bash",
+        "yaml",
+      ],
+      theme: "one-dark-pro",
     }),
   ],
   theme: defaultTheme({
