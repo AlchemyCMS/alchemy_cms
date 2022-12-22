@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "16"
+  },
   "scripts": {
     "guides:preview": "vuepress dev guides",
     "guides:build": "vuepress build guides"
