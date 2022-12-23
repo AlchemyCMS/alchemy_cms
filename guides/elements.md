@@ -48,8 +48,6 @@ The generator also creates all the other basic folders and files for setting up 
 
 ::: warning NOTE
 The element definitions are cached. Please restart the server after editing the `elements.yml`.
-When re-running the views generator without the skip flag (`bin/rails g alchemy:elements`), the generator will prompt you about over-writing your element view partials to include the content changes.
-Running the view generator with the `--force` flag will overwrite your element view partials automatically.
 :::
 
 ### Example element definition
@@ -285,6 +283,8 @@ bin/rails g alchemy:elements --skip
 ~~~
 
 The `--skip` flag command skips files that already exist
+Without the skip flag, the generator will prompt you about over-writing your element view partials to include the content changes.
+The `--force` flag will overwrite your element view partials automatically.
 
 ::: tip
 You can pass `--template-engine` or `-e` as an argument to use `haml`, `slim` or `erb`.
@@ -346,12 +346,12 @@ A common use case is to have global pages for header and footer parts:
 ~~~ yaml
 # config/alchemy/elements.yml
 - name: header
-  message: Navigation bar at the top of every page
+  hint: Navigation bar at the top of every page
   contents:
     # ...
 
 - name: footer
-  message: Footer section at the bottom of every page
+  hint: Footer section at the bottom of every page
   contents:
     # ...
 
@@ -397,7 +397,7 @@ Which can be added to your `application.html.erb` file:
 
 Often you have a separate section on one page (like a sidebar) or a global section to be rendered on every page (like a navbar or footer).
 
-If you tag those elements as `fixed: true` in `elements.yml`, then they'll be separated from the general collection of elements and will be displayed separately in a separate tab in the admin elements section.
+If you configure those elements as `fixed: true` in `elements.yml`, then they'll be separated from the general collection of elements and will be displayed separately in a separate tab in the admin elements section.
 
 ~~~ yaml {3}
 - name: sidebar
@@ -409,7 +409,7 @@ If you tag those elements as `fixed: true` in `elements.yml`, then they'll be se
       # ...
 ~~~
 
-You can then access these elements using the `fixed_elements` method:
+You can then access these elements using the `fixed_elements` scope:
 
 ~~~ erb
 <% @page.fixed_elements.each do |element| %>
