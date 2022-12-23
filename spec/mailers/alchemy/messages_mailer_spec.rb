@@ -36,9 +36,9 @@ module Alchemy
     it "reply_to should be set to senders email" do
       expect(mail.reply_to).to eq([message.email])
     end
-  end
 
-  it "mail body includes message" do
-    expect(mail.body).to match /#{message.message}/
+    it "mail body includes message" do
+      expect(mail.body).to match /#{message.message}/
+    end
   end
 end
