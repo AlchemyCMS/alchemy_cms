@@ -136,8 +136,12 @@ main.page {
       max-height: 100px;
     }
 
-    .action-button.primary:hover {
-      background-color: var(--c-bg-darker);
+    .action-button.primary {
+      color: var(--c-text-light);
+
+      &:hover {
+        background-color: var(--c-bg-darker);
+      }
     }
   }
 
