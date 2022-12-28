@@ -295,7 +295,7 @@ Just like `element_view_for`, you can pass `options` and `html_options` to `el.r
 
 You can check out the [`ElementViewHelper#render` helper](https://github.com/AlchemyCMS/alchemy_cms/blob/b8cc62493693a070f7457081760708bf28c13e34/app/helpers/alchemy/elements_block_helper.rb#L31) for details.
 
-::: note WARNING
+::: warning NOTE
 Options are not universally applied by all element types. For example, `ElementRichText` ignores `html_options` since it's already in HTML format and isn't wrapped in any special div. And you can't prevent the `ElementPicture` from generating an `<img>` tag.
 :::
 

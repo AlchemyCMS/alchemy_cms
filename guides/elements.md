@@ -532,15 +532,9 @@ de:
         color: Button Farbe
 ~~~
 
-## Notes on interacting with Elements from the Admin interface
-
-While this guide is intended for developers building a CMS site, many developer will need to train clients and customers, or interact with the admin interface themselves.
-
-While the Admin UI tries to be as intuitive as possible, there are a few functions that aren't quite as obvious.
-
 ### Re-arranging Elements on a Page
 
-Collapsed elements can be re-arranged by clicking and dragging the window icon to the left of the element title.
+Collapsed elements can be re-arranged by clicking and dragging the its icon to the left of the element title.
 
 You can't re-arrange an expanded element, you need to collapse it first.
 
