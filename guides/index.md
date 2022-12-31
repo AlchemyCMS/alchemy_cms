@@ -3,7 +3,7 @@ home: true
 heroImage: /icon.svg
 actions:
   - text: Get Started →
-    link: /getting_started
+    link: getting_started
     type: primary
 features:
 - title: Not a common CMS

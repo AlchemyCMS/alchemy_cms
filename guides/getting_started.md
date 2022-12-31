@@ -1,6 +1,6 @@
 ---
 prev: false
-next: /about.html
+next: about
 ---
 
 # Getting Started
@@ -106,7 +106,7 @@ bin/rake alchemy:install
 
 #### Authentication
 
-If you already have your own user class in your application, you have to tell Alchemy about it. Please follow [this guide](custom_authentication.html) to learn how to achieve that.
+If you already have your own user class in your application, you have to tell Alchemy about it. Please follow [this guide](custom_authentication) to learn how to achieve that.
 
 If you don't have a authentication solution, you can use the alchemy-devise gem.
 

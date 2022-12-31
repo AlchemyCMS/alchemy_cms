@@ -1,19 +1,19 @@
 ---
-prev: /about.html
-next: /cells.html
+prev: about
+next: cells
 ---
 
 # Pages
 
 ## Overview
 
-In contrary to most CMSs pages in Alchemy **do not hold the actual content**. The actual content is stored in [essences](/essences.html) inside of [elements](/elements.html) pages are built of.
+In contrary to most CMSs pages in Alchemy **do not hold the actual content**. The actual content is stored in [essences](essences) inside of [elements](elements) pages are built of.
 
 Pages have a unique friendly url and are organized as nested tree and represent the structure of your website.
 
 Beside a language, a page has attributes for name, title, visibility, published and restriction status and all SEO relevant attributes like meta tags and meta descriptions.
 
-Every page has a [layout](#defining-page-layouts) which defines additional properties like caching, uniqueness and it defines [elements](/elements.html) and [cells](/cells.html) that can be placed on that Page.
+Every page has a [layout](#defining-page-layouts) which defines additional properties like caching, uniqueness and it defines [elements](elements) and [cells](cells) that can be placed on that Page.
 
 ## Defining page layouts
 
@@ -31,7 +31,7 @@ Every page layout needs at least a name. You don't need to set every option. It 
 
   A list of element names that can be placed on this layout i.e. `[text, picture]`.
 
-  [Elements](elements.html) are defined inside the `elements.yml` file.
+  [Elements](elements) are defined inside the `elements.yml` file.
 
 * **autogenerate** `Array`
 

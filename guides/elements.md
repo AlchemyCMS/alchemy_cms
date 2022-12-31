@@ -1,6 +1,6 @@
 ---
-prev: /cells.html
-next: /essences.html
+prev: cells
+next: essences
 ---
 
 # Elements
@@ -15,7 +15,7 @@ Some people speak of widgets, blocks or components. All these are elements in Al
 
 They give you a powerful tool to build the CMS you need.
 
-The contents of an element are of a specific [essence](essences.html). Each essence represents a data type that store values in the database.
+The contents of an element are of a specific [essence](essences). Each essence represents a data type that store values in the database.
 
 ## Templates
 
@@ -110,14 +110,14 @@ The following settings can be used to define elements in the `elements.yml`.
 
 * **fixed** `Boolean` (Default: `false`)
 
-  Used to separate an element from the normal flow. When `true`, the element is rendered on the page only with the explicit call of the `fixed_elements` scope. See [fixed elements](/elements.html#render-a-group-of-elements-on-a-fixed-place-on-the-page) for more details.
+  Used to separate an element from the normal flow. When `true`, the element is rendered on the page only with the explicit call of the `fixed_elements` scope. See [fixed elements](elements.html#render-a-group-of-elements-on-a-fixed-place-on-the-page) for more details.
 
 * **contents** `Array`
 
   A collection of contents the element contains. A content has to have a `name` (unique per element) and a `type`.
 
 ::: tip
-Have a look at the [essences guide](/essences.html) to get more informations about available essence types.
+Have a look at the [essences guide](essences) to get more informations about available essence types.
 :::
 
 In the following examples you will see how to use these settings.
@@ -418,7 +418,7 @@ You can then access these elements using the `fixed_elements` scope:
 ~~~
 
 ::: tip INFO
-Fixed elements replace [Cells](/cells.html) in Alchemy > 4.2.
+Fixed elements replace [Cells](cells) in Alchemy > 4.2.
 :::
 
 As `fixed_elements` is an a active record scope you can also filter by `where(name: 'your_element')` or use the `named('your_element')` scope. To gain some extra efficiency from Rails you could also use the collection rendering shortcut

@@ -1,6 +1,6 @@
 ---
-prev: /essences.html
-next: /configuration.html
+prev: essences
+next: configuration
 ---
 
 # Render Images

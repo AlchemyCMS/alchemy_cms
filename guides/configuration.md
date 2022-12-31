@@ -1,6 +1,6 @@
 ---
-prev: /render_images.html
-next: /upgrading.html
+prev: render_images
+next: upgrading
 ---
 
 # Configuration of AlchemyCMS

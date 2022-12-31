@@ -1,19 +1,19 @@
 ---
-prev: /pages.html
-next: /elements.html
+prev: pages
+next: elements
 ---
 
 # Cells
 
 ::: warning Deprecation note
-With Alchemy 4.2 cells have now been superseded by [fixed elements](/elements.html#render-a-group-of-elements-on-a-fixed-place-on-the-page).
+With Alchemy 4.2 cells have now been superseded by [fixed elements](elements.html#render-a-group-of-elements-on-a-fixed-place-on-the-page).
 :::
 
 Cells are fixed areas on a page and act as element containers.
 
 Often you have fixed sections on a page like a sidebar or the popular hero. These are perfect candidates for cells.
 
-If you want to be able to change the position of element containers, you probably want to use [nestable elements](/elements.html#nestable-elements) instead.
+If you want to be able to change the position of element containers, you probably want to use [nestable elements](elements.html#nestable-elements) instead.
 
 ## Defining cells
 

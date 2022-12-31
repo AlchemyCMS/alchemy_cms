@@ -1,6 +1,6 @@
 ---
-prev: /elements.html
-next: /render_images.html
+prev: elements
+next: render_images
 ---
 
 # Essences
@@ -9,14 +9,14 @@ next: /render_images.html
 
 Essences store the actual content of your site. They are stored as instances of `Alchemy::Content` on each `Alchemy::Element` instance.
 
-Alchemy comes with a lot of predefined essences for the regular needs of a website project. Combine them like a chemestry kit into [elements](/elements.html).
+Alchemy comes with a lot of predefined essences for the regular needs of a website project. Combine them like a chemestry kit into [elements](elements).
 
-Essences are Rails models. It is pretty easy to [add your own essence class](/create_essences.html) as well.
+Essences are Rails models. It is pretty easy to [add your own essence class](create_essences) as well.
 
 
 ## Definition
 
-Essences are defined as `contents` on an [element definition](/elements.html#defining-elements).
+Essences are defined as `contents` on an [element definition](elements.html#defining-elements).
 
 ### Global content settings
 
@@ -62,7 +62,7 @@ When defining contents, you need to provide a `name` and essence `type`. You can
 * **settings** `Hash`
 
   A set of options to configure the essence. Each essence has its own set of options listed below.
-  
+
 ### Individual essence settings
 
 Each essence type can have its own type of settings.
@@ -93,7 +93,7 @@ Use this for a headline, or a product name. The editor is renderd as a single li
 
 * **input_type** `String`
 
-  Change the [input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types) of the form field displayed to the content editors. 
+  Change the [input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types) of the form field displayed to the content editors.
 
 ### Example
 
@@ -129,7 +129,7 @@ You can customize the Tinymce editor of a single element instance.
 ~~~
 
 ::: tip INFO
-See the [Tinymce customization guide](customize_tinymce.html) for all available options
+See the [Tinymce customization guide](customize_tinymce) for all available options
 :::
 
 ## EssencePicture
@@ -141,7 +141,7 @@ The editor partial is rendered as a picture editor with a lot of options (i.e. i
 The view partial renders the assigned picture, resizes it and crops it if needed.
 
 ::: tip INFO
-See the [rendering images](render_images.html) guide for further information on the powerful image rendering engine of Alchemy.
+See the [rendering images](render_images) guide for further information on the powerful image rendering engine of Alchemy.
 :::
 
 ### Settings
@@ -195,7 +195,7 @@ Useful for letting your user select from a limited set of choices.
 ### Settings
 
 * **select_values** `Array`
-  
+
   A list of values your users can select from. Use [a two dimensional array](https://guides.rubyonrails.org/form_helpers.html#the-select-and-option-tags) for having value and text pairs.
 
 ### Example
@@ -217,7 +217,7 @@ If you want the linked text to be editable by the editor use the [**EssenceText*
 
 ## EssencePage _available since Alchemy 4.4_
 
-References an [Alchemy::Page](pages.html).
+References an [Alchemy::Page](pages).
 
 Renders a select box in the editor partial.
 
@@ -234,7 +234,7 @@ Useful for contact form follow up pages or other use cases where you want to ref
 
 ## Rendering essences within your element
 
-Similar to [rendering elements within layouts](/elements.html#render_elements_in_your_layout), essences are rendered on an element. However, essences don't have their own partial views by default.
+Similar to [rendering elements within layouts](elements.html#render_elements_in_your_layout), essences are rendered on an element. However, essences don't have their own partial views by default.
 
 Page layouts use the `<%= render_elements %>` helper to load an elements partial, elements use the `<%= element_view_for() do ... end %>` helper to expose a block that makes it easy to access the essences (instances of `Alchemy::Content`) of the element.
 

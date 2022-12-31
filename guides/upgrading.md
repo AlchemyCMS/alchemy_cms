@@ -1,5 +1,5 @@
 ---
-prev: /configuration.html
+prev: configuration
 next: false
 ---
 
@@ -19,8 +19,8 @@ If you use Alchemy from a git branch, point it to the next stable release.
 
 ~~~diff
 ...
--gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: '4.5-stable'
-+gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: '4.6-stable'
+-gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: '5.2-stable'
++gem 'alchemy_cms', github: 'AlchemyCMS/alchemy_cms', branch: '5.3-stable'
 ...
 ~~~
 
@@ -28,8 +28,8 @@ If you use Alchemy from rubygems, point it to the next stable release.
 
 ~~~diff
 ...
--gem 'alchemy_cms', '~> 4.5'
-+gem 'alchemy_cms', '~> 4.6'
+-gem 'alchemy_cms', '~> 5.2'
++gem 'alchemy_cms', '~> 5.3'
 ...
 ~~~
 
@@ -37,10 +37,10 @@ If you are using `alchemy-devise` for authentication, then update the gem as wel
 
 ~~~diff
 ...
--gem 'alchemy_cms', '~> 4.5'
-+gem 'alchemy_cms', '~> 4.6'
--gem 'alchemy-devise', '~> 4.5'
-+gem 'alchemy-devise', '~> 4.6'
+-gem 'alchemy_cms', '~> 5.2'
++gem 'alchemy_cms', '~> 5.3'
+-gem 'alchemy-devise', '~> 5.2'
++gem 'alchemy-devise', '~> 5.3'
 ...
 ~~~
 
@@ -79,7 +79,3 @@ Please follow them carefully.
 ## Finished
 
 Please always verify the upgrade by looking through the `git diff` and running your test suite.
-
-## Dedicated upgrade guides
-
-- [Alchemy 3.0](upgrading/3.0.html)

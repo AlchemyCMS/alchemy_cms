@@ -1,6 +1,6 @@
 ---
-prev: /getting_started.html
-next: /pages.html
+prev: getting_started
+next: pages
 ---
 
 # About AlchemyCMS
@@ -21,14 +21,14 @@ AlchemyCMS is a Ruby on Rails engine. Read about [engines in the Rails guides](h
 
 AlchemyCMS comes with six core modules:
 
-1. [Pages](pages.html)
+1. [Pages](pages)
 2. Languages
 3. Sites
 4. Users
 5. Tags
 6. Library (Pictures & Attachments)
 
-The core modules can be extended by own modules. A module should be a Rails engine that registers itself at Alchemy. Read more about [creating own modules](create_modules.html).
+The core modules can be extended by own modules. A module should be a Rails engine that registers itself at Alchemy. Read more about [creating own modules](create_modules).
 
 ## Storing architecture
 
@@ -55,13 +55,13 @@ Alchemy comes with useful helpers that help render these partials. For further i
 
 When working with AlchemyCMS the very first thing you should do is identify the website´s layout different page types (called page layouts).
 
-Every page which is structurally different to another, should have its own page layout. A page layout is a HTML template with specified properties. [More about pages and their layouts »](/pages.html#defining-page-layouts)
+Every page which is structurally different to another, should have its own page layout. A page layout is a HTML template with specified properties. [More about pages and their layouts »](pages.html#defining-page-layouts)
 
-After that you should identify fixed areas on the layout and define cells for sidebars, heroes and other groups of content. Cells render on page layouts and are acting as fixed containers for element groups. [More about cells »](/cells.html)
+After that you should identify fixed areas on the layout and define cells for sidebars, heroes and other groups of content. Cells render on page layouts and are acting as fixed containers for element groups. [More about cells »](cells)
 
-In any case you should split the layout into elements. That means grouping small parts of the websites content into reusable containers. Elements are rendered on page layouts or in cells and are the key component of Alchemy. [More about elements »](/elements.html)
+In any case you should split the layout into elements. That means grouping small parts of the websites content into reusable containers. Elements are rendered on page layouts or in cells and are the key component of Alchemy. [More about elements »](elements)
 
-An essence is the smallest part of content in Alchemy and represents a headline, an image, paragraphs and other values of content. [More about essences »](/essences.html)
+An essence is the smallest part of content in Alchemy and represents a headline, an image, paragraphs and other values of content. [More about essences »](essences)
 
 ## Processing images
 
@@ -69,11 +69,11 @@ Alchemy uses [ImageMagick®](https://www.imagemagick.org) and [Dragonfly](https:
 
 Images are stored as master images in the picture library. The editor just assigns these images to elements you provide them. You also set the image rendering boundaries. The max width and heigth values, or even the size an image should be cropped to. Alchemy comes with a built-in image cropping tool, so that the editor can define the mask to be used.
 
-[Read more about how to use the powerful image processing tools](render_images.html).
+[Read more about how to use the powerful image processing tools](render_images).
 
 ## Caching
 
-If not deactivated in the [configuration](/configuration.html), Alchemy uses Rails "Russian Doll Caching" for fast content delivering. This will cache all [page layout](/pages.html) partials where [cells](/cells.html) and [elements](/elements.html) are rendered on.
+If not deactivated in the [configuration](configuration), Alchemy uses Rails "Russian Doll Caching" for fast content delivering. This will cache all [page layout](pages) partials where [cells](cells) and [elements](elements) are rendered on.
 
 With every page request Alchemy sends cache headers that are used by CDNs, proxies and your vistors browser to cache the page body.
 
@@ -83,4 +83,4 @@ Alchemy can also be your Rails admin for your own custom models and controllers.
 
 The standard templates for the backend views are also rendered. They can be overwritten in your app, just use the expected filenames and variables.
 
-Read more details about the resources controller in the [module development](/create_modules.html) guide.
+Read more details about the resources controller in the [module development](create_modules) guide.
