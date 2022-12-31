@@ -1,35 +1,35 @@
 ---
 prev: about
-next: cells
+next: elements
 ---
 
 # Pages
 
 ## Overview
 
-In contrary to most CMSs pages in Alchemy **do not hold the actual content**. The actual content is stored in [essences](essences) inside of [elements](elements) pages are built of.
+In contrary to most CMSs pages in Alchemy **do not hold the actual content**. The actual content is stored in [ingredients](ingredients) inside of [elements](elements) pages are built of.
 
 Pages have a unique friendly url and are organized as nested tree and represent the structure of your website.
 
 Beside a language, a page has attributes for name, title, visibility, published and restriction status and all SEO relevant attributes like meta tags and meta descriptions.
 
-Every page has a [layout](#defining-page-layouts) which defines additional properties like caching, uniqueness and it defines [elements](elements) and [cells](cells) that can be placed on that Page.
+Every page has a [definition](#defining-page-layouts) which defines additional properties like caching, uniqueness and it defines [elements](elements) that can be placed on that Page.
 
-## Defining page layouts
+## Defining page types
 
-Page layouts are defined in the `config/alchemy/page_layouts.yml` file.
+Page types are defined in the `config/alchemy/page_layouts.yml` file.
 
-Every page layout needs at least a name. You don't need to set every option. It depends on what you need for pages with that layout type.
+Every page type needs at least a name. You don't need to set every option. It depends on what you need for pages with that type.
 
 ### Recommended settings
 
 * **name** `String` *required*
 
-  The name of the layout used for views and inside the database. You can render a layout with the `render_page_layout(name)` helper.
+  The name of the page type used for views and inside the database. You can render a page by type with the `render_page_layout(name)` helper.
 
 * **elements** `Array`
 
-  A list of element names that can be placed on this layout i.e. `[text, picture]`.
+  A list of element names that can be placed on this type of page i.e. `[text, picture]`.
 
   [Elements](elements) are defined inside the `elements.yml` file.
 
@@ -39,7 +39,7 @@ Every page layout needs at least a name. You don't need to set every option. It 
 
 * **unique** `Boolean` (Default `false`)
 
-  Pass `true` and the user can only choose this layout once inside a language tree.
+  Pass `true` and the user can only choose this page type once inside a language tree.
 
 * **cache** `Boolean` (Default `true`)
 
@@ -57,7 +57,7 @@ Every page layout needs at least a name. You don't need to set every option. It 
 
 * **hide** `Boolean` (Default `false`)
 
-  Pass `true` to hide this layout from the user.
+  Pass `true` to hide this page type from the user.
 
 * **searchresults** `Boolean` (Default `false`)
 
@@ -102,12 +102,12 @@ Please ensure to restart the Rails server after editing `page_layouts.yml`.
 
 Each page type (called `page_layout` in Alchemy) has a Rails view partial which is yielded on the Rails application layout (`app/views/layouts/application.html.erb`).
 
-All page layout partials live in the `app/views/alchemy/page_layouts` folder.
+All page type partials live in the `app/views/alchemy/page_layouts` folder.
 
 They are named after the pages `page_layout` you defined in the `page_layouts.yml` file.
 
 ::: warning NOTE
-If no page layout partial is found for a page, the `_standard.html.erb` layout gets rendered instead.
+If no page type partial is found for a page, the `_standard.html.erb` partial gets rendered instead.
 :::
 
 ### Template generator
@@ -120,7 +120,7 @@ So after defining the page layouts, you can generate all the corresponding parti
 bin/rails g alchemy:page_layouts --skip
 ~~~
 
-Using the example above, which defines a contact layout, the generator will create a partial named `_contact.html.erb`.
+Using the example above, which defines a contact page type, the generator will create a partial named `_contact.html.erb`.
 
 ::: tip
 You can pass `--template-engine` or `-e` as option to use one of `haml`, `slim` and `erb`. The default depends on your default template engine in your Rails host app.
@@ -146,7 +146,7 @@ The `render_elements` view helper has lots of options. Please have a look at the
 
 Global pages (or layout pages) are pages that are not in the default page tree (your navigation). They will never get rendered on its own. Use them to store shared elements that should be rendered on multiple other pages (ie. footer, header, tracking codes etc) or somewhere directly on the application layout.
 
-To define a global page set `layoutpage: true` in the page layout definition of that page.
+To define a global page set `layoutpage: true` in the page type definition of that page.
 
 ### Render an element from a global page
 
@@ -159,7 +159,7 @@ To render an element from a global page use the `from_page` option of the `rende
 ~~~
 
 ::: tip
-You can pass a `page_layout` name as a `String`, an `Array` of page layout names, or an instance of a certain `Alchemy::Page`.
+You can pass a `page_layout` name as a `String`, an `Array` of page type names, or an instance of a certain `Alchemy::Page`.
 :::
 
 ## Caching
@@ -184,9 +184,9 @@ You can use Rails' "Russian-Doll-Caching" to cache page templates.
 Be sure to not cache page templates that have elements with forms on it, like contact or comment forms. Rails' csrf protection token is placed inside the `<form`> tag and caching it will break form submissions.
 :::
 
-## Translate page layout names
+## Translate page type names
 
-Page layout names are passed through the `I18n` library.
+Page type names are passed through the `I18n` library.
 You can translate them in your Alchemy locale files.
 
 ### Example

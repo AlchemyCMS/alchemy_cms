@@ -3,82 +3,83 @@ prev: elements
 next: render_images
 ---
 
-# Essences
+# Ingredients
 
 ## Overview
 
-Essences store the actual content of your site. They are stored as instances of `Alchemy::Content` on each `Alchemy::Element` instance.
+Ingredients store the actual content of your site. They are stored as instances of `Alchemy::Ingredient` subclasses on each `Alchemy::Element` instance.
 
-Alchemy comes with a lot of predefined essences for the regular needs of a website project. Combine them like a chemestry kit into [elements](elements).
+Alchemy uses Rails [Single Table Inheritance](https://guides.rubyonrails.org/association_basics.html#single-table-inheritance-sti) to store the values in the same table.
 
-Essences are Rails models. It is pretty easy to [add your own essence class](create_essences) as well.
+Alchemy comes with a lot of predefined ingredients for the regular needs of a website project. Combine them like a chemestry kit into [elements](elements).
 
+Ingredients are Rails models. It is pretty easy to [add your own ingredient class](custom_ingredients) as well.
 
 ## Definition
 
-Essences are defined as `contents` on an [element definition](elements.html#defining-elements).
+Ingredients are defined as `ingredients` on an [element definition](elements#defining-elements).
 
-### Global content settings
+### Global ingredient settings
 
-When defining contents, you need to provide a `name` and essence `type`. You can set hints and default values as well.
+When defining ingredients, you need to provide a `role` and `type`. You can set hints and default values as well.
 
 ~~~ yaml
 # config/alchemy/elements.yml
 - name: article
-  contents:
-    - name: headline
-      type: EssenceText
+  ingredients:
+    - role: headline
+      type: Text
       hint: This is the headline
-    - name: color
-      type: EssenceText
+    - role: color
+      type: Text
       settings:
         input_type: color
-    - name: copy
-      type: EssenceRichtext
+    - role: copy
+      type: Richtext
       default: Lorem ipsum dolor
       as_element_title: true
 ~~~
 
-* **name** `String` _required_
+* **role** `String` _required_
 
-  A lowercased **unique** (per element) name of the content. Separated words needs to be underscored.
+  A lowercased **unique** (per element) role of the ingredient. Separate words needs to be underscored.
 
 * **type** `String` _required_
 
-  An essence type this content is from. Alchemy has lots of built in essences for [simple text](#essencetext), [rich text](#essencerichtext), [images](#essencepicture), [booleans](#essenceboolean) and more.
+  An type this ingredient is of. Alchemy has lots of built in ingredients for [simple text](#text), [rich text](#richtext), [images](#picture), [booleans](#boolean) and more.
 
 * **hint** `String|Symbol|Boolean`
 
-  A hint for the user in the admin frontend that describes what the essence is used for. The hint is translatable if you provide an I18n translation `Symbol` instead of a `String`. You may also set it to `true` to default to the I18n key `alchemy.content_hints.your-content-name`.
+  A hint for the user in the admin frontend that describes what the ingredient is used for. The hint is translatable if you provide an I18n translation `Symbol` instead of a `String`. You may also set it to `true` to default to the I18n key `alchemy.ingredients_hints.your_ingredient_role`.
 
 * **default** `String`
 
-  The default text to prefill newly created elements. You may also use a symbol to set it to the I18n key `alchemy.default_content_texts.your-symbol-name`
+  The default text to prefill newly created elements. You may also use a symbol to set it to the I18n key `alchemy.default_ingredients_texts.your_ingredient_role`
 
 * **as_element_title** `Boolean`
 
-  For the displayed element title, the first content essence is used. Use this setting to override this behaviour and show other content as element title.
+  For the displayed element title, the first ingredient is used. Use this setting to override this behaviour and show other ingredient as element title.
 
 * **settings** `Hash`
 
-  A set of options to configure the essence. Each essence has its own set of options listed below.
+  A set of options to configure the ingredient. Each ingredient has its own set of options listed below.
 
-### Individual essence settings
+### Individual ingredient settings
 
-Each essence type can have its own type of settings.
+Each ingredient type can have its own type of settings.
 
 To configure these settings you have to pass them into its `settings` key in the `elements.yml`.
 
 ~~~ yaml {5-6}
 - name: my_element
-  contents:
-    - name: headline
-      type: EssenceText
+  ingredients:
+    - role: headline
+      type: Text
       settings:
         linkable: true
 ~~~
 
-## EssenceText
+## Text
 
 Stores plain text of 255 chars max.
 
@@ -86,25 +87,24 @@ Use this for a headline, or a product name. The editor is renderd as a single li
 
 ### Settings
 
-
 * **linkable** `Boolean`
 
   If set to `true`, the user can add a link to the text.
 
 * **input_type** `String`
 
-  Change the [input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types) of the form field displayed to the content editors.
+  Change the [input type](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input#Form_%3Cinput%3E_types) of the form field displayed in the editor.
 
 ### Example
 
 ~~~ yaml
 - name: button
-  type: EssenceText
+  type: Text
   settings:
     linkable: true
 ~~~
 
-## EssenceRichtext
+## Richtext
 
 Used to store paragraphs of formatted text.
 
@@ -120,7 +120,7 @@ You can customize the Tinymce editor of a single element instance.
 
 ~~~ yaml
 - name: text
-  type: EssenceRichtext
+  type: Richtext
   settings:
     tinymce:
       style_formats:
@@ -132,7 +132,7 @@ You can customize the Tinymce editor of a single element instance.
 See the [Tinymce customization guide](customize_tinymce) for all available options
 :::
 
-## EssencePicture
+## Picture
 
 Store references to pictures the editor assigns from the library.
 
@@ -162,7 +162,7 @@ See the [rendering images](render_images) guide for further information on the p
 
   A list of screen sizes the image sources should be used for. Best used with the `srcset` setting for implementing responsive images.
 
-## EssenceDate
+## Date
 
 Use this to store a `DateTime` value. Renders a datepicker in the editor partial.
 
@@ -173,7 +173,7 @@ The view output is passed through Rails' I18n Library, so it is fully localizabl
 * **date_format** `String|Symbol`
   Either a `String` with the format of [Rubys `strftime`](https://ruby-doc.org/stdlib-2.6.1/libdoc/date/rdoc/Date.html#method-i-strftime) or a `Symbol` of a [date/time format](https://guides.rubyonrails.org/i18n.html#adding-date-time-formats) defined in your locale files.
 
-## EssenceHtml
+## Html
 
 Useful to store HTML code (i.e. a embed, or tracking code).
 
@@ -182,11 +182,11 @@ The view renders the raw, not sanitized or escaped output.
 **So be careful!**
 :::
 
-## EssenceBoolean
+## Boolean
 
 Stores a `Boolean` value in the database. Renders a checkbox in the editor partial.
 
-## EssenceSelect
+## Select
 
 Renders a select box in the editor partial and stores the value as `String`.
 
@@ -202,20 +202,24 @@ Useful for letting your user select from a limited set of choices.
 
 ~~~ yaml
 - name: width
-  type: EssenceSelect
+  type: Select
   settings:
     select_values: ['200', '300', '400']
 ~~~
 
-## EssenceLink
+::: tip
+If you need dynamic values (ie, a from a product catalogue), please [create a custom ingredient class](custom_ingredients) that provides the values.
+:::
+
+## Link
 
 Stores a url in the database. Useful for linking things, where the editor should not set the linked text itself.
 
 ::: tip
-If you want the linked text to be editable by the editor use the [**EssenceText**](#essencetext) with `linkable: true` option instead.
+If you want the linked text to be editable by the editor use the [**Text**](#text) with `linkable: true` option instead.
 :::
 
-## EssencePage _available since Alchemy 4.4_
+## Page
 
 References an [Alchemy::Page](pages).
 
@@ -227,31 +231,31 @@ Useful for contact form follow up pages or other use cases where you want to ref
 
 ~~~ yaml
 - name: contact_form
-  contents:
-    - name: follow_up_page
-      type: EssencePage
+  ingredients:
+    - role: follow_up_page
+      type: Page
 ~~~
 
-## Rendering essences within your element
+## Rendering ingredients within your element
 
-Similar to [rendering elements within layouts](elements.html#render_elements_in_your_layout), essences are rendered on an element. However, essences don't have their own partial views by default.
+Similar to [rendering elements within layouts](elements.html#render_elements_in_your_layout), ingredients are rendered on an element.
 
-Page layouts use the `<%= render_elements %>` helper to load an elements partial, elements use the `<%= element_view_for() do ... end %>` helper to expose a block that makes it easy to access the essences (instances of `Alchemy::Content`) of the element.
+Page layouts use the `<%= render_elements %>` helper to load an elements partial, elements use the `<%= element_view_for %>` helper to expose a block that makes it easy to access the ingredients (instances of `Alchemy::Ingredient` subclasses) of the element.
 
 For example. With an `article` element like this:
 
 ~~~ yaml
 # config/alchemy/elements.yml
 - name: article
-  contents:
-    - name: headline
-      type: EssenceText
-    - name: color
-      type: EssenceText
+  ingredients:
+    - role: headline
+      type: Text
+    - role: color
+      type: Text
       settings:
         input_type: color
-    - name: copy
-      type: EssenceRichtext
+    - role: copy
+      type: Richtext
 ~~~
 
 The `_article.html.erb` template generated by `rails alchemy:elements --skip` would look like this:
@@ -270,10 +274,9 @@ The `_article.html.erb` template generated by `rails alchemy:elements --skip` wo
     </div>
   <%- end -%>
 <%- end -%>
-
 ~~~
 
-Note how `element_view_for` allows you to call `el.render` on essences within the block.
+Note how `element_view_for` allows you to call `el.render` on ingredients within the block.
 
 ::: tip
 `element_view_for` wraps the block in a `<div>` with a set ID and class by default, but this is [customizeable](https://github.com/AlchemyCMS/alchemy_cms/blob/main/app/helpers/alchemy/elements_block_helper.rb#L137) if you pass in arguments:
@@ -281,11 +284,11 @@ Note how `element_view_for` allows you to call `el.render` on essences within th
 `<%= element_view_for(article, tag: :span, id: 'custom_id', class: 'custom_class') do |el| -%>`
 :::
 
-Without using the `element_view_for` helper, you can still access essences:
+Without using the `element_view_for` helper, you can still access ingredients:
 
-`article.content_by_name('headline')&.ingredient`
+`article.ingredient_by_name('headline')&.value`
 
-But the `el.render` helper takes care of generating the appropriate DOM elements to display the essence based on its type. It is recommended you rely on these helpers unless you are comfortable with the structure of the essence model you are trying to render.
+But the `el.render` helper takes care of generating the appropriate DOM elements to display the ingredient based on its type. It is recommended you rely on these helpers unless you are comfortable with the structure of the ingredient model you are trying to render.
 
 Just like `element_view_for`, you can pass `options` and `html_options` to `el.render`:
 

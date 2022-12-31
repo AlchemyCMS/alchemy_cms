@@ -1,32 +1,25 @@
 ---
-prev: cells
-next: essences
+prev: pages
+next: ingredients
 ---
 
 # Elements
 
 ## Overview
 
-Elements are reusable sets of contents that belong together, visually and contextually.
+Elements are reusable blocks of content that belong together, visually and contextually.
 
-Imagine you bundle a headline, a text block and a picture - this is a typical element, maybe you want to call it an "article".
+Imagine you combine a headline, a text block and a picture - this is a typical element, maybe you want to call it an "article".
 
 Some people speak of widgets, blocks or components. All these are elements in Alchemy. Elements can be nested into each other and are the key of Alchemy's flexible content architecture.
 
 They give you a powerful tool to build the CMS you need.
 
-The contents of an element are of a specific [essence](essences). Each essence represents a data type that store values in the database.
+The ingredients of an element are of a specific [type](ingredients). Each ingredient represents a data type that store values in the database.
 
 ## Templates
 
-Elements have two templates (they are called [partials in Rails](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials)).
-
-1. The `<element_name>_view` represents the element on your website
-2. The `<element_name>_editor` renders form fields in the admin for the editors _deprecated since Alchemy 4.4_
-
-::: warning
-The element editor partials are deprecated and will be removed from Alchemy 5. As of Alchemy 4.4 the generator will not generate them for you anymore.
-:::
+Each element has a template (they are called [partials in Rails](https://guides.rubyonrails.org/layouts_and_rendering.html#using-partials)).
 
 They live in `app/views/alchemy/elements/`.
 
@@ -36,7 +29,7 @@ You don't need to create the files yourself. Use [the built in generator](#gener
 
 ## Defining elements
 
-Elements are defined in the `config/alchemy/elements.yml` file. Element definitions are written in [YAML (YAML Ain't Markup Language)](http://yaml.org)
+Elements are defined in the `config/alchemy/elements.yml` file. Element definitions are written in [YAML](http://yaml.org)
 
 If this file does not exist yet, use the scaffold generator to do that now:
 
@@ -56,24 +49,24 @@ The element definitions are cached. Please restart the server after editing the 
 # config/alchemy/elements.yml
 - name: article
   unique: true
-  contents:
-  - name: image
-    type: EssencePicture
-  - name: headline
-    type: EssenceText
-    as_element_title: true
-  - name: copy
-    type: EssenceRichtext
+  ingredients:
+    - role: image
+      type: Picture
+    - role: headline
+      type: Text
+      as_element_title: true
+    - role: copy
+      type: Richtext
 ~~~
 
-The element in this example is named **"article"** and can be placed only once per page. It has three contents of the following types:
+The element in this example is named **"article"** and can be placed only once per page (because it is `unique`). It has three ingredients of the following types:
 
-* [EssencePicture](essences.html#essencepicture)
-* [EssenceText](essences.html#essencetext)
-* [EssenceRichtext](essences.html#essencerichtext)
+* [Picture](ingredients.html#picture)
+* [Text](ingredients.html#text)
+* [Richtext](ingredients.html#richtext)
 
 ::: tip
-You can select which content will be used for the preview text in the element's title bar in the admin frontend by adding `as_element_title: true` to the desired content. In the example above, the **"headline"** content would be used.
+You can select which ingredient will be used for the preview text in the element's title bar in the admin frontend by adding `as_element_title: true` to the desired ingredient. In the example above, the **"headline"** ingredient would be used.
 :::
 
 ### Element settings
@@ -82,7 +75,7 @@ The following settings can be used to define elements in the `elements.yml`.
 
 * **name** `String` _required_
 
-  A lowercased **unique** name of the element. Separated words needs to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also part of the `app/views/alchemy/elements` view partials file names. The name is [translatable](#translating-elements) for the user in the admin frontend.
+  A lowercased **unique** name of the element. Separate words need to be underscored. The name is used in the `page_layouts.yml` file to define on which pages the element can be used. It is also part of the `app/views/alchemy/elements` view partials file names. The name is [translatable](#translating-elements) for the user in the admin frontend.
 
 * **unique** `Boolean` (Default: `false`)
 
@@ -92,11 +85,11 @@ The following settings can be used to define elements in the `elements.yml`.
 
   A hint for the user in the admin interface that should be used to describe what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence. The hint itself will be displayed as a small question mark icon and will reveal a tooltip once hovered by the user.
 
-* **message** `String` _since Alchemy 4.4_
+* **message** `String`
 
   A prominent informational message displayed at the top of the element editor form in the admin interface that can be used to give your user additional information. You can even use simple html to add some emphasis to your message.
 
-* **warning** `String` _since Alchemy 4.4_
+* **warning** `String`
 
   A prominent warning message displayed at the top of the element editor form in the admin interface that can be used to warn your user about something. You can use simple html to add even more emphasis to your warning.
 
@@ -112,17 +105,15 @@ The following settings can be used to define elements in the `elements.yml`.
 
   Used to separate an element from the normal flow. When `true`, the element is rendered on the page only with the explicit call of the `fixed_elements` scope. See [fixed elements](elements.html#render-a-group-of-elements-on-a-fixed-place-on-the-page) for more details.
 
-* **contents** `Array`
+* **ingredients** `Array`
 
-  A collection of contents the element contains. A content has to have a `name` (unique per element) and a `type`.
+  A collection of ingredients the element contains. A ingredient has to have a `role` (unique per element) and a `type`.
 
 ::: tip
-Have a look at the [essences guide](essences) to get more informations about available essence types.
+Have a look at the [ingredients guide](ingredients) to get more informations about available ingredient types.
 :::
 
 In the following examples you will see how to use these settings.
-
-In the code examples of the partials we use the [slim template engine](http://slim-lang.com) instead of [ERB](http://en.wikipedia.org/wiki/ERuby) to keep the markup short and easy to understand.
 
 ## Nestable elements
 
@@ -134,16 +125,22 @@ Just define nestable elements in your `elements.yml` file.
 
 ~~~ yaml
 - name: article
-  contents:
-  - name: headline
-    type: EssenceText
+  ingredients:
+    - role: headline
+      type: Text
   nestable_elements:
-  - text
+    - text
+    - picture
 
 - name: text
-  contents:
-  - name: text
-    type: EssenceRichtext
+  ingredients:
+    - role: text
+      type: Richtext
+
+- name: picture
+  ingredients:
+    - role: text
+      type: Picture
 ~~~
 
 ::: warning NOTE
@@ -152,16 +149,46 @@ Nested elements can also have `nestable_elements`. Just don't get too crazy with
 
 ## Rendering nested elements
 
-Use the `render_element` helper to render each nested element.
+Use the `render` helper to render all nested elements as a collection.
 
 ~~~ erb
-<%= element_view_for(element) do |el| %>
+<%= element_view_for(article) do |el| %>
   <h3><%= el.render :headline %></h3>
 
   <div class="text-blocks">
-    <% element.nested_elements.each do |nested_element| %>
-      <%= render_element nested_element %>
-    <% end %>
+    <%= render article.nested_elements %>
+  </div>
+<% end %>
+~~~
+
+Or `render` a group of nested elements by filtering the `nested_elements` collection by element name.
+
+~~~ erb
+<%= element_view_for(article) do |el| %>
+  <h3><%= el.render :headline %></h3>
+
+  <div class="text-blocks">
+    <%= render article.nested_elements.named(:text) %>
+  </div>
+
+  <div class="pictures">
+    <%= render article.nested_elements.named(:picture) %>
+  </div>
+<% end %>
+~~~
+
+Or `render` a single nested element by loading it from the `nested_elements` collection by element name.
+
+~~~ erb
+<%= element_view_for(article) do |el| %>
+  <h3><%= el.render :headline %></h3>
+
+  <div class="picture">
+    <%= render article.nested_elements.find_by(name: :picture) %>
+  </div>
+
+  <div class="text-blocks">
+    <%= render article.nested_elements.where(name: :text) %>
   </div>
 <% end %>
 ~~~
@@ -173,27 +200,27 @@ Elements are taggable. To enable it, add `taggable: true` to the element's defin
 ~~~ yaml
 - name: article
   taggable: true
-  contents:
-  - name: image
-    type: EssencePicture
-  - name: headline
-    type: EssenceText
-    as_element_title: true
-  - name: copy
-    type: EssenceRichtext
+  ingredients:
+    - role: image
+      type: Picture
+    - role: headline
+      type: Text
+      as_element_title: true
+    - role: copy
+      type: Richtext
 ~~~
 
 Tags are a collection on the `element` object. `element.tag_list` returns an array of tag names.
 
 ~~~ erb
-= element.tag_list.join(', ')
+<%= element.tag_list.join(', ') %>
 ~~~
 
 Alchemy uses the [gutentag](https://github.com/pat/gutentag) gem, so please refer to the github [README](https://github.com/pat/gutentag/blob/master/README.md) or the [Wiki](https://github.com/pat/gutentag/wiki) for further informations.
 
-## Element with content validations
+## Element with ingredient validations
 
-You can enable validations for your contents. They behave like the Rails model validations.
+You can enable validations for your ingredients. They behave like the Rails model validations.
 
 Supported validations are
 
@@ -213,50 +240,50 @@ It is also possible to add own format matchers there.
 # config/alchemy/config.yml
 format_matchers:
   email: !ruby/regexp '/\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/'
-  url:   !ruby/regexp '/\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix'
+  url: !ruby/regexp '/\A[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?\z/ix'
 ~~~
 
 ### Example
 
 ~~~ yaml
 - name: person
-  contents:
-  - name: name
-    type: EssenceText
-    validate:
-    - presence: true
-  - name: email
-    type: EssenceText
-    validate:
-    - format: email
-  - name: homepage
-    type: EssenceText
-    validate:
-    - format: !ruby/regexp '/^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/']
+  ingredients:
+    - role: name
+      type: Text
+      validate:
+        - presence: true
+    - role: email
+      type: Text
+      validate:
+        - format: email
+    - role: homepage
+      type: Text
+      validate:
+        - format: !ruby/regexp '/^[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/']
 ~~~
 
-The `email` content gets validated against the predefined `email` matcher in the `config.yml`.
+The `email` ingredient gets validated against the predefined `email` matcher in the `config.yml`.
 
-The `homepage` content is matched against the given regexp.
+The `homepage` ingredient is matched against the given regexp.
 
 ### Multiple validations.
 
-Contents can have multiple validations.
+Ingredients can have multiple validations.
 
 ~~~ yaml
 - name: person
-  contents:
-  - name: name
-    type: EssenceText
-    validate:
-    - presence: true
-    - uniqueness: true
-    - format: name
+  ingredients:
+    - role: name
+      type: Text
+      validate:
+        - presence: true
+        - uniqueness: true
+        - format: name
 ~~~
 
 The validations are evaluated in the order as they are defined in the list.
 
-At first the name content will be validated for `presence`, then for `uniqueness` and at least against its `format`.
+At first the name ingredient will be validated for `presence`, then for `uniqueness` and at least against its `format`.
 
 ## Assign elements to page layouts
 
@@ -291,16 +318,9 @@ You can pass `--template-engine` or `-e` as an argument to use `haml`, `slim` or
 The default template engine depends on your settings in your Rails host app.
 :::
 
-The generator will create two files for each element in your `app/views/alchemy/elements` folder.
+The generator will create partials for each element in your `app/views/alchemy/elements` folder.
 
-According to the first example, the article element, the generator will create the `_article_view.html.erb` and `_article_editor.html.erb` files.
-
-* The element's view file `_article_view.html.erb` gets rendered, when a user requests your webpage.
-* The element's editor file `_article_editor.html.erb` gets rendered, when you edit the page in the admin frontend.  _deprecated since Alchemy 4.4_
-
-::: warning
-The element editor partials are deprecated and will be removed from Alchemy 5. As of Alchemy 4.4 the generator will not generate them for you anymore.
-:::
+According to the first example, the article element, the generator will create the `_article.html.erb` partial.
 
 The generator does not only create these files, it also generates the necessary code for you. Mostly you can take use of the that code and make it nifty by adding some CSS stylings.
 
@@ -347,12 +367,12 @@ A common use case is to have global pages for header and footer parts:
 # config/alchemy/elements.yml
 - name: header
   hint: Navigation bar at the top of every page
-  contents:
+  ingredients:
     # ...
 
 - name: footer
   hint: Footer section at the bottom of every page
-  contents:
+  ingredients:
     # ...
 
 # config/alchemy/page_layouts.yml
@@ -403,9 +423,9 @@ If you configure those elements as `fixed: true` in `elements.yml`, then they'll
 - name: sidebar
   unique: true
   fixed: true
-  contents:
-    - name: name
-      type: EssenceText
+  ingredients:
+    - role: name
+      type: Text
       # ...
 ~~~
 
@@ -430,7 +450,6 @@ As `fixed_elements` is an a active record scope you can also filter by `where(na
 ::: tip NOTE
 You need to use the elements view partial name instead of the element local variable in your child element views. Ie. `sidebar_view` instead of `element`.
 :::
-
 
 ## Customizing the view partial
 
@@ -476,9 +495,9 @@ You can pass additional arguments to add or change any html attributes of the wr
 If you want to learn more about the helper methods used in these partials, please have a look at the [Documentation](http://rubydoc.info/search/github/AlchemyCMS/alchemy_cms?q=helper).
 :::
 
-### Pass options to the essence view
+### Pass options to the ingredient view
 
-You can pass options to the essence view.
+You can pass options to the ingredient view.
 
 ~~~ erb
 <%= element_view_for(element) do |el| %>
@@ -487,10 +506,10 @@ You can pass options to the essence view.
 ~~~
 
 ::: tip
-Instead of passing the `size` of an image into the `EssencePicture` as shown above, you should consider to use static [content settings](essences.html#individual-essence-settings) instead.
+Instead of passing the `size` of an image into the `EssencePicture` as shown above, you should consider to use static [ingredient settings](ingredients.html#individual-ingredient-settings) instead.
 :::
 
-The first hash is the `options` the second one the `html_options` passed to the wrapper of the content.
+The first hash is the `options` the second one the `html_options` passed to the wrapper of the ingredient.
 If you only want to pass `html_options` you need to pass an empty hash as second argument.
 
 ~~~ erb
@@ -500,12 +519,12 @@ If you only want to pass `html_options` you need to pass an empty hash as second
 ~~~
 
 ::: tip
-Not all essences have wrapper tags. A list of all essence views are [here](https://github.com/AlchemyCMS/alchemy_cms/tree/master/app/views/alchemy/essences).
+Not all ingredients have wrapper tags. A list of all ingredient views are [here](https://github.com/AlchemyCMS/alchemy_cms/tree/master/app/views/alchemy/ingredients).
 :::
 
 ## Translating elements
 
-Element and content names are passed through Rails' [I18n](http://guides.rubyonrails.org/i18n.html) library.
+Element and ingredient names are passed through Rails' [I18n](http://guides.rubyonrails.org/i18n.html) library.
 You can translate them in your `config/locales` language yml file.
 
 ~~~ yaml
@@ -514,19 +533,19 @@ de:
     element_names:
       contact_form: Kontaktformular
       search: Suche
-    content_names:
+    ingredient_roles:
       headline: Überschrift
 ~~~
 
 Content names can also be translated related to their element.
-This is useful for contents with the same name that should have different translations.
+This is useful for ingredients with the same name that should have different translations.
 
 ~~~ yaml
 de:
   alchemy:
     element_names:
       contact_form: Kontaktformular
-    content_names:
+    ingredient_roles:
       color: Farbe
       contact_form:
         color: Button Farbe

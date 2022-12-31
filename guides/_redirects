@@ -5,3 +5,5 @@ https://alchemy-guides.netlify.com/* https://guides.alchemy-cms.com/:splat 301!
 /page_layouts.html /pages.html 301​
 /alchemy_approach.html /about.html 301
 /architecture.html /about.html 301
+/essences.html /ingredients.html 301
+/create_essences.html /custom_ingredients.html 301
