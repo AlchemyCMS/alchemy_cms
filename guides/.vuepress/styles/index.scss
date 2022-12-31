@@ -102,14 +102,23 @@
   --homepage-width: 960px;
 }
 
-.DocSearch {
+.DocSearch,
+html.dark .DocSearch--active .DocSearch-Modal {
   --docsearch-searchbox-background: rgba(51, 59, 81, 0.8);
   --docsearch-searchbox-focus-background: rgb(51, 59, 81);
+  --docsearch-key-shadow: inset 0 -2px 0 0 #282d55, inset 0 0 1px 1px #51577d,
+    0 2px 2px 0 rgba(3, 4, 9, 0.3);
+  --docsearch-key-gradient: linear-gradient(-225deg, #444950, #1c1e21);
+  --docsearch-muted-color: var(--c-text-quote);
 }
 
 .DocSearch--active .DocSearch-Modal {
   --docsearch-searchbox-background: var(--c-bg-lighter);
   --docsearch-searchbox-focus-background: var(--c-bg);
+  --docsearch-key-shadow: inset 0 -2px 0 0 #cdcde6, inset 0 0 1px 1px #fff,
+    0 1px 2px 1px rgba(30, 35, 90, 0.4);
+  --docsearch-key-gradient: linear-gradient(-225deg, #d5dbe4, #f8f8f8);
+  --docsearch-muted-color: #969faf;
 }
 
 html.dark {
@@ -124,6 +133,10 @@ html.dark {
 
 .navbar-item {
   color: var(--c-text-light);
+}
+
+.sidebar .navbar-item {
+  color: var(--c-text);
 }
 
 main.page {
