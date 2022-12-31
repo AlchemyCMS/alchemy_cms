@@ -1,3 +1,5 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/6a12b87f-d5a1-4b15-b723-112daf331c5a/deploy-status)](https://app.netlify.com/sites/alchemy-guides/deploys)
+
 # The AlchemyCMS Guides
 
 The guides are created with [VuePress](https://v2.vuepress.vuejs.org) and are written in [Markdown](https://daringfireball.net/projects/markdown/syntax).
