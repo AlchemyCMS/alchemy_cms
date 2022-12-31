@@ -17,7 +17,8 @@ export default {
   ],
   plugins: [
     docsearchPlugin({
-      apiKey: "5f50a085ecc6f17f5ba1bc8911c3cc90",
+      apiKey: "02e92bf5a88addf72d649f29ef77243a",
+      appId: "SJXVVCKUQL",
       indexName: "alchemy-cms",
     }),
     shikiPlugin({
