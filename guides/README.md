@@ -1,6 +1,6 @@
 # The AlchemyCMS Guides
 
-The guides are created with [VuePress](https://vuepress.vuejs.org) and are written in [Markdown](https://daringfireball.net/projects/markdown/syntax).
+The guides are created with [VuePress](https://v2.vuepress.vuejs.org) and are written in [Markdown](https://daringfireball.net/projects/markdown/syntax).
 
 [![Deploys by Netlify](https://www.netlify.com/img/global/badges/netlify-color-bg.svg)](https://www.netlify.com)
 
@@ -16,7 +16,7 @@ Run
 yarn install
 ```
 
-to install [VuePress](https://vuepress.vuejs.org).
+to install [VuePress](https://v2.vuepress.vuejs.org).
 
 To run a local preview server, run
 
