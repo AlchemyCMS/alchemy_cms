@@ -7,13 +7,13 @@ next: /cells.html
 
 ## Overview
 
-In contrary to most CMSs pages in Alchemy **do not hold the actual content**. The actual content is stored in [essences](essences.html) inside of [elements](/elements.html) pages are built of.
+In contrary to most CMSs pages in Alchemy **do not hold the actual content**. The actual content is stored in [essences](/essences.html) inside of [elements](/elements.html) pages are built of.
 
 Pages have a unique friendly url and are organized as nested tree and represent the structure of your website.
 
 Beside a language, a page has attributes for name, title, visibility, published and restriction status and all SEO relevant attributes like meta tags and meta descriptions.
 
-Every page has a [layout](#defining-page-layouts) which defines additional properties like caching, uniqueness and it defines [elements](elements.html) and [cells](cells.html) that can be placed on that Page.
+Every page has a [layout](#defining-page-layouts) which defines additional properties like caching, uniqueness and it defines [elements](/elements.html) and [cells](/cells.html) that can be placed on that Page.
 
 ## Defining page layouts
 
@@ -155,7 +155,7 @@ To render an element from a global page use the `from_page` option of the `rende
 #### Example
 
 ~~~ erb
-<%= render_elements only: 'news_teaser', from_page: 'sidebar' %>
+<%= render_elements only: 'news_teaser', from_page: Alchemy::Page.find_by(name: 'sidebar') %>
 ~~~
 
 ::: tip

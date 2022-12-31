@@ -5,7 +5,7 @@ next: /elements.html
 
 # Cells
 
-::: tip Deprecation note
+::: warning Deprecation note
 With Alchemy 4.2 cells have now been superseded by [fixed elements](/elements.html#render-a-group-of-elements-on-a-fixed-place-on-the-page).
 :::
 

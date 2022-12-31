@@ -6,9 +6,14 @@ regular contact form:
 -   Setup Alchemy mailer
 -   Customize the views
 
+## Additional Rails and application setup
+
+Alchemy relies on Rails' [ActionMailer](https://guides.rubyonrails.org/action_mailer_basics.html) to send emails.
+You will need to configure ActionMailer to use an SMTP service like Gmail, Sendgrid, Mailgun, Mandrill, Amazon SES, etc.
+
 ## Mailer Settings
 
-This is the default mailer configuration.
+This is the default mailer configuration in `config/alchemy/config.yml`:
 
 ~~~ yaml
 mailer:
@@ -108,7 +113,7 @@ Use the `rails g alchemy:elements --skip` generator to create the view files.
 
 ### The contact form view
 
-Open `app/views/alchemy/elements/_contactform_view.html.erb` in your text editor.
+Open `app/views/alchemy/elements/_contactform.html.erb` in your text editor.
 
 We are using the great `simple_form` gem in this example. If this gem is not already installed, you have to add
 
@@ -139,19 +144,6 @@ If you use different or additional input symbols like 'company' , 'age' etc. mak
 Please have a look at the [simple form documentation](https://github.com/plataformatec/simple_form#readme) for further infos about the various config options.
 :::
 
-### The contact form editor
-
-The `app/views/alchemy/elements/_contactform_editor.html.erb` file should have this content:
-
-~~~ erb
-<%= element_editor_for(element) do |el| %>
-  <%= el.edit :mail_from %>
-  <%= el.edit :mail_to %>
-  <%= el.edit :subject %>
-  <%= el.edit :success_page %>
-<% end %>
-~~~
-
 ## Translating validation messages
 
 All validation messages are passed through `::I18n.t` so you can translate it in your language yml file.
@@ -167,7 +159,7 @@ de:
         lastname: Nachname
 ~~~
 
-If you like to use same vocabulary in different context: e.g in the `app/views/alchemy/elements/_contactform_view.html.erb`
+If you would like to use same vocabulary in different context: e.g in the `app/views/alchemy/elements/_contactform_view.html.erb`
 
 ~~~ erb
 <%= form.input ... %>

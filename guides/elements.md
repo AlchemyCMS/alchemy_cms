@@ -87,17 +87,18 @@ The following settings can be used to define elements in the `elements.yml`.
 * **unique** `Boolean` (Default: `false`)
 
   Passing `true` means this element can be placed only once on a page.
+
 * **hint** `String`
 
-  A hint for the user in the admin that should be used to describe what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence. The hint itself will be displayed as a small question mark icon and will reveal a tooltip once hovered by the user.
+  A hint for the user in the admin interface that should be used to describe what the element is used for. The hint is [translatable](#translating-elements) if you provide an I18n translation key instead of a complete sentence. The hint itself will be displayed as a small question mark icon and will reveal a tooltip once hovered by the user.
 
 * **message** `String` _since Alchemy 4.4_
 
-  A prominent informational message displayed at the top of the element editor form in the admin that can be used to give your user additional information. You can even use simple html to add some emphasis to your message.
+  A prominent informational message displayed at the top of the element editor form in the admin interface that can be used to give your user additional information. You can even use simple html to add some emphasis to your message.
 
 * **warning** `String` _since Alchemy 4.4_
 
-  A prominent warning message displayed at the top of the element editor form in the admin that can be used to warn your user about something. You can use simple html to add even more emphasis to your warning.
+  A prominent warning message displayed at the top of the element editor form in the admin interface that can be used to warn your user about something. You can use simple html to add even more emphasis to your warning.
 
 * **nestable_elements** `Array`
 
@@ -281,6 +282,10 @@ After typing the line below in your terminal, the rails generator will create th
 bin/rails g alchemy:elements --skip
 ~~~
 
+The `--skip` flag command skips files that already exist
+Without the skip flag, the generator will prompt you about over-writing your element view partials to include the content changes.
+The `--force` flag will overwrite your element view partials automatically.
+
 ::: tip
 You can pass `--template-engine` or `-e` as an argument to use `haml`, `slim` or `erb`.
 The default template engine depends on your settings in your Rails host app.
@@ -313,9 +318,15 @@ Now that the above 'article' element example is associated with the 'standard' p
 
 This renders all elements from current page.
 
+::: tip
+Pages must be published for Elements to be associated and rendered.
+
+If you aren't seeing content you created in the admin interface, make sure elements are saved and and you click the "Publish current page content" button from the edit page admin view.
+:::
+
 ### Render only specific elements
 
-Sometimes you only want to render specific elements on your page and maybe some elements not.
+Sometimes you only want to render specific elements on a specific page and maybe exclude some elements.
 
 ~~~ erb
 <body>
@@ -331,34 +342,74 @@ Sometimes you only want to render specific elements on your page and maybe some 
 
 ### Render elements from other pages
 
-A common use case is to have global pages for header and footer parts.
+A common use case is to have global pages for header and footer parts:
+~~~ yaml
+# config/alchemy/elements.yml
+- name: header
+  hint: Navigation bar at the top of every page
+  contents:
+    # ...
 
-~~~ erb
-<body>
-  <header><%= render_elements from_page: 'header' %></header>
+- name: footer
+  hint: Footer section at the bottom of every page
+  contents:
+    # ...
 
-  <main>
-    <%= render_elements %>
-  </main>
+# config/alchemy/page_layouts.yml
 
-  <footer><%= render_elements from_page: 'footer' %></footer>
-</body>
+- name: header
+  unique: true
+  elements: [header]
+  autogenerate: [header]
+  layoutpage: true
+
+- name: footer
+  unique: true
+  elements: [footer]
+  autogenerate: [footer]
+  layoutpage: true
 ~~~
 
-Given global pages with `page_layout` "header" and "footer".
+Which can be added to your `application.html.erb` file:
+
+~~~ erb
+<!DOCTYPE html>
+<html lang="<%= @page.language_code %>">
+  <head>
+    ...
+  </head>
+
+  <body>
+    <header><%= render_elements from_page: 'header' %></header>
+
+    <main>
+      <%= yield %>
+    </main>
+
+    <footer><%= render_elements from_page: 'footer' %></footer>
+
+    <%= render "alchemy/edit_mode" %>
+  </body>
+</html>
+~~~
 
 ### Render a group of elements on a fixed place on the page
 
-Often you have a separate section on a page like a sidebar where you'd like to place a few different elements together. If you tag those elements as `fixed: true` in `elements.yml`, then they'll be easy to grab from the frontend, and the same will be cleanly separated in a new tab in the admin elements section.
+Often you have a separate section on one page (like a sidebar) or a global section to be rendered on every page (like a navbar or footer).
+
+If you configure those elements as `fixed: true` in `elements.yml`, then they'll be separated from the general collection of elements and will be displayed separately in a separate tab in the admin elements section.
 
 ~~~ yaml {3}
-- name: your_element
+- name: sidebar
   unique: true
   fixed: true
   contents:
     - name: name
       type: EssenceText
+      # ...
 ~~~
+
+You can then access these elements using the `fixed_elements` scope:
 
 ~~~ erb
 <% @page.fixed_elements.each do |element| %>
@@ -367,7 +418,7 @@ Often you have a separate section on a page like a sidebar where you'd like to p
 ~~~
 
 ::: tip INFO
-Fixed elements replace the concept on [Cells](/cells.html) in Alchemy versions prior to 4.2.
+Fixed elements replace [Cells](/cells.html) in Alchemy > 4.2.
 :::
 
 As `fixed_elements` is an a active record scope you can also filter by `where(name: 'your_element')` or use the `named('your_element')` scope. To gain some extra efficiency from Rails you could also use the collection rendering shortcut
@@ -377,7 +428,7 @@ As `fixed_elements` is an a active record scope you can also filter by `where(na
 ~~~
 
 ::: tip NOTE
-You need to use the elements view partial name instead of the element local variable then in your child element views. Ie. `sidebar_view` instead of `element`.
+You need to use the elements view partial name instead of the element local variable in your child element views. Ie. `sidebar_view` instead of `element`.
 :::
 
 
@@ -480,3 +531,19 @@ de:
       contact_form:
         color: Button Farbe
 ~~~
+
+### Re-arranging Elements on a Page
+
+Collapsed elements can be re-arranged by clicking and dragging the its icon to the left of the element title.
+
+You can't re-arrange an expanded element, you need to collapse it first.
+
+### Using the Clipboard
+
+The clipboard receives elements that are copied or cut. The most prominent use-case is to copy or move elements from one page to another.
+
+You can use the icons to copy and cut a specific element from its expanded state.
+
+You can view the contents of the clipboard using the icon at the top of the elements bar.
+
+When adding a new top-level element, the "Paste from clipboard" tab will be visible if the clipboard is storing any elements.
