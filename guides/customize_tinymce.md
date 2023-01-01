@@ -3,9 +3,9 @@
 This guide explains how to override the default settings of the TinyMCE richtext editor and customize it.
 After reading this guide you will be able to:
 
-* Overriding default settings
-* Customizing the toolbar
-* Changing the default stylesheet
+* [Overriding default settings](#override-the-default-settings)
+* [Customizing the toolbar](#custom-toolbar-buttons)
+* [Changing the default stylesheet](#setting-a-custom-stylesheet)
 
 ## Override the default settings
 
@@ -84,7 +84,7 @@ and add the following content to `config/initializers/tinymce.rb`
 Alchemy::Tinymce.init = {
   plugins: Alchemy::Tinymce.plugins + ['colorpicker'],
   toolbar: [
-    'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | alignleft aligncenter alignright | fullscreen', 
+    'bold italic underline | strikethrough subscript superscript | numlist bullist indent outdent | removeformat | alignleft aligncenter alignright | fullscreen',
     'pastetext charmap hr | undo redo | alchemy_link unlink anchor | code | colorpicker'
   ]
 }
@@ -144,14 +144,14 @@ You can also set TinyMCE configuration options per element.
 ~~~ yaml
 # elements.yml
 - name: minimal_text
-  contents:
-  - name: text
-    type: EssenceRichtext
-    settings:
-      tinymce:
-        toolbar:
-        - 'bold italic underline',
-        - 'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
+  ingredients:
+    - role: text
+      type: Richtext
+      settings:
+        tinymce:
+          toolbar:
+            - 'bold italic underline',
+            - 'pastetext charmap code | undo redo | alchemy_link unlink | alignleft aligncenter alignright alignjustify'
 ~~~
 
 ## Configuration Syntax
