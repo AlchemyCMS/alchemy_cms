@@ -208,7 +208,7 @@ const VERSION_NAVITEMS = {
         },
         {
           text: "Create a contact form",
-          link: "best_practice_create_form",
+          link: "how_to_create_a_contact_form",
         },
         {
           text: "Customize the Richtext Editor",

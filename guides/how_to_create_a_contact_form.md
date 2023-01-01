@@ -1,4 +1,4 @@
-# Best Practice: How to create a contact form
+# How To: Create a contact form
 
 This guide covers the configuration setup and create process of a
 regular contact form:
@@ -64,23 +64,23 @@ Describe a new Element with this options inside your `elements.yml` file:
 
 ~~~ yaml
 - name: contactform
-  contents:
-    - name: mail_from
-      type: EssenceText
+  ingredients:
+    - rolw: mail_from
+      type: Text
       validate:
         - presence
         - format: email
-    - name: mail_to
-      type: EssenceText
+    - rolw: mail_to
+      type: Text
       validate:
         - presence
         - format: email
-    - name: subject
-      type: EssenceText
+    - rolw: subject
+      type: Text
       validate:
         - presence
-    - name: success_page
-      type: EssencePage # Available since Alchemy 4.3
+    - rolw: success_page
+      type: Page
       validate:
         - presence
 ~~~
@@ -99,8 +99,12 @@ Create a page layout for your contact page in the `page_layouts.yml` file:
 - name: contact
   unique: true
   cache: false
-  elements: [pageheading, heading, contactform]
-  autogenerate: [contactform]
+  elements:
+    - pageheading
+    - heading
+    - contactform
+  autogenerate:
+    - contactform
 ~~~
 
 ::: warning INFO
@@ -113,15 +117,16 @@ Use the `rails g alchemy:elements --skip` generator to create the view files.
 
 ### The contact form view
 
-Open `app/views/alchemy/elements/_contactform.html.erb` in your text editor.
+We are using the great `simple_form` gem in this example.
 
-We are using the great `simple_form` gem in this example. If this gem is not already installed, you have to add
+If this gem is not already installed, you have to add
 
-~~~ ruby
-gem 'simple_form'
+~~~ bash
+bundle add simple_form
 ~~~
 
-to your `Gemfile` and afterwards use `bundle install` command to install `simple_form`.
+Then open `app/views/alchemy/elements/_contactform.html.erb` in your text editor
+and replace the content with:
 
 ~~~ erb
 <%= simple_form_for(@message ||= Alchemy::Message.new) do |form| %>
@@ -135,7 +140,7 @@ to your `Gemfile` and afterwards use `bundle install` command to install `simple
 ~~~
 
 ::: warning INFO
-See the hidden field? This is important, or the messages mailer can't do all the magic for you.
+See the `hidden_field`? This is important, or the messages mailer can't do all the magic for you.
 :::
 
 If you use different or additional input symbols like 'company' , 'age' etc. make sure to adapt the fields in the mailer configuration (`config/alchemy/config.yml`).

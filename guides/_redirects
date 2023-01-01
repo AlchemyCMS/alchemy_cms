@@ -8,3 +8,4 @@ https://alchemy-guides.netlify.com/* https://guides.alchemy-cms.com/:splat 301!
 /essences.html /ingredients.html 301
 /create_essences.html /custom_ingredients.html 301
 /best_practice_create_blog_template.html /how_to_create_a_blog_template.html 301
+/best_practice_create_form.html /how_to_create_a_contact_form.html 301
