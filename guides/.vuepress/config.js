@@ -204,7 +204,7 @@ const VERSION_NAVITEMS = {
       children: [
         {
           text: "Create a blog template",
-          link: "best_practice_create_blog_template",
+          link: "how_to_create_a_blog_template",
         },
         {
           text: "Create a contact form",

@@ -1,4 +1,4 @@
-# Best Practice: Create a blog template
+# How To: Create a blog template
 
 A blog is an appropriate way to present information about formal and informal events or extraordinary experiences.
 
@@ -38,19 +38,19 @@ First of all we define the elements we need in `config/alchemy/elements.yml`. Th
 
 ### Blog title
 
-The blog should have a unique title. The title element contains a `title` and a `text` which represents a description or motto. In both cases we choose an `EssenceText`, due to the fact that the `title` and the `text` will contain simple text.
+The blog should have a unique title. The title element contains a `title` and a `text` which represents a description or motto. In both cases we choose an `Text`, due to the fact that the `title` and the `text` will contain simple text.
 
 The `default` attribute provides the preset value, if the user didn't specify a motto or description (in Alchemy's backend).
 
 ~~~ yaml
 - name: blog_title
   unique: true
-  contents:
-    - name: title
-      type: EssenceText
+  ingredients:
+    - role: title
+      type: Text
       default: Blog
-    - name: text
-      type: EssenceText
+    - role: text
+      type: Text
       default: This is my blog. It's awesome.
 ~~~
 
@@ -58,52 +58,52 @@ The `default` attribute provides the preset value, if the user didn't specify a 
 
 A `blog_post` element has a title, date, author, image and text.
 
-The title is represented by `blog_post_title`. It's just a text, so we took `EssenceText` as type. Below `settings` we use `linkable: true`, because the user should be able to choose a link for the title of the blog post.
+The title is represented by `blog_post_title`. It's just a text, so we took `Text` as type. Below `settings` we use `linkable: true`, because the user should be able to choose a link for the title of the blog post.
 
 The meta data like author and creation date corresponds to `blog_post_meta`.
 
-The `blog_post_intro_text` text as well as the main content `blog_post_content` get the type `EssenceRichtext`, since the user likes to add multiline paragraphs.
+The `blog_post_intro_text` text as well as the main content `blog_post_content` get the type `Richtext`, since the user likes to add multiline paragraphs.
 
-The `blog_post_image` is of type `EssencePicture`. This will empower the user to add an image.
+The `blog_post_image` is of type `Picture`. This will empower the user to add an image.
 
 ~~~ yaml
 - name: blog_post
-  contents:
-    - name: blog_post_title
-      type: EssenceText
+  ingredients:
+    - role: blog_post_title
+      type: Text
       default: Blog Post Title
       settings:
         linkable: true
-    - name: blog_post_meta
-      type: EssenceText
+    - role: blog_post_meta
+      type: Text
       default: "Written by John Smith on August 12, 2012"
-    - name: blog_post_intro_text
-      type: EssenceRichtext
-    - name: blog_post_image
-      type: EssencePicture
-    - name: blog_post_content
-      type: EssenceRichtext
+    - role: blog_post_intro_text
+      type: Richtext
+    - role: blog_post_image
+      type: Picture
+    - role: blog_post_content
+      type: Richtext
 ~~~
 
 ### Categories Block
 
 The 'categories block' has a headline and a list of available categories.
 
-The `categories_headline` is represented by an `EssenceText`. In the backend the user should be able to add categories easily and dynamically. That's the reason why we chose the `nestable_elements` feature.
+The `categories_headline` is represented by an `Text`. In the backend the user should be able to add categories easily and dynamically. That's the reason why we chose the `nestable_elements` feature.
 
 ~~~ yaml
 - name: categories_block
-  contents:
-    - name: categories_headline
-      type: EssenceText
+  ingredients:
+    - role: categories_headline
+      type: Text
       default: Categories
       nestable_elements:
         - category
 
 - name: category
-  contents:
-    - name: name
-      type: EssenceText
+  ingredients:
+    - role: name
+      type: Text
       settings:
         linkable: true
 ~~~
@@ -115,20 +115,20 @@ The 'featured block' with a headline, text and a link.
 ~~~ yaml
 - name: featured
   unique: true
-  contents:
-    - name: featured_headline
-      type: EssenceText
+  ingredients:
+    - role: featured_headline
+      type: Text
       default: "Featured"
-    - name: featured_text
-      type: EssenceRichtext
-    - name: featured_link
-      type: EssenceText
+    - role: featured_text
+      type: Richtext
+    - role: featured_link
+      type: Text
       settings:
         linkable: true
 ~~~
 
 ::: tip
-Instead of `EssenceText` you could alternatively use `EssenceLink` for 'featured_link'.
+Instead of `Text` you could alternatively use `Link` for 'featured_link'.
 :::
 
 ## Define blog page layout
@@ -139,8 +139,13 @@ Add a new page layout for your blog template:
 
 ~~~ yaml
 - name: blog
-  elements: [blog_title, blog_post, categories_block, featured]
-  autogenerate: [blog_title]
+  elements:
+    - blog_title
+    - blog_post
+    - categories_block
+    - featured
+  autogenerate:
+    - blog_title
 ~~~
 
 The `autogenerate` attribute allows to define elements which will be generated automatically, when the user creates a new page in backend.
@@ -153,19 +158,19 @@ The command
 rails g alchemy:elements --skip
 ~~~
 
-creates the view and editor partial according to the element definition in the `elements.yml`.
+creates the partials according to the element definition in the `elements.yml`.
 
 The partials are stored in `app/views/alchemy/elements/`.
 
-e.g. the view partial for 'blog_post'- element: `_blog_post_view.html.erb` and editor partial: `_blog_post_editor.html.erb`
+e.g. the partial for 'blog_post' element: `_blog_post.html.erb`
 
 ### Customize the partials
 
-In order to adapt the output of the elements you have to change the view partial. The command above generates default partials. The `_blog_post_view.html.erb` might look like this:
+In order to adapt the output of the elements you have to change the partial. The command above generates default partials. The `_blog_post.html.erb` might look like this:
 
 ~~~ erb
-<% cache(element) do %>
-  <%= element_view_for(element) do |el| %>
+<% cache(blog_post) do %>
+  <%= element_view_for(blog_post) do |el| %>
     <div class="blog_post_title">
       <%= el.render :blog_post_title %>
     </div>
@@ -185,89 +190,73 @@ In order to adapt the output of the elements you have to change the view partial
 <% end %>
 ~~~
 
-The blog post should match with the layout of the blog page in general, therefore we edit the view partial:
+#### `_blog_post_.html.erb`
+
+The blog post should match with the layout of the blog page in general, therefore we edit the partial:
 
 ~~~ erb
-<% cache(element) do %>
-  <%= element_view_for(element) do |el| %>
+<% cache(blog_post) do %>
+  <%= element_view_for(blog_post) do |el| %>
     <article>
-      <h3>
-        <%= el.render :blog_post_title %>
-      </h3>
-      <h6>
-        <%= el.render :blog_post_meta %>
-      </h6>
+      <h3><%= el.render :blog_post_title %></h3>
+      <h6><%= el.render :blog_post_meta %></h6>
       <div class="row">
         <div class="large-6 columns">
-          <p>
-            <%= el.render :blog_post_intro_text %>
-          </p>
+          <%= el.render :blog_post_intro_text %>
         </div>
         <div class="large-6 columns">
           <%= el.render :blog_post_image %>
         </div>
       </div>
-      <p>
-        <%= el.render :blog_post_content %>
-      </p>
+      <%= el.render :blog_post_content %>
     </article>
     <hr/>
   <% end %>
 <% end %>
 ~~~
 
-The editor partial is used for the backend, so we keep this file untouched. Feel feel to edit this partial if you like.
+For the remaining elements replace the content of the correspondig partials with the following code snippets:
 
-For the remaining elements replace the content of the correspondig view partials with the following code snippets:
-
-**`_blog_title_view.html.erb`**
+#### `_blog_title.html.erb`
 
 ~~~ erb
-<% cache(element) do %>
-  <%= element_view_for(element, tag: 'h1') do |el| %>
+<% cache(blog_title) do %>
+  <%= element_view_for(blog_title, tag: 'h1') do |el| %>
     <%= el.render :title %>
     <small><%= el.render :text %></small>
   <% end %>
 <% end %>
 ~~~
 
-**`_categories_block_view.html.erb`**
+#### `_categories_block.html.erb`
 
 ~~~ erb
-<% cache(element) do %>
-  <%= element_view_for(element) do |el| %>
+<% cache(categories_block) do %>
+  <%= element_view_for(categories_block) do |el| %>
     <h5><%= el.render :categories_headline %></h5>
-    <% element.nested_elements.each do |nested_element| %>
-      <%= render_element(nested_element) %>
-    <% end %>
+    <%= render categories_block.nested_elements %>
   <% end %>
 <% end %>
 ~~~
 
-**`_category_view.html.erb`**
+#### `_category.html.erb`
 
 ~~~ erb
-<% cache(element) do %>
-  <%= element_view_for(element, tag: 'p') do |el| %>
+<% cache(category) do %>
+  <%= element_view_for(category, tag: 'p') do |el| %>
     <%= el.render :name %>
   <% end %>
 <% end %>
 ~~~
 
-**`_featured_view.html.erb`**
+#### `_featured.html.erb`
 
 ~~~ erb
-<% cache(element) do %>
-  <%= element_view_for(element) do |el| %>
-    <h5>
-      <%= el.render :featured_headline %>
-    </h5>
-    <p>
-      <%= el.render :featured_text %>
-    </p>
-    <p>
-      <%= el.render :featured_link %>
-    </p>
+<% cache(featured) do %>
+  <%= element_view_for(featured) do |el| %>
+    <h5><%= el.render :featured_headline %></h5>
+    <%= el.render :featured_text %>
+    <p><%= el.render :featured_link %></p>
   <% end %>
 <% end %>
 ~~~
