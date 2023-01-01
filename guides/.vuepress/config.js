@@ -194,7 +194,7 @@ const VERSION_NAVITEMS = {
           link: "configuration",
         },
         {
-          text: "Upgrading",
+          text: "Updating",
           link: "upgrading",
         },
       ],
