@@ -212,27 +212,27 @@ const VERSION_NAVITEMS = {
         },
         {
           text: "Customize the Richtext Editor",
-          link: "customize_tinymce",
+          link: "how_to_customize_tinymce",
         },
         {
           text: "Create custom ingredients",
-          link: "custom_ingredients",
+          link: "how_to_create_custom_ingredients",
         },
         {
-          text: "Deploy to Heroku",
-          link: "deploy_on_heroku",
+          text: "Deploy on Heroku",
+          link: "how_to_deploy_on_heroku",
         },
         {
           text: "Create custom modules",
-          link: "create_modules",
+          link: "how_to_create_modules",
         },
         {
-          text: "Create a custom authentication",
-          link: "custom_authentication",
+          text: "Add custom authentication",
+          link: "how_to_add_custom_authentication",
         },
         {
           text: "Extend Alchemy",
-          link: "extending_alchemy",
+          link: "how_to_extend_alchemy",
         },
       ],
     },

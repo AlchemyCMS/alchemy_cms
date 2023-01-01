@@ -2,10 +2,16 @@
 https://alchemy-guides.netlify.com/* https://guides.alchemy-cms.com/:splat 301!
 
 # Renamed/combined pages
-/page_layouts.html /pages.html 301​
 /alchemy_approach.html /about.html 301
 /architecture.html /about.html 301
-/essences.html /ingredients.html 301
-/create_essences.html /custom_ingredients.html 301
 /best_practice_create_blog_template.html /how_to_create_a_blog_template.html 301
 /best_practice_create_form.html /how_to_create_a_contact_form.html 301
+/create_essences.html /how_to_create_custom_ingredients.html 301
+/create_modules.html /how_to_create_modules.html 301
+/custom_authentication.html /how_to_add_custom_authentication.html 301
+/custom_ingredients.html /how_to_create_custom_ingredients.html 301
+/customize_tinymce.html /how_to_customize_tinymce.html 301
+/deploy_on_heroku.html /how_to_deploy_on_heroku.html 301
+/essences.html /ingredients.html 301
+/extending_alchemy.html /how_to_extend_alchemy.html 301
+/page_layouts.html /pages.html 301​
