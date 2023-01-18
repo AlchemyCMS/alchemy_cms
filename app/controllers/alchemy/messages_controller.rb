@@ -124,7 +124,7 @@ module Alchemy
     end
 
     def message_params
-      params.require(:message).permit(*mailer_config["fields"])
+      params.require(:message).permit(*mailer_config["fields"], :contact_form_id)
     end
   end
 end

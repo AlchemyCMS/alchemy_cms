@@ -12,8 +12,8 @@ module Alchemy
     let(:message) { Message.new(email: "jon@doe.com", message: "Lorem ipsum") }
     let(:mail) { MessagesMailer.contact_form_mail(message, "admin@page.com", "contact@page.com", "Subject") }
 
-    it "inherits from ActionMailer::Base" do
-      expect(MessagesMailer < ActionMailer::Base).to eq(true)
+    it "inherits from BaseMailer" do
+      expect(MessagesMailer < BaseMailer).to eq(true)
     end
 
     context "with ApplicationMailer defined" do
