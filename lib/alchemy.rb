@@ -57,6 +57,10 @@ module Alchemy
     @_preview_sources ||= Set.new << Alchemy::Admin::PreviewUrl
   end
 
+  def self.preview_sources=(sources)
+    @_preview_sources = Array(sources)
+  end
+
   # Define page publish targets
   #
   # A publish target is a ActiveJob that gets performed
