@@ -225,6 +225,16 @@ module Alchemy
 
     # ClassMethods (a-z)
 
+    describe ".layouts_repository=" do
+      let(:dummy_repo) { Class.new }
+
+      it "should be able to set another repository class" do
+        expect(Alchemy::Page.layouts_repository = dummy_repo).to eq(dummy_repo)
+      end
+
+      after { Alchemy::Page.instance_variable_set(:@_layouts_repository, nil) }
+    end
+
     describe ".url_path_class" do
       subject { described_class.url_path_class }
 
@@ -275,6 +285,19 @@ module Alchemy
             { "id" => page_2.id.to_s, "action" => "copy" },
           ]
           expect(Page.all_from_clipboard_for_select(clipboard, language.id)).to eq([page_1])
+        end
+      end
+
+      context "with clipboard holding layoutpages and pages." do
+        let(:page_1) { create(:alchemy_page, :layoutpage, language: language) }
+        let(:page_2) { create(:alchemy_page, language: language) }
+
+        it "should only return layoutpages" do
+          clipboard = [
+            { "id" => page_1.id.to_s, "action" => "copy" },
+            { "id" => page_2.id.to_s, "action" => "copy" },
+          ]
+          expect(Page.all_from_clipboard_for_select(clipboard, language.id, layoutpages: true)).to eq([page_1])
         end
       end
     end
