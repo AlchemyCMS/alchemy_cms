@@ -63,13 +63,17 @@ namespace :alchemy do
       original_file = "./CHANGELOG.md"
       new_file = original_file + ".new"
       backup = original_file + ".old"
-      changes = `git rev-list v#{ENV["PREVIOUS_VERSION"]}..HEAD | bundle exec github_fast_changelog AlchemyCMS/alchemy_cms`
-      File.open(new_file, "w") do |fo|
-        fo.puts changes
-        File.foreach(original_file) do |li|
-          fo.puts li
+      changes = `git rev-list v#{ENV["PREVIOUS_VERSION"]}..HEAD | bundle exec github_fast_changelog AlchemyCMS/alchemy_cms`.split("\n")
+      changelog = File.read(original_file)
+      File.open(new_file, "w") do |file|
+        changes.each do |change|
+          next if changelog.include?(change)
+          file.puts change
         end
-        fo.puts ""
+        File.foreach(original_file) do |line|
+          file.puts line
+        end
+        file.puts ""
       end
       File.rename(original_file, backup)
       File.rename(new_file, original_file)
