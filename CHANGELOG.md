@@ -1,3 +1,45 @@
+# Changelog
+
+## 7.0.0 (unreleased)
+
+## 6.1.0 (2023-01-19)
+
+### Features
+
+- Add page layouts repository class option [#2410](https://github.com/AlchemyCMS/alchemy_cms/pull/2410) ([tvdeyen](https://github.com/tvdeyen))
+- Add element definitions repository class option [#2409](https://github.com/AlchemyCMS/alchemy_cms/pull/2409) ([tvdeyen](https://github.com/tvdeyen))
+- Allow to set preview_sources [#2407](https://github.com/AlchemyCMS/alchemy_cms/pull/2407) ([tvdeyen](https://github.com/tvdeyen))
+- Allow to add anchors to ingredients [#2395](https://github.com/AlchemyCMS/alchemy_cms/pull/2395) ([tvdeyen](https://github.com/tvdeyen))
+- Add a error logger exception handler [#2387](https://github.com/AlchemyCMS/alchemy_cms/pull/2387) ([tvdeyen](https://github.com/tvdeyen))
+- Add a element DOM id class [#2373](https://github.com/AlchemyCMS/alchemy_cms/pull/2373) ([tvdeyen](https://github.com/tvdeyen))
+
+### Changes
+
+- Remove old jasmine based javascript specs [#2400](https://github.com/AlchemyCMS/alchemy_cms/pull/2400) ([tvdeyen](https://github.com/tvdeyen))
+- Update bundled Tinymce to 4.9.11 [#2399](https://github.com/AlchemyCMS/alchemy_cms/pull/2399) ([tvdeyen](https://github.com/tvdeyen))
+- Add Headline size and level selects as input addons [#2398](https://github.com/AlchemyCMS/alchemy_cms/pull/2398) ([tvdeyen](https://github.com/tvdeyen))
+- Remove Element.available scope [#2372](https://github.com/AlchemyCMS/alchemy_cms/pull/2372) ([tvdeyen](https://github.com/tvdeyen))
+- Remove element_dom_id helper [#2369](https://github.com/AlchemyCMS/alchemy_cms/pull/2369) ([tvdeyen](https://github.com/tvdeyen))
+- Use position for element dom_id [#2368](https://github.com/AlchemyCMS/alchemy_cms/pull/2368) ([tvdeyen](https://github.com/tvdeyen))
+- Disallow deleting pages if still attached to menu node [#2338](https://github.com/AlchemyCMS/alchemy_cms/pull/2338) ([afdev82](https://github.com/afdev82))
+
+### Fixes
+
+- Add `:contact_form_id` to `messages` params in `messages_controller` [#2403](https://github.com/AlchemyCMS/alchemy_cms/pull/2403) ([chiperific](https://github.com/chiperific))
+- Do not create thumbs for invalid pictures [#2386](https://github.com/AlchemyCMS/alchemy_cms/pull/2386) ([tvdeyen](https://github.com/tvdeyen))
+
+### Misc
+
+- [ruby - main] Upgrade sqlite3 to version 1.6.0 [#2408](https://github.com/AlchemyCMS/alchemy_cms/pull/2408) ([depfu](https://github.com/apps/depfu))
+- [ruby - main] Upgrade puma to version 6.0.1 [#2404](https://github.com/AlchemyCMS/alchemy_cms/pull/2404) ([depfu](https://github.com/apps/depfu))
+- CI: Update brakeman scan [#2390](https://github.com/AlchemyCMS/alchemy_cms/pull/2390) ([tvdeyen](https://github.com/tvdeyen))
+- [ruby - main] Upgrade net-imap to version 0.3.1 [#2379](https://github.com/AlchemyCMS/alchemy_cms/pull/2379) ([depfu](https://github.com/apps/depfu))
+- CI: Try ubuntu-latest [#2378](https://github.com/AlchemyCMS/alchemy_cms/pull/2378) ([tvdeyen](https://github.com/tvdeyen))
+- [ruby - main] Upgrade sqlite3 to version 1.5.0 [#2374](https://github.com/AlchemyCMS/alchemy_cms/pull/2374) ([depfu](https://github.com/apps/depfu))
+- [js] Upgrade babel-jest to version 29.0.1 [#2362](https://github.com/AlchemyCMS/alchemy_cms/pull/2362) ([depfu](https://github.com/apps/depfu))
+- Use released Rails gems again for local testing [#2355](https://github.com/AlchemyCMS/alchemy_cms/pull/2355) ([tvdeyen](https://github.com/tvdeyen))
+- [js] Upgrade babel-jest to version 28.0.2 [#2324](https://github.com/AlchemyCMS/alchemy_cms/pull/2324) ([depfu](https://github.com/apps/depfu))
+
 ## 6.0.12 (2022-11-19)
 
 - More installer options [#2385](https://github.com/AlchemyCMS/alchemy_cms/pull/2385) ([tvdeyen](https://github.com/tvdeyen))
