@@ -7,7 +7,7 @@ module Alchemy
       def ingredient(name)
         ing = ingredient_by_role(name)
         if ing
-          Alchemy::Deprecation.warn <<~WARN
+          Alchemy::Deprecation.warn(<<~WARN)
             Using `element.ingredient` to get the value of an ingredient is deprecated and will change in Alchemy 6.1
             If you want to read the value of an elements ingredient please use `element.value_for(:ingredient_role)` instead.
             The next version of Alchemy will return a `Alchemy::Ingredient` record instead.
@@ -23,9 +23,11 @@ module Alchemy
 
       # True if the element has a content for given name,
       # that has an essence value (aka. ingredient) that is not blank.
+      # @deprecated
       def has_ingredient?(name)
         ingredient(name).present?
       end
+
       deprecate has_ingredient?: :has_value_for?, deprecator: Alchemy::Deprecation
 
       # Returns all essence errors in the format of:
@@ -39,6 +41,7 @@ module Alchemy
       #
       # Get translated error messages with +Element#essence_error_messages+
       #
+      # @deprecated
       def essence_errors
         essence_errors = {}
         contents.each do |content|
@@ -48,6 +51,8 @@ module Alchemy
         end
         essence_errors
       end
+
+      deprecate :essence_errors, deprecator: Alchemy::Deprecation
 
       # Essence validation errors
       #
@@ -103,6 +108,7 @@ module Alchemy
       #           invalid: %{field} has wrong format
       #           blank: %{field} can't be blank
       #
+      # @deprecated
       def essence_error_messages
         messages = []
         essence_errors.each do |content_name, errors|
@@ -120,6 +126,8 @@ module Alchemy
         end
         messages
       end
+
+      deprecate essence_error_messages: :ingredient_error_messages, deprecator: Alchemy::Deprecation
     end
   end
 end

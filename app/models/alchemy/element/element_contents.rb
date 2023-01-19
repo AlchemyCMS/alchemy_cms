@@ -6,28 +6,40 @@ module Alchemy
     #
     module ElementContents
       # Find first content from element by given name.
+      # @deprecated
       def content_by_name(name)
         contents_by_name(name).first
       end
 
+      deprecate content_by_name: :ingredient_by_role, deprecator: Alchemy::Deprecation
+
       # Find first content from element by given essence type.
+      # @deprecated
       def content_by_type(essence_type)
         contents_by_type(essence_type).first
       end
 
+      deprecate content_by_type: :ingredient_by_type, deprecator: Alchemy::Deprecation
+
       # All contents from element by given name.
+      # @deprecated
       def contents_by_name(name)
         contents.select { |content| content.name == name.to_s }
       end
 
+      deprecate contents_by_name: :ingredients_by_role, deprecator: Alchemy::Deprecation
+
       alias_method :all_contents_by_name, :contents_by_name
 
       # All contents from element by given essence type.
+      # @deprecated
       def contents_by_type(essence_type)
         contents.select do |content|
           content.essence_type == Content.normalize_essence_type(essence_type)
         end
       end
+
+      deprecate contents_by_type: :ingredients_by_type, deprecator: Alchemy::Deprecation
 
       alias_method :all_contents_by_type, :contents_by_type
 
@@ -48,6 +60,7 @@ module Alchemy
       #     "2" => {link: "https://google.com"}
       #   )
       #
+      # @deprecated
       def update_contents(contents_attributes)
         return true if contents_attributes.nil?
 
@@ -58,12 +71,17 @@ module Alchemy
         errors.blank?
       end
 
+      deprecate :update_contents, deprecator: Alchemy::Deprecation
+
       # Copy current content's contents to given target element
+      # @deprecated
       def copy_contents_to(element)
         contents.map do |content|
           Content.copy(content, element_id: element.id)
         end
       end
+
+      deprecate :copy_contents_to, deprecator: Alchemy::Deprecation
 
       # Returns the content that is marked as rss title.
       #
@@ -75,9 +93,12 @@ module Alchemy
       #       type: EssenceText
       #       rss_title: true
       #
+      # @deprecated
       def content_for_rss_title
         content_for_rss_meta("title")
       end
+
+      deprecate :content_for_rss_title, deprecator: Alchemy::Deprecation
 
       # Returns the content that is marked as rss description.
       #
@@ -89,18 +110,25 @@ module Alchemy
       #       type: EssenceRichtext
       #       rss_description: true
       #
+      # @deprecated
       def content_for_rss_description
         content_for_rss_meta("description")
       end
 
+      deprecate :content_for_rss_description, deprecator: Alchemy::Deprecation
+
       # Returns the array with the hashes for all element contents in the elements.yml file
+      # @deprecated
       def content_definitions
         return nil if definition.blank?
 
         definition["contents"]
       end
 
+      deprecate content_definitions: :ingredient_definitions, deprecator: Alchemy::Deprecation
+
       # Returns the definition for given content_name
+      # @deprecated
       def content_definition_for(content_name)
         if content_definitions.blank?
           log_warning "Element #{name} is missing the content definition for #{content_name}"
@@ -110,10 +138,13 @@ module Alchemy
         end
       end
 
+      deprecate content_definition_for: :ingredient_definition_for, deprecator: Alchemy::Deprecation
+
       # Returns an array of all EssenceRichtext contents ids from elements
       #
       # This is used to re-initialize the TinyMCE editor in the element editor.
       #
+      # @deprecated
       def richtext_contents_ids
         # This is not very efficient SQL wise I know, but we need to iterate
         # recursivly through all descendent elements and I don't know how to do this
@@ -126,15 +157,23 @@ module Alchemy
         ids.flatten
       end
 
+      deprecate richtext_contents_ids: :richtext_ingredients_ids, deprecator: Alchemy::Deprecation
+
       # True, if any of the element's contents has essence validations defined.
+      # @deprecated
       def has_validations?
         !contents.detect(&:has_validations?).blank?
       end
 
+      deprecate :has_validations?, deprecator: Alchemy::Deprecation
+
       # All element contents where the essence validation has failed.
+      # @deprecated
       def contents_with_errors
         contents.select(&:essence_validation_failed?)
       end
+
+      deprecate contents_with_errors: :ingredients_with_errors, deprecator: Alchemy::Deprecation
 
       private
 

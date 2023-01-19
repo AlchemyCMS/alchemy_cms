@@ -37,6 +37,13 @@ module Alchemy
         ingredients_by_type(type).first
       end
 
+      # All ingredients from element by given role.
+      def ingredients_by_role(role)
+        ingredients.select do |ingredient|
+          ingredient.role == Ingredient.normalize_type(role)
+        end
+      end
+
       # All ingredients from element by given type.
       def ingredients_by_type(type)
         ingredients.select do |ingredient|
