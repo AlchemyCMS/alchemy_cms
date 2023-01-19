@@ -1,9 +1,7 @@
 en:
-
   # = Alchemy Translations
   # All translations used in Alchemy CMS are inside this alchemy namespace.
   alchemy:
-
     # == Translations for page_layout names
     # Just use the page_layouts name like defined inside the config/alchemy/page_layouts.yml file and translate it.
     #
@@ -30,25 +28,24 @@ en:
     #
     element_names:
 
-    # == Translated names for contents in elements.
+    # == Translated names for ingredients in elements.
     # Used for the content editor label inside the element editor view (The elements window)
     #
-    # Tip: You can translate content names globally for all contents of this name, or specificly for an element.
+    # Tip: You can translate content names globally for all ingredients of this name, or specificly for an element.
     # To do so, just place the content_name under the element name
     #
     # Example:
     #
     # en:
     #  alchemy:
-    #    content_names:
+    #    ingredient_roles:
     #      headline: Headline
     #      news_article:
     #        headline: News Headline
     #      image_caption: Caption
     #      show_caption: Show Caption
     #
-    content_names:
-
+    ingredient_roles:
 
     # === Translations for menu names
     # Used for the translations of the names of root menu nodes.
@@ -160,18 +157,18 @@ en:
     content_validations:
       errors:
         blank: "%{field} can't be blank"
-        invalid: '%{field} has wrong format'
-        taken: '%{field} has already been taken'
+        invalid: "%{field} has wrong format"
+        taken: "%{field} has already been taken"
 
-    default_content_texts:
+    default_ingredient_texts:
       lorem: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
       corporate_lorem: "Appropriately enable sustainable growth strategies vis-a-vis holistic materials. Energistically orchestrate open-source e-tailers vis-a-vis plug-and-play best practices. Uniquely plagiarize client-centric opportunities whereas plug-and-play ideas. Distinctively reconceptualize backward-compatible partnerships vis-a-vis reliable total linkage. Interactively fabricate highly efficient networks for clicks-and-mortar content. Collaboratively reconceptualize holistic markets via 2.0 architectures."
 
-    essence_pictures:
+    picture_ingredients:
       css_classes:
-        left: 'Left from text'
-        right: 'Right from text'
-        no_float: 'Above the text'
+        left: "Left from text"
+        right: "Right from text"
+        no_float: "Above the text"
 
     ingredient_values:
       boolean:
@@ -181,32 +178,32 @@ en:
     # == Contactform translations
     contactform:
       labels:
-        salutation: 'Salutation'
-        choose: 'Please choose'
-        mr: 'Mr.'
-        mrs: 'Mrs.'
-        firstname: 'Firstname'
-        lastname: 'Lastname'
-        address: 'Street / No.'
-        zip: 'Zipcode / City'
-        phone: 'Telephone'
-        email: 'Email'
-        message: 'Message'
-        send: 'Send'
-        mandatory_fields: '*Mandatory fields.'
+        salutation: "Salutation"
+        choose: "Please choose"
+        mr: "Mr."
+        mrs: "Mrs."
+        firstname: "Firstname"
+        lastname: "Lastname"
+        address: "Street / No."
+        zip: "Zipcode / City"
+        phone: "Telephone"
+        email: "Email"
+        message: "Message"
+        send: "Send"
+        mandatory_fields: "*Mandatory fields."
       # The flash message shown after successfully sending the message.
       messages:
-        success: 'Your message was delivered successfully.'
+        success: "Your message was delivered successfully."
 
     # == Translated language names for translation select
     translations:
-      de: 'DE'
-      en: 'EN'
-      es: 'ES'
-      it: 'IT'
-      fr: 'FR'
-      nl: 'NL'
-      ru: 'RU'
+      de: "DE"
+      en: "EN"
+      es: "ES"
+      it: "IT"
+      fr: "FR"
+      nl: "NL"
+      ru: "RU"
 
     # == User roles translations
     user_roles:
@@ -227,18 +224,18 @@ en:
         aliases: Enter additional domains this site should be accessible by. Please separate them by space or new line.
 
     add_nested_element: "Add %{name}"
-    anchor: 'Anchor'
+    anchor: "Anchor"
     anchor_link_headline: You can link to an anchor from the current page.
     automatic_anchor_notice: The anchor is generated automatically.
     attribute_fixed: Value can't be changed for this page type
-    back: 'back'
+    back: "back"
     locked_pages: "Active pages"
     "Add a page": "Add a page"
     "Add global page": "Add global page"
     "Add page link": "Add page link"
     "Alchemy is open software and itself uses open software and free resources:": "Alchemy is open software and itself uses open software and free resources:"
-    "Alchemy is up to date": 'Alchemy is up to date'
-    'An error happened': 'An error happened'
+    "Alchemy is up to date": "Alchemy is up to date"
+    "An error happened": "An error happened"
     "Change password": "Change password"
     "Choose page": "Choose page"
     "Clear selection": "Clear selection"
@@ -351,8 +348,6 @@ en:
     "Attachment Preview": "Attachment Preview"
     "Visit page": "Visit page"
     "Warning!": "Warning!"
-    content_definition_missing: "Warning: Content is missing its definition. Please check the elements.yml"
-    content_deprecated: "WARNING! This content is deprecated and will be removed soon. Please do not use it anymore."
     ingredient_deprecated: "WARNING! This content is deprecated and will be removed soon. Please do not use it anymore."
     element_definition_missing: "WARNING! Missing element definition. Please check your elements.yml file."
     element_deprecated: "WARNING! This element is deprecated and will be removed soon. Please do not use it anymore."
@@ -391,15 +386,13 @@ en:
     confirm_to_delete_menu: "Do you really want to delete this menu?"
     confirm_to_delete_node: "Do you really want to delete this menu node?"
     confirm_to_delete_page: "Do you really want to delete this page?"
-    content_essence_not_found: "Content essence not found"
-    content_not_found: "Field for content not present."
-    content_validations_headline: "Please check marked fields below"
+    ingredient_validations_headline: "Please check marked fields below"
     copy: "copy"
     copy_element: "Copy this element"
     copy_page: "Copy page"
     "Could not delete Pictures": "Could not delete Pictures"
     copy_language_tree_heading: "Copy pages"
-    country_code_placeholder: 'i.e. US (optional)'
+    country_code_placeholder: "i.e. US (optional)"
     country_code_foot_note: "You only need to set a country code if you want to support multiple countries with the same language."
     create: "create"
     "Create language": "Create a new language"
@@ -416,7 +409,7 @@ en:
     delete_menu: "Delete this menu"
     delete_node: "Delete this menu node"
     delete_page: "Delete this page"
-    delete_tag: 'Delete tag'
+    delete_tag: "Delete tag"
     document: "File"
     download_csv: "Download CSV"
     download_file: "Download file '%{filename}'"
@@ -429,13 +422,13 @@ en:
     edit_node: "Edit menu node"
     edit_page: "Edit this page"
     edit_page_properties: "Edit page properties"
-    edit_tag: 'Edit tag'
+    edit_tag: "Edit tag"
     edit_selected_pictures: "Edit selected pictures"
     element_editor_not_found: "Error within this Element"
     element_of_type: "Element"
     element_saved: "Saved element."
     enter_external_link: "Please enter the URL you want to link with"
-    explain_cropping: "<p>Move the frame and change its size with the mouse or arrow keys to adjust the image mask. Click on \"apply\" when you are satisfied with your selection.</p><p>If you want to return to the original centered image mask like it was defined in the layout, click \"reset\" and \"apply\" afterwards.</p>"
+    explain_cropping: '<p>Move the frame and change its size with the mouse or arrow keys to adjust the image mask. Click on "apply" when you are satisfied with your selection.</p><p>If you want to return to the original centered image mask like it was defined in the layout, click "reset" and "apply" afterwards.</p>'
     explain_publishing: "Publish current page content"
     explain_unlocking: "Leave page and unlock it for other users."
     external_link_notice_1: "Please enter the complete url with http:// or a similar protocol."
@@ -474,7 +467,7 @@ en:
     "item removed from clipboard": "Removed %{name} from clipboard"
     javascript_disabled_headline: "Javascript is disabled!"
     javascript_disabled_text: "Alchemy needs Javascript to run smoothly. Please enable it in your browser settings."
-    language_code_placeholder: 'i.e. en'
+    language_code_placeholder: "i.e. en"
     language_pages_copied: "Language tree successfully copied."
     left: "left"
     legacy_url_info_text: "A link is a redirect from an old URL to the current URL of this page. This redirect happens with a <a href='https://support.google.com/webmasters/answer/93633' target='_blank'>301 status code</a>."
@@ -529,10 +522,10 @@ en:
       alchemy/site: "<h2>You do not have any websites yet.</h2><p>In order to serve requests you need to create a website first.</p><p>This form has been filled with sensible defaults that work in most cases.</p>"
     no_search_results: "Your search did not return any results."
     "not a valid image": "This is not an valid image."
-    "or": 'or'
-    or_replace_it_with_an_existing_tag: 'Or replace it with an existing tag'
+    "or": "or"
+    or_replace_it_with_an_existing_tag: "Or replace it with an existing tag"
     "Page created": "Page: '%{name}' created."
-    page_infos: 'Page info'
+    page_infos: "Page info"
     page_properties: "Page properties"
     page_public: "published"
     page_published: "Published page"
@@ -567,26 +560,26 @@ en:
     position_in_text: "Position in text"
     preview_size: "Preview size"
     preview_sizes:
-      '240': '240px (small phone)'
-      '320': '320px (iPhone)'
-      '480': '480px (small Tablet)'
-      '768': '768px (iPad - Portrait)'
-      '1024': '1024px (iPad - Landscape)'
-      '1280': '1280px (Desktop)'
+      "240": "240px (small phone)"
+      "320": "320px (iPhone)"
+      "480": "480px (small Tablet)"
+      "768": "768px (iPad - Portrait)"
+      "1024": "1024px (iPad - Landscape)"
+      "1280": "1280px (Desktop)"
     preview_url: Preview
     publish_page_language_not_public: Cannot publish page if language is not public
     publish_page_not_allowed: You have not the permission to publish this page
-    recently_uploaded_only: 'Recently uploaded only'
+    recently_uploaded_only: "Recently uploaded only"
     "regular method": "Regular method"
     remove: "Remove"
     rename_file: "Rename this file."
     rename: "Rename"
     replace: replace
     replace_file: Replace file
-    'Replaced Tag': "Tag '%{old_tag}' was replaced with '%{new_tag}'"
+    "Replaced Tag": "Tag '%{old_tag}' was replaced with '%{new_tag}'"
     resources:
       relation_select:
-        blank: '- none -'
+        blank: "- none -"
     right: "right"
     robot_follow: "robot may follow links."
     robot_index: "allow robot to index."
@@ -600,7 +593,7 @@ en:
     show_eq: "Show EQ"
     show_navigation: "Show in navigation"
     show_page_in_sitemap: "Show page in sitemap."
-    signup_mail_delivery_error: 'Signup mail could not be delivered. Please check your mail settings.'
+    signup_mail_delivery_error: "Signup mail could not be delivered. Please check your mail settings."
     small_thumbnails: "Small thumbnails"
     subject: "Subject"
     successfully_added_element: "Successfully added new element."
@@ -610,7 +603,7 @@ en:
     swap_image: "Change image"
     insert_image: "Insert image"
     tag_list: Tags
-    tags_get_created_if_used_the_first_time: 'Tags get created if used the first time.'
+    tags_get_created_if_used_the_first_time: "Tags get created if used the first time."
     this_picture_is_used_on_these_pages: "This picture is used on following pages"
     title: "Title"
     to_alchemy: "To Alchemy"
@@ -651,9 +644,9 @@ en:
     "Successfully updated": "Successfully updated"
     "Successfully removed": "Successfully removed"
     "Nothing found": "Nothing found."
-    complete: 'Abgeschlossen'
-    "Update available": 'Update available'
-    "Update status unavailable": 'Update status unavailable'
+    complete: "Abgeschlossen"
+    "Update available": "Update available"
+    "Update status unavailable": "Update status unavailable"
     "Uploading": "Uploading"
     cannot_signup_more_then_once: "You can't signup more then once."
     confirm_to_delete_user: "Do you really want to delete this user?"
@@ -671,11 +664,11 @@ en:
 
     # Simple form translations
     forms:
-      "yes": 'Yes'
-      "no": 'No'
+      "yes": "Yes"
+      "no": "No"
       required:
-        text: 'required'
-        mark: '*'
+        text: "required"
+        mark: "*"
       error_notification:
         default_message: "Please review the problems below:"
 
@@ -690,7 +683,7 @@ en:
     formats:
       alchemy:
         default: "%m.%d.%Y %H:%M"
-        essence_date: "%Y-%m-%d"
+        ingredient_date: "%Y-%m-%d"
         page_status: "%m.%d.%Y %H:%M"
         short_datetime: "%d %b %H:%M"
         time: "%H:%M"
@@ -701,9 +694,9 @@ en:
       alchemy/content:
         attributes:
           name:
-            taken: 'is already taken in this element.'
+            taken: "is already taken in this element."
           essence:
-            validation_failed: 'Validation failed.'
+            validation_failed: "Validation failed."
       alchemy/element:
         attributes:
           name:
@@ -711,8 +704,8 @@ en:
       alchemy/language:
         attributes:
           language_code:
-            invalid: '^Format of languagecode is not valid. Please use exactly two lowercase characters.'
-            taken: 'is already taken for this country code.'
+            invalid: "^Format of languagecode is not valid. Please use exactly two lowercase characters."
+            taken: "is already taken for this country code."
           locale:
             missing_file: "Localization not found for given language code. Please choose an existing one."
       alchemy/page:
@@ -739,28 +732,21 @@ en:
   # Translations for Alchemy models
   activemodel:
     models:
-      alchemy/essence_headline:
-        one: Headline
-        other: Headline
       alchemy/message:
         one: Message
         other: Messages
       alchemy/admin/preview_url: Internal
     attributes:
-      alchemy/essence_headline:
-        body: Headline
-        level: Level
-        size: Size
       alchemy/message:
-        salutation: 'Salutation'
-        firstname: 'Firstname'
-        lastname: 'Lastname'
-        address: 'Street / No.'
-        zip: 'Zipcode'
+        salutation: "Salutation"
+        firstname: "Firstname"
+        lastname: "Lastname"
+        address: "Street / No."
+        zip: "Zipcode"
         city: City
-        phone: 'Telephone'
-        email: 'Email'
-        message: 'Message'
+        phone: "Telephone"
+        email: "Email"
+        message: "Message"
 
   # Translations for Alchemy database models
   activerecord:
@@ -769,7 +755,7 @@ en:
         alchemy/node:
           attributes:
             base:
-              essence_nodes_present: "This menu item is in use inside an Alchemy element on the following pages: %{page_names}."
+              node_ingredients_present: "This menu item is in use inside an Alchemy element on the following pages: %{page_names}."
         alchemy/site:
           attributes:
             languages:
@@ -792,6 +778,9 @@ en:
       alchemy/element:
         one: "Element"
         other: "Elements"
+      alchemy/ingredients/headline:
+        one: Headline
+        other: Headline
       alchemy/legacy_page_url:
         one: "Link"
         other: "Links"
@@ -831,9 +820,15 @@ en:
         name: "Name"
         public: "visible"
         tag_list: Tags
-      alchemy/essence_file:
+      alchemy/ingredient:
+        dom_id: Anchor
+      alchemy/ingredients/file:
         css_class: Style
-      alchemy/essence_picture:
+      alchemy/ingredients/headline:
+        value: Headline
+        level: Level
+        size: Size
+      alchemy/ingredients/picture:
         caption: "Caption"
         title: "Title"
         alt_tag: "Alternative text"
@@ -846,8 +841,6 @@ en:
         crop_from: Crop from
         crop_size: Crop size
         picture_id: Bild
-      alchemy/ingredient:
-        dom_id: Anchor
       alchemy/language:
         country_code: "Country code"
         language_code: "Language code"

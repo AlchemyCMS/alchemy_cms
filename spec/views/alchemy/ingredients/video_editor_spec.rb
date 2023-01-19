@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_video_editor" do
-  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:element_editor) { Alchemy::ElementEditor.new(element) }
   let(:attachment) { build_stubbed(:alchemy_attachment) }
 

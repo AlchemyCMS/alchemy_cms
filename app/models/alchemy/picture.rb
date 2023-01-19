@@ -47,17 +47,16 @@ module Alchemy
     include Alchemy::TouchElements
     include Calculations
 
-    has_many :essence_pictures,
-      class_name: "Alchemy::EssencePicture",
-      foreign_key: "picture_id",
-      inverse_of: :ingredient_association
+    has_many :picture_ingredients,
+      class_name: "Alchemy::Ingredients::Picture",
+      foreign_key: "related_object_id",
+      inverse_of: :related_object
 
-    has_many :contents, through: :essence_pictures
-    has_many :elements, through: :contents
+    has_many :elements, through: :picture_ingredients
     has_many :pages, through: :elements
     has_many :thumbs, class_name: "Alchemy::PictureThumb", dependent: :destroy
 
-    # Raise error, if picture is in use (aka. assigned to an EssencePicture)
+    # Raise error, if picture is in use (aka. assigned to an Picture ingredient)
     #
     # === CAUTION
     #
@@ -114,7 +113,10 @@ module Alchemy
 
     scope :named, ->(name) { where("#{table_name}.name LIKE ?", "%#{name}%") }
     scope :recent, -> { where("#{table_name}.created_at > ?", Time.current - 24.hours).order(:created_at) }
-    scope :deletable, -> { where("#{table_name}.id NOT IN (SELECT picture_id FROM #{EssencePicture.table_name})") }
+    scope :deletable,
+      -> {
+        where("#{table_name}.id NOT IN (SELECT related_object_id FROM alchemy_ingredients WHERE related_object_type = 'Alchemy::Picture')")
+      }
     scope :without_tag, -> { left_outer_joins(:taggings).where(gutentag_taggings: { id: nil }) }
     scope :by_file_format, ->(format) { where(image_file_format: format) }
 
@@ -279,10 +281,10 @@ module Alchemy
       pages.any? && pages.not_restricted.blank?
     end
 
-    # Returns true if picture is not assigned to any EssencePicture.
+    # Returns true if picture is not assigned to any Picture ingredient.
     #
     def deletable?
-      essence_pictures.empty?
+      picture_ingredients.empty?
     end
 
     # A size String from original image file values.

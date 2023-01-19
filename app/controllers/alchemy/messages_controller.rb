@@ -11,15 +11,15 @@ module Alchemy
   # Make an Element with this options inside your @elements.yml file:
   #
   #   - name: contactform
-  #     contents:
-  #     - name: mail_to
-  #       type: EssenceText
-  #     - name: subject
-  #       type: EssenceText
-  #     - name: mail_from
-  #       type: EssenceText
-  #     - name: success_page
-  #       type: EssencePage
+  #     ingredients:
+  #       - role: mail_to
+  #         type: Text
+  #       - role: subject
+  #         type: Text
+  #       - role: mail_from
+  #         type: Text
+  #       - role: success_page
+  #         type: Page
   #
   # The fields +mail_to+, +mail_from+, +subject+ and +success_page+ are recommended.
   # The +Alchemy::MessagesController+ uses them to send your mails. So your customer has full controll of these values inside his contactform element.

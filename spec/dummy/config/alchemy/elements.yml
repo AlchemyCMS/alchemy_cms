@@ -1,128 +1,86 @@
 - name: header
   unique: true
-  contents:
-    - name: image
-      type: EssencePicture
+  ingredients:
+    - role: image
+      type: Picture
 
 - name: headline
-  contents:
-    - name: headline
-      type: EssenceHeadline
+  ingredients:
+    - role: headline
+      type: Headline
 
 - name: article
   taggable: true
-  contents:
-    - name: intro
-      type: EssenceText
-    - name: headline
-      type: EssenceText
+  ingredients:
+    - role: intro
+      type: Text
       settings:
         linkable: true
-    - name: image
-      type: EssencePicture
+    - role: headline
+      type: Headline
+      settings:
+        anchor: from_value
+    - role: image
+      type: Picture
       settings:
         size: 450x300
         crop: true
-    - name: text
-      type: EssenceRichtext
+    - role: text
+      type: Richtext
 
 - name: text
-  contents:
-    - name: text
-      type: EssenceRichtext
+  ingredients:
+    - role: text
+      type: Richtext
       settings:
         sanitizer:
           attributes: [href, target]
           tags: [p, ol, ul, ul, li, em, strong]
 
 - name: search
-  contents: []
+  ingredients: []
 
 - name: news
-  contents:
-    - name: date
-      type: EssenceDate
-    - name: news_headline
-      type: EssenceText
-    - name: body
-      type: EssenceRichtext
+  ingredients:
+    - role: date
+      type: Datetime
+    - role: news_headline
+      type: Text
+    - role: body
+      type: Richtext
 
 - name: download
-  contents:
-    - name: file
-      type: EssenceFile
+  ingredients:
+    - role: file
+      type: File
 
 - name: bild
-  contents:
-    - name: image
-      type: EssencePicture
+  ingredients:
+    - role: image
+      type: Picture
 
 - name: contactform
   unique: true
-  contents:
-    - name: mail_from
-      type: EssenceText
+  ingredients:
+    - role: mail_from
+      type: Text
       validate:
         - presence
-    - name: mail_to
-      type: EssenceText
+    - role: mail_to
+      type: Text
       validate:
         - presence
-    - name: subject
-      type: EssenceText
+    - role: subject
+      type: Text
       as_element_title: true
       validate:
         - presence
-    - name: success_page
-      type: EssencePage
+    - role: success_page
+      type: Page
       validate:
         - presence
 
 - name: all_you_can_eat
-  hint: true
-  taggable: true
-  contents:
-    - name: essence_text
-      type: EssenceText
-      hint: true
-    - name: essence_picture
-      type: EssencePicture
-      hint: true
-      settings:
-        size: 1200x480
-        crop: true
-    - name: essence_richtext
-      type: EssenceRichtext
-      hint: true
-    - name: essence_select
-      type: EssenceSelect
-      hint: true
-      settings:
-        select_values: [A, B, C]
-    - name: essence_boolean
-      type: EssenceBoolean
-      hint: true
-    - name: essence_date
-      type: EssenceDate
-      hint: true
-    - name: essence_audio
-      type: EssenceAudio
-      hint: true
-    - name: essence_file
-      type: EssenceFile
-      hint: true
-    - name: essence_video
-      type: EssenceVideo
-      hint: true
-    - name: essence_html
-      type: EssenceHtml
-      hint: true
-      deprecated: true
-    - name: essence_link
-      type: EssenceLink
-      hint: true
-
-- name: all_you_can_eat_ingredients
   hint: true
   taggable: true
   ingredients:
@@ -189,17 +147,17 @@
       hint: true
 
 - name: <%= 'erb_' + 'element' %>
-  contents:
-    - name: text
-      type: EssenceRichtext
+  ingredients:
+    - role: text
+      type: Richtext
 
 - name: slide
   compact: true
-  contents:
-    - name: picture
-      type: EssencePicture
-    - name: caption
-      type: EssenceText
+  ingredients:
+    - role: picture
+      type: Picture
+    - role: caption
+      type: Text
       as_element_title: true
 
 - name: slider
@@ -214,9 +172,9 @@
 
 - name: gallery_picture
   compact: true
-  contents:
-    - name: picture
-      type: EssencePicture
+  ingredients:
+    - role: picture
+      type: Picture
       settings:
         size: 160x120
         crop: true
@@ -224,9 +182,9 @@
 - name: right_column
   fixed: true
   unique: true
-  contents:
-    - name: title
-      type: EssenceText
+  ingredients:
+    - role: title
+      type: Text
   nestable_elements: [search, text]
 
 - name: left_column
@@ -240,29 +198,17 @@
   nestable_elements: [text]
 
 - name: menu
-  contents:
-    - name: menu
-      type: EssenceNode
+  ingredients:
+    - role: menu
+      type: Node
 
 - name: old
   deprecated: true
-  contents:
-    - name: title
-      type: EssenceText
-    - name: text
-      type: EssenceRichtext
-
-- name: element_with_ingredients
   ingredients:
-    - role: headline
+    - role: title
       type: Text
-      default: Hello World
-      settings:
-        anchor: from_value
-        linkable: true
     - role: text
       type: Richtext
-      default: :lorem_ipsum
 
 - name: element_with_ingredient_groups
   ingredients:
@@ -279,21 +225,4 @@
       group: size
     - role: key_words
       type: Text
-      group: details
-
-- name: element_with_content_groups
-  contents:
-    - name: title
-      type: EssenceText
-    - name: description
-      type: EssenceRichtext
-      group: details
-    - name: width
-      type: EssenceText
-      group: size
-    - name: height
-      type: EssenceText
-      group: size
-    - name: key_words
-      type: EssenceText
       group: details

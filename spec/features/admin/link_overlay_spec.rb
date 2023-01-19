@@ -45,17 +45,19 @@ RSpec.describe "Link overlay", type: :system do
     end
 
     let!(:article) do
-      create(:alchemy_element,
+      create(
+        :alchemy_element,
         name: "article",
         page_version: page1.draft_version,
-        autogenerate_contents: true)
+        autogenerate_ingredients: true,
+      )
     end
 
     it "should be possible to link a page" do
       visit edit_admin_page_path(page1)
 
       within "#element_#{article.id}" do
-        fill_in "Headline", with: "Link me"
+        fill_in "Intro", with: "Link me"
         click_link "Link text"
       end
 

@@ -22,7 +22,7 @@
   <div id="pictures_page_list">
     <% if @assignments.any? %>
       <ul>
-        <% @assignments.group_by(&:page).each do |page, essence_pictures| %>
+        <% @assignments.group_by(&:page).each do |page, picture_ingredients| %>
           <% if page %>
             <li>
               <h3>
@@ -30,20 +30,18 @@
                 <p><%= link_to page.name, edit_admin_page_path(page) %></p>
               </h3>
               <ul class="list">
-                <% essence_pictures.group_by(&:element).each do |element, essence_pictures| %>
+                <% picture_ingredients.group_by(&:element).each do |element, picture_ingredients| %>
                   <li class="<%= cycle('even', 'odd') %>">
                     <% page_link = link_to element.display_name_with_preview_text,
                                    edit_admin_page_path(page, anchor: "element_#{element.id}") %>
-                    <% pictures = essence_pictures.collect do |e|
-                                    e.content.name_for_label
-                                  end.to_sentence %>
+                    <% ingredients = picture_ingredients.collect(&:translated_role).to_sentence %>
                     <% if element.public? %>
                       <%= render_icon('window-maximize', style: 'regular') %>
                     <% else %>
                       <%= render_icon('window-close') %>
                     <% end %>
                     <p>
-                      <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: pictures) %>
+                      <%== Alchemy.t(:pictures_in_page, page: page_link, pictures: ingredients) %>
                     </p>
                   </li>
                 <% end %>

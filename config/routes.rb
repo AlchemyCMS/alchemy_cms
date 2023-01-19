@@ -16,8 +16,6 @@ Alchemy::Engine.routes.draw do
   end
 
   namespace :admin, { path: Alchemy.admin_path, constraints: Alchemy.admin_constraints } do
-    resources :contents, only: [:create]
-
     resources :nodes
 
     resources :pages do
@@ -41,7 +39,6 @@ Alchemy::Engine.routes.draw do
     end
 
     resources :elements do
-      resources :contents
       collection do
         post :order
       end
@@ -73,19 +70,11 @@ Alchemy::Engine.routes.draw do
       end
     end
 
-    resources :essence_audios, only: [:edit, :update]
-
     concern :croppable do
       member do
         get :crop
       end
     end
-
-    resources :essence_pictures, only: [:edit, :update], concerns: [:croppable]
-
-    resources :essence_files, only: [:edit, :update]
-
-    resources :essence_videos, only: [:edit, :update]
 
     resources :ingredients, only: [:edit, :update], concerns: [:croppable]
 
@@ -125,13 +114,9 @@ Alchemy::Engine.routes.draw do
   resources :elements, only: :show
 
   namespace :api, defaults: { format: "json" } do
-    resources :contents, only: [:index, :show]
     resources :ingredients, only: [:index]
 
-    resources :elements, only: [:index, :show] do
-      get "/contents" => "contents#index", as: "contents"
-      get "/contents/:name" => "contents#show", as: "content"
-    end
+    resources :elements, only: [:index, :show]
 
     resources :pages, only: [:index] do
       get "elements" => "elements#index", as: "elements"

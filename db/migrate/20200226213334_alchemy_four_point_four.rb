@@ -16,14 +16,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[6.0]
       end
     end
 
-    unless table_exists?("alchemy_contents")
-      create_table "alchemy_contents" do |t|
-        t.string "name"
-        t.references "essence", null: false, polymorphic: true, index: { unique: true }
-        t.references "element", null: false
-      end
-    end
-
     unless table_exists?("alchemy_elements")
       create_table "alchemy_elements" do |t|
         t.string "name"
@@ -47,92 +39,6 @@ class AlchemyFourPointFour < ActiveRecord::Migration[6.0]
       create_table "alchemy_elements_alchemy_pages", id: false do |t|
         t.references "element"
         t.references "page"
-      end
-    end
-
-    unless table_exists?("alchemy_essence_booleans")
-      create_table "alchemy_essence_booleans" do |t|
-        t.boolean "value"
-        t.index ["value"], name: "index_alchemy_essence_booleans_on_value"
-      end
-    end
-
-    unless table_exists?("alchemy_essence_dates")
-      create_table "alchemy_essence_dates" do |t|
-        t.datetime "date"
-      end
-    end
-
-    unless table_exists?("alchemy_essence_files")
-      create_table "alchemy_essence_files" do |t|
-        t.references "attachment"
-        t.string "title"
-        t.string "css_class"
-        t.string "link_text"
-      end
-    end
-
-    unless table_exists?("alchemy_essence_htmls")
-      create_table "alchemy_essence_htmls" do |t|
-        t.text "source"
-      end
-    end
-
-    unless table_exists?("alchemy_essence_links")
-      create_table "alchemy_essence_links" do |t|
-        t.string "link"
-        t.string "link_title"
-        t.string "link_target"
-        t.string "link_class_name"
-      end
-    end
-
-    unless table_exists?("alchemy_essence_pages")
-      create_table "alchemy_essence_pages" do |t|
-        t.references "page"
-      end
-    end
-
-    unless table_exists?("alchemy_essence_pictures")
-      create_table "alchemy_essence_pictures" do |t|
-        t.references "picture"
-        t.string "caption"
-        t.string "title"
-        t.string "alt_tag"
-        t.string "link"
-        t.string "link_class_name"
-        t.string "link_title"
-        t.string "css_class"
-        t.string "link_target"
-        t.string "crop_from"
-        t.string "crop_size"
-        t.string "render_size"
-      end
-    end
-
-    unless table_exists?("alchemy_essence_richtexts")
-      create_table "alchemy_essence_richtexts" do |t|
-        t.text "body"
-        t.text "stripped_body"
-        t.boolean "public"
-      end
-    end
-
-    unless table_exists?("alchemy_essence_selects")
-      create_table "alchemy_essence_selects" do |t|
-        t.string "value"
-        t.index ["value"], name: "index_alchemy_essence_selects_on_value"
-      end
-    end
-
-    unless table_exists?("alchemy_essence_texts")
-      create_table "alchemy_essence_texts" do |t|
-        t.text "body"
-        t.string "link"
-        t.string "link_title"
-        t.string "link_class_name"
-        t.boolean "public", default: false
-        t.string "link_target"
       end
     end
 
@@ -262,16 +168,8 @@ class AlchemyFourPointFour < ActiveRecord::Migration[6.0]
       end
     end
 
-    unless foreign_key_exists?("alchemy_contents", column: "element_id")
-      add_foreign_key "alchemy_contents", "alchemy_elements", column: "element_id", on_update: :cascade, on_delete: :cascade
-    end
-
     unless foreign_key_exists?("alchemy_elements", column: "page_id")
       add_foreign_key "alchemy_elements", "alchemy_pages", column: "page_id", on_update: :cascade, on_delete: :cascade
-    end
-
-    unless foreign_key_exists?("alchemy_essence_pages", column: "page_id")
-      add_foreign_key "alchemy_essence_pages", "alchemy_pages", column: "page_id"
     end
 
     unless foreign_key_exists?("alchemy_nodes", column: "language_id")
@@ -289,19 +187,8 @@ class AlchemyFourPointFour < ActiveRecord::Migration[6.0]
 
   def down
     drop_table "alchemy_attachments" if table_exists?("alchemy_attachments")
-    drop_table "alchemy_contents" if table_exists?("alchemy_contents")
     drop_table "alchemy_elements" if table_exists?("alchemy_elements")
     drop_table "alchemy_elements_alchemy_pages" if table_exists?("alchemy_elements_alchemy_pages")
-    drop_table "alchemy_essence_booleans" if table_exists?("alchemy_essence_booleans")
-    drop_table "alchemy_essence_dates" if table_exists?("alchemy_essence_dates")
-    drop_table "alchemy_essence_files" if table_exists?("alchemy_essence_files")
-    drop_table "alchemy_essence_htmls" if table_exists?("alchemy_essence_htmls")
-    drop_table "alchemy_essence_links" if table_exists?("alchemy_essence_links")
-    drop_table "alchemy_essence_pages" if table_exists?("alchemy_essence_pages")
-    drop_table "alchemy_essence_pictures" if table_exists?("alchemy_essence_pictures")
-    drop_table "alchemy_essence_richtexts" if table_exists?("alchemy_essence_richtexts")
-    drop_table "alchemy_essence_selects" if table_exists?("alchemy_essence_selects")
-    drop_table "alchemy_essence_texts" if table_exists?("alchemy_essence_texts")
     drop_table "alchemy_folded_pages" if table_exists?("alchemy_folded_pages")
     drop_table "alchemy_languages" if table_exists?("alchemy_languages")
     drop_table "alchemy_legacy_page_urls" if table_exists?("alchemy_legacy_page_urls")

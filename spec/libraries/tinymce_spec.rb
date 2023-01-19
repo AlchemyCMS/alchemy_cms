@@ -21,10 +21,10 @@ module Alchemy
       end
     end
 
-    context "Methods for contents with custom tinymce config." do
-      let(:content_definition) do
+    context "Methods for ingredients with custom tinymce config." do
+      let(:ingredient_definition) do
         {
-          "name" => "text",
+          "role" => "text",
           "settings" => {
             "tinymce" => {
               "foo" => "bar",
@@ -36,7 +36,7 @@ module Alchemy
       let(:element_definition) do
         {
           "name" => "article",
-          "contents" => [content_definition],
+          "ingredients" => [ingredient_definition],
         }
       end
 
@@ -45,113 +45,20 @@ module Alchemy
 
         subject { described_class.custom_configs_present?(page) }
 
-        context "if custom_config_contents are present" do
+        context "if custom_config_ingredients are present" do
           before do
-            expect(described_class).to receive(:custom_config_contents) { [:foo] }
+            expect(described_class).to receive(:custom_config_ingredients) { [:foo] }
           end
 
           it { is_expected.to be(true) }
         end
 
-        context "if no custom_config_contents are present" do
+        context "if no custom_config_ingredients are present" do
           before do
-            expect(described_class).to receive(:custom_config_contents) { [] }
+            expect(described_class).to receive(:custom_config_ingredients) { [] }
           end
 
-          context "but custom_config_ingredients are present" do
-            before do
-              expect(described_class).to receive(:custom_config_ingredients) { [:foo] }
-            end
-
-            it { is_expected.to be(true) }
-          end
-
-          context "and no custom_config_ingredients are present" do
-            before do
-              expect(described_class).to receive(:custom_config_ingredients) { [] }
-            end
-
-            it { is_expected.to be(false) }
-          end
-        end
-      end
-
-      describe ".custom_config_contents" do
-        let(:page) { build_stubbed(:alchemy_page) }
-
-        let(:element_definitions) do
-          [element_definition]
-        end
-
-        subject { Tinymce.custom_config_contents(page) }
-
-        before do
-          expect(page).to receive(:descendent_element_definitions) { element_definitions }
-        end
-
-        it "returns an array of content definitions that contain custom tinymce config
-        and element name" do
-          is_expected.to be_an(Array)
-          is_expected.to include({
-            "element" => element_definition["name"],
-          }.merge(content_definition))
-        end
-
-        context "with no contents having custom tinymce config" do
-          let(:content_definition) do
-            { "name" => "text" }
-          end
-
-          it { is_expected.to eq([]) }
-        end
-
-        context "with element definition having nil as contents value" do
-          let(:element_definition) do
-            {
-              "name" => "element",
-              "contents" => nil,
-            }
-          end
-
-          it "returns empty array" do
-            is_expected.to eq([])
-          end
-        end
-
-        context "with content settings tinymce set to true only" do
-          let(:element_definition) do
-            {
-              "name" => "element",
-              "contents" => [
-                "name" => "headline",
-                "settings" => {
-                  "tinymce" => true,
-                },
-              ],
-            }
-          end
-
-          it "returns empty array" do
-            is_expected.to eq([])
-          end
-        end
-
-        context "with nestable_elements defined" do
-          let(:element_definitions) do
-            [
-              element_definition,
-              {
-                "name" => "nested_element",
-                "contents" => [content_definition],
-              },
-            ]
-          end
-
-          it "includes these configs" do
-            is_expected.to include({
-              "element" => element_definition["name"],
-            }.merge(content_definition))
-          end
+          it { is_expected.to be(false) }
         end
       end
 

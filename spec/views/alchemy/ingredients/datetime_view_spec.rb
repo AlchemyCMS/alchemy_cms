@@ -2,7 +2,7 @@
 
 require "rails_helper"
 
-describe "alchemy/ingredients/_essence_date_view" do
+describe "alchemy/ingredients/_datetime_view" do
   let(:ingredient) { Alchemy::Ingredients::Datetime.new(value: "2013-10-27 21:14:16 +0100") }
   let(:options) { {} }
 

@@ -19,7 +19,7 @@ FactoryBot.define do
     factory :"alchemy_ingredient_#{ingredient}", class: "Alchemy::Ingredients::#{ingredient.classify}" do
       role { ingredient }
       type { "Alchemy::Ingredients::#{ingredient.classify}" }
-      association :element, name: "all_you_can_eat_ingredients", factory: :alchemy_element
+      association :element, name: "all_you_can_eat", factory: :alchemy_element
     end
   end
 end

@@ -20,7 +20,7 @@ module Alchemy
     #
     # === Example:
     #
-    #   essence_picture.picture_url(size: '200x300', crop: true, format: 'gif')
+    #   picture_view.picture_url(size: '200x300', crop: true, format: 'gif')
     #   # '/pictures/1/show/200x300/crop/cats.gif?sh=765rfghj'
     #
     # @option options size [String]

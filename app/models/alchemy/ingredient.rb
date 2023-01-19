@@ -13,6 +13,8 @@ module Alchemy
     belongs_to :element, touch: true, class_name: "Alchemy::Element", inverse_of: :ingredients
     belongs_to :related_object, polymorphic: true, optional: true
 
+    has_one :page, through: :element, class_name: "Alchemy::Page"
+
     after_initialize :set_default_value,
       if: -> { definition.key?(:default) && value.nil? }
 
@@ -76,11 +78,6 @@ module Alchemy
           default: Alchemy.t("ingredient_roles.#{role}", default: role.humanize),
         )
       end
-    end
-
-    # Compatibility method for access from element
-    def essence
-      self
     end
 
     # The value or the related object if present
@@ -162,6 +159,10 @@ module Alchemy
 
     def hint_translation_attribute
       role
+    end
+
+    def hint_translation_scope
+      "ingredient_hints"
     end
 
     def set_default_value

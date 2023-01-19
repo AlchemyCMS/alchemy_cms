@@ -3,6 +3,7 @@
 module Alchemy
   class DeleteElements
     class WouldLeaveOrphansError < StandardError; end
+
     attr_reader :elements
 
     def initialize(elements)
@@ -14,13 +15,6 @@ module Alchemy
         raise WouldLeaveOrphansError
       end
 
-      contents = Alchemy::Content.where(element_id: elements.map(&:id))
-      contents.group_by(&:essence_type)
-        .transform_values! { |value| value.map(&:essence_id) }
-        .each do |class_name, ids|
-          class_name.constantize.where(id: ids).delete_all
-        end
-      contents.delete_all
       Gutentag::Tagging.where(taggable: elements).delete_all
       delete_elements
     end

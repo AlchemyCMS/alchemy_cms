@@ -8,17 +8,6 @@ module Alchemy
       "alchemy/admin/elements/element"
     end
 
-    # Returns content editor instances for defined contents
-    #
-    # Creates contents on demand if the content is not yet present on the element
-    #
-    # @return Array<Alchemy::ContentEditor>
-    def contents
-      element.definition.fetch(:contents, []).map do |content|
-        Alchemy::ContentEditor.new(find_or_create_content(content[:name]))
-      end
-    end
-
     # Returns ingredient editor instances for defined ingredients
     #
     # Creates ingredient on demand if the ingredient is not yet present on the element
@@ -63,7 +52,7 @@ module Alchemy
     def css_classes
       [
         "element-editor",
-        content_definitions.present? ? "with-contents" : "without-contents",
+        ingredient_definitions.present? ? "with-ingredients" : "without-ingredients",
         nestable_elements.any? ? "nestable" : "not-nestable",
         taggable? ? "taggable" : "not-taggable",
         folded ? "folded" : "expanded",
@@ -78,7 +67,7 @@ module Alchemy
     def editable?
       return false if folded?
 
-      content_definitions.present? || ingredient_definitions.any? || taggable?
+      ingredient_definitions.any? || taggable?
     end
 
     # Fixes Rails partial renderer calling to_model on the object
@@ -124,25 +113,15 @@ module Alchemy
       when String
         definition["deprecated"]
       when TrueClass
-        Alchemy.t(name,
-                  scope: :element_deprecation_notices,
-                  default: Alchemy.t(:element_deprecated))
+        Alchemy.t(
+          name,
+          scope: :element_deprecation_notices,
+          default: Alchemy.t(:element_deprecated),
+        )
       end
     end
 
     private
-
-    def find_or_create_content(name)
-      find_content(name) || create_content(name)
-    end
-
-    def find_content(name)
-      element.contents.find { |content| content.name == name }
-    end
-
-    def create_content(name)
-      Alchemy::Content.create(element: element, name: name)
-    end
 
     def find_or_create_ingredient(definition)
       element.ingredients.detect { |i| i.role == definition[:role] } ||

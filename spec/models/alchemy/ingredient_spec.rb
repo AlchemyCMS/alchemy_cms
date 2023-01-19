@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe Alchemy::Ingredient do
   let(:element) do
-    build(:alchemy_element, name: "element_with_ingredients", autogenerate_ingredients: false)
+    build(:alchemy_element, name: "article", autogenerate_ingredients: false)
   end
 
   it_behaves_like "having a hint" do
@@ -13,7 +13,7 @@ RSpec.describe Alchemy::Ingredient do
 
   describe "scopes" do
     let(:element) do
-      build(:alchemy_element, name: "all_you_can_eat_ingredients", autogenerate_ingredients: false)
+      build(:alchemy_element, name: "all_you_can_eat", autogenerate_ingredients: false)
     end
 
     %w[
@@ -57,7 +57,7 @@ RSpec.describe Alchemy::Ingredient do
     let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
 
     it "returns the settings hash from definition" do
-      expect(ingredient.settings).to eq({ "anchor" => "from_value", "linkable" => true })
+      expect(ingredient.settings).to eq({ "anchor" => "from_value" })
     end
 
     context "if settings are not defined" do
@@ -71,7 +71,7 @@ RSpec.describe Alchemy::Ingredient do
 
   describe "#settings_value" do
     let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
-    let(:key) { :linkable }
+    let(:key) { :anchor }
     let(:options) { {} }
 
     subject { ingredient.settings_value(key, options) }
@@ -79,7 +79,7 @@ RSpec.describe Alchemy::Ingredient do
     context "with ingredient having settings" do
       context "and empty options" do
         it "returns the value for key from ingredient settings" do
-          expect(subject).to eq(true)
+          expect(subject).to eq("from_value")
         end
       end
 
@@ -87,23 +87,23 @@ RSpec.describe Alchemy::Ingredient do
         let(:options) { nil }
 
         it "returns the value for key from ingredient settings" do
-          expect(subject).to eq(true)
+          expect(subject).to eq("from_value")
         end
       end
 
       context "but same key present in options" do
-        let(:options) { { linkable: false } }
+        let(:options) { { anchor: "from_value" } }
 
         it "returns the value for key from options" do
-          expect(subject).to eq(false)
+          expect(subject).to eq("from_value")
         end
       end
 
       context "and key passed as string" do
-        let(:key) { "linkable" }
+        let(:key) { "anchor" }
 
         it "returns the value" do
-          expect(subject).to eq(true)
+          expect(subject).to eq("from_value")
         end
       end
     end
@@ -118,10 +118,10 @@ RSpec.describe Alchemy::Ingredient do
       end
 
       context "but key present in options" do
-        let(:options) { { linkable: false } }
+        let(:options) { { anchor: "from_value" } }
 
         it "returns the value for key from options" do
-          expect(subject).to eq(false)
+          expect(subject).to eq("from_value")
         end
       end
     end

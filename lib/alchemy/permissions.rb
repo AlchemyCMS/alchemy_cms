@@ -37,10 +37,6 @@ module Alchemy
       def alchemy_guest_user_rules
         can([:show, :download], Alchemy::Attachment) { |a| !a.restricted? }
 
-        can :read, Alchemy::Content, Alchemy::Content.available.not_restricted do |c|
-          c.public? && !c.restricted?
-        end
-
         can :read, Alchemy::Element, Alchemy::Element.published.not_restricted do |e|
           e.public? && !e.restricted?
         end
@@ -63,10 +59,6 @@ module Alchemy
 
         # Resources
         can [:show, :download], Alchemy::Attachment
-
-        can :read, Alchemy::Content, Alchemy::Content.available do |c|
-          c.public?
-        end
 
         can :read, Alchemy::Element, Alchemy::Element.published do |e|
           e.public?
@@ -109,12 +101,7 @@ module Alchemy
 
         # Resources
         can [:read, :download], Alchemy::Attachment
-        can :manage, Alchemy::Content
         can :manage, Alchemy::Element
-        can :manage, Alchemy::EssenceAudio
-        can :manage, Alchemy::EssenceFile
-        can :manage, Alchemy::EssencePicture
-        can :manage, Alchemy::EssenceVideo
         can :manage, Alchemy::Ingredient
         can [:crop], Alchemy::Ingredients::Picture
         can :manage, Alchemy::LegacyPageUrl

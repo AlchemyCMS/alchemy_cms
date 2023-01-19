@@ -275,11 +275,10 @@
       }
     }
 
-    .element-content {
+    .element-body {
       margin: 4px 8px;
     }
 
-    .content_editor,
     .ingredient-editor,
     .picture_thumbnail {
       width: 100%;
@@ -303,7 +302,7 @@
     }
   }
 
-  .element-content {
+  .element-body {
     margin: 2 * $default-padding;
   }
 
@@ -414,7 +413,7 @@
   }
 }
 
-.content-group {
+.ingredient-group {
   width: 100%;
   padding: $default-padding 0;
   position: relative;
@@ -425,7 +424,7 @@
     padding-bottom: 0;
   }
 
-  .content-group-header {
+  .ingredient-group-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -434,22 +433,21 @@
     padding: $default-padding 1px;
   }
 
-  .content-group-contents {
+  .ingredient-group-ingredients {
     display: none;
   }
 
   &.expanded {
-    .content-group-contents {
+    .ingredient-group-ingredients {
       display: block;
     }
 
-    .content-group-expand {
+    .ingredient-group-expand {
       @extend .fa-angle-up;
     }
   }
 }
 
-.element-content-editors,
 .element-ingredient-editors {
   display: flex;
   flex-wrap: wrap;
@@ -467,7 +465,7 @@
   min-height: 100px;
 }
 
-.linkable_essence_tools {
+.ingredient_link_buttons {
   display: flex;
   position: absolute;
   bottom: 2 * $default-margin;
@@ -495,7 +493,7 @@
       background-color: $form-field-disabled-bg-color;
     }
 
-    &.linked.link-essence {
+    &.linked.link-ingredient {
       @include linked-button(
         $border-radius: 0,
         $line-height: 30px,
@@ -507,7 +505,7 @@
       }
     }
 
-    &.linked.unlink-essence {
+    &.linked.unlink-ingredient {
       @include linked-button(
         $border-radius: 0 $default-border-radius $default-border-radius 0,
         $line-height: 30px,
@@ -519,7 +517,7 @@
       }
     }
 
-    &.unlink-essence {
+    &.unlink-ingredient {
       border-left-width: 0;
       @extend .right-rounded-border;
     }
@@ -561,7 +559,6 @@
   }
 }
 
-.essence_picture,
 .ingredient-editor.picture {
   position: relative;
 
@@ -586,7 +583,7 @@
     }
   }
 
-  .essence_picture_css_class {
+  .picture_ingredient_css_class {
     position: absolute;
     z-index: 1;
     bottom: 24px;
@@ -639,9 +636,6 @@
   }
 }
 
-.content_editor.essence_audio,
-.content_editor.essence_file,
-.content_editor.essence_video,
 .ingredient-editor.audio,
 .ingredient-editor.file,
 .ingredient-editor.video {
@@ -681,8 +675,7 @@
   }
 }
 
-.file_tools,
-.essence_file_tools {
+.file_tools {
   display: flex;
   align-items: center;
   margin-left: auto;
@@ -717,7 +710,6 @@ select.long {
   padding: 0;
 }
 
-.content_editor,
 .ingredient-editor {
   width: 100%;
   padding: $default-padding 0;
@@ -828,7 +820,6 @@ select.long {
     }
   }
 
-  &.essence_select,
   &.select {
     label {
       margin-bottom: 2 * $default-margin;
@@ -843,8 +834,7 @@ select.long {
     }
   }
 
-  select.ingredient-editor-select,
-  select.essence_editor_select {
+  select.ingredient-editor-select {
     border-radius: $default-border-radius;
     background: white;
     border: 1px solid $button-border-color;
@@ -871,22 +861,16 @@ select.long {
     }
   }
 
-  &.essence_picture,
   &.picture {
     width: 50%;
     padding-left: 1px; // Compensate the box shadow
     padding-right: $default-padding;
 
-    + .essence_picture,
     + .picture {
       padding-left: $default-padding;
       padding-right: 1px; // Compensate the box shadow
     }
   }
-}
-
-.content_rtf_text_area {
-  display: none;
 }
 
 div.pictures_for_element {
@@ -898,7 +882,7 @@ textarea.has_tinymce {
   visibility: hidden;
 }
 
-.essence_html textarea {
+.ingredient-editor.html textarea {
   font-family: $mono-font-family;
   resize: vertical;
   font-size: $form-field-font-size;
@@ -928,8 +912,6 @@ textarea.has_tinymce {
   }
 }
 
-.content_editor .hint-with-icon,
-.content_editor .with-hint,
 .ingredient-editor .hint-with-icon,
 .ingredient-editor .with-hint,
 .element-handle .hint-with-icon {
@@ -946,7 +928,7 @@ textarea.has_tinymce {
 }
 
 .is-fixed {
-  &.with-contents {
+  &.with-ingredients {
     > .element-footer {
       border-top: 0;
       border-bottom: 1px solid $medium-gray;
@@ -992,7 +974,6 @@ textarea.has_tinymce {
 }
 
 .ingredient-date--label,
-.essence_date--label,
 .edit-ingredient-anchor-link {
   position: absolute;
   right: 2 * $default-padding;

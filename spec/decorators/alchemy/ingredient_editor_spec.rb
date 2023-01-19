@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::IngredientEditor do
-  let(:element) { build(:alchemy_element, name: "element_with_ingredients") }
+  let(:element) { build(:alchemy_element, name: "article") }
   let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
   let(:ingredient_editor) { described_class.new(ingredient) }
 
@@ -16,11 +16,11 @@ RSpec.describe Alchemy::IngredientEditor do
   describe "#css_classes" do
     subject { ingredient_editor.css_classes }
 
-    it "includes ingredient_editor class" do
+    it "includes ingredient-editor class" do
       is_expected.to include("ingredient-editor")
     end
 
-    it "includes essence partial class" do
+    it "includes ingredient partial name class" do
       is_expected.to include(ingredient.partial_name)
     end
 
@@ -99,12 +99,12 @@ RSpec.describe Alchemy::IngredientEditor do
 
   describe "#form_field_name" do
     it "returns a name for form fields with value as default" do
-      expect(ingredient_editor.form_field_name).to eq("element[ingredients_attributes][0][value]")
+      expect(ingredient_editor.form_field_name).to eq("element[ingredients_attributes][1][value]")
     end
 
     context "with a value given" do
       it "returns a name for form fields for that column" do
-        expect(ingredient_editor.form_field_name(:link_title)).to eq("element[ingredients_attributes][0][link_title]")
+        expect(ingredient_editor.form_field_name(:link_title)).to eq("element[ingredients_attributes][1][link_title]")
       end
     end
   end
@@ -231,7 +231,7 @@ RSpec.describe Alchemy::IngredientEditor do
       end
 
       context "with custom ingredient translation" do
-        let(:element) { build(:alchemy_element, name: "all_you_can_eat_ingredients") }
+        let(:element) { build(:alchemy_element, name: "all_you_can_eat") }
 
         let(:ingredient) do
           Alchemy::Ingredients::Html.new(

@@ -6,7 +6,7 @@
   data: headline_editor.data_attributes do %>
   <%= element_form.fields_for(:ingredients, headline_editor.ingredient) do |f| %>
     <%= ingredient_label(headline_editor) %>
-    <%= f.text_field :value, id: nil %>
+    <%= f.text_field :value, id: headline_editor.form_field_id %>
 
     <% if headline_editor.settings[:anchor] %>
       <%= render "alchemy/ingredients/shared/anchor", ingredient_editor: headline_editor %>

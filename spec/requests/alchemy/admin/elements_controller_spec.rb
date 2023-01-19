@@ -12,7 +12,7 @@ RSpec.describe Alchemy::Admin::ElementsController do
 
     context "element with ingredients" do
       it "inits Tinymce for richtext ingredients" do
-        post admin_elements_path(element: { page_version_id: page_version.id, name: "element_with_ingredients" }, format: :js)
+        post admin_elements_path(element: { page_version_id: page_version.id, name: "article" }, format: :js)
         element = Alchemy::Element.last
         expect(response.body).to include("Alchemy.Tinymce.init([#{element.ingredient_by_role(:text).id}]);")
       end
@@ -38,7 +38,7 @@ RSpec.describe Alchemy::Admin::ElementsController do
       end
 
       context "with validations" do
-        let(:element) { create(:alchemy_element, :with_ingredients, name: :all_you_can_eat_ingredients) }
+        let(:element) { create(:alchemy_element, :with_ingredients, name: :all_you_can_eat) }
 
         it "saves without running validations" do
           post fold_admin_element_path(id: element.id, format: :js)

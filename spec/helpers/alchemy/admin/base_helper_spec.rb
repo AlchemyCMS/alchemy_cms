@@ -10,7 +10,7 @@ module Alchemy
 
         it "renders a toolbar button" do
           expect(helper.toolbar_button(
-                   url: admin_dashboard_path,
+            url: admin_dashboard_path,
           )).to match /<div.+class="button_with_label/
         end
       end
@@ -122,9 +122,9 @@ module Alchemy
     end
 
     describe "#alchemy_datepicker" do
-      subject { alchemy_datepicker(essence, :date, {value: value, type: type}) }
+      subject { alchemy_datepicker(ingredient, :value, { value: value, type: type }) }
 
-      let(:essence) { EssenceDate.new }
+      let(:ingredient) { Ingredients::Datetime.new }
       let(:value) { nil }
       let(:type) { nil }
 
@@ -157,8 +157,8 @@ module Alchemy
       end
 
       context "with date stored on object" do
-        let(:date)    { Time.parse("1976-10-07 00:00 Z") }
-        let(:essence) { EssenceDate.new(date: date) }
+        let(:date) { Time.parse("1976-10-07 00:00 Z") }
+        let(:ingredient) { Ingredients::Datetime.new(value: date) }
 
         it "sets this date as value" do
           is_expected.to have_selector("input[value='1976-10-07T00:00:00Z']")
@@ -196,7 +196,7 @@ module Alchemy
 
       context "if the expression from config is nil" do
         before do
-          stub_alchemy_config(:format_matchers, {link_url: nil})
+          stub_alchemy_config(:format_matchers, { link_url: nil })
         end
 
         it "returns the default expression" do

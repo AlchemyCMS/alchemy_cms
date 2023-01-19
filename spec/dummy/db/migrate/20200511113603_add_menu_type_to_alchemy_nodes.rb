@@ -1,1 +1,0 @@
-../../../../db/migrate/20200511113603_add_menu_type_to_alchemy_nodes.rb

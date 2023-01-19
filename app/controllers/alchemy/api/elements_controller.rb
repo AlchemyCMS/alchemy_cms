@@ -47,14 +47,12 @@ module Alchemy
         {
           nested_elements: [
             {
-              contents: :essence,
               ingredients: :related_object,
             },
             :tags,
           ],
         },
         {
-          contents: :essence,
           ingredients: :related_object,
         },
         :tags,

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.shared_examples_for "having dom ids" do
-  let(:element) { build(:alchemy_element, name: "element_with_ingredients") }
+  let(:element) { build(:alchemy_element, name: "article") }
 
   let(:ingredient) do
     described_class.new(

@@ -4,13 +4,13 @@ require "rails_helper"
 
 RSpec.describe Alchemy::DuplicateElement do
   let(:element) do
-    create(:alchemy_element, :with_contents, tag_list: "red, yellow")
+    create(:alchemy_element, :with_ingredients, tag_list: "red, yellow")
   end
   let(:differences) { {} }
   subject { described_class.new(element).call(differences) }
 
-  it "should not create contents from scratch" do
-    expect(subject.contents.count).to eq(element.contents.count)
+  it "should not create ingredients from scratch" do
+    expect(subject.ingredients.count).to eq(element.ingredients.count)
   end
 
   context "with differences" do
@@ -22,9 +22,9 @@ RSpec.describe Alchemy::DuplicateElement do
     end
   end
 
-  it "should make copies of all contents of source" do
-    expect(subject.contents).not_to be_empty
-    expect(subject.contents.pluck(:id)).not_to eq(element.contents.pluck(:id))
+  it "should make copies of all ingredients of source" do
+    expect(subject.ingredients).not_to be_empty
+    expect(subject.ingredients.pluck(:id)).not_to eq(element.ingredients.pluck(:id))
   end
 
   it "the copy should include source element tags" do
@@ -33,7 +33,7 @@ RSpec.describe Alchemy::DuplicateElement do
 
   context "with nested elements" do
     let(:element) do
-      create(:alchemy_element, :with_contents, :with_nestable_elements, {
+      create(:alchemy_element, :with_ingredients, :with_nestable_elements, {
         tag_list: "red, yellow",
         page: create(:alchemy_page),
       })

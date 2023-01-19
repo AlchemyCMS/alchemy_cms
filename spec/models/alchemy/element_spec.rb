@@ -31,7 +31,7 @@ module Alchemy
 
       it "should not have forbidden attributes from definition" do
         el = Element.new(name: "article")
-        expect(el.contents).to eq([])
+        expect(el.ingredients).to eq([])
       end
     end
 
@@ -39,55 +39,20 @@ module Alchemy
       let(:page_version) { build(:alchemy_page_version) }
 
       subject(:element) do
-        described_class.create(page_version: page_version, name: "article", autogenerate_contents: true)
+        described_class.create(page_version: page_version, name: "article", autogenerate_ingredients: true)
       end
 
-      it "creates contents" do
-        expect(element.contents).to match_array([
-          an_instance_of(Alchemy::Content),
-          an_instance_of(Alchemy::Content),
-          an_instance_of(Alchemy::Content),
-          an_instance_of(Alchemy::Content),
-        ])
-      end
-
-      context "if autogenerate_contents set to false" do
+      context "if autogenerate_ingredients set to false" do
         subject(:element) do
           described_class.create(
             page_version: page_version,
             name: "article",
-            autogenerate_contents: false,
+            autogenerate_ingredients: false,
           )
         end
 
-        it "does not create contents" do
-          expect(element.contents).to be_empty
-        end
-      end
-
-      context "if ingredients are defined as well" do
-        before do
-          expect_any_instance_of(Alchemy::Element).to receive(:definition).at_least(:once) do
-            {
-              name: "article",
-              contents: [
-                {
-                  name: "headline",
-                  type: "EssenceText",
-                },
-              ],
-              ingredients: [
-                {
-                  role: "headline",
-                  type: "Text",
-                },
-              ],
-            }.with_indifferent_access
-          end
-        end
-
-        it "does not create contents" do
-          expect(element.contents).to be_empty
+        it "does not create ingredients" do
+          expect(element.ingredients).to be_empty
         end
       end
 
@@ -144,8 +109,8 @@ module Alchemy
             )
           end
 
-          it "creates contents" do
-            expect(element.contents).to be_empty
+          it "does not create ingredients" do
+            expect(element.ingredients).to be_empty
           end
         end
       end
@@ -176,11 +141,11 @@ module Alchemy
       subject { Element.copy(element) }
 
       let(:element) do
-        create(:alchemy_element, :with_contents, tag_list: "red, yellow")
+        create(:alchemy_element, :with_ingredients, tag_list: "red, yellow")
       end
 
-      it "should not create contents from scratch" do
-        expect(subject.contents.count).to eq(element.contents.count)
+      it "should not create ingredients from scratch" do
+        expect(subject.ingredients.count).to eq(element.ingredients.count)
       end
 
       context "with differences" do
@@ -192,9 +157,9 @@ module Alchemy
         end
       end
 
-      it "should make copies of all contents of source" do
-        expect(subject.contents).not_to be_empty
-        expect(subject.contents.pluck(:id)).not_to eq(element.contents.pluck(:id))
+      it "should make copies of all ingredients of source" do
+        expect(subject.ingredients).not_to be_empty
+        expect(subject.ingredients.pluck(:id)).not_to eq(element.ingredients.pluck(:id))
       end
 
       it "the copy should include source element tags" do
@@ -203,7 +168,7 @@ module Alchemy
 
       context "with nested elements" do
         let(:element) do
-          create(:alchemy_element, :with_contents, :with_nestable_elements, {
+          create(:alchemy_element, :with_ingredients, :with_nestable_elements, {
             tag_list: "red, yellow",
             page: create(:alchemy_page),
           })
@@ -477,88 +442,12 @@ module Alchemy
 
     # InstanceMethods
 
-    describe "#all_contents_by_type" do
-      let(:element) { create(:alchemy_element, :with_contents) }
-      let(:expected_contents) { element.contents.essence_texts }
-
-      context "with namespaced essence type" do
-        subject { element.all_contents_by_type("Alchemy::EssenceText") }
-        it { is_expected.not_to be_empty }
-        it("should return the correct list of essences") { is_expected.to eq(expected_contents) }
-      end
-
-      context "without namespaced essence type" do
-        subject { element.all_contents_by_type("EssenceText") }
-        it { is_expected.not_to be_empty }
-        it("should return the correct list of essences") { is_expected.to eq(expected_contents) }
-      end
-    end
-
-    describe "#content_by_type" do
-      before(:each) do
-        @element = create(:alchemy_element, name: "headline")
-        @content = @element.contents.first
-      end
-
-      context "with namespaced essence type" do
-        it "should return content by passing a essence type" do
-          expect(@element.content_by_type("Alchemy::EssenceText")).to eq(@content)
-        end
-      end
-
-      context "without namespaced essence type" do
-        it "should return content by passing a essence type" do
-          expect(@element.content_by_type("EssenceText")).to eq(@content)
-        end
-      end
-    end
-
     describe "#display_name" do
       let(:element) { Element.new(name: "article") }
 
       it "should call .display_name_for" do
         expect(Element).to receive(:display_name_for).with(element.name)
         element.display_name
-      end
-    end
-
-    describe "#essence_errors" do
-      let(:element) { Element.new(name: "article") }
-      let(:content) { Content.new(name: "headline") }
-      let(:essence) { EssenceText.new(body: "") }
-
-      before do
-        allow(element).to receive(:contents) { [content] }
-        allow(content).to receive(:essence) { essence }
-        allow(content).to receive(:essence_validation_failed?) { true }
-        allow(essence).to receive(:validation_errors) { "Cannot be blank" }
-      end
-
-      it "returns hash with essence errors" do
-        expect(element.essence_errors).to eq({ "headline" => "Cannot be blank" })
-      end
-    end
-
-    describe "#essence_error_messages" do
-      let(:element) { Element.new(name: "article") }
-
-      it "should return the translation with the translated content label" do
-        expect(Alchemy).to receive(:t)
-        .with("content_names.content", default: "Content")
-        .and_return("Content")
-        expect(Alchemy).to receive(:t)
-        .with("content", scope: "content_names.article", default: "Content")
-        .and_return("Contenido")
-        expect(Alchemy).to receive(:t)
-        .with("article.content.invalid", {
-          scope: "content_validations",
-          default: [:"fields.content.invalid", :"errors.invalid"],
-          field: "Contenido",
-        })
-        expect(element).to receive(:essence_errors)
-        .and_return({ "content" => [:invalid] })
-
-        element.essence_error_messages
       end
     end
 
@@ -591,7 +480,7 @@ module Alchemy
         end
 
         let(:ingredient_2) do
-          mock_model(Ingredients::Text, role: "headline", preview_text: "Ingredient 2", preview_ingredient?: false)
+          mock_model(Ingredients::Text, role: "intro", preview_text: "Ingredient 2", preview_ingredient?: false)
         end
 
         let(:ingredients) { [] }
@@ -629,65 +518,8 @@ module Alchemy
         end
       end
 
-      context "with element having contents" do
-        let(:content) do
-          mock_model(Content, preview_text: "Content 1", preview_content?: false)
-        end
-
-        let(:content_2) do
-          mock_model(Content, preview_text: "Content 2", preview_content?: false)
-        end
-
-        let(:contents) { [] }
-
-        let(:preview_content) do
-          mock_model(Content, preview_text: "Preview Content", preview_content?: true)
-        end
-
-        before do
-          allow(element).to receive(:contents).and_return(contents)
-        end
-
-        context "without a content marked as preview" do
-          let(:contents) { [content, content_2] }
-
-          it "returns the preview text of first content found" do
-            expect(content).to receive(:preview_text).with(60)
-            element.preview_text
-          end
-        end
-
-        context "with a content marked as preview" do
-          let(:contents) { [content, preview_content] }
-
-          it "should return the preview_text of this content" do
-            expect(preview_content).to receive(:preview_text).with(60)
-            element.preview_text
-          end
-        end
-
-        context "without any contents present" do
-          it "should return nil" do
-            expect(element.preview_text).to be_nil
-          end
-        end
-      end
-
       context "with nested elements" do
-        let(:element) do
-          build_stubbed(:alchemy_element, :with_nestable_elements)
-        end
-
-        let(:nested_element) do
-          build_stubbed(:alchemy_element, name: "slide")
-        end
-
-        let(:content_2) do
-          mock_model(Content, preview_text: "Content 2", preview_content?: false)
-        end
-
         before do
-          allow(nested_element).to receive(:contents) { [content_2] }
           allow(element).to receive(:all_nested_elements) { [nested_element] }
         end
 
@@ -699,7 +531,7 @@ module Alchemy
           end
 
           let(:ingredient) do
-            mock_model(Ingredients::Text, role: "headline", preview_text: "Ingredient 1", preview_ingredient?: false)
+            mock_model(Ingredients::Text, element: element, role: "intro", preview_text: "Ingredient 1", preview_ingredient?: false)
           end
 
           before do
@@ -717,7 +549,7 @@ module Alchemy
           let(:nested_element) { build_stubbed(:alchemy_element, :with_ingredients) }
 
           let(:ingredient) do
-            mock_model(Ingredients::Text, role: "headline", preview_text: "Ingredient 1", preview_ingredient?: false)
+            mock_model(Ingredients::Text, role: "intro", preview_text: "Ingredient 1", preview_ingredient?: false)
           end
 
           before do
@@ -727,37 +559,6 @@ module Alchemy
 
           it "returns the preview text from the first nested element" do
             expect(ingredient).to receive(:preview_text)
-            expect(element.preview_text)
-          end
-        end
-
-        context "when parent element has contents" do
-          let(:content) do
-            mock_model(Content, preview_text: "Content 1", preview_content?: false)
-          end
-
-          before do
-            allow(element).to receive(:contents) { [content] }
-          end
-
-          it "returns the preview text from the parent element" do
-            expect(content).to receive(:preview_text)
-            expect(element.preview_text)
-          end
-        end
-
-        context "when parent element has no contents but nestable element has" do
-          let(:content) do
-            mock_model(Content, preview_text: "Content 1", preview_content?: false)
-          end
-
-          before do
-            allow(element).to receive(:contents) { [] }
-            allow(nested_element).to receive(:contents) { [content] }
-          end
-
-          it "returns the preview text from the first nested element" do
-            expect(content).to receive(:preview_text)
             expect(element.preview_text)
           end
         end
@@ -793,85 +594,6 @@ module Alchemy
         context "with name as parameter" do
           it "should return next of this kind" do
             expect(@element1.next("text")).to eq(@element3)
-          end
-        end
-      end
-    end
-
-    context "retrieving contents, essences and ingredients" do
-      let(:element) { create(:alchemy_element, :with_contents, name: "news") }
-
-      describe "#ingredient" do
-        context "with contents" do
-          let(:essence) { element.content_by_name(:news_headline) }
-
-          it "returns a contents value by name" do
-            expect(essence).to receive(:ingredient).and_call_original
-            element.ingredient("news_headline")
-          end
-        end
-
-        context "with ingredients" do
-          let(:element) { create(:alchemy_element, :with_ingredients) }
-          let(:ingredient) { element.ingredient_by_role(:headline) }
-
-          it "returns a ingredients value by name" do
-            Alchemy::Deprecation.silenced do
-              expect(ingredient).to receive(:value).and_call_original
-              element.ingredient("headline")
-            end
-          end
-        end
-      end
-    end
-
-    describe "#update_contents" do
-      subject { element.update_contents(params) }
-
-      let(:element) { build_stubbed(:alchemy_element) }
-      let(:content1) { double(:content, id: 1) }
-      let(:content2) { double(:content, id: 2) }
-
-      before { allow(element).to receive(:contents).and_return([content1]) }
-
-      context "with attributes hash is nil" do
-        let(:params) { nil }
-        it { is_expected.to be_truthy }
-      end
-
-      context "with valid attributes hash" do
-        let(:params) { { content1.id.to_s => { body: "Title" } } }
-
-        context "when certain content is not part of the attributes hash (cause it was not filled by the user)" do
-          before do
-            allow(element).to receive(:contents).and_return([content1, content2])
-          end
-
-          it "does not try to update that content" do
-            expect(content1).to receive(:update_essence).with({ body: "Title" }).and_return(true)
-            expect(content2).to_not receive(:update_essence)
-            subject
-          end
-        end
-
-        context "with passing validations" do
-          before do
-            expect(content1).to receive(:update_essence).with({ body: "Title" }).and_return(true)
-          end
-
-          it { is_expected.to be_truthy }
-
-          it "does not add errors" do
-            subject
-            expect(element.errors).to be_empty
-          end
-        end
-
-        context "with failing validations" do
-          it "adds error and returns false" do
-            expect(content1).to receive(:update_essence).with({ body: "Title" }).and_return(false)
-            is_expected.to be_falsey
-            expect(element.errors).not_to be_empty
           end
         end
       end
@@ -1072,52 +794,6 @@ module Alchemy
             element.reload # necessary since Rails 6.1
             expect(subject).to contain_exactly(nested_element)
           end
-        end
-      end
-    end
-
-    describe "#richtext_contents_ids" do
-      subject { element.richtext_contents_ids }
-
-      let(:element) { create(:alchemy_element, :with_contents, name: "text") }
-
-      it { is_expected.to eq(element.content_ids) }
-
-      context "for element with nested elements" do
-        let!(:element) do
-          create(:alchemy_element, :with_contents, name: "text")
-        end
-
-        let!(:nested_element_1) do
-          create(:alchemy_element, :with_contents, {
-            name: "text",
-            parent_element: element,
-            folded: false,
-          })
-        end
-
-        let!(:nested_element_2) do
-          create(:alchemy_element, :with_contents, {
-            name: "text",
-            parent_element: nested_element_1,
-            folded: false,
-          })
-        end
-
-        let!(:folded_nested_element_3) do
-          create(:alchemy_element, :with_contents, {
-            name: "text",
-            parent_element: nested_element_1,
-            folded: true,
-          })
-        end
-
-        it "includes all richtext contents from all expanded descendent elements" do
-          is_expected.to eq(
-            element.content_ids +
-            nested_element_1.content_ids +
-            nested_element_2.content_ids,
-          )
         end
       end
     end

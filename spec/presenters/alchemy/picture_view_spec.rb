@@ -113,7 +113,7 @@ RSpec.describe Alchemy::PictureView do
       end
     end
 
-    context "and essence with css class" do
+    context "and ingredient with css class" do
       before do
         ingredient.css_class = "left"
       end
@@ -136,7 +136,7 @@ RSpec.describe Alchemy::PictureView do
         expect(view).to have_selector("figure.right img")
       end
 
-      it "should not have the class from the essence on the <figure> element" do
+      it "should not have the class from the ingredient on the <figure> element" do
         expect(view).not_to have_selector("figure.left img")
       end
 
@@ -288,7 +288,7 @@ RSpec.describe Alchemy::PictureView do
 
     let(:html_options) { {} }
 
-    context "essence having alt text stored" do
+    context "ingredient having alt text stored" do
       let(:ingredient) do
         stub_model Alchemy::Ingredients::Picture,
           picture: picture,
@@ -300,7 +300,7 @@ RSpec.describe Alchemy::PictureView do
       end
     end
 
-    context "essence not having alt text stored" do
+    context "ingredient not having alt text stored" do
       context "but passed as html option" do
         let(:html_options) { { alt: "Cute kittens" } }
 

@@ -36,7 +36,7 @@ module Alchemy
           to have_css "#{expected_wrapper_tag}[data-element-tags='foo, bar']"
       end
 
-      it "should include the contents rendered by the block passed to it" do
+      it "should include the ingredients rendered by the block passed to it" do
         expect(element_view_for(element) do
           "view"
         end).to have_content "view"
@@ -68,23 +68,6 @@ module Alchemy
       end
 
       describe "#render" do
-        context "with element having contents" do
-          let(:element) { create(:alchemy_element, :with_contents) }
-          let(:content) { element.content_by_name(:headline) }
-
-          it "delegates to Rails' render helper" do
-            expect(scope).to receive(:render).with(content, {
-              options: {
-                foo: "bar",
-              },
-              html_options: {},
-            })
-            Alchemy::Deprecation.silence do
-              subject.render(:headline, foo: "bar")
-            end
-          end
-        end
-
         context "with element having ingredients" do
           let(:element) { create(:alchemy_element, :with_ingredients) }
           let(:ingredient) { element.ingredient_by_role(:headline) }
@@ -101,36 +84,6 @@ module Alchemy
         end
       end
 
-      describe "#content" do
-        it "should delegate to the element's #content_by_name method" do
-          expect(element).to receive(:content_by_name).with(:title)
-          Alchemy::Deprecation.silence do
-            subject.content :title
-          end
-        end
-      end
-
-      describe "#ingredient" do
-        context "with element having contents" do
-          it "should delegate to the element's #ingredient method" do
-            expect(element).to receive(:ingredient).with(:title)
-            subject.ingredient(:title)
-          end
-        end
-
-        context "with element having ingredients" do
-          let(:element) { create(:alchemy_element, :with_ingredients) }
-          let(:ingredient) { element.ingredient_by_role(:headline) }
-
-          it "should return the ingredients value" do
-            Alchemy::Deprecation.silenced do
-              expect(ingredient).to receive(:value).and_call_original
-              subject.ingredient(:headline)
-            end
-          end
-        end
-      end
-
       describe "#value" do
         let(:element) { create(:alchemy_element, :with_ingredients) }
         let(:ingredient) { element.ingredients.first }
@@ -142,13 +95,6 @@ module Alchemy
       end
 
       describe "#has?" do
-        context "with element having contents" do
-          it "should delegate to the element's #has_ingredient? method" do
-            expect(element).to receive(:has_ingredient?).with(:title)
-            subject.has?(:title)
-          end
-        end
-
         context "with element having ingredients" do
           let(:element) { create(:alchemy_element, :with_ingredients) }
           let(:ingredient) { element.ingredients.first }
@@ -156,18 +102,6 @@ module Alchemy
           it "should delegate to the element's #has_value? method" do
             expect(element).to receive(:has_value_for?).with(:headline)
             subject.has?(:headline)
-          end
-        end
-      end
-
-      describe "#essence" do
-        it "should provide the specified content essence" do
-          expect(subject).to receive(:content).with(:title) do
-            mock_model("Content", essence: mock_model("EssenceText"))
-          end
-
-          Alchemy::Deprecation.silence do
-            subject.essence :title
           end
         end
       end

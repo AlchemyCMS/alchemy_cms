@@ -30,9 +30,12 @@ module Alchemy
 
     stampable stamper_class_name: Alchemy.user_class.name
 
-    has_many :essence_files, class_name: "Alchemy::EssenceFile", foreign_key: "attachment_id"
-    has_many :contents, through: :essence_files
-    has_many :elements, through: :contents
+    has_many :file_ingredients,
+      class_name: "Alchemy::Ingredients::File",
+      foreign_key: "related_object_id",
+      inverse_of: :related_object
+
+    has_many :elements, through: :file_ingredients
     has_many :pages, through: :elements
 
     scope :by_file_type, ->(file_type) { where(file_mime_type: file_type) }

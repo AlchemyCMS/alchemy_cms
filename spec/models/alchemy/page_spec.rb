@@ -318,7 +318,7 @@ module Alchemy
       before do
         create(:alchemy_page, :public, :locked, locked_by: 53) # This page must not be part of the collection
         allow(user.class).to receive(:primary_key)
-        .and_return("id")
+                               .and_return("id")
       end
 
       it "should return the correct page collection blocked by a certain user" do
@@ -331,7 +331,7 @@ module Alchemy
 
         before do
           allow(user.class).to receive(:primary_key)
-          .and_return("user_id")
+                                 .and_return("user_id")
         end
 
         it "should return the correct page collection blocked by a certain user" do
@@ -446,9 +446,9 @@ module Alchemy
         before do
           page = create(:alchemy_page)
           allow(page).to receive(:definition).and_return({
-                                                           "name" => "standard",
-                                                           "elements" => ["headline"],
-                                                           "autogenerate" => ["headline"],
+            "name" => "standard",
+            "elements" => ["headline"],
+            "autogenerate" => ["headline"],
           })
         end
 
@@ -685,24 +685,38 @@ module Alchemy
         let!(:element_3) { create(:alchemy_element, name: "column_headline", page: page, page_version: page.draft_version) }
 
         before do
-          allow(Element).to receive(:definitions).and_return([
-                                                               {
-                                                                 "name" => "column_headline",
-                                                                 "amount" => 3,
-                                                                 "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
-                                                               },
-                                                               {
-                                                                 "name" => "unique_headline",
-                                                                 "unique" => true,
-                                                                 "amount" => 3,
-                                                                 "contents" => [{ "name" => "headline", "type" => "EssenceText" }],
-                                                               },
-          ])
-          allow(PageLayout).to receive(:get).and_return({
-                                                          "name" => "columns",
-                                                          "elements" => ["column_headline", "unique_headline"],
-                                                          "autogenerate" => ["unique_headline", "column_headline", "column_headline", "column_headline"],
-          })
+          allow(Element).to receive(:definitions) do
+            [
+              {
+                "name" => "column_headline",
+                "amount" => 3,
+                "ingredients" => [
+                  {
+                    "role" => "headline",
+                    "type" => "Text",
+                  },
+                ],
+              },
+              {
+                "name" => "unique_headline",
+                "unique" => true,
+                "amount" => 3,
+                "ingredients" => [
+                  {
+                    "role" => "headline",
+                    "type" => "Text",
+                  },
+                ],
+              },
+            ]
+          end
+          allow(PageLayout).to receive(:get) do
+            {
+              "name" => "columns",
+              "elements" => ["column_headline", "unique_headline"],
+              "autogenerate" => ["unique_headline", "column_headline", "column_headline", "column_headline"],
+            }
+          end
         end
 
         it "should be readable" do
@@ -1137,7 +1151,7 @@ module Alchemy
           children: [
             build(:alchemy_page),
             build(:alchemy_page, name: "child with children", children: [build(:alchemy_page)]),
-          ]
+          ],
         )
       end
 
@@ -1183,8 +1197,8 @@ module Alchemy
         next if child == new_parent
 
         new_child = Page.copy(child, {
-                                language_id: new_parent.language_id,
-                                language_code: new_parent.language_code,
+          language_id: new_parent.language_id,
+          language_code: new_parent.language_code,
         })
         new_child.move_to_child_of(new_parent)
         child.copy_children_to(new_child) unless child.children.blank?
@@ -1244,10 +1258,10 @@ module Alchemy
 
       it "should copy the source page with the given name to the new parent" do
         expect(Page).to receive(:copy).with(source, {
-                                              parent: new_parent,
-                                              language: new_parent.language,
-                                              name: page_name,
-                                              title: page_name,
+          parent: new_parent,
+          language: new_parent.language,
+          name: page_name,
+          title: page_name,
         })
         subject
       end
@@ -1272,10 +1286,10 @@ module Alchemy
 
         it "copies the source page with the given name" do
           expect(Page).to receive(:copy).with(source, {
-                                                parent: nil,
-                                                language: nil,
-                                                name: page_name,
-                                                title: page_name,
+            parent: nil,
+            language: nil,
+            name: page_name,
+            title: page_name,
           })
           subject
         end
@@ -1998,75 +2012,19 @@ module Alchemy
       end
     end
 
-    describe "#richtext_contents_ids" do
-      let!(:page) { create(:alchemy_page) }
-
-      let!(:expanded_element) do
-        create :alchemy_element, :with_contents,
-          name: "article",
-          page_version: page.draft_version,
-          folded: false
-      end
-
-      let!(:folded_element) do
-        create :alchemy_element, :with_contents,
-          name: "article",
-          page_version: page.draft_version,
-          folded: true
-      end
-
-      subject(:richtext_contents_ids) { page.richtext_contents_ids }
-
-      it "returns content ids for all expanded elements that have tinymce enabled" do
-        expanded_rtf_contents = expanded_element.contents.essence_richtexts
-        expect(richtext_contents_ids).to eq(expanded_rtf_contents.pluck(:id))
-        folded_rtf_content = folded_element.contents.essence_richtexts.first
-        expect(richtext_contents_ids).to_not include(folded_rtf_content.id)
-      end
-
-      context "with nested elements" do
-        let!(:nested_expanded_element) do
-          create :alchemy_element, :with_contents,
-            name: "article",
-            page_version: page.draft_version,
-            parent_element: expanded_element,
-            folded: false
-        end
-
-        let!(:nested_folded_element) do
-          create :alchemy_element, :with_contents,
-            name: "article",
-            page_version: page.draft_version,
-            parent_element: folded_element,
-            folded: true
-        end
-
-        it "returns content ids for all expanded nested elements that have tinymce enabled" do
-          expanded_rtf_contents = expanded_element.contents.essence_richtexts
-          nested_expanded_rtf_contents = nested_expanded_element.contents.essence_richtexts
-          rtf_content_ids = expanded_rtf_contents.pluck(:id) + nested_expanded_rtf_contents.pluck(:id)
-          expect(richtext_contents_ids.sort).to eq(rtf_content_ids)
-
-          nested_folded_rtf_content = nested_folded_element.contents.essence_richtexts.first
-
-          expect(richtext_contents_ids).to_not include(nested_folded_rtf_content.id)
-        end
-      end
-    end
-
     describe "#richtext_ingredients_ids" do
       let!(:page) { create(:alchemy_page) }
 
       let!(:expanded_element) do
         create :alchemy_element, :with_ingredients,
-          name: "element_with_ingredients",
+          name: "article",
           page_version: page.draft_version,
           folded: false
       end
 
       let!(:folded_element) do
         create :alchemy_element, :with_ingredients,
-          name: "element_with_ingredients",
+          name: "article",
           page_version: page.draft_version,
           folded: true
       end
@@ -2083,7 +2041,7 @@ module Alchemy
       context "with nested elements" do
         let!(:nested_expanded_element) do
           create :alchemy_element, :with_ingredients,
-            name: "element_with_ingredients",
+            name: "article",
             page_version: page.draft_version,
             parent_element: expanded_element,
             folded: false
@@ -2091,7 +2049,7 @@ module Alchemy
 
         let!(:nested_folded_element) do
           create :alchemy_element, :with_ingredients,
-            name: "element_with_ingredients",
+            name: "article",
             page_version: page.draft_version,
             parent_element: folded_element,
             folded: true

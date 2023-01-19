@@ -17,7 +17,7 @@ RSpec.describe Alchemy::IngredientValidator do
   end
 
   context "with an ingredient having present validation" do
-    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients") }
+    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat") }
     let(:ingredient) { element.ingredient_by_role(:headline) }
 
     context "and the value is blank" do
@@ -38,7 +38,7 @@ RSpec.describe Alchemy::IngredientValidator do
   end
 
   context "with an ingredient having format validation" do
-    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients") }
+    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat") }
     let(:ingredient) { element.ingredient_by_role(:text) }
 
     before do
@@ -60,7 +60,7 @@ RSpec.describe Alchemy::IngredientValidator do
   end
 
   context "with an ingredient having uniqueness validation" do
-    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients") }
+    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat") }
     let(:ingredient) { element.ingredient_by_role(:select) }
 
     context "and no other ingredient of same kind has the value" do
@@ -70,7 +70,7 @@ RSpec.describe Alchemy::IngredientValidator do
     end
 
     context "and another ingredient of same kind has the value" do
-      let(:element2) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients") }
+      let(:element2) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat") }
 
       let!(:ingredient2) do
         element2.ingredient_by_role(:select).tap do |in2|

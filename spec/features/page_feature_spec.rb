@@ -37,13 +37,13 @@ RSpec.describe "Show page feature:", type: :system do
   context "rendered" do
     let(:public_page) { create(:alchemy_page, :public, autogenerate_elements: true) }
     let(:article) { public_page.elements.find_by_name("article") }
-    let(:essence) { article.content_by_name("intro").essence }
+    let(:ingredient) { article.ingredient_by_role("intro") }
 
     before do
-      essence.update_columns(body: "Welcome to Peters Petshop", public: true)
+      ingredient.update_columns(value: "Welcome to Peters Petshop")
     end
 
-    it "should include all its elements and contents" do
+    it "should include all its elements and ingredients" do
       visit "/#{public_page.urlname}"
       within("div#content div.article div.intro") do
         expect(page).to have_content("Welcome to Peters Petshop")

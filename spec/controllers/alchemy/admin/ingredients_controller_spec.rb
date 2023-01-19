@@ -6,7 +6,7 @@ RSpec.describe Alchemy::Admin::IngredientsController do
   routes { Alchemy::Engine.routes }
 
   let(:attachment) { build_stubbed(:alchemy_attachment) }
-  let(:element) { build(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element) { build(:alchemy_element, name: "all_you_can_eat") }
 
   let(:ingredient) do
     stub_model(

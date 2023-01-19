@@ -21,9 +21,7 @@
 #
 
 require_dependency "alchemy/element/definitions"
-require_dependency "alchemy/element/element_contents"
 require_dependency "alchemy/element/element_ingredients"
-require_dependency "alchemy/element/element_essences"
 require_dependency "alchemy/element/presenters"
 
 module Alchemy
@@ -38,7 +36,6 @@ module Alchemy
       "amount",
       "autogenerate",
       "nestable_elements",
-      "contents",
       "hint",
       "ingredients",
       "taggable",
@@ -58,8 +55,6 @@ module Alchemy
     acts_as_list scope: [:page_version_id, :fixed, :parent_element_id]
 
     stampable stamper_class_name: Alchemy.user_class.name
-
-    has_many :contents, dependent: :destroy, inverse_of: :element
 
     before_destroy :delete_all_nested_elements
 
@@ -93,9 +88,7 @@ module Alchemy
     validates_presence_of :name, on: :create
     validates_format_of :name, on: :create, with: NAME_REGEXP
 
-    attr_accessor :autogenerate_contents
     attr_accessor :autogenerate_nested_elements
-    after_create :create_contents, unless: -> { autogenerate_contents == false }
     after_create :generate_nested_elements, unless: -> { autogenerate_nested_elements == false }
 
     after_update :touch_touchable_pages
@@ -116,8 +109,6 @@ module Alchemy
 
     # Concerns
     include Definitions
-    include ElementContents
-    include ElementEssences
     include ElementIngredients
     include Presenters
 
@@ -154,7 +145,7 @@ module Alchemy
         @_dom_id_class = klass
       end
 
-      # This methods does a copy of source and all depending contents and all of their depending essences.
+      # This methods does a copy of source and all its ingredients.
       #
       # == Options
       #
@@ -272,7 +263,7 @@ module Alchemy
     # Elements are defined in the +config/alchemy/elements.yml+ file
     #
     #     - name: article
-    #       contents:
+    #       ingredients:
     #       ...
     #
     # == Override the view

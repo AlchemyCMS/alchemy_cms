@@ -49,22 +49,21 @@ module Alchemy
         end
       end
 
-      # Updates the element.
-      #
-      # And update all contents in the elements by calling update_contents.
+      # Updates the element and all ingredients in the element.
       #
       def update
         @page = @element.page
 
-        if element_params.key?(:ingredients_attributes)
-          update_element_with_ingredients
+        if @element.update(element_params)
+          @element_validated = true
         else
-          update_element_with_contents
+          element_update_error
+          @error_messages = @element.ingredient_error_messages
         end
       end
 
       def destroy
-        @richtext_ids = @element.richtext_contents_ids + @element.richtext_ingredients_ids
+        @richtext_ids = @element.richtext_ingredients_ids
         @element.destroy
         @notice = Alchemy.t("Successfully deleted element") % { element: @element.display_name }
       end
@@ -103,14 +102,12 @@ module Alchemy
       def element_includes
         [
           {
-            contents: :essence,
             ingredients: :related_object,
           },
           :tags,
           {
             all_nested_elements: [
               {
-                contents: :essence,
                 ingredients: :related_object,
               },
               :tags,
@@ -130,9 +127,9 @@ module Alchemy
 
       def element_from_clipboard
         @element_from_clipboard ||= begin
-          @clipboard = get_clipboard("elements")
-          @clipboard.detect { |item| item["id"].to_i == params[:paste_from_clipboard].to_i }
-        end
+            @clipboard = get_clipboard("elements")
+            @clipboard.detect { |item| item["id"].to_i == params[:paste_from_clipboard].to_i }
+          end
       end
 
       def paste_element_from_clipboard
@@ -152,10 +149,6 @@ module Alchemy
         element
       end
 
-      def contents_params
-        params.fetch(:contents, {}).permit!
-      end
-
       def element_params
         params.fetch(:element, {}).permit(:tag_list, ingredients_attributes: {})
       end
@@ -164,28 +157,10 @@ module Alchemy
         params.require(:element).permit(:name, :page_version_id, :parent_element_id)
       end
 
-      def update_element_with_ingredients
-        if @element.update(element_params)
-          @element_validated = true
-        else
-          element_update_error
-          @error_messages = @element.ingredient_error_messages
-        end
-      end
-
-      def update_element_with_contents
-        if @element.update_contents(contents_params)
-          @element_validated = @element.update(element_params)
-        else
-          element_update_error
-          @error_messages = @element.essence_error_messages
-        end
-      end
-
       def element_update_error
         @element_validated = false
         @notice = Alchemy.t("Validation failed")
-        @error_message = "<h2>#{@notice}</h2><p>#{Alchemy.t(:content_validations_headline)}</p>".html_safe
+        @error_message = "<h2>#{@notice}</h2><p>#{Alchemy.t(:ingredient_validations_headline)}</p>".html_safe
       end
     end
   end

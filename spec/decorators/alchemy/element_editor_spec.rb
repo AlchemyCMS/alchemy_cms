@@ -12,50 +12,12 @@ RSpec.describe Alchemy::ElementEditor do
     end
   end
 
-  describe "#contents" do
-    let(:element) { create(:alchemy_element, :with_contents, name: "headline") }
-
-    subject(:contents) { element_editor.contents }
-
-    it "returns a ContentEditor instance for each content defined" do
-      aggregate_failures do
-        contents.each do |content|
-          expect(content).to be_an(Alchemy::ContentEditor)
-        end
-      end
-    end
-
-    context "with a content defined but not existing yet" do
-      before do
-        expect(element).to receive(:definition).at_least(:once) do
-          {
-            name: "headline",
-            contents: [
-              {
-                name: "headline",
-                type: "EssenceText",
-              },
-              {
-                name: "foo",
-                type: "EssenceText",
-              },
-            ],
-          }.with_indifferent_access
-        end
-      end
-
-      it "creates the missing content" do
-        expect { subject }.to change { element.contents.count }.by(1)
-      end
-    end
-  end
-
   describe "#ingredients" do
     let(:element) { create(:alchemy_element, :with_ingredients) }
 
     subject(:ingredients) { element_editor.ingredients }
 
-    it "returns a ContentEditor instance for each ingredient defined" do
+    it "returns a IngredientEditor instance for each ingredient defined" do
       aggregate_failures do
         ingredients.each do |ingredient|
           expect(ingredient).to be_an(Alchemy::IngredientEditor)
@@ -141,20 +103,20 @@ RSpec.describe Alchemy::ElementEditor do
       it { is_expected.to include("not-taggable") }
     end
 
-    context "with element having content_definitions" do
+    context "with element having ingredient_definitions" do
       before do
-        allow(element).to receive(:content_definitions) { [1] }
+        allow(element).to receive(:ingredient_definitions) { [1] }
       end
 
-      it { is_expected.to include("with-contents") }
+      it { is_expected.to include("with-ingredients") }
     end
 
-    context "with element not having content_definitions" do
+    context "with element not having ingredient_definitions" do
       before do
-        allow(element).to receive(:content_definitions) { [] }
+        allow(element).to receive(:ingredient_definitions) { [] }
       end
 
-      it { is_expected.to include("without-contents") }
+      it { is_expected.to include("without-ingredients") }
     end
 
     context "with element having nestable_elements" do
@@ -194,14 +156,14 @@ RSpec.describe Alchemy::ElementEditor do
     context "for expanded element" do
       before { allow(element).to receive(:folded?) { false } }
 
-      context "and element having contents defined" do
-        before { allow(element).to receive(:content_definitions) { [1] } }
+      context "and element having ingredients defined" do
+        before { allow(element).to receive(:ingredient_definitions) { [1] } }
 
         it { is_expected.to eq(true) }
       end
 
-      context "and element having no contents defined" do
-        before { allow(element).to receive(:content_definitions) { [] } }
+      context "and element having no ingredients defined" do
+        before { allow(element).to receive(:ingredient_definitions) { [] } }
 
         context "and element beeing taggable" do
           before { allow(element).to receive(:taggable?) { true } }
@@ -213,18 +175,6 @@ RSpec.describe Alchemy::ElementEditor do
           before { allow(element).to receive(:taggable?) { false } }
 
           it { is_expected.to eq(false) }
-        end
-
-        context "but element has ingredients defined" do
-          before {
-            expect(element).to receive(:ingredient_definitions) {
-              [{
-                role: "headline", type: "Headline",
-              }]
-            }
-          }
-
-          it { is_expected.to eq(true) }
         end
       end
     end

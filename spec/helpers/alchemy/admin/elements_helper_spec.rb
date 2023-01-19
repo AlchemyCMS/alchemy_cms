@@ -23,7 +23,7 @@ module Alchemy
         let(:element_definitions) do
           [{
             "name" => "headline",
-            "contents" => [],
+            "ingredients" => [],
           }]
         end
 

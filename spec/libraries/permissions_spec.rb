@@ -16,8 +16,6 @@ describe Alchemy::Permissions do
   let(:restricted_page) { build(:alchemy_page, :public, restricted: true) }
   let(:published_element) { mock_model(Alchemy::Element, restricted?: false, public?: true) }
   let(:restricted_element) { mock_model(Alchemy::Element, restricted?: true, public?: true) }
-  let(:published_content) { mock_model(Alchemy::Content, restricted?: false, public?: true) }
-  let(:restricted_content) { mock_model(Alchemy::Content, restricted?: true, public?: true) }
 
   context "A guest user" do
     let(:user) { nil }
@@ -44,13 +42,6 @@ describe Alchemy::Permissions do
       is_expected.not_to be_able_to(:show, restricted_element)
       is_expected.to be_able_to(:index, published_element)
       is_expected.not_to be_able_to(:index, restricted_element)
-    end
-
-    it "can only see public not restricted contents" do
-      is_expected.to be_able_to(:show, published_content)
-      is_expected.not_to be_able_to(:show, restricted_content)
-      is_expected.to be_able_to(:index, published_content)
-      is_expected.not_to be_able_to(:index, restricted_content)
     end
   end
 
@@ -79,13 +70,6 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:show, restricted_element)
       is_expected.to be_able_to(:index, published_element)
       is_expected.to be_able_to(:index, restricted_element)
-    end
-
-    it "can see public restricted contents" do
-      is_expected.to be_able_to(:show, published_content)
-      is_expected.to be_able_to(:show, restricted_content)
-      is_expected.to be_able_to(:index, published_content)
-      is_expected.to be_able_to(:index, restricted_content)
     end
   end
 
@@ -131,15 +115,7 @@ describe Alchemy::Permissions do
       is_expected.to be_able_to(:url, Alchemy::Picture)
     end
 
-    it "can manage contents" do
-      is_expected.to be_able_to(:manage, Alchemy::Content)
-    end
-
-    it "can manage essences" do
-      is_expected.to be_able_to(:manage, Alchemy::EssenceAudio)
-      is_expected.to be_able_to(:manage, Alchemy::EssenceFile)
-      is_expected.to be_able_to(:manage, Alchemy::EssencePicture)
-      is_expected.to be_able_to(:manage, Alchemy::EssenceVideo)
+    it "can manage ingredients" do
       is_expected.to be_able_to(:manage, Alchemy::Ingredient)
     end
 

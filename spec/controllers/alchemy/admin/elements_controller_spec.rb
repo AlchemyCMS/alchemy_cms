@@ -192,7 +192,7 @@ module Alchemy
 
       context "with ingredient validations" do
         subject do
-          post :create, params: { element: { page_version_id: page_version.id, name: "all_you_can_eat_ingredients" } }, xhr: true
+          post :create, params: { element: { page_version_id: page_version.id, name: "all_you_can_eat" } }, xhr: true
         end
 
         it "creates element without error" do
@@ -204,41 +204,6 @@ module Alchemy
     describe "#update" do
       before do
         expect(Element).to receive(:find).at_least(:once).and_return(element)
-      end
-
-      context "with element having contents" do
-        subject do
-          put :update, params: { id: element.id, element: element_params, contents: contents_params }.compact, xhr: true
-        end
-
-        let(:element) { create(:alchemy_element, :with_contents) }
-        let(:content) { element.contents.first }
-        let(:element_params) { { tag_list: "Tag 1", public: false } }
-        let(:contents_params) { { content.id => { ingredient: "Title" } } }
-
-        it "updates all contents in element" do
-          expect { subject }.to change { content.reload.ingredient }.to("Title")
-        end
-
-        it "updates the element" do
-          expect { subject }.to change { element.tag_list }.to(["Tag 1"])
-        end
-
-        context "failed validations" do
-          it "displays validation failed notice" do
-            expect(element).to receive(:update_contents).and_return(false)
-            subject
-            expect(assigns(:element_validated)).to be_falsey
-          end
-        end
-
-        context "with element not taggable" do
-          let(:element_params) { nil }
-
-          it "updates the element" do
-            expect { subject }.to_not raise_error
-          end
-        end
       end
 
       context "with element having ingredients" do

@@ -3,10 +3,6 @@
 # Custom error classes.
 #
 module Alchemy
-  class ContentDefinitionError < StandardError
-    # Raised if no content definition can be found.
-  end
-
   class DefaultLanguageNotFoundError < StandardError
     # Raised if no default language configuration can be found.
     def message
@@ -31,13 +27,6 @@ module Alchemy
 
     def message
       "Element definition for #{@name} not found. Please check your elements.yml"
-    end
-  end
-
-  class EssenceMissingError < StandardError
-    # Raised if a content misses its essence.
-    def message
-      "Essence not found"
     end
   end
 

@@ -22,7 +22,7 @@
         options_tags = options_for_select(select_values, select_editor.value)
       end %>
       <%= f.select :value, options_tags, {}, {
-        id: nil,
+        id: select_editor.form_field_id,
         class: ["alchemy_selectbox", "ingredient-editor-select"]
       } %>
     <% end %>

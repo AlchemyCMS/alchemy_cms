@@ -25,7 +25,6 @@ module Alchemy
         .except(*SKIPPED_ATTRIBUTES_ON_COPY)
         .merge(differences)
         .merge(
-          autogenerate_contents: false,
           autogenerate_ingredients: false,
           autogenerate_nested_elements: false,
           tags: source_element.tags,
@@ -35,17 +34,13 @@ module Alchemy
       new_element.ingredients = source_element.ingredients.map(&:dup)
       new_element.save!
 
-      source_element.contents.map do |content|
-        Content.copy(content, element: new_element)
-      end
-
       nested_elements = repository.children_of(source_element)
       Element.acts_as_list_no_update do
         nested_elements.each.with_index(1) do |nested_element, position|
           self.class.new(nested_element, repository: repository).call(
             parent_element: new_element,
             page_version: new_element.page_version,
-            position: position
+            position: position,
           )
         end
       end

@@ -3,7 +3,7 @@
 require "rails_helper"
 
 describe Alchemy::Admin::IngredientsHelper do
-  let(:element) { build_stubbed(:alchemy_element, name: "element_with_ingredients") }
+  let(:element) { build_stubbed(:alchemy_element, name: "article") }
   let(:ingredient) { Alchemy::Ingredients::Text.new(role: "headline", element: element) }
   let(:ingredient_editor) { Alchemy::IngredientEditor.new(ingredient) }
 
@@ -55,7 +55,7 @@ describe Alchemy::Admin::IngredientsHelper do
         mock_model "Alchemy::Ingredients::Text",
           role: "intro",
           definition: {},
-          name_for_label: "Intro",
+          translated_role: "Intro",
           has_validations?: false,
           deprecated?: false,
           has_warnings?: true,
@@ -74,7 +74,7 @@ describe Alchemy::Admin::IngredientsHelper do
         mock_model "Alchemy::Ingredients::Text",
           role: "intro",
           definition: { name: "intro", type: "Text", deprecated: true },
-          name_for_label: "Intro",
+          translated_role: "Intro",
           has_validations?: false,
           deprecated?: true,
           has_warnings?: true,

@@ -14,10 +14,10 @@ module Alchemy
     #
     #   # elements.yml
     #   - name: headline
-    #     contents:
-    #     - name: headline
-    #       type: EssenceText
-    #       hint: true
+    #     ingredients:
+    #       - role: headline
+    #         type: Text
+    #         hint: true
     #
     #   # config/locales/de.yml
     #     de:
@@ -27,10 +27,10 @@ module Alchemy
     # == Hint Key Example:
     #
     #   - name: headline
-    #     contents:
-    #     - name: headline
-    #       type: EssenceText
-    #       hint: Lorem ipsum
+    #     ingredients:
+    #       - role: headline
+    #         type: Text
+    #         hint: Lorem ipsum
     #
     # @return String
     #

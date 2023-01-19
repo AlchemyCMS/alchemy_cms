@@ -31,10 +31,10 @@
           <% end %>
         </div>
       </div>
-      <%- if picture_editor.essence.css_class.present? -%>
-        <div class="essence_picture_css_class">
-          <%= Alchemy.t("alchemy.essence_pictures.css_classes.#{picture_editor.essence.css_class}",
-            default: picture_editor.essence.css_class.camelcase) %>
+      <%- if picture_editor.css_class.present? -%>
+        <div class="picture_ingredient_css_class">
+          <%= Alchemy.t("alchemy.picture_ingredients.css_classes.#{picture_editor.css_class}",
+            default: picture_editor.css_class.camelcase) %>
         </div>
       <%- end -%>
       <div class="edit_images_bottom">
