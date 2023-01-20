@@ -1,3 +1,12 @@
+# Changelog
+
+## 6.1.0 (2023-01-20)
+
+- Remove Alchemy 5.3 support [#158](https://github.com/AlchemyCMS/alchemy-devise/pull/158) ([tvdeyen](https://github.com/tvdeyen))
+- Update gemspec to Alchemy below 7.0 [#156](https://github.com/AlchemyCMS/alchemy-devise/pull/156) ([kulturbande](https://github.com/kulturbande))
+- use code climate gh action [#147](https://github.com/AlchemyCMS/alchemy-devise/pull/147) ([tvdeyen](https://github.com/tvdeyen))
+- Upgrade rspec-rails to version 5.1.2 [#138](https://github.com/AlchemyCMS/alchemy-devise/pull/138) ([depfu](https://github.com/apps/depfu))
+
 ## 6.0.0 (2022-04-24)
 
 - Alchemy 6 compatibility [#137](https://github.com/AlchemyCMS/alchemy-devise/pull/137) ([tvdeyen](https://github.com/tvdeyen))
