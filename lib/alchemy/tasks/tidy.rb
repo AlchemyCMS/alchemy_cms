@@ -25,25 +25,6 @@ module Alchemy
         end
       end
 
-      def update_content_positions
-        Alchemy::Element.all.each do |element|
-          if element.contents.any?
-            puts "\n## Updating content positions of element `#{element.name}`"
-          end
-          element.contents.group_by(&:element_id).each do |_, contents|
-            contents.each_with_index do |content, idx|
-              position = idx + 1
-              if content.position != position
-                log "Updating position for content ##{content.id} to #{position}"
-                content.update_column(:position, position)
-              else
-                log "Position for content ##{content.id} is already correct (#{position})", :skip
-              end
-            end
-          end
-        end
-      end
-
       def remove_orphaned_elements
         puts "\n## Removing orphaned elements"
         elements = Alchemy::Element.unscoped.not_nested
@@ -76,25 +57,6 @@ module Alchemy
           log "Done", :message
         else
           log "No trashed elements found", :skip
-        end
-      end
-
-      def remove_orphaned_contents
-        puts "\n## Removing orphaned contents"
-        contents = Alchemy::Content.unscoped.all
-        if contents.any?
-          orphaned_contents = contents.select do |content|
-            content.essence.nil? && content.essence_id.present? ||
-              content.element.nil? && content.element_id.present?
-          end
-          if orphaned_contents.any?
-            log "Found #{orphaned_contents.size} orphaned contents"
-            destroy_orphaned_records(orphaned_contents, "content")
-          else
-            log "No orphaned contents found", :skip
-          end
-        else
-          log "No contents found", :skip
         end
       end
 
