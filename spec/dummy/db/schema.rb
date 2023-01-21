@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_19_091729) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_22_210804) do
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
     t.string "file_name"
@@ -43,6 +43,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_19_091729) do
     t.index ["fixed"], name: "index_alchemy_elements_on_fixed"
     t.index ["page_version_id", "parent_element_id"], name: "idx_alchemy_elements_on_page_version_id_and_parent_element_id"
     t.index ["page_version_id", "position"], name: "idx_alchemy_elements_on_page_version_id_and_position"
+    t.index ["page_version_id"], name: "index_alchemy_elements_on_page_version_id"
     t.index ["updater_id"], name: "index_alchemy_elements_on_updater_id"
   end
 
@@ -278,6 +279,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_19_091729) do
 
   add_foreign_key "alchemy_elements", "alchemy_page_versions", column: "page_version_id", on_delete: :cascade
   add_foreign_key "alchemy_ingredients", "alchemy_elements", column: "element_id", on_delete: :cascade
+  add_foreign_key "alchemy_languages", "alchemy_sites", column: "site_id"
   add_foreign_key "alchemy_nodes", "alchemy_languages", column: "language_id"
   add_foreign_key "alchemy_nodes", "alchemy_pages", column: "page_id", on_delete: :restrict
   add_foreign_key "alchemy_page_versions", "alchemy_pages", column: "page_id", on_delete: :cascade
