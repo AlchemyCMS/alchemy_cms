@@ -2,10 +2,9 @@
 
 namespace :alchemy do
   namespace :generate do
-    desc "Generates all thumbnails for Alchemy Pictures and EssencePictures."
+    desc "Generates all thumbnails for Alchemy Pictures and Picture Ingredients."
     task thumbnails: [
       "alchemy:generate:picture_thumbnails",
-      "alchemy:generate:essence_picture_thumbnails",
       "alchemy:generate:ingredient_picture_thumbnails",
     ]
 
@@ -18,24 +17,6 @@ namespace :alchemy do
         next unless picture.has_convertible_format?
 
         puts Alchemy::PictureThumb.generate_thumbs!(picture)
-      end
-
-      puts "Done!"
-    end
-
-    desc "Generates thumbnails for Alchemy EssencePictures."
-    task essence_picture_thumbnails: :environment do
-      essence_pictures = Alchemy::EssencePicture.joins(:content, :ingredient_association)
-      puts "Regenerate #{essence_pictures.count} essence picture thumbnails."
-      puts "Please wait..."
-
-      essence_pictures.find_each do |essence_picture|
-        puts essence_picture.picture_url
-        puts essence_picture.thumbnail_url
-
-        essence_picture.settings.fetch(:srcset, []).each do |src|
-          puts essence_picture.picture_url(src)
-        end
       end
 
       puts "Done!"
