@@ -156,18 +156,6 @@ module Alchemy
         end
       end
 
-      # Returns all elements that should be feeded via rss.
-      #
-      # Define feedable elements in your +page_layouts.yml+:
-      #
-      #   - name: news
-      #     feed: true
-      #     feed_elements: [element_name, element_2_name]
-      #
-      def feed_elements
-        elements.named(definition["feed_elements"])
-      end
-
       # Returns an array of all EssenceRichtext contents ids from not folded elements
       #
       def richtext_contents_ids

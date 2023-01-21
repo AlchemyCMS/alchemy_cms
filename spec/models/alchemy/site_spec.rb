@@ -323,8 +323,6 @@ module Alchemy
                   "headline",
                   "news",
                 ],
-                "feed" => true,
-                "feed_elements" => ["news"],
                 "insert_elements_at" => "top",
                 "unique" => true,
               },

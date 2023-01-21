@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 require "rails_helper"
+
 module Alchemy
   describe "alchemy/pages/_meta_data" do
     let!(:language) { create(:alchemy_language, code: :en) }
-    let(:root_page)       { Page.new }
-    let(:page)            { Page.new(language_code: "en", title: "Road Runner", urlname: "roadrunner") }
-    let(:title_prefix)    { "" }
-    let(:title_suffix)    { "" }
+    let(:root_page) { Page.new }
+    let(:page) { Page.new(language_code: "en", title: "Road Runner", urlname: "roadrunner") }
+    let(:title_prefix) { "" }
+    let(:title_suffix) { "" }
     let(:title_separator) { "" }
 
     subject do
@@ -73,32 +74,13 @@ module Alchemy
         end
       end
 
-      describe "rss feed" do
-        context "is provided" do
-          before do
-            allow(page).to receive_messages(contains_feed?: true)
-            allow(view).to receive_messages(prefix_locale?: false)
-          end
-
-          it "renders a link to the feed" do
-            is_expected.to match /link rel="alternate" type="application\/rss\+xml" title="RSS" href="http:\/\/#{view.request.host}\/roadrunner.rss"/
-          end
-        end
-
-        context "is not provided" do
-          it "does not render a feed link" do
-            is_expected.not_to match /link rel="alternate" type="application\/rss\+xml" title="RSS"/
-          end
-        end
-      end
-
       describe "title" do
         it "renders the title tag for the current page" do
           is_expected.to match /<title>Road Runner<\/title>/
         end
 
         context "with a given prefix and separator" do
-          let(:title_prefix)    { "C64" }
+          let(:title_prefix) { "C64" }
           let(:title_separator) { " - " }
 
           it "renders the prefixed title" do
@@ -107,7 +89,7 @@ module Alchemy
         end
 
         context "with a given suffix and separator" do
-          let(:title_suffix)    { "C64" }
+          let(:title_suffix) { "C64" }
           let(:title_separator) { " - " }
 
           it "renders the suffixed title" do
@@ -116,8 +98,8 @@ module Alchemy
         end
 
         context "with a given prefix, suffix and separator" do
-          let(:title_prefix)    { "C64" }
-          let(:title_suffix)    { "Platform game" }
+          let(:title_prefix) { "C64" }
+          let(:title_suffix) { "Platform game" }
           let(:title_separator) { " - " }
 
           it "renders the suffixed title" do

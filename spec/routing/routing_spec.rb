@@ -163,19 +163,6 @@ describe "The Routing" do
     end
   end
 
-  describe "rss feed requests" do
-    it "should be handled by alchemy/pages controller" do
-      expect({
-        get: "/news.rss",
-      }).to route_to(
-        controller: "alchemy/pages",
-        action: "show",
-        urlname: "news",
-        format: "rss",
-      )
-    end
-  end
-
   describe "unknown formats" do
     it "should be handled by alchemy/pages controller" do
       expect({
@@ -232,7 +219,7 @@ describe "The Routing" do
     context "customized" do
       before(:all) do
         Alchemy.admin_path = "backend"
-        Alchemy.admin_constraints = {subdomain: "hidden"}
+        Alchemy.admin_constraints = { subdomain: "hidden" }
         Rails.application.reload_routes!
       end
 

@@ -159,28 +159,6 @@ module Alchemy
         end
       end
 
-      context "requested for a page containing a feed" do
-        render_views
-
-        it "should render a rss feed" do
-          get :show, params: { urlname: page.urlname, format: :rss }
-          expect(response.media_type).to eq("application/rss+xml")
-        end
-
-        it "should include content" do
-          page.elements.first.content_by_name("news_headline").essence.update_columns(body: "Peters Petshop")
-          get :show, params: { urlname: "news", format: :rss }
-          expect(response.body).to match /Peters Petshop/
-        end
-      end
-
-      context "requested for a page that does not contain a feed" do
-        it "should render xml 404 error" do
-          get :show, params: { urlname: default_language_root.urlname, format: :rss }
-          expect(response.status).to eq(404)
-        end
-      end
-
       describe "Layout rendering" do
         context "with ajax request" do
           it "should not render a layout" do

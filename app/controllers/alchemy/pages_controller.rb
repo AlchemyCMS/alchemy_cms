@@ -105,13 +105,13 @@ module Alchemy
     #
     def load_index_page
       @page ||= begin
-        Alchemy::Page.
-          contentpages.
-          language_roots.
-          where(language: Language.current).
-          includes(page_includes).
-          first
-      end
+          Alchemy::Page.
+            contentpages.
+            language_roots.
+            where(language: Language.current).
+            includes(page_includes).
+            first
+        end
       render template: "alchemy/welcome", layout: false if signup_required?
     end
 
@@ -128,12 +128,12 @@ module Alchemy
       page_not_found! unless Language.current
 
       @page ||= begin
-        Alchemy::Page.
-          contentpages.
-          where(language: Language.current).
-          includes(page_includes).
-          find_by(urlname: params[:urlname])
-      end
+          Alchemy::Page.
+            contentpages.
+            where(language: Language.current).
+            includes(page_includes).
+            find_by(urlname: params[:urlname])
+        end
     end
 
     def enforce_locale
@@ -178,7 +178,7 @@ module Alchemy
 
     # == Renders the page :show template
     #
-    # Handles html and rss requests (for pages containing a feed)
+    # Handles html requests
     #
     # Omits the layout, if the request is a XHR request.
     #
@@ -186,14 +186,6 @@ module Alchemy
       respond_to do |format|
         format.html do
           render action: :show, layout: !request.xhr?
-        end
-
-        format.rss do
-          if @page.contains_feed?
-            render action: :show, layout: false, handlers: [:builder]
-          else
-            render xml: { error: "Not found" }, status: 404
-          end
         end
       end
     end

@@ -65,34 +65,6 @@ module Alchemy
         end
       end
 
-      # Returns the content that is marked as rss title.
-      #
-      # Mark a content as rss title in your +elements.yml+ file:
-      #
-      #   - name: news
-      #     contents:
-      #     - name: headline
-      #       type: EssenceText
-      #       rss_title: true
-      #
-      def content_for_rss_title
-        content_for_rss_meta("title")
-      end
-
-      # Returns the content that is marked as rss description.
-      #
-      # Mark a content as rss description in your +elements.yml+ file:
-      #
-      #   - name: news
-      #     contents:
-      #     - name: body
-      #       type: EssenceRichtext
-      #       rss_description: true
-      #
-      def content_for_rss_description
-        content_for_rss_meta("description")
-      end
-
       # Returns the array with the hashes for all element contents in the elements.yml file
       def content_definitions
         return nil if definition.blank?
@@ -137,13 +109,6 @@ module Alchemy
       end
 
       private
-
-      def content_for_rss_meta(type)
-        definition = content_definitions.detect { |c| c["rss_#{type}"] }
-        return if definition.blank?
-
-        contents.detect { |content| content.name == definition["name"] }
-      end
 
       # creates the contents for this element as described in the elements.yml
       #
