@@ -44,10 +44,8 @@
       type: EssenceDate
     - name: news_headline
       type: EssenceText
-      rss_title: true
     - name: body
       type: EssenceRichtext
-      rss_description: true
 
 - name: download
   contents:

@@ -40,12 +40,10 @@
   autogenerate: [all_you_can_eat, right_column, left_column]
 
 - name: news
-  feed: true
   unique: true
   insert_elements_at: top
   elements: [headline, news]
   autogenerate: [news]
-  feed_elements: [news]
 
 - name: contact
   unique: true

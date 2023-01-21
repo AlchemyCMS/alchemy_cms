@@ -104,14 +104,13 @@ module Alchemy
     # If no index page and no admin users are present we show the "Welcome to Alchemy" page.
     #
     def load_index_page
-      @page ||= begin
-        Alchemy::Page.
-          contentpages.
-          language_roots.
-          where(language: Language.current).
-          includes(page_includes).
-          first
-      end
+      @page ||= Alchemy::Page
+        .contentpages
+        .language_roots
+        .where(language: Language.current)
+        .includes(page_includes)
+        .first
+
       render template: "alchemy/welcome", layout: false if signup_required?
     end
 
@@ -127,13 +126,11 @@ module Alchemy
     def load_page
       page_not_found! unless Language.current
 
-      @page ||= begin
-        Alchemy::Page.
-          contentpages.
-          where(language: Language.current).
-          includes(page_includes).
-          find_by(urlname: params[:urlname])
-      end
+      @page ||= Alchemy::Page
+        .contentpages
+        .where(language: Language.current)
+        .includes(page_includes)
+        .find_by(urlname: params[:urlname])
     end
 
     def enforce_locale
@@ -178,7 +175,7 @@ module Alchemy
 
     # == Renders the page :show template
     #
-    # Handles html and rss requests (for pages containing a feed)
+    # Handles html requests
     #
     # Omits the layout, if the request is a XHR request.
     #
@@ -186,14 +183,6 @@ module Alchemy
       respond_to do |format|
         format.html do
           render action: :show, layout: !request.xhr?
-        end
-
-        format.rss do
-          if @page.contains_feed?
-            render action: :show, layout: false, handlers: [:builder]
-          else
-            render xml: { error: "Not found" }, status: 404
-          end
         end
       end
     end
@@ -230,10 +219,12 @@ module Alchemy
     # or the cache is stale, because it's been republished by the user.
     #
     def render_fresh_page?
-      must_not_cache? || stale?(etag: page_etag,
-                                last_modified: @page.published_at,
-                                public: !@page.restricted,
-                                template: "pages/show")
+      must_not_cache? || stale?(
+        etag: page_etag,
+        last_modified: @page.published_at,
+        public: !@page.restricted,
+        template: "pages/show",
+      )
     end
 
     # don't cache pages if we have flash message to display or the page has caching disabled

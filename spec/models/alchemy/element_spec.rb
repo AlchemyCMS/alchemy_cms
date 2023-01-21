@@ -823,30 +823,6 @@ module Alchemy
           end
         end
       end
-
-      it "should return the content for rss title" do
-        expect(element.content_for_rss_title).to eq(element.contents.find_by_name("news_headline"))
-      end
-
-      it "should return the content for rss descdefinitionription" do
-        expect(element.content_for_rss_description).to eq(element.contents.find_by_name("body"))
-      end
-
-      context "if no content is defined as rss title" do
-        before { expect(element).to receive(:content_definitions).and_return([]) }
-
-        it "should return nil" do
-          expect(element.content_for_rss_title).to be_nil
-        end
-      end
-
-      context "if no content is defined as rss description" do
-        before { expect(element).to receive(:content_definitions).and_return([]) }
-
-        it "should return nil" do
-          expect(element.content_for_rss_description).to be_nil
-        end
-      end
     end
 
     describe "#update_contents" do

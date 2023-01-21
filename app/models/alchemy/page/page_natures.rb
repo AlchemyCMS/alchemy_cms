@@ -33,10 +33,6 @@ module Alchemy
         folded_pages.where(user_id: user_id, folded: true).any?
       end
 
-      def contains_feed?
-        definition["feed"]
-      end
-
       # Returns an Array of Alchemy roles which are able to edit this template
       #
       #     # config/alchemy/page_layouts.yml

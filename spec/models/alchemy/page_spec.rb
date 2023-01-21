@@ -1029,20 +1029,6 @@ module Alchemy
       end
     end
 
-    describe "#feed_elements" do
-      let(:news_page) { create(:alchemy_page, :public, name: "News", page_layout: "news") }
-      let(:news_element) { create(:alchemy_element, name: "news", page: news_page, page_version: news_page.public_version) }
-      let(:unpublic_news_element) { create(:alchemy_element, name: "news", public: false, page: news_page, page_version: news_page.draft_version) }
-
-      it "should return all published rss feed elements" do
-        expect(news_page.feed_elements).to eq([news_element])
-      end
-
-      it "should not return unpublished rss feed elements" do
-        expect(news_page.feed_elements).not_to include(unpublic_news_element)
-      end
-    end
-
     describe "#find_elements" do
       subject { page.find_elements(options) }
 
