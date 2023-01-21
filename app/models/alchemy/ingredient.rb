@@ -19,7 +19,7 @@ module Alchemy
       if: -> { definition.key?(:default) && value.nil? }
 
     validates :type, presence: true
-    validates :role, presence: true
+    validates :role, presence: true, uniqueness: { scope: :element_id, case_sensitive: false }
 
     validates_with Alchemy::IngredientValidator, on: :update, if: :has_validations?
 

@@ -691,16 +691,14 @@ en:
   # Translations for error messages.
   errors:
     models:
-      alchemy/content:
-        attributes:
-          name:
-            taken: "is already taken in this element."
-          essence:
-            validation_failed: "Validation failed."
       alchemy/element:
         attributes:
           name:
             blank: "^Please choose an element."
+      alchemy/ingredient:
+        attributes:
+          role:
+            taken: "is already taken in this element."
       alchemy/language:
         attributes:
           language_code:

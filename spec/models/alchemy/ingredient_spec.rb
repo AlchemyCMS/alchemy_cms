@@ -3,6 +3,12 @@
 require "rails_helper"
 
 RSpec.describe Alchemy::Ingredient do
+  describe "validations" do
+    let!(:other_ingredient) { create(:alchemy_ingredient_text) }
+
+    it { is_expected.to validate_uniqueness_of(:role).scoped_to(:element_id).case_insensitive }
+  end
+
   let(:element) do
     build(:alchemy_element, name: "article", autogenerate_ingredients: false)
   end
