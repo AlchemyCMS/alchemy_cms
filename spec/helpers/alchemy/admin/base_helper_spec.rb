@@ -9,9 +9,9 @@ module Alchemy
         before { allow(helper).to receive(:can?).and_return(true) }
 
         it "renders a toolbar button" do
-          expect(helper.toolbar_button(
-            url: admin_dashboard_path,
-          )).to match /<div.+class="button_with_label/
+          expect(
+            helper.toolbar_button(url: admin_dashboard_path)
+          ).to match /<div.+class="button_with_label/
         end
       end
 
@@ -19,9 +19,7 @@ module Alchemy
         before { allow(helper).to receive(:can?).and_return(false) }
 
         it "returns empty string" do
-          expect(
-            helper.toolbar_button(url: admin_dashboard_path),
-          ).to be_empty
+          expect(helper.toolbar_button(url: admin_dashboard_path)).to be_empty
         end
       end
 
@@ -30,10 +28,7 @@ module Alchemy
 
         it "returns the button" do
           expect(
-            helper.toolbar_button(
-              url: admin_dashboard_path,
-              skip_permission_check: true,
-            ),
+            helper.toolbar_button(url: admin_dashboard_path, skip_permission_check: true)
           ).to match /<div.+class="button_with_label/
         end
       end
@@ -44,10 +39,7 @@ module Alchemy
         it "returns reads the permission from url" do
           expect(helper).to receive(:permission_array_from_url)
           expect(
-            helper.toolbar_button(
-              url: admin_dashboard_path,
-              if_permitted_to: "",
-            ),
+            helper.toolbar_button(url: admin_dashboard_path, if_permitted_to: "")
           ).not_to be_empty
         end
       end
@@ -59,10 +51,7 @@ module Alchemy
         end
 
         it "renders a normal link" do
-          button = helper.toolbar_button(
-            url: admin_dashboard_path,
-            overlay: false,
-          )
+          button = helper.toolbar_button(url: admin_dashboard_path, overlay: false)
           expect(button).to match /<a.+href="#{admin_dashboard_path}"/
           expect(button).not_to match /data-alchemy-overlay/
         end
@@ -71,7 +60,7 @@ module Alchemy
 
     describe "#translations_for_select" do
       it "should return an Array of Arrays with available locales" do
-        allow(Alchemy::I18n).to receive(:available_locales).and_return([:de, :en, :cz, :it])
+        allow(Alchemy::I18n).to receive(:available_locales).and_return(%i[de en cz it])
         expect(helper.translations_for_select.size).to eq(4)
       end
     end
@@ -86,8 +75,13 @@ module Alchemy
         let(:clipboard_items) { [element] }
 
         it "should include select options with the display name and preview text" do
-          allow(element).to receive(:display_name_with_preview_text).and_return("Name with Preview text")
-          expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector("option", text: "Name with Preview text")
+          allow(element).to receive(:display_name_with_preview_text).and_return(
+            "Name with Preview text"
+          )
+          expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector(
+            "option",
+            text: "Name with Preview text"
+          )
         end
       end
 
@@ -96,7 +90,10 @@ module Alchemy
         let(:clipboard_items) { [page_in_clipboard] }
 
         it "should include select options with page names" do
-          expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector("option", text: "Page name")
+          expect(helper.clipboard_select_tag_options(clipboard_items)).to have_selector(
+            "option",
+            text: "Page name"
+          )
         end
       end
     end
@@ -195,9 +192,7 @@ module Alchemy
       end
 
       context "if the expression from config is nil" do
-        before do
-          stub_alchemy_config(:format_matchers, { link_url: nil })
-        end
+        before { stub_alchemy_config(:format_matchers, { link_url: nil }) }
 
         it "returns the default expression" do
           expect(subject).to_not be_nil

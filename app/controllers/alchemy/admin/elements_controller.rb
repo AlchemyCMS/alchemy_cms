@@ -127,9 +127,9 @@ module Alchemy
 
       def element_from_clipboard
         @element_from_clipboard ||= begin
-            @clipboard = get_clipboard("elements")
-            @clipboard.detect { |item| item["id"].to_i == params[:paste_from_clipboard].to_i }
-          end
+          @clipboard = get_clipboard("elements")
+          @clipboard.detect { |item| item["id"].to_i == params[:paste_from_clipboard].to_i }
+        end
       end
 
       def paste_element_from_clipboard
