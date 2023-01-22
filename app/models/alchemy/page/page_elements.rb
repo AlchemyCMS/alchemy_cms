@@ -19,7 +19,7 @@ module Alchemy
           has_many :fixed_elements, -> { fixed.published }
         end
 
-        has_many :contents, through: :elements
+        has_many :ingredients, through: :elements
         has_and_belongs_to_many :to_be_swept_elements, -> { distinct },
           class_name: "Alchemy::Element",
           join_table: ElementToPage.table_name
@@ -58,17 +58,17 @@ module Alchemy
       #
       #   - name: headline
       #     unique: true
-      #     contents:
+      #     ingredients:
       #     - name: headline
-      #       type: EssenceText
+      #       type: Text
       #
       # == Example of limited element:
       #
       #   - name: article
       #     amount: 2
-      #     contents:
+      #     ingredients:
       #     - name: text
-      #       type: EssenceRichtext
+      #       type: Richtext
       #
       def available_element_definitions(only_element_named = nil)
         @_element_definitions ||= if only_element_named
@@ -154,15 +154,6 @@ module Alchemy
         else
           Element.definitions.select { |e| names.include? e["name"] }
         end
-      end
-
-      # Returns an array of all EssenceRichtext contents ids from not folded elements
-      #
-      def richtext_contents_ids
-        Alchemy::Content.joins(:element)
-          .where(Element.table_name => { page_version_id: draft_version.id, folded: false })
-          .select(&:has_tinymce?)
-          .collect(&:id)
       end
 
       # Returns an array of all Richtext ingredients ids from not folded elements

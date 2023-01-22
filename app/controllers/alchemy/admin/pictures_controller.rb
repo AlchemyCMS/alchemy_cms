@@ -32,7 +32,7 @@ module Alchemy
         @query = Picture.ransack(params[:q])
         @previous = filtered_pictures.where("name < ?", @picture.name).last
         @next = filtered_pictures.where("name > ?", @picture.name).first
-        @assignments = @picture.essence_pictures.joins(content: { element: :page })
+        @assignments = @picture.picture_ingredients.joins(element: :page)
 
         render action: "show"
       end

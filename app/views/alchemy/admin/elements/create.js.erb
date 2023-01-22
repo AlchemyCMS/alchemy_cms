@@ -34,7 +34,7 @@
 
   Alchemy.growl('<%= Alchemy.t(:successfully_added_element) %>');
   Alchemy.closeCurrentDialog();
-  Alchemy.Tinymce.init(<%= (@element.richtext_contents_ids + @element.richtext_ingredients_ids).to_json %>);
+  Alchemy.Tinymce.init(<%= @element.richtext_ingredients_ids.to_json %>);
   Alchemy.PreviewWindow.refresh(function() {
     Alchemy.ElementEditors.focusElementPreview(<%= @element.id %>);
   });

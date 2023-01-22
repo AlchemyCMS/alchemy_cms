@@ -6,16 +6,16 @@
 - name: article
   hint: true
   unique: true
-  contents:
-  - name: headline
-    type: EssenceText
-    default: :article_headline
-    hint: true
-  - name: picture
-    type: EssencePicture
-    hint: true
-  - name: text
-    type: EssenceRichtext
-    default: :article_text
-    hint: true
+  ingredients:
+    - role: headline
+      type: Text
+      default: :article_headline
+      hint: true
+    - role: picture
+      type: Picture
+      hint: true
+    - role: text
+      type: Richtext
+      default: :article_text
+      hint: true
 <%- end -%>

@@ -8,11 +8,6 @@ class RemoveTriStateBooleans < ActiveRecord::Migration[6.0]
     change_column_null :alchemy_elements, :folded, false
     change_column_null :alchemy_elements, :unique, false
 
-    change_column_null :alchemy_essence_richtexts, :public, false, false
-    change_column_default :alchemy_essence_richtexts, :public, false
-
-    change_column_null :alchemy_essence_texts, :public, false
-
     change_column_null :alchemy_folded_pages, :folded, false
 
     change_column_null :alchemy_languages, :public, false

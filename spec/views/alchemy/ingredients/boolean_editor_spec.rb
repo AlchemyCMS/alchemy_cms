@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_boolean_editor" do
-  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:element_editor) { Alchemy::ElementEditor.new(element) }
 
   let(:ingredient) do
@@ -29,7 +29,7 @@ RSpec.describe "alchemy/ingredients/_boolean_editor" do
 
   context "with default value given in ingredient settings" do
     let(:element) do
-      create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients")
+      create(:alchemy_element, :with_ingredients, name: "all_you_can_eat")
     end
 
     it "checks the checkbox" do

@@ -94,7 +94,7 @@ module Alchemy
         end
       end
 
-      # Edit the content of the page and all its elements and contents.
+      # Edit the content of the page and all its elements and ingredients.
       #
       # Locks the page to current user to prevent other users from editing it meanwhile.
       #

@@ -1,1 +1,0 @@
-../../../../db/migrate/20210326105046_add_sanitized_body_to_alchemy_essence_richtexts.rb

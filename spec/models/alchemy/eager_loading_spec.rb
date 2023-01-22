@@ -19,7 +19,6 @@ RSpec.describe Alchemy::EagerLoading do
                 :tags,
                 {
                   ingredients: :related_object,
-                  contents: :essence,
                 },
               ],
             },
@@ -43,7 +42,6 @@ RSpec.describe Alchemy::EagerLoading do
                 :tags,
                 {
                   ingredients: :related_object,
-                  contents: :essence,
                 },
               ],
             },

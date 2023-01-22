@@ -1,5 +1,5 @@
 (function() {
-<% if @parent_element && @parent_element.contents.empty? %>
+<% if @parent_element && @parent_element.ingredients.empty? %>
   var $parent = $('#element_<%= @parent_element.id %>');
   Alchemy.ElementEditors.setTitle(
     $parent,

@@ -7,7 +7,7 @@
     <%= ingredient_label(text_editor) %>
     <%= f.text_field :value,
       class: text_editor.settings[:linkable] ? "text_with_icon" : "",
-      id: nil,
+      id: text_editor.form_field_id,
       type: text_editor.settings[:input_type] || "text" %>
     <% if text_editor.settings[:anchor] %>
       <%= render "alchemy/ingredients/shared/anchor", ingredient_editor: text_editor %>

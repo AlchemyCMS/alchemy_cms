@@ -6,7 +6,7 @@ RSpec.describe Alchemy::Ingredients::Richtext do
   it_behaves_like "an alchemy ingredient"
 
   let(:element) do
-    build(:alchemy_element, name: "element_with_ingredients", autogenerate_ingredients: false)
+    build(:alchemy_element, name: "article", autogenerate_ingredients: false)
   end
 
   let(:richtext_ingredient) do
@@ -41,7 +41,7 @@ RSpec.describe Alchemy::Ingredients::Richtext do
       end
 
       it "returns role including element name" do
-        is_expected.to eq("has_tinymce element_with_ingredients_text")
+        is_expected.to eq("has_tinymce article_text")
       end
     end
   end

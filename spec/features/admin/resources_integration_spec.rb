@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "Resources", type: :system do
-  let(:event)        { create(:event) }
+  let(:event) { create(:event) }
   let(:second_event) { create(:event, name: "My second Event", entrance_fee: 12.32) }
 
   before { authorize_user(:as_admin) }
@@ -294,7 +294,7 @@ RSpec.describe "Resources", type: :system do
     end
 
     context "with tagged events in the index view" do
-      let!(:event)        { create(:event, name: "Casablanca", tag_list: "Matinee") }
+      let!(:event) { create(:event, name: "Casablanca", tag_list: "Matinee") }
       let!(:second_event) { create(:event, name: "Die Hard IX", tag_list: "Late Show") }
 
       before { visit "/admin/events" }
@@ -334,19 +334,19 @@ RSpec.describe "Resources", type: :system do
 
       # Here we visit the pages manually, as we don't want to test the JS here.
       visit "/admin/events?filter[start]=starting_today"
-      expect(page).to     have_content("Car Expo")
+      expect(page).to have_content("Car Expo")
       expect(page).to_not have_content("Hovercar Expo")
       expect(page).to_not have_content("Horse Expo")
 
       visit "/admin/events?filter[start]=future"
-      expect(page).to     have_content("Hovercar Expo")
+      expect(page).to have_content("Hovercar Expo")
       expect(page).to_not have_content("Car Expo")
       expect(page).to_not have_content("Horse Expo")
 
       # Keep the filter when editing an event
       click_link "Edit"
       click_button "Save"
-      expect(page).to     have_content("Hovercar Expo")
+      expect(page).to have_content("Hovercar Expo")
       expect(page).to_not have_content("Car Expo")
       expect(page).to_not have_content("Horse Expo")
     end

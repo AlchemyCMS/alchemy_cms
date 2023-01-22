@@ -10,42 +10,46 @@ RSpec.describe Alchemy::Element do
   it "creates ingredients after creation" do
     expect {
       element.save!
-    }.to change { element.ingredients.count }.by(2)
+    }.to change { element.ingredients.count }.by(4)
   end
 
   describe "#ingredients_by_type" do
     let(:element) { create(:alchemy_element, :with_ingredients) }
     let(:expected_ingredients) { element.ingredients.texts }
 
-    context "with namespaced essence type" do
+    context "with namespaced type" do
       subject { element.ingredients_by_type("Alchemy::Text") }
 
       it { is_expected.not_to be_empty }
 
-      it("should return the correct list of essences") { is_expected.to eq(expected_ingredients) }
+      it "should return the correct list of ingredients" do
+        is_expected.to eq(expected_ingredients)
+      end
     end
 
-    context "without namespaced essence type" do
+    context "without namespaced type" do
       subject { element.ingredients_by_type("Text") }
 
       it { is_expected.not_to be_empty }
 
-      it("should return the correct list of essences") { is_expected.to eq(expected_ingredients) }
+      it "should return the correct list of ingredients" do
+        is_expected.to eq(expected_ingredients)
+      end
     end
   end
 
   describe "#ingredient_by_type" do
     let!(:element) { create(:alchemy_element, :with_ingredients) }
-    let(:ingredient) { element.ingredients.first }
+    let(:ingredient) { element.ingredients.find_by!(type: "Alchemy::Ingredients::Text") }
 
-    context "with namespaced essence type" do
-      it "should return ingredient by passing a essence type" do
-        expect(element.ingredient_by_type("Alchemy::Text")).to eq(ingredient)
+    context "with namespaced type" do
+      it "should return ingredient by passing a type" do
+        expect(element.ingredient_by_type("Alchemy::Ingredients::Text")).to eq(ingredient)
       end
     end
 
-    context "without namespaced essence type" do
-      it "should return ingredient by passing a essence type" do
+    context "without namespaced type" do
+      it "should return ingredient by passing a type" do
         expect(element.ingredient_by_type("Text")).to eq(ingredient)
       end
     end
@@ -53,7 +57,7 @@ RSpec.describe Alchemy::Element do
 
   describe "#ingredient_by_role" do
     let!(:element) { create(:alchemy_element, :with_ingredients) }
-    let(:ingredient) { element.ingredients.first }
+    let(:ingredient) { element.ingredients.find_by!(role: "headline") }
 
     context "with role existing" do
       it "should return ingredient" do
@@ -98,7 +102,7 @@ RSpec.describe Alchemy::Element do
 
   describe "#has_value_for?" do
     let!(:element) do
-      create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients")
+      create(:alchemy_element, :with_ingredients, name: "all_you_can_eat")
     end
 
     context "with role existing" do
@@ -125,7 +129,7 @@ RSpec.describe Alchemy::Element do
   end
 
   describe "ingredient validations" do
-    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients") }
+    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat") }
 
     before do
       element.update(
@@ -144,7 +148,7 @@ RSpec.describe Alchemy::Element do
   end
 
   describe "#ingredient_error_messages" do
-    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat_ingredients") }
+    let(:element) { create(:alchemy_element, :with_ingredients, name: "all_you_can_eat") }
 
     before do
       element.update(
@@ -162,6 +166,52 @@ RSpec.describe Alchemy::Element do
         "Please enter a headline for all you can eat",
         "Text is invalid",
       ])
+    end
+  end
+
+  describe "#richtext_ingredients_ids" do
+    subject { element.richtext_ingredients_ids }
+
+    let(:element) { create(:alchemy_element, :with_ingredients, name: "text") }
+
+    it { is_expected.to eq(element.ingredient_ids) }
+
+    context "for element with nested elements" do
+      let!(:element) do
+        create(:alchemy_element, :with_ingredients, name: "text")
+      end
+
+      let!(:nested_element_1) do
+        create(:alchemy_element, :with_ingredients, {
+          name: "text",
+          parent_element: element,
+          folded: false,
+        })
+      end
+
+      let!(:nested_element_2) do
+        create(:alchemy_element, :with_ingredients, {
+          name: "text",
+          parent_element: nested_element_1,
+          folded: false,
+        })
+      end
+
+      let!(:folded_nested_element_3) do
+        create(:alchemy_element, :with_ingredients, {
+          name: "text",
+          parent_element: nested_element_1,
+          folded: true,
+        })
+      end
+
+      it "includes all richtext ingredients from all expanded descendent elements" do
+        is_expected.to eq(
+          element.ingredient_ids +
+          nested_element_1.ingredient_ids +
+          nested_element_2.ingredient_ids,
+        )
+      end
     end
   end
 end

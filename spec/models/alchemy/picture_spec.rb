@@ -176,13 +176,9 @@ module Alchemy
     end
 
     describe "#destroy" do
-      context "a picture that is assigned in an essence" do
-        let(:essence_picture) { EssencePicture.create }
-        let(:picture) { create :alchemy_picture }
-
-        before do
-          essence_picture.update_columns(picture_id: picture.id)
-        end
+      context "a picture that is assigned to an ingredient" do
+        let(:picture) { create(:alchemy_picture) }
+        let!(:picture_ingredient) { create(:alchemy_ingredient_picture, related_object: picture) }
 
         it "should raise error message" do
           expect { picture.destroy }.to raise_error PictureInUseError
@@ -443,16 +439,15 @@ module Alchemy
     end
 
     describe "after update" do
-      context "assigned to contents" do
+      context "assigned to ingredient" do
         let(:picture) { create(:alchemy_picture) }
 
-        let(:content) do
-          create(:alchemy_content, :essence_picture)
+        let(:ingredient) do
+          create(:alchemy_ingredient_picture, related_object: picture)
         end
 
         before do
-          content.essence.update(picture: picture)
-          content.element.update_column(:updated_at, 3.hours.ago)
+          ingredient.element.update_column(:updated_at, 3.hours.ago)
         end
 
         it "touches elements" do

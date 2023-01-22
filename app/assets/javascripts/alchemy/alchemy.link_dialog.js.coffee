@@ -1,5 +1,5 @@
 # Represents the link Dialog that appears, if a user clicks the link buttons
-# in TinyMCE or on an Essence that has links enabled (e.g. EssencePicture)
+# in TinyMCE or on an Ingredient that has links enabled (e.g. Picture)
 #
 class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
@@ -142,7 +142,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
       @setLink(options.url, options.title, options.target)
     @close()
 
-  # Sets the link either in TinyMCE or on an Essence.
+  # Sets the link either in TinyMCE or on an Ingredient.
   setLink: (url, title, target) ->
     Alchemy.setElementDirty(@$link_object.closest('.element-editor'))
     if @link_object.editor
@@ -162,7 +162,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
     editor.selection.collapse()
     true
 
-  # Sets a link on an Essence (e.g. EssencePicture).
+  # Sets a link on an Ingredient (e.g. Picture).
   setLinkFields: (url, title, target) ->
     @link_value_field.value = url
     @link_value_field.dispatchEvent(new Event("change"))
@@ -176,10 +176,10 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Selects the correct tab for link type and fills all fields.
   selectTab: ->
-    # Creating an temporary anchor node if we are linking an EssencePicture or EssenceText.
+    # Creating an temporary anchor node if we are linking an Picture Ingredient.
     if (@link_object.nodeType)
       @$link = @createTempLink()
-    # Restoring the bookmarked selection inside the TinyMCE of an EssenceRichtext.
+    # Restoring the bookmarked selection inside the TinyMCE of an Richtext.
     else if (@link_object.node.nodeName == 'A')
       @$link = $(@link_object.node)
       @link_object.selection.moveToBookmark(@link_object.bookmark)
@@ -251,7 +251,7 @@ class window.Alchemy.LinkDialog extends Alchemy.Dialog
 
   # Public class methods
 
-  # Removes link from Essence.
+  # Removes link from Ingredient.
   @removeLink = (link, parent_selector) ->
     parent = document.querySelector(parent_selector)
     link_value_field = parent.querySelector("[data-link-value]")

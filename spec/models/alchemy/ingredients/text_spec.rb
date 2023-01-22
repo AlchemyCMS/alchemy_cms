@@ -6,7 +6,7 @@ RSpec.describe Alchemy::Ingredients::Text do
   it_behaves_like "an alchemy ingredient"
   it_behaves_like "having dom ids"
 
-  let(:element) { build(:alchemy_element, name: "element_with_ingredients") }
+  let(:element) { build(:alchemy_element, name: "article") }
 
   let(:text_ingredient) do
     described_class.new(

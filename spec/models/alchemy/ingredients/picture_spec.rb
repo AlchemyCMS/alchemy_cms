@@ -5,7 +5,7 @@ require "rails_helper"
 RSpec.describe Alchemy::Ingredients::Picture do
   it_behaves_like "an alchemy ingredient"
 
-  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:picture) { build_stubbed(:alchemy_picture) }
 
   let(:picture_ingredient) do
@@ -113,7 +113,7 @@ RSpec.describe Alchemy::Ingredients::Picture do
   end
 
   it_behaves_like "having picture thumbnails" do
-    let(:element) { build(:alchemy_element, name: "all_you_can_eat_ingredients") }
+    let(:element) { build(:alchemy_element, name: "all_you_can_eat") }
     let(:picture) { build(:alchemy_picture) }
 
     let(:record) do

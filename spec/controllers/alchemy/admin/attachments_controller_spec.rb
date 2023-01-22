@@ -35,9 +35,9 @@ module Alchemy
       context "when params[:form_field_id]" do
         context "is set" do
           it "it renders the archive_overlay partial" do
-            get :index, params: { form_field_id: "contents_1_attachment_id" }
+            get :index, params: { form_field_id: "element_1_ingredient_1_attachment_id" }
             expect(response).to render_template(partial: "_archive_overlay")
-            expect(assigns(:form_field_id)).to eq("contents_1_attachment_id")
+            expect(assigns(:form_field_id)).to eq("element_1_ingredient_1_attachment_id")
           end
         end
 
@@ -226,9 +226,9 @@ module Alchemy
       let(:attachment) { create(:alchemy_attachment) }
 
       it "assigns a assignable_id" do
-        put :assign, params: { form_field_id: "contents_1_attachment_id", id: attachment.id }, xhr: true
+        put :assign, params: { form_field_id: "element_1_ingredient_1_attachment_id", id: attachment.id }, xhr: true
         expect(assigns(:assignable_id)).to eq(attachment.id.to_s)
-        expect(assigns(:form_field_id)).to eq("contents_1_attachment_id")
+        expect(assigns(:form_field_id)).to eq("element_1_ingredient_1_attachment_id")
       end
     end
   end

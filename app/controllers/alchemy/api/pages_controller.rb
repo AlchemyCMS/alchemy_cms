@@ -30,11 +30,13 @@ module Alchemy
     def nested
       @page = Page.find_by(id: params[:page_id]) || Language.current_root_page
 
-      render json: PageTreeSerializer.new(@page,
+      render json: PageTreeSerializer.new(
+        @page,
         ability: current_ability,
         user: current_alchemy_user,
         elements: params[:elements],
-        full: true)
+        full: true,
+      )
     end
 
     # Returns a json object for page
@@ -107,13 +109,13 @@ module Alchemy
             {
               nested_elements: [
                 {
-                  contents: :essence,
+                  ingredients: :related_object,
                 },
                 :tags,
               ],
             },
             {
-              contents: :essence,
+              ingredients: :related_object,
             },
             :tags,
           ],

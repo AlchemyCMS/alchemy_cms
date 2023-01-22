@@ -4,7 +4,7 @@ require "rails_helper"
 
 module Alchemy
   describe Node do
-    it { is_expected.to have_many(:essence_nodes) }
+    it { is_expected.to have_many(:node_ingredients) }
     it { is_expected.to respond_to(:menu_type) }
 
     it "is only valid with language and name given" do
@@ -22,7 +22,7 @@ module Alchemy
       end
 
       context "with current language present" do
-        let!(:root_node)  { create(:alchemy_node) }
+        let!(:root_node) { create(:alchemy_node) }
         let!(:child_node) { create(:alchemy_node, parent_id: root_node.id) }
 
         it "returns root nodes from current language" do
@@ -123,14 +123,13 @@ module Alchemy
   end
 
   describe "#destroy" do
-    context "if there are essence nodes present" do
+    context "if there are node ingredients present" do
       let(:node) { create(:alchemy_node) }
       let(:page) { create(:alchemy_page, :layoutpage, page_layout: :footer) }
-      let(:element) { create(:alchemy_element, name: "menu", page: page) }
-      let(:content) { create(:alchemy_content, name: "menu", element: element) }
+      let(:element) { create(:alchemy_element, name: "menu", page_version: page.draft_version) }
 
       before do
-        node.essence_nodes.create(content: content)
+        create(:alchemy_ingredient_node, element: element, related_object: node)
       end
 
       it "does not destroy the node but adds an error" do
@@ -139,7 +138,7 @@ module Alchemy
         expect(node.errors.full_messages).to eq(["This menu item is in use inside an Alchemy element on the following pages: #{page.name}."])
       end
 
-      context "if there are essence nodes present on a child node" do
+      context "if there are node ingredients present on a child node" do
         let!(:parent_node) { create(:alchemy_node, children: [node]) }
 
         it "does not destroy the node and children either but adds an error" do

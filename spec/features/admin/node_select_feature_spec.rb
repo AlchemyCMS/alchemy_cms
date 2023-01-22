@@ -21,13 +21,13 @@ RSpec.describe "Node select", type: :system, js: true do
 
       it "restricts to the site/language of the page the element is on" do
         visit alchemy.admin_elements_path(page_version_id: element.page_version_id)
-        select2_search("test", element_id: element.id, content_name: "menu")
+        select2_search("test", element_id: element.id, ingredient_role: "menu")
         within "#element_#{element.id}" do
           click_on("Save")
         end
 
         expect(page).to have_content("Saved", wait: 5)
-        expect(element.reload.ingredient(:menu)).to eq(node)
+        expect(element.reload.value_for(:menu)).to eq(node)
       end
     end
   end

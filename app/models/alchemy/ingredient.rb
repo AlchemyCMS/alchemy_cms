@@ -13,11 +13,13 @@ module Alchemy
     belongs_to :element, touch: true, class_name: "Alchemy::Element", inverse_of: :ingredients
     belongs_to :related_object, polymorphic: true, optional: true
 
+    has_one :page, through: :element, class_name: "Alchemy::Page"
+
     after_initialize :set_default_value,
       if: -> { definition.key?(:default) && value.nil? }
 
     validates :type, presence: true
-    validates :role, presence: true
+    validates :role, presence: true, uniqueness: { scope: :element_id, case_sensitive: false }
 
     validates_with Alchemy::IngredientValidator, on: :update, if: :has_validations?
 
@@ -78,11 +80,6 @@ module Alchemy
       end
     end
 
-    # Compatibility method for access from element
-    def essence
-      self
-    end
-
     # The value or the related object if present
     def value
       related_object || self[:value]
@@ -97,7 +94,7 @@ module Alchemy
     #
     # @param key [Symbol]               - The hash key you want to fetch the value from
     # @param options [Hash]             - An optional Hash that can override the settings.
-    #                                     Normally passed as options hash into the content
+    #                                     Normally passed as options hash into the ingredient
     #                                     editor view.
     def settings_value(key, options = {})
       settings.merge(options || {})[key.to_sym]
@@ -162,6 +159,10 @@ module Alchemy
 
     def hint_translation_attribute
       role
+    end
+
+    def hint_translation_scope
+      "ingredient_hints"
     end
 
     def set_default_value

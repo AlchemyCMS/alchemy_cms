@@ -3,7 +3,7 @@
 require "rails_helper"
 
 RSpec.describe "alchemy/ingredients/_page_editor" do
-  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat_ingredients") }
+  let(:element) { build_stubbed(:alchemy_element, name: "all_you_can_eat") }
   let(:element_editor) { Alchemy::ElementEditor.new(element) }
   let(:ingredient) { Alchemy::Ingredients::Page.new(element: element, role: "page") }
 

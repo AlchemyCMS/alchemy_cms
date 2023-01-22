@@ -66,9 +66,9 @@ items_per_page: 15
 #
 # Example:
 # - name: some_element
-#   contents:
-#   - name: some_picture
-#     type: EssencePicture
+#   ingredients:
+#   - role: some_picture
+#     type: Picture
 #     settings:
 #       hint: true
 #       crop: true  # turns on image cropping
@@ -82,7 +82,7 @@ items_per_page: 15
 #   preprocess_image_resize   [String]        # Use this option to resize images to the given size when they are uploaded to the image library. Downsizing example: '1000x1000>' (Default nil)
 #   image_output_format       [String]        # The global image output format setting. (Default +original+)
 #
-# NOTE: You can always override the output format in the settings of your Essence in elements.yml, I.E. {format: 'gif'}
+# NOTE: You can always override the output format in the settings of your ingredients in elements.yml, I.E. {format: 'gif'}
 #
 output_image_jpg_quality: 85
 preprocess_image_resize:
@@ -91,7 +91,7 @@ image_output_format: original
 # This is used by the seeder to create the default site.
 default_site:
   name: Default Site
-  host: '*'
+  host: "*"
 
 # This is the default language when seeding.
 default_language:
@@ -191,7 +191,7 @@ link_target_options: [blank]
 # === Format matchers
 #
 # Named aliases for regular expressions that can be used in various places.
-# The most common use case is the format validation of essences, or attribute validations of your individual models.
+# The most common use case is the format validation of ingredients, or attribute validations of your individual models.
 #
 # == Example:
 #

@@ -16,8 +16,10 @@ module CapybaraSelect2
     end
 
     within_entire_page do
-      page.find("div.select2-result-label",
-        text: /#{Regexp.escape(value)}/i, match: :prefer_exact).click
+      page.find(
+        "div.select2-result-label",
+        text: /#{Regexp.escape(value)}/i, match: :prefer_exact,
+      ).click
     end
   end
 
@@ -27,9 +29,8 @@ module CapybaraSelect2
       within label.first(:xpath, ".//..") do
         options[:from] = "##{find(".select2-container")["id"]}"
       end
-    elsif options[:element_id] && options[:content_name]
-      container_id = find("#element_#{options[:element_id]} [data-content-name='#{options[:content_name]}'] .select2-container"
-      )["id"]
+    elsif options[:element_id] && options[:ingredient_role]
+      container_id = find("#element_#{options[:element_id]} [data-ingredient-role='#{options[:ingredient_role]}'] .select2-container")["id"]
       options[:from] = "##{container_id}"
     end
 

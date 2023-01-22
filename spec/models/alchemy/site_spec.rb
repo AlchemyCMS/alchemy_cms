@@ -258,10 +258,10 @@ module Alchemy
                 "name" => "index",
                 "unique" => true,
                 "elements" => [
-                  "all_you_can_eat_ingredients",
+                  "all_you_can_eat",
                 ],
                 "autogenerate" => [
-                  "all_you_can_eat_ingredients",
+                  "all_you_can_eat",
                 ],
               },
               {
@@ -307,10 +307,8 @@ module Alchemy
                   "right_column",
                   "left_column",
                   "old",
-                  "all_you_can_eat_ingredients",
-                  "element_with_ingredients",
+                  "article",
                   "element_with_ingredient_groups",
-                  "element_with_content_groups",
                 ],
                 "hint" => true,
               },

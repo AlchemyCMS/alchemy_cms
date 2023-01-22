@@ -28,7 +28,6 @@ module Alchemy
                 :tags,
                 {
                   ingredients: :related_object,
-                  contents: :essence,
                 },
               ],
             },

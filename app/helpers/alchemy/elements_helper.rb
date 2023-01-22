@@ -112,9 +112,9 @@ module Alchemy
     #
     #   # elements.yml
     #   - name: headline
-    #     contents:
-    #     - name: text
-    #       type: EssenceText
+    #     ingredients:
+    #       - role: text
+    #         type: Text
     #
     # Then your element view partial has to be named like:
     #

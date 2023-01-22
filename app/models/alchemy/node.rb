@@ -4,7 +4,7 @@ module Alchemy
   class Node < BaseRecord
     VALID_URL_REGEX = /\A(\/|\D[a-z\+\d\.\-]+:)/
 
-    before_destroy :check_if_related_essence_nodes_present
+    before_destroy :check_if_related_node_ingredients_present
 
     acts_as_nested_set scope: "language_id", touch: true
     stampable stamper_class_name: Alchemy.user_class.name
@@ -14,7 +14,10 @@ module Alchemy
 
     has_one :site, through: :language
 
-    has_many :essence_nodes, class_name: "Alchemy::EssenceNode", foreign_key: :node_id, inverse_of: :ingredient_association
+    has_many :node_ingredients,
+      class_name: "Alchemy::Ingredients::Node",
+      foreign_key: :related_object_id,
+      inverse_of: :related_object
 
     before_validation :translate_root_menu_name, if: -> { root? }
     before_validation :set_menu_type_from_root, unless: -> { root? }
@@ -76,10 +79,10 @@ module Alchemy
 
     private
 
-    def check_if_related_essence_nodes_present
-      dependent_essence_nodes = self_and_descendants.flat_map(&:essence_nodes)
-      if dependent_essence_nodes.any?
-        errors.add(:base, :essence_nodes_present, page_names: dependent_essence_nodes.map(&:page).map(&:name).to_sentence)
+    def check_if_related_node_ingredients_present
+      dependent_node_ingredients = self_and_descendants.flat_map(&:node_ingredients)
+      if dependent_node_ingredients.any?
+        errors.add(:base, :node_ingredients_present, page_names: dependent_node_ingredients.map { |i| i.element&.page&.name }.to_sentence)
         throw(:abort)
       end
     end

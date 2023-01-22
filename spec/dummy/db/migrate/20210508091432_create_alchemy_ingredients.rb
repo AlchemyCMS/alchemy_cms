@@ -1,1 +1,0 @@
-../../../../db/migrate/20210508091432_create_alchemy_ingredients.rb

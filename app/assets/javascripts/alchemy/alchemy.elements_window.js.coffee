@@ -50,8 +50,8 @@ Alchemy.ElementsWindow =
     $.get @url, (data) =>
       @element_area.html data
       Alchemy.GUI.init(@element_area)
-      Alchemy.fileEditors(@element_area.find(".essence_file, .essence_video, .essence_audio, .ingredient-editor.file, .ingredient-editor.audio, .ingredient-editor.video").selector)
-      Alchemy.pictureEditors(@element_area.find(".essence_picture, .ingredient-editor.picture").selector)
+      Alchemy.fileEditors(@element_area.find(".ingredient-editor.file, .ingredient-editor.audio, .ingredient-editor.video").selector)
+      Alchemy.pictureEditors(@element_area.find(".ingredient-editor.picture").selector)
       if @callback
         @callback.call()
     .fail (xhr, status, error) =>

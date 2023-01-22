@@ -32,16 +32,15 @@ module Alchemy
         end
       end
 
-      context "assigned to contents" do
+      context "assigned to ingredients" do
         let(:attachment) { create(:alchemy_attachment) }
 
-        let(:content) do
-          create(:alchemy_content, :essence_file)
+        let(:ingredient) do
+          create(:alchemy_ingredient_file, related_object: attachment)
         end
 
         before do
-          content.essence.update(attachment: attachment)
-          content.element.update_column(:updated_at, 3.hours.ago)
+          ingredient.element.update_column(:updated_at, 3.hours.ago)
         end
 
         it "touches elements" do

@@ -3,7 +3,7 @@
 require "shoulda-matchers"
 
 RSpec.shared_examples_for "an alchemy ingredient" do
-  let(:element) { build(:alchemy_element, name: "element_with_ingredients") }
+  let(:element) { build(:alchemy_element, name: "article") }
 
   subject(:ingredient) do
     described_class.new(

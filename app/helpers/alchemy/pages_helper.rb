@@ -5,10 +5,6 @@ module Alchemy
     include Alchemy::BaseHelper
     include Alchemy::ElementsHelper
 
-    def picture_essence_caption(content)
-      content.try(:essence).try(:caption)
-    end
-
     # Renders links to language root pages of all published languages.
     #
     # @option options linkname [String] ('name')

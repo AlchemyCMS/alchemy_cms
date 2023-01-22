@@ -1,37 +1,6 @@
 {
   "ignored_warnings": [
     {
-      "warning_type": "Cross-Site Scripting",
-      "warning_code": 2,
-      "fingerprint": "068b12d24047e2ece633115ba065ce46fc8c8a26827be7de2565ab721e1c2e82",
-      "check_name": "CrossSiteScripting",
-      "message": "Unescaped parameter value",
-      "file": "app/views/alchemy/admin/elements/update.js.erb",
-      "line": 21,
-      "link": "https://brakemanscanner.org/docs/warning_types/cross_site_scripting",
-      "code": "Element.find(params[:id]).ingredients_with_errors.map do\n \"[data-ingredient-id=\\\"#{ingredient.id}\\\"]\"\n end.join(\", \")",
-      "render_path": [
-        {
-          "type": "controller",
-          "class": "Alchemy::Admin::ElementsController",
-          "method": "update",
-          "line": 61,
-          "file": "app/controllers/alchemy/admin/elements_controller.rb",
-          "rendered": {
-            "name": "alchemy/admin/elements/update",
-            "file": "app/views/alchemy/admin/elements/update.js.erb"
-          }
-        }
-      ],
-      "location": {
-        "type": "template",
-        "template": "alchemy/admin/elements/update"
-      },
-      "user_input": "params[:id]",
-      "confidence": "Weak",
-      "note": ""
-    },
-    {
       "warning_type": "File Access",
       "warning_code": 16,
       "fingerprint": "154e5d85347ab40256b60182d3143830247b33b81de2ae9ac0622155a1de8e51",
@@ -101,26 +70,6 @@
       "user_input": "params[:id]",
       "confidence": "Weak",
       "note": ""
-    },
-    {
-      "warning_type": "Mass Assignment",
-      "warning_code": 70,
-      "fingerprint": "4b4dc24a6f5251bc1a6851597dfcee39608a2932eb7f81a4a241c00fca8a3043",
-      "check_name": "MassAssignment",
-      "message": "Specify exact keys allowed for mass assignment instead of using `permit!` which allows any keys",
-      "file": "app/controllers/alchemy/admin/elements_controller.rb",
-      "line": 155,
-      "link": "https://brakemanscanner.org/docs/warning_types/mass_assignment/",
-      "code": "params.fetch(:contents, {}).permit!",
-      "render_path": null,
-      "location": {
-        "type": "method",
-        "class": "Alchemy::Admin::ElementsController",
-        "method": "contents_params"
-      },
-      "user_input": null,
-      "confidence": "Medium",
-      "note": "`Alchemy::Content` is a polymorphic association of any kind of model extending `Alchemy::Essence`. Since we can't know the attributes of all potential essences we need to permit all attributes. As this all happens inside the password protected /admin namespace this can be considered a false positive."
     },
     {
       "warning_type": "Command Injection",

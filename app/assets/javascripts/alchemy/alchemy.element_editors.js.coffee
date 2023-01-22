@@ -15,7 +15,7 @@ Alchemy.ElementEditors =
   init: ->
     @element_area = $("#element_area")
     @bindEvents()
-    @expandContentGroups()
+    @expandIngredientGroups()
     return
 
   # Binds click events on several DOM elements from element editors
@@ -29,27 +29,25 @@ Alchemy.ElementEditors =
       @onDoubleClickElement(e)
     @element_area.on "click", "[data-element-toggle]", (e) =>
       @onClickToggle(e)
-    @element_area.on "click", '[data-create-missing-content]', (e) =>
-      @onClickMissingContent(e)
     # Binds the custom FocusElementEditor event
     @element_area.on "FocusElementEditor.Alchemy", '.element-editor', (e) =>
       @onFocusElement(e)
     # Binds the custom SaveElement event
     @element_area.on "SaveElement.Alchemy", '.element-editor', (e, data) =>
       @onSaveElement(e, data)
-    @element_area.on "click", '[data-toggle-content-group]', (e) =>
-      @onToggleContentGroup(e)
+    @element_area.on "click", '[data-toggle-ingredient-group]', (e) =>
+      @onToggleIngredientGroup(e)
     # Listen to postMessage messages from the preview frame
     window.addEventListener 'message', (e) =>
       @onMessage(e.data)
       true
     return
 
-  # Expands content groups that are stored in sessionStorage as expanded
-  expandContentGroups: ->
-    if $expanded_content_groups = sessionStorage.getItem('Alchemy.expanded_content_groups')
-      for header_id in JSON.parse($expanded_content_groups) then do (header_id) =>
-        $('#' + header_id).closest('.content-group').addClass('expanded');
+  # Expands ingredient groups that are stored in sessionStorage as expanded
+  expandIngredientGroups: ->
+    if $expanded_ingredient_groups = sessionStorage.getItem('Alchemy.expanded_ingredient_groups')
+      for header_id in JSON.parse($expanded_ingredient_groups) then do (header_id) =>
+        $('#' + header_id).closest('.ingredient-group').addClass('expanded');
 
   # Selects and scrolls to element with given id in the preview window.
   #
@@ -179,21 +177,21 @@ Alchemy.ElementEditors =
       Alchemy.Buttons.enable($element)
     true
 
-  # Toggle visibility of the content fields in the group
-  onToggleContentGroup: (event) ->
-    $group_div = $(event.currentTarget).closest('.content-group');
+  # Toggle visibility of the ingredient fields in the group
+  onToggleIngredientGroup: (event) ->
+    $group_div = $(event.currentTarget).closest('.ingredient-group');
     $group_div.toggleClass('expanded');
 
-    $expanded_content_groups = JSON.parse(sessionStorage.getItem('Alchemy.expanded_content_groups') || '[]');
-    # Add or remove depending on whether this content group is expanded
+    $expanded_ingredient_groups = JSON.parse(sessionStorage.getItem('Alchemy.expanded_ingredient_groups') || '[]');
+    # Add or remove depending on whether this ingredient group is expanded
     if $group_div.hasClass('expanded')
-      if $expanded_content_groups.indexOf(event.currentTarget.id) == -1
-        $expanded_content_groups.push(event.currentTarget.id);
+      if $expanded_ingredient_groups.indexOf(event.currentTarget.id) == -1
+        $expanded_ingredient_groups.push(event.currentTarget.id);
     else
-      $expanded_content_groups = $expanded_content_groups.filter (value) ->
+      $expanded_ingredient_groups = $expanded_ingredient_groups.filter (value) ->
         value != event.currentTarget.id
 
-    sessionStorage.setItem('Alchemy.expanded_content_groups', JSON.stringify($expanded_content_groups))
+    sessionStorage.setItem('Alchemy.expanded_ingredient_groups', JSON.stringify($expanded_ingredient_groups))
     false
 
   # Event handlers
@@ -248,22 +246,10 @@ Alchemy.ElementEditors =
     e.stopPropagation()
     false
 
-  # Handles the missing content button click events.
-  #
-  # Ensures that the links query string is converted into post body and send
-  # the request via a real ajax post to server, to allow long query strings.
-  #
-  onClickMissingContent: (e) ->
-    link = e.target
-    url = link.pathname
-    querystring = link.search.replace(/\?/, '')
-    $.post(url, querystring)
-    false
-
   # private
 
   _shouldUpdateTitle: (element, event) ->
-    editors = element.find('> .element-content .element-content-editors, > .element-content .element-ingredient-editors').children()
+    editors = element.find('> .element-body .element-ingredient-editors').children()
     if @_hasParents(element)
       editors.length != 0
     else if @_isParent(element) && @_isFirstChild $(event.target)

@@ -178,7 +178,7 @@ module Alchemy
 
         before do
           allow(Alchemy.user_class).to receive(:admins).and_return(OpenStruct.new(count: 1))
-          product.elements.find_by_name("article").contents.essence_texts.first.essence.update_column(:body, "screwdriver")
+          product.elements.find_by_name("article").ingredients.texts.first.update_column(:value, "screwdriver")
         end
 
         context "with correct levelnames in params" do
@@ -236,8 +236,8 @@ module Alchemy
           let!(:english_page) { create(:alchemy_page, :public, language: default_language, name: "same-name") }
 
           before do
-            # Set a text in an essence rendered on the page so we can match against that
-            klingon_page.essence_texts.first.update_column(:body, "klingon page")
+            # Set a text in an ingredient rendered on the page so we can match against that
+            klingon_page.ingredients.texts.first.update_column(:value, "klingon page")
           end
 
           it "renders the page related to its language" do

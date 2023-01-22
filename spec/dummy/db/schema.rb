@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_31_084620) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_19_091729) do
   create_table "alchemy_attachments", force: :cascade do |t|
     t.string "name"
     t.string "file_name"
@@ -24,15 +24,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_084620) do
     t.index ["creator_id"], name: "index_alchemy_attachments_on_creator_id"
     t.index ["file_uid"], name: "index_alchemy_attachments_on_file_uid"
     t.index ["updater_id"], name: "index_alchemy_attachments_on_updater_id"
-  end
-
-  create_table "alchemy_contents", force: :cascade do |t|
-    t.string "name"
-    t.string "essence_type", null: false
-    t.integer "essence_id", null: false
-    t.integer "element_id", null: false
-    t.index ["element_id"], name: "index_alchemy_contents_on_element_id"
-    t.index ["essence_type", "essence_id"], name: "index_alchemy_contents_on_essence_type_and_essence_id", unique: true
   end
 
   create_table "alchemy_elements", force: :cascade do |t|
@@ -60,114 +51,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_084620) do
     t.integer "page_id"
     t.index ["element_id"], name: "index_alchemy_elements_alchemy_pages_on_element_id"
     t.index ["page_id"], name: "index_alchemy_elements_alchemy_pages_on_page_id"
-  end
-
-  create_table "alchemy_essence_audios", force: :cascade do |t|
-    t.integer "attachment_id"
-    t.boolean "controls", default: true, null: false
-    t.boolean "autoplay", default: false
-    t.boolean "loop", default: false, null: false
-    t.boolean "muted", default: false, null: false
-    t.index ["attachment_id"], name: "index_alchemy_essence_audios_on_attachment_id"
-  end
-
-  create_table "alchemy_essence_booleans", force: :cascade do |t|
-    t.boolean "value"
-    t.index ["value"], name: "index_alchemy_essence_booleans_on_value"
-  end
-
-  create_table "alchemy_essence_dates", force: :cascade do |t|
-    t.datetime "date", precision: nil
-  end
-
-  create_table "alchemy_essence_files", force: :cascade do |t|
-    t.integer "attachment_id"
-    t.string "title"
-    t.string "css_class"
-    t.string "link_text"
-    t.index ["attachment_id"], name: "index_alchemy_essence_files_on_attachment_id"
-  end
-
-  create_table "alchemy_essence_headlines", force: :cascade do |t|
-    t.text "body"
-    t.integer "level"
-    t.integer "size"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "alchemy_essence_htmls", force: :cascade do |t|
-    t.text "source"
-  end
-
-  create_table "alchemy_essence_links", force: :cascade do |t|
-    t.string "link"
-    t.string "link_title"
-    t.string "link_target"
-    t.string "link_class_name"
-  end
-
-  create_table "alchemy_essence_nodes", force: :cascade do |t|
-    t.integer "node_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["node_id"], name: "index_alchemy_essence_nodes_on_node_id"
-  end
-
-  create_table "alchemy_essence_pages", force: :cascade do |t|
-    t.integer "page_id"
-    t.index ["page_id"], name: "index_alchemy_essence_pages_on_page_id"
-  end
-
-  create_table "alchemy_essence_pictures", force: :cascade do |t|
-    t.integer "picture_id"
-    t.string "caption"
-    t.string "title"
-    t.string "alt_tag"
-    t.string "link"
-    t.string "link_class_name"
-    t.string "link_title"
-    t.string "css_class"
-    t.string "link_target"
-    t.string "crop_from"
-    t.string "crop_size"
-    t.string "render_size"
-    t.index ["picture_id"], name: "index_alchemy_essence_pictures_on_picture_id"
-  end
-
-  create_table "alchemy_essence_richtexts", force: :cascade do |t|
-    t.text "body"
-    t.text "stripped_body"
-    t.boolean "public", default: false, null: false
-    t.text "sanitized_body"
-  end
-
-  create_table "alchemy_essence_selects", force: :cascade do |t|
-    t.string "value"
-    t.index ["value"], name: "index_alchemy_essence_selects_on_value"
-  end
-
-  create_table "alchemy_essence_texts", force: :cascade do |t|
-    t.text "body"
-    t.string "link"
-    t.string "link_title"
-    t.string "link_class_name"
-    t.boolean "public", default: false, null: false
-    t.string "link_target"
-  end
-
-  create_table "alchemy_essence_videos", force: :cascade do |t|
-    t.integer "attachment_id"
-    t.string "width"
-    t.string "height"
-    t.boolean "allow_fullscreen", default: true, null: false
-    t.boolean "autoplay", default: false, null: false
-    t.boolean "controls", default: true, null: false
-    t.boolean "loop", default: false, null: false
-    t.boolean "muted", default: false, null: false
-    t.string "preload"
-    t.boolean "playsinline", default: false, null: false
-    t.index ["attachment_id"], name: "index_alchemy_essence_videos_on_attachment_id"
   end
 
   create_table "alchemy_folded_pages", force: :cascade do |t|
@@ -341,10 +224,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_084620) do
     t.datetime "updated_at", precision: nil, null: false
   end
 
-  create_table "dummy_models", force: :cascade do |t|
-    t.string "data"
-  end
-
   create_table "dummy_users", force: :cascade do |t|
     t.string "email"
     t.string "password"
@@ -397,10 +276,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_084620) do
     t.string "name"
   end
 
-  add_foreign_key "alchemy_contents", "alchemy_elements", column: "element_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "alchemy_elements", "alchemy_page_versions", column: "page_version_id", on_delete: :cascade
-  add_foreign_key "alchemy_essence_nodes", "alchemy_nodes", column: "node_id"
-  add_foreign_key "alchemy_essence_pages", "alchemy_pages", column: "page_id"
   add_foreign_key "alchemy_ingredients", "alchemy_elements", column: "element_id", on_delete: :cascade
   add_foreign_key "alchemy_nodes", "alchemy_languages", column: "language_id"
   add_foreign_key "alchemy_nodes", "alchemy_pages", column: "page_id", on_delete: :restrict

@@ -20,7 +20,7 @@ $.extend Alchemy,
   setElementClean: (element) ->
     $element = $(element)
     $element.removeClass('dirty')
-    $element.find('> .element-content .dirty').removeClass('dirty')
+    $element.find('> .element-body .dirty').removeClass('dirty')
     window.onbeforeunload = undefined
 
   isPageDirty: ->

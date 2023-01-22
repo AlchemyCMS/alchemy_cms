@@ -109,12 +109,12 @@ module Alchemy
       context "when params[:form_field_id]" do
         context "is set" do
           it "for html requests it renders the archive_overlay partial" do
-            get :index, params: { form_field_id: "contents_1_picture_id" }
+            get :index, params: { form_field_id: "element_1_ingredient_1_picture_id" }
             expect(response).to render_template(partial: "_archive_overlay")
           end
 
           it "for ajax requests it renders the archive_overlay template" do
-            get :index, params: { form_field_id: "contents_1_picture_id" }, xhr: true
+            get :index, params: { form_field_id: "element_1_ingredient_1_picture_id" }, xhr: true
             expect(response).to render_template(:archive_overlay)
           end
         end
@@ -168,12 +168,11 @@ module Alchemy
       context "with assignments" do
         let!(:page) { create(:alchemy_page) }
         let!(:element) { create(:alchemy_element, page: page) }
-        let!(:content) { create(:alchemy_content, element: element) }
-        let!(:essence) { create(:alchemy_essence_picture, content: content, picture: picture) }
+        let!(:ingredient) { create(:alchemy_ingredient_picture, element: element, related_object: picture) }
 
-        it "assigns all essence pictures having an assignment to @assignments" do
+        it "assigns all picture ingredients having an assignment to @assignments" do
           get :show, params: { id: picture.id }
-          expect(assigns(:assignments)).to eq([essence])
+          expect(assigns(:assignments)).to eq([ingredient])
         end
       end
 
@@ -387,7 +386,7 @@ module Alchemy
       end
 
       context "in overlay" do
-        let(:params) { { form_field_id: "contents_1_picture_id", size: size } }
+        let(:params) { { form_field_id: "element_1_ingredient_1_picture_id", size: size } }
 
         context "with params[:size] set to medium" do
           let(:size) { "medium" }
@@ -449,9 +448,9 @@ module Alchemy
       let(:picture) { create(:alchemy_picture) }
 
       it "assigns a assignable_id" do
-        put :assign, params: { form_field_id: "contents_1_picture_id", id: picture.id }, xhr: true
+        put :assign, params: { form_field_id: "element_1_ingredient_1_picture_id", id: picture.id }, xhr: true
         expect(assigns(:assignable_id)).to eq(picture.id.to_s)
-        expect(assigns(:form_field_id)).to eq("contents_1_picture_id")
+        expect(assigns(:form_field_id)).to eq("element_1_ingredient_1_picture_id")
         expect(assigns(:picture).id).to eq(picture.id)
       end
     end

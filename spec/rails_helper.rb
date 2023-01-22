@@ -5,7 +5,7 @@ require_relative "./spec_helper"
 # Configure Rails Environment
 ENV["RAILS_ENV"] = "test"
 
-require_relative("dummy/config/environment.rb")
+require_relative("dummy/config/environment")
 
 require "capybara/rails"
 require "capybara-screenshot/rspec"
@@ -19,7 +19,6 @@ require "factory_bot"
 require "alchemy/seeder"
 require "alchemy/test_support"
 require "alchemy/test_support/config_stubbing"
-require "alchemy/test_support/essence_shared_examples"
 require "alchemy/test_support/having_crop_action_examples"
 require "alchemy/test_support/having_picture_thumbnails_examples"
 require "alchemy/test_support/shared_dom_ids_examples"
@@ -29,10 +28,10 @@ require "alchemy/test_support/integration_helpers"
 require "alchemy/test_support/shared_contexts"
 require "alchemy/test_support/shared_uploader_examples"
 
-require_relative "support/calculation_examples.rb"
-require_relative "support/hint_examples.rb"
-require_relative "support/transformation_examples.rb"
-require_relative "support/capybara_helpers.rb"
+require_relative "support/calculation_examples"
+require_relative "support/hint_examples"
+require_relative "support/transformation_examples"
+require_relative "support/capybara_helpers"
 require_relative "support/custom_news_elements_finder"
 
 ActionMailer::Base.delivery_method = :test

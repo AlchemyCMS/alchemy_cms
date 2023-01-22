@@ -23,7 +23,7 @@ module Alchemy
 
       context "with element record given" do
         let(:element) do
-          create(:alchemy_element, :with_contents, name: "headline")
+          create(:alchemy_element, :with_ingredients, name: "headline")
         end
 
         it "renders the element's view partial" do

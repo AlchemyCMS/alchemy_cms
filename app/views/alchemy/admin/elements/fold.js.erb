@@ -14,12 +14,12 @@
 
   <% if @element.folded? -%>
 
-  Alchemy.Tinymce.remove(<%= (@element.richtext_contents_ids + @element.richtext_ingredients_ids).to_json %>);
+  Alchemy.Tinymce.remove(<%= @element.richtext_ingredients_ids.to_json %>);
 
   <% else -%>
 
   $el.trigger('FocusElementEditor.Alchemy');
-  Alchemy.Tinymce.init(<%= (@element.richtext_contents_ids + @element.richtext_ingredients_ids).to_json %>);
+  Alchemy.Tinymce.init(<%= @element.richtext_ingredients_ids.to_json %>);
   Alchemy.GUI.initElement($el);
   Alchemy.SortableElements(
     <%= @page.id %>,

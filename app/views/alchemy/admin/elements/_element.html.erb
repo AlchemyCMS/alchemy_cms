@@ -20,7 +20,7 @@
 
     <% if element.editable? %>
       <%= form_for [alchemy, :admin, element], remote: true,
-        html: {id: "element_#{element.id}_form".html_safe, class: 'element-content'} do |f| %>
+        html: {id: "element_#{element.id}_form".html_safe, class: 'element-body'} do |f| %>
 
         <div id="element_<%= element.id %>_errors" class="element_errors"></div>
 
@@ -31,35 +31,18 @@
 
             <!-- Each ingredient group -->
             <% element.ingredients.select { |i| i.definition[:group] }.group_by { |i| i.definition[:group] }.each do |group, ingredients| %>
-              <div class="content-group">
-                <%= link_to '#', id: "element_#{element.id}_content_group_#{group.parameterize.underscore}_header", class: 'content-group-header', data: { toggle_content_group: true } do %>
+              <div class="ingredient-group">
+                <%= link_to '#', id: "element_#{element.id}_ingredient_group_#{group.parameterize.underscore}_header", class: 'ingredient-group-header', data: { toggle_ingredient_group: true } do %>
                   <%= element.translated_group group %>
-                  <i class="content-group-expand icon fa-fw fa-angle-down fas"></i>
+                  <i class="ingredient-group-expand icon fa-fw fa-angle-down fas"></i>
                 <% end %>
-                <%= content_tag :div, id: "element_#{element.id}_content_group_#{group.parameterize.underscore}", class: 'content-group-contents' do %>
+                <%= content_tag :div, id: "element_#{element.id}_ingredient_group_#{group.parameterize.underscore}", class: 'ingredient-group-ingredients' do %>
                   <%= render ingredients, element_form: f %>
                 <% end %>
               </div>
             <% end %>
           </div>
         <% end %>
-        <!-- Contents -->
-        <div id="element_<%= element.id %>_content" class="element-content-editors">
-          <%= render element.contents.select { |c| !c.definition[:group] } %>
-
-          <!-- Each content group -->
-          <% element.contents.select { |c| c.definition[:group] }.group_by { |c| c.definition[:group] }.each do |group, contents| %>
-            <div class="content-group">
-              <%= link_to '#', id: "element_#{element.id}_content_group_#{group.parameterize.underscore}_header", class: 'content-group-header', data: { toggle_content_group: true } do %>
-                <%= element.translated_group group %>
-                <i class="content-group-expand icon fa-fw fa-angle-down fas"></i>
-              <% end %>
-              <%= content_tag :div, id: "element_#{element.id}_content_group_#{group.parameterize.underscore}", class: 'content-group-contents' do %>
-                <%= render contents, element_form: f %>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
 
         <% if element.taggable? %>
           <div class="autocomplete_tag_list">

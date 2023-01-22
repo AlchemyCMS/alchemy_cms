@@ -1,9 +1,9 @@
-<span class="linkable_essence_tools">
+<span class="ingredient_link_buttons">
   <%= link_to(
     render_icon(:link),
     '#',
     onclick: 'new Alchemy.LinkDialog(this).open(); return false;',
-    class: "icon_button#{ingredient_editor.linked? ? ' linked' : ''} link-essence",
+    class: "icon_button#{ingredient_editor.linked? ? ' linked' : ''} link-ingredient",
     "data-parent-selector": "[data-ingredient-id='#{ingredient_editor.id}']",
     title: Alchemy.t(:place_link),
     id: "edit_link_#{ingredient_editor.id}"
@@ -12,7 +12,7 @@
     render_icon(:unlink),
     '#',
     onclick: "return Alchemy.LinkDialog.removeLink(this, '[data-ingredient-id=\"#{ingredient_editor.id}\"]')",
-    class: "icon_button unlink-essence #{ingredient_editor.linked? ? 'linked' : 'disabled'}",
+    class: "icon_button unlink-ingredient #{ingredient_editor.linked? ? 'linked' : 'disabled'}",
     tabindex: ingredient_editor.linked? ? nil : '-1',
     'data-ingredient-id' => ingredient_editor.id,
     title: Alchemy.t(:unlink)

@@ -1,13 +1,5 @@
 - cache(<%= @element_name -%>) do
   = element_view_for(<%= @element_name -%>) do |el|
-  <%- @contents.each do |content| -%>
-    <%- if @contents.length > 1 -%>
-    .<%= content["name"] %>
-      = el.render :<%= content["name"] %>
-    <%- else -%>
-    = el.render :<%= content["name"] %>
-    <%- end -%>
-  <%- end -%>
   <%- @ingredients.each do |ingredient| -%>
     <%- if @ingredients.length > 1 -%>
     .<%= ingredient["role"] %>

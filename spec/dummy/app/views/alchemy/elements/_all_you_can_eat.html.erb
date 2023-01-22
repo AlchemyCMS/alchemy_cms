@@ -1,31 +1,46 @@
 <%- cache(all_you_can_eat) do -%>
   <%= element_view_for(all_you_can_eat) do |el| -%>
-    <div class="essence_text">
-      <%= el.render :essence_text %>
+    <div class="headline">
+      <%= el.render(:headline) %>
     </div>
-    <div class="essence_picture">
-      <%= el.render :essence_picture %>
+    <div class="text">
+      <%= el.render(:text) %>
     </div>
-    <div class="essence_richtext">
-      <%= el.render :essence_richtext %>
+    <div class="picture">
+      <%= el.render(:picture) %>
     </div>
-    <div class="essence_select">
-      <%= el.render :essence_select %>
+    <div class="richtext">
+      <%= el.render(:richtext) %>
     </div>
-    <div class="essence_boolean">
-      <%= el.render :essence_boolean %>
+    <div class="select">
+      <%= el.render(:select) %>
     </div>
-    <div class="essence_date">
-      <%= el.render :essence_date %>
+    <div class="boolean">
+      <%= el.render(:boolean) %>
     </div>
-    <div class="essence_file">
-      <%= el.render :essence_file %>
+    <div class="datetime">
+      <%= el.render(:datetime) %>
     </div>
-    <div class="essence_html">
-      <%= el.render :essence_html %>
+    <div class="file">
+      <%= el.render(:file) %>
     </div>
-    <div class="essence_link">
-      <%= el.render :essence_link %>
+    <div class="html">
+      <%= el.render(:html) %>
+    </div>
+    <div class="link">
+      <%= el.render(:link) %>
+    </div>
+    <div class="node">
+      <%= el.render(:node) %>
+    </div>
+    <div class="audio">
+      <%= el.render(:audio) %>
+    </div>
+    <div class="video">
+      <%= el.render(:video) %>
+    </div>
+    <div class="page">
+      <%= el.render(:page) %>
     </div>
   <%- end -%>
 <%- end -%>
