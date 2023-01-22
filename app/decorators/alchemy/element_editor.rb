@@ -25,7 +25,7 @@ module Alchemy
       element.definition.fetch(:ingredients, []).any?
     end
 
-    # Returns the translated content/ingredient group for displaying in admin editor group headings
+    # Returns the translated ingredient group for displaying in admin editor group headings
     #
     # Translate it in your locale yml file:
     #

@@ -126,7 +126,7 @@ module Alchemy
       # == Error message translation fallbacks
       #
       # In order to not translate every single ingredient for every element
-      # you can provide default error messages per content name:
+      # you can provide default error messages per ingredient role:
       #
       # === Example
       #

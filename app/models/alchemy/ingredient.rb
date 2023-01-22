@@ -94,7 +94,7 @@ module Alchemy
     #
     # @param key [Symbol]               - The hash key you want to fetch the value from
     # @param options [Hash]             - An optional Hash that can override the settings.
-    #                                     Normally passed as options hash into the content
+    #                                     Normally passed as options hash into the ingredient
     #                                     editor view.
     def settings_value(key, options = {})
       settings.merge(options || {})[key.to_sym]

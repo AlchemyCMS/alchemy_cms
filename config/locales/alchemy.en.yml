@@ -29,10 +29,10 @@ en:
     element_names:
 
     # == Translated names for ingredients in elements.
-    # Used for the content editor label inside the element editor view (The elements window)
+    # Used for the ingredient editor label inside the element editor view (The elements window)
     #
-    # Tip: You can translate content names globally for all ingredients of this name, or specificly for an element.
-    # To do so, just place the content_name under the element name
+    # Tip: You can translate ingredient roles globally for all ingredients with this role, or specificly for an element.
+    # To do so, just place the ingredient role under the element name
     #
     # Example:
     #
@@ -138,23 +138,23 @@ en:
             without_tag: Without tag
             deletable: Not linked by file content
 
-    # === Translations for content validations
-    # Used when a user did not enter (correct) values to the content field.
+    # === Translations for ingredient validations
+    # Used when a user did not enter (correct) values to the ingredient field.
     #
-    # Tip: You can define the validation messages translations different for each element and content
+    # Tip: You can define the validation messages translations different for each element and ingredient
     #
     # Example:
     #
     # en:
     #   alchemy:
-    #     content_validations:
+    #     ingredient_validations:
     #       contactform:
     #         success_page:
     #           blank: 'Please choose a follow up page.'
     #         mail_to:
     #           blank: 'Please provide an email address where the contact inquiries will be delivered to.'
     #
-    content_validations:
+    ingredient_validations:
       errors:
         blank: "%{field} can't be blank"
         invalid: "%{field} has wrong format"
@@ -249,7 +249,6 @@ en:
     "Delete image": "Delete image"
     "Delete element": "Delete element"
     "Do you really want to clear the clipboard?": "Do you really want to clear the clipboard?"
-    "Do you really want to delete this content?": "Do you really want to delete this content?"
     "Drag an element over to the element window to restore it": "Drag an element over to the element window to restore it"
     "Edit Picturemask": "Edit picturemask"
     "Edit image": "Edit image"
@@ -315,11 +314,9 @@ en:
     "Reload Preview": "Reload Preview"
     "Remove item from clipboard": "Remove item from clipboard"
     "Remove tag filter": "Remove tag filter"
-    "Remove this content": "Remove this content"
     "Reset Imagemask": "Reset mask"
     "Reset password instructions": "Reset password instructions"
     "Select all": "Select all"
-    "Select an content": "Select a content"
     "Select style": "Select style"
     "Send reset instructions": "Send reset instructions"
     show_elements: "Show Elements"
@@ -332,8 +329,6 @@ en:
     "Site successfully removed": "Website successfully removed."
     "Site successfully updated": "Website successfully updated."
     "Size": "Size"
-    "Successfully added content": "Successfully added %{content}"
-    "Successfully deleted content": "Successfully deleted %{content}"
     "Successfully deleted element": "Successfully deleted %{element}"
     "Tags": "Tags"
     "These pictures could not be deleted, because they were in use": "These pictures could not be deleted, because they were in use: %{names}"
@@ -348,7 +343,7 @@ en:
     "Attachment Preview": "Attachment Preview"
     "Visit page": "Visit page"
     "Warning!": "Warning!"
-    ingredient_deprecated: "WARNING! This content is deprecated and will be removed soon. Please do not use it anymore."
+    ingredient_deprecated: "WARNING! This field is deprecated and will be removed soon. Please do not use it anymore."
     element_definition_missing: "WARNING! Missing element definition. Please check your elements.yml file."
     element_deprecated: "WARNING! This element is deprecated and will be removed soon. Please do not use it anymore."
     page_definition_missing: "WARNING! Missing page layout definition. Please check your page_layouts.yml file."

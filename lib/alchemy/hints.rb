@@ -4,7 +4,7 @@ module Alchemy
   module Hints
     # Returns a hint
     #
-    # To add a hint to a content pass +hint: true+ to the element definition in its element.yml
+    # To add a hint to a ingredient pass +hint: true+ to the element definition in its element.yml
     #
     # Then the hint itself is placed in the locale yml files.
     #
@@ -21,7 +21,7 @@ module Alchemy
     #
     #   # config/locales/de.yml
     #     de:
-    #       content_hints:
+    #       ingredient_hints:
     #         headline: Lorem ipsum
     #
     # == Hint Key Example:

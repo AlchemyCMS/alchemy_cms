@@ -100,7 +100,7 @@ module Alchemy
       ).to_h
     end
 
-    # Show image cropping link for content
+    # Show image cropping link for ingredient
     def allow_image_cropping?
       settings[:crop] && picture &&
         picture.can_be_cropped_to?(

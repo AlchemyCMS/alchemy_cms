@@ -224,7 +224,7 @@ RSpec.describe Alchemy::IngredientEditor do
 
         it do
           is_expected.to eq(
-            "WARNING! This content is deprecated and will be removed soon. " \
+            "WARNING! This field is deprecated and will be removed soon. " \
             "Please do not use it anymore."
           )
         end
